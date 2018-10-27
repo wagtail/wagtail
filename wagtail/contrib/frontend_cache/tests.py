@@ -63,6 +63,26 @@ class TestBackendConfiguration(TestCase):
 
         self.assertEqual(backends['cloudfront'].cloudfront_distribution_id, 'frontend')
 
+    @mock.patch('wagtail.contrib.frontend_cache.backends.urlopen')
+    def test_http(self, urlopen_mock):
+        # given a backends configuration with one HTTP backend
+        backends = get_backends(backend_settings={
+            'varnish': {
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
+                'LOCATION': 'http://localhost:8000',
+            },
+        })
+        self.assertEqual(set(backends.keys()), set(['varnish']))
+        self.assertIsInstance(backends['varnish'], HTTPBackend)
+
+        # when making a purge request
+        backends.get('varnish').purge('http://www.wagtail.io/home/events/christmas/')
+
+        # then mocked urlopen is called with a proper purge request
+        self.assertEqual(urlopen_mock.call_count, 1)
+        (purge_request,), _call_kwargs = urlopen_mock.call_args
+        self.assertEqual(purge_request.full_url, 'http://localhost:8000/home/events/christmas/')
+
     def test_cloudfront_validate_distribution_id(self):
         with self.assertRaises(ImproperlyConfigured):
             get_backends(backend_settings={
