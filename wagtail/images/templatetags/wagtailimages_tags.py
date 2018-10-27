@@ -1,6 +1,8 @@
 import re
 
 from django import template
+from django.core.exceptions import ImproperlyConfigured
+from django.urls import NoReverseMatch
 from django.utils.functional import cached_property
 
 from wagtail.images.models import Filter
@@ -113,4 +115,10 @@ class ImageNode(template.Node):
 
 @register.simple_tag()
 def image_url(image, filter_spec, viewname='wagtailimages_serve'):
-    return generate_image_url(image, filter_spec, viewname)
+    try:
+        return generate_image_url(image, filter_spec, viewname)
+    except NoReverseMatch:
+        raise ImproperlyConfigured(
+            "'image_url' tag requires the " + viewname + " view to be configured. Please see "
+            "http://docs.wagtail.io/en/latest/advanced_topics/images/image_serve_view.html#setup for instructions."
+        )

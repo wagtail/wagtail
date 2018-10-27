@@ -169,6 +169,14 @@ class TestImageTag(TestCase):
         )
 
 
+    def test_image_url_no_imageserve_view_added(self):
+        # if image_url tag is used, but the image serve view was not defined.
+        with self.assertRaises(ImproperlyConfigured):
+            temp = template.Template(
+                '{% load wagtailimages_tags %}{% image_url image_obj "width-400" "mynonexistingimageserve_view" %}'
+            )
+            context = template.Context({'image_obj': self.image})
+            temp.render(context)
 
 
 class TestMissingImage(TestCase):

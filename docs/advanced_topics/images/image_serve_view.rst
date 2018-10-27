@@ -89,7 +89,7 @@ In your templates:
     ...
 
     <!-- Get the url for the image scaled to a width of 400 pixels: -->
-    {% image_url page.photo width-400 %}
+    {% image_url page.photo "width-400" %}
 
     <!-- Again, but this time as a square thumbnail: -->
     {% image_url page.photo "fill-100x100|jpegquality-40" %}
