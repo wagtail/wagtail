@@ -8,6 +8,7 @@ Changelog
  * Added `max_count` option on page models to limit the number of pages of a particular type that can be created (Dan Braghis)
  * Fix: Query objects returned from `PageQuerySet.type_q` can now be merged with `|` (Brady Moe)
  * Fix: Add `rel="noopener noreferrer"` to target blank links (Anselm Bradford)
+ * Fix: Additional fields on custom document models now show on the multiple document upload view (Robert Rollins, Sergey Fedoseev)
 
 
 2.3 LTS (23.10.2018)

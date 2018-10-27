@@ -22,7 +22,8 @@ Bug fixes
 ~~~~~~~~~
 
  * Query objects returned from ``PageQuerySet.type_q`` can now be merged with ``|`` (Brady Moe)
- * Add `rel="noopener noreferrer"` to target blank links (Anselm Bradford)
+ * Add ``rel="noopener noreferrer"`` to target blank links (Anselm Bradford)
+ * Additional fields on custom document models now show on the multiple document upload view (Robert Rollins, Sergey Fedoseev)
 
 
 Upgrade considerations
