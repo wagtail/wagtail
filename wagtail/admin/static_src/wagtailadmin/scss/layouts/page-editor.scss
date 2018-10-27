@@ -409,46 +409,28 @@ footer .preview {
             flex-flow: row-reverse wrap;
 
             &_small-part {
-                flex: 1 0 0;
+                flex: 1 0 0px;
             }
 
             &_big-part {
-                flex: 5 0 0;
+                flex: 5 0 0px;
             }
         }
 
         .object-help {
-            // switch off due to problems with help text
-            // @include column(2);
-            // position: absolute;
-            // float: right;
-            right: 0;
-            padding-right: $grid-gutter-width / 2;
-
-            opacity: 0;
-            padding-left: 3em;
-
             padding-bottom: 40px;
-
             margin-left: 10px;
+            opacity: 0;
         }
 
         &.stream-field {
             .object-help {
-                opacity: 0;
-                position: relative;
-                width: 100%;
                 padding-left: 6.4em;
-            }
-
-            &:hover .object-help {
-                opacity: 1;
             }
         }
 
         &.full {
             fieldset {
-                // @include column(11);
                 // Override column mixin for column items.
                 display: block;
                 // Override column mixin for column items.
