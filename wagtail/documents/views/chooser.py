@@ -62,6 +62,7 @@ def chooser(request):
         collection_id = request.GET.get('collection_id')
         if collection_id:
             documents = documents.filter(collection=collection_id)
+        documents_exist = documents.exists()
 
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
@@ -78,8 +79,11 @@ def chooser(request):
 
         return render(request, "wagtaildocs/chooser/results.html", {
             'documents': documents,
+            'documents_exist': documents_exist,
+            'uploadform': uploadform,
             'query_string': q,
             'is_searching': is_searching,
+            'collection_id': collection_id,
         })
     else:
         searchform = SearchForm()
@@ -89,10 +93,12 @@ def chooser(request):
             collections = None
 
         documents = documents.order_by('-created_at')
+        documents_exist = documents.exists()
         paginator, documents = paginate(request, documents, per_page=10)
 
         return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', None, {
             'documents': documents,
+            'documents_exist': documents_exist,
             'uploadform': uploadform,
             'searchform': searchform,
             'collections': collections,
