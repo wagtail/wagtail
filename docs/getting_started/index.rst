@@ -10,11 +10,18 @@ We'd also recommend Virtualenv, which provides isolated Python environments:
 
  * `Virtualenv <https://virtualenv.pypa.io/en/latest/installation.html>`_
 
-
 .. important::
    Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library). The way to do this varies by platform - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 With the above installed, the quickest way to install Wagtail is:
+
+*If you are using Virtualenv, run*
+
+.. code-block:: console
+
+    $ virtualenv env -p python3
+    $ source env/bin/activate
+
 
 .. code-block:: console
 
