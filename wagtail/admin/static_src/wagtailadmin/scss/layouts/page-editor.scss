@@ -390,7 +390,6 @@ footer .preview {
 @include medium {
     .object {
         fieldset {
-            @include column(10);
             // Override column mixin for column items.
             display: block;
             // Override column mixin for column items.
@@ -404,32 +403,37 @@ footer .preview {
             }
         }
 
+        .object-layout {
+            display: flex;
+            flex-flow: row-reverse wrap;
+
+            &_small-part {
+                // IE11 requires units on the flex basis. Unitless breaks.
+                // stylelint-disable-next-line length-zero-no-unit
+                flex: 1 0 0px;
+            }
+
+            &_big-part {
+                // IE11 requires units on the flex basis. Unitless breaks.
+                // stylelint-disable-next-line length-zero-no-unit
+                flex: 5 0 0px;
+            }
+        }
+
         .object-help {
-            @include column(2);
-            position: absolute;
-            right: 0;
-            padding-right: $grid-gutter-width / 2;
-            float: right;
+            padding-bottom: 40px;
+            margin-left: 10px;
             opacity: 0;
-            padding-left: 3em;
         }
 
         &.stream-field {
             .object-help {
-                opacity: 0;
-                position: relative;
-                width: 100%;
                 padding-left: 6.4em;
-            }
-
-            &:hover .object-help {
-                opacity: 1;
             }
         }
 
         &.full {
             fieldset {
-                @include column(11);
                 // Override column mixin for column items.
                 display: block;
                 // Override column mixin for column items.
