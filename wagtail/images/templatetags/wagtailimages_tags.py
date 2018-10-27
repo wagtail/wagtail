@@ -5,9 +5,8 @@ from django.utils.functional import cached_property
 
 from wagtail.images.models import Filter
 from wagtail.images.shortcuts import get_rendition_or_not_found
-from wagtail.images.views.serve import (
-    generate_image_url, generate_signature,
-)
+from wagtail.images.views.serve import generate_image_url
+
 
 register = template.Library()
 allowed_filter_pattern = re.compile(r"^[A-Za-z0-9_\-\.]+$")
