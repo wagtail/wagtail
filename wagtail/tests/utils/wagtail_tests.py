@@ -26,13 +26,14 @@ class WagtailTestUtils:
 
         return user_model.objects.create_superuser(**user_data)
 
-    def login(self):
-        user = self.create_test_user()
+    def login(self, user=None):
+        if user is None:
+            user = self.create_test_user()
 
         user_model = get_user_model()
         # Login
         self.assertTrue(
-            self.client.login(password='password', **{user_model.USERNAME_FIELD: 'test@email.com'})
+            self.client.login(password='password', **{user_model.USERNAME_FIELD: user.username})
         )
 
         return user
