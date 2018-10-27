@@ -66,11 +66,11 @@ class TestBackendConfiguration(TestCase):
         self.assertEqual(backends['cloudfront'].cloudfront_distribution_id, 'frontend')
 
     def test_http(self):
-        """Test that `HTTPBakend.purge` works when urlopen succeeds"""
+        """Test that `HTTPBackend.purge` works when urlopen succeeds"""
         self._test_http_with_side_effect(urlopen_side_effect=None)
 
     def test_http_httperror(self):
-        """Test that `HTTPBakend.purge` can handle `HTTPError`"""
+        """Test that `HTTPBackend.purge` can handle `HTTPError`"""
         http_error = HTTPError(
             url='http://localhost:8000/home/events/christmas/',
             code=500,
@@ -81,7 +81,7 @@ class TestBackendConfiguration(TestCase):
         self._test_http_with_side_effect(urlopen_side_effect=http_error)
 
     def test_http_urlerror(self):
-        """Test that `HTTPBakend.purge` can handle `URLError`"""
+        """Test that `HTTPBackend.purge` can handle `URLError`"""
         url_error = URLError(reason='just for tests')
         self._test_http_with_side_effect(urlopen_side_effect=url_error)
 
