@@ -39,6 +39,18 @@ Other contributions
 We welcome contributions to all aspects of Wagtail. If you would like to improve the design of the user interface, or extend the documentation, please submit a pull request as above. If you're not familiar with Github or pull requests, `contact us directly <mailto:hello@wagtail.io>`_ and we'll work something out.
 
 
+
+Developing packages for Wagtail
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If you are developing packages for Wagtail, you can add the following `PyPI <https://pypi.org/>`_ classifiers:
+
+* `Framework :: Wagtail <https://pypi.org/search/?c=Framework+%3A%3A+Wagtail>`_
+* `Framework :: Wagtail :: 1 <https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+1>`_
+* `Framework :: Wagtail :: 2 <https://pypi.org/search/?c=Framework+%3A%3A+Wagtail+%3A%3A+2>`_
+
+You can also find a curated list of awesome packages, articles, and other cool resources from the Wagtail community at `Awesome Wagtail <https://github.com/springload/awesome-wagtail>`_.
+
+
 More information
 ~~~~~~~~~~~~~~~~
 
