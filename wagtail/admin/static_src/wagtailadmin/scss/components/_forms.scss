@@ -1169,6 +1169,12 @@ select {
     @include transition(opacity 0.2s ease);
 }
 
+.label-uppercase {
+    .field > label {
+        text-transform: uppercase;
+    }
+}
+
 @include media-breakpoint-up(sm) {
     label {
         @include column(2);
@@ -1240,12 +1246,6 @@ select {
             padding: 0 0 0.8em;
             float: none;
             width: auto;
-        }
-    }
-
-    .label-uppercase {
-        .field > label {
-            text-transform: uppercase;
         }
     }
 }
