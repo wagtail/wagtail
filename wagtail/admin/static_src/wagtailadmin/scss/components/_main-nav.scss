@@ -211,13 +211,10 @@
         background-color: transparent;
         position: absolute;
         top: 0;
-        right: 0;
+        right: 1em;
         bottom: 0;
-        margin: 0 1em 1em;
         padding: 0;
         width: 3em;
-        height: auto;
-        overflow: hidden;
 
         &:hover {
             background-color: $nav-item-hover-bg;
@@ -298,9 +295,7 @@ body.explorer-open {
     }
 
     .nav-main {
-        position: relative;
         margin-bottom: 127px; // WARNING - magic number - the height of the .footer
-        width: 100%;
         overflow: auto;
 
         .footer {
