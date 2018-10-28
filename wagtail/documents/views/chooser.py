@@ -124,6 +124,7 @@ def chooser_upload(request):
             # Set new document file hash
             document.file.seek(0)
             document._set_file_hash(document.file.read())
+            document.file.seek(0)
 
             form.save()
 

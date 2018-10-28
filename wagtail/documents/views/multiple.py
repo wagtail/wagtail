@@ -54,6 +54,7 @@ def add(request):
             # Set new document file hash
             doc.file.seek(0)
             doc._set_file_hash(doc.file.read())
+            doc.file.seek(0)
 
             doc.save()
 

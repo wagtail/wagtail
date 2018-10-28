@@ -101,6 +101,7 @@ def add(request):
             # Set new document file hash
             doc.file.seek(0)
             doc._set_file_hash(doc.file.read())
+            doc.file.seek(0)
 
             form.save()
 
@@ -142,6 +143,7 @@ def edit(request, document_id):
                 # Set new document file hash
                 doc.file.seek(0)
                 doc._set_file_hash(doc.file.read())
+                doc.file.seek(0)
 
                 # if providing a new document file, delete the old one.
                 # NB Doing this via original_file.delete() clears the file field,
