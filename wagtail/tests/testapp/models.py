@@ -27,6 +27,7 @@ from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core.blocks import CharBlock, RichTextBlock, StructBlock
 from wagtail.core.fields import RichTextField, StreamField
@@ -362,6 +363,11 @@ class SingleEventPage(EventPage):
 
 
 SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
+
+
+# "custom" sitemap object
+class EventSitemap(Sitemap):
+    pass
 
 
 # Event index (has a separate AJAX template, and a custom template context)
