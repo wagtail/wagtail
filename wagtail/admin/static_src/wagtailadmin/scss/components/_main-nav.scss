@@ -10,8 +10,12 @@
 
     .inner {
         background: $nav-grey-1;
-        display: flex;
-        flex-flow: column nowrap;
+
+        @include medium {
+            // On medium, make it possible for the nav links to scroll.
+            display: flex;
+            flex-flow: column nowrap;
+        }
     }
 }
 
