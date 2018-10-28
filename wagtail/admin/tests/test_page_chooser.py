@@ -255,7 +255,7 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         response = self.get({'q': "foobarbaz"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/_search_results.html')
-        self.assertContains(response, "There is one match")
+        self.assertContains(response, "There is 1 match")
         self.assertContains(response, "foobarbaz")
 
     def test_result_uses_custom_admin_display_title(self):
@@ -307,7 +307,7 @@ class TestChooserSearch(TestCase, WagtailTestUtils):
         response = self.get({'q': "foobarbaz", 'page_type': ''})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/_search_results.html')
-        self.assertContains(response, "There is one match")
+        self.assertContains(response, "There is 1 match")
         self.assertContains(response, "foobarbaz")
 
     def test_with_multiple_page_types(self):
