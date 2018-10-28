@@ -207,7 +207,7 @@ $object-title-height: 40px;
         }
 
         // Undo column widths usually applied to the contents of a field panel
-        > fieldset {
+        .object-layout_big-part > fieldset {
             width: 100%;
             max-width: none;
         }
