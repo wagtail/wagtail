@@ -328,6 +328,7 @@ Contributors
 * Abdulaziz Alfuhigi
 * Dzianis Sheka
 * Scott Cranfill
+* gmmoraes
 
 Translators
 ===========
