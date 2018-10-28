@@ -36,6 +36,7 @@ Bug fixes
  * Help text does not overflow when using a combination of BooleanField and FieldPanel in page model (Dzianis Sheka)
  * Document chooser now displays more useful help message when there are no documents in Wagtail document library (gmmoraes, Stas Rudakou)
  * Allow custom logos of any height in the admin menu (Meteor0id)
+ * Users without the edit permission no longer see "Edit" links in list of pages waiting for moderation (Justin Focus, Fedor Selitsky)
 
 
 Upgrade considerations

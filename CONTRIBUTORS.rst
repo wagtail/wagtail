@@ -329,6 +329,8 @@ Contributors
 * Dzianis Sheka
 * Scott Cranfill
 * gmmoraes
+* Justin Focus
+* Fedor Selitsky
 
 Translators
 ===========
