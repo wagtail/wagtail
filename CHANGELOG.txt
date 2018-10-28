@@ -12,6 +12,7 @@ Changelog
  * Fix: Add `rel="noopener noreferrer"` to target blank links (Anselm Bradford)
  * Fix: Additional fields on custom document models now show on the multiple document upload view (Robert Rollins, Sergey Fedoseev)
  * Fix: Help text is partially hidden when using a combination of BooleanField and FieldPanel in page model (Dzianis Sheka)
+ * Fix: Allow custom logos of any height in the admin menu (Meteor0id)
 
 
 2.3 LTS (23.10.2018)
