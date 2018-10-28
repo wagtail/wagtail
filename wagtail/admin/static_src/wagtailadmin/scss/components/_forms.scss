@@ -1250,4 +1250,10 @@ button {
             width: auto;
         }
     }
+
+    .label-uppercase {
+        .field > label {
+            text-transform: uppercase;
+        }
+    }
 }
