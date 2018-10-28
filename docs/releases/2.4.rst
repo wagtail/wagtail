@@ -25,7 +25,7 @@ Other features
  * Added support for Python 3.7 (Matt Westcott)
  * Added ``max_count`` option on page models to limit the number of pages of a particular type that can be created (Dan Braghis)
  * Document and image choosers now show the document / image's collection (Alejandro Garza, Janneke Janssen)
-
+ * New ``image_url`` template tag allows to generate dynamic image URLs, so image renditions are being created outside the main request which improves performance. Requires extra configuration, see :doc:`/advanced_topics/images/image_serve_view`.
 
 Bug fixes
 ~~~~~~~~~
