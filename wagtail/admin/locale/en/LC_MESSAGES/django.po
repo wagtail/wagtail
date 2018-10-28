@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"POT-Creation-Date: 2018-10-28 17:52+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -452,7 +452,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -1493,8 +1493,8 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 
@@ -1515,106 +1515,110 @@ msgid "Test"
 msgstr ""
 
 #: utils.py:28
-msgid "Catalan"
+msgid "Arabic"
 msgstr ""
 
 #: utils.py:29
-msgid "German"
+msgid "Catalan"
 msgstr ""
 
 #: utils.py:30
-msgid "Greek"
+msgid "German"
 msgstr ""
 
 #: utils.py:31
-msgid "English"
+msgid "Greek"
 msgstr ""
 
 #: utils.py:32
-msgid "Spanish"
+msgid "English"
 msgstr ""
 
 #: utils.py:33
-msgid "Finnish"
+msgid "Spanish"
 msgstr ""
 
 #: utils.py:34
-msgid "French"
+msgid "Finnish"
 msgstr ""
 
 #: utils.py:35
-msgid "Galician"
+msgid "French"
 msgstr ""
 
 #: utils.py:36
-msgid "Indonesian"
+msgid "Galician"
 msgstr ""
 
 #: utils.py:37
-msgid "Icelandic"
+msgid "Indonesian"
 msgstr ""
 
 #: utils.py:38
-msgid "Italian"
+msgid "Icelandic"
 msgstr ""
 
 #: utils.py:39
-msgid "Korean"
+msgid "Italian"
 msgstr ""
 
 #: utils.py:40
-msgid "Lithuanian"
+msgid "Korean"
 msgstr ""
 
 #: utils.py:41
-msgid "Norwegian Bokmål"
+msgid "Lithuanian"
 msgstr ""
 
 #: utils.py:42
-msgid "Netherlands Dutch"
+msgid "Norwegian Bokmål"
 msgstr ""
 
 #: utils.py:43
-msgid "Persian"
+msgid "Netherlands Dutch"
 msgstr ""
 
 #: utils.py:44
-msgid "Polish"
+msgid "Persian"
 msgstr ""
 
 #: utils.py:45
-msgid "Brazilian Portuguese"
+msgid "Polish"
 msgstr ""
 
 #: utils.py:46
-msgid "Portuguese"
+msgid "Brazilian Portuguese"
 msgstr ""
 
 #: utils.py:47
-msgid "Romanian"
+msgid "Portuguese"
 msgstr ""
 
 #: utils.py:48
-msgid "Russian"
+msgid "Romanian"
 msgstr ""
 
 #: utils.py:49
-msgid "Swedish"
+msgid "Russian"
 msgstr ""
 
 #: utils.py:50
-msgid "Slovak"
+msgid "Swedish"
 msgstr ""
 
 #: utils.py:51
-msgid "Ukrainian"
+msgid "Slovak"
 msgstr ""
 
 #: utils.py:52
+msgid "Ukrainian"
+msgstr ""
+
+#: utils.py:53
 msgid "Chinese (China)"
 msgstr ""
 
-#: utils.py:130
+#: utils.py:131
 msgid "Sorry, you do not have permission to access this area."
 msgstr ""
 

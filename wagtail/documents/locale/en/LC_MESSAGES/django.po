@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,19 +21,19 @@ msgstr ""
 msgid "Wagtail documents"
 msgstr ""
 
-#: forms.py:49
+#: forms.py:53
 msgid "Add"
 msgstr ""
 
-#: forms.py:49
+#: forms.py:53
 msgid "Add/edit documents you own"
 msgstr ""
 
-#: forms.py:50 views/documents.py:107 views/documents.py:147
+#: forms.py:54 views/documents.py:107 views/documents.py:147
 msgid "Edit"
 msgstr ""
 
-#: forms.py:50
+#: forms.py:54
 msgid "Edit any document"
 msgstr ""
 
@@ -57,8 +57,12 @@ msgstr ""
 msgid "tags"
 msgstr ""
 
-#: models.py:94
+#: models.py:92
 msgid "document"
+msgstr ""
+
+#: models.py:93
+msgid "documents"
 msgstr ""
 
 #: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:11
@@ -85,7 +89,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -98,10 +102,27 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr ""
 
-#: templates/wagtaildocs/chooser/results.html:19
+#: templates/wagtaildocs/chooser/results.html:20
 #: templates/wagtaildocs/documents/results.html:20
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+
+#: templates/wagtaildocs/chooser/results.html:24
+msgid "You haven't uploaded any documents in this collection."
+msgstr ""
+
+#: templates/wagtaildocs/chooser/results.html:26
+msgid "You haven't uploaded any documents."
+msgstr ""
+
+#: templates/wagtaildocs/chooser/results.html:30
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
 msgstr ""
 
 #: templates/wagtaildocs/documents/_file_field.html:5
@@ -183,12 +204,16 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: templates/wagtaildocs/documents/list.html:21
+#: templates/wagtaildocs/documents/list.html:19
+msgid "Collection"
+msgstr ""
+
 #: templates/wagtaildocs/documents/list.html:24
+#: templates/wagtaildocs/documents/list.html:27
 msgid "Uploaded"
 msgstr ""
 
-#: templates/wagtaildocs/documents/list.html:40
+#: templates/wagtaildocs/documents/list.html:46
 #, python-format
 msgid "%(time_period)s ago"
 msgstr ""
@@ -267,7 +292,7 @@ msgstr ""
 
 #: templates/wagtaildocs/multiple/add.html:59
 msgid ""
-"Upload successful. Please update this documents with a more appropriate "
+"Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
