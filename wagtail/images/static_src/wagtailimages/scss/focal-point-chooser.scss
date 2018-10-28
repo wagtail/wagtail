@@ -3,6 +3,7 @@
 
 .focal-point-chooser {
     position: relative;
+    margin-bottom: 20px;
 
     .current-focal-point-indicator {
         @include transition(opacity 0.2s ease);
