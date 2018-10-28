@@ -18,13 +18,15 @@
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Мирон Левицкий <miron200504@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-28 13:52+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +36,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail admin"
+msgstr "Wagtail админ"
 
 msgid "None"
 msgstr "Ничего"
@@ -182,8 +187,17 @@ msgstr "Идти в админ-панель Wagtail"
 msgid "Account"
 msgstr "Аккаунт"
 
+msgid "Change profile picture"
+msgstr "Выбрать фотографию профиля"
+
+msgid "Your current profile picture:"
+msgstr "Ваша текущая картинка профиля:"
+
 msgid "Update"
 msgstr "Обновить"
+
+msgid "Change email"
+msgstr "Выбрать email"
 
 msgid "Change password"
 msgstr "Изменить пароль"
@@ -223,6 +237,9 @@ msgid ""
 "used."
 msgstr ""
 "Ссылка для сброса пароля не работает, возможно её уже использовали ранее."
+
+msgid "Request a new password reset"
+msgstr "Запросить новый пароль"
 
 msgid "Check your email"
 msgstr "Проверьте вашу электронную почту"
@@ -278,8 +295,23 @@ msgstr "Введите текст..."
 msgid "Horizontal line"
 msgstr "Горизонтальная линия"
 
+msgid "Line break"
+msgstr "Разрыв строки"
+
 msgid "Undo"
 msgstr "Отменить дейсвие"
+
+msgid "Reload the page"
+msgstr "Перезагрузить страницу"
+
+msgid "Reload saved content"
+msgstr "Перезагрузка сохраненного контента"
+
+msgid "Show latest content"
+msgstr "Показать последнее содержание"
+
+msgid "Show error"
+msgstr "Показать ошибку"
 
 msgid "Dashboard"
 msgstr "Панель управления"
@@ -416,6 +448,10 @@ msgstr ""
 "Коллекции еще не были созданы. Почему бы не <a href=\"%(add_collection_url)s"
 "\">добавить одну</a>?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Добавить %(label)s"
+
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
@@ -517,6 +553,9 @@ msgstr "Войти в Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Забыли его?"
+
+msgid "Signing in…"
+msgstr "Выполняется вход..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -730,6 +769,9 @@ msgstr "Сохранение…"
 
 msgid "Save draft"
 msgstr "Сохранить черновик"
+
+msgid "Publishing…"
+msgstr "Публикуется..."
 
 msgid "Publish"
 msgstr "Опубликовать"
@@ -1011,6 +1053,15 @@ msgstr[3] ""
 msgid "There are no differences between these two revisions"
 msgstr "Сравниваемые версии идентичны"
 
+msgid "Unschedule"
+msgstr "Отменить временную публикацию"
+
+msgid "Yes, unschedule"
+msgstr "Да, отменить временную публикацию"
+
+msgid "No, don't unschedule"
+msgstr "Нет, не отменять публикацию по расписанию"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Версии %(title)s"
@@ -1124,6 +1175,27 @@ msgstr "Ноябрь"
 
 msgid "December"
 msgstr "Декабрь"
+
+msgid "Sunday"
+msgstr "Воскрксенье"
+
+msgid "Monday"
+msgstr "Понедельник"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "Thursday"
+msgstr "Четверг"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Saturday"
+msgstr "Суббота"
 
 msgid "Sun"
 msgstr "Вс"
@@ -1262,6 +1334,12 @@ msgstr "Русский"
 msgid "Swedish"
 msgstr "Шведский"
 
+msgid "Slovak"
+msgstr "Словацкий язык"
+
+msgid "Ukrainian"
+msgstr "Украинский язык"
+
 msgid "Chinese (China)"
 msgstr "Китайский (упрощенный)"
 
@@ -1270,6 +1348,9 @@ msgstr "Извините, но у вас нет доступа в эту обл�
 
 msgid "Your password has been changed successfully!"
 msgstr "Ваш пароль был успешно изменен!"
+
+msgid "Your email has been changed successfully!"
+msgstr "Ваш email успешно поменялся"
 
 msgid "Your preferences have been updated."
 msgstr "Ваши настройки были обновлены."
@@ -1447,6 +1528,12 @@ msgstr "Отменить публикацию страницы '{title}'"
 msgid "View revision history for '{title}'"
 msgstr "Показать историю версий для '{title}'"
 
+msgid "Set profile picture"
+msgstr "Установить фото профиля"
+
+msgid "Change your profile picture"
+msgstr "Выберите свою фотографию профиля"
+
 msgid "Change the password you use to log in."
 msgstr "Изменить пароль, который вы используете для входа."
 
@@ -1458,6 +1545,9 @@ msgstr "Языковые настройки"
 
 msgid "Choose the language you want to use here."
 msgstr "Выберите язык, который вы хотите использовать."
+
+msgid "Link"
+msgstr "Ссылка"
 
 msgid "Choose an item"
 msgstr "Выбрать элемент"

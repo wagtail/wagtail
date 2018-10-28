@@ -10,14 +10,15 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Rustam Mirzaev <mirus@2x2.pw>, 2017
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
+# Мирон Левицкий <miron200504@gmail.com>, 2018
 # gsstver <gsstver@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-28 12:19+0000\n"
+"Last-Translator: Мирон Левицкий <miron200504@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +28,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail изображения"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -131,6 +135,12 @@ msgstr "загружено пользователем"
 msgid "tags"
 msgstr "тэги"
 
+msgid "image"
+msgstr "Изображение"
+
+msgid "images"
+msgstr "Изображения"
+
 msgid "Choose an image"
 msgstr "Выберите изображение"
 
@@ -142,6 +152,9 @@ msgstr "Загрузка"
 
 msgid "Popular tags"
 msgstr "Популярные теги"
+
+msgid "Uploading…"
+msgstr "Загрузка..."
 
 #, python-format
 msgid ""
@@ -215,6 +228,14 @@ msgstr "Сохранить"
 msgid "Delete image"
 msgstr "Удалить изображение"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Использовано %(usage_count)sраз"
+msgstr[1] "Использовано %(usage_count)s раз"
+msgstr[2] "Использовано %(usage_count)s раз"
+msgstr[3] "Использовано%(usage_count)s раз"
+
 msgid "Are you sure you want to delete this image?"
 msgstr "Вы уверены, что хотите удалить изображение?"
 
@@ -253,6 +274,9 @@ msgstr "Размер файла"
 
 msgid "File not found"
 msgstr "Файл не найден"
+
+msgid "Usage"
+msgstr "Использование"
 
 msgid "Images"
 msgstr "Изображения"
@@ -392,6 +416,9 @@ msgstr "Изображение '{0}' добавлено."
 msgid "The image could not be created due to errors."
 msgstr "Это изображение не может быть создано из-за ошибок."
 
+msgid "Image"
+msgstr "Изображение"
+
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
@@ -399,6 +426,9 @@ msgstr[0] "%(count)s изображение"
 msgstr[1] "%(count)s изображения"
 msgstr[2] "%(count)s изображений"
 msgstr[3] "%(count)s изображений"
+
+msgid "Change image"
+msgstr "Изменить изображение"
 
 msgid "Edit this image"
 msgstr "Править это изображение"

@@ -9,14 +9,16 @@
 # Eugene <eugene.mechanism@gmail.com>, 2017
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassiliy Vorobyov <zuber.kg@gmail.com>, 2017
+# Мирон Левицкий <miron200504@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-28 12:12+0000\n"
+"Last-Translator: Мирон Левицкий <miron200504@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -27,13 +29,16 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+msgid "Wagtail users"
+msgstr "Пользователи Wagtail"
+
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "Обязательное. 30 символов или меньше. Только буквы, цифры и символы @/./+/-/"
 "_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
-msgstr "Это значение может содержать только буквы, цифры и @/./+/-/_ символы."
+msgstr "Это значение может содержать только буквы, цифры и символы @/./+/-/_"
 
 msgid "A user with that username already exists."
 msgstr "Пользователь с таким именем уже существует. "
@@ -78,6 +83,15 @@ msgstr ""
 "Вы не можете иметь несколько записей с правами доступа для одной и той же "
 "страницы."
 
+msgid "Preferred language"
+msgstr "Предпочтительный язык"
+
+msgid "Current time zone"
+msgstr "Текущий часовой пояс"
+
+msgid "Upload a profile picture"
+msgstr "Загрузить изображение профиля"
+
 msgid "submitted notifications"
 msgstr "уведомления при добавлении"
 
@@ -101,6 +115,15 @@ msgstr "Предпочтительный язык"
 
 msgid "Select language for the admin"
 msgstr "Выберите язык администратора"
+
+msgid "current time zone"
+msgstr "текущий часовой пояс"
+
+msgid "Select your current time zone"
+msgstr "Выберите текущий часовой пояс"
+
+msgid "profile picture"
+msgstr "изображение профиля"
 
 msgid "user profile"
 msgstr "профиль пользователя"
@@ -194,6 +217,10 @@ msgstr "группы"
 
 msgid "Add a group"
 msgstr "Добавить группу"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Извините, подходящих страниц не найдено \"%(query)s\""
 
 #, python-format
 msgid ""
@@ -306,6 +333,9 @@ msgstr "Править"
 
 msgid "The user could not be created due to errors."
 msgstr "Пользователь не может быть создан из-за ошибок."
+
+msgid "User '{0}' updated."
+msgstr "Пользователь '{0}' обновлен."
 
 msgid "The user could not be saved due to errors."
 msgstr "Пользователь но может быть сохранен из-за ошибок."

@@ -3,9 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# alfuhigi <abajall@gmail.com>, 2016
+# abdulaziz alfuhigi <abajall@gmail.com>, 2016
 # Khaled Arnaout <khaledarnaout@live.com>, 2018
-# alfuhigi <abajall@gmail.com>, 2016
+# abdulaziz alfuhigi <abajall@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

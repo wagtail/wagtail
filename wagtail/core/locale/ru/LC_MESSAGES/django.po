@@ -10,13 +10,14 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Мирон Левицкий <miron200504@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-28 10:04+0000\n"
+"Last-Translator: Мирон Левицкий <miron200504@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail core"
+msgstr "Ядро Wagtail"
 
 msgid "{label}: this block has no options."
 msgstr "{label}: этот блок не имеет опций."
@@ -180,6 +184,9 @@ msgstr "запланированное"
 
 msgid "draft"
 msgstr "черновик"
+
+msgid "live + scheduled"
+msgstr "размещена + запланированна"
 
 msgid "live + draft"
 msgstr "опубликовано + черновик"

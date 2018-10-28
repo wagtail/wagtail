@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# ultraify media <ultraify@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-04 19:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-27 13:35+0000\n"
+"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -23,26 +25,62 @@ msgstr ""
 msgid "Parent page"
 msgstr "صفحة الأم"
 
+#, python-format
+msgid "Add %s"
+msgstr "اضف %s"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "اضف جديد %s"
+
 msgid "Inspect"
 msgstr "فحص"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "افحص %s"
 
 msgid "Edit"
 msgstr "تعديل"
 
+#, python-format
+msgid "Edit this %s"
+msgstr "عدل %s"
+
 msgid "Delete"
 msgstr "حذف"
+
+#, python-format
+msgid "Delete this %s"
+msgstr "حذف %s"
 
 msgid "Unpublish"
 msgstr "غير منشور"
 
+#, python-format
+msgid "Unpublish this %s"
+msgstr "عدم نشر %s"
+
 msgid "Copy"
 msgstr "انسخ"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "نسخ %s"
 
 msgid "image"
 msgstr "صورة"
 
 msgid "Choose a parent page"
 msgstr "إختر صفحة أم"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)sيمكن إضافتها إلى أكثر من مكان واحد في موقعك. أي مما يلي تود أن "
+"تكون أصل الصفحة الجديدة؟ "
 
 msgid "Continue"
 msgstr "أكمل"
@@ -53,17 +91,46 @@ msgstr "يتم الحفظ…"
 msgid "Save"
 msgstr "حفظ"
 
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)sلا يمكن حذفها "
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"'%(instance_name)s' تتم الإشارة إليها حاليًا بواسطة كائنات أخرى ، ولا يمكن "
+"حذفها دون تعريض سلامة البيانات للخطر. لحذفها بنجاح ، قم أولاً بإزالة المراجع "
+"من الكائنات التالية ، ثم حاول مرة أخرى:"
+
+msgid "Go back to listing"
+msgstr "العودة إلى القائمة"
+
 msgid "Yes, delete"
 msgstr "نعم, احذف"
 
 msgid "Home"
 msgstr "الصفحة الرئيسية"
 
+#, python-format
+msgid " By %(filter_title)s "
+msgstr "بواسطة %(filter_title)s"
+
 msgid "Search for"
 msgstr "إبحث عن"
 
+#, python-format
+msgid "Search %(name)s"
+msgstr "بحث %(name)s"
+
 msgid "Filter"
 msgstr "فلتر"
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "الرجوع الى %(model_name)s القائمة"
 
 msgid "Previous"
 msgstr "السابق"
@@ -73,3 +140,21 @@ msgstr "التالي"
 
 msgid "New"
 msgstr "جديد"
+
+#, python-format
+msgid "Create new %s"
+msgstr "أنشئ %s جديد"
+
+msgid "Editing"
+msgstr "جاري التعديل"
+
+#, python-format
+msgid "Editing %s"
+msgstr "جاري التعديل %s"
+
+msgid "Inspecting"
+msgstr "يتم الفحص"
+
+#, python-format
+msgid "Inspecting %s"
+msgstr "يتم فحص %s"

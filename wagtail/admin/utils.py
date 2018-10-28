@@ -25,6 +25,7 @@ logger = logging.getLogger('wagtail.admin')
 # Wagtail languages with >=90% coverage
 # This list is manually maintained
 WAGTAILADMIN_PROVIDED_LANGUAGES = [
+    ('ar', ugettext_lazy('Arabic')),
     ('ca', ugettext_lazy('Catalan')),
     ('de', ugettext_lazy('German')),
     ('el', ugettext_lazy('Greek')),
@@ -47,7 +48,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('ro', ugettext_lazy('Romanian')),
     ('ru', ugettext_lazy('Russian')),
     ('sv', ugettext_lazy('Swedish')),
-    ('sk', ugettext_lazy('Slovak')),
+    ('sk-sk', ugettext_lazy('Slovak')),
     ('uk', ugettext_lazy('Ukrainian')),
     ('zh-cn', ugettext_lazy('Chinese (China)')),
 ]

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-27 09:20+0000\n"
+"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -30,11 +31,21 @@ msgstr "صفحة"
 msgid "description"
 msgstr "وصف"
 
+msgid "search promotion"
+msgstr "ترويج البحث"
+
+msgid "Add search promotion"
+msgstr "إضافة ترويج البحث"
+
 msgid "Add search pick"
 msgstr "أضف البحث المحتار"
 
 msgid "Save"
 msgstr "احفظ"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "حذف %(query)s"
 
 msgid "Delete"
 msgstr "احذف"
@@ -79,8 +90,14 @@ msgstr "النتائج المطلوبة"
 msgid "Views (past week)"
 msgstr "المواقع المبحوثة في الأسبوع الماضي"
 
+msgid "Edit this promotion"
+msgstr "تحرير هذا العرض"
+
 msgid "None"
 msgstr "لا أحد"
+
+msgid "Search promoted results"
+msgstr "بحث النتائج التي تم الترويج لها"
 
 msgid "Edit"
 msgstr "تنقيح"

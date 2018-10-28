@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-19 06:28+0000\n"
-"Last-Translator: ultraify media <ultraify@gmail.com>\n"
+"PO-Revision-Date: 2018-10-28 09:05+0000\n"
+"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -22,17 +23,29 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
+msgid "Wagtail documents"
+msgstr "مستندات Wagtail"
+
 msgid "Add"
 msgstr "أضف"
 
+msgid "Add/edit documents you own"
+msgstr "إضافة / تحرير المستندات التي تملكها"
+
 msgid "Edit"
-msgstr "تنقيح"
+msgstr "تحرير"
+
+msgid "Edit any document"
+msgstr "تحرير أي وثيقة"
 
 msgid "title"
 msgstr "عنوان"
 
 msgid "file"
 msgstr "ملف"
+
+msgid "created at"
+msgstr "أنشئت في"
 
 msgid "uploaded by user"
 msgstr "رفع عن طريق المستخدم"
@@ -67,6 +80,10 @@ msgstr "!ضف وثيقة"
 msgid "Add document"
 msgstr "ّضف وثيقة"
 
+#, python-format
+msgid "Delete %(title)s"
+msgstr "حذف %(title)s"
+
 msgid "Delete document"
 msgstr "احذف وثيقة"
 
@@ -76,8 +93,12 @@ msgstr "هل تريد فعلا حذف هذه الوثيقة؟"
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
+#, python-format
+msgid "Editing %(title)s"
+msgstr "يتم التحرير %(title)s"
+
 msgid "Editing"
-msgstr "تنقيح"
+msgstr "تحرير"
 
 msgid "Save"
 msgstr "احفظ"
@@ -103,23 +124,54 @@ msgstr "ملف"
 msgid "Uploaded"
 msgstr "متقول إلى الحاسوب"
 
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "قبل %(time_period)s"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "استعمال %(title)s"
+
 msgid "Usage of"
 msgstr "استعمال"
 
 msgid "Parent"
-msgstr "والد"
+msgstr "الاساس"
 
 msgid "Type"
 msgstr "نوع"
 
 msgid "Status"
-msgstr "رتبة"
+msgstr "الحالة"
 
 msgid "Edit this page"
-msgstr "نقح هذه الصفحة"
+msgstr "حرر هذه الصفحة"
+
+msgid "Add multiple documents"
+msgstr "إضافة مستندات متعددة"
 
 msgid "Add documents"
 msgstr "!ضف وثيقة"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "اسحب المستندات وأفلتها في هذا الجزء لتحميلها على الفور."
+
+msgid "Or choose from your computer"
+msgstr "أو اختر من جهاز الكمبيوتر الخاص بك"
+
+msgid "Add to collection:"
+msgstr "إضافة إلى المجموعة:"
+
+msgid ""
+"Upload successful. Please update this documents with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"تحميل ناجح. يرجى تحديث هذه الوثائق مع عنوان أكثر ملاءمة ، إذا لزم الأمر. "
+"يمكنك أيضًا حذف المستند تمامًا إذا لم يكن التحميل مطلوبًا."
+
+msgid "Sorry, upload failed."
+msgstr "عذرًا ، أخفق التحميل."
 
 msgid "Update"
 msgstr "حدث"
@@ -127,25 +179,53 @@ msgstr "حدث"
 msgid "Delete"
 msgstr "احذف"
 
+msgid "You need a password to access this document."
+msgstr "أنت بحاجة إلى كلمة مرور للوصول إلى هذا المستند."
+
 msgid "Document permissions"
 msgstr "اذونات الوثيقة"
+
+msgid "Add a document permission"
+msgstr "إضافة إذن وثيقة"
 
 msgid "Server Error"
 msgstr "خطا بالخادم"
 
+msgid "Report this error to your webmaster with the following information:"
+msgstr "الإبلاغ عن هذا الخطأ إلى مشرف الموقع الخاص بك بالمعلومات التالية:"
+
 msgid "Search documents"
 msgstr "ابحث وثائق"
 
+msgid "Document '{0}' added."
+msgstr "اضيف '{0}' مستند"
+
 msgid "The document could not be saved due to errors."
 msgstr "كان من غير الممكن حفظ الوثيقة بسبب أخطاء"
+
+msgid "Document '{0}' updated"
+msgstr "تحديث '{0}'  مستند"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 "كان من غبر الممكن العثور على الوثيقة. من فضلك غير المصدر أو احذف الوثيقة"
 
+msgid "Document '{0}' deleted."
+msgstr "حذف '{0}' مستند"
+
 msgid "Document"
 msgstr "مستند"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s مستند"
+msgstr[1] "%(count)s مستند"
+msgstr[2] "%(count)s مستندات"
+msgstr[3] "%(count)s مستندات"
+msgstr[4] "%(count)s مستندات"
+msgstr[5] "%(count)s مستندات"
 
 msgid "Choose another document"
 msgstr "اختر وثيقة أخقى"

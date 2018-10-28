@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-19 06:10+0000\n"
+"PO-Revision-Date: 2018-10-26 04:29+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail users"
+msgstr "مستخدمي wagtail"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "مطلوب. 30 حرفًا أو أقل. الحروف والأرقام و @ /. / + / - / _ فقط."
@@ -100,11 +103,17 @@ msgstr "اللغة المفضلة"
 msgid "Select language for the admin"
 msgstr "اختر لغة للمشرف"
 
+msgid "current time zone"
+msgstr "المنطقة الزمنية الحالية"
+
 msgid "Select your current time zone"
 msgstr "اختر منطقتك الزمنية الحالية"
 
 msgid "profile picture"
 msgstr "الصوره الشخصيه"
+
+msgid "user profile"
+msgstr "ملف تعريفي للمستخدم"
 
 msgid "Delete group"
 msgstr "احذف المجموعة"
@@ -230,6 +239,9 @@ msgstr "تنقيح"
 
 msgid "The user could not be created due to errors."
 msgstr "من غير الممكن إنشاء الحساب بسبب أخطاء"
+
+msgid "User '{0}' updated."
+msgstr "تم تحديث المستخدم '{0}'."
 
 msgid "The user could not be saved due to errors."
 msgstr "من غير الممكن حفظ المستخدم بسبب أخطاء"

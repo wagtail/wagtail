@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# ultraify media <ultraify@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-07-30 16:34+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-27 09:22+0000\n"
+"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +29,25 @@ msgstr "اختر"
 msgid "Search"
 msgstr "بحث"
 
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "خذف %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "احذف"
+
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "جديد %(snippet_type_name)s"
+
 msgid "New"
 msgstr "جديد"
+
+msgid "Saving…"
+msgstr "يتم الحفظ…"
 
 msgid "Save"
 msgstr "احفظ"
@@ -42,11 +58,22 @@ msgstr "تنقيح"
 msgid "Delete"
 msgstr "احذف"
 
+msgid "Usage"
+msgstr "استعمال"
+
 msgid "Snippets"
 msgstr "قصاصات"
 
 msgid "Title"
 msgstr "عنوان"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "اضف %(snippet_type_name)s"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "استعمل من %(title)s"
 
 msgid "Usage of"
 msgstr "استعمال"
@@ -63,6 +90,10 @@ msgstr "رتبة"
 msgid "Edit this page"
 msgstr "نقح هذه الصفحة"
 
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "بحث %(snippet_type_name)s"
+
 msgid "Edit"
 msgstr "تنقيح"
 
@@ -71,3 +102,15 @@ msgstr "لم تنشئ القصااصة بسبب أخطاء"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "لم تحفظ القصااصة بسبب أخطاء"
+
+#, python-format
+msgid "Choose %s"
+msgstr "اختر %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "اختر %s اخر"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "تحرير هذا %s"

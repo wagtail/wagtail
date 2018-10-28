@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-10-27 09:16+0000\n"
+"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,15 @@ msgstr ""
 
 msgid "GIF, JPEG, PNG"
 msgstr "أعد الحجم للاتساع"
+
+msgid "Full width"
+msgstr "العرض الكامل"
+
+msgid "Left-aligned"
+msgstr "محاذاة لليسار"
+
+msgid "Right-aligned"
+msgstr "محاذاة لليمين"
 
 msgid "Filter"
 msgstr "ارسح"
@@ -54,8 +64,17 @@ msgstr "ارتفاع"
 msgid "Closeness"
 msgstr "مقربة"
 
+msgid "Add"
+msgstr "اضف"
+
+msgid "Add/edit images you own"
+msgstr "إضافة / تحرير الصور التي تملكها"
+
 msgid "Edit"
 msgstr "تنقيح"
+
+msgid "Edit any image"
+msgstr "تحرير أي صورة"
 
 msgid "title"
 msgstr "عنوان"
@@ -69,8 +88,20 @@ msgstr "عرض"
 msgid "height"
 msgstr "ارتفاع"
 
+msgid "created at"
+msgstr "أنشئت في"
+
 msgid "uploaded by user"
 msgstr "رفع عن طريق المستخدم"
+
+msgid "tags"
+msgstr "وسوم"
+
+msgid "image"
+msgstr "صورة"
+
+msgid "images"
+msgstr "صور"
 
 msgid "Choose an image"
 msgstr "اختر صورة"
@@ -80,6 +111,9 @@ msgstr "بحث"
 
 msgid "Upload"
 msgstr "انقل إلى الحاسوب"
+
+msgid "Popular tags"
+msgstr "وسوم شعبية"
 
 msgid "Uploading…"
 msgstr "يتم الرفع…"
@@ -129,6 +163,12 @@ msgstr ""
 msgid "Current focal point shown"
 msgstr "تظهر نقطة التركز الجارية"
 
+msgid "Remove focal area"
+msgstr "إزالة المنطقة البؤرية"
+
+msgid "URL Generator"
+msgstr "مولد URL"
+
 msgid "Max dimensions"
 msgstr "أوسع الأيعاد"
 
@@ -138,8 +178,14 @@ msgstr "حجم الملف"
 msgid "File not found"
 msgstr "الملف غير موجود"
 
+msgid "Usage"
+msgstr "استعمال"
+
 msgid "Images"
 msgstr "صور"
+
+msgid "Generating URL"
+msgstr "توليد URL"
 
 msgid "URL"
 msgstr "الرابط"
@@ -184,6 +230,9 @@ msgstr "اسحب صورا وأدخلها في هذه المنطقة  لإدخا�
 msgid "Or choose from your computer"
 msgstr "أو اختر من حاسوبك"
 
+msgid "Add to collection:"
+msgstr "إضافة إلى المجموعة:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -195,11 +244,26 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "متأسف! فشلت عملية الرفع"
 
+msgid "Server Error"
+msgstr "خطأ في الخادم"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "الإبلاغ عن هذا الخطأ إلى مشرف الموقع الخاص بك بالمعلومات التالية:"
+
+msgid "Image updated."
+msgstr "تم تحديث الصورة."
+
 msgid "Update"
 msgstr "جدد"
 
 msgid "Delete"
 msgstr "احذف"
+
+msgid "Image permissions"
+msgstr "أذونات الصور"
+
+msgid "Add an image permission"
+msgstr "إضافة إذن صورة"
 
 msgid "Search images"
 msgstr "ابعث صور"
@@ -217,6 +281,12 @@ msgstr "الصورة الأصلية غير موجودة..  من فضلك غير 
 
 msgid "The image could not be created due to errors."
 msgstr "إنشاء الصورة مستخيل بسبب أخطاء"
+
+msgid "Image"
+msgstr "صورة"
+
+msgid "Change image"
+msgstr "تغير الصورة"
 
 msgid "Edit this image"
 msgstr "تقح هذه الصورة"
