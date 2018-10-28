@@ -55,6 +55,7 @@ Bug fixes
  * Refactor all breakpoint definitions, removing style overlaps (Janneke Janssen)
  * Updated draftjs_exporter to 2.1.5 to fix bug in handling adjacent entities (Thibaud Colas)
  * Page titles consisting only of stopwords now generate a non-empty default slug (Andy Chosak, Janneke Janssen)
+ * Sitemap generator now allows passing a sitemap instance in the URL configuration (Mitchel Cabuloy, Dan Braghis)
 
 
 Upgrade considerations
