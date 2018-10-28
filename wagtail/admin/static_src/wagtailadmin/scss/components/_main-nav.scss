@@ -10,6 +10,12 @@
 
     .inner {
         background: $nav-grey-1;
+
+        @include medium {
+            // On medium, make it possible for the nav links to scroll.
+            display: flex;
+            flex-flow: column nowrap;
+        }
     }
 }
 
@@ -162,8 +168,10 @@
 
 .nav-search {
     position: relative;
-    padding: 0;
-    margin: 0 1em 1em;
+    padding: 0 1em 1em;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
 
     label {
         @include visuallyhidden();
@@ -203,13 +211,10 @@
         background-color: transparent;
         position: absolute;
         top: 0;
-        right: 0;
+        right: 1em;
         bottom: 0;
-        margin: auto;
         padding: 0;
         width: 3em;
-        height: 100%;
-        overflow: hidden;
 
         &:hover {
             background-color: $nav-item-hover-bg;
@@ -290,11 +295,7 @@ body.explorer-open {
     }
 
     .nav-main {
-        position: absolute;
-        top: 175px; // WARNING - magic number - the height of the logo plus search box
-        bottom: 0;
         margin-bottom: 127px; // WARNING - magic number - the height of the .footer
-        width: 100%;
         overflow: auto;
 
         .footer {

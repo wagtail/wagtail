@@ -35,6 +35,7 @@ Bug fixes
  * Additional fields on custom document models now show on the multiple document upload view (Robert Rollins, Sergey Fedoseev)
  * Help text does not overflow when using a combination of BooleanField and FieldPanel in page model (Dzianis Sheka)
  * Document chooser now displays more useful help message when there are no documents in Wagtail document library (gmmoraes, Stas Rudakou)
+ * Allow custom logos of any height in the admin menu (Meteor0id)
 
 
 Upgrade considerations
