@@ -310,15 +310,19 @@ body.explorer-open {
             background-color: $footer-submenu; // Also acts as background for .account when it is semi-transparent
         }
 
-        .footer-open .footer-submenu {
-            max-height: 77px; // WARNING - magic number - the height of the .footer - the 50px height of .account
-        }
-
         .footer-submenu {
             @include transition(max-height 0.2s ease);
             background-color: transparent;
             overflow: hidden;
             max-height: 0;
+        }
+
+        &--open-footer {
+            margin-bottom: 127px; // WARNING - magic number - the height of the expanded .footer
+
+            .footer-submenu {
+                max-height: 77px; // WARNING - magic number - the height of the .footer - the 50px height of .account
+            }
         }
 
         .account {
@@ -365,10 +369,6 @@ body.explorer-open {
                 }
             }
         }
-    }
-
-    .nav-main.nav-more-margin-for-footer {
-        margin-bottom: 127px; // WARNING - magic number - the height of the expanded .footer
     }
 
     .nav-submenu {

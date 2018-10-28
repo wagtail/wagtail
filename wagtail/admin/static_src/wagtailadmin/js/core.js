@@ -91,8 +91,7 @@ $(function() {
 
     // Enable toggle to open/close user settings
     $(document).on('click', '#account-settings', function() {
-        $('#footer').toggleClass('footer-open');
-        $('.nav-main').toggleClass('nav-more-margin-for-footer');
+        $('.nav-main').toggleClass('nav-main--open-footer');
         $(this).find('em').toggleClass('icon-arrow-down-after icon-arrow-up-after');
     });
 
