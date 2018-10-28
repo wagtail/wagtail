@@ -295,12 +295,6 @@ body.explorer-open {
     }
 
     .nav-main {
-        @include transition(margin-bottom 0.2s ease);
-        position: absolute;
-        top: 175px; // WARNING - magic number - the height of the logo plus search box
-        bottom: 0;
-        margin-bottom: 50px; // WARNING - magic number - the height of the unexpanded .footer
-        width: 100%;
         overflow: auto;
 
         .footer {
