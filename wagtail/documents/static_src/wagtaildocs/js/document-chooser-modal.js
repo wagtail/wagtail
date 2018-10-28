@@ -14,9 +14,9 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
             $('a.upload-one-now').on('click', function(e) {
                 // Set current collection ID at upload form tab
-                let collection_id = $('#collection_chooser_collection_id').val();
-                if (collection_id) {
-                  $('#id_collection').val(collection_id);
+                let collectionId = $('#collection_chooser_collection_id').val();
+                if (collectionId) {
+                  $('#id_collection').val(collectionId);
                 }
 
                 // Select upload form tab
