@@ -54,7 +54,7 @@ header {
     &.no-border {
         border: 0;
 
-        @include media-breakpoint-down(sm) {
+        @include media-breakpoint-down(xs) {
             // To all hamburger menu to be visible
             padding-left: $desktop-nice-padding;
             padding-top: 11px;
@@ -157,7 +157,7 @@ header {
 }
 
 .header-title {
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(xs) {
         padding-left: $mobile-nav-indent;
     }
 }

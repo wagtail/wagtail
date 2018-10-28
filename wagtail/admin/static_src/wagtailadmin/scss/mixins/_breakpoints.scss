@@ -1,10 +1,8 @@
-/*!
- * Based upon the fine work and thoughts from Bootstrap v4.
- *
- * Copyright 2011-2018 The Bootstrap Authors
- * Copyright 2011-2018 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
+// Based upon the fine work and thoughts from Bootstrap v4.
+//
+// Copyright 2011-2018 The Bootstrap Authors
+// Copyright 2011-2018 Twitter, Inc.
+// Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
 
 // Name of the next breakpoint, or null for the last breakpoint.
 //
@@ -39,7 +37,7 @@
 @mixin media-breakpoint-up($name) {
     $min: breakpoint-min($name);
     @if $min {
-        @media (min-width: $min) {
+        @media screen and (min-width: $min) {
             @content;
         }
     } @else {
@@ -52,7 +50,7 @@
 @mixin media-breakpoint-down($name) {
     $max: breakpoint-max($name);
     @if $max {
-        @media (max-width: $max) {
+        @media screen and (max-width: $max) {
             @content;
         }
     } @else {

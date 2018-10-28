@@ -128,7 +128,7 @@
     }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(xs) {
     // To allow tabs on the edit page to be editable
     .tab-nav li:first-of-type {
         padding-left: 1.6em;
