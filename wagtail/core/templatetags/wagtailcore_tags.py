@@ -78,15 +78,18 @@ def richtext(value):
 
 
 class IncludeBlockNode(template.Node):
-    def __init__(self, block_var, extra_context, use_parent_context):
+    def __init__(self, block_var, extra_context, use_parent_context, target_var):
         self.block_var = block_var
         self.extra_context = extra_context
         self.use_parent_context = use_parent_context
+        self.target_var = target_var
 
     def render(self, context):
         try:
             value = self.block_var.resolve(context)
         except template.VariableDoesNotExist:
+            if self.target_var is not None:
+                context[self.target_var] = ''
             return ''
 
         if hasattr(value, 'render_as_block'):
@@ -99,9 +102,17 @@ class IncludeBlockNode(template.Node):
                 for var_name, var_value in self.extra_context.items():
                     new_context[var_name] = var_value.resolve(context)
 
-            return value.render_as_block(context=new_context)
+            output = value.render_as_block(context=new_context)
+            if self.target_var is not None:
+                context[self.target_var] = output
+                return ''
+            return output
         else:
-            return force_text(value)
+            output = force_text(value)
+            if self.target_var is not None:
+                context[self.target_var] = output
+                return ''
+            return output
 
 
 @register.tag
@@ -120,6 +131,12 @@ def include_block(parser, token):
 
     block_var = parser.compile_filter(block_var_token)
 
+    if len(tokens) >= 2 and tokens[-2] == 'as':
+        target_var = tokens[-1]
+        tokens = tokens[:-2]
+    else:
+        target_var = None
+
     if tokens and tokens[0] == 'with':
         tokens.pop(0)
         extra_context = token_kwargs(tokens, parser)
@@ -134,4 +151,4 @@ def include_block(parser, token):
     if tokens:
         raise template.TemplateSyntaxError("Unexpected argument to %r tag: %r" % (tag_name, tokens[0]))
 
-    return IncludeBlockNode(block_var, extra_context, use_parent_context)
+    return IncludeBlockNode(block_var, extra_context, use_parent_context, target_var)
