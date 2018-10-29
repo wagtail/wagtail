@@ -8,6 +8,7 @@ Changelog
  * Added `max_count` option on page models to limit the number of pages of a particular type that can be created (Dan Braghis)
  * Document and image choosers now show the document / image's collection (Alejandro Garza, Janneke Janssen)
  * Added new "Welcome to your Wagtail site" Starter Page when using wagtail start command (Timothy Allen, Scott Cranfill)
+ * Added ability to run individual tests through tox (Benjamin Bach)
  * Fix: Query objects returned from `PageQuerySet.type_q` can now be merged with `|` (Brady Moe)
  * Fix: Add `rel="noopener noreferrer"` to target blank links (Anselm Bradford)
  * Fix: Additional fields on custom document models now show on the multiple document upload view (Robert Rollins, Sergey Fedoseev)
