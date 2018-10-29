@@ -38,6 +38,11 @@ def pytest_configure(config):
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wagtail.tests.settings')
     django.setup()
 
+    # Activate a language: This affects HTTP header HTTP_ACCEPT_LANGUAGE sent by
+    # the Django test client.
+    from django.utils import translation
+    translation.activate("en")
+
     from wagtail.tests.settings import MEDIA_ROOT, STATIC_ROOT
     shutil.rmtree(STATIC_ROOT, ignore_errors=True)
     shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
