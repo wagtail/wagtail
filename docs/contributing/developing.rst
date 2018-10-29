@@ -68,18 +68,29 @@ From the root of the Wagtail codebase, run the following command to run all the 
 
 At the time of writing, Wagtail has well over 2500 tests, which takes a while to
 run. You can run tests for only one part of Wagtail by passing in the path as
-an argument to ``runtests.py``:
+an argument to ``runtests.py`` or ``tox``:
 
 .. code-block:: console
 
+    $ # Running in the current environment
     $ python runtests.py wagtail.core
+
+    $ # Running in a specified Tox environment
+    $ tox -e py36-dj20-sqlite-noelasticsearch wagtail.core
+
+    $ # See a list of available Tox environments
+    $ tox -l
 
 You can also run tests for individual TestCases by passing in the path as
 an argument to ``runtests.py``
 
 .. code-block:: console
 
+    $ # Running in the current environment
     $ python runtests.py wagtail.core.tests.test_blocks.TestIntegerBlock
+
+    $ # Running in a specified Tox environment
+    $ tox -e py36-dj20-sqlite-noelasticsearch wagtail.core.tests.test_blocks.TestIntegerBlock
 
 **Running migrations for the test app models**
 
