@@ -13,7 +13,7 @@ from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
-from django.db.models import Q, Value
+from django.db.models import Case, Q, Value, When
 from django.db.models.functions import Concat, Substr
 from django.http import Http404
 from django.template.response import TemplateResponse
@@ -1991,6 +1991,14 @@ class Collection(MP_Node):
     def get_view_restrictions(self):
         """Return a query set of all collection view restrictions that apply to this collection"""
         return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
+
+    @staticmethod
+    def order_for_display(queryset):
+        return queryset.annotate(
+            display_order=Case(
+                When(depth=1, then=Value('')),
+                default='name')
+        ).order_by('display_order')
 
     class Meta:
         verbose_name = _('collection')

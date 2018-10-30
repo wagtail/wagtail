@@ -63,6 +63,8 @@ def index(request):
     )
     if len(collections) < 2:
         collections = None
+    else:
+        collections = Collection.order_for_display(collections)
 
     # Create response
     if request.is_ajax():

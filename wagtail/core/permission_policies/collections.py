@@ -67,7 +67,7 @@ class CollectionPermissionLookupMixin:
             for path in collection_root_paths[1:]:
                 collection_path_filter = collection_path_filter | Q(path__startswith=path)
 
-            return Collection.objects.filter(collection_path_filter)
+            return Collection.objects.all().filter(collection_path_filter)
         else:
             # no matching collections
             return Collection.objects.none()

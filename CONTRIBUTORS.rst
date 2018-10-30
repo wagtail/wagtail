@@ -331,6 +331,7 @@ Contributors
 * gmmoraes
 * Justin Focus
 * Fedor Selitsky
+* Seb Brown
 
 Translators
 ===========

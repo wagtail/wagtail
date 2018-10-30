@@ -91,6 +91,8 @@ def chooser(request):
         collections = Collection.objects.all()
         if len(collections) < 2:
             collections = None
+        else:
+            collections = Collection.order_for_display(collections)
 
         documents = documents.order_by('-created_at')
         documents_exist = documents.exists()
