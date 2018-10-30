@@ -304,7 +304,7 @@ your project is using, and without any additional setup or configuration.
 ---------------------------
 
 **Expected value**: A list or tuple in the same format as a model’s
-[``ordering``](https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display) parameter.
+:attr:`~django.db.models.Options.ordering` parameter.
 
 Set ``ordering`` to specify the default ordering of objects when listed by
 IndexView.  If not provided, the model’s default ordering will be respected.

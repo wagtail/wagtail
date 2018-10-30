@@ -51,6 +51,7 @@ os.environ['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
 ]
 
 if not on_rtd:
@@ -127,6 +128,11 @@ pygments_style = 'sphinx'
 
 spelling_lang = 'en_GB'
 spelling_word_list_filename='spelling_wordlist.txt'
+
+# sphinx.ext.intersphinx settings
+intersphinx_mapping = {
+    'django': ('https://docs.djangoproject.com/en/stable/', 'https://docs.djangoproject.com/en/stable/_objects/')
+}
 
 
 # -- Options for HTML output ----------------------------------------------
