@@ -25,16 +25,10 @@ on the ``ModelAdmin`` class itself.
 
 Default value: ``('__str__',)``
 
-Set ``list_display`` to control which fields are displayed in the IndexView
+Set ``list_display`` to control which fields are displayed in the ``IndexView``
 for your model.
 
-Example
-
-```
-list_display = ('first_name', 'last_name')
-```
-
-You have three possible values that can be used in list_display:
+You have three possible values that can be used in ``list_display``:
 
 -   A field of the model. For example:
 
@@ -370,12 +364,12 @@ For example:
 
 **Must return**: A dictionary
 
-The `get_extra_attrs_for_row` method allows you to add html attributes to
-the opening `<tr>` tag for each result, in addition to the `data-object_pk` and
-`class` attributes already added by the `result_row_display` tag.
+The ``get_extra_attrs_for_row`` method allows you to add html attributes to
+the opening ``<tr>`` tag for each result, in addition to the ``data-object_pk`` and
+``class`` attributes already added by the ``result_row_display`` template tag.
 
 If you want to add additional CSS classes, simply provide those class names
-as a string value using the `class` key, and the `odd`/`even` will be appended
+as a string value using the ``'class'`` key, and the ``odd``/``even`` will be appended
 to your custom class names when rendering.
 
 For example, if you wanted to add some additional class names based on field
