@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import Collection
+from wagtail.core.models import Collection, get_root_collection_id
 from wagtail.documents.models import Document
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -31,6 +31,17 @@ class TestCollectionsIndexView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/collections/index.html')
         self.assertNotContains(response, "No collections have been created.")
         self.assertContains(response, "Holiday snaps")
+
+    def test_ordering(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Milk")
+        root_collection.add_child(name="Bread")
+        root_collection.add_child(name="Avacado")
+        response = self.get()
+        self.assertQuerysetEqual(
+            response.context['object_list'],
+            Collection.objects.for_display().exclude(id=get_root_collection_id()),
+            transform=lambda x: x)
 
 
 class TestAddCollection(TestCase, WagtailTestUtils):

@@ -75,6 +75,17 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             response = self.get({'ordering': ordering})
             self.assertEqual(response.status_code, 200)
 
+    def test_collection_order(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+        root_collection.add_child(name="Good plans")
+
+        response = self.get()
+        self.assertQuerysetEqual(
+            response.context['collections'],
+            Collection.objects.for_display(),
+            transform=lambda x: x)
+
 
 class TestImageAddView(TestCase, WagtailTestUtils):
     def setUp(self):

@@ -88,12 +88,17 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_index_with_collection(self):
         root_collection = Collection.get_first_root_node()
         root_collection.add_child(name="Evil plans")
+        root_collection.add_child(name="Good plans")
 
         self.make_docs()
 
         response = self.client.get(reverse('wagtaildocs:index'))
         self.assertContains(response, '<th>Collection</th>')
         self.assertContains(response, '<td>Root</td>')
+        self.assertQuerysetEqual(
+            response.context['collections'],
+            Collection.objects.for_display(),
+            transform=lambda x: x)
 
 
 class TestDocumentAddView(TestCase, WagtailTestUtils):
