@@ -81,10 +81,9 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         root_collection.add_child(name="Good plans")
 
         response = self.get()
-        self.assertQuerysetEqual(
-            response.context['collections'],
-            Collection.objects.for_display(),
-            transform=lambda x: x)
+        self.assertEqual(
+            [collection.name for collection in response.context['collections']],
+            ['Root', 'Evil plans', 'Good plans'])
 
 
 class TestImageAddView(TestCase, WagtailTestUtils):
