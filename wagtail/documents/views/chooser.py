@@ -88,7 +88,7 @@ def chooser(request):
     else:
         searchform = SearchForm()
 
-        collections = Collection.objects.all()
+        collections = Collection.objects.for_display()
         if len(collections) < 2:
             collections = None
 

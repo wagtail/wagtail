@@ -22,7 +22,7 @@ class Index(IndexView):
 
     def get_queryset(self):
         # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children()
+        return Collection.get_first_root_node().get_children().order_by('name')
 
 
 class Create(CreateView):
@@ -59,7 +59,7 @@ class Edit(EditView):
 
     def get_queryset(self):
         # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children()
+        return Collection.get_first_root_node().get_children().order_by('name')
 
 
 class Delete(DeleteView):
@@ -74,7 +74,7 @@ class Delete(DeleteView):
 
     def get_queryset(self):
         # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children()
+        return Collection.get_first_root_node().get_children().order_by('name')
 
     def get_collection_contents(self):
         collection_contents = [

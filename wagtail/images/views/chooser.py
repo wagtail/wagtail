@@ -49,7 +49,7 @@ def get_image_result_data(image):
 def get_chooser_context(request):
     """Helper function to return common template context variables for the main chooser view"""
 
-    collections = Collection.objects.all()
+    collections = Collection.objects.for_display()
     if len(collections) < 2:
         collections = None
 

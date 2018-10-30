@@ -13,7 +13,7 @@ from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
-from django.db.models import Q, Value
+from django.db.models import Case, Q, Value, When
 from django.db.models.functions import Concat, Substr
 from django.http import Http404
 from django.template.response import TemplateResponse
@@ -1942,6 +1942,14 @@ class PageViewRestriction(BaseViewRestriction):
 class BaseCollectionManager(models.Manager):
     def get_queryset(self):
         return TreeQuerySet(self.model).order_by('path')
+
+    def for_display(self):
+        # This will output the Root collection first, and alphabetize the rest
+        return TreeQuerySet(self.model).annotate(
+            display_order=Case(
+                When(id=get_root_collection_id(), then=Value('-1')),
+                default='name')
+        ).order_by('display_order')
 
 
 CollectionManager = BaseCollectionManager.from_queryset(TreeQuerySet)
