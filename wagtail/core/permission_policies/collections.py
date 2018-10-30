@@ -67,7 +67,7 @@ class CollectionPermissionLookupMixin:
             for path in collection_root_paths[1:]:
                 collection_path_filter = collection_path_filter | Q(path__startswith=path)
 
-            return Collection.objects.for_display().filter(collection_path_filter)
+            return Collection.objects.all().filter(collection_path_filter)
         else:
             # no matching collections
             return Collection.objects.none()
@@ -187,7 +187,7 @@ class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuth
         if user.is_active and user.is_superuser:
             # active superusers can perform any action (including unrecognised ones)
             # in any collection
-            return Collection.objects.for_display()
+            return Collection.objects.all()
 
         elif not user.is_authenticated:
             return Collection.objects.none()
@@ -328,7 +328,7 @@ class CollectionOwnershipPermissionPolicy(
         if user.is_active and user.is_superuser:
             # active superusers can perform any action (including unrecognised ones)
             # in any collection
-            return Collection.objects.for_display()
+            return Collection.objects.all()
 
         elif not user.is_authenticated:
             return Collection.objects.none()

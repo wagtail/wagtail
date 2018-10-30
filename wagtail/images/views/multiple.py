@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin.utils import PermissionPolicyChecker
+from wagtail.core.models import Collection
 from wagtail.images import get_image_model
 from wagtail.images.fields import ALLOWED_EXTENSIONS
 from wagtail.images.forms import get_image_form
@@ -42,7 +43,7 @@ def add(request):
 
     collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
     if len(collections) > 1:
-        collections_to_choose = collections
+        collections_to_choose = Collection.order_for_display(collections)
     else:
         # no need to show a collections chooser
         collections_to_choose = None

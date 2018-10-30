@@ -88,9 +88,11 @@ def chooser(request):
     else:
         searchform = SearchForm()
 
-        collections = Collection.objects.for_display()
+        collections = Collection.objects.all()
         if len(collections) < 2:
             collections = None
+        else:
+            collections = Collection.order_for_display(collections)
 
         documents = documents.order_by('-created_at')
         documents_exist = documents.exists()
