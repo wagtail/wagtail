@@ -20,6 +20,7 @@
             </th>
             <th class="level">{% trans "Level" %}</th>
             <th class="status">{% trans "Status" %}</th>
+            <th class="last-login">{% trans "Last Login" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -37,6 +38,7 @@
                 <td class="username" valign="top">{{ user.get_username }}</td>
                 <td class="level" valign="top">{% if user.is_superuser %}{% trans "Admin" %}{% endif %}</td>
                 <td class="status" valign="top"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</div></td>
+                <td class="human-readable-date" title="{{ user.last_login|date:"d M Y H:i" }}">{% blocktrans with time_period=user.last_login|timesince %}{{ time_period }} ago{% endblocktrans %}</td>
             </tr>
         {% endfor %}
     </tbody>
