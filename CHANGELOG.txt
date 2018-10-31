@@ -11,6 +11,7 @@ Changelog
  * Added ability to run individual tests through tox (Benjamin Bach)
  * Collection listings are now ordered by name (Seb Brown)
  * Added `file_hash` field to documents (Karl Hobley, Dan Braghis)
+ * Added last login to the user overview (Noah B Johnson)
  * Fix: Query objects returned from `PageQuerySet.type_q` can now be merged with `|` (Brady Moe)
  * Fix: Add `rel="noopener noreferrer"` to target blank links (Anselm Bradford)
  * Fix: Additional fields on custom document models now show on the multiple document upload view (Robert Rollins, Sergey Fedoseev)
