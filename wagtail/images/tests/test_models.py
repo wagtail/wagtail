@@ -2,6 +2,7 @@ import unittest
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.core.cache import caches
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
 from django.test import TestCase
@@ -14,7 +15,6 @@ from wagtail.images.models import Rendition, SourceImageIOError
 from wagtail.images.rect import Rect
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
 from wagtail.tests.utils import WagtailTestUtils
-
 from .utils import Image, get_test_image_file
 
 
@@ -252,6 +252,32 @@ class TestRenditions(TestCase):
         rendition = self.image.get_rendition('width-400')
         self.assertEqual(rendition.alt, "Test image")
 
+    @override_settings(
+        CACHES={
+            'renditions': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            },
+        },
+    )
+    def test_renditions_cache_backend(self):
+        cache = caches['renditions']
+        rendition = self.image.get_rendition('width-500')
+        rendition_cache_key = "image-{}-{}-{}".format(
+            rendition.image.id,
+            rendition.focal_point_key,
+            rendition.filter_spec
+        )
+
+        # Check rendition is saved to cache
+        self.assertEqual(cache.get(rendition_cache_key), rendition)
+
+        # Mark a rendition to check it comes from cache
+        rendition._from_cache = True
+        cache.set(rendition_cache_key, rendition)
+
+        # Check if get_rendition returns the rendition from cache
+        self.assertEqual(self.image.get_rendition('width-500')._from_cache, True)
+
 
 class TestUsageCount(TestCase):
     fixtures = ['test.json']
@@ -360,6 +386,7 @@ class TestIssue573(TestCase):
     This tests for a bug which causes filename limit on Renditions to be reached
     when the Image has a long original filename and a big focal point key
     """
+
     def test_issue_573(self):
         # Create an image with a big filename and focal point
         image = Image.objects.create(
@@ -500,6 +527,7 @@ class TestFilenameReduction(TestCase):
     This tests for a bug which results in filenames without extensions
     causing an infinite loop
     """
+
     def test_filename_reduction_no_ext(self):
         # Create an image with a big filename and no extension
         image = Image.objects.create(

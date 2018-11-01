@@ -30,6 +30,28 @@ We recommend `Redis <https://redis.io/>`_ as a fast, persistent cache. Install R
     }
 
 
+Caching image renditions
+------------------------
+
+If you define a cache named 'renditions' (typically alongside your 'default' cache),
+Wagtail will cache image rendition lookups, which may improve the performance of pages
+which include many images.
+
+.. code-block:: python
+
+    CACHES = {
+        'default': {...},
+        'renditions': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+            'TIMEOUT': 600,
+            'OPTIONS': {
+                'MAX_ENTRIES': 1000
+            }
+        }
+    }
+
+
 Search
 ------
 
