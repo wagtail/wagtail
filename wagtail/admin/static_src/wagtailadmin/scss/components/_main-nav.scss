@@ -295,24 +295,32 @@ body.explorer-open {
     }
 
     .nav-main {
-        margin-bottom: 127px; // WARNING - magic number - the height of the .footer
+        $footer-closed-height: 50px;
+        $footer-submenu-height: 77px;
+        $footer-open-height: $footer-closed-height + $footer-submenu-height;
         overflow: auto;
+        margin-bottom: $footer-closed-height;
+        @include transition(margin-bottom 0.2s ease);
 
         .footer {
             position: fixed;
             width: $menu-width;
             bottom: 0;
-        }
-
-        .footer-open .footer-submenu {
-            max-height: 127px; // WARNING - magic number - the height of the .footer
+            background-color: $footer-submenu;
         }
 
         .footer-submenu {
             @include transition(max-height 0.2s ease);
-            background-color: $footer-submenu;
             overflow: hidden;
             max-height: 0;
+        }
+
+        &--open-footer {
+            margin-bottom: $footer-open-height;
+
+            .footer-submenu {
+                max-height: $footer-submenu-height;
+            }
         }
 
         .account {
