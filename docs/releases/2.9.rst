@@ -38,6 +38,7 @@ Other features
  * ListBLocks now call child block ``bulk_to_python`` if defined (Andy Chosak)
  * Site settings are now identifiable/cachable by request as well as site (Andy Babic)
  * Added ``select_related`` attribute to site settings to enable more efficient fetching of foreign key values (Andy Babic)
+ * Add caching of image renditions (Tom Dyson, Tim Kamanin)
 
 
 Bug fixes

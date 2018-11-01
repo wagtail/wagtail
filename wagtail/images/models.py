@@ -6,6 +6,7 @@ from io import BytesIO
 
 from django.conf import settings
 from django.core import checks
+from django.core.cache import InvalidCacheBackendError, caches
 from django.core.files import File
 from django.db import models
 from django.forms.utils import flatatt
@@ -277,6 +278,22 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             filter = Filter(spec=filter)
 
         cache_key = filter.get_cache_key(self)
+
+
+        try:
+            rendition_caching = True
+            cache = caches['renditions']
+            rendition_cache_key = "image-{}-{}-{}".format(
+                self.id,
+                cache_key,
+                filter.spec
+            )
+            cached_rendition = cache.get(rendition_cache_key)
+            if cached_rendition:
+                return cached_rendition
+        except InvalidCacheBackendError:
+            rendition_caching = False
+
         Rendition = self.get_rendition_model()
 
         try:
@@ -313,6 +330,9 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
                 focal_point_key=cache_key,
                 defaults={'file': File(generated_image.f, name=output_filename)}
             )
+
+        if rendition_caching:
+            cache.set(rendition_cache_key, rendition)
 
         return rendition
 
