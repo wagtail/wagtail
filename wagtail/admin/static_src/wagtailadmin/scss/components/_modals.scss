@@ -117,7 +117,7 @@ $zindex-modal-background: 500;
 
 @include media-breakpoint-up(xl) {
     .modal-dialog {
-        max-width: breakpoint-min(xxl);
+        max-width: 100em;
         padding: 0 0 2em;
     }
 }
