@@ -11,7 +11,7 @@
     .breadcrumb {
         margin: -1.2em 0 2em;
 
-        @include medium {
+        @include media-breakpoint-up(sm) {
             margin-top: -1.8em;
         }
     }
@@ -387,7 +387,7 @@ footer .preview {
     }
 }
 
-@include medium {
+@include media-breakpoint-up(sm) {
     .object {
         fieldset {
             // Override column mixin for column items.

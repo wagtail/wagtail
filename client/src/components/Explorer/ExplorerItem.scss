@@ -26,7 +26,7 @@
         background: $c-explorer-bg-active;
     }
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         padding: 1.45em 1.75em;
     }
 }

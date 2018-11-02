@@ -10,7 +10,7 @@
 }
 
 .u-hidden\@small {
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(xs) {
         display: none !important;
     }
 }
@@ -22,7 +22,7 @@
 }
 
 .u-inline\@small {
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(xs) {
         display: inline !important;
     }
 }
@@ -34,7 +34,7 @@
 }
 
 .u-block\@small {
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(xs) {
         display: block !important;
     }
 }
