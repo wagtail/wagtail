@@ -4,37 +4,37 @@
 }
 
 .u-hidden\@medium {
-    @include medium {
+    @include media-breakpoint-up(sm) {
         display: none !important;
     }
 }
 
 .u-hidden\@small {
-    @include small {
+    @include media-breakpoint-down(sm) {
         display: none !important;
     }
 }
 
 .u-inline\@medium {
-    @include medium {
+    @include media-breakpoint-up(sm) {
         display: inline !important;
     }
 }
 
 .u-inline\@small {
-    @include small {
+    @include media-breakpoint-down(sm) {
         display: inline !important;
     }
 }
 
 .u-block\@medium {
-    @include medium {
+    @include media-breakpoint-up(sm) {
         display: block !important;
     }
 }
 
 .u-block\@small {
-    @include small {
+    @include media-breakpoint-down(sm) {
         display: block !important;
     }
 }
