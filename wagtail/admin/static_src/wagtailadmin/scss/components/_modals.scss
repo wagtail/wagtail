@@ -115,7 +115,7 @@ $zindex-modal-background: 500;
     }
 }
 
-@include media-breakpoint-up(xxl) {
+@include media-breakpoint-up(xl) {
     .modal-dialog {
         max-width: breakpoint-min(xxl);
         padding: 0 0 2em;

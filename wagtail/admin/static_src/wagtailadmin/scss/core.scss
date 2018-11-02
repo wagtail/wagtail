@@ -184,10 +184,6 @@ footer {
             }
         }
     }
-
-    @include media-breakpoint-up(xl) {
-        width: breakpoint-min(xl);
-    }
 }
 
 .breadcrumb {
