@@ -3,37 +3,37 @@
     display: none !important;
 }
 
-.u-hidden\@medium {
+.u-hidden\@sm {
     @include media-breakpoint-up(sm) {
         display: none !important;
     }
 }
 
-.u-hidden\@small {
+.u-hidden\@xs {
     @include media-breakpoint-down(xs) {
         display: none !important;
     }
 }
 
-.u-inline\@medium {
+.u-inline\@sm {
     @include media-breakpoint-up(sm) {
         display: inline !important;
     }
 }
 
-.u-inline\@small {
+.u-inline\@xs {
     @include media-breakpoint-down(xs) {
         display: inline !important;
     }
 }
 
-.u-block\@medium {
+.u-block\@sm {
     @include media-breakpoint-up(sm) {
         display: block !important;
     }
 }
 
-.u-block\@small {
+.u-block\@xs {
     @include media-breakpoint-down(xs) {
         display: block !important;
     }

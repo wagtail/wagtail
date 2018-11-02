@@ -7,14 +7,14 @@
             <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
                 {% block branding_logo %}
                     {# Mobile-only logo: #}
-                    <div class="wagtail-logo-container__mobile u-hidden@medium">
+                    <div class="wagtail-logo-container__mobile u-hidden@sm">
                         <img class="wagtail-logo wagtail-logo__full" src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
                     </div>
 
                     {# Desktop logo (animated): #}
                     {% include "wagtailadmin/shared/animated_logo.html" %}
                 {% endblock %}
-                <span class="u-hidden@medium">{% trans "Dashboard" %}</span>
+                <span class="u-hidden@sm">{% trans "Dashboard" %}</span>
             </a>
 
             {% menu_search %}
