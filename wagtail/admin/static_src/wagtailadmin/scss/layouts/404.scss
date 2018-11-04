@@ -63,14 +63,14 @@ a.button.page404__button { // more specific to override standard button styles
 }
 
 // SMALL DESKTOP CHANGES:
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(sm) {
     .wagtail-logo-container__desktop {
         display: none;
     }
 }
 
 // MOBILE CHANGES:
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(xs) {
     .page404__text-container {
         width: 400px;
     }
