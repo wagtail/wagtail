@@ -19,6 +19,7 @@ Changelog
  * Fix: Allow custom logos of any height in the admin menu (Meteor0id)
  * Fix: Allow nav menu to take up all available space instead of scrolling (Meteor0id)
  * Fix: Redirects now return 404 when destination is unspecified or a page with no site (Hillary Jeffrey)
+ * Fix: Refactor all breakpoint definitions, removing style overlaps (Janneke Janssen)
 
 
 2.3 LTS (23.10.2018)

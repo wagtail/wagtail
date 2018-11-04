@@ -14,7 +14,7 @@ header {
         padding: 0;
 
         // make way for the nav-menu button on mobile
-        @media screen and (max-width: $breakpoint-mobile) {
+        @include media-breakpoint-down(xs) {
             position: relative;
             left: $mobile-nav-indent;
         }
@@ -55,15 +55,15 @@ header {
             font-size: 6em;
             float: left;
 
-            @media screen and (max-width: $breakpoint-desktop-large) {
+            @include media-breakpoint-down(md) {
                 font-size: 5em;
             }
 
-            @media screen and (max-width: $breakpoint-desktop-small) {
+            @include media-breakpoint-down(sm) {
                 font-size: 4.5em;
             }
 
-            @media screen and (max-width: $breakpoint-mobile) {
+            @include media-breakpoint-down(xs) {
                 font-size: 4em;
             }
         }
@@ -82,15 +82,15 @@ header {
             line-height: 1em;
             font-weight: 300;
 
-            @media screen and (max-width: $breakpoint-desktop-large) {
+            @include media-breakpoint-down(md) {
                 font-size: 3em;
             }
 
-            @media screen and (max-width: $breakpoint-desktop-small) {
+            @include media-breakpoint-down(sm) {
                 font-size: 2.5em;
             }
 
-            @media screen and (max-width: $breakpoint-mobile) {
+            @include media-breakpoint-down(xs) {
                 font-size: 2em;
             }
         }

@@ -13,7 +13,7 @@
     &.full {
         margin-left: $mobile-nice-padding;
 
-        @media screen and (min-width: $breakpoint-mobile) {
+        @include media-breakpoint-up(sm) {
             margin-left: $desktop-nice-padding;
         }
     }

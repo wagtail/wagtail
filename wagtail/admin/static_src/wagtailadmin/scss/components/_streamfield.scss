@@ -365,7 +365,7 @@ li.sequence-member {
         }
     }
 
-    @media screen and (min-width: $breakpoint-mobile) {
+    @include media-breakpoint-up(sm) {
         li {
             @include column(2);
 

@@ -22,7 +22,7 @@ $menu-footer-height: 50px;
     display: flex;
     flex-direction: column;
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         width: 485px;
         height: 100vh;
         position: fixed;
@@ -37,7 +37,7 @@ $menu-footer-height: 50px;
     overflow: hidden;
     background: $c-explorer-bg;
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         box-shadow: 2px 2px 5px $c-explorer-bg-active;
     }
 }
@@ -66,7 +66,7 @@ $menu-footer-height: 50px;
         color: $c-explorer-secondary;
     }
 
-    @include small {
+    @include media-breakpoint-down(xs) {
         .explorer-open & {
             display: block;
         }
@@ -113,7 +113,7 @@ $menu-footer-height: 50px;
         font-size: 1rem;
     }
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         padding: 1em 1.5em;
     }
 }
@@ -122,7 +122,7 @@ $menu-footer-height: 50px;
     padding: 1em;
     color: $color-white;
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         padding: 1em 1.75em;
     }
 }
@@ -148,7 +148,7 @@ $menu-footer-height: 50px;
         background: $c-explorer-bg-active;
     }
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         padding: 1em 1.75em;
         height: $menu-footer-height;
     }

@@ -56,7 +56,7 @@ $padding: $grid-gutter-width * 0.5;
     padding-left: $mobile-nice-padding;
     padding-right: $mobile-nice-padding;
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         padding-left: $desktop-nice-padding;
         padding-right: $desktop-nice-padding;
     }
@@ -66,7 +66,7 @@ $padding: $grid-gutter-width * 0.5;
     margin-left: $mobile-nice-padding;
     margin-right: $mobile-nice-padding;
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         margin-left: $desktop-nice-padding;
         margin-right: $desktop-nice-padding;
     }

@@ -1,4 +1,5 @@
 @import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/mixins';
 
 .content header {
     margin-bottom: 0;
@@ -139,7 +140,7 @@ p.no-results {
 }
 
 
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     .changelist-filter {
         float: right;
         padding: 0 1.5%;
@@ -175,8 +176,7 @@ p.no-results {
     }
 }
 
-
-@media screen and (min-width: $breakpoint-desktop-large) {
+@include media-breakpoint-up(lg) {
     .result-list.col9 {
         width: 79%;
     }

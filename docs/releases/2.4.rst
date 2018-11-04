@@ -43,6 +43,7 @@ Bug fixes
  * Allow nav menu to take up all available space instead of scrolling (Meteor0id)
  * Users without the edit permission no longer see "Edit" links in list of pages waiting for moderation (Justin Focus, Fedor Selitsky)
  * Redirects now return 404 when destination is unspecified or a page with no site (Hillary Jeffrey)
+ * Refactor all breakpoint definitions, removing style overlaps (Janneke Janssen)
 
 
 Upgrade considerations

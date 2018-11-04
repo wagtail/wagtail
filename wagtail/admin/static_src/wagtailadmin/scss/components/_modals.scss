@@ -109,15 +109,15 @@ $zindex-modal-background: 500;
     }
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     .modal-dialog {
         padding: 0 0 2em $menu-width;
     }
 }
 
-@media screen and (min-width: $breakpoint-desktop-larger) {
+@include media-breakpoint-up(xl) {
     .modal-dialog {
-        max-width: $breakpoint-desktop-larger;
+        max-width: 100em;
         padding: 0 0 2em;
     }
 }

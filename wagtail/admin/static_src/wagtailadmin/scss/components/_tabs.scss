@@ -94,7 +94,7 @@
     }
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     .tab-nav {
         // For cases where tab-nav should merge with header
         &.merged {
@@ -128,7 +128,7 @@
     }
 }
 
-@media screen and (max-width: $breakpoint-mobile) {
+@include media-breakpoint-down(xs) {
     // To allow tabs on the edit page to be editable
     .tab-nav li:first-of-type {
         padding-left: 1.6em;

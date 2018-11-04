@@ -19,10 +19,13 @@ $mobile-nice-padding: 20px;
 $desktop-nice-padding: 50px;
 
 // screen breakpoints
-$breakpoint-mobile: 50em; // 800px
-$breakpoint-desktop-small: 56.25em; // 900px
-$breakpoint-desktop-large: 75em; // 1200px
-$breakpoint-desktop-larger: 100em; // 1600px
+$breakpoints: (
+    xs: 0,
+    sm: 50em,    // 800px
+    md: 56.25em, // 900px
+    lg: 75em,    // 1200px
+    xl: 100em,   // 1440px
+);
 
 // colours
 $color-teal: #007d7e;

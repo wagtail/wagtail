@@ -3,38 +3,38 @@
     display: none !important;
 }
 
-.u-hidden\@medium {
-    @include medium {
+.u-hidden\@sm {
+    @include media-breakpoint-up(sm) {
         display: none !important;
     }
 }
 
-.u-hidden\@small {
-    @include small {
+.u-hidden\@xs {
+    @include media-breakpoint-down(xs) {
         display: none !important;
     }
 }
 
-.u-inline\@medium {
-    @include medium {
+.u-inline\@sm {
+    @include media-breakpoint-up(sm) {
         display: inline !important;
     }
 }
 
-.u-inline\@small {
-    @include small {
+.u-inline\@xs {
+    @include media-breakpoint-down(xs) {
         display: inline !important;
     }
 }
 
-.u-block\@medium {
-    @include medium {
+.u-block\@sm {
+    @include media-breakpoint-up(sm) {
         display: block !important;
     }
 }
 
-.u-block\@small {
-    @include small {
+.u-block\@xs {
+    @include media-breakpoint-down(xs) {
         display: block !important;
     }
 }

@@ -11,7 +11,7 @@
     .breadcrumb {
         margin: -1.2em 0 2em;
 
-        @include medium {
+        @include media-breakpoint-up(sm) {
             margin-top: -1.8em;
         }
     }
@@ -36,7 +36,7 @@
     .header-title {
         padding-left: 3.1em;
 
-        @media screen and (max-width: $breakpoint-mobile) {
+        @include media-breakpoint-down(xs) {
             padding-left: 0;
             margin-left: -28px;
             // Because it's nested within tab-merged which we've given padding
@@ -345,7 +345,7 @@ $object-title-height: 40px;
 footer .preview {
     button,
     .button {
-        @media screen and (max-width: $breakpoint-mobile) {
+        @include media-breakpoint-down(xs) {
             width: 100%;
             margin-top: 2px;
             margin-bottom: 2px;
@@ -387,7 +387,7 @@ footer .preview {
     }
 }
 
-@include medium {
+@include media-breakpoint-up(sm) {
     .object {
         fieldset {
             // Override column mixin for column items.

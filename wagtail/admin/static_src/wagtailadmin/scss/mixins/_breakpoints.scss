@@ -1,0 +1,59 @@
+// Based upon the fine work and thoughts from Bootstrap v4.
+//
+// Copyright 2011-2018 The Bootstrap Authors
+// Copyright 2011-2018 Twitter, Inc.
+// Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+
+// Name of the next breakpoint, or null for the last breakpoint.
+//
+//    >> breakpoint-next(sm)
+//    md
+@function breakpoint-next($name) {
+    $breakpoint-names: map-keys($breakpoints);
+    $n: index($breakpoint-names, $name);
+    @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+
+// Minimum breakpoint width. Null for the smallest (first) breakpoint.
+//
+//    >> breakpoint-min(sm)
+//    50em
+@function breakpoint-min($name) {
+    $min: map-get($breakpoints, $name);
+    @return if($min != 0, $min, null);
+}
+
+// Maximum breakpoint width. Null for the largest (last) breakpoint.
+//
+//    >> breakpoint-max(sm)
+//    56.1875em
+@function breakpoint-max($name) {
+    $next: breakpoint-next($name);
+    @return if($next, breakpoint-min($next) - 0.0625em, null);
+}
+
+// Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
+// Makes the @content apply to the given breakpoint and wider.
+@mixin media-breakpoint-up($name) {
+    $min: breakpoint-min($name);
+    @if $min {
+        @media screen and (min-width: $min) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+// Makes the @content apply to the given breakpoint and narrower.
+@mixin media-breakpoint-down($name) {
+    $max: breakpoint-max($name);
+    @if $max {
+        @media screen and (max-width: $max) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}

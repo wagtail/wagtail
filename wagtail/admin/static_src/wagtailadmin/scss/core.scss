@@ -116,7 +116,6 @@ body {
 }
 
 footer {
-    // @include transition(all 0.2s ease);
     @include transition(bottom 0.5s ease 1s);
     @include row();
     border-radius: 3px 3px 0 0;
@@ -167,7 +166,7 @@ footer {
         }
     }
 
-    @media screen and (max-width: $breakpoint-mobile) {
+    @include media-breakpoint-down(xs) {
         .actions,
         .preview,
         .preview .dropdown {
@@ -184,12 +183,6 @@ footer {
                 left: auto;
             }
         }
-    }
-
-    $width-1440px: 90em;
-
-    @media screen and (min-width: $width-1440px) {
-        width: $width-1440px;
     }
 }
 
@@ -326,7 +319,7 @@ footer,
     z-index: 100;
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     .col1 {
         @include column(1);
     }

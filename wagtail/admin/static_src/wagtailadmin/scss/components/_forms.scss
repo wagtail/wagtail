@@ -439,7 +439,7 @@ input[type=checkbox]:checked:before {
         border: 0;
     }
 
-    @media screen and (min-width: $breakpoint-mobile) {
+    @include media-breakpoint-up(sm) {
         font-size: 0.95em;
         padding: 0 1.4em;
         height: 3em;
@@ -605,7 +605,7 @@ a.button {
         line-height: 1.85em;
     }
 
-    @media screen and (min-width: $breakpoint-mobile) {
+    @include media-breakpoint-up(sm) {
         line-height: 2.9em;
     }
 }
@@ -617,7 +617,7 @@ input[type=button],
 button {
     padding: 0 1em;
 
-    @media screen and (min-width: $breakpoint-mobile) {
+    @include media-breakpoint-up(sm) {
         &.button-small {
             height: 2em;
         }
@@ -1177,7 +1177,7 @@ button {
     @include transition(opacity 0.2s ease);
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     label {
         @include column(2);
         padding-top: 1.2em;

@@ -142,7 +142,7 @@ input[type=checkbox]:before {
     }
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     .content-wrapper {
         float: none;
         height: auto;

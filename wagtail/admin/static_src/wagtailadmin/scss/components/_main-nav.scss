@@ -11,7 +11,7 @@
     .inner {
         background: $nav-grey-1;
 
-        @include medium {
+        @include media-breakpoint-up(sm) {
             // On medium, make it possible for the nav links to scroll.
             display: flex;
             flex-flow: column nowrap;
@@ -123,7 +123,7 @@
 }
 
 .submenu-trigger:after {
-    @include medium {
+    @include media-breakpoint-up(sm) {
         // The menus are collapsible on desktop only.
         content: map-get($icons, arrow-right);
         width: auto;
@@ -268,7 +268,7 @@ body.explorer-open {
     }
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     .wrapper,
     body.nav-open .wrapper {
         transform: none;
@@ -493,8 +493,8 @@ body.explorer-open {
     }
 }
 
-@media all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: none),
-    all and (min-width: $breakpoint-mobile) and (-ms-high-contrast: active) {
+@media all and (min-width: breakpoint-min(sm)) and (-ms-high-contrast: none),
+    all and (min-width: breakpoint-min(sm)) and (-ms-high-contrast: active) {
     body.explorer-open {
         .wrapper {
             left: 0;
