@@ -411,3 +411,5 @@ $(function() {
         });
     });
 });
+
+module.exports.cleanForSlug = cleanForSlug;
