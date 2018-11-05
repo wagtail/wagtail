@@ -46,7 +46,7 @@
                         {% endif %}
                     {% endfor %}
                 </ul>
-                <div class="u-hidden@small">
+                <div class="u-hidden@xs">
                     <input type="submit" value="{% trans 'Save' %}" class="button" />
                     {% if user_can_delete %}
                         <a href="{% url 'wagtailimages:delete' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a>
@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <div class="row row-flush nice-padding u-hidden@medium">
+        <div class="row row-flush nice-padding u-hidden@sm">
             <div class="col5">
                 <input type="submit" value="{% trans 'Save' %}" class="button" />
                 {% if user_can_delete %}
