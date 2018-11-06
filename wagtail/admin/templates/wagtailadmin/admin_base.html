@@ -10,9 +10,8 @@
     {% block extra_css %}
  
     <style>
-                {% avatar_url user  as avatar %}
-            .avatar{ background-image : url('{{avatar}}');
-                     background-size : cover !important; }
+    {% avatar_url user  as avatar %}
+    .avatar{ background-image : url('{{avatar}}');}
     </style>
     {% endblock %}
 {% endblock %}
