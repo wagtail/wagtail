@@ -24,10 +24,11 @@
     </thead>
     <tbody>
         {% for user in users %}
+        {% avatar_url user  as avatar %}
             <tr>
                 <td class="title" valign="top">
                     <h2>
-                        <span class="avatar small"><img src="{% avatar_url user size=25 %}" /></span>
+                        <span class="avatar small" style="background-image : url('{{avatar}}')"></span>
                         <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user.get_full_name|default:user.get_username }}</a>
                     </h2>
                     <ul class="actions">
