@@ -7,7 +7,14 @@
     <link rel="stylesheet" href="{% static 'wagtailadmin/css/core.css' %}" type="text/css" />
     {% hook_output 'insert_global_admin_css' %}
 
-    {% block extra_css %}{% endblock %}
+    {% block extra_css %}
+ 
+    <style>
+                {% avatar_url user  as avatar %}
+            .avatar{ background-image : url('{{avatar}}');
+                     background-size : cover !important; }
+    </style>
+    {% endblock %}
 {% endblock %}
 
 {% block branding_favicon %}
