@@ -281,7 +281,7 @@ function initErrorDetection() {
     var errorSections = {};
 
     // first count up all the errors
-    $('.error-message').each(function() {
+    $('.error-message, .help-critical').each(function() {
         var parentSection = $(this).closest('section');
 
         if (!errorSections[parentSection.attr('id')]) {
