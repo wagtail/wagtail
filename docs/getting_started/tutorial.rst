@@ -47,8 +47,13 @@ Your first Wagtail site
 
        $ python manage.py createsuperuser
 
-6. ``python manage.py runserver`` If everything worked,
-   http://127.0.0.1:8000 will show you a welcome page
+6. Start the server:
+
+   .. code-block:: console
+
+       $ python manage.py runserver
+
+   If everything worked, http://127.0.0.1:8000 will show you a welcome page:
 
    .. figure:: ../_static/images/tutorial/tutorial_1.png
       :alt: Wagtail welcome message
