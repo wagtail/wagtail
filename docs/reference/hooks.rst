@@ -175,9 +175,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_admin_urls``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-  Register additional admin page URLs. The callable fed into this hook should return a list of Django URL patterns which define the structure of the pages and endpoints of your extension to the Wagtail admin. For more about vanilla Django URLconfs and views, see `url dispatcher`_.
-
-  .. _url dispatcher: https://docs.djangoproject.com/en/dev/topics/http/urls/
+  Register additional admin page URLs. The callable fed into this hook should return a list of Django URL patterns which define the structure of the pages and endpoints of your extension to the Wagtail admin. For more about vanilla Django URLconfs and views, see :doc:`url dispatcher <django:topics/http/urls>`.
 
   .. code-block:: python
 
