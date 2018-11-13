@@ -3,9 +3,10 @@ from django.template.defaulttags import token_kwargs
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 
-from wagtail import __version__
+from wagtail import VERSION, __version__
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText, expand_db_html
+from wagtail.utils.version import get_main_version
 
 register = template.Library()
 
@@ -62,6 +63,20 @@ def slugurl(context, slug):
 @register.simple_tag
 def wagtail_version():
     return __version__
+
+
+@register.simple_tag
+def wagtail_documentation_path():
+    major, minor, patch, release, num = VERSION
+    if release == 'final':
+        return 'https://docs.wagtail.io/en/v%s' % __version__
+    else:
+        return 'https://docs.wagtail.io/en/latest'
+
+
+@register.simple_tag
+def wagtail_release_notes_path():
+    return "%s.html" % get_main_version(VERSION)
 
 
 @register.filter
