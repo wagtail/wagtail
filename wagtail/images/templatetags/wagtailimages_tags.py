@@ -99,7 +99,13 @@ class ImageNode(template.Node):
         if not image:
             return ''
 
-        rendition = get_rendition_or_not_found(image, self.filter)
+        try:
+            rend_filter = Filter(
+                spec=template.Variable(self.filter_spec).resolve(context)
+            )
+            rendition = get_rendition_or_not_found(image, rend_filter)
+        except template.VariableDoesNotExist:
+            rendition = get_rendition_or_not_found(image, self.filter)
 
         if self.output_var_name:
             # return the rendition object in the given variable
