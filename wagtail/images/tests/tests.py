@@ -52,6 +52,18 @@ class TestImageTag(TestCase):
         result = self.render_image_tag(None, "width-500")
         self.assertEqual(result, '')
 
+    def test_image_tag_spec_as_variable(self):
+        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj filter_spec %}')
+        context = template.Context(
+            {'image_obj': self.image, 'filter_spec': 'width-400'}
+        )
+        result = temp.render(context)
+
+        # Check that all the required HTML attributes are set
+        self.assertTrue('width="400"' in result)
+        self.assertTrue('height="300"' in result)
+        self.assertTrue('alt="Test image"' in result)
+
     def render_image_tag_as(self, image, filter_spec):
         temp = template.Template(
             '{% load wagtailimages_tags %}{% image image_obj ' + filter_spec
