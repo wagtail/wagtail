@@ -31,6 +31,7 @@ Other features
  * Added ``file_hash`` field to documents (Karl Hobley, Dan Braghis)
  * Added last login to the user overview (Noah B Johnson)
  * Changed design of image editing page (Janneke Janssen, Ben Enright)
+ * Added Slovak character map for JavaScript slug generation (Andy Chosak)
 
 Bug fixes
 ~~~~~~~~~
