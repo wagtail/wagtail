@@ -12,6 +12,7 @@ Changelog
  * Collection listings are now ordered by name (Seb Brown)
  * Added `file_hash` field to documents (Karl Hobley, Dan Braghis)
  * Added last login to the user overview (Noah B Johnson)
+ * Changed design of image editing page (Janneke Janssen, Ben Enright)
  * Fix: Query objects returned from `PageQuerySet.type_q` can now be merged with `|` (Brady Moe)
  * Fix: Add `rel="noopener noreferrer"` to target blank links (Anselm Bradford)
  * Fix: Additional fields on custom document models now show on the multiple document upload view (Robert Rollins, Sergey Fedoseev)
@@ -20,7 +21,7 @@ Changelog
  * Fix: Allow nav menu to take up all available space instead of scrolling (Meteor0id)
  * Fix: Redirects now return 404 when destination is unspecified or a page with no site (Hillary Jeffrey)
  * Fix: Refactor all breakpoint definitions, removing style overlaps (Janneke Janssen)
- * Changed design of image editing page (Janneke Janssen, Ben Enright)
+ * Fix: Missing comma in Draftail documentation (Alex Gleason)
 
 
 2.3 LTS (23.10.2018)
