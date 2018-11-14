@@ -351,6 +351,7 @@ Contributors
 * Evan Winter
 * Neil Lyons
 * Gassan Gousseinov
+* Thomas Kremmel
 
 Translators
 ===========

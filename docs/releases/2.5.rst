@@ -24,6 +24,7 @@ Other features
  * Added limit image upload size by number of pixels (Thomas Elliott)
  * Added ``manage.py wagtail_update_index`` alias to avoid clashes with ``update_index`` commands from other packages (Matt Westcott)
  * Renamed ``target_model`` argument on ``PageChooserBlock`` to ``page_type`` (Loic Teixeira)
+ * ``edit_handler`` and ``panels`` can now be defined on a ``ModelAdmin`` definition (Thomas Kremmel)
 
 
 Bug fixes
