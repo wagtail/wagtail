@@ -26,9 +26,7 @@ FieldPanel
 
     .. attribute:: FieldPanel.widget (optional)
 
-        This parameter allows you to specify a `Django form widget`_ to use instead of the default widget for this field type.
-
-.. _django form widget: https://docs.djangoproject.com/en/dev/ref/forms/widgets/
+        This parameter allows you to specify a :doc:`Django form widget <django:ref/forms/widgets>` to use instead of the default widget for this field type.
 
 MultiFieldPanel
 ---------------
@@ -175,9 +173,7 @@ ImageChooserPanel
               ImageChooserPanel('cover'),
           ]
 
-    Django's default behaviour is to "cascade" deletions through a ForeignKey relationship, which may not be what you want. This is why the ``null``, ``blank``, and ``on_delete`` parameters should be set to allow for an empty field. (See `Django model field reference (on_delete)`_ ). ``ImageChooserPanel`` takes only one argument: the name of the field.
-
-    .. _Django model field reference (on_delete): https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.on_delete
+    Django's default behaviour is to "cascade" deletions through a ForeignKey relationship, which may not be what you want. This is why the :attr:`~django.db.models.Field.null`, :attr:`~django.db.models.Field.blank`, and :attr:`~django.db.models.ForeignKey.on_delete` parameters should be set to allow for an empty field. ``ImageChooserPanel`` takes only one argument: the name of the field.
 
     Displaying ``Image`` objects in a template requires the use of a template tag. See :ref:`image_tag`.
 
@@ -271,10 +267,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 Field Customisation
 ~~~~~~~~~~~~~~~~~~~
 
-By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there. (See `Django model field reference`_ ).
-
-.. _Django model field reference: https://docs.djangoproject.com/en/dev/ref/models/fields/
-
+By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there. (See :doc:`Django model field reference <ref/models/fields>`).
 
 Full-Width Input
 ----------------
@@ -291,18 +284,12 @@ Use ``classname="title"`` to make Page's built-in title field stand out with mor
 Required Fields
 ---------------
 
-To make input or chooser selection mandatory for a field, add ``blank=False`` to its model definition. (See `Django model field reference (blank)`_ ).
-
-.. _Django model field reference (blank): https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.Field.blank
-
+To make input or chooser selection mandatory for a field, add :attr:`blank=False <django.db.models.Field.blank>` to its model definition.
 
 Hiding Fields
 -------------
 
-Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with ``editable=False`` (See `Django model field reference (editable)`_ ).
-
-.. _Django model field reference (editable): https://docs.djangoproject.com/en/dev/ref/models/fields/#editable
-
+Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with :attr:`editable=False <django.db.models.Field.editable>`.
 
 .. _inline_panels:
 

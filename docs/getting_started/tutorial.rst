@@ -87,7 +87,7 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
         ]
 
 ``body`` is defined as ``RichTextField``, a special Wagtail field. You
-can use any of the `Django core fields <https://docs.djangoproject.com/en/stable/ref/models/fields/>`__. ``content_panels`` define the
+can use any of the :doc:`Django core fields <django:ref/models/fields>`. ``content_panels`` define the
 capabilities and the layout of the editing interface. :doc:`More on creating Page models. <../topics/pages>`
 
 Run ``python manage.py makemigrations``, then

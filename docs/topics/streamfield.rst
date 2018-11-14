@@ -217,7 +217,7 @@ ChoiceBlock
 A dropdown select box for choosing from a list of choices. The following keyword arguments are accepted:
 
 ``choices``
-  A list of choices, in any format accepted by Django's ``choices`` parameter for model fields (https://docs.djangoproject.com/en/stable/ref/models/fields/#field-choices), or a callable returning such a list.
+  A list of choices, in any format accepted by Django's :attr:`~django.db.models.Field.choices` parameter for model fields, or a callable returning such a list.
 
 ``required`` (default: True)
   If true, the field cannot be left blank.
@@ -951,7 +951,7 @@ As with any model field in Django, any changes to a model definition that affect
 
 To mitigate this, StructBlock, StreamBlock and ChoiceBlock implement additional logic to ensure that any subclasses of these blocks are deconstructed to plain instances of StructBlock, StreamBlock and ChoiceBlock -- in this way, the migrations avoid having any references to your custom class definitions. This is possible because these block types provide a standard pattern for inheritance, and know how to reconstruct the block definition for any subclass that follows that pattern.
 
-If you subclass any other block class, such as ``FieldBlock``, you will need to either keep that class definition in place for the lifetime of your project, or implement a `custom deconstruct method <https://docs.djangoproject.com/en/stable/topics/migrations/#custom-deconstruct-method>`__ that expresses your block entirely in terms of classes that are guaranteed to remain in place. Similarly, if you customise a StructBlock, StreamBlock or ChoiceBlock subclass to the point where it can no longer be expressed as an instance of the basic block type -- for example, if you add extra arguments to the constructor -- you will need to provide your own ``deconstruct`` method.
+If you subclass any other block class, such as ``FieldBlock``, you will need to either keep that class definition in place for the lifetime of your project, or implement a :ref:`custom deconstruct method <django:custom-deconstruct-method>` that expresses your block entirely in terms of classes that are guaranteed to remain in place. Similarly, if you customise a StructBlock, StreamBlock or ChoiceBlock subclass to the point where it can no longer be expressed as an instance of the basic block type -- for example, if you add extra arguments to the constructor -- you will need to provide your own ``deconstruct`` method.
 
 .. _streamfield_migrating_richtext:
 

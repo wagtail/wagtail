@@ -609,7 +609,7 @@ Customise form submissions listing in Wagtail Admin
 
 The Admin listing of form submissions can be customised by setting the attribute ``submissions_list_view_class`` on your FormPage model.
 
-The list view class must be a subclass of ``SubmissionsListView`` from ``wagtail.contrib.forms.views``, which is a child class of `Django's class based ListView <https://docs.djangoproject.com/en/stable/ref/class-based-views/generic-display/#listview>`_.
+The list view class must be a subclass of ``SubmissionsListView`` from ``wagtail.contrib.forms.views``, which is a child class of Django's class based :class:`~django.views.generic.list.ListView`.
 
 Example:
 

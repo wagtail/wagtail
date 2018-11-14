@@ -6,7 +6,7 @@ On your server
 
 Wagtail is straightforward to deploy on modern Linux-based distributions, but see the section on :doc:`performance </advanced_topics/performance>` for the non-Python services we recommend.
 
-Our current preferences are for Nginx, Gunicorn and supervisor on Debian, but Wagtail should run with any of the combinations detailed in Django's `deployment documentation <https://docs.djangoproject.com/en/dev/howto/deployment/>`_.
+Our current preferences are for Nginx, Gunicorn and supervisor on Debian, but Wagtail should run with any of the combinations detailed in Django's :doc:`deployment documentation <django:howto/deployment/index>`.
 
 On Divio Cloud
 ~~~~~~~~~~~~~~
@@ -34,15 +34,15 @@ Deployment tips
 Static files
 ++++++++++++
 
-As with all Django projects, static files are not served by the Django application server in production (i.e. outside of the ``manage.py runserver`` command); these need to be handled separately at the web server level. See `Django's documentation on deploying static files <https://docs.djangoproject.com/en/stable/howto/static-files/deployment/>`_.
+As with all Django projects, static files are not served by the Django application server in production (i.e. outside of the ``manage.py runserver`` command); these need to be handled separately at the web server level. See :doc:`Django's documentation on deploying static files <django:howto/static-files/deployment>`.
 
-The JavaScript and CSS files used by the Wagtail admin frequently change between releases of Wagtail - it's important to avoid serving outdated versions of these files due to browser or server-side caching, as this can cause hard-to-diagnose issues. We recommend enabling `ManifestStaticFilesStorage <https://docs.djangoproject.com/en/stable/ref/contrib/staticfiles/#manifeststaticfilesstorage>`_ in the ``STATICFILES_STORAGE`` setting - this ensures that different versions of files are assigned distinct URLs.
+The JavaScript and CSS files used by the Wagtail admin frequently change between releases of Wagtail - it's important to avoid serving outdated versions of these files due to browser or server-side caching, as this can cause hard-to-diagnose issues. We recommend enabling :class:`~django.contrib.staticfiles.storage.ManifestStaticFilesStorage` in the ``STATICFILES_STORAGE`` setting - this ensures that different versions of files are assigned distinct URLs.
 
 
 Cloud storage
 +++++++++++++
 
-Wagtail follows `Django's conventions for managing uploaded files <https://docs.djangoproject.com/en/stable/topics/files/>`_, and can be configured to store uploaded images and documents on a cloud storage service such as Amazon S3; this is done through the `DEFAULT_FILE_STORAGE <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_FILE_STORAGE>`_ setting in conjunction with an add-on package such as `django-storages <https://django-storages.readthedocs.io/>`_. Be aware that setting up remote storage will not entirely offload file handling tasks from the application server - some Wagtail functionality requires files to be read back by the application server. In particular, documents are served through a Django view in order to enforce permission checks, and original image files need to be read back whenever a new resized rendition is created.
+Wagtail follows :doc:`Django's conventions for managing uploaded files <django:topics/files>`, and can be configured to store uploaded images and documents on a cloud storage service such as Amazon S3; this is done through the `DEFAULT_FILE_STORAGE <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_FILE_STORAGE>`_ setting in conjunction with an add-on package such as `django-storages <https://django-storages.readthedocs.io/>`_. Be aware that setting up remote storage will not entirely offload file handling tasks from the application server - some Wagtail functionality requires files to be read back by the application server. In particular, documents are served through a Django view in order to enforce permission checks, and original image files need to be read back whenever a new resized rendition is created.
 
 Note that the django-storages Amazon S3 backends (``storages.backends.s3boto.S3BotoStorage`` and ``storages.backends.s3boto3.S3Boto3Storage``) **do not correctly handle duplicate filenames** in their default configuration. When using these backends, ``AWS_S3_FILE_OVERWRITE`` must be set to ``False``.
 

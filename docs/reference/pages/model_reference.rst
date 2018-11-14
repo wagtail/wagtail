@@ -197,7 +197,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. attribute:: is_creatable
 
-        Controls if this page can be created through the Wagtail administration. Defaults to True, and is not inherited by subclasses. This is useful when using `multi-table inheritance <https://docs.djangoproject.com/en/stable/topics/db/models/#multi-table-inheritance>`_, to stop the base model from being created as an actual page.
+        Controls if this page can be created through the Wagtail administration. Defaults to ``True``, and is not inherited by subclasses. This is useful when using :ref:`multi-table inheritance <django:multi-table-inheritance>`, to stop the base model from being created as an actual page.
 
     .. attribute:: max_count
 

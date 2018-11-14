@@ -4,15 +4,15 @@ Page models
 
 Each page type (a.k.a. content type) in Wagtail is represented by a Django model. All page models must inherit from the :class:`wagtail.core.models.Page` class.
 
-As all page types are Django models, you can use any field type that Django provides. See `Model field reference <https://docs.djangoproject.com/en/stable/ref/models/fields/>`_ for a complete list of field types you can use. Wagtail also provides :class:`~wagtail.core.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
+As all page types are Django models, you can use any field type that Django provides. See :doc:`Model field reference <django:ref/models/fields>` for a complete list of field types you can use. Wagtail also provides :class:`~wagtail.core.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
 
 
 .. topic:: Django models
 
     If you're not yet familiar with Django models, have a quick look at the following links to get you started:
 
-    * `Creating models <https://docs.djangoproject.com/en/stable/intro/tutorial02/#creating-models>`_
-    * `Model syntax <https://docs.djangoproject.com/en/stable/topics/db/models/>`_
+    * :ref:`Creating models <django:creating-models>`
+    * :doc:`Model syntax <django:topics/db/models>`
 
 
 An example Wagtail page model
@@ -256,7 +256,7 @@ You just need to create a template in a location where it can be accessed with t
 Template context
 ----------------
 
-Wagtail renders templates with the ``page`` variable bound to the page instance being rendered. Use this to access the content of the page. For example, to get the title of the current page, use ``{{ page.title }}``. All variables provided by `context processors <https://docs.djangoproject.com/en/stable/ref/templates/api/#subclassing-context-requestcontext>`_ are also available.
+Wagtail renders templates with the ``page`` variable bound to the page instance being rendered. Use this to access the content of the page. For example, to get the title of the current page, use ``{{ page.title }}``. All variables provided by :ref:`context processors <subclassing-context-requestcontext>` are also available.
 
 
 Customising template context
@@ -408,7 +408,7 @@ The first argument must match the value of the ``related_name`` attribute of the
 Working with pages
 ==================
 
-Wagtail uses Django's `multi-table inheritance <https://docs.djangoproject.com/en/stable/topics/db/models/#multi-table-inheritance>`_ feature to allow multiple page models to be used in the same tree.
+Wagtail uses Django's :ref:`multi-table inheritance <django:multi-table-inheritance>` feature to allow multiple page models to be used in the same tree.
 
 Each page is added to both Wagtail's builtin :class:`~wagtail.core.models.Page` model as well as its user-defined model (such as the ``BlogPage`` model created earlier).
 
