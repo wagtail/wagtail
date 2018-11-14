@@ -2,9 +2,10 @@ from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
 from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
+from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface, ObjectList
 
 from .forms import PublisherModelAdminForm
-from .models import Author, Book, Publisher, Token, VenuePage
+from .models import Author, Book, Publisher, Token, VenuePage, Person, Visitor, Contributor
 
 
 class AuthorModelAdmin(ModelAdmin):
@@ -91,6 +92,36 @@ class VenuePageAdmin(ModelAdmin):
     exclude_from_explorer = True
 
 
+class PersonAdmin(ModelAdmin):
+    model = Person
+    exclude_from_explorer = True
+
+
+class VisitorAdmin(ModelAdmin):
+    model = Visitor
+    exclude_from_explorer = True
+
+    panels = [
+        FieldPanel('last_name'),
+        FieldPanel('phone_number'),
+        FieldPanel('address'),
+    ]
+    edit_handler = TabbedInterface([
+        ObjectList(panels),
+    ])
+
+
+class ContributorAdmin(ModelAdmin):
+    model = Contributor
+    exclude_from_explorer = True
+
+    panels = [
+        FieldPanel('last_name'),
+        FieldPanel('phone_number'),
+        FieldPanel('address'),
+    ]
+
+
 class EventsAdminGroup(ModelAdminGroup):
     menu_label = "Events"
     items = (EventPageAdmin, SingleEventPageAdmin, VenuePageAdmin)
@@ -109,3 +140,6 @@ modeladmin_register(TokenModelAdmin)
 modeladmin_register(PublisherModelAdmin)
 modeladmin_register(EventsAdminGroup)
 modeladmin_register(BusinessChildAdmin)
+modeladmin_register(PersonAdmin)
+modeladmin_register(VisitorAdmin)
+modeladmin_register(ContributorAdmin)

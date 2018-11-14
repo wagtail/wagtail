@@ -2,6 +2,7 @@ from django.db import models
 
 from wagtail.core.models import Page
 from wagtail.search import index
+from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface, ObjectList
 
 
 class Author(models.Model):
@@ -46,3 +47,45 @@ class Publisher(models.Model):
 class VenuePage(Page):
     address = models.CharField(max_length=300)
     capacity = models.IntegerField()
+
+
+class Visitor(models.Model):
+    """model used to test modeladmin.edit_handler usage in get_edit_handler"""
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.first_name
+
+
+class Contributor(models.Model):
+    """model used to test modeladmin.panels usage in get_edit_handler"""
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.first_name
+
+
+class Person(models.Model):
+    """model used to test model.edit_handlers usage in get_edit_handler"""
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('first_name'),
+        FieldPanel('last_name'),
+        FieldPanel('phone_number'),
+    ]
+    edit_handler = TabbedInterface([
+        ObjectList(panels),
+    ])
+
+    def __str__(self):
+        return self.first_name

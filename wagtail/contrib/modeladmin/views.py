@@ -117,6 +117,11 @@ class ModelFormView(WMABaseView, FormView):
     def get_edit_handler(self):
         if hasattr(self.model, 'edit_handler'):
             edit_handler = self.model.edit_handler
+        elif hasattr(self.model_admin, 'edit_handler'):
+            edit_handler = self.model_admin.edit_handler
+        elif hasattr(self.model_admin, 'panels'):
+            panels = self.model_admin.panels
+            edit_handler = ObjectList(panels)
         else:
             fields_to_exclude = self.model_admin.get_form_fields_exclude(request=self.request)
             panels = extract_panel_definitions_from_model_class(self.model, exclude=fields_to_exclude)
