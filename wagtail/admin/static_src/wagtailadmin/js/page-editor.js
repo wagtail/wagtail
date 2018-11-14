@@ -243,6 +243,8 @@ function cleanForSlug(val, useURLify) {
         // for creating a slug from the title, rather than sanitising a slug entered manually
         let cleaned = URLify(val, 255, unicodeSlugsEnabled);
 
+        // if the result is blank (e.g. because the title consisted entirely of stopwords),
+        // fall through to the non-URLify method
         if (cleaned) {
             return cleaned;
         }
