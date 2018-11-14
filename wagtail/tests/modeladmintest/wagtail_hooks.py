@@ -1,11 +1,11 @@
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
 from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
-from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface, ObjectList
 
 from .forms import PublisherModelAdminForm
-from .models import Author, Book, Publisher, Token, VenuePage, Person, Visitor, Contributor
+from .models import Author, Book, Contributor, Person, Publisher, Token, VenuePage, Visitor
 
 
 class AuthorModelAdmin(ModelAdmin):

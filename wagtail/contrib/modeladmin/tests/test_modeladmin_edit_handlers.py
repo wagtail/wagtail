@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from wagtail.tests.modeladmintest.models import Person, Visitor, Contributor
+from wagtail.tests.modeladmintest.models import Contributor, Person, Visitor
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -11,7 +11,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         self.login()
 
     def test_model_edit_handler(self):
-        # tests that edit_handler defintion from model is used to create 
+        # tests that edit_handler defintion from model is used to create
         # a model instance if edit_handler is set on the model
         response = self.client.post('/admin/modeladmintest/person/create/', {
             'first_name': "John",
