@@ -183,7 +183,7 @@ In order to achieve this, we start with registering the rich text feature like f
         features.register_editor_plugin(
             'draftail', feature_name, draftail_features.EntityFeature(
                 control,
-                js=['stock.js']
+                js=['stock.js'],
                 css={'all': ['stock.css']}
             )
         )
