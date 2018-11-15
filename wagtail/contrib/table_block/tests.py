@@ -11,6 +11,19 @@ from wagtail.tests.testapp.models import TableBlockStreamPage
 from wagtail.tests.utils import WagtailTestUtils
 
 
+def get_cell_classname(cells_meta, row_index, col_index):
+    """
+    Helper function used in building a test html
+    table. Provides a cell's class attribute if
+    one is specified in the meta.
+    """
+    if cells_meta:
+        for meta in cells_meta:
+            if meta.get('row') == row_index and meta.get('col') == col_index:
+                return ' class="%s"' % meta.get('className')
+    return ''
+
+
 def tiny_escape(val):
     """
     Helper function used in building a test html
@@ -26,22 +39,24 @@ def get_test_html_from_value(value):
     that's what we expect from the TableBlock.
     """
     data = list(value['data'])  # Make a copy
+    meta = value.get('cell')
     table = '<table>'
     if value['first_row_is_table_header']:
         row_header = data.pop(0)
         table += '<thead><tr>'
-        for th in row_header:
-            table += '<th>%s</th>' % tiny_escape(th)
+        for col_idx, th in enumerate(row_header):
+            table += '<th%s>%s</th>' % (get_cell_classname(meta, 0, col_idx), tiny_escape(th))
         table += '</tr></thead>'
     table += '<tbody>'
-    for row in data:
+    row_idx_start = 1 if value['first_row_is_table_header'] else 0
+    for row_idx, row in enumerate(data, row_idx_start):
         table += '<tr>'
         first = True
-        for col in row:
+        for col_idx, col in enumerate(row):
             if value['first_col_is_header'] and first:
-                table += '<th>%s</th>' % tiny_escape(col)
+                table += '<th%s>%s</th>' % (get_cell_classname(meta, row_idx, col_idx), tiny_escape(col))
             else:
-                table += '<td>%s</td>' % tiny_escape(col)
+                table += '<td%s>%s</td>' % (get_cell_classname(meta, row_idx, col_idx), tiny_escape(col))
             first = False
         table += '</tr>'
     table += '</tbody></table>'
@@ -80,6 +95,22 @@ class TestTableBlock(TestTableBlockRenderingBase):
         Test a generic render.
         """
         value = {'first_row_is_table_header': False, 'first_col_is_header': False,
+                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, None, None],
+                          [None, None, None]]}
+        block = TableBlock()
+        result = block.render(value)
+        expected = get_test_html_from_value(value)
+
+        self.assertHTMLEqual(result, expected)
+        self.assertIn('Test 2', result)
+
+    def test_table_block_aligment_render(self):
+        """
+        Test a generic render with some cells aligned.
+        """
+        value = {'first_row_is_table_header': True, 'first_col_is_header': False,
+                 'cell': [{'row': 0, 'col': 1, 'className': 'htLeft'},
+                          {'row': 1, 'col': 1, 'className': 'htRight'}],
                  'data': [['Test 1', 'Test 2', 'Test 3'], [None, None, None],
                           [None, None, None]]}
         block = TableBlock()
