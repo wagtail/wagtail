@@ -99,6 +99,13 @@ class TableBlock(FieldBlock):
                 'html_renderer': self.is_html_renderer(),
                 'data': value['data'][1:] if table_header else value.get('data', [])
             })
+
+            if value.get('cell'):
+                new_context['classnames'] = {}
+                for meta in value['cell']:
+                    if 'className' in meta:
+                        new_context['classnames'][(meta['row'], meta['col'])] = meta['className']
+
             return render_to_string(template, new_context)
         else:
             return self.render_basic(value, context=context)
