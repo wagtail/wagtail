@@ -10,10 +10,14 @@ function initTable(id, tableOptions) {
     var hot;
     var defaultOptions;
     var finalOptions = {};
+    var getCellsClassnames;
     var persist;
     var cellEvent;
+    var metaEvent;
+    var initEvent;
     var structureEvent;
     var dataForForm = null;
+    var isInitialized = false;
     var getWidth = function() {
         return $('.widget-table_input').closest('.sequence-member-inner').width();
     };
@@ -64,9 +68,26 @@ function initTable(id, tableOptions) {
         });
     }
 
+    getCellsClassnames = function() {
+        var meta = hot.getCellsMeta();
+        var cellsClassnames = []
+        for (var i = 0; i < meta.length; i++) {
+            if (meta[i].hasOwnProperty('className')) {
+                cellsClassnames.push({
+                    row: meta[i].row,
+                    col: meta[i].col,
+                    className: meta[i].className
+                });
+            }
+        }
+        console.log(cellsClassnames);
+        return cellsClassnames;
+    };
+
     persist = function() {
         hiddenStreamInput.val(JSON.stringify({
             data: hot.getData(),
+            cell: getCellsClassnames(),
             first_row_is_table_header: tableHeaderCheckbox.prop('checked'),
             first_col_is_header: colHeaderCheckbox.prop('checked')
         }));
@@ -78,6 +99,16 @@ function initTable(id, tableOptions) {
         }
 
         persist();
+    };
+
+    metaEvent = function(row, column, key, value) {
+        if (isInitialized && key === 'className') {
+            persist();
+        }
+    };
+
+    initEvent = function() {
+        isInitialized = true;
     };
 
     structureEvent = function(index, amount) {
@@ -99,12 +130,19 @@ function initTable(id, tableOptions) {
         afterCreateRow: structureEvent,
         afterRemoveCol: structureEvent,
         afterRemoveRow: structureEvent,
+        afterSetCellMeta: metaEvent,
+        afterInit: initEvent,
         // contextMenu set via init, from server defaults
     };
 
-    if (dataForForm !== null && dataForForm.hasOwnProperty('data')) {
+    if (dataForForm !== null) {
         // Overrides default value from tableOptions (if given) with value from database
-        defaultOptions.data = dataForForm.data;
+        if (dataForForm.hasOwnProperty('data')) {
+            defaultOptions.data = dataForForm.data;
+        }
+        if (dataForForm.hasOwnProperty('cell')) {
+            defaultOptions.cell = dataForForm.cell;
+        }
     }
 
     Object.keys(defaultOptions).forEach(function (key) {
