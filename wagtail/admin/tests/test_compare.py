@@ -1,7 +1,7 @@
 import unittest
+from functools import partial
 
 from django.test import TestCase
-from django.utils.functional import curry
 from django.utils.safestring import SafeText
 
 from wagtail.admin import compare
@@ -361,8 +361,8 @@ class TestChildRelationComparison(TestCase):
         comparison = self.comparison_class(
             EventPage._meta.get_field('speaker'),
             [
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
             ],
             event_page,
             modified_event_page,
@@ -408,8 +408,8 @@ class TestChildRelationComparison(TestCase):
         comparison = self.comparison_class(
             EventPage._meta.get_field('speaker'),
             [
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
             ],
             event_page,
             modified_event_page,
@@ -457,8 +457,8 @@ class TestChildRelationComparison(TestCase):
         comparison = self.comparison_class(
             EventPage._meta.get_field('speaker'),
             [
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
             ],
             event_page,
             modified_event_page,
@@ -498,8 +498,8 @@ class TestChildRelationComparison(TestCase):
         comparison = self.comparison_class(
             EventPage._meta.get_field('speaker'),
             [
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
             ],
             event_page,
             modified_event_page,
@@ -538,8 +538,8 @@ class TestChildObjectComparison(TestCase):
         comparison = self.comparison_class(
             EventPageSpeaker,
             [
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
             ],
             obj_a,
             obj_b,
@@ -565,8 +565,8 @@ class TestChildObjectComparison(TestCase):
         comparison = self.comparison_class(
             EventPageSpeaker,
             [
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
             ],
             obj_a,
             obj_b,
@@ -594,8 +594,8 @@ class TestChildObjectComparison(TestCase):
         comparison = self.comparison_class(
             EventPageSpeaker,
             [
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
             ],
             obj_a,
             obj_b,
@@ -616,8 +616,8 @@ class TestChildObjectComparison(TestCase):
         comparison = self.comparison_class(
             EventPageSpeaker,
             [
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
             ],
             None,
             obj,
@@ -638,8 +638,8 @@ class TestChildObjectComparison(TestCase):
         comparison = self.comparison_class(
             EventPageSpeaker,
             [
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
-                curry(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('first_name')),
+                partial(self.field_comparison_class, EventPageSpeaker._meta.get_field('last_name')),
             ],
             obj,
             None,
@@ -679,7 +679,7 @@ class TestChildRelationComparisonUsingPK(TestCase):
 
         comparison = self.comparison_class(
             EventPage._meta.get_field('head_counts'),
-            [curry(self.field_comparison_class, HeadCountRelatedModelUsingPK._meta.get_field('head_count'))],
+            [partial(self.field_comparison_class, HeadCountRelatedModelUsingPK._meta.get_field('head_count'))],
             event_page,
             modified_event_page,
         )
@@ -716,7 +716,7 @@ class TestChildRelationComparisonUsingPK(TestCase):
 
         comparison = self.comparison_class(
             EventPage._meta.get_field('head_counts'),
-            [curry(self.field_comparison_class, HeadCountRelatedModelUsingPK._meta.get_field('head_count'))],
+            [partial(self.field_comparison_class, HeadCountRelatedModelUsingPK._meta.get_field('head_count'))],
             event_page,
             modified_event_page,
         )
