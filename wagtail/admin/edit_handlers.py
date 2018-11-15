@@ -1,3 +1,4 @@
+import functools
 import re
 
 from django import forms
@@ -7,7 +8,7 @@ from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
-from django.utils.functional import cached_property, curry
+from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy
 from taggit.managers import TaggableManager
@@ -500,7 +501,7 @@ class FieldPanel(EditHandler):
 
         if comparator_class:
             try:
-                return [curry(comparator_class, self.db_field)]
+                return [functools.partial(comparator_class, self.db_field)]
             except FieldDoesNotExist:
                 return []
         return []
@@ -681,8 +682,7 @@ class InlinePanel(EditHandler):
                 panel.bind_to_model(self.db_field.related_model)
                 .get_comparison())
 
-        return [curry(compare.ChildRelationComparison, self.db_field,
-                      field_comparisons)]
+        return [functools.partial(compare.ChildRelationComparison, self.db_field, field_comparisons)]
 
     def on_model_bound(self):
         manager = getattr(self.model, self.relation_name)
