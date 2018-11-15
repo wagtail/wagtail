@@ -219,8 +219,6 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         }
         # set language from testing envrionment
         language = translation.get_language()
-        if language is not None and len(language) > 2:
-            language = language[:2]
 
         self.default_table_options = DEFAULT_TABLE_OPTIONS.copy()
         self.default_table_options['language'] = language
@@ -251,7 +249,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         # French
         translation.activate('fr-fr')
         block_fr = TableBlock()
-        self.assertEqual('fr', block_fr.table_options['language'])
+        self.assertEqual('fr-fr', block_fr.table_options['language'])
         translation.activate('it')
         # Italian
         block_it = TableBlock()
