@@ -39,6 +39,7 @@ Other features
  * Cleanup: Use ``functools.partial()`` instead of ``django.utils.functional.curry()`` (Sergey Fedoseev)
  * Squashed migrations for wagtailcore and wagtailimages (Karl Hobley)
  * Added ``before_move_page`` and ``after_move_page`` hooks (Maylon Pedroso)
+ * Bulk deletion button for snippets is now hidden until items are selected (Karl Hobley)
 
 Bug fixes
 ~~~~~~~~~
