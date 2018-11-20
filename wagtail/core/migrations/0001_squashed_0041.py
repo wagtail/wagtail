@@ -257,7 +257,6 @@ class Migration(migrations.Migration):
             field=models.CharField(default='', editable=False, max_length=255),
             preserve_default=False,
         ),
-        migrations.RunPython(set_page_path_collation, migrations.RunPython.noop),
         migrations.CreateModel(
             name='GroupPagePermission',
             fields=[
@@ -319,7 +318,6 @@ class Migration(migrations.Migration):
             name='site',
             options={'verbose_name': 'Site'},
         ),
-        migrations.RunPython(initial_data, remove_initial_data),
         migrations.AlterField(
             model_name='grouppagepermission',
             name='permission_type',
@@ -529,7 +527,6 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'collections',
             },
         ),
-        migrations.RunPython(collection_initial_data, migrations.RunPython.noop),
         migrations.CreateModel(
             name='GroupCollectionPermission',
             fields=[
@@ -546,7 +543,6 @@ class Migration(migrations.Migration):
             name='groupcollectionpermission',
             unique_together={('group', 'collection', 'permission')},
         ),
-        migrations.RunPython(set_collection_path_collation, migrations.RunPython.noop),
         migrations.AlterField(
             model_name='page',
             name='content_type',
@@ -636,4 +632,8 @@ class Migration(migrations.Migration):
             name='groupcollectionpermission',
             options={'verbose_name': 'group collection permission', 'verbose_name_plural': 'group collection permissions'},
         ),
+        migrations.RunPython(set_page_path_collation, migrations.RunPython.noop),
+        migrations.RunPython(initial_data, remove_initial_data),
+        migrations.RunPython(collection_initial_data, migrations.RunPython.noop),
+        migrations.RunPython(set_collection_path_collation, migrations.RunPython.noop),
     ]
