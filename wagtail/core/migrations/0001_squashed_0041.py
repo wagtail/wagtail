@@ -4,7 +4,6 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.migrations.operations.special
 import django.db.models.deletion
-from django.db.models import F
 import wagtail.core.models
 import wagtail.search.index
 
@@ -45,6 +44,7 @@ def initial_data(apps, schema_editor):
     # Create root page
     root = Page.objects.create(
         title="Root",
+        draft_title="Root",
         slug='root',
         content_type=page_content_type,
         path='0001',
@@ -56,6 +56,7 @@ def initial_data(apps, schema_editor):
     # Create homepage
     homepage = Page.objects.create(
         title="Welcome to your new Wagtail site!",
+        draft_title="Welcome to your new Wagtail site!",
         slug='home',
         content_type=page_content_type,
         path='00010001',
@@ -103,6 +104,12 @@ def initial_data(apps, schema_editor):
         permission_type='edit',
     )
 
+    GroupPagePermission.objects.create(
+        group=moderators_group,
+        page=root,
+        permission_type='lock',
+    )
+
 
 def remove_initial_data(apps, schema_editor):
     """This function does nothing. The below code is commented out together
@@ -127,27 +134,6 @@ def remove_initial_data(apps, schema_editor):
     #
     # Likewise, we're leaving all GroupPagePermission unchanged as users may
     # have been assigned such permissions and its harmless to leave them.
-
-
-# Functions from wagtail.core.migrations.0005_add_page_lock_permission_to_moderators
-
-
-def add_page_lock_permission_to_moderators(apps, schema_editor):
-    Group = apps.get_model('auth.Group')
-    Page = apps.get_model('wagtailcore.Page')
-    GroupPagePermission = apps.get_model('wagtailcore.GroupPagePermission')
-
-    root_pages = Page.objects.filter(depth=1)
-
-    try:
-        moderators_group = Group.objects.get(name='Moderators')
-
-        for page in root_pages:
-            GroupPagePermission.objects.create(
-                group=moderators_group, page=page, permission_type='lock')
-
-    except Group.DoesNotExist:
-        pass
 
 
 # Functions from wagtail.core.migrations.0025_collection_initial_data
@@ -180,23 +166,6 @@ def set_collection_path_collation(apps, schema_editor):
         schema_editor.execute("""
             ALTER TABLE wagtailcore_collection ALTER COLUMN path TYPE VARCHAR(255) COLLATE "C"
         """)
-
-
-# Functions from wagtail.core.migrations.0036_populate_page_last_published_at
-
-
-def populate_page_last_published_at(apps, schema_editor):
-    Page = apps.get_model("wagtailcore", "Page")
-    Page.objects.filter(has_unpublished_changes=False).update(last_published_at=F('latest_revision_created_at'))
-
-
-# Functions from wagtail.core.migrations.0040_page_draft_title
-
-
-def populate_draft_title(apps, schema_editor):
-    Page = apps.get_model('wagtailcore', 'Page')
-
-    Page.objects.all().update(draft_title=F('title'))
 
 
 class Migration(migrations.Migration):
@@ -281,6 +250,12 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
             bases=(wagtail.search.index.Indexed, models.Model),
+        ),
+        migrations.AddField(
+            model_name='page',
+            name='draft_title',
+            field=models.CharField(default='', editable=False, max_length=255),
+            preserve_default=False,
         ),
         migrations.RunPython(set_page_path_collation, migrations.RunPython.noop),
         migrations.CreateModel(
@@ -395,7 +370,6 @@ class Migration(migrations.Migration):
             name='permission_type',
             field=models.CharField(choices=[('add', 'Add/edit pages you own'), ('edit', 'Edit any page'), ('publish', 'Publish any page'), ('lock', 'Lock/unlock any page')], max_length=20, verbose_name='permission type'),
         ),
-        migrations.RunPython(add_page_lock_permission_to_moderators, migrations.RunPython.noop),
         migrations.AlterField(
             model_name='page',
             name='content_type',
@@ -629,7 +603,6 @@ class Migration(migrations.Migration):
             name='last_published_at',
             field=models.DateTimeField(editable=False, null=True, verbose_name='last published at'),
         ),
-        migrations.RunPython(populate_page_last_published_at, migrations.RunPython.noop),
         migrations.AlterField(
             model_name='page',
             name='owner',
@@ -659,13 +632,6 @@ class Migration(migrations.Migration):
             name='groups',
             field=models.ManyToManyField(blank=True, to='auth.Group', verbose_name='groups'),
         ),
-        migrations.AddField(
-            model_name='page',
-            name='draft_title',
-            field=models.CharField(default='', editable=False, max_length=255),
-            preserve_default=False,
-        ),
-        migrations.RunPython(populate_draft_title, migrations.RunPython.noop),
         migrations.AlterModelOptions(
             name='groupcollectionpermission',
             options={'verbose_name': 'group collection permission', 'verbose_name_plural': 'group collection permissions'},
