@@ -157,7 +157,6 @@ class Migration(migrations.Migration):
             name='rendition',
             unique_together={('image', 'filter', 'focal_point_key')},
         ),
-        migrations.RunPython(add_image_permissions_to_admin_groups, remove_image_permissions),
         migrations.AlterField(
             model_name='image',
             name='focal_point_height',
@@ -263,7 +262,6 @@ class Migration(migrations.Migration):
             name='collection',
             field=models.ForeignKey(default=wagtail.core.models.get_root_collection_id, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailcore.Collection', verbose_name='collection'),
         ),
-        migrations.RunPython(copy_image_permissions_to_collections, remove_image_permissions_from_collections),
         migrations.AlterField(
             model_name='rendition',
             name='file',
@@ -314,4 +312,6 @@ class Migration(migrations.Migration):
             name='file_hash',
             field=models.CharField(blank=True, editable=False, max_length=40),
         ),
+        migrations.RunPython(add_image_permissions_to_admin_groups, remove_image_permissions),
+        migrations.RunPython(copy_image_permissions_to_collections, remove_image_permissions_from_collections),
     ]
