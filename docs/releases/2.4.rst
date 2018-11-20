@@ -52,6 +52,7 @@ Bug fixes
  * Users without the edit permission no longer see "Edit" links in list of pages waiting for moderation (Justin Focus, Fedor Selitsky)
  * Redirects now return 404 when destination is unspecified or a page with no site (Hillary Jeffrey)
  * Refactor all breakpoint definitions, removing style overlaps (Janneke Janssen)
+ * Updated draftjs_exporter to 2.1.5 to fix bug in handling adjacent entities (Thibaud Colas)
 
 
 Upgrade considerations

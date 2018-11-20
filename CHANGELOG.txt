@@ -28,6 +28,7 @@ Changelog
  * Fix: Allow nav menu to take up all available space instead of scrolling (Meteor0id)
  * Fix: Redirects now return 404 when destination is unspecified or a page with no site (Hillary Jeffrey)
  * Fix: Refactor all breakpoint definitions, removing style overlaps (Janneke Janssen)
+ * Fix: Updated draftjs_exporter to 2.1.5 to fix bug in handling adjacent entities (Thibaud Colas)
 
 
 2.3 LTS (23.10.2018)
