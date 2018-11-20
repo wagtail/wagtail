@@ -8,8 +8,6 @@ import wagtail.core.models
 import wagtail.images.models
 import wagtail.search.index
 
-from wagtail.images.utils import get_fill_filter_spec_migrations
-
 
 # Functions from  wagtail.images.migrations.0002_initial_data
 
@@ -61,38 +59,6 @@ def remove_image_permissions(apps, schema_editor):
     ).delete()
 
 
-
-# Functions from  wagtail.images.migrations.0004_make_focal_point_key_not_nullable
-
-
-def remove_duplicate_renditions(apps, schema_editor):
-    Rendition = apps.get_model('wagtailimages.Rendition')
-
-    # Find all filter_id / image_id pairings that appear multiple times in the renditions table
-    # with focal_point_key = NULL
-    duplicates = (
-        Rendition.objects.filter(focal_point_key__isnull=True).
-        values('image_id', 'filter_id').
-        annotate(count_id=models.Count('id'), min_id=models.Min('id')).
-        filter(count_id__gt=1)
-    )
-
-    # Delete all occurrences of those pairings, except for the one with the lowest ID
-    for duplicate in duplicates:
-        Rendition.objects.filter(
-            focal_point_key__isnull=True,
-            image=duplicate['image_id'],
-            filter=duplicate['filter_id']
-        ).exclude(
-            id=duplicate['min_id']
-        ).delete()
-
-
-def reverse_remove_duplicate_renditions(*args, **kwargs):
-    """This is a no-op. The migration removes duplicates, we cannot recreate those duplicates."""
-    pass
-
-
 # Functions from  wagtail.images.migrations.0012_copy_image_permissions_to_collections
 
 
@@ -132,12 +98,6 @@ def remove_image_permissions_from_collections(apps, schema_editor):
     image_permissions = get_image_permissions(apps)
 
     GroupCollectionPermission.objects.filter(permission__in=image_permissions).delete()
-
-
-# Functions from  wagtail.images.migrations.0015_fill_filter_spec_field
-
-
-fill_filter_spec_forward, fill_filter_spec_reverse = get_fill_filter_spec_migrations('wagtailimages', 'Rendition')
 
 
 class Migration(migrations.Migration):
@@ -218,7 +178,6 @@ class Migration(migrations.Migration):
             name='focal_point_y',
             field=models.PositiveIntegerField(blank=True, null=True),
         ),
-        migrations.RunPython(remove_duplicate_renditions, reverse_remove_duplicate_renditions),
         migrations.AlterField(
             model_name='rendition',
             name='focal_point_key',
@@ -320,7 +279,6 @@ class Migration(migrations.Migration):
             name='filter',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailimages.Filter'),
         ),
-        migrations.RunPython(fill_filter_spec_forward, fill_filter_spec_reverse),
         migrations.AlterField(
             model_name='rendition',
             name='filter_spec',
