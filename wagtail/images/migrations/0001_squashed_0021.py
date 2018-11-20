@@ -111,33 +111,30 @@ class Migration(migrations.Migration):
         ('wagtailcore', '0026_group_collection_permission'),
     ]
 
-
     operations = [
-        migrations.CreateModel(
-            name='Filter',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('spec', models.CharField(db_index=True, max_length=255)),
-            ],
-        ),
         migrations.CreateModel(
             name='Image',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, verbose_name='Title')),
-                ('file', models.ImageField(height_field='height', upload_to=wagtail.images.models.get_upload_to, verbose_name='File', width_field='width')),
-                ('width', models.IntegerField(editable=False)),
-                ('height', models.IntegerField(editable=False)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('focal_point_x', models.PositiveIntegerField(editable=False, null=True)),
-                ('focal_point_y', models.PositiveIntegerField(editable=False, null=True)),
-                ('focal_point_width', models.PositiveIntegerField(editable=False, null=True)),
-                ('focal_point_height', models.PositiveIntegerField(editable=False, null=True)),
-                ('tags', taggit.managers.TaggableManager(blank=True, help_text=None, through='taggit.TaggedItem', to='taggit.Tag', verbose_name='Tags')),
-                ('uploaded_by_user', models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('title', models.CharField(max_length=255, verbose_name='title')),
+                ('file', models.ImageField(height_field='height', upload_to=wagtail.images.models.get_upload_to, verbose_name='file', width_field='width')),
+                ('width', models.IntegerField(editable=False, verbose_name='width')),
+                ('height', models.IntegerField(editable=False, verbose_name='height')),
+                ('created_at', models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='created at')),
+                ('focal_point_x', models.PositiveIntegerField(blank=True, null=True)),
+                ('focal_point_y', models.PositiveIntegerField(blank=True, null=True)),
+                ('focal_point_width', models.PositiveIntegerField(blank=True, null=True)),
+                ('focal_point_height', models.PositiveIntegerField(blank=True, null=True)),
+                ('tags', taggit.managers.TaggableManager(blank=True, help_text=None, through='taggit.TaggedItem', to='taggit.Tag', verbose_name='tags')),
+                ('uploaded_by_user', models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='uploaded by user')),
+                ('file_size', models.PositiveIntegerField(editable=False, null=True)),
+                ('collection', models.ForeignKey(default=wagtail.core.models.get_root_collection_id, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailcore.Collection', verbose_name='collection')),
+                ('file_hash', models.CharField(blank=True, editable=False, max_length=40)),
             ],
             options={
                 'abstract': False,
+                'verbose_name': 'image',
+                'verbose_name_plural': 'images',
             },
             bases=(models.Model, wagtail.search.index.Indexed),
         ),
@@ -145,172 +142,17 @@ class Migration(migrations.Migration):
             name='Rendition',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.ImageField(height_field='height', upload_to='images', width_field='width')),
+                ('file', models.ImageField(height_field='height', upload_to=wagtail.images.models.get_rendition_upload_to, width_field='width')),
                 ('width', models.IntegerField(editable=False)),
                 ('height', models.IntegerField(editable=False)),
-                ('focal_point_key', models.CharField(editable=False, max_length=18, null=True)),
-                ('filter', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailimages.Filter')),
+                ('focal_point_key', models.CharField(blank=True, default='', editable=False, max_length=16)),
+                ('filter_spec', models.CharField(db_index=True, max_length=255)),
                 ('image', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='renditions', to='wagtailimages.Image')),
             ],
         ),
         migrations.AlterUniqueTogether(
             name='rendition',
-            unique_together={('image', 'filter', 'focal_point_key')},
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='focal_point_height',
-            field=models.PositiveIntegerField(blank=True, null=True),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='focal_point_width',
-            field=models.PositiveIntegerField(blank=True, null=True),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='focal_point_x',
-            field=models.PositiveIntegerField(blank=True, null=True),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='focal_point_y',
-            field=models.PositiveIntegerField(blank=True, null=True),
-        ),
-        migrations.AlterField(
-            model_name='rendition',
-            name='focal_point_key',
-            field=models.CharField(blank=True, default='', editable=False, max_length=18),
-        ),
-        migrations.AlterField(
-            model_name='filter',
-            name='spec',
-            field=models.CharField(max_length=255, unique=True),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, verbose_name='Created at'),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='height',
-            field=models.IntegerField(editable=False, verbose_name='Height'),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='uploaded_by_user',
-            field=models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Uploaded by user'),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='width',
-            field=models.IntegerField(editable=False, verbose_name='Width'),
-        ),
-        migrations.AddField(
-            model_name='image',
-            name='file_size',
-            field=models.PositiveIntegerField(editable=False, null=True),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Created at'),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='created at'),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='file',
-            field=models.ImageField(height_field='height', upload_to=wagtail.images.models.get_upload_to, verbose_name='file', width_field='width'),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='height',
-            field=models.IntegerField(editable=False, verbose_name='height'),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='tags',
-            field=taggit.managers.TaggableManager(blank=True, help_text=None, through='taggit.TaggedItem', to='taggit.Tag', verbose_name='tags'),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='title',
-            field=models.CharField(max_length=255, verbose_name='title'),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='uploaded_by_user',
-            field=models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='uploaded by user'),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='width',
-            field=models.IntegerField(editable=False, verbose_name='width'),
-        ),
-        migrations.AlterField(
-            model_name='image',
-            name='uploaded_by_user',
-            field=models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='uploaded by user'),
-        ),
-        migrations.AddField(
-            model_name='image',
-            name='collection',
-            field=models.ForeignKey(default=wagtail.core.models.get_root_collection_id, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailcore.Collection', verbose_name='collection'),
-        ),
-        migrations.AlterField(
-            model_name='rendition',
-            name='file',
-            field=models.ImageField(height_field='height', upload_to=wagtail.images.models.get_rendition_upload_to, width_field='width'),
-        ),
-        migrations.AddField(
-            model_name='rendition',
-            name='filter_spec',
-            field=models.CharField(blank=True, db_index=True, default='', max_length=255),
-        ),
-        migrations.AlterField(
-            model_name='rendition',
-            name='filter',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailimages.Filter'),
-        ),
-        migrations.AlterField(
-            model_name='rendition',
-            name='filter_spec',
-            field=models.CharField(db_index=True, max_length=255),
-        ),
-        migrations.AlterField(
-            model_name='rendition',
-            name='focal_point_key',
-            field=models.CharField(blank=True, default='', editable=False, max_length=17),
-        ),
-        migrations.AlterUniqueTogether(
-            name='rendition',
             unique_together={('image', 'filter_spec', 'focal_point_key')},
-        ),
-        migrations.AlterField(
-            model_name='rendition',
-            name='focal_point_key',
-            field=models.CharField(blank=True, default='', editable=False, max_length=16),
-        ),
-        migrations.RemoveField(
-            model_name='rendition',
-            name='filter',
-        ),
-        migrations.DeleteModel(
-            name='Filter',
-        ),
-        migrations.AlterModelOptions(
-            name='image',
-            options={'verbose_name': 'image', 'verbose_name_plural': 'images'},
-        ),
-        migrations.AddField(
-            model_name='image',
-            name='file_hash',
-            field=models.CharField(blank=True, editable=False, max_length=40),
         ),
         migrations.RunPython(add_image_permissions_to_admin_groups, remove_image_permissions),
         migrations.RunPython(copy_image_permissions_to_collections, remove_image_permissions_from_collections),
