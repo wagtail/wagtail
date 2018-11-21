@@ -32,6 +32,9 @@ Other features
  * Added last login to the user overview (Noah B Johnson)
  * Changed design of image editing page (Janneke Janssen, Ben Enright)
  * Added Slovak character map for JavaScript slug generation (Andy Chosak)
+ * Make documentation links on welcome page work for prereleases (Matt Westcott)
+ * Allow overridden ``copy()`` methods in ``Page`` subclasses to be called from the page copy view (Robert Rollins)
+ * Cleanup: Use ``functools.partial()`` instead of ``django.utils.functional.curry()`` (Sergey Fedoseev)
 
 Bug fixes
 ~~~~~~~~~
