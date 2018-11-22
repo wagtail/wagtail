@@ -63,8 +63,8 @@ class PublishMenuItem(ActionMenuItem):
             return context['user_page_permissions'].for_page(context['parent_page']).can_publish_subpage()
         else:  # view == 'edit' or 'revisions_revert'
             return (
-                not context['page'].locked and
-                context['user_page_permissions'].for_page(context['page']).can_publish()
+                not context['page'].locked
+                and context['user_page_permissions'].for_page(context['page']).can_publish()
             )
 
     def get_context(self, request, parent_context):
@@ -91,9 +91,9 @@ class UnpublishMenuItem(ActionMenuItem):
 
     def is_shown(self, request, context):
         return (
-            context['view'] == 'edit' and
-            not context['page'].locked and
-            context['user_page_permissions'].for_page(context['page']).can_unpublish()
+            context['view'] == 'edit'
+            and not context['page'].locked
+            and context['user_page_permissions'].for_page(context['page']).can_unpublish()
         )
 
     def get_url(self, request, context):
@@ -105,9 +105,9 @@ class DeleteMenuItem(ActionMenuItem):
 
     def is_shown(self, request, context):
         return (
-            context['view'] == 'edit' and
-            not context['page'].locked and
-            context['user_page_permissions'].for_page(context['page']).can_delete()
+            context['view'] == 'edit'
+            and not context['page'].locked
+            and context['user_page_permissions'].for_page(context['page']).can_delete()
         )
 
     def get_url(self, request, context):
