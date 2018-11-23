@@ -18,11 +18,8 @@ def check_url(url_string):
     # is treated as a valid javascript: link
 
     unescaped = url_string.lower()
-    unescaped = unescaped.replace("&lt;", "<")
-    unescaped = unescaped.replace("&gt;", ">")
-    unescaped = unescaped.replace("&amp;", "&")
-    unescaped = re.sub(r'[`\000-\040\177-\240\s]+', '', unescaped)
-    unescaped = unescaped.replace("\ufffd", "")
+    unescaped = unescaped.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
+    unescaped = re.sub(r'[`\000-\040\177-\240\s]+', '', unescaped).replace("\ufffd", "")
     if PROTOCOL_RE.match(unescaped):
         protocol = unescaped.split(':', 1)[0]
         if protocol not in ALLOWED_URL_SCHEMES:
