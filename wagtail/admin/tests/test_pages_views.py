@@ -2563,6 +2563,47 @@ class TestPageMove(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:set_page_position', args=(self.test_page.id, )))
         self.assertEqual(response.status_code, 200)
 
+    def test_before_move_page_hook(self):
+        def hook_func(request, page, destination):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+            self.assertIsInstance(destination.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_move_page', hook_func):
+            response = self.client.get(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page.id, self.section_b.id)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_move_page_hook_post(self):
+        def hook_func(request, page, destination):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+            self.assertIsInstance(destination.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_move_page', hook_func):
+            response = self.client.post(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page.id, self.section_b.id)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_after_move_page_hook(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_move_page', hook_func):
+            response = self.client.post(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page.id, self.section_b.id)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
 
 class TestPageCopy(TestCase, WagtailTestUtils):
 
