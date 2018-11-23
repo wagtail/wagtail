@@ -757,6 +757,11 @@ def move_confirm(request, page_to_move_id, destination_id):
     if not page_to_move.permissions_for_user(request.user).can_move_to(destination):
         raise PermissionDenied
 
+    for fn in hooks.get_hooks('before_move_page'):
+        result = fn(request, page_to_move, destination)
+        if hasattr(result, 'status_code'):
+            return result
+
     if request.method == 'POST':
         # any invalid moves *should* be caught by the permission check above,
         # so don't bother to catch InvalidMoveToDescendant
@@ -765,6 +770,11 @@ def move_confirm(request, page_to_move_id, destination_id):
         messages.success(request, _("Page '{0}' moved.").format(page_to_move.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(page_to_move.id,)), _('Edit'))
         ])
+
+        for fn in hooks.get_hooks('after_move_page'):
+            result = fn(request, page_to_move)
+            if hasattr(result, 'status_code'):
+                return result
 
         return redirect('wagtailadmin_explore', destination.id)
 

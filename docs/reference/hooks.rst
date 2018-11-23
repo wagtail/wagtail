@@ -492,6 +492,22 @@ Hooks for customising the way users are directed through the process of creating
 
   Uses the same behaviour as ``before_create_page``.
 
+.. _after_move_page:
+
+``after_move_page``
+~~~~~~~~~~~~~~~~~~~
+
+  Do something with a ``Page`` object after it has been moved passing in the request and page object. Uses the same behaviour as ``after_create_page``.
+
+
+.. _before_move_page:
+
+``before_move_page``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "move_confirm page" view passing in the request, the page object and the destination page object.
+
+  Uses the same behaviour as ``before_create_page``.
 
 .. _register_page_action_menu_item:
 
