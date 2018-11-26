@@ -787,3 +787,22 @@ class TestHtmlToContentState(TestCase):
                 {'inlineStyleRanges': [], 'text': 'After', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
             ]
         })
+
+    def test_p_with_class(self):
+        # Test support for custom conversion rules which require correct treatment of
+        # CSS precedence in HTMLRuleset. Here, <p class="intro"> should match the
+        # 'p[class="intro"]' rule rather than 'p' and thus become an 'intro-paragraph' block
+        converter = ContentstateConverter(features=['intro'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p class="intro">before</p>
+            <p>after</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'blocks': [
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'before', 'type': 'intro-paragraph'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'after', 'type': 'unstyled'}
+            ],
+            'entityMap': {}
+        })

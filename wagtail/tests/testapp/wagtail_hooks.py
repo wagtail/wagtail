@@ -6,6 +6,7 @@ import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
+from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
 from wagtail.core import hooks
 
@@ -105,6 +106,20 @@ def register_blockquote_feature(features):
             css={'all': ['testapp/css/draftail-blockquote.css']},
         )
     )
+
+
+# register 'intro' as a rich text feature which converts an `intro-paragraph` contentstate block
+# to a <p class="intro"> tag in db HTML and vice versa
+@hooks.register('register_rich_text_features')
+def register_intro_rule(features):
+    features.register_converter_rule('contentstate', 'intro', {
+        'from_database_format': {
+            'p[class="intro"]': BlockElementHandler('intro-paragraph'),
+        },
+        'to_database_format': {
+            'block_map': {'intro-paragraph': {'element': 'p', 'props': {'class': 'intro'}}},
+        }
+    })
 
 
 class PanicMenuItem(ActionMenuItem):
