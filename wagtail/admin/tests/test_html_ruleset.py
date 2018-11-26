@@ -22,3 +22,11 @@ class TestHTMLRuleset(TestCase):
         self.assertEqual(ruleset.match('a', {'class': 'button', 'linktype': 'page'}), 'page-link')
         self.assertEqual(ruleset.match('a', {'class': 'button', 'linktype': 'silly page'}), 'silly-page-link')
         self.assertEqual(ruleset.match('a', {'class': 'button', 'linktype': 'sensible page'}), 'sensible-page-link')
+
+    def test_precedence(self):
+        ruleset = HTMLRuleset()
+        ruleset.add_rule('p', 'normal-paragraph')
+        ruleset.add_rule('p[class="intro"]', 'intro-paragraph')
+        ruleset.add_rule('p', 'normal-paragraph-again')
+
+        self.assertEqual(ruleset.match('p', {'class': 'intro'}), 'intro-paragraph')
