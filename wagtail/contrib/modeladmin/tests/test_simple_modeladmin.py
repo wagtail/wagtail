@@ -190,7 +190,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
                 mock_form_fields_exclude.return_value = ['123']
 
                 self.get()
-                mock_form_fields_exclude.assert_called()
+                self.assertTrue(mock_form_fields_exclude.called)
                 m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
 
 
@@ -318,7 +318,7 @@ class TestEditView(TestCase, WagtailTestUtils):
                 mock_form_fields_exclude.return_value = ['123']
 
                 self.get(1)
-                mock_form_fields_exclude.assert_called()
+                self.assertTrue(mock_form_fields_exclude.called)
                 m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
 
 
