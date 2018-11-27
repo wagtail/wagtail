@@ -1,7 +1,7 @@
 from io import BytesIO
+from unittest.mock import Mock, patch
 
 from django.test import TestCase, override_settings
-from mock import Mock, patch
 
 from wagtail.core import hooks
 from wagtail.images import image_operations

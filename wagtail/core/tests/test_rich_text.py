@@ -1,6 +1,7 @@
+from unittest.mock import patch
+
 from bs4 import BeautifulSoup
 from django.test import TestCase
-from mock import patch
 
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText, expand_db_html

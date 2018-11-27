@@ -40,7 +40,6 @@ install_requires = [
 # Testing dependencies
 testing_extras = [
     # Required for running the tests
-    'mock>=1.0.0',
     'python-dateutil>=2.2',
     'pytz>=2014.7',
     'elasticsearch>=1.0.0,<3.0',

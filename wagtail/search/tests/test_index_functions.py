@@ -1,6 +1,6 @@
 from datetime import date
+from unittest import mock
 
-import mock
 from django.test import TestCase, override_settings
 
 from wagtail.core.models import Page
@@ -150,7 +150,7 @@ class TestSignalHandlers(TestCase, WagtailTestUtils):
         obj.title = "Updated test"
         obj.save()
 
-        backend().add.assert_called_once()
+        self.assertEqual(backend().add.call_count, 1)
         indexed_object = backend().add.call_args[0][0]
         self.assertEqual(indexed_object.title, "Updated test")
 
@@ -169,7 +169,7 @@ class TestSignalHandlers(TestCase, WagtailTestUtils):
         obj.publication_date = date(2001, 10, 19)
         obj.save(update_fields=['title'])
 
-        backend().add.assert_called_once()
+        self.assertEqual(backend().add.call_count, 1)
         indexed_object = backend().add.call_args[0][0]
         self.assertEqual(indexed_object.title, "Updated test")
         self.assertEqual(indexed_object.publication_date, date(2017, 10, 18))
