@@ -19,7 +19,7 @@ Changelog
  * Users without a preferred language set on their profile now use language selected by Django's `LocaleMiddleware` (Benjamin Bach)
  * Added hooks to customise the actions menu on the page create/edit views (Matt Westcott)
  * Cleanup: Use `functools.partial()` instead of `django.utils.functional.curry()` (Sergey Fedoseev)
- * Squashed migrations for wagtailcore (Karl Hobley)
+ * Squashed migrations for wagtailcore and wagtailimages (Karl Hobley)
  * Fix: Query objects returned from `PageQuerySet.type_q` can now be merged with `|` (Brady Moe)
  * Fix: Add `rel="noopener noreferrer"` to target blank links (Anselm Bradford)
  * Fix: Additional fields on custom document models now show on the multiple document upload view (Robert Rollins, Sergey Fedoseev)
