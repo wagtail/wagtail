@@ -48,10 +48,10 @@ Again, the ``embedtype`` attribute identifies a rule that shall be used to rewri
 
 A number of additional constraints apply to ``<a linktype="...">`` and ``<embed embedtype="..." />`` tags, to allow the conversion to be performed efficiently via string replacement:
 
- * The tag name and attributes must be lower-case;
- * Attribute values must be quoted with double-quotes;
- * ``embed`` elements must use XML self-closing tag syntax (i.e. end in ``/>`` instead of a closing ``</embed>`` tag);
- * The only HTML entities permitted in attribute values are ``&lt;``, ``&gt;``, ``&amp;`` and ``&quot;``.
+ * The tag name and attributes must be lower-case
+ * Attribute values must be quoted with double-quotes
+ * ``embed`` elements must use XML self-closing tag syntax (i.e. end in ``/>`` instead of a closing ``</embed>`` tag)
+ * The only HTML entities permitted in attribute values are ``&lt;``, ``&gt;``, ``&amp;`` and ``&quot;``
 
 
 The feature registry
