@@ -334,6 +334,7 @@ Contributors
 * Seb Brown
 * Noah B Johnson
 * Hillary Jeffrey
+* Nick Travis
 
 Translators
 ===========
