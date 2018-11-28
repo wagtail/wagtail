@@ -7,6 +7,7 @@ Changelog
  * Added support for customising EditHandler-based forms on a per-request basis (Bertrand Bordage)
  * Added more informative error message when `|richtext` filter is applied to a non-string value (mukesh5)
  * Automatic search indexing can now be disabled on a per-model basis via the `search_auto_update` attribute (Karl Hobley)
+ * Improved diffing of StreamFields when comparing page revisions (Karl Hobley)
  * Fix: Set `SERVER_PORT` to 443 in `Page.dummy_request()` for HTTPS sites (Sergey Fedoseev)
  * Fix: Include port number in `Host` header of `Page.dummy_request()` (Sergey Fedoseev)
  * Fix: Validation error messages in `InlinePanel` no longer count towards `max_num` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)
