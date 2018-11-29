@@ -36,4 +36,14 @@
         ],
     }
     $.datetimepicker.setLocale('wagtail_custom_locale');
+
+    {#
+    The date string read from and written to the form field should be un-localised,
+    as Django cannot parse dates with non-English day/month names.
+    This requires us to replace the default DateFormatter component (which has been
+    passed these translations as configuration options) with a fresh one in its
+    default (English) configuration.
+    #}
+
+    @.datetimepicker.setDateFormatter(DateFormatter());
 </script>
