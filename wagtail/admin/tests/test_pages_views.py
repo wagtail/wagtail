@@ -1193,6 +1193,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+        # page should not be created
+        self.assertFalse(Page.objects.filter(title="New page!").exists())
+
     def test_after_create_page_hook(self):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
@@ -1213,6 +1216,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # page should be created
+        self.assertTrue(Page.objects.filter(title="New page!").exists())
 
 
 class TestPageEdit(TestCase, WagtailTestUtils):
@@ -2021,6 +2027,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+        # page should not be edited
+        self.assertEqual(Page.objects.get(id=self.child_page.id).title, "Hello world!")
+
     def test_after_edit_page_hook(self):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
@@ -2041,6 +2050,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # page should be edited
+        self.assertEqual(Page.objects.get(id=self.child_page.id).title, "I've been edited!")
 
 
 class TestPageEditReordering(TestCase, WagtailTestUtils):
@@ -2334,6 +2346,9 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+        # page should not be deleted
+        self.assertTrue(Page.objects.filter(id=self.child_page.id).exists())
+
     def test_after_delete_page_hook(self):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
@@ -2346,6 +2361,9 @@ class TestPageDelete(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # page should be deleted
+        self.assertFalse(Page.objects.filter(id=self.child_page.id).exists())
 
 
 class TestPageSearch(TestCase, WagtailTestUtils):
@@ -2591,6 +2609,12 @@ class TestPageMove(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+        # page should not be moved
+        self.assertEqual(
+            Page.objects.get(id=self.test_page.id).get_parent().id,
+            self.section_a.id
+        )
+
     def test_after_move_page_hook(self):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
@@ -2603,6 +2627,12 @@ class TestPageMove(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # page should be moved
+        self.assertEqual(
+            Page.objects.get(id=self.test_page.id).get_parent().id,
+            self.section_b.id
+        )
 
 
 class TestPageCopy(TestCase, WagtailTestUtils):
@@ -3010,6 +3040,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+        # page should not be copied
+        self.assertFalse(Page.objects.filter(title="Hello world 2").exists())
+
     def test_after_copy_page_hook(self):
         def hook_func(request, page, new_page):
             self.assertIsInstance(request, HttpRequest)
@@ -3030,6 +3063,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # page should be copied
+        self.assertTrue(Page.objects.filter(title="Hello world 2").exists())
 
 
 class TestPageUnpublish(TestCase, WagtailTestUtils):
