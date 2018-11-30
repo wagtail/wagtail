@@ -505,7 +505,7 @@ Hooks for customising the way users are directed through the process of creating
 ``before_move_page``
 ~~~~~~~~~~~~~~~~~~~~~
 
-  Called at the beginning of the "move_confirm page" view passing in the request, the page object and the destination page object.
+  Called at the beginning of the "move page" view passing in the request, the page object and the destination page object.
 
   Uses the same behaviour as ``before_create_page``.
 
