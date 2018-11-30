@@ -54,6 +54,7 @@ Bug fixes
  * Redirects now return 404 when destination is unspecified or a page with no site (Hillary Jeffrey)
  * Refactor all breakpoint definitions, removing style overlaps (Janneke Janssen)
  * Updated draftjs_exporter to 2.1.5 to fix bug in handling adjacent entities (Thibaud Colas)
+ * Page titles consisting only of stopwords now generate a non-empty default slug (Andy Chosak, Janneke Janssen)
 
 
 Upgrade considerations
