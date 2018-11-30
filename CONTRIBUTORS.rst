@@ -335,6 +335,7 @@ Contributors
 * Noah B Johnson
 * Hillary Jeffrey
 * Nick Travis
+* Maylon Pedroso
 
 Translators
 ===========
