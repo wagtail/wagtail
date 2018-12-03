@@ -41,6 +41,29 @@ All other methods of ``PageQuerySet`` can be used with ``search()``. For example
     The ``search()`` method will convert your ``QuerySet`` into an instance of one of Wagtail's ``SearchResults`` classes (depending on backend). This means that you must perform filtering before calling ``search()``.
 
 
+.. note::
+
+    Before the ``autocomplete()`` method was introduced, the search method also did partial matching. This behaviour is now deprecated and you should
+    either switch to the new ``autocomplete()`` method or pass ``partial_match=False`` into the search method to opt-in to the new behaviour. The
+    partial matching in ``search()`` will be completely removed in a future release.
+
+
+Autocomplete searches
+---------------------
+
+Wagtail provides a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query.
+
+.. code-block:: python
+
+    >>> EventPage.objects.live().autocomplete("Eve")
+    [<EventPage: Event 1>, <EventPage: Event 2>]
+
+
+.. tip::
+
+    This method should only be used for real-time autocomplete and actual search requests should always use the ``search()`` method.
+
+
 .. _wagtailsearch_images_documents_custom_models:
 
 Searching Images, Documents and custom models
