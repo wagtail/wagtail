@@ -412,4 +412,6 @@ $(function() {
     });
 });
 
-module.exports.cleanForSlug = cleanForSlug;
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports.cleanForSlug = cleanForSlug;
+}
