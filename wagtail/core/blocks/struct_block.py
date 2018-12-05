@@ -63,6 +63,15 @@ class BaseStructBlock(Block):
             if child_block_data['type'] in self.child_blocks
         ])
 
+    def prepare_value(self, value, errors=None):
+        children_errors = ({} if errors is None
+                           else errors.as_data()[0].params)
+        return [
+            self.child_blocks[k].prepare_for_react(
+                self, v, type_name=k, errors=children_errors.get(k))
+            for k, v in value.items()
+            if k in self.child_blocks]
+
     def get_definition(self):
         definition = super(BaseStructBlock, self).get_definition()
         definition.update(

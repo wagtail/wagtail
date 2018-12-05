@@ -22,9 +22,11 @@ class FieldBlock(Block):
     def id_for_label(self, prefix):
         return self.field.widget.id_for_label(prefix)
 
-    def prepare_for_react(self, value):
+    def prepare_value(self, value, errors=None):
         from wagtail.admin.rich_text import DraftailRichTextArea
 
+        if value == '':
+            value = None
         value = self.value_for_form(self.field.prepare_value(value))
         widget = self.field.widget
         if isinstance(self, RichTextBlock) \
@@ -32,10 +34,19 @@ class FieldBlock(Block):
             value = widget.format_value(value)
         return value
 
+    def prepare_for_react(self, parent_block, value,
+                          type_name=None, errors=None):
+        data = super().prepare_for_react(parent_block, value,
+                                         type_name=type_name, errors=errors)
+        if errors:
+            data['html'] = self.render_form(
+                value, prefix=Block.FIELD_NAME_TEMPLATE, errors=errors)
+        return data
+
     def get_definition(self):
         definition = super(FieldBlock, self).get_definition()
         definition.update(
-            default=self.prepare_for_react(self.get_default()),
+            default=self.prepare_value(self.get_default()),
             html=self.render_form(self.get_default(),
                                   prefix=self.FIELD_NAME_TEMPLATE),
         )

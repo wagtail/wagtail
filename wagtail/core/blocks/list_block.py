@@ -28,6 +28,17 @@ class ListBlock(Block):
                                                      prefix)
                 for child_block_data in data['value']]
 
+    def prepare_value(self, value, errors=None):
+        children_errors = (None if errors is None
+                           else errors.as_data()[0].params)
+        if children_errors is None:
+            children_errors = [None] * len(value)
+        return [
+            self.child_block.prepare_for_react(self, child_block_data,
+                                               errors=child_errors)
+            for child_block_data, child_errors
+            in zip(value, children_errors)]
+
     def get_definition(self):
         definition = super(ListBlock, self).get_definition()
         definition.update(
