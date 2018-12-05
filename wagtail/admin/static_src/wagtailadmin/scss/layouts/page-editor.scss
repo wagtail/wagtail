@@ -199,11 +199,20 @@ $object-title-height: 40px;
 
     // cursory styling for streamfield. Main styling in components/streamfield.scss
     &.stream-field {
+        background-color: #f6f6f6;
         padding-left: 0;
-        padding-right: 0;
+        padding-right: 20px;
+
+        @include media-breakpoint-up(sm) {
+            padding-left: 20px;
+        }
 
         &.required .field > label:after {
             display: none;
+        }
+
+        fieldset {
+            padding-bottom: 0;
         }
 
         // Undo column widths usually applied to the contents of a field panel

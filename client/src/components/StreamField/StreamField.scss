@@ -3,25 +3,6 @@ $screen-xs-max: 768px;
 @import '../../../../node_modules/react-streamfield/src/index';
 
 
-header.tab-merged {
-    overflow-x: hidden;
-}
-
-.object.stream-field {
-    background-color: #f6f6f6;
-    padding-right: 20px;
-}
-
-@media (max-width: $screen-xs-max) {
-    .object.stream-field {
-        padding-left: 20px;
-    }
-}
-
-.object.stream-field fieldset {
-    padding-bottom: 0;
-}
-
 .children-container {
     .block > .block-container {
         > aside > .actions > button,
