@@ -52,10 +52,6 @@ class BaseStreamBlock(Block):
         """
         return StreamValue(self, self.meta.default)
 
-    @property
-    def media(self):
-        return forms.Media(js=[static('wagtailadmin/js/blocks/sequence.js'), static('wagtailadmin/js/blocks/stream.js')])
-
     def value_from_datadict(self, data, files, prefix):
         return StreamValue(self, [
             (child_block_data['type'],

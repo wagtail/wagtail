@@ -56,10 +56,6 @@ class BaseStructBlock(Block):
         """
         return self._to_struct_value(self.meta.default.items())
 
-    @property
-    def media(self):
-        return forms.Media(js=[static('wagtailadmin/js/blocks/struct.js')])
-
     def value_from_datadict(self, data, files, prefix):
         return self._to_struct_value([
             (child_block_data['type'],

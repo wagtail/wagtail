@@ -1848,7 +1848,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
 
 class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
-    maxDiff = 2000
     def test_definition(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock()),
@@ -2671,7 +2670,7 @@ class TestPageChooserBlock(TestCase):
         block = blocks.PageChooserBlock()
         christmas_page = Page.objects.get(slug='christmas')
 
-        value = block.value_from_datadict({'value': christmas_page.id,},
+        value = block.value_from_datadict({'value': christmas_page.id},
                                           {}, 'page')
         self.assertEqual(value, christmas_page)
 

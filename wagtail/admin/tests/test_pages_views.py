@@ -27,7 +27,7 @@ from wagtail.core.signals import page_published, page_unpublished
 from wagtail.search.index import SearchField
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
-    DefaultStreamPage, EventCategory, EventPage, EventPageCarouselItem, FilePage,
+    EventCategory, EventPage, EventPageCarouselItem, FilePage,
     FormClassAdditionalFieldPage, ManyToManyBlogPage, SimplePage, SingleEventPage, SingletonPage,
     SingletonPageViaMaxCount, StandardChild, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils

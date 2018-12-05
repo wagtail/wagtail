@@ -25,10 +25,6 @@ class ListBlock(Block):
 
         self.dependencies = [self.child_block]
 
-    @property
-    def media(self):
-        return forms.Media(js=[static('wagtailadmin/js/blocks/sequence.js'), static('wagtailadmin/js/blocks/list.js')])
-
     def value_from_datadict(self, data, files, prefix):
         return [self.child_block.value_from_datadict(child_block_data, files,
                                                      prefix)
