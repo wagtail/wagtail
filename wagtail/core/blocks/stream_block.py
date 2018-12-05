@@ -5,16 +5,11 @@ from collections.abc import Sequence
 from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
-from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.utils.html import format_html_join
-from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
-from wagtail.core.utils import escape_script
-
 from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
-from .utils import indent, js_dict
 
 __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue', 'StreamBlockValidationError']
 
@@ -57,131 +52,36 @@ class BaseStreamBlock(Block):
         """
         return StreamValue(self, self.meta.default)
 
-    def sorted_child_blocks(self):
-        """Child blocks, sorted in to their groups."""
-        return sorted(self.child_blocks.values(),
-                      key=lambda child_block: child_block.meta.group)
-
-    def render_list_member(self, block_type_name, value, prefix, index, errors=None, id=None):
-        """
-        Render the HTML for a single list item. This consists of an <li> wrapper, hidden fields
-        to manage ID/deleted state/type, delete/reorder buttons, and the child block's own HTML.
-        """
-        child_block = self.child_blocks[block_type_name]
-        child = child_block.bind(value, prefix="%s-value" % prefix, errors=errors)
-        return render_to_string('wagtailadmin/block_forms/stream_member.html', {
-            'child_blocks': self.sorted_child_blocks(),
-            'block_type_name': block_type_name,
-            'prefix': prefix,
-            'child': child,
-            'index': index,
-            'block_id': id,
-        })
-
-    def html_declarations(self):
-        return format_html_join(
-            '\n', '<script type="text/template" id="{0}-newmember-{1}">{2}</script>',
-            [
-                (
-                    self.definition_prefix,
-                    name,
-                    mark_safe(escape_script(self.render_list_member(name, child_block.get_default(), '__PREFIX__', '')))
-                )
-                for name, child_block in self.child_blocks.items()
-            ]
-        )
-
     @property
     def media(self):
         return forms.Media(js=[static('wagtailadmin/js/blocks/sequence.js'), static('wagtailadmin/js/blocks/stream.js')])
 
-    def js_initializer(self):
-        # compile a list of info dictionaries, one for each available block type
-        child_blocks = []
-        for name, child_block in self.child_blocks.items():
-            # each info dictionary specifies at least a block name
-            child_block_info = {'name': "'%s'" % name}
-
-            # if the child defines a JS initializer function, include that in the info dict
-            # along with the param that needs to be passed to it for initializing an empty/default block
-            # of that type
-            child_js_initializer = child_block.js_initializer()
-            if child_js_initializer:
-                child_block_info['initializer'] = child_js_initializer
-
-            child_blocks.append(indent(js_dict(child_block_info)))
-
-        opts = {
-            'definitionPrefix': "'%s'" % self.definition_prefix,
-            'childBlocks': '[\n%s\n]' % ',\n'.join(child_blocks),
-        }
-
-        return "StreamBlock(%s)" % js_dict(opts)
-
-    def render_form(self, value, prefix='', errors=None):
-        error_dict = {}
-        if errors:
-            if len(errors) > 1:
-                # We rely on StreamBlock.clean throwing a single
-                # StreamBlockValidationError with a specially crafted 'params'
-                # attribute that we can pull apart and distribute to the child
-                # blocks
-                raise TypeError('StreamBlock.render_form unexpectedly received multiple errors')
-            error_dict = errors.as_data()[0].params
-
-        # value can be None when the StreamField is in a formset
-        if value is None:
-            value = self.get_default()
-        # drop any child values that are an unrecognised block type
-        valid_children = [child for child in value if child.block_type in self.child_blocks]
-
-        list_members_html = [
-            self.render_list_member(child.block_type, child.value, "%s-%d" % (prefix, i), i,
-                                    errors=error_dict.get(i), id=child.id)
-            for (i, child) in enumerate(valid_children)
-        ]
-
-        return render_to_string('wagtailadmin/block_forms/stream.html', {
-            'prefix': prefix,
-            'list_members_html': list_members_html,
-            'child_blocks': self.sorted_child_blocks(),
-            'header_menu_prefix': '%s-before' % prefix,
-            'block_errors': error_dict.get(NON_FIELD_ERRORS),
-        })
-
     def value_from_datadict(self, data, files, prefix):
-        count = int(data['%s-count' % prefix])
-        values_with_indexes = []
-        for i in range(0, count):
-            if data['%s-%d-deleted' % (prefix, i)]:
-                continue
-            block_type_name = data['%s-%d-type' % (prefix, i)]
-            try:
-                child_block = self.child_blocks[block_type_name]
-            except KeyError:
-                continue
-
-            values_with_indexes.append(
-                (
-                    int(data['%s-%d-order' % (prefix, i)]),
-                    block_type_name,
-                    child_block.value_from_datadict(data, files, '%s-%d-value' % (prefix, i)),
-                    data.get('%s-%d-id' % (prefix, i)),
-                )
-            )
-
-        values_with_indexes.sort()
         return StreamValue(self, [
-            (child_block_type_name, value, block_id)
-            for (index, child_block_type_name, value, block_id) in values_with_indexes
+            (child_block_data['type'],
+             self.child_blocks[child_block_data['type']].value_from_datadict(
+                 child_block_data, files, prefix,
+             ),
+             child_block_data['id'])
+            for child_block_data in data['value']
+            if child_block_data['type'] in self.child_blocks
         ])
-
-    def value_omitted_from_data(self, data, files, prefix):
-        return ('%s-count' % prefix) not in data
 
     @property
     def required(self):
         return self.meta.required
+
+    def get_definition(self):
+        definition = super(BaseStreamBlock, self).get_definition()
+        definition.update(
+            children=[
+                child_block.get_definition()
+                for child_block in self.child_blocks.values()
+            ],
+            minNum=self.meta.min_num,
+            maxNum=self.meta.max_num,
+        )
+        return definition
 
     def clean(self, value):
         cleaned_data = []

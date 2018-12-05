@@ -492,12 +492,14 @@ class TestEmbedBlock(TestCase):
         """
         block = EmbedBlock(required=False)
 
-        block_val = block.value_from_datadict({'myembed': 'http://www.example.com/foo'}, {}, prefix='myembed')
+        block_val = block.value_from_datadict(
+            {'value': 'http://www.example.com/foo'}, {}, prefix='myembed')
         self.assertIsInstance(block_val, EmbedValue)
         self.assertEqual(block_val.url, 'http://www.example.com/foo')
 
         # empty value should result in None
-        empty_val = block.value_from_datadict({'myembed': ''}, {}, prefix='myembed')
+        empty_val = block.value_from_datadict({'value': ''},
+                                              {}, prefix='myembed')
         self.assertEqual(empty_val, None)
 
     def test_default(self):

@@ -22,6 +22,35 @@ class FieldBlock(Block):
     def id_for_label(self, prefix):
         return self.field.widget.id_for_label(prefix)
 
+    def prepare_for_react(self, value):
+        from wagtail.admin.rich_text import DraftailRichTextArea
+
+        value = self.value_for_form(self.field.prepare_value(value))
+        widget = self.field.widget
+        if isinstance(self, RichTextBlock) \
+                and isinstance(widget, DraftailRichTextArea):
+            value = widget.format_value(value)
+        return value
+
+    def get_definition(self):
+        definition = super(FieldBlock, self).get_definition()
+        definition.update(
+            default=self.prepare_for_react(self.get_default()),
+            html=self.render_form(self.get_default(),
+                                  prefix=self.FIELD_NAME_TEMPLATE),
+        )
+        title_template = self.get_title_template()
+        if title_template is not None:
+            definition['titleTemplate'] = title_template
+        return definition
+
+    def get_title_template(self):
+        if isinstance(self, (CharBlock, TextBlock, FloatBlock,
+                             DecimalBlock, RegexBlock, URLBlock,
+                             DateBlock, TimeBlock, DateTimeBlock,
+                             EmailBlock, IntegerBlock)):
+            return '${%s}' % self.name
+
     def render_form(self, value, prefix='', errors=None):
         field = self.field
         widget = field.widget
@@ -66,10 +95,9 @@ class FieldBlock(Block):
         return value
 
     def value_from_datadict(self, data, files, prefix):
-        return self.value_from_form(self.field.widget.value_from_datadict(data, files, prefix))
-
-    def value_omitted_from_data(self, data, files, prefix):
-        return self.field.widget.value_omitted_from_data(data, files, prefix)
+        return self.value_from_form(
+            self.field.widget.value_from_datadict(
+                {'value': data['value']}, files, 'value'))
 
     def clean(self, value):
         # We need an annoying value_for_form -> value_from_form round trip here to account for

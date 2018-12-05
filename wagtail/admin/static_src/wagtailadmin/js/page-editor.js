@@ -25,6 +25,12 @@ function hideCurrent(current, input) {
     }
 }
 
+
+function onChangeDateTime (picker, $input) {
+    $input[0].dispatchEvent(new Event('change'));
+}
+
+
 function initDateChooser(id, opts) {
     if (window.dateTimePickerTranslations) {
         $('#' + id).datetimepicker($.extend({
@@ -32,14 +38,20 @@ function initDateChooser(id, opts) {
             timepicker: false,
             scrollInput: false,
             format: 'Y-m-d',
-            onGenerate: hideCurrent
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            lang: 'lang',
+            onGenerate: hideCurrent,
+            onChangeDateTime: onChangeDateTime,
         }, opts || {}));
     } else {
         $('#' + id).datetimepicker($.extend({
             timepicker: false,
             scrollInput: false,
             format: 'Y-m-d',
-            onGenerate: hideCurrent
+            onGenerate: hideCurrent,
+            onChangeDateTime: onChangeDateTime,
         }, opts || {}));
     }
 }
@@ -51,11 +63,17 @@ function initTimeChooser(id) {
             datepicker: false,
             scrollInput: false,
             format: 'H:i',
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            lang: 'lang',
+            onChangeDateTime: onChangeDateTime,
         });
     } else {
         $('#' + id).datetimepicker({
             datepicker: false,
-            format: 'H:i'
+            format: 'H:i',
+            onChangeDateTime: onChangeDateTime,
         });
     }
 }
@@ -66,12 +84,18 @@ function initDateTimeChooser(id, opts) {
             closeOnDateSelect: true,
             format: 'Y-m-d H:i',
             scrollInput: false,
-            onGenerate: hideCurrent
+            i18n: {
+                lang: window.dateTimePickerTranslations
+            },
+            lang: 'lang',
+            onGenerate: hideCurrent,
+            onChangeDateTime: onChangeDateTime,
         }, opts || {}));
     } else {
         $('#' + id).datetimepicker($.extend({
             format: 'Y-m-d H:i',
-            onGenerate: hideCurrent
+            onGenerate: hideCurrent,
+            onChangeDateTime: onChangeDateTime,
         }, opts || {}));
     }
 }
@@ -241,20 +265,14 @@ function cleanForSlug(val, useURLify) {
     if (useURLify) {
         // URLify performs extra processing on the string (e.g. removing stopwords) and is more suitable
         // for creating a slug from the title, rather than sanitising a slug entered manually
-        let cleaned = URLify(val, 255, unicodeSlugsEnabled);
-
-        // if the result is blank (e.g. because the title consisted entirely of stopwords),
-        // fall through to the non-URLify method
-        if (cleaned) {
-            return cleaned;
-        }
-    }
-
-    // just do the "replace"
-    if (unicodeSlugsEnabled) {
-        return val.replace(/\s/g, '-').replace(/[&\/\\#,+()$~%.'":`@\^!*?<>{}]/g, '').toLowerCase();
+        return URLify(val, 255, unicodeSlugsEnabled);
     } else {
-        return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-\_]/g, '').toLowerCase();
+        // just do the "replace"
+        if (unicodeSlugsEnabled) {
+            return val.replace(/\s/g, '-').replace(/[&\/\\#,+()$~%.'":`@\^!*?<>{}]/g, '').toLowerCase();
+        } else {
+            return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-\_]/g, '').toLowerCase();
+        }
     }
 }
 
@@ -411,7 +429,3 @@ $(function() {
         });
     });
 });
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports.cleanForSlug = cleanForSlug;
-}

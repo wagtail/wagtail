@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 
 // Generates a path to an entry file to be compiled by Webpack.
 const getEntryPath = (app, filename) => path.resolve('wagtail', app, 'static_src', `wagtail${app}`, 'app', filename);
@@ -25,6 +24,7 @@ module.exports = function exports() {
 
   entry[getOutputPath('admin', 'wagtailadmin')] = getEntryPath('admin', 'wagtailadmin.entry.js');
   entry[getOutputPath('admin', 'draftail')] = getEntryPath('admin', 'draftail.entry.js');
+  entry[getOutputPath('admin', 'streamfield')] = getEntryPath('admin', 'streamfield.entry.js');
 
   return {
     entry: entry,
@@ -33,13 +33,17 @@ module.exports = function exports() {
       filename: '[name].js',
       publicPath: '/static/js/'
     },
-    plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        filename: getOutputPath('admin', '[name].js'),
-        minChunks: 2,
-      }),
-    ],
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            name: 'vendor',
+            filename: getOutputPath('admin', '[name].js'),
+            minChunks: 2,
+          }
+        }
+      }
+    },
     resolve: {
       alias: {
         'wagtail-client': path.resolve('.', 'client'),
@@ -50,7 +54,53 @@ module.exports = function exports() {
         {
           test: /\.js$/,
           loader: 'babel-loader',
-          exclude: /node_modules/,
+          // exclude: /node_modules/,
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react'
+            ],
+            plugins: [
+              '@babel/plugin-proposal-class-properties',
+              [
+                '@babel/plugin-proposal-decorators',
+                {
+                  legacy: true
+                }
+              ],
+              '@babel/plugin-proposal-object-rest-spread'
+            ],
+            env: {
+              test: {
+                presets: [
+                  '@babel/preset-env',
+                  '@babel/preset-react'
+                ]
+              },
+              production: {
+                plugins: [
+                  '@babel/plugin-proposal-class-properties',
+                  [
+                    '@babel/plugin-proposal-decorators',
+                    {
+                      legacy: true
+                    }
+                  ],
+                  '@babel/plugin-proposal-object-rest-spread',
+                  [
+                    'transform-react-remove-prop-types',
+                    {
+                      mode: 'remove',
+                      removeImport: true,
+                      ignoreFilenames: [
+                        'node_modules'
+                      ],
+                    },
+                  ],
+                ],
+              },
+            },
+          },
         },
       ].concat(Object.keys(exposedDependencies).map((name) => {
         const globalName = exposedDependencies[name];

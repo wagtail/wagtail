@@ -857,7 +857,8 @@ class TestSnippetChooserBlock(TestCase):
         block = SnippetChooserBlock(Advert)
         test_advert = Advert.objects.get(text='test_advert')
 
-        value = block.value_from_datadict({'advert': str(test_advert.id)}, {}, 'advert')
+        value = block.value_from_datadict({'value': test_advert.id},
+                                          {}, 'advert')
         self.assertEqual(value, test_advert)
 
         empty_value = block.value_from_datadict({'advert': ''}, {}, 'advert')
@@ -1004,7 +1005,8 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
         block = SnippetChooserBlock(AdvertWithCustomPrimaryKey)
         test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert/01')
 
-        value = block.value_from_datadict({'advertwithcustomprimarykey': str(test_advert.pk)}, {}, 'advertwithcustomprimarykey')
+        value = block.value_from_datadict({'value': test_advert.pk},
+                                          {}, 'advertwithcustomprimarykey')
         self.assertEqual(value, test_advert)
 
         empty_value = block.value_from_datadict({'advertwithcustomprimarykey': ''}, {}, 'advertwithcustomprimarykey')

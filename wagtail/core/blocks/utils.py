@@ -1,23 +1,36 @@
-import re
+import json
+
+from django.core.serializers.json import DjangoJSONEncoder
 
 
-# helpers for Javascript expression formatting
+class ConfigJSONEncoder(DjangoJSONEncoder):
+    def default(self, o):
+        if isinstance(o, BlockData):
+            return o.data
+        return super().default(o)
 
 
-def indent(string, depth=1):
-    """indent all non-empty lines of string by 'depth' 4-character tabs"""
-    return re.sub(r'(^|\n)([^\n]+)', r'\g<1>' + ('    ' * depth) + r'\g<2>', string)
+class InputJSONEncoder(DjangoJSONEncoder):
+    def default(self, o):
+        if isinstance(o, BlockData):
+            return {'id': o['id'],
+                    'type': o['type'],
+                    'value': o['value']}
+        return super().default(o)
 
 
-def js_dict(d):
-    """
-    Return a Javascript expression string for the dict 'd'.
-    Keys are assumed to be strings consisting only of JS-safe characters, and will be quoted but not escaped;
-    values are assumed to be valid Javascript expressions and will be neither escaped nor quoted (but will be
-    wrapped in parentheses, in case some awkward git decides to use the comma operator...)
-    """
-    dict_items = [
-        indent("'%s': (%s)" % (k, v))
-        for (k, v) in d.items()
-    ]
-    return "{\n%s\n}" % ',\n'.join(dict_items)
+def to_json_script(data, encoder=ConfigJSONEncoder):
+    return json.dumps(
+        data, separators=(',', ':'), cls=encoder
+    ).replace('<', '\\u003c')
+
+
+class BlockData:
+    def __init__(self, data):
+        self.data = data
+
+    def __getitem__(self, item):
+        return self.data[item]
+
+    def __setitem__(self, key, value):
+        self.data[key] = value

@@ -20,6 +20,15 @@ class StaticBlock(Block):
     def value_from_datadict(self, data, files, prefix):
         return None
 
+    def get_definition(self):
+        definition = Block.get_definition(self)
+        definition.update(
+            isStatic=True,
+            html=self.render_form(self.get_default(),
+                                  prefix=self.FIELD_NAME_TEMPLATE),
+        )
+        return definition
+
     class Meta:
         admin_text = None
         default = None

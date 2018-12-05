@@ -3,13 +3,11 @@ import collections
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
-from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
 
 from .base import Block, DeclarativeSubBlocksMetaclass
-from .utils import js_dict
 
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 
@@ -48,12 +46,6 @@ class BaseStructBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
-        self.child_js_initializers = {}
-        for name, block in self.child_blocks.items():
-            js_initializer = block.js_initializer()
-            if js_initializer is not None:
-                self.child_js_initializers[name] = js_initializer
-
         self.dependencies = self.child_blocks.values()
 
     def get_default(self):
@@ -64,60 +56,32 @@ class BaseStructBlock(Block):
         """
         return self._to_struct_value(self.meta.default.items())
 
-    def js_initializer(self):
-        # skip JS setup entirely if no children have js_initializers
-        if not self.child_js_initializers:
-            return None
-
-        return "StructBlock(%s)" % js_dict(self.child_js_initializers)
-
     @property
     def media(self):
         return forms.Media(js=[static('wagtailadmin/js/blocks/struct.js')])
 
-    def get_form_context(self, value, prefix='', errors=None):
-        if errors:
-            if len(errors) > 1:
-                # We rely on StructBlock.clean throwing a single ValidationError with a specially crafted
-                # 'params' attribute that we can pull apart and distribute to the child blocks
-                raise TypeError('StructBlock.render_form unexpectedly received multiple errors')
-            error_dict = errors.as_data()[0].params
-        else:
-            error_dict = {}
-
-        bound_child_blocks = collections.OrderedDict([
-            (
-                name,
-                block.bind(value.get(name, block.get_default()),
-                           prefix="%s-%s" % (prefix, name), errors=error_dict.get(name))
-            )
-            for name, block in self.child_blocks.items()
-        ])
-
-        return {
-            'children': bound_child_blocks,
-            'help_text': getattr(self.meta, 'help_text', None),
-            'classname': self.meta.form_classname,
-            'block_definition': self,
-            'prefix': prefix,
-        }
-
-    def render_form(self, value, prefix='', errors=None):
-        context = self.get_form_context(value, prefix=prefix, errors=errors)
-
-        return render_to_string(self.meta.form_template, context)
-
     def value_from_datadict(self, data, files, prefix):
         return self._to_struct_value([
-            (name, block.value_from_datadict(data, files, '%s-%s' % (prefix, name)))
-            for name, block in self.child_blocks.items()
+            (child_block_data['type'],
+             self.child_blocks[child_block_data['type']].value_from_datadict(
+                 child_block_data, files, prefix,
+             ))
+            for child_block_data in data['value']
+            if child_block_data['type'] in self.child_blocks
         ])
 
-    def value_omitted_from_data(self, data, files, prefix):
-        return all(
-            block.value_omitted_from_data(data, files, '%s-%s' % (prefix, name))
-            for name, block in self.child_blocks.items()
+    def get_definition(self):
+        definition = super(BaseStructBlock, self).get_definition()
+        definition.update(
+            isStruct=True,
+            children=[child_block.get_definition()
+                      for child_block in self.child_blocks.values()],
         )
+        for child_definition in definition['children']:
+            if 'titleTemplate' in child_definition:
+                definition['titleTemplate'] = child_definition['titleTemplate']
+                break
+        return definition
 
     def clean(self, value):
         result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor

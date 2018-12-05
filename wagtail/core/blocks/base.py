@@ -1,9 +1,12 @@
 import collections
+import json
 from importlib import import_module
+from uuid import uuid4
 
 from django import forms
 from django.core import checks
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, NON_FIELD_ERRORS
+from django.forms import Media
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
@@ -12,6 +15,11 @@ from django.utils.text import capfirst
 # unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
 # return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
 # calls force_text, which would cause it to lose its 'safe' flag
+from .utils import (
+    BlockData,
+    InputJSONEncoder,
+    to_json_script,
+)
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
 
@@ -41,6 +49,11 @@ class Block(metaclass=BaseBlock):
     creation_counter = 0
 
     TEMPLATE_VAR = 'value'
+
+    FIELD_NAME_TEMPLATE = 'field-__ID__'
+
+    SIMPLE = 'SIMPLE'
+    COLLAPSIBLE = 'COLLAPSIBLE'
 
     class Meta:
         label = None
@@ -81,10 +94,6 @@ class Block(metaclass=BaseBlock):
             media += block.media
         return media
 
-    def all_html_declarations(self):
-        declarations = filter(bool, [block.html_declarations() for block in self.all_blocks()])
-        return mark_safe('\n'.join(declarations))
-
     def __init__(self, **kwargs):
         self.meta = self._meta_class()
 
@@ -107,21 +116,25 @@ class Block(metaclass=BaseBlock):
     def media(self):
         return forms.Media()
 
-    def html_declarations(self):
-        """
-        Return an HTML fragment to be rendered on the form page once per block definition -
-        as opposed to once per occurrence of the block. For example, the block definition
-            ListBlock(label="Shopping list", CharBlock(label="Product"))
-        needs to output a <script type="text/template"></script> block containing the HTML for
-        a 'product' text input, to that these can be dynamically added to the list. This
-        template block must only occur once in the page, even if there are multiple 'shopping list'
-        blocks on the page.
+    def get_layout(self):
+        return self.SIMPLE
 
-        Any element IDs used in this HTML fragment must begin with definition_prefix.
-        (More precisely, they must either be definition_prefix itself, or begin with definition_prefix
-        followed by a '-' character)
-        """
-        return ''
+    def get_definition(self):
+        definition = {
+            'key': self.name,
+            'label': capfirst(self.label),
+            'required': self.required,
+            'layout': self.get_layout(),
+            'dangerouslyRunInnerScripts': True,
+        }
+        if self.meta.icon != Block._meta_class.icon:
+            definition['icon'] = ('<i class="icon icon-%s"></i>'
+                                  % self.meta.icon)
+        if self.meta.classname is not None:
+            definition['className'] = self.meta.classname
+        if self.meta.group:
+            definition['group'] = str(self.meta.group)
+        return definition
 
     def js_initializer(self):
         """
@@ -143,14 +156,6 @@ class Block(metaclass=BaseBlock):
 
     def value_from_datadict(self, data, files, prefix):
         raise NotImplementedError('%s.value_from_datadict' % self.__class__)
-
-    def value_omitted_from_data(self, data, files, name):
-        """
-        Used only for top-level blocks wrapped by BlockWidget (i.e.: typically only StreamBlock)
-        to inform ModelForm logic on Django >=1.10.2 whether the field is absent from the form
-        submission (and should therefore revert to the field default).
-        """
-        return name not in data
 
     def bind(self, value, prefix=None, errors=None):
         """
@@ -485,34 +490,109 @@ class BlockWidget(forms.Widget):
         super().__init__(attrs=attrs)
         self.block_def = block_def
 
-    def render_with_errors(self, name, value, attrs=None, errors=None, renderer=None):
-        bound_block = self.block_def.bind(value, prefix=name, errors=errors)
-        js_initializer = self.block_def.js_initializer()
-        if js_initializer:
-            js_snippet = """
-                <script>
-                $(function() {
-                    var initializer = %s;
-                    initializer('%s');
-                })
-                </script>
-            """ % (js_initializer, name)
-        else:
-            js_snippet = ''
-        return mark_safe(bound_block.render_form() + js_snippet)
+    def prepare_value(self, parent_block, block, value, type_name=None,
+                      errors=None):
+        from . import StructBlock, ListBlock, StreamBlock, FieldBlock
+
+        if type_name is None:
+            type_name = block.name
+        if isinstance(block, StructBlock):
+            children_errors = ({} if errors is None
+                               else errors.as_data()[0].params)
+            value = [
+                self.prepare_value(
+                    block, block.child_blocks[k], v, type_name=k,
+                    errors=children_errors.get(k))
+                for k, v in value.items()
+                if k in block.child_blocks]
+        elif isinstance(block, ListBlock):
+            children_errors = (None if errors is None
+                               else errors.as_data()[0].params)
+            if children_errors is None:
+                children_errors = [None] * len(value)
+            value = [
+                self.prepare_value(
+                    block, block.child_block, child_block_data,
+                    errors=child_errors)
+                for child_block_data, child_errors
+                in zip(value, children_errors)]
+        elif isinstance(block, StreamBlock):
+            children_errors = ({} if errors is None
+                               else errors.as_data()[0].params)
+            value = [
+                self.prepare_value(
+                    block, child_block_data.block, child_block_data.value,
+                    errors=children_errors.get(i))
+                for i, child_block_data in enumerate(value)]
+        if parent_block is None:
+            return value
+        data = BlockData({
+            'id': str(uuid4()),
+            'type': type_name,
+            'hasError': bool(errors),
+        })
+        if isinstance(block, FieldBlock):
+            if errors:
+                data['html'] = block.render_form(
+                    value, prefix=Block.FIELD_NAME_TEMPLATE, errors=errors)
+            if value == '':
+                value = None
+            value = block.prepare_for_react(value)
+        data['value'] = value
+        return data
+
+    def get_actions_icons(self):
+        return {
+            'moveUp': '<i class="icon icon-arrow-up"></i>',
+            'moveDown': '<i class="icon icon-arrow-down"></i>',
+            'duplicate': '<i class="icon icon-plus-inverse"></i>',
+            'delete': '<i class="icon icon-bin"></i>',
+            'grip': '<i class="icon icon-grip"></i>',
+        }
+
+    def get_streamfield_config(self, value, errors=None):
+        return {
+            'required': self.block_def.required,
+            'minNum': self.block_def.meta.min_num,
+            'maxNum': self.block_def.meta.max_num,
+            'icons': self.get_actions_icons(),
+            'blockDefinitions': self.block_def.get_definition()['children'],
+            'value': self.prepare_value(None,
+                                        self.block_def, value, errors=errors),
+        }
+
+    def render_with_errors(self, name, value, attrs=None, errors=None,
+                           renderer=None):
+        streamfield_config = self.get_streamfield_config(value, errors=errors)
+        escaped_value = to_json_script(streamfield_config['value'],
+                                       encoder=InputJSONEncoder)
+        non_block_errors = ([] if errors is None
+                            else errors.as_data()[0].params[NON_FIELD_ERRORS])
+        non_block_errors = ''.join([
+            mark_safe('<div class="help-block help-critical">%s</div>') % error
+            for error in non_block_errors])
+        return mark_safe("""
+        <script type="application/json" data-streamfield="%s">%s</script>
+        <textarea style="display: none;" name="%s">%s</textarea>
+        %s
+        """ % (name, to_json_script(streamfield_config),
+               name, escaped_value, non_block_errors))
 
     def render(self, name, value, attrs=None, renderer=None):
         return self.render_with_errors(name, value, attrs=attrs, errors=None, renderer=renderer)
 
     @property
     def media(self):
-        return self.block_def.all_media()
+        return self.block_def.all_media() + Media(
+            js=['wagtailadmin/js/streamfield.js'],
+            css={'all': [
+                'wagtailadmin/css/panels/streamfield.css',
+            ]})
 
     def value_from_datadict(self, data, files, name):
-        return self.block_def.value_from_datadict(data, files, name)
-
-    def value_omitted_from_data(self, data, files, name):
-        return self.block_def.value_omitted_from_data(data, files, name)
+        stream_field_data = json.loads(data.get(name))
+        return self.block_def.value_from_datadict({'value': stream_field_data},
+                                                  files, name)
 
 
 class BlockField(forms.Field):

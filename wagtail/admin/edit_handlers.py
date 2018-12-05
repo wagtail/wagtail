@@ -818,9 +818,6 @@ class StreamFieldPanel(FieldPanel):
 
         return classes
 
-    def html_declarations(self):
-        return self.block_def.all_html_declarations()
-
     def get_comparison_class(self):
         return compare.StreamFieldComparison
 

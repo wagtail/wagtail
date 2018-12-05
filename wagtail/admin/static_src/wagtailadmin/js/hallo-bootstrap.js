@@ -27,15 +27,15 @@ function makeHalloRichTextEditable(id, plugins) {
     }
 
     var closestObj = input.closest('.object');
-    var isRoot = input.closest('.struct-block').length == 0;
 
     editor.hallo({
         toolbar: 'halloToolbarFixed',
-        toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field') && isRoot) ? 'stream-field' : '',
+        toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : '',
         /* use the passed-in plugins arg */
         plugins: plugins
     }).on('hallomodified', function(event, data) {
         input.val(data.content);
+        input.attr('value', data.content);
         if (!removeStylingPending) {
             setTimeout(removeStyling, 100);
             removeStylingPending = true;
@@ -92,4 +92,4 @@ $(function() {
     $('[data-hallo-editor] [contenteditable="false"]').each(function() {
         insertRichTextDeleteControl(this);
     });
-})
+});

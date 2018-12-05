@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*
 import base64
-import collections
 import json
 import unittest
 from datetime import date, datetime
@@ -17,6 +16,7 @@ from django.utils.safestring import SafeData, mark_safe
 from django.utils.translation import ugettext_lazy as __
 
 from wagtail.core import blocks
+from wagtail.core.blocks import StreamValue
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
@@ -43,6 +43,21 @@ class ContextCharBlock(blocks.CharBlock):
 
 
 class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
+    def test_charfield_definition(self):
+        block = blocks.CharBlock()
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML(
+            '<input type="text" name="field-__ID__" id="field-__ID__" '
+            'placeholder="Test" />',
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': None, 'titleTemplate': '${test}',
+        })
+
     def test_charfield_render(self):
         block = blocks.CharBlock()
         html = block.render("Hello world!")
@@ -145,7 +160,8 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         form_html = block.render_form('hello world', 'title')
         self.assertIn('value="hello world"', form_html)
 
-        value_from_form = block.value_from_datadict({'title': 'hello world'}, {}, 'title')
+        value_from_form = block.value_from_datadict({'value': 'hello world'},
+                                                    {}, 'title')
         self.assertEqual('hello world', value_from_form)
 
     def test_widget_media(self):
@@ -223,12 +239,28 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
             html)
 
         # Check that the value was coerced back to a PrefixValue
-        data = {'url': 'http://example.com/bar'}
-        new_value = block.clean(block.value_from_datadict(data, {}, 'url'))
+        new_value = block.clean(block.value_from_datadict(
+            {'value': 'http://example.com/bar'}, {}, 'url'))
         self.assertEqual(new_value, PrefixWrapper('bar'))
 
 
-class TestIntegerBlock(unittest.TestCase):
+class TestIntegerBlock(TestCase):
+    def test_definition(self):
+        block = blocks.IntegerBlock()
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML(
+            '<input type="number" name="field-__ID__" id="field-__ID__" '
+            'placeholder="Test" />',
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'icon': '<i class="icon icon-plus-inverse"></i>',
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': None, 'titleTemplate': '${test}',
+        })
+
     def test_type(self):
         block = blocks.IntegerBlock()
         digit = block.value_from_form(1234)
@@ -260,7 +292,23 @@ class TestIntegerBlock(unittest.TestCase):
             block.clean(10)
 
 
-class TestEmailBlock(unittest.TestCase):
+class TestEmailBlock(TestCase):
+    def test_definition(self):
+        block = blocks.EmailBlock()
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML(
+            '<input type="email" name="field-__ID__" id="field-__ID__" '
+            'placeholder="Test" />',
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'icon': '<i class="icon icon-mail"></i>',
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': None, 'titleTemplate': '${test}',
+        })
+
     def test_render(self):
         block = blocks.EmailBlock()
         email = block.render("example@email.com")
@@ -280,7 +328,23 @@ class TestEmailBlock(unittest.TestCase):
             block.clean("example.email.com")
 
 
-class TestBlockQuoteBlock(unittest.TestCase):
+class TestBlockQuoteBlock(TestCase):
+    def test_definition(self):
+        block = blocks.BlockQuoteBlock()
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML(
+            '<textarea name="field-__ID__" cols="40" rows="1" '
+            'id="field-__ID__" placeholder="Test"></textarea>',
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'icon': '<i class="icon icon-openquote"></i>',
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': None, 'titleTemplate': '${test}',
+        })
+
     def test_render(self):
         block = blocks.BlockQuoteBlock()
         quote = block.render("Now is the time...")
@@ -289,6 +353,22 @@ class TestBlockQuoteBlock(unittest.TestCase):
 
 
 class TestFloatBlock(TestCase):
+    def test_definition(self):
+        block = blocks.FloatBlock()
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML(
+            '<input type="number" name="field-__ID__" step="any" '
+            'id="field-__ID__" placeholder="Test" />',
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'icon': '<i class="icon icon-plus-inverse"></i>',
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': None, 'titleTemplate': '${test}',
+        })
+
     def test_type(self):
         block = blocks.FloatBlock()
         block_val = block.value_from_form(float(1.63))
@@ -320,6 +400,22 @@ class TestFloatBlock(TestCase):
 
 
 class TestDecimalBlock(TestCase):
+    def test_definition(self):
+        block = blocks.DecimalBlock()
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML(
+            '<input type="number" name="field-__ID__" step="any" '
+            'id="field-__ID__" placeholder="Test" />',
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'icon': '<i class="icon icon-plus-inverse"></i>',
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': None, 'titleTemplate': '${test}',
+        })
+
     def test_type(self):
         block = blocks.DecimalBlock()
         block_val = block.value_from_form(Decimal('1.63'))
@@ -352,6 +448,21 @@ class TestDecimalBlock(TestCase):
 
 
 class TestRegexBlock(TestCase):
+    def test_definition(self):
+        block = blocks.RegexBlock(regex=r'^[0-9]{3}$')
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML(
+            '<input type="text" name="field-__ID__" id="field-__ID__" '
+            'placeholder="Test" />',
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'icon': '<i class="icon icon-code"></i>',
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': None, 'titleTemplate': '${test}',
+        })
 
     def test_render(self):
         block = blocks.RegexBlock(regex=r'^[0-9]{3}$')
@@ -407,6 +518,20 @@ class TestRegexBlock(TestCase):
 
 class TestRichTextBlock(TestCase):
     fixtures = ['test.json']
+
+    def test_definition(self):
+        block = blocks.RichTextBlock()
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML("window.draftail.initEditor('#field\\u002D__ID__',",
+                          definition['html'])
+        del definition['html']
+        del definition['default']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'icon': '<i class="icon icon-doc-full"></i>',
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+        })
 
     def test_get_default_with_fallback_value(self):
         default_value = blocks.RichTextBlock().get_default()
@@ -474,6 +599,30 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def setUp(self):
         from django.db.models.fields import BLANK_CHOICE_DASH
         self.blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
+
+    def test_choicefield_definition(self):
+        class ChoiceBlock(blocks.FieldBlock):
+            field = forms.ChoiceField(choices=(
+                ('choice-1', "Choice 1"),
+                ('choice-2', "Choice 2"),
+            ))
+
+        block = ChoiceBlock()
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML("""
+            <select name="field-__ID__" id="field-__ID__"
+                    placeholder="Test">
+                <option value="choice-1">Choice 1</option>
+                <option value="choice-2">Choice 2</option>
+            </select>
+        """, definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': None,
+        })
 
     def test_render_required_choice_block(self):
         block = blocks.ChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
@@ -754,7 +903,23 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         )
 
 
-class TestRawHTMLBlock(unittest.TestCase):
+class TestRawHTMLBlock(TestCase):
+    def test_definition(self):
+        block = blocks.RawHTMLBlock()
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML(
+            '<textarea name="field-__ID__" cols="40" rows="10" '
+            'id="field-__ID__" placeholder="Test"></textarea>',
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'icon': '<i class="icon icon-code"></i>',
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': '',
+        })
+
     def test_get_default_with_fallback_value(self):
         default_value = blocks.RawHTMLBlock().get_default()
         self.assertEqual(default_value, '')
@@ -802,15 +967,10 @@ class TestRawHTMLBlock(unittest.TestCase):
 
     def test_form_response(self):
         block = blocks.RawHTMLBlock()
-        result = block.value_from_datadict({'rawhtml': '<blink>BÖÖM</blink>'}, {}, prefix='rawhtml')
+        result = block.value_from_datadict({'value': '<blink>BÖÖM</blink>'},
+                                           {}, prefix='rawhtml')
         self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertIsInstance(result, SafeData)
-
-    def test_value_omitted_from_data(self):
-        block = blocks.RawHTMLBlock()
-        self.assertFalse(block.value_omitted_from_data({'rawhtml': 'ohai'}, {}, 'rawhtml'))
-        self.assertFalse(block.value_omitted_from_data({'rawhtml': ''}, {}, 'rawhtml'))
-        self.assertTrue(block.value_omitted_from_data({'nothing-here': 'nope'}, {}, 'rawhtml'))
 
     def test_clean_required_field(self):
         block = blocks.RawHTMLBlock()
@@ -905,6 +1065,31 @@ class TestMeta(unittest.TestCase):
 
 
 class TestStructBlock(SimpleTestCase):
+    def test_definition(self):
+        block = blocks.StructBlock([
+            ('title', blocks.CharBlock()),
+            ('link', blocks.URLBlock()),
+        ])
+        block.set_name('test')
+        definition = block.get_definition()
+        del definition['children'][0]['html']
+        del definition['children'][1]['html']
+        self.assertDictEqual(definition, {
+            'isStruct': True,
+            'key': 'test', 'label': 'Test', 'required': False,
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'titleTemplate': '${title}',
+            'children': [
+                {'key': 'title', 'label': 'Title', 'layout': 'SIMPLE',
+                 'required': True, 'titleTemplate': '${title}',
+                 'dangerouslyRunInnerScripts': True, 'default': None},
+                {'key': 'link', 'label': 'Link', 'layout': 'SIMPLE',
+                 'required': True, 'titleTemplate': '${link}',
+                 'icon': '<i class="icon icon-site"></i>',
+                 'dangerouslyRunInnerScripts': True, 'default': None}
+            ]
+        })
+
     def test_initialisation(self):
         block = blocks.StructBlock([
             ('title', blocks.CharBlock()),
@@ -1063,114 +1248,43 @@ class TestStructBlock(SimpleTestCase):
         expected = '<div class="rich-text"><b>world</b></div>'
         self.assertEqual(str(body_bound_block), expected)
 
-    def test_get_form_context(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock()
-            link = blocks.URLBlock()
-
-        block = LinkBlock()
-        context = block.get_form_context(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
-
-        self.assertTrue(isinstance(context['children'], collections.OrderedDict))
-        self.assertEqual(len(context['children']), 2)
-        self.assertTrue(isinstance(context['children']['title'], blocks.BoundBlock))
-        self.assertEqual(context['children']['title'].value, "Wagtail site")
-        self.assertTrue(isinstance(context['children']['link'], blocks.BoundBlock))
-        self.assertEqual(context['children']['link'].value, 'http://www.wagtail.io')
-        self.assertEqual(context['block_definition'], block)
-        self.assertEqual(context['prefix'], 'mylink')
-
-    def test_render_form(self):
+    def test_definition_contains_required_field(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock(required=False)
-            link = blocks.URLBlock(required=False)
-
-        block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
-
-        self.assertIn('<div class="struct-block">', html)
-        self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
-        self.assertIn('<label for="mylink-title">Title:</label>', html)
-        self.assertInHTML(
-            '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html
-        )
-        self.assertIn('<div class="field url_field widget-url_input fieldname-link">', html)
-        self.assertInHTML(
-            (
-                '<input id="mylink-link" name="mylink-link" placeholder="Link"'
-                ' type="url" value="http://www.wagtail.io" />'
-            ),
-            html
-        )
-        self.assertNotIn('<li class="required">', html)
-
-    def test_render_required_field_indicator(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock()
             link = blocks.URLBlock(required=True)
 
         block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
+        self.assertFalse(block.get_definition()['children'][0]['required'])
+        self.assertTrue(block.get_definition()['children'][1]['required'])
 
-        self.assertIn('<li class="required">', html)
-
-    def test_render_form_unknown_field(self):
+    def test_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
             link = blocks.URLBlock()
 
         block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
+        formatted_data = block.value_from_datadict({
+            'value': [
+                {'type': 'title', 'value': 'Wagtail site'},
+                {'type': 'link', 'value': 'http://www.wagtail.io'},
+                {'type': 'image', 'value': 10},
+            ],
+        }, {}, prefix='mylink')
+        self.assertDictEqual(formatted_data, {
+            'title': 'Wagtail site',
             'link': 'http://www.wagtail.io',
-            'image': 10,
-        }), prefix='mylink')
+        })
 
-        self.assertInHTML(
-            (
-                '<input id="mylink-title" name="mylink-title" placeholder="Title"'
-                ' type="text" value="Wagtail site" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="mylink-link" name="mylink-link" placeholder="Link" type="url"'
-                ' value="http://www.wagtail.io" />'
-            ),
-            html
-        )
-
-        # Don't render the extra field
-        self.assertNotIn('mylink-image', html)
-
-    def test_render_form_uses_default_value(self):
+    def test_definition_uses_default_value(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock(default="Torchbox")
             link = blocks.URLBlock(default="http://www.torchbox.com")
 
         block = LinkBlock()
-        html = block.render_form(block.to_python({}), prefix='mylink')
-
-        self.assertInHTML(
-            '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html
-        )
-        self.assertInHTML(
-            (
-                '<input id="mylink-link" name="mylink-link" placeholder="Link"'
-                ' type="url" value="http://www.torchbox.com" />'
-            ),
-            html
-        )
+        children_definitions = block.get_definition()['children']
+        self.assertEqual(children_definitions[0]['default'], 'Torchbox')
+        self.assertEqual(children_definitions[1]['default'],
+                         'http://www.torchbox.com')
 
     def test_render_form_with_help_text(self):
         class LinkBlock(blocks.StructBlock):
@@ -1208,18 +1322,6 @@ class TestStructBlock(SimpleTestCase):
         block = LinkBlock()
         self.assertIn('scripted_char_block.js', ''.join(block.all_media().render_js()))
 
-    def test_html_declaration_inheritance(self):
-        class CharBlockWithDeclarations(blocks.CharBlock):
-            def html_declarations(self):
-                return '<script type="text/x-html-template">hello world</script>'
-
-        class LinkBlock(blocks.StructBlock):
-            title = CharBlockWithDeclarations(default="Torchbox")
-            link = blocks.URLBlock(default="http://www.torchbox.com")
-
-        block = LinkBlock()
-        self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
-
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -1240,24 +1342,16 @@ class TestStructBlock(SimpleTestCase):
         ])
 
         struct_val = block.value_from_datadict({
-            'mylink-title': "Torchbox",
-            'mylink-link': "http://www.torchbox.com"
+            'value': [
+                {'type': 'title', 'value': 'Torchbox'},
+                {'type': 'link', 'value': 'http://www.torchbox.com'}
+            ]
         }, {}, 'mylink')
 
         self.assertEqual(struct_val['title'], "Torchbox")
         self.assertEqual(struct_val['link'], "http://www.torchbox.com")
         self.assertTrue(isinstance(struct_val, blocks.StructValue))
         self.assertTrue(isinstance(struct_val.bound_blocks['link'].block, blocks.URLBlock))
-
-    def test_value_omitted_from_data(self):
-        block = blocks.StructBlock([
-            ('title', blocks.CharBlock()),
-            ('link', blocks.URLBlock()),
-        ])
-
-        # overall value is considered present in the form if any sub-field is present
-        self.assertFalse(block.value_omitted_from_data({'mylink-title': 'Torchbox'}, {}, 'mylink'))
-        self.assertTrue(block.value_omitted_from_data({'nothing-here': 'nope'}, {}, 'mylink'))
 
     def test_default_is_returned_as_structvalue(self):
         """When returning the default value of a StructBlock (e.g. because it's
@@ -1349,6 +1443,34 @@ class TestStructBlock(SimpleTestCase):
 
 
 class TestStructBlockWithCustomStructValue(SimpleTestCase):
+    def test_definition(self):
+        class CustomStructValue(blocks.StructValue):
+            def joined(self):
+                return self.get('title', '') + self.get('link', '')
+
+        block = blocks.StructBlock([
+            ('title', blocks.CharBlock()),
+            ('link', blocks.URLBlock()),
+        ], value_class=CustomStructValue)
+        block.set_name('test')
+        definition = block.get_definition()
+        del definition['children'][0]['html']
+        del definition['children'][1]['html']
+        self.assertDictEqual(definition, {
+            'isStruct': True,
+            'key': 'test', 'label': 'Test', 'required': False,
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'titleTemplate': '${title}',
+            'children': [
+                {'key': 'title', 'label': 'Title', 'layout': 'SIMPLE',
+                 'required': True, 'titleTemplate': '${title}',
+                 'dangerouslyRunInnerScripts': True, 'default': None},
+                {'key': 'link', 'label': 'Link', 'layout': 'SIMPLE',
+                 'required': True, 'titleTemplate': '${link}',
+                 'icon': '<i class="icon icon-site"></i>',
+                 'dangerouslyRunInnerScripts': True, 'default': None}
+            ]
+        })
 
     def test_initialisation(self):
 
@@ -1370,8 +1492,10 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
         self.assertIsInstance(default_value, CustomStructValue)
 
         value_from_datadict = block.value_from_datadict({
-            'mylink-title': "Torchbox",
-            'mylink-link': "http://www.torchbox.com"
+            'value': [
+                {'type': 'mylink-title', 'value': 'Torchbox'},
+                {'type': 'mylink-link', 'value': 'http://www.torchbox.com'},
+            ],
         }, {}, 'mylink')
 
         self.assertIsInstance(value_from_datadict, CustomStructValue)
@@ -1432,9 +1556,11 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
         self.assertEqual(list(block.child_blocks.keys()), ['title', 'page', 'link', 'classname'])
 
         value_from_datadict = block.value_from_datadict({
-            'queen-title': "Torchbox",
-            'queen-link': "http://www.torchbox.com",
-            'queen-classname': "fullsize",
+            'value': [
+                {'type': 'title', 'value': 'Torchbox'},
+                {'type': 'link', 'value': 'http://www.torchbox.com'},
+                {'type': 'classname', 'value': 'fullsize'},
+            ],
         }, {}, 'queen')
 
         self.assertIsInstance(value_from_datadict, LinkStructValue)
@@ -1516,6 +1642,25 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
 
 
 class TestListBlock(WagtailTestUtils, SimpleTestCase):
+    def test_definition(self):
+        char_block = blocks.CharBlock()
+        char_block.set_name('test_child')
+        block = blocks.ListBlock(char_block)
+        block.set_name('test')
+        definition = block.get_definition()
+        del definition['children'][0]['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': False,
+            'minNum': None, 'maxNum': None,
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'children': [
+                {'key': 'test_child', 'label': 'Test child',
+                 'layout': 'SIMPLE', 'required': True, 'default': None,
+                 'dangerouslyRunInnerScripts': True,
+                 'titleTemplate': '${test_child}'}
+            ],
+        })
+
     def test_initialise_with_class(self):
         block = blocks.ListBlock(blocks.CharBlock)
 
@@ -1607,124 +1752,29 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             api_representation, ['Hello world!', 'Bonjour le monde!']
         )
 
-    def render_form(self):
+    def test_definition_form_labels(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
             link = blocks.URLBlock()
 
         block = blocks.ListBlock(LinkBlock)
+        list_childen_definitions = block.get_definition()['children']
+        struct_children_definitions = list_childen_definitions[0]['children']
 
-        html = block.render_form([
-            {
-                'title': "Wagtail",
-                'link': 'http://www.wagtail.io',
-            },
-            {
-                'title': "Django",
-                'link': 'http://www.djangoproject.com',
-            },
-        ], prefix='links')
+        self.assertEqual(struct_children_definitions[0]['label'], 'Title')
+        self.assertEqual(struct_children_definitions[1]['label'], 'Link')
 
-        return html
-
-    def test_render_form_wrapper_class(self):
-        html = self.render_form()
-
-        self.assertIn('<div class="sequence-container sequence-type-list">', html)
-
-    def test_render_form_count_field(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" name="links-count" id="links-count" value="2">', html)
-
-    def test_render_form_delete_field(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="links-0-deleted" name="links-0-deleted" value="">', html)
-
-    def test_render_form_order_fields(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="links-0-order" name="links-0-order" value="0">', html)
-        self.assertIn('<input type="hidden" id="links-1-order" name="links-1-order" value="1">', html)
-
-    def test_render_form_labels(self):
-        html = self.render_form()
-
-        self.assertIn('<label for="links-0-value-title">Title:</label>', html)
-        self.assertIn('<label for="links-0-value-link">Link:</label>', html)
-
-    def test_render_form_values(self):
-        html = self.render_form()
-
-        self.assertInHTML(
-            (
-                '<input id="links-0-value-title" name="links-0-value-title" placeholder="Title"'
-                ' type="text" value="Wagtail" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="links-0-value-link" name="links-0-value-link" placeholder="Link" type="url"'
-                ' value="http://www.wagtail.io" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="links-1-value-title" name="links-1-value-title" placeholder="Title" type="text"'
-                ' value="Django" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="links-1-value-link" name="links-1-value-link" placeholder="Link"'
-                ' type="url" value="http://www.djangoproject.com" />'
-            ),
-            html
-        )
-
-    def test_html_declarations(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock()
-            link = blocks.URLBlock()
-
-        block = blocks.ListBlock(LinkBlock)
-        html = block.html_declarations()
-
-        self.assertTagInTemplateScript(
-            '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" />',
-            html
-        )
-        self.assertTagInTemplateScript(
-            '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" />',
-            html
-        )
-
-    def test_html_declarations_uses_default(self):
+    def test_definition_uses_default(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock(default="Github")
             link = blocks.URLBlock(default="http://www.github.com")
 
         block = blocks.ListBlock(LinkBlock)
-        html = block.html_declarations()
-
-        self.assertTagInTemplateScript(
-            (
-                '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title"'
-                ' type="text" value="Github" />'
-            ),
-            html
-        )
-        self.assertTagInTemplateScript(
-            (
-                '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link"'
-                ' type="url" value="http://www.github.com" />'
-            ),
-            html
-        )
+        list_children_definitions = block.get_definition()['children']
+        struct_children_definitions = list_children_definitions[0]['children']
+        self.assertEqual(struct_children_definitions[0]['default'], 'Github')
+        self.assertEqual(struct_children_definitions[1]['default'],
+                         'http://www.github.com')
 
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
@@ -1732,14 +1782,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
         block = blocks.ListBlock(ScriptedCharBlock())
         self.assertIn('scripted_char_block.js', ''.join(block.all_media().render_js()))
-
-    def test_html_declaration_inheritance(self):
-        class CharBlockWithDeclarations(blocks.CharBlock):
-            def html_declarations(self):
-                return '<script type="text/x-html-template">hello world</script>'
-
-        block = blocks.ListBlock(CharBlockWithDeclarations())
-        self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
 
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
@@ -1760,46 +1802,15 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(content, ["Wagtail", "Django"])
 
-    def test_value_omitted_from_data(self):
+    def test_ordering_preserved(self):
         block = blocks.ListBlock(blocks.CharBlock())
 
-        # overall value is considered present in the form if the 'count' field is present
-        self.assertFalse(block.value_omitted_from_data({'mylist-count': '0'}, {}, 'mylist'))
-        self.assertFalse(block.value_omitted_from_data({
-            'mylist-count': '1',
-            'mylist-0-value': 'hello', 'mylist-0-deleted': '', 'mylist-0-order': '0'
-        }, {}, 'mylist'))
-        self.assertTrue(block.value_omitted_from_data({'nothing-here': 'nope'}, {}, 'mylist'))
+        original_values = ['item %d' % i for i in range(12)]
+        post_data = {'value': [{'value': v} for v in original_values]}
 
-    def test_ordering_in_form_submission_uses_order_field(self):
-        block = blocks.ListBlock(blocks.CharBlock())
-
-        # check that items are ordered by the 'order' field, not the order they appear in the form
-        post_data = {'shoppinglist-count': '3'}
-        for i in range(0, 3):
-            post_data.update({
-                'shoppinglist-%d-deleted' % i: '',
-                'shoppinglist-%d-order' % i: str(2 - i),
-                'shoppinglist-%d-value' % i: "item %d" % i
-            })
-
-        block_value = block.value_from_datadict(post_data, {}, 'shoppinglist')
-        self.assertEqual(block_value[2], "item 0")
-
-    def test_ordering_in_form_submission_is_numeric(self):
-        block = blocks.ListBlock(blocks.CharBlock())
-
-        # check that items are ordered by 'order' numerically, not alphabetically
-        post_data = {'shoppinglist-count': '12'}
-        for i in range(0, 12):
-            post_data.update({
-                'shoppinglist-%d-deleted' % i: '',
-                'shoppinglist-%d-order' % i: str(i),
-                'shoppinglist-%d-value' % i: "item %d" % i
-            })
-
-        block_value = block.value_from_datadict(post_data, {}, 'shoppinglist')
-        self.assertEqual(block_value[2], "item 2")
+        converted_values = block.value_from_datadict(post_data,
+                                                     {}, 'shoppinglist')
+        self.assertListEqual(original_values, converted_values)
 
     def test_can_specify_default(self):
         class ShoppingListBlock(blocks.StructBlock):
@@ -1837,6 +1848,31 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
 
 class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
+    maxDiff = 2000
+    def test_definition(self):
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock()),
+            ('paragraph', blocks.CharBlock()),
+        ])
+
+        block.set_name('test')
+        definition = block.get_definition()
+        del definition['children'][0]['html']
+        del definition['children'][1]['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'minNum': None, 'maxNum': None,
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'children': [
+                {'key': 'heading', 'label': 'Heading', 'required': True,
+                 'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+                 'titleTemplate': '${heading}', 'default': None},
+                {'key': 'paragraph', 'label': 'Paragraph', 'required': True,
+                 'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+                 'titleTemplate': '${paragraph}', 'default': None},
+            ]
+        })
+
     def test_initialisation(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock()),
@@ -2124,81 +2160,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         ])
         return block.render_form(value, prefix='myarticle')
 
-    def test_render_form_wrapper_class(self):
-        html = self.render_form()
-
-        self.assertIn('<div class="sequence-container sequence-type-stream">', html)
-
-    def test_render_form_count_field(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" name="myarticle-count" id="myarticle-count" value="3">', html)
-
-    def test_render_form_delete_field(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="myarticle-0-deleted" name="myarticle-0-deleted" value="">', html)
-
-    def test_render_form_order_fields(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="myarticle-0-order" name="myarticle-0-order" value="0">', html)
-        self.assertIn('<input type="hidden" id="myarticle-1-order" name="myarticle-1-order" value="1">', html)
-        self.assertIn('<input type="hidden" id="myarticle-2-order" name="myarticle-2-order" value="2">', html)
-
-    def test_render_form_id_fields(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="myarticle-0-id" name="myarticle-0-id" value="123123123">', html)
-        self.assertIn('<input type="hidden" id="myarticle-1-id" name="myarticle-1-id" value="">', html)
-        self.assertIn('<input type="hidden" id="myarticle-2-id" name="myarticle-2-id" value="">', html)
-
-    def test_render_form_type_fields(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="myarticle-0-type" name="myarticle-0-type" value="heading">', html)
-        self.assertIn('<input type="hidden" id="myarticle-1-type" name="myarticle-1-type" value="paragraph">', html)
-        self.assertIn('<input type="hidden" id="myarticle-2-type" name="myarticle-2-type" value="paragraph">', html)
-
-    def test_render_form_value_fields(self):
-        html = self.render_form()
-
-        self.assertInHTML(
-            (
-                '<input id="myarticle-0-value" name="myarticle-0-value" placeholder="Heading"'
-                ' type="text" value="My title" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="myarticle-1-value" name="myarticle-1-value" placeholder="Paragraph"'
-                ' type="text" value="My first paragraph" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="myarticle-2-value" name="myarticle-2-value" placeholder="Paragraph"'
-                ' type="text" value="My second paragraph" />'
-            ),
-            html
-        )
-
-    def test_value_omitted_from_data(self):
-        block = blocks.StreamBlock([
-            ('heading', blocks.CharBlock()),
-        ])
-
-        # overall value is considered present in the form if the 'count' field is present
-        self.assertFalse(block.value_omitted_from_data({'mystream-count': '0'}, {}, 'mystream'))
-        self.assertFalse(block.value_omitted_from_data({
-            'mystream-count': '1',
-            'mystream-0-type': 'heading', 'mystream-0-value': 'hello',
-            'mystream-0-deleted': '', 'mystream-0-order': '0'
-        }, {}, 'mystream'))
-        self.assertTrue(block.value_omitted_from_data({'nothing-here': 'nope'}, {}, 'mystream'))
-
     def test_validation_errors(self):
         class ValidatedBlock(blocks.StreamBlock):
             char = blocks.CharBlock()
@@ -2315,14 +2276,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_block_level_validation_renders_errors(self):
         block = FooStreamBlock()
 
-        post_data = {'stream-count': '2'}
-        for i, value in enumerate(['bar', 'baz']):
-            post_data.update({
-                'stream-%d-deleted' % i: '',
-                'stream-%d-order' % i: str(i),
-                'stream-%d-type' % i: 'text',
-                'stream-%d-value' % i: value,
-            })
+        post_data = {'value': [{'id': i, 'type': 'text', 'value': s}
+                               for i, s in enumerate(('bar', 'baz'))]}
 
         block_value = block.value_from_datadict(post_data, {}, 'stream')
         with self.assertRaises(ValidationError) as catcher:
@@ -2339,14 +2294,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_block_level_validation_render_no_errors(self):
         block = FooStreamBlock()
 
-        post_data = {'stream-count': '3'}
-        for i, value in enumerate(['foo', 'bar', 'baz']):
-            post_data.update({
-                'stream-%d-deleted' % i: '',
-                'stream-%d-order' % i: str(i),
-                'stream-%d-type' % i: 'text',
-                'stream-%d-value' % i: value,
-            })
+        post_data = {'value': [{'id': i, 'type': 'text', 'value': s}
+                               for i, s in enumerate(('foo', 'bar', 'baz'))]}
 
         block_value = block.value_from_datadict(post_data, {}, 'stream')
 
@@ -2360,44 +2309,17 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             block.render_form(block_value, prefix='stream'),
             count=0)
 
-    def test_html_declarations(self):
-        class ArticleBlock(blocks.StreamBlock):
-            heading = blocks.CharBlock()
-            paragraph = blocks.CharBlock()
-
-        block = ArticleBlock()
-        html = block.html_declarations()
-
-        self.assertTagInTemplateScript('<input type="hidden" id="__PREFIX__-id" name="__PREFIX__-id" value="" />', html)
-        self.assertTagInTemplateScript('<input type="hidden" id="__PREFIX__-type" name="__PREFIX__-type" value="heading" />', html)
-        self.assertTagInTemplateScript('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" />', html)
-        self.assertTagInTemplateScript(
-            '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text" />',
-            html
-        )
-
-    def test_html_declarations_uses_default(self):
+    def test_definition_uses_default(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock(default="Fish found on moon")
             paragraph = blocks.CharBlock(default="Lorem ipsum dolor sit amet")
 
         block = ArticleBlock()
-        html = block.html_declarations()
-
-        self.assertTagInTemplateScript(
-            (
-                '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading"'
-                ' type="text" value="Fish found on moon" />'
-            ),
-            html
-        )
-        self.assertTagInTemplateScript(
-            (
-                '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text"'
-                ' value="Lorem ipsum dolor sit amet" />'
-            ),
-            html
-        )
+        children_definitions = block.get_definition()['children']
+        self.assertEqual(children_definitions[0]['default'],
+                         'Fish found on moon')
+        self.assertEqual(children_definitions[1]['default'],
+                         'Lorem ipsum dolor sit amet')
 
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
@@ -2410,59 +2332,23 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         block = ArticleBlock()
         self.assertIn('scripted_char_block.js', ''.join(block.all_media().render_js()))
 
-    def test_html_declaration_inheritance(self):
-        class CharBlockWithDeclarations(blocks.CharBlock):
-            def html_declarations(self):
-                return '<script type="text/x-html-template">hello world</script>'
-
-        class ArticleBlock(blocks.StreamBlock):
-            heading = CharBlockWithDeclarations(default="Torchbox")
-            paragraph = blocks.CharBlock()
-
-        block = ArticleBlock()
-        self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
-
-    def test_ordering_in_form_submission_uses_order_field(self):
+    def test_ordering_preserved(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
             paragraph = blocks.CharBlock()
 
         block = ArticleBlock()
 
-        # check that items are ordered by the 'order' field, not the order they appear in the form
-        post_data = {'article-count': '3'}
-        for i in range(0, 3):
-            post_data.update({
-                'article-%d-deleted' % i: '',
-                'article-%d-order' % i: str(2 - i),
-                'article-%d-type' % i: 'heading',
-                'article-%d-value' % i: "heading %d" % i,
-                'article-%d-id' % i: "000%d" % i,
-            })
+        original_values = ['heading %d' % i for i in range(3)]
+        post_data = {'value': [{'id': i, 'type': 'heading', 'value': v}
+                               for i, v in enumerate(original_values)]}
 
-        block_value = block.value_from_datadict(post_data, {}, 'article')
-        self.assertEqual(block_value[2].value, "heading 0")
-        self.assertEqual(block_value[2].id, "0000")
-
-    def test_ordering_in_form_submission_is_numeric(self):
-        class ArticleBlock(blocks.StreamBlock):
-            heading = blocks.CharBlock()
-            paragraph = blocks.CharBlock()
-
-        block = ArticleBlock()
-
-        # check that items are ordered by 'order' numerically, not alphabetically
-        post_data = {'article-count': '12'}
-        for i in range(0, 12):
-            post_data.update({
-                'article-%d-deleted' % i: '',
-                'article-%d-order' % i: str(i),
-                'article-%d-type' % i: 'heading',
-                'article-%d-value' % i: "heading %d" % i
-            })
-
-        block_value = block.value_from_datadict(post_data, {}, 'article')
-        self.assertEqual(block_value[2].value, "heading 2")
+        converted_values = block.value_from_datadict(post_data, {}, 'article')
+        self.assertIsInstance(converted_values, StreamValue)
+        converted_values = [
+            stream_child.value for stream_child in converted_values
+        ]
+        self.assertListEqual(original_values, list(converted_values))
 
     def test_searchable_content(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -2557,7 +2443,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertFalse(value1 == value3)
         self.assertTrue(value1 != value3)
 
-    def test_render_considers_group_attribute(self):
+    def test_definition_considers_group_attribute(self):
         """If group attributes are set in Block Meta classes, render a <h3> for each different block"""
 
         class Group1Block1(blocks.CharBlock):
@@ -2586,10 +2472,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ('b4', Group2Block2()),
             ('ngb', NoGroupBlock()),
         ])
-        html = block.render_form('')
-        self.assertNotIn('<h3></h3>', block.render_form(''))
-        self.assertIn('<h3>group1</h3>', html)
-        self.assertIn('<h3>group2</h3>', html)
+        children_definitions = block.get_definition()['children']
+        self.assertEqual(children_definitions[0]['group'], 'group1')
+        self.assertEqual(children_definitions[1]['group'], 'group1')
+        self.assertEqual(children_definitions[2]['group'], 'group2')
+        self.assertEqual(children_definitions[3]['group'], 'group2')
+        self.assertNotIn('group', children_definitions[4])
 
     def test_value_from_datadict(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -2599,24 +2487,14 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         block = ArticleBlock()
 
         value = block.value_from_datadict({
-            'foo-count': '3',
-            'foo-0-deleted': '',
-            'foo-0-order': '2',
-            'foo-0-type': 'heading',
-            'foo-0-id': '0000',
-            'foo-0-value': 'this is my heading',
-            'foo-1-deleted': '1',
-            'foo-1-order': '1',
-            'foo-1-type': 'heading',
-            'foo-1-id': '0001',
-            'foo-1-value': 'a deleted heading',
-            'foo-2-deleted': '',
-            'foo-2-order': '0',
-            'foo-2-type': 'paragraph',
-            'foo-2-id': '',
-            'foo-2-value': '<p>this is a paragraph</p>',
+            'value': [
+                {'id': '', 'type': 'paragraph',
+                 'value': '<p>this is a paragraph</p>'},
+                {'id': '0000', 'type': 'heading', 'value': 'this is my heading'},
+            ],
         }, {}, prefix='foo')
 
+        self.assertIsInstance(value, StreamValue)
         self.assertEqual(len(value), 2)
         self.assertEqual(value[0].block_type, 'paragraph')
         self.assertEqual(value[0].id, '')
@@ -2710,6 +2588,22 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 class TestPageChooserBlock(TestCase):
     fixtures = ['test.json']
 
+    def test_definition(self):
+        block = blocks.PageChooserBlock()
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML(
+            '<button type="button" class="button action-choose button-small '
+            'button-secondary">Choose a page</button>',
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'icon': '<i class="icon icon-redirect"></i>',
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': None,
+        })
+
     def test_serialize(self):
         """The value of a PageChooserBlock (a Page object) should serialize to an ID"""
         block = blocks.PageChooserBlock()
@@ -2777,10 +2671,11 @@ class TestPageChooserBlock(TestCase):
         block = blocks.PageChooserBlock()
         christmas_page = Page.objects.get(slug='christmas')
 
-        value = block.value_from_datadict({'page': str(christmas_page.id)}, {}, 'page')
+        value = block.value_from_datadict({'value': christmas_page.id,},
+                                          {}, 'page')
         self.assertEqual(value, christmas_page)
 
-        empty_value = block.value_from_datadict({'page': ''}, {}, 'page')
+        empty_value = block.value_from_datadict({'value': ''}, {}, 'page')
         self.assertEqual(empty_value, None)
 
     def test_clean(self):
@@ -2846,7 +2741,26 @@ class TestPageChooserBlock(TestCase):
             (), {'target_model': ['tests.SimplePage', 'tests.EventPage']}))
 
 
-class TestStaticBlock(unittest.TestCase):
+class TestStaticBlock(TestCase):
+    def test_definition(self):
+        block = blocks.StaticBlock(
+            admin_text="Latest posts - This block doesn't need "
+                       "to be configured, it will be displayed automatically",
+            template='tests/blocks/posts_static_block.html'
+        )
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertHTMLEqual(
+            "Latest posts - This block doesn't need "
+            "to be configured, it will be displayed automatically",
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'isStatic': True,
+            'key': 'test', 'label': 'Test', 'required': False,
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+        })
+
     def test_render_form_with_constructor(self):
         block = blocks.StaticBlock(
             admin_text="Latest posts - This block doesn't need to be configured, it will be displayed automatically",
@@ -2915,6 +2829,21 @@ class TestStaticBlock(unittest.TestCase):
 
 
 class TestDateBlock(TestCase):
+    def test_definition(self):
+        block = blocks.DateBlock()
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML(
+            '<script>initDateChooser("field\\u002D__ID__", '
+            '{"dayOfWeekStart": 0, "format": "Y-m-d"});</script>',
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'icon': '<i class="icon icon-date"></i>',
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': None, 'titleTemplate': '${test}',
+        })
 
     def test_render_form(self):
         block = blocks.DateBlock()
@@ -2948,6 +2877,21 @@ class TestDateBlock(TestCase):
 
 
 class TestDateTimeBlock(TestCase):
+    def test_definition(self):
+        block = blocks.DateTimeBlock(format='%d.%m.%Y %H:%M')
+        block.set_name('test')
+        definition = block.get_definition()
+        self.assertInHTML(
+            '<script>initDateTimeChooser("field\\u002D__ID__", '
+            '{"dayOfWeekStart": 0, "format": "d.m.Y H:i"});</script>',
+            definition['html'])
+        del definition['html']
+        self.assertDictEqual(definition, {
+            'key': 'test', 'label': 'Test', 'required': True,
+            'icon': '<i class="icon icon-date"></i>',
+            'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
+            'default': None, 'titleTemplate': '${test}',
+        })
 
     def test_render_form_with_format(self):
         block = blocks.DateTimeBlock(format='%d.%m.%Y %H:%M')
@@ -3080,14 +3024,6 @@ class TestTemplateRendering(TestCase):
         result = block.render(value, context)
 
         self.assertEqual(result, '<a href="http://torchbox.com/" class="important">Torchbox</a>')
-
-    def test_render_with_custom_form_context(self):
-        block = CustomLinkBlock()
-        value = block.to_python({'title': 'Torchbox', 'url': 'http://torchbox.com/'})
-        result = block.render_form(value, prefix='my-link-block')
-
-        self.assertIn('data-prefix="my-link-block"', result)
-        self.assertIn('<p>Hello from get_form_context!</p>', result)
 
 
 class TestIncludeBlockTag(TestCase):
