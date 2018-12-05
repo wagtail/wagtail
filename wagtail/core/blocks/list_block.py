@@ -1,7 +1,5 @@
-from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
-from django.templatetags.static import static
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 

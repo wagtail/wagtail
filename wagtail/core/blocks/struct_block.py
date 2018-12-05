@@ -1,9 +1,7 @@
 import collections
 
-from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
-from django.templatetags.static import static
 from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
 
@@ -57,12 +55,11 @@ class BaseStructBlock(Block):
         return self._to_struct_value(self.meta.default.items())
 
     def value_from_datadict(self, data, files, prefix):
-        return self._to_struct_value([
-            (child_block_data['type'],
-             self.child_blocks[child_block_data['type']].value_from_datadict(
-                 child_block_data, files, prefix,
-             ))
-            for child_block_data in data['value']
+        return self._to_struct_value([(
+            child_block_data['type'],
+            self.child_blocks[child_block_data['type']]
+            .value_from_datadict(child_block_data, files, prefix)
+        ) for child_block_data in data['value']
             if child_block_data['type'] in self.child_blocks
         ])
 
