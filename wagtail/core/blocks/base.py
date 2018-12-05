@@ -5,7 +5,7 @@ from uuid import uuid4
 
 from django import forms
 from django.core import checks
-from django.core.exceptions import ImproperlyConfigured, NON_FIELD_ERRORS
+from django.core.exceptions import NON_FIELD_ERRORS, ImproperlyConfigured
 from django.forms import Media
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
@@ -15,11 +15,7 @@ from django.utils.text import capfirst
 # unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
 # return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
 # calls force_text, which would cause it to lose its 'safe' flag
-from .utils import (
-    BlockData,
-    InputJSONEncoder,
-    to_json_script,
-)
+from .utils import BlockData, InputJSONEncoder, to_json_script
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
 
