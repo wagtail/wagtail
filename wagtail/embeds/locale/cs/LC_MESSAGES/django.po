@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# it_management <info@itmanagement.cz>, 2018
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-11-27 19:33+0000\n"
+"Last-Translator: it_management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
+msgid "Wagtail embeds"
+msgstr "Wagtail embeds"
+
 msgid "Cannot find an embed for this URL."
 msgstr "Pro toto URL nebyl nalezen žádný embed."
 
@@ -28,6 +32,12 @@ msgstr "URL"
 
 msgid "Please enter a valid URL"
 msgstr "Prosím zadejte platnou URL"
+
+msgid "embed"
+msgstr "embed"
+
+msgid "embeds"
+msgstr "embedy"
 
 msgid "Insert embed"
 msgstr "Vložit embed"
@@ -47,3 +57,6 @@ msgid ""
 "Please try again later."
 msgstr ""
 "Došlo k problému při použití služby Embedly. Zkuste to prosím znovu později."
+
+msgid "Embed"
+msgstr "Embed"

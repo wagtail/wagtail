@@ -6,14 +6,14 @@
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2018
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2017
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 18:50+0000\n"
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
+"POT-Creation-Date: 2018-10-28 17:52+0300\n"
+"PO-Revision-Date: 2018-11-05 12:51+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -337,7 +337,7 @@ msgstr "Email link"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -345,7 +345,7 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"Er is één resultaat"
+"Er is %(counter)s resultaat"
 msgstr[1] ""
 "\n"
 "Er zijn %(counter)s resultaten"
@@ -1189,15 +1189,16 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
-"JavaScript is benodigd voor Wagtail maar is nu uitgeschakeld.<br />\n"
-"<a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener\">Hier staan de instructies om JavaScript in uw browser aan te "
-"zetten</a>."
+"Om Wagtail te kunnen gebruiken is Javascript vereist. Dit staat momenteel "
+"uitgeschakeld. <br />\n"
+"De <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
+"\"noopener noreferrer\">instructies om om javascript in te schakelen zijn "
+"hier te vinden</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail admin interface"
@@ -1210,6 +1211,9 @@ msgstr "Toon in verkenner"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabisch"
 
 msgid "Catalan"
 msgstr "Catalaans"
@@ -1293,13 +1297,13 @@ msgid "Your password has been changed successfully!"
 msgstr "Uw wachtwoord is succesvol gewijzigd!"
 
 msgid "Your email has been changed successfully!"
-msgstr "Je email is succesvol gewijzigd!"
+msgstr "Uw e-mailadres is succesvol gewijzigd!"
 
 msgid "Your preferences have been updated."
 msgstr "Uw voorkeuren zijn aangepast."
 
 msgid "Your preferences have been updated successfully!"
-msgstr "Je instellingen zijn succesvol gewijzigd!"
+msgstr "Uw instellingen zijn succesvol gewijzigd!"
 
 msgid "You have been successfully logged out."
 msgstr "U bent succesvol uitgelogd."
@@ -1425,7 +1429,7 @@ msgid "Failed to send rejection notifications"
 msgstr "Het versturen van afkeuringsnotificaties is mislukt"
 
 msgid "Page '{0}' is now locked."
-msgstr "Pagina '{0}' is nu op slot."
+msgstr "Pagina '{0}' is nu vergrendeld."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is nu geopend."
@@ -1484,16 +1488,16 @@ msgid "View revision history for '{title}'"
 msgstr "Bekijk de versiegeschiedenis van '{title}' "
 
 msgid "Set profile picture"
-msgstr "Zet profiel foto"
+msgstr "Profielfoto instellen"
 
 msgid "Change your profile picture"
-msgstr "Wijzig je profiel foto"
+msgstr "Wijzig uw profielfoto."
 
 msgid "Change the email address linked to your account."
-msgstr "Wijzig je email adres welke is gelinkt aan je account"
+msgstr "Wijzig het e-mailadres dat aan uw account is gekoppeld."
 
 msgid "Change the password you use to log in."
-msgstr "Wijzig het wachtwoord dat u gebruikt om mee in te loggen."
+msgstr "Wijzig het wachtwoord waarmee u inlogt."
 
 msgid "Choose which email notifications to receive."
 msgstr "Kies hier welke e-mailnotificaties u wilt ontvangen."
@@ -1505,13 +1509,13 @@ msgid "Choose the language you want to use here."
 msgstr "Kies de taal die u hier wilt gebruiken."
 
 msgid "Current Time Zone"
-msgstr "Huidige tijd zone"
+msgstr "Huidige tijdzone"
 
 msgid "Choose your current time zone."
-msgstr "Wijzig je huidige tijd zone."
+msgstr "Wijzig uw tijdzone"
 
 msgid "Heading {level}"
-msgstr "Heading {level}"
+msgstr "Kop {level}"
 
 msgid "Bulleted list"
 msgstr "Lijst met opsommingstekens"

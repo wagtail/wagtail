@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-26 04:29+0000\n"
-"Last-Translator: ultraify media <ultraify@gmail.com>\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-10-31 19:46+0000\n"
+"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -115,6 +116,9 @@ msgstr "الصوره الشخصيه"
 msgid "user profile"
 msgstr "ملف تعريفي للمستخدم"
 
+msgid "user profiles"
+msgstr "ملف تعريفي للمستخدم"
+
 msgid "Delete group"
 msgstr "احذف المجموعة"
 
@@ -133,7 +137,7 @@ msgid "Add group"
 msgstr "أضف جماعة"
 
 msgid "Editing"
-msgstr "تنقيح"
+msgstr "تحرير"
 
 msgid "Save"
 msgstr "احفظ"
@@ -171,6 +175,18 @@ msgstr "مجموعات"
 msgid "Add a group"
 msgstr "أضف مجموعة"
 
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "عذرًا ، لا توجد مجموعات تطابق \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"لا توجد مجموعات تم تكوينها. لماذا لا <a href="
+"\"%(wagtailusers_create_group_url)s\">تضيف بعض</a>؟"
+
 msgid "Delete user"
 msgstr "إحذف المستخدم"
 
@@ -184,10 +200,10 @@ msgid "Account"
 msgstr "حساب"
 
 msgid "Roles"
-msgstr "أدوار"
+msgstr "الأدوار"
 
 msgid "Users"
-msgstr "مستخدمون"
+msgstr "مستخدمين"
 
 msgid "Add a user"
 msgstr "أضف مستخدم"
@@ -199,22 +215,34 @@ msgid "Level"
 msgstr "مستوى"
 
 msgid "Status"
-msgstr "رتبة"
+msgstr "الحالة"
 
 msgid "Admin"
 msgstr "إدارة"
 
 msgid "Active"
-msgstr "فعال"
+msgstr "نشيط"
 
 msgid "Inactive"
-msgstr "غير فعال"
+msgstr "غير نشط"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا يوجد مستخدمون يتطابقون مع \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"لا يوجد مستخدمون تكوينه. لماذا لا <a href=\"%(wagtailusers_create_url)s"
+"\">تضيف بعض</a>؟"
 
 msgid "Groups"
 msgstr "مجموعات"
 
 msgid "Search groups"
-msgstr "جماعات للبحث"
+msgstr "مجموعات البحث"
 
 msgid "Group '{0}' created."
 msgstr "تم إنشاء المجموعة '{0}'."
@@ -235,7 +263,7 @@ msgid "User '{0}' created."
 msgstr "تم إنشاء المستخدم '{0}'."
 
 msgid "Edit"
-msgstr "تنقيح"
+msgstr "تحرير"
 
 msgid "The user could not be created due to errors."
 msgstr "من غير الممكن إنشاء الحساب بسبب أخطاء"
@@ -250,7 +278,7 @@ msgid "User '{0}' deleted."
 msgstr "تم حذف المستخدم '{0}'."
 
 msgid "Edit this user"
-msgstr "عدل هذا المستخدم"
+msgstr "تحرير هذا المستخدم"
 
 msgid "Delete this user"
 msgstr "إحذف هذا المستخدم"

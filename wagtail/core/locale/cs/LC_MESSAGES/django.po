@@ -4,14 +4,15 @@
 #
 # Translators:
 # Ales Dvorak <mail@alesdvorak.cz>, 2017
+# it_management <info@itmanagement.cz>, 2018
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-11-27 19:29+0000\n"
+"Last-Translator: it_management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +36,9 @@ msgstr ""
 
 msgid "site name"
 msgstr "Název webu"
+
+msgid "root page"
+msgstr "výchozí stránka"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "

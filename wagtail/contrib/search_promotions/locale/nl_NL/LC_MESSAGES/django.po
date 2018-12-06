@@ -5,14 +5,15 @@
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018
+# Meteor0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-07 09:23+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-12-01 21:02+0000\n"
+"Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -137,7 +138,7 @@ msgstr "Geen"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -145,11 +146,11 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Er is één resultaat\n"
+"            Er is %(counter)s overeenkomst\n"
 "        "
 msgstr[1] ""
 "\n"
-"            Er zijn %(counter)s resultaten\n"
+"            Er zijn%(counter)s overeenkomsten\n"
 "        "
 
 #, python-format

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-07 09:25+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-11-05 12:55+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +53,9 @@ msgstr "tags"
 msgid "document"
 msgstr "document"
 
+msgid "documents"
+msgstr "documenten"
+
 msgid "Choose a document"
 msgstr "Kies een document"
 
@@ -68,7 +71,7 @@ msgstr "Bezig met uploaden…"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -76,12 +79,10 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Er is één resultaat\n"
-"        "
+"Er is %(counter)s resultaat"
 msgstr[1] ""
 "\n"
-"            Er zijn %(counter)s resultaten\n"
-"        "
+"Er zijn %(counter)s resultaten."
 
 msgid "Latest documents"
 msgstr "Nieuwste documenten"
@@ -91,6 +92,23 @@ msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Sorry, geen documenten komen overeen met de zoekterm \"<em>%(query_string)s</"
 "em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "U heeft nog geen documenten aan deze collectie toegevoegd."
+
+msgid "You haven't uploaded any documents."
+msgstr "U heeft nog geen documenten geüpload."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"Upload <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
+"\">een document</a>"
 
 msgid "Change document:"
 msgstr "Wijzig document:"
@@ -147,6 +165,9 @@ msgstr "Titel"
 
 msgid "File"
 msgstr "File"
+
+msgid "Collection"
+msgstr "Collectie"
 
 msgid "Uploaded"
 msgstr "Geupload"
@@ -224,12 +245,12 @@ msgid "Add to collection:"
 msgstr "Voeg toe aan collectie:"
 
 msgid ""
-"Upload successful. Please update this documents with a more appropriate "
+"Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"Upload geslaagd. Voorzie dit document indien nodig van een betere titel. U "
-"kunt ook het document helemaal verwijderen indien de upload onnodig bleek. "
+"Upload is gelukt. U kunt indien nodig het document van een duidelijkere "
+"titel voorzien. U kunt ook het document weer verwijderen."
 
 msgid "Sorry, upload failed."
 msgstr "Sorry, het uploaden is misgegaan."

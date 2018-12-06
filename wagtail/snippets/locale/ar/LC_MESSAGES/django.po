@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-27 09:22+0000\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-11-05 05:04+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
+msgid "Wagtail snippets"
+msgstr "قصاصات"
+
 msgid "Choose"
 msgstr "اختر"
 
@@ -30,11 +33,33 @@ msgid "Search"
 msgstr "بحث"
 
 #, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا يوجد تطابق في المقتطفات \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
+msgstr ""
+"لم تنشئ أي %(snippet_type_name)s مقتطفات. لماذا لا <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">تنشءواحد الان</a>؟"
+
+#, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "خذف %(snippet_type_name)s"
 
 msgid "Delete "
 msgstr "احذف"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "هل أنت متأكد أنك تريد حذف هذا  %(snippet_type_name)s؟"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "هل أنت متأكد أنك تريد حذف%(count)s %(snippet_type_name)s ؟"
 
 msgid "Yes, delete"
 msgstr "نعم احذف"
@@ -52,8 +77,12 @@ msgstr "يتم الحفظ…"
 msgid "Save"
 msgstr "احفظ"
 
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "تحرير %(snippet_type_name)s - %(instance)s"
+
 msgid "Editing"
-msgstr "تنقيح"
+msgstr "تحرير"
 
 msgid "Delete"
 msgstr "احذف"
@@ -66,6 +95,22 @@ msgstr "قصاصات"
 
 msgid "Title"
 msgstr "عنوان"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"لا %(snippet_type_name_plural)s تم إنشاؤها. لماذا لا <a href="
+"\"%(wagtailsnippets_create_url)s\"> تضيف واحدة</a>؟"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "قصاصات %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr "قصاصات <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -88,20 +133,32 @@ msgid "Status"
 msgstr "رتبة"
 
 msgid "Edit this page"
-msgstr "نقح هذه الصفحة"
+msgstr "حرر هذه الصفحة"
 
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "بحث %(snippet_type_name)s"
 
+msgid "{snippet_type} '{instance}' created."
+msgstr "تم إنشاء {snippet_type} '{instance}'."
+
 msgid "Edit"
-msgstr "تنقيح"
+msgstr "تحرير"
 
 msgid "The snippet could not be created due to errors."
 msgstr "لم تنشئ القصااصة بسبب أخطاء"
 
+msgid "{snippet_type} '{instance}' updated."
+msgstr "تم تحديث {snippet_type} '{instance}'."
+
 msgid "The snippet could not be saved due to errors."
 msgstr "لم تحفظ القصااصة بسبب أخطاء"
+
+msgid "{snippet_type} '{instance}' deleted."
+msgstr "تم حذف {snippet_type} '{instance}'."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "تم حذف {count} {snippet_type}."
 
 #, python-format
 msgid "Choose %s"

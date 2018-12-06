@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# it_management <info@itmanagement.cz>, 2018
 # Marek Turnovec <aesculap@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-11-26 14:22+0000\n"
+"Last-Translator: it_management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +21,23 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
+msgid "Wagtail style guide"
+msgstr "Wagtail jednotná úprava vzhledu"
+
+msgid "Styleguide"
+msgstr "Jednotná úprava vzhledu"
+
 msgid "Save"
 msgstr "Uložit"
 
 msgid "Delete image"
 msgstr "Smazat obrázek"
+
+msgid "Search something"
+msgstr "Hledat ..."
+
+msgid "Success message"
+msgstr "Úspěch"
 
 msgid "View live"
 msgstr "Zobrazit publikovanou verzi"
