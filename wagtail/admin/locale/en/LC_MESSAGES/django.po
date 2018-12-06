@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,25 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: action_menu.py:77
+msgid "Submit for moderation"
+msgstr ""
+
+#: action_menu.py:90 templates/wagtailadmin/pages/confirm_unpublish.html:5
+#: wagtail_hooks.py:176
+msgid "Unpublish"
+msgstr ""
+
+#: action_menu.py:104 templates/wagtailadmin/admin_base.html:32
+#: templates/wagtailadmin/block_forms/list_member.html:8
+#: templates/wagtailadmin/block_forms/stream_member.html:15
+#: templates/wagtailadmin/edit_handlers/inline_panel_child.html:8
+#: templates/wagtailadmin/pages/confirm_delete.html:6
+#: templates/wagtailadmin/permissions/includes/collection_member_permissions_form.html:13
+#: views/generic.py:130 wagtail_hooks.py:169
+msgid "Delete"
+msgstr ""
 
 #: apps.py:10
 msgid "Wagtail admin"
@@ -305,25 +324,14 @@ msgid "Reset your password"
 msgstr ""
 
 #: templates/wagtailadmin/admin_base.html:31
-#: templates/wagtailadmin/home/pages_for_moderation.html:42
+#: templates/wagtailadmin/home/pages_for_moderation.html:48
 #: templates/wagtailadmin/home/recent_edits.html:28
 #: templates/wagtailadmin/pages/revisions/list.html:31 views/generic.py:107
-#: views/generic.py:174 views/pages.py:239 views/pages.py:245
-#: views/pages.py:259 views/pages.py:398 views/pages.py:422 views/pages.py:441
-#: views/pages.py:701 views/pages.py:763 views/pages.py:990
-#: views/pages.py:1011 views/pages.py:1228 wagtail_hooks.py:104
+#: views/generic.py:174 views/pages.py:240 views/pages.py:246
+#: views/pages.py:260 views/pages.py:400 views/pages.py:424 views/pages.py:443
+#: views/pages.py:704 views/pages.py:771 views/pages.py:1003
+#: views/pages.py:1024 views/pages.py:1242 wagtail_hooks.py:104
 msgid "Edit"
-msgstr ""
-
-#: templates/wagtailadmin/admin_base.html:32
-#: templates/wagtailadmin/block_forms/list_member.html:8
-#: templates/wagtailadmin/block_forms/stream_member.html:15
-#: templates/wagtailadmin/edit_handlers/inline_panel_child.html:8
-#: templates/wagtailadmin/pages/confirm_delete.html:6
-#: templates/wagtailadmin/pages/edit.html:50
-#: templates/wagtailadmin/permissions/includes/collection_member_permissions_form.html:13
-#: views/generic.py:130 wagtail_hooks.py:169
-msgid "Delete"
 msgstr ""
 
 #: templates/wagtailadmin/admin_base.html:33
@@ -606,7 +614,7 @@ msgstr ""
 msgid "Edited"
 msgstr ""
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:24
+#: templates/wagtailadmin/home/pages_for_moderation.html:26
 #: templates/wagtailadmin/home/recent_edits.html:22
 #: templates/wagtailadmin/pages/listing/_page_title_explore.html:13
 #: templates/wagtailadmin/pages/revisions/compare.html:13
@@ -614,24 +622,28 @@ msgstr ""
 msgid "Edit this page"
 msgstr ""
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:33
+#: templates/wagtailadmin/home/pages_for_moderation.html:28
+msgid "Preview this page"
+msgstr ""
+
+#: templates/wagtailadmin/home/pages_for_moderation.html:38
 #: templates/wagtailadmin/userbar/item_page_approve.html:8
 msgid "Approve"
 msgstr ""
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:39
+#: templates/wagtailadmin/home/pages_for_moderation.html:44
 #: templates/wagtailadmin/userbar/item_page_reject.html:8
 msgid "Reject"
 msgstr ""
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:43
-#: templates/wagtailadmin/pages/create.html:45
-#: templates/wagtailadmin/pages/edit.html:66
+#: templates/wagtailadmin/home/pages_for_moderation.html:50
+#: templates/wagtailadmin/pages/create.html:36
+#: templates/wagtailadmin/pages/edit.html:48
 #: templates/wagtailadmin/pages/revisions/list.html:29
 msgid "Preview"
 msgstr ""
 
-#: templates/wagtailadmin/home/pages_for_moderation.html:53
+#: templates/wagtailadmin/home/pages_for_moderation.html:60
 #: templates/wagtailadmin/home/recent_edits.html:37
 #: templates/wagtailadmin/pages/listing/_list.html:27
 #: templates/wagtailadmin/pages/listing/_list.html:66
@@ -660,8 +672,8 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
-#: templates/wagtailadmin/home/recent_edits.html:33 views/pages.py:1166
-#: views/pages.py:1184
+#: templates/wagtailadmin/home/recent_edits.html:33 views/pages.py:1180
+#: views/pages.py:1198
 msgid "Live"
 msgstr ""
 
@@ -789,6 +801,18 @@ msgstr ""
 msgid "Unlocked"
 msgstr ""
 
+#: templates/wagtailadmin/pages/action_menu/publish.html:3
+msgid "Publishing…"
+msgstr ""
+
+#: templates/wagtailadmin/pages/action_menu/publish.html:3
+msgid "Publish this revision"
+msgstr ""
+
+#: templates/wagtailadmin/pages/action_menu/publish.html:3
+msgid "Publish"
+msgstr ""
+
 #: templates/wagtailadmin/pages/add_subpage.html:5
 #, python-format
 msgid "Create a page in %(title)s"
@@ -876,11 +900,6 @@ msgstr ""
 msgid "Unpublish %(title)s"
 msgstr ""
 
-#: templates/wagtailadmin/pages/confirm_unpublish.html:5
-#: templates/wagtailadmin/pages/edit.html:47 wagtail_hooks.py:176
-msgid "Unpublish"
-msgstr ""
-
 #: templates/wagtailadmin/pages/confirm_unpublish.html:9
 msgid "Are you sure you want to unpublish this page?"
 msgstr ""
@@ -938,33 +957,18 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: templates/wagtailadmin/pages/create.html:31
+#: templates/wagtailadmin/pages/create.html:30
 #: templates/wagtailadmin/pages/edit.html:41
 msgid "Saving…"
 msgstr ""
 
-#: templates/wagtailadmin/pages/create.html:31
+#: templates/wagtailadmin/pages/create.html:30
 #: templates/wagtailadmin/pages/edit.html:41
 msgid "Save draft"
 msgstr ""
 
-#: templates/wagtailadmin/pages/create.html:36
-#: templates/wagtailadmin/pages/edit.html:54
-msgid "Publishing…"
-msgstr ""
-
-#: templates/wagtailadmin/pages/create.html:36
-#: templates/wagtailadmin/pages/edit.html:54
-msgid "Publish"
-msgstr ""
-
-#: templates/wagtailadmin/pages/create.html:39
-#: templates/wagtailadmin/pages/edit.html:58
-msgid "Submit for moderation"
-msgstr ""
-
-#: templates/wagtailadmin/pages/create.html:97
-#: templates/wagtailadmin/pages/edit.html:129
+#: templates/wagtailadmin/pages/create.html:90
+#: templates/wagtailadmin/pages/edit.html:113
 msgid "This page has unsaved changes."
 msgstr ""
 
@@ -986,21 +990,17 @@ msgstr ""
 msgid "Replace current draft"
 msgstr ""
 
-#: templates/wagtailadmin/pages/edit.html:54
-msgid "Publish this revision"
-msgstr ""
-
-#: templates/wagtailadmin/pages/edit.html:87
+#: templates/wagtailadmin/pages/edit.html:69
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr ""
 
-#: templates/wagtailadmin/pages/edit.html:89
+#: templates/wagtailadmin/pages/edit.html:71
 #, python-format
 msgid "by %(modified_by)s"
 msgstr ""
 
-#: templates/wagtailadmin/pages/edit.html:92 wagtail_hooks.py:183
+#: templates/wagtailadmin/pages/edit.html:74 wagtail_hooks.py:183
 msgid "Revisions"
 msgstr ""
 
@@ -1682,155 +1682,155 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: views/pages.py:238
+#: views/pages.py:239
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr ""
 
-#: views/pages.py:244 views/pages.py:421 views/pages.py:989
+#: views/pages.py:245 views/pages.py:423 views/pages.py:1002
 #: wagtail_hooks.py:118
 msgid "View live"
 msgstr ""
 
-#: views/pages.py:246
+#: views/pages.py:247
 msgid "Page '{0}' created and published."
 msgstr ""
 
-#: views/pages.py:250
+#: views/pages.py:251
 msgid "Page '{0}' created and submitted for moderation."
 msgstr ""
 
-#: views/pages.py:254 views/pages.py:436 wagtail_hooks.py:111
+#: views/pages.py:255 views/pages.py:438 wagtail_hooks.py:111
 msgid "View draft"
 msgstr ""
 
-#: views/pages.py:264 views/pages.py:446
+#: views/pages.py:265 views/pages.py:448
 msgid "Failed to send notifications to moderators"
 msgstr ""
 
-#: views/pages.py:266
+#: views/pages.py:267
 msgid "Page '{0}' created."
 msgstr ""
 
-#: views/pages.py:289
+#: views/pages.py:290
 msgid "The page could not be created due to validation errors"
 msgstr ""
 
-#: views/pages.py:376
+#: views/pages.py:378
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 
-#: views/pages.py:384
+#: views/pages.py:386
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
 msgstr ""
 
-#: views/pages.py:390
+#: views/pages.py:392
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr ""
 
-#: views/pages.py:407
+#: views/pages.py:409
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr ""
 
-#: views/pages.py:414
+#: views/pages.py:416
 msgid "Page '{0}' has been published."
 msgstr ""
 
-#: views/pages.py:428
+#: views/pages.py:430
 msgid "Page '{0}' has been submitted for moderation."
 msgstr ""
 
-#: views/pages.py:452
+#: views/pages.py:454
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr ""
 
-#: views/pages.py:459
+#: views/pages.py:461
 msgid "Page '{0}' has been updated."
 msgstr ""
 
-#: views/pages.py:487
+#: views/pages.py:489
 msgid "The page could not be saved as it is locked"
 msgstr ""
 
-#: views/pages.py:490
+#: views/pages.py:492
 msgid "The page could not be saved due to validation errors"
 msgstr ""
 
-#: views/pages.py:517
+#: views/pages.py:519
 msgid "Compare with live version"
 msgstr ""
 
-#: views/pages.py:520
+#: views/pages.py:522
 msgid "This page is currently awaiting moderation"
 msgstr ""
 
-#: views/pages.py:558
+#: views/pages.py:561
 msgid "Page '{0}' deleted."
 msgstr ""
 
-#: views/pages.py:700
+#: views/pages.py:703
 msgid "Page '{0}' unpublished."
 msgstr ""
 
-#: views/pages.py:762
+#: views/pages.py:770
 msgid "Page '{0}' moved."
 msgstr ""
 
-#: views/pages.py:867
+#: views/pages.py:880
 msgid "Page '{0}' and {1} subpages copied."
 msgstr ""
 
-#: views/pages.py:870
+#: views/pages.py:883
 msgid "Page '{0}' copied."
 msgstr ""
 
-#: views/pages.py:980 views/pages.py:1005 views/pages.py:1026
+#: views/pages.py:993 views/pages.py:1018 views/pages.py:1039
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr ""
 
-#: views/pages.py:986
+#: views/pages.py:999
 msgid "Page '{0}' published."
 msgstr ""
 
-#: views/pages.py:994
+#: views/pages.py:1007
 msgid "Failed to send approval notifications"
 msgstr ""
 
-#: views/pages.py:1010
+#: views/pages.py:1023
 msgid "Page '{0}' rejected for publication."
 msgstr ""
 
-#: views/pages.py:1014
+#: views/pages.py:1027
 msgid "Failed to send rejection notifications"
 msgstr ""
 
-#: views/pages.py:1052
+#: views/pages.py:1065
 msgid "Page '{0}' is now locked."
 msgstr ""
 
-#: views/pages.py:1076
+#: views/pages.py:1089
 msgid "Page '{0}' is now unlocked."
 msgstr ""
 
-#: views/pages.py:1130
+#: views/pages.py:1143
 #, python-format
 msgid ""
 "You are viewing a previous revision of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
 
-#: views/pages.py:1171
+#: views/pages.py:1185
 msgid "Earliest"
 msgstr ""
 
-#: views/pages.py:1189
+#: views/pages.py:1203
 msgid "Latest"
 msgstr ""
 
-#: views/pages.py:1221
+#: views/pages.py:1235
 msgid "revision {0} of \"{1}\""
 msgstr ""
 
-#: views/pages.py:1227
+#: views/pages.py:1241
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr ""
 
