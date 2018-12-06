@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-28 09:05+0000\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-11-05 05:07+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -56,6 +56,9 @@ msgstr "وسوم"
 msgid "document"
 msgstr "مستند"
 
+msgid "documents"
+msgstr "وثائق"
+
 msgid "Choose a document"
 msgstr "احتر وثيقة"
 
@@ -70,6 +73,27 @@ msgstr "يتم الرفع…"
 
 msgid "Latest documents"
 msgstr "وثائق أخيرة"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا توجد مستندات تطابق \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "لم تحمِّل أي مستندات في هذه المجموعة."
+
+msgid "You haven't uploaded any documents."
+msgstr "لم تحمِّل أي مستندات."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"لماذا لا <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
+"\">تحمل واحد الآن</a>؟"
 
 msgid "Change document:"
 msgstr "غير الوثيقة"
@@ -86,6 +110,16 @@ msgstr "حذف %(title)s"
 
 msgid "Delete document"
 msgstr "احذف وثيقة"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "استخدم %(usage_count)s مرة"
+msgstr[1] "استخدم %(usage_count)s مرة"
+msgstr[2] "استخدم %(usage_count)s مرات"
+msgstr[3] "استخدم %(usage_count)s مرة"
+msgstr[4] "استخدم %(usage_count)s مرات"
+msgstr[5] "استخدم %(usage_count)s مرات"
 
 msgid "Are you sure you want to delete this document?"
 msgstr "هل تريد فعلا حذف هذه الوثيقة؟"
@@ -121,12 +155,31 @@ msgstr "عنوان"
 msgid "File"
 msgstr "ملف"
 
+msgid "Collection"
+msgstr "مجموعة"
+
 msgid "Uploaded"
 msgstr "متقول إلى الحاسوب"
 
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "قبل %(time_period)s"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a href="
+"\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"لم تحمِّل أي مستندات. لماذا لا <a href=\"%(wagtaildocs_add_document_url)s"
+"\">تحمل واحد الآن</a>؟"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -147,6 +200,34 @@ msgstr "الحالة"
 msgid "Edit this page"
 msgstr "حرر هذه الصفحة"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents\n"
+"    "
+msgstr[0] ""
+"\n"
+"مستند ‍%(total)s"
+msgstr[1] ""
+"\n"
+"مستند ‍‍‌%(total)s"
+msgstr[2] ""
+"\n"
+"مستندات %(total)s"
+msgstr[3] ""
+"\n"
+"مستند %(total)s"
+msgstr[4] ""
+"\n"
+"مستندات %(total)s"
+msgstr[5] ""
+"\n"
+"مستندات %(total)s"
+
 msgid "Add multiple documents"
 msgstr "إضافة مستندات متعددة"
 
@@ -163,12 +244,12 @@ msgid "Add to collection:"
 msgstr "إضافة إلى المجموعة:"
 
 msgid ""
-"Upload successful. Please update this documents with a more appropriate "
+"Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"تحميل ناجح. يرجى تحديث هذه الوثائق مع عنوان أكثر ملاءمة ، إذا لزم الأمر. "
-"يمكنك أيضًا حذف المستند تمامًا إذا لم يكن التحميل مطلوبًا."
+"تحميل ناجح. يرجى تحديث هذا المستند بعنوان أكثر ملاءمة ، إذا لزم الأمر. يمكنك "
+"أيضًا حذف المستند تمامًا إذا لم يكن التحميل مطلوبًا."
 
 msgid "Sorry, upload failed."
 msgstr "عذرًا ، أخفق التحميل."
@@ -231,4 +312,4 @@ msgid "Choose another document"
 msgstr "اختر وثيقة أخقى"
 
 msgid "Edit this document"
-msgstr "نقح ه1ه الوثيقة"
+msgstr "تحرير هذه الوثيقة"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-28 14:29+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"POT-Creation-Date: 2018-10-28 17:52+0300\n"
+"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -491,3 +491,61 @@ msgstr "Старонка \"%(title)s\" была адхілена."
 
 msgid "You can edit the page here:"
 msgstr "Вы можаце рэдактаваць старонку вось тут:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Старонка \"%(title)s\" была адхілена"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "Старонка \"%(page)s\" адпраўлена на мадэрацыю %(editor)s."
+
+msgid "You can preview the page here:"
+msgstr "Вы можаце праглядзець старонку вось тут:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Старонка \"%(page)s\" адпраўленна на мадэрацыю"
+
+msgid "Page privacy"
+msgstr "Прыватнасць старонкі"
+
+msgid "This page has been made private by a parent page."
+msgstr "Гэтая старонка была зачынена бацькоўскай старонкай"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Канфідэнцыяльнасць інфармацыі распаўсюджваецца на ўсе дзіцячыя старонкі."
+
+msgid "Edit lock"
+msgstr "Блакаваць рэдактаванне"
+
+msgid "Locked"
+msgstr "Заблакавана"
+
+msgid "Unlocked"
+msgstr "Разблакавана"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Стварыць старонку %(title)s"
+
+msgid "Create a page in"
+msgstr "Стварыць старонку ў"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Выберыце, які тып старонкі вы хочаце стварыць."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Старонкі, якія выкарыстоўваюць %(page_type)s"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Выдаліць %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Вы ўпэўненыя, што жадаеце выдаліць гэтую старонку?"
+
+msgid "Yes, delete it"
+msgstr "Так. Выдаліць"

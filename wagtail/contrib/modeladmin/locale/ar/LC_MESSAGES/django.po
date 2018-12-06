@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-27 13:35+0000\n"
+"POT-Creation-Date: 2018-10-28 17:52+0300\n"
+"PO-Revision-Date: 2018-10-31 19:45+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -118,6 +118,10 @@ msgstr "الصفحة الرئيسية"
 msgid " By %(filter_title)s "
 msgstr "بواسطة %(filter_title)s"
 
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr "عذرًا ، لا توجد مطابقة لـ %(name)s عمليات البحث الخاصة بك."
+
 msgid "Search for"
 msgstr "إبحث عن"
 
@@ -129,6 +133,32 @@ msgid "Filter"
 msgstr "فلتر"
 
 #, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"لا %(name)s تم إنشاؤه بعد. يجب إنشاء أحد الإجراءات التالية قبل أن تتمكن من "
+"إضافة أي %(name)s:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "لا %(name)s تم إنشاؤه بعد."
+
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"لماذا لا <a href=\"%(url)s\">تضيف واحدة</a>؟"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "صفحة %(current_page)s من %(num_pages)s."
+
+#, python-format
 msgid "Back to %(model_name)s list"
 msgstr "الرجوع الى %(model_name)s القائمة"
 
@@ -137,6 +167,13 @@ msgstr "السابق"
 
 msgid "Next"
 msgstr "التالي"
+
+msgid "{model_name} '{instance}' created."
+msgstr "{model_name} \"{instance}\" تم إنشاؤه."
+
+#, python-format
+msgid "The %s could not be created due to errors."
+msgstr "لا يمكن إنشاء %s بسبب أخطاء."
 
 msgid "New"
 msgstr "جديد"
@@ -151,6 +188,28 @@ msgstr "جاري التعديل"
 #, python-format
 msgid "Editing %s"
 msgstr "جاري التعديل %s"
+
+msgid "{model_name} '{instance}' updated."
+msgstr "تم تحديث {model_name} '{instance}'."
+
+#, python-format
+msgid "The %s could not be saved due to errors."
+msgstr "لا يمكن حفظ %s بسبب الأخطاء."
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "تأكيد حذف %s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %s? If other things in your site are "
+"related to it, they may also be affected."
+msgstr ""
+"هل أنت متأكد أنك تريد حذف هذا %s؟ إذا كانت هناك أشياء أخرى في موقعك مرتبطة "
+"بها ، فقد تتأثر أيضًا."
+
+msgid "{model} '{instance}' deleted."
+msgstr "{model} \"{instance}\" محذوف."
 
 msgid "Inspecting"
 msgstr "يتم الفحص"

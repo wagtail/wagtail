@@ -6,14 +6,14 @@
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2016
 # serafeim <serafeim@torchbox.com>, 2016
-# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
+# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-11-21 02:42+0000\n"
+"Last-Translator: Yiannis Inglessis <negletios@users.noreply.github.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -42,4 +42,4 @@ msgid "{setting_type} updated."
 msgstr "Η επιλογή {setting_type} ανανεώθηκε."
 
 msgid "The setting could not be saved due to errors."
-msgstr "Δεν ήταν δυνατή η αποθήκευση της επιλογής λόγω σφάλματος."
+msgstr "Η ρύθμιση δεν μπορεί να αποθηκευτεί λόγω σφάλματος."

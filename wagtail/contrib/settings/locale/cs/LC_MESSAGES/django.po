@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# it_management <info@itmanagement.cz>, 2018
 # Marek Turnovec <aesculap@gmail.com>, 2016
+# it_management <info@itmanagement.cz>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-11-28 13:49+0000\n"
+"Last-Translator: it_management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +27,7 @@ msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Upravování %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
-msgstr "Upravavování"
+msgstr "Úprava"
 
 msgid "Saving…"
 msgstr "Ukládání…"
@@ -36,8 +38,11 @@ msgstr "Uložit"
 msgid "Settings"
 msgstr "Nastavení"
 
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Nastavení nebylo možné načíst protože není definovaný žádný web."
+
 msgid "{setting_type} updated."
 msgstr "{setting_type} aktualizováno."
 
 msgid "The setting could not be saved due to errors."
-msgstr "Nastavení nebylo možné uložit kvůli chybám."
+msgstr "Nastavení nelze uložit, zkontrolujte správné vyplnění polí."

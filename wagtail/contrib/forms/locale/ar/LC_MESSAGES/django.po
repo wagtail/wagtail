@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-28 09:09+0000\n"
+"POT-Creation-Date: 2018-10-28 17:52+0300\n"
+"PO-Revision-Date: 2018-10-31 19:47+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -25,11 +25,19 @@ msgstr ""
 msgid "Wagtail forms"
 msgstr "نماذج Wagtail"
 
+#, python-format
+msgid "%s submissions"
+msgstr "%sالمقدمة "
+
 msgid "Date from"
 msgstr "التاريخ من"
 
 msgid "Date to"
 msgstr "تاريخ لـ"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "هناك حقل آخر مع العلامة %s، يرجى تغيير واحد منهم."
 
 msgid "Single line text"
 msgstr "نص ذو سطر واحد"
@@ -175,11 +183,19 @@ msgstr "نماذج"
 msgid "Pages"
 msgstr "صفحات"
 
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "بيانات النموذج %(form_title)s"
+
 msgid "Filter"
 msgstr "فلتر"
 
 msgid "Download CSV"
 msgstr "تنزيل ملف CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "لم تكن هناك أي مساهمات من '%(title)s' النموذج."
 
 msgid "Title"
 msgstr "عنوان"

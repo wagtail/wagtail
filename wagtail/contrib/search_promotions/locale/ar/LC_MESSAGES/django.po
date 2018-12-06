@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-27 09:20+0000\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-11-05 05:05+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -40,6 +40,34 @@ msgstr "إضافة ترويج البحث"
 msgid "Add search pick"
 msgstr "أضف البحث المحتار"
 
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>تعتبر نتائج البحث التي يتم الترويج لها وسيلة للتوصية بصفحات محددة قد لا "
+"تظهر بشكل كبير في نتائج البحث. على سبيل المثال ، التوصية بصفحة التبرع "
+"الرئيسية الخاصة بك إلى مستخدم يبحث مع مصطلح \"<em>العطاء</em>\" الأقل شيوعًا."
+"</p>"
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>يجب أن يحتوي حقل \"عبار(ة/ات) البحث / العبارة\" أدناه على البحث الكامل "
+"والدقيق الذي تريد توفير النتائج الموصى به ،<em> بما في ذلك</em> الأخطاء "
+"الإملائية / أخطاء المستخدم. للمساعدة ، يمكنك الاختيار من عبارات البحث "
+"الشائعة بين مستخدمي موقعك.</p>"
+
 msgid "Save"
 msgstr "احفظ"
 
@@ -57,8 +85,12 @@ msgstr "أتريد فعلا أن تحذف كل النتائج الموجودة �
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
+#, python-format
+msgid "Editing %(query)s"
+msgstr "يتم تحرير %(query)s"
+
 msgid "Editing"
-msgstr "تنقيح"
+msgstr "تحرير"
 
 msgid "Move up"
 msgstr "تقدم إلى فوق "
@@ -96,17 +128,35 @@ msgstr "تحرير هذا العرض"
 msgid "None"
 msgstr "لا أحد"
 
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا توجد نتائج تمت ترقيتها تطابق \"<em> %(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"لم يتم إنشاء نتائج ترويجية. لماذا لا <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">تضيف واحدة</a>؟"
+
 msgid "Search promoted results"
 msgstr "بحث النتائج التي تم الترويج لها"
 
+msgid "Editor's picks for '{0}' created."
+msgstr "اختيارات المحرر لـ '{0}' تم إنشاؤها."
+
 msgid "Edit"
-msgstr "تنقيح"
+msgstr "تحرير"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "لم تنشأ توصيات بسسبب أخطاء"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "اختيارات المحرر لـ '{0}' محدثة."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "لم تحفظ توصيات بسبب أخطاء "
 
 msgid "Editor's picks deleted."
-msgstr "حذفت انتقاءات المنقح"
+msgstr "محذوف انتقاءات المحرر"

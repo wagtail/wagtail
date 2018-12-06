@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-27 09:16+0000\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-10-31 19:47+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -22,8 +22,38 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
+msgid "Wagtail images"
+msgstr "صور"
+
 msgid "GIF, JPEG, PNG"
 msgstr "أعد الحجم للاتساع"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"الصيغ المدعومة:%(supported_formats)s. حجم الملف الأقصى:%(max_upload_size)s ."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "الصيغ المدعومة:%(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "ليس صيغة صورة مدعومة. الصيغ المدعومة:%s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "%s ليست صورة صالحة."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "هذا الملف كبير جدًا (%%). حجم الملف الأقصى %s ."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "هذا الملف كبير للغاية. حجم الملف الأقصى %s ."
 
 msgid "Full width"
 msgstr "العرض الكامل"
@@ -71,7 +101,7 @@ msgid "Add/edit images you own"
 msgstr "إضافة / تحرير الصور التي تملكها"
 
 msgid "Edit"
-msgstr "تنقيح"
+msgstr "تحرير"
 
 msgid "Edit any image"
 msgstr "تحرير أي صورة"
@@ -95,7 +125,7 @@ msgid "uploaded by user"
 msgstr "رفع عن طريق المستخدم"
 
 msgid "tags"
-msgstr "وسوم"
+msgstr "العلامات الدالة"
 
 msgid "image"
 msgstr "صورة"
@@ -113,7 +143,7 @@ msgid "Upload"
 msgstr "انقل إلى الحاسوب"
 
 msgid "Popular tags"
-msgstr "وسوم شعبية"
+msgstr "علامات دالة شائعة"
 
 msgid "Uploading…"
 msgstr "يتم الرفع…"
@@ -147,6 +177,10 @@ msgstr "أتريد فعلا حذف هذه الصورة؟"
 
 msgid "Yes, delete"
 msgstr "نعم احذف"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "تحرير الصورة %(title)s"
 
 msgid "Editing"
 msgstr "تنقيح"
@@ -184,6 +218,26 @@ msgstr "استعمال"
 msgid "Images"
 msgstr "صور"
 
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا توجد صور تطابق \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"لم تحمِّل أي صور في هذه المجموعة. لماذا لا <a href="
+"\"%(wagtailimages_add_image_url)s\">تحمل واحد الآن</a>؟"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"لم تحمِّل أي صور. لماذا لا <a href=\"%(wagtailimages_add_image_url)s\">تحمل "
+"واحد الآن</a>؟"
+
 msgid "Generating URL"
 msgstr "توليد URL"
 
@@ -199,6 +253,10 @@ msgid ""
 msgstr ""
 "إعلم أن الصور المنشاة في صيغة أكبر من الشاشة سوف تظهر أصغر إذا تعرض في صيغة "
 "مقدمة هنا حتى توافق حجم الشاشة.  "
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "استخدام %(title)s"
 
 msgid "Usage of"
 msgstr "استعمال"
@@ -216,7 +274,7 @@ msgid "Status"
 msgstr "رتبة"
 
 msgid "Edit this page"
-msgstr "نقح هذه الصفحة"
+msgstr "حرر هذه الصفحة"
 
 msgid "Add multiple images"
 msgstr "أضف صور غديدة"
@@ -268,8 +326,11 @@ msgstr "إضافة إذن صورة"
 msgid "Search images"
 msgstr "ابعث صور"
 
+msgid "Image '{0}' updated."
+msgstr "تم تحديث الصورة {0}."
+
 msgid "Edit again"
-msgstr "أعد التنقيح"
+msgstr "أعد التحرير"
 
 msgid "The image could not be saved due to errors."
 msgstr "حفظ الصورة مستحيل بسبب أحطاء"
@@ -279,14 +340,30 @@ msgid ""
 "the image."
 msgstr "الصورة الأصلية غير موجودة..  من فضلك غير الأصل أو احذف الصورة"
 
+msgid "Image '{0}' deleted."
+msgstr "الصورة \"{0}\" محذوفة."
+
+msgid "Image '{0}' added."
+msgstr "تمت إضافة صورة '{0}'."
+
 msgid "The image could not be created due to errors."
 msgstr "إنشاء الصورة مستخيل بسبب أخطاء"
 
 msgid "Image"
 msgstr "صورة"
 
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "صورة %(count)s"
+msgstr[1] "صورة %(count)s"
+msgstr[2] "صور %(count)s"
+msgstr[3] "صورة %(count)s"
+msgstr[4] "صور %(count)s"
+msgstr[5] "صور %(count)s"
+
 msgid "Change image"
 msgstr "تغير الصورة"
 
 msgid "Edit this image"
-msgstr "تقح هذه الصورة"
+msgstr "حرر هذه الصورة"

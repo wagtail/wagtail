@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-07-30 16:34+0000\n"
+"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"PO-Revision-Date: 2018-10-28 14:55+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -28,32 +28,9 @@ msgid "Search"
 msgstr "검색"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"일시하는 %(counter)s개 결과가 있습니다."
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "죄송합니다, \"<em>%(query_string)s</em>\"에 일치하는 스니펫은 없습니다."
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
-"a>?"
-msgstr ""
-"%(snippet_type_name)s 스니펫은 없습니다. 하나 <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">만들어 보세요</"
-"a>."
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
