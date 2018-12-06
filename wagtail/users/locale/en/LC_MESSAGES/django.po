@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,55 +93,55 @@ msgstr ""
 msgid "Upload a profile picture"
 msgstr ""
 
-#: models.py:24
+#: models.py:25
 msgid "submitted notifications"
 msgstr ""
 
-#: models.py:26
+#: models.py:27
 msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 
-#: models.py:30
+#: models.py:31
 msgid "approved notifications"
 msgstr ""
 
-#: models.py:32
+#: models.py:33
 msgid "Receive notification when your page edit is approved"
 msgstr ""
 
-#: models.py:36
+#: models.py:37
 msgid "rejected notifications"
 msgstr ""
 
-#: models.py:38
+#: models.py:39
 msgid "Receive notification when your page edit is rejected"
 msgstr ""
 
-#: models.py:42
+#: models.py:43
 msgid "preferred language"
 msgstr ""
 
-#: models.py:44
+#: models.py:45
 msgid "Select language for the admin"
 msgstr ""
 
-#: models.py:49
+#: models.py:50
 msgid "current time zone"
 msgstr ""
 
-#: models.py:51
+#: models.py:52
 msgid "Select your current time zone"
 msgstr ""
 
-#: models.py:56
+#: models.py:57
 msgid "profile picture"
 msgstr ""
 
-#: models.py:75
+#: models.py:76
 msgid "user profile"
 msgstr ""
 
-#: models.py:76
+#: models.py:77
 msgid "user profiles"
 msgstr ""
 
@@ -313,16 +313,25 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:38
+#: templates/wagtailusers/users/list.html:23
+msgid "Last Login"
+msgstr ""
+
+#: templates/wagtailusers/users/list.html:39
 msgid "Admin"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:39
+#: templates/wagtailusers/users/list.html:40
 msgid "Active"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:39
+#: templates/wagtailusers/users/list.html:40
 msgid "Inactive"
+msgstr ""
+
+#: templates/wagtailusers/users/list.html:41
+#, python-format
+msgid "%(time_period)s ago"
 msgstr ""
 
 #: templates/wagtailusers/users/results.html:5
