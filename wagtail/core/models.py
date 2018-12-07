@@ -1215,7 +1215,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             url_info = urlparse(url)
             hostname = url_info.hostname
             path = url_info.path
-            port = url_info.port or 80
+            port = url_info.port or (443 if url_info.scheme == 'https' else 80)
             scheme = url_info.scheme
         else:
             # Cannot determine a URL to this page - cobble one together based on
