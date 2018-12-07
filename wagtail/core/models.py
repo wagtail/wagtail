@@ -107,16 +107,8 @@ class Site(models.Model):
         still be routed to a different hostname which is set as the default
         """
 
-        try:
-            hostname = request.get_host().split(':')[0]
-        except KeyError:
-            hostname = None
-
-        try:
-            port = request.get_port()
-        except (AttributeError, KeyError):
-            port = request.META.get('SERVER_PORT')
-
+        hostname = request.get_host().split(':')[0]
+        port = request.get_port()
         return get_site_for_hostname(hostname, port)
 
     @property

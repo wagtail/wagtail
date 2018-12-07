@@ -130,13 +130,6 @@ class TestSiteRouting(TestCase):
         self.unrecognised_port = '8000'
         self.unrecognised_hostname = 'unknown.site.com'
 
-    def test_no_host_header_routes_to_default_site(self):
-        # requests without a Host: header should be directed to the default site
-        request = HttpRequest()
-        request.path = '/'
-        with self.assertNumQueries(1):
-            self.assertEqual(Site.find_for_request(request), self.default_site)
-
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
         request = HttpRequest()
