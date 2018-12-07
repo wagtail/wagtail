@@ -18,6 +18,8 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
+ * Set ``SERVER_PORT`` to 443 in ``Page.dummy_request()`` for HTTPS sites (Sergey Fedoseev)
+
 
 Upgrade considerations
 ======================
