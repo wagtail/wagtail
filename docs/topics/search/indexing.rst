@@ -26,6 +26,21 @@ Signal handlers
 
 ``wagtailsearch`` provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``. These signal handlers are automatically registered when the ``wagtail.search`` app is loaded.
 
+In some cases, you may not want your content to be automatically reindexed and instead rely on the ``update_index`` command for indexing. If you need to disable these signal handlers, use one of the following methods:
+
+Disabling auto update signal handlers for a model
+`````````````````````````````````````````````````
+You can disable the signal handlers for an individual model by adding ``search_auto_update = False`` as an attribute on the model class.
+
+Disabling auto update signal handlers for a search backend/whole site
+`````````````````````````````````````````````````````````````````````
+
+You can disable the signal handlers for a whole search backend by setting the ``AUTO_UPDATE`` setting on the backend to ``False``.
+
+If all search backends have ``AUTO_UPDATE`` set to ``False``, the signal handlers will be completely disabled for the whole site.
+
+For documentation on the ``AUTO_UPDATE`` setting, see :ref:`wagtailsearch_backends_auto_update`.
+
 
 The ``update_index`` command
 ----------------------------
