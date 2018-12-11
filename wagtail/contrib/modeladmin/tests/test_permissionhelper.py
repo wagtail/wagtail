@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from wagtail.tests.modeladmintest.models import Author, LegendaryAuthor
 from wagtail.contrib.modeladmin.helpers import PermissionHelper
+from wagtail.tests.modeladmintest.models import Author, LegendaryAuthor
 
 
 class TestPermissionHelper(TestCase):
