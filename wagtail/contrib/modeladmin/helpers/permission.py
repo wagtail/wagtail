@@ -17,16 +17,21 @@ class PermissionHelper:
         self.opts = model._meta
         self.inspect_view_enabled = inspect_view_enabled
 
+    @property
+    def content_type(self):
+        """
+        Return a ``ContentType`` object for the ``model`` specified at
+        initialisation. For proxy models, the ``ContentType`` for the concrete
+        model will be returned.
+        """
+        return ContentType.objects.get_for_model(self.model)
+
     def get_all_model_permissions(self):
         """
         Return a queryset of all Permission objects pertaining to the `model`
         specified at initialisation.
         """
-
-        return Permission.objects.filter(
-            content_type__app_label=self.opts.app_label,
-            content_type__model=self.opts.model_name,
-        )
+        return Permission.objects.filter(content_type_id=self.content_type.id)
 
     def get_perm_codename(self, action):
         return get_permission_codename(action, self.opts)
