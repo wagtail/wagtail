@@ -19,6 +19,15 @@ class Author(models.Model):
         return ''
 
 
+class LegendaryAuthor(Author):
+
+    class Meta:
+        proxy = True
+
+    def __str__(self):
+        return 'The legendary %s' % self.name
+
+
 class Book(models.Model, index.Indexed):
     author = models.ForeignKey(Author, on_delete=models.PROTECT)
     title = models.CharField(max_length=255)
