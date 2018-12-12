@@ -22,6 +22,7 @@ Bug fixes
 ~~~~~~~~~
 
  * Set ``SERVER_PORT`` to 443 in ``Page.dummy_request()`` for HTTPS sites (Sergey Fedoseev)
+ * Include port number in ``Host`` header of ``Page.dummy_request()`` (Sergey Fedoseev)
  * Validation error messages in ``InlinePanel`` no longer count towards ``max_num`` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)
 
 

@@ -1224,13 +1224,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             port = 80
             scheme = 'http'
 
+        http_host = hostname
+        if port != (443 if scheme == 'https' else 80):
+            http_host = '%s:%s' % (http_host, port)
         dummy_values = {
             'REQUEST_METHOD': 'GET',
             'PATH_INFO': path,
             'SERVER_NAME': hostname,
             'SERVER_PORT': port,
             'SERVER_PROTOCOL': 'HTTP/1.1',
-            'HTTP_HOST': hostname,
+            'HTTP_HOST': http_host,
             'wsgi.version': (1, 0),
             'wsgi.input': StringIO(),
             'wsgi.errors': StringIO(),
