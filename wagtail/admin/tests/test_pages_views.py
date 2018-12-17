@@ -1221,6 +1221,42 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertTrue(Page.objects.filter(title="New page!").exists())
 
 
+class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+        GroupPagePermission.objects.create(
+            group=Group.objects.get(name="Site-wide editors"),
+            page=self.root_page, permission_type='add'
+        )
+
+    def test_create_page_with_per_request_custom_edit_handlers(self):
+        """
+        Test that per-request custom behaviour in edit handlers is honoured
+        """
+        # non-superusers should not see secret_data
+        logged_in = self.client.login(username='siteeditor', password='password')
+        self.assertTrue(logged_in)
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=('tests', 'secretpage', self.root_page.id))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"boring_data"')
+        self.assertNotContains(response, '"secret_data"')
+
+        # superusers should see secret_data
+        logged_in = self.client.login(username='superuser', password='password')
+        self.assertTrue(logged_in)
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=('tests', 'secretpage', self.root_page.id))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"boring_data"')
+        self.assertContains(response, '"secret_data"')
+
+
 class TestPageEdit(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
