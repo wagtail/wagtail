@@ -380,6 +380,9 @@ class ModelAdmin(WagtailRegisterable):
         """
         if hasattr(self.model, 'edit_handler'):
             edit_handler = self.model.edit_handler
+        elif hasattr(self.model, 'panels'):
+            panels = self.model.panels
+            edit_handler = ObjectList(panels)
         elif hasattr(self, 'edit_handler'):
             edit_handler = self.edit_handler
         elif hasattr(self, 'panels'):
