@@ -89,3 +89,19 @@ class Person(models.Model):
 
     def __str__(self):
         return self.first_name
+
+
+class Friend(models.Model):
+    """model used to test model.panels usage in get_edit_handler"""
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('first_name'),
+        FieldPanel('phone_number'),
+    ]
+
+    def __str__(self):
+        return self.first_name

@@ -5,7 +5,9 @@ from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm
-from .models import Author, Book, Contributor, Person, Publisher, Token, VenuePage, Visitor
+from .models import (
+    Author, Book, Contributor, Person, Publisher, Token, VenuePage,
+    Visitor, Friend)
 
 
 class AuthorModelAdmin(ModelAdmin):
@@ -97,6 +99,11 @@ class PersonAdmin(ModelAdmin):
     exclude_from_explorer = True
 
 
+class FriendAdmin(ModelAdmin):
+    model = Friend
+    exclude_from_explorer = True
+
+
 class VisitorAdmin(ModelAdmin):
     model = Visitor
     exclude_from_explorer = True
@@ -141,5 +148,6 @@ modeladmin_register(PublisherModelAdmin)
 modeladmin_register(EventsAdminGroup)
 modeladmin_register(BusinessChildAdmin)
 modeladmin_register(PersonAdmin)
+modeladmin_register(FriendAdmin)
 modeladmin_register(VisitorAdmin)
 modeladmin_register(ContributorAdmin)

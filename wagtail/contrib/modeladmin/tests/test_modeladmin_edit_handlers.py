@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from wagtail.tests.modeladmintest.models import Contributor, Person, Visitor
+from wagtail.tests.modeladmintest.models import Contributor, Person, Visitor, Friend
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -39,6 +39,36 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         self.assertEqual(
             [ii for ii in response.context['form'].fields],
             ['first_name', 'last_name', 'phone_number']
+        )
+
+    def test_model_panels(self):
+        # tests that panel definition from model is used to create
+        # a model instance if no edit_handler is set on the model
+        response = self.client.post('/admin/modeladmintest/friend/create/', {
+            'first_name': "John",
+            'last_name': "Doe",
+            'address': "123 Main St Anytown",
+            'phone_number': "+123456789"
+        })
+        # Should redirect back to index
+        self.assertRedirects(response, '/admin/modeladmintest/friend/')
+
+        # Check that the friend was created
+        self.assertEqual(Friend.objects.filter(
+            first_name="John",
+            phone_number="+123456789"
+        ).count(), 1)
+
+        # verify that form fields are returned which have been defined
+        # in Friend.panels
+        response = self.client.get('/admin/modeladmintest/friend/create/')
+        self.assertIn('first_name', response.content.decode('UTF-8'))
+        self.assertNotIn('last_name', response.content.decode('UTF-8'))
+        self.assertIn('phone_number', response.content.decode('UTF-8'))
+        self.assertNotIn('address', response.content.decode('UTF-8'))
+        self.assertEqual(
+            [ii for ii in response.context['form'].fields],
+            ['first_name', 'phone_number']
         )
 
     def test_model_admin_edit_handler(self):
