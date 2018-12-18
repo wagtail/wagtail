@@ -28,7 +28,6 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
-from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 
 from .forms import ParentChooserForm
 
@@ -115,18 +114,9 @@ class WMABaseView(TemplateView):
 class ModelFormView(WMABaseView, FormView):
 
     def get_edit_handler(self):
-        if hasattr(self.model, 'edit_handler'):
-            edit_handler = self.model.edit_handler
-        elif hasattr(self.model_admin, 'edit_handler'):
-            edit_handler = self.model_admin.edit_handler
-        elif hasattr(self.model_admin, 'panels'):
-            panels = self.model_admin.panels
-            edit_handler = ObjectList(panels)
-        else:
-            fields_to_exclude = self.model_admin.get_form_fields_exclude(request=self.request)
-            panels = extract_panel_definitions_from_model_class(self.model, exclude=fields_to_exclude)
-            edit_handler = ObjectList(panels)
-        return edit_handler.bind_to_model(self.model)
+        return self.model_admin.get_edit_handler(
+            instance=self.get_instance(), request=self.request
+        )
 
     def get_form_class(self):
         return self.get_edit_handler().get_form_class()
