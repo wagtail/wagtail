@@ -5,9 +5,7 @@ from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm
-from .models import (
-    Author, Book, Contributor, Person, Publisher, Token, VenuePage,
-    Visitor, Friend)
+from .models import Author, Book, Contributor, Friend, Person, Publisher, Token, VenuePage, Visitor
 
 
 class AuthorModelAdmin(ModelAdmin):

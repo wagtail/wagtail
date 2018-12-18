@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from wagtail.tests.modeladmintest.models import Contributor, Person, Visitor, Friend
+from wagtail.tests.modeladmintest.models import Contributor, Friend, Person, Visitor
 from wagtail.tests.utils import WagtailTestUtils
 
 
