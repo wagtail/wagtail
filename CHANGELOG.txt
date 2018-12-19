@@ -8,7 +8,7 @@ Changelog
  * Fix: Validation error messages in `InlinePanel` no longer count towards `max_num` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)
 
 
-2.4 (xx.xx.xxxx) - IN DEVELOPMENT
+2.4 (19.12.2018)
 ~~~~~~~~~~~~~~~~
 
  * Added support for Python 3.7 (Matt Westcott)
