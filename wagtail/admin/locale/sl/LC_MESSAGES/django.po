@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -19,6 +19,15 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Oddaj v potrditev"
+
+msgid "Unpublish"
+msgstr "Umakni iz objave"
+
+msgid "Delete"
+msgstr "Izbriši"
 
 msgid "You do not have permission to access the admin"
 msgstr "Nimate dovoljenja za dostop do administracije"
@@ -170,9 +179,6 @@ msgstr "Ponastavi geslo"
 
 msgid "Edit"
 msgstr "Uredi"
-
-msgid "Delete"
-msgstr "Izbriši"
 
 msgid "Pages"
 msgstr "Strani"
@@ -405,6 +411,12 @@ msgstr "Zaklenjeno"
 msgid "Unlocked"
 msgstr "Odklenjeno"
 
+msgid "Publish this revision"
+msgstr "Objavi to različico"
+
+msgid "Publish"
+msgstr "Objavi"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Ustvari stran v %(title)s"
@@ -452,9 +464,6 @@ msgstr "Da, premakni stran"
 msgid "Unpublish %(title)s"
 msgstr "Umakni '%(title)s' iz objave"
 
-msgid "Unpublish"
-msgstr "Umakni iz objave"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ali ste prepričano, da želite stran umaknit iz objave?"
 
@@ -484,12 +493,6 @@ msgstr "Nov"
 msgid "Save draft"
 msgstr "Shrani osnutek"
 
-msgid "Publish"
-msgstr "Objavi"
-
-msgid "Submit for moderation"
-msgstr "Oddaj v potrditev"
-
 msgid "This page has unsaved changes."
 msgstr "Na strani so ne shranjene spremembe."
 
@@ -506,9 +509,6 @@ msgstr "Stran je zaklenjena"
 
 msgid "Replace current draft"
 msgstr "Nadomesti trenutni osnutek"
-
-msgid "Publish this revision"
-msgstr "Objavi to različico"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

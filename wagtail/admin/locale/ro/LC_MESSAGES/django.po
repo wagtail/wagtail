@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -19,6 +19,15 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Submit for moderation"
+msgstr "Trimite pentru moderare"
+
+msgid "Unpublish"
+msgstr "Anulează publicarea"
+
+msgid "Delete"
+msgstr "Șterge"
 
 msgid "Wagtail admin"
 msgstr "Administrare Wagtail"
@@ -239,9 +248,6 @@ msgstr "Resetează parola"
 
 msgid "Edit"
 msgstr "Editează"
-
-msgid "Delete"
-msgstr "Șterge"
 
 msgid "Page"
 msgstr "Pagină"
@@ -571,6 +577,15 @@ msgstr "Blocat"
 msgid "Unlocked"
 msgstr "Deblocat"
 
+msgid "Publishing…"
+msgstr "În curs de publicare…"
+
+msgid "Publish this revision"
+msgstr "Publică această revizie"
+
+msgid "Publish"
+msgstr "Publică"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crează o pagină în %(title)s"
@@ -653,9 +668,6 @@ msgstr "Da, mută această pagină"
 msgid "Unpublish %(title)s"
 msgstr "Anulează publicarea %(title)s"
 
-msgid "Unpublish"
-msgstr "Anulează publicarea"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sigur doriți să anulați publicarea aceastei pagini?"
 
@@ -717,15 +729,6 @@ msgstr "În curs de salvare..."
 msgid "Save draft"
 msgstr "Salvează ca ciornă"
 
-msgid "Publishing…"
-msgstr "În curs de publicare…"
-
-msgid "Publish"
-msgstr "Publică"
-
-msgid "Submit for moderation"
-msgstr "Trimite pentru moderare"
-
 msgid "This page has unsaved changes."
 msgstr "Această pagină conține modificări nesalvate."
 
@@ -742,9 +745,6 @@ msgstr "Pagină blocată"
 
 msgid "Replace current draft"
 msgstr "Înlocuiește ciorna curentă"
-
-msgid "Publish this revision"
-msgstr "Publică această revizie"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

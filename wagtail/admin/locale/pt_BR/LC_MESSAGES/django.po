@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-30 02:03+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-07 11:25+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -27,6 +27,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Enviar para moderação"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Delete"
+msgstr "Excluir"
 
 msgid "Wagtail admin"
 msgstr "Administração Wagtail"
@@ -239,9 +248,6 @@ msgstr "Redefina sua senha"
 
 msgid "Edit"
 msgstr "Editar"
-
-msgid "Delete"
-msgstr "Excluir"
 
 msgid "Page"
 msgstr "Página"
@@ -464,6 +470,9 @@ msgstr "Editado"
 msgid "Edit this page"
 msgstr "Editar essa página"
 
+msgid "Preview this page"
+msgstr "Pré-visualizar esta página"
+
 msgid "Approve"
 msgstr "Aprovar"
 
@@ -588,6 +597,15 @@ msgstr "Bloqueado"
 msgid "Unlocked"
 msgstr "Desbloqueado"
 
+msgid "Publishing…"
+msgstr "Publicando..."
+
+msgid "Publish this revision"
+msgstr "Publicar esta revisão"
+
+msgid "Publish"
+msgstr "Publicar"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crie uma página a partir de %(title)s"
@@ -670,9 +688,6 @@ msgstr "Sim, quero mover"
 msgid "Unpublish %(title)s"
 msgstr "Despublicar %(title)s"
 
-msgid "Unpublish"
-msgstr "Despublicar"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Tem certeza que deseja despublicar essa página?"
 
@@ -732,15 +747,6 @@ msgstr "Salvando…"
 msgid "Save draft"
 msgstr "Salvar rascunho"
 
-msgid "Publishing…"
-msgstr "Publicando..."
-
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Submit for moderation"
-msgstr "Enviar para moderação"
-
 msgid "This page has unsaved changes."
 msgstr "Esta página tem alterações não salvas."
 
@@ -757,9 +763,6 @@ msgstr "Página bloqueada"
 
 msgid "Replace current draft"
 msgstr "Substituir rascunho atual"
-
-msgid "Publish this revision"
-msgstr "Publicar esta revisão"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

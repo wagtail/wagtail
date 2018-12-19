@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Submit for moderation"
+msgstr "فرستادن برای نظارت"
+
+msgid "Unpublish"
+msgstr "لغو انتشار"
+
+msgid "Delete"
+msgstr "حذف"
 
 msgid "None"
 msgstr "خالی"
@@ -187,9 +196,6 @@ msgstr "رمزعبور را بازنشانی کنید"
 
 msgid "Edit"
 msgstr "تصحیح"
-
-msgid "Delete"
-msgstr "حذف"
 
 msgid "Page"
 msgstr "صفحه"
@@ -464,6 +470,12 @@ msgstr "قفل"
 msgid "Unlocked"
 msgstr "گشوده"
 
+msgid "Publish this revision"
+msgstr "انتشار این بازبینی"
+
+msgid "Publish"
+msgstr "انتشار"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "ایجاد صفحه در %(title)s"
@@ -543,9 +555,6 @@ msgstr "بله، منتقل شود"
 msgid "Unpublish %(title)s"
 msgstr "لغو انتشار %(title)s"
 
-msgid "Unpublish"
-msgstr "لغو انتشار"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "آیا میخواهید این صفحه لغو انتشار شود؟"
 
@@ -599,12 +608,6 @@ msgstr "جدید"
 msgid "Save draft"
 msgstr "ذخیره پیشنویس"
 
-msgid "Publish"
-msgstr "انتشار"
-
-msgid "Submit for moderation"
-msgstr "فرستادن برای نظارت"
-
 msgid "This page has unsaved changes."
 msgstr "این صفحه تغییرات ذخیره نشده دارد."
 
@@ -621,9 +624,6 @@ msgstr "صفحه قفل شده"
 
 msgid "Replace current draft"
 msgstr "جایگزینی پیشنویس فعلی"
-
-msgid "Publish this revision"
-msgstr "انتشار این بازبینی"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

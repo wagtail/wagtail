@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Enviar para ser moderado"
+
+msgid "Unpublish"
+msgstr "Non publicar"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "You do not have permission to access the admin"
 msgstr "Non tes permisos para acceder ao administrador."
@@ -173,9 +182,6 @@ msgstr "Restablecer o teu contrasinal"
 
 msgid "Edit"
 msgstr "Editar"
-
-msgid "Delete"
-msgstr "Eliminar"
 
 msgid "Pages"
 msgstr "Páxinas"
@@ -426,6 +432,12 @@ msgstr "Bloqueada"
 msgid "Unlocked"
 msgstr "Desbloqueada"
 
+msgid "Publish this revision"
+msgstr "Publicar esta revisión"
+
+msgid "Publish"
+msgstr "Publicar"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crear unha páxina en %(title)s"
@@ -493,9 +505,6 @@ msgstr "Sí, mover esta páxina"
 msgid "Unpublish %(title)s"
 msgstr "Non publicar %(title)s"
 
-msgid "Unpublish"
-msgstr "Non publicar"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "¿Seguro que non queres publicar esta páxina?"
 
@@ -525,12 +534,6 @@ msgstr "Nova"
 msgid "Save draft"
 msgstr "Gardar borrador"
 
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Submit for moderation"
-msgstr "Enviar para ser moderado"
-
 msgid "This page has unsaved changes."
 msgstr "Esta páxina ten cambios sen gardar."
 
@@ -547,9 +550,6 @@ msgstr "Páxina bloqueada"
 
 msgid "Replace current draft"
 msgstr "Substituír borrador actual"
-
-msgid "Publish this revision"
-msgstr "Publicar esta revisión"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

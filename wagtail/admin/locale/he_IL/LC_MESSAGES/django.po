@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Language: he_IL\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
 "1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+
+msgid "Submit for moderation"
+msgstr "הזן לעריכה"
+
+msgid "Unpublish"
+msgstr "ביטול פרסום"
+
+msgid "Delete"
+msgstr "מחיקה"
 
 msgid "Scheduled publishing"
 msgstr "פרסום מתוזמן"
@@ -159,9 +168,6 @@ msgstr "אתחלו את סיסמתכם"
 
 msgid "Edit"
 msgstr "עריכה"
-
-msgid "Delete"
-msgstr "מחיקה"
 
 msgid "Dashboard"
 msgstr "לוח מחוונים"
@@ -356,6 +362,9 @@ msgstr "נעול"
 msgid "Unlocked"
 msgstr "בלתי נעול"
 
+msgid "Publish"
+msgstr "פרסם"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "יצירת עמוד חדש ב%(title)s"
@@ -424,9 +433,6 @@ msgstr "כן, העבר את העמוד"
 msgid "Unpublish %(title)s"
 msgstr "הסתר את %(title)s"
 
-msgid "Unpublish"
-msgstr "ביטול פרסום"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "בטוחים כי תרצו לבטל את פרסום העמוד?"
 
@@ -455,12 +461,6 @@ msgstr "חדש "
 
 msgid "Save draft"
 msgstr "שמור טיוטה"
-
-msgid "Publish"
-msgstr "פרסם"
-
-msgid "Submit for moderation"
-msgstr "הזן לעריכה"
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"

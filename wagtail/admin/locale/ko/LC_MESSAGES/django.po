@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Submit for moderation"
+msgstr "검토를 위한 제출"
+
+msgid "Unpublish"
+msgstr "게시 해제"
+
+msgid "Delete"
+msgstr "삭제"
 
 msgid "Wagtail admin"
 msgstr "웨그테일 관리자"
@@ -229,9 +238,6 @@ msgstr "비밀번호 초기화"
 
 msgid "Edit"
 msgstr "수정"
-
-msgid "Delete"
-msgstr "삭제"
 
 msgid "Page"
 msgstr "페이지"
@@ -543,6 +549,15 @@ msgstr "잠김"
 msgid "Unlocked"
 msgstr "잠금 풀림"
 
+msgid "Publishing…"
+msgstr "게시 중..."
+
+msgid "Publish this revision"
+msgstr "이 수정안을 게시하기"
+
+msgid "Publish"
+msgstr "게시"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "%(title)s 페이지 생성"
@@ -618,9 +633,6 @@ msgstr "네, 이 페이지를 이동합니다"
 msgid "Unpublish %(title)s"
 msgstr "%(title)s 게시 해제"
 
-msgid "Unpublish"
-msgstr "게시 해제"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "이 페이지의 게시를 해제하시겠습니까?"
 
@@ -674,15 +686,6 @@ msgstr "저장 중..."
 msgid "Save draft"
 msgstr "초안 저장"
 
-msgid "Publishing…"
-msgstr "게시 중..."
-
-msgid "Publish"
-msgstr "게시"
-
-msgid "Submit for moderation"
-msgstr "검토를 위한 제출"
-
 msgid "This page has unsaved changes."
 msgstr "이 페이지는 저장되지 않은 변경사항이 있습니다."
 
@@ -699,9 +702,6 @@ msgstr "페이지 잠금"
 
 msgid "Replace current draft"
 msgstr "현재 초안을 대체하기"
-
-msgid "Publish this revision"
-msgstr "이 수정안을 게시하기"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

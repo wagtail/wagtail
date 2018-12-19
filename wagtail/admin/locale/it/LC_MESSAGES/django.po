@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -23,6 +23,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Invia per moderazione"
+
+msgid "Unpublish"
+msgstr "Annulla pubblicazione"
+
+msgid "Delete"
+msgstr "Elimina"
 
 msgid "Wagtail admin"
 msgstr "Gestione Wagtail"
@@ -237,9 +246,6 @@ msgstr "Inserisci password"
 
 msgid "Edit"
 msgstr "Modifica"
-
-msgid "Delete"
-msgstr "Elimina"
 
 msgid "Page"
 msgstr "Pagina"
@@ -572,6 +578,15 @@ msgstr "Bloccato"
 msgid "Unlocked"
 msgstr "Sbloccato"
 
+msgid "Publishing…"
+msgstr "Pubblicazione in corso..."
+
+msgid "Publish this revision"
+msgstr "Pubblica questa revisione"
+
+msgid "Publish"
+msgstr "Pubblica"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crea una pagina in %(title)s"
@@ -654,9 +669,6 @@ msgstr "Si, va a questa pagina"
 msgid "Unpublish %(title)s"
 msgstr "Annulla pubblicazione %(title)s"
 
-msgid "Unpublish"
-msgstr "Annulla pubblicazione"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sei sicuro di voler annullare la pubblicazione di questa pagina?"
 
@@ -717,15 +729,6 @@ msgstr "Salvataggio in corso…"
 msgid "Save draft"
 msgstr "Salva bozza"
 
-msgid "Publishing…"
-msgstr "Pubblicazione in corso..."
-
-msgid "Publish"
-msgstr "Pubblica"
-
-msgid "Submit for moderation"
-msgstr "Invia per moderazione"
-
 msgid "This page has unsaved changes."
 msgstr "Questa pagina ha delle modifiche non salvate."
 
@@ -742,9 +745,6 @@ msgstr "Pagina bloccata"
 
 msgid "Replace current draft"
 msgstr "Sostituisci la bozza corrente"
-
-msgid "Publish this revision"
-msgstr "Pubblica questa revisione"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

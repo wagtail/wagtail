@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -21,6 +21,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Submit for moderation"
+msgstr "Kirim untuk dimoderasi"
+
+msgid "Unpublish"
+msgstr "Tarik publikasi"
+
+msgid "Delete"
+msgstr "Hapus"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -235,9 +244,6 @@ msgstr "Atur ulang kata sandi Anda"
 
 msgid "Edit"
 msgstr "Ubah"
-
-msgid "Delete"
-msgstr "Hapus"
 
 msgid "Page"
 msgstr "Halaman"
@@ -560,6 +566,15 @@ msgstr "Terkunci"
 msgid "Unlocked"
 msgstr "Kunci terbuka"
 
+msgid "Publishing…"
+msgstr "Mempublikasikan..."
+
+msgid "Publish this revision"
+msgstr "Publikasi revisi ini"
+
+msgid "Publish"
+msgstr "Publikasikan"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Buat halaman dalam %(title)s"
@@ -638,9 +653,6 @@ msgstr "Ya, pindahkan halaman ini"
 msgid "Unpublish %(title)s"
 msgstr "Tarik publikasi %(title)s"
 
-msgid "Unpublish"
-msgstr "Tarik publikasi"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Apakan anda yakin akan menarik publikasi halaman ini?"
 
@@ -696,15 +708,6 @@ msgstr "Menyimpan..."
 msgid "Save draft"
 msgstr "Simpan konsep"
 
-msgid "Publishing…"
-msgstr "Mempublikasikan..."
-
-msgid "Publish"
-msgstr "Publikasikan"
-
-msgid "Submit for moderation"
-msgstr "Kirim untuk dimoderasi"
-
 msgid "This page has unsaved changes."
 msgstr "Terdapat perubahan yang belum disimpan dalam halaman ini."
 
@@ -721,9 +724,6 @@ msgstr "Halaman dikunci"
 
 msgid "Replace current draft"
 msgstr "Gantikan konsep saat ini"
-
-msgid "Publish this revision"
-msgstr "Publikasi revisi ini"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

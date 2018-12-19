@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Pateikti moderavimui"
+
+msgid "Unpublish"
+msgstr "Nebepublikuoti"
+
+msgid "Delete"
+msgstr "Ištrinti"
 
 msgid "None"
 msgstr "Joks"
@@ -212,9 +221,6 @@ msgstr "Atstatyti savo slaptažodį"
 
 msgid "Edit"
 msgstr "Redaguoti"
-
-msgid "Delete"
-msgstr "Ištrinti"
 
 msgid "Page"
 msgstr "Puslapis"
@@ -533,6 +539,15 @@ msgstr "Užrakinta"
 msgid "Unlocked"
 msgstr "Atrakinta"
 
+msgid "Publishing…"
+msgstr "Publikuojama..."
+
+msgid "Publish this revision"
+msgstr "Publikuoti šia reviziją"
+
+msgid "Publish"
+msgstr "Publikuoti"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Sukurti puslapį viduje %(title)s"
@@ -619,9 +634,6 @@ msgstr "Taip, perkelti šį puslapį"
 msgid "Unpublish %(title)s"
 msgstr "Nebepublikuoti %(title)s"
 
-msgid "Unpublish"
-msgstr "Nebepublikuoti"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ar tikrai norite nebepublikuoti šio puslapio?"
 
@@ -687,15 +699,6 @@ msgstr "Saugoma..."
 msgid "Save draft"
 msgstr "Išsaugoti juodraštį"
 
-msgid "Publishing…"
-msgstr "Publikuojama..."
-
-msgid "Publish"
-msgstr "Publikuoti"
-
-msgid "Submit for moderation"
-msgstr "Pateikti moderavimui"
-
 msgid "This page has unsaved changes."
 msgstr "Šis puslapis turi neišsaugotų pakeitimų."
 
@@ -712,9 +715,6 @@ msgstr "Puslapis užrakintas"
 
 msgid "Replace current draft"
 msgstr "Pakeisti dabartinį juodraštį"
-
-msgid "Publish this revision"
-msgstr "Publikuoti šia reviziją"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

@@ -6,15 +6,15 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
-# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2015
-# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2015,2018
+# José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:53+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-08 14:48+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,9 @@ msgstr "Por favor introduce una URL válida"
 
 msgid "embed"
 msgstr "embebido"
+
+msgid "embeds"
+msgstr "embebidos"
 
 msgid "Insert embed"
 msgstr "Insertar embed"

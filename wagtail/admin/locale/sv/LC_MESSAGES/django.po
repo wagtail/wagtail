@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-11-27 21:53+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-15 03:21+0000\n"
 "Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -24,6 +24,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Lämna in för moderering"
+
+msgid "Unpublish"
+msgstr "Avpublicera"
+
+msgid "Delete"
+msgstr "Radera"
 
 msgid "Wagtail admin"
 msgstr "Wagtail administration"
@@ -237,9 +246,6 @@ msgstr "Återställ ditt lösenord"
 
 msgid "Edit"
 msgstr "Editera"
-
-msgid "Delete"
-msgstr "Radera"
 
 msgid "Page"
 msgstr "Sida"
@@ -460,6 +466,9 @@ msgstr "Editerad"
 msgid "Edit this page"
 msgstr "Editera denna sida"
 
+msgid "Preview this page"
+msgstr "Förhandsgranska den här sidan"
+
 msgid "Approve"
 msgstr "Godkänn"
 
@@ -586,6 +595,15 @@ msgstr "Låst"
 msgid "Unlocked"
 msgstr "Olåst"
 
+msgid "Publishing…"
+msgstr "Publicerar..."
+
+msgid "Publish this revision"
+msgstr "Publicera denna revision"
+
+msgid "Publish"
+msgstr "Publicera"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Skapa en sida i %(title)s"
@@ -669,9 +687,6 @@ msgstr "Ja, flytta sidan"
 msgid "Unpublish %(title)s"
 msgstr "Avpublicera %(title)s"
 
-msgid "Unpublish"
-msgstr "Avpublicera"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Är du säker på att du vill avpublicera denna sida?"
 
@@ -731,15 +746,6 @@ msgstr "Sparar..."
 msgid "Save draft"
 msgstr "Spara utkast"
 
-msgid "Publishing…"
-msgstr "Publicerar..."
-
-msgid "Publish"
-msgstr "Publicera"
-
-msgid "Submit for moderation"
-msgstr "Lämna in för moderering"
-
 msgid "This page has unsaved changes."
 msgstr "Den här sidan har osparade ändringar."
 
@@ -756,9 +762,6 @@ msgstr "Sida låst"
 
 msgid "Replace current draft"
 msgstr "Ersätt existerande utkast"
-
-msgid "Publish this revision"
-msgstr "Publicera denna revision"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

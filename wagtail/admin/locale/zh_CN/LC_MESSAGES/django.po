@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -29,6 +29,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Submit for moderation"
+msgstr "提交审核"
+
+msgid "Unpublish"
+msgstr "取消发布"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "Wagtail admin"
 msgstr "Wagtail 管理"
@@ -232,9 +241,6 @@ msgstr "重设密码"
 
 msgid "Edit"
 msgstr "编辑"
-
-msgid "Delete"
-msgstr "删除"
 
 msgid "Page"
 msgstr "页面"
@@ -543,6 +549,15 @@ msgstr "已锁定"
 msgid "Unlocked"
 msgstr "已解锁"
 
+msgid "Publishing…"
+msgstr "正在发布..."
+
+msgid "Publish this revision"
+msgstr "发布这个版本"
+
+msgid "Publish"
+msgstr "发布"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "在%(title)s中创建一个页面"
@@ -617,9 +632,6 @@ msgstr "是的，请开始移动吧"
 msgid "Unpublish %(title)s"
 msgstr "取消发布%(title)s"
 
-msgid "Unpublish"
-msgstr "取消发布"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "此页面确定要取消发布吗？"
 
@@ -675,15 +687,6 @@ msgstr "正在保存..."
 msgid "Save draft"
 msgstr "保存草稿"
 
-msgid "Publishing…"
-msgstr "正在发布..."
-
-msgid "Publish"
-msgstr "发布"
-
-msgid "Submit for moderation"
-msgstr "提交审核"
-
 msgid "This page has unsaved changes."
 msgstr "页面还没保存"
 
@@ -700,9 +703,6 @@ msgstr "页面已锁定"
 
 msgid "Replace current draft"
 msgstr "替换当前的草稿"
-
-msgid "Publish this revision"
-msgstr "发布这个版本"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
@@ -19,6 +19,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Indsend til moderation"
+
+msgid "Unpublish"
+msgstr "Afpublicer"
+
+msgid "Delete"
+msgstr "Slet"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -180,9 +189,6 @@ msgstr "Dit brugernavn (i tilfælde af at du har glemt det):"
 
 msgid "Edit"
 msgstr "Rediger"
-
-msgid "Delete"
-msgstr "Slet"
 
 msgid "Page"
 msgstr "Side"
@@ -440,6 +446,15 @@ msgstr "Låst"
 msgid "Unlocked"
 msgstr "Ulåst"
 
+msgid "Publishing…"
+msgstr "Udgiver..."
+
+msgid "Publish this revision"
+msgstr "Udgiv denne revision"
+
+msgid "Publish"
+msgstr "Udgiv"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Lav en side i %(title)s"
@@ -509,9 +524,6 @@ msgstr "Ja, flyt denne side"
 msgid "Unpublish %(title)s"
 msgstr "Afpublicer %(title)s"
 
-msgid "Unpublish"
-msgstr "Afpublicer"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Er du sikker på, at du vil afpublicere denne side?"
 
@@ -571,15 +583,6 @@ msgstr "Gemmer..."
 msgid "Save draft"
 msgstr "Gem skitse"
 
-msgid "Publishing…"
-msgstr "Udgiver..."
-
-msgid "Publish"
-msgstr "Udgiv"
-
-msgid "Submit for moderation"
-msgstr "Indsend til moderation"
-
 msgid "This page has unsaved changes."
 msgstr "Denne side har ugemte ændringer."
 
@@ -596,9 +599,6 @@ msgstr "Siden er låst"
 
 msgid "Replace current draft"
 msgstr "Udskift nuværende skitse"
-
-msgid "Publish this revision"
-msgstr "Udgiv denne revision"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

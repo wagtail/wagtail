@@ -379,7 +379,7 @@ Translators
 * Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Miron Levitskiy, Arseni M, Eugene MechanisM, Rustam Mirzaev, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Nikita Tonkoshkur, Tatsiana Tsygan, Nikita Viktorovich, Vassiliy Vorobyov
 * Slovak (Slovakia): Stevo Backor, dellax, Martin Janšto, Jozef Karabelly
 * Slovenian: Mitja Pagon
-* Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, José Luis Sandoval Alaguna, Joaquín Tita, Unai Zalakain
+* Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, José Luis, Joaquín Tita, Unai Zalakain
 * Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Alexander Holmbäck, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander
 * Turkish: Zafer Cengiz, Cihad Gündoǧdu, Ragıp Ünal
 * Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, José Luis, Ragıp Ünal

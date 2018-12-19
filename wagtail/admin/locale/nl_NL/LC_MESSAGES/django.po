@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-11-05 12:51+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Dien in ter controle"
+
+msgid "Unpublish"
+msgstr "Publicatie intrekken"
+
+msgid "Delete"
+msgstr "Verwijder"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -243,9 +252,6 @@ msgstr "Reset uw wachtwoord"
 
 msgid "Edit"
 msgstr "Wijzig"
-
-msgid "Delete"
-msgstr "Verwijder"
 
 msgid "Page"
 msgstr "Pagina"
@@ -591,6 +597,15 @@ msgstr "Geblokkeerd"
 msgid "Unlocked"
 msgstr "Gedeblokkeerd"
 
+msgid "Publishing…"
+msgstr "Bezig met publiceren..."
+
+msgid "Publish this revision"
+msgstr "Publiceer deze versie"
+
+msgid "Publish"
+msgstr "Publiceer"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Maak een pagina in %(title)s"
@@ -671,9 +686,6 @@ msgstr "Ja, verplaats deze pagina"
 msgid "Unpublish %(title)s"
 msgstr "Publicatie intrekken van %(title)s"
 
-msgid "Unpublish"
-msgstr "Publicatie intrekken"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Weet u zeker dat u de publicatie van deze pagina wilt intrekken?"
 
@@ -731,15 +743,6 @@ msgstr "Bezig met opslaan…"
 msgid "Save draft"
 msgstr "Bewaar concept"
 
-msgid "Publishing…"
-msgstr "Bezig met publiceren..."
-
-msgid "Publish"
-msgstr "Publiceer"
-
-msgid "Submit for moderation"
-msgstr "Dien in ter controle"
-
 msgid "This page has unsaved changes."
 msgstr "Deze pagina heeft wijzigingen die nog niet zijn opgeslagen."
 
@@ -756,9 +759,6 @@ msgstr "Pagina is geblokkeerd"
 
 msgid "Replace current draft"
 msgstr "Vervang huidig concept"
-
-msgid "Publish this revision"
-msgstr "Publiceer deze versie"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

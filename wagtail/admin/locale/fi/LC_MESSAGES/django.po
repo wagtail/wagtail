@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -22,6 +22,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Lähetä tarkistettavaksi"
+
+msgid "Unpublish"
+msgstr "Piilota"
+
+msgid "Delete"
+msgstr "Poista"
 
 msgid "None"
 msgstr "Ei mitään"
@@ -182,9 +191,6 @@ msgstr "Palauta salasanasi"
 
 msgid "Edit"
 msgstr "Muokkaa"
-
-msgid "Delete"
-msgstr "Poista"
 
 msgid "Pages"
 msgstr "Sivut"
@@ -435,6 +441,12 @@ msgstr "Lukittu"
 msgid "Unlocked"
 msgstr "Ei lukittu"
 
+msgid "Publish this revision"
+msgstr "Julkaise tämä versio"
+
+msgid "Publish"
+msgstr "Julkaise"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Luo sivu kohteeseen %(title)s"
@@ -514,9 +526,6 @@ msgstr "Kyllä, siirrä sivu"
 msgid "Unpublish %(title)s"
 msgstr "Piilota %(title)s"
 
-msgid "Unpublish"
-msgstr "Piilota"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Haluatko varmasti piilottaa tämän sivun?"
 
@@ -549,12 +558,6 @@ msgstr "Uusi"
 msgid "Save draft"
 msgstr "Tallenna luonnos"
 
-msgid "Publish"
-msgstr "Julkaise"
-
-msgid "Submit for moderation"
-msgstr "Lähetä tarkistettavaksi"
-
 msgid "This page has unsaved changes."
 msgstr "Tällä sivulla on tallentamattomia muutoksia."
 
@@ -571,9 +574,6 @@ msgstr "Sivu lukittu"
 
 msgid "Replace current draft"
 msgstr "Korvaa nykyinen luonnos"
-
-msgid "Publish this revision"
-msgstr "Julkaise tämä versio"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

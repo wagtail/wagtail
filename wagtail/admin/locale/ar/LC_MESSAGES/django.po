@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-11-01 07:26+0000\n"
-"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,15 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Submit for moderation"
+msgstr "قدّم للمراجعة"
+
+msgid "Unpublish"
+msgstr "غير منشور"
+
+msgid "Delete"
+msgstr "احذف"
 
 msgid "Wagtail admin"
 msgstr "مشرف Wagtail"
@@ -240,9 +249,6 @@ msgstr "أعد تثبيت كلمةتك السرية"
 
 msgid "Edit"
 msgstr "تحرير"
-
-msgid "Delete"
-msgstr "احذف"
 
 msgid "Page"
 msgstr "صفحة"
@@ -582,6 +588,15 @@ msgstr "مغلق"
 msgid "Unlocked"
 msgstr "غير مغلق"
 
+msgid "Publishing…"
+msgstr "يتم النشر..."
+
+msgid "Publish this revision"
+msgstr "نشر النسخه السابقه"
+
+msgid "Publish"
+msgstr "انشر"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "انشاء صفحة لـ %(title)s"
@@ -642,9 +657,6 @@ msgstr "تعم انقل هذه الصفحة"
 msgid "Unpublish %(title)s"
 msgstr "الغ نشر %(title)s"
 
-msgid "Unpublish"
-msgstr "غير منشور"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "هل تريد فعلا إلغاء نشر هذه الصفحة؟"
 
@@ -684,15 +696,6 @@ msgstr "يتم الحفظ..."
 msgid "Save draft"
 msgstr "احفظ المسوّد"
 
-msgid "Publishing…"
-msgstr "يتم النشر..."
-
-msgid "Publish"
-msgstr "انشر"
-
-msgid "Submit for moderation"
-msgstr "قدّم للمراجعة"
-
 msgid "This page has unsaved changes."
 msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
 
@@ -709,9 +712,6 @@ msgstr "الصفحة مغلقة"
 
 msgid "Replace current draft"
 msgstr "استبدال المسودة الحالية"
-
-msgid "Publish this revision"
-msgstr "نشر النسخه السابقه"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

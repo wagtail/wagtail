@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -19,6 +19,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Submit for moderation"
+msgstr "承認を受ける"
+
+msgid "Unpublish"
+msgstr "非公開に設定"
+
+msgid "Delete"
+msgstr "削除"
 
 msgid "Scheduled publishing"
 msgstr "予定公開日"
@@ -151,9 +160,6 @@ msgstr "パスワードを再設定"
 
 msgid "Edit"
 msgstr "編集"
-
-msgid "Delete"
-msgstr "削除"
 
 msgid "Pages"
 msgstr "ページ"
@@ -371,6 +377,9 @@ msgstr "ロックあり"
 msgid "Unlocked"
 msgstr "ロックなし"
 
+msgid "Publish"
+msgstr "公開"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "%(title)sにページを作成"
@@ -430,9 +439,6 @@ msgstr "はい、このページを移動します。"
 msgid "Unpublish %(title)s"
 msgstr "%(title)sを非公開に設定"
 
-msgid "Unpublish"
-msgstr "非公開に設定"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "このページを非公開に設定してよろしいですか？"
 
@@ -461,12 +467,6 @@ msgstr "新規作成"
 
 msgid "Save draft"
 msgstr "下書きを保存"
-
-msgid "Publish"
-msgstr "公開"
-
-msgid "Submit for moderation"
-msgstr "承認を受ける"
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"

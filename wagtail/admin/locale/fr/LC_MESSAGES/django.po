@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -36,6 +36,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Soumettre pour modération"
+
+msgid "Unpublish"
+msgstr "Dépublier"
+
+msgid "Delete"
+msgstr "Supprimer"
 
 msgid "Wagtail admin"
 msgstr "Administration Wagtail"
@@ -251,9 +260,6 @@ msgstr "Réinitialisez votre mot de passe"
 
 msgid "Edit"
 msgstr "Modifier"
-
-msgid "Delete"
-msgstr "Supprimer"
 
 msgid "Page"
 msgstr "Page"
@@ -584,6 +590,15 @@ msgstr "Verrouillé"
 msgid "Unlocked"
 msgstr "Déverrouillé"
 
+msgid "Publishing…"
+msgstr "Publication..."
+
+msgid "Publish this revision"
+msgstr "Publier cette version"
+
+msgid "Publish"
+msgstr "Publier"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Créer une page dans %(title)s"
@@ -667,9 +682,6 @@ msgstr "Oui, déplacer cette page"
 msgid "Unpublish %(title)s"
 msgstr "Dépublier %(title)s"
 
-msgid "Unpublish"
-msgstr "Dépublier"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Êtes vous sûr(e) de vouloir dépublier cette page ?"
 
@@ -729,15 +741,6 @@ msgstr "Enregistrement…"
 msgid "Save draft"
 msgstr "Enregistrer le brouillon"
 
-msgid "Publishing…"
-msgstr "Publication..."
-
-msgid "Publish"
-msgstr "Publier"
-
-msgid "Submit for moderation"
-msgstr "Soumettre pour modération"
-
 msgid "This page has unsaved changes."
 msgstr "Cette page contient des changements non enregistrés."
 
@@ -754,9 +757,6 @@ msgstr "Page vérouillée"
 
 msgid "Replace current draft"
 msgstr "Remplacer le brouillon actuel"
-
-msgid "Publish this revision"
-msgstr "Publier cette version"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
