@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -19,6 +19,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Предостави за модерация"
+
+msgid "Unpublish"
+msgstr "Отмени публикуването"
+
+msgid "Delete"
+msgstr "Изтрий"
 
 msgid "Enter your email address to reset your password"
 msgstr "Въведете вашият имейл адрес за да си възстановите паролата"
@@ -67,9 +76,6 @@ msgstr "Възстановете паролата си"
 
 msgid "Edit"
 msgstr "Редакция"
-
-msgid "Delete"
-msgstr "Изтрий"
 
 msgid "Dashboard"
 msgstr "Работно Табло"
@@ -192,6 +198,9 @@ msgstr "Можете да прегледате страницата тук:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Страницата \"%(page)s\" бе предоставена за модериране"
 
+msgid "Publish"
+msgstr "Публикувай"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Създайте страница в %(title)s"
@@ -258,9 +267,6 @@ msgstr "Да, премести тази страница"
 msgid "Unpublish %(title)s"
 msgstr "Отмени публикуването на %(title)s"
 
-msgid "Unpublish"
-msgstr "Отмени публикуването"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Сигурен ли сте, че искате да отмените публикуването на тази страница?"
 
@@ -279,12 +285,6 @@ msgstr "Ново"
 
 msgid "Save draft"
 msgstr "Запази като чернова"
-
-msgid "Publish"
-msgstr "Публикувай"
-
-msgid "Submit for moderation"
-msgstr "Предостави за модерация"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-12-06 16:20+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -27,6 +27,15 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Submit for moderation"
+msgstr "Odeslat ke schválení"
+
+msgid "Unpublish"
+msgstr "Zrušit publikaci"
+
+msgid "Delete"
+msgstr "Smazat"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -249,9 +258,6 @@ msgstr "Nastavit nové heslo"
 
 msgid "Edit"
 msgstr "Upravit"
-
-msgid "Delete"
-msgstr "Smazat"
 
 msgid "Page"
 msgstr "Stránka"
@@ -608,6 +614,15 @@ msgstr "Zamknuto"
 msgid "Unlocked"
 msgstr "Odemknuto"
 
+msgid "Publishing…"
+msgstr "Publikování..."
+
+msgid "Publish this revision"
+msgstr "Publikovat tuto revizi"
+
+msgid "Publish"
+msgstr "Publikovat"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Vytvořit stránku pod %(title)s"
@@ -694,9 +709,6 @@ msgstr "Ano, přesunout stránku"
 msgid "Unpublish %(title)s"
 msgstr "Zrušit publikaci %(title)s"
 
-msgid "Unpublish"
-msgstr "Zrušit publikaci"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Opravdu chcete zrušit publikaci této stránky?"
 
@@ -758,15 +770,6 @@ msgstr "Ukládání..."
 msgid "Save draft"
 msgstr "Uložit koncept"
 
-msgid "Publishing…"
-msgstr "Publikování..."
-
-msgid "Publish"
-msgstr "Publikovat"
-
-msgid "Submit for moderation"
-msgstr "Odeslat ke schválení"
-
 msgid "This page has unsaved changes."
 msgstr "Na této stránce jsou neuložené změny."
 
@@ -783,9 +786,6 @@ msgstr "Stránka uzamčena"
 
 msgid "Replace current draft"
 msgstr "Nahradit současný koncept"
-
-msgid "Publish this revision"
-msgstr "Publikovat tuto revizi"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

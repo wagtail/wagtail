@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -36,6 +36,15 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Отправить на модерацию"
+
+msgid "Unpublish"
+msgstr "Отменить публикацию"
+
+msgid "Delete"
+msgstr "Удалить"
 
 msgid "Wagtail admin"
 msgstr "Wagtail админ"
@@ -258,9 +267,6 @@ msgstr "Сбросить ваш пароль"
 
 msgid "Edit"
 msgstr "Редактировать"
-
-msgid "Delete"
-msgstr "Удалить"
 
 msgid "Page"
 msgstr "Страница"
@@ -594,6 +600,15 @@ msgstr "Заблокировано"
 msgid "Unlocked"
 msgstr "Разблокировано"
 
+msgid "Publishing…"
+msgstr "Публикуется..."
+
+msgid "Publish this revision"
+msgstr "Опубликовать эту версию"
+
+msgid "Publish"
+msgstr "Опубликовать"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Создать страницу в %(title)s"
@@ -680,9 +695,6 @@ msgstr "Да, переместить эту страницу"
 msgid "Unpublish %(title)s"
 msgstr "Отменить публикацию %(title)s"
 
-msgid "Unpublish"
-msgstr "Отменить публикацию"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Вы уверены, что хотите отменить публикацию этой страницы?"
 
@@ -748,15 +760,6 @@ msgstr "Сохранение…"
 msgid "Save draft"
 msgstr "Сохранить черновик"
 
-msgid "Publishing…"
-msgstr "Публикуется..."
-
-msgid "Publish"
-msgstr "Опубликовать"
-
-msgid "Submit for moderation"
-msgstr "Отправить на модерацию"
-
 msgid "This page has unsaved changes."
 msgstr "На странице есть несохраненные изменения."
 
@@ -773,9 +776,6 @@ msgstr "Страница заблокирована"
 
 msgid "Replace current draft"
 msgstr "Изменить черновик"
-
-msgid "Publish this revision"
-msgstr "Опубликовать эту версию"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

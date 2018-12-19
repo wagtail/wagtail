@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+
+msgid "Submit for moderation"
+msgstr "Iesniegt moderācijai"
+
+msgid "Unpublish"
+msgstr "Atsaukt publicēšanu"
+
+msgid "Delete"
+msgstr "Dzēst"
 
 msgid "None"
 msgstr "Nav"
@@ -201,9 +210,6 @@ msgstr "Atjaunot paroli"
 
 msgid "Edit"
 msgstr "Labot"
-
-msgid "Delete"
-msgstr "Dzēst"
 
 msgid "Page"
 msgstr "Lapa"
@@ -433,6 +439,12 @@ msgstr "Slēgts"
 msgid "Unlocked"
 msgstr "Atslēgts"
 
+msgid "Publish this revision"
+msgstr "Publicēt šo versiju"
+
+msgid "Publish"
+msgstr "Publicēt"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Izveidot lapu %(title)s"
@@ -472,9 +484,6 @@ msgstr "Pārvietot šo lapu"
 msgid "Unpublish %(title)s"
 msgstr "Atsaukt %(title)s publicēšanu"
 
-msgid "Unpublish"
-msgstr "Atsaukt publicēšanu"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Atsaukt lapas publicēšanu?"
 
@@ -504,12 +513,6 @@ msgstr "Jauns"
 msgid "Save draft"
 msgstr "Saglabāt melnrakstu"
 
-msgid "Publish"
-msgstr "Publicēt"
-
-msgid "Submit for moderation"
-msgstr "Iesniegt moderācijai"
-
 msgid "This page has unsaved changes."
 msgstr "Šai lapai ir nesaglabātas izmaiņas"
 
@@ -526,9 +529,6 @@ msgstr "Lapa slēgta"
 
 msgid "Replace current draft"
 msgstr "Aizvietot pašreizējo melnrakstu"
-
-msgid "Publish this revision"
-msgstr "Publicēt šo versiju"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

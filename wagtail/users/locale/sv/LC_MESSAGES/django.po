@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:53+0300\n"
-"PO-Revision-Date: 2018-11-27 22:04+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-15 03:23+0000\n"
 "Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -241,6 +241,9 @@ msgstr "Nivå"
 msgid "Status"
 msgstr "Status"
 
+msgid "Last Login"
+msgstr "Senaste inloggning"
+
 msgid "Admin"
 msgstr "Administratör"
 
@@ -249,6 +252,10 @@ msgstr "Aktiv"
 
 msgid "Inactive"
 msgstr "Inaktiv"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sedan"
 
 #, python-format
 msgid ""

@@ -9,18 +9,18 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2015-2016
-# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2018
+# José Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2018
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
-# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2016-2017
+# José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:53+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-08 15:01+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -62,6 +62,9 @@ msgstr "etiquetas"
 msgid "document"
 msgstr "documento"
 
+msgid "documents"
+msgstr "documentos"
+
 msgid "Choose a document"
 msgstr "Seleccionar un documento"
 
@@ -74,12 +77,48 @@ msgstr "Subir"
 msgid "Uploading…"
 msgstr "Subiendo..."
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Hay %(counter)s coincidencia\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Hay %(counter)s coincidencias\n"
+"        "
+
 msgid "Latest documents"
 msgstr "Últimos documentos"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Lo sentimos, ningún documento contiene \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "No has subido documentos en esta colección."
+
+msgid "You haven't uploaded any documents."
+msgstr "No has subido documentos."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            Por qué no <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">subir uno ahora</a>?\n"
+"            "
 
 msgid "Change document:"
 msgstr "Cambiar documento:"
@@ -136,6 +175,9 @@ msgstr "Título"
 
 msgid "File"
 msgstr "Archivo"
+
+msgid "Collection"
+msgstr "Colección"
 
 msgid "Uploaded"
 msgstr "Subidos"
@@ -213,6 +255,15 @@ msgstr "O seleccione desde su ordenador."
 
 msgid "Add to collection:"
 msgstr "Añadir a la colección:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Carga subida exitosamente. Por favor, actualice este documento con un título "
+"más apropiado si lo cree conveniente. También puede eliminar el documento "
+"completamente si la subida no era necesaria."
 
 msgid "Sorry, upload failed."
 msgstr "Lo sentimos, su subida ha fallado."

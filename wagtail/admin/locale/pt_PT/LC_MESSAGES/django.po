@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -23,6 +23,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Enviar para moderação"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Delete"
+msgstr "Apagar"
 
 msgid "You do not have permission to access the admin"
 msgstr "Você não tem permissão para aceder à administração."
@@ -182,9 +191,6 @@ msgstr "Reinicialize a sua senha"
 
 msgid "Edit"
 msgstr "Alterar"
-
-msgid "Delete"
-msgstr "Apagar"
 
 msgid "Pages"
 msgstr "Páginas"
@@ -433,6 +439,12 @@ msgstr "Trancada"
 msgid "Unlocked"
 msgstr "Destrancada"
 
+msgid "Publish this revision"
+msgstr "Publicar esta versão."
+
+msgid "Publish"
+msgstr "Publicar"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Criar uma página em %(title)s"
@@ -516,9 +528,6 @@ msgstr "Sim, mover esta página"
 msgid "Unpublish %(title)s"
 msgstr "Despublicar %(title)s"
 
-msgid "Unpublish"
-msgstr "Despublicar"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Tem certeza que quer despublicar esta página?"
 
@@ -572,12 +581,6 @@ msgstr "Nova"
 msgid "Save draft"
 msgstr "Guardar rascunho"
 
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Submit for moderation"
-msgstr "Enviar para moderação"
-
 msgid "This page has unsaved changes."
 msgstr "Esta página tem alterações por guardar."
 
@@ -594,9 +597,6 @@ msgstr "Página trancada"
 
 msgid "Replace current draft"
 msgstr "Substituir rascunho atual."
-
-msgid "Publish this revision"
-msgstr "Publicar esta versão."
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

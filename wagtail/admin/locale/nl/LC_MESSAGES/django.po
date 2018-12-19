@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -30,6 +30,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Ter goedkeuring aanbieden"
+
+msgid "Unpublish"
+msgstr "Publicatie ongedaan maken"
+
+msgid "Delete"
+msgstr "Verwijderen"
 
 msgid "None"
 msgstr "Geen"
@@ -185,9 +194,6 @@ msgstr "Herstel uw wachtwoord"
 
 msgid "Edit"
 msgstr "Wijzigen"
-
-msgid "Delete"
-msgstr "Verwijderen"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -412,6 +418,12 @@ msgstr "Vergrendeld"
 msgid "Unlocked"
 msgstr "Ontgrendeld"
 
+msgid "Publish this revision"
+msgstr "Publiceer deze revisie"
+
+msgid "Publish"
+msgstr "Publiceer"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Maak een pagina in %(title)s"
@@ -476,9 +488,6 @@ msgstr "Ja, verplaats deze pagina"
 msgid "Unpublish %(title)s"
 msgstr "Publicatie ongedaan maken van %(title)s"
 
-msgid "Unpublish"
-msgstr "Publicatie ongedaan maken"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Weet u zeker dat u de publicatie van deze pagina ongedaan wilt maken?"
 
@@ -508,12 +517,6 @@ msgstr "Nieuwe"
 msgid "Save draft"
 msgstr "Concept opslaan"
 
-msgid "Publish"
-msgstr "Publiceer"
-
-msgid "Submit for moderation"
-msgstr "Ter goedkeuring aanbieden"
-
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Bewerk %(page_type)s: %(title)s"
@@ -524,9 +527,6 @@ msgstr "Bewerk %(page_type)s <span>%(title)s</span>"
 
 msgid "Page locked"
 msgstr "Pagina vergrendeld"
-
-msgid "Publish this revision"
-msgstr "Publiceer deze revisie"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

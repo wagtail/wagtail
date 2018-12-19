@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Send til godkjenning"
+
+msgid "Unpublish"
+msgstr "Avpublisér"
+
+msgid "Delete"
+msgstr "Slett"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -235,9 +244,6 @@ msgstr "Nullstill ditt passord"
 
 msgid "Edit"
 msgstr "Redigér"
-
-msgid "Delete"
-msgstr "Slett"
 
 msgid "Page"
 msgstr "Side"
@@ -563,6 +569,15 @@ msgstr "Låst"
 msgid "Unlocked"
 msgstr "Ulåst"
 
+msgid "Publishing…"
+msgstr "Publiserer..."
+
+msgid "Publish this revision"
+msgstr "Publiser denne revisjonen"
+
+msgid "Publish"
+msgstr "Publiser"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Opprett en side i %(title)s"
@@ -645,9 +660,6 @@ msgstr "Ja, flytt denne siden"
 msgid "Unpublish %(title)s"
 msgstr "Avpublisér %(title)s"
 
-msgid "Unpublish"
-msgstr "Avpublisér"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Er du sikker på at du vil avpublisere denne siden?"
 
@@ -706,15 +718,6 @@ msgstr "Lagrer..."
 msgid "Save draft"
 msgstr "Lagre kladd"
 
-msgid "Publishing…"
-msgstr "Publiserer..."
-
-msgid "Publish"
-msgstr "Publiser"
-
-msgid "Submit for moderation"
-msgstr "Send til godkjenning"
-
 msgid "This page has unsaved changes."
 msgstr "Denne siden har endringer som ikke er lagret."
 
@@ -731,9 +734,6 @@ msgstr "Siden er låst"
 
 msgid "Replace current draft"
 msgstr "Erstatt nåværende kladd"
-
-msgid "Publish this revision"
-msgstr "Publiser denne revisjonen"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

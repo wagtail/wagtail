@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -36,6 +36,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Zur Moderation einreichen"
+
+msgid "Unpublish"
+msgstr "Veröffentlichung aufheben"
+
+msgid "Delete"
+msgstr "Löschen"
 
 msgid "Wagtail admin"
 msgstr "Wagtail Admin-Interface"
@@ -262,9 +271,6 @@ msgstr "Setzen Sie Ihr Passwort zurück"
 
 msgid "Edit"
 msgstr "Bearbeiten"
-
-msgid "Delete"
-msgstr "Löschen"
 
 msgid "Page"
 msgstr "Seite"
@@ -599,6 +605,15 @@ msgstr "Gesperrt"
 msgid "Unlocked"
 msgstr "Entsperrt"
 
+msgid "Publishing…"
+msgstr "Veröffentlichen..."
+
+msgid "Publish this revision"
+msgstr "Diese Revision veröffentlichen"
+
+msgid "Publish"
+msgstr "Veröffentlichen"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Seite in %(title)s erstellen"
@@ -681,9 +696,6 @@ msgstr "Ja, diese Seite verschieben"
 msgid "Unpublish %(title)s"
 msgstr "Veröffentlichung von %(title)s aufheben"
 
-msgid "Unpublish"
-msgstr "Veröffentlichung aufheben"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr ""
 "Sind Sie sicher, dass Sie die Veröffentlichung der Seite aufheben wollen?"
@@ -745,15 +757,6 @@ msgstr "Speichern…"
 msgid "Save draft"
 msgstr "Entwurf speichern"
 
-msgid "Publishing…"
-msgstr "Veröffentlichen..."
-
-msgid "Publish"
-msgstr "Veröffentlichen"
-
-msgid "Submit for moderation"
-msgstr "Zur Moderation einreichen"
-
 msgid "This page has unsaved changes."
 msgstr "Diese Seite hat ungesicherte Änderungen."
 
@@ -770,9 +773,6 @@ msgstr "Seite gesperrt"
 
 msgid "Replace current draft"
 msgstr "Aktuellen Entwurf ersetzen"
-
-msgid "Publish this revision"
-msgstr "Diese Revision veröffentlichen"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

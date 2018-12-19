@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -21,6 +21,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Submit for moderation"
+msgstr "Senda inn til samþykktar"
+
+msgid "Unpublish"
+msgstr "Taka úr loftinu"
+
+msgid "Delete"
+msgstr "Eyða"
 
 msgid "Wagtail admin"
 msgstr "Stjórnborð Wagtail"
@@ -243,9 +252,6 @@ msgstr "Endursettu lykilorðið þitt"
 
 msgid "Edit"
 msgstr "Breyta"
-
-msgid "Delete"
-msgstr "Eyða"
 
 msgid "Page"
 msgstr "Síða"
@@ -569,6 +575,15 @@ msgstr "Læst"
 msgid "Unlocked"
 msgstr "Aflæst"
 
+msgid "Publishing…"
+msgstr "Set í birtingu..."
+
+msgid "Publish this revision"
+msgstr "Setja þessa útgáfu í loftið"
+
+msgid "Publish"
+msgstr "Setja í birtingu"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Búa til síðu undir %(title)s"
@@ -651,9 +666,6 @@ msgstr "Já, færðu þessa síðu"
 msgid "Unpublish %(title)s"
 msgstr "Taka %(title)s úr loftinu"
 
-msgid "Unpublish"
-msgstr "Taka úr loftinu"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ertu viss um að þú viljir taka þessa síðu úr loftinu?"
 
@@ -713,15 +725,6 @@ msgstr "Vista..."
 msgid "Save draft"
 msgstr "Vista uppkast"
 
-msgid "Publishing…"
-msgstr "Set í birtingu..."
-
-msgid "Publish"
-msgstr "Setja í birtingu"
-
-msgid "Submit for moderation"
-msgstr "Senda inn til samþykktar"
-
 msgid "This page has unsaved changes."
 msgstr "Þessi síða er með óvistaðar breytingar."
 
@@ -738,9 +741,6 @@ msgstr "Síða læst"
 
 msgid "Replace current draft"
 msgstr "Skipta út núverandi vinnuskjali"
-
-msgid "Publish this revision"
-msgstr "Setja þessa útgáfu í loftið"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

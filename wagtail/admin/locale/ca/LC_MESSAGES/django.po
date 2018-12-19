@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Envia per moderació"
+
+msgid "Unpublish"
+msgstr "Despublica"
+
+msgid "Delete"
+msgstr "Esborra"
 
 msgid "Wagtail admin"
 msgstr "Administració de Wagtail"
@@ -210,9 +219,6 @@ msgstr "Reinicia la teva contrasenya "
 
 msgid "Edit"
 msgstr "Edita"
-
-msgid "Delete"
-msgstr "Esborra"
 
 msgid "Pages"
 msgstr "Pàgines"
@@ -469,6 +475,12 @@ msgstr "Bloquejada"
 msgid "Unlocked"
 msgstr "Desbloquejada"
 
+msgid "Publish this revision"
+msgstr "Publicar aquesta revisió"
+
+msgid "Publish"
+msgstr "Publica"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crear una pàgina a %(title)s"
@@ -549,9 +561,6 @@ msgstr "Si, mou la pàgina"
 msgid "Unpublish %(title)s"
 msgstr "Despublica %(title)s"
 
-msgid "Unpublish"
-msgstr "Despublica"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Estàs segur que vols despublicar aquesta pàgina?"
 
@@ -604,12 +613,6 @@ msgstr "Nou"
 msgid "Save draft"
 msgstr "Desa esborrany"
 
-msgid "Publish"
-msgstr "Publica"
-
-msgid "Submit for moderation"
-msgstr "Envia per moderació"
-
 msgid "This page has unsaved changes."
 msgstr "Aquesta pàgina té modificacions no desades"
 
@@ -626,9 +629,6 @@ msgstr "Pàgina bloquejada"
 
 msgid "Replace current draft"
 msgstr "Reemplaçar l'esborrany actual"
-
-msgid "Publish this revision"
-msgstr "Publicar aquesta revisió"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

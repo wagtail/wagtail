@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-12-02 22:08+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-17 16:36+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -28,6 +28,15 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Przekaż do przeglądu"
+
+msgid "Unpublish"
+msgstr "Cofnij publikację"
+
+msgid "Delete"
+msgstr "Usuń"
 
 msgid "Wagtail admin"
 msgstr "Admin Wagtail"
@@ -251,9 +260,6 @@ msgstr "Zresetuj swoje hasło"
 
 msgid "Edit"
 msgstr "Edytuj"
-
-msgid "Delete"
-msgstr "Usuń"
 
 msgid "Page"
 msgstr "Strona"
@@ -489,6 +495,9 @@ msgstr "Edytowane"
 msgid "Edit this page"
 msgstr "Edytuj tę stronę"
 
+msgid "Preview this page"
+msgstr "Podejrzyj tę stronę"
+
 msgid "Approve"
 msgstr "Zatwierdź"
 
@@ -619,6 +628,15 @@ msgstr "Zablokowany"
 msgid "Unlocked"
 msgstr "Odblokowany"
 
+msgid "Publishing…"
+msgstr "Publikowanie..."
+
+msgid "Publish this revision"
+msgstr "Opublikuj tą rewizję"
+
+msgid "Publish"
+msgstr "Opublikuj"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Stwórz stronę w %(title)s"
@@ -712,9 +730,6 @@ msgstr "Tak, przesuń tę stronę"
 msgid "Unpublish %(title)s"
 msgstr "Cofnij publikację %(title)s"
 
-msgid "Unpublish"
-msgstr "Cofnij publikację"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Czy na pewno chcesz cofnąć publikację tej strony?"
 
@@ -781,15 +796,6 @@ msgstr "Zapisywanie..."
 msgid "Save draft"
 msgstr "Zapisz szkic"
 
-msgid "Publishing…"
-msgstr "Publikowanie..."
-
-msgid "Publish"
-msgstr "Opublikuj"
-
-msgid "Submit for moderation"
-msgstr "Przekaż do przeglądu"
-
 msgid "This page has unsaved changes."
 msgstr "Strona posiada niezapisane zmiany"
 
@@ -806,9 +812,6 @@ msgstr "Strona zablokowana"
 
 msgid "Replace current draft"
 msgstr "Zastąp aktualny szkic"
-
-msgid "Publish this revision"
-msgstr "Opublikuj tą rewizję"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

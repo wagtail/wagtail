@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:53+0300\n"
-"PO-Revision-Date: 2018-12-02 22:06+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-17 16:37+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -249,6 +249,9 @@ msgstr "Poziom"
 msgid "Status"
 msgstr "Status"
 
+msgid "Last Login"
+msgstr "Ostatnie logowanie"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -257,6 +260,10 @@ msgstr "Aktywny"
 
 msgid "Inactive"
 msgstr "Nieaktywny"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s temu"
 
 #, python-format
 msgid ""

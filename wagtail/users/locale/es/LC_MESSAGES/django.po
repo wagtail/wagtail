@@ -8,19 +8,19 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2017
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
-# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2015-2016
-# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2017-2018
+# José Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2017-2018
 # Mauricio Baeza <python@amigos.email>, 2014-2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2014
-# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2016-2017
+# José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:53+0300\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-08 14:53+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -125,6 +125,9 @@ msgstr "foto de perfil"
 
 msgid "user profile"
 msgstr "Perfil de usuario"
+
+msgid "user profiles"
+msgstr "perfiles de usuario"
 
 msgid "Delete group"
 msgstr "Eliminar grupo"
@@ -248,6 +251,9 @@ msgstr "Nivel"
 msgid "Status"
 msgstr "Estado"
 
+msgid "Last Login"
+msgstr "Último inicio de sesión"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -256,6 +262,28 @@ msgstr "Activo"
 
 msgid "Inactive"
 msgstr "Inactivo"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "Hace %(time_period)s"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Hay %(counter)s coincidencia\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Hay %(counter)s coincidencias\n"
+"        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -298,6 +326,9 @@ msgstr "Editar"
 
 msgid "The user could not be created due to errors."
 msgstr "El usuario no pudo ser creado debido a errores."
+
+msgid "User '{0}' updated."
+msgstr "Usuario '{0}' actualizado."
 
 msgid "The user could not be saved due to errors."
 msgstr "El usuario no pudo ser guardado debido a errores."

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -24,6 +24,15 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Надіслати на модерацію"
+
+msgid "Unpublish"
+msgstr "Зняти з публікації"
+
+msgid "Delete"
+msgstr "Видалити"
 
 msgid "Wagtail admin"
 msgstr "Адміністрування Wagtail "
@@ -249,9 +258,6 @@ msgstr "Скинути Ваш пароль"
 
 msgid "Edit"
 msgstr "Редагування"
-
-msgid "Delete"
-msgstr "Видалити"
 
 msgid "Page"
 msgstr "Сторінка"
@@ -603,6 +609,15 @@ msgstr "Заблоковано"
 msgid "Unlocked"
 msgstr "Розблоковано"
 
+msgid "Publishing…"
+msgstr "Опубліковується..."
+
+msgid "Publish this revision"
+msgstr "Опублікувати цю ревізію"
+
+msgid "Publish"
+msgstr "Опублікувати"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Створити сторінку в %(title)s"
@@ -696,9 +711,6 @@ msgstr "Так, перемістити цю сторінку"
 msgid "Unpublish %(title)s"
 msgstr "Зняти з публікації %(title)s"
 
-msgid "Unpublish"
-msgstr "Зняти з публікації"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ви впевнені, що хочете зняти з публікації цю сторінку?"
 
@@ -769,15 +781,6 @@ msgstr "Йде збереження..."
 msgid "Save draft"
 msgstr "Зберегти чернетку"
 
-msgid "Publishing…"
-msgstr "Опубліковується..."
-
-msgid "Publish"
-msgstr "Опублікувати"
-
-msgid "Submit for moderation"
-msgstr "Надіслати на модерацію"
-
 msgid "This page has unsaved changes."
 msgstr "Ця сторінка має незбережені зміни"
 
@@ -794,9 +797,6 @@ msgstr "Сторінку заблоковано"
 
 msgid "Replace current draft"
 msgstr "Замінити поточну чернетку"
-
-msgid "Publish this revision"
-msgstr "Опублікувати цю ревізію"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

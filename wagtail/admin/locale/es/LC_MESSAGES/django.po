@@ -7,19 +7,19 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín Tita <carpincho@gmail.com>, 2014
-# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2015-2016
-# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2017-2018
+# José Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2017-2018
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mauricio Baeza <python@amigos.email>, 2015
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
-# José Luis Sandoval Alaguna <alagunajs@gmail.com>, 2016-2017
+# José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-08 15:02+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Enviar para ser moderado"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Wagtail admin"
 msgstr "Administrador Wagtail"
@@ -244,9 +253,6 @@ msgstr "Restablecer tu contraseña"
 msgid "Edit"
 msgstr "Editar"
 
-msgid "Delete"
-msgstr "Eliminar"
-
 msgid "Page"
 msgstr "Página"
 
@@ -333,6 +339,24 @@ msgstr "Enlace externo"
 
 msgid "Email link"
 msgstr "Enlace de correo electrónico"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"            Hay %(counter)s coincidencia\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Hay %(counter)s coincidencias\n"
+"        "
 
 msgid "Choose"
 msgstr "Seleccionar"
@@ -446,6 +470,9 @@ msgstr "Editado"
 
 msgid "Edit this page"
 msgstr "Editar esta página"
+
+msgid "Preview this page"
+msgstr "Previsualizar esta página"
 
 msgid "Approve"
 msgstr "Aprobar"
@@ -573,6 +600,15 @@ msgstr "Bloqueada"
 msgid "Unlocked"
 msgstr "Desbloqueada"
 
+msgid "Publishing…"
+msgstr "Publicando..."
+
+msgid "Publish this revision"
+msgstr "Publicar esta revision"
+
+msgid "Publish"
+msgstr "Publicar"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crear una página en %(title)s"
@@ -656,9 +692,6 @@ msgstr "Sí, mueve esta página"
 msgid "Unpublish %(title)s"
 msgstr "No publicar %(title)s"
 
-msgid "Unpublish"
-msgstr "Despublicar"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Estás seguro de que no quieres publicar esta página?"
 
@@ -718,15 +751,6 @@ msgstr "Guardando..."
 msgid "Save draft"
 msgstr "Guardar borrador"
 
-msgid "Publishing…"
-msgstr "Publicando..."
-
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Submit for moderation"
-msgstr "Enviar para ser moderado"
-
 msgid "This page has unsaved changes."
 msgstr "Esta página tiene cambios que no se han guardado."
 
@@ -743,9 +767,6 @@ msgstr "Página bloqueada"
 
 msgid "Replace current draft"
 msgstr "Reemplazar el borrador actual"
-
-msgid "Publish this revision"
-msgstr "Publicar esta revision"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1103,6 +1124,27 @@ msgstr "Noviembre"
 msgid "December"
 msgstr "Diciembre"
 
+msgid "Sunday"
+msgstr "Domingo"
+
+msgid "Monday"
+msgstr "Lunes"
+
+msgid "Tuesday"
+msgstr "Martes"
+
+msgid "Wednesday"
+msgstr "Miércoles"
+
+msgid "Thursday"
+msgstr "Jueves"
+
+msgid "Friday"
+msgstr "Viernes"
+
+msgid "Saturday"
+msgstr "Sábado"
+
 msgid "Sun"
 msgstr "Dom"
 
@@ -1149,6 +1191,23 @@ msgstr ""
 "este software. Por favor <a href=\"http://browsehappy.com/\">actualiza tu "
 "navegador</a>."
 
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Se requiere Javascript para usar Wagtail, pero actualmente está "
+"deshabilitado.<br />\n"
+"            Acá puede encontrar <a href=\"http://www.enable-javascript.com/"
+"\" target=\"_blank\" rel=\"noopener\">instrucciones sobre como habilitar "
+"JavaScript en su navegador web</a>.\n"
+"        "
+
 msgid "Go to Wagtail admin interface"
 msgstr "Ir a la interface de admin Wagtail"
 
@@ -1160,6 +1219,9 @@ msgstr "Mostrar en el explorador"
 
 msgid "Test"
 msgstr "Prueba"
+
+msgid "Arabic"
+msgstr "Árabe"
 
 msgid "Catalan"
 msgstr "Catalán"
@@ -1184,6 +1246,9 @@ msgstr "Francés"
 
 msgid "Galician"
 msgstr "Gallego"
+
+msgid "Indonesian"
+msgstr "Indonesio"
 
 msgid "Icelandic"
 msgstr "Islandés"

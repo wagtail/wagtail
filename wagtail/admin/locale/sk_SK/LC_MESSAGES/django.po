@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:52+0300\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -24,6 +24,15 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Odoslať na moderáciu"
+
+msgid "Unpublish"
+msgstr "Nezverejniť"
+
+msgid "Delete"
+msgstr "Vymazať"
 
 msgid "None"
 msgstr "Nič"
@@ -211,9 +220,6 @@ msgstr "Resetovanie vášho hesla"
 
 msgid "Edit"
 msgstr "Upraviť"
-
-msgid "Delete"
-msgstr "Vymazať"
 
 msgid "Page"
 msgstr "Stránka"
@@ -507,6 +513,12 @@ msgstr "Zamknuté"
 msgid "Unlocked"
 msgstr "Odomknuté"
 
+msgid "Publish this revision"
+msgstr "Publikovať túto revíziu"
+
+msgid "Publish"
+msgstr "Publikovať"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Vytvoriť stránku v %(title)s"
@@ -592,9 +604,6 @@ msgstr "Áno, presunúť túto stránku"
 msgid "Unpublish %(title)s"
 msgstr "Odpublikovať %(title)s"
 
-msgid "Unpublish"
-msgstr "Nezverejniť"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Naozaj chcete odpublikovať túto stránku?"
 
@@ -661,12 +670,6 @@ msgstr "Nový"
 msgid "Save draft"
 msgstr "Uložiť koncept"
 
-msgid "Publish"
-msgstr "Publikovať"
-
-msgid "Submit for moderation"
-msgstr "Odoslať na moderáciu"
-
 msgid "This page has unsaved changes."
 msgstr "Táto stránka má neuložené zmeny."
 
@@ -683,9 +686,6 @@ msgstr "Stránka je uzamknutá"
 
 msgid "Replace current draft"
 msgstr "Prepísať aktuálny koncept"
-
-msgid "Publish this revision"
-msgstr "Publikovať túto revíziu"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
