@@ -26,8 +26,6 @@ class FieldBlock(Block):
         from wagtail.admin.rich_text import DraftailRichTextArea
         from wagtail.admin.widgets import AdminDateInput, AdminDateTimeInput
 
-        if value == '' and self.get_default() is None:
-            value = None
         value = self.value_for_form(self.field.prepare_value(value))
         widget = self.field.widget
         if isinstance(self, RichTextBlock) \
