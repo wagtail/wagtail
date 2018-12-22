@@ -349,11 +349,11 @@ class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
         """
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.table_block_page.id,)))
         # check page + field renders
-        self.assertContains(response, '<div class="field char_field widget-table_input fieldname-table">')
+        self.assertContains(response, '\\u003cdiv class=\\"field char_field widget-table_input fieldname-table\\">')
         # check data
         self.assertContains(response, 'Battlestar')
         self.assertContains(response, 'Galactica')
         # check init
-        self.assertContains(response, 'initTable("table\\u002D0\\u002Dvalue"')
+        self.assertContains(response, 'initTable(\\"field\\\\u002D__ID__\\",')
         self.assertContains(response, 'minSpareRows')
         self.assertContains(response, 'startRows')
