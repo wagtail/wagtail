@@ -297,8 +297,8 @@ class TestCustomDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtil
         self.assertEqual(response.status_code, 200)
 
         # Check that hallo (default editor by now) was replaced with fake editor
-        self.assertNotContains(response, 'makeHalloRichTextEditable("__PREFIX__-value");')
-        self.assertContains(response, 'customEditorInitScript("__PREFIX__-value");')
+        self.assertNotContains(response, 'makeHalloRichTextEditable(\\"field-__ID__\\");')
+        self.assertContains(response, 'customEditorInitScript(\\"field-__ID__\\");')
 
 
 class TestRichTextValue(TestCase):
