@@ -55,7 +55,7 @@ class BaseStreamBlock(Block):
             child_block_data['type'],
             self.child_blocks[child_block_data['type']]
             .value_from_datadict(child_block_data, files, prefix,),
-            child_block_data['id']
+            child_block_data.get('id', str(uuid.uuid4()))
         ) for child_block_data in data['value']
             if child_block_data['type'] in self.child_blocks
         ])
@@ -65,6 +65,8 @@ class BaseStreamBlock(Block):
         return self.meta.required
 
     def prepare_value(self, value, errors=None):
+        if value is None:
+            return []
         children_errors = ({} if errors is None
                            else errors.as_data()[0].params)
         return [
