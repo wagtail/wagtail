@@ -111,7 +111,8 @@ class FieldBlock(Block):
     def value_from_datadict(self, data, files, prefix):
         return self.value_from_form(
             self.field.widget.value_from_datadict(
-                {'value': data['value']}, files, 'value'))
+                {'value': data.get('value', self.get_default())},
+                files, 'value'))
 
     def clean(self, value):
         # We need an annoying value_for_form -> value_from_form round trip here to account for
