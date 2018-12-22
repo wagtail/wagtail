@@ -523,8 +523,8 @@ class TestRichTextBlock(TestCase):
         block = blocks.RichTextBlock()
         block.set_name('test')
         definition = block.get_definition()
-        self.assertInHTML("window.draftail.initEditor('#field\\u002D__ID__',",
-                          definition['html'])
+        self.assertIn("window.draftail.initEditor('#field\\u002D__ID__',",
+                      definition['html'])
         del definition['html']
         del definition['default']
         self.assertDictEqual(definition, {

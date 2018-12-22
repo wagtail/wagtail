@@ -126,7 +126,7 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that draftail (default editor) initialisation is applied
-        self.assertContains(response, "window.draftail.initEditor('#__PREFIX__\\u002Dvalue',")
+        self.assertContains(response, "window.draftail.initEditor('#field\\\\u002D__ID__',")
 
         # check that media for draftail is being imported
         self.assertContains(response, 'wagtailadmin/js/draftail.js')
@@ -174,7 +174,7 @@ class TestHalloRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that hallo (default editor now) initialisation is applied
-        self.assertContains(response, 'makeHalloRichTextEditable("__PREFIX__\\u002Dvalue",')
+        self.assertContains(response, 'makeHalloRichTextEditable(\\"field\\\\u002D__ID__\\",')
 
         # check that media for the default hallo features (but not others) is being imported
         self.assertContains(response, 'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')
@@ -254,8 +254,8 @@ class TestOverriddenDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTest
         self.assertEqual(response.status_code, 200)
 
         # Check that hallo (default editor by now) was replaced with fake editor
-        self.assertNotContains(response, 'makeHalloRichTextEditable("__PREFIX__-value");')
-        self.assertContains(response, 'customEditorInitScript("__PREFIX__-value");')
+        self.assertNotContains(response, 'makeHalloRichTextEditable(\\"field-__ID__\\");')
+        self.assertContains(response, 'customEditorInitScript(\\"field-__ID__\\");')
 
 
 @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
