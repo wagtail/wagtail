@@ -350,7 +350,6 @@ class BaseSearchBackend:
             return EmptySearchResults()
 
         # Search
-        query_compiler_class = query_compiler_class
         search_query = query_compiler_class(
             queryset, query, **kwargs
         )
