@@ -260,7 +260,7 @@ class BaseSearchResults:
 
 class EmptySearchResults(BaseSearchResults):
     def __init__(self):
-        return super().__init__(None, None)
+        super().__init__(None, None)
 
     def _clone(self):
         return self.__class__()
