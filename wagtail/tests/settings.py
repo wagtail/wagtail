@@ -41,7 +41,6 @@ SECRET_KEY = 'not needed'
 ROOT_URLCONF = 'wagtail.tests.urls'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = STATIC_ROOT
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
