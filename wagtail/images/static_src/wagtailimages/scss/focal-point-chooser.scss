@@ -4,6 +4,8 @@
 .focal-point-chooser {
     position: relative;
 
+    
+
     .current-focal-point-indicator {
         @include transition(opacity 0.2s ease);
         box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 1);
@@ -23,6 +25,12 @@
 
 
 //HT START
+.image-area-selector-hidden {
+    .current-focal-point-indicator {
+        display: none;
+    }
+}
+
 // NECESSARY TO MAKE PREVIEW IMAGE LARGE ENOUGH TO COMFORTABLY USE CROSS HAIRS 
 .image-chooser .chosen .preview-image {
     display: inline-block; /* allows buttons to sit next to image until they're pushed below */

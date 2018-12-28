@@ -53,15 +53,46 @@ class SelectCropBlock(StructBlock):
     focal_point_width = IntegerBlock(required=False, group="hidden-input", label="focal_point_width")
     focal_point_height = IntegerBlock(required=False, group="hidden-input", label="focal_point_height")
 
+    crop_point_x = IntegerBlock(required=False, group="hidden-input", label="crop_point_x")
+    crop_point_y = IntegerBlock(required=False, group="hidden-input", label="crop_point_y")
+    crop_point_width = IntegerBlock(required=False, group="hidden-input", label="crop_point_width")
+    crop_point_height = IntegerBlock(required=False, group="hidden-input", label="crop_point_height")
+
+    def add_area_info(self, value, context):
+        area_labels = ['crop_point_x', 'crop_point_y', 'crop_point_width', 'crop_point_height']
+
+        if context.get('children'):
+            for name, block in context['children'].items():
+                if name in area_labels and not isinstance(block.value, int):
+                    old_key = name.replace('crop', 'focal')
+                    existing_value = context['children'].get(old_key)
+                    block.value = existing_value # updates the block value (which will now be picked up in the crop_etc fields of the form and hence the jcrop api)
+                    context[name] = existing_value # makes these same values available directly in the template context
+                    value[name] = existing_value # updates the parrallel StructValues that wagtail provides 
+        else: # we're not in the admin and children isn't populated...
+            for name in area_labels:
+                v = value.get(name)
+                if not isinstance(v, int):
+                    v = value.get(name.replace('crop', 'focal'))
+                context[k] = v
+        
+        # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        # here we're copying the values from the focal_etc blocks to the crop_ blocks purely for the purposes of preserving the data automatically
+        # this whole block can be lost along with the focal_ fields once the pages have been loaded and saved...
+        # the entire function can be swopped for the lines below...
+        # area_labels = ['crop_point_x', 'crop_point_y', 'crop_point_width', 'crop_point_height']
+        # for k in area_labels:
+        #     context[k] = value.get(k)
+            
+
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
-        if value['focal_point_x']:
-            context['focal_point_x'] = value['focal_point_x']
-            context['focal_point_y'] = value['focal_point_y']
-            context['focal_point_width'] = value['focal_point_width']
-            context['focal_point_height'] = value['focal_point_height']
+        self.add_area_info(value, context)
+        return context
 
-        # if these values don't exist the crop probably hasn't been selected - just return the context - this means the image tag won't attempt to crop first
+    def get_form_context(self, value, prefix='', errors=None):
+        context = super().get_form_context(value, prefix=prefix, errors=errors)
+        self.add_area_info(value, context)
         return context
 
     class Meta:

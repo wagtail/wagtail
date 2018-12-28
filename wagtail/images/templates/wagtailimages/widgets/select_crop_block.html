@@ -12,11 +12,14 @@
                     {% if child.block.label %}
                         <label{% if child.id_for_label %} for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}:</label>
                     {% endif %}
-                    {{ child.render_form }}
+                    {% if not crop_point_width %} <div class = "image-area-selector-hidden"> {% endif %}
+                                {{ child.render_form }}
+                    {% if not crop_point_width %} </div> {% endif %}
                 </li>
             {% endif %}
         {% endfor %}
     </ul>
+    {{ value.focal_point_width }}
     {% for child in children.values %}
         {% if child.block.meta.group == "hidden-input" %}
         {# doing this rather than using forms.HiddenInput as widget type because we're using a structblock which adds a label and creating a core custom type means handling deconstruction etc #}

@@ -8,8 +8,7 @@
         <p>{% trans "To define the region that will be displayed, drag a box over the image below." %} {% if value.focal_point_width %}({% trans "Current focal point shown" %}){% endif %}</p>
         <div class="preview-image focal-point-chooser"> {# image datasets to capture focus area removed as we'll use struct block instead #}
             <img {{ admin_preview_rendition.attrs }} data-original-width="{{ image.width|unlocalize }}" data-original-height="{{ image.height|unlocalize }}" class="show-transparency">
-            {# <div class="current-focal-point-indicator{% if not value.focal_point_width %} hidden{% endif %}"></div> #}
-            <div class="current-focal-point-indicator"></div> 
+            <div class="current-focal-point-indicator"></div> {# we cannot access contextual data here, so we apply hide class to select_crop_block.html #}
         </div>
         <br />
         <button class="button button-secondary no remove-focal-point">{% trans "Remove crop area" %}</button>    

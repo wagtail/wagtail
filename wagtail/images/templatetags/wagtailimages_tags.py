@@ -98,7 +98,8 @@ class ImageNode(template.Node):
         # HT START
         try:
             # The SelectCropBlock adds these values to its context..
-            select_spec = "select-" + str(context['focal_point_x']) + ":" + str(context['focal_point_y']) + ":" + str(context['focal_point_width']) + ":" + str(context['focal_point_height'])
+            # select_spec = "select-" + str(context['focal_point_x']) + ":" + str(context['focal_point_y']) + ":" + str(context['focal_point_width']) + ":" + str(context['focal_point_height'])
+            select_spec = "select-" + str(context['crop_point_x']) + ":" + str(context['crop_point_y']) + ":" + str(context['crop_point_width']) + ":" + str(context['crop_point_height'])
             full_spec = select_spec + '|' + self.filter_spec
         except KeyError:
             full_spec = self.filter

@@ -44,12 +44,15 @@ class AdminImageChooser(AdminChooser):
 
 class SelectCropAdminImageChooser(AdminImageChooser):
 
-
     def render_html(self, name, value, attrs):
+        #import traceback
+        # traceback.print_stack()
         max_dim = getattr(settings, 'PREVIEW_IMAGE_SIZE', 165)
         instance, value = self.get_instance_and_id(self.image_model, value)
         original_field_html = super(AdminImageChooser, self).render_html(name, value, attrs)  # skips the AdminImageChooser and calls its parent's method to avoid double call
 
+        if instance:
+            print("here is the instance: {}".format(instance.__dict__))
         return render_to_string("wagtailimages/widgets/select_crop_chooser.html", {
             'widget': self,
             'original_field_html': original_field_html,
