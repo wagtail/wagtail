@@ -90,7 +90,7 @@ def richtext(value):
         if isinstance(value,str) or isinstance(value,bytes):
             html = expand_db_html(value)
         else:
-            raise TypeError("'richtext' template filter received an invalid value; expected string or bytes type, got {value}.".format(type(value)))
+            raise TypeError("'richtext' template filter received an invalid value; expected string or bytes type, got {}.".format(type(value)))
 
 
     return mark_safe('<div class="rich-text">' + html + '</div>')
