@@ -261,3 +261,11 @@ class TestRichtextTag(TestCase):
     def test_call_with_none(self):
         result = richtext(None)
         self.assertEqual(result, '<div class="rich-text"></div>')
+
+    def test_call_with_invalid_value(self):
+        with self.assertRaisesRegex(TypeError, "'richtext' template filter received an invalid value"):
+            richtext(42)
+
+    def test_call_with_bytes(self):
+        with self.assertRaisesRegex(TypeError, "'richtext' template filter received an invalid value"):
+            richtext(b"Hello world!")

@@ -87,7 +87,10 @@ def richtext(value):
     elif value is None:
         html = ''
     else:
-        html = expand_db_html(value)
+        if isinstance(value, str):
+            html = expand_db_html(value)
+        else:
+            raise TypeError("'richtext' template filter received an invalid value; expected string, got {}.".format(type(value)))
 
     return mark_safe('<div class="rich-text">' + html + '</div>')
 
