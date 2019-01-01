@@ -1,0 +1,426 @@
+// These are the generic stylings for forms of any type.
+// If you're styling something specific to the page editing interface,
+// it probably ought to go in layouts/page-editor.scss
+
+// TODO: mixin,
+// These these styles are currently in elements
+// but the ones for the class should be here
+//
+// label,
+// .label {
+//     text-transform: none;
+//     font-weight: bold;
+//     color: $color-grey-1;
+//     font-size: 1.1em;
+//     display: block;
+//     padding: 0 0 0.8em;
+//     margin: 0;
+//     line-height: 1.3em;
+//
+//     .checkbox &,
+//     .radio & {
+//         display: inline;
+//     }
+// }
+.plain-checkbox-label {
+    // cancel heavy / floated label styles, for labels that should appear inline against checkboxes
+
+    float: none;
+    color: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+}
+
+// TODO: mixin,
+// These these styles are currently in elements
+// but the ones for the classes should be here
+//
+// input,
+// textarea,
+// select,
+// .halloeditor,
+// .tagit {
+//     appearance: none;
+//     box-sizing: border-box;
+//     border-radius: 6px;
+//     width: 100%;
+//     font-family: Open Sans,Arial,sans-serif;
+//     border: 1px solid $color-input-border;
+//     padding: 0.9em 1.2em;
+//     background-color: $color-fieldset-hover;
+//     color: $color-text-input;
+//     font-size: 1.2em;
+//     font-weight: 300;
+//     outline: none;
+//
+//     &:hover {
+//         background-color: $color-white;
+//     }
+//
+//     &:focus {
+//         background-color: $color-input-focus;
+//         border-color: $color-input-focus-border;
+//         outline: none;
+//     }
+//
+//     &:disabled,
+//     &[disabled],
+//     &:disabled:hover,
+//     &[disabled]:hover {
+//         background-color: inherit;
+//         cursor: default;
+//         color: $color-grey-4;
+//     }
+// }
+
+// Reset the arrow on `<select>`s in IE10+.
+select::-ms-expand {
+    display: none;
+}
+
+// select boxes
+.choice_field .input,
+.model_choice_field .input,
+.typed_choice_field .input {
+    position: relative;
+
+    select {
+        outline: none;
+    }
+
+    // Add select arrow back on browsers where native ui has been removed
+    select ~ span:after {
+        border-radius: 0 6px 6px 0;
+        z-index: 0;
+        position: absolute;
+        right: 0;
+        top: 1px;
+        bottom: 0;
+        width: 1.5em;
+        font-family: wagtail;
+        content: 'q';
+        border: 1px solid $color-input-border;
+        border-width: 0 0 0 1px;
+        text-align: center;
+        line-height: 1.4em;
+        font-size: 3em;
+        pointer-events: none;
+        color: $color-grey-3;
+        margin: 0 1px 1px 0;
+
+        .ie & {
+            display: none;
+        }
+    }
+}
+
+
+// Other text
+.help,
+.error-message {
+    font-size: 0.85em;
+    font-weight: normal;
+    margin: 0.5em 0 0;
+}
+
+.error-message {
+    color: $color-red;
+}
+
+.help {
+    color: $color-grey-2;
+}
+
+fieldset:hover > .help,
+.field.focused + .help,
+.field:focus + .help,
+.field:hover + .help,
+li.focused > .help {
+    opacity: 1;
+}
+
+.required .field > label:after {
+    content: '*';
+    color: $color-red;
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 0.5em;
+    line-height: 1em;
+    font-size: 13px;
+}
+
+.error input,
+.error textarea,
+.error select,
+.error .tagit {
+    border-color: $color-red;
+    background-color: $color-input-error-bg;
+}
+
+// Layouts for particular kinds of of fields
+
+// permanently show checkbox/radio help as they have no focus state
+.boolean_field .help,
+.radio .help {
+    opacity: 1;
+}
+
+// This is expected to go on the parent of the input/select/textarea
+// so in most cases .input
+.iconfield, // generic
+.date_field,
+.time_field,
+.date_time_field,
+.url_field {
+    .input {
+        position: relative;
+
+        &:before,
+        &:after {
+            font-family: wagtail;
+            position: absolute;
+            top: 0.5em;
+            line-height: 100%;
+            font-size: 2em;
+            color: $color-grey-3;
+        }
+
+        &:before {
+            left: 0.3em;
+        }
+
+        &:after {
+            right: 0.5em;
+        }
+    }
+
+    input:not([type=radio]),
+    input:not([type=checkbox]),
+    input:not([type=submit]),
+    input:not([type=button]) {
+        padding-left: 2.5em;
+    }
+
+    // smaller fields required slight repositioning of icons
+    &.field-small {
+        .input {
+            &:before,
+            &:after {
+                font-size: 1.3rem; // REMs are necessary here because IE doesn't treat generated content correctly
+                top: 0.3em;
+            }
+
+            &:before {
+                left: 0.5em;
+            }
+
+            &:after {
+                right: 0.5em;
+            }
+        }
+    }
+
+    // special case for search spinners
+    &.icon-spinner:after {
+        color: $color-teal;
+        opacity: 0.8;
+        text-align: center;
+        top: 0.3em;
+    }
+}
+
+.date_field,
+.date_time_field {
+    .input:before {
+        @extend .icon-date:before;
+    }
+}
+
+.time_field {
+    .input:before {
+        @extend .icon-time:before;
+    }
+}
+
+.url_field {
+    .input:before {
+        @extend .icon-link:before;
+    }
+}
+
+
+// This is specifically for model that are a generated set of checkboxes/radios
+.model_multiple_choice_field .input li,
+.choice_field .input li {
+    label {
+        display: block;
+        width: auto;
+        float: none;
+        padding-top: 0; // Negates padding added to label for the group of fields as a whole
+    }
+}
+
+.fields > li,
+.field-col {
+    @include clearfix();
+    padding-top: 0.5em;
+    padding-bottom: 1.2em;
+}
+
+.field-row {
+    @include clearfix();
+
+    // negative margin the bottom so it doesn't add too much space
+    margin-bottom: -1.2em;
+}
+
+.input {
+    clear: both;
+}
+
+// field sizing and alignment
+.field-small {
+    input,
+    textarea,
+    select,
+    .halloeditor,
+    .tagit {
+        border-radius: 3px;
+        padding: 0.4em 1em;
+    }
+}
+
+.field {
+    &.col1,
+    &.col2,
+    &.col3,
+    &.col4,
+    &.col5,
+    &.col6,
+    &.col7,
+    &.col8,
+    &.col9,
+    &.col10,
+    &.col11,
+    &.col12 { clear: both;}
+}
+
+li.inline .field {
+    &.col1,
+    &.col2,
+    &.col3,
+    &.col4,
+    &.col5,
+    &.col6,
+    &.col7,
+    &.col8,
+    &.col9,
+    &.col10,
+    &.col11,
+    &.col12 { clear: none;}
+}
+
+// solve gutter issues of inline fields
+ul.inline li:first-child,
+li.inline:first-child {
+    margin-left: -$grid-gutter-width / 2;
+}
+
+
+// search-bars
+.search-bar {
+    .required .field > label:after {
+        display: none;
+    }
+
+    .button-filter {
+        height: 2.71em;
+        border-color: transparent;
+    }
+}
+
+// file drop zones
+.drop-zone {
+    border-radius: 5px;
+    border: 2px dashed $color-grey-4;
+    padding: $mobile-nice-padding;
+    background-color: $color-grey-5;
+    margin-bottom: 1em;
+    text-align: center;
+
+    .drop-zone-help {
+        border: 0;
+    }
+
+    &.hovered {
+        border-color: $color-teal;
+        background-color: $color-input-focus;
+    }
+}
+
+// Transitions
+.help {
+    @include transition(opacity 0.2s ease);
+}
+
+.label-uppercase {
+    .field > label {
+        text-transform: uppercase;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .help {
+        opacity: 1;
+    }
+
+    .fields {
+        max-width: 800px;
+    }
+
+    .field {
+        @include row();
+    }
+
+    .field-content {
+        @include column(10, 0);
+    }
+
+    .field-col {
+        float: left;
+        padding-left: 0;
+
+        // anything less than 4 columns or greater than 6 is impractical
+        &.col4 {
+            label {
+                @include column(2, 0, 4);
+            }
+
+            .field-content {
+                @include column(2, $padding, 4);
+                padding-left: 0;
+            }
+        }
+
+        &.col6 {
+            label {
+                @include column(2, 0, 6);
+            }
+
+            .field-content {
+                @include column(4, $padding, 6);
+                padding-left: 0;
+            }
+        }
+    }
+
+    .label-above {
+        .field > label,
+        .field > .field-content {
+            display: block;
+            padding: 0 0 0.8em;
+            float: none;
+            width: auto;
+        }
+    }
+}

@@ -15,6 +15,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Added support for ``short_description`` for field labels in modeladmin's ``InspectView`` (Wesley van Lee)
+ * Rearranged SCSS folder structure to the client folder and split them approximately according to ITCSS. (Naomi Morduch Toubman, Jonny Scholes, Janneke Janssen, Hugo van den Berg)
 
 
 Bug fixes

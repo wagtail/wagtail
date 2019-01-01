@@ -1,0 +1,20 @@
+.privacy-indicator {
+    .label-private,
+    .label-public {
+        &:before {
+            font-size: 1.5em;
+        }
+    }
+
+    &.public {
+        .label-private {
+            display: none;
+        }
+    }
+
+    &.private {
+        .label-public {
+            display: none;
+        }
+    }
+}

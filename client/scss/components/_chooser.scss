@@ -1,0 +1,143 @@
+/*
+TODO this chooser style has been made more generic based on two identical
+methods for choosing pages and images that were previously included in their
+own less files in each app directory (and since deleted). It would be best if
+an admin 'theme' provided all the design for a UI in a single place, but
+should that be a series of overrides to the css provided from an app? If so,
+perhaps those two previous less files should be re-instated and then
+overriden here? hmm.
+*/
+
+.chooser {
+    // We show the 'chosen' state...
+    @include clearfix();
+
+    input[type=text] {
+        float: left;
+        width: 50%;
+        margin-right: 1em;
+    }
+
+    .chosen {
+        display: block;
+    }
+
+    .unchosen,
+    .chosen {
+        position: relative;
+
+        &:before {
+            vertical-align: middle;
+            font-family: wagtail;
+            content: '';
+            // position: relative
+            display: inline-block;
+            // float: left;
+            color: $color-grey-3;
+            line-height: 1em;
+            font-size: 2.5em;
+            margin-right: 0.3em;
+        }
+    }
+
+    .unchosen {
+        display: none;
+    }
+
+    .actions {
+        @include clearfix;
+        overflow: hidden;
+
+        li {
+            float: left;
+            margin: 0.3em;
+        }
+    }
+
+    // ...unless the .page-chooser has the 'blank' class set
+    &.blank {
+        .chosen { display: none; }
+
+        .unchosen { display: block; }
+    }
+}
+
+// standard way of doing a chooser where the chosen object's title is overlaid
+.page-chooser,
+.snippet-chooser,
+.document-chooser {
+    .chosen {
+        .title {
+            color: $color-grey-1;
+            // display: block;
+            padding-left: 1em;
+            display: inline-block;
+        }
+
+        .actions {
+            clear: both;
+            padding-top: 0.6em;
+        }
+    }
+}
+
+.page-chooser {
+    .unchosen,
+    .chosen {
+        &:before {
+            content: 'b';
+        }
+    }
+}
+
+.snippet-chooser {
+    .unchosen,
+    .chosen {
+        &:before {
+            content: 'D';
+        }
+    }
+}
+
+.document-chooser {
+    .unchosen,
+    .chosen {
+        &:before {
+            content: 'r';
+        }
+    }
+}
+
+.image-chooser {
+    .unchosen,
+    .chosen {
+        &:before {
+            content: 'o';
+        }
+    }
+
+    .chosen {
+        padding-left: $thumbnail-width;
+
+        &:before {
+            content: '';
+        }
+
+        .preview-image {
+            float: left;
+            margin-left: -($thumbnail-width);
+            margin-right: 1em;
+            max-width: $thumbnail-width;
+
+            // Resize standard Wagtail thumbnail size (165x165) to 130 for space-saving purposes.
+            // We could request a 130x130 rendition, but that's just unnecessary and burdens installations
+            // where images are store off-site with higher rendering times.
+            img {
+                max-width: $thumbnail-width;
+                max-height: $thumbnail-width;
+                height: auto;
+                width: auto;
+            }
+        }
+    }
+}
