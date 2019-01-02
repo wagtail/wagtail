@@ -1,0 +1,35 @@
+// user avatars
+.avatar {
+    border-radius: 100%;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+
+    img {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        right: 0;
+        border: 0;
+    }
+
+    &.small {
+        vertical-align: middle;
+        margin: 0 0.5em;
+        width: 25px;
+        height: 25px;
+    }
+
+    &.square {
+        border-radius: 0;
+
+        &:before {
+            border-radius: 0;
+        }
+    }
+}
