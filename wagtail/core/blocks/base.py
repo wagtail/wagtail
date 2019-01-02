@@ -147,6 +147,8 @@ class Block(metaclass=BaseBlock):
             definition['className'] = self.meta.classname
         if self.meta.group:
             definition['group'] = str(self.meta.group)
+        if self.meta.default:
+            definition['default'] = self.prepare_value(self.get_default())
         return definition
 
     def js_initializer(self):

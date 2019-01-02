@@ -55,7 +55,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         self.assertDictEqual(definition, {
             'key': 'test', 'label': 'Test', 'required': True,
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': None, 'titleTemplate': '${test}',
+            'titleTemplate': '${test}',
         })
 
     def test_charfield_render(self):
@@ -258,7 +258,7 @@ class TestIntegerBlock(TestCase):
             'key': 'test', 'label': 'Test', 'required': True,
             'icon': '<i class="icon icon-plus-inverse"></i>',
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': None, 'titleTemplate': '${test}',
+            'titleTemplate': '${test}',
         })
 
     def test_type(self):
@@ -306,7 +306,7 @@ class TestEmailBlock(TestCase):
             'key': 'test', 'label': 'Test', 'required': True,
             'icon': '<i class="icon icon-mail"></i>',
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': None, 'titleTemplate': '${test}',
+            'titleTemplate': '${test}',
         })
 
     def test_render(self):
@@ -342,7 +342,7 @@ class TestBlockQuoteBlock(TestCase):
             'key': 'test', 'label': 'Test', 'required': True,
             'icon': '<i class="icon icon-openquote"></i>',
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': None, 'titleTemplate': '${test}',
+            'titleTemplate': '${test}',
         })
 
     def test_render(self):
@@ -366,7 +366,7 @@ class TestFloatBlock(TestCase):
             'key': 'test', 'label': 'Test', 'required': True,
             'icon': '<i class="icon icon-plus-inverse"></i>',
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': None, 'titleTemplate': '${test}',
+            'titleTemplate': '${test}',
         })
 
     def test_type(self):
@@ -413,7 +413,7 @@ class TestDecimalBlock(TestCase):
             'key': 'test', 'label': 'Test', 'required': True,
             'icon': '<i class="icon icon-plus-inverse"></i>',
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': None, 'titleTemplate': '${test}',
+            'titleTemplate': '${test}',
         })
 
     def test_type(self):
@@ -461,7 +461,7 @@ class TestRegexBlock(TestCase):
             'key': 'test', 'label': 'Test', 'required': True,
             'icon': '<i class="icon icon-code"></i>',
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': None, 'titleTemplate': '${test}',
+            'titleTemplate': '${test}',
         })
 
     def test_render(self):
@@ -526,7 +526,6 @@ class TestRichTextBlock(TestCase):
         self.assertIn("window.draftail.initEditor('#field\\u002D__ID__',",
                       definition['html'])
         del definition['html']
-        del definition['default']
         self.assertDictEqual(definition, {
             'key': 'test', 'label': 'Test', 'required': True,
             'icon': '<i class="icon icon-doc-full"></i>',
@@ -621,7 +620,6 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertDictEqual(definition, {
             'key': 'test', 'label': 'Test', 'required': True,
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': None,
         })
 
     def test_render_required_choice_block(self):
@@ -917,7 +915,6 @@ class TestRawHTMLBlock(TestCase):
             'key': 'test', 'label': 'Test', 'required': True,
             'icon': '<i class="icon icon-code"></i>',
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': '',
         })
 
     def test_get_default_with_fallback_value(self):
@@ -1082,11 +1079,11 @@ class TestStructBlock(SimpleTestCase):
             'children': [
                 {'key': 'title', 'label': 'Title', 'layout': 'SIMPLE',
                  'required': True, 'titleTemplate': '${title}',
-                 'dangerouslyRunInnerScripts': True, 'default': None},
+                 'dangerouslyRunInnerScripts': True},
                 {'key': 'link', 'label': 'Link', 'layout': 'SIMPLE',
                  'required': True, 'titleTemplate': '${link}',
                  'icon': '<i class="icon icon-site"></i>',
-                 'dangerouslyRunInnerScripts': True, 'default': None}
+                 'dangerouslyRunInnerScripts': True}
             ]
         })
 
@@ -1464,11 +1461,11 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
             'children': [
                 {'key': 'title', 'label': 'Title', 'layout': 'SIMPLE',
                  'required': True, 'titleTemplate': '${title}',
-                 'dangerouslyRunInnerScripts': True, 'default': None},
+                 'dangerouslyRunInnerScripts': True},
                 {'key': 'link', 'label': 'Link', 'layout': 'SIMPLE',
                  'required': True, 'titleTemplate': '${link}',
                  'icon': '<i class="icon icon-site"></i>',
-                 'dangerouslyRunInnerScripts': True, 'default': None}
+                 'dangerouslyRunInnerScripts': True}
             ]
         })
 
@@ -1649,13 +1646,14 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         block.set_name('test')
         definition = block.get_definition()
         del definition['children'][0]['html']
+        del definition['default']
         self.assertDictEqual(definition, {
             'key': 'test', 'label': 'Test', 'required': False,
             'minNum': None, 'maxNum': None,
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
             'children': [
                 {'key': 'test_child', 'label': 'Test child',
-                 'layout': 'SIMPLE', 'required': True, 'default': None,
+                 'layout': 'SIMPLE', 'required': True,
                  'dangerouslyRunInnerScripts': True,
                  'titleTemplate': '${test_child}'}
             ],
@@ -1819,13 +1817,14 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
         block = ShoppingListBlock()
         # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
-        form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
+        react_value = block.prepare_value({'shop': 'Tesco'})
 
-        self.assertIn(
-            '<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="3">',
-            form_html
-        )
-        self.assertIn('value="peas"', form_html)
+        self.assertEqual(react_value[0]['value'], 'Tesco')
+        print(react_value)
+        self.assertEqual(len(react_value[1]['value']), 3)
+        self.assertEqual(react_value[1]['value'][0]['value'], 'peas')
+        self.assertEqual(react_value[1]['value'][1]['value'], 'beans')
+        self.assertEqual(react_value[1]['value'][0]['value'], 'carrots')
 
     def test_default_default(self):
         """
@@ -1838,13 +1837,11 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
         block = ShoppingListBlock()
         # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
-        form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
+        react_value = block.prepare_value({'shop': 'Tesco'})
 
-        self.assertIn(
-            '<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="1">',
-            form_html
-        )
-        self.assertIn('value="chocolate"', form_html)
+        self.assertEqual(react_value[0]['value'], 'Tesco')
+        self.assertEqual(len(react_value[1]['value']), 1)
+        self.assertEqual(react_value[1]['value'][0]['value'], 'chocolate')
 
 
 class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
@@ -1865,10 +1862,10 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             'children': [
                 {'key': 'heading', 'label': 'Heading', 'required': True,
                  'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-                 'titleTemplate': '${heading}', 'default': None},
+                 'titleTemplate': '${heading}'},
                 {'key': 'paragraph', 'label': 'Paragraph', 'required': True,
                  'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-                 'titleTemplate': '${paragraph}', 'default': None},
+                 'titleTemplate': '${paragraph}'},
             ]
         })
 
@@ -2600,7 +2597,6 @@ class TestPageChooserBlock(TestCase):
             'key': 'test', 'label': 'Test', 'required': True,
             'icon': '<i class="icon icon-redirect"></i>',
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': None,
         })
 
     def test_serialize(self):
@@ -2841,7 +2837,7 @@ class TestDateBlock(TestCase):
             'key': 'test', 'label': 'Test', 'required': True,
             'icon': '<i class="icon icon-date"></i>',
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': None, 'titleTemplate': '${test}',
+            'titleTemplate': '${test}',
         })
 
     def test_render_form(self):
@@ -2889,7 +2885,7 @@ class TestDateTimeBlock(TestCase):
             'key': 'test', 'label': 'Test', 'required': True,
             'icon': '<i class="icon icon-date"></i>',
             'layout': 'SIMPLE', 'dangerouslyRunInnerScripts': True,
-            'default': None, 'titleTemplate': '${test}',
+            'titleTemplate': '${test}',
         })
 
     def test_render_form_with_format(self):

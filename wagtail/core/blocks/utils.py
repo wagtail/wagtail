@@ -34,3 +34,6 @@ class BlockData:
 
     def __setitem__(self, key, value):
         self.data[key] = value
+
+    def __repr__(self):
+        return '<BlockData %s>' % self.data
