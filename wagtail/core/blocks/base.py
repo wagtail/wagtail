@@ -132,6 +132,25 @@ class Block(metaclass=BaseBlock):
             'value': value,
         })
 
+    def get_blocks_container_html(self, errors=None):
+        from .stream_block import StreamBlockValidationError
+
+        help_text = getattr(self.meta, 'help_text', None)
+        if isinstance(errors, StreamBlockValidationError):
+            non_block_errors = (
+                () if errors is None
+                else errors.as_data()[0].params.get(NON_FIELD_ERRORS, ()))
+        else:
+            non_block_errors = errors
+        if help_text and non_block_errors:
+            return render_to_string(
+                'wagtailadmin/block_forms/blocks_container.html',
+                {
+                    'help_text': help_text,
+                    'non_block_errors': non_block_errors,
+                }
+            )
+
     def get_definition(self):
         definition = {
             'key': self.name,

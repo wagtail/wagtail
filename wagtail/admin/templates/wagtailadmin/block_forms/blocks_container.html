@@ -1,0 +1,12 @@
+{% if non_block_errors %}
+    {% for error in non_block_errors %}
+        <div class="help-block help-critical">{{ error }}</div>
+    {% endfor %}
+{% endif %}
+{% if help_text %}
+    <div class="help">
+        <span class="icon-help-inverse" aria-hidden="true"></span>
+        {{ help_text }}
+    </div>
+{% endif %}
+<BlocksContainer />{# Special tag for react-streamfield #}

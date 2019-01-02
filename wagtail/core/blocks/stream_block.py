@@ -64,6 +64,14 @@ class BaseStreamBlock(Block):
     def required(self):
         return self.meta.required
 
+    def prepare_for_react(self, parent_block, value,
+                          type_name=None, errors=None):
+        data = super().prepare_for_react(
+            parent_block, value, type_name=type_name, errors=errors)
+        if parent_block is not None and errors is not None:
+            data['html'] = self.get_blocks_container_html(errors=errors)
+        return data
+
     def prepare_value(self, value, errors=None):
         if value is None:
             return []
@@ -84,6 +92,9 @@ class BaseStreamBlock(Block):
             minNum=self.meta.min_num,
             maxNum=self.meta.max_num,
         )
+        html = self.get_blocks_container_html()
+        if html is not None:
+            definition['html'] = html
         return definition
 
     def clean(self, value):

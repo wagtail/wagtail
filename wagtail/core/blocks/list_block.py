@@ -28,6 +28,14 @@ class ListBlock(Block):
                                                      prefix)
                 for child_block_data in data['value']]
 
+    def prepare_for_react(self, parent_block, value,
+                          type_name=None, errors=None):
+        data = super().prepare_for_react(parent_block, value,
+                                         type_name=type_name, errors=errors)
+        if errors is not None:
+            data['html'] = self.get_blocks_container_html(errors=errors)
+        return data
+
     def prepare_value(self, value, errors=None):
         children_errors = (None if errors is None
                            else errors.as_data()[0].params)
@@ -46,6 +54,9 @@ class ListBlock(Block):
             minNum=self.meta.min_num,
             maxNum=self.meta.max_num,
         )
+        html = self.get_blocks_container_html()
+        if html is not None:
+            definition['html'] = html
         return definition
 
     def clean(self, value):
