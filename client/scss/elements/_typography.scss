@@ -1,3 +1,11 @@
+body {
+    -webkit-font-smoothing: antialiased; // Do not remove!
+    font-family: Open Sans, Arial, sans-serif;
+    font-size: 80%;
+    line-height: 1.5em;
+    color: $color-text-base;
+}
+
 h1,
 h2,
 h3,

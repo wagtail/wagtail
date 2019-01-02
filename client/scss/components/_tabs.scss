@@ -92,6 +92,15 @@
             display: block;
         }
     }
+
+    .page-locked & {
+        cursor: not-allowed;
+        user-select: none;
+
+        > * {
+            pointer-events: none;
+        }
+    }
 }
 
 @include media-breakpoint-up(sm) {
