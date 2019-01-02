@@ -151,18 +151,6 @@ class Block(metaclass=BaseBlock):
             definition['default'] = self.prepare_value(self.get_default())
         return definition
 
-    def js_initializer(self):
-        """
-        Returns a Javascript expression string, or None if this block does not require any
-        Javascript behaviour. This expression evaluates to an initializer function, a function that
-        takes the ID prefix and applies JS behaviour to the block instance with that value and prefix.
-
-        The parent block of this block (or the top-level page code) must ensure that this
-        expression is not evaluated more than once. (The resulting initializer function can and will be
-        called as many times as there are instances of this block, though.)
-        """
-        return None
-
     def render_form(self, value, prefix='', errors=None):
         """
         Render the HTML for this block with 'value' as its content.
@@ -191,14 +179,6 @@ class Block(metaclass=BaseBlock):
         pointer back to the block definion object).
         """
         return self.meta.default
-
-    def prototype_block(self):
-        """
-        Return a BoundBlock that can be used as a basis for new empty block instances to be added on the fly
-        (new list items, for example). This will have a prefix of '__PREFIX__' (to be dynamically replaced with
-        a real prefix when it's inserted into the page) and a value equal to the block's default value.
-        """
-        return self.bind(self.get_default(), '__PREFIX__')
 
     def clean(self, value):
         """
