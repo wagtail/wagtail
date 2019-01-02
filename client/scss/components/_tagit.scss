@@ -1,0 +1,43 @@
+// taggit tagging
+.tagit {
+    padding: 0.6em 1.2em;
+
+    .tagit-choice {
+        border: 0;
+    }
+}
+
+// Additional specificity (.admin_tag_widget ) required to override tagit stylesheets,
+// which get added after the core CSS, and otherweise trump our styles.
+.admin_tag_widget ul.tagit input[type='text'] {
+    padding: 0.2em 0.5em;
+}
+
+// Additional specificity (.admin_tag_widget ) required to override tagit stylesheets,
+// which get added after the core CSS, and otherweise trump our styles.
+.admin_tag_widget ul.tagit li.tagit-choice-editable {
+    padding: 0 23px 0 0;
+}
+
+.ui-front { // provided by jqueryui but not high enough an index
+    z-index: 1000;
+}
+
+.tagit-close {
+    .ui-icon-close {
+        margin-left: 1em;
+        text-indent: 0;
+        background: none;
+    }
+
+    .ui-icon-close:before {
+        font-family: wagtail;
+        display: block;
+        color: $color-grey-3;
+        content: 'g';
+    }
+
+    .ui-icon-close:hover:before {
+        color: $color-red;
+    }
+}
