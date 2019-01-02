@@ -1,0 +1,18 @@
+{# HT START #}
+
+<div style="text-align:left; font-size:1em; padding: 1em; background-color:grey; color:white">
+	<p>
+	please pass a template to the SelectCropBlock constructor where you include it... e.g: 
+	</p>
+	<p style="font-size:1.2em">
+	my_image_field = SelectCropBlock(required=True, <span style="font-style: italic"> template="your_folder/your_image_spec.html"</span>)
+	</p>
+	<p>
+	The template you specify should define your image specification and the image can be accessed as 'value.image' ... e.g:
+	</p>
+	<p style="font-size:1.2em">
+	{% templatetag openblock %} load wagtailimages_tags {% templatetag closeblock %}<br>
+	{% templatetag openblock %} image value.image max-600x600 {% templatetag closeblock %}
+	</p>
+</div>
+{# HT END #}

@@ -32,7 +32,7 @@ class SelectCropChooserBlock(ImageChooserBlock):
     def widget(self):
         from .widgets import SelectCropAdminImageChooser
         return SelectCropAdminImageChooser
-
+        
 
 class SelectCropBlock(StructBlock):
 
@@ -63,27 +63,43 @@ class SelectCropBlock(StructBlock):
 
         if context.get('children'):
             for name, block in context['children'].items():
-                if name in area_labels and not isinstance(block.value, int):
-                    old_key = name.replace('crop', 'focal')
-                    existing_value = context['children'].get(old_key)
-                    block.value = existing_value # updates the block value (which will now be picked up in the crop_etc fields of the form and hence the jcrop api)
-                    context[name] = existing_value # makes these same values available directly in the template context
-                    value[name] = existing_value # updates the parrallel StructValues that wagtail provides 
+                if name in area_labels:
+                    if not isinstance(block.value, int):
+                        print("{} not an int".format(block.value))
+                        old_name = name.replace('crop', 'focal')
+                        block.value = context['children'].get(old_name) # updates the block value (which will now be picked up in the crop_etc fields of the form and hence the jcrop api) 
+                        value[name] = block.value # updates the parrallel StructValues that wagtail provides 
+                    context[name] = block.value # makes these same values available directly in the template context
+                    
         else: # we're not in the admin and children isn't populated...
             for name in area_labels:
                 v = value.get(name)
                 if not isinstance(v, int):
                     v = value.get(name.replace('crop', 'focal'))
-                context[k] = v
+                context[name] = v
         
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         # here we're copying the values from the focal_etc blocks to the crop_ blocks purely for the purposes of preserving the data automatically
         # this whole block can be lost along with the focal_ fields once the pages have been loaded and saved...
         # the entire function can be swopped for the lines below...
         # area_labels = ['crop_point_x', 'crop_point_y', 'crop_point_width', 'crop_point_height']
-        # for k in area_labels:
-        #     context[k] = value.get(k)
-            
+        # for name in area_labels:
+        #     context[name] = value.get(name)
+        #     
+    def render_basic(self, value, context=None):
+        # this will be invoked if no template value is defined on the Meta
+        context = super().get_context(value)
+        self.add_area_info(value, context)
+        image = value.get('image')
+        if image:
+            crop_specs = [context['crop_point_x'],context['crop_point_y'],context['crop_point_width'],context['crop_point_height']]
+            if all(v is not None for v in crop_specs):
+                select_spec = "select-" + str(context['crop_point_x']) + ":" + str(context['crop_point_y']) + ":" + str(context['crop_point_width']) + ":" + str(context['crop_point_height'])
+                return get_rendition_or_not_found(image, select_spec).img_tag()
+            else:
+                return get_rendition_or_not_found(image, 'original').img_tag()
+        else:
+            return ''
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
@@ -97,7 +113,7 @@ class SelectCropBlock(StructBlock):
 
     class Meta:
         icon = "image"
-        template = "wagtailimages/widgets/select_crop_no_template.html"  # to provide instructions in case they don't provide a template..
+        #template = "wagtailimages/widgets/select_crop_block_default.html"
         form_classname = "select-crop-image-block struct-block"
         form_template = "wagtailimages/widgets/select_crop_block.html"
 # HT END

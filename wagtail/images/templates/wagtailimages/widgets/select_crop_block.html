@@ -13,7 +13,7 @@
                         <label{% if child.id_for_label %} for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}:</label>
                     {% endif %}
                     {% if not crop_point_width %} <div class = "image-area-selector-hidden"> {% endif %}
-                                {{ child.render_form }}
+                                                    {{ child.render_form }}
                     {% if not crop_point_width %} </div> {% endif %}
                 </li>
             {% endif %}

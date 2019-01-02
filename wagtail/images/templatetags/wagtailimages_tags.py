@@ -101,6 +101,7 @@ class ImageNode(template.Node):
             # select_spec = "select-" + str(context['focal_point_x']) + ":" + str(context['focal_point_y']) + ":" + str(context['focal_point_width']) + ":" + str(context['focal_point_height'])
             select_spec = "select-" + str(context['crop_point_x']) + ":" + str(context['crop_point_y']) + ":" + str(context['crop_point_width']) + ":" + str(context['crop_point_height'])
             full_spec = select_spec + '|' + self.filter_spec
+            print('here is full_spec from template tag: {}'.format(full_spec))
         except KeyError:
             full_spec = self.filter
 

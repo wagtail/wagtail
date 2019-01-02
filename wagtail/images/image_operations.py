@@ -145,22 +145,58 @@ class FillOperation(Operation):
 
 
 # HT - START
+# class SelectCropOperation(FillOperation):
 
+#     def construct(self, focal_point):
+#         self.focal_point_x, self.focal_point_y, self.focal_point_width, self.focal_point_height = focal_point.split(":")
+#         size = self.focal_point_width + 'x' + self.focal_point_height
+#         super().construct(size, 'c100')
 
-class SelectCropOperation(FillOperation):
+#     def run(self, willow, image, env):
+#         self.focal_point = Rect.from_point(int(self.focal_point_x),
+#                                            int(self.focal_point_y),
+#                                            int(self.focal_point_width),
+#                                            int(self.focal_point_height))
+#         willow = super().run(willow, image, env)
+#         return willow
 
-    def construct(self, focal_point):
-        self.focal_point_x, self.focal_point_y, self.focal_point_width, self.focal_point_height = focal_point.split(":")
-        size = self.focal_point_width + 'x' + self.focal_point_height
-        super().construct(size, 'c100')
+class SelectCropOperation(Operation):
+
+    def construct(self, crop_area):
+        self.crop_point_x, self.crop_point_y, self.crop_width, self.crop_height = crop_area.split(":")
+        self.width = int(self.crop_width)
+        self.height = int(self.crop_height)
+        self.cp_x = int(self.crop_point_x)
+        self.cp_y = int(self.crop_point_y)
 
     def run(self, willow, image, env):
-        self.focal_point = Rect.from_point(int(self.focal_point_x),
-                                           int(self.focal_point_y),
-                                           int(self.focal_point_width),
-                                           int(self.focal_point_height))
-        willow = super().run(willow, image, env)
+        # the only operation currently offered by wagtail that crops an image other than this one is fill.  If fill is detected
+        # in the same specification, we currently error.  I think it might be best to always run crop first, but if not we can
+        # at least scale our operations as follows:
+        input_width, input_height = willow.get_size()
+        height_scale = input_height/image.height
+        width_scale = input_width/image.width
+        check_proportion = height_scale * 100/width_scale
+        if 99 >= check_proportion >= 101:
+            raise ValueError("""It appears the width to height ratio of this image has already been altered prior to this operation. 
+                The crop operation may be based on a resized image, but not one that has been distorted or previously cropped.
+                Original dimensions (w x h): {} x {}.  Input dimensions (w x h): {} x {}""".format(image.width, image.height, input_width, input_height))
+        if height_scale != 100:
+            self.width = height_scale * self.width
+            self.height = height_scale * self.height
+            self.cp_x = height_scale * self.cp_x
+            self.cp_y = height_scale * self.cp_y
+
+        crop_rect = Rect.from_point(int(self.cp_x),
+                                           int(self.cp_y),
+                                           int(self.width),
+                                           int(self.height))
+
+        input_rect = Rect(0, 0, input_width, input_height)
+        crop_rect = crop_rect.move_to_clamp(input_rect)
+        willow = willow.crop(crop_rect.round())
         return willow
+
 # HT - END
 
 

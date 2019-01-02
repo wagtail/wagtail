@@ -1,7 +1,6 @@
 function createImageChooser(id) {
     console.log('id: ' + id);
     let chooserElement = $('#' + id + '-chooser');
-    //now there will be more images to change per preview owing to the way that jcrop works..
     let input = $('#' + id);
     let editLink = chooserElement.find('.edit-link');
 
