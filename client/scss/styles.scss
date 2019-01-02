@@ -1,7 +1,118 @@
-// =============================================================================
-// Wagtail CMS main stylesheet
-// =============================================================================
+/*==============================================================================
+/
+/   Wagtail CMS main stylesheet
+/
+================================================================================
 
-@import 'objects';
-@import 'components';
-@import 'utilities';
+REFERENCE
+
+  * We organize our styles based on a combination of ITCSS and
+    the Sass 7-1 pattern.
+  * Classes should be written using BEM, which we modify to include a prefix.
+  * Every BEM block should have its own file.
+
+
+Folder     | Contents                 | ITCSS level    | Prefix
+---------- | ------------------------ | -------------- | ------
+settings   | variables, maps, fonts   | 01. Settings   |
+tools      | mixins, functions        | 02. Tools      |
+generic    | resets                   | 03. Generic    |
+elements   | elements without classes | 04. Elements   |
+objects    | classes (layout)         | 05. Objects    | o-
+components | classes (components)     | 06. Components | c-
+utilities  | classes (overrides)      | 07. Trumps     | u-
+
+SCSS: https://sass-lang.com/guide
+ITCSS: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
+Sass 7-1 pattern: https://gist.github.com/rveitch/84cea9650092119527bc
+BEM: http://getbem.com/
+
+==============================================================================*/
+
+
+/* SETTINGS
+These are variables, maps, and fonts.
+* No CSS should be produced by these files, except @font-face
+*/
+
+@import 'settings';
+
+
+/* TOOLS
+These are functions and mixins.
+* No CSS should be produced by these files.
+*/
+
+@import 'tools';
+
+
+/* GENERIC
+This is for resets and other rules that affect large collections of bare elements.
+* Changes to them should be very rare.
+*/
+
+@import 'generic/generic';
+
+
+/* ELEMENTS
+These are base styles for bare HTML elements.
+* Changes to them should be very rare.
+*/
+
+@import 'elements/elements';
+
+
+/* OBJECTS
+These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
+* This is for grids, wrappers, and other non-consmetic layout utilities.
+* These classes are prefixed with `.o-`.
+*/
+
+@import 'objects/objects';
+
+
+/* COMPONENTS
+These are classes for components.
+* These classes (unless legacy) are prefixed with `.c-`.
+* React component styles live in the same folders as their React components,
+  which is the preferred pattern over housing them in the scss folder.
+*/
+
+@import '../src/components/Transition/Transition';
+@import '../src/components/LoadingSpinner/LoadingSpinner';
+@import '../src/components/PublicationStatus/PublicationStatus';
+@import '../src/components/Explorer/Explorer';
+
+// Legacy
+@import 'components/icons';
+@import 'components/typography';
+@import 'components/tabs';
+@import 'components/dropdowns';
+@import 'components/modals';
+@import 'components/forms';
+@import 'components/listing';
+@import 'components/messages';
+@import 'components/formatters';
+@import 'components/header';
+@import 'components/progressbar';
+@import 'components/datetimepicker';
+@import 'components/main-nav';
+@import 'components/indicator';
+@import 'components/tooltips';
+@import 'components/logo';
+
+
+/* OVERRIDES
+These are classes that provide overrides for specific pages.
+* Higher specificity is allowed here because these are overrides and imported last.
+* These classes are prefixed with `.u-`.
+*/
+
+@import 'utilities/hidden';
+@import 'utilities/text';
+
+
+/* LEGACY
+These styles used to be in core.scss and need to be moved.
+*/
+@import 'legacy';
