@@ -1,0 +1,12 @@
+// makes a link look like regular text
+.nolink {
+    color: $color-text-base;
+
+    &:hover {
+        color: $color-teal;
+    }
+}
+
+a.underlined {
+    border-bottom: 1px solid currentColor;
+}

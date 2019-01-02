@@ -77,6 +77,7 @@ These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
 */
 
 @import 'objects/objects';
+@import 'objects/avatar';
 
 
 /* COMPONENTS
@@ -96,15 +97,17 @@ These are classes for components.
 @import 'components/tabs';
 @import 'components/dropdown';
 @import 'components/dropdown.legacy';
-@import 'components/help';
+@import 'components/help-block';
 @import 'components/modals';
 @import 'components/forms';
 @import 'components/button';
 @import 'components/chooser';
-@import 'components/tagit';
+@import 'components/tags.tagit';
+@import 'components/tags.tag';
 @import 'components/listing';
 @import 'components/messages';
-@import 'components/formatters';
+@import 'components/messages.capability';
+@import 'components/messages.status';
 @import 'components/header';
 @import 'components/progressbar';
 @import 'components/datetimepicker';
@@ -113,9 +116,14 @@ These are classes for components.
 @import 'components/tooltips';
 @import 'components/logo';
 @import 'components/grid.legacy';
-@import 'components/capability-message';
 @import 'components/breadcrumb';
 @import 'components/footer';
+@import 'components/loading-mask';
+@import 'components/media-placeholder';
+@import 'components/human-readable-date';
+@import 'components/link.legacy';
+@import 'components/privacy-indicator';
+@import 'components/status-tag';
 
 
 /* OVERRIDES
