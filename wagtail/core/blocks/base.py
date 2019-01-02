@@ -15,7 +15,9 @@ from django.utils.text import capfirst
 # unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
 # return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
 # calls force_text, which would cause it to lose its 'safe' flag
-from .utils import BlockData, InputJSONEncoder, to_json_script
+from .utils import (
+    BlockData, InputJSONEncoder, get_non_block_errors, to_json_script,
+)
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
 
@@ -133,15 +135,8 @@ class Block(metaclass=BaseBlock):
         })
 
     def get_blocks_container_html(self, errors=None):
-        from .stream_block import StreamBlockValidationError
-
         help_text = getattr(self.meta, 'help_text', None)
-        if isinstance(errors, StreamBlockValidationError):
-            non_block_errors = (
-                () if errors is None
-                else errors.as_data()[0].params.get(NON_FIELD_ERRORS, ()))
-        else:
-            non_block_errors = errors
+        non_block_errors = get_non_block_errors(errors)
         if help_text or non_block_errors:
             return render_to_string(
                 'wagtailadmin/block_forms/blocks_container.html',
@@ -529,9 +524,7 @@ class BlockWidget(forms.Widget):
         streamfield_config = self.get_streamfield_config(value, errors=errors)
         escaped_value = to_json_script(streamfield_config['value'],
                                        encoder=InputJSONEncoder)
-        non_block_errors = (
-            () if errors is None
-            else errors.as_data()[0].params.get(NON_FIELD_ERRORS, ()))
+        non_block_errors = get_non_block_errors(errors)
         non_block_errors = ''.join([
             mark_safe('<div class="help-block help-critical">%s</div>') % error
             for error in non_block_errors])

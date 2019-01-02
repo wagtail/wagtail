@@ -1,6 +1,8 @@
 import json
 
+from django.core.exceptions import NON_FIELD_ERRORS
 from django.core.serializers.json import DjangoJSONEncoder
+from django.forms.utils import ErrorList
 
 
 class ConfigJSONEncoder(DjangoJSONEncoder):
@@ -25,9 +27,23 @@ def to_json_script(data, encoder=ConfigJSONEncoder):
     ).replace('<', '\\u003c')
 
 
+def get_non_block_errors(errors):
+    if errors is None:
+        return ()
+    errors_data = errors.as_data()
+    if isinstance(errors, ErrorList):
+        errors_data = errors_data[0].params
+        if errors_data is None:
+            return errors
+    return errors_data.get(NON_FIELD_ERRORS, ())
+
+
 class BlockData:
     def __init__(self, data):
         self.data = data
+
+    def __contains__(self, item):
+        return item in self.data
 
     def __getitem__(self, item):
         return self.data[item]

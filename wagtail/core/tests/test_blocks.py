@@ -2276,9 +2276,11 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             catcher.exception
         ])
 
+        fake_parent_block = blocks.StreamBlock()
         self.assertInHTML(
             format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
-            block.render_form(block_value, prefix='stream', errors=errors))
+            block.prepare_for_react(fake_parent_block,
+                                    block_value, errors=errors)['html'])
 
     def test_block_level_validation_render_no_errors(self):
         block = FooStreamBlock()
@@ -2293,10 +2295,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         except ValidationError:
             self.fail('Should have passed validation')
 
-        self.assertInHTML(
-            format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
-            block.render_form(block_value, prefix='stream'),
-            count=0)
+        fake_parent_block = blocks.StreamBlock()
+        self.assertNotIn('html', block.prepare_for_react(fake_parent_block,
+                                                         block_value))
 
     def test_definition_uses_default(self):
         class ArticleBlock(blocks.StreamBlock):
