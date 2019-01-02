@@ -1,8 +1,6 @@
-/*==============================================================================
-/
-/   Wagtail CMS main stylesheet
-/
-================================================================================
+/* =============================================================================
+/*  Wagtail CMS main stylesheet
+/* =============================================================================
 
 REFERENCE
 
@@ -26,6 +24,14 @@ SCSS: https://sass-lang.com/guide
 ITCSS: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
 Sass 7-1 pattern: https://gist.github.com/rveitch/84cea9650092119527bc
 BEM: http://getbem.com/
+
+
+OTHER PREFIXES
+
+Prefix | Purpose
+------ | -------
+t-     | theme
+is-    | state, should phase out using this in favor of BEM
 
 ==============================================================================*/
 
@@ -88,7 +94,8 @@ These are classes for components.
 // Legacy
 @import 'components/icons';
 @import 'components/tabs';
-@import 'components/dropdowns';
+@import 'components/dropdown';
+@import 'components/dropdown.legacy';
 @import 'components/help';
 @import 'components/modals';
 @import 'components/forms';
@@ -119,6 +126,7 @@ These are classes that provide overrides for specific pages.
 
 @import 'utilities/hidden';
 @import 'utilities/text';
+@import 'utilities/dropdowns';
 
 // Legacy
 @import 'utilities/pages.homepage';
