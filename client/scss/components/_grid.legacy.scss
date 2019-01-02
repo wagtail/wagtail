@@ -1,0 +1,61 @@
+.row {
+    @include clearfix();
+}
+
+@include media-breakpoint-up(sm) {
+    .col1 {
+        @include column(1);
+    }
+
+    .col2 {
+        @include column(2);
+    }
+
+    .col3 {
+        @include column(3);
+    }
+
+    .col4 {
+        @include column(4);
+    }
+
+    .col5 {
+        @include column(5);
+    }
+
+    .col6 {
+        @include column(6);
+    }
+
+    .col7 {
+        @include column(7);
+    }
+
+    .col8 {
+        @include column(8);
+    }
+
+    .col9 {
+        @include column(9);
+    }
+
+    .col10 {
+        @include column(10);
+    }
+
+    .col11 {
+        @include column(11);
+    }
+
+    .col12 {
+        @include column(12);
+    }
+
+    .row {
+        @include row();
+    }
+
+    .row-flush {
+        @include row-flush();
+    }
+}

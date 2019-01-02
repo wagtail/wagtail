@@ -463,9 +463,65 @@ body.explorer-open {
     }
 }
 
-// stylelint-disable scss/media-feature-value-dollar-variable
+///////////////
+// Z-indexes //
+///////////////
 
-// Media query hacks to detect IE10+ which doesn't support 3d transform of static elements and needs a fallback
+.nav-toggle {
+    z-index: 5;
+}
+
+.nav-wrapper {
+    z-index: 2;
+}
+
+// Avoiding a stacking context for the content-wrapper saves us a world
+// of pain when dealing with overlays that are appended to the end of
+// <body>, eg Hallo & calendars. As long as content-wrapper remains floated,
+// the z-index shouldn't be required.
+
+// .content-wrapper {
+// z-index: 3;
+// }
+.nav-submenu {
+    z-index: 6;
+}
+
+footer,
+.logo {
+    z-index: 100;
+}
+
+@include media-breakpoint-up(sm) {
+    .nav-main {
+        .footer {
+            z-index: 2;
+        }
+    }
+
+    .nav-submenu {
+        z-index: 500;
+    }
+
+    // Allows overspill of messages banner onto left menu, but also explorer
+    // to spill over main content
+    .nav-wrapper {
+        z-index: auto;
+    }
+
+    // footer is z-index: 100, so ensure the navigation sits on top of it.
+    .nav-wrapper.submenu-active {
+        z-index: 200;
+    }
+}
+
+
+///////////////////////
+// Media query hacks //
+///////////////////////
+
+// to detect IE10+ which doesn't support 3d transform of static elements and needs a fallback
+// stylelint-disable scss/media-feature-value-dollar-variable
 @media all and (-ms-high-contrast: none),
     all and (-ms-high-contrast: active) {
     .wrapper {
