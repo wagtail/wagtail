@@ -1,7 +1,5 @@
-@import 'wagtailadmin/scss/variables';
-@import 'wagtailadmin/scss/mixins';
-@import 'wagtailadmin/scss/grid';
-@import 'wagtailadmin/scss/components/streamfield';
+@import 'wagtailadmin/scss/helpers';
+@import '../../../../../../client/scss/components/streamfield';
 
 .page-editor {
     .content-wrapper {
