@@ -101,6 +101,10 @@ These are classes for components.
 @import 'components/indicator';
 @import 'components/tooltips';
 @import 'components/logo';
+@import 'components/grid.legacy';
+@import 'components/capability-message';
+@import 'components/breadcrumb';
+@import 'components/footer';
 
 
 /* OVERRIDES
@@ -111,14 +115,10 @@ These are classes that provide overrides for specific pages.
 
 @import 'utilities/hidden';
 @import 'utilities/text';
-@import 'utilities/pages.homepage';
-@import 'utilities/pages.page-explorer';
 
 // Legacy
+@import 'utilities/pages.homepage';
+@import 'utilities/pages.page-explorer';
 @import 'utilities/text.legacy';
-
-
-/* LEGACY
-These styles used to be in core.scss and need to be moved.
-*/
-@import 'legacy';
+@import 'utilities/hidden.legacy';
+@import 'utilities/legacy';
