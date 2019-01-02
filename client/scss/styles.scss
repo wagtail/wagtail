@@ -61,6 +61,7 @@ These are base styles for bare HTML elements.
 
 @import 'elements/elements';
 @import 'elements/typography';
+@import 'elements/forms';
 
 
 /* OBJECTS
@@ -91,6 +92,9 @@ These are classes for components.
 @import 'components/help';
 @import 'components/modals';
 @import 'components/forms';
+@import 'components/button';
+@import 'components/chooser';
+@import 'components/tagit';
 @import 'components/listing';
 @import 'components/messages';
 @import 'components/formatters';
