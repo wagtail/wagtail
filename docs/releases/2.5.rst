@@ -1,0 +1,26 @@
+==========================================
+Wagtail 2.5 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Other features
+~~~~~~~~~~~~~~
+
+
+Bug fixes
+~~~~~~~~~
+
+ * Set ``SERVER_PORT`` to 443 in ``Page.dummy_request()`` for HTTPS sites (Sergey Fedoseev)
+ * Validation error messages in ``InlinePanel`` no longer count towards ``max_num`` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)
+
+
+Upgrade considerations
+======================

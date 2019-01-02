@@ -24,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-28 13:52+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,15 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Отправить на модерацию"
+
+msgid "Unpublish"
+msgstr "Отменить публикацию"
+
+msgid "Delete"
+msgstr "Удалить"
 
 msgid "Wagtail admin"
 msgstr "Wagtail админ"
@@ -259,9 +268,6 @@ msgstr "Сбросить ваш пароль"
 msgid "Edit"
 msgstr "Редактировать"
 
-msgid "Delete"
-msgstr "Удалить"
-
 msgid "Page"
 msgstr "Страница"
 
@@ -339,28 +345,6 @@ msgstr "Внешняя ссылка"
 
 msgid "Email link"
 msgstr "Ссылка адреса электронной почты"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Есть одно совпадение"
-msgstr[1] ""
-"\n"
-"Есть %(counter)s совпадений"
-msgstr[2] ""
-"\n"
-"Есть %(counter)s совпадений"
-msgstr[3] ""
-"\n"
-"Есть %(counter)s совпадений"
 
 msgid "Choose"
 msgstr "Выбрать"
@@ -616,6 +600,15 @@ msgstr "Заблокировано"
 msgid "Unlocked"
 msgstr "Разблокировано"
 
+msgid "Publishing…"
+msgstr "Публикуется..."
+
+msgid "Publish this revision"
+msgstr "Опубликовать эту версию"
+
+msgid "Publish"
+msgstr "Опубликовать"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Создать страницу в %(title)s"
@@ -702,9 +695,6 @@ msgstr "Да, переместить эту страницу"
 msgid "Unpublish %(title)s"
 msgstr "Отменить публикацию %(title)s"
 
-msgid "Unpublish"
-msgstr "Отменить публикацию"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Вы уверены, что хотите отменить публикацию этой страницы?"
 
@@ -770,15 +760,6 @@ msgstr "Сохранение…"
 msgid "Save draft"
 msgstr "Сохранить черновик"
 
-msgid "Publishing…"
-msgstr "Публикуется..."
-
-msgid "Publish"
-msgstr "Опубликовать"
-
-msgid "Submit for moderation"
-msgstr "Отправить на модерацию"
-
 msgid "This page has unsaved changes."
 msgstr "На странице есть несохраненные изменения."
 
@@ -795,9 +776,6 @@ msgstr "Страница заблокирована"
 
 msgid "Replace current draft"
 msgstr "Изменить черновик"
-
-msgid "Publish this revision"
-msgstr "Опубликовать эту версию"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1242,22 +1220,6 @@ msgstr ""
 "Вы используете <strong>устаревший</strong> браузер не поддерживаемый этим "
 "сайтом. Пожалуйста, <a href=\"http://browsehappy.com/\">обновите ваш "
 "браузер</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"JavaScript необходим для использования Wagtail, но в данный момент он "
-"отключен.<br />\n"
-"Тут вы можете найти <a href=\"http://www.enable-javascript.com/ru/\" target="
-"\"_blank\" rel=\"noopener\">инструкцию как включить JavaScript в вашем "
-"браузере</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Идти в интерфейс управления Wagtail"

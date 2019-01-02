@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-16 02:10+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-15 03:21+0000\n"
 "Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -24,6 +24,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Lämna in för moderering"
+
+msgid "Unpublish"
+msgstr "Avpublicera"
+
+msgid "Delete"
+msgstr "Radera"
 
 msgid "Wagtail admin"
 msgstr "Wagtail administration"
@@ -238,9 +247,6 @@ msgstr "Återställ ditt lösenord"
 msgid "Edit"
 msgstr "Editera"
 
-msgid "Delete"
-msgstr "Radera"
-
 msgid "Page"
 msgstr "Sida"
 
@@ -331,7 +337,7 @@ msgstr "E-postlänk"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -339,10 +345,12 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"Det finns en träff"
+"        Det finns %(counter)s träff\n"
+"    "
 msgstr[1] ""
 "\n"
-"Det finns %(counter)s träffar"
+"        Det finns %(counter)s träffar\n"
+"    "
 
 msgid "Choose"
 msgstr "Välj"
@@ -457,6 +465,9 @@ msgstr "Editerad"
 
 msgid "Edit this page"
 msgstr "Editera denna sida"
+
+msgid "Preview this page"
+msgstr "Förhandsgranska den här sidan"
 
 msgid "Approve"
 msgstr "Godkänn"
@@ -584,6 +595,15 @@ msgstr "Låst"
 msgid "Unlocked"
 msgstr "Olåst"
 
+msgid "Publishing…"
+msgstr "Publicerar..."
+
+msgid "Publish this revision"
+msgstr "Publicera denna revision"
+
+msgid "Publish"
+msgstr "Publicera"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Skapa en sida i %(title)s"
@@ -667,9 +687,6 @@ msgstr "Ja, flytta sidan"
 msgid "Unpublish %(title)s"
 msgstr "Avpublicera %(title)s"
 
-msgid "Unpublish"
-msgstr "Avpublicera"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Är du säker på att du vill avpublicera denna sida?"
 
@@ -729,15 +746,6 @@ msgstr "Sparar..."
 msgid "Save draft"
 msgstr "Spara utkast"
 
-msgid "Publishing…"
-msgstr "Publicerar..."
-
-msgid "Publish"
-msgstr "Publicera"
-
-msgid "Submit for moderation"
-msgstr "Lämna in för moderering"
-
 msgid "This page has unsaved changes."
 msgstr "Den här sidan har osparade ändringar."
 
@@ -754,9 +762,6 @@ msgstr "Sida låst"
 
 msgid "Replace current draft"
 msgstr "Ersätt existerande utkast"
-
-msgid "Publish this revision"
-msgstr "Publicera denna revision"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1196,16 +1201,16 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
 "            Javascript krävs för att använda Wagtail, men är för tillfället "
-"avstängt.<br />\n"
+"inaktiverat.<br />\n"
 "            Här finns <a href=\"http://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener\">instruktioner om hur man slår på JavaScript i "
-"din webbläsare</a>.\n"
+"\"_blank\" rel=\"noopener\">instruktioner om hur aktiverar JavaScript i din "
+"webbläsare</a>.\n"
 "        "
 
 msgid "Go to Wagtail admin interface"
@@ -1219,6 +1224,9 @@ msgstr "Visa i utforskaren"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabiska"
 
 msgid "Catalan"
 msgstr "Katalanska"
