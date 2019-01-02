@@ -60,6 +60,7 @@ These are base styles for bare HTML elements.
 */
 
 @import 'elements/elements';
+@import 'elements/typography';
 
 
 /* OBJECTS
@@ -85,9 +86,9 @@ These are classes for components.
 
 // Legacy
 @import 'components/icons';
-@import 'components/typography';
 @import 'components/tabs';
 @import 'components/dropdowns';
+@import 'components/help';
 @import 'components/modals';
 @import 'components/forms';
 @import 'components/listing';
@@ -110,6 +111,11 @@ These are classes that provide overrides for specific pages.
 
 @import 'utilities/hidden';
 @import 'utilities/text';
+@import 'utilities/pages.homepage';
+@import 'utilities/pages.page-explorer';
+
+// Legacy
+@import 'utilities/text.legacy';
 
 
 /* LEGACY
