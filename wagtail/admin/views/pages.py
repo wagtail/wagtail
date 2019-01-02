@@ -791,6 +791,11 @@ def set_page_position(request, page_to_move_id):
     if not parent_page.permissions_for_user(request.user).can_reorder_children():
         raise PermissionDenied
 
+    for fn in hooks.get_hooks('before_move_page'):
+        result = fn(request, page_to_move, parent_page)
+        if hasattr(result, 'status_code'):
+            return result
+
     if request.method == 'POST':
         # Get position parameter
         position = request.GET.get('position', None)
@@ -819,6 +824,11 @@ def set_page_position(request, page_to_move_id):
         else:
             # Move page to end
             page_to_move.move(parent_page, pos='last-child')
+
+        for fn in hooks.get_hooks('after_move_page'):
+            result = fn(request, page_to_move)
+            if hasattr(result, 'status_code'):
+                return result
 
     return HttpResponse('')
 
