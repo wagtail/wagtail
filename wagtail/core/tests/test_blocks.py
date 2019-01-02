@@ -1820,11 +1820,10 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         react_value = block.prepare_value({'shop': 'Tesco'})
 
         self.assertEqual(react_value[0]['value'], 'Tesco')
-        print(react_value)
         self.assertEqual(len(react_value[1]['value']), 3)
         self.assertEqual(react_value[1]['value'][0]['value'], 'peas')
         self.assertEqual(react_value[1]['value'][1]['value'], 'beans')
-        self.assertEqual(react_value[1]['value'][0]['value'], 'carrots')
+        self.assertEqual(react_value[1]['value'][2]['value'], 'carrots')
 
     def test_default_default(self):
         """
