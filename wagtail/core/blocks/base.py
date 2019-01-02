@@ -142,7 +142,7 @@ class Block(metaclass=BaseBlock):
                 else errors.as_data()[0].params.get(NON_FIELD_ERRORS, ()))
         else:
             non_block_errors = errors
-        if help_text and non_block_errors:
+        if help_text or non_block_errors:
             return render_to_string(
                 'wagtailadmin/block_forms/blocks_container.html',
                 {

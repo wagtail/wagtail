@@ -1292,21 +1292,15 @@ class TestStructBlock(SimpleTestCase):
                 help_text = "Self-promotion is encouraged"
 
         block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
+        html = block.get_definition()['html']
 
-        self.assertIn('<div class="sequence-member__help help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is encouraged</div>', html)
+        self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is encouraged</div>', html)
 
         # check it can be overridden in the block constructor
         block = LinkBlock(help_text="Self-promotion is discouraged")
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
+        html = block.get_definition()['html']
 
-        self.assertIn('<div class="sequence-member__help help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is discouraged</div>', html)
+        self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is discouraged</div>', html)
 
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
