@@ -378,7 +378,7 @@ class Filter:
         with figures relating to the full image, after the image has already been cropped to a smaller size (or vice versa).
         """
         operation_types = [o.split('-')[0] for o in self.spec.split('|')]
-        if "fill" in operation_types and "select" in operation_types:
+        if "fill" in operation_types and "crop" in operation_types:
             raise InvalidFilterSpecError("An image fill operation cannot be applied to a image with a contextual crop set")
         # HT END
         # Build list of operation objects
@@ -446,7 +446,7 @@ class Filter:
         # HT START
         """contextual data does not exist on the image so it must be handled separately"""
         first_spec = self.spec.split('|')[0]
-        if first_spec.split('-')[0] == "select":
+        if first_spec.split('-')[0] == "crop":
             vary_parts.append(first_spec)
         # HT END
 

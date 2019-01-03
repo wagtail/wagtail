@@ -65,7 +65,7 @@ def editor_js():
 
     # HT START
     js_files = [
-        static('wagtailimages/js/contextual-focal-point-chooser.js'),
+        static('wagtailimages/js/area-selector.js'),
         static('wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js'),
         static('wagtailimages/js/vendor/jquery.Jcrop.min.js'),
     ]
@@ -142,7 +142,7 @@ def register_image_operations():
         ('jpegquality', image_operations.JPEGQualityOperation),
         ('format', image_operations.FormatOperation),
         ('bgcolor', image_operations.BackgroundColorOperation),
-        ('select', image_operations.SelectCropOperation),  # HT START END
+        ('crop', image_operations.CropOperation),  # HT START END
     ]
 
 

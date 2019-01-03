@@ -26,9 +26,9 @@ function createImageChooser(id) {
                         )
                     chooserElement.removeClass('blank');
                     editLink.attr('href', imageData.edit_link);
-                    let focalPointChooser = $('div.focal-point-chooser', chooserElement);
-                    if(focalPointChooser.length){
-                        window.runJcrop(focalPointChooser, 'remove');//need to completely rebuild the associated jcrop instance if changing the image
+                    let areaChooser = $('div.select-area-chooser', chooserElement);
+                    if(areaChooser.length){
+                        window.runJcrop(areaChooser, 'remove');//need to completely rebuild the associated jcrop instance if changing the image
                     }
                     
                 }

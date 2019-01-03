@@ -145,34 +145,21 @@ class FillOperation(Operation):
 
 
 # HT - START
-# class SelectCropOperation(FillOperation):
 
-#     def construct(self, focal_point):
-#         self.focal_point_x, self.focal_point_y, self.focal_point_width, self.focal_point_height = focal_point.split(":")
-#         size = self.focal_point_width + 'x' + self.focal_point_height
-#         super().construct(size, 'c100')
-
-#     def run(self, willow, image, env):
-#         self.focal_point = Rect.from_point(int(self.focal_point_x),
-#                                            int(self.focal_point_y),
-#                                            int(self.focal_point_width),
-#                                            int(self.focal_point_height))
-#         willow = super().run(willow, image, env)
-#         return willow
-
-class SelectCropOperation(Operation):
+class CropOperation(Operation):
 
     def construct(self, crop_area):
-        self.crop_point_x, self.crop_point_y, self.crop_width, self.crop_height = crop_area.split(":")
+        self.crop_area_x, self.crop_area_y, self.crop_width, self.crop_height = crop_area.split(":")
         self.width = int(self.crop_width)
         self.height = int(self.crop_height)
-        self.cp_x = int(self.crop_point_x)
-        self.cp_y = int(self.crop_point_y)
+        self.cp_x = int(self.crop_area_x)
+        self.cp_y = int(self.crop_area_y)
 
     def run(self, willow, image, env):
         # the only operation currently offered by wagtail that crops an image other than this one is fill.  If fill is detected
-        # in the same specification, we currently error.  I think it might be best to always run crop first, but if not we can
-        # at least scale our operations as follows:
+        # in the same specification, we currently raise an error.  
+        # In general I think it might be best to always run crop as the first operation, but in case we don't want to do that we
+        # could at least scale our operations as follows:
         input_width, input_height = willow.get_size()
         height_scale = input_height/image.height
         width_scale = input_width/image.width

@@ -53,20 +53,20 @@ class SelectCropBlock(StructBlock):
     focal_point_width = IntegerBlock(required=False, group="hidden-input", label="focal_point_width")
     focal_point_height = IntegerBlock(required=False, group="hidden-input", label="focal_point_height")
 
-    crop_point_x = IntegerBlock(required=False, group="hidden-input", label="crop_point_x")
-    crop_point_y = IntegerBlock(required=False, group="hidden-input", label="crop_point_y")
-    crop_point_width = IntegerBlock(required=False, group="hidden-input", label="crop_point_width")
-    crop_point_height = IntegerBlock(required=False, group="hidden-input", label="crop_point_height")
+    select_area_x = IntegerBlock(required=False, group="hidden-input", label="select_area_x")
+    select_area_y = IntegerBlock(required=False, group="hidden-input", label="select_area_y")
+    select_area_width = IntegerBlock(required=False, group="hidden-input", label="select_area_width")
+    select_area_height = IntegerBlock(required=False, group="hidden-input", label="select_area_height")
 
     def add_area_info(self, value, context):
-        area_labels = ['crop_point_x', 'crop_point_y', 'crop_point_width', 'crop_point_height']
+        area_labels = ['select_area_x', 'select_area_y', 'select_area_width', 'select_area_height']
 
         if context.get('children'):
             for name, block in context['children'].items():
                 if name in area_labels:
                     if not isinstance(block.value, int):
                         print("{} not an int".format(block.value))
-                        old_name = name.replace('crop', 'focal')
+                        old_name = name.replace('select_area', 'focal_point')
                         block.value = context['children'].get(old_name) # updates the block value (which will now be picked up in the crop_etc fields of the form and hence the jcrop api) 
                         value[name] = block.value # updates the parrallel StructValues that wagtail provides 
                     context[name] = block.value # makes these same values available directly in the template context
@@ -75,14 +75,14 @@ class SelectCropBlock(StructBlock):
             for name in area_labels:
                 v = value.get(name)
                 if not isinstance(v, int):
-                    v = value.get(name.replace('crop', 'focal'))
+                    v = value.get(name.replace('select_area', 'focal_point'))
                 context[name] = v
         
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         # here we're copying the values from the focal_etc blocks to the crop_ blocks purely for the purposes of preserving the data automatically
         # this whole block can be lost along with the focal_ fields once the pages have been loaded and saved...
         # the entire function can be swopped for the lines below...
-        # area_labels = ['crop_point_x', 'crop_point_y', 'crop_point_width', 'crop_point_height']
+        # area_labels = ['select_area_x', 'select_area_y', 'select_area_width', 'select_area_height']
         # for name in area_labels:
         #     context[name] = value.get(name)
         #     
@@ -92,9 +92,9 @@ class SelectCropBlock(StructBlock):
         self.add_area_info(value, context)
         image = value.get('image')
         if image:
-            crop_specs = [context['crop_point_x'],context['crop_point_y'],context['crop_point_width'],context['crop_point_height']]
+            crop_specs = [context['select_area_x'],context['select_area_y'],context['select_area_width'],context['select_area_height']]
             if all(v is not None for v in crop_specs):
-                select_spec = "select-" + str(context['crop_point_x']) + ":" + str(context['crop_point_y']) + ":" + str(context['crop_point_width']) + ":" + str(context['crop_point_height'])
+                select_spec = "crop-" + str(context['select_area_x']) + ":" + str(context['select_area_y']) + ":" + str(context['select_area_width']) + ":" + str(context['select_area_height'])
                 return get_rendition_or_not_found(image, select_spec).img_tag()
             else:
                 return get_rendition_or_not_found(image, 'original').img_tag()
