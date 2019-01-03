@@ -1,7 +1,6 @@
 function createImageChooser(id) {
     console.log('id: ' + id);
     let chooserElement = $('#' + id + '-chooser');
-    //now there will be more images to change per preview owing to the way that jcrop works..
     let input = $('#' + id);
     let editLink = chooserElement.find('.edit-link');
 
@@ -27,9 +26,9 @@ function createImageChooser(id) {
                         )
                     chooserElement.removeClass('blank');
                     editLink.attr('href', imageData.edit_link);
-                    let focalPointChooser = $('div.focal-point-chooser', chooserElement);
-                    if(focalPointChooser.length){
-                        window.runJcrop(focalPointChooser, 'remove');//need to completely rebuild the associated jcrop instance if changing the image
+                    let areaChooser = $('div.select-area-chooser', chooserElement);
+                    if(areaChooser.length){
+                        window.runJcrop(areaChooser, 'remove');//need to completely rebuild the associated jcrop instance if changing the image
                     }
                     
                 }

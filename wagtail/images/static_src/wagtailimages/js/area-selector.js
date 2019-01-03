@@ -41,7 +41,7 @@ function removeJcropSelection(container, image, fields, params){
         jcropapi.destroy();
         image.removeAttr('style');
         $('.jcrop-holder', container).remove();
-        $('.current-focal-point-indicator', container).remove();
+        $('.current-selected-area-indicator', container).remove();
         fields.x.removeAttr('value');
         fields.y.removeAttr('value');
         fields.width.removeAttr('value');
@@ -51,15 +51,15 @@ function removeJcropSelection(container, image, fields, params){
 }
 
 window.runJcrop = function(focalPointChooser, reset) {
-    var $indicator = $('.current-focal-point-indicator', focalPointChooser);
+    var $indicator = $('.current-selected-area-indicator', focalPointChooser);
     var $image = $('img', focalPointChooser);
     let container = focalPointChooser.closest('.select-crop-image-block');//very important to ensure multiple jcrops on the page don't interfere with one another
 
     let fields = {
-        x: $('input.focal_point_x', container),
-        y: $('input.focal_point_y', container),
-        width: $('input.focal_point_width', container),
-        height: $('input.focal_point_height', container)
+        x: $('input.select_area_x', container),
+        y: $('input.select_area_y', container),
+        width: $('input.select_area_width', container),
+        height: $('input.select_area_height', container)
     }
 
     let original = {
@@ -101,22 +101,20 @@ window.runJcrop = function(focalPointChooser, reset) {
         resetJcrop(container, $image, params)
     }));
 
-    //$('.remove-focal-point', container).off();
-
-    $('.remove-focal-point', container).on('click', function(event) {
+    $('.remove-select-area', container).on('click', function(event) {
         removeJcropSelection(container, $image, fields, params)
     });
 };
 
-function setupFocalPointChoosers(){
-    let focalPointChoosers = $('.focal-point-chooser');
-    focalPointChoosers.each(
+function setupSelectAreaChoosers(){
+    let selectAreaChoosers = $('.select-area-chooser');
+    selectAreaChoosers.each(
         function(index){
             runJcrop($( this ))
         } 
     )
 }
 
-$(setupFocalPointChoosers);
+$(setupSelectAreaChoosers);
 
 //HT END
