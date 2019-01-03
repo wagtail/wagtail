@@ -13,7 +13,6 @@
 }
 
 @include media-breakpoint-up(sm) {
-
     .divider-before {
         border-left: 1px solid $color-grey-4;
     }
