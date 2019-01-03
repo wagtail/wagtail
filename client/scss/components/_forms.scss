@@ -22,7 +22,6 @@
 //         display: inline;
 //     }
 // }
-
 .plain-checkbox-label {
     // cancel heavy / floated label styles, for labels that should appear inline against checkboxes
 
@@ -360,7 +359,6 @@ li.inline:first-child {
 }
 
 // Transitions
-
 .help {
     @include transition(opacity 0.2s ease);
 }
