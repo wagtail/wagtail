@@ -100,7 +100,6 @@ class ImageNode(template.Node):
             # The SelectCropBlock adds these values to its context..
             select_spec = "crop-" + str(context['select_area_x']) + ":" + str(context['select_area_y']) + ":" + str(context['select_area_width']) + ":" + str(context['select_area_height'])
             full_spec = select_spec + '|' + self.filter_spec
-            print('here is full_spec from template tag: {}'.format(full_spec))
         except KeyError:
             full_spec = self.filter
 

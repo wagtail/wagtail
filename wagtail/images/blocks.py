@@ -65,7 +65,6 @@ class SelectCropBlock(StructBlock):
             for name, block in context['children'].items():
                 if name in area_labels:
                     if not isinstance(block.value, int):
-                        print("{} not an int".format(block.value))
                         old_name = name.replace('select_area', 'focal_point')
                         block.value = context['children'].get(old_name)  # updates the block value (which will now be picked up in the crop_etc fields of the form and hence the jcrop api)
                         value[name] = block.value  # updates the parrallel StructValues that wagtail provides
