@@ -157,15 +157,15 @@ class CropOperation(Operation):
 
     def run(self, willow, image, env):
         # the only operation currently offered by wagtail that crops an image other than this one is fill.  If fill is detected
-        # in the same specification, we currently raise an error.  
+        # in the same specification, we currently raise an error.
         # In general I think it might be best to always run crop as the first operation, but in case we don't want to do that we
         # could at least scale our operations as follows:
         input_width, input_height = willow.get_size()
-        height_scale = input_height/image.height
-        width_scale = input_width/image.width
-        check_proportion = height_scale * 100/width_scale
+        height_scale = input_height / image.height
+        width_scale = input_width / image.width
+        check_proportion = height_scale * 100 / width_scale
         if 99 >= check_proportion >= 101:
-            raise ValueError("""It appears the width to height ratio of this image has already been altered prior to this operation. 
+            raise ValueError("""It appears the width to height ratio of this image has already been altered prior to this operation.
                 The crop operation may be based on a resized image, but not one that has been distorted or previously cropped.
                 Original dimensions (w x h): {} x {}.  Input dimensions (w x h): {} x {}""".format(image.width, image.height, input_width, input_height))
         if height_scale != 100:
@@ -175,9 +175,9 @@ class CropOperation(Operation):
             self.cp_y = height_scale * self.cp_y
 
         crop_rect = Rect.from_point(int(self.cp_x),
-                                           int(self.cp_y),
-                                           int(self.width),
-                                           int(self.height))
+                                    int(self.cp_y),
+                                    int(self.width),
+                                    int(self.height))
 
         input_rect = Rect(0, 0, input_width, input_height)
         crop_rect = crop_rect.move_to_clamp(input_rect)

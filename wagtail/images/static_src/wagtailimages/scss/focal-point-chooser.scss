@@ -1,12 +1,14 @@
 @import 'wagtailadmin/scss/variables';
 @import 'wagtailadmin/scss/mixins';
 
-.focal-point-chooser, .select-area-chooser {
+.focal-point-chooser,
+.select-area-chooser {
     position: relative;
 
-    
 
-    .current-focal-point-indicator, .current-selected-area-indicator {
+
+    .current-focal-point-indicator,
+    .current-selected-area-indicator {
         @include transition(opacity 0.2s ease);
         box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 1);
         position: absolute;

@@ -32,7 +32,7 @@ class SelectCropChooserBlock(ImageChooserBlock):
     def widget(self):
         from .widgets import SelectCropAdminImageChooser
         return SelectCropAdminImageChooser
-        
+
 
 class SelectCropBlock(StructBlock):
 
@@ -67,17 +67,16 @@ class SelectCropBlock(StructBlock):
                     if not isinstance(block.value, int):
                         print("{} not an int".format(block.value))
                         old_name = name.replace('select_area', 'focal_point')
-                        block.value = context['children'].get(old_name) # updates the block value (which will now be picked up in the crop_etc fields of the form and hence the jcrop api) 
-                        value[name] = block.value # updates the parrallel StructValues that wagtail provides 
-                    context[name] = block.value # makes these same values available directly in the template context
-                    
-        else: # we're not in the admin and children isn't populated...
+                        block.value = context['children'].get(old_name)  # updates the block value (which will now be picked up in the crop_etc fields of the form and hence the jcrop api)
+                        value[name] = block.value  # updates the parrallel StructValues that wagtail provides
+                    context[name] = block.value  # makes these same values available directly in the template context
+        else:  # we're not in the admin as children isn't populated...
             for name in area_labels:
                 v = value.get(name)
                 if not isinstance(v, int):
                     v = value.get(name.replace('select_area', 'focal_point'))
                 context[name] = v
-        
+
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         # here we're copying the values from the focal_etc blocks to the crop_ blocks purely for the purposes of preserving the data automatically
         # this whole block can be lost along with the focal_ fields once the pages have been loaded and saved...
@@ -85,14 +84,14 @@ class SelectCropBlock(StructBlock):
         # area_labels = ['select_area_x', 'select_area_y', 'select_area_width', 'select_area_height']
         # for name in area_labels:
         #     context[name] = value.get(name)
-        #     
+
     def render_basic(self, value, context=None):
         # this will be invoked if no template value is defined on the Meta
         context = super().get_context(value)
         self.add_area_info(value, context)
         image = value.get('image')
         if image:
-            crop_specs = [context['select_area_x'],context['select_area_y'],context['select_area_width'],context['select_area_height']]
+            crop_specs = [context['select_area_x'], context['select_area_y'], context['select_area_width'], context['select_area_height']]
             if all(v is not None for v in crop_specs):
                 select_spec = "crop-" + str(context['select_area_x']) + ":" + str(context['select_area_y']) + ":" + str(context['select_area_width']) + ":" + str(context['select_area_height'])
                 return get_rendition_or_not_found(image, select_spec).img_tag()
@@ -113,7 +112,7 @@ class SelectCropBlock(StructBlock):
 
     class Meta:
         icon = "image"
-        #template = "wagtailimages/widgets/select_crop_block_default.html"
+        # template = "wagtailimages/widgets/select_crop_block_default.html" # while this is commented out render_basic takes over
         form_classname = "select-crop-image-block struct-block"
         form_template = "wagtailimages/widgets/select_crop_block.html"
 # HT END
