@@ -9,16 +9,20 @@ REFERENCE
   * Classes should be written using BEM, which we modify to include a prefix.
   * Every BEM block should have its own file.
 
-
-Folder     | Contents                       | ITCSS level    | Prefix
----------- | ------------------------------ | -------------- | ------
-settings   | variables, maps, fonts         | 01. Settings   |
-tools      | mixins, functions              | 02. Tools      |
-generic    | resets                         | 03. Generic    |
-elements   | elements without classes       | 04. Elements   |
-objects    | classes (layout)               | 05. Objects    | o-
-components | classes (components)           | 06. Components | c-
-overrides  | classes (overrides, utilities) | 07. Trumps     | u-
+┌────────────┬────────────────────────┬──────────────┬────────┐
+│ Folder     │ Contents               │ ITCSS level  │ Prefix │
+├────────────┼────────────────────────┼──────────────┼────────┤
+│ settings   │ variables, maps, fonts │ 1 Settings   │        │
+│ tools      │ mixins, functions      │ 2 Tools      │        │
+│ generic    │ resets                 │ 3 Generic    │        │
+│ elements   │ elements, no classes   │ 4 Elements   │        │
+│ objects    │ classes                │ 5 Objects    │ o-     │
+│            │   layout               │              │        │
+│ components │ classes                │ 6 Components │ c-     │
+│            │   BEM blocks           │              │        │
+│ overrides  │ classes                │ 7 Trumps     │ u-     │
+│            │   overrides, utilities │              │        │
+└────────────┴────────────────────────┴──────────────┴────────┘
 
 SCSS: https://sass-lang.com/guide
 ITCSS: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
@@ -28,10 +32,12 @@ BEM: http://getbem.com/
 
 OTHER PREFIXES
 
-Prefix | Purpose
------- | -------
-t-     | theme
-is-    | state, should phase out using this in favor of BEM
+┌────────┬─────────┐
+│ Prefix │ Purpose │
+├────────┼─────────┤
+│ t-     │ theme   │
+│ is-    │ state   │
+└────────┴─────────┘
 
 ==============================================================================*/
 
