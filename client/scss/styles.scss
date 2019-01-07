@@ -102,15 +102,13 @@ These are classes for components.
 @import 'components/forms';
 @import 'components/button';
 @import 'components/chooser';
-@import 'components/tags.tagit';
-@import 'components/tags.tag';
+@import 'components/tag';
 @import 'components/listing';
 @import 'components/messages';
 @import 'components/messages.capability';
 @import 'components/messages.status';
 @import 'components/header';
 @import 'components/progressbar';
-@import 'components/datetimepicker';
 @import 'components/main-nav';
 @import 'components/indicator';
 @import 'components/tooltips';
@@ -126,8 +124,15 @@ These are classes for components.
 @import 'components/status-tag';
 
 
-/* OVERRIDES
-These are classes that provide overrides for specific pages.
+/* VENDOR
+This is for overrides of vendor styles.
+*/
+@import 'overrides/vendor.datetimepicker';
+@import 'overrides/vendor.tagit';
+
+
+/* UTILITIES
+These are utilities classes that each do one simple thing.
 * Higher specificity is allowed here because these are overrides and imported last.
 * These classes are prefixed with `.u-`.
 */
