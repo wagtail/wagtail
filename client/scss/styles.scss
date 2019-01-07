@@ -10,15 +10,15 @@ REFERENCE
   * Every BEM block should have its own file.
 
 
-Folder     | Contents                 | ITCSS level    | Prefix
----------- | ------------------------ | -------------- | ------
-settings   | variables, maps, fonts   | 01. Settings   |
-tools      | mixins, functions        | 02. Tools      |
-generic    | resets                   | 03. Generic    |
-elements   | elements without classes | 04. Elements   |
-objects    | classes (layout)         | 05. Objects    | o-
-components | classes (components)     | 06. Components | c-
-utilities  | classes (overrides)      | 07. Trumps     | u-
+Folder     | Contents                       | ITCSS level    | Prefix
+---------- | ------------------------------ | -------------- | ------
+settings   | variables, maps, fonts         | 01. Settings   |
+tools      | mixins, functions              | 02. Tools      |
+generic    | resets                         | 03. Generic    |
+elements   | elements without classes       | 04. Elements   |
+objects    | classes (layout)               | 05. Objects    | o-
+components | classes (components)           | 06. Components | c-
+overrides  | classes (overrides, utilities) | 07. Trumps     | u-
 
 SCSS: https://sass-lang.com/guide
 ITCSS: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
@@ -124,26 +124,27 @@ These are classes for components.
 @import 'components/status-tag';
 
 
-/* VENDOR
-This is for overrides of vendor styles.
+/* OVERRIDES
+These are classes that provide overrides.
+* Higher specificity is allowed here because these are overrides and imported last.
 */
+
+// VENDOR: overrides of vendor styles.
 @import 'overrides/vendor.datetimepicker';
 @import 'overrides/vendor.tagit';
 
 
-/* UTILITIES
-These are utilities classes that each do one simple thing.
-* Higher specificity is allowed here because these are overrides and imported last.
-* These classes are prefixed with `.u-`.
-*/
+// UTILITIES: classes that do one simple thing.
+@import 'overrides/utilities.hidden';
+@import 'overrides/utilities.text';
+@import 'overrides/utilities.dropdowns';
 
-@import 'utilities/hidden';
-@import 'utilities/text';
-@import 'utilities/dropdowns';
+// Legacy utilities
+@import 'overrides/utilities.text.legacy';
+@import 'overrides/utilities.hidden.legacy';
+@import 'overrides/utilities.legacy';
 
-// Legacy
-@import 'utilities/pages.homepage';
-@import 'utilities/pages.page-explorer';
-@import 'utilities/text.legacy';
-@import 'utilities/hidden.legacy';
-@import 'utilities/legacy';
+
+// PAGES: page-specific overrides
+@import 'overrides/pages.homepage';
+@import 'overrides/pages.page-explorer';
