@@ -336,6 +336,7 @@ Contributors
 * Hillary Jeffrey
 * Nick Travis
 * Maylon Pedroso
+* Thijs Walcarius
 
 Translators
 ===========
