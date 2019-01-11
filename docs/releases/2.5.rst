@@ -14,6 +14,7 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
+ * Added support for customising EditHandler-based forms on a per-request basis (Bertrand Bordage)
  * Added more informative error message when ``|richtext`` filter is applied to a non-string value (mukesh5)
 
 
@@ -26,3 +27,8 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+``EditHandler.bind_to_model`` and ``EditHandler.bind_to_instance`` deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The internal ``EditHandler`` methods ``bind_to_model`` and ``bind_to_instance`` have been deprecated, in favour of a new combined ``bind_to`` method which accepts ``model``, ``instance``, ``request`` and ``form`` as optional keyword arguments. Any user code which calls ``EditHandler.bind_to_model(model)`` should be updated to use ``EditHandler.bind_to(model=model)`` instead; any user code which calls ``EditHandler.bind_to_instance(instance, request, form)`` should be updated to use ``EditHandler.bind_to(instance=instance, request=request, form=form)``.
