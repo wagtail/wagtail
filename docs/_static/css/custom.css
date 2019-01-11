@@ -28,3 +28,69 @@ div.wy-side-nav-search {
 .wy-side-nav-search input[type=text] {
     border-color: #d9d9d9; /*color-grey-3*/
 }
+
+/* Wagtail Space */
+a.wagtailspace {
+    background: #00676a;
+    color: white;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 1.25em;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.wagtailspace svg {
+    margin-right: 1em;
+    width: 56px;
+}
+
+.wagtailspace div {
+    text-align: left;
+    flex-grow: 2;
+}
+
+.wagtailspace strong {
+    font-size: 1.25em;
+}
+
+.wagtailspace .close {
+    margin-left: 1em;
+    margin-bottom: 1em;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+/* Bounce the UFO on hover  */
+@-webkit-keyframes bounce {
+  0%, 100% {
+    -webkit-transform: translateY(0);
+  }
+  50% {
+    -webkit-transform: translateY(-5px);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+a.wagtailspace:hover svg {
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+}
