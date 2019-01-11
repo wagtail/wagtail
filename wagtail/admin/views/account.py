@@ -224,6 +224,9 @@ class LoginView(auth_views.LoginView):
         User = get_user_model()
         context['username_field'] = User._meta.get_field(User.USERNAME_FIELD).verbose_name
 
+        from wagtail.core.sites import get_site_for_hostname
+        context['site_name'] = get_site_for_hostname(self.request.get_host(), self.request.get_port()).site_name
+
         return context
 
 
