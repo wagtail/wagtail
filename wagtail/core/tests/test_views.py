@@ -15,6 +15,7 @@ class TestLoginView(TestCase, WagtailTestUtils):
     def test_get(self):
         response = self.client.get(reverse('wagtailcore_login'))
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['site_name'], 'wagtail.io')
         self.assertContains(response, "<h1>Log in</h1>")
         self.assertNotContains(response, "<p>Your username and password didn't match. Please try again.</p>")
 

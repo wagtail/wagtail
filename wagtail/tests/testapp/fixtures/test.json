@@ -619,7 +619,8 @@
         "root_page": 2,
         "hostname": "localhost",
         "port": 80,
-        "is_default_site": true
+        "is_default_site": true,
+        "site_name": "wagtail.io"
     }
 },
 

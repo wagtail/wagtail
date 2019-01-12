@@ -1,10 +1,12 @@
+from django.conf import settings
+from django.contrib.auth.views import LoginView
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 
 from wagtail.core import hooks
 from wagtail.core.forms import PasswordViewRestrictionForm
-from wagtail.core.models import Page, PageViewRestriction
+from wagtail.core.models import Page, PageViewRestriction, Site
 
 
 def serve(request, path):
@@ -43,3 +45,17 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
 
     action_url = reverse('wagtailcore_authenticate_with_password', args=[restriction.id, page.id])
     return page.serve_password_required_response(request, form, action_url)
+
+
+class WagtailLoginView(LoginView):
+
+    template_name = getattr(
+        settings, 'WAGTAIL_FRONTEND_LOGIN_TEMPLATE', 'wagtailcore/login.html'
+    )
+
+    def get_context_data(self, **kwargs):
+        context = super(WagtailLoginView, self).get_context_data(**kwargs)
+        context.update({
+            'site_name': Site.find_for_request(self.request).site_name
+        })
+        return context
