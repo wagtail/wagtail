@@ -127,7 +127,7 @@ def add(request):
             'help_text': form.fields['file'].help_text,
             'allowed_extensions': ALLOWED_EXTENSIONS,
             'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
-            'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
+            'error_accepted_file_types': form.fields['file'].error_messages['invalid_image_extension'],
             'collections': collections_to_choose,
             'form_media': form.media,
         })

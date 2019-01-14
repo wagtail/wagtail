@@ -36,7 +36,7 @@ class WagtailImageField(ImageField):
             }
 
         # Error messages
-        self.error_messages['invalid_image'] = _(
+        self.error_messages['invalid_image_extension'] = _(
             "Not a supported image format. Supported formats: %s."
         ) % SUPPORTED_FORMATS_TEXT
 
@@ -61,7 +61,7 @@ class WagtailImageField(ImageField):
         extension = os.path.splitext(f.name)[1].lower()[1:]
 
         if extension not in ALLOWED_EXTENSIONS:
-            raise ValidationError(self.error_messages['invalid_image'], code='invalid_image')
+            raise ValidationError(self.error_messages['invalid_image_extension'], code='invalid_image_extension')
 
         image_format = extension.upper()
         if image_format == 'JPG':

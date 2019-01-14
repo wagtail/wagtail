@@ -455,6 +455,7 @@ Contributors
 * Jim Jazwiecki
 * Kim LaRocca
 * Jonatas Baldin
+* Rick van Hattem
 
 Translators
 ===========

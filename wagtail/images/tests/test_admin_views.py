@@ -933,7 +933,26 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
-        self.assertFormError(response, 'uploadform', 'file', "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.")
+        self.assertFormError(response, 'uploadform', 'file', 'Upload a valid image. The file you uploaded was either not an image or a corrupted image.')
+
+        # the action URL of the re-rendered form should include the select_format=true parameter
+        # (NB the HTML in the response is embedded in a JS string, so need to escape accordingly)
+        expected_action_attr = 'action=\\"%s\\"' % submit_url
+        self.assertContains(response, expected_action_attr)
+
+    def test_select_format_flag_after_upload_form_error_bad_extension(self):
+        """
+        Check the error message is accruate for a valid imate bug invalid file extension.
+        """
+        submit_url = reverse('wagtailimages:chooser_upload') + '?select_format=true'
+        response = self.client.post(submit_url, {
+            'image-chooser-upload-title': "accidental markdown extension",
+            'image-chooser-upload-file': SimpleUploadedFile('not-an-image.md', get_test_image_file().file.getvalue()),
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertFormError(response, 'uploadform', 'file', 'Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.')
 
         # the action URL of the re-rendered form should include the select_format=true parameter
         # (NB the HTML in the response is embedded in a JS string, so need to escape accordingly)
@@ -1130,7 +1149,30 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('error_message', response_json)
         self.assertFalse(response_json['success'])
         self.assertEqual(
-            response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP."
+            response_json['error_message'], 'Upload a valid image. The file you uploaded was either not an image or a corrupted image.'
+        )
+
+    def test_add_post_bad_extension(self):
+        """
+        The add view must check that the uploaded file extension is a valid
+        """
+        response = self.client.post(reverse('wagtailimages:add_multiple'), {
+            'files[]': SimpleUploadedFile('test.txt', get_test_image_file().file.getvalue()),
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertNotIn('image_id', response_json)
+        self.assertNotIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertIn('error_message', response_json)
+        self.assertFalse(response_json['success'])
+        self.assertEqual(
+            response_json['error_message'], 'Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.'
         )
 
     def test_edit_get(self):
@@ -1336,7 +1378,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         self.assertIn('error_message', response_json)
         self.assertFalse(response_json['success'])
         self.assertEqual(
-            response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP."
+            response_json['error_message'], 'Upload a valid image. The file you uploaded was either not an image or a corrupted image.'
         )
 
     def test_edit_post(self):
@@ -1482,7 +1524,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         self.assertIn('error_message', response_json)
         self.assertFalse(response_json['success'])
         self.assertEqual(
-            response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP."
+            response_json['error_message'], "Upload a valid image. The file you uploaded was either not an image or a corrupted image."
         )
 
     def test_create_from_upload_invalid_post(self):
