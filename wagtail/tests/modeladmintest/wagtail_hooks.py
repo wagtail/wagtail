@@ -94,17 +94,14 @@ class VenuePageAdmin(ModelAdmin):
 
 class PersonAdmin(ModelAdmin):
     model = Person
-    exclude_from_explorer = True
 
 
 class FriendAdmin(ModelAdmin):
     model = Friend
-    exclude_from_explorer = True
 
 
 class VisitorAdmin(ModelAdmin):
     model = Visitor
-    exclude_from_explorer = True
 
     panels = [
         FieldPanel('last_name'),
@@ -118,7 +115,6 @@ class VisitorAdmin(ModelAdmin):
 
 class ContributorAdmin(ModelAdmin):
     model = Contributor
-    exclude_from_explorer = True
 
     panels = [
         FieldPanel('last_name'),
