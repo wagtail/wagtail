@@ -114,9 +114,10 @@ class WMABaseView(TemplateView):
 class ModelFormView(WMABaseView, FormView):
 
     def get_edit_handler(self):
-        return self.model_admin.get_edit_handler(
+        edit_handler = self.model_admin.get_edit_handler(
             instance=self.get_instance(), request=self.request
         )
+        return edit_handler.bind_to_model(self.model_admin.model)
 
     def get_form_class(self):
         return self.get_edit_handler().get_form_class()

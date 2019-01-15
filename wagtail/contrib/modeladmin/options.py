@@ -392,7 +392,7 @@ class ModelAdmin(WagtailRegisterable):
             fields_to_exclude = self.get_form_fields_exclude(request=request)
             panels = extract_panel_definitions_from_model_class(self.model, exclude=fields_to_exclude)
             edit_handler = ObjectList(panels)
-        return edit_handler.bind_to_model(self.model)
+        return edit_handler
 
     def get_templates(self, action='index'):
         """
