@@ -378,15 +378,15 @@ class ModelAdmin(WagtailRegisterable):
         modeladmin (as property edit_handler or panels). Falls back to
         extracting panel / edit handler definitions from the model class.
         """
-        if hasattr(self.model, 'edit_handler'):
-            edit_handler = self.model.edit_handler
-        elif hasattr(self.model, 'panels'):
-            panels = self.model.panels
-            edit_handler = ObjectList(panels)
-        elif hasattr(self, 'edit_handler'):
+        if hasattr(self, 'edit_handler'):
             edit_handler = self.edit_handler
         elif hasattr(self, 'panels'):
             panels = self.panels
+            edit_handler = ObjectList(panels)
+        elif hasattr(self.model, 'edit_handler'):
+            edit_handler = self.model.edit_handler
+        elif hasattr(self.model, 'panels'):
+            panels = self.model.panels
             edit_handler = ObjectList(panels)
         else:
             fields_to_exclude = self.get_form_fields_exclude(request=request)
