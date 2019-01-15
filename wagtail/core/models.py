@@ -107,16 +107,8 @@ class Site(models.Model):
         still be routed to a different hostname which is set as the default
         """
 
-        try:
-            hostname = request.get_host().split(':')[0]
-        except KeyError:
-            hostname = None
-
-        try:
-            port = request.get_port()
-        except (AttributeError, KeyError):
-            port = request.META.get('SERVER_PORT')
-
+        hostname = request.get_host().split(':')[0]
+        port = request.get_port()
         return get_site_for_hostname(hostname, port)
 
     @property
@@ -1215,7 +1207,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             url_info = urlparse(url)
             hostname = url_info.hostname
             path = url_info.path
-            port = url_info.port or 80
+            port = url_info.port or (443 if url_info.scheme == 'https' else 80)
             scheme = url_info.scheme
         else:
             # Cannot determine a URL to this page - cobble one together based on
@@ -1269,19 +1261,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         request.is_dummy = True
 
         # Apply middleware to the request
-        # Note that Django makes sure only one of the middleware settings are
-        # used in a project
-        if hasattr(settings, 'MIDDLEWARE'):
-            handler = BaseHandler()
-            handler.load_middleware()
-            handler._middleware_chain(request)
-        elif hasattr(settings, 'MIDDLEWARE_CLASSES'):
-            # Pre Django 1.10 style - see http://www.mellowmorning.com/2011/04/18/mock-django-request-for-testing/
-            handler = BaseHandler()
-            handler.load_middleware()
-            # call each middleware in turn and throw away any responses that they might return
-            for middleware_method in handler._request_middleware:
-                middleware_method(request)
+        handler = BaseHandler()
+        handler.load_middleware()
+        handler._middleware_chain(request)
 
         return request
 

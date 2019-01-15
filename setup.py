@@ -26,7 +26,7 @@ install_requires = [
     "django-taggit>=0.23,<0.24",
     "django-treebeard>=4.2.0,<5.0",
     "djangorestframework>=3.7.4,<4.0",
-    "draftjs_exporter>=2.0,<3.0",
+    "draftjs_exporter>=2.1.5,<3.0",
     "Pillow>=4.0.0,<6.0",
     "beautifulsoup4>=4.5.1,<4.6.1",
     "html5lib>=0.999,<2",
@@ -40,7 +40,6 @@ install_requires = [
 # Testing dependencies
 testing_extras = [
     # Required for running the tests
-    'mock>=1.0.0',
     'python-dateutil>=2.2',
     'pytz>=2014.7',
     'elasticsearch>=1.0.0,<3.0',

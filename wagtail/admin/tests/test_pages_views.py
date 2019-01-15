@@ -2,8 +2,8 @@ import datetime
 import logging
 import os
 from itertools import chain
+from unittest import mock
 
-import mock
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -663,6 +663,11 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
         self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
+        # test register_page_action_menu_item hook
+        self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
+        self.assertContains(response, 'testapp/js/siren.js')
+        # test construct_page_action_menu hook
+        self.assertContains(response, '<input type="submit" name="action-relax" value="Relax." class="button" />')
 
     def test_create_multipart(self):
         """
@@ -1188,6 +1193,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+        # page should not be created
+        self.assertFalse(Page.objects.filter(title="New page!").exists())
+
     def test_after_create_page_hook(self):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
@@ -1208,6 +1216,45 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # page should be created
+        self.assertTrue(Page.objects.filter(title="New page!").exists())
+
+
+class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+        GroupPagePermission.objects.create(
+            group=Group.objects.get(name="Site-wide editors"),
+            page=self.root_page, permission_type='add'
+        )
+
+    def test_create_page_with_per_request_custom_edit_handlers(self):
+        """
+        Test that per-request custom behaviour in edit handlers is honoured
+        """
+        # non-superusers should not see secret_data
+        logged_in = self.client.login(username='siteeditor', password='password')
+        self.assertTrue(logged_in)
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=('tests', 'secretpage', self.root_page.id))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"boring_data"')
+        self.assertNotContains(response, '"secret_data"')
+
+        # superusers should see secret_data
+        logged_in = self.client.login(username='superuser', password='password')
+        self.assertTrue(logged_in)
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=('tests', 'secretpage', self.root_page.id))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"boring_data"')
+        self.assertContains(response, '"secret_data"')
 
 
 class TestPageEdit(TestCase, WagtailTestUtils):
@@ -1273,6 +1320,13 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Test InlinePanel labels/headings
         self.assertContains(response, '<legend>Speaker lineup</legend>')
         self.assertContains(response, 'Add speakers')
+
+        # test register_page_action_menu_item hook
+        self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
+        self.assertContains(response, 'testapp/js/siren.js')
+
+        # test construct_page_action_menu hook
+        self.assertContains(response, '<input type="submit" name="action-relax" value="Relax." class="button" />')
 
     def test_edit_draft_page_with_no_revisions(self):
         # Tests that the edit page loads
@@ -2009,6 +2063,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+        # page should not be edited
+        self.assertEqual(Page.objects.get(id=self.child_page.id).title, "Hello world!")
+
     def test_after_edit_page_hook(self):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
@@ -2029,6 +2086,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # page should be edited
+        self.assertEqual(Page.objects.get(id=self.child_page.id).title, "I've been edited!")
 
 
 class TestPageEditReordering(TestCase, WagtailTestUtils):
@@ -2322,6 +2382,9 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+        # page should not be deleted
+        self.assertTrue(Page.objects.filter(id=self.child_page.id).exists())
+
     def test_after_delete_page_hook(self):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
@@ -2334,6 +2397,9 @@ class TestPageDelete(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # page should be deleted
+        self.assertFalse(Page.objects.filter(id=self.child_page.id).exists())
 
 
 class TestPageSearch(TestCase, WagtailTestUtils):
@@ -2550,6 +2616,59 @@ class TestPageMove(TestCase, WagtailTestUtils):
     def test_page_set_page_position(self):
         response = self.client.get(reverse('wagtailadmin_pages:set_page_position', args=(self.test_page.id, )))
         self.assertEqual(response.status_code, 200)
+
+    def test_before_move_page_hook(self):
+        def hook_func(request, page, destination):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+            self.assertIsInstance(destination.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_move_page', hook_func):
+            response = self.client.get(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page.id, self.section_b.id)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_move_page_hook_post(self):
+        def hook_func(request, page, destination):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+            self.assertIsInstance(destination.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_move_page', hook_func):
+            response = self.client.post(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page.id, self.section_b.id)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # page should not be moved
+        self.assertEqual(
+            Page.objects.get(id=self.test_page.id).get_parent().id,
+            self.section_a.id
+        )
+
+    def test_after_move_page_hook(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page.specific, SimplePage)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_move_page', hook_func):
+            response = self.client.post(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page.id, self.section_b.id)))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # page should be moved
+        self.assertEqual(
+            Page.objects.get(id=self.test_page.id).get_parent().id,
+            self.section_b.id
+        )
 
 
 class TestPageCopy(TestCase, WagtailTestUtils):
@@ -2957,6 +3076,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+        # page should not be copied
+        self.assertFalse(Page.objects.filter(title="Hello world 2").exists())
+
     def test_after_copy_page_hook(self):
         def hook_func(request, page, new_page):
             self.assertIsInstance(request, HttpRequest)
@@ -2977,6 +3099,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # page should be copied
+        self.assertTrue(Page.objects.filter(title="Hello world 2").exists())
 
 
 class TestPageUnpublish(TestCase, WagtailTestUtils):

@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -36,6 +36,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Zur Moderation einreichen"
+
+msgid "Unpublish"
+msgstr "Veröffentlichung aufheben"
+
+msgid "Delete"
+msgstr "Löschen"
 
 msgid "Wagtail admin"
 msgstr "Wagtail Admin-Interface"
@@ -263,9 +272,6 @@ msgstr "Setzen Sie Ihr Passwort zurück"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-msgid "Delete"
-msgstr "Löschen"
-
 msgid "Page"
 msgstr "Seite"
 
@@ -352,23 +358,6 @@ msgstr "Externer Link"
 
 msgid "Email link"
 msgstr "E-Mail-Link"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Es gibt nur ein Ergebnis"
-msgstr[1] ""
-"\n"
-"            Es gibt %(counter)s Ergebnisse\n"
-"        "
 
 msgid "Choose"
 msgstr "Auswählen"
@@ -616,6 +605,15 @@ msgstr "Gesperrt"
 msgid "Unlocked"
 msgstr "Entsperrt"
 
+msgid "Publishing…"
+msgstr "Veröffentlichen..."
+
+msgid "Publish this revision"
+msgstr "Diese Revision veröffentlichen"
+
+msgid "Publish"
+msgstr "Veröffentlichen"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Seite in %(title)s erstellen"
@@ -698,9 +696,6 @@ msgstr "Ja, diese Seite verschieben"
 msgid "Unpublish %(title)s"
 msgstr "Veröffentlichung von %(title)s aufheben"
 
-msgid "Unpublish"
-msgstr "Veröffentlichung aufheben"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr ""
 "Sind Sie sicher, dass Sie die Veröffentlichung der Seite aufheben wollen?"
@@ -762,15 +757,6 @@ msgstr "Speichern…"
 msgid "Save draft"
 msgstr "Entwurf speichern"
 
-msgid "Publishing…"
-msgstr "Veröffentlichen..."
-
-msgid "Publish"
-msgstr "Veröffentlichen"
-
-msgid "Submit for moderation"
-msgstr "Zur Moderation einreichen"
-
 msgid "This page has unsaved changes."
 msgstr "Diese Seite hat ungesicherte Änderungen."
 
@@ -787,9 +773,6 @@ msgstr "Seite gesperrt"
 
 msgid "Replace current draft"
 msgstr "Aktuellen Entwurf ersetzen"
-
-msgid "Publish this revision"
-msgstr "Diese Revision veröffentlichen"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1203,23 +1186,6 @@ msgstr ""
 "Sie verwenden einen <strong>überholten</strong> Browser, der nicht von "
 "dieser Software unterstützt wird. Bitte <a href=\"http://browsehappy.com/"
 "\">aktualisieren Sie Ihren Browser</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Javascript ist erforderlich um Wagtail zu nutzen, ist aber "
-"momentan in Ihrem Browser deaktiviert. <br />\n"
-"            Hier finden Sie eine <a href=\"http://www.enable-javascript.com/"
-"\" target=\"_blank\" rel=\"noopener\">Anleitung um Javascript in Ihrem "
-"Browser zu aktivieren.</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Zum Wagtail Admin-Interface"

@@ -130,13 +130,6 @@ class TestSiteRouting(TestCase):
         self.unrecognised_port = '8000'
         self.unrecognised_hostname = 'unknown.site.com'
 
-    def test_no_host_header_routes_to_default_site(self):
-        # requests without a Host: header should be directed to the default site
-        request = HttpRequest()
-        request.path = '/'
-        with self.assertNumQueries(1):
-            self.assertEqual(Site.find_for_request(request), self.default_site)
-
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
         request = HttpRequest()
@@ -1358,6 +1351,31 @@ class TestDummyRequest(TestCase):
         self.assertEqual(request.META['SERVER_PROTOCOL'], 'HTTP/1.1')
         self.assertEqual(request.META['wsgi.version'], (1, 0))
         self.assertEqual(request.META['wsgi.url_scheme'], 'http')
+        self.assertIn('wsgi.input', request.META)
+        self.assertIn('wsgi.errors', request.META)
+        self.assertIn('wsgi.multithread', request.META)
+        self.assertIn('wsgi.multiprocess', request.META)
+        self.assertIn('wsgi.run_once', request.META)
+
+    def test_dummy_request_for_accessible_page_https(self):
+        Site.objects.update(port=443)
+
+        event_index = Page.objects.get(url_path='/home/events/')
+        request = event_index.dummy_request()
+
+        # request should have the correct path and hostname for this page
+        self.assertEqual(request.path, '/events/')
+        self.assertEqual(request.META['HTTP_HOST'], 'localhost')
+
+        # check other env vars required by the WSGI spec
+        self.assertEqual(request.META['REQUEST_METHOD'], 'GET')
+        self.assertEqual(request.META['SCRIPT_NAME'], '')
+        self.assertEqual(request.META['PATH_INFO'], '/events/')
+        self.assertEqual(request.META['SERVER_NAME'], 'localhost')
+        self.assertEqual(request.META['SERVER_PORT'], 443)
+        self.assertEqual(request.META['SERVER_PROTOCOL'], 'HTTP/1.1')
+        self.assertEqual(request.META['wsgi.version'], (1, 0))
+        self.assertEqual(request.META['wsgi.url_scheme'], 'https')
         self.assertIn('wsgi.input', request.META)
         self.assertIn('wsgi.errors', request.META)
         self.assertIn('wsgi.multithread', request.META)

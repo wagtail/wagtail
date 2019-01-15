@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.templatetags.static import static
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
@@ -104,3 +105,26 @@ def register_blockquote_feature(features):
             css={'all': ['testapp/css/draftail-blockquote.css']},
         )
     )
+
+
+class PanicMenuItem(ActionMenuItem):
+    label = "Panic!"
+    name = 'action-panic'
+
+    class Media:
+        js = ['testapp/js/siren.js']
+
+
+@hooks.register('register_page_action_menu_item')
+def register_panic_menu_item():
+    return PanicMenuItem()
+
+
+class RelaxMenuItem(ActionMenuItem):
+    label = "Relax."
+    name = 'action-relax'
+
+
+@hooks.register('construct_page_action_menu')
+def register_relax_menu_item(menu_items, request, context):
+    menu_items.append(RelaxMenuItem())

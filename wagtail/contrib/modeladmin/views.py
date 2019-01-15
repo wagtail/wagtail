@@ -117,7 +117,7 @@ class ModelFormView(WMABaseView, FormView):
         edit_handler = self.model_admin.get_edit_handler(
             instance=self.get_instance(), request=self.request
         )
-        return edit_handler.bind_to_model(self.model_admin.model)
+        return edit_handler.bind_to(model=self.model_admin.model)
 
     def get_form_class(self):
         return self.get_edit_handler().get_form_class()
@@ -144,8 +144,8 @@ class ModelFormView(WMABaseView, FormView):
         instance = self.get_instance()
         edit_handler = self.get_edit_handler()
         form = self.get_form()
-        edit_handler = edit_handler.bind_to_instance(
-            instance=instance, form=form, request=self.request)
+        edit_handler = edit_handler.bind_to(
+            instance=instance, request=self.request, form=form)
         context = {
             'is_multipart': form.is_multipart(),
             'edit_handler': edit_handler,

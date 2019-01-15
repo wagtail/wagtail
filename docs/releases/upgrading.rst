@@ -14,7 +14,7 @@ A feature release will usually stop receiving patch release updates when the nex
 
 Also, Long Term Support releases will ensure compatibility with at least one `Django Long Term Support release <https://www.djangoproject.com/download/#supported-versions>`_.
 
-Exceptionally, with 2.0 introducing breaking changes, 1.13 was designated as LTS in addition to 1.12. The support period for both versions will last until the next LTS is released, some time around November 2018.
+Exceptionally, with 2.0 introducing breaking changes, 1.13 was designated as LTS in addition to 1.12. The support period for 1.13 will last until April 2019.
 
 +-------------------+------------------------------------------+
 | Wagtail release   | LTS support period                       |
@@ -25,9 +25,9 @@ Exceptionally, with 2.0 introducing breaking changes, 1.13 was designated as LTS
 +-------------------+------------------------------------------+
 | 1.8 LTS           | December 2016 - August 2017              |
 +-------------------+------------------------------------------+
-| 1.12 LTS          | August 2017 - November 2018 (expected)   |
+| 1.12 LTS          | August 2017 - November 2019              |
 +-------------------+------------------------------------------+
-| 1.13 LTS          | October 2017 - November 2018 (expected)  |
+| 1.13 LTS          | October 2017 - April 2019                |
 +-------------------+------------------------------------------+
 | 2.3 LTS           | October 2018 - June 2019 (expected)      |
 +-------------------+------------------------------------------+

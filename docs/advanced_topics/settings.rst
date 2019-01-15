@@ -558,6 +558,8 @@ Default is an empty list, must be a list of languages to also purge the urls for
 
 
 
+.. _WAGTAILADMIN_RICH_TEXT_EDITORS:
+
 Rich text
 ---------
 
