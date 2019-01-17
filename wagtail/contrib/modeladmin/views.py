@@ -31,6 +31,7 @@ from wagtail.admin import messages
 
 from .forms import ParentChooserForm
 
+from modelcluster.fields import ParentalKey
 
 try:
     from django.db.models.sql.constants import QUERY_TERMS
@@ -324,7 +325,13 @@ class IndexView(WMABaseView):
                     # since it's ignored in ChangeList.get_filters().
                     return True
                 model = field.remote_field.model
-                rel_name = field.remote_field.get_related_field().name
+                if isinstance(field.remote_field, ParentalKey):
+                    #traverse the extra step needed when a ParentalKey is in 
+                    #use
+                    remote_field = field.remote_field.remote_field
+                    rel_name = remote_field.get_related_field().name
+                else:
+                    rel_name = field.remote_field.get_related_field().name
             elif isinstance(field, ForeignObjectRel):
                 model = field.model
                 rel_name = model._meta.pk.name
