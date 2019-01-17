@@ -229,7 +229,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def prepare_word(self, word):
         # remove backslash from string to prevent syntax error in tsquery
-        stripped_word = word.replace("\\", "") 
+        stripped_word = word.replace("\\", "")
         return unidecode(stripped_word)
 
     def build_tsquery_content(self, query, group=False):
