@@ -32,10 +32,6 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         # verify that form fields are returned which have been defined
         # in Person.edit_handler
         response = self.client.get('/admin/modeladmintest/person/create/')
-        self.assertIn('first_name', response.content.decode('UTF-8'))
-        self.assertIn('last_name', response.content.decode('UTF-8'))
-        self.assertIn('phone_number', response.content.decode('UTF-8'))
-        self.assertNotIn('address', response.content.decode('UTF-8'))
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
             ['first_name', 'last_name', 'phone_number']
@@ -62,10 +58,6 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         # verify that form fields are returned which have been defined
         # in Friend.panels
         response = self.client.get('/admin/modeladmintest/friend/create/')
-        self.assertIn('first_name', response.content.decode('UTF-8'))
-        self.assertNotIn('last_name', response.content.decode('UTF-8'))
-        self.assertIn('phone_number', response.content.decode('UTF-8'))
-        self.assertNotIn('address', response.content.decode('UTF-8'))
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
             ['first_name', 'phone_number']
@@ -94,10 +86,6 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         # in Person.edit_handler
         response = self.client.get('/admin/modeladmintest/visitor/create/')
 
-        self.assertIn('last_name', response.content.decode('UTF-8'))
-        self.assertIn('phone_number', response.content.decode('UTF-8'))
-        self.assertIn('address', response.content.decode('UTF-8'))
-        self.assertNotIn('first_name', response.content.decode('UTF-8'))
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
             ['last_name', 'phone_number', 'address']
@@ -125,11 +113,6 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         # verify that form fields are returned which have been defined
         # in Person.edit_handler
         response = self.client.get('/admin/modeladmintest/contributor/create/')
-
-        self.assertIn('last_name', response.content.decode('UTF-8'))
-        self.assertIn('phone_number', response.content.decode('UTF-8'))
-        self.assertIn('address', response.content.decode('UTF-8'))
-        self.assertNotIn('first_name', response.content.decode('UTF-8'))
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
             ['last_name', 'phone_number', 'address']
