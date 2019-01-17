@@ -2,7 +2,7 @@ from unittest import mock
 
 from django.test import RequestFactory, TestCase
 
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.modeladmin.options import ModelAdmin
 from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.modeladmintest.models import Person
@@ -18,6 +18,19 @@ class PersonAdminWithPanels(ModelAdmin):
         FieldPanel('phone_number'),
         FieldPanel('address'),
     ]
+
+
+class PersonAdminWithEditHandler(ModelAdmin):
+    model = Person
+
+    edit_handler = TabbedInterface([
+        ObjectList(
+            [
+                FieldPanel('phone_number'),
+                FieldPanel('address'),
+            ]
+        ),
+    ])
 
 
 class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
@@ -93,6 +106,33 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         self.assertEqual(
             [field_name for field_name in response.context_data['form'].fields],
             ['last_name', 'phone_number', 'address']
+        )
+
+    def test_model_admin_edit_handler_preferred_over_model_panels(self):
+        """verifies that model admin panels are preferred over model panels"""
+        # first, call the view with our default PersonAdmin which has no
+        # panels defined. That verifies that the panels defined on the model
+        # are used
+        request = self.factory.get('/admin/modeladmintest/person/create/')
+        request.user = self.user
+        view = CreateView.as_view(model_admin=PersonAdmin())
+        response = view(request)
+        self.assertEqual(
+            [field_name for field_name in response.context_data['form'].fields],
+            ['first_name', 'last_name', 'phone_number']
+        )
+
+        # now call the same view with another model_admin that has panels
+        # defined. here we verify that panels defined on PersonAdminWithEditHandler
+        # are used and therefore are preferred over the ones on the
+        # Person model
+        request = self.factory.get('/admin/modeladmintest/person/create/')
+        request.user = self.user
+        view = CreateView.as_view(model_admin=PersonAdminWithEditHandler())
+        response = view(request)
+        self.assertEqual(
+            [field_name for field_name in response.context_data['form'].fields],
+            ['phone_number', 'address']
         )
 
     def test_model_admin_edit_handler(self):
