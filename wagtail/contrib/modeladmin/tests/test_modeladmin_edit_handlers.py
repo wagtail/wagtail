@@ -37,7 +37,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         self.assertIn('phone_number', response.content.decode('UTF-8'))
         self.assertNotIn('address', response.content.decode('UTF-8'))
         self.assertEqual(
-            [ii for ii in response.context['form'].fields],
+            [field_name for field_name in response.context['form'].fields],
             ['first_name', 'last_name', 'phone_number']
         )
 
@@ -67,7 +67,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         self.assertIn('phone_number', response.content.decode('UTF-8'))
         self.assertNotIn('address', response.content.decode('UTF-8'))
         self.assertEqual(
-            [ii for ii in response.context['form'].fields],
+            [field_name for field_name in response.context['form'].fields],
             ['first_name', 'phone_number']
         )
 
@@ -99,7 +99,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         self.assertIn('address', response.content.decode('UTF-8'))
         self.assertNotIn('first_name', response.content.decode('UTF-8'))
         self.assertEqual(
-            [ii for ii in response.context['form'].fields],
+            [field_name for field_name in response.context['form'].fields],
             ['last_name', 'phone_number', 'address']
         )
 
@@ -131,6 +131,6 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         self.assertIn('address', response.content.decode('UTF-8'))
         self.assertNotIn('first_name', response.content.decode('UTF-8'))
         self.assertEqual(
-            [ii for ii in response.context['form'].fields],
+            [field_name for field_name in response.context['form'].fields],
             ['last_name', 'phone_number', 'address']
         )
