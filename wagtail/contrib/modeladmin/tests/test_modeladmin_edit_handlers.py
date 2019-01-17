@@ -6,6 +6,18 @@ from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.modeladmintest.models import Person
 from wagtail.tests.modeladmintest.wagtail_hooks import PersonAdmin
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.contrib.modeladmin.options import ModelAdmin
+
+
+class PersonAdminWithPanels(ModelAdmin):
+    model = Person
+
+    panels = [
+        FieldPanel('last_name'),
+        FieldPanel('phone_number'),
+        FieldPanel('address'),
+    ]
 
 
 class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
@@ -17,8 +29,8 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         self.login(user=self.user)
 
     def test_model_edit_handler(self):
-        # loads the 'create' view and verifies that form fields are returned
-        # which have been defined via model Person.edit_handler
+        """loads the 'create' view and verifies that form fields are returned
+        which have been defined via model Person.edit_handler"""
         response = self.client.get('/admin/modeladmintest/person/create/')
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
@@ -48,17 +60,44 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         self.assertEqual(call_kwargs['request'], request)
 
     def test_model_panels(self):
-        # loads the 'create' view and verifies that form fields are returned
-        # which have been defined via model Friend.panels
+        """loads the 'create' view and verifies that form fields are returned
+        which have been defined via model Friend.panels"""
         response = self.client.get('/admin/modeladmintest/friend/create/')
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
             ['first_name', 'phone_number']
         )
 
+    def test_model_admin_panels_preferred_over_model_panels(self):
+        """verifies that model admin panels are preferred over model panels"""
+        # first, call the view with our default PersonAdmin which has no
+        # panels defined. That verifies that the panels defined on the model
+        # are used
+        request = self.factory.get('/admin/modeladmintest/person/create/')
+        request.user = self.user
+        view = CreateView.as_view(model_admin=PersonAdmin())
+        response = view(request)
+        self.assertEqual(
+            [field_name for field_name in response.context_data['form'].fields],
+            ['first_name', 'last_name', 'phone_number']
+        )
+
+        # now call the same view with another model_admin that has panels
+        # defined. here we verify that panels defined on PersonAdminWithPanels
+        # are used and therefore are preferred over the ones on the
+        # Person model
+        request = self.factory.get('/admin/modeladmintest/person/create/')
+        request.user = self.user
+        view = CreateView.as_view(model_admin=PersonAdminWithPanels())
+        response = view(request)
+        self.assertEqual(
+            [field_name for field_name in response.context_data['form'].fields],
+            ['last_name', 'phone_number', 'address']
+        )
+
     def test_model_admin_edit_handler(self):
-        # loads the 'create' view and verifies that form fields are returned
-        # which have been defined via model VisitorAdmin.edit_handler
+        """loads the 'create' view and verifies that form fields are returned
+        which have been defined via model VisitorAdmin.edit_handler"""
         response = self.client.get('/admin/modeladmintest/visitor/create/')
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
@@ -66,8 +105,8 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         )
 
     def test_model_admin_panels(self):
-        # loads the 'create' view and verifies that form fields are returned
-        # which have been defined via model ContributorAdmin.panels
+        """loads the 'create' view and verifies that form fields are returned
+        which have been defined via model ContributorAdmin.panels"""
         response = self.client.get('/admin/modeladmintest/contributor/create/')
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
