@@ -2,12 +2,12 @@ from unittest import mock
 
 from django.test import RequestFactory, TestCase
 
+from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.contrib.modeladmin.options import ModelAdmin
 from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.modeladmintest.models import Person
 from wagtail.tests.modeladmintest.wagtail_hooks import PersonAdmin
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.contrib.modeladmin.options import ModelAdmin
 
 
 class PersonAdminWithPanels(ModelAdmin):
