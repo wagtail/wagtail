@@ -228,9 +228,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 return self.get_search_field(sub_field_name, field.fields)
 
     def prepare_word(self, word):
-        # remove backslash from string to prevent syntax error in tsquery
-        stripped_word = word.replace("\\", "")
-        return unidecode(stripped_word)
+        return unidecode(word)
 
     def build_tsquery_content(self, query, group=False):
         if isinstance(query, PlainText):
