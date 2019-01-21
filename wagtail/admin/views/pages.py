@@ -26,6 +26,7 @@ from wagtail.admin.utils import send_notification, user_has_any_page_permission,
 from wagtail.core import hooks
 from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
 from wagtail.search.query import MATCH_ALL
+from wagtail.utils import contenttypes
 from wagtail.utils.pagination import paginate
 
 
@@ -317,7 +318,7 @@ def edit(request, page_id):
     page = real_page_record.get_latest_revision_as_page()
     parent = page.get_parent()
 
-    content_type = ContentType.objects.get_for_model(page)
+    content_type = contenttypes.get_for_model(page)
     page_class = content_type.model_class()
 
     page_perms = page.permissions_for_user(request.user)
@@ -1123,7 +1124,7 @@ def revisions_revert(request, page_id, revision_id):
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_page_object()
 
-    content_type = ContentType.objects.get_for_model(page)
+    content_type = contenttypes.get_for_model(page)
     page_class = content_type.model_class()
 
     edit_handler = page_class.get_edit_handler()

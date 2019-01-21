@@ -31,6 +31,7 @@ from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
 from wagtail.search import index
+from wagtail.utils import contenttypes
 
 logger = logging.getLogger('wagtail.core')
 
@@ -863,7 +864,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @classmethod
     def get_indexed_objects(cls):
-        content_type = ContentType.objects.get_for_model(cls)
+        content_type = contenttypes.get_for_model(cls)
         return super(Page, cls).get_indexed_objects().filter(content_type=content_type)
 
     def get_indexed_instance(self):

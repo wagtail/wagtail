@@ -1,7 +1,7 @@
-from django.contrib.contenttypes.models import ContentType
-
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy, get_page_models
+from wagtail.utils import contenttypes
+
 
 _FORM_CONTENT_TYPES = None
 
@@ -16,7 +16,7 @@ def get_form_types():
         ]
 
         _FORM_CONTENT_TYPES = list(
-            ContentType.objects.get_for_models(*form_models).values()
+            contenttypes.get_for_models(*form_models).values()
         )
     return _FORM_CONTENT_TYPES
 

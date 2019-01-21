@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models import Q
 from django.utils.functional import cached_property
+
+from wagtail.utils import contenttypes
 
 
 class BasePermissionPolicy:
@@ -178,7 +179,7 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
 
     @cached_property
     def _content_type(self):
-        return ContentType.objects.get_for_model(self.auth_model)
+        return contenttypes.get_for_model(self.auth_model)
 
     def _get_permission_name(self, action):
         """

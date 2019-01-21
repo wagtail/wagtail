@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group, Permission
-from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 
 from wagtail.core.permission_policies import (
@@ -8,6 +7,7 @@ from wagtail.core.permission_policies import (
     OwnershipPermissionPolicy)
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.utils import contenttypes
 
 
 class PermissionPolicyTestUtils:
@@ -70,7 +70,7 @@ class PermissionPolicyTestUtils:
 class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
     def setUp(self):
         # Permissions
-        image_content_type = ContentType.objects.get_for_model(Image)
+        image_content_type = contenttypes.get_for_model(Image)
         add_image_permission = Permission.objects.get(
             content_type=image_content_type, codename='add_image'
         )

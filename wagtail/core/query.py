@@ -9,6 +9,7 @@ from django.db.models.query import BaseIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
 from wagtail.search.queryset import SearchableQuerySetMixin
+from wagtail.utils import contenttypes
 
 
 class TreeQuerySet(MP_NodeQuerySet):
@@ -173,7 +174,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.exclude(self.page_q(other))
 
     def type_q(self, klass):
-        content_types = ContentType.objects.get_for_models(*[
+        content_types = contenttypes.get_for_models(*[
             model for model in apps.get_models()
             if issubclass(model, klass)
         ]).values()
@@ -194,7 +195,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.exclude(self.type_q(model))
 
     def exact_type_q(self, klass):
-        return Q(content_type=ContentType.objects.get_for_model(klass))
+        return Q(content_type=contenttypes.get_for_model(klass))
 
     def exact_type(self, model):
         """

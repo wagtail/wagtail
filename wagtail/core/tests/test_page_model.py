@@ -4,7 +4,6 @@ import json
 import pytz
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.http import Http404, HttpRequest
 from django.test import Client, TestCase
@@ -20,10 +19,7 @@ from wagtail.tests.testapp.models import (
     MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimplePage,
     SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
-
-
-def get_ct(model):
-    return ContentType.objects.get_for_model(model)
+from wagtail.utils import contenttypes
 
 
 class TestValidation(TestCase):
@@ -1327,7 +1323,7 @@ class TestIssue2024(TestCase):
         event_index = Page.objects.get(url_path='/home/events/')
 
         # Check that the content_type changed to Page
-        self.assertEqual(event_index.content_type, ContentType.objects.get_for_model(Page))
+        self.assertEqual(event_index.content_type, contenttypes.get_for_model(Page))
 
 
 @override_settings(ALLOWED_HOSTS=['localhost'])
