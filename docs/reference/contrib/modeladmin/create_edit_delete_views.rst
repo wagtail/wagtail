@@ -84,8 +84,8 @@ Or alternatively:
         model = Book
 
         custom_panels = [
-            FieldPanel('title', classname='fn'),
-            FieldPanel('author', classname='ln'),
+            FieldPanel('title'),
+            FieldPanel('author'),
         ]
         edit_handler = ObjectList(custom_panels)
 
