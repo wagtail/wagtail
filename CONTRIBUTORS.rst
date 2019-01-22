@@ -340,6 +340,7 @@ Contributors
 * mukesh5
 * frmdstryr
 * Aidarbek Suleimenov
+* Matthew Linares
 
 Translators
 ===========
