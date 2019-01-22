@@ -201,13 +201,12 @@ on the Model itself is more complicated.
 -----------------------------------
 ``ModelAdmin.get_edit_handler()``
 -----------------------------------
+.. versionadded:: 2.5
 
 **Must return**: An instance of wagtail.admin.edit_handlers.ObjectList
 
-.. versionadded:: 2.5
-
-   Returns the appropriate ``edit_handler`` for the modeladmin class.
-   ``edit_handlers`` can be defined either on the model itself or on the
-   modeladmin (as property ``edit_handler`` or ``panels``). Falls back to
-   extracting panel / edit handler definitions from the model class.
+Returns the appropriate ``edit_handler`` for the modeladmin class.
+``edit_handlers`` can be defined either on the model itself or on the
+modeladmin (as property ``edit_handler`` or ``panels``). Falls back to
+extracting panel / edit handler definitions from the model class.
 
