@@ -59,11 +59,11 @@ Or alternatively:
         edit_handler = TabbedInterface([ObjectList(custom_panels), ObjectList(...)])
 
 
-.. versionadded:: 2.4.1
+.. versionadded:: 2.5
    ``edit_handler`` and ``panels`` can alternatively be 
    defined on a ``ModelAdmin`` definition. This feature is especially useful
    for use cases where you have to work with models that are 
-   ``out of reach`` (due to being part of a third-party package, for example).
+   "out of reach" (due to being part of a third-party package, for example).
 
 .. code-block:: python
 
@@ -84,11 +84,8 @@ Or alternatively:
         model = Book
 
         custom_panels = [
-            MultiFieldPanel([
-                FieldRowPanel([
-                    FieldPanel('title', classname='fn'),
-                    FieldPanel('author', classname='ln'),
-            ])
+            FieldPanel('title', classname='fn'),
+            FieldPanel('author', classname='ln'),
         ]
         edit_handler = ObjectList(custom_panels)
 
