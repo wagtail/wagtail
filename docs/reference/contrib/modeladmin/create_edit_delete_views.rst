@@ -196,3 +196,14 @@ value will be passed to the edit form, so that any named fields will be
 excluded from the form. This is particularly useful when registering ModelAdmin
 classes for models from third-party apps, where defining panel configurations
 on the Model itself is more complicated.
+
+
+-----------------------------------
+``ModelAdmin.get_edit_handler``
+-----------------------------------
+
+Returns the appropriate `edit_handler` for the modeladmin class.
+`edit_handlers` can be defined either on the model itself or on the
+modeladmin (as property `edit_handler` or `panels`). Falls back to
+extracting panel / edit handler definitions from the model class.
+
