@@ -63,7 +63,7 @@ Or alternatively:
    ``edit_handler`` and ``panels`` can alternatively be 
    defined on a ``ModelAdmin`` definition. This feature is especially useful
    for use cases where you have to work with models that are 
-   "out of reach" (due to being part of a third-party package, for example).
+   'out of reach' (due to being part of a third-party package, for example).
 
 .. code-block:: python
 
