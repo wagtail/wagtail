@@ -203,7 +203,7 @@ on the Model itself is more complicated.
 -----------------------------------
 .. versionadded:: 2.5
 
-**Must return**: An instance of wagtail.admin.edit_handlers.ObjectList
+**Must return**: An instance of ``wagtail.admin.edit_handlers.ObjectList``
 
 Returns the appropriate ``edit_handler`` for the modeladmin class.
 ``edit_handlers`` can be defined either on the model itself or on the
