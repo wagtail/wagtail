@@ -9,6 +9,7 @@ Changelog
  * Fix: Set `SERVER_PORT` to 443 in `Page.dummy_request()` for HTTPS sites (Sergey Fedoseev)
  * Fix: Include port number in `Host` header of `Page.dummy_request()` (Sergey Fedoseev)
  * Fix: Validation error messages in `InlinePanel` no longer count towards `max_num` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)
+ * Fix: Rich text to contentstate conversion now ignores stray closing tags (frmdstryr)
 
 
 2.4 (19.12.2018)

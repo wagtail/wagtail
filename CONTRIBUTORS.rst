@@ -338,6 +338,7 @@ Contributors
 * Maylon Pedroso
 * Thijs Walcarius
 * mukesh5
+* frmdstryr
 
 Translators
 ===========
