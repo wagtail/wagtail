@@ -82,7 +82,7 @@ def create_for_model(model):
         app_label=opts.app_label, model=opts.model_name
     )
     if created and opts.proxy and django.VERSION < (2, 2):
-        # To avoid any consistent/compatibilty issues, the approach below
+        # To avoid any consistency/compatibilty issues, the approach below
         # matches that taken by Django in `0011_update_proxy_permissions.py` in
         # https://github.com/django/django/commit/181fb60159e54d442d3610f4afba6f066a6dac05,
         default_permissions_codenames = [
