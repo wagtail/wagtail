@@ -753,3 +753,37 @@ class TestHtmlToContentState(TestCase):
                 {'inlineStyleRanges': [], 'text': 'Arthur "two sheds" Jackson <the third> & his wife', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
             ]
         })
+
+    def test_extra_end_tag_before(self):
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            </p>
+            <p>Before</p>
+            '''
+        ))
+        # The leading </p> tag should be ignored instead of blowing up with a
+        # pop from empty list error
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Before', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
+    def test_extra_end_tag_after(self):
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>After</p>
+            </p>
+            '''
+        ))
+        # The tailing </p> tag should be ignored instead of blowing up with a
+        # pop from empty list error
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'After', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
