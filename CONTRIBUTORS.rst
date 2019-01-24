@@ -339,6 +339,7 @@ Contributors
 * Thijs Walcarius
 * mukesh5
 * frmdstryr
+* Aidarbek Suleimenov
 
 Translators
 ===========
