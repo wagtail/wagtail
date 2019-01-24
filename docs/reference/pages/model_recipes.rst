@@ -201,7 +201,7 @@ This is just one possible way of creating a taxonomy for Wagtail objects. With a
 Have redirects created automatically when changing page slug
 ------------------------------------------------------------
 
-You may want redirects created automatically when a url gets changed in the admin so as to avoid broken links. You can add something like the following block to `/models/wagtail_hooks.py`.
+You may want redirects created automatically when a url gets changed in the admin so as to avoid broken links. You can add something like the following block to a ``wagtail_hooks.py`` within one of your project's apps.
 
 
 .. code-block:: python
@@ -212,15 +212,13 @@ You may want redirects created automatically when a url gets changed in the admi
     # Create redirect when editing slugs
     @hooks.register('before_edit_page')
     def create_redirect_on_slug_change(request, page):
-        try:
+        if request.method == 'POST':
             if page.slug != request.POST['slug']:
                 Redirect.objects.create(
                         old_path=page.url[:-1],
                         site=page.get_site(),
                         redirect_page=page
                     )
-        except:
-            pass
 
 
 Note: This does not work in some cases e.g. when you redirect a page, create a new page in that url and then move the new one. It should be helpful in most cases however.
