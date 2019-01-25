@@ -93,6 +93,14 @@ You can prevent the ``update_index`` command from indexing any data by using the
     $ python manage.py update_index --schema-only
 
 
+.. _wagtail_update_index:
+
+wagtail_update_index
+--------------------
+
+An alias for the ``update_index`` command that can be used when another installed package (such as `Haystack <http://haystacksearch.org/>`_) provides a command named ``update_index``. In this case, the other package's entry in ``INSTALLED_APPS`` should appear above ``wagtail.search`` so that its ``update_index`` command takes precedence over Wagtail's.
+
+
 .. _search_garbage_collect:
 
 search_garbage_collect
