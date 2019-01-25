@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ahmet Sarıcan <asarican@gmail.com>, 2019
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-11 20:18+0000\n"
+"Last-Translator: Ahmet Sarıcan <asarican@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +35,9 @@ msgstr "Kaydet"
 
 msgid "Settings"
 msgstr "Ayarlar"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Tanımlanmış site bulunmadığından bu ayar açılamadı."
 
 msgid "{setting_type} updated."
 msgstr "{setting_type} güncellendi."

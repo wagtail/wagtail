@@ -5,14 +5,14 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2017
+# Kyungil Choi <hanpama@gmail.com>, 2017,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-21 05:29+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail forms"
+msgstr "웨그테일 폼"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s 개 제출"
 
 msgid "Date from"
 msgstr "시작일"
@@ -68,6 +75,9 @@ msgstr "날짜"
 
 msgid "Date/time"
 msgstr "날짜/시간"
+
+msgid "Hidden field"
+msgstr "숨겨진 필드"
 
 msgid "submit time"
 msgstr "제출 시간"

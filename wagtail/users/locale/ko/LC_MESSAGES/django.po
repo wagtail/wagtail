@@ -5,14 +5,14 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2015,2017-2018
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:42+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-21 05:25+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -69,6 +69,12 @@ msgstr "해당 이름의 그룹은 이미 사용되고 있습니다."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "같은 페이지에 대해서 여러 개의 권한을 설정할 수는 없습니다."
 
+msgid "Preferred language"
+msgstr "선호하는 언어"
+
+msgid "Current time zone"
+msgstr "현재 타임존"
+
 msgid "Upload a profile picture"
 msgstr "프로필 사진 업로드"
 
@@ -106,6 +112,9 @@ msgid "profile picture"
 msgstr "프로필 사진"
 
 msgid "user profile"
+msgstr "사용자 프로필"
+
+msgid "user profiles"
 msgstr "사용자 프로필"
 
 msgid "Delete group"
@@ -221,6 +230,9 @@ msgstr "레벨"
 msgid "Status"
 msgstr "상태"
 
+msgid "Last Login"
+msgstr "최근 로그인"
+
 msgid "Admin"
 msgstr "관리자"
 
@@ -229,6 +241,23 @@ msgstr "활성화"
 
 msgid "Inactive"
 msgstr "비활성화"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 전"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            일치하는 %(counter)s개의 결과가 있습니다."
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -271,6 +300,9 @@ msgstr "수정"
 
 msgid "The user could not be created due to errors."
 msgstr "에러로 인해 사용자를 생성할 수 없습니다."
+
+msgid "User '{0}' updated."
+msgstr "'{0}' 사용자가 업데이트 되었습니다."
 
 msgid "The user could not be saved due to errors."
 msgstr "에러로 인해 사용자를 저장할 수 없습니다."

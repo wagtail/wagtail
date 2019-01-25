@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018
-# saevarom <saevar@saevar.is>, 2017-2018
+# saevarom <saevar@saevar.is>, 2017-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-18 08:38+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +53,9 @@ msgstr "merki"
 msgid "document"
 msgstr "skrá"
 
+msgid "documents"
+msgstr "skjöl"
+
 msgid "Choose a document"
 msgstr "Veldu skrá"
 
@@ -65,12 +68,48 @@ msgstr "Hlaða upp"
 msgid "Uploading…"
 msgstr "Hleð upp..."
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Það er %(counter)s niðurstaða\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Það eru %(counter)s niðurstöður\n"
+"        "
+
 msgid "Latest documents"
 msgstr "Síðustu skrár"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Því miður eru engar skrár sem passa við \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Þú hefur ekki hlaðið neinum skrám í þetta safn."
+
+msgid "You haven't uploaded any documents."
+msgstr "Þú hefur ekki hlaðið upp neinum skjölum."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            Viltu <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">hlaða einu upp núna</a>?\n"
+"            "
 
 msgid "Change document:"
 msgstr "Breyta skrá"
@@ -127,6 +166,9 @@ msgstr "Titill"
 
 msgid "File"
 msgstr "Skrá"
+
+msgid "Collection"
+msgstr "Safn"
 
 msgid "Uploaded"
 msgstr "Hlaðið upp"
@@ -202,6 +244,14 @@ msgstr "Eða veldu þær úr tölvunni þinni"
 
 msgid "Add to collection:"
 msgstr "Bæta í safn:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Tókst að hlaða inn skrá. Vinsamlegast breytið titli skráarinnar ef það þarf. "
+"Þú getur einni eytt skránni alveg ef þú vilt hætta við."
 
 msgid "Sorry, upload failed."
 msgstr "Því miður tókst ekki að hlaða upp skránum."

@@ -4,15 +4,15 @@
 #
 # Translators:
 # Dan Braghis, 2014,2016
-# Dan Braghis, 2014,2016,2018
+# Dan Braghis, 2014,2016,2018-2019
 # zerolab, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-25 09:36+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Wagtail embeds"
+msgstr "Încorporări Wagtail"
 
 msgid "Cannot find an embed for this URL."
 msgstr "Nu pot găsi un embed pentru această adresă de internet."
@@ -33,6 +36,9 @@ msgstr "Introduceți o adresă de internet validă"
 
 msgid "embed"
 msgstr "embed"
+
+msgid "embeds"
+msgstr "încorporări"
 
 msgid "Insert embed"
 msgstr "Inserează embed"

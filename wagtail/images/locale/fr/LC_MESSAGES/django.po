@@ -6,6 +6,7 @@
 # Adrien <laadrien@gmail.com>, 2014
 # Benoît Vogel <contact@spicy-informatique.com>, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira <hello@lta.me>, 2018
 # nahuel, 2014
@@ -17,8 +18,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-12-27 14:47+0000\n"
+"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -155,6 +156,22 @@ msgstr "Mots-clés populaires"
 msgid "Uploading…"
 msgstr "Transfert…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"        Il y a %(counter)s correspondance"
+msgstr[1] ""
+"\n"
+"        Il y a %(counter)s correspondances"
+
 msgid "Latest images"
 msgstr "Dernières images"
 
@@ -218,6 +235,19 @@ msgstr "Modification"
 
 msgid "URL Generator"
 msgstr "Générateur d'URL"
+
+msgid "Focal point"
+msgstr "Point d'intérêt"
+
+msgid "(optional)"
+msgstr "(facultatif)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Pour définir la zone la plus importante de cette image, tracez un rectangle "
+"sur l'image ci-dessus."
 
 msgid "Current focal point shown"
 msgstr "Point d'intérêt courant tracé"

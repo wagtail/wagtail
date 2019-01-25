@@ -7,13 +7,14 @@
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
 # Sutrisno Efendi <kangfend@gmail.com>, 2017
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-16 01:22+0000\n"
+"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -73,6 +74,12 @@ msgstr "Dokumen terbaru"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Maaf, tidak ada dokumen yang cocok \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Anda belum mengunggah dokumen apapun dalam koleksi ini."
+
+msgid "You haven't uploaded any documents."
+msgstr "Anda belum mengunggah dokumen apapun."
 
 msgid "Change document:"
 msgstr "Ubah dokumen:"

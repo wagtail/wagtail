@@ -5,6 +5,7 @@
 # Translators:
 # Benoît Vogel <contact@spicy-informatique.com>, 2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira <hello@lta.me>, 2018
 # nahuel, 2014
@@ -16,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2018-12-27 14:41+0000\n"
+"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -59,6 +60,9 @@ msgstr "Mots-clés"
 msgid "document"
 msgstr "Document"
 
+msgid "documents"
+msgstr "documents"
+
 msgid "Choose a document"
 msgstr "Choisir un document"
 
@@ -71,12 +75,45 @@ msgstr "Transférer"
 msgid "Uploading…"
 msgstr "Transfert…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"        Il y a %(counter)s correspondance"
+msgstr[1] ""
+"\n"
+"        Il y a %(counter)s correspondances"
+
 msgid "Latest documents"
 msgstr "Derniers documents"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Désolé, aucun document ne correspond à \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Vous n’avez pas encore transféré de document dans cette collection."
+
+msgid "You haven't uploaded any documents."
+msgstr "Vous n’avez pas encore transféré de document."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"Pourquoi ne pas <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">en transférer un</a> ?"
 
 msgid "Change document:"
 msgstr "Modifier le document :"
@@ -133,6 +170,9 @@ msgstr "Titre"
 
 msgid "File"
 msgstr "Fichier"
+
+msgid "Collection"
+msgstr "Collection"
 
 msgid "Uploaded"
 msgstr "Transféré"
@@ -210,6 +250,15 @@ msgstr "Ou choisissez depuis votre ordinateur"
 
 msgid "Add to collection:"
 msgstr "Ajouter à la collection :"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Transfert réussi. Veuillez mettre à jour ce document avec un titre plus "
+"approprié, si nécessaire. Vous pouvez aussi supprimer complètement le "
+"document si le transfert n’était pas nécessaire."
 
 msgid "Sorry, upload failed."
 msgstr "Désolé, le transfert a échoué."

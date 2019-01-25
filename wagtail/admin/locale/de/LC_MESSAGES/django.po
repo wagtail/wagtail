@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Benjamin Thurm, 2018
+# Benjamin Thurm, 2018-2019
 # Daniel Manser <me@danielmanser.com>, 2015
 # Ettore Atalan <atalanttore@googlemail.com>, 2015-2017
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016,2018
@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-17 08:11+0000\n"
+"Last-Translator: Benjamin Thurm\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -475,6 +475,9 @@ msgstr "Bearbeitet"
 
 msgid "Edit this page"
 msgstr "Diese Seite bearbeiten"
+
+msgid "Preview this page"
+msgstr "Seitenvorschau anzeigen"
 
 msgid "Approve"
 msgstr "Freischalten"
@@ -1141,6 +1144,27 @@ msgstr "November"
 msgid "December"
 msgstr "Dezember"
 
+msgid "Sunday"
+msgstr "Sonntag"
+
+msgid "Monday"
+msgstr "Montag"
+
+msgid "Tuesday"
+msgstr "Dienstag"
+
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+msgid "Thursday"
+msgstr "Donnerstag"
+
+msgid "Friday"
+msgstr "Freitag"
+
+msgid "Saturday"
+msgstr "Samstag"
+
 msgid "Sun"
 msgstr "So"
 
@@ -1186,6 +1210,23 @@ msgstr ""
 "Sie verwenden einen <strong>überholten</strong> Browser, der nicht von "
 "dieser Software unterstützt wird. Bitte <a href=\"http://browsehappy.com/"
 "\">aktualisieren Sie Ihren Browser</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"JavaScript wird benötigt um Wagtail auszuführen, ist aber deaktiviert.<br /"
+">\n"
+"Beachten Sie <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" "
+"rel=\"noopener noreferrer\">die Hinweise wie Sie JavaScript in ihrem Browser "
+"aktivieren können</a>.\n"
+" "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Zum Wagtail Admin-Interface"

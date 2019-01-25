@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2016,2018
+# Dan Braghis, 2014-2016,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-25 09:39+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Wagtail images"
+msgstr "Imagini Wagtail"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -122,6 +125,9 @@ msgstr "încărcată de utlizator"
 msgid "tags"
 msgstr "etichete"
 
+msgid "image"
+msgstr "imagine"
+
 msgid "Choose an image"
 msgstr "Alege imagine"
 
@@ -136,6 +142,28 @@ msgstr "Etichete populare"
 
 msgid "Uploading…"
 msgstr "În curs de încărcare…"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Există %(counter)s potrivire\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Sunt %(counter)s potriviri\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Sunt %(counter)s potriviri\n"
+"        "
 
 msgid "Latest images"
 msgstr "Imagini recente"
@@ -202,6 +230,19 @@ msgstr "Editare"
 
 msgid "URL Generator"
 msgstr "Generator URL"
+
+msgid "Focal point"
+msgstr "Punct focal"
+
+msgid "(optional)"
+msgstr "(opțional)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Pentru a defini regiunea cea mai importantă a imaginii, trageți un perimetru "
+"peste imaginea de mai sus."
 
 msgid "Current focal point shown"
 msgstr "Punctul focal curent este afișat"
@@ -305,7 +346,7 @@ msgid ""
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
-"Încărcare de succsess. Dacă este necesar, actualizați această imagine cu un "
+"Încărcare de success. Dacă este necesar, actualizați această imagine cu un "
 "titlu potrivit. Puteți deasemenea să ștergeți imaginea în întregime dacă "
 "încărcarea nu a fost necesară."
 

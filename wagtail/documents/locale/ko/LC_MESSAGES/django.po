@@ -5,14 +5,14 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2017
+# Kyungil Choi <hanpama@gmail.com>, 2017,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-21 05:24+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail documents"
+msgstr "웨그테일 문서"
 
 msgid "Add"
 msgstr "추가"
@@ -51,6 +54,9 @@ msgstr "태그"
 msgid "document"
 msgstr "문서"
 
+msgid "documents"
+msgstr "문서"
+
 msgid "Choose a document"
 msgstr "문서 선택"
 
@@ -63,12 +69,42 @@ msgstr "업로드"
 msgid "Uploading…"
 msgstr "업로드 중…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            일치하는 %(counter)s개의 결과가 있습니다."
+
 msgid "Latest documents"
 msgstr "최근 문서"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "죄송합니다. <em>\"%(query_string)s\"</em> 와 연관된 문서가 없습니다"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "이 모음에는 업로드한 문서가 없습니다."
+
+msgid "You haven't uploaded any documents."
+msgstr "업로드한 문서가 없습니다."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">업로드해 보세요</a>"
 
 msgid "Change document:"
 msgstr "문서 변경:"
@@ -85,6 +121,11 @@ msgstr "%(title)s 삭제"
 
 msgid "Delete document"
 msgstr "문서 삭제"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s번 사용"
 
 msgid "Are you sure you want to delete this document?"
 msgstr "선택한 문서를 정말 삭제할까요?"
@@ -108,6 +149,9 @@ msgstr "파일 사이즈"
 msgid "File not found"
 msgstr "파일을 찾을 수 없습니다"
 
+msgid "Usage"
+msgstr "사용"
+
 msgid "Documents"
 msgstr "문서"
 
@@ -116,6 +160,9 @@ msgstr "제목"
 
 msgid "File"
 msgstr "파일"
+
+msgid "Collection"
+msgstr "모음"
 
 msgid "Uploaded"
 msgstr "업로드 된"
@@ -187,6 +234,14 @@ msgstr "또는 컴퓨터에서 선택하세요"
 msgid "Add to collection:"
 msgstr "모음에 추가:"
 
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"업로드가 성공했습니다. 필요하다면 이 문서의 제목을 더 적절하게 바꾸어 주세"
+"요. 만약 불필요한 업로드였다면 문서를 완전히 삭제하는 것도 가능합니다."
+
 msgid "Sorry, upload failed."
 msgstr "죄송합니다, 업로드가 실패했습니다."
 
@@ -230,6 +285,9 @@ msgstr ""
 
 msgid "Document '{0}' deleted."
 msgstr "'{0}' 문서가 삭제 되었습니다."
+
+msgid "Document"
+msgstr "문서"
 
 #, python-format
 msgid "%(count)s document"

@@ -5,13 +5,14 @@
 # Translators:
 # Asger Sørensen <asger.soerensen@live.com>, 2016
 # Mads Kronborg <madskronborg99@gmail.com>, 2018
+# MRostgaard <Mrostgaard@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-22 00:23+0000\n"
+"Last-Translator: MRostgaard <Mrostgaard@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +67,10 @@ msgstr "Skriv din email addresse for at genindstille din adgangskode"
 msgid "URL"
 msgstr "URL"
 
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Du har ikke mulighed for at have flere tilladelser på den samme samling."
+
 msgid "New title"
 msgstr "Ny titel"
 
@@ -97,6 +102,18 @@ msgid "Publish copies"
 msgstr "Udgiv kopier"
 
 #, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)saf siderne du har kopieret er live. Vil du udgive deres kopier?"
+msgstr[1] ""
+"%(count)s af siderne du har kopieret er live. Vil du udgive deres kopier?"
+
+#, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
 msgstr "Du har ikke tilladelse til at kopiere til side \"%(page_title)s\""
 
@@ -105,6 +122,9 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr ""
 "Dette slug er allerede i brug inden for konteksten af forældresiden \"%s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Du kan ikke kopiere en side til sig selv når du kopierer undersider"
 
 msgid "This slug is already in use"
 msgstr "Dette slug er allerede i brug"
@@ -160,6 +180,11 @@ msgstr "Skift email"
 msgid "Change password"
 msgstr "Skift adgangskode"
 
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Dit kodeord kan ikke blive ændret her. Kontakt venligst en administrator"
+
 msgid "Set Time Zone"
 msgstr "Angiv tidszone"
 
@@ -181,11 +206,39 @@ msgstr "Log Ind"
 msgid "Set your new password"
 msgstr "Angiv din nye adgangskode"
 
+msgid "Invalid password reset link"
+msgstr "Udløbet password reset link"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Ugyldigt password reset link, formentligt fordi det allerede er blevet brugt."
+
+msgid "Request a new password reset"
+msgstr "Anmod om et password reset"
+
 msgid "Check your email"
 msgstr "Check din email"
 
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Et link til at gendanne dit kodeord er blevet sendt til ding email, hvis en "
+"konto for den email eksisterer."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Følg linket herunder for at gendanne dit kodeord:"
+
 msgid "Your username (in case you've forgotten):"
 msgstr "Dit brugernavn (i tilfælde af at du har glemt det):"
+
+msgid "Password reset"
+msgstr "Gendan kodeord"
+
+msgid "Reset your password"
+msgstr "Gendan dit kodeord"
 
 msgid "Edit"
 msgstr "Rediger"
@@ -244,6 +297,12 @@ msgstr "Vis seneste indhold"
 msgid "Show error"
 msgstr "Vis fejl"
 
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Redigeringsprogrammet crashede. Indholdet er blevet sat til den nyeste gemte "
+"version."
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -270,6 +329,24 @@ msgstr "Eksternt link"
 
 msgid "Email link"
 msgstr "Email link"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"        Der er %(counter)s der passer\n"
+"    "
+msgstr[1] ""
+"\n"
+"        Der er  %(counter)s der passer sammen\n"
+"    "
 
 msgid "Choose"
 msgstr "Vælg"
@@ -305,6 +382,21 @@ msgstr "Indsæt link"
 
 msgid "Add an external link"
 msgstr "Tilføj et eksternt link"
+
+msgid "Collection privacy"
+msgstr "Indsamling af privatfølsomme data"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Denne samling er blevet gjort privat af en forældre samling."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Du kan sætte opdatere dine konto indstillinger her:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Indstillingerne bestemmer hvem der er i stand til at se documenter fra denne "
+"side."
 
 msgid "Save"
 msgstr "Gem"
