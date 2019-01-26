@@ -25,6 +25,7 @@ Bug fixes
  * Include port number in ``Host`` header of ``Page.dummy_request()`` (Sergey Fedoseev)
  * Validation error messages in ``InlinePanel`` no longer count towards ``max_num`` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)
  * Rich text to contentstate conversion now ignores stray closing tags (frmdstryr)
+ * Escape backslashes in ``postgres_search`` queries (Hammy Goonan)
 
 
 Upgrade considerations
