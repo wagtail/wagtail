@@ -56,11 +56,11 @@ exports[`Document no data 1`] = `
   icon={
     <Icon
       className={null}
-      name="doc-full"
+      name="warning"
       title={null}
     />
   }
-  label=""
+  label="Missing document"
   onEdit={[Function]}
   onRemove={[Function]}
   url=""
