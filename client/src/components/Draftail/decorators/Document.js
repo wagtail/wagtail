@@ -13,7 +13,7 @@ const missingDocumentIcon = <Icon name="warning" />;
 const Document = props => {
   const { entityKey, contentState } = props;
   const data = contentState.getEntity(entityKey).getData();
-  const url = data.url || '';
+  const url = data.url || null;
   let icon;
   let label;
 

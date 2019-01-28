@@ -16,7 +16,7 @@ const getDomainName = url => url.replace(/(^\w+:|^)\/\//, '').split('/')[0];
 
 // Determines how to display the link based on its type: page, mail, or external.
 export const getLinkAttributes = (data) => {
-  const url = data.url || '';
+  const url = data.url || null;
   let icon;
   let label;
 

@@ -63,7 +63,7 @@ exports[`Document no data 1`] = `
   label="Missing document"
   onEdit={[Function]}
   onRemove={[Function]}
-  url=""
+  url={null}
 >
   test
 </TooltipEntity>

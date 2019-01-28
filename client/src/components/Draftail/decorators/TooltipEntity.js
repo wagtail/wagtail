@@ -144,7 +144,11 @@ TooltipEntity.propTypes = {
     PropTypes.object.isRequired,
   ]).isRequired,
   label: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
+};
+
+TooltipEntity.defaultProps = {
+  url: null,
 };
 
 export default TooltipEntity;
