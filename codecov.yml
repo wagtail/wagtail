@@ -1,4 +1,8 @@
 codecov:
+  status:
+    patch:
+      default:
+        enabled: no
   notify:
     after_n_builds: 10
     require_ci_to_pass: no
