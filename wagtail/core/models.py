@@ -38,6 +38,17 @@ PAGE_TEMPLATE_VAR = 'page'
 
 
 class SiteManager(models.Manager):
+    def pointless_method(self):
+        # dummy code change to test that codecov reports have been disabled on PRs
+        print("zzz")
+        print("zzz")
+        print("zzz")
+        print("zzz")
+        print("zzz")
+        print("zzz")
+        print("zzz")
+        print("zzz")
+
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
 
