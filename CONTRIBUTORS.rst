@@ -341,6 +341,7 @@ Contributors
 * frmdstryr
 * Aidarbek Suleimenov
 * Matthew Linares
+* Asanka Lihiniyagoda
 
 Translators
 ===========

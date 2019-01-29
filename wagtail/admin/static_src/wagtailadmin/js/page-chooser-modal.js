@@ -69,6 +69,11 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 $('.page-results', modal.body).load(this.href, ajaxifySearchResults);
                 return false;
             });
+            /* Set up parent navigation links (.navigate-parent) to open in the modal */
+            $('.page-results a.navigate-parent', modal.body).on('click',function() {
+                modal.loadUrl(this.href);
+                return false;
+            });
         }
 
         function ajaxifyBrowseResults() {
