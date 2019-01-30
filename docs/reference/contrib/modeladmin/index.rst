@@ -194,7 +194,7 @@ Assume we've defined ``Book``, ``Author``, and ``Genre`` models in
     modeladmin_register(LibraryGroup)
 
 
-.. _modeladmin_multi_registeration:
+.. _modeladmin_multi_registration:
 
 Registering multiple classes in one ``wagtail_hooks.py`` file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -222,3 +222,10 @@ the same ``wagtail_hooks.py`` file if you want. The example below will create
     modeladmin_register(BookAdmin)
     modeladmin_register(MovieAdmin)
     modeladmin_register(MusicAdminGroup)
+
+
+-------------------------
+Additional Tips & Tricks
+-------------------------
+
+* To programatically generate URLs for any of your ``ModelAdmin`` views, see :ref:`modeladmin_reversing_urls`.
