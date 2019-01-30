@@ -48,6 +48,7 @@ Want to know more about customising ``ModelAdmin``?
     create_edit_delete_views
     inspectview
     chooseparentview
+    reversing_urls
 
 .. _modeladmin_usage:
 
