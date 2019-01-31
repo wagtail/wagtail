@@ -342,6 +342,7 @@ Contributors
 * Aidarbek Suleimenov
 * Matthew Linares
 * Asanka Lihiniyagoda
+* David Beitey
 
 Translators
 ===========
