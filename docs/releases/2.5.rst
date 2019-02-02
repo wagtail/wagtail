@@ -18,6 +18,7 @@ Other features
  * Added more informative error message when ``|richtext`` filter is applied to a non-string value (mukesh5)
  * Automatic search indexing can now be disabled on a per-model basis via the ``search_auto_update`` attribute (Karl Hobley)
  * Improved diffing of StreamFields when comparing page revisions (Karl Hobley)
+ * Highlight broken links to pages and missing documents in rich text (Brady Moe)
 
 
 Bug fixes
