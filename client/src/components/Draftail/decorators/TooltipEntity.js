@@ -84,6 +84,7 @@ class TooltipEntity extends Component {
     /* eslint-disable springload/jsx-a11y/interactive-supports-focus */
     return (
       <a
+        href={url}
         role="button"
         // Use onMouseUp to preserve focus in the text even after clicking.
         onMouseUp={this.openTooltip}
