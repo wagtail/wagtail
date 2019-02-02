@@ -26,6 +26,7 @@ Changelog
  * Fix: Page Copy will now also copy ParentalManyToMany field relations (LB (Ben Johnston))
  * Fix: Admin HTML header now includes correct language code (Matt Westcott)
  * Fix: Unclear error message when saving image after focal point edit (Hugo van den Berg)
+ * Fix: `send_mail` now correctly uses the `html_message` kwarg for HTML messages (Tiago Requeijo)
 
 
 2.4 (19.12.2018)

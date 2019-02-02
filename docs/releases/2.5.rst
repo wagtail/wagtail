@@ -42,6 +42,7 @@ Bug fixes
  * Admin HTML header now includes correct language code (Matt Westcott)
  * Unclear error message when saving image after focal point edit (Hugo van den Berg)
  * Fix: Increase max length on ``Embed.thumbnail_url`` to 255 characters (Kevin Howbrook)
+ * Fix: ``send_mail`` now correctly uses the ``html_message`` kwarg for HTML messages (Tiago Requeijo)
 
 
 Upgrade considerations
