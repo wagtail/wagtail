@@ -23,6 +23,7 @@ Changelog
  * Fix: Added missing collection column specifier on document listing template (Sergey Fedoseev)
  * Fix: Page Copy will now also copy ParentalManyToMany field relations (LB (Ben Johnston))
  * Fix: Admin HTML header now includes correct language code (Matt Westcott)
+ * Fix: Unclear error message when saving image after focal point edit (Hugo van den Berg)
 
 
 2.4 (19.12.2018)
