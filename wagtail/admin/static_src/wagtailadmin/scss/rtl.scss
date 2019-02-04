@@ -1,0 +1,356 @@
+@import 'wagtailadmin/scss/variables';
+
+.page-explorer .listing .index .privacy-indicator {
+  right: auto;
+  left: 5%;
+}
+
+.logo {
+    transform: scaleX(-1);
+}
+
+.explorer {
+	right: 180px;
+}
+
+header .left:first-child {
+  float: right;
+
+    .col {
+        float: right;
+        margin-left: 2em;
+        margin-right: 0;
+    }
+
+    h1.icon:before {
+        margin-left: 0.4em;
+        margin-right: 0;
+    }
+}
+
+header .right {
+    text-align: left;
+}
+
+.wrapper {
+    padding-left: 0;
+    padding-right: 180px;
+
+    .nav-wrapper {
+        float: right;
+        right: 0;
+        left: auto;
+    }
+
+    .content-wrapper {
+        float: right;
+    }
+}
+
+
+.nav-main {
+
+     a:before {
+        margin-right: 0;
+        margin-left: 0.5em;
+        float: right;
+    }
+
+    li.menu-explorer a {
+        border-right-color: #f37e77;
+    }
+
+    a {
+        border-right: 3px solid transparent;
+        border-left: none;
+    }
+
+    a:after {
+        right: auto;
+        left: 0.5em;
+    }
+
+    a.submenu-trigger:after {
+        content: "z";
+    }
+
+    .nav-submenu {
+        right: 180px;
+        left: auto;
+    }
+}
+
+
+
+li.submenu-active .nav-submenu {
+    right: 180px;
+    left: auto;
+    box-shadow: -2px 0 2px rgba(0, 0, 0, 0.35);
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: none;
+
+    a {
+      padding-right: 3.5em;
+      padding-left: 0;
+    }
+
+    a:before {
+        margin-left: 0.5em;
+        float: right;
+    }
+}
+
+.listing thead th {
+    text-align: right;
+}
+
+.summary ul.stats li {
+    float: right;
+
+    &:before {
+        float: right;
+    }
+}
+
+.icon:before, .icon:after, .hallotoolbar [class^="icon-"], .hallotoolbar [class*=" icon-"]:before, .hallotoolbar [class^="icon-"]:before {
+    text-align: right;
+    margin-left: 0.2em;
+    margin-right: auto;
+}
+
+
+.icon-arrow-right:before, .icon-arrow-right-after:after {
+    content: "z";
+}
+
+label {
+    float: right;
+    padding-left: 1em;
+}
+
+.chooser .unchosen:before, .chooser .chosen:before {
+    float: right;
+    margin-left: 0.3em;
+    margin-right: 0;
+}
+
+input[type=checkbox], input[type=radio] {
+  margin-left: 15px;
+  margin-right: 0;
+}
+
+.tab-nav li {
+  margin-left: 1px;
+  margin-right: 0.7em;
+  float: right;
+}
+
+.object .object-help {
+  left: 0;
+  right: auto;
+  padding-right: 3em;
+  padding-left: 1.5%;
+  float: left;
+
+  &:before {
+      float: right;
+      margin-right: -2em;
+    }
+}
+
+.object.full fieldset {
+  float: right;
+  padding-left: 1.5%;
+  padding-right: 1.5%;
+  margin-right: -51px;
+  padding: 3.2em 0 0 0;
+}
+
+.object > h2:before, .object.single-field label:before {
+  right: 0px;
+}
+
+.object > h2, .object.single-field label {
+    padding: 0.9em 4.1em 0.9em 0;
+}
+
+.field-content {
+    float: right;
+}
+
+.field-col {
+    float: right;
+}
+
+.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9 {
+    float: right;
+}
+
+.breadcrumb li {
+    float: right;
+
+    a {
+        padding-left: 1em;
+        padding-right: 0;
+    }
+
+    &.home {
+
+      a {
+        padding-left: 0;
+      }
+
+      a:after {
+        left: -0.3em;
+        right: auto;
+      }
+    }
+
+    a:after, .breadcrumb li span:after {
+      left: 0;
+      content: "z";
+      padding-right: 20px;
+      padding-left: 0;
+      right: auto;
+    }
+}
+
+
+.modal-dialog {
+  padding: 0px 180px 2em 0;
+}
+
+header.nice-padding {
+  padding-right: 50px;
+}
+.modal-body header {
+  padding-left: 100px;
+}
+
+.modal .close {
+  left: 10px;
+  right: auto;
+}
+
+input[type=submit].bicolor:before, input[type=reset].bicolor:before, input[type=button].bicolor:before, .button.bicolor:before, button.bicolor:before {
+    right: 0;
+    left: auto;
+    padding-right: 6px;
+    width: 1.5em;
+}
+
+input[type=submit].bicolor, input[type=reset].bicolor, input[type=button].bicolor, .button.bicolor, button.bicolor {
+    padding-right: 3.7em;
+    padding-left: 1em;
+}
+
+a.button.button-small {
+    line-height: 1.65em;
+}
+
+.tab-nav li.settings a::before {
+    margin-left: 0.5em;
+    margin-right: auto;
+}
+
+.dropdown .dropdown-toggle {
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-left-width: 0;
+    left: 0px;
+    right: auto;
+}
+
+.dropdown input[type="submit"], .dropdown input[type="reset"], .dropdown input[type="button"], .dropdown button, .dropdown .button {
+    padding: 0 1em 0 0;
+    text-align: right;
+    float: left;
+}
+
+.dropdown ul a.shortcut {
+    padding-left: 7em;
+    padding-right: 0;
+}
+
+.hallotoolbar{
+    position:absolute;
+    z-index:5;
+    margin-top:4em;
+    margin-left:1.2em;
+
+    &.affixed{
+        position:fixed;
+        margin-top:0;
+    }
+
+}
+
+.hallotoolbar.full{
+    margin-right:$mobile-nice-padding;
+    margin-left: 0;
+}
+
+@media screen and (min-width: $breakpoint-mobile){
+    .hallotoolbar.full{
+        margin-right:$desktop-nice-padding;
+        margin-left: 0;
+    }
+}
+
+ul.tagit li {
+    float: right;
+    margin: 2px 0 2px 5px;
+}
+
+ul.tagit li.tagit-choice-editable {
+    padding: 0px 0px 0px 23px !important;
+}
+
+.tag::before {
+    padding-right: 0;
+    padding-left: 0.5em;
+}
+
+ul.tagit li.tagit-choice .tagit-close {
+    left: 0.1em;
+    right: auto;
+}
+
+.tagit-close .ui-icon-close {
+    margin-right: 1em;
+    margin-left: auto;
+}
+
+.filter-options li {
+    float: right;
+}
+
+.filter-title {
+    float: right;
+}
+
+
+.nav-main .account .avatar {
+    margin: 0px 0px 0px 0.7em;
+    float: right;
+}
+
+.nav-main .account {
+    padding-left: 0px;
+    padding-right: 15px;
+}
+
+.sequence-controls.list-controls.button-group.button-group-square {
+	right: -80px;
+}
+
+.icon.text-replace {
+	padding-right: 5px;
+}
+
+select {
+    text-indent: 1.5em;
+}
+
+.field-col .field label {
+    padding-left: 1em;
+}

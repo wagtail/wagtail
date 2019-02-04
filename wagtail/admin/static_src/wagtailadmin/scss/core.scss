@@ -455,3 +455,6 @@ footer,
         z-index: 200;
     }
 }
+html[dir=rtl] {
+    @import "rtl.scss";
+}
