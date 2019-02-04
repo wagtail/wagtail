@@ -343,6 +343,7 @@ Contributors
 * Matthew Linares
 * Asanka Lihiniyagoda
 * David Beitey
+* Paul Vetch
 
 Translators
 ===========
