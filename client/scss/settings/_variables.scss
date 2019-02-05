@@ -7,7 +7,7 @@
 
 $static-root: '../../';
 $images-root: $static-root + 'wagtailadmin/images/';
-$font-root: '../../wagtailadmin/fonts/';
+$font-root: '../../../wagtailadmin/fonts/';
 
 // grid settings
 $grid-columns: 12;
