@@ -9,6 +9,7 @@ Changelog
  * Automatic search indexing can now be disabled on a per-model basis via the `search_auto_update` attribute (Karl Hobley)
  * Improved diffing of StreamFields when comparing page revisions (Karl Hobley)
  * Highlight broken links to pages and missing documents in rich text (Brady Moe)
+ * Preserve links when copy-pasting rich text content from Wagtail to other tools (Thibaud Colas)
  * Fix: Set `SERVER_PORT` to 443 in `Page.dummy_request()` for HTTPS sites (Sergey Fedoseev)
  * Fix: Include port number in `Host` header of `Page.dummy_request()` (Sergey Fedoseev)
  * Fix: Validation error messages in `InlinePanel` no longer count towards `max_num` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)
