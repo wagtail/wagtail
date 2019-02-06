@@ -17,7 +17,7 @@ Wagtail's ``ModelAdmin`` class isn't the same as Django's
 ---------------------------------------------------------
 
 Wagtail's ``ModelAdmin`` class is designed to be used in a similar way to
-Django's class of the same name, and often uses the same attribute and method
+Django's class of the same name, and it often uses the same attribute and method
 names to achieve similar things. However, there are a few key differences:
 
 Add & edit forms are still defined by ``panels`` and ``edit_handlers``
@@ -305,10 +305,10 @@ By default, the ``modeladmin.helpers.permission.PagePermissionHelper``
 class is used when your model extends ``wagtailcore.models.Page``,
 otherwise ``modeladmin.helpers.permission.PermissionHelper`` is used.
 
-If you find that the above helper classes don't cater for your needs, you can
+If you find that the above helper classes don't work for your needs, you can
 easily create your own helper class, by sub-classing
-``PermissionHelper`` or (if your  model extend's Wagtail's ``Page`` model)
-``PagePermissionHelper``, and making any necessary additions/overrides. Once
+``PermissionHelper`` (or ``PagePermissionHelper`` if your model extends Wagtail's ``Page`` model),
+and making any necessary additions/overrides. Once
 defined, you set the ``permission_helper_class`` attribute on your
 ``ModelAdmin`` class to use your custom class instead of the default, like so:
 
@@ -355,8 +355,8 @@ when your model extends ``wagtailcore.models.Page``, otherwise
 ``modeladmin.helpers.button.ButtonHelper`` is used.
 
 If you wish to add or change buttons for your model's IndexView, you'll need to
-create  your own button helper class, by sub-classing ``ButtonHelper`` or (if
-your  model extend's Wagtail's ``Page`` model) ``PageButtonHelper``, and
+create  your own button helper class by sub-classing ``ButtonHelper`` or ``PageButtonHelper`` (if
+your  model extend's Wagtail's ``Page`` model), and
 make any necessary additions/overrides. Once defined, you set the
 ``button_helper_class`` attribute on your ``ModelAdmin`` class to use your
 custom class instead of the default, like so:
