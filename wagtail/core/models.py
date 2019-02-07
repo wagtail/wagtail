@@ -1641,6 +1641,28 @@ class UserPagePermissionsProxy:
         permission to perform specific tasks on the given page"""
         return PagePermissionTester(self, page)
 
+    def explorable_pages(self):
+        """Return a queryset of the pages that this user has permission to edit"""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
+        editable_pages = Page.objects.none()
+
+        for perm in self.permissions.filter(permission_type='add'):
+            # user has edit permission on any subpage of perm.page
+            # (including perm.page itself) that is owned by them
+            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+
+        for perm in self.permissions.filter(permission_type='edit'):
+            # user has edit permission on any subpage of perm.page
+            # (including perm.page itself) regardless of owner
+            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+
+        return editable_pages
+
     def editable_pages(self):
         """Return a queryset of the pages that this user has permission to edit"""
         # Deal with the trivial cases first...
