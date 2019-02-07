@@ -1661,6 +1661,9 @@ class UserPagePermissionsProxy:
             # (including perm.page itself) regardless of owner
             editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
 
+        for perm in self.permissions.filter(permission_type='publish'):
+            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+
         return editable_pages
 
     def editable_pages(self):
