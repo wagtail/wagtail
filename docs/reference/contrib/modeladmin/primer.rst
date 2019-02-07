@@ -255,8 +255,8 @@ when your model extends ``wagtailcore.models.Page``, otherwise
 ``modeladmin.helpers.url.AdminURLHelper`` is used.
 
 If you find that the above helper classes don't work for your needs, you can
-easily create your own helper class, by sub-classing ``AdminURLHelper`` or
-``PageAdminURLHelper`` (if your  model extend's Wagtail's ``Page`` model), and
+easily create your own helper class by sub-classing ``AdminURLHelper`` or
+``PageAdminURLHelper`` (if your  model extends Wagtail's ``Page`` model), and
 making any necessary additions/overrides.
 
 Once your class is defined, set the ``url_helper_class`` attribute on
