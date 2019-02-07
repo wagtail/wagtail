@@ -1641,6 +1641,46 @@ class UserPagePermissionsProxy:
         permission to perform specific tasks on the given page"""
         return PagePermissionTester(self, page)
 
+    def explorable_pages(self):
+        """Return a queryset of pages that the user has access to view in the
+        explorer (e.g. add/edit/publish permission). Includes all pages with
+        specific group permissions and also the ancestors of those pages (in
+        order to enable navigation in the explorer)"""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
+        explorable_pages = Page.objects.none()
+
+        # Creates a union queryset of all objects the user has access to add,
+        # edit and publish
+        for perm in self.permissions.filter(
+            Q(permission_type="add")
+            | Q(permission_type="edit")
+            | Q(permission_type="publish")
+            | Q(permission_type="lock")
+        ):
+            explorable_pages |= Page.objects.descendant_of(
+                perm.page, inclusive=True
+            )
+
+        # For all pages with specific permissions, add their ancestors as
+        # explorable. This will allow deeply nested pages to be accessed in the
+        # explorer. For example, in the hierarchy A>B>C>D where the user has
+        # 'edit' access on D, they will be able to navigate to D without having
+        # explicit access to A, B or C.
+        page_permissions = Page.objects.filter(group_permissions__in=self.permissions)
+        for page in page_permissions:
+            explorable_pages |= page.get_ancestors()
+
+        # Remove unnecessary top-level ancestors that the user has no access to
+        fca_page = page_permissions.first_common_ancestor()
+        explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
+
+        return explorable_pages
+
     def editable_pages(self):
         """Return a queryset of the pages that this user has permission to edit"""
         # Deal with the trivial cases first...

@@ -56,7 +56,13 @@ def index(request, parent_page_id=None):
 
     parent_page = parent_page.specific
 
-    pages = parent_page.get_children().prefetch_related('content_type', 'sites_rooted_here')
+    user_perms = UserPagePermissionsProxy(request.user)
+    pages = (
+        parent_page.get_children().prefetch_related(
+            "content_type", "sites_rooted_here"
+        )
+        & user_perms.explorable_pages()
+    )
 
     # Get page ordering
     ordering = request.GET.get('ordering', '-latest_revision_created_at')
