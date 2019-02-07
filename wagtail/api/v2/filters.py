@@ -4,7 +4,7 @@ from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
 from wagtail.core import hooks
-from wagtail.core.models import Page
+from wagtail.core.models import Page, UserPagePermissionsProxy
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
 
@@ -231,4 +231,5 @@ class ForExplorerFilter(BaseFilterBackend):
             for hook in hooks.get_hooks('construct_explorer_page_queryset'):
                 queryset = hook(parent_page, queryset, request)
 
-        return queryset
+        user_perms = UserPagePermissionsProxy(request.user)
+        return queryset & user_perms.explorable_pages()
