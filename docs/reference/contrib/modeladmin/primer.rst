@@ -181,7 +181,7 @@ Overriding views
 ----------------
 
 For all of the views offered by ``ModelAdmin``, the class provides an attribute
-that you can override, to tell it which class you'd like to use:
+that you can override in order to tell it which class you'd like to use:
 
 - ``index_view_class``
 - ``inspect_view_class``
@@ -206,14 +206,14 @@ For example, if you'd like to create your own view class and use it for the
 
     class MyModelAdmin(ModelAdmin):
         model = MyModel
-        index_view_class = MyModelIndexView
+        index_view_class = MyCustomIndexView
 
 
 Or, if you have no need for any of ``IndexView``'s existing functionality in
-your view, and would rather create your own view from scratch, ``modeladmin``
-will support that, too. However, it's highly recommended that you use
+your view and would rather create your own view from scratch, ``modeladmin``
+will support that too. However, it's highly recommended that you use
 ``modeladmin.views.WMABaseView`` as a base for your view. It'll make
-integrating with your ``ModelAdmin`` class much easier, and provides a bunch of
+integrating with your ``ModelAdmin`` class much easier and will provide a bunch of
 useful attributes and methods to get you started.
 
 .. _modeladmin_overriding_helper_classes:
