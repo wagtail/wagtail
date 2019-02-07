@@ -367,6 +367,7 @@ Contributors
 * Deniz Dogan
 * Po-Chuan Hsieh
 * scil
+* Mike Hearn
 
 Translators
 ===========

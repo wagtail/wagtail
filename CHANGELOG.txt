@@ -12,6 +12,7 @@ Changelog
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
  * Fix: Revised test decorator to ensure TestPageEditHandlers test cases run correctly (Alex Tomkins)
  * Fix: Wagtail bird animation in admin now ends correctly on all browsers (Deniz Dogan)
+ * Fix: Explorer menu no longer shows sibling pages for which the user does not have access (Mike Hearn)
 
 
 2.5 (24.04.2019)
