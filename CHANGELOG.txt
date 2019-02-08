@@ -66,6 +66,7 @@ Changelog
  * Fix: Clicking the privacy toggle while the page is still loading no longer loads the wrong data in the page (Helen Chapman)
  * Fix: Added missing `is_stored_locally` method to `AbstractDocument` (jonny5532)
  * Fix: Query model no longer removes punctuation as part of string normalisation (William Blackie)
+ * Fix: Make login test helper work with user models with non-default username fields (Andrew Miller)
 
 
 2.5.1 (07.05.2019)

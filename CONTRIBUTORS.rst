@@ -382,6 +382,7 @@ Contributors
 * Quadric
 * jonny5532
 * William Blackie
+* Andrew Miller
 
 Translators
 ===========
