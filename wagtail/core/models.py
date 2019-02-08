@@ -1642,7 +1642,8 @@ class UserPagePermissionsProxy:
         return PagePermissionTester(self, page)
 
     def explorable_pages(self):
-        """Return a queryset of the pages that this user has permission to edit"""
+        """Return a queryset of pages that the user has access to view in the
+        explorer (e.g. add/edit/publish permission)"""
         # Deal with the trivial cases first...
         if not self.user.is_active:
             return Page.objects.none()
@@ -1651,16 +1652,12 @@ class UserPagePermissionsProxy:
 
         editable_pages = Page.objects.none()
 
+        # Creates a union queryset of all objects the user has access to add,
+        # edit and publish
         for perm in self.permissions.filter(permission_type='add'):
-            # user has edit permission on any subpage of perm.page
-            # (including perm.page itself) that is owned by them
             editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
-
         for perm in self.permissions.filter(permission_type='edit'):
-            # user has edit permission on any subpage of perm.page
-            # (including perm.page itself) regardless of owner
             editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
-
         for perm in self.permissions.filter(permission_type='publish'):
             editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
 
