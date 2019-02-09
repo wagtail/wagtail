@@ -151,7 +151,7 @@ within your project, before resorting to the defaults:
 So, to override the template used by ``IndexView`` for example, you'd create a
 new ``index.html`` template and put it in one of those locations.  For example,
 if you wanted to do this for an ``ArticlePage`` model in a ``news`` app, you'd
-add your custom template as ``modeladmin/news/article/index.html``.
+add your custom template as ``modeladmin/news/articlepage/index.html``.
 
 For reference, ``modeladmin`` looks for templates with the following names for
 each view:
