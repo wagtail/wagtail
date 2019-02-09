@@ -344,6 +344,7 @@ Contributors
 * Asanka Lihiniyagoda
 * David Beitey
 * Paul Vetch
+* Vladimir Knobel
 
 Translators
 ===========
