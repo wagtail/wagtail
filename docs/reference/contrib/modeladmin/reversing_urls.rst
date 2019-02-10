@@ -1,100 +1,115 @@
 .. _modeladmin_reversing_urls:
 
-======================================
+=========================
 Reversing ModelAdmin URLs
-======================================
+=========================
 
-You can use the ModelAdmin's ``url_helper`` methods to easily get admin URLs for the various
-actions such as create, view or edit.
+``modeladmin`` provides a convenient set of ``url_helper`` methods to get
+admin URLs for the various views such as ``create``, ``delete``, ``inpsect``
+or ``edit``, along with a model listing via ``index``.
 
 .. contents::
     :local:
     :depth: 1
 
-----------------------
-Getting the URL Helper
-----------------------
+-------------------------------------------
+Getting the URL for Edit, Delete or Inspect
+-------------------------------------------
 
-You will need to import your ``MyModelAdmin`` that was creaed,
-instantiate it and then access the url_helper method.
-
-.. code-block:: python
-
-    from .wagtail_hooks import MyModelAdmin
-
-    url_helper = MyModelAdmin().url_helper
-
-
-.. _modeladmin_url_helper_get_action_url:
-
------------------------------
-``url_helper.get_action_url``
------------------------------
-
-**Expected value**: A string - action name.
-**Expected value**: A quoted string - if getting a URL for a specific ID.
-
-``get_action_url`` can be called with just an action name such as ``'index'`` or ``'create'``.
-This will return a relative URL to load that action for the specific model, eg. `/admin/my-page-model/edit`.
-If you pass in a second argument, it will be treated as the Primary Key (PK) or ID of the entity, ensure you wrap any data in ``quote`` to ensure it is safe to use in a URL.
+In this example, our goal is to provide a quick way to ``edit`` the Author
+that is linked to a blog post from the Admin Page Listing menu. Where we
+have a ``modeladmin`` called ``AuthorModelAdmin`` which uses the model
+``Authors`` and our ``BlogPage`` model has a foreign key to a single Author.
 
 .. code-block:: python
 
-    from django.contrib.admin.utils import quote
-    from .wagtail_hooks import MyPageModelAdmin
+    # file: wagtail_hooks.py
 
-    url_helper = MyPageModelAdmin().url_helper
+    from wagtail.admin import widgets as wagtailadmin_widgets
+    from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+    from wagtail.core import hooks
+
+    # Authors & BlogPage model not shown in this example
+    from models import Authors
+
+    # ensure our modeladmin is created
+    class AuthorModelAdmin(ModelAdmin):
+        model = Authors
+        menu_order = 200
+
+    # use the url_helper to create a button on the page listing if author present
+    @hooks.register('register_page_listing_buttons')
+    def page_listing_buttons(page, page_perms, is_parent=False):
+        page_author = getattr(page, 'page_author', False)
+        # only yield a button if we know an author is linked
+        if page_author:
+            url_helper = AuthorModelAdmin().url_helper # initialise modeladmin
+            edit_author_url = url_helper.get_action_url('edit', page_author.pk)
+            # edit_page_author_url will output /admin/my-app/author/edit/2/
+            yield wagtailadmin_widgets.PageListingButton(
+                'Edit Author',
+                edit_author_url,
+                priority=10
+            )
+
+    modeladmin_register(AuthorModelAdmin)
+
+
+In the above example, the ``url_helper`` on the ``AuthorModelAdmin`` class has
+been used to generate a URL to edit a ``Author`` instance via ``modeladmin``.
+
+The ``get_action_url`` function should be called with an action name such as
+``'edit'`` or ``'delete'`` and with the primary key (ID) of the instance.
+This will return a URL to load that action for the specific model in the format
+``/admin/my-app/my-page-model/edit/123``.
+
+The action names for a specific instance URLs are:
+
+* ``'edit'``
+* ``'delete'``
+* ``'inspect'`` **requires inspect enabled in modeladmin configuration**
+
+
+.. note::
+    If your Primary Key for the model is likely to contain characters that
+    are not URL safe, ensure you wrap any data in ``quote`` from
+    ``django.contrib.admin.utils``.
+
+
+----------------------------------
+Getting the URL for Create & Index
+----------------------------------
+
+There are URLs available for the model listing view and the create model view,
+these have the action names ``'index'`` and ``'create'``.
+
+Both of these URLs are also available via the ``url_helper`` as cached
+properties; ``url_helper.index_url`` and ``url_helper.create_url``.
+
+For example:
+
+.. code-block:: python
+
+    from .wagtail_hooks import AuthorModelAdmin
+
+    url_helper = AuthorModelAdmin().url_helper
 
     index_url = url_helper.get_action_url('index')
-    edit_person_1_url = url_helper.get_action_url('edit', quote(1))
-    delete_person_1_url = url_helper.get_action_url('delete', quote(1))
-
-
-The default available actions are:
-
-* ``'index'``
-* ``'create'``
-* ``'choose_parent'`` **only for page models**
-* ``'edit'`` **requires pk**
-* ``'delete'`` **requires pk**
-* ``'inspect'`` **requires pk & inspect enabled**
-
-Read more about how [customise to the behaviour of url_helper see :ref:`modeladmin_url_helper_class`.
-
-.. _modeladmin_url_helper_index_url:
-
-------------------------
-``url_helper.index_url``
-------------------------
-
-The ``index_url`` is cached and available via ``url_helper.index_url``.
-
-.. code-block:: python
-
-    from django.contrib.admin.utils import quote
-    from .wagtail_hooks import MyModelAdmin
-
-    url_helper = MyModelAdmin().url_helper
-
-    index_url = url_helper.get_action_url('index')
-    also_index_url = url_helper.index_url
-
-
-
-.. _modeladmin_url_helper_create_url:
-
--------------------------
-``url_helper.create_url``
--------------------------
-
-The ``create_url`` is cached and available via ``url_helper.create_url``.
-
-.. code-block:: python
-
-    from django.contrib.admin.utils import quote
-    from .wagtail_hooks import MyModelAdmin
-
-    url_helper = MyModelAdmin().url_helper
+    # OR we can use the cached property which is easier
+    also_index_url = url_helper.index_url # remember do not call this property as a function
+    # will output /admin/my-app/author
 
     create_url = url_helper.get_action_url('create')
-    also_create_url = url_helper.create_url
+    # OR we can use the cached property which is easier
+    also_create_url = url_helper.create_url # remember do not call this property as a function
+    # will output /admin/my-app/author/create
+
+.. note::
+
+    When creating a new page via ``modeladmin`` it can be created in multiple
+    places, there is an additional action ``'choose_parent'`` which is used to
+    select the parent **before** creation of a page. There should be no need to
+    navigate to this action directly as navigating to the ``create`` URL will
+    redirect the user to choose a parent if necessary.
+
+To customise ``url_helper`` behaviour, see :ref:`modeladmin_url_helper_class`.
