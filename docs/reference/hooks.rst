@@ -705,7 +705,7 @@ Choosers
     @hooks.register('construct_document_chooser_queryset')
     def show_my_uploaded_documents_only(documents, request):
         # Only show uploaded documents
-        documents = documents.filter(uploaded_by=request.user)
+        documents = documents.filter(uploaded_by_user=request.user)
 
         return documents
 
@@ -724,7 +724,7 @@ Choosers
     @hooks.register('construct_image_chooser_queryset')
     def show_my_uploaded_images_only(images, request):
         # Only show uploaded images
-        images = images.filter(uploaded_by=request.user)
+        images = images.filter(uploaded_by_user=request.user)
 
         return images
 

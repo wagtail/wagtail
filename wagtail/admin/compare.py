@@ -2,10 +2,12 @@ import difflib
 
 from bs4 import BeautifulSoup
 from django.utils.encoding import force_text
-from django.utils.html import escape
+from django.utils.html import escape, format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
+
+from wagtail.core import blocks
 
 
 class FieldComparison:
@@ -55,8 +57,171 @@ class RichTextFieldComparison(TextFieldComparison):
         ).to_html()
 
 
-class StreamFieldComparison(RichTextFieldComparison):
-    pass
+def get_comparison_class_for_block(block):
+    if hasattr(block, 'get_comparison_class'):
+        return block.get_comparison_class()
+    elif isinstance(block, blocks.CharBlock):
+        return CharBlockComparison
+    elif isinstance(block, blocks.RichTextBlock):
+        return RichTextBlockComparison
+    elif isinstance(block, blocks.StructBlock):
+        return StructBlockComparison
+    else:
+        # As all stream field blocks have a HTML representation, fall back to diffing that.
+        return RichTextBlockComparison
+
+
+class BlockComparison:
+    def __init__(self, block, exists_a, exists_b, val_a, val_b):
+        self.block = block
+        self.exists_a = exists_a
+        self.exists_b = exists_b
+        self.val_a = val_a
+        self.val_b = val_b
+
+    def is_new(self):
+        return self.exists_b and not self.exists_a
+
+    def is_deleted(self):
+        return self.exists_a and not self.exists_b
+
+    def has_changed(self):
+        return self.val_a != self.val_b
+
+    def htmlvalue(self, val):
+        return self.block.render_basic(val)
+
+
+class CharBlockComparison(BlockComparison):
+    def htmldiff(self):
+        return diff_text(
+            force_text(self.val_a),
+            force_text(self.val_b)
+        ).to_html()
+
+
+class RichTextBlockComparison(BlockComparison):
+    def htmldiff(self):
+        return diff_text(
+            BeautifulSoup(force_text(self.val_a), 'html5lib').getText(),
+            BeautifulSoup(force_text(self.val_b), 'html5lib').getText()
+        ).to_html()
+
+
+class StructBlockComparison(BlockComparison):
+    def htmlvalue(self, val):
+        htmlvalues = []
+        for name, block in self.block.child_blocks.items():
+            label = self.block.child_blocks[name].label
+            comparison_class = get_comparison_class_for_block(block)
+
+            htmlvalues.append(label, comparison_class(block, True, True, val[name], val[name]).htmlvalue(val[name]))
+
+        return format_html('<dl>\n{}\n</dl>', format_html_join(
+            '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', htmlvalues))
+
+    def htmldiff(self):
+        htmldiffs = []
+        for name, block in self.block.child_blocks.items():
+            label = self.block.child_blocks[name].label
+            comparison_class = get_comparison_class_for_block(block)
+
+            htmldiffs.append(label, comparison_class(block, self.exists_a, self.exists_b, self.val_a[name], self.val_b[name]).htmldiff())
+
+        return format_html('<dl>\n{}\n</dl>', format_html_join(
+            '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', htmldiffs))
+
+
+class StreamBlockComparison(BlockComparison):
+    def get_block_comparisons(self):
+        a_blocks = list(self.val_a) or []
+        b_blocks = list(self.val_b) or []
+
+        a_blocks_by_id = {block.id: block for block in a_blocks}
+        b_blocks_by_id = {block.id: block for block in b_blocks}
+
+        deleted_ids = a_blocks_by_id.keys() - b_blocks_by_id.keys()
+
+        comparisons = []
+        for block in b_blocks:
+            comparison_class = get_comparison_class_for_block(block.block)
+
+            if block.id in a_blocks_by_id:
+                # Changed/existing block
+                comparisons.append(comparison_class(block.block, True, True, a_blocks_by_id[block.id].value, block.value))
+            else:
+                # New block
+                comparisons.append(comparison_class(block.block, False, True, None, block.value))
+
+        # Insert deleted blocks at the index where they used to be
+        deleted_block_indices = [(block, i) for i, block in enumerate(a_blocks) if block.id in deleted_ids]
+
+        for block, index in deleted_block_indices:
+            comparison_class = get_comparison_class_for_block(block.block)
+            comparison_to_insert = comparison_class(block.block, True, False, block.value, None)
+
+            # Insert the block back in where it was before it was deleted.
+            # Note: we need to account for new blocks when finding the position.
+            current_index = 0
+            block_inserted = False
+            for i, comparison in enumerate(comparisons):
+                if comparison.is_new():
+                    continue
+
+                if current_index == index:
+                    comparisons.insert(i, comparison_to_insert)
+                    block_inserted = True
+                    break
+
+                current_index += 1
+
+            # Deleted block was from the end
+            if not block_inserted:
+                comparisons.append(comparison_to_insert)
+
+        return comparisons
+
+    def htmldiff(self):
+        comparisons_html = []
+
+        for comparison in self.get_block_comparisons():
+            classes = ['comparison__child-object']
+            if comparison.is_new():
+                classes.append('addition')
+                block_rendered = comparison.htmlvalue(comparison.val_b)
+            elif comparison.is_deleted():
+                classes.append('deletion')
+                block_rendered = comparison.htmlvalue(comparison.val_a)
+            elif comparison.has_changed():
+                block_rendered = comparison.htmldiff()
+            else:
+                block_rendered = comparison.htmlvalue(comparison.val_a)
+
+            classes = ' '.join(classes)
+            comparisons_html.append('<div class="{0}">{1}</div>'.format(classes, block_rendered))
+
+        return mark_safe('\n'.join(comparisons_html))
+
+
+class StreamFieldComparison(FieldComparison):
+    def has_block_ids(self, val):
+        if not val:
+            return True
+
+        return bool(val[0].id)
+
+    def htmldiff(self):
+        # Our method for diffing streamfields relies on the blocks in both revisions having UUIDs.
+        # But as UUIDs were added in Wagtail 1.11 we can't compare revisions that were created before
+        # that Wagtail version.
+        if self.has_block_ids(self.val_a) and self.has_block_ids(self.val_b):
+            return StreamBlockComparison(self.field.stream_block, True, True, self.val_a, self.val_b).htmldiff()
+        else:
+            # Fall back to diffing the HTML representation
+            return diff_text(
+                BeautifulSoup(force_text(self.val_a), 'html5lib').getText(),
+                BeautifulSoup(force_text(self.val_b), 'html5lib').getText()
+            ).to_html()
 
 
 class ChoiceFieldComparison(FieldComparison):
