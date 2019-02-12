@@ -334,7 +334,7 @@ class TestPagePermission(TestCase):
         someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
 
         user_perms = UserPagePermissionsProxy(event_editor)
-        explorable_pages = user_perms.editable_pages()
+        explorable_pages = user_perms.explorable_pages()
 
         self.assertFalse(explorable_pages.filter(id=homepage.id).exists())
         self.assertTrue(explorable_pages.filter(id=christmas_page.id).exists())
