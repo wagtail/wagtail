@@ -31,7 +31,7 @@ class WillowOperationRecorder:
 
     def validate_operation(self, operation, args, kwargs):
         """Check if the requested operation is sane and raise an exception if not."""
-        #The Willow docs say resize must take integral dimensions.
+        # The Willow docs say resize must take integral dimensions.
         if operation == "resize":
             x, y = args[0]
             if x != int(x) or y != int(y):
