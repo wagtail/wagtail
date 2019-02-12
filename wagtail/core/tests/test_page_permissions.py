@@ -1,6 +1,8 @@
+import json
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from django.test import TestCase
+from django.test import TestCase, Client
 
 from wagtail.core.models import GroupPagePermission, Page, UserPagePermissionsProxy
 from wagtail.tests.testapp.models import (
@@ -322,6 +324,40 @@ class TestPagePermission(TestCase):
         self.assertFalse(publishable_pages.filter(id=someone_elses_event_page.id).exists())
 
         self.assertFalse(can_publish_pages)
+
+    def test_explorable_pages(self):
+        event_editor = get_user_model().objects.get(username='eventeditor')
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        about_us_page = Page.objects.get(url_path='/home/about-us/')
+        someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+
+        user_perms = UserPagePermissionsProxy(event_editor)
+        explorable_pages = user_perms.editable_pages()
+
+        self.assertFalse(explorable_pages.filter(id=homepage.id).exists())
+        self.assertTrue(explorable_pages.filter(id=christmas_page.id).exists())
+        self.assertTrue(explorable_pages.filter(id=unpublished_event_page.id).exists())
+        self.assertFalse(explorable_pages.filter(id=someone_elses_event_page.id).exists())
+        self.assertFalse(explorable_pages.filter(id=about_us_page.id).exists())
+
+    def test_explorable_pages_in_explorer(self):
+        event_editor = get_user_model().objects.get(username='eventeditor')
+
+        client = Client()
+        client.force_login(event_editor)
+
+        homepage = Page.objects.get(url_path='/home/')
+        explorer_response = client.get('/admin/api/v2beta/pages/?child_of={}&for_explorer=1'.format(homepage.pk))
+        explorer_json = json.loads(explorer_response.content)
+
+        events_page = Page.objects.get(url_path='/home/events/')
+        about_us_page = Page.objects.get(url_path='/home/about-us/')
+
+        explorable_titles = [t.get('title') for t in explorer_json.get('items')]
+        self.assertIn(events_page.title, explorable_titles)
+        self.assertNotIn(about_us_page.title, explorable_titles)
 
     def test_editable_pages_for_user_with_edit_permission(self):
         event_moderator = get_user_model().objects.get(username='eventmoderator')
