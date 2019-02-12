@@ -355,7 +355,7 @@ class TestPagePermission(TestCase):
 
         homepage = Page.objects.get(url_path='/home/')
         explorer_response = client.get('/admin/api/v2beta/pages/?child_of={}&for_explorer=1'.format(homepage.pk))
-        explorer_json = json.loads(explorer_response.content)
+        explorer_json = json.loads(explorer_response.content.decode('utf-8'))
 
         events_page = Page.objects.get(url_path='/home/events/')
         about_us_page = Page.objects.get(url_path='/home/about-us/')
