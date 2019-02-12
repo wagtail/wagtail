@@ -1650,18 +1650,18 @@ class UserPagePermissionsProxy:
         if self.user.is_superuser:
             return Page.objects.all()
 
-        editable_pages = Page.objects.none()
+        explorable_pages = Page.objects.none()
 
         # Creates a union queryset of all objects the user has access to add,
         # edit and publish
         for perm in self.permissions.filter(permission_type='add'):
-            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+            explorable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
         for perm in self.permissions.filter(permission_type='edit'):
-            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+            explorable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
         for perm in self.permissions.filter(permission_type='publish'):
-            editable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+            explorable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
 
-        return editable_pages
+        return explorable_pages
 
     def editable_pages(self):
         """Return a queryset of the pages that this user has permission to edit"""
