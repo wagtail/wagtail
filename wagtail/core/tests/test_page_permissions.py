@@ -330,16 +330,21 @@ class TestPagePermission(TestCase):
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
-        about_us_page = Page.objects.get(url_path='/home/about-us/')
         someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
+        about_us_page = Page.objects.get(url_path='/home/about-us/')
 
         user_perms = UserPagePermissionsProxy(event_editor)
         explorable_pages = user_perms.explorable_pages()
 
+        # Homepage, while the first common ancestor, is not explorable
         self.assertFalse(explorable_pages.filter(id=homepage.id).exists())
+
+        # Verify all pages below /home/events/ are explorable
         self.assertTrue(explorable_pages.filter(id=christmas_page.id).exists())
         self.assertTrue(explorable_pages.filter(id=unpublished_event_page.id).exists())
-        self.assertFalse(explorable_pages.filter(id=someone_elses_event_page.id).exists())
+        self.assertTrue(explorable_pages.filter(id=someone_elses_event_page.id).exists())
+
+        # Verify page outside /events/ tree are not explorable
         self.assertFalse(explorable_pages.filter(id=about_us_page.id).exists())
 
     def test_explorable_pages_in_explorer(self):
@@ -358,6 +363,9 @@ class TestPagePermission(TestCase):
         explorable_titles = [t.get('title') for t in explorer_json.get('items')]
         self.assertIn(events_page.title, explorable_titles)
         self.assertNotIn(about_us_page.title, explorable_titles)
+
+    def test_explorable_pages_with_permission_gap_in_hierarchy(self):
+        pass
 
     def test_editable_pages_for_user_with_edit_permission(self):
         event_moderator = get_user_model().objects.get(username='eventmoderator')
