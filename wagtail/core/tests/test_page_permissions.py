@@ -2,7 +2,7 @@ import json
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from django.test import TestCase, Client
+from django.test import Client, TestCase
 
 from wagtail.core.models import GroupPagePermission, Page, UserPagePermissionsProxy
 from wagtail.tests.testapp.models import (
