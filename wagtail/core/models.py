@@ -1656,12 +1656,14 @@ class UserPagePermissionsProxy:
 
         # Creates a union queryset of all objects the user has access to add,
         # edit and publish
-        for perm in self.permissions.filter(permission_type='add'):
-            explorable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
-        for perm in self.permissions.filter(permission_type='edit'):
-            explorable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
-        for perm in self.permissions.filter(permission_type='publish'):
-            explorable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+        for perm in self.permissions.filter(
+            Q(permission_type="add")
+            | Q(permission_type="edit")
+            | Q(permission_type="publish")
+        ):
+            explorable_pages |= Page.objects.descendant_of(
+                perm.page, inclusive=True
+            )
 
         # For all pages with specific permissions, add their ancestors as
         # explorable. This will allow deeply nested pages to be accessed in the
