@@ -100,7 +100,7 @@ class CloudflareBackend(BaseBackend):
 
         except requests.exceptions.HTTPError as e:
             for url in urls:
-                logger.error("Couldn't purge '%s' from Cloudflare. HTTPError: %d %s", url, e.response.status_code, e.message)
+                logger.error("Couldn't purge '%s' from Cloudflare. HTTPError: %d %s", url, e.response.status_code, str(e.args[0]))
             return
 
         if response_json['success'] is False:
