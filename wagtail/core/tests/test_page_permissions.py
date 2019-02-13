@@ -327,7 +327,6 @@ class TestPagePermission(TestCase):
 
     def test_explorable_pages(self):
         event_editor = get_user_model().objects.get(username='eventeditor')
-        homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         unpublished_event_page = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
         someone_elses_event_page = EventPage.objects.get(url_path='/home/events/someone-elses-event/')
@@ -335,9 +334,6 @@ class TestPagePermission(TestCase):
 
         user_perms = UserPagePermissionsProxy(event_editor)
         explorable_pages = user_perms.explorable_pages()
-
-        # Homepage, while the first common ancestor, is not explorable
-        self.assertFalse(explorable_pages.filter(id=homepage.id).exists())
 
         # Verify all pages below /home/events/ are explorable
         self.assertTrue(explorable_pages.filter(id=christmas_page.id).exists())
@@ -365,7 +361,18 @@ class TestPagePermission(TestCase):
         self.assertNotIn(about_us_page.title, explorable_titles)
 
     def test_explorable_pages_with_permission_gap_in_hierarchy(self):
-        pass
+        corporate_editor = get_user_model().objects.get(username='corporateeditor')
+        user_perms = UserPagePermissionsProxy(corporate_editor)
+
+        about_us_page = Page.objects.get(url_path='/home/about-us/')
+        businessy_events = Page.objects.get(url_path='/home/events/businessy-events/')
+        events_page = Page.objects.get(url_path='/home/events/')
+
+        explorable_pages = user_perms.explorable_pages()
+
+        self.assertTrue(explorable_pages.filter(id=about_us_page.id).exists())
+        self.assertTrue(explorable_pages.filter(id=businessy_events.id).exists())
+        self.assertTrue(explorable_pages.filter(id=events_page.id).exists())
 
     def test_editable_pages_for_user_with_edit_permission(self):
         event_moderator = get_user_model().objects.get(username='eventmoderator')
