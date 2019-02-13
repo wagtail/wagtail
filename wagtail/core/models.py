@@ -1643,7 +1643,9 @@ class UserPagePermissionsProxy:
 
     def explorable_pages(self):
         """Return a queryset of pages that the user has access to view in the
-        explorer (e.g. add/edit/publish permission)"""
+        explorer (e.g. add/edit/publish permission). Includes all pages with
+        specific group permissions and also the ancestors of those pages (in
+        order to enable navigation in the explorer)"""
         # Deal with the trivial cases first...
         if not self.user.is_active:
             return Page.objects.none()
@@ -1660,6 +1662,15 @@ class UserPagePermissionsProxy:
             explorable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
         for perm in self.permissions.filter(permission_type='publish'):
             explorable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+
+        # For all pages with specific permissions, add their ancestors as
+        # explorable. This will allow deeply nested pages to be accessed in the
+        # explorer. For example, in the hierarchy A>B>C>D where the user has
+        # 'edit' access on D, they will be able to navigate to D without having
+        # explicit access to A, B or C.
+        page_permissions = Page.objects.filter(group_permissions__in=self.permissions)
+        for page in page_permissions:
+            explorable_pages |= page.get_ancestors()
 
         return explorable_pages
 
