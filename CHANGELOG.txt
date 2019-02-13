@@ -39,6 +39,7 @@ Changelog
  * Fix: User add/edit forms now support form widgets with JS/CSS media (Damian Grinwis)
  * Fix: Rich text processing now preserves non-breaking spaces instead of converting them to normal spaces (Wesley van Lee)
  * Fix: Prevent autocomplete dropdowns from appearing over date choosers on Chrome (Kevin Howbrook)
+ * Fix: Prevent crash when logging HTTP errors from Cloudflare (Kevin Howbrook)
 
 
 2.4 (19.12.2018)

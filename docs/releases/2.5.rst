@@ -55,6 +55,7 @@ Bug fixes
  * User add/edit forms now support form widgets with JS/CSS media (Damian Grinwis)
  * Rich text processing now preserves non-breaking spaces instead of converting them to normal spaces (Wesley van Lee)
  * Prevent autocomplete dropdowns from appearing over date choosers on Chrome (Kevin Howbrook)
+ * Prevent crash when logging HTTP errors on Cloudflare cache purging (Kevin Howbrook)
 
 
 Upgrade considerations
