@@ -23,7 +23,7 @@ your model. In this example the app is called ``users`` and the model is ``User`
 
   AUTH_USER_MODEL = 'users.User'
 
-Create your custom user create and edit forms in your app:
+Create your custom user 'create' and 'edit' forms in your app:
 
 .. code-block:: python
 
@@ -45,7 +45,7 @@ Create your custom user create and edit forms in your app:
       status = forms.ModelChoiceField(queryset=MembershipStatus.objects, required=True, label=_("Status"))
 
 
-Extend the Wagtail user create and edit templates. These extended templates should be placed in a
+Extend the Wagtail user 'create' and 'edit' templates. These extended templates should be placed in a
 template directory ``wagtailusers/users``.
 
 Template create.html:
