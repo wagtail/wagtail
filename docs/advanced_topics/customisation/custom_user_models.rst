@@ -70,7 +70,7 @@ Template edit.html:
       {% include "wagtailadmin/shared/field_as_li.html" with field=form.status %}
   {% endblock extra_fields %}
 
-The ``extra_fields`` block allows fields to be inserted below the last name field
+The ``extra_fields`` block allows fields to be inserted below the ``last_name`` field
 in the default templates. Other block overriding options exist to allow appending
 fields to the end or beginning of the existing fields, or to allow all the fields to
 be redefined.
