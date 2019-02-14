@@ -24,6 +24,7 @@
                 <div class="replace-file-input">
                     <button class="button bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
                     <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages:add_multiple' %}" multiple>
+                    <input id="title" type="hidden" maxlength="{{ max_title_length }}" name="title" value="">
                 </div>
                 {% csrf_token %}
                 {% if collections %}

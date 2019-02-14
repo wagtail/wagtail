@@ -33,6 +33,7 @@ $(function() {
 
             $('#upload-list').append(li);
             data.context = li;
+            data.$titleField = $('#title', data.form); // add upload title field for custom title on upload
 
             data.process(function() {
                 return $this.fileupload('process', data);
@@ -126,6 +127,12 @@ $(function() {
             itemElement.removeClass('upload-uploading').addClass('upload-complete');
         }
     });
+
+    /* update the #title input within the form before each file upload to add custom titles */
+    $('#fileupload').bind(
+        'fileuploadsubmit',
+        wagtail.utils.getPopulateTitleHandler('IMAGE', 'ADD_MULTIPLE')
+    );
 
     // ajax-enhance forms added on done()
     $('#upload-list').on('submit', 'form', function(e) {

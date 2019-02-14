@@ -51,7 +51,6 @@ function initTagField(id, autocompleteUrl, options) {
  *    - alwaysDirty - When set to true the form will always be considered dirty,
  *      prompting the user even when nothing has been changed.
 */
-
 function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
     var confirmationMessage = options.confirmationMessage || ' ';
@@ -353,7 +352,9 @@ wagtail = (function(document, window, wagtail) {
     // Module pattern
     if (!wagtail) {
         wagtail = {
-            ui: {}
+            components: {}, // see wagtailadmin.entry.js
+            ui: {},
+            utils: {},
         };
     }
 
@@ -536,6 +537,7 @@ wagtail = (function(document, window, wagtail) {
     }
 
     $(document).ready(initDropDowns);
+
     wagtail.ui.initDropDowns = initDropDowns;
     wagtail.ui.DropDownController = DropDownController;
 
@@ -564,6 +566,78 @@ wagtail = (function(document, window, wagtail) {
     }
 
     $(document).ready(initButtonSelects);
+
+    /**
+     * Returns a potential value to be pre-filled on the title field associated with the file upload.
+     * If the returned a non-string value is returned, any existing value in the title field will
+     * be left unchanged. Note that if an empty string is returned, this empty value will replace
+     * any existing value in the title field.
+     *
+     * @param {string=} filename 
+     * @param {Object} options 
+     * @param {string=} options.currentTitle - current entered value (if available), will be null for `ADD_MULTIPLE`
+     * @param {Number=} options.maxLength - maximum title length (if available), may be null
+     * @param {string} options.model - `DOCUMENT` or `IMAGE`
+     * @param {string} options.widget - `CHOOSER_MODAL`, `ADD` or `ADD_MULTIPLE`
+     * @returns {string=} if a string is not returned the title field will not be updated
+     */
+    function getTitleFromFilename (filename, options) {
+        if (options.currentTitle) return null; // do not overwrite an existing entered title value
+        return filename.replace(/\.[^\.]+$/, ''); // return filename with the file extension removed
+    }
+
+    wagtail.utils.getTitleFromFilename = getTitleFromFilename;
+
+    /**
+     * Returns a function to handle the change of a file (single or multiple) upload
+     * so that the context's title field can be updated based on the filename.
+     * 
+     * @param {string} model - `DOCUMENT` or `IMAGE`
+     * @param {string} widget - `CHOOSER_MODAL`, `ADD` or `ADD_MULTIPLE`
+     * @returns {Function}
+     */
+    function getPopulateTitleHandler (model, widget) {
+
+        /**
+         * Generic on change handler for the multiple file upload widget and single file upload widget.
+         */
+        return function onChangeHandler (event, data) {
+
+            var $titleField;
+            var currentTitle;
+            var filename;
+
+            if (widget === 'ADD_MULTIPLE') {
+                $titleField = data.$titleField;
+                currentTitle = null; // not applicable for multiple upload
+                // when adding multiple, onChangeHandler will be called for each file individually
+                var files = data.files[0] || {};
+                filename = files.name;
+            } else {
+                $titleField = event.data.$titleField;
+                currentTitle = $titleField.val();
+                // file widget value example: `C:\fakepath\image.jpg` - convert to just the filename part
+                filename = $(this).val().split('\\').slice(-1)[0];                
+            }
+
+            var maxLength = $titleField.attr('maxLength') || null; // must handle scenarios where maxLength is not available
+
+            var newTitle = wagtail.utils.getTitleFromFilename(filename, {
+                currentTitle: currentTitle,
+                maxLength: maxLength && parseInt(maxLength),
+                model: model,
+                widget: widget
+            });
+
+            if (typeof newTitle === 'string') {
+                $titleField.val(newTitle);
+            } else if (widget === 'ADD_MULTIPLE') {
+                $titleField.val(''); // must clear any existing value for next upload
+            }
+        }
+    }
+
+    wagtail.utils.getPopulateTitleHandler = getPopulateTitleHandler;
 
     return wagtail;
 

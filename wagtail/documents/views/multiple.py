@@ -41,7 +41,7 @@ def add(request):
 
         # Build a form for validation
         form = DocumentForm({
-            'title': request.FILES['files[]'].name,
+            'title': request.POST.get('title', request.FILES['files[]'].name),
             'collection': request.POST.get('collection'),
         }, {
             'file': request.FILES['files[]']
@@ -85,6 +85,7 @@ def add(request):
         form = DocumentForm(user=request.user)
 
         return TemplateResponse(request, 'wagtaildocs/multiple/add.html', {
+            'max_title_length': form.fields['title'].max_length,
             'help_text': form.fields['file'].help_text,
             'collections': collections_to_choose,
             'form_media': form.media,

@@ -14,6 +14,11 @@
             $('#id_tags').tagit({
                 autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
             });
+            $('#id_file').on(
+                'change',
+                { $titleField: $('#id_title') },
+                window.wagtail.utils.getPopulateTitleHandler('IMAGE', 'ADD')
+            );
         });
     </script>
 {% endblock %}

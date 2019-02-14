@@ -562,7 +562,8 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         This tests that a POST request to the add view saves the document and returns an edit form
         """
         response = self.client.post(reverse('wagtaildocs:add_multiple'), {
-            'files[]': SimpleUploadedFile('test.png', b"Simple text document"),
+            'title': 'the amazing giraffe',
+            'files[]': SimpleUploadedFile('the-amazing-giraffe.txt', b"Simple text document"),
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
@@ -572,14 +573,18 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
 
         # Check document
         self.assertIn('doc', response.context)
-        self.assertEqual(response.context['doc'].title, 'test.png')
+        self.assertEqual(response.context['doc'].title, 'the amazing giraffe')
         self.assertTrue(response.context['doc'].file_size)
         self.assertTrue(response.context['doc'].file_hash)
 
         # check that it is in the root collection
-        doc = get_document_model().objects.get(title='test.png')
+        doc = get_document_model().objects.get(title='the amazing giraffe')
         root_collection = Collection.get_first_root_node()
         self.assertEqual(doc.collection, root_collection)
+
+        # check the original file name is preserved on the file itself (excluding hash)
+        self.assertIn('the-amazing-giraffe', doc.filename)
+        self.assertIn('.txt', doc.filename)
 
         # Check form
         self.assertIn('form', response.context)
@@ -587,7 +592,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
             set(response.context['form'].fields),
             set(get_document_model().admin_form_fields) - {'file', 'collection'},
         )
-        self.assertEqual(response.context['form'].initial['title'], 'test.png')
+        self.assertEqual(response.context['form'].initial['title'], 'the amazing giraffe')
 
         # Check JSON
         response_json = json.loads(response.content.decode())
@@ -600,6 +605,38 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         # form should not contain a collection chooser
         self.assertNotIn('Collection', response_json['form'])
 
+    def test_add_post_no_title(self):
+        """
+        A POST request to the add view saves the document and uses the file title if needed
+        """
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), {
+            'files[]': SimpleUploadedFile('the-amazing-octopus.md', b"Simple text document"),
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+
+        # Check document
+        self.assertIn('doc', response.context)
+        self.assertEqual(response.context['doc'].title, 'the-amazing-octopus.md')
+        self.assertTrue(response.context['doc'].file_size)
+        self.assertTrue(response.context['doc'].file_hash)
+
+        # check that it is in the root collection
+        doc = get_document_model().objects.get(title='the-amazing-octopus.md')
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(doc.collection, root_collection)
+
+        # Check form
+        self.assertIn('form', response.context)
+        self.assertEqual(
+            set(response.context['form'].fields),
+            set(get_document_model().admin_form_fields) - {'file', 'collection'},
+        )
+        self.assertEqual(response.context['form'].initial['title'], 'the-amazing-octopus.md')
+
     def test_add_post_with_collections(self):
         """
         This tests that a POST request to the add view saves the document
@@ -610,7 +647,8 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         evil_plans_collection = root_collection.add_child(name="Evil plans")
 
         response = self.client.post(reverse('wagtaildocs:add_multiple'), {
-            'files[]': SimpleUploadedFile('test.png', b"Simple text document"),
+            'title': 'Flawless Plan',
+            'files[]': SimpleUploadedFile('flawless-plan.pdf', b"Simple text document"),
             'collection': evil_plans_collection.id
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
@@ -621,14 +659,18 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
 
         # Check document
         self.assertIn('doc', response.context)
-        self.assertEqual(response.context['doc'].title, 'test.png')
+        self.assertEqual(response.context['doc'].title, 'Flawless Plan')
         self.assertTrue(response.context['doc'].file_size)
         self.assertTrue(response.context['doc'].file_hash)
 
         # check that it is in the 'evil plans' collection
-        doc = get_document_model().objects.get(title='test.png')
+        doc = get_document_model().objects.get(title='Flawless Plan')
         root_collection = Collection.get_first_root_node()
         self.assertEqual(doc.collection, evil_plans_collection)
+
+        # check the original file name is preserved on the file itself (excluding hash)
+        self.assertIn('flawless-plan', doc.filename)
+        self.assertIn('.pdf', doc.filename)
 
         # Check form
         self.assertIn('form', response.context)
@@ -636,7 +678,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
             set(response.context['form'].fields),
             set(get_document_model().admin_form_fields) - {'file'} | {'collection'},
         )
-        self.assertEqual(response.context['form'].initial['title'], 'test.png')
+        self.assertEqual(response.context['form'].initial['title'], 'Flawless Plan')
 
         # Check JSON
         response_json = json.loads(response.content.decode())

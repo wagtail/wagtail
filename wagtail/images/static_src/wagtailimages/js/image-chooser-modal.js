@@ -92,6 +92,13 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             return false;
         });
 
+        /* set up pre-filling of title based on selected file */
+        $('form.image-upload', modal.body).find('[type="file"]').on(
+            'change',
+            { $titleField: $('#id_image-chooser-upload-title', modal.body) },
+            wagtail.utils.getPopulateTitleHandler('IMAGE', 'CHOOSER_MODAL')
+        );
+
         $('form.image-search', modal.body).on('submit', search);
 
         $('#id_q').on('input', function() {
@@ -112,22 +119,6 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             });
             return false;
         });
-
-        function populateTitle(context) {
-            var fileWidget = $('#id_image-chooser-upload-file', context);
-            fileWidget.on('change', function () {
-                var titleWidget = $('#id_image-chooser-upload-title', context);
-                var title = titleWidget.val();
-                if (title === '') {
-                    // The file widget value example: `C:\fakepath\image.jpg`
-                    var parts = fileWidget.val().split('\\');
-                    var fileName = parts[parts.length - 1];
-                    titleWidget.val(fileName);
-                }
-            });
-        }
-
-        populateTitle(modal.body);
     },
     'image_chosen': function(modal, jsonData) {
         modal.respond('imageChosen', jsonData['result']);

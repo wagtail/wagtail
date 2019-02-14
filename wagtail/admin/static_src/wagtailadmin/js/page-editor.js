@@ -127,7 +127,6 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
         parent.addClass('moving').css('height', parent.height());
 
         children.each(function() {
-            // console.log($(this));
             $(this).css('top', $(this).position().top);
         }).addClass('moving');
 

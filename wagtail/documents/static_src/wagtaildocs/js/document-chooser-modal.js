@@ -93,6 +93,13 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             return false;
         });
 
+        /* set up pre-filling of title based on selected file */
+        $('form.document-upload', modal.body).find('[type="file"]').on(
+            'change',
+            { $titleField: $('#id_document-chooser-upload-title', modal.body) },
+            wagtail.utils.getPopulateTitleHandler('DOCUMENT', 'CHOOSER_MODAL')
+        );
+
         $('form.document-search', modal.body).on('submit', search);
 
         $('#id_q').on('input', function() {

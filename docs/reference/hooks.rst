@@ -387,12 +387,13 @@ Hooks for customising the editing interface for pages and snippets.
         js_includes = format_html_join('\n', '<script src="{0}"></script>',
             ((static(filename),) for filename in js_files)
         )
+        # remember to use double '{{' so they are not parsed as template placeholders
         return js_includes + format_html(
             """
             <script>
-                $(function() {
+                $(function() {{
                     $('button').raptorize();
-                });
+                }});
             </script>
             """
         )
