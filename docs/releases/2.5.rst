@@ -37,6 +37,7 @@ Bug fixes
  * ``routablepageurl`` tag now correctly omits domain part when multiple sites exist at the same root (Gassan Gousseinov)
  * Added missing collection column specifier on document listing template (Sergey Fedoseev)
  * Page Copy will now also copy ParentalManyToMany field relations (LB (Ben Johnston))
+ * Admin HTML header now includes correct language code (Matt Westcott)
 
 
 Upgrade considerations
