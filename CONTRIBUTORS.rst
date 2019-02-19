@@ -345,6 +345,7 @@ Contributors
 * David Beitey
 * Paul Vetch
 * Vladimir Knobel
+* Matt Collins
 
 Translators
 ===========
