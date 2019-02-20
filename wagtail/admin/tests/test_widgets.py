@@ -76,7 +76,7 @@ class TestAdminPageChooserWidget(TestCase):
         )
 
         html = widget.render_html('test', self.child_page, {})
-        self.assertIn(">Choose a page (Simple Page, Event Page)<", html)
+        self.assertIn(">Choose a page<", html)
 
     def test_render_js_init_with_can_choose_root(self):
         widget = widgets.AdminPageChooser(can_choose_root=True)
