@@ -102,10 +102,11 @@ def check_panels_in_model(cls, context='model'):
         # must check the InlinePanel related models
         edit_handler = cls.get_edit_handler()
         for tab in edit_handler.children:
-            inline_panels = [p for p in tab.children if isinstance(p, InlinePanel)]
-            for inline_panel in inline_panels:
+            inline_panel_children = [
+                p for p in tab.children if isinstance(p, InlinePanel)]
+            for inline_panel_child in inline_panel_children:
                 errors.extend(check_panels_in_model(
-                    inline_panel.related.related_model,
+                    inline_panel_child.db_field.related_model,
                     context='InlinePanel model',
                 ))
 
