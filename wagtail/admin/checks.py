@@ -85,8 +85,7 @@ def inline_panel_model_panels_check(app_configs, **kwargs):
     # filter out duplicate errors found for the same model
     unique_errors = []
     for error in errors:
-        # if error.msg not in [e.msg for e in unique_errors]:
-        if error.msg not in unique_errors:
+        if error.msg not in [e.msg for e in unique_errors]:
             unique_errors.append(error)
     return unique_errors
 
