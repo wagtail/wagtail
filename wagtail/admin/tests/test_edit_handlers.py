@@ -23,7 +23,6 @@ from wagtail.tests.testapp.models import (
 from wagtail.tests.utils import WagtailTestUtils
 
 
-
 class TestGetFormForModel(TestCase):
     def test_get_form_without_model(self):
         edit_handler = ObjectList()
