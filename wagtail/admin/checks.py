@@ -129,7 +129,7 @@ def check_panels_in_model(cls, context='model'):
         if 'InlinePanel' in context:
             error_hint = """Ensure that {} uses `panels` instead of `{}`.
         There are no tabs on non-Page model editing within InlinePanels.
-        """.format(name, panel, tab, panel)
+        """.format(name, panel)
         else:
             error_hint = """Ensure that {} uses `panels` instead of `{}`
         or set up an `edit_handler` if you want a tabbed editing interface.
