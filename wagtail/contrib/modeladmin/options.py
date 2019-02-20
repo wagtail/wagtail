@@ -504,7 +504,8 @@ class ModelAdmin(WagtailRegisterable):
 
         @checks.register('panels')
         def modeladmin_model_check(app_configs, **kwargs):
-            return check_panels_in_model(self.model, 'modeladmin')
+            errors = check_panels_in_model(self.model, 'modeladmin')
+            return errors
 
 
 class ModelAdminGroup(WagtailRegisterable):
