@@ -31,6 +31,7 @@ Changelog
  * Fix: Unclear error message when saving image after focal point edit (Hugo van den Berg)
  * Fix: `send_mail` now correctly uses the `html_message` kwarg for HTML messages (Tiago Requeijo)
  * Fix: Page copying no longer allowed if page model has reached its `max_count` (Andy Babic)
+ * Fix: Don't show page type on page chooser button when multiple types are allowed (Thijs Kramer)
 
 
 2.4 (19.12.2018)

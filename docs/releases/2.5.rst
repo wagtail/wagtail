@@ -47,6 +47,7 @@ Bug fixes
  * Increase max length on ``Embed.thumbnail_url`` to 255 characters (Kevin Howbrook)
  * ``send_mail`` now correctly uses the ``html_message`` kwarg for HTML messages (Tiago Requeijo)
  * Page copying no longer allowed if page model has reached its ``max_count`` (Andy Babic)
+ * Don't show page type on page chooser button when multiple types are allowed (Thijs Kramer)
 
 
 Upgrade considerations
