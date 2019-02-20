@@ -102,7 +102,7 @@ def check_panels_in_model(cls, context='model'):
         edit_handler = cls.get_edit_handler()
         for tab in edit_handler.children:
             inline_panel_children = [
-                p for p in tab.children if isinstance(p, InlinePanel)]
+                panel for panel in tab.children if isinstance(panel, InlinePanel)]
             for inline_panel_child in inline_panel_children:
                 errors.extend(check_panels_in_model(
                     inline_panel_child.db_field.related_model,
@@ -120,27 +120,33 @@ def check_panels_in_model(cls, context='model'):
         'settings_panels',
     ]
 
-    for panel in tabbed_panels:
-        name = cls.__name__
-        if not hasattr(cls, panel):
+    for panel_name in tabbed_panels:
+        class_name = cls.__name__
+        if not hasattr(cls, panel_name):
             continue
-        tab = panel.replace('_panels', '').title()
+
+        panel_name_short = panel_name.replace('_panels', '').title()
+        error_title = "{}.{} will have no effect on {} editing".format(
+            class_name, panel_name, context)
+
         if 'InlinePanel' in context:
             error_hint = """Ensure that {} uses `panels` instead of `{}`.
-        There are no tabs on non-Page model editing within InlinePanels.
-        """.format(name, panel)
+There are no tabs on non-Page model editing within InlinePanels.""".format(
+                class_name, panel_name)
         else:
-            error_hint = """Ensure that {} uses `panels` instead of `{}`
-        or set up an `edit_handler` if you want a tabbed editing interface.
-        There are no default tabs on non-Page models so there will be no
-        {} tab for the {} to render in.""".format(name, panel, tab, panel)
+            error_hint = """Ensure that {} uses `panels` instead of `{}`\
+or set up an `edit_handler` if you want a tabbed editing interface.
+There are no default tabs on non-Page models so there will be no \
+{} tab for the {} to render in.""".format(
+                class_name, panel_name, panel_name_short, panel_name)
 
         error = Warning(
-            "{}.{} will have no effect on {} editing".format(name, panel, context),
+            error_title,
             hint=error_hint,
             obj=cls,
             id='wagtailadmin.W002'
         )
+
         errors.append(error)
 
     return errors
