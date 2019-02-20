@@ -347,6 +347,7 @@ Contributors
 * Vladimir Knobel
 * Matt Collins
 * Thomas Elliott
+* damianosSemmle
 
 Translators
 ===========
