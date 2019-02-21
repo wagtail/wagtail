@@ -1,9 +1,11 @@
 from django.conf.urls import url
 from django.contrib.auth.models import Permission
+from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
 from django.utils.safestring import mark_safe
 
+from wagtail.admin.checks import check_panels_in_model
 from wagtail.core import hooks
 from wagtail.core.models import Page
 
@@ -497,6 +499,14 @@ class ModelAdmin(WagtailRegisterable):
             queryset = queryset.not_type(self.model)
         return queryset
 
+    def register_with_wagtail(self):
+        super().register_with_wagtail()
+
+        @checks.register('panels')
+        def modeladmin_model_check(app_configs, **kwargs):
+            errors = check_panels_in_model(self.model, 'modeladmin')
+            return errors
+
 
 class ModelAdminGroup(WagtailRegisterable):
     """
@@ -583,6 +593,16 @@ class ModelAdminGroup(WagtailRegisterable):
             queryset = instance.modify_explorer_page_queryset(
                 parent_page, queryset, request)
         return queryset
+
+    def register_with_wagtail(self):
+        super().register_with_wagtail()
+
+        @checks.register('panels')
+        def modeladmin_model_check(app_configs, **kwargs):
+            errors = []
+            for modeladmin_class in self.items:
+                errors.extend(check_panels_in_model(modeladmin_class.model))
+            return errors
 
 
 def modeladmin_register(modeladmin_class):
