@@ -192,9 +192,8 @@ class TestImageAddView(TestCase, WagtailTestUtils):
             )
         )
 
-    @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1)
-    @override_settings(WAGTAILIMAGES_MAX_UPLOAD_PIXEL_SIZE=1)
-    def test_add_too_many_pixels_file(self):
+    @override_settings(WAGTAILIMAGES_MAX_IMAGE_PIXELS=1)
+    def test_add_too_many_pixels(self):
         file_content = get_test_image_file().file.getvalue()
 
         response = self.post({
@@ -209,10 +208,7 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         # The form should have an error
         self.assertFormError(
             response, 'form', 'file',
-            "This file is too big ({file_size}). Maximum filesize {max_file_size}.".format(
-                file_size=filesizeformat(len(file_content)),
-                max_file_size=filesizeformat(1),
-            )
+            'This file has too many pixels (307200). Maximum pixels 1.'
         )
 
     def test_add_with_collections(self):
