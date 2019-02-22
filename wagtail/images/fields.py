@@ -95,11 +95,11 @@ class WagtailImageField(ImageField):
             return
 
         # Check the pixel size
-        dimsesions = get_image_dimensions(f)
-        if dimsesions == (None, None):
+        dimensions = get_image_dimensions(f)
+        if dimensions == (None, None):
             return
 
-        pixel_size = dimsesions[0] * dimsesions[1]
+        pixel_size = dimensions[0] * dimensions[1]
         if pixel_size > self.max_image_pixels:
             raise ValidationError(self.error_messages['file_too_many_pixels'] % (
                 pixel_size

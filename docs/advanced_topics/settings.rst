@@ -259,7 +259,7 @@ This setting lets you override the maximum upload size for images (in bytes). If
 
     WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # i.e. 128 megapixels
 
-This setting lets you override the maximum number of pixels a image can have. If omitted, Wagtail will fall back to using its 128 megapixels default value.
+This setting lets you override the maximum number of pixels an image can have. If omitted, Wagtail will fall back to using its 128 megapixels default value.
 
 .. code-block:: python
 
