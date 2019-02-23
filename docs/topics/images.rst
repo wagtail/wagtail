@@ -106,7 +106,7 @@ The available resizing methods are as follows:
 
         Resize and **crop** to fill the **exact** dimensions specified.
 
-        This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000 and height 1000 treated with the ``fill200x200`` rule would have its height reduced to 200, then its width (ordinarily 400) cropped to 200.
+        This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000 and height 1000 treated with the ``fill-200x200`` rule would have its height reduced to 200, then its width (ordinarily 400) cropped to 200.
 
         This resize-rule will crop to the image's focal point if it has been set. If not, it will crop to the centre of the image.
 
