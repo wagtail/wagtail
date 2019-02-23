@@ -92,6 +92,7 @@ class ListBlock(Block):
             'help_text': getattr(self.meta, 'help_text', None),
             'prefix': prefix,
             'list_members_html': list_members_html,
+            'classname': getattr(self.meta, 'form_classname', None),
         })
 
     def value_from_datadict(self, data, files, prefix):

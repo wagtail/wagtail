@@ -152,6 +152,7 @@ class BaseStreamBlock(Block):
             'child_blocks': self.sorted_child_blocks(),
             'header_menu_prefix': '%s-before' % prefix,
             'block_errors': error_dict.get(NON_FIELD_ERRORS),
+            'classname': getattr(self.meta, 'form_classname', None),
         })
 
     def value_from_datadict(self, data, files, prefix):
