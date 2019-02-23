@@ -346,6 +346,7 @@ Contributors
 * Paul Vetch
 * Vladimir Knobel
 * Matt Collins
+* Thomas Elliott
 
 Translators
 ===========

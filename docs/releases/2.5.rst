@@ -21,6 +21,7 @@ Other features
  * Highlight broken links to pages and missing documents in rich text (Brady Moe)
  * Preserve links when copy-pasting rich text content from Wagtail to other tools (Thibaud Colas)
  * Rich text to contentstate conversion now prioritises more specific rules, to accommodate ``<p>`` and ``<br>`` elements with attributes (Matt Westcott)
+ * Added limit image upload size by number of pixels (Thomas Elliott)
 
 
 Bug fixes
