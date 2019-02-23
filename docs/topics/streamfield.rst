@@ -444,6 +444,28 @@ Any block type is valid as the sub-block type, including structural types:
         ('amount', blocks.CharBlock(required=False)),
     ])))
 
+To customise the class name of a ``ListBlock`` as it appears in the page editor, you can specify a ``form_classname`` attribute as a keyword argument to the ``ListBlock`` constructor:
+
+.. code-block:: python
+    :emphasize-lines: 4
+
+    ('ingredients_list', blocks.ListBlock(blocks.StructBlock([
+        ('ingredient', blocks.CharBlock()),
+        ('amount', blocks.CharBlock(required=False)),
+    ]), form_classname='ingredients-list'))
+
+Alternatively, you can add ``form_classname`` in a subclass's ``Meta``:
+
+.. code-block:: python
+    :emphasize-lines: 6
+
+    class IngredientsListBlock(blocks.ListBlock):
+        ingredient = blocks.CharBlock()
+        amount = blocks.CharBlock(required=False)
+
+        class Meta:
+            form_classname = 'ingredients-list'
+    
 
 StreamBlock
 ~~~~~~~~~~~
@@ -503,6 +525,27 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
 
 ``block_counts``
   Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
+
+``form_classname``
+  Customise the class name added to a ``StreamBlock`` form in the page editor.
+
+    .. code-block:: python
+        :emphasize-lines: 4
+
+        ('event_promotions', blocks.StreamBlock([
+            ('hashtag', blocks.CharBlock()),
+            ('post_date', blocks.DateBlock()),
+        ], form_classname='event-promotions'))
+
+    .. code-block:: python
+        :emphasize-lines: 6
+
+        class EventPromotionsBlock(blocks.StreamBlock):
+            hashtag = blocks.CharBlock()
+            post_date = blocks.DateBlock()
+
+            class Meta:
+                form_classname = 'event-promotions'
 
 
 .. _streamfield_personblock_example:

@@ -2259,6 +2259,57 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         )
         self.assertIn('value="chocolate"', form_html)
 
+    def test_render_with_classname_via_kwarg(self):
+        """form_classname from kwargs to be used as an additional class when rendering list block"""
+
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = blocks.ListBlock(LinkBlock, form_classname='special-list-class')
+
+        html = block.render_form([
+            {
+                'title': "Wagtail",
+                'link': 'http://www.wagtail.io',
+            },
+            {
+                'title': "Django",
+                'link': 'http://www.djangoproject.com',
+            },
+        ], prefix='links')
+
+        # including leading space to ensure class name gets added correctly
+        self.assertEqual(html.count(' special-list-class'), 1)
+
+    def test_render_with_classname_via_class_meta(self):
+        """form_classname from meta to be used as an additional class when rendering list block"""
+
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        class CustomListBlock(blocks.ListBlock):
+
+            class Meta:
+                form_classname = 'custom-list-class'
+
+        block = CustomListBlock(LinkBlock)
+
+        html = block.render_form([
+            {
+                'title': "Wagtail",
+                'link': 'http://www.wagtail.io',
+            },
+            {
+                'title': "Django",
+                'link': 'http://www.djangoproject.com',
+            },
+        ], prefix='links')
+
+        # including leading space to ensure class name gets added correctly
+        self.assertEqual(html.count(' custom-list-class'), 1)
+
 
 class TestListBlockWithFixtures(TestCase):
     fixtures = ['test.json']
@@ -3149,6 +3200,56 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             }],
         }
         self.check_get_prep_value_nested_streamblocks(stream_data, is_lazy=True)
+
+    def test_render_with_classname_via_kwarg(self):
+        """form_classname from kwargs to be used as an additional class when rendering stream block"""
+
+        block = blocks.StreamBlock([
+            (b'heading', blocks.CharBlock()),
+            (b'paragraph', blocks.CharBlock()),
+        ], form_classname='rocket-section')
+
+        value = block.to_python([
+            {
+                'type': 'heading',
+                'value': "Falcon Heavy",
+                'id': '2',
+            },
+            {
+                'type': 'paragraph',
+                'value': "Ultra heavy launch capability",
+                'id': '3',
+            }
+        ])
+
+        html = block.render_form(value)
+
+        # including leading space to ensure class name gets added correctly
+        self.assertEqual(html.count(' rocket-section'), 1)
+
+
+    def test_render_with_classname_via_class_meta(self):
+        """form_classname from meta to be used as an additional class when rendering stream block"""
+
+        class ProfileBlock(blocks.StreamBlock):
+            username = blocks.CharBlock()
+
+            class Meta:
+                form_classname = 'profile-block-large'
+
+        block = ProfileBlock()
+        value = block.to_python([
+            {
+                'type': 'username',
+                'value': "renegadeM@ster",
+                'id': '789',
+            }
+        ])
+
+        html = block.render_form(value, prefix='profiles')
+
+        # including leading space to ensure class name gets added correctly
+        self.assertEqual(html.count(' profile-block-large'), 1)
 
 
 class TestPageChooserBlock(TestCase):
