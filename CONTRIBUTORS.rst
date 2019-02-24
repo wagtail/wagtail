@@ -350,6 +350,7 @@ Contributors
 * damianosSemmle
 * Evan Winter
 * Neil Lyons
+* Gassan Gousseinov
 
 Translators
 ===========

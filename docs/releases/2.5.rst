@@ -33,6 +33,7 @@ Bug fixes
  * Rich text to contentstate conversion now ignores stray closing tags (frmdstryr)
  * Escape backslashes in ``postgres_search`` queries (Hammy Goonan)
  * Parent page link in page chooser search results no longer navigates away (Asanka Lihiniyagoda, Sævar Öfjörð Magnússon)
+ * ``routablepageurl`` tag now correctly omits domain part when multiple sites exist at the same root (Gassan Gousseinov)
 
 
 Upgrade considerations
