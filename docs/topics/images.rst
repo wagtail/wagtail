@@ -50,7 +50,7 @@ The available resizing methods are as follows:
         .. figure:: ../_static/images/image_filter_max.png
           :alt: Example of max filter on an image.
 
-          Exmple: The image will keep its proportions but fit within the max (green line) dimensions provided.
+          Example: The image will keep its proportions but fit within the max (green line) dimensions provided.
 
 
     ``min``

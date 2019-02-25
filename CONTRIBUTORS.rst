@@ -348,6 +348,7 @@ Contributors
 * Matt Collins
 * Thomas Elliott
 * damianosSemmle
+* Evan Winter
 
 Translators
 ===========
