@@ -165,30 +165,50 @@ class TestRoutablePageTemplateTag(TestCase):
     def test_templatetag_reverse_index_route(self):
         url = routablepageurl(self.context, self.routable_page,
                               'index_route')
-        self.assertEqual(url, self.routable_page.url)
+        self.assertEqual(url, '/%s/' % self.routable_page.slug)
 
     def test_templatetag_reverse_archive_by_year_view(self):
         url = routablepageurl(self.context, self.routable_page,
                               'archive_by_year', '2014')
 
-        self.assertEqual(url, self.routable_page.url + 'archive/year/2014/')
+        self.assertEqual(url, '/%s/archive/year/2014/' % self.routable_page.slug)
 
     def test_templatetag_reverse_archive_by_author_view(self):
         url = routablepageurl(self.context, self.routable_page,
                               'archive_by_author', author_slug='joe-bloggs')
 
-        self.assertEqual(url, self.routable_page.url + 'archive/author/joe-bloggs/')
+        self.assertEqual(url, '/%s/archive/author/joe-bloggs/' % self.routable_page.slug)
 
     def test_templatetag_reverse_external_view(self):
         url = routablepageurl(self.context, self.routable_page,
                               'external_view', 'joe-bloggs')
 
-        self.assertEqual(url, self.routable_page.url + 'external/joe-bloggs/')
+        self.assertEqual(url, '/%s/external/joe-bloggs/' % self.routable_page.slug)
 
     def test_templatetag_reverse_external_view_without_append_slash(self):
         with mock.patch('wagtail.core.models.WAGTAIL_APPEND_SLASH', False):
             url = routablepageurl(self.context, self.routable_page,
                                   'external_view', 'joe-bloggs')
-            expected = self.routable_page.url + '/' + 'external/joe-bloggs/'
+            expected = '/' + self.routable_page.slug + '/' + 'external/joe-bloggs/'
 
         self.assertEqual(url, expected)
+
+
+class TestRoutablePageTemplateTagForSecondSite(TestRoutablePageTemplateTag):
+    def setUp(self):
+        super().setUp()
+
+        default_site = Site.objects.get(is_default_site=True)
+        second_site = Site.objects.create(  # add another site with the same root page
+            hostname='development.local',
+            port=default_site.port,
+            root_page_id=default_site.root_page_id,
+        )
+        # wie hav added a site
+        del self.routable_page._wagtail_cached_site_root_paths
+        self.request.site = second_site
+
+    # must be valid, but unfortunately not
+    # def tearDown(self):
+    #     self.assertFalse('localhost' in self.routable_page.url)
+
