@@ -211,4 +211,3 @@ class TestRoutablePageTemplateTagForSecondSite(TestRoutablePageTemplateTag):
     # must be valid, but unfortunately not
     # def tearDown(self):
     #     self.assertFalse('localhost' in self.routable_page.url)
-
