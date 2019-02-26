@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.contrib.admin import site as default_django_admin_site
 from django.contrib.auth.models import Permission
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
@@ -120,6 +121,10 @@ class ModelAdmin(WagtailRegisterable):
         self.permission_helper = self.get_permission_helper_class()(
             self.model, self.inspect_view_enabled)
         self.url_helper = self.get_url_helper_class()(self.model)
+
+        # Needed to support RelatedFieldListFilter in Django 2.2+
+        # See: https://github.com/wagtail/wagtail/issues/5105
+        self.admin_site = default_django_admin_site  
 
     def get_permission_helper_class(self):
         """
