@@ -123,11 +123,17 @@ class Block(metaclass=BaseBlock):
                           type_name=None, errors=None):
         if type_name is None:
             type_name = self.name
+        from .stream_block import StreamValue
+        if isinstance(value, StreamValue.StreamChild):
+            block_id = value.id
+            value = value.value
+        else:
+            block_id = str(uuid4())
         value = self.prepare_value(value, errors=errors)
         if parent_block is None:
             return value
         return BlockData({
-            'id': str(uuid4()),
+            'id': block_id,
             'type': type_name,
             'hasError': bool(errors),
             'value': value,

@@ -79,7 +79,7 @@ class BaseStreamBlock(Block):
                            else errors.as_data()[0].params)
         return [
             child_block_data.block.prepare_for_react(
-                self, child_block_data.value, errors=children_errors.get(i))
+                self, child_block_data, errors=children_errors.get(i))
             for i, child_block_data in enumerate(value)]
 
     def get_definition(self):

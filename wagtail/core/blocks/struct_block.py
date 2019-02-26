@@ -65,7 +65,7 @@ class BaseStructBlock(Block):
 
     def prepare_for_react(self, parent_block, value,
                           type_name=None, errors=None):
-        data = super(BaseStructBlock, self).prepare_for_react(
+        data = super().prepare_for_react(
             parent_block, value, type_name=type_name, errors=errors)
         if errors is not None:
             data['html'] = self.get_blocks_container_html(errors=errors)
