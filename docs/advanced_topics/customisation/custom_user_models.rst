@@ -23,7 +23,7 @@ your model. In this example the app is called ``users`` and the model is ``User`
 
   AUTH_USER_MODEL = 'users.User'
 
-Create your custom user create and edit forms in your app:
+Create your custom user 'create' and 'edit' forms in your app:
 
 .. code-block:: python
 
@@ -45,7 +45,7 @@ Create your custom user create and edit forms in your app:
       status = forms.ModelChoiceField(queryset=MembershipStatus.objects, required=True, label=_("Status"))
 
 
-Extend the Wagtail user create and edit templates. These extended template should be placed in a
+Extend the Wagtail user 'create' and 'edit' templates. These extended templates should be placed in a
 template directory ``wagtailusers/users``.
 
 Template create.html:
@@ -70,7 +70,7 @@ Template edit.html:
       {% include "wagtailadmin/shared/field_as_li.html" with field=form.status %}
   {% endblock extra_fields %}
 
-The ``extra_fields`` block allows fields to be inserted below the last name field
+The ``extra_fields`` block allows fields to be inserted below the ``last_name`` field
 in the default templates. Other block overriding options exist to allow appending
 fields to the end or beginning of the existing fields, or to allow all the fields to
 be redefined.

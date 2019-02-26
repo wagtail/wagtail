@@ -1,7 +1,7 @@
 Extending the Draftail Editor
 =============================
 
-Wagtail’s rich text editor is built with `Draftail <https://github.com/springload/draftail>`_, and its functionality can be extended through plugins.
+Wagtail’s rich text editor is built with `Draftail <https://www.draftail.org/>`_, and its functionality can be extended through plugins.
 
 Plugins come in three types:
 
@@ -61,7 +61,7 @@ These steps will always be the same for all Draftail plugins. The important part
 * Give enough information to Draftail so it knows how to make a button for the feature, and how to render it (more on this later).
 * Configure the conversion to use the right HTML element (as they are stored in the DB).
 
-For detailed configuration options, head over to the `Draftail documentation <https://github.com/springload/draftail#formatting-options>`_ to see all of the details. Here are some parts worth highlighting about controls:
+For detailed configuration options, head over to the `Draftail documentation <https://www.draftail.org/docs/formatting-options>`_ to see all of the details. Here are some parts worth highlighting about controls:
 
 * The ``type`` is the only mandatory piece of information.
 * To display the control in the toolbar, combine ``icon``, ``label`` and ``description``.
@@ -70,7 +70,7 @@ For detailed configuration options, head over to the `Draftail documentation <ht
 Creating new inline styles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In addition to the initial example, inline styles take a ``style`` property to define what CSS rules will be applied to text in the editor. Be sure to read the `Draftail documentation <https://github.com/springload/draftail#formatting-options>`_ on inline styles.
+In addition to the initial example, inline styles take a ``style`` property to define what CSS rules will be applied to text in the editor. Be sure to read the `Draftail documentation <https://www.draftail.org/docs/formatting-options>`_ on inline styles.
 
 Finally, the DB to/from conversion uses an ``InlineStyleElementHandler`` to map from a given tag (``<s>`` in the example above) to a Draftail type, and the inverse mapping is done with `Draft.js exporter configuration <https://github.com/springload/draftjs_exporter>`_ of the ``style_map``.
 
@@ -146,7 +146,7 @@ Here are the main requirements to create a new entity feature:
 * The conversion usually is more involved, since entities contain data that needs to be serialised to HTML.
 
 To write the React components, Wagtail exposes its own React, Draft.js and Draftail dependencies as global variables. Read more about this in :ref:`extending_clientside_components`.
-To go further, please look at the `Draftail documentation <https://github.com/springload/draftail#formatting-options>`_ as well as the `Draft.js exporter documentation <https://github.com/springload/draftjs_exporter>`_.
+To go further, please look at the `Draftail documentation <https://www.draftail.org/docs/formatting-options>`_ as well as the `Draft.js exporter documentation <https://github.com/springload/draftjs_exporter>`_.
 
 Here is a detailed example to showcase how those tools are used in the context of Wagtail.
 For the sake of our example, we can imagine a news team working at a financial newspaper.
@@ -272,7 +272,7 @@ The next step is to add JavaScript to define how the entities are created (the `
         }
     }
 
-This source component uses data and callbacks provided by `Draftail <https://github.com/springload/draftail>`_.
+This source component uses data and callbacks provided by `Draftail <https://www.draftail.org/docs/api>`_.
 It also uses dependencies from global variables – see :ref:`extending_clientside_components`.
 
 We then create the decorator component:
@@ -326,7 +326,7 @@ To fully complete the demo, we can add a bit of JavaScript to the front-end in o
 
 ----
 
-Custom block entities can also be created (have a look at the separate `Draftail <https://github.com/springload/draftail>`_ documentation), but these are not detailed here since :ref:`StreamField <streamfield>` is the go-to way to create block-level rich text in Wagtail.
+Custom block entities can also be created (have a look at the separate `Draftail documentation <https://www.draftail.org/docs/blocks>`_), but these are not detailed here since :ref:`StreamField <streamfield>` is the go-to way to create block-level rich text in Wagtail.
 
 Integration of the Draftail widgets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

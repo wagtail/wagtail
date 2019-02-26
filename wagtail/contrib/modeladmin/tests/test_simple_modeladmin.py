@@ -2,8 +2,10 @@ from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.core import checks
 from django.test import TestCase
 
+from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.modeladmintest.models import Author, Book, Publisher, Token
@@ -515,3 +517,89 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         position_of_header_close = content_str.index('</header>')
         position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
         self.assertGreater(position_of_header_close, position_of_breadcrumbs)
+
+
+class TestPanelConfigurationChecks(TestCase, WagtailTestUtils):
+
+    def setUp(self):
+        self.warning_id = 'wagtailadmin.W002'
+
+        def get_checks_result():
+            # run checks only with the 'panels' tag
+            checks_result = checks.run_checks(tags=['panels'])
+            return [
+                warning for warning in
+                checks_result if warning.id == self.warning_id]
+
+        self.get_checks_result = get_checks_result
+
+
+    def test_model_with_single_tabbed_panel_only(self):
+
+        Publisher.content_panels = [FieldPanel('name'), FieldPanel('headquartered_in')]
+
+        warning = checks.Warning(
+            "Publisher.content_panels will have no effect on modeladmin editing",
+            hint="""Ensure that Publisher uses `panels` instead of `content_panels`\
+or set up an `edit_handler` if you want a tabbed editing interface.
+There are no default tabs on non-Page models so there will be no\
+ Content tab for the content_panels to render in.""",
+            obj=Publisher,
+            id='wagtailadmin.W002',
+        )
+
+        checks_results = self.get_checks_result()
+
+        self.assertIn(warning, checks_results)
+
+        # clean up for future checks
+        delattr(Publisher, 'content_panels')
+
+
+    def test_model_with_two_tabbed_panels_only(self):
+
+        Publisher.settings_panels = [FieldPanel('name')]
+        Publisher.promote_panels = [FieldPanel('headquartered_in')]
+
+
+        warning_1 = checks.Warning(
+            "Publisher.promote_panels will have no effect on modeladmin editing",
+            hint="""Ensure that Publisher uses `panels` instead of `promote_panels`\
+or set up an `edit_handler` if you want a tabbed editing interface.
+There are no default tabs on non-Page models so there will be no\
+ Promote tab for the promote_panels to render in.""",
+            obj=Publisher,
+            id='wagtailadmin.W002',
+        )
+
+        warning_2 = checks.Warning(
+            "Publisher.settings_panels will have no effect on modeladmin editing",
+            hint="""Ensure that Publisher uses `panels` instead of `settings_panels`\
+or set up an `edit_handler` if you want a tabbed editing interface.
+There are no default tabs on non-Page models so there will be no\
+ Settings tab for the settings_panels to render in.""",
+            obj=Publisher,
+            id='wagtailadmin.W002',
+        )
+
+        checks_results = self.get_checks_result()
+
+        self.assertIn(warning_1, checks_results)
+        self.assertIn(warning_2, checks_results)
+
+        # clean up for future checks
+        delattr(Publisher, 'settings_panels')
+        delattr(Publisher, 'promote_panels')
+
+
+    def test_model_with_single_tabbed_panel_and_edit_handler(self):
+
+        Publisher.content_panels = [FieldPanel('name'), FieldPanel('headquartered_in')]
+        Publisher.edit_handler = TabbedInterface(Publisher.content_panels)
+
+        # no errors should occur
+        self.assertEqual(self.get_checks_result(), [])
+
+        # clean up for future checks
+        delattr(Publisher, 'content_panels')
+        delattr(Publisher, 'edit_handler')

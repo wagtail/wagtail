@@ -8,8 +8,9 @@ from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
 
 from wagtail.admin.edit_handlers import (
-    FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,
-    TabbedInterface, extract_panel_definitions_from_model_class, get_form_for_model)
+    FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel,
+    RichTextFieldPanel, TabbedInterface, extract_panel_definitions_from_model_class,
+    get_form_for_model)
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.admin.rich_text import DraftailRichTextArea
 from wagtail.admin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
@@ -17,7 +18,8 @@ from wagtail.core.models import Page, Site
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
-    EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, SimplePage, ValidatedPage)
+    EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel,
+    SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -890,3 +892,84 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         with self.ignore_deprecation_warnings():
             self.assertRaises(TypeError, lambda: InlinePanel(label="Speakers"))
             self.assertRaises(TypeError, lambda: InlinePanel(EventPage, 'speakers', label="Speakers", bacon="chunky"))
+
+
+class TestInlinePanelRelatedModelPanelConfigChecks(TestCase):
+
+    def setUp(self):
+        self.original_panels = EventPageSpeaker.panels
+        delattr(EventPageSpeaker, 'panels')
+
+        def get_checks_result():
+            # run checks only with the 'panels' tag
+            checks_result = checks.run_checks(tags=['panels'])
+            return [warning for warning in checks_result if warning.obj == EventPageSpeaker]
+
+        self.warning_id = 'wagtailadmin.W002'
+        self.get_checks_result = get_checks_result
+
+    def tearDown(self):
+        EventPageSpeaker.panels = self.original_panels
+
+    def test_page_with_inline_model_with_tabbed_panel_only(self):
+        """Test that checks will warn against setting single tabbed panel on InlinePanel model"""
+
+        EventPageSpeaker.settings_panels = [FieldPanel('first_name'), FieldPanel('last_name')]
+
+        warning = checks.Warning(
+            "EventPageSpeaker.settings_panels will have no effect on InlinePanel model editing",
+            hint="""Ensure that EventPageSpeaker uses `panels` instead of `settings_panels`.
+There are no tabs on non-Page model editing within InlinePanels.""",
+            obj=EventPageSpeaker,
+            id=self.warning_id,
+        )
+
+        checks_results = self.get_checks_result()
+
+        self.assertIn(warning, checks_results)
+
+        delattr(EventPageSpeaker, 'settings_panels')
+
+    def test_page_with_inline_model_with_two_tabbed_panels(self):
+        """Test that checks will warn against multiple tabbed panels on InlinePanel models"""
+
+        EventPageSpeaker.content_panels = [FieldPanel('first_name')]
+        EventPageSpeaker.promote_panels = [FieldPanel('last_name')]
+
+        warning_1 = checks.Warning(
+            "EventPageSpeaker.content_panels will have no effect on InlinePanel model editing",
+            hint="""Ensure that EventPageSpeaker uses `panels` instead of `content_panels`.
+There are no tabs on non-Page model editing within InlinePanels.""",
+            obj=EventPageSpeaker,
+            id=self.warning_id,
+        )
+        warning_2 = checks.Warning(
+            "EventPageSpeaker.promote_panels will have no effect on InlinePanel model editing",
+            hint="""Ensure that EventPageSpeaker uses `panels` instead of `promote_panels`.
+There are no tabs on non-Page model editing within InlinePanels.""",
+            obj=EventPageSpeaker,
+            id=self.warning_id,
+        )
+
+        checks_results = self.get_checks_result()
+
+        self.assertIn(warning_1, checks_results)
+        self.assertIn(warning_2, checks_results)
+
+        delattr(EventPageSpeaker, 'content_panels')
+        delattr(EventPageSpeaker, 'promote_panels')
+
+    def test_page_with_inline_model_with_edit_handler(self):
+        """Checks should NOT warn if InlinePanel models use tabbed panels AND edit_handler"""
+
+        EventPageSpeaker.content_panels = [FieldPanel('first_name')]
+        EventPageSpeaker.edit_handler = TabbedInterface(
+            ObjectList([FieldPanel('last_name')], heading='test')
+        )
+
+        # should not be any errors
+        self.assertEqual(self.get_checks_result(), [])
+
+        # clean up for future checks
+        delattr(EventPageSpeaker, 'edit_handler')
+        delattr(EventPageSpeaker, 'content_panels')

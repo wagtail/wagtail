@@ -344,6 +344,11 @@ Contributors
 * Asanka Lihiniyagoda
 * David Beitey
 * Paul Vetch
+* Vladimir Knobel
+* Matt Collins
+* Thomas Elliott
+* damianosSemmle
+* Evan Winter
 
 Translators
 ===========

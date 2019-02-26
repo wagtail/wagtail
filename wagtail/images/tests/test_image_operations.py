@@ -619,3 +619,11 @@ class TestBackgroundColorFilter(TestCase):
             file=get_test_image_file(),
         )
         self.assertRaises(ValueError, fil.run, image, BytesIO())
+
+    def test_invalid_length(self):
+        fil = Filter(spec='width-400|bgcolor-1234')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.assertRaises(ValueError, fil.run, image, BytesIO())

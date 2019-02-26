@@ -28,6 +28,8 @@ matrix:
    - env: TOXENV=py37-dj21-sqlite-noelasticsearch
      python: 3.7
      dist: xenial
+   - env: TOXENV=py36-dj22-postgres-noelasticsearch
+     python: 3.6
    - env: TOXENV=py36-djmaster-postgres-noelasticsearch
      python: 3.6
    - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -51,9 +53,10 @@ matrix:
     - env: TOXENV=py36-dj20-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     - env: TOXENV=py37-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    # allow failures against Django 2.2 while support is still being worked on
+    - env: TOXENV=py36-dj22-postgres-noelasticsearch
     # allow failures against Django master
     - env: TOXENV=py36-djmaster-postgres-noelasticsearch
-
 
 # Services
 services:
