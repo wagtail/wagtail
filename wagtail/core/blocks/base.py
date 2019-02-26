@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+from django.utils.translation import ugettext_lazy as _
 
 # unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
 # return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
@@ -497,13 +498,23 @@ class BlockWidget(forms.Widget):
         super().__init__(attrs=attrs)
         self.block_def = block_def
 
+    def get_action_labels(self):
+        return {
+            'add': _('Add'),
+            'moveUp': _('Move up'),
+            'moveDown': _('Move down'),
+            'duplicate': _('Duplicate'),
+            'delete': _('Delete'),
+        }
+
     def get_actions_icons(self):
         return {
-            'moveUp': '<i class="icon icon-arrow-up"></i>',
-            'moveDown': '<i class="icon icon-arrow-down"></i>',
-            'duplicate': '<i class="icon icon-duplicate"></i>',
-            'delete': '<i class="icon icon-bin"></i>',
-            'grip': '<i class="icon icon-grip"></i>',
+            'add': '<i aria-hidden="true">+</i>',
+            'moveUp': '<i class="icon icon-arrow-up" aria-hidden="true"></i>',
+            'moveDown': '<i class="icon icon-arrow-down" aria-hidden="true"></i>',
+            'duplicate': '<i class="icon icon-duplicate" aria-hidden="true"></i>',
+            'delete': '<i class="icon icon-bin" aria-hidden="true"></i>',
+            'grip': '<i class="icon icon-grip" aria-hidden="true"></i>',
         }
 
     def get_streamfield_config(self, value, errors=None):
@@ -512,6 +523,7 @@ class BlockWidget(forms.Widget):
             'minNum': self.block_def.meta.min_num,
             'maxNum': self.block_def.meta.max_num,
             'icons': self.get_actions_icons(),
+            'labels': self.get_action_labels(),
             'blockDefinitions': self.block_def.get_definition()['children'],
             'value': self.block_def.prepare_for_react(None, value,
                                                       errors=errors),
