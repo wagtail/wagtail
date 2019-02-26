@@ -16,8 +16,8 @@ from wagtail.core.models import Page, PageManager, Site, get_page_models
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
-    CustomPageQuerySet, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage, MTIBasePage,
-    MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimplePage,
+    CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
+    MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimplePage,
     SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -700,6 +700,41 @@ class TestCopyPage(TestCase):
             christmas_event.advert_placements.count(),
             1,
             "Child objects defined on the superclass were removed from the original page"
+        )
+
+    def test_copy_page_copies_parental_relations(self):
+        """Test that a page will be copied with parental many to many relations intact."""
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        summer_category = EventCategory.objects.create(name='Summer')
+        holiday_category = EventCategory.objects.create(name='Holidays')
+
+        # add parental many to many relations
+        christmas_event.categories = (summer_category, holiday_category)
+        christmas_event.save()
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
+
+        # check that original eventt is untouched
+        self.assertEqual(
+            christmas_event.categories.count(),
+            2,
+            "Child objects (parental many to many) defined on the superclass were removed from the original page"
+        )
+
+        # check that parental many to many are copied
+        self.assertEqual(
+            new_christmas_event.categories.count(),
+            2,
+            "Child objects (parental many to many) weren't copied"
+        )
+
+        # check that the original and copy are related to the same categories
+        self.assertEqual(
+            new_christmas_event.categories.all().in_bulk(),
+            christmas_event.categories.all().in_bulk()
         )
 
     def test_copy_page_copies_revisions(self):
