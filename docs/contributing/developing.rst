@@ -168,6 +168,7 @@ IE 11 is gradually falling out of use, and specific features are unsupported in 
 
 * Rich text copy-paste in the rich text editor.
 * Sticky toolbar in the rich text editor.
+* Sticky type icons in the StreamField in ``SIMPLE`` layout.
 
 Unsupported browsers / devices include:
 
