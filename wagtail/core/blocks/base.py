@@ -527,11 +527,12 @@ class BlockWidget(forms.Widget):
             mark_safe('<div class="help-block help-critical">%s</div>') % error
             for error in non_block_errors])
         return mark_safe("""
-        <script type="application/json" data-streamfield="%s">%s</script>
         <textarea style="display: none;" name="%s">%s</textarea>
+        <script>window.streamField.init('%s', %s, document.currentScript)</script>
         %s
-        """ % (name, to_json_script(streamfield_config),
-               name, escaped_value, non_block_errors))
+        """ % (name, escaped_value,
+               name, to_json_script(streamfield_config),
+               non_block_errors))
 
     def render(self, name, value, attrs=None, renderer=None):
         return self.render_with_errors(name, value, attrs=attrs, errors=None, renderer=renderer)

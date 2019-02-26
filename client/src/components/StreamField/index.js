@@ -7,19 +7,30 @@ import { StreamField, streamFieldReducer } from 'react-streamfield';
 
 const store = createStore(streamFieldReducer, applyMiddleware(thunk));
 
-export const initStreamField = () => {
-  for (const streamfieldNode of document.querySelectorAll('script[data-streamfield]')) {
-    const newNode = streamfieldNode.parentNode.insertBefore(document.createElement('div'), streamfieldNode);
-    const id = streamfieldNode.getAttribute('data-streamfield');
+const init = (name, options, currentScript) => {
+  // document.currentScript is not available in IE11. Use a fallback instead.
+  const context = currentScript ? currentScript.parentNode : document.body;
+  // If the field is not in the current context, look for it in the whole body.
+  // Fallback for sequence.js jQuery eval-ed scripts running in document.head.
+  const selector = `[name="${name}"]`;
+  const field = (context.querySelector(selector)
+                 || document.body.querySelector(selector));
 
-    ReactDOM.render(
-      <Provider store={store}>
-        <StreamField
-          {...JSON.parse(streamfieldNode.innerHTML)}
-          id={id}
-        />
-      </Provider>,
-      newNode
-    );
-  }
+  const wrapper = document.createElement('div');
+
+  field.parentNode.appendChild(wrapper);
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <StreamField
+        {...options}
+        id={name}
+      />
+    </Provider>,
+    wrapper
+  );
+};
+
+export default {
+  init,
 };
