@@ -124,7 +124,7 @@ class ModelAdmin(WagtailRegisterable):
 
         # Needed to support RelatedFieldListFilter in Django 2.2+
         # See: https://github.com/wagtail/wagtail/issues/5105
-        self.admin_site = default_django_admin_site  
+        self.admin_site = default_django_admin_site
 
     def get_permission_helper_class(self):
         """
