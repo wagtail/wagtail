@@ -45,7 +45,7 @@ function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPer
 
     if (input.val()) {
         $.ajax({
-            url: window.wagtailConfig.ADMIN_API.PAGES + input.val() + '/',
+            url: window.wagtailConfig.ADMIN_API.PAGES + encodeURIComponent(input.val()) + '/',
         }).done(function (data) {
             pageChosen({
                 id: data.id,

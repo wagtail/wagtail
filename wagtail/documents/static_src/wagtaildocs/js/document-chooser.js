@@ -29,7 +29,7 @@ function createDocumentChooser(id) {
     });
 
     if (input.val()) {
-        $.ajax(window.chooserUrls.documentChooser + input.val() + '/')
+        $.ajax(window.chooserUrls.documentChooser + encodeURIComponent(input.val()) + '/')
             .done(function (data) {
                 documentChosen(data.result, true);
             });

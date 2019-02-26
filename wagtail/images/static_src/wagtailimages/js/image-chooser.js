@@ -34,7 +34,7 @@ function createImageChooser(id) {
     });
 
     if (input.val()) {
-        $.ajax(window.chooserUrls.imageChooser + input.val() + '/')
+        $.ajax(window.chooserUrls.imageChooser + encodeURIComponent(input.val()) + '/')
             .done(function (data) {
                 imageChosen(data.result, true);
             });

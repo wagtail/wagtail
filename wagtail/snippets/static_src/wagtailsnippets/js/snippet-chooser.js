@@ -30,7 +30,7 @@ function createSnippetChooser(id, modelString) {
 
     if (input.val()) {
         $.ajax(window.chooserUrls.snippetChooser + modelString + '/'
-               + input.val() + '/')
+               + encodeURIComponent(input.val()) + '/')
             .done(function (data) {
                 snippetChosen(data.result, true);
             });
