@@ -45,7 +45,7 @@ class FieldBlock(Block):
         return data
 
     def get_definition(self):
-        definition = super(FieldBlock, self).get_definition()
+        definition = super().get_definition()
         definition['html'] = self.render_form(self.get_default(),
                                               prefix=self.FIELD_NAME_TEMPLATE)
         title_template = self.get_title_template()
