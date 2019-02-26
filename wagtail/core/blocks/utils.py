@@ -35,7 +35,9 @@ def get_non_block_errors(errors):
         errors_data = errors_data[0].params
         if errors_data is None:
             return errors
-    return errors_data.get(NON_FIELD_ERRORS, ())
+    if isinstance(errors_data, dict):
+        return errors_data.get(NON_FIELD_ERRORS, ())
+    return ()
 
 
 class BlockData:
