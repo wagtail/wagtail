@@ -18,16 +18,6 @@
         }
     }
 
-    // stream-field is added to hallotoolbar when invoked on a field within a stream-field
-    &.stream-field {
-        margin-top: -1em;
-        margin-left: 0;
-
-        &.affixed {
-            margin-top: 0;
-        }
-    }
-
     button {
         border-radius: 0;
         height: 2.4em;
