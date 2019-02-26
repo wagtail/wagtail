@@ -22,7 +22,8 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
-from modelcluster.models import ClusterableModel, get_all_child_relations
+from modelcluster.models import (
+    ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.query import PageQuerySet, TreeQuerySet
@@ -1069,6 +1070,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 continue
 
             specific_dict[field.name] = getattr(specific_self, field.name)
+
+        # copy child m2m relations
+        for related_field in get_all_child_m2m_relations(specific_self):
+            field = getattr(specific_self, related_field.name)
+            if field and hasattr(field, 'all'):
+                values = field.all()
+                if values:
+                    specific_dict[related_field.name] = values
 
         # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
         page_copy = self.specific_class(**specific_dict)
