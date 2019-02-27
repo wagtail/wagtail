@@ -4742,9 +4742,9 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # response should include HTML declarations for streamfield child blocks
-        self.assertContains(response,
-                            '<script type="application/json" '
-                            'data-streamfield="sections-__prefix__-body">')
+        self.assertContains(
+            response,
+            "<script>window.streamField.init('sections-__prefix__-body', {")
 
 
 class TestRecentEditsPanel(TestCase, WagtailTestUtils):
