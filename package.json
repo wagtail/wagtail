@@ -57,7 +57,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.12",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "enzyme": "^3.3.0",
+    "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "enzyme-to-json": "^3.3.0",
     "eslint": "^2.9.0",
