@@ -56,7 +56,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_panels``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``.
+  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``. Hook functions should modify the ``panels`` list in-place as required.
 
   .. code-block:: python
 
