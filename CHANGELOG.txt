@@ -19,6 +19,7 @@ Changelog
  * Fix: Escape backslashes in `postgres_search` queries (Hammy Goonan)
  * Fix: Parent page link in page chooser search results no longer navigates away (Asanka Lihiniyagoda, Sævar Öfjörð Magnússon)
  * Fix: `routablepageurl` tag now correctly omits domain part when multiple sites exist at the same root (Gassan Gousseinov)
+ * Fix: Added missing collection column specifier on document listing template (Sergey Fedoseev)
 
 
 2.4 (19.12.2018)
