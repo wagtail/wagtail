@@ -349,6 +349,7 @@ Contributors
 * Thomas Elliott
 * damianosSemmle
 * Evan Winter
+* Neil Lyons
 
 Translators
 ===========

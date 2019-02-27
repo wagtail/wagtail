@@ -76,7 +76,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     @hooks.register('construct_homepage_panels')
     def add_another_welcome_panel(request, panels):
-      return panels.append( WelcomePanel() )
+        panels.append(WelcomePanel())
 
 
 .. _construct_homepage_summary_items:
