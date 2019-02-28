@@ -195,7 +195,7 @@ Assume we've defined ``Book``, ``Author``, and ``Genre`` models in
     modeladmin_register(LibraryGroup)
 
 
-.. _modeladmin_multi_registeration:
+.. _modeladmin_multi_registration:
 
 Registering multiple classes in one ``wagtail_hooks.py`` file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
