@@ -2825,7 +2825,7 @@ class TestDateBlock(TestCase):
         self.assertInHTML(
             '<script>initDateChooser("field\\u002D__ID__", '
             '{"dayOfWeekStart": 0, "format": "Y-m-d"});</script>',
-            definition['html'].replace('\\u003c', '<'))
+            definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
             'key': 'test', 'label': 'Test', 'required': True,
@@ -2873,7 +2873,7 @@ class TestDateTimeBlock(TestCase):
         self.assertInHTML(
             '<script>initDateTimeChooser("field\\u002D__ID__", '
             '{"dayOfWeekStart": 0, "format": "d.m.Y H:i"});</script>',
-            definition['html'].replace('\\u003c', '<'))
+            definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
             'key': 'test', 'label': 'Test', 'required': True,
