@@ -42,19 +42,19 @@ single author to be specified for each post.
     from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
     from wagtail.core import hooks
 
-    # Authors & BlogPage model not shown in this example
-    from models import Authors
+    # Author & BlogPage model not shown in this example
+    from models import Author
 
     # ensure our modeladmin is created
     class AuthorModelAdmin(ModelAdmin):
-        model = Authors
+        model = Author
         menu_order = 200
 
     # Creating an instance of `AuthorModelAdmin`
     author_modeladmin = AuthorModelAdmin()
 
     @hooks.register('register_page_listing_buttons')
-    def page_listing_buttons(page, page_perms, is_parent=False):
+    def add_author_edit_buttons(page, page_perms, is_parent=False):
         """
         For pages that have an author, add an additional button to the page listing,
         linking to the 'edit' page for that author.
@@ -117,10 +117,10 @@ For example:
 
 .. note::
 
-    When creating a new page via ``modeladmin`` it can be created in multiple
-    places, there is an additional action ``'choose_parent'`` which is used to
-    select the parent **before** creation of a page. There should be no need to
-    navigate to this action directly as navigating to the ``create`` URL will
-    redirect the user to choose a parent if necessary.
+    If you have registered a page type with ``modeladmin`` (e.g. ``BlogPage``), and pages
+    of that type can be added to more than one place in the page tree, when a user visits
+    the `create` URL, they'll be automatically redirected to another view to choose a
+    parent for the new page. So, this isn't something you need to check or cater for in
+    your own code.
 
 To customise ``url_helper`` behaviour, see :ref:`modeladmin_url_helper_class`.
