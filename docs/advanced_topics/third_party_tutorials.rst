@@ -6,6 +6,7 @@ Third-party tutorials
     The following list is a collection of tutorials and development notes from third-party developers.
     Some of the older links may not apply to the latest Wagtail versions.
 
+* `Learn Wagtail <https://learnwagtail.com/>`_ - regular video tutorials about all aspects of Wagtail (1 March 2019)
 * `Wagtail Tutorial Series <https://www.accordbox.com/blog/wagtail-tutorials/>`_ (20 January 2019)
 * `E-Commerce for Django developers (with Wagtail shop tutorial) <https://snipcart.com/blog/django-ecommerce-tutorial-wagtail-cms>`_ (5 July 2018)
 * `Wagtail and GraphQL <https://jossingram.wordpress.com/2018/04/19/wagtail-and-graphql/>`_ (19 April 2018)
