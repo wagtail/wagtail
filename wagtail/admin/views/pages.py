@@ -636,7 +636,7 @@ class PreviewOnEdit(View):
         if not form.is_valid():
             return self.error_response(page)
 
-        form.save(commit=False)
+        page = form.save(commit=False)
         preview_mode = request.GET.get('mode', page.default_preview_mode)
         return page.serve_preview(page.dummy_request(request),
                                   preview_mode)
