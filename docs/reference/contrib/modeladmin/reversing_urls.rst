@@ -30,9 +30,9 @@ Getting the ``edit`` or ``delete`` or ``inspect`` URL for an object
 In this example, we will provide a quick way to ``edit`` the Author that is
 linked to a blog post from the Admin Page Listing menu. We have defined
 an ``AuthorModelAdmin`` class and registered it with Wagtail to allow
-``Author`` objects to administered via the admin area. The ``BlogPage`` model
-has an ``author`` field (a ``ForeignKey`` to the ``Author`` model) to allow a
-single author to be specified for each post.
+``Author`` objects to be administered via the admin area. The ``BlogPage``
+model has an ``author`` field (a ``ForeignKey`` to the ``Author`` model)
+to allow a single author to be specified for each post.
 
 .. code-block:: python
 
@@ -71,7 +71,7 @@ single author to be specified for each post.
 As you can see from the example above, when using ``get_action_url()`` to
 generate object-specific URLs, the target object's primary key value must be supplied
 so that it can be included in the resulting URL (e.g. ``"/admin/my-app/author/edit/2/"``).
-The following object-specific action names are supported ``get_action_url()``:
+The following object-specific action names are supported by ``get_action_url()``:
 
 ``'edit'``
     Returns a URL for updating a specific object.
