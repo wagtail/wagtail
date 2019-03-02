@@ -68,25 +68,29 @@ single author to be specified for each post.
     modeladmin_register(AuthorModelAdmin)
 
 
-In the above example, the ``url_helper`` on the ``AuthorModelAdmin`` class has
-been used to generate a URL to edit a ``Author`` instance via ``modeladmin``.
+As you can see from the example above, when using ``get_action_url()`` to
+generate object-specific URLs, the target object's primary key value must be supplied
+so that it can be included in the resulting URL (e.g. ``"/admin/my-app/author/edit/2/"``).
+The following object-specific action names are supported ``get_action_url()``:
 
-The ``get_action_url`` function should be called with an action name such as
-``'edit'`` or ``'delete'`` and with the primary key (ID) of the instance.
-This will return a URL to load that action for the specific model in the format
-``/admin/my-app/my-page-model/edit/123``.
+``'edit'``
+    Returns a URL for updating a specific object.
 
-The action names for a specific instance URLs are:
+``'delete'``
+    Returns a URL for deleting a specific object.
 
-* ``'edit'``
-* ``'delete'``
-* ``'inspect'`` Note: Requires inspect enabled in modeladmin configuration.
+``'inspect'``
+    Returns a URL for viewing details of a specific object.
+    **NOTE:** This will only work if ``inspect_view_enabled`` is set to
+    ``True`` on your ``ModelAdmin`` class.
 
 
 .. note::
-    If your Primary Key for the model is likely to contain characters that
-    are not URL safe, ensure you wrap any data in ``quote`` from
-    ``django.contrib.admin.utils``.
+    If you are using string values as primary keys for you model, and it's possible
+    key values could contain characters that are not URL safe. In this case you should
+    use ``django.contrib.admin.utils.quote()`` to prepare primary key values before
+    passing them to ``get_action_url()``. Failure to do this may result in Wagtail
+    failing to recognise the primary key when the URL is visited, resulting in 404 errors.
 
 
 ---------------------------------------------------
