@@ -28,7 +28,7 @@ Getting the ``edit`` or ``delete`` or ``inspect`` URL for an object
 -------------------------------------------------------------------
 
 In this example, we will provide a quick way to ``edit`` the Author that is
-linked to a blog post from the Admin Page Listing menu. We have defined
+linked to a blog post from the admin page listing menu. We have defined
 an ``AuthorModelAdmin`` class and registered it with Wagtail to allow
 ``Author`` objects to be administered via the admin area. The ``BlogPage``
 model has an ``author`` field (a ``ForeignKey`` to the ``Author`` model)
