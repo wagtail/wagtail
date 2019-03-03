@@ -9,7 +9,7 @@ It's sometimes useful to be able to derive the ``index`` (listing) or
 ``inspect`` URL for a specific object in a model you have registered via
 the ``modeladmin`` app.
 
-Wagtail itself does this by instantiating of each ``ModelAdmin`` class you have
+Wagtail itself does this by instantiating each ``ModelAdmin`` class you have
 registered, and using the ``url_helper`` attribute of each instance to
 determine what these URLs are.
 
