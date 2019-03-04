@@ -466,7 +466,7 @@ class TestPagePermission(TestCase):
         self.assertFalse(perms.can_lock())
 
 
-class TestPagePermissionTesterCanCopyTo(TestCase):  
+class TestPagePermissionTesterCanCopyTo(TestCase):
     """Tests PagePermissionTester.can_copy_to()"""
 
     fixtures = ['test.json']
