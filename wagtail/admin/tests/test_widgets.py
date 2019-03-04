@@ -157,3 +157,58 @@ class TestAdminDateTimeInput(TestCase):
             '"format": "d.m.Y. H:i"',
             html,
         )
+
+
+class TestAdminTagWidget(TestCase):
+
+    def get_js_init_params(self, html):
+        """Returns a list of the params passed in to initTagField from the supplied HTML"""
+        # Eg. ["'test\\u002Did'", "'/admin/tag\\u002Dautocomplete/'", 'true', 'null']
+        start = 'initTagField('
+        end = ');'
+        items_after_init = html.split(start)[1]
+        if items_after_init:
+            params_raw = items_after_init.split(end)[0]
+            if params_raw:
+                return [part.strip() for part in params_raw.split(',')]
+        return []
+
+
+    def test_render_js_init_basic(self):
+        """Chekcs that the 'initTagField' is correctly added to the inline script for tag widgets"""
+        widget = widgets.AdminTagWidget()
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(len(params), 4)
+        self.assertEqual(params[0], "'alpha'")  # id
+        self.assertEqual(params[1], "'/admin/tag\\u002Dautocomplete/'")  # autocomplete url
+        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
+        self.assertEqual(params[3], 'null')  # tag_limit
+
+
+    @override_settings(TAG_SPACES_ALLOWED=False)
+    def test_render_js_init_no_spaces_allowed(self):
+        """Chekcs that the 'initTagField' includes the correct value based on TAG_SPACES_ALLOWED in settings"""
+        widget = widgets.AdminTagWidget()
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(len(params), 4)
+        self.assertEqual(params[2], 'false')  # tag_spaces_allowed
+        self.assertEqual(params[3], 'null')  # tag_limit
+
+
+    @override_settings(TAG_LIMIT=5)
+    def test_render_js_init_with_tag_limit(self):
+        """Chekcs that the 'initTagField' includes the correct value based on TAG_LIMIT in settings"""
+        widget = widgets.AdminTagWidget()
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(len(params), 4)
+        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
+        self.assertEqual(params[3], '5')  # tag_limit

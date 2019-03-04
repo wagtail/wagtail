@@ -101,6 +101,7 @@ class AdminTagWidget(TagWidget):
         context = super().get_context(name, value, attrs)
         context['widget']['autocomplete_url'] = reverse('wagtailadmin_tag_autocomplete')
         context['widget']['tag_spaces_allowed'] = getattr(settings, 'TAG_SPACES_ALLOWED', True)
+        context['widget']['tag_limit'] = getattr(settings, 'TAG_LIMIT', None)
 
         return context
 

@@ -26,6 +26,7 @@ Other features
  * Renamed ``target_model`` argument on ``PageChooserBlock`` to ``page_type`` (Loic Teixeira)
  * ``edit_handler`` and ``panels`` can now be defined on a ``ModelAdmin`` definition (Thomas Kremmel)
  * Add Learn Wagtail to third-party tutorials in documentation (Matt Westcott)
+ * Add a Django setting ``TAG_LIMIT`` to limit number of tags that can be added to any taggit model (Mani)
 
 
 Bug fixes
