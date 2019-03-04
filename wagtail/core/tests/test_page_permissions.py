@@ -468,7 +468,7 @@ class TestPagePermission(TestCase):
 
 class TestPagePermissionTesterCanCopyTo(TestCase):  
     """Tests PagePermissionTester.can_copy_to()"""
-    
+
     fixtures = ['test.json']
 
     def setUp(self):
@@ -484,7 +484,7 @@ class TestPagePermissionTesterCanCopyTo(TestCase):
         board_meetings_page_perms = self.board_meetings_page.permissions_for_user(user)
         event_page_perms = self.event_page.permissions_for_user(user)
         singleton_page_perms = self.singleton_page.permissions_for_user(user)
-       
+
         # This user should not be able to copy any pages
         self.assertFalse(event_page_perms.can_copy_to(self.event_page.get_parent()))
         self.assertFalse(board_meetings_page_perms.can_copy_to(self.board_meetings_page.get_parent()))
@@ -497,7 +497,7 @@ class TestPagePermissionTesterCanCopyTo(TestCase):
         board_meetings_page_perms = self.board_meetings_page.permissions_for_user(user)
         event_page_perms = self.event_page.permissions_for_user(user)
         singleton_page_perms = self.singleton_page.permissions_for_user(user)
-        
+
         # This user should not be able to copy any pages
         self.assertFalse(event_page_perms.can_copy_to(self.event_page.get_parent()))
         self.assertFalse(board_meetings_page_perms.can_copy_to(self.board_meetings_page.get_parent()))
@@ -505,12 +505,12 @@ class TestPagePermissionTesterCanCopyTo(TestCase):
 
     def test_event_moderator_cannot_copy_a_singleton_page(self):
         user = get_user_model().objects.get(username='eventmoderator')
-        
+
         # Create PagePermissionTester objects for this user, for each page
         board_meetings_page_perms = self.board_meetings_page.permissions_for_user(user)
         event_page_perms = self.event_page.permissions_for_user(user)
         singleton_page_perms = self.singleton_page.permissions_for_user(user)
-        
+
         # We'd expect an event moderator to be able to copy an event page
         self.assertTrue(event_page_perms.can_copy_to(self.event_page.get_parent()))
         # This works because copying doesn't necessarily have to mean publishing
