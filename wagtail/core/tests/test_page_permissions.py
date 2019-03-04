@@ -475,7 +475,11 @@ class TestPagePermissionTesterCanCopyTo(TestCase):
         # These same pages will be used for testing the result for each user
         self.board_meetings_page = BusinessSubIndex.objects.get(url_path='/home/events/businessy-events/board-meetings/')
         self.event_page = EventPage.objects.get(url_path='/home/events/christmas/')
-        self.singleton_page = SingletonPageViaMaxCount.objects.get(url_path='/home/only-one/')
+
+        # We'll also create a SingletonPageViaMaxCount to use
+        homepage = Page.objects.get(url_path='/home/')
+        self.singleton_page = SingletonPageViaMaxCount(title='there can be only one')
+        homepage.add_child(instance=self.singleton_page)
 
     def test_inactive_user_cannot_copy_any_pages(self):
         user = get_user_model().objects.get(username='inactiveuser')
