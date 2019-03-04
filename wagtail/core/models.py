@@ -1841,9 +1841,15 @@ class PagePermissionTester:
         if recursive and (self.page == destination or destination.is_descendant_of(self.page)):
             return False
 
-        # shortcut the trivial 'everything' / 'nothing' permissions
+        # reject inactive users early
         if not self.user.is_active:
             return False
+
+        # reject early if pages of this type cannot be created at the destination
+        if not self.page.specific_class.can_create_at(destination):
+            return False
+
+        # skip permission checking for super users
         if self.user.is_superuser:
             return True
 
