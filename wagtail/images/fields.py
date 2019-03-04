@@ -7,8 +7,8 @@ from django.forms.fields import ImageField
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
 
-ALLOWED_EXTENSIONS = ['gif', 'jpg', 'jpeg', 'png']
-SUPPORTED_FORMATS_TEXT = _("GIF, JPEG, PNG")
+ALLOWED_EXTENSIONS = ['gif', 'jpg', 'jpeg', 'png', 'webp']
+SUPPORTED_FORMATS_TEXT = _("GIF, JPEG, PNG, WEBP")
 
 
 class WagtailImageField(ImageField):

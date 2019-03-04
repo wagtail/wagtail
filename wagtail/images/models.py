@@ -297,6 +297,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
                 'jpeg': '.jpg',
                 'png': '.png',
                 'gif': '.gif',
+                'webp': '.webp',
             }
 
             output_extension = filter.spec.replace('|', '.') + FORMAT_EXTENSIONS[generated_image.format_name]
@@ -414,6 +415,10 @@ class Filter:
                 if original_format == 'gif' and not willow.has_animation():
                     output_format = 'png'
 
+                # Convert WEBP files to PNG
+                if original_format == 'webp':
+                    output_format = 'png'
+
             if output_format == 'jpeg':
                 # Allow changing of JPEG compression quality
                 if 'jpeg-quality' in env:
@@ -432,6 +437,8 @@ class Filter:
                 return willow.save_as_png(output, optimize=True)
             elif output_format == 'gif':
                 return willow.save_as_gif(output)
+            elif output_format == 'webp':
+                return willow.save_as_webp(output)
 
     def get_cache_key(self, image):
         vary_parts = []
