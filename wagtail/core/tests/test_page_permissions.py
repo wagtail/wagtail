@@ -3,7 +3,8 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 
 from wagtail.core.models import GroupPagePermission, Page, UserPagePermissionsProxy
-from wagtail.tests.testapp.models import BusinessSubIndex, EventIndex, EventPage, SingletonPageViaMaxCount
+from wagtail.tests.testapp.models import (
+    BusinessSubIndex, EventIndex, EventPage, SingletonPageViaMaxCount)
 
 
 class TestPagePermission(TestCase):
