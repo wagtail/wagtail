@@ -25,7 +25,7 @@
     "fields": {
         "title": "Welcome to the Wagtail test site!",
         "draft_title": "Welcome to the Wagtail test site!",
-        "numchild": 9,
+        "numchild": 10,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -595,6 +595,29 @@
 },
 
 {
+    "pk": 21,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "There can be only one!",
+        "draft_title": "There can be only one!",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 2,
+        "content_type": ["tests", "singletonpageviamaxcount"],
+        "path": "00010001000a",
+        "url_path": "/home/only-one/",
+        "slug": "only-one",
+        "owner": 3
+    }
+},
+{
+    "pk": 21,
+    "model": "tests.singletonpageviamaxcount",
+    "fields": {}
+},
+
+{
     "pk": 20,
     "model": "wagtailcore.page",
     "fields": {
@@ -610,7 +633,6 @@
         "slug": "does-not-exist"
     }
 },
-
 
 {
     "pk": 1,
