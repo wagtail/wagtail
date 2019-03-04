@@ -25,7 +25,7 @@
     "fields": {
         "title": "Welcome to the Wagtail test site!",
         "draft_title": "Welcome to the Wagtail test site!",
-        "numchild": 10,
+        "numchild": 9,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
