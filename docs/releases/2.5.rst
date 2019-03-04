@@ -44,8 +44,9 @@ Bug fixes
  * Page Copy will now also copy ParentalManyToMany field relations (LB (Ben Johnston))
  * Admin HTML header now includes correct language code (Matt Westcott)
  * Unclear error message when saving image after focal point edit (Hugo van den Berg)
- * Fix: Increase max length on ``Embed.thumbnail_url`` to 255 characters (Kevin Howbrook)
- * Fix: ``send_mail`` now correctly uses the ``html_message`` kwarg for HTML messages (Tiago Requeijo)
+ * Increase max length on ``Embed.thumbnail_url`` to 255 characters (Kevin Howbrook)
+ * ``send_mail`` now correctly uses the ``html_message`` kwarg for HTML messages (Tiago Requeijo)
+ * Page copying no longer allowed if page model has reached its ``max_count`` (Andy Babic)
 
 
 Upgrade considerations
