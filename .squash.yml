@@ -1,7 +1,6 @@
 deployments:
   default:
     dockerimage: python:latest
-    port_forwarding: 80:3000
     build_steps:
       - apt-get update && apt-get install -y libssl-dev libpq-dev git build-essential libfontconfig1 libfontconfig1-dev
       - pip install setuptools pip --upgrade --force-reinstall
