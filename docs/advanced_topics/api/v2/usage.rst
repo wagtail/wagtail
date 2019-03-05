@@ -540,7 +540,7 @@ Major features
 Minor features
 --------------
 
- - ``html_url``, ``slug``, ``first_publised_at``, ``expires_at`` and
+ - ``html_url``, ``slug``, ``first_published_at``, ``expires_at`` and
    ``show_in_menus`` fields have been added to the pages endpoint
  - ``download_url`` field has been added to the documents endpoint
  - Multiple page types can be specified in ``type`` parameter on pages endpoint
