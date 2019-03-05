@@ -1,0 +1,16 @@
+deployments:
+  default:
+    dockerimage: python:latest
+    port_forwarding: 80:3000
+    build_steps:
+      - apt-get update && apt-get install -y libssl-dev libpq-dev git build-essential libfontconfig1 libfontconfig1-dev
+      - pip install setuptools pip --upgrade --force-reinstall
+      - pip install wagtail
+      - mkdir /myproject
+      - cd /myproject
+      - wagtail start mysite
+      - cd /myproject/mysite
+      - python manage.py migrate
+      - echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@myproject.com', 'password')" | python manage.py shell
+    launch_steps:
+      python manage.py runserver 0.0.0.0:80
