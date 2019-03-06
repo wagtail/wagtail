@@ -23,6 +23,7 @@ Other features
  * Rich text to contentstate conversion now prioritises more specific rules, to accommodate ``<p>`` and ``<br>`` elements with attributes (Matt Westcott)
  * Added limit image upload size by number of pixels (Thomas Elliott)
  * Added ``manage.py wagtail_update_index`` alias to avoid clashes with ``update_index`` commands from other packages (Matt Westcott)
+ * Renamed ``target_model`` argument on ``PageChooserBlock`` to ``page_type`` (Loic Teixeira)
 
 
 Bug fixes
