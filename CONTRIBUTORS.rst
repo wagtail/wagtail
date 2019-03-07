@@ -352,6 +352,7 @@ Contributors
 * Neil Lyons
 * Gassan Gousseinov
 * Thomas Kremmel
+* patta42
 
 Translators
 ===========
