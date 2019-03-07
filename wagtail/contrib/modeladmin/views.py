@@ -326,8 +326,8 @@ class IndexView(WMABaseView):
                     return True
                 model = field.remote_field.model
                 if isinstance(field.remote_field, ParentalKey):
-                    #traverse the extra step needed when a ParentalKey is in 
-                    #use
+                    # traverse the extra step needed when a ParentalKey is in
+                    # use
                     remote_field = field.remote_field.remote_field
                     rel_name = remote_field.get_related_field().name
                 else:
