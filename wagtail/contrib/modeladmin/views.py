@@ -336,10 +336,9 @@ class IndexView(WMABaseView):
                 model = field.model
                 rel_name = model._meta.pk.name
             else:
-                rel_name = None
+                rel_name = None    
         if rel_name and len(parts) > 1 and parts[-1] == rel_name:
             parts.pop()
-
         if len(parts) == 1:
             return True
         clean_lookup = LOOKUP_SEP.join(parts)
