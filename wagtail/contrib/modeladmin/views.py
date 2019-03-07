@@ -26,12 +26,11 @@ from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+from modelcluster.fields import ParentalKey
 
 from wagtail.admin import messages
 
 from .forms import ParentChooserForm
-
-from modelcluster.fields import ParentalKey
 
 try:
     from django.db.models.sql.constants import QUERY_TERMS
