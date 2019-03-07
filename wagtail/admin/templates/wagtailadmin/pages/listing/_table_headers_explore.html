@@ -5,6 +5,7 @@
 Table headers for the page listing, when in 'explore' mode. Expects the following variables:
 
 sortable: if true, headings are links to wagtailadmin_explore with sort parameters applied.
+sortable_by_type: must be true to allow sorting on the 'type' column
 show_ordering_column: if true, an 'ordering' column is added.
 orderable: if true, the 'ordering' column is populated (again with links to wagtailadmin_explore).
 
@@ -49,7 +50,7 @@ ordering: the current sort parameter
         {% endif %}
     </th>
     <th class="type">
-        {% if sortable and not not_sortable_by_type %}
+        {% if sortable and sortable_by_type %}
             <a href="{% if ordering == 'content_type' %}{% querystring ordering='-content_type' %}{% else %}{% querystring ordering='content_type' %}{% endif %}" class="icon icon-arrow-{% if ordering == '-content_type' %}up-after{% else %}down-after{% endif %} {% if ordering == 'content_type' or ordering == '-content_type' %}teal {% endif %}">
                 {% trans 'Type' %}
             </a>
