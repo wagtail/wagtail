@@ -8,7 +8,7 @@ from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
-from django.utils.html import conditional_escape, format_html
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.menu import admin_menu
@@ -20,7 +20,7 @@ from wagtail.core.models import (
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url
-from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
+from wagtail.utils.pagination import DEFAULT_PAGE_KEY
 
 register = template.Library()
 
@@ -404,14 +404,6 @@ def message_tags(message):
         return level_tag
     else:
         return ''
-
-
-@register.simple_tag
-def replace_page_param(query, page_number, page_key='p'):
-    """
-    Replaces ``page_key`` from query string with ``page_number``.
-    """
-    return conditional_escape(replace_page_in_query(query, page_number, page_key))
 
 
 @register.filter('abs')

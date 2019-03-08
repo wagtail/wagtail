@@ -25,7 +25,7 @@
                 {% if is_searching %}
                     <a href="{{ url_to_use }}?q={{ query_string|urlencode }}&amp;p={{ items.previous_page_number }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
                 {% elif not linkurl %}
-                    <a href="?{% replace_page_param request.META.QUERY_STRING items.previous_page_number %}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
+                    <a href="{% querystring p=items.previous_page_number %}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
                 {% else %}
                     <a href="{{ url_to_use }}?p={{ items.previous_page_number }}&amp;ordering={{ ordering }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
                 {% endif %}
@@ -36,7 +36,7 @@
                 {% if is_searching %}
                     <a href="{{ url_to_use }}?q={{ query_string|urlencode }}&amp;p={{ items.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
                 {% elif not linkurl %}
-                    <a href="?{% replace_page_param request.META.QUERY_STRING items.next_page_number %}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
+                    <a href="{% querystring p=items.next_page_number %}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
                 {% else %}
                     <a href="{{ url_to_use }}?p={{ items.next_page_number }}&amp;ordering={{ ordering }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
                 {% endif %}
