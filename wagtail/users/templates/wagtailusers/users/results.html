@@ -14,7 +14,7 @@
 
     {% include "wagtailusers/users/list.html" %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=users is_searching=is_searching linkurl="wagtailusers_users:index" %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=users linkurl="wagtailusers_users:index" %}
 {% else %}
     {% if is_searching %}
          <h2>{% blocktrans %}Sorry, no users match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
