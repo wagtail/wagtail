@@ -2822,6 +2822,7 @@ class TestDateBlock(TestCase):
         block = blocks.DateBlock()
         block.set_name('test')
         definition = block.get_definition()
+        print(definition['html'])
         self.assertInHTML(
             '<script>initDateChooser("field\\u002D__ID__", '
             '{"dayOfWeekStart": 0, "format": "Y-m-d"});</script>',
@@ -2870,6 +2871,7 @@ class TestDateTimeBlock(TestCase):
         block = blocks.DateTimeBlock(format='%d.%m.%Y %H:%M')
         block.set_name('test')
         definition = block.get_definition()
+        print(definition['html'])
         self.assertInHTML(
             '<script>initDateTimeChooser("field\\u002D__ID__", '
             '{"dayOfWeekStart": 0, "format": "d.m.Y H:i"});</script>',
