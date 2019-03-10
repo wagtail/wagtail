@@ -48,7 +48,8 @@
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "testURL": "http://localhost/"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
