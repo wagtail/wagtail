@@ -1,67 +1,32 @@
 @import '../../../../node_modules/react-streamfield/src/index';
 
 
-.children-container {
-    .block > .block-container {
-        > aside > .actions > button,
-        > header > aside > .actions > button {
-            padding-left: 6px;
-            padding-right: 6px;
-            font-size: 140%;
-
-            i::before {
-                margin-right: 0;
-            }
-        }
-
-        > header {
-            margin-bottom: unset;
-            color: unset;
-            padding-top: 0;
-            padding-bottom: 0;
+.c-sf-container {
+    // TODO: #CSSoverhaul the bse icon style here - the margin - should be reconsidered when
+    // re-building the icon component as part of the CSS  These styles come from global
+    // label styles in css/mixins/_general.scss -@jonnyscholes
+    .c-sf-button__icon {
+        .icon::before {
+            margin: unset;
         }
     }
 
-    .add-panel button.type {
-        .icon,
-        .label {
-            color: unset;
-            font-size: unset;
-            font-weight: normal;
-        }
-
-        .icon > .icon {
-            background: unset;
-            padding: unset;
-
-            &::before {
-                margin: unset;
-            }
-        }
-    }
-
+    // TODO: #CSSoverhaul global label styles need to be removed. These styles come from global
+    // label styles in css/_grid.scss -@jonnyscholes
     .field label {
-        float: unset;
-        width: unset;
-        max-width: unset;
-        padding: 0;
+        float: unset; // LEGIT
+        width: unset; // LEGIT
+        max-width: unset; // LEGIT
+        padding: 0; // LEGIT
 
         &::after {
-            content: '';
+            content: ''; // LEGIT
         }
     }
 
-    .block > .block-container > header {
-        background: #fff;
-    }
-}
-
-.content-container {
-    .content {
-        margin: unset;
-        min-height: unset;
-    }
-
+    // TODO: #CSSoverhaul This should be fixed as part of Wagtail CSS overhaul. The default
+    // `.field`/`.field-componet` (or whatever they become) should be full width by default.
+    // -@jonnyscholes
     .field-content {
         float: unset;
         display: block;
@@ -72,11 +37,9 @@
         }
     }
 
+    // TODO: #CSSoverhaul This should be fixed as part of Wagtail CSS overhaul. Whatever we do with
+    // `.field`/`.field-content` should take into account help text -@jonnyscholes
     .help {
         margin: 8px 0;
-
-        .icon-help-inverse {
-            margin-right: 0.5em;
-        }
     }
 }
