@@ -87,7 +87,10 @@ The following object-specific action names are supported by ``get_action_url()``
 
 .. note::
     If you are using string values as primary keys for you model, you may need to handle
-    cases where the key contains characters that are not URL safe (e.g. ``_`` or ``|``).
+    cases where the key contains characters that are not URL safe. Only alphanumerics
+    (``[0-9a-zA-Z]``), or the following special characters are safe:
+    ``$``, ``-``, ``_``, ``.``, ``+``, ``!``, ``*``, ``'``, ``(``, ``)``.
+
     ``django.contrib.admin.utils.quote()`` can be used to safely encode these primary
     key values before passing them to ``get_action_url()``. Failure to do this may result
     in Wagtail not being able to recognise the primary key when the URL is visited,
