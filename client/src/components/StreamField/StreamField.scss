@@ -1,4 +1,8 @@
-@import '../../../../node_modules/react-streamfield/src/index';
+$header-padding-vertical: 6px;
+$action-font-size: 18px;
+
+
+@import '../../../../node_modules/react-streamfield/src/scss/index';
 
 
 .c-sf-container {
