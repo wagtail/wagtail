@@ -2,6 +2,7 @@ from time import time
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Count
 from django.http import Http404, HttpResponse, JsonResponse
@@ -26,7 +27,6 @@ from wagtail.admin.utils import send_notification, user_has_any_page_permission,
 from wagtail.core import hooks
 from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
 from wagtail.search.query import MATCH_ALL
-from wagtail.utils.pagination import paginate
 
 
 def get_valid_next_url_from_request(request):
@@ -110,7 +110,8 @@ def index(request, parent_page_id=None):
 
     # Pagination
     if do_paginate:
-        paginator, pages = paginate(request, pages, per_page=50)
+        paginator = Paginator(pages, per_page=50)
+        pages = paginator.get_page(request.GET.get('p'))
 
     return render(request, 'wagtailadmin/pages/index.html', {
         'parent_page': parent_page.specific,
@@ -161,7 +162,8 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
 
     pages = page_class.objects.all()
 
-    paginator, pages = paginate(request, pages, per_page=10)
+    paginator = Paginator(pages, per_page=10)
+    pages = paginator.get_page(request.GET.get('p'))
 
     return render(request, 'wagtailadmin/pages/content_type_use.html', {
         'pages': pages,
@@ -739,7 +741,8 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
         child_pages.append(target)
 
     # Pagination
-    paginator, child_pages = paginate(request, child_pages, per_page=50)
+    paginator = Paginator(child_pages, per_page=50)
+    child_pages = paginator.get_page(request.GET.get('p'))
 
     return render(request, 'wagtailadmin/pages/move_choose_destination.html', {
         'page_to_move': page_to_move,
@@ -956,7 +959,8 @@ def search(request):
     else:
         form = SearchForm()
 
-    paginator, pages = paginate(request, pages)
+    paginator = Paginator(pages, per_page=20)
+    pages = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():
         return render(request, "wagtailadmin/pages/search_results.html", {
@@ -1104,7 +1108,8 @@ def revisions_index(request, page_id):
 
     revisions = page.revisions.order_by(ordering)
 
-    paginator, revisions = paginate(request, revisions)
+    paginator = Paginator(revisions, per_page=20)
+    revisions = paginator.get_page(request.GET.get('p'))
 
     return render(request, 'wagtailadmin/pages/revisions/index.html', {
         'page': page,
