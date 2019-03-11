@@ -2822,10 +2822,16 @@ class TestDateBlock(TestCase):
         block = blocks.DateBlock()
         block.set_name('test')
         definition = block.get_definition()
-        self.assertInHTML(
-            '<script>initDateChooser("field\\u002D__ID__", '
-            '{"dayOfWeekStart": 0, "format": "Y-m-d"});</script>',
-            definition['html'])
+        try:
+            self.assertInHTML(
+                '<script>initDateChooser("field\\u002D__ID__", '
+                '{"dayOfWeekStart": 0, "format": "Y-m-d"});</script>',
+                definition['html'])
+        except AssertionError:
+            self.assertInHTML(
+                '<script>initDateChooser("field\\u002D__ID__", '
+                '{"format": "Y-m-d", "dayOfWeekStart": 0});</script>',
+                definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
             'key': 'test', 'label': 'Test', 'required': True,
@@ -2870,10 +2876,16 @@ class TestDateTimeBlock(TestCase):
         block = blocks.DateTimeBlock(format='%d.%m.%Y %H:%M')
         block.set_name('test')
         definition = block.get_definition()
-        self.assertInHTML(
-            '<script>initDateTimeChooser("field\\u002D__ID__", '
-            '{"dayOfWeekStart": 0, "format": "d.m.Y H:i"});</script>',
-            definition['html'])
+        try:
+            self.assertInHTML(
+                '<script>initDateTimeChooser("field\\u002D__ID__", '
+                '{"dayOfWeekStart": 0, "format": "d.m.Y H:i"});</script>',
+                definition['html'])
+        except AssertionError:
+            self.assertInHTML(
+                '<script>initDateTimeChooser("field\\u002D__ID__", '
+                '{"format": "d.m.Y H:i", "dayOfWeekStart": 0});</script>',
+                definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
             'key': 'test', 'label': 'Test', 'required': True,
