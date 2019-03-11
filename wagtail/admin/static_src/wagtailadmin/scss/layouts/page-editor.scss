@@ -206,19 +206,19 @@ $object-title-height: 40px;
             display: none;
         }
 
-        fieldset {
-            padding-bottom: 0;
+        .object-layout_big-part {
+            max-width: 100%;
         }
 
-        // Undo column widths usually applied to the contents of a field panel
-        .object-layout_big-part > fieldset {
-            width: 100%;
-            max-width: none;
+        fieldset {
+            padding-bottom: 0;
+            max-width: unset;
+            // Workaround to make sure blocks do not overflow horizontally.
+            min-width: 0;
         }
 
         .block_field > .field-content {
             width: 100%;
-            display: block;
         }
     }
 
