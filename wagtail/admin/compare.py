@@ -230,7 +230,14 @@ class ChoiceFieldComparison(FieldComparison):
         val_b = force_str(dict(self.field.flatchoices).get(self.val_b, self.val_b), strings_only=True)
 
         if self.val_a != self.val_b:
-            return TextDiff([('deletion', val_a), ('addition', val_b)]).to_html()
+            diffs = []
+
+            if val_a:
+                diffs += [('deletion', val_a)]
+            if val_b:
+                diffs += [('addition', val_b)]
+
+            return TextDiff(diffs).to_html()
         else:
             return escape(val_a)
 
@@ -593,7 +600,7 @@ def diff_text(a, b):
         tokens = []
         current_token = ""
 
-        for c in text:
+        for c in text or "":
             if c.isalnum():
                 current_token += c
             else:

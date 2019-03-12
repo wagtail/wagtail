@@ -419,6 +419,7 @@ Contributors
 * Thijs Baaijen
 * Igor van Spengen
 * Stefani Castellanos
+* Aliosha Padovani
 
 Translators
 ===========

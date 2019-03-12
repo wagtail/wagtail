@@ -67,9 +67,44 @@ class TestTextFieldComparison(TestFieldComparison):
         self.assertIsInstance(comparison.htmldiff(), SafeString)
         self.assertTrue(comparison.has_changed())
 
+    def test_from_none_to_value_only_shows_addition(self):
+        comparison = self.comparison_class(
+            SimplePage._meta.get_field('content'),
+            SimplePage(content=None),
+            SimplePage(content="Added content")
+        )
 
-class TestRichTextFieldComparison(TestTextFieldComparison):
+        self.assertEqual(comparison.htmldiff(), '<span class="addition">Added content</span>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
+
+    def test_from_value_to_none_only_shows_deletion(self):
+        comparison = self.comparison_class(
+            SimplePage._meta.get_field('content'),
+            SimplePage(content="Removed content"),
+            SimplePage(content=None)
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<span class="deletion">Removed content</span>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
+
+
+class TestRichTextFieldComparison(TestFieldComparison):
     comparison_class = compare.RichTextFieldComparison
+
+    # Only change from FieldComparison is the HTML diff is performed on words
+    # instead of the whole field value.
+    def test_has_changed(self):
+        comparison = self.comparison_class(
+            SimplePage._meta.get_field('content'),
+            SimplePage(content="Original content"),
+            SimplePage(content="Modified content"),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original</span><span class="addition">Modified</span> content')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
 
     # Only change from FieldComparison is that this comparison disregards HTML tags
     def test_has_changed_html(self):
@@ -326,6 +361,28 @@ class TestChoiceFieldComparison(TestCase):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Public</span><span class="addition">Private</span>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
+
+    def test_from_none_to_value_only_shows_addition(self):
+        comparison = self.comparison_class(
+            EventPage._meta.get_field('audience'),
+            EventPage(audience=None),
+            EventPage(audience="private"),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<span class="addition">Private</span>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
+
+    def test_from_value_to_none_only_shows_deletion(self):
+        comparison = self.comparison_class(
+            EventPage._meta.get_field('audience'),
+            EventPage(audience="public"),
+            EventPage(audience=None),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<span class="deletion">Public</span>')
         self.assertIsInstance(comparison.htmldiff(), SafeString)
         self.assertTrue(comparison.has_changed())
 
