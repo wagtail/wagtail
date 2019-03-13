@@ -94,7 +94,7 @@ class TestAdminDateInput(TestCase):
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
 
-        self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
+        self.assertInHTML('<input type="text" name="test" autocomplete="new-date" id="test-id" />', html)
 
         # we should see the JS initialiser code:
         # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
@@ -130,7 +130,7 @@ class TestAdminDateTimeInput(TestCase):
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
 
-        self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
+        self.assertInHTML('<input type="text" name="test" autocomplete="new-date-time" id="test-id" />', html)
 
         # we should see the JS initialiser code:
         # initDateTimeChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d H:i"});
