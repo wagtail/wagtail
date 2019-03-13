@@ -12,7 +12,7 @@ STRIP_WHITESPACE = 0
 KEEP_WHITESPACE = 1
 FORCE_WHITESPACE = 2
 
-WHITESPACE_RE = re.compile(r'\s+')
+WHITESPACE_RE = re.compile(r'(?![\xa0])\s+')
 
 
 class HandlerState:

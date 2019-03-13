@@ -754,6 +754,21 @@ class TestHtmlToContentState(TestCase):
             ]
         })
 
+    def test_replace_whitespaces(self):
+        # \xa0 is a non-breaking whitespace character
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>It is    time to\xa0\xa0\xa0bring up fight   club again. Or is\xa0  it?</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'It is time to\xa0\xa0\xa0bring up fight club again. Or is\xa0 it?', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
     def test_extra_end_tag_before(self):
         converter = ContentstateConverter(features=[])
         result = json.loads(converter.from_database_format(
