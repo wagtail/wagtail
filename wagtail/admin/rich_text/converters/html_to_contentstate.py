@@ -12,6 +12,7 @@ STRIP_WHITESPACE = 0
 KEEP_WHITESPACE = 1
 FORCE_WHITESPACE = 2
 
+# we match all types of white space characters except for non-breaking white spaces.
 WHITESPACE_RE = re.compile(r'(?![\xa0])\s+')
 
 

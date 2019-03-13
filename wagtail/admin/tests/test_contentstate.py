@@ -755,7 +755,8 @@ class TestHtmlToContentState(TestCase):
         })
 
     def test_replace_whitespaces(self):
-        # \xa0 is a non-breaking whitespace character
+        # We expect all whitespace characters (one or more consecutively) to be replaced by a single space.
+        # Except for non-breaking white spaces, we keep them as they are. (\xa0 is a non-breaking whitespace character)
         converter = ContentstateConverter(features=[])
         result = json.loads(converter.from_database_format(
             '''
