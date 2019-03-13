@@ -38,7 +38,7 @@ class AdminDateInput(widgets.DateInput):
     template_name = 'wagtailadmin/widgets/date_input.html'
 
     def __init__(self, attrs=None, format=None):
-        default_attrs = {'autocomplete': 'off'}
+        default_attrs = {'autocomplete': 'new-date'}
         fmt = format
         if attrs:
             default_attrs.update(attrs)
@@ -63,7 +63,7 @@ class AdminTimeInput(widgets.TimeInput):
     template_name = 'wagtailadmin/widgets/time_input.html'
 
     def __init__(self, attrs=None, format='%H:%M'):
-        default_attrs = {'autocomplete': 'off'}
+        default_attrs = {'autocomplete': 'new-time'}
         if attrs:
             default_attrs.update(attrs)
         super().__init__(attrs=default_attrs, format=format)
@@ -73,7 +73,7 @@ class AdminDateTimeInput(widgets.DateTimeInput):
     template_name = 'wagtailadmin/widgets/datetime_input.html'
 
     def __init__(self, attrs=None, format=None):
-        default_attrs = {'autocomplete': 'off'}
+        default_attrs = {'autocomplete': 'new-date-time'}
         fmt = format
         if attrs:
             default_attrs.update(attrs)
