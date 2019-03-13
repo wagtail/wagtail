@@ -106,8 +106,8 @@ class TestFeatureRegistry(TestCase):
         # testapp/wagtail_hooks.py defines a 'blockquote' rich text feature with a hallo.js
         # plugin, via the register_rich_text_features hook; test that we can retrieve it here
         features = FeatureRegistry()
-        blockquote = features.get_editor_plugin('hallo', 'blockquote')
-        self.assertEqual(blockquote.name, 'halloblockquote')
+        quotation = features.get_editor_plugin('hallo', 'quotation')
+        self.assertEqual(quotation.name, 'halloquotation')
 
     def test_missing_editor_plugin_returns_none(self):
         features = FeatureRegistry()
