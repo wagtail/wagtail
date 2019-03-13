@@ -757,7 +757,7 @@ def move_confirm(request, page_to_move_id, destination_id):
     if not Page._slug_is_available(page_to_move.slug, destination, page=page_to_move):
         messages.error(
             request,
-            _("The slug '{0}' is already in use at the selected parent page.".format(page_to_move.slug))
+            _("The slug '{0}' is already in use at the selected parent page. Make sure the slug is unique and try again".format(page_to_move.slug))
         )
         return redirect('wagtailadmin_pages:move_choose_destination', page_to_move.id, destination.id)
 
