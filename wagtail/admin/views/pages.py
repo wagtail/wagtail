@@ -754,6 +754,13 @@ def move_confirm(request, page_to_move_id, destination_id):
     if not page_to_move.permissions_for_user(request.user).can_move_to(destination):
         raise PermissionDenied
 
+    if not Page._slug_is_available(page_to_move.slug, destination, page=page_to_move):
+        messages.error(
+            request,
+            _("The slug '{0}' is already in use at the selected parent page.".format(page_to_move.slug))
+        )
+        return redirect('wagtailadmin_pages:move_choose_destination', page_to_move.id, destination.id)
+
     for fn in hooks.get_hooks('before_move_page'):
         result = fn(request, page_to_move, destination)
         if hasattr(result, 'status_code'):
