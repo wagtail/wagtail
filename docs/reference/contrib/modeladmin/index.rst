@@ -48,6 +48,7 @@ Want to know more about customising ``ModelAdmin``?
     create_edit_delete_views
     inspectview
     chooseparentview
+    tips_and_tricks/index
 
 .. _modeladmin_usage:
 
@@ -222,10 +223,3 @@ the same ``wagtail_hooks.py`` file if you want. The example below will create
     modeladmin_register(BookAdmin)
     modeladmin_register(MovieAdmin)
     modeladmin_register(MusicAdminGroup)
-
-
--------------------------
-Additional Tips & Tricks
--------------------------
-
-* To programatically generate URLs for any of your ``ModelAdmin`` views, see :ref:`modeladmin_reversing_urls`.
