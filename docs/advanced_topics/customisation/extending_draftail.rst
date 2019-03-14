@@ -22,7 +22,7 @@ All of these plugins are created with a similar baseline, which we can demonstra
     def register_mark_feature(features):
         """
         Registering the `mark` feature, which uses the `MARK` Draft.js inline style type,
-        and is stored as HTML with an `<mark>` tag.
+        and is stored as HTML with a `<mark>` tag.
         """
         feature_name = 'mark'
         type_ = 'MARK'
