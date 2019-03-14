@@ -103,7 +103,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
 
 class TestInspectView(TestCase, WagtailTestUtils):
-    fixtures = ['test_specific.json']
+    fixtures = ['test_specific.json', 'modeladmintest_test.json']
 
     def setUp(self):
         self.login()
@@ -156,6 +156,10 @@ class TestInspectView(TestCase, WagtailTestUtils):
     def test_non_existent(self):
         response = self.get(100)
         self.assertEqual(response.status_code, 404)
+
+    def test_label_display(self):
+        response = self.client.get('/admin/modeladmintest/author/inspect/1/')
+        self.assertContains(response, 'Birth information')
 
 
 class TestEditView(TestCase, WagtailTestUtils):
