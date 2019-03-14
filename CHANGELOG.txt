@@ -21,6 +21,7 @@ Changelog
  * Added option to specify a fallback URL on `{% pageurl %}` (Arthur Holzner)
  * Add support for more rich text formats, disabled by default: `blockquote`, `superscript`, `subscript`, `strikethrough`, `code` (Md Arifin Ibne Matin)
  * Added `max_count_per_parent` option on page models to limit the number of pages of a given type that can be created under one parent page (Wesley van Lee)
+ * `StreamField` field blocks now accept a `validators` argument (Tom Usher)
  * Fix: Set `SERVER_PORT` to 443 in `Page.dummy_request()` for HTTPS sites (Sergey Fedoseev)
  * Fix: Include port number in `Host` header of `Page.dummy_request()` (Sergey Fedoseev)
  * Fix: Validation error messages in `InlinePanel` no longer count towards `max_num` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)

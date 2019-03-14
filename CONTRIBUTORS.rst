@@ -357,6 +357,7 @@ Contributors
 * Damian Grinwis
 * Wesley van Lee
 * Md Arifin Ibne Matin
+* Tom Usher
 
 Translators
 ===========

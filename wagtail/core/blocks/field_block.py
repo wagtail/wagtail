@@ -96,14 +96,15 @@ class FieldBlock(Block):
 
 class CharBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
+    def __init__(self, required=True, help_text=None, max_length=None, min_length=None, validators=(), **kwargs):
         # CharField's 'label' and 'initial' parameters are not exposed, as Block handles that functionality natively
         # (via 'label' and 'default')
         self.field = forms.CharField(
             required=required,
             help_text=help_text,
             max_length=max_length,
-            min_length=min_length
+            min_length=min_length,
+            validators=validators,
         )
         super().__init__(**kwargs)
 
@@ -113,12 +114,13 @@ class CharBlock(FieldBlock):
 
 class TextBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, rows=1, max_length=None, min_length=None, **kwargs):
+    def __init__(self, required=True, help_text=None, rows=1, max_length=None, min_length=None, validators=(), **kwargs):
         self.field_options = {
             'required': required,
             'help_text': help_text,
             'max_length': max_length,
-            'min_length': min_length
+            'min_length': min_length,
+            'validators': validators,
         }
         self.rows = rows
         super().__init__(**kwargs)
@@ -151,12 +153,13 @@ class BlockQuoteBlock(TextBlock):
 
 class FloatBlock(FieldBlock):
 
-    def __init__(self, required=True, max_value=None, min_value=None, *args,
+    def __init__(self, required=True, max_value=None, min_value=None, validators=(), *args,
                  **kwargs):
         self.field = forms.FloatField(
             required=required,
             max_value=max_value,
             min_value=min_value,
+            validators=validators,
         )
         super().__init__(*args, **kwargs)
 
@@ -167,7 +170,7 @@ class FloatBlock(FieldBlock):
 class DecimalBlock(FieldBlock):
 
     def __init__(self, required=True, help_text=None, max_value=None, min_value=None,
-                 max_digits=None, decimal_places=None, *args, **kwargs):
+                 max_digits=None, decimal_places=None, validators=(), *args, **kwargs):
         self.field = forms.DecimalField(
             required=required,
             help_text=help_text,
@@ -175,6 +178,7 @@ class DecimalBlock(FieldBlock):
             min_value=min_value,
             max_digits=max_digits,
             decimal_places=decimal_places,
+            validators=validators,
         )
         super().__init__(*args, **kwargs)
 
@@ -185,7 +189,7 @@ class DecimalBlock(FieldBlock):
 class RegexBlock(FieldBlock):
 
     def __init__(self, regex, required=True, help_text=None, max_length=None, min_length=None,
-                 error_messages=None, *args, **kwargs):
+                 error_messages=None, validators=(), *args, **kwargs):
         self.field = forms.RegexField(
             regex=regex,
             required=required,
@@ -193,6 +197,7 @@ class RegexBlock(FieldBlock):
             max_length=max_length,
             min_length=min_length,
             error_messages=error_messages,
+            validators=validators,
         )
         super().__init__(*args, **kwargs)
 
@@ -202,12 +207,13 @@ class RegexBlock(FieldBlock):
 
 class URLBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
+    def __init__(self, required=True, help_text=None, max_length=None, min_length=None, validators=(), **kwargs):
         self.field = forms.URLField(
             required=required,
             help_text=help_text,
             max_length=max_length,
-            min_length=min_length
+            min_length=min_length,
+            validators=validators,
         )
         super().__init__(**kwargs)
 
@@ -231,8 +237,12 @@ class BooleanBlock(FieldBlock):
 
 class DateBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, format=None, **kwargs):
-        self.field_options = {'required': required, 'help_text': help_text}
+    def __init__(self, required=True, help_text=None, format=None, validators=(), **kwargs):
+        self.field_options = {
+            'required': required,
+            'help_text': help_text,
+            'validators': validators,
+        }
         try:
             self.field_options['input_formats'] = kwargs.pop('input_formats')
         except KeyError:
@@ -264,8 +274,12 @@ class DateBlock(FieldBlock):
 
 class TimeBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, **kwargs):
-        self.field_options = {'required': required, 'help_text': help_text}
+    def __init__(self, required=True, help_text=None, validators=(), **kwargs):
+        self.field_options = {
+            'required': required,
+            'help_text': help_text,
+            'validators': validators
+        }
         super().__init__(**kwargs)
 
     @cached_property
@@ -287,8 +301,12 @@ class TimeBlock(FieldBlock):
 
 class DateTimeBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, format=None, **kwargs):
-        self.field_options = {'required': required, 'help_text': help_text}
+    def __init__(self, required=True, help_text=None, format=None, validators=(), **kwargs):
+        self.field_options = {
+            'required': required,
+            'help_text': help_text,
+            'validators': validators,
+        }
         self.format = format
         super().__init__(**kwargs)
 
@@ -312,10 +330,11 @@ class DateTimeBlock(FieldBlock):
 
 
 class EmailBlock(FieldBlock):
-    def __init__(self, required=True, help_text=None, **kwargs):
+    def __init__(self, required=True, help_text=None, validators=(), **kwargs):
         self.field = forms.EmailField(
             required=required,
             help_text=help_text,
+            validators=validators,
         )
         super().__init__(**kwargs)
 
@@ -326,12 +345,13 @@ class EmailBlock(FieldBlock):
 class IntegerBlock(FieldBlock):
 
     def __init__(self, required=True, help_text=None, min_value=None,
-                 max_value=None, **kwargs):
+                 max_value=None, validators=(), **kwargs):
         self.field = forms.IntegerField(
             required=required,
             help_text=help_text,
             min_value=min_value,
-            max_value=max_value
+            max_value=max_value,
+            validators=validators,
         )
         super().__init__(**kwargs)
 
@@ -343,7 +363,7 @@ class ChoiceBlock(FieldBlock):
 
     choices = ()
 
-    def __init__(self, choices=None, default=None, required=True, help_text=None, **kwargs):
+    def __init__(self, choices=None, default=None, required=True, help_text=None, validators=(), **kwargs):
         if choices is None:
             # no choices specified, so pick up the choice defined at the class level
             choices = self.choices
@@ -375,7 +395,12 @@ class ChoiceBlock(FieldBlock):
         # If we have a default choice and the field is required, we don't need to add a blank option.
         callable_choices = self.get_callable_choices(choices, blank_choice=not(default and required))
 
-        self.field = forms.ChoiceField(choices=callable_choices, required=required, help_text=help_text)
+        self.field = forms.ChoiceField(
+            choices=callable_choices,
+            required=required,
+            help_text=help_text,
+            validators=validators,
+        )
         super().__init__(default=default, **kwargs)
 
     def get_callable_choices(self, choices, blank_choice=True):
@@ -449,8 +474,12 @@ class ChoiceBlock(FieldBlock):
 
 class RichTextBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, editor='default', features=None, **kwargs):
-        self.field_options = {'required': required, 'help_text': help_text}
+    def __init__(self, required=True, help_text=None, editor='default', features=None, validators=(), **kwargs):
+        self.field_options = {
+            'required': required,
+            'help_text': help_text,
+            'validators': validators,
+        }
         self.editor = editor
         self.features = features
         super().__init__(**kwargs)
@@ -497,9 +526,10 @@ class RichTextBlock(FieldBlock):
 
 class RawHTMLBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
+    def __init__(self, required=True, help_text=None, max_length=None, min_length=None, validators=(), **kwargs):
         self.field = forms.CharField(
             required=required, help_text=help_text, max_length=max_length, min_length=min_length,
+            validators=validators,
             widget=forms.Textarea)
         super().__init__(**kwargs)
 
@@ -527,9 +557,10 @@ class RawHTMLBlock(FieldBlock):
 
 class ChooserBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, **kwargs):
+    def __init__(self, required=True, help_text=None, validators=(), **kwargs):
         self._required = required
         self._help_text = help_text
+        self._validators = validators
         super().__init__(**kwargs)
 
     """Abstract superclass for fields that implement a chooser interface (page, image, snippet etc)"""
@@ -537,6 +568,7 @@ class ChooserBlock(FieldBlock):
     def field(self):
         return forms.ModelChoiceField(
             queryset=self.target_model.objects.all(), widget=self.widget, required=self._required,
+            validators=self._validators,
             help_text=self._help_text)
 
     def to_python(self, value):

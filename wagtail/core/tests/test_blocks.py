@@ -90,6 +90,16 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(content, ["Hello world!"])
 
+    def test_charfield_with_validator(self):
+        def validate_is_foo(value):
+            if value != 'foo':
+                raise ValidationError("Value must be 'foo'")
+
+        block = blocks.CharBlock(validators=[validate_is_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean("bar")
+
     def test_choicefield_render(self):
         class ChoiceBlock(blocks.FieldBlock):
             field = forms.ChoiceField(choices=(
@@ -259,6 +269,16 @@ class TestIntegerBlock(unittest.TestCase):
         with self.assertRaises(ValidationError):
             block.clean(10)
 
+    def test_render_with_validator(self):
+        def validate_is_even(value):
+            if value % 2 > 0:
+                raise ValidationError("Value must be even")
+
+        block = blocks.IntegerBlock(validators=[validate_is_even])
+
+        with self.assertRaises(ValidationError):
+            block.clean(3)
+
 
 class TestEmailBlock(unittest.TestCase):
     def test_render(self):
@@ -279,6 +299,16 @@ class TestEmailBlock(unittest.TestCase):
         with self.assertRaises(ValidationError):
             block.clean("example.email.com")
 
+    def test_render_with_validator(self):
+        def validate_is_example_domain(value):
+            if not value.endswith('@example.com'):
+                raise ValidationError("E-mail address must end in @example.com")
+
+        block = blocks.EmailBlock(validators=[validate_is_example_domain])
+
+        with self.assertRaises(ValidationError):
+            block.clean("foo@example.net")
+
 
 class TestBlockQuoteBlock(unittest.TestCase):
     def test_render(self):
@@ -286,6 +316,16 @@ class TestBlockQuoteBlock(unittest.TestCase):
         quote = block.render("Now is the time...")
 
         self.assertEqual(quote, "<blockquote>Now is the time...</blockquote>")
+
+    def test_render_with_validator(self):
+        def validate_is_proper_story(value):
+            if not value.startswith('Once upon a time'):
+                raise ValidationError("Value must be a proper story")
+
+        block = blocks.BlockQuoteBlock(validators=[validate_is_proper_story])
+
+        with self.assertRaises(ValidationError):
+            block.clean("A long, long time ago")
 
 
 class TestFloatBlock(TestCase):
@@ -318,6 +358,16 @@ class TestFloatBlock(TestCase):
         with self.assertRaises(ValidationError):
             block.clean('19.99')
 
+    def test_render_with_validator(self):
+        def validate_is_even(value):
+            if value % 2 > 0:
+                raise ValidationError("Value must be even")
+
+        block = blocks.FloatBlock(validators=[validate_is_even])
+
+        with self.assertRaises(ValidationError):
+            block.clean('3.0')
+
 
 class TestDecimalBlock(TestCase):
     def test_type(self):
@@ -349,6 +399,16 @@ class TestDecimalBlock(TestCase):
 
         with self.assertRaises(ValidationError):
             block.clean('19.99')
+
+    def test_render_with_validator(self):
+        def validate_is_even(value):
+            if value % 2 > 0:
+                raise ValidationError("Value must be even")
+
+        block = blocks.DecimalBlock(validators=[validate_is_even])
+
+        with self.assertRaises(ValidationError):
+            block.clean('3.0')
 
 
 class TestRegexBlock(TestCase):
@@ -403,6 +463,16 @@ class TestRegexBlock(TestCase):
             errors=ErrorList([ValidationError(test_message)]))
 
         self.assertIn(test_message, html)
+
+    def test_render_with_validator(self):
+        def validate_is_foo(value):
+            if value != 'foo':
+                raise ValidationError("Value must be 'foo'")
+
+        block = blocks.RegexBlock(regex=r'^.*$', validators=[validate_is_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean('bar')
 
 
 class TestRichTextBlock(TestCase):
@@ -468,6 +538,16 @@ class TestRichTextBlock(TestCase):
         result = block.clean(RichText(''))
         self.assertIsInstance(result, RichText)
         self.assertEqual(result.source, '')
+
+    def test_render_with_validator(self):
+        def validate_contains_foo(value):
+            if 'foo' not in value:
+                raise ValidationError("Value must contain 'foo'")
+
+        block = blocks.RichTextBlock(validators=[validate_contains_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean(RichText('<p>bar</p>'))
 
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
@@ -753,6 +833,20 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             )
         )
 
+    def test_render_with_validator(self):
+        choices = [
+            ('tea', 'Tea'),
+            ('coffee', 'Coffee'),
+        ]
+
+        def validate_tea_is_selected(value):
+            raise ValidationError("You must select 'tea'")
+
+        block = blocks.ChoiceBlock(choices=choices, validators=[validate_tea_is_selected])
+
+        with self.assertRaises(ValidationError):
+            block.clean('coffee')
+
 
 class TestRawHTMLBlock(unittest.TestCase):
     def test_get_default_with_fallback_value(self):
@@ -830,6 +924,16 @@ class TestRawHTMLBlock(unittest.TestCase):
         result = block.clean(mark_safe(''))
         self.assertEqual(result, '')
         self.assertIsInstance(result, SafeData)
+
+    def test_render_with_validator(self):
+        def validate_contains_foo(value):
+            if 'foo' not in value:
+                raise ValidationError("Value must contain 'foo'")
+
+        block = blocks.RawHTMLBlock(validators=[validate_contains_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean(mark_safe('<p>bar</p>'))
 
 
 class TestMeta(unittest.TestCase):
