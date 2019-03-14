@@ -354,6 +354,7 @@ Contributors
 * Thomas Kremmel
 * patta42
 * Esper Kuijs
+* Damian Grinwis
 
 Translators
 ===========

@@ -50,6 +50,7 @@ Bug fixes
  * Page copying no longer allowed if page model has reached its ``max_count`` (Andy Babic)
  * Don't show page type on page chooser button when multiple types are allowed (Thijs Kramer)
  * Make sure page chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
+ * User add/edit forms now support form widgets with JS/CSS media (Damian Grinwis)
 
 
 Upgrade considerations
