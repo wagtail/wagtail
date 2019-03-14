@@ -9,7 +9,7 @@ Plugins come in three types:
 * Blocks – To indicate the structure of the content, eg. ``blockquote``, ``ol``.
 * Entities – To enter additional data/metadata, eg. ``link`` (with a URL), ``image`` (with a file).
 
-All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of ``strikethrough``. Place the following in a ``wagtail_hooks.py`` file in any installed app:
+All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of ``mark``. Place the following in a ``wagtail_hooks.py`` file in any installed app:
 
 .. code-block:: python
 
@@ -19,21 +19,21 @@ All of these plugins are created with a similar baseline, which we can demonstra
 
     # 1. Use the register_rich_text_features hook.
     @hooks.register('register_rich_text_features')
-    def register_strikethrough_feature(features):
+    def register_mark_feature(features):
         """
-        Registering the `strikethrough` feature, which uses the `STRIKETHROUGH` Draft.js inline style type,
-        and is stored as HTML with an `<s>` tag.
+        Registering the `mark` feature, which uses the `MARK` Draft.js inline style type,
+        and is stored as HTML with an `<mark>` tag.
         """
-        feature_name = 'strikethrough'
-        type_ = 'STRIKETHROUGH'
-        tag = 's'
+        feature_name = 'mark'
+        type_ = 'MARK'
+        tag = 'mark'
 
         # 2. Configure how Draftail handles the feature in its toolbar.
         control = {
             'type': type_,
-            'label': 'S',
-            'description': 'Strikethrough',
-            # This isn’t even required – Draftail has predefined styles for STRIKETHROUGH.
+            'label': '☆',
+            'description': 'Mark',
+            # This isn’t even required – Draftail has predefined styles for MARK.
             # 'style': {'textDecoration': 'line-through'},
         }
 
@@ -53,7 +53,7 @@ All of these plugins are created with a similar baseline, which we can demonstra
 
         # 6. (optional) Add the feature to the default features list to make it available
         # on rich text fields that do not specify an explicit 'features' list
-        features.default_features.append('strikethrough')
+        features.default_features.append('mark')
 
 These steps will always be the same for all Draftail plugins. The important parts are to:
 
@@ -72,7 +72,7 @@ Creating new inline styles
 
 In addition to the initial example, inline styles take a ``style`` property to define what CSS rules will be applied to text in the editor. Be sure to read the `Draftail documentation <https://www.draftail.org/docs/formatting-options>`_ on inline styles.
 
-Finally, the DB to/from conversion uses an ``InlineStyleElementHandler`` to map from a given tag (``<s>`` in the example above) to a Draftail type, and the inverse mapping is done with `Draft.js exporter configuration <https://github.com/springload/draftjs_exporter>`_ of the ``style_map``.
+Finally, the DB to/from conversion uses an ``InlineStyleElementHandler`` to map from a given tag (``<mark>`` in the example above) to a Draftail type, and the inverse mapping is done with `Draft.js exporter configuration <https://github.com/springload/draftjs_exporter>`_ of the ``style_map``.
 
 Creating new blocks
 ~~~~~~~~~~~~~~~~~~~
