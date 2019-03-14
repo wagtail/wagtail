@@ -18,6 +18,7 @@ Changelog
  * Add Learn Wagtail to third-party tutorials in documentation (Matt Westcott)
  * Add a Django setting `TAG_LIMIT` to limit number of tags that can be added to any taggit model (Mani)
  * Added instructions on how to generate urls for `ModelAdmin` to documentation (LB (Ben Johnston), Andy Babic)
+ * Added option to specify a fallback URL on `{% pageurl %}` (Arthur Holzner)
  * Fix: Set `SERVER_PORT` to 443 in `Page.dummy_request()` for HTTPS sites (Sergey Fedoseev)
  * Fix: Include port number in `Host` header of `Page.dummy_request()` (Sergey Fedoseev)
  * Fix: Validation error messages in `InlinePanel` no longer count towards `max_num` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)
@@ -31,6 +32,8 @@ Changelog
  * Fix: Unclear error message when saving image after focal point edit (Hugo van den Berg)
  * Fix: `send_mail` now correctly uses the `html_message` kwarg for HTML messages (Tiago Requeijo)
  * Fix: Page copying no longer allowed if page model has reached its `max_count` (Andy Babic)
+ * Fix: Don't show page type on page chooser button when multiple types are allowed (Thijs Kramer)
+ * Fix: Make sure page chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
  * Fix: Inform user when moving a page from one parent to another where there is an already existing page with the same slug (Casper Timmers)
 
 

@@ -353,6 +353,7 @@ Contributors
 * Gassan Gousseinov
 * Thomas Kremmel
 * patta42
+* Esper Kuijs
 
 Translators
 ===========
