@@ -113,8 +113,8 @@ class TableBlock(FieldBlock):
     @property
     def media(self):
         return forms.Media(
-            css={'all': ['table_block/css/vendor/handsontable-6.1.1.full.min.css']},
-            js=['table_block/js/vendor/handsontable-6.1.1.full.min.js', 'table_block/js/table.js']
+            css={'all': ['table_block/css/vendor/handsontable-6.2.2.full.min.css']},
+            js=['table_block/js/vendor/handsontable-6.2.2.full.min.js', 'table_block/js/table.js']
         )
 
     def get_table_options(self, table_options=None):
@@ -122,7 +122,7 @@ class TableBlock(FieldBlock):
         Return a dict of table options using the defaults unless custom options provided
 
         table_options can contain any valid handsontable options:
-        http://docs.handsontable.com/0.18.0/Options.html
+        https://handsontable.com/docs/6.2.2/Options.html
         contextMenu: if value from table_options is True, still use default
         language: if value is not in table_options, attempt to get from envrionment
         """
