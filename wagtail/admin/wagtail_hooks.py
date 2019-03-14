@@ -460,21 +460,6 @@ def register_core_features(features):
         }
     })
     features.register_editor_plugin(
-        'draftail', 'code-block', draftail_features.BlockFeature({
-            'type': 'code-block',
-            'icon': 'code',
-            'description': ugettext('Code Block'),
-        })
-    )
-    features.register_converter_rule('contentstate', 'code-block', {
-        'from_database_format': {
-            'code': BlockElementHandler('code-block'),
-        },
-        'to_database_format': {
-            'block_map': {'code-block': 'code'}
-        }
-    })
-    features.register_editor_plugin(
         'draftail', 'blockquote', draftail_features.BlockFeature({
             'type': 'blockquote',
             'icon': 'openquote',
@@ -591,5 +576,20 @@ def register_core_features(features):
         },
         'to_database_format': {
             'style_map': {'STRIKETHROUGH': 's'}
+        }
+    })
+    features.register_editor_plugin(
+        'draftail', 'code', draftail_features.InlineStyleFeature({
+            'type': 'CODE',
+            'icon': 'code',
+            'description': ugettext('Code'),
+        })
+    )
+    features.register_converter_rule('contentstate', 'code', {
+        'from_database_format': {
+            'code': InlineStyleElementHandler('CODE'),
+        },
+        'to_database_format': {
+            'style_map': {'CODE': 'code'}
         }
     })

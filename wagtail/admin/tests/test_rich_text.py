@@ -492,7 +492,7 @@ class TestDraftailWithAdditionalFeatures(BaseRichTextEditHandlerTestCase, Wagtai
         self.assertContains(response, '"type": "ITALIC"')
 
         # not the additional ones.
-        self.assertNotContains(response, '"type": "code-block"')
+        self.assertNotContains(response, '"type": "CODE"')
         self.assertNotContains(response, '"type": "blockquote"')
         self.assertNotContains(response, '"type": "SUPERSCRIPT"')
         self.assertNotContains(response, '"type": "SUBSCRIPT"')
@@ -503,7 +503,7 @@ class TestDraftailWithAdditionalFeatures(BaseRichTextEditHandlerTestCase, Wagtai
             'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
             'OPTIONS': {
                 'features': [
-                    'h2', 'code-block', 'blockquote',
+                    'h2', 'code', 'blockquote',
                     'strikethrough', 'subscript', 'superscript'
                 ]
             }
@@ -517,7 +517,7 @@ class TestDraftailWithAdditionalFeatures(BaseRichTextEditHandlerTestCase, Wagtai
         self.assertEqual(response.status_code, 200)
         # Added features are there
         self.assertContains(response, '"type": "header-two"')
-        self.assertContains(response, '"type": "code-block"')
+        self.assertContains(response, '"type": "CODE"')
         self.assertContains(response, '"type": "blockquote"')
         self.assertContains(response, '"type": "SUPERSCRIPT"')
         self.assertContains(response, '"type": "SUBSCRIPT"')
