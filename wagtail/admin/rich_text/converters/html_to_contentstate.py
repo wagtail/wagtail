@@ -12,11 +12,8 @@ STRIP_WHITESPACE = 0
 KEEP_WHITESPACE = 1
 FORCE_WHITESPACE = 2
 
-# match more than one consecutive normal spaces, new-lines, tabs and form-feeds
-WHITESPACE_RE = re.compile(r'[ \t\n\f]{2,}')
-
-# match more than one consecutive zero-width spaces
-ZERO_WIDTH_SPACE_RE = re.compile(r'[\u200b]{2,}')
+# match one or more consecutive normal spaces, new-lines, tabs and form-feeds
+WHITESPACE_RE = re.compile(r'[ \t\n\f\r]+')
 
 
 class HandlerState:
@@ -318,10 +315,9 @@ class HtmlToContentStateHandler(HTMLParser):
             element_handler.handle_endtag(name, self.state, self.contentstate)
 
     def handle_data(self, content):
-        # normalise whitespace sequences to a single character
+        # normalise whitespace sequences to a single space
         # This is in line with https://www.w3.org/TR/html4/struct/text.html#h-9.1
         content = re.sub(WHITESPACE_RE, ' ', content)
-        content = re.sub(ZERO_WIDTH_SPACE_RE, '\u200b', content)
 
         if self.state.current_block is None:
             if content == ' ':
