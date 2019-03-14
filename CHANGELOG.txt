@@ -34,6 +34,7 @@ Changelog
  * Fix: Page copying no longer allowed if page model has reached its `max_count` (Andy Babic)
  * Fix: Don't show page type on page chooser button when multiple types are allowed (Thijs Kramer)
  * Fix: Make sure page chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
+ * Fix: add form media to user add/edit forms (Damian Grinwis)
 
 
 2.4 (19.12.2018)
