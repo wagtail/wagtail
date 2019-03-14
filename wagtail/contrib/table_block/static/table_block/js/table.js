@@ -80,7 +80,6 @@ function initTable(id, tableOptions) {
                 });
             }
         }
-        console.log(cellsClassnames);
         return cellsClassnames;
     };
 
