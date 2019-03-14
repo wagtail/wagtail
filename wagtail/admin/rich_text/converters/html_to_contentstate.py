@@ -319,6 +319,7 @@ class HtmlToContentStateHandler(HTMLParser):
 
     def handle_data(self, content):
         # normalise whitespace sequences to a single character
+        # This is in line with https://www.w3.org/TR/html4/struct/text.html#h-9.1
         content = re.sub(WHITESPACE_RE, ' ', content)
         content = re.sub(ZERO_WIDTH_SPACE_RE, '\u200b', content)
 
