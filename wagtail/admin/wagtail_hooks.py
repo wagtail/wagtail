@@ -551,7 +551,7 @@ def register_core_features(features):
     features.register_editor_plugin(
         'draftail', 'superscript', draftail_features.InlineStyleFeature({
             'type': 'SUPERSCRIPT',
-            'icon': 'cog',
+            'icon': 'superscript',
             'description': ugettext('Superscript'),
         })
     )
@@ -566,7 +566,7 @@ def register_core_features(features):
     features.register_editor_plugin(
         'draftail', 'subscript', draftail_features.InlineStyleFeature({
             'type': 'SUBSCRIPT',
-            'icon': 'cog',
+            'icon': 'subscript',
             'description': ugettext('Subscript'),
         })
     )
@@ -581,7 +581,7 @@ def register_core_features(features):
     features.register_editor_plugin(
         'draftail', 'strikethrough', draftail_features.InlineStyleFeature({
             'type': 'STRIKETHROUGH',
-            'icon': 'cog',
+            'icon': 'strikethrough',
             'description': ugettext('Strikethrough'),
         })
     )
