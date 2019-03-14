@@ -408,7 +408,7 @@ class TestDecimalBlock(TestCase):
         block = blocks.DecimalBlock(validators=[validate_is_even])
 
         with self.assertRaises(ValidationError):
-            block.clean('2.0')
+            block.clean('3.0')
 
 
 class TestRegexBlock(TestCase):
