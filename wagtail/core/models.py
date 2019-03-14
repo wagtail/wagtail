@@ -1355,12 +1355,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 yield '/' + child.slug + path
 
     def get_ancestors(self, inclusive=False):
+        """
+        Returns a queryset of the current page's ancestors, starting at the root page
+        and descending to the parent, or to the current page itself if ``inclusive`` is true.
+        """
         return Page.objects.ancestor_of(self, inclusive)
 
     def get_descendants(self, inclusive=False):
+        """
+        Returns a queryset of all pages underneath the current page, any number of levels deep.
+        If ``inclusive`` is true, the current page itself is included in the queryset.
+        """
         return Page.objects.descendant_of(self, inclusive)
 
     def get_siblings(self, inclusive=True):
+        """
+        Returns a queryset of all other pages with the same parent as the current page.
+        If ``inclusive`` is true, the current page itself is included in the queryset.
+        """
         return Page.objects.sibling_of(self, inclusive)
 
     def get_next_siblings(self, inclusive=False):
