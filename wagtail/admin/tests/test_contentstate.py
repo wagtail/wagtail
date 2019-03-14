@@ -754,19 +754,23 @@ class TestHtmlToContentState(TestCase):
             ]
         })
 
-    def test_replace_whitespaces(self):
-        # We expect all whitespace characters (one or more consecutively) to be replaced by a single space.
-        # Except for non-breaking white spaces, we keep them as they are. (\xa0 is a non-breaking whitespace character)
+    def test_collapse_targeted_whitespace_characters(self):
+        # We expect all targeted whitespace characters (more than one consecutively)
+        # to be replaced by a single space.
         converter = ContentstateConverter(features=[])
         result = json.loads(converter.from_database_format(
             '''
-            <p>It is    time to\xa0\xa0\xa0bring up fight   club again. Or is\xa0  it?</p>
+            <p>Multiple whitespaces:     should  be reduced</p>
+            <p>Multiple non-breaking whitespace characters:  \xa0\xa0\xa0  should be preserved</p>
+            <p>Zero\u200bwidth\u200bwhitespaces:  \u200b\u200b  should be reduced</p>
             '''
         ))
         self.assertContentStateEqual(result, {
             'entityMap': {},
             'blocks': [
-                {'inlineStyleRanges': [], 'text': 'It is time to\xa0\xa0\xa0bring up fight club again. Or is\xa0 it?', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Multiple whitespaces: should be reduced', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Multiple non-breaking whitespace characters: \xa0\xa0\xa0 should be preserved', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Zero\u200bwidth\u200bwhitespaces: \u200b should be reduced', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
             ]
         })
 
