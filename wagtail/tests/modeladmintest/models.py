@@ -10,7 +10,7 @@ class Author(models.Model):
     date_of_birth = models.DateField()
 
     def author_birth_string(self):
-        return '{} was born in pallet town'.format(self.name)
+        return 'This author was born in pallet town'
 
     author_birth_string.short_description = "Birth information"
 

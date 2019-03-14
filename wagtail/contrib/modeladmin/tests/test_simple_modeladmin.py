@@ -222,11 +222,11 @@ class TestInspectView(TestCase, WagtailTestUtils):
 
     def test_author_name_present(self):
         """
-        The author name should appear three times. Once in the header, once
-        in the name field and once more in the birth string
+        The author name should appear twice. Once in the header, and once
+        more in the field listing
         """
         response = self.get_for_author(1)
-        self.assertContains(response, 'J. R. R. Tolkien', 3)
+        self.assertContains(response, 'J. R. R. Tolkien', 2)
 
     def test_author_dob_not_present(self):
         """

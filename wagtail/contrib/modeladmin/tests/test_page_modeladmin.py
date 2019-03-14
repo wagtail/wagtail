@@ -157,9 +157,15 @@ class TestInspectView(TestCase, WagtailTestUtils):
         response = self.get(100)
         self.assertEqual(response.status_code, 404)
 
-    def test_label_display(self):
+    def test_short_description_is_used_as_field_label(self):
+        """
+        A custom field has been added to the inspect view's `inspect_view_fields` and since
+        this field has a `short_description` we expect it to be used as the field's label,
+        and not use the name of the function.
+        """
         response = self.client.get('/admin/modeladmintest/author/inspect/1/')
         self.assertContains(response, 'Birth information')
+        self.assertNotContains(response, 'author_birth_string')
 
 
 class TestEditView(TestCase, WagtailTestUtils):
