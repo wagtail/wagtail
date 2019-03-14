@@ -464,6 +464,70 @@ class TestDraftailWithFeatureOptions(BaseRichTextEditHandlerTestCase, WagtailTes
         self.assertNotIn('"type": "ordered-list-item""', form_html)
 
 
+class TestDraftailWithAdditionalFeatures(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+
+    def setUp(self):
+        super().setUp()
+
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        self.login()
+
+
+    @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+        'default': {
+            'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        },
+    })
+    def test_additional_features_should_not_be_included_by_default(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichtextfieldpage', self.root_page.id)
+        ))
+
+        self.assertEqual(response.status_code, 200)
+        # default ones are there
+        self.assertContains(response, '"type": "header-two"')
+        self.assertContains(response, '"type": "LINK"')
+        self.assertContains(response, '"type": "ITALIC"')
+
+        # not the additional ones.
+        self.assertNotContains(response, '"type": "code-block"')
+        self.assertNotContains(response, '"type": "blockquote"')
+        self.assertNotContains(response, '"type": "SUPERSCRIPT"')
+        self.assertNotContains(response, '"type": "SUBSCRIPT"')
+        self.assertNotContains(response, '"type": "STRIKETHROUGH"')
+
+    @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+        'default': {
+            'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+            'OPTIONS': {
+                'features': [
+                    'h2', 'code-block', 'blockquote',
+                    'strikethrough', 'subscript', 'superscript'
+                ]
+            }
+        },
+    })
+    def test_additional_features_included(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichtextfieldpage', self.root_page.id)
+        ))
+
+        self.assertEqual(response.status_code, 200)
+        # Added features are there
+        self.assertContains(response, '"type": "header-two"')
+        self.assertContains(response, '"type": "code-block"')
+        self.assertContains(response, '"type": "blockquote"')
+        self.assertContains(response, '"type": "SUPERSCRIPT"')
+        self.assertContains(response, '"type": "SUBSCRIPT"')
+        self.assertContains(response, '"type": "STRIKETHROUGH"')
+
+        # But not the unprovided default ones.
+        self.assertNotContains(response, '"type": "LINK"')
+        self.assertNotContains(response, '"type": "ITALIC"')
+
+
 @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
     'default': {
         'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea',
