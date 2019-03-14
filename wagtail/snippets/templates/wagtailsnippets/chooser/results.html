@@ -12,7 +12,7 @@
 
     {% include "wagtailsnippets/snippets/list.html" with choosing=1 %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=items is_ajax=1 %}
+    {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=items %}
 {% else %}
     {% if is_searching %}
          <p>{% blocktrans %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>

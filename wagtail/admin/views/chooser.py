@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 
@@ -7,7 +8,6 @@ from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core import hooks
 from wagtail.core.models import Page, UserPagePermissionsProxy
 from wagtail.core.utils import resolve_model_string
-from wagtail.utils.pagination import paginate
 
 
 def shared_context(request, extra_context=None):
@@ -115,7 +115,8 @@ def browse(request, parent_page_id=None):
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
     # in the block below
-    paginator, pages = paginate(request, pages, per_page=25)
+    paginator = Paginator(pages, per_page=25)
+    pages = paginator.get_page(request.GET.get('p'))
 
     # Annotate each page with can_choose/can_decend flags
     for page in pages:
@@ -166,7 +167,8 @@ def search(request, parent_page_id=None):
     else:
         pages = pages.none()
 
-    paginator, pages = paginate(request, pages, per_page=25)
+    paginator = Paginator(pages, per_page=25)
+    pages = paginator.get_page(request.GET.get('p'))
 
     for page in pages:
         page.can_choose = True

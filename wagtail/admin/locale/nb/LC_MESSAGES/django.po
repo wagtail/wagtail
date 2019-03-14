@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Send til godkjenning"
+
+msgid "Unpublish"
+msgstr "Avpublisér"
+
+msgid "Delete"
+msgstr "Slett"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -236,9 +245,6 @@ msgstr "Nullstill ditt passord"
 msgid "Edit"
 msgstr "Redigér"
 
-msgid "Delete"
-msgstr "Slett"
-
 msgid "Page"
 msgstr "Side"
 
@@ -323,22 +329,6 @@ msgstr "Ekstern lenke"
 
 msgid "Email link"
 msgstr "E-postlenke"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Det er ett treff"
-msgstr[1] ""
-"\n"
-"Det er %(counter)s treff"
 
 msgid "Choose"
 msgstr "Velg"
@@ -579,6 +569,15 @@ msgstr "Låst"
 msgid "Unlocked"
 msgstr "Ulåst"
 
+msgid "Publishing…"
+msgstr "Publiserer..."
+
+msgid "Publish this revision"
+msgstr "Publiser denne revisjonen"
+
+msgid "Publish"
+msgstr "Publiser"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Opprett en side i %(title)s"
@@ -661,9 +660,6 @@ msgstr "Ja, flytt denne siden"
 msgid "Unpublish %(title)s"
 msgstr "Avpublisér %(title)s"
 
-msgid "Unpublish"
-msgstr "Avpublisér"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Er du sikker på at du vil avpublisere denne siden?"
 
@@ -722,15 +718,6 @@ msgstr "Lagrer..."
 msgid "Save draft"
 msgstr "Lagre kladd"
 
-msgid "Publishing…"
-msgstr "Publiserer..."
-
-msgid "Publish"
-msgstr "Publiser"
-
-msgid "Submit for moderation"
-msgstr "Send til godkjenning"
-
 msgid "This page has unsaved changes."
 msgstr "Denne siden har endringer som ikke er lagret."
 
@@ -747,9 +734,6 @@ msgstr "Siden er låst"
 
 msgid "Replace current draft"
 msgstr "Erstatt nåværende kladd"
-
-msgid "Publish this revision"
-msgstr "Publiser denne revisjonen"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1155,23 +1139,6 @@ msgstr ""
 "Du bruker en <strong>utdatert</strong> nettleser som ikke støttes av denne "
 "programvaren. Vær vennlig å <a href=\"http://browsehappy.com/\">oppgradere "
 "nettleseren din</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Javascript er påkrevd for å bruke Wagtail, men det er for "
-"øyeblikket deaktivert.<br />\n"
-"            Her finner du <a href=\"http://www.enable-javascript.com/no/\" "
-"target=\"_blank\" rel=\"noopener\">instruksjoner for hvordan man aktiverer "
-"JavaScript i nettleseren</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Gå til Wagtail administrasjonsgrensesnitt"

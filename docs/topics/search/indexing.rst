@@ -26,6 +26,21 @@ Signal handlers
 
 ``wagtailsearch`` provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``. These signal handlers are automatically registered when the ``wagtail.search`` app is loaded.
 
+In some cases, you may not want your content to be automatically reindexed and instead rely on the ``update_index`` command for indexing. If you need to disable these signal handlers, use one of the following methods:
+
+Disabling auto update signal handlers for a model
+`````````````````````````````````````````````````
+You can disable the signal handlers for an individual model by adding ``search_auto_update = False`` as an attribute on the model class.
+
+Disabling auto update signal handlers for a search backend/whole site
+`````````````````````````````````````````````````````````````````````
+
+You can disable the signal handlers for a whole search backend by setting the ``AUTO_UPDATE`` setting on the backend to ``False``.
+
+If all search backends have ``AUTO_UPDATE`` set to ``False``, the signal handlers will be completely disabled for the whole site.
+
+For documentation on the ``AUTO_UPDATE`` setting, see :ref:`wagtailsearch_backends_auto_update`.
+
 
 The ``update_index`` command
 ----------------------------
@@ -40,6 +55,10 @@ It is recommended to run this command once a week and at the following times:
  - whenever any changes have been made to models or search configuration
 
 The search may not return any results while this command is running, so avoid running it at peak times.
+
+.. note::
+
+    The ``update_index`` command is also aliased as ``wagtail_update_index``, for use when another installed package (such as `Haystack <http://haystacksearch.org/>`_) provides a conflicting ``update_index`` command. In this case, the other package's entry in ``INSTALLED_APPS`` should appear above ``wagtail.search`` so that its ``update_index`` command takes precedence over Wagtail's.
 
 
 .. _wagtailsearch_indexing_fields:

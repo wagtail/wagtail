@@ -47,6 +47,13 @@ Add a ``STATIC_ROOT`` setting, if your project does not have one already:
 .. code-block:: python
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    
+Add ``MEDIA_ROOT`` and ``MEDIA_URL`` settings, if your project does not have these already:
+
+.. code-block:: python
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
 
 Add a ``WAGTAIL_SITE_NAME`` - this will be displayed on the main dashboard of the Wagtail admin backend:
 

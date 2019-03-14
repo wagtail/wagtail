@@ -43,7 +43,7 @@ This tooltip shows a longer description of the tool, and displays its keyboard s
 
 ----
 
-That’s the gist of it! If you want more information about the editor, please have a look at its dedicated `user guide <https://github.com/springload/draftail/blob/master/docs/user-guide/README.md>`_. It also contains a list of all of the available keyboard shortcuts, and some tricks and gotchas.
+That’s the gist of it! If you want more information about the editor, please have a look at its dedicated `user guide <https://www.draftail.org/docs/user-guide>`_. It also contains a list of all of the available keyboard shortcuts, and some tricks and gotchas.
 
 Adding further blocks in StreamField
 ==============================================

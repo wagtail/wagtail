@@ -10,6 +10,10 @@ $color-deletion-light: #ffebeb;
         border-top: 1px dashed $color-grey-4;
         padding: 1em;
 
+        dd {
+            margin-left: 40px;
+        }
+
         &:first-child {
             border-top: 0;
         }

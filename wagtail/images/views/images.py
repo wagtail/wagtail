@@ -1,5 +1,6 @@
 import os
 
+from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -18,7 +19,6 @@ from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
 from wagtail.images.views.serve import generate_signature
 from wagtail.search import index as search_index
-from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -54,7 +54,8 @@ def index(request):
         except (ValueError, Collection.DoesNotExist):
             pass
 
-    paginator, images = paginate(request, images)
+    paginator = Paginator(images, per_page=20)
+    images = paginator.get_page(request.GET.get('p'))
 
     collections = permission_policy.collections_user_has_any_permission_for(
         request.user, ['add', 'change']
@@ -287,7 +288,8 @@ def add(request):
 def usage(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    paginator, used_by = paginate(request, image.get_usage())
+    paginator = Paginator(image.get_usage(), per_page=20)
+    used_by = paginator.get_page(request.GET.get('p'))
 
     return render(request, "wagtailimages/images/usage.html", {
         'image': image,

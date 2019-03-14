@@ -107,6 +107,11 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
                                             models.Book)
         self.assertUnsortedListEqual([r.title for r in results], [])
 
+        # Backslashes should be escaped inside each tsquery term.
+        results = self.backend.autocomplete("backslash\\",
+                                            models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
         # Now suffixes.
         results = self.backend.autocomplete("Something:B", models.Book)
         self.assertUnsortedListEqual([r.title for r in results], [])

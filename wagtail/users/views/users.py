@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -14,7 +15,6 @@ from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
 from wagtail.utils.loading import get_custom_form
-from wagtail.utils.pagination import paginate
 
 User = get_user_model()
 
@@ -88,7 +88,8 @@ def index(request):
     else:
         ordering = 'name'
 
-    paginator, users = paginate(request, users)
+    paginator = Paginator(users, per_page=20)
+    users = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():
         return render(request, "wagtailusers/users/results.html", {

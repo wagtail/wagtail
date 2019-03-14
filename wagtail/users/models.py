@@ -4,6 +4,7 @@ import uuid
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import get_language
 
 
 def upload_avatar_to(instance, filename):
@@ -63,7 +64,7 @@ class UserProfile(models.Model):
         return cls.objects.get_or_create(user=user)[0]
 
     def get_preferred_language(self):
-        return self.preferred_language or settings.LANGUAGE_CODE
+        return self.preferred_language or get_language()
 
     def get_current_time_zone(self):
         return self.current_time_zone or settings.TIME_ZONE

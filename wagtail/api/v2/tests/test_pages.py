@@ -1,6 +1,6 @@
 import collections
 import json
-import mock
+from unittest import mock
 
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase

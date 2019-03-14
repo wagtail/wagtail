@@ -57,6 +57,6 @@ def parse_color_string(color_string):
         g = int(color_string[2:4], 16)
         b = int(color_string[4:6], 16)
     else:
-        ValueError('Color string must be either 3 or 6 hexadecimal digits long')
+        raise ValueError('Color string must be either 3 or 6 hexadecimal digits long')
 
     return r, g, b

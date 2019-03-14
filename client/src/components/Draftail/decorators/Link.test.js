@@ -64,7 +64,7 @@ describe('Link', () => {
     });
 
     it('no data', () => {
-      expect(getLinkAttributes({})).toMatchObject({ url: '' });
+      expect(getLinkAttributes({})).toMatchObject({ url: null, label: 'Broken link' });
     });
   });
 });

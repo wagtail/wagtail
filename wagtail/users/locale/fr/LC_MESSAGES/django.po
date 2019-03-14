@@ -8,6 +8,7 @@
 # Axel Haustant, 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira <hello@lta.me>, 2018
 # nahuel, 2014
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-27 14:44+0000\n"
+"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -126,6 +127,9 @@ msgid "profile picture"
 msgstr "photo de profil"
 
 msgid "user profile"
+msgstr "compte utilisateur"
+
+msgid "user profiles"
 msgstr "compte utilisateur"
 
 msgid "Delete group"
@@ -248,6 +252,9 @@ msgstr "Niveau"
 msgid "Status"
 msgstr "Statut"
 
+msgid "Last Login"
+msgstr "Dernière connexion"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -258,9 +265,13 @@ msgid "Inactive"
 msgstr "Inactif"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "il y a %(time_period)s"
+
+#, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -268,12 +279,10 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            1 résultat correspondant\n"
-"        "
+"        Il y a %(counter)s correspondance"
 msgstr[1] ""
 "\n"
-"            %(counter)s résultats correspondants\n"
-"        "
+"        Il y a %(counter)s correspondances"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -317,6 +326,9 @@ msgstr "Modifier"
 
 msgid "The user could not be created due to errors."
 msgstr "L'utilisateur ne peut être créé du fait d'erreurs."
+
+msgid "User '{0}' updated."
+msgstr "Utilisateur '{0}' mis à jour."
 
 msgid "The user could not be saved due to errors."
 msgstr "L'utilisateur ne peut être enregistré du fait d'erreurs."

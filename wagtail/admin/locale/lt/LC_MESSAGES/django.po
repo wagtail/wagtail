@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Pateikti moderavimui"
+
+msgid "Unpublish"
+msgstr "Nebepublikuoti"
+
+msgid "Delete"
+msgstr "Ištrinti"
 
 msgid "None"
 msgstr "Joks"
@@ -213,9 +222,6 @@ msgstr "Atstatyti savo slaptažodį"
 msgid "Edit"
 msgstr "Redaguoti"
 
-msgid "Delete"
-msgstr "Ištrinti"
-
 msgid "Page"
 msgstr "Puslapis"
 
@@ -284,28 +290,6 @@ msgstr "Išorinė nuoroda"
 
 msgid "Email link"
 msgstr "Elektroninio pašto nuoroda"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Yra vienas atitikmuo"
-msgstr[1] ""
-"\n"
-"Yra %(counter)s atitikmenys"
-msgstr[2] ""
-"\n"
-"Yra %(counter)s atitikmenų"
-msgstr[3] ""
-"\n"
-"Yra %(counter)s atitikmenų"
 
 msgid "Choose"
 msgstr "Pasirinkti"
@@ -555,6 +539,15 @@ msgstr "Užrakinta"
 msgid "Unlocked"
 msgstr "Atrakinta"
 
+msgid "Publishing…"
+msgstr "Publikuojama..."
+
+msgid "Publish this revision"
+msgstr "Publikuoti šia reviziją"
+
+msgid "Publish"
+msgstr "Publikuoti"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Sukurti puslapį viduje %(title)s"
@@ -641,9 +634,6 @@ msgstr "Taip, perkelti šį puslapį"
 msgid "Unpublish %(title)s"
 msgstr "Nebepublikuoti %(title)s"
 
-msgid "Unpublish"
-msgstr "Nebepublikuoti"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ar tikrai norite nebepublikuoti šio puslapio?"
 
@@ -709,15 +699,6 @@ msgstr "Saugoma..."
 msgid "Save draft"
 msgstr "Išsaugoti juodraštį"
 
-msgid "Publishing…"
-msgstr "Publikuojama..."
-
-msgid "Publish"
-msgstr "Publikuoti"
-
-msgid "Submit for moderation"
-msgstr "Pateikti moderavimui"
-
 msgid "This page has unsaved changes."
 msgstr "Šis puslapis turi neišsaugotų pakeitimų."
 
@@ -734,9 +715,6 @@ msgstr "Puslapis užrakintas"
 
 msgid "Replace current draft"
 msgstr "Pakeisti dabartinį juodraštį"
-
-msgid "Publish this revision"
-msgstr "Publikuoti šia reviziją"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1147,20 +1125,6 @@ msgstr ""
 "Jūs naudojate <strong>pasenusią</strong> naršyklę, kuri yra nepalaikoma "
 "programinės įrangos. Prašome <a href=\"http://browsehappy.com/\">atnaujinti "
 "naršyklę</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"JavaScript būtinas naudojant Wagtail, bet dabar jis yra išjungtas.<br />\n"
-"Čia yra <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener\">instrukcijos kaip įjungti JavaScript savo naršyklėje.</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Eiti į Wagtail administravimo sąsają."

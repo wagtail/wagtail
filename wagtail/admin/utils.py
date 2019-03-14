@@ -222,13 +222,13 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
         password=kwargs.get('auth_password', None),
         fail_silently=kwargs.get('fail_silently', None),
     )
-    kwargs = {
+    multi_alt_kwargs = {
         'connection': connection,
         'headers': {
             'Auto-Submitted': 'auto-generated',
         }
     }
-    mail = EmailMultiAlternatives(subject, message, from_email, recipient_list, **kwargs)
+    mail = EmailMultiAlternatives(subject, message, from_email, recipient_list, **multi_alt_kwargs)
     html_message = kwargs.get('html_message', None)
     if html_message:
         mail.attach_alternative(html_message, 'text/html')

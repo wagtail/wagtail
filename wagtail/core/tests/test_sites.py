@@ -62,18 +62,14 @@ class TestFindSiteForRequest(TestCase):
         self.default_site = Site.objects.get()
         self.site = Site.objects.create(hostname='example.com', port=80, root_page=Page.objects.get(pk=2))
 
-    def test_default(self):
-        request = HttpRequest()
-        self.assertEqual(Site.find_for_request(request), self.default_site)
-
     def test_with_host(self):
         request = HttpRequest()
-        request.META = {'HTTP_HOST': 'example.com'}
+        request.META = {'HTTP_HOST': 'example.com', 'SERVER_PORT': 80}
         self.assertEqual(Site.find_for_request(request), self.site)
 
     def test_with_unknown_host(self):
         request = HttpRequest()
-        request.META = {'HTTP_HOST': 'unknown.com'}
+        request.META = {'HTTP_HOST': 'unknown.com', 'SERVER_PORT': 80}
         self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_with_server_name(self):
@@ -87,7 +83,7 @@ class TestFindSiteForRequest(TestCase):
     def test_with_x_forwarded_host(self):
         with self.settings(USE_X_FORWARDED_HOST=True):
             request = HttpRequest()
-            request.META = {'HTTP_X_FORWARDED_HOST': 'example.com'}
+            request.META = {'HTTP_X_FORWARDED_HOST': 'example.com', 'SERVER_PORT': 80}
             self.assertEqual(Site.find_for_request(request), self.site)
 
 

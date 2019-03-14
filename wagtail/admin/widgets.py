@@ -101,6 +101,7 @@ class AdminTagWidget(TagWidget):
         context = super().get_context(name, value, attrs)
         context['widget']['autocomplete_url'] = reverse('wagtailadmin_tag_autocomplete')
         context['widget']['tag_spaces_allowed'] = getattr(settings, 'TAG_SPACES_ALLOWED', True)
+        context['widget']['tag_limit'] = getattr(settings, 'TAG_LIMIT', None)
 
         return context
 
@@ -170,9 +171,9 @@ class AdminPageChooser(AdminChooser):
         super().__init__(**kwargs)
 
         if target_models:
-            models = ', '.join([model._meta.verbose_name.title() for model in target_models if model is not Page])
-            if models:
-                self.choose_one_text += ' (' + models + ')'
+            model_names = [model._meta.verbose_name.title() for model in target_models if model is not Page]
+            if len(model_names) == 1:
+                self.choose_one_text += ' (' + model_names[0] + ')'
 
         self.user_perms = user_perms
         self.target_models = list(target_models or [Page])

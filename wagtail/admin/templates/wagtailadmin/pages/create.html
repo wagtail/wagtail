@@ -23,21 +23,12 @@
         <input type="hidden" name="next" value="{{ next }}">
         {{ edit_handler.render_form_content }}
 
-        {% page_permissions parent_page as parent_page_perms %}
         <footer>
             <ul>
                 <li class="actions">
                     <div class="dropdown dropup dropdown-button match-width">
                         <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Save draft' %}</em></button>
-                        <div class="dropdown-toggle icon icon-arrow-up"></div>
-                        <ul role="menu">
-                            {% if parent_page_perms.can_publish_subpage %}
-                                <li>
-                                    <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Publishing…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% trans 'Publish' %}</em></button>
-                                </li>
-                            {% endif %}
-                            <li><input type="submit" name="action-submit" value="{% trans 'Submit for moderation' %}" class="button" /></li>
-                        </ul>
+                        {{ action_menu.render_html }}
                     </div>
                 </li>
 
@@ -71,6 +62,7 @@
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
     {{ edit_handler.form.media.css }}
+    {{ action_menu.media.css }}
 {% endblock %}
 
 {% block extra_js %}
@@ -81,6 +73,7 @@
         Additional js from widgets media. Allows for custom widgets in admin panel.
     {% endcomment %}
     {{ edit_handler.form.media.js }}
+    {{ action_menu.media.js }}
 
     {% comment %}
         Additional HTML code that edit handlers define through 'html_declarations'. (Technically this isn't Javascript, but it will generally be data that exists for Javascript to work with...)

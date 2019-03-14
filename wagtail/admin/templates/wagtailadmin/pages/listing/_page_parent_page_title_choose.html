@@ -1,0 +1,11 @@
+{% comment %}
+The parent field for a page in the page listing, when in 'choose' mode.
+
+Expects a variable 'page', the page instance.
+{% endcomment %}
+
+{% with page.get_parent as parent %}
+    {% if parent %}
+        <a href="{% url 'wagtailadmin_choose_page_child' parent.id %}" class="navigate-parent">{{ parent.get_admin_display_title }}</a>
+    {% endif %}
+{% endwith %}

@@ -1,0 +1,7 @@
+<li>
+    {% if url %}
+        <a href="{{ url }}">{{ label }}</a>
+    {% else %}
+        <input type="submit" name="{{ name }}" value="{{ label }}" class="button" />
+    {% endif %}
+</li>

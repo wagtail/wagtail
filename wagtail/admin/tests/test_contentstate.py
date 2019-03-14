@@ -1,7 +1,7 @@
 import json
+from unittest.mock import patch
 
 from django.test import TestCase
-from mock import patch
 
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.embeds.models import Embed
@@ -752,4 +752,57 @@ class TestHtmlToContentState(TestCase):
             'blocks': [
                 {'inlineStyleRanges': [], 'text': 'Arthur "two sheds" Jackson <the third> & his wife', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
             ]
+        })
+
+    def test_extra_end_tag_before(self):
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            </p>
+            <p>Before</p>
+            '''
+        ))
+        # The leading </p> tag should be ignored instead of blowing up with a
+        # pop from empty list error
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Before', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
+    def test_extra_end_tag_after(self):
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>After</p>
+            </p>
+            '''
+        ))
+        # The tailing </p> tag should be ignored instead of blowing up with a
+        # pop from empty list error
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'After', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
+    def test_p_with_class(self):
+        # Test support for custom conversion rules which require correct treatment of
+        # CSS precedence in HTMLRuleset. Here, <p class="intro"> should match the
+        # 'p[class="intro"]' rule rather than 'p' and thus become an 'intro-paragraph' block
+        converter = ContentstateConverter(features=['intro'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p class="intro">before</p>
+            <p>after</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'blocks': [
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'before', 'type': 'intro-paragraph'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'after', 'type': 'unstyled'}
+            ],
+            'entityMap': {}
         })

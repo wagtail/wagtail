@@ -22,7 +22,8 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
-from modelcluster.models import ClusterableModel, get_all_child_relations
+from modelcluster.models import (
+    ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.query import PageQuerySet, TreeQuerySet
@@ -107,16 +108,8 @@ class Site(models.Model):
         still be routed to a different hostname which is set as the default
         """
 
-        try:
-            hostname = request.get_host().split(':')[0]
-        except KeyError:
-            hostname = None
-
-        try:
-            port = request.get_port()
-        except (AttributeError, KeyError):
-            port = request.META.get('SERVER_PORT')
-
+        hostname = request.get_host().split(':')[0]
+        port = request.get_port()
         return get_site_for_hostname(hostname, port)
 
     @property
@@ -1078,6 +1071,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             specific_dict[field.name] = getattr(specific_self, field.name)
 
+        # copy child m2m relations
+        for related_field in get_all_child_m2m_relations(specific_self):
+            field = getattr(specific_self, related_field.name)
+            if field and hasattr(field, 'all'):
+                values = field.all()
+                if values:
+                    specific_dict[related_field.name] = values
+
         # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
         page_copy = self.specific_class(**specific_dict)
 
@@ -1215,7 +1216,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             url_info = urlparse(url)
             hostname = url_info.hostname
             path = url_info.path
-            port = url_info.port or 80
+            port = url_info.port or (443 if url_info.scheme == 'https' else 80)
             scheme = url_info.scheme
         else:
             # Cannot determine a URL to this page - cobble one together based on
@@ -1232,13 +1233,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             port = 80
             scheme = 'http'
 
+        http_host = hostname
+        if port != (443 if scheme == 'https' else 80):
+            http_host = '%s:%s' % (http_host, port)
         dummy_values = {
             'REQUEST_METHOD': 'GET',
             'PATH_INFO': path,
             'SERVER_NAME': hostname,
             'SERVER_PORT': port,
             'SERVER_PROTOCOL': 'HTTP/1.1',
-            'HTTP_HOST': hostname,
+            'HTTP_HOST': http_host,
             'wsgi.version': (1, 0),
             'wsgi.input': StringIO(),
             'wsgi.errors': StringIO(),
@@ -1837,9 +1841,15 @@ class PagePermissionTester:
         if recursive and (self.page == destination or destination.is_descendant_of(self.page)):
             return False
 
-        # shortcut the trivial 'everything' / 'nothing' permissions
+        # reject inactive users early
         if not self.user.is_active:
             return False
+
+        # reject early if pages of this type cannot be created at the destination
+        if not self.page.specific_class.can_create_at(destination):
+            return False
+
+        # skip permission checking for super users
         if self.user.is_superuser:
             return True
 

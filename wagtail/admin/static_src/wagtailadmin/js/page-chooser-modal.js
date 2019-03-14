@@ -25,16 +25,19 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         /* save initial page browser HTML, so that we can restore it if the search box gets cleared */
         var initialPageResultsHtml = $('.page-results', modal.body).html();
 
+        var request;
+
         function search() {
             var query = $('#id_q', modal.body).val();
             if (query != '') {
-                $.ajax({
+                request = $.ajax({
                     url: searchUrl,
                     data: {
                         q: query,
                         results_only: true
                     },
                     success: function(data, status) {
+                        request = null;
                         $('.page-results', modal.body).html(data);
                         ajaxifySearchResults();
                     }
@@ -48,6 +51,9 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         }
 
         $('#id_q', modal.body).on('input', function() {
+            if(request) {
+              request.abort();
+            }
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);
@@ -67,6 +73,11 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             and the result loaded into .page-results (and ajaxified) */
             $('.page-results a.navigate-pages', modal.body).on('click', function() {
                 $('.page-results', modal.body).load(this.href, ajaxifySearchResults);
+                return false;
+            });
+            /* Set up parent navigation links (.navigate-parent) to open in the modal */
+            $('.page-results a.navigate-parent', modal.body).on('click',function() {
+                modal.loadUrl(this.href);
                 return false;
             });
         }

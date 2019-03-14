@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-15 12:46+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-07 11:25+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -27,6 +27,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Enviar para moderação"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Delete"
+msgstr "Excluir"
 
 msgid "Wagtail admin"
 msgstr "Administração Wagtail"
@@ -240,9 +249,6 @@ msgstr "Redefina sua senha"
 msgid "Edit"
 msgstr "Editar"
 
-msgid "Delete"
-msgstr "Excluir"
-
 msgid "Page"
 msgstr "Página"
 
@@ -333,7 +339,7 @@ msgstr "Link de e-mail"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -341,7 +347,8 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"Não há resultados"
+"            Há %(counter)s resultado\n"
+"        "
 msgstr[1] ""
 "\n"
 "Há %(counter)s resultados"
@@ -462,6 +469,9 @@ msgstr "Editado"
 
 msgid "Edit this page"
 msgstr "Editar essa página"
+
+msgid "Preview this page"
+msgstr "Pré-visualizar esta página"
 
 msgid "Approve"
 msgstr "Aprovar"
@@ -587,6 +597,15 @@ msgstr "Bloqueado"
 msgid "Unlocked"
 msgstr "Desbloqueado"
 
+msgid "Publishing…"
+msgstr "Publicando..."
+
+msgid "Publish this revision"
+msgstr "Publicar esta revisão"
+
+msgid "Publish"
+msgstr "Publicar"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crie uma página a partir de %(title)s"
@@ -669,9 +688,6 @@ msgstr "Sim, quero mover"
 msgid "Unpublish %(title)s"
 msgstr "Despublicar %(title)s"
 
-msgid "Unpublish"
-msgstr "Despublicar"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Tem certeza que deseja despublicar essa página?"
 
@@ -731,15 +747,6 @@ msgstr "Salvando…"
 msgid "Save draft"
 msgstr "Salvar rascunho"
 
-msgid "Publishing…"
-msgstr "Publicando..."
-
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Submit for moderation"
-msgstr "Enviar para moderação"
-
 msgid "This page has unsaved changes."
 msgstr "Esta página tem alterações não salvas."
 
@@ -756,9 +763,6 @@ msgstr "Página bloqueada"
 
 msgid "Replace current draft"
 msgstr "Substituir rascunho atual"
-
-msgid "Publish this revision"
-msgstr "Publicar esta revisão"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1200,16 +1204,16 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
-"            Javascript é necessário para usar Wagtail, mas ele está "
-"desativado no momento.<br />\n"
-"            Aqui estão as <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instruções sobre como ativar o JavaScript "
-"em seu navegador web</a>.\n"
+"            Javascript é necessário para usar Wagtail, mas está desativado."
+"<br />\n"
+"            Aqui está as <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instruções de como ativar o "
+"JavaScript no seu navegador da web</a>.\n"
 "        "
 
 msgid "Go to Wagtail admin interface"
@@ -1223,6 +1227,9 @@ msgstr "Mostrar no Explorador"
 
 msgid "Test"
 msgstr "Teste"
+
+msgid "Arabic"
+msgstr "Árabe"
 
 msgid "Catalan"
 msgstr "Catalão"

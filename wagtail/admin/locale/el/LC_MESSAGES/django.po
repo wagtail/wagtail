@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -23,6 +23,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Υποβολή για έλεγχο"
+
+msgid "Unpublish"
+msgstr "Αποέκδοση"
+
+msgid "Delete"
+msgstr "Διαγραφή"
 
 msgid "None"
 msgstr "None"
@@ -186,9 +195,6 @@ msgstr "Ανανεώστε τον κωδικό σας"
 msgid "Edit"
 msgstr "Διόρθωση"
 
-msgid "Delete"
-msgstr "Διαγραφή"
-
 msgid "Pages"
 msgstr "Σελίδες"
 
@@ -218,22 +224,6 @@ msgstr "Εξωτερική σύνδεση"
 
 msgid "Email link"
 msgstr "Σύνδεση με email"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Βρέθηκε ενα αποτελέσμα"
-msgstr[1] ""
-"\n"
-"Βρέθηκαν %(counter)s αποτελέσματα"
 
 msgid "Choose"
 msgstr "Επιλογή"
@@ -461,6 +451,12 @@ msgstr "Κλειδωμένο"
 msgid "Unlocked"
 msgstr "Ξεκλειδωμενο"
 
+msgid "Publish this revision"
+msgstr "Δημοσίευση της αναθεώρησης"
+
+msgid "Publish"
+msgstr "Έκδοση"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Δημιουργία σελίδας στο %(title)s"
@@ -544,9 +540,6 @@ msgstr "Ναι, να μετακινηθεί"
 msgid "Unpublish %(title)s"
 msgstr "Απόεκδοστε τη σελίδα %(title)s"
 
-msgid "Unpublish"
-msgstr "Αποέκδοση"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Είστε σίγουρος ότι θέλετε να αποεκδόσετε αυτή τη σελίδα;"
 
@@ -600,12 +593,6 @@ msgstr "Νέο"
 msgid "Save draft"
 msgstr "Αποθήκευση σχεδίου"
 
-msgid "Publish"
-msgstr "Έκδοση"
-
-msgid "Submit for moderation"
-msgstr "Υποβολή για έλεγχο"
-
 msgid "This page has unsaved changes."
 msgstr "Η σελίδα έχει μη αποθηκευμένες αλλαγές."
 
@@ -622,9 +609,6 @@ msgstr "Σελίδα κλειδωμένη"
 
 msgid "Replace current draft"
 msgstr "Αντικατάσταση του τρέχοντος draft"
-
-msgid "Publish this revision"
-msgstr "Δημοσίευση της αναθεώρησης"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -980,24 +964,6 @@ msgstr ""
 "δεν υποστηρίζεται από αυτό το λογισμικό. Παρακαλούμε αναβαθμίστε το "
 "πρόγραμμα περιήγησης σας μεσω της σελιδας <a href=\"http://browsehappy.com/"
 "\"></a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Για να χρησιμοποιήσετε το Wagtail θα πρέπει να είναι "
-"ενεργοποιημένη η Javascript στον browser σας. Τώρα είναι απενεργοποιημένη."
-"<br />\n"
-"            <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" "
-"rel=\"noopener\">Εδώ θα βρείτε οδηγίες</a> για το πως να ενεργοποιήσετε την "
-"JavaScript στον browser σας.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Πηγαίνετε στο Wagtail περιβάλλον του διαχειριστή"

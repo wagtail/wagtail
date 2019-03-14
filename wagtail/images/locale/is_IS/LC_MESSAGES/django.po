@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
-# saevarom <saevar@saevar.is>, 2015
+# saevarom <saevar@saevar.is>, 2015,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-05-07 10:29+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-01-18 08:39+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -150,7 +150,7 @@ msgstr "Hleð upp..."
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -158,11 +158,12 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Það er ein niðurstaða\n"
+"            Það er %(counter)s niðurstaða\n"
 "        "
 msgstr[1] ""
 "\n"
-"Það eru %(counter)s niðurstöður"
+"            Það eru %(counter)s niðurstöður\n"
+"        "
 
 msgid "Latest images"
 msgstr "Nýjustu myndirnar"
@@ -225,12 +226,18 @@ msgstr "Breyti mynd %(title)s"
 msgid "Editing"
 msgstr "Breyti"
 
-msgid "Focal point (optional)"
-msgstr "Fókus svæði (valkvætt)"
+msgid "URL Generator"
+msgstr "Slóð"
+
+msgid "Focal point"
+msgstr "Fókus svæði"
+
+msgid "(optional)"
+msgstr "(valkvætt)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
-"below."
+"above."
 msgstr ""
 "Til að skilgreina mikilvægasta svæði myndarinnar, smelltu og dragðu kassa "
 "yfir það svæði á myndinni fyrir neðan."
@@ -240,9 +247,6 @@ msgstr "Núverandi fókuspunktur sýndur"
 
 msgid "Remove focal area"
 msgstr "Fjarlægja fókussvæði"
-
-msgid "URL Generator"
-msgstr "Slóð"
 
 msgid "Max dimensions"
 msgstr "Stærsta hæð/breidd"

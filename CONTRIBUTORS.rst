@@ -334,6 +334,27 @@ Contributors
 * Seb Brown
 * Noah B Johnson
 * Hillary Jeffrey
+* Nick Travis
+* Maylon Pedroso
+* Thijs Walcarius
+* mukesh5
+* frmdstryr
+* Aidarbek Suleimenov
+* Matthew Linares
+* Asanka Lihiniyagoda
+* David Beitey
+* Paul Vetch
+* Vladimir Knobel
+* Matt Collins
+* Thomas Elliott
+* damianosSemmle
+* Evan Winter
+* Neil Lyons
+* Gassan Gousseinov
+* Thomas Kremmel
+* patta42
+* Esper Kuijs
+* Damian Grinwis
 
 Translators
 ===========
@@ -343,17 +364,18 @@ Translators
 * Basque: Unai Zalakain
 * Belarusian: Stas Rudakou, Tatsiana Tsygan
 * Bulgarian: Lyuboslav Petrov
+* Burmese: ime11
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu, shengsheng gz
 * Chinese (China): hanfeng, Yi Huang, Daniel Hwang, Ed, Jian Li, Listeng Teng, Feng Wang, whuim, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
 * Chinese (Taiwan): gogobook, Lihan Li, Jp Shieh
 * Croatian (Croatia): Luka Matijević
-* Czech: Ales Dvorak, Martin Galda, Eva Mikesova, Sophy O, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko
-* Danish: Mads Kronborg, Asger Sørensen
+* Czech: Ales Dvorak, Martin Galda, it_management, Eva Mikesova, Sophy O, Martina Oleksakova, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko
+* Danish: Mads Kronborg, MRostgaard, Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Rob Moorman, Michael van Tellingen, Arne Turpyn
-* Dutch (Netherlands): Bram, Kees Hink, Coen van der Kamp, Franklin Kingma, Maarten Kling, Thijs Kramer
+* Dutch (Netherlands): Bram, Kees Hink, Coen van der Kamp, Franklin Kingma, Maarten Kling, Thijs Kramer, Meteor0id
 * Finnish: Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Glen Somerville, Juha Yrjölä
-* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, Loïc Teixeira, Benoît Vogel
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Patrick Craston, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Jannis Vajen, Vorlif, Matthew Westcott
@@ -361,25 +383,26 @@ Translators
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Oleg Sverdlov
 * Hungarian: Istvan Farkas, Laszlo Molnar, Kornél Novák Mergulhão, BN
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
-* Indonesian (Indonesia): Sutrisno Efendi, Geek Pantura, Ronggo Radityo, M. Febrian Ramadhana
+* Indonesian (Indonesia): atmosuwiryo, Sutrisno Efendi, Dzikri Hakim, Geek Pantura, Ronggo Radityo, M. Febrian Ramadhana
 * Italian: Edd Baldry, Claudio Bantaloukas, Gian-Maria Daffre, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
 * Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, Shimizu Taku
 * Korean: Kyungil Choi, Jihan Chung
 * Latvian: Reinis Rozenbergs, Maris Serzans
 * Lithuanian: Matas Dailyda
-* Mongolian: Delgermurun Purevkhuu
+* Mongolian: Myagmarjav Enkhbileg, Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen, Stein Strindhaug
 * Persian: Mohammad reza Jelveh, Mohammad Hossein Mojtahedi, Py Zenberg
-* Polish: Konrad Lalik, Mateusz, Miłosz Miśkiewicz, Bartek Sielicki, utek, Grzegorz Wasilewski, Bartosz Wiśniewski
+* Polish: Konrad Lalik, Miron Levitsky, Mateusz, Miłosz Miśkiewicz, Bartek Sielicki, utek, Grzegorz Wasilewski, Bartosz Wiśniewski
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
 * Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Nuno Matos, Douglas Miranda, Manuela Silva
 * Romanian: Dan Braghis
 * Russian: ajk, Andrey Avdey, Daniil, gsstver, Sergey Khalymon, Sergey Komarov, Miron Levitskiy, Arseni M, Eugene MechanisM, Rustam Mirzaev, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Nikita Tonkoshkur, Tatsiana Tsygan, Nikita Viktorovich, Vassiliy Vorobyov
 * Slovak (Slovakia): Stevo Backor, dellax, Martin Janšto, Jozef Karabelly
 * Slovenian: Mitja Pagon
-* Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, José Luis Sandoval Alaguna, Joaquín Tita, Unai Zalakain
+* Spanish: Mauricio Baeza, Daniel Chimeno, fonso, fooflare, José Luis, Joaquín Tita, Unai Zalakain
 * Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Alexander Holmbäck, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander
-* Turkish: Zafer Cengiz, Cihad Gündoǧdu, Ragıp Ünal
+* Thai: Amawalee Combe, Jon Combe
+* Turkish: Zafer Cengiz, Cihad Gündoǧdu, Ahmet Sarıcan, Ragıp Ünal
 * Turkish (Turkey): Saadettin Yasir Akel, Cihad Gündoǧdu, José Luis, Ragıp Ünal
 * Ukrainian: Mikolai Incognito, Sergiy Shkodenko, Viktor Shytiuk, Zoriana Zaiats, Mykola Zamkovoi
 * Vietnamese: Hồng Quân Nguyễn, Luan Nguyen

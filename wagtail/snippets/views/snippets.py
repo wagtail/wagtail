@@ -2,6 +2,7 @@ from urllib.parse import urlencode
 
 from django.apps import apps
 from django.contrib.admin.utils import quote, unquote
+from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -16,7 +17,6 @@ from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import get_permission_name, user_can_edit_snippet_type
-from wagtail.utils.pagination import paginate
 
 
 # == Helper functions ==
@@ -48,7 +48,7 @@ def get_snippet_edit_handler(model):
             panels = extract_panel_definitions_from_model_class(model)
             edit_handler = ObjectList(panels)
 
-        SNIPPET_EDIT_HANDLERS[model] = edit_handler.bind_to_model(model)
+        SNIPPET_EDIT_HANDLERS[model] = edit_handler.bind_to(model=model)
 
     return SNIPPET_EDIT_HANDLERS[model]
 
@@ -103,7 +103,8 @@ def list(request, app_label, model_name):
             'snippet_type_name': model._meta.verbose_name_plural
         })
 
-    paginator, paginated_items = paginate(request, items)
+    paginator = Paginator(items, per_page=20)
+    paginated_items = paginator.get_page(request.GET.get('p'))
 
     # Template
     if request.is_ajax():
@@ -132,6 +133,7 @@ def create(request, app_label, model_name):
 
     instance = model()
     edit_handler = get_snippet_edit_handler(model)
+    edit_handler = edit_handler.bind_to(request=request)
     form_class = edit_handler.get_form_class()
 
     if request.method == 'POST':
@@ -157,14 +159,10 @@ def create(request, app_label, model_name):
             messages.validation_error(
                 request, _("The snippet could not be created due to errors."), form
             )
-            edit_handler = edit_handler.bind_to_instance(instance=instance,
-                                                         form=form,
-                                                         request=request)
     else:
         form = form_class(instance=instance)
-        edit_handler = edit_handler.bind_to_instance(instance=instance,
-                                                     form=form,
-                                                     request=request)
+
+    edit_handler = edit_handler.bind_to(instance=instance, form=form)
 
     return render(request, 'wagtailsnippets/snippets/create.html', {
         'model_opts': model._meta,
@@ -182,6 +180,7 @@ def edit(request, app_label, model_name, pk):
 
     instance = get_object_or_404(model, pk=unquote(pk))
     edit_handler = get_snippet_edit_handler(model)
+    edit_handler = edit_handler.bind_to(instance=instance, request=request)
     form_class = edit_handler.get_form_class()
 
     if request.method == 'POST':
@@ -207,14 +206,10 @@ def edit(request, app_label, model_name, pk):
             messages.validation_error(
                 request, _("The snippet could not be saved due to errors."), form
             )
-            edit_handler = edit_handler.bind_to_instance(instance=instance,
-                                                         form=form,
-                                                         request=request)
     else:
         form = form_class(instance=instance)
-        edit_handler = edit_handler.bind_to_instance(instance=instance,
-                                                     form=form,
-                                                     request=request)
+
+    edit_handler = edit_handler.bind_to(form=form)
 
     return render(request, 'wagtailsnippets/snippets/edit.html', {
         'model_opts': model._meta,
@@ -273,7 +268,8 @@ def usage(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
     instance = get_object_or_404(model, pk=unquote(pk))
 
-    paginator, used_by = paginate(request, instance.get_usage())
+    paginator = Paginator(instance.get_usage(), per_page=20)
+    used_by = paginator.get_page(request.GET.get('p'))
 
     return render(request, "wagtailsnippets/snippets/usage.html", {
         'instance': instance,

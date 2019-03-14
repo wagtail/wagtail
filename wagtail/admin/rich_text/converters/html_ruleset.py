@@ -19,7 +19,7 @@ class HTMLRuleset():
     'a[linktype="page"]' = matches any <a> element with a 'linktype' attribute equal to 'page'
     """
     def __init__(self, rules=None):
-        # mapping of element name to a list of (attr_check, result) tuples
+        # mapping of element name to a sorted list of (precedence, attr_check, result) tuples
         # where attr_check is a callable that takes an attr dict and returns True if they match
         self.element_rules = {}
 
@@ -36,22 +36,28 @@ class HTMLRuleset():
 
     def _add_element_rule(self, name, result):
         # add a rule that matches on any element with name `name`
-        self.element_rules.setdefault(name, []).append(
-            ((lambda attrs: True), result)
-        )
+        rules = self.element_rules.setdefault(name, [])
+        # element-only rules have priority 2 (lower)
+        rules.append((2, (lambda attrs: True), result))
+        # sort list on priority
+        rules.sort(key=lambda t: t[0])
 
     def _add_element_with_attr_rule(self, name, attr, result):
         # add a rule that matches any element with name `name` which has the attribute `attr`
-        self.element_rules.setdefault(name, []).append(
-            ((lambda attrs: attr in attrs), result)
-        )
+        rules = self.element_rules.setdefault(name, [])
+        # element-and-attr rules have priority 1 (higher)
+        rules.append((1, (lambda attrs: attr in attrs), result))
+        # sort list on priority
+        rules.sort(key=lambda t: t[0])
 
     def _add_element_with_attr_exact_rule(self, name, attr, value, result):
         # add a rule that matches any element with name `name` which has an
         # attribute `attr` equal to `value`
-        self.element_rules.setdefault(name, []).append(
-            ((lambda attrs: attr in attrs and attrs[attr] == value), result)
-        )
+        rules = self.element_rules.setdefault(name, [])
+        # element-and-attr rules have priority 1 (higher)
+        rules.append((1, (lambda attrs: attr in attrs and attrs[attr] == value), result))
+        # sort list on priority
+        rules.sort(key=lambda t: t[0])
 
     def add_rule(self, selector, result):
         match = ELEMENT_SELECTOR.match(selector)
@@ -88,6 +94,6 @@ class HTMLRuleset():
         except KeyError:
             return None
 
-        for attr_check, result in rules_to_test:
+        for precedence, attr_check, result in rules_to_test:
             if attr_check(attrs):
                 return result

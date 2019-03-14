@@ -2749,22 +2749,22 @@ class TestPageChooserBlock(TestCase):
         self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_string(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model='tests.SimplePage')
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type='tests.SimplePage')
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_literal(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=SimplePage)
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=SimplePage)
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_multiple_strings(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=['tests.SimplePage', 'tests.EventPage'])
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=['tests.SimplePage', 'tests.EventPage'])
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_multiple_literals(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=[SimplePage, EventPage])
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=[SimplePage, EventPage])
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false, null);', empty_form_html)
 
@@ -2800,19 +2800,19 @@ class TestPageChooserBlock(TestCase):
         self.assertEqual(block.target_model, Page)
 
     def test_target_model_string(self):
-        block = blocks.PageChooserBlock(target_model='tests.SimplePage')
+        block = blocks.PageChooserBlock(page_type='tests.SimplePage')
         self.assertEqual(block.target_model, SimplePage)
 
     def test_target_model_literal(self):
-        block = blocks.PageChooserBlock(target_model=SimplePage)
+        block = blocks.PageChooserBlock(page_type=SimplePage)
         self.assertEqual(block.target_model, SimplePage)
 
     def test_target_model_multiple_strings(self):
-        block = blocks.PageChooserBlock(target_model=['tests.SimplePage', 'tests.EventPage'])
+        block = blocks.PageChooserBlock(page_type=['tests.SimplePage', 'tests.EventPage'])
         self.assertEqual(block.target_model, Page)
 
     def test_target_model_multiple_literals(self):
-        block = blocks.PageChooserBlock(target_model=[SimplePage, EventPage])
+        block = blocks.PageChooserBlock(page_type=[SimplePage, EventPage])
         self.assertEqual(block.target_model, Page)
 
     def test_deconstruct_target_model_default(self):
@@ -2822,28 +2822,28 @@ class TestPageChooserBlock(TestCase):
             (), {}))
 
     def test_deconstruct_target_model_string(self):
-        block = blocks.PageChooserBlock(target_model='tests.SimplePage')
+        block = blocks.PageChooserBlock(page_type='tests.SimplePage')
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage']}))
+            (), {'page_type': ['tests.SimplePage']}))
 
     def test_deconstruct_target_model_literal(self):
-        block = blocks.PageChooserBlock(target_model=SimplePage)
+        block = blocks.PageChooserBlock(page_type=SimplePage)
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage']}))
+            (), {'page_type': ['tests.SimplePage']}))
 
     def test_deconstruct_target_model_multiple_strings(self):
-        block = blocks.PageChooserBlock(target_model=['tests.SimplePage', 'tests.EventPage'])
+        block = blocks.PageChooserBlock(page_type=['tests.SimplePage', 'tests.EventPage'])
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage', 'tests.EventPage']}))
+            (), {'page_type': ['tests.SimplePage', 'tests.EventPage']}))
 
     def test_deconstruct_target_model_multiple_literals(self):
-        block = blocks.PageChooserBlock(target_model=[SimplePage, EventPage])
+        block = blocks.PageChooserBlock(page_type=[SimplePage, EventPage])
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage', 'tests.EventPage']}))
+            (), {'page_type': ['tests.SimplePage', 'tests.EventPage']}))
 
 
 class TestStaticBlock(unittest.TestCase):

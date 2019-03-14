@@ -1,7 +1,44 @@
 Changelog
 =========
 
-2.4 (xx.xx.xxxx) - IN DEVELOPMENT
+2.5 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Added support for customising EditHandler-based forms on a per-request basis (Bertrand Bordage)
+ * Added more informative error message when `|richtext` filter is applied to a non-string value (mukesh5)
+ * Automatic search indexing can now be disabled on a per-model basis via the `search_auto_update` attribute (Karl Hobley)
+ * Improved diffing of StreamFields when comparing page revisions (Karl Hobley)
+ * Highlight broken links to pages and missing documents in rich text (Brady Moe)
+ * Preserve links when copy-pasting rich text content from Wagtail to other tools (Thibaud Colas)
+ * Rich text to contentstate conversion now prioritises more specific rules, to accommodate `<p>` and `<br>` elements with attributes (Matt Westcott)
+ * Added limit image upload size by number of pixels (Thomas Elliott)
+ * Added `manage.py wagtail_update_index` alias to avoid clashes with `update_index` commands from other packages (Matt Westcott)
+ * Renamed `target_model` argument on `PageChooserBlock` to `page_type` (Loic Teixeira)
+ * `edit_handler` and `panels` can now be defined on a `ModelAdmin` definition (Thomas Kremmel)
+ * Add Learn Wagtail to third-party tutorials in documentation (Matt Westcott)
+ * Add a Django setting `TAG_LIMIT` to limit number of tags that can be added to any taggit model (Mani)
+ * Added instructions on how to generate urls for `ModelAdmin` to documentation (LB (Ben Johnston), Andy Babic)
+ * Added option to specify a fallback URL on `{% pageurl %}` (Arthur Holzner)
+ * Fix: Set `SERVER_PORT` to 443 in `Page.dummy_request()` for HTTPS sites (Sergey Fedoseev)
+ * Fix: Include port number in `Host` header of `Page.dummy_request()` (Sergey Fedoseev)
+ * Fix: Validation error messages in `InlinePanel` no longer count towards `max_num` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)
+ * Fix: Rich text to contentstate conversion now ignores stray closing tags (frmdstryr)
+ * Fix: Escape backslashes in `postgres_search` queries (Hammy Goonan)
+ * Fix: Parent page link in page chooser search results no longer navigates away (Asanka Lihiniyagoda, Sævar Öfjörð Magnússon)
+ * Fix: `routablepageurl` tag now correctly omits domain part when multiple sites exist at the same root (Gassan Gousseinov)
+ * Fix: Added missing collection column specifier on document listing template (Sergey Fedoseev)
+ * Fix: Page Copy will now also copy ParentalManyToMany field relations (LB (Ben Johnston))
+ * Fix: Admin HTML header now includes correct language code (Matt Westcott)
+ * Fix: Unclear error message when saving image after focal point edit (Hugo van den Berg)
+ * Fix: `send_mail` now correctly uses the `html_message` kwarg for HTML messages (Tiago Requeijo)
+ * Fix: Page copying no longer allowed if page model has reached its `max_count` (Andy Babic)
+ * Fix: Don't show page type on page chooser button when multiple types are allowed (Thijs Kramer)
+ * Fix: Make sure page chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
+ * Fix: Inform user when moving a page from one parent to another where there is an already existing page with the same slug (Casper Timmers)
+ * Fix: User add/edit forms now support form widgets with JS/CSS media (Damian Grinwis)
+
+
+2.4 (19.12.2018)
 ~~~~~~~~~~~~~~~~
 
  * Added support for Python 3.7 (Matt Westcott)
@@ -13,6 +50,15 @@ Changelog
  * Added `file_hash` field to documents (Karl Hobley, Dan Braghis)
  * Added last login to the user overview (Noah B Johnson)
  * Changed design of image editing page (Janneke Janssen, Ben Enright)
+ * Added Slovak character map for JavaScript slug generation (Andy Chosak)
+ * Make documentation links on welcome page work for prereleases (Matt Westcott)
+ * Allow overridden `copy()` methods in `Page` subclasses to be called from the page copy view (Robert Rollins)
+ * Users without a preferred language set on their profile now use language selected by Django's `LocaleMiddleware` (Benjamin Bach)
+ * Added hooks to customise the actions menu on the page create/edit views (Matt Westcott)
+ * Cleanup: Use `functools.partial()` instead of `django.utils.functional.curry()` (Sergey Fedoseev)
+ * Squashed migrations for wagtailimages (Karl Hobley)
+ * Added `before_move_page` and `after_move_page` hooks (Maylon Pedroso)
+ * Bulk deletion button for snippets is now hidden until items are selected (Karl Hobley)
  * Fix: Query objects returned from `PageQuerySet.type_q` can now be merged with `|` (Brady Moe)
  * Fix: Add `rel="noopener noreferrer"` to target blank links (Anselm Bradford)
  * Fix: Additional fields on custom document models now show on the multiple document upload view (Robert Rollins, Sergey Fedoseev)
@@ -21,7 +67,10 @@ Changelog
  * Fix: Allow nav menu to take up all available space instead of scrolling (Meteor0id)
  * Fix: Redirects now return 404 when destination is unspecified or a page with no site (Hillary Jeffrey)
  * Fix: Refactor all breakpoint definitions, removing style overlaps (Janneke Janssen)
- * Fix: Missing comma in Draftail documentation (Alex Gleason)
+ * Fix: Updated draftjs_exporter to 2.1.5 to fix bug in handling adjacent entities (Thibaud Colas)
+ * Fix: Page titles consisting only of stopwords now generate a non-empty default slug (Andy Chosak, Janneke Janssen)
+ * Fix: Sitemap generator now allows passing a sitemap instance in the URL configuration (Mitchel Cabuloy, Dan Braghis)
+ * Fix: Increase max length on `Embed.thumbnail_url` to 255 characters (Kevin Howbrook)
 
 
 2.3 LTS (23.10.2018)

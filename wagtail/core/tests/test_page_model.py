@@ -16,8 +16,8 @@ from wagtail.core.models import Page, PageManager, Site, get_page_models
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
-    CustomPageQuerySet, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage, MTIBasePage,
-    MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimplePage,
+    CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
+    MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimplePage,
     SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -129,13 +129,6 @@ class TestSiteRouting(TestCase):
         self.alternate_port_default_site = Site.objects.create(hostname=self.default_site.hostname, port='8765', root_page=self.default_site.root_page)
         self.unrecognised_port = '8000'
         self.unrecognised_hostname = 'unknown.site.com'
-
-    def test_no_host_header_routes_to_default_site(self):
-        # requests without a Host: header should be directed to the default site
-        request = HttpRequest()
-        request.path = '/'
-        with self.assertNumQueries(1):
-            self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
@@ -707,6 +700,41 @@ class TestCopyPage(TestCase):
             christmas_event.advert_placements.count(),
             1,
             "Child objects defined on the superclass were removed from the original page"
+        )
+
+    def test_copy_page_copies_parental_relations(self):
+        """Test that a page will be copied with parental many to many relations intact."""
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        summer_category = EventCategory.objects.create(name='Summer')
+        holiday_category = EventCategory.objects.create(name='Holidays')
+
+        # add parental many to many relations
+        christmas_event.categories = (summer_category, holiday_category)
+        christmas_event.save()
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
+
+        # check that original eventt is untouched
+        self.assertEqual(
+            christmas_event.categories.count(),
+            2,
+            "Child objects (parental many to many) defined on the superclass were removed from the original page"
+        )
+
+        # check that parental many to many are copied
+        self.assertEqual(
+            new_christmas_event.categories.count(),
+            2,
+            "Child objects (parental many to many) weren't copied"
+        )
+
+        # check that the original and copy are related to the same categories
+        self.assertEqual(
+            new_christmas_event.categories.all().in_bulk(),
+            christmas_event.categories.all().in_bulk()
         )
 
     def test_copy_page_copies_revisions(self):
@@ -1355,6 +1383,56 @@ class TestDummyRequest(TestCase):
         self.assertEqual(request.META['PATH_INFO'], '/events/')
         self.assertEqual(request.META['SERVER_NAME'], 'localhost')
         self.assertEqual(request.META['SERVER_PORT'], 80)
+        self.assertEqual(request.META['SERVER_PROTOCOL'], 'HTTP/1.1')
+        self.assertEqual(request.META['wsgi.version'], (1, 0))
+        self.assertEqual(request.META['wsgi.url_scheme'], 'http')
+        self.assertIn('wsgi.input', request.META)
+        self.assertIn('wsgi.errors', request.META)
+        self.assertIn('wsgi.multithread', request.META)
+        self.assertIn('wsgi.multiprocess', request.META)
+        self.assertIn('wsgi.run_once', request.META)
+
+    def test_dummy_request_for_accessible_page_https(self):
+        Site.objects.update(port=443)
+
+        event_index = Page.objects.get(url_path='/home/events/')
+        request = event_index.dummy_request()
+
+        # request should have the correct path and hostname for this page
+        self.assertEqual(request.path, '/events/')
+        self.assertEqual(request.META['HTTP_HOST'], 'localhost')
+
+        # check other env vars required by the WSGI spec
+        self.assertEqual(request.META['REQUEST_METHOD'], 'GET')
+        self.assertEqual(request.META['SCRIPT_NAME'], '')
+        self.assertEqual(request.META['PATH_INFO'], '/events/')
+        self.assertEqual(request.META['SERVER_NAME'], 'localhost')
+        self.assertEqual(request.META['SERVER_PORT'], 443)
+        self.assertEqual(request.META['SERVER_PROTOCOL'], 'HTTP/1.1')
+        self.assertEqual(request.META['wsgi.version'], (1, 0))
+        self.assertEqual(request.META['wsgi.url_scheme'], 'https')
+        self.assertIn('wsgi.input', request.META)
+        self.assertIn('wsgi.errors', request.META)
+        self.assertIn('wsgi.multithread', request.META)
+        self.assertIn('wsgi.multiprocess', request.META)
+        self.assertIn('wsgi.run_once', request.META)
+
+    def test_dummy_request_for_accessible_page_non_standard_port(self):
+        Site.objects.update(port=8888)
+
+        event_index = Page.objects.get(url_path='/home/events/')
+        request = event_index.dummy_request()
+
+        # request should have the correct path and hostname for this page
+        self.assertEqual(request.path, '/events/')
+        self.assertEqual(request.META['HTTP_HOST'], 'localhost:8888')
+
+        # check other env vars required by the WSGI spec
+        self.assertEqual(request.META['REQUEST_METHOD'], 'GET')
+        self.assertEqual(request.META['SCRIPT_NAME'], '')
+        self.assertEqual(request.META['PATH_INFO'], '/events/')
+        self.assertEqual(request.META['SERVER_NAME'], 'localhost')
+        self.assertEqual(request.META['SERVER_PORT'], 8888)
         self.assertEqual(request.META['SERVER_PROTOCOL'], 'HTTP/1.1')
         self.assertEqual(request.META['wsgi.version'], (1, 0))
         self.assertEqual(request.META['wsgi.url_scheme'], 'http')

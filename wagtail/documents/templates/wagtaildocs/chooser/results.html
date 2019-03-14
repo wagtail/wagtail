@@ -14,7 +14,7 @@
 
     {% include "wagtaildocs/documents/list.html" with choosing=1 %}
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=documents is_ajax=1 %}
+    {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=documents %}
 {% else %}
     {% if documents_exist %}
         <p>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>

@@ -1,10 +1,10 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.search import models
 from wagtail.search.utils import normalise_query_string
-from wagtail.utils.pagination import paginate
 
 
 def chooser(request, get_results=False):
@@ -21,7 +21,8 @@ def chooser(request, get_results=False):
     else:
         searchform = SearchForm()
 
-    paginator, queries = paginate(request, queries, per_page=10)
+    paginator = Paginator(queries, per_page=10)
+    queries = paginator.get_page(request.GET.get('p'))
 
     # Render
     if get_results:
