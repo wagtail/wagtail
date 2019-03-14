@@ -25,9 +25,15 @@ def formfield_for_dbfield(db_field, **kwargs):
 class BaseImageForm(BaseCollectionMemberForm):
     permission_policy = images_permission_policy
 
+    rotation = forms.CharField(max_length=100,
+        widget=forms.HiddenInput(attrs={'class': 'rotation'}),
+        help_text="Press to rotate this image clockwise by 90 degrees.",
+    )
+
 
 def get_image_form(model):
     fields = model.admin_form_fields
+
     if 'collection' not in fields:
         # force addition of the 'collection' field, because leaving it out can
         # cause dubious results when multiple collections exist (e.g adding the
