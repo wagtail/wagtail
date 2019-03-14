@@ -83,6 +83,11 @@ const initEditor = (selector, options, currentScript) => {
     description: STRINGS.HORIZONTAL_LINE,
   } : false;
 
+  const enableLineBreak = options.enableLineBreak ? {
+    description: STRINGS.LINE_BREAK,
+    icon: BR_ICON,
+  } : false;
+
   const rawContentState = JSON.parse(field.value);
   field.rawContentState = rawContentState;
 
@@ -99,10 +104,6 @@ const initEditor = (selector, options, currentScript) => {
         onSave={serialiseInputValue}
         placeholder={STRINGS.WRITE_HERE}
         spellCheck={true}
-        enableLineBreak={{
-          description: STRINGS.LINE_BREAK,
-          icon: BR_ICON,
-        }}
         showUndoControl={{ description: STRINGS.UNDO }}
         showRedoControl={{ description: STRINGS.REDO }}
         maxListNesting={4}
@@ -113,6 +114,7 @@ const initEditor = (selector, options, currentScript) => {
         inlineStyles={inlineStyles.map(wrapWagtailIcon)}
         entityTypes={entityTypes}
         enableHorizontalRule={enableHorizontalRule}
+        enableLineBreak={enableLineBreak}
       />
     </EditorFallback>
   );

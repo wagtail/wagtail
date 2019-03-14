@@ -1,6 +1,5 @@
 import json
 import logging
-import re
 
 from draftjs_exporter.defaults import render_children
 from draftjs_exporter.dom import DOM
@@ -60,12 +59,7 @@ class ContentstateConverter():
             'entity_decorators': {
                 'FALLBACK': entity_fallback,
             },
-            'composite_decorators': [
-                {
-                    'strategy': re.compile(r'\n'),
-                    'component': br,
-                },
-            ],
+            'composite_decorators': [],
             'engine': DOM.STRING,
         }
 
@@ -76,6 +70,8 @@ class ContentstateConverter():
                 exporter_config['block_map'].update(feature_config.get('block_map', {}))
                 exporter_config['style_map'].update(feature_config.get('style_map', {}))
                 exporter_config['entity_decorators'].update(feature_config.get('entity_decorators', {}))
+                if feature_config.get('composite_decorators', False):
+                    exporter_config['composite_decorators'].extend(feature_config.get('composite_decorators'))
 
         self.exporter = HTMLExporter(exporter_config)
 
