@@ -7,7 +7,7 @@ from django.contrib.admin import FieldListFilter, widgets
 from django.contrib.admin.exceptions import DisallowedModelAdminLookup
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
-    get_fields_from_path, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
+    get_fields_from_path, label_for_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied, SuspiciousOperation
 from django.core.paginator import InvalidPage, Paginator
@@ -842,16 +842,9 @@ class InspectView(InstanceSpecificView):
     def get_meta_title(self):
         return _('Inspecting %s') % self.verbose_name
 
-    def get_field_label(self, field_name, field=None):
+    def get_field_label(self, field_name):
         """ Return a label to display for a field """
-        label = None
-        if field is not None:
-            label = getattr(field, 'verbose_name', None)
-            if label is None:
-                label = getattr(field, 'name', None)
-        if label is None:
-            label = field_name
-        return label
+        return label_for_field(field_name, model=self.model, model_admin=self.model_admin)
 
     def get_field_display_value(self, field_name, field=None):
         """ Return a display value for a field/attribute """
@@ -931,7 +924,7 @@ class InspectView(InstanceSpecificView):
         except FieldDoesNotExist:
             field = None
         return {
-            'label': self.get_field_label(field_name, field),
+            'label': self.get_field_label(field_name),
             'value': self.get_field_display_value(field_name, field),
         }
 
