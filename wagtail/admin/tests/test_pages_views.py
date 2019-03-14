@@ -2627,10 +2627,11 @@ class TestPageMove(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
         response = self.client.get(reverse('wagtailadmin_home'))
-        for message in response.context['messages']:
-            # Slug should be in error message.
-            self.assertIn("{}".format(self.test_page_b.slug), message.message)
-            self.assertEqual(message.level, message_constants.ERROR)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].level, message_constants.ERROR)
+        # Slug should be in error message.
+        self.assertIn("{}".format(self.test_page_b.slug), messages[0].message)
 
     def test_page_set_page_position(self):
         response = self.client.get(reverse('wagtailadmin_pages:set_page_position', args=(self.test_page_a.id, )))
