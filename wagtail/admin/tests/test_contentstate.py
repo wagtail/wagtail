@@ -685,7 +685,7 @@ class TestHtmlToContentState(TestCase):
         })
 
     def test_br_element_in_paragraph(self):
-        converter = ContentstateConverter(features=[])
+        converter = ContentstateConverter(features=['br'])
         result = json.loads(converter.from_database_format(
             '''
             <p>before<br/>after</p>
@@ -700,7 +700,7 @@ class TestHtmlToContentState(TestCase):
         })
 
     def test_br_element_between_paragraphs(self):
-        converter = ContentstateConverter(features=[])
+        converter = ContentstateConverter(features=['br'])
         result = json.loads(converter.from_database_format(
             '''
             <p>before</p>
