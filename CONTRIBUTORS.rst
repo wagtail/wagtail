@@ -355,6 +355,7 @@ Contributors
 * patta42
 * Esper Kuijs
 * Damian Grinwis
+* Wesley van Lee
 
 Translators
 ===========

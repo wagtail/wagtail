@@ -52,6 +52,7 @@ Bug fixes
  * Make sure page chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
  * Inform user when moving a page from one parent to another where there is an already existing page with the same slug (Casper Timmers)
  * User add/edit forms now support form widgets with JS/CSS media (Damian Grinwis)
+ * Rich text processing now preserves non-breaking spaces instead of converting them to normal spaces (Wesley van Lee)
 
 
 Upgrade considerations
