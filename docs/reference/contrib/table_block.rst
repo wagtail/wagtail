@@ -119,3 +119,40 @@ To change the default table options just pass a new table_options dictionary whe
     class DemoStreamBlock(StreamBlock):
         ...
         table = TableBlock(table_options=new_table_options)
+
+
+Supporting cell alignement
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can activate the `alignment` option by setting a custom `contextMenu` which allows you to set the alignment on a cell selection.
+HTML classes set by handsontable will be kept on the rendered block. You'll be then able to apply your own custom CSS rules to preserve the style. Those class names are:
+
+ * Horizontal: ``htLeft``, ``htCenter``, ``htRight``, ``htJustify``
+ * Vertical: ``htTop``, ``htMiddle``, ``htBottom``
+
+ .. code-block:: python
+
+    new_table_options = {
+        'contextMenu': [
+            'row_above',
+            'row_below',
+            '---------',
+            'col_left',
+            'col_right',
+            '---------',
+            'remove_row',
+            'remove_col',
+            '---------',
+            'undo',
+            'redo',
+            '---------',
+            'copy',
+            'cut'
+            '---------',
+            'alignment',
+        ],
+    }
+
+    class DemoStreamBlock(StreamBlock):
+        ...
+        table = TableBlock(table_options=new_table_options)
