@@ -14,6 +14,7 @@ Changelog
  * Added limit image upload size by number of pixels (Thomas Elliott)
  * Added `manage.py wagtail_update_index` alias to avoid clashes with `update_index` commands from other packages (Matt Westcott)
  * Renamed `target_model` argument on `PageChooserBlock` to `page_type` (Loic Teixeira)
+ * In RichText add support for few more built-in text format identifiers (Md Arifin Ibne Matin)
  * `edit_handler` and `panels` can now be defined on a `ModelAdmin` definition (Thomas Kremmel)
  * Add Learn Wagtail to third-party tutorials in documentation (Matt Westcott)
  * Add a Django setting `TAG_LIMIT` to limit number of tags that can be added to any taggit model (Mani)
