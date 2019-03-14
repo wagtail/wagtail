@@ -1,4 +1,13 @@
-{% load wagtailadmin_tags %}
+{% load wagtailadmin_tags static i18n l10n %}
 <li class="{% if field.field.required %}required{% endif %} {{ wrapper_classes }} {{ li_classes }} {% if field.errors %}error{% endif %}">
     {% include "wagtailimages/images/_file_field.html" %}
+
+
+                <button class="button image-rotation" type="button" style="margin-bottom:2rem;">
+                <span style="margin-right:0.5rem;">{% trans "Rotate" %}</span>
+
+                <img src="{% static 'wagtailimages/img/img-rotate.svg' %}" style="width:1.5rem;" />
+
+                </button>
 </li>
+
