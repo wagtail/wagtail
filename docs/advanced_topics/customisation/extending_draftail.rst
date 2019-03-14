@@ -84,30 +84,29 @@ Blocks are nearly as simple as inline styles:
     from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 
     @hooks.register('register_rich_text_features')
-    def register_blockquote_feature(features):
+    def register_help_text_feature(features):
         """
-        Registering the `blockquote` feature, which uses the `blockquote` Draft.js block type,
-        and is stored as HTML with a `<blockquote>` tag.
+        Registering the `help-text` feature, which uses the `help-text` Draft.js block type,
+        and is stored as HTML with a `<div class="help-text">` tag.
         """
-        feature_name = 'blockquote'
-        type_ = 'blockquote'
-        tag = 'blockquote'
+        feature_name = 'help-text'
+        type_ = 'help-text'
 
         control = {
             'type': type_,
-            'label': '❝',
-            'description': 'Blockquote',
+            'label': '?',
+            'description': 'Help text',
             # Optionally, we can tell Draftail what element to use when displaying those blocks in the editor.
-            'element': 'blockquote',
+            'element': 'div',
         }
 
         features.register_editor_plugin(
-            'draftail', feature_name, draftail_features.BlockFeature(control)
+            'draftail', feature_name, draftail_features.BlockFeature(control, css={'all': ['help-text.css']})
         )
 
         features.register_converter_rule('contentstate', feature_name, {
-            'from_database_format': {tag: BlockElementHandler(type_)},
-            'to_database_format': {'block_map': {type_: tag}},
+            'from_database_format': {'div.help-text': BlockElementHandler(type_)},
+            'to_database_format': {'block_map': {type_: {'element': 'div', 'props': {'class': 'help-text'}}}},
         })
 
 Here are the main differences:
@@ -116,7 +115,7 @@ Here are the main differences:
 * We register the plugin with ``BlockFeature``.
 * We set up the conversion with ``BlockElementHandler`` and ``block_map``.
 
-Optionally, we can also define styles for the blocks with the ``Draftail-block--blockquote`` (``Draftail-block--<block type>``) CSS class.
+Optionally, we can also define styles for the blocks with the ``Draftail-block--help-text`` (``Draftail-block--<block type>``) CSS class.
 
 That’s it! The extra complexity is that you may need to write CSS to style the blocks in the editor.
 
