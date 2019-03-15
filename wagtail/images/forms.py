@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 from wagtail.admin import widgets
 from wagtail.admin.forms.collections import (
     BaseCollectionMemberForm, collection_member_permission_formset_factory)
+from wagtail.images import get_image_model
 from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import get_image_formats
 from wagtail.images.models import Image
@@ -29,6 +30,36 @@ class BaseImageForm(BaseCollectionMemberForm):
         widget=forms.HiddenInput(attrs={'class': 'rotation'}),
         help_text="Press to rotate this image clockwise by 90 degrees.",
     )
+
+
+    def save(self, *args, **kwargs):
+        """
+        When making form submissions, check if we need to update corresponding
+        information about the image, in case we rotate or change the file this Image
+        links to.
+        """
+
+
+
+        # call super as usual
+        if 'rotation' in self.changed_data:
+
+            # rotate the new image, and then put the new
+            # image in place of the previous one
+            # self.instance.rotate
+
+
+        if 'file' in self.changed_data:
+                # Set new image file size
+                image.file_size = image.file.size
+
+                # Set new image file hash
+                image.file.seek(0)
+                image._set_file_hash(image.file.read())
+                image.file.seek(0)
+
+
+
 
 
 def get_image_form(model):
@@ -57,6 +88,7 @@ def get_image_form(model):
             'focal_point_width': forms.HiddenInput(attrs={'class': 'focal_point_width'}),
             'focal_point_height': forms.HiddenInput(attrs={'class': 'focal_point_height'}),
         })
+
 
 
 class ImageInsertionForm(forms.Form):

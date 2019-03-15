@@ -232,6 +232,12 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             self.focal_point_width = None
             self.focal_point_height = None
 
+    def rotate(self, angle):
+        with self.get_willow_image() as willow:
+            image = willow.rotate(angle)
+
+            return image
+
     def get_suggested_focal_point(self):
         with self.get_willow_image() as willow:
             faces = willow.detect_faces()

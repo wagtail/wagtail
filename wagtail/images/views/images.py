@@ -93,6 +93,8 @@ def edit(request, image_id):
 
     image = get_object_or_404(Image, id=image_id)
 
+
+
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
         return permission_denied(request)
 
@@ -100,14 +102,6 @@ def edit(request, image_id):
         original_file = image.file
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
-            if 'file' in form.changed_data:
-                # Set new image file size
-                image.file_size = image.file.size
-
-                # Set new image file hash
-                image.file.seek(0)
-                image._set_file_hash(image.file.read())
-                image.file.seek(0)
 
             form.save()
 
