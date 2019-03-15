@@ -343,6 +343,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # Define the maximum number of instances this page type can have. Default to unlimited.
     max_count = None
 
+    # Define the maximum number of instances this page can have under a specific parent. Default to unlimited.
+    max_count_per_parent = None
+
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
 
@@ -979,6 +982,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         if cls.max_count is not None:
             can_create = can_create and cls.objects.count() < cls.max_count
+
+        if cls.max_count_per_parent is not None:
+            can_create = can_create and parent.get_children().type(cls).count() < cls.max_count_per_parent
 
         return can_create
 
