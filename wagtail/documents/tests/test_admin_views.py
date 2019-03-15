@@ -8,7 +8,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
-from django.utils.six import b
 
 from wagtail.core.models import Collection, GroupCollectionPermission, Page
 from wagtail.documents import models
@@ -129,7 +128,7 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
 
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile(b("A boring example document"))
+        fake_file = ContentFile(b"A boring example document")
         fake_file.name = 'test.txt'
 
         # Submit
@@ -159,7 +158,7 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         evil_plans_collection = root_collection.add_child(name="Evil plans")
 
         # Build a fake file
-        fake_file = ContentFile(b("A boring example document"))
+        fake_file = ContentFile(b"A boring example document")
         fake_file.name = 'test.txt'
 
         # Submit
@@ -222,7 +221,7 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestU
 
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile(b("A boring example document"))
+        fake_file = ContentFile(b"A boring example document")
         fake_file.name = 'test.txt'
 
         # Submit
@@ -250,7 +249,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.login()
 
         # Build a fake file
-        fake_file = ContentFile(b("A boring example document"))
+        fake_file = ContentFile(b"A boring example document")
         fake_file.name = 'test.txt'
 
         # Create a document to edit
@@ -266,7 +265,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
 
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile(b("A boring example document"))
+        fake_file = ContentFile(b"A boring example document")
         fake_file.name = 'test.txt'
 
         # Submit title change
@@ -284,7 +283,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
 
     def test_with_missing_source_file(self):
         # Build a fake file
-        fake_file = ContentFile(b("An ephemeral document"))
+        fake_file = ContentFile(b"An ephemeral document")
         fake_file.name = 'to-be-deleted.txt'
 
         # Create a new document to delete the source for
@@ -392,7 +391,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         # Create a document for running tests on
         self.doc = models.get_document_model().objects.create(
             title="Test document",
-            file=ContentFile(b("Simple text document")),
+            file=ContentFile(b"Simple text document"),
         )
 
     def check_doc_after_edit(self):
@@ -820,7 +819,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
 
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile(b("A boring example document"))
+        fake_file = ContentFile(b"A boring example document")
         fake_file.name = 'test.txt'
 
         # Submit
@@ -890,7 +889,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
 
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile(b("A boring example document"))
+        fake_file = ContentFile(b"A boring example document")
         fake_file.name = 'test.txt'
 
         # Submit
@@ -1014,7 +1013,7 @@ class TestGetUsage(TestCase, WagtailTestUtils):
 class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
         # Build a fake file
-        fake_file = ContentFile(b("A boring example document"))
+        fake_file = ContentFile(b"A boring example document")
         fake_file.name = 'test.txt'
 
         self.root_collection = Collection.get_first_root_node()

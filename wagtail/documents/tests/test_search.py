@@ -4,7 +4,6 @@ from django.core.files.base import ContentFile
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
-from django.utils.six import b
 
 from wagtail.documents import models
 from wagtail.tests.utils import WagtailTestUtils
@@ -32,7 +31,7 @@ class TestIssue613(TestCase, WagtailTestUtils):
 
     def add_document(self, **params):
         # Build a fake file
-        fake_file = ContentFile(b("A boring example document"))
+        fake_file = ContentFile(b"A boring example document")
         fake_file.name = 'test.txt'
 
         # Submit
@@ -53,14 +52,14 @@ class TestIssue613(TestCase, WagtailTestUtils):
 
     def edit_document(self, **params):
         # Build a fake file
-        fake_file = ContentFile(b("A boring example document"))
+        fake_file = ContentFile(b"A boring example document")
         fake_file.name = 'test.txt'
 
         # Create a document without tags to edit
         document = models.Document.objects.create(title="Test document", file=fake_file)
 
         # Build another fake file
-        another_fake_file = ContentFile(b("A boring example document"))
+        another_fake_file = ContentFile(b"A boring example document")
         another_fake_file.name = 'test.txt'
 
         # Submit
