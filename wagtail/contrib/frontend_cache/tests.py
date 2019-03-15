@@ -79,12 +79,23 @@ class TestBackendConfiguration(TestCase):
             hdrs={},
             fp=None
         )
-        self._test_http_with_side_effect(urlopen_side_effect=http_error)
+        with self.assertLogs(level='ERROR') as log_output:
+            self._test_http_with_side_effect(urlopen_side_effect=http_error)
+
+        self.assertIn(
+            "Couldn't purge 'http://www.wagtail.io/home/events/christmas/' from HTTP cache. HTTPError: 500 Internal Server Error",
+            log_output.output[0]
+        )
 
     def test_http_urlerror(self):
         """Test that `HTTPBackend.purge` can handle `URLError`"""
         url_error = URLError(reason='just for tests')
-        self._test_http_with_side_effect(urlopen_side_effect=url_error)
+        with self.assertLogs(level='ERROR') as log_output:
+            self._test_http_with_side_effect(urlopen_side_effect=url_error)
+        self.assertIn(
+            "Couldn't purge 'http://www.wagtail.io/home/events/christmas/' from HTTP cache. URLError: just for tests",
+            log_output.output[0]
+        )
 
     @mock.patch('wagtail.contrib.frontend_cache.backends.urlopen')
     def _test_http_with_side_effect(self, urlopen_mock, urlopen_side_effect):
