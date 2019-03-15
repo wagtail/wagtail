@@ -356,6 +356,7 @@ Contributors
 * Esper Kuijs
 * Damian Grinwis
 * Wesley van Lee
+* Md Arifin Ibne Matin
 
 Translators
 ===========

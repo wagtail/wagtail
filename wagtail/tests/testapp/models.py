@@ -1170,7 +1170,7 @@ class CustomRichBlockFieldPage(Page):
 
 
 class RichTextFieldWithFeaturesPage(Page):
-    body = RichTextField(features=['blockquote', 'embed', 'made-up-feature'])
+    body = RichTextField(features=['quotation', 'embed', 'made-up-feature'])
 
     content_panels = [
         FieldPanel('title', classname="full title"),

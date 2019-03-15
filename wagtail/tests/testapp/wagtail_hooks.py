@@ -88,22 +88,22 @@ def hide_hidden_pages(parent_page, pages, request):
     return pages.exclude(title__icontains='hidden')
 
 
-# register 'blockquote' as a rich text feature supported by a hallo.js plugin
+# register 'quotation' as a rich text feature supported by a hallo.js plugin
 # and a Draftail feature
 @hooks.register('register_rich_text_features')
-def register_blockquote_feature(features):
+def register_quotation_feature(features):
     features.register_editor_plugin(
-        'hallo', 'blockquote', HalloPlugin(
-            name='halloblockquote',
-            js=['testapp/js/hallo-blockquote.js'],
-            css={'all': ['testapp/css/hallo-blockquote.css']},
+        'hallo', 'quotation', HalloPlugin(
+            name='halloquotation',
+            js=['testapp/js/hallo-quotation.js'],
+            css={'all': ['testapp/css/hallo-quotation.css']},
         )
     )
     features.register_editor_plugin(
-        'draftail', 'blockquote', draftail_features.EntityFeature(
+        'draftail', 'quotation', draftail_features.EntityFeature(
             {},
-            js=['testapp/js/draftail-blockquote.js'],
-            css={'all': ['testapp/css/draftail-blockquote.css']},
+            js=['testapp/js/draftail-quotation.js'],
+            css={'all': ['testapp/css/draftail-quotation.css']},
         )
     )
 

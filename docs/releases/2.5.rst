@@ -29,6 +29,7 @@ Other features
  * Add a Django setting ``TAG_LIMIT`` to limit number of tags that can be added to any taggit model (Mani)
  * Added instructions on how to generate urls for ``ModelAdmin`` to documentation (LB (Ben Johnston), Andy Babic)
  * Added option to specify a fallback URL on ``{% pageurl %}`` (Arthur Holzner)
+ * Add support for more rich text formats, disabled by default: ``blockquote``, ``superscript``, ``subscript``, ``strikethrough``, ``code`` (Md Arifin Ibne Matin)
 
 
 Bug fixes
@@ -95,3 +96,17 @@ should become:
   .. code-block:: html+django
 
     {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=page_obj %}
+
+
+New rich text formats
+~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now has built-in support for new rich text formats, disabled by default:
+
+ * ``blockquote``, using the ``blockquote`` Draft.js block type, saved as a ``<blockquote>`` tag.
+ * ``superscript``, using the ``SUPERSCRIPT`` Draft.js inline style, saved as a ``<sup>`` tag.
+ * ``subscript``, using the ``SUBSCRIPT`` Draft.js inline style, saved as a ``<sub>`` tag.
+ * ``strikethrough``, using the ``STRIKETHROUGH`` Draft.js inline style, saved as a ``<s>`` tag.
+ * ``code``, using the ``CODE`` Draft.js inline style, saved as a ``<code>`` tag.
+
+Projects already using those exact Draft.js type and HTML tag combinations can safely replace their feature definitions with the new built-ins. Projects that use the same feature identifier can keep their existing feature definitions as overrides. Finally, if the Draft.js types / HTML tags are used but with a different combination, do not enable the new feature definitions to avoid conflicts in storage or editor behavior.

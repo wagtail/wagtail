@@ -9,7 +9,7 @@ Plugins come in three types:
 * Blocks – To indicate the structure of the content, eg. ``blockquote``, ``ol``.
 * Entities – To enter additional data/metadata, eg. ``link`` (with a URL), ``image`` (with a file).
 
-All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of ``strikethrough``. Place the following in a ``wagtail_hooks.py`` file in any installed app:
+All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of ``mark``. Place the following in a ``wagtail_hooks.py`` file in any installed app:
 
 .. code-block:: python
 
@@ -19,21 +19,21 @@ All of these plugins are created with a similar baseline, which we can demonstra
 
     # 1. Use the register_rich_text_features hook.
     @hooks.register('register_rich_text_features')
-    def register_strikethrough_feature(features):
+    def register_mark_feature(features):
         """
-        Registering the `strikethrough` feature, which uses the `STRIKETHROUGH` Draft.js inline style type,
-        and is stored as HTML with an `<s>` tag.
+        Registering the `mark` feature, which uses the `MARK` Draft.js inline style type,
+        and is stored as HTML with a `<mark>` tag.
         """
-        feature_name = 'strikethrough'
-        type_ = 'STRIKETHROUGH'
-        tag = 's'
+        feature_name = 'mark'
+        type_ = 'MARK'
+        tag = 'mark'
 
         # 2. Configure how Draftail handles the feature in its toolbar.
         control = {
             'type': type_,
-            'label': 'S',
-            'description': 'Strikethrough',
-            # This isn’t even required – Draftail has predefined styles for STRIKETHROUGH.
+            'label': '☆',
+            'description': 'Mark',
+            # This isn’t even required – Draftail has predefined styles for MARK.
             # 'style': {'textDecoration': 'line-through'},
         }
 
@@ -53,7 +53,7 @@ All of these plugins are created with a similar baseline, which we can demonstra
 
         # 6. (optional) Add the feature to the default features list to make it available
         # on rich text fields that do not specify an explicit 'features' list
-        features.default_features.append('strikethrough')
+        features.default_features.append('mark')
 
 These steps will always be the same for all Draftail plugins. The important parts are to:
 
@@ -72,7 +72,7 @@ Creating new inline styles
 
 In addition to the initial example, inline styles take a ``style`` property to define what CSS rules will be applied to text in the editor. Be sure to read the `Draftail documentation <https://www.draftail.org/docs/formatting-options>`_ on inline styles.
 
-Finally, the DB to/from conversion uses an ``InlineStyleElementHandler`` to map from a given tag (``<s>`` in the example above) to a Draftail type, and the inverse mapping is done with `Draft.js exporter configuration <https://github.com/springload/draftjs_exporter>`_ of the ``style_map``.
+Finally, the DB to/from conversion uses an ``InlineStyleElementHandler`` to map from a given tag (``<mark>`` in the example above) to a Draftail type, and the inverse mapping is done with `Draft.js exporter configuration <https://github.com/springload/draftjs_exporter>`_ of the ``style_map``.
 
 Creating new blocks
 ~~~~~~~~~~~~~~~~~~~
@@ -84,30 +84,29 @@ Blocks are nearly as simple as inline styles:
     from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 
     @hooks.register('register_rich_text_features')
-    def register_blockquote_feature(features):
+    def register_help_text_feature(features):
         """
-        Registering the `blockquote` feature, which uses the `blockquote` Draft.js block type,
-        and is stored as HTML with a `<blockquote>` tag.
+        Registering the `help-text` feature, which uses the `help-text` Draft.js block type,
+        and is stored as HTML with a `<div class="help-text">` tag.
         """
-        feature_name = 'blockquote'
-        type_ = 'blockquote'
-        tag = 'blockquote'
+        feature_name = 'help-text'
+        type_ = 'help-text'
 
         control = {
             'type': type_,
-            'label': '❝',
-            'description': 'Blockquote',
+            'label': '?',
+            'description': 'Help text',
             # Optionally, we can tell Draftail what element to use when displaying those blocks in the editor.
-            'element': 'blockquote',
+            'element': 'div',
         }
 
         features.register_editor_plugin(
-            'draftail', feature_name, draftail_features.BlockFeature(control)
+            'draftail', feature_name, draftail_features.BlockFeature(control, css={'all': ['help-text.css']})
         )
 
         features.register_converter_rule('contentstate', feature_name, {
-            'from_database_format': {tag: BlockElementHandler(type_)},
-            'to_database_format': {'block_map': {type_: tag}},
+            'from_database_format': {'div.help-text': BlockElementHandler(type_)},
+            'to_database_format': {'block_map': {type_: {'element': 'div', 'props': {'class': 'help-text'}}}},
         })
 
 Here are the main differences:
@@ -116,7 +115,7 @@ Here are the main differences:
 * We register the plugin with ``BlockFeature``.
 * We set up the conversion with ``BlockElementHandler`` and ``block_map``.
 
-Optionally, we can also define styles for the blocks with the ``Draftail-block--blockquote`` (``Draftail-block--<block type>``) CSS class.
+Optionally, we can also define styles for the blocks with the ``Draftail-block--help-text`` (``Draftail-block--<block type>``) CSS class.
 
 That’s it! The extra complexity is that you may need to write CSS to style the blocks in the editor.
 
