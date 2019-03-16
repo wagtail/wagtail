@@ -27,10 +27,12 @@
                 }
             }
 
-            let fpc = $('.focal-point-chooser')[0]
+            let fpc = document.querySelector('.focal-point-chooser')
             let rotation = 0;
 
-            $(' button.image-rotation').click(function(event){
+            let rotateButton = document.querySelector('button.image-rotation')
+
+            rotateButton.addEventListener("click", function (event) {
                 event.preventDefault();
                 // add our rotation code
 
@@ -39,14 +41,18 @@
                 let isPortrait = fpc.offsetWidth > fpc.offsetHeight
 
                 rotation += 90;
-                // set this in our form
-                $("#id_rotation").val(rotation);
 
+                // set this in our form
+                document.querySelector("#id_rotation").value = rotation
                 fpc.style.transform = "rotate(" + rotation + "deg)"
+
+                // when we rotate it, we need to allow some space, so the rotating image doesn't end up clipping other elements on the page
                 if (isPortrait) {
                     let extraSpace = 20
                     fpc.style.marginTop = margin + extraSpace + "px";
                     fpc.style.marginBottom = margin + extraSpace + "px";
+                } else {
+                    fpc.style.marginLeft = margin + "px";
                 }
             })
         });
