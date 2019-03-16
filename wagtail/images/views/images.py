@@ -100,7 +100,9 @@ def edit(request, image_id):
 
     if request.method == 'POST':
         original_file = image.file
+
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
+        # import ipdb; ipdb.set_trace()
         if form.is_valid():
 
             form.save()
@@ -252,6 +254,7 @@ def add(request):
         image = ImageModel(uploaded_by_user=request.user)
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
+
             # Set image file size
             image.file_size = image.file.size
 

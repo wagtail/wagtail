@@ -669,7 +669,7 @@ class TestImageRotation(TestCase, WagtailTestUtils):
             title="Test image",
             file=get_test_image_file(filename='landscape_img.png'),
         )
-        
+
         # wrap image in form, with rotation of 90
         ImageForm = get_image_form(Image)
 
