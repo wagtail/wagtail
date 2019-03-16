@@ -53,6 +53,7 @@ label,
 input,
 textarea,
 select,
+button,
 .halloeditor,
 .tagit {
     appearance: none;
@@ -76,6 +77,7 @@ select,
         background-color: $color-input-focus;
         border-color: $color-input-focus-border;
         outline: none;
+        color: $color-teal-darker;
     }
 
     &:disabled,

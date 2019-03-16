@@ -42,6 +42,7 @@ Changelog
  * Fix: Rich text processing now preserves non-breaking spaces instead of converting them to normal spaces (Wesley van Lee)
  * Fix: Prevent autocomplete dropdowns from appearing over date choosers on Chrome (Kevin Howbrook)
  * Fix: Prevent crash when logging HTTP errors from Cloudflare (Kevin Howbrook)
+ * Fix: Add more readable focus state for admin buttons (Chris Adams)
 
 
 2.4 (19.12.2018)
