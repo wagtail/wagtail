@@ -1,4 +1,7 @@
+from io import BytesIO
+
 from django import forms
+from django.core.files.images import ImageFile
 from django.forms.models import modelform_factory
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
@@ -6,7 +9,6 @@ from django.utils.translation import ugettext as _
 from wagtail.admin import widgets
 from wagtail.admin.forms.collections import (
     BaseCollectionMemberForm, collection_member_permission_formset_factory)
-from wagtail.images import get_image_model
 from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import get_image_formats
 from wagtail.images.models import Image
@@ -26,40 +28,61 @@ def formfield_for_dbfield(db_field, **kwargs):
 class BaseImageForm(BaseCollectionMemberForm):
     permission_policy = images_permission_policy
 
-    rotation = forms.CharField(max_length=100,
+    rotation = forms.IntegerField(
         widget=forms.HiddenInput(attrs={'class': 'rotation'}),
         help_text="Press to rotate this image clockwise by 90 degrees.",
+        required=False,
     )
+
+    def rotated_willow_image(self, willow_image):
+        """
+        Return a rotated image, of matching file type
+        for the image passed in.
+        """
+
+        file_extension = self.instance.filename.split(".")[-1].lower()
+
+        formats = {
+            "gif":  willow_image.save_as_gif,
+            "jpg": willow_image.save_as_jpeg,
+            "jpeg": willow_image.save_as_jpeg,
+            "png": willow_image.save_as_png,
+            "webp": willow_image.save_as_webp,
+        }
+
+        res = formats[file_extension](BytesIO())
+
+        return ImageFile(res.f, name=self.instance.file.name)
+
+
+    def remove_stale_image_files(self):
+        """
+        Remove old non-rotated renditions, if they exist
+        """
+        self.instance.renditions.all().delete()
+        self.instance.file.storage.delete(self.instance.file.name)
 
 
     def save(self, *args, **kwargs):
         """
-        When making form submissions, check if we need to update corresponding
-        information about the image, in case we rotate or change the file this Image
-        links to.
+        Save form, handling case for rotating images
         """
 
-
-
-        # call super as usual
         if 'rotation' in self.changed_data:
-
+            degrees = self.cleaned_data['rotation']
             # rotate the new image, and then put the new
             # image in place of the previous one
-            # self.instance.rotate
+            willow_image = self.instance.rotate(degrees)
+            rotated_image_file = self.rotated_willow_image(willow_image)
 
+            self.remove_stale_image_files()
+            file_name = self.instance.file.name.split('/')[-1]
 
-        if 'file' in self.changed_data:
-                # Set new image file size
-                image.file_size = image.file.size
+            self.instance.file.save(file_name, rotated_image_file, save=True)
 
-                # Set new image file hash
-                image.file.seek(0)
-                image._set_file_hash(image.file.read())
-                image.file.seek(0)
+            super(BaseImageForm, self).save(*args, **kwargs)
 
-
-
+            # update_hash
 
 
 def get_image_form(model):
@@ -88,7 +111,6 @@ def get_image_form(model):
             'focal_point_width': forms.HiddenInput(attrs={'class': 'focal_point_width'}),
             'focal_point_height': forms.HiddenInput(attrs={'class': 'focal_point_height'}),
         })
-
 
 
 class ImageInsertionForm(forms.Form):
