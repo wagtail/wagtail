@@ -19,7 +19,6 @@ from wagtail.tests.testapp.models import CustomImage, CustomImageFilePath
 from wagtail.tests.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
-from django.test import tag
 
 try:
     import sendfile  # noqa
@@ -659,18 +658,15 @@ class TestDifferentUpload(TestCase):
         # it's filename
         self.assertFalse(image.file.url == second_image.file.url)
 
-class TestImageRotation(TestCase, WagtailTestUtils):
 
-    @tag('only')
+class TestImageRotation(TestCase, WagtailTestUtils):
     def test_image_can_be_rotated(self):
 
-        ### create image
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(filename='landscape_img.png'),
         )
 
-        # wrap image in form, with rotation of 90
         ImageForm = get_image_form(Image)
 
         form_data = {
@@ -681,14 +677,13 @@ class TestImageRotation(TestCase, WagtailTestUtils):
 
         form = ImageForm(form_data, instance=image)
 
-        # now we have this, we can try calling the rotate and save methods
         self.assertEqual(form.instance.file.height, 480)
         self.assertEqual(form.instance.file.width, 640)
 
         form.is_valid()
         form.save()
 
-        # check height and width
+        # check height and width, after rotation
         self.assertEqual(form.instance.file.height, 640)
         self.assertEqual(form.instance.file.width, 480)
 

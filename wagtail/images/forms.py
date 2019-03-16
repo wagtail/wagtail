@@ -43,7 +43,7 @@ class BaseImageForm(BaseCollectionMemberForm):
         file_extension = self.instance.filename.split(".")[-1].lower()
 
         formats = {
-            "gif":  willow_image.save_as_gif,
+            "gif": willow_image.save_as_gif,
             "jpg": willow_image.save_as_jpeg,
             "jpeg": willow_image.save_as_jpeg,
             "png": willow_image.save_as_png,
@@ -53,7 +53,6 @@ class BaseImageForm(BaseCollectionMemberForm):
         res = formats[file_extension](BytesIO())
 
         return ImageFile(res.f, name=self.instance.file.name)
-
 
     def remove_stale_image_files(self):
         """
