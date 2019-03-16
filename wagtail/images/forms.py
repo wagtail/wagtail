@@ -65,7 +65,7 @@ class BaseImageForm(BaseCollectionMemberForm):
 
     def save(self, *args, **kwargs):
         """
-        Save form, handling case for rotating images
+        Save form, handling the special case for rotating images
         """
 
         if 'rotation' in self.changed_data:
@@ -80,9 +80,10 @@ class BaseImageForm(BaseCollectionMemberForm):
 
             self.instance.file.save(file_name, rotated_image_file, save=True)
 
-            super(BaseImageForm, self).save(*args, **kwargs)
+            rotated_image_file.seek(0)
+            self.instance._set_file_hash(rotated_image_file.read())
 
-            # update_hash
+        super(BaseImageForm, self).save(*args, **kwargs)
 
 
 def get_image_form(model):
