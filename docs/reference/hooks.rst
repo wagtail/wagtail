@@ -539,6 +539,7 @@ Hooks for customising the way users are directed through the process of creating
     from wagtail.admin.action_menu import ActionMenuItem
 
     class GuacamoleMenuItem(ActionMenuItem):
+        name = 'action-guacamole'
         label = "Guacamole"
 
         def get_url(self, request, context):
