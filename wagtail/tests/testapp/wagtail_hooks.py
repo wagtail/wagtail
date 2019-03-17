@@ -142,4 +142,10 @@ class RelaxMenuItem(ActionMenuItem):
 
 @hooks.register('construct_page_action_menu')
 def register_relax_menu_item(menu_items, request, context):
+    # Run a validation check on all core menu items to ensure name attribute is present
+    names = [(item.__class__.__name__, item.name or '') for item in menu_items]
+    name_exists_on_all_items = [len(name[1]) > 1 for name in names]
+    if not all(name_exists_on_all_items):
+        raise AttributeError('all core sub-classes of ActionMenuItems must have a name attribute', names)
+
     menu_items.append(RelaxMenuItem())
