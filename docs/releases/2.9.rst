@@ -62,6 +62,7 @@ Bug fixes
  * Mark up a few strings for translation (Luiz Boaretto)
  * Invalid focal_point attribute on image edit view (Michał (Quadric) Sieradzki)
  * No longer expose the ``.delete()`` method on the default Page.objects manager (Nick Smith)
+ * ``exclude_fields_in_copy`` on Page models will now work for for modelcluster parental / many to many relations (LB (Ben Johnston))
 
 
 Upgrade considerations
