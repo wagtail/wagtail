@@ -1195,6 +1195,67 @@ class TestCopyPage(TestCase):
         # special_field is in the list to be excluded
         self.assertNotEqual(page.special_field, new_page.special_field)
 
+    def test_copy_page_with_excluded_parental_and_child_relations(self):
+        """Test that a page will be copied with parental and child relations removed if excluded."""
+
+        try:
+            # modify excluded fields for this test
+            EventPage.exclude_fields_in_copy = ['advert_placements', 'categories', 'signup_link']
+
+            # set up data
+            christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+            summer_category = EventCategory.objects.create(name='Summer')
+            holiday_category = EventCategory.objects.create(name='Holidays')
+
+            # add URL (to test excluding a basic field)
+            christmas_event.signup_link = "https://christmas-is-awesome.com/rsvp"
+
+            # add parental many to many relations
+            christmas_event.categories = (summer_category, holiday_category)
+            christmas_event.save()
+
+            # Copy it
+            new_christmas_event = christmas_event.copy(
+                update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+            )
+
+            # check that the signup_link was NOT copied
+            self.assertEqual(christmas_event.signup_link, "https://christmas-is-awesome.com/rsvp")
+            self.assertEqual(new_christmas_event.signup_link, '')
+
+            # check that original event is untouched
+            self.assertEqual(
+                christmas_event.categories.count(),
+                2,
+                "Child objects (parental many to many) defined on the superclass were removed from the original page"
+            )
+
+            # check that parental many to many are NOT copied
+            self.assertEqual(
+                new_christmas_event.categories.count(),
+                0,
+                "Child objects (parental many to many) were copied but should be excluded"
+            )
+
+            # check that child objects on original event were left untouched
+            self.assertEqual(
+                christmas_event.advert_placements.count(),
+                1,
+                "Child objects defined on the original superclass were edited when copied"
+            )
+
+            # check that child objects were NOT copied
+            self.assertEqual(
+                new_christmas_event.advert_placements.count(),
+                0,
+                "Child objects defined on the superclass were copied and should not be"
+            )
+
+        finally:
+            # reset excluded fields for future tests
+            EventPage.exclude_fields_in_copy = []
+
+
 
 class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
     def test_allowed_subpage_models(self):

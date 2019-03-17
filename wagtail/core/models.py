@@ -1136,6 +1136,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # copy child m2m relations
         for related_field in get_all_child_m2m_relations(specific_self):
+            # Ignore explicitly excluded fields
+            if related_field.name in exclude_fields:
+                continue
+
             field = getattr(specific_self, related_field.name)
             if field and hasattr(field, 'all'):
                 values = field.all()
@@ -1180,6 +1184,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             parental_key_name = child_relation.field.attname
             child_objects = getattr(specific_self, accessor_name, None)
+            # Ignore explicitly excluded fields
+            if accessor_name in exclude_fields:
+                continue
 
             if child_objects:
                 for child_object in child_objects.all():
