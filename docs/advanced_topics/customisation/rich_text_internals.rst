@@ -97,6 +97,23 @@ The ``register_link_type`` method allows you to define a function to be called w
     def register_report_link(features):
         features.register_link_type('report', report_link_handler)
 
+It is also possible to define link rewrite handler for the External Links (``external``) and Email Links (``email``). For example, if you want to open your external links in new window, You can write a custom link rewrite handler for ``external`` links.
+
+.. code-block:: python
+
+    from django.utils.html import escape
+    from wagtail.core import hooks
+
+    def external_link_handler(attrs):
+        href = attrs["href"]
+        # Add `target="_blank"` to external links
+        return '<a href="%s" target="_blank">' % escape(href)
+
+    @hooks.register('register_rich_text_features')
+    def register_report_link(features):
+        features.register_link_type('external', external_link_handler)
+
+Similarly you can use ``email`` linktype to add custom rewrite handler for Email links.
 
 Embed rewrite handlers
 ----------------------
