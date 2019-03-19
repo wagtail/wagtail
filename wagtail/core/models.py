@@ -1050,7 +1050,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Log
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
-    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None):
+    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None, process_child_object=None):
         # Fill dict with self.specific values
         specific_self = self.specific
         default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
@@ -1125,6 +1125,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     old_pk = child_object.pk
                     child_object.pk = None
                     setattr(child_object, parental_key_name, page_copy.id)
+
+                    if process_child_object is not None:
+                        process_child_object(child_relation, child_object)
+
                     child_object.save()
 
                     # Add mapping to new primary key (so we can apply this change to revisions)
