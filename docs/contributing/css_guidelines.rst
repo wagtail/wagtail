@@ -14,7 +14,7 @@ run the following from the Wagtail repository root:
 
 .. code-block:: console
 
-    $ npm install
+    $ npm install --no-save
 
 
 To compile the assets, run:
