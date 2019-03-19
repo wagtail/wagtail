@@ -58,7 +58,6 @@ Bug fixes
  * Rich text processing now preserves non-breaking spaces instead of converting them to normal spaces (Wesley van Lee)
  * Prevent autocomplete dropdowns from appearing over date choosers on Chrome (Kevin Howbrook)
  * Prevent crash when logging HTTP errors on Cloudflare cache purging (Kevin Howbrook)
- * Add more readable focus state for admin buttons (Chris Adams)
 
 
 Upgrade considerations
