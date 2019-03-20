@@ -1170,7 +1170,7 @@ class CustomRichBlockFieldPage(Page):
 
 
 class RichTextFieldWithFeaturesPage(Page):
-    body = RichTextField(features=['blockquote', 'embed', 'made-up-feature'])
+    body = RichTextField(features=['quotation', 'embed', 'made-up-feature'])
 
     content_panels = [
         FieldPanel('title', classname="full title"),
@@ -1327,3 +1327,15 @@ class SecretPage(PerUserPageMixin, Page):
     superuser_content_panels = basic_content_panels + [
         FieldPanel('secret_data'),
     ]
+
+
+class SimpleParentPage(Page):
+    # `BusinessIndex` has been added to bring it in line with other tests
+    subpage_types = ['tests.SimpleChildPage', BusinessIndex]
+
+
+class SimpleChildPage(Page):
+    # `Page` has been added to bring it in line with other tests
+    parent_page_types = ['tests.SimpleParentPage', Page]
+
+    max_count_per_parent = 1

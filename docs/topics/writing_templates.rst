@@ -160,7 +160,23 @@ Takes a Page object and returns a relative URL (``/foo/bar/``) if within the sam
 
     {% load wagtailcore_tags %}
     ...
-    <a href="{% pageurl page.blog_page %}">
+    <a href="{% pageurl page.get_parent %}">Back to index</a>
+
+
+A ``fallback`` keyword argument can be provided - this should be a URL route name that takes no parameters, and will be used as a substitute URL when the passed page is ``None``.
+
+.. code-block:: html+django
+
+    {% load wagtailcore_tags %}
+
+    {% for publication in page.related_publications.all %}
+        <li>
+            <a href="{% pageurl publication.detail_page fallback='coming_soon' %}">
+                {{ publication.title }}
+            </a>
+        </li>
+    {% endfor %}
+
 
 .. _slugurl_tag:
 

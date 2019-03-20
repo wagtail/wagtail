@@ -17,8 +17,8 @@ from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
     CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
-    MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimplePage,
-    SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
+    MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimpleChildPage,
+    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -1166,6 +1166,23 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
 
         self.assertFalse(BusinessChild.can_create_at(SimplePage()))
         self.assertFalse(BusinessSubIndex.can_create_at(SimplePage()))
+
+    def test_can_create_at_with_max_count_per_parent_limited_to_one(self):
+        root_page = Page.objects.get(url_path='/home/')
+
+        # Create 2 parent pages for our limited page model
+        parent1 = root_page.add_child(instance=SimpleParentPage(title='simple parent', slug='simple-parent'))
+        parent2 = root_page.add_child(instance=SimpleParentPage(title='simple parent', slug='simple-parent-2'))
+
+        # Add a child page to one of the pages (assert just to be sure)
+        self.assertTrue(SimpleChildPage.can_create_at(parent1))
+        parent1.add_child(instance=SimpleChildPage(title='simple child', slug='simple-child'))
+
+        # We already have a `SimpleChildPage` as a child of `parent1`, and since it is limited
+        # to have only 1 child page, we cannot create anoter one. However, we should still be able
+        # to create an instance for this page at a different location (as child of `parent2`)
+        self.assertFalse(SimpleChildPage.can_create_at(parent1))
+        self.assertTrue(SimpleChildPage.can_create_at(parent2))
 
     def test_can_move_to(self):
         self.assertTrue(SimplePage().can_move_to(SimplePage()))

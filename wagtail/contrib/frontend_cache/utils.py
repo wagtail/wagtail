@@ -1,10 +1,10 @@
 import logging
 import re
+from urllib.parse import urlparse, urlunparse
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
-from django.utils.six.moves.urllib.parse import urlparse, urlunparse
 
 logger = logging.getLogger('wagtail.frontendcache')
 

@@ -58,6 +58,38 @@ Or alternatively:
         # or
         edit_handler = TabbedInterface([ObjectList(custom_panels), ObjectList(...)])
 
+
+.. versionadded:: 2.5
+   ``edit_handler`` and ``panels`` can alternatively be 
+   defined on a ``ModelAdmin`` definition. This feature is especially useful
+   for use cases where you have to work with models that are 
+   'out of reach' (due to being part of a third-party package, for example).
+
+.. code-block:: python
+
+    class BookAdmin(ModelAdmin):
+        model = Book
+
+        panels = [
+            FieldPanel('title'),
+            FieldPanel('author'),
+        ]
+
+Or alternatively:
+
+
+.. code-block:: python
+
+    class BookAdmin(ModelAdmin):
+        model = Book
+
+        custom_panels = [
+            FieldPanel('title'),
+            FieldPanel('author'),
+        ]
+        edit_handler = ObjectList(custom_panels)
+
+
 .. _modeladmin_form_view_extra_css:
 
 -----------------------------------
@@ -164,3 +196,17 @@ value will be passed to the edit form, so that any named fields will be
 excluded from the form. This is particularly useful when registering ModelAdmin
 classes for models from third-party apps, where defining panel configurations
 on the Model itself is more complicated.
+
+
+-----------------------------------
+``ModelAdmin.get_edit_handler()``
+-----------------------------------
+.. versionadded:: 2.5
+
+**Must return**: An instance of ``wagtail.admin.edit_handlers.ObjectList``
+
+Returns the appropriate ``edit_handler`` for the modeladmin class.
+``edit_handlers`` can be defined either on the model itself or on the
+modeladmin (as property ``edit_handler`` or ``panels``). Falls back to
+extracting panel / edit handler definitions from the model class.
+

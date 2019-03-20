@@ -351,6 +351,13 @@ Contributors
 * Evan Winter
 * Neil Lyons
 * Gassan Gousseinov
+* Thomas Kremmel
+* patta42
+* Esper Kuijs
+* Damian Grinwis
+* Wesley van Lee
+* Md Arifin Ibne Matin
+* Tom Usher
 
 Translators
 ===========

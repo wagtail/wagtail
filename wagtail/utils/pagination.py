@@ -1,37 +1,19 @@
-from urllib.parse import parse_qs
+from warnings import warn
 
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.utils.http import urlencode
+from django.core.paginator import Paginator
+
+from wagtail.utils.deprecation import RemovedInWagtail27Warning
+
+
+warn('wagtail.utils.pagination is deprecated. '
+     'Use django.core.paginator.Paginator directly with get_page instead',
+     category=RemovedInWagtail27Warning)
+
 
 DEFAULT_PAGE_KEY = 'p'
 
 
 def paginate(request, items, page_key=DEFAULT_PAGE_KEY, per_page=20):
-    page = request.GET.get(page_key, 1)
-
     paginator = Paginator(items, per_page)
-    try:
-        page = paginator.page(page)
-    except PageNotAnInteger:
-        page = paginator.page(1)
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
-
+    page = paginator.get_page(request.GET.get(page_key))
     return paginator, page
-
-
-def replace_page_in_query(query, page_number, page_key=DEFAULT_PAGE_KEY):
-    """
-    Replaces ``page_key`` from query string with ``page_number``.
-
-    >>> replace_page_in_query("p=1&key=value", 2)
-    'p=2&key=value'
-    >>> replace_page_in_query("p=1&key=value", None)
-    'key=value'
-    """
-    getvars = parse_qs(query)
-    if page_number is None:
-        getvars.pop(page_key, None)
-    else:
-        getvars[page_key] = page_number
-    return urlencode(getvars, True)

@@ -459,6 +459,21 @@ def register_core_features(features):
             'block_map': {'ordered-list-item': {'element': 'li', 'wrapper': 'ol'}}
         }
     })
+    features.register_editor_plugin(
+        'draftail', 'blockquote', draftail_features.BlockFeature({
+            'type': 'blockquote',
+            'icon': 'openquote',
+            'description': ugettext('Blockquote'),
+        })
+    )
+    features.register_converter_rule('contentstate', 'blockquote', {
+        'from_database_format': {
+            'blockquote': BlockElementHandler('blockquote'),
+        },
+        'to_database_format': {
+            'block_map': {'blockquote': 'blockquote'}
+        }
+    })
 
     features.register_editor_plugin(
         'draftail', 'bold', draftail_features.InlineStyleFeature({
@@ -516,5 +531,65 @@ def register_core_features(features):
         },
         'to_database_format': {
             'entity_decorators': {'LINK': link_entity}
+        }
+    })
+    features.register_editor_plugin(
+        'draftail', 'superscript', draftail_features.InlineStyleFeature({
+            'type': 'SUPERSCRIPT',
+            'icon': 'superscript',
+            'description': ugettext('Superscript'),
+        })
+    )
+    features.register_converter_rule('contentstate', 'superscript', {
+        'from_database_format': {
+            'sup': InlineStyleElementHandler('SUPERSCRIPT'),
+        },
+        'to_database_format': {
+            'style_map': {'SUPERSCRIPT': 'sup'}
+        }
+    })
+    features.register_editor_plugin(
+        'draftail', 'subscript', draftail_features.InlineStyleFeature({
+            'type': 'SUBSCRIPT',
+            'icon': 'subscript',
+            'description': ugettext('Subscript'),
+        })
+    )
+    features.register_converter_rule('contentstate', 'subscript', {
+        'from_database_format': {
+            'sub': InlineStyleElementHandler('SUBSCRIPT'),
+        },
+        'to_database_format': {
+            'style_map': {'SUBSCRIPT': 'sub'}
+        }
+    })
+    features.register_editor_plugin(
+        'draftail', 'strikethrough', draftail_features.InlineStyleFeature({
+            'type': 'STRIKETHROUGH',
+            'icon': 'strikethrough',
+            'description': ugettext('Strikethrough'),
+        })
+    )
+    features.register_converter_rule('contentstate', 'strikethrough', {
+        'from_database_format': {
+            's': InlineStyleElementHandler('STRIKETHROUGH'),
+        },
+        'to_database_format': {
+            'style_map': {'STRIKETHROUGH': 's'}
+        }
+    })
+    features.register_editor_plugin(
+        'draftail', 'code', draftail_features.InlineStyleFeature({
+            'type': 'CODE',
+            'icon': 'code',
+            'description': ugettext('Code'),
+        })
+    )
+    features.register_converter_rule('contentstate', 'code', {
+        'from_database_format': {
+            'code': InlineStyleElementHandler('CODE'),
+        },
+        'to_database_format': {
+            'style_map': {'CODE': 'code'}
         }
     })

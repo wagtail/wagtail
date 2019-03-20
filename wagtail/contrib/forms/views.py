@@ -13,7 +13,6 @@ from wagtail.admin import messages
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
 from wagtail.core.models import Page
-from wagtail.utils.pagination import DEFAULT_PAGE_KEY
 
 
 def get_submissions_list_view(request, *args, **kwargs):
@@ -27,7 +26,7 @@ class SafePaginateListView(ListView):
     """ Listing view with safe pagination, allowing incorrect or out of range values """
 
     paginate_by = 20
-    page_kwarg = DEFAULT_PAGE_KEY
+    page_kwarg = 'p'
 
     def paginate_queryset(self, queryset, page_size):
         """Paginate the queryset if needed with nice defaults on invalid param."""

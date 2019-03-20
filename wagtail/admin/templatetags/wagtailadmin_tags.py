@@ -1,4 +1,5 @@
 import itertools
+from warnings import warn
 
 from django import template
 from django.conf import settings
@@ -8,7 +9,7 @@ from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
-from django.utils.html import conditional_escape
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.menu import admin_menu
@@ -20,7 +21,7 @@ from wagtail.core.models import (
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url
-from wagtail.utils.pagination import DEFAULT_PAGE_KEY, replace_page_in_query
+from wagtail.utils.deprecation import RemovedInWagtail27Warning
 
 register = template.Library()
 
@@ -290,7 +291,53 @@ def querystring(context, **kwargs):
 
 
 @register.simple_tag(takes_context=True)
-def pagination_querystring(context, page_number, page_key=DEFAULT_PAGE_KEY):
+def table_header_label(context, label=None, sortable=True, ordering=None, sort_context_var='ordering', sort_param='ordering', sort_field=None):
+    """
+    A label to go in a table header cell, optionally with a 'sort' link that alternates between
+    forward and reverse sorting
+
+    label = label text
+    ordering = current active ordering. If not specified, we will fetch it from the template context variable
+        given by sort_context_var. (We don't fetch it from the URL because that wouldn't give the view method
+        the opportunity to set a default)
+    sort_param = URL parameter that indicates the current active ordering
+    sort_field = the value for sort_param that indicates that sorting is currently on this column.
+        For example, if sort_param='ordering' and sort_field='title', then a URL parameter of
+        ordering=title indicates that the listing is ordered forwards on this column, and a URL parameter
+        of ordering=-title indicated that the listing is ordered in reverse on this column
+    To disable sorting on this column, set sortable=False or leave sort_field unspecified.
+    """
+    if not sortable or not sort_field:
+        # render label without a sort link
+        return label
+
+    if ordering is None:
+        ordering = context.get(sort_context_var)
+    reverse_sort_field = "-%s" % sort_field
+
+    if ordering == sort_field:
+        # currently ordering forwards on this column; link should change to reverse ordering
+        url = querystring(context, **{sort_param: reverse_sort_field})
+        classname = "icon icon-arrow-down-after teal"
+
+    elif ordering == reverse_sort_field:
+        # currently ordering backwards on this column; link should change to forward ordering
+        url = querystring(context, **{sort_param: sort_field})
+        classname = "icon icon-arrow-up-after teal"
+
+    else:
+        # not currently ordering on this column; link should change to forward ordering
+        url = querystring(context, **{sort_param: sort_field})
+        classname = "icon icon-arrow-down-after"
+
+    return format_html(
+        '<a href="{url}" class="{classname}">{label}</a>',
+        url=url, classname=classname, label=label
+    )
+
+
+@register.simple_tag(takes_context=True)
+def pagination_querystring(context, page_number, page_key='p'):
     """
     Print out a querystring with an updated page number:
 
@@ -303,7 +350,7 @@ def pagination_querystring(context, page_number, page_key=DEFAULT_PAGE_KEY):
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_pagination.html",
                         takes_context=True)
-def paginate(context, page, base_url='', page_key=DEFAULT_PAGE_KEY,
+def paginate(context, page, base_url='', page_key='p',
              classnames=''):
     """
     Print pagination previous/next links, and the page count. Take the
@@ -319,9 +366,7 @@ def paginate(context, page, base_url='', page_key=DEFAULT_PAGE_KEY,
         querystring for the next/previous page.
 
     page_key
-        The name of the page variable in the query string. Defaults to the same
-        name as used in the :func:`~wagtail.utils.pagination.paginate`
-        function.
+        The name of the page variable in the query string. Defaults to 'p'.
 
     classnames
         Extra classes to add to the next/previous links.
@@ -360,14 +405,6 @@ def message_tags(message):
         return ''
 
 
-@register.simple_tag
-def replace_page_param(query, page_number, page_key='p'):
-    """
-    Replaces ``page_key`` from query string with ``page_number``.
-    """
-    return conditional_escape(replace_page_in_query(query, page_number, page_key))
-
-
 @register.filter('abs')
 def _abs(val):
     return abs(val)
@@ -395,3 +432,11 @@ def avatar_url(user, size=50):
             return gravatar_url
 
     return static('wagtailadmin/images/default-user-avatar.png')
+
+
+@register.simple_tag
+def ajax_pagination_nav_deprecation_warning():
+    warn('Passing is_ajax=1 to wagtailadmin/shared/pagination_nav.html is deprecated. '
+         'Use wagtailadmin/shared/ajax_pagination_nav.html instead',
+         category=RemovedInWagtail27Warning)
+    return ''

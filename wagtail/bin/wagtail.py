@@ -8,8 +8,6 @@ from argparse import ArgumentParser
 from difflib import unified_diff
 
 from django.core.management import ManagementUtility
-# Need to use the django.utils.six version of print, to avoid a syntax error on Py2 when using print(..., end='')
-from django.utils.six import print_
 
 
 CURRENT_PYTHON = sys.version_info[:2]
@@ -237,7 +235,7 @@ class UpdateModulePaths(Command):
         with fileinput.FileInput(filename, inplace=True) as f:
             for original_line in f:
                 line = self._rewrite_line(original_line)
-                print_(line, end='')  # NOQA
+                print(line, end='')  # NOQA
                 if line != original_line:
                     change_count += 1
 
