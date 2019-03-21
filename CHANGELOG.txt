@@ -23,6 +23,7 @@ Changelog
  * Added `max_count_per_parent` option on page models to limit the number of pages of a given type that can be created under one parent page (Wesley van Lee)
  * `StreamField` field blocks now accept a `validators` argument (Tom Usher)
  * Added edit / delete buttons to snippet index and "don't delete" option to confirmation screen, for consistency with pages (Kevin Howbrook)
+ * Added support for Markdown shortcuts for inline formatting in rich text editor, e.g. `**` for bold, `_` for italic, etc. (Thibaud Colas)
  * Fix: Set `SERVER_PORT` to 443 in `Page.dummy_request()` for HTTPS sites (Sergey Fedoseev)
  * Fix: Include port number in `Host` header of `Page.dummy_request()` (Sergey Fedoseev)
  * Fix: Validation error messages in `InlinePanel` no longer count towards `max_num` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)
@@ -43,6 +44,9 @@ Changelog
  * Fix: Rich text processing now preserves non-breaking spaces instead of converting them to normal spaces (Wesley van Lee)
  * Fix: Prevent autocomplete dropdowns from appearing over date choosers on Chrome (Kevin Howbrook)
  * Fix: Prevent crash when logging HTTP errors from Cloudflare (Kevin Howbrook)
+ * Fix: Prevent rich text editor crash when filtering copy-pasted content and the last block is to be removed, e.g. unsupported image (Thibaud Colas)
+ * Fix: Removing rich text links / documents now also works when the text selection is backwards (Thibaud Colas)
+ * Fix: Prevent the rich text editor from crashing when copy-paste filtering removes all of its content (Thibaud Colas)
 
 
 2.4 (19.12.2018)

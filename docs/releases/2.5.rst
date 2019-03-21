@@ -10,6 +10,18 @@ Wagtail 2.5 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+New Markdown shortcuts in rich text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail’s rich text editor now supports using Markdown shortcuts for inline formatting:
+
+ * ``**`` for bold
+ * ``_`` for italic
+ * ``~`` for strikethrough (if enabled)
+ * ````` for code (if enabled)
+
+To learn other shortcuts, have a look at the `keyboard shortcuts <https://www.draftail.org/docs/keyboard-shortcuts>`_ reference.
+
 
 Other features
 ~~~~~~~~~~~~~~
@@ -59,6 +71,9 @@ Bug fixes
  * Rich text processing now preserves non-breaking spaces instead of converting them to normal spaces (Wesley van Lee)
  * Prevent autocomplete dropdowns from appearing over date choosers on Chrome (Kevin Howbrook)
  * Prevent crash when logging HTTP errors on Cloudflare cache purging (Kevin Howbrook)
+ * Prevent rich text editor crash when filtering copy-pasted content and the last block is to be removed, e.g. unsupported image (Thibaud Colas)
+ * Removing rich text links / documents now also works when the text selection is backwards (Thibaud Colas)
+ * Prevent the rich text editor from crashing when copy-paste filtering removes all of its content (Thibaud Colas)
 
 
 Upgrade considerations
