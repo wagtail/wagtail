@@ -5,16 +5,19 @@ deployments:
       - apt-get update && apt-get install -y libssl-dev libpq-dev git build-essential libfontconfig1 libfontconfig1-dev curl
       - RUN bash -c "curl -sL https://deb.nodesource.com/setup_8.x | bash -"
       - apt install -y nodejs
-      - cd /code
-      - npm install --no-save
-      - npm run dist
       - pip install setuptools pip --upgrade --force-reinstall
+      - cd /code
+    post_build_steps:  
+      - npm install
+      - npm run dist
       - pip install /code
       - mkdir /myproject
       - cd /myproject
       - wagtail start mysite
       - cd /myproject/mysite
       - python manage.py migrate
-      - echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@myproject.com', 'password')" | python manage.py shell
+      - echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@myproject.com', 'password')" | python manage.py shell    
     launch_steps:
-      python manage.py runserver 0.0.0.0:80
+      - cd /myproject/mysite
+      - python manage.py runserver 0.0.0.0:80
+    run_options: -v ~/code:/code
