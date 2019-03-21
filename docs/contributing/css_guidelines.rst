@@ -14,7 +14,7 @@ run the following from the Wagtail repository root:
 
 .. code-block:: console
 
-    $ npm install
+    $ npm install --no-save
 
 
 To compile the assets, run:
@@ -37,7 +37,7 @@ Linting SCSS
 
 Wagtail uses the `stylelint <https://stylelint.io/>`_ linter.
 You'll need Node.js and npm on your development machine.
-Ensure project dependencies are installed by running ``npm install``
+Ensure project dependencies are installed by running ``npm install --no-save``
 
 Run the linter from the wagtail project root:
 

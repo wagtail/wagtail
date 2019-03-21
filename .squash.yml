@@ -6,7 +6,7 @@ deployments:
       - RUN bash -c "curl -sL https://deb.nodesource.com/setup_8.x | bash -"
       - apt install -y nodejs
       - cd /code
-      - npm install
+      - npm install --no-save
       - npm run dist
       - pip install setuptools pip --upgrade --force-reinstall
       - pip install /code

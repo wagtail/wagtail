@@ -43,7 +43,7 @@ Install the tool chain for building static assets:
 
 .. code-block:: console
 
-    $ npm install
+    $ npm install --no-save
 
 Compile the assets:
 

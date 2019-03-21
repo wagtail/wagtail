@@ -13,7 +13,7 @@ clean-pyc:
 
 develop: clean-pyc
 	pip install -e .[testing,docs]
-	npm install && npm run build
+	npm install --no-save && npm run build
 
 lint:
 	flake8 wagtail
