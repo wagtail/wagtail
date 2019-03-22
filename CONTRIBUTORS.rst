@@ -17,6 +17,7 @@ Core team
 * Codie Roelf (Praekelt)
 * Lisa Adams (Praekelt)
 * Naomi Morduch Toubman
+* Kalob Taulien
 
 Contributors
 ============
@@ -358,6 +359,7 @@ Contributors
 * Wesley van Lee
 * Md Arifin Ibne Matin
 * Tom Usher
+* Kalob Taulien
 
 Translators
 ===========

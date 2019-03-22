@@ -324,6 +324,20 @@ The template can be changed on a per-instance basis by defining a ``get_template
 In this example, pages that have the ``use_other_template`` boolean field set will use the ``blog/other_blog_page.html`` template. All other pages will use the default ``blog/blog_page.html``.
 
 
+Ajax Templates
+~~~~~~~~~~~~~~
+
+If you want to AJAX a page and have different output, other than your default template, you can set an ``ajax_template``
+
+.. code-block:: python
+
+    class BlogPage(Page):
+        ...
+
+        ajax_template = 'other_template_fragment.html'
+        template = 'other_template.html'
+
+
 More control over page rendering
 --------------------------------
 
