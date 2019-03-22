@@ -17,6 +17,7 @@ Core team
 * Codie Roelf (Praekelt)
 * Lisa Adams (Praekelt)
 * Naomi Morduch Toubman
+* Kalob Taulien
 
 Contributors
 ============
