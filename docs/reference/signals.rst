@@ -10,14 +10,14 @@ Signals are useful for creating side-effects from page publish/unpublish events.
 For example, you could use signals to send publish notifications to a messaging service, or ``POST`` messages to another app that's consuming the API, such as a static site generator.
 
 
-page_published
---------------
+``page_published``
+------------------
 
 This signal is emitted from a ``PageRevision`` when a revision is set to `published`.
 
-:sender: The page ``class``
+:sender: The page ``class``.
 :instance: The specific ``Page`` instance.
-:revision: The ``PageRevision`` that was published
+:revision: The ``PageRevision`` that was published.
 :kwargs: Any other arguments passed to ``page_published.send()``.
 
 To listen to a signal, implement ``page_published.connect(receiver, sender, **kwargs)``. Here's a simple
@@ -74,11 +74,60 @@ Wagtail provides access to a list of registered page types through the ``get_pag
 Read the :ref:`Django documentation <connecting-to-specific-signals>` for more information about specifying senders.
 
 
-page_unpublished
-----------------
+``page_unpublished``
+--------------------
 
 This signal is emitted from a ``Page`` when the page is unpublished.
 
-:sender: The page ``class``
+:sender: The page ``class``.
 :instance: The specific ``Page`` instance.
 :kwargs: Any other arguments passed to ``page_unpublished.send()``
+
+
+``pre_page_move`` and ``post_page_move``
+------------------------------------------
+
+.. versionadded:: 2.10
+
+These signals are emitted from a ``Page`` immediately before and after it is moved.
+
+Subscribe to ``pre_page_move`` if you need to know values BEFORE any database changes are applied. For example: Getting the page's previous URL, or that of its descendants.
+
+Subscribe to ``post_page_move`` if you need to know values AFTER database changes have been applied. For example: Getting the page's new URL, or that of its descendants.
+
+The following arguments are emitted for both signals:
+
+:sender: The page ``class``.
+:instance: The specific ``Page`` instance.
+:parent_page_before: The parent page of ``instance`` **before** moving.
+:parent_page_after: The parent page of ``instance`` **after** moving.
+:url_path_before: The value of ``instance.url_path`` **before** moving.
+:url_path_after: The value of ``instance.url_path`` **after** moving.
+:kwargs: Any other arguments passed to ``pre_page_move.send()`` or ``post_page_move.send()``.
+
+
+Distinguishing between a 'move' and a 'reorder'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The signal can be emitted as a result of a page being moved to a different section (a 'move'), or as a result of a page being moved to a different position within the same section (a 'reorder'). Knowing the difference between the two can be particularly useful, because only a 'move' affects a page's URL (and that of its descendants), whereas a 'reorder' only affects the natural page order; which is probably less impactful.
+
+The best way to distinguish between a 'move' and 'reorder' is to compare the ``url_path_before`` and ``url_path_after`` values. For example:
+
+.. code-block:: python
+
+    from wagtail.core.signals import pre_page_move
+    from wagtail.contrib.frontend_cache.utils import purge_page_from_cache
+
+    # Clear a page's old URLs from the cache when it moves to a different section
+    def clear_page_url_from_cache_on_move(sender, **kwargs):
+
+        if kwargs['url_path_before'] == kwargs['url_path_after']:
+            # No URLs are changing :) nothing to do here!
+            return
+
+        # The page is moving to a new section (possibly even a new site)
+        # so clear old URL(s) from the cache
+        purge_page_from_cache(kwargs['instance'])
+
+    # Register a receiver
+    pre_page_move.connect(clear_old_page_urls_from_cache)

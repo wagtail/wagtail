@@ -1,3 +1,5 @@
+from unittest import mock
+
 from django.contrib.auth.models import Permission
 from django.contrib.messages import constants as message_constants
 from django.http import HttpRequest, HttpResponse
@@ -5,6 +7,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.core.models import Page
+from wagtail.core.signals import post_page_move, pre_page_move
 from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -71,6 +74,46 @@ class TestPageMove(TestCase, WagtailTestUtils):
         self.assertEqual(messages[0].level, message_constants.ERROR)
         # Slug should be in error message.
         self.assertIn("{}".format(self.test_page_b.slug), messages[0].message)
+
+    def test_move_triggers_signals(self):
+        # Connect a mock signal handler to pre_page_move and post_page_move signals
+        pre_moved_handler = mock.MagicMock()
+        post_moved_handler = mock.MagicMock()
+
+        pre_page_move.connect(pre_moved_handler)
+        post_page_move.connect(post_moved_handler)
+
+        # Post to view to move page
+        try:
+            self.client.post(
+                reverse('wagtailadmin_pages:move_confirm', args=(self.test_page_a.id, self.section_b.id))
+            )
+        finally:
+            # Disconnect mock handler to prevent cross-test pollution
+            pre_page_move.disconnect(pre_moved_handler)
+            post_page_move.disconnect(post_moved_handler)
+
+        # Check that the pre_page_move signal was fired
+        self.assertEqual(pre_moved_handler.call_count, 1)
+        self.assertTrue(pre_moved_handler.called_with(
+            sender=self.test_page_a.specific_class,
+            instance=self.test_page_a,
+            parent_page_before=self.section_a,
+            parent_page_after=self.section_b,
+            url_path_before='/home/section-a/hello-world/',
+            url_path_after='/home/section-b/hello-world/',
+        ))
+
+        # Check that the post_page_move signal was fired
+        self.assertEqual(post_moved_handler.call_count, 1)
+        self.assertTrue(post_moved_handler.called_with(
+            sender=self.test_page_a.specific_class,
+            instance=self.test_page_a,
+            parent_page_before=self.section_a,
+            parent_page_after=self.section_b,
+            url_path_before='/home/section-a/hello-world/',
+            url_path_after='/home/section-b/hello-world/',
+        ))
 
     def test_page_set_page_position(self):
         response = self.client.get(reverse('wagtailadmin_pages:set_page_position', args=(self.test_page_a.id, )))

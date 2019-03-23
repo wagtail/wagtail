@@ -27,7 +27,7 @@ from modelcluster.models import (
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.query import PageQuerySet, TreeQuerySet
-from wagtail.core.signals import page_published, page_unpublished
+from wagtail.core.signals import page_published, page_unpublished, post_page_move, pre_page_move
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
@@ -1090,19 +1090,58 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return (not self.live) and (not self.get_descendants().filter(live=True).exists())
 
-    @transaction.atomic  # only commit when all descendants are properly updated
     def move(self, target, pos=None):
         """
-        Extension to the treebeard 'move' method to ensure that url_path is updated too.
+        Extension to the treebeard 'move' method to ensure that url_path is updated,
+        and to emit a 'pre_page_move' and 'post_page_move' signals.
         """
-        old_url_path = Page.objects.get(id=self.id).url_path
-        super().move(target, pos=pos)
-        # treebeard's move method doesn't actually update the in-memory instance, so we need to work
-        # with a freshly loaded one now
-        new_self = Page.objects.get(id=self.id)
-        new_url_path = new_self.set_url_path(new_self.get_parent())
-        new_self.save()
-        new_self._update_descendant_url_paths(old_url_path, new_url_path)
+        # Determine old and new parents
+        parent_before = self.get_parent()
+        if pos in ('first-child', 'last-child', 'sorted-child'):
+            parent_after = target
+        else:
+            parent_after = target.get_parent()
+
+        # Determine old and new url_paths
+        # Fetching new object to avoid affecting `self`
+        old_self = Page.objects.get(id=self.id)
+        old_url_path = old_self.url_path
+        new_url_path = old_self.set_url_path(parent=parent_after)
+
+        # Emit pre_page_move signal
+        pre_page_move.send(
+            sender=self.specific_class or self.__class__,
+            instance=self,
+            parent_page_before=parent_before,
+            parent_page_after=parent_after,
+            url_path_before=old_url_path,
+            url_path_after=new_url_path,
+        )
+
+        # Only commit when all descendants are properly updated
+        with transaction.atomic():
+            # Allow treebeard to update `path` values
+            super().move(target, pos=pos)
+
+            # Treebeard's move method doesn't actually update the in-memory instance,
+            # so we need to work with a freshly loaded one now
+            new_self = Page.objects.get(id=self.id)
+            new_self.url_path = new_url_path
+            new_self.save()
+
+            # Update descendant paths if url_path has changed
+            if old_url_path != new_url_path:
+                new_self._update_descendant_url_paths(old_url_path, new_url_path)
+
+        # Emit post_page_move signal
+        post_page_move.send(
+            sender=self.specific_class or self.__class__,
+            instance=new_self,
+            parent_page_before=parent_before,
+            parent_page_after=parent_after,
+            url_path_before=old_url_path,
+            url_path_after=new_url_path,
+        )
 
         # Log
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
