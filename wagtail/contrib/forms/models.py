@@ -277,14 +277,16 @@ class AbstractEmailForm(AbstractForm):
 
     def send_mail(self, form):
         addresses = [x.strip() for x in self.to_address.split(',')]
+        send_mail(self.subject, self.render_email(form), addresses, self.from_address,)
+
+    def render_email(self, form):
         content = []
         for field in form:
             value = field.value()
             if isinstance(value, list):
                 value = ', '.join(value)
             content.append('{}: {}'.format(field.label, value))
-        content = '\n'.join(content)
-        send_mail(self.subject, content, addresses, self.from_address,)
+        return '\n'.join(content)
 
     class Meta:
         abstract = True
