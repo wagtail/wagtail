@@ -2,11 +2,12 @@
 import json
 
 from django.core import mail
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.tests.utils import (
-    make_form_page, make_form_page_with_custom_submission, make_form_page_with_redirect)
+    make_form_page, make_form_page_with_custom_submission, make_form_page_with_redirect,
+    make_types_test_form_page)
 from wagtail.core.models import Page
 from wagtail.tests.testapp.models import (
     CustomFormPageSubmission, ExtendedFormField, FormField, FormPageWithCustomFormBuilder,
@@ -474,6 +475,99 @@ class TestFormPageWithCustomFormBuilder(TestCase, WagtailTestUtils):
         self.assertContains(response, '192.0.2.30')
         self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_form_builder.html')
         self.assertTemplateUsed(response, 'tests/form_page_with_custom_form_builder_landing.html')
+
+
+class TestCleanedDataEmails(TestCase):
+    def setUp(self):
+        # Create a form page
+        self.form_page = make_types_test_form_page()
+
+    def test_empty_field_presence(self):
+        self.client.post('/contact-us/', {})
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Single line text: ", mail.outbox[0].body)
+        self.assertIn("Multiline: ", mail.outbox[0].body)
+        self.assertIn("Email: ", mail.outbox[0].body)
+        self.assertIn("Number: ", mail.outbox[0].body)
+        self.assertIn("URL: ", mail.outbox[0].body)
+        self.assertIn("Checkbox: ", mail.outbox[0].body)
+        self.assertIn("Checkboxes: ", mail.outbox[0].body)
+        self.assertIn("Drop down: ", mail.outbox[0].body)
+        self.assertIn("Multiple select: ", mail.outbox[0].body)
+        self.assertIn("Radio buttons: ", mail.outbox[0].body)
+        self.assertIn("Date: ", mail.outbox[0].body)
+        self.assertIn("Datetime: ", mail.outbox[0].body)
+
+    def test_email_field_order(self):
+        self.client.post('/contact-us/', {})
+
+        line_beginnings = [
+            "Single line text: ",
+            "Multiline: ",
+            "Email: ",
+            "Number: ",
+            "URL: ",
+            "Checkbox: ",
+            "Checkboxes: ",
+            "Drop down: ",
+            "Multiple select: ",
+            "Radio buttons: ",
+            "Date: ",
+            "Datetime: ",
+        ]
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 1)
+        email_lines = mail.outbox[0].body.split('\n')
+
+        for beginning in line_beginnings:
+            message_line = email_lines.pop(0)
+            self.assertTrue(message_line.startswith(beginning))
+
+    @override_settings(SHORT_DATE_FORMAT='m/d/Y')
+    def test_date_normalization(self):
+        self.client.post('/contact-us/', {
+            'date': '12/31/17',
+        })
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Date: 12/31/2017", mail.outbox[0].body)
+
+        self.client.post('/contact-us/', {
+            'date': '12/31/1917',
+        })
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertIn("Date: 12/31/1917", mail.outbox[1].body)
+
+
+    @override_settings(SHORT_DATETIME_FORMAT='m/d/Y P')
+    def test_datetime_normalization(self):
+        self.client.post('/contact-us/', {
+            'datetime': '12/31/17 4:00:00',
+        })
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Datetime: 12/31/2017 4 a.m.", mail.outbox[0].body)
+
+        self.client.post('/contact-us/', {
+            'datetime': '12/31/1917 21:19',
+        })
+
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertIn("Datetime: 12/31/1917 9:19 p.m.", mail.outbox[1].body)
+
+        self.client.post('/contact-us/', {
+            'datetime': '1910-12-21 21:19:12',
+        })
+
+        self.assertEqual(len(mail.outbox), 3)
+        self.assertIn("Datetime: 12/21/1910 9:19 p.m.", mail.outbox[2].body)
+
 
 
 class TestIssue798(TestCase):

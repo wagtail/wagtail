@@ -116,3 +116,105 @@ def make_form_page_with_redirect(**kwargs):
     )
 
     return form_page
+
+
+def make_types_test_form_page(**kwargs):
+    kwargs.setdefault('title', "Contact us")
+    kwargs.setdefault('slug', "contact-us")
+    kwargs.setdefault('to_address', "to@email.com")
+    kwargs.setdefault('from_address', "from@email.com")
+    kwargs.setdefault('subject', "The subject")
+
+    home_page = Page.objects.get(url_path='/home/')
+    form_page = home_page.add_child(instance=FormPage(**kwargs))
+
+    FormField.objects.create(
+        page=form_page,
+        sort_order=1,
+        label="Single line text",
+        field_type='singleline',
+        required=False,
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=2,
+        label="Multiline",
+        field_type='multiline',
+        required=False,
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=3,
+        label="Email",
+        field_type='email',
+        required=False,
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=4,
+        label="Number",
+        field_type='number',
+        required=False,
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=5,
+        label="URL",
+        field_type='url',
+        required=False,
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=6,
+        label="Checkbox",
+        field_type='checkbox',
+        required=False,
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=7,
+        label="Checkboxes",
+        field_type='checkboxes',
+        required=False,
+        choices='foo,bar,baz',
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=8,
+        label="Drop down",
+        field_type='dropdown',
+        required=False,
+        choices='spam,ham,eggs',
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=9,
+        label="Multiple select",
+        field_type='multiselect',
+        required=False,
+        choices='qux,quux,quuz,corge',
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=10,
+        label="Radio buttons",
+        field_type='radio',
+        required=False,
+        choices='wibble,wobble,wubble',
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=11,
+        label="Date",
+        field_type='date',
+        required=False,
+    )
+    FormField.objects.create(
+        page=form_page,
+        sort_order=12,
+        label="Datetime",
+        field_type='datetime',
+        required=False,
+    )
+
+    return form_page

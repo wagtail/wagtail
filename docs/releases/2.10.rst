@@ -18,12 +18,15 @@ Other features
  * Added filtering to locked pages report (Karl Hobley)
  * Adds ability to view a group's users via standalone admin URL and a link to this on the group edit view (Karran Besen)
  * Redirect to previous url when deleting/copying/unpublish a page and modify this url via the relevant hooks (Ascani Carlo)
+ * ``AbstractEmailForm`` will use ``SHORT_DATETIME_FORMAT`` and ``SHORT_DATE_FORMAT`` Django settings to format date/time values in email (Haydn Greatnews)
+ * ``AbstractEmailForm`` now has a separate method (``render_email``) to build up email content on submission emails. See :ref:`form_builder_render_email`. (Haydn Greatnews)
 
 
 Bug fixes
 ~~~~~~~~~
 
  * Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
+ * ``AbstractEmailForm`` saved submission fields are now aligned with the email content fields, ``form.cleaned_data`` will be used instead of ``form.fields`` (Haydn Greatnews)
 
 
 Upgrade considerations

@@ -60,6 +60,8 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
 
 ``AbstractEmailForm`` defines the fields ``to_address``, ``from_address`` and ``subject``, and expects ``form_fields`` to be defined. Any additional fields are treated as ordinary page content - note that ``FormPage`` is responsible for serving both the form page itself and the landing page after submission, so the model definition should include all necessary content fields for both of those views.
 
+Date and datetime values in a form response will be formatted with the `SHORT_DATE_FORMAT <https://docs.djangoproject.com/en/3.0/ref/settings/#short-date-format>`_ and `SHORT_DATETIME_FORMAT <https://docs.djangoproject.com/en/3.0/ref/settings/#short-datetime-format>`_ respectively. (see :ref:`form_builder_render_email` for how to customise the email content).
+
 If you do not want your form page type to offer form-to-email functionality, you can inherit from AbstractForm instead of ``AbstractEmailForm``, and omit the ``to_address``, ``from_address`` and ``subject`` fields from the ``content_panels`` definition.
 
 You now need to create two templates named ``form_page.html`` and ``form_page_landing.html`` (where ``form_page`` is the underscore-formatted version of the class name). ``form_page.html`` differs from a standard Wagtail template in that it is passed a variable ``form``, containing a Django ``Form`` object, in addition to the usual ``page`` variable. A very basic template for the form would thus be:

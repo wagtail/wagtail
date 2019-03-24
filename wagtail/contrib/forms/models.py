@@ -1,9 +1,12 @@
+import datetime
 import json
 import os
 
+from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.template.response import TemplateResponse
+from django.utils.formats import date_format
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from unidecode import unidecode
@@ -282,14 +285,30 @@ class AbstractEmailForm(AbstractForm):
 
     def send_mail(self, form):
         addresses = [x.strip() for x in self.to_address.split(',')]
+        send_mail(self.subject, self.render_email(form), addresses, self.from_address,)
+
+    def render_email(self, form):
         content = []
+
+        cleaned_data = form.cleaned_data
         for field in form:
-            value = field.value()
+            if field.name not in cleaned_data:
+                continue
+
+            value = cleaned_data.get(field.name)
+
             if isinstance(value, list):
                 value = ', '.join(value)
+
+            # Format dates and datetimes with SHORT_DATE(TIME)_FORMAT
+            if isinstance(value, datetime.datetime):
+                value = date_format(value, settings.SHORT_DATETIME_FORMAT)
+            elif isinstance(value, datetime.date):
+                value = date_format(value, settings.SHORT_DATE_FORMAT)
+
             content.append('{}: {}'.format(field.label, value))
-        content = '\n'.join(content)
-        send_mail(self.subject, content, addresses, self.from_address,)
+
+        return '\n'.join(content)
 
     class Meta:
         abstract = True
