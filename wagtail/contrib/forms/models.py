@@ -1,9 +1,12 @@
+import datetime
 import json
 import os
 
 from django.core.serializers.json import DjangoJSONEncoder
+from django.conf import settings
 from django.db import models
 from django.shortcuts import render
+from django.utils.formats import date_format
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from unidecode import unidecode
@@ -291,6 +294,12 @@ class AbstractEmailForm(AbstractForm):
 
             if isinstance(value, list):
                 value = ', '.join(value)
+
+            # Format dates and datetimes with SHORT_DATE(TIME)_FORMAT
+            if isinstance(value, datetime.datetime):
+                value = date_format(value, settings.SHORT_DATETIME_FORMAT)
+            elif isinstance(value, datetime.date):
+                value = date_format(value, settings.SHORT_DATE_FORMAT)
 
             content.append('{}: {}'.format(field.label, value))
 

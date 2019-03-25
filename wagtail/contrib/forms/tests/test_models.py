@@ -2,7 +2,7 @@
 import json
 
 from django.core import mail
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.tests.utils import (
@@ -525,6 +525,7 @@ class TestCleanedDataEmails(TestCase):
             message_line = email_lines.pop(0)
             self.assertTrue(message_line.startswith(beginning))
 
+    @override_settings(SHORT_DATE_FORMAT='m/d/Y')
     def test_date_normalization(self):
         self.client.post('/contact-us/', {
             'date': '12/31/17',
@@ -532,7 +533,7 @@ class TestCleanedDataEmails(TestCase):
 
         # Check the email
         self.assertEqual(len(mail.outbox), 1)
-        self.assertIn("Date: 2017-12-31", mail.outbox[0].body)
+        self.assertIn("Date: 12/31/2017", mail.outbox[0].body)
 
         self.client.post('/contact-us/', {
             'date': '12/31/1917',
@@ -540,8 +541,31 @@ class TestCleanedDataEmails(TestCase):
 
         # Check the email
         self.assertEqual(len(mail.outbox), 2)
-        self.assertIn("Date: 1917-12-31", mail.outbox[1].body)
+        self.assertIn("Date: 12/31/1917", mail.outbox[1].body)
 
+
+    @override_settings(SHORT_DATETIME_FORMAT='m/d/Y P')
+    def test_datetime_normalization(self):
+        self.client.post('/contact-us/', {
+            'datetime': '12/31/17 4:00:00',
+        })
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Datetime: 12/31/2017 4 a.m.", mail.outbox[0].body)
+
+        self.client.post('/contact-us/', {
+            'datetime': '12/31/1917 21:19',
+        })
+
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertIn("Datetime: 12/31/1917 9:19 p.m.", mail.outbox[1].body)
+
+        self.client.post('/contact-us/', {
+            'datetime': '1910-12-21 21:19:12',
+        })
+
+        self.assertEqual(len(mail.outbox), 3)
+        self.assertIn("Datetime: 12/21/1910 9:19 p.m.", mail.outbox[2].body)
 
 
 
