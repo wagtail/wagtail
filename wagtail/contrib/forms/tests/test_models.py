@@ -525,6 +525,24 @@ class TestCleanedDataEmails(TestCase):
             message_line = email_lines.pop(0)
             self.assertTrue(message_line.startswith(beginning))
 
+    def test_date_normalization(self):
+        self.client.post('/contact-us/', {
+            'date': '12/31/17',
+        })
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Date: 2017-12-31", mail.outbox[0].body)
+
+        self.client.post('/contact-us/', {
+            'date': '12/31/1917',
+        })
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertIn("Date: 1917-12-31", mail.outbox[1].body)
+
+
 
 
 class TestIssue798(TestCase):
