@@ -6,7 +6,7 @@ from django.test import TestCase
 
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.tests.utils import (
-    make_form_page, make_form_page_with_custom_submission, make_form_page_with_redirect)
+    make_form_page, make_form_page_with_custom_submission, make_form_page_with_redirect, make_types_test_form_page)
 from wagtail.core.models import Page
 from wagtail.tests.testapp.models import (
     CustomFormPageSubmission, ExtendedFormField, FormField, FormPageWithCustomFormBuilder,
@@ -474,6 +474,57 @@ class TestFormPageWithCustomFormBuilder(TestCase, WagtailTestUtils):
         self.assertContains(response, '192.0.2.30')
         self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_form_builder.html')
         self.assertTemplateUsed(response, 'tests/form_page_with_custom_form_builder_landing.html')
+
+
+class TestCleanedDataEmails(TestCase):
+    def setUp(self):
+        # Create a form page
+        self.form_page = make_types_test_form_page()
+
+    def test_empty_field_presence(self):
+        self.client.post('/contact-us/', {})
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("Single line text: ", mail.outbox[0].body)
+        self.assertIn("Multiline: ", mail.outbox[0].body)
+        self.assertIn("Email: ", mail.outbox[0].body)
+        self.assertIn("Number: ", mail.outbox[0].body)
+        self.assertIn("URL: ", mail.outbox[0].body)
+        self.assertIn("Checkbox: ", mail.outbox[0].body)
+        self.assertIn("Checkboxes: ", mail.outbox[0].body)
+        self.assertIn("Drop down: ", mail.outbox[0].body)
+        self.assertIn("Multiple select: ", mail.outbox[0].body)
+        self.assertIn("Radio buttons: ", mail.outbox[0].body)
+        self.assertIn("Date: ", mail.outbox[0].body)
+        self.assertIn("Datetime: ", mail.outbox[0].body)
+
+    def test_email_field_order(self):
+        self.client.post('/contact-us/', {})
+
+        line_beginnings = [
+            "Single line text: ",
+            "Multiline: ",
+            "Email: ",
+            "Number: ",
+            "URL: ",
+            "Checkbox: ",
+            "Checkboxes: ",
+            "Drop down: ",
+            "Multiple select: ",
+            "Radio buttons: ",
+            "Date: ",
+            "Datetime: ",
+        ]
+
+        # Check the email
+        self.assertEqual(len(mail.outbox), 1)
+        email_lines = mail.outbox[0].body.split('\n')
+
+        for beginning in line_beginnings:
+            message_line = email_lines.pop(0)
+            self.assertTrue(message_line.startswith(beginning))
+
 
 
 class TestIssue798(TestCase):

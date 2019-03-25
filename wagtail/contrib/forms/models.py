@@ -281,12 +281,18 @@ class AbstractEmailForm(AbstractForm):
 
     def render_email(self, form):
         content = []
-        for field, value in form.cleaned_data.items():
+
+        cleaned_data = form.cleaned_data
+        for field in form:
+            if field.name not in cleaned_data:
+                continue
+
+            value = cleaned_data.get(field.name)
+
             if isinstance(value, list):
                 value = ', '.join(value)
 
-            label = form.fields.get(field).label
-            content.append('{}: {}'.format(label, value))
+            content.append('{}: {}'.format(field.label, value))
 
         return '\n'.join(content)
 
