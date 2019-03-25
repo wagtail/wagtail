@@ -33,7 +33,7 @@ def has_png_support():
     return succeeded
 
 
-@register()
+@register('images')
 def image_library_check(app_configs, **kwargs):
     errors = []
 

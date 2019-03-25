@@ -3,7 +3,7 @@ import os
 from django.core.checks import Error, Warning, register
 
 
-@register()
+@register('css')
 def css_install_check(app_configs, **kwargs):
     errors = []
 
