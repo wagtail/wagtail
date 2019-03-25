@@ -320,7 +320,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         editable=False
     )
 
-    search_fields = [
+    search_fields_core = [
         index.SearchField('title', partial_match=True, boost=2),
         index.AutocompleteField('title'),
         index.FilterField('title'),
@@ -330,6 +330,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         index.FilterField('content_type'),
         index.FilterField('path'),
         index.FilterField('depth'),
+    ]
+
+    search_fields = search_fields_core + [
         index.FilterField('locked'),
         index.FilterField('show_in_menus'),
         index.FilterField('first_published_at'),
