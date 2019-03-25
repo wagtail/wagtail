@@ -15,6 +15,7 @@ Changelog
  * Improved styling of workflow timeline modal view (Tidjani Dia)
  * Add secondary actions menu in edit page headers (Tidjani Dia)
  * Removed WOFF fonts
+ * Add system check for missing core Page fields in `search_fields` (LB (Ben Johnston))
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
