@@ -2,8 +2,8 @@ import datetime
 import json
 import os
 
-from django.core.serializers.json import DjangoJSONEncoder
 from django.conf import settings
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
 from django.utils.formats import date_format
