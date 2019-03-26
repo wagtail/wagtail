@@ -47,6 +47,7 @@ Changelog
  * Fix: Prevent rich text editor crash when filtering copy-pasted content and the last block is to be removed, e.g. unsupported image (Thibaud Colas)
  * Fix: Removing rich text links / documents now also works when the text selection is backwards (Thibaud Colas)
  * Fix: Prevent the rich text editor from crashing when copy-paste filtering removes all of its content (Thibaud Colas)
+ * Fix: Page chooser now respects custom `get_admin_display_title` methods on parent page and breadcrumb (Haydn Greatnews)
 
 
 2.4 (19.12.2018)

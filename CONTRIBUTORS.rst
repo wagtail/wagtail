@@ -358,6 +358,7 @@ Contributors
 * Wesley van Lee
 * Md Arifin Ibne Matin
 * Tom Usher
+* Haydn Greatnews
 
 Translators
 ===========
