@@ -40,6 +40,9 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                         request = null;
                         $('.page-results', modal.body).html(data);
                         ajaxifySearchResults();
+                    },
+                    error: function() {
+                        request = null;
                     }
                 });
             } else {
