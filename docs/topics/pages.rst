@@ -327,7 +327,7 @@ In this example, pages that have the ``use_other_template`` boolean field set wi
 Ajax Templates
 ~~~~~~~~~~~~~~
 
-If you want to AJAX a page and have different output, other than your default template, you can set an ``ajax_template``
+If you want to add AJAX functionality to a page, such as a paginated listing that updates in-place on the page rather than triggering a full page reload, you can set the ``ajax_template`` attribute to specify an alternative template to be used when the page is requested via an AJAX call (as indicated by the X-Requested-With: XMLHttpRequest HTTP header):
 
 .. code-block:: python
 
