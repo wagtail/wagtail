@@ -5,6 +5,8 @@ from django.test import TestCase
 
 from wagtail.search import index
 from wagtail.tests.search import models
+from wagtail.tests.testapp.models import EventPage, SingleEventPage
+from wagtail.core.models import Page
 
 
 @contextmanager
@@ -32,6 +34,16 @@ class TestContentTypeNames(TestCase):
 class TestSearchFields(TestCase):
     def make_dummy_type(self, search_fields):
         return type(str('DummyType'), (index.Indexed, ), dict(search_fields=search_fields))
+
+    def get_checks_result(warning_id=None):
+        """Run Django checks on any with the 'search' tag used when registering the check"""
+        # checks_result = checks.run_checks(tags=['search'])
+        checks_result = checks.run_checks()
+        if warning_id:
+            return [
+                warning for warning in
+                checks_result if warning.id == warning_id]
+        return checks_result
 
     def test_basic(self):
         cls = self.make_dummy_type([
@@ -92,3 +104,25 @@ class TestSearchFields(TestCase):
             ]
             errors = models.Book.check()
             self.assertEqual(errors, expected_errors)
+
+    def test_checking_core_page_fields_are_indexed(self):
+        """Run checks to ensure that when core page fields are missing we get a warning"""
+
+        # first confirm that errors show as EventPage (in test models) has no Page.search_fieds
+        errors = [error for error in checks.run_checks() if error.id == 'wagtailsearch.W001']
+
+        # should only ever get this earning on the sub-classes of the page model
+        # if search_fields does not include core page fields
+        self.assertEqual([EventPage, SingleEventPage], [error.obj for error in errors])
+
+        for error in errors:
+            self.assertEqual(error.msg, 'Core page fields missing in `search_fields`', )
+            self.assertIn(
+                'Page model search fields `search_fields = Page.search_fields + [...]`',
+                error.hint)
+
+        # second check that we get no errors when setting up the models correctly
+        with patch_search_fields(EventPage, Page.search_fields + EventPage.search_fields):
+            # checks_result = self.get_checks_result()
+            errors = [error for error in checks.run_checks() if error.id == 'wagtailsearch.W001']
+            self.assertEqual([], errors)
