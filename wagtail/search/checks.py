@@ -13,7 +13,7 @@ def page_search_fields_check(app_configs, **kwargs):
         if not all(field in cls.search_fields for field in Page.search_fields_core):
             errors.append(
                 Warning(
-                    'Core Page fields missing in `search_fields`',
+                    'Core page fields missing in `search_fields`',
                     hint=' '.join([
                         'Ensure that {} extends the Page model search fields',
                         '`search_fields = Page.search_fields + [...]`'
