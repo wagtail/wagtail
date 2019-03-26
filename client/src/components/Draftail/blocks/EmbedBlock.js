@@ -10,7 +10,7 @@ import MediaBlock from '../blocks/MediaBlock';
  */
 const EmbedBlock = props => {
   const { entity, onRemoveEntity } = props.blockProps;
-  const { url, title, thumbnail } = entity.getData();
+  const { providerName, url, title, thumbnail } = entity.getData();
 
   return (
     <MediaBlock {...props} src={thumbnail} alt="">
@@ -23,6 +23,7 @@ const EmbedBlock = props => {
           rel="noopener noreferrer"
         >
           {title}
+          {providerName}, {url}
         </a>
       ) : null}
 
