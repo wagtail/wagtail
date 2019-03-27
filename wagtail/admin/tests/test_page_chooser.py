@@ -233,15 +233,14 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
 
         # Use the leaf page as the chooser parent, so child is in the breadcrumbs
         response = self.client.get(
-            reverse('wagtailadmin_choose_page_child', args=(leaf_page.id,)),
-            params={'page_type': 'wagtailcore.Page'}
+            reverse('wagtailadmin_choose_page_child', args=(leaf_page.id,))
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
         # Look for a link element in the breadcrumbs with the admin title
         self.assertTagInHTML(
-            '<a href="/admin/choose-page/{page_id}/?page_type=wagtailcore.page" class="navigate-pages">{page_title}</a>'.format(
+            '<li><a href="/admin/choose-page/{page_id}/?" class="navigate-pages">{page_title}</a></li>'.format(
                 page_id=self.child_page.id,
                 page_title=self.child_page.get_admin_display_title(),
             ),
