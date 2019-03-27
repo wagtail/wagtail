@@ -226,6 +226,28 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertInHTML(self.child_page.get_admin_display_title(), response.json().get('html'))
         self.assertInHTML(leaf_page.get_admin_display_title(), response.json().get('html'))
 
+    def test_admin_display_title_breadcrumb(self):
+        # Add another child under child_page so we get breadcrumbs
+        leaf_page = SimplePage(title="quux", content="goodbye")
+        self.child_page.add_child(instance=leaf_page)
+
+        # Use the leaf page as the chooser parent, so child is in the breadcrumbs
+        response = self.client.get(
+            reverse('wagtailadmin_choose_page_child', args=(leaf_page.id,)),
+            params={'page_type': 'wagtailcore.Page'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
+
+        # Look for a link element in the breadcrumbs with the admin title
+        self.assertTagInHTML(
+            '<a href="/admin/choose-page/{page_id}/?page_type=wagtailcore.page" class="navigate-pages">{page_title}</a>'.format(
+                page_id=self.child_page.id,
+                page_title=self.child_page.get_admin_display_title(),
+            ),
+            response.json().get('html')
+        )
+
     def setup_pagination_test_data(self):
         # Create lots of pages
         for i in range(100):
