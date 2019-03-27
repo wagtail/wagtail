@@ -2,7 +2,8 @@ from bs4 import BeautifulSoup
 from django.test import TestCase
 
 from wagtail.documents.rich_text import DocumentLinkHandler as FrontendDocumentLinkHandler
-from wagtail.documents.rich_text.editor_html import DocumentLinkHandler as EditorHtmlDocumentLinkHandler
+from wagtail.documents.rich_text.editor_html import \
+    DocumentLinkHandler as EditorHtmlDocumentLinkHandler
 
 
 class TestEditorHtmlDocumentLinkHandler(TestCase):
@@ -38,7 +39,7 @@ class TestFrontendDocumentLinkHandler(TestCase):
     fixtures = ['test.json']
 
     def test_expand_db_attributes_for_frontend(self):
-       self.assertEqual(
+        self.assertEqual(
             FrontendDocumentLinkHandler.expand_db_attributes({'id': 1}),
             '<a href="/documents/1/test.pdf">'
         )

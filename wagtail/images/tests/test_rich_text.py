@@ -63,7 +63,7 @@ class TestEditorHtmlImageEmbedHandler(TestCase, WagtailTestUtils):
             'format': 'left',
         })
         self.assertIn('data-alt=""', result)
-        
+
 
 class TestFrontendImageEmbedHandler(TestCase, WagtailTestUtils):
     def test_expand_db_attributes_for_frontend(self):
