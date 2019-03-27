@@ -5,7 +5,9 @@ from wagtail.core.rich_text import LinkHandler
 
 
 class PageLinkHandler(LinkHandler):
-    identifier = 'page'
+    @staticmethod
+    def get_identifier():
+        return 'page'
 
     @staticmethod
     def get_model():

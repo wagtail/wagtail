@@ -1,4 +1,7 @@
+from warnings import warn
+
 from wagtail.core import hooks
+from wagtail.utils.deprecation import RemovedInWagtail27Warning
 
 
 class FeatureRegistry:
@@ -68,16 +71,32 @@ class FeatureRegistry:
         except KeyError:
             return None
 
-    def register_link_type(self, handler):
-        self.link_types[handler.identifier] = handler
+    def register_link_type_handler(self, handler):
+        self.link_types[handler.get_identifier()] = handler
+
+    def register_link_type(self, link_type, handler):
+        warn(
+            'FeatureRegistry.register_link_type(link_type, handler) is deprecated. '
+            'Use FeatureRegistry.register_link_type_handler(handler) instead',
+            category=RemovedInWagtail27Warning
+        )
+        self.link_types[link_type] = self.function_as_entity_handler(link_type, handler)
 
     def get_link_types(self):
         if not self.has_scanned_for_features:
             self._scan_for_features()
         return self.link_types
 
-    def register_embed_type(self, handler):
-        self.embed_types[handler.identifier] = handler
+    def register_embed_type_handler(self, handler):
+        self.embed_types[handler.get_identifier()] = handler
+
+    def register_embed_type(self, embed_type, handler):
+        warn(
+            'FeatureRegistry.register_embed_type(link_type, handler) is deprecated. '
+            'Use FeatureRegistry.register_embed_type_handler(handler) instead',
+            category=RemovedInWagtail27Warning
+        )
+        self.embed_types[embed_type] = self.function_as_entity_handler(embed_type, handler)
 
     def get_embed_types(self):
         if not self.has_scanned_for_features:
@@ -96,3 +115,17 @@ class FeatureRegistry:
             return self.converter_rules_by_converter[converter_name][feature_name]
         except KeyError:
             return None
+
+    @staticmethod
+    def function_as_entity_handler(entity_type, fn):
+        """Supports legacy registering of entity handlers as functions."""
+        class EntityHandlerRegisteredAsFunction:
+            @staticmethod
+            def get_identifier():
+                return entity_type
+
+            @staticmethod
+            def expand_db_attributes(attrs):
+                return fn(attrs)
+
+        return EntityHandlerRegisteredAsFunction

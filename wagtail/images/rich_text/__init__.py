@@ -8,7 +8,9 @@ from wagtail.images.formats import get_image_format
 # Front-end conversion
 
 class ImageEmbedHandler(EmbedHandler):
-    identifier = 'image'
+    @staticmethod
+    def get_identifier():
+        return 'image'
 
     @staticmethod
     def get_model():
