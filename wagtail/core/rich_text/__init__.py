@@ -67,7 +67,10 @@ class EntityHandler:
     """
     @staticmethod
     def get_model():
-        return NotImplementedError
+        """
+        If supported, returns the type of model able to be handled by this handler, e.g. Page.
+        """
+        raise NotImplementedError
 
     @classmethod
     def get_instance(cls, attrs: dict) -> Model:
