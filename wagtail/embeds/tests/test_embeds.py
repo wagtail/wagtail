@@ -4,14 +4,12 @@ import urllib.request
 from unittest.mock import patch
 from urllib.error import URLError
 
-from bs4 import BeautifulSoup
 from django import template
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.core import blocks
-from wagtail.core.rich_text import expand_db_html
 from wagtail.embeds import oembed_providers
 from wagtail.embeds.blocks import EmbedBlock, EmbedValue
 from wagtail.embeds.embeds import get_embed
@@ -21,8 +19,6 @@ from wagtail.embeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
 from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
 from wagtail.embeds.finders.oembed import OEmbedFinder as OEmbedFinder
 from wagtail.embeds.models import Embed
-from wagtail.embeds.rich_text import MediaEmbedHandler as MediaFrontendHandler
-from wagtail.embeds.rich_text.editor_html import MediaEmbedHandler as MediaEditorHTMLHandler
 from wagtail.embeds.templatetags.wagtailembeds_tags import embed_tag
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -564,102 +560,3 @@ class TestEmbedBlock(TestCase):
         with self.assertRaises(ValidationError):
             required_block.clean(
                 EmbedValue('http://no-oembed-here.com/something'))
-
-
-class TestMediaEmbedHandlers(TestCase):
-    def test_get_db_attributes(self):
-        soup = BeautifulSoup('<b data-url="test-url">foo</b>', 'html5lib')
-        tag = soup.b
-        result = MediaEditorHTMLHandler.get_db_attributes(tag)
-        self.assertEqual(result,
-                         {'url': 'test-url'})
-
-    @patch('wagtail.embeds.embeds.get_embed')
-    def test_expand_db_attributes_for_editor(self, get_embed):
-        get_embed.return_value = Embed(
-            url='http://www.youtube.com/watch/',
-            max_width=None,
-            type='video',
-            html='test html',
-            title='test title',
-            author_name='test author name',
-            provider_name='test provider name',
-            thumbnail_url='http://test/thumbnail.url',
-            width=1000,
-            height=1000,
-        )
-
-        result = MediaEditorHTMLHandler.expand_db_attributes(
-            {'url': 'http://www.youtube.com/watch/'}
-        )
-        self.assertIn(
-            (
-                '<div class="embed-placeholder" contenteditable="false" data-embedtype="media"'
-                ' data-url="http://www.youtube.com/watch/">'
-            ),
-            result
-        )
-        self.assertIn('<h3>test title</h3>', result)
-        self.assertIn('<p>URL: http://www.youtube.com/watch/</p>', result)
-        self.assertIn('<p>Provider: test provider name</p>', result)
-        self.assertIn('<p>Author: test author name</p>', result)
-        self.assertIn('<img src="http://test/thumbnail.url" alt="test title">', result)
-
-    @patch('wagtail.embeds.embeds.get_embed')
-    def test_test_expand_db_attributes_for_editor_catches_embed_not_found(self, get_embed):
-        get_embed.side_effect = EmbedNotFoundException
-
-        result = MediaEditorHTMLHandler.expand_db_attributes(
-            {'url': 'http://www.youtube.com/watch/'},
-        )
-
-        self.assertEqual(result, '')
-
-    @patch('wagtail.embeds.embeds.get_embed')
-    def test_expand_db_attributes(self, get_embed):
-        get_embed.return_value = Embed(
-            url='http://www.youtube.com/watch/',
-            max_width=None,
-            type='video',
-            html='test html',
-            title='test title',
-            author_name='test author name',
-            provider_name='test provider name',
-            thumbnail_url='htto://test/thumbnail.url',
-            width=1000,
-            height=1000,
-        )
-
-        result = MediaFrontendHandler.expand_db_attributes(
-            {'url': 'http://www.youtube.com/watch/'}
-        )
-        self.assertIn('test html', result)
-
-    @patch('wagtail.embeds.embeds.get_embed')
-    def test_expand_db_attributes_catches_embed_not_found(self, get_embed):
-        get_embed.side_effect = EmbedNotFoundException
-
-        result = MediaFrontendHandler.expand_db_attributes(
-            {'url': 'http://www.youtube.com/watch/'}
-        )
-
-        self.assertEqual(result, '')
-
-    @patch('wagtail.embeds.embeds.get_embed')
-    def test_expand_html_escaping_end_to_end(self, get_embed):
-        get_embed.return_value = Embed(
-            url='http://www.youtube.com/watch/',
-            max_width=None,
-            type='video',
-            html='test html',
-            title='test title',
-            author_name='test author name',
-            provider_name='test provider name',
-            thumbnail_url='htto://test/thumbnail.url',
-            width=1000,
-            height=1000,
-        )
-
-        result = expand_db_html('<p>1 2 <embed embedtype="media" url="https://www.youtube.com/watch?v=O7D-1RG-VRk&amp;t=25" /> 3 4</p>')
-        self.assertIn('test html', result)
-        get_embed.assert_called_with('https://www.youtube.com/watch?v=O7D-1RG-VRk&t=25')

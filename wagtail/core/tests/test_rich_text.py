@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.test import TestCase
 
 from wagtail.core.rich_text import RichText, expand_db_html
