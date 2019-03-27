@@ -71,6 +71,10 @@ We maintain a curated list of third party packages, articles and other resources
 
 Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help implementing or hosting Wagtail, please contact us: hello@torchbox.com. See also [madewithwagtail.org/developers/](https://madewithwagtail.org/developers/) for expert Wagtail developers around the world.
 
+### Security
+
+We take the security of Wagtail and related packages we maintain seriously. If you have found a secuirty issue with any of our projects please email us at [security@wagtail.io](mailto:security@wagtail.io) so we can work together to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a Github issue.
+
 ### Contributing
 
 If you're a Python or Django developer, fork the repo and get stuck in! We run a separate group for developers of Wagtail itself at https://groups.google.com/forum/#!forum/wagtail-developers (please note that this is not for support requests).
