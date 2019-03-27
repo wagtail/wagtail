@@ -73,7 +73,7 @@ Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help impl
 
 ### Security
 
-We take the security of Wagtail and related packages we maintain seriously. If you have found a security issue with any of our projects please email us at [security@wagtail.io](mailto:security@wagtail.io) so we can work together to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a Github issue.
+We take the security of Wagtail, and related packages we maintain, seriously. If you have found a security issue with any of our projects please email us at [security@wagtail.io](mailto:security@wagtail.io) so we can work together to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a Github issue.
 
 ### Contributing
 
