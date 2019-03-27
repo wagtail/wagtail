@@ -70,75 +70,132 @@ Any app within your project can define extensions to Wagtail's rich text handlin
         # add new definitions to 'features' here
 
 
-Link rewrite handlers
----------------------
+Rewrite handlers
+----------------
 
-.. method:: FeatureRegistry.register_link_type(linktype, handler)
+Rewrite handlers are classes that know how to translate the content of rich text tags like ``<a linktype="...">`` and ``<embed embedtype="..." />`` into front-end HTML. For example, the ``PageLinkHandler`` class knows how to convert the rich text tag ``<a linktype="page" id="123">`` into the HTML tag ``<a href="/path/to/page/123">``.
 
-The ``register_link_type`` method allows you to define a function to be called when an ``<a>`` tag with a given ``linktype`` attribute is encountered. This function receives a dictionary of attributes from the original ``<a>`` tag, and returns a string to replace that opening tag (which must be a valid HTML ``<a>`` tag). The link element content and closing ``</a>`` tag is left unchanged.
+Rewrite handlers can also provide other useful information about rich text tags. For example, given an appropriate tag, ``PageLinkHandler`` can be used to extract which page is being referred to. This can be useful for downstream code that may want information about objects being referenced in rich text.
+
+You can create custom rewrite handlers to support your own new ``linktype`` and ``embedtype`` tags. New handlers must be Python classes that inherit from either ``wagtail.core.richtext.LinkHandler`` or ``wagtail.core.richtext.EmbedHandler``. Your new classes should override at least some of the following methods (listed here for ``LinkHandler``, although ``EmbedHandler`` has an identical signature):
+
+.. class:: LinkHandler
+
+    .. attribute:: identifier
+
+        Required. The ``identifier`` attribute is a string that indicates which rich text tags should be handled by this handler.
+
+        For example, ``PageLinkHandler.get_identifier`` returns the string ``"page"``, indicating that any rich text tags with ``<a linktype="page">`` should be handled by it.
+
+    .. method:: expand_db_attributes(attrs)
+
+        Required. The ``expand_db_attributes`` method is expected to take a dictionary of attributes from a database rich text ``<a>`` tag (``<embed>`` for ``EmbedHandler``) and use it to generate valid frontend HTML.
+
+        For example, ``PageLinkHandler.expand_db_attributes`` might receive ``{'id': 123}``, use it to retrieve the Wagtail page with ID 123, and render a link to its URL like ``<a href="/path/to/page/123">``.
+
+    .. method:: get_model()
+
+        Optional. The static ``get_model`` method only applies to those handlers that are used to render content related to Django models. This method allows handlers to expose the type of content that they know how to handle.
+
+        For example, ``PageLinkHandler.get_model`` returns the Wagtail class ``Page``.
+
+        Handlers that aren't related to Django models can leave this method undefined, and calling it will raise ``NotImplementedError``.
+
+    .. method:: get_instance(attrs)
+
+        Optional. The static or classmethod ``get_instance`` method also only applies to those handlers that are used to render content related to Django models. This method is expected to take a dictionary of attributes from a database rich text ``<a>`` tag (``<embed>`` for ``EmbedHandler``) and use it to return the specific Django model instance being referred to.
+
+        For example, ``PageLinkHandler.get_instance`` might receive ``{'id': 123}`` and return the instance of the Wagtail ``Page`` class with ID 123.
+
+        If left undefined, a default implementation of this method will query the ``id`` model field on the class returned by ``get_model`` using the provided ``id`` attribute; this can be overriden in your own handlers should you want to use some other model field.
+
+Below is an example custom rewrite handler that implements these methods to add support for rich text linking to user email addresses. It supports the conversion of rich text tags like ``<a linktype="user" username="wagtail">`` to valid HTML like ``<a href="mailto:hello@wagtail.io">``. This example assumes that equivalent front-end functionality has been added to allow users to insert these kinds of links into their rich text editor.
 
 .. code-block:: python
 
-    from django.utils.html import escape
+    from django.contrib.auth import get_user_model
+    from wagtail.core.rich_text import LinkHandler
+
+    class UserLinkHandler(LinkHandler):
+        identifier = 'user'
+
+        @staticmethod
+        def get_model():
+            return get_user_model()
+
+        @classmethod
+        def get_instance(cls, attrs):
+            model = cls.get_model()
+            return model.objects.get(username=attrs['username'])
+
+        @classmethod
+        def expand_db_attributes(cls, attrs):
+            user = cls.get_instance(attrs)
+            return '<a href="mailto:%s">' % user.email
+
+
+Registering rewrite handlers
+----------------------------
+
+Rewrite handlers must also be registered with the feature registry via the :ref:`register_rich_text_features` hook. Independent methods for registering both link handlers and embed handlers are provided.
+
+.. method:: FeatureRegistry.register_link_type(handler)
+
+This method allows you to register a custom handler deriving from ``wagtail.core.rich_text.LinkHandler``, and adds it to the list of link handlers available during rich text conversion.
+
+.. code-block:: python
+
+    # my_app/wagtail_hooks.py
+
     from wagtail.core import hooks
-    from myapp.models import Report
-
-    def report_link_handler(attrs):
-        # Handle a link of the form `<a linktype="report" id="123">`
-        try:
-            report = Report.objects.get(id=attrs['id'])
-        except (Report.DoesNotExist, KeyError):
-            return "<a>"
-
-        return '<a href="%s">' % escape(report.url)
-
+    from my_app.handlers import MyCustomLinkHandler
 
     @hooks.register('register_rich_text_features')
-    def register_report_link(features):
-        features.register_link_type('report', report_link_handler)
+    def register_link_handler(features):
+        features.register_link_type(MyCustomLinkHandler)
 
-It is also possible to define link rewrite handler for Wagtail’s built-in ``external`` and ``email`` links, even though they do not have a predefined ``linktype``. For example, if you want external links to have a ``rel="nofollow"`` attribute for SEO purposes:
+
+It is also possible to define link rewrite handlers for Wagtail’s built-in ``external`` and ``email`` links, even though they do not have a predefined ``linktype``. For example, if you want external links to have a ``rel="nofollow"`` attribute for SEO purposes:
 
 .. code-block:: python
 
     from django.utils.html import escape
     from wagtail.core import hooks
+    from wagtail.core.rich_text import LinkHandler
 
-    def external_link_handler(attrs):
-        href = attrs["href"]
-        return '<a href="%s" rel="nofollow">' % escape(href)
+    class NoFollowExternalLinkHandler(LinkHandler):
+        identifer = 'external'
+
+        @classmethod
+        def expand_db_attributes(cls, attrs):
+            href = attrs["href"]
+            return '<a href="%s" rel="nofollow">' % escape(href)
 
     @hooks.register('register_rich_text_features')
     def register_external_link(features):
-        features.register_link_type('external', external_link_handler)
+        features.register_link_type(NoFollowExternalLinkHandler)
 
 Similarly you can use ``email`` linktype to add a custom rewrite handler for email links (e.g. to obfuscate emails in rich text).
 
-Embed rewrite handlers
-----------------------
 
-.. method:: FeatureRegistry.register_embed_type(embedtype, handler)
+.. method:: FeatureRegistry.register_embed_type(handler)
 
-The ``register_embed_type`` method allows you to define a function to be called when an ``<embed />`` tag with a given ``embedtype`` attribute is encountered. This function receives a dictionary of attributes from the original ``<embed>`` element, and returns an HTML string to replace it.
+This method allows you to register a custom handler deriving from ``wagtail.core.rich_text.EmbedHandler``, and adds it to the list of embed handlers available during rich text conversion.
 
 .. code-block:: python
 
+    # my_app/wagtail_hooks.py
+
     from wagtail.core import hooks
-    from myapp.models import Chart
-
-    def chart_embed_handler(attrs):
-        # Handle an embed of the form `<embed embedtype="chart" id="123" color="red" />`
-        try:
-            chart = Chart.objects.get(id=attrs['id'])
-        except (Chart.DoesNotExist, KeyError):
-            return ""
-
-        return chart.as_html(color=attrs.get('color', 'black'))
-
+    from my_app.handlers import MyCustomEmbedHandler
 
     @hooks.register('register_rich_text_features')
-    def register_chart_embed(features):
-        features.register_embed_type('chart', chart_embed_handler)
+    def register_embed_handler(features):
+        features.register_embed_type(MyCustomEmbedHandler)
+
+
+.. versionadded:: 2.5
+   In previous releases, ``register_link_type`` and ``register_embed_type`` accepted two arguments: the identifier for the link or embed type, and a function for performing the rewriting (equivalent to the ``expand_db_attributes`` method).
 
 
 Editor widgets
