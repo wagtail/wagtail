@@ -18,7 +18,11 @@ class DocumentLinkHandler:
             doc = Document.objects.get(id=attrs['id'])
             return '<a data-linktype="document" data-id="%d" href="%s">' % (doc.id, escape(doc.url))
         except Document.DoesNotExist:
-            return "<a>"
+            # Preserve the ID attribute for troubleshooting purposes, even though it
+            # points to a missing document
+            return '<a data-linktype="document" data-id="%s">' % attrs['id']
+        except KeyError:
+            return '<a data-linktype="document">'
 
 
 EditorHTMLDocumentLinkConversionRule = [
