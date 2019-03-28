@@ -269,3 +269,90 @@ class TestStreamFieldCountValidation(TestCase):
         self.assertEqual(block_counts.get('text'), {'min_num': 1})
         self.assertEqual(block_counts.get('rich_text'), {'max_num': 1})
         self.assertEqual(block_counts.get('image'), {'min_num': 1, 'max_num': 1})
+
+    def test_minimum_count(self):
+        # Single block should fail validation
+        body = [self.rich_text_body]
+        instance = MinMaxCountStreamModel.objects.create(body=json.dumps(body))
+        with self.assertRaises(StreamBlockValidationError) as catcher:
+            instance.body.stream_block.clean(instance.body)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['The minimum number of items is 2']
+        })
+
+        # 2 blocks okay
+        body = [self.rich_text_body, self.text_body]
+        instance = MinMaxCountStreamModel.objects.create(body=json.dumps(body))
+        self.assertTrue(instance.body.stream_block.clean(instance.body))
+
+    def test_maximum_count(self):
+        # 5 blocks okay
+        body = [self.rich_text_body] * 5
+        instance = MinMaxCountStreamModel.objects.create(body=json.dumps(body))
+        self.assertTrue(instance.body.stream_block.clean(instance.body))
+
+        # 6 blocks should fail validation
+        body = [self.rich_text_body, self.text_body] * 3
+        instance = MinMaxCountStreamModel.objects.create(body=json.dumps(body))
+        with self.assertRaises(StreamBlockValidationError) as catcher:
+            instance.body.stream_block.clean(instance.body)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['The maximum number of items is 5']
+        })
+
+    def test_block_counts_minimums(self):
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps([]))
+
+        # Zero blocks should fail validation (requires one text, one image)
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps([]))
+        with self.assertRaises(StreamBlockValidationError) as catcher:
+            instance.body.stream_block.clean(instance.body)
+        errors = list(catcher.exception.params['__all__'])
+        self.assertIn('This field is required.', errors)
+        self.assertIn('Text: The minimum number of items is 1', errors)
+        self.assertIn('Image: The minimum number of items is 1', errors)
+        self.assertEqual(len(errors), 3)
+
+        # One plain text should fail validation
+        body = [self.text_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+        with self.assertRaises(StreamBlockValidationError) as catcher:
+            instance.body.stream_block.clean(instance.body)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['Image: The minimum number of items is 1']
+        })
+
+        # One text, one image should be okay
+        body = [self.text_body, self.image_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+        self.assertTrue(instance.body.stream_block.clean(instance.body))
+
+    def test_block_counts_maximums(self):
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps([]))
+
+        # Base is one text, one image
+        body = [self.text_body, self.image_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+        self.assertTrue(instance.body.stream_block.clean(instance.body))
+
+        # Two rich text should error
+        body = [self.text_body, self.image_body, self.rich_text_body, self.rich_text_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+
+        with self.assertRaises(StreamBlockValidationError):
+            instance.body.stream_block.clean(instance.body)
+
+        # Two images should error
+        body = [self.text_body, self.image_body, self.image_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+
+        with self.assertRaises(StreamBlockValidationError) as catcher:
+            instance.body.stream_block.clean(instance.body)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['Image: The maximum number of items is 1']
+        })
+
+        # One text, one rich, one image should be okay
+        body = [self.text_body, self.image_body, self.rich_text_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+        self.assertTrue(instance.body.stream_block.clean(instance.body))
