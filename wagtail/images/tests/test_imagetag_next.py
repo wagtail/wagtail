@@ -1,6 +1,6 @@
 from django import template
 
-# from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from wagtail.images.tests.utils import Image, get_test_image_file
 
@@ -206,42 +206,99 @@ class TestImageTagNext(TestCase):
                 '{% image image_obj class="cover-image"%}'
             )
 
-    # TODO:
-    # def _render_image_url_tag(self, image, view_name, **extra_context):
-    #     temp = template.Template(
-    #         '{% load wagtailimages_next %}{% image_url image_obj "width-400" "'
-    #         + view_name
-    #         + '" %}'
-    #     )
-    #     context_data = {"image_obj": image}
-    #     context_data.update(extra_context)
-    #     context = template.Context(context_data)
-    #     return temp.render(context)
+    def _render_image_url_tag(self, image, filter_spec, view_name, **extra_context):
+        temp = template.Template(
+            '{% load wagtailimages_next %}{% image_url image_obj ' + filter_spec + ' '
+            + view_name
+            + ' %}'
+        )
+        context_data = {"image_obj": image}
+        context_data.update(extra_context)
+        context = template.Context(context_data)
+        return temp.render(context)
 
-    # def test_image_url(self):
-    #     result = self.render_image_url_tag(self.image, "wagtailimages_serve")
-    #     self.assertRegex(
-    #         result,
-    #         "/images/.*/width-400/{}".format(self.image.file.name.split("/")[-1]),
-    #     )
+    def test_image_url(self):
+        result = self._render_image_url_tag(self.image, '"width-400"', "'wagtailimages_serve'")
+        self.assertRegex(
+            result,
+            "/images/.*/width-400/{}".format(self.image.file.name.split("/")[-1]),
+        )
 
-    # def test_image_url_custom_view(self):
-    #     result = self.render_image_url_tag(
-    #         self.image, "wagtailimages_serve_custom_view"
-    #     )
+    def test_image_url_filter_spec_variable(self):
+        result = self._render_image_url_tag(
+            self.image,
+            "spec",
+            "'wagtailimages_serve'",
+            spec="width-400"
+        )
+        self.assertRegex(
+            result,
+            "/images/.*/width-400/{}".format(self.image.file.name.split("/")[-1]),
+        )
 
-    #     self.assertRegex(
-    #         result,
-    #         "/testimages/custom_view/.*/width-400/{}".format(
-    #             self.image.file.name.split("/")[-1]
-    #         ),
-    #     )
+    def test_image_url_view_variable(self):
+        result = self._render_image_url_tag(
+            self.image,
+            '"width-400"',
+            'serve_view',
+            serve_view="wagtailimages_serve"
+        )
+        self.assertRegex(
+            result,
+            "/images/.*/width-400/{}".format(self.image.file.name.split("/")[-1]),
+        )
 
-    # def test_image_url_no_imageserve_view_added(self):
-    #     # if image_url tag is used, but the image serve view was not defined.
-    #     with self.assertRaises(ImproperlyConfigured):
-    #         temp = template.Template(
-    #             '{% load wagtailimages_next %}{% image_url image_obj "width-400" "mynonexistingimageserve_view" %}'
-    #         )
-    #         context = template.Context({"image_obj": self.image})
-    #         temp.render(context)
+    def test_image_url_custom_view(self):
+        result = self._render_image_url_tag(
+            self.image, "'width-400'", "'wagtailimages_serve_custom_view'",
+        )
+
+        self.assertRegex(
+            result,
+            "/testimages/custom_view/.*/width-400/{}".format(
+                self.image.file.name.split("/")[-1]
+            ),
+        )
+
+    def test_image_url_no_imageserve_view_added(self):
+        # if image_url tag is used, but the image serve view was not defined.
+        with self.assertRaises(ImproperlyConfigured):
+            temp = template.Template(
+                '{% load wagtailimages_next %}{% image_url image_obj "width-400" "mynonexistingimageserve_view" %}'
+            )
+            context = template.Context({"image_obj": self.image})
+            temp.render(context)
+
+    def _render_image_url_tag_asvar(self, image, filter_spec, view_name, **extra_context):
+        temp = template.Template(
+            '{% load wagtailimages_next %}'
+            '{% image_url image_obj ' + filter_spec + ' ' + view_name + ' as img_url %}'
+            '<a href="{{ img_url }}">Download image</a>'
+        )
+        context_data = {"image_obj": image}
+        context_data.update(extra_context)
+        context = template.Context(context_data)
+        return temp.render(context)
+
+    def test_image_url_asvar(self):
+        result = self._render_image_url_tag_asvar(
+            self.image,
+            "'width-400'",
+            "'wagtailimages_serve'",
+        )
+        self.assertRegex(
+            result,
+            'href="/images/.*/width-400/{}"'.format(self.image.file.name.split("/")[-1]),
+        )
+
+    def test_image_url_asvar_filter_spec_variable(self):
+        result = self._render_image_url_tag_asvar(
+            self.image,
+            "spec",
+            '"wagtailimages_serve"',
+            spec="width-400"
+        )
+        self.assertRegex(
+            result,
+            'href="/images/.*/width-400/{}"'.format(self.image.file.name.split("/")[-1]),
+        )
