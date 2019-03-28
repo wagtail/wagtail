@@ -8,12 +8,12 @@ from django.test import TestCase
 from django.utils.safestring import SafeText
 
 from wagtail.core import blocks
-from wagtail.core.blocks import StreamValue
+from wagtail.core.blocks import StreamBlockValidationError, StreamValue
 from wagtail.core.fields import StreamField
 from wagtail.core.rich_text import RichText
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.testapp.models import StreamModel
+from wagtail.tests.testapp.models import BlockCountsStreamModel, MinMaxCountStreamModel, StreamModel
 
 
 class TestLazyStreamField(TestCase):
@@ -243,3 +243,29 @@ class TestRequiredStreamField(TestCase):
     def test_blank_field_is_not_required(self):
         field = StreamField([('paragraph', blocks.CharBlock())], blank=True)
         self.assertFalse(field.stream_block.required)
+
+
+class TestStreamFieldCountValidation(TestCase):
+    def setUp(self):
+        self.image = Image.objects.create(
+            title='Test image',
+            file=get_test_image_file())
+
+        self.rich_text_body = {'type': 'rich_text', 'value': '<p>Rich text</p>'}
+        self.image_body = {'type': 'image', 'value': self.image.pk}
+        self.text_body = {'type': 'text', 'value': 'Hello, World!'}
+
+    def test_minmax_pass_to_block(self):
+        instance = MinMaxCountStreamModel.objects.create(body=json.dumps([]))
+        internal_block = instance.body.stream_block
+
+        self.assertEqual(internal_block.meta.min_num, 2)
+        self.assertEqual(internal_block.meta.max_num, 5)
+
+    def test_counts_pass_to_block(self):
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps([]))
+        block_counts = instance.body.stream_block.meta.block_counts
+
+        self.assertEqual(block_counts.get('text'), {'min_num': 1})
+        self.assertEqual(block_counts.get('rich_text'), {'max_num': 1})
+        self.assertEqual(block_counts.get('image'), {'min_num': 1, 'max_num': 1})

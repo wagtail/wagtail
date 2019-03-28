@@ -39,13 +39,21 @@ class Creator:
 
 class StreamField(models.Field):
     def __init__(self, block_types, **kwargs):
+
+        block_kwargs = {}
+        for arg in ['min_num', 'max_num', 'block_counts']:
+            if arg in kwargs:
+                block_kwargs[arg] = kwargs.pop(arg)
+
         super().__init__(**kwargs)
+
         if isinstance(block_types, Block):
             self.stream_block = block_types
         elif isinstance(block_types, type):
             self.stream_block = block_types(required=not self.blank)
         else:
-            self.stream_block = StreamBlock(block_types, required=not self.blank)
+            block_kwargs["required"] = not self.blank
+            self.stream_block = StreamBlock(block_types, **block_kwargs)
 
     def get_internal_type(self):
         return 'TextField'
