@@ -208,7 +208,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
-        self.assertInHTML(self.child_page.get_admin_display_title(), response.json().get('html'))
+        self.assertInHTML("foobarbaz (simple page)", response.json().get('html'))
 
     def test_parent_with_admin_display_title(self):
         # Add another child under child_page so it renders a chooser list
@@ -223,8 +223,8 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
-        self.assertInHTML(self.child_page.get_admin_display_title(), response.json().get('html'))
-        self.assertInHTML(leaf_page.get_admin_display_title(), response.json().get('html'))
+        self.assertInHTML("foobarbaz (simple page)", response.json().get('html'))
+        self.assertInHTML("quux (simple page)", response.json().get('html'))
 
     def test_admin_display_title_breadcrumb(self):
         # Add another child under child_page so we get breadcrumbs
@@ -242,7 +242,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertTagInHTML(
             '<li><a href="/admin/choose-page/{page_id}/?" class="navigate-pages">{page_title}</a></li>'.format(
                 page_id=self.child_page.id,
-                page_title=self.child_page.get_admin_display_title(),
+                page_title="foobarbaz (simple page)",
             ),
             response.json().get('html')
         )
