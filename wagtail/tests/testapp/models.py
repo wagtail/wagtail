@@ -1007,12 +1007,38 @@ class StreamModel(models.Model):
     ])
 
 
+class MinMaxCountStreamModel(models.Model):
+    body = StreamField([
+        ('text', CharBlock()),
+        ('rich_text', RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ],
+        min_num=2,
+        max_num=5,
+    )
+
+
+class BlockCountsStreamModel(models.Model):
+    body = StreamField([
+        ('text', CharBlock()),
+        ('rich_text', RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ],
+        block_counts={
+            "text": {"min_num": 1},
+            "rich_text": {"max_num": 1},
+            "image": {"min_num": 1, "max_num": 1},
+    }
+    )
+
+
 class ExtendedImageChooserBlock(ImageChooserBlock):
     """
     Example of Block with custom get_api_representation method.
     If the request has an 'extended' query param, it returns a dict of id and title,
     otherwise, it returns the default value.
     """
+
     def get_api_representation(self, value, context=None):
         image_id = super().get_api_representation(value, context=context)
         if 'request' in context and context['request'].query_params.get('extended', False):
