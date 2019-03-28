@@ -11,6 +11,7 @@
 # Benoît Vogel <contact@spicy-informatique.com>, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # Dominique PERETTI <dperetti@gmail.com>, 2016
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira <hello@lta.me>, 2018
 # Loic Teixeira <hello@lta.me>, 2018
@@ -26,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-27 14:34+0000\n"
+"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +37,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Soumettre pour modération"
+
+msgid "Unpublish"
+msgstr "Dépublier"
+
+msgid "Delete"
+msgstr "Supprimer"
 
 msgid "Wagtail admin"
 msgstr "Administration Wagtail"
@@ -252,9 +262,6 @@ msgstr "Réinitialisez votre mot de passe"
 msgid "Edit"
 msgstr "Modifier"
 
-msgid "Delete"
-msgstr "Supprimer"
-
 msgid "Page"
 msgstr "Page"
 
@@ -345,7 +352,7 @@ msgstr "E-mail"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -353,12 +360,11 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"        Aucun résultat trouvé\n"
+"        Il y a %(counter)s correspondance\n"
 "    "
 msgstr[1] ""
 "\n"
-"        %(counter)s résultats trouvés\n"
-"    "
+"        Il y a %(counter)s correspondances"
 
 msgid "Choose"
 msgstr "Choisir"
@@ -474,6 +480,9 @@ msgstr "Modifié"
 
 msgid "Edit this page"
 msgstr "Modifier cette page"
+
+msgid "Preview this page"
+msgstr "Prévisualiser cette page"
 
 msgid "Approve"
 msgstr "Approuver"
@@ -602,6 +611,15 @@ msgstr "Verrouillé"
 msgid "Unlocked"
 msgstr "Déverrouillé"
 
+msgid "Publishing…"
+msgstr "Publication..."
+
+msgid "Publish this revision"
+msgstr "Publier cette version"
+
+msgid "Publish"
+msgstr "Publier"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Créer une page dans %(title)s"
@@ -685,9 +703,6 @@ msgstr "Oui, déplacer cette page"
 msgid "Unpublish %(title)s"
 msgstr "Dépublier %(title)s"
 
-msgid "Unpublish"
-msgstr "Dépublier"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Êtes vous sûr(e) de vouloir dépublier cette page ?"
 
@@ -747,15 +762,6 @@ msgstr "Enregistrement…"
 msgid "Save draft"
 msgstr "Enregistrer le brouillon"
 
-msgid "Publishing…"
-msgstr "Publication..."
-
-msgid "Publish"
-msgstr "Publier"
-
-msgid "Submit for moderation"
-msgstr "Soumettre pour modération"
-
 msgid "This page has unsaved changes."
 msgstr "Cette page contient des changements non enregistrés."
 
@@ -772,9 +778,6 @@ msgstr "Page vérouillée"
 
 msgid "Replace current draft"
 msgstr "Remplacer le brouillon actuel"
-
-msgid "Publish this revision"
-msgstr "Publier cette version"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1128,6 +1131,27 @@ msgstr "Novembre"
 msgid "December"
 msgstr "Décembre"
 
+msgid "Sunday"
+msgstr "Dimanche"
+
+msgid "Monday"
+msgstr "Lundi"
+
+msgid "Tuesday"
+msgstr "Mardi"
+
+msgid "Wednesday"
+msgstr "Mercredi"
+
+msgid "Thursday"
+msgstr "Jeudi"
+
+msgid "Friday"
+msgstr "Vendredi"
+
+msgid "Saturday"
+msgstr "Samedi"
+
 msgid "Sun"
 msgstr "Dim"
 
@@ -1178,15 +1202,15 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
-"            Javascript est nécessaire pour utiliser Wagtail mais est "
+"            Javascript est nécessaire pour utiliser Wagtail, mais est "
 "actuellement désactivé.<br />\n"
-"            Voici les <a href=\"http://www.enable-javascript.com/fr/\" "
-"target=\"_blank\" rel=\"noopener\">instructions à suivre pour activer "
+"            Voici les <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">instructions à suivre pour activer "
 "JavaScript dans votre navigateur</a>.\n"
 "        "
 
@@ -1201,6 +1225,9 @@ msgstr "Montrer dans l’explorateur"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabe"
 
 msgid "Catalan"
 msgstr "catalan"
@@ -1225,6 +1252,9 @@ msgstr "français"
 
 msgid "Galician"
 msgstr "galicien"
+
+msgid "Indonesian"
+msgstr "Indonésien"
 
 msgid "Icelandic"
 msgstr "islandais"

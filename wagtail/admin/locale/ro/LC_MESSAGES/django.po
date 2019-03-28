@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2018
+# Dan Braghis, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-01-25 09:26+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,15 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Submit for moderation"
+msgstr "Trimite pentru moderare"
+
+msgid "Unpublish"
+msgstr "Anulează publicarea"
+
+msgid "Delete"
+msgstr "Șterge"
 
 msgid "Wagtail admin"
 msgstr "Administrare Wagtail"
@@ -240,9 +249,6 @@ msgstr "Resetează parola"
 msgid "Edit"
 msgstr "Editează"
 
-msgid "Delete"
-msgstr "Șterge"
-
 msgid "Page"
 msgstr "Pagină"
 
@@ -331,7 +337,7 @@ msgstr "Link e-mail"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -339,14 +345,16 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"Există o potrivire"
+"        Există %(counter)s potrivire\n"
+"    "
 msgstr[1] ""
 "\n"
-"Sunt %(counter)s potriviri"
+"        Sunt %(counter)s potriviri\n"
+"    "
 msgstr[2] ""
 "\n"
-"\n"
-"Sunt %(counter)s potriviri"
+"        Sunt %(counter)s potriviri\n"
+"    "
 
 msgid "Choose"
 msgstr "Alege"
@@ -462,6 +470,9 @@ msgstr "Editat"
 
 msgid "Edit this page"
 msgstr "Editează această pagină"
+
+msgid "Preview this page"
+msgstr "Previzualizează această pagină"
 
 msgid "Approve"
 msgstr "Aprobă"
@@ -591,6 +602,15 @@ msgstr "Blocat"
 msgid "Unlocked"
 msgstr "Deblocat"
 
+msgid "Publishing…"
+msgstr "În curs de publicare…"
+
+msgid "Publish this revision"
+msgstr "Publică această revizie"
+
+msgid "Publish"
+msgstr "Publică"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crează o pagină în %(title)s"
@@ -673,9 +693,6 @@ msgstr "Da, mută această pagină"
 msgid "Unpublish %(title)s"
 msgstr "Anulează publicarea %(title)s"
 
-msgid "Unpublish"
-msgstr "Anulează publicarea"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sigur doriți să anulați publicarea aceastei pagini?"
 
@@ -737,15 +754,6 @@ msgstr "În curs de salvare..."
 msgid "Save draft"
 msgstr "Salvează ca ciornă"
 
-msgid "Publishing…"
-msgstr "În curs de publicare…"
-
-msgid "Publish"
-msgstr "Publică"
-
-msgid "Submit for moderation"
-msgstr "Trimite pentru moderare"
-
 msgid "This page has unsaved changes."
 msgstr "Această pagină conține modificări nesalvate."
 
@@ -762,9 +770,6 @@ msgstr "Pagină blocată"
 
 msgid "Replace current draft"
 msgstr "Înlocuiește ciorna curentă"
-
-msgid "Publish this revision"
-msgstr "Publică această revizie"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1079,6 +1084,9 @@ msgstr[2] ""
 "\n"
 "%(counter)s pagini se potrivesc"
 
+msgid "Page types"
+msgstr "Tipuri pagini"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1138,6 +1146,27 @@ msgstr "Noiembrie"
 msgid "December"
 msgstr "Decembrie"
 
+msgid "Sunday"
+msgstr "Duminică"
+
+msgid "Monday"
+msgstr "Luni"
+
+msgid "Tuesday"
+msgstr "Marți"
+
+msgid "Wednesday"
+msgstr "Miercuri"
+
+msgid "Thursday"
+msgstr "Joi"
+
+msgid "Friday"
+msgstr "Vineri"
+
+msgid "Saturday"
+msgstr "Sâmbătă"
+
 msgid "Sun"
 msgstr "D"
 
@@ -1189,16 +1218,16 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
 "            Wagtail are nevoie de Javascript, care în prezent e deactivat."
 "<br />\n"
 "            Vezi <a href=\"http://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener\">instrucțiuni de activare JavaScript în web "
-"browser-ul Dvs</a>.\n"
+"\"_blank\" rel=\"noopener noreferrer\">instrucțiuni de activare JavaScript "
+"în web browser-ul Dvs</a>.\n"
 "        "
 
 msgid "Go to Wagtail admin interface"
@@ -1212,6 +1241,9 @@ msgstr "Arată în Explorator"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabă"
 
 msgid "Catalan"
 msgstr "Catalană"
@@ -1236,6 +1268,9 @@ msgstr "Franceză"
 
 msgid "Galician"
 msgstr "Galiciană"
+
+msgid "Indonesian"
+msgstr "Indoneză"
 
 msgid "Icelandic"
 msgstr "Islandeză"

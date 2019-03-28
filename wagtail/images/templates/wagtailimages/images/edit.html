@@ -59,10 +59,10 @@
 
                 <div class="focal-point-chooser"
                     style="max-width: {{ rendition.width }}px; max-height: {{ rendition.height }}px;"
-                    data-focal-point-x="{{ image.focal_point_x }}"
-                    data-focal-point-y="{{ image.focal_point_y }}"
-                    data-focal-point-width="{{ image.focal_point_width }}"
-                    data-focal-point-height="{{ image.focal_point_height }}">
+                    data-focal-point-x="{{ image.focal_point_x|default_if_none:'' }}"
+                    data-focal-point-y="{{ image.focal_point_y|default_if_none:'' }}"
+                    data-focal-point-width="{{ image.focal_point_width|default_if_none:'' }}"
+                    data-focal-point-height="{{ image.focal_point_height|default_if_none:'' }}">
 
                     <img {{ rendition.attrs }} data-original-width="{{ image.width|unlocalize }}" data-original-height="{{ image.height|unlocalize }}" class="show-transparency">
                     <div class="current-focal-point-indicator{% if not image.has_focal_point %} hidden{% endif %}"></div>

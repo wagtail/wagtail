@@ -35,6 +35,7 @@
         <form action="{{ submit_url }}" method="POST">
             {% csrf_token %}
             <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+            <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}{% endif %}" class="button button-secondary">{% trans "No, don't delete" %}</a>
         </form>
     </div>
 

@@ -1,7 +1,7 @@
 import os.path
 import unittest
+from unittest import mock
 
-import mock
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.test import TestCase

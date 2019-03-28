@@ -12,7 +12,8 @@ STRIP_WHITESPACE = 0
 KEEP_WHITESPACE = 1
 FORCE_WHITESPACE = 2
 
-WHITESPACE_RE = re.compile(r'\s+')
+# match one or more consecutive normal spaces, new-lines, tabs and form-feeds
+WHITESPACE_RE = re.compile(r'[ \t\n\f\r]+')
 
 
 class HandlerState:
@@ -306,6 +307,8 @@ class HtmlToContentStateHandler(HTMLParser):
             element_handler.handle_starttag(name, attrs, self.state, self.contentstate)
 
     def handle_endtag(self, name):
+        if not self.open_elements:
+            return  # avoid a pop from an empty list if we have an extra end tag
         expected_name, element_handler = self.open_elements.pop()
         assert name == expected_name, "Unmatched tags: expected %s, got %s" % (expected_name, name)
         if element_handler:
@@ -313,6 +316,7 @@ class HtmlToContentStateHandler(HTMLParser):
 
     def handle_data(self, content):
         # normalise whitespace sequences to a single space
+        # This is in line with https://www.w3.org/TR/html4/struct/text.html#h-9.1
         content = re.sub(WHITESPACE_RE, ' ', content)
 
         if self.state.current_block is None:

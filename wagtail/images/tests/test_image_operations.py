@@ -1,7 +1,7 @@
 from io import BytesIO
+from unittest.mock import Mock, patch
 
 from django.test import TestCase, override_settings
-from mock import Mock, patch
 
 from wagtail.core import hooks
 from wagtail.images import image_operations
@@ -614,6 +614,14 @@ class TestBackgroundColorFilter(TestCase):
 
     def test_invalid(self):
         fil = Filter(spec='width-400|bgcolor-foo')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.assertRaises(ValueError, fil.run, image, BytesIO())
+
+    def test_invalid_length(self):
+        fil = Filter(spec='width-400|bgcolor-1234')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),

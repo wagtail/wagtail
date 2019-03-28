@@ -4,13 +4,14 @@
 #
 # Translators:
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-01-16 01:30+0000\n"
+"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -241,9 +242,13 @@ msgid "Inactive"
 msgstr "Tidak Aktif"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s yang lalu"
+
+#, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -295,6 +300,9 @@ msgstr "Ubah"
 
 msgid "The user could not be created due to errors."
 msgstr "Pengguna tidak dapat dibuat karena suatu kesalahan."
+
+msgid "User '{0}' updated."
+msgstr "Pengguna '{0}' berhasil diperbaharui."
 
 msgid "The user could not be saved due to errors."
 msgstr "Pengguna tidak dapat disimpan karena suatu kesalahan."

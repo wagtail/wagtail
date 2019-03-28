@@ -35,13 +35,13 @@ server {
     location /static/CACHE/ {
         access_log off;
         expires 864000;
-        alias /home/mywagtail/static/CACHE/;
+        alias /home/mywagtail/app/static/CACHE/;
     }
 
-    # Only server /media/images by default, not e.g. original_images/.
-    location /media/images {
+    # Only serve /media/images/ by default, not e.g. original_images/.
+    location /media/images/ {
         expires 864000;
-        alias /home/mywagtail/app/media/;
+        alias /home/mywagtail/app/media/images/;
     }
 
     location / {

@@ -1,4 +1,5 @@
 from django.contrib.admin.utils import quote, unquote
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
@@ -8,7 +9,6 @@ from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
-from wagtail.utils.pagination import paginate
 
 
 def choose(request, app_label, model_name):
@@ -43,7 +43,8 @@ def choose(request, app_label, model_name):
         })
 
     # Pagination
-    paginator, paginated_items = paginate(request, items, per_page=25)
+    paginator = Paginator(items, per_page=25)
+    paginated_items = paginator.get_page(request.GET.get('p'))
 
     # If paginating or searching, render "results.html"
     if request.GET.get('results', None) == 'true':

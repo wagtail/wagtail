@@ -112,8 +112,8 @@ Fixtures
 Using ``dumpdata``
 ------------------
 
-Creating fixtures_ for tests is best done by creating content in a development environment,
-and using Django's dumpdata_ command.
+Creating :doc:`fixtures <django:howto/initial-data>` for tests is best done by creating content in a development
+environment, and using Django's dumpdata_ command.
 
 Note that by default ``dumpdata`` will represent ``content_type`` by the primary key; this may cause consistency issues when adding / removing models, as content types are populated separately from fixtures. To prevent this, use the ``--natural-foreign`` switch, which represents content types by ``["app", "model"]`` instead.
 
@@ -162,6 +162,5 @@ Filling in the ``path`` / ``numchild`` / ``depth`` fields is necessary in order 
 
 The `Treebeard docs`_ might help in understanding how this works.
 
-.. _fixtures: https://docs.djangoproject.com/en/2.0/howto/initial-data/
 .. _dumpdata: https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-dumpdata
 .. _Treebeard docs: http://django-treebeard.readthedocs.io/en/latest/mp_tree.html

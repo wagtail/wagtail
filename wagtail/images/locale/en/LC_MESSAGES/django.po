@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-28 17:53+0300\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Add/edit images you own"
 msgstr ""
 
-#: forms.py:89 views/images.py:272
+#: forms.py:89 views/images.py:274
 msgid "Edit"
 msgstr ""
 
@@ -236,18 +236,20 @@ msgid "Add image"
 msgstr ""
 
 #: templates/wagtailimages/images/add.html:34
-#: templates/wagtailimages/images/edit.html:104
+#: templates/wagtailimages/images/edit.html:50
+#: templates/wagtailimages/images/edit.html:107
 msgid "Save"
 msgstr ""
 
 #: templates/wagtailimages/images/confirm_delete.html:3
 #: templates/wagtailimages/images/confirm_delete.html:6
-#: templates/wagtailimages/images/edit.html:106
+#: templates/wagtailimages/images/edit.html:52
+#: templates/wagtailimages/images/edit.html:109
 msgid "Delete image"
 msgstr ""
 
 #: templates/wagtailimages/images/confirm_delete.html:17
-#: templates/wagtailimages/images/edit.html:95
+#: templates/wagtailimages/images/edit.html:96
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -272,41 +274,45 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:56
-msgid "Focal point (optional)"
-msgstr ""
-
-#: templates/wagtailimages/images/edit.html:57
-msgid ""
-"To define this image's most important region, drag a box over the image "
-"below."
-msgstr ""
-
-#: templates/wagtailimages/images/edit.html:57
-msgid "Current focal point shown"
-msgstr ""
-
-#: templates/wagtailimages/images/edit.html:74
-msgid "Remove focal area"
-msgstr ""
-
-#: templates/wagtailimages/images/edit.html:79
+#: templates/wagtailimages/images/edit.html:72
 msgid "URL Generator"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:86
+#: templates/wagtailimages/images/edit.html:78
+msgid "Focal point"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:78
+msgid "(optional)"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:79
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:79
+msgid "Current focal point shown"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:81
+msgid "Remove focal area"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:87
 msgid "Max dimensions"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:88
+#: templates/wagtailimages/images/edit.html:89
 msgid "Filesize"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:89
+#: templates/wagtailimages/images/edit.html:90
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:93
+#: templates/wagtailimages/images/edit.html:94
 msgid "Usage"
 msgstr ""
 
@@ -429,7 +435,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:143
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:145
 msgid "Delete"
 msgstr ""
 
@@ -445,33 +451,33 @@ msgstr ""
 msgid "Search images"
 msgstr ""
 
-#: views/images.py:121
+#: views/images.py:123
 msgid "Image '{0}' updated."
 msgstr ""
 
-#: views/images.py:122
+#: views/images.py:124
 msgid "Edit again"
 msgstr ""
 
-#: views/images.py:126
+#: views/images.py:128
 msgid "The image could not be saved due to errors."
 msgstr ""
 
-#: views/images.py:141
+#: views/images.py:143
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
 
-#: views/images.py:241
+#: views/images.py:243
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:271
+#: views/images.py:273
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:276
+#: views/images.py:278
 msgid "The image could not be created due to errors."
 msgstr ""
 

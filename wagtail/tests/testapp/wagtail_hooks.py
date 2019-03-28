@@ -3,8 +3,10 @@ from django.http import HttpResponse
 from django.templatetags.static import static
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
+from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
 from wagtail.core import hooks
 
@@ -86,21 +88,58 @@ def hide_hidden_pages(parent_page, pages, request):
     return pages.exclude(title__icontains='hidden')
 
 
-# register 'blockquote' as a rich text feature supported by a hallo.js plugin
+# register 'quotation' as a rich text feature supported by a hallo.js plugin
 # and a Draftail feature
 @hooks.register('register_rich_text_features')
-def register_blockquote_feature(features):
+def register_quotation_feature(features):
     features.register_editor_plugin(
-        'hallo', 'blockquote', HalloPlugin(
-            name='halloblockquote',
-            js=['testapp/js/hallo-blockquote.js'],
-            css={'all': ['testapp/css/hallo-blockquote.css']},
+        'hallo', 'quotation', HalloPlugin(
+            name='halloquotation',
+            js=['testapp/js/hallo-quotation.js'],
+            css={'all': ['testapp/css/hallo-quotation.css']},
         )
     )
     features.register_editor_plugin(
-        'draftail', 'blockquote', draftail_features.EntityFeature(
+        'draftail', 'quotation', draftail_features.EntityFeature(
             {},
-            js=['testapp/js/draftail-blockquote.js'],
-            css={'all': ['testapp/css/draftail-blockquote.css']},
+            js=['testapp/js/draftail-quotation.js'],
+            css={'all': ['testapp/css/draftail-quotation.css']},
         )
     )
+
+
+# register 'intro' as a rich text feature which converts an `intro-paragraph` contentstate block
+# to a <p class="intro"> tag in db HTML and vice versa
+@hooks.register('register_rich_text_features')
+def register_intro_rule(features):
+    features.register_converter_rule('contentstate', 'intro', {
+        'from_database_format': {
+            'p[class="intro"]': BlockElementHandler('intro-paragraph'),
+        },
+        'to_database_format': {
+            'block_map': {'intro-paragraph': {'element': 'p', 'props': {'class': 'intro'}}},
+        }
+    })
+
+
+class PanicMenuItem(ActionMenuItem):
+    label = "Panic!"
+    name = 'action-panic'
+
+    class Media:
+        js = ['testapp/js/siren.js']
+
+
+@hooks.register('register_page_action_menu_item')
+def register_panic_menu_item():
+    return PanicMenuItem()
+
+
+class RelaxMenuItem(ActionMenuItem):
+    label = "Relax."
+    name = 'action-relax'
+
+
+@hooks.register('construct_page_action_menu')
+def register_relax_menu_item(menu_items, request, context):
+    menu_items.append(RelaxMenuItem())

@@ -311,7 +311,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         if extra_chars != 0:
             common_parent_path = common_parent_path[:-extra_chars]
 
-        if common_parent_path is '':
+        if common_parent_path == '':
             # This should only happen when there are multiple trees,
             # a situation that Wagtail does not support;
             # or when the root node itself is part of the queryset.

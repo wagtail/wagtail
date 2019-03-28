@@ -106,7 +106,7 @@
         {% if submissions %}
             <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
                 {% include "wagtailforms/list_submissions.html" %}
-                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj is_searching=False %}
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
             </form>
         {% else %}
             <p class="no-results-message">{% blocktrans with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>

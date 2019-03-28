@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 14:09+0100\n"
-"PO-Revision-Date: 2018-10-11 13:13+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Submit for moderation"
+msgstr "فرستادن برای نظارت"
+
+msgid "Unpublish"
+msgstr "لغو انتشار"
+
+msgid "Delete"
+msgstr "حذف"
 
 msgid "None"
 msgstr "خالی"
@@ -188,9 +197,6 @@ msgstr "رمزعبور را بازنشانی کنید"
 msgid "Edit"
 msgstr "تصحیح"
 
-msgid "Delete"
-msgstr "حذف"
-
 msgid "Page"
 msgstr "صفحه"
 
@@ -238,22 +244,6 @@ msgstr "لینک بیرونی"
 
 msgid "Email link"
 msgstr "لینک ایمیل"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"%(counter)s مورد پیدا شد"
-msgstr[1] ""
-"\n"
-"%(counter)s مورد پیدا شد"
 
 msgid "Choose"
 msgstr "انتخاب کن"
@@ -480,6 +470,12 @@ msgstr "قفل"
 msgid "Unlocked"
 msgstr "گشوده"
 
+msgid "Publish this revision"
+msgstr "انتشار این بازبینی"
+
+msgid "Publish"
+msgstr "انتشار"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "ایجاد صفحه در %(title)s"
@@ -559,9 +555,6 @@ msgstr "بله، منتقل شود"
 msgid "Unpublish %(title)s"
 msgstr "لغو انتشار %(title)s"
 
-msgid "Unpublish"
-msgstr "لغو انتشار"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "آیا میخواهید این صفحه لغو انتشار شود؟"
 
@@ -615,12 +608,6 @@ msgstr "جدید"
 msgid "Save draft"
 msgstr "ذخیره پیشنویس"
 
-msgid "Publish"
-msgstr "انتشار"
-
-msgid "Submit for moderation"
-msgstr "فرستادن برای نظارت"
-
 msgid "This page has unsaved changes."
 msgstr "این صفحه تغییرات ذخیره نشده دارد."
 
@@ -637,9 +624,6 @@ msgstr "صفحه قفل شده"
 
 msgid "Replace current draft"
 msgstr "جایگزینی پیشنویس فعلی"
-
-msgid "Publish this revision"
-msgstr "انتشار این بازبینی"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1007,22 +991,6 @@ msgstr ""
 "شما از یک مرورگر <strong>قدیمی</strong> استفاده می‌کنید که توسط این نرم افزار "
 "پشتیبانی نمی‌شود. لطفا مرورگر خود را <a href=\"http://browsehappy.com/"
 "\">بروزرسانی</a> کنید."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"برای استفاده از وگتیل نیاز به جاواسکریپت دارید که در حال حاضر غیرفعال است."
-"<br />\n"
-"در اینجا <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener\">دستورالعمل های فعال سازی جاواسکریپت</a> را برای مرورگر خود آمده "
-"است."
 
 msgid "Go to Wagtail admin interface"
 msgstr "رفتن به رابط راهبری وگتیل"

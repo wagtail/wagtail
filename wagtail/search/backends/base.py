@@ -260,7 +260,7 @@ class BaseSearchResults:
 
 class EmptySearchResults(BaseSearchResults):
     def __init__(self):
-        return super().__init__(None, None)
+        super().__init__(None, None)
 
     def _clone(self):
         return self.__class__()
@@ -350,7 +350,6 @@ class BaseSearchBackend:
             return EmptySearchResults()
 
         # Search
-        query_compiler_class = query_compiler_class
         search_query = query_compiler_class(
             queryset, query, **kwargs
         )

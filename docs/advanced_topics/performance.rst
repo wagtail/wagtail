@@ -45,7 +45,7 @@ Wagtail is tested on PostgreSQL, SQLite and MySQL. It should work on some third-
 Templates
 ---------
 
-The overhead from reading and compiling templates can add up. In some cases a significant performance improvement can be gained by using `Django's cached template loader <https://docs.djangoproject.com/en/stable/ref/templates/api/#django.template.loaders.cached.Loader>`_:
+The overhead from reading and compiling templates can add up. In some cases a significant performance improvement can be gained by using :class:`Django's cached template loader <django.template.loaders.cached.Loader>`:
 
 .. code-block:: python
 

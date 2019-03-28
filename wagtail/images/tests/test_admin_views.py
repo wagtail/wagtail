@@ -192,6 +192,25 @@ class TestImageAddView(TestCase, WagtailTestUtils):
             )
         )
 
+    @override_settings(WAGTAILIMAGES_MAX_IMAGE_PIXELS=1)
+    def test_add_too_many_pixels(self):
+        file_content = get_test_image_file().file.getvalue()
+
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', file_content),
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # The form should have an error
+        self.assertFormError(
+            response, 'form', 'file',
+            'This file has too many pixels (307200). Maximum pixels 1.'
+        )
+
     def test_add_with_collections(self):
         root_collection = Collection.get_first_root_node()
         evil_plans_collection = root_collection.add_child(name="Evil plans")

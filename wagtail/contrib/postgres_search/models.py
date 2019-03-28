@@ -18,7 +18,8 @@ class RawSearchQuery(SearchQuery):
         super().__init__(*args, **kwargs)
 
     def as_sql(self, compiler, connection):
-        params = [v.replace("'", "''") for v in self.value]
+        # escape apostrophe and backslash
+        params = [v.replace("'", "''").replace("\\", "\\\\") for v in self.value]
         if self.config:
             config_sql, config_params = compiler.compile(self.config)
             template = "to_tsquery(%s::regconfig, '%s')" % (config_sql, self.format)

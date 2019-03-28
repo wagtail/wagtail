@@ -85,7 +85,7 @@ with a custom ``edit_handler`` attribute:
 Appearance
 ----------
 
-You can change the label used in the menu by changing the `verbose_name <https://docs.djangoproject.com/en/dev/ref/models/options/#verbose-name>`_ of your model.
+You can change the label used in the menu by changing the :attr:`~django.db.models.Options.verbose_name` of your model.
 
 You can add an icon to the menu by passing an 'icon' argument to the ``register_setting`` decorator:
 

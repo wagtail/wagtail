@@ -13,7 +13,7 @@
     {% include "wagtailsnippets/snippets/list.html" %}
 
     {% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name as wagtailsnippets_list_url %}
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=items is_searching=is_searching linkurl=wagtailsnippets_list_url %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=items linkurl=wagtailsnippets_list_url %}
 {% else %}
     {% if is_searching %}
          <p>{% blocktrans %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>

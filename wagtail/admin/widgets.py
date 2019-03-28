@@ -38,7 +38,7 @@ class AdminDateInput(widgets.DateInput):
     template_name = 'wagtailadmin/widgets/date_input.html'
 
     def __init__(self, attrs=None, format=None):
-        default_attrs = {'autocomplete': 'off'}
+        default_attrs = {'autocomplete': 'new-date'}
         fmt = format
         if attrs:
             default_attrs.update(attrs)
@@ -63,7 +63,7 @@ class AdminTimeInput(widgets.TimeInput):
     template_name = 'wagtailadmin/widgets/time_input.html'
 
     def __init__(self, attrs=None, format='%H:%M'):
-        default_attrs = {'autocomplete': 'off'}
+        default_attrs = {'autocomplete': 'new-time'}
         if attrs:
             default_attrs.update(attrs)
         super().__init__(attrs=default_attrs, format=format)
@@ -73,7 +73,7 @@ class AdminDateTimeInput(widgets.DateTimeInput):
     template_name = 'wagtailadmin/widgets/datetime_input.html'
 
     def __init__(self, attrs=None, format=None):
-        default_attrs = {'autocomplete': 'off'}
+        default_attrs = {'autocomplete': 'new-date-time'}
         fmt = format
         if attrs:
             default_attrs.update(attrs)
@@ -101,6 +101,7 @@ class AdminTagWidget(TagWidget):
         context = super().get_context(name, value, attrs)
         context['widget']['autocomplete_url'] = reverse('wagtailadmin_tag_autocomplete')
         context['widget']['tag_spaces_allowed'] = getattr(settings, 'TAG_SPACES_ALLOWED', True)
+        context['widget']['tag_limit'] = getattr(settings, 'TAG_LIMIT', None)
 
         return context
 
@@ -170,9 +171,9 @@ class AdminPageChooser(AdminChooser):
         super().__init__(**kwargs)
 
         if target_models:
-            models = ', '.join([model._meta.verbose_name.title() for model in target_models if model is not Page])
-            if models:
-                self.choose_one_text += ' (' + models + ')'
+            model_names = [model._meta.verbose_name.title() for model in target_models if model is not Page]
+            if len(model_names) == 1:
+                self.choose_one_text += ' (' + model_names[0] + ')'
 
         self.user_perms = user_perms
         self.target_models = list(target_models or [Page])

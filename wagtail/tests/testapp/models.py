@@ -27,6 +27,7 @@ from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core.blocks import CharBlock, RichTextBlock, StructBlock
 from wagtail.core.fields import RichTextField, StreamField
@@ -39,6 +40,7 @@ from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.utils.decorators import cached_classmethod
 
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 from .views import CustomSubmissionsListView
@@ -362,6 +364,11 @@ class SingleEventPage(EventPage):
 
 
 SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
+
+
+# "custom" sitemap object
+class EventSitemap(Sitemap):
+    pass
 
 
 # Event index (has a separate AJAX template, and a custom template context)
@@ -1163,7 +1170,7 @@ class CustomRichBlockFieldPage(Page):
 
 
 class RichTextFieldWithFeaturesPage(Page):
-    body = RichTextField(features=['blockquote', 'embed', 'made-up-feature'])
+    body = RichTextField(features=['quotation', 'embed', 'made-up-feature'])
 
     content_panels = [
         FieldPanel('title', classname="full title"),
@@ -1258,3 +1265,77 @@ class AddedStreamFieldWithEmptyListDefaultPage(Page):
     body = StreamField([
         ('title', CharBlock())
     ], default=[])
+
+
+# test customising edit handler definitions on a per-request basis
+class PerUserContentPanels(ObjectList):
+    def _replace_children_with_per_user_config(self):
+        self.children = self.instance.basic_content_panels
+        if self.request.user.is_superuser:
+            self.children = self.instance.superuser_content_panels
+        self.children = [
+            child.bind_to(model=self.model, instance=self.instance,
+                          request=self.request, form=self.form)
+            for child in self.children]
+
+    def on_instance_bound(self):
+        # replace list of children when both instance and request are available
+        if self.request:
+            self._replace_children_with_per_user_config()
+        else:
+            super().on_instance_bound()
+
+    def on_request_bound(self):
+        # replace list of children when both instance and request are available
+        if self.instance:
+            self._replace_children_with_per_user_config()
+        else:
+            super().on_request_bound()
+
+
+class PerUserPageMixin:
+    basic_content_panels = []
+    superuser_content_panels = []
+
+    @cached_classmethod
+    def get_edit_handler(cls):
+        tabs = []
+
+        if cls.basic_content_panels and cls.superuser_content_panels:
+            tabs.append(PerUserContentPanels(heading='Content'))
+        if cls.promote_panels:
+            tabs.append(ObjectList(cls.promote_panels,
+                                   heading='Promote'))
+        if cls.settings_panels:
+            tabs.append(ObjectList(cls.settings_panels,
+                                   heading='Settings',
+                                   classname='settings'))
+
+        edit_handler = TabbedInterface(tabs,
+                                       base_form_class=cls.base_form_class)
+
+        return edit_handler.bind_to(model=cls)
+
+
+class SecretPage(PerUserPageMixin, Page):
+    boring_data = models.TextField()
+    secret_data = models.TextField()
+
+    basic_content_panels = Page.content_panels + [
+        FieldPanel('boring_data'),
+    ]
+    superuser_content_panels = basic_content_panels + [
+        FieldPanel('secret_data'),
+    ]
+
+
+class SimpleParentPage(Page):
+    # `BusinessIndex` has been added to bring it in line with other tests
+    subpage_types = ['tests.SimpleChildPage', BusinessIndex]
+
+
+class SimpleChildPage(Page):
+    # `Page` has been added to bring it in line with other tests
+    parent_page_types = ['tests.SimpleParentPage', Page]
+
+    max_count_per_parent = 1
