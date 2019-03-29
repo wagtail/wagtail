@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin_tags wagtailui_tags %}
 
 {% comment %}
 
@@ -18,12 +18,16 @@ ordering: the current sort parameter
 
 <tr class="table-headers">
     {% if show_ordering_column %}
-        <th class="ord">
+        <th class="ord{% if orderable and ordering == 'ord' %} ord--active{% endif %}">
             {% if orderable %}
                 {% if ordering == "ord" %}
-                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}" class="icon icon-order text-replace" title="{% trans 'Disable ordering of child pages' %}">{% trans 'Order' %}</a>
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}" title="{% trans 'Disable ordering of child pages' %}">
+                        {% wagtail_icon name="order" %}{% trans 'Sort' %}
+                    </a>
                 {% else %}
-                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" class="icon icon-order text-replace" title="{% trans 'Enable ordering of child pages' %}">{% trans 'Order' %}</a>
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" title="{% trans 'Enable ordering of child pages' %}">
+                        {% wagtail_icon name="order" %}{% trans 'Sort' %}
+                    </a>
                 {% endif %}
             {% endif %}
         </th>

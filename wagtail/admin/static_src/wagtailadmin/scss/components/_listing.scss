@@ -287,18 +287,25 @@ ul.listing {
         font-size: 30px;
     }
 
-    th.ord,
-    &.full-width th:first-child.ord {
-        padding-left: 25px;
-    }
+    th.ord {
+        text-align: center;
 
-    th.ord a:before {
-        width: 1em;
-        font-size: 15px;
-    }
+        .icon {
+            opacity: 0.5;
 
-    th.ord a:hover:before {
-        color: $color-teal;
+            &::before {
+                margin-right: 2px;
+            }
+        }
+
+        &--active a,
+        a:hover {
+            color: $color-teal;
+        }
+
+        &--active .icon {
+            opacity: 1;
+        }
     }
 
     .handle {
@@ -483,9 +490,7 @@ table.listing {
     }
 
     .table-headers {
-        .ord {
-            padding-right: 0;
-        }
+        height: 35px;
 
         .title {
             padding-left: 0;
@@ -691,7 +696,9 @@ table.listing {
 // Ordering
 td.ord {
     .handle {
+        // Align with the row's title text, and the column's label.
         margin-top: -28px;
+        margin-left: 13px;
     }
 }
 
