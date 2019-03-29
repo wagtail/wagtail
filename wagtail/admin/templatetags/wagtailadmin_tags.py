@@ -331,7 +331,8 @@ def table_header_label(context, label=None, sortable=True, ordering=None, sort_c
         classname = "icon icon-arrow-down-after"
 
     return format_html(
-        '<a href="{url}" class="{classname}">{label}</a>',
+        # need whitespace around label for correct positioning of arrow icon
+        '<a href="{url}" class="{classname}"> {label} </a>',
         url=url, classname=classname, label=label
     )
 
