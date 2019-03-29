@@ -26,6 +26,7 @@ Changelog
  * Added support for Markdown shortcuts for inline formatting in rich text editor, e.g. `**` for bold, `_` for italic, etc. (Thibaud Colas)
  * Added name attributes to all built-in page action menu items (LB (Ben Johnston))
  * Added validation on the filter string to the Jinja2 image template tag (Jonny Scholes)
+ * Changed the pages reodering UI toggle to make it easier to find (Katie Locke, Thibaud Colas)
  * Fix: Set `SERVER_PORT` to 443 in `Page.dummy_request()` for HTTPS sites (Sergey Fedoseev)
  * Fix: Include port number in `Host` header of `Page.dummy_request()` (Sergey Fedoseev)
  * Fix: Validation error messages in `InlinePanel` no longer count towards `max_num` when disabling the 'add' button (Todd Dembrey, Thibaud Colas)

@@ -360,6 +360,7 @@ Contributors
 * Md Arifin Ibne Matin
 * Tom Usher
 * Haydn Greatnews
+* Katie Locke
 
 Translators
 ===========

@@ -47,6 +47,7 @@ Other features
  * Added edit / delete buttons to snippet index and "don't delete" option to confirmation screen, for consistency with pages (Kevin Howbrook)
  * Added name attributes to all built-in page action menu items (LB (Ben Johnston))
  * Added validation on the filter string to the Jinja2 image template tag (Jonny Scholes)
+ * Changed the pages reodering UI toggle to make it easier to find (Katie Locke, Thibaud Colas)
 
 
 Bug fixes
