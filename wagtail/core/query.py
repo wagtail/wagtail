@@ -173,12 +173,12 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.exclude(self.page_q(other))
 
     def type_q(self, klass):
-        content_types = ContentType.objects.get_for_models(*[
+        subclasses = [
             model for model in apps.get_models()
             if issubclass(model, klass)
-        ]).values()
-
-        return Q(content_type__in=list(content_types))
+        ]
+        content_types = ContentType.objects.get_for_models(subclasses, for_concrete_models=False)
+        return Q(content_type__in=list(content_types.values()))
 
     def type(self, model):
         """
@@ -194,7 +194,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.exclude(self.type_q(model))
 
     def exact_type_q(self, klass):
-        return Q(content_type=ContentType.objects.get_for_model(klass))
+        return Q(content_type=ContentType.objects.get_for_model(klass, for_concrete_model=False))
 
     def exact_type(self, model):
         """

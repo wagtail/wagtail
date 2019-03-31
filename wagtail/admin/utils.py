@@ -97,7 +97,8 @@ def get_object_usage(obj):
 
 def popular_tags_for_model(model, count=10):
     """Return a queryset of the most frequently used tags used on this model class"""
-    content_type = ContentType.objects.get_for_model(model)
+    for_concrete = not issubclass(model, Page)
+    content_type = ContentType.objects.get_for_model(model, for_concrete_model=False)
     return Tag.objects.filter(
         taggit_taggeditem_items__content_type=content_type
     ).annotate(

@@ -319,7 +319,7 @@ def edit(request, page_id):
     page = real_page_record.get_latest_revision_as_page()
     parent = page.get_parent()
 
-    content_type = ContentType.objects.get_for_model(page)
+    content_type = ContentType.objects.get_for_model(page, for_concrete_model=False)
     page_class = content_type.model_class()
 
     page_perms = page.permissions_for_user(request.user)
@@ -1135,7 +1135,7 @@ def revisions_revert(request, page_id, revision_id):
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_page_object()
 
-    content_type = ContentType.objects.get_for_model(page)
+    content_type = ContentType.objects.get_for_model(page, for_concrete_model=False)
     page_class = content_type.model_class()
 
     edit_handler = page_class.get_edit_handler()
