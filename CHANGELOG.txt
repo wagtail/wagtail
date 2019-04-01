@@ -4,6 +4,7 @@ Changelog
 2.5 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Django 2.2 support (Matt Westcott, Andy Babic)
  * Added support for customising EditHandler-based forms on a per-request basis (Bertrand Bordage)
  * Added more informative error message when `|richtext` filter is applied to a non-string value (mukesh5)
  * Automatic search indexing can now be disabled on a per-model basis via the `search_auto_update` attribute (Karl Hobley)

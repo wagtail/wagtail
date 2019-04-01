@@ -11,27 +11,30 @@ matrix:
      python: 3.4
    - env: TOXENV=py35-dj20-sqlite-noelasticsearch
      python: 3.5
-   - env: TOXENV=py35-dj21-sqlite-noelasticsearch
-     python: 3.5
    - env: TOXENV=py35-dj21-mysql-noelasticsearch
      python: 3.5
    - env: TOXENV=py36-dj20-postgres-noelasticsearch
      python: 3.6
    - env: TOXENV=py36-dj21-postgres-noelasticsearch
      python: 3.6
-   - env: TOXENV=py37-dj20-mysql-noelasticsearch
-     python: 3.7
-     dist: xenial
    - env: TOXENV=py37-dj21-postgres-noelasticsearch
      python: 3.7
      dist: xenial
-   - env: TOXENV=py37-dj21-sqlite-noelasticsearch
+   - env: TOXENV=py37-dj22-sqlite-noelasticsearch
      python: 3.7
      dist: xenial
-   - env: TOXENV=py36-dj22-postgres-noelasticsearch
-     python: 3.6
-   - env: TOXENV=py36-djmaster-postgres-noelasticsearch
-     python: 3.6
+   - env: TOXENV=py37-dj22-mysql-noelasticsearch
+     python: 3.7
+     dist: xenial
+   - env: TOXENV=py37-dj22-postgres-noelasticsearch
+     python: 3.7
+     dist: xenial
+   - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
+     python: 3.7
+     dist: xenial
+   - env: TOXENV=py37-djmaster-postgres-noelasticsearch
+     python: 3.7
+     dist: xenial
    - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.6
    - env: TOXENV=py36-dj21-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -42,7 +45,7 @@ matrix:
      python: 3.6
    - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
      python: 3.6
-   - env: TOXENV=py37-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+   - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
      python: 3.7
      dist: xenial
   allow_failures:
@@ -52,11 +55,11 @@ matrix:
     - env: TOXENV=py36-dj21-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
     - env: TOXENV=py36-dj20-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
-    - env: TOXENV=py37-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
-    # allow failures against Django 2.2 while support is still being worked on
-    - env: TOXENV=py36-dj22-postgres-noelasticsearch
+    - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    # allow failures against Django 2.2.x stable branch
+    - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
     # allow failures against Django master
-    - env: TOXENV=py36-djmaster-postgres-noelasticsearch
+    - env: TOXENV=py37-djmaster-postgres-noelasticsearch
 
 # Services
 services:

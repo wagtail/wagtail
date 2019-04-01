@@ -21,7 +21,7 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=2.0,<2.2",
+    "Django>=2.0,<2.3",
     "django-modelcluster>=4.2,<5.0",
     "django-taggit>=0.23,<0.24",
     "django-treebeard>=4.2.0,<5.0",
@@ -95,6 +95,7 @@ https://github.com/wagtail/wagtail/.",
         'Framework :: Django',
         'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',
+        'Framework :: Django :: 2.2',
         'Framework :: Wagtail',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
