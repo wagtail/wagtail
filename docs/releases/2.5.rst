@@ -13,7 +13,7 @@ What's new
 Django 2.2 support
 ~~~~~~~~~~~~~~~~~~
 
-This release is compatible with Django 2.1.  Compatibility fixes were contributed by Matt Westcott and Andy Babic.
+This release is compatible with Django 2.2.  Compatibility fixes were contributed by Matt Westcott and Andy Babic.
 
 
 New Markdown shortcuts in rich text
