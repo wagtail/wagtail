@@ -1,8 +1,8 @@
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
-from django.contrib.contenttypes.models import ContentType
 
 from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.core.utils import get_content_types_for_models
 
 
 class PermissionHelper:
@@ -112,7 +112,7 @@ class PagePermissionHelper(PermissionHelper):
         pages to make sure we have permission to add a subpage to it.
         """
         # Get queryset of pages where this page type can be added
-        allowed_parent_page_content_types = list(ContentType.objects.get_for_models(*self.model.allowed_parent_page_models()).values())
+        allowed_parent_page_content_types = list(get_content_types_for_models(*self.model.allowed_parent_page_models()).values())
         allowed_parent_pages = Page.objects.filter(content_type__in=allowed_parent_page_content_types)
 
         # Get queryset of pages where the user has permission to add subpages

@@ -30,7 +30,10 @@ from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import page_published, page_unpublished
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
-from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
+from wagtail.core.utils import (
+    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, get_content_type_for_model,
+    resolve_model_string
+)
 from wagtail.search import index
 
 logger = logging.getLogger('wagtail.core')
@@ -176,7 +179,7 @@ def get_default_page_content_type():
     Returns the content type to use as a default for pages whose content type
     has been deleted.
     """
-    return ContentType.objects.get_for_model(Page)
+    return get_content_type_for_model(Page)
 
 
 class BasePageManager(models.Manager):
@@ -363,7 +366,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if not self.content_type_id:
                 # set content type to correctly represent the model class
                 # that this was created as
-                self.content_type = ContentType.objects.get_for_model(self, for_concrete_model=False)
+                self.content_type = get_content_type_for_model(self)
             if 'show_in_menus' not in kwargs:
                 # if the value is not set on submit refer to the model setting
                 self.show_in_menus = self.show_in_menus_default
@@ -867,7 +870,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @classmethod
     def get_indexed_objects(cls):
-        content_type = ContentType.objects.get_for_model(cls, for_concrete_model=False)
+        content_type = get_content_type_for_model(cls)
         return super(Page, cls).get_indexed_objects().filter(content_type=content_type)
 
     def get_indexed_instance(self):

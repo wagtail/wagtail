@@ -8,6 +8,7 @@ from django.db.models.functions import Length, Substr
 from django.db.models.query import BaseIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
+from wagtail.core.utils import get_content_type_for_model, get_content_types_for_models
 from wagtail.search.queryset import SearchableQuerySetMixin
 
 
@@ -177,8 +178,8 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
             model for model in apps.get_models()
             if issubclass(model, klass)
         ]
-        content_types = ContentType.objects.get_for_models(subclasses, for_concrete_models=False)
-        return Q(content_type__in=list(content_types.values()))
+        content_types = list(get_content_types_for_models(*subclasses).values())
+        return Q(content_type__in=content_types)
 
     def type(self, model):
         """
@@ -194,7 +195,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.exclude(self.type_q(model))
 
     def exact_type_q(self, klass):
-        return Q(content_type=ContentType.objects.get_for_model(klass, for_concrete_model=False))
+        return Q(content_type=get_content_type_for_model(klass))
 
     def exact_type(self, model):
         """

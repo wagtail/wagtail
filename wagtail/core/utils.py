@@ -105,19 +105,27 @@ def accepts_kwarg(func, kwarg):
         return False
 
 
+def is_page_model(model):
+    # module loaded before apps are ready
+    from wagtail.core.models import Page
+
+    if isinstance(model, Page):
+        return True
+    try:
+        return issubclass(model, Page)
+    except TypeError:
+        return False
+
+
 def get_content_type_for_model(model):
     """
     A wrapper for ContentType.objects.get_for_model() that applies the correct
     value for `for_concrete_model` depending on whether Wagtail supports proxy
     models for type of model supplied (currently only subclasses of `Page`).
     """
-    # Importing here because module is loaded before apps are ready
+    # module loaded before apps are ready
     from django.contrib.contenttypes.models import ContentType
-    from wagtail.core.models import Page
-
-    return ContentType.objects.get_for_model(
-        model, for_concrete_model=not issubclass(type(model), Page)
-    )
+    return ContentType.objects.get_for_model(model, for_concrete_model=not is_page_model(model))
 
 
 def get_content_types_for_models(*models):
@@ -126,14 +134,13 @@ def get_content_types_for_models(*models):
     value for `for_concrete_model` depending on whether Wagtail supports proxy
     models for type of model supplied (currently only subclasses of `Page`).
     """
-    # Importing here because module is loaded before apps are ready
+    # module loaded before apps are ready
     from django.contrib.contenttypes.models import ContentType
-    from wagtail.core.models import Page
 
     page_models = []
     other_models = []
     for model in models:
-        if issubclass(model, Page):
+        if is_page_model(model):
             page_models.append(model)
         else:
             other_models.append(model)
