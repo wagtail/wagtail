@@ -111,10 +111,17 @@ class Block(metaclass=BaseBlock):
         return forms.Media()
 
     def prepare_value(self, value, errors=None):
+        """
+        Returns the value as it will be displayed in react-streamfield.
+        """
         return value
 
     def prepare_for_react(self, parent_block, value,
                           type_name=None, errors=None):
+        """
+        Returns the JSON data that will be used in JavaScript in order
+        to pass value and block instance metadata to react-streamfield.
+        """
         if type_name is None:
             type_name = self.name
         from .stream_block import StreamValue
