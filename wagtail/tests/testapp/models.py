@@ -741,6 +741,15 @@ class Advert(ClusterableModel):
 register_snippet(Advert)
 
 
+class ProxyAdvert(Advert):
+
+    class Meta:
+        proxy = True
+
+    def __str__(self):
+        return '%s (proxy)' % self.text
+
+
 class AdvertWithCustomPrimaryKey(ClusterableModel):
     advert_id = models.CharField(max_length=255, primary_key=True)
     url = models.URLField(null=True, blank=True)
