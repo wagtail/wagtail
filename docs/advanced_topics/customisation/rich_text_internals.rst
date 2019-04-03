@@ -97,7 +97,7 @@ The ``register_link_type`` method allows you to define a function to be called w
     def register_report_link(features):
         features.register_link_type('report', report_link_handler)
 
-It is also possible to define link rewrite handler for Wagtail’s built-in ``external`` and ``email`` link types. For example, if you want external links to have a ``rel="nofollow"`` attribute for SEO purposes:
+It is also possible to define link rewrite handler for Wagtail’s built-in ``external`` and ``email`` links, even though they do not have a predefined ``linktype``. For example, if you want external links to have a ``rel="nofollow"`` attribute for SEO purposes:
 
 .. code-block:: python
 

@@ -152,7 +152,7 @@ class TestLinkRewriterTagReplacing(TestCase):
         # we always have `page` rules by default
         rules = {
             'page': lambda attrs: '<a href="/article/{}">'.format(attrs['id']),
-            'external': lambda attrs: '<a target="_blank" href="{}">'.format(attrs['href']),
+            'external': lambda attrs: '<a rel="nofollow" href="{}">'.format(attrs['href']),
             'email': lambda attrs: '<a data-email="true" href="{}">'.format(attrs['href']),
             'custom': lambda attrs: '<a data-phone="true" href="{}">'.format(attrs['href']),
         }
@@ -164,7 +164,9 @@ class TestLinkRewriterTagReplacing(TestCase):
         # It should call appropriate rule supported linktypes (external or email)
         # based on the href value
         external_type_link = rewriter('<a href="https://wagtail.io/">')
-        self.assertEqual(external_type_link, '<a target="_blank" href="https://wagtail.io/">')
+        self.assertEqual(external_type_link, '<a rel="nofollow" href="https://wagtail.io/">')
+        external_type_link_http = rewriter('<a href="http://wagtail.io/">')
+        self.assertEqual(external_type_link_http, '<a rel="nofollow" href="http://wagtail.io/">')
         email_type_link = rewriter('<a href="mailto:test@wagtail.io">')
         self.assertEqual(email_type_link, '<a data-email="true" href="mailto:test@wagtail.io">')
 

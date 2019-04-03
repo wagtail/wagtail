@@ -59,10 +59,10 @@ class LinkRewriter:
             link_type = None
             href = attrs.get('href', None)
             if href:
-                # From href attribute we tried to detect only the linktypes that we
-                # currently support (`external` and `email`. `page` have default handler)
-                # from our link chooser.
-                if href.startswith(('http', 'https')):
+                # From href attribute we try to detect only the linktypes that we
+                # currently support (`external` & `email`, `page` has a default handler)
+                # from the link chooser.
+                if href.startswith(('http:', 'https:')):
                     link_type = 'external'
                 elif href.startswith('mailto:'):
                     link_type = 'email'
