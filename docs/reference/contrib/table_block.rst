@@ -24,7 +24,7 @@ Add ``"wagtail.contrib.table_block"`` to your INSTALLED_APPS:
 Basic Usage
 -----------
 
-After installation the TableBlock module can be used in a similar fashion to other StreamField blocks in the Wagtail core.
+After installation, the TableBlock module can be used in a similar fashion to other StreamField blocks in the Wagtail core.
 
 Just import the TableBlock ``from wagtail.contrib.table_block.blocks import TableBlock`` and add it to your StreamField declaration.
 
@@ -69,12 +69,12 @@ Every key in the ``table_options`` dictionary maps to a `handsontable <https://h
 * `minSpareRows <https://docs.handsontable.com/0.24.3/Options.html#minSpareRows>`_ - The number of rows to append to the end of an empty grid. The default setting is 0.
 * `startRows <https://docs.handsontable.com/0.24.3/Options.html#startRows>`_ - The default number of rows for a new table.
 * `startCols <https://docs.handsontable.com/0.24.3/Options.html#startCols>`_ - The default number of columns for new tables.
-* `colHeaders <https://docs.handsontable.com/0.24.3/Options.html#colHeaders>`_ - Can be set to ``True`` or ``False``. This setting designates if new tables should be created with column rows. **Note:** this only sets the behaviour for newly created tables. Page editors can override this by checking the the “Column header” checkbox in the table editor in the Wagtail admin.
-* `rowHeaders <https://docs.handsontable.com/0.24.3/Options.html#rowHeaders>`_ - Operates the same as ``colHeaders`` to designate if new tables should be created with the first row as a header. Just like ``colHeaders`` this option can be overridden by the page editor in the Wagtail admin.
+* `colHeaders <https://docs.handsontable.com/0.24.3/Options.html#colHeaders>`_ - Can be set to ``True`` or ``False``. This setting designates if new tables should be created with column headers. **Note:** this only sets the behaviour for newly created tables. Page editors can override this by checking the the “Column header” checkbox in the table editor in the Wagtail admin.
+* `rowHeaders <https://docs.handsontable.com/0.24.3/Options.html#rowHeaders>`_ - Operates the same as ``colHeaders`` to designate if new tables should be created with the first column as a row header. Just like ``colHeaders`` this option can be overridden by the page editor in the Wagtail admin.
 * `contextMenu <https://docs.handsontable.com/0.24.3/Options.html#contextMenu>`_ - Enables or disables the Handsontable right-click menu. By default this is set to ``True``.
 * `editor <https://docs.handsontable.com/0.24.3/Options.html#editor>`_ - Defines the editor used for table cells. The default setting is text.
 * `stretchH <https://docs.handsontable.com/0.24.3/Options.html#stretchH>`_ - Sets the default horizontal resizing of tables. Options include, 'none', 'last', and 'all'. By default TableBlock uses 'all' for the even resizing of columns.
-* `height <https://docs.handsontable.com/0.24.3/Options.html#height>`_ - The default height of the grid. By default TableBlock sets the height to ``108`` for the optimal appearance of new tables in the editor. This is optimized for tables with ``startRows`` set to ``3``. If you change the number of ``startRows`` in the configuration you might need to change the ``height`` setting to improve the default appearance in the editor.
+* `height <https://docs.handsontable.com/0.24.3/Options.html#height>`_ - The default height of the grid. By default TableBlock sets the height to ``108`` for the optimal appearance of new tables in the editor. This is optimized for tables with ``startRows`` set to ``3``. If you change the number of ``startRows`` in the configuration, you might need to change the ``height`` setting to improve the default appearance in the editor.
 * `language <https://docs.handsontable.com/0.24.3/Options.html#language>`_ - The default language setting. By default TableBlock tries to get the language from ``django.utils.translation.get_language``. If needed, this setting can be overridden here.
 * `renderer <https://docs.handsontable.com/0.24.3/Options.html#renderer>`_ - The default setting Handsontable uses to render the content of table cells.
 * `autoColumnSize <https://docs.handsontable.com/0.24.3/Options.html#autoColumnSize>`_ - Enables or disables the ``autoColumnSize`` plugin. The TableBlock default setting is ``False``.
