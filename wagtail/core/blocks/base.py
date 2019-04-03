@@ -49,9 +49,6 @@ class Block(metaclass=BaseBlock):
 
     FIELD_NAME_TEMPLATE = 'field-__ID__'
 
-    SIMPLE = 'SIMPLE'
-    COLLAPSIBLE = 'COLLAPSIBLE'
-
     class Meta:
         label = None
         icon = "placeholder"
@@ -113,9 +110,6 @@ class Block(metaclass=BaseBlock):
     def media(self):
         return forms.Media()
 
-    def get_layout(self):
-        return self.SIMPLE
-
     def prepare_value(self, value, errors=None):
         return value
 
@@ -156,7 +150,6 @@ class Block(metaclass=BaseBlock):
             'key': self.name,
             'label': capfirst(self.label),
             'required': self.required,
-            'layout': self.get_layout(),
             'dangerouslyRunInnerScripts': True,
         }
         if self.meta.icon != Block._meta_class.icon:
