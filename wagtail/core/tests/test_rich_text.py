@@ -7,7 +7,7 @@ from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
 from wagtail.core.rich_text.pages import PageLinkHandler, page_linktype_handler
-from wagtail.core.rich_text.rewriters import extract_attrs
+from wagtail.core.rich_text.rewriters import LinkRewriter, extract_attrs
 
 
 class TestPageLinkHandler(TestCase):
@@ -117,3 +117,63 @@ class TestFeatureRegistry(TestCase):
         self.assertIsNone(
             features.get_editor_plugin('hallo', 'made_up_feature')
         )
+
+
+class TestLinkRewriterTagReplacing(TestCase):
+    def test_should_follow_default_behaviour(self):
+        # we always have default `page` rules registered.
+        rules = {
+            'page': lambda attrs: '<a href="/article/{}">'.format(attrs['id'])
+        }
+        rewriter = LinkRewriter(rules)
+
+        page_type_link = rewriter('<a linktype="page" id="3">')
+        self.assertEqual(page_type_link, '<a href="/article/3">')
+
+        # but it should also be able to handle other supported
+        # link types (email, external) even if no rules is provided
+        external_type_link = rewriter('<a href="https://wagtail.io/">')
+        self.assertEqual(external_type_link, '<a href="https://wagtail.io/">')
+        email_type_link = rewriter('<a href="mailto:test@wagtail.io">')
+        self.assertEqual(email_type_link, '<a href="mailto:test@wagtail.io">')
+
+        # As well as link which don't have any linktypes
+        link_without_linktype = rewriter('<a data-link="https://wagtail.io">')
+        self.assertEqual(link_without_linktype, '<a data-link="https://wagtail.io">')
+
+        # But should not handle if a custom linktype is mentioned but no
+        # associate rules are registered.
+        link_with_custom_linktype = rewriter('<a linktype="custom" href="https://wagtail.io">')
+        self.assertNotEqual(link_with_custom_linktype, '<a href="https://wagtail.io">')
+        self.assertEqual(link_with_custom_linktype, '<a>')
+
+
+    def test_supported_type_should_follow_given_rules(self):
+        # we always have `page` rules by default
+        rules = {
+            'page': lambda attrs: '<a href="/article/{}">'.format(attrs['id']),
+            'external': lambda attrs: '<a rel="nofollow" href="{}">'.format(attrs['href']),
+            'email': lambda attrs: '<a data-email="true" href="{}">'.format(attrs['href']),
+            'custom': lambda attrs: '<a data-phone="true" href="{}">'.format(attrs['href']),
+        }
+        rewriter = LinkRewriter(rules)
+
+        page_type_link = rewriter('<a linktype="page" id="3">')
+        self.assertEqual(page_type_link, '<a href="/article/3">')
+
+        # It should call appropriate rule supported linktypes (external or email)
+        # based on the href value
+        external_type_link = rewriter('<a href="https://wagtail.io/">')
+        self.assertEqual(external_type_link, '<a rel="nofollow" href="https://wagtail.io/">')
+        external_type_link_http = rewriter('<a href="http://wagtail.io/">')
+        self.assertEqual(external_type_link_http, '<a rel="nofollow" href="http://wagtail.io/">')
+        email_type_link = rewriter('<a href="mailto:test@wagtail.io">')
+        self.assertEqual(email_type_link, '<a data-email="true" href="mailto:test@wagtail.io">')
+
+        # But not the unsupported ones.
+        link_with_no_linktype = rewriter('<a href="tel:+4917640206387">')
+        self.assertEqual(link_with_no_linktype, '<a href="tel:+4917640206387">')
+
+        # Also call the rule if a custom linktype is mentioned.
+        link_with_custom_linktype = rewriter('<a linktype="custom" href="tel:+4917640206387">')
+        self.assertEqual(link_with_custom_linktype, '<a data-phone="true" href="tel:+4917640206387">')
