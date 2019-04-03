@@ -48,6 +48,7 @@ Bug fixes
  * Ensure that ``editor`` and ``features`` arguments on RichTextField are preserved by ``clone()`` (Daniel Fairhead)
  * Rename 'spin' CSS animation to avoid clashes with other libraries (Kevin Gutiérrez)
  * Prevent crash when copying a page from a section where the user has no publish permission (Karl Hobley)
+ * Ensure that rich text conversion correctly handles images / embeds inside links or inline styles (Matt Westcott)
 
 Upgrade considerations
 ======================

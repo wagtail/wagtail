@@ -37,6 +37,7 @@ Changelog
  * Fix: Ensure that `editor` and `features` arguments on RichTextField are preserved by `clone()` (Daniel Fairhead)
  * Fix: Rename 'spin' CSS animation to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: Prevent crash when copying a page from a section where the user has no publish permission (Karl Hobley)
+ * Fix: Ensure that rich text conversion correctly handles images / embeds inside links or inline styles (Matt Westcott)
 
 
 2.13.4 (13.07.2021)
