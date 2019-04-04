@@ -1310,13 +1310,13 @@ class TestIsCreatable(TestCase):
 class TestDeferredPageClasses(TestCase):
     def test_deferred_page_classes_are_not_registered(self):
         """
-        In Django <1.10, a call to `defer` such as `SimplePage.objects.defer('content')`
-        will dynamically create a subclass of SimplePage. Ensure that these subclasses
+        In Django <1.10, a call to `defer` such as `EventIndex.objects.defer('content')`
+        will dynamically create a subclass of EventIndex. Ensure that these subclasses
         are not registered in the get_page_models() list
         """
-        list(SimplePage.objects.defer('content'))
-        simplepage_subclasses = [cls for cls in get_page_models() if issubclass(cls, SimplePage)]
-        self.assertEqual(simplepage_subclasses, [SimplePage])
+        list(EventIndex.objects.defer('intro'))
+        subclasses = [cls for cls in get_page_models() if issubclass(cls, EventIndex)]
+        self.assertEqual(subclasses, [EventIndex])
 
 
 class TestPageManager(TestCase):
