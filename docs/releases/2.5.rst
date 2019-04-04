@@ -85,6 +85,7 @@ Bug fixes
  * Removing rich text links / documents now also works when the text selection is backwards (Thibaud Colas)
  * Prevent the rich text editor from crashing when copy-paste filtering removes all of its content (Thibaud Colas)
  * Page chooser now respects custom ``get_admin_display_title`` methods on parent page and breadcrumb (Haydn Greatnews)
+ * Added consistent whitespace around sortable table headings (Matt Westcott)
 
 
 Upgrade considerations
