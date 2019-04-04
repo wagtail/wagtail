@@ -1050,11 +1050,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Log
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
-    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None, process_child_object=None):
+    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None, process_child_object=None, exclude_fields=None):
         # Fill dict with self.specific values
         specific_self = self.specific
         default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
-        exclude_fields = default_exclude_fields + specific_self.exclude_fields_in_copy
+        exclude_fields = default_exclude_fields + specific_self.exclude_fields_in_copy + (exclude_fields or [])
         specific_dict = {}
 
         for field in specific_self._meta.get_fields():
@@ -1117,6 +1117,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         specific_self = self.specific
         for child_relation in get_all_child_relations(specific_self):
             accessor_name = child_relation.get_accessor_name()
+
+            if accessor_name in exclude_fields:
+                continue
+
             parental_key_name = child_relation.field.attname
             child_objects = getattr(specific_self, accessor_name, None)
 
