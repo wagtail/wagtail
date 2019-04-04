@@ -5,7 +5,6 @@ import pytz
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.mail import get_connection
 from django.core.mail.message import EmailMultiAlternatives
