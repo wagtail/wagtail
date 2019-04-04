@@ -46,5 +46,5 @@ def editor_js():
 
 @hooks.register('register_permissions')
 def register_permissions():
-    content_types = list(get_content_types_for_models(*get_snippet_models()).values())
+    content_types = get_content_types_for_models(*get_snippet_models()).values()
     return Permission.objects.filter(content_type__in=content_types)

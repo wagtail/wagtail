@@ -99,7 +99,7 @@ def popular_tags_for_model(model, count=10):
     """Return a queryset of the most frequently used tags used on this model class"""
     content_type = get_content_type_for_model(model)
     return Tag.objects.filter(
-        taggit_taggeditem_items__content_type_id=content_type.pk
+        taggit_taggeditem_items__content_type=content_type
     ).annotate(
         item_count=Count('taggit_taggeditem_items')
     ).order_by('-item_count')[:count]

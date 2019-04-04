@@ -174,12 +174,11 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.exclude(self.page_q(other))
 
     def type_q(self, klass):
-        subclasses = [
+        content_types = get_content_types_for_models(*[
             model for model in apps.get_models()
             if issubclass(model, klass)
-        ]
-        content_types = list(get_content_types_for_models(*subclasses).values())
-        return Q(content_type__in=content_types)
+        ]).values()
+        return Q(content_type__in=list(content_types))
 
     def type(self, model):
         """
