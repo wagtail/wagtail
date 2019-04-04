@@ -1406,6 +1406,32 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         context['action_url'] = action_url
         return TemplateResponse(request, self.password_required_template, context)
 
+    def with_content_json(self, content_json):
+        obj = self.specific_class.from_json(content_json)
+
+        # Override the possibly-outdated tree parameter fields from this revision object
+        # with up-to-date values
+        obj.pk = self.pk
+        obj.path = self.path
+        obj.depth = self.depth
+        obj.numchild = self.numchild
+
+        # Populate url_path based on the revision's current slug and the parent page as determined
+        # by path
+        obj.set_url_path(self.get_parent())
+
+        # also copy over other properties which are meaningful for the page as a whole, not a
+        # specific revision of it
+        obj.draft_title = self.draft_title
+        obj.live = self.live
+        obj.has_unpublished_changes = self.has_unpublished_changes
+        obj.owner = self.owner
+        obj.locked = self.locked
+        obj.latest_revision_created_at = self.latest_revision_created_at
+        obj.first_published_at = self.first_published_at
+
+        return obj
+
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
@@ -1456,30 +1482,7 @@ class PageRevision(models.Model):
             self.page.revisions.exclude(id=self.id).update(submitted_for_moderation=False)
 
     def as_page_object(self):
-        obj = self.page.specific_class.from_json(self.content_json)
-
-        # Override the possibly-outdated tree parameter fields from this revision object
-        # with up-to-date values
-        obj.pk = self.page.pk
-        obj.path = self.page.path
-        obj.depth = self.page.depth
-        obj.numchild = self.page.numchild
-
-        # Populate url_path based on the revision's current slug and the parent page as determined
-        # by path
-        obj.set_url_path(self.page.get_parent())
-
-        # also copy over other properties which are meaningful for the page as a whole, not a
-        # specific revision of it
-        obj.draft_title = self.page.draft_title
-        obj.live = self.page.live
-        obj.has_unpublished_changes = self.page.has_unpublished_changes
-        obj.owner = self.page.owner
-        obj.locked = self.page.locked
-        obj.latest_revision_created_at = self.page.latest_revision_created_at
-        obj.first_published_at = self.page.first_published_at
-
-        return obj
+        return self.page.with_content_json(self.content_json)
 
     def approve_moderation(self):
         if self.submitted_for_moderation:
