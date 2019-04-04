@@ -3,7 +3,9 @@ from django.test import TestCase
 from django.utils.text import slugify
 
 from wagtail.core.models import Page
-from wagtail.core.utils import accepts_kwarg, cautious_slugify, get_content_type_for_model, get_content_types_for_models
+from wagtail.core.utils import (
+    accepts_kwarg, cautious_slugify, get_content_type_for_model, get_content_types_for_models
+)
 from wagtail.tests.testapp.models import Advert, ProxyAdvert, SimplePage, SimpleProxyPage
 
 
