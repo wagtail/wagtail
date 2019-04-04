@@ -3,19 +3,25 @@
     <thead>
         <tr>
             <th class="name">
-                {% trans "Name" %}
                 {% if ordering == "name" %}
-                    <a href="{% url 'wagtailusers_users:index' %}" class="icon icon-arrow-down-after teal"></a>
+                    <a href="{% url 'wagtailusers_users:index' %}" class="icon icon-arrow-down-after teal">
+                        {% trans "Name" %}
+                    </a>
                 {% else %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=name" class="icon icon-arrow-down-after"></a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=name" class="icon icon-arrow-down-after">
+                        {% trans "Name" %}
+                    </a>
                 {% endif %}
             </th>
             <th class="username">
-                {% trans "Username" %}
                 {% if ordering == "username" %}
-                    <a href="{% url 'wagtailusers_users:index' %}" class="icon icon-arrow-down-after teal"></a>
+                    <a href="{% url 'wagtailusers_users:index' %}" class="icon icon-arrow-down-after teal">
+                        {% trans "Username" %}
+                    </a>
                 {% else %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=username" class="icon icon-arrow-down-after"></a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=username" class="icon icon-arrow-down-after">
+                        {% trans "Username" %}
+                    </a>
                 {% endif %}
             </th>
             <th class="level">{% trans "Level" %}</th>
