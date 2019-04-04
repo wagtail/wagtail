@@ -8,6 +8,7 @@ Advanced topics
     images/index
     documents/index
     embeds
+    proxy_models
     settings
     deploying
     performance
