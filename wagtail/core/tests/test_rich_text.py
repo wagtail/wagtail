@@ -4,7 +4,7 @@ from django.test import TestCase
 
 from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
-from wagtail.core.rich_text.pages import page_linktype_handler
+from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.rich_text.rewriters import LinkRewriter, extract_attrs
 
 
@@ -12,11 +12,11 @@ class TestPageLinktypeHandler(TestCase):
     fixtures = ['test.json']
 
     def test_expand_db_attributes_page_does_not_exist(self):
-        result = page_linktype_handler({'id': 0})
+        result = PageLinkHandler.expand_db_attributes({'id': 0})
         self.assertEqual(result, '<a>')
 
     def test_expand_db_attributes_not_for_editor(self):
-        result = page_linktype_handler({'id': 1})
+        result = PageLinkHandler.expand_db_attributes({'id': 1})
         self.assertEqual(result, '<a href="None">')
 
 
