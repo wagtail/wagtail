@@ -14,8 +14,9 @@ from wagtail.images import admin_urls, get_image_model, image_operations
 from wagtail.images.api.admin.endpoints import ImagesAdminAPIEndpoint
 from wagtail.images.forms import GroupImagePermissionFormSet
 from wagtail.images.permissions import permission_policy
-from wagtail.images.rich_text import (
-    ContentstateImageConversionRule, EditorHTMLImageConversionRule, image_embedtype_handler)
+from wagtail.images.rich_text import image_embedtype_handler
+from wagtail.images.rich_text.contentstate import ContentstateImageConversionRule
+from wagtail.images.rich_text.editor_html import EditorHTMLImageConversionRule
 
 
 @hooks.register('register_admin_urls')

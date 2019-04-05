@@ -1,42 +1,19 @@
 from unittest.mock import patch
 
-from bs4 import BeautifulSoup
 from django.test import TestCase
 
-from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
-from wagtail.core.rich_text.pages import PageLinkHandler, page_linktype_handler
+from wagtail.core.rich_text.pages import page_linktype_handler
 from wagtail.core.rich_text.rewriters import LinkRewriter, extract_attrs
 
 
-class TestPageLinkHandler(TestCase):
+class TestPageLinktypeHandler(TestCase):
     fixtures = ['test.json']
-
-    def test_get_db_attributes(self):
-        soup = BeautifulSoup('<a data-id="test-id">foo</a>', 'html5lib')
-        tag = soup.a
-        result = PageLinkHandler.get_db_attributes(tag)
-        self.assertEqual(result,
-                         {'id': 'test-id'})
 
     def test_expand_db_attributes_page_does_not_exist(self):
         result = page_linktype_handler({'id': 0})
         self.assertEqual(result, '<a>')
-
-    def test_expand_db_attributes_for_editor(self):
-        result = PageLinkHandler.expand_db_attributes({'id': 1})
-        self.assertEqual(
-            result,
-            '<a data-linktype="page" data-id="1" href="None">'
-        )
-
-        events_page_id = Page.objects.get(url_path='/home/events/').pk
-        result = PageLinkHandler.expand_db_attributes({'id': events_page_id})
-        self.assertEqual(
-            result,
-            '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">' % events_page_id
-        )
 
     def test_expand_db_attributes_not_for_editor(self):
         result = page_linktype_handler({'id': 1})

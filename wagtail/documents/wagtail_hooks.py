@@ -19,9 +19,9 @@ from wagtail.documents.api.admin.endpoints import DocumentsAdminAPIEndpoint
 from wagtail.documents.forms import GroupDocumentPermissionFormSet
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
-from wagtail.documents.rich_text import (
-    ContentstateDocumentLinkConversionRule, EditorHTMLDocumentLinkConversionRule,
-    document_linktype_handler)
+from wagtail.documents.rich_text import document_linktype_handler
+from wagtail.documents.rich_text.contentstate import ContentstateDocumentLinkConversionRule
+from wagtail.documents.rich_text.editor_html import EditorHTMLDocumentLinkConversionRule
 
 
 @hooks.register('register_admin_urls')

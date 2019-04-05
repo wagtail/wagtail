@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from wagtail.admin.rich_text import (
     DraftailRichTextArea, HalloRichTextArea, get_rich_text_editor_widget)
+from wagtail.admin.rich_text.converters.editor_html import PageLinkHandler
 from wagtail.core.blocks import RichTextBlock
 from wagtail.core.models import Page, get_page_models
 from wagtail.core.rich_text import features as feature_registry
@@ -716,3 +717,28 @@ class TestWidgetRendering(TestCase, WagtailTestUtils):
         result_value = soup.textarea.string
 
         self.assertHTMLEqual(result_value, '<p>a <a data-linktype="page" data-id="3" data-parent-id="2" href="/events/">page</a> and a <a>document</a></p>')
+
+
+class TestPageLinkHandler(TestCase):
+    fixtures = ['test.json']
+
+    def test_get_db_attributes(self):
+        soup = BeautifulSoup('<a data-id="test-id">foo</a>', 'html5lib')
+        tag = soup.a
+        result = PageLinkHandler.get_db_attributes(tag)
+        self.assertEqual(result,
+                         {'id': 'test-id'})
+
+    def test_expand_db_attributes_for_editor(self):
+        result = PageLinkHandler.expand_db_attributes({'id': 1})
+        self.assertEqual(
+            result,
+            '<a data-linktype="page" data-id="1" href="None">'
+        )
+
+        events_page_id = Page.objects.get(url_path='/home/events/').pk
+        result = PageLinkHandler.expand_db_attributes({'id': events_page_id})
+        self.assertEqual(
+            result,
+            '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">' % events_page_id
+        )
