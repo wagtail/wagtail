@@ -993,6 +993,13 @@ If you change an existing RichTextField to a StreamField, and create and run mig
             # leave the dependency line from the generated migration intact!
             ('demo', '0001_initial'),
         ]
+        
+        # leave the generated AlterField intact!
+        migrations.AlterField(
+            model_name='BlogPage',
+            name='body',
+            field=wagtail.core.fields.StreamField([('rich_text', wagtail.core.blocks.RichTextBlock())]),
+        ),
 
         operations = [
             migrations.RunPython(
@@ -1104,6 +1111,13 @@ Note that the above migration will work on published Page objects only. If you a
             # leave the dependency line from the generated migration intact!
             ('demo', '0001_initial'),
         ]
+        
+        # leave the generated AlterField intact!
+        migrations.AlterField(
+            model_name='BlogPage',
+            name='body',
+            field=wagtail.core.fields.StreamField([('rich_text', wagtail.core.blocks.RichTextBlock())]),
+        ),
 
         operations = [
             migrations.RunPython(
