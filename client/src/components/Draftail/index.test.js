@@ -48,6 +48,7 @@ describe('Draftail', () => {
           { type: 'IMAGE' },
         ],
         enableHorizontalRule: true,
+        enableLineBreak: true,
       });
 
       expect(field.draftailEditor.props).toMatchSnapshot();

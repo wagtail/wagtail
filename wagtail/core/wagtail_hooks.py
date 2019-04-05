@@ -38,6 +38,7 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
 @hooks.register('register_rich_text_features')
 def register_core_features(features):
     features.default_features.append('hr')
+    features.default_features.append('br')
 
     features.default_features.append('link')
     features.register_link_type('page', page_linktype_handler)

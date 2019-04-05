@@ -79,7 +79,7 @@ The feature identifiers provided on a default Wagtail installation are as follow
  * ``h1``, ``h2``, ``h3``, ``h4``, ``h5``, ``h6`` - heading elements
  * ``bold``, ``italic`` - bold / italic text
  * ``ol``, ``ul`` - ordered / unordered lists
- * ``hr`` - horizontal rules
+ * ``hr``, ``br``  - horizontal rules / soft line break
  * ``link`` - page, external and email links
  * ``document-link`` - links to documents
  * ``image`` - embedded images

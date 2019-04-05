@@ -716,3 +716,39 @@ class TestWidgetRendering(TestCase, WagtailTestUtils):
         result_value = soup.textarea.string
 
         self.assertHTMLEqual(result_value, '<p>a <a data-linktype="page" data-id="3" data-parent-id="2" href="/events/">page</a> and a <a>document</a></p>')
+
+
+class TestLineBreakIsConfigurable(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+
+    def setUp(self):
+        super().setUp()
+
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        self.login()
+
+    @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+        'default': {
+            'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        },
+    })
+    def test_line_break_is_added_by_default(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichtextfieldpage', self.root_page.id)
+        ))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"enableLineBreak": true')
+
+    @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+        'default': {
+            'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+            'OPTIONS': {'features': ['h2']}
+        },
+    })
+    def test_line_break_can_be_excluded(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichtextfieldpage', self.root_page.id)
+        ))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, '"enableLineBreak"')

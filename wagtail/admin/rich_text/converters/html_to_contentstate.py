@@ -275,7 +275,6 @@ class HtmlToContentStateHandler(HTMLParser):
         self.paragraph_handler = BlockElementHandler('unstyled')
         self.element_handlers = HTMLRuleset({
             'p': self.paragraph_handler,
-            'br': LineBreakHandler(),
         })
         for feature in features:
             rule = feature_registry.get_converter_rule('contentstate', feature)
