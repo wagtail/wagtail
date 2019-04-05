@@ -971,7 +971,7 @@ If you subclass any other block class, such as ``FieldBlock``, you will need to 
 Migrating RichTextFields to StreamField
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you change an existing RichTextField to a StreamField and create and run migrations as normal, the migration will complete with no errors, since both fields use a text column within the database. However, StreamField uses a JSON representation for its data, so the existing text needs to be converted with a data migration in order to become accessible again. For this to work, the StreamField needs to include a RichTextBlock as one of the available block types. The field can then be converted by creating a new migration (``./manage.py makemigrations --empty myapp``) and editing it as follows (in this example, the 'body' field of the ``demo.BlogPage`` model is being converted to a StreamField with a RichTextBlock named ``rich_text``):
+If you change an existing RichTextField to a StreamField, the database migration will complete with no errors, since both fields use a text column within the database. However, StreamField uses a JSON representation for its data, so the existing text requires an extra conversion step in order to become accessible again. For this to work, the StreamField needs to include a RichTextBlock as one of the available block types. (When updating the model, don't forget to change ``FieldPanel`` to ``StreamFieldPanel`` too.) Create the migration as normal using ``./manage.py makemigrations``, then edit it as follows (in this example, the 'body' field of the ``demo.BlogPage`` model is being converted to a StreamField with a RichTextBlock named ``rich_text``):
 
 .. code-block:: python
 
@@ -1008,6 +1008,13 @@ If you change an existing RichTextField to a StreamField and create and run migr
         ]
 
         operations = [
+            # leave the generated AlterField intact!
+            migrations.AlterField(
+                model_name='BlogPage',
+                name='body',
+                field=wagtail.core.fields.StreamField([('rich_text', wagtail.core.blocks.RichTextBlock())]),
+            ),
+
             migrations.RunPython(
                 convert_to_streamfield,
                 convert_to_richtext,
@@ -1015,7 +1022,7 @@ If you change an existing RichTextField to a StreamField and create and run migr
         ]
 
 
-Note that the above migration will work on published Page objects only. If you also need to migrate draft pages and page revisions, then edit your new data migration as in the following example instead:
+Note that the above migration will work on published Page objects only. If you also need to migrate draft pages and page revisions, then edit the migration as in the following example instead:
 
 .. code-block:: python
 
@@ -1119,6 +1126,13 @@ Note that the above migration will work on published Page objects only. If you a
         ]
 
         operations = [
+            # leave the generated AlterField intact!
+            migrations.AlterField(
+                model_name='BlogPage',
+                name='body',
+                field=wagtail.core.fields.StreamField([('rich_text', wagtail.core.blocks.RichTextBlock())]),
+            ),
+
             migrations.RunPython(
                 convert_to_streamfield,
                 convert_to_richtext,

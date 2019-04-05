@@ -361,6 +361,7 @@ Contributors
 * Tom Usher
 * Haydn Greatnews
 * Katie Locke
+* Cassidy Brooke
 
 Translators
 ===========
