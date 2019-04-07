@@ -22,7 +22,7 @@
     "fields": {
         "title": "Welcome to the Wagtail test site!",
         "draft_title": "Welcome to the Wagtail test site!",
-        "numchild": 5,
+        "numchild": 6,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -230,6 +230,30 @@
         "location": "Hobart",
         "body": "<p>Party time</p>",
         "cost": "free"
+    }
+},
+
+{
+    "pk": 13,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Proxy page types work now!",
+        "draft_title": "Proxy page types work now!",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simpleproxypage"],
+        "path": "000100010006",
+        "url_path": "/home/simple-proxy-page/",
+        "slug": "simple-proxy-page"
+    }
+},
+{
+    "pk": 13,
+    "model": "tests.simpleproxypage",
+    "fields": {
+        "content": "<p>Yey! Thank you Wagtail!</p>"
     }
 },
 
