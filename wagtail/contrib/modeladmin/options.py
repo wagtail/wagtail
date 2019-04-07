@@ -12,8 +12,8 @@ from wagtail.core import hooks
 from wagtail.core.models import Page
 
 from .helpers import (
-    AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
-    PermissionHelper)
+    AdminURLHelper, ButtonHelper, DjangoORMSearchHandler, PageAdminURLHelper, PageButtonHelper,
+    PagePermissionHelper, PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
 from .mixins import ThumbnailMixin  # NOQA
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
@@ -96,6 +96,8 @@ class ModelAdmin(WagtailRegisterable):
     inspect_template_name = ''
     delete_template_name = ''
     choose_parent_template_name = ''
+    search_handler_class = DjangoORMSearchHandler
+    extra_search_kwargs = {}
     permission_helper_class = None
     url_helper_class = None
     button_helper_class = None
@@ -237,6 +239,22 @@ class ModelAdmin(WagtailRegisterable):
         when a search is initiated from the list view.
         """
         return self.search_fields or ()
+
+    def get_search_handler(self, request, search_fields=None):
+        """
+        Returns an instance of ``self.search_handler_class`` that can be used by
+        ``IndexView``.
+        """
+        return self.search_handler_class(
+            search_fields or self.get_search_fields(request)
+        )
+
+    def get_extra_search_kwargs(self, request, search_term):
+        """
+        Returns a dictionary of additional kwargs to be sent to
+        ``SearchHandler.search_queryset()``.
+        """
+        return self.extra_search_kwargs
 
     def get_extra_attrs_for_row(self, obj, context):
         """

@@ -44,7 +44,7 @@ class TestIndexView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
 
-        # There are two eventpage's where the title contains 'Someone'
+        # There is one eventpage where the title contains 'Someone'
         self.assertEqual(response.context['result_count'], 1)
 
     def test_ordering(self):

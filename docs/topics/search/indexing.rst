@@ -99,6 +99,8 @@ This creates an ``EventPage`` model with two fields: ``description`` and ``date`
     >>> EventPage.objects.filter(date__gt=timezone.now()).search("Christmas")
 
 
+.. _wagtailsearch_index_searchfield:
+
 ``index.SearchField``
 ---------------------
 
@@ -112,6 +114,8 @@ Options
  - **boost** (``int/float``) - This allows you to set fields as being more important than others. Setting this to a high number on a field will cause pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
  - **es_extra** (``dict``) - This field is to allow the developer to set or override any setting on the field in the ElasticSearch mapping. Use this if you want to make use of any ElasticSearch features that are not yet supported in Wagtail.
 
+
+.. _wagtailsearch_index_filterfield:
 
 ``index.FilterField``
 ---------------------
