@@ -18,7 +18,7 @@ from wagtail.tests.testapp.models import (
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
     CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
     MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimpleChildPage,
-    SimplePage, SimpleProxyPage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex,
+    SimplePage, SimpleParentPage, SimpleProxyPage, SingleEventPage, SingletonPage, StandardIndex,
     TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
