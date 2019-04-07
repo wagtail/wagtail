@@ -1405,6 +1405,28 @@ class TestPageManager(TestCase):
         self.assertIs(type(MyCustomPage.objects), CustomManager)
 
 
+class TestPageManagerForProxyPageModel(TestCase):
+    fixtures = ['test.json']
+
+    def test_page_manager_for_proxy_model(self):
+        """
+        Assert that, for proxy page models, PageManger provides querysets
+        filtered to the proxy model's content type instead of giving the
+        same results as the PageManager for the concrete model.
+        """
+        all_simple_pages = SimplePage.objects.all()
+        proxy_simple_pages = SimpleProxyPage.objects.all()
+
+        # Assert proxy_simple_pages is a subset of all_simple_pages
+        self.assertLess(len(proxy_simple_pages), len(all_simple_pages))
+        for obj in proxy_simple_pages:
+            self.assertIn(obj, all_simple_pages)
+
+        # Assert every item in proxy_simple_pages is a SimpleProxyPage
+        for obj in proxy_simple_pages:
+            self.assertIsInstance(obj, SimpleProxyPage)
+
+
 class TestIssue2024(TestCase):
     """
     This tests that deleting a content type can't delete any Page objects.
