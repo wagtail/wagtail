@@ -184,7 +184,11 @@ def get_default_page_content_type():
 
 class BasePageManager(models.Manager):
     def get_queryset(self):
-        return self._queryset_class(self.model).order_by('path')
+        qs = self._queryset_class(self.model).order_by('path')
+        # Restrict proxy model querysets to the exact type
+        if self.model._meta.proxy:
+            return qs.exact_type(self.model)
+        return qs
 
 
 PageManager = BasePageManager.from_queryset(PageQuerySet)
