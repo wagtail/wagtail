@@ -605,7 +605,7 @@
         "live": true,
         "depth": 3,
         "content_type": ["tests", "simpleproxypage"],
-        "path": "00010001000a",
+        "path": "00010001000A",
         "url_path": "/home/proxy-page-types/",
         "slug": "proxy-page-types"
     }
