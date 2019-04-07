@@ -101,7 +101,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         # child pages should be most recent first
         # (with null latest_revision_created_at at the end)
         page_ids = [page.id for page in response.context['pages']]
-        self.assertEqual(page_ids, [self.new_page.id, self.old_page.id, self.child_page.id, self.proxy_child_page.id])
+        self.assertEqual(page_ids, [self.proxy_child_page.id, self.new_page.id, self.old_page.id, self.child_page.id])
 
     def test_explore_root(self):
         response = self.client.get(reverse('wagtailadmin_explore_root'))
@@ -160,7 +160,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         # child pages should be oldest revision first
         # (with null latest_revision_created_at at the start)
         page_ids = [page.id for page in response.context['pages']]
-        self.assertEqual(page_ids, [self.child_page.id, self.proxy_child_page.id, self.old_page.id, self.new_page.id])
+        self.assertEqual(page_ids, [self.child_page.id, self.old_page.id, self.new_page.id, self.proxy_child_page.id])
 
     def test_invalid_ordering(self):
         response = self.client.get(
