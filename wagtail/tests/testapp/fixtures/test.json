@@ -25,7 +25,7 @@
     "fields": {
         "title": "Welcome to the Wagtail test site!",
         "draft_title": "Welcome to the Wagtail test site!",
-        "numchild": 9,
+        "numchild": 10,
         "show_in_menus": false,
         "live": true,
         "depth": 2,
@@ -591,6 +591,30 @@
     "model": "tests.simplepage",
     "fields": {
         "content": "<p>collect logs</p>"
+    }
+},
+
+{
+    "pk": 21,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "Proxy page types work now!",
+        "draft_title": "Proxy page types work now!",
+        "numchild": 0,
+        "show_in_menus": true,
+        "live": true,
+        "depth": 3,
+        "content_type": ["tests", "simpleproxypage"],
+        "path": "00010001000a",
+        "url_path": "/home/proxy-page-types/",
+        "slug": "proxy-page-types"
+    }
+},
+{
+    "pk": 21,
+    "model": "tests.simpleproxypage",
+    "fields": {
+        "content": "<p>Yey! Thank you Wagtail!</p>"
     }
 },
 

@@ -18,7 +18,8 @@ from wagtail.tests.testapp.models import (
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
     CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
     MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimpleChildPage,
-    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
+    SimplePage, SimpleProxyPage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex,
+    TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -39,7 +40,21 @@ class TestValidation(TestCase):
 
         # check that hello_page exists in the db
         retrieved_page = Page.objects.get(id=hello_page.id)
+        self.assertIs(retrieved_page.specific_class, SimplePage)
         self.assertEqual(retrieved_page.title, "Hello world")
+
+    def test_can_create_proxy_page_type_instance(self):
+        """
+        Check that basic page creation works for a proxy page type
+        """
+        homepage = Page.objects.get(url_path='/home/')
+        proxy_page = SimpleProxyPage(title="Jello world", slug='jello-world', content="jello")
+        homepage.add_child(instance=proxy_page)
+
+        # check that hello_page exists in the db
+        retrieved_page = Page.objects.get(id=proxy_page.id)
+        self.assertIs(retrieved_page.specific_class, SimpleProxyPage)
+        self.assertEqual(retrieved_page.title, "Jello world")
 
     def test_title_is_required(self):
         homepage = Page.objects.get(url_path='/home/')
@@ -334,6 +349,15 @@ class TestRouting(TestCase):
         request.path = '/events/christmas/'
         (found_page, args, kwargs) = homepage.route(request, ['events', 'christmas'])
         self.assertEqual(found_page, christmas_page)
+
+    def test_request_routing_for_proxy_page_instance(self):
+        homepage = Page.objects.get(url_path='/home/')
+        proxy_page = SimpleProxyPage.objects.get(url_path='/home/proxy-page-types/')
+
+        request = HttpRequest()
+        request.path = '/home/proxy-page-types/'
+        (found_page, args, kwargs) = homepage.route(request, ['proxy-page-types'])
+        self.assertEqual(found_page, proxy_page)
 
     def test_request_serving(self):
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
@@ -667,6 +691,7 @@ class TestCopyPage(TestCase):
         new_about_us = about_us.copy(update_attrs={'title': "New about us", 'slug': 'new-about-us'})
 
         # Check that new_about_us is correct
+        self.assertIs(new_about_us.specific_class, SimplePage)
         self.assertIsInstance(new_about_us, SimplePage)
         self.assertEqual(new_about_us.title, "New about us")
         self.assertEqual(new_about_us.slug, 'new-about-us')
@@ -676,6 +701,24 @@ class TestCopyPage(TestCase):
 
         # Check that the url path was updated
         self.assertEqual(new_about_us.url_path, '/home/new-about-us/')
+
+    def test_copy_page_copies_for_proxy_page_type(self):
+        proxy_page = SimpleProxyPage.objects.get(url_path='/home/proxy-page-types/')
+
+        # Copy it
+        new_proxy_page = proxy_page.copy(update_attrs={'title': "New title", 'slug': 'new-slug'})
+
+        # Check that page is correct
+        self.assertIs(new_proxy_page.specific_class, SimpleProxyPage)
+        self.assertIsInstance(new_proxy_page, SimpleProxyPage)
+        self.assertEqual(new_proxy_page.title, "New title")
+        self.assertEqual(new_proxy_page.slug, 'new-slug')
+
+        # Check that new_about_us is a different page
+        self.assertNotEqual(proxy_page.id, new_proxy_page.id)
+
+        # Check that the url path was updated
+        self.assertEqual(new_proxy_page.url_path, '/home/new-slug/')
 
     def test_copy_page_copies_child_objects(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
