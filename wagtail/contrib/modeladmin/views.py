@@ -28,9 +28,10 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
+from wagtail.search.backend import get_search_backend
+from wagtail.search.index import Indexed
 
 from .forms import ParentChooserForm
-
 
 try:
     from django.db.models.sql.constants import QUERY_TERMS
@@ -257,7 +258,6 @@ class IndexView(WMABaseView):
         self.queryset = self.get_queryset(request)
 
         return super().dispatch(request, *args, **kwargs)
-
     @property
     def media(self):
         return forms.Media(
@@ -275,18 +275,25 @@ class IndexView(WMABaseView):
         and a boolean indicating if the results may contain duplicates.
         """
         use_distinct = False
-        if self.search_fields and search_term:
-            orm_lookups = ['%s__icontains' % str(search_field)
-                           for search_field in self.search_fields]
-            for bit in search_term.split():
-                or_queries = [models.Q(**{orm_lookup: bit})
-                              for orm_lookup in orm_lookups]
-                queryset = queryset.filter(reduce(operator.or_, or_queries))
-            if not use_distinct:
-                for search_spec in orm_lookups:
-                    if lookup_needs_distinct(self.opts, search_spec):
-                        use_distinct = True
-                        break
+        if search_term:
+            if issubclass(self.model, Indexed):
+                backend = get_search_backend()
+                if self.search_fields:
+                    queryset = backend.search(search_term, queryset, fiels=self.search_fields)
+                else:
+                    queryset = backend.search(search_term, queryset)
+            elif self.search_fields:
+                orm_lookups = ['%s__icontains' % str(search_field)
+                               for search_field in self.search_fields]
+                for bit in search_term.split():
+                    or_queries = [models.Q(**{orm_lookup: bit})
+                                  for orm_lookup in orm_lookups]
+                    queryset = queryset.filter(reduce(operator.or_, or_queries))
+                if not use_distinct:
+                    for search_spec in orm_lookups:
+                        if lookup_needs_distinct(self.opts, search_spec):
+                            use_distinct = True
+                            break
 
         return queryset, use_distinct
 
