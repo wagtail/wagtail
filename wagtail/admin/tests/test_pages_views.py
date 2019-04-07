@@ -69,6 +69,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
             title="Jello world!",
             slug="jello-world",
             content="jello",
+            latest_revision_created_at=local_datetime(2018, 1, 1)
         )
         self.root_page.add_child(instance=self.proxy_child_page)
 
