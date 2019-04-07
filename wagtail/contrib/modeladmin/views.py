@@ -1,6 +1,4 @@
-import operator
 from collections import OrderedDict
-from functools import reduce
 
 from django import forms
 from django.contrib.admin import FieldListFilter
@@ -28,7 +26,6 @@ from django.views.generic.edit import FormView
 from wagtail.admin import messages
 
 from .forms import ParentChooserForm
-
 
 try:
     from django.db.models.sql.constants import QUERY_TERMS
@@ -238,6 +235,7 @@ class IndexView(WMABaseView):
         self.search_fields = self.model_admin.get_search_fields(request)
         self.items_per_page = self.model_admin.list_per_page
         self.select_related = self.model_admin.list_select_related
+        self.search_handler = self.model_admin.get_search_handler(request, self.search_fields)
 
         # Get search parameters from the query string.
         try:
@@ -268,25 +266,9 @@ class IndexView(WMABaseView):
             obj, classnames_add=['button-small', 'button-secondary'])
 
     def get_search_results(self, request, queryset, search_term):
-        """
-        Returns a tuple containing a queryset to implement the search,
-        and a boolean indicating if the results may contain duplicates.
-        """
-        use_distinct = False
-        if self.search_fields and search_term:
-            orm_lookups = ['%s__icontains' % str(search_field)
-                           for search_field in self.search_fields]
-            for bit in search_term.split():
-                or_queries = [models.Q(**{orm_lookup: bit})
-                              for orm_lookup in orm_lookups]
-                queryset = queryset.filter(reduce(operator.or_, or_queries))
-            if not use_distinct:
-                for search_spec in orm_lookups:
-                    if lookup_needs_distinct(self.opts, search_spec):
-                        use_distinct = True
-                        break
-
-        return queryset, use_distinct
+        kwargs = self.model_admin.get_extra_search_kwargs(request, search_term)
+        kwargs['preserve_order'] = self.ORDER_VAR in request.GET
+        return self.search_handler.search_queryset(queryset, search_term, **kwargs)
 
     def get_filters_params(self, params=None):
         """
@@ -456,10 +438,20 @@ class IndexView(WMABaseView):
         # ordering fields so we can guarantee a deterministic order across all
         # database backends.
         pk_name = self.opts.pk.name
+
+        if hasattr(self.model, 'get_filterable_search_fields'):
+            # The model is indexed, so let's be careful to only add
+            # indexed fields to ordering where possible
+            filterable_fields = self.model.get_filterable_search_fields()
+        else:
+            filterable_fields = None
+
         if not (set(ordering) & {'pk', '-pk', pk_name, '-' + pk_name}):
-            # The two sets do not intersect, meaning the pk isn't present. So
-            # we add it.
-            ordering.append('-pk')
+            # ordering isn't already being applied to pk
+            if filterable_fields is None or 'pk' in filterable_fields:
+                ordering.append('-pk')
+            else:
+                ordering.append('-' + pk_name)
 
         return ordering
 
@@ -534,15 +526,13 @@ class IndexView(WMABaseView):
         ordering = self.get_ordering(request, qs)
         qs = qs.order_by(*ordering)
 
-        # Apply search results
-        qs, search_use_distinct = self.get_search_results(
-            request, qs, self.query)
-
         # Remove duplicates from results, if necessary
-        if filters_use_distinct | search_use_distinct:
-            return qs.distinct()
-        else:
-            return qs
+        if filters_use_distinct:
+            qs = qs.distinct()
+
+        # Apply search results
+        return self.get_search_results(request, qs, self.query)
+
 
     def apply_select_related(self, qs):
         if self.select_related is True:
@@ -586,7 +576,8 @@ class IndexView(WMABaseView):
             'paginator': paginator,
             'page_obj': page_obj,
             'object_list': page_obj.object_list,
-            'user_can_create': self.permission_helper.user_can_create(user)
+            'user_can_create': self.permission_helper.user_can_create(user),
+            'show_search': self.search_handler.show_search_form,
         }
 
         if self.is_pagemodel:

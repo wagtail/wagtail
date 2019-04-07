@@ -1,4 +1,5 @@
 from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
+from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
 from wagtail.contrib.modeladmin.views import CreateView
@@ -47,10 +48,10 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     list_display = ('title', 'author', 'admin_thumb')
     list_filter = ('author', )
     ordering = ('title', )
-    search_fields = ('title', )
     inspect_view_enabled = True
     inspect_view_fields_exclude = ('title', )
     thumb_image_field_name = 'cover_image'
+    search_handler_class = WagtailBackendSearchHandler
 
     def get_extra_attrs_for_row(self, obj, context):
         return {
