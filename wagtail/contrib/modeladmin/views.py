@@ -258,6 +258,7 @@ class IndexView(WMABaseView):
         self.queryset = self.get_queryset(request)
 
         return super().dispatch(request, *args, **kwargs)
+
     @property
     def media(self):
         return forms.Media(
@@ -663,6 +664,13 @@ class IndexView(WMABaseView):
 
         context.update(kwargs)
         return super().get_context_data(**context)
+
+    @property
+    def show_search(self):
+        """
+        Whether or not to show the search form on the index, used by the search_form tag
+        """
+        return issubclass(self.model, Indexed) or self.search_fields
 
     def get_template_names(self):
         return self.model_admin.get_index_template()
