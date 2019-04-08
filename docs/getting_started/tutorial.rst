@@ -4,64 +4,121 @@ Your first Wagtail site
 .. note::
    This tutorial covers setting up a brand new Wagtail project. If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
 
-1. Install Wagtail and its dependencies:
+Install and run Wagtail
+-----------------------
 
-   .. code-block:: console
+Install dependencies
+~~~~~~~~~~~~~~~~~~~~
 
-       $ pip install wagtail
+Wagtail supports Python 3.4, 3.5, 3.6, and 3.7.
 
-2. Start your site:
+To check whether you have an appropriate version of Python 3:
 
-   .. code-block:: console
+.. code-block:: console
 
-       $ wagtail start mysite
-       $ cd mysite
+   $ python3 --version
 
-   Wagtail provides a ``start`` command similar to
-   ``django-admin.py startproject``. Running ``wagtail start mysite`` in
-   your project will generate a new ``mysite`` folder with a few
-   Wagtail-specific extras, including the required project settings, a
-   "home" app with a blank ``HomePage`` model and basic templates and a sample
-   "search" app.
+If this does not return a version number or returns a version before 3.4, you will need to `install Python 3 <https://www.python.org/downloads/>`_.
 
-3. Install project dependencies:
+.. important::
+   Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library).
+   The way to do this varies by platform—see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
-   .. code-block:: console
 
-       $ pip install -r requirements.txt
+Create and activate a virtual environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   This ensures that you have the relevant version of Django for the project you've just created.
+We recommend using a virtual environment, which provides an isolated Python environment. This tutorial uses `venv <https://docs.python.org/3/tutorial/venv.html>`_, which is packaged with Python 3.
 
-4. Create the database:
+Create a virtual environment:
 
-   .. code-block:: console
+.. code-block:: console
 
-       $ python manage.py migrate
+   $ python3 -m venv mysite-env
 
-   If you haven't updated the project settings, this will be a SQLite
-   database file in the project directory.
 
-5. Create an admin user:
+Activate your virtual environment:
 
-   .. code-block:: console
+   On Windows:
 
-       $ python manage.py createsuperuser
+      .. code-block:: console
 
-6. Start the server:
+         $ mysite-env\Scripts\activate.bat
 
-   .. code-block:: console
+   On Unix or MacOS (bash):
 
-       $ python manage.py runserver
+      .. code-block:: console
 
-   If everything worked, http://127.0.0.1:8000 will show you a welcome page:
+         $ source mysite-env/bin/activate
 
-   .. figure:: ../_static/images/tutorial/tutorial_1.png
-      :alt: Wagtail welcome message
+   For other shells, see the `venv documentation <https://docs.python.org/3/library/venv.html>`_.
 
-   You can now access the administrative area at http://127.0.0.1:8000/admin
+Install Wagtail
+~~~~~~~~~~~~~~~
 
-   .. figure:: ../_static/images/tutorial/tutorial_2.png
-      :alt: Administrative screen
+Use pip, which is packaged with Python, to install Wagtail and its dependencies:
+
+.. code-block:: console
+
+   $ pip install wagtail
+
+Generate your site
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+   $ wagtail start mysite
+   $ cd mysite
+
+Wagtail provides a ``start`` command similar to
+``django-admin.py startproject``. Running ``wagtail start mysite`` in
+your project will generate a new ``mysite`` folder with a few
+Wagtail-specific extras, including the required project settings, a
+"home" app with a blank ``HomePage`` model and basic templates and a sample
+"search" app.
+
+Install project dependencies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+   $ pip install -r requirements.txt
+
+This ensures that you have the relevant version of Django and any other dependencies for the project you have just created.
+
+Create the database
+~~~~~~~~~~~~~~~~~~~
+
+If you haven't updated the project settings, this will be a SQLite
+database file in the project directory.
+
+.. code-block:: console
+
+   $ python manage.py migrate
+
+Create an admin user
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+   $ python manage.py createsuperuser
+
+Start the server
+~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+   $ python manage.py runserver
+
+If everything worked, http://127.0.0.1:8000 will show you a welcome page:
+
+.. figure:: ../_static/images/tutorial/tutorial_1.png
+   :alt: Wagtail welcome message
+
+You can now access the administrative area at http://127.0.0.1:8000/admin
+
+.. figure:: ../_static/images/tutorial/tutorial_2.png
+   :alt: Administrative screen
 
 Extend the HomePage model
 -------------------------
