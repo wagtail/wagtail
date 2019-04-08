@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,27 +29,27 @@ msgstr ""
 msgid "Choose a different root page"
 msgstr ""
 
-#: templates/wagtailsites/index.html:11
+#: templates/wagtailsites/index.html:13 templates/wagtailsites/index.html:17
 msgid "Site"
 msgstr ""
 
-#: templates/wagtailsites/index.html:18
+#: templates/wagtailsites/index.html:21
 msgid "Port"
 msgstr ""
 
-#: templates/wagtailsites/index.html:19
+#: templates/wagtailsites/index.html:22
 msgid "Site name"
 msgstr ""
 
-#: templates/wagtailsites/index.html:20
+#: templates/wagtailsites/index.html:23
 msgid "Root page"
 msgstr ""
 
-#: templates/wagtailsites/index.html:21
+#: templates/wagtailsites/index.html:24
 msgid "Default?"
 msgstr ""
 
-#: templates/wagtailsites/index.html:38
+#: templates/wagtailsites/index.html:41
 msgid "Default"
 msgstr ""
 
