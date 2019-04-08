@@ -70,6 +70,8 @@ Any app within your project can define extensions to Wagtail's rich text handlin
         # add new definitions to 'features' here
 
 
+.. _rich_text_rewrite_handlers:
+
 Rewrite handlers
 ----------------
 
