@@ -19,14 +19,15 @@
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Vassily <zuber.kg@gmail.com>, 2019
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-04-08 12:11+0000\n"
+"Last-Translator: Vassily <zuber.kg@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -253,6 +254,13 @@ msgstr "Запросить новый пароль"
 msgid "Check your email"
 msgstr "Проверьте вашу электронную почту"
 
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Ссылка для сброса пароля была отправлена вам на email, если аккаунт с "
+"указанным адресом существует."
+
 msgid "Please follow the link below to reset your password:"
 msgstr "Пожалуйста, проследуйте по ссылке ниже чтобы сбросить ваш пароль:"
 
@@ -307,6 +315,9 @@ msgstr "Разрыв строки"
 msgid "Undo"
 msgstr "Отменить дейсвие"
 
+msgid "Redo"
+msgstr "Вернуть"
+
 msgid "Reload the page"
 msgstr "Перезагрузить страницу"
 
@@ -318,6 +329,11 @@ msgstr "Показать последнее содержание"
 
 msgid "Show error"
 msgstr "Показать ошибку"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Редактор сломался. Содержимое было возвращено к последней сохранённой версии"
 
 msgid "Dashboard"
 msgstr "Панель управления"
@@ -345,6 +361,28 @@ msgstr "Внешняя ссылка"
 
 msgid "Email link"
 msgstr "Ссылка адреса электронной почты"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Есть %(counter)s совпадение"
+msgstr[1] ""
+"\n"
+"Есть %(counter)sсовпадения"
+msgstr[2] ""
+"\n"
+"Есть %(counter)sсовпадений"
+msgstr[3] ""
+"\n"
+"Есть %(counter)s совпадений"
 
 msgid "Choose"
 msgstr "Выбрать"
@@ -467,6 +505,9 @@ msgstr "Редактировано"
 
 msgid "Edit this page"
 msgstr "Редактировать эту страницу"
+
+msgid "Preview this page"
+msgstr "Предпросмотр этой страницы"
 
 msgid "Approve"
 msgstr "Одобрить"

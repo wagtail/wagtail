@@ -54,6 +54,7 @@ Changelog
  * Fix: Prevent the rich text editor from crashing when copy-paste filtering removes all of its content (Thibaud Colas)
  * Fix: Page chooser now respects custom `get_admin_display_title` methods on parent page and breadcrumb (Haydn Greatnews)
  * Fix: Added consistent whitespace around sortable table headings (Matt Westcott)
+ * Fix: Moved locale names for Chinese (Simplified) and Chinese (Traditional) to `zh_Hans` and `zh_Hant` (Matt Westcott)
 
 
 2.4 (19.12.2018)

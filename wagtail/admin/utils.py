@@ -39,6 +39,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('it', ugettext_lazy('Italian')),
     ('ko', ugettext_lazy('Korean')),
     ('lt', ugettext_lazy('Lithuanian')),
+    ('mn', ugettext_lazy('Mongolian')),
     ('nb', ugettext_lazy('Norwegian Bokmål')),
     ('nl-nl', ugettext_lazy('Netherlands Dutch')),
     ('fa', ugettext_lazy('Persian')),
@@ -49,8 +50,10 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('ru', ugettext_lazy('Russian')),
     ('sv', ugettext_lazy('Swedish')),
     ('sk-sk', ugettext_lazy('Slovak')),
+    ('th', ugettext_lazy('Thai')),
     ('uk', ugettext_lazy('Ukrainian')),
-    ('zh-cn', ugettext_lazy('Chinese (China)')),
+    ('zh-hans', ugettext_lazy('Chinese (Simplified)')),
+    ('zh-hant', ugettext_lazy('Chinese (Traditional)')),
 ]
 
 

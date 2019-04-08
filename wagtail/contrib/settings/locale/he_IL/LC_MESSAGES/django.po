@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Adi Ron <adi@bnop.co>, 2019
 # Oleg Sverdlov <oleg.sverdlov@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-03-05 09:22+0000\n"
+"Last-Translator: Adi Ron <adi@bnop.co>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -27,14 +28,20 @@ msgstr "עריכת %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "עריכה"
 
+msgid "Saving…"
+msgstr "שומר..."
+
 msgid "Save"
 msgstr "שמור"
 
 msgid "Settings"
 msgstr "הגדרות"
 
+msgid "This setting could not be opened because there is no site defined."
+msgstr "לא ניתן לפתוח את ההגדרות בגלל שאף אתר לא מוגדר."
+
 msgid "{setting_type} updated."
-msgstr "עודכן {setting_type} ."
+msgstr "עודכן {setting_type}."
 
 msgid "The setting could not be saved due to errors."
 msgstr "לא ניתן לשמור את ההגדרות עקב שגיאות."

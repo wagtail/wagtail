@@ -86,6 +86,7 @@ Bug fixes
  * Prevent the rich text editor from crashing when copy-paste filtering removes all of its content (Thibaud Colas)
  * Page chooser now respects custom ``get_admin_display_title`` methods on parent page and breadcrumb (Haydn Greatnews)
  * Added consistent whitespace around sortable table headings (Matt Westcott)
+ * Moved locale names for Chinese (Simplified) and Chinese (Traditional) to ``zh_Hans`` and ``zh_Hant`` (Matt Westcott)
 
 
 Upgrade considerations
@@ -148,3 +149,9 @@ Projects already using those exact Draft.js type and HTML tag combinations can s
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``FeatureRegistry.register_link_type`` and ``FeatureRegistry.register_embed_type`` methods, which define how links and embedded media in rich text are converted to HTML, now accept a handler class. Previously, they were passed an identifier string and a rewrite function. For details of updating your code to the new convention, see :ref:`rich_text_rewrite_handlers`.
+
+
+Chinese language locales changed to ``zh_Hans`` and ``zh_Hant``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The translations for Chinese (Simplified) and Chinese (Traditional) are now available under the locale names ``zh_Hans`` and ``zh_Hant`` respectively, rather than ``zh_CN`` and ``zh_TW``. Projects that currently use the old names for the ``LANGUAGE_CODE`` setting may need to update the settings file to use the new names.

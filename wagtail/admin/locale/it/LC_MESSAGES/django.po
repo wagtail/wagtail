@@ -9,13 +9,14 @@
 # Edd <edd.baldry@googlemail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2016,2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-03-08 21:52+0000\n"
+"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Submit for moderation"
-msgstr "Invia per moderazione"
+msgstr "Invia per la moderazione"
 
 msgid "Unpublish"
 msgstr "Annulla pubblicazione"
@@ -40,7 +41,7 @@ msgid "None"
 msgstr "Nessuno"
 
 msgid "You do not have permission to access the admin"
-msgstr "Spiacente, non hai i permessi per accedere al area di amministrazione"
+msgstr "Spiacente, non hai i permessi per accedere all'area di amministrazione"
 
 msgid "Scheduled publishing"
 msgstr "Data pubblicazione"
@@ -84,7 +85,7 @@ msgid "New parent page"
 msgstr "Nuova pagina padre"
 
 msgid "This copy will be a child of this given parent page."
-msgstr "Questa copia sarà un figlio della pagina padre in questione"
+msgstr "Questa copia sarà un figlio della pagina padre in questione."
 
 msgid "Copy subpages"
 msgstr "Copia subpagina"
@@ -334,6 +335,24 @@ msgstr "Collegamento esterno"
 msgid "Email link"
 msgstr "Collegamento email"
 
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"        C'è %(counter)s corrispondenza\n"
+"    "
+msgstr[1] ""
+"\n"
+"        Ci sono %(counter)s corrispondenze\n"
+"    "
+
 msgid "Choose"
 msgstr "Scegli"
 
@@ -449,6 +468,9 @@ msgstr "Modificato"
 
 msgid "Edit this page"
 msgstr "Modifica questa pagina"
+
+msgid "Preview this page"
+msgstr "Guarda l'anteprima di questa pagina"
 
 msgid "Approve"
 msgstr "Approva"
@@ -1053,6 +1075,9 @@ msgstr[1] ""
 "Ci sono %(counter)s pagine corrispondenti\n"
 "            "
 
+msgid "Page types"
+msgstr "Tipi di pagina"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1113,6 +1138,27 @@ msgstr "Novembre"
 msgid "December"
 msgstr "Dicembre"
 
+msgid "Sunday"
+msgstr "Domenica"
+
+msgid "Monday"
+msgstr "Lunedì"
+
+msgid "Tuesday"
+msgstr "Martedì"
+
+msgid "Wednesday"
+msgstr "Mercoledì"
+
+msgid "Thursday"
+msgstr "Giovedì"
+
+msgid "Friday"
+msgstr "Venerdì"
+
+msgid "Saturday"
+msgstr "Sabato"
+
 msgid "Sun"
 msgstr "Dom"
 
@@ -1159,6 +1205,23 @@ msgstr ""
 "software. Per favore <a href=\"http://browsehappy.com/\">aggiorna il tuo "
 "browser</a>."
 
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            E' richiesto JavaScript  per usare Wagtail, ma al momento è "
+"disabilitato.<br />\n"
+"            Qui ci sono <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">le istruzioni per abilitare "
+"JavaScript nel tuo browser</a>.\n"
+"        "
+
 msgid "Go to Wagtail admin interface"
 msgstr "Vai all'interfaccia admin di Wagtail"
 
@@ -1170,6 +1233,9 @@ msgstr "Mostra nell' Explorer"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabo"
 
 msgid "Catalan"
 msgstr "Catalano"
@@ -1194,6 +1260,9 @@ msgstr "Francese"
 
 msgid "Galician"
 msgstr "Galician"
+
+msgid "Indonesian"
+msgstr "Indonesiano"
 
 msgid "Icelandic"
 msgstr "Icelandic"
