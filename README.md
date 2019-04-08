@@ -26,15 +26,18 @@ Find out more at [wagtail.io](https://wagtail.io/).
 
 ### Getting started
 
-Wagtail works with Python 3, on any platform.
+Wagtail works with [Python 3](https://www.python.org/downloads/), on any platform.
 
-```
-    pip install wagtail
-    wagtail start mysite
-    cd mysite
-    python manage.py migrate
-    python manage.py createsuperuser
-    python manage.py runserver
+To get started with Wagtail, run the following in a virtual environment:
+
+``` bash
+pip install wagtail
+wagtail start mysite
+cd mysite
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
 ```
 
 For detailed installation and setup docs, see [docs.wagtail.io](http://docs.wagtail.io/).

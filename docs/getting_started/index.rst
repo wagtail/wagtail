@@ -1,43 +1,38 @@
 Getting started
 ===============
 
-Wagtail is built on the `Django web framework <https://www.djangoproject.com/>`_, so this document assumes you've already got the essentials installed. But if not, those essentials are:
+.. note::
+   These instructions assume familiarity with virtual environments and the `Django web framework <https://www.djangoproject.com/>`_. For more detailed instructions, see :doc:`tutorial`. To add Wagtail to an existing Django project, see :doc:`integrating_into_django`.
 
- * `Python <https://www.python.org/downloads/>`_
- * `pip <https://pip.pypa.io/en/latest/installing.html>`_ (Note that pip is included by default with Python 3.4 and later)
 
-We'd also recommend Virtualenv, which provides isolated Python environments:
+Dependencies needed for installation
+------------------------------------
 
- * `Virtualenv <https://virtualenv.pypa.io/en/latest/installation.html>`_
+* `Python 3 <https://www.python.org/downloads/>`_
+* **libjpeg** and **zlib**, libraries required for Django's **Pillow** library.
+  See Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
-.. important::
-   Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library). The way to do this varies by platform - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
-With the above installed, the quickest way to install Wagtail is:
+Quick install
+-------------
 
-*If you are using Virtualenv, run*
-
-.. code-block:: console
-
-    $ virtualenv env -p python3
-    $ source env/bin/activate
-
+Run the following in a virtual environment of your choice:
 
 .. code-block:: console
 
     $ pip install wagtail
 
-(``sudo`` may be required if installing system-wide or without virtualenv)
+(Installing outside a virtual environment may require ``sudo``.)
 
-Once installed, Wagtail provides a command similar to Django's ``django-admin startproject`` which stubs out a new site/project:
+Once installed, Wagtail provides a command similar to Django's ``django-admin startproject`` to stub out a new site/project:
 
 .. code-block:: console
 
     $ wagtail start mysite
 
-This will create a new folder ``mysite``, based on a template containing all you need to get started. More information on that template is available :doc:`here </reference/project_template>`.
+This will create a new folder ``mysite``, based on a template containing all you need to get started. More information on that template is available in :doc:`the project template reference </reference/project_template>`.
 
-Inside your ``mysite`` folder, we now just run the setup steps necessary for any Django project:
+Inside your ``mysite`` folder, run the setup steps necessary for any Django project:
 
 .. code-block:: console
 
