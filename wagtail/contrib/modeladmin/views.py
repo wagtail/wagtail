@@ -28,7 +28,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
-from wagtail.search.backend import get_search_backend
+from wagtail.search.backends import get_search_backend
 from wagtail.search.index import Indexed
 
 from .forms import ParentChooserForm
@@ -280,7 +280,7 @@ class IndexView(WMABaseView):
             if issubclass(self.model, Indexed):
                 backend = get_search_backend()
                 if self.search_fields:
-                    queryset = backend.search(search_term, queryset, fiels=self.search_fields)
+                    queryset = backend.search(search_term, queryset, fields=self.search_fields)
                 else:
                     queryset = backend.search(search_term, queryset)
             elif self.search_fields:

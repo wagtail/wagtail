@@ -65,7 +65,7 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         for book in response.context['object_list']:
             self.assertEqual(book.author_id, 1)
 
-    def test_search(self):
+    def test_search_indexed(self):
         response = self.get(q='of')
 
         self.assertEqual(response.status_code, 200)
@@ -108,6 +108,13 @@ class TestAuthorIndexView(TestCase, WagtailTestUtils):
 
     def get(self, **params):
         return self.client.get('/admin/modeladmintest/author/', params)
+
+    def test_search(self):
+        response = self.get(q='Roald Dahl')
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(response.context['result_count'], 2)
 
     def test_col_extra_class_names(self):
         response = self.get()

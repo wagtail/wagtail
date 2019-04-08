@@ -25,6 +25,10 @@ class Book(models.Model, index.Indexed):
     title = models.CharField(max_length=255)
     cover_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True, blank=True)
 
+    search_fields = [
+        index.SearchField('title'),
+    ]
+
     def __str__(self):
         return self.title
 
