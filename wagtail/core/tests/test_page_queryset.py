@@ -522,7 +522,7 @@ class TestSpecificQuery(TestCase):
     Page             /
     Page             /home/
     SimplePage       /home/about-us/
-    SimpleProxyPage  /home/proxy-page-types/
+    SimpleProxyPage  /home/simple-proxy-page/
     EventIndex       /home/events/
     EventPage        /home/events/christmas/
     EventPage        /home/events/someone-elses-event/

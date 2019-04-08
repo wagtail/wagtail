@@ -352,11 +352,11 @@ class TestRouting(TestCase):
 
     def test_request_routing_for_proxy_page_instance(self):
         homepage = Page.objects.get(url_path='/home/')
-        proxy_page = SimpleProxyPage.objects.get(url_path='/home/proxy-page-types/')
+        proxy_page = SimpleProxyPage.objects.get(url_path='/home/simple-proxy-page/')
 
         request = HttpRequest()
-        request.path = '/home/proxy-page-types/'
-        (found_page, args, kwargs) = homepage.route(request, ['proxy-page-types'])
+        request.path = '/home/simple-proxy-page/'
+        (found_page, args, kwargs) = homepage.route(request, ['simple-proxy-page'])
         self.assertEqual(found_page, proxy_page)
 
     def test_request_serving(self):
@@ -703,7 +703,7 @@ class TestCopyPage(TestCase):
         self.assertEqual(new_about_us.url_path, '/home/new-about-us/')
 
     def test_copy_page_copies_for_proxy_page_type(self):
-        proxy_page = SimpleProxyPage.objects.get(url_path='/home/proxy-page-types/')
+        proxy_page = SimpleProxyPage.objects.get(url_path='/home/simple-proxy-page/')
 
         # Copy it
         new_proxy_page = proxy_page.copy(update_attrs={'title': "New title", 'slug': 'new-slug'})

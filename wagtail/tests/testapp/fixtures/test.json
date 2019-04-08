@@ -606,8 +606,8 @@
         "depth": 3,
         "content_type": ["tests", "simpleproxypage"],
         "path": "00010001000A",
-        "url_path": "/home/proxy-page-types/",
-        "slug": "proxy-page-types"
+        "url_path": "/home/simple-proxy-page/",
+        "slug": "simple-proxy-page"
     }
 },
 {
