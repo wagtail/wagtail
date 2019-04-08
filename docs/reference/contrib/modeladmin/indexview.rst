@@ -283,13 +283,10 @@ for your model. For example:
 **Expected value**: A list or tuple, where each item is the name of a model field
 of type ``CharField``, ``TextField``, ``RichTextField`` or ``StreamField``.
 
-Set ``search_fields`` to enable a search box at the top of the index page
-for your model. You should add names of any fields on the model that should
-be searched whenever somebody submits a search query using the search box.
-
-Searching is all handled via Django's QuerySet API, rather than using Wagtail's
-search backend. This means it will work for all models, whatever search backend
-your project is using, and without any additional setup or configuration.
+If your model is indexed using Wagtail's search backend, setting ``search_fields``
+will determine which indexed fields are searched. Otherwise setting ``search_fields``
+will allow searching via Django's QuerySet API, rather than using Wagtail's
+search backend.
 
 .. _modeladmin_ordering:
 
@@ -646,4 +643,3 @@ See the following part of the docs to find out more:
 
 See the following part of the docs to find out more:
 :ref:`modeladmin_overriding_views`
-
