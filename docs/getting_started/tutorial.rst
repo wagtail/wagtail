@@ -19,7 +19,7 @@ To check whether you have an appropriate version of Python 3:
 
    $ python3 --version
 
-If this does not return a version number or returns a version before 3.4, you will need to `install Python 3 <https://www.python.org/downloads/>`_.
+If this does not return a version number or returns a version lower than 3.4, you will need to `install Python 3 <https://www.python.org/downloads/>`_.
 
 .. important::
    Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library).
@@ -73,11 +73,10 @@ Generate your site
    $ wagtail start mysite
    $ cd mysite
 
-Wagtail provides a ``start`` command similar to ``django-admin.py startproject``.
+Wagtail provides a ``start`` command similar to ``django-admin startproject``.
 Running ``wagtail start mysite`` in your project will generate a new ``mysite`` folder with a few Wagtail-specific extras, including
 the required project settings,
-a "home" app with a blank ``HomePage`` model
-and basic templates
+a "home" app with a blank ``HomePage`` model and basic templates,
 and a sample "search" app.
 
 Install project dependencies
@@ -87,8 +86,9 @@ Install project dependencies
 
    $ pip install -r requirements.txt
 
-This ensures that you have the relevant version of
-Django
+This ensures that you have the relevant versions of
+Wagtail,
+Django,
 and any other dependencies for the project you have just created.
 
 Create the database
