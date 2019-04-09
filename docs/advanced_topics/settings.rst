@@ -257,6 +257,12 @@ This setting lets you override the maximum upload size for images (in bytes). If
 
 .. code-block:: python
 
+    WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # i.e. 128 megapixels
+
+This setting lets you override the maximum number of pixels an image can have. If omitted, Wagtail will fall back to using its 128 megapixels default value.
+
+.. code-block:: python
+
     WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = True
 
 This setting enables feature detection once OpenCV is installed, see all details on the :ref:`image_feature_detection` documentation.
@@ -377,6 +383,15 @@ Multi-word tags
   TAG_SPACES_ALLOWED = False
 
 Tags can only consist of a single word, no spaces allowed. The default setting is ``True`` (spaces in tags are allowed).
+
+Tag limit
+---------
+
+.. code-block:: python
+
+  TAG_LIMIT = 5
+
+Limit the number of tags that can be added to (django-taggit) Tag model. Default setting is ``None``, meaning no limit on tags.
 
 Unicode Page Slugs
 ------------------

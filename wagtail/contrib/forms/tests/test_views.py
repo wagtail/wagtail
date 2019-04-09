@@ -31,9 +31,7 @@ class TestFormResponsesPanel(TestCase):
             FormPage, form_class=WagtailAdminPageForm
         )
 
-        submissions_panel = FormSubmissionsPanel().bind_to_model(FormPage)
-
-        self.panel = submissions_panel.bind_to_instance(
+        self.panel = FormSubmissionsPanel().bind_to(
             instance=self.form_page, form=self.FormPageForm(), request=self.request)
 
     def test_render_with_submissions(self):
@@ -74,11 +72,8 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
         self.test_user = get_user_model().objects.create_user(
             username='user-n1kola', password='123')
 
-        submissions_panel = FormSubmissionsPanel().bind_to_model(FormPageWithCustomSubmission)
-
-        self.panel = submissions_panel.bind_to_instance(self.form_page,
-                                                        self.FormPageForm(),
-                                                        request=self.request)
+        self.panel = FormSubmissionsPanel().bind_to(
+            instance=self.form_page, form=self.FormPageForm(), request=self.request)
 
     def test_render_with_submissions(self):
         """Show the panel with the count of submission and a link to the list_submissions view."""

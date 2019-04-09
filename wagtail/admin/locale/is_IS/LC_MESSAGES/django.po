@@ -6,14 +6,14 @@
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2018
-# saevarom <saevar@saevar.is>, 2015,2017-2018
+# saevarom <saevar@saevar.is>, 2015,2017-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-18 08:34+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -340,6 +340,24 @@ msgstr "Ytri hlekkur"
 msgid "Email link"
 msgstr "Netfangs hlekkur"
 
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"            Það er %(counter)s niðurstaða\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Það eru %(counter)s niðurstöður\n"
+"        "
+
 msgid "Choose"
 msgstr "Veldu"
 
@@ -450,6 +468,9 @@ msgstr "Breytt"
 
 msgid "Edit this page"
 msgstr "Breyta þessari síðu"
+
+msgid "Preview this page"
+msgstr "Forskoða þessa síðu"
 
 msgid "Approve"
 msgstr "Samþykkja"
@@ -1105,6 +1126,27 @@ msgstr "Nóvember"
 msgid "December"
 msgstr "Desember"
 
+msgid "Sunday"
+msgstr "Sunnudagur"
+
+msgid "Monday"
+msgstr "Mánudagur"
+
+msgid "Tuesday"
+msgstr "Þriðjudagur"
+
+msgid "Wednesday"
+msgstr "Miðvikudagur"
+
+msgid "Thursday"
+msgstr "Fimmtudagur"
+
+msgid "Friday"
+msgstr "Föstudagur"
+
+msgid "Saturday"
+msgstr "Laugardagur"
+
 msgid "Sun"
 msgstr "Sun"
 
@@ -1151,6 +1193,24 @@ msgstr ""
 "hugbúnaði. Vinsamlegast <a href=\"http://browsehappy.com/\">uppfærðu vafrann "
 "þinn</a>."
 
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtail þarfnast Javascript til að virka, en það er óvirkjað í "
+"vafranum þínum.<br />\n"
+"            Hérna eru <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener\">leiðbeiningar um hvernig á að virkja Javascript "
+"í vafranum.</a>\n"
+"\n"
+"        "
+
 msgid "Go to Wagtail admin interface"
 msgstr "Fara á Wagtail stjórnborð"
 
@@ -1162,6 +1222,9 @@ msgstr "Sýna í veftré"
 
 msgid "Test"
 msgstr "Prufa"
+
+msgid "Arabic"
+msgstr "Arabíska"
 
 msgid "Catalan"
 msgstr "Catalan"
@@ -1186,6 +1249,9 @@ msgstr "Franska"
 
 msgid "Galician"
 msgstr "Galiska"
+
+msgid "Indonesian"
+msgstr "Indónesíska"
 
 msgid "Icelandic"
 msgstr "Íslenska"

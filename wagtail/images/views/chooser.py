@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
@@ -12,7 +13,6 @@ from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
 from wagtail.images.permissions import permission_policy
 from wagtail.search import index as search_index
-from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -105,7 +105,8 @@ def chooser(request):
                 images = images.filter(tags__name=tag_name)
 
         # Pagination
-        paginator, images = paginate(request, images, per_page=12)
+        paginator = Paginator(images, per_page=12)
+        images = paginator.get_page(request.GET.get('p'))
 
         return render(request, "wagtailimages/chooser/results.html", {
             'images': images,
@@ -114,7 +115,8 @@ def chooser(request):
             'will_select_format': request.GET.get('select_format')
         })
     else:
-        paginator, images = paginate(request, images, per_page=12)
+        paginator = Paginator(images, per_page=12)
+        images = paginator.get_page(request.GET.get('p'))
 
         context = get_chooser_context(request)
         context.update({
@@ -180,7 +182,8 @@ def chooser_upload(request):
     for hook in hooks.get_hooks('construct_image_chooser_queryset'):
         images = hook(images, request)
 
-    paginator, images = paginate(request, images, per_page=12)
+    paginator = Paginator(images, per_page=12)
+    images = paginator.get_page(request.GET.get('p'))
 
     context = get_chooser_context(request)
     context.update({

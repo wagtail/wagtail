@@ -48,6 +48,7 @@ Want to know more about customising ``ModelAdmin``?
     create_edit_delete_views
     inspectview
     chooseparentview
+    tips_and_tricks/index
 
 .. _modeladmin_usage:
 
@@ -80,11 +81,16 @@ to create, view, and edit ``Book`` entries.
 
 .. code-block:: python
 
+    from django.db import models
+    from wagtail.admin.edit_handlers import FieldPanel
+    from wagtail.images.edit_handlers import ImageChooserPanel
+
     class Book(models.Model):
         title = models.CharField(max_length=255)
         author = models.CharField(max_length=255)
         cover_photo = models.ForeignKey(
             'wagtailimages.Image',
+            null=True, blank=True,
             on_delete=models.SET_NULL,
             related_name='+'
         )
@@ -189,7 +195,7 @@ Assume we've defined ``Book``, ``Author``, and ``Genre`` models in
     modeladmin_register(LibraryGroup)
 
 
-.. _modeladmin_multi_registeration:
+.. _modeladmin_multi_registration:
 
 Registering multiple classes in one ``wagtail_hooks.py`` file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

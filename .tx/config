@@ -1,5 +1,6 @@
 [main]
 host = https://www.transifex.com
+lang_map = zh_CN:zh_Hans, zh-Hant:zh_Hant
 
 [wagtail.wagtailadmin]
 file_filter = wagtail/admin/locale/<lang>/LC_MESSAGES/django.po

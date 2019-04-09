@@ -90,19 +90,22 @@ A single-line text input. The following keyword arguments are accepted:
 ``help_text``
   Help text to display alongside the field.
 
+``validators``
+  A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+
 TextBlock
 ~~~~~~~~~
 
 ``wagtail.core.blocks.TextBlock``
 
-A multi-line text input. As with ``CharBlock``, the keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
+A multi-line text input. As with ``CharBlock``, the keyword arguments ``required`` (default: True), ``max_length``, ``min_length``, ``help_text`` and ``validators`` are accepted.
 
 EmailBlock
 ~~~~~~~~~~
 
 ``wagtail.core.blocks.EmailBlock``
 
-A single-line email input that validates that the email is a valid Email Address. The keyword arguments ``required`` (default: True) and ``help_text`` are accepted.
+A single-line email input that validates that the email is a valid Email Address. The keyword arguments ``required`` (default: True), ``help_text`` and ``validators`` are accepted.
 
 For an example of ``EmailBlock`` in use, see :ref:`streamfield_personblock_example`
 
@@ -111,7 +114,7 @@ IntegerBlock
 
 ``wagtail.core.blocks.IntegerBlock``
 
-A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required`` (default: True), ``max_value``, ``min_value`` and ``help_text`` are accepted.
+A single-line integer input that validates that the integer is a valid whole number. The keyword arguments ``required`` (default: True), ``max_value``, ``min_value``, ``help_text`` and ``validators`` are accepted.
 
 For an example of ``IntegerBlock`` in use, see :ref:`streamfield_personblock_example`
 
@@ -120,14 +123,14 @@ FloatBlock
 
 ``wagtail.core.blocks.FloatBlock``
 
-A single-line Float input that validates that the value is a valid floating point number. The keyword arguments ``required`` (default: True), ``max_value`` and ``min_value``  are accepted.
+A single-line Float input that validates that the value is a valid floating point number. The keyword arguments ``required`` (default: True), ``max_value``, ``min_value`` and ``validators``  are accepted.
 
 DecimalBlock
 ~~~~~~~~~~~~
 
 ``wagtail.core.blocks.DecimalBlock``
 
-A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required`` (default: True), ``help_text``, ``max_value``, ``min_value``, ``max_digits`` and ``decimal_places`` are accepted.
+A single-line decimal input that validates that the value is a valid decimal number. The keyword arguments ``required`` (default: True), ``help_text``, ``max_value``, ``min_value``, ``max_digits``, ``decimal_places`` and ``validators`` are accepted.
 
 For an example of ``DecimalBlock`` in use, see :ref:`streamfield_personblock_example`
 
@@ -144,14 +147,14 @@ A single-line text input that validates a string against a regex expression. The
         'invalid': "Not a valid library card number."
     })
 
-The keyword arguments ``regex``, ``help_text``, ``required`` (default: True), ``max_length``, ``min_length`` and ``error_messages`` are accepted.
+The keyword arguments ``regex``, ``help_text``, ``required`` (default: True), ``max_length``, ``min_length``, ``error_messages`` and ``validators`` are accepted.
 
 URLBlock
 ~~~~~~~~
 
 ``wagtail.core.blocks.URLBlock``
 
-A single-line text input that validates that the string is a valid URL. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
+A single-line text input that validates that the string is a valid URL. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length``, ``help_text`` and ``validators`` are accepted.
 
 BooleanBlock
 ~~~~~~~~~~~~
@@ -165,7 +168,7 @@ DateBlock
 
 ``wagtail.core.blocks.DateBlock``
 
-A date picker. The keyword arguments ``required`` (default: True), ``help_text`` and ``format`` are accepted.
+A date picker. The keyword arguments ``required`` (default: True), ``help_text``, ``format`` and ``validators`` are accepted.
 
 ``format`` (default: None)
   Date format. This must be one of the recognised formats listed in the `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_ setting. If not specified Wagtail will use ``WAGTAIL_DATE_FORMAT`` setting with fallback to '%Y-%m-%d'.
@@ -175,14 +178,14 @@ TimeBlock
 
 ``wagtail.core.blocks.TimeBlock``
 
-A time picker. The keyword arguments ``required`` (default: True) and ``help_text`` are accepted.
+A time picker. The keyword arguments ``required`` (default: True), ``help_text`` and ``validators`` are accepted.
 
 DateTimeBlock
 ~~~~~~~~~~~~~
 
 ``wagtail.core.blocks.DateTimeBlock``
 
-A combined date / time picker. The keyword arguments ``required`` (default: True), ``help_text`` and ``format`` are accepted.
+A combined date / time picker. The keyword arguments ``required`` (default: True), ``help_text``, ``format`` and ``validators`` are accepted.
 
 ``format`` (default: None)
   Date format. This must be one of the recognised formats listed in the `DATETIME_INPUT_FORMATS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATETIME_INPUT_FORMATS>`_ setting. If not specified Wagtail will use ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to '%Y-%m-%d %H:%M'.
@@ -192,14 +195,21 @@ RichTextBlock
 
 ``wagtail.core.blocks.RichTextBlock``
 
-A WYSIWYG editor for creating formatted text including links, bold / italics etc. The keyword argument ``features`` is accepted, to specify the set of features allowed (see :ref:`rich_text_features`).
+A WYSIWYG editor for creating formatted text including links, bold / italics etc. The keyword arguments ``required`` (default: True), ``help_text``, ``validators``, ``editor`` and ``features`` are accepted.
+
+``editor`` (default: ``default``)
+  The rich text editor to be used (see :ref:`WAGTAILADMIN_RICH_TEXT_EDITORS`).
+
+``features`` (default: None)
+  Specify the set of features allowed (see :ref:`rich_text_features`).
+
 
 RawHTMLBlock
 ~~~~~~~~~~~~
 
 ``wagtail.core.blocks.RawHTMLBlock``
 
-A text area for entering raw HTML which will be rendered unescaped in the page output. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
+A text area for entering raw HTML which will be rendered unescaped in the page output. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length``, ``help_text`` and ``validators`` are accepted.
 
 .. WARNING::
    When this block is in use, there is nothing to prevent editors from inserting malicious scripts into the page, including scripts that would allow the editor to acquire administrator privileges when another administrator views the page. Do not use this block unless your editors are fully trusted.
@@ -209,7 +219,7 @@ BlockQuoteBlock
 
 ``wagtail.core.blocks.BlockQuoteBlock``
 
-A text field, the contents of which will be wrapped in an HTML `<blockquote>` tag pair. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length`` and ``help_text`` are accepted.
+A text field, the contents of which will be wrapped in an HTML `<blockquote>` tag pair. The keyword arguments ``required`` (default: True), ``max_length``, ``min_length``, ``help_text`` and ``validators`` are accepted.
 
 
 ChoiceBlock
@@ -227,6 +237,9 @@ A dropdown select box for choosing from a list of choices. The following keyword
 
 ``help_text``
   Help text to display alongside the field.
+
+``validators``
+  A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
 
 ``ChoiceBlock`` can also be subclassed to produce a reusable block with the same list of choices everywhere it is used. For example, a block definition such as:
 
@@ -264,7 +277,7 @@ A control for selecting a page object, using Wagtail's page browser. The followi
 ``required`` (default: True)
   If true, the field cannot be left blank.
 
-``target_model`` (default: Page)
+``page_type`` (default: Page)
   Restrict choices to one or more specific page types. Accepts a page model class, model name (as a string), or a list or tuple of these.
 
 ``can_choose_root`` (default: False)
@@ -932,7 +945,7 @@ Your extended value class methods will be available in your template:
 Custom block types
 ------------------
 
-If you need to implement a custom UI, or handle a datatype that is not provided by Wagtail's built-in block types (and cannot built up as a structure of existing fields), it is possible to define your own custom block types. For further guidance, refer to the source code of Wagtail's built-in block classes.
+If you need to implement a custom UI, or handle a datatype that is not provided by Wagtail's built-in block types (and cannot be built up as a structure of existing fields), it is possible to define your own custom block types. For further guidance, refer to the source code of Wagtail's built-in block classes.
 
 For block types that simply wrap an existing Django form field, Wagtail provides an abstract class ``wagtail.core.blocks.FieldBlock`` as a helper. Subclasses just need to set a ``field`` property that returns the form field object:
 
@@ -961,7 +974,7 @@ If you subclass any other block class, such as ``FieldBlock``, you will need to 
 Migrating RichTextFields to StreamField
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you change an existing RichTextField to a StreamField, and create and run migrations as normal, the migration will complete with no errors, since both fields use a text column within the database. However, StreamField uses a JSON representation for its data, so the existing text needs to be converted with a data migration in order to become accessible again. For this to work, the StreamField needs to include a RichTextBlock as one of the available block types. The field can then be converted by creating a new migration (``./manage.py makemigrations --empty myapp``) and editing it as follows (in this example, the 'body' field of the ``demo.BlogPage`` model is being converted to a StreamField with a RichTextBlock named ``rich_text``):
+If you change an existing RichTextField to a StreamField and create and run migrations as normal, the migration will complete with no errors, since both fields use a text column within the database. However, StreamField uses a JSON representation for its data, so the existing text needs to be converted with a data migration in order to become accessible again. For this to work, the StreamField needs to include a RichTextBlock as one of the available block types. The field can then be converted by creating a new migration (``./manage.py makemigrations --empty myapp``) and editing it as follows (in this example, the 'body' field of the ``demo.BlogPage`` model is being converted to a StreamField with a RichTextBlock named ``rich_text``):
 
 .. code-block:: python
 

@@ -51,7 +51,7 @@ Wagtail is used by NASA, Google, Oxfam, the NHS, Mozilla, MIT, the Red Cross, Sa
 
 Wagtail supports:
 
-* Django 2.0.x and 2.1.x
+* Django 2.0.x, 2.1.x and 2.2.x
 * Python 3.4, 3.5, 3.6 and 3.7
 * PostgreSQL, MySQL and SQLite as database backends
 
@@ -70,6 +70,10 @@ We maintain a curated list of third party packages, articles and other resources
 ### Commercial Support
 
 Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help implementing or hosting Wagtail, please contact us: hello@torchbox.com. See also [madewithwagtail.org/developers/](https://madewithwagtail.org/developers/) for expert Wagtail developers around the world.
+
+### Security
+
+We take the security of Wagtail, and related packages we maintain, seriously. If you have found a security issue with any of our projects please email us at [security@wagtail.io](mailto:security@wagtail.io) so we can work together to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a Github issue.
 
 ### Contributing
 

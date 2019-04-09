@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2018
+# Dan Braghis, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-25 09:31+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Wagtail documents"
+msgstr "Documente Wagtail"
 
 msgid "Add"
 msgstr "Adaugă"
@@ -50,6 +53,9 @@ msgstr "etichete"
 msgid "document"
 msgstr "document"
 
+msgid "documents"
+msgstr "documente"
+
 msgid "Choose a document"
 msgstr "Alege document"
 
@@ -62,6 +68,28 @@ msgstr "Încărcare"
 msgid "Uploading…"
 msgstr "În curs de încărcare…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Există %(counter)s potrivire\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Sunt%(counter)s potriviry\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Sunt %(counter)s potriviri\n"
+"        "
+
 msgid "Latest documents"
 msgstr "Documente recente"
 
@@ -70,6 +98,24 @@ msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
 "document"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Nu ați încărcat nici un document în această colecție."
+
+msgid "You haven't uploaded any documents."
+msgstr "Nu ați încărcat nici un document. "
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            De ce să nu <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?\n"
+"            "
 
 msgid "Change document:"
 msgstr "Schimbă documentul:"
@@ -127,6 +173,9 @@ msgstr "Titlu"
 
 msgid "File"
 msgstr "Fișier"
+
+msgid "Collection"
+msgstr "Colecție"
 
 msgid "Uploaded"
 msgstr "Încărcat"
@@ -205,6 +254,15 @@ msgstr "Sau alegeți de pe computer"
 
 msgid "Add to collection:"
 msgstr "Adaugă la colecția:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Încărcare de success. Dacă este necesar, actualizați aceast document cu un "
+"titlu potrivit. Puteți deasemenea să ștergeți documentul în întregime dacă "
+"încărcarea nu a fost necesară."
 
 msgid "Sorry, upload failed."
 msgstr "Încărcarea a eșuat."

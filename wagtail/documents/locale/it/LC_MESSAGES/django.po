@@ -5,13 +5,14 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-03-08 21:55+0000\n"
+"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +54,9 @@ msgstr "tags"
 msgid "document"
 msgstr "documento"
 
+msgid "documents"
+msgstr "documenti"
+
 msgid "Choose a document"
 msgstr "Scegli un documento"
 
@@ -65,6 +69,24 @@ msgstr "Carica"
 msgid "Uploading…"
 msgstr "Caricamento…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            C'è %(counter)s corrispondenza\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Ci sono %(counter)s corrispondenze\n"
+"        "
+
 msgid "Latest documents"
 msgstr "Ultimi documenti"
 
@@ -72,6 +94,24 @@ msgstr "Ultimi documenti"
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Spiacente, nessun documento corrispondente \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Non hai ancora caricato alcun documento in questa raccolta."
+
+msgid "You haven't uploaded any documents."
+msgstr "Non hai ancora caricato alcun documento."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            Perché non ne <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">carichi uno adesso</a>?\n"
+"            "
 
 msgid "Change document:"
 msgstr "Cambia documento"
@@ -128,6 +168,9 @@ msgstr "Titolo"
 
 msgid "File"
 msgstr "File"
+
+msgid "Collection"
+msgstr "Raccolta"
 
 msgid "Uploaded"
 msgstr "Caricato"
@@ -205,6 +248,15 @@ msgstr "Oppure sceglilo dal tuo computer"
 
 msgid "Add to collection:"
 msgstr "Aggiungi alla raccolta:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Caricamento eseguito con successo. Aggiorna questo documento con un titolo "
+"più appropriato, se necessario. Puoi anche eliminare completamente il "
+"documento se il caricamento non è stato richiesto."
 
 msgid "Sorry, upload failed."
 msgstr "Spiacente, caricamento fallito."

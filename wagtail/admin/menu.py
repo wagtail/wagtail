@@ -88,11 +88,7 @@ class Menu:
 
         rendered_menu_items = []
         for item in sorted(menu_items, key=lambda i: i.order):
-            try:
-                rendered_menu_items.append(item.render_html(request))
-            except TypeError:
-                # fallback for older render_html methods that don't accept a request arg
-                rendered_menu_items.append(item.render_html(request))
+            rendered_menu_items.append(item.render_html(request))
 
         return mark_safe(''.join(rendered_menu_items))
 

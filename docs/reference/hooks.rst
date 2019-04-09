@@ -56,7 +56,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_panels``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``.
+  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``. Hook functions should modify the ``panels`` list in-place as required.
 
   .. code-block:: python
 
@@ -76,7 +76,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     @hooks.register('construct_homepage_panels')
     def add_another_welcome_panel(request, panels):
-      return panels.append( WelcomePanel() )
+        panels.append(WelcomePanel())
 
 
 .. _construct_homepage_summary_items:
@@ -156,7 +156,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   :attrs: additional HTML attributes to apply to the link
   :order: an integer which determines the item's position in the menu
 
-  ``MenuItem`` can be subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/menu.py``) for details.
+  ``MenuItem`` can be subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/menu.py``) for details.
 
   .. code-block:: python
 
@@ -231,7 +231,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   A template tag, ``search_other`` is provided by the ``wagtailadmin_tags`` template module. This tag takes a single, optional parameter, ``current``, which allows you to specify the ``name`` of the search option currently active. If the parameter is not given, the hook defaults to a reverse lookup of the page's URL for comparison against the ``url`` parameter.
 
 
-  ``SearchArea`` can be subclassed to customise the HTML output, specify JavaScript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/search.py``) for details.
+  ``SearchArea`` can be subclassed to customise the HTML output, specify JavaScript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/search.py``) for details.
 
   .. code-block:: python
 
@@ -539,6 +539,7 @@ Hooks for customising the way users are directed through the process of creating
     from wagtail.admin.action_menu import ActionMenuItem
 
     class GuacamoleMenuItem(ActionMenuItem):
+        name = 'action-guacamole'
         label = "Guacamole"
 
         def get_url(self, request, context):
@@ -705,7 +706,7 @@ Choosers
     @hooks.register('construct_document_chooser_queryset')
     def show_my_uploaded_documents_only(documents, request):
         # Only show uploaded documents
-        documents = documents.filter(uploaded_by=request.user)
+        documents = documents.filter(uploaded_by_user=request.user)
 
         return documents
 
@@ -724,7 +725,7 @@ Choosers
     @hooks.register('construct_image_chooser_queryset')
     def show_my_uploaded_images_only(images, request):
         # Only show uploaded images
-        images = images.filter(uploaded_by=request.user)
+        images = images.filter(uploaded_by_user=request.user)
 
         return images
 

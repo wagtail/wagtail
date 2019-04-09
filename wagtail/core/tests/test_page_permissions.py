@@ -3,7 +3,8 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 
 from wagtail.core.models import GroupPagePermission, Page, UserPagePermissionsProxy
-from wagtail.tests.testapp.models import BusinessSubIndex, EventIndex, EventPage
+from wagtail.tests.testapp.models import (
+    BusinessSubIndex, EventIndex, EventPage, SingletonPageViaMaxCount)
 
 
 class TestPagePermission(TestCase):
@@ -464,3 +465,74 @@ class TestPagePermission(TestCase):
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertFalse(perms.can_lock())
+
+
+class TestPagePermissionTesterCanCopyTo(TestCase):
+    """Tests PagePermissionTester.can_copy_to()"""
+
+    fixtures = ['test.json']
+
+    def setUp(self):
+        # These same pages will be used for testing the result for each user
+        self.board_meetings_page = BusinessSubIndex.objects.get(url_path='/home/events/businessy-events/board-meetings/')
+        self.event_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # We'll also create a SingletonPageViaMaxCount to use
+        homepage = Page.objects.get(url_path='/home/')
+        self.singleton_page = SingletonPageViaMaxCount(title='there can be only one')
+        homepage.add_child(instance=self.singleton_page)
+
+    def test_inactive_user_cannot_copy_any_pages(self):
+        user = get_user_model().objects.get(username='inactiveuser')
+
+        # Create PagePermissionTester objects for this user, for each page
+        board_meetings_page_perms = self.board_meetings_page.permissions_for_user(user)
+        event_page_perms = self.event_page.permissions_for_user(user)
+        singleton_page_perms = self.singleton_page.permissions_for_user(user)
+
+        # This user should not be able to copy any pages
+        self.assertFalse(event_page_perms.can_copy_to(self.event_page.get_parent()))
+        self.assertFalse(board_meetings_page_perms.can_copy_to(self.board_meetings_page.get_parent()))
+        self.assertFalse(singleton_page_perms.can_copy_to(self.singleton_page.get_parent()))
+
+    def test_no_permissions_admin_cannot_copy_any_pages(self):
+        user = get_user_model().objects.get(username='admin_only_user')
+
+        # Create PagePermissionTester objects for this user, for each page
+        board_meetings_page_perms = self.board_meetings_page.permissions_for_user(user)
+        event_page_perms = self.event_page.permissions_for_user(user)
+        singleton_page_perms = self.singleton_page.permissions_for_user(user)
+
+        # This user should not be able to copy any pages
+        self.assertFalse(event_page_perms.can_copy_to(self.event_page.get_parent()))
+        self.assertFalse(board_meetings_page_perms.can_copy_to(self.board_meetings_page.get_parent()))
+        self.assertFalse(singleton_page_perms.can_copy_to(self.singleton_page.get_parent()))
+
+    def test_event_moderator_cannot_copy_a_singleton_page(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+
+        # Create PagePermissionTester objects for this user, for each page
+        board_meetings_page_perms = self.board_meetings_page.permissions_for_user(user)
+        event_page_perms = self.event_page.permissions_for_user(user)
+        singleton_page_perms = self.singleton_page.permissions_for_user(user)
+
+        # We'd expect an event moderator to be able to copy an event page
+        self.assertTrue(event_page_perms.can_copy_to(self.event_page.get_parent()))
+        # This works because copying doesn't necessarily have to mean publishing
+        self.assertTrue(board_meetings_page_perms.can_copy_to(self.board_meetings_page.get_parent()))
+        # SingletonPageViaMaxCount.can_create_at() prevents copying, regardless of a user's permissions
+        self.assertFalse(singleton_page_perms.can_copy_to(self.singleton_page.get_parent()))
+
+    def test_not_even_a_superuser_can_copy_a_singleton_page(self):
+        user = get_user_model().objects.get(username='superuser')
+
+        # Create PagePermissionTester object for this user, for each page
+        board_meetings_page_perms = self.board_meetings_page.permissions_for_user(user)
+        event_page_perms = self.event_page.permissions_for_user(user)
+        singleton_page_perms = self.singleton_page.permissions_for_user(user)
+
+        # A superuser has full permissions, so these are self explainatory
+        self.assertTrue(event_page_perms.can_copy_to(self.event_page.get_parent()))
+        self.assertTrue(board_meetings_page_perms.can_copy_to(self.board_meetings_page.get_parent()))
+        # However, SingletonPageViaMaxCount.can_create_at() prevents copying, regardless of a user's permissions
+        self.assertFalse(singleton_page_perms.can_copy_to(self.singleton_page.get_parent()))

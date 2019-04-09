@@ -103,6 +103,16 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(content, ["Hello world!"])
 
+    def test_charfield_with_validator(self):
+        def validate_is_foo(value):
+            if value != 'foo':
+                raise ValidationError("Value must be 'foo'")
+
+        block = blocks.CharBlock(validators=[validate_is_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean("bar")
+
     def test_choicefield_render(self):
         class ChoiceBlock(blocks.FieldBlock):
             field = forms.ChoiceField(choices=(
@@ -288,6 +298,16 @@ class TestIntegerBlock(TestCase):
         with self.assertRaises(ValidationError):
             block.clean(10)
 
+    def test_render_with_validator(self):
+        def validate_is_even(value):
+            if value % 2 > 0:
+                raise ValidationError("Value must be even")
+
+        block = blocks.IntegerBlock(validators=[validate_is_even])
+
+        with self.assertRaises(ValidationError):
+            block.clean(3)
+
 
 class TestEmailBlock(TestCase):
     def test_definition(self):
@@ -323,6 +343,16 @@ class TestEmailBlock(TestCase):
         with self.assertRaises(ValidationError):
             block.clean("example.email.com")
 
+    def test_render_with_validator(self):
+        def validate_is_example_domain(value):
+            if not value.endswith('@example.com'):
+                raise ValidationError("E-mail address must end in @example.com")
+
+        block = blocks.EmailBlock(validators=[validate_is_example_domain])
+
+        with self.assertRaises(ValidationError):
+            block.clean("foo@example.net")
+
 
 class TestBlockQuoteBlock(TestCase):
     def test_definition(self):
@@ -345,6 +375,16 @@ class TestBlockQuoteBlock(TestCase):
         quote = block.render("Now is the time...")
 
         self.assertEqual(quote, "<blockquote>Now is the time...</blockquote>")
+
+    def test_render_with_validator(self):
+        def validate_is_proper_story(value):
+            if not value.startswith('Once upon a time'):
+                raise ValidationError("Value must be a proper story")
+
+        block = blocks.BlockQuoteBlock(validators=[validate_is_proper_story])
+
+        with self.assertRaises(ValidationError):
+            block.clean("A long, long time ago")
 
 
 class TestFloatBlock(TestCase):
@@ -392,6 +432,16 @@ class TestFloatBlock(TestCase):
         with self.assertRaises(ValidationError):
             block.clean('19.99')
 
+    def test_render_with_validator(self):
+        def validate_is_even(value):
+            if value % 2 > 0:
+                raise ValidationError("Value must be even")
+
+        block = blocks.FloatBlock(validators=[validate_is_even])
+
+        with self.assertRaises(ValidationError):
+            block.clean('3.0')
+
 
 class TestDecimalBlock(TestCase):
     def test_definition(self):
@@ -438,6 +488,16 @@ class TestDecimalBlock(TestCase):
 
         with self.assertRaises(ValidationError):
             block.clean('19.99')
+
+    def test_render_with_validator(self):
+        def validate_is_even(value):
+            if value % 2 > 0:
+                raise ValidationError("Value must be even")
+
+        block = blocks.DecimalBlock(validators=[validate_is_even])
+
+        with self.assertRaises(ValidationError):
+            block.clean('3.0')
 
 
 class TestRegexBlock(TestCase):
@@ -506,6 +566,16 @@ class TestRegexBlock(TestCase):
             errors=ErrorList([ValidationError(test_message)]))
 
         self.assertIn(test_message, html)
+
+    def test_render_with_validator(self):
+        def validate_is_foo(value):
+            if value != 'foo':
+                raise ValidationError("Value must be 'foo'")
+
+        block = blocks.RegexBlock(regex=r'^.*$', validators=[validate_is_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean('bar')
 
 
 class TestRichTextBlock(TestCase):
@@ -584,6 +654,16 @@ class TestRichTextBlock(TestCase):
         result = block.clean(RichText(''))
         self.assertIsInstance(result, RichText)
         self.assertEqual(result.source, '')
+
+    def test_render_with_validator(self):
+        def validate_contains_foo(value):
+            if 'foo' not in value:
+                raise ValidationError("Value must contain 'foo'")
+
+        block = blocks.RichTextBlock(validators=[validate_contains_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean(RichText('<p>bar</p>'))
 
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
@@ -892,6 +972,20 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             )
         )
 
+    def test_render_with_validator(self):
+        choices = [
+            ('tea', 'Tea'),
+            ('coffee', 'Coffee'),
+        ]
+
+        def validate_tea_is_selected(value):
+            raise ValidationError("You must select 'tea'")
+
+        block = blocks.ChoiceBlock(choices=choices, validators=[validate_tea_is_selected])
+
+        with self.assertRaises(ValidationError):
+            block.clean('coffee')
+
 
 class TestRawHTMLBlock(TestCase):
     def test_definition(self):
@@ -979,6 +1073,16 @@ class TestRawHTMLBlock(TestCase):
         result = block.clean(mark_safe(''))
         self.assertEqual(result, '')
         self.assertIsInstance(result, SafeData)
+
+    def test_render_with_validator(self):
+        def validate_contains_foo(value):
+            if 'foo' not in value:
+                raise ValidationError("Value must contain 'foo'")
+
+        block = blocks.RawHTMLBlock(validators=[validate_contains_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean(mark_safe('<p>bar</p>'))
 
 
 class TestMeta(unittest.TestCase):
@@ -2622,22 +2726,22 @@ class TestPageChooserBlock(TestCase):
         self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_string(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model='tests.SimplePage')
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type='tests.SimplePage')
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_literal(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=SimplePage)
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=SimplePage)
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_multiple_strings(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=['tests.SimplePage', 'tests.EventPage'])
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=['tests.SimplePage', 'tests.EventPage'])
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_multiple_literals(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=[SimplePage, EventPage])
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=[SimplePage, EventPage])
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false, null);', empty_form_html)
 
@@ -2674,19 +2778,19 @@ class TestPageChooserBlock(TestCase):
         self.assertEqual(block.target_model, Page)
 
     def test_target_model_string(self):
-        block = blocks.PageChooserBlock(target_model='tests.SimplePage')
+        block = blocks.PageChooserBlock(page_type='tests.SimplePage')
         self.assertEqual(block.target_model, SimplePage)
 
     def test_target_model_literal(self):
-        block = blocks.PageChooserBlock(target_model=SimplePage)
+        block = blocks.PageChooserBlock(page_type=SimplePage)
         self.assertEqual(block.target_model, SimplePage)
 
     def test_target_model_multiple_strings(self):
-        block = blocks.PageChooserBlock(target_model=['tests.SimplePage', 'tests.EventPage'])
+        block = blocks.PageChooserBlock(page_type=['tests.SimplePage', 'tests.EventPage'])
         self.assertEqual(block.target_model, Page)
 
     def test_target_model_multiple_literals(self):
-        block = blocks.PageChooserBlock(target_model=[SimplePage, EventPage])
+        block = blocks.PageChooserBlock(page_type=[SimplePage, EventPage])
         self.assertEqual(block.target_model, Page)
 
     def test_deconstruct_target_model_default(self):
@@ -2696,28 +2800,28 @@ class TestPageChooserBlock(TestCase):
             (), {}))
 
     def test_deconstruct_target_model_string(self):
-        block = blocks.PageChooserBlock(target_model='tests.SimplePage')
+        block = blocks.PageChooserBlock(page_type='tests.SimplePage')
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage']}))
+            (), {'page_type': ['tests.SimplePage']}))
 
     def test_deconstruct_target_model_literal(self):
-        block = blocks.PageChooserBlock(target_model=SimplePage)
+        block = blocks.PageChooserBlock(page_type=SimplePage)
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage']}))
+            (), {'page_type': ['tests.SimplePage']}))
 
     def test_deconstruct_target_model_multiple_strings(self):
-        block = blocks.PageChooserBlock(target_model=['tests.SimplePage', 'tests.EventPage'])
+        block = blocks.PageChooserBlock(page_type=['tests.SimplePage', 'tests.EventPage'])
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage', 'tests.EventPage']}))
+            (), {'page_type': ['tests.SimplePage', 'tests.EventPage']}))
 
     def test_deconstruct_target_model_multiple_literals(self):
-        block = blocks.PageChooserBlock(target_model=[SimplePage, EventPage])
+        block = blocks.PageChooserBlock(page_type=[SimplePage, EventPage])
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage', 'tests.EventPage']}))
+            (), {'page_type': ['tests.SimplePage', 'tests.EventPage']}))
 
 
 class TestStaticBlock(TestCase):
@@ -2842,7 +2946,7 @@ class TestDateBlock(TestCase):
         self.assertIn('"format": "Y-m-d"', result)
 
         self.assertInHTML(
-            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="2015-08-13" autocomplete="off" />',
+            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="2015-08-13" autocomplete="new-date" />',
             result
         )
 
@@ -2855,7 +2959,7 @@ class TestDateBlock(TestCase):
         self.assertIn('"dayOfWeekStart": 0', result)
         self.assertIn('"format": "d.m.Y"', result)
         self.assertInHTML(
-            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" autocomplete="off" />',
+            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" autocomplete="new-date" />',
             result
         )
 
@@ -2892,7 +2996,7 @@ class TestDateTimeBlock(TestCase):
             result
         )
         self.assertInHTML(
-            '<input id="datetimeblock" name="datetimeblock" placeholder="" type="text" value="13.08.2015 10:00" autocomplete="off" />',
+            '<input id="datetimeblock" name="datetimeblock" placeholder="" type="text" value="13.08.2015 10:00" autocomplete="new-date-time" />',
             result
         )
 

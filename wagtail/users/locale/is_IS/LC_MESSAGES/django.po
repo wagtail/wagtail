@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
-# saevarom <saevar@saevar.is>, 2017-2018
+# saevarom <saevar@saevar.is>, 2017-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:42+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-18 08:46+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -116,6 +116,9 @@ msgstr "prófílmynd"
 
 msgid "user profile"
 msgstr "uppsetning notanda"
+
+msgid "user profiles"
+msgstr "uppsetning notenda"
 
 msgid "Delete group"
 msgstr "Eyða hóp"
@@ -239,6 +242,9 @@ msgstr "Stig"
 msgid "Status"
 msgstr "Staða"
 
+msgid "Last Login"
+msgstr "Síðasta innskráning"
+
 msgid "Admin"
 msgstr "Stjórnandi"
 
@@ -247,6 +253,26 @@ msgstr "Virkur"
 
 msgid "Inactive"
 msgstr "Óvirkur"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s síðan"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Það er %(counter)s niðurstaða"
+msgstr[1] ""
+"\n"
+"Það eru %(counter)s niðurstöður"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -291,6 +317,9 @@ msgstr "Breyta"
 msgid "The user could not be created due to errors."
 msgstr ""
 "Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
+
+msgid "User '{0}' updated."
+msgstr "Notandi '{0}' uppfærður."
 
 msgid "The user could not be saved due to errors."
 msgstr ""

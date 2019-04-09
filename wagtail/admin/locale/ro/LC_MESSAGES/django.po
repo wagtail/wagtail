@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2018
+# Dan Braghis, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-25 09:26+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -334,6 +334,28 @@ msgstr "Link extern"
 msgid "Email link"
 msgstr "Link e-mail"
 
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"        Există %(counter)s potrivire\n"
+"    "
+msgstr[1] ""
+"\n"
+"        Sunt %(counter)s potriviri\n"
+"    "
+msgstr[2] ""
+"\n"
+"        Sunt %(counter)s potriviri\n"
+"    "
+
 msgid "Choose"
 msgstr "Alege"
 
@@ -448,6 +470,9 @@ msgstr "Editat"
 
 msgid "Edit this page"
 msgstr "Editează această pagină"
+
+msgid "Preview this page"
+msgstr "Previzualizează această pagină"
 
 msgid "Approve"
 msgstr "Aprobă"
@@ -1059,6 +1084,9 @@ msgstr[2] ""
 "\n"
 "%(counter)s pagini se potrivesc"
 
+msgid "Page types"
+msgstr "Tipuri pagini"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1118,6 +1146,27 @@ msgstr "Noiembrie"
 msgid "December"
 msgstr "Decembrie"
 
+msgid "Sunday"
+msgstr "Duminică"
+
+msgid "Monday"
+msgstr "Luni"
+
+msgid "Tuesday"
+msgstr "Marți"
+
+msgid "Wednesday"
+msgstr "Miercuri"
+
+msgid "Thursday"
+msgstr "Joi"
+
+msgid "Friday"
+msgstr "Vineri"
+
+msgid "Saturday"
+msgstr "Sâmbătă"
+
 msgid "Sun"
 msgstr "D"
 
@@ -1164,6 +1213,23 @@ msgstr ""
 "această aplicație. Vă rugăm să <a href=\"http://browsehappy.com/"
 "\">actualizați browser-ul</a> Dvstră."
 
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtail are nevoie de Javascript, care în prezent e deactivat."
+"<br />\n"
+"            Vezi <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">instrucțiuni de activare JavaScript "
+"în web browser-ul Dvs</a>.\n"
+"        "
+
 msgid "Go to Wagtail admin interface"
 msgstr "Spre interfața de administrare Wagtail"
 
@@ -1175,6 +1241,9 @@ msgstr "Arată în Explorator"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabă"
 
 msgid "Catalan"
 msgstr "Catalană"
@@ -1199,6 +1268,9 @@ msgstr "Franceză"
 
 msgid "Galician"
 msgstr "Galiciană"
+
+msgid "Indonesian"
+msgstr "Indoneză"
 
 msgid "Icelandic"
 msgstr "Islandeză"

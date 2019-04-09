@@ -6,15 +6,15 @@
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2018
 # Kees Hink <keeshink@gmail.com>, 2017
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
-# Meteor0id, 2018
+# Meteor0id, 2018-2019
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:42+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-01-18 15:45+0000\n"
+"Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -246,6 +246,9 @@ msgstr "Level"
 msgid "Status"
 msgstr "Status"
 
+msgid "Last Login"
+msgstr "Laaste login"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -254,6 +257,10 @@ msgstr "Actief"
 
 msgid "Inactive"
 msgstr "Inactief"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s geleden"
 
 #, python-format
 msgid ""

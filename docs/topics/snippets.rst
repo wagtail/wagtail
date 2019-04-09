@@ -63,7 +63,7 @@ First, add a new python file to a ``templatetags`` folder within your app - for 
           'request': context['request'],
       }
 
-``@register.inclusion_tag()`` takes two variables: a template and a boolean on whether that template should be passed a request context. It's a good idea to include request contexts in your custom template tags, since some Wagtail-specific template tags like ``pageurl`` need the context to work properly. The template tag function could take arguments and filter the adverts to return a specific model, but for brevity we'll just use ``Advert.objects.all()``.
+``@register.inclusion_tag()`` takes two variables: a template and a boolean on whether that template should be passed a request context. It's a good idea to include request contexts in your custom template tags, since some Wagtail-specific template tags like ``pageurl`` need the context to work properly. The template tag function could take arguments and filter the adverts to return a specific instance of the model, but for brevity we'll just use ``Advert.objects.all()``.
 
 Here's what's in the template used by this template tag:
 
@@ -97,7 +97,7 @@ Then, in your own page templates, you can include your snippet template tag with
 Binding Pages to Snippets
 -------------------------
 
-In the above example, the list of adverts is a fixed list, displayed independently of the page content. This might be what you want for a common panel in a sidebar, say -- but in other scenarios you may wish to refer to a particular snippet from within a page's content. This can be done by defining a foreign key to the snippet model within your page model, and adding a ``SnippetChooserPanel`` to the page's ``content_panels`` list. For example, if you wanted to be able to specify an advert to appear on ``BookPage``:
+In the above example, the list of adverts is a fixed list that is displayed via the custom template tag independent of any other content on the page. This might be what you want for a common panel in a sidebar, but, in another scenario, you might wish to display just one specific instance of a snippet on a particular page. This can be accomplished by defining a foreign key to the snippet model within your page model and adding a ``SnippetChooserPanel`` to the page's ``content_panels`` list. For example, if you wanted to display a specific advert on a  ``BookPage`` instance:
 
 .. code-block:: python
 
@@ -120,7 +120,7 @@ In the above example, the list of adverts is a fixed list, displayed independent
 
 The snippet could then be accessed within your template as ``page.advert``.
 
-To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed on an inline child object of ``BookPage``, rather than on ``BookPage`` itself. Here this child model is named ``BookPageAdvertPlacement`` (so called because there is one such object for each time that an advert is placed on a BookPage):
+To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed on an inline child object of ``BookPage`` rather than on ``BookPage`` itself. Here, this child model is named ``BookPageAdvertPlacement`` (so called because there is one such object for each time that an advert is placed on a BookPage):
 
 
 .. code-block:: python

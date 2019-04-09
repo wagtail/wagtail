@@ -2,6 +2,7 @@ import os
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.files.images import get_image_dimensions
 from django.forms.fields import ImageField
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
@@ -16,6 +17,7 @@ class WagtailImageField(ImageField):
 
         # Get max upload size from settings
         self.max_upload_size = getattr(settings, 'WAGTAILIMAGES_MAX_UPLOAD_SIZE', 10 * 1024 * 1024)
+        self.max_image_pixels = getattr(settings, 'WAGTAILIMAGES_MAX_IMAGE_PIXELS', 128 * 1000000)
         max_upload_size_text = filesizeformat(self.max_upload_size)
 
         # Help text
@@ -45,6 +47,10 @@ class WagtailImageField(ImageField):
         self.error_messages['file_too_large'] = _(
             "This file is too big (%%s). Maximum filesize %s."
         ) % max_upload_size_text
+
+        self.error_messages['file_too_many_pixels'] = _(
+            "This file has too many pixels (%%s). Maximum pixels %s."
+        ) % self.max_image_pixels
 
         self.error_messages['file_too_large_unknown_size'] = _(
             "This file is too big. Maximum filesize %s."
@@ -83,11 +89,28 @@ class WagtailImageField(ImageField):
                 filesizeformat(f.size),
             ), code='file_too_large')
 
+    def check_image_pixel_size(self, f):
+        # Upload pixel size checking can be disabled by setting max upload pixel to None
+        if self.max_image_pixels is None:
+            return
+
+        # Check the pixel size
+        dimensions = get_image_dimensions(f)
+        if dimensions == (None, None):
+            return
+
+        pixel_size = dimensions[0] * dimensions[1]
+        if pixel_size > self.max_image_pixels:
+            raise ValidationError(self.error_messages['file_too_many_pixels'] % (
+                pixel_size
+            ), code='file_too_many_pixels')
+
     def to_python(self, data):
         f = super().to_python(data)
 
         if f is not None:
             self.check_image_file_size(f)
             self.check_image_file_format(f)
+            self.check_image_pixel_size(f)
 
         return f

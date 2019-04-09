@@ -5,13 +5,14 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:42+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-03-08 22:00+0000\n"
+"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -72,6 +73,12 @@ msgstr "Gruppo già esistente."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Non puoi avere permessi multipli per la stessa pagina."
 
+msgid "Preferred language"
+msgstr "Lingua preferita"
+
+msgid "Current time zone"
+msgstr "Fuso orario corrente"
+
 msgid "Upload a profile picture"
 msgstr "Carica un'immagine del profilo"
 
@@ -110,6 +117,9 @@ msgstr "Immagine del profilo"
 
 msgid "user profile"
 msgstr "profilo utente"
+
+msgid "user profiles"
+msgstr "profili utente"
 
 msgid "Delete group"
 msgstr "Elimina gruppo"
@@ -233,6 +243,9 @@ msgstr "Livello"
 msgid "Status"
 msgstr "Stato"
 
+msgid "Last Login"
+msgstr "Ultima Login"
+
 msgid "Admin"
 msgstr "Amministratore"
 
@@ -241,6 +254,28 @@ msgstr "Attivo"
 
 msgid "Inactive"
 msgstr "Inattivo"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s fa"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            C'è %(counter)s corrispondenza\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Ci sono %(counter)s corrispondenze\n"
+"        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -284,6 +319,9 @@ msgstr "Modifica"
 
 msgid "The user could not be created due to errors."
 msgstr "L'utente non può essere creato a causa di errori."
+
+msgid "User '{0}' updated."
+msgstr "Utente '{0}' aggiornato."
 
 msgid "The user could not be saved due to errors."
 msgstr "L'utente non può essere salvato a causa di errori."

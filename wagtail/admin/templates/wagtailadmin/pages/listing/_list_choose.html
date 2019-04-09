@@ -33,6 +33,10 @@
     {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=page %}
 {% endblock %}
 
+{% block page_parent_page_title %}
+    {% include "wagtailadmin/pages/listing/_page_parent_page_title_choose.html" with page=page %}
+{% endblock %}
+
 {% block page_navigation %}
     {% include "wagtailadmin/pages/listing/_navigation_choose.html" %}
 {% endblock %}

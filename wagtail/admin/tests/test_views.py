@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.core.models import Page
@@ -50,3 +50,8 @@ class TestLoginView(TestCase, WagtailTestUtils):
         login_url = reverse('wagtailadmin_login') + '?next={}'.format(homepage_admin_url)
         response = self.client.get(login_url)
         self.assertRedirects(response, homepage_admin_url)
+
+    @override_settings(LANGUAGE_CODE='de')
+    def test_language_code(self):
+        response = self.client.get(reverse('wagtailadmin_login'))
+        self.assertContains(response, '<html class="no-js" lang="de">')

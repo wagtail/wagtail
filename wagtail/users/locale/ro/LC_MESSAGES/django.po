@@ -4,15 +4,15 @@
 #
 # Translators:
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2018
+# Dan Braghis, 2014-2019
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:42+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-02-27 18:19+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Wagtail users"
+msgstr "Utilizatori Wagtail"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "Obligatoriu. Până la 30 caractere. Numai litere, numere și @/./+/-/_"
@@ -68,6 +71,15 @@ msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 "Nu puteți avea înregistrări de permisiune multiple pentru aceeași pagină."
 
+msgid "Preferred language"
+msgstr "Limbra preferată"
+
+msgid "Current time zone"
+msgstr "Fus orar curent"
+
+msgid "Upload a profile picture"
+msgstr "Încarcă poza profil"
+
 msgid "submitted notifications"
 msgstr "notificări depuse"
 
@@ -92,8 +104,20 @@ msgstr "limba preferată"
 msgid "Select language for the admin"
 msgstr "Selectați limba pentru interfața de administrare"
 
+msgid "current time zone"
+msgstr "fus orar curent"
+
+msgid "Select your current time zone"
+msgstr "Selectați fusul orar curent"
+
+msgid "profile picture"
+msgstr "poză profil"
+
 msgid "user profile"
 msgstr "profil utilizator"
+
+msgid "user profiles"
+msgstr "profiluri utilizatori"
 
 msgid "Delete group"
 msgstr "Șterge grup"
@@ -221,6 +245,9 @@ msgstr "Nivel"
 msgid "Status"
 msgstr "Stare"
 
+msgid "Last Login"
+msgstr "Ultima logare"
+
 msgid "Admin"
 msgstr "Administrator"
 
@@ -229,6 +256,29 @@ msgstr "Activ"
 
 msgid "Inactive"
 msgstr "Inactiv"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s în urmă"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Sunt %(counter)s potriviri"
+msgstr[1] ""
+"\n"
+"Sunt %(counter)s potriviri"
+msgstr[2] ""
+"\n"
+"Sunt %(counter)s potriviri"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -273,6 +323,9 @@ msgstr "Editează"
 
 msgid "The user could not be created due to errors."
 msgstr "Utilizatorul nu a fost creat din cauza erorilor."
+
+msgid "User '{0}' updated."
+msgstr "Utilizatorul '{0}' a fost actualizat."
 
 msgid "The user could not be saved due to errors."
 msgstr "Utilizatorul nu a fost salvat din cauza erorilor."

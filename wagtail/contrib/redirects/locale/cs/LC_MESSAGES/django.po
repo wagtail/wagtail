@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# it_management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2018
 # Marek Turnovec <aesculap@gmail.com>, 2016
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
 "PO-Revision-Date: 2018-11-30 08:51+0000\n"
-"Last-Translator: it_management <info@itmanagement.cz>\n"
+"Last-Translator: IT Management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"

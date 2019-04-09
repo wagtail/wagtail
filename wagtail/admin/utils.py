@@ -39,6 +39,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('it', ugettext_lazy('Italian')),
     ('ko', ugettext_lazy('Korean')),
     ('lt', ugettext_lazy('Lithuanian')),
+    ('mn', ugettext_lazy('Mongolian')),
     ('nb', ugettext_lazy('Norwegian Bokmål')),
     ('nl-nl', ugettext_lazy('Netherlands Dutch')),
     ('fa', ugettext_lazy('Persian')),
@@ -49,8 +50,10 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('ru', ugettext_lazy('Russian')),
     ('sv', ugettext_lazy('Swedish')),
     ('sk-sk', ugettext_lazy('Slovak')),
+    ('th', ugettext_lazy('Thai')),
     ('uk', ugettext_lazy('Ukrainian')),
-    ('zh-cn', ugettext_lazy('Chinese (China)')),
+    ('zh-hans', ugettext_lazy('Chinese (Simplified)')),
+    ('zh-hant', ugettext_lazy('Chinese (Traditional)')),
 ]
 
 
@@ -222,13 +225,13 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
         password=kwargs.get('auth_password', None),
         fail_silently=kwargs.get('fail_silently', None),
     )
-    kwargs = {
+    multi_alt_kwargs = {
         'connection': connection,
         'headers': {
             'Auto-Submitted': 'auto-generated',
         }
     }
-    mail = EmailMultiAlternatives(subject, message, from_email, recipient_list, **kwargs)
+    mail = EmailMultiAlternatives(subject, message, from_email, recipient_list, **multi_alt_kwargs)
     html_message = kwargs.get('html_message', None)
     if html_message:
         mail.attach_alternative(html_message, 'text/html')

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,6 +87,10 @@ msgstr ""
 
 #: templates/wagtailsnippets/snippets/confirm_delete.html:37
 msgid "Yes, delete"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:38
+msgid "No, don't delete"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/create.html:3
@@ -188,31 +192,31 @@ msgstr ""
 msgid "Search %(snippet_type_name)s"
 msgstr ""
 
-#: views/snippets.py:145
+#: views/snippets.py:147
 msgid "{snippet_type} '{instance}' created."
 msgstr ""
 
-#: views/snippets.py:152 views/snippets.py:202
+#: views/snippets.py:154 views/snippets.py:201
 msgid "Edit"
 msgstr ""
 
-#: views/snippets.py:158
+#: views/snippets.py:160
 msgid "The snippet could not be created due to errors."
 msgstr ""
 
-#: views/snippets.py:195
+#: views/snippets.py:194
 msgid "{snippet_type} '{instance}' updated."
 msgstr ""
 
-#: views/snippets.py:208
+#: views/snippets.py:207
 msgid "The snippet could not be saved due to errors."
 msgstr ""
 
-#: views/snippets.py:247
+#: views/snippets.py:242
 msgid "{snippet_type} '{instance}' deleted."
 msgstr ""
 
-#: views/snippets.py:252
+#: views/snippets.py:247
 msgid "{count} {snippet_type} deleted."
 msgstr ""
 

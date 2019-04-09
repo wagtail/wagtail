@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-31 19:47+0000\n"
+"PO-Revision-Date: 2018-12-21 18:55+0000\n"
 "Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -185,7 +185,7 @@ msgstr "صفحات"
 
 #, python-format
 msgid "Form data <span>%(form_title)s</span>"
-msgstr "بيانات النموذج %(form_title)s"
+msgstr "بيانات النموذج <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "فلتر"

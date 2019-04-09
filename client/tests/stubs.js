@@ -41,6 +41,8 @@ global.wagtailConfig = {
     SHOW_LATEST_CONTENT: 'Show latest content',
     SHOW_ERROR: 'Show error',
     EDITOR_CRASH: 'The editor just crashed. Content has been reset to the last saved version.',
+    BROKEN_LINK: 'Broken link',
+    MISSING_DOCUMENT: 'Missing document',
   },
 };
 
