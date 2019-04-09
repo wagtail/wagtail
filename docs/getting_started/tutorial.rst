@@ -33,28 +33,26 @@ Create and activate a virtual environment
 We recommend using a virtual environment, which provides an isolated Python environment.
 This tutorial uses `venv <https://docs.python.org/3/tutorial/venv.html>`_, which is packaged with Python 3.
 
-Create a virtual environment:
+**On Windows** (cmd.exe):
 
-.. code-block:: console
+    .. code-block:: bat
 
-   $ python3 -m venv mysite-env
+       $ python3 -m venv mysite\env
+       $ mysite\env\Scripts\activate.bat
 
+**On Unix or MacOS** (bash):
 
-Activate your virtual environment:
+    .. code-block:: console
 
-   On Windows:
+       $ python3 -m venv mysite/env
+       $ source mysite/env/bin/activate
 
-      .. code-block:: console
+**For other shells** see the `venv documentation <https://docs.python.org/3/library/venv.html>`_.
 
-         $ mysite-env\Scripts\activate.bat
+.. note::
 
-   On Unix or MacOS (bash):
-
-      .. code-block:: console
-
-         $ source mysite-env/bin/activate
-
-   For other shells, see the `venv documentation <https://docs.python.org/3/library/venv.html>`_.
+   If you're using version control (e.g. git), ``mysite`` will be the directory for your project.
+   The ``env`` directory inside of it should be excluded from any version control.
 
 Install Wagtail
 ~~~~~~~~~~~~~~~
@@ -68,22 +66,24 @@ Use pip, which is packaged with Python, to install Wagtail and its dependencies:
 Generate your site
 ~~~~~~~~~~~~~~~~~~
 
-.. code-block:: console
-
-   $ wagtail start mysite
-   $ cd mysite
-
 Wagtail provides a ``start`` command similar to ``django-admin startproject``.
 Running ``wagtail start mysite`` in your project will generate a new ``mysite`` folder with a few Wagtail-specific extras, including
 the required project settings,
 a "home" app with a blank ``HomePage`` model and basic templates,
 and a sample "search" app.
 
+Because the folder ``mysite`` was already created by ``venv``, run ``wagtail start`` with an additional argument to specify the destination directory:
+
+.. code-block:: console
+
+   $ wagtail start mysite mysite
+
 Install project dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: console
 
+   $ cd mysite
    $ pip install -r requirements.txt
 
 This ensures that you have the relevant versions of
