@@ -53,7 +53,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
             definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${test}',
         })
 
@@ -254,7 +254,7 @@ class TestIntegerBlock(TestCase):
             definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-plus-inverse"></i>',
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${test}',
         })
@@ -301,7 +301,7 @@ class TestEmailBlock(TestCase):
             definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-mail"></i>',
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${test}',
         })
@@ -336,7 +336,7 @@ class TestBlockQuoteBlock(TestCase):
             definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-openquote"></i>',
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${test}',
         })
@@ -359,7 +359,7 @@ class TestFloatBlock(TestCase):
             definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-plus-inverse"></i>',
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${test}',
         })
@@ -405,7 +405,7 @@ class TestDecimalBlock(TestCase):
             definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-plus-inverse"></i>',
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${test}',
         })
@@ -452,7 +452,7 @@ class TestRegexBlock(TestCase):
             definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-code"></i>',
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${test}',
         })
@@ -520,7 +520,7 @@ class TestRichTextBlock(TestCase):
                       definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-doc-full"></i>',
             'dangerouslyRunInnerScripts': True,
         })
@@ -611,7 +611,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
         """, definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'dangerouslyRunInnerScripts': True,
         })
 
@@ -905,7 +905,7 @@ class TestRawHTMLBlock(TestCase):
             definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-code"></i>',
             'dangerouslyRunInnerScripts': True,
         })
@@ -1066,14 +1066,14 @@ class TestStructBlock(SimpleTestCase):
         del definition['children'][1]['html']
         self.assertDictEqual(definition, {
             'isStruct': True,
-            'key': 'test', 'label': 'Test', 'required': False,
+            'key': 'test', 'label': 'Test', 'required': False, 'closed': False,
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${title}',
             'children': [
                 {'key': 'title', 'label': 'Title', 'required': True,
-                 'titleTemplate': '${title}',
+                 'titleTemplate': '${title}', 'closed': False,
                  'dangerouslyRunInnerScripts': True},
                 {'key': 'link', 'label': 'Link', 'required': True,
-                 'titleTemplate': '${link}',
+                 'titleTemplate': '${link}', 'closed': False,
                  'icon': '<i class="icon icon-site"></i>',
                  'dangerouslyRunInnerScripts': True}
             ]
@@ -1441,14 +1441,14 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
         del definition['children'][1]['html']
         self.assertDictEqual(definition, {
             'isStruct': True,
-            'key': 'test', 'label': 'Test', 'required': False,
+            'key': 'test', 'label': 'Test', 'required': False, 'closed': False,
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${title}',
             'children': [
                 {'key': 'title', 'label': 'Title', 'required': True,
-                 'titleTemplate': '${title}',
+                 'titleTemplate': '${title}', 'closed': False,
                  'dangerouslyRunInnerScripts': True},
                 {'key': 'link', 'label': 'Link', 'required': True,
-                 'titleTemplate': '${link}',
+                 'titleTemplate': '${link}', 'closed': False,
                  'icon': '<i class="icon icon-site"></i>',
                  'dangerouslyRunInnerScripts': True}
             ]
@@ -1634,11 +1634,11 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         del definition['default']
         self.assertDictEqual(definition, {
             'key': 'test', 'label': 'Test', 'required': False,
-            'minNum': None, 'maxNum': None,
+            'minNum': None, 'maxNum': None, 'closed': False,
             'dangerouslyRunInnerScripts': True,
             'children': [
                 {'key': 'test_child', 'label': 'Test child', 'required': True,
-                 'dangerouslyRunInnerScripts': True,
+                 'dangerouslyRunInnerScripts': True, 'closed': False,
                  'titleTemplate': '${test_child}'}
             ],
         })
@@ -1839,14 +1839,14 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         del definition['children'][0]['html']
         del definition['children'][1]['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'minNum': None, 'maxNum': None, 'dangerouslyRunInnerScripts': True,
             'children': [
                 {'key': 'heading', 'label': 'Heading', 'required': True,
-                 'dangerouslyRunInnerScripts': True,
+                 'dangerouslyRunInnerScripts': True, 'closed': False,
                  'titleTemplate': '${heading}'},
                 {'key': 'paragraph', 'label': 'Paragraph', 'required': True,
-                 'dangerouslyRunInnerScripts': True,
+                 'dangerouslyRunInnerScripts': True, 'closed': False,
                  'titleTemplate': '${paragraph}'},
             ]
         })
@@ -2577,7 +2577,7 @@ class TestPageChooserBlock(TestCase):
             definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-redirect"></i>',
             'dangerouslyRunInnerScripts': True,
         })
@@ -2735,7 +2735,7 @@ class TestStaticBlock(TestCase):
         del definition['html']
         self.assertDictEqual(definition, {
             'isStatic': True,
-            'key': 'test', 'label': 'Test', 'required': False,
+            'key': 'test', 'label': 'Test', 'required': False, 'closed': False,
             'dangerouslyRunInnerScripts': True,
         })
 
@@ -2823,7 +2823,7 @@ class TestDateBlock(TestCase):
                 definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-date"></i>',
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${test}',
         })
@@ -2876,7 +2876,7 @@ class TestDateTimeBlock(TestCase):
                 definition['html'])
         del definition['html']
         self.assertDictEqual(definition, {
-            'key': 'test', 'label': 'Test', 'required': True,
+            'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-date"></i>',
             'dangerouslyRunInnerScripts': True,
             'titleTemplate': '${test}',
