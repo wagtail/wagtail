@@ -1,7 +1,6 @@
 import collections
 import json
 from importlib import import_module
-from uuid import uuid4
 
 from django import forms
 from django.core import checks
@@ -117,31 +116,13 @@ class Block(metaclass=BaseBlock):
         """
         return value
 
-    def prepare_for_react(self, parent_block, value,
-                          type_name=None, errors=None):
+    def get_instance_html(self, value, errors=None):
         """
-        Returns the JSON data that will be used in JavaScript in order
-        to pass value and block instance metadata to react-streamfield.
-        """
-        if type_name is None:
-            type_name = self.name
-        from .stream_block import StreamValue
-        if isinstance(value, StreamValue.StreamChild):
-            block_id = value.id
-            value = value.value
-        else:
-            block_id = str(uuid4())
-        value = self.prepare_value(value, errors=errors)
-        if parent_block is None:
-            return value
-        return BlockData({
-            'id': block_id,
-            'type': type_name,
-            'hasError': bool(errors),
-            'value': value,
-        })
+        Returns the HTML template generated for a given value.
 
-    def get_blocks_container_html(self, errors=None):
+        That HTML will be displayed as the block content panel
+        in react-streamfield. It is usually not rendered
+        """
         help_text = getattr(self.meta, 'help_text', None)
         non_block_errors = get_non_block_errors(errors)
         if help_text or non_block_errors:
@@ -533,8 +514,7 @@ class BlockWidget(forms.Widget):
             'icons': self.get_actions_icons(),
             'labels': self.get_action_labels(),
             'blockDefinitions': self.block_def.get_definition()['children'],
-            'value': self.block_def.prepare_for_react(None, value,
-                                                      errors=errors),
+            'value': self.block_def.prepare_value(value, errors=errors),
         }
 
     def render_with_errors(self, name, value, attrs=None, errors=None,

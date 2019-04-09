@@ -16,7 +16,7 @@ from django.utils.safestring import SafeData, mark_safe
 from django.utils.translation import ugettext_lazy as __
 
 from wagtail.core import blocks
-from wagtail.core.blocks import StreamValue
+from wagtail.core.blocks import StreamValue, BlockWidget
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
@@ -2265,11 +2265,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             catcher.exception
         ])
 
-        fake_parent_block = blocks.StreamBlock()
+        widget = BlockWidget(block)
+
         self.assertInHTML(
-            format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
-            block.prepare_for_react(fake_parent_block,
-                                    block_value, errors=errors)['html'])
+            '<div class="help-block help-critical">{}</div>'
+            .format(FooStreamBlock.error),
+            widget.render_with_errors('', block_value, errors=errors))
 
     def test_block_level_validation_render_no_errors(self):
         block = FooStreamBlock()
@@ -2284,9 +2285,10 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         except ValidationError:
             self.fail('Should have passed validation')
 
-        fake_parent_block = blocks.StreamBlock()
-        self.assertNotIn('html', block.prepare_for_react(fake_parent_block,
-                                                         block_value))
+        widget = BlockWidget(block)
+
+        self.assertNotInHTML('<div class="help-block help-critical">',
+                             widget.render_with_errors('', block_value))
 
     def test_definition_uses_default(self):
         class ArticleBlock(blocks.StreamBlock):

@@ -1,8 +1,11 @@
+from uuid import uuid4
+
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.core.blocks.utils import BlockData
 from .base import Block
 
 __all__ = ['ListBlock']
@@ -28,24 +31,26 @@ class ListBlock(Block):
                                                      prefix)
                 for child_block_data in data['value']]
 
-    def prepare_for_react(self, parent_block, value,
-                          type_name=None, errors=None):
-        data = super().prepare_for_react(parent_block, value,
-                                         type_name=type_name, errors=errors)
-        if errors is not None:
-            data['html'] = self.get_blocks_container_html(errors=errors)
-        return data
-
     def prepare_value(self, value, errors=None):
         children_errors = (None if errors is None
                            else errors.as_data()[0].params)
         if children_errors is None:
             children_errors = [None] * len(value)
-        return [
-            self.child_block.prepare_for_react(self, child_block_data,
-                                               errors=child_errors)
-            for child_block_data, child_errors
-            in zip(value, children_errors)]
+        prepared_value = []
+        for child_value, child_errors in zip(value, children_errors):
+            html = self.child_block.get_instance_html(child_value,
+                                                      errors=child_errors)
+            child_value = BlockData({
+                'id': str(uuid4()),
+                'type': self.child_block.name,
+                'hasError': bool(child_errors),
+                'value': self.child_block.prepare_value(child_value,
+                                                        errors=errors),
+            })
+            if html is not None:
+                child_value['html'] = html
+            prepared_value.append(child_value)
+        return prepared_value
 
     def get_definition(self):
         definition = super(ListBlock, self).get_definition()
@@ -54,7 +59,7 @@ class ListBlock(Block):
             minNum=self.meta.min_num,
             maxNum=self.meta.max_num,
         )
-        html = self.get_blocks_container_html()
+        html = self.get_instance_html([])
         if html is not None:
             definition['html'] = html
         return definition

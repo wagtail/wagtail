@@ -35,17 +35,10 @@ class FieldBlock(Block):
             value = widget.format_value(value)
         return value
 
-    def prepare_for_react(self, parent_block, value,
-                          type_name=None, errors=None):
-        data = super().prepare_for_react(parent_block, value,
-                                         type_name=type_name, errors=errors)
+    def get_instance_html(self, value, errors=None):
         if errors:
-            from .stream_block import StreamValue
-            if isinstance(value, StreamValue.StreamChild):
-                value = value.value
-            data['html'] = self.render_form(
-                value, prefix=Block.FIELD_NAME_TEMPLATE, errors=errors)
-        return data
+            return self.render_form(value, prefix=Block.FIELD_NAME_TEMPLATE,
+                                    errors=errors)
 
     def get_definition(self):
         definition = super().get_definition()
