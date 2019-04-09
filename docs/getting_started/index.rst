@@ -27,13 +27,13 @@ Run the following in a virtual environment of your choice:
 
 (Installing outside a virtual environment may require ``sudo``.)
 
-Once installed, Wagtail provides a command similar to Django's ``django-admin startproject`` to stub out a new site/project:
+Once installed, Wagtail provides a command similar to Django's ``django-admin startproject`` to generate a new site/project:
 
 .. code-block:: console
 
     $ wagtail start mysite
 
-This will create a new folder ``mysite``, based on a template containing all you need to get started.
+This will create a new folder ``mysite``, based on a template containing everything you need to get started.
 More information on that template is available in
 :doc:`the project template reference </reference/project_template>`.
 
