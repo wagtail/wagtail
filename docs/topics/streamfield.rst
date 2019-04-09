@@ -69,6 +69,9 @@ All block types accept the following optional keyword arguments:
 ``group``
   The group used to categorize this block, i.e. any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
 
+``closed``
+  Set to ``True`` to close all blocks of this type when loading the page. Defaults to ``False``.
+
 The basic block types provided by Wagtail are as follows:
 
 CharBlock

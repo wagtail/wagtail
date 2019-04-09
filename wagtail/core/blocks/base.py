@@ -54,6 +54,7 @@ class Block(metaclass=BaseBlock):
         icon = "placeholder"
         classname = None
         group = ''
+        closed = False
 
     """
     Setting a 'dependencies' list serves as a shortcut for the common case where a complex block type
@@ -157,6 +158,7 @@ class Block(metaclass=BaseBlock):
             'key': self.name,
             'label': capfirst(self.label),
             'required': self.required,
+            'closed': self.meta.closed,
             'dangerouslyRunInnerScripts': True,
         }
         if self.meta.icon != Block._meta_class.icon:
