@@ -2,7 +2,8 @@ Your first Wagtail site
 =======================
 
 .. note::
-   This tutorial covers setting up a brand new Wagtail project. If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
+   This tutorial covers setting up a brand new Wagtail project.
+   If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
 
 Install and run Wagtail
 -----------------------
@@ -22,13 +23,15 @@ If this does not return a version number or returns a version before 3.4, you wi
 
 .. important::
    Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library).
-   The way to do this varies by platform—see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+   The way to do this varies by platform—see Pillow's
+   `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 
 Create and activate a virtual environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We recommend using a virtual environment, which provides an isolated Python environment. This tutorial uses `venv <https://docs.python.org/3/tutorial/venv.html>`_, which is packaged with Python 3.
+We recommend using a virtual environment, which provides an isolated Python environment.
+This tutorial uses `venv <https://docs.python.org/3/tutorial/venv.html>`_, which is packaged with Python 3.
 
 Create a virtual environment:
 
@@ -70,12 +73,12 @@ Generate your site
    $ wagtail start mysite
    $ cd mysite
 
-Wagtail provides a ``start`` command similar to
-``django-admin.py startproject``. Running ``wagtail start mysite`` in
-your project will generate a new ``mysite`` folder with a few
-Wagtail-specific extras, including the required project settings, a
-"home" app with a blank ``HomePage`` model and basic templates and a sample
-"search" app.
+Wagtail provides a ``start`` command similar to ``django-admin.py startproject``.
+Running ``wagtail start mysite`` in your project will generate a new ``mysite`` folder with a few Wagtail-specific extras, including
+the required project settings,
+a "home" app with a blank ``HomePage`` model
+and basic templates
+and a sample "search" app.
 
 Install project dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,13 +87,14 @@ Install project dependencies
 
    $ pip install -r requirements.txt
 
-This ensures that you have the relevant version of Django and any other dependencies for the project you have just created.
+This ensures that you have the relevant version of
+Django
+and any other dependencies for the project you have just created.
 
 Create the database
 ~~~~~~~~~~~~~~~~~~~
 
-If you haven't updated the project settings, this will be a SQLite
-database file in the project directory.
+If you haven't updated the project settings, this will be a SQLite database file in the project directory.
 
 .. code-block:: console
 

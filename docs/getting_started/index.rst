@@ -2,7 +2,10 @@ Getting started
 ===============
 
 .. note::
-   These instructions assume familiarity with virtual environments and the `Django web framework <https://www.djangoproject.com/>`_. For more detailed instructions, see :doc:`tutorial`. To add Wagtail to an existing Django project, see :doc:`integrating_into_django`.
+   These instructions assume familiarity with virtual environments and the
+   `Django web framework <https://www.djangoproject.com/>`_.
+   For more detailed instructions, see :doc:`tutorial`.
+   To add Wagtail to an existing Django project, see :doc:`integrating_into_django`.
 
 
 Dependencies needed for installation
@@ -30,7 +33,9 @@ Once installed, Wagtail provides a command similar to Django's ``django-admin st
 
     $ wagtail start mysite
 
-This will create a new folder ``mysite``, based on a template containing all you need to get started. More information on that template is available in :doc:`the project template reference </reference/project_template>`.
+This will create a new folder ``mysite``, based on a template containing all you need to get started.
+More information on that template is available in
+:doc:`the project template reference </reference/project_template>`.
 
 Inside your ``mysite`` folder, run the setup steps necessary for any Django project:
 
@@ -43,7 +48,8 @@ Inside your ``mysite`` folder, run the setup steps necessary for any Django proj
 
 Your site is now accessible at ``http://localhost:8000``, with the admin backend available at ``http://localhost:8000/admin/``.
 
-This will set you up with a new stand-alone Wagtail project. If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
+This will set you up with a new stand-alone Wagtail project.
+If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
 
 There are a few optional packages which are not installed by default but are recommended to improve performance or add features to Wagtail, including:
 
