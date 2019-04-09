@@ -11,7 +11,6 @@ from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
-from django.utils.html import format_html
 from django.utils.safestring import SafeData, mark_safe
 from django.utils.translation import ugettext_lazy as __
 

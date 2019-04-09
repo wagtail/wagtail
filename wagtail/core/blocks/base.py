@@ -15,7 +15,7 @@ from django.utils.translation import ugettext_lazy as _
 # unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
 # return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
 # calls force_text, which would cause it to lose its 'safe' flag
-from .utils import BlockData, InputJSONEncoder, get_non_block_errors, to_json_script
+from .utils import InputJSONEncoder, get_non_block_errors, to_json_script
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
 
