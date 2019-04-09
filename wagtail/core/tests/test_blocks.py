@@ -15,7 +15,7 @@ from django.utils.safestring import SafeData, mark_safe
 from django.utils.translation import ugettext_lazy as __
 
 from wagtail.core import blocks
-from wagtail.core.blocks import StreamValue, BlockWidget
+from wagtail.core.blocks import BlockWidget, StreamValue
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
