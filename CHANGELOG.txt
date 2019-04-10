@@ -27,7 +27,7 @@ Changelog
  * Added support for Markdown shortcuts for inline formatting in rich text editor, e.g. `**` for bold, `_` for italic, etc. (Thibaud Colas)
  * Added name attributes to all built-in page action menu items (LB (Ben Johnston))
  * Added validation on the filter string to the Jinja2 image template tag (Jonny Scholes)
- * Changed the pages reodering UI toggle to make it easier to find (Katie Locke, Thibaud Colas)
+ * Changed the pages reordering UI toggle to make it easier to find (Katie Locke, Thibaud Colas)
  * Added support for rich text link rewrite handlers for `external` and `email` links (Md Arifin Ibne Matin)
  * Clarify installation instructions in documentation, especially regarding virtual environments. (Naomi Morduch Toubman)
  * Fix: Set `SERVER_PORT` to 443 in `Page.dummy_request()` for HTTPS sites (Sergey Fedoseev)
