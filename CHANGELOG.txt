@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Removed support for Python 3.4
+ * Added support for `short_description` for field labels in modeladmin's `InspectView` (Wesley van Lee)
 
 
 2.5 (xx.xx.xxxx) - IN DEVELOPMENT
