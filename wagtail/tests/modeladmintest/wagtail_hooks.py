@@ -15,7 +15,7 @@ class AuthorModelAdmin(ModelAdmin):
     list_filter = ('date_of_birth', )
     search_fields = ('name', )
     inspect_view_enabled = True
-    inspect_view_fields = ('name', )
+    inspect_view_fields = ('name', 'author_birth_string')
 
     def last_book(self, obj):
         # For testing use of modeladmin methods in list_display
