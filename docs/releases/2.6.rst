@@ -14,7 +14,7 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
- * ...
+ * Added support for ``short_description`` for field labels in modeladmin's ``InspectView`` (Wesley van Lee)
 
 
 Bug fixes
