@@ -11,7 +11,7 @@ Install and run Wagtail
 Install dependencies
 ~~~~~~~~~~~~~~~~~~~~
 
-Wagtail supports Python 3.4, 3.5, 3.6, and 3.7.
+Wagtail supports Python 3.5, 3.6, and 3.7.
 
 To check whether you have an appropriate version of Python 3:
 
@@ -19,7 +19,7 @@ To check whether you have an appropriate version of Python 3:
 
    $ python3 --version
 
-If this does not return a version number or returns a version lower than 3.4, you will need to `install Python 3 <https://www.python.org/downloads/>`_.
+If this does not return a version number or returns a version lower than 3.5, you will need to `install Python 3 <https://www.python.org/downloads/>`_.
 
 .. important::
    Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library).
