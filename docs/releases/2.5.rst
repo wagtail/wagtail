@@ -55,6 +55,7 @@ Other features
  * Added validation on the filter string to the Jinja2 image template tag (Jonny Scholes)
  * Changed the pages reodering UI toggle to make it easier to find (Katie Locke, Thibaud Colas)
  * Added support for rich text link rewrite handlers for ``external`` and ``email`` links (Md Arifin Ibne Matin)
+ * Clarify installation instructions in documentation, especially regarding virtual environments. (Naomi Morduch Toubman)
 
 
 Bug fixes
