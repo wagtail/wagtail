@@ -362,6 +362,7 @@ Contributors
 * Haydn Greatnews
 * Katie Locke
 * Cassidy Brooke
+* dthompson86
 
 Translators
 ===========
