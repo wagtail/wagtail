@@ -1,7 +1,7 @@
 The Explorer page
 ~~~~~~~~~~~~~~~~~
 
-The Explorer page allows you to view the a page's children and perform actions on them. From here you can publish/unpublish pages, move pages to other sections, drill down further into the content tree, or reorder pages under the parent for the purposes of display in menus.
+The Explorer page allows you to view a page's children and perform actions on them. From here you can publish/unpublish pages, move pages to other sections, drill down further into the content tree, or reorder pages under the parent for the purposes of display in menus.
 
 
 .. image:: ../../_static/images/screen05_explorer_page.png
