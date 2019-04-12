@@ -289,7 +289,7 @@ a.button.button-small {
     margin-left: 0;
 }
 
-@media screen and (min-width: $breakpoint-mobile){
+@media screen and (min-width: $$mobile-nav-indent){
     .hallotoolbar.full{
         margin-right:$desktop-nice-padding;
         margin-left: 0;
