@@ -47,6 +47,7 @@ Other features
  * Add blog about image uploads in Wagtail forms to third party tutorial documentation (a-mere-peasant)
  * Clean up multiple minor documentation issues (David T Thompson, ryanomor, kailwallin)
  * Add AbstractUser import to custom user model documentation (LB (Ben Johnston))
+ * ``WAGTAILIMAGES_MAX_IMAGE_PIXELS`` limit now takes the number of animation frames into account (Karl Hobley)
 
 
 Bug fixes

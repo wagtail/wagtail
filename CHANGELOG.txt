@@ -28,6 +28,7 @@ Changelog
  * Add blog about image uploads in Wagtail forms to third party tutorial documentation (a-mere-peasant)
  * Clean up multiple minor documentation issues (David T Thompson, ryanomor, kailwallin)
  * Add AbstractUser import to custom user model documentation (LB (Ben Johnston))
+ * `WAGTAILIMAGES_MAX_IMAGE_PIXELS` limit now takes the number of animation frames into account (Karl Hobley)
  * Fix: Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
  * Fix: Added https support for Scribd oEmbed provider (Rodrigo)
  * Fix: Changed StreamField group labels color so labels are visible (Catherine Farman)
