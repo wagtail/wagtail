@@ -156,6 +156,8 @@ def chooser_upload(request):
             image._set_file_hash(image.file.read())
             image.file.seek(0)
 
+            image.set_dimension_fields()
+
             form.save()
 
             # Reindex the image to make sure all tags are indexed

@@ -86,8 +86,10 @@
                         <dl>
                             <dt>{% trans "Max dimensions" %}</dt>
                             <dd>{{ original_image.width }}x{{ original_image.height }}</dd>
-                            <dt>{% trans "Filesize" %}</dt>
-                            <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
+                            <dt>{% trans "Image size" %}</dt>
+                            <dd>{{ image.pixels_per_frame|imagesizeformat }}{% if image.frame_count and image.frame_count > 1 %} {% blocktrans with frame_count=image.frame_count total_pixels=image.total_pixels|imagesizeformat %} {{ frame_count }} frames (total size {{ total_pixels }}){% endblocktrans %}{% endif %}</dd>
+                            <dt>{% trans "File size" %}</dt>
+                            <dd>{{ image.file_size|filesizeformat }}</dd>
 
                             {% usage_count_enabled as uc_enabled %}
                             {% if uc_enabled %}

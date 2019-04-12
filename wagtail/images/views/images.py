@@ -109,6 +109,8 @@ def edit(request, image_id):
                 image._set_file_hash(image.file.read())
                 image.file.seek(0)
 
+                image.set_dimension_fields()
+
             form.save()
 
             if 'file' in form.changed_data:
@@ -147,15 +149,22 @@ def edit(request, image_id):
             ])
 
     try:
-        filesize = image.get_file_size()
+        # Set the file_size field
+        image.get_file_size()
+
+        # Set the frame_count field
+        if image.frame_count is None:
+            image.set_dimension_fields()
+            if image.frame_count:
+                image.save(update_fields=['frame_count'])
+
     except SourceImageIOError:
-        filesize = None
+        pass
 
     return render(request, "wagtailimages/images/edit.html", {
         'image': image,
         'form': form,
         'url_generator_enabled': url_generator_enabled,
-        'filesize': filesize,
         'user_can_delete': permission_policy.user_has_permission_for_instance(
             request.user, 'delete', image
         ),
@@ -265,6 +274,8 @@ def add(request):
             image.file.seek(0)
             image._set_file_hash(image.file.read())
             image.file.seek(0)
+
+            image.set_dimension_fields()
 
             form.save()
 

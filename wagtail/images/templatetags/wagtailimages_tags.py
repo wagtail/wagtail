@@ -3,7 +3,10 @@ import re
 from django import template
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import NoReverseMatch
+from django.utils import formats
+from django.utils.html import avoid_wrapping
 from django.utils.functional import cached_property
+from django.utils.translation import ugettext, ngettext
 
 from wagtail.images.models import Filter
 from wagtail.images.shortcuts import get_rendition_or_not_found
@@ -122,3 +125,45 @@ def image_url(image, filter_spec, viewname='wagtailimages_serve'):
             "'image_url' tag requires the " + viewname + " view to be configured. Please see "
             "https://docs.wagtail.io/en/stable/advanced_topics/images/image_serve_view.html#setup for instructions."
         )
+
+
+@register.filter(is_safe=True)
+def imagesizeformat(pixels):
+    """
+    Format the value like a 'human-readable' image size (i.e. 13 Mpx, 102 pixels, etc.).
+    """
+    try:
+        pixels = float(pixels)
+    except (TypeError, ValueError, UnicodeDecodeError):
+        value = ngettext("%(size)d pixel", "%(size)d pixels", 0) % {'size': 0}
+        return avoid_wrapping(value)
+
+    def filesize_number_format(value):
+        return formats.number_format(round(value, 1), 1)
+
+    KPX = 1 << 10
+    MPX = 1 << 20
+    GPX = 1 << 30
+    TPX = 1 << 40
+    PPX = 1 << 50
+
+    negative = pixels < 0
+    if negative:
+        pixels = -pixels  # Allow formatting of negative numbers.
+
+    if pixels < KPX:
+        value = ngettext("%(size)d pixel", "%(size)d pixels", pixels) % {'size': pixels}
+    elif pixels < MPX:
+        value = ugettext("%s Kpx") % filesize_number_format(pixels / KPX)
+    elif pixels < GPX:
+        value = ugettext("%s Mpx") % filesize_number_format(pixels / MPX)
+    elif pixels < TPX:
+        value = ugettext("%s Gpx") % filesize_number_format(pixels / GPX)
+    elif pixels < PPX:
+        value = ugettext("%s Tpx") % filesize_number_format(pixels / TPX)
+    else:
+        value = ugettext("%s Ppx") % filesize_number_format(pixels / PPX)
+
+    if negative:
+        value = "-%s" % value
+    return avoid_wrapping(value)

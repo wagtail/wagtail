@@ -66,6 +66,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
     )
     width = models.IntegerField(verbose_name=_('width'), editable=False)
     height = models.IntegerField(verbose_name=_('height'), editable=False)
+    frame_count = models.IntegerField(verbose_name=_('frame count'), editable=False, null=True)
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
     uploaded_by_user = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
@@ -123,6 +124,20 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             self.save(update_fields=['file_hash'])
 
         return self.file_hash
+
+    def set_dimension_fields(self):
+        with self.get_willow_image() as willow:
+            self.width, self.height = willow.get_size()
+            self.frame_count = willow.get_frame_count()
+
+    @property
+    def pixels_per_frame(self):
+        return self.width * self.height
+
+    @property
+    def total_pixels(self):
+        if self.frame_count:
+            return self.frame_count * self.pixels_per_frame
 
     def get_upload_to(self, filename):
         folder_name = 'original_images'
