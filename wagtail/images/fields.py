@@ -1,5 +1,6 @@
 import os
 
+import willow
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.files.images import get_image_dimensions
@@ -95,12 +96,12 @@ class WagtailImageField(ImageField):
             return
 
         # Check the pixel size
-        dimensions = get_image_dimensions(f)
-        if dimensions == (None, None):
-            return
+        image = willow.Image.open(f)
+        width, height = image.get_size()
+        frames = image.get_frame_count()
+        num_pixels = width * height * frames
 
-        pixel_size = dimensions[0] * dimensions[1]
-        if pixel_size > self.max_image_pixels:
+        if num_pixels > self.max_image_pixels:
             raise ValidationError(self.error_messages['file_too_many_pixels'] % (
                 pixel_size
             ), code='file_too_many_pixels')
