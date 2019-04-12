@@ -364,3 +364,16 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         position_of_header = content_str.index('<header')  # intentionally not closing tag
         position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
         self.assertLess(position_of_header, position_of_breadcrumbs)
+
+
+class TestSearch(TestCase, WagtailTestUtils):
+    fixtures = ['test_specific.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_lookup_allowed_on_parentalkey(self):
+        try:
+            self.client.get('/admin/tests/eventpage/?related_links__link_page__id__exact=1')
+        except AttributeError:
+            self.fail("Lookup on parentalkey raised AttributeError unexpectedly")
