@@ -3,8 +3,7 @@ from collections import OrderedDict
 from functools import reduce
 
 from django import forms
-from django.contrib.admin import FieldListFilter, widgets
-from django.contrib.admin.exceptions import DisallowedModelAdminLookup
+from django.contrib.admin import FieldListFilter
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
     get_fields_from_path, label_for_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
@@ -12,9 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied, SuspiciousOperation
 from django.core.paginator import InvalidPage, Paginator
 from django.db import models
-from django.db.models.constants import LOOKUP_SEP
 from django.db.models.fields import FieldDoesNotExist
-from django.db.models.fields.related import ForeignObjectRel, ManyToManyField
+from django.db.models.fields.related import ManyToManyField
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
 from django.utils.decorators import method_decorator
@@ -290,54 +288,6 @@ class IndexView(WMABaseView):
 
         return queryset, use_distinct
 
-    def lookup_allowed(self, lookup, value):
-        # Check FKey lookups that are allowed, so that popups produced by
-        # ForeignKeyRawIdWidget, on the basis of ForeignKey.limit_choices_to,
-        # are allowed to work.
-        for l in self.model._meta.related_fkey_lookups:
-            for k, v in widgets.url_params_from_lookup_dict(l).items():
-                if k == lookup and v == value:
-                    return True
-
-        parts = lookup.split(LOOKUP_SEP)
-
-        # Last term in lookup is a query term (__exact, __startswith etc)
-        # This term can be ignored.
-        if len(parts) > 1 and parts[-1] in QUERY_TERMS:
-            parts.pop()
-
-        # Special case -- foo__id__exact and foo__id queries are implied
-        # if foo has been specifically included in the lookup list; so
-        # drop __id if it is the last part. However, first we need to find
-        # the pk attribute name.
-        rel_name = None
-        for part in parts[:-1]:
-            try:
-                field = self.model._meta.get_field(part)
-            except FieldDoesNotExist:
-                # Lookups on non-existent fields are ok, since they're ignored
-                # later.
-                return True
-            if hasattr(field, 'remote_field'):
-                if field.remote_field is None:
-                    # This property or relation doesn't exist, but it's allowed
-                    # since it's ignored in ChangeList.get_filters().
-                    return True
-                model = field.remote_field.model
-                rel_name = field.remote_field.get_related_field().name
-            elif isinstance(field, ForeignObjectRel):
-                model = field.model
-                rel_name = model._meta.pk.name
-            else:
-                rel_name = None
-        if rel_name and len(parts) > 1 and parts[-1] == rel_name:
-            parts.pop()
-
-        if len(parts) == 1:
-            return True
-        clean_lookup = LOOKUP_SEP.join(parts)
-        return clean_lookup in self.list_filter
-
     def get_filters_params(self, params=None):
         """
         Returns all params except IGNORED_PARAMS
@@ -355,11 +305,6 @@ class IndexView(WMABaseView):
     def get_filters(self, request):
         lookup_params = self.get_filters_params()
         use_distinct = False
-
-        for key, value in lookup_params.items():
-            if not self.lookup_allowed(key, value):
-                raise DisallowedModelAdminLookup(
-                    "Filtering by %s not allowed" % key)
 
         filter_specs = []
         if self.list_filter:

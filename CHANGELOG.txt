@@ -7,6 +7,7 @@ Changelog
  * Removed support for Python 3.4
  * Added support for `short_description` for field labels in modeladmin's `InspectView` (Wesley van Lee)
  * Rearranged SCSS folder structure to the client folder and split them approximately according to ITCSS. (Naomi Morduch Toubman, Jonny Scholes, Janneke Janssen, Hugo van den Berg)
+ * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
 
 
 2.5 (xx.xx.xxxx) - IN DEVELOPMENT

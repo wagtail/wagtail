@@ -363,6 +363,7 @@ Contributors
 * Katie Locke
 * Cassidy Brooke
 * dthompson86
+* Jason Dilworth
 
 Translators
 ===========
