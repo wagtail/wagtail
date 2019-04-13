@@ -52,6 +52,10 @@ class TestImageTag(TestCase):
         result = self.render_image_tag(None, "width-500")
         self.assertEqual(result, '')
 
+    def test_image_tag_wrong_type(self):
+        with self.assertRaises(ValueError):
+            self.render_image_tag("foobar", "width-500")
+
     def render_image_tag_as(self, image, filter_spec):
         temp = template.Template(
             '{% load wagtailimages_tags %}{% image image_obj ' + filter_spec
