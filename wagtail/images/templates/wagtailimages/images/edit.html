@@ -7,7 +7,20 @@
     <!-- Focal point chooser -->
     <link rel="stylesheet" href="{% static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
+
+    <style>
+        /*
+        This is here as it's a one liner used to fix an
+        layout issue where jcrop shows a previous hidden
+        radio button when rotated.
+        */
+        input[type="radio"].jcrop-keymgr {
+            display:none;
+        }
+    </style>
 {% endblock %}
+
+
 
 {% block extra_js %}
     {{ block.super }}
