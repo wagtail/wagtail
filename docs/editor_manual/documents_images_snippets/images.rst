@@ -28,3 +28,13 @@ ___________
 * To set the focal area, drag a marquee around the most important element of the image.
 * To remove the focal area, hit the button below the image.
 * If the feature is set up in your website, then on the front-end you will see the crop of this image focusing on your selection.
+
+Rotating images
+______________________
+
+Rotate uploaded images with the "Rotate image" button - this will rotate the image in 90 degree steps clockwise.
+
+You will need to save the image for your changes to be stored.
+
+.. Warning::
+    Changing the file rotation will change it on all pages that use the image. You will also need to update the focal point if it is already set.
