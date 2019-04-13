@@ -26,6 +26,16 @@ def get_ct(model):
     return ContentType.objects.get_for_model(model)
 
 
+class TestModifiedAttributeError(TestCase):
+    fixtures = ['test.json']
+
+    def test_modified_attribute_error(self):
+        page = Page.objects.get(id=11)  # specific: SimplePage with content attribute
+        with self.assertRaisesRegex(AttributeError, "Did you forget to call specific"):
+            page.content
+        self.assertIsNotNone(page.specific.content)
+
+
 class TestValidation(TestCase):
     fixtures = ['test.json']
 

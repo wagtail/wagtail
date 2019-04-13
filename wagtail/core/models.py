@@ -224,6 +224,14 @@ class AbstractPage(MP_Node):
     class Meta:
         abstract = True
 
+    def __getattribute__(self, name):
+        try:
+            return super().__getattribute__(name)
+        except AttributeError as e:
+            raise AttributeError(
+                str(e) + ". Did you forget to call specific?"
+            ).with_traceback(e.__traceback__)
+
 
 class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     title = models.CharField(
