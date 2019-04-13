@@ -25,6 +25,7 @@ Bug fixes
  * The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
  * Revised test decorator to ensure TestPageEditHandlers test cases run correctly (Alex Tomkins)
+ * Wagtail bird animation in admin now ends correctly on all browsers (Deniz Dogan)
 
 
 Upgrade considerations
