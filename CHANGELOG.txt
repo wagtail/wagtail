@@ -8,6 +8,7 @@ Changelog
  * Added support for `short_description` for field labels in modeladmin's `InspectView` (Wesley van Lee)
  * Rearranged SCSS folder structure to the client folder and split them approximately according to ITCSS. (Naomi Morduch Toubman, Jonny Scholes, Janneke Janssen, Hugo van den Berg)
  * Added support for specifying cell alignment on TableBlock (Samuel Mendes)
+ * Added more informative error when a non-image object is passed to the `image` template tag (Deniz Dogan)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)

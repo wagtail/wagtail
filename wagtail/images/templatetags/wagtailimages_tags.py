@@ -99,6 +99,9 @@ class ImageNode(template.Node):
         if not image:
             return ''
 
+        if not hasattr(image, 'get_rendition'):
+            raise ValueError("image tag expected an Image object, got %r" % image)
+
         rendition = get_rendition_or_not_found(image, self.filter)
 
         if self.output_var_name:
