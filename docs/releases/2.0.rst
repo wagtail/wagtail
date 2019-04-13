@@ -96,7 +96,7 @@ Bug fixes
  * Project template now has password validators enabled by default (Matt Westcott)
  * Alignment options correctly removed from ``TableBlock`` context menu (LB (Ben Johnston))
  * Fix support of ``ATOMIC_REBUILD`` for projects with Elasticsearch client ``>=1.7.0`` (Mikalai Radchuk)
- * Fixed error on Elasticsearch backend when passing a queryset as an ``__in`` filter (Karl Hobley, Matt Westcott)
+ * Fixed error on Elasticsearch backend when passing a QuerySet as an ``__in`` filter (Karl Hobley, Matt Westcott)
  * ``__isnull`` filters no longer fail on Elasticsearch 5 (Karl Hobley)
  * Prevented intermittent failures on Postgres search backend when a field is defined as both a ``SearchField`` and a ``FilterField`` (Matt Westcott)
  * Alt text of images in rich text is no longer truncated on double-quote characters (Matt Westcott)
@@ -123,7 +123,7 @@ Python 2.7, Django 1.8 and Django 1.10 are no longer supported in this release. 
 Added support for Django 2.0
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Before upgrading to Django 2.0, you are advised to review the `release notes <https://docs.djangoproject.com/en/2.0/releases/2.0/>`_, especially the `backwards incompatible changes <https://docs.djangoproject.com/en/2.0/releases/2.0/#backwards-incompatible-changes-in-2-0>`_ and `removed features <https://docs.djangoproject.com/en/2.0/releases/2.0/#features-removed-in-2-0>`_.
+Before upgrading to Django 2.0, you are advised to review the `release notes <https://docs.djangoproject.com/en/stable/releases/2.0/>`_, especially the `backwards incompatible changes <https://docs.djangoproject.com/en/stable/releases/2.0/#backwards-incompatible-changes-in-2-0>`_ and `removed features <https://docs.djangoproject.com/en/stable/releases/2.0/#features-removed-in-2-0>`_.
 
 
 Wagtail module path updates

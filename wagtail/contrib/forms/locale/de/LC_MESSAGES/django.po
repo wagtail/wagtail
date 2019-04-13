@@ -3,8 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benjamin Thurm, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017
-# Henrik Kröger <hedwig@riseup.net>, 2016
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 14:21+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-07-13 09:42+0000\n"
+"Last-Translator: Benjamin Thurm\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail forms"
+msgstr "Wagtail Formulare"
 
 #, python-format
 msgid "%s submissions"
@@ -47,7 +51,7 @@ msgid "Multi-line text"
 msgstr "Mehrzeiliger Text"
 
 msgid "Email"
-msgstr "Email"
+msgstr "E-Mail"
 
 msgid "Number"
 msgstr "Zahl"
@@ -127,8 +131,8 @@ msgid ""
 "Optional - form submissions will be emailed to these addresses. Separate "
 "multiple addresses by comma."
 msgstr ""
-"Optional – eingereichte Formulare werden an diese Adresse geschickt. Trennen "
-"Sie mehrere Adressen mit einem Komma."
+"Optional – eingereichte Formulare werden an diese E-Mail-Adressen "
+"verschickt. Trennen Sie mehrere Adressen mit einem Komma voneinander ab."
 
 msgid "from address"
 msgstr "Von-Adresse"

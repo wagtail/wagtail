@@ -4,15 +4,15 @@
 #
 # Translators:
 # Andrey Avdey <talkerbox@live.com>, 2016
-# Eugene MechanisM <eugene@mechanism.pro>, 2015
+# Eugene <eugene.mechanism@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2017-09-22 14:05+0000\n"
-"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -137,28 +137,6 @@ msgid "None"
 msgstr "Ничего"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Найдено одно совпадение"
-msgstr[1] ""
-"\n"
-"Найдено %(counter)s совпадений"
-msgstr[2] ""
-"\n"
-"Найдено %(counter)s совпадений"
-msgstr[3] ""
-"\n"
-"Найдено %(counter)s совпадений"
-
-#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Извините, нет продвигаемых результатов, совпадающих с \"<em>"
@@ -175,7 +153,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Продвигаемые результаты"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Подборка для '{0}' создана."
 
@@ -185,7 +162,6 @@ msgstr "Редактировать"
 msgid "Recommendations have not been created due to errors"
 msgstr "Рекомендации не были созданы из-за ошибок"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Подборка для '{0}' обновлена."
 

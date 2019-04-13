@@ -6,6 +6,7 @@ source = wagtail
 
 omit =
     */migrations/*
+    docs/conf.py
 
 
 [report]

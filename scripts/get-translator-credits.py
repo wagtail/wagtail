@@ -34,8 +34,20 @@ for file_listing_line in file_listing.stdout:
                 else:
                     raise Exception("No 'Translators:' heading found in %s" % filename)
 
+
+LANGUAGE_OVERRIDES = {
+    'tet': 'Tetum',
+}
+
+
+def get_language_name(locale_string):
+    try:
+        return LANGUAGE_OVERRIDES[locale_string]
+    except KeyError:
+        return Locale.parse(locale_string).english_name
+
 language_names = [
-    (Locale.parse(locale_string).english_name, locale_string)
+    (get_language_name(locale_string), locale_string)
     for locale_string in authors_by_locale.keys()
 ]
 language_names.sort()

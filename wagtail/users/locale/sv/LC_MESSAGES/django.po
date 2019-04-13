@@ -4,14 +4,15 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-15 03:23+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail användare"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "Krävs. 30 tecken eller färre. Endast bokstäver, siffror och  @/./+/-/_"
@@ -67,6 +71,15 @@ msgstr "En grupp med det namnet existerar redan."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Du kan inte ha flera rättighetsinställningar för samma sida."
 
+msgid "Preferred language"
+msgstr "Föredraget språk"
+
+msgid "Current time zone"
+msgstr "Aktuell tidszon"
+
+msgid "Upload a profile picture"
+msgstr "Ladda upp en profilbild"
+
 msgid "submitted notifications"
 msgstr "Inskickade notifieringar"
 
@@ -91,8 +104,20 @@ msgstr "föredraget språk"
 msgid "Select language for the admin"
 msgstr "Välj språk för administratör-delen"
 
+msgid "current time zone"
+msgstr "aktuell tidszon"
+
+msgid "Select your current time zone"
+msgstr "Välj din nuvarande tidszon"
+
+msgid "profile picture"
+msgstr "profilbild"
+
 msgid "user profile"
 msgstr "användarprofil"
+
+msgid "user profiles"
+msgstr "användarprofiler"
 
 msgid "Delete group"
 msgstr "Radera grupp"
@@ -175,6 +200,10 @@ msgid "Add a group"
 msgstr "Lägg till en grupp"
 
 #, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Ledsen, inga grupper matchar \"%(query)s\""
+
+#, python-format
 msgid ""
 "There are no groups configured. Why not <a href="
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
@@ -212,6 +241,9 @@ msgstr "Nivå"
 msgid "Status"
 msgstr "Status"
 
+msgid "Last Login"
+msgstr "Senaste inloggning"
+
 msgid "Admin"
 msgstr "Administratör"
 
@@ -222,9 +254,13 @@ msgid "Inactive"
 msgstr "Inaktiv"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sedan"
+
+#, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -232,7 +268,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Det finns en matchning\n"
+"            Det finns %(counter)s matchning\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -257,25 +293,21 @@ msgstr "Grupper"
 msgid "Search groups"
 msgstr "Sök grupper"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupp '{0}' skapad."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupp '{0}' uppdaterad."
 
 msgid "The group could not be saved due to errors."
 msgstr "Gruppen kunde inte sparas p.g.a. fel."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupp '{0}' raderad."
 
 msgid "Search users"
 msgstr "Sök användare"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Användaren '{0}' skapad."
 
@@ -285,14 +317,12 @@ msgstr "Editera"
 msgid "The user could not be created due to errors."
 msgstr "Användaren kunde inte skapas p.g.a. fel."
 
-#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Användaren '{0}' uppdaterad."
 
 msgid "The user could not be saved due to errors."
 msgstr "Användaren kunde inte sparas p.g.a. fel."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Användare '{0}' raderad."
 

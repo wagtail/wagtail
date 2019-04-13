@@ -4,15 +4,16 @@
 #
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2018
+# Meteor0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-01 21:02+0000\n"
+"Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail zoek promoties"
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Geef minimaal één aanbeveling op voor deze zoekterm."
@@ -134,7 +138,7 @@ msgstr "Geen"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -142,11 +146,11 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Er is één resultaat\n"
+"            Er is %(counter)s overeenkomst\n"
 "        "
 msgstr[1] ""
 "\n"
-"            Er zijn %(counter)s resultaten\n"
+"            Er zijn%(counter)s overeenkomsten\n"
 "        "
 
 #, python-format
@@ -166,7 +170,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Zoek gepromote resultaten"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Editor aanbevelingen voor '{0}' aangemaakt."
 
@@ -176,7 +179,6 @@ msgstr "Wijzig"
 msgid "Recommendations have not been created due to errors"
 msgstr "Aanbevelingen zijn vanwege fouten niet aangemaakt."
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Editor aanbevelingen voor '{0}' gewijzigd."
 

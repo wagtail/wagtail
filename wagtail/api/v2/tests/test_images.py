@@ -1,6 +1,6 @@
 import json
+from unittest import mock
 
-import mock
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -17,7 +17,6 @@ class TestImageListing(TestCase):
 
     def get_image_id_list(self, content):
         return [image['id'] for image in content['items']]
-
 
     # BASIC TESTS
 
@@ -47,14 +46,13 @@ class TestImageListing(TestCase):
         for image in content['items']:
             self.assertIn('meta', image)
             self.assertIsInstance(image['meta'], dict)
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
 
             # Type should always be wagtailimages.Image
             self.assertEqual(image['meta']['type'], 'wagtailimages.Image')
 
             # Check detail url
             self.assertEqual(image['meta']['detail_url'], 'http://localhost/api/v2beta/images/%d/' % image['id'])
-
 
     #  FIELDS
 
@@ -64,7 +62,7 @@ class TestImageListing(TestCase):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
 
     def test_fields(self):
         response = self.get_response(fields='width,height')
@@ -72,7 +70,7 @@ class TestImageListing(TestCase):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
 
     def test_remove_fields(self):
         response = self.get_response(fields='-title')
@@ -87,14 +85,14 @@ class TestImageListing(TestCase):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'download_url'})
 
     def test_remove_all_meta_fields(self):
         response = self.get_response(fields='-type,-detail_url,-tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'title'})
+            self.assertEqual(set(image.keys()), {'id', 'title', 'meta'})
 
     def test_remove_id_field(self):
         response = self.get_response(fields='-id')
@@ -109,7 +107,7 @@ class TestImageListing(TestCase):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
 
     def test_all_fields_then_remove_something(self):
         response = self.get_response(fields='*,-title,-tags')
@@ -117,7 +115,7 @@ class TestImageListing(TestCase):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'width', 'height'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'download_url'})
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
@@ -125,7 +123,8 @@ class TestImageListing(TestCase):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image.keys()), {'id', 'meta', 'title'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
             self.assertIsInstance(image['meta']['tags'], list)
 
     def test_star_in_wrong_position_gives_error(self):
@@ -155,7 +154,6 @@ class TestImageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "unknown fields: 123, abc"})
-
 
     # FILTERING
 
@@ -188,7 +186,6 @@ class TestImageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "query parameter is not an operation or a recognised field: not_a_field"})
-
 
     # ORDERING
 
@@ -237,7 +234,6 @@ class TestImageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "cannot order by 'not_a_field' (unknown field)"})
-
 
     # LIMIT
 
@@ -293,7 +289,6 @@ class TestImageListing(TestCase):
 
         self.assertEqual(len(content['items']), 2)
 
-
     # OFFSET
 
     def test_offset_10_usually_appears_7th_in_list(self):
@@ -321,7 +316,6 @@ class TestImageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "offset must be a positive integer"})
-
 
     # SEARCH
 
@@ -477,6 +471,44 @@ class TestImageDetail(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "'title' does not support nested fields"})
+
+
+class TestImageFind(TestCase):
+    fixtures = ['demosite.json']
+
+    def get_response(self, **params):
+        return self.client.get(reverse('wagtailapi_v2:images:find'), params)
+
+    def test_without_parameters(self):
+        response = self.get_response()
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content, {
+            'message': 'not found'
+        })
+
+    def test_find_by_id(self):
+        response = self.get_response(id=5)
+
+        self.assertRedirects(response, 'http://localhost' + reverse('wagtailapi_v2:images:detail', args=[5]), fetch_redirect_response=False)
+
+    def test_find_by_id_nonexistent(self):
+        response = self.get_response(id=1234)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content, {
+            'message': 'not found'
+        })
 
 
 @override_settings(

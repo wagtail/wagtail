@@ -7,7 +7,9 @@ from django.db import models
 from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
 
+from modelcluster.fields import ParentalManyToManyField
 from wagtail.search.backends import get_search_backends_with_name
+
 
 logger = logging.getLogger('wagtail.search.index')
 
@@ -59,6 +61,13 @@ class Indexed:
         ]
 
     @classmethod
+    def get_autocomplete_search_fields(cls):
+        return [
+            field for field in cls.get_search_fields()
+            if isinstance(field, AutocompleteField)
+        ]
+
+    @classmethod
     def get_filterable_search_fields(cls):
         return [
             field for field in cls.get_search_fields()
@@ -101,7 +110,7 @@ class Indexed:
     def _check_search_fields(cls, **kwargs):
         errors = []
         for field in cls.get_search_fields():
-            message = "{model}.search_fields contains field '{name}' but it doesn't exist"
+            message = "{model}.search_fields contains non-existent field '{name}'"
             if not cls._has_field(field.field_name):
                 errors.append(
                     checks.Warning(
@@ -192,16 +201,44 @@ class BaseField:
 
         try:
             field = self.get_field(cls)
+
+            # Follow foreign keys to find underlying type
+            # We use a while loop as it's possible for a foreign key
+            # to target a foreign key in another model.
+            # (for example, a foreign key to a child page model will
+            # point to the `page_ptr_id` field so we need to follow this
+            # second foreign key to find the `id`` field in the Page model)
+            while isinstance(field, RelatedField):
+                field = field.target_field
+
             return field.get_internal_type()
+
         except models.fields.FieldDoesNotExist:
             return 'CharField'
 
     def get_value(self, obj):
+        from taggit.managers import TaggableManager
+
         try:
             field = self.get_field(obj.__class__)
             value = field.value_from_object(obj)
             if hasattr(field, 'get_searchable_content'):
                 value = field.get_searchable_content(value)
+            elif isinstance(field, TaggableManager):
+                # Special case for tags fields. Convert QuerySet of TaggedItems into QuerySet of Tags
+                Tag = field.remote_field.model
+                value = Tag.objects.filter(id__in=value.values_list('tag_id', flat=True))
+            elif isinstance(field, RelatedField):
+                # The type of the ForeignKey may have a get_searchable_content method that we should
+                # call. Firstly we need to find the field its referencing but it may be referencing
+                # another RelatedField (eg an FK to page_ptr_id) so we need to run this in a while
+                # loop to find the actual remote field.
+                remote_field = field
+                while isinstance(remote_field, RelatedField):
+                    remote_field = remote_field.target_field
+
+                if hasattr(remote_field, 'get_searchable_content'):
+                    value = remote_field.get_searchable_content(value)
             return value
         except models.fields.FieldDoesNotExist:
             value = getattr(obj, self.field_name, None)
@@ -218,6 +255,10 @@ class SearchField(BaseField):
         super().__init__(field_name, **kwargs)
         self.boost = boost
         self.partial_match = partial_match
+
+
+class AutocompleteField(BaseField):
+    pass
 
 
 class FilterField(BaseField):
@@ -256,7 +297,7 @@ class RelatedFields:
         except FieldDoesNotExist:
             return queryset
 
-        if isinstance(field, RelatedField):
+        if isinstance(field, RelatedField) and not isinstance(field, ParentalManyToManyField):
             if field.many_to_one or field.one_to_one:
                 queryset = queryset.select_related(self.field_name)
             elif field.one_to_many or field.many_to_many:

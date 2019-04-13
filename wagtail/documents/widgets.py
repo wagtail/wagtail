@@ -30,3 +30,9 @@ class AdminDocumentChooser(AdminChooser):
 
     def render_js_init(self, id_, name, value):
         return "createDocumentChooser({0});".format(json.dumps(id_))
+
+    class Media:
+        js = [
+            'wagtaildocs/js/document-chooser-modal.js',
+            'wagtaildocs/js/document-chooser.js',
+        ]

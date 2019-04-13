@@ -5,14 +5,15 @@
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
+# Meteor0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-17 17:46+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-01 21:08+0000\n"
+"Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,9 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, python-brace-format
+msgid "Wagtail core"
+msgstr "Wagtail core"
+
 msgid "{label}: this block has no options."
 msgstr "{label}: Dit blok heeft geen opties."
 
@@ -304,6 +307,9 @@ msgstr "machtiging"
 
 msgid "group collection permission"
 msgstr "groepsmachtiging binnen collectie"
+
+msgid "group collection permissions"
+msgstr "groepsmachtigingen binnen collectie"
 
 msgid "Log in"
 msgstr "Inloggen"

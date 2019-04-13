@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:55+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Choose"
 msgstr "انتخاب"
@@ -27,37 +27,8 @@ msgid "Search"
 msgstr "جستجو"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"%(counter)s مورد پیدا شد"
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "متاسفانه هیچ قطعه ای با <em>%(query_string)s</em> پیدا نشد."
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
-"a>?"
-msgstr ""
-"هنوز هیچ قطعه %(snippet_type_name)s ایجاد نکرده اید. میخواهید یکی <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">ایجاد</a> کنید؟"
-
-#, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "حذف %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "حذف"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -85,6 +56,9 @@ msgstr "ویرایش %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "ویرایش"
+
+msgid "Delete"
+msgstr "حذف"
 
 msgid "Snippets"
 msgstr "قطعه‌ها"
@@ -135,7 +109,6 @@ msgstr "ویرایش این صفحه"
 msgid "Search %(snippet_type_name)s"
 msgstr "جستجوی %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' ایجاد شد."
 
@@ -145,14 +118,12 @@ msgstr "ویرایش"
 msgid "The snippet could not be created due to errors."
 msgstr "به دلیل بروز خطا قطعه ای ساخته نشد."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' بروزرسانی شد."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "قطعه به دلیل بروز خطا ذخیره نشد."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' حذف شد."
 

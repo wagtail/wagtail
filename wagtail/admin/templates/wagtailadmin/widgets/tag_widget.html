@@ -1,0 +1,9 @@
+{% include 'django/forms/widgets/text.html' %}
+<script>
+    initTagField(
+        '{{ widget.attrs.id|escapejs }}',
+        '{{ widget.autocomplete_url|escapejs }}',
+        {% if widget.tag_spaces_allowed %}true{% else %}false{% endif %},
+        {% if widget.tag_limit %}{{widget.tag_limit}}{% else %}null{% endif %}
+    );
+</script>

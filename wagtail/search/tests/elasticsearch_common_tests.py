@@ -1,3 +1,4 @@
+import unittest
 from datetime import date
 from io import StringIO
 
@@ -29,6 +30,21 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
 
     def test_partial_search(self):
         results = self.backend.search("Java", models.Book)
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "JavaScript: The Definitive Guide",
+            "JavaScript: The good parts"
+        ])
+
+    def test_disabled_partial_search(self):
+        results = self.backend.search("Java", models.Book, partial_match=False)
+
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+    def test_disabled_partial_search_with_whole_term(self):
+        # Making sure that there isn't a different reason why the above test
+        # returned no results
+        results = self.backend.search("JavaScript", models.Book, partial_match=False)
 
         self.assertUnsortedListEqual([r.title for r in results], [
             "JavaScript: The Definitive Guide",
@@ -114,19 +130,6 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         results = self.backend.search(MATCH_ALL, models.Book)
         self.assertSetEqual(set(results), set())
 
-    def test_annotate_score(self):
-        results = self.backend.search("JavaScript", models.Book).annotate_score('_score')
-
-        for result in results:
-            self.assertIsInstance(result._score, float)
-
-    def test_annotate_score_with_slice(self):
-        # #3431 - Annotate score wasn't being passed to new queryset when slicing
-        results = self.backend.search("JavaScript", models.Book).annotate_score('_score')[:10]
-
-        for result in results:
-            self.assertIsInstance(result._score, float)
-
     def test_more_than_ten_results(self):
         # #3431 reported that Elasticsearch only sends back 10 results if the results set is not sliced
         results = self.backend.search(MATCH_ALL, models.Book)
@@ -171,3 +174,20 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
 
         results = self.backend.search(MATCH_ALL, models.Book)[110:]
         self.assertEqual(len(results), 53)
+
+    # Elasticsearch always does prefix matching on `partial_match` fields,
+    # even when we don’t use `Prefix`.
+    @unittest.expectedFailure
+    def test_incomplete_term(self):
+        super().test_incomplete_term()
+
+    # Elasticsearch does not accept prefix for multiple words
+    @unittest.expectedFailure
+    def test_prefix_multiple_words(self):
+        super().test_prefix_multiple_words()
+
+    # Elasticsearch always does prefix matching on `partial_match` fields,
+    # even when we don’t use `Prefix`.
+    @unittest.expectedFailure
+    def test_incomplete_plain_text(self):
+        super().test_incomplete_plain_text()

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
-# saevarom <saevar@saevar.is>, 2016
+# saevarom <saevar@saevar.is>, 2016,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2017-09-22 14:05+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-01-18 08:44+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail leitarmeðmæli"
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Vinsamlegast bættu við amk einum meðmælum fyrir þennan leitarfrasa."
@@ -127,7 +130,7 @@ msgstr "Ekkert"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -135,12 +138,10 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Það er ein niðurstaða\n"
-"        "
+"Það er %(counter)s niðurstaða"
 msgstr[1] ""
 "\n"
-"            Það eru %(counter)s niðurstöður\n"
-"        "
+"Það eru %(counter)s niðurstöður"
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
@@ -159,7 +160,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Meðmæltar niðurstöður"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Val ritstjóra fyrir  '{0}' búin til."
 
@@ -169,7 +169,6 @@ msgstr "Breyta"
 msgid "Recommendations have not been created due to errors"
 msgstr "Ekki tókst að búa til meðmæli þar sem það stóðst ekki villuprófanir"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Val ritstjóra fyrir '{0}' uppfært."
 

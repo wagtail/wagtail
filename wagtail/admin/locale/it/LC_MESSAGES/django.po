@@ -8,14 +8,15 @@
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Edd <edd.baldry@googlemail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
-# giammi <gian-maria.daffre@giammi.org>, 2016
+# giammi <gian-maria.daffre@giammi.org>, 2016,2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-03-08 21:52+0000\n"
+"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -24,11 +25,23 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Submit for moderation"
+msgstr "Invia per la moderazione"
+
+msgid "Unpublish"
+msgstr "Annulla pubblicazione"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Wagtail admin"
+msgstr "Gestione Wagtail"
+
 msgid "None"
 msgstr "Nessuno"
 
 msgid "You do not have permission to access the admin"
-msgstr "Spiacente, non hai i permessi per accedere al area di amministrazione"
+msgstr "Spiacente, non hai i permessi per accedere all'area di amministrazione"
 
 msgid "Scheduled publishing"
 msgstr "Data pubblicazione"
@@ -45,15 +58,6 @@ msgstr "Promuovi"
 msgid "Settings"
 msgstr "Impostazioni"
 
-msgid "Search"
-msgstr "Cerca"
-
-msgid "Search term"
-msgstr "Cerca termine"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Inserisci password"
 
@@ -64,18 +68,12 @@ msgstr "Inserisci il tuo %s"
 msgid "Enter your email address to reset your password"
 msgstr "Digita la tua email per resettare la password"
 
-msgid "Please fill your email address."
-msgstr "Inserisci la tua email"
+msgid "URL"
+msgstr "URL"
 
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
+msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
-"Non puoi resettare la password perché il tuo account è gestito da un altro "
-"server"
-
-msgid "This email address is not recognised."
-msgstr "L'indirizzo email fornito è inesistente"
+"Spiacente, ma non puoi avere diverse registrazioni per la stessa raccolta."
 
 msgid "New title"
 msgstr "Nuovo titolo"
@@ -87,7 +85,7 @@ msgid "New parent page"
 msgstr "Nuova pagina padre"
 
 msgid "This copy will be a child of this given parent page."
-msgstr "Questa copia sarà un figlio della pagina padre in questione"
+msgstr "Questa copia sarà un figlio della pagina padre in questione."
 
 msgid "Copy subpages"
 msgstr "Copia subpagina"
@@ -128,14 +126,8 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Questo slug è già in uso nel contesto della pagina padre \"%s\""
 
-msgid "Visibility"
-msgstr "Visibilità"
-
-msgid "This field is required."
-msgstr "Questo campo è obbligatorio"
-
-msgid "Please select at least one group."
-msgstr "Seleziona almeno un gruppo."
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Non puoi copiare la pagina quando stai copiando le sottopagine"
 
 msgid "This slug is already in use"
 msgstr "Questo slug è gia in uso"
@@ -146,9 +138,20 @@ msgstr "Go live data/ora deve precedere data/ora di scadenza"
 msgid "Expiry date/time must be in the future"
 msgstr "Data/ora di scadenza deve esser nel futuro"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Spiacente, ma no puoi avere diverse registrazioni per la stessa collezione."
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Search term"
+msgstr "Cerca termine"
+
+msgid "Visibility"
+msgstr "Visibilità"
+
+msgid "This field is required."
+msgstr "Questo campo è obbligatorio"
+
+msgid "Please select at least one group."
+msgstr "Seleziona almeno un gruppo."
 
 msgid "Error 404: Page not found"
 msgstr "Errore 404: Pagina non trovata"
@@ -165,35 +168,20 @@ msgstr "Vai all'interfaccia admin di Wagtail"
 msgid "Account"
 msgstr "Account"
 
-msgid "Set gravatar"
-msgstr "Setta gravatar"
+msgid "Change profile picture"
+msgstr "Cambia immagine del profilo"
 
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"La tua immagine avatar è fornita da Gravatar ed è connessa al tuo indirizzo "
-"email. Con un account Gravatar puoi settare un avatar per qualunque numero "
-"di email che usi."
+msgid "Your current profile picture:"
+msgstr "La tua immagine attuale del profilo:"
+
+msgid "Update"
+msgstr "Aggiorna"
+
+msgid "Change email"
+msgstr "Cambia email"
 
 msgid "Change password"
 msgstr "Cambia password"
-
-msgid "Change the password you use to log in."
-msgstr "Cambia la password che usi per loggarti."
-
-msgid "Notification preferences"
-msgstr "Preferenze delle notifiche"
-
-msgid "Choose which email notifications to receive."
-msgstr "Scegli quale notifiche vuoi ricevere via email."
-
-msgid "Language preferences"
-msgstr "Impostazioni lingua"
-
-msgid "Choose the language you want to use here."
-msgstr "Scegli la lingua che vuoi usare qui."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -201,11 +189,14 @@ msgstr ""
 "La tua password non può esser cambiata qui. Per favore contatta "
 "l'amministratore del sito"
 
+msgid "Set Time Zone"
+msgstr "Imposta il fuso orario"
+
 msgid "Language Preferences"
 msgstr "Impostazioni Lingua"
 
-msgid "Update"
-msgstr "Aggiorna"
+msgid "Notification preferences"
+msgstr "Preferenze delle notifiche"
 
 msgid "Reset password"
 msgstr "Inserisci password"
@@ -219,14 +210,28 @@ msgstr "Login"
 msgid "Set your new password"
 msgstr "Inserisci password"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Questa password non corrisponde. Per favore prova ancora."
+msgid "Invalid password reset link"
+msgstr "Link di reimpostazione della password non valida"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Il link per la reimpostazione della password non era valido, probabilmente "
+"perché è già stato utilizzato."
+
+msgid "Request a new password reset"
+msgstr "Richiedi una nuova reimpostazione della password"
 
 msgid "Check your email"
 msgstr "Controlla la tua email"
 
-msgid "A link to reset your password has been emailed to you."
-msgstr "Il link per resettare la tua password ti è stato invitato via email."
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Un link per resettare la tua password ti è stato inviato via email se esiste "
+"un account per questo indirizzo."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Per favore segui il link qui sotto per resettare la tua password"
@@ -242,9 +247,6 @@ msgstr "Inserisci password"
 
 msgid "Edit"
 msgstr "Modifica"
-
-msgid "Delete"
-msgstr "Elimina"
 
 msgid "Page"
 msgstr "Pagina"
@@ -288,6 +290,24 @@ msgstr "Annulla"
 msgid "Redo"
 msgstr "Ripristina"
 
+msgid "Reload the page"
+msgstr "Ricarica la pagina"
+
+msgid "Reload saved content"
+msgstr "Ricarica il contenuto salvato"
+
+msgid "Show latest content"
+msgstr "Mostra gli ultimi contenuti"
+
+msgid "Show error"
+msgstr "Mostra errore"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"L'editor è appena andato in crash. Il contenuto è stato reimpostato "
+"sull'ultima versione salvata."
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -318,7 +338,7 @@ msgstr "Collegamento email"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -326,7 +346,7 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"        C'è una corrispondenza\n"
+"        C'è %(counter)s corrispondenza\n"
 "    "
 msgstr[1] ""
 "\n"
@@ -371,10 +391,10 @@ msgid "Add an external link"
 msgstr "Aggiungi collegamento esterno"
 
 msgid "Collection privacy"
-msgstr "Privacy collezione"
+msgstr "Privacy raccolta"
 
 msgid "This collection has been made private by a parent collection."
-msgstr "Questa collezione è stata resa privata dalla collezione padre."
+msgstr "Questa raccolta è stata resa privata dalla raccolta padre."
 
 msgid "You can edit the privacy settings on:"
 msgstr "Puoi modificare le tue preferenze di privacy su:"
@@ -383,7 +403,7 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
 "Impostazioni privacy determinano chi può vedere i documenti in questa "
-"collezione."
+"raccolta."
 
 msgid "Save"
 msgstr "Salva"
@@ -400,8 +420,7 @@ msgstr "Privato"
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr ""
-"Questa collezione non si può essere cancellato, perché non é vuoto. Esso "
-"contiene :"
+"Questa raccolta non può essere eliminata, perché non è vuota. Contiene:"
 
 msgid "Name"
 msgstr "Nome"
@@ -411,7 +430,7 @@ msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
 "\">add one</a>?"
 msgstr ""
-"Non hai creato nessuna collezione. Perché non ne <a href="
+"Non hai creato nessuna raccolta. Perché non ne <a href="
 "\"%(add_collection_url)s\">aggiungi uno</a>?"
 
 #, python-format
@@ -449,6 +468,9 @@ msgstr "Modificato"
 
 msgid "Edit this page"
 msgstr "Modifica questa pagina"
+
+msgid "Preview this page"
+msgstr "Guarda l'anteprima di questa pagina"
 
 msgid "Approve"
 msgstr "Approva"
@@ -578,6 +600,15 @@ msgstr "Bloccato"
 msgid "Unlocked"
 msgstr "Sbloccato"
 
+msgid "Publishing…"
+msgstr "Pubblicazione in corso..."
+
+msgid "Publish this revision"
+msgstr "Pubblica questa revisione"
+
+msgid "Publish"
+msgstr "Pubblica"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crea una pagina in %(title)s"
@@ -660,9 +691,6 @@ msgstr "Si, va a questa pagina"
 msgid "Unpublish %(title)s"
 msgstr "Annulla pubblicazione %(title)s"
 
-msgid "Unpublish"
-msgstr "Annulla pubblicazione"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sei sicuro di voler annullare la pubblicazione di questa pagina?"
 
@@ -723,15 +751,6 @@ msgstr "Salvataggio in corso…"
 msgid "Save draft"
 msgstr "Salva bozza"
 
-msgid "Publishing…"
-msgstr "Pubblicazione in corso..."
-
-msgid "Publish"
-msgstr "Pubblica"
-
-msgid "Submit for moderation"
-msgstr "Invia per moderazione"
-
 msgid "This page has unsaved changes."
 msgstr "Questa pagina ha delle modifiche non salvate."
 
@@ -748,9 +767,6 @@ msgstr "Pagina bloccata"
 
 msgid "Replace current draft"
 msgstr "Sostituisci la bozza corrente"
-
-msgid "Publish this revision"
-msgstr "Pubblica questa revisione"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -989,6 +1005,22 @@ msgid "There are no differences between these two revisions"
 msgstr "Non ci sono differenze tra queste due revisioni"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Annulla programmazione per la revisione %(revision.id)s di %(title)s"
+
+msgid "Unschedule"
+msgstr "Annulla programmazione"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Sei sicuro di voler annullare la programmazione per questa revisione?"
+
+msgid "Yes, unschedule"
+msgstr "Si, annulla programmazione"
+
+msgid "No, don't unschedule"
+msgstr "No, non annullare"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Le revisioni di %(title)s"
 
@@ -1043,6 +1075,9 @@ msgstr[1] ""
 "Ci sono %(counter)s pagine corrispondenti\n"
 "            "
 
+msgid "Page types"
+msgstr "Tipi di pagina"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1056,7 +1091,7 @@ msgid "No pages use"
 msgstr "Nessuna pagina usata"
 
 msgid "Collection"
-msgstr "Collezione"
+msgstr "Raccolta"
 
 msgid "Root"
 msgstr "Radice"
@@ -1065,7 +1100,7 @@ msgid "Home"
 msgstr "Home"
 
 msgid "All collections"
-msgstr "Tutte le collezioni"
+msgstr "Tutte le raccolte"
 
 msgid "January"
 msgstr "Gennaio"
@@ -1102,6 +1137,27 @@ msgstr "Novembre"
 
 msgid "December"
 msgstr "Dicembre"
+
+msgid "Sunday"
+msgstr "Domenica"
+
+msgid "Monday"
+msgstr "Lunedì"
+
+msgid "Tuesday"
+msgstr "Martedì"
+
+msgid "Wednesday"
+msgstr "Mercoledì"
+
+msgid "Thursday"
+msgstr "Giovedì"
+
+msgid "Friday"
+msgstr "Venerdì"
+
+msgid "Saturday"
+msgstr "Sabato"
 
 msgid "Sun"
 msgstr "Dom"
@@ -1154,16 +1210,16 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
 "            E' richiesto JavaScript  per usare Wagtail, ma al momento è "
 "disabilitato.<br />\n"
 "            Qui ci sono <a href=\"http://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener\">le istruzioni per abilitare JavaScript nel tuo "
-"browser</a>.\n"
+"\"_blank\" rel=\"noopener noreferrer\">le istruzioni per abilitare "
+"JavaScript nel tuo browser</a>.\n"
 "        "
 
 msgid "Go to Wagtail admin interface"
@@ -1177,6 +1233,9 @@ msgstr "Mostra nell' Explorer"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabo"
 
 msgid "Catalan"
 msgstr "Catalano"
@@ -1201,6 +1260,9 @@ msgstr "Francese"
 
 msgid "Galician"
 msgstr "Galician"
+
+msgid "Indonesian"
+msgstr "Indonesiano"
 
 msgid "Icelandic"
 msgstr "Icelandic"
@@ -1241,6 +1303,12 @@ msgstr "Russian"
 msgid "Swedish"
 msgstr "Svedese"
 
+msgid "Slovak"
+msgstr "Slovacco"
+
+msgid "Ukrainian"
+msgstr "Ucraino"
+
 msgid "Chinese (China)"
 msgstr "Chinese (China)"
 
@@ -1250,57 +1318,57 @@ msgstr "Spiacente, non hai i permessi per accedere a questa area."
 msgid "Your password has been changed successfully!"
 msgstr "La tua password è stato modificata con successo"
 
+msgid "Your email has been changed successfully!"
+msgstr "La tua email è stata cambiata con successo!"
+
 msgid "Your preferences have been updated."
 msgstr "Le tue impostazioni sono state aggiornate."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Le tue preferenze sono state aggiornate con successo!"
 
 msgid "You have been successfully logged out."
 msgstr "Logout eseguito con successo."
 
 msgid "Collections"
-msgstr "Collezioni"
+msgstr "Raccolte"
 
 msgid "Add a collection"
-msgstr "Aggiungi una collezione"
+msgstr "Aggiungi una raccolta"
 
 msgid "Add collection"
-msgstr "Aggiungi collezione"
+msgstr "Aggiungi raccolta"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
-msgstr "Collezione '{0}' creata."
+msgstr "Raccolta '{0}' creata."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
-msgstr "Collezione '{0}' aggiornata."
+msgstr "Raccolta '{0}' aggiornata."
 
 msgid "The collection could not be saved due to errors."
-msgstr "La collezione non può essere salvata a causa di errori."
+msgstr "La raccolta non può essere salvata a causa di errori."
 
 msgid "Delete collection"
-msgstr "Elimina collezione"
+msgstr "Elimina raccolta"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
-msgstr "Collezione '{0}' eliminata."
+msgstr "Raccolta '{0}' eliminata."
 
 msgid "Are you sure you want to delete this collection?"
-msgstr "Sei sicuro di voler eliminare questa collezione?"
+msgstr "Sei sicuro di voler eliminare questa raccolta?"
 
 msgid "Editing"
 msgstr "Modifica"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Pagina '{0}' creata e schedulata per la pubblicazione."
 
 msgid "View live"
 msgstr "Guarda live"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' creata e pubblicata."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Page '{0}' creata e inviata per moderazione"
 
@@ -1310,38 +1378,35 @@ msgstr "Guarda bozza"
 msgid "Failed to send notifications to moderators"
 msgstr "Invio notifiche ai moderatori fallito"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' creata."
 
 msgid "The page could not be created due to validation errors"
 msgstr "La pagina non può esser creata a causa di errori di validazione"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisione da {0} di pagina '{1}' prevista per la pubblicazione."
 
-#, python-brace-format
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"Pagina '{0}' è online e questa revisione è stata programmata per la "
+"pubblicazione."
+
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Pagina '{0}' prevista per la pubblicazione."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Revisione da {0} di pagina '{1}' è stata pubblicata"
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Pagina '{0}' è stata pubblicata"
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La pagina '{0}' è stata inviata per moderazione"
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Pagina '{0}' è stato sostituito con la revisione da {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Pagina '{0}' è stata aggiornata."
 
@@ -1357,49 +1422,39 @@ msgstr "Compara con la versione live"
 msgid "This page is currently awaiting moderation"
 msgstr "Questa pagina è attualmente in attesa di moderazione"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' eliminata."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Pagina '{0}' non pubblicata."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Page '{0}' spostata."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Pagina '{0}' e {1} sottopagine copiate."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Pagina '{0}' copiata."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La pagina '{0}' non è al momento in attesa di moderazione."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Pagina '{0}' pubblicata."
 
 msgid "Failed to send approval notifications"
 msgstr "Invio notifiche di approvazione fallito"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Pagina '{0}' respinta per la pubblicazione."
 
 msgid "Failed to send rejection notifications"
 msgstr "Invio notifiche di rifiuto fallito "
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Pagina '{0}' bloccata."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' sbloccata."
 
@@ -1417,52 +1472,74 @@ msgstr "Precedenti"
 msgid "Latest"
 msgstr "Ultimi"
 
-#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "revisione {0} di \"{1}\""
 
-#, python-brace-format
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Revisione {0} di \"{1}\", annulata programmazione. "
+
 msgid "Edit '{title}'"
 msgstr "Modifica '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Anteprima bozza di '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Visualizza versione live di '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Aggiungi una pagina figlio a '{title}'"
 
 msgid "More"
 msgstr "Altro"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Vedi altre opzioni per '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Sposta pagina '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Copia pagina '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Elimina pagina '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Annulla pubblicazione pagina '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Vedi storico revisioni per '{title}'"
+
+msgid "Set profile picture"
+msgstr "Imposta la foto del profilo"
+
+msgid "Change your profile picture"
+msgstr "Cambia la tua immagine di profilo"
+
+msgid "Change the email address linked to your account."
+msgstr "Cambia l'indirizzo email collegato al tuo account."
+
+msgid "Change the password you use to log in."
+msgstr "Cambia la password che usi per loggarti."
+
+msgid "Choose which email notifications to receive."
+msgstr "Scegli quale notifiche vuoi ricevere via email."
+
+msgid "Language preferences"
+msgstr "Impostazioni lingua"
+
+msgid "Choose the language you want to use here."
+msgstr "Scegli la lingua che vuoi usare qui."
+
+msgid "Current Time Zone"
+msgstr "Fuso orario attuale"
+
+msgid "Choose your current time zone."
+msgstr "Scegli il tuo fuso orario corrente."
+
+msgid "Heading {level}"
+msgstr "Intestazione {level}"
 
 msgid "Bulleted list"
 msgstr "Elenco puntato"

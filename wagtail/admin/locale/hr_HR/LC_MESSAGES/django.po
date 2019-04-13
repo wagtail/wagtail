@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -20,17 +20,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-msgid "Search"
-msgstr "Pretraga"
-
-msgid "Search term"
-msgstr "Pojam za pretraživanje"
+msgid "Delete"
+msgstr "Obriši"
 
 msgid "Enter password"
 msgstr "Unesite lozinku"
-
-msgid "Please fill your email address."
-msgstr "Unesite svoju email adresu."
 
 msgid "New title"
 msgstr "Novi naslov"
@@ -44,44 +38,35 @@ msgstr "Objavi kopiranu stranicu"
 msgid "Publish copies"
 msgstr "Objavi kopije"
 
+msgid "Search"
+msgstr "Pretraga"
+
+msgid "Search term"
+msgstr "Pojam za pretraživanje"
+
 msgid "This field is required."
 msgstr "Ovo polje je obavezno."
 
 msgid "Account"
 msgstr "Korisnički račun"
 
-msgid "Set gravatar"
-msgstr "Postavi gravatar"
+msgid "Update"
+msgstr "Ažuriraj"
 
 msgid "Change password"
 msgstr "Promijeni lozinku"
 
-msgid "Change the password you use to log in."
-msgstr "Promijenite lozinku koju koristite za prijavu."
-
 msgid "Notification preferences"
 msgstr "Postavke obavijesti"
 
-msgid "Choose which email notifications to receive."
-msgstr "Odaberite email na koji želite primati obavijesti."
-
-msgid "Update"
-msgstr "Ažuriraj"
-
 msgid "Login"
 msgstr "Prijava"
-
-msgid "The passwords do not match. Please try again."
-msgstr "Lozinke nisu jednake. Pokušajte ponovno."
 
 msgid "Check your email"
 msgstr "Provjerite svoj email"
 
 msgid "Edit"
 msgstr "Uredi"
-
-msgid "Delete"
-msgstr "Obriši"
 
 msgid "Dashboard"
 msgstr "Kontrolna ploča"
@@ -142,3 +127,9 @@ msgstr "Sažetak"
 
 msgid "Sign in"
 msgstr "Prijavi se"
+
+msgid "Change the password you use to log in."
+msgstr "Promijenite lozinku koju koristite za prijavu."
+
+msgid "Choose which email notifications to receive."
+msgstr "Odaberite email na koji želite primati obavijesti."

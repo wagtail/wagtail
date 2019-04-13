@@ -5,13 +5,13 @@
 # Translators:
 # Antoni Aloy <aaloy@apsl.net>, 2016
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017
+# Roger Pons <rogerpons@gmail.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -20,6 +20,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Envia per moderació"
+
+msgid "Unpublish"
+msgstr "Despublica"
+
+msgid "Delete"
+msgstr "Esborra"
+
+msgid "Wagtail admin"
+msgstr "Administració de Wagtail"
 
 msgid "None"
 msgstr "Cap"
@@ -42,15 +54,6 @@ msgstr "Promoure"
 msgid "Settings"
 msgstr "Configuració"
 
-msgid "Search"
-msgstr "Cercar"
-
-msgid "Search term"
-msgstr "Termini de cerca"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Introdueix la contrassenya"
 
@@ -61,18 +64,12 @@ msgstr "Introdueix el teu %s"
 msgid "Enter your email address to reset your password"
 msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
 
-msgid "Please fill your email address."
-msgstr "Si us plau escriu el teu correu"
+msgid "URL"
+msgstr "URL"
 
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
+msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
-"Ho sentim, no pots reiniciar la teva contrasenya aquí ja que la teva conta "
-"d'usuari es administrada per un altre servidor"
-
-msgid "This email address is not recognised."
-msgstr "No es reconeix aquesta adreça de correu"
+"No podeu tenir múltiples registres de permisos per la mateixa col·lecció."
 
 msgid "New title"
 msgstr "Nou títol"
@@ -117,18 +114,17 @@ msgstr[1] ""
 "%(count)s de les pàgines a copiar estan en viu. Voleu publicar-ne les còpies?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "No teniu permís per copiar a la pàgina \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Aquest slug ja està en ús dins el context de la seva plana pare \"%s\""
 
-msgid "Visibility"
-msgstr "Visibilitat"
-
-msgid "This field is required."
-msgstr "Aquest camp és obligatori"
-
-msgid "Please select at least one group."
-msgstr "Seleccioneu com a mínim un grup."
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"No podeu copiar una pàgina a ella mateixa quan esteu copiant subpàgines"
 
 msgid "This slug is already in use"
 msgstr "Aquest llimac ja està en ús"
@@ -140,9 +136,29 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "La data/hora de caducitat ha d'estar en el futur"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"No podeu tenir múltiples registres de permisos per la mateixa col·lecció."
+msgid "Search"
+msgstr "Cercar"
+
+msgid "Search term"
+msgstr "Termini de cerca"
+
+msgid "Visibility"
+msgstr "Visibilitat"
+
+msgid "This field is required."
+msgstr "Aquest camp és obligatori"
+
+msgid "Please select at least one group."
+msgstr "Seleccioneu com a mínim un grup."
+
+msgid "Error 404: Page not found"
+msgstr "Error 404: Pàgina no trobada"
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "No s'ha trobat la pàgina demanada"
 
 msgid "Go to Wagtail admin"
 msgstr "Anar a l'administració de Wagtail"
@@ -150,29 +166,20 @@ msgstr "Anar a l'administració de Wagtail"
 msgid "Account"
 msgstr "Compte"
 
-msgid "Set gravatar"
-msgstr "Tria gravatar"
+msgid "Change profile picture"
+msgstr "Modificar imatge de perfil"
 
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"La teva imatge de perfil és subministrada per Gravatar i està conectada al "
-"teu correu. Amb una conta de Gravatar pots definir una imatge de perfil per "
-"cadascuna de la resta d'adreces de correu que fas servir."
+msgid "Your current profile picture:"
+msgstr "La vostra imatge de perfil actual:"
+
+msgid "Update"
+msgstr "Actualitzar"
+
+msgid "Change email"
+msgstr "Modificar correu electrònic"
 
 msgid "Change password"
 msgstr "Canviar contrasenya"
-
-msgid "Change the password you use to log in."
-msgstr "Canvia la password que fas servir per connectar-te"
-
-msgid "Notification preferences"
-msgstr "Preferències de notificació"
-
-msgid "Choose which email notifications to receive."
-msgstr "Seleccioni quines notificacions de correu vol rebre."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -180,8 +187,8 @@ msgstr ""
 "La teva contrasenya no es pot canviar des d'aquí. Si us plau contacta amb "
 "l'administrador de la web"
 
-msgid "Update"
-msgstr "Actualitzar"
+msgid "Notification preferences"
+msgstr "Preferències de notificació"
 
 msgid "Reset password"
 msgstr "Reiniciar contrasenya"
@@ -195,14 +202,8 @@ msgstr "Connectar"
 msgid "Set your new password"
 msgstr "Estableix la nova contrasenya"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Les contrasenyes no coincideixen. Si us plau torna-ho a provar"
-
 msgid "Check your email"
 msgstr "Revisa el teu correu"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "S'ha enviat un enllaç per reiniciar la contrasenya al teu correu"
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Seguiu l'enllaç inferior per reiniciar la vostra contrasenya:"
@@ -218,9 +219,6 @@ msgstr "Reinicia la teva contrasenya "
 
 msgid "Edit"
 msgstr "Edita"
-
-msgid "Delete"
-msgstr "Esborra"
 
 msgid "Pages"
 msgstr "Pàgines"
@@ -251,24 +249,6 @@ msgstr "Enllaç extern"
 
 msgid "Email link"
 msgstr "Enllaç de correu electrònic"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"        Hi ha una coincidència\n"
-"    "
-msgstr[1] ""
-"\n"
-"        Hi ha %(counter)s coincidències\n"
-"    "
 
 msgid "Choose"
 msgstr "Seleccionar"
@@ -495,6 +475,12 @@ msgstr "Bloquejada"
 msgid "Unlocked"
 msgstr "Desbloquejada"
 
+msgid "Publish this revision"
+msgstr "Publicar aquesta revisió"
+
+msgid "Publish"
+msgstr "Publica"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crear una pàgina a %(title)s"
@@ -575,9 +561,6 @@ msgstr "Si, mou la pàgina"
 msgid "Unpublish %(title)s"
 msgstr "Despublica %(title)s"
 
-msgid "Unpublish"
-msgstr "Despublica"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Estàs segur que vols despublicar aquesta pàgina?"
 
@@ -630,12 +613,6 @@ msgstr "Nou"
 msgid "Save draft"
 msgstr "Desa esborrany"
 
-msgid "Publish"
-msgstr "Publica"
-
-msgid "Submit for moderation"
-msgstr "Envia per moderació"
-
 msgid "This page has unsaved changes."
 msgstr "Aquesta pàgina té modificacions no desades"
 
@@ -652,9 +629,6 @@ msgstr "Pàgina bloquejada"
 
 msgid "Replace current draft"
 msgstr "Reemplaçar l'esborrany actual"
-
-msgid "Publish this revision"
-msgstr "Publicar aquesta revisió"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1016,23 +990,6 @@ msgstr ""
 "aquest programari. <a href=\"http://browsehappy.com/\">Actualitzeu el vostre "
 "navegador</a>."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Es requereix Javascript per utilitzar Wagtail, però actualment "
-"està deshabilitat.<br />\n"
-"            Aquí teniu les <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instruccions sobre com habilitar "
-"JavaScript al vostre navegador</a>.\n"
-"        "
-
 msgid "Go to Wagtail admin interface"
 msgstr "Anar a la interfície d'administració de Wagtail"
 
@@ -1063,11 +1020,9 @@ msgstr "Afegir una col·lecció"
 msgid "Add collection"
 msgstr "Afegir una col·lecció"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Col·lecció '{0}' creada."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Col·lecció '{0}' actualitzada."
 
@@ -1077,7 +1032,6 @@ msgstr "La col·lecció no pot ser desada per causa d'errors."
 msgid "Delete collection"
 msgstr "Eliminar col·lecció"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Col·lecció '{0}' eliminada."
 
@@ -1087,18 +1041,15 @@ msgstr "Segur que voleu eliminar aquesta col·lecció?"
 msgid "Editing"
 msgstr "Editant"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Pàgina '{0}' creada i programada per a la seva publicació."
 
 msgid "View live"
 msgstr "Veure en viu"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Pàgina '{0}' creada i publicada."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Pàgina '{0}' creada i enviada a moderació."
 
@@ -1108,40 +1059,32 @@ msgstr "Veure esborrany"
 msgid "Failed to send notifications to moderators"
 msgstr "Ha fallat l'enviament de notificacions als moderadors"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pàgina '{0}' creada."
 
 msgid "The page could not be created due to validation errors"
 msgstr "No es pot crear la pàgina per causa d'errors de validació"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "La tevisió des de {0} de la pàgina '{1}' ha estat programada per a la seva "
 "publicació."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "La pàgina '{0}' ha estat programada per a la seva publicació."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "La revisió des de {0} de la pàgina '{1}' ha estat publicada."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "La pàgina '{0}' ha estat publicada."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La pàgina '{0}' ha estat enviada a moderació."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "La pàgina '{0}' ha estat reemplaçada per una revisió des de {1}"
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "La pàgina '{0}' ha estat actualitzada."
 
@@ -1157,49 +1100,39 @@ msgstr "Comparar amb la versió en viu"
 msgid "This page is currently awaiting moderation"
 msgstr "Aquesta pàgina està esperant moderació"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pàgina '{0}' eliminada."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Pàgina '{0}' despublicada."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Pàgina '{0}' moguda."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "La pàgina '{0}' i {1} subpàgines han estat copiades."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "La pàgina '{0}' ha estat copiada."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La pàgina '{0}' ja no es troba esperant moderació."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Pàgina '{0}' publicada."
 
 msgid "Failed to send approval notifications"
 msgstr "Ha fallat l'enviament de notificacions d'aprovació"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "La pàgina '{0}' ha estat rebutjada per publicació"
 
 msgid "Failed to send rejection notifications"
 msgstr "Ha fallat l'enviament de notificacions de rebuig"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "La pàgina '{0}' ara està bloquejada."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "La pàgina '{0}' ara està desbloquejada."
 
@@ -1217,48 +1150,44 @@ msgstr "La més antiga"
 msgid "Latest"
 msgstr "L'última"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Editar '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Previsualitzar versió esborrany de '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Visualitzar versió en viu de '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Afegir una pàgina filla a '{title}'"
 
 msgid "More"
 msgstr "Més"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Veure més opcions per '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Moure pàgina '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Copiar pàgina '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Eliminar pàgina '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Despublicar pàgina '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Visualitzar historial de revisions de '{title}'"
+
+msgid "Change the password you use to log in."
+msgstr "Canvia la password que fas servir per connectar-te"
+
+msgid "Choose which email notifications to receive."
+msgstr "Seleccioni quines notificacions de correu vol rebre."
 
 msgid "Choose an item"
 msgstr "Escull un element"

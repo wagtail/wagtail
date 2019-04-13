@@ -5,9 +5,10 @@
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
 # Benoît Vogel <contact@spicy-informatique.com>, 2016
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2017
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loïc Teixeira <hello@lta.me>, 2018
+# Loic Teixeira <hello@lta.me>, 2018
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-13 01:09+0000\n"
-"Last-Translator: Loïc Teixeira <hello@lta.me>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-27 14:47+0000\n"
+"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail images"
+msgstr "Images Wagtail"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -126,10 +130,16 @@ msgid "created at"
 msgstr "créé le"
 
 msgid "uploaded by user"
-msgstr "Téléchargé par l'utilisateur"
+msgstr "Transférée par l'utilisateur"
 
 msgid "tags"
 msgstr "Mots-clés"
+
+msgid "image"
+msgstr "image"
+
+msgid "images"
+msgstr "images"
 
 msgid "Choose an image"
 msgstr "Choisir une image"
@@ -138,25 +148,18 @@ msgid "Search"
 msgstr "Rechercher"
 
 msgid "Upload"
-msgstr "Envoyer"
+msgstr "Transférer"
 
 msgid "Popular tags"
 msgstr "Mots-clés populaires"
 
 msgid "Uploading…"
-msgstr "Téléchargement…"
-
-msgid "Server Error"
-msgstr "Erreur du serveur"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Signaler cette erreur à votre webmaster avec les informations suivantes :"
+msgstr "Transfert…"
 
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -164,12 +167,10 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Il y a une correspondance\n"
-"        "
+"        Il y a %(counter)s correspondance"
 msgstr[1] ""
 "\n"
-"            Il y a %(counter)s correspondances\n"
-"        "
+"        Il y a %(counter)s correspondances"
 
 msgid "Latest images"
 msgstr "Dernières images"
@@ -232,24 +233,27 @@ msgstr "Édition de l'image %(title)s"
 msgid "Editing"
 msgstr "Modification"
 
-msgid "Focal point (optional)"
-msgstr "Point d'intérêt (facultatif)"
+msgid "URL Generator"
+msgstr "Générateur d'URL"
+
+msgid "Focal point"
+msgstr "Point d'intérêt"
+
+msgid "(optional)"
+msgstr "(facultatif)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
-"below."
+"above."
 msgstr ""
 "Pour définir la zone la plus importante de cette image, tracez un rectangle "
-"sur l'image ci-dessous."
+"sur l'image ci-dessus."
 
 msgid "Current focal point shown"
 msgstr "Point d'intérêt courant tracé"
 
 msgid "Remove focal area"
 msgstr "Retirer la zone d’intérêt"
-
-msgid "URL Generator"
-msgstr "Générateur d'URL"
 
 msgid "Max dimensions"
 msgstr "Dimensions maximum"
@@ -275,15 +279,16 @@ msgid ""
 "You haven't uploaded any images in this collection. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Vous n’avez pas encore envoyé d’image dans cette collection. Pourquoi ne pas "
-"<a href=\"%(wagtailimages_add_image_url)s\">en ajouter une maintenant</a> ?"
+"Vous n’avez pas encore transféré d’image dans cette collection. Pourquoi ne "
+"pas <a href=\"%(wagtailimages_add_image_url)s\">en ajouter une maintenant</"
+"a> ?"
 
 #, python-format
 msgid ""
 "You haven't uploaded any images. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Vous n'avez pas encore envoyé d'image. Pourquoi ne pas <a href="
+"Vous n'avez pas encore transféré d'image. Pourquoi ne pas <a href="
 "\"%(wagtailimages_add_image_url)s\">en ajouter une maintenant</a> ?"
 
 msgid "Generating URL"
@@ -332,7 +337,7 @@ msgstr "Ajouter une image"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
-"Glisser/déposer des images dans cette zone pour les envoyer immédiatement."
+"Glisser/déposer des images dans cette zone pour les transférer immédiatement."
 
 msgid "Or choose from your computer"
 msgstr "Ou sélectionner à partir de votre ordinateur"
@@ -345,12 +350,19 @@ msgid ""
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
-"Envoi réussi. Mettez à jour cette image avec un titre plus approprié si "
+"Transfert réussi. Mettez à jour cette image avec un titre plus approprié si "
 "nécessaire. Vous pouvez également supprimer complètement cette image si "
 "l'envoi n'était pas nécessaire."
 
 msgid "Sorry, upload failed."
-msgstr "Désolé, l'envoi a échoué."
+msgstr "Désolé, le transfert a échoué."
+
+msgid "Server Error"
+msgstr "Erreur du serveur"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Signaler cette erreur à votre webmaster avec les informations suivantes :"
 
 msgid "Image updated."
 msgstr "Image mise à jour."
@@ -370,7 +382,6 @@ msgstr "Ajouter une permission d’image"
 msgid "Search images"
 msgstr "Rechercher des images"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Image '{0}' mise à jour."
 
@@ -387,11 +398,9 @@ msgstr ""
 "Le fichier image source n'a pas été trouvé. Veuillez changer la source ou "
 "supprimer l'image."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Image '{0}' supprimée."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Image '{0}' ajoutée."
 

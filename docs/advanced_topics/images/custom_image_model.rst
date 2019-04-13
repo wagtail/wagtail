@@ -47,10 +47,6 @@ Here's an example:
             )
 
 
-.. versionchanged:: 1.10
-
-    In previous versions of Wagtail it was necessary to connect signal handlers to handle deletion of image files. As of Wagtail 1.10 this is now handled automatically.
-
 .. note::
 
     Fields defined on a custom image model must either be set as non-required
@@ -70,7 +66,7 @@ Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
     When changing an existing site to use a custom image model, no images will
     be copied to the new model automatically. Copying old images to the new
     model would need to be done manually with a
-    `data migration <https://docs.djangoproject.com/en/1.8/topics/migrations/#data-migrations>`_.
+    :ref:`data migration <django:data-migrations>`.
 
     Any templates that reference the builtin image model will still continue to
     work as before but would need to be updated in order to see any new images.

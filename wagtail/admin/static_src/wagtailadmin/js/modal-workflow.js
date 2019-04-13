@@ -8,6 +8,9 @@ function ModalWorkflow(opts) {
         'url' (required): initial
         'responses' (optional): dict of callbacks to be called when the modal content
             calls modal.respond(callbackName, params)
+        'onload' (optional): dict of callbacks to be called when loading a step of the workflow.
+            The 'step' field in the response identifies the callback to call, passing it the
+            modal object and response data as arguments
     */
 
     var self = {};
@@ -51,22 +54,22 @@ function ModalWorkflow(opts) {
         });
     };
 
-    self.loadResponseText = function(responseText) {
-        var response = eval('(' + responseText + ')');
-
+    self.loadResponseText = function(responseText, textStatus, xhr) {
+        var response = JSON.parse(responseText);
         self.loadBody(response);
     };
 
     self.loadBody = function(response) {
         if (response.html) {
-            // if the response is html
+            // if response contains an 'html' item, replace modal body with it
             self.body.html(response.html);
             container.modal('show');
         }
 
-        if (response.onload) {
-            // if the response is a function
-            response.onload(self);
+        /* If response contains a 'step' identifier, and that identifier is found in
+        the onload dict, call that onload handler */
+        if (opts.onload && response.step && (response.step in opts.onload)) {
+            opts.onload[response.step](self, response);
         }
     };
 

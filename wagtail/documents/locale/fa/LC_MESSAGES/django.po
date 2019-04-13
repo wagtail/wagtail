@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 15:59+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Add"
 msgstr "اضافه کردن"
@@ -63,25 +63,6 @@ msgstr "آپلود"
 
 msgid "Uploading…"
 msgstr "در حال آپلود…"
-
-msgid "Server Error"
-msgstr "خطای سرور"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "این خطا را همراه با اطلاعات زیر به پشتیبانتان ارائه دهید:"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-" %(counter)s مورد پیدا شد"
 
 msgid "Latest documents"
 msgstr "آخرین اسناد"
@@ -191,6 +172,9 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "<span>%(total)s</span> سند"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> سند"
 
 msgid "Add multiple documents"
 msgstr "افزودن چند سند"
@@ -206,14 +190,6 @@ msgstr "یا از کامپیوتر یکی را انتخاب کنید"
 
 msgid "Add to collection:"
 msgstr "افزودن به مجموعه:"
-
-msgid ""
-"Upload successful. Please update this documents with a more appropriate "
-"title, if necessary. You may also delete the document completely if the "
-"upload wasn't required."
-msgstr ""
-"آپلود انجام شد. لطفا عنوانی مناسب برای این سند انتخاب کنید. همچنین می‌توانید "
-"این سند را کاملا پاک کنید اگر آپلود نیاز نبود."
 
 msgid "Sorry, upload failed."
 msgstr "متاسفانه آپلود ناموفق بود."
@@ -233,17 +209,21 @@ msgstr "مجوزهای سند"
 msgid "Add a document permission"
 msgstr "افزودن یک مجوز سند"
 
+msgid "Server Error"
+msgstr "خطای سرور"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "این خطا را همراه با اطلاعات زیر به پشتیبانتان ارائه دهید:"
+
 msgid "Search documents"
 msgstr "جستجوی سندها"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "سند '{0}' افزوده شد."
 
 msgid "The document could not be saved due to errors."
 msgstr "به دلیل بروز خطا سند ذخیره نگردید."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "سند '{0}' بروزرسانی شد"
 
@@ -251,7 +231,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "فایل پیدا نشد. لطفا منبع یکی را تغییر دهید یا سند را حذف نمایید"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "سند '{0}' حذف شد."
 
@@ -259,6 +238,7 @@ msgstr "سند '{0}' حذف شد."
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] "%(count)s سند"
+msgstr[1] "%(count)s سند"
 
 msgid "Choose another document"
 msgstr "سند دیگری را انتخاب کنید"

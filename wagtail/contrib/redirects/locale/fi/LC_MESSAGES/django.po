@@ -5,13 +5,13 @@
 # Translators:
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
-# Eetu Häivälä <eetu.haivala@anders.fi>, 2016
+# Eetu Häivälä, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:02+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:55+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -107,22 +107,6 @@ msgid "Edit this redirect"
 msgstr "Muokkaa tätä edelleenohjausta"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Löytyi yksi osuma"
-msgstr[1] ""
-"\n"
-"Löytyi %(counter)s osumaa"
-
-#, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Pahoittelut, yksikään uudelleenohjaus ei täsmää hakuun \"<em>"
@@ -139,7 +123,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Hae uudelleenohjauksia"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Edelleenohjaus '{0}' päivitetty."
 
@@ -149,11 +132,9 @@ msgstr "Muokkaa"
 msgid "The redirect could not be saved due to errors."
 msgstr "Edelleenohjausta ei voitu tallentaa virheiden vuoksi."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Edelleenohjaus '{0}' poistettu."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Edelleenohjaus '{0}' lisätty."
 

@@ -26,9 +26,7 @@ FieldPanel
 
     .. attribute:: FieldPanel.widget (optional)
 
-        This parameter allows you to specify a `Django form widget`_ to use instead of the default widget for this field type.
-
-.. _django form widget: https://docs.djangoproject.com/en/dev/ref/forms/widgets/
+        This parameter allows you to specify a :doc:`Django form widget <django:ref/forms/widgets>` to use instead of the default widget for this field type.
 
 MultiFieldPanel
 ---------------
@@ -70,7 +68,7 @@ InlinePanel
 
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel.
 
-    This is a poweful but complex feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
+    This is a powerful but complex feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
 
 FieldRowPanel
 -------------
@@ -90,6 +88,27 @@ FieldRowPanel
     .. attribute:: FieldRowPanel.classname
 
         A class to apply to the FieldRowPanel as a whole
+
+HelpPanel
+---------
+
+.. class:: HelpPanel(content='', template='wagtailadmin/edit_handlers/help_panel.html', heading='', classname='')
+
+    .. attribute:: HelpPanel.content
+
+        HTML string that gets displayed in the panel.
+
+    .. attribute:: HelpPanel.template
+
+        Path to a template rendering the full panel HTML.
+
+    .. attribute:: HelpPanel.heading
+
+        A heading for the help content.
+
+    .. attribute:: HelpPanel.classname
+
+        String of CSS classes given to the panel which are used in formatting and scripted interactivity.
 
 PageChooserPanel
 ----------------
@@ -154,9 +173,7 @@ ImageChooserPanel
               ImageChooserPanel('cover'),
           ]
 
-    Django's default behaviour is to "cascade" deletions through a ForeignKey relationship, which may not be what you want. This is why the ``null``, ``blank``, and ``on_delete`` parameters should be set to allow for an empty field. (See `Django model field reference (on_delete)`_ ). ``ImageChooserPanel`` takes only one argument: the name of the field.
-
-    .. _Django model field reference (on_delete): https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.on_delete
+    Django's default behaviour is to "cascade" deletions through a ForeignKey relationship, which may not be what you want. This is why the :attr:`~django.db.models.Field.null`, :attr:`~django.db.models.Field.blank`, and :attr:`~django.db.models.ForeignKey.on_delete` parameters should be set to allow for an empty field. ``ImageChooserPanel`` takes only one argument: the name of the field.
 
     Displaying ``Image`` objects in a template requires the use of a template tag. See :ref:`image_tag`.
 
@@ -213,10 +230,6 @@ DocumentChooserPanel
 SnippetChooserPanel
 -------------------
 
-.. versionchanged:: 1.1
-
-    Before Wagtail 1.1, it was necessary to pass the snippet model class as a second parameter to ``SnippetChooserPanel``. This is now automatically picked up from the field.
-
 .. module:: wagtail.snippets.edit_handlers
 
 .. class:: SnippetChooserPanel(field_name, snippet_type=None)
@@ -243,30 +256,6 @@ SnippetChooserPanel
     See :ref:`snippets` for more information.
 
 
-HelpPanel
----------
-
-.. module:: wagtail.admin.edit_handlers
-
-.. class:: HelpPanel(content='', template='wagtailadmin/edit_handlers/help_panel.html', heading='', classname='')
-
-    .. attribute:: HelpPanel.content
-
-        HTML string that gets displayed in the panel.
-
-    .. attribute:: HelpPanel.template
-
-        Path to a template rendering the full panel HTML.
-
-    .. attribute:: HelpPanel.heading
-
-        A heading for the help content.
-
-    .. attribute:: HelpPanel.classname
-
-        String of CSS classes given to the panel which are used in formatting and scripted interactivity.
-
-
 Built-in Fields and Choosers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -278,10 +267,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 Field Customisation
 ~~~~~~~~~~~~~~~~~~~
 
-By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there. (See `Django model field reference`_ ).
-
-.. _Django model field reference: https://docs.djangoproject.com/en/dev/ref/models/fields/
-
+By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there. (See :doc:`Django model field reference <ref/models/fields>`).
 
 Full-Width Input
 ----------------
@@ -298,25 +284,19 @@ Use ``classname="title"`` to make Page's built-in title field stand out with mor
 Required Fields
 ---------------
 
-To make input or chooser selection mandatory for a field, add ``blank=False`` to its model definition. (See `Django model field reference (blank)`_ ).
-
-.. _Django model field reference (blank): https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.Field.blank
-
+To make input or chooser selection mandatory for a field, add :attr:`blank=False <django.db.models.Field.blank>` to its model definition.
 
 Hiding Fields
 -------------
 
-Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with ``editable=False`` (See `Django model field reference (editable)`_ ).
-
-.. _Django model field reference (editable): https://docs.djangoproject.com/en/dev/ref/models/fields/#editable
-
+Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with :attr:`editable=False <django.db.models.Field.editable>`.
 
 .. _inline_panels:
 
 Inline Panels and Model Clusters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page. For instance, you can create objects related through a ``ForeignKey`` relationship on the fly and save them to a draft revision of a ``Page`` object. Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before linking them to a Page.
+The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page via a ForeignKey-like relationship called ``ParentalKey``.  Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before being linked to a Page; however, objects related to a Wagtail page via ``ParentalKey`` can be created on-the-fly and saved to a draft revision of a ``Page`` object.
 
 Let's look at the example of adding related links to a :class:`~wagtail.core.models.Page`-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
 
@@ -358,10 +338,6 @@ The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRela
     InlinePanel( relation_name, panels=None, heading='', label='', help_text='', min_num=None, max_num=None )
 
 The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. ``heading`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor. ``label`` sets the text on the add button, and is used as the heading when ``heading`` is not present. Finally, ``min_num`` and ``max_num`` allow you to set the minimum/maximum number of forms that the user must submit.
-
-.. versionchanged:: 1.0
-
-    In previous versions, it was necessary to pass the base model as the first parameter to :class:`~wagtail.admin.edit_handlers.InlinePanel`; this is no longer required.
 
 For another example of using model clusters, see :ref:`tagging`
 

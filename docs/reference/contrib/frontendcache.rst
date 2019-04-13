@@ -3,15 +3,6 @@
 Frontend cache invalidator
 ==========================
 
-.. versionchanged:: 0.7
-
-   * Multiple backend support added
-   * Cloudflare support added
-
-.. versionchanged:: 1.7
-
-   * Amazon CloudFront support added
-
 Many websites use a frontend cache such as Varnish, Squid, Cloudflare or CloudFront to gain extra performance. The downside of using a frontend cache though is that they don't respond well to updating content and will often keep an old version of a page cached after it has been updated.
 
 This document describes how to configure Wagtail to purge old versions of pages from a frontend cache whenever a page gets updated.
@@ -29,10 +20,6 @@ Firstly, add ``"wagtail.contrib.frontend_cache"`` to your INSTALLED_APPS:
 
         "wagtail.contrib.frontend_cache"
      ]
-
-.. versionchanged:: 0.8
-
-    Signal handlers are now automatically registered
 
 The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the ``wagtail.contrib.frontend_cache`` app is loaded.
 
@@ -52,7 +39,10 @@ Add a new item into the ``WAGTAILFRONTENDCACHE`` setting and set the ``BACKEND``
             'LOCATION': 'http://localhost:8000',
         },
     }
+	WAGTAILFRONTENDCACHE_LANGUAGES = []
 
+
+Set ``WAGTAILFRONTENDCACHE_LANGUAGES`` to a list of languages (typically equal to ``[l[0] for l in settings.LANGUAGES]``) to also purge the urls for each language of a purging url. This setting needs ``settings.USE_I18N`` to be ``True`` to work. Its default is an empty list.
 
 Finally, make sure you have configured your frontend cache to accept PURGE requests:
 
@@ -212,8 +202,6 @@ For example, this could be useful for purging a single page on a blog index:
 
 The ``PurgeBatch`` class
 ^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. versionadded:: 1.13
 
 All of the methods available on ``PurgeBatch`` are listed below:
 

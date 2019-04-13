@@ -354,6 +354,6 @@ class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Battlestar')
         self.assertContains(response, 'Galactica')
         # check init
-        self.assertContains(response, 'initTable("table-0-value"')
+        self.assertContains(response, 'initTable("table\\u002D0\\u002Dvalue"')
         self.assertContains(response, 'minSpareRows')
         self.assertContains(response, 'startRows')

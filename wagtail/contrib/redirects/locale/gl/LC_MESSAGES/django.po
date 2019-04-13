@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:02+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:55+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -104,24 +104,6 @@ msgid "Edit this redirect"
 msgstr "Editar esta redirección"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Hai unha coincidencia\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Hai %(counter)s coincidencias\n"
-"        "
-
-#, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "Sentímolo, ningunha redirección contén \"<em>%(query_string)s</em>\""
 
@@ -136,7 +118,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Buscar redireccións"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Redirección '{0}' actualizada"
 
@@ -146,11 +127,9 @@ msgstr "Editar"
 msgid "The redirect could not be saved due to errors."
 msgstr "A redirección non pede ser gardada debido a erros."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Redirección '{0}' eliminada."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Redirección '{0}' engadida."
 

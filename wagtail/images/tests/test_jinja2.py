@@ -1,5 +1,6 @@
 import os
 
+from django import template
 from django.conf import settings
 from django.core import serializers
 from django.template import engines
@@ -77,4 +78,26 @@ class TestImagesJinja(TestCase):
         self.assertHTMLEqual(
             self.render('{{ image(myimage, "width-200") }}', {'myimage': self.bad_image}),
             '<img alt="missing image" src="/media/not-found" width="0" height="0">'
+        )
+
+    def test_invalid_character(self):
+        with self.assertRaises(template.TemplateSyntaxError):
+            self.render('{{ image(myimage, "fill-200×200") }}', {'myimage': self.image})
+
+    def test_chaining_filterspecs(self):
+        self.assertHTMLEqual(
+            self.render('{{ image(myimage, "width-200|jpegquality-40") }}', {'myimage': self.image}),
+            '<img alt="Test image" src="{}" width="200" height="150">'.format(
+                self.get_image_filename(self.image, "width-200.jpegquality-40")))
+
+    def test_image_url(self):
+        self.assertRegex(
+            self.render('{{ image_url(myimage, "width-200") }}', {'myimage': self.image}),
+            '/images/.*/width-200/{}'.format(self.image.file.name.split('/')[-1]),
+        )
+
+    def test_image_url_custom_view(self):
+        self.assertRegex(
+            self.render('{{ image_url(myimage, "width-200", "wagtailimages_serve_custom_view") }}', {'myimage': self.image}),
+            '/testimages/custom_view/.*/width-200/{}'.format(self.image.file.name.split('/')[-1]),
         )

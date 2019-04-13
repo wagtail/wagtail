@@ -2,6 +2,8 @@ from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, Group, Permission, PermissionsMixin)
 from django.db import models
 
+from wagtail.admin.edit_handlers import FieldPanel
+
 from .fields import ConvertedValueField
 
 
@@ -51,6 +53,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.first_name
+
+    panels = [
+        FieldPanel('first_name'),
+        FieldPanel('last_name'),
+    ]
 
 
 class EmailUserManager(BaseUserManager):

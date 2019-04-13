@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import datetime
 import json
+from unittest import mock
 
-import mock
 from django.db.models import Q
 from django.test import TestCase
 from elasticsearch.serializer import JSONSerializer
@@ -523,6 +523,7 @@ class TestElasticsearch5Mapping(TestCase):
                     'content_type': {'type': 'keyword', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
                     'title': {'type': 'text', 'boost': 2.0, 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title_edgengrams': {'type': 'text', 'include_in_all': False, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword', 'include_in_all': False},
                     'authors': {
                         'type': 'nested',
@@ -531,6 +532,7 @@ class TestElasticsearch5Mapping(TestCase):
                             'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
                         },
                     },
+                    'authors_filter': {'type': 'integer', 'include_in_all': False},
                     'publication_date_filter': {'type': 'date', 'include_in_all': False},
                     'number_of_pages_filter': {'type': 'integer', 'include_in_all': False},
                     'tags': {
@@ -539,7 +541,8 @@ class TestElasticsearch5Mapping(TestCase):
                             'name': {'type': 'text', 'include_in_all': True},
                             'slug_filter': {'type': 'keyword', 'include_in_all': False},
                         },
-                    }
+                    },
+                    'tags_filter': {'type': 'integer', 'include_in_all': False}
                 }
             }
         }
@@ -561,8 +564,9 @@ class TestElasticsearch5Mapping(TestCase):
         expected_result = {
             'pk': '4',
             'content_type': ["searchtests.Book"],
-            '_partials': ['The Fellowship of the Ring'],
+            '_partials': ['The Fellowship of the Ring', 'The Fellowship of the Ring'],
             'title': 'The Fellowship of the Ring',
+            'title_edgengrams': 'The Fellowship of the Ring',
             'title_filter': 'The Fellowship of the Ring',
             'authors': [
                 {
@@ -570,9 +574,11 @@ class TestElasticsearch5Mapping(TestCase):
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
+            'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
-            'tags': []
+            'tags': [],
+            'tags_filter': []
         }
 
         self.assertDictEqual(document, expected_result)
@@ -609,9 +615,11 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     'searchtests_novel__protagonist': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'boost': 0.5, 'include_in_all': True}
+                            'name': {'type': 'text', 'boost': 0.5, 'include_in_all': True},
+                            'novel_id_filter': {'type': 'integer', 'include_in_all': False}
                         }
                     },
+                    'searchtests_novel__protagonist_id_filter': {'type': 'integer', 'include_in_all': False},
                     'searchtests_novel__characters': {
                         'type': 'nested',
                         'properties': {
@@ -624,6 +632,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     'content_type': {'type': 'keyword', 'include_in_all': False},
                     '_partials': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'include_in_all': False, 'type': 'text'},
                     'title': {'type': 'text', 'boost': 2.0, 'include_in_all': True, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'title_edgengrams': {'type': 'text', 'include_in_all': False, 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
                     'title_filter': {'type': 'keyword', 'include_in_all': False},
                     'authors': {
                         'type': 'nested',
@@ -632,6 +641,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                             'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
                         },
                     },
+                    'authors_filter': {'type': 'integer', 'include_in_all': False},
                     'publication_date_filter': {'type': 'date', 'include_in_all': False},
                     'number_of_pages_filter': {'type': 'integer', 'include_in_all': False},
                     'tags': {
@@ -640,7 +650,8 @@ class TestElasticsearch5MappingInheritance(TestCase):
                             'name': {'type': 'text', 'include_in_all': True},
                             'slug_filter': {'type': 'keyword', 'include_in_all': False},
                         },
-                    }
+                    },
+                    'tags_filter': {'type': 'integer', 'include_in_all': False}
                 }
             }
         }
@@ -670,8 +681,10 @@ class TestElasticsearch5MappingInheritance(TestCase):
             # New
             'searchtests_novel__setting': "Middle Earth",
             'searchtests_novel__protagonist': {
-                'name': "Frodo Baggins"
+                'name': "Frodo Baggins",
+                'novel_id_filter': 4
             },
+            'searchtests_novel__protagonist_id_filter': 8,
             'searchtests_novel__characters': [
                 {
                     'name': "Bilbo Baggins"
@@ -686,11 +699,12 @@ class TestElasticsearch5MappingInheritance(TestCase):
 
             # Changed
             'content_type': ["searchtests.Novel", "searchtests.Book"],
-            '_partials': ['Middle Earth', 'The Fellowship of the Ring'],
+            '_partials': ['Middle Earth', 'The Fellowship of the Ring', 'The Fellowship of the Ring'],
 
             # Inherited
             'pk': '4',
             'title': 'The Fellowship of the Ring',
+            'title_edgengrams': 'The Fellowship of the Ring',
             'title_filter': 'The Fellowship of the Ring',
             'authors': [
                 {
@@ -698,26 +712,37 @@ class TestElasticsearch5MappingInheritance(TestCase):
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
+            'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
-            'tags': []
+            'tags': [],
+            'tags_filter': []
         }
 
         self.assertDictEqual(document, expected_result)
 
 
+@mock.patch('wagtail.search.backends.elasticsearch2.Elasticsearch')
 class TestBackendConfiguration(TestCase):
-    def test_default_settings(self):
-        backend = Elasticsearch5SearchBackend(params={})
+    def test_default_settings(self, Elasticsearch):
+        Elasticsearch5SearchBackend(params={})
 
-        self.assertEqual(len(backend.hosts), 1)
-        self.assertEqual(backend.hosts[0]['host'], 'localhost')
-        self.assertEqual(backend.hosts[0]['port'], 9200)
-        self.assertEqual(backend.hosts[0]['use_ssl'], False)
+        Elasticsearch.assert_called_with(
+            hosts=[
+                {
+                    'host': 'localhost',
+                    'port': 9200,
+                    'url_prefix': '',
+                    'use_ssl': False,
+                    'verify_certs': False,
+                    'http_auth': None
+                }
+            ],
+            timeout=10
+        )
 
-    def test_hosts(self):
-        # This tests that HOSTS goes to es_hosts
-        backend = Elasticsearch5SearchBackend(params={
+    def test_hosts(self, Elasticsearch):
+        Elasticsearch5SearchBackend(params={
             'HOSTS': [
                 {
                     'host': '127.0.0.1',
@@ -728,14 +753,21 @@ class TestBackendConfiguration(TestCase):
             ]
         })
 
-        self.assertEqual(len(backend.hosts), 1)
-        self.assertEqual(backend.hosts[0]['host'], '127.0.0.1')
-        self.assertEqual(backend.hosts[0]['port'], 9300)
-        self.assertEqual(backend.hosts[0]['use_ssl'], True)
+        Elasticsearch.assert_called_with(
+            hosts=[
+                {
+                    'host': '127.0.0.1',
+                    'port': 9300,
+                    'use_ssl': True,
+                    'verify_certs': True,
+                }
+            ],
+            timeout=10
+        )
 
-    def test_urls(self):
+    def test_urls(self, Elasticsearch):
         # This test backwards compatibility with old URLS setting
-        backend = Elasticsearch5SearchBackend(params={
+        Elasticsearch5SearchBackend(params={
             'URLS': [
                 'http://localhost:12345',
                 'https://127.0.0.1:54321',
@@ -744,21 +776,40 @@ class TestBackendConfiguration(TestCase):
             ],
         })
 
-        self.assertEqual(len(backend.hosts), 4)
-        self.assertEqual(backend.hosts[0]['host'], 'localhost')
-        self.assertEqual(backend.hosts[0]['port'], 12345)
-        self.assertEqual(backend.hosts[0]['use_ssl'], False)
-
-        self.assertEqual(backend.hosts[1]['host'], '127.0.0.1')
-        self.assertEqual(backend.hosts[1]['port'], 54321)
-        self.assertEqual(backend.hosts[1]['use_ssl'], True)
-
-        self.assertEqual(backend.hosts[2]['host'], 'elasticsearch.mysite.com')
-        self.assertEqual(backend.hosts[2]['port'], 80)
-        self.assertEqual(backend.hosts[2]['use_ssl'], False)
-        self.assertEqual(backend.hosts[2]['http_auth'], ('username', 'password'))
-
-        self.assertEqual(backend.hosts[3]['host'], 'elasticsearch.mysite.com')
-        self.assertEqual(backend.hosts[3]['port'], 443)
-        self.assertEqual(backend.hosts[3]['use_ssl'], True)
-        self.assertEqual(backend.hosts[3]['url_prefix'], '/hello')
+        Elasticsearch.assert_called_with(
+            hosts=[
+                {
+                    'host': 'localhost',
+                    'port': 12345,
+                    'url_prefix': '',
+                    'use_ssl': False,
+                    'verify_certs': False,
+                    'http_auth': None,
+                },
+                {
+                    'host': '127.0.0.1',
+                    'port': 54321,
+                    'url_prefix': '',
+                    'use_ssl': True,
+                    'verify_certs': True,
+                    'http_auth': None,
+                },
+                {
+                    'host': 'elasticsearch.mysite.com',
+                    'port': 80,
+                    'url_prefix': '',
+                    'use_ssl': False,
+                    'verify_certs': False,
+                    'http_auth': ('username', 'password')
+                },
+                {
+                    'host': 'elasticsearch.mysite.com',
+                    'port': 443,
+                    'url_prefix': '/hello',
+                    'use_ssl': True,
+                    'verify_certs': True,
+                    'http_auth': None,
+                },
+            ],
+            timeout=10
+        )

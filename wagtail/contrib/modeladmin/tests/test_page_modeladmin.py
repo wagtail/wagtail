@@ -103,7 +103,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
 
 class TestInspectView(TestCase, WagtailTestUtils):
-    fixtures = ['test_specific.json']
+    fixtures = ['test_specific.json', 'modeladmintest_test.json']
 
     def setUp(self):
         self.login()
@@ -156,6 +156,16 @@ class TestInspectView(TestCase, WagtailTestUtils):
     def test_non_existent(self):
         response = self.get(100)
         self.assertEqual(response.status_code, 404)
+
+    def test_short_description_is_used_as_field_label(self):
+        """
+        A custom field has been added to the inspect view's `inspect_view_fields` and since
+        this field has a `short_description` we expect it to be used as the field's label,
+        and not use the name of the function.
+        """
+        response = self.client.get('/admin/modeladmintest/author/inspect/1/')
+        self.assertContains(response, 'Birth information')
+        self.assertNotContains(response, 'author_birth_string')
 
 
 class TestEditView(TestCase, WagtailTestUtils):
@@ -310,3 +320,60 @@ class TestModeratorAccess(TestCase):
     def test_delete_permitted(self):
         response = self.client.get('/admin/tests/eventpage/delete/4/')
         self.assertEqual(response.status_code, self.expected_status_code)
+
+
+class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
+    """
+        Test that the <ul class="breadcrumbs">... is inserted within the
+        <header> tag for potential future regression.
+        See https://github.com/wagtail/wagtail/issues/3889
+    """
+    fixtures = ['test_specific.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_choose_parent_page(self):
+        response = self.client.get('/admin/tests/eventpage/choose_parent/')
+
+        # check correct templates were used
+        self.assertTemplateUsed(response, 'modeladmin/includes/breadcrumb.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/shared/header.html')
+
+        # check that home breadcrumb link exists
+        self.assertContains(response, '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>', html=True)
+
+        # check that the breadcrumbs are after the header opening tag
+        content_str = str(response.content)
+        position_of_header = content_str.index('<header')  # intentionally not closing tag
+        position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
+        self.assertLess(position_of_header, position_of_breadcrumbs)
+
+    def test_choose_inspect_page(self):
+        response = self.client.get('/admin/tests/eventpage/inspect/4/')
+
+        # check correct templates were used
+        self.assertTemplateUsed(response, 'modeladmin/includes/breadcrumb.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/shared/header.html')
+
+        # check that home breadcrumb link exists
+        self.assertContains(response, '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>', html=True)
+
+        # check that the breadcrumbs are after the header opening tag
+        content_str = str(response.content)
+        position_of_header = content_str.index('<header')  # intentionally not closing tag
+        position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
+        self.assertLess(position_of_header, position_of_breadcrumbs)
+
+
+class TestSearch(TestCase, WagtailTestUtils):
+    fixtures = ['test_specific.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_lookup_allowed_on_parentalkey(self):
+        try:
+            self.client.get('/admin/tests/eventpage/?related_links__link_page__id__exact=1')
+        except AttributeError:
+            self.fail("Lookup on parentalkey raised AttributeError unexpectedly")

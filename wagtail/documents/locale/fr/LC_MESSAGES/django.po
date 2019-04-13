@@ -4,9 +4,10 @@
 #
 # Translators:
 # Benoît Vogel <contact@spicy-informatique.com>, 2017
-# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2017
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loïc Teixeira <hello@lta.me>, 2018
+# Loic Teixeira <hello@lta.me>, 2018
 # nahuel, 2014
 # nahuel, 2014
 # pierre marfoure <pierre@onoffdesign.com>, 2016
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-13 00:49+0000\n"
-"Last-Translator: Loïc Teixeira <hello@lta.me>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-27 14:41+0000\n"
+"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Documents Wagtail"
 
 msgid "Add"
 msgstr "Ajouter"
@@ -48,13 +52,16 @@ msgid "created at"
 msgstr "Créé à"
 
 msgid "uploaded by user"
-msgstr "Téléchargé par l'utilisateur"
+msgstr "transféré par l'utilisateur"
 
 msgid "tags"
 msgstr "Mots-clés"
 
 msgid "document"
 msgstr "Document"
+
+msgid "documents"
+msgstr "documents"
 
 msgid "Choose a document"
 msgstr "Choisir un document"
@@ -63,22 +70,15 @@ msgid "Search"
 msgstr "Recherche"
 
 msgid "Upload"
-msgstr "Envoyer"
+msgstr "Transférer"
 
 msgid "Uploading…"
-msgstr "Téléchargement…"
-
-msgid "Server Error"
-msgstr "Erreur du serveur"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Signaler cette erreur à votre webmaster avec les informations suivantes :"
+msgstr "Transfert…"
 
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -86,12 +86,10 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            1 résultat correspondant\n"
-"        "
+"        Il y a %(counter)s correspondance"
 msgstr[1] ""
 "\n"
-"            %(counter)s résultats correspondants\n"
-"        "
+"        Il y a %(counter)s correspondances"
 
 msgid "Latest documents"
 msgstr "Derniers documents"
@@ -99,6 +97,23 @@ msgstr "Derniers documents"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Désolé, aucun document ne correspond à \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Vous n’avez pas encore transféré de document dans cette collection."
+
+msgid "You haven't uploaded any documents."
+msgstr "Vous n’avez pas encore transféré de document."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"Pourquoi ne pas <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">en transférer un</a> ?"
 
 msgid "Change document:"
 msgstr "Modifier le document :"
@@ -156,8 +171,11 @@ msgstr "Titre"
 msgid "File"
 msgstr "Fichier"
 
+msgid "Collection"
+msgstr "Collection"
+
 msgid "Uploaded"
-msgstr "Envoyé"
+msgstr "Transféré"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -168,16 +186,16 @@ msgid ""
 "You haven't uploaded any documents in this collection. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Vous n’avez pas encore envoyé de document dans cette collection. Pourquoi ne "
-"pas <a href=\"%(wagtaildocs_add_document_url)s\">en envoyer un</a> ?"
+"Vous n’avez pas encore transféré de document dans cette collection. Pourquoi "
+"ne pas <a href=\"%(wagtaildocs_add_document_url)s\">en transférer un</a> ?"
 
 #, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a href="
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Vous n'avez pas encore envoyé de document. Pourquoi ne pas <a href="
-"\"%(wagtaildocs_add_document_url)s\">en envoyer un maintenant</a> ?"
+"Vous n'avez pas encore transféré de document. Pourquoi ne pas <a href="
+"\"%(wagtaildocs_add_document_url)s\">en transférer un maintenant</a> ?"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -224,7 +242,8 @@ msgstr "Ajouter des documents"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
-"Glisser-déposer des documents dans cette zone pour les envoyer immédiatement."
+"Glisser-déposer des documents dans cette zone pour les transférer "
+"immédiatement."
 
 msgid "Or choose from your computer"
 msgstr "Ou choisissez depuis votre ordinateur"
@@ -233,16 +252,16 @@ msgid "Add to collection:"
 msgstr "Ajouter à la collection :"
 
 msgid ""
-"Upload successful. Please update this documents with a more appropriate "
+"Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"Envoi réussi. Veuillez mettre à jour ce document avec un titre plus "
+"Transfert réussi. Veuillez mettre à jour ce document avec un titre plus "
 "approprié, si nécessaire. Vous pouvez aussi supprimer complètement le "
-"document si l’envoi n’était pas nécessaire."
+"document si le transfert n’était pas nécessaire."
 
 msgid "Sorry, upload failed."
-msgstr "Désolé, l’envoi a échoué."
+msgstr "Désolé, le transfert a échoué."
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -259,17 +278,22 @@ msgstr "Permissions de document"
 msgid "Add a document permission"
 msgstr "Ajouter une permission de document"
 
+msgid "Server Error"
+msgstr "Erreur du serveur"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Signaler cette erreur à votre webmaster avec les informations suivantes :"
+
 msgid "Search documents"
 msgstr "Rechercher des documents"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Document '{0}' ajouté."
 
 msgid "The document could not be saved due to errors."
 msgstr "Le document ne peut être enregistré du fait d'erreurs."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Document '{0}' mis à jour"
 
@@ -279,7 +303,6 @@ msgstr ""
 "Le fichier n'a pas été trouvé. Veuillez changer la source ou supprimer le "
 "document."
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' supprimé."
 

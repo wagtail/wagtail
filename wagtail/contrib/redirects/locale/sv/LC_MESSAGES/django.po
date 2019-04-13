@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:02+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-11-27 22:01+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtail omdirigeringar"
 
 msgid "From site"
 msgstr "Från sajt"
@@ -107,7 +111,7 @@ msgstr "Editera denna omdirigering"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -115,11 +119,11 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Det finns en matchning\n"
+"            Det finns %(counter)s match\n"
 "        "
 msgstr[1] ""
 "\n"
-"            Det finns %(counter)s matchning\n"
+"            Det finns %(counter)s matchningar\n"
 "        "
 
 #, python-format
@@ -137,7 +141,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Sökomdirigeringar"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Omdirigering '{0}' uppdaterad."
 
@@ -147,11 +150,9 @@ msgstr "Editera"
 msgid "The redirect could not be saved due to errors."
 msgstr "Omdirigeringen kunde inte sparas p.g.a. fel."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Omdirigering '{0}' raderad."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Omdirigering '{0}' skapad."
 

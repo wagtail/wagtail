@@ -9,10 +9,6 @@ Wagtail supports Jinja2 templating for all front end features. More information 
 Configuring Django
 ==================
 
-.. versionchanged:: 1.3
-
-    Jinja2 tags were moved from "templatetags" into "jinja2tags" to separate them from Django template tags.
-
 Django needs to be configured to support Jinja2 templates. As the Wagtail admin is written using regular Django templates, Django has to be configured to use both templating engines. Add the following configuration to the ``TEMPLATES`` setting for your app:
 
 .. code-block:: python
@@ -34,7 +30,7 @@ Django needs to be configured to support Jinja2 templates. As the Wagtail admin 
 
 Jinja templates must be placed in a ``jinja2/`` directory in your app. The template for an ``EventPage`` model in an ``events`` app should be created at ``events/jinja2/events/event_page.html``.
 
-By default, the Jinja environment does not have any Django functions or filters. The Django documentation has more information on `configuring Jinja for Django <https://docs.djangoproject.com/en/1.8/topics/templates/#django.template.backends.jinja2.Jinja2>`_.
+By default, the Jinja environment does not have any Django functions or filters. The Django documentation has more information on :class:`configuring Jinja for Django <django.template.backends.jinja2.Jinja2>`.
 
 ``self`` in templates
 =====================

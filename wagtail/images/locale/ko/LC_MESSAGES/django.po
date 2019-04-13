@@ -5,14 +5,14 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2015,2017
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:01+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-01-21 07:36+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail images"
+msgstr "웨그테일 이미지"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -125,6 +128,12 @@ msgstr "업로드한 사용자:"
 msgid "tags"
 msgstr "태그"
 
+msgid "image"
+msgstr "이미지"
+
+msgid "images"
+msgstr "이미지"
+
 msgid "Choose an image"
 msgstr "이미지 선택"
 
@@ -140,16 +149,10 @@ msgstr "인기있는 태그"
 msgid "Uploading…"
 msgstr "업로드 중…"
 
-msgid "Server Error"
-msgstr "서버 오류"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -157,7 +160,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"%(counter)s 개의 연관된 결과가 있습니다"
+"            일치하는 %(counter)s개의 결과가 있습니다."
 
 msgid "Latest images"
 msgstr "최근 이미지"
@@ -196,6 +199,11 @@ msgstr "저장"
 msgid "Delete image"
 msgstr "이미지 삭제"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s번 사용"
+
 msgid "Are you sure you want to delete this image?"
 msgstr "선택한 이미지를 정말 삭제할까요?"
 
@@ -209,12 +217,18 @@ msgstr "%(title)s 이미지 수정"
 msgid "Editing"
 msgstr "수정중"
 
-msgid "Focal point (optional)"
-msgstr "중요부분 (선택)"
+msgid "URL Generator"
+msgstr "URL 생성기"
+
+msgid "Focal point"
+msgstr "중요 부분"
+
+msgid "(optional)"
+msgstr "(선택)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
-"below."
+"above."
 msgstr ""
 "이미지의 중요한 영역을 정하려면, 박스를 이미지로 드래그하여 주시기 바랍니다."
 
@@ -224,9 +238,6 @@ msgstr "현재 표시된 중요부분"
 msgid "Remove focal area"
 msgstr "중요부분 제거"
 
-msgid "URL Generator"
-msgstr "URL 생성기"
-
 msgid "Max dimensions"
 msgstr "최대 크기"
 
@@ -235,6 +246,9 @@ msgstr "파일 사이즈"
 
 msgid "File not found"
 msgstr "파일을 찾을 수 없습니다"
+
+msgid "Usage"
+msgstr "사용"
 
 msgid "Images"
 msgstr "이미지"
@@ -324,6 +338,12 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "죄송합니다, 업로드가 실패하였습니다."
 
+msgid "Server Error"
+msgstr "서버 오류"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
+
 msgid "Image updated."
 msgstr "이미지 수정됨."
 
@@ -342,7 +362,6 @@ msgstr "이미지 권한 추가"
 msgid "Search images"
 msgstr "이미지 검색"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "'{0}' 이미지가 업데이트 되었습니다."
 
@@ -359,21 +378,25 @@ msgstr ""
 "소스 이미지 파일을 찾을 수 없습니다. 소스를 변경하거나 이미지를 삭제하여 주시"
 "기 바랍니다."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "'{0}' 이미지가 삭제되었습니다."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "'{0}' 이미지가 추가 되었습니다."
 
 msgid "The image could not be created due to errors."
 msgstr "에러로 인해 이미지가 생성될 수 없습니다."
 
+msgid "Image"
+msgstr "이미지"
+
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s개의 이미지"
+
+msgid "Change image"
+msgstr "이미지 변경"
 
 msgid "Edit this image"
 msgstr "이 이미지 수정"

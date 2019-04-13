@@ -34,6 +34,7 @@ describe('ModalWorkflowSource', () => {
       expect(getChooserConfig({ type: 'IMAGE' }, null, '')).toEqual({
         url: '/admin/images/chooser/?select_format=true',
         urlParams: {},
+        onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
 
@@ -41,6 +42,7 @@ describe('ModalWorkflowSource', () => {
       expect(getChooserConfig({ type: 'EMBED' }, null, '')).toEqual({
         url: '/admin/embeds/chooser/',
         urlParams: {},
+        onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
 
@@ -48,6 +50,7 @@ describe('ModalWorkflowSource', () => {
       expect(getChooserConfig({ type: 'DOCUMENT' }, null, '')).toEqual({
         url: '/admin/documents/chooser/',
         urlParams: {},
+        onload: global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
 
@@ -58,7 +61,13 @@ describe('ModalWorkflowSource', () => {
 
       it('page', () => {
         expect(getChooserConfig({ type: 'LINK' }, {
-          getData: () => ({ id: 1, parentId: 0 })
+          getData: () => ({ id: 2, parentId: 1 })
+        }, '')).toMatchSnapshot();
+      });
+
+      it('root page', () => {
+        expect(getChooserConfig({ type: 'LINK' }, {
+          getData: () => ({ id: 1, parentId: null })
         }, '')).toMatchSnapshot();
       });
 

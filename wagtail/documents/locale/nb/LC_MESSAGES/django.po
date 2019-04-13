@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-09 15:15+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail-dokumenter"
 
 msgid "Add"
 msgstr "Legg til"
@@ -62,30 +65,6 @@ msgstr "Last opp"
 msgid "Uploading…"
 msgstr "Laster opp…"
 
-msgid "Server Error"
-msgstr "Serverfeil"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Det er ett treff\n"
-" "
-msgstr[1] ""
-"\n"
-"Det er %(counter)s treff\n"
-" "
-
 msgid "Latest documents"
 msgstr "Siste dokumenter"
 
@@ -94,7 +73,7 @@ msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Beklager, ingen dokumenter samsvarer med <em>\"%(query_string)s\"</em>"
 
 msgid "Change document:"
-msgstr "Endre dokument:"
+msgstr "Bytt ut dokument:"
 
 msgid "Add a document"
 msgstr "Legg til et dokument"
@@ -224,15 +203,6 @@ msgstr "Eller velg fra din datamaskin"
 msgid "Add to collection:"
 msgstr "Legg til i samling:"
 
-msgid ""
-"Upload successful. Please update this documents with a more appropriate "
-"title, if necessary. You may also delete the document completely if the "
-"upload wasn't required."
-msgstr ""
-"Opplasting vellykket. Du kan oppdatere dette dokumentet med den mer passende "
-"tittel, om nødvendig. Du kan også slette dokumentet dersom opplastingen ikke "
-"var nødvendig."
-
 msgid "Sorry, upload failed."
 msgstr "Beklager, opplasting feilet."
 
@@ -251,17 +221,21 @@ msgstr "Dokumenttillatelser"
 msgid "Add a document permission"
 msgstr "Legg til dokumenttillatelse"
 
+msgid "Server Error"
+msgstr "Serverfeil"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
+
 msgid "Search documents"
 msgstr "Søk i dokumenter"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokumentet \"{0}\" er lagt til."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentet kunne ikke lagres grunnet feil."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokumentet \"{0}\" er oppdatert"
 
@@ -269,7 +243,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumentet \"{0}\" er slettet."
 

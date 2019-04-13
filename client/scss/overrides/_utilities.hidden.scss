@@ -1,0 +1,40 @@
+// stylelint-disable declaration-no-important
+.u-hidden {
+    display: none !important;
+}
+
+.u-hidden\@sm {
+    @include media-breakpoint-up(sm) {
+        display: none !important;
+    }
+}
+
+.u-hidden\@xs {
+    @include media-breakpoint-down(xs) {
+        display: none !important;
+    }
+}
+
+.u-inline\@sm {
+    @include media-breakpoint-up(sm) {
+        display: inline !important;
+    }
+}
+
+.u-inline\@xs {
+    @include media-breakpoint-down(xs) {
+        display: inline !important;
+    }
+}
+
+.u-block\@sm {
+    @include media-breakpoint-up(sm) {
+        display: block !important;
+    }
+}
+
+.u-block\@xs {
+    @include media-breakpoint-down(xs) {
+        display: block !important;
+    }
+}

@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 20:13+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-08 15:01+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -28,6 +28,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Documentos Wagtail"
 
 msgid "Add"
 msgstr "Agregar"
@@ -59,6 +62,9 @@ msgstr "etiquetas"
 msgid "document"
 msgstr "documento"
 
+msgid "documents"
+msgstr "documentos"
+
 msgid "Choose a document"
 msgstr "Seleccionar un documento"
 
@@ -71,16 +77,10 @@ msgstr "Subir"
 msgid "Uploading…"
 msgstr "Subiendo..."
 
-msgid "Server Error"
-msgstr "Error de servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Reporte este error a su admnistrador web con la siguiente información:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -88,7 +88,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Hay una coincidencia\n"
+"            Hay %(counter)s coincidencia\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -101,6 +101,24 @@ msgstr "Últimos documentos"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Lo sentimos, ningún documento contiene \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "No has subido documentos en esta colección."
+
+msgid "You haven't uploaded any documents."
+msgstr "No has subido documentos."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            Por qué no <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">subir uno ahora</a>?\n"
+"            "
 
 msgid "Change document:"
 msgstr "Cambiar documento:"
@@ -157,6 +175,9 @@ msgstr "Título"
 
 msgid "File"
 msgstr "Archivo"
+
+msgid "Collection"
+msgstr "Colección"
 
 msgid "Uploaded"
 msgstr "Subidos"
@@ -236,13 +257,13 @@ msgid "Add to collection:"
 msgstr "Añadir a la colección:"
 
 msgid ""
-"Upload successful. Please update this documents with a more appropriate "
+"Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"¡Carga subida exitosamente! Por favor, actualice este documento con un "
-"título más apropiado si lo cree conveniente. También puede eliminar el "
-"documento completamente si la subida no era necesaria."
+"Carga subida exitosamente. Por favor, actualice este documento con un título "
+"más apropiado si lo cree conveniente. También puede eliminar el documento "
+"completamente si la subida no era necesaria."
 
 msgid "Sorry, upload failed."
 msgstr "Lo sentimos, su subida ha fallado."
@@ -262,17 +283,21 @@ msgstr "Permisos de documento"
 msgid "Add a document permission"
 msgstr "Agregar un permiso de documento"
 
+msgid "Server Error"
+msgstr "Error de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Reporte este error a su admnistrador web con la siguiente información:"
+
 msgid "Search documents"
 msgstr "Buscar documentos"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' añadido."
 
 msgid "The document could not be saved due to errors."
 msgstr "El documento no pudo ser guardado debido a errores."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documento '{0}' actualizado"
 
@@ -282,7 +307,6 @@ msgstr ""
 "El archivo no ha sido encontrado. Por favor cambie la fuente o elimine el "
 "documento."
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' eliminado."
 

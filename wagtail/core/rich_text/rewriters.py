@@ -56,12 +56,28 @@ class LinkRewriter:
         try:
             link_type = attrs['linktype']
         except KeyError:
-            # return ordinary links without a linktype unchanged
-            return match.group(0)
+            link_type = None
+            href = attrs.get('href', None)
+            if href:
+                # From href attribute we try to detect only the linktypes that we
+                # currently support (`external` & `email`, `page` has a default handler)
+                # from the link chooser.
+                if href.startswith(('http:', 'https:')):
+                    link_type = 'external'
+                elif href.startswith('mailto:'):
+                    link_type = 'email'
+
+            if not link_type:
+                # otherwise return ordinary links without a linktype unchanged
+                return match.group(0)
 
         try:
             rule = self.link_rules[link_type]
         except KeyError:
+            if link_type in ['email', 'external']:
+                # If no rule is registered for supported types
+                # return ordinary links without a linktype unchanged
+                return match.group(0)
             # unrecognised link type
             return '<a>'
 

@@ -43,7 +43,7 @@ Install the tool chain for building static assets:
 
 .. code-block:: console
 
-    $ npm install
+    $ npm install --no-save
 
 Compile the assets:
 
@@ -51,7 +51,7 @@ Compile the assets:
 
     $ npm run build
 
-Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_ as a basis for developing Wagtail.
+Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail.  We recommend using the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_ as a basis for developing Wagtail. Keep in mind that the setup steps for a Wagtail site may include installing a release version of Wagtail, which will override the development version you've just set up. In this case, you should install the site before running the ``pip install -e`` step, or re-run that step after the site is installed.
 
 .. _testing:
 
@@ -68,18 +68,29 @@ From the root of the Wagtail codebase, run the following command to run all the 
 
 At the time of writing, Wagtail has well over 2500 tests, which takes a while to
 run. You can run tests for only one part of Wagtail by passing in the path as
-an argument to ``runtests.py``:
+an argument to ``runtests.py`` or ``tox``:
 
 .. code-block:: console
 
+    $ # Running in the current environment
     $ python runtests.py wagtail.core
+
+    $ # Running in a specified Tox environment
+    $ tox -e py36-dj20-sqlite-noelasticsearch wagtail.core
+
+    $ # See a list of available Tox environments
+    $ tox -l
 
 You can also run tests for individual TestCases by passing in the path as
 an argument to ``runtests.py``
 
 .. code-block:: console
 
+    $ # Running in the current environment
     $ python runtests.py wagtail.core.tests.test_blocks.TestIntegerBlock
+
+    $ # Running in a specified Tox environment
+    $ tox -e py36-dj20-sqlite-noelasticsearch wagtail.core.tests.test_blocks.TestIntegerBlock
 
 **Running migrations for the test app models**
 

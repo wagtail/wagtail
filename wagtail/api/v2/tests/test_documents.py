@@ -1,6 +1,6 @@
 import json
+from unittest import mock
 
-import mock
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -17,7 +17,6 @@ class TestDocumentListing(TestCase):
 
     def get_document_id_list(self, content):
         return [document['id'] for document in content['items']]
-
 
     # BASIC TESTS
 
@@ -57,7 +56,6 @@ class TestDocumentListing(TestCase):
 
             # Check download_url
             self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
-
 
     # FIELDS
 
@@ -157,7 +155,6 @@ class TestDocumentListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "unknown fields: 123, abc"})
 
-
     # FILTERING
 
     def test_filtering_exact_filter(self):
@@ -189,7 +186,6 @@ class TestDocumentListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "query parameter is not an operation or a recognised field: not_a_field"})
-
 
     # ORDERING
 
@@ -238,7 +234,6 @@ class TestDocumentListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "cannot order by 'not_a_field' (unknown field)"})
-
 
     # LIMIT
 
@@ -294,7 +289,6 @@ class TestDocumentListing(TestCase):
 
         self.assertEqual(len(content['items']), 2)
 
-
     # OFFSET
 
     def test_offset_5_usually_appears_5th_in_list(self):
@@ -322,7 +316,6 @@ class TestDocumentListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "offset must be a positive integer"})
-
 
     # SEARCH
 
@@ -483,6 +476,44 @@ class TestDocumentDetail(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "'title' does not support nested fields"})
+
+
+class TestDocumentFind(TestCase):
+    fixtures = ['demosite.json']
+
+    def get_response(self, **params):
+        return self.client.get(reverse('wagtailapi_v2:documents:find'), params)
+
+    def test_without_parameters(self):
+        response = self.get_response()
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content, {
+            'message': 'not found'
+        })
+
+    def test_find_by_id(self):
+        response = self.get_response(id=5)
+
+        self.assertRedirects(response, 'http://localhost' + reverse('wagtailapi_v2:documents:detail', args=[5]), fetch_redirect_response=False)
+
+    def test_find_by_id_nonexistent(self):
+        response = self.get_response(id=1234)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content, {
+            'message': 'not found'
+        })
 
 
 @override_settings(

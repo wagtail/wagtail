@@ -6,8 +6,10 @@ from django.urls import reverse
 
 from wagtail.admin.rich_text import (
     DraftailRichTextArea, HalloRichTextArea, get_rich_text_editor_widget)
+from wagtail.admin.rich_text.converters.editor_html import PageLinkHandler
 from wagtail.core.blocks import RichTextBlock
 from wagtail.core.models import Page, get_page_models
+from wagtail.core.rich_text import features as feature_registry
 from wagtail.core.rich_text import RichText
 from wagtail.tests.testapp.models import SingleEventPage
 from wagtail.tests.testapp.rich_text import CustomRichTextArea
@@ -107,6 +109,10 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         # check that media for draftail is being imported
         self.assertContains(response, 'wagtailadmin/js/draftail.js')
 
+        # check that media for non-active features is not being imported
+        self.assertNotContains(response, 'testapp/js/draftail-blockquote.js')
+        self.assertNotContains(response, 'testapp/css/draftail-blockquote.css')
+
     @override_settings()  # create temporary copy of settings so we can remove WAGTAILADMIN_RICH_TEXT_EDITORS
     def test_default_editor_in_rich_text_block(self):
         # Simulate the absence of a setting
@@ -121,10 +127,14 @@ class TestDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that draftail (default editor) initialisation is applied
-        self.assertContains(response, "window.draftail.initEditor('#__PREFIX__-value',")
+        self.assertContains(response, "window.draftail.initEditor('#__PREFIX__\\u002Dvalue',")
 
         # check that media for draftail is being imported
         self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
+        # check that media for non-active features is not being imported
+        self.assertNotContains(response, 'testapp/js/draftail-blockquote.js')
+        self.assertNotContains(response, 'testapp/css/draftail-blockquote.css')
 
 
 @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
@@ -165,11 +175,48 @@ class TestHalloRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that hallo (default editor now) initialisation is applied
-        self.assertContains(response, 'makeHalloRichTextEditable("__PREFIX__-value",')
+        self.assertContains(response, 'makeHalloRichTextEditable("__PREFIX__\\u002Dvalue",')
 
         # check that media for the default hallo features (but not others) is being imported
         self.assertContains(response, 'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')
         self.assertNotContains(response, 'testapp/js/hallo-blockquote.js')
+
+
+@override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        'OPTIONS': {'features': ['h2', 'quotation']}
+    },
+})
+class TestDraftailFeatureMedia(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+    """
+    Features that define additional js/css imports (blockquote, in this case) should
+    have those loaded on the page
+    """
+    def setUp(self):
+        super().setUp()
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        self.login()
+
+    def test_feature_media_on_rich_text_field(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichtextfieldpage', self.root_page.id)
+        ))
+
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+        self.assertContains(response, 'testapp/js/draftail-quotation.js')
+        self.assertContains(response, 'testapp/css/draftail-quotation.css')
+
+    def test_feature_media_on_rich_text_block(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichblockfieldpage', self.root_page.id)
+        ))
+
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+        self.assertContains(response, 'testapp/js/draftail-quotation.js')
+        self.assertContains(response, 'testapp/css/draftail-quotation.css')
 
 
 @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
@@ -346,33 +393,33 @@ class TestHalloJsWithFeaturesKwarg(BaseRichTextEditHandlerTestCase, WagtailTestU
         self.assertEqual(response.status_code, 200)
 
         # Check that the custom plugin options are being passed in the hallo initialiser
-        self.assertContains(response, '"halloblockquote":')
+        self.assertContains(response, '"halloquotation":')
         self.assertContains(response, '"hallowagtailembeds":')
         self.assertNotContains(response, '"hallolists":')
         self.assertNotContains(response, '"hallowagtailimage":')
 
         # check that media (js/css) from the features is being imported
-        self.assertContains(response, 'testapp/js/hallo-blockquote.js')
-        self.assertContains(response, 'testapp/css/hallo-blockquote.css')
+        self.assertContains(response, 'testapp/js/hallo-quotation.js')
+        self.assertContains(response, 'testapp/css/hallo-quotation.css')
 
         # check that we're NOT importing media for the default features we're not using
         self.assertNotContains(response, 'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')
 
     def test_features_list_on_rich_text_block(self):
-        block = RichTextBlock(features=['blockquote', 'embed', 'made-up-feature'])
+        block = RichTextBlock(features=['quotation', 'embed', 'made-up-feature'])
 
         form_html = block.render_form(block.to_python("<p>hello</p>"), 'body')
 
         # Check that the custom plugin options are being passed in the hallo initialiser
-        self.assertIn('"halloblockquote":', form_html)
+        self.assertIn('"halloquotation":', form_html)
         self.assertIn('"hallowagtailembeds":', form_html)
         self.assertNotIn('"hallolists":', form_html)
         self.assertNotIn('"hallowagtailimage":', form_html)
 
         # check that media (js/css) from the features is being imported
         media_html = str(block.media)
-        self.assertIn('testapp/js/hallo-blockquote.js', media_html)
-        self.assertIn('testapp/css/hallo-blockquote.css', media_html)
+        self.assertIn('testapp/js/hallo-quotation.js', media_html)
+        self.assertIn('testapp/css/hallo-quotation.css', media_html)
         # check that we're NOT importing media for the default features we're not using
         self.assertNotIn('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js', media_html)
 
@@ -418,17 +465,81 @@ class TestDraftailWithFeatureOptions(BaseRichTextEditHandlerTestCase, WagtailTes
         self.assertNotIn('"type": "ordered-list-item""', form_html)
 
 
+class TestDraftailWithAdditionalFeatures(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+
+    def setUp(self):
+        super().setUp()
+
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        self.login()
+
+
+    @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+        'default': {
+            'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        },
+    })
+    def test_additional_features_should_not_be_included_by_default(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichtextfieldpage', self.root_page.id)
+        ))
+
+        self.assertEqual(response.status_code, 200)
+        # default ones are there
+        self.assertContains(response, '"type": "header-two"')
+        self.assertContains(response, '"type": "LINK"')
+        self.assertContains(response, '"type": "ITALIC"')
+
+        # not the additional ones.
+        self.assertNotContains(response, '"type": "CODE"')
+        self.assertNotContains(response, '"type": "blockquote"')
+        self.assertNotContains(response, '"type": "SUPERSCRIPT"')
+        self.assertNotContains(response, '"type": "SUBSCRIPT"')
+        self.assertNotContains(response, '"type": "STRIKETHROUGH"')
+
+    @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+        'default': {
+            'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+            'OPTIONS': {
+                'features': [
+                    'h2', 'code', 'blockquote',
+                    'strikethrough', 'subscript', 'superscript'
+                ]
+            }
+        },
+    })
+    def test_additional_features_included(self):
+        response = self.client.get(reverse(
+            'wagtailadmin_pages:add', args=('tests', 'defaultrichtextfieldpage', self.root_page.id)
+        ))
+
+        self.assertEqual(response.status_code, 200)
+        # Added features are there
+        self.assertContains(response, '"type": "header-two"')
+        self.assertContains(response, '"type": "CODE"')
+        self.assertContains(response, '"type": "blockquote"')
+        self.assertContains(response, '"type": "SUPERSCRIPT"')
+        self.assertContains(response, '"type": "SUBSCRIPT"')
+        self.assertContains(response, '"type": "STRIKETHROUGH"')
+
+        # But not the unprovided default ones.
+        self.assertNotContains(response, '"type": "LINK"')
+        self.assertNotContains(response, '"type": "ITALIC"')
+
+
 @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
     'default': {
         'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea',
         'OPTIONS': {
-            'features': ['blockquote', 'image']
+            'features': ['quotation', 'image']
         }
     },
     'custom': {
         'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea',
         'OPTIONS': {
-            'features': ['blockquote', 'image']
+            'features': ['quotation', 'image']
         }
     },
 })
@@ -451,7 +562,7 @@ class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, Wagta
         self.assertEqual(response.status_code, 200)
 
         # Check that the custom plugin options are being passed in the hallo initialiser
-        self.assertContains(response, '"halloblockquote":')
+        self.assertContains(response, '"halloquotation":')
         self.assertContains(response, '"hallowagtailimage":')
         self.assertNotContains(response, '"hallolists":')
         self.assertNotContains(response, '"hallowagtailembeds":')
@@ -462,14 +573,14 @@ class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, Wagta
             'wagtailadmin_pages:add', args=('tests', 'richtextfieldwithfeaturespage', self.root_page.id)
         ))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '"halloblockquote":')
+        self.assertContains(response, '"halloquotation":')
         self.assertContains(response, '"hallowagtailembeds":')
         self.assertNotContains(response, '"hallolists":')
         self.assertNotContains(response, '"hallowagtailimage":')
 
         # check that media (js/css) from the features is being imported
-        self.assertContains(response, 'testapp/js/hallo-blockquote.js')
-        self.assertContains(response, 'testapp/css/hallo-blockquote.css')
+        self.assertContains(response, 'testapp/js/hallo-quotation.js')
+        self.assertContains(response, 'testapp/css/hallo-quotation.css')
 
         # check that we're NOT importing media for the default features we're not using
         self.assertNotContains(response, 'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js')
@@ -480,28 +591,50 @@ class TestHalloJsWithCustomFeatureOptions(BaseRichTextEditHandlerTestCase, Wagta
         form_html = block.render_form(block.to_python("<p>hello</p>"), 'body')
 
         # Check that the custom plugin options are being passed in the hallo initialiser
-        self.assertIn('"halloblockquote":', form_html)
+        self.assertIn('"halloquotation":', form_html)
         self.assertIn('"hallowagtailimage":', form_html)
         self.assertNotIn('"hallowagtailembeds":', form_html)
         self.assertNotIn('"hallolists":', form_html)
 
         # a 'features' list passed on the RichTextBlock
         # should override the list in OPTIONS
-        block = RichTextBlock(editor='custom', features=['blockquote', 'embed'])
+        block = RichTextBlock(editor='custom', features=['quotation', 'embed'])
 
         form_html = block.render_form(block.to_python("<p>hello</p>"), 'body')
 
-        self.assertIn('"halloblockquote":', form_html)
+        self.assertIn('"halloquotation":', form_html)
         self.assertIn('"hallowagtailembeds":', form_html)
         self.assertNotIn('"hallowagtailimage":', form_html)
         self.assertNotIn('"hallolists":', form_html)
 
         # check that media (js/css) from the features is being imported
         media_html = str(block.media)
-        self.assertIn('testapp/js/hallo-blockquote.js', media_html)
-        self.assertIn('testapp/css/hallo-blockquote.css', media_html)
+        self.assertIn('testapp/js/hallo-quotation.js', media_html)
+        self.assertIn('testapp/css/hallo-quotation.css', media_html)
         # check that we're NOT importing media for the default features we're not using
         self.assertNotIn('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js', media_html)
+
+
+@override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
+    },
+})
+class TestHalloJsHeadingOrder(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
+
+    def test_heading_order(self):
+        # Using the `register_rich_text_features` doesn't work here,
+        # probably because the features have already been scanned at that point.
+        # Extending the registry directly instead.
+        feature_registry.default_features.extend(['h1', 'h5', 'h6'])
+
+        widget = HalloRichTextArea()
+        html = widget.render('the_name', '<p>the value</p>', attrs={'id': 'the_id'})
+
+        expected_options = (
+            '"halloheadings": {"formatBlocks": ["p", "h1", "h2", "h3", "h4", "h5", "h6"]}'
+        )
+        self.assertIn(expected_options, html)
 
 
 class TestWidgetWhitelisting(TestCase, WagtailTestUtils):
@@ -509,21 +642,19 @@ class TestWidgetWhitelisting(TestCase, WagtailTestUtils):
         widget = HalloRichTextArea()
 
         # when no feature list is specified, accept elements that are part of the default set
-        # (which includes h2) or registered through the construct_whitelister_element_rules hook
-        # (which includes blockquote in the test environment)
+        # (which includes h2)
         result = widget.value_from_datadict({
             'body': '<h2>heading</h2><script>script</script><blockquote>blockquote</blockquote>'
         }, {}, 'body')
-        self.assertEqual(result, '<h2>heading</h2>script<blockquote>blockquote</blockquote>')
+        self.assertEqual(result, '<h2>heading</h2>scriptblockquote')
 
     def test_custom_whitelist(self):
         widget = HalloRichTextArea(features=['h1', 'bold', 'somethingijustmadeup'])
-        # accept elements that are represented in the feature list or registered through the
-        # construct_whitelister_element_rules hook
+        # accept elements that are represented in the feature list
         result = widget.value_from_datadict({
             'body': '<h1>h1</h1> <h2>h2</h2> <script>script</script> <p><b>bold</b> <i>italic</i></p> <blockquote>blockquote</blockquote>'
         }, {}, 'body')
-        self.assertEqual(result, '<h1>h1</h1> h2 script <p><b>bold</b> italic</p> <blockquote>blockquote</blockquote>')
+        self.assertEqual(result, '<h1>h1</h1> h2 script <p><b>bold</b> italic</p> blockquote')
 
     def test_link_conversion_with_default_whitelist(self):
         widget = HalloRichTextArea()
@@ -586,3 +717,28 @@ class TestWidgetRendering(TestCase, WagtailTestUtils):
         result_value = soup.textarea.string
 
         self.assertHTMLEqual(result_value, '<p>a <a data-linktype="page" data-id="3" data-parent-id="2" href="/events/">page</a> and a <a>document</a></p>')
+
+
+class TestPageLinkHandler(TestCase):
+    fixtures = ['test.json']
+
+    def test_get_db_attributes(self):
+        soup = BeautifulSoup('<a data-id="test-id">foo</a>', 'html5lib')
+        tag = soup.a
+        result = PageLinkHandler.get_db_attributes(tag)
+        self.assertEqual(result,
+                         {'id': 'test-id'})
+
+    def test_expand_db_attributes_for_editor(self):
+        result = PageLinkHandler.expand_db_attributes({'id': 1})
+        self.assertEqual(
+            result,
+            '<a data-linktype="page" data-id="1" href="None">'
+        )
+
+        events_page_id = Page.objects.get(url_path='/home/events/').pk
+        result = PageLinkHandler.expand_db_attributes({'id': events_page_id})
+        self.assertEqual(
+            result,
+            '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">' % events_page_id
+        )

@@ -1,11 +1,12 @@
-import collections
 import uuid
+from collections import OrderedDict, defaultdict
+from collections.abc import Sequence
 
 from django import forms
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
+from django.templatetags.static import static
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -207,7 +208,7 @@ class BaseStreamBlock(Block):
             ))
 
         if self.meta.block_counts:
-            block_counts = collections.defaultdict(int)
+            block_counts = defaultdict(int)
             for item in value:
                 block_counts[item.block_type] += 1
 
@@ -243,19 +244,15 @@ class BaseStreamBlock(Block):
         ], is_lazy=True)
 
     def get_prep_value(self, value):
-        if value is None:
-            # treat None as identical to an empty stream
+        if not value:
+            # Falsy values (including None, empty string, empty list, and
+            # empty StreamValue) become an empty stream
             return []
-
-        return [
-            {
-                'type': child.block.name,
-                'value': child.block.get_prep_value(child.value),
-                # assign a new ID on save if it didn't have one already
-                'id': child.id or str(uuid.uuid4()),
-            }
-            for child in value  # child is a StreamChild instance
-        ]
+        else:
+            # value is a StreamValue - delegate to its get_prep_value() method
+            # (which has special-case handling for lazy StreamValues to avoid useless
+            # round-trips to the full data representation and back)
+            return value.get_prep_value()
 
     def get_api_representation(self, value, context=None):
         if value is None:
@@ -326,7 +323,7 @@ class StreamBlock(BaseStreamBlock, metaclass=DeclarativeSubBlocksMetaclass):
     pass
 
 
-class StreamValue(collections.Sequence):
+class StreamValue(Sequence):
     """
     Custom type used to represent the value of a StreamBlock; behaves as a sequence of BoundBlocks
     (which keep track of block types in a way that the values alone wouldn't).
@@ -411,7 +408,7 @@ class StreamValue(collections.Sequence):
         """
         # create a mapping of all the child blocks matching the given block type,
         # mapping (index within the stream) => (raw block value)
-        raw_values = collections.OrderedDict(
+        raw_values = OrderedDict(
             (i, item['value']) for i, item in enumerate(self.stream_data)
             if item['type'] == type_name
         )
@@ -423,6 +420,33 @@ class StreamValue(collections.Sequence):
             # also pass the block ID to StreamChild, if one exists for this stream index
             block_id = self.stream_data[i].get('id')
             self._bound_blocks[i] = StreamValue.StreamChild(child_block, value, id=block_id)
+
+    def get_prep_value(self):
+        prep_value = []
+
+        for i, stream_data_item in enumerate(self.stream_data):
+            if self.is_lazy and i not in self._bound_blocks:
+                # This child has not been accessed as a bound block, so its raw JSONish
+                # value (stream_data_item here) is still valid
+                prep_value_item = stream_data_item
+
+            else:
+                # convert the bound block back into JSONish data
+                child = self[i]
+                prep_value_item = {
+                    'type': child.block.name,
+                    'value': child.block.get_prep_value(child.value),
+                    'id': child.id,
+                }
+
+            # As this method is preparing this value to be saved to the database,
+            # this is an appropriate place to ensure that each block has a unique id.
+            if not prep_value_item.get('id'):
+                prep_value_item['id'] = str(uuid.uuid4())
+
+            prep_value.append(prep_value_item)
+
+        return prep_value
 
     def __eq__(self, other):
         if not isinstance(other, StreamValue):

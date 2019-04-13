@@ -39,13 +39,13 @@ For details on configuring Wagtail for Elasticsearch, see :ref:`wagtailsearch_ba
 Database
 --------
 
-Wagtail is tested on SQLite, and should work on other Django-supported database backends, but we recommend PostgreSQL for production use.
+Wagtail is tested on PostgreSQL, SQLite and MySQL. It should work on some third-party database backends as well (Microsoft SQL Server is known to work but currently untested). We recommend PostgreSQL for production use.
 
 
 Templates
 ---------
 
-The overhead from reading and compiling templates can add up. In some cases a significant performance improvement can be gained by using `Django's cached template loader <https://docs.djangoproject.com/en/1.10/ref/templates/api/#django.template.loaders.cached.Loader>`_:
+The overhead from reading and compiling templates can add up. In some cases a significant performance improvement can be gained by using :class:`Django's cached template loader <django.template.loaders.cached.Loader>`:
 
 .. code-block:: python
 

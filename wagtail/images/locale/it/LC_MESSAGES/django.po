@@ -4,13 +4,15 @@
 #
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-07 19:12+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-03-08 22:01+0000\n"
+"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail images"
+msgstr "Immagini Wagtail"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -122,6 +127,12 @@ msgstr "caricato dall'utente"
 msgid "tags"
 msgstr "tags"
 
+msgid "image"
+msgstr "Immagine"
+
+msgid "images"
+msgstr "Immagini"
+
 msgid "Choose an image"
 msgstr "Scegli una immagine"
 
@@ -137,16 +148,10 @@ msgstr "Tags popolari"
 msgid "Uploading…"
 msgstr "Caricamento…"
 
-msgid "Server Error"
-msgstr "Errore del Server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -154,7 +159,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            C'è una corrispondenza\n"
+"            C'è %(counter)s corrispondenza\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -222,24 +227,27 @@ msgstr "Modifica immagine %(title)s"
 msgid "Editing"
 msgstr "Modifica"
 
-msgid "Focal point (optional)"
-msgstr "Punto focale (optional)"
+msgid "URL Generator"
+msgstr "URL Generator"
+
+msgid "Focal point"
+msgstr "Punto focale"
+
+msgid "(optional)"
+msgstr "(opzionale)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
-"below."
+"above."
 msgstr ""
-"Per definire la regione più importante di questa immagine, fai il drag di un "
-"box sopra l'immagine qui sotto."
+"Per definire la regione più importante di questa immagine, selezionala "
+"sull'immagine qui sotto."
 
 msgid "Current focal point shown"
 msgstr "Punto focale corrente indicato"
 
 msgid "Remove focal area"
 msgstr "Elimina focal area"
-
-msgid "URL Generator"
-msgstr "URL Generator"
 
 msgid "Max dimensions"
 msgstr "Dimensioni massime"
@@ -266,7 +274,7 @@ msgid ""
 "You haven't uploaded any images in this collection. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Non hai caricato nessuna immagine in questa collezione. Perché non <a href="
+"Non hai caricato nessuna immagine in questa raccolta. Perché non <a href="
 "\"%(wagtailimages_add_image_url)s\">ne aggiungi una adesso</a>?"
 
 #, python-format
@@ -330,7 +338,7 @@ msgid "Or choose from your computer"
 msgstr "Oppure sceglila dal tuo computer"
 
 msgid "Add to collection:"
-msgstr "Aggiungi alla collezione:"
+msgstr "Aggiungi alla raccolta:"
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -342,6 +350,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Spiacente, caricamento fallito."
+
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 msgid "Image updated."
 msgstr "Immagine aggiornata."
@@ -361,7 +375,6 @@ msgstr "Aggiungi un permesso per l'immagine"
 msgid "Search images"
 msgstr "Cerca immagini"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Immagine '{0}' aggiornata."
 
@@ -378,11 +391,9 @@ msgstr ""
 "Il file dell'immagine non è stato trovato. Cambia il file oppure elimina "
 "l'immagine."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Immagine '{0}' eliminata."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Immagine '{0}' aggiunta."
 

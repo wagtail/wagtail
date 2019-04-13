@@ -7,6 +7,7 @@ function createSnippetChooser(id, modelString) {
     $('.action-choose', chooserElement).on('click', function() {
         ModalWorkflow({
             url: window.chooserUrls.snippetChooser + modelString + '/',
+            onload: SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS,
             responses: {
                 snippetChosen: function(snippetData) {
                     input.val(snippetData.id);

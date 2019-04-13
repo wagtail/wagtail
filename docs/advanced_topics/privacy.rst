@@ -13,6 +13,7 @@ Similarly, documents can be made private by placing them in a collection with ap
 
 Private pages and documents work on Wagtail out of the box - the site implementer does not need to do anything to set them up. However, the default "log in" and "password required" forms are only bare-bones HTML pages, and site implementers may wish to replace them with a page customised to their site design.
 
+.. _login_page:
 
 Setting up a login page
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -23,7 +24,7 @@ The basic login page can be customised by setting ``WAGTAIL_FRONTEND_LOGIN_TEMPL
 
   WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'myapp/login.html'
 
-Wagtail uses Django's standard ``django.contrib.auth.views.login`` view here, and so the context variables available on the template are as detailed in `Django's login view documentation <https://docs.djangoproject.com/en/1.10/topics/auth/default/#django.contrib.auth.views.login>`_.
+Wagtail uses Django's standard ``django.contrib.auth.views.LoginView`` view here, and so the context variables available on the template are as detailed in :class:`Django's login view documentation <django.contrib.auth.views.LoginView>`.
 
 If the stock Django login view is not suitable - for example, you wish to use an external authentication system, or you are integrating Wagtail into an existing Django site that already has a working login view - you can specify the URL of the login view via the ``WAGTAIL_FRONTEND_LOGIN_URL`` setting:
 

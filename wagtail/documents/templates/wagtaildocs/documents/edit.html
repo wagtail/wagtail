@@ -55,7 +55,7 @@
                 {% if uc_enabled %}
                     <dt>{% trans "Usage" %}</dt>
                     <dd>
-                        <a href="{{ image.usage_url }}">{% blocktrans count usage_count=document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                        <a href="{{ document.usage_url }}">{% blocktrans count usage_count=document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
                     </dd>
                 {% endif %}
             </dl>

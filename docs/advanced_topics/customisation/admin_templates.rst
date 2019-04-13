@@ -34,7 +34,7 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
 .. code-block:: html+django
 
     {% extends "wagtailadmin/base.html" %}
-    {% load staticfiles %}
+    {% load static %}
 
     {% block branding_logo %}
         <img src="{% static 'images/custom-logo.svg' %}" alt="Custom Project" width="80" />
@@ -50,7 +50,7 @@ To replace the favicon displayed when viewing admin pages, create a template fil
 .. code-block:: html+django
 
     {% extends "wagtailadmin/admin_base.html" %}
-    {% load staticfiles %}
+    {% load static %}
 
     {% block branding_favicon %}
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
@@ -188,5 +188,25 @@ To make this easier, Wagtail exposes its React-related dependencies as global va
     window.ReactDOM;
     // 'react-transition-group/CSSTransitionGroup'
     window.CSSTransitionGroup;
+
+Wagtail also exposes some of its own React components. You can reuse:
+
+.. code-block:: javascript
+
+    window.wagtail.components.Icon;
+    window.wagtail.components.Portal;
+
+Pages containing rich text editors also have access to:
+
+.. code-block:: javascript
+
     // 'draft-js'
     window.DraftJS;
+    // 'draftail'
+    window.Draftail;
+
+    // Wagtail’s Draftail-related APIs and components.
+    window.draftail;
+    window.draftail.ModalWorkflowSource;
+    window.draftail.Tooltip;
+    window.draftail.TooltipEntity;

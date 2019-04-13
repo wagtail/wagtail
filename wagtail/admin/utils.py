@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import logging
 from functools import wraps
+import pytz
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.core.mail import send_mail as django_send_mail
+from django.core.mail import get_connection
+from django.core.mail.message import EmailMultiAlternatives
 from django.db.models import Count, Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
@@ -23,6 +25,7 @@ logger = logging.getLogger('wagtail.admin')
 # Wagtail languages with >=90% coverage
 # This list is manually maintained
 WAGTAILADMIN_PROVIDED_LANGUAGES = [
+    ('ar', ugettext_lazy('Arabic')),
     ('ca', ugettext_lazy('Catalan')),
     ('de', ugettext_lazy('German')),
     ('el', ugettext_lazy('Greek')),
@@ -31,10 +34,12 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('fi', ugettext_lazy('Finnish')),
     ('fr', ugettext_lazy('French')),
     ('gl', ugettext_lazy('Galician')),
+    ('id-id', ugettext_lazy('Indonesian')),
     ('is-is', ugettext_lazy('Icelandic')),
     ('it', ugettext_lazy('Italian')),
     ('ko', ugettext_lazy('Korean')),
     ('lt', ugettext_lazy('Lithuanian')),
+    ('mn', ugettext_lazy('Mongolian')),
     ('nb', ugettext_lazy('Norwegian Bokmål')),
     ('nl-nl', ugettext_lazy('Netherlands Dutch')),
     ('fa', ugettext_lazy('Persian')),
@@ -44,13 +49,20 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('ro', ugettext_lazy('Romanian')),
     ('ru', ugettext_lazy('Russian')),
     ('sv', ugettext_lazy('Swedish')),
-    ('sk', ugettext_lazy('Slovak')),
-    ('zh-cn', ugettext_lazy('Chinese (China)')),
+    ('sk-sk', ugettext_lazy('Slovak')),
+    ('th', ugettext_lazy('Thai')),
+    ('uk', ugettext_lazy('Ukrainian')),
+    ('zh-hans', ugettext_lazy('Chinese (Simplified)')),
+    ('zh-hant', ugettext_lazy('Chinese (Traditional)')),
 ]
 
 
 def get_available_admin_languages():
     return getattr(settings, 'WAGTAILADMIN_PERMITTED_LANGUAGES', WAGTAILADMIN_PROVIDED_LANGUAGES)
+
+
+def get_available_admin_time_zones():
+    return getattr(settings, 'WAGTAIL_USER_TIME_ZONES', pytz.common_timezones)
 
 
 def get_object_usage(obj):
@@ -196,6 +208,10 @@ class PermissionPolicyChecker:
 
 
 def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
+    """
+    Wrapper around Django's EmailMultiAlternatives as done in send_mail().
+    Custom from_email handling and special Auto-Submitted header.
+    """
     if not from_email:
         if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
             from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
@@ -204,7 +220,23 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
         else:
             from_email = 'webmaster@localhost'
 
-    return django_send_mail(subject, message, from_email, recipient_list, **kwargs)
+    connection = kwargs.get('connection', False) or get_connection(
+        username=kwargs.get('auth_user', None),
+        password=kwargs.get('auth_password', None),
+        fail_silently=kwargs.get('fail_silently', None),
+    )
+    multi_alt_kwargs = {
+        'connection': connection,
+        'headers': {
+            'Auto-Submitted': 'auto-generated',
+        }
+    }
+    mail = EmailMultiAlternatives(subject, message, from_email, recipient_list, **multi_alt_kwargs)
+    html_message = kwargs.get('html_message', None)
+    if html_message:
+        mail.attach_alternative(html_message, 'text/html')
+
+    return mail.send()
 
 
 def send_notification(page_revision_id, notification, excluded_user_id):

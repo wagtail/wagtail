@@ -3,12 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Istvan Farkas <istvan.farkas@gmail.com>, 2018
+# B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:42+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -17,6 +19,106 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail felhasználók"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Kötelező. Maximum 30 karakter és csak netűk, számok, @/./+/-/_ jelek."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Ez az érték ajánlott ha csak betűket, számokat és @/./+/-/_ jeleket "
+"tartalmaz."
+
+msgid "A user with that username already exists."
+msgstr "Már létezik felhasználó ezzel a felhasználónévvel."
+
+msgid "The two password fields didn't match."
+msgstr "A két jelszó nem egyezik."
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Keresztnév"
+
+msgid "Last Name"
+msgstr "Vezetéknév"
+
+msgid "Password"
+msgstr "Jelszó"
+
+msgid "Leave blank if not changing."
+msgstr "Hagyd üresen, ha nem akarod megváltoztatni."
+
+msgid "Password confirmation"
+msgstr "Jelszó megerősítés."
+
+msgid "Enter the same password as above, for verification."
+msgstr "Add meg ugyan azt a jelszót mint előbb, hogy megerősítsd!"
+
+msgid "Administrator"
+msgstr "Adminisztrátor"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Az adminisztrátornak teljes hozzáférése van az objektumokhoz és a "
+"beállításokhoz."
+
+msgid "A group with that name already exists."
+msgstr "Már létezik csoport ezzel a névvel."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Nem lehet több engedély bejegyzésed ugyan ahhoz az oldalhoz."
+
+msgid "Preferred language"
+msgstr "Alapértelmezett nyelv"
+
+msgid "Current time zone"
+msgstr "Jelenlegi időzóna"
+
+msgid "Upload a profile picture"
+msgstr "Profilkép feltöltése"
+
+msgid "submitted notifications"
+msgstr "beküldött értesítések"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Értesítést kapsz, amikor egy oldal moderálásra lett benyújtva"
+
+msgid "approved notifications"
+msgstr "jóváhagyási értesítések"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Értesítést kapsz, ha egy általad szerkesztett oldalt jóváhagytak"
+
+msgid "rejected notifications"
+msgstr "elutasítási értesítések"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Értesítést kapsz, ha egy általad szerkesztett oldalt elutasítottak"
+
+msgid "preferred language"
+msgstr "alapértelmezett nyelv"
+
+msgid "Select language for the admin"
+msgstr "Válaszd ki a felület nyelvét"
+
+msgid "current time zone"
+msgstr "jelenlegi időzóna"
+
+msgid "Select your current time zone"
+msgstr "Válaszd ki a jelenlegi időzónádat"
+
+msgid "profile picture"
+msgstr "profilkép"
+
+msgid "user profile"
+msgstr "felhasználói profil"
+
+msgid "Delete group"
+msgstr "Csoport törlése"
 
 msgid "Yes, delete"
 msgstr "Igen, törlés"

@@ -62,18 +62,14 @@ class TestFindSiteForRequest(TestCase):
         self.default_site = Site.objects.get()
         self.site = Site.objects.create(hostname='example.com', port=80, root_page=Page.objects.get(pk=2))
 
-    def test_default(self):
-        request = HttpRequest()
-        self.assertEqual(Site.find_for_request(request), self.default_site)
-
     def test_with_host(self):
         request = HttpRequest()
-        request.META = {'HTTP_HOST': 'example.com'}
+        request.META = {'HTTP_HOST': 'example.com', 'SERVER_PORT': 80}
         self.assertEqual(Site.find_for_request(request), self.site)
 
     def test_with_unknown_host(self):
         request = HttpRequest()
-        request.META = {'HTTP_HOST': 'unknown.com'}
+        request.META = {'HTTP_HOST': 'unknown.com', 'SERVER_PORT': 80}
         self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_with_server_name(self):
@@ -87,7 +83,7 @@ class TestFindSiteForRequest(TestCase):
     def test_with_x_forwarded_host(self):
         with self.settings(USE_X_FORWARDED_HOST=True):
             request = HttpRequest()
-            request.META = {'HTTP_X_FORWARDED_HOST': 'example.com'}
+            request.META = {'HTTP_X_FORWARDED_HOST': 'example.com', 'SERVER_PORT': 80}
             self.assertEqual(Site.find_for_request(request), self.site)
 
 
@@ -122,3 +118,30 @@ class TestDefaultSite(TestCase):
         with self.assertRaises(Site.MultipleObjectsReturned):
             # If there already are multiple default sites, you're in trouble
             site.clean_fields()
+
+
+class TestGetSiteRootPaths(TestCase):
+
+    def setUp(self):
+        self.default_site = Site.objects.get()
+        self.abc_site = Site.objects.create(
+            hostname='abc.com', root_page=self.default_site.root_page
+        )
+        self.def_site = Site.objects.create(
+            hostname='def.com', root_page=self.default_site.root_page
+        )
+
+        # Changing the hostname to show that being the default site takes
+        # promotes a site over the alphabetical ordering of hostname
+        self.default_site.hostname = 'xyz.com'
+        self.default_site.save()
+
+    def test_result_order_when_multiple_sites_share_the_same_root_page(self):
+        result = Site.get_site_root_paths()
+
+        # An entry for the default site should come first
+        self.assertEqual(result[0][0], self.default_site.id)
+
+        # Followed by entries for others in 'host' alphabetical order
+        self.assertEqual(result[1][0], self.abc_site.id)
+        self.assertEqual(result[2][0], self.def_site.id)

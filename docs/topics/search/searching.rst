@@ -12,7 +12,7 @@ Searching
 Searching QuerySets
 ===================
 
-Wagtail search is built on Django's `QuerySet API <https://docs.djangoproject.com/en/1.8/ref/models/querysets/>`_. You should be able to search any Django QuerySet provided the model and the fields being filtered on have been added to the search index.
+Wagtail search is built on Django's `QuerySet API <https://docs.djangoproject.com/en/stable/ref/models/querysets/>`_. You should be able to search any Django QuerySet provided the model and the fields being filtered on have been added to the search index.
 
 
 Searching Pages
@@ -89,7 +89,7 @@ Specifying the fields to search
 
 By default, Wagtail will search all fields that have been indexed using ``index.SearchField``.
 
-This can be limited to a certian set of fields by using the ``fields`` keyword argument:
+This can be limited to a certain set of fields by using the ``fields`` keyword argument:
 
 .. code-block:: python
 
@@ -97,6 +97,32 @@ This can be limited to a certian set of fields by using the ``fields`` keyword a
     >>> EventPage.objects.search("Event", fields=["title"])
     [<EventPage: Event 1>, <EventPage: Event 2>]
 
+
+.. _wagtailsearch_faceted_search:
+
+Faceted search
+--------------
+
+Wagtail supports faceted search which is a kind of filtering based on a taxonomy
+field (such as category or page type).
+
+The ``.facet(field_name)`` method returns an ``OrderedDict``. The keys are
+the IDs of the related objects that have been referenced by the specified field, and the
+values are the number of references found for each ID. The results are ordered by number
+of references descending.
+
+For example, to find the most common page types in the search results:
+
+.. code-block:: python
+
+    >>> Page.objects.search("Test").facet("content_type_id")
+
+    # Note: The keys correspond to the ID of a ContentType object; the values are the
+    # number of pages returned for that type
+    OrderedDict([
+        ('2', 4),  # 4 pages have content_type_id == 2
+        ('1', 2),  # 2 pages have content_type_id == 1
+    ])
 
 Changing search behaviour
 -------------------------
@@ -109,7 +135,7 @@ The search operator specifies how search should behave when the user has typed i
  - "or" - The results must match at least one term (default for Elasticsearch)
  - "and" - The results must match all terms (default for database search)
 
-Both operators have benefits and drawbacks. The "or" operator will return many more results but will likely contain a lot of results that aren't relevent. The "and" operator only returns results that contain all search terms, but require the user to be more precise with their query.
+Both operators have benefits and drawbacks. The "or" operator will return many more results but will likely contain a lot of results that aren't relevant. The "and" operator only returns results that contain all search terms, but require the user to be more precise with their query.
 
 We recommend using the "or" operator when ordering by relevance and the "and" operator when ordering by anything else (note: the database backend doesn't currently support ordering by relevance).
 

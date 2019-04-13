@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Matas Dailyda <matas@dailyda.com>, 2017
+# Matas Dailyda <matas@dailyda.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -17,8 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Pateikti moderavimui"
+
+msgid "Unpublish"
+msgstr "Nebepublikuoti"
+
+msgid "Delete"
+msgstr "Ištrinti"
 
 msgid "None"
 msgstr "Joks"
@@ -41,15 +51,6 @@ msgstr "Skelbti"
 msgid "Settings"
 msgstr "Nustatymai"
 
-msgid "Search"
-msgstr "Paieška"
-
-msgid "Search term"
-msgstr "Paieškos frazė"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Įveskite slaptažodį"
 
@@ -61,18 +62,11 @@ msgid "Enter your email address to reset your password"
 msgstr ""
 "Įveskite savo elektroninio pašto adresą kad atstatytumėte savo slaptažodį"
 
-msgid "Please fill your email address."
-msgstr "Prašome užpildyti savo elektroninio pašto adresą."
+msgid "URL"
+msgstr "URL"
 
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr ""
-"Atsiprašome, čia negalite atstatyti savo slaptažodžio nes jūsų vartotojas "
-"valdomas kito serverio."
-
-msgid "This email address is not recognised."
-msgstr "Šis elektroninio pašto adresas neatpažintas."
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
 
 msgid "New title"
 msgstr "Naujas pavadinimas"
@@ -95,6 +89,7 @@ msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "Tai nukopijuos %(count)s vidinį puslapį."
 msgstr[1] "Tai nukopijuos %(count)s vidinius puslapius."
 msgstr[2] "Tai nukopijuos %(count)s vidinių puslapių."
+msgstr[3] "Tai nukopijuos %(count)s vidinių puslapių."
 
 msgid "Publish copied page"
 msgstr "Publikuoti nukopijuotą puslapį"
@@ -122,6 +117,9 @@ msgstr[1] ""
 msgstr[2] ""
 "%(count)s kopijuojamų puslapių yra veikiantys. Ar norite publikuoti jų "
 "kopijas?"
+msgstr[3] ""
+"%(count)s kopijuojamų puslapių yra veikiantys. Ar norite publikuoti jų "
+"kopijas?"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -136,15 +134,6 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Jūs negalite kopijuoti puslapio į jį patį kopijuojant vidinius puslapius"
 
-msgid "Visibility"
-msgstr "Matomumas"
-
-msgid "This field is required."
-msgstr "Šis laukas yra privalomas."
-
-msgid "Please select at least one group."
-msgstr "Prašome pasirinkti bent vieną grupę."
-
 msgid "This slug is already in use"
 msgstr "Šis trumpinys jau naudojamas"
 
@@ -155,8 +144,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Galiojimo pabaigos data/laikas turi būti ateityje"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
+msgid "Search"
+msgstr "Paieška"
+
+msgid "Search term"
+msgstr "Paieškos frazė"
+
+msgid "Visibility"
+msgstr "Matomumas"
+
+msgid "This field is required."
+msgstr "Šis laukas yra privalomas."
+
+msgid "Please select at least one group."
+msgstr "Prašome pasirinkti bent vieną grupę."
 
 msgid "Error 404: Page not found"
 msgstr "Klaida 404: Puslapis nerastas"
@@ -173,35 +174,11 @@ msgstr "Eiti į Wagtail administravimą"
 msgid "Account"
 msgstr "Vartotojas"
 
-msgid "Set gravatar"
-msgstr "Nustatyti gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Jūsų atvaizdas yra parūpintas iš Gravatar ir susietas su jūsų elektroninio "
-"pašto adresu. Su Gravatar vartotoju galite nustatyti atvaizdą bet kuriam "
-"kitam elektroninio pašto adresui kurį naudojate."
+msgid "Update"
+msgstr "Atnaujinti"
 
 msgid "Change password"
 msgstr "Keisti slaptažodį"
-
-msgid "Change the password you use to log in."
-msgstr "Pakeiskite slaptažodį kurį naudojate prisijungimui."
-
-msgid "Notification preferences"
-msgstr "Pranešimų nustatymai"
-
-msgid "Choose which email notifications to receive."
-msgstr "Pasirinkite kuriuos elektroninio pašto pranešimus norite gauti."
-
-msgid "Language preferences"
-msgstr "Kalbos nustatymai"
-
-msgid "Choose the language you want to use here."
-msgstr "Pasirinkite kuria kalbą norite naudoti čia."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -212,8 +189,8 @@ msgstr ""
 msgid "Language Preferences"
 msgstr "Kalbos nustatymai"
 
-msgid "Update"
-msgstr "Atnaujinti"
+msgid "Notification preferences"
+msgstr "Pranešimų nustatymai"
 
 msgid "Reset password"
 msgstr "Atstatyti slaptažodį"
@@ -227,15 +204,8 @@ msgstr "Prisijungti"
 msgid "Set your new password"
 msgstr "Nustatykite savo naują slaptažodį"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Slaptažodžiai nesutampa. Bandykite dar kartą."
-
 msgid "Check your email"
 msgstr "Patikrinkite savo elektroninį paštą"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr ""
-"Nuoroda atstatanti jūsų slaptažodį buvo išsiųsta jums elektroniniu paštu."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Sekite žemiau esančią nuorodą kad atstatytumėte savo slaptažodį:"
@@ -252,14 +222,14 @@ msgstr "Atstatyti savo slaptažodį"
 msgid "Edit"
 msgstr "Redaguoti"
 
-msgid "Delete"
-msgstr "Ištrinti"
-
 msgid "Page"
 msgstr "Puslapis"
 
 msgid "Pages"
 msgstr "Puslapiai"
+
+msgid "Loading…"
+msgstr "Kraunama..."
 
 msgid "No results"
 msgstr "Nėra rezultatų"
@@ -275,6 +245,24 @@ msgstr "Žiūrėti viską"
 
 msgid "Close explorer"
 msgstr "Uždaryti naršyklę"
+
+msgid "Alt text"
+msgstr "Alternatyvus tekstas"
+
+msgid "Write here…"
+msgstr "Rašyti čia..."
+
+msgid "Horizontal line"
+msgstr "Horizontali linija"
+
+msgid "Line break"
+msgstr "Lūžis"
+
+msgid "Undo"
+msgstr "Anuliuoti"
+
+msgid "Redo"
+msgstr "Atgrąžinti"
 
 msgid "Dashboard"
 msgstr "Prietaisų skydas"
@@ -303,25 +291,6 @@ msgstr "Išorinė nuoroda"
 msgid "Email link"
 msgstr "Elektroninio pašto nuoroda"
 
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Yra vienas atitikmuo"
-msgstr[1] ""
-"\n"
-"Yra %(counter)s atitikmenys"
-msgstr[2] ""
-"\n"
-"Yra %(counter)s atitikmenų"
-
 msgid "Choose"
 msgstr "Pasirinkti"
 
@@ -348,6 +317,10 @@ msgstr[1] ""
 "Tik sekantys puslapio tipai gali būti pasirinkti šiam laukui: %(type)s. "
 "Paieškos rezultatai nerodys kitų tipų puslapių."
 msgstr[2] ""
+"\n"
+"Tik sekantys puslapio tipai gali būti pasirinkti šiam laukui: %(type)s. "
+"Paieškos rezultatai nerodys kitų tipų puslapių."
+msgstr[3] ""
 "\n"
 "Tik sekantys puslapio tipai gali būti pasirinkti šiam laukui: %(type)s. "
 "Paieškos rezultatai nerodys kitų tipų puslapių."
@@ -402,6 +375,10 @@ msgid ""
 msgstr ""
 "Nebuvo sukurtos jokios kolekcijos. Kodėl gi <a href=\"%(add_collection_url)s"
 "\">nesukūrus vienos</a>?"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Pridėti %(label)s"
 
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
@@ -484,6 +461,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "<span>%(total)s</span> puslapių"
+msgstr[3] ""
+"\n"
+"<span>%(total)s</span> puslapių"
 
 msgid "Sign in"
 msgstr "Prisijungti"
@@ -497,6 +477,9 @@ msgstr "Prisijungti prie Wagtail"
 
 msgid "Forgotten it?"
 msgstr "Pamiršote?"
+
+msgid "Signing in…"
+msgstr "Prisijungiama..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -556,6 +539,15 @@ msgstr "Užrakinta"
 msgid "Unlocked"
 msgstr "Atrakinta"
 
+msgid "Publishing…"
+msgstr "Publikuojama..."
+
+msgid "Publish this revision"
+msgstr "Publikuoti šia reviziją"
+
+msgid "Publish"
+msgstr "Publikuoti"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Sukurti puslapį viduje %(title)s"
@@ -594,6 +586,9 @@ msgstr[1] ""
 "\n"
 "Tai taip pat ištrins dar %(descendant_count)s vidinius puslapius."
 msgstr[2] ""
+"\n"
+"Tai taip pat ištrins dar %(descendant_count)s vidinių puslapių."
+msgstr[3] ""
 "\n"
 "Tai taip pat ištrins dar %(descendant_count)s vidinių puslapių."
 
@@ -639,9 +634,6 @@ msgstr "Taip, perkelti šį puslapį"
 msgid "Unpublish %(title)s"
 msgstr "Nebepublikuoti %(title)s"
 
-msgid "Unpublish"
-msgstr "Nebepublikuoti"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ar tikrai norite nebepublikuoti šio puslapio?"
 
@@ -663,6 +655,10 @@ msgstr[1] ""
 "Šis puslapis turi %(live_descendant_count)s vidinius puslapius. Juos taip "
 "pat nebepublikuoti"
 msgstr[2] ""
+"\n"
+"Šis puslapis turi %(live_descendant_count)s vidinių puslapių. Juos taip pat "
+"nebepublikuoti"
+msgstr[3] ""
 "\n"
 "Šis puslapis turi %(live_descendant_count)s vidinių puslapių. Juos taip pat "
 "nebepublikuoti"
@@ -697,14 +693,11 @@ msgstr "Naujas %(page_type)s"
 msgid "New"
 msgstr "Naujas"
 
+msgid "Saving…"
+msgstr "Saugoma..."
+
 msgid "Save draft"
 msgstr "Išsaugoti juodraštį"
-
-msgid "Publish"
-msgstr "Publikuoti"
-
-msgid "Submit for moderation"
-msgstr "Pateikti moderavimui"
 
 msgid "This page has unsaved changes."
 msgstr "Šis puslapis turi neišsaugotų pakeitimų."
@@ -722,9 +715,6 @@ msgstr "Puslapis užrakintas"
 
 msgid "Replace current draft"
 msgstr "Pakeisti dabartinį juodraštį"
-
-msgid "Publish this revision"
-msgstr "Publikuoti šia reviziją"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -925,6 +915,9 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Perkelta %(counter)s vietų žemyn."
+msgstr[3] ""
+"\n"
+"Perkelta %(counter)s vietų žemyn."
 
 #, python-format
 msgid ""
@@ -946,9 +939,28 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Perkelta %(counter)s vietų aukštyn."
+msgstr[3] ""
+"\n"
+"Perkelta %(counter)s vietų aukštyn."
 
 msgid "There are no differences between these two revisions"
 msgstr "Nėra jokių skirtumų tarp šių dviejų revizijų"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Neplanuoti revizijos %(revision.id)s %(title)s"
+
+msgid "Unschedule"
+msgstr "Neplanuoti"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Ar tikrai norite neplanuoti šios revizijos?"
+
+msgid "Yes, unschedule"
+msgstr "Taip, neplanuoti"
+
+msgid "No, don't unschedule"
+msgstr "Ne, planuoti"
 
 #, python-format
 msgid "Revisions of %(title)s"
@@ -970,11 +982,17 @@ msgstr "Dabartinis juodraštis"
 msgid "Live version"
 msgstr "Publikuota versija"
 
+msgid "Scheduled for"
+msgstr "Planuoti"
+
 msgid "Review this revision"
 msgstr "Peržiūrėti šią reviziją"
 
 msgid "Compare with previous revision"
 msgstr "Palyginti su buvusiomis revizijomis"
+
+msgid "Cancel scheduled publish"
+msgstr "Atšaukti suplanuotą publikavimą"
 
 msgid "No revisions of this page exist"
 msgstr "Jokios šio puslapio revizijos neegzistuoja"
@@ -998,6 +1016,9 @@ msgstr[1] ""
 "\n"
 "Yra %(counter)s atitinkantys puslapiai"
 msgstr[2] ""
+"\n"
+" Yra %(counter)s atitinkančių puslapių"
+msgstr[3] ""
 "\n"
 " Yra %(counter)s atitinkančių puslapių"
 
@@ -1105,20 +1126,6 @@ msgstr ""
 "programinės įrangos. Prašome <a href=\"http://browsehappy.com/\">atnaujinti "
 "naršyklę</a>."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"JavaScript būtinas naudojant Wagtail, bet dabar jis yra išjungtas.<br />\n"
-"Čia yra <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener\">instrukcijos kaip įjungti JavaScript savo naršyklėje.</a>."
-
 msgid "Go to Wagtail admin interface"
 msgstr "Eiti į Wagtail administravimo sąsają."
 
@@ -1194,6 +1201,9 @@ msgstr "Rusų"
 msgid "Swedish"
 msgstr "Švedų"
 
+msgid "Slovak"
+msgstr "Slovakų"
+
 msgid "Chinese (China)"
 msgstr "Kinų (Kinija)"
 
@@ -1218,11 +1228,9 @@ msgstr "Pridėti kolekciją"
 msgid "Add collection"
 msgstr "Pridėti kolekciją"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Kolekcija '{0}' sukurta."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Kolekcija '{0}' atnaujinta."
 
@@ -1232,7 +1240,6 @@ msgstr "Kolekcija negalėjo būti išsaugota dėl klaidų."
 msgid "Delete collection"
 msgstr "Ištrinti kolekciją"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Kolekcija '{0}' ištrinta."
 
@@ -1242,18 +1249,15 @@ msgstr "Ar tikrai norite ištrinti šią kolekciją?"
 msgid "Editing"
 msgstr "Redaguojama"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Puslapis '{0}' sukurtas ir suplanuotas publikavimui."
 
 msgid "View live"
 msgstr "Žiūrėti veikiantį"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Puslapis '{0}' sukurtas ir publikuotas."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Puslapis '{0}' sukurtas ir pateiktas moderavimui."
 
@@ -1263,38 +1267,34 @@ msgstr "Žiūrėti juodraštį"
 msgid "Failed to send notifications to moderators"
 msgstr "Nepavyko nusiųsti pranešimų moderatoriams"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Puslapis '{0}' sukurtas."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Puslapis negalėjo būti sukurtas dėl validavimo klaidų"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Puslapio '{1}' revizija iš {0} buvo suplanuota publikavimui."
 
-#, python-brace-format
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"Puslapis '{0}' yra veikiantis ir ši revizija buvo suplanuota publikavimui."
+
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Puslapis '{0}' buvo suplanuotas publikavimui."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Puslapio '{1}' revizija iš {0} buvo publikuota."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Puslapis '{0}' buvo publikuotas."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Puslapis '{0}' buvo pateiktas moderavimui."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Puslapis '{0}' buvo pakeistas į reviziją iš {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Puslapis '{0}' buvo atnaujintas."
 
@@ -1310,49 +1310,39 @@ msgstr "Palyginti su veikiančia versija"
 msgid "This page is currently awaiting moderation"
 msgstr "Šis puslapis laukia moderavimo"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Puslapis '{0}' ištrintas."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Puslapis '{0}' nebepublikuojamas."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Puslapis '{0}' buvo perkeltas."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Puslapis '{0}' ir  '{1}' vidiniai puslapiai atkopijuoti."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Puslapis '{0}' nukopijuotas."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Puslapis '{0}' dabar nelaukia moderavimo."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Puslapis '{0}' publikuotas."
 
 msgid "Failed to send approval notifications"
 msgstr "Nepavyko nusiųsti patvirtinimo pranešimų"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Puslapis '{0}' publikavimui atmestas."
 
 msgid "Failed to send rejection notifications"
 msgstr "Nepavyko nusiųsti atmetimo pranešimų"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Puslapis '{0}' dabar užrakintas."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Puslapis '{0}' dabar atrakintas."
 
@@ -1370,48 +1360,74 @@ msgstr "Naujausias"
 msgid "Latest"
 msgstr "Vėliausias"
 
-#, python-brace-format
+msgid "revision {0} of \"{1}\""
+msgstr "revizija {0} iš \"{1}\""
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Revizija {0} iš \"{1}\" neplanuojama."
+
 msgid "Edit '{title}'"
 msgstr "Redaguoti '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Peržiūrėti '{title}' juodraščio versiją"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Peržiūrėti veikiančią '{title}' versiją"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Pridėti vidinį puslapį į '{title}'"
 
 msgid "More"
 msgstr "Daugiau"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Peržiūrėti daugiau '{title}' nustatymų"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Perkelti puslapį '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Kopijuoti puslapį '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Ištrinti psualpį '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Nebepublikuoti puslapio '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Peržiūrėti '{title}' revizijų istoriją "
+
+msgid "Change the password you use to log in."
+msgstr "Pakeiskite slaptažodį kurį naudojate prisijungimui."
+
+msgid "Choose which email notifications to receive."
+msgstr "Pasirinkite kuriuos elektroninio pašto pranešimus norite gauti."
+
+msgid "Language preferences"
+msgstr "Kalbos nustatymai"
+
+msgid "Choose the language you want to use here."
+msgstr "Pasirinkite kuria kalbą norite naudoti čia."
+
+msgid "Heading {level}"
+msgstr "Antraštė {level}"
+
+msgid "Bulleted list"
+msgstr "Pažymėtas sąrašas"
+
+msgid "Numbered list"
+msgstr "Numeruotas sąrašas"
+
+msgid "Bold"
+msgstr "Stambus"
+
+msgid "Italic"
+msgstr "Pakreiptas"
+
+msgid "Link"
+msgstr "Nuoroda"
 
 msgid "Choose an item"
 msgstr "Pasirinkti elementą"

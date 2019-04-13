@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 20:06+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-08 14:51+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -29,7 +29,9 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, python-brace-format
+msgid "Wagtail core"
+msgstr "Núcleo Wagtail"
+
 msgid "{label}: this block has no options."
 msgstr "{label}: este bloque no tiene opciones."
 
@@ -310,7 +312,10 @@ msgid "permission"
 msgstr "permiso"
 
 msgid "group collection permission"
-msgstr "grupo de permisos de colección"
+msgstr "permiso de colección de grupo"
+
+msgid "group collection permissions"
+msgstr "permisos de colección de grupo"
 
 msgid "Log in"
 msgstr "Ingresar"

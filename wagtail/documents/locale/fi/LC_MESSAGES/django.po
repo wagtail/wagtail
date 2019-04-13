@@ -5,15 +5,15 @@
 # Translators:
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
-# Eetu Häivälä <eetu.haivala@anders.fi>, 2017
+# Eetu Häivälä, 2017
 # Rauli L. <rauli.laine@iki.fi>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -64,30 +64,6 @@ msgstr "Lähetä"
 
 msgid "Uploading…"
 msgstr "Lähetetään…"
-
-msgid "Server Error"
-msgstr "Palvelinvirhe"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Löytyi yksi osuma\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Löytyi %(counter)s osumaa\n"
-"        "
 
 msgid "Latest documents"
 msgstr "Tuoreimmat dokumentit"
@@ -220,14 +196,6 @@ msgstr "Tai valitse tietokoneeltasi"
 msgid "Add to collection:"
 msgstr "Lisää kokoelmaan:"
 
-msgid ""
-"Upload successful. Please update this documents with a more appropriate "
-"title, if necessary. You may also delete the document completely if the "
-"upload wasn't required."
-msgstr ""
-"Siirto onnistui. Päivitä dokumentti osuvammalla otsikolla, jos tarpeellista. "
-"Voit myös poistaa dokumentin kokonaan, jos siirto ei ollut tarpeellinen."
-
 msgid "Sorry, upload failed."
 msgstr "Pahoittelut, siirto epäonnistui."
 
@@ -243,17 +211,21 @@ msgstr "Dokumentin oikeudet"
 msgid "Add a document permission"
 msgstr "Lisää dokumenttioikeus"
 
+msgid "Server Error"
+msgstr "Palvelinvirhe"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
+
 msgid "Search documents"
 msgstr "Hae dokumentteja"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokumentti '{0}' lisätty."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumenttia ei voitu tallentaa virheiden vuoksi."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokumentti '{0}' päivitetty"
 
@@ -261,7 +233,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Tiedostoa ei löydy. Vaihda lähde tai poista dokumentti"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumentti '{0}' poistettu."
 

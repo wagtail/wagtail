@@ -4,13 +4,15 @@
 #
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-07 19:15+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-03-08 22:00+0000\n"
+"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Utenti Wagtail"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -68,6 +73,15 @@ msgstr "Gruppo già esistente."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Non puoi avere permessi multipli per la stessa pagina."
 
+msgid "Preferred language"
+msgstr "Lingua preferita"
+
+msgid "Current time zone"
+msgstr "Fuso orario corrente"
+
+msgid "Upload a profile picture"
+msgstr "Carica un'immagine del profilo"
+
 msgid "submitted notifications"
 msgstr "notifiche inviate"
 
@@ -92,8 +106,20 @@ msgstr "lingua preferita"
 msgid "Select language for the admin"
 msgstr "Seleziona lingua per l'admin"
 
+msgid "current time zone"
+msgstr "Fuso orario attuale"
+
+msgid "Select your current time zone"
+msgstr "Scegli il tuo fuso orario attuale"
+
+msgid "profile picture"
+msgstr "Immagine del profilo"
+
 msgid "user profile"
 msgstr "profilo utente"
+
+msgid "user profiles"
+msgstr "profili utente"
 
 msgid "Delete group"
 msgstr "Elimina gruppo"
@@ -217,6 +243,9 @@ msgstr "Livello"
 msgid "Status"
 msgstr "Stato"
 
+msgid "Last Login"
+msgstr "Ultima Login"
+
 msgid "Admin"
 msgstr "Amministratore"
 
@@ -227,9 +256,13 @@ msgid "Inactive"
 msgstr "Inattivo"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s fa"
+
+#, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -237,7 +270,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            C'è una corrispondenza\n"
+"            C'è %(counter)s corrispondenza\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -263,25 +296,21 @@ msgstr "Gruppi"
 msgid "Search groups"
 msgstr "Cerca gruppi"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Gruppo '{0}' creato."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Gruppo '{0}' aggiornato."
 
 msgid "The group could not be saved due to errors."
 msgstr "Il gruppo non può essere salvato a causa di errori."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Gruppo '{0}' eliminato."
 
 msgid "Search users"
 msgstr "Cerca utenti"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Utente '{0}' creato."
 
@@ -291,14 +320,12 @@ msgstr "Modifica"
 msgid "The user could not be created due to errors."
 msgstr "L'utente non può essere creato a causa di errori."
 
-#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Utente '{0}' aggiornato."
 
 msgid "The user could not be saved due to errors."
 msgstr "L'utente non può essere salvato a causa di errori."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Utente '{0}' eliminato."
 

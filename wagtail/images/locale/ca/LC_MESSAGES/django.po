@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:01+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -139,30 +139,6 @@ msgstr "Tags populars"
 msgid "Uploading…"
 msgstr "Pujant…"
 
-msgid "Server Error"
-msgstr "Error del servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Informeu d'aquest error a l'administrador del lloc web amb la següent "
-"informació:"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Hi ha un resultat"
-msgstr[1] ""
-"\n"
-"Hi han %(counter)s resultats"
-
 msgid "Latest images"
 msgstr "Últimes imatges"
 
@@ -218,21 +194,11 @@ msgstr "Editant imatge %(title)s"
 msgid "Editing"
 msgstr "Editant"
 
-msgid "Focal point (optional)"
-msgstr "Punt focal (opcional)"
-
-msgid ""
-"To define this image's most important region, drag a box over the image "
-"below."
-msgstr ""
-"Per definir la regió més important d'aquesta imatge, arrossegueu una caixa "
-"sobre la imatge sota."
+msgid "URL Generator"
+msgstr "Generador d'URL"
 
 msgid "Current focal point shown"
 msgstr "Punt focal actual mostrat"
-
-msgid "URL Generator"
-msgstr "Generador d'URL"
 
 msgid "Max dimensions"
 msgstr "Dimensions màximes"
@@ -334,6 +300,14 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "La pujada ha fallat."
 
+msgid "Server Error"
+msgstr "Error del servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informeu d'aquest error a l'administrador del lloc web amb la següent "
+"informació:"
+
 msgid "Image updated."
 msgstr "Imatge actualitzada."
 
@@ -352,7 +326,6 @@ msgstr "Afegir un permís d'imatge"
 msgid "Search images"
 msgstr "Cercar imatges"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imatge '{0}' actualitzada."
 
@@ -369,11 +342,9 @@ msgstr ""
 "No s'ha trobat el fitxer origen de la imatge. Canvieu l'origen o elimineu la "
 "imatge."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imatge '{0}' eliminada."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imatge '{0}' afegida."
 

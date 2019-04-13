@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,51 +17,60 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: fields.py:10
+#: apps.py:10
+msgid "Wagtail images"
+msgstr ""
+
+#: fields.py:11
 msgid "GIF, JPEG, PNG"
 msgstr ""
 
-#: fields.py:24
+#: fields.py:26
 #, python-format
 msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
 msgstr ""
 
-#: fields.py:31
+#: fields.py:33
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr ""
 
-#: fields.py:38
+#: fields.py:40
 #, python-format
 msgid "Not a supported image format. Supported formats: %s."
 msgstr ""
 
-#: fields.py:42
+#: fields.py:44
 #, python-format
 msgid "Not a valid %s image."
 msgstr ""
 
-#: fields.py:46
+#: fields.py:48
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr ""
 
-#: fields.py:50
+#: fields.py:52
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+
+#: fields.py:56
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr ""
 
-#: formats.py:91
+#: formats.py:92
 msgid "Full width"
 msgstr ""
 
-#: formats.py:92
+#: formats.py:93
 msgid "Left-aligned"
 msgstr ""
 
-#: formats.py:93
+#: formats.py:94
 msgid "Right-aligned"
 msgstr ""
 
@@ -113,7 +122,7 @@ msgstr ""
 msgid "Add/edit images you own"
 msgstr ""
 
-#: forms.py:89 views/images.py:257
+#: forms.py:89 views/images.py:275
 msgid "Edit"
 msgstr ""
 
@@ -149,6 +158,14 @@ msgstr ""
 msgid "tags"
 msgstr ""
 
+#: models.py:356
+msgid "image"
+msgstr ""
+
+#: models.py:357
+msgid "images"
+msgstr ""
+
 #: templates/wagtailimages/chooser/chooser.html:3 widgets.py:11
 msgid "Choose an image"
 msgstr ""
@@ -170,22 +187,12 @@ msgstr ""
 msgid "Uploading…"
 msgstr ""
 
-#: templates/wagtailimages/chooser/chooser.js:81
-#: templates/wagtailimages/multiple/add.html:64
-msgid "Server Error"
-msgstr ""
-
-#: templates/wagtailimages/chooser/chooser.js:82
-#: templates/wagtailimages/multiple/add.html:65
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-
 #: templates/wagtailimages/chooser/results.html:6
 #: templates/wagtailimages/images/results.html:6
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -234,18 +241,20 @@ msgid "Add image"
 msgstr ""
 
 #: templates/wagtailimages/images/add.html:34
-#: templates/wagtailimages/images/edit.html:52
+#: templates/wagtailimages/images/edit.html:50
+#: templates/wagtailimages/images/edit.html:107
 msgid "Save"
 msgstr ""
 
 #: templates/wagtailimages/images/confirm_delete.html:3
 #: templates/wagtailimages/images/confirm_delete.html:6
-#: templates/wagtailimages/images/edit.html:54
+#: templates/wagtailimages/images/edit.html:52
+#: templates/wagtailimages/images/edit.html:109
 msgid "Delete image"
 msgstr ""
 
 #: templates/wagtailimages/images/confirm_delete.html:17
-#: templates/wagtailimages/images/edit.html:100
+#: templates/wagtailimages/images/edit.html:96
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -270,47 +279,51 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:61
-msgid "Focal point (optional)"
-msgstr ""
-
-#: templates/wagtailimages/images/edit.html:62
-msgid ""
-"To define this image's most important region, drag a box over the image "
-"below."
-msgstr ""
-
-#: templates/wagtailimages/images/edit.html:62
-msgid "Current focal point shown"
-msgstr ""
-
-#: templates/wagtailimages/images/edit.html:79
-msgid "Remove focal area"
-msgstr ""
-
-#: templates/wagtailimages/images/edit.html:84
+#: templates/wagtailimages/images/edit.html:72
 msgid "URL Generator"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:91
+#: templates/wagtailimages/images/edit.html:78
+msgid "Focal point"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:78
+msgid "(optional)"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:79
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:79
+msgid "Current focal point shown"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:81
+msgid "Remove focal area"
+msgstr ""
+
+#: templates/wagtailimages/images/edit.html:87
 msgid "Max dimensions"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:93
+#: templates/wagtailimages/images/edit.html:89
 msgid "Filesize"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:94
+#: templates/wagtailimages/images/edit.html:90
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtailimages/images/edit.html:98
+#: templates/wagtailimages/images/edit.html:94
 msgid "Usage"
 msgstr ""
 
 #: templates/wagtailimages/images/index.html:5
 #: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:44
-#: wagtail_hooks.py:155
+#: wagtail_hooks.py:154
 msgid "Images"
 msgstr ""
 
@@ -411,6 +424,14 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr ""
 
+#: templates/wagtailimages/multiple/add.html:64 views/chooser.py:24
+msgid "Server Error"
+msgstr ""
+
+#: templates/wagtailimages/multiple/add.html:65 views/chooser.py:25
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+
 #: templates/wagtailimages/multiple/add.html:68
 msgid "Image updated."
 msgstr ""
@@ -419,7 +440,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:138
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:146
 msgid "Delete"
 msgstr ""
 
@@ -435,44 +456,41 @@ msgstr ""
 msgid "Search images"
 msgstr ""
 
-#: views/images.py:116
-#, python-brace-format
+#: views/images.py:124
 msgid "Image '{0}' updated."
 msgstr ""
 
-#: views/images.py:117
+#: views/images.py:125
 msgid "Edit again"
 msgstr ""
 
-#: views/images.py:121
+#: views/images.py:129
 msgid "The image could not be saved due to errors."
 msgstr ""
 
-#: views/images.py:136
+#: views/images.py:144
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
 
-#: views/images.py:231
-#, python-brace-format
+#: views/images.py:244
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:256
-#, python-brace-format
+#: views/images.py:274
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:261
+#: views/images.py:279
 msgid "The image could not be created due to errors."
 msgstr ""
 
-#: wagtail_hooks.py:91
+#: wagtail_hooks.py:87
 msgid "Image"
 msgstr ""
 
-#: wagtail_hooks.py:174
+#: wagtail_hooks.py:173
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"

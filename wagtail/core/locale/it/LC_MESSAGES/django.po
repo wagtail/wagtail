@@ -6,13 +6,15 @@
 # Alessio Di Stasio <aledista@gmail.com>, 2015
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-07 19:09+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-03-08 21:58+0000\n"
+"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +23,9 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#, python-brace-format
+msgid "Wagtail core"
+msgstr "Base Wagtail"
+
 msgid "{label}: this block has no options."
 msgstr "{label}: questo blocco non ha opzioni."
 
@@ -173,6 +177,9 @@ msgstr "schedulato"
 msgid "draft"
 msgstr "bozza"
 
+msgid "live + scheduled"
+msgstr "live + programmate"
+
 msgid "live + draft"
 msgstr "live + bozza"
 
@@ -279,19 +286,28 @@ msgid "page view restrictions"
 msgstr "restrizioni per la visualizzazione della pagina"
 
 msgid "collection"
-msgstr "collezione"
+msgstr "raccolta"
+
+msgid "collection view restriction"
+msgstr "limitazione per la vista della raccolta"
+
+msgid "collection view restrictions"
+msgstr "limitazioni per la vista della raccolta"
 
 msgid "name"
 msgstr "nome"
 
 msgid "collections"
-msgstr "collezioni"
+msgstr "raccolte"
 
 msgid "permission"
 msgstr "permesso"
 
 msgid "group collection permission"
 msgstr "permesso della collezione del gruppo"
+
+msgid "group collection permissions"
+msgstr "Permessi gruppo raccolta"
 
 msgid "Log in"
 msgstr "Log in"

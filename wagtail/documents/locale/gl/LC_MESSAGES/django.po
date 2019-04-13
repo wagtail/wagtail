@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -62,31 +62,6 @@ msgstr "Subir"
 
 msgid "Uploading…"
 msgstr "Subindo…"
-
-msgid "Server Error"
-msgstr "Erro do Servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Informar deste erro ao teu administrador da web coa seguinte información:"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Hai unha coincidencia\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Hai %(counter)s coincidencias\n"
-"        "
 
 msgid "Latest documents"
 msgstr "Últimos documentos"
@@ -213,15 +188,6 @@ msgstr "Ou selecciona dende o teu ordenador"
 msgid "Add to collection:"
 msgstr "Engadir á colección:"
 
-msgid ""
-"Upload successful. Please update this documents with a more appropriate "
-"title, if necessary. You may also delete the document completely if the "
-"upload wasn't required."
-msgstr ""
-"Subido correctamente. Por favor, actualiza estes documentos cun título máis "
-"apropiado, se é necesario. Podes tamén eliminar o documento completamente se "
-"a subida non era necesaria."
-
 msgid "Sorry, upload failed."
 msgstr "Síntoo, a subida fallou."
 
@@ -237,17 +203,22 @@ msgstr "Permisos do documento"
 msgid "Add a document permission"
 msgstr "Engadir un permiso ao documento"
 
+msgid "Server Error"
+msgstr "Erro do Servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informar deste erro ao teu administrador da web coa seguinte información:"
+
 msgid "Search documents"
 msgstr "Procurar documentos"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' engadido."
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento non puido ser gardado debido a erros."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documento '{0}' actualizado"
 
@@ -257,7 +228,6 @@ msgstr ""
 "O arquivo non puido ser atopado. Por favor, cambia a fonte ou elimina o "
 "documento."
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' eliminado."
 

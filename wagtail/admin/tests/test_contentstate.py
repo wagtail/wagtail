@@ -1,7 +1,7 @@
 import json
+from unittest.mock import patch
 
 from django.test import TestCase
-from mock import patch
 
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.embeds.models import Embed
@@ -326,7 +326,31 @@ class TestHtmlToContentState(TestCase):
             'entityMap': {
                 '0': {
                     'mutability': 'MUTABLE', 'type': 'LINK',
-                    'data': {}
+                    'data': {
+                        'id': 9999, 'url': None, 'parentId': None,
+                    }
+                }
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an internal link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+    def test_link_to_root_page(self):
+        converter = ContentstateConverter(features=['link'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>an <a linktype="page" id="1">internal</a> link</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {
+                    'mutability': 'MUTABLE', 'type': 'LINK',
+                    'data': {'id': 1, 'url': None, 'parentId': None}
                 }
             },
             'blocks': [
@@ -364,6 +388,28 @@ class TestHtmlToContentState(TestCase):
         result = json.loads(converter.from_database_format(
             '''
             <p>a <a linktype="document" id="9999">document</a> link</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {
+                '0': {
+                    'mutability': 'MUTABLE', 'type': 'DOCUMENT',
+                    'data': {'id': 9999}
+                }
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'a document link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 2, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+    def test_document_link_with_missing_id(self):
+        converter = ContentstateConverter(features=['document-link'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>a <a linktype="document">document</a> link</p>
             '''
         ))
         self.assertContentStateEqual(result, {
@@ -706,4 +752,75 @@ class TestHtmlToContentState(TestCase):
             'blocks': [
                 {'inlineStyleRanges': [], 'text': 'Arthur "two sheds" Jackson <the third> & his wife', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
             ]
+        })
+
+    def test_collapse_targeted_whitespace_characters(self):
+        # We expect all targeted whitespace characters (one or more consecutively)
+        # to be replaced by a single space. (\xa0 is a non-breaking whitespace)
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>Multiple whitespaces:     should  be reduced</p>
+            <p>Multiple non-breaking whitespace characters:  \xa0\xa0\xa0  should be preserved</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Multiple whitespaces: should be reduced', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Multiple non-breaking whitespace characters: \xa0\xa0\xa0 should be preserved', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
+    def test_extra_end_tag_before(self):
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            </p>
+            <p>Before</p>
+            '''
+        ))
+        # The leading </p> tag should be ignored instead of blowing up with a
+        # pop from empty list error
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Before', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
+    def test_extra_end_tag_after(self):
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>After</p>
+            </p>
+            '''
+        ))
+        # The tailing </p> tag should be ignored instead of blowing up with a
+        # pop from empty list error
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'After', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
+    def test_p_with_class(self):
+        # Test support for custom conversion rules which require correct treatment of
+        # CSS precedence in HTMLRuleset. Here, <p class="intro"> should match the
+        # 'p[class="intro"]' rule rather than 'p' and thus become an 'intro-paragraph' block
+        converter = ContentstateConverter(features=['intro'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p class="intro">before</p>
+            <p>after</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'blocks': [
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'before', 'type': 'intro-paragraph'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'after', 'type': 'unstyled'}
+            ],
+            'entityMap': {}
         })

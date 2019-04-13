@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018
 # Kees Hink <keeshink@gmail.com>, 2017
-# Maarten Kling <kling.maarten@gmail.com>, 2015,2017
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
+# Meteor0id, 2018-2019
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-01-18 15:45+0000\n"
+"Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail gebruikers"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -72,6 +77,15 @@ msgstr ""
 "Het is niet mogelijk om meerdere machtigingen voor dezelfde pagina in te "
 "stellen."
 
+msgid "Preferred language"
+msgstr "Voorkeurstaal"
+
+msgid "Current time zone"
+msgstr "Huidige tijd zone"
+
+msgid "Upload a profile picture"
+msgstr "Upload een profiel foto"
+
 msgid "submitted notifications"
 msgstr "ingezonden notificaties"
 
@@ -91,13 +105,25 @@ msgid "Receive notification when your page edit is rejected"
 msgstr "Ontvang notificaties wanneer uw paginawijziging is afgekeurd."
 
 msgid "preferred language"
-msgstr "Voorkeurstaal"
+msgstr "voorkeurstaal"
 
 msgid "Select language for the admin"
 msgstr "Selecteer de taal voor de admin"
 
+msgid "current time zone"
+msgstr "huidige tijd zone"
+
+msgid "Select your current time zone"
+msgstr "Selecteer je huidige tijd zone"
+
+msgid "profile picture"
+msgstr "profiel foto"
+
 msgid "user profile"
 msgstr "gebruikersprofiel"
+
+msgid "user profiles"
+msgstr "gebruikersprofielen"
 
 msgid "Delete group"
 msgstr "Verwijder groep"
@@ -220,6 +246,9 @@ msgstr "Level"
 msgid "Status"
 msgstr "Status"
 
+msgid "Last Login"
+msgstr "Laaste login"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -230,9 +259,13 @@ msgid "Inactive"
 msgstr "Inactief"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s geleden"
+
+#, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -240,12 +273,12 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Er is één resultaat\n"
+"           Er is %(counter)s overeenkomst\n"
 "        "
 msgstr[1] ""
 "\n"
-"            Er zijn %(counter)s resultaten\n"
-"        "
+"           Er zijn %(counter)s overeenkomsten\n"
+"     "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -265,25 +298,21 @@ msgstr "Groepen"
 msgid "Search groups"
 msgstr "Zoek groepen"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Groep '{0}' aangemaakt."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
-msgstr "Groep '{0}' gewijzigd."
+msgstr "Groep '{0}' is gewijzigd."
 
 msgid "The group could not be saved due to errors."
 msgstr "De groep kon vanwege fouten niet worden opgeslagen."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Groep '{0}' verwijderd."
 
 msgid "Search users"
 msgstr "Zoek gebruikers"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Gebruiker '{0}' aangemaakt."
 
@@ -293,14 +322,12 @@ msgstr "Wijzig"
 msgid "The user could not be created due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden aangemaakt."
 
-#, python-brace-format
 msgid "User '{0}' updated."
-msgstr "Gebruiker '{0}' is bijgewerkt."
+msgstr "Gebruiker '{0}' is gewijzigd."
 
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Gebruiker '{0}' is verwijderd."
 

@@ -1,17 +1,19 @@
+import os
+
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
 from wagtail.core.models import Collection
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.search import index as search_index
-from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -54,13 +56,16 @@ def index(request):
         form = SearchForm(placeholder=_("Search documents"))
 
     # Pagination
-    paginator, documents = paginate(request, documents)
+    paginator = Paginator(documents, per_page=20)
+    documents = paginator.get_page(request.GET.get('p'))
 
     collections = permission_policy.collections_user_has_any_permission_for(
         request.user, ['add', 'change']
     )
     if len(collections) < 2:
         collections = None
+    else:
+        collections = Collection.order_for_display(collections)
 
     # Create response
     if request.is_ajax():
@@ -94,6 +99,13 @@ def add(request):
         doc = Document(uploaded_by_user=request.user)
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
+            doc.file_size = doc.file.size
+
+            # Set new document file hash
+            doc.file.seek(0)
+            doc._set_file_hash(doc.file.read())
+            doc.file.seek(0)
+
             form.save()
 
             # Reindex the document to make sure all tags are indexed
@@ -129,6 +141,13 @@ def edit(request, document_id):
         if form.is_valid():
             doc = form.save()
             if 'file' in form.changed_data:
+                doc.file_size = doc.file.size
+
+                # Set new document file hash
+                doc.file.seek(0)
+                doc._set_file_hash(doc.file.read())
+                doc.file.seek(0)
+
                 # if providing a new document file, delete the old one.
                 # NB Doing this via original_file.delete() clears the file field,
                 # which definitely isn't what we want...
@@ -146,26 +165,24 @@ def edit(request, document_id):
     else:
         form = DocumentForm(instance=doc, user=request.user)
 
-    filesize = None
+    try:
+        local_path = doc.file.path
+    except NotImplementedError:
+        # Document is hosted externally (eg, S3)
+        local_path = None
 
-    # Get file size when there is a file associated with the Document object
-    if doc.file:
-        try:
-            filesize = doc.file.size
-        except OSError:
-            # File doesn't exist
-            pass
-
-    if not filesize:
-        messages.error(
-            request,
-            _("The file could not be found. Please change the source or delete the document"),
-            buttons=[messages.button(reverse('wagtaildocs:delete', args=(doc.id,)), _('Delete'))]
-        )
+    if local_path:
+        # Give error if document file doesn't exist
+        if not os.path.isfile(local_path):
+            messages.error(
+                request,
+                _("The file could not be found. Please change the source or delete the document"),
+                buttons=[messages.button(reverse('wagtaildocs:delete', args=(doc.id,)), _('Delete'))]
+            )
 
     return render(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
-        'filesize': filesize,
+        'filesize': doc.get_file_size(),
         'form': form,
         'user_can_delete': permission_policy.user_has_permission_for_instance(
             request.user, 'delete', doc
@@ -195,7 +212,8 @@ def usage(request, document_id):
     Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
 
-    paginator, used_by = paginate(request, doc.get_usage())
+    paginator = Paginator(doc.get_usage(), per_page=20)
+    used_by = paginator.get_page(request.GET.get('p'))
 
     return render(request, "wagtaildocs/documents/usage.html", {
         'document': doc,

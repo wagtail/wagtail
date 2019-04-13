@@ -25,16 +25,10 @@ on the ``ModelAdmin`` class itself.
 
 Default value: ``('__str__',)``
 
-Set ``list_display`` to control which fields are displayed in the IndexView
+Set ``list_display`` to control which fields are displayed in the ``IndexView``
 for your model.
 
-Example
-
-```
-list_display = ('first_name', 'last_name')
-```
-
-You have three possible values that can be used in list_display:
+You have three possible values that can be used in ``list_display``:
 
 -   A field of the model. For example:
 
@@ -293,7 +287,7 @@ Set ``search_fields`` to enable a search box at the top of the index page
 for your model. You should add names of any fields on the model that should
 be searched whenever somebody submits a search query using the search box.
 
-Searching is all handled via Django's queryset API, rather than using Wagtail's
+Searching is all handled via Django's QuerySet API, rather than using Wagtail's
 search backend. This means it will work for all models, whatever search backend
 your project is using, and without any additional setup or configuration.
 
@@ -304,7 +298,7 @@ your project is using, and without any additional setup or configuration.
 ---------------------------
 
 **Expected value**: A list or tuple in the same format as a model’s
-[``ordering``](https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display) parameter.
+:attr:`~django.db.models.Options.ordering` parameter.
 
 Set ``ordering`` to specify the default ordering of objects when listed by
 IndexView.  If not provided, the model’s default ordering will be respected.
@@ -332,7 +326,7 @@ of the index view. By default, this is set to ``100``.
 
 **Must return**: A QuerySet
 
-The ``get_queryset`` method returns the 'base' queryset for your model, to
+The ``get_queryset`` method returns the 'base' QuerySet for your model, to
 which any filters and search queries are applied. By default, the ``all()``
 method of your model's default manager is used. But, if for any reason you
 only want a certain sub-set of objects to appear in the IndexView listing,
@@ -370,12 +364,12 @@ For example:
 
 **Must return**: A dictionary
 
-The `get_extra_attrs_for_row` method allows you to add html attributes to
-the opening `<tr>` tag for each result, in addition to the `data-object_pk` and
-`class` attributes already added by the `result_row_display` tag.
+The ``get_extra_attrs_for_row`` method allows you to add html attributes to
+the opening ``<tr>`` tag for each result, in addition to the ``data-object_pk`` and
+``class`` attributes already added by the ``result_row_display`` template tag.
 
 If you want to add additional CSS classes, simply provide those class names
-as a string value using the `class` key, and the `odd`/`even` will be appended
+as a string value using the ``'class'`` key, and the ``odd``/``even`` will be appended
 to your custom class names when rendering.
 
 For example, if you wanted to add some additional class names based on field
@@ -501,7 +495,7 @@ help give the value more context:
 
 
 Or you might like to add one or more data attributes to help implement some
-kind of interactivity using javascript:
+kind of interactivity using JavaScript:
 
 .. code-block:: python
 

@@ -29,6 +29,7 @@
 
                     return ModalWorkflow({
                         url: window.chooserUrls.embedsChooser,
+                        onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
                         responses: {
                             embedChosen: function(embedData) {
                                 var elem;

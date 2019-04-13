@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Eugene MechanisM <eugene@mechanism.pro>, 2014-2015
+# Eugene <eugene.mechanism@gmail.com>, 2014-2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
-# Vassiliy Vorobyov <zuber.kg@gmail.com>, 2017
+# Nikita Tonkoshkur <humapen@gmail.com>, 2018
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Vassily <zuber.kg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:55+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -23,6 +25,9 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+msgid "Wagtail snippets"
+msgstr "Фрагменты Wagtail"
+
 msgid "Choose"
 msgstr "Выбрать"
 
@@ -30,51 +35,31 @@ msgid "Search"
 msgstr "Поиск"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Найдено одно совпадение"
-msgstr[1] ""
-"\n"
-"Найдено %(counter)s совпадений"
-msgstr[2] ""
-"\n"
-"Найдено %(counter)s совпадений"
-msgstr[3] ""
-"\n"
-"Найдено %(counter)s совпадений"
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Извините, нет фрагментов для \"<em>%(query_string)s</em>\""
 
 #, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
-"a>?"
-msgstr ""
-"Вы не создали никаких %(snippet_type_name)s фрагментов. Почему бы не <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">создать прямо "
-"сейчас</a>?"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Удалить %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Удалить"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Удалить %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "Удалить"
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Используемо %(usage_count)s раз"
+msgstr[1] "Используемо %(usage_count)s раз"
+msgstr[2] "Используемо %(usage_count)s раз"
+msgstr[3] "Используемое %(usage_count)sраз"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Вы уверены, что хотите удалить этот %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Вы действительно хотите удалить %(count)s%(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Да, удалить"
@@ -86,6 +71,9 @@ msgstr "Новый  %(snippet_type_name)s"
 msgid "New"
 msgstr "Новый"
 
+msgid "Saving…"
+msgstr "Сохранение..."
+
 msgid "Save"
 msgstr "Сохранить"
 
@@ -95,6 +83,12 @@ msgstr "Редактирование %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Редактирование"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Usage"
+msgstr "Использование"
 
 msgid "Snippets"
 msgstr "Фрагменты"
@@ -145,7 +139,6 @@ msgstr "Редактировать эту страницу"
 msgid "Search %(snippet_type_name)s"
 msgstr "Искать  %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' создан."
 
@@ -155,16 +148,17 @@ msgstr "Правка"
 msgid "The snippet could not be created due to errors."
 msgstr "Фрагмент не может быть создан из-за ошибок."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' обновлен."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Фрагмент не может быть сохранен из-за ошибок."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' удален."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} удален."
 
 #, python-format
 msgid "Choose %s"

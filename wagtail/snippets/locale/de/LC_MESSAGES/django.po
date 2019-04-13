@@ -3,10 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benjamin Thurm, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017
-# Henrik Kröger <hedwig@riseup.net>, 2016
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Jannis, 2015
-# jn ns, 2015
+# Jannis Vajen, 2015
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 14:22+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +30,9 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail snippets"
+msgstr "Wagtail Schnipsel"
+
 msgid "Choose"
 msgstr "Auswählen"
 
@@ -36,41 +40,15 @@ msgid "Search"
 msgstr "Suche"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Es gibt ein Ergebnis"
-msgstr[1] ""
-"\n"
-"Es gibt %(counter)s Ergebnisse"
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Leider keine übereinstimmenden Schnipsel zu „<em>%(query_string)s</em>“"
 
 #, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
-"a>?"
-msgstr ""
-"Sie haben noch keine %(snippet_type_name)s Schnipsel erstellt. Warum <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">erstellen Sie "
-"nicht jetzt eins</a>?"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Lösche %(snippet_type_name)s"
 
-#, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "%(snippet_type_name)s - %(instance)s löschen"
-
-msgid "Delete"
+msgid "Delete "
 msgstr "Löschen"
 
 #, python-format
@@ -84,6 +62,11 @@ msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr ""
 "Sind Sie sicher, dass Sie das „%(snippet_type_name)s“ Schnipsel löschen "
 "wollen?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr ""
+"Sind Sie sicher, dass Sie %(count)s %(snippet_type_name)s löschen möchten?"
 
 msgid "Yes, delete"
 msgstr "Ja, löschen"
@@ -107,6 +90,9 @@ msgstr "%(snippet_type_name)s - %(instance)s bearbeiten"
 
 msgid "Editing"
 msgstr "Bearbeiten"
+
+msgid "Delete"
+msgstr "Löschen"
 
 msgid "Usage"
 msgstr "Benutzung"
@@ -160,7 +146,6 @@ msgstr "Diese Seite bearbeiten"
 msgid "Search %(snippet_type_name)s"
 msgstr "Suche %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} ‚{instance}‘ erstellt"
 
@@ -170,16 +155,17 @@ msgstr "Bearbeiten"
 msgid "The snippet could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht erstellt werden."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} ‚{instance}‘ geändert."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht gespeichert werden."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} ‚{instance}‘ gelöscht."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} gelöscht."
 
 #, python-format
 msgid "Choose %s"

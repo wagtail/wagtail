@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags gravatar %}
+{% load i18n wagtailadmin_tags %}
 {% load l10n %}
 
 <table class="listing">
@@ -6,18 +6,23 @@
 
     <thead>
         <tr>
-            <th><a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}?ordering={% if ordering == "created_at" %}-{% endif %}created_at" class="icon icon-arrow-{% if ordering == "created_at" %}up-after{% elif ordering == "-created_at" %}down-after{% else %}down-after{% endif %} {% if ordering == "created_at" or ordering == "-created_at" %}teal{% endif %}">{% trans 'Revision date' %}</a></th>
+            <th>
+                <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}?ordering={% if ordering == "created_at" %}-{% endif %}created_at" class="icon icon-arrow-{% if ordering == "created_at" %}up-after{% elif ordering == "-created_at" %}down-after{% else %}down-after{% endif %} {% if ordering == "created_at" or ordering == "-created_at" %}teal{% endif %}">
+                    {% trans 'Revision date' %}
+                </a>
+            </th>
         </tr>
     </thead>
     <tbody>
         {% if revisions %}
+            {% page_permissions page as page_perms %}
             {% for revision in revisions %}
                 <tr {% if revision == page.get_latest_revision %}class="index"{% endif %}>
                     <td class="title">
                         <h2>
                             <a href="{% url 'wagtailadmin_pages:revisions_revert' page.id revision.id %}">{{ revision.created_at }}</a>
                             <span class="unbold">
-                                {% trans 'by' context 'points to a user who created a revision' %}<span class="avatar small"><img src="{% gravatar_url revision.user.email 25 %}" /></span>{{ revision.user }}
+                                {% trans 'by' context 'points to a user who created a revision' %}<span class="avatar small"><img src="{% avatar_url revision.user size=25 %}" /></span>{{ revision.user }}
                             </span>
                             {% if revision == page.get_latest_revision %}({% trans 'Current draft' %}){% endif %}
                             {% if revision == page.live_revision %}({% trans 'Live version' %}){% endif %}
@@ -25,7 +30,7 @@
                         </h2>
 
                         <ul class="actions">
-                            <li><a href="{% url 'wagtailadmin_pages:revisions_view' page.id revision.id %}" class="button button-small button-secondary" target="_blank">{% trans 'Preview' %}</a></li>
+                            <li><a href="{% url 'wagtailadmin_pages:revisions_view' page.id revision.id %}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Preview' %}</a></li>
                             {% if revision == page.get_latest_revision %}
                                 <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
                             {% else %}
@@ -36,7 +41,7 @@
                                 <li><a href="{% url 'wagtailadmin_pages:revisions_compare' page.id previous_revision.id revision.id %}" class="button button-small button-secondary">{% trans 'Compare with previous revision' %}</a></li>
                             {% endif %}
                             {% endwith %}
-			    {% if revision.approved_go_live_at %}
+			    {% if revision.approved_go_live_at and page_perms.can_unschedule %}
 				<li><a href="{% url 'wagtailadmin_pages:revisions_unschedule' page.id revision.id %}" class="button button-small button-secondary">{% trans 'Cancel scheduled publish' %}</a></li>
 			    {% endif %}
                         </ul>

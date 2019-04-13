@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2017-09-22 07:04+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:55+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -102,32 +102,6 @@ msgid "Edit this redirect"
 msgstr "Uredi preusmeritev"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Obstaja en zadetek\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Obstajata %(counter)s zadetka\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Obstajajo %(counter)s zadetki\n"
-"        "
-msgstr[3] ""
-"\n"
-"            Obstaja %(counter)s zadetkov\n"
-"        "
-
-#, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Žal ni preusmeritve, ki bi ustrezala nizu \"<em>%(query_string)s</em>\""
@@ -143,7 +117,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Iskanje po preusmeritvah"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Preusmeritev '{0}' posodobljena."
 
@@ -153,11 +126,9 @@ msgstr "Uredi"
 msgid "The redirect could not be saved due to errors."
 msgstr "Preusmeritve, zaradi napak, ni bilo možno shraniti."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Preusmeritev '{0}' izbrisana."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Preusmeritev '{0}' dodana."
 

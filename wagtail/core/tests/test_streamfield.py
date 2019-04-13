@@ -111,6 +111,21 @@ class TestLazyStreamField(TestCase):
             assert instance.body[1].value is None
             assert instance.body[2].value.title == 'Test image 3'
 
+    def test_lazy_load_get_prep_value(self):
+        """
+        Saving a lazy StreamField that hasn't had its data accessed should not
+        cause extra database queries by loading and then re-saving block values.
+        Instead the initial JSON stream data should be written back for any
+        blocks that have not been accessed.
+        """
+        with self.assertNumQueries(1):
+            instance = StreamModel.objects.get(pk=self.with_image.pk)
+
+        # Expect a single UPDATE to update the model, without any additional
+        # SELECT related to the image block that has not been accessed.
+        with self.assertNumQueries(1):
+            instance.save()
+
 
 class TestSystemCheck(TestCase):
     def tearDown(self):

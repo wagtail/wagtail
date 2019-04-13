@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:06+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -136,24 +136,6 @@ msgid "None"
 msgstr "Nenhuma"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Encontrado um resultado\n"
-"        "
-msgstr[1] ""
-"\n"
-"Encontrados %(counter)s resultados\n"
-"        "
-
-#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Desculpe, nenhum resultado promovido corresponde a \"<em>%(query_string)s</"
@@ -170,7 +152,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Pesquisar resultados promovidos"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Escolhas do editor para '{0}' criadas."
 
@@ -180,7 +161,6 @@ msgstr "Alterar"
 msgid "Recommendations have not been created due to errors"
 msgstr "As recomendações não foram criadas devido a erros."
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Escolhas do editor para '{0}' atualizadas."
 

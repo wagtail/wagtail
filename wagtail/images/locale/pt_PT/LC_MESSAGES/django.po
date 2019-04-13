@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -141,29 +141,6 @@ msgstr "Palavras-chave populares"
 msgid "Uploading…"
 msgstr "A carregar…"
 
-msgid "Server Error"
-msgstr "Erro no Servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Comunique este erro ao seu webmaster com a seguinte informação:"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Encontrado um resultado"
-msgstr[1] ""
-"\n"
-"Encontrados %(counter)s resultados\n"
-"        "
-
 msgid "Latest images"
 msgstr "Últimas imagens"
 
@@ -218,21 +195,11 @@ msgstr "A alterar imagem %(title)s"
 msgid "Editing"
 msgstr "A alterar"
 
-msgid "Focal point (optional)"
-msgstr "Ponto de enfoque (opcional)"
-
-msgid ""
-"To define this image's most important region, drag a box over the image "
-"below."
-msgstr ""
-"Para definir a região mais importante desta imagem, arraste uma caixa por "
-"cima da imagem abaixo."
+msgid "URL Generator"
+msgstr "Gerador de URL"
 
 msgid "Current focal point shown"
 msgstr "A visualizar ponto de enfoque atual"
-
-msgid "URL Generator"
-msgstr "Gerador de URL"
 
 msgid "Max dimensions"
 msgstr "Dimensões máximas"
@@ -331,6 +298,12 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o carregamento falhou."
 
+msgid "Server Error"
+msgstr "Erro no Servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Comunique este erro ao seu webmaster com a seguinte informação:"
+
 msgid "Image updated."
 msgstr "Imagem atualizada."
 
@@ -349,7 +322,6 @@ msgstr "Adicionar uma permissão de imagem"
 msgid "Search images"
 msgstr "Pesquisar imagens"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imagem '{0}' atualizada."
 
@@ -366,11 +338,9 @@ msgstr ""
 "O ficheiro original da imagem não foi encontrado. Por favor altere o "
 "ficheiro ou apague a imagem."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imagem '{0}' apagada."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imagem '{0}' adicionada."
 

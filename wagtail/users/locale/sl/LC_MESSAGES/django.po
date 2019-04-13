@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:42+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -188,32 +188,6 @@ msgid "Inactive"
 msgstr "Neaktiven"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Obstaja en zadetek\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Obstajata %(counter)s zadetka\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Obstajajo %(counter)s zadetki\n"
-"        "
-msgstr[3] ""
-"\n"
-"            Obstaja %(counter)s zadetkov\n"
-"        "
-
-#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Žal ni uporabnika, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
 
@@ -231,25 +205,21 @@ msgstr "Skupine"
 msgid "Search groups"
 msgstr "Iskanje po skupinah"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Skupina '{0}' ustvarjena."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Skupina '{0}' posodobljena."
 
 msgid "The group could not be saved due to errors."
 msgstr "Skupine, zaradi napak, ni bilo možno shraniti."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Skupina '{0}' izbrisana."
 
 msgid "Search users"
 msgstr "Iskanje po uporabnikih"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Uporabnik '{0}' ustvarjen."
 
@@ -258,10 +228,6 @@ msgstr "Uredi"
 
 msgid "The user could not be created due to errors."
 msgstr "Uporabnika, zaradi napak, ni bilo možno ustvariti."
-
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Uporabnik '{0}' posodobljen."
 
 msgid "The user could not be saved due to errors."
 msgstr "Uporabnika, zaradi napak, ni bilo možno shraniti."

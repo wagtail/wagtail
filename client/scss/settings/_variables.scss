@@ -1,0 +1,111 @@
+// paths
+
+// We can't use absolute paths here, because those are dependent on Django's
+// STATIC_URL setting. Instead, relative paths from the final location of the
+// compiled CSS files are used.
+// */
+
+$static-root: '../../';
+$images-root: $static-root + 'wagtailadmin/images/';
+$font-root: '../../wagtailadmin/fonts/';
+
+// grid settings
+$grid-columns: 12;
+$grid-gutter-width: 3%;
+$grid-max-width: 1200px;
+$grid-content-indent: 0.7;
+
+$mobile-nice-padding: 20px;
+$desktop-nice-padding: 50px;
+
+// screen breakpoints
+$breakpoints: (
+    xs: 0,
+    sm: 50em,    // 800px
+    md: 56.25em, // 900px
+    lg: 75em,    // 1200px
+    xl: 100em,   // 1440px
+);
+
+// colours
+$color-teal: #007d7e;
+$color-teal-darker: darken(adjust-hue($color-teal, 1), 4);
+$color-teal-dark: darken(adjust-hue($color-teal, 1), 7);
+
+$color-blue: #71b2d4;
+$color-red: #cd3238;
+$color-orange: #e9b04d;
+$color-green: #189370;
+$color-salmon: #f37e77;
+$color-salmon-light: #fcf2f2;
+$color-white: #fff;
+$color-black: #000;
+
+// darker to lighter
+$color-grey-1: darken($color-white, 80);
+$color-grey-2: darken($color-white, 70);
+
+$color-grey-3: darken($color-white, 15);
+$color-grey-4: darken($color-white, 10);
+$color-grey-5: darken($color-white, 2);
+
+$color-menu-text: darken($color-white, 20);
+
+$color-thead-bg: $color-grey-5;
+$color-header-bg: $color-teal;
+
+$color-fieldset-hover: $color-grey-5;
+$color-input-border: $color-grey-4;
+$color-input-focus: lighten(desaturate($color-teal, 40), 72);
+$color-input-focus-border: lighten(saturate($color-teal, 12), 10);
+$color-input-error-bg: lighten(saturate($color-red, 28), 45);
+
+$color-button: $color-teal;
+$color-button-hover: $color-teal-darker;
+$color-button-yes: $color-green;
+$color-button-yes-hover: darken($color-button-yes, 8%);
+$color-button-no: $color-red;
+$color-button-no-hover: darken($color-button-no, 20%);
+$color-button-warning: $color-orange;
+$color-button-warning-hover: darken($color-orange, 20%);
+$color-link: $color-teal;
+$color-link-hover: $color-teal-dark;
+
+$color-text-base: darken($color-white, 85);
+$color-text-input: darken($color-white, 90);
+
+// Color states
+$color-state-live: #59b524;
+$color-state-draft: #808080;
+$color-state-absent: #ff8f11;
+$color-state-live-draft: #43b1b0;
+
+// Fonts
+$font-sans: Open Sans, Arial, sans-serif;
+$font-serif: Roboto Slab, Georgia, serif;
+
+// misc sizing
+$thumbnail-width: 130px;
+$menu-width: 180px;
+$menu-width-max: 320px;
+$mobile-nav-indent: 50px;
+
+$nav-wrapper-inner-z-index: 26;
+$draftail-editor-z-index: $nav-wrapper-inner-z-index + 1;
+
+// Nav
+$nav-grey-1: darken($color-white, 80);
+$nav-grey-2: darken($color-white, 60);
+$nav-item-hover-bg: rgba(100, 100, 100, 0.15);
+$nav-item-active-bg: darken($color-white, 90);
+$submenu-bg: darken($color-white, 85);
+$footer-account: $nav-item-active-bg;
+$footer-submenu: $submenu-bg;
+
+// Nav search
+$nav-search-color: darken($color-white, 20);
+$nav-search-border: darken($color-white, 40);
+$nav-search-bg: $nav-grey-1;
+$nav-search-hover-bg: $nav-item-hover-bg;
+$nav-search-focus-color: $color-white;
+$nav-search-focus-bg: $nav-item-hover-bg;

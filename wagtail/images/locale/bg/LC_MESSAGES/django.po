@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:00+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -30,23 +30,6 @@ msgstr "Качване"
 
 msgid "Popular tags"
 msgstr "Популярни тагове"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Има едно съвпадение\n"
-"        "
-msgstr[1] ""
-"\n"
-"Има %(counter)s съвпадения"
 
 msgid "Latest images"
 msgstr "Последни изображения"
@@ -88,18 +71,15 @@ msgstr "Изображения"
 msgid "Title"
 msgstr "Заглавие"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Изображение '{0}' обновено."
 
 msgid "The image could not be saved due to errors."
 msgstr "Изображението не можеше да бъде запазено поради грешки."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Изображение '{0}' изтрито."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Изображение '{0}' добавено."
 

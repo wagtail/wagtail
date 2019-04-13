@@ -485,7 +485,7 @@ class BlockWidget(forms.Widget):
         super().__init__(attrs=attrs)
         self.block_def = block_def
 
-    def render_with_errors(self, name, value, attrs=None, errors=None):
+    def render_with_errors(self, name, value, attrs=None, errors=None, renderer=None):
         bound_block = self.block_def.bind(value, prefix=name, errors=errors)
         js_initializer = self.block_def.js_initializer()
         if js_initializer:
@@ -501,8 +501,8 @@ class BlockWidget(forms.Widget):
             js_snippet = ''
         return mark_safe(bound_block.render_form() + js_snippet)
 
-    def render(self, name, value, attrs=None):
-        return self.render_with_errors(name, value, attrs=attrs, errors=None)
+    def render(self, name, value, attrs=None, renderer=None):
+        return self.render_with_errors(name, value, attrs=attrs, errors=None, renderer=renderer)
 
     @property
     def media(self):

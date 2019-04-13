@@ -5,13 +5,13 @@
 # Translators:
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
-# Eetu Häivälä <eetu.haivala@anders.fi>, 2016
+# Eetu Häivälä, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:06+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -128,22 +128,6 @@ msgid "None"
 msgstr "Ei mitään"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Löytyi yksi osuma"
-msgstr[1] ""
-"\n"
-"Löytyi %(counter)s osumaa"
-
-#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Pahoittelut, yksikään nostettu tulos ei täsmää hakuun \"<em>"
@@ -160,7 +144,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Etsi nostettuja tuloksia"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Toimituksen valinnat kohteelle '{0}' luotu."
 
@@ -170,7 +153,6 @@ msgstr "Muokkaa"
 msgid "Recommendations have not been created due to errors"
 msgstr "Suosituksia ei voitu luoda virheiden vuoksi"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Toimituksen valinnat kohteelle '{0}' päivitetty."
 

@@ -67,7 +67,7 @@ class CollectionPermissionLookupMixin:
             for path in collection_root_paths[1:]:
                 collection_path_filter = collection_path_filter | Q(path__startswith=path)
 
-            return Collection.objects.filter(collection_path_filter)
+            return Collection.objects.all().filter(collection_path_filter)
         else:
             # no matching collections
             return Collection.objects.none()
@@ -255,8 +255,8 @@ class CollectionOwnershipPermissionPolicy(
             if self._check_perm(user, ['change'], collection=instance.collection):
                 return True
             elif (
-                self._check_perm(user, ['add'], collection=instance.collection) and
-                getattr(instance, self.owner_field_name) == user
+                self._check_perm(user, ['add'], collection=instance.collection)
+                and getattr(instance, self.owner_field_name) == user
             ):
                 return True
             else:

@@ -85,7 +85,7 @@ with a custom ``edit_handler`` attribute:
 Appearance
 ----------
 
-You can change the label used in the menu by changing the `verbose_name <https://docs.djangoproject.com/en/dev/ref/models/options/#verbose-name>`_ of your model.
+You can change the label used in the menu by changing the :attr:`~django.db.models.Options.verbose_name` of your model.
 
 You can add an icon to the menu by passing an 'icon' argument to the ``register_setting`` decorator:
 
@@ -145,7 +145,7 @@ Then access the settings through ``{{ settings }}``:
 
 .. note:: Replace ``app_label`` with the label of the app containing your settings model.
 
-If you are not in a ``RequestContext``, then context processors will not have run, and the ``settings`` variable will not be availble. To get the ``settings``, use the provided ``{% get_settings %}`` template tag. If a ``request`` is in the template context, but for some reason it is not a ``RequestContext``, just use ``{% get_settings %}``:
+If you are not in a ``RequestContext``, then context processors will not have run, and the ``settings`` variable will not be available. To get the ``settings``, use the provided ``{% get_settings %}`` template tag. If a ``request`` is in the template context, but for some reason it is not a ``RequestContext``, just use ``{% get_settings %}``:
 
 .. code-block:: html+django
 

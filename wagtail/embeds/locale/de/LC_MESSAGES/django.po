@@ -4,7 +4,7 @@
 #
 # Translators:
 # Vorlif <flori@vorlif.org>, 2015
-# Henrik Kröger <hedwig@riseup.net>, 2016
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2018
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 14:24+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -24,11 +24,17 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Please enter a valid URL"
-msgstr "Bitte geben Sie eine gültige URL ein"
+msgid "Wagtail embeds"
+msgstr "Wagtail embeds"
+
+msgid "Cannot find an embed for this URL."
+msgstr "Für diese URL wurde kein Element gefunden."
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Please enter a valid URL"
+msgstr "Bitte geben Sie eine gültige URL ein"
 
 msgid "embed"
 msgstr "Einbetten"
@@ -45,9 +51,6 @@ msgid ""
 msgstr ""
 "Es gibt ein Problem mit Ihrem Embedly API-Key. Bitte überprüfen Sie Ihre "
 "Einstellungen!"
-
-msgid "Cannot find an embed for this URL."
-msgstr "Für diese URL wurde kein Element gefunden."
 
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "

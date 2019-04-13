@@ -1,0 +1,37 @@
+.status-tag {
+    border-radius: 2px;
+    text-align: center;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 0 0.5em;
+    border: 1px solid lighten($color-grey-2, 30%);
+    color: lighten($color-grey-2, 30%);
+    -webkit-font-smoothing: auto;
+    line-height: 19px;
+    font-size: 0.8em;
+    margin: 0 0.5em 0.5em;
+    background: #fff url('#{$images-root}bg-dark-diag.svg');
+
+    &.primary {
+        color: $color-grey-2;
+        border: 1px solid $color-grey-2;
+        background: #fff;
+    }
+
+    &.disabled {
+        pointer-events: none;
+    }
+}
+
+button.status-tag:hover,
+a.status-tag:hover,
+a.status-tag.primary:hover {
+    border-color: $color-teal;
+    color: $color-teal;
+}
+
+button.status-tag:hover {
+    border-color: $color-teal-dark;
+    background-color: $color-teal-darker;
+    color: $color-white;
+}

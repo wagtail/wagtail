@@ -1,6 +1,9 @@
+import json
+
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Permission
+from django.core import checks
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -9,6 +12,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from taggit.models import Tag
 
+from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
@@ -20,8 +24,8 @@ from wagtail.tests.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
     SearchableSnippet, StandardSnippet, StandardSnippetWithCustomPrimaryKey, ZuluSnippet)
 from wagtail.tests.testapp.models import (
-    Advert, AdvertWithCustomPrimaryKey, AdvertWithTabbedInterface, SnippetChooserModel,
-    SnippetChooserModelWithCustomPrimaryKey)
+    Advert, AdvertWithCustomPrimaryKey, AdvertWithCustomUUIDPrimaryKey, AdvertWithTabbedInterface,
+    SnippetChooserModel, SnippetChooserModelWithCustomPrimaryKey)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -182,7 +186,9 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def test_create_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
         self.assertContains(response, "The snippet could not be created due to errors.")
-        self.assertContains(response, "This field is required.")
+        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""",
+                            count=1, html=True)
+        self.assertContains(response, "This field is required", count=1)
 
     def test_create(self):
         response = self.post(post_data={'text': 'test_advert',
@@ -264,7 +270,9 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
         self.assertContains(response, "The snippet could not be saved due to errors.")
-        self.assertContains(response, "This field is required.")
+        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""",
+                            count=1, html=True)
+        self.assertContains(response, "This field is required", count=1)
 
     def test_edit(self):
         response = self.post(post_data={'text': 'edited_test_advert',
@@ -358,7 +366,66 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
-        self.assertIn('Used 2 times', str(response.content))
+        self.assertContains(response, 'Used 2 times')
+        self.assertContains(response, self.test_snippet.usage_url())
+
+
+class TestSnippetDeleteMultipleWithOne(TestCase, WagtailTestUtils):
+    # test deletion of one snippet using the delete-multiple URL
+    # behaviour should mimic the TestSnippetDelete but with different URl structure
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.snippet = Advert.objects.get(id=1)
+        self.login()
+
+    def test_delete_get(self):
+        url = reverse('wagtailsnippets:delete-multiple', args=('tests', 'advert'))
+        url += '?id=%s' % (self.snippet.id)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_delete_post(self):
+        url = reverse('wagtailsnippets:delete-multiple', args=('tests', 'advert'))
+        url += '?id=%s' % (self.snippet.id)
+        response = self.client.post(url)
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, reverse('wagtailsnippets:list', args=('tests', 'advert')))
+
+        # Check that the page is gone
+        self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)
+
+
+class TestSnippetDeleteMultipleWithThree(TestCase, WagtailTestUtils):
+    # test deletion of three snippets using the delete-multiple URL
+    fixtures = ['test.json']
+
+    def setUp(self):
+        # first advert is in the fixtures
+        Advert.objects.create(text="Boreas").save()
+        Advert.objects.create(text="Cloud 9").save()
+        self.snippets = Advert.objects.all()
+        self.login()
+
+    def test_delete_get(self):
+        # tests that the URL is available on get
+        url = reverse('wagtailsnippets:delete-multiple', args=('tests', 'advert'))
+        url += '?id=%s' % ('&id='.join(['%s' % snippet.id for snippet in self.snippets]))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_delete_post(self):
+        # tests that the URL is available on post and deletes snippets
+        url = reverse('wagtailsnippets:delete-multiple', args=('tests', 'advert'))
+        url += '?id=%s' % ('&id='.join(['%s' % snippet.id for snippet in self.snippets]))
+        response = self.client.post(url)
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, reverse('wagtailsnippets:list', args=('tests', 'advert')))
+
+        # Check that the page is gone
+        self.assertEqual(Advert.objects.filter(text='test_advert').count(), 0)
 
 
 class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
@@ -377,9 +444,8 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         self.edit_handler = get_snippet_edit_handler(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
-                                                          form=form,
-                                                          request=self.request)
+        edit_handler = self.edit_handler.bind_to(
+            instance=test_snippet, form=form, request=self.request)
 
         self.snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -397,9 +463,8 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModel()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
-                                                          form=form,
-                                                          request=self.request)
+        edit_handler = self.edit_handler.bind_to(
+            instance=test_snippet, form=form, request=self.request)
 
         snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -417,7 +482,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     def test_target_model_autodetected(self):
         result = SnippetChooserPanel(
             'advert'
-        ).bind_to_model(SnippetChooserModel).target_model
+        ).bind_to(model=SnippetChooserModel).target_model
         self.assertEqual(result, Advert)
 
 
@@ -559,7 +624,8 @@ class TestSnippetChosen(TestCase, WagtailTestUtils):
 
     def test_choose_a_page(self):
         response = self.get(pk=Advert.objects.all()[0].pk)
-        self.assertTemplateUsed(response, 'wagtailsnippets/chooser/chosen.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chosen')
 
     def test_choose_a_non_existing_page(self):
 
@@ -610,6 +676,13 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
+    def test_get_delete_mulitple(self):
+        url = reverse('wagtailsnippets:delete-multiple', args=('tests', 'advert'))
+        url += '?id=%s' % self.test_snippet.id
+        response = self.client.get(url)
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+
 
 class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
@@ -654,6 +727,13 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         # permission should be denied
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
+    def test_get_delete_mulitple(self):
+        url = reverse('wagtailsnippets:delete-multiple', args=('tests', 'advert'))
+        url += '?id=%s' % self.test_snippet.id
+        response = self.client.get(url)
+        # permission should be denied
+        self.assertRedirects(response, reverse('wagtailadmin_home'))
+
 
 class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
@@ -695,6 +775,13 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
 
     def test_get_delete(self):
         response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
+
+    def test_get_delete_mulitple(self):
+        url = reverse('wagtailsnippets:delete-multiple', args=('tests', 'advert'))
+        url += '?id=%s' % self.test_snippet.id
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
 
@@ -873,7 +960,8 @@ class TestSnippetViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailsnippets:delete', args=('snippetstests', 'standardsnippetwithcustomprimarykey', quote(self.snippet_a.pk), )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
-        self.assertIn('Used 0 times', str(response.content))
+        self.assertContains(response, 'Used 0 times')
+        self.assertContains(response, self.snippet_a.usage_url())
 
 
 class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
@@ -955,9 +1043,8 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.edit_handler = get_snippet_edit_handler(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
-                                                          form=form,
-                                                          request=self.request)
+        edit_handler = self.edit_handler.bind_to(
+            instance=test_snippet, form=form, request=self.request)
 
         self.snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -975,9 +1062,8 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModelWithCustomPrimaryKey()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
-                                                          form=form,
-                                                          request=self.request)
+        edit_handler = self.edit_handler.bind_to(
+            instance=test_snippet, form=form, request=self.request)
 
         snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -995,7 +1081,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def test_target_model_autodetected(self):
         result = SnippetChooserPanel(
             'advertwithcustomprimarykey'
-        ).bind_to_model(SnippetChooserModelWithCustomPrimaryKey).target_model
+        ).bind_to(model=SnippetChooserModelWithCustomPrimaryKey).target_model
         self.assertEqual(result, AdvertWithCustomPrimaryKey)
 
 
@@ -1039,4 +1125,58 @@ class TestSnippetChosenWithCustomPrimaryKey(TestCase, WagtailTestUtils):
 
     def test_choose_a_page(self):
         response = self.get(pk=AdvertWithCustomPrimaryKey.objects.all()[0].pk)
-        self.assertTemplateUsed(response, 'wagtailsnippets/chooser/chosen.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chosen')
+
+
+class TestSnippetChosenWithCustomUUIDPrimaryKey(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, pk, params=None):
+        return self.client.get(reverse('wagtailsnippets:chosen',
+                                       args=('tests', 'advertwithcustomuuidprimarykey', quote(pk))),
+                               params or {})
+
+    def test_choose_a_page(self):
+        response = self.get(pk=AdvertWithCustomUUIDPrimaryKey.objects.all()[0].pk)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chosen')
+
+
+class TestPanelConfigurationChecks(TestCase, WagtailTestUtils):
+
+    def setUp(self):
+        self.warning_id = 'wagtailadmin.W002'
+
+        def get_checks_result():
+            # run checks only with the 'panels' tag
+            checks_result = checks.run_checks(tags=['panels'])
+            return [
+                warning for warning in
+                checks_result if warning.id == self.warning_id]
+
+        self.get_checks_result = get_checks_result
+
+    def test_model_with_single_tabbed_panel_only(self):
+
+        StandardSnippet.content_panels = [FieldPanel('text')]
+
+        warning = checks.Warning(
+            "StandardSnippet.content_panels will have no effect on snippets editing",
+            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels`\
+or set up an `edit_handler` if you want a tabbed editing interface.
+There are no default tabs on non-Page models so there will be no\
+ Content tab for the content_panels to render in.""",
+            obj=StandardSnippet,
+            id='wagtailadmin.W002',
+        )
+
+        checks_results = self.get_checks_result()
+
+        self.assertEqual([warning], checks_results)
+
+        # clean up for future checks
+        delattr(StandardSnippet, 'content_panels')

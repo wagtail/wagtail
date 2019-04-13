@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
-# saevarom <saevar@saevar.is>, 2015-2016
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
+# saevarom <saevar@saevar.is>, 2015-2016,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-01-18 08:45+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail snippets"
+msgstr "Wagtail snifsi"
 
 msgid "Choose"
 msgstr "Velja"
@@ -29,7 +32,7 @@ msgstr "Leita"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -37,10 +40,11 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"Það er ein niðurstaða"
+"Það er %(counter)s niðurstaða\n"
+"        "
 msgstr[1] ""
 "\n"
-"Það eru %(counter)s niðurstöður"
+"Það eru %(counter)s niðurstöður        "
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -50,23 +54,33 @@ msgstr ""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
-"a>?"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
 msgstr ""
 "Þú hefur ekki búið til nein %(snippet_type_name)s snifsi. Er ekki málið að  "
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">búa til "
 "eitt núna</a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Eyða %(snippet_type_name)s - %(instance)s"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Eyða %(snippet_type_name)s"
 
-msgid "Delete"
+msgid "Delete "
 msgstr "Eyða"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Notað %(usage_count)s sinni"
+msgstr[1] "Notað %(usage_count)s sinnum"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Ertu viss um að þú viljir eyða þessu %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Ertu viss um að þú viljir eyða %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Já, eyða"
@@ -78,6 +92,9 @@ msgstr "Nýtt %(snippet_type_name)s"
 msgid "New"
 msgstr "Nýtt"
 
+msgid "Saving…"
+msgstr "Vista..."
+
 msgid "Save"
 msgstr "Vista"
 
@@ -87,6 +104,12 @@ msgstr "Breyti %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Breyti"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "Usage"
+msgstr "Notkun"
 
 msgid "Snippets"
 msgstr "Snifsi"
@@ -137,7 +160,6 @@ msgstr "Breyta þessari síðu"
 msgid "Search %(snippet_type_name)s"
 msgstr "Leita í %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' búið til."
 
@@ -147,16 +169,17 @@ msgstr "Breyta"
 msgid "The snippet could not be created due to errors."
 msgstr "Ekki var hægt að búa til snifsi þar sem það stóðst ekki villuprófanir."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' uppfært."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Ekki var hægt að vista snifsi þar sem það stóðst ekki villuprófanir."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' eytt."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} eytt."
 
 #, python-format
 msgid "Choose %s"

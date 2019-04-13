@@ -4,14 +4,15 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
+# Meteor0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-17 17:42+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-01 21:06+0000\n"
+"Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail snippets"
+msgstr "Wagtail snippets"
 
 msgid "Choose"
 msgstr "Kies"
@@ -29,7 +33,7 @@ msgstr "Zoeken"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -37,7 +41,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Er is één overeenkomst\n"
+"            Er is %(counter)s overeenkomst\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -53,18 +57,18 @@ msgstr ""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
-"a>?"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
 msgstr ""
-"Er is nog geen  %(snippet_type_name)s snippet aangemaakt. Waarom <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">voegt u er niet "
-"een toe</a>?"
+"Je heb geen %(snippet_type_name)s snippets toegevoegd. Waarom <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">maak je er nu niet een</a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Verwijder %(snippet_type_name)s - %(instance)s"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Verwijder%(snippet_type_name)s"
 
-msgid "Delete"
+msgid "Delete "
 msgstr "Verwijder"
 
 #, python-format
@@ -76,6 +80,11 @@ msgstr[1] "%(usage_count)s keer gebruikt"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Weet u zeker dat u deze %(snippet_type_name)s wilt verwijderen?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr ""
+"Weet u zeker dat u deze %(count)s%(snippet_type_name)s wilt verwijderen?"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
@@ -99,6 +108,9 @@ msgstr "Wijzigen %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Wijzigen"
+
+msgid "Delete"
+msgstr "Verwijder"
 
 msgid "Usage"
 msgstr "Gebruik"
@@ -152,7 +164,6 @@ msgstr "Wijzig deze pagina"
 msgid "Search %(snippet_type_name)s"
 msgstr "Zoek %(snippet_type_name)s"
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' created."
 msgstr "{snippet_type} '{instance}' aangemaakt."
 
@@ -162,16 +173,17 @@ msgstr "Wijzig"
 msgid "The snippet could not be created due to errors."
 msgstr "De snippet kon niet worden aangemaakt door fouten."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' updated."
 msgstr "{snippet_type} '{instance}' gewijzigd."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "De snippet kon niet worden opgeslagen door fouten."
 
-#, python-brace-format
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' verwijderd."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} verwijderd."
 
 #, python-format
 msgid "Choose %s"

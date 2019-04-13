@@ -86,23 +86,15 @@ The feature identifiers provided on a default Wagtail installation are as follow
  * ``embed`` - embedded media (see :ref:`embedded_content`)
 
 
-Adding new features to this list is generally a two step process:
+We have few additional feature identifiers as well. They are not enabled by default, but you can use them in your list of identifers. These are as follows:
 
- * Create a plugin that extends the editor with a new toolbar button or other control(s) to manage the rich text formatting of the feature.
- * Create conversion or whitelist rules to define how content from the editor should be filtered or transformed before storage, and front-end HTML output.
-
-Both of these steps are performed through the ``register_rich_text_features`` hook (see :ref:`admin_hooks`). The hook function is triggered on startup, and receives a *feature registry* object as its argument; this object keeps track of the behaviours associated with each feature identifier.
-
-To have a feature active by default (i.e. on ``RichTextFields`` that do not define an explicit ``features`` list), add it to the ``default_features`` list on the ``features`` object:
-
-.. code-block:: python
-
-    @hooks.register('register_rich_text_features')
-    def register_blockquote_feature(features):
-        features.default_features.append('h6')
+* ``code`` - inline code
+* ``superscript``, ``subscript``, ``strikethrough`` - text formatting
+* ``blockquote`` - blockquote
 
 The process for creating new features is described in the following pages:
 
+* :doc:`./rich_text_internals`
 * :doc:`./extending_draftail`
 * :doc:`./extending_hallo`
 
@@ -142,6 +134,9 @@ To begin, import the ``Format`` class, ``register_image_format`` function, and o
 
 
 To unregister, call ``unregister_image_format`` with the string of the ``name`` of the ``Format`` as the only argument.
+
+  .. warning::
+     Unregistering ``Format`` objects will cause errors viewing or editing pages that reference them.
 
 .. _custom_edit_handler_forms:
 

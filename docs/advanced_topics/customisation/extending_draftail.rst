@@ -1,7 +1,7 @@
 Extending the Draftail Editor
 =============================
 
-Wagtail’s rich text editor is built with `Draftail <https://github.com/springload/draftail>`_, and its functionality can be extended through plugins.
+Wagtail’s rich text editor is built with `Draftail <https://www.draftail.org/>`__, and its functionality can be extended through plugins.
 
 Plugins come in three types:
 
@@ -9,7 +9,7 @@ Plugins come in three types:
 * Blocks – To indicate the structure of the content, eg. ``blockquote``, ``ol``.
 * Entities – To enter additional data/metadata, eg. ``link`` (with a URL), ``image`` (with a file).
 
-All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of ``strikethrough``.
+All of these plugins are created with a similar baseline, which we can demonstrate with one of the simplest examples – a custom feature for an inline style of ``mark``. Place the following in a ``wagtail_hooks.py`` file in any installed app:
 
 .. code-block:: python
 
@@ -19,21 +19,21 @@ All of these plugins are created with a similar baseline, which we can demonstra
 
     # 1. Use the register_rich_text_features hook.
     @hooks.register('register_rich_text_features')
-    def register_strikethrough_feature(features):
+    def register_mark_feature(features):
         """
-        Registering the `strikethrough` feature, which uses the `STRIKETHROUGH` Draft.js inline style type,
-        and is stored as HTML with an `<s>` tag.
+        Registering the `mark` feature, which uses the `MARK` Draft.js inline style type,
+        and is stored as HTML with a `<mark>` tag.
         """
-        feature_name = 'strikethrough'
-        type_ = 'STRIKETHROUGH'
-        tag = 's'
+        feature_name = 'mark'
+        type_ = 'MARK'
+        tag = 'mark'
 
         # 2. Configure how Draftail handles the feature in its toolbar.
         control = {
             'type': type_,
-            'label': 'S',
-            'description': 'Strikethrough',
-            # This isn’t even required – Draftail has predefined styles for STRIKETHROUGH.
+            'label': '☆',
+            'description': 'Mark',
+            # This isn’t even required – Draftail has predefined styles for MARK.
             # 'style': {'textDecoration': 'line-through'},
         }
 
@@ -51,13 +51,17 @@ All of these plugins are created with a similar baseline, which we can demonstra
         # 5. Call register_converter_rule to register the content transformation conversion.
         features.register_converter_rule('contentstate', feature_name, db_conversion)
 
-These five steps will always be the same for all Draftail plugins. The important parts are to:
+        # 6. (optional) Add the feature to the default features list to make it available
+        # on rich text fields that do not specify an explicit 'features' list
+        features.default_features.append('mark')
+
+These steps will always be the same for all Draftail plugins. The important parts are to:
 
 * Consistently use the feature’s Draft.js type or Wagtail feature names where appropriate.
 * Give enough information to Draftail so it knows how to make a button for the feature, and how to render it (more on this later).
 * Configure the conversion to use the right HTML element (as they are stored in the DB).
 
-For detailed configuration options, head over to the `Draftail documentation <https://github.com/springload/draftail#formatting-options>`_ to see all of the details. Here are some parts worth highlighting about controls:
+For detailed configuration options, head over to the `Draftail documentation <https://www.draftail.org/docs/formatting-options>`__ to see all of the details. Here are some parts worth highlighting about controls:
 
 * The ``type`` is the only mandatory piece of information.
 * To display the control in the toolbar, combine ``icon``, ``label`` and ``description``.
@@ -66,9 +70,9 @@ For detailed configuration options, head over to the `Draftail documentation <ht
 Creating new inline styles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In addition to the initial example, inline styles take a ``style`` property to define what CSS rules will be applied to text in the editor. Be sure to read the `Draftail documentation <https://github.com/springload/draftail#formatting-options>`_ on inline styles.
+In addition to the initial example, inline styles take a ``style`` property to define what CSS rules will be applied to text in the editor. Be sure to read the `Draftail documentation <https://www.draftail.org/docs/formatting-options>`__ on inline styles.
 
-Finally, the DB to/from conversion uses an ``InlineStyleElementHandler`` to map from a given tag (``<s>`` in the example above) to a Draftail type, and the inverse mapping is done with `Draft.js exporter configuration <https://github.com/springload/draftjs_exporter>`_ of the ``style_map``.
+Finally, the DB to/from conversion uses an ``InlineStyleElementHandler`` to map from a given tag (``<mark>`` in the example above) to a Draftail type, and the inverse mapping is done with `Draft.js exporter configuration <https://github.com/springload/draftjs_exporter>`_ of the ``style_map``.
 
 Creating new blocks
 ~~~~~~~~~~~~~~~~~~~
@@ -80,30 +84,29 @@ Blocks are nearly as simple as inline styles:
     from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 
     @hooks.register('register_rich_text_features')
-    def register_blockquote_feature(features):
+    def register_help_text_feature(features):
         """
-        Registering the `blockquote` feature, which uses the `blockquote` Draft.js block type,
-        and is stored as HTML with a `<blockquote>` tag.
+        Registering the `help-text` feature, which uses the `help-text` Draft.js block type,
+        and is stored as HTML with a `<div class="help-text">` tag.
         """
-        feature_name = 'blockquote'
-        type_ = 'blockquote'
-        tag = 'blockquote'
+        feature_name = 'help-text'
+        type_ = 'help-text'
 
         control = {
             'type': type_,
-            'label': '❝',
-            'description': 'Blockquote',
+            'label': '?',
+            'description': 'Help text',
             # Optionally, we can tell Draftail what element to use when displaying those blocks in the editor.
-            'element': 'blockquote',
+            'element': 'div',
         }
 
         features.register_editor_plugin(
-            'draftail', feature_name, draftail_features.BlockFeature(control)
+            'draftail', feature_name, draftail_features.BlockFeature(control, css={'all': ['help-text.css']})
         )
 
         features.register_converter_rule('contentstate', feature_name, {
-            'from_database_format': {tag: BlockElementHandler(type_)},
-            'to_database_format': {'block_map': {type_: tag}},
+            'from_database_format': {'div.help-text': BlockElementHandler(type_)},
+            'to_database_format': {'block_map': {type_: {'element': 'div', 'props': {'class': 'help-text'}}}},
         })
 
 Here are the main differences:
@@ -112,7 +115,7 @@ Here are the main differences:
 * We register the plugin with ``BlockFeature``.
 * We set up the conversion with ``BlockElementHandler`` and ``block_map``.
 
-Optionally, we can also define styles for the blocks with the ``Draftail-block--blockquote`` (``Draftail-block--<block type>``) CSS class.
+Optionally, we can also define styles for the blocks with the ``Draftail-block--help-text`` (``Draftail-block--<block type>``) CSS class.
 
 That’s it! The extra complexity is that you may need to write CSS to style the blocks in the editor.
 
@@ -141,8 +144,8 @@ Here are the main requirements to create a new entity feature:
 * Like for inline styles and blocks, set up the to/from DB conversion.
 * The conversion usually is more involved, since entities contain data that needs to be serialised to HTML.
 
-To write the React components, Wagtail exposes its own React and Draft.js dependencies as global variables. Read more about this in :ref:`extending_clientside_components`.
-To go further, please look at the `Draftail documentation <https://github.com/springload/draftail#formatting-options>`_ as well as the `Draft.js exporter documentation <https://github.com/springload/draftjs_exporter>`_.
+To write the React components, Wagtail exposes its own React, Draft.js and Draftail dependencies as global variables. Read more about this in :ref:`extending_clientside_components`.
+To go further, please look at the `Draftail documentation <https://www.draftail.org/docs/formatting-options>`__ as well as the `Draft.js exporter documentation <https://github.com/springload/draftjs_exporter>`_.
 
 Here is a detailed example to showcase how those tools are used in the context of Wagtail.
 For the sake of our example, we can imagine a news team working at a financial newspaper.
@@ -177,7 +180,11 @@ In order to achieve this, we start with registering the rich text feature like f
         }
 
         features.register_editor_plugin(
-            'draftail', feature_name, draftail_features.EntityFeature(control)
+            'draftail', feature_name, draftail_features.EntityFeature(
+                control,
+                js=['stock.js'],
+                css={'all': ['stock.css']}
+            )
         )
 
         features.register_converter_rule('contentstate', feature_name, {
@@ -185,6 +192,10 @@ In order to achieve this, we start with registering the rich text feature like f
             'from_database_format': {'span[data-stock]': StockEntityElementHandler(type_)},
             'to_database_format': {'entity_decorators': {type_: stock_entity_decorator}},
         })
+
+The ``js`` and ``css`` keyword arguments on ``EntityFeature`` can be used to specify additional
+JS and CSS files to load when this feature is active. Both are optional. Their values are added to a ``Media`` object, more documentation on these objects
+is available in the :doc:`Django Form Assets documentation <django:topics/forms/media>`.
 
 Since entities hold data, the conversion to/from database format is more complicated. We have to create the two handlers:
 
@@ -220,26 +231,7 @@ Since entities hold data, the conversion to/from database format is more complic
 
 Note how they both do similar conversions, but use different APIs. ``to_database_format`` is built with the `Draft.js exporter <https://github.com/springload/draftjs_exporter>`_ components API, whereas ``from_database_format`` uses a Wagtail API.
 
-The next step is to add JavaScript to define how the entities are created (the ``source``), and how they are displayed (the ``decorator``). First, we load the JS file which will contain those components:
-
-.. code-block:: python
-
-    from django.utils.html import format_html_join
-    from django.conf import settings
-
-    @hooks.register('insert_editor_js')
-    def stock_editor_js():
-        js_files = [
-            # We require this file here to make sure it is loaded before stock.js.
-            'wagtailadmin/js/draftail.js',
-            'stock.js',
-        ]
-        js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
-            ((settings.STATIC_URL, filename) for filename in js_files)
-        )
-        return js_includes
-
-We define the source component:
+The next step is to add JavaScript to define how the entities are created (the ``source``), and how they are displayed (the ``decorator``). Within ``stock.js``, we define the source component:
 
 .. code-block:: javascript
 
@@ -279,7 +271,7 @@ We define the source component:
         }
     }
 
-This source component uses data and callbacks provided by `Draftail <https://github.com/springload/draftail>`_.
+This source component uses data and callbacks provided by `Draftail <https://www.draftail.org/docs/api>`_.
 It also uses dependencies from global variables – see :ref:`extending_clientside_components`.
 
 We then create the decorator component:
@@ -333,7 +325,7 @@ To fully complete the demo, we can add a bit of JavaScript to the front-end in o
 
 ----
 
-Custom block entities can also be created (have a look at the separate `Draftail <https://github.com/springload/draftail>`_ documentation), but these are not detailed here since :ref:`StreamField <streamfield>` is the go-to way to create block-level rich text in Wagtail.
+Custom block entities can also be created (have a look at the separate `Draftail documentation <https://www.draftail.org/docs/blocks>`__), but these are not detailed here since :ref:`StreamField <streamfield>` is the go-to way to create block-level rich text in Wagtail.
 
 Integration of the Draftail widgets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

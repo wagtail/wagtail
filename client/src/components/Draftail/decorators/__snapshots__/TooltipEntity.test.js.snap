@@ -4,6 +4,7 @@ exports[`TooltipEntity #openTooltip 1`] = `
 <a
   className="TooltipEntity"
   data-draftail-trigger={true}
+  href="https://www.example.com/"
   onMouseUp={[Function]}
   role="button"
 >
@@ -76,6 +77,7 @@ exports[`TooltipEntity works 1`] = `
 <a
   className="TooltipEntity"
   data-draftail-trigger={true}
+  href="https://www.example.com/"
   onMouseUp={[Function]}
   role="button"
 >

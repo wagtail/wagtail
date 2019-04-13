@@ -76,7 +76,7 @@ class TestAdminPageChooserWidget(TestCase):
         )
 
         html = widget.render_html('test', self.child_page, {})
-        self.assertIn(">Choose a page (Simple Page, Event Page)<", html)
+        self.assertIn(">Choose a page<", html)
 
     def test_render_js_init_with_can_choose_root(self):
         widget = widgets.AdminPageChooser(can_choose_root=True)
@@ -92,32 +92,34 @@ class TestAdminDateInput(TestCase):
     def test_render_js_init(self):
         widget = widgets.AdminDateInput()
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+
+        self.assertInHTML('<input type="text" name="test" autocomplete="new-date" id="test-id" />', html)
 
         # we should see the JS initialiser code:
         # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
         # except that we can't predict the order of the config options
-        self.assertIn('initDateChooser("test-id", {', js_init)
-        self.assertIn('"dayOfWeekStart": 0', js_init)
-        self.assertIn('"format": "Y-m-d"', js_init)
+        self.assertIn('initDateChooser("test\\u002Did", {', html)
+        self.assertIn('"dayOfWeekStart": 0', html)
+        self.assertIn('"format": "Y-m-d"', html)
 
     def test_render_js_init_with_format(self):
         widget = widgets.AdminDateInput(format='%d.%m.%Y.')
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y."',
-            js_init,
+            html,
         )
 
     @override_settings(WAGTAIL_DATE_FORMAT='%d.%m.%Y.')
     def test_render_js_init_with_format_from_settings(self):
         widget = widgets.AdminDateInput()
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y."',
-            js_init,
+            html,
         )
 
 
@@ -126,30 +128,87 @@ class TestAdminDateTimeInput(TestCase):
     def test_render_js_init(self):
         widget = widgets.AdminDateTimeInput()
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+
+        self.assertInHTML('<input type="text" name="test" autocomplete="new-date-time" id="test-id" />', html)
 
         # we should see the JS initialiser code:
         # initDateTimeChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d H:i"});
         # except that we can't predict the order of the config options
-        self.assertIn('initDateTimeChooser("test-id", {', js_init)
-        self.assertIn('"dayOfWeekStart": 0', js_init)
-        self.assertIn('"format": "Y-m-d H:i"', js_init)
+        self.assertIn('initDateTimeChooser("test\\u002Did", {', html)
+        self.assertIn('"dayOfWeekStart": 0', html)
+        self.assertIn('"format": "Y-m-d H:i"', html)
 
     def test_render_js_init_with_format(self):
         widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M')
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y. H:i"',
-            js_init,
+            html,
         )
 
     @override_settings(WAGTAIL_DATETIME_FORMAT='%d.%m.%Y. %H:%M')
     def test_render_js_init_with_format_from_settings(self):
         widget = widgets.AdminDateTimeInput()
 
-        js_init = widget.render_js_init('test-id', 'test', None)
+        html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y. H:i"',
-            js_init,
+            html,
         )
+
+
+class TestAdminTagWidget(TestCase):
+
+    def get_js_init_params(self, html):
+        """Returns a list of the params passed in to initTagField from the supplied HTML"""
+        # Eg. ["'test\\u002Did'", "'/admin/tag\\u002Dautocomplete/'", 'true', 'null']
+        start = 'initTagField('
+        end = ');'
+        items_after_init = html.split(start)[1]
+        if items_after_init:
+            params_raw = items_after_init.split(end)[0]
+            if params_raw:
+                return [part.strip() for part in params_raw.split(',')]
+        return []
+
+
+    def test_render_js_init_basic(self):
+        """Chekcs that the 'initTagField' is correctly added to the inline script for tag widgets"""
+        widget = widgets.AdminTagWidget()
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(len(params), 4)
+        self.assertEqual(params[0], "'alpha'")  # id
+        self.assertEqual(params[1], "'/admin/tag\\u002Dautocomplete/'")  # autocomplete url
+        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
+        self.assertEqual(params[3], 'null')  # tag_limit
+
+
+    @override_settings(TAG_SPACES_ALLOWED=False)
+    def test_render_js_init_no_spaces_allowed(self):
+        """Chekcs that the 'initTagField' includes the correct value based on TAG_SPACES_ALLOWED in settings"""
+        widget = widgets.AdminTagWidget()
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(len(params), 4)
+        self.assertEqual(params[2], 'false')  # tag_spaces_allowed
+        self.assertEqual(params[3], 'null')  # tag_limit
+
+
+    @override_settings(TAG_LIMIT=5)
+    def test_render_js_init_with_tag_limit(self):
+        """Chekcs that the 'initTagField' includes the correct value based on TAG_LIMIT in settings"""
+        widget = widgets.AdminTagWidget()
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(len(params), 4)
+        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
+        self.assertEqual(params[3], '5')  # tag_limit

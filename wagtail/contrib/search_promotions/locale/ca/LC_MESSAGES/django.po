@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:06+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -134,22 +134,6 @@ msgid "None"
 msgstr "Cap"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Hi ha una coincidència"
-msgstr[1] ""
-"\n"
-"Hi han %(counter)s coincidències"
-
-#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "No s'han trobat resultats promocionats que coincideixin amb \"<em>"
@@ -166,7 +150,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Resultats de cerca promocionats"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Selecció de l'editor per a '{0}' creada."
 
@@ -176,7 +159,6 @@ msgstr "Editar"
 msgid "Recommendations have not been created due to errors"
 msgstr "No s'han creat les recomanacions a causa d'errors"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Selecció de l'editor per '{0}' actualitzada."
 

@@ -2,61 +2,127 @@ Your first Wagtail site
 =======================
 
 .. note::
-   This tutorial covers setting up a brand new Wagtail project. If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
+   This tutorial covers setting up a brand new Wagtail project.
+   If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
 
-1. Install Wagtail and its dependencies:
+Install and run Wagtail
+-----------------------
 
-   .. code-block:: console
+Install dependencies
+~~~~~~~~~~~~~~~~~~~~
 
-       $ pip install wagtail
+Wagtail supports Python 3.5, 3.6, and 3.7.
 
-2. Start your site:
+To check whether you have an appropriate version of Python 3:
 
-   .. code-block:: console
+.. code-block:: console
 
-       $ wagtail start mysite
-       $ cd mysite
+   $ python3 --version
 
-   Wagtail provides a ``start`` command similar to
-   ``django-admin.py startproject``. Running ``wagtail start mysite`` in
-   your project will generate a new ``mysite`` folder with a few
-   Wagtail-specific extras, including the required project settings, a
-   "home" app with a blank ``HomePage`` model and basic templates and a sample
-   "search" app.
+If this does not return a version number or returns a version lower than 3.5, you will need to `install Python 3 <https://www.python.org/downloads/>`_.
 
-3. Install project dependencies:
+.. important::
+   Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library).
+   The way to do this varies by platform—see Pillow's
+   `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
-   .. code-block:: console
 
-       $ pip install -r requirements.txt
+Create and activate a virtual environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   This ensures that you have the relevant version of Django for the project you've just created.
+We recommend using a virtual environment, which provides an isolated Python environment.
+This tutorial uses `venv <https://docs.python.org/3/tutorial/venv.html>`_, which is packaged with Python 3.
 
-4. Create the database:
+**On Windows** (cmd.exe):
 
-   .. code-block:: console
+    .. code-block:: bat
 
-       $ python manage.py migrate
+       $ python3 -m venv mysite\env
+       $ mysite\env\Scripts\activate.bat
 
-   If you haven't updated the project settings, this will be a SQLite
-   database file in the project directory.
+**On Unix or MacOS** (bash):
 
-5. Create an admin user:
+    .. code-block:: console
 
-   .. code-block:: console
+       $ python3 -m venv mysite/env
+       $ source mysite/env/bin/activate
 
-       $ python manage.py createsuperuser
+**For other shells** see the `venv documentation <https://docs.python.org/3/library/venv.html>`_.
 
-6. ``python manage.py runserver`` If everything worked,
-   http://127.0.0.1:8000 will show you a welcome page
+.. note::
 
-   .. figure:: ../_static/images/tutorial/tutorial_1.png
-      :alt: Wagtail welcome message
+   If you're using version control (e.g. git), ``mysite`` will be the directory for your project.
+   The ``env`` directory inside of it should be excluded from any version control.
 
-   You can now access the administrative area at http://127.0.0.1:8000/admin
+Install Wagtail
+~~~~~~~~~~~~~~~
 
-   .. figure:: ../_static/images/tutorial/tutorial_2.png
-      :alt: Administrative screen
+Use pip, which is packaged with Python, to install Wagtail and its dependencies:
+
+.. code-block:: console
+
+   $ pip install wagtail
+
+Generate your site
+~~~~~~~~~~~~~~~~~~
+
+Wagtail provides a ``start`` command similar to ``django-admin startproject``.
+Running ``wagtail start mysite`` in your project will generate a new ``mysite`` folder with a few Wagtail-specific extras, including
+the required project settings,
+a "home" app with a blank ``HomePage`` model and basic templates,
+and a sample "search" app.
+
+Because the folder ``mysite`` was already created by ``venv``, run ``wagtail start`` with an additional argument to specify the destination directory:
+
+.. code-block:: console
+
+   $ wagtail start mysite mysite
+
+Install project dependencies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+   $ cd mysite
+   $ pip install -r requirements.txt
+
+This ensures that you have the relevant versions of
+Wagtail,
+Django,
+and any other dependencies for the project you have just created.
+
+Create the database
+~~~~~~~~~~~~~~~~~~~
+
+If you haven't updated the project settings, this will be a SQLite database file in the project directory.
+
+.. code-block:: console
+
+   $ python manage.py migrate
+
+Create an admin user
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+   $ python manage.py createsuperuser
+
+Start the server
+~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+   $ python manage.py runserver
+
+If everything worked, http://127.0.0.1:8000 will show you a welcome page:
+
+.. figure:: ../_static/images/tutorial/tutorial_1.png
+   :alt: Wagtail welcome message
+
+You can now access the administrative area at http://127.0.0.1:8000/admin
+
+.. figure:: ../_static/images/tutorial/tutorial_2.png
+   :alt: Administrative screen
 
 Extend the HomePage model
 -------------------------
@@ -82,7 +148,7 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
         ]
 
 ``body`` is defined as ``RichTextField``, a special Wagtail field. You
-can use any of the `Django core fields <https://docs.djangoproject.com/en/1.11/ref/models/fields/>`__. ``content_panels`` define the
+can use any of the :doc:`Django core fields <django:ref/models/fields>`. ``content_panels`` define the
 capabilities and the layout of the editing interface. :doc:`More on creating Page models. <../topics/pages>`
 
 Run ``python manage.py makemigrations``, then
@@ -97,7 +163,7 @@ to the model. Wagtail uses normal Django templates to render each page
 type. By default, it will look for a template filename formed from the app and model name,
 separating capital letters with underscores (e.g. HomePage within the 'home' app becomes
 ``home/home_page.html``). This template file can exist in any location recognised by
-`Django's template rules <https://docs.djangoproject.com/en/1.11/intro/tutorial03/#write-views-that-actually-do-something>`__; conventionally it is placed under a ``templates`` folder within the app.
+`Django's template rules <https://docs.djangoproject.com/en/stable/intro/tutorial03/#write-views-that-actually-do-something>`__; conventionally it is placed under a ``templates`` folder within the app.
 
 Edit ``home/templates/home/home_page.html`` to contain the following:
 
@@ -381,7 +447,7 @@ model like this:
             context['blogpages'] = blogpages
             return context
 
-All we've done here is retrieve the original context, create a custom queryset,
+All we've done here is retrieve the original context, create a custom QuerySet,
 add it to the retrieved context, and return the modified context back to the view.
 You'll also need to modify your ``blog_index_page.html`` template slightly.
 Change:
@@ -661,7 +727,7 @@ Note that this Page-based model defines no fields of its own.
 Even without fields, subclassing ``Page`` makes it a part of the
 Wagtail ecosystem, so that you can give it a title and URL in the
 admin, and so that you can manipulate its contents by returning
-a queryset from its ``get_context()`` method.
+a QuerySet from its ``get_context()`` method.
 
 Migrate this in, then create a new ``BlogTagIndexPage`` in the admin.
 You'll probably want to create the new page/view as a child of Homepage,

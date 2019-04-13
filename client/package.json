@@ -6,16 +6,10 @@
   "license": "BSD-3-Clause",
   "author": "Wagtail",
   "main": "src/index.js",
-  "bin": {
-    "wagtail": "./src/cli/index.js"
-  },
   "files": [
     "src/index.js"
   ],
   "devDependencies": {},
-  "dependencies": {
-    "mustache": "^2.2.1",
-    "yargs": "^4.2.0"
-  },
+  "dependencies": {},
   "scripts": {}
 }

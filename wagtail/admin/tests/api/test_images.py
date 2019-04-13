@@ -18,7 +18,6 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
     def get_image_id_list(self, content):
         return [image['id'] for image in content['items']]
 
-
     # BASIC TESTS
 
     def test_basic(self):
@@ -47,14 +46,13 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
         for image in content['items']:
             self.assertIn('meta', image)
             self.assertIsInstance(image['meta'], dict)
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
 
             # Type should always be wagtailimages.Image
             self.assertEqual(image['meta']['type'], 'wagtailimages.Image')
 
             # Check detail url
             self.assertEqual(image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % image['id'])
-
 
     #  FIELDS
 
@@ -64,7 +62,7 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
 
     def test_fields(self):
         response = self.get_response(fields='width,height')
@@ -72,7 +70,7 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
 
     def test_remove_fields(self):
         response = self.get_response(fields='-title')
@@ -87,14 +85,14 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'download_url'})
 
     def test_remove_all_meta_fields(self):
         response = self.get_response(fields='-type,-detail_url,-tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'title', 'width', 'height', 'thumbnail'})
+            self.assertEqual(set(image.keys()), {'id', 'title', 'width', 'height', 'thumbnail', 'meta'})
 
     def test_remove_id_field(self):
         response = self.get_response(fields='-id')
@@ -109,7 +107,7 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
 
     def test_all_fields_then_remove_something(self):
         response = self.get_response(fields='*,-title,-tags')
@@ -117,7 +115,7 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'download_url'})
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
@@ -125,7 +123,7 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
 
         for image in content['items']:
             self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
             self.assertIsInstance(image['meta']['tags'], list)
 
 

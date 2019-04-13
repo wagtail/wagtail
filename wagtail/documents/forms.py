@@ -3,7 +3,7 @@ from django.forms.models import modelform_factory
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin import widgets
-from wagtail.admin.forms import (
+from wagtail.admin.forms.collections import (
     BaseCollectionMemberForm, collection_member_permission_formset_factory)
 from wagtail.documents.models import Document
 from wagtail.documents.permissions import permission_policy as documents_permission_policy
@@ -33,10 +33,14 @@ def get_document_form(model):
 
 
 def get_document_multi_form(model):
+    fields = [field for field in model.admin_form_fields if field != 'file']
+    if 'collection' not in fields:
+        fields.append('collection')
+
     return modelform_factory(
         model,
         form=BaseDocumentForm,
-        fields=['title', 'collection', 'tags'],
+        fields=fields,
         widgets={
             'tags': widgets.AdminTagWidget,
             'file': forms.FileInput()

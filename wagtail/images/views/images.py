@@ -1,5 +1,6 @@
 import os
 
+from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -8,17 +9,16 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
 from wagtail.core.models import Collection, Site
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.forms import URLGeneratorForm, get_image_form
-from wagtail.images.models import Filter
+from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
 from wagtail.images.views.serve import generate_signature
 from wagtail.search import index as search_index
-from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -54,13 +54,16 @@ def index(request):
         except (ValueError, Collection.DoesNotExist):
             pass
 
-    paginator, images = paginate(request, images)
+    paginator = Paginator(images, per_page=20)
+    images = paginator.get_page(request.GET.get('p'))
 
     collections = permission_policy.collections_user_has_any_permission_for(
         request.user, ['add', 'change']
     )
     if len(collections) < 2:
         collections = None
+    else:
+        collections = Collection.order_for_display(collections)
 
     # Create response
     if request.is_ajax():
@@ -101,6 +104,11 @@ def edit(request, image_id):
                 # Set new image file size
                 image.file_size = image.file.size
 
+                # Set new image file hash
+                image.file.seek(0)
+                image._set_file_hash(image.file.read())
+                image.file.seek(0)
+
             form.save()
 
             if 'file' in form.changed_data:
@@ -138,11 +146,16 @@ def edit(request, image_id):
                 messages.button(reverse('wagtailimages:delete', args=(image.id,)), _('Delete'))
             ])
 
+    try:
+        filesize = image.get_file_size()
+    except SourceImageIOError:
+        filesize = None
+
     return render(request, "wagtailimages/images/edit.html", {
         'image': image,
         'form': form,
         'url_generator_enabled': url_generator_enabled,
-        'filesize': image.get_file_size(),
+        'filesize': filesize,
         'user_can_delete': permission_policy.user_has_permission_for_instance(
             request.user, 'delete', image
         ),
@@ -248,6 +261,11 @@ def add(request):
             # Set image file size
             image.file_size = image.file.size
 
+            # Set image file hash
+            image.file.seek(0)
+            image._set_file_hash(image.file.read())
+            image.file.seek(0)
+
             form.save()
 
             # Reindex the image to make sure all tags are indexed
@@ -270,7 +288,8 @@ def add(request):
 def usage(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    paginator, used_by = paginate(request, image.get_usage())
+    paginator = Paginator(image.get_usage(), per_page=20)
+    used_by = paginator.get_page(request.GET.get('p'))
 
     return render(request, "wagtailimages/images/usage.html", {
         'image': image,

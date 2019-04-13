@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2018
+# Dan Braghis, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 23:41+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-01-25 09:31+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Wagtail documents"
+msgstr "Documente Wagtail"
 
 msgid "Add"
 msgstr "Adaugă"
@@ -50,6 +53,9 @@ msgstr "etichete"
 msgid "document"
 msgstr "document"
 
+msgid "documents"
+msgstr "documente"
+
 msgid "Choose a document"
 msgstr "Alege document"
 
@@ -62,16 +68,10 @@ msgstr "Încărcare"
 msgid "Uploading…"
 msgstr "În curs de încărcare…"
 
-msgid "Server Error"
-msgstr "Eroare de server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportează această eroare webmasterului cu următoarele informații:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -79,13 +79,16 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"Există o potrivire"
+"            Există %(counter)s potrivire\n"
+"        "
 msgstr[1] ""
 "\n"
-"Sunt %(counter)s potriviri"
+"            Sunt%(counter)s potriviry\n"
+"        "
 msgstr[2] ""
 "\n"
-"Sunt %(counter)s potriviri"
+"            Sunt %(counter)s potriviri\n"
+"        "
 
 msgid "Latest documents"
 msgstr "Documente recente"
@@ -95,6 +98,24 @@ msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
 "document"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Nu ați încărcat nici un document în această colecție."
+
+msgid "You haven't uploaded any documents."
+msgstr "Nu ați încărcat nici un document. "
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            De ce să nu <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?\n"
+"            "
 
 msgid "Change document:"
 msgstr "Schimbă documentul:"
@@ -152,6 +173,9 @@ msgstr "Titlu"
 
 msgid "File"
 msgstr "Fișier"
+
+msgid "Collection"
+msgstr "Colecție"
 
 msgid "Uploaded"
 msgstr "Încărcat"
@@ -232,7 +256,7 @@ msgid "Add to collection:"
 msgstr "Adaugă la colecția:"
 
 msgid ""
-"Upload successful. Please update this documents with a more appropriate "
+"Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
@@ -258,17 +282,21 @@ msgstr "Permisiunile documentului"
 msgid "Add a document permission"
 msgstr "Adaugă permisiune document"
 
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportează această eroare webmasterului cu următoarele informații:"
+
 msgid "Search documents"
 msgstr "Caută documente"
 
-#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documentul '{0}' a fost adăugat."
 
 msgid "The document could not be saved due to errors."
 msgstr "Documentul nu a fost salvat din cauza erorilor."
 
-#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documentul '{0}' a fost actualizat."
 
@@ -276,7 +304,6 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
 
-#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documentul '{0}' a fost șters."
 

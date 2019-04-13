@@ -8,10 +8,16 @@
                     </label>
                 </h2>
             {% endif %}
-            {% if child.help_text %}
-                <div class="object-help help"><span class="icon-help-inverse" aria-hidden="true"></span>{{ child.help_text }}</div>
-            {% endif %}
-            {{ child.render_as_object }}
+            <div class="object-layout">
+                {% if child.help_text %}
+                <div class="object-layout_small-part">
+                    <div class="object-help help"><span class="icon-help-inverse" aria-hidden="true"></span>{{ child.help_text }}</div>
+                </div>
+                {% endif %}
+                <div class="object-layout_big-part">
+                    {{ child.render_as_object }}
+                </div>
+            </div>
         </li>
     {% endfor %}
 </ul>

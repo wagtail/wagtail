@@ -59,7 +59,7 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
                 page=page,
                 page_perms=page_perms,
                 is_parent=is_parent,
-                attrs={'target': '_blank'},
+                attrs={'target': '_blank', 'rel': 'noopener noreferrer'},
                 priority=50
             )
 

@@ -9,16 +9,16 @@
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2017
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-07 11:25+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail users"
+msgstr "Usuários Wagtail"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -76,6 +79,15 @@ msgstr "Um grupo com este nome já existe."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Você não pode ter vários registros de permissão para a mesma página."
 
+msgid "Preferred language"
+msgstr "Idioma preferido"
+
+msgid "Current time zone"
+msgstr "Fuso horário atual"
+
+msgid "Upload a profile picture"
+msgstr "Carregar uma foto do perfil"
+
 msgid "submitted notifications"
 msgstr "notificações enviadas"
 
@@ -100,8 +112,20 @@ msgstr "idioma preferido"
 msgid "Select language for the admin"
 msgstr "Selecione o idioma para o administrador"
 
+msgid "current time zone"
+msgstr "fuso horário atual"
+
+msgid "Select your current time zone"
+msgstr "Selecione seu fuso horário atual"
+
+msgid "profile picture"
+msgstr "foto do perfil"
+
 msgid "user profile"
 msgstr "Perfil de usuário"
+
+msgid "user profiles"
+msgstr "perfis de usuário"
 
 msgid "Delete group"
 msgstr "Remover grupo"
@@ -225,6 +249,9 @@ msgstr "Nível"
 msgid "Status"
 msgstr "Status"
 
+msgid "Last Login"
+msgstr "Último login"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -235,9 +262,13 @@ msgid "Inactive"
 msgstr "Inativo"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s atrás"
+
+#, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -245,7 +276,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Há um resultado\n"
+"            Há %(counter)s resultado\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -270,25 +301,21 @@ msgstr "Grupos"
 msgid "Search groups"
 msgstr "Grupos de busca"
 
-#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupo '{0}' criado."
 
-#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupo '{0}' atualizado."
 
 msgid "The group could not be saved due to errors."
 msgstr "O grupo não pôde ser salvo por conter erros."
 
-#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupo '{0}' removido."
 
 msgid "Search users"
 msgstr "Buscar usuários"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Usuário '{0}' criado."
 
@@ -298,14 +325,12 @@ msgstr "Editar"
 msgid "The user could not be created due to errors."
 msgstr "O usuário não pôde ser criado devido à erros."
 
-#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Usuário '{0}' atualizado."
 
 msgid "The user could not be saved due to errors."
 msgstr "O usuário não pôde ser salvo devido à erros."
 
-#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Usuário '{0}' removido."
 

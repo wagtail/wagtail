@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 20:04+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-05-16 11:32+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail Administrador de Modelos"
 
 msgid "Parent page"
 msgstr "Página padre"
@@ -171,7 +174,6 @@ msgstr "Anterior"
 msgid "Next"
 msgstr "Siguiente"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' created."
 msgstr "{model_name} '{instance}' creado."
 
@@ -193,7 +195,6 @@ msgstr "Editando"
 msgid "Editing %s"
 msgstr "Editando %s"
 
-#, python-brace-format
 msgid "{model_name} '{instance}' updated."
 msgstr "{model_name} '{instance}' actualizado."
 
@@ -213,7 +214,6 @@ msgstr ""
 "Está seguro de que quiere eliminar este %s? Si otras cosas en este sitio "
 "están relacionadas a esta, estas se verán afectadas también."
 
-#, python-brace-format
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' eliminado."
 

@@ -176,6 +176,21 @@ class TestRedirects(TestCase):
         response = self.client.get('/xmas/', HTTP_HOST='localhost')
         self.assertEqual(response.status_code, 404)
 
+    def test_redirect_without_page_or_link_target(self):
+        models.Redirect.objects.create(old_path='/xmas/', redirect_link='')
+
+        # the redirect has been created but has no target and should 404
+        response = self.client.get('/xmas/', HTTP_HOST='localhost')
+        self.assertEqual(response.status_code, 404)
+
+    def test_redirect_to_page_without_site(self):
+        siteless_page = Page.objects.get(url_path='/does-not-exist/')
+        models.Redirect.objects.create(old_path='/xmas', redirect_page=siteless_page)
+
+        # the redirect's destination page doesn't have a site so the redirect should 404
+        response = self.client.get('/xmas/', HTTP_HOST='localhost')
+        self.assertEqual(response.status_code, 404)
+
     def test_duplicate_redirects_when_match_is_for_generic(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')
         site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
@@ -272,6 +287,19 @@ class TestRedirects(TestCase):
         response = self.client.get('/t%C3%A9sting-%C3%BCnicode/')
 
         self.assertRedirects(response, '/redirectto', status_code=301, fetch_redirect_response=False)
+
+    def test_reject_null_characters(self):
+        response = self.client.get('/test%00test/')
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get('/test\0test/')
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get('/test/?foo=%00bar')
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get('/test/?foo=\0bar')
+        self.assertEqual(response.status_code, 404)
 
 
 class TestRedirectsIndexView(TestCase, WagtailTestUtils):
@@ -421,6 +449,23 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         # Check that the redirect was created
         redirects = models.Redirect.objects.filter(redirect_link='http://www.test.com/')
         self.assertEqual(redirects.count(), 1)
+
+    def test_add_long_redirect(self):
+        response = self.post({
+            'old_path': '/test',
+            'site': '',
+            'is_permanent': 'on',
+            'redirect_link': 'https://www.google.com/search?q=this+is+a+very+long+url+because+it+has+a+huge+search+term+appended+to+the+end+of+it+even+though+someone+should+really+not+be+doing+something+so+crazy+without+first+seeing+a+psychiatrist',
+        })
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailredirects:index'))
+
+        # Check that the redirect was created
+        redirects = models.Redirect.objects.filter(old_path='/test')
+        self.assertEqual(redirects.count(), 1)
+        self.assertEqual(redirects.first().redirect_link, 'https://www.google.com/search?q=this+is+a+very+long+url+because+it+has+a+huge+search+term+appended+to+the+end+of+it+even+though+someone+should+really+not+be+doing+something+so+crazy+without+first+seeing+a+psychiatrist')
+        self.assertEqual(redirects.first().site, None)
 
 
 class TestRedirectsEditView(TestCase, WagtailTestUtils):

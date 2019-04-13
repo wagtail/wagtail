@@ -54,7 +54,7 @@ class ConvertedValueField(models.IntegerField):
             value = ConvertedValue(value)
         return value
 
-    def from_db_value(self, value, expression, connection, context):
+    def from_db_value(self, value, expression, connection):
         if not value:
             return
         return ConvertedValue(value)
@@ -65,6 +65,11 @@ class ConvertedValueField(models.IntegerField):
         return ConvertedValue(value).db_value
 
     def get_db_prep_value(self, value, connection, prepared=False):
+        if not value:
+            return
+        return ConvertedValue(value).db_value
+
+    def get_searchable_content(self, value):
         if not value:
             return
         return ConvertedValue(value).db_value

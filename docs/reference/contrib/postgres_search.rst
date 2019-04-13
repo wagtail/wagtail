@@ -93,8 +93,8 @@ in a compilation of algorithms (parsers & analysers)
 and language specifications (stop words, stems, dictionaries, synonyms,
 thesauruses, etc.).
 
-A few search configurations are already defined by default in PostgreSQL,
-you can list them using ``sudo -u postgres psql -c "\dF"`` in a Unix shell
+A few search configurations are already defined by default in PostgreSQL.
+You can list them using ``sudo -u postgres psql -c "\dF"`` in a Unix shell
 or by using this SQL query: ``SELECT cfgname FROM pg_catalog.pg_ts_config``.
 
 These already-defined search configurations are decent, but they’re basic
@@ -102,7 +102,7 @@ compared to commercial search engines.
 If you want a nicer support of your language, you will have to create
 your own PostgreSQL search configuration. See the PostgreSQL documentation for
 `an example <https://www.postgresql.org/docs/current/static/textsearch-configuration.html>`_,
-`the list of parsers <https://www.postgresql.org/docs/current/static/textsearch-parsers.html>`_
+`the list of parsers <https://www.postgresql.org/docs/current/static/textsearch-parsers.html>`_,
 and `a guide to use dictionaries <https://www.postgresql.org/docs/current/static/textsearch-dictionaries.html>`_.
 
 Atomic rebuild
@@ -126,7 +126,7 @@ only objects no longer in the database are removed. Then the index is
 progressively updated, with no moment where the index is empty.
 
 However, if you want to be extra sure that nothing wrong happens while updating
-the index, you can use atomic rebuild. The index will be rebuilt but nobody
-will have access to it until reindex is complete. If any error occurs during
+the index, you can use atomic rebuild. The index will be rebuilt, but nobody
+will have access to it until reindexing is complete. If any error occurs during
 the operation, all changes to the index are reverted
 as if reindexing never happened.

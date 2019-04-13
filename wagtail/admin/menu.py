@@ -1,7 +1,7 @@
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
+from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
@@ -88,11 +88,7 @@ class Menu:
 
         rendered_menu_items = []
         for item in sorted(menu_items, key=lambda i: i.order):
-            try:
-                rendered_menu_items.append(item.render_html(request))
-            except TypeError:
-                # fallback for older render_html methods that don't accept a request arg
-                rendered_menu_items.append(item.render_html(request))
+            rendered_menu_items.append(item.render_html(request))
 
         return mark_safe(''.join(rendered_menu_items))
 

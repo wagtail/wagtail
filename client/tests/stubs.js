@@ -36,10 +36,19 @@ global.wagtailConfig = {
     LINE_BREAK: 'Line break',
     UNDO: 'Undo',
     REDO: 'Redo',
+    RELOAD_PAGE: 'Reload the page',
+    RELOAD_EDITOR: 'Reload saved content',
+    SHOW_LATEST_CONTENT: 'Show latest content',
+    SHOW_ERROR: 'Show error',
+    EDITOR_CRASH: 'The editor just crashed. Content has been reset to the last saved version.',
+    BROKEN_LINK: 'Broken link',
+    MISSING_DOCUMENT: 'Missing document',
   },
 };
 
 global.wagtailVersion = '1.6a1';
+
+global.wagtail = {};
 
 global.chooserUrls = {
   documentChooser: '/admin/documents/chooser/',
@@ -50,6 +59,12 @@ global.chooserUrls = {
   pageChooser: '/admin/choose-page/',
   snippetChooser: '/admin/snippets/choose/',
 };
+
+/* use dummy content for onload handlers just so that we can verify that we've chosen the right one */
+global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'image' };
+global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'page' };
+global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'embed' };
+global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'document' };
 
 const jQueryObj = {
   on: jest.fn(),

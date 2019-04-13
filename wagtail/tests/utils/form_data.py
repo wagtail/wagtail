@@ -133,4 +133,4 @@ def rich_text(value, editor='default', features=None):
         }))
     """
     widget = get_rich_text_editor_widget(editor, features)
-    return widget.translate_value(value)
+    return widget.format_value(value)

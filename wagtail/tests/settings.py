@@ -41,13 +41,14 @@ SECRET_KEY = 'not needed'
 ROOT_URLCONF = 'wagtail.tests.urls'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = STATIC_ROOT
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
 USE_TZ = True
+
+LANGUAGE_CODE = "en"
 
 TEMPLATES = [
     {
@@ -88,6 +89,7 @@ MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -172,7 +174,9 @@ if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     }
 
 if 'ELASTICSEARCH_URL' in os.environ:
-    if os.environ.get('ELASTICSEARCH_VERSION') == '5':
+    if os.environ.get('ELASTICSEARCH_VERSION') == '6':
+        backend = 'wagtail.search.backends.elasticsearch6'
+    elif os.environ.get('ELASTICSEARCH_VERSION') == '5':
         backend = 'wagtail.search.backends.elasticsearch5'
     elif os.environ.get('ELASTICSEARCH_VERSION') == '2':
         backend = 'wagtail.search.backends.elasticsearch2'

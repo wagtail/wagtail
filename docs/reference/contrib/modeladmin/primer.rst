@@ -17,7 +17,7 @@ Wagtail's ``ModelAdmin`` class isn't the same as Django's
 ---------------------------------------------------------
 
 Wagtail's ``ModelAdmin`` class is designed to be used in a similar way to
-Django's class of the same name, and often uses the same attribute and method
+Django's class of the same name, and it often uses the same attribute and method
 names to achieve similar things. However, there are a few key differences:
 
 Add & edit forms are still defined by ``panels`` and ``edit_handlers``
@@ -35,8 +35,8 @@ while `fields`, `fieldsets`, `exclude` and other attributes you may be used
 to using to configure Django's add/edit views, simply aren't supported by
 Wagtail's version.
 
-'Page type' models need to be treated differently to other models
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+'Page type' models need to be treated differently from other models
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 While ``modeladmin``'s listing view and it's supported customisation
 options work in exactly the same way for all types of ``Model``, when it
@@ -49,18 +49,18 @@ interface elements and general treatment in order to be managed
 effectively. For example, they have a tree structure that must be preserved
 properly as pages are added, deleted and moved around. They also have a
 revisions system, their own permission considerations, and the facility to
-preview changes before saving changes. Because of this added complexity
+preview changes before saving changes. Because of this added complexity,
 Wagtail provides its own specific views for managing any custom page types
-you  might add to your project; whether you create a ``ModelAdmin`` class
-for them, or not.
+you  might add to your project (whether you create a ``ModelAdmin`` class
+for them or not).
 
-In order to deliver a consistent experience for users, ``modeladmin``
+In order to deliver a consistent user experience, ``modeladmin``
 simply redirects users to Wagtail's existing page management views wherever
-possible. You should bare this in mind if you ever find yourself wanting to
+possible. You should bear this in mind if you ever find yourself wanting to
 change what happens when pages of a certain type are added, deleted,
 published, or have some other action applied to them. Customising the
-``CreateView`` or ``EditView`` for your a page type ``Model`` (even it just
-to add an additional stylesheet or javascript), simply won't have any
+``CreateView`` or ``EditView`` for your page type ``Model`` (even if just
+to add an additional stylesheet or JavaScript), simply won't have any
 effect, as those views are not used.
 
 If you do find yourself needing to customise the add, edit or other
@@ -89,7 +89,7 @@ configure your ``ModelAdmin`` class to use them instead of the defaults.
 Changing what appears in the listing
 ------------------------------------
 
-You should familarise yourself with the attributes and methods supported by
+You should familiarise yourself with the attributes and methods supported by
 the ``ModelAdmin`` class, that allow you to change what is displayed in the
 ``IndexView``. The following page should give you everything you need to get
 going: :doc:`indexview`
@@ -98,12 +98,12 @@ going: :doc:`indexview`
 .. _modeladmin_adding_css_and_js:
 
 -----------------------------------------------
-Adding additional stylesheets and/or javascript
+Adding additional stylesheets and/or JavaScript
 -----------------------------------------------
 
 The ``ModelAdmin`` class provides several attributes to enable you to easily
-add additional stylesheets and javascript to the admin interface for your
-model. Each atttribute simply needs to be a list of paths to the files you
+add additional stylesheets and JavaScript to the admin interface for your
+model. Each attribute simply needs to be a list of paths to the files you
 want to include. If the path is for a file in your project's static directory,
 Wagtail will automatically prepended paths for each path with ``STATIC_URL``,
 so you don't need to repeat it each time in your list of paths.
@@ -114,7 +114,7 @@ following attributes:
 -   ``index_view_extra_css`` -  Where each item is the path name of a
     pre-compiled stylesheet that you'd like to include.
 
--   ``index_view_extra_js`` - Where each item is the path name of a javascript
+-   ``index_view_extra_js`` - Where each item is the path name of a JavaScript
     file that you'd like to include.
 
 If you'd like to do the same for ``CreateView`` and ``EditView``, you should
@@ -123,16 +123,16 @@ set the following attributes:
 -   ``form_view_extra_css`` -  Where each item is the path name of a
     pre-compiled stylesheet that you'd like to include.
 
--   ``form_view_extra_js`` - Where each item is the path name of a javascript
+-   ``form_view_extra_js`` - Where each item is the path name of a JavaScript
     file that you'd like to include.
 
 And if you're using the ``InspectView`` for your model, and want to do the same
-for that view, your should set the following attributes:
+for that view, you should set the following attributes:
 
 -   ``inspect_view_extra_css`` -  Where each item is the path name of a
     pre-compiled stylesheet that you'd like to include.
 
--   ``inspect_view_extra_js`` - Where each item is the path name of a javascript
+-   ``inspect_view_extra_js`` - Where each item is the path name of a JavaScript
     file that you'd like to include.
 
 .. _modeladmin_overriding_templates:
@@ -151,7 +151,7 @@ within your project, before resorting to the defaults:
 So, to override the template used by ``IndexView`` for example, you'd create a
 new ``index.html`` template and put it in one of those locations.  For example,
 if you wanted to do this for an ``ArticlePage`` model in a ``news`` app, you'd
-add your custom template as ``modeladmin/news/article/index.html``.
+add your custom template as ``modeladmin/news/articlepage/index.html``.
 
 For reference, ``modeladmin`` looks for templates with the following names for
 each view:
@@ -181,7 +181,7 @@ Overriding views
 ----------------
 
 For all of the views offered by ``ModelAdmin``, the class provides an attribute
-that you can override, to tell it which class you'd like to use:
+that you can override in order to tell it which class you'd like to use:
 
 - ``index_view_class``
 - ``inspect_view_class``
@@ -206,15 +206,17 @@ For example, if you'd like to create your own view class and use it for the
 
     class MyModelAdmin(ModelAdmin):
         model = MyModel
-        index_view_class = MyModelIndexView
+        index_view_class = MyCustomIndexView
 
 
-Or, if you have no need for any of ``IndexView``'s exisiting functionality in
-your view, and would rather create your own view from scratch, ``modeladmin``
-will support that, too. However, it's highly recommended that you use
+Or, if you have no need for any of ``IndexView``'s existing functionality in
+your view and would rather create your own view from scratch, ``modeladmin``
+will support that too. However, it's highly recommended that you use
 ``modeladmin.views.WMABaseView`` as a base for your view. It'll make
-integrating with your ``ModelAdmin`` class much easier, and provides a bunch of
+integrating with your ``ModelAdmin`` class much easier and will provide a bunch of
 useful attributes and methods to get you started.
+
+You can also use the url_helper to easily reverse URLs for any ModelAdmin see :ref:`modeladmin_reversing_urls`.
 
 .. _modeladmin_overriding_helper_classes:
 
@@ -225,7 +227,7 @@ Overriding helper classes
 While 'view classes' are responsible for a lot of the work, there are also
 a number of other tasks that ``modeladmin`` must do regularly, that need to be
 handled in a consistent way, and in a number of different places. These tasks
-are designated to set of simple classes (in ``modeladmin``, these are termed
+are designated to a set of simple classes (in ``modeladmin``, these are termed
 'helper' classes) and can be found in ``wagtail.contrib.modeladmin.helpers``.
 
 If you ever intend to write and use your own custom views with ``modeladmin``,
@@ -250,14 +252,14 @@ by setting values on the following attributes:
 ``ModelAdmin.url_helper_class``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, the ``modeladmin.helpers.url.PageAdminURLHelper`` class is used 
+By default, the ``modeladmin.helpers.url.PageAdminURLHelper`` class is used
 when your model extends ``wagtailcore.models.Page``, otherwise
 ``modeladmin.helpers.url.AdminURLHelper`` is used.
 
-If you find that the above helper classes don't cater for your needs, you can
-easily create your own helper class, by sub-classing ``AdminURLHelper`` or
-``PageAdminURLHelper`` (if your  model extend's Wagtail's ``Page`` model), and
-making any neccessary additions/overrides.
+If you find that the above helper classes don't work for your needs, you can
+easily create your own helper class by sub-classing ``AdminURLHelper`` or
+``PageAdminURLHelper`` (if your  model extends Wagtail's ``Page`` model), and
+making any necessary additions/overrides.
 
 Once your class is defined, set the ``url_helper_class`` attribute on
 your ``ModelAdmin`` class to use your custom URLHelper, like so:
@@ -305,10 +307,10 @@ By default, the ``modeladmin.helpers.permission.PagePermissionHelper``
 class is used when your model extends ``wagtailcore.models.Page``,
 otherwise ``modeladmin.helpers.permission.PermissionHelper`` is used.
 
-If you find that the above helper classes don't cater for your needs, you can
+If you find that the above helper classes don't work for your needs, you can
 easily create your own helper class, by sub-classing
-``PermissionHelper`` or (if your  model extend's Wagtail's ``Page`` model)
-``PagePermissionHelper``, and making any neccessary additions/overrides. Once
+``PermissionHelper`` (or ``PagePermissionHelper`` if your model extends Wagtail's ``Page`` model),
+and making any necessary additions/overrides. Once
 defined, you set the ``permission_helper_class`` attribute on your
 ``ModelAdmin`` class to use your custom class instead of the default, like so:
 
@@ -339,7 +341,7 @@ isn't possible or doesn't meet your needs, you can override the
     class MyModelAdmin(ModelAdmin):
         model = MyModel
 
-        def get_get_permission_helper_class(self):
+        def get_permission_helper_class(self):
             if self.some_attribute is True:
                 return MyPermissionHelper
             return PermissionHelper
@@ -350,14 +352,14 @@ isn't possible or doesn't meet your needs, you can override the
 ``ModelAdmin.button_helper_class``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, the ``modeladmin.helpers.button.PageButtonHelper`` class is used 
+By default, the ``modeladmin.helpers.button.PageButtonHelper`` class is used
 when your model extends ``wagtailcore.models.Page``, otherwise
 ``modeladmin.helpers.button.ButtonHelper`` is used.
 
 If you wish to add or change buttons for your model's IndexView, you'll need to
-create  your own button helper class, by sub-classing ``ButtonHelper`` or (if
-your  model extend's Wagtail's ``Page`` model) ``PageButtonHelper``, and
-make any neccessary additions/overrides. Once defined, you set the
+create  your own button helper class by sub-classing ``ButtonHelper`` or ``PageButtonHelper`` (if
+your  model extend's Wagtail's ``Page`` model), and
+make any necessary additions/overrides. Once defined, you set the
 ``button_helper_class`` attribute on your ``ModelAdmin`` class to use your
 custom class instead of the default, like so:
 

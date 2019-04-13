@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
+# Meteor0id, 2018-2019
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-17 17:44+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-01-18 15:47+0000\n"
+"Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail afbeeldingen"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -124,6 +129,12 @@ msgstr "geupload door gebruiker"
 msgid "tags"
 msgstr "tags"
 
+msgid "image"
+msgstr "afbeelding"
+
+msgid "images"
+msgstr "afbeeldingen"
+
 msgid "Choose an image"
 msgstr "Kies een afbeelding"
 
@@ -139,17 +150,10 @@ msgstr "Populaire tags"
 msgid "Uploading…"
 msgstr "Bezig met uploaden…"
 
-msgid "Server Error"
-msgstr "Server error"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -157,11 +161,11 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Er is één resultaat\n"
+"            Er is %(counter)s overeenkomst\n"
 "        "
 msgstr[1] ""
 "\n"
-"            Er zijn %(counter)s resultaten\n"
+"            Er zijn %(counter)s overeenkomsten\n"
 "        "
 
 msgid "Latest images"
@@ -225,24 +229,27 @@ msgstr "Wijzig afbeelding %(title)s"
 msgid "Editing"
 msgstr "Wijzigen"
 
-msgid "Focal point (optional)"
-msgstr "Brandpunt (optioneel)"
+msgid "URL Generator"
+msgstr "URL Generator"
+
+msgid "Focal point"
+msgstr "Brandpunt"
+
+msgid "(optional)"
+msgstr "(optioneel)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
-"below."
+"above."
 msgstr ""
-"Om het belangrijkste deel van de afbeelding te definiëren, sleep een "
-"selectiebox over de onderstaande afbeelding."
+"Om het meest belangrijke deel van deze afbeelding aan te geven, sleep een "
+"vierkant over de afbeelding hierboven."
 
 msgid "Current focal point shown"
-msgstr "Huidige brandpunt getoond"
+msgstr "Huidige focusgebied getoond"
 
 msgid "Remove focal area"
 msgstr "Verwijder focusgebied"
-
-msgid "URL Generator"
-msgstr "URL Generator"
 
 msgid "Max dimensions"
 msgstr "Maximale afmetingen"
@@ -344,6 +351,13 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Sorry, upload ging fout."
 
+msgid "Server Error"
+msgstr "Server error"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
+
 msgid "Image updated."
 msgstr "Afbeelding is bijgewerkt."
 
@@ -362,7 +376,6 @@ msgstr "Voeg een afbeeldingsmachtiging toe"
 msgid "Search images"
 msgstr "Zoek afbeeldingen"
 
-#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Afbeelding '{0}' is bijgewerkt."
 
@@ -379,11 +392,9 @@ msgstr ""
 "Het bronbestand van de afbeelding kon niet worden gevonden. Kies een ander "
 "bronbestand of verwijder de afbeelding."
 
-#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Afbeelding '{0}' verwijderd."
 
-#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Afbeelding '{0}' toegevoegd."
 

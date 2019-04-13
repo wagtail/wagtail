@@ -67,6 +67,7 @@
                     return ModalWorkflow({
                         url: url,
                         urlParams: urlParams,
+                        onload: PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
                         responses: {
                             pageChosen: function(pageData) {
                                 var a, text, linkHasExistingContent;

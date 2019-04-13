@@ -9,21 +9,25 @@
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Arseni M <arseni+transifex@mouchinski.com>, 2017
 # Daniil <fleepd@gmail.com>, 2015
-# Eugene MechanisM <eugene@mechanism.pro>, 2014-2016
-# Eugene MechanisM <eugene@mechanism.pro>, 2016-2017
+# Eugene <eugene.mechanism@gmail.com>, 2014-2016
+# Eugene <eugene.mechanism@gmail.com>, 2016-2017
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Vassily <zuber.kg@gmail.com>, 2019
+# Мирон Левицкий <miron200504@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-04-08 12:11+0000\n"
+"Last-Translator: Vassily <zuber.kg@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +37,18 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Отправить на модерацию"
+
+msgid "Unpublish"
+msgstr "Отменить публикацию"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Wagtail admin"
+msgstr "Wagtail админ"
 
 msgid "None"
 msgstr "Ничего"
@@ -55,15 +71,6 @@ msgstr "Продвижение"
 msgid "Settings"
 msgstr "Настройки"
 
-msgid "Search"
-msgstr "Поиск"
-
-msgid "Search term"
-msgstr "Критерий поиска"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Введите пароль"
 
@@ -74,18 +81,13 @@ msgstr "Введите ваше %s"
 msgid "Enter your email address to reset your password"
 msgstr "Введите ваш адрес электронной почты для сброса пароля"
 
-msgid "Please fill your email address."
-msgstr "Пожалуйста, заполните ваш адрес электронной почты."
+msgid "URL"
+msgstr "URL"
 
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
+msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
-"Извините, вы не можете сбросить пароль здесь, так как ваш аккаунт "
-"управляется другим сервером."
-
-msgid "This email address is not recognised."
-msgstr "Этот почтовый адрес не распознан."
+"Вы не можете иметь несколько записей с правами доступа к одной и той же "
+"коллекции."
 
 msgid "New title"
 msgstr "Новый заголовок"
@@ -155,15 +157,6 @@ msgstr ""
 "Вы не можете скопировать страницу саму в себя, когда выбрана опция "
 "\"Копировать подстраницы\""
 
-msgid "Visibility"
-msgstr "Видимость"
-
-msgid "This field is required."
-msgstr "Требуется заполнить это поле."
-
-msgid "Please select at least one group."
-msgstr "Пожалуйста, выберите хотя бы одну группу."
-
 msgid "This slug is already in use"
 msgstr "Этот слаг уже используется"
 
@@ -174,10 +167,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Дата/время снятия с публикации должно быть в будущем."
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Вы не можете иметь несколько записей с правами доступа к одной и той же "
-"коллекции."
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Search term"
+msgstr "Критерий поиска"
+
+msgid "Visibility"
+msgstr "Видимость"
+
+msgid "This field is required."
+msgstr "Требуется заполнить это поле."
+
+msgid "Please select at least one group."
+msgstr "Пожалуйста, выберите хотя бы одну группу."
 
 msgid "Error 404: Page not found"
 msgstr "Ошибка 404: Страница не найдена"
@@ -194,35 +197,20 @@ msgstr "Идти в админ-панель Wagtail"
 msgid "Account"
 msgstr "Аккаунт"
 
-msgid "Set gravatar"
-msgstr "Установить граватар"
+msgid "Change profile picture"
+msgstr "Выбрать фотографию профиля"
 
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Ваш аватар предоставляется сервисом Gravatar и привязан к вашему адресу "
-"электронной почты. С помощью аккаунта Gravatar вы можете установить аватар "
-"для любого количества адресов электронной почты, которыми вы пользуетесь."
+msgid "Your current profile picture:"
+msgstr "Ваша текущая картинка профиля:"
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "Change email"
+msgstr "Выбрать email"
 
 msgid "Change password"
 msgstr "Изменить пароль"
-
-msgid "Change the password you use to log in."
-msgstr "Изменить пароль, который вы используете для входа."
-
-msgid "Notification preferences"
-msgstr "Настройки уведомления"
-
-msgid "Choose which email notifications to receive."
-msgstr "Выберите какие уведомления принимать на электронную почту."
-
-msgid "Language preferences"
-msgstr "Языковые настройки"
-
-msgid "Choose the language you want to use here."
-msgstr "Выберите язык, который вы хотите использовать."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
@@ -230,11 +218,14 @@ msgstr ""
 "Ваш пароль не может быть изменен здесь. Пожалуйста, свяжитесь с "
 "администратором сайта."
 
+msgid "Set Time Zone"
+msgstr "Установить временную зону"
+
 msgid "Language Preferences"
 msgstr "Языковые настройки"
 
-msgid "Update"
-msgstr "Обновить"
+msgid "Notification preferences"
+msgstr "Настройки уведомления"
 
 msgid "Reset password"
 msgstr "Сбросить пароль"
@@ -248,14 +239,27 @@ msgstr "Войти"
 msgid "Set your new password"
 msgstr "Задайте ваш новый пароль"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Пароли не совпадают. Пожалуйста, попробуйте еще раз."
+msgid "Invalid password reset link"
+msgstr "Неверная ссылка для восстановления пароля"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Ссылка для сброса пароля не работает, возможно её уже использовали ранее."
+
+msgid "Request a new password reset"
+msgstr "Запросить новый пароль"
 
 msgid "Check your email"
 msgstr "Проверьте вашу электронную почту"
 
-msgid "A link to reset your password has been emailed to you."
-msgstr "Ссылка для сброса пароля отправлена на вашу электронную почту."
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Ссылка для сброса пароля была отправлена вам на email, если аккаунт с "
+"указанным адресом существует."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Пожалуйста, проследуйте по ссылке ниже чтобы сбросить ваш пароль:"
@@ -272,14 +276,14 @@ msgstr "Сбросить ваш пароль"
 msgid "Edit"
 msgstr "Редактировать"
 
-msgid "Delete"
-msgstr "Удалить"
-
 msgid "Page"
 msgstr "Страница"
 
 msgid "Pages"
 msgstr "Страницы"
+
+msgid "Loading…"
+msgstr "Загрузка..."
 
 msgid "No results"
 msgstr "Нет результатов"
@@ -295,6 +299,41 @@ msgstr "Смотреть все"
 
 msgid "Close explorer"
 msgstr "Закрыть проводник"
+
+msgid "Alt text"
+msgstr "Текст подсказки"
+
+msgid "Write here…"
+msgstr "Введите текст..."
+
+msgid "Horizontal line"
+msgstr "Горизонтальная линия"
+
+msgid "Line break"
+msgstr "Разрыв строки"
+
+msgid "Undo"
+msgstr "Отменить дейсвие"
+
+msgid "Redo"
+msgstr "Вернуть"
+
+msgid "Reload the page"
+msgstr "Перезагрузить страницу"
+
+msgid "Reload saved content"
+msgstr "Перезагрузка сохраненного контента"
+
+msgid "Show latest content"
+msgstr "Показать последнее содержание"
+
+msgid "Show error"
+msgstr "Показать ошибку"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Редактор сломался. Содержимое было возвращено к последней сохранённой версии"
 
 msgid "Dashboard"
 msgstr "Панель управления"
@@ -326,7 +365,7 @@ msgstr "Ссылка адреса электронной почты"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -334,13 +373,13 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"Есть одно совпадение"
+"Есть %(counter)s совпадение"
 msgstr[1] ""
 "\n"
-"Есть %(counter)s совпадений"
+"Есть %(counter)sсовпадения"
 msgstr[2] ""
 "\n"
-"Есть %(counter)s совпадений"
+"Есть %(counter)sсовпадений"
 msgstr[3] ""
 "\n"
 "Есть %(counter)s совпадений"
@@ -431,6 +470,10 @@ msgstr ""
 "Коллекции еще не были созданы. Почему бы не <a href=\"%(add_collection_url)s"
 "\">добавить одну</a>?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Добавить %(label)s"
+
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
@@ -462,6 +505,9 @@ msgstr "Редактировано"
 
 msgid "Edit this page"
 msgstr "Редактировать эту страницу"
+
+msgid "Preview this page"
+msgstr "Предпросмотр этой страницы"
 
 msgid "Approve"
 msgstr "Одобрить"
@@ -533,6 +579,9 @@ msgstr "Войти в Wagtail"
 msgid "Forgotten it?"
 msgstr "Забыли его?"
 
+msgid "Signing in…"
+msgstr "Выполняется вход..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Страница \"%(title)s\" была утверждена."
@@ -591,6 +640,15 @@ msgstr "Заблокировано"
 
 msgid "Unlocked"
 msgstr "Разблокировано"
+
+msgid "Publishing…"
+msgstr "Публикуется..."
+
+msgid "Publish this revision"
+msgstr "Опубликовать эту версию"
+
+msgid "Publish"
+msgstr "Опубликовать"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -678,9 +736,6 @@ msgstr "Да, переместить эту страницу"
 msgid "Unpublish %(title)s"
 msgstr "Отменить публикацию %(title)s"
 
-msgid "Unpublish"
-msgstr "Отменить публикацию"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Вы уверены, что хотите отменить публикацию этой страницы?"
 
@@ -740,14 +795,11 @@ msgstr "Добавление %(page_type)s"
 msgid "New"
 msgstr "Новый"
 
+msgid "Saving…"
+msgstr "Сохранение…"
+
 msgid "Save draft"
 msgstr "Сохранить черновик"
-
-msgid "Publish"
-msgstr "Опубликовать"
-
-msgid "Submit for moderation"
-msgstr "Отправить на модерацию"
 
 msgid "This page has unsaved changes."
 msgstr "На странице есть несохраненные изменения."
@@ -765,9 +817,6 @@ msgstr "Страница заблокирована"
 
 msgid "Replace current draft"
 msgstr "Изменить черновик"
-
-msgid "Publish this revision"
-msgstr "Опубликовать эту версию"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1023,6 +1072,15 @@ msgstr[3] ""
 msgid "There are no differences between these two revisions"
 msgstr "Сравниваемые версии идентичны"
 
+msgid "Unschedule"
+msgstr "Отменить временную публикацию"
+
+msgid "Yes, unschedule"
+msgstr "Да, отменить временную публикацию"
+
+msgid "No, don't unschedule"
+msgstr "Нет, не отменять публикацию по расписанию"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Версии %(title)s"
@@ -1137,6 +1195,27 @@ msgstr "Ноябрь"
 msgid "December"
 msgstr "Декабрь"
 
+msgid "Sunday"
+msgstr "Воскрксенье"
+
+msgid "Monday"
+msgstr "Понедельник"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "Thursday"
+msgstr "Четверг"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Saturday"
+msgstr "Суббота"
+
 msgid "Sun"
 msgstr "Вс"
 
@@ -1182,22 +1261,6 @@ msgstr ""
 "Вы используете <strong>устаревший</strong> браузер не поддерживаемый этим "
 "сайтом. Пожалуйста, <a href=\"http://browsehappy.com/\">обновите ваш "
 "браузер</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"JavaScript необходим для использования Wagtail, но в данный момент он "
-"отключен.<br />\n"
-"Тут вы можете найти <a href=\"http://www.enable-javascript.com/ru/\" target="
-"\"_blank\" rel=\"noopener\">инструкцию как включить JavaScript в вашем "
-"браузере</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Идти в интерфейс управления Wagtail"
@@ -1274,6 +1337,12 @@ msgstr "Русский"
 msgid "Swedish"
 msgstr "Шведский"
 
+msgid "Slovak"
+msgstr "Словацкий язык"
+
+msgid "Ukrainian"
+msgstr "Украинский язык"
+
 msgid "Chinese (China)"
 msgstr "Китайский (упрощенный)"
 
@@ -1282,6 +1351,9 @@ msgstr "Извините, но у вас нет доступа в эту обл�
 
 msgid "Your password has been changed successfully!"
 msgstr "Ваш пароль был успешно изменен!"
+
+msgid "Your email has been changed successfully!"
+msgstr "Ваш email успешно поменялся"
 
 msgid "Your preferences have been updated."
 msgstr "Ваши настройки были обновлены."
@@ -1298,11 +1370,9 @@ msgstr "Добавить коллекцию"
 msgid "Add collection"
 msgstr "Добавить коллекцию"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Коллекция '{0}' создана."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Коллекция '{0}' обновлена."
 
@@ -1312,7 +1382,6 @@ msgstr "Коллекция не может быть сохранена из-за
 msgid "Delete collection"
 msgstr "Удалить коллекцию"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Коллекция '{0}' удалена."
 
@@ -1322,18 +1391,15 @@ msgstr "Вы уверены что хотите удалить эту колле
 msgid "Editing"
 msgstr "Редактирование"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Страница '{0}' создана и запланирована к публикации."
 
 msgid "View live"
 msgstr "Смотреть на сайте"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Страница '{0}' создана и опубликована."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Страница '{0}' создана и отправлена на модерацию."
 
@@ -1343,38 +1409,30 @@ msgstr "Смотреть черновик"
 msgid "Failed to send notifications to moderators"
 msgstr "Не удалось отправить уведомления модераторам"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Страница '{0}' создана."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Эта страница не может быть создана из-за ошибок при проверке"
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Версия {0} страницы '{1}' запланирована к публикации."
 
-#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Страница '{0}' запланирована к публикации."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Версия {0} страницы '{1}' опубликована."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Страница '{0}' опубликована."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Страница '{0}' была отправлена на модерацию."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Страница '{0}' заменена версией из {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Страница '{0}' обновлена."
 
@@ -1390,49 +1448,39 @@ msgstr "Сравнить с опубликованной версией"
 msgid "This page is currently awaiting moderation"
 msgstr "Эта страница в данный момент ожидает модерации"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Страница '{0}' удалена."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Страница '{0}' снята с публикации."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Страница '{0}' перемещена."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Страница '{0}' и {1} подстраниц скопировано."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Страница '{0}' скопирована."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Страница '{0}' в настоящее время не ожидает модерации."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Страница '{0}' опубликована."
 
 msgid "Failed to send approval notifications"
 msgstr "Не удалось отправить уведомления об утверждении"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Публикация страницы '{0}' отклонена."
 
 msgid "Failed to send rejection notifications"
 msgstr "Не удалось отправить уведомления об отклонении"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Страница '{0}' заблокирована."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Страница '{0}' разблокирована."
 
@@ -1450,48 +1498,59 @@ msgstr "Ранний"
 msgid "Latest"
 msgstr "Последний"
 
-#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Редактировать '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Предпросмотр черновика '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Посмотреть опубликованную версию '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Создать дочернюю страницу для '{title}' "
 
 msgid "More"
 msgstr "Больше"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Больше действий для '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Переместить страницу '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Скопировать страницу '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Удалить страницу '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Отменить публикацию страницы '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Показать историю версий для '{title}'"
+
+msgid "Set profile picture"
+msgstr "Установить фото профиля"
+
+msgid "Change your profile picture"
+msgstr "Выберите свою фотографию профиля"
+
+msgid "Change the password you use to log in."
+msgstr "Изменить пароль, который вы используете для входа."
+
+msgid "Choose which email notifications to receive."
+msgstr "Выберите какие уведомления принимать на электронную почту."
+
+msgid "Language preferences"
+msgstr "Языковые настройки"
+
+msgid "Choose the language you want to use here."
+msgstr "Выберите язык, который вы хотите использовать."
+
+msgid "Link"
+msgstr "Ссылка"
 
 msgid "Choose an item"
 msgstr "Выбрать элемент"

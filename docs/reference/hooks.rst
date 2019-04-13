@@ -56,7 +56,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_panels``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``.
+  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``. Hook functions should modify the ``panels`` list in-place as required.
 
   .. code-block:: python
 
@@ -76,7 +76,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     @hooks.register('construct_homepage_panels')
     def add_another_welcome_panel(request, panels):
-      return panels.append( WelcomePanel() )
+        panels.append(WelcomePanel())
 
 
 .. _construct_homepage_summary_items:
@@ -156,7 +156,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   :attrs: additional HTML attributes to apply to the link
   :order: an integer which determines the item's position in the menu
 
-  ``MenuItem`` can be subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/menu.py``) for details.
+  ``MenuItem`` can be subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/menu.py``) for details.
 
   .. code-block:: python
 
@@ -175,9 +175,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_admin_urls``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-  Register additional admin page URLs. The callable fed into this hook should return a list of Django URL patterns which define the structure of the pages and endpoints of your extension to the Wagtail admin. For more about vanilla Django URLconfs and views, see `url dispatcher`_.
-
-  .. _url dispatcher: https://docs.djangoproject.com/en/dev/topics/http/urls/
+  Register additional admin page URLs. The callable fed into this hook should return a list of Django URL patterns which define the structure of the pages and endpoints of your extension to the Wagtail admin. For more about vanilla Django URLconfs and views, see :doc:`url dispatcher <django:topics/http/urls>`.
 
   .. code-block:: python
 
@@ -233,7 +231,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   A template tag, ``search_other`` is provided by the ``wagtailadmin_tags`` template module. This tag takes a single, optional parameter, ``current``, which allows you to specify the ``name`` of the search option currently active. If the parameter is not given, the hook defaults to a reverse lookup of the page's URL for comparison against the ``url`` parameter.
 
 
-  ``SearchArea`` can be subclassed to customise the HTML output, specify JavaScript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/search.py``) for details.
+  ``SearchArea`` can be subclassed to customise the HTML output, specify JavaScript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/search.py``) for details.
 
   .. code-block:: python
 
@@ -251,7 +249,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``register_permissions``
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Return a queryset of ``Permission`` objects to be shown in the Groups administration area.
+  Return a QuerySet of ``Permission`` objects to be shown in the Groups administration area.
 
 
 .. _filter_form_submissions_for_user:
@@ -297,32 +295,6 @@ Hooks for customising the editing interface for pages and snippets.
   Rich text fields in Wagtail work with a list of 'feature' identifiers that determine which editing controls are available in the editor, and which elements are allowed in the output; for example, a rich text field defined as ``RichTextField(features=['h2', 'h3', 'bold', 'italic', 'link'])`` would allow headings, bold / italic formatting and links, but not (for example) bullet lists or images. The ``register_rich_text_features`` hook allows new feature identifiers to be defined - see :ref:`rich_text_features` for details.
 
 
-.. _construct_whitelister_element_rules:
-
-``construct_whitelister_element_rules``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  **Deprecated.** This hook will be removed in Wagtail 2.2; please use :ref:`rich text features <rich_text_features>` to define whitelist rules instead.
-
-  Customise the rules that define which HTML elements are allowed in rich text areas. By default only a limited set of HTML elements and attributes are whitelisted - all others are stripped out. The callables passed into this hook must return a dict, which maps element names to handler functions that will perform some kind of manipulation of the element. These handler functions receive the element as a `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
-
-  The ``wagtail.core.whitelist`` module provides a few helper functions to assist in defining these handlers: ``allow_without_attributes``, a handler which preserves the element but strips out all of its attributes, and ``attribute_rule`` which accepts a dict specifying how to handle each attribute, and returns a handler function. This dict will map attribute names to either True (indicating that the attribute should be kept), False (indicating that it should be dropped), or a callable (which takes the initial attribute value and returns either a final value for the attribute, or None to drop the attribute).
-
-  For example, the following hook function will add the ``<blockquote>`` element to the whitelist, and allow the ``target`` attribute on ``<a>`` elements:
-
-  .. code-block:: python
-
-    from wagtail.core import hooks
-    from wagtail.core.whitelist import attribute_rule, check_url, allow_without_attributes
-
-    @hooks.register('construct_whitelister_element_rules')
-    def whitelister_element_rules():
-        return {
-            'blockquote': allow_without_attributes,
-            'a': attribute_rule({'href': check_url, 'target': True}),
-        }
-
-
 .. _insert_editor_css:
 
 ``insert_editor_css``
@@ -332,7 +304,7 @@ Hooks for customising the editing interface for pages and snippets.
 
   .. code-block:: python
 
-    from django.contrib.staticfiles.templatetags.staticfiles import static
+    from django.templatetags.static import static
     from django.utils.html import format_html
 
     from wagtail.core import hooks
@@ -355,7 +327,7 @@ Hooks for customising the editing interface for pages and snippets.
   .. code-block:: python
 
     from django.utils.html import format_html
-    from django.contrib.staticfiles.templatetags.staticfiles import static
+    from django.templatetags.static import static
 
     from wagtail.core import hooks
 
@@ -374,7 +346,7 @@ Hooks for customising the editing interface for pages and snippets.
   .. code-block:: python
 
     from django.utils.html import format_html, format_html_join
-    from django.conf import settings
+    from django.templatetags.static import static
 
     from wagtail.core import hooks
 
@@ -383,8 +355,8 @@ Hooks for customising the editing interface for pages and snippets.
         js_files = [
             'demo/js/jquery.raptorize.1.0.js',
         ]
-        js_includes = format_html_join('\n', '<script src="{0}{1}"></script>',
-            ((settings.STATIC_URL, filename) for filename in js_files)
+        js_includes = format_html_join('\n', '<script src="{0}"></script>',
+            ((static(filename),) for filename in js_files)
         )
         return js_includes + format_html(
             """
@@ -472,7 +444,7 @@ Hooks for customising the way users are directed through the process of creating
 ``after_delete_page``
 ~~~~~~~~~~~~~~~~~~~~~
 
-  Do something after a ``Page`` object is deleted. Uses the same behavior as ``after_create_page``.
+  Do something after a ``Page`` object is deleted. Uses the same behaviour as ``after_create_page``.
 
 
 .. _before_delete_page:
@@ -482,7 +454,7 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "delete page" view passing in the request and the page object.
 
-  Uses the same behavior as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``.
 
 
 .. _after_edit_page:
@@ -490,7 +462,7 @@ Hooks for customising the way users are directed through the process of creating
 ``after_edit_page``
 ~~~~~~~~~~~~~~~~~~~
 
-  Do something with a ``Page`` object after it has been updated. Uses the same behavior as ``after_create_page``.
+  Do something with a ``Page`` object after it has been updated. Uses the same behaviour as ``after_create_page``.
 
 
 .. _before_edit_page:
@@ -500,7 +472,7 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "edit page" view passing in the request and the page object.
 
-  Uses the same behavior as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``.
 
 
 .. _after_copy_page:
@@ -508,7 +480,7 @@ Hooks for customising the way users are directed through the process of creating
 ``after_copy_page``
 ~~~~~~~~~~~~~~~~~~~
 
-  Do something with a ``Page`` object after it has been copied pasing in the request, page object and the new copied page. Uses the same behavior as ``after_create_page``.
+  Do something with a ``Page`` object after it has been copied passing in the request, page object and the new copied page. Uses the same behaviour as ``after_create_page``.
 
 
 .. _before_copy_page:
@@ -518,17 +490,85 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "copy page" view passing in the request and the page object.
 
-  Uses the same behavior as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``.
+
+.. _after_move_page:
+
+``after_move_page``
+~~~~~~~~~~~~~~~~~~~
+
+  Do something with a ``Page`` object after it has been moved passing in the request and page object. Uses the same behaviour as ``after_create_page``.
+
+
+.. _before_move_page:
+
+``before_move_page``
+~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the "move page" view passing in the request, the page object and the destination page object.
+
+  Uses the same behaviour as ``before_create_page``.
+
+.. _register_page_action_menu_item:
+
+``register_page_action_menu_item``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.action_menu.ActionMenuItem``. The following attributes and methods are available to be overridden on subclasses of ``ActionMenuItem``:
+
+  :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor
+  :label: the displayed text of the menu item
+  :get_url: a method which returns a URL for the menu item to link to; by default, returns ``None`` which causes the menu item to behave as a form submit button instead
+  :name: value of the ``name`` attribute of the submit button, if no URL is specified
+  :is_shown: a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
+  :template: path to a template to render to produce the menu item HTML
+  :get_context: a method that returns a context dictionary to pass to the template
+  :render_html: a method that returns the menu item HTML; by default, renders ``template`` with the context returned from ``get_context``
+  :Media: an inner class defining Javascript and CSS to import when this menu item is shown - see `Django form media <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_
+
+  The ``get_url``, ``is_shown``, ``get_context`` and ``render_html`` methods all accept a request object and a context dictionary containing the following fields:
+
+  :view: name of the current view: ``'create'``, ``'edit'`` or ``'revisions_revert'``
+  :page: For ``view`` = ``'edit'`` or ``'revisions_revert'``, the page being edited
+  :parent_page: For ``view`` = ``'create'``, the parent page of the page being created
+  :user_page_permissions: a ``UserPagePermissionsProxy`` object for the current user, to test permissions against
+
+  .. code-block:: python
+
+    from wagtail.core import hooks
+    from wagtail.admin.action_menu import ActionMenuItem
+
+    class GuacamoleMenuItem(ActionMenuItem):
+        name = 'action-guacamole'
+        label = "Guacamole"
+
+        def get_url(self, request, context):
+            return "https://www.youtube.com/watch?v=dNJdJIwCF_Y"
+
+
+    @hooks.register('register_page_action_menu_item')
+    def register_guacamole_menu_item():
+        return GuacamoleMenuItem(order=10)
+
+
+.. _construct_page_action_menu:
+
+``construct_page_action_menu``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Modify the final list of action menu items on the page creation and edit views. The callable passed to this hook receives a list of ``ActionMenuItem`` objects, a request object and a context dictionary as per ``register_page_action_menu_item``, and should modify the list of menu items in-place.
+
+  .. code-block:: python
+
+    @hooks.register('construct_page_action_menu')
+    def remove_submit_to_moderator_option(menu_items, request, context):
+        menu_items[:] = [item for item in menu_items if item.name != 'action-submit']
 
 
 .. _construct_wagtail_userbar:
 
 ``construct_wagtail_userbar``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  .. versionchanged:: 1.0
-
-    The hook was renamed from ``construct_wagtail_edit_bird``
 
   Add or remove items from the wagtail userbar. Add, edit, and moderation tools are provided by default. The callable passed into the hook must take the ``request`` object and a list of menu objects, ``items``. The menu item objects must have a ``render`` method which can take a ``request`` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information.
 
@@ -600,7 +640,7 @@ Hooks for customising the way admins are directed through the process of editing
 ``after_delete_user``
 ~~~~~~~~~~~~~~~~~~~~~
 
-  Do something after a ``User`` object is deleted. Uses the same behavior as ``after_create_user``.
+  Do something after a ``User`` object is deleted. Uses the same behaviour as ``after_create_user``.
 
 
 .. _before_delete_user:
@@ -610,7 +650,7 @@ Hooks for customising the way admins are directed through the process of editing
 
   Called at the beginning of the "delete user" view passing in the request and the user object.
 
-  Uses the same behavior as ``before_create_user``.
+  Uses the same behaviour as ``before_create_user``.
 
 
 .. _after_edit_user:
@@ -618,7 +658,7 @@ Hooks for customising the way admins are directed through the process of editing
 ``after_edit_user``
 ~~~~~~~~~~~~~~~~~~~
 
-  Do something with a ``User`` object after it has been updated. Uses the same behavior as ``after_create_user``.
+  Do something with a ``User`` object after it has been updated. Uses the same behaviour as ``after_create_user``.
 
 
 .. _before_edit_user:
@@ -628,7 +668,7 @@ Hooks for customising the way admins are directed through the process of editing
 
   Called at the beginning of the "edit user" view passing in the request and the user object.
 
-  Uses the same behavior as ``before_create_user``.
+  Uses the same behaviour as ``before_create_user``.
 
 Choosers
 --------
@@ -638,7 +678,7 @@ Choosers
 ``construct_page_chooser_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the page chooser view, to allow the page listing queryset to be customised. The callable passed into the hook will receive the current page queryset and the request object, and must return a Page queryset (either the original one, or a new one).
+  Called when rendering the page chooser view, to allow the page listing QuerySet to be customised. The callable passed into the hook will receive the current page QuerySet and the request object, and must return a Page QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 
@@ -657,7 +697,7 @@ Choosers
 ``construct_document_chooser_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the document chooser view, to allow the document listing queryset to be customised. The callable passed into the hook will receive the current document queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+  Called when rendering the document chooser view, to allow the document listing QuerySet to be customised. The callable passed into the hook will receive the current document QuerySet and the request object, and must return a Document QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 
@@ -666,7 +706,7 @@ Choosers
     @hooks.register('construct_document_chooser_queryset')
     def show_my_uploaded_documents_only(documents, request):
         # Only show uploaded documents
-        documents = documents.filter(uploaded_by=request.user)
+        documents = documents.filter(uploaded_by_user=request.user)
 
         return documents
 
@@ -676,7 +716,7 @@ Choosers
 ``construct_image_chooser_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the image chooser view, to allow the image listing queryset to be customised. The callable passed into the hook will receive the current image queryset and the request object, and must return a Document queryset (either the original one, or a new one).
+  Called when rendering the image chooser view, to allow the image listing QuerySet to be customised. The callable passed into the hook will receive the current image QuerySet and the request object, and must return an Image QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 
@@ -685,7 +725,7 @@ Choosers
     @hooks.register('construct_image_chooser_queryset')
     def show_my_uploaded_images_only(images, request):
         # Only show uploaded images
-        images = images.filter(uploaded_by=request.user)
+        images = images.filter(uploaded_by_user=request.user)
 
         return images
 
@@ -698,7 +738,7 @@ Page explorer
 ``construct_explorer_page_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the page explorer view, to allow the page listing queryset to be customised. The callable passed into the hook will receive the parent page object, the current page queryset, and the request object, and must return a Page queryset (either the original one, or a new one).
+  Called when rendering the page explorer view, to allow the page listing QuerySet to be customised. The callable passed into the hook will receive the parent page object, the current page QuerySet, and the request object, and must return a Page QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 

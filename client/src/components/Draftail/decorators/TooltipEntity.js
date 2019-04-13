@@ -84,6 +84,7 @@ class TooltipEntity extends Component {
     /* eslint-disable springload/jsx-a11y/interactive-supports-focus */
     return (
       <a
+        href={url}
         role="button"
         // Use onMouseUp to preserve focus in the text even after clicking.
         onMouseUp={this.openTooltip}
@@ -101,7 +102,7 @@ class TooltipEntity extends Component {
             closeOnResize
           >
             <Tooltip target={showTooltipAt} direction="top">
-              {(
+              {label ? (
                 <a
                   href={url}
                   title={url}
@@ -111,7 +112,7 @@ class TooltipEntity extends Component {
                 >
                   {shortenLabel(label)}
                 </a>
-              )}
+              ) : null}
 
               <button
                 className="button Tooltip__button"
@@ -144,7 +145,11 @@ TooltipEntity.propTypes = {
     PropTypes.object.isRequired,
   ]).isRequired,
   label: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
+};
+
+TooltipEntity.defaultProps = {
+  url: null,
 };
 
 export default TooltipEntity;

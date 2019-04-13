@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Submit for moderation"
+msgstr "提交审核"
+
+msgid "Unpublish"
+msgstr "取消发布"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "You do not have permission to access the admin"
 msgstr "您没有进入后台的权限"
@@ -30,28 +39,11 @@ msgstr "内容"
 msgid "Settings"
 msgstr "设置"
 
-msgid "Search"
-msgstr "搜索"
-
-msgid "Search term"
-msgstr "搜索词"
-
 msgid "Enter password"
 msgstr "请输入密码"
 
 msgid "Enter your email address to reset your password"
 msgstr "输入您的电子邮箱来重置您的密码"
-
-msgid "Please fill your email address."
-msgstr "请输入你的电子邮件地址。"
-
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
-msgstr "对不起，你不能在此够重置你的密码，因为您的账号是由其他服务所管理的。"
-
-msgid "This email address is not recognised."
-msgstr "没有找到这个电子邮件地址。"
 
 msgid "New title"
 msgstr "新标题"
@@ -59,38 +51,27 @@ msgstr "新标题"
 msgid "This slug is already in use"
 msgstr "这个唯一的地址已被占用"
 
+msgid "Search"
+msgstr "搜索"
+
+msgid "Search term"
+msgstr "搜索词"
+
 msgid "Account"
 msgstr "账号"
 
-msgid "Set gravatar"
-msgstr "设置gravatar"
-
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"您的头像图片是由Gravatar提供的，并且关联了您的电子邮件地址。一个Gravatar账号"
-"可以设置多个电子邮件地址的头像图片。"
+msgid "Update"
+msgstr "更新"
 
 msgid "Change password"
 msgstr "修改密码"
-
-msgid "Change the password you use to log in."
-msgstr "修改您用于登录的密码。"
-
-msgid "Notification preferences"
-msgstr "通知偏好"
-
-msgid "Choose which email notifications to receive."
-msgstr "请选择接收邮件提醒的方式"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "您的密码不能在此更改。请联系网站管理员。"
 
-msgid "Update"
-msgstr "更新"
+msgid "Notification preferences"
+msgstr "通知偏好"
 
 msgid "Reset password"
 msgstr "重置密码"
@@ -104,14 +85,8 @@ msgstr "登录"
 msgid "Set your new password"
 msgstr "设置你的新密码"
 
-msgid "The passwords do not match. Please try again."
-msgstr "两个密码不匹配，请重试。"
-
 msgid "Check your email"
 msgstr "检查您的电子邮件"
-
-msgid "A link to reset your password has been emailed to you."
-msgstr "一个用于重置密码的链接已经发送到您的电子邮箱中"
 
 msgid "Password reset"
 msgstr "密码已重置"
@@ -121,9 +96,6 @@ msgstr "重置您的密码"
 
 msgid "Edit"
 msgstr "编辑"
-
-msgid "Delete"
-msgstr "删除"
 
 msgid "Dashboard"
 msgstr "仪表板"
@@ -269,6 +241,9 @@ msgstr "这个页面 \"%(page)s\" 已经提交审核"
 msgid "Page privacy"
 msgstr "页面隐私"
 
+msgid "Publish"
+msgstr "发布"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "以 %(title)s 为题创建一个页面"
@@ -314,9 +289,6 @@ msgstr "是的，移动这页"
 msgid "Unpublish %(title)s"
 msgstr "停止发布%(title)s"
 
-msgid "Unpublish"
-msgstr "取消发布"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "你确定你想停止发布这页吗？"
 
@@ -338,12 +310,6 @@ msgstr "新"
 
 msgid "Save draft"
 msgstr "保存草稿"
-
-msgid "Publish"
-msgstr "发布"
-
-msgid "Submit for moderation"
-msgstr "提交审核"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -466,7 +432,6 @@ msgstr "第%(page_num)s页 共%(total_pages)s页"
 msgid "Your password has been changed successfully!"
 msgstr "您的密码已经更改成功。"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "第 '{0}' 页已创建。"
 
@@ -476,29 +441,29 @@ msgstr "这页无法保存，因为页面发生验证错误"
 msgid "This page is currently awaiting moderation"
 msgstr "这页正在等待审核"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "第 '{0}' 页已删除"
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "第 '{0}' 页已取消发布"
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "第 '{0}' 页已移动。"
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "第 '{0}' 页当前不需要等待审核。"
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "第 '{0}' 页已发布。"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "第 '{0}' 页已被拒绝发布。"
+
+msgid "Change the password you use to log in."
+msgstr "修改您用于登录的密码。"
+
+msgid "Choose which email notifications to receive."
+msgstr "请选择接收邮件提醒的方式"
 
 msgid "Choose an item"
 msgstr "选择一个选项"

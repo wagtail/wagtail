@@ -8,6 +8,9 @@ from wagtail.contrib.redirects import models
 
 
 def _get_redirect(request, path):
+    if '\0' in path:  # reject URLs with null characters, which crash on Postgres (#4496)
+        return None
+
     try:
         return models.Redirect.get_for_site(request.site).get(old_path=path)
     except models.Redirect.MultipleObjectsReturned:
@@ -53,6 +56,9 @@ class RedirectMiddleware(MiddlewareMixin):
             redirect = get_redirect(request, path_without_query)
             if redirect is None:
                 return response
+
+        if redirect.link is None:
+            return response
 
         if redirect.is_permanent:
             return http.HttpResponsePermanentRedirect(redirect.link)

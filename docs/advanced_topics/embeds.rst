@@ -160,7 +160,7 @@ Multiple finders can be chained together. This can be used for customising the
 configuration for one provider without affecting the others.
 
 For example, this is how you can instruct Youtube to return videos in HTTPS
-(which must be done explictly for YouTube):
+(which must be done explicitly for YouTube):
 
 .. code-block:: python
 
@@ -261,7 +261,7 @@ docstrings for details of what each method does:
                 'thumbnail_url': "URL to thumbnail image",
                 'width': width_in_pixels,
                 'height': height_in_pixels,
-                'html': "<h2>The Embed HTML</h2>,
+                'html': "<h2>The Embed HTML</h2>",
             }
 
 Once you've implemented all of those methods, you just need to add it to your

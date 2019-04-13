@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy
 
 from wagtail.admin import messages
-from wagtail.admin.forms import CollectionForm
+from wagtail.admin.forms.collections import CollectionForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.core import hooks
 from wagtail.core.models import Collection
@@ -22,7 +22,7 @@ class Index(IndexView):
 
     def get_queryset(self):
         # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children()
+        return Collection.get_first_root_node().get_children().order_by('name')
 
 
 class Create(CreateView):
@@ -59,7 +59,7 @@ class Edit(EditView):
 
     def get_queryset(self):
         # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children()
+        return Collection.get_first_root_node().get_children().order_by('name')
 
 
 class Delete(DeleteView):
@@ -74,7 +74,7 @@ class Delete(DeleteView):
 
     def get_queryset(self):
         # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children()
+        return Collection.get_first_root_node().get_children().order_by('name')
 
     def get_collection_contents(self):
         collection_contents = [

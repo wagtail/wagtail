@@ -3,15 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Matt Westcott <matthew@torchbox.com>, 2018
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
 # Sutrisno Efendi <kangfend@gmail.com>, 2015,2017
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-16 11:33+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2019-01-16 01:26+0000\n"
+"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +22,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Submit for moderation"
+msgstr "Kirim untuk dimoderasi"
+
+msgid "Unpublish"
+msgstr "Tarik publikasi"
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid "Wagtail admin"
+msgstr "Wagtail admin"
 
 msgid "None"
 msgstr "Tidak ada"
@@ -41,15 +56,6 @@ msgstr "Promosikan"
 msgid "Settings"
 msgstr "Pengaturan"
 
-msgid "Search"
-msgstr "Pencarian"
-
-msgid "Search term"
-msgstr "Kata kunci pencarian"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Masukkan kata sandi"
 
@@ -58,20 +64,14 @@ msgid "Enter your %s"
 msgstr "Masukkan %s anda"
 
 msgid "Enter your email address to reset your password"
-msgstr "Masukkan alamat surel untuk atur ulang kata kunci anda"
+msgstr "Masukkan alamat surel untuk atur ulang kata sandi anda"
 
-msgid "Please fill your email address."
-msgstr "Harap isi alamat surel anda"
+msgid "URL"
+msgstr "URL"
 
-msgid ""
-"Sorry, you cannot reset your password here as your user account is managed "
-"by another server."
+msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
-"Maaf, anda tidak dapat mengatur ulang kata kunci anda karena akun pengguna "
-"anda dikelola oleh server lain."
-
-msgid "This email address is not recognised."
-msgstr "Alamat surel ini tidak dikenali."
+"Anda tidak boleh memiliki lebih dari satu izin untuk koleksi yang sama."
 
 msgid "New title"
 msgstr "Judul baru"
@@ -128,15 +128,6 @@ msgstr ""
 "Ketika melakukan penyalinan sub-halaman, anda tidak dapat menyalin sebuah "
 "halaman ke dirinya sendiri "
 
-msgid "Visibility"
-msgstr "Visibilitas"
-
-msgid "This field is required."
-msgstr "Kolom ini  harus diisi."
-
-msgid "Please select at least one group."
-msgstr "Harap memilih minimal satu grup."
-
 msgid "This slug is already in use"
 msgstr "Slug ini telah digunakan"
 
@@ -146,9 +137,20 @@ msgstr "Waktu publikasi harus diatur sebelum waktu kadaluarsa"
 msgid "Expiry date/time must be in the future"
 msgstr "Waktu kadaluarsa harus di masa depan"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Anda tidak boleh memiliki lebih dari satu izin untuk koleksi yang sama."
+msgid "Search"
+msgstr "Pencarian"
+
+msgid "Search term"
+msgstr "Kata kunci pencarian"
+
+msgid "Visibility"
+msgstr "Visibilitas"
+
+msgid "This field is required."
+msgstr "Kolom ini  harus diisi."
+
+msgid "Please select at least one group."
+msgstr "Harap memilih minimal satu grup."
 
 msgid "Error 404: Page not found"
 msgstr "Galat 404: Halaman tidak ditemukan"
@@ -165,46 +167,34 @@ msgstr "Pergi ke pengelolaan Wagtail"
 msgid "Account"
 msgstr "Akun"
 
-msgid "Set gravatar"
-msgstr "Tentukan gravatar"
+msgid "Change profile picture"
+msgstr "Ubah gambar profil"
 
-msgid ""
-"Your avatar image is provided by Gravatar and is connected to your email "
-"address. With a Gravatar account you can set an avatar for any number of "
-"other email addresses you use."
-msgstr ""
-"Gambar avatar anda disediakan oleh Gravatar dan terhubung dengan alamat "
-"surel anda. Anda dapat menentukan avatar untuk setiap alamat surel yang anda "
-"miliki dengan akun gravatar."
+msgid "Your current profile picture:"
+msgstr "Gambar profil anda saat ini:"
+
+msgid "Update"
+msgstr "Perbarui"
+
+msgid "Change email"
+msgstr "Ubah surel"
 
 msgid "Change password"
 msgstr "Ganti kata sandi"
-
-msgid "Change the password you use to log in."
-msgstr "Ganti kata sandi yang Anda gunakan untuk masuk."
-
-msgid "Notification preferences"
-msgstr "Preferensi notifikasi"
-
-msgid "Choose which email notifications to receive."
-msgstr "Pilih jenis notifikasi surel mana yang akan diterima."
-
-msgid "Language preferences"
-msgstr "Preferensi bahasa"
-
-msgid "Choose the language you want to use here."
-msgstr "Pilih bahasa yang akan Anda gunakan disini."
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Kata sandi Anda tidak dapat diubah di sini. Harap hubungi pengelola situs."
 
+msgid "Set Time Zone"
+msgstr "Atur Zona Waktu"
+
 msgid "Language Preferences"
 msgstr "Preferensi Bahasa"
 
-msgid "Update"
-msgstr "Perbarui"
+msgid "Notification preferences"
+msgstr "Preferensi notifikasi"
 
 msgid "Reset password"
 msgstr "Atur ulang kata sandi"
@@ -218,15 +208,28 @@ msgstr "Masuk"
 msgid "Set your new password"
 msgstr "Atur kata sandi baru Anda"
 
-msgid "The passwords do not match. Please try again."
-msgstr "Kata sandi tidak cocok. Silakan coba kembali."
+msgid "Invalid password reset link"
+msgstr "Tautan atur ulang kata sandi tidak valid"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Tautan pengaturan ulang kata sandi tidak valid, mungkin karena sudah "
+"digunakan."
+
+msgid "Request a new password reset"
+msgstr "Buat permohonan atur ulang kata sandi baru"
 
 msgid "Check your email"
 msgstr "Periksa surel Anda"
 
-msgid "A link to reset your password has been emailed to you."
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
 msgstr ""
-"Tautan untuk mengatur ulang kata sandi Anda telah dikirim ke surel Anda."
+"Tautan untuk mengatur ulang kata sandi Anda telah dikirim melalui surel "
+"kepada Anda jika ada akun untuk alamat ini."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Harap ikuti tautan di bawah ini untuk mengatur ulang kata sandi anda:"
@@ -243,14 +246,14 @@ msgstr "Atur ulang kata sandi Anda"
 msgid "Edit"
 msgstr "Ubah"
 
-msgid "Delete"
-msgstr "Hapus"
-
 msgid "Page"
 msgstr "Halaman"
 
 msgid "Pages"
 msgstr "Halaman"
+
+msgid "Loading…"
+msgstr "Memuat..."
 
 msgid "No results"
 msgstr "Tidak ada hasil"
@@ -266,6 +269,42 @@ msgstr "Lihat semua"
 
 msgid "Close explorer"
 msgstr "Tutup penjelajah"
+
+msgid "Alt text"
+msgstr "Teks alt"
+
+msgid "Write here…"
+msgstr "Tulis disini..."
+
+msgid "Horizontal line"
+msgstr "Garis horizontal"
+
+msgid "Line break"
+msgstr "Akhir baris"
+
+msgid "Undo"
+msgstr "Urungkan"
+
+msgid "Redo"
+msgstr "Ulangi"
+
+msgid "Reload the page"
+msgstr "Muat ulang halaman"
+
+msgid "Reload saved content"
+msgstr "Muat ulang konten tersimpan"
+
+msgid "Show latest content"
+msgstr "Tampilkan konten terbaru"
+
+msgid "Show error"
+msgstr "Tampilkan error"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Editor telah gagal. Konten telah dipasang ulang dengan versi terakhir yang "
+"disimpan."
 
 msgid "Dashboard"
 msgstr "Dasbor"
@@ -297,7 +336,7 @@ msgstr "Tautan surel"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -305,8 +344,7 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"        Ada %(counter)s buah yang cocok\n"
-"    "
+"Ada %(counter)s yang sesuai"
 
 msgid "Choose"
 msgstr "Pilih"
@@ -384,6 +422,10 @@ msgstr ""
 "Belum ada koleksi. Bagaimana kalau <a href=\"%(add_collection_url)s"
 "\">membuat sebuah koleksi</a>?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Tambah %(label)s"
+
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
@@ -415,6 +457,9 @@ msgstr "Telah diubah"
 
 msgid "Edit this page"
 msgstr "Ubah halaman ini"
+
+msgid "Preview this page"
+msgstr "Pratinjau halaman ini"
 
 msgid "Approve"
 msgstr "Menyetujui"
@@ -475,6 +520,9 @@ msgstr "Masuk ke Wagtail"
 msgid "Forgotten it?"
 msgstr "Apakah anda lupa?"
 
+msgid "Signing in…"
+msgstr "Melakukan Sign In..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "Halaman \"%(title)s\" telah disetujui."
@@ -534,6 +582,15 @@ msgstr "Terkunci"
 
 msgid "Unlocked"
 msgstr "Kunci terbuka"
+
+msgid "Publishing…"
+msgstr "Mempublikasikan..."
+
+msgid "Publish this revision"
+msgstr "Publikasi revisi ini"
+
+msgid "Publish"
+msgstr "Publikasikan"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -613,9 +670,6 @@ msgstr "Ya, pindahkan halaman ini"
 msgid "Unpublish %(title)s"
 msgstr "Tarik publikasi %(title)s"
 
-msgid "Unpublish"
-msgstr "Tarik publikasi"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Apakan anda yakin akan menarik publikasi halaman ini?"
 
@@ -665,14 +719,11 @@ msgstr "%(page_type)s baru"
 msgid "New"
 msgstr "Baru"
 
+msgid "Saving…"
+msgstr "Menyimpan..."
+
 msgid "Save draft"
 msgstr "Simpan konsep"
-
-msgid "Publish"
-msgstr "Publikasikan"
-
-msgid "Submit for moderation"
-msgstr "Kirim untuk dimoderasi"
 
 msgid "This page has unsaved changes."
 msgstr "Terdapat perubahan yang belum disimpan dalam halaman ini."
@@ -690,9 +741,6 @@ msgstr "Halaman dikunci"
 
 msgid "Replace current draft"
 msgstr "Gantikan konsep saat ini"
-
-msgid "Publish this revision"
-msgstr "Publikasi revisi ini"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -923,6 +971,22 @@ msgid "There are no differences between these two revisions"
 msgstr "Tidak ada perbedaan di antara kedua revisi"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Hapus Jadwal Revisi %(revision.id)s untuk %(title)s"
+
+msgid "Unschedule"
+msgstr "Hapus Jadwal"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Apakah Anda yakin untuk menghapus jadwal pada revisi ini?"
+
+msgid "Yes, unschedule"
+msgstr "Ya, hapus jadwal"
+
+msgid "No, don't unschedule"
+msgstr "Tidak, jangan hapus jadwal"
+
+#, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisi dari %(title)s"
 
@@ -942,11 +1006,17 @@ msgstr "Konsep saat ini"
 msgid "Live version"
 msgstr "Versi aktif"
 
+msgid "Scheduled for"
+msgstr "Dijadwalkan untuk"
+
 msgid "Review this revision"
 msgstr "Tinjau revisi ini"
 
 msgid "Compare with previous revision"
 msgstr "Bandingkan dengan revisi sebelumnya"
+
+msgid "Cancel scheduled publish"
+msgstr "Batalkan publikasi terjadwal"
 
 msgid "No revisions of this page exist"
 msgstr "Halaman ini tidak memiliki revisi"
@@ -967,6 +1037,9 @@ msgstr[0] ""
 "\n"
 "                Ada %(counter)s halaman yang sesuai\n"
 "            "
+
+msgid "Page types"
+msgstr "Jenis Halaman"
 
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
@@ -1027,6 +1100,27 @@ msgstr "November"
 msgid "December"
 msgstr "Desember"
 
+msgid "Sunday"
+msgstr "Minggu"
+
+msgid "Monday"
+msgstr "Senin"
+
+msgid "Tuesday"
+msgstr "Selasa"
+
+msgid "Wednesday"
+msgstr "Rabu"
+
+msgid "Thursday"
+msgstr "Kamis"
+
+msgid "Friday"
+msgstr "Jum'at"
+
+msgid "Saturday"
+msgstr "Sabtu"
+
 msgid "Sun"
 msgstr "Min"
 
@@ -1072,23 +1166,6 @@ msgstr ""
 "Anda  menggunakan peramban yang <strong>kadaluarsa</strong> yang tidak "
 "didukung oleh perangkat lunak ini. Harap <a href=\"http://browsehappy.com/"
 "\">memperbarui peramban anda</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Untuk menggunakan Wagtail diperlukan JavaScript yang saat ini "
-"dinonaktifkan.<br />\n"
-"            Berikut ini adalah <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instruksi untuk mengaktifkan JavaScript "
-"dalam peramban anda</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Pergi ke antarmuka pengeloaan Wagtail"
@@ -1165,6 +1242,12 @@ msgstr "Rusia"
 msgid "Swedish"
 msgstr "Swedia"
 
+msgid "Slovak"
+msgstr "Slowakia"
+
+msgid "Ukrainian"
+msgstr "Ukraina"
+
 msgid "Chinese (China)"
 msgstr "Cina"
 
@@ -1174,8 +1257,14 @@ msgstr "Maaf, Anda tidak memiliki izin untuk mengakses area ini"
 msgid "Your password has been changed successfully!"
 msgstr "Kata sandi Anda telah berhasil diubah!"
 
+msgid "Your email has been changed successfully!"
+msgstr "Surel Anda telah berhasil diubah! "
+
 msgid "Your preferences have been updated."
 msgstr "Preferensi anda telah diperbarui."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Preferensi anda telah berhasil diperbarui!"
 
 msgid "You have been successfully logged out."
 msgstr "Anda berhasil keluar."
@@ -1189,11 +1278,9 @@ msgstr "Tambah sebuah koleksi"
 msgid "Add collection"
 msgstr "Tambah koleksi"
 
-#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Koleksi '{0}' telah dibuat."
 
-#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Koleksi '{0}' diperbarui."
 
@@ -1203,7 +1290,6 @@ msgstr "Koleksi tidak dapat disimpan karena suatu galat."
 msgid "Delete collection"
 msgstr "Hapus koleksi"
 
-#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Koleksi '{0}' telah dihapus."
 
@@ -1213,18 +1299,15 @@ msgstr "Apakah anda yakin akan menghapus koleksi ini?"
 msgid "Editing"
 msgstr "Mengubah"
 
-#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Halaman '{0}' telah dibuat dan dijadwalkan untuk dipublikasi."
 
 msgid "View live"
 msgstr "Tampilkan yang aktif"
 
-#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Halaman '{0}' telah dibuat dan dipublikasi."
 
-#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Halaman '{0}' telah dibuat dan dikirim untuk dimoderasi."
 
@@ -1234,38 +1317,33 @@ msgstr "Tampilkan konsep"
 msgid "Failed to send notifications to moderators"
 msgstr "Gagal mengirim notifikasi ke moderator"
 
-#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Halaman '{0}' telah dibuat."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Halaman tersebut tidak dapat dibuat karena tidak lolos validasi."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisi oleh {0} untuk halaman '{1}' telah dijadwalkan untuk publikasi."
 
-#, python-brace-format
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr "Halaman '{0}' hidup dan revisi ini telah dijadwalkan untuk publikasi."
+
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Halaman '{0}' telah dijadwalkan untuk publikasi."
 
-#, python-brace-format
 msgid "Revision from {0} of page '{1}' has been published."
 msgstr "Revisi oleh {0} untuk halaman '{1}' telah dipublikasi."
 
-#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Halaman '{0}' telah dipublikasi."
 
-#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Halaman '{0}' telah dikirim untuk moderasi."
 
-#, python-brace-format
 msgid "Page '{0}' has been replaced with revision from {1}."
 msgstr "Halaman '{0}' telah diganti dengan revisi dari {1}."
 
-#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Halaman '{0}' telah diperbarui."
 
@@ -1281,49 +1359,39 @@ msgstr "Bandingkan dengan versi aktif"
 msgid "This page is currently awaiting moderation"
 msgstr "Halaman ini menunggu proses moderasi"
 
-#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Halaman '{0}' dihapus."
 
-#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Halaman '{0}' ditarik dari publikasi."
 
-#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Halaman '{0}' telah dipindah."
 
-#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Telah menyalin halaman '{0}' dan {1} sub-halaman."
 
-#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Halaman '{0}' telah disalin."
 
-#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Halaman '{0}' tidak dalam proses moderasi."
 
-#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Halaman '{0}' telah dipublikasi."
 
 msgid "Failed to send approval notifications"
 msgstr "Gagal mengirim notifikasi persetujuan"
 
-#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publikasi halaman '{0}' ditolak."
 
 msgid "Failed to send rejection notifications"
 msgstr "Gagal mengirim notifikasi penolakan"
 
-#, python-brace-format
 msgid "Page '{0}' is now locked."
 msgstr "Halaman '{0}' sekarang telah dikunci."
 
-#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Halaman '{0}' sekarang tidak dikunci."
 
@@ -1341,48 +1409,89 @@ msgstr "Paling awal"
 msgid "Latest"
 msgstr "Paling akhir"
 
-#, python-brace-format
+msgid "revision {0} of \"{1}\""
+msgstr "revisi {0} dari \"{1}\""
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Jadwal revisi {0} dari \"{1}\" dihapus."
+
 msgid "Edit '{title}'"
 msgstr "Ubah '{title}'"
 
-#, python-brace-format
 msgid "Preview draft version of '{title}'"
 msgstr "Pratinjau versi konsep dari '{title}'"
 
-#, python-brace-format
 msgid "View live version of '{title}'"
 msgstr "Lihat versi aktif dari '{title}'"
 
-#, python-brace-format
 msgid "Add a child page to '{title}' "
 msgstr "Tambahkan halaman turunan ke '{title}' "
 
 msgid "More"
 msgstr "Lainnya"
 
-#, python-brace-format
 msgid "View more options for '{title}'"
 msgstr "Tampilkan pilihan lain untuk '{title}'"
 
-#, python-brace-format
 msgid "Move page '{title}'"
 msgstr "Pindah halaman '{title}'"
 
-#, python-brace-format
 msgid "Copy page '{title}'"
 msgstr "Salin halaman '{title}'"
 
-#, python-brace-format
 msgid "Delete page '{title}'"
 msgstr "Hapus halaman '{title}'"
 
-#, python-brace-format
 msgid "Unpublish page '{title}'"
 msgstr "Tarik publikasi halaman '{title}'"
 
-#, python-brace-format
 msgid "View revision history for '{title}'"
 msgstr "Tampilkan catatan revisi '{title}'"
+
+msgid "Set profile picture"
+msgstr "Atur gambar profil"
+
+msgid "Change your profile picture"
+msgstr "Ubah gambar profil Anda"
+
+msgid "Change the email address linked to your account."
+msgstr "Ubah alamat surel yang terkait dengan akun Anda."
+
+msgid "Change the password you use to log in."
+msgstr "Ganti kata sandi yang Anda gunakan untuk masuk."
+
+msgid "Choose which email notifications to receive."
+msgstr "Pilih jenis notifikasi surel mana yang akan diterima."
+
+msgid "Language preferences"
+msgstr "Preferensi bahasa"
+
+msgid "Choose the language you want to use here."
+msgstr "Pilih bahasa yang akan Anda gunakan disini."
+
+msgid "Current Time Zone"
+msgstr "Zona Waktu Saat Ini"
+
+msgid "Choose your current time zone."
+msgstr "Pilih zona waktu saat ini."
+
+msgid "Heading {level}"
+msgstr "Titel {level}"
+
+msgid "Bulleted list"
+msgstr "Daftar Bullet"
+
+msgid "Numbered list"
+msgstr "Daftar Bernomor"
+
+msgid "Bold"
+msgstr "Bold"
+
+msgid "Italic"
+msgstr "Italic"
+
+msgid "Link"
+msgstr "Tautan"
 
 msgid "Choose an item"
 msgstr "Pilih salah satu"

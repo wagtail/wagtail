@@ -1,7 +1,7 @@
 from io import BytesIO
+from unittest.mock import Mock, patch
 
 from django.test import TestCase, override_settings
-from mock import Mock, patch
 
 from wagtail.core import hooks
 from wagtail.images import image_operations
@@ -362,6 +362,40 @@ class TestWidthHeightOperation(ImageOperationTestCase):
 TestWidthHeightOperation.setup_test_methods()
 
 
+class TestScaleOperation(ImageOperationTestCase):
+    operation_class = image_operations.ScaleOperation
+
+    filter_spec_tests = [
+        ('scale-100', dict(method='scale', percent=100)),
+        ('scale-50', dict(method='scale', percent=50)),
+    ]
+
+    filter_spec_error_tests = [
+        'scale',
+        'scale-800x600',
+        'scale-abc',
+        'scale-800-c100',
+    ]
+
+    run_tests = [
+        # Basic almost a no-op of scale
+        ('scale-100', dict(width=1000, height=500), [
+            ('resize', ((1000, 500), ), {}),
+        ]),
+        # Basic usage of scale
+        ('scale-50', dict(width=1000, height=500), [
+            ('resize', ((500, 250), ), {}),
+        ]),
+        # Rounded usage of scale
+        ('scale-83.0322', dict(width=1000, height=500), [
+            ('resize', ((1000 * 0.830322, 500 * 0.830322), ), {}),
+        ]),
+    ]
+
+
+TestScaleOperation.setup_test_methods()
+
+
 class TestCacheKey(TestCase):
     def test_cache_key(self):
         image = Image(width=1000, height=1000)
@@ -580,6 +614,14 @@ class TestBackgroundColorFilter(TestCase):
 
     def test_invalid(self):
         fil = Filter(spec='width-400|bgcolor-foo')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.assertRaises(ValueError, fil.run, image, BytesIO())
+
+    def test_invalid_length(self):
+        fil = Filter(spec='width-400|bgcolor-1234')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),

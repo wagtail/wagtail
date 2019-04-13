@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Henrik Kröger <hedwig@riseup.net>, 2016
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # pcraston <patrick@craston.com>, 2014
@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:06+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail Hervorgehobene Suchergebnisse"
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Bitte geben Sie mindestens einen Vorschlag für diesen Suchbegriff an."
@@ -136,24 +139,6 @@ msgid "None"
 msgstr "Keine"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Es gibt ein Ergebnis\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Es gibt %(counter)s Ergebnisse\n"
-"        "
-
-#, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Leider gibt es keine hervorgehobenen Suchergebnisse, die zu „<em>"
@@ -170,7 +155,6 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Suche hervorgehobene Ergebnisse"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Redaktionsempfehlungen für ‚{0}‘ erstellt."
 
@@ -180,7 +164,6 @@ msgstr "Bearbeiten"
 msgid "Recommendations have not been created due to errors"
 msgstr "Empfehlungen konnten wegen eines Fehlers nicht erstellt werden"
 
-#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Redaktionsempfehlungen für ‚{0}‘ geändert."
 

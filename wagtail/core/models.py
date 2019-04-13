@@ -13,7 +13,7 @@ from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
-from django.db.models import Q, Value
+from django.db.models import Case, Q, Value, When
 from django.db.models.functions import Concat, Substr
 from django.http import Http404
 from django.template.response import TemplateResponse
@@ -22,7 +22,8 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
-from modelcluster.models import ClusterableModel, get_all_child_relations
+from modelcluster.models import (
+    ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.query import PageQuerySet, TreeQuerySet
@@ -81,14 +82,14 @@ class Site(models.Model):
     def __str__(self):
         if self.site_name:
             return(
-                self.site_name +
-                (" [default]" if self.is_default_site else "")
+                self.site_name
+                + (" [default]" if self.is_default_site else "")
             )
         else:
             return(
-                self.hostname +
-                ("" if self.port == 80 else (":%d" % self.port)) +
-                (" [default]" if self.is_default_site else "")
+                self.hostname
+                + ("" if self.port == 80 else (":%d" % self.port))
+                + (" [default]" if self.is_default_site else "")
             )
 
     @staticmethod
@@ -107,16 +108,8 @@ class Site(models.Model):
         still be routed to a different hostname which is set as the default
         """
 
-        try:
-            hostname = request.get_host().split(':')[0]
-        except KeyError:
-            hostname = None
-
-        try:
-            port = request.get_port()
-        except (AttributeError, KeyError):
-            port = request.META.get('SERVER_PORT')
-
+        hostname = request.get_host().split(':')[0]
+        port = request.get_port()
         return get_site_for_hostname(hostname, port)
 
     @property
@@ -152,15 +145,16 @@ class Site(models.Model):
     @staticmethod
     def get_site_root_paths():
         """
-        Return a list of (root_path, root_url) tuples, most specific path first -
-        used to translate url_paths into actual URLs with hostnames
+        Return a list of (id, root_path, root_url) tuples, most specific path
+        first - used to translate url_paths into actual URLs with hostnames
         """
         result = cache.get('wagtail_site_root_paths')
 
         if result is None:
             result = [
                 (site.id, site.root_page.url_path, site.root_url)
-                for site in Site.objects.select_related('root_page').order_by('-root_page__url_path')
+                for site in Site.objects.select_related('root_page').order_by(
+                    '-root_page__url_path', '-is_default_site', 'hostname')
             ]
             cache.set('wagtail_site_root_paths', result, 3600)
 
@@ -328,6 +322,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     search_fields = [
         index.SearchField('title', partial_match=True, boost=2),
+        index.AutocompleteField('title'),
         index.FilterField('title'),
         index.FilterField('id'),
         index.FilterField('live'),
@@ -344,6 +339,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
+
+    # Define the maximum number of instances this page type can have. Default to unlimited.
+    max_count = None
+
+    # Define the maximum number of instances this page can have under a specific parent. Default to unlimited.
+    max_count_per_parent = None
 
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
@@ -758,17 +759,35 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         ``request`` directly, and should just pass it to the original method
         when calling ``super``.
         """
-        for (site_id, root_path, root_url) in self._get_site_root_paths(request):
-            if self.url_path.startswith(root_path):
-                page_path = reverse('wagtail_serve', args=(self.url_path[len(root_path):],))
 
-                # Remove the trailing slash from the URL reverse generates if
-                # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
-                # the root path
-                if not WAGTAIL_APPEND_SLASH and page_path != '/':
-                    page_path = page_path.rstrip('/')
+        possible_sites = [
+            (pk, path, url)
+            for pk, path, url in self._get_site_root_paths(request)
+            if self.url_path.startswith(path)
+        ]
 
-                return (site_id, root_url, page_path)
+        if not possible_sites:
+            return None
+
+        site_id, root_path, root_url = possible_sites[0]
+
+        if hasattr(request, 'site'):
+            for site_id, root_path, root_url in possible_sites:
+                if site_id == request.site.pk:
+                    break
+            else:
+                site_id, root_path, root_url = possible_sites[0]
+
+        page_path = reverse(
+            'wagtail_serve', args=(self.url_path[len(root_path):],))
+
+        # Remove the trailing slash from the URL reverse generates if
+        # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
+        # the root path
+        if not WAGTAIL_APPEND_SLASH and page_path != '/':
+            page_path = page_path.rstrip('/')
+
+        return (site_id, root_url, page_path)
 
     def get_full_url(self, request=None):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
@@ -959,7 +978,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Checks if this page type can be created as a subpage under a parent
         page instance.
         """
-        return cls.is_creatable and cls.can_exist_under(parent)
+        can_create = cls.is_creatable and cls.can_exist_under(parent)
+
+        if cls.max_count is not None:
+            can_create = can_create and cls.objects.count() < cls.max_count
+
+        if cls.max_count_per_parent is not None:
+            can_create = can_create and parent.get_children().type(cls).count() < cls.max_count_per_parent
+
+        return can_create
 
     def can_move_to(self, parent):
         """
@@ -1049,6 +1076,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 continue
 
             specific_dict[field.name] = getattr(specific_self, field.name)
+
+        # copy child m2m relations
+        for related_field in get_all_child_m2m_relations(specific_self):
+            field = getattr(specific_self, related_field.name)
+            if field and hasattr(field, 'all'):
+                values = field.all()
+                if values:
+                    specific_dict[related_field.name] = values
 
         # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
         page_copy = self.specific_class(**specific_dict)
@@ -1187,7 +1222,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             url_info = urlparse(url)
             hostname = url_info.hostname
             path = url_info.path
-            port = url_info.port or 80
+            port = url_info.port or (443 if url_info.scheme == 'https' else 80)
             scheme = url_info.scheme
         else:
             # Cannot determine a URL to this page - cobble one together based on
@@ -1204,13 +1239,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             port = 80
             scheme = 'http'
 
+        http_host = hostname
+        if port != (443 if scheme == 'https' else 80):
+            http_host = '%s:%s' % (http_host, port)
         dummy_values = {
             'REQUEST_METHOD': 'GET',
             'PATH_INFO': path,
             'SERVER_NAME': hostname,
             'SERVER_PORT': port,
             'SERVER_PROTOCOL': 'HTTP/1.1',
-            'HTTP_HOST': hostname,
+            'HTTP_HOST': http_host,
             'wsgi.version': (1, 0),
             'wsgi.input': StringIO(),
             'wsgi.errors': StringIO(),
@@ -1222,7 +1260,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # Add important values from the original request object, if it was provided.
         HEADERS_FROM_ORIGINAL_REQUEST = [
-            'REMOTE_ADDR', 'HTTP_X_FORWARDED_FOR', 'HTTP_COOKIE', 'HTTP_USER_AGENT',
+            'REMOTE_ADDR', 'HTTP_X_FORWARDED_FOR', 'HTTP_COOKIE', 'HTTP_USER_AGENT', 'HTTP_AUTHORIZATION',
             'wsgi.version', 'wsgi.multithread', 'wsgi.multiprocess', 'wsgi.run_once',
         ]
         if settings.SECURE_PROXY_SSL_HEADER:
@@ -1241,19 +1279,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         request.is_dummy = True
 
         # Apply middleware to the request
-        # Note that Django makes sure only one of the middleware settings are
-        # used in a project
-        if hasattr(settings, 'MIDDLEWARE'):
-            handler = BaseHandler()
-            handler.load_middleware()
-            handler._middleware_chain(request)
-        elif hasattr(settings, 'MIDDLEWARE_CLASSES'):
-            # Pre Django 1.10 style - see http://www.mellowmorning.com/2011/04/18/mock-django-request-for-testing/
-            handler = BaseHandler()
-            handler.load_middleware()
-            # call each middleware in turn and throw away any responses that they might return
-            for middleware_method in handler._request_middleware:
-                middleware_method(request)
+        handler = BaseHandler()
+        handler.load_middleware()
+        handler._middleware_chain(request)
 
         return request
 
@@ -1309,10 +1337,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return ['/']
 
-    def get_sitemap_urls(self):
+    def get_sitemap_urls(self, request=None):
         return [
             {
-                'location': self.full_url,
+                'location': self.get_full_url(request),
                 # fall back on latest_revision_created_at if last_published_at is null
                 # (for backwards compatibility from before last_published_at was added)
                 'lastmod': (self.last_published_at or self.latest_revision_created_at),
@@ -1333,12 +1361,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 yield '/' + child.slug + path
 
     def get_ancestors(self, inclusive=False):
+        """
+        Returns a queryset of the current page's ancestors, starting at the root page
+        and descending to the parent, or to the current page itself if ``inclusive`` is true.
+        """
         return Page.objects.ancestor_of(self, inclusive)
 
     def get_descendants(self, inclusive=False):
+        """
+        Returns a queryset of all pages underneath the current page, any number of levels deep.
+        If ``inclusive`` is true, the current page itself is included in the queryset.
+        """
         return Page.objects.descendant_of(self, inclusive)
 
     def get_siblings(self, inclusive=True):
+        """
+        Returns a queryset of all other pages with the same parent as the current page.
+        If ``inclusive`` is true, the current page itself is included in the queryset.
+        """
         return Page.objects.sibling_of(self, inclusive)
 
     def get_next_siblings(self, inclusive=False):
@@ -1676,9 +1716,9 @@ class PagePermissionTester:
         if self.page_is_root:  # root node is not a page and can never be edited, even by superusers
             return False
         return (
-            self.user.is_superuser or
-            ('edit' in self.permissions) or
-            ('add' in self.permissions and self.page.owner_id == self.user.pk)
+            self.user.is_superuser
+            or ('edit' in self.permissions)
+            or ('add' in self.permissions and self.page.owner_id == self.user.pk)
         )
 
     def can_delete(self):
@@ -1738,6 +1778,9 @@ class PagePermissionTester:
         return self.user.is_superuser or ('publish' in self.permissions)
 
     def can_set_view_restrictions(self):
+        return self.can_publish()
+
+    def can_unschedule(self):
         return self.can_publish()
 
     def can_lock(self):
@@ -1816,9 +1859,15 @@ class PagePermissionTester:
         if recursive and (self.page == destination or destination.is_descendant_of(self.page)):
             return False
 
-        # shortcut the trivial 'everything' / 'nothing' permissions
+        # reject inactive users early
         if not self.user.is_active:
             return False
+
+        # reject early if pages of this type cannot be created at the destination
+        if not self.page.specific_class.can_create_at(destination):
+            return False
+
+        # skip permission checking for super users
         if self.user.is_superuser:
             return True
 
@@ -1961,6 +2010,14 @@ class Collection(MP_Node):
         """Return a query set of all collection view restrictions that apply to this collection"""
         return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
 
+    @staticmethod
+    def order_for_display(queryset):
+        return queryset.annotate(
+            display_order=Case(
+                When(depth=1, then=Value('')),
+                default='name')
+        ).order_by('display_order')
+
     class Meta:
         verbose_name = _('collection')
         verbose_name_plural = _('collections')
@@ -2023,3 +2080,4 @@ class GroupCollectionPermission(models.Model):
     class Meta:
         unique_together = ('group', 'collection', 'permission')
         verbose_name = _('group collection permission')
+        verbose_name_plural = _('group collection permissions')

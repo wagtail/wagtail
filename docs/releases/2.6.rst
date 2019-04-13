@@ -1,0 +1,33 @@
+==========================================
+Wagtail 2.6 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Other features
+~~~~~~~~~~~~~~
+
+ * Added support for ``short_description`` for field labels in modeladmin's ``InspectView`` (Wesley van Lee)
+ * Rearranged SCSS folder structure to the client folder and split them approximately according to ITCSS. (Naomi Morduch Toubman, Jonny Scholes, Janneke Janssen, Hugo van den Berg)
+
+
+Bug fixes
+~~~~~~~~~
+
+ * ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
+
+
+Upgrade considerations
+======================
+
+Removed support for Python 3.4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Python 3.4 is no longer supported as of this release; please upgrade to Python 3.5 or above before upgrading Wagtail.

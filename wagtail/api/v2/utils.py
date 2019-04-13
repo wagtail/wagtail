@@ -25,6 +25,13 @@ def get_full_url(request, path):
     return base_url + path
 
 
+def get_object_detail_url(router, request, model, pk):
+    url_path = router.get_object_detail_urlpath(model, pk)
+
+    if url_path:
+        return get_full_url(request, url_path)
+
+
 def pages_for_site(site):
     pages = Page.objects.public().live()
     pages = pages.descendant_of(site.root_page, inclusive=True)

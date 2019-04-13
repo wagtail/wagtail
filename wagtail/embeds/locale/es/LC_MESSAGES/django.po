@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 20:03+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-08 14:48+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -23,14 +23,23 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Please enter a valid URL"
-msgstr "Por favor introduce una URL válida"
+msgid "Wagtail embeds"
+msgstr "Embebidos Wagtail"
+
+msgid "Cannot find an embed for this URL."
+msgstr "No se puede encontrar un embed para esta URL."
 
 msgid "URL"
 msgstr "URL"
 
+msgid "Please enter a valid URL"
+msgstr "Por favor introduce una URL válida"
+
 msgid "embed"
 msgstr "embebido"
+
+msgid "embeds"
+msgstr "embebidos"
 
 msgid "Insert embed"
 msgstr "Insertar embed"
@@ -44,9 +53,6 @@ msgid ""
 msgstr ""
 "Parece que hay un problema con tu clave de API de embedly. Por favor "
 "comprueba tu configuración."
-
-msgid "Cannot find an embed for this URL."
-msgstr "No se puede encontrar un embed para esta URL."
 
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "

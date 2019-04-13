@@ -5,7 +5,7 @@
     "fields": {
         "title": "Root",
         "draft_title": "Root",
-        "numchild": 1,
+        "numchild": 2,
         "show_in_menus": false,
         "live": true,
         "depth": 1,
@@ -594,6 +594,22 @@
     }
 },
 
+{
+    "pk": 20,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "This page doesn't get served",
+        "draft_title": "This page doesn't get served",
+        "numchild": 0,
+        "show_in_menus": false,
+        "live": true,
+        "depth": 2,
+        "content_type": ["wagtailcore", "page"],
+        "path": "00010002",
+        "url_path": "/does-not-exist/",
+        "slug": "does-not-exist"
+    }
+},
 
 {
     "pk": 1,
@@ -1006,6 +1022,14 @@
 {
   "pk": "advert/01",
   "model": "tests.advertwithcustomprimarykey",
+  "fields": {
+      "text": "test_advert",
+      "url": "http://www.example.com"
+      }
+},
+{
+  "pk": "2dbe9aa7-1f4a-428a-8cca-b929ee5bff5b",
+  "model": "tests.advertwithcustomuuidprimarykey",
   "fields": {
       "text": "test_advert",
       "url": "http://www.example.com"

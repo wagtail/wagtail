@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-02-08 21:16+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-02 21:51+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -25,14 +25,23 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-msgid "Please enter a valid URL"
-msgstr "Wprowadź proszę poprawny URL"
+msgid "Wagtail embeds"
+msgstr "Embedy Wagtail"
+
+msgid "Cannot find an embed for this URL."
+msgstr "Nie można znaleźć osadzenia dla tego URLa."
 
 msgid "URL"
 msgstr "URL"
 
+msgid "Please enter a valid URL"
+msgstr "Wprowadź proszę poprawny URL"
+
 msgid "embed"
 msgstr "osadzony"
+
+msgid "embeds"
+msgstr "osadza"
 
 msgid "Insert embed"
 msgstr "Wstaw osadzenie"
@@ -46,9 +55,6 @@ msgid ""
 msgstr ""
 "Wygląda na to, że jest problem z Twoim embedly API key. Sprawdź proszę "
 "ustawienia."
-
-msgid "Cannot find an embed for this URL."
-msgstr "Nie można znaleźć osadzenia dla tego URLa."
 
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "

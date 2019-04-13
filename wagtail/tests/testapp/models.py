@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+import uuid
 
 from django import forms
 from django.conf import settings
@@ -26,6 +27,7 @@ from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core.blocks import CharBlock, RichTextBlock, StructBlock
 from wagtail.core.fields import RichTextField, StreamField
@@ -38,8 +40,9 @@ from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.utils.decorators import cached_classmethod
 
-from .forms import ValidatedPageForm
+from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 from .views import CustomSubmissionsListView
 
 EVENT_AUDIENCE_CHOICES = (
@@ -196,7 +199,7 @@ class EventPageRelatedLink(Orderable, RelatedLink):
 
 
 class EventPageSpeaker(Orderable, LinkFields):
-    page = ParentalKey('tests.EventPage', related_name='speakers', on_delete=models.CASCADE)
+    page = ParentalKey('tests.EventPage', related_name='speakers', related_query_name='speaker', on_delete=models.CASCADE)
     first_name = models.CharField("Name", max_length=255, blank=True)
     last_name = models.CharField("Surname", max_length=255, blank=True)
     image = models.ForeignKey(
@@ -314,6 +317,22 @@ class HeadCountRelatedModelUsingPK(models.Model):
     panels = [FieldPanel('head_count')]
 
 
+# Override the standard WagtailAdminPageForm to add field that is not in model
+# so that we can test additional potential issues like comparing versions
+class FormClassAdditionalFieldPage(Page):
+    location = models.CharField(max_length=255)
+    body = RichTextField(blank=True)
+
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('location'),
+        FieldPanel('body'),
+        FieldPanel('code'),  # not in model, see set base_form_class
+    ]
+
+    base_form_class = FormClassAdditionalFieldPageForm
+
+
 # Just to be able to test multi table inheritance
 class SingleEventPage(EventPage):
     excerpt = models.TextField(
@@ -345,6 +364,11 @@ class SingleEventPage(EventPage):
 
 
 SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
+
+
+# "custom" sitemap object
+class EventSitemap(Sitemap):
+    pass
 
 
 # Event index (has a separate AJAX template, and a custom template context)
@@ -394,9 +418,9 @@ class EventIndex(Page):
         for path in super().get_static_site_paths():
             yield path
 
-    def get_sitemap_urls(self):
+    def get_sitemap_urls(self, request=None):
         # Add past events url to sitemap
-        return super().get_sitemap_urls() + [
+        return super().get_sitemap_urls(request=request) + [
             {
                 'location': self.full_url + 'past/',
                 'lastmod': self.latest_revision_created_at
@@ -724,6 +748,23 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
 register_snippet(AdvertWithCustomPrimaryKey)
 
 
+class AdvertWithCustomUUIDPrimaryKey(ClusterableModel):
+    advert_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    url = models.URLField(null=True, blank=True)
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('url'),
+        FieldPanel('text'),
+    ]
+
+    def __str__(self):
+        return self.text
+
+
+register_snippet(AdvertWithCustomUUIDPrimaryKey)
+
+
 class AdvertWithTabbedInterface(models.Model):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -829,6 +870,10 @@ class SingletonPage(Page):
             and not cls.objects.exists()
 
 
+class SingletonPageViaMaxCount(Page):
+    max_count = 1
+
+
 class PageChooserModel(models.Model):
     page = models.ForeignKey('wagtailcore.Page', help_text='help text', on_delete=models.CASCADE)
 
@@ -872,7 +917,10 @@ class CustomRendition(AbstractRendition):
 
 
 class CustomDocument(AbstractDocument):
-    admin_form_fields = Document.admin_form_fields
+    description = models.TextField(blank=True)
+    admin_form_fields = Document.admin_form_fields + (
+        'description',
+    )
 
 
 class StreamModel(models.Model):
@@ -1122,7 +1170,7 @@ class CustomRichBlockFieldPage(Page):
 
 
 class RichTextFieldWithFeaturesPage(Page):
-    body = RichTextField(features=['blockquote', 'embed', 'made-up-feature'])
+    body = RichTextField(features=['quotation', 'embed', 'made-up-feature'])
 
     content_panels = [
         FieldPanel('title', classname="full title"),
@@ -1198,3 +1246,96 @@ class TabbedSettings(TestSetting):
 
 class AlwaysShowInMenusPage(Page):
     show_in_menus_default = True
+
+
+# test for AddField migrations on StreamFields using various default values
+class AddedStreamFieldWithoutDefaultPage(Page):
+    body = StreamField([
+        ('title', CharBlock())
+    ])
+
+
+class AddedStreamFieldWithEmptyStringDefaultPage(Page):
+    body = StreamField([
+        ('title', CharBlock())
+    ], default='')
+
+
+class AddedStreamFieldWithEmptyListDefaultPage(Page):
+    body = StreamField([
+        ('title', CharBlock())
+    ], default=[])
+
+
+# test customising edit handler definitions on a per-request basis
+class PerUserContentPanels(ObjectList):
+    def _replace_children_with_per_user_config(self):
+        self.children = self.instance.basic_content_panels
+        if self.request.user.is_superuser:
+            self.children = self.instance.superuser_content_panels
+        self.children = [
+            child.bind_to(model=self.model, instance=self.instance,
+                          request=self.request, form=self.form)
+            for child in self.children]
+
+    def on_instance_bound(self):
+        # replace list of children when both instance and request are available
+        if self.request:
+            self._replace_children_with_per_user_config()
+        else:
+            super().on_instance_bound()
+
+    def on_request_bound(self):
+        # replace list of children when both instance and request are available
+        if self.instance:
+            self._replace_children_with_per_user_config()
+        else:
+            super().on_request_bound()
+
+
+class PerUserPageMixin:
+    basic_content_panels = []
+    superuser_content_panels = []
+
+    @cached_classmethod
+    def get_edit_handler(cls):
+        tabs = []
+
+        if cls.basic_content_panels and cls.superuser_content_panels:
+            tabs.append(PerUserContentPanels(heading='Content'))
+        if cls.promote_panels:
+            tabs.append(ObjectList(cls.promote_panels,
+                                   heading='Promote'))
+        if cls.settings_panels:
+            tabs.append(ObjectList(cls.settings_panels,
+                                   heading='Settings',
+                                   classname='settings'))
+
+        edit_handler = TabbedInterface(tabs,
+                                       base_form_class=cls.base_form_class)
+
+        return edit_handler.bind_to(model=cls)
+
+
+class SecretPage(PerUserPageMixin, Page):
+    boring_data = models.TextField()
+    secret_data = models.TextField()
+
+    basic_content_panels = Page.content_panels + [
+        FieldPanel('boring_data'),
+    ]
+    superuser_content_panels = basic_content_panels + [
+        FieldPanel('secret_data'),
+    ]
+
+
+class SimpleParentPage(Page):
+    # `BusinessIndex` has been added to bring it in line with other tests
+    subpage_types = ['tests.SimpleChildPage', BusinessIndex]
+
+
+class SimpleChildPage(Page):
+    # `Page` has been added to bring it in line with other tests
+    parent_page_types = ['tests.SimpleParentPage', Page]
+
+    max_count_per_parent = 1

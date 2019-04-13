@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:03+0000\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-06 16:42+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -101,40 +101,17 @@ msgstr "Неактивен"
 
 #, python-format
 msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Има едно съвпадение\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Има %(counter)s съвпадения\n"
-"        "
-
-#, python-format
-msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
 "\">add some</a>?"
 msgstr ""
 "Няма конфигурирани потребители. Защо не <a href=\"%(wagtailusers_create_url)s"
 "\">добавите един сега</a>?"
 
-#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Потребител '{0}' създаден."
 
 msgid "The user could not be created due to errors."
 msgstr "Потребителя не можеше да бъде създаден поради грешки."
-
-#, python-brace-format
-msgid "User '{0}' updated."
-msgstr "Потребител '{0}' обновен."
 
 msgid "The user could not be saved due to errors."
 msgstr "Потребителя не можеше да бъде запазен заради грешки."

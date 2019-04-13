@@ -1,5 +1,4 @@
 import json
-import re
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -61,13 +60,13 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
 
         # prev link should exist and include collection_id
         self.assertTrue(
-            ("?p=1&amp;collection_id=%i" % evil_plans_collection.id) in response_body or
-            ("?collection_id=%i&amp;p=1" % evil_plans_collection.id) in response_body
+            ("?p=1&amp;collection_id=%i" % evil_plans_collection.id) in response_body
+            or ("?collection_id=%i&amp;p=1" % evil_plans_collection.id) in response_body
         )
         # next link should exist and include collection_id
         self.assertTrue(
-            ("?p=3&amp;collection_id=%i" % evil_plans_collection.id) in response_body or
-            ("?collection_id=%i&amp;p=3" % evil_plans_collection.id) in response_body
+            ("?p=3&amp;collection_id=%i" % evil_plans_collection.id) in response_body
+            or ("?collection_id=%i&amp;p=3" % evil_plans_collection.id) in response_body
         )
 
     def test_ordering(self):
@@ -75,6 +74,16 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         for ordering in orderings:
             response = self.get({'ordering': ordering})
             self.assertEqual(response.status_code, 200)
+
+    def test_collection_order(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Evil plans")
+        root_collection.add_child(name="Good plans")
+
+        response = self.get()
+        self.assertEqual(
+            [collection.name for collection in response.context['collections']],
+            ['Root', 'Evil plans', 'Good plans'])
 
 
 class TestImageAddView(TestCase, WagtailTestUtils):
@@ -128,8 +137,9 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertEqual(image.width, 640)
         self.assertEqual(image.height, 480)
 
-        # Test that the file_size field was set
+        # Test that the file_size/hash fields were set
         self.assertTrue(image.file_size)
+        self.assertTrue(image.file_hash)
 
         # Test that it was placed in the root collection
         root_collection = Collection.get_first_root_node()
@@ -180,6 +190,25 @@ class TestImageAddView(TestCase, WagtailTestUtils):
                 file_size=filesizeformat(len(file_content)),
                 max_file_size=filesizeformat(1),
             )
+        )
+
+    @override_settings(WAGTAILIMAGES_MAX_IMAGE_PIXELS=1)
+    def test_add_too_many_pixels(self):
+        file_content = get_test_image_file().file.getvalue()
+
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', file_content),
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # The form should have an error
+        self.assertFormError(
+            response, 'form', 'file',
+            'This file has too many pixels (307200). Maximum pixels 1.'
         )
 
     def test_add_with_collections(self):
@@ -332,8 +361,9 @@ class TestImageEditView(TestCase, WagtailTestUtils):
     def test_edit_with_new_image_file(self):
         file_content = get_test_image_file().file.getvalue()
 
-        # Change the file size of the image
+        # Change the file size/hash of the image
         self.image.file_size = 100000
+        self.image.file_hash = 'abcedf'
         self.image.save()
 
         response = self.post({
@@ -346,13 +376,15 @@ class TestImageEditView(TestCase, WagtailTestUtils):
 
         self.update_from_db()
         self.assertNotEqual(self.image.file_size, 100000)
+        self.assertNotEqual(self.image.file_hash, 'abcedf')
 
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_edit_with_new_image_file_and_external_storage(self):
         file_content = get_test_image_file().file.getvalue()
 
-        # Change the file size of the image
+        # Change the file size/hash of the image
         self.image.file_size = 100000
+        self.image.file_hash = 'abcedf'
         self.image.save()
 
         response = self.post({
@@ -365,6 +397,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
 
         self.update_from_db()
         self.assertNotEqual(self.image.file_size, 100000)
+        self.assertNotEqual(self.image.file_hash, 'abcedf')
 
     def test_with_missing_image_file(self):
         self.image.file.delete(False)
@@ -372,6 +405,24 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+
+    def check_get_missing_file_displays_warning(self):
+        # Need to recreate image to use a custom storage per test.
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
+        image.file.storage.delete(image.file.name)
+
+        response = self.client.get(reverse('wagtailimages:edit', args=(image.pk,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+        self.assertContains(response, "File not found")
+
+    def test_get_missing_file_displays_warning_with_default_storage(self):
+        self.check_get_missing_file_displays_warning()
+
+    @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
+    def test_get_missing_file_displays_warning_with_custom_storage(self):
+        self.check_get_missing_file_displays_warning()
+
 
     def get_content(self, f=None):
         if f is None:
@@ -491,7 +542,9 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/images/confirm_delete.html')
-        self.assertIn('Used 0 times', str(response.content))
+        self.assertContains(response, 'Used 0 times')
+        expected_url = '/admin/images/usage/%d/' % self.image.id
+        self.assertContains(response, expected_url)
 
     def test_delete(self):
         response = self.post()
@@ -514,8 +567,9 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
         self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.js')
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -605,7 +659,9 @@ class TestImageChooserChosenView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/chooser/image_chosen.js')
+
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'image_chosen')
 
 
 class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
@@ -627,8 +683,9 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'select_format')
         self.assertTemplateUsed(response, 'wagtailimages/chooser/select_format.html')
-        self.assertTemplateUsed(response, 'wagtailimages/chooser/select_format.js')
 
     def test_with_edit_params(self):
         response = self.get(params={'alt_text': "some previous alt text"})
@@ -639,18 +696,17 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         response = self.post({'format': 'left', 'alt_text': 'Arthur "two sheds" Jackson'})
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'text/javascript')
+        self.assertEqual(response['Content-Type'], 'application/json')
 
-        # extract data as json from the code line: modal.respond('imageChosen', {json});
-        match = re.search(r'modal.respond\(\'imageChosen\', ([^\)]+)\);', response.content.decode())
-        self.assertTrue(match)
-        response_json = json.loads(match.group(1))
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'image_chosen')
+        result = response_json['result']
 
-        self.assertEqual(response_json['id'], self.image.id)
-        self.assertEqual(response_json['title'], "Test image")
-        self.assertEqual(response_json['format'], 'left')
-        self.assertEqual(response_json['alt'], 'Arthur "two sheds" Jackson')
-        self.assertIn('alt="Arthur &quot;two sheds&quot; Jackson"', response_json['html'])
+        self.assertEqual(result['id'], self.image.id)
+        self.assertEqual(result['title'], "Test image")
+        self.assertEqual(result['format'], 'left')
+        self.assertEqual(result['alt'], 'Arthur "two sheds" Jackson')
+        self.assertIn('alt="Arthur &quot;two sheds&quot; Jackson"', result['html'])
 
 
 class TestImageChooserUploadView(TestCase, WagtailTestUtils):
@@ -664,7 +720,8 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
-        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.js')
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
 
     def test_upload(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
@@ -683,6 +740,10 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         image = images.first()
         self.assertEqual(image.width, 640)
         self.assertEqual(image.height, 480)
+
+        # Test that the file_size/hash fields were set
+        self.assertTrue(image.file_size)
+        self.assertTrue(image.file_hash)
 
     def test_upload_no_file_selected(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
@@ -713,6 +774,22 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         # The re-rendered image chooser listing should be paginated
         self.assertContains(response, "Page 1 of ")
         self.assertEqual(12, len(response.context['images']))
+
+    def test_select_format_flag_after_upload_form_error(self):
+        submit_url = reverse('wagtailimages:chooser_upload') + '?select_format=true'
+        response = self.client.post(submit_url, {
+            'title': "Test image",
+            'file': SimpleUploadedFile('not_an_image.txt', b'this is not an image'),
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertFormError(response, 'uploadform', 'file', "Not a supported image format. Supported formats: GIF, JPEG, PNG.")
+
+        # the action URL of the re-rendered form should include the select_format=true parameter
+        # (NB the HTML in the response is embedded in a JS string, so need to escape accordingly)
+        expected_action_attr = 'action=\\"%s\\"' % submit_url
+        self.assertContains(response, expected_action_attr)
 
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_upload_with_external_storage(self):
@@ -847,6 +924,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('image', response.context)
         self.assertEqual(response.context['image'].title, 'test.png')
         self.assertTrue(response.context['image'].file_size)
+        self.assertTrue(response.context['image'].file_hash)
 
         # Check form
         self.assertIn('form', response.context)

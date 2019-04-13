@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Maarten Kling <kling.maarten@gmail.com>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2018
+# Meteor0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-16 11:28+0000\n"
-"PO-Revision-Date: 2018-01-26 16:02+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"PO-Revision-Date: 2018-12-01 21:04+0000\n"
+"Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtail redirects"
 
 msgid "From site"
 msgstr "Vanaf site"
@@ -107,7 +111,7 @@ msgstr "Wijzig deze redirect"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -115,11 +119,11 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Er is één resultaat\n"
+"            Er is %(counter)s overeenkomst\n"
 "        "
 msgstr[1] ""
 "\n"
-"            Er zijn %(counter)s resultaten\n"
+"            Er zijn %(counter)s overeenkomsten\n"
 "        "
 
 #, python-format
@@ -139,7 +143,6 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Zoek redirects"
 
-#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Redirect '{0}' gewijzigd."
 
@@ -149,11 +152,9 @@ msgstr "Wijzig"
 msgid "The redirect could not be saved due to errors."
 msgstr "De redirect kon niet worden opgeslagen door fouten."
 
-#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Redirect '{0}' verwijderd."
 
-#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Redirect '{0}' toegevoegd."
 

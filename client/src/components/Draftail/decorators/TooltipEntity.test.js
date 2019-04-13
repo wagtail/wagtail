@@ -37,6 +37,23 @@ describe('TooltipEntity', () => {
       .text()).toBe('www.example.example.…');
   });
 
+  it('empty label', () => {
+    expect(shallow((
+      <TooltipEntity
+        entityKey="1"
+        onEdit={() => {}}
+        onRemove={() => {}}
+        icon="#icon-test"
+        url="https://www.example.com/"
+        label=""
+      >
+        test
+      </TooltipEntity>
+    )).setState({
+      showTooltipAt: document.createElement('div').getBoundingClientRect(),
+    }).find('Tooltip a').length).toBe(0);
+  });
+
   it('#openTooltip', () => {
     const wrapper = shallow((
       <TooltipEntity

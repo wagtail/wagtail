@@ -1,16 +1,14 @@
-import json
-
 from django.contrib.admin.utils import quote, unquote
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
-from wagtail.utils.pagination import paginate
 
 
 def choose(request, app_label, model_name):
@@ -45,7 +43,8 @@ def choose(request, app_label, model_name):
         })
 
     # Pagination
-    paginator, paginated_items = paginate(request, items, per_page=25)
+    paginator = Paginator(items, per_page=25)
+    paginated_items = paginator.get_page(request.GET.get('p'))
 
     # If paginating or searching, render "results.html"
     if request.GET.get('results', None) == 'true':
@@ -58,7 +57,7 @@ def choose(request, app_label, model_name):
 
     return render_modal_workflow(
         request,
-        'wagtailsnippets/chooser/choose.html', 'wagtailsnippets/chooser/choose.js',
+        'wagtailsnippets/chooser/choose.html', None,
         {
             'model_opts': model._meta,
             'items': paginated_items,
@@ -66,7 +65,7 @@ def choose(request, app_label, model_name):
             'search_form': search_form,
             'query_string': search_query,
             'is_searching': is_searching,
-        }
+        }, json_data={'step': 'choose'}
     )
 
 
@@ -74,17 +73,15 @@ def chosen(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
     item = get_object_or_404(model, pk=unquote(pk))
 
-    snippet_json = json.dumps({
-        'id': item.pk,
+    snippet_data = {
+        'id': str(item.pk),
         'string': str(item),
         'edit_link': reverse('wagtailsnippets:edit', args=(
             app_label, model_name, quote(item.pk)))
-    })
+    }
 
     return render_modal_workflow(
         request,
-        None, 'wagtailsnippets/chooser/chosen.js',
-        {
-            'snippet_json': snippet_json,
-        }
+        None, None,
+        None, json_data={'step': 'chosen', 'result': snippet_data}
     )
