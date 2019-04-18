@@ -241,6 +241,7 @@ class IndexView(WMABaseView):
         self.search_fields = self.model_admin.get_search_fields(request)
         self.items_per_page = self.model_admin.list_per_page
         self.select_related = self.model_admin.list_select_related
+        self.search_handler_class = self.model_admin.search_handler_class
 
         # Get search parameters from the query string.
         try:
@@ -271,32 +272,8 @@ class IndexView(WMABaseView):
             obj, classnames_add=['button-small', 'button-secondary'])
 
     def get_search_results(self, request, queryset, search_term):
-        """
-        Returns a tuple containing a queryset to implement the search,
-        and a boolean indicating if the results may contain duplicates.
-        """
-        use_distinct = False
-        if search_term:
-            if issubclass(self.model, Indexed):
-                backend = get_search_backend()
-                if self.search_fields:
-                    queryset = backend.search(search_term, queryset, fields=self.search_fields)
-                else:
-                    queryset = backend.search(search_term, queryset)
-            elif self.search_fields:
-                orm_lookups = ['%s__icontains' % str(search_field)
-                               for search_field in self.search_fields]
-                for bit in search_term.split():
-                    or_queries = [models.Q(**{orm_lookup: bit})
-                                  for orm_lookup in orm_lookups]
-                    queryset = queryset.filter(reduce(operator.or_, or_queries))
-                if not use_distinct:
-                    for search_spec in orm_lookups:
-                        if lookup_needs_distinct(self.opts, search_spec):
-                            use_distinct = True
-                            break
-
-        return queryset, use_distinct
+        SearchHandler = self.search_handler_class(queryset, self.search_fields)
+        return SearchHandler.search(search_term)
 
     def lookup_allowed(self, lookup, value):
         # Check FKey lookups that are allowed, so that popups produced by

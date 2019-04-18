@@ -12,8 +12,8 @@ from wagtail.core import hooks
 from wagtail.core.models import Page
 
 from .helpers import (
-    AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
-    PermissionHelper)
+    AdminURLHelper, ButtonHelper, DjangoORMSearchHandler, PageAdminURLHelper, PageButtonHelper,
+    PagePermissionHelper, PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
 from .mixins import ThumbnailMixin  # NOQA
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
@@ -96,6 +96,7 @@ class ModelAdmin(WagtailRegisterable):
     inspect_template_name = ''
     delete_template_name = ''
     choose_parent_template_name = ''
+    search_handler_class = DjangoORMSearchHandler
     permission_helper_class = None
     url_helper_class = None
     button_helper_class = None
