@@ -29,8 +29,8 @@ class ModelAdminSearchHandler:
 
 class DjangoORMSearchHandler(ModelAdminSearchHandler):
     def do_search(self, queryset, search_term):
-        if not search_term or self.search_fields:
-            return queryset
+        if not search_term or not self.search_fields:
+            return queryset, False
         use_distinct = False
         orm_lookups = ['%s__icontains' % str(search_field)
                        for search_field in self.search_fields]
@@ -54,7 +54,7 @@ class DjangoORMSearchHandler(ModelAdminSearchHandler):
 class WagtailBackendSearchHandler(ModelAdminSearchHandler):
     def do_search(self, queryset, search_term, backend='default'):
         if not search_term:
-            return queryset
+            return queryset, False
         backend = get_search_backend(backend)
         if self.search_fields:
             return backend.search(search_term, queryset, fields=self.search_fields), False

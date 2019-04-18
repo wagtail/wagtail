@@ -272,7 +272,8 @@ class IndexView(WMABaseView):
             obj, classnames_add=['button-small', 'button-secondary'])
 
     def get_search_results(self, request, queryset, search_term):
-        return self.search_handler.search(queryset, search_term)
+        results, use_distinct = self.search_handler.do_search(queryset, search_term)
+        return results, use_distinct
 
     def lookup_allowed(self, lookup, value):
         # Check FKey lookups that are allowed, so that popups produced by
