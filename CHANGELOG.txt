@@ -65,6 +65,7 @@ Changelog
  * Fix: Page chooser now respects custom `get_admin_display_title` methods on parent page and breadcrumb (Haydn Greatnews)
  * Fix: Added consistent whitespace around sortable table headings (Matt Westcott)
  * Fix: Moved locale names for Chinese (Simplified) and Chinese (Traditional) to `zh_Hans` and `zh_Hant` (Matt Westcott)
+ * Fix: Increase max length on `Embed.thumbnail_url` to 255 characters (Kevin Howbrook)
 
 
 2.4 (19.12.2018)
@@ -99,7 +100,6 @@ Changelog
  * Fix: Updated draftjs_exporter to 2.1.5 to fix bug in handling adjacent entities (Thibaud Colas)
  * Fix: Page titles consisting only of stopwords now generate a non-empty default slug (Andy Chosak, Janneke Janssen)
  * Fix: Sitemap generator now allows passing a sitemap instance in the URL configuration (Mitchel Cabuloy, Dan Braghis)
- * Fix: Increase max length on `Embed.thumbnail_url` to 255 characters (Kevin Howbrook)
 
 
 2.3 LTS (23.10.2018)
