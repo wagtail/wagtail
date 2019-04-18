@@ -241,7 +241,7 @@ class IndexView(WMABaseView):
         self.search_fields = self.model_admin.get_search_fields(request)
         self.items_per_page = self.model_admin.list_per_page
         self.select_related = self.model_admin.list_select_related
-        self.search_handler_class = self.model_admin.search_handler_class
+        self.search_handler = self.model_admin.search_handler_class(self.search_fields)
 
         # Get search parameters from the query string.
         try:
@@ -272,8 +272,7 @@ class IndexView(WMABaseView):
             obj, classnames_add=['button-small', 'button-secondary'])
 
     def get_search_results(self, request, queryset, search_term):
-        SearchHandler = self.search_handler_class(queryset, self.search_fields)
-        return SearchHandler.search(search_term)
+        return self.search_handler.search(queryset, search_term)
 
     def lookup_allowed(self, lookup, value):
         # Check FKey lookups that are allowed, so that popups produced by
@@ -647,7 +646,7 @@ class IndexView(WMABaseView):
         """
         Whether or not to show the search form on the index, used by the search_form tag
         """
-        return issubclass(self.model, Indexed) or self.search_fields
+        return self.search_handler.show_search_form
 
     def get_template_names(self):
         return self.model_admin.get_index_template()

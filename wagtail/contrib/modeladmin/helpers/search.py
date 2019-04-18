@@ -8,42 +8,54 @@ from wagtail.search.backends import get_search_backend
 
 
 class ModelAdminSearchHandler:
-    def __init__(self, queryset, search_fields):
-        self.queryset = queryset
+    def __init__(self, search_fields):
         self.search_fields = search_fields
 
-    def search(self, search_term):
+    def do_search(self, queryset, search_term, **kwargs):
         """
         Returns a tuple containing a queryset to implement the search,
         and a boolean indicating if the results may contain duplicates.
         """
         raise NotImplementedError()
 
+    @property
+    def show_search_form(self):
+        """
+        Defines whether this SearchHandler should show the search form on
+        the index page.
+        """
+        return True
+
 
 class DjangoORMSearchHandler(ModelAdminSearchHandler):
-    def search(self, search_term):
+    def do_search(self, queryset, search_term):
         if not search_term or self.search_fields:
-            return self.queryset
+            return queryset
         use_distinct = False
-        querset = self.queryset
         orm_lookups = ['%s__icontains' % str(search_field)
                        for search_field in self.search_fields]
         for bit in search_term.split():
             or_queries = [Q(**{orm_lookup: bit})
                           for orm_lookup in orm_lookups]
-            querset = querset.filter(reduce(operator.or_, or_queries))
-        opts = querset.model._meta
+            queryset = queryset.filter(reduce(operator.or_, or_queries))
+        opts = queryset.model._meta
         for search_spec in orm_lookups:
             # Check wether out results may have duplicates, then remove them
             if lookup_needs_distinct(opts, search_spec):
                 use_distinct = True
                 break
-        return querset, use_distinct
+        return queryset, use_distinct
+
+    @property
+    def show_search_form(self):
+        return bool(self.search_fields)
 
 
 class WagtailBackendSearchHandler(ModelAdminSearchHandler):
-    def search(self, search_term):
-        backend = get_search_backend()
+    def do_search(self, queryset, search_term, backend='default'):
+        if not search_term:
+            return queryset
+        backend = get_search_backend(backend)
         if self.search_fields:
-            return backend.search(search_term, self.queryset, fields=self.search_fields), False
-        return backend.search(search_term, self.queryset), False
+            return backend.search(search_term, queryset, fields=self.search_fields), False
+        return backend.search(search_term, queryset), False
