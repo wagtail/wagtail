@@ -1,6 +1,4 @@
-import operator
 from collections import OrderedDict
-from functools import reduce
 
 from django import forms
 from django.contrib.admin import FieldListFilter, widgets
@@ -28,8 +26,6 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
-from wagtail.search.backends import get_search_backend
-from wagtail.search.index import Indexed
 
 from .forms import ParentChooserForm
 

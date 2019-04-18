@@ -301,7 +301,7 @@ your project is using, and without any additional setup or configuration.
 The default value for this property is the `DjangoORMSearchHandler`, which uses
 the Django ORM to perform `icontains` lookups on the fields specified by `search_fields`.
 
-If you would prefer to use the built in Wagtail search backend to search your models,
+If you would prefer to use the built-in Wagtail search backend to search your models,
 assuming they are indexed, you can override this property with the included
 `WagtailBackendSearchHandler` class e.g.
 
