@@ -283,10 +283,39 @@ for your model. For example:
 **Expected value**: A list or tuple, where each item is the name of a model field
 of type ``CharField``, ``TextField``, ``RichTextField`` or ``StreamField``.
 
-If your model is indexed using Wagtail's search backend, setting ``search_fields``
-will determine which indexed fields are searched. Otherwise setting ``search_fields``
-will allow searching via Django's QuerySet API, rather than using Wagtail's
-search backend.
+Set ``search_fields`` to enable a search box at the top of the index page
+for your model. You should add names of any fields on the model that should
+be searched whenever somebody submits a search query using the search box.
+
+Searching is handled via Django's QuerySet API by default,
+see `ModelAdmin.search_handler_class`_ about changing this behaviour.
+This means by default it will work for all models, whatever search backend
+your project is using, and without any additional setup or configuration.
+
+.. _modeladmin_search_handler_class:
+
+-------------------------------------
+``ModelAdmin.search_handler_class``
+-------------------------------------
+
+The default value for this property is the `DjangoORMSearchHandler`, which uses
+the Django ORM to perform `icontains` lookups on the fields specified by `search_fields`.
+
+If you would prefer to use the built in Wagtail search backend to search your models,
+assuming they are indexed, you can override this property with the included
+`WagtailBackendSearchHandler` class e.g.
+
+.. code-block:: python
+    from wagtail.contrib.helpers import WagtailBackendSearchHandler
+    from .models import IndexedModel
+
+    class DemoAdmin(ModelAdmin):
+        model = IndexedModel
+        search_handler_class = WagtailBackendSearchHandler
+
+Note: when using the `WagtailBackendSearchHandler` the `search_fields` are used to limit
+the backend to search only over the specified fields, so those fields must be indexed
+by the backend.
 
 .. _modeladmin_ordering:
 
