@@ -17,6 +17,7 @@ Changelog
  * Fix: Fixed occurences of invalid HTML across the CMS admin (Thibaud Colas)
  * Fix: Admin HTML now includes the correct `dir` attribute for the active language (Andreas Bernacca)
  * Fix: Fix type error when using `--chunk_size` argument on `./manage.py update_index` (Seb Brown)
+ * Fix: Avoid rendering entire form in EditHandler's `repr` method (Alex Tomkins)
 
 
 2.5.1 (07.05.2019)

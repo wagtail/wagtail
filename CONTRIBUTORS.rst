@@ -371,6 +371,7 @@ Contributors
 * Samuel Mendes
 * Adam Eikman
 * Andreas Bernacca
+* Alex Tomkins
 
 Translators
 ===========
