@@ -185,7 +185,7 @@ class EditHandler:
     def __repr__(self):
         return '<%s with model=%s instance=%s request=%s form=%s>' % (
             self.__class__.__name__,
-            self.model, self.instance, self.request, self.form)
+            self.model, self.instance, self.request, self.form.__class__.__name__)
 
     def classes(self):
         """
@@ -547,7 +547,7 @@ class FieldPanel(EditHandler):
     def __repr__(self):
         return "<%s '%s' with model=%s instance=%s request=%s form=%s>" % (
             self.__class__.__name__, self.field_name,
-            self.model, self.instance, self.request, self.form)
+            self.model, self.instance, self.request, self.form.__class__.__name__)
 
 
 class RichTextFieldPanel(FieldPanel):
