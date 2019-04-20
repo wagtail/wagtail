@@ -10,6 +10,7 @@ Changelog
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
+ * Fix: Revised test decorator to ensure TestPageEditHandlers test cases run correctly (Alex Tomkins)
 
 
 2.5 (24.04.2019)
