@@ -1,4 +1,5 @@
 from datetime import date
+from functools import wraps
 from unittest import mock
 
 from django import forms
@@ -121,14 +122,16 @@ class TestGetFormForModel(TestCase):
 
 def clear_edit_handler(page_cls):
     def decorator(fn):
-        def decorated(self):
+        @wraps(fn)
+        def decorated(*args, **kwargs):
             # Clear any old EditHandlers generated
             page_cls.get_edit_handler.cache_clear()
             try:
-                fn(self)
+                fn(*args, **kwargs)
             finally:
                 # Clear the bad EditHandler generated just now
                 page_cls.get_edit_handler.cache_clear()
+        return decorated
     return decorator
 
 
