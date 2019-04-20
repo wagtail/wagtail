@@ -185,6 +185,9 @@ class TestPageEditHandlers(TestCase):
             # don't build the CSS)
             errors = [e for e in errors if e.id != 'wagtailadmin.W001']
 
+            # Errors may appear out of order, so sort them by id
+            errors.sort(key=lambda e: e.id)
+
             self.assertEqual(errors, [invalid_base_form, invalid_edit_handler])
 
     @clear_edit_handler(ValidatedPage)
