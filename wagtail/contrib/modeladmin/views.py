@@ -268,7 +268,7 @@ class IndexView(WMABaseView):
             obj, classnames_add=['button-small', 'button-secondary'])
 
     def get_search_results(self, request, queryset, search_term):
-        results, use_distinct = self.search_handler.do_search(queryset, search_term)
+        results, use_distinct = self.search_handler.search_queryset(queryset, search_term)
         return results, use_distinct
 
     def lookup_allowed(self, lookup, value):
@@ -622,7 +622,8 @@ class IndexView(WMABaseView):
             'paginator': paginator,
             'page_obj': page_obj,
             'object_list': page_obj.object_list,
-            'user_can_create': self.permission_helper.user_can_create(user)
+            'user_can_create': self.permission_helper.user_can_create(user),
+            'show_search': self.search_handler.show_search_form,
         }
 
         if self.is_pagemodel:
@@ -637,13 +638,6 @@ class IndexView(WMABaseView):
 
         context.update(kwargs)
         return super().get_context_data(**context)
-
-    @property
-    def show_search(self):
-        """
-        Whether or not to show the search form on the index, used by the search_form tag
-        """
-        return self.search_handler.show_search_form
 
     def get_template_names(self):
         return self.model_admin.get_index_template()

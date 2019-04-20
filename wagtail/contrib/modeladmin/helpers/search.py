@@ -7,11 +7,11 @@ from django.db.models import Q
 from wagtail.search.backends import get_search_backend
 
 
-class ModelAdminSearchHandler:
+class BaseSearchHandler:
     def __init__(self, search_fields):
         self.search_fields = search_fields
 
-    def do_search(self, queryset, search_term, **kwargs):
+    def search_queryset(self, queryset, search_term, **kwargs):
         """
         Returns a tuple containing a queryset to implement the search,
         and a boolean indicating if the results may contain duplicates.
@@ -21,14 +21,14 @@ class ModelAdminSearchHandler:
     @property
     def show_search_form(self):
         """
-        Defines whether this SearchHandler should show the search form on
-        the index page.
+        Returns a boolean that determines whether a search form should be
+        displayed in the IndexView UI
         """
         return True
 
 
-class DjangoORMSearchHandler(ModelAdminSearchHandler):
-    def do_search(self, queryset, search_term):
+class DjangoORMSearchHandler(BaseSearchHandler):
+    def search_queryset(self, queryset, search_term):
         if not search_term or not self.search_fields:
             return queryset, False
         use_distinct = False
@@ -51,8 +51,8 @@ class DjangoORMSearchHandler(ModelAdminSearchHandler):
         return bool(self.search_fields)
 
 
-class WagtailBackendSearchHandler(ModelAdminSearchHandler):
-    def do_search(self, queryset, search_term, backend='default'):
+class WagtailBackendSearchHandler(BaseSearchHandler):
+    def search_queryset(self, queryset, search_term, backend='default'):
         if not search_term:
             return queryset, False
         backend = get_search_backend(backend)

@@ -294,9 +294,9 @@ your project is using, and without any additional setup or configuration.
 
 .. _modeladmin_search_handler_class:
 
--------------------------------------
+-----------------------------------
 ``ModelAdmin.search_handler_class``
--------------------------------------
+-----------------------------------
 
 The default value for this property is the `DjangoORMSearchHandler`, which uses
 the Django ORM to perform `icontains` lookups on the fields specified by `search_fields`.
