@@ -48,7 +48,6 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     list_display = ('title', 'author', 'admin_thumb')
     list_filter = ('author', )
     ordering = ('title', )
-    search_fields = ('title', )
     inspect_view_enabled = True
     inspect_view_fields_exclude = ('title', )
     thumb_image_field_name = 'cover_image'

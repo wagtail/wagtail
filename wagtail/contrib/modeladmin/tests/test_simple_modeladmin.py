@@ -6,9 +6,11 @@ from django.core import checks
 from django.test import TestCase
 
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
+from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.modeladmintest.models import Author, Book, Publisher, Token
+from wagtail.tests.modeladmintest.wagtail_hooks import BookModelAdmin
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -72,6 +74,20 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
 
         # There are two books where the title contains 'of'
         self.assertEqual(response.context['result_count'], 2)
+
+    def test_search_form_present(self):
+        # Test the backend search handler allows the search form to render
+        response = self.get()
+
+        self.assertContains(response, '<input id="id_q"')
+
+
+    def test_search_form_absent(self):
+        # DjangoORMSearchHandler + no search_fields, search form should be absent
+        with mock.patch.object(BookModelAdmin, 'search_handler_class', DjangoORMSearchHandler):
+            response = self.get()
+
+            self.assertNotContains(response, '<input id="id_q"')
 
     def test_ordering(self):
         response = self.get(o='0.1')
