@@ -1660,6 +1660,7 @@ class UserPagePermissionsProxy:
             Q(permission_type="add")
             | Q(permission_type="edit")
             | Q(permission_type="publish")
+            | Q(permission_type="lock")
         ):
             explorable_pages |= Page.objects.descendant_of(
                 perm.page, inclusive=True
