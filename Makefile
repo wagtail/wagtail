@@ -18,6 +18,7 @@ develop: clean-pyc
 lint:
 	flake8 wagtail
 	isort --check-only --diff --recursive wagtail
+	jinjalint --parse-only wagtail || true
 	npm run lint:css --silent
 	npm run lint:js --silent
 
