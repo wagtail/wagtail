@@ -53,6 +53,9 @@ testing_extras = [
     'isort==4.2.5',
     'flake8-blind-except==0.1.1',
     'flake8-print==2.0.2',
+
+    # For templates linting
+    'jinjalint>=0.5',
 ]
 
 # Documentation dependencies
