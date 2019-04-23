@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Add/edit documents you own"
 msgstr ""
 
-#: forms.py:54 views/documents.py:114 views/documents.py:159
+#: forms.py:54 views/documents.py:115 views/documents.py:160
 msgid "Edit"
 msgstr ""
 
@@ -194,26 +194,26 @@ msgstr ""
 msgid "Documents"
 msgstr ""
 
-#: templates/wagtaildocs/documents/list.html:11
 #: templates/wagtaildocs/documents/list.html:14
+#: templates/wagtaildocs/documents/list.html:17
 #: templates/wagtaildocs/documents/usage.html:16
 msgid "Title"
 msgstr ""
 
-#: templates/wagtaildocs/documents/list.html:17
+#: templates/wagtaildocs/documents/list.html:20
 msgid "File"
 msgstr ""
 
-#: templates/wagtaildocs/documents/list.html:19
+#: templates/wagtaildocs/documents/list.html:22
 msgid "Collection"
 msgstr ""
 
-#: templates/wagtaildocs/documents/list.html:24
 #: templates/wagtaildocs/documents/list.html:27
+#: templates/wagtaildocs/documents/list.html:30
 msgid "Uploaded"
 msgstr ""
 
-#: templates/wagtaildocs/documents/list.html:46
+#: templates/wagtaildocs/documents/list.html:49
 #, python-format
 msgid "%(time_period)s ago"
 msgstr ""
@@ -305,7 +305,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtaildocs/multiple/edit_form.html:15 views/documents.py:179
+#: templates/wagtaildocs/multiple/edit_form.html:15 views/documents.py:180
 msgid "Delete"
 msgstr ""
 
@@ -333,24 +333,24 @@ msgstr ""
 msgid "Search documents"
 msgstr ""
 
-#: views/documents.py:113
+#: views/documents.py:114
 msgid "Document '{0}' added."
 msgstr ""
 
-#: views/documents.py:118 views/documents.py:163
+#: views/documents.py:119 views/documents.py:164
 msgid "The document could not be saved due to errors."
 msgstr ""
 
-#: views/documents.py:158
+#: views/documents.py:159
 msgid "Document '{0}' updated"
 msgstr ""
 
-#: views/documents.py:178
+#: views/documents.py:179
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 
-#: views/documents.py:202
+#: views/documents.py:203
 msgid "Document '{0}' deleted."
 msgstr ""
 

@@ -1,0 +1,37 @@
+// free tagging tags from taggit
+.tag {
+    border-radius: 2px;
+    background-color: $color-teal;
+    padding-right: 0.5em;
+    padding: 0.2em 0.5em;
+    color: $color-white;
+    line-height: 2em;
+    white-space: nowrap;
+
+    &:before {
+        font-family: wagtail;
+        display: inline-block;
+        color: $color-white;
+        content: 'u';
+        padding-right: 0.5em;
+    }
+
+    .taglist & {
+        margin-right: 0.8em;
+    }
+}
+
+a.tag:hover {
+    background-color: $color-teal-darker;
+    color: $color-white;
+}
+
+.taglist {
+    font-size: 0.9em;
+    line-height: 2.4em;
+
+    h3 {
+        display: inline;
+        margin-right: 1em;
+    }
+}

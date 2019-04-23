@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -208,7 +208,8 @@ msgstr ""
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:11
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:41
 #: templates/wagtailusers/groups/list.html:6
-#: templates/wagtailusers/users/list.html:6
+#: templates/wagtailusers/users/list.html:8
+#: templates/wagtailusers/users/list.html:12
 msgid "Name"
 msgstr ""
 
@@ -301,35 +302,36 @@ msgstr ""
 msgid "Add a user"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:14
+#: templates/wagtailusers/users/list.html:19
+#: templates/wagtailusers/users/list.html:23
 msgid "Username"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:21
+#: templates/wagtailusers/users/list.html:27
 msgid "Level"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:22
+#: templates/wagtailusers/users/list.html:28
 msgid "Status"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:23
+#: templates/wagtailusers/users/list.html:29
 msgid "Last Login"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:39
+#: templates/wagtailusers/users/list.html:45
 msgid "Admin"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:40
+#: templates/wagtailusers/users/list.html:46
 msgid "Active"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:40
+#: templates/wagtailusers/users/list.html:46
 msgid "Inactive"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:41
+#: templates/wagtailusers/users/list.html:47
 #, python-format
 msgid "%(time_period)s ago"
 msgstr ""
@@ -387,27 +389,27 @@ msgstr ""
 msgid "Search users"
 msgstr ""
 
-#: views/users.py:120
+#: views/users.py:121
 msgid "User '{0}' created."
 msgstr ""
 
-#: views/users.py:121 views/users.py:158 wagtail_hooks.py:107
+#: views/users.py:122 views/users.py:159 wagtail_hooks.py:107
 msgid "Edit"
 msgstr ""
 
-#: views/users.py:129
+#: views/users.py:130
 msgid "The user could not be created due to errors."
 msgstr ""
 
-#: views/users.py:157
+#: views/users.py:158
 msgid "User '{0}' updated."
 msgstr ""
 
-#: views/users.py:166
+#: views/users.py:167
 msgid "The user could not be saved due to errors."
 msgstr ""
 
-#: views/users.py:190
+#: views/users.py:191
 msgid "User '{0}' deleted."
 msgstr ""
 

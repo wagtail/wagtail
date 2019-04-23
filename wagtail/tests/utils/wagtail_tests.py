@@ -1,11 +1,8 @@
-import sys
 import warnings
 from contextlib import contextmanager
 
 from django.contrib.auth import get_user_model
 from django.test.testcases import assert_and_parse_html
-
-from .assert_logs import _AssertLogsContext
 
 
 class WagtailTestUtils:
@@ -55,45 +52,6 @@ class WagtailTestUtils:
                     file=w.file,
                     line=w.line
                 )
-
-    # borrowed from https://github.com/django/django/commit/9f427617e4559012e1c2fd8fce46cbe225d8515d
-    @staticmethod
-    def reset_warning_registry():
-        """
-        Clear warning registry for all modules. This is required in some tests
-        because of a bug in Python that prevents warnings.simplefilter("always")
-        from always making warnings appear: http://bugs.python.org/issue4180
-
-        The bug was fixed in Python 3.4.2.
-        """
-        key = "__warningregistry__"
-        for mod in list(sys.modules.values()):
-            if hasattr(mod, key):
-                getattr(mod, key).clear()
-
-    # Configuring LOGGING_FORMAT is not possible without subclassing
-    # unittest.TestCase, so use this implementation even on Python 3.4
-    def assertLogs(self, logger=None, level=None):
-        """Fail unless a log message of level *level* or higher is emitted
-        on *logger_name* or its children.  If omitted, *level* defaults to
-        INFO and *logger* defaults to the root logger.
-
-        This method must be used as a context manager, and will yield
-        a recording object with two attributes: `output` and `records`.
-        At the end of the context manager, the `output` attribute will
-        be a list of the matching formatted log messages and the
-        `records` attribute will be a list of the corresponding LogRecord
-        objects.
-
-        Example::
-
-            with self.assertLogs('foo', level='INFO') as cm:
-                logging.getLogger('foo').info('first message')
-                logging.getLogger('foo.bar').error('second message')
-            self.assertEqual(cm.output, ['INFO:foo:first message',
-                                         'ERROR:foo.bar:second message'])
-        """
-        return _AssertLogsContext(self, logger, level)
 
     @contextmanager
     def register_hook(self, hook_name, fn, order=0):

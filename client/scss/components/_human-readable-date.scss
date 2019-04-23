@@ -1,0 +1,21 @@
+// Displays 'timesince' formatted date with full date on hover
+.human-readable-date {
+    overflow: hidden;
+    display: block;
+    position: relative;
+
+    &:before {
+        position: absolute;
+        display: none;
+        content: attr(title);
+    }
+
+    &:hover {
+        visibility: hidden;
+
+        &:before {
+            visibility: visible;
+            display: block;
+        }
+    }
+}

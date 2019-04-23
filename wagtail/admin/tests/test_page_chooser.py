@@ -202,6 +202,51 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         response = self.get({'page_type': 'foo'})
         self.assertEqual(response.status_code, 404)
 
+    def test_with_admin_display_title(self):
+        # Check the display of the child page title when it's a child
+        response = self.get({'page_type': 'wagtailcore.Page'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
+
+        self.assertInHTML("foobarbaz (simple page)", response.json().get('html'))
+
+    def test_parent_with_admin_display_title(self):
+        # Add another child under child_page so it renders a chooser list
+        leaf_page = SimplePage(title="quux", content="goodbye")
+        self.child_page.add_child(instance=leaf_page)
+
+        # Use the child page as the chooser parent
+        response = self.client.get(
+            reverse('wagtailadmin_choose_page_child', args=(self.child_page.id,)),
+            params={'page_type': 'wagtailcore.Page'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
+
+        self.assertInHTML("foobarbaz (simple page)", response.json().get('html'))
+        self.assertInHTML("quux (simple page)", response.json().get('html'))
+
+    def test_admin_display_title_breadcrumb(self):
+        # Add another child under child_page so we get breadcrumbs
+        leaf_page = SimplePage(title="quux", content="goodbye")
+        self.child_page.add_child(instance=leaf_page)
+
+        # Use the leaf page as the chooser parent, so child is in the breadcrumbs
+        response = self.client.get(
+            reverse('wagtailadmin_choose_page_child', args=(leaf_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
+
+        # Look for a link element in the breadcrumbs with the admin title
+        self.assertTagInHTML(
+            '<li><a href="/admin/choose-page/{page_id}/?" class="navigate-pages">{page_title}</a></li>'.format(
+                page_id=self.child_page.id,
+                page_title="foobarbaz (simple page)",
+            ),
+            response.json().get('html')
+        )
+
     def setup_pagination_test_data(self):
         # Create lots of pages
         for i in range(100):

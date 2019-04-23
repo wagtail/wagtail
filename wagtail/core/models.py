@@ -343,6 +343,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # Define the maximum number of instances this page type can have. Default to unlimited.
     max_count = None
 
+    # Define the maximum number of instances this page can have under a specific parent. Default to unlimited.
+    max_count_per_parent = None
+
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
 
@@ -980,6 +983,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if cls.max_count is not None:
             can_create = can_create and cls.objects.count() < cls.max_count
 
+        if cls.max_count_per_parent is not None:
+            can_create = can_create and parent.get_children().type(cls).count() < cls.max_count_per_parent
+
         return can_create
 
     def can_move_to(self, parent):
@@ -1355,12 +1361,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 yield '/' + child.slug + path
 
     def get_ancestors(self, inclusive=False):
+        """
+        Returns a queryset of the current page's ancestors, starting at the root page
+        and descending to the parent, or to the current page itself if ``inclusive`` is true.
+        """
         return Page.objects.ancestor_of(self, inclusive)
 
     def get_descendants(self, inclusive=False):
+        """
+        Returns a queryset of all pages underneath the current page, any number of levels deep.
+        If ``inclusive`` is true, the current page itself is included in the queryset.
+        """
         return Page.objects.descendant_of(self, inclusive)
 
     def get_siblings(self, inclusive=True):
+        """
+        Returns a queryset of all other pages with the same parent as the current page.
+        If ``inclusive`` is true, the current page itself is included in the queryset.
+        """
         return Page.objects.sibling_of(self, inclusive)
 
     def get_next_siblings(self, inclusive=False):

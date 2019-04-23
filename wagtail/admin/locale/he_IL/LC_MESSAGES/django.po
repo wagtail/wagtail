@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Adi Ron <adi@bnop.co>, 2019
 # bjesus <bjesus@gmail.com>, 2015
 # lior abazon <abazon@v15.org.il>, 2015
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-03-05 09:27+0000\n"
+"Last-Translator: Adi Ron <adi@bnop.co>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -22,13 +23,19 @@ msgstr ""
 "1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
 msgid "Submit for moderation"
-msgstr "הזן לעריכה"
+msgstr "שלח לעריכה"
 
 msgid "Unpublish"
 msgstr "ביטול פרסום"
 
 msgid "Delete"
-msgstr "מחיקה"
+msgstr "מחק"
+
+msgid "Wagtail admin"
+msgstr "ממשק הניהול של Wagtail"
+
+msgid "You do not have permission to access the admin"
+msgstr "אין לך הרשאות גישה לממשק הניהול"
 
 msgid "Scheduled publishing"
 msgstr "פרסום מתוזמן"
@@ -54,6 +61,9 @@ msgstr "הזינו את ה%s שלכם"
 
 msgid "Enter your email address to reset your password"
 msgstr "הזינו את כתובת הדוא\"ל שלכם כדי לאתחל את הסיסמה"
+
+msgid "URL"
+msgstr "כתובת "
 
 msgid "New title"
 msgstr "כותרת חדשה"
@@ -214,6 +224,9 @@ msgstr "הוסיפו קישור חיצוני"
 msgid "You can edit the privacy settings on:"
 msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
 
+msgid "Save"
+msgstr "שמור"
+
 msgid "Privacy"
 msgstr "פרטיות"
 
@@ -222,6 +235,16 @@ msgstr "ציבורי"
 
 msgid "Private"
 msgstr "פרטי"
+
+msgid "Name"
+msgstr "שם"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "הוסף %(label)s "
+
+msgid "Yes, delete"
+msgstr "כן, מחק"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -312,6 +335,9 @@ msgstr "התחברות לWagtail"
 msgid "Forgotten it?"
 msgstr "שכחתם את זה?"
 
+msgid "Signing in…"
+msgstr "מתחבר..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "העמוד \"%(title)s\" אושר."
@@ -361,6 +387,9 @@ msgstr "נעול"
 
 msgid "Unlocked"
 msgstr "בלתי נעול"
+
+msgid "Publishing…"
+msgstr "מפרסם..."
 
 msgid "Publish"
 msgstr "פרסם"

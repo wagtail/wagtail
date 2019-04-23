@@ -2,7 +2,6 @@ from django.contrib.auth.models import Group
 from django.core.files.base import ContentFile
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.six import b
 
 from wagtail.core.models import Collection, CollectionViewRestriction
 from wagtail.documents.models import Document
@@ -17,7 +16,7 @@ class TestCollectionPrivacyDocument(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.fake_file = ContentFile(b("A boring example document"))
+        self.fake_file = ContentFile(b"A boring example document")
         self.fake_file.name = 'test.txt'
         self.password_collection = Collection.objects.get(name='Password protected')
         self.login_collection = Collection.objects.get(name='Login protected')

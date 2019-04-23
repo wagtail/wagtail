@@ -24,7 +24,7 @@ Add ``"wagtail.contrib.table_block"`` to your INSTALLED_APPS:
 Basic Usage
 -----------
 
-After installation the TableBlock module can be used in a similar fashion to other StreamField blocks in the Wagtail core.
+After installation, the TableBlock module can be used in a similar fashion to other StreamField blocks in the Wagtail core.
 
 Just import the TableBlock ``from wagtail.contrib.table_block.blocks import TableBlock`` and add it to your StreamField declaration.
 

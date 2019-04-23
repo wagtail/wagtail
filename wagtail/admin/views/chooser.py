@@ -87,6 +87,8 @@ def browse(request, parent_page_id=None):
         all_desired_pages = filter_page_type(Page.objects.all(), desired_classes)
         parent_page = all_desired_pages.first_common_ancestor()
 
+    parent_page = parent_page.specific
+
     # Get children of parent page
     pages = parent_page.get_children().specific()
 
