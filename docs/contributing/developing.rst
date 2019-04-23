@@ -185,6 +185,26 @@ IE             Desktop        10 and below
 Safari         Windows        All
 =============  =============  =============
 
+Accessibility targets
+---------------------
+
+We want to make Wagtail accessible for users of a wide variety of assistive technologies. The specific standard we aim for is `WCAG2.1 <https://www.w3.org/TR/WCAG21/>`_, AA level. Wagtail’s administration user interface isn’t accessible at the moment (see `issue #4199 <https://github.com/wagtail/wagtail/issues/4199>`_), but here are specific assistive technologies we aim to test for, and ultimately support:
+
+=====================================================================================================================
+Assistive technology
+=====================================================================================================================
+Screen reader: `NVDA <https://www.nvaccess.org/download/>`_ on Windows with Firefox ESR
+Screen reader: `VoiceOver <https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web>`_ on macOS with Safari
+Magnification: `Windows Magnifier <https://support.microsoft.com/en-gb/help/11542/windows-use-magnifier>`_
+Magnification: macOS Zoom
+Voice control: Windows Speech Recognition
+Voice control: macOS Dictation
+
+We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be daunting for newcomers – here are browser extensions that can help identify accessibility issues, to use during development:
+
+* `Axe <https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd>`_ for automated tests of a given page.
+* `Accessibility Insights for Web <https://accessibilityinsights.io/docs/en/web/overview>`_ for semi-automated tools, and manual audits.
+
 Compiling static assets
 ~~~~~~~~~~~~~~~~~~~~~~~
 
