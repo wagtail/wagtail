@@ -364,6 +364,7 @@ Contributors
 * Cassidy Brooke
 * dthompson86
 * Jason Dilworth
+* Deniz Dogan
 
 Translators
 ===========
