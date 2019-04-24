@@ -4,14 +4,15 @@
 #
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
+# Tri Minh <minh.nguyentri.95@gmail.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-23 07:44+0000\n"
+"Last-Translator: Tri Minh <minh.nguyentri.95@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +29,9 @@ msgstr "非公開に設定"
 
 msgid "Delete"
 msgstr "削除"
+
+msgid "Wagtail admin"
+msgstr "Wagtail管理"
 
 msgid "Scheduled publishing"
 msgstr "予定公開日"
@@ -120,11 +124,35 @@ msgstr "検索語"
 msgid "This field is required."
 msgstr "この項目は必須です"
 
+msgid "Please select at least one group."
+msgstr "1グループ以上を選択してください"
+
+msgid "Error 404: Page not found"
+msgstr "404エラー：ページが見つかりません"
+
+msgid "Error 404"
+msgstr "404エラー"
+
+msgid "The requested page could not be found."
+msgstr "要求されたページが見つかりませんでした"
+
+msgid "Go to Wagtail admin"
+msgstr "Wagtail管理画面へ移動"
+
 msgid "Account"
 msgstr "アカウント"
 
+msgid "Change profile picture"
+msgstr "プロファイル写真を変更します"
+
+msgid "Your current profile picture:"
+msgstr "現在プロファイル写真"
+
 msgid "Update"
 msgstr "アップデート"
+
+msgid "Change email"
+msgstr "メールアドレスを変更します"
 
 msgid "Change password"
 msgstr "パスワードを変更する"
@@ -133,6 +161,12 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "パスワードを変更することができません。サイトの管理者に連絡してください。"
+
+msgid "Set Time Zone"
+msgstr "タイムゾーン設定"
+
+msgid "Language Preferences"
+msgstr "言語設定"
 
 msgid "Notification preferences"
 msgstr "通知設定"
@@ -149,6 +183,9 @@ msgstr "ログイン"
 msgid "Set your new password"
 msgstr "パスワードを設定"
 
+msgid "Invalid password reset link"
+msgstr "無効なパスワード再設定リンク"
+
 msgid "Check your email"
 msgstr "メールを確認"
 
@@ -161,8 +198,41 @@ msgstr "パスワードを再設定"
 msgid "Edit"
 msgstr "編集"
 
+msgid "Page"
+msgstr "ページ"
+
 msgid "Pages"
 msgstr "ページ"
+
+msgid "Loading…"
+msgstr "読み込み中"
+
+msgid "Server Error"
+msgstr "サーバーエラー"
+
+msgid "See children"
+msgstr "子供を表示"
+
+msgid "See all"
+msgstr "全部表示"
+
+msgid "Write here…"
+msgstr "ここに書いて"
+
+msgid "Horizontal line"
+msgstr "横線"
+
+msgid "Reload the page"
+msgstr "ページをリロードします"
+
+msgid "Reload saved content"
+msgstr "保存した内容をリロードします"
+
+msgid "Show latest content"
+msgstr "新着内容を表示します"
+
+msgid "Show error"
+msgstr "エラーを表示します"
 
 msgid "Dashboard"
 msgstr "ダッシュボード"
@@ -222,6 +292,9 @@ msgstr "リンクを挿入"
 msgid "Add an external link"
 msgstr "外部リンクを追加"
 
+msgid "Collection privacy"
+msgstr "コレクションプライバシー"
+
 msgid "You can edit the privacy settings on:"
 msgstr "公開設定を編集："
 
@@ -236,6 +309,13 @@ msgstr "公開"
 
 msgid "Private"
 msgstr "非公開"
+
+msgid "Name"
+msgstr "名前"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "%(label)sを追加"
 
 msgid "Yes, delete"
 msgstr "はい、削除します"
@@ -277,6 +357,10 @@ msgstr "拒否"
 
 msgid "Preview"
 msgstr "プレビュー"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s前"
 
 msgid "Your most recent edits"
 msgstr "最近の編集"
@@ -415,6 +499,12 @@ msgstr[0] ""
 "\n"
 "この操作により%(descendant_count)s個のサブページが削除されます。"
 
+msgid "Yes, delete it"
+msgstr "はい、削除します"
+
+msgid "No, don't delete it"
+msgstr "いいえ、削除しません"
+
 #, python-format
 msgid "Move %(title)s"
 msgstr "%(title)sを移動"
@@ -464,6 +554,9 @@ msgstr "新規の%(page_type)s"
 
 msgid "New"
 msgstr "新規作成"
+
+msgid "Saving…"
+msgstr "保存中"
 
 msgid "Save draft"
 msgstr "下書きを保存"
@@ -581,6 +674,9 @@ msgstr "%(title)sに子ページを追加"
 msgid "Add child page"
 msgstr "子ページを追加"
 
+msgid "Sites menu"
+msgstr "サイトメニュー"
+
 #, python-format
 msgid ""
 "\n"
@@ -602,9 +698,6 @@ msgstr "このページは非公開です"
 msgid "Disable ordering of child pages"
 msgstr "子ページの序列を無効化"
 
-msgid "Order"
-msgstr "順番に並べる"
-
 msgid "Enable ordering of child pages"
 msgstr "子ページに順番をつける"
 
@@ -615,6 +708,12 @@ msgstr "%(title)sの親ページを選択"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "<span>%(title)s</span>の親ページを選択"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Comparing"
+msgstr "比較"
 
 #, python-format
 msgid ""
@@ -629,6 +728,9 @@ msgstr[0] ""
 "\n"
 "ページに%(counter)s件の一致があります"
 
+msgid "Page types"
+msgstr "ページタイプ"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -641,75 +743,108 @@ msgstr "検索語を入力"
 msgid "No pages use"
 msgstr "この語を使用するページはありません。"
 
-msgid "Home"
-msgstr "ホーム"
-
-msgid "January"
-msgstr "一月"
-
-msgid "February"
-msgstr "二月"
-
-msgid "March"
-msgstr "三月"
-
-msgid "April"
-msgstr "四月"
-
-msgid "May"
-msgstr "五月"
-
-msgid "June"
-msgstr "六月"
-
-msgid "July"
-msgstr "七月"
-
-msgid "August"
-msgstr "八月"
-
-msgid "September"
-msgstr "九月"
-
-msgid "October"
-msgstr "十月"
-
-msgid "November"
-msgstr "十一月"
-
-msgid "December"
-msgstr "十二月"
-
-msgid "Sun"
-msgstr "日曜"
-
-msgid "Mon"
-msgstr "月曜"
-
-msgid "Tue"
-msgstr "火曜"
-
-msgid "Wed"
-msgstr "水曜"
-
-msgid "Thu"
-msgstr "木曜"
-
-msgid "Fri"
-msgstr "金曜"
-
-msgid "Sat"
-msgstr "土曜"
-
-msgid "Edit your account"
-msgstr "アカウント設定"
-
-msgid "Log out"
-msgstr "ログアウト"
+msgid "Collection"
+msgstr "コレクション"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(total_pages)sページ中%(page_num)sページ目"
+
+msgid "Root"
+msgstr "ルート"
+
+msgid "Home"
+msgstr "ホーム"
+
+msgid "All collections"
+msgstr "全部コレクション"
+
+msgid "January"
+msgstr "1月"
+
+msgid "February"
+msgstr "2月"
+
+msgid "March"
+msgstr "3月"
+
+msgid "April"
+msgstr "4月"
+
+msgid "May"
+msgstr "5月"
+
+msgid "June"
+msgstr "6月"
+
+msgid "July"
+msgstr "7月"
+
+msgid "August"
+msgstr "8月"
+
+msgid "September"
+msgstr "9月"
+
+msgid "October"
+msgstr "10月"
+
+msgid "November"
+msgstr "11月"
+
+msgid "December"
+msgstr "12月"
+
+msgid "Sunday"
+msgstr "日曜日"
+
+msgid "Monday"
+msgstr "月曜日"
+
+msgid "Tuesday"
+msgstr "火曜日"
+
+msgid "Wednesday"
+msgstr "水曜日"
+
+msgid "Thursday"
+msgstr "木曜日"
+
+msgid "Friday"
+msgstr "金曜日"
+
+msgid "Saturday"
+msgstr "土曜日"
+
+msgid "Sun"
+msgstr "日"
+
+msgid "Mon"
+msgstr "月"
+
+msgid "Tue"
+msgstr "火"
+
+msgid "Wed"
+msgstr "水"
+
+msgid "Thu"
+msgstr "木"
+
+msgid "Fri"
+msgstr "金"
+
+msgid "Sat"
+msgstr "土"
+
+msgid "Edit your account"
+msgstr "アカウント変更"
+
+msgid "Account settings"
+msgstr "アカウント設定"
+
+msgid "Log out"
+msgstr "ログアウト"
 
 msgid "Other searches"
 msgstr "他の検索結果"
@@ -737,6 +872,36 @@ msgstr "アクセス権がありません。"
 
 msgid "Your password has been changed successfully!"
 msgstr "パスワードが変更されました。"
+
+msgid "Your email has been changed successfully!"
+msgstr "メールを更新済み"
+
+msgid "Collections"
+msgstr "各コレクション"
+
+msgid "Add a collection"
+msgstr "1 コレクションを追加済み"
+
+msgid "Add collection"
+msgstr "コレクションを追加済み"
+
+msgid "Collection '{0}' created."
+msgstr "'{0}'コレクションを作成済み"
+
+msgid "Collection '{0}' updated."
+msgstr "'{0}'コレクションを更新済み"
+
+msgid "Delete collection"
+msgstr "コレクションを削除します"
+
+msgid "Collection '{0}' deleted."
+msgstr "'{0}'コレクションを削除済み"
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "コレクションを完全に削除しますか"
+
+msgid "Editing"
+msgstr "編集中"
 
 msgid "View live"
 msgstr "閲覧"
@@ -786,8 +951,14 @@ msgstr "ページ：'{0}' は現在承認待ちではありません。"
 msgid "Page '{0}' published."
 msgstr "ページ：'{0}' が公開されました。"
 
+msgid "Failed to send approval notifications"
+msgstr "承認通信を送信できない"
+
 msgid "Page '{0}' rejected for publication."
 msgstr "ページ：'{0}' の公開が拒否されました。"
+
+msgid "Failed to send rejection notifications"
+msgstr "拒否通信を送信できない"
 
 msgid "Page '{0}' is now locked."
 msgstr "ページ：'{0}' は現在ロックされています。"
@@ -795,11 +966,80 @@ msgstr "ページ：'{0}' は現在ロックされています。"
 msgid "Page '{0}' is now unlocked."
 msgstr "ページ：'{0}' のロックが解除されました。"
 
+msgid "Earliest"
+msgstr "最も早い"
+
+msgid "Latest"
+msgstr "最新"
+
+msgid "Edit '{title}'"
+msgstr "'{title}'を編集します"
+
+msgid "More"
+msgstr "詳細表示"
+
+msgid "Move page '{title}'"
+msgstr "'{title}'　ページを移動します"
+
+msgid "Copy page '{title}'"
+msgstr "'{title}'　ページをコピーします"
+
+msgid "Delete page '{title}'"
+msgstr "'{title}'　ページを削除します"
+
+msgid "Set profile picture"
+msgstr "プロファイル写真を設定します"
+
+msgid "Change your profile picture"
+msgstr "プロファイル写真を変更します"
+
 msgid "Change the password you use to log in."
 msgstr "ログインに使用するパスワードを変更します。"
 
 msgid "Choose which email notifications to receive."
 msgstr "受信するEメール通知を選択します。"
+
+msgid "Language preferences"
+msgstr "言語設定"
+
+msgid "Choose the language you want to use here."
+msgstr "使用した言語を選択してください"
+
+msgid "Current Time Zone"
+msgstr "現在タイムゾーン"
+
+msgid "Choose your current time zone."
+msgstr "現在タイムゾーンを選択"
+
+msgid "Heading {level}"
+msgstr "{level} ヘーダ"
+
+msgid "Numbered list"
+msgstr "段落番号"
+
+msgid "Blockquote"
+msgstr "引用"
+
+msgid "Bold"
+msgstr "太字"
+
+msgid "Italic"
+msgstr "斜体"
+
+msgid "Link"
+msgstr "リンク"
+
+msgid "Superscript"
+msgstr "上付き文字"
+
+msgid "Subscript"
+msgstr "下付き文字"
+
+msgid "Strikethrough"
+msgstr "取り消し線"
+
+msgid "Code"
+msgstr "コード"
 
 msgid "Choose an item"
 msgstr "アイテムを選択"

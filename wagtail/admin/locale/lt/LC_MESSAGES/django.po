@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -846,9 +846,6 @@ msgstr "Šis puslapis apsaugotas nuo viešo matymo"
 msgid "Disable ordering of child pages"
 msgstr "Išjungti vidinių puslapių rikiavimą"
 
-msgid "Order"
-msgstr "Tvarka"
-
 msgid "Enable ordering of child pages"
 msgstr "Įgalinti vidinių puslapių rikiavimą"
 
@@ -1035,6 +1032,10 @@ msgstr "Jokie puslapiai nenaudoja"
 msgid "Collection"
 msgstr "Kolekcija"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Puslapis %(page_num)s iš %(total_pages)s."
+
 msgid "Root"
 msgstr "Šakninis"
 
@@ -1109,10 +1110,6 @@ msgstr "Vartotojo nustatymai"
 
 msgid "Log out"
 msgstr "Atsijungti"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Puslapis %(page_num)s iš %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Kitos paieškos"
@@ -1203,9 +1200,6 @@ msgstr "Švedų"
 
 msgid "Slovak"
 msgstr "Slovakų"
-
-msgid "Chinese (China)"
-msgstr "Kinų (Kinija)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Atsiprašome, jūs neturite leidimo pasiekti šios zonos."

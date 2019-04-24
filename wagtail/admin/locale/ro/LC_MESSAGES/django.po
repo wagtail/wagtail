@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-01-25 09:26+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -903,9 +903,6 @@ msgstr "Această pagină este protejată de ochii publicului"
 msgid "Disable ordering of child pages"
 msgstr "Dezactivează rânduirea paginilor dependente"
 
-msgid "Order"
-msgstr "Ordine"
-
 msgid "Enable ordering of child pages"
 msgstr "Activează rânduirea paginilor dependente"
 
@@ -1101,6 +1098,10 @@ msgstr "Nici o pagină nu utilizează"
 msgid "Collection"
 msgstr "Colecție"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Pagina %(page_num)s din %(total_pages)s."
+
 msgid "Root"
 msgstr "Pagină de bază"
 
@@ -1196,10 +1197,6 @@ msgstr "Setări cont"
 
 msgid "Log out"
 msgstr "Deconectare"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pagina %(page_num)s din %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Alte căutări"
@@ -1316,9 +1313,6 @@ msgstr "Slovacă"
 
 msgid "Ukrainian"
 msgstr "ucraineană"
-
-msgid "Chinese (China)"
-msgstr "Chineză"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Ne pare rău, nu aveți permisiunea de a accesa această zonă."

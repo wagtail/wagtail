@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-01-18 15:48+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-16 12:39+0000\n"
 "Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -313,6 +313,12 @@ msgid ""
 msgstr ""
 "De editor is vastgelopen. Inhoud is terug gezet naar de laatst opgeslagen "
 "versie."
+
+msgid "Broken link"
+msgstr "Defecte link"
+
+msgid "Missing document"
+msgstr "Ontbrekend document"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -901,8 +907,8 @@ msgstr "Deze pagina is beveiligd voor het publiek"
 msgid "Disable ordering of child pages"
 msgstr "Schakel ordening van onderliggende pagina's uit"
 
-msgid "Order"
-msgstr "Volgorde"
+msgid "Sort"
+msgstr "Sorteer"
 
 msgid "Enable ordering of child pages"
 msgstr "Schakel ordening van onderliggende pagina's in"
@@ -1076,6 +1082,10 @@ msgstr "Geen pagina's maken gebruik van"
 msgid "Collection"
 msgstr "Collectie"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Pagina %(page_num)s van %(total_pages)s."
+
 msgid "Root"
 msgstr "Root"
 
@@ -1172,10 +1182,6 @@ msgstr "Accountinstellingen"
 msgid "Log out"
 msgstr "Uitloggen"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pagina %(page_num)s van %(total_pages)s."
-
 msgid "Other searches"
 msgstr "Andere zoekacties"
 
@@ -1258,6 +1264,9 @@ msgstr "Koreaans"
 msgid "Lithuanian"
 msgstr "Litouws"
 
+msgid "Mongolian"
+msgstr "Mongools"
+
 msgid "Norwegian Bokmål"
 msgstr "Noors Bokmål"
 
@@ -1288,11 +1297,17 @@ msgstr "Zweeds"
 msgid "Slovak"
 msgstr "Slowaaks"
 
+msgid "Thai"
+msgstr "Thais"
+
 msgid "Ukrainian"
 msgstr "Oekraïens"
 
-msgid "Chinese (China)"
-msgstr "Chinees (China)"
+msgid "Chinese (Simplified)"
+msgstr "Chinees (Vereenvoudigd)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinees (Traditioneel)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sorry, u heeft geen toegang tot dit gedeelte."
@@ -1407,6 +1422,13 @@ msgstr "Pagina '{0}' verwijderd."
 
 msgid "Page '{0}' unpublished."
 msgstr "Publicatie van pagina '{0}' is ingetrokken."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"De slug '{0}' is al in gebruik bij de geselecteerde bovenliggende pagina. Ga "
+"na dat de slug uniek is en probeer het opnieuw"
 
 msgid "Page '{0}' moved."
 msgstr "Pagina '{0}' is verplaatst."
@@ -1527,6 +1549,9 @@ msgstr "Lijst met opsommingstekens"
 msgid "Numbered list"
 msgstr "Genummerde lijst"
 
+msgid "Blockquote"
+msgstr "Blokquote"
+
 msgid "Bold"
 msgstr "Bold"
 
@@ -1535,6 +1560,18 @@ msgstr "Italic"
 
 msgid "Link"
 msgstr "Link"
+
+msgid "Superscript"
+msgstr "Bovenschrift"
+
+msgid "Subscript"
+msgstr "Onderschrift"
+
+msgid "Strikethrough"
+msgstr "Doorstreep"
+
+msgid "Code"
+msgstr "Code"
 
 msgid "Choose an item"
 msgstr "Kies een item"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-01-26 07:35+0000\n"
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -746,9 +746,6 @@ msgstr "Энэ хуудас олон нийтэд харагдахгүй хам�
 msgid "Disable ordering of child pages"
 msgstr "Дэд хуудсуудын эрэмбийг болиулах"
 
-msgid "Order"
-msgstr "Эрэмбэ"
-
 msgid "Enable ordering of child pages"
 msgstr "Дэд хуудсуудыг эрэмбэлэх"
 
@@ -1062,9 +1059,6 @@ msgstr "Словак"
 
 msgid "Ukrainian"
 msgstr "Украйн"
-
-msgid "Chinese (China)"
-msgstr "Хятад (Хятад)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Танд энэ хэсэгт хандах эрх алга."

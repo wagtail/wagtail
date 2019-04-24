@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-01-22 00:23+0000\n"
-"Last-Translator: MRostgaard <Mrostgaard@gmail.com>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
 "MIME-Version: 1.0\n"
@@ -766,9 +766,6 @@ msgstr "Denne side er beskyttet mod offentlig skue"
 msgid "Disable ordering of child pages"
 msgstr "Deaktiver arrangering af undersider"
 
-msgid "Order"
-msgstr "Arranger"
-
 msgid "Enable ordering of child pages"
 msgstr "Aktiver arrangering af undersider"
 
@@ -1011,9 +1008,6 @@ msgstr "Slovakisk"
 
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-msgid "Chinese (China)"
-msgstr "Kinesisk (Kina)"
 
 msgid "Editing"
 msgstr "Redigerer"

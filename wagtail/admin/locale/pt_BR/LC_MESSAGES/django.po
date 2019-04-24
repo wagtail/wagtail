@@ -11,14 +11,14 @@
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2019
 # Marcio Mazza <marciomazza@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-07 11:25+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-12 18:12+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -308,6 +308,12 @@ msgid ""
 msgstr ""
 "O editor simplesmente travou. O conteúdo foi redefinido para a última versão "
 "salva."
+
+msgid "Broken link"
+msgstr "Link quebrado"
+
+msgid "Missing document"
+msgstr "Documento ausente"
 
 msgid "Dashboard"
 msgstr "Painel"
@@ -901,7 +907,7 @@ msgstr "Esta página está protegida da visualização pública"
 msgid "Disable ordering of child pages"
 msgstr "Desabilitar ordenação de subpáginas"
 
-msgid "Order"
+msgid "Sort"
 msgstr "Ordenar"
 
 msgid "Enable ordering of child pages"
@@ -1087,6 +1093,10 @@ msgstr "Nenhuma página utilizada"
 msgid "Collection"
 msgstr "Coleção"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Página %(page_num)s de %(total_pages)s."
+
 msgid "Root"
 msgstr "Raiz"
 
@@ -1183,10 +1193,6 @@ msgstr "Configurações da Conta"
 msgid "Log out"
 msgstr "Sair"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Página %(page_num)s de %(total_pages)s."
-
 msgid "Other searches"
 msgstr "Outras buscas"
 
@@ -1270,6 +1276,9 @@ msgstr "Coreano"
 msgid "Lithuanian"
 msgstr "Lituano"
 
+msgid "Mongolian"
+msgstr "Mongol"
+
 msgid "Norwegian Bokmål"
 msgstr "Bokmål norueguês"
 
@@ -1303,8 +1312,11 @@ msgstr "Eslovaco"
 msgid "Ukrainian"
 msgstr "Ucraniano"
 
-msgid "Chinese (China)"
-msgstr "Chinês (China)"
+msgid "Chinese (Simplified)"
+msgstr "Chinês (simplificado)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinês (tradicional)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Desculpe, você não tem permissão para acessar esta área."
@@ -1420,6 +1432,13 @@ msgstr "Página '{0}' excluida."
 
 msgid "Page '{0}' unpublished."
 msgstr "Página '{0}' despublicada."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"O slug '{0}' já está em uso na página pai selecionada. Certifique-se de que "
+"o slug é único e tente novamente"
 
 msgid "Page '{0}' moved."
 msgstr "Página '{0}' movida."
@@ -1540,6 +1559,9 @@ msgstr "Lista com marcadores"
 msgid "Numbered list"
 msgstr "Lista numerada"
 
+msgid "Blockquote"
+msgstr "Bloco de citação"
+
 msgid "Bold"
 msgstr "Negrito"
 
@@ -1548,6 +1570,18 @@ msgstr "Itálico"
 
 msgid "Link"
 msgstr "Link"
+
+msgid "Superscript"
+msgstr "Sobrescrito"
+
+msgid "Subscript"
+msgstr "Subscrito"
+
+msgid "Strikethrough"
+msgstr "Tachado"
+
+msgid "Code"
+msgstr "Código"
 
 msgid "Choose an item"
 msgstr "Escolha um item"
