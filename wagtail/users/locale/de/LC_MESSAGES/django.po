@@ -4,7 +4,7 @@
 #
 # Translators:
 # Benjamin Thurm, 2018
-# Ettore Atalan <atalanttore@googlemail.com>, 2016-2017
+# Ettore Atalan <atalanttore@googlemail.com>, 2016-2017,2019
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:42+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-09 13:57+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -132,6 +132,9 @@ msgstr "Profilbild"
 
 msgid "user profile"
 msgstr "Benutzerprofil"
+
+msgid "user profiles"
+msgstr "Benutzerprofile"
 
 msgid "Delete group"
 msgstr "Gruppe löschen"
@@ -253,6 +256,9 @@ msgstr "Level"
 msgid "Status"
 msgstr "Status"
 
+msgid "Last Login"
+msgstr "Letzte Anmeldung"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -261,6 +267,10 @@ msgstr "Aktiv"
 
 msgid "Inactive"
 msgstr "Inaktiv"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "vor %(time_period)s"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -304,6 +314,9 @@ msgstr "Bearbeiten"
 
 msgid "The user could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht erstellt werden."
+
+msgid "User '{0}' updated."
+msgstr "Benutzer '{0}' aktualisiert."
 
 msgid "The user could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."

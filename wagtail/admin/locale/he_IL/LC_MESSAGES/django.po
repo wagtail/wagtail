@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-03-05 09:27+0000\n"
-"Last-Translator: Adi Ron <adi@bnop.co>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -553,9 +553,6 @@ msgstr "עמוד זה מוגן מתצוגה פומבית"
 msgid "Disable ordering of child pages"
 msgstr "כיבוי סידור של תתי-עמודים"
 
-msgid "Order"
-msgstr "פקוד"
-
 msgid "Enable ordering of child pages"
 msgstr "הפעלת סידור של תתי-עמודים"
 
@@ -576,6 +573,10 @@ msgstr "הכנס מונח לחיפוש"
 
 msgid "No pages use"
 msgstr "אף עמוד בשימוש"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
 
 msgid "Home"
 msgstr "לעמוד הבית "
@@ -642,10 +643,6 @@ msgstr "ערכו את חשבונכם"
 
 msgid "Log out"
 msgstr "התנתקות"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
 
 msgid "Other searches"
 msgstr "חיפושים אחרים"

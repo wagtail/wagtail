@@ -4,14 +4,14 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Philip Andersen <renegadevi@codeofmagi.net>, 2018
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-15 03:22+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-17 21:14+0000\n"
 "Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -50,6 +50,10 @@ msgstr "Inte en giltig %s bild."
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Filen är för stor (%%s). Maximal filstorlek %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "Filen har för hög upplösning (%%). Maximal upplösning: %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."

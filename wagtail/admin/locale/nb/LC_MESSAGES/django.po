@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -867,9 +867,6 @@ msgstr "Denne siden er unntatt offentlig visning"
 msgid "Disable ordering of child pages"
 msgstr "Skru av rekkefølge på undersider"
 
-msgid "Order"
-msgstr "Rekkefølge"
-
 msgid "Enable ordering of child pages"
 msgstr "Skru på rekkefølge på undersider"
 
@@ -1049,6 +1046,10 @@ msgstr "Ingen sider bruker"
 msgid "Collection"
 msgstr "Samling"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Side %(page_num)s av %(total_pages)s."
+
 msgid "Root"
 msgstr "Rot"
 
@@ -1123,10 +1124,6 @@ msgstr "Kontoinnstillinger"
 
 msgid "Log out"
 msgstr "Logg ut"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Side %(page_num)s av %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Andre søk"
@@ -1220,9 +1217,6 @@ msgstr "Slovakisk"
 
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-msgid "Chinese (China)"
-msgstr "kinesisk (Kina)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Beklager, du har ikke tilgang på dette området."

@@ -7,15 +7,15 @@
 # André Karlsson <andre@sess.se>, 2017
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Philip Andersen <renegadevi@codeofmagi.net>, 2018
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2016-2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-15 03:21+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-17 21:12+0000\n"
 "Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -306,6 +306,12 @@ msgid ""
 msgstr ""
 "Textredigeraren kraschade. Innehållet har återställts till den senaste "
 "sparade versionen."
+
+msgid "Broken link"
+msgstr "Bruten länk"
+
+msgid "Missing document"
+msgstr "Dokument saknas"
 
 msgid "Dashboard"
 msgstr "Instrumentpanel"
@@ -901,8 +907,8 @@ msgstr "Denna sida är skyddad från att synas publikt"
 msgid "Disable ordering of child pages"
 msgstr "Inaktivera sortering av undersidor"
 
-msgid "Order"
-msgstr "Ordning"
+msgid "Sort"
+msgstr "Sortera"
 
 msgid "Enable ordering of child pages"
 msgstr "Aktivera sortering av undersidor"
@@ -1084,6 +1090,10 @@ msgstr "Inga sidor använder"
 msgid "Collection"
 msgstr "Samling"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Sida %(page_num)s av %(total_pages)s."
+
 msgid "Root"
 msgstr "Rot"
 
@@ -1180,10 +1190,6 @@ msgstr "Kontoinställningar"
 msgid "Log out"
 msgstr "Logga ut"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sida %(page_num)s av %(total_pages)s."
-
 msgid "Other searches"
 msgstr "Andra sökningar"
 
@@ -1267,6 +1273,9 @@ msgstr "Koreanska"
 msgid "Lithuanian"
 msgstr "Litauiska"
 
+msgid "Mongolian"
+msgstr "Mongoliska"
+
 msgid "Norwegian Bokmål"
 msgstr "Norska Bokmål"
 
@@ -1297,11 +1306,17 @@ msgstr "Svenska"
 msgid "Slovak"
 msgstr "Slovakiska"
 
+msgid "Thai"
+msgstr "Thailändska"
+
 msgid "Ukrainian"
 msgstr "Ukrainska"
 
-msgid "Chinese (China)"
-msgstr "Kinesiska"
+msgid "Chinese (Simplified)"
+msgstr "Kinesiska (Förenklad)"
+
+msgid "Chinese (Traditional)"
+msgstr "Kinesiska (Traditionell)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Ledsen, du har inte rättigheter att tillträda detta område."
@@ -1418,6 +1433,13 @@ msgstr "Sida '{0}' raderad."
 
 msgid "Page '{0}' unpublished."
 msgstr "Sida '{0}' opublicerad."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"URL-fragmenten '{0}' är redan i användning av den valda huvudsidan. Se till "
+"att URL-fragmentet är unik och försök igen."
 
 msgid "Page '{0}' moved."
 msgstr "Sida '{0}' flyttad."
@@ -1538,6 +1560,9 @@ msgstr "Punktlista"
 msgid "Numbered list"
 msgstr "Numrerad lista"
 
+msgid "Blockquote"
+msgstr "Blockcitat"
+
 msgid "Bold"
 msgstr "Fetstil"
 
@@ -1546,6 +1571,18 @@ msgstr "Kursiv"
 
 msgid "Link"
 msgstr "Länk"
+
+msgid "Superscript"
+msgstr "Exponent"
+
+msgid "Subscript"
+msgstr "Index"
+
+msgid "Strikethrough"
+msgstr "Genomstruket"
+
+msgid "Code"
+msgstr "Kod"
 
 msgid "Choose an item"
 msgstr "Välj ett objekt"

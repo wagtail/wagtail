@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-01-21 05:19+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -848,9 +848,6 @@ msgstr "이 페이지는 다른 이들이 보지 못하도록 보호되었습니
 msgid "Disable ordering of child pages"
 msgstr "하위 페이지들 순서 변경 기능 비활성화"
 
-msgid "Order"
-msgstr "순서"
-
 msgid "Enable ordering of child pages"
 msgstr "하위 페이지들 순서 변경 기능 활성화"
 
@@ -1011,6 +1008,10 @@ msgstr "사용하는 페이지가 없습니다"
 msgid "Collection"
 msgstr "모음"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
+
 msgid "Root"
 msgstr "기본"
 
@@ -1106,10 +1107,6 @@ msgstr "계정 설정"
 
 msgid "Log out"
 msgstr "로그아웃"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
 
 msgid "Other searches"
 msgstr "다른 검색결과들"
@@ -1224,9 +1221,6 @@ msgstr "슬로바키아어"
 
 msgid "Ukrainian"
 msgstr "우크라이나어"
-
-msgid "Chinese (China)"
-msgstr "중국어 (중국)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "죄송합니다, 해당 영역에 접근할 권한이 없습니다."

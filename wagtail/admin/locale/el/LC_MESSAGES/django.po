@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -740,9 +740,6 @@ msgstr "Αυτή η σελίδα προστατεύεται από τη δημο
 msgid "Disable ordering of child pages"
 msgstr "Απενεργοποίηση ταξινόμησης σελίδων - παιδιά"
 
-msgid "Order"
-msgstr "Σειρά"
-
 msgid "Enable ordering of child pages"
 msgstr "Ενεργοποίηση ταξινόμησης σελίδων - παιδιά"
 
@@ -876,6 +873,10 @@ msgstr "Δεν υπάρχουν σελίδες που χρησιμοποιείτ
 msgid "Collection"
 msgstr "Συλλογή"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Σελίδα %(page_num)s από %(total_pages)s."
+
 msgid "Home"
 msgstr "Αρχή"
 
@@ -947,10 +948,6 @@ msgstr "Ρυθμίσεις λογαριασμού"
 
 msgid "Log out"
 msgstr "Αποσύνδεση"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Σελίδα %(page_num)s από %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Άλλες αναζητήσεις"

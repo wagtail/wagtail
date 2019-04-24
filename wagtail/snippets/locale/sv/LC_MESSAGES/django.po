@@ -5,15 +5,15 @@
 # Translators:
 # Alexander Holmbäck <alexander.holmback@creuna.se>, 2017
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Philip Andersen <renegadevi@codeofmagi.net>, 2018
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-11-27 22:03+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-17 21:15+0000\n"
 "Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -87,6 +87,9 @@ msgstr "Är du säker på att du vill radera %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Ja, radera"
+
+msgid "No, don't delete"
+msgstr "Nej, radera inte."
 
 #, python-format
 msgid "New  %(snippet_type_name)s"

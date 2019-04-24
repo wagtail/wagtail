@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-02-28 14:44+0000\n"
-"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -850,9 +850,6 @@ msgstr "หน้านี้ถูกป้องกันจากสาธา
 msgid "Disable ordering of child pages"
 msgstr "การเรียงไม่สามารถทำได้ในหย้าย่อย"
 
-msgid "Order"
-msgstr "คำสั่ง"
-
 msgid "Enable ordering of child pages"
 msgstr "การเรียงลำดับสามารถทำได้ในหน้าย่อย"
 
@@ -1020,6 +1017,10 @@ msgstr "ไม่มีหน้าท่ีใช้"
 msgid "Collection"
 msgstr "ชุด"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "หน้า %(page_num)s ของ%(total_pages)s."
+
 msgid "Root"
 msgstr "ต้นฉบับ"
 
@@ -1115,10 +1116,6 @@ msgstr "การตั้งค่าบัญชีของคุณ"
 
 msgid "Log out"
 msgstr "ออกจากระบบ"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "หน้า %(page_num)s ของ%(total_pages)s."
 
 msgid "Other searches"
 msgstr "ค้นหาอย่างอื่น"
@@ -1234,11 +1231,6 @@ msgstr "ภาษาสโลวาเกีย"
 
 msgid "Ukrainian"
 msgstr "ภาษายูเครเนี่ยน"
-
-msgid "Chinese (China)"
-msgstr ""
-"ภาษาจีน\n"
-"(จีน)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "ขออภัย, คุณไม่สามารถเปิดหน้านี้ได้"

@@ -5,7 +5,7 @@
 # Translators:
 # Benjamin Thurm, 2018-2019
 # Daniel Manser <me@danielmanser.com>, 2015
-# Ettore Atalan <atalanttore@googlemail.com>, 2015-2017
+# Ettore Atalan <atalanttore@googlemail.com>, 2015-2017,2019
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016,2018
 # hpoul <herbert.transifex@m.poul.at>, 2015
 # Jannis Vajen, 2016
@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-01-17 08:11+0000\n"
-"Last-Translator: Benjamin Thurm\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-09 13:57+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -332,6 +332,9 @@ msgstr ""
 "Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
 "Version zurückgesetzt."
 
+msgid "Missing document"
+msgstr "Fehlendes Dokument"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -358,6 +361,24 @@ msgstr "Externer Link"
 
 msgid "Email link"
 msgstr "E-Mail-Link"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"        Es gibt %(counter)s Ergebnis\n"
+"    "
+msgstr[1] ""
+"\n"
+"        Es gibt %(counter)s Ergebnisse\n"
+"    "
 
 msgid "Choose"
 msgstr "Auswählen"
@@ -910,9 +931,6 @@ msgstr "Diese Seite ist vor öffentlichem Zugriff geschützt"
 msgid "Disable ordering of child pages"
 msgstr "Sortierung von Unterseiten deaktivieren"
 
-msgid "Order"
-msgstr "Sortierung"
-
 msgid "Enable ordering of child pages"
 msgstr "Sortierung von Unterseiten aktivieren"
 
@@ -1099,6 +1117,10 @@ msgstr "Keine Seite benutzt "
 msgid "Collection"
 msgstr "Sammlung"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Seite %(page_num)s von %(total_pages)s."
+
 msgid "Root"
 msgstr "Ursprung"
 
@@ -1195,10 +1217,6 @@ msgstr "Kontoeinstellungen"
 msgid "Log out"
 msgstr "Abmelden"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Seite %(page_num)s von %(total_pages)s."
-
 msgid "Other searches"
 msgstr "Andere Suchbegriffe"
 
@@ -1240,6 +1258,9 @@ msgstr "Im Explorer anzeigen"
 msgid "Test"
 msgstr "Test"
 
+msgid "Arabic"
+msgstr "Arabisch"
+
 msgid "Catalan"
 msgstr "Katalanisch"
 
@@ -1264,6 +1285,9 @@ msgstr "Französisch"
 msgid "Galician"
 msgstr "Galicisch"
 
+msgid "Indonesian"
+msgstr "Indonesisch"
+
 msgid "Icelandic"
 msgstr "Isländisch"
 
@@ -1275,6 +1299,9 @@ msgstr "Koreanisch"
 
 msgid "Lithuanian"
 msgstr "Litauisch"
+
+msgid "Mongolian"
+msgstr "Mongolisch"
 
 msgid "Norwegian Bokmål"
 msgstr "Norwegische Buchsprache"
@@ -1308,9 +1335,6 @@ msgstr "Slowakisch"
 
 msgid "Ukrainian"
 msgstr "Ukrainisch"
-
-msgid "Chinese (China)"
-msgstr "Chinesisch (China)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sie haben leider keinen Zugang zu diesem Bereich."
@@ -1554,6 +1578,9 @@ msgstr "Aufzählung"
 msgid "Numbered list"
 msgstr "Nummerierte Liste"
 
+msgid "Blockquote"
+msgstr "Blockzitat"
+
 msgid "Bold"
 msgstr "Fett"
 
@@ -1562,6 +1589,9 @@ msgstr "Kursiv"
 
 msgid "Link"
 msgstr "Link"
+
+msgid "Code"
+msgstr "Code"
 
 msgid "Choose an item"
 msgstr "Eintrag wählen"

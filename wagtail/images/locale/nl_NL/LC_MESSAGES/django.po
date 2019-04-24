@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-01-18 15:47+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-16 12:28+0000\n"
 "Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -52,6 +52,12 @@ msgstr "Geen juiste %s afbeelding."
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Dit bestand is te groot (%%s). De maximale bestandsgrootte is %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"Dit bestand bevat teveel pixels (%%s). Het maximum aantal toegestane pixels "
+"is %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
