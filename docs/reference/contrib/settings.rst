@@ -51,9 +51,9 @@ Settings use edit handlers much like the rest of Wagtail.  Add a ``panels`` sett
     @register_setting
     class ImportantPages(BaseSetting):
         donate_page = models.ForeignKey(
-            'wagtailcore.Page', null=True, on_delete=models.SET_NULL)
+            'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+')
         sign_up_page = models.ForeignKey(
-            'wagtailcore.Page', null=True, on_delete=models.SET_NULL)
+            'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+')
 
         panels = [
             PageChooserPanel('donate_page'),
