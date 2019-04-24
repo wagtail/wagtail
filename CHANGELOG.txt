@@ -11,7 +11,7 @@ Changelog
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
 
 
-2.5 (xx.xx.xxxx) - IN DEVELOPMENT
+2.5 (24.04.2019)
 ~~~~~~~~~~~~~~~~
 
  * Django 2.2 support (Matt Westcott, Andy Babic)
