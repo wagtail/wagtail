@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  initExplorer,
   Icon,
   Portal,
+  initExplorer,
   initFocusOutline,
-  initSubmenus
+  initSubmenus,
+  initUpgradeNotification,
 } from 'wagtail-client';
 
 if (process.env.NODE_ENV === 'development') {
@@ -35,4 +36,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initFocusOutline();
   initSubmenus();
+  initUpgradeNotification();
 });

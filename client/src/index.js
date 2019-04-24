@@ -4,25 +4,27 @@
  */
 
 import Button from './components/Button/Button';
+import Explorer, { ExplorerToggle, initExplorer } from './components/Explorer';
 import Icon from './components/Icon/Icon';
-import PublicationStatus from './components/PublicationStatus/PublicationStatus';
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import Portal from './components/Portal/Portal';
+import PublicationStatus from './components/PublicationStatus/PublicationStatus';
 import Transition from './components/Transition/Transition';
-import Explorer, { ExplorerToggle, initExplorer } from './components/Explorer';
 import { initFocusOutline } from './utils/focus';
 import { initSubmenus } from './includes/initSubmenus';
+import { initUpgradeNotification } from './components/UpgradeNotification';
 
 export {
   Button,
-  Icon,
-  PublicationStatus,
-  LoadingSpinner,
-  Portal,
-  Transition,
   Explorer,
   ExplorerToggle,
+  Icon,
+  LoadingSpinner,
+  Portal,
+  PublicationStatus,
+  Transition,
   initExplorer,
   initFocusOutline,
   initSubmenus,
+  initUpgradeNotification,
 };
