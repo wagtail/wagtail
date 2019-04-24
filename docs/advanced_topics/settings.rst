@@ -384,6 +384,15 @@ Multi-word tags
 
 Tags can only consist of a single word, no spaces allowed. The default setting is ``True`` (spaces in tags are allowed).
 
+Tag limit
+---------
+
+.. code-block:: python
+
+  TAG_LIMIT = 5
+
+Limit the number of tags that can be added to (django-taggit) Tag model. Default setting is ``None``, meaning no limit on tags.
+
 Unicode Page Slugs
 ------------------
 

@@ -203,6 +203,10 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
         Controls the maximum number of pages of this type that can be created through the Wagtail administration interface. This is useful when needing "allow at most 3 of these pages to exist", or for singleton pages.
 
+    .. attribute:: max_count_per_parent
+
+        Controls the maximum number of pages of this type that can be created under any one parent page.
+
     .. attribute:: exclude_fields_in_copy
 
         An array of field names that will not be included when a Page is copied.

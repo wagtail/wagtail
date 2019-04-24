@@ -1,7 +1,7 @@
 The Explorer page
 ~~~~~~~~~~~~~~~~~
 
-The Explorer page allows you to view the a page's children and perform actions on them. From here you can publish/unpublish pages, move pages to other sections, drill down further into the content tree, or reorder pages under the parent for the purposes of display in menus.
+The Explorer page allows you to view a page's children and perform actions on them. From here you can publish/unpublish pages, move pages to other sections, drill down further into the content tree, or reorder pages under the parent for the purposes of display in menus.
 
 
 .. image:: ../../_static/images/screen05_explorer_page.png
@@ -27,6 +27,6 @@ ________________
 
 .. image:: ../../_static/images/screen08.5_reorder_page_handles.png
 
-* Clicking the icon to the far left of the child pages table will enable the reordering handles. This allows you to reorder the way that content displays in the main menu of your website.
+* Clicking the “Sort” control in the header row will enable the reordering handles. This allows you to reorder the way that content displays in the main menu of your website.
 * Reorder by dragging the pages by the handles on the far left (the icon made up of 6 dots).
 * Your new order will be automatically saved each time you drag and drop an item.

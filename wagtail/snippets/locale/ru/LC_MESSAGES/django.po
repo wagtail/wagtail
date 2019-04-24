@@ -7,7 +7,7 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
-# Vassiliy Vorobyov <zuber.kg@gmail.com>, 2017
+# Vassily <zuber.kg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

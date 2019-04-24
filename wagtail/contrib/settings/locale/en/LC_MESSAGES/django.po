@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,14 +38,14 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: views.py:43
+#: views.py:45
 msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 
-#: views.py:68
+#: views.py:71
 msgid "{setting_type} updated."
 msgstr ""
 
-#: views.py:76
+#: views.py:79
 msgid "The setting could not be saved due to errors."
 msgstr ""

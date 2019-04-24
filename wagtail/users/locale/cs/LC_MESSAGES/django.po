@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# it_management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2018
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 msgid ""
 msgstr ""

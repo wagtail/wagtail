@@ -1,6 +1,7 @@
 from unittest import mock
 from urllib.error import HTTPError, URLError
 
+import requests
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -78,12 +79,23 @@ class TestBackendConfiguration(TestCase):
             hdrs={},
             fp=None
         )
-        self._test_http_with_side_effect(urlopen_side_effect=http_error)
+        with self.assertLogs(level='ERROR') as log_output:
+            self._test_http_with_side_effect(urlopen_side_effect=http_error)
+
+        self.assertIn(
+            "Couldn't purge 'http://www.wagtail.io/home/events/christmas/' from HTTP cache. HTTPError: 500 Internal Server Error",
+            log_output.output[0]
+        )
 
     def test_http_urlerror(self):
         """Test that `HTTPBackend.purge` can handle `URLError`"""
         url_error = URLError(reason='just for tests')
-        self._test_http_with_side_effect(urlopen_side_effect=url_error)
+        with self.assertLogs(level='ERROR') as log_output:
+            self._test_http_with_side_effect(urlopen_side_effect=url_error)
+        self.assertIn(
+            "Couldn't purge 'http://www.wagtail.io/home/events/christmas/' from HTTP cache. URLError: just for tests",
+            log_output.output[0]
+        )
 
     @mock.patch('wagtail.contrib.frontend_cache.backends.urlopen')
     def _test_http_with_side_effect(self, urlopen_mock, urlopen_side_effect):
@@ -308,3 +320,34 @@ class TestPurgeBatchClass(TestCase):
         batch.purge()
 
         self.assertEqual(batch.urls, ['http://localhost/events/', 'http://localhost/events/past/', 'http://localhost/foo'])
+
+    @mock.patch('wagtail.contrib.frontend_cache.backends.requests.delete')
+    def test_http_error_on_cloudflare_purge_batch(self, requests_delete_mock):
+        backend_settings = {
+            'cloudflare': {
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
+                'EMAIL': 'test@test.com',
+                'TOKEN': 'this is the token',
+                'ZONEID': 'this is a zone id',
+            },
+        }
+
+        class MockResponse:
+            def __init__(self, status_code=200):
+                self.status_code = status_code
+
+        http_error = requests.exceptions.HTTPError(response=MockResponse(status_code=500))
+        requests_delete_mock.side_effect = http_error
+
+        page = EventIndex.objects.get(url_path='/home/events/')
+
+        batch = PurgeBatch()
+        batch.add_page(page)
+
+        with self.assertLogs(level='ERROR') as log_output:
+            batch.purge(backend_settings=backend_settings)
+
+        self.assertIn(
+            "Couldn't purge 'http://localhost/events/' from Cloudflare. HTTPError: 500",
+            log_output.output[0]
+        )

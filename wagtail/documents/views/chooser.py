@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
@@ -11,7 +12,6 @@ from wagtail.documents.forms import get_document_form
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.search import index as search_index
-from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -75,7 +75,8 @@ def chooser(request):
             is_searching = False
 
         # Pagination
-        paginator, documents = paginate(request, documents, per_page=10)
+        paginator = Paginator(documents, per_page=10)
+        documents = paginator.get_page(request.GET.get('p'))
 
         return render(request, "wagtaildocs/chooser/results.html", {
             'documents': documents,
@@ -96,7 +97,8 @@ def chooser(request):
 
         documents = documents.order_by('-created_at')
         documents_exist = documents.exists()
-        paginator, documents = paginate(request, documents, per_page=10)
+        paginator = Paginator(documents, per_page=10)
+        documents = paginator.get_page(request.GET.get('p'))
 
         return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', None, {
             'documents': documents,

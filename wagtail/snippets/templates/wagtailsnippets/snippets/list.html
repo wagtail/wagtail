@@ -21,6 +21,16 @@
                         <h2><a class="snippet-choice" href="{% url 'wagtailsnippets:chosen' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}">{{ snippet }}</a></h2>
                     {% else %}
                         <h2><a href="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}">{{ snippet }}</a></h2>
+                         <ul class="actions">
+                            <li>
+                                <a href="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}" class="button button-secondary button-small">Edit</a>
+                            </li>
+                            {% if can_delete_snippets %}
+                                <li>
+                                    <a href="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}" class="button button-secondary button-small">Delete</a>
+                                </li>
+                            {% endif %}
+                        </ul>
                     {% endif %}
                 </td>
             </tr>

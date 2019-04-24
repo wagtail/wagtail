@@ -1,5 +1,6 @@
 from django.db import models
 
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.core.models import Page
 from wagtail.search import index
 
@@ -7,6 +8,11 @@ from wagtail.search import index
 class Author(models.Model):
     name = models.CharField(max_length=255)
     date_of_birth = models.DateField()
+
+    def author_birth_string(self):
+        return 'This author was born in pallet town'
+
+    author_birth_string.short_description = "Birth information"
 
     def __str__(self):
         return self.name
@@ -46,3 +52,61 @@ class Publisher(models.Model):
 class VenuePage(Page):
     address = models.CharField(max_length=300)
     capacity = models.IntegerField()
+
+
+class Visitor(models.Model):
+    """model used to test modeladmin.edit_handler usage in get_edit_handler"""
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.first_name
+
+
+class Contributor(models.Model):
+    """model used to test modeladmin.panels usage in get_edit_handler"""
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.first_name
+
+
+class Person(models.Model):
+    """model used to test model.edit_handlers usage in get_edit_handler"""
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('first_name'),
+        FieldPanel('last_name'),
+        FieldPanel('phone_number'),
+    ]
+    edit_handler = TabbedInterface([
+        ObjectList(panels),
+    ])
+
+    def __str__(self):
+        return self.first_name
+
+
+class Friend(models.Model):
+    """model used to test model.panels usage in get_edit_handler"""
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('first_name'),
+        FieldPanel('phone_number'),
+    ]
+
+    def __str__(self):
+        return self.first_name

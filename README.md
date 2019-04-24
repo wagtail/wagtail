@@ -26,15 +26,18 @@ Find out more at [wagtail.io](https://wagtail.io/).
 
 ### Getting started
 
-Wagtail works with Python 3, on any platform.
+Wagtail works with [Python 3](https://www.python.org/downloads/), on any platform.
 
-```
-    pip install wagtail
-    wagtail start mysite
-    cd mysite
-    python manage.py migrate
-    python manage.py createsuperuser
-    python manage.py runserver
+To get started with Wagtail, run the following in a virtual environment:
+
+``` bash
+pip install wagtail
+wagtail start mysite
+cd mysite
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
 ```
 
 For detailed installation and setup docs, see [docs.wagtail.io](http://docs.wagtail.io/).
@@ -51,8 +54,8 @@ Wagtail is used by NASA, Google, Oxfam, the NHS, Mozilla, MIT, the Red Cross, Sa
 
 Wagtail supports:
 
-* Django 2.0.x and 2.1.x
-* Python 3.4, 3.5, 3.6 and 3.7
+* Django 2.0.x, 2.1.x and 2.2.x
+* Python 3.5, 3.6 and 3.7
 * PostgreSQL, MySQL and SQLite as database backends
 
 Previous versions of Wagtail (1.13 and earlier) additionally supported Python 2.7 and Django 1.x.
@@ -70,6 +73,12 @@ We maintain a curated list of third party packages, articles and other resources
 ### Commercial Support
 
 Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help implementing or hosting Wagtail, please contact us: hello@torchbox.com. See also [madewithwagtail.org/developers/](https://madewithwagtail.org/developers/) for expert Wagtail developers around the world.
+
+### Security
+
+We take the security of Wagtail, and related packages we maintain, seriously. If you have found a security issue with any of our projects please email us at [security@wagtail.io](mailto:security@wagtail.io) so we can work together to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a Github issue.
+
+If you want to send an encrypted email (optional), the public key ID for security@wagtail.io is 0x6ba1e1a86e0f8ce8, and this public key is available from most commonly-used keyservers.
 
 ### Contributing
 

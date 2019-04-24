@@ -29,7 +29,7 @@ jobs:
             - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
             - node-v1-{{ .Branch }}-
             - node-v1-
-      - run: npm install
+      - run: npm install --no-save
       - save_cache:
           paths:
             - ~/project/node_modules/

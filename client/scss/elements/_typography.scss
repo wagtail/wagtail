@@ -1,0 +1,94 @@
+@include webfont(Open Sans, opensans-light, 300, normal);
+@include webfont(Open Sans, opensans-regular, 400, normal);
+@include webfont(Open Sans, opensans-semibold, 600, normal);
+@include webfont(Open Sans, opensans-bold, 700, normal);
+@include webfont(Roboto Slab, robotoslab-regular, 400, normal);
+@include webfont(Roboto Slab, robotoslab-bold, 700, normal);
+
+body {
+    -webkit-font-smoothing: antialiased; // Do not remove!
+    font-family: Open Sans, Arial, sans-serif;
+    font-size: 80%;
+    line-height: 1.5em;
+    color: $color-text-base;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+
+h1 {
+    line-height: 1.3em;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    color: $color-grey-1;
+    font-weight: 600;
+
+    span {
+        text-transform: none;
+        font-weight: 300;
+    }
+}
+
+h2 {
+    text-transform: uppercase;
+    font-size: 1.3em;
+    font-family: Open Sans;
+    font-weight: 600;
+    color: $color-grey-2;
+}
+
+p {
+    margin-top: 0;
+}
+
+a {
+    // @include transition(color 0.2s ease, background-color 0.2s ease);
+    outline: none;
+    color: $color-link;
+    text-decoration: none;
+
+    &:hover {
+        color: $color-link-hover;
+    }
+}
+
+code {
+    box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.2);
+    background-color: $color-fieldset-hover;
+    padding: 2px 5px;
+}
+
+kbd {
+    border-radius: 3px;
+    font-family: Open Sans, Arial, sans-serif;
+    border: 1px solid $color-grey-2;
+    border-color: rgba(0, 0, 0, 0.2);
+    padding: 0.3em 0.5em;
+}
+
+dl,
+dt,
+dd {
+    padding: 0;
+    margin: 0;
+}
+
+dl {
+    margin-top: 1em;
+}
+
+dt {
+    color: darken($color-grey-3, 15%);
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+dd {
+    margin-bottom: 1em;
+}

@@ -216,6 +216,8 @@ will support that too. However, it's highly recommended that you use
 integrating with your ``ModelAdmin`` class much easier and will provide a bunch of
 useful attributes and methods to get you started.
 
+You can also use the url_helper to easily reverse URLs for any ModelAdmin see :ref:`modeladmin_reversing_urls`.
+
 .. _modeladmin_overriding_helper_classes:
 
 -------------------------

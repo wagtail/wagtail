@@ -31,7 +31,7 @@ const initExplorer = (explorerNode, toggleNode) => {
   const store = createStore(rootReducer, {}, compose(
     applyMiddleware(...middleware),
     // Expose store to Redux DevTools extension.
-    window.devToolsExtension ? window.devToolsExtension() : func => func
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : func => func
   ));
 
   const startPage = parseInt(toggleNode.getAttribute('data-explorer-start-page'), 10);

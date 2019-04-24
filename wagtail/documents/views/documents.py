@@ -1,5 +1,6 @@
 import os
 
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
@@ -13,7 +14,6 @@ from wagtail.documents.forms import get_document_form
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.search import index as search_index
-from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -56,7 +56,8 @@ def index(request):
         form = SearchForm(placeholder=_("Search documents"))
 
     # Pagination
-    paginator, documents = paginate(request, documents)
+    paginator = Paginator(documents, per_page=20)
+    documents = paginator.get_page(request.GET.get('p'))
 
     collections = permission_policy.collections_user_has_any_permission_for(
         request.user, ['add', 'change']
@@ -211,7 +212,8 @@ def usage(request, document_id):
     Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
 
-    paginator, used_by = paginate(request, doc.get_usage())
+    paginator = Paginator(doc.get_usage(), per_page=20)
+    used_by = paginator.get_page(request.GET.get('p'))
 
     return render(request, "wagtaildocs/documents/usage.html", {
         'document': doc,

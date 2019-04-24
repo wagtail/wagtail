@@ -754,6 +754,24 @@ class TestHtmlToContentState(TestCase):
             ]
         })
 
+    def test_collapse_targeted_whitespace_characters(self):
+        # We expect all targeted whitespace characters (one or more consecutively)
+        # to be replaced by a single space. (\xa0 is a non-breaking whitespace)
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>Multiple whitespaces:     should  be reduced</p>
+            <p>Multiple non-breaking whitespace characters:  \xa0\xa0\xa0  should be preserved</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Multiple whitespaces: should be reduced', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Multiple non-breaking whitespace characters: \xa0\xa0\xa0 should be preserved', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
+
     def test_extra_end_tag_before(self):
         converter = ContentstateConverter(features=[])
         result = json.loads(converter.from_database_format(

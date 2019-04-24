@@ -56,6 +56,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
 
 
 class PublishMenuItem(ActionMenuItem):
+    name = 'action-publish'
     template = 'wagtailadmin/pages/action_menu/publish.html'
 
     def is_shown(self, request, context):
@@ -88,6 +89,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
 
 class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
+    name = 'action-unpublish'
 
     def is_shown(self, request, context):
         return (
@@ -101,6 +103,7 @@ class UnpublishMenuItem(ActionMenuItem):
 
 
 class DeleteMenuItem(ActionMenuItem):
+    name = 'action-delete'
     label = _("Delete")
 
     def is_shown(self, request, context):
