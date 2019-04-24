@@ -22,6 +22,7 @@ Bug fixes
 ~~~~~~~~~
 
  * ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
+ * The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
 
 
 Upgrade considerations
