@@ -13,6 +13,7 @@ import Explorer, {
   ExplorerToggle,
   initExplorer,
 } from './components/Explorer';
+import { initUpgradeNotification } from './components/UpgradeNotification';
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   Explorer,
   ExplorerToggle,
   initExplorer,
+  initUpgradeNotification,
 };

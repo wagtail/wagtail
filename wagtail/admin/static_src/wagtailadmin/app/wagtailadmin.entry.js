@@ -1,4 +1,4 @@
-import { initExplorer, Icon, Portal } from 'wagtail-client';
+import { initExplorer, initUpgradeNotification, Icon, Portal } from 'wagtail-client';
 
 // Expose components as globals for third-party reuse.
 window.wagtail.components = {
@@ -16,4 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (explorerNode && toggleNode) {
     initExplorer(explorerNode, toggleNode);
   }
+
+  initUpgradeNotification();
 });
