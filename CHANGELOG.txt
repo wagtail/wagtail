@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.5 (xx.xx.xxxx) - IN DEVELOPMENT
+2.5 (24.04.2019)
 ~~~~~~~~~~~~~~~~
 
  * Django 2.2 support (Matt Westcott, Andy Babic)
