@@ -13,9 +13,9 @@ const initSubmenus = () => {
   const activeClass = 'submenu-active';
 
   subMenus.forEach(subMenu => {
-    subMenu.addEventListener('click', e => {
+    subMenu.addEventListener('click', clickEvent => {
       primaryNavContainer.classList.remove(activeClass);
-      subMenus.forEach(subMenu => subMenu.classList.remove(activeClass));
+      subMenus.forEach(sm => sm.classList.remove(activeClass));
 
       primaryNavContainer.classList.toggle(activeClass);
       subMenu.parentNode.classList.toggle(activeClass);
@@ -28,13 +28,13 @@ const initSubmenus = () => {
       });
 
       document.addEventListener('keydown', e => {
-        if (e.keyCode == 27) {
+        if (e.keyCode === 27) {
           primaryNavContainer.classList.remove(activeClass);
           subMenu.parentNode.classList.remove(activeClass);
         }
       });
 
-      e.preventDefault();
+      clickEvent.preventDefault();
     });
   });
 };
