@@ -6,8 +6,14 @@ Third-party tutorials
     The following list is a collection of tutorials and development notes from third-party developers.
     Some of the older links may not apply to the latest Wagtail versions.
 
-* `Learn Wagtail <https://learnwagtail.com/>`_ - regular video tutorials about all aspects of Wagtail (1 March 2019)
+* `How do I Wagtail <https://foundation.mozilla.org/en/docs/how-do-i-wagtail/>`_ - An Editor's Guide for Mozilla's usage of Wagtail (25 April 2019)
+* `Learn Wagtail <https://learnwagtail.com/>`_ - Regular video tutorials about all aspects of Wagtail (1 March 2019)
+* `How to add buttons to ModelAdmin Index View in Wagtail CMS <https://timonweb.com/tutorials/how-to-add-buttons-to-modeladmin-index-view-in-wagtail-cms/>`_ (23 January 2019)
 * `Wagtail Tutorial Series <https://www.accordbox.com/blog/wagtail-tutorials/>`_ (20 January 2019)
+* `How to Deploy Wagtail to Google App Engine PaaS (Video) <https://www.youtube.com/watch?v=uD9PTag2-PQ>`_ (18 December 2018)
+* `How To Prevent Users From Creating Pages by Page Type <https://timonweb.com/tutorials/prevent-users-from-creating-certain-page-types-in-wagtail-cms/>`_ (25 October 2018)
+* `How to Deploy Wagtail to Jelastic PaaS <https://jelastic.com/blog/deploy-wagtail-python-cms/>`_ (11 October 2018)
+* `Basic Introduction to Setting Up Wagtail <https://medium.com/nonstopio/wagtail-an-open-source-cms-cec6b93706da>`_ (15 August 2018)
 * `E-Commerce for Django developers (with Wagtail shop tutorial) <https://snipcart.com/blog/django-ecommerce-tutorial-wagtail-cms>`_ (5 July 2018)
 * `Wagtail and GraphQL <https://jossingram.wordpress.com/2018/04/19/wagtail-and-graphql/>`_ (19 April 2018)
 * `Wagtail and Azure storage blob containers <https://jossingram.wordpress.com/2017/11/29/wagtail-and-azure-storage-blob-containers/>`_ (29 November 2017)
