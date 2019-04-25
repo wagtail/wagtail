@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ettore Atalan <atalanttore@googlemail.com>, 2019
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-09 13:57+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -61,6 +62,9 @@ msgstr "Schlagwörter"
 msgid "document"
 msgstr "Dokument"
 
+msgid "documents"
+msgstr "Dokumente"
+
 msgid "Choose a document"
 msgstr "Dokument auswählen"
 
@@ -73,6 +77,24 @@ msgstr "Hochladen"
 msgid "Uploading…"
 msgstr "Lade hoch…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Es gibt %(counter)s Ergebnis\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Es gibt %(counter)s Ergebnisse\n"
+"        "
+
 msgid "Latest documents"
 msgstr "Neueste Dokumente"
 
@@ -80,6 +102,12 @@ msgstr "Neueste Dokumente"
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Es gibt leider keine Dokumente zum Suchbegriff „<em>%(query_string)s</em>“"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Sie haben in dieser Sammlung keine Dokumente hochgeladen."
+
+msgid "You haven't uploaded any documents."
+msgstr "Sie haben noch keine Dokumente hochgeladen."
 
 msgid "Change document:"
 msgstr "Dokument ändern:"
@@ -136,6 +164,9 @@ msgstr "Titel"
 
 msgid "File"
 msgstr "Datei"
+
+msgid "Collection"
+msgstr "Sammlung"
 
 msgid "Uploaded"
 msgstr "Hochgeladen"

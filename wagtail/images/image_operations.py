@@ -225,8 +225,8 @@ class ScaleOperation(Operation):
         image_width, image_height = willow.get_size()
 
         scale = self.percent / 100
-        width = float(image_width * scale)
-        height = float(image_height * scale)
+        width = int(image_width * scale)
+        height = int(image_height * scale)
 
         return willow.resize((width, height))
 

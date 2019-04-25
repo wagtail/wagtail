@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -731,9 +731,6 @@ msgstr "Esta página está protegida da visualização pública"
 msgid "Disable ordering of child pages"
 msgstr "Desativar ordenação de páginas-filha"
 
-msgid "Order"
-msgstr "Ordem"
-
 msgid "Enable ordering of child pages"
 msgstr "Ativar ordenação de páginas-filha"
 
@@ -800,6 +797,10 @@ msgstr "Nenhuma página usa"
 
 msgid "Collection"
 msgstr "Coleção"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Página %(page_num)s de %(total_pages)s."
 
 msgid "Home"
 msgstr "Início"
@@ -872,10 +873,6 @@ msgstr "Configurações da conta"
 
 msgid "Log out"
 msgstr "Sair"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Página %(page_num)s de %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Outras pesquisas"

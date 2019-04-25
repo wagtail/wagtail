@@ -4,7 +4,7 @@
 #
 # Translators:
 # Benjamin Thurm, 2018
-# Ettore Atalan <atalanttore@googlemail.com>, 2017
+# Ettore Atalan <atalanttore@googlemail.com>, 2017,2019
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-09 13:57+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -157,6 +157,24 @@ msgstr "Häufig verwendete Schlagwörter"
 msgid "Uploading…"
 msgstr "Lade hoch…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Es gibt %(counter)s Ergebnis\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Es gibt %(counter)s Ergebnisse\n"
+"        "
+
 msgid "Latest images"
 msgstr "Neueste Bilder"
 
@@ -218,6 +236,9 @@ msgstr "Bearbeiten"
 
 msgid "URL Generator"
 msgstr "URL Generator"
+
+msgid "(optional)"
+msgstr "(optional)"
 
 msgid "Current focal point shown"
 msgstr "Aktueller Fokuspunkt wird angezeigt"

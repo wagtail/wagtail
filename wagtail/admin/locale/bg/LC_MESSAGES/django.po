@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -320,9 +320,6 @@ msgstr "Следващо"
 msgid "Disable ordering of child pages"
 msgstr "Отменете подредбата на дъщерни страници"
 
-msgid "Order"
-msgstr "Ред"
-
 msgid "Enable ordering of child pages"
 msgstr "Позволете подредба на дъщерни страници"
 
@@ -337,15 +334,15 @@ msgstr "Изберете нова страница родител за <span>%(t
 msgid "Enter a search term above"
 msgstr "Добавете дума за търсене по-горе"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Страница %(page_num)s от %(total_pages)s."
+
 msgid "Home"
 msgstr "Начало"
 
 msgid "Log out"
 msgstr "Излез"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Страница %(page_num)s от %(total_pages)s."
 
 msgid "Your password has been changed successfully!"
 msgstr "Паролата ви бе променена успешно!"
