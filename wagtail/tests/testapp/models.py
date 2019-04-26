@@ -158,6 +158,16 @@ class SimpleProxyPage(SimplePage):
         return "%s (proxy)" % super().get_admin_display_title()
 
 
+# Another proxy page model
+class SimpleProxyPageDeux(SimplePage):
+
+    class Meta:
+        proxy = True
+
+    def get_admin_display_title(self):
+        return "%s (proxy deux)" % super().get_admin_display_title()
+
+
 # Page with Excluded Fields when copied
 class PageWithExcludedCopyField(Page):
     content = models.TextField()
