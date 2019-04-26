@@ -904,6 +904,7 @@ class CustomImage(AbstractImage):
 
     admin_form_fields = Image.admin_form_fields + (
         'caption',
+        'fancy_caption',
     )
 
 

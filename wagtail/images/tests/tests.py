@@ -569,6 +569,7 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
             'focal_point_width',
             'focal_point_height',
             'caption',
+            'fancy_caption',
         ])
 
     def test_file_field(self):

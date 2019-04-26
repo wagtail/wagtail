@@ -110,6 +110,9 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
 
+        # draftail should NOT be a standard JS include on this page
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
         root_collection.add_child(name="Evil plans")
@@ -120,6 +123,21 @@ class TestImageAddView(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '<label for="id_collection">')
         self.assertContains(response, "Evil plans")
+
+    @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+    def test_get_with_custom_image_model(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
+        # custom fields should be included
+        self.assertContains(response, 'name="fancy_caption"')
+
+        # form media should be imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
 
     def test_add(self):
         response = self.post({
@@ -327,6 +345,11 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
 
+        # draftail should NOT be a standard JS include on this page
+        # (see TestImageEditViewWithCustomImageModel - this confirms that form media
+        # definitions are being respected)
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_with_usage_count(self):
         response = self.get()
@@ -516,6 +539,34 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'data-original-width="1024"')
 
 
+@override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+class TestImageEditViewWithCustomImageModel(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+        # Create an image to edit
+        self.image = CustomImage.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        self.storage = self.image.file.storage
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailimages:edit', args=(self.image.id,)), params)
+
+    def test_get_with_custom_image_model(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
+        # form media should be imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
+
 class TestImageDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
@@ -572,6 +623,23 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'chooser')
         self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        # draftail should NOT be a standard JS include on this page
+        self.assertNotIn('wagtailadmin/js/draftail.js', response_json['html'])
+
+    @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+    def test_with_custom_image_model(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        # custom form fields should be present
+        self.assertIn('name="image-chooser-upload-fancy_caption"', response_json['html'])
+
+        # form media imports should appear on the page
+        self.assertIn('wagtailadmin/js/draftail.js', response_json['html'])
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -899,6 +967,11 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
+
+        # draftail should NOT be a standard JS include on this page
+        # (see TestMultipleImageUploaderWithCustomImageModel - this confirms that form media
+        # definitions are being respected)
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
 
     @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1000)
     def test_add_max_file_size_context_variables(self):

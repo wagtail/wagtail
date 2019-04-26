@@ -4,6 +4,8 @@
 {% block extra_css %}
     {{ block.super }}
 
+    {{ form.media.css }}
+
     <!-- Focal point chooser -->
     <link rel="stylesheet" href="{% static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
@@ -11,6 +13,8 @@
 
 {% block extra_js %}
     {{ block.super }}
+
+    {{ form.media.js }}
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
