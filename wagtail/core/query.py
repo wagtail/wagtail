@@ -360,6 +360,16 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.descendant_of(site.root_page, inclusive=True)
 
 
+def transmute(obj, new_type):
+    """
+    Transmutes ``obj`` to an instance of ``new_type`` and returns the result.
+    """
+    new = new_type()
+    for k, v in obj.__dict__.items():
+        new.__dict__[k] = v
+    return new
+
+
 def specific_iterator(qs, defer=False):
     """
     This efficiently iterates all the specific pages in a queryset, using
@@ -367,22 +377,43 @@ def specific_iterator(qs, defer=False):
 
     This should be called from ``PageQuerySet.specific``
     """
-    pks_and_types = qs.values_list('pk', 'content_type')
+    pks_and_types = qs.values_list('pk', 'content_type_id')
     pks_by_type = defaultdict(list)
-    for pk, content_type in pks_and_types:
-        pks_by_type[content_type].append(pk)
 
-    # Content types are cached by ID, so this will not run any queries.
-    content_types = {pk: ContentType.objects.get_for_id(pk)
-                     for _, pk in pks_and_types}
 
-    # Get the specific instances of all pages, one model class at a time.
-    pages_by_type = {}
-    for content_type, pks in pks_by_type.items():
-        # look up model class for this content type, falling back on the original
-        # model (i.e. Page) if the more specific one is missing
-        model = content_types[content_type].model_class() or qs.model
-        pages = model.objects.filter(pk__in=pks)
+    # Start by grouping each object by its specific content type
+    for pk, content_type_id in pks_and_types:
+        pks_by_type[content_type_id].append(pk)
+
+    # Content types are cached by ID, so this will not run any queries
+    content_types = {pk: ContentType.objects.get_for_id(pk) for pk in pks_by_type.keys()}
+
+    # To fetch potential proxy model instances with the fewest number of queries,
+    # page ids must be grouped by their 'concrete' model type, rather than the one
+    # referenced by `content_type_id`
+    content_type_models = {}
+    pks_by_concrete_type = defaultdict(list)
+    for content_type in content_types.values():
+        # falling back to the original model if the more specific one is missing
+        model = content_type.model_class() or qs.model
+        content_type_models[content_type.id] = model
+        if model._meta.proxy:
+            # get the concrete model type and map it along with the rest
+            concrete_model_type = ContentType.objects.get_for_model(model._meta.concrete_model)
+            content_types[concrete_model_type.id] = concrete_model_type
+            content_type_models[concrete_model_type.id] = model._meta.concrete_model
+            # combine pks for all models that share the same concrete model
+            pks_by_concrete_type[concrete_model_type.id] += pks_by_type[content_type.id]
+        else:
+            # Using += instead of = here in case model is a concrete model
+            # used by one or more proxy models
+            pks_by_concrete_type[content_type.id] += pks_by_type[content_type.id]
+
+    # Get the specific instances of all pages, one concrete model at a time
+    pages_by_type = defaultdict(dict)
+    for content_type_id, pks in pks_by_concrete_type.items():
+        concrete_model = content_type_models[content_type_id]
+        pages = concrete_model.objects.filter(pk__in=pks)
 
         if defer:
             # Defer all specific fields
@@ -390,11 +421,15 @@ def specific_iterator(qs, defer=False):
             fields = [field.attname for field in Page._meta.get_fields() if field.concrete]
             pages = pages.only(*fields)
 
-        pages_by_type[content_type] = {page.pk: page for page in pages}
+        for page in pages:
+            specific_model = content_type_models[page.content_type_id]
+            if specific_model != concrete_model:
+                page = transmute(page, specific_model)
+            pages_by_type[page.content_type_id][page.pk] = page
 
-    # Yield all of the pages, in the order they occurred in the original query.
-    for pk, content_type in pks_and_types:
-        yield pages_by_type[content_type][pk]
+    # Yield all of the pages, in the order they occurred in the original query
+    for pk, content_type_id in pks_and_types:
+        yield pages_by_type[content_type_id][pk]
 
 
 class SpecificIterable(BaseIterable):
