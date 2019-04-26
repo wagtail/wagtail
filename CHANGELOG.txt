@@ -16,6 +16,12 @@ Changelog
  * Fix: Explorer menu no longer shows sibling pages for which the user does not have access (Mike Hearn)
 
 
+2.5.1 (xx.xx.xxxx)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent crash when comparing StructBlocks in revision history (Adrian Turjak, Matt Westcott)
+
+
 2.5 (24.04.2019)
 ~~~~~~~~~~~~~~~~
 

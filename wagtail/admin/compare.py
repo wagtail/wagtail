@@ -115,7 +115,7 @@ class StructBlockComparison(BlockComparison):
             label = self.block.child_blocks[name].label
             comparison_class = get_comparison_class_for_block(block)
 
-            htmlvalues.append(label, comparison_class(block, True, True, val[name], val[name]).htmlvalue(val[name]))
+            htmlvalues.append((label, comparison_class(block, True, True, val[name], val[name]).htmlvalue(val[name])))
 
         return format_html('<dl>\n{}\n</dl>', format_html_join(
             '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', htmlvalues))
@@ -126,7 +126,7 @@ class StructBlockComparison(BlockComparison):
             label = self.block.child_blocks[name].label
             comparison_class = get_comparison_class_for_block(block)
 
-            htmldiffs.append(label, comparison_class(block, self.exists_a, self.exists_b, self.val_a[name], self.val_b[name]).htmldiff())
+            htmldiffs.append((label, comparison_class(block, self.exists_a, self.exists_b, self.val_a[name], self.val_b[name]).htmldiff()))
 
         return format_html('<dl>\n{}\n</dl>', format_html_join(
             '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', htmldiffs))
