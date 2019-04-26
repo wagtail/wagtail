@@ -516,20 +516,21 @@ class TestSpecificQuery(TestCase):
 
     The fixture sets up a page structure like:
 
-    ===============  =========================================
-    Type             Path
-    ===============  =========================================
-    Page             /
-    Page             /home/
-    SimplePage       /home/about-us/
-    SimpleProxyPage  /home/simple-proxy-page/
-    EventIndex       /home/events/
-    EventPage        /home/events/christmas/
-    EventPage        /home/events/someone-elses-event/
-    EventPage        /home/events/tentative-unpublished-event/
-    SimplePage       /home/other/
-    EventPage        /home/other/special-event/
-    ===============  =========================================
+    ===================  =========================================
+    Type                 Path
+    ===================  =========================================
+    Page                 /
+    Page                 /home/
+    SimplePage           /home/about-us/
+    SimpleProxyPage      /home/simple-proxy-page/
+    SimpleProxyPageDeux  /home/simple-proxy-page-deux/
+    EventIndex           /home/events/
+    EventPage            /home/events/christmas/
+    EventPage            /home/events/someone-elses-event/
+    EventPage            /home/events/tentative-unpublished-event/
+    SimplePage           /home/other/
+    EventPage            /home/other/special-event/
+    ===================  =========================================
     """
     fixtures = ['test_specific.json']
 
@@ -540,13 +541,13 @@ class TestSpecificQuery(TestCase):
             # The query should be lazy.
             qs = root.get_descendants().specific()
 
-        with self.assertNumQueries(5):
-            # One query to get page type and ID, one query per page type:
-            # EventIndex, EventPage, SimplePage, SimpleProxyPage
+        with self.assertNumQueries(4):
+            # One query to get page type and ID, one query per concrete page type:
+            # EventIndex, EventPage, SimplePage, SimplePage
             pages = list(qs)
 
         self.assertIsInstance(pages, list)
-        self.assertEqual(len(pages), 8)
+        self.assertEqual(len(pages), 9)
 
         for page in pages:
             # An instance of the specific page type should be returned,
@@ -565,16 +566,17 @@ class TestSpecificQuery(TestCase):
         # 'someone-elses-event' and the tentative event are unpublished.
 
         with self.assertNumQueries(0):
-            qs = Page.objects.live().order_by('-url_path')[:4].specific()
+            qs = Page.objects.live().order_by('-url_path')[:5].specific()
 
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(3):
             # Metadata, EventIndex, EventPage, SimpleProxyPage
             pages = list(qs)
 
-        self.assertEqual(len(pages), 4)
+        self.assertEqual(len(pages), 5)
 
         self.assertEqual(pages, [
             Page.objects.get(url_path='/home/simple-proxy-page/').specific,
+            Page.objects.get(url_path='/home/simple-proxy-page-deux/').specific,
             Page.objects.get(url_path='/home/other/special-event/').specific,
             Page.objects.get(url_path='/home/other/').specific,
             Page.objects.get(url_path='/home/events/christmas/').specific,
@@ -585,16 +587,17 @@ class TestSpecificQuery(TestCase):
         # 'someone-elses-event' and the tentative event are unpublished.
 
         with self.assertNumQueries(0):
-            qs = Page.objects.specific().live().in_menu().order_by('-url_path')[:4]
+            qs = Page.objects.specific().live().in_menu().order_by('-url_path')[:5]
 
-        with self.assertNumQueries(5):
-            # Metadata, EventIndex, EventPage, SimplePage, SimpleProxyPage.
+        with self.assertNumQueries(4):
+            # Metadata, EventIndex, EventPage, SimplePage/SimpleProxyPage/SimpleProxyPageDeux
             pages = list(qs)
 
-        self.assertEqual(len(pages), 4)
+        self.assertEqual(len(pages), 5)
 
         self.assertEqual(pages, [
             Page.objects.get(url_path='/home/simple-proxy-page/').specific,
+            Page.objects.get(url_path='/home/simple-proxy-page-deux/').specific,
             Page.objects.get(url_path='/home/other/').specific,
             Page.objects.get(url_path='/home/events/christmas/').specific,
             Page.objects.get(url_path='/home/events/').specific,
@@ -609,12 +612,13 @@ class TestSpecificQuery(TestCase):
 
         # Check that each page is in the queryset with the correct type.
         # We don't care about order here
-        self.assertEqual(len(pages), 5)
+        self.assertEqual(len(pages), 6)
         self.assertIn(Page.objects.get(url_path='/home/other/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/events/christmas/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/events/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/about-us/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/simple-proxy-page/').specific, pages)
+        self.assertIn(Page.objects.get(url_path='/home/simple-proxy-page-deux/').specific, pages)
 
     def test_specific_gracefully_handles_missing_models(self):
         # 3567 - PageQuerySet.specific should gracefully handle pages whose class definition
@@ -631,6 +635,7 @@ class TestSpecificQuery(TestCase):
             Page.objects.get(url_path='/home/about-us/').specific,
             Page.objects.get(url_path='/home/other/').specific,
             Page.objects.get(url_path='/home/simple-proxy-page/').specific,
+            Page.objects.get(url_path='/home/simple-proxy-page-deux/').specific,
         ])
 
     def test_deferred_specific_query(self):
@@ -641,15 +646,15 @@ class TestSpecificQuery(TestCase):
             # The query should be lazy.
             qs = root.get_descendants().specific(defer=True)
 
-        with self.assertNumQueries(5):
-            # This still performs 4 queries (one for each specific class)
+        with self.assertNumQueries(4):
+            # This still performs 4 queries (one for each concrete class)
             # even though we're only pulling in fields from the base Page
             # model.
             # TODO: Find a way to make this perform a single query
             pages = list(qs)
 
         self.assertIsInstance(pages, list)
-        self.assertEqual(len(pages), 8)
+        self.assertEqual(len(pages), 9)
 
         for page in pages:
             # An instance of the specific page type should be returned,
