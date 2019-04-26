@@ -899,8 +899,8 @@ class SnippetChooserModelWithCustomPrimaryKey(models.Model):
 
 
 class CustomImage(AbstractImage):
-    caption = models.CharField(max_length=255)
-    not_editable_field = models.CharField(max_length=255)
+    caption = models.CharField(max_length=255, blank=True)
+    not_editable_field = models.CharField(max_length=255, blank=True)
 
     admin_form_fields = Image.admin_form_fields + (
         'caption',
