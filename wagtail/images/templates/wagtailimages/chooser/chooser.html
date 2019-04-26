@@ -3,6 +3,9 @@
 {% trans "Choose an image" as choose_str %}
 {% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 tabbed=1 icon="image" %}
 
+{{ uploadform.media.js }}
+{{ uploadform.media.css }}
+
 {% if uploadform %}
     <ul class="tab-nav merged">
         <li class="{% if not uploadform.errors %}active{% endif %}"><a href="#search" >{% trans "Search" %}</a></li>

@@ -17,6 +17,7 @@ Changelog
  * Fix: Default text of page links in rich text uses the public page title rather than the admin display title (Andy Chosak)
  * Fix: Specific page permission checks are now enforced when viewing a page revision (Andy Chosak)
  * Fix: `pageurl` and `slugurl` tags no longer fail when `request.site` is `None` (Samir Shah)
+ * Fix: Output form media on add/edit image forms with custom models (Matt Westcott)
 
 
 2.6.1 (05.08.2019)

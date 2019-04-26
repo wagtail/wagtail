@@ -10,6 +10,7 @@ from django.utils.http import RFC3986_SUBDELIMS, urlquote
 
 from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.images.views.serve import generate_signature
+from wagtail.tests.testapp.models import CustomImage
 from wagtail.tests.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
@@ -108,6 +109,9 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
 
+        # draftail should NOT be a standard JS include on this page
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
         root_collection.add_child(name="Evil plans")
@@ -118,6 +122,21 @@ class TestImageAddView(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '<label for="id_collection">')
         self.assertContains(response, "Evil plans")
+
+    @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+    def test_get_with_custom_image_model(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
+        # custom fields should be included
+        self.assertContains(response, 'name="fancy_caption"')
+
+        # form media should be imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
 
     def test_add(self):
         response = self.post({
@@ -325,6 +344,11 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
 
+        # draftail should NOT be a standard JS include on this page
+        # (see TestImageEditViewWithCustomImageModel - this confirms that form media
+        # definitions are being respected)
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_with_usage_count(self):
         response = self.get()
@@ -514,6 +538,34 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'data-original-width="1024"')
 
 
+@override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+class TestImageEditViewWithCustomImageModel(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+        # Create an image to edit
+        self.image = CustomImage.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        self.storage = self.image.file.storage
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailimages:edit', args=(self.image.id,)), params)
+
+    def test_get_with_custom_image_model(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
+        # form media should be imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
+
 class TestImageDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
@@ -570,6 +622,23 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'chooser')
         self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        # draftail should NOT be a standard JS include on this page
+        self.assertNotIn('wagtailadmin/js/draftail.js', response_json['html'])
+
+    @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+    def test_with_custom_image_model(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        # custom form fields should be present
+        self.assertIn('name="image-chooser-upload-fancy_caption"', response_json['html'])
+
+        # form media imports should appear on the page
+        self.assertIn('wagtailadmin/js/draftail.js', response_json['html'])
 
     def test_search(self):
         response = self.get({'q': "Hello"})
@@ -898,6 +967,11 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
 
+        # draftail should NOT be a standard JS include on this page
+        # (see TestMultipleImageUploaderWithCustomImageModel - this confirms that form media
+        # definitions are being respected)
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
     @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1000)
     def test_add_max_file_size_context_variables(self):
         response = self.client.get(reverse('wagtailimages:add_multiple'))
@@ -1093,6 +1167,123 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 400)
+
+
+@override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
+    """
+    This tests the multiple image upload views located in wagtailimages/views/multiple.py
+    with a custom image model
+    """
+    def setUp(self):
+        self.login()
+
+        # Create an image for running tests on
+        self.image = CustomImage.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+    def test_add(self):
+        """
+        This tests that the add view responds correctly on a GET request
+        """
+        # Send request
+        response = self.client.get(reverse('wagtailimages:add_multiple'))
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
+
+        # response should include form media for the image edit form
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
+    def test_add_post(self):
+        """
+        This tests that a POST request to the add view saves the image and returns an edit form
+        """
+        response = self.client.post(reverse('wagtailimages:add_multiple'), {
+            'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
+
+        # Check image
+        self.assertIn('image', response.context)
+        self.assertEqual(response.context['image'].title, 'test.png')
+        self.assertTrue(response.context['image'].file_size)
+        self.assertTrue(response.context['image'].file_hash)
+
+        # Check form
+        self.assertIn('form', response.context)
+        self.assertEqual(response.context['form'].initial['title'], 'test.png')
+        self.assertIn('caption', response.context['form'].fields)
+        self.assertNotIn('not_editable_field', response.context['form'].fields)
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('image_id', response_json)
+        self.assertIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['image_id'], response.context['image'].id)
+        self.assertTrue(response_json['success'])
+
+    def test_edit_post(self):
+        """
+        This tests that a POST request to the edit view edits the image
+        """
+        # Send request
+        response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
+            ('image-%d-title' % self.image.id): "New title!",
+            ('image-%d-tags' % self.image.id): "",
+            ('image-%d-caption' % self.image.id): "a boot stamping on a human face, forever",
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('image_id', response_json)
+        self.assertNotIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['image_id'], self.image.id)
+        self.assertTrue(response_json['success'])
+
+        # check that image has been updated
+        new_image = CustomImage.objects.get(id=self.image.id)
+        self.assertEqual(new_image.title, "New title!")
+        self.assertEqual(new_image.caption, "a boot stamping on a human face, forever")
+
+    def test_delete_post(self):
+        """
+        This tests that a POST request to the delete view deletes the image
+        """
+        # Send request
+        response = self.client.post(reverse(
+            'wagtailimages:delete_multiple', args=(self.image.id, )
+        ), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Make sure the image is deleted
+        self.assertFalse(Image.objects.filter(id=self.image.id).exists())
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('image_id', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['image_id'], self.image.id)
+        self.assertTrue(response_json['success'])
+
+        # check that image has been deleted
+        self.assertEqual(CustomImage.objects.filter(id=self.image.id).count(), 0)
 
 
 class TestURLGeneratorView(TestCase, WagtailTestUtils):
