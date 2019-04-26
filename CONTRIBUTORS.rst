@@ -366,6 +366,7 @@ Contributors
 * Jason Dilworth
 * Deniz Dogan
 * Po-Chuan Hsieh
+* scil
 
 Translators
 ===========
