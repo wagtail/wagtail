@@ -1333,7 +1333,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         self.assertIn('error_message', response_json)
         self.assertFalse(response_json['success'])
         self.assertEqual(
-            response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG."
+            response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP."
         )
 
     def test_edit_post(self):
@@ -1479,7 +1479,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         self.assertIn('error_message', response_json)
         self.assertFalse(response_json['success'])
         self.assertEqual(
-            response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG."
+            response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP."
         )
 
     def test_create_from_upload_invalid_post(self):

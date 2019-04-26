@@ -47,7 +47,7 @@ Here's an example:
             )
 
 
-.. versionchanged:: 2.6
+.. versionchanged:: 2.9
 
     Fields on a custom image model can now be defined as required (``blank=False``).
 
