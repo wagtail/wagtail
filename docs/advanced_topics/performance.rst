@@ -20,6 +20,8 @@ We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Re
     CACHES = {
         'default': {
             'BACKEND': 'django_redis.cache.RedisCache',
+            # for django-redis >= 3.8.0, please use
+            #  "LOCATION": "redis://127.0.0.1:6379/dbname",
             'LOCATION': '127.0.0.1:6379',
             'OPTIONS': {
                 'CLIENT_CLASS': 'django_redis.client.DefaultClient',
