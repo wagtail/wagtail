@@ -932,6 +932,24 @@ class CustomRendition(AbstractRendition):
         )
 
 
+# Custom image model with a required field
+class CustomImageWithAuthor(AbstractImage):
+    author = models.CharField(max_length=255)
+
+    admin_form_fields = Image.admin_form_fields + (
+        'author',
+    )
+
+
+class CustomRenditionWithAuthor(AbstractRendition):
+    image = models.ForeignKey(CustomImageWithAuthor, related_name='renditions', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (
+            ('image', 'filter_spec', 'focal_point_key'),
+        )
+
+
 class CustomDocument(AbstractDocument):
     description = models.TextField(blank=True)
     fancy_description = RichTextField(blank=True)

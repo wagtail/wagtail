@@ -40,6 +40,7 @@ Other features
  * Added ``select_related`` attribute to site settings to enable more efficient fetching of foreign key values (Andy Babic)
  * Add caching of image renditions (Tom Dyson, Tim Kamanin)
  * Add documentation for reporting security issues (Matt Westcott)
+ * Fields on a custom image model can now be defined as required ``blank=False`` (Matt Westcott)
 
 
 Bug fixes
