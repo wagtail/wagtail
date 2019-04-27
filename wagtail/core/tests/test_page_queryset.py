@@ -593,6 +593,18 @@ class TestSpecificQuery(TestCase):
 
         self.assertEqual(pages, self.specific_live_descendants_of_root)
 
+    def test_specific_with_slicing_before_and_after(self):
+        base_queryset = Page.objects.live().descendant_of(self.root_page)
+        expected_result = self.specific_live_descendants_of_root[:4]
+
+        with self.assertNumQueries(4):
+            result = list(base_queryset.specific()[:4])
+        self.assertEqual(result, expected_result)
+
+        with self.assertNumQueries(4):
+            result = list(base_queryset[:4].specific())
+        self.assertEqual(result, expected_result)
+
     def test_specific_query_with_search(self):
         # 1276 - The database search backend didn't return results with the
         # specific type when searching a specific queryset.
