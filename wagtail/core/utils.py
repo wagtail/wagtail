@@ -154,19 +154,3 @@ def get_content_types_for_models(*models):
     content_types.update(ContentType.objects.get_for_models(*other_models))
 
     return content_types
-
-
-def transmute(obj, new_type):
-    """
-    Returns an object of type ``new_type`` using the attribute values
-    from ``obj``. Typically used to 'upcast' a page model instance to
-    more specific model instances without hitting the database.
-
-    cached_property values are not copied, because the new type may
-    have a separate implementation of the relevant method.
-    """
-    new_obj = new_type()
-    for key, value in obj.__dict__.items():
-        if not isinstance(value, cached_property):
-            new_obj.__dict__[key] = value
-    return new_obj

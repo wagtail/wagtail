@@ -32,7 +32,7 @@ from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import (
     WAGTAIL_APPEND_SLASH, camelcase_to_underscore, get_content_type_for_model,
-    resolve_model_string, transmute
+    resolve_model_string
 )
 from wagtail.search import index
 
@@ -580,7 +580,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # avoid a database lookup over doing self.content_type. I think.
         content_type = ContentType.objects.get_for_id(self.content_type_id)
         model_class = content_type.model_class()
-
         if model_class is None:
             # Cannot locate a model class for this content type. This might happen
             # if the codebase and database are out of sync (e.g. the model exists
@@ -588,17 +587,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # switching branches); if so, the best we can do is return the page
             # unchanged.
             return self
-
-        if isinstance(self, model_class):
+        elif isinstance(self, model_class):
             # self is already the an instance of the most specific class
             return self
-
-        if model_class._meta.proxy and type(self) is model_class._meta.concrete_model:
-            # proxy models have the same database representation as the concrete
-            # model, so a specific object can be created without a database query
-            return transmute(self, model_class)
-
-        return content_type.get_object_for_this_type(id=self.id)
+        else:
+            return content_type.get_object_for_this_type(id=self.id)
 
     #: Return the class that this page would be if instantiated in its
     #: most specific form
