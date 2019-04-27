@@ -1,4 +1,5 @@
 from datetime import date
+from functools import wraps
 from unittest import mock
 
 from django import forms
@@ -121,14 +122,16 @@ class TestGetFormForModel(TestCase):
 
 def clear_edit_handler(page_cls):
     def decorator(fn):
-        def decorated(self):
+        @wraps(fn)
+        def decorated(*args, **kwargs):
             # Clear any old EditHandlers generated
             page_cls.get_edit_handler.cache_clear()
             try:
-                fn(self)
+                fn(*args, **kwargs)
             finally:
                 # Clear the bad EditHandler generated just now
                 page_cls.get_edit_handler.cache_clear()
+        return decorated
     return decorator
 
 
@@ -181,6 +184,9 @@ class TestPageEditHandlers(TestCase):
             # ignore CSS loading errors (to avoid spurious failures on CI servers that
             # don't build the CSS)
             errors = [e for e in errors if e.id != 'wagtailadmin.W001']
+
+            # Errors may appear out of order, so sort them by id
+            errors.sort(key=lambda e: e.id)
 
             self.assertEqual(errors, [invalid_base_form, invalid_edit_handler])
 
