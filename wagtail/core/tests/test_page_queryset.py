@@ -534,12 +534,22 @@ class TestSpecificQuery(TestCase):
     """
     fixtures = ['test_specific.json']
 
-    def test_specific(self):
-        root = Page.objects.get(url_path='/home/')
+    def setUp(self):
+        self.root_page = Page.objects.get(url_path='/home/')
+        self.specific_live_descendants_of_root = [
+            Page.objects.get(url_path='/home/events/').specific,
+            Page.objects.get(url_path='/home/events/christmas/').specific,
+            Page.objects.get(url_path='/home/about-us/').specific,
+            Page.objects.get(url_path='/home/other/').specific,
+            Page.objects.get(url_path='/home/other/special-event/').specific,
+            Page.objects.get(url_path='/home/simple-proxy-page/').specific,
+            Page.objects.get(url_path='/home/simple-proxy-page-deux/').specific,
+        ]
 
+    def test_specific(self):
         with self.assertNumQueries(0):
             # The query should be lazy.
-            qs = root.get_descendants().specific()
+            qs = self.root_page.get_descendants().specific()
 
         with self.assertNumQueries(4):
             # One query to get page type and ID, plus one query per concrete page type:
@@ -562,64 +572,39 @@ class TestSpecificQuery(TestCase):
                 self.assertIs(page, page.specific)
 
     def test_filtering_before_specific(self):
-        # This will get the other events, and then christmas
-        # 'someone-elses-event' and the tentative event are unpublished.
-
         with self.assertNumQueries(0):
-            qs = Page.objects.live().order_by('-url_path')[:5].specific()
-
-        with self.assertNumQueries(3):
-            # Metadata, EventIndex, EventPage, SimpleProxyPage
-            pages = list(qs)
-
-        self.assertEqual(len(pages), 5)
-
-        self.assertEqual(pages, [
-            Page.objects.get(url_path='/home/simple-proxy-page/').specific,
-            Page.objects.get(url_path='/home/simple-proxy-page-deux/').specific,
-            Page.objects.get(url_path='/home/other/special-event/').specific,
-            Page.objects.get(url_path='/home/other/').specific,
-            Page.objects.get(url_path='/home/events/christmas/').specific,
-        ])
-
-    def test_filtering_after_specific(self):
-        # This will get the other events, and then christmas
-        # 'someone-elses-event' and the tentative event are unpublished.
-
-        with self.assertNumQueries(0):
-            qs = Page.objects.specific().live().in_menu().order_by('-url_path')[:5]
+            qs = Page.objects.live().descendant_of(self.root_page).specific()
 
         with self.assertNumQueries(4):
-            # One query to get page type and ID, plus one query per concrete page type:
-            # EventIndex, EventPage, SimplePage, SimplePage
+            # One query to get page types and ID, plus one query per concrete page type:
+            # EventIndex, EventPage, SimplePage
             pages = list(qs)
 
-        self.assertEqual(len(pages), 5)
+        self.assertEqual(pages, self.specific_live_descendants_of_root)
 
-        self.assertEqual(pages, [
-            Page.objects.get(url_path='/home/simple-proxy-page/').specific,
-            Page.objects.get(url_path='/home/simple-proxy-page-deux/').specific,
-            Page.objects.get(url_path='/home/other/').specific,
-            Page.objects.get(url_path='/home/events/christmas/').specific,
-            Page.objects.get(url_path='/home/events/').specific,
-        ])
+    def test_filtering_after_specific(self):
+        with self.assertNumQueries(0):
+            qs = Page.objects.specific().live().descendant_of(self.root_page)
+
+        with self.assertNumQueries(4):
+            # One query to get page types and ID, plus one query per concrete page type:
+            # EventIndex, EventPage, SimplePage
+            pages = list(qs)
+
+        self.assertEqual(pages, self.specific_live_descendants_of_root)
 
     def test_specific_query_with_search(self):
         # 1276 - The database search backend didn't return results with the
         # specific type when searching a specific queryset.
 
-        pages = list(Page.objects.specific().live().in_menu().search(
-            MATCH_ALL, backend='wagtail.search.backends.db'))
+        pages = Page.objects.specific().live().descendant_of(self.root_page).search(
+            MATCH_ALL, backend='wagtail.search.backends.db')
 
         # Check that each page is in the queryset with the correct type.
-        # We don't care about order here
-        self.assertEqual(len(pages), 6)
-        self.assertIn(Page.objects.get(url_path='/home/other/').specific, pages)
-        self.assertIn(Page.objects.get(url_path='/home/events/christmas/').specific, pages)
-        self.assertIn(Page.objects.get(url_path='/home/events/').specific, pages)
-        self.assertIn(Page.objects.get(url_path='/home/about-us/').specific, pages)
-        self.assertIn(Page.objects.get(url_path='/home/simple-proxy-page/').specific, pages)
-        self.assertIn(Page.objects.get(url_path='/home/simple-proxy-page-deux/').specific, pages)
+        # We don't care about order here (hence comparing sets)
+        self.assertEqual(
+            set(pages), set(self.specific_live_descendants_of_root)
+        )
 
     def test_specific_gracefully_handles_missing_models(self):
         # 3567 - PageQuerySet.specific should gracefully handle pages whose class definition
@@ -630,22 +615,20 @@ class TestSpecificQuery(TestCase):
         # Turn /home/events/ into this content type
         Page.objects.filter(url_path='/home/events/').update(content_type=missing_page_content_type)
 
-        pages = list(Page.objects.get(url_path='/home/').get_children().specific())
-        self.assertEqual(pages, [
-            Page.objects.get(url_path='/home/events/'),
-            Page.objects.get(url_path='/home/about-us/').specific,
-            Page.objects.get(url_path='/home/other/').specific,
-            Page.objects.get(url_path='/home/simple-proxy-page/').specific,
-            Page.objects.get(url_path='/home/simple-proxy-page-deux/').specific,
-        ])
+        for page in Page.objects.child_of(self.root_page).specific():
+            if page.url_path == '/home/events/':
+                # this page should just be a basic Page
+                self.assertIs(type(page), Page)
+            else:
+                # all others should be the specific page type
+                self.assertIs(type(page), page.specific_class)
 
     def test_deferred_specific_query(self):
         # Tests the "defer" keyword argument, which defers all specific fields
-        root = Page.objects.get(url_path='/home/')
 
         with self.assertNumQueries(0):
             # The query should be lazy.
-            qs = root.get_descendants().specific(defer=True)
+            qs = Page.objects.descendant_of(self.root_page).specific(defer=True)
 
         with self.assertNumQueries(4):
             # This still performs 4 queries (one for each concrete class)
