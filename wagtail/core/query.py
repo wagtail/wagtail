@@ -8,7 +8,7 @@ from django.db.models.functions import Length, Substr
 from django.db.models.query import BaseIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
-from wagtail.core.utils import get_content_type_for_model, get_content_types_for_models
+from wagtail.core.utils import get_content_type_for_model, get_content_types_for_models, transmute
 from wagtail.search.queryset import SearchableQuerySetMixin
 
 
@@ -358,16 +358,6 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         This filters the QuerySet to only contain pages within the specified site.
         """
         return self.descendant_of(site.root_page, inclusive=True)
-
-
-def transmute(obj, new_type):
-    """
-    Transmutes ``obj`` to an instance of ``new_type`` and returns the result.
-    """
-    new = new_type()
-    for k, v in obj.__dict__.items():
-        new.__dict__[k] = v
-    return new
 
 
 def specific_iterator(qs, defer=False):
