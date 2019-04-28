@@ -6,7 +6,6 @@ from django.apps import apps
 from django.conf import settings
 from django.db.models import Model
 from django.utils.encoding import force_text
-from django.utils.functional import cached_property
 from django.utils.text import slugify
 
 
