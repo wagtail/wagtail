@@ -273,7 +273,8 @@ class IndexView(WMABaseView):
         return self.model_admin.search_handler_extra_search_kwargs
 
     def get_search_results(self, request, queryset, search_term):
-        results, use_distinct = self.search_handler.search_queryset(queryset, search_term,
+        results, use_distinct = self.search_handler.search_queryset(
+            queryset, search_term,
             **self.get_search_handler_extra_search_kwargs(request, queryset, search_term))
         return results, use_distinct
 
