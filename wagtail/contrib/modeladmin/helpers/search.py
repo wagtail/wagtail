@@ -44,7 +44,6 @@ class DjangoORMSearchHandler(BaseSearchHandler):
             queryset = queryset.filter(reduce(operator.or_, or_queries))
         opts = queryset.model._meta
         for search_spec in orm_lookups:
-            # Check wether out results may have duplicates, then remove them
             if lookup_needs_distinct(opts, search_spec):
                 use_distinct = True
                 break
