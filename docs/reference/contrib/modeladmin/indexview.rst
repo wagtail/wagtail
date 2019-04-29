@@ -307,6 +307,7 @@ assuming they are indexed, you can override this property with the included
 
 .. code-block:: python
     from wagtail.contrib.helpers import WagtailBackendSearchHandler
+
     from .models import IndexedModel
 
     class DemoAdmin(ModelAdmin):
@@ -316,6 +317,27 @@ assuming they are indexed, you can override this property with the included
 Note: when using the `WagtailBackendSearchHandler` the `search_fields` are used to limit
 the backend to search only over the specified fields, so those fields must be indexed
 by the backend.
+
+.. _modeladmin_search_handler_extra_search_kwargs:
+
+-------------------------------------------------
+``ModelAdmin.search_handler_extra_search_kwargs``
+-------------------------------------------------
+
+A dictionary of keyword arguments that are used by the specified `search_handler_class` during search.
+e.g. to override the `WagtailBackendSearchHandler` default operator you could do the following:
+
+.. code-block:: python
+    from wagtail.contrib.helpers import WagtailBackendSearchHandler
+    from wagtail.search.utils import OR
+
+    from .models import IndexedModel
+
+    class DemoAdmin(ModelAdmin):
+        model = IndexedModel
+        search_handler_class = WagtailBackendSearchHandler
+        search_handler_extra_search_kwargs = {'operator': OR}
+
 
 .. _modeladmin_ordering:
 

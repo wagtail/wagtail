@@ -28,9 +28,13 @@ class BaseSearchHandler:
 
 
 class DjangoORMSearchHandler(BaseSearchHandler):
-    def search_queryset(self, queryset, search_term):
+    def search_queryset(self, queryset, search_term, **extra_search_kwargs):
         if not search_term or not self.search_fields:
             return queryset, False
+
+        if extra_search_kwargs:
+            queryset = queryset.filter(**extra_search_kwargs)
+
         use_distinct = False
         orm_lookups = ['%s__icontains' % str(search_field)
                        for search_field in self.search_fields]
@@ -52,10 +56,12 @@ class DjangoORMSearchHandler(BaseSearchHandler):
 
 
 class WagtailBackendSearchHandler(BaseSearchHandler):
-    def search_queryset(self, queryset, search_term, backend='default'):
+    def search_queryset(self, queryset, search_term,
+                        operator=None, order_by_relevance=True, partial_match=True, backend='default'):
         if not search_term:
             return queryset, False
         backend = get_search_backend(backend)
         if self.search_fields:
-            return backend.search(search_term, queryset, fields=self.search_fields), False
+            return backend.search(
+                search_term, queryset, fields=self.search_fields, operator=operator, partial_match=partial_match), False
         return backend.search(search_term, queryset), False

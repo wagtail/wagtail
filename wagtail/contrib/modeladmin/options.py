@@ -97,6 +97,7 @@ class ModelAdmin(WagtailRegisterable):
     delete_template_name = ''
     choose_parent_template_name = ''
     search_handler_class = DjangoORMSearchHandler
+    search_handler_extra_search_kwargs = {}
     permission_helper_class = None
     url_helper_class = None
     button_helper_class = None
