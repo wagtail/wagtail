@@ -1675,6 +1675,10 @@ class UserPagePermissionsProxy:
         for page in page_permissions:
             explorable_pages |= page.get_ancestors()
 
+        # Remove unnecessary top-level ancestors that the user has no access to
+        fca_page = page_permissions.first_common_ancestor()
+        explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
+
         return explorable_pages
 
     def editable_pages(self):
