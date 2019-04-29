@@ -365,6 +365,7 @@ Contributors
 * dthompson86
 * Jason Dilworth
 * Deniz Dogan
+* Po-Chuan Hsieh
 
 Translators
 ===========
