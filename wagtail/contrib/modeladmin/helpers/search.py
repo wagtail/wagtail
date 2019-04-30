@@ -11,10 +11,9 @@ class BaseSearchHandler:
     def __init__(self, search_fields):
         self.search_fields = search_fields
 
-    def search_queryset(self, queryset, search_term, **kwargs):
+    def search_queryset(self, queryset, search_term, distinct_applied, **kwargs):
         """
-        Returns a tuple containing a queryset to implement the search,
-        and a boolean indicating if the results may contain duplicates.
+        Search the queryset for the provided term.
         """
         raise NotImplementedError()
 
@@ -28,14 +27,13 @@ class BaseSearchHandler:
 
 
 class DjangoORMSearchHandler(BaseSearchHandler):
-    def search_queryset(self, queryset, search_term, **extra_search_kwargs):
+    def search_queryset(self, queryset, search_term, distinct_applied, **extra_search_kwargs):
         if not search_term or not self.search_fields:
-            return queryset, False
+            return queryset
 
         if extra_search_kwargs:
             queryset = queryset.filter(**extra_search_kwargs)
 
-        use_distinct = False
         orm_lookups = ['%s__icontains' % str(search_field)
                        for search_field in self.search_fields]
         for bit in search_term.split():
@@ -43,11 +41,12 @@ class DjangoORMSearchHandler(BaseSearchHandler):
                           for orm_lookup in orm_lookups]
             queryset = queryset.filter(reduce(operator.or_, or_queries))
         opts = queryset.model._meta
-        for search_spec in orm_lookups:
-            if lookup_needs_distinct(opts, search_spec):
-                use_distinct = True
-                break
-        return queryset, use_distinct
+        if not distinct_applied:
+            for search_spec in orm_lookups:
+                if lookup_needs_distinct(opts, search_spec):
+                    return queryset.distinct()
+        return queryset
+
 
     @property
     def show_search_form(self):
@@ -55,12 +54,12 @@ class DjangoORMSearchHandler(BaseSearchHandler):
 
 
 class WagtailBackendSearchHandler(BaseSearchHandler):
-    def search_queryset(self, queryset, search_term,
+    def search_queryset(self, queryset, search_term, distinct_applied,
                         operator=None, order_by_relevance=True, partial_match=True, backend='default'):
         if not search_term:
-            return queryset, False
+            return queryset
         backend = get_search_backend(backend)
         if self.search_fields:
             return backend.search(
-                search_term, queryset, fields=self.search_fields, operator=operator, partial_match=partial_match), False
-        return backend.search(search_term, queryset), False
+                search_term, queryset, fields=self.search_fields, operator=operator, partial_match=partial_match)
+        return backend.search(search_term, queryset)

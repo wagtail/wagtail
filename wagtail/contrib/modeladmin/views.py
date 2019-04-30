@@ -272,11 +272,10 @@ class IndexView(WMABaseView):
         """ Returns a dictionary of kwargs to be sent to the SearchHandler.search_queryset """
         return self.model_admin.search_handler_extra_search_kwargs
 
-    def get_search_results(self, request, queryset, search_term):
-        results, use_distinct = self.search_handler.search_queryset(
-            queryset, search_term,
+    def get_search_results(self, request, queryset, search_term, distinct_applied):
+        return self.search_handler.search_queryset(
+            queryset, search_term, distinct_applied,
             **self.get_search_handler_extra_search_kwargs(request, queryset, search_term))
-        return results, use_distinct
 
     def lookup_allowed(self, lookup, value):
         # Check FKey lookups that are allowed, so that popups produced by
@@ -577,15 +576,14 @@ class IndexView(WMABaseView):
         ordering = self.get_ordering(request, qs)
         qs = qs.order_by(*ordering)
 
-        # Apply search results
-        qs, search_use_distinct = self.get_search_results(
-            request, qs, self.query)
-
         # Remove duplicates from results, if necessary
-        if filters_use_distinct | search_use_distinct:
-            return qs.distinct()
-        else:
-            return qs
+        if filters_use_distinct:
+            qs = qs.distinct()
+
+        # Apply search results
+        return self.get_search_results(
+            request, qs, self.query, filters_use_distinct)
+
 
     def apply_select_related(self, qs):
         if self.select_related is True:
