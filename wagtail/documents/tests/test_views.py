@@ -1,7 +1,7 @@
 import os.path
 import unittest
-from unittest import mock
 import urllib
+from unittest import mock
 
 from django.conf import settings
 from django.core.files.base import ContentFile
