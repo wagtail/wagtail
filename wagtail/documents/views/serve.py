@@ -1,3 +1,4 @@
+import urllib
 from wsgiref.util import FileWrapper
 
 from django.conf import settings
@@ -64,7 +65,7 @@ def serve(request, document_id, document_filename):
         wrapper = FileWrapper(doc.file)
         response = StreamingHttpResponse(wrapper, content_type='application/octet-stream')
 
-        response['Content-Disposition'] = 'attachment; filename=%s' % doc.filename
+        response['Content-Disposition'] = "attachment; filename={0}; filename*=UTF-8''{0}".format(urllib.parse.quote(doc.filename))
 
         # FIXME: storage backends are not guaranteed to implement 'size'
         response['Content-Length'] = doc.file.size
