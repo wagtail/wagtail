@@ -1,5 +1,7 @@
 import os.path
 import unittest
+import urllib
+from io import StringIO
 from unittest import mock
 
 from django.conf import settings
@@ -40,6 +42,38 @@ class TestServeView(TestCase):
         self.assertEqual(
             self.get()['Content-Disposition'],
             'attachment; filename="{}"'.format(self.document.filename))
+
+    @mock.patch('wagtail.documents.views.serve.hooks')
+    @mock.patch('wagtail.documents.views.serve.get_object_or_404')
+    def test_non_local_filesystem_content_disposition_header(
+        self, mock_get_object_or_404, mock_hooks
+    ):
+        """
+        Tests the 'Content-Disposition' header in a response when using a
+        storage backend that doesn't expose filesystem paths.
+        """
+        # Create a mock document with no local file to hit the correct code path
+        mock_doc = mock.Mock()
+        mock_doc.filename = self.document.filename
+        mock_doc.file = StringIO('file-like object' * 10)
+        mock_doc.file.path = None
+        mock_doc.file.url = None
+        mock_doc.file.size = 30
+        mock_get_object_or_404.return_value = mock_doc
+
+        # Bypass 'before_serve_document' hooks
+        mock_hooks.get_hooks.return_value = []
+
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(
+            response['Content-Disposition'],
+            "attachment; filename={0}; filename*=UTF-8''{0}".format(
+                urllib.parse.quote(self.document.filename)
+            )
+        )
 
     def test_content_length_header(self):
         self.assertEqual(self.get()['Content-Length'], '25')
@@ -221,6 +255,47 @@ class TestServeWithUnicodeFilename(TestCase):
         except UnicodeEncodeError:
             raise unittest.SkipTest("Filesystem doesn't support unicode filenames")
 
+    def tearDown(self):
+        # delete the FieldFile directly because the TestCase does not commit
+        # transactions to trigger transaction.on_commit() in the signal handler
+        self.document.file.delete()
+
     def test_response_code(self):
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.filename)))
         self.assertEqual(response.status_code, 200)
+
+    @mock.patch('wagtail.documents.views.serve.hooks')
+    @mock.patch('wagtail.documents.views.serve.get_object_or_404')
+    def test_non_local_filesystem_unicode_content_disposition_header(
+        self, mock_get_object_or_404, mock_hooks
+    ):
+        """
+        Tests that a unicode 'Content-Disposition' header (for a response using
+        a storage backend that doesn't expose filesystem paths) doesn't cause an
+        error if encoded differently.
+        """
+        # Create a mock document to hit the correct code path.
+        mock_doc = mock.Mock()
+        mock_doc.filename = 'TÈST.doc'
+        mock_doc.file = StringIO('file-like object' * 10)
+        mock_doc.file.path = None
+        mock_doc.file.url = None
+        mock_doc.file.size = 30
+        mock_get_object_or_404.return_value = mock_doc
+
+        # Bypass 'before_serve_document' hooks
+        mock_hooks.get_hooks.return_value = []
+
+        response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, mock_doc.filename)))
+
+        self.assertEqual(response.status_code, 200)
+
+        try:
+            response['Content-Disposition'].encode('ascii')
+        except UnicodeDecodeError:
+            self.fail('Content-Disposition with unicode characters failed ascii encoding.')
+
+        try:
+            response['Content-Disposition'].encode('latin-1')
+        except UnicodeDecodeError:
+            self.fail('Content-Disposition with unicode characters failed latin-1 encoding.')
