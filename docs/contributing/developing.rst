@@ -1,7 +1,7 @@
 .. _developing:
 
 Development
------------
+===========
 
 Setting up a local copy of `the Wagtail git repository <https://github.com/wagtail/wagtail>`_ is slightly more involved than running a release package of Wagtail, as it requires `Node.js <https://nodejs.org/>`_ and NPM for building Javascript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
 
@@ -64,7 +64,8 @@ From the root of the Wagtail codebase, run the following command to run all the 
 
     $ python runtests.py
 
-**Running only some of the tests**
+Running only some of the tests
+------------------------------
 
 At the time of writing, Wagtail has well over 2500 tests, which takes a while to
 run. You can run tests for only one part of Wagtail by passing in the path as
@@ -92,7 +93,8 @@ an argument to ``runtests.py``
     $ # Running in a specified Tox environment
     $ tox -e py36-dj20-sqlite-noelasticsearch wagtail.core.tests.test_blocks.TestIntegerBlock
 
-**Running migrations for the test app models**
+Running migrations for the test app models
+------------------------------------------
 
 You can create migrations for the test app by running the following from the Wagtail root.
 
@@ -101,7 +103,8 @@ You can create migrations for the test app by running the following from the Wag
     $ django-admin.py makemigrations --settings=wagtail.tests.settings
 
 
-**Testing against PostgreSQL**
+Testing against PostgreSQL
+--------------------------
 
 By default, Wagtail tests against SQLite. You can switch to using PostgreSQL by
 using the ``--postgres`` argument:
@@ -112,7 +115,8 @@ using the ``--postgres`` argument:
 
 If you need to use a different user, password or host. Use the ``PGUSER``, ``PGPASSWORD`` and ``PGHOST`` environment variables.
 
-**Testing against a different database**
+Testing against a different database
+------------------------------------
 
 If you need to test against a different database, set the ``DATABASE_ENGINE``
 environment variable to the name of the Django database backend to test against:
@@ -124,7 +128,8 @@ environment variable to the name of the Django database backend to test against:
 This will create a new database called ``test_wagtail`` in MySQL and run
 the tests against it.
 
-**Testing Elasticsearch**
+Testing Elasticsearch
+---------------------
 
 You can test Wagtail against Elasticsearch by passing the ``--elasticsearch``
 argument to ``runtests.py``:
@@ -144,7 +149,8 @@ If your Elasticsearch instance is located somewhere else, you can set the
 
     $ ELASTICSEARCH_URL=http://my-elasticsearch-instance:9200 python runtests.py --elasticsearch
 
-**Browser and device support**
+Browser and device support
+--------------------------
 
 Wagtail is meant to be used on a wide variety of devices and browsers. Supported browser / device versions include:
 
@@ -169,7 +175,7 @@ IE 11 is gradually falling out of use, and specific features are unsupported in 
 * Rich text copy-paste in the rich text editor.
 * Sticky toolbar in the rich text editor.
 
-Unsupported browsers / devices include:
+**Unsupported browsers / devices include:**
 
 =============  =============  =============
 Browser        Device/OS      Version(s)
@@ -178,6 +184,29 @@ Stock browser  Android        All
 IE             Desktop        10 and below
 Safari         Windows        All
 =============  =============  =============
+
+Accessibility targets
+---------------------
+
+We want to make Wagtail accessible for users of a wide variety of assistive technologies. The specific standard we aim for is `WCAG2.1 <https://www.w3.org/TR/WCAG21/>`_, AA level. Wagtail’s administration user interface isn’t accessible at the moment (see `issue #4199 <https://github.com/wagtail/wagtail/issues/4199>`_), but here are specific assistive technologies we aim to test for, and ultimately support:
+
+=============  ====================
+Type           Assistive technology
+=============  ====================
+Screen reader  `NVDA <https://www.nvaccess.org/download/>`_ on Windows with Firefox ESR
+Screen reader  `VoiceOver <https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web>`_ on macOS with Safari
+Magnification  `Windows Magnifier <https://support.microsoft.com/en-gb/help/11542/windows-use-magnifier>`_
+Magnification  macOS Zoom
+Voice control  Windows Speech Recognition
+Voice control  macOS Dictation
+Screen reader  Mobile `VoiceOver <https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web>`_ on iOS, or `TalkBack <https://support.google.com/accessibility/android/answer/6283677?hl=en-GB>`_ on Android
+=============  ====================
+
+We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be a daunting task that requires specialised training – here are tools we rely on to help identify accessibility issues, to use during development and code reviews:
+
+* `react-axe <https://github.com/dequelabs/react-axe>`_ integrated directly in our build tools, to identify actionable issues. Logs its results in the browser console.
+* `Axe <https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd>`_ Chrome extension for more comprehensive automated tests of a given page.
+* `Accessibility Insights for Web <https://accessibilityinsights.io/docs/en/web/overview>`_ Chrome extension for semi-automated tests, and manual audits.
 
 Compiling static assets
 ~~~~~~~~~~~~~~~~~~~~~~~
