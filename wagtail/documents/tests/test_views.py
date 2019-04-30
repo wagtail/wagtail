@@ -171,7 +171,7 @@ class TestServeWithUnicodeFilename(TestCase):
         self.assertEqual(response.status_code, 200)
 
     @mock.patch('wagtail.documents.views.serve.hooks')
-    @mock.patch('wagtail.documents.views.serve.get_object_or_404') 
+    @mock.patch('wagtail.documents.views.serve.get_object_or_404')
     def test_non_local_filesystem_unicode_content_disposition_header(
         self, mock_get_object_or_404, mock_hooks
     ):
