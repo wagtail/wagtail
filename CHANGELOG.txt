@@ -45,6 +45,7 @@ Changelog
  * Fix: Invalid focal_point attribute on image edit view (Michał (Quadric) Sieradzki)
  * Fix: No longer expose the `.delete()` method on the default Page.objects manager (Nick Smith)
  * Fix: `exclude_fields_in_copy` on Page models will now work for for modelcluster parental / many to many relations (LB (Ben Johnston))
+ * Fix: Response header (content disposition) now correctly handles filenames with non-ascii characters when using a storage backend (Rich Brennan)
 
 
 2.8.1 (14.04.2020)
