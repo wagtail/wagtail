@@ -1,6 +1,6 @@
+import unittest
 from io import BytesIO
 from unittest.mock import Mock, patch
-import unittest
 
 from django.test import TestCase, override_settings
 
@@ -9,7 +9,6 @@ from wagtail.images import image_operations
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.models import Filter, Image
 from wagtail.images.tests.utils import get_test_image_file, get_test_image_file_jpeg
-
 
 try:
     from willow.image import WebPImageFile  # NOQA
