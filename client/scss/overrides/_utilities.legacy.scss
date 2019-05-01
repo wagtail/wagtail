@@ -1,0 +1,55 @@
+.clearfix {
+    @include clearfix();
+}
+
+.nice-padding {
+    padding-left: $mobile-nice-padding;
+    padding-right: $mobile-nice-padding;
+
+    @include media-breakpoint-up(sm) {
+        padding-left: $desktop-nice-padding;
+        padding-right: $desktop-nice-padding;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .divider-before {
+        border-left: 1px solid $color-grey-4;
+    }
+
+    .divider-after {
+        border-right: 1px solid $color-grey-4;
+    }
+
+}
+
+body.reordering {
+    overflow: visible;
+}
+
+// Show a transparency grid in background
+.show-transparency {
+    background: url('#{$images-root}transparency.svg');
+}
+
+// make a block-level element inline
+.inline {
+    display: inline;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.unlist {
+    @include unlist();
+}
+
+// utility class to allow things to be scrollable if their contents can't wrap more nicely
+.overflow {
+    overflow: auto;
+}

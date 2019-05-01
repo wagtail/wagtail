@@ -27,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-27 14:34+0000\n"
-"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -912,9 +912,6 @@ msgstr "Cette page n'est pas visible publiquement"
 msgid "Disable ordering of child pages"
 msgstr "Désactiver le tri des sous-pages"
 
-msgid "Order"
-msgstr "Ordre"
-
 msgid "Enable ordering of child pages"
 msgstr "Activer le tri des sous-pages"
 
@@ -1086,6 +1083,10 @@ msgstr "Aucune page utilisée"
 msgid "Collection"
 msgstr "Collection"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Page %(page_num)s sur %(total_pages)s."
+
 msgid "Root"
 msgstr "Racine"
 
@@ -1181,10 +1182,6 @@ msgstr "Paramètres du compte"
 
 msgid "Log out"
 msgstr "Se déconnecter"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Page %(page_num)s sur %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Autres recherches"
@@ -1300,9 +1297,6 @@ msgstr "Slovaque"
 
 msgid "Ukrainian"
 msgstr "Ukrainien"
-
-msgid "Chinese (China)"
-msgstr "chinois (Chine)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Désolé, vous n'avez pas les autorisations pour accéder à cette zone."

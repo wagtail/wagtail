@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-02-26 23:34+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -848,9 +848,6 @@ msgstr "此页面已受保护，公众不可见。"
 msgid "Disable ordering of child pages"
 msgstr "禁用子页面排序"
 
-msgid "Order"
-msgstr "排序"
-
 msgid "Enable ordering of child pages"
 msgstr "启用子页面排序"
 
@@ -1013,6 +1010,10 @@ msgstr "没有页面使用"
 msgid "Collection"
 msgstr "集合"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "第 %(page_num)s 页，共 %(total_pages)s 页。"
+
 msgid "Root"
 msgstr "根"
 
@@ -1108,10 +1109,6 @@ msgstr "帐号设置"
 
 msgid "Log out"
 msgstr "注销"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "第 %(page_num)s 页，共 %(total_pages)s 页。"
 
 msgid "Other searches"
 msgstr "其它搜索"
@@ -1226,9 +1223,6 @@ msgstr "斯洛伐克语"
 
 msgid "Ukrainian"
 msgstr "乌克兰语"
-
-msgid "Chinese (China)"
-msgstr "中文 (中国)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "对不起， 你没有权限访问。"

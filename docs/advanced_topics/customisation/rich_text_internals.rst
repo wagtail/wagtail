@@ -166,7 +166,7 @@ It is also possible to define link rewrite handlers for Wagtail’s built-in ``e
     from wagtail.core.rich_text import LinkHandler
 
     class NoFollowExternalLinkHandler(LinkHandler):
-        identifer = 'external'
+        identifier = 'external'
 
         @classmethod
         def expand_db_attributes(cls, attrs):

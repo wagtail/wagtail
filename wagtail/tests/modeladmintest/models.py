@@ -9,6 +9,11 @@ class Author(models.Model):
     name = models.CharField(max_length=255)
     date_of_birth = models.DateField()
 
+    def author_birth_string(self):
+        return 'This author was born in pallet town'
+
+    author_birth_string.short_description = "Birth information"
+
     def __str__(self):
         return self.name
 

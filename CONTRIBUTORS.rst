@@ -361,6 +361,12 @@ Contributors
 * Tom Usher
 * Haydn Greatnews
 * Katie Locke
+* Cassidy Brooke
+* dthompson86
+* Jason Dilworth
+* Deniz Dogan
+* Po-Chuan Hsieh
+* scil
 
 Translators
 ===========
@@ -392,7 +398,7 @@ Translators
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
 * Indonesian (Indonesia): atmosuwiryo, Sutrisno Efendi, Dzikri Hakim, Geek Pantura, Ronggo Radityo, M. Febrian Ramadhana
 * Italian: Sandro Badalamenti, Edd Baldry, Claudio Bantaloukas, Gian-Maria Daffre, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
-* Japanese: Sangmin Ahn, Shu Ishida, Daigo Shitara, Shimizu Taku
+* Japanese: Sangmin Ahn, Shu Ishida, Tri Minh, Daigo Shitara, Shimizu Taku
 * Korean: Kyungil Choi, Jihan Chung
 * Latvian: Reinis Rozenbergs, Maris Serzans
 * Lithuanian: Matas Dailyda

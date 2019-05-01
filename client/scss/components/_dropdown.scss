@@ -1,0 +1,66 @@
+// =============================================================================
+// Listing view smaller dropdowns
+// =============================================================================
+
+// .c-dropdown {
+// }
+.c-dropdown__button {
+    display: inline-block;
+    box-sizing: border-box;
+    padding-left: 0.5rem;
+    padding-right: 0.25rem;
+    // Make this the same as the other buttons
+    line-height: 1.85;
+    border: solid 1px transparent;
+    border-radius: 2px;
+    font-size: 0.95em;
+    cursor: pointer;
+    -webkit-font-smoothing: subpixel-antialiased;
+    user-select: none;
+}
+
+.c-dropdown__toggle {
+    display: inline-block;
+}
+
+.c-dropdown__menu.c-dropdown__menu {
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    min-width: 8rem;
+    text-transform: none;
+    position: absolute;
+    z-index: 1;
+    animation: dropdownIn 0.1s ease-out backwards;
+    list-style: none;
+}
+
+.c-dropdown__item {
+    margin-bottom: 0.375rem;
+
+    &:hover {
+        .c-dropdown__indicator {
+            opacity: 0.6;
+        }
+    }
+}
+
+.c-dropdown__item:last-child {
+    margin-bottom: 0;
+}
+
+.c-dropdown__divider {
+    border-color: #555;
+    border-style: dotted;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+@keyframes dropdownIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -703,9 +703,6 @@ msgstr "Sivu on suojattu näkymästä julkisesti"
 msgid "Disable ordering of child pages"
 msgstr "Estä alasivujen uudelleenjärjestäminen"
 
-msgid "Order"
-msgstr "Järjestä"
-
 msgid "Enable ordering of child pages"
 msgstr "Salli alasivujen uudelleenjärjestäminen"
 
@@ -794,6 +791,10 @@ msgstr "Yhtään sivua ei käytä"
 msgid "Collection"
 msgstr "Kokoelma"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
+
 msgid "Home"
 msgstr "Koti"
 
@@ -865,10 +866,6 @@ msgstr "Tiliasetukset"
 
 msgid "Log out"
 msgstr "Kirjaudu ulos"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
 
 msgid "Other searches"
 msgstr "Muut haut"

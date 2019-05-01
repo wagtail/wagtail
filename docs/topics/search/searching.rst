@@ -103,12 +103,12 @@ This can be limited to a certain set of fields by using the ``fields`` keyword a
 Faceted search
 --------------
 
-Wagtail supports faceted search which is kind of filtering based on a taxonomy
+Wagtail supports faceted search which is a kind of filtering based on a taxonomy
 field (such as category or page type).
 
 The ``.facet(field_name)`` method returns an ``OrderedDict``. The keys are
-the IDs of the related objects that have been referenced by the field and the
-values are number of references to each ID. The results are ordered by number
+the IDs of the related objects that have been referenced by the specified field, and the
+values are the number of references found for each ID. The results are ordered by number
 of references descending.
 
 For example, to find the most common page types in the search results:
@@ -117,7 +117,7 @@ For example, to find the most common page types in the search results:
 
     >>> Page.objects.search("Test").facet("content_type_id")
 
-    # Note: The keys correspond to the ID of a ContentType object, the values are the
+    # Note: The keys correspond to the ID of a ContentType object; the values are the
     # number of pages returned for that type
     OrderedDict([
         ('2', 4),  # 4 pages have content_type_id == 2

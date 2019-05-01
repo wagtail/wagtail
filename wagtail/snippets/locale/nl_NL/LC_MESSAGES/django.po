@@ -4,14 +4,14 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
-# Meteor0id, 2018
+# Meteor0id, 2018-2019
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-01 21:06+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-16 12:27+0000\n"
 "Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -88,6 +88,9 @@ msgstr ""
 
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
+
+msgid "No, don't delete"
+msgstr "Nee, niet verwijderen"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"

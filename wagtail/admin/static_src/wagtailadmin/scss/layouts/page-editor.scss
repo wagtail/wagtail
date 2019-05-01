@@ -1,6 +1,4 @@
-@import 'wagtailadmin/scss/variables';
-@import 'wagtailadmin/scss/mixins';
-@import 'wagtailadmin/scss/grid';
+@import 'wagtailadmin/scss/helpers';
 
 .page-editor {
     .content-wrapper {
@@ -414,13 +412,13 @@ footer .preview {
             &_small-part {
                 // IE11 requires units on the flex basis. Unitless breaks.
                 // stylelint-disable-next-line length-zero-no-unit
-                flex: 1 0 0px;
+                flex: 1 0 0%;
             }
 
             &_big-part {
                 // IE11 requires units on the flex basis. Unitless breaks.
                 // stylelint-disable-next-line length-zero-no-unit
-                flex: 5 0 0px;
+                flex: 5 0 0%;
             }
         }
 

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -936,9 +936,6 @@ msgstr "Ця сторінка захищена від публічного пе�
 msgid "Disable ordering of child pages"
 msgstr "Відключити впорядковування дочірніх сторінок"
 
-msgid "Order"
-msgstr "Порядок"
-
 msgid "Enable ordering of child pages"
 msgstr "Увімкнути впорядковування дочірніх сторінок"
 
@@ -1149,6 +1146,10 @@ msgstr "Не використовується жодна сторінка"
 msgid "Collection"
 msgstr "Колекція"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Сторінка %(page_num)s з %(total_pages)s."
+
 msgid "Root"
 msgstr "Корінь"
 
@@ -1223,10 +1224,6 @@ msgstr "Налаштування аккаунту"
 
 msgid "Log out"
 msgstr "Вийти"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Сторінка %(page_num)s з %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Інші пошуки"
@@ -1320,9 +1317,6 @@ msgstr "Словацька"
 
 msgid "Ukrainian"
 msgstr "Українська"
-
-msgid "Chinese (China)"
-msgstr "Китайська (Китай)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Вибачте, ви не маєте дозволів для доступу у цей розділ."

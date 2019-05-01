@@ -17,6 +17,7 @@ jobs:
           key: pip-package-v1-{{ .Branch }}
       - run: pipenv run flake8 wagtail
       - run: pipenv run isort --check-only --diff --recursive wagtail
+      - run: pipenv run jinjalint --parse-only wagtail || true
       - run: DATABASE_NAME=wagtail.db pipenv run python -u runtests.py
 
   frontend:

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -345,9 +345,6 @@ msgstr "往后"
 msgid "Disable ordering of child pages"
 msgstr "禁止自页面的顺序"
 
-msgid "Order"
-msgstr "顺序"
-
 msgid "Enable ordering of child pages"
 msgstr "开启子页面顺序"
 
@@ -361,6 +358,10 @@ msgstr "为<span>%(title)s</span>选择一个新的根页面"
 
 msgid "Enter a search term above"
 msgstr "请在上面输入搜索词"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "第%(page_num)s页 共%(total_pages)s页"
 
 msgid "Home"
 msgstr "主页"
@@ -424,10 +425,6 @@ msgstr "星期六"
 
 msgid "Log out"
 msgstr "登出"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "第%(page_num)s页 共%(total_pages)s页"
 
 msgid "Your password has been changed successfully!"
 msgstr "您的密码已经更改成功。"

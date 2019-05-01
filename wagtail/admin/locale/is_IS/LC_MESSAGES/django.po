@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-01-18 08:34+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -898,9 +898,6 @@ msgstr "Þessi síða er ekki aðgengileg almenningi"
 msgid "Disable ordering of child pages"
 msgstr "Óvirkja röðun á undirsíðum"
 
-msgid "Order"
-msgstr "Röðun"
-
 msgid "Enable ordering of child pages"
 msgstr "Virkja röðun á undirsíðum"
 
@@ -1081,6 +1078,10 @@ msgstr "Engar síður nota"
 msgid "Collection"
 msgstr "Safn"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Síða %(page_num)s af %(total_pages)s."
+
 msgid "Root"
 msgstr "Rót"
 
@@ -1176,10 +1177,6 @@ msgstr "Stillingar reiknings"
 
 msgid "Log out"
 msgstr "Útskrá"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Síða %(page_num)s af %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Aðrar leitir"
@@ -1297,9 +1294,6 @@ msgstr "Slóveska"
 
 msgid "Ukrainian"
 msgstr "Úkraínska"
-
-msgid "Chinese (China)"
-msgstr "Kínverska (Kína)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Því miður, þú hefur ekki heimildir til að skoða þetta svæði."

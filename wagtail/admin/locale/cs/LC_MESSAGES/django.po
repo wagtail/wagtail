@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-03-21 16:33+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -931,9 +931,6 @@ msgstr "Tato stránka není veřejně viditelná"
 msgid "Disable ordering of child pages"
 msgstr "Vypnout řazení podstránek"
 
-msgid "Order"
-msgstr "Pořadí"
-
 msgid "Enable ordering of child pages"
 msgstr "Zapnout řazení podstránek"
 
@@ -1122,6 +1119,10 @@ msgstr "Žádné stránky typu"
 msgid "Collection"
 msgstr "Kolekce"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Strana %(page_num)s z %(total_pages)s."
+
 msgid "Root"
 msgstr "Počátek"
 
@@ -1217,10 +1218,6 @@ msgstr "Nastavení účtu"
 
 msgid "Log out"
 msgstr "Odhlásit"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Strana %(page_num)s z %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Další hledání"
@@ -1337,9 +1334,6 @@ msgstr "Slovak"
 
 msgid "Ukrainian"
 msgstr "Ukrainian"
-
-msgid "Chinese (China)"
-msgstr "Chinese"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Promiňte, ale na přístup k této části nemáte oprávnění."

@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2019-01-16 01:26+0000\n"
-"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -882,9 +882,6 @@ msgstr "Halaman ini tidak tampak oleh publik"
 msgid "Disable ordering of child pages"
 msgstr "Nonaktifkan pengurutan halaman turunan "
 
-msgid "Order"
-msgstr "Urutan"
-
 msgid "Enable ordering of child pages"
 msgstr "Aktifkan pengurutan halaman turunan"
 
@@ -1055,6 +1052,10 @@ msgstr "Tidak ada halaman yang menggunakan"
 msgid "Collection"
 msgstr "Koleksi"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Halaman %(page_num)s dari %(total_pages)s."
+
 msgid "Root"
 msgstr "Dasar"
 
@@ -1151,10 +1152,6 @@ msgstr "Pengaturan Akun"
 msgid "Log out"
 msgstr "Keluar"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Halaman %(page_num)s dari %(total_pages)s."
-
 msgid "Other searches"
 msgstr "Pencarian yang lain"
 
@@ -1247,9 +1244,6 @@ msgstr "Slowakia"
 
 msgid "Ukrainian"
 msgstr "Ukraina"
-
-msgid "Chinese (China)"
-msgstr "Cina"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Maaf, Anda tidak memiliki izin untuk mengakses area ini"

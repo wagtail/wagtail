@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-04-08 22:07+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -756,9 +756,6 @@ msgstr "این صفحه از دید عمومی پنهان شده است"
 msgid "Disable ordering of child pages"
 msgstr "غیرفعال سازی ترتیب زیرصفحه ها"
 
-msgid "Order"
-msgstr "ترتیب"
-
 msgid "Enable ordering of child pages"
 msgstr "فعال سازی ترتیب زیرصفحه ها"
 
@@ -904,6 +901,10 @@ msgstr "صفحه ای استفاده نمی‌کند"
 msgid "Collection"
 msgstr "مجموعه"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "صفحه %(page_num)s از %(total_pages)s."
+
 msgid "Home"
 msgstr "خانه"
 
@@ -975,10 +976,6 @@ msgstr "تنظیمات حساب"
 
 msgid "Log out"
 msgstr "خروج"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "صفحه %(page_num)s از %(total_pages)s."
 
 msgid "Other searches"
 msgstr "جستجوهای دیگر"
@@ -1060,9 +1057,6 @@ msgstr "رومانیایی"
 
 msgid "Russian"
 msgstr "روسی"
-
-msgid "Chinese (China)"
-msgstr "چینی (چین)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "متاسفانه مجوز لازم برای دسترسی به این ناحیه را ندارید."
