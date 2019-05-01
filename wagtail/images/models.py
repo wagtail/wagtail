@@ -406,7 +406,7 @@ class Filter:
             else:
                 # Convert bmp and webp to png by default
                 default_conversions = {
-                    'bmp':  'png',
+                    'bmp': 'png',
                     'webp': 'png',
                 }
 
