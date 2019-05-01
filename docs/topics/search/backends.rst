@@ -73,6 +73,8 @@ It also doesn't support:
 
 If any of these features are important to you, we recommend using Elasticsearch instead.
 
+.. _wagtailsearch_backends_postgresql:
+
 PostgreSQL Backend
 ------------------
 
