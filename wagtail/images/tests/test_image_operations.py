@@ -521,6 +521,16 @@ class TestFormatFilter(TestCase):
 
         self.assertEqual(out.format_name, 'gif')
 
+    def test_webp(self):
+        fil = Filter(spec='width-400|format-webp')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'webp')
+
     def test_invalid(self):
         fil = Filter(spec='width-400|format-foo')
         image = Image.objects.create(

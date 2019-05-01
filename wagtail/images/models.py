@@ -404,20 +404,23 @@ class Filter:
                 # Developer specified an output format
                 output_format = env['output-format']
             else:
-                # Default to outputting in original format
-                output_format = original_format
-
-                # Convert BMP files to PNG
-                if original_format == 'bmp':
-                    output_format = 'png'
+                # Convert bmp and webp to png by default
+                default_conversions = {
+                    'bmp': 'png',
+                    'webp': 'png',
+                }
 
                 # Convert unanimated GIFs to PNG as well
-                if original_format == 'gif' and not willow.has_animation():
-                    output_format = 'png'
+                if not willow.has_animation():
+                    default_conversions['gif'] = 'png'
 
-                # Convert WEBP files to PNG
-                if original_format == 'webp':
-                    output_format = 'png'
+                # Allow the user to override the conversions
+                conversion = getattr(settings, 'WAGTAILIMAGES_FORMAT_CONVERSIONS', {})
+                default_conversions.update(conversion)
+
+                # Get the converted output format falling back to the original
+                output_format = default_conversions.get(
+                    original_format, original_format)
 
             if output_format == 'jpeg':
                 # Allow changing of JPEG compression quality
