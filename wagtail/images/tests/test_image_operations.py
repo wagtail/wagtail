@@ -12,7 +12,7 @@ from wagtail.images.tests.utils import get_test_image_file, get_test_image_file_
 
 
 try:
-    from willow.image import WebPImageFile
+    from willow.image import WebPImageFile  # NOQA
     webp_supported = True
 except ImportError:
     webp_supported = False
