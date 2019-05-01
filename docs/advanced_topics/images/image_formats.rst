@@ -1,0 +1,49 @@
+Image formats
+=========================
+
+Using the picture element
+-------------------------
+
+The `picture element <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture>`_
+can be used with wagtails ``format-<type>`` image operation to specify different
+image formats and let the browser choose it's preferred one.
+
+
+To do this with wagtail:
+
+.. code-block:: python
+
+    {% load wagtailimages_tags %}
+
+    <picture>
+        {% image myimage width-1000 format-webp as image_webp %}
+        <source srcset="{{ image_webp.url }}" type="image/webp">
+
+        {% image myimage width-1000 format-png as image_png %}
+        <source srcset="{{ image_png.url }}" type="image/png">
+
+        {{ image_png }}
+    </picture>
+
+
+Customizing output formats
+--------------------------
+
+By default all ``bmp`` and ``webp`` images are converted to the ``png`` format
+when no image output format is given.
+
+The default conversion mapping can be changed by setting the
+``WAGTAILIMAGES_FORMATS`` to a dictionary which maps the input type to
+an output type.
+
+For example
+
+.. code-block:: python
+
+    WAGTAILIMAGES_FORMATS = {
+        'bmp': 'jpeg',
+        'webp': 'webp',
+    }
+
+will convert ``bmp`` images to ``jpeg`` and disable the default ``webp``
+to ``png`` conversion.
