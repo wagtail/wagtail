@@ -15,6 +15,7 @@ Changelog
  * Fix: Wagtail bird animation in admin now ends correctly on all browsers (Deniz Dogan)
  * Fix: Explorer menu no longer shows sibling pages for which the user does not have access (Mike Hearn)
  * Fix: Fixed occurences of invalid HTML across the CMS admin (Thibaud Colas)
+ * Fix: Admin HTML now includes the correct `dir` attribute for the active language (Andreas Bernacca)
 
 
 2.5.1 (07.05.2019)
