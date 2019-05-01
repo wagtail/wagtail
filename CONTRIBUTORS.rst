@@ -370,6 +370,7 @@ Contributors
 * Mike Hearn
 * Samuel Mendes
 * Adam Eikman
+* Andreas Bernacca
 
 Translators
 ===========

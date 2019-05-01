@@ -364,7 +364,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertContains(response, "Language Preferences")
 
         # check that current language preference is indicated in HTML header
-        self.assertContains(response, '<html class="no-js" lang="en">')
+        self.assertContains(response, '<html class="no-js" lang="en" dir="ltr">')
 
     def test_language_preferences_view_post(self):
         """
@@ -387,7 +387,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # check that the updated language preference is now indicated in HTML header
         response = self.client.get(reverse('wagtailadmin_home'))
-        self.assertContains(response, '<html class="no-js" lang="es">')
+        self.assertContains(response, '<html class="no-js" lang="es" dir="ltr">')
 
     def test_unset_language_preferences(self):
         # Post new values to the language preferences page
