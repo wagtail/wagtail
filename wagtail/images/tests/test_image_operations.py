@@ -1,5 +1,6 @@
 from io import BytesIO
 from unittest.mock import Mock, patch
+import unittest
 
 from django.test import TestCase, override_settings
 
@@ -8,6 +9,13 @@ from wagtail.images import image_operations
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.models import Filter, Image
 from wagtail.images.tests.utils import get_test_image_file, get_test_image_file_jpeg
+
+
+try:
+    from willow.image import WebPImageFile
+    webp_supported = True
+except ImportError:
+    webp_supported = False
 
 
 class WillowOperationRecorder:
@@ -487,6 +495,8 @@ class TestFormatFilter(TestCase):
 
         self.assertEqual(out.format_name, 'gif')
 
+    @unittest.skipIf(
+        not webp_supported, "Your willow version does not have webp support")
     def test_webp(self):
         fil = Filter(spec='width-400|format-webp')
         image = Image.objects.create(
