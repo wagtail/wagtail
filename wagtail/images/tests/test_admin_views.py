@@ -998,7 +998,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         # Send request
         response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
             ('image-%d-title' % self.image.id): "New title!",
-            ('image-%d-tags' % self.image.id): "",
+            ('image-%d-tags' % self.image.id): "cromarty, finisterre",
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Check response
@@ -1012,6 +1012,11 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('success', response_json)
         self.assertEqual(response_json['image_id'], self.image.id)
         self.assertTrue(response_json['success'])
+
+        # test that changes have been applied to the image
+        image = Image.objects.get(id=self.image.id)
+        self.assertEqual(image.title, "New title!")
+        self.assertIn('cromarty', image.tags.names())
 
     def test_edit_post_noajax(self):
         """
@@ -1186,7 +1191,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         # Send request
         response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
             ('image-%d-title' % self.image.id): "New title!",
-            ('image-%d-tags' % self.image.id): "",
+            ('image-%d-tags' % self.image.id): "footwear, dystopia",
             ('image-%d-caption' % self.image.id): "a boot stamping on a human face, forever",
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
@@ -1206,6 +1211,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         new_image = CustomImage.objects.get(id=self.image.id)
         self.assertEqual(new_image.title, "New title!")
         self.assertEqual(new_image.caption, "a boot stamping on a human face, forever")
+        self.assertIn('footwear', new_image.tags.names())
 
     def test_delete_post(self):
         """
@@ -1373,7 +1379,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         # Send request
         response = self.client.post(reverse('wagtailimages:create_multiple_from_uploaded_image', args=(self.uploaded_image.id, )), {
             ('uploaded-image-%d-title' % self.uploaded_image.id): "New title!",
-            ('uploaded-image-%d-tags' % self.uploaded_image.id): "",
+            ('uploaded-image-%d-tags' % self.uploaded_image.id): "abstract, squares",
             ('uploaded-image-%d-author' % self.uploaded_image.id): "Piet Mondrian",
         }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
@@ -1401,6 +1407,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         self.assertTrue(image.file_size)
         self.assertEqual(image.width, 640)
         self.assertEqual(image.height, 480)
+        self.assertIn('abstract', image.tags.names())
 
     def test_delete_uploaded_image(self):
         """

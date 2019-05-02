@@ -211,14 +211,13 @@ def create_from_uploaded_image(request, uploaded_image_id):
         # Image's storage
 
         image.file.save(os.path.basename(uploaded_image.file.name), uploaded_image.file.file, save=False)
-        form.save(commit=False)
         image.uploaded_by_user = request.user
         image.file_size = image.file.size
         image.file.open()
         image.file.seek(0)
         image._set_file_hash(image.file.read())
         image.file.seek(0)
-        image.save()
+        form.save()
 
         uploaded_image.file.delete()
         uploaded_image.delete()
