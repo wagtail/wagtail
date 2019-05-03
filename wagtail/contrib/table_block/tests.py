@@ -3,7 +3,6 @@ import json
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from django.utils import translation
-from django.utils.html import escape
 
 from wagtail.contrib.table_block.blocks import DEFAULT_TABLE_OPTIONS, TableBlock
 from wagtail.core.models import Page
@@ -11,60 +10,7 @@ from wagtail.tests.testapp.models import TableBlockStreamPage
 from wagtail.tests.utils import WagtailTestUtils
 
 
-def get_cell_classname(cells_meta, row_index, col_index):
-    """
-    Helper function used in building a test html
-    table. Provides a cell's class attribute if
-    one is specified in the meta.
-    """
-    if cells_meta:
-        for meta in cells_meta:
-            if meta.get('row') == row_index and meta.get('col') == col_index:
-                return ' class="%s"' % meta.get('className')
-    return ''
-
-
-def tiny_escape(val):
-    """
-    Helper function used in building a test html
-    table.
-    """
-    return '' if val is None else escape(val)
-
-
-def get_test_html_from_value(value):
-    """
-    Generate a test html from a TableBlock value.
-    Individual column values are escaped because
-    that's what we expect from the TableBlock.
-    """
-    data = list(value['data'])  # Make a copy
-    meta = value.get('cell')
-    table = '<table>'
-    if value['first_row_is_table_header']:
-        row_header = data.pop(0)
-        table += '<thead><tr>'
-        for col_idx, th in enumerate(row_header):
-            table += '<th%s>%s</th>' % (get_cell_classname(meta, 0, col_idx), tiny_escape(th))
-        table += '</tr></thead>'
-    table += '<tbody>'
-    row_idx_start = 1 if value['first_row_is_table_header'] else 0
-    for row_idx, row in enumerate(data, row_idx_start):
-        table += '<tr>'
-        first = True
-        for col_idx, col in enumerate(row):
-            if value['first_col_is_header'] and first:
-                table += '<th%s>%s</th>' % (get_cell_classname(meta, row_idx, col_idx), tiny_escape(col))
-            else:
-                table += '<td%s>%s</td>' % (get_cell_classname(meta, row_idx, col_idx), tiny_escape(col))
-            first = False
-        table += '</tr>'
-    table += '</tbody></table>'
-    return table
-
-
-class TestTableBlockRenderingBase(TestCase):
-
+class TestTableBlock(TestCase):
     def setUp(self):
         self.default_table_options = {
             'minSpareRows': 0,
@@ -81,15 +27,6 @@ class TestTableBlockRenderingBase(TestCase):
             'autoColumnSize': False,
         }
 
-        self.default_value = {'first_row_is_table_header': False,
-                              'first_col_is_header': False, 'data': [[None, None, None],
-                                                                     [None, None, None], [None, None, None]]}
-
-        self.default_expected = get_test_html_from_value(self.default_value)
-
-
-class TestTableBlock(TestTableBlockRenderingBase):
-
     def test_table_block_render(self):
         """
         Test a generic render.
@@ -99,12 +36,20 @@ class TestTableBlock(TestTableBlockRenderingBase):
                           [None, None, None]]}
         block = TableBlock()
         result = block.render(value)
-        expected = get_test_html_from_value(value)
+        expected = """
+            <table>
+                <tbody>
+                    <tr><td>Test 1</td><td>Test 2</td><td>Test 3</td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
 
         self.assertHTMLEqual(result, expected)
         self.assertIn('Test 2', result)
 
-    def test_table_block_aligment_render(self):
+    def test_table_block_alignment_render(self):
         """
         Test a generic render with some cells aligned.
         """
@@ -115,7 +60,17 @@ class TestTableBlock(TestTableBlockRenderingBase):
                           [None, None, None]]}
         block = TableBlock()
         result = block.render(value)
-        expected = get_test_html_from_value(value)
+        expected = """
+            <table>
+                <thead>
+                    <tr><th>Test 1</th><th class="htLeft">Test 2</th><th>Test 3</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td></td><td class="htRight"></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
 
         self.assertHTMLEqual(result, expected)
         self.assertIn('Test 2', result)
@@ -125,8 +80,25 @@ class TestTableBlock(TestTableBlockRenderingBase):
         An empty table should render okay.
         """
         block = TableBlock()
-        result = block.render(self.default_value)
-        self.assertHTMLEqual(result, self.default_expected)
+        result = block.render({
+            'first_row_is_table_header': False,
+            'first_col_is_header': False,
+            'data': [
+                [None, None, None],
+                [None, None, None],
+                [None, None, None]
+            ]
+        })
+        expected = """
+            <table>
+                <tbody>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
+        self.assertHTMLEqual(result, expected)
 
     def test_do_not_render_html(self):
         """
@@ -137,7 +109,15 @@ class TestTableBlock(TestTableBlockRenderingBase):
                  'data': [['<p><strong>Test</strong></p>', None, None], [None, None, None],
                           [None, None, None]]}
 
-        expected = get_test_html_from_value(value)
+        expected = """
+            <table>
+                <tbody>
+                    <tr><td>&lt;p&gt;&lt;strong&gt;Test&lt;/strong&gt;&lt;/p&gt;</td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
 
         block = TableBlock()
         result = block.render(value)
@@ -150,7 +130,17 @@ class TestTableBlock(TestTableBlockRenderingBase):
         value = {'first_row_is_table_header': True, 'first_col_is_header': False,
                  'data': [['Foo', 'Bar', 'Baz'], [None, None, None], [None, None, None]]}
 
-        expected = get_test_html_from_value(value)
+        expected = """
+            <table>
+                <thead>
+                    <tr><th>Foo</th><th>Bar</th><th>Baz</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
         block = TableBlock()
         result = block.render(value)
         self.assertHTMLEqual(result, expected)
@@ -162,7 +152,15 @@ class TestTableBlock(TestTableBlockRenderingBase):
         value = {'first_row_is_table_header': False, 'first_col_is_header': True,
                  'data': [['Foo', 'Bar', 'Baz'], ['one', 'two', 'three'], ['four', 'five', 'six']]}
 
-        expected = get_test_html_from_value(value)
+        expected = """
+            <table>
+                <tbody>
+                    <tr><th>Foo</th><td>Bar</td><td>Baz</td></tr>
+                    <tr><th>one</th><td>two</td><td>three</td></tr>
+                    <tr><th>four</th><td>five</td><td>six</td></tr>
+                </tbody>
+            </table>
+        """
         block = TableBlock()
         result = block.render(value)
         self.assertHTMLEqual(result, expected)
@@ -174,7 +172,17 @@ class TestTableBlock(TestTableBlockRenderingBase):
         value = {'first_row_is_table_header': True, 'first_col_is_header': True,
                  'data': [['Foo', 'Bar', 'Baz'], ['one', 'two', 'three'], ['four', 'five', 'six']]}
 
-        expected = get_test_html_from_value(value)
+        expected = """
+            <table>
+                <thead>
+                    <tr><th>Foo</th><th>Bar</th><th>Baz</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th>one</th><td>two</td><td>three</td></tr>
+                    <tr><th>four</th><td>five</td><td>six</td></tr>
+                </tbody>
+            </table>
+        """
         block = TableBlock()
         result = block.render(value)
         self.assertHTMLEqual(result, expected)
