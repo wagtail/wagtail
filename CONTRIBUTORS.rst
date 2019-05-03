@@ -368,6 +368,7 @@ Contributors
 * Po-Chuan Hsieh
 * scil
 * Mike Hearn
+* Samuel Mendes
 
 Translators
 ===========
