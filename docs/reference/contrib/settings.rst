@@ -22,6 +22,7 @@ Create a model that inherits from ``BaseSetting``, and register it using the ``r
 
 .. code-block:: python
 
+    from django.db import models
     from wagtail.contrib.settings.models import BaseSetting, register_setting
 
     @register_setting
