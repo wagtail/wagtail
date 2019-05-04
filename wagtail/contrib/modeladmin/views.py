@@ -274,7 +274,7 @@ class IndexView(WMABaseView):
 
     def get_search_results(self, request, queryset, search_term, distinct_applied):
         return self.search_handler.search_queryset(
-            queryset, search_term, distinct_applied,
+            queryset, search_term, distinct_applied=distinct_applied,
             **self.get_search_handler_extra_search_kwargs(request, queryset, search_term))
 
     def lookup_allowed(self, lookup, value):
