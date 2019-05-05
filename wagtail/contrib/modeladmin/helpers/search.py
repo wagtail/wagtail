@@ -11,7 +11,7 @@ class BaseSearchHandler:
     def __init__(self, search_fields):
         self.search_fields = search_fields
 
-    def search_queryset(self, queryset, search_term, distinct_applied, **kwargs):
+    def search_queryset(self, queryset, search_term, **kwargs):
         """
         Search the queryset for the provided term.
         """
@@ -27,7 +27,7 @@ class BaseSearchHandler:
 
 
 class DjangoORMSearchHandler(BaseSearchHandler):
-    def search_queryset(self, queryset, search_term, **kwargs):
+    def search_queryset(self, queryset, search_term, distinct_applied=False, **kwargs):
         if not search_term or not self.search_fields:
             return queryset
 
@@ -38,7 +38,7 @@ class DjangoORMSearchHandler(BaseSearchHandler):
                           for orm_lookup in orm_lookups]
             queryset = queryset.filter(reduce(operator.or_, or_queries))
         opts = queryset.model._meta
-        if not kwargs.get('distinct_applied', True):
+        if not distinct_applied:
             for search_spec in orm_lookups:
                 if lookup_needs_distinct(opts, search_spec):
                     return queryset.distinct()

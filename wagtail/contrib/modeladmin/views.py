@@ -273,9 +273,9 @@ class IndexView(WMABaseView):
         return self.model_admin.search_handler_extra_search_kwargs
 
     def get_search_results(self, request, queryset, search_term, distinct_applied):
+        search_kwargs = self.get_search_handler_extra_search_kwargs(request, queryset, search_term)
         return self.search_handler.search_queryset(
-            queryset, search_term, distinct_applied=distinct_applied,
-            **self.get_search_handler_extra_search_kwargs(request, queryset, search_term))
+            queryset, search_term, distinct_applied=distinct_applied, **search_kwargs)
 
     def lookup_allowed(self, lookup, value):
         # Check FKey lookups that are allowed, so that popups produced by
