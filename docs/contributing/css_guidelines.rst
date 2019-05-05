@@ -64,9 +64,7 @@ If you want to autofix errors, you can run that command directly with:
 Changing the linter configuration
 ---------------------------------
 
-To edit ignored files, add an entry to the ``.stylelintrc.yaml`` file under ``ignoreFiles``.
-
-To the configuration for the linting rules is managed in an external
+The configuration for the linting rules is managed in an external
 repository so that it can be easily shared across other Wagtail projects
 or plugins. This configuration can be found at
 `stylelint-config-wagtail <https://github.com/wagtail/stylelint-config-wagtail>`_.
