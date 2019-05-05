@@ -111,7 +111,7 @@
     "webpack:prod:build": "webpack --config ./client/webpack/prod.config.js",
     "lint:js": "eslint --max-warnings 16 ./client",
     "lint:css": "stylelint **/*.scss",
-    "lint": "npm run lint:js",
+    "lint": "npm run lint:js && npm run lint:css",
     "test": "npm run test:unit",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
