@@ -3,7 +3,7 @@
 Using proxy models with Wagtail
 ===============================
 
-For Django developers, `proxy models <https://docs.djangoproject.com/en/dev/topics/db/models/#proxy-models>`_
+For Django developers, `proxy models <https://docs.djangoproject.com/en/stable/topics/db/models/#proxy-models>`_
 can be a useful option when considering the design of models for a project. However, there are
 some areas in Wagtail where support for proxy models is limited. It is important to highlight that
 these limitations pertain specifically to the direct management of proxy models and their related
