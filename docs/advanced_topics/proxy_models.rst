@@ -30,7 +30,7 @@ Proxy models registered with ``modeladmin``
 -------------------------------------------
 
 From Wagtail 2.6 ``modeladmin`` will work correctly for **proxy page type models**, but support for
-for other proxy models is still a work in progress.
+other proxy models is still a work in progress.
 
 While Wagtail will allow you to register other types of proxy model with ``modeladmin``, the
 various CRUD views will not work correctly, and it is not possible to manage group permissions
