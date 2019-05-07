@@ -1,0 +1,16 @@
+===========================
+Wagtail 2.5.1 release notes
+===========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Prevent crash when comparing StructBlocks in revision history (Adrian Turjak, Matt Westcott)
