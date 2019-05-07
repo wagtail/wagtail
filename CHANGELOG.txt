@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.5.1 (xx.xx.xxxx)
+2.5.1 (07.05.2019)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent crash when comparing StructBlocks in revision history (Adrian Turjak, Matt Westcott)
