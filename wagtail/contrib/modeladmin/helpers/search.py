@@ -60,4 +60,6 @@ class WagtailBackendSearchHandler(BaseSearchHandler):
             return backend.search(
                 search_term, queryset, fields=self.search_fields, operator=operator,
                 partial_match=partial_match, order_by_relevance=order_by_relevance)
-        return backend.search(search_term, queryset)
+        return backend.search(
+            search_term, queryset, operator=operator, partial_match=partial_match,
+            order_by_relevance=order_by_relevance)
