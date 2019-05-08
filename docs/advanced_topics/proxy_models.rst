@@ -42,7 +42,7 @@ model, if that too has been registered.
 Proxy models registered as Snippets
 -----------------------------------
 
-Wagtail will allow you to register proxy models as a Snippets, and the various CRUD views
+Wagtail will allow you to register proxy models as :doc:`Snippets </topics/snippets>`, and the various CRUD views
 will work correctly for some administrators. However, it is not currently possible to manage
 group permissions pertaining to these models via the admin UI. In fact, registering a proxy
 model as a Snippet can silently prevent you from managing group permissions for the 'concrete'
