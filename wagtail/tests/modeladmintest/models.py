@@ -27,6 +27,8 @@ class Book(models.Model, index.Indexed):
 
     search_fields = [
         index.SearchField('title'),
+        index.FilterField('title'),
+        index.FilterField('pk'),
     ]
 
     def __str__(self):

@@ -40,12 +40,12 @@ class TestIndexView(TestCase, WagtailTestUtils):
             self.assertEqual(eventpage.audience, 'public')
 
     def test_search(self):
-        response = self.get(q='moon')
+        response = self.get(q='Someone')
 
         self.assertEqual(response.status_code, 200)
 
-        # There are two eventpage's where the location is 'The moon'
-        self.assertEqual(response.context['result_count'], 2)
+        # There is one eventpage where the title contains 'Someone'
+        self.assertEqual(response.context['result_count'], 1)
 
     def test_ordering(self):
         response = self.get(o='0.1')

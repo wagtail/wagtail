@@ -79,9 +79,9 @@ class EventPageAdmin(ModelAdmin):
     model = EventPage
     list_display = ('title', 'date_from', 'audience')
     list_filter = ('audience', )
+    search_fields = ('title', )
     inspect_view_enabled = True
     inspect_view_fields_exclude = ('feed_image', )
-    search_handler_class = WagtailBackendSearchHandler
 
 
 class SingleEventPageAdmin(EventPageAdmin):
