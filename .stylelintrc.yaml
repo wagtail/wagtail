@@ -1,7 +1,5 @@
 ignoreFiles:
   - node_modules
-  - build/**/*  
-plugins:
-  - stylelint-scss
+  - build/**/*
 extends:
   - '@wagtail/stylelint-config-wagtail'
