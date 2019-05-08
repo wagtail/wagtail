@@ -5,14 +5,11 @@ Using proxy models with Wagtail
 
 For Django developers, `proxy models <https://docs.djangoproject.com/en/stable/topics/db/models/#proxy-models>`_
 can be a useful option when considering the design of models for a project. However, there are
-some areas in Wagtail where support for proxy models is limited. It is important to highlight that
-these limitations pertain specifically to the direct management of proxy models and their related
-permissions within Wagtail's admin UI - If you don't need to manage the data within Wagtail,
-there's nothing to worry about! Wagtail's various edit interfaces even allow you to freely manage
-an object's relationships with proxy models if they are used in ``ForeignKey``, ``ManyToManyField``
-or ``ParentalManyToManyField`` fields.
-
-The key areas where we are working to improve proxy model support are:
+some areas in Wagtail where support for proxy models is limited. It's perfectly fine to add
+references to proxy model instances (for example, linking to one from a Wagtail Page). Where
+you're likely to have trouble is if you want to create, edit, or delete proxy model instances
+in the Wagtail UI using the :doc:`modeldamin </reference/contrib/modeladmin/index>` app, or
+by registering the model as a :doc:`Snippet </topics/snippets>`. See below for more information:
 
 
 Proxy ``Page`` type models
