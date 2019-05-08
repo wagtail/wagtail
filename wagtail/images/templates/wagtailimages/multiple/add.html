@@ -7,6 +7,8 @@
 {% block extra_css %}
     {{ block.super }}
 
+    {{ form_media.css }}
+
     <link rel="stylesheet" href="{% static 'wagtailimages/css/add-multiple.css' %}" type="text/css" />
 {% endblock %}
 
@@ -74,6 +76,8 @@
 
 {% block extra_js %}
     {{ block.super }}
+
+    {{ form_media.js }}
 
     <!-- this exact order of plugins is vital -->
     <script src="{% static 'wagtailimages/js/vendor/load-image.min.js' %}"></script>
