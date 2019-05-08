@@ -553,7 +553,7 @@ class TestSpecificQuery(TestCase):
 
         with self.assertNumQueries(4):
             # One query to get page type and ID, plus one query per concrete page type:
-            # EventIndex, EventPage, SimplePage, SimplePage
+            # EventIndex, EventPage, SimplePage
             pages = list(qs)
 
         self.assertIsInstance(pages, list)
