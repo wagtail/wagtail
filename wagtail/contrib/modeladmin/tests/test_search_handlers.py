@@ -41,8 +41,6 @@ class TestORMSearchHandler(TestCase):
         results = search_handler.search_queryset(self.get_search_queryset(), 'Lord of the rings')
         self.assertEqual(list(lord_of_the_rings), list(results))
 
-
-
     def test_show_search_form(self):
         search_handler = self.get_search_handler(search_fields=None)
         self.assertFalse(search_handler.show_search_form)
@@ -81,8 +79,10 @@ class TestSearchBackendHandler(TestCase):
 
         # Test other kwargs
         self.assertEqual(
-            self.search_kwargs_to_dict(search_fields=search_fields, operator='and', partial_match=False, order_by_relevance=True),
-            search_handler.search_queryset(search_queryset, 'Lord', operator='and', order_by_relevance=True, partial_match=False)
+            self.search_kwargs_to_dict(
+                search_fields=search_fields, operator='and', partial_match=False, order_by_relevance=True),
+            search_handler.search_queryset(
+                search_queryset, 'Lord', operator='and', order_by_relevance=True, partial_match=False)
         )
 
     def test_show_search_form(self):
