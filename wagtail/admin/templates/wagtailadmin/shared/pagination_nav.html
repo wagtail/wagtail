@@ -17,7 +17,7 @@
         {% url linkurl as url_to_use %}
     {% endif %}
 
-    <div class="pagination">
+    <nav class="pagination" aria-label="pagination">
         <p>{% blocktrans with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
         <ul>
             <li class="prev">
@@ -31,5 +31,5 @@
                 {% endif %}
             </li>
         </ul>
-    </div>
+    </nav>
 {% endif %}

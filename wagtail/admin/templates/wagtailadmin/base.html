@@ -2,7 +2,7 @@
 {% load wagtailadmin_tags wagtailcore_tags static i18n %}
 
 {% block furniture %}
-    <div class="nav-wrapper">
+    <aside class="nav-wrapper">
         <div class="inner">
             <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
                 {% block branding_logo %}
@@ -22,9 +22,9 @@
 
         </div>
         <div class="explorer__wrapper" data-explorer-menu></div>
-    </div>
+    </aside>
 
-    <div class="content-wrapper">
+    <main class="content-wrapper" role="main">
         <div class="content">
             {# Always show messages div so it can be appended to by JS #}
             <div class="messages">
@@ -41,5 +41,5 @@
 
             {% block content %}{% endblock %}
         </div>
-    </div>
+    </main>
 {% endblock %}
