@@ -103,7 +103,7 @@ class Command(BaseCommand):
             '--schema-only', action='store_true', dest='schema_only', default=False,
             help="Prevents loading any data into the index")
         parser.add_argument(
-            '--chunk_size', action='store', dest='chunk_size', default=DEFAULT_CHUNK_SIZE,
+            '--chunk_size', action='store', dest='chunk_size', default=DEFAULT_CHUNK_SIZE, type=int,
             help="Set number of records to be fetched at once for inserting into the index")
 
     def handle(self, **options):
