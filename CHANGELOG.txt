@@ -16,6 +16,7 @@ Changelog
  * Fix: Explorer menu no longer shows sibling pages for which the user does not have access (Mike Hearn)
  * Fix: Fixed occurences of invalid HTML across the CMS admin (Thibaud Colas)
  * Fix: Admin HTML now includes the correct `dir` attribute for the active language (Andreas Bernacca)
+ * Fix: Fix type error when using `--chunk_size` argument on `./manage.py update_index` (Seb Brown)
 
 
 2.5.1 (07.05.2019)
