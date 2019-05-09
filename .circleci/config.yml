@@ -19,7 +19,10 @@ jobs:
       - run: pipenv run isort --check-only --diff --recursive wagtail
       # Filter out known false positives, while preserving normal output and error codes.
       # See https://github.com/motet-a/jinjalint/issues/18.
-      - run: pipenv run jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'
+      # And https://circleci.com/docs/2.0/configuration-reference/#default-shell-options.
+      - run:
+          shell: /bin/bash -e
+          command: pipenv run jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'
       - run: DATABASE_NAME=wagtail.db pipenv run python -u runtests.py
 
   frontend:
