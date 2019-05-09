@@ -3,9 +3,15 @@
 {% block titletag %}{% blocktrans with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
 {% block extra_js %}
     {{ block.super }}
-    {% include "wagtailadmin/shared/datetimepicker_translations.html" %}
 
     <script>
+        $.fn.datetimepicker.defaults.i18n.wagtail_custom_locale = {
+            months: wagtailConfig.STRINGS.MONTHS,
+            dayOfWeek: wagtailConfig.STRINGS.WEEKDAYS,
+            dayOfWeekShort: wagtailConfig.STRINGS.WEEKDAYS_SHORT,
+        }
+        $.datetimepicker.setLocale('wagtail_custom_locale');
+
         $(function() {
             $('#id_date_from').datetimepicker({
                 timepicker: false,

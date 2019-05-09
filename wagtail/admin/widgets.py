@@ -58,6 +58,9 @@ class AdminDateInput(widgets.DateInput):
 
         return context
 
+    class Media:
+        js = ['wagtailadmin/js/date-time-chooser.js']
+
 
 class AdminTimeInput(widgets.TimeInput):
     template_name = 'wagtailadmin/widgets/time_input.html'
@@ -67,6 +70,9 @@ class AdminTimeInput(widgets.TimeInput):
         if attrs:
             default_attrs.update(attrs)
         super().__init__(attrs=default_attrs, format=format)
+
+    class Media:
+        js = ['wagtailadmin/js/date-time-chooser.js']
 
 
 class AdminDateTimeInput(widgets.DateTimeInput):
@@ -92,6 +98,9 @@ class AdminDateTimeInput(widgets.DateTimeInput):
         context['widget']['config_json'] = json.dumps(config)
 
         return context
+
+    class Media:
+        js = ['wagtailadmin/js/date-time-chooser.js']
 
 
 class AdminTagWidget(TagWidget):
