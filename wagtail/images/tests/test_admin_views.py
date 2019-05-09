@@ -623,6 +623,23 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['step'], 'chooser')
         self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
 
+        # draftail should NOT be a standard JS include on this page
+        self.assertNotIn('wagtailadmin/js/draftail.js', response_json['html'])
+
+    @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+    def test_with_custom_image_model(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        # custom form fields should be present
+        self.assertIn('name="fancy_caption"', response_json['html'])
+
+        # form media imports should appear on the page
+        self.assertIn('wagtailadmin/js/draftail.js', response_json['html'])
+
     def test_search(self):
         response = self.get({'q': "Hello"})
         self.assertEqual(response.status_code, 200)
