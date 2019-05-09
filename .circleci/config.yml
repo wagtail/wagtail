@@ -17,7 +17,9 @@ jobs:
           key: pip-package-v1-{{ .Branch }}
       - run: pipenv run flake8 wagtail
       - run: pipenv run isort --check-only --diff --recursive wagtail
-      - run: pipenv run jinjalint --parse-only wagtail || true
+      # Filter out known false positives, while preserving normal output and error codes.
+      # See https://github.com/motet-a/jinjalint/issues/18.
+      - run: pipenv run jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'
       - run: DATABASE_NAME=wagtail.db pipenv run python -u runtests.py
 
   frontend:
