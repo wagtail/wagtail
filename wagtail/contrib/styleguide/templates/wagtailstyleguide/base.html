@@ -431,7 +431,7 @@
 
         <section id="buttons">
             <h2>Buttons</h2>
-            <p class="help-block help-warning">Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button">{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.</p>
+            <p class="help-block help-warning">Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button"></button>{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.</p>
 
 
             <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
