@@ -8,11 +8,7 @@
     <div class="row row-flush">
 
         {% usage_count_enabled as uc_enabled %}
-        {% if uc_enabled %}
-        <div class="col10 divider-after">
-        {% else %}
-        <div class="col12">
-        {% endif %}
+        <div class="{% if uc_enabled %}col10 divider-after{% else %}col12{% endif %}">
             <form action="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 {% csrf_token %}
                 {{ edit_handler.render_form_content }}
