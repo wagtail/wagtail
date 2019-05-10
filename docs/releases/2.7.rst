@@ -35,6 +35,7 @@ Other features
  * Add ability for users to change their own name via the account settings page (Kevin Howbrook)
  * Add ability to insert telephone numbers as links in Draftail (rich text) fields (Mikael Engström and Liam Brenner)
  * Increase delay before search in the snippet chooser, to prevent redundant search request round trips (Robert Rollins)
+ * Add ``WAGTAIL_EMAIL_MANAGEMENT_ENABLED`` setting to determine whether users can change their email address (Janne Alatalo)
 
 
 Bug fixes

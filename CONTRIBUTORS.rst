@@ -394,6 +394,7 @@ Contributors
 * Zac Connelly
 * Sarath Kumar Somana
 * Dani Hodovic
+* Janne Alatalo
 
 Translators
 ===========

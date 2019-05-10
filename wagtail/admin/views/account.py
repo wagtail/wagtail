@@ -33,6 +33,10 @@ def password_management_enabled():
     return getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)
 
 
+def email_management_enabled():
+    return getattr(settings, 'WAGTAIL_EMAIL_MANAGEMENT_ENABLED', True)
+
+
 def password_reset_enabled():
     return getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', password_management_enabled())
 
@@ -80,6 +84,8 @@ def change_password(request):
 
 
 def change_email(request):
+    if not email_management_enabled():
+        raise Http404
     if request.method == 'POST':
         form = EmailForm(request.POST, instance=request.user)
 
