@@ -780,9 +780,9 @@
             <h2>Misc formatters</h2>
             <h3>Avatar icons</h3>
 
-            <p><span class="avatar"><img src="{% avatar_url user size=50 %}" /></span> Avatar normal</p>
-            <p><span class="avatar square"><img src="{% avatar_url user size=50 %}" /></span> Avatar square</p>
-            <p><span class="avatar small"><img src="{% avatar_url user size=25 %}" /></span> Avatar small</p>
+            <p><span class="avatar"><img src="{% avatar_url user size=50 %}" alt="" /></span> Avatar normal</p>
+            <p><span class="avatar square"><img src="{% avatar_url user size=50 %}" alt="" /></span> Avatar square</p>
+            <p><span class="avatar small"><img src="{% avatar_url user size=25 %}" alt="" /></span> Avatar small</p>
 
             <h3>Status tags</h3>
             <div class="status-tag primary">Primary tag</div>
@@ -793,12 +793,12 @@
             <p>Add the following <code>div</code> around any items you wish to display with a spinner overlay and fading out</p>
             <p>Remove the "loading" class to disable the effect</p>
             <div class="loading-mask loading" style="width:200px">
-                <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" />
+                <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" alt="Wagtail" />
             </div>
 
             <h3>Image transparency</h3>
             <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> tag thus:</p>
-            <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" />
+            <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" alt="Wagtail" />
         </section>
 
         <section id="icons" class="icons">
