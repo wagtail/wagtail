@@ -1,3 +1,10 @@
+$.fn.datetimepicker.defaults.i18n.wagtail_custom_locale = {
+    months: wagtailConfig.STRINGS.MONTHS,
+    dayOfWeek: wagtailConfig.STRINGS.WEEKDAYS,
+    dayOfWeekShort: wagtailConfig.STRINGS.WEEKDAYS_SHORT,
+};
+$.datetimepicker.setLocale('wagtail_custom_locale');
+
 // Compare two date objects. Ignore minutes and seconds.
 function dateEqual(x, y) {
     return x.getDate() === y.getDate() &&
