@@ -9,7 +9,7 @@
     <div class="nice-padding">
         <p>{% trans "Your current profile picture:" %}</p>
         <p>
-            <span class="avatar square"><img src="{% avatar_url request.user size=50 %}"></span>
+            <span class="avatar square"><img src="{% avatar_url request.user size=50 %}" alt=""></span>
         </p>
 
         <form action="{% url 'wagtailadmin_account_change_avatar' %}" method="POST" enctype="multipart/form-data">
