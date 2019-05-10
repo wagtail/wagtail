@@ -198,6 +198,8 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
         # Page should contain a 'Change password' option
         self.assertContains(response, "Change password")
+        # Page should contain a 'Change email' option
+        self.assertContains(response, "Change email")
 
     def test_change_email_view(self):
         """
@@ -240,6 +242,30 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # Check that the password was not changed
         self.assertNotEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
+
+
+    @override_settings(WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False)
+    def test_account_view_with_email_management_disabled(self):
+        # Get account page
+        response = self.client.get(reverse('wagtailadmin_account'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
+        # Page should NOT contain a 'Change email' option
+        self.assertNotContains(response, "Change email")
+
+
+    @override_settings(WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False)
+    def test_change_email_view_disabled(self):
+        """
+        This tests that the change email view responds with a 404
+        when setting WAGTAIL_EMAIL_MANAGEMENT_ENABLED is False
+        """
+        # Get change email page
+        response = self.client.get(reverse('wagtailadmin_account_change_email'))
+
+        # Check that the user received a 404
+        self.assertEqual(response.status_code, 404)
 
 
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
