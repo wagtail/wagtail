@@ -44,7 +44,7 @@ class TestEditorHtmlImageEmbedHandler(TestCase, WagtailTestUtils):
     def test_expand_db_attributes_for_editor_nonexistent_image(self):
         self.assertEqual(
             EditorHtmlImageEmbedHandler.expand_db_attributes({'id': 0}),
-            '<img>'
+            '<img alt="">'
         )
 
     def test_expand_db_attributes_for_editor_escapes_alt_text(self):
@@ -96,7 +96,7 @@ class TestFrontendImageEmbedHandler(TestCase, WagtailTestUtils):
 
     def test_expand_db_attributes_for_frontend_with_nonexistent_image(self):
         result = FrontendImageEmbedHandler.expand_db_attributes({'id': 0})
-        self.assertEqual(result, '<img>')
+        self.assertEqual(result, '<img alt="">')
 
     def test_expand_db_attributes_for_frontend_escapes_alt_text(self):
         Image.objects.create(id=1, title='Test', file=get_test_image_file())

@@ -23,7 +23,7 @@ class ImageEmbedHandler(EmbedHandler):
         try:
             image = cls.get_instance(attrs)
         except ObjectDoesNotExist:
-            return "<img>"
+            return '<img alt="">'
 
         image_format = get_image_format(attrs['format'])
         return image_format.image_to_html(image, attrs.get('alt', ''))
