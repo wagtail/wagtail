@@ -36,7 +36,7 @@ class ImageEmbedHandler:
         try:
             image = Image.objects.get(id=attrs['id'])
         except Image.DoesNotExist:
-            return "<img>"
+            return '<img alt="">'
 
         image_format = get_image_format(attrs['format'])
 
