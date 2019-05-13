@@ -19,8 +19,7 @@ from wagtail.admin.search import SearchArea
 from wagtail.admin.utils import (
     get_available_admin_languages, get_available_admin_time_zones,
     user_has_any_page_permission)
-from wagtail.admin.views.account import (
-    password_management_enabled, email_management_enabled)
+from wagtail.admin.views.account import email_management_enabled, password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
