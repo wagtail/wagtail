@@ -7,7 +7,7 @@
 
 {% block content %}
 
-    <header class="merged tab-merged">
+    <header class="merged tab-merged" role="banner">
         {% explorer_breadcrumb parent_page include_self=1 %}
 
         <div class="row row-flush">
@@ -23,7 +23,7 @@
         <input type="hidden" name="next" value="{{ next }}">
         {{ edit_handler.render_form_content }}
 
-        <footer>
+        <footer role="contentinfo">
             <ul>
                 <li class="actions">
                     <div class="dropdown dropup dropdown-button match-width">
