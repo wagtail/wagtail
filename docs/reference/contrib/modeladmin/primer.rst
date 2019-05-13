@@ -105,8 +105,7 @@ The ``ModelAdmin`` class provides several attributes to enable you to easily
 add additional stylesheets and JavaScript to the admin interface for your
 model. Each attribute simply needs to be a list of paths to the files you
 want to include. If the path is for a file in your project's static directory,
-Wagtail will automatically prepended paths for each path with ``STATIC_URL``,
-so you don't need to repeat it each time in your list of paths.
+then Wagtail will automatically prepend the path with ``STATIC_URL`` so that you don't need to repeat it each time in your list of paths.
 
 If you'd like to add styles or scripts to the ``IndexView``, you should set the
 following attributes:
