@@ -123,7 +123,7 @@
 }
 
 
-div.pagination {
+.pagination {
     margin-top: 3em;
     border-top: 1px dashed #d9d9d9;
     padding: 2em 1em 0;
@@ -161,12 +161,12 @@ p.no-results {
         }
     }
 
-    div.pagination {
+    .pagination {
         padding-left: 50px;
         padding-right: 50px;
     }
 
-    div.pagination.col9 {
+    .pagination.col9 {
         width: 73.5%;
     }
 
@@ -184,7 +184,7 @@ p.no-results {
         width: 21%;
     }
 
-    div.pagination.col9 {
+    .pagination.col9 {
         width: 77.5%;
     }
 }

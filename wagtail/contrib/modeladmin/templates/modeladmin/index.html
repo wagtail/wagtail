@@ -14,7 +14,7 @@
 
 {% block content %}
     {% block header %}
-        <header class="nice-padding hasform">
+        <header class="nice-padding hasform" role="banner">
             <div class="row header-title">
                 <div class="left">
                     <div class="col">
@@ -74,7 +74,7 @@
                     </div>
 
                     {% block pagination %}
-                        <div class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}">
+                        <nav class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}" role="navigation" aria-label="{% trans 'Pagination' %}">
                             <p>{% blocktrans with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
                             {% if paginator.num_pages > 1 %}
                                 <ul>
@@ -82,7 +82,7 @@
                                     {% pagination_link_next page_obj view %}
                                 </ul>
                             {% endif %}
-                        </div>
+                        </nav>
                     {% endblock %}
 
                 {% endblock %}

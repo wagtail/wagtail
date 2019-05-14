@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block furniture %}
-    <div class="content-wrapper">
+    <main class="content-wrapper" role="main">
     {% if validlink %}
         <form method="post" novalidate>
             {% csrf_token %}
@@ -68,5 +68,5 @@
         <a href="{% url 'wagtailadmin_password_reset' %}" class="button">{% trans 'Request a new password reset' %}</a>
     {% endif %}
 
-    </div>
+    </main>
 {% endblock %}

@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block furniture %}
-    <div class="content-wrapper">
+    <main class="content-wrapper" role="main">
         {% if messages or form.errors %}
             <div class="messages">
                 <ul>
@@ -88,7 +88,7 @@
 
         {% block below_login %}{% endblock %}
 
-    </div>
+    </main>
 {% endblock %}
 
 {% block extra_js %}

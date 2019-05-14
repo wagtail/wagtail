@@ -4,7 +4,7 @@
 Pagination for page listings. Used by the `{% paginate %}` template tag.
 {% endcomment %}
 
-<div class="pagination">
+<nav class="pagination" role="navigation" aria-label="{% trans 'Pagination' %}">
     <p>{% blocktrans with page_number=page.number num_pages=paginator.num_pages %}
         Page {{ page_number }} of {{ num_pages }}.
     {% endblocktrans %}</p>
@@ -20,4 +20,4 @@ Pagination for page listings. Used by the `{% paginate %}` template tag.
             {% endif %}
         </li>
     </ul>
-</div>
+</nav>
