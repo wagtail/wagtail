@@ -3,7 +3,7 @@
 {% block titletag %}{% blocktrans %}Editing {{ setting_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-settings{% endblock %}
 {% block content %}
-    <header class="nice-padding {% if tabbed %}merged tab-merged{% endif %}">
+    <header class="nice-padding {% if tabbed %}merged tab-merged{% endif %}" role="banner">
         <div class="row">
             <div class="left">
                 <div class="col">
@@ -30,7 +30,7 @@
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
-        <footer>
+        <footer role="contentinfo">
             <ul>
                 <li class="actions dropdown dropup match-width">
                     <button type="submit" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em></button>
