@@ -169,7 +169,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
-        self.assertNotContains(response, '<ul class="tab-nav merged">')
+        self.assertNotContains(response, '<ul class="tab-nav merged" role="tablist">')
         self.assertNotContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
         self.assertNotContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
@@ -179,7 +179,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
-        self.assertContains(response, '<ul class="tab-nav merged">')
+        self.assertContains(response, '<ul class="tab-nav merged" role="tablist">')
         self.assertContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
         self.assertContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
@@ -255,7 +255,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
-        self.assertNotContains(response, '<ul class="tab-nav merged">')
+        self.assertNotContains(response, '<ul class="tab-nav merged" role="tablist">')
         self.assertNotContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
         self.assertNotContains(response, '<a href="#other" class="">Other</a>', html=True)
 
@@ -315,7 +315,7 @@ class TestEditTabbedSnippet(BaseTestSnippetEditView):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
-        self.assertContains(response, '<ul class="tab-nav merged">')
+        self.assertContains(response, '<ul class="tab-nav merged" role="tablist">')
         self.assertContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
         self.assertContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
