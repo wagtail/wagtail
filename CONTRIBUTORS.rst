@@ -372,6 +372,7 @@ Contributors
 * Adam Eikman
 * Andreas Bernacca
 * Alex Tomkins
+* Beth Menzies
 
 Translators
 ===========
