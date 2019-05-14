@@ -18,7 +18,7 @@ Other features
  * Rearranged SCSS folder structure to the client folder and split them approximately according to ITCSS. (Naomi Morduch Toubman, Jonny Scholes, Janneke Janssen, Hugo van den Berg)
  * Added support for specifying cell alignment on TableBlock (Samuel Mendes)
  * Added more informative error when a non-image object is passed to the ``image`` template tag (Deniz Dogan)
-
+ * Added more ARIA landmarks across the admin interface and welcome page for screen reader users to navigate the CMS more easily (Beth Menzies)
 
 Bug fixes
 ~~~~~~~~~
