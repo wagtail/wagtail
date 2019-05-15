@@ -14,6 +14,7 @@ Changelog
  * Multiple clarifications, grammar and typo fixes throughout documentation (Dan Swain)
  * Use correct URL in API example in documentation (Michael Bunsen)
  * Move datetime widget initialiser JS into the widget's form media instead of page editor media (Matt Westcott)
+ * Add form field prefixes for input forms in chooser modals (Matt Westcott)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
