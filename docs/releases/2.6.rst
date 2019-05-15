@@ -23,6 +23,7 @@ Other features
  * Multiple clarifications, grammar and typo fixes throughout documentation (Dan Swain)
  * Use correct URL in API example in documentation (Michael Bunsen)
  * Move datetime widget initialiser JS into the widget's form media instead of page editor media (Matt Westcott)
+ * Add form field prefixes for input forms in chooser modals (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~

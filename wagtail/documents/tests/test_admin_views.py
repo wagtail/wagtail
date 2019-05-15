@@ -824,8 +824,8 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
 
         # Submit
         post_data = {
-            'title': "Test document",
-            'file': fake_file,
+            'document-chooser-upload-title': "Test document",
+            'document-chooser-upload-file': fake_file,
         }
         response = self.client.post(reverse('wagtaildocs:chooser_upload'), post_data)
 
@@ -894,8 +894,8 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
 
         # Submit
         post_data = {
-            'title': "Test document",
-            'file': fake_file,
+            'document-chooser-upload-title': "Test document",
+            'document-chooser-upload-file': fake_file,
         }
         response = self.client.post(reverse('wagtaildocs:chooser_upload'), post_data)
 

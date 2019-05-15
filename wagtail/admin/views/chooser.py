@@ -192,7 +192,7 @@ def external_link(request):
     }
 
     if request.method == 'POST':
-        form = ExternalLinkChooserForm(request.POST, initial=initial_data)
+        form = ExternalLinkChooserForm(request.POST, initial=initial_data, prefix='external-link-chooser')
 
         if form.is_valid():
             result = {
@@ -211,7 +211,7 @@ def external_link(request):
                 None, json_data={'step': 'external_link_chosen', 'result': result}
             )
     else:
-        form = ExternalLinkChooserForm(initial=initial_data)
+        form = ExternalLinkChooserForm(initial=initial_data, prefix='external-link-chooser')
 
     return render_modal_workflow(
         request,
@@ -229,7 +229,7 @@ def email_link(request):
     }
 
     if request.method == 'POST':
-        form = EmailLinkChooserForm(request.POST, initial=initial_data)
+        form = EmailLinkChooserForm(request.POST, initial=initial_data, prefix='email-link-chooser')
 
         if form.is_valid():
             result = {
@@ -245,7 +245,7 @@ def email_link(request):
                 None, json_data={'step': 'external_link_chosen', 'result': result}
             )
     else:
-        form = EmailLinkChooserForm(initial=initial_data)
+        form = EmailLinkChooserForm(initial=initial_data, prefix='email-link-chooser')
 
     return render_modal_workflow(
         request,

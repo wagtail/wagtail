@@ -512,7 +512,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertContains(response, 'https://torchbox.com/')
 
     def test_create_link(self):
-        response = self.post({'url': 'http://www.example.com/', 'link_text': 'example'})
+        response = self.post({'external-link-chooser-url': 'http://www.example.com/', 'external-link-chooser-link_text': 'example'})
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'external_link_chosen')
@@ -521,7 +521,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['result']['prefer_this_title_as_link_text'], True)
 
     def test_create_link_without_text(self):
-        response = self.post({'url': 'http://www.example.com/'})
+        response = self.post({'external-link-chooser-url': 'http://www.example.com/'})
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'external_link_chosen')
@@ -531,7 +531,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
 
     def test_notice_changes_to_link_text(self):
         response = self.post(
-            {'url': 'http://www.example.com/', 'link_text': 'example'},  # POST data
+            {'external-link-chooser-url': 'http://www.example.com/', 'external-link-chooser-link_text': 'example'},  # POST data
             {'link_url': 'http://old.example.com/', 'link_text': 'example'}  # GET params - initial data
         )
         result = json.loads(response.content.decode())['result']
@@ -541,7 +541,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['prefer_this_title_as_link_text'], False)
 
         response = self.post(
-            {'url': 'http://www.example.com/', 'link_text': 'new example'},  # POST data
+            {'external-link-chooser-url': 'http://www.example.com/', 'external-link-chooser-link_text': 'new example'},  # POST data
             {'link_url': 'http://old.example.com/', 'link_text': 'example'}  # GET params - initial data
         )
         result = json.loads(response.content.decode())['result']
@@ -551,14 +551,14 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['prefer_this_title_as_link_text'], True)
 
     def test_invalid_url(self):
-        response = self.post({'url': 'ntp://www.example.com', 'link_text': 'example'})
+        response = self.post({'external-link-chooser-url': 'ntp://www.example.com', 'external-link-chooser-link_text': 'example'})
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'external_link')  # indicates failure / show error message
         self.assertContains(response, "Enter a valid URL.")
 
     def test_allow_local_url(self):
-        response = self.post({'url': '/admin/', 'link_text': 'admin'})
+        response = self.post({'external-link-chooser-url': '/admin/', 'external-link-chooser-link_text': 'admin'})
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'external_link_chosen')  # indicates success / post back to calling page
@@ -591,14 +591,14 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
         self.assertContains(response, 'example@example.com')
 
     def test_create_link(self):
-        response = self.post({'email_address': 'example@example.com', 'link_text': 'contact'})
+        response = self.post({'email-link-chooser-email_address': 'example@example.com', 'email-link-chooser-link_text': 'contact'})
         result = json.loads(response.content.decode())['result']
         self.assertEqual(result['url'], "mailto:example@example.com")
         self.assertEqual(result['title'], "contact")  # When link text is given, it is used
         self.assertEqual(result['prefer_this_title_as_link_text'], True)
 
     def test_create_link_without_text(self):
-        response = self.post({'email_address': 'example@example.com'})
+        response = self.post({'email-link-chooser-email_address': 'example@example.com'})
         result = json.loads(response.content.decode())['result']
         self.assertEqual(result['url'], "mailto:example@example.com")
         self.assertEqual(result['title'], "example@example.com")  # When no link text is given, it uses the email
@@ -606,7 +606,7 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
 
     def test_notice_changes_to_link_text(self):
         response = self.post(
-            {'email_address': 'example2@example.com', 'link_text': 'example'},  # POST data
+            {'email-link-chooser-email_address': 'example2@example.com', 'email-link-chooser-link_text': 'example'},  # POST data
             {'link_url': 'example@example.com', 'link_text': 'example'}  # GET params - initial data
         )
         result = json.loads(response.content.decode())['result']
@@ -616,7 +616,7 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['prefer_this_title_as_link_text'], False)
 
         response = self.post(
-            {'email_address': 'example2@example.com', 'link_text': 'new example'},  # POST data
+            {'email-link-chooser-email_address': 'example2@example.com', 'email-link-chooser-link_text': 'new example'},  # POST data
             {'link_url': 'example@example.com', 'link_text': 'example'}  # GET params - initial data
         )
         result = json.loads(response.content.decode())['result']

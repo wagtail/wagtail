@@ -179,7 +179,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         get_embed.return_value = Embed(html='<img src="http://www.example.com" />', title="An example embed")
 
         response = self.client.post(reverse('wagtailembeds:chooser_upload'), {
-            'url': 'http://www.example.com/'
+            'embed-chooser-url': 'http://www.example.com/'
         })
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
@@ -191,7 +191,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         get_embed.side_effect = EmbedNotFoundException
 
         response = self.client.post(reverse('wagtailembeds:chooser_upload'), {
-            'url': 'http://www.example.com/'
+            'embed-chooser-url': 'http://www.example.com/'
         })
         self.assertEqual(response.status_code, 200)
 
