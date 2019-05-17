@@ -16,7 +16,7 @@ deployments:
       - wagtail start mysite
       - cd /myproject/mysite
       - python manage.py migrate
-      - echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@myproject.com', 'password')" | python manage.py shell    
+      - echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'changeme')" | python manage.py shell    
     launch_steps:
       - cd /myproject/mysite
       - python manage.py runserver 0.0.0.0:80
