@@ -238,7 +238,7 @@ This would add the following to the JSON:
             "height": 1125
         },
         "feed_image_thumbnail": {
-            "url": "http://www.example.com/media/images/a_test_image.fill-100x100.jpg",
+            "url": "/media/images/a_test_image.fill-100x100.jpg",
             "width": 100,
             "height": 100
         }
