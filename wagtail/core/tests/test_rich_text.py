@@ -42,6 +42,7 @@ class TestExpandDbHtml(TestCase):
     @patch('wagtail.embeds.embeds.get_embed')
     def test_expand_db_html_with_embed(self, get_embed):
         from wagtail.embeds.models import Embed
+
         get_embed.return_value = Embed(html='test html')
         html = '<embed embedtype="media" url="http://www.youtube.com/watch" />'
         result = expand_db_html(html)
@@ -68,7 +69,7 @@ class TestRichTextValue(TestCase):
         result = str(value)
         self.assertEqual(
             result,
-            '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>'
+            '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>',
         )
 
     def test_evaluate_value(self):
@@ -89,12 +90,8 @@ class TestFeatureRegistry(TestCase):
 
     def test_missing_editor_plugin_returns_none(self):
         features = FeatureRegistry()
-        self.assertIsNone(
-            features.get_editor_plugin('made_up_editor', 'blockquote')
-        )
-        self.assertIsNone(
-            features.get_editor_plugin('hallo', 'made_up_feature')
-        )
+        self.assertIsNone(features.get_editor_plugin('made_up_editor', 'blockquote'))
+        self.assertIsNone(features.get_editor_plugin('hallo', 'made_up_feature'))
 
     def test_legacy_register_link_type(self):
         User = get_user_model()
@@ -110,7 +107,7 @@ class TestFeatureRegistry(TestCase):
         handler = features.get_link_types()['user']
         self.assertEqual(
             handler.expand_db_attributes({'username': 'wagtail'}),
-            '<a href="mailto:hello@wagtail.io">'
+            '<a href="mailto:hello@wagtail.io">',
         )
 
     def test_legacy_register_embed_type(self):
@@ -123,16 +120,14 @@ class TestFeatureRegistry(TestCase):
         handler = features.get_embed_types()['mock_embed']
         self.assertEqual(
             handler.expand_db_attributes({'content': 'foo'}),
-            '<div>embedded content: foo</div>'
+            '<div>embedded content: foo</div>',
         )
 
 
 class TestLinkRewriterTagReplacing(TestCase):
     def test_should_follow_default_behaviour(self):
         # we always have default `page` rules registered.
-        rules = {
-            'page': lambda attrs: '<a href="/article/{}">'.format(attrs['id'])
-        }
+        rules = {'page': lambda attrs: '<a href="/article/{}">'.format(attrs['id'])}
         rewriter = LinkRewriter(rules)
 
         page_type_link = rewriter('<a linktype="page" id="3">')
@@ -151,18 +146,25 @@ class TestLinkRewriterTagReplacing(TestCase):
 
         # But should not handle if a custom linktype is mentioned but no
         # associate rules are registered.
-        link_with_custom_linktype = rewriter('<a linktype="custom" href="https://wagtail.io">')
+        link_with_custom_linktype = rewriter(
+            '<a linktype="custom" href="https://wagtail.io">'
+        )
         self.assertNotEqual(link_with_custom_linktype, '<a href="https://wagtail.io">')
         self.assertEqual(link_with_custom_linktype, '<a>')
-
 
     def test_supported_type_should_follow_given_rules(self):
         # we always have `page` rules by default
         rules = {
             'page': lambda attrs: '<a href="/article/{}">'.format(attrs['id']),
-            'external': lambda attrs: '<a rel="nofollow" href="{}">'.format(attrs['href']),
-            'email': lambda attrs: '<a data-email="true" href="{}">'.format(attrs['href']),
-            'custom': lambda attrs: '<a data-phone="true" href="{}">'.format(attrs['href']),
+            'external': lambda attrs: '<a rel="nofollow" href="{}">'.format(
+                attrs['href']
+            ),
+            'email': lambda attrs: '<a data-email="true" href="{}">'.format(
+                attrs['href']
+            ),
+            'custom': lambda attrs: '<a data-phone="true" href="{}">'.format(
+                attrs['href']
+            ),
         }
         rewriter = LinkRewriter(rules)
 
@@ -172,16 +174,26 @@ class TestLinkRewriterTagReplacing(TestCase):
         # It should call appropriate rule supported linktypes (external or email)
         # based on the href value
         external_type_link = rewriter('<a href="https://wagtail.io/">')
-        self.assertEqual(external_type_link, '<a rel="nofollow" href="https://wagtail.io/">')
+        self.assertEqual(
+            external_type_link, '<a rel="nofollow" href="https://wagtail.io/">'
+        )
         external_type_link_http = rewriter('<a href="http://wagtail.io/">')
-        self.assertEqual(external_type_link_http, '<a rel="nofollow" href="http://wagtail.io/">')
+        self.assertEqual(
+            external_type_link_http, '<a rel="nofollow" href="http://wagtail.io/">'
+        )
         email_type_link = rewriter('<a href="mailto:test@wagtail.io">')
-        self.assertEqual(email_type_link, '<a data-email="true" href="mailto:test@wagtail.io">')
+        self.assertEqual(
+            email_type_link, '<a data-email="true" href="mailto:test@wagtail.io">'
+        )
 
         # But not the unsupported ones.
         link_with_no_linktype = rewriter('<a href="tel:+4917640206387">')
         self.assertEqual(link_with_no_linktype, '<a href="tel:+4917640206387">')
 
         # Also call the rule if a custom linktype is mentioned.
-        link_with_custom_linktype = rewriter('<a linktype="custom" href="tel:+4917640206387">')
-        self.assertEqual(link_with_custom_linktype, '<a data-phone="true" href="tel:+4917640206387">')
+        link_with_custom_linktype = rewriter(
+            '<a linktype="custom" href="tel:+4917640206387">'
+        )
+        self.assertEqual(
+            link_with_custom_linktype, '<a data-phone="true" href="tel:+4917640206387">'
+        )

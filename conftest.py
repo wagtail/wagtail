@@ -6,7 +6,11 @@ import django
 
 
 def pytest_addoption(parser):
-    parser.addoption('--deprecation', choices=['all', 'pending', 'imminent', 'none'], default='pending')
+    parser.addoption(
+        '--deprecation',
+        choices=['all', 'pending', 'imminent', 'none'],
+        default='pending',
+    )
     parser.addoption('--postgres', action='store_true')
     parser.addoption('--elasticsearch', action='store_true')
 
@@ -21,11 +25,17 @@ def pytest_configure(config):
         warnings.simplefilter('default', PendingDeprecationWarning)
     elif deprecation == 'pending':
         # Show all deprecation warnings from wagtail
-        warnings.filterwarnings('default', category=DeprecationWarning, module=only_wagtail)
-        warnings.filterwarnings('default', category=PendingDeprecationWarning, module=only_wagtail)
+        warnings.filterwarnings(
+            'default', category=DeprecationWarning, module=only_wagtail
+        )
+        warnings.filterwarnings(
+            'default', category=PendingDeprecationWarning, module=only_wagtail
+        )
     elif deprecation == 'imminent':
         # Show only imminent deprecation warnings from wagtail
-        warnings.filterwarnings('default', category=DeprecationWarning, module=only_wagtail)
+        warnings.filterwarnings(
+            'default', category=DeprecationWarning, module=only_wagtail
+        )
     elif deprecation == 'none':
         # Deprecation warnings are ignored by default
         pass
@@ -41,14 +51,17 @@ def pytest_configure(config):
     # Activate a language: This affects HTTP header HTTP_ACCEPT_LANGUAGE sent by
     # the Django test client.
     from django.utils import translation
+
     translation.activate("en")
 
     from wagtail.tests.settings import MEDIA_ROOT, STATIC_ROOT
+
     shutil.rmtree(STATIC_ROOT, ignore_errors=True)
     shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
 
 
 def pytest_unconfigure(config):
     from wagtail.tests.settings import MEDIA_ROOT, STATIC_ROOT
+
     shutil.rmtree(STATIC_ROOT, ignore_errors=True)
     shutil.rmtree(MEDIA_ROOT, ignore_errors=True)

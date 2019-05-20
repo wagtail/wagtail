@@ -15,7 +15,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='document',
             name='collection',
-            field=models.ForeignKey(related_name='+', to='wagtailcore.Collection', verbose_name='collection', default=wagtail.core.models.get_root_collection_id, on_delete=models.CASCADE),
+            field=models.ForeignKey(
+                related_name='+',
+                to='wagtailcore.Collection',
+                verbose_name='collection',
+                default=wagtail.core.models.get_root_collection_id,
+                on_delete=models.CASCADE,
+            ),
             preserve_default=True,
-        ),
+        )
     ]

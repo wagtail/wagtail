@@ -1,4 +1,3 @@
-
 # This file is heavily inspired by django.utils.version
 
 

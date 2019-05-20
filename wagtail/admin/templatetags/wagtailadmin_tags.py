@@ -17,7 +17,11 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.core import hooks
 from wagtail.core.models import (
-    CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
+    CollectionViewRestriction,
+    Page,
+    PageViewRestriction,
+    UserPagePermissionsProxy,
+)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url
@@ -37,19 +41,16 @@ def menu_search(context):
         return ''
     search_area = search_areas[0]
 
-    return render_to_string('wagtailadmin/shared/menu_search.html', {
-        'search_url': search_area.url,
-    })
+    return render_to_string(
+        'wagtailadmin/shared/menu_search.html', {'search_url': search_area.url}
+    )
 
 
 @register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
 def main_nav(context):
     request = context['request']
 
-    return {
-        'menu_html': admin_menu.render_html(request),
-        'request': request,
-    }
+    return {'menu_html': admin_menu.render_html(request), 'request': request}
 
 
 @register.inclusion_tag('wagtailadmin/shared/breadcrumb.html', takes_context=True)
@@ -63,7 +64,9 @@ def explorer_breadcrumb(context, page, include_self=False):
         return {'pages': Page.objects.none()}
 
     return {
-        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True).specific()
+        'pages': page.get_ancestors(inclusive=include_self)
+        .descendant_of(cca, inclusive=True)
+        .specific()
     }
 
 
@@ -87,7 +90,7 @@ def ellipsistrim(value, max_length):
     if len(value) > max_length:
         truncd_val = value[:max_length]
         if not len(value) == (max_length + 1) and value[max_length + 1] != " ":
-            truncd_val = truncd_val[:truncd_val.rfind(" ")]
+            truncd_val = truncd_val[: truncd_val.rfind(" ")]
         return truncd_val + "…"
     return value
 
@@ -118,7 +121,9 @@ def _get_user_page_permissions(context):
     # Create a UserPagePermissionsProxy object to represent the user's global permissions, and
     # cache it in the context for the duration of the page request, if one does not exist already
     if 'user_page_permissions' not in context:
-        context['user_page_permissions'] = UserPagePermissionsProxy(context['request'].user)
+        context['user_page_permissions'] = UserPagePermissionsProxy(
+            context['request'].user
+        )
 
     return context['user_page_permissions']
 
@@ -143,7 +148,9 @@ def test_collection_is_public(context, collection):
     DB queries on repeated calls.
     """
     if 'all_collection_view_restrictions' not in context:
-        context['all_collection_view_restrictions'] = CollectionViewRestriction.objects.select_related('collection').values_list(
+        context[
+            'all_collection_view_restrictions'
+        ] = CollectionViewRestriction.objects.select_related('collection').values_list(
             'collection__name', flat=True
         )
 
@@ -162,14 +169,18 @@ def test_page_is_public(context, page):
     DB queries on repeated calls.
     """
     if 'all_page_view_restriction_paths' not in context:
-        context['all_page_view_restriction_paths'] = PageViewRestriction.objects.select_related('page').values_list(
+        context[
+            'all_page_view_restriction_paths'
+        ] = PageViewRestriction.objects.select_related('page').values_list(
             'page__path', flat=True
         )
 
-    is_private = any([
-        page.path.startswith(restricted_path)
-        for restricted_path in context['all_page_view_restriction_paths']
-    ])
+    is_private = any(
+        [
+            page.path.startswith(restricted_path)
+            for restricted_path in context['all_page_view_restriction_paths']
+        ]
+    )
 
     return not is_private
 
@@ -242,7 +253,7 @@ def render_with_errors(bound_field):
             bound_field.html_name,
             bound_field.value(),
             attrs={'id': bound_field.auto_id},
-            errors=bound_field.errors
+            errors=bound_field.errors,
         )
     else:
         return bound_field.as_widget()
@@ -254,7 +265,9 @@ def has_unrendered_errors(bound_field):
     Return true if this field has errors that were not accounted for by render_with_errors, because
     the widget does not support the render_with_errors method
     """
-    return bound_field.errors and not hasattr(bound_field.field.widget, 'render_with_errors')
+    return bound_field.errors and not hasattr(
+        bound_field.field.widget, 'render_with_errors'
+    )
 
 
 @register.filter(is_safe=True)
@@ -291,7 +304,15 @@ def querystring(context, **kwargs):
 
 
 @register.simple_tag(takes_context=True)
-def table_header_label(context, label=None, sortable=True, ordering=None, sort_context_var='ordering', sort_param='ordering', sort_field=None):
+def table_header_label(
+    context,
+    label=None,
+    sortable=True,
+    ordering=None,
+    sort_context_var='ordering',
+    sort_param='ordering',
+    sort_field=None,
+):
     """
     A label to go in a table header cell, optionally with a 'sort' link that alternates between
     forward and reverse sorting
@@ -333,7 +354,9 @@ def table_header_label(context, label=None, sortable=True, ordering=None, sort_c
     return format_html(
         # need whitespace around label for correct positioning of arrow icon
         '<a href="{url}" class="{classname}"> {label} </a>',
-        url=url, classname=classname, label=label
+        url=url,
+        classname=classname,
+        label=label,
     )
 
 
@@ -349,10 +372,10 @@ def pagination_querystring(context, page_number, page_key='p'):
     return querystring(context, **{page_key: page_number})
 
 
-@register.inclusion_tag("wagtailadmin/pages/listing/_pagination.html",
-                        takes_context=True)
-def paginate(context, page, base_url='', page_key='p',
-             classnames=''):
+@register.inclusion_tag(
+    "wagtailadmin/pages/listing/_pagination.html", takes_context=True
+)
+def paginate(context, page, base_url='', page_key='p', classnames=''):
     """
     Print pagination previous/next links, and the page count. Take the
     following arguments:
@@ -383,13 +406,14 @@ def paginate(context, page, base_url='', page_key='p',
     }
 
 
-@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
-                        takes_context=True)
+@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
 def page_listing_buttons(context, page, page_perms, is_parent=False):
     button_hooks = hooks.get_hooks('register_page_listing_buttons')
-    buttons = sorted(itertools.chain.from_iterable(
-        hook(page, page_perms, is_parent)
-        for hook in button_hooks))
+    buttons = sorted(
+        itertools.chain.from_iterable(
+            hook(page, page_perms, is_parent) for hook in button_hooks
+        )
+    )
     return {'page': page, 'buttons': buttons}
 
 
@@ -437,7 +461,9 @@ def avatar_url(user, size=50):
 
 @register.simple_tag
 def ajax_pagination_nav_deprecation_warning():
-    warn('Passing is_ajax=1 to wagtailadmin/shared/pagination_nav.html is deprecated. '
-         'Use wagtailadmin/shared/ajax_pagination_nav.html instead',
-         category=RemovedInWagtail27Warning)
+    warn(
+        'Passing is_ajax=1 to wagtailadmin/shared/pagination_nav.html is deprecated. '
+        'Use wagtailadmin/shared/ajax_pagination_nav.html instead',
+        category=RemovedInWagtail27Warning,
+    )
     return ''

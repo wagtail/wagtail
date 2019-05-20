@@ -6,7 +6,9 @@ from draftjs_exporter.defaults import render_children
 from draftjs_exporter.dom import DOM
 from draftjs_exporter.html import HTML as HTMLExporter
 
-from wagtail.admin.rich_text.converters.html_to_contentstate import HtmlToContentStateHandler
+from wagtail.admin.rich_text.converters.html_to_contentstate import (
+    HtmlToContentStateHandler,
+)
 from wagtail.core.rich_text import features as feature_registry
 
 
@@ -45,7 +47,7 @@ def entity_fallback(props):
     return None
 
 
-class ContentstateConverter():
+class ContentstateConverter:
     def __init__(self, features=None):
         self.features = features
         self.html_to_contentstate_handler = HtmlToContentStateHandler(features)
@@ -57,15 +59,8 @@ class ContentstateConverter():
                 'fallback': block_fallback,
             },
             'style_map': {},
-            'entity_decorators': {
-                'FALLBACK': entity_fallback,
-            },
-            'composite_decorators': [
-                {
-                    'strategy': re.compile(r'\n'),
-                    'component': br,
-                },
-            ],
+            'entity_decorators': {'FALLBACK': entity_fallback},
+            'composite_decorators': [{'strategy': re.compile(r'\n'), 'component': br}],
             'engine': DOM.STRING,
         }
 
@@ -75,7 +70,9 @@ class ContentstateConverter():
                 feature_config = rule['to_database_format']
                 exporter_config['block_map'].update(feature_config.get('block_map', {}))
                 exporter_config['style_map'].update(feature_config.get('style_map', {}))
-                exporter_config['entity_decorators'].update(feature_config.get('entity_decorators', {}))
+                exporter_config['entity_decorators'].update(
+                    feature_config.get('entity_decorators', {})
+                )
 
         self.exporter = HTMLExporter(exporter_config)
 
@@ -84,7 +81,9 @@ class ContentstateConverter():
         self.html_to_contentstate_handler.feed(html)
         self.html_to_contentstate_handler.close()
 
-        return self.html_to_contentstate_handler.contentstate.as_json(indent=4, separators=(',', ': '))
+        return self.html_to_contentstate_handler.contentstate.as_json(
+            indent=4, separators=(',', ': ')
+        )
 
     def to_database_format(self, contentstate_json):
         return self.exporter.render(json.loads(contentstate_json))

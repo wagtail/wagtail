@@ -27,8 +27,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         # Create group with access to admin
         editors_group = Group.objects.create(name='The Editors')
         access_admin_perm = Permission.objects.get(
-            content_type__app_label='wagtailadmin',
-            codename='access_admin'
+            content_type__app_label='wagtailadmin', codename='access_admin'
         )
         editors_group.permissions.add(access_admin_perm)
 
@@ -157,7 +156,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         Document.objects.create(title=doc_title, collection=root)
 
         # when searching for documents in another collection at chooser panel
-        non_root_id = root_id + 10**10
+        non_root_id = root_id + 10 ** 10
         response = self.get({'q': '', 'collection_id': non_root_id})
 
         # then results template is used
@@ -177,7 +176,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         Document.objects.create(collection=root)
 
         # when searching for documents in another collection at chooser panel
-        non_root_id = root_id + 10**10
+        non_root_id = root_id + 10 ** 10
         response = self.get({'q': '', 'collection_id': non_root_id})
 
         # then results template is used

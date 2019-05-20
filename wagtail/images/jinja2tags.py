@@ -32,10 +32,7 @@ class WagtailImagesExtension(Extension):
     def __init__(self, environment):
         super().__init__(environment)
 
-        self.environment.globals.update({
-            'image': image,
-            'image_url': image_url,
-        })
+        self.environment.globals.update({'image': image, 'image_url': image_url})
 
 
 # Nicer import names

@@ -34,10 +34,12 @@ class SafePaginateListView(ListView):
             queryset,
             page_size,
             orphans=self.get_paginate_orphans(),
-            allow_empty_first_page=self.get_allow_empty()
+            allow_empty_first_page=self.get_allow_empty(),
         )
         page_kwarg = self.page_kwarg
-        page_request = self.kwargs.get(page_kwarg) or self.request.GET.get(page_kwarg) or 0
+        page_request = (
+            self.kwargs.get(page_kwarg) or self.request.GET.get(page_kwarg) or 0
+        )
         try:
             page_number = int(page_request)
         except ValueError:
@@ -58,6 +60,7 @@ class SafePaginateListView(ListView):
 
 class FormPagesListView(SafePaginateListView):
     """ Lists the available form pages for the current user """
+
     template_name = 'wagtailforms/index.html'
     context_object_name = 'form_pages'
 
@@ -74,6 +77,7 @@ class FormPagesListView(SafePaginateListView):
 
 class DeleteSubmissionsView(TemplateView):
     """ Delete the selected submissions """
+
     template_name = 'wagtailforms/confirm_delete.html'
     page = None
     submissions = None
@@ -94,8 +98,9 @@ class DeleteSubmissionsView(TemplateView):
             ungettext(
                 'One submission has been deleted.',
                 '%(count)d submissions have been deleted.',
-                count
-            ) % {'count': count}
+                count,
+            )
+            % {'count': count},
         )
 
     def get_success_url(self):
@@ -123,22 +128,20 @@ class DeleteSubmissionsView(TemplateView):
         """ Get the context for this view """
         context = super().get_context_data(**kwargs)
 
-        context.update({
-            'page': self.page,
-            'submissions': self.submissions,
-        })
+        context.update({'page': self.page, 'submissions': self.submissions})
 
         return context
 
 
 class SubmissionsListView(SafePaginateListView):
     """ Lists submissions for the provided form page """
+
     template_name = 'wagtailforms/index_submissions.html'
     context_object_name = 'submissions'
     form_page = None
     ordering = ('-submit_time',)
     ordering_csv = ('submit_time',)  # keep legacy CSV ordering
-    orderable_fields = ('id', 'submit_time',)  # used to validate ordering in URL
+    orderable_fields = ('id', 'submit_time')  # used to validate ordering in URL
     select_date_form = None
 
     def dispatch(self, request, *args, **kwargs):
@@ -149,7 +152,7 @@ class SubmissionsListView(SafePaginateListView):
         if not get_forms_for_user(request.user).filter(pk=self.form_page.id).exists():
             raise PermissionDenied
 
-        self.is_csv_export = (self.request.GET.get('action') == 'CSV')
+        self.is_csv_export = self.request.GET.get('action') == 'CSV'
         if self.is_csv_export:
             self.paginate_by = None
 
@@ -195,7 +198,8 @@ class SubmissionsListView(SafePaginateListView):
                 _, prefix, field_name = order.rpartition('-')
                 if field_name in orderable_fields:
                     ordering[field_name] = (
-                        prefix, 'descending' if prefix == '-' else 'ascending'
+                        prefix,
+                        'descending' if prefix == '-' else 'ascending',
                     )
             except (IndexError, ValueError):
                 continue  # invalid ordering specified, skip it
@@ -227,9 +231,7 @@ class SubmissionsListView(SafePaginateListView):
 
     def get_csv_filename(self):
         """ Returns the filename for the generated CSV file """
-        return 'export-{}.csv'.format(
-            datetime.datetime.today().strftime('%Y-%m-%d')
-        )
+        return 'export-{}.csv'.format(datetime.datetime.today().strftime('%Y-%m-%d'))
 
     def get_csv_response(self, context):
         """ Returns a CSV response """
@@ -278,10 +280,7 @@ class SubmissionsListView(SafePaginateListView):
                     if isinstance(val, list):
                         val = ', '.join(val)
                     data_row.append(val)
-                data_rows.append({
-                    'model_id': submission.id,
-                    'fields': data_row
-                })
+                data_rows.append({'model_id': submission.id, 'fields': data_row})
             # Build data_headings as list of dicts containing model_id and fields
             ordering_by_field = self.get_validated_ordering()
             orderable_fields = self.orderable_fields
@@ -294,18 +293,18 @@ class SubmissionsListView(SafePaginateListView):
                         order_label = order[1]  # 'ascending' or 'descending'
                     else:
                         order_label = 'orderable'  # not ordered yet but can be
-                data_headings.append({
-                    'name': name,
-                    'label': label,
-                    'order': order_label,
-                })
+                data_headings.append(
+                    {'name': name, 'label': label, 'order': order_label}
+                )
 
-        context.update({
-            'form_page': self.form_page,
-            'select_date_form': self.select_date_form,
-            'data_headings': data_headings,
-            'data_rows': data_rows,
-            'submissions': submissions,
-        })
+        context.update(
+            {
+                'form_page': self.form_page,
+                'select_date_form': self.select_date_form,
+                'data_headings': data_headings,
+                'data_rows': data_rows,
+                'submissions': submissions,
+            }
+        )
 
         return context

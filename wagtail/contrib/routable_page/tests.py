@@ -3,10 +3,14 @@ from unittest import mock
 from django.test import RequestFactory, TestCase
 from django.urls.exceptions import NoReverseMatch
 
-from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import routablepageurl
+from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import (
+    routablepageurl,
+)
 from wagtail.core.models import Page, Site
 from wagtail.tests.routablepage.models import (
-    RoutablePageTest, RoutablePageWithOverriddenIndexRouteTest)
+    RoutablePageTest,
+    RoutablePageWithOverriddenIndexRouteTest,
+)
 
 
 class TestRoutablePage(TestCase):
@@ -14,10 +18,9 @@ class TestRoutablePage(TestCase):
 
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
-        self.routable_page = self.home_page.add_child(instance=self.model(
-            title="Routable Page",
-            live=True,
-        ))
+        self.routable_page = self.home_page.add_child(
+            instance=self.model(title="Routable Page", live=True)
+        )
 
     def test_resolve_index_route_view(self):
         view, args, kwargs = self.routable_page.resolve_subpage('/')
@@ -30,11 +33,13 @@ class TestRoutablePage(TestCase):
         view, args, kwargs = self.routable_page.resolve_subpage('/archive/year/2014/')
 
         self.assertEqual(view, self.routable_page.archive_by_year)
-        self.assertEqual(args, ('2014', ))
+        self.assertEqual(args, ('2014',))
         self.assertEqual(kwargs, {})
 
     def test_resolve_archive_by_author_view(self):
-        view, args, kwargs = self.routable_page.resolve_subpage('/archive/author/joe-bloggs/')
+        view, args, kwargs = self.routable_page.resolve_subpage(
+            '/archive/author/joe-bloggs/'
+        )
 
         self.assertEqual(view, self.routable_page.archive_by_author)
         self.assertEqual(args, ())
@@ -44,7 +49,7 @@ class TestRoutablePage(TestCase):
         view, args, kwargs = self.routable_page.resolve_subpage('/external/joe-bloggs/')
 
         self.assertEqual(view, self.routable_page.external_view)
-        self.assertEqual(args, ('joe-bloggs', ))
+        self.assertEqual(args, ('joe-bloggs',))
         self.assertEqual(kwargs, {})
 
     def test_resolve_external_view_other_route(self):
@@ -60,12 +65,14 @@ class TestRoutablePage(TestCase):
         self.assertEqual(url, '')
 
     def test_reverse_archive_by_year_view(self):
-        url = self.routable_page.reverse_subpage('archive_by_year', args=('2014', ))
+        url = self.routable_page.reverse_subpage('archive_by_year', args=('2014',))
 
         self.assertEqual(url, 'archive/year/2014/')
 
     def test_reverse_archive_by_author_view(self):
-        url = self.routable_page.reverse_subpage('archive_by_author', kwargs={'author_slug': 'joe-bloggs'})
+        url = self.routable_page.reverse_subpage(
+            'archive_by_author', kwargs={'author_slug': 'joe-bloggs'}
+        )
 
         self.assertEqual(url, 'archive/author/joe-bloggs/')
 
@@ -79,7 +86,7 @@ class TestRoutablePage(TestCase):
             self.routable_page.reverse_subpage('override_name_test')
 
     def test_reverse_external_view(self):
-        url = self.routable_page.reverse_subpage('external_view', args=('joe-bloggs', ))
+        url = self.routable_page.reverse_subpage('external_view', args=('joe-bloggs',))
 
         self.assertEqual(url, 'external/joe-bloggs/')
 
@@ -96,8 +103,7 @@ class TestRoutablePage(TestCase):
     def test_get_routable_page_with_overridden_index_route(self):
         page = self.home_page.add_child(
             instance=RoutablePageWithOverriddenIndexRouteTest(
-                title="Routable Page with overridden index",
-                live=True
+                title="Routable Page with overridden index", live=True
             )
         )
         response = self.client.get(page.url)
@@ -115,7 +121,9 @@ class TestRoutablePage(TestCase):
         self.assertContains(response, "we were always at war with eastasia")
 
     def test_get_archive_by_author_view(self):
-        response = self.client.get(self.routable_page.url + 'archive/author/joe-bloggs/')
+        response = self.client.get(
+            self.routable_page.url + 'archive/author/joe-bloggs/'
+        )
 
         self.assertContains(response, "ARCHIVE BY AUTHOR: joe-bloggs")
 
@@ -152,10 +160,9 @@ class TestRoutablePage(TestCase):
 class TestRoutablePageTemplateTag(TestCase):
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
-        self.routable_page = self.home_page.add_child(instance=RoutablePageTest(
-            title="Routable Page",
-            live=True,
-        ))
+        self.routable_page = self.home_page.add_child(
+            instance=RoutablePageTest(title="Routable Page", live=True)
+        )
 
         self.rf = RequestFactory()
         self.request = self.rf.get(self.routable_page.url)
@@ -163,32 +170,40 @@ class TestRoutablePageTemplateTag(TestCase):
         self.context = {'request': self.request}
 
     def test_templatetag_reverse_index_route(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'index_route')
+        url = routablepageurl(self.context, self.routable_page, 'index_route')
         self.assertEqual(url, '/%s/' % self.routable_page.slug)
 
     def test_templatetag_reverse_archive_by_year_view(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'archive_by_year', '2014')
+        url = routablepageurl(
+            self.context, self.routable_page, 'archive_by_year', '2014'
+        )
 
         self.assertEqual(url, '/%s/archive/year/2014/' % self.routable_page.slug)
 
     def test_templatetag_reverse_archive_by_author_view(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'archive_by_author', author_slug='joe-bloggs')
+        url = routablepageurl(
+            self.context,
+            self.routable_page,
+            'archive_by_author',
+            author_slug='joe-bloggs',
+        )
 
-        self.assertEqual(url, '/%s/archive/author/joe-bloggs/' % self.routable_page.slug)
+        self.assertEqual(
+            url, '/%s/archive/author/joe-bloggs/' % self.routable_page.slug
+        )
 
     def test_templatetag_reverse_external_view(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'external_view', 'joe-bloggs')
+        url = routablepageurl(
+            self.context, self.routable_page, 'external_view', 'joe-bloggs'
+        )
 
         self.assertEqual(url, '/%s/external/joe-bloggs/' % self.routable_page.slug)
 
     def test_templatetag_reverse_external_view_without_append_slash(self):
         with mock.patch('wagtail.core.models.WAGTAIL_APPEND_SLASH', False):
-            url = routablepageurl(self.context, self.routable_page,
-                                  'external_view', 'joe-bloggs')
+            url = routablepageurl(
+                self.context, self.routable_page, 'external_view', 'joe-bloggs'
+            )
             expected = '/' + self.routable_page.slug + '/' + 'external/joe-bloggs/'
 
         self.assertEqual(url, expected)
@@ -199,6 +214,7 @@ class TestRoutablePageTemplateTagForSecondSiteAtSameRoot(TestCase):
     When multiple sites exist on the same root page, relative URLs within that subtree should
     omit the domain, in line with #4390
     """
+
     def setUp(self):
         default_site = Site.objects.get(is_default_site=True)
         second_site = Site.objects.create(  # add another site with the same root page
@@ -208,10 +224,9 @@ class TestRoutablePageTemplateTagForSecondSiteAtSameRoot(TestCase):
         )
 
         self.home_page = Page.objects.get(id=2)
-        self.routable_page = self.home_page.add_child(instance=RoutablePageTest(
-            title="Routable Page",
-            live=True,
-        ))
+        self.routable_page = self.home_page.add_child(
+            instance=RoutablePageTest(title="Routable Page", live=True)
+        )
 
         self.rf = RequestFactory()
         self.request = self.rf.get(self.routable_page.url)
@@ -221,32 +236,40 @@ class TestRoutablePageTemplateTagForSecondSiteAtSameRoot(TestCase):
         self.request.site = second_site
 
     def test_templatetag_reverse_index_route(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'index_route')
+        url = routablepageurl(self.context, self.routable_page, 'index_route')
         self.assertEqual(url, '/%s/' % self.routable_page.slug)
 
     def test_templatetag_reverse_archive_by_year_view(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'archive_by_year', '2014')
+        url = routablepageurl(
+            self.context, self.routable_page, 'archive_by_year', '2014'
+        )
 
         self.assertEqual(url, '/%s/archive/year/2014/' % self.routable_page.slug)
 
     def test_templatetag_reverse_archive_by_author_view(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'archive_by_author', author_slug='joe-bloggs')
+        url = routablepageurl(
+            self.context,
+            self.routable_page,
+            'archive_by_author',
+            author_slug='joe-bloggs',
+        )
 
-        self.assertEqual(url, '/%s/archive/author/joe-bloggs/' % self.routable_page.slug)
+        self.assertEqual(
+            url, '/%s/archive/author/joe-bloggs/' % self.routable_page.slug
+        )
 
     def test_templatetag_reverse_external_view(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'external_view', 'joe-bloggs')
+        url = routablepageurl(
+            self.context, self.routable_page, 'external_view', 'joe-bloggs'
+        )
 
         self.assertEqual(url, '/%s/external/joe-bloggs/' % self.routable_page.slug)
 
     def test_templatetag_reverse_external_view_without_append_slash(self):
         with mock.patch('wagtail.core.models.WAGTAIL_APPEND_SLASH', False):
-            url = routablepageurl(self.context, self.routable_page,
-                                  'external_view', 'joe-bloggs')
+            url = routablepageurl(
+                self.context, self.routable_page, 'external_view', 'joe-bloggs'
+            )
             expected = '/' + self.routable_page.slug + '/' + 'external/joe-bloggs/'
 
         self.assertEqual(url, expected)
@@ -256,21 +279,19 @@ class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
     """
     When multiple sites exist, relative URLs between such sites should include the domain portion
     """
+
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
 
         events_page = self.home_page.add_child(instance=Page(title='Events', live=True))
 
         second_site = Site.objects.create(
-            hostname='events.local',
-            port=80,
-            root_page=events_page,
+            hostname='events.local', port=80, root_page=events_page
         )
 
-        self.routable_page = self.home_page.add_child(instance=RoutablePageTest(
-            title="Routable Page",
-            live=True,
-        ))
+        self.routable_page = self.home_page.add_child(
+            instance=RoutablePageTest(title="Routable Page", live=True)
+        )
 
         self.rf = RequestFactory()
         self.request = self.rf.get(self.routable_page.url)
@@ -280,32 +301,50 @@ class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
         self.request.site = second_site
 
     def test_templatetag_reverse_index_route(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'index_route')
+        url = routablepageurl(self.context, self.routable_page, 'index_route')
         self.assertEqual(url, 'http://localhost/%s/' % self.routable_page.slug)
 
     def test_templatetag_reverse_archive_by_year_view(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'archive_by_year', '2014')
+        url = routablepageurl(
+            self.context, self.routable_page, 'archive_by_year', '2014'
+        )
 
-        self.assertEqual(url, 'http://localhost/%s/archive/year/2014/' % self.routable_page.slug)
+        self.assertEqual(
+            url, 'http://localhost/%s/archive/year/2014/' % self.routable_page.slug
+        )
 
     def test_templatetag_reverse_archive_by_author_view(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'archive_by_author', author_slug='joe-bloggs')
+        url = routablepageurl(
+            self.context,
+            self.routable_page,
+            'archive_by_author',
+            author_slug='joe-bloggs',
+        )
 
-        self.assertEqual(url, 'http://localhost/%s/archive/author/joe-bloggs/' % self.routable_page.slug)
+        self.assertEqual(
+            url,
+            'http://localhost/%s/archive/author/joe-bloggs/' % self.routable_page.slug,
+        )
 
     def test_templatetag_reverse_external_view(self):
-        url = routablepageurl(self.context, self.routable_page,
-                              'external_view', 'joe-bloggs')
+        url = routablepageurl(
+            self.context, self.routable_page, 'external_view', 'joe-bloggs'
+        )
 
-        self.assertEqual(url, 'http://localhost/%s/external/joe-bloggs/' % self.routable_page.slug)
+        self.assertEqual(
+            url, 'http://localhost/%s/external/joe-bloggs/' % self.routable_page.slug
+        )
 
     def test_templatetag_reverse_external_view_without_append_slash(self):
         with mock.patch('wagtail.core.models.WAGTAIL_APPEND_SLASH', False):
-            url = routablepageurl(self.context, self.routable_page,
-                                  'external_view', 'joe-bloggs')
-            expected = 'http://localhost/' + self.routable_page.slug + '/' + 'external/joe-bloggs/'
+            url = routablepageurl(
+                self.context, self.routable_page, 'external_view', 'joe-bloggs'
+            )
+            expected = (
+                'http://localhost/'
+                + self.routable_page.slug
+                + '/'
+                + 'external/joe-bloggs/'
+            )
 
         self.assertEqual(url, expected)

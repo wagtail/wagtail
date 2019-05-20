@@ -22,6 +22,7 @@ from .utils import Image, get_test_image_file
 
 try:
     import sendfile  # noqa
+
     sendfile_mod = True
 except ImportError:
     sendfile_mod = False
@@ -31,12 +32,13 @@ class TestImageTag(TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
     def render_image_tag(self, image, filter_spec):
-        temp = template.Template('{% load wagtailimages_tags %}{% image image_obj ' + filter_spec + '%}')
+        temp = template.Template(
+            '{% load wagtailimages_tags %}{% image image_obj ' + filter_spec + '%}'
+        )
         context = template.Context({'image_obj': image})
         return temp.render(context)
 
@@ -58,7 +60,8 @@ class TestImageTag(TestCase):
 
     def render_image_tag_as(self, image, filter_spec):
         temp = template.Template(
-            '{% load wagtailimages_tags %}{% image image_obj ' + filter_spec
+            '{% load wagtailimages_tags %}{% image image_obj '
+            + filter_spec
             + ' as test_img %}<img {{ test_img.attrs }} />'
         )
         context = template.Context({'image_obj': image})
@@ -81,7 +84,9 @@ class TestImageTag(TestCase):
         return temp.render(context)
 
     def test_image_tag_with_extra_attributes(self):
-        result = self.render_image_tag_with_extra_attributes(self.image, 'My Wonderful Title')
+        result = self.render_image_tag_with_extra_attributes(
+            self.image, 'My Wonderful Title'
+        )
 
         # Check that all the required HTML attributes are set
         self.assertTrue('width="400"' in result)
@@ -152,7 +157,9 @@ class TestImageTag(TestCase):
 
     def render_image_url_tag(self, image, view_name):
         temp = template.Template(
-            '{% load wagtailimages_tags %}{% image_url image_obj "width-400" "' + view_name + '" %}'
+            '{% load wagtailimages_tags %}{% image_url image_obj "width-400" "'
+            + view_name
+            + '" %}'
         )
         context = template.Context({'image_obj': image})
         return temp.render(context)
@@ -165,13 +172,16 @@ class TestImageTag(TestCase):
         )
 
     def test_image_url_custom_view(self):
-        result = self.render_image_url_tag(self.image, 'wagtailimages_serve_custom_view')
+        result = self.render_image_url_tag(
+            self.image, 'wagtailimages_serve_custom_view'
+        )
 
         self.assertRegex(
             result,
-            '/testimages/custom_view/.*/width-400/{}'.format(self.image.file.name.split('/')[-1]),
+            '/testimages/custom_view/.*/width-400/{}'.format(
+                self.image.file.name.split('/')[-1]
+            ),
         )
-
 
     def test_image_url_no_imageserve_view_added(self):
         # if image_url tag is used, but the image serve view was not defined.
@@ -189,6 +199,7 @@ class TestMissingImage(TestCase):
     pulling live databases to a development instance without copying the corresponding image files.
     In this case, it's acceptable to render broken images, but not to fail rendering the page outright.
     """
+
     fixtures = ['test.json']
 
     def test_image_tag_with_missing_image(self):
@@ -197,7 +208,7 @@ class TestMissingImage(TestCase):
         self.assertContains(
             response,
             '<img src="/media/not-found" width="0" height="0" alt="A missing image" class="feed-image">',
-            html=True
+            html=True,
         )
 
     def test_rich_text_with_missing_image(self):
@@ -207,49 +218,44 @@ class TestMissingImage(TestCase):
             response,
             '<img class="richtext-image full-width" src="/media/not-found" \
             width="0" height="0" alt="where did my image go?">',
-            html=True
+            html=True,
         )
 
 
 class TestFormat(TestCase, WagtailTestUtils):
     def setUp(self):
         # test format
-        self.format = Format(
-            'test name',
-            'test label',
-            'test classnames',
-            'original'
-        )
+        self.format = Format('test name', 'test label', 'test classnames', 'original')
         # test image
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
     def test_editor_attributes(self):
-        result = self.format.editor_attributes(
-            self.image,
-            'test alt text'
+        result = self.format.editor_attributes(self.image, 'test alt text')
+        self.assertEqual(
+            result,
+            {
+                'data-alt': 'test alt text',
+                'data-embedtype': 'image',
+                'data-format': 'test name',
+                'data-id': self.image.pk,
+            },
         )
-        self.assertEqual(result,
-                         {'data-alt': 'test alt text', 'data-embedtype': 'image',
-                          'data-format': 'test name', 'data-id': self.image.pk})
 
     def test_image_to_editor_html(self):
-        result = self.format.image_to_editor_html(
-            self.image,
-            'test alt text'
-        )
+        result = self.format.image_to_editor_html(self.image, 'test alt text')
         self.assertTagInHTML(
             '<img data-embedtype="image" data-id="%d" data-format="test name" '
             'data-alt="test alt text" class="test classnames" '
             'width="640" height="480" alt="test alt text" >' % self.image.pk,
-            result, allow_extra_attrs=True)
+            result,
+            allow_extra_attrs=True,
+        )
 
     def test_image_to_editor_html_with_quoting(self):
         result = self.format.image_to_editor_html(
-            self.image,
-            'Arthur "two sheds" Jackson'
+            self.image, 'Arthur "two sheds" Jackson'
         )
         expected_html = (
             '<img data-embedtype="image" data-id="%d" data-format="test name" '
@@ -263,14 +269,20 @@ class TestFormat(TestCase, WagtailTestUtils):
         self.format.classnames = None
         result = self.format.image_to_html(self.image, 'test alt text')
         self.assertTagInHTML(
-            '<img width="640" height="480" alt="test alt text">', result, allow_extra_attrs=True)
+            '<img width="640" height="480" alt="test alt text">',
+            result,
+            allow_extra_attrs=True,
+        )
         self.format.classnames = 'test classnames'
 
     def test_image_to_html_with_quoting(self):
         result = self.format.image_to_html(self.image, 'Arthur "two sheds" Jackson')
         self.assertTagInHTML(
             '<img class="test classnames" width="640" height="480" '
-            'alt="Arthur &quot;two sheds&quot; Jackson">', result, allow_extra_attrs=True)
+            'alt="Arthur &quot;two sheds&quot; Jackson">',
+            result,
+            allow_extra_attrs=True,
+        )
 
     def test_get_image_format(self):
         register_image_format(self.format)
@@ -280,24 +292,31 @@ class TestFormat(TestCase, WagtailTestUtils):
 
 class TestSignatureGeneration(TestCase):
     def test_signature_generation(self):
-        self.assertEqual(generate_signature(100, 'fill-800x600'), 'xnZOzQyUg6pkfciqcfRJRosOrGg=')
+        self.assertEqual(
+            generate_signature(100, 'fill-800x600'), 'xnZOzQyUg6pkfciqcfRJRosOrGg='
+        )
 
     def test_signature_verification(self):
-        self.assertTrue(verify_signature('xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x600'))
+        self.assertTrue(
+            verify_signature('xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x600')
+        )
 
     def test_signature_changes_on_image_id(self):
-        self.assertFalse(verify_signature('xnZOzQyUg6pkfciqcfRJRosOrGg=', 200, 'fill-800x600'))
+        self.assertFalse(
+            verify_signature('xnZOzQyUg6pkfciqcfRJRosOrGg=', 200, 'fill-800x600')
+        )
 
     def test_signature_changes_on_filter_spec(self):
-        self.assertFalse(verify_signature('xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x700'))
+        self.assertFalse(
+            verify_signature('xnZOzQyUg6pkfciqcfRJRosOrGg=', 100, 'fill-800x700')
+        )
 
 
 class TestFrontendServeView(TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
     def test_get(self):
@@ -308,7 +327,11 @@ class TestFrontendServeView(TestCase):
         signature = generate_signature(self.image.id, 'fill-800x600')
 
         # Get the image
-        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')))
+        response = self.client.get(
+            reverse(
+                'wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')
+            )
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -323,7 +346,12 @@ class TestFrontendServeView(TestCase):
         signature = generate_signature(self.image.id, 'fill-800x600')
 
         # Get the image
-        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')) + 'test.png')
+        response = self.client.get(
+            reverse(
+                'wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')
+            )
+            + 'test.png'
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -338,14 +366,24 @@ class TestFrontendServeView(TestCase):
         signature = generate_signature(self.image.id, 'fill-800x600')
 
         # Get the image
-        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')) + 'test/test.png')
+        response = self.client.get(
+            reverse(
+                'wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')
+            )
+            + 'test/test.png'
+        )
 
         # URL pattern should not match
         self.assertEqual(response.status_code, 404)
 
     def test_get_with_serve_action(self):
         signature = generate_signature(self.image.id, 'fill-800x600')
-        response = self.client.get(reverse('wagtailimages_serve_action_serve', args=(signature, self.image.id, 'fill-800x600')))
+        response = self.client.get(
+            reverse(
+                'wagtailimages_serve_action_serve',
+                args=(signature, self.image.id, 'fill-800x600'),
+            )
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.streaming)
@@ -353,13 +391,23 @@ class TestFrontendServeView(TestCase):
 
     def test_get_with_redirect_action(self):
         signature = generate_signature(self.image.id, 'fill-800x600')
-        response = self.client.get(reverse('wagtailimages_serve_action_redirect', args=(signature, self.image.id, 'fill-800x600')))
+        response = self.client.get(
+            reverse(
+                'wagtailimages_serve_action_redirect',
+                args=(signature, self.image.id, 'fill-800x600'),
+            )
+        )
 
         expected_redirect_url = '/media/images/{filename[0]}.2e16d0ba.fill-800x600{filename[1]}'.format(
             filename=os.path.splitext(os.path.basename(self.image.file.path))
         )
 
-        self.assertRedirects(response, expected_redirect_url, status_code=301, fetch_redirect_response=False)
+        self.assertRedirects(
+            response,
+            expected_redirect_url,
+            status_code=301,
+            fetch_redirect_response=False,
+        )
 
     def test_init_with_unknown_action_raises_error(self):
         with self.assertRaises(ImproperlyConfigured):
@@ -373,7 +421,13 @@ class TestFrontendServeView(TestCase):
         signature = generate_signature(self.image.id, 'fill-800x600', key='custom')
 
         # Get the image
-        response = self.client.get(reverse('wagtailimages_serve_custom_key', args=(signature, self.image.id, 'fill-800x600')) + 'test.png')
+        response = self.client.get(
+            reverse(
+                'wagtailimages_serve_custom_key',
+                args=(signature, self.image.id, 'fill-800x600'),
+            )
+            + 'test.png'
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -388,7 +442,13 @@ class TestFrontendServeView(TestCase):
         signature = generate_signature(self.image.id, 'fill-800x600')
 
         # Get the image
-        response = self.client.get(reverse('wagtailimages_serve_custom_key', args=(signature, self.image.id, 'fill-800x600')) + 'test.png')
+        response = self.client.get(
+            reverse(
+                'wagtailimages_serve_custom_key',
+                args=(signature, self.image.id, 'fill-800x600'),
+            )
+            + 'test.png'
+        )
 
         # Check response
         self.assertEqual(response.status_code, 403)
@@ -401,7 +461,11 @@ class TestFrontendServeView(TestCase):
         signature = generate_signature(self.image.id + 1, 'fill-800x600')
 
         # Get the image
-        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')))
+        response = self.client.get(
+            reverse(
+                'wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')
+            )
+        )
 
         # Check response
         self.assertEqual(response.status_code, 403)
@@ -419,7 +483,12 @@ class TestFrontendServeView(TestCase):
         signature = generate_signature(self.image.id, 'bad-filter-spec')
 
         # Get the image
-        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'bad-filter-spec')))
+        response = self.client.get(
+            reverse(
+                'wagtailimages_serve',
+                args=(signature, self.image.id, 'bad-filter-spec'),
+            )
+        )
 
         # Check response
         self.assertEqual(response.status_code, 400)
@@ -436,27 +505,32 @@ class TestFrontendServeView(TestCase):
 
         # Get the image
         signature = generate_signature(self.image.id, 'fill-800x600')
-        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')))
+        response = self.client.get(
+            reverse(
+                'wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')
+            )
+        )
 
         # Check response
         self.assertEqual(response.status_code, 410)
 
 
 class TestFrontendSendfileView(TestCase):
-
     def setUp(self):
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
     @override_settings(SENDFILE_BACKEND='sendfile.backends.development')
     @unittest.skipIf(not sendfile_mod, 'Missing django-sendfile app.')
     def test_sendfile_nobackend(self):
         signature = generate_signature(self.image.id, 'fill-800x600')
-        response = self.client.get(reverse('wagtailimages_sendfile',
-                                           args=(signature, self.image.id,
-                                                 'fill-800x600')))
+        response = self.client.get(
+            reverse(
+                'wagtailimages_sendfile',
+                args=(signature, self.image.id, 'fill-800x600'),
+            )
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'image/png')
@@ -464,9 +538,12 @@ class TestFrontendSendfileView(TestCase):
     @override_settings(SENDFILE_BACKEND='sendfile.backends.development')
     def test_sendfile_dummy_backend(self):
         signature = generate_signature(self.image.id, 'fill-800x600')
-        response = self.client.get(reverse('wagtailimages_sendfile_dummy',
-                                           args=(signature, self.image.id,
-                                                 'fill-800x600')))
+        response = self.client.get(
+            reverse(
+                'wagtailimages_sendfile_dummy',
+                args=(signature, self.image.id, 'fill-800x600'),
+            )
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.content, 'Dummy backend response')
@@ -534,7 +611,9 @@ class TestRect(TestCase):
 
     def test_repr(self):
         rect = Rect(100, 150, 200, 250)
-        self.assertEqual(repr(rect), "Rect(left: 100, top: 150, right: 200, bottom: 250)")
+        self.assertEqual(
+            repr(rect), "Rect(left: 100, top: 150, right: 200, bottom: 250)"
+        )
 
     def test_from_point(self):
         rect = Rect.from_point(100, 200, 50, 20)
@@ -545,31 +624,37 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
     def test_fields(self):
         form = get_image_form(Image)
 
-        self.assertEqual(list(form.base_fields.keys()), [
-            'title',
-            'file',
-            'collection',
-            'tags',
-            'focal_point_x',
-            'focal_point_y',
-            'focal_point_width',
-            'focal_point_height',
-        ])
+        self.assertEqual(
+            list(form.base_fields.keys()),
+            [
+                'title',
+                'file',
+                'collection',
+                'tags',
+                'focal_point_x',
+                'focal_point_y',
+                'focal_point_width',
+                'focal_point_height',
+            ],
+        )
 
     def test_admin_form_fields_attribute(self):
         form = get_image_form(CustomImage)
 
-        self.assertEqual(list(form.base_fields.keys()), [
-            'title',
-            'file',
-            'collection',
-            'tags',
-            'focal_point_x',
-            'focal_point_y',
-            'focal_point_width',
-            'focal_point_height',
-            'caption',
-        ])
+        self.assertEqual(
+            list(form.base_fields.keys()),
+            [
+                'title',
+                'file',
+                'collection',
+                'tags',
+                'focal_point_x',
+                'focal_point_y',
+                'focal_point_width',
+                'focal_point_height',
+                'caption',
+            ],
+        )
 
     def test_file_field(self):
         form = get_image_form(WagtailImage)
@@ -589,12 +674,22 @@ class TestGetImageForm(TestCase, WagtailTestUtils):
         self.assertIsInstance(form.base_fields['focal_point_x'], forms.IntegerField)
         self.assertIsInstance(form.base_fields['focal_point_y'], forms.IntegerField)
         self.assertIsInstance(form.base_fields['focal_point_width'], forms.IntegerField)
-        self.assertIsInstance(form.base_fields['focal_point_height'], forms.IntegerField)
+        self.assertIsInstance(
+            form.base_fields['focal_point_height'], forms.IntegerField
+        )
 
-        self.assertIsInstance(form.base_fields['focal_point_x'].widget, forms.HiddenInput)
-        self.assertIsInstance(form.base_fields['focal_point_y'].widget, forms.HiddenInput)
-        self.assertIsInstance(form.base_fields['focal_point_width'].widget, forms.HiddenInput)
-        self.assertIsInstance(form.base_fields['focal_point_height'].widget, forms.HiddenInput)
+        self.assertIsInstance(
+            form.base_fields['focal_point_x'].widget, forms.HiddenInput
+        )
+        self.assertIsInstance(
+            form.base_fields['focal_point_y'].widget, forms.HiddenInput
+        )
+        self.assertIsInstance(
+            form.base_fields['focal_point_width'].widget, forms.HiddenInput
+        )
+        self.assertIsInstance(
+            form.base_fields['focal_point_height'].widget, forms.HiddenInput
+        )
 
 
 class TestRenditionFilenames(TestCase):
@@ -604,8 +699,7 @@ class TestRenditionFilenames(TestCase):
 
     def test_normal_filter(self):
         image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(filename='test_rf1.png'),
+            title="Test image", file=get_test_image_file(filename='test_rf1.png')
         )
         rendition = image.get_rendition('width-100')
 
@@ -613,49 +707,49 @@ class TestRenditionFilenames(TestCase):
 
     def test_fill_filter(self):
         image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(filename='test_rf2.png'),
+            title="Test image", file=get_test_image_file(filename='test_rf2.png')
         )
         rendition = image.get_rendition('fill-100x100')
 
-        self.assertEqual(rendition.file.name, 'images/test_rf2.2e16d0ba.fill-100x100.png')
+        self.assertEqual(
+            rendition.file.name, 'images/test_rf2.2e16d0ba.fill-100x100.png'
+        )
 
     def test_fill_filter_with_focal_point(self):
         image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(filename='test_rf3.png'),
+            title="Test image", file=get_test_image_file(filename='test_rf3.png')
         )
         image.set_focal_point(Rect(100, 100, 200, 200))
         image.save()
 
         rendition = image.get_rendition('fill-100x100')
 
-        self.assertEqual(rendition.file.name, 'images/test_rf3.15ee4958.fill-100x100.png')
+        self.assertEqual(
+            rendition.file.name, 'images/test_rf3.15ee4958.fill-100x100.png'
+        )
 
     def test_filter_with_pipe_gets_dotted(self):
         image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(filename='test_rf4.png'),
+            title="Test image", file=get_test_image_file(filename='test_rf4.png')
         )
         image.set_focal_point(Rect(100, 100, 200, 200))
         image.save()
 
         rendition = image.get_rendition('fill-200x200|height-150')
 
-        self.assertEqual(rendition.file.name, 'images/test_rf4.15ee4958.fill-200x200.height-150.png')
+        self.assertEqual(
+            rendition.file.name, 'images/test_rf4.15ee4958.fill-200x200.height-150.png'
+        )
 
 
 class TestDifferentUpload(TestCase):
     def test_upload_path(self):
         image = CustomImageFilePath.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
         second_image = CustomImageFilePath.objects.create(
-            title="Test Image",
-            file=get_test_image_file(colour='black'),
-
+            title="Test Image", file=get_test_image_file(colour='black')
         )
 
         # The files should be uploaded based on it's content, not just
@@ -679,6 +773,7 @@ class TestGetImageModel(WagtailTestUtils, TestCase):
         """Test get_image_model with no WAGTAILIMAGES_IMAGE_MODEL"""
         del settings.WAGTAILIMAGES_IMAGE_MODEL
         from wagtail.images.models import Image
+
         self.assertIs(get_image_model(), Image)
 
     @override_settings()

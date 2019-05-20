@@ -13,10 +13,11 @@ class CollectionPermissionLookupMixin:
         """
         Get a queryset of the Permission objects for the given actions
         """
-        permission_codenames = ['%s_%s' % (action, self.model_name) for action in actions]
+        permission_codenames = [
+            '%s_%s' % (action, self.model_name) for action in actions
+        ]
         return Permission.objects.filter(
-            content_type=self._content_type,
-            codename__in=permission_codenames
+            content_type=self._content_type, codename__in=permission_codenames
         )
 
     def _check_perm(self, user, actions, collection=None):
@@ -57,7 +58,7 @@ class CollectionPermissionLookupMixin:
         # create a list of their paths
         collection_root_paths = Collection.objects.filter(
             group_permissions__group__in=user.groups.all(),
-            group_permissions__permission__in=permissions
+            group_permissions__permission__in=permissions,
         ).values_list('path', flat=True)
 
         if collection_root_paths:
@@ -65,7 +66,9 @@ class CollectionPermissionLookupMixin:
             # instances in collections with a path that starts with one of the above
             collection_path_filter = Q(path__startswith=collection_root_paths[0])
             for path in collection_root_paths[1:]:
-                collection_path_filter = collection_path_filter | Q(path__startswith=path)
+                collection_path_filter = collection_path_filter | Q(
+                    path__startswith=path
+                )
 
             return Collection.objects.all().filter(collection_path_filter)
         else:
@@ -84,14 +87,12 @@ class CollectionPermissionLookupMixin:
         # Find all groups with GroupCollectionPermission records for
         # any of these permissions
         groups = Group.objects.filter(
-            collection_permissions__permission__in=permissions,
+            collection_permissions__permission__in=permissions
         )
 
         if collection is not None:
             collections = collection.get_ancestors(inclusive=True)
-            groups = groups.filter(
-                collection_permissions__collection__in=collections
-            )
+            groups = groups.filter(collection_permissions__collection__in=collections)
 
         # Find all users who are superusers or in any of these groups, and are active
         return (Q(is_superuser=True) | Q(groups__in=groups)) & Q(is_active=True)
@@ -103,9 +104,13 @@ class CollectionPermissionLookupMixin:
         If collection is specified, only consider GroupCollectionPermission records
         that apply to that collection.
         """
-        return get_user_model().objects.filter(
-            self._users_with_perm_filter(actions, collection=collection)
-        ).distinct()
+        return (
+            get_user_model()
+            .objects.filter(
+                self._users_with_perm_filter(actions, collection=collection)
+            )
+            .distinct()
+        )
 
     def collections_user_has_permission_for(self, user, action):
         """
@@ -115,13 +120,16 @@ class CollectionPermissionLookupMixin:
         return self.collections_user_has_any_permission_for(user, [action])
 
 
-class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy):
+class CollectionPermissionPolicy(
+    CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy
+):
     """
     A permission policy for objects that are assigned locations in the Collection tree.
     Permissions may be defined at any node of the hierarchy, through the
     GroupCollectionPermission model, and propagate downwards. These permissions are
     applied to objects according to the standard django.contrib.auth permission model.
     """
+
     def user_has_permission(self, user, action):
         """
         Return whether the given user has permission to perform the given action
@@ -206,6 +214,7 @@ class CollectionOwnershipPermissionPolicy(
     applied to objects according to the 'ownership' permission model
     (see permission_policies.base.OwnershipPermissionPolicy)
     """
+
     def __init__(self, model, auth_model=None, owner_field_name='owner'):
         super().__init__(model, auth_model=auth_model)
         self.owner_field_name = owner_field_name
@@ -217,8 +226,7 @@ class CollectionOwnershipPermissionPolicy(
             raise ImproperlyConfigured(
                 "%s has no field named '%s'. To use this model with "
                 "CollectionOwnershipPermissionPolicy, you must specify a valid field name as "
-                "owner_field_name."
-                % (self.model, self.owner_field_name)
+                "owner_field_name." % (self.model, self.owner_field_name)
             )
 
     def user_has_permission(self, user, action):

@@ -24,7 +24,7 @@ DEFAULT_TABLE_OPTIONS = {
         'remove_col',
         '---------',
         'undo',
-        'redo'
+        'redo',
     ],
     'editor': 'text',
     'stretchH': 'all',
@@ -48,7 +48,6 @@ class TableInput(forms.HiddenInput):
 
 
 class TableBlock(FieldBlock):
-
     def __init__(self, required=True, help_text=None, table_options=None, **kwargs):
         """
         CharField's 'label' and 'initial' parameters are not exposed, as Block
@@ -63,7 +62,9 @@ class TableBlock(FieldBlock):
 
     @cached_property
     def field(self):
-        return forms.CharField(widget=TableInput(table_options=self.table_options), **self.field_options)
+        return forms.CharField(
+            widget=TableInput(table_options=self.table_options), **self.field_options
+        )
 
     def value_from_form(self, value):
         return json.loads(value)
@@ -83,7 +84,13 @@ class TableBlock(FieldBlock):
     def render(self, value, context=None):
         template = getattr(self.meta, 'template', None)
         if template and value:
-            table_header = value['data'][0] if value.get('data', None) and len(value['data']) > 0 and value.get('first_row_is_table_header', False) else None
+            table_header = (
+                value['data'][0]
+                if value.get('data', None)
+                and len(value['data']) > 0
+                and value.get('first_row_is_table_header', False)
+                else None
+            )
             first_col_is_header = value.get('first_col_is_header', False)
 
             if context is None:
@@ -91,20 +98,26 @@ class TableBlock(FieldBlock):
             else:
                 new_context = dict(context)
 
-            new_context.update({
-                'self': value,
-                self.TEMPLATE_VAR: value,
-                'table_header': table_header,
-                'first_col_is_header': first_col_is_header,
-                'html_renderer': self.is_html_renderer(),
-                'data': value['data'][1:] if table_header else value.get('data', [])
-            })
+            new_context.update(
+                {
+                    'self': value,
+                    self.TEMPLATE_VAR: value,
+                    'table_header': table_header,
+                    'first_col_is_header': first_col_is_header,
+                    'html_renderer': self.is_html_renderer(),
+                    'data': value['data'][1:]
+                    if table_header
+                    else value.get('data', []),
+                }
+            )
 
             if value.get('cell'):
                 new_context['classnames'] = {}
                 for meta in value['cell']:
                     if 'className' in meta:
-                        new_context['classnames'][(meta['row'], meta['col'])] = meta['className']
+                        new_context['classnames'][(meta['row'], meta['col'])] = meta[
+                            'className'
+                        ]
 
             return render_to_string(template, new_context)
         else:
@@ -114,7 +127,10 @@ class TableBlock(FieldBlock):
     def media(self):
         return forms.Media(
             css={'all': ['table_block/css/vendor/handsontable-6.2.2.full.min.css']},
-            js=['table_block/js/vendor/handsontable-6.2.2.full.min.js', 'table_block/js/table.js']
+            js=[
+                'table_block/js/vendor/handsontable-6.2.2.full.min.js',
+                'table_block/js/table.js',
+            ],
         )
 
     def get_table_options(self, table_options=None):

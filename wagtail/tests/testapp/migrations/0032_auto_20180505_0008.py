@@ -5,9 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('tests', '0031_customdocument_file_size'),
-    ]
+    dependencies = [('tests', '0031_customdocument_file_size')]
 
     operations = [
         migrations.AddField(

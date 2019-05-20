@@ -4,6 +4,7 @@ from .translation import L18NMap, L18NListMap
 
 try:
     from . import __maps
+
     tz_cities = L18NMap(__maps.tz_cities)
     territories = L18NMap(__maps.territories)
 

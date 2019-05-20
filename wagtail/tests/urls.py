@@ -26,20 +26,19 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^testimages/', include(wagtailimages_test_urls)),
     url(r'^images/', include(wagtailimages_urls)),
-
     url(r'^api/v2beta/', api_router.urls),
     url(r'^sitemap\.xml$', sitemaps_views.sitemap),
-
-    url(r'^sitemap-index\.xml$', sitemaps_views.index, {
-        'sitemaps': {'pages': Sitemap, 'events': EventSitemap(request=None)},
-        'sitemap_url_name': 'sitemap',
-    }),
+    url(
+        r'^sitemap-index\.xml$',
+        sitemaps_views.index,
+        {
+            'sitemaps': {'pages': Sitemap, 'events': EventSitemap(request=None)},
+            'sitemap_url_name': 'sitemap',
+        },
+    ),
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemaps_views.sitemap, name='sitemap'),
-
     url(r'^testapp/', include(testapp_urls)),
-
     url(r'^fallback/', lambda: HttpResponse('ok'), name='fallback'),
-
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism
     url(r'', include(wagtail_urls)),

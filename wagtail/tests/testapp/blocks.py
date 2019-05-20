@@ -7,7 +7,9 @@ class LinkBlock(blocks.StructBlock):
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context)
-        context['classname'] = parent_context['classname'] if value['title'] == 'Torchbox' else 'normal'
+        context['classname'] = (
+            parent_context['classname'] if value['title'] == 'Torchbox' else 'normal'
+        )
         return context
 
     def get_form_context(self, value, prefix='', errors=None):

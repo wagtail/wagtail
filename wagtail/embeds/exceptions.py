@@ -1,4 +1,3 @@
-
 class EmbedException(Exception):
     pass
 

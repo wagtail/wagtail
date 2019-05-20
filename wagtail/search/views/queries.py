@@ -17,7 +17,9 @@ def chooser(request, get_results=False):
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
             query_string = searchform.cleaned_data['q']
-            queries = queries.filter(query_string__icontains=normalise_query_string(query_string))
+            queries = queries.filter(
+                query_string__icontains=normalise_query_string(query_string)
+            )
     else:
         searchform = SearchForm()
 
@@ -26,15 +28,16 @@ def chooser(request, get_results=False):
 
     # Render
     if get_results:
-        return render(request, "wagtailsearch/queries/chooser/results.html", {
-            'queries': queries,
-        })
+        return render(
+            request, "wagtailsearch/queries/chooser/results.html", {'queries': queries}
+        )
     else:
         return render_modal_workflow(
-            request, 'wagtailsearch/queries/chooser/chooser.html', None, {
-                'queries': queries,
-                'searchform': searchform,
-            }, json_data={'step': 'chooser'}
+            request,
+            'wagtailsearch/queries/chooser/chooser.html',
+            None,
+            {'queries': queries, 'searchform': searchform},
+            json_data={'step': 'chooser'},
         )
 
 

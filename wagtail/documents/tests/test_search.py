@@ -23,7 +23,9 @@ class TestIssue613(TestCase, WagtailTestUtils):
                 return get_search_backend(backend_name)
         else:
             # no conf entry found - skip tests for this backend
-            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % backend_path)
+            raise unittest.SkipTest(
+                "No WAGTAILSEARCH_BACKENDS entry for the backend %s" % backend_path
+            )
 
     def setUp(self):
         self.search_backend = self.get_elasticsearch_backend()
@@ -35,10 +37,7 @@ class TestIssue613(TestCase, WagtailTestUtils):
         fake_file.name = 'test.txt'
 
         # Submit
-        post_data = {
-            'title': "Test document",
-            'file': fake_file,
-        }
+        post_data = {'title': "Test document", 'file': fake_file}
         post_data.update(params)
         response = self.client.post(reverse('wagtaildocs:add'), post_data)
 
@@ -63,12 +62,11 @@ class TestIssue613(TestCase, WagtailTestUtils):
         another_fake_file.name = 'test.txt'
 
         # Submit
-        post_data = {
-            'title': "Test document changed!",
-            'file': another_fake_file,
-        }
+        post_data = {'title': "Test document changed!", 'file': another_fake_file}
         post_data.update(params)
-        response = self.client.post(reverse('wagtaildocs:edit', args=(document.id,)), post_data)
+        response = self.client.post(
+            reverse('wagtaildocs:edit', args=(document.id,)), post_data
+        )
 
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtaildocs:index'))

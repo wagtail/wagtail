@@ -22,8 +22,7 @@ class TestImage(TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
     def test_is_portrait(self):
@@ -81,7 +80,9 @@ class TestImage(TestCase):
     def test_is_stored_locally(self):
         self.assertTrue(self.image.is_stored_locally())
 
-    @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
+    @override_settings(
+        DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage'
+    )
     def test_is_stored_locally_with_external_storage(self):
         self.assertFalse(self.image.is_stored_locally())
 
@@ -99,10 +100,7 @@ class TestImage(TestCase):
 class TestImageQuerySet(TestCase):
     def test_search_method(self):
         # Create an image for running tests on
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
 
         # Search for it
         results = Image.objects.search("Test")
@@ -110,12 +108,10 @@ class TestImageQuerySet(TestCase):
 
     def test_operators(self):
         aaa_image = Image.objects.create(
-            title="AAA Test image",
-            file=get_test_image_file(),
+            title="AAA Test image", file=get_test_image_file()
         )
         zzz_image = Image.objects.create(
-            title="ZZZ Test image",
-            file=get_test_image_file(),
+            title="ZZZ Test image", file=get_test_image_file()
         )
 
         results = Image.objects.search("aaa test", operator='and')
@@ -127,12 +123,10 @@ class TestImageQuerySet(TestCase):
 
     def test_custom_ordering(self):
         aaa_image = Image.objects.create(
-            title="AAA Test image",
-            file=get_test_image_file(),
+            title="AAA Test image", file=get_test_image_file()
         )
         zzz_image = Image.objects.create(
-            title="ZZZ Test image",
-            file=get_test_image_file(),
+            title="ZZZ Test image", file=get_test_image_file()
         )
 
         results = Image.objects.order_by('title').search("Test")
@@ -143,8 +137,7 @@ class TestImageQuerySet(TestCase):
     def test_search_indexing_prefetches_tags(self):
         for i in range(0, 10):
             image = Image.objects.create(
-                title="Test image %d" % i,
-                file=get_test_image_file(),
+                title="Test image %d" % i, file=get_test_image_file()
             )
             image.tags.add('aardvark', 'artichoke', 'armadillo')
 
@@ -160,12 +153,20 @@ class TestImagePermissions(TestCase):
     def setUp(self):
         # Create some user accounts for testing permissions
         User = get_user_model()
-        self.user = User.objects.create_user(username='user', email='user@email.com', password='password')
-        self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
-        self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
+        self.user = User.objects.create_user(
+            username='user', email='user@email.com', password='password'
+        )
+        self.owner = User.objects.create_user(
+            username='owner', email='owner@email.com', password='password'
+        )
+        self.editor = User.objects.create_user(
+            username='editor', email='editor@email.com', password='password'
+        )
         self.editor.groups.add(Group.objects.get(name='Editors'))
         self.administrator = User.objects.create_superuser(
-            username='administrator', email='administrator@email.com', password='password'
+            username='administrator',
+            email='administrator@email.com',
+            password='password',
         )
 
         # Owner user must have the add_image permission
@@ -179,9 +180,7 @@ class TestImagePermissions(TestCase):
 
         # Create an image for running tests on
         self.image = Image.objects.create(
-            title="Test image",
-            uploaded_by_user=self.owner,
-            file=get_test_image_file(),
+            title="Test image", uploaded_by_user=self.owner, file=get_test_image_file()
         )
 
     def test_administrator_can_edit(self):
@@ -201,8 +200,7 @@ class TestRenditions(TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
     def test_get_rendition_model(self):
@@ -258,8 +256,7 @@ class TestUsageCount(TestCase):
 
     def setUp(self):
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
@@ -281,8 +278,7 @@ class TestGetUsage(TestCase):
 
     def setUp(self):
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
     def test_image_get_usage_not_enabled(self):
@@ -307,8 +303,7 @@ class TestGetWillowImage(TestCase):
 
     def setUp(self):
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
     def test_willow_image_object_returned(self):
@@ -360,6 +355,7 @@ class TestIssue573(TestCase):
     This tests for a bug which causes filename limit on Renditions to be reached
     when the Image has a long original filename and a big focal point key
     """
+
     def test_issue_573(self):
         # Create an image with a big filename and focal point
         image = Image.objects.create(
@@ -392,7 +388,9 @@ class TestIssue613(TestCase, WagtailTestUtils):
                 return get_search_backend(backend_name)
         else:
             # no conf entry found - skip tests for this backend
-            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % backend_path)
+            raise unittest.SkipTest(
+                "No WAGTAILSEARCH_BACKENDS entry for the backend %s" % backend_path
+            )
 
     def setUp(self):
         self.search_backend = self.get_elasticsearch_backend()
@@ -401,7 +399,9 @@ class TestIssue613(TestCase, WagtailTestUtils):
     def add_image(self, **params):
         post_data = {
             'title': "Test image",
-            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+            'file': SimpleUploadedFile(
+                'test.png', get_test_image_file().file.getvalue()
+            ),
         }
         post_data.update(params)
         response = self.client.post(reverse('wagtailimages:add'), post_data)
@@ -423,16 +423,15 @@ class TestIssue613(TestCase, WagtailTestUtils):
     def edit_image(self, **params):
         # Create an image to edit
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
         # Edit it
-        post_data = {
-            'title': "Edited",
-        }
+        post_data = {'title': "Edited"}
         post_data.update(params)
-        response = self.client.post(reverse('wagtailimages:edit', args=(self.image.id,)), post_data)
+        response = self.client.post(
+            reverse('wagtailimages:edit', args=(self.image.id,)), post_data
+        )
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailimages:index'))
@@ -478,10 +477,7 @@ class TestIssue613(TestCase, WagtailTestUtils):
 class TestIssue312(TestCase):
     def test_duplicate_renditions(self):
         # Create an image
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
 
         # Get two renditions and check that they're the same
         rend1 = image.get_rendition('fill-100x100')
@@ -505,18 +501,22 @@ class TestFilenameReduction(TestCase):
     This tests for a bug which results in filenames without extensions
     causing an infinite loop
     """
+
     def test_filename_reduction_no_ext(self):
         # Create an image with a big filename and no extension
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(
                 'thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocioussuperlong'
-            )
+            ),
         )
 
         # Saving file will result in infinite loop when bug is present
         image.save()
-        self.assertEqual("original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpiali", image.file.name)
+        self.assertEqual(
+            "original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpiali",
+            image.file.name,
+        )
 
     # Test for happy path. Long filename with extension
     def test_filename_reduction_ext(self):
@@ -525,8 +525,11 @@ class TestFilenameReduction(TestCase):
             title="Test image",
             file=get_test_image_file(
                 'thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexpialidocioussuperlong.png'
-            )
+            ),
         )
 
         image.save()
-        self.assertEqual("original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexp.png", image.file.name)
+        self.assertEqual(
+            "original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexp.png",
+            image.file.name,
+        )

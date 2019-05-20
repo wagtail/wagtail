@@ -14,7 +14,8 @@ def add_page_lock_permission_to_moderators(apps, schema_editor):
 
         for page in root_pages:
             GroupPagePermission.objects.create(
-                group=moderators_group, page=page, permission_type='lock')
+                group=moderators_group, page=page, permission_type='lock'
+            )
 
     except Group.DoesNotExist:
         pass
@@ -22,10 +23,6 @@ def add_page_lock_permission_to_moderators(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailcore', '0004_page_locked'),
-    ]
+    dependencies = [('wagtailcore', '0004_page_locked')]
 
-    operations = [
-        migrations.RunPython(add_page_lock_permission_to_moderators),
-    ]
+    operations = [migrations.RunPython(add_page_lock_permission_to_moderators)]

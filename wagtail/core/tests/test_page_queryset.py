@@ -85,7 +85,10 @@ class TestPageQuerySet(TestCase):
 
         # Check that all pages descend from events index, includes event index
         for page in pages:
-            self.assertTrue(page == events_index or page.get_ancestors().filter(id=events_index.id).exists())
+            self.assertTrue(
+                page == events_index
+                or page.get_ancestors().filter(id=events_index.id).exists()
+            )
 
         # Check that event index was included
         self.assertTrue(pages.filter(id=events_index.id).exists())
@@ -305,6 +308,7 @@ class TestPageQuerySet(TestCase):
 
     def test_type_includes_subclasses(self):
         from wagtail.contrib.forms.models import AbstractEmailForm
+
         pages = Page.objects.type(AbstractEmailForm)
 
         # Check that all objects are instances of AbstractEmailForm
@@ -412,15 +416,11 @@ class TestPageQueryInSite(TestCase):
 
     def setUp(self):
         self.site_2_page = SimplePage(
-            title="Site 2 page",
-            slug="site_2_page",
-            content="Hello",
+            title="Site 2 page", slug="site_2_page", content="Hello"
         )
         Page.get_first_root_node().add_child(instance=self.site_2_page)
         self.site_2_subpage = SimplePage(
-            title="Site 2 subpage",
-            slug="site_2_subpage",
-            content="Hello again",
+            title="Site 2 subpage", slug="site_2_subpage", content="Hello again"
         )
         self.site_2_page.add_child(instance=self.site_2_subpage)
 
@@ -428,7 +428,7 @@ class TestPageQueryInSite(TestCase):
             hostname='example.com',
             port=8080,
             root_page=Page.objects.get(pk=self.site_2_page.pk),
-            is_default_site=False
+            is_default_site=False,
         )
         self.about_us_page = SimplePage.objects.get(url_path='/home/about-us/')
 
@@ -447,37 +447,69 @@ class TestPageQuerySetSearch(TestCase):
         pages = EventPage.objects.search('moon', fields=['location'])
 
         self.assertEqual(pages.count(), 2)
-        self.assertIn(Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific, pages)
-        self.assertIn(Page.objects.get(url_path='/home/events/someone-elses-event/').specific, pages)
+        self.assertIn(
+            Page.objects.get(
+                url_path='/home/events/tentative-unpublished-event/'
+            ).specific,
+            pages,
+        )
+        self.assertIn(
+            Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
+            pages,
+        )
 
     def test_operators(self):
         results = EventPage.objects.search("moon ponies", operator='and')
 
-        self.assertEqual(list(results), [
-            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific
-        ])
+        self.assertEqual(
+            list(results),
+            [
+                Page.objects.get(
+                    url_path='/home/events/tentative-unpublished-event/'
+                ).specific
+            ],
+        )
 
         results = EventPage.objects.search("moon ponies", operator='or')
         sorted_results = sorted(results, key=lambda page: page.url_path)
-        self.assertEqual(sorted_results, [
-            Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
-            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific,
-        ])
+        self.assertEqual(
+            sorted_results,
+            [
+                Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
+                Page.objects.get(
+                    url_path='/home/events/tentative-unpublished-event/'
+                ).specific,
+            ],
+        )
 
     def test_custom_order(self):
-        pages = EventPage.objects.order_by('url_path').search('moon', fields=['location'], order_by_relevance=False)
+        pages = EventPage.objects.order_by('url_path').search(
+            'moon', fields=['location'], order_by_relevance=False
+        )
 
-        self.assertEqual(list(pages), [
-            Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
-            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific,
-        ])
+        self.assertEqual(
+            list(pages),
+            [
+                Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
+                Page.objects.get(
+                    url_path='/home/events/tentative-unpublished-event/'
+                ).specific,
+            ],
+        )
 
-        pages = EventPage.objects.order_by('-url_path').search('moon', fields=['location'], order_by_relevance=False)
+        pages = EventPage.objects.order_by('-url_path').search(
+            'moon', fields=['location'], order_by_relevance=False
+        )
 
-        self.assertEqual(list(pages), [
-            Page.objects.get(url_path='/home/events/tentative-unpublished-event/').specific,
-            Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
-        ])
+        self.assertEqual(
+            list(pages),
+            [
+                Page.objects.get(
+                    url_path='/home/events/tentative-unpublished-event/'
+                ).specific,
+                Page.objects.get(url_path='/home/events/someone-elses-event/').specific,
+            ],
+        )
 
     def test_unpublish(self):
         # set up a listener for the unpublish signal
@@ -493,8 +525,12 @@ class TestPageQuerySetSearch(TestCase):
 
         # Previously-live children of event index should now be non-live
         christmas = EventPage.objects.get(url_path='/home/events/christmas/')
-        saint_patrick = SingleEventPage.objects.get(url_path='/home/events/saint-patrick/')
-        unpublished_event = EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        saint_patrick = SingleEventPage.objects.get(
+            url_path='/home/events/saint-patrick/'
+        )
+        unpublished_event = EventPage.objects.get(
+            url_path='/home/events/tentative-unpublished-event/'
+        )
 
         self.assertFalse(christmas.live)
         self.assertFalse(saint_patrick.live)
@@ -573,10 +609,14 @@ class TestSpecificQuery(TestCase):
 
         self.assertEqual(len(pages), 3)
 
-        self.assertEqual(pages, [
-            Page.objects.get(url_path='/home/other/special-event/').specific,
-            Page.objects.get(url_path='/home/other/').specific,
-            Page.objects.get(url_path='/home/events/christmas/').specific])
+        self.assertEqual(
+            pages,
+            [
+                Page.objects.get(url_path='/home/other/special-event/').specific,
+                Page.objects.get(url_path='/home/other/').specific,
+                Page.objects.get(url_path='/home/events/christmas/').specific,
+            ],
+        )
 
     def test_filtering_after_specific(self):
         # This will get the other events, and then christmas
@@ -591,24 +631,34 @@ class TestSpecificQuery(TestCase):
 
         self.assertEqual(len(pages), 4)
 
-        self.assertEqual(pages, [
-            Page.objects.get(url_path='/home/other/').specific,
-            Page.objects.get(url_path='/home/events/christmas/').specific,
-            Page.objects.get(url_path='/home/events/').specific,
-            Page.objects.get(url_path='/home/about-us/').specific])
+        self.assertEqual(
+            pages,
+            [
+                Page.objects.get(url_path='/home/other/').specific,
+                Page.objects.get(url_path='/home/events/christmas/').specific,
+                Page.objects.get(url_path='/home/events/').specific,
+                Page.objects.get(url_path='/home/about-us/').specific,
+            ],
+        )
 
     def test_specific_query_with_search(self):
         # 1276 - The database search backend didn't return results with the
         # specific type when searching a specific queryset.
 
-        pages = list(Page.objects.specific().live().in_menu().search(
-            MATCH_ALL, backend='wagtail.search.backends.db'))
+        pages = list(
+            Page.objects.specific()
+            .live()
+            .in_menu()
+            .search(MATCH_ALL, backend='wagtail.search.backends.db')
+        )
 
         # Check that each page is in the queryset with the correct type.
         # We don't care about order here
         self.assertEqual(len(pages), 4)
         self.assertIn(Page.objects.get(url_path='/home/other/').specific, pages)
-        self.assertIn(Page.objects.get(url_path='/home/events/christmas/').specific, pages)
+        self.assertIn(
+            Page.objects.get(url_path='/home/events/christmas/').specific, pages
+        )
         self.assertIn(Page.objects.get(url_path='/home/events/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/about-us/').specific, pages)
 
@@ -617,16 +667,23 @@ class TestSpecificQuery(TestCase):
         # is missing, by keeping them as basic Page instances.
 
         # Create a ContentType that doesn't correspond to a real model
-        missing_page_content_type = ContentType.objects.create(app_label='tests', model='missingpage')
+        missing_page_content_type = ContentType.objects.create(
+            app_label='tests', model='missingpage'
+        )
         # Turn /home/events/ into this content type
-        Page.objects.filter(url_path='/home/events/').update(content_type=missing_page_content_type)
+        Page.objects.filter(url_path='/home/events/').update(
+            content_type=missing_page_content_type
+        )
 
         pages = list(Page.objects.get(url_path='/home/').get_children().specific())
-        self.assertEqual(pages, [
-            Page.objects.get(url_path='/home/events/'),
-            Page.objects.get(url_path='/home/about-us/').specific,
-            Page.objects.get(url_path='/home/other/').specific,
-        ])
+        self.assertEqual(
+            pages,
+            [
+                Page.objects.get(url_path='/home/events/'),
+                Page.objects.get(url_path='/home/about-us/').specific,
+                Page.objects.get(url_path='/home/other/').specific,
+            ],
+        )
 
     def test_deferred_specific_query(self):
         # Tests the "defer" keyword argument, which defers all specific fields
@@ -669,12 +726,14 @@ class TestFirstCommonAncestor(TestCase):
     Uses the same fixture as TestSpecificQuery. See that class for the layout
     of pages.
     """
+
     fixtures = ['test_specific.json']
 
     def setUp(self):
         self.all_events = Page.objects.type(EventPage)
-        self.regular_events = Page.objects.type(EventPage)\
-            .exclude(url_path__contains='/other/')
+        self.regular_events = Page.objects.type(EventPage).exclude(
+            url_path__contains='/other/'
+        )
 
     def test_bookkeeping(self):
         self.assertEqual(self.all_events.count(), 4)
@@ -685,14 +744,14 @@ class TestFirstCommonAncestor(TestCase):
         # As there are event pages in multiple trees under /home/, the home
         # page is the common ancestor
         self.assertEqual(
-            Page.objects.get(slug='home'),
-            self.all_events.first_common_ancestor())
+            Page.objects.get(slug='home'), self.all_events.first_common_ancestor()
+        )
 
     def test_normal_event_pages(self):
         """Common ancestor for EventPages, excluding /other/ events"""
         self.assertEqual(
-            Page.objects.get(slug='events'),
-            self.regular_events.first_common_ancestor())
+            Page.objects.get(slug='events'), self.regular_events.first_common_ancestor()
+        )
 
     def test_normal_event_pages_include_self(self):
         """
@@ -701,24 +760,29 @@ class TestFirstCommonAncestor(TestCase):
         """
         self.assertEqual(
             Page.objects.get(slug='events'),
-            self.regular_events.first_common_ancestor(include_self=True))
+            self.regular_events.first_common_ancestor(include_self=True),
+        )
 
     def test_single_page_no_include_self(self):
         """Test getting a single page, with include_self=False."""
         self.assertEqual(
             Page.objects.get(slug='events'),
-            Page.objects.filter(title='Christmas').first_common_ancestor())
+            Page.objects.filter(title='Christmas').first_common_ancestor(),
+        )
 
     def test_single_page_include_self(self):
         """Test getting a single page, with include_self=True."""
         self.assertEqual(
             Page.objects.get(title='Christmas'),
-            Page.objects.filter(title='Christmas').first_common_ancestor(include_self=True))
+            Page.objects.filter(title='Christmas').first_common_ancestor(
+                include_self=True
+            ),
+        )
 
     def test_all_pages(self):
         self.assertEqual(
-            Page.get_first_root_node(),
-            Page.objects.first_common_ancestor())
+            Page.get_first_root_node(), Page.objects.first_common_ancestor()
+        )
 
     def test_all_pages_strict(self):
         with self.assertRaises(Page.DoesNotExist):
@@ -727,12 +791,13 @@ class TestFirstCommonAncestor(TestCase):
     def test_all_pages_include_self_strict(self):
         self.assertEqual(
             Page.get_first_root_node(),
-            Page.objects.first_common_ancestor(include_self=True, strict=True))
+            Page.objects.first_common_ancestor(include_self=True, strict=True),
+        )
 
     def test_empty_queryset(self):
         self.assertEqual(
-            Page.get_first_root_node(),
-            Page.objects.none().first_common_ancestor())
+            Page.get_first_root_node(), Page.objects.none().first_common_ancestor()
+        )
 
     def test_empty_queryset_strict(self):
         with self.assertRaises(Page.DoesNotExist):

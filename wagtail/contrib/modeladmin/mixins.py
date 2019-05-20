@@ -11,6 +11,7 @@ class ThumbnailMixin:
     `thumb_image_field_name` must be overridden to name a ForeignKey field on
     your model, linking to `wagtailimages.Image`.
     """
+
     thumb_image_field_name = 'image'
     thumb_image_filter_spec = 'fill-100x100'
     thumb_image_width = 50
@@ -47,8 +48,10 @@ class ThumbnailMixin:
 
         # try to get a rendition of the image to use
         from wagtail.images.shortcuts import get_rendition_or_not_found
+
         spec = self.thumb_image_filter_spec
         rendition = get_rendition_or_not_found(image, spec)
         img_attrs.update({'src': rendition.url})
         return mark_safe('<img{}>'.format(flatatt(img_attrs)))
+
     admin_thumb.short_description = thumb_col_header_text

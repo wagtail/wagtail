@@ -38,7 +38,12 @@ class DoNothingOperation(Operation):
 
 
 class FillOperation(Operation):
-    vary_fields = ('focal_point_width', 'focal_point_height', 'focal_point_x', 'focal_point_y')
+    vary_fields = (
+        'focal_point_width',
+        'focal_point_height',
+        'focal_point_x',
+        'focal_point_y',
+    )
 
     def construct(self, size, *extra):
         # Get width and height
@@ -81,7 +86,9 @@ class FillOperation(Operation):
         # Use crop closeness to zoom in
         if focal_point is not None:
             # Get crop min
-            crop_min_scale = max(focal_point.width, focal_point.height * crop_aspect_ratio)
+            crop_min_scale = max(
+                focal_point.width, focal_point.height * crop_aspect_ratio
+            )
             crop_min_width = crop_min_scale
             crop_min_height = crop_min_scale / crop_aspect_ratio
 
@@ -89,8 +96,11 @@ class FillOperation(Operation):
             if not crop_min_scale >= crop_max_scale:
                 # Calculate max crop closeness to prevent upscaling
                 max_crop_closeness = max(
-                    1 - (self.width - crop_min_width) / (crop_max_width - crop_min_width),
-                    1 - (self.height - crop_min_height) / (crop_max_height - crop_min_height)
+                    1
+                    - (self.width - crop_min_width) / (crop_max_width - crop_min_width),
+                    1
+                    - (self.height - crop_min_height)
+                    / (crop_max_height - crop_min_height),
                 )
 
                 # Apply max crop closeness
@@ -98,8 +108,14 @@ class FillOperation(Operation):
 
                 if 1 >= crop_closeness >= 0:
                     # Get crop width and height
-                    crop_width = crop_max_width + (crop_min_width - crop_max_width) * crop_closeness
-                    crop_height = crop_max_height + (crop_min_height - crop_max_height) * crop_closeness
+                    crop_width = (
+                        crop_max_width
+                        + (crop_min_width - crop_max_width) * crop_closeness
+                    )
+                    crop_height = (
+                        crop_max_height
+                        + (crop_min_height - crop_max_height) * crop_closeness
+                    )
 
         # Find focal point UV
         if focal_point is not None:

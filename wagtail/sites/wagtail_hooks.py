@@ -23,11 +23,17 @@ class SitesMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_sites_menu_item():
-    return SitesMenuItem(_('Sites'), reverse('wagtailsites:index'),
-                         classnames='icon icon-site', order=602)
+    return SitesMenuItem(
+        _('Sites'),
+        reverse('wagtailsites:index'),
+        classnames='icon icon-site',
+        order=602,
+    )
 
 
 @hooks.register('register_permissions')
 def register_permissions():
-    return Permission.objects.filter(content_type__app_label='wagtailcore',
-                                     codename__in=['add_site', 'change_site', 'delete_site'])
+    return Permission.objects.filter(
+        content_type__app_label='wagtailcore',
+        codename__in=['add_site', 'change_site', 'delete_site'],
+    )

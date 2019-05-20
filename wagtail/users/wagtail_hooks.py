@@ -16,9 +16,7 @@ from wagtail.users.widgets import UserListingButton
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
-    return [
-        url(r'^users/', include(users, namespace='wagtailusers_users')),
-    ]
+    return [url(r'^users/', include(users, namespace='wagtailusers_users'))]
 
 
 @hooks.register('register_admin_viewset')
@@ -30,8 +28,12 @@ def register_viewset():
 # 'auth.delete_user') for user management actions, but this may vary according to
 # the AUTH_USER_MODEL setting
 add_user_perm = "{0}.add_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
-change_user_perm = "{0}.change_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
-delete_user_perm = "{0}.delete_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
+change_user_perm = "{0}.change_{1}".format(
+    AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
+)
+delete_user_perm = "{0}.delete_{1}".format(
+    AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
+)
 
 
 class UsersMenuItem(MenuItem):
@@ -49,7 +51,7 @@ def register_users_menu_item():
         _('Users'),
         reverse('wagtailusers_users:index'),
         classnames='icon icon-user',
-        order=600
+        order=600,
     )
 
 
@@ -68,18 +70,24 @@ def register_groups_menu_item():
         _('Groups'),
         reverse('wagtailusers_groups:index'),
         classnames='icon icon-group',
-        order=601
+        order=601,
     )
 
 
 @hooks.register('register_permissions')
 def register_permissions():
-    user_permissions = Q(content_type__app_label=AUTH_USER_APP_LABEL, codename__in=[
-        'add_%s' % AUTH_USER_MODEL_NAME.lower(),
-        'change_%s' % AUTH_USER_MODEL_NAME.lower(),
-        'delete_%s' % AUTH_USER_MODEL_NAME.lower(),
-    ])
-    group_permissions = Q(content_type__app_label='auth', codename__in=['add_group', 'change_group', 'delete_group'])
+    user_permissions = Q(
+        content_type__app_label=AUTH_USER_APP_LABEL,
+        codename__in=[
+            'add_%s' % AUTH_USER_MODEL_NAME.lower(),
+            'change_%s' % AUTH_USER_MODEL_NAME.lower(),
+            'delete_%s' % AUTH_USER_MODEL_NAME.lower(),
+        ],
+    )
+    group_permissions = Q(
+        content_type__app_label='auth',
+        codename__in=['add_group', 'change_group', 'delete_group'],
+    )
 
     return Permission.objects.filter(user_permissions | group_permissions)
 
@@ -96,14 +104,27 @@ class UsersSearchArea(SearchArea):
 @hooks.register('register_admin_search_area')
 def register_users_search_area():
     return UsersSearchArea(
-        _('Users'), reverse('wagtailusers_users:index'),
+        _('Users'),
+        reverse('wagtailusers_users:index'),
         name='users',
         classnames='icon icon-user',
-        order=600)
+        order=600,
+    )
 
 
 @hooks.register('register_user_listing_buttons')
 def user_listing_buttons(context, user):
-    yield UserListingButton(_('Edit'), reverse('wagtailusers_users:edit', args=[user.pk]), attrs={'title': _('Edit this user')}, priority=10)
+    yield UserListingButton(
+        _('Edit'),
+        reverse('wagtailusers_users:edit', args=[user.pk]),
+        attrs={'title': _('Edit this user')},
+        priority=10,
+    )
     if user_can_delete_user(context.request.user, user):
-        yield UserListingButton(_('Delete'), reverse('wagtailusers_users:delete', args=[user.pk]), classes={'no'}, attrs={'title': _('Delete this user')}, priority=20)
+        yield UserListingButton(
+            _('Delete'),
+            reverse('wagtailusers_users:delete', args=[user.pk]),
+            classes={'no'},
+            attrs={'title': _('Delete this user')},
+            priority=20,
+        )

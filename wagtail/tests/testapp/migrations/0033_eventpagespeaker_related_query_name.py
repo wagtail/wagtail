@@ -6,13 +6,16 @@ import modelcluster.fields
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('tests', '0032_auto_20180505_0008'),
-    ]
+    dependencies = [('tests', '0032_auto_20180505_0008')]
     operations = [
         migrations.AlterField(
             model_name='eventpagespeaker',
             name='page',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='speakers', related_query_name='speaker', to='tests.EventPage'),
-        ),
+            field=modelcluster.fields.ParentalKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='speakers',
+                related_query_name='speaker',
+                to='tests.EventPage',
+            ),
+        )
     ]

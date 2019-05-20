@@ -15,7 +15,7 @@ class MenuItem(metaclass=MediaDefiningClass):
         self.label = label
         self.url = url
         self.classnames = classnames
-        self.name = (name or slugify(str(label)))
+        self.name = name or slugify(str(label))
         self.order = order
 
         if attrs:
@@ -41,7 +41,7 @@ class MenuItem(metaclass=MediaDefiningClass):
             'classnames': self.classnames,
             'attr_string': self.attr_string,
             'label': self.label,
-            'active': self.is_active(request)
+            'active': self.is_active(request),
         }
 
     def render_html(self, request):
@@ -62,14 +62,20 @@ class Menu:
     @property
     def registered_menu_items(self):
         if self._registered_menu_items is None:
-            self._registered_menu_items = [fn() for fn in hooks.get_hooks(self.register_hook_name)]
+            self._registered_menu_items = [
+                fn() for fn in hooks.get_hooks(self.register_hook_name)
+            ]
         return self._registered_menu_items
 
     def menu_items_for_request(self, request):
         return [item for item in self.registered_menu_items if item.is_shown(request)]
 
     def active_menu_items(self, request):
-        return [item for item in self.menu_items_for_request(request) if item.is_active(request)]
+        return [
+            item
+            for item in self.menu_items_for_request(request)
+            if item.is_active(request)
+        ]
 
     @property
     def media(self):
@@ -97,6 +103,7 @@ class SubmenuMenuItem(MenuItem):
     template = 'wagtailadmin/shared/menu_submenu_item.html'
 
     """A MenuItem which wraps an inner Menu object"""
+
     def __init__(self, label, menu, **kwargs):
         self.menu = menu
         super().__init__(label, '#', **kwargs)
@@ -119,5 +126,8 @@ class SubmenuMenuItem(MenuItem):
         return context
 
 
-admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')
+admin_menu = Menu(
+    register_hook_name='register_admin_menu_item',
+    construct_hook_name='construct_main_menu',
+)
 settings_menu = Menu(register_hook_name='register_settings_menu_item')

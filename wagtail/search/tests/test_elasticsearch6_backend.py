@@ -22,7 +22,8 @@ class TestElasticsearch6SearchQuery(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
-            json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default)
+            json.dumps(a, sort_keys=True, default=default),
+            json.dumps(b, sort_keys=True, default=default),
         )
 
     query_compiler_class = Elasticsearch6SearchBackend.query_compiler_class
@@ -32,10 +33,17 @@ class TestElasticsearch6SearchQuery(TestCase):
         query = self.query_compiler_class(models.Book.objects.all(), "Hello")
 
         # Check it
-        expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}
-        }}
+        expected_result = {
+            'bool': {
+                'filter': {'match': {'content_type': 'searchtests.Book'}},
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_none_query_string(self):
@@ -43,177 +51,353 @@ class TestElasticsearch6SearchQuery(TestCase):
         query = self.query_compiler_class(models.Book.objects.all(), MATCH_ALL)
 
         # Check it
-        expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'match_all': {}}
-        }}
+        expected_result = {
+            'bool': {
+                'filter': {'match': {'content_type': 'searchtests.Book'}},
+                'must': {'match_all': {}},
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_and_operator(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.all(), "Hello", operator='and')
+        query = self.query_compiler_class(
+            models.Book.objects.all(), "Hello", operator='and'
+        )
 
         # Check it
-        expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams'], 'operator': 'and'}}
-        }}
+        expected_result = {
+            'bool': {
+                'filter': {'match': {'content_type': 'searchtests.Book'}},
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                        'operator': 'and',
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_filter(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.filter(title="Test"), "Hello")
+        query = self.query_compiler_class(
+            models.Book.objects.filter(title="Test"), "Hello"
+        )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'term': {'title_filter': 'Test'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {'term': {'title_filter': 'Test'}},
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_and_filter(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.filter(title="Test", publication_date=datetime.date(2017, 10, 18)), "Hello")
+        query = self.query_compiler_class(
+            models.Book.objects.filter(
+                title="Test", publication_date=datetime.date(2017, 10, 18)
+            ),
+            "Hello",
+        )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'bool': {'must': [{'term': {'publication_date_filter': '2017-10-18'}}, {'term': {'title_filter': 'Test'}}]}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {
+                        'bool': {
+                            'must': [
+                                {'term': {'publication_date_filter': '2017-10-18'}},
+                                {'term': {'title_filter': 'Test'}},
+                            ]
+                        }
+                    },
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
         query = query.get_query()
         field_filters = query['bool']['filter'][1]['bool']['must']
-        field_filters[:] = sorted(field_filters, key=lambda f: list(f['term'].keys())[0])
+        field_filters[:] = sorted(
+            field_filters, key=lambda f: list(f['term'].keys())[0]
+        )
 
         self.assertDictEqual(query, expected_result)
 
     def test_or_filter(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.filter(Q(title="Test") | Q(publication_date=datetime.date(2017, 10, 18))), "Hello")
+        query = self.query_compiler_class(
+            models.Book.objects.filter(
+                Q(title="Test") | Q(publication_date=datetime.date(2017, 10, 18))
+            ),
+            "Hello",
+        )
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
         query = query.get_query()
         field_filters = query['bool']['filter'][1]['bool']['should']
-        field_filters[:] = sorted(field_filters, key=lambda f: list(f['term'].keys())[0])
+        field_filters[:] = sorted(
+            field_filters, key=lambda f: list(f['term'].keys())[0]
+        )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'bool': {'should': [{'term': {'publication_date_filter': '2017-10-18'}}, {'term': {'title_filter': 'Test'}}]}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {
+                        'bool': {
+                            'should': [
+                                {'term': {'publication_date_filter': '2017-10-18'}},
+                                {'term': {'title_filter': 'Test'}},
+                            ]
+                        }
+                    },
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query, expected_result)
 
     def test_negated_filter(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.exclude(publication_date=datetime.date(2017, 10, 18)), "Hello")
+        query = self.query_compiler_class(
+            models.Book.objects.exclude(publication_date=datetime.date(2017, 10, 18)),
+            "Hello",
+        )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'bool': {'mustNot': {'term': {'publication_date_filter': '2017-10-18'}}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {
+                        'bool': {
+                            'mustNot': {
+                                'term': {'publication_date_filter': '2017-10-18'}
+                            }
+                        }
+                    },
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_fields(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.all(), "Hello", fields=['title'])
+        query = self.query_compiler_class(
+            models.Book.objects.all(), "Hello", fields=['title']
+        )
 
         # Check it
-        expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'match': {'title': {'query': 'Hello'}}}
-        }}
+        expected_result = {
+            'bool': {
+                'filter': {'match': {'content_type': 'searchtests.Book'}},
+                'must': {'match': {'title': {'query': 'Hello'}}},
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_fields_with_and_operator(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.all(), "Hello", fields=['title'], operator='and')
+        query = self.query_compiler_class(
+            models.Book.objects.all(), "Hello", fields=['title'], operator='and'
+        )
 
         # Check it
-        expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'match': {'title': {'query': 'Hello', 'operator': 'and'}}}
-        }}
+        expected_result = {
+            'bool': {
+                'filter': {'match': {'content_type': 'searchtests.Book'}},
+                'must': {'match': {'title': {'query': 'Hello', 'operator': 'and'}}},
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_multiple_fields(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.all(), "Hello", fields=['title', 'content'])
+        query = self.query_compiler_class(
+            models.Book.objects.all(), "Hello", fields=['title', 'content']
+        )
 
         # Check it
-        expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello'}}
-        }}
+        expected_result = {
+            'bool': {
+                'filter': {'match': {'content_type': 'searchtests.Book'}},
+                'must': {
+                    'multi_match': {'fields': ['title', 'content'], 'query': 'Hello'}
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_multiple_fields_with_and_operator(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.all(), "Hello", fields=['title', 'content'], operator='and'
+            models.Book.objects.all(),
+            "Hello",
+            fields=['title', 'content'],
+            operator='and',
         )
 
         # Check it
-        expected_result = {'bool': {
-            'filter': {'match': {'content_type': 'searchtests.Book'}},
-            'must': {'multi_match': {'fields': ['title', 'content'], 'query': 'Hello', 'operator': 'and'}}
-        }}
+        expected_result = {
+            'bool': {
+                'filter': {'match': {'content_type': 'searchtests.Book'}},
+                'must': {
+                    'multi_match': {
+                        'fields': ['title', 'content'],
+                        'query': 'Hello',
+                        'operator': 'and',
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_exact_lookup(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.filter(title__exact="Test"), "Hello")
+        query = self.query_compiler_class(
+            models.Book.objects.filter(title__exact="Test"), "Hello"
+        )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'term': {'title_filter': 'Test'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {'term': {'title_filter': 'Test'}},
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_none_lookup(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.filter(title=None), "Hello")
+        query = self.query_compiler_class(
+            models.Book.objects.filter(title=None), "Hello"
+        )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}},
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_isnull_true_lookup(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.filter(title__isnull=True), "Hello")
+        query = self.query_compiler_class(
+            models.Book.objects.filter(title__isnull=True), "Hello"
+        )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}},
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_isnull_false_lookup(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.filter(title__isnull=False), "Hello")
+        query = self.query_compiler_class(
+            models.Book.objects.filter(title__isnull=False), "Hello"
+        )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'exists': {'field': 'title_filter'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {'exists': {'field': 'title_filter'}},
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_startswith_lookup(self):
         # Create a query
-        query = self.query_compiler_class(models.Book.objects.filter(title__startswith="Test"), "Hello")
+        query = self.query_compiler_class(
+            models.Book.objects.filter(title__startswith="Test"), "Hello"
+        )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'prefix': {'title_filter': 'Test'}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {'prefix': {'title_filter': 'Test'}},
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_gt_lookup(self):
@@ -221,53 +405,105 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.filter(publication_date__gt=datetime.datetime(2014, 4, 29)), "Hello"
+            models.Book.objects.filter(
+                publication_date__gt=datetime.datetime(2014, 4, 29)
+            ),
+            "Hello",
         )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'range': {'publication_date_filter': {'gt': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {'range': {'publication_date_filter': {'gt': '2014-04-29'}}},
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_lt_lookup(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.filter(publication_date__lt=datetime.datetime(2014, 4, 29)), "Hello"
+            models.Book.objects.filter(
+                publication_date__lt=datetime.datetime(2014, 4, 29)
+            ),
+            "Hello",
         )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'range': {'publication_date_filter': {'lt': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {'range': {'publication_date_filter': {'lt': '2014-04-29'}}},
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_gte_lookup(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.filter(publication_date__gte=datetime.datetime(2014, 4, 29)), "Hello"
+            models.Book.objects.filter(
+                publication_date__gte=datetime.datetime(2014, 4, 29)
+            ),
+            "Hello",
         )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'range': {'publication_date_filter': {'gte': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {'range': {'publication_date_filter': {'gte': '2014-04-29'}}},
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_lte_lookup(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.filter(publication_date__lte=datetime.datetime(2014, 4, 29)), "Hello"
+            models.Book.objects.filter(
+                publication_date__lte=datetime.datetime(2014, 4, 29)
+            ),
+            "Hello",
         )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'range': {'publication_date_filter': {'lte': '2014-04-29'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {'range': {'publication_date_filter': {'lte': '2014-04-29'}}},
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_range_lookup(self):
@@ -276,20 +512,40 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.filter(publication_date__range=(start_date, end_date)), "Hello"
+            models.Book.objects.filter(publication_date__range=(start_date, end_date)),
+            "Hello",
         )
 
         # Check it
-        expected_result = {'bool': {'filter': [
-            {'match': {'content_type': 'searchtests.Book'}},
-            {'range': {'publication_date_filter': {'gte': '2014-04-29', 'lte': '2014-08-19'}}}
-        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        expected_result = {
+            'bool': {
+                'filter': [
+                    {'match': {'content_type': 'searchtests.Book'}},
+                    {
+                        'range': {
+                            'publication_date_filter': {
+                                'gte': '2014-04-29',
+                                'lte': '2014-08-19',
+                            }
+                        }
+                    },
+                ],
+                'must': {
+                    'multi_match': {
+                        'query': 'Hello',
+                        'fields': ['_all_text', '_edgengrams'],
+                    }
+                },
+            }
+        }
         self.assertDictEqual(query.get_query(), expected_result)
 
     def test_custom_ordering(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.order_by('publication_date'), "Hello", order_by_relevance=False
+            models.Book.objects.order_by('publication_date'),
+            "Hello",
+            order_by_relevance=False,
         )
 
         # Check it
@@ -299,7 +555,9 @@ class TestElasticsearch6SearchQuery(TestCase):
     def test_custom_ordering_reversed(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.order_by('-publication_date'), "Hello", order_by_relevance=False
+            models.Book.objects.order_by('-publication_date'),
+            "Hello",
+            order_by_relevance=False,
         )
 
         # Check it
@@ -309,11 +567,16 @@ class TestElasticsearch6SearchQuery(TestCase):
     def test_custom_ordering_multiple(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.order_by('publication_date', 'number_of_pages'), "Hello", order_by_relevance=False
+            models.Book.objects.order_by('publication_date', 'number_of_pages'),
+            "Hello",
+            order_by_relevance=False,
         )
 
         # Check it
-        expected_result = [{'publication_date_filter': 'asc'}, {'number_of_pages_filter': 'asc'}]
+        expected_result = [
+            {'publication_date_filter': 'asc'},
+            {'number_of_pages_filter': 'asc'},
+        ]
         self.assertDictEqual(query.get_sort(), expected_result)
 
 
@@ -322,9 +585,7 @@ class TestElasticsearch6SearchResults(TestCase):
 
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
-        self.assertEqual(
-            json.dumps(a, sort_keys=True, default=default), json.dumps
-        )
+        self.assertEqual(json.dumps(a, sort_keys=True, default=default), json.dumps)
 
     def get_results(self):
         backend = Elasticsearch6SearchBackend({})
@@ -344,17 +605,15 @@ class TestElasticsearch6SearchResults(TestCase):
                         '_index': 'wagtail',
                         '_score': 1,
                         '_type': 'searchtests_book',
-                        'fields': {
-                            'pk': [str(result)],
-                        }
+                        'fields': {'pk': [str(result)]},
                     }
                     for result in results
                 ],
                 'max_score': 1,
-                'total': len(results)
+                'total': len(results),
             },
             'timed_out': False,
-            'took': 2
+            'took': 2,
         }
 
     @mock.patch('elasticsearch.Elasticsearch.search')
@@ -370,7 +629,7 @@ class TestElasticsearch6SearchResults(TestCase):
             stored_fields='pk',
             index='wagtail__searchtests_book',
             scroll='2m',
-            size=100
+            size=100,
         )
 
     @mock.patch('elasticsearch.Elasticsearch.search')
@@ -387,7 +646,7 @@ class TestElasticsearch6SearchResults(TestCase):
             _source=False,
             stored_fields='pk',
             index='wagtail__searchtests_book',
-            size=1
+            size=1,
         )
 
     @mock.patch('elasticsearch.Elasticsearch.search')
@@ -403,7 +662,7 @@ class TestElasticsearch6SearchResults(TestCase):
             _source=False,
             stored_fields='pk',
             index='wagtail__searchtests_book',
-            size=3
+            size=3,
         )
 
     @mock.patch('elasticsearch.Elasticsearch.search')
@@ -419,7 +678,7 @@ class TestElasticsearch6SearchResults(TestCase):
             _source=False,
             stored_fields='pk',
             index='wagtail__searchtests_book',
-            size=10
+            size=10,
         )
 
     @mock.patch('elasticsearch.Elasticsearch.search')
@@ -436,7 +695,7 @@ class TestElasticsearch6SearchResults(TestCase):
             _source=False,
             stored_fields='pk',
             index='wagtail__searchtests_book',
-            size=1
+            size=1,
         )
 
     @mock.patch('elasticsearch.Elasticsearch.search')
@@ -463,7 +722,9 @@ class TestElasticsearch6SearchResults(TestCase):
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_duplicate_results(self, search):  # Duplicates will not be removed
         search.return_value = self.construct_search_response([1, 1])
-        results = list(self.get_results())  # Must cast to list so we only create one query
+        results = list(
+            self.get_results()
+        )  # Must cast to list so we only create one query
 
         self.assertEqual(len(results), 2)
         self.assertEqual(results[0], models.Book.objects.get(id=1))
@@ -471,10 +732,10 @@ class TestElasticsearch6SearchResults(TestCase):
 
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_result_order(self, search):
-        search.return_value = self.construct_search_response(
-            [1, 2, 3]
-        )
-        results = list(self.get_results())  # Must cast to list so we only create one query
+        search.return_value = self.construct_search_response([1, 2, 3])
+        results = list(
+            self.get_results()
+        )  # Must cast to list so we only create one query
 
         self.assertEqual(results[0], models.Book.objects.get(id=1))
         self.assertEqual(results[1], models.Book.objects.get(id=2))
@@ -482,10 +743,10 @@ class TestElasticsearch6SearchResults(TestCase):
 
     @mock.patch('elasticsearch.Elasticsearch.search')
     def test_result_order_2(self, search):
-        search.return_value = self.construct_search_response(
-            [3, 2, 1]
-        )
-        results = list(self.get_results())  # Must cast to list so we only create one query
+        search.return_value = self.construct_search_response([3, 2, 1])
+        results = list(
+            self.get_results()
+        )  # Must cast to list so we only create one query
 
         self.assertEqual(results[0], models.Book.objects.get(id=3))
         self.assertEqual(results[1], models.Book.objects.get(id=2))
@@ -498,7 +759,8 @@ class TestElasticsearch6Mapping(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
-            json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default)
+            json.dumps(a, sort_keys=True, default=default),
+            json.dumps(b, sort_keys=True, default=default),
         )
 
     def setUp(self):
@@ -522,9 +784,23 @@ class TestElasticsearch6Mapping(TestCase):
                     'pk': {'type': 'keyword', 'store': True},
                     'content_type': {'type': 'keyword'},
                     '_all_text': {'type': 'text'},
-                    '_edgengrams': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
-                    'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'title_edgengrams': {'type': 'text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    '_edgengrams': {
+                        'analyzer': 'edgengram_analyzer',
+                        'search_analyzer': 'standard',
+                        'type': 'text',
+                    },
+                    'title': {
+                        'type': 'text',
+                        'boost': 2.0,
+                        'copy_to': '_all_text',
+                        'analyzer': 'edgengram_analyzer',
+                        'search_analyzer': 'standard',
+                    },
+                    'title_edgengrams': {
+                        'type': 'text',
+                        'analyzer': 'edgengram_analyzer',
+                        'search_analyzer': 'standard',
+                    },
                     'title_filter': {'type': 'keyword'},
                     'authors': {
                         'type': 'nested',
@@ -543,7 +819,7 @@ class TestElasticsearch6Mapping(TestCase):
                             'slug_filter': {'type': 'keyword'},
                         },
                     },
-                    'tags_filter': {'type': 'integer'}
+                    'tags_filter': {'type': 'integer'},
                 }
             }
         }
@@ -572,14 +848,14 @@ class TestElasticsearch6Mapping(TestCase):
             'authors': [
                 {
                     'name': 'J. R. R. Tolkien',
-                    'date_of_birth_filter': datetime.date(1892, 1, 3)
+                    'date_of_birth_filter': datetime.date(1892, 1, 3),
                 }
             ],
             'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
             'tags': [],
-            'tags_filter': []
+            'tags_filter': [],
         }
 
         self.assertDictEqual(document, expected_result)
@@ -591,7 +867,8 @@ class TestElasticsearch6MappingInheritance(TestCase):
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
         self.assertEqual(
-            json.dumps(a, sort_keys=True, default=default), json.dumps(b, sort_keys=True, default=default)
+            json.dumps(a, sort_keys=True, default=default),
+            json.dumps(b, sort_keys=True, default=default),
         )
 
     def setUp(self):
@@ -612,29 +889,55 @@ class TestElasticsearch6MappingInheritance(TestCase):
             'doc': {
                 'properties': {
                     # New
-                    'searchtests_novel__setting': {'type': 'text', 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    'searchtests_novel__setting': {
+                        'type': 'text',
+                        'copy_to': '_all_text',
+                        'analyzer': 'edgengram_analyzer',
+                        'search_analyzer': 'standard',
+                    },
                     'searchtests_novel__protagonist': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'boost': 0.5, 'copy_to': '_all_text'},
-                            'novel_id_filter': {'type': 'integer'}
-                        }
+                            'name': {
+                                'type': 'text',
+                                'boost': 0.5,
+                                'copy_to': '_all_text',
+                            },
+                            'novel_id_filter': {'type': 'integer'},
+                        },
                     },
                     'searchtests_novel__protagonist_id_filter': {'type': 'integer'},
                     'searchtests_novel__characters': {
                         'type': 'nested',
                         'properties': {
-                            'name': {'type': 'text', 'boost': 0.25, 'copy_to': '_all_text'}
-                        }
+                            'name': {
+                                'type': 'text',
+                                'boost': 0.25,
+                                'copy_to': '_all_text',
+                            }
+                        },
                     },
-
                     # Inherited
                     'pk': {'type': 'keyword', 'store': True},
                     'content_type': {'type': 'keyword'},
                     '_all_text': {'type': 'text'},
-                    '_edgengrams': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
-                    'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'title_edgengrams': {'type': 'text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                    '_edgengrams': {
+                        'analyzer': 'edgengram_analyzer',
+                        'search_analyzer': 'standard',
+                        'type': 'text',
+                    },
+                    'title': {
+                        'type': 'text',
+                        'boost': 2.0,
+                        'copy_to': '_all_text',
+                        'analyzer': 'edgengram_analyzer',
+                        'search_analyzer': 'standard',
+                    },
+                    'title_edgengrams': {
+                        'type': 'text',
+                        'analyzer': 'edgengram_analyzer',
+                        'search_analyzer': 'standard',
+                    },
                     'title_filter': {'type': 'keyword'},
                     'authors': {
                         'type': 'nested',
@@ -653,7 +956,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
                             'slug_filter': {'type': 'keyword'},
                         },
                     },
-                    'tags_filter': {'type': 'integer'}
+                    'tags_filter': {'type': 'integer'},
                 }
             }
         }
@@ -684,25 +987,21 @@ class TestElasticsearch6MappingInheritance(TestCase):
             'searchtests_novel__setting': "Middle Earth",
             'searchtests_novel__protagonist': {
                 'name': "Frodo Baggins",
-                'novel_id_filter': 4
+                'novel_id_filter': 4,
             },
             'searchtests_novel__protagonist_id_filter': 8,
             'searchtests_novel__characters': [
-                {
-                    'name': "Bilbo Baggins"
-                },
-                {
-                    'name': "Frodo Baggins"
-                },
-                {
-                    'name': "Gandalf"
-                }
+                {'name': "Bilbo Baggins"},
+                {'name': "Frodo Baggins"},
+                {'name': "Gandalf"},
             ],
-
             # Changed
             'content_type': ["searchtests.Novel", "searchtests.Book"],
-            '_edgengrams': ['Middle Earth', 'The Fellowship of the Ring', 'The Fellowship of the Ring'],
-
+            '_edgengrams': [
+                'Middle Earth',
+                'The Fellowship of the Ring',
+                'The Fellowship of the Ring',
+            ],
             # Inherited
             'pk': '4',
             'title': 'The Fellowship of the Ring',
@@ -711,14 +1010,14 @@ class TestElasticsearch6MappingInheritance(TestCase):
             'authors': [
                 {
                     'name': 'J. R. R. Tolkien',
-                    'date_of_birth_filter': datetime.date(1892, 1, 3)
+                    'date_of_birth_filter': datetime.date(1892, 1, 3),
                 }
             ],
             'authors_filter': [2],
             'publication_date_filter': datetime.date(1954, 7, 29),
             'number_of_pages_filter': 423,
             'tags': [],
-            'tags_filter': []
+            'tags_filter': [],
         }
 
         self.assertDictEqual(document, expected_result)
@@ -737,23 +1036,25 @@ class TestBackendConfiguration(TestCase):
                     'url_prefix': '',
                     'use_ssl': False,
                     'verify_certs': False,
-                    'http_auth': None
+                    'http_auth': None,
                 }
             ],
-            timeout=10
+            timeout=10,
         )
 
     def test_hosts(self, Elasticsearch):
-        Elasticsearch6SearchBackend(params={
-            'HOSTS': [
-                {
-                    'host': '127.0.0.1',
-                    'port': 9300,
-                    'use_ssl': True,
-                    'verify_certs': True,
-                }
-            ]
-        })
+        Elasticsearch6SearchBackend(
+            params={
+                'HOSTS': [
+                    {
+                        'host': '127.0.0.1',
+                        'port': 9300,
+                        'use_ssl': True,
+                        'verify_certs': True,
+                    }
+                ]
+            }
+        )
 
         Elasticsearch.assert_called_with(
             hosts=[
@@ -764,19 +1065,21 @@ class TestBackendConfiguration(TestCase):
                     'verify_certs': True,
                 }
             ],
-            timeout=10
+            timeout=10,
         )
 
     def test_urls(self, Elasticsearch):
         # This test backwards compatibility with old URLS setting
-        Elasticsearch6SearchBackend(params={
-            'URLS': [
-                'http://localhost:12345',
-                'https://127.0.0.1:54321',
-                'http://username:password@elasticsearch.mysite.com',
-                'https://elasticsearch.mysite.com/hello',
-            ],
-        })
+        Elasticsearch6SearchBackend(
+            params={
+                'URLS': [
+                    'http://localhost:12345',
+                    'https://127.0.0.1:54321',
+                    'http://username:password@elasticsearch.mysite.com',
+                    'https://elasticsearch.mysite.com/hello',
+                ]
+            }
+        )
 
         Elasticsearch.assert_called_with(
             hosts=[
@@ -802,7 +1105,7 @@ class TestBackendConfiguration(TestCase):
                     'url_prefix': '',
                     'use_ssl': False,
                     'verify_certs': False,
-                    'http_auth': ('username', 'password')
+                    'http_auth': ('username', 'password'),
                 },
                 {
                     'host': 'elasticsearch.mysite.com',
@@ -813,5 +1116,5 @@ class TestBackendConfiguration(TestCase):
                     'http_auth': None,
                 },
             ],
-            timeout=10
+            timeout=10,
         )

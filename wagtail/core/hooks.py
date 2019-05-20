@@ -22,9 +22,11 @@ def register(hook_name, fn=None, order=0):
 
     # Pretend to be a decorator if fn is not supplied
     if fn is None:
+
         def decorator(fn):
             register(hook_name, fn, order=order)
             return fn
+
         return decorator
 
     if hook_name not in _hooks:

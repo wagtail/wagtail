@@ -15,6 +15,7 @@ class FeatureRegistry:
     define a TinyMCE plugin for the same feature. The information is therefore collected into
     this registry via the 'register_rich_text_features' hook.
     """
+
     def __init__(self):
         # Has the register_rich_text_features hook been run for this registry?
         self.has_scanned_for_features = False
@@ -78,9 +79,11 @@ class FeatureRegistry:
             warn(
                 'FeatureRegistry.register_link_type(link_type, handler_function) is deprecated. '
                 'Use FeatureRegistry.register_link_type(handler_object) instead',
-                category=RemovedInWagtail27Warning
+                category=RemovedInWagtail27Warning,
             )
-            self.link_types[identifier] = self.function_as_entity_handler(identifier, handler_fn)
+            self.link_types[identifier] = self.function_as_entity_handler(
+                identifier, handler_fn
+            )
         else:
             # invoked as register_link_type(handler_object)
             handler = identifier_or_handler_obj
@@ -98,9 +101,11 @@ class FeatureRegistry:
             warn(
                 'FeatureRegistry.register_embed_type(link_type, handler_function) is deprecated. '
                 'Use FeatureRegistry.register_embed_type(handler_object) instead',
-                category=RemovedInWagtail27Warning
+                category=RemovedInWagtail27Warning,
             )
-            self.embed_types[identifier] = self.function_as_entity_handler(identifier, handler_fn)
+            self.embed_types[identifier] = self.function_as_entity_handler(
+                identifier, handler_fn
+            )
         else:
             # invoked as register_embed_type(handler_object)
             handler = identifier_or_handler_obj
@@ -127,7 +132,8 @@ class FeatureRegistry:
     @staticmethod
     def function_as_entity_handler(identifier, fn):
         """Supports legacy registering of entity handlers as functions."""
-        return type('EntityHandlerRegisteredAsFunction', (object,), {
-            'identifier': identifier,
-            'expand_db_attributes': staticmethod(fn),
-        })
+        return type(
+            'EntityHandlerRegisteredAsFunction',
+            (object,),
+            {'identifier': identifier, 'expand_db_attributes': staticmethod(fn)},
+        )

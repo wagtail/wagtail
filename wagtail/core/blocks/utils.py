@@ -16,8 +16,5 @@ def js_dict(d):
     values are assumed to be valid Javascript expressions and will be neither escaped nor quoted (but will be
     wrapped in parentheses, in case some awkward git decides to use the comma operator...)
     """
-    dict_items = [
-        indent("'%s': (%s)" % (k, v))
-        for (k, v) in d.items()
-    ]
+    dict_items = [indent("'%s': (%s)" % (k, v)) for (k, v) in d.items()]
     return "{\n%s\n}" % ',\n'.join(dict_items)

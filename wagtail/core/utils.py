@@ -13,7 +13,9 @@ WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
 
 def camelcase_to_underscore(str):
     # http://djangosnippets.org/snippets/585/
-    return re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', '_\\1', str).lower().strip('_')
+    return (
+        re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', '_\\1', str).lower().strip('_')
+    )
 
 
 def resolve_model_string(model_string, default_app=None):
@@ -33,9 +35,11 @@ def resolve_model_string(model_string, default_app=None):
                 app_label = default_app
                 model_name = model_string
             else:
-                raise ValueError("Can not resolve {0!r} into a model. Model names "
-                                 "should be in the form app_label.model_name".format(
-                                     model_string), model_string)
+                raise ValueError(
+                    "Can not resolve {0!r} into a model. Model names "
+                    "should be in the form app_label.model_name".format(model_string),
+                    model_string,
+                )
 
         return apps.get_model(app_label, model_name)
 
@@ -43,7 +47,9 @@ def resolve_model_string(model_string, default_app=None):
         return model_string
 
     else:
-        raise ValueError("Can not resolve {0!r} into a model".format(model_string), model_string)
+        raise ValueError(
+            "Can not resolve {0!r} into a model".format(model_string), model_string
+        )
 
 
 SCRIPT_RE = re.compile(r'<(-*)/script>')

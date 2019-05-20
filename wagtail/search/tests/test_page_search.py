@@ -35,15 +35,25 @@ class PageSearchTests(object):
             index.refresh()
 
     def test_order_by_title(self):
-        list(Page.objects.order_by('title').search('blah', order_by_relevance=False, backend=self.backend_name))
+        list(
+            Page.objects.order_by('title').search(
+                'blah', order_by_relevance=False, backend=self.backend_name
+            )
+        )
 
     def test_search_specific_queryset(self):
         list(Page.objects.specific().search('bread', backend=self.backend_name))
 
     def test_search_specific_queryset_with_fields(self):
-        list(Page.objects.specific().search('bread', fields=['title'], backend=self.backend_name))
+        list(
+            Page.objects.specific().search(
+                'bread', fields=['title'], backend=self.backend_name
+            )
+        )
 
 
 for backend_name in settings.WAGTAILSEARCH_BACKENDS.keys():
     test_name = str("Test%sBackend" % backend_name.title())
-    globals()[test_name] = type(test_name, (PageSearchTests, TestCase,), {'backend_name': backend_name})
+    globals()[test_name] = type(
+        test_name, (PageSearchTests, TestCase), {'backend_name': backend_name}
+    )

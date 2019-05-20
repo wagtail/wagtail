@@ -18,17 +18,18 @@ class TestDbWhitelisterMethods(TestCase):
     def test_clean_tag_node_with_data_embedtype(self):
         soup = BeautifulSoup(
             '<p><a data-embedtype="image" data-id=1 data-format="left" data-alt="bar" irrelevant="baz">foo</a></p>',
-            'html5lib'
+            'html5lib',
         )
         tag = soup.p
         self.whitelister.clean_tag_node(soup, tag)
-        self.assertEqual(str(tag),
-                         '<p><embed alt="bar" embedtype="image" format="left" id="1"/></p>')
+        self.assertEqual(
+            str(tag), '<p><embed alt="bar" embedtype="image" format="left" id="1"/></p>'
+        )
 
     def test_clean_tag_node_with_data_linktype(self):
         soup = BeautifulSoup(
             '<a data-linktype="document" data-id="1" irrelevant="baz">foo</a>',
-            'html5lib'
+            'html5lib',
         )
         tag = soup.a
         self.whitelister.clean_tag_node(soup, tag)
@@ -50,7 +51,9 @@ class TestDbWhitelister(TestCase):
         Assert that two HTML strings are equal at the DOM level
         (necessary because we can't guarantee the order that attributes are output in)
         """
-        self.assertEqual(BeautifulSoup(str1, 'html5lib'), BeautifulSoup(str2, 'html5lib'))
+        self.assertEqual(
+            BeautifulSoup(str1, 'html5lib'), BeautifulSoup(str2, 'html5lib')
+        )
 
     def test_page_link_is_rewritten(self):
         input_html = (
@@ -116,7 +119,9 @@ class TestDbWhitelister(TestCase):
         self.assertHtmlEqual(expected, output_html)
 
     def test_whitelist_with_feature_list(self):
-        converter = EditorHTMLConverter(features=['h1', 'bold', 'link', 'something_i_just_made_up'])
+        converter = EditorHTMLConverter(
+            features=['h1', 'bold', 'link', 'something_i_just_made_up']
+        )
         input_html = (
             '<h1>this heading is allowed</h1> <h2>but not this one</h2> '
             '<p><b>bold</b> <i>italic</i></p>'

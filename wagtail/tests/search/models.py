@@ -8,10 +8,7 @@ class Author(index.Indexed, models.Model):
     name = models.CharField(max_length=255)
     date_of_birth = models.DateField(null=True)
 
-    search_fields = [
-        index.SearchField('name'),
-        index.FilterField('date_of_birth'),
-    ]
+    search_fields = [index.SearchField('name'), index.FilterField('date_of_birth')]
 
     def __str__(self):
         return self.name
@@ -32,10 +29,9 @@ class Book(index.Indexed, models.Model):
         index.RelatedFields('authors', Author.search_fields),
         index.FilterField('publication_date'),
         index.FilterField('number_of_pages'),
-        index.RelatedFields('tags', [
-            index.SearchField('name'),
-            index.FilterField('slug'),
-        ]),
+        index.RelatedFields(
+            'tags', [index.SearchField('name'), index.FilterField('slug')]
+        ),
         index.FilterField('tags'),
     ]
 
@@ -72,7 +68,9 @@ class Book(index.Indexed, models.Model):
 
 class Character(models.Model):
     name = models.CharField(max_length=255)
-    novel = models.ForeignKey('Novel', related_name='characters', on_delete=models.CASCADE)
+    novel = models.ForeignKey(
+        'Novel', related_name='characters', on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.name
@@ -80,27 +78,25 @@ class Character(models.Model):
 
 class Novel(Book):
     setting = models.CharField(max_length=255)
-    protagonist = models.OneToOneField(Character, related_name='+', null=True, on_delete=models.SET_NULL)
+    protagonist = models.OneToOneField(
+        Character, related_name='+', null=True, on_delete=models.SET_NULL
+    )
 
     search_fields = Book.search_fields + [
         index.SearchField('setting', partial_match=True),
-        index.RelatedFields('characters', [
-            index.SearchField('name', boost=0.25),
-        ]),
-        index.RelatedFields('protagonist', [
-            index.SearchField('name', boost=0.5),
-            index.FilterField('novel'),
-        ]),
+        index.RelatedFields('characters', [index.SearchField('name', boost=0.25)]),
+        index.RelatedFields(
+            'protagonist',
+            [index.SearchField('name', boost=0.5), index.FilterField('novel')],
+        ),
         index.FilterField('protagonist'),
     ]
 
 
 class ProgrammingGuide(Book):
-    programming_language = models.CharField(max_length=255, choices=[
-        ('py', "Python"),
-        ('js', "Javascript"),
-        ('rs', "Rust"),
-    ])
+    programming_language = models.CharField(
+        max_length=255, choices=[('py', "Python"), ('js', "Javascript"), ('rs', "Rust")]
+    )
 
     search_fields = Book.search_fields + [
         index.SearchField('get_programming_language_display'),

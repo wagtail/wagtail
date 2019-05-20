@@ -16,7 +16,7 @@ def set_privacy(request, collection_id):
     restrictions = collection.get_view_restrictions().order_by('collection__depth')
     if restrictions:
         restriction = restrictions[0]
-        restriction_exists_on_ancestor = (restriction.collection != collection)
+        restriction_exists_on_ancestor = restriction.collection != collection
     else:
         restriction = None
         restriction_exists_on_ancestor = False
@@ -34,11 +34,14 @@ def set_privacy(request, collection_id):
                 form.save()
 
             return render_modal_workflow(
-                request, None, None,
-                None, json_data={
+                request,
+                None,
+                None,
+                None,
+                json_data={
                     'step': 'set_privacy_done',
-                    'is_public': (form.cleaned_data['restriction_type'] == 'none')
-                }
+                    'is_public': (form.cleaned_data['restriction_type'] == 'none'),
+                },
             )
 
     else:  # request is a GET
@@ -47,24 +50,25 @@ def set_privacy(request, collection_id):
                 form = CollectionViewRestrictionForm(instance=restriction)
             else:
                 # no current view restrictions on this collection
-                form = CollectionViewRestrictionForm(initial={
-                    'restriction_type': 'none'
-                })
+                form = CollectionViewRestrictionForm(
+                    initial={'restriction_type': 'none'}
+                )
 
     if restriction_exists_on_ancestor:
         # display a message indicating that there is a restriction at ancestor level -
         # do not provide the form for setting up new restrictions
         return render_modal_workflow(
-            request, 'wagtailadmin/collection_privacy/ancestor_privacy.html', None,
-            {
-                'collection_with_restriction': restriction.collection,
-            }
+            request,
+            'wagtailadmin/collection_privacy/ancestor_privacy.html',
+            None,
+            {'collection_with_restriction': restriction.collection},
         )
     else:
         # no restriction set at ancestor level - can set restrictions here
         return render_modal_workflow(
-            request, 'wagtailadmin/collection_privacy/set_privacy.html', None, {
-                'collection': collection,
-                'form': form,
-            }, json_data={'step': 'set_privacy'}
+            request,
+            'wagtailadmin/collection_privacy/set_privacy.html',
+            None,
+            {'collection': collection, 'form': form},
+            json_data={'step': 'set_privacy'},
         )

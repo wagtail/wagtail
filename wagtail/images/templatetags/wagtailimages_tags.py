@@ -40,7 +40,9 @@ def image(parser, token):
         else:
             try:
                 name, value = bit.split('=')
-                attrs[name] = parser.compile_filter(value)  # setup to resolve context variables as value
+                attrs[name] = parser.compile_filter(
+                    value
+                )  # setup to resolve context variables as value
             except ValueError:
                 if allowed_filter_pattern.match(bit):
                     filter_specs.append(bit)
@@ -71,7 +73,12 @@ def image(parser, token):
         )
 
     if is_valid:
-        return ImageNode(image_expr, '|'.join(filter_specs), attrs=attrs, output_var_name=output_var_name)
+        return ImageNode(
+            image_expr,
+            '|'.join(filter_specs),
+            attrs=attrs,
+            output_var_name=output_var_name,
+        )
     else:
         raise template.TemplateSyntaxError(
             "'image' tag should be of the form {% image self.photo max-320x200 [ custom-attr=\"value\" ... ] %} "
@@ -122,6 +129,8 @@ def image_url(image, filter_spec, viewname='wagtailimages_serve'):
         return generate_image_url(image, filter_spec, viewname)
     except NoReverseMatch:
         raise ImproperlyConfigured(
-            "'image_url' tag requires the " + viewname + " view to be configured. Please see "
+            "'image_url' tag requires the "
+            + viewname
+            + " view to be configured. Please see "
             "https://docs.wagtail.io/en/stable/advanced_topics/images/image_serve_view.html#setup for instructions."
         )

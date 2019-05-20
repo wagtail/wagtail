@@ -24,7 +24,11 @@ from wagtail.utils.deprecation import RemovedInWagtail27Warning
 # compatibility, as people are likely importing them from here and then
 # appending their own overrides
 from .forms.models import (  # NOQA
-    DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm, formfield_for_dbfield)
+    DIRECT_FORM_FIELD_OVERRIDES,
+    FORM_FIELD_OVERRIDES,
+    WagtailAdminModelForm,
+    formfield_for_dbfield,
+)
 from .forms.pages import WagtailAdminPageForm
 
 
@@ -33,8 +37,13 @@ def widget_with_script(widget, script):
 
 
 def get_form_for_model(
-    model, form_class=WagtailAdminModelForm,
-    fields=None, exclude=None, formsets=None, exclude_formsets=None, widgets=None
+    model,
+    form_class=WagtailAdminModelForm,
+    fields=None,
+    exclude=None,
+    formsets=None,
+    exclude_formsets=None,
+    widgets=None,
 ):
 
     # django's modelform_factory with a bit of custom behaviour
@@ -56,9 +65,7 @@ def get_form_for_model(
     if hasattr(form_class, 'Meta'):
         bases = (form_class.Meta,) + bases
 
-    form_class_attrs = {
-        'Meta': type(str('Meta'), bases, attrs)
-    }
+    form_class_attrs = {'Meta': type(str('Meta'), bases, attrs)}
 
     metaclass = type(form_class)
     return metaclass(class_name, (form_class,), form_class_attrs)
@@ -74,7 +81,9 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     if exclude:
         _exclude.extend(exclude)
 
-    fields = fields_for_model(model, exclude=_exclude, formfield_callback=formfield_for_dbfield)
+    fields = fields_for_model(
+        model, exclude=_exclude, formfield_callback=formfield_for_dbfield
+    )
 
     for field_name, field in fields.items():
         try:
@@ -159,15 +168,19 @@ class EditHandler:
         return new
 
     def bind_to_model(self, model):
-        warn('EditHandler.bind_to_model(model) is deprecated. '
-             'Use EditHandler.bind_to(model=model) instead',
-             category=RemovedInWagtail27Warning)
+        warn(
+            'EditHandler.bind_to_model(model) is deprecated. '
+            'Use EditHandler.bind_to(model=model) instead',
+            category=RemovedInWagtail27Warning,
+        )
         return self.bind_to(model=model)
 
     def bind_to_instance(self, instance, form, request):
-        warn('EditHandler.bind_to_instance(instance, request, form) is deprecated. '
-             'Use EditHandler.bind_to(instance=instance, request=request, form=form) instead',
-             category=RemovedInWagtail27Warning)
+        warn(
+            'EditHandler.bind_to_instance(instance, request, form) is deprecated. '
+            'Use EditHandler.bind_to(instance=instance, request=request, form=form) instead',
+            category=RemovedInWagtail27Warning,
+        )
         return self.bind_to(instance=instance, request=request, form=form)
 
     def on_model_bound(self):
@@ -185,7 +198,11 @@ class EditHandler:
     def __repr__(self):
         return '<%s with model=%s instance=%s request=%s form=%s>' % (
             self.__class__.__name__,
-            self.model, self.instance, self.request, self.form.__class__.__name__)
+            self.model,
+            self.instance,
+            self.request,
+            self.form.__class__.__name__,
+        )
 
     def classes(self):
         """
@@ -295,16 +312,15 @@ class BaseCompositeEditHandler(EditHandler):
         return mark_safe(''.join([c.html_declarations() for c in self.children]))
 
     def on_model_bound(self):
-        self.children = [child.bind_to(model=self.model)
-                         for child in self.children]
+        self.children = [child.bind_to(model=self.model) for child in self.children]
 
     def on_instance_bound(self):
-        self.children = [child.bind_to(instance=self.instance)
-                         for child in self.children]
+        self.children = [
+            child.bind_to(instance=self.instance) for child in self.children
+        ]
 
     def on_request_bound(self):
-        self.children = [child.bind_to(request=self.request)
-                         for child in self.children]
+        self.children = [child.bind_to(request=self.request) for child in self.children]
 
     def on_form_bound(self):
         children = []
@@ -320,9 +336,7 @@ class BaseCompositeEditHandler(EditHandler):
         self.children = children
 
     def render(self):
-        return mark_safe(render_to_string(self.template, {
-            'self': self
-        }))
+        return mark_safe(render_to_string(self.template, {'self': self}))
 
     def get_comparison(self):
         comparators = []
@@ -353,12 +367,12 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
         if self.model is None:
             raise AttributeError(
                 '%s is not bound to a model yet. Use `.bind_to(model=model)` '
-                'before using this method.' % self.__class__.__name__)
+                'before using this method.' % self.__class__.__name__
+            )
         # If a custom form class was passed to the EditHandler, use it.
         # Otherwise, use the base_form_class from the model.
         # If that is not defined, use WagtailAdminModelForm.
-        model_form_class = getattr(self.model, 'base_form_class',
-                                   WagtailAdminModelForm)
+        model_form_class = getattr(self.model, 'base_form_class', WagtailAdminModelForm)
         base_form_class = self.base_form_class or model_form_class
 
         return get_form_for_model(
@@ -366,7 +380,8 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
             form_class=base_form_class,
             fields=self.required_fields(),
             formsets=self.required_formsets(),
-            widgets=self.widget_overrides())
+            widgets=self.widget_overrides(),
+        )
 
 
 class TabbedInterface(BaseFormEditHandler):
@@ -410,8 +425,13 @@ class MultiFieldPanel(BaseCompositeEditHandler):
 
 
 class HelpPanel(EditHandler):
-    def __init__(self, content='', template='wagtailadmin/edit_handlers/help_panel.html',
-                 heading='', classname=''):
+    def __init__(
+        self,
+        content='',
+        template='wagtailadmin/edit_handlers/help_panel.html',
+        heading='',
+        classname='',
+    ):
         super().__init__(heading=heading, classname=classname)
         self.content = content
         self.template = template
@@ -419,16 +439,11 @@ class HelpPanel(EditHandler):
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
         del kwargs['help_text']
-        kwargs.update(
-            content=self.content,
-            template=self.template,
-        )
+        kwargs.update(content=self.content, template=self.template)
         return kwargs
 
     def render(self):
-        return mark_safe(render_to_string(self.template, {
-            'self': self
-        }))
+        return mark_safe(render_to_string(self.template, {'self': self}))
 
 
 class FieldPanel(EditHandler):
@@ -476,19 +491,22 @@ class FieldPanel(EditHandler):
     object_template = "wagtailadmin/edit_handlers/single_field_panel.html"
 
     def render_as_object(self):
-        return mark_safe(render_to_string(self.object_template, {
-            'self': self,
-            self.TEMPLATE_VAR: self,
-            'field': self.bound_field,
-        }))
+        return mark_safe(
+            render_to_string(
+                self.object_template,
+                {'self': self, self.TEMPLATE_VAR: self, 'field': self.bound_field},
+            )
+        )
 
     field_template = "wagtailadmin/edit_handlers/field_panel_field.html"
 
     def render_as_field(self):
-        return mark_safe(render_to_string(self.field_template, {
-            'field': self.bound_field,
-            'field_type': self.field_type(),
-        }))
+        return mark_safe(
+            render_to_string(
+                self.field_template,
+                {'field': self.bound_field, 'field_type': self.field_type()},
+            )
+        )
 
     def required_fields(self):
         return [self.field_name]
@@ -535,7 +553,9 @@ class FieldPanel(EditHandler):
         try:
             model = self.model
         except AttributeError:
-            raise ImproperlyConfigured("%r must be bound to a model before calling db_field" % self)
+            raise ImproperlyConfigured(
+                "%r must be bound to a model before calling db_field" % self
+            )
 
         return model._meta.get_field(self.field_name)
 
@@ -546,8 +566,13 @@ class FieldPanel(EditHandler):
 
     def __repr__(self):
         return "<%s '%s' with model=%s instance=%s request=%s form=%s>" % (
-            self.__class__.__name__, self.field_name,
-            self.model, self.instance, self.request, self.form.__class__.__name__)
+            self.__class__.__name__,
+            self.field_name,
+            self.model,
+            self.instance,
+            self.request,
+            self.form.__class__.__name__,
+        )
 
 
 class RichTextFieldPanel(FieldPanel):
@@ -583,7 +608,9 @@ class BaseChooserPanel(FieldPanel):
         context = {
             'field': self.bound_field,
             self.object_type_name: instance_obj,
-            'is_chosen': bool(instance_obj),  # DEPRECATED - passed to templates for backwards compatibility only
+            'is_chosen': bool(
+                instance_obj
+            ),  # DEPRECATED - passed to templates for backwards compatibility only
         }
         return mark_safe(render_to_string(self.field_template, context))
 
@@ -612,9 +639,11 @@ class PageChooserPanel(BaseChooserPanel):
         }
 
     def widget_overrides(self):
-        return {self.field_name: widgets.AdminPageChooser(
-            target_models=self.target_models(),
-            can_choose_root=self.can_choose_root)}
+        return {
+            self.field_name: widgets.AdminPageChooser(
+                target_models=self.target_models(), can_choose_root=self.can_choose_root
+            )
+        }
 
     def target_models(self):
         if self.page_type:
@@ -641,8 +670,17 @@ class PageChooserPanel(BaseChooserPanel):
 
 
 class InlinePanel(EditHandler):
-    def __init__(self, relation_name, panels=None, heading='', label='',
-                 min_num=None, max_num=None, *args, **kwargs):
+    def __init__(
+        self,
+        relation_name,
+        panels=None,
+        heading='',
+        label='',
+        min_num=None,
+        max_num=None,
+        *args,
+        **kwargs
+    ):
         super().__init__(*args, **kwargs)
         self.relation_name = relation_name
         self.panels = panels
@@ -668,8 +706,7 @@ class InlinePanel(EditHandler):
             return self.panels
         # Failing that, get it from the model
         return extract_panel_definitions_from_model_class(
-            self.db_field.related_model,
-            exclude=[self.db_field.field.name]
+            self.db_field.related_model, exclude=[self.db_field.field.name]
         )
 
     def get_child_edit_handler(self):
@@ -686,7 +723,7 @@ class InlinePanel(EditHandler):
                 'min_num': self.min_num,
                 'validate_min': self.min_num is not None,
                 'max_num': self.max_num,
-                'validate_max': self.max_num is not None
+                'validate_max': self.max_num is not None,
             }
         }
 
@@ -698,10 +735,14 @@ class InlinePanel(EditHandler):
 
         for panel in self.get_panel_definitions():
             field_comparisons.extend(
-                panel.bind_to(model=self.db_field.related_model)
-                .get_comparison())
+                panel.bind_to(model=self.db_field.related_model).get_comparison()
+            )
 
-        return [functools.partial(compare.ChildRelationComparison, self.db_field, field_comparisons)]
+        return [
+            functools.partial(
+                compare.ChildRelationComparison, self.db_field, field_comparisons
+            )
+        ]
 
     def on_model_bound(self):
         manager = getattr(self.model, self.relation_name)
@@ -720,14 +761,18 @@ class InlinePanel(EditHandler):
                 subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
             child_edit_handler = self.get_child_edit_handler()
-            self.children.append(child_edit_handler.bind_to(
-                instance=subform.instance, request=self.request, form=subform))
+            self.children.append(
+                child_edit_handler.bind_to(
+                    instance=subform.instance, request=self.request, form=subform
+                )
+            )
 
         # if this formset is valid, it may have been re-ordered; respect that
         # in case the parent form errored and we need to re-render
         if self.formset.can_order and self.formset.is_valid():
             self.children.sort(
-                key=lambda child: child.form.cleaned_data[ORDERING_FIELD_NAME] or 1)
+                key=lambda child: child.form.cleaned_data[ORDERING_FIELD_NAME] or 1
+            )
 
         empty_form = self.formset.empty_form
         empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
@@ -736,25 +781,26 @@ class InlinePanel(EditHandler):
 
         self.empty_child = self.get_child_edit_handler()
         self.empty_child = self.empty_child.bind_to(
-            instance=empty_form.instance, request=self.request, form=empty_form)
+            instance=empty_form.instance, request=self.request, form=empty_form
+        )
 
     template = "wagtailadmin/edit_handlers/inline_panel.html"
 
     def render(self):
-        formset = render_to_string(self.template, {
-            'self': self,
-            'can_order': self.formset.can_order,
-        })
+        formset = render_to_string(
+            self.template, {'self': self, 'can_order': self.formset.can_order}
+        )
         js = self.render_js_init()
         return widget_with_script(formset, js)
 
     js_template = "wagtailadmin/edit_handlers/inline_panel.js"
 
     def render_js_init(self):
-        return mark_safe(render_to_string(self.js_template, {
-            'self': self,
-            'can_order': self.formset.can_order,
-        }))
+        return mark_safe(
+            render_to_string(
+                self.js_template, {'self': self, 'can_order': self.formset.can_order}
+            )
+        )
 
 
 # This allows users to include the publishing panel in their own per-model override
@@ -764,10 +810,10 @@ class PublishingPanel(MultiFieldPanel):
     def __init__(self, **kwargs):
         updated_kwargs = {
             'children': [
-                FieldRowPanel([
-                    FieldPanel('go_live_at'),
-                    FieldPanel('expire_at'),
-                ], classname="label-above"),
+                FieldRowPanel(
+                    [FieldPanel('go_live_at'), FieldPanel('expire_at')],
+                    classname="label-above",
+                )
             ],
             'heading': ugettext_lazy('Scheduled publishing'),
             'classname': 'publishing',
@@ -777,22 +823,21 @@ class PublishingPanel(MultiFieldPanel):
 
 
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
-Page.content_panels = [
-    FieldPanel('title', classname="full title"),
-]
+Page.content_panels = [FieldPanel('title', classname="full title")]
 
 Page.promote_panels = [
-    MultiFieldPanel([
-        FieldPanel('slug'),
-        FieldPanel('seo_title'),
-        FieldPanel('show_in_menus'),
-        FieldPanel('search_description'),
-    ], ugettext_lazy('Common page configuration')),
+    MultiFieldPanel(
+        [
+            FieldPanel('slug'),
+            FieldPanel('seo_title'),
+            FieldPanel('show_in_menus'),
+            FieldPanel('search_description'),
+        ],
+        ugettext_lazy('Common page configuration'),
+    )
 ]
 
-Page.settings_panels = [
-    PublishingPanel()
-]
+Page.settings_panels = [PublishingPanel()]
 
 Page.base_form_class = WagtailAdminPageForm
 
@@ -810,15 +855,21 @@ def get_edit_handler(cls):
         tabs = []
 
         if cls.content_panels:
-            tabs.append(ObjectList(cls.content_panels,
-                                   heading=ugettext_lazy('Content')))
+            tabs.append(
+                ObjectList(cls.content_panels, heading=ugettext_lazy('Content'))
+            )
         if cls.promote_panels:
-            tabs.append(ObjectList(cls.promote_panels,
-                                   heading=ugettext_lazy('Promote')))
+            tabs.append(
+                ObjectList(cls.promote_panels, heading=ugettext_lazy('Promote'))
+            )
         if cls.settings_panels:
-            tabs.append(ObjectList(cls.settings_panels,
-                                   heading=ugettext_lazy('Settings'),
-                                   classname='settings'))
+            tabs.append(
+                ObjectList(
+                    cls.settings_panels,
+                    heading=ugettext_lazy('Settings'),
+                    classname='settings',
+                )
+            )
 
         edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
 

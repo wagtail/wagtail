@@ -13,10 +13,16 @@ from wagtail.core import blocks
 from wagtail.embeds import oembed_providers
 from wagtail.embeds.blocks import EmbedBlock, EmbedValue
 from wagtail.embeds.embeds import get_embed
-from wagtail.embeds.exceptions import EmbedNotFoundException, EmbedUnsupportedProviderException
+from wagtail.embeds.exceptions import (
+    EmbedNotFoundException,
+    EmbedUnsupportedProviderException,
+)
 from wagtail.embeds.finders import get_finders
 from wagtail.embeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
-from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
+from wagtail.embeds.finders.embedly import (
+    AccessDeniedEmbedlyException,
+    EmbedlyException,
+)
 from wagtail.embeds.finders.oembed import OEmbedFinder as OEmbedFinder
 from wagtail.embeds.models import Embed
 from wagtail.embeds.templatetags.wagtailembeds_tags import embed_tag
@@ -24,6 +30,7 @@ from wagtail.tests.utils import WagtailTestUtils
 
 try:
     import embedly  # noqa
+
     no_embedly = False
 except ImportError:
     no_embedly = True
@@ -38,23 +45,20 @@ class TestGetFinders(TestCase):
 
     # New WAGTAILEMBEDS_FINDERS setting
 
-    @override_settings(WAGTAILEMBEDS_FINDERS=[
-        {
-            'class': 'wagtail.embeds.finders.oembed'
-        }
-    ])
+    @override_settings(
+        WAGTAILEMBEDS_FINDERS=[{'class': 'wagtail.embeds.finders.oembed'}]
+    )
     def test_new_find_oembed(self):
         finders = get_finders()
 
         self.assertEqual(len(finders), 1)
         self.assertIsInstance(finders[0], OEmbedFinder)
 
-    @override_settings(WAGTAILEMBEDS_FINDERS=[
-        {
-            'class': 'wagtail.embeds.finders.embedly',
-            'key': 'foo',
-        }
-    ])
+    @override_settings(
+        WAGTAILEMBEDS_FINDERS=[
+            {'class': 'wagtail.embeds.finders.embedly', 'key': 'foo'}
+        ]
+    )
     def test_new_find_embedly(self):
         finders = get_finders()
 
@@ -62,12 +66,11 @@ class TestGetFinders(TestCase):
         self.assertIsInstance(finders[0], EmbedlyFinder)
         self.assertEqual(finders[0].get_key(), 'foo')
 
-    @override_settings(WAGTAILEMBEDS_FINDERS=[
-        {
-            'class': 'wagtail.embeds.finders.oembed',
-            'options': {'foo': 'bar'}
-        }
-    ])
+    @override_settings(
+        WAGTAILEMBEDS_FINDERS=[
+            {'class': 'wagtail.embeds.finders.oembed', 'options': {'foo': 'bar'}}
+        ]
+    )
     def test_new_find_oembed_with_options(self):
         finders = get_finders()
 
@@ -134,7 +137,9 @@ class TestEmbeds(TestCase):
         }
 
     def test_invalid_width(self):
-        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder_invalid_width)
+        embed = get_embed(
+            'www.test.com/1234', max_width=400, finder=self.dummy_finder_invalid_width
+        )
 
         # Width must be set to None
         self.assertEqual(embed.width, None)
@@ -176,11 +181,13 @@ class TestChooser(TestCase, WagtailTestUtils):
 
     @patch('wagtail.embeds.embeds.get_embed')
     def test_submit_valid_embed(self, get_embed):
-        get_embed.return_value = Embed(html='<img src="http://www.example.com" />', title="An example embed")
+        get_embed.return_value = Embed(
+            html='<img src="http://www.example.com" />', title="An example embed"
+        )
 
-        response = self.client.post(reverse('wagtailembeds:chooser_upload'), {
-            'url': 'http://www.example.com/'
-        })
+        response = self.client.post(
+            reverse('wagtailembeds:chooser_upload'), {'url': 'http://www.example.com/'}
+        )
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'embed_chosen')
@@ -190,9 +197,9 @@ class TestChooser(TestCase, WagtailTestUtils):
     def test_submit_unrecognised_embed(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
 
-        response = self.client.post(reverse('wagtailembeds:chooser_upload'), {
-            'url': 'http://www.example.com/'
-        })
+        response = self.client.post(
+            reverse('wagtailembeds:chooser_upload'), {'url': 'http://www.example.com/'}
+        )
         self.assertEqual(response.status_code, 200)
 
         response_json = json.loads(response.content.decode())
@@ -204,101 +211,132 @@ class TestEmbedly(TestCase):
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_oembed_called_with_correct_arguments(self):
         with patch('embedly.Embedly.oembed') as oembed:
-            oembed.return_value = {'type': 'photo',
-                                   'url': 'http://www.example.com'}
+            oembed.return_value = {'type': 'photo', 'url': 'http://www.example.com'}
 
             EmbedlyFinder(key='foo').find_embed('http://www.example.com')
             oembed.assert_called_with('http://www.example.com', better=False)
 
             EmbedlyFinder(key='foo').find_embed('http://www.example.com', max_width=100)
-            oembed.assert_called_with('http://www.example.com', maxwidth=100, better=False)
+            oembed.assert_called_with(
+                'http://www.example.com', maxwidth=100, better=False
+            )
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_401(self):
         with patch('embedly.Embedly.oembed') as oembed:
-            oembed.return_value = {'type': 'photo',
-                                   'url': 'http://www.example.com',
-                                   'error': True,
-                                   'error_code': 401}
-            self.assertRaises(AccessDeniedEmbedlyException,
-                              EmbedlyFinder(key='foo').find_embed, 'http://www.example.com')
+            oembed.return_value = {
+                'type': 'photo',
+                'url': 'http://www.example.com',
+                'error': True,
+                'error_code': 401,
+            }
+            self.assertRaises(
+                AccessDeniedEmbedlyException,
+                EmbedlyFinder(key='foo').find_embed,
+                'http://www.example.com',
+            )
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_403(self):
         with patch('embedly.Embedly.oembed') as oembed:
-            oembed.return_value = {'type': 'photo',
-                                   'url': 'http://www.example.com',
-                                   'error': True,
-                                   'error_code': 403}
-            self.assertRaises(AccessDeniedEmbedlyException,
-                              EmbedlyFinder(key='foo').find_embed, 'http://www.example.com')
+            oembed.return_value = {
+                'type': 'photo',
+                'url': 'http://www.example.com',
+                'error': True,
+                'error_code': 403,
+            }
+            self.assertRaises(
+                AccessDeniedEmbedlyException,
+                EmbedlyFinder(key='foo').find_embed,
+                'http://www.example.com',
+            )
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_404(self):
         with patch('embedly.Embedly.oembed') as oembed:
-            oembed.return_value = {'type': 'photo',
-                                   'url': 'http://www.example.com',
-                                   'error': True,
-                                   'error_code': 404}
-            self.assertRaises(EmbedNotFoundException,
-                              EmbedlyFinder(key='foo').find_embed, 'http://www.example.com')
+            oembed.return_value = {
+                'type': 'photo',
+                'url': 'http://www.example.com',
+                'error': True,
+                'error_code': 404,
+            }
+            self.assertRaises(
+                EmbedNotFoundException,
+                EmbedlyFinder(key='foo').find_embed,
+                'http://www.example.com',
+            )
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_other_error(self):
         with patch('embedly.Embedly.oembed') as oembed:
-            oembed.return_value = {'type': 'photo',
-                                   'url': 'http://www.example.com',
-                                   'error': True,
-                                   'error_code': 999}
-            self.assertRaises(EmbedlyException, EmbedlyFinder(key='foo').find_embed,
-                              'http://www.example.com')
+            oembed.return_value = {
+                'type': 'photo',
+                'url': 'http://www.example.com',
+                'error': True,
+                'error_code': 999,
+            }
+            self.assertRaises(
+                EmbedlyException,
+                EmbedlyFinder(key='foo').find_embed,
+                'http://www.example.com',
+            )
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_html_conversion(self):
         with patch('embedly.Embedly.oembed') as oembed:
-            oembed.return_value = {'type': 'photo',
-                                   'url': 'http://www.example.com'}
+            oembed.return_value = {'type': 'photo', 'url': 'http://www.example.com'}
             result = EmbedlyFinder(key='foo').find_embed('http://www.example.com')
-            self.assertEqual(result['html'], '<img src="http://www.example.com" alt="">')
+            self.assertEqual(
+                result['html'], '<img src="http://www.example.com" alt="">'
+            )
 
-            oembed.return_value = {'type': 'something else',
-                                   'html': '<foo>bar</foo>'}
+            oembed.return_value = {'type': 'something else', 'html': '<foo>bar</foo>'}
             result = EmbedlyFinder(key='foo').find_embed('http://www.example.com')
             self.assertEqual(result['html'], '<foo>bar</foo>')
 
     @unittest.skipIf(no_embedly, "Embedly is not installed")
     def test_embedly_return_value(self):
         with patch('embedly.Embedly.oembed') as oembed:
-            oembed.return_value = {'type': 'something else',
-                                   'html': '<foo>bar</foo>'}
+            oembed.return_value = {'type': 'something else', 'html': '<foo>bar</foo>'}
             result = EmbedlyFinder(key='foo').find_embed('http://www.example.com')
-            self.assertEqual(result, {
-                'title': '',
-                'author_name': '',
-                'provider_name': '',
-                'type': 'something else',
-                'thumbnail_url': None,
-                'width': None,
-                'height': None,
-                'html': '<foo>bar</foo>'})
+            self.assertEqual(
+                result,
+                {
+                    'title': '',
+                    'author_name': '',
+                    'provider_name': '',
+                    'type': 'something else',
+                    'thumbnail_url': None,
+                    'width': None,
+                    'height': None,
+                    'html': '<foo>bar</foo>',
+                },
+            )
 
-            oembed.return_value = {'type': 'something else',
-                                   'author_name': 'Alice',
-                                   'provider_name': 'Bob',
-                                   'title': 'foo',
-                                   'thumbnail_url': 'http://www.example.com',
-                                   'width': 100,
-                                   'height': 100,
-                                   'html': '<foo>bar</foo>'}
+            oembed.return_value = {
+                'type': 'something else',
+                'author_name': 'Alice',
+                'provider_name': 'Bob',
+                'title': 'foo',
+                'thumbnail_url': 'http://www.example.com',
+                'width': 100,
+                'height': 100,
+                'html': '<foo>bar</foo>',
+            }
             result = EmbedlyFinder(key='foo').find_embed('http://www.example.com')
-            self.assertEqual(result, {'type': 'something else',
-                                      'author_name': 'Alice',
-                                      'provider_name': 'Bob',
-                                      'title': 'foo',
-                                      'thumbnail_url': 'http://www.example.com',
-                                      'width': 100,
-                                      'height': 100,
-                                      'html': '<foo>bar</foo>'})
+            self.assertEqual(
+                result,
+                {
+                    'type': 'something else',
+                    'author_name': 'Alice',
+                    'provider_name': 'Bob',
+                    'title': 'foo',
+                    'thumbnail_url': 'http://www.example.com',
+                    'width': 100,
+                    'height': 100,
+                    'html': '<foo>bar</foo>',
+                },
+            )
 
 
 class TestOembed(TestCase):
@@ -306,6 +344,7 @@ class TestOembed(TestCase):
         class DummyResponse:
             def read(self):
                 return b"foo"
+
         self.dummy_response = DummyResponse()
 
     def test_oembed_invalid_provider(self):
@@ -314,15 +353,17 @@ class TestOembed(TestCase):
     def test_oembed_invalid_request(self):
         config = {'side_effect': URLError('foo')}
         with patch.object(urllib.request, 'urlopen', **config):
-            self.assertRaises(EmbedNotFoundException, OEmbedFinder().find_embed,
-                              "http://www.youtube.com/watch/")
+            self.assertRaises(
+                EmbedNotFoundException,
+                OEmbedFinder().find_embed,
+                "http://www.youtube.com/watch/",
+            )
 
     @patch('urllib.request.urlopen')
     @patch('json.loads')
     def test_oembed_photo_request(self, loads, urlopen):
         urlopen.return_value = self.dummy_response
-        loads.return_value = {'type': 'photo',
-                              'url': 'http://www.example.com'}
+        loads.return_value = {'type': 'photo', 'url': 'http://www.example.com'}
         result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
         self.assertEqual(result['type'], 'photo')
         self.assertEqual(result['html'], '<img src="http://www.example.com" alt="">')
@@ -341,19 +382,22 @@ class TestOembed(TestCase):
             'thumbnail_url': 'test_thumbail_url',
             'width': 'test_width',
             'height': 'test_height',
-            'html': 'test_html'
+            'html': 'test_html',
         }
         result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
-        self.assertEqual(result, {
-            'type': 'something',
-            'title': 'test_title',
-            'author_name': 'test_author',
-            'provider_name': 'test_provider_name',
-            'thumbnail_url': 'test_thumbail_url',
-            'width': 'test_width',
-            'height': 'test_height',
-            'html': 'test_html'
-        })
+        self.assertEqual(
+            result,
+            {
+                'type': 'something',
+                'title': 'test_title',
+                'author_name': 'test_author',
+                'provider_name': 'test_provider_name',
+                'thumbnail_url': 'test_thumbail_url',
+                'width': 'test_width',
+                'height': 'test_height',
+                'html': 'test_html',
+            },
+        )
 
     def test_oembed_accepts_known_provider(self):
         finder = OEmbedFinder(providers=[oembed_providers.youtube])
@@ -367,12 +411,13 @@ class TestOembed(TestCase):
     @patch('json.loads')
     def test_endpoint_with_format_param(self, loads, urlopen):
         urlopen.return_value = self.dummy_response
-        loads.return_value = {'type': 'video',
-                              'url': 'http://www.example.com'}
+        loads.return_value = {'type': 'video', 'url': 'http://www.example.com'}
         result = OEmbedFinder().find_embed("https://vimeo.com/217403396")
         self.assertEqual(result['type'], 'video')
         request = urlopen.call_args[0][0]
-        self.assertEqual(request.get_full_url().split('?')[0], "http://www.vimeo.com/api/oembed.json")
+        self.assertEqual(
+            request.get_full_url().split('?')[0], "http://www.vimeo.com/api/oembed.json"
+        )
 
 
 class TestEmbedTag(TestCase):
@@ -388,7 +433,9 @@ class TestEmbedTag(TestCase):
     def test_call_from_template(self, get_embed):
         get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
 
-        temp = template.Template('{% load wagtailembeds_tags %}{% embed "http://www.youtube.com/watch/" %}')
+        temp = template.Template(
+            '{% load wagtailembeds_tags %}{% embed "http://www.youtube.com/watch/" %}'
+        )
         result = temp.render(template.Context())
 
         self.assertEqual(result, '<img src="http://www.example.com" />')
@@ -397,7 +444,9 @@ class TestEmbedTag(TestCase):
     def test_catches_embed_not_found(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
 
-        temp = template.Template('{% load wagtailembeds_tags %}{% embed "http://www.youtube.com/watch/" %}')
+        temp = template.Template(
+            '{% load wagtailembeds_tags %}{% embed "http://www.youtube.com/watch/" %}'
+        )
         result = temp.render(template.Context())
 
         self.assertEqual(result, '')
@@ -455,12 +504,13 @@ class TestEmbedBlock(TestCase):
         """
         get_embed.return_value = Embed(html='<h1>Hello world!</h1>')
 
-        block = blocks.StructBlock([
-            ('title', blocks.CharBlock()),
-            ('embed', EmbedBlock()),
-        ])
+        block = blocks.StructBlock(
+            [('title', blocks.CharBlock()), ('embed', EmbedBlock())]
+        )
 
-        block_val = block.to_python({'title': 'A test', 'embed': 'http://www.example.com/foo'})
+        block_val = block.to_python(
+            {'title': 'A test', 'embed': 'http://www.example.com/foo'}
+        )
 
         temp = template.Template('embed: {{ self.embed }}')
         context = template.Context({'self': block_val})
@@ -478,7 +528,9 @@ class TestEmbedBlock(TestCase):
         """
         block = EmbedBlock()
 
-        form_html = block.render_form(EmbedValue('http://www.example.com/foo'), prefix='myembed')
+        form_html = block.render_form(
+            EmbedValue('http://www.example.com/foo'), prefix='myembed'
+        )
         self.assertIn('<input ', form_html)
         self.assertIn('value="http://www.example.com/foo"', form_html)
 
@@ -489,7 +541,9 @@ class TestEmbedBlock(TestCase):
         """
         block = EmbedBlock(required=False)
 
-        block_val = block.value_from_datadict({'myembed': 'http://www.example.com/foo'}, {}, prefix='myembed')
+        block_val = block.value_from_datadict(
+            {'myembed': 'http://www.example.com/foo'}, {}, prefix='myembed'
+        )
         self.assertIsInstance(block_val, EmbedValue)
         self.assertEqual(block_val.url, 'http://www.example.com/foo')
 
@@ -522,10 +576,12 @@ class TestEmbedBlock(TestCase):
         block = EmbedBlock()
 
         cleaned_value = block.clean(
-            EmbedValue('https://www.youtube.com/watch?v=_U79Wc965vw'))
+            EmbedValue('https://www.youtube.com/watch?v=_U79Wc965vw')
+        )
         self.assertIsInstance(cleaned_value, EmbedValue)
-        self.assertEqual(cleaned_value.url,
-                         'https://www.youtube.com/watch?v=_U79Wc965vw')
+        self.assertEqual(
+            cleaned_value.url, 'https://www.youtube.com/watch?v=_U79Wc965vw'
+        )
 
         with self.assertRaisesMessage(ValidationError, ''):
             block.clean(None)
@@ -537,10 +593,12 @@ class TestEmbedBlock(TestCase):
         block = EmbedBlock(required=False)
 
         cleaned_value = block.clean(
-            EmbedValue('https://www.youtube.com/watch?v=_U79Wc965vw'))
+            EmbedValue('https://www.youtube.com/watch?v=_U79Wc965vw')
+        )
         self.assertIsInstance(cleaned_value, EmbedValue)
-        self.assertEqual(cleaned_value.url,
-                         'https://www.youtube.com/watch?v=_U79Wc965vw')
+        self.assertEqual(
+            cleaned_value.url, 'https://www.youtube.com/watch?v=_U79Wc965vw'
+        )
 
         cleaned_value = block.clean(None)
         self.assertIsNone(cleaned_value)
@@ -552,11 +610,9 @@ class TestEmbedBlock(TestCase):
         non_required_block = EmbedBlock(required=False)
 
         with self.assertRaises(ValidationError):
-            non_required_block.clean(
-                EmbedValue('http://no-oembed-here.com/something'))
+            non_required_block.clean(EmbedValue('http://no-oembed-here.com/something'))
 
         required_block = EmbedBlock()
 
         with self.assertRaises(ValidationError):
-            required_block.clean(
-                EmbedValue('http://no-oembed-here.com/something'))
+            required_block.clean(EmbedValue('http://no-oembed-here.com/something'))

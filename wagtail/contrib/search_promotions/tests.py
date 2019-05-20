@@ -2,8 +2,9 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.contrib.search_promotions.models import SearchPromotion
-from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import \
-    get_search_promotions
+from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import (
+    get_search_promotions,
+)
 from wagtail.search.models import Query
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -46,8 +47,13 @@ class TestSearchPromotions(TestCase):
 
         # Check
         self.assertEqual(Query.get("root page").editors_picks.count(), 3)
-        self.assertEqual(Query.get("root page").editors_picks.first().description, "First search pick")
-        self.assertEqual(Query.get("root page").editors_picks.last().description, "Last search pick")
+        self.assertEqual(
+            Query.get("root page").editors_picks.first().description,
+            "First search pick",
+        )
+        self.assertEqual(
+            Query.get("root page").editors_picks.last().description, "Last search pick"
+        )
 
 
 class TestGetSearchPromotionsTemplateTag(TestCase):
@@ -87,7 +93,9 @@ class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailsearchpromotions/index.html')
 
     def test_search(self):
-        response = self.client.get(reverse('wagtailsearchpromotions:index'), {'q': "Hello"})
+        response = self.client.get(
+            reverse('wagtailsearchpromotions:index'), {'q': "Hello"}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
 
@@ -115,7 +123,9 @@ class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
     def test_pagination_invalid(self):
         self.make_search_picks()
 
-        response = self.client.get(reverse('wagtailsearchpromotions:index'), {'p': 'Hello World!'})
+        response = self.client.get(
+            reverse('wagtailsearchpromotions:index'), {'p': 'Hello World!'}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -127,14 +137,19 @@ class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
     def test_pagination_out_of_range(self):
         self.make_search_picks()
 
-        response = self.client.get(reverse('wagtailsearchpromotions:index'), {'p': 99999})
+        response = self.client.get(
+            reverse('wagtailsearchpromotions:index'), {'p': 99999}
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearchpromotions/index.html')
 
         # Check that we got the last page
-        self.assertEqual(response.context['queries'].number, response.context['queries'].paginator.num_pages)
+        self.assertEqual(
+            response.context['queries'].number,
+            response.context['queries'].paginator.num_pages,
+        )
 
     def test_results_are_ordered_alphabetically(self):
         self.make_search_picks()
@@ -197,8 +212,11 @@ class TestSearchPromotionsAddView(TestCase, WagtailTestUtils):
         # User should be given an error
         self.assertEqual(response.status_code, 200)
         self.assertFormsetError(
-            response, 'searchpicks_formset', None, None,
-            "Please specify at least one recommendation for this search term."
+            response,
+            'searchpicks_formset',
+            None,
+            None,
+            "Please specify at least one recommendation for this search term.",
         )
 
 
@@ -208,11 +226,17 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
 
         # Create an search pick to edit
         self.query = Query.get("Hello")
-        self.search_pick = self.query.editors_picks.create(page_id=1, description="Root page")
-        self.search_pick_2 = self.query.editors_picks.create(page_id=2, description="Homepage")
+        self.search_pick = self.query.editors_picks.create(
+            page_id=1, description="Root page"
+        )
+        self.search_pick_2 = self.query.editors_picks.create(
+            page_id=2, description="Homepage"
+        )
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtailsearchpromotions:edit', args=(self.query.id, )))
+        response = self.client.get(
+            reverse('wagtailsearchpromotions:edit', args=(self.query.id,))
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearchpromotions/edit.html')
 
@@ -234,13 +258,18 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
-        response = self.client.post(reverse('wagtailsearchpromotions:edit', args=(self.query.id, )), post_data)
+        response = self.client.post(
+            reverse('wagtailsearchpromotions:edit', args=(self.query.id,)), post_data
+        )
 
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtailsearchpromotions:index'))
 
         # Check that the search pick description was edited
-        self.assertEqual(SearchPromotion.objects.get(id=self.search_pick.id).description, "Description has changed")
+        self.assertEqual(
+            SearchPromotion.objects.get(id=self.search_pick.id).description,
+            "Description has changed",
+        )
 
     def test_post_reorder(self):
         # Check order before reordering
@@ -264,14 +293,20 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
-        response = self.client.post(reverse('wagtailsearchpromotions:edit', args=(self.query.id, )), post_data)
+        response = self.client.post(
+            reverse('wagtailsearchpromotions:edit', args=(self.query.id,)), post_data
+        )
 
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtailsearchpromotions:index'))
 
         # Check that the ordering has been saved correctly
-        self.assertEqual(SearchPromotion.objects.get(id=self.search_pick.id).sort_order, 1)
-        self.assertEqual(SearchPromotion.objects.get(id=self.search_pick_2.id).sort_order, 0)
+        self.assertEqual(
+            SearchPromotion.objects.get(id=self.search_pick.id).sort_order, 1
+        )
+        self.assertEqual(
+            SearchPromotion.objects.get(id=self.search_pick_2.id).sort_order, 0
+        )
 
         # Check that the recommendations were reordered
         self.assertEqual(Query.get("Hello").editors_picks.all()[0], self.search_pick_2)
@@ -295,13 +330,17 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
-        response = self.client.post(reverse('wagtailsearchpromotions:edit', args=(self.query.id, )), post_data)
+        response = self.client.post(
+            reverse('wagtailsearchpromotions:edit', args=(self.query.id,)), post_data
+        )
 
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtailsearchpromotions:index'))
 
         # Check that the recommendation was deleted
-        self.assertFalse(SearchPromotion.objects.filter(id=self.search_pick_2.id).exists())
+        self.assertFalse(
+            SearchPromotion.objects.filter(id=self.search_pick_2.id).exists()
+        )
 
         # The other recommendation should still exist
         self.assertTrue(SearchPromotion.objects.filter(id=self.search_pick.id).exists())
@@ -324,13 +363,18 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
             'editors_picks-1-page': 2,
             'editors_picks-1-description': "Homepage",
         }
-        response = self.client.post(reverse('wagtailsearchpromotions:edit', args=(self.query.id, )), post_data)
+        response = self.client.post(
+            reverse('wagtailsearchpromotions:edit', args=(self.query.id,)), post_data
+        )
 
         # User should be given an error
         self.assertEqual(response.status_code, 200)
         self.assertFormsetError(
-            response, 'searchpicks_formset', None, None,
-            "Please specify at least one recommendation for this search term."
+            response,
+            'searchpicks_formset',
+            None,
+            None,
+            "Please specify at least one recommendation for this search term.",
         )
 
 
@@ -340,23 +384,35 @@ class TestSearchPromotionsDeleteView(TestCase, WagtailTestUtils):
 
         # Create an search pick to delete
         self.query = Query.get("Hello")
-        self.search_pick = self.query.editors_picks.create(page_id=1, description="Root page")
-        self.search_pick_2 = self.query.editors_picks.create(page_id=2, description="Homepage")
+        self.search_pick = self.query.editors_picks.create(
+            page_id=1, description="Root page"
+        )
+        self.search_pick_2 = self.query.editors_picks.create(
+            page_id=2, description="Homepage"
+        )
 
     def test_simple(self):
-        response = self.client.get(reverse('wagtailsearchpromotions:delete', args=(self.query.id, )))
+        response = self.client.get(
+            reverse('wagtailsearchpromotions:delete', args=(self.query.id,))
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearchpromotions/confirm_delete.html')
 
     def test_post(self):
         # Submit
-        response = self.client.post(reverse('wagtailsearchpromotions:delete', args=(self.query.id, )))
+        response = self.client.post(
+            reverse('wagtailsearchpromotions:delete', args=(self.query.id,))
+        )
 
         # User should be redirected back to the index
         self.assertRedirects(response, reverse('wagtailsearchpromotions:index'))
 
         # Check that both recommendations were deleted
-        self.assertFalse(SearchPromotion.objects.filter(id=self.search_pick_2.id).exists())
+        self.assertFalse(
+            SearchPromotion.objects.filter(id=self.search_pick_2.id).exists()
+        )
 
         # The other recommendation should still exist
-        self.assertFalse(SearchPromotion.objects.filter(id=self.search_pick.id).exists())
+        self.assertFalse(
+            SearchPromotion.objects.filter(id=self.search_pick.id).exists()
+        )

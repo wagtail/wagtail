@@ -6,6 +6,7 @@ from wagtail.documents.models import get_document_model
 
 # draft.js / contentstate conversion
 
+
 def document_link_entity(props):
     """
     Helper to construct elements of the form
@@ -13,10 +14,9 @@ def document_link_entity(props):
     when converting from contentstate data
     """
 
-    return DOM.create_element('a', {
-        'linktype': 'document',
-        'id': props.get('id'),
-    }, props['children'])
+    return DOM.create_element(
+        'a', {'linktype': 'document', 'id': props.get('id')}, props['children']
+    )
 
 
 class DocumentLinkElementHandler(LinkElementHandler):
@@ -24,6 +24,7 @@ class DocumentLinkElementHandler(LinkElementHandler):
     Rule for populating the attributes of a document link when converting from database representation
     to contentstate
     """
+
     def get_attribute_data(self, attrs):
         Document = get_document_model()
         try:
@@ -36,18 +37,12 @@ class DocumentLinkElementHandler(LinkElementHandler):
         except Document.DoesNotExist:
             return {'id': id}
 
-        return {
-            'id': doc.id,
-            'url': doc.url,
-            'filename': doc.filename,
-        }
+        return {'id': doc.id, 'url': doc.url, 'filename': doc.filename}
 
 
 ContentstateDocumentLinkConversionRule = {
     'from_database_format': {
-        'a[linktype="document"]': DocumentLinkElementHandler('DOCUMENT'),
+        'a[linktype="document"]': DocumentLinkElementHandler('DOCUMENT')
     },
-    'to_database_format': {
-        'entity_decorators': {'DOCUMENT': document_link_entity}
-    }
+    'to_database_format': {'entity_decorators': {'DOCUMENT': document_link_entity}},
 }

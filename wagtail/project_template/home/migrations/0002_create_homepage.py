@@ -15,7 +15,8 @@ def create_homepage(apps, schema_editor):
 
     # Create content type for homepage model
     homepage_content_type, __ = ContentType.objects.get_or_create(
-        model='homepage', app_label='home')
+        model='homepage', app_label='home'
+    )
 
     # Create a new homepage
     homepage = HomePage.objects.create(
@@ -30,8 +31,7 @@ def create_homepage(apps, schema_editor):
     )
 
     # Create a site with the new homepage set as the root
-    Site.objects.create(
-        hostname='localhost', root_page=homepage, is_default_site=True)
+    Site.objects.create(hostname='localhost', root_page=homepage, is_default_site=True)
 
 
 def remove_homepage(apps, schema_editor):
@@ -49,10 +49,6 @@ def remove_homepage(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('home', '0001_initial'),
-    ]
+    dependencies = [('home', '0001_initial')]
 
-    operations = [
-        migrations.RunPython(create_homepage, remove_homepage),
-    ]
+    operations = [migrations.RunPython(create_homepage, remove_homepage)]

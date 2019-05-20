@@ -27,11 +27,7 @@ def _get_config_from_settings():
         return settings.WAGTAILEMBEDS_FINDERS
     else:
         # Default to the oembed backend
-        return [
-            {
-                'class': 'wagtail.embeds.finders.oembed',
-            }
-        ]
+        return [{'class': 'wagtail.embeds.finders.oembed'}]
 
 
 def get_finders():

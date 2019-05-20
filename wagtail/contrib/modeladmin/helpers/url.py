@@ -4,7 +4,6 @@ from django.utils.http import urlquote
 
 
 class AdminURLHelper:
-
     def __init__(self, model):
         self.model = model
         self.opts = model._meta
@@ -12,12 +11,14 @@ class AdminURLHelper:
     def _get_action_url_pattern(self, action):
         if action == 'index':
             return r'^%s/%s/$' % (self.opts.app_label, self.opts.model_name)
-        return r'^%s/%s/%s/$' % (self.opts.app_label, self.opts.model_name,
-                                 action)
+        return r'^%s/%s/%s/$' % (self.opts.app_label, self.opts.model_name, action)
 
     def _get_object_specific_action_url_pattern(self, action):
         return r'^%s/%s/%s/(?P<instance_pk>[-\w]+)/$' % (
-            self.opts.app_label, self.opts.model_name, action)
+            self.opts.app_label,
+            self.opts.model_name,
+            action,
+        )
 
     def get_action_url_pattern(self, action):
         if action in ('create', 'choose_parent', 'index'):
@@ -26,7 +27,10 @@ class AdminURLHelper:
 
     def get_action_url_name(self, action):
         return '%s_%s_modeladmin_%s' % (
-            self.opts.app_label, self.opts.model_name, action)
+            self.opts.app_label,
+            self.opts.model_name,
+            action,
+        )
 
     def get_action_url(self, action, *args, **kwargs):
         if action in ('create', 'choose_parent', 'index'):
@@ -44,7 +48,6 @@ class AdminURLHelper:
 
 
 class PageAdminURLHelper(AdminURLHelper):
-
     def get_action_url(self, action, *args, **kwargs):
         if action in ('add', 'edit', 'delete', 'unpublish', 'copy'):
             url_name = 'wagtailadmin_pages:%s' % action

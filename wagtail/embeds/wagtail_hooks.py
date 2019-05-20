@@ -14,9 +14,7 @@ from wagtail.embeds.rich_text.editor_html import EditorHTMLEmbedConversionRule
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
-    return [
-        url(r'^embeds/', include(urls, namespace='wagtailembeds')),
-    ]
+    return [url(r'^embeds/', include(urls, namespace='wagtailembeds'))]
 
 
 @hooks.register('insert_editor_js')
@@ -27,7 +25,7 @@ def editor_js():
                 window.chooserUrls.embedsChooser = '{0}';
             </script>
         """,
-        reverse('wagtailembeds:chooser')
+        reverse('wagtailembeds:chooser'),
     )
 
 
@@ -38,32 +36,38 @@ def register_embed_feature(features):
 
     # define a hallo.js plugin to use when the 'embed' feature is active
     features.register_editor_plugin(
-        'hallo', 'embed',
+        'hallo',
+        'embed',
         HalloPlugin(
             name='hallowagtailembeds',
             js=[
                 'wagtailembeds/js/embed-chooser-modal.js',
                 'wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js',
             ],
-        )
+        ),
     )
 
     # define how to convert between editorhtml's representation of embeds and
     # the database representation
-    features.register_converter_rule('editorhtml', 'embed', EditorHTMLEmbedConversionRule)
+    features.register_converter_rule(
+        'editorhtml', 'embed', EditorHTMLEmbedConversionRule
+    )
 
     # define a draftail plugin to use when the 'embed' feature is active
     features.register_editor_plugin(
-        'draftail', 'embed', draftail_features.EntityFeature({
-            'type': 'EMBED',
-            'icon': 'media',
-            'description': _('Embed'),
-        }, js=['wagtailembeds/js/embed-chooser-modal.js'])
+        'draftail',
+        'embed',
+        draftail_features.EntityFeature(
+            {'type': 'EMBED', 'icon': 'media', 'description': _('Embed')},
+            js=['wagtailembeds/js/embed-chooser-modal.js'],
+        ),
     )
 
     # define how to convert between contentstate's representation of embeds and
     # the database representation-
-    features.register_converter_rule('contentstate', 'embed', ContentstateMediaConversionRule)
+    features.register_converter_rule(
+        'contentstate', 'embed', ContentstateMediaConversionRule
+    )
 
     # add 'embed' to the set of on-by-default rich text features
     features.default_features.append('embed')

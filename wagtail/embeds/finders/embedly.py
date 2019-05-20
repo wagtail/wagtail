@@ -52,7 +52,7 @@ class EmbedlyFinder(EmbedFinder):
 
         # Convert photos into HTML
         if oembed['type'] == 'photo':
-            html = '<img src="%s" alt="">' % (oembed['url'], )
+            html = '<img src="%s" alt="">' % (oembed['url'],)
         else:
             html = oembed.get('html')
 
@@ -60,7 +60,9 @@ class EmbedlyFinder(EmbedFinder):
         return {
             'title': oembed['title'] if 'title' in oembed else '',
             'author_name': oembed['author_name'] if 'author_name' in oembed else '',
-            'provider_name': oembed['provider_name'] if 'provider_name' in oembed else '',
+            'provider_name': oembed['provider_name']
+            if 'provider_name' in oembed
+            else '',
             'type': oembed['type'],
             'thumbnail_url': oembed.get('thumbnail_url'),
             'width': oembed.get('width'),

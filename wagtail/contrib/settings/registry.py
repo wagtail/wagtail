@@ -21,17 +21,19 @@ class SettingMenuItem(MenuItem):
         self.model = model
         super().__init__(
             label=capfirst(model._meta.verbose_name),
-            url=reverse('wagtailsettings:edit', args=[
-                model._meta.app_label, model._meta.model_name]),
+            url=reverse(
+                'wagtailsettings:edit',
+                args=[model._meta.app_label, model._meta.model_name],
+            ),
             classnames=classnames,
-            **kwargs)
+            **kwargs
+        )
 
     def is_shown(self, request):
         return user_can_edit_setting_type(request.user, self.model)
 
 
 class Registry(list):
-
     def register(self, model, **kwargs):
         """
         Register a model as a setting, adding it to the wagtail admin menu
@@ -51,7 +53,8 @@ class Registry(list):
         def permissions_hook():
             return Permission.objects.filter(
                 content_type__app_label=model._meta.app_label,
-                codename='change_{}'.format(model._meta.model_name))
+                codename='change_{}'.format(model._meta.model_name),
+            )
 
         return model
 

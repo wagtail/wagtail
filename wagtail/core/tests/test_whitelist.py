@@ -1,7 +1,12 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
 
-from wagtail.core.whitelist import Whitelister, allow_without_attributes, attribute_rule, check_url
+from wagtail.core.whitelist import (
+    Whitelister,
+    allow_without_attributes,
+    attribute_rule,
+    check_url,
+)
 
 
 class TestCheckUrl(TestCase):
@@ -82,7 +87,9 @@ class TestAttributeRule(TestCase):
         Test that attribute_rule() with will drop all
         attributes.
         """
-        soup = BeautifulSoup('<b foo="bar" baz="quux" snowman="barbecue"></b>', 'html5lib')
+        soup = BeautifulSoup(
+            '<b foo="bar" baz="quux" snowman="barbecue"></b>', 'html5lib'
+        )
         tag = soup.b
         allow_without_attributes(tag)
         self.assertEqual(str(tag), '<b></b>')
@@ -149,4 +156,6 @@ class TestWhitelister(TestCase):
     def test_quoting(self):
         string = '<img alt="Arthur &quot;two sheds&quot; Jackson" sheds="2">'
         cleaned_string = self.whitelister.clean(string)
-        self.assertEqual(cleaned_string, '<img alt="Arthur &quot;two sheds&quot; Jackson"/>')
+        self.assertEqual(
+            cleaned_string, '<img alt="Arthur &quot;two sheds&quot; Jackson"/>'
+        )

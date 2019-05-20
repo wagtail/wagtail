@@ -10,9 +10,7 @@ class Migration(migrations.Migration):
     This migration fixes this.
     """
 
-    dependencies = [
-        ('wagtailimages', '0002_initial_data'),
-    ]
+    dependencies = [('wagtailimages', '0002_initial_data')]
 
     operations = [
         migrations.AlterField(

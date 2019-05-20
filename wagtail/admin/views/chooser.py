@@ -48,12 +48,16 @@ def filter_page_type(queryset, page_models):
     return qs
 
 
-def can_choose_page(page, permission_proxy, desired_classes, can_choose_root=True, user_perm=None):
+def can_choose_page(
+    page, permission_proxy, desired_classes, can_choose_root=True, user_perm=None
+):
     """Returns boolean indicating of the user can choose page.
     will check if the root page can be selected and if user permissions
     should be checked.
     """
-    if not issubclass(page.specific_class or Page, desired_classes) and not desired_classes == (Page, ):
+    if not issubclass(
+        page.specific_class or Page, desired_classes
+    ) and not desired_classes == (Page,):
         return False
     elif not can_choose_root and page.is_root():
         return False
@@ -112,7 +116,8 @@ def browse(request, parent_page_id=None):
 
     # Parent page can be chosen if it is a instance of desired_classes
     parent_page.can_choose = can_choose_page(
-        parent_page, permission_proxy, desired_classes, can_choose_root, user_perm)
+        parent_page, permission_proxy, desired_classes, can_choose_root, user_perm
+    )
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
@@ -122,23 +127,31 @@ def browse(request, parent_page_id=None):
 
     # Annotate each page with can_choose/can_decend flags
     for page in pages:
-        page.can_choose = can_choose_page(page, permission_proxy, desired_classes, can_choose_root, user_perm)
+        page.can_choose = can_choose_page(
+            page, permission_proxy, desired_classes, can_choose_root, user_perm
+        )
         page.can_descend = page.get_children_count()
 
     # Render
-    context = shared_context(request, {
-        'parent_page': parent_page,
-        'parent_page_id': parent_page.pk,
-        'pages': pages,
-        'search_form': SearchForm(),
-        'page_type_string': page_type_string,
-        'page_type_names': [desired_class.get_verbose_name() for desired_class in desired_classes],
-        'page_types_restricted': (page_type_string != 'wagtailcore.page')
-    })
+    context = shared_context(
+        request,
+        {
+            'parent_page': parent_page,
+            'parent_page_id': parent_page.pk,
+            'pages': pages,
+            'search_form': SearchForm(),
+            'page_type_string': page_type_string,
+            'page_type_names': [
+                desired_class.get_verbose_name() for desired_class in desired_classes
+            ],
+            'page_types_restricted': (page_type_string != 'wagtailcore.page'),
+        },
+    )
 
     return render_modal_workflow(
         request,
-        'wagtailadmin/chooser/browse.html', None,
+        'wagtailadmin/chooser/browse.html',
+        None,
         context,
         json_data={'step': 'browse', 'parent_page_id': context['parent_page_id']},
     )
@@ -160,9 +173,7 @@ def search(request, parent_page_id=None):
 
     search_form = SearchForm(request.GET)
     if search_form.is_valid() and search_form.cleaned_data['q']:
-        pages = pages.exclude(
-            depth=1  # never include root
-        )
+        pages = pages.exclude(depth=1)  # never include root
         pages = filter_page_type(pages, desired_classes)
         pages = pages.specific()
         pages = pages.search(search_form.cleaned_data['q'])
@@ -176,12 +187,16 @@ def search(request, parent_page_id=None):
         page.can_choose = True
 
     return render(
-        request, 'wagtailadmin/chooser/_search_results.html',
-        shared_context(request, {
-            'searchform': search_form,
-            'pages': pages,
-            'page_type_string': page_type_string,
-        })
+        request,
+        'wagtailadmin/chooser/_search_results.html',
+        shared_context(
+            request,
+            {
+                'searchform': search_form,
+                'pages': pages,
+                'page_type_string': page_type_string,
+            },
+        ),
     )
 
 
@@ -197,7 +212,8 @@ def external_link(request):
         if form.is_valid():
             result = {
                 'url': form.cleaned_data['url'],
-                'title': form.cleaned_data['link_text'].strip() or form.cleaned_data['url'],
+                'title': form.cleaned_data['link_text'].strip()
+                or form.cleaned_data['url'],
                 # If the user has explicitly entered / edited something in the link_text field,
                 # always use that text. If not, we should favour keeping the existing link/selection
                 # text, where applicable.
@@ -207,18 +223,21 @@ def external_link(request):
             }
 
             return render_modal_workflow(
-                request, None, None,
-                None, json_data={'step': 'external_link_chosen', 'result': result}
+                request,
+                None,
+                None,
+                None,
+                json_data={'step': 'external_link_chosen', 'result': result},
             )
     else:
         form = ExternalLinkChooserForm(initial=initial_data)
 
     return render_modal_workflow(
         request,
-        'wagtailadmin/chooser/external_link.html', None,
-        shared_context(request, {
-            'form': form,
-        }), json_data={'step': 'external_link'}
+        'wagtailadmin/chooser/external_link.html',
+        None,
+        shared_context(request, {'form': form}),
+        json_data={'step': 'external_link'},
     )
 
 
@@ -234,23 +253,27 @@ def email_link(request):
         if form.is_valid():
             result = {
                 'url': 'mailto:' + form.cleaned_data['email_address'],
-                'title': form.cleaned_data['link_text'].strip() or form.cleaned_data['email_address'],
+                'title': form.cleaned_data['link_text'].strip()
+                or form.cleaned_data['email_address'],
                 # If the user has explicitly entered / edited something in the link_text field,
                 # always use that text. If not, we should favour keeping the existing link/selection
                 # text, where applicable.
                 'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
             }
             return render_modal_workflow(
-                request, None, None,
-                None, json_data={'step': 'external_link_chosen', 'result': result}
+                request,
+                None,
+                None,
+                None,
+                json_data={'step': 'external_link_chosen', 'result': result},
             )
     else:
         form = EmailLinkChooserForm(initial=initial_data)
 
     return render_modal_workflow(
         request,
-        'wagtailadmin/chooser/email_link.html', None,
-        shared_context(request, {
-            'form': form,
-        }), json_data={'step': 'email_link'}
+        'wagtailadmin/chooser/email_link.html',
+        None,
+        shared_context(request, {'form': form}),
+        json_data={'step': 'email_link'},
     )

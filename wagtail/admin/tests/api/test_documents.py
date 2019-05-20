@@ -45,16 +45,26 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
         for document in content['items']:
             self.assertIn('meta', document)
             self.assertIsInstance(document['meta'], dict)
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(
+                set(document['meta'].keys()),
+                {'type', 'detail_url', 'download_url', 'tags'},
+            )
 
             # Type should always be wagtaildocs.Document
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
 
             # Check detail_url
-            self.assertEqual(document['meta']['detail_url'], 'http://localhost/admin/api/v2beta/documents/%d/' % document['id'])
+            self.assertEqual(
+                document['meta']['detail_url'],
+                'http://localhost/admin/api/v2beta/documents/%d/' % document['id'],
+            )
 
             # Check download_url
-            self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
+            self.assertTrue(
+                document['meta']['download_url'].startswith(
+                    'http://localhost/documents/%d/' % document['id']
+                )
+            )
 
     # FIELDS
 
@@ -64,14 +74,19 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
 
         for document in content['items']:
             self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(
+                set(document['meta'].keys()),
+                {'type', 'detail_url', 'download_url', 'tags'},
+            )
 
 
 class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
     fixtures = ['demosite.json']
 
     def get_response(self, image_id, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:documents:detail', args=(image_id, )), params)
+        return self.client.get(
+            reverse('wagtailadmin_api_v1:documents:detail', args=(image_id,)), params
+        )
 
     def test_basic(self):
         response = self.get_response(1)
@@ -96,11 +111,17 @@ class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v2beta/documents/1/')
+        self.assertEqual(
+            content['meta']['detail_url'],
+            'http://localhost/admin/api/v2beta/documents/1/',
+        )
 
         # Check the meta download_url
         self.assertIn('download_url', content['meta'])
-        self.assertEqual(content['meta']['download_url'], 'http://localhost/documents/1/wagtail_by_markyharky.jpg')
+        self.assertEqual(
+            content['meta']['download_url'],
+            'http://localhost/documents/1/wagtail_by_markyharky.jpg',
+        )
 
         # Check the title field
         self.assertIn('title', content)

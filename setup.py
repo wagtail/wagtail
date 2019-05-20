@@ -46,14 +46,12 @@ testing_extras = [
     'Jinja2>=2.8,<3.0',
     'boto3>=1.4,<1.5',
     'freezegun>=0.3.8',
-
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
     'flake8>=3.6.0',
     'isort==4.2.5',
     'flake8-blind-except==0.1.1',
     'flake8-print==2.0.2',
-
     # For templates linting
     'jinjalint>=0.5',
 ]
@@ -102,18 +100,11 @@ https://github.com/wagtail/wagtail/.",
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
     install_requires=install_requires,
-    extras_require={
-        'testing': testing_extras,
-        'docs': documentation_extras
-    },
+    extras_require={'testing': testing_extras, 'docs': documentation_extras},
     entry_points="""
             [console_scripts]
             wagtail=wagtail.bin.wagtail:main
     """,
     zip_safe=False,
-    cmdclass={
-        'sdist': sdist,
-        'bdist_egg': check_bdist_egg,
-        'assets': assets,
-    },
+    cmdclass={'sdist': sdist, 'bdist_egg': check_bdist_egg, 'assets': assets},
 )

@@ -19,6 +19,7 @@ def _lazy_load(fn):
     def clear():
         while _cached:
             _cached.pop()
+
     _decorated.clear = clear
     return _decorated
 
@@ -36,7 +37,15 @@ def _get_sendfile():
     return module.sendfile
 
 
-def sendfile(request, filename, attachment=False, attachment_filename=None, mimetype=None, encoding=None, backend=None):
+def sendfile(
+    request,
+    filename,
+    attachment=False,
+    attachment_filename=None,
+    mimetype=None,
+    encoding=None,
+    backend=None,
+):
     '''
     create a response to send file using backend configured in SENDFILE_BACKEND
 
@@ -56,6 +65,7 @@ def sendfile(request, filename, attachment=False, attachment_filename=None, mime
 
     if not os.path.exists(filename):
         from django.http import Http404
+
         raise Http404('"%s" does not exist' % filename)
 
     guessed_mimetype, guessed_encoding = guess_type(filename)
@@ -73,11 +83,13 @@ def sendfile(request, filename, attachment=False, attachment_filename=None, mime
         if attachment_filename:
             from unidecode import unidecode
             from django.utils.encoding import force_text
+
             attachment_filename = force_text(attachment_filename)
             ascii_filename = unidecode(attachment_filename)
             parts.append('filename="%s"' % ascii_filename)
             if ascii_filename != attachment_filename:
                 from django.utils.http import urlquote
+
                 quoted_filename = urlquote(attachment_filename)
                 parts.append('filename*=UTF-8\'\'%s' % quoted_filename)
         response['Content-Disposition'] = '; '.join(parts)

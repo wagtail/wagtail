@@ -1,4 +1,3 @@
-
 class EmbedFinder:
     def accept(self, url):
         return False

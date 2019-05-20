@@ -18,10 +18,7 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-        img = Image.objects.create(
-            title="LOTR cover",
-            file=get_test_image_file(),
-        )
+        img = Image.objects.create(title="LOTR cover", file=get_test_image_file())
         book = Book.objects.get(title="The Lord of the Rings")
         book.cover_image = img
         book.save()
@@ -144,36 +141,29 @@ class TestCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
     def test_create(self):
-        response = self.post({
-            'title': "George's Marvellous Medicine",
-            'author': 2,
-        })
+        response = self.post({'title': "George's Marvellous Medicine", 'author': 2})
         # Should redirect back to index
         self.assertRedirects(response, '/admin/modeladmintest/book/')
 
         # Check that the book was created
-        self.assertEqual(Book.objects.filter(title="George's Marvellous Medicine").count(), 1)
+        self.assertEqual(
+            Book.objects.filter(title="George's Marvellous Medicine").count(), 1
+        )
 
         response = self.client.get('/admin/modeladmintest/publisher/create/')
         self.assertIn('name', response.content.decode('UTF-8'))
         self.assertNotIn('headquartered_in', response.content.decode('UTF-8'))
-        self.assertEqual(
-            [ii for ii in response.context['form'].fields],
-            ['name']
+        self.assertEqual([ii for ii in response.context['form'].fields], ['name'])
+        self.client.post(
+            '/admin/modeladmintest/publisher/create/', {'name': 'Sharper Collins'}
         )
-        self.client.post('/admin/modeladmintest/publisher/create/', {
-            'name': 'Sharper Collins'
-        })
         publisher = Publisher.objects.get(name='Sharper Collins')
         self.assertEqual(publisher.headquartered_in, None)
 
     def test_post_invalid(self):
         initial_book_count = Book.objects.count()
 
-        response = self.post({
-            'title': '',
-            'author': 2,
-        })
+        response = self.post({'title': '', 'author': 2})
         final_book_count = Book.objects.count()
 
         self.assertEqual(response.status_code, 200)
@@ -182,18 +172,30 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'title', "This field is required.")
-        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""",
-                            count=1, html=True)
+        self.assertContains(
+            response,
+            """<p class="error-message"><span>This field is required.</span></p>""",
+            count=1,
+            html=True,
+        )
 
     def test_exclude_passed_to_extract_panel_definitions(self):
-        path_to_form_fields_exclude_property = 'wagtail.contrib.modeladmin.options.ModelAdmin.form_fields_exclude'
-        with mock.patch('wagtail.contrib.modeladmin.options.extract_panel_definitions_from_model_class') as m:
-            with mock.patch(path_to_form_fields_exclude_property, new_callable=mock.PropertyMock) as mock_form_fields_exclude:
+        path_to_form_fields_exclude_property = (
+            'wagtail.contrib.modeladmin.options.ModelAdmin.form_fields_exclude'
+        )
+        with mock.patch(
+            'wagtail.contrib.modeladmin.options.extract_panel_definitions_from_model_class'
+        ) as m:
+            with mock.patch(
+                path_to_form_fields_exclude_property, new_callable=mock.PropertyMock
+            ) as mock_form_fields_exclude:
                 mock_form_fields_exclude.return_value = ['123']
 
                 self.get()
                 self.assertTrue(mock_form_fields_exclude.called)
-                m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
+                m.assert_called_with(
+                    Book, exclude=mock_form_fields_exclude.return_value
+                )
 
 
 class TestInspectView(TestCase, WagtailTestUtils):
@@ -202,10 +204,7 @@ class TestInspectView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
-        img = Image.objects.create(
-            title="LOTR cover",
-            file=get_test_image_file(),
-        )
+        img = Image.objects.create(title="LOTR cover", file=get_test_image_file())
         book = Book.objects.get(title="The Lord of the Rings")
         book.cover_image = img
         book.save()
@@ -272,7 +271,9 @@ class TestEditView(TestCase, WagtailTestUtils):
         return self.client.get('/admin/modeladmintest/book/edit/%d/' % book_id)
 
     def post(self, book_id, post_data):
-        return self.client.post('/admin/modeladmintest/book/edit/%d/' % book_id, post_data)
+        return self.client.post(
+            '/admin/modeladmintest/book/edit/%d/' % book_id, post_data
+        )
 
     def test_simple(self):
         response = self.get(1)
@@ -286,10 +287,7 @@ class TestEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
     def test_edit(self):
-        response = self.post(1, {
-            'title': 'The Lady of the Rings',
-            'author': 1,
-        })
+        response = self.post(1, {'title': 'The Lady of the Rings', 'author': 1})
 
         # Should redirect back to index
         self.assertRedirects(response, '/admin/modeladmintest/book/')
@@ -298,10 +296,7 @@ class TestEditView(TestCase, WagtailTestUtils):
         self.assertEqual(Book.objects.get(id=1).title, 'The Lady of the Rings')
 
     def test_post_invalid(self):
-        response = self.post(1, {
-            'title': '',
-            'author': 1,
-        })
+        response = self.post(1, {'title': '', 'author': 1})
 
         self.assertEqual(response.status_code, 200)
 
@@ -310,18 +305,30 @@ class TestEditView(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'title', "This field is required.")
-        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""",
-                            count=1, html=True)
+        self.assertContains(
+            response,
+            """<p class="error-message"><span>This field is required.</span></p>""",
+            count=1,
+            html=True,
+        )
 
     def test_exclude_passed_to_extract_panel_definitions(self):
-        path_to_form_fields_exclude_property = 'wagtail.contrib.modeladmin.options.ModelAdmin.form_fields_exclude'
-        with mock.patch('wagtail.contrib.modeladmin.options.extract_panel_definitions_from_model_class') as m:
-            with mock.patch(path_to_form_fields_exclude_property, new_callable=mock.PropertyMock) as mock_form_fields_exclude:
+        path_to_form_fields_exclude_property = (
+            'wagtail.contrib.modeladmin.options.ModelAdmin.form_fields_exclude'
+        )
+        with mock.patch(
+            'wagtail.contrib.modeladmin.options.extract_panel_definitions_from_model_class'
+        ) as m:
+            with mock.patch(
+                path_to_form_fields_exclude_property, new_callable=mock.PropertyMock
+            ) as mock_form_fields_exclude:
                 mock_form_fields_exclude.return_value = ['123']
 
                 self.get(1)
                 self.assertTrue(mock_form_fields_exclude.called)
-                m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
+                m.assert_called_with(
+                    Book, exclude=mock_form_fields_exclude.return_value
+                )
 
 
 class TestPageSpecificViews(TestCase, WagtailTestUtils):
@@ -395,13 +402,9 @@ class TestDeleteViewWithProtectedRelation(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(
-            response,
-            "'J. R. R. Tolkien' is currently referenced by other objects"
+            response, "'J. R. R. Tolkien' is currently referenced by other objects"
         )
-        self.assertContains(
-            response,
-            "<li><b>Book:</b> The Lord of the Rings</li>"
-        )
+        self.assertContains(response, "<li><b>Book:</b> The Lord of the Rings</li>")
 
         # Author not deleted
         self.assertTrue(Author.objects.filter(id=1).exists())
@@ -433,7 +436,13 @@ class TestEditorAccess(TestCase):
 
     def login(self):
         # Create a user
-        user = get_user_model().objects._create_user(username='test2', email='test2@email.com', password='password', is_staff=True, is_superuser=False)
+        user = get_user_model().objects._create_user(
+            username='test2',
+            email='test2@email.com',
+            password='password',
+            is_staff=True,
+            is_superuser=False,
+        )
         user.groups.add(Group.objects.get(pk=2))
         # Login
         self.client.login(username='test2', password='password')
@@ -480,14 +489,24 @@ class TestQuoting(TestCase, WagtailTestUtils):
     def test_action_links(self):
         response = self.client.get('/admin/modeladmintest/token/')
 
-        self.assertContains(response, 'href="/admin/modeladmintest/token/edit/RegularName/"')
-        self.assertContains(response, 'href="/admin/modeladmintest/token/delete/RegularName/"')
-        self.assertContains(response, 'href="/admin/modeladmintest/token/edit/Irregular_5FName/"')
-        self.assertContains(response, 'href="/admin/modeladmintest/token/delete/Irregular_5FName/"')
+        self.assertContains(
+            response, 'href="/admin/modeladmintest/token/edit/RegularName/"'
+        )
+        self.assertContains(
+            response, 'href="/admin/modeladmintest/token/delete/RegularName/"'
+        )
+        self.assertContains(
+            response, 'href="/admin/modeladmintest/token/edit/Irregular_5FName/"'
+        )
+        self.assertContains(
+            response, 'href="/admin/modeladmintest/token/delete/Irregular_5FName/"'
+        )
 
         response = self.client.get('/admin/modeladmintest/token/edit/Irregular_5FName/')
         self.assertEqual(response.status_code, 200)
-        response = self.client.get('/admin/modeladmintest/token/delete/Irregular_5FName/')
+        response = self.client.get(
+            '/admin/modeladmintest/token/delete/Irregular_5FName/'
+        )
         self.assertEqual(response.status_code, 200)
 
 
@@ -497,6 +516,7 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         <header> tag for potential future regression.
         See https://github.com/wagtail/wagtail/issues/3889
     """
+
     fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
@@ -510,7 +530,11 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/shared/header.html')
 
         # check that home breadcrumb link exists
-        self.assertContains(response, '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>', html=True)
+        self.assertContains(
+            response,
+            '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>',
+            html=True,
+        )
 
         # check that the breadcrumbs are before the first header closing tag
         content_str = str(response.content)
@@ -520,7 +544,6 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
 
 
 class TestPanelConfigurationChecks(TestCase, WagtailTestUtils):
-
     def setUp(self):
         self.warning_id = 'wagtailadmin.W002'
 
@@ -528,11 +551,10 @@ class TestPanelConfigurationChecks(TestCase, WagtailTestUtils):
             # run checks only with the 'panels' tag
             checks_result = checks.run_checks(tags=['panels'])
             return [
-                warning for warning in
-                checks_result if warning.id == self.warning_id]
+                warning for warning in checks_result if warning.id == self.warning_id
+            ]
 
         self.get_checks_result = get_checks_result
-
 
     def test_model_with_single_tabbed_panel_only(self):
 
@@ -555,12 +577,10 @@ There are no default tabs on non-Page models so there will be no\
         # clean up for future checks
         delattr(Publisher, 'content_panels')
 
-
     def test_model_with_two_tabbed_panels_only(self):
 
         Publisher.settings_panels = [FieldPanel('name')]
         Publisher.promote_panels = [FieldPanel('headquartered_in')]
-
 
         warning_1 = checks.Warning(
             "Publisher.promote_panels will have no effect on modeladmin editing",
@@ -590,7 +610,6 @@ There are no default tabs on non-Page models so there will be no\
         # clean up for future checks
         delattr(Publisher, 'settings_panels')
         delattr(Publisher, 'promote_panels')
-
 
     def test_model_with_single_tabbed_panel_and_edit_handler(self):
 

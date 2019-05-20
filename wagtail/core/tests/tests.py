@@ -17,28 +17,32 @@ class TestPageUrlTags(TestCase):
     def test_pageurl_tag(self):
         response = self.client.get('/events/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response,
-                            '<a href="/events/christmas/">Christmas</a>')
+        self.assertContains(response, '<a href="/events/christmas/">Christmas</a>')
 
     def test_pageurl_fallback(self):
-        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page fallback='fallback' %}">Fallback</a>''')
+        tpl = template.Template(
+            '''{% load wagtailcore_tags %}<a href="{% pageurl page fallback='fallback' %}">Fallback</a>'''
+        )
         result = tpl.render(template.Context({'page': None}))
         self.assertIn('<a href="/fallback/">Fallback</a>', result)
 
     def test_pageurl_fallback_without_valid_fallback(self):
-        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page fallback='not-existing-endpoint' %}">Fallback</a>''')
+        tpl = template.Template(
+            '''{% load wagtailcore_tags %}<a href="{% pageurl page fallback='not-existing-endpoint' %}">Fallback</a>'''
+        )
         with self.assertRaises(NoReverseMatch):
             tpl.render(template.Context({'page': None}))
 
     def test_slugurl_tag(self):
         response = self.client.get('/events/christmas/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response,
-                            '<a href="/events/">Back to events index</a>')
+        self.assertContains(response, '<a href="/events/">Back to events index</a>')
 
     def test_pageurl_without_request_in_context(self):
         page = Page.objects.get(url_path='/home/events/')
-        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>''')
+        tpl = template.Template(
+            '''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>'''
+        )
 
         # no 'request' object in context
         result = tpl.render(template.Context({'page': page}))
@@ -49,9 +53,13 @@ class TestPageUrlTags(TestCase):
         self.assertIn('<a href="/events/">Events</a>', result)
 
     def test_bad_pageurl(self):
-        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>''')
+        tpl = template.Template(
+            '''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>'''
+        )
 
-        with self.assertRaisesRegex(ValueError, "pageurl tag expected a Page object, got None"):
+        with self.assertRaisesRegex(
+            ValueError, "pageurl tag expected a Page object, got None"
+        ):
             tpl.render(template.Context({'page': None}))
 
     def test_bad_slugurl(self):
@@ -60,13 +68,20 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(result, None)
 
         # 'request' object in context, but no 'site' attribute
-        result = slugurl(context=template.Context({'request': HttpRequest()}), slug='bad-slug-doesnt-exist')
+        result = slugurl(
+            context=template.Context({'request': HttpRequest()}),
+            slug='bad-slug-doesnt-exist',
+        )
         self.assertEqual(result, None)
 
     def test_slugurl_tag_returns_url_for_current_site(self):
         home_page = Page.objects.get(url_path='/home/')
-        new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
-        second_site = Site.objects.create(hostname='site2.example.com', root_page=new_home_page)
+        new_home_page = home_page.copy(
+            update_attrs={'title': "New home page", 'slug': 'new-home'}
+        )
+        second_site = Site.objects.create(
+            hostname='site2.example.com', root_page=new_home_page
+        )
         # Add a page to the new site that has a slug that is the same as one on
         # the first site, but is in a different position in the treeself.
         new_christmas_page = Page(title='Christmas', slug='christmas')
@@ -78,8 +93,12 @@ class TestPageUrlTags(TestCase):
 
     def test_slugurl_tag_returns_url_for_other_site(self):
         home_page = Page.objects.get(url_path='/home/')
-        new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
-        second_site = Site.objects.create(hostname='site2.example.com', root_page=new_home_page)
+        new_home_page = home_page.copy(
+            update_attrs={'title': "New home page", 'slug': 'new-home'}
+        )
+        second_site = Site.objects.create(
+            hostname='site2.example.com', root_page=new_home_page
+        )
         request = HttpRequest()
         request.site = second_site
         # There is no page with this slug on the current site, so this
@@ -111,7 +130,9 @@ class TestSiteRootPathsCache(TestCase):
         _ = homepage.url  # noqa
 
         # Check that the cache has been set correctly
-        self.assertEqual(cache.get('wagtail_site_root_paths'), [(1, '/home/', 'http://localhost')])
+        self.assertEqual(
+            cache.get('wagtail_site_root_paths'), [(1, '/home/', 'http://localhost')]
+        )
 
     def test_cache_clears_when_site_saved(self):
         """
@@ -170,7 +191,9 @@ class TestSiteRootPathsCache(TestCase):
         default_site = Site.objects.get(is_default_site=True)
 
         # Create a new homepage under current homepage
-        new_homepage = SimplePage(title="New Homepage", slug="new-homepage", content="hello")
+        new_homepage = SimplePage(
+            title="New Homepage", slug="new-homepage", content="hello"
+        )
         homepage.add_child(instance=new_homepage)
 
         # Set new homepage as the site root page
@@ -245,7 +268,9 @@ class TestResolveModelString(TestCase):
         self.assertRaises(ValueError, resolve_model_string, 'wagtail.core.Page')
 
     def test_resolve_from_string_with_incorrect_default_app(self):
-        self.assertRaises(LookupError, resolve_model_string, 'Page', default_app='wagtailadmin')
+        self.assertRaises(
+            LookupError, resolve_model_string, 'Page', default_app='wagtailadmin'
+        )
 
     def test_resolve_from_string_with_unknown_model_string(self):
         self.assertRaises(LookupError, resolve_model_string, 'wagtailadmin.Page')
@@ -274,9 +299,13 @@ class TestRichtextTag(TestCase):
         self.assertEqual(result, '<div class="rich-text"></div>')
 
     def test_call_with_invalid_value(self):
-        with self.assertRaisesRegex(TypeError, "'richtext' template filter received an invalid value"):
+        with self.assertRaisesRegex(
+            TypeError, "'richtext' template filter received an invalid value"
+        ):
             richtext(42)
 
     def test_call_with_bytes(self):
-        with self.assertRaisesRegex(TypeError, "'richtext' template filter received an invalid value"):
+        with self.assertRaisesRegex(
+            TypeError, "'richtext' template filter received an invalid value"
+        ):
             richtext(b"Hello world!")

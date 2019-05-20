@@ -13,7 +13,11 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
 
 def make_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--deprecation', choices=['all', 'pending', 'imminent', 'none'], default='imminent')
+    parser.add_argument(
+        '--deprecation',
+        choices=['all', 'pending', 'imminent', 'none'],
+        default='imminent',
+    )
     parser.add_argument('--postgres', action='store_true')
     parser.add_argument('--elasticsearch2', action='store_true')
     parser.add_argument('--elasticsearch5', action='store_true')
@@ -36,11 +40,17 @@ def runtests():
         warnings.simplefilter('default', PendingDeprecationWarning)
     elif args.deprecation == 'pending':
         # Show all deprecation warnings from wagtail
-        warnings.filterwarnings('default', category=DeprecationWarning, module=only_wagtail)
-        warnings.filterwarnings('default', category=PendingDeprecationWarning, module=only_wagtail)
+        warnings.filterwarnings(
+            'default', category=DeprecationWarning, module=only_wagtail
+        )
+        warnings.filterwarnings(
+            'default', category=PendingDeprecationWarning, module=only_wagtail
+        )
     elif args.deprecation == 'imminent':
         # Show only imminent deprecation warnings from wagtail
-        warnings.filterwarnings('default', category=DeprecationWarning, module=only_wagtail)
+        warnings.filterwarnings(
+            'default', category=DeprecationWarning, module=only_wagtail
+        )
     elif args.deprecation == 'none':
         # Deprecation warnings are ignored by default
         pass
@@ -63,9 +73,7 @@ def runtests():
         del os.environ['ELASTICSEARCH_URL']
 
     if args.bench:
-        benchmarks = [
-            'wagtail.admin.tests.benches',
-        ]
+        benchmarks = ['wagtail.admin.tests.benches']
 
         argv = [sys.argv[0], 'test', '-v2'] + benchmarks + rest
     else:
@@ -75,6 +83,7 @@ def runtests():
         execute_from_command_line(argv)
     finally:
         from wagtail.tests.settings import STATIC_ROOT, MEDIA_ROOT
+
         shutil.rmtree(STATIC_ROOT, ignore_errors=True)
         shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
 

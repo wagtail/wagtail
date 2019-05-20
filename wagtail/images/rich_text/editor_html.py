@@ -6,6 +6,7 @@ from wagtail.images.formats import get_image_format
 
 # hallo.js / editor-html conversion
 
+
 class ImageEmbedHandler:
     """
     ImageEmbedHandler will be invoked whenever we encounter an element in HTML content
@@ -13,6 +14,7 @@ class ImageEmbedHandler:
     representation will be:
     <embed embedtype="image" id="42" format="thumb" alt="some custom alt text">
     """
+
     @staticmethod
     def get_db_attributes(tag):
         """
@@ -43,6 +45,4 @@ class ImageEmbedHandler:
         return image_format.image_to_editor_html(image, attrs.get('alt', ''))
 
 
-EditorHTMLImageConversionRule = [
-    editor_html.EmbedTypeRule('image', ImageEmbedHandler)
-]
+EditorHTMLImageConversionRule = [editor_html.EmbedTypeRule('image', ImageEmbedHandler)]

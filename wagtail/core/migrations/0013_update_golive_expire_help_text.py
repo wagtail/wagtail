@@ -4,9 +4,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailcore', '0012_extend_page_slug_field'),
-    ]
+    dependencies = [('wagtailcore', '0012_extend_page_slug_field')]
 
     operations = [
         migrations.AlterField(
@@ -16,7 +14,7 @@ class Migration(migrations.Migration):
                 help_text='Please add a date-time in the form YYYY-MM-DD hh:mm.',
                 null=True,
                 verbose_name='Expiry date/time',
-                blank=True
+                blank=True,
             ),
             preserve_default=True,
         ),
@@ -27,7 +25,7 @@ class Migration(migrations.Migration):
                 help_text='Please add a date-time in the form YYYY-MM-DD hh:mm.',
                 null=True,
                 verbose_name='Go live date/time',
-                blank=True
+                blank=True,
             ),
             preserve_default=True,
         ),

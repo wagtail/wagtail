@@ -47,10 +47,7 @@ class PagesSummaryItem(SummaryItem):
         else:
             page_count = 0
 
-        return {
-            'root_page': root_page,
-            'total_pages': page_count,
-        }
+        return {'root_page': root_page, 'total_pages': page_count}
 
     def is_shown(self):
         return user_has_any_page_permission(self.request.user)
@@ -76,6 +73,8 @@ class SiteSummaryPanel:
         if not summary_items:
             return ''
 
-        return render_to_string('wagtailadmin/home/site_summary.html', {
-            'summary_items': sorted(summary_items, key=lambda p: p.order),
-        }, request=self.request)
+        return render_to_string(
+            'wagtailadmin/home/site_summary.html',
+            {'summary_items': sorted(summary_items, key=lambda p: p.order)},
+            request=self.request,
+        )

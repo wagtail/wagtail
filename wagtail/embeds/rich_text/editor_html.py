@@ -5,6 +5,7 @@ from wagtail.embeds.exceptions import EmbedException
 
 # hallo.js / editor-html conversion
 
+
 class MediaEmbedHandler:
     """
     MediaEmbedHandler will be invoked whenever we encounter an element in HTML content
@@ -12,6 +13,7 @@ class MediaEmbedHandler:
     representation will be:
     <embed embedtype="media" url="http://vimeo.com/XXXXX">
     """
+
     @staticmethod
     def get_db_attributes(tag):
         """
@@ -19,9 +21,7 @@ class MediaEmbedHandler:
         data-embedtype="media" attribute), return a dict of the attributes we should
         have on the resulting <embed> element.
         """
-        return {
-            'url': tag['data-url'],
-        }
+        return {'url': tag['data-url']}
 
     @staticmethod
     def expand_db_attributes(attrs):
@@ -36,6 +36,4 @@ class MediaEmbedHandler:
             return ''
 
 
-EditorHTMLEmbedConversionRule = [
-    editor_html.EmbedTypeRule('media', MediaEmbedHandler)
-]
+EditorHTMLEmbedConversionRule = [editor_html.EmbedTypeRule('media', MediaEmbedHandler)]

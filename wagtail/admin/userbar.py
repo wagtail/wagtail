@@ -5,7 +5,9 @@ class BaseItem:
     template = 'wagtailadmin/userbar/item_base.html'
 
     def render(self, request):
-        return render_to_string(self.template, dict(self=self, request=request), request=request)
+        return render_to_string(
+            self.template, dict(self=self, request=request), request=request
+        )
 
 
 class AdminItem(BaseItem):
@@ -62,7 +64,10 @@ class ExplorePageItem(BaseItem):
 
         # Don't render if user doesn't have ability to edit or publish sub-pages on the parent page
         permission_checker = self.parent_page.permissions_for_user(request.user)
-        if not permission_checker.can_edit() and not permission_checker.can_publish_subpage():
+        if (
+            not permission_checker.can_edit()
+            and not permission_checker.can_publish_subpage()
+        ):
             return ""
 
         return super().render(request)

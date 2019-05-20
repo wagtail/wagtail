@@ -6,13 +6,16 @@ from django.db import transaction
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
-from wagtail.core.models import Collection, CollectionViewRestriction, GroupCollectionPermission
+from wagtail.core.models import (
+    Collection,
+    CollectionViewRestriction,
+    GroupCollectionPermission,
+)
 
 from .view_restrictions import BaseViewRestrictionForm
 
 
 class CollectionViewRestrictionForm(BaseViewRestrictionForm):
-
     class Meta:
         model = CollectionViewRestriction
         fields = ('restriction_type', 'password', 'groups')
@@ -34,6 +37,7 @@ class BaseCollectionMemberForm(forms.ModelForm):
 
     Subclasses must define a 'permission_policy' attribute.
     """
+
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
 
@@ -42,20 +46,21 @@ class BaseCollectionMemberForm(forms.ModelForm):
         if user is None:
             self.collections = Collection.objects.all()
         else:
-            self.collections = (
-                self.permission_policy.collections_user_has_permission_for(user, 'add')
+            self.collections = self.permission_policy.collections_user_has_permission_for(
+                user, 'add'
             )
 
         if self.instance.pk:
             # editing an existing document; ensure that the list of available collections
             # includes its current collection
-            self.collections = (
-                self.collections | Collection.objects.filter(id=self.instance.collection_id)
+            self.collections = self.collections | Collection.objects.filter(
+                id=self.instance.collection_id
             )
 
         if len(self.collections) == 0:
             raise Exception(
-                "Cannot construct %s for a user with no collection permissions" % type(self)
+                "Cannot construct %s for a user with no collection permissions"
+                % type(self)
             )
         elif len(self.collections) == 1:
             # don't show collection field if only one collection is available
@@ -81,6 +86,7 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
     default_prefix - prefix to use on form fields if one is not specified in __init__
     template = template filename
     """
+
     def __init__(self, data=None, files=None, instance=None, prefix=None):
         if prefix is None:
             prefix = self.default_prefix
@@ -95,17 +101,19 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         for collection, collection_permissions in groupby(
             instance.collection_permissions.filter(
                 permission__in=self.permission_queryset
-            ).select_related('permission__content_type', 'collection').order_by('collection'),
-            lambda cp: cp.collection
+            )
+            .select_related('permission__content_type', 'collection')
+            .order_by('collection'),
+            lambda cp: cp.collection,
         ):
-            initial_data.append({
-                'collection': collection,
-                'permissions': [cp.permission for cp in collection_permissions]
-            })
+            initial_data.append(
+                {
+                    'collection': collection,
+                    'permissions': [cp.permission for cp in collection_permissions],
+                }
+            )
 
-        super().__init__(
-            data, files, initial=initial_data, prefix=prefix
-        )
+        super().__init__(data, files, initial=initial_data, prefix=prefix)
         for form in self.forms:
             form.fields['DELETE'].widget = forms.HiddenInput()
 
@@ -131,7 +139,9 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         if len(set(collections)) != len(collections):
             # collections list contains duplicates
             raise forms.ValidationError(
-                _("You cannot have multiple permission records for the same collection.")
+                _(
+                    "You cannot have multiple permission records for the same collection."
+                )
             )
 
     @transaction.atomic
@@ -144,14 +154,17 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
 
         # get a set of (collection, permission) tuples for all ticked permissions
         forms_to_save = [
-            form for form in self.forms
+            form
+            for form in self.forms
             if form not in self.deleted_forms and 'collection' in form.cleaned_data
         ]
 
         final_permission_records = set()
         for form in forms_to_save:
             for permission in form.cleaned_data['permissions']:
-                final_permission_records.add((form.cleaned_data['collection'], permission))
+                final_permission_records.add(
+                    (form.cleaned_data['collection'], permission)
+                )
 
         # fetch the group's existing collection permission records for this model,
         # and from that, build a list of records to be created / deleted
@@ -159,28 +172,29 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         permission_records_to_keep = set()
 
         for cp in self.instance.collection_permissions.filter(
-            permission__in=self.permission_queryset,
+            permission__in=self.permission_queryset
         ):
             if (cp.collection, cp.permission) in final_permission_records:
                 permission_records_to_keep.add((cp.collection, cp.permission))
             else:
                 permission_ids_to_delete.append(cp.id)
 
-        self.instance.collection_permissions.filter(id__in=permission_ids_to_delete).delete()
+        self.instance.collection_permissions.filter(
+            id__in=permission_ids_to_delete
+        ).delete()
 
         permissions_to_add = final_permission_records - permission_records_to_keep
-        GroupCollectionPermission.objects.bulk_create([
-            GroupCollectionPermission(
-                group=self.instance, collection=collection, permission=permission
-            )
-            for (collection, permission) in permissions_to_add
-        ])
+        GroupCollectionPermission.objects.bulk_create(
+            [
+                GroupCollectionPermission(
+                    group=self.instance, collection=collection, permission=permission
+                )
+                for (collection, permission) in permissions_to_add
+            ]
+        )
 
     def as_admin_panel(self):
-        return render_to_string(
-            self.template,
-            {'formset': self},
-        )
+        return render_to_string(self.template, {'formset': self})
 
 
 def collection_member_permission_formset_factory(
@@ -189,7 +203,9 @@ def collection_member_permission_formset_factory(
 
     permission_queryset = Permission.objects.filter(
         content_type__app_label=model._meta.app_label,
-        codename__in=[codename for codename, short_label, long_label in permission_types]
+        codename__in=[
+            codename for codename, short_label, long_label in permission_types
+        ],
     ).select_related('content_type')
 
     if default_prefix is None:
@@ -201,29 +217,30 @@ def collection_member_permission_formset_factory(
         defines the permissions that are assigned to an entity
         (i.e. group or user) for a specific collection
         """
+
         collection = forms.ModelChoiceField(
             queryset=Collection.objects.all().prefetch_related('group_permissions')
         )
         permissions = forms.ModelMultipleChoiceField(
             queryset=permission_queryset,
             required=False,
-            widget=forms.CheckboxSelectMultiple
+            widget=forms.CheckboxSelectMultiple,
         )
 
     GroupCollectionMemberPermissionFormSet = type(
         str('GroupCollectionMemberPermissionFormSet'),
-        (BaseGroupCollectionMemberPermissionFormSet, ),
+        (BaseGroupCollectionMemberPermissionFormSet,),
         {
             'permission_types': permission_types,
             'permission_queryset': permission_queryset,
             'default_prefix': default_prefix,
             'template': template,
-        }
+        },
     )
 
     return forms.formset_factory(
         CollectionMemberPermissionsForm,
         formset=GroupCollectionMemberPermissionFormSet,
         extra=0,
-        can_delete=True
+        can_delete=True,
     )

@@ -12,9 +12,7 @@ def draft_title(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailcore', '0039_collectionviewrestriction'),
-    ]
+    dependencies = [('wagtailcore', '0039_collectionviewrestriction')]
 
     operations = [
         migrations.AddField(

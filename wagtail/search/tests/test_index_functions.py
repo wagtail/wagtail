@@ -31,7 +31,7 @@ class TestGetIndexedInstance(TestCase):
         obj = models.Novel(
             title="Don't index me!",
             publication_date=date(2017, 10, 18),
-            number_of_pages=100
+            number_of_pages=100,
         )
         obj.save()
 
@@ -42,14 +42,16 @@ class TestGetIndexedInstance(TestCase):
 
 
 @mock.patch('wagtail.search.tests.DummySearchBackend', create=True)
-@override_settings(WAGTAILSEARCH_BACKENDS={
-    'default': {
-        'BACKEND': 'wagtail.search.tests.DummySearchBackend'
+@override_settings(
+    WAGTAILSEARCH_BACKENDS={
+        'default': {'BACKEND': 'wagtail.search.tests.DummySearchBackend'}
     }
-})
+)
 class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
     def test_inserts_object(self, backend):
-        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
+        obj = models.Book.objects.create(
+            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+        )
         backend().reset_mock()
 
         index.insert_or_update_object(obj)
@@ -57,7 +59,9 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
         backend().add.assert_called_with(obj)
 
     def test_doesnt_insert_unsaved_object(self, backend):
-        obj = models.Book(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
+        obj = models.Book(
+            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+        )
         backend().reset_mock()
 
         index.insert_or_update_object(obj)
@@ -66,7 +70,9 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
 
     def test_converts_to_specific_page(self, backend):
         root_page = Page.objects.get(id=1)
-        page = root_page.add_child(instance=SimplePage(title="test", slug="test", content="test"))
+        page = root_page.add_child(
+            instance=SimplePage(title="test", slug="test", content="test")
+        )
 
         # Convert page into a generic "Page" object and add it into the index
         unspecific_page = page.page_ptr
@@ -79,7 +85,9 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
         backend().add.assert_called_with(page)
 
     def test_catches_index_error(self, backend):
-        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
+        obj = models.Book.objects.create(
+            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+        )
 
         backend().add.side_effect = ValueError("Test")
         backend().reset_mock()
@@ -88,20 +96,25 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
             index.insert_or_update_object(obj)
 
         self.assertEqual(len(cm.output), 1)
-        self.assertIn("Exception raised while adding <Book: Test> into the 'default' search backend", cm.output[0])
+        self.assertIn(
+            "Exception raised while adding <Book: Test> into the 'default' search backend",
+            cm.output[0],
+        )
         self.assertIn("Traceback (most recent call last):", cm.output[0])
         self.assertIn("ValueError: Test", cm.output[0])
 
 
 @mock.patch('wagtail.search.tests.DummySearchBackend', create=True)
-@override_settings(WAGTAILSEARCH_BACKENDS={
-    'default': {
-        'BACKEND': 'wagtail.search.tests.DummySearchBackend'
+@override_settings(
+    WAGTAILSEARCH_BACKENDS={
+        'default': {'BACKEND': 'wagtail.search.tests.DummySearchBackend'}
     }
-})
+)
 class TestRemoveObject(TestCase, WagtailTestUtils):
     def test_removes_object(self, backend):
-        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
+        obj = models.Book.objects.create(
+            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+        )
         backend().reset_mock()
 
         index.remove_object(obj)
@@ -109,7 +122,9 @@ class TestRemoveObject(TestCase, WagtailTestUtils):
         backend().delete.assert_called_with(obj)
 
     def test_removes_unsaved_object(self, backend):
-        obj = models.Book(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
+        obj = models.Book(
+            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+        )
         backend().reset_mock()
 
         index.remove_object(obj)
@@ -117,7 +132,9 @@ class TestRemoveObject(TestCase, WagtailTestUtils):
         backend().delete.assert_called_with(obj)
 
     def test_catches_index_error(self, backend):
-        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
+        obj = models.Book.objects.create(
+            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+        )
         backend().reset_mock()
 
         backend().delete.side_effect = ValueError("Test")
@@ -126,25 +143,32 @@ class TestRemoveObject(TestCase, WagtailTestUtils):
             index.remove_object(obj)
 
         self.assertEqual(len(cm.output), 1)
-        self.assertIn("Exception raised while deleting <Book: Test> from the 'default' search backend", cm.output[0])
+        self.assertIn(
+            "Exception raised while deleting <Book: Test> from the 'default' search backend",
+            cm.output[0],
+        )
         self.assertIn("Traceback (most recent call last):", cm.output[0])
         self.assertIn("ValueError: Test", cm.output[0])
 
 
 @mock.patch('wagtail.search.tests.DummySearchBackend', create=True)
-@override_settings(WAGTAILSEARCH_BACKENDS={
-    'default': {
-        'BACKEND': 'wagtail.search.tests.DummySearchBackend'
+@override_settings(
+    WAGTAILSEARCH_BACKENDS={
+        'default': {'BACKEND': 'wagtail.search.tests.DummySearchBackend'}
     }
-})
+)
 class TestSignalHandlers(TestCase, WagtailTestUtils):
     def test_index_on_create(self, backend):
         backend().reset_mock()
-        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
+        obj = models.Book.objects.create(
+            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+        )
         backend().add.assert_called_with(obj)
 
     def test_index_on_update(self, backend):
-        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
+        obj = models.Book.objects.create(
+            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+        )
 
         backend().reset_mock()
         obj.title = "Updated test"
@@ -155,14 +179,18 @@ class TestSignalHandlers(TestCase, WagtailTestUtils):
         self.assertEqual(indexed_object.title, "Updated test")
 
     def test_index_on_delete(self, backend):
-        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
+        obj = models.Book.objects.create(
+            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+        )
 
         backend().reset_mock()
         obj.delete()
         backend().delete.assert_called_with(obj)
 
     def test_do_not_index_fields_omitted_from_update_fields(self, backend):
-        obj = models.Book.objects.create(title="Test", publication_date=date(2017, 10, 18), number_of_pages=100)
+        obj = models.Book.objects.create(
+            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+        )
 
         backend().reset_mock()
         obj.title = "Updated test"

@@ -12,7 +12,12 @@ class BaseSetting(models.Model):
     """
 
     site = models.OneToOneField(
-        'wagtailcore.Site', unique=True, db_index=True, editable=False, on_delete=models.CASCADE)
+        'wagtailcore.Site',
+        unique=True,
+        db_index=True,
+        editable=False,
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
         abstract = True

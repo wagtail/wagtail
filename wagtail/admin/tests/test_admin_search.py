@@ -38,7 +38,9 @@ class TestSearchAreas(BaseSearchAreaTestCase):
         search_url = reverse('wagtailadmin_pages:search')
         query = "Hello"
         base_css = "icon icon-custom"
-        test_string = '<a href="/customsearch/?q=%s" class="%s" is-custom="true">My Search</a>'
+        test_string = (
+            '<a href="/customsearch/?q=%s" class="%s" is-custom="true">My Search</a>'
+        )
         # Testing the option link exists
         response = self.client.get(search_url, {'q': query})
         self.assertEqual(response.status_code, 200)
@@ -49,11 +51,18 @@ class TestSearchAreas(BaseSearchAreaTestCase):
 
         # Testing is_shown
         response = self.client.get(search_url, {'q': query, 'hide-option': "true"})
-        self.assertNotContains(response, test_string % (query, base_css), status_code=200, html=True)
+        self.assertNotContains(
+            response, test_string % (query, base_css), status_code=200, html=True
+        )
 
         # Testing is_active
         response = self.client.get(search_url, {'q': query, 'active-option': "true"})
-        self.assertContains(response, test_string % (query, base_css + " nolink"), status_code=200, html=True)
+        self.assertContains(
+            response,
+            test_string % (query, base_css + " nolink"),
+            status_code=200,
+            html=True,
+        )
 
     def test_menu_search(self):
         rendered = self.menu_search()
@@ -73,6 +82,7 @@ class TestSearchAreaNoPagePermissions(BaseSearchAreaTestCase):
     Test the admin search when the user does not have permission to manage
     pages. The search bar should show the first available search area instead.
     """
+
     def setUp(self):
         self.user = self.login()
         self.assertFalse(user_has_any_page_permission(self.user))
@@ -81,7 +91,9 @@ class TestSearchAreaNoPagePermissions(BaseSearchAreaTestCase):
         user = super().create_test_user()
         user.is_superuser = False
         user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(
+                content_type__app_label='wagtailadmin', codename='access_admin'
+            )
         )
         user.save()
         return user

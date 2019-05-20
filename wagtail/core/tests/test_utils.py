@@ -6,7 +6,6 @@ from wagtail.core.utils import accepts_kwarg, cautious_slugify
 
 
 class TestCautiousSlugify(TestCase):
-
     def test_behaves_same_as_slugify_for_latin_chars(self):
         test_cases = [
             ('', ''),

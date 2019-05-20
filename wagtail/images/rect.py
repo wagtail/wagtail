@@ -16,9 +16,7 @@ class Vector:
         return tuple(self) == tuple(other)
 
     def __repr__(self):
-        return 'Vector(x: %d, y: %d)' % (
-            self.x, self.y
-        )
+        return 'Vector(x: %d, y: %d)' % (self.x, self.y)
 
 
 class Rect:
@@ -165,14 +163,12 @@ class Rect:
 
     def __repr__(self):
         return 'Rect(left: %d, top: %d, right: %d, bottom: %d)' % (
-            self.left, self.top, self.right, self.bottom
+            self.left,
+            self.top,
+            self.right,
+            self.bottom,
         )
 
     @classmethod
     def from_point(cls, x, y, width, height):
-        return cls(
-            x - width / 2,
-            y - height / 2,
-            x + width / 2,
-            y + height / 2,
-        )
+        return cls(x - width / 2, y - height / 2, x + width / 2, y + height / 2)

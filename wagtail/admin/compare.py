@@ -33,7 +33,9 @@ class FieldComparison:
 
     def htmldiff(self):
         if self.val_a != self.val_b:
-            return TextDiff([('deletion', self.val_a), ('addition', self.val_b)]).to_html()
+            return TextDiff(
+                [('deletion', self.val_a), ('addition', self.val_b)]
+            ).to_html()
         else:
             return escape(self.val_a)
 
@@ -53,7 +55,7 @@ class RichTextFieldComparison(TextFieldComparison):
     def htmldiff(self):
         return diff_text(
             BeautifulSoup(force_text(self.val_a), 'html5lib').getText(),
-            BeautifulSoup(force_text(self.val_b), 'html5lib').getText()
+            BeautifulSoup(force_text(self.val_b), 'html5lib').getText(),
         ).to_html()
 
 
@@ -94,17 +96,14 @@ class BlockComparison:
 
 class CharBlockComparison(BlockComparison):
     def htmldiff(self):
-        return diff_text(
-            force_text(self.val_a),
-            force_text(self.val_b)
-        ).to_html()
+        return diff_text(force_text(self.val_a), force_text(self.val_b)).to_html()
 
 
 class RichTextBlockComparison(BlockComparison):
     def htmldiff(self):
         return diff_text(
             BeautifulSoup(force_text(self.val_a), 'html5lib').getText(),
-            BeautifulSoup(force_text(self.val_b), 'html5lib').getText()
+            BeautifulSoup(force_text(self.val_b), 'html5lib').getText(),
         ).to_html()
 
 
@@ -115,10 +114,19 @@ class StructBlockComparison(BlockComparison):
             label = self.block.child_blocks[name].label
             comparison_class = get_comparison_class_for_block(block)
 
-            htmlvalues.append((label, comparison_class(block, True, True, val[name], val[name]).htmlvalue(val[name])))
+            htmlvalues.append(
+                (
+                    label,
+                    comparison_class(block, True, True, val[name], val[name]).htmlvalue(
+                        val[name]
+                    ),
+                )
+            )
 
-        return format_html('<dl>\n{}\n</dl>', format_html_join(
-            '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', htmlvalues))
+        return format_html(
+            '<dl>\n{}\n</dl>',
+            format_html_join('\n', '    <dt>{}</dt>\n    <dd>{}</dd>', htmlvalues),
+        )
 
     def htmldiff(self):
         htmldiffs = []
@@ -126,10 +134,23 @@ class StructBlockComparison(BlockComparison):
             label = self.block.child_blocks[name].label
             comparison_class = get_comparison_class_for_block(block)
 
-            htmldiffs.append((label, comparison_class(block, self.exists_a, self.exists_b, self.val_a[name], self.val_b[name]).htmldiff()))
+            htmldiffs.append(
+                (
+                    label,
+                    comparison_class(
+                        block,
+                        self.exists_a,
+                        self.exists_b,
+                        self.val_a[name],
+                        self.val_b[name],
+                    ).htmldiff(),
+                )
+            )
 
-        return format_html('<dl>\n{}\n</dl>', format_html_join(
-            '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', htmldiffs))
+        return format_html(
+            '<dl>\n{}\n</dl>',
+            format_html_join('\n', '    <dt>{}</dt>\n    <dd>{}</dd>', htmldiffs),
+        )
 
 
 class StreamBlockComparison(BlockComparison):
@@ -148,17 +169,31 @@ class StreamBlockComparison(BlockComparison):
 
             if block.id in a_blocks_by_id:
                 # Changed/existing block
-                comparisons.append(comparison_class(block.block, True, True, a_blocks_by_id[block.id].value, block.value))
+                comparisons.append(
+                    comparison_class(
+                        block.block,
+                        True,
+                        True,
+                        a_blocks_by_id[block.id].value,
+                        block.value,
+                    )
+                )
             else:
                 # New block
-                comparisons.append(comparison_class(block.block, False, True, None, block.value))
+                comparisons.append(
+                    comparison_class(block.block, False, True, None, block.value)
+                )
 
         # Insert deleted blocks at the index where they used to be
-        deleted_block_indices = [(block, i) for i, block in enumerate(a_blocks) if block.id in deleted_ids]
+        deleted_block_indices = [
+            (block, i) for i, block in enumerate(a_blocks) if block.id in deleted_ids
+        ]
 
         for block, index in deleted_block_indices:
             comparison_class = get_comparison_class_for_block(block.block)
-            comparison_to_insert = comparison_class(block.block, True, False, block.value, None)
+            comparison_to_insert = comparison_class(
+                block.block, True, False, block.value, None
+            )
 
             # Insert the block back in where it was before it was deleted.
             # Note: we need to account for new blocks when finding the position.
@@ -198,7 +233,9 @@ class StreamBlockComparison(BlockComparison):
                 block_rendered = comparison.htmlvalue(comparison.val_a)
 
             classes = ' '.join(classes)
-            comparisons_html.append('<div class="{0}">{1}</div>'.format(classes, block_rendered))
+            comparisons_html.append(
+                '<div class="{0}">{1}</div>'.format(classes, block_rendered)
+            )
 
         return mark_safe('\n'.join(comparisons_html))
 
@@ -215,19 +252,25 @@ class StreamFieldComparison(FieldComparison):
         # But as UUIDs were added in Wagtail 1.11 we can't compare revisions that were created before
         # that Wagtail version.
         if self.has_block_ids(self.val_a) and self.has_block_ids(self.val_b):
-            return StreamBlockComparison(self.field.stream_block, True, True, self.val_a, self.val_b).htmldiff()
+            return StreamBlockComparison(
+                self.field.stream_block, True, True, self.val_a, self.val_b
+            ).htmldiff()
         else:
             # Fall back to diffing the HTML representation
             return diff_text(
                 BeautifulSoup(force_text(self.val_a), 'html5lib').getText(),
-                BeautifulSoup(force_text(self.val_b), 'html5lib').getText()
+                BeautifulSoup(force_text(self.val_b), 'html5lib').getText(),
             ).to_html()
 
 
 class ChoiceFieldComparison(FieldComparison):
     def htmldiff(self):
-        val_a = force_text(dict(self.field.flatchoices).get(self.val_a, self.val_a), strings_only=True)
-        val_b = force_text(dict(self.field.flatchoices).get(self.val_b, self.val_b), strings_only=True)
+        val_a = force_text(
+            dict(self.field.flatchoices).get(self.val_a, self.val_a), strings_only=True
+        )
+        val_b = force_text(
+            dict(self.field.flatchoices).get(self.val_b, self.val_b), strings_only=True
+        )
 
         if self.val_a != self.val_b:
             return TextDiff([('deletion', val_a), ('addition', val_b)]).to_html()
@@ -275,15 +318,9 @@ class M2MFieldComparison(FieldComparison):
 
 class TagsFieldComparison(M2MFieldComparison):
     def get_items(self):
-        tags_a = [
-            tag.tag
-            for tag in self.val_a
-        ]
+        tags_a = [tag.tag for tag in self.val_a]
 
-        tags_b = [
-            tag.tag
-            for tag in self.val_b
-        ]
+        tags_b = [tag.tag for tag in self.val_b]
 
         return tags_a, tags_b
 
@@ -304,7 +341,9 @@ class ForeignObjectComparison(FieldComparison):
         if obj_a != obj_b:
             if obj_a and obj_b:
                 # Changed
-                return TextDiff([('deletion', force_text(obj_a)), ('addition', force_text(obj_b))]).to_html()
+                return TextDiff(
+                    [('deletion', force_text(obj_a)), ('addition', force_text(obj_b))]
+                ).to_html()
             elif obj_b:
                 # Added
                 return TextDiff([('addition', force_text(obj_b))]).to_html()
@@ -389,7 +428,11 @@ class ChildRelationComparison:
                 if b_idx in map_backwards:
                     continue
 
-                if a_child.pk is not None and b_child.pk is not None and a_child.pk == b_child.pk:
+                if (
+                    a_child.pk is not None
+                    and b_child.pk is not None
+                    and a_child.pk == b_child.pk
+                ):
                     map_forwards[a_idx] = b_idx
                     map_backwards[b_idx] = a_idx
 
@@ -403,7 +446,9 @@ class ChildRelationComparison:
                         if a_child.pk and b_child.pk and a_child.pk != b_child.pk:
                             continue
 
-                        comparison = self.get_child_comparison(objs_a[a_idx], objs_b[b_idx])
+                        comparison = self.get_child_comparison(
+                            objs_a[a_idx], objs_b[b_idx]
+                        )
                         num_differences = comparison.get_num_differences()
 
                         matches.append((a_idx, b_idx, num_differences))
@@ -431,7 +476,9 @@ class ChildRelationComparison:
         return map_forwards, map_backwards, added, deleted
 
     def get_child_comparison(self, obj_a, obj_b):
-        return ChildObjectComparison(self.field.related_model, self.field_comparisons, obj_a, obj_b)
+        return ChildObjectComparison(
+            self.field.related_model, self.field_comparisons, obj_a, obj_b
+        )
 
     def get_child_comparisons(self):
         """
@@ -456,7 +503,9 @@ class ChildRelationComparison:
             if b_idx in added:
                 comparisons.append(self.get_child_comparison(None, b_child))
             else:
-                comparisons.append(self.get_child_comparison(objs_a[map_backwards[b_idx]], b_child))
+                comparisons.append(
+                    self.get_child_comparison(objs_a[map_backwards[b_idx]], b_child)
+                )
 
         for a_idx, a_child in objs_a.items():
             if a_idx in deleted:
@@ -570,17 +619,17 @@ class TextDiff:
             if change_type == 'equal':
                 html.append(escape(value))
             elif change_type == 'addition':
-                html.append('<{tag} class="{classname}">{value}</{tag}>'.format(
-                    tag=tag,
-                    classname=addition_class,
-                    value=escape(value)
-                ))
+                html.append(
+                    '<{tag} class="{classname}">{value}</{tag}>'.format(
+                        tag=tag, classname=addition_class, value=escape(value)
+                    )
+                )
             elif change_type == 'deletion':
-                html.append('<{tag} class="{classname}">{value}</{tag}>'.format(
-                    tag=tag,
-                    classname=deletion_class,
-                    value=escape(value)
-                ))
+                html.append(
+                    '<{tag} class="{classname}">{value}</{tag}>'.format(
+                        tag=tag, classname=deletion_class, value=escape(value)
+                    )
+                )
 
         return mark_safe(self.separator.join(html))
 
@@ -591,6 +640,7 @@ def diff_text(a, b):
     a string of HTML containing the content of both texts with
     <span> tags inserted indicating where the differences are.
     """
+
     def tokenise(text):
         """
         Tokenises a string by spliting it into individual characters

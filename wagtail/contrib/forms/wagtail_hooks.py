@@ -10,9 +10,7 @@ from wagtail.core import hooks
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
-    return [
-        url(r'^forms/', include(urls, namespace='wagtailforms')),
-    ]
+    return [url(r'^forms/', include(urls, namespace='wagtailforms'))]
 
 
 class FormsMenuItem(MenuItem):
@@ -24,6 +22,9 @@ class FormsMenuItem(MenuItem):
 @hooks.register('register_admin_menu_item')
 def register_forms_menu_item():
     return FormsMenuItem(
-        _('Forms'), reverse('wagtailforms:index'),
-        name='forms', classnames='icon icon-form', order=700
+        _('Forms'),
+        reverse('wagtailforms:index'),
+        name='forms',
+        classnames='icon icon-form',
+        order=700,
     )

@@ -40,29 +40,38 @@ class HTTPBackend(BaseBackend):
 
         # Append port to host if it is set in the original URL
         if url_parsed.port:
-            host += (':' + str(url_parsed.port))
+            host += ':' + str(url_parsed.port)
 
         request = PurgeRequest(
-            url=urlunparse([
-                self.cache_scheme,
-                self.cache_netloc,
-                url_parsed.path,
-                url_parsed.params,
-                url_parsed.query,
-                url_parsed.fragment
-            ]),
+            url=urlunparse(
+                [
+                    self.cache_scheme,
+                    self.cache_netloc,
+                    url_parsed.path,
+                    url_parsed.params,
+                    url_parsed.query,
+                    url_parsed.fragment,
+                ]
+            ),
             headers={
                 'Host': host,
-                'User-Agent': 'Wagtail-frontendcache/' + __version__
-            }
+                'User-Agent': 'Wagtail-frontendcache/' + __version__,
+            },
         )
 
         try:
             urlopen(request)
         except HTTPError as e:
-            logger.error("Couldn't purge '%s' from HTTP cache. HTTPError: %d %s", url, e.code, e.reason)
+            logger.error(
+                "Couldn't purge '%s' from HTTP cache. HTTPError: %d %s",
+                url,
+                e.code,
+                e.reason,
+            )
         except URLError as e:
-            logger.error("Couldn't purge '%s' from HTTP cache. URLError: %s", url, e.reason)
+            logger.error(
+                "Couldn't purge '%s' from HTTP cache. URLError: %s", url, e.reason
+            )
 
 
 class CloudflareBackend(BaseBackend):
@@ -73,7 +82,9 @@ class CloudflareBackend(BaseBackend):
 
     def purge_batch(self, urls):
         try:
-            purge_url = 'https://api.cloudflare.com/client/v4/zones/{0}/purge_cache'.format(self.cloudflare_zoneid)
+            purge_url = 'https://api.cloudflare.com/client/v4/zones/{0}/purge_cache'.format(
+                self.cloudflare_zoneid
+            )
 
             headers = {
                 "X-Auth-Email": self.cloudflare_email,
@@ -83,11 +94,7 @@ class CloudflareBackend(BaseBackend):
 
             data = {"files": urls}
 
-            response = requests.delete(
-                purge_url,
-                json=data,
-                headers=headers,
-            )
+            response = requests.delete(purge_url, json=data, headers=headers)
 
             try:
                 response_json = response.json()
@@ -96,17 +103,30 @@ class CloudflareBackend(BaseBackend):
                     response.raise_for_status()
                 else:
                     for url in urls:
-                        logger.error("Couldn't purge '%s' from Cloudflare. Unexpected JSON parse error.", url)
+                        logger.error(
+                            "Couldn't purge '%s' from Cloudflare. Unexpected JSON parse error.",
+                            url,
+                        )
 
         except requests.exceptions.HTTPError as e:
             for url in urls:
-                logging.exception("Couldn't purge '%s' from Cloudflare. HTTPError: %d", url, e.response.status_code)
+                logging.exception(
+                    "Couldn't purge '%s' from Cloudflare. HTTPError: %d",
+                    url,
+                    e.response.status_code,
+                )
             return
 
         if response_json['success'] is False:
-            error_messages = ', '.join([str(err['message']) for err in response_json['errors']])
+            error_messages = ', '.join(
+                [str(err['message']) for err in response_json['errors']]
+            )
             for url in urls:
-                logger.error("Couldn't purge '%s' from Cloudflare. Cloudflare errors '%s'", url, error_messages)
+                logger.error(
+                    "Couldn't purge '%s' from Cloudflare. Cloudflare errors '%s'",
+                    url,
+                    error_messages,
+                )
             return
 
     def purge(self, url):
@@ -139,7 +159,9 @@ class CloudfrontBackend(BaseBackend):
                 else:
                     logger.info(
                         "Couldn't purge '%s' from CloudFront. Hostname '%s' not found in the DISTRIBUTION_ID mapping",
-                        url, host)
+                        url,
+                        host,
+                    )
             else:
                 distribution_id = self.cloudfront_distribution_id
 
@@ -159,12 +181,9 @@ class CloudfrontBackend(BaseBackend):
             self.client.create_invalidation(
                 DistributionId=distribution_id,
                 InvalidationBatch={
-                    'Paths': {
-                        'Quantity': len(paths),
-                        'Items': paths
-                    },
-                    'CallerReference': str(uuid.uuid4())
-                }
+                    'Paths': {'Quantity': len(paths), 'Items': paths},
+                    'CallerReference': str(uuid.uuid4()),
+                },
             )
         except botocore.exceptions.ClientError as e:
             for path in paths:
@@ -173,5 +192,5 @@ class CloudfrontBackend(BaseBackend):
                     path,
                     distribution_id,
                     e.response['Error']['Code'],
-                    e.response['Error']['Message']
+                    e.response['Error']['Message'],
                 )

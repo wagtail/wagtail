@@ -15,10 +15,6 @@ def populate_latest_revision_created_at(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailcore', '0007_page_latest_revision_created_at'),
-    ]
+    dependencies = [('wagtailcore', '0007_page_latest_revision_created_at')]
 
-    operations = [
-        migrations.RunPython(populate_latest_revision_created_at),
-    ]
+    operations = [migrations.RunPython(populate_latest_revision_created_at)]

@@ -4,9 +4,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailcore', '0005_add_page_lock_permission_to_moderators'),
-    ]
+    dependencies = [('wagtailcore', '0005_add_page_lock_permission_to_moderators')]
 
     operations = [
         migrations.AlterField(
@@ -18,8 +16,8 @@ class Migration(migrations.Migration):
                     ('add', 'Add/edit pages you own'),
                     ('edit', 'Add/edit any page'),
                     ('publish', 'Publish any page'),
-                    ('lock', 'Lock/unlock any page')
-                ]
+                    ('lock', 'Lock/unlock any page'),
+                ],
             ),
-        ),
+        )
     ]

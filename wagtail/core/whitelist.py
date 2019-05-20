@@ -41,6 +41,7 @@ def attribute_rule(allowed_attrs):
       the title. If the callable returns None, the attribute is dropped
     * if the lookup returns a truthy value, keep the attribute; if falsy, drop it
     """
+
     def fn(tag):
         for attr, val in list(tag.attrs.items()):
             rule = allowed_attrs.get(attr)
@@ -79,8 +80,9 @@ DEFAULT_ELEMENT_RULES = {
     'h6': allow_without_attributes,
     'hr': allow_without_attributes,
     'i': allow_without_attributes,
-    'img': attribute_rule({'src': check_url, 'width': True, 'height': True,
-                           'alt': True}),
+    'img': attribute_rule(
+        {'src': check_url, 'width': True, 'height': True, 'alt': True}
+    ),
     'li': allow_without_attributes,
     'ol': allow_without_attributes,
     'p': allow_without_attributes,

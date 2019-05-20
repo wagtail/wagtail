@@ -14,9 +14,7 @@ from wagtail.snippets.permissions import user_can_edit_snippets
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
-    return [
-        url(r'^snippets/', include(urls, namespace='wagtailsnippets')),
-    ]
+    return [url(r'^snippets/', include(urls, namespace='wagtailsnippets'))]
 
 
 class SnippetsMenuItem(MenuItem):
@@ -30,7 +28,7 @@ def register_snippets_menu_item():
         _('Snippets'),
         reverse('wagtailsnippets:index'),
         classnames='icon icon-snippet',
-        order=500
+        order=500,
     )
 
 
@@ -40,7 +38,7 @@ def editor_js():
         """
             <script>window.chooserUrls.snippetChooser = '{0}';</script>
         """,
-        reverse('wagtailsnippets:choose_generic')
+        reverse('wagtailsnippets:choose_generic'),
     )
 
 

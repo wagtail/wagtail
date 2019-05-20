@@ -28,16 +28,17 @@ class FieldsFilter(BaseFilterBackend):
 
                 # Convert value into python
                 try:
-                    if isinstance(field, (models.BooleanField, models.NullBooleanField)):
+                    if isinstance(
+                        field, (models.BooleanField, models.NullBooleanField)
+                    ):
                         value = parse_boolean(value)
                     elif isinstance(field, (models.IntegerField, models.AutoField)):
                         value = int(value)
                 except ValueError as e:
-                    raise BadRequestError("field filter error. '%s' is not a valid value for %s (%s)" % (
-                        value,
-                        field_name,
-                        str(e)
-                    ))
+                    raise BadRequestError(
+                        "field filter error. '%s' is not a valid value for %s (%s)"
+                        % (value, field_name, str(e))
+                    )
 
                 if isinstance(field, TaggableManager):
                     for tag in value.split(','):
@@ -72,7 +73,9 @@ class OrderingFilter(BaseFilterBackend):
             if order_by == 'random':
                 # Prevent ordering by random with offset
                 if 'offset' in request.GET:
-                    raise BadRequestError("random ordering with offset is not supported")
+                    raise BadRequestError(
+                        "random ordering with offset is not supported"
+                    )
 
                 return queryset.order_by('?')
 
@@ -111,7 +114,9 @@ class SearchFilter(BaseFilterBackend):
 
             # Searching and filtering by tag at the same time is not supported
             if getattr(queryset, '_filtered_by_tag', False):
-                raise BadRequestError("filtering by tag with a search query is not supported")
+                raise BadRequestError(
+                    "filtering by tag with a search query is not supported"
+                )
 
             search_query = request.GET['search']
             search_operator = request.GET.get('search_operator', None)
@@ -119,11 +124,24 @@ class SearchFilter(BaseFilterBackend):
 
             sb = get_search_backend()
             try:
-                queryset = sb.search(search_query, queryset, operator=search_operator, order_by_relevance=order_by_relevance)
+                queryset = sb.search(
+                    search_query,
+                    queryset,
+                    operator=search_operator,
+                    order_by_relevance=order_by_relevance,
+                )
             except FilterFieldError as e:
-                raise BadRequestError("cannot filter by '{}' while searching (field is not indexed)".format(e.field_name))
+                raise BadRequestError(
+                    "cannot filter by '{}' while searching (field is not indexed)".format(
+                        e.field_name
+                    )
+                )
             except OrderByFieldError as e:
-                raise BadRequestError("cannot order by '{}' while searching (field is not indexed)".format(e.field_name))
+                raise BadRequestError(
+                    "cannot order by '{}' while searching (field is not indexed)".format(
+                        e.field_name
+                    )
+                )
 
         return queryset
 
@@ -133,6 +151,7 @@ class ChildOfFilter(BaseFilterBackend):
     Implements the ?child_of filter used to filter the results to only contain
     pages that are direct children of the specified page.
     """
+
     def get_root_page(self, request):
         return Page.get_first_root_node()
 
@@ -166,6 +185,7 @@ class RestrictedChildOfFilter(ChildOfFilter):
     A restricted version of ChildOfFilter that only allows pages in the current
     site to be specified.
     """
+
     def get_root_page(self, request):
         return request.site.root_page
 
@@ -179,6 +199,7 @@ class DescendantOfFilter(BaseFilterBackend):
     Implements the ?decendant_of filter which limits the set of pages to a
     particular branch of the page tree.
     """
+
     def get_root_page(self, request):
         return Page.get_first_root_node()
 
@@ -188,7 +209,9 @@ class DescendantOfFilter(BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
         if 'descendant_of' in request.GET:
             if hasattr(queryset, '_filtered_by_child_of'):
-                raise BadRequestError("filtering by descendant_of with child_of is not supported")
+                raise BadRequestError(
+                    "filtering by descendant_of with child_of is not supported"
+                )
             try:
                 parent_page_id = int(request.GET['descendant_of'])
                 if parent_page_id < 0:
@@ -213,6 +236,7 @@ class RestrictedDescendantOfFilter(DescendantOfFilter):
     A restricted version of DecendantOfFilter that only allows pages in the current
     site to be specified.
     """
+
     def get_root_page(self, request):
         return request.site.root_page
 
@@ -225,7 +249,9 @@ class ForExplorerFilter(BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
         if request.GET.get('for_explorer'):
             if not hasattr(queryset, '_filtered_by_child_of'):
-                raise BadRequestError("filtering by for_explorer without child_of is not supported")
+                raise BadRequestError(
+                    "filtering by for_explorer without child_of is not supported"
+                )
 
             parent_page = queryset._filtered_by_child_of
             for hook in hooks.get_hooks('construct_explorer_page_queryset'):

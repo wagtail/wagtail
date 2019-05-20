@@ -27,7 +27,7 @@ def get_backends(backend_settings=None, backends=None):
                 'default': {
                     'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
                     'LOCATION': cache_location,
-                },
+                }
             }
 
     # No settings found, return empty list
@@ -47,8 +47,9 @@ def get_backends(backend_settings=None, backends=None):
         try:
             backend_cls = import_string(backend)
         except ImportError as e:
-            raise InvalidFrontendCacheBackendError("Could not find backend '%s': %s" % (
-                backend, e))
+            raise InvalidFrontendCacheBackendError(
+                "Could not find backend '%s': %s" % (backend, e)
+            )
 
         backend_objects[backend_name] = backend_cls(backend_config)
 
@@ -72,14 +73,16 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
         for isocode, description in languages:
             for url in urls:
                 up = urlparse(url)
-                new_url = urlunparse((
-                    up.scheme,
-                    up.netloc,
-                    re.sub(langs_regex, "/%s/" % isocode, up.path),
-                    up.params,
-                    up.query,
-                    up.fragment
-                ))
+                new_url = urlunparse(
+                    (
+                        up.scheme,
+                        up.netloc,
+                        re.sub(langs_regex, "/%s/" % isocode, up.path),
+                        up.params,
+                        up.query,
+                        up.fragment,
+                    )
+                )
 
                 # Check for best performance. True if re.sub found no match
                 # It happens when i18n_patterns was not used in urls.py to serve content for different languages from different URLs
@@ -102,10 +105,7 @@ def _get_page_cached_urls(page):
     if page_url is None:  # nothing to be done if the page has no routable URL
         return []
 
-    return [
-        page_url + path.lstrip('/')
-        for path in page.specific.get_cached_paths()
-    ]
+    return [page_url + path.lstrip('/') for path in page.specific.get_cached_paths()]
 
 
 def purge_page_from_cache(page, backend_settings=None, backends=None):
@@ -123,6 +123,7 @@ def purge_pages_from_cache(pages, backend_settings=None, backends=None):
 
 class PurgeBatch:
     """Represents a list of URLs to be purged in a single request"""
+
     def __init__(self, urls=None):
         self.urls = []
 

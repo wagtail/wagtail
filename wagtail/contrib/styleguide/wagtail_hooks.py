@@ -10,9 +10,7 @@ from . import views
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
-    return [
-        url(r'^styleguide/$', views.index, name='wagtailstyleguide'),
-    ]
+    return [url(r'^styleguide/$', views.index, name='wagtailstyleguide')]
 
 
 @hooks.register('register_settings_menu_item')
@@ -21,5 +19,5 @@ def register_styleguide_menu_item():
         _('Styleguide'),
         reverse('wagtailstyleguide'),
         classnames='icon icon-image',
-        order=1000
+        order=1000,
     )

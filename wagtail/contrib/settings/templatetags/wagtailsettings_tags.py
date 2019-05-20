@@ -14,8 +14,9 @@ def get_settings(context, use_default_site=False):
     elif 'request' in context:
         site = context['request'].site
     else:
-        raise RuntimeError('No request found in context, and use_default_site '
-                           'flag not set')
+        raise RuntimeError(
+            'No request found in context, and use_default_site ' 'flag not set'
+        )
 
     context['settings'] = SettingsProxy(site)
     return ''

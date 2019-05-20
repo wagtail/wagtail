@@ -39,22 +39,13 @@ class TestQueryStringNormalisation(TestCase):
         self.assertEqual(str(self.query), "hello world")
 
     def test_equivilant_queries(self):
-        queries = [
-            "Hello World",
-            "Hello  World!!",
-            "hello world",
-            "Hello' world",
-        ]
+        queries = ["Hello World", "Hello  World!!", "hello world", "Hello' world"]
 
         for query in queries:
             self.assertEqual(self.query, models.Query.get(query))
 
     def test_different_queries(self):
-        queries = [
-            "HelloWorld",
-            "Hello orld!!",
-            "Hello",
-        ]
+        queries = ["HelloWorld", "Hello orld!!", "Hello"]
 
         for query in queries:
             self.assertNotEqual(self.query, models.Query.get(query))
@@ -135,22 +126,41 @@ class TestGarbageCollectCommand(TestCase):
         for i in range(10):
             q = models.Query.get("Foo bar {}".format(i))
             q.add_hit(date=old_hit_date)
-            SearchPromotion.objects.create(query=q, page_id=1, sort_order=0, description='Test')
+            SearchPromotion.objects.create(
+                query=q, page_id=1, sort_order=0, description='Test'
+            )
             promoted_querie_ids.append(q.id)
 
         management.call_command('search_garbage_collect', stdout=StringIO())
 
-        self.assertFalse(models.Query.objects.filter(id__in=querie_ids_to_be_deleted).exists())
-        self.assertFalse(models.QueryDailyHits.objects.filter(
-            date=old_hit_date, query_id__in=querie_ids_to_be_deleted).exists())
+        self.assertFalse(
+            models.Query.objects.filter(id__in=querie_ids_to_be_deleted).exists()
+        )
+        self.assertFalse(
+            models.QueryDailyHits.objects.filter(
+                date=old_hit_date, query_id__in=querie_ids_to_be_deleted
+            ).exists()
+        )
 
-        self.assertEqual(models.Query.objects.filter(id__in=recent_querie_ids).count(), 10)
-        self.assertEqual(models.QueryDailyHits.objects.filter(
-            date=recent_hit_date, query_id__in=recent_querie_ids).count(), 10)
+        self.assertEqual(
+            models.Query.objects.filter(id__in=recent_querie_ids).count(), 10
+        )
+        self.assertEqual(
+            models.QueryDailyHits.objects.filter(
+                date=recent_hit_date, query_id__in=recent_querie_ids
+            ).count(),
+            10,
+        )
 
-        self.assertEqual(models.Query.objects.filter(id__in=promoted_querie_ids).count(), 10)
-        self.assertEqual(models.QueryDailyHits.objects.filter(
-            date=recent_hit_date, query_id__in=promoted_querie_ids).count(), 0)
+        self.assertEqual(
+            models.Query.objects.filter(id__in=promoted_querie_ids).count(), 10
+        )
+        self.assertEqual(
+            models.QueryDailyHits.objects.filter(
+                date=recent_hit_date, query_id__in=promoted_querie_ids
+            ).count(),
+            0,
+        )
 
 
 class TestQueryChooserView(TestCase, WagtailTestUtils):
@@ -216,7 +226,9 @@ class TestSeparateFiltersFromQuery(SimpleTestCase):
         self.assertEqual(query, 'author:"foo bar hello world')
 
     def test_two_filters_and_query(self):
-        filters, query = separate_filters_from_query('author:"foo bar" hello world bar:beer')
+        filters, query = separate_filters_from_query(
+            'author:"foo bar" hello world bar:beer'
+        )
 
         self.assertDictEqual(filters, {'author': 'foo bar', 'bar': 'beer'})
         self.assertEqual(query, 'hello world')

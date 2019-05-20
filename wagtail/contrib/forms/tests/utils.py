@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 from wagtail.core.models import Page
 from wagtail.tests.testapp.models import (
-    FormField, FormFieldWithCustomSubmission, FormPage, FormPageWithCustomSubmission,
-    FormPageWithRedirect, RedirectFormField)
+    FormField,
+    FormFieldWithCustomSubmission,
+    FormPage,
+    FormPageWithCustomSubmission,
+    FormPageWithRedirect,
+    RedirectFormField,
+)
 
 
 def make_form_page(**kwargs):
@@ -85,7 +90,6 @@ def make_form_page_with_redirect(**kwargs):
     kwargs.setdefault('to_address', "to@email.com")
     kwargs.setdefault('from_address', "from@email.com")
     kwargs.setdefault('subject', "The subject")
-
 
     home_page = Page.objects.get(url_path='/home/')
     kwargs.setdefault('thank_you_redirect_page', home_page)

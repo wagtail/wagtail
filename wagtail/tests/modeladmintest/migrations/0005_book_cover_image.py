@@ -15,6 +15,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='book',
             name='cover_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='wagtailimages.Image'),
-        ),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to='wagtailimages.Image',
+            ),
+        )
     ]

@@ -12,10 +12,12 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
     # in some tests here
     def setUp(self):
         from django.urls import clear_url_caches
+
         clear_url_caches()
 
     def tearDown(self):
         from django.urls import clear_url_caches
+
         clear_url_caches()
 
     def test_login_has_password_reset_option(self):
@@ -43,16 +45,18 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
 
     @override_settings(ROOT_URLCONF="wagtail.admin.urls")
     def test_email_found_default_url(self):
-        response = self.client.post(reverse('wagtailadmin_password_reset'),
-                                    {'email': 'siteeditor@example.com'})
+        response = self.client.post(
+            reverse('wagtailadmin_password_reset'), {'email': 'siteeditor@example.com'}
+        )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("testserver", mail.outbox[0].body)
 
     @override_settings(ROOT_URLCONF="wagtail.admin.urls", BASE_URL='http://mysite.com')
     def test_email_found_base_url(self):
-        response = self.client.post(reverse('wagtailadmin_password_reset'),
-                                    {'email': 'siteeditor@example.com'})
+        response = self.client.post(
+            reverse('wagtailadmin_password_reset'), {'email': 'siteeditor@example.com'}
+        )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("mysite.com", mail.outbox[0].body)
@@ -62,7 +66,9 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
             reverse('wagtailadmin_password_reset'), {'email': 'siteeditor@example.com'}
         )
         self.assertEqual(len(mail.outbox), 1)
-        self.assertIn("Your username (in case you've forgotten): siteeditor", mail.outbox[0].body)
+        self.assertIn(
+            "Your username (in case you've forgotten): siteeditor", mail.outbox[0].body
+        )
 
     @override_settings(AUTH_USER_MODEL='customuser.EmailUser')
     def test_password_reset_no_username_when_email_is_username(self):
@@ -72,4 +78,6 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
             reverse('wagtailadmin_password_reset'), {'email': 'siteeditor@example.com'}
         )
         self.assertEqual(len(mail.outbox), 1)
-        self.assertNotIn("Your username (in case you've forgotten)", mail.outbox[0].body)
+        self.assertNotIn(
+            "Your username (in case you've forgotten)", mail.outbox[0].body
+        )

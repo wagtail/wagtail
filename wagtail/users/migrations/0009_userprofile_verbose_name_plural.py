@@ -5,13 +5,14 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailusers', '0008_userprofile_avatar'),
-    ]
+    dependencies = [('wagtailusers', '0008_userprofile_avatar')]
 
     operations = [
         migrations.AlterModelOptions(
             name='userprofile',
-            options={'verbose_name': 'user profile', 'verbose_name_plural': 'user profiles'},
-        ),
+            options={
+                'verbose_name': 'user profile',
+                'verbose_name_plural': 'user profiles',
+            },
+        )
     ]

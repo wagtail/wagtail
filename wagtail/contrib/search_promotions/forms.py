@@ -18,19 +18,24 @@ class SearchPromotionForm(forms.ModelForm):
         model = SearchPromotion
         fields = ('query', 'page', 'description')
 
-        widgets = {
-            'description': forms.Textarea(attrs=dict(rows=3)),
-        }
+        widgets = {'description': forms.Textarea(attrs=dict(rows=3))}
 
 
 SearchPromotionsFormSetBase = inlineformset_factory(
-    Query, SearchPromotion, form=SearchPromotionForm, can_order=True, can_delete=True, extra=0
+    Query,
+    SearchPromotion,
+    form=SearchPromotionForm,
+    can_order=True,
+    can_delete=True,
+    extra=0,
 )
 
 
 class SearchPromotionsFormSet(SearchPromotionsFormSetBase):
     minimum_forms = 1
-    minimum_forms_message = _("Please specify at least one recommendation for this search term.")
+    minimum_forms_message = _(
+        "Please specify at least one recommendation for this search term."
+    )
 
     def add_fields(self, form, *args, **kwargs):
         super().add_fields(form, *args, **kwargs)

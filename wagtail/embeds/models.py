@@ -20,6 +20,7 @@ class Embed(models.Model):
     If an instance of this model is deleted, it will be automatically refetched
     next time the embed code is needed.
     """
+
     url = models.URLField()
     max_width = models.SmallIntegerField(null=True, blank=True)
     type = models.CharField(max_length=10, choices=EMBED_TYPES)

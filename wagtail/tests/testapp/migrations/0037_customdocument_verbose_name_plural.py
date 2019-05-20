@@ -5,13 +5,11 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('tests', '0036_streamfieldmigrationmodels_add_field'),
-    ]
+    dependencies = [('tests', '0036_streamfieldmigrationmodels_add_field')]
 
     operations = [
         migrations.AlterModelOptions(
             name='customdocument',
             options={'verbose_name': 'document', 'verbose_name_plural': 'documents'},
-        ),
+        )
     ]

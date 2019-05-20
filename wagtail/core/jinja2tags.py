@@ -11,14 +11,14 @@ class WagtailCoreExtension(Extension):
     def __init__(self, environment):
         super().__init__(environment)
 
-        self.environment.globals.update({
-            'pageurl': jinja2.contextfunction(pageurl),
-            'slugurl': jinja2.contextfunction(slugurl),
-            'wagtail_version': wagtail_version,
-        })
-        self.environment.filters.update({
-            'richtext': richtext,
-        })
+        self.environment.globals.update(
+            {
+                'pageurl': jinja2.contextfunction(pageurl),
+                'slugurl': jinja2.contextfunction(slugurl),
+                'wagtail_version': wagtail_version,
+            }
+        )
+        self.environment.filters.update({'richtext': richtext})
 
     def parse(self, parser):
         parse_method = getattr(self, 'parse_' + parser.stream.current.value)
@@ -31,7 +31,9 @@ class WagtailCoreExtension(Extension):
         args = [parser.parse_expression()]
 
         with_context = True
-        if parser.stream.current.test_any('name:with', 'name:without') and parser.stream.look().test('name:context'):
+        if parser.stream.current.test_any(
+            'name:with', 'name:without'
+        ) and parser.stream.look().test('name:context'):
             with_context = next(parser.stream).value == 'with'
             parser.stream.skip()
 

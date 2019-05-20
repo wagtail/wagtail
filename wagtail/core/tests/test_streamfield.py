@@ -19,13 +19,19 @@ from wagtail.tests.testapp.models import StreamModel
 class TestLazyStreamField(TestCase):
     def setUp(self):
         self.image = Image.objects.create(
-            title='Test image',
-            file=get_test_image_file())
-        self.with_image = StreamModel.objects.create(body=json.dumps([
-            {'type': 'image', 'value': self.image.pk},
-            {'type': 'text', 'value': 'foo'}]))
-        self.no_image = StreamModel.objects.create(body=json.dumps([
-            {'type': 'text', 'value': 'foo'}]))
+            title='Test image', file=get_test_image_file()
+        )
+        self.with_image = StreamModel.objects.create(
+            body=json.dumps(
+                [
+                    {'type': 'image', 'value': self.image.pk},
+                    {'type': 'text', 'value': 'foo'},
+                ]
+            )
+        )
+        self.no_image = StreamModel.objects.create(
+            body=json.dumps([{'type': 'text', 'value': 'foo'}])
+        )
         self.nonjson_body = StreamModel.objects.create(body="<h1>hello world</h1>")
 
     def test_lazy_load(self):
@@ -72,7 +78,8 @@ class TestLazyStreamField(TestCase):
         """
         with self.assertNumQueries(1):
             instances = StreamModel.objects.filter(
-                pk__in=[self.with_image.pk, self.no_image.pk])
+                pk__in=[self.with_image.pk, self.no_image.pk]
+            )
             instances_lookup = {instance.pk: instance for instance in instances}
 
         with self.assertNumQueries(1):
@@ -90,11 +97,16 @@ class TestLazyStreamField(TestCase):
         image_1 = Image.objects.create(title='Test image 1', file=file_obj)
         image_3 = Image.objects.create(title='Test image 3', file=file_obj)
 
-        with_image = StreamModel.objects.create(body=json.dumps([
-            {'type': 'image', 'value': image_1.pk},
-            {'type': 'image', 'value': None},
-            {'type': 'image', 'value': image_3.pk},
-            {'type': 'text', 'value': 'foo'}]))
+        with_image = StreamModel.objects.create(
+            body=json.dumps(
+                [
+                    {'type': 'image', 'value': image_1.pk},
+                    {'type': 'image', 'value': None},
+                    {'type': 'image', 'value': image_3.pk},
+                    {'type': 'text', 'value': 'foo'},
+                ]
+            )
+        )
 
         with self.assertNumQueries(1):
             instance = StreamModel.objects.get(pk=with_image.pk)
@@ -140,10 +152,9 @@ class TestSystemCheck(TestCase):
 
     def test_system_check_validates_block(self):
         class InvalidStreamModel(models.Model):
-            body = StreamField([
-                ('heading', blocks.CharBlock()),
-                ('rich text', blocks.RichTextBlock()),
-            ])
+            body = StreamField(
+                [('heading', blocks.CharBlock()), ('rich text', blocks.RichTextBlock())]
+            )
 
         errors = InvalidStreamModel.check()
         self.assertEqual(len(errors), 1)
@@ -154,8 +165,9 @@ class TestSystemCheck(TestCase):
 
 class TestStreamValueAccess(TestCase):
     def setUp(self):
-        self.json_body = StreamModel.objects.create(body=json.dumps([
-            {'type': 'text', 'value': 'foo'}]))
+        self.json_body = StreamModel.objects.create(
+            body=json.dumps([{'type': 'text', 'value': 'foo'}])
+        )
         self.nonjson_body = StreamModel.objects.create(body="<h1>hello world</h1>")
 
     def test_can_read_non_json_content(self):
@@ -181,22 +193,29 @@ class TestStreamValueAccess(TestCase):
 class TestStreamFieldRenderingBase(TestCase):
     def setUp(self):
         self.image = Image.objects.create(
-            title='Test image',
-            file=get_test_image_file())
+            title='Test image', file=get_test_image_file()
+        )
 
-        self.instance = StreamModel.objects.create(body=json.dumps([
-            {'type': 'rich_text', 'value': '<p>Rich text</p>'},
-            {'type': 'rich_text', 'value': '<p>Привет, Микола</p>'},
-            {'type': 'image', 'value': self.image.pk},
-            {'type': 'text', 'value': 'Hello, World!'}]))
+        self.instance = StreamModel.objects.create(
+            body=json.dumps(
+                [
+                    {'type': 'rich_text', 'value': '<p>Rich text</p>'},
+                    {'type': 'rich_text', 'value': '<p>Привет, Микола</p>'},
+                    {'type': 'image', 'value': self.image.pk},
+                    {'type': 'text', 'value': 'Hello, World!'},
+                ]
+            )
+        )
 
         img_tag = self.image.get_rendition('original').img_tag()
-        self.expected = ''.join([
-            '<div class="block-rich_text"><div class="rich-text"><p>Rich text</p></div></div>',
-            '<div class="block-rich_text"><div class="rich-text"><p>Привет, Микола</p></div></div>',
-            '<div class="block-image">{}</div>'.format(img_tag),
-            '<div class="block-text">Hello, World!</div>',
-        ])
+        self.expected = ''.join(
+            [
+                '<div class="block-rich_text"><div class="rich-text"><p>Rich text</p></div></div>',
+                '<div class="block-rich_text"><div class="rich-text"><p>Привет, Микола</p></div></div>',
+                '<div class="block-image">{}</div>'.format(img_tag),
+                '<div class="block-text">Hello, World!</div>',
+            ]
+        )
 
 
 class TestStreamFieldRendering(TestStreamFieldRenderingBase):
@@ -216,8 +235,7 @@ class TestStreamFieldDjangoRendering(TestStreamFieldRenderingBase):
         return Template(string).render(Context(context))
 
     def test_render(self):
-        rendered = self.render('{{ instance.body }}', {
-            'instance': self.instance})
+        rendered = self.render('{{ instance.body }}', {'instance': self.instance})
         self.assertHTMLEqual(rendered, self.expected)
 
 
@@ -230,8 +248,7 @@ class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
         return self.engine.from_string(string).render(context)
 
     def test_render(self):
-        rendered = self.render('{{ instance.body }}', {
-            'instance': self.instance})
+        rendered = self.render('{{ instance.body }}', {'instance': self.instance})
         self.assertHTMLEqual(rendered, self.expected)
 
 

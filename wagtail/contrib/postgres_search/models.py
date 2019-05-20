@@ -31,10 +31,7 @@ class RawSearchQuery(SearchQuery):
         return template, params
 
     def __invert__(self):
-        extra = {
-            'invert': not self.invert,
-            'config': self.config,
-        }
+        extra = {'invert': not self.invert, 'config': self.config}
         return type(self)(self.format, self.value, **extra)
 
 
@@ -42,19 +39,17 @@ class TextIDGenericRelation(GenericRelation):
     auto_created = True
 
     def get_content_type_lookup(self, alias, remote_alias):
-        field = self.remote_field.model._meta.get_field(
-            self.content_type_field_name)
+        field = self.remote_field.model._meta.get_field(self.content_type_field_name)
         return field.get_lookup('in')(
-            field.get_col(remote_alias),
-            get_descendants_content_types_pks(self.model))
+            field.get_col(remote_alias), get_descendants_content_types_pks(self.model)
+        )
 
     def get_object_id_lookup(self, alias, remote_alias):
-        from_field = self.remote_field.model._meta.get_field(
-            self.object_id_field_name)
+        from_field = self.remote_field.model._meta.get_field(self.object_id_field_name)
         to_field = self.model._meta.pk
         return from_field.get_lookup('exact')(
-            from_field.get_col(remote_alias),
-            Cast(to_field.get_col(alias), from_field))
+            from_field.get_col(remote_alias), Cast(to_field.get_col(alias), from_field)
+        )
 
     def get_extra_restriction(self, where_class, alias, remote_alias):
         cond = where_class()
@@ -80,8 +75,7 @@ class IndexEntry(Model):
         unique_together = ('content_type', 'object_id')
         verbose_name = _('index entry')
         verbose_name_plural = _('index entries')
-        indexes = [GinIndex(fields=['autocomplete']),
-                   GinIndex(fields=['body'])]
+        indexes = [GinIndex(fields=['autocomplete']), GinIndex(fields=['body'])]
 
     def __str__(self):
         return '%s: %s' % (self.content_type.name, self.content_object)
@@ -94,5 +88,4 @@ class IndexEntry(Model):
     def add_generic_relations(cls):
         for model in apps.get_models():
             if class_is_indexed(model):
-                TextIDGenericRelation(cls).contribute_to_class(model,
-                                                               'index_entries')
+                TextIDGenericRelation(cls).contribute_to_class(model, 'index_entries')

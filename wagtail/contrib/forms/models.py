@@ -52,9 +52,7 @@ class AbstractFormSubmission(models.Model):
         You can override this method to add additional data.
         """
         form_data = json.loads(self.form_data)
-        form_data.update({
-            'submit_time': self.submit_time,
-        })
+        form_data.update({'submit_time': self.submit_time})
 
         return form_data
 
@@ -78,22 +76,28 @@ class AbstractFormField(Orderable):
     label = models.CharField(
         verbose_name=_('label'),
         max_length=255,
-        help_text=_('The label of the form field')
+        help_text=_('The label of the form field'),
     )
-    field_type = models.CharField(verbose_name=_('field type'), max_length=16, choices=FORM_FIELD_CHOICES)
+    field_type = models.CharField(
+        verbose_name=_('field type'), max_length=16, choices=FORM_FIELD_CHOICES
+    )
     required = models.BooleanField(verbose_name=_('required'), default=True)
     choices = models.TextField(
         verbose_name=_('choices'),
         blank=True,
-        help_text=_('Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.')
+        help_text=_(
+            'Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.'
+        ),
     )
     default_value = models.CharField(
         verbose_name=_('default value'),
         max_length=255,
         blank=True,
-        help_text=_('Default value. Comma separated values supported for checkboxes.')
+        help_text=_('Default value. Comma separated values supported for checkboxes.'),
     )
-    help_text = models.CharField(verbose_name=_('help text'), max_length=255, blank=True)
+    help_text = models.CharField(
+        verbose_name=_('help text'), max_length=255, blank=True
+    )
 
     @property
     def clean_name(self):
@@ -150,12 +154,9 @@ class AbstractForm(Page):
         Returns a list of tuples with (field_name, field_label).
         """
 
-        data_fields = [
-            ('submit_time', _('Submission date')),
-        ]
+        data_fields = [('submit_time', _('Submission date'))]
         data_fields += [
-            (field.clean_name, field.label)
-            for field in self.get_form_fields()
+            (field.clean_name, field.label) for field in self.get_form_fields()
         ]
 
         return data_fields
@@ -197,8 +198,7 @@ class AbstractForm(Page):
         """
 
         return self.get_submission_class().objects.create(
-            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
-            page=self,
+            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder), page=self
         )
 
     def render_landing_page(self, request, form_submission=None, *args, **kwargs):
@@ -210,11 +210,7 @@ class AbstractForm(Page):
         """
         context = self.get_context(request)
         context['form_submission'] = form_submission
-        return render(
-            request,
-            self.get_landing_page_template(request),
-            context
-        )
+        return render(request, self.get_landing_page_template(request), context)
 
     def serve_submissions_list_view(self, request, *args, **kwargs):
         """
@@ -228,26 +224,23 @@ class AbstractForm(Page):
 
     def serve(self, request, *args, **kwargs):
         if request.method == 'POST':
-            form = self.get_form(request.POST, request.FILES, page=self, user=request.user)
+            form = self.get_form(
+                request.POST, request.FILES, page=self, user=request.user
+            )
 
             if form.is_valid():
                 form_submission = self.process_form_submission(form)
-                return self.render_landing_page(request, form_submission, *args, **kwargs)
+                return self.render_landing_page(
+                    request, form_submission, *args, **kwargs
+                )
         else:
             form = self.get_form(page=self, user=request.user)
 
         context = self.get_context(request)
         context['form'] = form
-        return render(
-            request,
-            self.get_template(request),
-            context
-        )
+        return render(request, self.get_template(request), context)
 
-    preview_modes = [
-        ('form', 'Form'),
-        ('landing', 'Landing page'),
-    ]
+    preview_modes = [('form', 'Form'), ('landing', 'Landing page')]
 
     def serve_preview(self, request, mode):
         if mode == 'landing':
@@ -263,10 +256,16 @@ class AbstractEmailForm(AbstractForm):
     """
 
     to_address = models.CharField(
-        verbose_name=_('to address'), max_length=255, blank=True,
-        help_text=_("Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma.")
+        verbose_name=_('to address'),
+        max_length=255,
+        blank=True,
+        help_text=_(
+            "Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma."
+        ),
     )
-    from_address = models.CharField(verbose_name=_('from address'), max_length=255, blank=True)
+    from_address = models.CharField(
+        verbose_name=_('from address'), max_length=255, blank=True
+    )
     subject = models.CharField(verbose_name=_('subject'), max_length=255, blank=True)
 
     def process_form_submission(self, form):
@@ -284,7 +283,7 @@ class AbstractEmailForm(AbstractForm):
                 value = ', '.join(value)
             content.append('{}: {}'.format(field.label, value))
         content = '\n'.join(content)
-        send_mail(self.subject, content, addresses, self.from_address,)
+        send_mail(self.subject, content, addresses, self.from_address)
 
     class Meta:
         abstract = True

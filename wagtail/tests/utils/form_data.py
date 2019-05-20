@@ -62,11 +62,12 @@ def streamfield(items):
         #     'content-0-deleted': '',
         # }
     """
+
     def to_block(index, item):
         block, value = item
         return {'type': block, 'value': value, 'deleted': '', 'order': str(index)}
-    data_dict = {str(index): to_block(index, item)
-                 for index, item in enumerate(items)}
+
+    data_dict = {str(index): to_block(index, item) for index, item in enumerate(items)}
     data_dict['count'] = str(len(data_dict))
     return data_dict
 
@@ -97,23 +98,22 @@ def inline_formset(items, initial=0, min=0, max=1000):
         #     'lines-1-DELETE': '',
         # }
     """
+
     def to_form(index, item):
-        defaults = {
-            'ORDER': str(index),
-            'DELETE': '',
-        }
+        defaults = {'ORDER': str(index), 'DELETE': ''}
         defaults.update(item)
         return defaults
 
-    data_dict = {str(index): to_form(index, item)
-                 for index, item in enumerate(items)}
+    data_dict = {str(index): to_form(index, item) for index, item in enumerate(items)}
 
-    data_dict.update({
-        'TOTAL_FORMS': str(len(data_dict)),
-        'INITIAL_FORMS': str(initial),
-        'MIN_NUM_FORMS': str(min),
-        'MAX_NUM_FORMS': str(max),
-    })
+    data_dict.update(
+        {
+            'TOTAL_FORMS': str(len(data_dict)),
+            'INITIAL_FORMS': str(initial),
+            'MIN_NUM_FORMS': str(min),
+            'MAX_NUM_FORMS': str(max),
+        }
+    )
     return data_dict
 
 

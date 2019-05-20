@@ -21,50 +21,62 @@ class TestCollectionPrivacyDocument(TestCase):
         self.password_collection = Collection.objects.get(name='Password protected')
         self.login_collection = Collection.objects.get(name='Login protected')
         self.group_collection = Collection.objects.get(name='Group protected')
-        self.view_restriction = CollectionViewRestriction.objects.get(collection=self.password_collection)
+        self.view_restriction = CollectionViewRestriction.objects.get(
+            collection=self.password_collection
+        )
         self.event_editors_group = Group.objects.get(name='Event editors')
 
     def get_document(self, collection):
         secret_document = Document.objects.create(
-            title="Test document",
-            file=self.fake_file,
-            collection=collection,
+            title="Test document", file=self.fake_file, collection=collection
         )
-        url = reverse('wagtaildocs_serve', args=(secret_document.id, secret_document.filename))
+        url = reverse(
+            'wagtaildocs_serve', args=(secret_document.id, secret_document.filename)
+        )
         response = self.client.get(url)
         return response, quote(url)
 
     def test_anonymous_user_must_authenticate(self):
         secret_document = Document.objects.create(
-            title="Test document", file=self.fake_file, collection=self.password_collection
+            title="Test document",
+            file=self.fake_file,
+            collection=self.password_collection,
         )
-        doc_url = reverse('wagtaildocs_serve', args=(secret_document.id, secret_document.filename))
+        doc_url = reverse(
+            'wagtaildocs_serve', args=(secret_document.id, secret_document.filename)
+        )
         response = self.client.get(doc_url)
-        self.assertEqual(response.templates[0].name, 'wagtaildocs/password_required.html')
+        self.assertEqual(
+            response.templates[0].name, 'wagtaildocs/password_required.html'
+        )
 
-        submit_url = reverse('wagtaildocs_authenticate_with_password', args=[self.view_restriction.id])
+        submit_url = reverse(
+            'wagtaildocs_authenticate_with_password', args=[self.view_restriction.id]
+        )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<form action="%s"' % submit_url)
         self.assertContains(
             response,
-            '<input id="id_return_url" name="return_url" type="hidden" value="{}" />'.format(doc_url),
-            html=True
+            '<input id="id_return_url" name="return_url" type="hidden" value="{}" />'.format(
+                doc_url
+            ),
+            html=True,
         )
 
         # posting the wrong password should redisplay the password page
-        response = self.client.post(submit_url, {
-            'password': 'wrongpassword',
-            'return_url': doc_url,
-        })
+        response = self.client.post(
+            submit_url, {'password': 'wrongpassword', 'return_url': doc_url}
+        )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.templates[0].name, 'wagtaildocs/password_required.html')
+        self.assertEqual(
+            response.templates[0].name, 'wagtaildocs/password_required.html'
+        )
         self.assertContains(response, '<form action="%s"' % submit_url)
 
         # posting the correct password should redirect back to return_url
-        response = self.client.post(submit_url, {
-            'password': 'swordfish',
-            'return_url': doc_url,
-        })
+        response = self.client.post(
+            submit_url, {'password': 'swordfish', 'return_url': doc_url}
+        )
         self.assertRedirects(response, doc_url)
 
         # now requests to the documents url should pass authentication

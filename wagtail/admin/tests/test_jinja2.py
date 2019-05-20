@@ -7,14 +7,11 @@ from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, Site
 
 
 class TestCoreJinja(TestCase):
-
     def setUp(self):
         self.engine = engines['jinja2']
 
         self.user = get_user_model().objects.create_superuser(
-            username='test',
-            email='test@email.com',
-            password='password'
+            username='test', email='test@email.com', password='password'
         )
         self.homepage = Page.objects.get(id=2)
 
@@ -34,15 +31,20 @@ class TestCoreJinja(TestCase):
         return request
 
     def test_userbar(self):
-        content = self.render('{{ wagtailuserbar() }}', {
-            PAGE_TEMPLATE_VAR: self.homepage,
-            'request': self.dummy_request(self.user)})
+        content = self.render(
+            '{{ wagtailuserbar() }}',
+            {
+                PAGE_TEMPLATE_VAR: self.homepage,
+                'request': self.dummy_request(self.user),
+            },
+        )
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
 
     def test_userbar_anonymous_user(self):
-        content = self.render('{{ wagtailuserbar() }}', {
-            PAGE_TEMPLATE_VAR: self.homepage,
-            'request': self.dummy_request()})
+        content = self.render(
+            '{{ wagtailuserbar() }}',
+            {PAGE_TEMPLATE_VAR: self.homepage, 'request': self.dummy_request()},
+        )
 
         # Make sure nothing was rendered
         self.assertEqual(content, '')

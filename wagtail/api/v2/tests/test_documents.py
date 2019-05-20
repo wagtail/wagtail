@@ -36,7 +36,9 @@ class TestDocumentListing(TestCase):
         # Check that the total count is there and correct
         self.assertIn('total_count', content['meta'])
         self.assertIsInstance(content['meta']['total_count'], int)
-        self.assertEqual(content['meta']['total_count'], get_document_model().objects.count())
+        self.assertEqual(
+            content['meta']['total_count'], get_document_model().objects.count()
+        )
 
         # Check that the items section is there
         self.assertIn('items', content)
@@ -46,16 +48,26 @@ class TestDocumentListing(TestCase):
         for document in content['items']:
             self.assertIn('meta', document)
             self.assertIsInstance(document['meta'], dict)
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(
+                set(document['meta'].keys()),
+                {'type', 'detail_url', 'download_url', 'tags'},
+            )
 
             # Type should always be wagtaildocs.Document
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
 
             # Check detail_url
-            self.assertEqual(document['meta']['detail_url'], 'http://localhost/api/v2beta/documents/%d/' % document['id'])
+            self.assertEqual(
+                document['meta']['detail_url'],
+                'http://localhost/api/v2beta/documents/%d/' % document['id'],
+            )
 
             # Check download_url
-            self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
+            self.assertTrue(
+                document['meta']['download_url'].startswith(
+                    'http://localhost/documents/%d/' % document['id']
+                )
+            )
 
     # FIELDS
 
@@ -65,7 +77,10 @@ class TestDocumentListing(TestCase):
 
         for document in content['items']:
             self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(
+                set(document['meta'].keys()),
+                {'type', 'detail_url', 'download_url', 'tags'},
+            )
 
     def test_fields(self):
         response = self.get_response(fields='title')
@@ -73,7 +88,10 @@ class TestDocumentListing(TestCase):
 
         for document in content['items']:
             self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(
+                set(document['meta'].keys()),
+                {'type', 'detail_url', 'download_url', 'tags'},
+            )
 
     def test_remove_fields(self):
         response = self.get_response(fields='-title')
@@ -88,7 +106,9 @@ class TestDocumentListing(TestCase):
 
         for document in content['items']:
             self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(
+                set(document['meta'].keys()), {'type', 'detail_url', 'tags'}
+            )
 
     def test_remove_all_meta_fields(self):
         response = self.get_response(fields='-type,-detail_url,-tags,-download_url')
@@ -110,7 +130,10 @@ class TestDocumentListing(TestCase):
 
         for document in content['items']:
             self.assertEqual(set(document.keys()), {'id', 'meta', 'title'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
+            self.assertEqual(
+                set(document['meta'].keys()),
+                {'type', 'detail_url', 'tags', 'download_url'},
+            )
 
     def test_all_fields_then_remove_something(self):
         response = self.get_response(fields='*,-title,-download_url')
@@ -118,7 +141,9 @@ class TestDocumentListing(TestCase):
 
         for document in content['items']:
             self.assertEqual(set(document.keys()), {'id', 'meta'})
-            self.assertEqual(set(document['meta'].keys()), {'type', 'detail_url', 'tags'})
+            self.assertEqual(
+                set(document['meta'].keys()), {'type', 'detail_url', 'tags'}
+            )
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
@@ -132,7 +157,9 @@ class TestDocumentListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "fields error: '*' must be in the first position"})
+        self.assertEqual(
+            content, {'message': "fields error: '*' must be in the first position"}
+        )
 
     def test_fields_which_are_not_in_api_fields_gives_error(self):
         response = self.get_response(fields='uploaded_by_user')
@@ -185,7 +212,12 @@ class TestDocumentListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "query parameter is not an operation or a recognised field: not_a_field"})
+        self.assertEqual(
+            content,
+            {
+                'message': "query parameter is not an operation or a recognised field: not_a_field"
+            },
+        )
 
     # ORDERING
 
@@ -219,21 +251,27 @@ class TestDocumentListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "cannot order by 'random' (unknown field)"})
+        self.assertEqual(
+            content, {'message': "cannot order by 'random' (unknown field)"}
+        )
 
     def test_ordering_by_random_with_offset_gives_error(self):
         response = self.get_response(order='random', offset=10)
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "random ordering with offset is not supported"})
+        self.assertEqual(
+            content, {'message': "random ordering with offset is not supported"}
+        )
 
     def test_ordering_by_unknown_field_gives_error(self):
         response = self.get_response(order='not_a_field')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "cannot order by 'not_a_field' (unknown field)"})
+        self.assertEqual(
+            content, {'message': "cannot order by 'not_a_field' (unknown field)"}
+        )
 
     # LIMIT
 
@@ -248,7 +286,9 @@ class TestDocumentListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "limit"
-        self.assertEqual(content['meta']['total_count'], get_document_model().objects.count())
+        self.assertEqual(
+            content['meta']['total_count'], get_document_model().objects.count()
+        )
 
     def test_limit_not_integer_gives_error(self):
         response = self.get_response(limit='abc')
@@ -308,7 +348,9 @@ class TestDocumentListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         # The total count must not be affected by "offset"
-        self.assertEqual(content['meta']['total_count'], get_document_model().objects.count())
+        self.assertEqual(
+            content['meta']['total_count'], get_document_model().objects.count()
+        )
 
     def test_offset_not_integer_gives_error(self):
         response = self.get_response(offset='abc')
@@ -348,14 +390,19 @@ class TestDocumentListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "filtering by tag with a search query is not supported"})
+        self.assertEqual(
+            content,
+            {'message': "filtering by tag with a search query is not supported"},
+        )
 
 
 class TestDocumentDetail(TestCase):
     fixtures = ['demosite.json']
 
     def get_response(self, image_id, **params):
-        return self.client.get(reverse('wagtailapi_v2:documents:detail', args=(image_id, )), params)
+        return self.client.get(
+            reverse('wagtailapi_v2:documents:detail', args=(image_id,)), params
+        )
 
     def test_basic(self):
         response = self.get_response(1)
@@ -380,11 +427,16 @@ class TestDocumentDetail(TestCase):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v2beta/documents/1/')
+        self.assertEqual(
+            content['meta']['detail_url'], 'http://localhost/api/v2beta/documents/1/'
+        )
 
         # Check the meta download_url
         self.assertIn('download_url', content['meta'])
-        self.assertEqual(content['meta']['download_url'], 'http://localhost/documents/1/wagtail_by_markyharky.jpg')
+        self.assertEqual(
+            content['meta']['download_url'],
+            'http://localhost/documents/1/wagtail_by_markyharky.jpg',
+        )
 
         # Check the title field
         self.assertIn('title', content)
@@ -410,7 +462,10 @@ class TestDocumentDetail(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertIn('download_url', content['meta'])
-        self.assertEqual(content['meta']['download_url'], 'http://api.example.com/documents/1/wagtail_by_markyharky.jpg')
+        self.assertEqual(
+            content['meta']['download_url'],
+            'http://api.example.com/documents/1/wagtail_by_markyharky.jpg',
+        )
 
     # FIELDS
 
@@ -447,7 +502,9 @@ class TestDocumentDetail(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "fields error: '*' must be in the first position"})
+        self.assertEqual(
+            content, {'message': "fields error: '*' must be in the first position"}
+        )
 
     def test_fields_which_are_not_in_api_fields_gives_error(self):
         response = self.get_response(2, fields='path')
@@ -493,14 +550,16 @@ class TestDocumentFind(TestCase):
         # Will crash if the JSON is invalid
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(content, {
-            'message': 'not found'
-        })
+        self.assertEqual(content, {'message': 'not found'})
 
     def test_find_by_id(self):
         response = self.get_response(id=5)
 
-        self.assertRedirects(response, 'http://localhost' + reverse('wagtailapi_v2:documents:detail', args=[5]), fetch_redirect_response=False)
+        self.assertRedirects(
+            response,
+            'http://localhost' + reverse('wagtailapi_v2:documents:detail', args=[5]),
+            fetch_redirect_response=False,
+        )
 
     def test_find_by_id_nonexistent(self):
         response = self.get_response(id=1234)
@@ -511,9 +570,7 @@ class TestDocumentFind(TestCase):
         # Will crash if the JSON is invalid
         content = json.loads(response.content.decode('UTF-8'))
 
-        self.assertEqual(content, {
-            'message': 'not found'
-        })
+        self.assertEqual(content, {'message': 'not found'})
 
 
 @override_settings(
@@ -521,7 +578,7 @@ class TestDocumentFind(TestCase):
         'varnish': {
             'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
             'LOCATION': 'http://localhost:8000',
-        },
+        }
     },
     WAGTAILAPI_BASE_URL='http://api.example.com',
 )

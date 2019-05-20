@@ -89,6 +89,12 @@ def search_for_image_formats():
 
 
 # Define default image formats
-register_image_format(Format('fullwidth', _('Full width'), 'richtext-image full-width', 'width-800'))
-register_image_format(Format('left', _('Left-aligned'), 'richtext-image left', 'width-500'))
-register_image_format(Format('right', _('Right-aligned'), 'richtext-image right', 'width-500'))
+register_image_format(
+    Format('fullwidth', _('Full width'), 'richtext-image full-width', 'width-800')
+)
+register_image_format(
+    Format('left', _('Left-aligned'), 'richtext-image left', 'width-500')
+)
+register_image_format(
+    Format('right', _('Right-aligned'), 'richtext-image right', 'width-500')
+)

@@ -13,9 +13,7 @@ table = IndexEntry._meta.db_table
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('postgres_search', '0001_initial'),
-    ]
+    dependencies = [('postgres_search', '0001_initial')]
 
     operations = [
         migrations.RunSQL(
@@ -24,9 +22,7 @@ class Migration(migrations.Migration):
             'USING GIN(body_search);'.format(table),
         ),
         migrations.RenameField(
-            model_name='indexentry',
-            old_name='body_search',
-            new_name='body',
+            model_name='indexentry', old_name='body_search', new_name='body'
         ),
         migrations.AddField(
             model_name='indexentry',
@@ -37,13 +33,13 @@ class Migration(migrations.Migration):
         migrations.AddIndex(
             model_name='indexentry',
             index=django.contrib.postgres.indexes.GinIndex(
-                fields=['autocomplete'],
-                name='postgres_se_autocom_ee48c8_gin'),
+                fields=['autocomplete'], name='postgres_se_autocom_ee48c8_gin'
+            ),
         ),
         migrations.AddIndex(
             model_name='indexentry',
             index=django.contrib.postgres.indexes.GinIndex(
-                fields=['body'],
-                name='postgres_se_body_aaaa99_gin'),
+                fields=['body'], name='postgres_se_body_aaaa99_gin'
+            ),
         ),
     ]

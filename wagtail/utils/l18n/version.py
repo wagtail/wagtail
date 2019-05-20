@@ -28,11 +28,11 @@ def get_hg_chgset():
         DEVNULL = subprocess.DEVNULL
     except AttributeError:
         import os
+
         DEVNULL = open(os.devnull, 'wb')
 
     try:
-        return subprocess.check_output(['hg', 'id', '-i'],
-                                       stderr=DEVNULL).strip()
+        return subprocess.check_output(['hg', 'id', '-i'], stderr=DEVNULL).strip()
     except:
         return '?'
 

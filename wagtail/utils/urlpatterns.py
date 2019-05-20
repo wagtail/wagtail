@@ -10,6 +10,8 @@ def decorate_urlpatterns(urlpatterns, decorator):
             decorate_urlpatterns(pattern.url_patterns, decorator)
 
         if getattr(pattern, 'callback', None):
-            pattern.callback = update_wrapper(decorator(pattern.callback), pattern.callback)
+            pattern.callback = update_wrapper(
+                decorator(pattern.callback), pattern.callback
+            )
 
     return urlpatterns

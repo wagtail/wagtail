@@ -22,6 +22,7 @@ class PermissionCheckedMixin:
     * any_permission_required (a list of action names - the user must have
       one or more of those permissions)
     """
+
     permission_policy = None
     permission_required = None
     any_permission_required = None
@@ -103,9 +104,15 @@ class CreateView(PermissionCheckedMixin, TemplateResponseMixin, BaseCreateView):
         self.object = self.save_instance()
         success_message = self.get_success_message(self.object)
         if success_message is not None:
-            messages.success(self.request, success_message, buttons=[
-                messages.button(reverse(self.edit_url_name, args=(self.object.id,)), _('Edit'))
-            ])
+            messages.success(
+                self.request,
+                success_message,
+                buttons=[
+                    messages.button(
+                        reverse(self.edit_url_name, args=(self.object.id,)), _('Edit')
+                    )
+                ],
+            )
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
@@ -170,9 +177,15 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
         self.object = self.save_instance()
         success_message = self.get_success_message()
         if success_message is not None:
-            messages.success(self.request, success_message, buttons=[
-                messages.button(reverse(self.edit_url_name, args=(self.object.id,)), _('Edit'))
-            ])
+            messages.success(
+                self.request,
+                success_message,
+                buttons=[
+                    messages.button(
+                        reverse(self.edit_url_name, args=(self.object.id,)), _('Edit')
+                    )
+                ],
+            )
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
@@ -185,9 +198,13 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['can_delete'] = (
-            self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, 'delete')
-        ),
+            (
+                self.permission_policy is None
+                or self.permission_policy.user_has_permission(
+                    self.request.user, 'delete'
+                )
+            ),
+        )
         return context
 
 

@@ -25,16 +25,13 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         # does not make initial data loaded in migrations available and
         # serialized_rollback=True causes other problems in the test suite.
         # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
-        Collection.objects.get_or_create(
-            name="Root",
-            path='0001',
-            depth=1,
-            numchild=0,
-        )
+        Collection.objects.get_or_create(name="Root", path='0001', depth=1, numchild=0)
 
     def test_image_file_deleted_oncommit(self):
         with transaction.atomic():
-            image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
+            image = get_image_model().objects.create(
+                title="Test Image", file=get_test_image_file()
+            )
             filename = image.file.name
             self.assertTrue(image.file.storage.exists(filename))
             image.delete()
@@ -43,7 +40,9 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
 
     def test_rendition_file_deleted_oncommit(self):
         with transaction.atomic():
-            image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
+            image = get_image_model().objects.create(
+                title="Test Image", file=get_test_image_file()
+            )
             rendition = image.get_rendition('original')
             filename = rendition.file.name
             self.assertTrue(rendition.file.storage.exists(filename))
@@ -59,12 +58,7 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
         # does not make initial data loaded in migrations available and
         # serialized_rollback=True causes other problems in the test suite.
         # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
-        Collection.objects.get_or_create(
-            name="Root",
-            path='0001',
-            depth=1,
-            numchild=0,
-        )
+        Collection.objects.get_or_create(name="Root", path='0001', depth=1, numchild=0)
 
         #: Sadly signal receivers only get connected when starting django.
         #: We will re-attach them here to mimic the django startup behavior
@@ -73,4 +67,6 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
 
     def test_image_model(self):
         cls = get_image_model()
-        self.assertEqual('%s.%s' % (cls._meta.app_label, cls.__name__), 'tests.CustomImage')
+        self.assertEqual(
+            '%s.%s' % (cls._meta.app_label, cls.__name__), 'tests.CustomImage'
+        )

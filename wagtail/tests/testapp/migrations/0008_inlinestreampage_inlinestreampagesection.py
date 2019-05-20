@@ -19,24 +19,56 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='InlineStreamPage',
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='wagtailcore.Page',
+                    ),
+                )
             ],
-            options={
-                'abstract': False,
-            },
+            options={'abstract': False},
             bases=('wagtailcore.page',),
         ),
         migrations.CreateModel(
             name='InlineStreamPageSection',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('body', wagtail.core.fields.StreamField((('text', wagtail.core.blocks.CharBlock()), ('rich_text', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())))),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='sections', to='tests.InlineStreamPage')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'sort_order',
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    'body',
+                    wagtail.core.fields.StreamField(
+                        (
+                            ('text', wagtail.core.blocks.CharBlock()),
+                            ('rich_text', wagtail.core.blocks.RichTextBlock()),
+                            ('image', wagtail.images.blocks.ImageChooserBlock()),
+                        )
+                    ),
+                ),
+                (
+                    'page',
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='sections',
+                        to='tests.InlineStreamPage',
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-                'ordering': ['sort_order'],
-            },
+            options={'abstract': False, 'ordering': ['sort_order']},
         ),
     ]

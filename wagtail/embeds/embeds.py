@@ -14,6 +14,7 @@ def get_embed(url, max_width=None, finder=None):
 
     # Get/Call finder
     if not finder:
+
         def finder(url, max_width=None):
             for finder in get_finders():
                 if finder.accept(url):
@@ -40,9 +41,7 @@ def get_embed(url, max_width=None, finder=None):
 
     # Create database record
     embed, created = Embed.objects.get_or_create(
-        url=url,
-        max_width=max_width,
-        defaults=embed_dict,
+        url=url, max_width=max_width, defaults=embed_dict
     )
 
     # Save

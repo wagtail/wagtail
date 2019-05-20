@@ -11,7 +11,7 @@ from wagtail.core import hooks
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^searchpicks/', include(admin_urls, namespace='wagtailsearchpromotions')),
+        url(r'^searchpicks/', include(admin_urls, namespace='wagtailsearchpromotions'))
     ]
 
 
@@ -29,7 +29,8 @@ def register_search_picks_menu_item():
     return SearchPicksMenuItem(
         _('Promoted search results'),
         reverse('wagtailsearchpromotions:index'),
-        classnames='icon icon-pick', order=900
+        classnames='icon icon-pick',
+        order=900,
     )
 
 
@@ -37,5 +38,9 @@ def register_search_picks_menu_item():
 def register_permissions():
     return Permission.objects.filter(
         content_type__app_label='wagtailsearchpromotions',
-        codename__in=['add_searchpromotion', 'change_searchpromotion', 'delete_searchpromotion']
+        codename__in=[
+            'add_searchpromotion',
+            'change_searchpromotion',
+            'delete_searchpromotion',
+        ],
     )

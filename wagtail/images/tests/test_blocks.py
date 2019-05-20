@@ -13,21 +13,27 @@ from .utils import Image, get_test_image_file
 class TestImageChooserBlock(TestCase):
     def setUp(self):
         self.image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
         # Create an image with a missing file, by deserializing fom a python object
         # (which bypasses FileField's attempt to read the file)
-        self.bad_image = list(serializers.deserialize('python', [{
-            'fields': {
-                'title': 'missing image',
-                'height': 100,
-                'file': 'original_images/missing-image.jpg',
-                'width': 100,
-            },
-            'model': 'wagtailimages.image'
-        }]))[0].object
+        self.bad_image = list(
+            serializers.deserialize(
+                'python',
+                [
+                    {
+                        'fields': {
+                            'title': 'missing image',
+                            'height': 100,
+                            'file': 'original_images/missing-image.jpg',
+                            'width': 100,
+                        },
+                        'model': 'wagtailimages.image',
+                    }
+                ],
+            )
+        )[0].object
         self.bad_image.save()
 
     def get_image_filename(self, image, filterspec):
@@ -35,8 +41,7 @@ class TestImageChooserBlock(TestCase):
         Get the generated filename for a resized image
         """
         name, ext = os.path.splitext(os.path.basename(image.file.name))
-        return '{}images/{}.{}{}'.format(
-            settings.MEDIA_URL, name, filterspec, ext)
+        return '{}images/{}.{}{}'.format(settings.MEDIA_URL, name, filterspec, ext)
 
     def test_render(self):
         block = ImageChooserBlock()
@@ -50,6 +55,8 @@ class TestImageChooserBlock(TestCase):
     def test_render_missing(self):
         block = ImageChooserBlock()
         html = block.render(self.bad_image)
-        expected_html = '<img alt="missing image" src="/media/not-found" width="0" height="0">'
+        expected_html = (
+            '<img alt="missing image" src="/media/not-found" width="0" height="0">'
+        )
 
         self.assertHTMLEqual(html, expected_html)

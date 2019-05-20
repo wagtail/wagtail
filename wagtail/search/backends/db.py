@@ -6,17 +6,18 @@ from django.db.models import Count
 from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
+    BaseSearchBackend,
+    BaseSearchQueryCompiler,
+    BaseSearchResults,
+    FilterFieldError,
+)
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
 from wagtail.search.utils import AND, OR
 
 
 class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
-    OPERATORS = {
-        'and': AND,
-        'or': OR,
-    }
+    OPERATORS = {'and': AND, 'or': OR}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,8 +25,9 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def get_fields_names(self):
         model = self.queryset.model
-        fields_names = self.fields or [field.field_name for field in
-                                       model.get_searchable_search_fields()]
+        fields_names = self.fields or [
+            field.field_name for field in model.get_searchable_search_fields()
+        ]
         # Check if the field exists (this will filter out indexed callables)
         for field_name in fields_names:
             try:
@@ -36,7 +38,9 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
                 yield field_name
 
     def _process_lookup(self, field, lookup, value):
-        return models.Q(**{field.get_attname(self.queryset.model) + '__' + lookup: value})
+        return models.Q(
+            **{field.get_attname(self.queryset.model) + '__' + lookup: value}
+        )
 
     def _connect_filters(self, filters, connector, negated):
         if connector == 'AND':
@@ -70,10 +74,12 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
 
             operator = self.OPERATORS[query.operator]
 
-            return operator([
-                self.build_single_term_filter(term)
-                for term in query.query_string.split()
-            ])
+            return operator(
+                [
+                    self.build_single_term_filter(term)
+                    for term in query.query_string.split()
+                ]
+            )
 
         if isinstance(query, Boost):
             boost *= query.boost
@@ -85,14 +91,19 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(query, Not):
             return ~self.build_database_filter(query.subquery, boost=boost)
         if isinstance(query, And):
-            return AND(self.build_database_filter(subquery, boost=boost)
-                       for subquery in query.subqueries)
+            return AND(
+                self.build_database_filter(subquery, boost=boost)
+                for subquery in query.subqueries
+            )
         if isinstance(query, Or):
-            return OR(self.build_database_filter(subquery, boost=boost)
-                      for subquery in query.subqueries)
+            return OR(
+                self.build_database_filter(subquery, boost=boost)
+                for subquery in query.subqueries
+            )
         raise NotImplementedError(
             '`%s` is not supported by the database search backend.'
-            % query.__class__.__name__)
+            % query.__class__.__name__
+        )
 
 
 class DatabaseSearchResults(BaseSearchResults):
@@ -105,13 +116,15 @@ class DatabaseSearchResults(BaseSearchResults):
 
         q = self.query_compiler.build_database_filter()
 
-        return queryset.filter(q).distinct()[self.start:self.stop]
+        return queryset.filter(q).distinct()[self.start : self.stop]
 
     def _do_search(self):
         queryset = self.get_queryset()
 
         if self._score_field:
-            queryset = queryset.annotate(**{self._score_field: Value(None, output_field=models.FloatField())})
+            queryset = queryset.annotate(
+                **{self._score_field: Value(None, output_field=models.FloatField())}
+            )
 
         return queryset.iterator()
 
@@ -125,18 +138,24 @@ class DatabaseSearchResults(BaseSearchResults):
         field = self.query_compiler._get_filterable_field(field_name)
         if field is None:
             raise FilterFieldError(
-                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\''
-                + field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
-                field_name=field_name
+                'Cannot facet search results with field "'
+                + field_name
+                + '". Please add index.FilterField(\''
+                + field_name
+                + '\') to '
+                + self.query_compiler.queryset.model.__name__
+                + '.search_fields.',
+                field_name=field_name,
             )
 
         query = self.get_queryset()
-        results = query.values(field_name).annotate(count=Count('pk')).order_by('-count')
+        results = (
+            query.values(field_name).annotate(count=Count('pk')).order_by('-count')
+        )
 
-        return OrderedDict([
-            (result[field_name], result['count'])
-            for result in results
-        ])
+        return OrderedDict(
+            [(result[field_name], result['count']) for result in results]
+        )
 
 
 class DatabaseSearchBackend(BaseSearchBackend):

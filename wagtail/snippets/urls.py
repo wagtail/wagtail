@@ -5,11 +5,9 @@ from wagtail.snippets.views import chooser, snippets
 app_name = 'wagtailsnippets'
 urlpatterns = [
     url(r'^$', snippets.index, name='index'),
-
     url(r'^choose/$', chooser.choose, name='choose_generic'),
     url(r'^choose/(\w+)/(\w+)/$', chooser.choose, name='choose'),
     url(r'^choose/(\w+)/(\w+)/([^/]+?)/$', chooser.chosen, name='chosen'),
-
     url(r'^(\w+)/(\w+)/$', snippets.list, name='list'),
     url(r'^(\w+)/(\w+)/add/$', snippets.create, name='add'),
     url(r'^(\w+)/(\w+)/([^/]+?)/$', snippets.edit, name='edit'),

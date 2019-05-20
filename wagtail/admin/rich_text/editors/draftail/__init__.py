@@ -22,11 +22,10 @@ class DraftailRichTextArea(widgets.HiddenInput):
         kwargs.pop('options', None)
         self.options = {}
 
-        self._media = Media(js=[
-            'wagtailadmin/js/draftail.js',
-        ], css={
-            'all': ['wagtailadmin/css/panels/draftail.css']
-        })
+        self._media = Media(
+            js=['wagtailadmin/js/draftail.js'],
+            css={'all': ['wagtailadmin/css/panels/draftail.css']},
+        )
 
         self.features = kwargs.pop('features', None)
         if self.features is None:

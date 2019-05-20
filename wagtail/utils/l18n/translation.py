@@ -9,7 +9,6 @@ import six
 
 
 class Trans(object):
-
     def __init__(self):
         self.registry = {}
         self.current = None
@@ -24,7 +23,7 @@ class Trans(object):
                     'l18n',
                     os.path.join(os.path.dirname(__file__), 'locale'),
                     languages=[language],
-                    fallback=True
+                    fallback=True,
                 )
                 return self.registry[language]
         else:
@@ -40,6 +39,7 @@ class Trans(object):
             return s
 
     if six.PY2:
+
         def ugettext(self, s):
             try:
                 return self.current.ugettext(s)
@@ -55,6 +55,7 @@ def set_language(language=None):
 
 
 if six.PY2:
+
     def translate(s, utf8=True, trans=_trans):
         if trans:
             if utf8:
@@ -62,7 +63,10 @@ if six.PY2:
             return trans.gettext(s)
         else:
             return s
+
+
 else:
+
     def translate(s, utf8=True, trans=_trans):
         if trans:
             t = trans.gettext(s)
@@ -74,7 +78,6 @@ else:
 
 
 class L18NLazyObject(object):
-
     def _value(self, utf8=True):
         raise NotImplementedError
 
@@ -89,7 +92,6 @@ class L18NLazyObject(object):
 
 
 class L18NLazyString(L18NLazyObject):
-
     def __init__(self, s):
         self._str = s
 
@@ -114,7 +116,6 @@ class L18NLazyString(L18NLazyObject):
 
 
 class L18NLazyStringsList(L18NLazyObject):
-
     def __init__(self, sep='/', *s):
         # we assume that the separator and the strings have the same encoding
         # (text_type)
@@ -135,13 +136,12 @@ class L18NLazyStringsList(L18NLazyObject):
             sep = sep.decode(encoding='utf-8')
         elif not utf8 and isinstance(sep, six.text_type):
             sep = sep.encode(encoding='utf-8')
-        return sep.join([translate(s, utf8)
-                         for s in self._strings])
+        return sep.join([translate(s, utf8) for s in self._strings])
 
     def __repr__(self):
-        return 'L18NLazyStringsList <%s>' % self._sep.join([
-            repr(s) for s in self._strings
-        ])
+        return 'L18NLazyStringsList <%s>' % self._sep.join(
+            [repr(s) for s in self._strings]
+        )
 
     def __getattr__(self, name):
         # fallback to call the value's attribute in case it's not found in
@@ -233,13 +233,11 @@ class L18NBaseMap(MutableMapping):
 
 
 class L18NMap(L18NBaseMap):
-
     def __getitem__(self, key):
         return L18NLazyString(self.store[key])
 
 
 class L18NListMap(L18NBaseMap):
-
     def __init__(self, sep='/', aux=None, *args, **kwargs):
         self._sep = sep
         self._aux = aux

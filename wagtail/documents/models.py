@@ -30,7 +30,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         null=True,
         blank=True,
         editable=False,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL,
     )
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
@@ -45,10 +45,13 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         index.SearchField('title', partial_match=True, boost=10),
         index.AutocompleteField('title'),
         index.FilterField('title'),
-        index.RelatedFields('tags', [
-            index.SearchField('name', partial_match=True, boost=10),
-            index.AutocompleteField('name'),
-        ]),
+        index.RelatedFields(
+            'tags',
+            [
+                index.SearchField('name', partial_match=True, boost=10),
+                index.AutocompleteField('name'),
+            ],
+        ),
         index.FilterField('uploaded_by_user'),
     ]
 
@@ -123,11 +126,11 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
     @property
     def usage_url(self):
-        return reverse('wagtaildocs:document_usage',
-                       args=(self.id,))
+        return reverse('wagtaildocs:document_usage', args=(self.id,))
 
     def is_editable_by_user(self, user):
         from wagtail.documents.permissions import permission_policy
+
         return permission_policy.user_has_permission_for_instance(user, 'change', self)
 
     class Meta:
@@ -137,12 +140,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
 
 class Document(AbstractDocument):
-    admin_form_fields = (
-        'title',
-        'file',
-        'collection',
-        'tags'
-    )
+    admin_form_fields = ('title', 'file', 'collection', 'tags')
 
 
 def get_document_model():
@@ -159,13 +157,15 @@ def get_document_model():
     except AttributeError:
         return Document
     except ValueError:
-        raise ImproperlyConfigured("WAGTAILDOCS_DOCUMENT_MODEL must be of the form 'app_label.model_name'")
+        raise ImproperlyConfigured(
+            "WAGTAILDOCS_DOCUMENT_MODEL must be of the form 'app_label.model_name'"
+        )
 
     document_model = apps.get_model(app_label, model_name)
     if document_model is None:
         raise ImproperlyConfigured(
-            "WAGTAILDOCS_DOCUMENT_MODEL refers to model '%s' that has not been installed" %
-            settings.WAGTAILDOCS_DOCUMENT_MODEL
+            "WAGTAILDOCS_DOCUMENT_MODEL refers to model '%s' that has not been installed"
+            % settings.WAGTAILDOCS_DOCUMENT_MODEL
         )
     return document_model
 

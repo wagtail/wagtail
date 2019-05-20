@@ -3,7 +3,11 @@ from django.utils.html import escape
 
 from wagtail.core.models import Page
 from wagtail.core.rich_text import features as feature_registry
-from wagtail.core.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
+from wagtail.core.rich_text.rewriters import (
+    EmbedRewriter,
+    LinkRewriter,
+    MultiRuleRewriter,
+)
 from wagtail.core.whitelist import Whitelister, allow_without_attributes
 
 
@@ -48,6 +52,7 @@ class DbWhitelister(Whitelister):
       determined by the handler for that type defined in link_handlers, while keeping the
       element content intact.
     """
+
     def __init__(self, converter_rules):
         self.converter_rules = converter_rules
         self.element_rules = BASE_WHITELIST_RULES.copy()
@@ -58,14 +63,16 @@ class DbWhitelister(Whitelister):
     @cached_property
     def embed_handlers(self):
         return {
-            rule.embed_type: rule.handler for rule in self.converter_rules
+            rule.embed_type: rule.handler
+            for rule in self.converter_rules
             if isinstance(rule, EmbedTypeRule)
         }
 
     @cached_property
     def link_handlers(self):
         return {
-            rule.link_type: rule.handler for rule in self.converter_rules
+            rule.link_type: rule.handler
+            for rule in self.converter_rules
             if isinstance(rule, LinkTypeRule)
         }
 
@@ -140,9 +147,7 @@ class EditorHTMLConverter:
             elif isinstance(rule, LinkTypeRule):
                 link_rules[rule.link_type] = rule.handler.expand_db_attributes
 
-        return MultiRuleRewriter([
-            LinkRewriter(link_rules), EmbedRewriter(embed_rules)
-        ])
+        return MultiRuleRewriter([LinkRewriter(link_rules), EmbedRewriter(embed_rules)])
 
     def from_database_format(self, html):
         return self.html_rewriter(html)
@@ -155,6 +160,7 @@ class PageLinkHandler:
     representation will be:
     <a linktype="page" id="42">hello world</a>
     """
+
     @staticmethod
     def get_db_attributes(tag):
         """

@@ -7,7 +7,6 @@ from wagtail.admin.widgets import AdminChooser
 
 
 class AdminSnippetChooser(AdminChooser):
-
     def __init__(self, model, **kwargs):
         self.target_model = model
         name = self.target_model._meta.verbose_name
@@ -22,23 +21,29 @@ class AdminSnippetChooser(AdminChooser):
 
         original_field_html = super().render_html(name, value, attrs)
 
-        return render_to_string("wagtailsnippets/widgets/snippet_chooser.html", {
-            'widget': self,
-            'model_opts': self.target_model._meta,
-            'original_field_html': original_field_html,
-            'attrs': attrs,
-            'value': value,
-            'item': instance,
-        })
+        return render_to_string(
+            "wagtailsnippets/widgets/snippet_chooser.html",
+            {
+                'widget': self,
+                'model_opts': self.target_model._meta,
+                'original_field_html': original_field_html,
+                'attrs': attrs,
+                'value': value,
+                'item': instance,
+            },
+        )
 
     def render_js_init(self, id_, name, value):
         model = self.target_model
 
         return "createSnippetChooser({id}, {model});".format(
             id=json.dumps(id_),
-            model=json.dumps('{app}/{model}'.format(
-                app=model._meta.app_label,
-                model=model._meta.model_name)))
+            model=json.dumps(
+                '{app}/{model}'.format(
+                    app=model._meta.app_label, model=model._meta.model_name
+                )
+            ),
+        )
 
     class Media:
         js = [

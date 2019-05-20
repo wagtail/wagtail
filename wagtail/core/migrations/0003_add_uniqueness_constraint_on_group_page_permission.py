@@ -4,9 +4,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailcore', '0002_initial_data'),
-    ]
+    dependencies = [('wagtailcore', '0002_initial_data')]
 
     operations = [
         migrations.AlterField(
@@ -17,8 +15,8 @@ class Migration(migrations.Migration):
                 choices=[
                     (b'add', b'Add/edit pages you own'),
                     (b'edit', b'Add/edit any page'),
-                    (b'publish', b'Publish any page')
-                ]
+                    (b'publish', b'Publish any page'),
+                ],
             ),
         ),
         migrations.AlterUniqueTogether(

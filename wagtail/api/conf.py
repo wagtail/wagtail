@@ -1,4 +1,3 @@
-
 class APIField:
     def __init__(self, name, serializer=None):
         self.name = name

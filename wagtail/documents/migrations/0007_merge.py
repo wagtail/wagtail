@@ -10,5 +10,4 @@ class Migration(migrations.Migration):
         ('wagtaildocs', '0006_copy_document_permissions_to_collections'),
     ]
 
-    operations = [
-    ]
+    operations = []

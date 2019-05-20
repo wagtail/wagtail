@@ -19,7 +19,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='pageviewrestriction',
             name='restriction_type',
-            field=models.CharField(choices=[('none', 'Public'), ('login', 'Private, accessible to logged-in users'), ('password', 'Private, accessible with the following password'), ('groups', 'Private, accessible to users in specific groups')], default='password', max_length=20),
+            field=models.CharField(
+                choices=[
+                    ('none', 'Public'),
+                    ('login', 'Private, accessible to logged-in users'),
+                    ('password', 'Private, accessible with the following password'),
+                    ('groups', 'Private, accessible to users in specific groups'),
+                ],
+                default='password',
+                max_length=20,
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(

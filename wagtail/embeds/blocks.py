@@ -14,6 +14,7 @@ class EmbedValue:
     we want to be able to do {% embed value.url 500 %} without
     doing a redundant fetch of the embed at the default width.
     """
+
     def __init__(self, url):
         self.url = url
 

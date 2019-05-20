@@ -22,7 +22,9 @@ def get_chooser_js_data():
     return {
         'step': 'chooser',
         'error_label': _("Server Error"),
-        'error_message': _("Report this error to your webmaster with the following information:"),
+        'error_message': _(
+            "Report this error to your webmaster with the following information:"
+        ),
         'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
     }
 
@@ -42,7 +44,7 @@ def get_image_result_data(image):
             'url': preview_image.url,
             'width': preview_image.width,
             'height': preview_image.height,
-        }
+        },
     }
 
 
@@ -81,7 +83,9 @@ def chooser(request):
         images = hook(images, request)
 
     if (
-        'q' in request.GET or 'p' in request.GET or 'tag' in request.GET
+        'q' in request.GET
+        or 'p' in request.GET
+        or 'tag' in request.GET
         or 'collection_id' in request.GET
     ):
         # this request is triggered from search, pagination or 'popular tags';
@@ -108,24 +112,28 @@ def chooser(request):
         paginator = Paginator(images, per_page=12)
         images = paginator.get_page(request.GET.get('p'))
 
-        return render(request, "wagtailimages/chooser/results.html", {
-            'images': images,
-            'is_searching': is_searching,
-            'query_string': q,
-            'will_select_format': request.GET.get('select_format')
-        })
+        return render(
+            request,
+            "wagtailimages/chooser/results.html",
+            {
+                'images': images,
+                'is_searching': is_searching,
+                'query_string': q,
+                'will_select_format': request.GET.get('select_format'),
+            },
+        )
     else:
         paginator = Paginator(images, per_page=12)
         images = paginator.get_page(request.GET.get('p'))
 
         context = get_chooser_context(request)
-        context.update({
-            'images': images,
-            'uploadform': uploadform,
-        })
+        context.update({'images': images, 'uploadform': uploadform})
         return render_modal_workflow(
-            request, 'wagtailimages/chooser/chooser.html', None, context,
-            json_data=get_chooser_js_data()
+            request,
+            'wagtailimages/chooser/chooser.html',
+            None,
+            context,
+            json_data=get_chooser_js_data(),
         )
 
 
@@ -133,8 +141,11 @@ def image_chosen(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     return render_modal_workflow(
-        request, None, None,
-        None, json_data={'step': 'image_chosen', 'result': get_image_result_data(image)}
+        request,
+        None,
+        None,
+        None,
+        json_data={'step': 'image_chosen', 'result': get_image_result_data(image)},
     )
 
 
@@ -164,14 +175,23 @@ def chooser_upload(request):
             if request.GET.get('select_format'):
                 form = ImageInsertionForm(initial={'alt_text': image.default_alt_text})
                 return render_modal_workflow(
-                    request, 'wagtailimages/chooser/select_format.html', None,
-                    {'image': image, 'form': form}, json_data={'step': 'select_format'}
+                    request,
+                    'wagtailimages/chooser/select_format.html',
+                    None,
+                    {'image': image, 'form': form},
+                    json_data={'step': 'select_format'},
                 )
             else:
                 # not specifying a format; return the image details now
                 return render_modal_workflow(
-                    request, None, None,
-                    None, json_data={'step': 'image_chosen', 'result': get_image_result_data(image)}
+                    request,
+                    None,
+                    None,
+                    None,
+                    json_data={
+                        'step': 'image_chosen',
+                        'result': get_image_result_data(image),
+                    },
                 )
     else:
         form = ImageForm(user=request.user)
@@ -186,13 +206,13 @@ def chooser_upload(request):
     images = paginator.get_page(request.GET.get('p'))
 
     context = get_chooser_context(request)
-    context.update({
-        'images': images,
-        'uploadform': form,
-    })
+    context.update({'images': images, 'uploadform': form})
     return render_modal_workflow(
-        request, 'wagtailimages/chooser/chooser.html', None, context,
-        json_data=get_chooser_js_data()
+        request,
+        'wagtailimages/chooser/chooser.html',
+        None,
+        context,
+        json_data=get_chooser_js_data(),
     )
 
 
@@ -200,7 +220,9 @@ def chooser_select_format(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     if request.method == 'POST':
-        form = ImageInsertionForm(request.POST, initial={'alt_text': image.default_alt_text})
+        form = ImageInsertionForm(
+            request.POST, initial={'alt_text': image.default_alt_text}
+        )
         if form.is_valid():
 
             format = get_image_format(form.cleaned_data['format'])
@@ -218,12 +240,17 @@ def chooser_select_format(request, image_id):
                     'width': preview_image.width,
                     'height': preview_image.height,
                 },
-                'html': format.image_to_editor_html(image, form.cleaned_data['alt_text']),
+                'html': format.image_to_editor_html(
+                    image, form.cleaned_data['alt_text']
+                ),
             }
 
             return render_modal_workflow(
-                request, None, None,
-                None, json_data={'step': 'image_chosen', 'result': image_data}
+                request,
+                None,
+                None,
+                None,
+                json_data={'step': 'image_chosen', 'result': image_data},
             )
     else:
         initial = {'alt_text': image.default_alt_text}
@@ -231,6 +258,9 @@ def chooser_select_format(request, image_id):
         form = ImageInsertionForm(initial=initial)
 
     return render_modal_workflow(
-        request, 'wagtailimages/chooser/select_format.html', None,
-        {'image': image, 'form': form}, json_data={'step': 'select_format'}
+        request,
+        'wagtailimages/chooser/select_format.html',
+        None,
+        {'image': image, 'form': form},
+        json_data={'step': 'select_format'},
     )

@@ -4,7 +4,9 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from wagtail.admin.navigation import (
-    get_explorable_root_page, get_pages_with_direct_explore_permission)
+    get_explorable_root_page,
+    get_pages_with_direct_explore_permission,
+)
 from wagtail.tests.utils import WagtailTestUtils
 
 

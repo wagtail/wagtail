@@ -14,8 +14,12 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--noinput', action='store_false', dest='interactive', default=True,
-            help='If provided, any fixes requiring user interaction will be skipped.')
+            '--noinput',
+            action='store_false',
+            dest='interactive',
+            default=True,
+            help='If provided, any fixes requiring user interaction will be skipped.',
+        )
 
     def numberlist_to_string(self, numberlist):
         # Converts a list of numbers into a string
@@ -29,16 +33,25 @@ class Command(BaseCommand):
             try:
                 page.specific
             except page.specific_class.DoesNotExist:
-                self.stdout.write("Page %d (%s) is missing a subclass record; deleting." % (page.id, page.title))
+                self.stdout.write(
+                    "Page %d (%s) is missing a subclass record; deleting."
+                    % (page.id, page.title)
+                )
                 any_problems_fixed = True
                 page.delete()
 
         (bad_alpha, bad_path, orphans, bad_depth, bad_numchild) = Page.find_problems()
 
         if bad_depth:
-            self.stdout.write("Incorrect depth value found for pages: %s" % self.numberlist_to_string(bad_depth))
+            self.stdout.write(
+                "Incorrect depth value found for pages: %s"
+                % self.numberlist_to_string(bad_depth)
+            )
         if bad_numchild:
-            self.stdout.write("Incorrect numchild value found for pages: %s" % self.numberlist_to_string(bad_numchild))
+            self.stdout.write(
+                "Incorrect numchild value found for pages: %s"
+                % self.numberlist_to_string(bad_numchild)
+            )
 
         if bad_depth or bad_numchild:
             Page.fix_tree(destructive=False)
@@ -49,7 +62,9 @@ class Command(BaseCommand):
             # missing an immediate parent; descendants of orphans are not included.
             # Deleting only the *actual* orphans is a bit silly (since it'll just create
             # more orphans), so generate a queryset that contains descendants as well.
-            orphan_paths = Page.objects.filter(id__in=orphans).values_list('path', flat=True)
+            orphan_paths = Page.objects.filter(id__in=orphans).values_list(
+                'path', flat=True
+            )
             filter_conditions = []
             for path in orphan_paths:
                 filter_conditions.append(Q(path__startswith=path))
@@ -80,29 +95,46 @@ class Command(BaseCommand):
                 deletion_count = len(pages_to_delete)
                 pages_to_delete.delete()
                 self.stdout.write(
-                    "%d orphaned page%s deleted." % (deletion_count, "s" if deletion_count != 1 else "")
+                    "%d orphaned page%s deleted."
+                    % (deletion_count, "s" if deletion_count != 1 else "")
                 )
                 any_problems_fixed = True
 
         if any_problems_fixed:
             # re-run find_problems to see if any new ones have surfaced
-            (bad_alpha, bad_path, orphans, bad_depth, bad_numchild) = Page.find_problems()
+            (
+                bad_alpha,
+                bad_path,
+                orphans,
+                bad_depth,
+                bad_numchild,
+            ) = Page.find_problems()
 
         if any((bad_alpha, bad_path, orphans, bad_depth, bad_numchild)):
             self.stdout.write("Remaining problems (cannot fix automatically):")
             if bad_alpha:
                 self.stdout.write(
-                    "Invalid characters found in path for pages: %s" % self.numberlist_to_string(bad_alpha)
+                    "Invalid characters found in path for pages: %s"
+                    % self.numberlist_to_string(bad_alpha)
                 )
             if bad_path:
-                self.stdout.write("Invalid path length found for pages: %s" % self.numberlist_to_string(bad_path))
+                self.stdout.write(
+                    "Invalid path length found for pages: %s"
+                    % self.numberlist_to_string(bad_path)
+                )
             if orphans:
-                self.stdout.write("Orphaned pages found: %s" % self.numberlist_to_string(orphans))
+                self.stdout.write(
+                    "Orphaned pages found: %s" % self.numberlist_to_string(orphans)
+                )
             if bad_depth:
-                self.stdout.write("Incorrect depth value found for pages: %s" % self.numberlist_to_string(bad_depth))
+                self.stdout.write(
+                    "Incorrect depth value found for pages: %s"
+                    % self.numberlist_to_string(bad_depth)
+                )
             if bad_numchild:
                 self.stdout.write(
-                    "Incorrect numchild value found for pages: %s" % self.numberlist_to_string(bad_numchild)
+                    "Incorrect numchild value found for pages: %s"
+                    % self.numberlist_to_string(bad_numchild)
                 )
 
         elif any_problems_fixed:

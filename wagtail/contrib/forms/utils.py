@@ -10,9 +10,9 @@ def get_form_types():
     global _FORM_CONTENT_TYPES
     if _FORM_CONTENT_TYPES is None:
         from wagtail.contrib.forms.models import AbstractForm
+
         form_models = [
-            model for model in get_page_models()
-            if issubclass(model, AbstractForm)
+            model for model in get_page_models() if issubclass(model, AbstractForm)
         ]
 
         _FORM_CONTENT_TYPES = list(

@@ -8,12 +8,10 @@ def get_image_permissions(apps):
     ContentType = apps.get_model('contenttypes.ContentType')
 
     image_content_type, _created = ContentType.objects.get_or_create(
-        model='image',
-        app_label='wagtailimages',
+        model='image', app_label='wagtailimages'
     )
     return Permission.objects.filter(
-        content_type=image_content_type,
-        codename__in=['add_image', 'change_image']
+        content_type=image_content_type, codename__in=['add_image', 'change_image']
     )
 
 
@@ -27,9 +25,7 @@ def copy_image_permissions_to_collections(apps, schema_editor):
     for permission in get_image_permissions(apps):
         for group in Group.objects.filter(permissions=permission):
             GroupCollectionPermission.objects.create(
-                group=group,
-                collection=root_collection,
-                permission=permission
+                group=group, collection=root_collection, permission=permission
             )
 
 
@@ -50,5 +46,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(
             copy_image_permissions_to_collections,
-            remove_image_permissions_from_collections),
+            remove_image_permissions_from_collections,
+        )
     ]

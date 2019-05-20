@@ -6,7 +6,6 @@ from django.test.testcases import assert_and_parse_html
 
 
 class WagtailTestUtils:
-
     @staticmethod
     def create_test_user():
         """
@@ -30,7 +29,9 @@ class WagtailTestUtils:
         user_model = get_user_model()
         # Login
         self.assertTrue(
-            self.client.login(password='password', **{user_model.USERNAME_FIELD: user.username})
+            self.client.login(
+                password='password', **{user_model.USERNAME_FIELD: user.username}
+            )
         )
 
         return user
@@ -43,14 +44,16 @@ class WagtailTestUtils:
 
         # rethrow all warnings that were not DeprecationWarnings or PendingDeprecationWarnings
         for w in warning_list:
-            if not issubclass(w.category, (DeprecationWarning, PendingDeprecationWarning)):
+            if not issubclass(
+                w.category, (DeprecationWarning, PendingDeprecationWarning)
+            ):
                 warnings.showwarning(
                     message=w.message,
                     category=w.category,
                     filename=w.filename,
                     lineno=w.lineno,
                     file=w.file,
-                    line=w.line
+                    line=w.line,
                 )
 
     @contextmanager
@@ -97,7 +100,10 @@ class WagtailTestUtils:
                 # attributes without a value is same as attribute with value that
                 # equals the attributes name:
                 # <input checked> == <input checked="checked">
-                if (attr, None) not in fat_tag.attributes and (attr, attr) not in fat_tag.attributes:
+                if (attr, None) not in fat_tag.attributes and (
+                    attr,
+                    attr,
+                ) not in fat_tag.attributes:
                     return False
             else:
                 if (attr, value) not in fat_tag.attributes:
@@ -117,7 +123,9 @@ class WagtailTestUtils:
 
         if hasattr(haystack, 'children'):
             count += sum(
-                self._count_tag_occurrences(needle, child, allow_extra_attrs=allow_extra_attrs)
+                self._count_tag_occurrences(
+                    needle, child, allow_extra_attrs=allow_extra_attrs
+                )
                 for child in haystack.children
             )
 
@@ -139,38 +147,64 @@ class WagtailTestUtils:
                 for script_tag in self._find_template_script_tags(child):
                     yield script_tag
 
-    def assertTagInHTML(self, needle, haystack, count=None, msg_prefix='', allow_extra_attrs=False):
-        needle = assert_and_parse_html(self, needle, None, 'First argument is not valid HTML:')
-        haystack = assert_and_parse_html(self, haystack, None, 'Second argument is not valid HTML:')
-        real_count = self._count_tag_occurrences(needle, haystack, allow_extra_attrs=allow_extra_attrs)
+    def assertTagInHTML(
+        self, needle, haystack, count=None, msg_prefix='', allow_extra_attrs=False
+    ):
+        needle = assert_and_parse_html(
+            self, needle, None, 'First argument is not valid HTML:'
+        )
+        haystack = assert_and_parse_html(
+            self, haystack, None, 'Second argument is not valid HTML:'
+        )
+        real_count = self._count_tag_occurrences(
+            needle, haystack, allow_extra_attrs=allow_extra_attrs
+        )
         if count is not None:
             self.assertEqual(
-                real_count, count,
-                msg_prefix + "Found %d instances of '%s' in response (expected %d)" % (real_count, needle, count)
+                real_count,
+                count,
+                msg_prefix
+                + "Found %d instances of '%s' in response (expected %d)"
+                % (real_count, needle, count),
             )
         else:
-            self.assertTrue(real_count != 0, msg_prefix + "Couldn't find '%s' in response" % needle)
+            self.assertTrue(
+                real_count != 0, msg_prefix + "Couldn't find '%s' in response" % needle
+            )
 
     def assertNotInHTML(self, needle, haystack, msg_prefix=''):
         self.assertInHTML(needle, haystack, count=0, msg_prefix=msg_prefix)
 
     def assertTagInTemplateScript(self, needle, haystack, count=None, msg_prefix=''):
-        needle = assert_and_parse_html(self, needle, None, 'First argument is not valid HTML:')
-        haystack = assert_and_parse_html(self, haystack, None, 'Second argument is not valid HTML:')
+        needle = assert_and_parse_html(
+            self, needle, None, 'First argument is not valid HTML:'
+        )
+        haystack = assert_and_parse_html(
+            self, haystack, None, 'Second argument is not valid HTML:'
+        )
         real_count = 0
 
         for script_tag in self._find_template_script_tags(haystack):
             if script_tag.children:
                 self.assertEqual(len(script_tag.children), 1)
                 script_html = assert_and_parse_html(
-                    self, script_tag.children[0], None, 'Script tag content is not valid HTML:'
+                    self,
+                    script_tag.children[0],
+                    None,
+                    'Script tag content is not valid HTML:',
                 )
                 real_count += self._count_tag_occurrences(needle, script_html)
 
         if count is not None:
             self.assertEqual(
-                real_count, count,
-                msg_prefix + "Found %d instances of '%s' in template script (expected %d)" % (real_count, needle, count)
+                real_count,
+                count,
+                msg_prefix
+                + "Found %d instances of '%s' in template script (expected %d)"
+                % (real_count, needle, count),
             )
         else:
-            self.assertTrue(real_count != 0, msg_prefix + "Couldn't find '%s' in template script" % needle)
+            self.assertTrue(
+                real_count != 0,
+                msg_prefix + "Couldn't find '%s' in template script" % needle,
+            )

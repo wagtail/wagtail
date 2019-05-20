@@ -17,6 +17,7 @@ User = get_user_model()
 
 # Panels for the homepage
 
+
 class UpgradeNotificationPanel:
     name = 'upgrade_notification'
     order = 100
@@ -25,8 +26,12 @@ class UpgradeNotificationPanel:
         self.request = request
 
     def render(self):
-        if self.request.user.is_superuser and getattr(settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True):
-            return render_to_string('wagtailadmin/home/upgrade_notification.html', {}, request=self.request)
+        if self.request.user.is_superuser and getattr(
+            settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True
+        ):
+            return render_to_string(
+                'wagtailadmin/home/upgrade_notification.html', {}, request=self.request
+            )
         else:
             return ""
 
@@ -38,13 +43,18 @@ class PagesForModerationPanel:
     def __init__(self, request):
         self.request = request
         user_perms = UserPagePermissionsProxy(request.user)
-        self.page_revisions_for_moderation = (user_perms.revisions_for_moderation()
-                                              .select_related('page', 'user').order_by('-created_at'))
+        self.page_revisions_for_moderation = (
+            user_perms.revisions_for_moderation()
+            .select_related('page', 'user')
+            .order_by('-created_at')
+        )
 
     def render(self):
-        return render_to_string('wagtailadmin/home/pages_for_moderation.html', {
-            'page_revisions_for_moderation': self.page_revisions_for_moderation,
-        }, request=self.request)
+        return render_to_string(
+            'wagtailadmin/home/pages_for_moderation.html',
+            {'page_revisions_for_moderation': self.page_revisions_for_moderation},
+            request=self.request,
+        )
 
 
 class RecentEditsPanel:
@@ -66,27 +76,34 @@ class RecentEditsPanel:
                         SELECT max(created_at) AS max_created_at, page_id FROM
                             wagtailcore_pagerevision WHERE user_id = %s GROUP BY page_id ORDER BY max_created_at DESC LIMIT %s
                     ) AS max_rev ON max_rev.max_created_at = wp.created_at ORDER BY wp.created_at DESC
-                 """, [
+                 """,
+                [
                     User._meta.pk.get_db_prep_value(self.request.user.pk, connection),
-                    edit_count
-                ]
+                    edit_count,
+                ],
             )
         else:
-            last_edits_dates = (PageRevision.objects.filter(user=self.request.user)
-                                .values('page_id').annotate(latest_date=Max('created_at'))
-                                .order_by('-latest_date').values('latest_date')[:edit_count])
-            last_edits = PageRevision.objects.filter(created_at__in=last_edits_dates).order_by('-created_at')
+            last_edits_dates = (
+                PageRevision.objects.filter(user=self.request.user)
+                .values('page_id')
+                .annotate(latest_date=Max('created_at'))
+                .order_by('-latest_date')
+                .values('latest_date')[:edit_count]
+            )
+            last_edits = PageRevision.objects.filter(
+                created_at__in=last_edits_dates
+            ).order_by('-created_at')
 
         page_keys = [pr.page_id for pr in last_edits]
         pages = Page.objects.specific().in_bulk(page_keys)
-        self.last_edits = [
-            [review, pages.get(review.page.pk)] for review in last_edits
-        ]
+        self.last_edits = [[review, pages.get(review.page.pk)] for review in last_edits]
 
     def render(self):
-        return render_to_string('wagtailadmin/home/recent_edits.html', {
-            'last_edits': list(self.last_edits),
-        }, request=self.request)
+        return render_to_string(
+            'wagtailadmin/home/recent_edits.html',
+            {'last_edits': list(self.last_edits)},
+            request=self.request,
+        )
 
 
 def home(request):
@@ -109,15 +126,23 @@ def home(request):
 
     real_site_name = None
     if root_site:
-        real_site_name = root_site.site_name if root_site.site_name else root_site.hostname
+        real_site_name = (
+            root_site.site_name if root_site.site_name else root_site.hostname
+        )
 
-    return render(request, "wagtailadmin/home.html", {
-        'root_page': root_page,
-        'root_site': root_site,
-        'site_name': real_site_name if real_site_name else settings.WAGTAIL_SITE_NAME,
-        'panels': sorted(panels, key=lambda p: p.order),
-        'user': request.user
-    })
+    return render(
+        request,
+        "wagtailadmin/home.html",
+        {
+            'root_page': root_page,
+            'root_site': root_site,
+            'site_name': real_site_name
+            if real_site_name
+            else settings.WAGTAIL_SITE_NAME,
+            'panels': sorted(panels, key=lambda p: p.order),
+            'user': request.user,
+        },
+    )
 
 
 def error_test(request):

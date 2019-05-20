@@ -41,7 +41,9 @@ def add(request):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
 
-    collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
+    collections = permission_policy.collections_user_has_permission_for(
+        request.user, 'add'
+    )
     if len(collections) > 1:
         collections_to_choose = Collection.order_for_display(collections)
     else:
@@ -56,12 +58,14 @@ def add(request):
             return HttpResponseBadRequest("Must upload a file")
 
         # Build a form for validation
-        form = ImageForm({
-            'title': request.FILES['files[]'].name,
-            'collection': request.POST.get('collection'),
-        }, {
-            'file': request.FILES['files[]'],
-        }, user=request.user)
+        form = ImageForm(
+            {
+                'title': request.FILES['files[]'].name,
+                'collection': request.POST.get('collection'),
+            },
+            {'file': request.FILES['files[]']},
+            user=request.user,
+        )
 
         if form.is_valid():
             # Save it
@@ -74,35 +78,57 @@ def add(request):
             image.save()
 
             # Success! Send back an edit form for this image to the user
-            return JsonResponse({
-                'success': True,
-                'image_id': int(image.id),
-                'form': render_to_string('wagtailimages/multiple/edit_form.html', {
-                    'image': image,
-                    'form': get_image_edit_form(Image)(
-                        instance=image, prefix='image-%d' % image.id, user=request.user
+            return JsonResponse(
+                {
+                    'success': True,
+                    'image_id': int(image.id),
+                    'form': render_to_string(
+                        'wagtailimages/multiple/edit_form.html',
+                        {
+                            'image': image,
+                            'form': get_image_edit_form(Image)(
+                                instance=image,
+                                prefix='image-%d' % image.id,
+                                user=request.user,
+                            ),
+                        },
+                        request=request,
                     ),
-                }, request=request),
-            })
+                }
+            )
         else:
             # Validation error
-            return JsonResponse({
-                'success': False,
-
-                # https://github.com/django/django/blob/stable/1.6.x/django/forms/util.py#L45
-                'error_message': '\n'.join(['\n'.join([force_text(i) for i in v]) for k, v in form.errors.items()]),
-            })
+            return JsonResponse(
+                {
+                    'success': False,
+                    # https://github.com/django/django/blob/stable/1.6.x/django/forms/util.py#L45
+                    'error_message': '\n'.join(
+                        [
+                            '\n'.join([force_text(i) for i in v])
+                            for k, v in form.errors.items()
+                        ]
+                    ),
+                }
+            )
     else:
         form = ImageForm(user=request.user)
 
-    return render(request, 'wagtailimages/multiple/add.html', {
-        'max_filesize': form.fields['file'].max_upload_size,
-        'help_text': form.fields['file'].help_text,
-        'allowed_extensions': ALLOWED_EXTENSIONS,
-        'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
-        'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
-        'collections': collections_to_choose,
-    })
+    return render(
+        request,
+        'wagtailimages/multiple/add.html',
+        {
+            'max_filesize': form.fields['file'].max_upload_size,
+            'help_text': form.fields['file'].help_text,
+            'allowed_extensions': ALLOWED_EXTENSIONS,
+            'error_max_file_size': form.fields['file'].error_messages[
+                'file_too_large_unknown_size'
+            ],
+            'error_accepted_file_types': form.fields['file'].error_messages[
+                'invalid_image'
+            ],
+            'collections': collections_to_choose,
+        },
+    )
 
 
 @require_POST
@@ -115,11 +141,17 @@ def edit(request, image_id, callback=None):
     if not request.is_ajax():
         return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-    if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, 'change', image
+    ):
         raise PermissionDenied
 
     form = ImageForm(
-        request.POST, request.FILES, instance=image, prefix='image-' + image_id, user=request.user
+        request.POST,
+        request.FILES,
+        instance=image,
+        prefix='image-' + image_id,
+        user=request.user,
     )
 
     if form.is_valid():
@@ -129,19 +161,19 @@ def edit(request, image_id, callback=None):
         for backend in get_search_backends():
             backend.add(image)
 
-        return JsonResponse({
-            'success': True,
-            'image_id': int(image_id),
-        })
+        return JsonResponse({'success': True, 'image_id': int(image_id)})
     else:
-        return JsonResponse({
-            'success': False,
-            'image_id': int(image_id),
-            'form': render_to_string('wagtailimages/multiple/edit_form.html', {
-                'image': image,
-                'form': form,
-            }, request=request),
-        })
+        return JsonResponse(
+            {
+                'success': False,
+                'image_id': int(image_id),
+                'form': render_to_string(
+                    'wagtailimages/multiple/edit_form.html',
+                    {'image': image, 'form': form},
+                    request=request,
+                ),
+            }
+        )
 
 
 @require_POST
@@ -151,12 +183,11 @@ def delete(request, image_id):
     if not request.is_ajax():
         return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-    if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, 'delete', image
+    ):
         raise PermissionDenied
 
     image.delete()
 
-    return JsonResponse({
-        'success': True,
-        'image_id': int(image_id),
-    })
+    return JsonResponse({'success': True, 'image_id': int(image_id)})

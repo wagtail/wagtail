@@ -28,7 +28,9 @@ class Author(models.Model):
 class Book(models.Model, index.Indexed):
     author = models.ForeignKey(Author, on_delete=models.PROTECT)
     title = models.CharField(max_length=255)
-    cover_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True, blank=True)
+    cover_image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.SET_NULL, null=True, blank=True
+    )
 
     def __str__(self):
         return self.title
@@ -56,6 +58,7 @@ class VenuePage(Page):
 
 class Visitor(models.Model):
     """model used to test modeladmin.edit_handler usage in get_edit_handler"""
+
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
@@ -67,6 +70,7 @@ class Visitor(models.Model):
 
 class Contributor(models.Model):
     """model used to test modeladmin.panels usage in get_edit_handler"""
+
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
@@ -78,6 +82,7 @@ class Contributor(models.Model):
 
 class Person(models.Model):
     """model used to test model.edit_handlers usage in get_edit_handler"""
+
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
@@ -88,9 +93,7 @@ class Person(models.Model):
         FieldPanel('last_name'),
         FieldPanel('phone_number'),
     ]
-    edit_handler = TabbedInterface([
-        ObjectList(panels),
-    ])
+    edit_handler = TabbedInterface([ObjectList(panels)])
 
     def __str__(self):
         return self.first_name
@@ -98,15 +101,13 @@ class Person(models.Model):
 
 class Friend(models.Model):
     """model used to test model.panels usage in get_edit_handler"""
+
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
 
-    panels = [
-        FieldPanel('first_name'),
-        FieldPanel('phone_number'),
-    ]
+    panels = [FieldPanel('first_name'), FieldPanel('phone_number')]
 
     def __str__(self):
         return self.first_name

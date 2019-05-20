@@ -69,8 +69,7 @@ class PermissionHelper:
         Return a boolean to indicate whether `user` is permitted to 'inspect'
         a specific `self.model` instance.
         """
-        return self.inspect_view_enabled and self.user_has_any_permissions(
-            user)
+        return self.inspect_view_enabled and self.user_has_any_permissions(user)
 
     def user_can_edit_obj(self, user, obj):
         """
@@ -112,8 +111,14 @@ class PagePermissionHelper(PermissionHelper):
         pages to make sure we have permission to add a subpage to it.
         """
         # Get queryset of pages where this page type can be added
-        allowed_parent_page_content_types = list(ContentType.objects.get_for_models(*self.model.allowed_parent_page_models()).values())
-        allowed_parent_pages = Page.objects.filter(content_type__in=allowed_parent_page_content_types)
+        allowed_parent_page_content_types = list(
+            ContentType.objects.get_for_models(
+                *self.model.allowed_parent_page_models()
+            ).values()
+        )
+        allowed_parent_pages = Page.objects.filter(
+            content_type__in=allowed_parent_page_content_types
+        )
 
         # Get queryset of pages where the user has permission to add subpages
         if user.is_superuser:
@@ -125,7 +130,9 @@ class PagePermissionHelper(PermissionHelper):
             for perm in user_perms.permissions.filter(permission_type='add'):
                 # user has add permission on any subpage of perm.page
                 # (including perm.page itself)
-                pages_where_user_can_add |= Page.objects.descendant_of(perm.page, inclusive=True)
+                pages_where_user_can_add |= Page.objects.descendant_of(
+                    perm.page, inclusive=True
+                )
 
         # Combine them
         return allowed_parent_pages & pages_where_user_can_add

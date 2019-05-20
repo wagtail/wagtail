@@ -33,9 +33,17 @@ class HalloFormatPlugin(HalloPlugin):
         super().__init__(**kwargs)
 
     def construct_plugins_list(self, plugins):
-        plugins.setdefault(self.name, {'formattings': {
-            'bold': False, 'italic': False, 'strikeThrough': False, 'underline': False
-        }})
+        plugins.setdefault(
+            self.name,
+            {
+                'formattings': {
+                    'bold': False,
+                    'italic': False,
+                    'strikeThrough': False,
+                    'underline': False,
+                }
+            },
+        )
         plugins[self.name]['formattings'][self.format_name] = True
 
 
@@ -61,19 +69,18 @@ class HalloListPlugin(HalloPlugin):
         super().__init__(**kwargs)
 
     def construct_plugins_list(self, plugins):
-        plugins.setdefault(self.name, {'lists': {
-            'ordered': False, 'unordered': False
-        }})
+        plugins.setdefault(self.name, {'lists': {'ordered': False, 'unordered': False}})
         plugins[self.name]['lists'][self.list_type] = True
 
 
 # Plugins which are always imported, and cannot be enabled/disabled via 'features'
 CORE_HALLO_PLUGINS = [
     HalloPlugin(name='halloreundo', order=50),
-    HalloPlugin(name='hallorequireparagraphs', js=[
-        'wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js',
-    ]),
-    HalloHeadingPlugin(element='p')
+    HalloPlugin(
+        name='hallorequireparagraphs',
+        js=['wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'],
+    ),
+    HalloHeadingPlugin(element='p'),
 ]
 
 
@@ -97,10 +104,15 @@ class HalloRichTextArea(widgets.Textarea):
 
         # construct a list of plugin objects, by querying the feature registry
         # and keeping the non-null responses from get_editor_plugin
-        self.plugins = CORE_HALLO_PLUGINS + list(filter(None, [
-            features.get_editor_plugin('hallo', feature_name)
-            for feature_name in self.features
-        ]))
+        self.plugins = CORE_HALLO_PLUGINS + list(
+            filter(
+                None,
+                [
+                    features.get_editor_plugin('hallo', feature_name)
+                    for feature_name in self.features
+                ],
+            )
+        )
         self.plugins.sort(key=lambda plugin: plugin.order)
 
         super().__init__(*args, **kwargs)
@@ -137,12 +149,13 @@ class HalloRichTextArea(widgets.Textarea):
 
     @property
     def media(self):
-        media = Media(js=[
-            'wagtailadmin/js/vendor/hallo.js',
-            'wagtailadmin/js/hallo-bootstrap.js',
-        ], css={
-            'all': ['wagtailadmin/css/panels/hallo.css']
-        })
+        media = Media(
+            js=[
+                'wagtailadmin/js/vendor/hallo.js',
+                'wagtailadmin/js/hallo-bootstrap.js',
+            ],
+            css={'all': ['wagtailadmin/css/panels/hallo.css']},
+        )
 
         for plugin in self.plugins:
             media += plugin.media

@@ -19,12 +19,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TableBlockStreamPage',
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('table', wagtail.core.fields.StreamField((('table', wagtail.contrib.table_block.blocks.TableBlock()),))),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='wagtailcore.Page',
+                    ),
+                ),
+                (
+                    'table',
+                    wagtail.core.fields.StreamField(
+                        (('table', wagtail.contrib.table_block.blocks.TableBlock()),)
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={'abstract': False},
             bases=('wagtailcore.page',),
-        ),
+        )
     ]

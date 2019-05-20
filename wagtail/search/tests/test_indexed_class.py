@@ -31,13 +31,17 @@ class TestContentTypeNames(TestCase):
 
 class TestSearchFields(TestCase):
     def make_dummy_type(self, search_fields):
-        return type(str('DummyType'), (index.Indexed, ), dict(search_fields=search_fields))
+        return type(
+            str('DummyType'), (index.Indexed,), dict(search_fields=search_fields)
+        )
 
     def test_basic(self):
-        cls = self.make_dummy_type([
-            index.SearchField('test', boost=100, partial_match=False),
-            index.FilterField('filter_test'),
-        ])
+        cls = self.make_dummy_type(
+            [
+                index.SearchField('test', boost=100, partial_match=False),
+                index.FilterField('filter_test'),
+            ]
+        )
 
         self.assertEqual(len(cls.get_search_fields()), 2)
         self.assertEqual(len(cls.get_searchable_search_fields()), 1)
@@ -53,10 +57,12 @@ class TestSearchFields(TestCase):
         #
         # ...causes the definitions in some_other_definitions to override Page.search_fields
         # as intended.
-        cls = self.make_dummy_type([
-            index.SearchField('test', boost=100, partial_match=False),
-            index.SearchField('test', partial_match=True),
-        ])
+        cls = self.make_dummy_type(
+            [
+                index.SearchField('test', boost=100, partial_match=False),
+                index.SearchField('test', partial_match=True),
+            ]
+        )
 
         self.assertEqual(len(cls.get_search_fields()), 1)
         self.assertEqual(len(cls.get_searchable_search_fields()), 1)
@@ -73,21 +79,25 @@ class TestSearchFields(TestCase):
 
     def test_different_field_types_dont_override(self):
         # A search and filter field with the same name should be able to coexist
-        cls = self.make_dummy_type([
-            index.SearchField('test', boost=100, partial_match=False),
-            index.FilterField('test'),
-        ])
+        cls = self.make_dummy_type(
+            [
+                index.SearchField('test', boost=100, partial_match=False),
+                index.FilterField('test'),
+            ]
+        )
 
         self.assertEqual(len(cls.get_search_fields()), 2)
         self.assertEqual(len(cls.get_searchable_search_fields()), 1)
         self.assertEqual(len(cls.get_filterable_search_fields()), 1)
 
     def test_checking_search_fields(self):
-        with patch_search_fields(models.Book, models.Book.search_fields + [index.SearchField('foo')]):
+        with patch_search_fields(
+            models.Book, models.Book.search_fields + [index.SearchField('foo')]
+        ):
             expected_errors = [
                 checks.Warning(
                     "Book.search_fields contains non-existent field 'foo'",
-                    obj=models.Book
+                    obj=models.Book,
                 )
             ]
             errors = models.Book.check()

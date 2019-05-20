@@ -21,7 +21,7 @@ FORM_FIELD_OVERRIDES = {
 # (This allows us to override the widget for models.TextField, but leave
 # the RichTextField widget alone)
 DIRECT_FORM_FIELD_OVERRIDES = {
-    models.TextField: {'widget': widgets.AdminAutoHeightTextInput},
+    models.TextField: {'widget': widgets.AdminAutoHeightTextInput}
 }
 
 
@@ -63,7 +63,9 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
         if 'formfield_callback' not in attrs or attrs['formfield_callback'] is None:
             attrs['formfield_callback'] = formfield_for_dbfield
 
-        new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
+        new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(
+            cls, name, bases, attrs
+        )
         return new_class
 
 

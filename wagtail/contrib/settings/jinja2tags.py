@@ -17,11 +17,12 @@ class ContextCache(dict):
     """
     A cache of Sites and their Settings for a template Context
     """
+
     def __missing__(self, key):
         """
         Make a SiteSetting for a new Site
         """
-        if not(isinstance(key, Site)):
+        if not (isinstance(key, Site)):
             raise TypeError
         out = self[key] = SiteSettings(key)
         return out
@@ -31,6 +32,7 @@ class SiteSettings(dict):
     """
     A cache of Settings for a specific Site
     """
+
     def __init__(self, site):
         super().__init__()
         self.site = site
@@ -62,8 +64,9 @@ def get_setting(context, model_string, use_default_site=False):
     elif 'request' in context:
         site = context['request'].site
     else:
-        raise RuntimeError('No request found in context, and use_default_site '
-                           'flag not set')
+        raise RuntimeError(
+            'No request found in context, and use_default_site ' 'flag not set'
+        )
 
     # Sadly, WeakKeyDictionary can not implement __missing__, so we have to do
     # this one manually
@@ -78,9 +81,7 @@ def get_setting(context, model_string, use_default_site=False):
 class SettingsExtension(Extension):
     def __init__(self, environment):
         super().__init__(environment)
-        self.environment.globals.update({
-            'settings': get_setting,
-        })
+        self.environment.globals.update({'settings': get_setting})
 
 
 settings = SettingsExtension

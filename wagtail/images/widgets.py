@@ -20,13 +20,16 @@ class AdminImageChooser(AdminChooser):
         instance, value = self.get_instance_and_id(self.image_model, value)
         original_field_html = super().render_html(name, value, attrs)
 
-        return render_to_string("wagtailimages/widgets/image_chooser.html", {
-            'widget': self,
-            'original_field_html': original_field_html,
-            'attrs': attrs,
-            'value': value,
-            'image': instance,
-        })
+        return render_to_string(
+            "wagtailimages/widgets/image_chooser.html",
+            {
+                'widget': self,
+                'original_field_html': original_field_html,
+                'attrs': attrs,
+                'value': value,
+                'image': instance,
+            },
+        )
 
     def render_js_init(self, id_, name, value):
         return "createImageChooser({0});".format(json.dumps(id_))

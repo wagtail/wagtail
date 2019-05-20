@@ -15,7 +15,12 @@ def extract_attrs(attr_string):
     """
     attributes = {}
     for name, val in FIND_ATTRS.findall(attr_string):
-        val = val.replace('&lt;', '<').replace('&gt;', '>').replace('&quot;', '"').replace('&amp;', '&')
+        val = (
+            val.replace('&lt;', '<')
+            .replace('&gt;', '>')
+            .replace('&quot;', '"')
+            .replace('&amp;', '&')
+        )
         attributes[name] = val
     return attributes
 
@@ -26,6 +31,7 @@ class EmbedRewriter:
     embed rule for 'foo'. Each embed rule is a function that takes a dict of attributes and
     returns the HTML fragment.
     """
+
     def __init__(self, embed_rules):
         self.embed_rules = embed_rules
 
@@ -48,6 +54,7 @@ class LinkRewriter:
     rule for 'foo'. Each link rule is a function that takes a dict of attributes and
     returns the HTML fragment for the opening tag (only).
     """
+
     def __init__(self, link_rules):
         self.link_rules = link_rules
 
@@ -89,6 +96,7 @@ class LinkRewriter:
 
 class MultiRuleRewriter:
     """Rewrites HTML by applying a sequence of rewriter functions"""
+
     def __init__(self, rewriters):
         self.rewriters = rewriters
 

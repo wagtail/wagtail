@@ -5,7 +5,11 @@ from django.test import TestCase
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.core.models import Page
 from wagtail.tests.testapp.models import (
-    ExtendedFormField, FormField, FormPage, FormPageWithCustomFormBuilder)
+    ExtendedFormField,
+    FormField,
+    FormPage,
+    FormPageWithCustomFormBuilder,
+)
 
 
 class TestFormBuilder(TestCase):
@@ -13,13 +17,15 @@ class TestFormBuilder(TestCase):
         # Create a form page
         home_page = Page.objects.get(url_path='/home/')
 
-        self.form_page = home_page.add_child(instance=FormPage(
-            title="Contact us",
-            slug="contact-us",
-            to_address="to@email.com",
-            from_address="from@email.com",
-            subject="The subject",
-        ))
+        self.form_page = home_page.add_child(
+            instance=FormPage(
+                title="Contact us",
+                slug="contact-us",
+                to_address="to@email.com",
+                from_address="from@email.com",
+                subject="The subject",
+            )
+        )
 
         FormField.objects.create(
             page=self.form_page,
@@ -147,22 +153,46 @@ class TestFormBuilder(TestCase):
         self.assertIsInstance(form_class.base_fields['your-name'], forms.CharField)
         self.assertIsInstance(form_class.base_fields['your-message'], forms.CharField)
         self.assertIsInstance(form_class.base_fields['your-birthday'], forms.DateField)
-        self.assertIsInstance(form_class.base_fields['your-birthtime'], forms.DateTimeField)
+        self.assertIsInstance(
+            form_class.base_fields['your-birthtime'], forms.DateTimeField
+        )
         self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
         self.assertIsInstance(form_class.base_fields['your-homepage'], forms.URLField)
-        self.assertIsInstance(form_class.base_fields['your-favourite-number'], forms.DecimalField)
-        self.assertIsInstance(form_class.base_fields['your-favourite-text-editors'], forms.MultipleChoiceField)
-        self.assertIsInstance(form_class.base_fields['your-favourite-python-ides'], forms.ChoiceField)
-        self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'], forms.ChoiceField)
-        self.assertIsInstance(form_class.base_fields['your-choices'], forms.MultipleChoiceField)
-        self.assertIsInstance(form_class.base_fields['i-agree-to-the-terms-of-use'], forms.BooleanField)
+        self.assertIsInstance(
+            form_class.base_fields['your-favourite-number'], forms.DecimalField
+        )
+        self.assertIsInstance(
+            form_class.base_fields['your-favourite-text-editors'],
+            forms.MultipleChoiceField,
+        )
+        self.assertIsInstance(
+            form_class.base_fields['your-favourite-python-ides'], forms.ChoiceField
+        )
+        self.assertIsInstance(
+            form_class.base_fields['your-favourite-python-ide'], forms.ChoiceField
+        )
+        self.assertIsInstance(
+            form_class.base_fields['your-choices'], forms.MultipleChoiceField
+        )
+        self.assertIsInstance(
+            form_class.base_fields['i-agree-to-the-terms-of-use'], forms.BooleanField
+        )
         self.assertIsInstance(form_class.base_fields['a-hidden-field'], forms.CharField)
 
         # Some fields have non-default widgets
-        self.assertIsInstance(form_class.base_fields['your-message'].widget, forms.Textarea)
-        self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'].widget, forms.RadioSelect)
-        self.assertIsInstance(form_class.base_fields['your-choices'].widget, forms.CheckboxSelectMultiple)
-        self.assertIsInstance(form_class.base_fields['a-hidden-field'].widget, forms.HiddenInput)
+        self.assertIsInstance(
+            form_class.base_fields['your-message'].widget, forms.Textarea
+        )
+        self.assertIsInstance(
+            form_class.base_fields['your-favourite-python-ide'].widget,
+            forms.RadioSelect,
+        )
+        self.assertIsInstance(
+            form_class.base_fields['your-choices'].widget, forms.CheckboxSelectMultiple
+        )
+        self.assertIsInstance(
+            form_class.base_fields['a-hidden-field'].widget, forms.HiddenInput
+        )
 
 
 class TestCustomFormBuilder(TestCase):
@@ -209,4 +239,5 @@ class TestCustomFormBuilder(TestCase):
         form = form_class()
         # check ip address field used
         self.assertIsInstance(
-            form.base_fields['device-ip-address'], forms.GenericIPAddressField)
+            form.base_fields['device-ip-address'], forms.GenericIPAddressField
+        )

@@ -2,7 +2,11 @@ from django.db.models import Model
 from django.utils.safestring import mark_safe
 
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
-from wagtail.core.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
+from wagtail.core.rich_text.rewriters import (
+    EmbedRewriter,
+    LinkRewriter,
+    MultiRuleRewriter,
+)
 
 
 features = FeatureRegistry()
@@ -24,10 +28,22 @@ def expand_db_html(html):
     if FRONTEND_REWRITER is None:
         embed_rules = features.get_embed_types()
         link_rules = features.get_link_types()
-        FRONTEND_REWRITER = MultiRuleRewriter([
-            LinkRewriter({linktype: handler.expand_db_attributes for linktype, handler in link_rules.items()}),
-            EmbedRewriter({embedtype: handler.expand_db_attributes for embedtype, handler in embed_rules.items()})
-        ])
+        FRONTEND_REWRITER = MultiRuleRewriter(
+            [
+                LinkRewriter(
+                    {
+                        linktype: handler.expand_db_attributes
+                        for linktype, handler in link_rules.items()
+                    }
+                ),
+                EmbedRewriter(
+                    {
+                        embedtype: handler.expand_db_attributes
+                        for embedtype, handler in embed_rules.items()
+                    }
+                ),
+            ]
+        )
 
     return FRONTEND_REWRITER(html)
 
@@ -39,8 +55,9 @@ class RichText:
     and renders to the front-end HTML rendering.
     Used as the native value of a wagtailcore.blocks.field_block.RichTextBlock.
     """
+
     def __init__(self, source):
-        self.source = (source or '')
+        self.source = source or ''
 
     def __html__(self):
         return '<div class="rich-text">' + expand_db_html(self.source) + '</div>'
@@ -50,6 +67,7 @@ class RichText:
 
     def __bool__(self):
         return bool(self.source)
+
     __nonzero__ = __bool__
 
 
@@ -65,6 +83,7 @@ class EntityHandler:
     Currently Wagtail supports two kinds of entity: links (represented as <a linktype="...">...</a>)
     and embeds (represented as <embed embedtype="..." />).
     """
+
     @staticmethod
     def get_model():
         """

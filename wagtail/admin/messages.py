@@ -5,11 +5,10 @@ from django.utils.html import format_html, format_html_join
 
 
 def render(message, buttons, detail=''):
-    return render_to_string('wagtailadmin/shared/messages.html', {
-        'message': message,
-        'buttons': buttons,
-        'detail': detail,
-    })
+    return render_to_string(
+        'wagtailadmin/shared/messages.html',
+        {'message': message, 'buttons': buttons, 'detail': detail},
+    )
 
 
 def debug(request, message, buttons=None):

@@ -1,7 +1,11 @@
 from .elasticsearch2 import ElasticsearchAutocompleteQueryCompilerImpl
 from .elasticsearch5 import (
-    Elasticsearch5Index, Elasticsearch5Mapping, Elasticsearch5SearchBackend,
-    Elasticsearch5SearchQueryCompiler, Elasticsearch5SearchResults)
+    Elasticsearch5Index,
+    Elasticsearch5Mapping,
+    Elasticsearch5SearchBackend,
+    Elasticsearch5SearchQueryCompiler,
+    Elasticsearch5SearchResults,
+)
 
 
 class Elasticsearch6Mapping(Elasticsearch5Mapping):
@@ -18,7 +22,9 @@ class Elasticsearch6Mapping(Elasticsearch5Mapping):
         mapping = super().get_mapping()
 
         # Add _all_text field
-        mapping[self.get_document_type()]['properties'][self.all_field_name] = {'type': 'text'}
+        mapping[self.get_document_type()]['properties'][self.all_field_name] = {
+            'type': 'text'
+        }
 
         # Replace {"include_in_all": true} with {"copy_to": "_all_text"}
         def replace_include_in_all(mapping):
@@ -49,7 +55,9 @@ class Elasticsearch6SearchResults(Elasticsearch5SearchResults):
     pass
 
 
-class Elasticsearch6AutocompleteQueryCompiler(Elasticsearch6SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
+class Elasticsearch6AutocompleteQueryCompiler(
+    Elasticsearch6SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl
+):
     pass
 
 

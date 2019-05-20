@@ -9,7 +9,11 @@ from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
-from wagtail.admin.utils import any_permission_required, permission_denied, permission_required
+from wagtail.admin.utils import (
+    any_permission_required,
+    permission_denied,
+    permission_required,
+)
 from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.users.forms import UserCreationForm, UserEditForm
@@ -22,8 +26,12 @@ User = get_user_model()
 # 'auth.delete_user') for user management actions, but this may vary according to
 # the AUTH_USER_MODEL setting
 add_user_perm = "{0}.add_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
-change_user_perm = "{0}.change_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
-delete_user_perm = "{0}.delete_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
+change_user_perm = "{0}.change_{1}".format(
+    AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
+)
+delete_user_perm = "{0}.delete_{1}".format(
+    AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
+)
 
 
 def get_user_creation_form():
@@ -92,20 +100,28 @@ def index(request):
     users = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():
-        return render(request, "wagtailusers/users/results.html", {
-            'users': users,
-            'is_searching': is_searching,
-            'query_string': q,
-            'ordering': ordering,
-        })
+        return render(
+            request,
+            "wagtailusers/users/results.html",
+            {
+                'users': users,
+                'is_searching': is_searching,
+                'query_string': q,
+                'ordering': ordering,
+            },
+        )
     else:
-        return render(request, "wagtailusers/users/index.html", {
-            'search_form': form,
-            'users': users,
-            'is_searching': is_searching,
-            'ordering': ordering,
-            'query_string': q,
-        })
+        return render(
+            request,
+            "wagtailusers/users/index.html",
+            {
+                'search_form': form,
+                'users': users,
+                'is_searching': is_searching,
+                'ordering': ordering,
+                'query_string': q,
+            },
+        )
 
 
 @permission_required(add_user_perm)
@@ -118,9 +134,15 @@ def create(request):
         form = get_user_creation_form()(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
-            messages.success(request, _("User '{0}' created.").format(user), buttons=[
-                messages.button(reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit'))
-            ])
+            messages.success(
+                request,
+                _("User '{0}' created.").format(user),
+                buttons=[
+                    messages.button(
+                        reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit')
+                    )
+                ],
+            )
             for fn in hooks.get_hooks('after_create_user'):
                 result = fn(request, user)
                 if hasattr(result, 'status_code'):
@@ -131,9 +153,7 @@ def create(request):
     else:
         form = get_user_creation_form()()
 
-    return render(request, 'wagtailusers/users/create.html', {
-        'form': form,
-    })
+    return render(request, 'wagtailusers/users/create.html', {'form': form})
 
 
 @permission_required(change_user_perm)
@@ -147,7 +167,9 @@ def edit(request, user_id):
         if hasattr(result, 'status_code'):
             return result
     if request.method == 'POST':
-        form = get_user_edit_form()(request.POST, request.FILES, instance=user, editing_self=editing_self)
+        form = get_user_edit_form()(
+            request.POST, request.FILES, instance=user, editing_self=editing_self
+        )
         if form.is_valid():
             user = form.save()
 
@@ -155,9 +177,15 @@ def edit(request, user_id):
                 # User is changing their own password; need to update their session hash
                 update_session_auth_hash(request, user)
 
-            messages.success(request, _("User '{0}' updated.").format(user), buttons=[
-                messages.button(reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit'))
-            ])
+            messages.success(
+                request,
+                _("User '{0}' updated.").format(user),
+                buttons=[
+                    messages.button(
+                        reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit')
+                    )
+                ],
+            )
             for fn in hooks.get_hooks('after_edit_user'):
                 result = fn(request, user)
                 if hasattr(result, 'status_code'):
@@ -168,11 +196,11 @@ def edit(request, user_id):
     else:
         form = get_user_edit_form()(instance=user, editing_self=editing_self)
 
-    return render(request, 'wagtailusers/users/edit.html', {
-        'user': user,
-        'form': form,
-        'can_delete': can_delete,
-    })
+    return render(
+        request,
+        'wagtailusers/users/edit.html',
+        {'user': user, 'form': form, 'can_delete': can_delete},
+    )
 
 
 @permission_required(delete_user_perm)
@@ -195,6 +223,4 @@ def delete(request, user_id):
                 return result
         return redirect('wagtailusers_users:index')
 
-    return render(request, "wagtailusers/users/confirm_delete.html", {
-        'user': user,
-    })
+    return render(request, "wagtailusers/users/confirm_delete.html", {'user': user})

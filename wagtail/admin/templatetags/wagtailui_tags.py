@@ -10,8 +10,4 @@ def wagtail_icon(name=None, classname='', title=None):
 
     First load the tags with {% load wagtailui_tags %}
     """
-    return {
-        'name': name,
-        'classname': classname,
-        'title': title,
-    }
+    return {'name': name, 'classname': classname, 'title': title}

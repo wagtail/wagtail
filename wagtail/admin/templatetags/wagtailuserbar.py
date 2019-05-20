@@ -2,8 +2,13 @@ from django import template
 from django.template.loader import render_to_string
 
 from wagtail.admin.userbar import (
-    AddPageItem, AdminItem, ApproveModerationEditPageItem, EditPageItem, ExplorePageItem,
-    RejectModerationEditPageItem)
+    AddPageItem,
+    AdminItem,
+    ApproveModerationEditPageItem,
+    EditPageItem,
+    ExplorePageItem,
+    RejectModerationEditPageItem,
+)
 from wagtail.core import hooks
 from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, PageRevision
 
@@ -90,10 +95,13 @@ def wagtailuserbar(context, position='bottom-right'):
     rendered_items = [item for item in rendered_items if item]
 
     # Render the userbar items
-    return render_to_string('wagtailadmin/userbar/base.html', {
-        'request': request,
-        'items': rendered_items,
-        'position': position,
-        'page': page,
-        'revision_id': revision_id
-    })
+    return render_to_string(
+        'wagtailadmin/userbar/base.html',
+        {
+            'request': request,
+            'items': rendered_items,
+            'position': position,
+            'page': page,
+            'revision_id': revision_id,
+        },
+    )

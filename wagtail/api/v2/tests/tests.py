@@ -9,89 +9,62 @@ class TestParseFieldsParameter(TestCase):
     def test_valid_single_field(self):
         parsed = parse_fields_parameter('test')
 
-        self.assertEqual(parsed, [
-            ('test', False, None),
-        ])
+        self.assertEqual(parsed, [('test', False, None)])
 
     def test_valid_multiple_fields(self):
         parsed = parse_fields_parameter('test,another_test')
 
-        self.assertEqual(parsed, [
-            ('test', False, None),
-            ('another_test', False, None),
-        ])
+        self.assertEqual(parsed, [('test', False, None), ('another_test', False, None)])
 
     def test_valid_negated_field(self):
         parsed = parse_fields_parameter('-test')
 
-        self.assertEqual(parsed, [
-            ('test', True, None),
-        ])
+        self.assertEqual(parsed, [('test', True, None)])
 
     def test_valid_nested_fields(self):
         parsed = parse_fields_parameter('test(foo,bar)')
 
-        self.assertEqual(parsed, [
-            ('test', False, [
-                ('foo', False, None),
-                ('bar', False, None),
-            ]),
-        ])
+        self.assertEqual(
+            parsed, [('test', False, [('foo', False, None), ('bar', False, None)])]
+        )
 
     def test_valid_star_field(self):
         parsed = parse_fields_parameter('*,-test')
 
-        self.assertEqual(parsed, [
-            ('*', False, None),
-            ('test', True, None),
-        ])
+        self.assertEqual(parsed, [('*', False, None), ('test', True, None)])
 
     def test_valid_star_with_additional_field(self):
         # Note: '*,test' is not allowed but '*,test(foo)' is
         parsed = parse_fields_parameter('*,test(foo)')
 
-        self.assertEqual(parsed, [
-            ('*', False, None),
-            ('test', False, [
-                ('foo', False, None),
-            ]),
-        ])
+        self.assertEqual(
+            parsed, [('*', False, None), ('test', False, [('foo', False, None)])]
+        )
 
     def test_valid_underscore_field(self):
         parsed = parse_fields_parameter('_,test')
 
-        self.assertEqual(parsed, [
-            ('_', False, None),
-            ('test', False, None),
-        ])
+        self.assertEqual(parsed, [('_', False, None), ('test', False, None)])
 
     def test_valid_field_with_underscore_in_middle(self):
         parsed = parse_fields_parameter('a_test')
 
-        self.assertEqual(parsed, [
-            ('a_test', False, None),
-        ])
+        self.assertEqual(parsed, [('a_test', False, None)])
 
     def test_valid_negated_field_with_underscore_in_middle(self):
         parsed = parse_fields_parameter('-a_test')
 
-        self.assertEqual(parsed, [
-            ('a_test', True, None),
-        ])
+        self.assertEqual(parsed, [('a_test', True, None)])
 
     def test_valid_field_with_underscore_at_beginning(self):
         parsed = parse_fields_parameter('_test')
 
-        self.assertEqual(parsed, [
-            ('_test', False, None),
-        ])
+        self.assertEqual(parsed, [('_test', False, None)])
 
     def test_valid_field_with_underscore_at_end(self):
         parsed = parse_fields_parameter('test_')
 
-        self.assertEqual(parsed, [
-            ('test_', False, None),
-        ])
+        self.assertEqual(parsed, [('test_', False, None)])
 
     # BAD STUFF
 
@@ -159,7 +132,10 @@ class TestParseFieldsParameter(TestCase):
         with self.assertRaises(FieldsParameterParseError) as e:
             parse_fields_parameter('test(foo')
 
-        self.assertEqual(str(e.exception), "unexpected end of input (did you miss out a close bracket?)")
+        self.assertEqual(
+            str(e.exception),
+            "unexpected end of input (did you miss out a close bracket?)",
+        )
 
     def test_invalid_subfields_on_negated_field(self):
         with self.assertRaises(FieldsParameterParseError) as e:
@@ -201,7 +177,9 @@ class TestParseFieldsParameter(TestCase):
         with self.assertRaises(FieldsParameterParseError) as e:
             parse_fields_parameter('*,foo')
 
-        self.assertEqual(str(e.exception), "additional fields with '*' doesn't make sense")
+        self.assertEqual(
+            str(e.exception), "additional fields with '*' doesn't make sense"
+        )
 
     def test_invalid_underscore_in_wrong_position(self):
         with self.assertRaises(FieldsParameterParseError) as e:

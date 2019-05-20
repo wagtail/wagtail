@@ -9,6 +9,6 @@ def get_custom_form(form_setting):
         return import_string(getattr(settings, form_setting))
     except ImportError:
         raise ImproperlyConfigured(
-            "%s refers to a form '%s' that is not available" %
-            (form_setting, getattr(settings, form_setting))
+            "%s refers to a form '%s' that is not available"
+            % (form_setting, getattr(settings, form_setting))
         )

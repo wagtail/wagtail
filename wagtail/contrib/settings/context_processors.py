@@ -5,6 +5,7 @@ class SettingsProxy(dict):
     """
     Get a SettingModuleProxy for an app using proxy['app_label']
     """
+
     def __init__(self, site):
         self.site = site
 
@@ -20,6 +21,7 @@ class SettingModuleProxy(dict):
     """
     Get a setting instance using proxy['modelname']
     """
+
     def __init__(self, site, app_label):
         self.site = site
         self.app_label = app_label

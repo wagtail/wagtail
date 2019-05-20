@@ -5,9 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailimages', '0005_make_filter_spec_unique'),
-    ]
+    dependencies = [('wagtailimages', '0005_make_filter_spec_unique')]
 
     operations = [
         migrations.AlterField(
@@ -25,8 +23,11 @@ class Migration(migrations.Migration):
             name='uploaded_by_user',
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True,
-                verbose_name='Uploaded by user'
+                blank=True,
+                editable=False,
+                to=settings.AUTH_USER_MODEL,
+                null=True,
+                verbose_name='Uploaded by user',
             ),
         ),
         migrations.AlterField(

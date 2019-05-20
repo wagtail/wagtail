@@ -9,4 +9,5 @@ class WagtailCoreAppConfig(AppConfig):
 
     def ready(self):
         from wagtail.core.signal_handlers import register_signal_handlers
+
         register_signal_handlers()

@@ -13,8 +13,7 @@ class TestShortcuts(TestCase):
     def test_fallback_to_not_found(self):
         bad_image = Image.objects.get(id=1)
         good_image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
         rendition = get_rendition_or_not_found(good_image, 'width-400')

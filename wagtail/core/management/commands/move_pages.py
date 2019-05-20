@@ -17,7 +17,13 @@ class Command(BaseCommand):
 
         # Move the pages
         self.stdout.write(
-            'Moving ' + str(len(pages)) + ' pages from "' + from_page.title + '" to "' + to_page.title + '"'
+            'Moving '
+            + str(len(pages))
+            + ' pages from "'
+            + from_page.title
+            + '" to "'
+            + to_page.title
+            + '"'
         )
         for page in pages:
             page.move(to_page, pos='last-child')

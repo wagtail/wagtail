@@ -9,7 +9,7 @@ def get_pages_with_direct_explore_permission(user):
     else:
         return Page.objects.filter(
             group_permissions__group__in=user.groups.all(),
-            group_permissions__permission_type__in=['add', 'edit', 'publish', 'lock']
+            group_permissions__permission_type__in=['add', 'edit', 'publish', 'lock'],
         )
 
 
@@ -18,8 +18,6 @@ def get_explorable_root_page(user):
     # has no permissions over any pages, this method will return None.
     pages = get_pages_with_direct_explore_permission(user)
     if pages:
-        return pages.first_common_ancestor(
-            include_self=True,
-            strict=True)
+        return pages.first_common_ancestor(include_self=True, strict=True)
     else:
         return None

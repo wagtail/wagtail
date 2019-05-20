@@ -11,6 +11,7 @@ class DocumentDownloadUrlField(Field):
     Example:
     "download_url": "http://api.example.com/documents/1/my_document.pdf"
     """
+
     def get_attribute(self, instance):
         return instance
 

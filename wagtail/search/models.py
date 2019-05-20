@@ -20,7 +20,9 @@ class Query(models.Model):
     def add_hit(self, date=None):
         if date is None:
             date = timezone.now().date()
-        daily_hits, created = QueryDailyHits.objects.get_or_create(query=self, date=date)
+        daily_hits, created = QueryDailyHits.objects.get_or_create(
+            query=self, date=date
+        )
         daily_hits.hits = models.F('hits') + 1
         daily_hits.save()
 
@@ -37,24 +39,32 @@ class Query(models.Model):
         """
         Deletes all Query records that have no daily hits or editors picks
         """
-        extra_filter_kwargs = {'editors_picks__isnull': True, } if hasattr(cls, 'editors_picks') \
-            else {}
+        extra_filter_kwargs = (
+            {'editors_picks__isnull': True} if hasattr(cls, 'editors_picks') else {}
+        )
         cls.objects.filter(daily_hits__isnull=True, **extra_filter_kwargs).delete()
 
     @classmethod
     def get(cls, query_string):
-        return cls.objects.get_or_create(query_string=normalise_query_string(query_string))[0]
+        return cls.objects.get_or_create(
+            query_string=normalise_query_string(query_string)
+        )[0]
 
     @classmethod
     def get_most_popular(cls, date_since=None):
         # TODO: Implement date_since
-        return (cls.objects.filter(daily_hits__isnull=False)
-                .annotate(_hits=models.Sum('daily_hits__hits'))
-                .distinct().order_by('-_hits'))
+        return (
+            cls.objects.filter(daily_hits__isnull=False)
+            .annotate(_hits=models.Sum('daily_hits__hits'))
+            .distinct()
+            .order_by('-_hits')
+        )
 
 
 class QueryDailyHits(models.Model):
-    query = models.ForeignKey(Query, db_index=True, related_name='daily_hits', on_delete=models.CASCADE)
+    query = models.ForeignKey(
+        Query, db_index=True, related_name='daily_hits', on_delete=models.CASCADE
+    )
     date = models.DateField()
     hits = models.IntegerField(default=0)
 
@@ -63,14 +73,14 @@ class QueryDailyHits(models.Model):
         """
         Deletes all QueryDailyHits records that are older than a set number of days
         """
-        days = getattr(settings, 'WAGTAILSEARCH_HITS_MAX_AGE', 7) if days is None else days
+        days = (
+            getattr(settings, 'WAGTAILSEARCH_HITS_MAX_AGE', 7) if days is None else days
+        )
         min_date = timezone.now().date() - datetime.timedelta(days)
 
         cls.objects.filter(date__lt=min_date).delete()
 
     class Meta:
-        unique_together = (
-            ('query', 'date'),
-        )
+        unique_together = (('query', 'date'),)
         verbose_name = _('Query Daily Hits')
         verbose_name_plural = _('Query Daily Hits')

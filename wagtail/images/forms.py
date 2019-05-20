@@ -5,7 +5,9 @@ from django.utils.translation import ugettext as _
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.collections import (
-    BaseCollectionMemberForm, collection_member_permission_formset_factory)
+    BaseCollectionMemberForm,
+    collection_member_permission_formset_factory,
+)
 from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import get_image_formats
 from wagtail.images.models import Image
@@ -48,9 +50,14 @@ def get_image_form(model):
             'file': forms.FileInput(),
             'focal_point_x': forms.HiddenInput(attrs={'class': 'focal_point_x'}),
             'focal_point_y': forms.HiddenInput(attrs={'class': 'focal_point_y'}),
-            'focal_point_width': forms.HiddenInput(attrs={'class': 'focal_point_width'}),
-            'focal_point_height': forms.HiddenInput(attrs={'class': 'focal_point_height'}),
-        })
+            'focal_point_width': forms.HiddenInput(
+                attrs={'class': 'focal_point_width'}
+            ),
+            'focal_point_height': forms.HiddenInput(
+                attrs={'class': 'focal_point_height'}
+            ),
+        },
+    )
 
 
 class ImageInsertionForm(forms.Form):
@@ -58,9 +65,10 @@ class ImageInsertionForm(forms.Form):
     Form for selecting parameters of the image (e.g. format) prior to insertion
     into a rich text area
     """
+
     format = forms.ChoiceField(
         choices=[(format.name, format.label) for format in get_image_formats()],
-        widget=forms.RadioSelect
+        widget=forms.RadioSelect,
     )
     alt_text = forms.CharField()
 
@@ -88,5 +96,5 @@ GroupImagePermissionFormSet = collection_member_permission_formset_factory(
         ('add_image', _("Add"), _("Add/edit images you own")),
         ('change_image', _("Edit"), _("Edit any image")),
     ],
-    'wagtailimages/permissions/includes/image_permissions_formset.html'
+    'wagtailimages/permissions/includes/image_permissions_formset.html',
 )

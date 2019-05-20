@@ -8,14 +8,18 @@ import wagtail.core.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('tests', '0012_panelsettings_tabbedsettings'),
-    ]
+    dependencies = [('tests', '0012_panelsettings_tabbedsettings')]
 
     operations = [
         migrations.AlterField(
             model_name='streampage',
             name='body',
-            field=wagtail.core.fields.StreamField([('text', wagtail.core.blocks.CharBlock()), ('rich_text', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.tests.testapp.models.ExtendedImageChooserBlock())]),
-        ),
+            field=wagtail.core.fields.StreamField(
+                [
+                    ('text', wagtail.core.blocks.CharBlock()),
+                    ('rich_text', wagtail.core.blocks.RichTextBlock()),
+                    ('image', wagtail.tests.testapp.models.ExtendedImageChooserBlock()),
+                ]
+            ),
+        )
     ]

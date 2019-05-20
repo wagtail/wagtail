@@ -69,7 +69,9 @@ class Delete(DeleteView):
     index_url_name = 'wagtailadmin_collections:index'
     delete_url_name = 'wagtailadmin_collections:delete'
     page_title = ugettext_lazy("Delete collection")
-    confirmation_message = ugettext_lazy("Are you sure you want to delete this collection?")
+    confirmation_message = ugettext_lazy(
+        "Are you sure you want to delete this collection?"
+    )
     header_icon = 'folder-open-1'
 
     def get_queryset(self):

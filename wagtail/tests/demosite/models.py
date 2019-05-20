@@ -6,7 +6,12 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.api import APIField
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
@@ -19,6 +24,7 @@ from wagtail.search import index
 # ABSTRACT MODELS
 # =============================
 
+
 class AbstractLinkFields(models.Model):
     link_external = models.URLField("External link", blank=True)
     link_page = models.ForeignKey(
@@ -26,14 +32,14 @@ class AbstractLinkFields(models.Model):
         null=True,
         blank=True,
         related_name='+',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     link_document = models.ForeignKey(
         'wagtaildocs.Document',
         null=True,
         blank=True,
         related_name='+',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
     @property
@@ -45,7 +51,7 @@ class AbstractLinkFields(models.Model):
         else:
             return self.link_external
 
-    api_fields = ('link', )
+    api_fields = ('link',)
 
     panels = [
         FieldPanel('link_external'),
@@ -60,12 +66,9 @@ class AbstractLinkFields(models.Model):
 class AbstractRelatedLink(AbstractLinkFields):
     title = models.CharField(max_length=255, help_text="Link title")
 
-    api_fields = ('title', ) + AbstractLinkFields.api_fields
+    api_fields = ('title',) + AbstractLinkFields.api_fields
 
-    panels = [
-        FieldPanel('title'),
-        MultiFieldPanel(AbstractLinkFields.panels, "Link"),
-    ]
+    panels = [FieldPanel('title'), MultiFieldPanel(AbstractLinkFields.panels, "Link")]
 
     class Meta:
         abstract = True
@@ -77,16 +80,12 @@ class AbstractCarouselItem(AbstractLinkFields):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
     embed_url = models.URLField("Embed URL", blank=True)
     caption = models.CharField(max_length=255, blank=True)
 
-    api_fields = (
-        'image',
-        'embed_url',
-        'caption',
-    ) + AbstractLinkFields.api_fields
+    api_fields = ('image', 'embed_url', 'caption') + AbstractLinkFields.api_fields
 
     panels = [
         ImageChooserPanel('image'),
@@ -137,35 +136,35 @@ class ContactFieldsMixin(models.Model):
 
 # Home page
 
+
 class HomePage(Page):
-    page_ptr = models.OneToOneField(Page, parent_link=True, related_name='+', on_delete=models.CASCADE)
+    page_ptr = models.OneToOneField(
+        Page, parent_link=True, related_name='+', on_delete=models.CASCADE
+    )
     body = RichTextField(blank=True)
 
-    api_fields = (
-        'body',
-        'carousel_items',
-        'related_links',
-    )
+    api_fields = ('body', 'carousel_items', 'related_links')
 
-    search_fields = Page.search_fields + [
-        index.SearchField('body'),
-    ]
+    search_fields = Page.search_fields + [index.SearchField('body')]
 
     class Meta:
         verbose_name = "homepage"
 
 
 class HomePageCarouselItem(Orderable, AbstractCarouselItem):
-    page = ParentalKey('HomePage', related_name='carousel_items', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'HomePage', related_name='carousel_items', on_delete=models.CASCADE
+    )
 
 
 class HomePageRelatedLink(Orderable, AbstractRelatedLink):
-    page = ParentalKey('HomePage', related_name='related_links', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'HomePage', related_name='related_links', on_delete=models.CASCADE
+    )
 
 
 HomePage.content_panels = Page.content_panels + [
     FieldPanel('body', classname="full"),
-
     InlinePanel('carousel_items', label="Carousel items"),
     InlinePanel('related_links', label="Related links"),
 ]
@@ -173,8 +172,11 @@ HomePage.content_panels = Page.content_panels + [
 
 # Standard pages
 
+
 class StandardPage(Page):
-    page_ptr = models.OneToOneField(Page, parent_link=True, related_name='+', on_delete=models.CASCADE)
+    page_ptr = models.OneToOneField(
+        Page, parent_link=True, related_name='+', on_delete=models.CASCADE
+    )
     intro = RichTextField(blank=True)
     body = RichTextField(blank=True)
     feed_image = models.ForeignKey(
@@ -182,16 +184,10 @@ class StandardPage(Page):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
 
-    api_fields = (
-        'intro',
-        'body',
-        'feed_image',
-        'carousel_items',
-        'related_links',
-    )
+    api_fields = ('intro', 'body', 'feed_image', 'carousel_items', 'related_links')
 
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
@@ -200,11 +196,15 @@ class StandardPage(Page):
 
 
 class StandardPageCarouselItem(Orderable, AbstractCarouselItem):
-    page = ParentalKey('StandardPage', related_name='carousel_items', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'StandardPage', related_name='carousel_items', on_delete=models.CASCADE
+    )
 
 
 class StandardPageRelatedLink(Orderable, AbstractRelatedLink):
-    page = ParentalKey('StandardPage', related_name='related_links', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'StandardPage', related_name='related_links', on_delete=models.CASCADE
+    )
 
 
 StandardPage.content_panels = Page.content_panels + [
@@ -222,29 +222,27 @@ StandardPage.promote_panels = [
 
 
 class StandardIndexPage(Page):
-    page_ptr = models.OneToOneField(Page, parent_link=True, related_name='+', on_delete=models.CASCADE)
+    page_ptr = models.OneToOneField(
+        Page, parent_link=True, related_name='+', on_delete=models.CASCADE
+    )
     intro = RichTextField(blank=True)
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
 
-    api_fields = (
-        'intro',
-        'feed_image',
-        'related_links',
-    )
+    api_fields = ('intro', 'feed_image', 'related_links')
 
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-    ]
+    search_fields = Page.search_fields + [index.SearchField('intro')]
 
 
 class StandardIndexPageRelatedLink(Orderable, AbstractRelatedLink):
-    page = ParentalKey('StandardIndexPage', related_name='related_links', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'StandardIndexPage', related_name='related_links', on_delete=models.CASCADE
+    )
 
 
 StandardIndexPage.content_panels = Page.content_panels + [
@@ -261,8 +259,11 @@ StandardIndexPage.promote_panels = [
 
 # Blog pages
 
+
 class BlogEntryPage(Page):
-    page_ptr = models.OneToOneField(Page, parent_link=True, related_name='+', on_delete=models.CASCADE)
+    page_ptr = models.OneToOneField(
+        Page, parent_link=True, related_name='+', on_delete=models.CASCADE
+    )
     body = RichTextField()
     tags = ClusterTaggableManager(through='BlogEntryPageTag', blank=True)
     date = models.DateField("Post date")
@@ -271,7 +272,7 @@ class BlogEntryPage(Page):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
 
     api_fields = (
@@ -279,14 +280,15 @@ class BlogEntryPage(Page):
         APIField('tags'),
         APIField('date'),
         APIField('feed_image'),
-        APIField('feed_image_thumbnail', serializer=ImageRenditionField('fill-300x300', source='feed_image')),
+        APIField(
+            'feed_image_thumbnail',
+            serializer=ImageRenditionField('fill-300x300', source='feed_image'),
+        ),
         APIField('carousel_items'),
         APIField('related_links'),
     )
 
-    search_fields = Page.search_fields + [
-        index.SearchField('body'),
-    ]
+    search_fields = Page.search_fields + [index.SearchField('body')]
 
     def get_blog_index(self):
         # Find closest ancestor which is a blog index
@@ -294,15 +296,21 @@ class BlogEntryPage(Page):
 
 
 class BlogEntryPageCarouselItem(Orderable, AbstractCarouselItem):
-    page = ParentalKey('BlogEntryPage', related_name='carousel_items', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'BlogEntryPage', related_name='carousel_items', on_delete=models.CASCADE
+    )
 
 
 class BlogEntryPageRelatedLink(Orderable, AbstractRelatedLink):
-    page = ParentalKey('BlogEntryPage', related_name='related_links', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'BlogEntryPage', related_name='related_links', on_delete=models.CASCADE
+    )
 
 
 class BlogEntryPageTag(TaggedItemBase):
-    content_object = ParentalKey('BlogEntryPage', related_name='tagged_items', on_delete=models.CASCADE)
+    content_object = ParentalKey(
+        'BlogEntryPage', related_name='tagged_items', on_delete=models.CASCADE
+    )
 
 
 BlogEntryPage.content_panels = Page.content_panels + [
@@ -321,17 +329,14 @@ BlogEntryPage.promote_panels = [
 
 
 class BlogIndexPage(Page):
-    page_ptr = models.OneToOneField(Page, parent_link=True, related_name='+', on_delete=models.CASCADE)
+    page_ptr = models.OneToOneField(
+        Page, parent_link=True, related_name='+', on_delete=models.CASCADE
+    )
     intro = RichTextField(blank=True)
 
-    api_fields = (
-        'intro',
-        'related_links',
-    )
+    api_fields = ('intro', 'related_links')
 
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-    ]
+    search_fields = Page.search_fields + [index.SearchField('intro')]
 
     def get_blog_entries(self):
         # Get list of live blog pages that are descendants of this page
@@ -361,7 +366,9 @@ class BlogIndexPage(Page):
 
 
 class BlogIndexPageRelatedLink(Orderable, AbstractRelatedLink):
-    page = ParentalKey('BlogIndexPage', related_name='related_links', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'BlogIndexPage', related_name='related_links', on_delete=models.CASCADE
+    )
 
 
 BlogIndexPage.content_panels = Page.content_panels + [
@@ -372,19 +379,19 @@ BlogIndexPage.content_panels = Page.content_panels + [
 
 # Events pages
 
+
 class EventPage(Page):
-    page_ptr = models.OneToOneField(Page, parent_link=True, related_name='+', on_delete=models.CASCADE)
-    AUDIENCE_CHOICES = (
-        ('public', "Public"),
-        ('private', "Private"),
+    page_ptr = models.OneToOneField(
+        Page, parent_link=True, related_name='+', on_delete=models.CASCADE
     )
+    AUDIENCE_CHOICES = (('public', "Public"), ('private', "Private"))
 
     date_from = models.DateField("Start date")
     date_to = models.DateField(
         "End date",
         null=True,
         blank=True,
-        help_text="Not required if event is on a single day"
+        help_text="Not required if event is on a single day",
     )
     time_from = models.TimeField("Start time", null=True, blank=True)
     time_to = models.TimeField("End time", null=True, blank=True)
@@ -398,7 +405,7 @@ class EventPage(Page):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
 
     api_fields = (
@@ -429,11 +436,15 @@ class EventPage(Page):
 
 
 class EventPageCarouselItem(Orderable, AbstractCarouselItem):
-    page = ParentalKey('EventPage', related_name='carousel_items', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'EventPage', related_name='carousel_items', on_delete=models.CASCADE
+    )
 
 
 class EventPageRelatedLink(Orderable, AbstractRelatedLink):
-    page = ParentalKey('EventPage', related_name='related_links', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'EventPage', related_name='related_links', on_delete=models.CASCADE
+    )
 
 
 class EventPageSpeaker(Orderable, AbstractLinkFields):
@@ -445,14 +456,10 @@ class EventPageSpeaker(Orderable, AbstractLinkFields):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
 
-    api_fields = (
-        'first_name',
-        'last_name',
-        'image',
-    )
+    api_fields = ('first_name', 'last_name', 'image')
 
     panels = [
         FieldPanel('first_name'),
@@ -485,17 +492,14 @@ EventPage.promote_panels = [
 
 
 class EventIndexPage(Page):
-    page_ptr = models.OneToOneField(Page, parent_link=True, related_name='+', on_delete=models.CASCADE)
+    page_ptr = models.OneToOneField(
+        Page, parent_link=True, related_name='+', on_delete=models.CASCADE
+    )
     intro = RichTextField(blank=True)
 
-    api_fields = (
-        'intro',
-        'related_links',
-    )
+    api_fields = ('intro', 'related_links')
 
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-    ]
+    search_fields = Page.search_fields + [index.SearchField('intro')]
 
     def get_events(self):
         # Get list of live event pages that are descendants of this page
@@ -512,7 +516,9 @@ class EventIndexPage(Page):
 
 
 class EventIndexPageRelatedLink(Orderable, AbstractRelatedLink):
-    page = ParentalKey('EventIndexPage', related_name='related_links', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'EventIndexPage', related_name='related_links', on_delete=models.CASCADE
+    )
 
 
 EventIndexPage.content_panels = Page.content_panels + [
@@ -523,8 +529,11 @@ EventIndexPage.content_panels = Page.content_panels + [
 
 # Person page
 
+
 class PersonPage(Page, ContactFieldsMixin):
-    page_ptr = models.OneToOneField(Page, parent_link=True, related_name='+', on_delete=models.CASCADE)
+    page_ptr = models.OneToOneField(
+        Page, parent_link=True, related_name='+', on_delete=models.CASCADE
+    )
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     intro = RichTextField(blank=True)
@@ -534,14 +543,14 @@ class PersonPage(Page, ContactFieldsMixin):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
 
     api_fields = (
@@ -563,7 +572,9 @@ class PersonPage(Page, ContactFieldsMixin):
 
 
 class PersonPageRelatedLink(Orderable, AbstractRelatedLink):
-    page = ParentalKey('PersonPage', related_name='related_links', on_delete=models.CASCADE)
+    page = ParentalKey(
+        'PersonPage', related_name='related_links', on_delete=models.CASCADE
+    )
 
 
 PersonPage.content_panels = Page.content_panels + [
@@ -585,25 +596,23 @@ PersonPage.promote_panels = [
 
 # Contact page
 
+
 class ContactPage(Page, ContactFieldsMixin):
-    page_ptr = models.OneToOneField(Page, parent_link=True, related_name='+', on_delete=models.CASCADE)
+    page_ptr = models.OneToOneField(
+        Page, parent_link=True, related_name='+', on_delete=models.CASCADE
+    )
     body = RichTextField(blank=True)
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
 
-    api_fields = (
-        'body',
-        'feed_image',
-    ) + ContactFieldsMixin.api_fields
+    api_fields = ('body', 'feed_image') + ContactFieldsMixin.api_fields
 
-    search_fields = Page.search_fields + [
-        index.SearchField('body'),
-    ]
+    search_fields = Page.search_fields + [index.SearchField('body')]
 
 
 ContactPage.content_panels = Page.content_panels + [

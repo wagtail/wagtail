@@ -2,7 +2,12 @@ import re
 from html.parser import HTMLParser
 
 from wagtail.admin.rich_text.converters.contentstate_models import (
-    Block, ContentState, Entity, EntityRange, InlineStyleRange)
+    Block,
+    ContentState,
+    Entity,
+    EntityRange,
+    InlineStyleRange,
+)
 from wagtail.admin.rich_text.converters.html_ruleset import HTMLRuleset
 from wagtail.core.models import Page
 from wagtail.core.rich_text import features as feature_registry
@@ -37,14 +42,16 @@ class HandlerState:
         self.pushed_states = []
 
     def push(self):
-        self.pushed_states.append({
-            'current_block': self.current_block,
-            'current_inline_styles': self.current_inline_styles,
-            'current_entity_ranges': self.current_entity_ranges,
-            'leading_whitespace': self.leading_whitespace,
-            'list_depth': self.list_depth,
-            'list_item_type': self.list_item_type,
-        })
+        self.pushed_states.append(
+            {
+                'current_block': self.current_block,
+                'current_inline_styles': self.current_inline_styles,
+                'current_entity_ranges': self.current_entity_ranges,
+                'leading_whitespace': self.leading_whitespace,
+                'list_depth': self.list_depth,
+                'list_item_type': self.list_item_type,
+            }
+        )
 
     def pop(self):
         last_state = self.pushed_states.pop()
@@ -71,6 +78,7 @@ def add_paragraph_block(state, contentstate):
 
 class ListElementHandler:
     """ Handler for <ul> / <ol> tags """
+
     def __init__(self, list_item_type):
         self.list_item_type = list_item_type
 
@@ -98,7 +106,9 @@ class BlockElementHandler:
         return Block(self.block_type, depth=state.list_depth)
 
     def handle_starttag(self, name, attrs, state, contentstate):
-        attr_dict = dict(attrs)  # convert attrs from list of (name, value) tuples to a dict
+        attr_dict = dict(
+            attrs
+        )  # convert attrs from list of (name, value) tuples to a dict
         block = self.create_block(name, attr_dict, state, contentstate)
         contentstate.blocks.append(block)
         state.current_block = block
@@ -106,8 +116,12 @@ class BlockElementHandler:
         state.has_preceding_nonatomic_block = True
 
     def handle_endtag(self, name, state, contentState):
-        assert not state.current_inline_styles, "End of block reached without closing inline style elements"
-        assert not state.current_entity_ranges, "End of block reached without closing entity elements"
+        assert (
+            not state.current_inline_styles
+        ), "End of block reached without closing inline style elements"
+        assert (
+            not state.current_entity_ranges
+        ), "End of block reached without closing entity elements"
         state.current_block = None
 
 
@@ -118,7 +132,9 @@ class ListItemElementHandler(BlockElementHandler):
         pass  # skip setting self.block_type
 
     def create_block(self, name, attrs, state, contentstate):
-        assert state.list_item_type is not None, "%s element found outside of an enclosing list element" % name
+        assert state.list_item_type is not None, (
+            "%s element found outside of an enclosing list element" % name
+        )
         return Block(state.list_item_type, depth=state.list_depth)
 
 
@@ -146,7 +162,9 @@ class InlineStyleElementHandler:
     def handle_endtag(self, name, state, contentstate):
         inline_style_range = state.current_inline_styles.pop()
         assert inline_style_range.style == self.style
-        inline_style_range.length = len(state.current_block.text) - inline_style_range.offset
+        inline_style_range.length = (
+            len(state.current_block.text) - inline_style_range.offset
+        )
 
 
 class InlineEntityElementHandler:
@@ -154,6 +172,7 @@ class InlineEntityElementHandler:
     Abstract superclass for elements that will be represented as inline entities.
     Subclasses should define a `mutability` property
     """
+
     def __init__(self, entity_type):
         self.entity_type = entity_type
 
@@ -173,7 +192,9 @@ class InlineEntityElementHandler:
         # for get_attribute_data to work with
         attrs = dict(attrs)
 
-        entity = Entity(self.entity_type, self.mutability, self.get_attribute_data(attrs))
+        entity = Entity(
+            self.entity_type, self.mutability, self.get_attribute_data(attrs)
+        )
         key = contentstate.add_entity(entity)
 
         entity_range = EntityRange(key)
@@ -208,11 +229,7 @@ class PageLinkElementHandler(LinkElementHandler):
             page = Page.objects.get(id=attrs['id']).specific
         except Page.DoesNotExist:
             # retain ID so that it's still identified as a page link (albeit a broken one)
-            return {
-                'id': int(attrs['id']),
-                'url': None,
-                'parentId': None
-            }
+            return {'id': int(attrs['id']), 'url': None, 'parentId': None}
 
         parent_page = page.get_parent()
 
@@ -227,6 +244,7 @@ class AtomicBlockEntityElementHandler:
     """
     Handler for elements like <img> that exist as a single immutable item at the block level
     """
+
     def handle_starttag(self, name, attrs, state, contentstate):
         # forcibly close any block that illegally contains this one
         state.current_block = None
@@ -236,7 +254,9 @@ class AtomicBlockEntityElementHandler:
             # need to insert a spacer paragraph
             add_paragraph_block(state, contentstate)
 
-        attr_dict = dict(attrs)  # convert attrs from list of (name, value) tuples to a dict
+        attr_dict = dict(
+            attrs
+        )  # convert attrs from list of (name, value) tuples to a dict
         entity = self.create_entity(name, attr_dict, state, contentstate)
         key = contentstate.add_entity(entity)
 
@@ -273,10 +293,9 @@ class LineBreakHandler:
 class HtmlToContentStateHandler(HTMLParser):
     def __init__(self, features=()):
         self.paragraph_handler = BlockElementHandler('unstyled')
-        self.element_handlers = HTMLRuleset({
-            'p': self.paragraph_handler,
-            'br': LineBreakHandler(),
-        })
+        self.element_handlers = HTMLRuleset(
+            {'p': self.paragraph_handler, 'br': LineBreakHandler()}
+        )
         for feature in features:
             rule = feature_registry.get_converter_rule('contentstate', feature)
             if rule is not None:
@@ -294,7 +313,9 @@ class HtmlToContentStateHandler(HTMLParser):
         super().reset()
 
     def handle_starttag(self, name, attrs):
-        attr_dict = dict(attrs)  # convert attrs from list of (name, value) tuples to a dict
+        attr_dict = dict(
+            attrs
+        )  # convert attrs from list of (name, value) tuples to a dict
         element_handler = self.element_handlers.match(name, attr_dict)
 
         if element_handler is None and not self.open_elements:
@@ -310,7 +331,10 @@ class HtmlToContentStateHandler(HTMLParser):
         if not self.open_elements:
             return  # avoid a pop from an empty list if we have an extra end tag
         expected_name, element_handler = self.open_elements.pop()
-        assert name == expected_name, "Unmatched tags: expected %s, got %s" % (expected_name, name)
+        assert name == expected_name, "Unmatched tags: expected %s, got %s" % (
+            expected_name,
+            name,
+        )
         if element_handler:
             element_handler.handle_endtag(name, self.state, self.contentstate)
 
@@ -339,7 +363,10 @@ class HtmlToContentStateHandler(HTMLParser):
             # strip or add leading whitespace according to the leading_whitespace flag
             if self.state.leading_whitespace == STRIP_WHITESPACE:
                 content = content.lstrip()
-            elif self.state.leading_whitespace == FORCE_WHITESPACE and not content.startswith(' '):
+            elif (
+                self.state.leading_whitespace == FORCE_WHITESPACE
+                and not content.startswith(' ')
+            ):
                 content = ' ' + content
 
             if content.endswith(' '):

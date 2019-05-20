@@ -7,6 +7,4 @@ from . import urls
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
-    return [
-        url(r'^settings/', include(urls, namespace='wagtailsettings')),
-    ]
+    return [url(r'^settings/', include(urls, namespace='wagtailsettings'))]

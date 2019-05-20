@@ -10,6 +10,7 @@ class WagtailAPIRouter:
     A class that provides routing and cross-linking for a collection
     of API endpoints
     """
+
     def __init__(self, url_namespace):
         self.url_namespace = url_namespace
         self._endpoints = {}
@@ -40,7 +41,9 @@ class WagtailAPIRouter:
         if endpoint:
             endpoint_name, endpoint_class = endpoint[0], endpoint[1]
             url_namespace = self.url_namespace + ':' + endpoint_name
-            return endpoint_class.get_model_listing_urlpath(model, namespace=url_namespace)
+            return endpoint_class.get_model_listing_urlpath(
+                model, namespace=url_namespace
+            )
 
     def get_object_detail_urlpath(self, model, pk):
         """
@@ -54,7 +57,9 @@ class WagtailAPIRouter:
         if endpoint:
             endpoint_name, endpoint_class = endpoint[0], endpoint[1]
             url_namespace = self.url_namespace + ':' + endpoint_name
-            return endpoint_class.get_object_detail_urlpath(model, pk, namespace=url_namespace)
+            return endpoint_class.get_object_detail_urlpath(
+                model, pk, namespace=url_namespace
+            )
 
     def wrap_view(self, func):
         @functools.wraps(func)
@@ -70,7 +75,7 @@ class WagtailAPIRouter:
         for name, class_ in self._endpoints.items():
             pattern = url(
                 r'^{}/'.format(name),
-                include((class_.get_urlpatterns(), name), namespace=name)
+                include((class_.get_urlpatterns(), name), namespace=name),
             )
             urlpatterns.append(pattern)
 

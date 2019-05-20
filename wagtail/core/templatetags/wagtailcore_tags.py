@@ -95,7 +95,11 @@ def richtext(value):
         if isinstance(value, str):
             html = expand_db_html(value)
         else:
-            raise TypeError("'richtext' template filter received an invalid value; expected string, got {}.".format(type(value)))
+            raise TypeError(
+                "'richtext' template filter received an invalid value; expected string, got {}.".format(
+                    type(value)
+                )
+            )
 
     return mark_safe('<div class="rich-text">' + html + '</div>')
 
@@ -139,7 +143,9 @@ def include_block(parser, token):
         tag_name = tokens.pop(0)
         block_var_token = tokens.pop(0)
     except IndexError:
-        raise template.TemplateSyntaxError("%r tag requires at least one argument" % tag_name)
+        raise template.TemplateSyntaxError(
+            "%r tag requires at least one argument" % tag_name
+        )
 
     block_var = parser.compile_filter(block_var_token)
 
@@ -155,6 +161,8 @@ def include_block(parser, token):
         use_parent_context = False
 
     if tokens:
-        raise template.TemplateSyntaxError("Unexpected argument to %r tag: %r" % (tag_name, tokens[0]))
+        raise template.TemplateSyntaxError(
+            "Unexpected argument to %r tag: %r" % (tag_name, tokens[0])
+        )
 
     return IncludeBlockNode(block_var, extra_context, use_parent_context)

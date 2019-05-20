@@ -32,11 +32,7 @@ class InlineStyleRange(object):
         self.length = None
 
     def as_dict(self):
-        return {
-            'offset': self.offset,
-            'length': self.length,
-            'style': self.style,
-        }
+        return {'offset': self.offset, 'length': self.length, 'style': self.style}
 
 
 class Entity(object):
@@ -60,15 +56,12 @@ class EntityRange(object):
         self.length = None
 
     def as_dict(self):
-        return {
-            'key': self.key,
-            'offset': self.offset,
-            'length': self.length,
-        }
+        return {'key': self.key, 'offset': self.offset, 'length': self.length}
 
 
 class ContentState(object):
     """Pythonic representation of a draft.js contentState structure"""
+
     def __init__(self):
         self.blocks = []
         self.entity_count = 0
@@ -83,7 +76,9 @@ class ContentState(object):
     def as_dict(self):
         return {
             'blocks': [block.as_dict() for block in self.blocks],
-            'entityMap': {key: entity.as_dict() for (key, entity) in self.entity_map.items()},
+            'entityMap': {
+                key: entity.as_dict() for (key, entity) in self.entity_map.items()
+            },
         }
 
     def as_json(self, **kwargs):

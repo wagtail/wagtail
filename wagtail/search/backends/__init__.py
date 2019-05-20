@@ -17,9 +17,7 @@ def get_search_backend_config():
     search_backends = getattr(settings, 'WAGTAILSEARCH_BACKENDS', {})
 
     # Make sure the default backend is always defined
-    search_backends.setdefault('default', {
-        'BACKEND': 'wagtail.search.backends.db',
-    })
+    search_backends.setdefault('default', {'BACKEND': 'wagtail.search.backends.db'})
 
     return search_backends
 
@@ -59,8 +57,9 @@ def get_search_backend(backend='default', **kwargs):
             # Trying to import the given backend, in case it's a dotted path
             import_backend(backend)
         except ImportError as e:
-            raise InvalidSearchBackendError("Could not find backend '%s': %s" % (
-                backend, e))
+            raise InvalidSearchBackendError(
+                "Could not find backend '%s': %s" % (backend, e)
+            )
         params = kwargs
     else:
         # Backend is a conf entry
@@ -72,8 +71,9 @@ def get_search_backend(backend='default', **kwargs):
     try:
         backend_cls = import_backend(backend)
     except ImportError as e:
-        raise InvalidSearchBackendError("Could not find backend '%s': %s" % (
-            backend, e))
+        raise InvalidSearchBackendError(
+            "Could not find backend '%s': %s" % (backend, e)
+        )
 
     # Create backend
     return backend_cls(params)
@@ -104,4 +104,9 @@ def get_search_backends_with_name(with_auto_update=False):
 
 def get_search_backends(with_auto_update=False):
     # For backwards compatibility
-    return (backend for _, backend in get_search_backends_with_name(with_auto_update=with_auto_update))
+    return (
+        backend
+        for _, backend in get_search_backends_with_name(
+            with_auto_update=with_auto_update
+        )
+    )

@@ -20,15 +20,15 @@ from wagtail.documents.forms import GroupDocumentPermissionFormSet
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.documents.rich_text import DocumentLinkHandler
-from wagtail.documents.rich_text.contentstate import ContentstateDocumentLinkConversionRule
+from wagtail.documents.rich_text.contentstate import (
+    ContentstateDocumentLinkConversionRule,
+)
 from wagtail.documents.rich_text.editor_html import EditorHTMLDocumentLinkConversionRule
 
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
-    return [
-        url(r'^documents/', include(admin_urls, namespace='wagtaildocs')),
-    ]
+    return [url(r'^documents/', include(admin_urls, namespace='wagtaildocs'))]
 
 
 @hooks.register('construct_admin_api')
@@ -50,7 +50,7 @@ def register_documents_menu_item():
         reverse('wagtaildocs:index'),
         name='documents',
         classnames='icon icon-doc-full-inverse',
-        order=400
+        order=400,
     )
 
 
@@ -62,7 +62,7 @@ def editor_js():
             window.chooserUrls.documentChooser = '{0}';
         </script>
         """,
-        reverse('wagtaildocs:chooser')
+        reverse('wagtaildocs:chooser'),
     )
 
 
@@ -71,21 +71,27 @@ def register_document_feature(features):
     features.register_link_type(DocumentLinkHandler)
 
     features.register_editor_plugin(
-        'hallo', 'document-link',
+        'hallo',
+        'document-link',
         HalloPlugin(
             name='hallowagtaildoclink',
             js=[
                 'wagtaildocs/js/document-chooser-modal.js',
                 'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js',
             ],
-        )
+        ),
     )
     features.register_editor_plugin(
-        'draftail', 'document-link', draftail_features.EntityFeature({
-            'type': 'DOCUMENT',
-            'icon': 'doc-full',
-            'description': ugettext('Document'),
-        }, js=['wagtaildocs/js/document-chooser-modal.js'])
+        'draftail',
+        'document-link',
+        draftail_features.EntityFeature(
+            {
+                'type': 'DOCUMENT',
+                'icon': 'doc-full',
+                'description': ugettext('Document'),
+            },
+            js=['wagtaildocs/js/document-chooser-modal.js'],
+        ),
     )
 
     features.register_converter_rule(
@@ -103,9 +109,7 @@ class DocumentsSummaryItem(SummaryItem):
     template = 'wagtaildocs/homepage/site_summary_documents.html'
 
     def get_context(self):
-        return {
-            'total_docs': get_document_model().objects.count(),
-        }
+        return {'total_docs': get_document_model().objects.count()}
 
     def is_shown(self):
         return permission_policy.user_has_any_permission(
@@ -128,10 +132,12 @@ class DocsSearchArea(SearchArea):
 @hooks.register('register_admin_search_area')
 def register_documents_search_area():
     return DocsSearchArea(
-        _('Documents'), reverse('wagtaildocs:index'),
+        _('Documents'),
+        reverse('wagtaildocs:index'),
         name='documents',
         classnames='icon icon-doc-full-inverse',
-        order=400)
+        order=400,
+    )
 
 
 @hooks.register('register_group_permission_panel')
@@ -147,10 +153,9 @@ def describe_collection_docs(collection):
         return {
             'count': docs_count,
             'count_text': ungettext(
-                "%(count)s document",
-                "%(count)s documents",
-                docs_count
-            ) % {'count': docs_count},
+                "%(count)s document", "%(count)s documents", docs_count
+            )
+            % {'count': docs_count},
             'url': url,
         }
 
@@ -168,17 +173,26 @@ def check_view_restrictions(document, request):
         if not restriction.accept_request(request):
             if restriction.restriction_type == BaseViewRestriction.PASSWORD:
                 from wagtail.core.forms import PasswordViewRestrictionForm
-                form = PasswordViewRestrictionForm(instance=restriction,
-                                                   initial={'return_url': request.get_full_path()})
-                action_url = reverse('wagtaildocs_authenticate_with_password', args=[restriction.id])
 
-                password_required_template = getattr(settings, 'DOCUMENT_PASSWORD_REQUIRED_TEMPLATE', 'wagtaildocs/password_required.html')
+                form = PasswordViewRestrictionForm(
+                    instance=restriction,
+                    initial={'return_url': request.get_full_path()},
+                )
+                action_url = reverse(
+                    'wagtaildocs_authenticate_with_password', args=[restriction.id]
+                )
 
-                context = {
-                    'form': form,
-                    'action_url': action_url
-                }
+                password_required_template = getattr(
+                    settings,
+                    'DOCUMENT_PASSWORD_REQUIRED_TEMPLATE',
+                    'wagtaildocs/password_required.html',
+                )
+
+                context = {'form': form, 'action_url': action_url}
                 return TemplateResponse(request, password_required_template, context)
 
-            elif restriction.restriction_type in [BaseViewRestriction.LOGIN, BaseViewRestriction.GROUPS]:
+            elif restriction.restriction_type in [
+                BaseViewRestriction.LOGIN,
+                BaseViewRestriction.GROUPS,
+            ]:
                 return require_wagtail_login(next=request.get_full_path())

@@ -15,37 +15,47 @@ class TestSitemapGenerator(TestCase):
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
 
-        self.child_page = self.home_page.add_child(instance=SimplePage(
-            title="Hello world!",
-            slug='hello-world',
-            content="hello",
-            live=True,
-            last_published_at=datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc),
-            latest_revision_created_at=datetime.datetime(2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc)
-        ))
+        self.child_page = self.home_page.add_child(
+            instance=SimplePage(
+                title="Hello world!",
+                slug='hello-world',
+                content="hello",
+                live=True,
+                last_published_at=datetime.datetime(
+                    2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc
+                ),
+                latest_revision_created_at=datetime.datetime(
+                    2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc
+                ),
+            )
+        )
 
-        self.unpublished_child_page = self.home_page.add_child(instance=SimplePage(
-            title="Unpublished",
-            slug='unpublished',
-            content="hello",
-            live=False,
-        ))
+        self.unpublished_child_page = self.home_page.add_child(
+            instance=SimplePage(
+                title="Unpublished", slug='unpublished', content="hello", live=False
+            )
+        )
 
-        self.protected_child_page = self.home_page.add_child(instance=SimplePage(
-            title="Protected",
-            slug='protected',
-            content="hello",
-            live=True,
-        ))
-        PageViewRestriction.objects.create(page=self.protected_child_page, password='hello')
+        self.protected_child_page = self.home_page.add_child(
+            instance=SimplePage(
+                title="Protected", slug='protected', content="hello", live=True
+            )
+        )
+        PageViewRestriction.objects.create(
+            page=self.protected_child_page, password='hello'
+        )
 
-        self.page_with_no_last_publish_date = self.home_page.add_child(instance=SimplePage(
-            title="I have no last publish date :-(",
-            slug='no-last-publish-date',
-            content="hello",
-            live=True,
-            latest_revision_created_at=datetime.datetime(2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc)
-        ))
+        self.page_with_no_last_publish_date = self.home_page.add_child(
+            instance=SimplePage(
+                title="I have no last publish date :-(",
+                slug='no-last-publish-date',
+                content="hello",
+                live=True,
+                latest_revision_created_at=datetime.datetime(
+                    2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc
+                ),
+            )
+        )
 
         self.site = Site.objects.get(is_default_site=True)
 
@@ -73,7 +83,10 @@ class TestSitemapGenerator(TestCase):
 
         sitemap = Sitemap()
         with self.assertNumQueries(18):
-            urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
+            urls = [
+                url['location']
+                for url in sitemap.get_urls(1, django_site, req_protocol)
+            ]
 
         self.assertIn('http://localhost/', urls)  # Homepage
         self.assertIn('http://localhost/hello-world/', urls)  # Child page
@@ -85,7 +98,10 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(request)
 
         with self.assertNumQueries(16):
-            urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
+            urls = [
+                url['location']
+                for url in sitemap.get_urls(1, django_site, req_protocol)
+            ]
 
         self.assertIn('http://localhost/', urls)  # Homepage
         self.assertIn('http://localhost/hello-world/', urls)  # Child page
@@ -95,14 +111,14 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         # Add an event page which has an extra url in the sitemap
-        self.home_page.add_child(instance=EventIndex(
-            title="Events",
-            slug='events',
-            live=True,
-        ))
+        self.home_page.add_child(
+            instance=EventIndex(title="Events", slug='events', live=True)
+        )
 
         sitemap = Sitemap(request)
-        urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
+        urls = [
+            url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)
+        ]
 
         self.assertIn('http://localhost/events/', urls)  # Main view
         self.assertIn('http://localhost/events/past/', urls)  # Sub view
@@ -115,21 +131,29 @@ class TestSitemapGenerator(TestCase):
         urls = sitemap.get_urls(1, django_site, req_protocol)
 
         child_page_lastmod = [
-            url['lastmod'] for url in urls
+            url['lastmod']
+            for url in urls
             if url['location'] == 'http://localhost/hello-world/'
         ][0]
-        self.assertEqual(child_page_lastmod, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        self.assertEqual(
+            child_page_lastmod, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+        )
 
         # if no last_publish_date is defined, use latest revision date
         child_page_lastmod = [
-            url['lastmod'] for url in urls
+            url['lastmod']
+            for url in urls
             if url['location'] == 'http://localhost/no-last-publish-date/'
         ][0]
-        self.assertEqual(child_page_lastmod, datetime.datetime(2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc))
+        self.assertEqual(
+            child_page_lastmod, datetime.datetime(2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc)
+        )
 
     def test_latest_lastmod(self):
         # give the homepage a lastmod
-        self.home_page.last_published_at = datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc)
+        self.home_page.last_published_at = datetime.datetime(
+            2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc
+        )
         self.home_page.save()
 
         request, django_site = self.get_request_and_django_site('/sitemap.xml')
@@ -138,7 +162,10 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(request)
         sitemap.get_urls(1, django_site, req_protocol)
 
-        self.assertEqual(sitemap.latest_lastmod, datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc))
+        self.assertEqual(
+            sitemap.latest_lastmod,
+            datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc),
+        )
 
     def test_latest_lastmod_missing(self):
         # ensure homepage does not have lastmod

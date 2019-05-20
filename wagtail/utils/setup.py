@@ -11,7 +11,6 @@ from wagtail import __semver__
 
 
 class assets_mixin:
-
     def compile_assets(self):
         try:
             subprocess.check_call(['npm', 'run', 'dist'])
@@ -78,10 +77,14 @@ class check_bdist_egg(bdist_egg):
     def run(self):
         bdist_egg.run(self)
         if not os.path.isdir(self.sentinel_dir):
-            print("\n".join([  # noqa
-                "************************************************************",
-                "The front end assets for Wagtail are missing.",
-                "To generate the assets, please refer to the documentation in",
-                "docs/contributing/css_guidelines.rst",
-                "************************************************************",
-            ]))
+            print(
+                "\n".join(
+                    [  # noqa
+                        "************************************************************",
+                        "The front end assets for Wagtail are missing.",
+                        "To generate the assets, please refer to the documentation in",
+                        "docs/contributing/css_guidelines.rst",
+                        "************************************************************",
+                    ]
+                )
+            )

@@ -8,12 +8,11 @@ def get_document_permissions(apps):
     ContentType = apps.get_model('contenttypes.ContentType')
 
     document_content_type, _created = ContentType.objects.get_or_create(
-        model='document',
-        app_label='wagtaildocs',
+        model='document', app_label='wagtaildocs'
     )
     return Permission.objects.filter(
         content_type=document_content_type,
-        codename__in=['add_document', 'change_document']
+        codename__in=['add_document', 'change_document'],
     )
 
 
@@ -27,9 +26,7 @@ def copy_document_permissions_to_collections(apps, schema_editor):
     for permission in get_document_permissions(apps):
         for group in Group.objects.filter(permissions=permission):
             GroupCollectionPermission.objects.create(
-                group=group,
-                collection=root_collection,
-                permission=permission
+                group=group, collection=root_collection, permission=permission
             )
 
 
@@ -37,7 +34,9 @@ def remove_document_permissions_from_collections(apps, schema_editor):
     GroupCollectionPermission = apps.get_model('wagtailcore.GroupCollectionPermission')
     document_permissions = get_document_permissions(apps)
 
-    GroupCollectionPermission.objects.filter(permission__in=document_permissions).delete()
+    GroupCollectionPermission.objects.filter(
+        permission__in=document_permissions
+    ).delete()
 
 
 class Migration(migrations.Migration):
@@ -50,5 +49,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(
             copy_document_permissions_to_collections,
-            remove_document_permissions_from_collections),
+            remove_document_permissions_from_collections,
+        )
     ]

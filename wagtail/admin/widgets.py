@@ -100,7 +100,9 @@ class AdminTagWidget(TagWidget):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
         context['widget']['autocomplete_url'] = reverse('wagtailadmin_tag_autocomplete')
-        context['widget']['tag_spaces_allowed'] = getattr(settings, 'TAG_SPACES_ALLOWED', True)
+        context['widget']['tag_spaces_allowed'] = getattr(
+            settings, 'TAG_SPACES_ALLOWED', True
+        )
         context['widget']['tag_limit'] = getattr(settings, 'TAG_LIMIT', None)
 
         return context
@@ -167,11 +169,17 @@ class AdminPageChooser(AdminChooser):
     choose_another_text = _('Choose another page')
     link_to_chosen_text = _('Edit this page')
 
-    def __init__(self, target_models=None, can_choose_root=False, user_perms=None, **kwargs):
+    def __init__(
+        self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
+    ):
         super().__init__(**kwargs)
 
         if target_models:
-            model_names = [model._meta.verbose_name.title() for model in target_models if model is not Page]
+            model_names = [
+                model._meta.verbose_name.title()
+                for model in target_models
+                if model is not Page
+            ]
             if len(model_names) == 1:
                 self.choose_one_text += ' (' + model_names[0] + ')'
 
@@ -197,13 +205,16 @@ class AdminPageChooser(AdminChooser):
 
         original_field_html = super().render_html(name, value, attrs)
 
-        return render_to_string("wagtailadmin/widgets/page_chooser.html", {
-            'widget': self,
-            'original_field_html': original_field_html,
-            'attrs': attrs,
-            'value': value,
-            'page': instance,
-        })
+        return render_to_string(
+            "wagtailadmin/widgets/page_chooser.html",
+            {
+                'widget': self,
+                'original_field_html': original_field_html,
+                'attrs': attrs,
+                'value': value,
+                'page': instance,
+            },
+        )
 
     def render_js_init(self, id_, name, value):
         if isinstance(value, Page):
@@ -217,12 +228,14 @@ class AdminPageChooser(AdminChooser):
 
         return "createPageChooser({id}, {model_names}, {parent}, {can_choose_root}, {user_perms});".format(
             id=json.dumps(id_),
-            model_names=json.dumps([
-                '{app}.{model}'.format(
-                    app=model._meta.app_label,
-                    model=model._meta.model_name)
-                for model in self.target_models
-            ]),
+            model_names=json.dumps(
+                [
+                    '{app}.{model}'.format(
+                        app=model._meta.app_label, model=model._meta.model_name
+                    )
+                    for model in self.target_models
+                ]
+            ),
             parent=json.dumps(parent.id if parent else None),
             can_choose_root=('true' if self.can_choose_root else 'false'),
             user_perms=json.dumps(self.user_perms),
@@ -265,11 +278,13 @@ class Button:
     def __eq__(self, other):
         if not isinstance(other, Button):
             return NotImplemented
-        return (self.label == other.label
-                and self.url == other.url
-                and self.classes == other.classes
-                and self.attrs == other.attrs
-                and self.priority == other.priority)
+        return (
+            self.label == other.label
+            and self.url == other.url
+            and self.classes == other.classes
+            and self.attrs == other.attrs
+            and self.priority == other.priority
+        )
 
 
 class PageListingButton(Button):
@@ -287,11 +302,15 @@ class BaseDropdownMenuButton(Button):
         raise NotImplementedError
 
     def render(self):
-        return render_to_string(self.template_name, {
-            'buttons': self.dropdown_buttons,
-            'label': self.label,
-            'title': self.attrs.get('title'),
-            'is_parent': self.is_parent})
+        return render_to_string(
+            self.template_name,
+            {
+                'buttons': self.dropdown_buttons,
+                'label': self.label,
+                'title': self.attrs.get('title'),
+                'is_parent': self.is_parent,
+            },
+        )
 
 
 class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
@@ -312,6 +331,9 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
     @cached_property
     def dropdown_buttons(self):
         button_hooks = hooks.get_hooks(self.hook_name)
-        return sorted(itertools.chain.from_iterable(
-            hook(self.page, self.page_perms, self.is_parent)
-            for hook in button_hooks))
+        return sorted(
+            itertools.chain.from_iterable(
+                hook(self.page, self.page_perms, self.is_parent)
+                for hook in button_hooks
+            )
+        )

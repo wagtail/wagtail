@@ -10,7 +10,10 @@ class SearchableListMixin:
     search_fields = None
 
     def get_search_form(self):
-        return SearchForm(self.request.GET if self.request.GET.get('q') else None, placeholder=self.search_box_placeholder)
+        return SearchForm(
+            self.request.GET if self.request.GET.get('q') else None,
+            placeholder=self.search_box_placeholder,
+        )
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -24,8 +27,7 @@ class SearchableListMixin:
                 queryset = search_backend.search(q, queryset, fields=self.search_fields)
             else:
                 filters = {
-                    field + '__icontains': q
-                    for field in self.search_fields or []
+                    field + '__icontains': q for field in self.search_fields or []
                 }
 
                 queryset = queryset.filter(**filters)

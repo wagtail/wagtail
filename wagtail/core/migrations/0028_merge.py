@@ -10,5 +10,4 @@ class Migration(migrations.Migration):
         ('wagtailcore', '0027_fix_collection_path_collation'),
     ]
 
-    operations = [
-    ]
+    operations = []

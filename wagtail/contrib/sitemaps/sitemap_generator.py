@@ -2,7 +2,6 @@ from django.contrib.sitemaps import Sitemap as DjangoSitemap
 
 
 class Sitemap(DjangoSitemap):
-
     def __init__(self, request=None):
         self.request = request
 
@@ -12,26 +11,25 @@ class Sitemap(DjangoSitemap):
     def lastmod(self, obj):
         # fall back on latest_revision_created_at if last_published_at is null
         # (for backwards compatibility from before last_published_at was added)
-        return (obj.last_published_at or obj.latest_revision_created_at)
+        return obj.last_published_at or obj.latest_revision_created_at
 
     def get_wagtail_site(self):
         site = getattr(self.request, 'site', None)
         if site is None:
             from wagtail.core.models import Site
-            return Site.objects.select_related(
-                'root_page'
-            ).get(is_default_site=True)
+
+            return Site.objects.select_related('root_page').get(is_default_site=True)
         return site
 
     def items(self):
         return (
             self.get_wagtail_site()
-            .root_page
-            .get_descendants(inclusive=True)
+            .root_page.get_descendants(inclusive=True)
             .live()
             .public()
             .order_by('path')
-            .specific())
+            .specific()
+        )
 
     def _urls(self, page, protocol, domain):
         urls = []

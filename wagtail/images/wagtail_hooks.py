@@ -21,9 +21,7 @@ from wagtail.images.rich_text.editor_html import EditorHTMLImageConversionRule
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
-    return [
-        url(r'^images/', include(admin_urls, namespace='wagtailimages')),
-    ]
+    return [url(r'^images/', include(admin_urls, namespace='wagtailimages'))]
 
 
 @hooks.register('construct_admin_api')
@@ -41,8 +39,11 @@ class ImagesMenuItem(MenuItem):
 @hooks.register('register_admin_menu_item')
 def register_images_menu_item():
     return ImagesMenuItem(
-        _('Images'), reverse('wagtailimages:index'),
-        name='images', classnames='icon icon-image', order=300
+        _('Images'),
+        reverse('wagtailimages:index'),
+        name='images',
+        classnames='icon icon-image',
+        order=300,
     )
 
 
@@ -54,7 +55,7 @@ def editor_js():
             window.chooserUrls.imageChooser = '{0}';
         </script>
         """,
-        reverse('wagtailimages:chooser')
+        reverse('wagtailimages:chooser'),
     )
 
 
@@ -65,41 +66,47 @@ def register_image_feature(features):
 
     # define a hallo.js plugin to use when the 'image' feature is active
     features.register_editor_plugin(
-        'hallo', 'image',
+        'hallo',
+        'image',
         HalloPlugin(
             name='hallowagtailimage',
             js=[
                 'wagtailimages/js/image-chooser-modal.js',
                 'wagtailimages/js/hallo-plugins/hallo-wagtailimage.js',
             ],
-        )
+        ),
     )
 
     # define how to convert between editorhtml's representation of images and
     # the database representation
-    features.register_converter_rule('editorhtml', 'image', EditorHTMLImageConversionRule)
+    features.register_converter_rule(
+        'editorhtml', 'image', EditorHTMLImageConversionRule
+    )
 
     # define a draftail plugin to use when the 'image' feature is active
     features.register_editor_plugin(
-        'draftail', 'image', draftail_features.EntityFeature({
-            'type': 'IMAGE',
-            'icon': 'image',
-            'description': ugettext('Image'),
-            # We do not want users to be able to copy-paste hotlinked images into rich text.
-            # Keep only the attributes Wagtail needs.
-            'attributes': ['id', 'src', 'alt', 'format'],
-            # Keep only images which are from Wagtail.
-            'whitelist': {
-                'id': True,
-            }
-        }, js=[
-            'wagtailimages/js/image-chooser-modal.js',
-        ])
+        'draftail',
+        'image',
+        draftail_features.EntityFeature(
+            {
+                'type': 'IMAGE',
+                'icon': 'image',
+                'description': ugettext('Image'),
+                # We do not want users to be able to copy-paste hotlinked images into rich text.
+                # Keep only the attributes Wagtail needs.
+                'attributes': ['id', 'src', 'alt', 'format'],
+                # Keep only images which are from Wagtail.
+                'whitelist': {'id': True},
+            },
+            js=['wagtailimages/js/image-chooser-modal.js'],
+        ),
     )
 
     # define how to convert between contentstate's representation of images and
     # the database representation
-    features.register_converter_rule('contentstate', 'image', ContentstateImageConversionRule)
+    features.register_converter_rule(
+        'contentstate', 'image', ContentstateImageConversionRule
+    )
 
     # add 'image' to the set of on-by-default rich text features
     features.default_features.append('image')
@@ -126,9 +133,7 @@ class ImagesSummaryItem(SummaryItem):
     template = 'wagtailimages/homepage/site_summary_images.html'
 
     def get_context(self):
-        return {
-            'total_images': get_image_model().objects.count(),
-        }
+        return {'total_images': get_image_model().objects.count()}
 
     def is_shown(self):
         return permission_policy.user_has_any_permission(
@@ -151,10 +156,12 @@ class ImagesSearchArea(SearchArea):
 @hooks.register('register_admin_search_area')
 def register_images_search_area():
     return ImagesSearchArea(
-        _('Images'), reverse('wagtailimages:index'),
+        _('Images'),
+        reverse('wagtailimages:index'),
         name='images',
         classnames='icon icon-image',
-        order=200)
+        order=200,
+    )
 
 
 @hooks.register('register_group_permission_panel')
@@ -169,10 +176,7 @@ def describe_collection_docs(collection):
         url = reverse('wagtailimages:index') + ('?collection_id=%d' % collection.id)
         return {
             'count': images_count,
-            'count_text': ungettext(
-                "%(count)s image",
-                "%(count)s images",
-                images_count
-            ) % {'count': images_count},
+            'count_text': ungettext("%(count)s image", "%(count)s images", images_count)
+            % {'count': images_count},
             'url': url,
         }

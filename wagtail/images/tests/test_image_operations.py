@@ -15,6 +15,7 @@ class WillowOperationRecorder:
     This class pretends to be a Willow image but instead, it records
     the operations that have been performed on the image for testing
     """
+
     format_name = 'jpeg'
 
     def __init__(self, start_size):
@@ -72,10 +73,13 @@ class ImageOperationTestCase(TestCase):
     @classmethod
     def make_filter_spec_error_test(cls, filter_spec):
         def test_filter_spec_error(self):
-            self.assertRaises(InvalidFilterSpecError, self.operation_class, *filter_spec.split('-'))
+            self.assertRaises(
+                InvalidFilterSpecError, self.operation_class, *filter_spec.split('-')
+            )
 
-        test_filter_spec_error.__name__ = str('test_filter_%s_raises_%s' % (
-            filter_spec, InvalidFilterSpecError.__name__))
+        test_filter_spec_error.__name__ = str(
+            'test_filter_%s_raises_%s' % (filter_spec, InvalidFilterSpecError.__name__)
+        )
         return test_filter_spec_error
 
     @classmethod
@@ -116,7 +120,6 @@ class ImageOperationTestCase(TestCase):
         test_norun.__name__ = str('test_norun_%s' % filter_spec)
         return test_norun
 
-
     @classmethod
     def setup_test_methods(cls):
         if cls.operation_class is None:
@@ -152,13 +155,9 @@ class TestDoNothingOperation(ImageOperationTestCase):
         ('123456', dict()),
     ]
 
-    filter_spec_error_tests = [
-        'cannot-take-multiple-parameters',
-    ]
+    filter_spec_error_tests = ['cannot-take-multiple-parameters']
 
-    run_tests = [
-        ('original', dict(width=1000, height=1000), []),
-    ]
+    run_tests = [('original', dict(width=1000, height=1000), [])]
 
 
 TestDoNothingOperation.setup_test_methods()
@@ -189,144 +188,141 @@ class TestFillOperation(ImageOperationTestCase):
 
     run_tests = [
         # Basic usage
-        ('fill-800x600', dict(width=1000, height=1000), [
-            ('crop', ((0, 125, 1000, 875), ), {}),
-            ('resize', ((800, 600), ), {}),
-        ]),
-
+        (
+            'fill-800x600',
+            dict(width=1000, height=1000),
+            [('crop', ((0, 125, 1000, 875),), {}), ('resize', ((800, 600),), {})],
+        ),
         # Basic usage with an oddly-sized original image
         # This checks for a rounding precision issue (#968)
-        ('fill-200x200', dict(width=539, height=720), [
-            ('crop', ((0, 90, 539, 630), ), {}),
-            ('resize', ((200, 200), ), {}),
-        ]),
-
+        (
+            'fill-200x200',
+            dict(width=539, height=720),
+            [('crop', ((0, 90, 539, 630),), {}), ('resize', ((200, 200),), {})],
+        ),
         # Closeness shouldn't have any effect when used without a focal point
-        ('fill-800x600-c100', dict(width=1000, height=1000), [
-            ('crop', ((0, 125, 1000, 875), ), {}),
-            ('resize', ((800, 600), ), {}),
-        ]),
-
+        (
+            'fill-800x600-c100',
+            dict(width=1000, height=1000),
+            [('crop', ((0, 125, 1000, 875),), {}), ('resize', ((800, 600),), {})],
+        ),
         # Should always crop towards focal point. Even if no closeness is set
-        ('fill-80x60', dict(
-            width=1000,
-            height=1000,
-            focal_point_x=1000,
-            focal_point_y=500,
-            focal_point_width=0,
-            focal_point_height=0,
-        ), [
-            # Crop the largest possible crop box towards the focal point
-            ('crop', ((0, 125, 1000, 875), ), {}),
-
-            # Resize it down to final size
-            ('resize', ((80, 60), ), {}),
-        ]),
-
+        (
+            'fill-80x60',
+            dict(
+                width=1000,
+                height=1000,
+                focal_point_x=1000,
+                focal_point_y=500,
+                focal_point_width=0,
+                focal_point_height=0,
+            ),
+            [
+                # Crop the largest possible crop box towards the focal point
+                ('crop', ((0, 125, 1000, 875),), {}),
+                # Resize it down to final size
+                ('resize', ((80, 60),), {}),
+            ],
+        ),
         # Should crop as close as possible without upscaling
-        ('fill-80x60-c100', dict(
-            width=1000,
-            height=1000,
-            focal_point_x=1000,
-            focal_point_y=500,
-            focal_point_width=0,
-            focal_point_height=0,
-        ), [
-            # Crop as close as possible to the focal point
-            ('crop', ((920, 470, 1000, 530), ), {}),
-
-            # No need to resize, crop should've created an 80x60 image
-        ]),
-
+        (
+            'fill-80x60-c100',
+            dict(
+                width=1000,
+                height=1000,
+                focal_point_x=1000,
+                focal_point_y=500,
+                focal_point_width=0,
+                focal_point_height=0,
+            ),
+            [
+                # Crop as close as possible to the focal point
+                ('crop', ((920, 470, 1000, 530),), {}),
+                # No need to resize, crop should've created an 80x60 image
+            ],
+        ),
         # Ditto with a wide image
         # Using a different filter so method name doesn't clash
-        ('fill-100x60-c100', dict(
-            width=2000,
-            height=1000,
-            focal_point_x=2000,
-            focal_point_y=500,
-            focal_point_width=0,
-            focal_point_height=0,
-        ), [
-            # Crop to the right hand side
-            ('crop', ((1900, 470, 2000, 530), ), {}),
-        ]),
-
+        (
+            'fill-100x60-c100',
+            dict(
+                width=2000,
+                height=1000,
+                focal_point_x=2000,
+                focal_point_y=500,
+                focal_point_width=0,
+                focal_point_height=0,
+            ),
+            [
+                # Crop to the right hand side
+                ('crop', ((1900, 470, 2000, 530),), {})
+            ],
+        ),
         # Make sure that the crop box never enters the focal point
-        ('fill-50x50-c100', dict(
-            width=2000,
-            height=1000,
-            focal_point_x=1000,
-            focal_point_y=500,
-            focal_point_width=100,
-            focal_point_height=20,
-        ), [
-            # Crop a 100x100 box around the entire focal point
-            ('crop', ((950, 450, 1050, 550), ), {}),
-
-            # Resize it down to 50x50
-            ('resize', ((50, 50), ), {}),
-        ]),
-
+        (
+            'fill-50x50-c100',
+            dict(
+                width=2000,
+                height=1000,
+                focal_point_x=1000,
+                focal_point_y=500,
+                focal_point_width=100,
+                focal_point_height=20,
+            ),
+            [
+                # Crop a 100x100 box around the entire focal point
+                ('crop', ((950, 450, 1050, 550),), {}),
+                # Resize it down to 50x50
+                ('resize', ((50, 50),), {}),
+            ],
+        ),
         # Test that the image is never upscaled
-        ('fill-1000x800', dict(width=100, height=100), [
-            ('crop', ((0, 10, 100, 90), ), {}),
-        ]),
-
+        (
+            'fill-1000x800',
+            dict(width=100, height=100),
+            [('crop', ((0, 10, 100, 90),), {})],
+        ),
         # Test that the crop closeness gets capped to prevent upscaling
-        ('fill-1000x800-c100', dict(
-            width=1500,
-            height=1000,
-            focal_point_x=750,
-            focal_point_y=500,
-            focal_point_width=0,
-            focal_point_height=0,
-        ), [
-            # Crop a 1000x800 square out of the image as close to the
-            # focal point as possible. Will not zoom too far in to
-            # prevent upscaling
-            ('crop', ((250, 100, 1250, 900), ), {}),
-        ]),
-
+        (
+            'fill-1000x800-c100',
+            dict(
+                width=1500,
+                height=1000,
+                focal_point_x=750,
+                focal_point_y=500,
+                focal_point_width=0,
+                focal_point_height=0,
+            ),
+            [
+                # Crop a 1000x800 square out of the image as close to the
+                # focal point as possible. Will not zoom too far in to
+                # prevent upscaling
+                ('crop', ((250, 100, 1250, 900),), {})
+            ],
+        ),
         # Test for an issue where a ZeroDivisionError would occur when the
         # focal point size, image size and filter size match
         # See: #797
-        ('fill-1500x1500-c100', dict(
-            width=1500,
-            height=1500,
-            focal_point_x=750,
-            focal_point_y=750,
-            focal_point_width=1500,
-            focal_point_height=1500,
-        ), [
-            # This operation could probably be optimised out
-            ('crop', ((0, 0, 1500, 1500), ), {}),
-        ]),
-
-
+        (
+            'fill-1500x1500-c100',
+            dict(
+                width=1500,
+                height=1500,
+                focal_point_x=750,
+                focal_point_y=750,
+                focal_point_width=1500,
+                focal_point_height=1500,
+            ),
+            [
+                # This operation could probably be optimised out
+                ('crop', ((0, 0, 1500, 1500),), {})
+            ],
+        ),
         # A few tests for single pixel images
-
-        ('fill-100x100', dict(
-            width=1,
-            height=1,
-        ), [
-            ('crop', ((0, 0, 1, 1), ), {}),
-        ]),
-
+        ('fill-100x100', dict(width=1, height=1), [('crop', ((0, 0, 1, 1),), {})]),
         # This one once gave a ZeroDivisionError
-        ('fill-100x150', dict(
-            width=1,
-            height=1,
-        ), [
-            ('crop', ((0, 0, 1, 1), ), {}),
-        ]),
-
-        ('fill-150x100', dict(
-            width=1,
-            height=1,
-        ), [
-            ('crop', ((0, 0, 1, 1), ), {}),
-        ]),
+        ('fill-100x150', dict(width=1, height=1), [('crop', ((0, 0, 1, 1),), {})]),
+        ('fill-150x100', dict(width=1, height=1), [('crop', ((0, 0, 1, 1),), {})]),
     ]
 
 
@@ -353,13 +349,9 @@ class TestMinMaxOperation(ImageOperationTestCase):
 
     run_tests = [
         # Basic usage of min
-        ('min-800x600', dict(width=1000, height=1000), [
-            ('resize', ((800, 800), ), {}),
-        ]),
+        ('min-800x600', dict(width=1000, height=1000), [('resize', ((800, 800),), {})]),
         # Basic usage of max
-        ('max-800x600', dict(width=1000, height=1000), [
-            ('resize', ((600, 600), ), {}),
-        ]),
+        ('max-800x600', dict(width=1000, height=1000), [('resize', ((600, 600),), {})]),
     ]
 
 
@@ -374,22 +366,13 @@ class TestWidthHeightOperation(ImageOperationTestCase):
         ('height-600', dict(method='height', size=600)),
     ]
 
-    filter_spec_error_tests = [
-        'width',
-        'width-800x600',
-        'width-abc',
-        'width-800-c100',
-    ]
+    filter_spec_error_tests = ['width', 'width-800x600', 'width-abc', 'width-800-c100']
 
     run_tests = [
         # Basic usage of width
-        ('width-400', dict(width=1000, height=500), [
-            ('resize', ((400, 200), ), {}),
-        ]),
+        ('width-400', dict(width=1000, height=500), [('resize', ((400, 200),), {})]),
         # Basic usage of height
-        ('height-400', dict(width=1000, height=500), [
-            ('resize', ((800, 400), ), {}),
-        ]),
+        ('height-400', dict(width=1000, height=500), [('resize', ((800, 400),), {})]),
     ]
 
 
@@ -404,26 +387,19 @@ class TestScaleOperation(ImageOperationTestCase):
         ('scale-50', dict(method='scale', percent=50)),
     ]
 
-    filter_spec_error_tests = [
-        'scale',
-        'scale-800x600',
-        'scale-abc',
-        'scale-800-c100',
-    ]
+    filter_spec_error_tests = ['scale', 'scale-800x600', 'scale-abc', 'scale-800-c100']
 
     run_tests = [
         # Basic almost a no-op of scale
-        ('scale-100', dict(width=1000, height=500), [
-            ('resize', ((1000, 500), ), {}),
-        ]),
+        ('scale-100', dict(width=1000, height=500), [('resize', ((1000, 500),), {})]),
         # Basic usage of scale
-        ('scale-50', dict(width=1000, height=500), [
-            ('resize', ((500, 250), ), {}),
-        ]),
+        ('scale-50', dict(width=1000, height=500), [('resize', ((500, 250),), {})]),
         # Rounded usage of scale
-        ('scale-83.0322', dict(width=1000, height=500), [
-            ('resize', ((int(1000 * 0.830322), int(500 * 0.830322)), ), {}),
-        ]),
+        (
+            'scale-83.0322',
+            dict(width=1000, height=500),
+            [('resize', ((int(1000 * 0.830322), int(500 * 0.830322)),), {})],
+        ),
     ]
 
 
@@ -473,10 +449,7 @@ class TestFilter(TestCase):
         self.operation_instance.run = run
 
         fil = Filter(spec='operation1|operation2')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
         fil.run(image, BytesIO())
 
         self.assertEqual(run_mock.call_count, 2)
@@ -486,47 +459,35 @@ class TestFilter(TestCase):
 def register_image_operations():
     return [
         ('operation1', Mock(return_value=TestFilter.operation_instance)),
-        ('operation2', Mock(return_value=TestFilter.operation_instance))
+        ('operation2', Mock(return_value=TestFilter.operation_instance)),
     ]
 
 
 class TestFormatFilter(TestCase):
     def test_jpeg(self):
         fil = Filter(spec='width-400|format-jpeg')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
         out = fil.run(image, BytesIO())
 
         self.assertEqual(out.format_name, 'jpeg')
 
     def test_png(self):
         fil = Filter(spec='width-400|format-png')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
         out = fil.run(image, BytesIO())
 
         self.assertEqual(out.format_name, 'png')
 
     def test_gif(self):
         fil = Filter(spec='width-400|format-gif')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
         out = fil.run(image, BytesIO())
 
         self.assertEqual(out.format_name, 'gif')
 
     def test_invalid(self):
         fil = Filter(spec='width-400|format-foo')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
         self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
 
 
@@ -534,8 +495,7 @@ class TestJPEGQualityFilter(TestCase):
     def test_default_quality(self):
         fil = Filter(spec='width-400')
         image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file_jpeg(),
+            title="Test image", file=get_test_image_file_jpeg()
         )
 
         f = BytesIO()
@@ -547,8 +507,7 @@ class TestJPEGQualityFilter(TestCase):
     def test_jpeg_quality_filter(self):
         fil = Filter(spec='width-400|jpegquality-40')
         image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file_jpeg(),
+            title="Test image", file=get_test_image_file_jpeg()
         )
 
         f = BytesIO()
@@ -560,35 +519,29 @@ class TestJPEGQualityFilter(TestCase):
     def test_jpeg_quality_filter_invalid(self):
         fil = Filter(spec='width-400|jpegquality-abc')
         image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file_jpeg(),
+            title="Test image", file=get_test_image_file_jpeg()
         )
         self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
 
     def test_jpeg_quality_filter_no_value(self):
         fil = Filter(spec='width-400|jpegquality')
         image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file_jpeg(),
+            title="Test image", file=get_test_image_file_jpeg()
         )
         self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
 
     def test_jpeg_quality_filter_too_big(self):
         fil = Filter(spec='width-400|jpegquality-101')
         image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file_jpeg(),
+            title="Test image", file=get_test_image_file_jpeg()
         )
         self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
 
-    @override_settings(
-        WAGTAILIMAGES_JPEG_QUALITY=50
-    )
+    @override_settings(WAGTAILIMAGES_JPEG_QUALITY=50)
     def test_jpeg_quality_setting(self):
         fil = Filter(spec='width-400')
         image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file_jpeg(),
+            title="Test image", file=get_test_image_file_jpeg()
         )
 
         f = BytesIO()
@@ -597,14 +550,11 @@ class TestJPEGQualityFilter(TestCase):
 
         save.assert_called_with(f, 'JPEG', quality=50, optimize=True, progressive=True)
 
-    @override_settings(
-        WAGTAILIMAGES_JPEG_QUALITY=50
-    )
+    @override_settings(WAGTAILIMAGES_JPEG_QUALITY=50)
     def test_jpeg_quality_filter_overrides_setting(self):
         fil = Filter(spec='width-400|jpegquality-40')
         image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file_jpeg(),
+            title="Test image", file=get_test_image_file_jpeg()
         )
 
         f = BytesIO()
@@ -618,46 +568,31 @@ class TestBackgroundColorFilter(TestCase):
     def test_original_has_alpha(self):
         # Checks that the test image we're using has alpha
         fil = Filter(spec='width-400')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
         out = fil.run(image, BytesIO())
 
         self.assertTrue(out.has_alpha())
 
     def test_3_digit_hex(self):
         fil = Filter(spec='width-400|bgcolor-fff')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
         out = fil.run(image, BytesIO())
 
         self.assertFalse(out.has_alpha())
 
     def test_6_digit_hex(self):
         fil = Filter(spec='width-400|bgcolor-ffffff')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
         out = fil.run(image, BytesIO())
 
         self.assertFalse(out.has_alpha())
 
     def test_invalid(self):
         fil = Filter(spec='width-400|bgcolor-foo')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
         self.assertRaises(ValueError, fil.run, image, BytesIO())
 
     def test_invalid_length(self):
         fil = Filter(spec='width-400|bgcolor-1234')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file(),
-        )
+        image = Image.objects.create(title="Test image", file=get_test_image_file())
         self.assertRaises(ValueError, fil.run, image, BytesIO())

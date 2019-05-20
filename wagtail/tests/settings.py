@@ -15,10 +15,7 @@ DATABASES = {
         'USER': os.environ.get('DATABASE_USER', None),
         'PASSWORD': os.environ.get('DATABASE_PASS', None),
         'HOST': os.environ.get('DATABASE_HOST', None),
-
-        'TEST': {
-            'NAME': os.environ.get('DATABASE_NAME', None),
-        }
+        'TEST': {'NAME': os.environ.get('DATABASE_NAME', None)},
     }
 }
 
@@ -42,9 +39,7 @@ ROOT_URLCONF = 'wagtail.tests.urls'
 
 STATIC_URL = '/static/'
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
+STATICFILES_FINDERS = ('django.contrib.staticfiles.finders.AppDirectoriesFinder',)
 
 USE_TZ = True
 
@@ -71,16 +66,14 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'APP_DIRS': False,
-        'DIRS': [
-            os.path.join(WAGTAIL_ROOT, 'tests', 'testapp', 'jinja2_templates'),
-        ],
+        'DIRS': [os.path.join(WAGTAIL_ROOT, 'tests', 'testapp', 'jinja2_templates')],
         'OPTIONS': {
             'extensions': [
                 'wagtail.core.jinja2tags.core',
                 'wagtail.admin.jinja2tags.userbar',
                 'wagtail.images.jinja2tags.images',
                 'wagtail.contrib.settings.jinja2tags.settings',
-            ],
+            ]
         },
     },
 ]
@@ -93,7 +86,6 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
@@ -103,7 +95,6 @@ INSTALLED_APPS = (
     # Theres nothing special about wagtailredirects, we just need to have one
     # app which uses AppConfigs to test that hooks load properly
     'wagtail.contrib.redirects.apps.WagtailRedirectsAppConfig',
-
     'wagtail.tests.testapp',
     'wagtail.tests.demosite',
     'wagtail.tests.customuser',
@@ -129,10 +120,8 @@ INSTALLED_APPS = (
     'wagtail.admin',
     'wagtail.api.v2',
     'wagtail.core',
-
     'taggit',
     'rest_framework',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -158,11 +147,7 @@ PASSWORD_HASHERS = (
 )
 
 
-WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.db',
-    }
-}
+WAGTAILSEARCH_BACKENDS = {'default': {'BACKEND': 'wagtail.search.backends.db'}}
 
 AUTH_USER_MODEL = 'customuser.CustomUser'
 
@@ -187,13 +172,7 @@ if 'ELASTICSEARCH_URL' in os.environ:
         'TIMEOUT': 10,
         'max_retries': 1,
         'AUTO_UPDATE': False,
-        'INDEX_SETTINGS': {
-            'settings': {
-                'index': {
-                    'number_of_shards': 1
-                }
-            }
-        }
+        'INDEX_SETTINGS': {'settings': {'index': {'number_of_shards': 1}}},
     }
 
 
@@ -206,13 +185,7 @@ WAGTAIL_SITE_NAME = "Test Site"
 WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'attachment']
 
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
-    'default': {
-        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea'
-    },
-    'hallo': {
-        'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
-    },
-    'custom': {
-        'WIDGET': 'wagtail.tests.testapp.rich_text.CustomRichTextArea'
-    },
+    'default': {'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea'},
+    'hallo': {'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'},
+    'custom': {'WIDGET': 'wagtail.tests.testapp.rich_text.CustomRichTextArea'},
 }

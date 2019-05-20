@@ -9,7 +9,9 @@ from wagtail.core.rich_text.pages import PageLinkHandler
 
 
 def require_wagtail_login(next):
-    login_url = getattr(settings, 'WAGTAIL_FRONTEND_LOGIN_URL', reverse('wagtailcore_login'))
+    login_url = getattr(
+        settings, 'WAGTAIL_FRONTEND_LOGIN_URL', reverse('wagtailcore_login')
+    )
     return redirect_to_login(next, login_url)
 
 
@@ -26,12 +28,21 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
         if not restriction.accept_request(request):
             if restriction.restriction_type == PageViewRestriction.PASSWORD:
                 from wagtail.core.forms import PasswordViewRestrictionForm
-                form = PasswordViewRestrictionForm(instance=restriction,
-                                                   initial={'return_url': request.get_full_path()})
-                action_url = reverse('wagtailcore_authenticate_with_password', args=[restriction.id, page.id])
+
+                form = PasswordViewRestrictionForm(
+                    instance=restriction,
+                    initial={'return_url': request.get_full_path()},
+                )
+                action_url = reverse(
+                    'wagtailcore_authenticate_with_password',
+                    args=[restriction.id, page.id],
+                )
                 return page.serve_password_required_response(request, form, action_url)
 
-            elif restriction.restriction_type in [PageViewRestriction.LOGIN, PageViewRestriction.GROUPS]:
+            elif restriction.restriction_type in [
+                PageViewRestriction.LOGIN,
+                PageViewRestriction.GROUPS,
+            ]:
                 return require_wagtail_login(next=request.get_full_path())
 
 
@@ -57,5 +68,5 @@ def register_core_features(features):
 def register_collection_permissions():
     return Permission.objects.filter(
         content_type__app_label='wagtailcore',
-        codename__in=['add_collection', 'change_collection', 'delete_collection']
+        codename__in=['add_collection', 'change_collection', 'delete_collection'],
     )

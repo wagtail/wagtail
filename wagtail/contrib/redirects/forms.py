@@ -8,7 +8,10 @@ from wagtail.core.models import Site
 
 class RedirectForm(forms.ModelForm):
     site = forms.ModelChoiceField(
-        label=_("From site"), queryset=Site.objects.all(), required=False, empty_label=_("All sites")
+        label=_("From site"),
+        queryset=Site.objects.all(),
+        required=False,
+        empty_label=_("All sites"),
     )
 
     def __init__(self, *args, **kwargs):
@@ -37,7 +40,9 @@ class RedirectForm(forms.ModelForm):
                 duplicates = duplicates.exclude(id=self.instance.pk)
 
             if duplicates:
-                raise forms.ValidationError(_("A redirect with this path already exists."))
+                raise forms.ValidationError(
+                    _("A redirect with this path already exists.")
+                )
 
     class Meta:
         model = Redirect

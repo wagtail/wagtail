@@ -41,5 +41,7 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
     else:
         form = PasswordViewRestrictionForm(instance=restriction)
 
-    action_url = reverse('wagtailcore_authenticate_with_password', args=[restriction.id, page.id])
+    action_url = reverse(
+        'wagtailcore_authenticate_with_password', args=[restriction.id, page.id]
+    )
     return page.serve_password_required_response(request, form, action_url)

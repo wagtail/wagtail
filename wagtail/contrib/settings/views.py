@@ -8,7 +8,10 @@ from django.utils.translation import ugettext as _
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
-    ObjectList, TabbedInterface, extract_panel_definitions_from_model_class)
+    ObjectList,
+    TabbedInterface,
+    extract_panel_definitions_from_model_class,
+)
 from wagtail.core.models import Site
 
 from .forms import SiteSwitchForm
@@ -42,7 +45,10 @@ def edit_current_site(request, app_name, model_name):
     # (or the current request does not correspond to a site, the first site in the list)
     site = request.site or Site.objects.first()
     if not site:
-        messages.error(request, _("This setting could not be opened because there is no site defined."))
+        messages.error(
+            request,
+            _("This setting could not be opened because there is no site defined."),
+        )
         return redirect('wagtailadmin_home')
     return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
 
@@ -69,9 +75,8 @@ def edit(request, app_name, model_name, site_pk):
             messages.success(
                 request,
                 _("{setting_type} updated.").format(
-                    setting_type=capfirst(setting_type_name),
-                    instance=instance
-                )
+                    setting_type=capfirst(setting_type_name), instance=instance
+                ),
             )
             return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
         else:
@@ -88,13 +93,17 @@ def edit(request, app_name, model_name, site_pk):
     if Site.objects.count() > 1:
         site_switcher = SiteSwitchForm(site, model)
 
-    return render(request, 'wagtailsettings/edit.html', {
-        'opts': model._meta,
-        'setting_type_name': setting_type_name,
-        'instance': instance,
-        'edit_handler': edit_handler,
-        'form': form,
-        'site': site,
-        'site_switcher': site_switcher,
-        'tabbed': isinstance(edit_handler, TabbedInterface),
-    })
+    return render(
+        request,
+        'wagtailsettings/edit.html',
+        {
+            'opts': model._meta,
+            'setting_type_name': setting_type_name,
+            'instance': instance,
+            'edit_handler': edit_handler,
+            'form': form,
+            'site': site,
+            'site_switcher': site_switcher,
+            'tabbed': isinstance(edit_handler, TabbedInterface),
+        },
+    )

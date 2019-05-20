@@ -15,7 +15,6 @@ __all__ = ['ListBlock']
 
 
 class ListBlock(Block):
-
     def __init__(self, child_block, **kwargs):
         super().__init__(**kwargs)
 
@@ -34,7 +33,12 @@ class ListBlock(Block):
 
     @property
     def media(self):
-        return forms.Media(js=[static('wagtailadmin/js/blocks/sequence.js'), static('wagtailadmin/js/blocks/list.js')])
+        return forms.Media(
+            js=[
+                static('wagtailadmin/js/blocks/sequence.js'),
+                static('wagtailadmin/js/blocks/list.js'),
+            ]
+        )
 
     def render_list_member(self, value, prefix, index, errors=None):
         """
@@ -42,22 +46,24 @@ class ListBlock(Block):
         to manage ID/deleted state, delete/reorder buttons, and the child block's own form HTML.
         """
         child = self.child_block.bind(value, prefix="%s-value" % prefix, errors=errors)
-        return render_to_string('wagtailadmin/block_forms/list_member.html', {
-            'prefix': prefix,
-            'child': child,
-            'index': index,
-        })
+        return render_to_string(
+            'wagtailadmin/block_forms/list_member.html',
+            {'prefix': prefix, 'child': child, 'index': index},
+        )
 
     def html_declarations(self):
         # generate the HTML to be used when adding a new item to the list;
         # this is the output of render_list_member as rendered with the prefix '__PREFIX__'
         # (to be replaced dynamically when adding the new item) and the child block's default value
         # as its value.
-        list_member_html = self.render_list_member(self.child_block.get_default(), '__PREFIX__', '')
+        list_member_html = self.render_list_member(
+            self.child_block.get_default(), '__PREFIX__', ''
+        )
 
         return format_html(
             '<script type="text/template" id="{0}-newmember">{1}</script>',
-            self.definition_prefix, mark_safe(escape_script(list_member_html))
+            self.definition_prefix,
+            mark_safe(escape_script(list_member_html)),
         )
 
     def js_initializer(self):
@@ -73,22 +79,31 @@ class ListBlock(Block):
             if len(errors) > 1:
                 # We rely on ListBlock.clean throwing a single ValidationError with a specially crafted
                 # 'params' attribute that we can pull apart and distribute to the child blocks
-                raise TypeError('ListBlock.render_form unexpectedly received multiple errors')
+                raise TypeError(
+                    'ListBlock.render_form unexpectedly received multiple errors'
+                )
             error_list = errors.as_data()[0].params
         else:
             error_list = None
 
         list_members_html = [
-            self.render_list_member(child_val, "%s-%d" % (prefix, i), i,
-                                    errors=error_list[i] if error_list else None)
+            self.render_list_member(
+                child_val,
+                "%s-%d" % (prefix, i),
+                i,
+                errors=error_list[i] if error_list else None,
+            )
             for (i, child_val) in enumerate(value)
         ]
 
-        return render_to_string('wagtailadmin/block_forms/list.html', {
-            'help_text': getattr(self.meta, 'help_text', None),
-            'prefix': prefix,
-            'list_members_html': list_members_html,
-        })
+        return render_to_string(
+            'wagtailadmin/block_forms/list.html',
+            {
+                'help_text': getattr(self.meta, 'help_text', None),
+                'prefix': prefix,
+                'list_members_html': list_members_html,
+            },
+        )
 
     def value_from_datadict(self, data, files, prefix):
         count = int(data['%s-count' % prefix])
@@ -99,7 +114,9 @@ class ListBlock(Block):
             values_with_indexes.append(
                 (
                     int(data['%s-%d-order' % (prefix, i)]),
-                    self.child_block.value_from_datadict(data, files, '%s-%d-value' % (prefix, i))
+                    self.child_block.value_from_datadict(
+                        data, files, '%s-%d-value' % (prefix, i)
+                    ),
                 )
             )
 
@@ -129,17 +146,11 @@ class ListBlock(Block):
 
     def to_python(self, value):
         # recursively call to_python on children and return as a list
-        return [
-            self.child_block.to_python(item)
-            for item in value
-        ]
+        return [self.child_block.to_python(item) for item in value]
 
     def get_prep_value(self, value):
         # recursively call get_prep_value on children and return as a list
-        return [
-            self.child_block.get_prep_value(item)
-            for item in value
-        ]
+        return [self.child_block.get_prep_value(item) for item in value]
 
     def get_api_representation(self, value, context=None):
         # recursively call get_api_representation on children and return as a list
@@ -150,11 +161,12 @@ class ListBlock(Block):
 
     def render_basic(self, value, context=None):
         children = format_html_join(
-            '\n', '<li>{0}</li>',
+            '\n',
+            '<li>{0}</li>',
             [
                 (self.child_block.render(child_value, context=context),)
                 for child_value in value
-            ]
+            ],
         )
         return format_html("<ul>{0}</ul>", children)
 
@@ -178,6 +190,4 @@ class ListBlock(Block):
         icon = "placeholder"
 
 
-DECONSTRUCT_ALIASES = {
-    ListBlock: 'wagtail.core.blocks.ListBlock',
-}
+DECONSTRUCT_ALIASES = {ListBlock: 'wagtail.core.blocks.ListBlock'}

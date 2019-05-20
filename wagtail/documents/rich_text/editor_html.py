@@ -6,6 +6,7 @@ from wagtail.documents.models import get_document_model
 
 # hallo.js / editor-html conversion
 
+
 class DocumentLinkHandler:
     @staticmethod
     def get_db_attributes(tag):
@@ -16,7 +17,10 @@ class DocumentLinkHandler:
         Document = get_document_model()
         try:
             doc = Document.objects.get(id=attrs['id'])
-            return '<a data-linktype="document" data-id="%d" href="%s">' % (doc.id, escape(doc.url))
+            return '<a data-linktype="document" data-id="%d" href="%s">' % (
+                doc.id,
+                escape(doc.url),
+            )
         except Document.DoesNotExist:
             # Preserve the ID attribute for troubleshooting purposes, even though it
             # points to a missing document
@@ -26,5 +30,5 @@ class DocumentLinkHandler:
 
 
 EditorHTMLDocumentLinkConversionRule = [
-    editor_html.LinkTypeRule('document', DocumentLinkHandler),
+    editor_html.LinkTypeRule('document', DocumentLinkHandler)
 ]

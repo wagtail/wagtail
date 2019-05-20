@@ -43,7 +43,9 @@ def serve(request, document_id, document_filename):
         # this provides support for mimetypes, if-modified-since and django-sendfile backends
 
         if hasattr(settings, 'SENDFILE_BACKEND'):
-            return sendfile(request, local_path, attachment=True, attachment_filename=doc.filename)
+            return sendfile(
+                request, local_path, attachment=True, attachment_filename=doc.filename
+            )
         else:
             # Fallback to streaming backend if user hasn't specified SENDFILE_BACKEND
             return sendfile(
@@ -51,7 +53,7 @@ def serve(request, document_id, document_filename):
                 local_path,
                 attachment=True,
                 attachment_filename=doc.filename,
-                backend=sendfile_streaming_backend.sendfile
+                backend=sendfile_streaming_backend.sendfile,
             )
 
     else:
@@ -62,7 +64,9 @@ def serve(request, document_id, document_filename):
         # as a StreamingHttpResponse
 
         wrapper = FileWrapper(doc.file)
-        response = StreamingHttpResponse(wrapper, content_type='application/octet-stream')
+        response = StreamingHttpResponse(
+            wrapper, content_type='application/octet-stream'
+        )
 
         response['Content-Disposition'] = 'attachment; filename=%s' % doc.filename
 
@@ -88,12 +92,15 @@ def authenticate_with_password(request, restriction_id):
     else:
         form = PasswordViewRestrictionForm(instance=restriction)
 
-    action_url = reverse('wagtaildocs_authenticate_with_password', args=[restriction.id])
+    action_url = reverse(
+        'wagtaildocs_authenticate_with_password', args=[restriction.id]
+    )
 
-    password_required_template = getattr(settings, 'DOCUMENT_PASSWORD_REQUIRED_TEMPLATE', 'wagtaildocs/password_required.html')
+    password_required_template = getattr(
+        settings,
+        'DOCUMENT_PASSWORD_REQUIRED_TEMPLATE',
+        'wagtaildocs/password_required.html',
+    )
 
-    context = {
-        'form': form,
-        'action_url': action_url
-    }
+    context = {'form': form, 'action_url': action_url}
     return TemplateResponse(request, password_required_template, context)

@@ -9,9 +9,7 @@ import modelcluster.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('tests', '0027_auto_20180110_1727'),
-    ]
+    dependencies = [('tests', '0027_auto_20180110_1727')]
 
     operations = [
         migrations.CreateModel(
@@ -19,7 +17,14 @@ class Migration(migrations.Migration):
             fields=[
                 ('custom_id', models.AutoField(primary_key=True, serialize=False)),
                 ('head_count', models.IntegerField()),
-                ('event_page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='head_counts', to='tests.EventPage')),
+                (
+                    'event_page',
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='head_counts',
+                        to='tests.EventPage',
+                    ),
+                ),
             ],
-        ),
+        )
     ]

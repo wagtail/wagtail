@@ -45,22 +45,19 @@ class FormBuilder:
 
     def create_dropdown_field(self, field, options):
         options['choices'] = map(
-            lambda x: (x.strip(), x.strip()),
-            field.choices.split(',')
+            lambda x: (x.strip(), x.strip()), field.choices.split(',')
         )
         return django.forms.ChoiceField(**options)
 
     def create_multiselect_field(self, field, options):
         options['choices'] = map(
-            lambda x: (x.strip(), x.strip()),
-            field.choices.split(',')
+            lambda x: (x.strip(), x.strip()), field.choices.split(',')
         )
         return django.forms.MultipleChoiceField(**options)
 
     def create_radio_field(self, field, options):
         options['choices'] = map(
-            lambda x: (x.strip(), x.strip()),
-            field.choices.split(',')
+            lambda x: (x.strip(), x.strip()), field.choices.split(',')
         )
         return django.forms.ChoiceField(widget=django.forms.RadioSelect, **options)
 
@@ -88,15 +85,17 @@ class FormBuilder:
             return create_field_function
         else:
             import inspect
+
             method_list = [
-                f[0] for f in
-                inspect.getmembers(self.__class__, inspect.isfunction)
+                f[0]
+                for f in inspect.getmembers(self.__class__, inspect.isfunction)
                 if f[0].startswith('create_') and f[0].endswith('_field')
             ]
             raise AttributeError(
                 "Could not find function matching format \
-                create_<fieldname>_field for type: " + type,
-                "Must be one of: " + ", ".join(method_list)
+                create_<fieldname>_field for type: "
+                + type,
+                "Must be one of: " + ", ".join(method_list),
             )
 
     @property
@@ -125,16 +124,15 @@ class FormBuilder:
 class SelectDateForm(django.forms.Form):
     date_from = django.forms.DateTimeField(
         required=False,
-        widget=django.forms.DateInput(attrs={'placeholder': _('Date from')})
+        widget=django.forms.DateInput(attrs={'placeholder': _('Date from')}),
     )
     date_to = django.forms.DateTimeField(
         required=False,
-        widget=django.forms.DateInput(attrs={'placeholder': _('Date to')})
+        widget=django.forms.DateInput(attrs={'placeholder': _('Date to')}),
     )
 
 
 class WagtailAdminFormPageForm(WagtailAdminPageForm):
-
     def clean(self):
 
         super().clean()
@@ -153,5 +151,10 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
                         if idx != i and label == ff.cleaned_data.get('label'):
                             form.add_error(
                                 'label',
-                                django.forms.ValidationError(_('There is another field with the label %s, please change one of them.' % label))
+                                django.forms.ValidationError(
+                                    _(
+                                        'There is another field with the label %s, please change one of them.'
+                                        % label
+                                    )
+                                ),
                             )

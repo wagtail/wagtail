@@ -58,7 +58,9 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
 
 
 def get_available_admin_languages():
-    return getattr(settings, 'WAGTAILADMIN_PERMITTED_LANGUAGES', WAGTAILADMIN_PROVIDED_LANGUAGES)
+    return getattr(
+        settings, 'WAGTAILADMIN_PERMITTED_LANGUAGES', WAGTAILADMIN_PROVIDED_LANGUAGES
+    )
 
 
 def get_available_admin_time_zones():
@@ -71,28 +73,32 @@ def get_object_usage(obj):
     pages = Page.objects.none()
 
     # get all the relation objects for obj
-    relations = [f for f in type(obj)._meta.get_fields(include_hidden=True)
-                 if (f.one_to_many or f.one_to_one) and f.auto_created]
+    relations = [
+        f
+        for f in type(obj)._meta.get_fields(include_hidden=True)
+        if (f.one_to_many or f.one_to_one) and f.auto_created
+    ]
     for relation in relations:
         related_model = relation.related_model
 
         # if the relation is between obj and a page, get the page
         if issubclass(related_model, Page):
             pages |= Page.objects.filter(
-                id__in=related_model._base_manager.filter(**{
-                    relation.field.name: obj.id
-                }).values_list('id', flat=True)
+                id__in=related_model._base_manager.filter(
+                    **{relation.field.name: obj.id}
+                ).values_list('id', flat=True)
             )
         else:
             # if the relation is between obj and an object that has a page as a
             # property, return the page
             for f in related_model._meta.fields:
-                if isinstance(f, ParentalKey) and issubclass(f.remote_field.model, Page):
+                if isinstance(f, ParentalKey) and issubclass(
+                    f.remote_field.model, Page
+                ):
                     pages |= Page.objects.filter(
                         id__in=related_model._base_manager.filter(
-                            **{
-                                relation.field.name: obj.id
-                            }).values_list(f.attname, flat=True)
+                            **{relation.field.name: obj.id}
+                        ).values_list(f.attname, flat=True)
                     )
 
     return pages
@@ -101,11 +107,11 @@ def get_object_usage(obj):
 def popular_tags_for_model(model, count=10):
     """Return a queryset of the most frequently used tags used on this model class"""
     content_type = ContentType.objects.get_for_model(model)
-    return Tag.objects.filter(
-        taggit_taggeditem_items__content_type=content_type
-    ).annotate(
-        item_count=Count('taggit_taggeditem_items')
-    ).order_by('-item_count')[:count]
+    return (
+        Tag.objects.filter(taggit_taggeditem_items__content_type=content_type)
+        .annotate(item_count=Count('taggit_taggeditem_items'))
+        .order_by('-item_count')[:count]
+    )
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
@@ -114,7 +120,9 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
 
     # Find GroupPagePermission records of the given type that apply to this page or an ancestor
     ancestors_and_self = list(page.get_ancestors()) + [page]
-    perm = GroupPagePermission.objects.filter(permission_type=permission_type, page__in=ancestors_and_self)
+    perm = GroupPagePermission.objects.filter(
+        permission_type=permission_type, page__in=ancestors_and_self
+    )
     q = Q(groups__page_permissions__in=perm)
 
     # Include superusers
@@ -140,6 +148,7 @@ def user_passes_test(test):
     Given a test function that takes a user object and returns a boolean,
     return a view decorator that denies access to the user if the test returns false.
     """
+
     def decorator(view_func):
         # decorator takes the view function, and returns the view wrapped in
         # a permission check
@@ -164,6 +173,7 @@ def permission_required(permission_name):
     more meaningful 'permission denied' response than just redirecting to the login page.
     (The latter doesn't work anyway because Wagtail doesn't define LOGIN_URL...)
     """
+
     def test(user):
         return user.has_perm(permission_name)
 
@@ -176,6 +186,7 @@ def any_permission_required(*perms):
     Decorator that accepts a list of permission names, and allows the user
     to pass if they have *any* of the permissions in the list
     """
+
     def test(user):
         for perm in perms:
             if user.has_perm(perm):
@@ -191,6 +202,7 @@ class PermissionPolicyChecker:
     Provides a view decorator that enforces the given permission policy,
     returning the wagtailadmin 'permission denied' response if permission not granted
     """
+
     def __init__(self, policy):
         self.policy = policy
 
@@ -227,11 +239,11 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
     )
     multi_alt_kwargs = {
         'connection': connection,
-        'headers': {
-            'Auto-Submitted': 'auto-generated',
-        }
+        'headers': {'Auto-Submitted': 'auto-generated'},
     }
-    mail = EmailMultiAlternatives(subject, message, from_email, recipient_list, **multi_alt_kwargs)
+    mail = EmailMultiAlternatives(
+        subject, message, from_email, recipient_list, **multi_alt_kwargs
+    )
     html_message = kwargs.get('html_message', None)
     if html_message:
         mail.attach_alternative(html_message, 'text/html')
@@ -246,8 +258,12 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     # Get list of recipients
     if notification == 'submitted':
         # Get list of publishers
-        include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
-        recipients = users_with_page_permission(revision.page, 'publish', include_superusers)
+        include_superusers = getattr(
+            settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True
+        )
+        recipients = users_with_page_permission(
+            revision.page, 'publish', include_superusers
+        )
     elif notification in ['rejected', 'approved']:
         # Get submitter
         recipients = [revision.user]
@@ -256,10 +272,12 @@ def send_notification(page_revision_id, notification, excluded_user_id):
 
     # Get list of email addresses
     email_recipients = [
-        recipient for recipient in recipients
-        if recipient.email and recipient.pk != excluded_user_id and getattr(
-            UserProfile.get_for_user(recipient),
-            notification + '_notifications'
+        recipient
+        for recipient in recipients
+        if recipient.email
+        and recipient.pk != excluded_user_id
+        and getattr(
+            UserProfile.get_for_user(recipient), notification + '_notifications'
         )
     ]
 
@@ -273,10 +291,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     template_html = 'wagtailadmin/notifications/' + notification + '.html'
 
     # Common context to template
-    context = {
-        "revision": revision,
-        "settings": settings,
-    }
+    context = {"revision": revision, "settings": settings}
 
     # Send emails
     sent_count = 0
@@ -301,7 +316,8 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         except Exception:
             logger.exception(
                 "Failed to send notification email '%s' to %s",
-                email_subject, recipient.email
+                email_subject,
+                recipient.email,
             )
 
     return sent_count == len(email_recipients)

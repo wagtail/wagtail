@@ -1,5 +1,10 @@
 from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, Group, Permission, PermissionsMixin)
+    AbstractBaseUser,
+    BaseUserManager,
+    Group,
+    Permission,
+    PermissionsMixin,
+)
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel
@@ -8,28 +13,41 @@ from .fields import ConvertedValueField
 
 
 class CustomUserManager(BaseUserManager):
-    def _create_user(self, username, email, password,
-                     is_staff, is_superuser, is_active=True, **extra_fields):
+    def _create_user(
+        self,
+        username,
+        email,
+        password,
+        is_staff,
+        is_superuser,
+        is_active=True,
+        **extra_fields
+    ):
         """
         Creates and saves a User with the given username, email and password.
         """
         if not username:
             raise ValueError('The given username must be set')
         email = self.normalize_email(email)
-        user = self.model(username=username, email=email,
-                          is_staff=is_staff, is_active=is_active,
-                          is_superuser=is_superuser, **extra_fields)
+        user = self.model(
+            username=username,
+            email=email,
+            is_staff=is_staff,
+            is_active=is_active,
+            is_superuser=is_superuser,
+            **extra_fields
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_user(self, username, email=None, password=None, **extra_fields):
-        return self._create_user(username, email, password, False, False,
-                                 **extra_fields)
+        return self._create_user(
+            username, email, password, False, False, **extra_fields
+        )
 
     def create_superuser(self, username, email, password, **extra_fields):
-        return self._create_user(username, email, password, True, True,
-                                 **extra_fields)
+        return self._create_user(username, email, password, True, True, **extra_fields)
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -54,32 +72,31 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.first_name
 
-    panels = [
-        FieldPanel('first_name'),
-        FieldPanel('last_name'),
-    ]
+    panels = [FieldPanel('first_name'), FieldPanel('last_name')]
 
 
 class EmailUserManager(BaseUserManager):
-    def _create_user(self, email, password,
-                     is_staff, is_superuser, **extra_fields):
+    def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
         """
         Creates and saves a User with the given email and password.
         """
         email = self.normalize_email(email)
-        user = self.model(email=email, is_staff=is_staff, is_active=True,
-                          is_superuser=is_superuser, **extra_fields)
+        user = self.model(
+            email=email,
+            is_staff=is_staff,
+            is_active=True,
+            is_superuser=is_superuser,
+            **extra_fields
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_user(self, email=None, password=None, **extra_fields):
-        return self._create_user(email, password, False, False,
-                                 **extra_fields)
+        return self._create_user(email, password, False, False, **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
-        return self._create_user(email, password, True, True,
-                                 **extra_fields)
+        return self._create_user(email, password, True, True, **extra_fields)
 
 
 class EmailUser(AbstractBaseUser):
@@ -106,8 +123,13 @@ class EmailUser(AbstractBaseUser):
         return self.first_name
 
 
-methods = ['get_group_permissions', 'get_all_permissions', 'has_perm',
-           'has_perms', 'has_module_perms']
+methods = [
+    'get_group_permissions',
+    'get_all_permissions',
+    'has_perm',
+    'has_perms',
+    'has_module_perms',
+]
 for method in methods:
     func = getattr(PermissionsMixin, method)
     setattr(EmailUser, method, func)

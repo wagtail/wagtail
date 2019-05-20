@@ -16,6 +16,7 @@ __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 
 class StructValue(collections.OrderedDict):
     """ A class that generates a StructBlock value from provded sub-blocks """
+
     def __init__(self, block, *args):
         super().__init__(*args)
         self.block = block
@@ -28,14 +29,15 @@ class StructValue(collections.OrderedDict):
 
     @cached_property
     def bound_blocks(self):
-        return collections.OrderedDict([
-            (name, block.bind(self.get(name)))
-            for name, block in self.block.child_blocks.items()
-        ])
+        return collections.OrderedDict(
+            [
+                (name, block.bind(self.get(name)))
+                for name, block in self.block.child_blocks.items()
+            ]
+        )
 
 
 class BaseStructBlock(Block):
-
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
 
@@ -80,19 +82,26 @@ class BaseStructBlock(Block):
             if len(errors) > 1:
                 # We rely on StructBlock.clean throwing a single ValidationError with a specially crafted
                 # 'params' attribute that we can pull apart and distribute to the child blocks
-                raise TypeError('StructBlock.render_form unexpectedly received multiple errors')
+                raise TypeError(
+                    'StructBlock.render_form unexpectedly received multiple errors'
+                )
             error_dict = errors.as_data()[0].params
         else:
             error_dict = {}
 
-        bound_child_blocks = collections.OrderedDict([
-            (
-                name,
-                block.bind(value.get(name, block.get_default()),
-                           prefix="%s-%s" % (prefix, name), errors=error_dict.get(name))
-            )
-            for name, block in self.child_blocks.items()
-        ])
+        bound_child_blocks = collections.OrderedDict(
+            [
+                (
+                    name,
+                    block.bind(
+                        value.get(name, block.get_default()),
+                        prefix="%s-%s" % (prefix, name),
+                        errors=error_dict.get(name),
+                    ),
+                )
+                for name, block in self.child_blocks.items()
+            ]
+        )
 
         return {
             'children': bound_child_blocks,
@@ -108,10 +117,12 @@ class BaseStructBlock(Block):
         return render_to_string(self.meta.form_template, context)
 
     def value_from_datadict(self, data, files, prefix):
-        return self._to_struct_value([
-            (name, block.value_from_datadict(data, files, '%s-%s' % (prefix, name)))
-            for name, block in self.child_blocks.items()
-        ])
+        return self._to_struct_value(
+            [
+                (name, block.value_from_datadict(data, files, '%s-%s' % (prefix, name)))
+                for name, block in self.child_blocks.items()
+            ]
+        )
 
     def value_omitted_from_data(self, data, files, prefix):
         return all(
@@ -120,7 +131,9 @@ class BaseStructBlock(Block):
         )
 
     def clean(self, value):
-        result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
+        result = (
+            []
+        )  # build up a list of (name, value) tuples to be passed to the StructValue constructor
         errors = {}
         for name, val in value.items():
             try:
@@ -137,15 +150,21 @@ class BaseStructBlock(Block):
 
     def to_python(self, value):
         """ Recursively call to_python on children and return as a StructValue """
-        return self._to_struct_value([
-            (
-                name,
-                (child_block.to_python(value[name]) if name in value else child_block.get_default())
-                # NB the result of get_default is NOT passed through to_python, as it's expected
-                # to be in the block's native type already
-            )
-            for name, child_block in self.child_blocks.items()
-        ])
+        return self._to_struct_value(
+            [
+                (
+                    name,
+                    (
+                        child_block.to_python(value[name])
+                        if name in value
+                        else child_block.get_default()
+                    )
+                    # NB the result of get_default is NOT passed through to_python, as it's expected
+                    # to be in the block's native type already
+                )
+                for name, child_block in self.child_blocks.items()
+            ]
+        )
 
     def _to_struct_value(self, block_items):
         """ Return a Structvalue representation of the sub-blocks in this block """
@@ -153,23 +172,34 @@ class BaseStructBlock(Block):
 
     def get_prep_value(self, value):
         """ Recursively call get_prep_value on children and return as a plain dict """
-        return dict([
-            (name, self.child_blocks[name].get_prep_value(val))
-            for name, val in value.items()
-        ])
+        return dict(
+            [
+                (name, self.child_blocks[name].get_prep_value(val))
+                for name, val in value.items()
+            ]
+        )
 
     def get_api_representation(self, value, context=None):
         """ Recursively call get_api_representation on children and return as a plain dict """
-        return dict([
-            (name, self.child_blocks[name].get_api_representation(val, context=context))
-            for name, val in value.items()
-        ])
+        return dict(
+            [
+                (
+                    name,
+                    self.child_blocks[name].get_api_representation(
+                        val, context=context
+                    ),
+                )
+                for name, val in value.items()
+            ]
+        )
 
     def get_searchable_content(self, value):
         content = []
 
         for name, block in self.child_blocks.items():
-            content.extend(block.get_searchable_content(value.get(name, block.get_default())))
+            content.extend(
+                block.get_searchable_content(value.get(name, block.get_default()))
+            )
 
         return content
 
@@ -196,8 +226,10 @@ class BaseStructBlock(Block):
         return errors
 
     def render_basic(self, value, context=None):
-        return format_html('<dl>\n{}\n</dl>', format_html_join(
-            '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', value.items()))
+        return format_html(
+            '<dl>\n{}\n</dl>',
+            format_html_join('\n', '    <dt>{}</dt>\n    <dd>{}</dd>', value.items()),
+        )
 
     class Meta:
         default = {}

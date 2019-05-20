@@ -4,9 +4,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailsearchpromotions', '0001_initial'),
-    ]
+    dependencies = [('wagtailsearchpromotions', '0001_initial')]
 
     operations = [
         migrations.AlterModelOptions(
@@ -21,6 +19,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='searchpromotion',
             name='page',
-            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', verbose_name='page'),
+            field=models.ForeignKey(
+                on_delete=models.CASCADE, to='wagtailcore.Page', verbose_name='page'
+            ),
         ),
     ]

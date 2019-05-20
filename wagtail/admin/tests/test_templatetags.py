@@ -11,9 +11,7 @@ class TestAvatarTemplateTag(TestCase):
     def setUp(self):
         # Create a user
         self.test_user = get_user_model().objects.create_user(
-            username='testuser',
-            email='testuser@email.com',
-            password='password',
+            username='testuser', email='testuser@email.com', password='password'
         )
 
     def test_use_gravatar_by_default(self):

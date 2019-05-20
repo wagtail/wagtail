@@ -37,6 +37,7 @@ class cached_classmethod(dict):
 
 class _cache:
     """ Calls the real class method behind when called, caching the result """
+
     def __init__(self, cache, cls, fn):
         self.cache = cache
         self.cls = cls

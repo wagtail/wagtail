@@ -25,15 +25,18 @@ class PageStatusField(Field):
         "has_unpublished_changes": false
     },
     """
+
     def get_attribute(self, instance):
         return instance
 
     def to_representation(self, page):
-        return OrderedDict([
-            ('status', page.status_string),
-            ('live', page.live),
-            ('has_unpublished_changes', page.has_unpublished_changes),
-        ])
+        return OrderedDict(
+            [
+                ('status', page.status_string),
+                ('live', page.live),
+                ('has_unpublished_changes', page.has_unpublished_changes),
+            ]
+        )
 
 
 class PageChildrenField(Field):
@@ -46,14 +49,22 @@ class PageChildrenField(Field):
         "listing_url": "/api/v1/pages/?child_of=2"
     }
     """
+
     def get_attribute(self, instance):
         return instance
 
     def to_representation(self, page):
-        return OrderedDict([
-            ('count', page.numchild),
-            ('listing_url', get_model_listing_url(self.context, Page) + '?child_of=' + str(page.id)),
-        ])
+        return OrderedDict(
+            [
+                ('count', page.numchild),
+                (
+                    'listing_url',
+                    get_model_listing_url(self.context, Page)
+                    + '?child_of='
+                    + str(page.id),
+                ),
+            ]
+        )
 
 
 class PageDescendantsField(Field):
@@ -66,14 +77,22 @@ class PageDescendantsField(Field):
         "listing_url": "/api/v1/pages/?descendant_of=2"
     }
     """
+
     def get_attribute(self, instance):
         return instance
 
     def to_representation(self, page):
-        return OrderedDict([
-            ('count', page.get_descendants().count()),
-            ('listing_url', get_model_listing_url(self.context, Page) + '?descendant_of=' + str(page.id)),
-        ])
+        return OrderedDict(
+            [
+                ('count', page.get_descendants().count()),
+                (
+                    'listing_url',
+                    get_model_listing_url(self.context, Page)
+                    + '?descendant_of='
+                    + str(page.id),
+                ),
+            ]
+        )
 
 
 class AdminPageSerializer(PageSerializer):

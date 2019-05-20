@@ -7,14 +7,17 @@ import wagtail.core.models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailcore', '0023_alter_page_revision_on_delete_behaviour'),
-    ]
+    dependencies = [('wagtailcore', '0023_alter_page_revision_on_delete_behaviour')]
 
     operations = [
         migrations.AlterField(
             model_name='page',
             name='content_type',
-            field=models.ForeignKey(on_delete=models.SET(wagtail.core.models.get_default_page_content_type), related_name='pages', to='contenttypes.ContentType', verbose_name='content type'),
-        ),
+            field=models.ForeignKey(
+                on_delete=models.SET(wagtail.core.models.get_default_page_content_type),
+                related_name='pages',
+                to='contenttypes.ContentType',
+                verbose_name='content type',
+            ),
+        )
     ]

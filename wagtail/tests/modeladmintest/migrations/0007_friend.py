@@ -5,19 +5,25 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('modeladmintest', '0006_contributor_person_visitor'),
-    ]
+    dependencies = [('modeladmintest', '0006_contributor_person_visitor')]
 
     operations = [
         migrations.CreateModel(
             name='Friend',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('first_name', models.CharField(max_length=255)),
                 ('last_name', models.CharField(max_length=255)),
                 ('phone_number', models.CharField(max_length=255)),
                 ('address', models.CharField(max_length=255)),
             ],
-        ),
+        )
     ]

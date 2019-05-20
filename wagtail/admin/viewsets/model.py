@@ -82,7 +82,7 @@ class ModelViewSet(ViewSet):
             self.model,
             formfield_callback=self.formfield_for_dbfield,
             fields=fields,
-            exclude=exclude
+            exclude=exclude,
         )
 
     def get_urlpatterns(self):

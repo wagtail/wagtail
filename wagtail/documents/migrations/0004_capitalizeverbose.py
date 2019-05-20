@@ -6,14 +6,11 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtaildocs', '0003_add_verbose_names'),
-    ]
+    dependencies = [('wagtaildocs', '0003_add_verbose_names')]
 
     operations = [
         migrations.AlterModelOptions(
-            name='document',
-            options={'verbose_name': 'document'},
+            name='document', options={'verbose_name': 'document'}
         ),
         migrations.AlterField(
             model_name='document',
@@ -28,7 +25,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='document',
             name='tags',
-            field=taggit.managers.TaggableManager(through='taggit.TaggedItem', verbose_name='tags', blank=True, help_text=None, to='taggit.Tag'),
+            field=taggit.managers.TaggableManager(
+                through='taggit.TaggedItem',
+                verbose_name='tags',
+                blank=True,
+                help_text=None,
+                to='taggit.Tag',
+            ),
         ),
         migrations.AlterField(
             model_name='document',
@@ -38,6 +41,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='document',
             name='uploaded_by_user',
-            field=models.ForeignKey(on_delete=models.CASCADE, blank=True, null=True, to=settings.AUTH_USER_MODEL, editable=False, verbose_name='uploaded by user'),
+            field=models.ForeignKey(
+                on_delete=models.CASCADE,
+                blank=True,
+                null=True,
+                to=settings.AUTH_USER_MODEL,
+                editable=False,
+                verbose_name='uploaded by user',
+            ),
         ),
     ]

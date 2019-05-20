@@ -23,11 +23,13 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         response = self.client.get('/admin/modeladmintest/person/create/')
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
-            ['first_name', 'last_name', 'phone_number']
+            ['first_name', 'last_name', 'phone_number'],
         )
 
     @mock.patch('wagtail.contrib.modeladmin.views.ModelFormView.get_edit_handler')
-    def test_model_form_view_edit_handler_called(self, mock_modelformview_get_edit_handler):
+    def test_model_form_view_edit_handler_called(
+        self, mock_modelformview_get_edit_handler
+    ):
         """loads the ``create`` view and verifies that modelformview edit_handler is called"""
         self.client.get('/admin/modeladmintest/person/create/')
         self.assertGreater(len(mock_modelformview_get_edit_handler.call_args_list), 0)
@@ -54,7 +56,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         response = self.client.get('/admin/modeladmintest/friend/create/')
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
-            ['first_name', 'phone_number']
+            ['first_name', 'phone_number'],
         )
 
     def test_model_admin_edit_handler(self):
@@ -63,7 +65,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         response = self.client.get('/admin/modeladmintest/visitor/create/')
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
-            ['last_name', 'phone_number', 'address']
+            ['last_name', 'phone_number', 'address'],
         )
 
     def test_model_admin_panels(self):
@@ -72,7 +74,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         response = self.client.get('/admin/modeladmintest/contributor/create/')
         self.assertEqual(
             [field_name for field_name in response.context['form'].fields],
-            ['last_name', 'phone_number', 'address']
+            ['last_name', 'phone_number', 'address'],
         )
 
     def test_model_admin_panel_edit_handler_priority(self):
@@ -87,7 +89,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         form = form_class()
         self.assertEqual(
             [field_name for field_name in form.fields],
-            ['first_name', 'last_name', 'phone_number']
+            ['first_name', 'last_name', 'phone_number'],
         )
 
         # now add a panel definition to the PersonAdmin and verify that
@@ -105,7 +107,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         form = form_class()
         self.assertEqual(
             [field_name for field_name in form.fields],
-            ['last_name', 'phone_number', 'address']
+            ['last_name', 'phone_number', 'address'],
         )
 
         # now add a edit_handler definition to the PersonAdmin and verify that
@@ -113,19 +115,13 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         # form and NOT the panel or edit_handler definition from the
         # Person model
         model_admin = PersonAdmin()
-        model_admin.edit_handler = TabbedInterface([
-            ObjectList(
-                [
-                    FieldPanel('phone_number'),
-                    FieldPanel('address'),
-                ]
-            ),
-        ])
+        model_admin.edit_handler = TabbedInterface(
+            [ObjectList([FieldPanel('phone_number'), FieldPanel('address')])]
+        )
         edit_handler = model_admin.get_edit_handler(None, None)
         edit_handler = edit_handler.bind_to(model=model_admin.model)
         form_class = edit_handler.get_form_class()
         form = form_class()
         self.assertEqual(
-            [field_name for field_name in form.fields],
-            ['phone_number', 'address']
+            [field_name for field_name in form.fields], ['phone_number', 'address']
         )

@@ -33,15 +33,24 @@ class OrderByFieldError(FieldError):
 class BaseSearchQueryCompiler:
     DEFAULT_OPERATOR = 'or'
 
-    def __init__(self, queryset, query, fields=None, operator=None, order_by_relevance=True, partial_match=True):
+    def __init__(
+        self,
+        queryset,
+        query,
+        fields=None,
+        operator=None,
+        order_by_relevance=True,
+        partial_match=True,
+    ):
         self.queryset = queryset
         if query is None:
-            warn('Querying `None` is deprecated, use `MATCH_ALL` instead.',
-                 DeprecationWarning)
+            warn(
+                'Querying `None` is deprecated, use `MATCH_ALL` instead.',
+                DeprecationWarning,
+            )
             query = MATCH_ALL
         elif isinstance(query, str):
-            query = PlainText(query,
-                              operator=operator or self.DEFAULT_OPERATOR)
+            query = PlainText(query, operator=operator or self.DEFAULT_OPERATOR)
         self.query = query
         self.fields = fields
         self.order_by_relevance = order_by_relevance
@@ -68,9 +77,14 @@ class BaseSearchQueryCompiler:
 
         if field is None:
             raise FilterFieldError(
-                'Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\''
-                + field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
-                field_name=field_attname
+                'Cannot filter search results with field "'
+                + field_attname
+                + '". Please add index.FilterField(\''
+                + field_attname
+                + '\') to '
+                + self.queryset.model.__name__
+                + '.search_fields.',
+                field_name=field_attname,
             )
 
         # Process the lookup
@@ -79,8 +93,15 @@ class BaseSearchQueryCompiler:
 
         if result is None:
             raise FilterError(
-                'Could not apply filter on search results: "' + field_attname + '__'
-                + lookup + ' = ' + str(value) + '". Lookup "' + lookup + '"" not recognised.'
+                'Could not apply filter on search results: "'
+                + field_attname
+                + '__'
+                + lookup
+                + ' = '
+                + str(value)
+                + '". Lookup "'
+                + lookup
+                + '"" not recognised.'
             )
 
         return result
@@ -97,22 +118,36 @@ class BaseSearchQueryCompiler:
                 return
 
             # Process the filter
-            return self._process_filter(field_attname, lookup, value, check_only=check_only)
+            return self._process_filter(
+                field_attname, lookup, value, check_only=check_only
+            )
 
         elif isinstance(where_node, SubqueryConstraint):
-            raise FilterError('Could not apply filter on search results: Subqueries are not allowed.')
+            raise FilterError(
+                'Could not apply filter on search results: Subqueries are not allowed.'
+            )
 
         elif isinstance(where_node, WhereNode):
             # Get child filters
             connector = where_node.connector
-            child_filters = [self._get_filters_from_where_node(child) for child in where_node.children]
+            child_filters = [
+                self._get_filters_from_where_node(child)
+                for child in where_node.children
+            ]
 
             if not check_only:
-                child_filters = [child_filter for child_filter in child_filters if child_filter]
-                return self._connect_filters(child_filters, connector, where_node.negated)
+                child_filters = [
+                    child_filter for child_filter in child_filters if child_filter
+                ]
+                return self._connect_filters(
+                    child_filters, connector, where_node.negated
+                )
 
         else:
-            raise FilterError('Could not apply filter on search results: Unknown where node: ' + str(type(where_node)))
+            raise FilterError(
+                'Could not apply filter on search results: Unknown where node: '
+                + str(type(where_node))
+            )
 
     def _get_filters_from_queryset(self):
         return self._get_filters_from_where_node(self.queryset.query.where)
@@ -132,9 +167,14 @@ class BaseSearchQueryCompiler:
 
             if field is None:
                 raise OrderByFieldError(
-                    'Cannot sort search results with field "' + field_name + '". Please add index.FilterField(\''
-                    + field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
-                    field_name=field_name
+                    'Cannot sort search results with field "'
+                    + field_name
+                    + '". Please add index.FilterField(\''
+                    + field_name
+                    + '\') to '
+                    + self.queryset.model.__name__
+                    + '.search_fields.',
+                    field_name=field_name,
                 )
 
             yield reverse, field
@@ -142,14 +182,22 @@ class BaseSearchQueryCompiler:
     def check(self):
         # Check search fields
         if self.fields:
-            allowed_fields = {field.field_name for field in self.queryset.model.get_searchable_search_fields()}
+            allowed_fields = {
+                field.field_name
+                for field in self.queryset.model.get_searchable_search_fields()
+            }
 
             for field_name in self.fields:
                 if field_name not in allowed_fields:
                     raise SearchFieldError(
-                        'Cannot search with field "' + field_name + '". Please add index.SearchField(\''
-                        + field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
-                        field_name=field_name
+                        'Cannot search with field "'
+                        + field_name
+                        + '". Please add index.SearchField(\''
+                        + field_name
+                        + '\') to '
+                        + self.queryset.model.__name__
+                        + '.search_fields.',
+                        field_name=field_name,
                     )
 
         # Check where clause
@@ -189,8 +237,9 @@ class BaseSearchResults:
 
     def _clone(self):
         klass = self.__class__
-        new = klass(self.backend, self.query_compiler,
-                    prefetch_related=self.prefetch_related)
+        new = klass(
+            self.backend, self.query_compiler, prefetch_related=self.prefetch_related
+        )
         new.start = self.start
         new.stop = self.stop
         new._score_field = self._score_field
@@ -278,6 +327,7 @@ class NullIndex:
     BaseSearchBackend. Use this for search backends that do not maintain an index, such as the
     database backend.
     """
+
     def add_model(self, model):
         pass
 
@@ -350,16 +400,22 @@ class BaseSearchBackend:
             return EmptySearchResults()
 
         # Search
-        search_query = query_compiler_class(
-            queryset, query, **kwargs
-        )
+        search_query = query_compiler_class(queryset, query, **kwargs)
 
         # Check the query
         search_query.check()
 
         return self.results_class(self, search_query)
 
-    def search(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True, partial_match=True):
+    def search(
+        self,
+        query,
+        model_or_queryset,
+        fields=None,
+        operator=None,
+        order_by_relevance=True,
+        partial_match=True,
+    ):
         return self._search(
             self.query_compiler_class,
             query,
@@ -370,9 +426,18 @@ class BaseSearchBackend:
             partial_match=partial_match,
         )
 
-    def autocomplete(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True):
+    def autocomplete(
+        self,
+        query,
+        model_or_queryset,
+        fields=None,
+        operator=None,
+        order_by_relevance=True,
+    ):
         if self.autocomplete_query_compiler_class is None:
-            raise NotImplementedError("This search backend does not support the autocomplete API")
+            raise NotImplementedError(
+                "This search backend does not support the autocomplete API"
+            )
 
         return self._search(
             self.autocomplete_query_compiler_class,

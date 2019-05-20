@@ -8,9 +8,9 @@ class WagtailUserbarExtension(Extension):
     def __init__(self, environment):
         super().__init__(environment)
 
-        self.environment.globals.update({
-            'wagtailuserbar': jinja2.contextfunction(wagtailuserbar),
-        })
+        self.environment.globals.update(
+            {'wagtailuserbar': jinja2.contextfunction(wagtailuserbar)}
+        )
 
 
 # Nicer import names

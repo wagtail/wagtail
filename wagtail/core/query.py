@@ -15,6 +15,7 @@ class TreeQuerySet(MP_NodeQuerySet):
     """
     Extends Treebeard's MP_NodeQuerySet with additional useful tree-related operations.
     """
+
     def descendant_of_q(self, other, inclusive=False):
         q = Q(path__startswith=other.path) & Q(depth__gte=other.depth)
 
@@ -98,7 +99,9 @@ class TreeQuerySet(MP_NodeQuerySet):
         return self.exclude(self.parent_of_q(other))
 
     def sibling_of_q(self, other, inclusive=True):
-        q = Q(path__startswith=self.model._get_parent_path_from_path(other.path)) & Q(depth=other.depth)
+        q = Q(path__startswith=self.model._get_parent_path_from_path(other.path)) & Q(
+            depth=other.depth
+        )
 
         if not inclusive:
             q &= ~Q(pk=other.pk)
@@ -173,10 +176,9 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.exclude(self.page_q(other))
 
     def type_q(self, klass):
-        content_types = ContentType.objects.get_for_models(*[
-            model for model in apps.get_models()
-            if issubclass(model, klass)
-        ]).values()
+        content_types = ContentType.objects.get_for_models(
+            *[model for model in apps.get_models() if issubclass(model, klass)]
+        ).values()
 
         return Q(content_type__in=list(content_types))
 
@@ -294,12 +296,19 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
             # Find all the distinct parent paths of all matched pages.
             # The empty `.order_by()` ensures that `Page.path` is not also
             # selected to order the results, which makes `.distinct()` works.
-            paths = self.order_by()\
-                .annotate(parent_path=Substr(
-                    'path', 1, Length('path') - self.model.steplen,
-                    output_field=CharField(max_length=255)))\
-                .values_list('parent_path', flat=True)\
+            paths = (
+                self.order_by()
+                .annotate(
+                    parent_path=Substr(
+                        'path',
+                        1,
+                        Length('path') - self.model.steplen,
+                        output_field=CharField(max_length=255),
+                    )
+                )
+                .values_list('parent_path', flat=True)
                 .distinct()
+            )
 
         # This method works on anything, not just file system paths.
         common_parent_path = posixpath.commonprefix(paths)
@@ -373,8 +382,7 @@ def specific_iterator(qs, defer=False):
         pks_by_type[content_type].append(pk)
 
     # Content types are cached by ID, so this will not run any queries.
-    content_types = {pk: ContentType.objects.get_for_id(pk)
-                     for _, pk in pks_and_types}
+    content_types = {pk: ContentType.objects.get_for_id(pk) for _, pk in pks_and_types}
 
     # Get the specific instances of all pages, one model class at a time.
     pages_by_type = {}
@@ -387,7 +395,10 @@ def specific_iterator(qs, defer=False):
         if defer:
             # Defer all specific fields
             from wagtail.core.models import Page
-            fields = [field.attname for field in Page._meta.get_fields() if field.concrete]
+
+            fields = [
+                field.attname for field in Page._meta.get_fields() if field.concrete
+            ]
             pages = pages.only(*fields)
 
         pages_by_type[content_type] = {page.pk: page for page in pages}

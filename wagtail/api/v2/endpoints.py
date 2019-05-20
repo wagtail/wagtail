@@ -15,13 +15,21 @@ from wagtail.api import APIField
 from wagtail.core.models import Page
 
 from .filters import (
-    FieldsFilter, OrderingFilter, RestrictedChildOfFilter, RestrictedDescendantOfFilter,
-    SearchFilter)
+    FieldsFilter,
+    OrderingFilter,
+    RestrictedChildOfFilter,
+    RestrictedDescendantOfFilter,
+    SearchFilter,
+)
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
-    BadRequestError, filter_page_type, get_object_detail_url, page_models_from_string,
-    parse_fields_parameter)
+    BadRequestError,
+    filter_page_type,
+    get_object_detail_url,
+    page_models_from_string,
+    parse_fields_parameter,
+)
 
 
 class BaseAPIEndpoint(GenericViewSet):
@@ -32,20 +40,20 @@ class BaseAPIEndpoint(GenericViewSet):
     filter_backends = []
     model = None  # Set on subclass
 
-    known_query_parameters = frozenset([
-        'limit',
-        'offset',
-        'fields',
-        'order',
-        'search',
-        'search_operator',
-
-        # Used by jQuery for cache-busting. See #1671
-        '_',
-
-        # Required by BrowsableAPIRenderer
-        'format',
-    ])
+    known_query_parameters = frozenset(
+        [
+            'limit',
+            'offset',
+            'fields',
+            'order',
+            'search',
+            'search_operator',
+            # Used by jQuery for cache-busting. See #1671
+            '_',
+            # Required by BrowsableAPIRenderer
+            'format',
+        ]
+    )
     body_fields = ['id']
     meta_fields = ['type', 'detail_url']
     listing_default_fields = ['id', 'type', 'detail_url']
@@ -91,11 +99,17 @@ class BaseAPIEndpoint(GenericViewSet):
             raise Http404("not found")
 
         # Generate redirect
-        url = get_object_detail_url(self.request.wagtailapi_router, request, self.model, obj.pk)
+        url = get_object_detail_url(
+            self.request.wagtailapi_router, request, self.model, obj.pk
+        )
 
         if url is None:
             # Shouldn't happen unless this endpoint isn't actually installed in the router
-            raise Exception("Cannot generate URL to detail view. Is '{}' installed in the API router?".format(self.__class__.__name__))
+            raise Exception(
+                "Cannot generate URL to detail view. Is '{}' installed in the API router?".format(
+                    self.__class__.__name__
+                )
+            )
 
         return redirect(url)
 
@@ -117,12 +131,16 @@ class BaseAPIEndpoint(GenericViewSet):
 
     @classmethod
     def _convert_api_fields(cls, fields):
-        return [field if isinstance(field, APIField) else APIField(field)
-                for field in fields]
+        return [
+            field if isinstance(field, APIField) else APIField(field)
+            for field in fields
+        ]
 
     @classmethod
     def get_body_fields(cls, model):
-        return cls._convert_api_fields(cls.body_fields + list(getattr(model, 'api_fields', ())))
+        return cls._convert_api_fields(
+            cls.body_fields + list(getattr(model, 'api_fields', ()))
+        )
 
     @classmethod
     def get_body_fields_names(cls, model):
@@ -130,7 +148,9 @@ class BaseAPIEndpoint(GenericViewSet):
 
     @classmethod
     def get_meta_fields(cls, model):
-        return cls._convert_api_fields(cls.meta_fields + list(getattr(model, 'api_meta_fields', ())))
+        return cls._convert_api_fields(
+            cls.meta_fields + list(getattr(model, 'api_meta_fields', ()))
+        )
 
     @classmethod
     def get_meta_fields_names(cls, model):
@@ -138,9 +158,11 @@ class BaseAPIEndpoint(GenericViewSet):
 
     @classmethod
     def get_field_serializer_overrides(cls, model):
-        return {field.name: field.serializer
-                for field in cls.get_body_fields(model) + cls.get_meta_fields(model)
-                if field.serializer is not None}
+        return {
+            field.name: field.serializer
+            for field in cls.get_body_fields(model) + cls.get_meta_fields(model)
+            if field.serializer is not None
+        }
 
     @classmethod
     def get_available_fields(cls, model, db_fields_only=False):
@@ -187,13 +209,20 @@ class BaseAPIEndpoint(GenericViewSet):
         query_parameters = set(self.request.GET.keys())
 
         # All query paramters must be either a database field or an operation
-        allowed_query_parameters = set(self.get_available_fields(queryset.model, db_fields_only=True)).union(self.known_query_parameters)
+        allowed_query_parameters = set(
+            self.get_available_fields(queryset.model, db_fields_only=True)
+        ).union(self.known_query_parameters)
         unknown_parameters = query_parameters - allowed_query_parameters
         if unknown_parameters:
-            raise BadRequestError("query parameter is not an operation or a recognised field: %s" % ', '.join(sorted(unknown_parameters)))
+            raise BadRequestError(
+                "query parameter is not an operation or a recognised field: %s"
+                % ', '.join(sorted(unknown_parameters))
+            )
 
     @classmethod
-    def _get_serializer_class(cls, router, model, fields_config, show_details=False, nested=False):
+    def _get_serializer_class(
+        cls, router, model, fields_config, show_details=False, nested=False
+    ):
         # Get all available fields
         body_fields = cls.get_body_fields_names(model)
         meta_fields = cls.get_meta_fields_names(model)
@@ -246,7 +275,9 @@ class BaseAPIEndpoint(GenericViewSet):
         unknown_fields = mentioned_fields - set(all_fields)
 
         if unknown_fields:
-            raise BadRequestError("unknown fields: %s" % ', '.join(sorted(unknown_fields)))
+            raise BadRequestError(
+                "unknown fields: %s" % ', '.join(sorted(unknown_fields))
+            )
 
         # Build nested serialisers
         child_serializer_classes = {}
@@ -269,25 +300,37 @@ class BaseAPIEndpoint(GenericViewSet):
                 # Get a serializer class for the related object
                 child_model = django_field.related_model
                 child_endpoint_class = router.get_model_endpoint(child_model)
-                child_endpoint_class = child_endpoint_class[1] if child_endpoint_class else BaseAPIEndpoint
-                child_serializer_classes[field_name] = child_endpoint_class._get_serializer_class(router, child_model, child_sub_fields, nested=True)
+                child_endpoint_class = (
+                    child_endpoint_class[1] if child_endpoint_class else BaseAPIEndpoint
+                )
+                child_serializer_classes[
+                    field_name
+                ] = child_endpoint_class._get_serializer_class(
+                    router, child_model, child_sub_fields, nested=True
+                )
 
             else:
                 if field_name in sub_fields:
                     # Sub fields were given for a non-related field
-                    raise BadRequestError("'%s' does not support nested fields" % field_name)
+                    raise BadRequestError(
+                        "'%s' does not support nested fields" % field_name
+                    )
 
         # Reorder fields so it matches the order of all_fields
         fields = [field for field in all_fields if field in fields]
 
-        field_serializer_overrides = {field[0]: field[1] for field in cls.get_field_serializer_overrides(model).items() if field[0] in fields}
+        field_serializer_overrides = {
+            field[0]: field[1]
+            for field in cls.get_field_serializer_overrides(model).items()
+            if field[0] in fields
+        }
         return get_serializer_class(
             model,
             fields,
             meta_fields=meta_fields,
             field_serializer_overrides=field_serializer_overrides,
             child_serializer_classes=child_serializer_classes,
-            base=cls.base_serializer_class
+            base=cls.base_serializer_class,
         )
 
     def get_serializer_class(self):
@@ -315,7 +358,12 @@ class BaseAPIEndpoint(GenericViewSet):
         else:
             show_details = True
 
-        return self._get_serializer_class(self.request.wagtailapi_router, model, fields_config, show_details=show_details)
+        return self._get_serializer_class(
+            self.request.wagtailapi_router,
+            model,
+            fields_config,
+            show_details=show_details,
+        )
 
     def get_serializer_context(self):
         """
@@ -324,7 +372,7 @@ class BaseAPIEndpoint(GenericViewSet):
         return {
             'request': self.request,
             'view': self,
-            'router': self.request.wagtailapi_router
+            'router': self.request.wagtailapi_router,
         }
 
     def get_renderer_context(self):
@@ -359,7 +407,7 @@ class BaseAPIEndpoint(GenericViewSet):
         else:
             url_name = 'detail'
 
-        return reverse(url_name, args=(pk, ))
+        return reverse(url_name, args=(pk,))
 
 
 class PagesAPIEndpoint(BaseAPIEndpoint):
@@ -369,16 +417,12 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         RestrictedChildOfFilter,
         RestrictedDescendantOfFilter,
         OrderingFilter,
-        SearchFilter
+        SearchFilter,
     ]
-    known_query_parameters = BaseAPIEndpoint.known_query_parameters.union([
-        'type',
-        'child_of',
-        'descendant_of',
-    ])
-    body_fields = BaseAPIEndpoint.body_fields + [
-        'title',
-    ]
+    known_query_parameters = BaseAPIEndpoint.known_query_parameters.union(
+        ['type', 'child_of', 'descendant_of']
+    )
+    body_fields = BaseAPIEndpoint.body_fields + ['title']
     meta_fields = BaseAPIEndpoint.meta_fields + [
         'html_url',
         'slug',
@@ -394,9 +438,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'slug',
         'first_published_at',
     ]
-    nested_default_fields = BaseAPIEndpoint.nested_default_fields + [
-        'title',
-    ]
+    nested_default_fields = BaseAPIEndpoint.nested_default_fields + ['title']
     detail_only_fields = ['parent']
     name = 'pages'
     model = Page
@@ -406,7 +448,9 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
 
         # Allow pages to be filtered to a specific type
         try:
-            models = page_models_from_string(request.GET.get('type', 'wagtailcore.Page'))
+            models = page_models_from_string(
+                request.GET.get('type', 'wagtailcore.Page')
+            )
         except (LookupError, ValueError):
             raise BadRequestError("type doesn't exist")
 
@@ -443,7 +487,9 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
             path_components = [component for component in path.split('/') if component]
 
             try:
-                page, _, _ = request.site.root_page.specific.route(request, path_components)
+                page, _, _ = request.site.root_page.specific.route(
+                    request, path_components
+                )
             except Http404:
                 return
 

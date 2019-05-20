@@ -2,9 +2,18 @@ from collections import OrderedDict
 
 from wagtail.api.v2.endpoints import PagesAPIEndpoint
 from wagtail.api.v2.filters import (
-    ChildOfFilter, DescendantOfFilter, FieldsFilter, ForExplorerFilter, OrderingFilter,
-    SearchFilter)
-from wagtail.api.v2.utils import BadRequestError, filter_page_type, page_models_from_string
+    ChildOfFilter,
+    DescendantOfFilter,
+    FieldsFilter,
+    ForExplorerFilter,
+    OrderingFilter,
+    SearchFilter,
+)
+from wagtail.api.v2.utils import (
+    BadRequestError,
+    filter_page_type,
+    page_models_from_string,
+)
 from wagtail.core.models import Page
 
 from .filters import HasChildrenFilter
@@ -34,9 +43,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         'parent',
     ]
 
-    body_fields = PagesAPIEndpoint.body_fields + [
-        'admin_display_title',
-    ]
+    body_fields = PagesAPIEndpoint.body_fields + ['admin_display_title']
 
     listing_default_fields = PagesAPIEndpoint.listing_default_fields + [
         'latest_revision_created_at',
@@ -48,17 +55,18 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
     # Allow the parent field to appear on listings
     detail_only_fields = []
 
-    known_query_parameters = PagesAPIEndpoint.known_query_parameters.union([
-        'for_explorer',
-        'has_children'
-    ])
+    known_query_parameters = PagesAPIEndpoint.known_query_parameters.union(
+        ['for_explorer', 'has_children']
+    )
 
     def get_queryset(self):
         request = self.request
 
         # Allow pages to be filtered to a specific type
         try:
-            models = page_models_from_string(request.GET.get('type', 'wagtailcore.Page'))
+            models = page_models_from_string(
+                request.GET.get('type', 'wagtailcore.Page')
+            )
         except (LookupError, ValueError):
             raise BadRequestError("type doesn't exist")
 
@@ -83,10 +91,12 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         types = OrderedDict()
 
         for name, model in self.seen_types.items():
-            types[name] = OrderedDict([
-                ('verbose_name', model._meta.verbose_name),
-                ('verbose_name_plural', model._meta.verbose_name_plural),
-            ])
+            types[name] = OrderedDict(
+                [
+                    ('verbose_name', model._meta.verbose_name),
+                    ('verbose_name_plural', model._meta.verbose_name_plural),
+                ]
+            )
 
         return types
 

@@ -9,6 +9,7 @@ class StaticBlock(Block):
     """
     A block that just 'exists' and has no fields.
     """
+
     def render_form(self, value, prefix='', errors=None):
         if self.meta.admin_text is None:
             if self.label:

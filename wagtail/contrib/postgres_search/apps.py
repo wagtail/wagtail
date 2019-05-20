@@ -12,11 +12,15 @@ class PostgresSearchConfig(AppConfig):
         def check_if_postgresql(app_configs, **kwargs):
             if get_postgresql_connections():
                 return []
-            return [Error('You must use a PostgreSQL database '
-                          'to use PostgreSQL search.',
-                          id='wagtail.contrib.postgres_search.E001')]
+            return [
+                Error(
+                    'You must use a PostgreSQL database ' 'to use PostgreSQL search.',
+                    id='wagtail.contrib.postgres_search.E001',
+                )
+            ]
 
         set_weights()
 
         from .models import IndexEntry
+
         IndexEntry.add_generic_relations()

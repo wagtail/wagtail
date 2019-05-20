@@ -14,7 +14,9 @@ class TestConvertedValueField(TestCase, WagtailTestUtils):
 
         User = self.user.__class__
         self.pk_field = User._meta.get_field(User._meta.pk.name)
-        self.pk_db_value = self.pk_field.get_db_prep_value(self.user.pk, connections['default'])
+        self.pk_db_value = self.pk_field.get_db_prep_value(
+            self.user.pk, connections['default']
+        )
 
     def test_db_value_is_different(self):
         self.assertEqual(self.user.pk, self.pk_db_value)

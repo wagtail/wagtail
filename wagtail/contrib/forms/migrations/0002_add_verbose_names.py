@@ -4,14 +4,11 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailforms', '0001_initial'),
-    ]
+    dependencies = [('wagtailforms', '0001_initial')]
 
     operations = [
         migrations.AlterModelOptions(
-            name='formsubmission',
-            options={'verbose_name': 'Form Submission'},
+            name='formsubmission', options={'verbose_name': 'Form Submission'}
         ),
         migrations.AlterField(
             model_name='formsubmission',

@@ -16,17 +16,17 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
         @hooks.register('register_page_listing_buttons')
         def page_listing_buttons(page, page_perms, is_parent=False):
             yield wagtailadmin_widgets.PageListingButton(
-                'Another useless page listing button',
-                '/custom-url',
-                priority=10
+                'Another useless page listing button', '/custom-url', priority=10
             )
 
         response = self.client.get(
-            reverse('wagtailadmin_explore', args=(self.root_page.id, ))
+            reverse('wagtailadmin_explore', args=(self.root_page.id,))
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/listing/_button_with_dropdown.html')
+        self.assertTemplateUsed(
+            response, 'wagtailadmin/pages/listing/_button_with_dropdown.html'
+        )
         self.assertTemplateUsed(response, 'wagtailadmin/pages/listing/_buttons.html')
 
         self.assertContains(response, 'Another useless page listing button')
@@ -37,18 +37,22 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
             yield wagtailadmin_widgets.Button(
                 'Another useless button in default "More" dropdown',
                 '/custom-url',
-                priority=10
+                priority=10,
             )
 
         response = self.client.get(
-            reverse('wagtailadmin_explore', args=(self.root_page.id, ))
+            reverse('wagtailadmin_explore', args=(self.root_page.id,))
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/listing/_button_with_dropdown.html')
+        self.assertTemplateUsed(
+            response, 'wagtailadmin/pages/listing/_button_with_dropdown.html'
+        )
         self.assertTemplateUsed(response, 'wagtailadmin/pages/listing/_buttons.html')
 
-        self.assertContains(response, 'Another useless button in default &quot;More&quot; dropdown')
+        self.assertContains(
+            response, 'Another useless button in default &quot;More&quot; dropdown'
+        )
 
     def test_custom_button_with_dropdown(self):
         @hooks.register('register_page_listing_buttons')
@@ -60,7 +64,7 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
                 page_perms=page_perms,
                 is_parent=is_parent,
                 attrs={'target': '_blank', 'rel': 'noopener noreferrer'},
-                priority=50
+                priority=50,
             )
 
         @hooks.register('register_page_listing_one_more_more_buttons')
@@ -68,16 +72,21 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
             yield wagtailadmin_widgets.Button(
                 'Another useless dropdown button in "One more more button" dropdown',
                 '/custom-url',
-                priority=10
+                priority=10,
             )
 
         response = self.client.get(
-            reverse('wagtailadmin_explore', args=(self.root_page.id, ))
+            reverse('wagtailadmin_explore', args=(self.root_page.id,))
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/listing/_button_with_dropdown.html')
+        self.assertTemplateUsed(
+            response, 'wagtailadmin/pages/listing/_button_with_dropdown.html'
+        )
         self.assertTemplateUsed(response, 'wagtailadmin/pages/listing/_buttons.html')
 
         self.assertContains(response, 'One more more button')
-        self.assertContains(response, 'Another useless dropdown button in &quot;One more more button&quot; dropdown')
+        self.assertContains(
+            response,
+            'Another useless dropdown button in &quot;One more more button&quot; dropdown',
+        )

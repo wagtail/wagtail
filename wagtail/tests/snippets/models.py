@@ -33,6 +33,7 @@ class ZuluSnippet(models.Model):
 
 # Register model as snippet using register_snippet as both a function and a decorator
 
+
 class RegisterFunction(models.Model):
     pass
 
@@ -47,13 +48,12 @@ class RegisterDecorator(models.Model):
 
 # A snippet model that inherits from index.Indexed can be searched on
 
+
 @register_snippet
 class SearchableSnippet(index.Indexed, models.Model):
     text = models.CharField(max_length=255)
 
-    search_fields = [
-        index.SearchField('text'),
-    ]
+    search_fields = [index.SearchField('text')]
 
     def __str__(self):
         return self.text
@@ -75,19 +75,17 @@ class FileUploadSnippet(models.Model):
 
 
 class RichTextSection(models.Model):
-    snippet = ParentalKey('MultiSectionRichTextSnippet', related_name='sections', on_delete=models.CASCADE)
+    snippet = ParentalKey(
+        'MultiSectionRichTextSnippet', related_name='sections', on_delete=models.CASCADE
+    )
     body = RichTextField()
 
-    panels = [
-        FieldPanel('body'),
-    ]
+    panels = [FieldPanel('body')]
 
 
 @register_snippet
 class MultiSectionRichTextSnippet(ClusterableModel):
-    panels = [
-        InlinePanel('sections'),
-    ]
+    panels = [InlinePanel('sections')]
 
 
 @register_snippet

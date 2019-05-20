@@ -6,14 +6,16 @@ import wagtail.users.models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailusers', '0007_userprofile_current_time_zone'),
-    ]
+    dependencies = [('wagtailusers', '0007_userprofile_current_time_zone')]
 
     operations = [
         migrations.AddField(
             model_name='userprofile',
             name='avatar',
-            field=models.ImageField(blank=True, upload_to=wagtail.users.models.upload_avatar_to, verbose_name='profile picture'),
-        ),
+            field=models.ImageField(
+                blank=True,
+                upload_to=wagtail.users.models.upload_avatar_to,
+                verbose_name='profile picture',
+            ),
+        )
     ]

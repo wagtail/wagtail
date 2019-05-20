@@ -20,13 +20,16 @@ class AdminDocumentChooser(AdminChooser):
         instance, value = self.get_instance_and_id(self.document_model, value)
         original_field_html = super().render_html(name, value, attrs)
 
-        return render_to_string("wagtaildocs/widgets/document_chooser.html", {
-            'widget': self,
-            'original_field_html': original_field_html,
-            'attrs': attrs,
-            'value': value,
-            'document': instance,
-        })
+        return render_to_string(
+            "wagtaildocs/widgets/document_chooser.html",
+            {
+                'widget': self,
+                'original_field_html': original_field_html,
+                'attrs': attrs,
+                'value': value,
+                'document': instance,
+            },
+        )
 
     def render_js_init(self, id_, name, value):
         return "createDocumentChooser({0});".format(json.dumps(id_))

@@ -7,7 +7,9 @@ from babel import Locale
 
 authors_by_locale = defaultdict(set)
 
-file_listing = subprocess.Popen('find ../wagtail -iname *.po', shell=True, stdout=subprocess.PIPE)
+file_listing = subprocess.Popen(
+    'find ../wagtail -iname *.po', shell=True, stdout=subprocess.PIPE
+)
 
 for file_listing_line in file_listing.stdout:
     filename = file_listing_line.strip()
@@ -35,9 +37,7 @@ for file_listing_line in file_listing.stdout:
                     raise Exception("No 'Translators:' heading found in %s" % filename)
 
 
-LANGUAGE_OVERRIDES = {
-    'tet': 'Tetum',
-}
+LANGUAGE_OVERRIDES = {'tet': 'Tetum'}
 
 
 def get_language_name(locale_string):
@@ -45,6 +45,7 @@ def get_language_name(locale_string):
         return LANGUAGE_OVERRIDES[locale_string]
     except KeyError:
         return Locale.parse(locale_string).english_name
+
 
 language_names = [
     (get_language_name(locale_string), locale_string)

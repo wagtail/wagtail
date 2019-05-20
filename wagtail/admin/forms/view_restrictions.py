@@ -8,8 +8,10 @@ from wagtail.core.models import BaseViewRestriction
 
 class BaseViewRestrictionForm(forms.ModelForm):
     restriction_type = forms.ChoiceField(
-        label=ugettext_lazy("Visibility"), choices=BaseViewRestriction.RESTRICTION_CHOICES,
-        widget=forms.RadioSelect)
+        label=ugettext_lazy("Visibility"),
+        choices=BaseViewRestriction.RESTRICTION_CHOICES,
+        widget=forms.RadioSelect,
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -19,14 +21,22 @@ class BaseViewRestrictionForm(forms.ModelForm):
 
     def clean_password(self):
         password = self.cleaned_data.get('password')
-        if self.cleaned_data.get('restriction_type') == BaseViewRestriction.PASSWORD and not password:
+        if (
+            self.cleaned_data.get('restriction_type') == BaseViewRestriction.PASSWORD
+            and not password
+        ):
             raise forms.ValidationError(_("This field is required."), code='invalid')
         return password
 
     def clean_groups(self):
         groups = self.cleaned_data.get('groups')
-        if self.cleaned_data.get('restriction_type') == BaseViewRestriction.GROUPS and not groups:
-            raise forms.ValidationError(_("Please select at least one group."), code='invalid')
+        if (
+            self.cleaned_data.get('restriction_type') == BaseViewRestriction.GROUPS
+            and not groups
+        ):
+            raise forms.ValidationError(
+                _("Please select at least one group."), code='invalid'
+            )
         return groups
 
     class Meta:

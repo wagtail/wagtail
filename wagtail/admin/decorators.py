@@ -14,7 +14,8 @@ def reject_request(request):
         raise PermissionDenied
 
     return auth_redirect_to_login(
-        request.get_full_path(), login_url=reverse('wagtailadmin_login'))
+        request.get_full_path(), login_url=reverse('wagtailadmin_login')
+    )
 
 
 def require_admin_access(view_func):

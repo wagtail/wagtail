@@ -36,7 +36,9 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
         # Check that the total count is there and correct
         self.assertIn('total_count', content['meta'])
         self.assertIsInstance(content['meta']['total_count'], int)
-        self.assertEqual(content['meta']['total_count'], get_image_model().objects.count())
+        self.assertEqual(
+            content['meta']['total_count'], get_image_model().objects.count()
+        )
 
         # Check that the items section is there
         self.assertIn('items', content)
@@ -46,13 +48,19 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
         for image in content['items']:
             self.assertIn('meta', image)
             self.assertIsInstance(image['meta'], dict)
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
+            self.assertEqual(
+                set(image['meta'].keys()),
+                {'type', 'detail_url', 'tags', 'download_url'},
+            )
 
             # Type should always be wagtailimages.Image
             self.assertEqual(image['meta']['type'], 'wagtailimages.Image')
 
             # Check detail url
-            self.assertEqual(image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % image['id'])
+            self.assertEqual(
+                image['meta']['detail_url'],
+                'http://localhost/admin/api/v2beta/images/%d/' % image['id'],
+            )
 
     #  FIELDS
 
@@ -61,69 +69,109 @@ class TestAdminImageListing(AdminAPITestCase, TestImageListing):
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(
+                set(image.keys()),
+                {'id', 'meta', 'title', 'width', 'height', 'thumbnail'},
+            )
+            self.assertEqual(
+                set(image['meta'].keys()),
+                {'type', 'detail_url', 'download_url', 'tags'},
+            )
 
     def test_fields(self):
         response = self.get_response(fields='width,height')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'download_url', 'tags'})
+            self.assertEqual(
+                set(image.keys()),
+                {'id', 'meta', 'title', 'width', 'height', 'thumbnail'},
+            )
+            self.assertEqual(
+                set(image['meta'].keys()),
+                {'type', 'detail_url', 'download_url', 'tags'},
+            )
 
     def test_remove_fields(self):
         response = self.get_response(fields='-title')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'width', 'height', 'thumbnail'})
+            self.assertEqual(
+                set(image.keys()), {'id', 'meta', 'width', 'height', 'thumbnail'}
+            )
 
     def test_remove_meta_fields(self):
         response = self.get_response(fields='-tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'download_url'})
+            self.assertEqual(
+                set(image.keys()),
+                {'id', 'meta', 'title', 'width', 'height', 'thumbnail'},
+            )
+            self.assertEqual(
+                set(image['meta'].keys()), {'type', 'detail_url', 'download_url'}
+            )
 
     def test_remove_all_meta_fields(self):
         response = self.get_response(fields='-type,-detail_url,-tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'title', 'width', 'height', 'thumbnail', 'meta'})
+            self.assertEqual(
+                set(image.keys()),
+                {'id', 'title', 'width', 'height', 'thumbnail', 'meta'},
+            )
 
     def test_remove_id_field(self):
         response = self.get_response(fields='-id')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'meta', 'title', 'width', 'height', 'thumbnail'})
+            self.assertEqual(
+                set(image.keys()), {'meta', 'title', 'width', 'height', 'thumbnail'}
+            )
 
     def test_all_fields(self):
         response = self.get_response(fields='*')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
+            self.assertEqual(
+                set(image.keys()),
+                {'id', 'meta', 'title', 'width', 'height', 'thumbnail'},
+            )
+            self.assertEqual(
+                set(image['meta'].keys()),
+                {'type', 'detail_url', 'tags', 'download_url'},
+            )
 
     def test_all_fields_then_remove_something(self):
         response = self.get_response(fields='*,-title,-tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'download_url'})
+            self.assertEqual(
+                set(image.keys()), {'id', 'meta', 'width', 'height', 'thumbnail'}
+            )
+            self.assertEqual(
+                set(image['meta'].keys()), {'type', 'detail_url', 'download_url'}
+            )
 
     def test_fields_tags(self):
         response = self.get_response(fields='tags')
         content = json.loads(response.content.decode('UTF-8'))
 
         for image in content['items']:
-            self.assertEqual(set(image.keys()), {'id', 'meta', 'title', 'width', 'height', 'thumbnail'})
-            self.assertEqual(set(image['meta'].keys()), {'type', 'detail_url', 'tags', 'download_url'})
+            self.assertEqual(
+                set(image.keys()),
+                {'id', 'meta', 'title', 'width', 'height', 'thumbnail'},
+            )
+            self.assertEqual(
+                set(image['meta'].keys()),
+                {'type', 'detail_url', 'tags', 'download_url'},
+            )
             self.assertIsInstance(image['meta']['tags'], list)
 
 
@@ -131,7 +179,9 @@ class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):
     fixtures = ['demosite.json']
 
     def get_response(self, image_id, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:images:detail', args=(image_id, )), params)
+        return self.client.get(
+            reverse('wagtailadmin_api_v1:images:detail', args=(image_id,)), params
+        )
 
     def test_basic(self):
         response = self.get_response(5)
@@ -156,7 +206,9 @@ class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/5/')
+        self.assertEqual(
+            content['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/5/'
+        )
 
         # Check the thumbnail
 
@@ -182,8 +234,7 @@ class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):
     def test_thumbnail(self):
         # Add a new image with source file
         image = get_image_model().objects.create(
-            title="Test image",
-            file=get_test_image_file(),
+            title="Test image", file=get_test_image_file()
         )
 
         response = self.get_response(image.id)

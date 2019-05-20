@@ -21,10 +21,12 @@ def route(pattern, name=None):
             view_func._routablepage_routes = []
 
         # Add new route to view
-        view_func._routablepage_routes.append((
-            url(pattern, view_func, name=(name or view_func.__name__)),
-            _creation_counter,
-        ))
+        view_func._routablepage_routes.append(
+            (
+                url(pattern, view_func, name=(name or view_func.__name__)),
+                _creation_counter,
+            )
+        )
 
         return view_func
 
@@ -36,6 +38,7 @@ class RoutablePageMixin:
     This class can be mixed in to a Page model, allowing extra routes to be
     added to it.
     """
+
     @route(r'^$')
     def index_route(self, request, *args, **kwargs):
         request.is_preview = getattr(request, 'is_preview', False)
@@ -43,7 +46,7 @@ class RoutablePageMixin:
         return TemplateResponse(
             request,
             self.get_template(request, *args, **kwargs),
-            self.get_context(request, *args, **kwargs)
+            self.get_context(request, *args, **kwargs),
         )
 
     @classmethod
@@ -71,7 +74,9 @@ class RoutablePageMixin:
     def get_resolver(cls):
         if '_routablepage_urlresolver' not in cls.__dict__:
             subpage_urls = cls.get_subpage_urls()
-            cls._routablepage_urlresolver = URLResolver(RegexPattern(r'^/'), subpage_urls)
+            cls._routablepage_urlresolver = URLResolver(
+                RegexPattern(r'^/'), subpage_urls
+            )
 
         return cls._routablepage_urlresolver
 

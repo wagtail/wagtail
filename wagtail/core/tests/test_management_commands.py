@@ -152,7 +152,10 @@ class TestReplaceTextCommand(TestCase):
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
         self.assertEqual(christmas_page.title, "Christmas")
         self.assertEqual(christmas_page.speakers.first().last_name, "Christmas")
-        self.assertEqual(christmas_page.advert_placements.first().colour, "greener than a Christmas tree")
+        self.assertEqual(
+            christmas_page.advert_placements.first().colour,
+            "greener than a Christmas tree",
+        )
 
         # Make it about easter
         self.run_command("Christmas", "Easter")
@@ -163,7 +166,9 @@ class TestReplaceTextCommand(TestCase):
 
         # Check that we also update the child objects (including advert_placements, which is defined on the superclass)
         self.assertEqual(easter_page.speakers.first().last_name, "Easter")
-        self.assertEqual(easter_page.advert_placements.first().colour, "greener than a Easter tree")
+        self.assertEqual(
+            easter_page.advert_placements.first().colour, "greener than a Easter tree"
+        )
 
 
 class TestPublishScheduledPagesCommand(TestCase):
@@ -182,7 +187,6 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         page_published.connect(page_published_handler)
 
-
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
@@ -197,7 +201,11 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
-        self.assertTrue(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
+        self.assertTrue(
+            PageRevision.objects.filter(page=p)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
 
         management.call_command('publish_scheduled_pages')
 
@@ -205,7 +213,11 @@ class TestPublishScheduledPagesCommand(TestCase):
         self.assertTrue(p.live)
         self.assertTrue(p.first_published_at)
         self.assertFalse(p.has_unpublished_changes)
-        self.assertFalse(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
+        self.assertFalse(
+            PageRevision.objects.filter(page=p)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
 
         # Check that the page_published signal was fired
         self.assertTrue(signal_fired[0])
@@ -249,13 +261,21 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
-        self.assertTrue(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
+        self.assertTrue(
+            PageRevision.objects.filter(page=p)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
 
         management.call_command('publish_scheduled_pages')
 
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
-        self.assertTrue(PageRevision.objects.filter(page=p).exclude(approved_go_live_at__isnull=True).exists())
+        self.assertTrue(
+            PageRevision.objects.filter(page=p)
+            .exclude(approved_go_live_at__isnull=True)
+            .exists()
+        )
 
     def test_expired_page_will_be_unpublished(self):
         # Connect a mock signal handler to page_unpublished signal
@@ -326,9 +346,13 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(p.live)
-        self.assertTrue(PageRevision.objects.filter(page=p, submitted_for_moderation=True).exists())
+        self.assertTrue(
+            PageRevision.objects.filter(page=p, submitted_for_moderation=True).exists()
+        )
 
         management.call_command('publish_scheduled_pages')
 
         p = Page.objects.get(slug='hello-world')
-        self.assertFalse(PageRevision.objects.filter(page=p, submitted_for_moderation=True).exists())
+        self.assertFalse(
+            PageRevision.objects.filter(page=p, submitted_for_moderation=True).exists()
+        )

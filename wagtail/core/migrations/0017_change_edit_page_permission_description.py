@@ -4,9 +4,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailcore', '0016_change_page_url_path_to_text_field'),
-    ]
+    dependencies = [('wagtailcore', '0016_change_page_url_path_to_text_field')]
 
     operations = [
         migrations.AlterField(
@@ -17,11 +15,11 @@ class Migration(migrations.Migration):
                     ('add', 'Add/edit pages you own'),
                     ('edit', 'Edit any page'),
                     ('publish', 'Publish any page'),
-                    ('lock', 'Lock/unlock any page')
+                    ('lock', 'Lock/unlock any page'),
                 ],
                 max_length=20,
-                verbose_name='Permission type'
+                verbose_name='Permission type',
             ),
             preserve_default=True,
-        ),
+        )
     ]

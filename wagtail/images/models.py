@@ -30,6 +30,7 @@ class SourceImageIOError(IOError):
     """
     Custom exception to distinguish IOErrors that were thrown while opening the source image
     """
+
     pass
 
 
@@ -62,14 +63,23 @@ def get_rendition_upload_to(instance, filename):
 class AbstractImage(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.ImageField(
-        verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
+        verbose_name=_('file'),
+        upload_to=get_upload_to,
+        width_field='width',
+        height_field='height',
     )
     width = models.IntegerField(verbose_name=_('width'), editable=False)
     height = models.IntegerField(verbose_name=_('height'), editable=False)
-    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
+    created_at = models.DateTimeField(
+        verbose_name=_('created at'), auto_now_add=True, db_index=True
+    )
     uploaded_by_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
-        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+        settings.AUTH_USER_MODEL,
+        verbose_name=_('uploaded by user'),
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.SET_NULL,
     )
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
@@ -148,17 +158,19 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
     @property
     def usage_url(self):
-        return reverse('wagtailimages:image_usage',
-                       args=(self.id,))
+        return reverse('wagtailimages:image_usage', args=(self.id,))
 
     search_fields = CollectionMember.search_fields + [
         index.SearchField('title', partial_match=True, boost=10),
         index.AutocompleteField('title'),
         index.FilterField('title'),
-        index.RelatedFields('tags', [
-            index.SearchField('name', partial_match=True, boost=10),
-            index.AutocompleteField('name'),
-        ]),
+        index.RelatedFields(
+            'tags',
+            [
+                index.SearchField('name', partial_match=True, boost=10),
+                index.AutocompleteField('name'),
+            ],
+        ),
         index.FilterField('uploaded_by_user'),
     ]
 
@@ -206,10 +218,12 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         return Rect(0, 0, self.width, self.height)
 
     def get_focal_point(self):
-        if self.focal_point_x is not None and \
-           self.focal_point_y is not None and \
-           self.focal_point_width is not None and \
-           self.focal_point_height is not None:
+        if (
+            self.focal_point_x is not None
+            and self.focal_point_y is not None
+            and self.focal_point_width is not None
+            and self.focal_point_height is not None
+        ):
             return Rect.from_point(
                 self.focal_point_x,
                 self.focal_point_y,
@@ -281,8 +295,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
         try:
             rendition = self.renditions.get(
-                filter_spec=filter.spec,
-                focal_point_key=cache_key,
+                filter_spec=filter.spec, focal_point_key=cache_key
             )
         except Rendition.DoesNotExist:
             # Generate the rendition image
@@ -290,36 +303,39 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
             # Generate filename
             input_filename = os.path.basename(self.file.name)
-            input_filename_without_extension, input_extension = os.path.splitext(input_filename)
+            input_filename_without_extension, input_extension = os.path.splitext(
+                input_filename
+            )
 
             # A mapping of image formats to extensions
-            FORMAT_EXTENSIONS = {
-                'jpeg': '.jpg',
-                'png': '.png',
-                'gif': '.gif',
-            }
+            FORMAT_EXTENSIONS = {'jpeg': '.jpg', 'png': '.png', 'gif': '.gif'}
 
-            output_extension = filter.spec.replace('|', '.') + FORMAT_EXTENSIONS[generated_image.format_name]
+            output_extension = (
+                filter.spec.replace('|', '.')
+                + FORMAT_EXTENSIONS[generated_image.format_name]
+            )
             if cache_key:
                 output_extension = cache_key + '.' + output_extension
 
             # Truncate filename to prevent it going over 60 chars
-            output_filename_without_extension = input_filename_without_extension[:(59 - len(output_extension))]
+            output_filename_without_extension = input_filename_without_extension[
+                : (59 - len(output_extension))
+            ]
             output_filename = output_filename_without_extension + '.' + output_extension
 
             rendition, created = self.renditions.get_or_create(
                 filter_spec=filter.spec,
                 focal_point_key=cache_key,
-                defaults={'file': File(generated_image.f, name=output_filename)}
+                defaults={'file': File(generated_image.f, name=output_filename)},
             )
 
         return rendition
 
     def is_portrait(self):
-        return (self.width < self.height)
+        return self.width < self.height
 
     def is_landscape(self):
-        return (self.height < self.width)
+        return self.height < self.width
 
     @property
     def filename(self):
@@ -334,6 +350,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
     def is_editable_by_user(self, user):
         from wagtail.images.permissions import permission_policy
+
         return permission_policy.user_has_permission_for_instance(user, 'change', self)
 
     class Meta:
@@ -379,7 +396,9 @@ class Filter:
             op_spec_parts = op_spec.split('-')
 
             if op_spec_parts[0] not in self._registered_operations:
-                raise InvalidFilterSpecError("Unrecognised operation: %s" % op_spec_parts[0])
+                raise InvalidFilterSpecError(
+                    "Unrecognised operation: %s" % op_spec_parts[0]
+                )
 
             op_class = self._registered_operations[op_spec_parts[0]]
             operations.append(op_class(*op_spec_parts))
@@ -392,9 +411,7 @@ class Filter:
             # Fix orientation of image
             willow = willow.auto_orient()
 
-            env = {
-                'original-format': original_format,
-            }
+            env = {'original-format': original_format}
             for operation in self.operations:
                 willow = operation.run(willow, image, env) or willow
 
@@ -427,7 +444,9 @@ class Filter:
                 if willow.has_alpha():
                     willow = willow.set_background_color_rgb((255, 255, 255))
 
-                return willow.save_as_jpeg(output, quality=quality, progressive=True, optimize=True)
+                return willow.save_as_jpeg(
+                    output, quality=quality, progressive=True, optimize=True
+                )
             elif output_format == 'png':
                 return willow.save_as_png(output, optimize=True)
             elif output_format == 'gif':
@@ -465,10 +484,14 @@ class Filter:
 
 class AbstractRendition(models.Model):
     filter_spec = models.CharField(max_length=255, db_index=True)
-    file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
+    file = models.ImageField(
+        upload_to=get_rendition_upload_to, width_field='width', height_field='height'
+    )
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
-    focal_point_key = models.CharField(max_length=16, blank=True, default='', editable=False)
+    focal_point_key = models.CharField(
+        max_length=16, blank=True, default='', editable=False
+    )
 
     @property
     def url(self):
@@ -491,12 +514,14 @@ class AbstractRendition(models.Model):
         """
         A dict of the src, width, height, and alt attributes for an <img> tag.
         """
-        return OrderedDict([
-            ('src', self.url),
-            ('width', self.width),
-            ('height', self.height),
-            ('alt', self.alt),
-        ])
+        return OrderedDict(
+            [
+                ('src', self.url),
+                ('width', self.width),
+                ('height', self.height),
+                ('alt', self.alt),
+            ]
+        )
 
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()
@@ -521,7 +546,8 @@ class AbstractRendition(models.Model):
             ):
                 errors.append(
                     checks.Error(
-                        "Custom rendition model %r has an invalid unique_together setting" % cls,
+                        "Custom rendition model %r has an invalid unique_together setting"
+                        % cls,
                         hint="Custom rendition models must include the constraint "
                         "('image', 'filter_spec', 'focal_point_key') in their unique_together definition.",
                         obj=cls,
@@ -536,9 +562,9 @@ class AbstractRendition(models.Model):
 
 
 class Rendition(AbstractRendition):
-    image = models.ForeignKey(Image, related_name='renditions', on_delete=models.CASCADE)
+    image = models.ForeignKey(
+        Image, related_name='renditions', on_delete=models.CASCADE
+    )
 
     class Meta:
-        unique_together = (
-            ('image', 'filter_spec', 'focal_point_key'),
-        )
+        unique_together = (('image', 'filter_spec', 'focal_point_key'),)

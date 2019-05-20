@@ -1,12 +1,15 @@
 from draftjs_exporter.dom import DOM
 
 from wagtail.admin.rich_text.converters.contentstate_models import Entity
-from wagtail.admin.rich_text.converters.html_to_contentstate import AtomicBlockEntityElementHandler
+from wagtail.admin.rich_text.converters.html_to_contentstate import (
+    AtomicBlockEntityElementHandler,
+)
 from wagtail.embeds import embeds
 from wagtail.embeds.exceptions import EmbedException
 
 
 # draft.js / contentstate conversion
+
 
 def media_embed_entity(props):
     """
@@ -14,10 +17,7 @@ def media_embed_entity(props):
     <embed embedtype="media" url="https://www.youtube.com/watch?v=y8Kyi0WNg40"/>
     when converting from contentstate data
     """
-    return DOM.create_element('embed', {
-        'embedtype': 'media',
-        'url': props.get('url'),
-    })
+    return DOM.create_element('embed', {'embedtype': 'media', 'url': props.get('url')})
 
 
 class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
@@ -25,6 +25,7 @@ class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
     Rule for building an embed entity when converting from database representation
     to contentstate
     """
+
     def create_entity(self, name, attrs, state, contentstate):
         try:
             embed_obj = embeds.get_embed(attrs['url'])
@@ -42,10 +43,6 @@ class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
 
 
 ContentstateMediaConversionRule = {
-    'from_database_format': {
-        'embed[embedtype="media"]': MediaEmbedElementHandler(),
-    },
-    'to_database_format': {
-        'entity_decorators': {'EMBED': media_embed_entity}
-    }
+    'from_database_format': {'embed[embedtype="media"]': MediaEmbedElementHandler()},
+    'to_database_format': {'entity_decorators': {'EMBED': media_embed_entity}},
 }

@@ -11,9 +11,7 @@ from wagtail.core import hooks
 
 @hooks.register('register_admin_urls')
 def register_admin_urls():
-    return [
-        url(r'^redirects/', include(urls, namespace='wagtailredirects')),
-    ]
+    return [url(r'^redirects/', include(urls, namespace='wagtailredirects'))]
 
 
 class RedirectsMenuItem(MenuItem):
@@ -26,11 +24,16 @@ class RedirectsMenuItem(MenuItem):
 @hooks.register('register_settings_menu_item')
 def register_redirects_menu_item():
     return RedirectsMenuItem(
-        _('Redirects'), reverse('wagtailredirects:index'), classnames='icon icon-redirect', order=800
+        _('Redirects'),
+        reverse('wagtailredirects:index'),
+        classnames='icon icon-redirect',
+        order=800,
     )
 
 
 @hooks.register('register_permissions')
 def register_permissions():
-    return Permission.objects.filter(content_type__app_label='wagtailredirects',
-                                     codename__in=['add_redirect', 'change_redirect', 'delete_redirect'])
+    return Permission.objects.filter(
+        content_type__app_label='wagtailredirects',
+        codename__in=['add_redirect', 'change_redirect', 'delete_redirect'],
+    )

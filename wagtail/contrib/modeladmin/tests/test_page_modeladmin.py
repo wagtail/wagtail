@@ -99,7 +99,9 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
         expected_path = '/admin/pages/add/tests/businesschild/%d/' % business_index.pk
         expected_next_path = '/admin/tests/businesschild/'
-        self.assertRedirects(response, '%s?next=%s' % (expected_path, expected_next_path))
+        self.assertRedirects(
+            response, '%s?next=%s' % (expected_path, expected_next_path)
+        )
 
 
 class TestInspectView(TestCase, WagtailTestUtils):
@@ -182,7 +184,9 @@ class TestEditView(TestCase, WagtailTestUtils):
 
         expected_path = '/admin/pages/4/edit/'
         expected_next_path = '/admin/tests/eventpage/'
-        self.assertRedirects(response, '%s?next=%s' % (expected_path, expected_next_path))
+        self.assertRedirects(
+            response, '%s?next=%s' % (expected_path, expected_next_path)
+        )
 
     def test_non_existent(self):
         response = self.get(100)
@@ -204,7 +208,9 @@ class TestDeleteView(TestCase, WagtailTestUtils):
 
         expected_path = '/admin/pages/4/delete/'
         expected_next_path = '/admin/tests/eventpage/'
-        self.assertRedirects(response, '%s?next=%s' % (expected_path, expected_next_path))
+        self.assertRedirects(
+            response, '%s?next=%s' % (expected_path, expected_next_path)
+        )
 
 
 class TestChooseParentView(TestCase, WagtailTestUtils):
@@ -224,13 +230,15 @@ class TestChooseParentView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 403)
 
     def test_post(self):
-        response = self.client.post('/admin/tests/eventpage/choose_parent/', {
-            'parent_page': 2,
-        })
+        response = self.client.post(
+            '/admin/tests/eventpage/choose_parent/', {'parent_page': 2}
+        )
 
         expected_path = '/admin/pages/add/tests/eventpage/2/'
         expected_next_path = '/admin/tests/eventpage/'
-        self.assertRedirects(response, '%s?next=%s' % (expected_path, expected_next_path))
+        self.assertRedirects(
+            response, '%s?next=%s' % (expected_path, expected_next_path)
+        )
 
 
 class TestChooseParentViewForNonSuperuser(TestCase, WagtailTestUtils):
@@ -239,37 +247,38 @@ class TestChooseParentViewForNonSuperuser(TestCase, WagtailTestUtils):
     def setUp(self):
         homepage = Page.objects.get(url_path='/home/')
         business_index = BusinessIndex(
-            title='Public Business Index',
-            draft_title='Public Business Index',
+            title='Public Business Index', draft_title='Public Business Index'
         )
         homepage.add_child(instance=business_index)
 
         another_business_index = BusinessIndex(
-            title='Another Business Index',
-            draft_title='Another Business Index',
+            title='Another Business Index', draft_title='Another Business Index'
         )
         homepage.add_child(instance=another_business_index)
 
         secret_business_index = BusinessIndex(
-            title='Private Business Index',
-            draft_title='Private Business Index',
+            title='Private Business Index', draft_title='Private Business Index'
         )
         homepage.add_child(instance=secret_business_index)
 
         business_editors = Group.objects.create(name='Business editors')
-        business_editors.permissions.add(Permission.objects.get(codename='access_admin'))
-        GroupPagePermission.objects.create(
-            group=business_editors,
-            page=business_index,
-            permission_type='add'
+        business_editors.permissions.add(
+            Permission.objects.get(codename='access_admin')
         )
         GroupPagePermission.objects.create(
-            group=business_editors,
-            page=another_business_index,
-            permission_type='add'
+            group=business_editors, page=business_index, permission_type='add'
+        )
+        GroupPagePermission.objects.create(
+            group=business_editors, page=another_business_index, permission_type='add'
         )
 
-        user = get_user_model().objects._create_user(username='test2', email='test2@email.com', password='password', is_staff=True, is_superuser=False)
+        user = get_user_model().objects._create_user(
+            username='test2',
+            email='test2@email.com',
+            password='password',
+            is_staff=True,
+            is_superuser=False,
+        )
         user.groups.add(business_editors)
         # Login
         self.client.login(username='test2', password='password')
@@ -288,7 +297,13 @@ class TestEditorAccess(TestCase):
 
     def login(self):
         # Create a user
-        user = get_user_model().objects._create_user(username='test2', email='test2@email.com', password='password', is_staff=True, is_superuser=False)
+        user = get_user_model().objects._create_user(
+            username='test2',
+            email='test2@email.com',
+            password='password',
+            is_staff=True,
+            is_superuser=False,
+        )
         user.groups.add(Group.objects.get(pk=2))
         # Login
         self.client.login(username='test2', password='password')
@@ -308,7 +323,13 @@ class TestModeratorAccess(TestCase):
 
     def login(self):
         # Create a user
-        user = get_user_model().objects._create_user(username='test3', email='test3@email.com', password='password', is_staff=True, is_superuser=False)
+        user = get_user_model().objects._create_user(
+            username='test3',
+            email='test3@email.com',
+            password='password',
+            is_staff=True,
+            is_superuser=False,
+        )
         user.groups.add(Group.objects.get(pk=1))
         # Login
         self.client.login(username='test2', password='password')
@@ -328,6 +349,7 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         <header> tag for potential future regression.
         See https://github.com/wagtail/wagtail/issues/3889
     """
+
     fixtures = ['test_specific.json']
 
     def setUp(self):
@@ -341,11 +363,17 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/shared/header.html')
 
         # check that home breadcrumb link exists
-        self.assertContains(response, '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>', html=True)
+        self.assertContains(
+            response,
+            '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>',
+            html=True,
+        )
 
         # check that the breadcrumbs are after the header opening tag
         content_str = str(response.content)
-        position_of_header = content_str.index('<header')  # intentionally not closing tag
+        position_of_header = content_str.index(
+            '<header'
+        )  # intentionally not closing tag
         position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
         self.assertLess(position_of_header, position_of_breadcrumbs)
 
@@ -357,11 +385,17 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/shared/header.html')
 
         # check that home breadcrumb link exists
-        self.assertContains(response, '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>', html=True)
+        self.assertContains(
+            response,
+            '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>',
+            html=True,
+        )
 
         # check that the breadcrumbs are after the header opening tag
         content_str = str(response.content)
-        position_of_header = content_str.index('<header')  # intentionally not closing tag
+        position_of_header = content_str.index(
+            '<header'
+        )  # intentionally not closing tag
         position_of_breadcrumbs = content_str.index('<ul class="breadcrumb">')
         self.assertLess(position_of_header, position_of_breadcrumbs)
 
@@ -374,6 +408,8 @@ class TestSearch(TestCase, WagtailTestUtils):
 
     def test_lookup_allowed_on_parentalkey(self):
         try:
-            self.client.get('/admin/tests/eventpage/?related_links__link_page__id__exact=1')
+            self.client.get(
+                '/admin/tests/eventpage/?related_links__link_page__id__exact=1'
+            )
         except AttributeError:
             self.fail("Lookup on parentalkey raised AttributeError unexpectedly")

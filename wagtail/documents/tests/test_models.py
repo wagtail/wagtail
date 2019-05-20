@@ -45,26 +45,35 @@ class TestDocumentPermissions(TestCase):
     def setUp(self):
         # Create some user accounts for testing permissions
         User = get_user_model()
-        self.user = User.objects.create_user(username='user', email='user@email.com', password='password')
-        self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
-        self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
+        self.user = User.objects.create_user(
+            username='user', email='user@email.com', password='password'
+        )
+        self.owner = User.objects.create_user(
+            username='owner', email='owner@email.com', password='password'
+        )
+        self.editor = User.objects.create_user(
+            username='editor', email='editor@email.com', password='password'
+        )
         self.editor.groups.add(Group.objects.get(name='Editors'))
         self.administrator = User.objects.create_superuser(
             username='administrator',
             email='administrator@email.com',
-            password='password'
+            password='password',
         )
 
         # Owner user must have the add_document permission
         self.adders_group = Group.objects.create(name='Document adders')
         GroupCollectionPermission.objects.create(
-            group=self.adders_group, collection=Collection.get_first_root_node(),
-            permission=Permission.objects.get(codename='add_document')
+            group=self.adders_group,
+            collection=Collection.get_first_root_node(),
+            permission=Permission.objects.get(codename='add_document'),
         )
         self.owner.groups.add(self.adders_group)
 
         # Create a document for running tests on
-        self.document = models.Document.objects.create(title="Test document", uploaded_by_user=self.owner)
+        self.document = models.Document.objects.create(
+            title="Test document", uploaded_by_user=self.owner
+        )
 
     def test_administrator_can_edit(self):
         self.assertTrue(self.document.is_editable_by_user(self.administrator))
@@ -85,7 +94,9 @@ class TestDocumentFilenameProperties(TestCase):
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
         self.extensionless_document = models.Document(title="Test document")
-        self.extensionless_document.file.save('example', ContentFile("A boring example document"))
+        self.extensionless_document.file.save(
+            'example', ContentFile("A boring example document")
+        )
 
     def test_filename(self):
         self.assertEqual('example.doc', self.document.filename)
@@ -115,21 +126,19 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         on_commit() callback, use a TransactionTestCase instead.
         https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
     '''
+
     def setUp(self):
         # Required to create root collection because the TransactionTestCase
         # does not make initial data loaded in migrations available and
         # serialized_rollback=True causes other problems in the test suite.
         # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
-        Collection.objects.get_or_create(
-            name="Root",
-            path='0001',
-            depth=1,
-            numchild=0,
-        )
+        Collection.objects.get_or_create(name="Root", path='0001', depth=1, numchild=0)
 
     def test_document_file_deleted_oncommit(self):
         with transaction.atomic():
-            document = get_document_model().objects.create(title="Test Image", file=get_test_image_file())
+            document = get_document_model().objects.create(
+                title="Test Image", file=get_test_image_file()
+            )
             filename = document.file.name
 
             self.assertTrue(document.file.storage.exists(filename))
@@ -145,12 +154,7 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
         # does not make initial data loaded in migrations available and
         # serialized_rollback=True causes other problems in the test suite.
         # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
-        Collection.objects.get_or_create(
-            name="Root",
-            path='0001',
-            depth=1,
-            numchild=0,
-        )
+        Collection.objects.get_or_create(name="Root", path='0001', depth=1, numchild=0)
 
         #: Sadly signal receivers only get connected when starting django.
         #: We will re-attach them here to mimic the django startup behavior
@@ -159,4 +163,6 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
 
     def test_document_model(self):
         cls = get_document_model()
-        self.assertEqual('%s.%s' % (cls._meta.app_label, cls.__name__), 'tests.CustomDocument')
+        self.assertEqual(
+            '%s.%s' % (cls._meta.app_label, cls.__name__), 'tests.CustomDocument'
+        )

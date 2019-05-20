@@ -22,12 +22,16 @@ def get_image_model():
     if no custom model is defined.
     """
     from django.apps import apps
+
     model_string = get_image_model_string()
     try:
         return apps.get_model(model_string)
     except ValueError:
-        raise ImproperlyConfigured("WAGTAILIMAGES_IMAGE_MODEL must be of the form 'app_label.model_name'")
+        raise ImproperlyConfigured(
+            "WAGTAILIMAGES_IMAGE_MODEL must be of the form 'app_label.model_name'"
+        )
     except LookupError:
         raise ImproperlyConfigured(
-            "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed" % model_string
+            "WAGTAILIMAGES_IMAGE_MODEL refers to model '%s' that has not been installed"
+            % model_string
         )

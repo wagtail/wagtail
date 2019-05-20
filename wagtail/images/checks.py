@@ -41,7 +41,7 @@ def image_library_check(app_configs, **kwargs):
         errors.append(
             Warning(
                 'JPEG image support is not available',
-                hint="Check that the 'libjpeg' library is installed, then reinstall Pillow."
+                hint="Check that the 'libjpeg' library is installed, then reinstall Pillow.",
             )
         )
 
@@ -49,7 +49,7 @@ def image_library_check(app_configs, **kwargs):
         errors.append(
             Warning(
                 'PNG image support is not available',
-                hint="Check that the 'zlib' library is installed, then reinstall Pillow."
+                hint="Check that the 'zlib' library is installed, then reinstall Pillow.",
             )
         )
 

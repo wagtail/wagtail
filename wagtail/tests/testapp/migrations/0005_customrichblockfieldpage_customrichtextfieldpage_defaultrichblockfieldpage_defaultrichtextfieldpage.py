@@ -8,54 +8,98 @@ import wagtail.core.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailcore', '0028_merge'),
-        ('tests', '0004_fileuploadsetting'),
-    ]
+    dependencies = [('wagtailcore', '0028_merge'), ('tests', '0004_fileuploadsetting')]
 
     operations = [
         migrations.CreateModel(
             name='CustomRichBlockFieldPage',
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', wagtail.core.fields.StreamField([('rich_text', wagtail.core.blocks.RichTextBlock(editor='custom'))])),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='wagtailcore.Page',
+                    ),
+                ),
+                (
+                    'body',
+                    wagtail.core.fields.StreamField(
+                        [
+                            (
+                                'rich_text',
+                                wagtail.core.blocks.RichTextBlock(editor='custom'),
+                            )
+                        ]
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={'abstract': False},
             bases=('wagtailcore.page',),
         ),
         migrations.CreateModel(
             name='CustomRichTextFieldPage',
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='wagtailcore.Page',
+                    ),
+                ),
                 ('body', wagtail.core.fields.RichTextField()),
             ],
-            options={
-                'abstract': False,
-            },
+            options={'abstract': False},
             bases=('wagtailcore.page',),
         ),
         migrations.CreateModel(
             name='DefaultRichBlockFieldPage',
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', wagtail.core.fields.StreamField([('rich_text', wagtail.core.blocks.RichTextBlock())])),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='wagtailcore.Page',
+                    ),
+                ),
+                (
+                    'body',
+                    wagtail.core.fields.StreamField(
+                        [('rich_text', wagtail.core.blocks.RichTextBlock())]
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={'abstract': False},
             bases=('wagtailcore.page',),
         ),
         migrations.CreateModel(
             name='DefaultRichTextFieldPage',
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    'page_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='wagtailcore.Page',
+                    ),
+                ),
                 ('body', wagtail.core.fields.RichTextField()),
             ],
-            options={
-                'abstract': False,
-            },
+            options={'abstract': False},
             bases=('wagtailcore.page',),
         ),
     ]

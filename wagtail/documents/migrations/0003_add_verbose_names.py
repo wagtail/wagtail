@@ -5,14 +5,11 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtaildocs', '0002_initial_data'),
-    ]
+    dependencies = [('wagtaildocs', '0002_initial_data')]
 
     operations = [
         migrations.AlterModelOptions(
-            name='document',
-            options={'verbose_name': 'Document'},
+            name='document', options={'verbose_name': 'Document'}
         ),
         migrations.AlterField(
             model_name='document',
@@ -28,7 +25,7 @@ class Migration(migrations.Migration):
                 editable=False,
                 to=settings.AUTH_USER_MODEL,
                 null=True,
-                verbose_name='Uploaded by user'
+                verbose_name='Uploaded by user',
             ),
         ),
     ]

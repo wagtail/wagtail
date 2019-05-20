@@ -4,9 +4,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('wagtailredirects', '0002_add_verbose_names'),
-    ]
+    dependencies = [('wagtailredirects', '0002_add_verbose_names')]
 
     operations = [
         migrations.AlterField(
@@ -14,7 +12,11 @@ class Migration(migrations.Migration):
             name='site',
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
-                null=True, to='wagtailcore.Site', verbose_name='Site', blank=True, related_name='redirects'
+                null=True,
+                to='wagtailcore.Site',
+                verbose_name='Site',
+                blank=True,
+                related_name='redirects',
             ),
-        ),
+        )
     ]
