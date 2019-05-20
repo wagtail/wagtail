@@ -25,6 +25,7 @@ Changelog
  * Added support for custom search handler classes to modeladmin's IndexView, and added a class that uses the default Wagtail search backend for searching (Seb Brown, Andy Babic)
  * Improved heading structure for screen reader users navigating the CMS admin (Beth Menzies, Helen Chapman)
  * Updated group edit view to expose the Permission object for each checkbox (George Hickman)
+ * Improve performance of Pages for Moderation panel (Fidel Ramos)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
