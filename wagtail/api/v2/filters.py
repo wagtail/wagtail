@@ -41,8 +41,8 @@ class FieldsFilter(BaseFilterBackend):
                     )
 
                 if isinstance(field, TaggableManager):
-                    for tag in value.split(','):
-                        queryset = queryset.filter(**{field_name + '__name': tag})
+                    for tag in value.split(","):
+                        queryset = queryset.filter(**{field_name + "__name": tag})
 
                     # Stick a message on the queryset to indicate that tag filtering has been performed
                     # This will let the do_search method know that it must raise an error as searching
@@ -66,21 +66,21 @@ class OrderingFilter(BaseFilterBackend):
         And random ordering
         Eg: ?order=random
         """
-        if 'order' in request.GET:
-            order_by = request.GET['order']
+        if "order" in request.GET:
+            order_by = request.GET["order"]
 
             # Random ordering
-            if order_by == 'random':
+            if order_by == "random":
                 # Prevent ordering by random with offset
-                if 'offset' in request.GET:
+                if "offset" in request.GET:
                     raise BadRequestError(
                         "random ordering with offset is not supported"
                     )
 
-                return queryset.order_by('?')
+                return queryset.order_by("?")
 
             # Check if reverse ordering is set
-            if order_by.startswith('-'):
+            if order_by.startswith("-"):
                 reverse_order = True
                 order_by = order_by[1:]
             else:
@@ -106,21 +106,21 @@ class SearchFilter(BaseFilterBackend):
         This performs a full-text search on the result set
         Eg: ?search=James Joyce
         """
-        search_enabled = getattr(settings, 'WAGTAILAPI_SEARCH_ENABLED', True)
+        search_enabled = getattr(settings, "WAGTAILAPI_SEARCH_ENABLED", True)
 
-        if 'search' in request.GET:
+        if "search" in request.GET:
             if not search_enabled:
                 raise BadRequestError("search is disabled")
 
             # Searching and filtering by tag at the same time is not supported
-            if getattr(queryset, '_filtered_by_tag', False):
+            if getattr(queryset, "_filtered_by_tag", False):
                 raise BadRequestError(
                     "filtering by tag with a search query is not supported"
                 )
 
-            search_query = request.GET['search']
-            search_operator = request.GET.get('search_operator', None)
-            order_by_relevance = 'order' not in request.GET
+            search_query = request.GET["search"]
+            search_operator = request.GET.get("search_operator", None)
+            order_by_relevance = "order" not in request.GET
 
             sb = get_search_backend()
             try:
@@ -159,15 +159,15 @@ class ChildOfFilter(BaseFilterBackend):
         return Page.objects.get(id=page_id)
 
     def filter_queryset(self, request, queryset, view):
-        if 'child_of' in request.GET:
+        if "child_of" in request.GET:
             try:
-                parent_page_id = int(request.GET['child_of'])
+                parent_page_id = int(request.GET["child_of"])
                 if parent_page_id < 0:
                     raise ValueError()
 
                 parent_page = self.get_page_by_id(request, parent_page_id)
             except ValueError:
-                if request.GET['child_of'] == 'root':
+                if request.GET["child_of"] == "root":
                     parent_page = self.get_root_page(request)
                 else:
                     raise BadRequestError("child_of must be a positive integer")
@@ -207,19 +207,19 @@ class DescendantOfFilter(BaseFilterBackend):
         return Page.objects.get(id=page_id)
 
     def filter_queryset(self, request, queryset, view):
-        if 'descendant_of' in request.GET:
-            if hasattr(queryset, '_filtered_by_child_of'):
+        if "descendant_of" in request.GET:
+            if hasattr(queryset, "_filtered_by_child_of"):
                 raise BadRequestError(
                     "filtering by descendant_of with child_of is not supported"
                 )
             try:
-                parent_page_id = int(request.GET['descendant_of'])
+                parent_page_id = int(request.GET["descendant_of"])
                 if parent_page_id < 0:
                     raise ValueError()
 
                 parent_page = self.get_page_by_id(request, parent_page_id)
             except ValueError:
-                if request.GET['descendant_of'] == 'root':
+                if request.GET["descendant_of"] == "root":
                     parent_page = self.get_root_page(request)
                 else:
                     raise BadRequestError("descendant_of must be a positive integer")
@@ -247,14 +247,14 @@ class RestrictedDescendantOfFilter(DescendantOfFilter):
 
 class ForExplorerFilter(BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
-        if request.GET.get('for_explorer'):
-            if not hasattr(queryset, '_filtered_by_child_of'):
+        if request.GET.get("for_explorer"):
+            if not hasattr(queryset, "_filtered_by_child_of"):
                 raise BadRequestError(
                     "filtering by for_explorer without child_of is not supported"
                 )
 
             parent_page = queryset._filtered_by_child_of
-            for hook in hooks.get_hooks('construct_explorer_page_queryset'):
+            for hook in hooks.get_hooks("construct_explorer_page_queryset"):
                 queryset = hook(parent_page, queryset, request)
 
             user_perms = UserPagePermissionsProxy(request.user)

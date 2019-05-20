@@ -5,8 +5,8 @@ from . import checks  # NOQA
 
 
 class WagtailImagesAppConfig(AppConfig):
-    name = 'wagtail.images'
-    label = 'wagtailimages'
+    name = "wagtail.images"
+    label = "wagtailimages"
     verbose_name = _("Wagtail images")
 
     def ready(self):

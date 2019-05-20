@@ -10,12 +10,12 @@ from django.core.exceptions import ImproperlyConfigured
 
 from wagtail import __version__
 
-logger = logging.getLogger('wagtail.frontendcache')
+logger = logging.getLogger("wagtail.frontendcache")
 
 
 class PurgeRequest(Request):
     def get_method(self):
-        return 'PURGE'
+        return "PURGE"
 
 
 class BaseBackend:
@@ -30,7 +30,7 @@ class BaseBackend:
 
 class HTTPBackend(BaseBackend):
     def __init__(self, params):
-        location_url_parsed = urlparse(params.pop('LOCATION'))
+        location_url_parsed = urlparse(params.pop("LOCATION"))
         self.cache_scheme = location_url_parsed.scheme
         self.cache_netloc = location_url_parsed.netloc
 
@@ -40,7 +40,7 @@ class HTTPBackend(BaseBackend):
 
         # Append port to host if it is set in the original URL
         if url_parsed.port:
-            host += ':' + str(url_parsed.port)
+            host += ":" + str(url_parsed.port)
 
         request = PurgeRequest(
             url=urlunparse(
@@ -54,8 +54,8 @@ class HTTPBackend(BaseBackend):
                 ]
             ),
             headers={
-                'Host': host,
-                'User-Agent': 'Wagtail-frontendcache/' + __version__,
+                "Host": host,
+                "User-Agent": "Wagtail-frontendcache/" + __version__,
             },
         )
 
@@ -76,13 +76,13 @@ class HTTPBackend(BaseBackend):
 
 class CloudflareBackend(BaseBackend):
     def __init__(self, params):
-        self.cloudflare_email = params.pop('EMAIL')
-        self.cloudflare_token = params.pop('TOKEN')
-        self.cloudflare_zoneid = params.pop('ZONEID')
+        self.cloudflare_email = params.pop("EMAIL")
+        self.cloudflare_token = params.pop("TOKEN")
+        self.cloudflare_zoneid = params.pop("ZONEID")
 
     def purge_batch(self, urls):
         try:
-            purge_url = 'https://api.cloudflare.com/client/v4/zones/{0}/purge_cache'.format(
+            purge_url = "https://api.cloudflare.com/client/v4/zones/{0}/purge_cache".format(
                 self.cloudflare_zoneid
             )
 
@@ -117,9 +117,9 @@ class CloudflareBackend(BaseBackend):
                 )
             return
 
-        if response_json['success'] is False:
-            error_messages = ', '.join(
-                [str(err['message']) for err in response_json['errors']]
+        if response_json["success"] is False:
+            error_messages = ", ".join(
+                [str(err["message"]) for err in response_json["errors"]]
             )
             for url in urls:
                 logger.error(
@@ -137,9 +137,9 @@ class CloudfrontBackend(BaseBackend):
     def __init__(self, params):
         import boto3
 
-        self.client = boto3.client('cloudfront')
+        self.client = boto3.client("cloudfront")
         try:
-            self.cloudfront_distribution_id = params.pop('DISTRIBUTION_ID')
+            self.cloudfront_distribution_id = params.pop("DISTRIBUTION_ID")
         except KeyError:
             raise ImproperlyConfigured(
                 "The setting 'WAGTAILFRONTENDCACHE' requires the object 'DISTRIBUTION_ID'."
@@ -181,8 +181,8 @@ class CloudfrontBackend(BaseBackend):
             self.client.create_invalidation(
                 DistributionId=distribution_id,
                 InvalidationBatch={
-                    'Paths': {'Quantity': len(paths), 'Items': paths},
-                    'CallerReference': str(uuid.uuid4()),
+                    "Paths": {"Quantity": len(paths), "Items": paths},
+                    "CallerReference": str(uuid.uuid4()),
                 },
             )
         except botocore.exceptions.ClientError as e:
@@ -191,6 +191,6 @@ class CloudfrontBackend(BaseBackend):
                     "Couldn't purge path '%s' from CloudFront (DistributionId=%s). ClientError: %s %s",
                     path,
                     distribution_id,
-                    e.response['Error']['Code'],
-                    e.response['Error']['Message'],
+                    e.response["Error"]["Code"],
+                    e.response["Error"]["Message"],
                 )

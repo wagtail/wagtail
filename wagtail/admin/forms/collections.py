@@ -18,13 +18,13 @@ from .view_restrictions import BaseViewRestrictionForm
 class CollectionViewRestrictionForm(BaseViewRestrictionForm):
     class Meta:
         model = CollectionViewRestriction
-        fields = ('restriction_type', 'password', 'groups')
+        fields = ("restriction_type", "password", "groups")
 
 
 class CollectionForm(forms.ModelForm):
     class Meta:
         model = Collection
-        fields = ('name',)
+        fields = ("name",)
 
 
 class BaseCollectionMemberForm(forms.ModelForm):
@@ -39,7 +39,7 @@ class BaseCollectionMemberForm(forms.ModelForm):
     """
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
+        user = kwargs.pop("user", None)
 
         super().__init__(*args, **kwargs)
 
@@ -47,7 +47,7 @@ class BaseCollectionMemberForm(forms.ModelForm):
             self.collections = Collection.objects.all()
         else:
             self.collections = self.permission_policy.collections_user_has_permission_for(
-                user, 'add'
+                user, "add"
             )
 
         if self.instance.pk:
@@ -64,9 +64,9 @@ class BaseCollectionMemberForm(forms.ModelForm):
             )
         elif len(self.collections) == 1:
             # don't show collection field if only one collection is available
-            del self.fields['collection']
+            del self.fields["collection"]
         else:
-            self.fields['collection'].queryset = self.collections
+            self.fields["collection"].queryset = self.collections
 
     def save(self, commit=True):
         if len(self.collections) == 1:
@@ -102,25 +102,25 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
             instance.collection_permissions.filter(
                 permission__in=self.permission_queryset
             )
-            .select_related('permission__content_type', 'collection')
-            .order_by('collection'),
+            .select_related("permission__content_type", "collection")
+            .order_by("collection"),
             lambda cp: cp.collection,
         ):
             initial_data.append(
                 {
-                    'collection': collection,
-                    'permissions': [cp.permission for cp in collection_permissions],
+                    "collection": collection,
+                    "permissions": [cp.permission for cp in collection_permissions],
                 }
             )
 
         super().__init__(data, files, initial=initial_data, prefix=prefix)
         for form in self.forms:
-            form.fields['DELETE'].widget = forms.HiddenInput()
+            form.fields["DELETE"].widget = forms.HiddenInput()
 
     @property
     def empty_form(self):
         empty_form = super().empty_form
-        empty_form.fields['DELETE'].widget = forms.HiddenInput()
+        empty_form.fields["DELETE"].widget = forms.HiddenInput()
         return empty_form
 
     def clean(self):
@@ -130,11 +130,11 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
             return
 
         collections = [
-            form.cleaned_data['collection']
+            form.cleaned_data["collection"]
             for form in self.forms
             # need to check for presence of 'collection' in cleaned_data,
             # because a completely blank form passes validation
-            if form not in self.deleted_forms and 'collection' in form.cleaned_data
+            if form not in self.deleted_forms and "collection" in form.cleaned_data
         ]
         if len(set(collections)) != len(collections):
             # collections list contains duplicates
@@ -156,14 +156,14 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         forms_to_save = [
             form
             for form in self.forms
-            if form not in self.deleted_forms and 'collection' in form.cleaned_data
+            if form not in self.deleted_forms and "collection" in form.cleaned_data
         ]
 
         final_permission_records = set()
         for form in forms_to_save:
-            for permission in form.cleaned_data['permissions']:
+            for permission in form.cleaned_data["permissions"]:
                 final_permission_records.add(
-                    (form.cleaned_data['collection'], permission)
+                    (form.cleaned_data["collection"], permission)
                 )
 
         # fetch the group's existing collection permission records for this model,
@@ -194,7 +194,7 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         )
 
     def as_admin_panel(self):
-        return render_to_string(self.template, {'formset': self})
+        return render_to_string(self.template, {"formset": self})
 
 
 def collection_member_permission_formset_factory(
@@ -206,10 +206,10 @@ def collection_member_permission_formset_factory(
         codename__in=[
             codename for codename, short_label, long_label in permission_types
         ],
-    ).select_related('content_type')
+    ).select_related("content_type")
 
     if default_prefix is None:
-        default_prefix = '%s_permissions' % model._meta.model_name
+        default_prefix = "%s_permissions" % model._meta.model_name
 
     class CollectionMemberPermissionsForm(forms.Form):
         """
@@ -219,7 +219,7 @@ def collection_member_permission_formset_factory(
         """
 
         collection = forms.ModelChoiceField(
-            queryset=Collection.objects.all().prefetch_related('group_permissions')
+            queryset=Collection.objects.all().prefetch_related("group_permissions")
         )
         permissions = forms.ModelMultipleChoiceField(
             queryset=permission_queryset,
@@ -228,13 +228,13 @@ def collection_member_permission_formset_factory(
         )
 
     GroupCollectionMemberPermissionFormSet = type(
-        str('GroupCollectionMemberPermissionFormSet'),
+        str("GroupCollectionMemberPermissionFormSet"),
         (BaseGroupCollectionMemberPermissionFormSet,),
         {
-            'permission_types': permission_types,
-            'permission_queryset': permission_queryset,
-            'default_prefix': default_prefix,
-            'template': template,
+            "permission_types": permission_types,
+            "permission_queryset": permission_queryset,
+            "default_prefix": default_prefix,
+            "template": template,
         },
     )
 

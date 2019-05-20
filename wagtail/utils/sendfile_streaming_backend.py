@@ -16,13 +16,13 @@ def sendfile(request, filename, **kwargs):
     statobj = os.stat(filename)
 
     if not was_modified_since(
-        request.META.get('HTTP_IF_MODIFIED_SINCE'),
+        request.META.get("HTTP_IF_MODIFIED_SINCE"),
         statobj[stat.ST_MTIME],
         statobj[stat.ST_SIZE],
     ):
         return HttpResponseNotModified()
 
-    response = StreamingHttpResponse(FileWrapper(open(filename, 'rb')))
+    response = StreamingHttpResponse(FileWrapper(open(filename, "rb")))
 
     response["Last-Modified"] = http_date(statobj[stat.ST_MTIME])
     return response

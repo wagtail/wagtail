@@ -12,13 +12,13 @@ class SearchPromotionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['page'].widget = AdminPageChooser()
+        self.fields["page"].widget = AdminPageChooser()
 
     class Meta:
         model = SearchPromotion
-        fields = ('query', 'page', 'description')
+        fields = ("query", "page", "description")
 
-        widgets = {'description': forms.Textarea(attrs=dict(rows=3))}
+        widgets = {"description": forms.Textarea(attrs=dict(rows=3))}
 
 
 SearchPromotionsFormSetBase = inlineformset_factory(
@@ -41,11 +41,11 @@ class SearchPromotionsFormSet(SearchPromotionsFormSetBase):
         super().add_fields(form, *args, **kwargs)
 
         # Hide delete and order fields
-        form.fields['DELETE'].widget = forms.HiddenInput()
-        form.fields['ORDER'].widget = forms.HiddenInput()
+        form.fields["DELETE"].widget = forms.HiddenInput()
+        form.fields["ORDER"].widget = forms.HiddenInput()
 
         # Remove query field
-        del form.fields['query']
+        del form.fields["query"]
 
     def clean(self):
         # Search pick must have at least one recommended page to be valid

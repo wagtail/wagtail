@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def cell_classname(context, row_index, col_index, table_header=None):
-    classnames = context.get('classnames')
+    classnames = context.get("classnames")
     if classnames:
         if table_header is not None:
             row_index += 1
@@ -14,4 +14,4 @@ def cell_classname(context, row_index, col_index, table_header=None):
         cell_class = classnames.get(index)
         if cell_class:
             return mark_safe('class="{}"'.format(cell_class))
-    return ''
+    return ""

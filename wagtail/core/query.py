@@ -286,12 +286,12 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         # An empty queryset has no ancestors. This is a problem
         if not self.exists():
             if strict:
-                raise self.model.DoesNotExist('Can not find ancestor of empty queryset')
+                raise self.model.DoesNotExist("Can not find ancestor of empty queryset")
             return self.model.get_first_root_node()
 
         if include_self:
             # Get all the paths of the matched pages.
-            paths = self.order_by().values_list('path', flat=True)
+            paths = self.order_by().values_list("path", flat=True)
         else:
             # Find all the distinct parent paths of all matched pages.
             # The empty `.order_by()` ensures that `Page.path` is not also
@@ -300,13 +300,13 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
                 self.order_by()
                 .annotate(
                     parent_path=Substr(
-                        'path',
+                        "path",
                         1,
-                        Length('path') - self.model.steplen,
+                        Length("path") - self.model.steplen,
                         output_field=CharField(max_length=255),
                     )
                 )
-                .values_list('parent_path', flat=True)
+                .values_list("parent_path", flat=True)
                 .distinct()
             )
 
@@ -320,12 +320,12 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         if extra_chars != 0:
             common_parent_path = common_parent_path[:-extra_chars]
 
-        if common_parent_path == '':
+        if common_parent_path == "":
             # This should only happen when there are multiple trees,
             # a situation that Wagtail does not support;
             # or when the root node itself is part of the queryset.
             if strict:
-                raise self.model.DoesNotExist('No common ancestor found!')
+                raise self.model.DoesNotExist("No common ancestor found!")
 
             # Assuming the situation is the latter, just return the root node.
             # The root node is not its own ancestor, so this is technically
@@ -376,7 +376,7 @@ def specific_iterator(qs, defer=False):
 
     This should be called from ``PageQuerySet.specific``
     """
-    pks_and_types = qs.values_list('pk', 'content_type')
+    pks_and_types = qs.values_list("pk", "content_type")
     pks_by_type = defaultdict(list)
     for pk, content_type in pks_and_types:
         pks_by_type[content_type].append(pk)

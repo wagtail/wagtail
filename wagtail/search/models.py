@@ -23,7 +23,7 @@ class Query(models.Model):
         daily_hits, created = QueryDailyHits.objects.get_or_create(
             query=self, date=date
         )
-        daily_hits.hits = models.F('hits') + 1
+        daily_hits.hits = models.F("hits") + 1
         daily_hits.save()
 
     def __str__(self):
@@ -31,7 +31,7 @@ class Query(models.Model):
 
     @property
     def hits(self):
-        hits = self.daily_hits.aggregate(models.Sum('hits'))['hits__sum']
+        hits = self.daily_hits.aggregate(models.Sum("hits"))["hits__sum"]
         return hits if hits else 0
 
     @classmethod
@@ -40,7 +40,7 @@ class Query(models.Model):
         Deletes all Query records that have no daily hits or editors picks
         """
         extra_filter_kwargs = (
-            {'editors_picks__isnull': True} if hasattr(cls, 'editors_picks') else {}
+            {"editors_picks__isnull": True} if hasattr(cls, "editors_picks") else {}
         )
         cls.objects.filter(daily_hits__isnull=True, **extra_filter_kwargs).delete()
 
@@ -55,15 +55,15 @@ class Query(models.Model):
         # TODO: Implement date_since
         return (
             cls.objects.filter(daily_hits__isnull=False)
-            .annotate(_hits=models.Sum('daily_hits__hits'))
+            .annotate(_hits=models.Sum("daily_hits__hits"))
             .distinct()
-            .order_by('-_hits')
+            .order_by("-_hits")
         )
 
 
 class QueryDailyHits(models.Model):
     query = models.ForeignKey(
-        Query, db_index=True, related_name='daily_hits', on_delete=models.CASCADE
+        Query, db_index=True, related_name="daily_hits", on_delete=models.CASCADE
     )
     date = models.DateField()
     hits = models.IntegerField(default=0)
@@ -74,13 +74,13 @@ class QueryDailyHits(models.Model):
         Deletes all QueryDailyHits records that are older than a set number of days
         """
         days = (
-            getattr(settings, 'WAGTAILSEARCH_HITS_MAX_AGE', 7) if days is None else days
+            getattr(settings, "WAGTAILSEARCH_HITS_MAX_AGE", 7) if days is None else days
         )
         min_date = timezone.now().date() - datetime.timedelta(days)
 
         cls.objects.filter(date__lt=min_date).delete()
 
     class Meta:
-        unique_together = (('query', 'date'),)
-        verbose_name = _('Query Daily Hits')
-        verbose_name_plural = _('Query Daily Hits')
+        unique_together = (("query", "date"),)
+        verbose_name = _("Query Daily Hits")
+        verbose_name_plural = _("Query Daily Hits")

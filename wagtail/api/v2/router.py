@@ -40,7 +40,7 @@ class WagtailAPIRouter:
 
         if endpoint:
             endpoint_name, endpoint_class = endpoint[0], endpoint[1]
-            url_namespace = self.url_namespace + ':' + endpoint_name
+            url_namespace = self.url_namespace + ":" + endpoint_name
             return endpoint_class.get_model_listing_urlpath(
                 model, namespace=url_namespace
             )
@@ -56,7 +56,7 @@ class WagtailAPIRouter:
 
         if endpoint:
             endpoint_name, endpoint_class = endpoint[0], endpoint[1]
-            url_namespace = self.url_namespace + ':' + endpoint_name
+            url_namespace = self.url_namespace + ":" + endpoint_name
             return endpoint_class.get_object_detail_urlpath(
                 model, pk, namespace=url_namespace
             )
@@ -74,7 +74,7 @@ class WagtailAPIRouter:
 
         for name, class_ in self._endpoints.items():
             pattern = url(
-                r'^{}/'.format(name),
+                r"^{}/".format(name),
                 include((class_.get_urlpatterns(), name), namespace=name),
             )
             urlpatterns.append(pattern)

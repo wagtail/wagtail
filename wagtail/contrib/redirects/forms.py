@@ -16,7 +16,7 @@ class RedirectForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['redirect_page'].widget = AdminPageChooser()
+        self.fields["redirect_page"].widget = AdminPageChooser()
 
     required_css_class = "required"
 
@@ -27,8 +27,8 @@ class RedirectForm(forms.ModelForm):
         """
         cleaned_data = super().clean()
 
-        if cleaned_data.get('site') is None:
-            old_path = cleaned_data.get('old_path')
+        if cleaned_data.get("site") is None:
+            old_path = cleaned_data.get("old_path")
             if old_path is None:
                 # cleaned_data['old_path'] is empty because it has already failed validation,
                 # so don't bother with our duplicate test
@@ -46,4 +46,4 @@ class RedirectForm(forms.ModelForm):
 
     class Meta:
         model = Redirect
-        fields = ('old_path', 'site', 'is_permanent', 'redirect_page', 'redirect_link')
+        fields = ("old_path", "site", "is_permanent", "redirect_page", "redirect_link")

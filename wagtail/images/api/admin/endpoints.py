@@ -5,10 +5,10 @@ from .serializers import AdminImageSerializer
 class ImagesAdminAPIEndpoint(ImagesAPIEndpoint):
     base_serializer_class = AdminImageSerializer
 
-    body_fields = ImagesAPIEndpoint.body_fields + ['thumbnail']
+    body_fields = ImagesAPIEndpoint.body_fields + ["thumbnail"]
 
     listing_default_fields = ImagesAPIEndpoint.listing_default_fields + [
-        'width',
-        'height',
-        'thumbnail',
+        "width",
+        "height",
+        "thumbnail",
     ]

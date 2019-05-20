@@ -12,7 +12,7 @@ from wagtail.tests.testapp.models import EventPage, SimplePage
 
 
 class TestFixTreeCommand(TestCase):
-    fixtures = ['test.json']
+    fixtures = ["test.json"]
 
     def badly_delete_page(self, page):
         # Deletes a page the wrong way.
@@ -20,17 +20,17 @@ class TestFixTreeCommand(TestCase):
         models.Model.delete(page)
 
     def run_command(self, **options):
-        options.setdefault('interactive', False)
+        options.setdefault("interactive", False)
 
         output = StringIO()
-        management.call_command('fixtree', stdout=output, **options)
+        management.call_command("fixtree", stdout=output, **options)
         output.seek(0)
 
         return output
 
     def test_fixes_numchild(self):
         # Get homepage and save old value
-        homepage = Page.objects.get(url_path='/home/')
+        homepage = Page.objects.get(url_path="/home/")
         old_numchild = homepage.numchild
 
         # Break it
@@ -38,17 +38,17 @@ class TestFixTreeCommand(TestCase):
         homepage.save()
 
         # Check that its broken
-        self.assertEqual(Page.objects.get(url_path='/home/').numchild, 12345)
+        self.assertEqual(Page.objects.get(url_path="/home/").numchild, 12345)
 
         # Call command
         self.run_command()
 
         # Check if its fixed
-        self.assertEqual(Page.objects.get(url_path='/home/').numchild, old_numchild)
+        self.assertEqual(Page.objects.get(url_path="/home/").numchild, old_numchild)
 
     def test_fixes_depth(self):
         # Get homepage and save old value
-        homepage = Page.objects.get(url_path='/home/')
+        homepage = Page.objects.get(url_path="/home/")
         old_depth = homepage.depth
 
         # Break it
@@ -56,17 +56,17 @@ class TestFixTreeCommand(TestCase):
         homepage.save()
 
         # Check that its broken
-        self.assertEqual(Page.objects.get(url_path='/home/').depth, 12345)
+        self.assertEqual(Page.objects.get(url_path="/home/").depth, 12345)
 
         # Call command
         self.run_command()
 
         # Check if its fixed
-        self.assertEqual(Page.objects.get(url_path='/home/').depth, old_depth)
+        self.assertEqual(Page.objects.get(url_path="/home/").depth, old_depth)
 
     def test_detects_orphans(self):
-        events_index = Page.objects.get(url_path='/home/events/')
-        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        events_index = Page.objects.get(url_path="/home/events/")
+        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
         # Delete the events index badly
         self.badly_delete_page(events_index)
@@ -88,8 +88,8 @@ class TestFixTreeCommand(TestCase):
         self.assertTrue(Page.objects.filter(id=christmas_page.id).exists())
 
     def test_deletes_orphans(self):
-        events_index = Page.objects.get(url_path='/home/events/')
-        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        events_index = Page.objects.get(url_path="/home/events/")
+        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
 
         # Delete the events index badly
         self.badly_delete_page(events_index)
@@ -111,16 +111,16 @@ class TestFixTreeCommand(TestCase):
 
 
 class TestMovePagesCommand(TestCase):
-    fixtures = ['test.json']
+    fixtures = ["test.json"]
 
     def run_command(self, from_, to):
-        management.call_command('move_pages', str(from_), str(to), stdout=StringIO())
+        management.call_command("move_pages", str(from_), str(to), stdout=StringIO())
 
     def test_move_pages(self):
         # Get pages
-        events_index = Page.objects.get(url_path='/home/events/')
-        about_us = Page.objects.get(url_path='/home/about-us/')
-        page_ids = events_index.get_children().values_list('id', flat=True)
+        events_index = Page.objects.get(url_path="/home/events/")
+        about_us = Page.objects.get(url_path="/home/about-us/")
+        page_ids = events_index.get_children().values_list("id", flat=True)
 
         # Move all events into "about us"
         self.run_command(events_index.id, about_us.id)
@@ -132,24 +132,24 @@ class TestMovePagesCommand(TestCase):
 
 class TestSetUrlPathsCommand(TestCase):
 
-    fixtures = ['test.json']
+    fixtures = ["test.json"]
 
     def run_command(self):
-        management.call_command('set_url_paths', stdout=StringIO())
+        management.call_command("set_url_paths", stdout=StringIO())
 
     def test_set_url_paths(self):
         self.run_command()
 
 
 class TestReplaceTextCommand(TestCase):
-    fixtures = ['test.json']
+    fixtures = ["test.json"]
 
     def run_command(self, from_text, to_text):
-        management.call_command('replace_text', from_text, to_text, stdout=StringIO())
+        management.call_command("replace_text", from_text, to_text, stdout=StringIO())
 
     def test_replace_text(self):
         # Check that the christmas page is definitely about christmas
-        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
         self.assertEqual(christmas_page.title, "Christmas")
         self.assertEqual(christmas_page.speakers.first().last_name, "Christmas")
         self.assertEqual(
@@ -161,7 +161,7 @@ class TestReplaceTextCommand(TestCase):
         self.run_command("Christmas", "Easter")
 
         # Check that it's now about easter
-        easter_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        easter_page = EventPage.objects.get(url_path="/home/events/christmas/")
         self.assertEqual(easter_page.title, "Easter")
 
         # Check that we also update the child objects (including advert_placements, which is defined on the superclass)
@@ -199,7 +199,7 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
 
-        p = Page.objects.get(slug='hello-world')
+        p = Page.objects.get(slug="hello-world")
         self.assertFalse(p.live)
         self.assertTrue(
             PageRevision.objects.filter(page=p)
@@ -207,9 +207,9 @@ class TestPublishScheduledPagesCommand(TestCase):
             .exists()
         )
 
-        management.call_command('publish_scheduled_pages')
+        management.call_command("publish_scheduled_pages")
 
-        p = Page.objects.get(slug='hello-world')
+        p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
         self.assertTrue(p.first_published_at)
         self.assertFalse(p.has_unpublished_changes)
@@ -240,9 +240,9 @@ class TestPublishScheduledPagesCommand(TestCase):
         page.title = "Goodbye world!"
         page.save_revision(submitted_for_moderation=False)
 
-        management.call_command('publish_scheduled_pages')
+        management.call_command("publish_scheduled_pages")
 
-        p = Page.objects.get(slug='hello-world')
+        p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
         self.assertTrue(p.has_unpublished_changes)
         self.assertEqual(p.title, "Hello world!")
@@ -259,7 +259,7 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         page.save_revision(approved_go_live_at=timezone.now() - timedelta(days=1))
 
-        p = Page.objects.get(slug='hello-world')
+        p = Page.objects.get(slug="hello-world")
         self.assertFalse(p.live)
         self.assertTrue(
             PageRevision.objects.filter(page=p)
@@ -267,9 +267,9 @@ class TestPublishScheduledPagesCommand(TestCase):
             .exists()
         )
 
-        management.call_command('publish_scheduled_pages')
+        management.call_command("publish_scheduled_pages")
 
-        p = Page.objects.get(slug='hello-world')
+        p = Page.objects.get(slug="hello-world")
         self.assertFalse(p.live)
         self.assertTrue(
             PageRevision.objects.filter(page=p)
@@ -298,12 +298,12 @@ class TestPublishScheduledPagesCommand(TestCase):
         )
         self.root_page.add_child(instance=page)
 
-        p = Page.objects.get(slug='hello-world')
+        p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
 
-        management.call_command('publish_scheduled_pages')
+        management.call_command("publish_scheduled_pages")
 
-        p = Page.objects.get(slug='hello-world')
+        p = Page.objects.get(slug="hello-world")
         self.assertFalse(p.live)
         self.assertTrue(p.has_unpublished_changes)
         self.assertTrue(p.expired)
@@ -323,12 +323,12 @@ class TestPublishScheduledPagesCommand(TestCase):
         )
         self.root_page.add_child(instance=page)
 
-        p = Page.objects.get(slug='hello-world')
+        p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
 
-        management.call_command('publish_scheduled_pages')
+        management.call_command("publish_scheduled_pages")
 
-        p = Page.objects.get(slug='hello-world')
+        p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
         self.assertFalse(p.expired)
 
@@ -344,15 +344,15 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         page.save_revision(submitted_for_moderation=True)
 
-        p = Page.objects.get(slug='hello-world')
+        p = Page.objects.get(slug="hello-world")
         self.assertFalse(p.live)
         self.assertTrue(
             PageRevision.objects.filter(page=p, submitted_for_moderation=True).exists()
         )
 
-        management.call_command('publish_scheduled_pages')
+        management.call_command("publish_scheduled_pages")
 
-        p = Page.objects.get(slug='hello-world')
+        p = Page.objects.get(slug="hello-world")
         self.assertFalse(
             PageRevision.objects.filter(page=p, submitted_for_moderation=True).exists()
         )

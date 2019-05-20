@@ -11,7 +11,7 @@ from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestGetIndexedInstance(TestCase):
-    fixtures = ['search']
+    fixtures = ["search"]
 
     def test_gets_instance(self):
         obj = models.Author.objects.get(id=1)
@@ -41,10 +41,10 @@ class TestGetIndexedInstance(TestCase):
         self.assertEqual(indexed_instance, None)
 
 
-@mock.patch('wagtail.search.tests.DummySearchBackend', create=True)
+@mock.patch("wagtail.search.tests.DummySearchBackend", create=True)
 @override_settings(
     WAGTAILSEARCH_BACKENDS={
-        'default': {'BACKEND': 'wagtail.search.tests.DummySearchBackend'}
+        "default": {"BACKEND": "wagtail.search.tests.DummySearchBackend"}
     }
 )
 class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
@@ -92,7 +92,7 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
         backend().add.side_effect = ValueError("Test")
         backend().reset_mock()
 
-        with self.assertLogs('wagtail.search.index', level='ERROR') as cm:
+        with self.assertLogs("wagtail.search.index", level="ERROR") as cm:
             index.insert_or_update_object(obj)
 
         self.assertEqual(len(cm.output), 1)
@@ -104,10 +104,10 @@ class TestInsertOrUpdateObject(TestCase, WagtailTestUtils):
         self.assertIn("ValueError: Test", cm.output[0])
 
 
-@mock.patch('wagtail.search.tests.DummySearchBackend', create=True)
+@mock.patch("wagtail.search.tests.DummySearchBackend", create=True)
 @override_settings(
     WAGTAILSEARCH_BACKENDS={
-        'default': {'BACKEND': 'wagtail.search.tests.DummySearchBackend'}
+        "default": {"BACKEND": "wagtail.search.tests.DummySearchBackend"}
     }
 )
 class TestRemoveObject(TestCase, WagtailTestUtils):
@@ -139,7 +139,7 @@ class TestRemoveObject(TestCase, WagtailTestUtils):
 
         backend().delete.side_effect = ValueError("Test")
 
-        with self.assertLogs('wagtail.search.index', level='ERROR') as cm:
+        with self.assertLogs("wagtail.search.index", level="ERROR") as cm:
             index.remove_object(obj)
 
         self.assertEqual(len(cm.output), 1)
@@ -151,10 +151,10 @@ class TestRemoveObject(TestCase, WagtailTestUtils):
         self.assertIn("ValueError: Test", cm.output[0])
 
 
-@mock.patch('wagtail.search.tests.DummySearchBackend', create=True)
+@mock.patch("wagtail.search.tests.DummySearchBackend", create=True)
 @override_settings(
     WAGTAILSEARCH_BACKENDS={
-        'default': {'BACKEND': 'wagtail.search.tests.DummySearchBackend'}
+        "default": {"BACKEND": "wagtail.search.tests.DummySearchBackend"}
     }
 )
 class TestSignalHandlers(TestCase, WagtailTestUtils):
@@ -195,7 +195,7 @@ class TestSignalHandlers(TestCase, WagtailTestUtils):
         backend().reset_mock()
         obj.title = "Updated test"
         obj.publication_date = date(2001, 10, 19)
-        obj.save(update_fields=['title'])
+        obj.save(update_fields=["title"])
 
         self.assertEqual(backend().add.call_count, 1)
         indexed_object = backend().add.call_args[0][0]

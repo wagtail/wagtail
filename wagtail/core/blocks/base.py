@@ -14,12 +14,12 @@ from django.utils.text import capfirst
 # calls force_text, which would cause it to lose its 'safe' flag
 
 __all__ = [
-    'BaseBlock',
-    'Block',
-    'BoundBlock',
-    'DeclarativeSubBlocksMetaclass',
-    'BlockWidget',
-    'BlockField',
+    "BaseBlock",
+    "Block",
+    "BoundBlock",
+    "DeclarativeSubBlocksMetaclass",
+    "BlockWidget",
+    "BlockField",
 ]
 
 
@@ -30,31 +30,31 @@ __all__ = [
 
 class BaseBlock(type):
     def __new__(mcs, name, bases, attrs):
-        meta_class = attrs.pop('Meta', None)
+        meta_class = attrs.pop("Meta", None)
 
         cls = super(BaseBlock, mcs).__new__(mcs, name, bases, attrs)
 
         # Get all the Meta classes from all the bases
         meta_class_bases = [meta_class] + [
-            getattr(base, '_meta_class', None) for base in bases
+            getattr(base, "_meta_class", None) for base in bases
         ]
         meta_class_bases = tuple(filter(bool, meta_class_bases))
-        cls._meta_class = type(str(name + 'Meta'), meta_class_bases, {})
+        cls._meta_class = type(str(name + "Meta"), meta_class_bases, {})
 
         return cls
 
 
 class Block(metaclass=BaseBlock):
-    name = ''
+    name = ""
     creation_counter = 0
 
-    TEMPLATE_VAR = 'value'
+    TEMPLATE_VAR = "value"
 
     class Meta:
         label = None
         icon = "placeholder"
         classname = None
-        group = ''
+        group = ""
 
     """
     Setting a 'dependencies' list serves as a shortcut for the common case where a complex block type
@@ -93,7 +93,7 @@ class Block(metaclass=BaseBlock):
         declarations = filter(
             bool, [block.html_declarations() for block in self.all_blocks()]
         )
-        return mark_safe('\n'.join(declarations))
+        return mark_safe("\n".join(declarations))
 
     def __init__(self, **kwargs):
         self.meta = self._meta_class()
@@ -104,14 +104,14 @@ class Block(metaclass=BaseBlock):
         # Increase the creation counter, and save our local copy.
         self.creation_counter = Block.creation_counter
         Block.creation_counter += 1
-        self.definition_prefix = 'blockdef-%d' % self.creation_counter
+        self.definition_prefix = "blockdef-%d" % self.creation_counter
 
-        self.label = self.meta.label or ''
+        self.label = self.meta.label or ""
 
     def set_name(self, name):
         self.name = name
         if not self.meta.label:
-            self.label = capfirst(force_text(name).replace('_', ' '))
+            self.label = capfirst(force_text(name).replace("_", " "))
 
     @property
     def media(self):
@@ -131,7 +131,7 @@ class Block(metaclass=BaseBlock):
         (More precisely, they must either be definition_prefix itself, or begin with definition_prefix
         followed by a '-' character)
         """
-        return ''
+        return ""
 
     def js_initializer(self):
         """
@@ -145,14 +145,14 @@ class Block(metaclass=BaseBlock):
         """
         return None
 
-    def render_form(self, value, prefix='', errors=None):
+    def render_form(self, value, prefix="", errors=None):
         """
         Render the HTML for this block with 'value' as its content.
         """
-        raise NotImplementedError('%s.render_form' % self.__class__)
+        raise NotImplementedError("%s.render_form" % self.__class__)
 
     def value_from_datadict(self, data, files, prefix):
-        raise NotImplementedError('%s.value_from_datadict' % self.__class__)
+        raise NotImplementedError("%s.value_from_datadict" % self.__class__)
 
     def value_omitted_from_data(self, data, files, name):
         """
@@ -188,7 +188,7 @@ class Block(metaclass=BaseBlock):
         (new list items, for example). This will have a prefix of '__PREFIX__' (to be dynamically replaced with
         a real prefix when it's inserted into the page) and a value equal to the block's default value.
         """
-        return self.bind(self.get_default(), '__PREFIX__')
+        return self.bind(self.get_default(), "__PREFIX__")
 
     def clean(self, value):
         """
@@ -225,7 +225,7 @@ class Block(metaclass=BaseBlock):
         """
 
         context = parent_context or {}
-        context.update({'self': value, self.TEMPLATE_VAR: value})
+        context.update({"self": value, self.TEMPLATE_VAR: value})
         return context
 
     def get_template(self, context=None):
@@ -233,7 +233,7 @@ class Block(metaclass=BaseBlock):
         Return the template to use for rendering the block if specified on meta class.
         This extraction was added to make dynamic templates possible if you override this method
         """
-        return getattr(self.meta, 'template', None)
+        return getattr(self.meta, "template", None)
 
     def render(self, value, context=None):
         """
@@ -290,28 +290,28 @@ class Block(metaclass=BaseBlock):
                 checks.Error(
                     "Block name %r is invalid" % self.name,
                     hint="Block name cannot be empty",
-                    obj=kwargs.get('field', self),
-                    id='wagtailcore.E001',
+                    obj=kwargs.get("field", self),
+                    id="wagtailcore.E001",
                 )
             )
 
-        if ' ' in self.name:
+        if " " in self.name:
             errors.append(
                 checks.Error(
                     "Block name %r is invalid" % self.name,
                     hint="Block names cannot contain spaces",
-                    obj=kwargs.get('field', self),
-                    id='wagtailcore.E001',
+                    obj=kwargs.get("field", self),
+                    id="wagtailcore.E001",
                 )
             )
 
-        if '-' in self.name:
+        if "-" in self.name:
             errors.append(
                 checks.Error(
                     "Block name %r is invalid" % self.name,
                     "Block names cannot contain dashes",
-                    obj=kwargs.get('field', self),
-                    id='wagtailcore.E001',
+                    obj=kwargs.get("field", self),
+                    id="wagtailcore.E001",
                 )
             )
 
@@ -320,8 +320,8 @@ class Block(metaclass=BaseBlock):
                 checks.Error(
                     "Block name %r is invalid" % self.name,
                     "Block names cannot begin with a digit",
-                    obj=kwargs.get('field', self),
-                    id='wagtailcore.E001',
+                    obj=kwargs.get("field", self),
+                    id="wagtailcore.E001",
                 )
             )
 
@@ -363,7 +363,7 @@ class Block(metaclass=BaseBlock):
         try:
             path = module.DECONSTRUCT_ALIASES[self.__class__]
         except (AttributeError, KeyError):
-            path = '%s.%s' % (module_name, name)
+            path = "%s.%s" % (module_name, name)
 
         return (path, self._constructor_args[0], self._constructor_args[1])
 
@@ -464,7 +464,7 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
                 value.set_name(key)
                 attrs.pop(key)
         current_blocks.sort(key=lambda x: x[1].creation_counter)
-        attrs['declared_blocks'] = collections.OrderedDict(current_blocks)
+        attrs["declared_blocks"] = collections.OrderedDict(current_blocks)
 
         new_class = super(DeclarativeSubBlocksMetaclass, mcs).__new__(
             mcs, name, bases, attrs
@@ -475,7 +475,7 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
         base_blocks = collections.OrderedDict()
         for base in reversed(new_class.__mro__):
             # Collect sub-blocks from base class.
-            if hasattr(base, 'declared_blocks'):
+            if hasattr(base, "declared_blocks"):
                 base_blocks.update(base.declared_blocks)
 
             # Field shadowing.
@@ -515,7 +515,7 @@ class BlockWidget(forms.Widget):
                 name,
             )
         else:
-            js_snippet = ''
+            js_snippet = ""
         return mark_safe(bound_block.render_form() + js_snippet)
 
     def render(self, name, value, attrs=None, renderer=None):
@@ -542,8 +542,8 @@ class BlockField(forms.Field):
             raise ImproperlyConfigured("BlockField was not passed a 'block' object")
         self.block = block
 
-        if 'widget' not in kwargs:
-            kwargs['widget'] = BlockWidget(block)
+        if "widget" not in kwargs:
+            kwargs["widget"] = BlockWidget(block)
 
         super().__init__(**kwargs)
 
@@ -551,4 +551,4 @@ class BlockField(forms.Field):
         return self.block.clean(value)
 
 
-DECONSTRUCT_ALIASES = {Block: 'wagtail.core.blocks.Block'}
+DECONSTRUCT_ALIASES = {Block: "wagtail.core.blocks.Block"}

@@ -6,17 +6,17 @@ from wagtail.contrib.forms.views import (
     get_submissions_list_view,
 )
 
-app_name = 'wagtailforms'
+app_name = "wagtailforms"
 urlpatterns = [
-    url(r'^$', FormPagesListView.as_view(), name='index'),
+    url(r"^$", FormPagesListView.as_view(), name="index"),
     url(
-        r'^submissions/(?P<page_id>\d+)/$',
+        r"^submissions/(?P<page_id>\d+)/$",
         get_submissions_list_view,
-        name='list_submissions',
+        name="list_submissions",
     ),
     url(
-        r'^submissions/(?P<page_id>\d+)/delete/$',
+        r"^submissions/(?P<page_id>\d+)/delete/$",
         DeleteSubmissionsView.as_view(),
-        name='delete_submissions',
+        name="delete_submissions",
     ),
 ]

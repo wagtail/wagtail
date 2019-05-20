@@ -16,10 +16,10 @@ class TestForMigrations(TestCase):
         app_labels = set(
             app.label
             for app in apps.get_app_configs()
-            if app.name.startswith('wagtail.')
+            if app.name.startswith("wagtail.")
         )
         for app_label in app_labels:
-            apps.get_app_config(app_label.split('.')[-1])
+            apps.get_app_config(app_label.split(".")[-1])
         loader = MigrationLoader(None, ignore_no_migrations=True)
 
         conflicts = dict(
@@ -47,12 +47,12 @@ class TestForMigrations(TestCase):
         )
 
         if changes:
-            migrations = '\n'.join(
+            migrations = "\n".join(
                 (
-                    '  {migration}\n{changes}'.format(
+                    "  {migration}\n{changes}".format(
                         migration=migration,
-                        changes='\n'.join(
-                            '    {0}'.format(operation.describe())
+                        changes="\n".join(
+                            "    {0}".format(operation.describe())
                             for operation in migration.operations
                         ),
                     )
@@ -61,4 +61,4 @@ class TestForMigrations(TestCase):
                 )
             )
 
-            self.fail('Model changes with no migrations detected:\n%s' % migrations)
+            self.fail("Model changes with no migrations detected:\n%s" % migrations)

@@ -23,8 +23,8 @@ class SearchQuery:
 
 
 class PlainText(SearchQuery):
-    OPERATORS = ['and', 'or']
-    DEFAULT_OPERATOR = 'and'
+    OPERATORS = ["and", "or"]
+    DEFAULT_OPERATOR = "and"
 
     def __init__(
         self, query_string: str, operator: str = DEFAULT_OPERATOR, boost: float = 1

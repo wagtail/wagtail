@@ -3,8 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class WagtailCoreAppConfig(AppConfig):
-    name = 'wagtail.core'
-    label = 'wagtailcore'
+    name = "wagtail.core"
+    label = "wagtailcore"
     verbose_name = _("Wagtail core")
 
     def ready(self):

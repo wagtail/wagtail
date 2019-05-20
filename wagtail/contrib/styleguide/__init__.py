@@ -1,1 +1,1 @@
-default_app_config = 'wagtail.contrib.styleguide.apps.WagtailStyleGuideAppConfig'
+default_app_config = "wagtail.contrib.styleguide.apps.WagtailStyleGuideAppConfig"

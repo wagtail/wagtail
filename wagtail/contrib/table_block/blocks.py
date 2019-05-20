@@ -8,29 +8,29 @@ from django.utils.functional import cached_property
 from wagtail.core.blocks import FieldBlock
 
 DEFAULT_TABLE_OPTIONS = {
-    'minSpareRows': 0,
-    'startRows': 3,
-    'startCols': 3,
-    'colHeaders': False,
-    'rowHeaders': False,
-    'contextMenu': [
-        'row_above',
-        'row_below',
-        '---------',
-        'col_left',
-        'col_right',
-        '---------',
-        'remove_row',
-        'remove_col',
-        '---------',
-        'undo',
-        'redo',
+    "minSpareRows": 0,
+    "startRows": 3,
+    "startCols": 3,
+    "colHeaders": False,
+    "rowHeaders": False,
+    "contextMenu": [
+        "row_above",
+        "row_below",
+        "---------",
+        "col_left",
+        "col_right",
+        "---------",
+        "remove_row",
+        "remove_col",
+        "---------",
+        "undo",
+        "redo",
     ],
-    'editor': 'text',
-    'stretchH': 'all',
-    'height': 108,
-    'renderer': 'text',
-    'autoColumnSize': False,
+    "editor": "text",
+    "stretchH": "all",
+    "height": 108,
+    "renderer": "text",
+    "autoColumnSize": False,
 }
 
 
@@ -43,7 +43,7 @@ class TableInput(forms.HiddenInput):
 
     def get_context(self, name, value, attrs=None):
         context = super().get_context(name, value, attrs)
-        context['widget']['table_options_json'] = json.dumps(self.table_options)
+        context["widget"]["table_options_json"] = json.dumps(self.table_options)
         return context
 
 
@@ -57,7 +57,7 @@ class TableBlock(FieldBlock):
         data needs to have arbitrary length
         """
         self.table_options = self.get_table_options(table_options=table_options)
-        self.field_options = {'required': required, 'help_text': help_text}
+        self.field_options = {"required": required, "help_text": help_text}
         super().__init__(**kwargs)
 
     @cached_property
@@ -73,25 +73,25 @@ class TableBlock(FieldBlock):
         return json.dumps(value)
 
     def is_html_renderer(self):
-        return self.table_options['renderer'] == 'html'
+        return self.table_options["renderer"] == "html"
 
     def get_searchable_content(self, value):
         content = []
-        for row in value.get('data', []):
+        for row in value.get("data", []):
             content.extend([v for v in row if v])
         return content
 
     def render(self, value, context=None):
-        template = getattr(self.meta, 'template', None)
+        template = getattr(self.meta, "template", None)
         if template and value:
             table_header = (
-                value['data'][0]
-                if value.get('data', None)
-                and len(value['data']) > 0
-                and value.get('first_row_is_table_header', False)
+                value["data"][0]
+                if value.get("data", None)
+                and len(value["data"]) > 0
+                and value.get("first_row_is_table_header", False)
                 else None
             )
-            first_col_is_header = value.get('first_col_is_header', False)
+            first_col_is_header = value.get("first_col_is_header", False)
 
             if context is None:
                 new_context = {}
@@ -100,23 +100,23 @@ class TableBlock(FieldBlock):
 
             new_context.update(
                 {
-                    'self': value,
+                    "self": value,
                     self.TEMPLATE_VAR: value,
-                    'table_header': table_header,
-                    'first_col_is_header': first_col_is_header,
-                    'html_renderer': self.is_html_renderer(),
-                    'data': value['data'][1:]
+                    "table_header": table_header,
+                    "first_col_is_header": first_col_is_header,
+                    "html_renderer": self.is_html_renderer(),
+                    "data": value["data"][1:]
                     if table_header
-                    else value.get('data', []),
+                    else value.get("data", []),
                 }
             )
 
-            if value.get('cell'):
-                new_context['classnames'] = {}
-                for meta in value['cell']:
-                    if 'className' in meta:
-                        new_context['classnames'][(meta['row'], meta['col'])] = meta[
-                            'className'
+            if value.get("cell"):
+                new_context["classnames"] = {}
+                for meta in value["cell"]:
+                    if "className" in meta:
+                        new_context["classnames"][(meta["row"], meta["col"])] = meta[
+                            "className"
                         ]
 
             return render_to_string(template, new_context)
@@ -126,10 +126,10 @@ class TableBlock(FieldBlock):
     @property
     def media(self):
         return forms.Media(
-            css={'all': ['table_block/css/vendor/handsontable-6.2.2.full.min.css']},
+            css={"all": ["table_block/css/vendor/handsontable-6.2.2.full.min.css"]},
             js=[
-                'table_block/js/vendor/handsontable-6.2.2.full.min.js',
-                'table_block/js/table.js',
+                "table_block/js/vendor/handsontable-6.2.2.full.min.js",
+                "table_block/js/table.js",
             ],
         )
 
@@ -146,20 +146,20 @@ class TableBlock(FieldBlock):
         collected_table_options = DEFAULT_TABLE_OPTIONS.copy()
 
         if table_options is not None:
-            if table_options.get('contextMenu', None) is True:
+            if table_options.get("contextMenu", None) is True:
                 # explicity check for True, as value could also be array
                 # delete to ensure the above default is kept for contextMenu
-                del table_options['contextMenu']
+                del table_options["contextMenu"]
             collected_table_options.update(table_options)
 
-        if 'language' not in collected_table_options:
+        if "language" not in collected_table_options:
             # attempt to gather the current set language of not provided
             language = translation.get_language()
-            collected_table_options['language'] = language
+            collected_table_options["language"] = language
 
         return collected_table_options
 
     class Meta:
         default = None
-        template = 'table_block/blocks/table.html'
+        template = "table_block/blocks/table.html"
         icon = "table"

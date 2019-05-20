@@ -14,7 +14,7 @@ class CollectionPermissionLookupMixin:
         Get a queryset of the Permission objects for the given actions
         """
         permission_codenames = [
-            '%s_%s' % (action, self.model_name) for action in actions
+            "%s_%s" % (action, self.model_name) for action in actions
         ]
         return Permission.objects.filter(
             content_type=self._content_type, codename__in=permission_codenames
@@ -59,7 +59,7 @@ class CollectionPermissionLookupMixin:
         collection_root_paths = Collection.objects.filter(
             group_permissions__group__in=user.groups.all(),
             group_permissions__permission__in=permissions,
-        ).values_list('path', flat=True)
+        ).values_list("path", flat=True)
 
         if collection_root_paths:
             # build a filter expression that will filter our model to just those
@@ -215,7 +215,7 @@ class CollectionOwnershipPermissionPolicy(
     (see permission_policies.base.OwnershipPermissionPolicy)
     """
 
-    def __init__(self, model, auth_model=None, owner_field_name='owner'):
+    def __init__(self, model, auth_model=None, owner_field_name="owner"):
         super().__init__(model, auth_model=auth_model)
         self.owner_field_name = owner_field_name
 
@@ -230,24 +230,24 @@ class CollectionOwnershipPermissionPolicy(
             )
 
     def user_has_permission(self, user, action):
-        if action == 'add':
-            return self._check_perm(user, ['add'])
-        elif action == 'change' or action == 'delete':
+        if action == "add":
+            return self._check_perm(user, ["add"])
+        elif action == "change" or action == "delete":
             # having 'add' permission means that there are *potentially*
             # some instances they can edit (namely: ones they own),
             # which is sufficient for returning True here
-            return self._check_perm(user, ['add', 'change'])
+            return self._check_perm(user, ["add", "change"])
         else:
             # unrecognised actions are only allowed for active superusers
             return user.is_active and user.is_superuser
 
     def users_with_any_permission(self, actions):
-        if 'change' in actions or 'delete' in actions:
+        if "change" in actions or "delete" in actions:
             # either 'add' or 'change' permission means that there are *potentially*
             # some instances they can edit
-            real_actions = ['add', 'change']
-        elif 'add' in actions:
-            real_actions = ['add']
+            real_actions = ["add", "change"]
+        elif "add" in actions:
+            real_actions = ["add"]
         else:
             # none of the actions passed in here are ones that we recognise, so only
             # allow them for active superusers
@@ -259,11 +259,11 @@ class CollectionOwnershipPermissionPolicy(
         return self.user_has_any_permission_for_instance(user, [action], instance)
 
     def user_has_any_permission_for_instance(self, user, actions, instance):
-        if 'change' in actions or 'delete' in actions:
-            if self._check_perm(user, ['change'], collection=instance.collection):
+        if "change" in actions or "delete" in actions:
+            if self._check_perm(user, ["change"], collection=instance.collection):
                 return True
             elif (
-                self._check_perm(user, ['add'], collection=instance.collection)
+                self._check_perm(user, ["add"], collection=instance.collection)
                 and getattr(instance, self.owner_field_name) == user
             ):
                 return True
@@ -282,18 +282,18 @@ class CollectionOwnershipPermissionPolicy(
             return self.model.objects.all()
         elif not user.is_authenticated:
             return self.model.objects.none()
-        elif 'change' in actions or 'delete' in actions:
+        elif "change" in actions or "delete" in actions:
             # return instances which are:
             # - in (a descendant of) a collection for which they have 'change' permission
             # - OR in (a descendant of) a collection for which they have 'add' permission,
             #   and are owned by them
 
             change_perm_filter = Q(
-                collection__in=list(self._collections_with_perm(user, ['change']))
+                collection__in=list(self._collections_with_perm(user, ["change"]))
             )
 
             add_perm_filter = Q(
-                collection__in=list(self._collections_with_perm(user, ['add']))
+                collection__in=list(self._collections_with_perm(user, ["add"]))
             ) & Q(**{self.owner_field_name: user})
 
             return self.model.objects.filter(change_perm_filter | add_perm_filter)
@@ -304,18 +304,18 @@ class CollectionOwnershipPermissionPolicy(
             return self.model.objects.none()
 
     def users_with_any_permission_for_instance(self, actions, instance):
-        if 'change' in actions or 'delete' in actions:
+        if "change" in actions or "delete" in actions:
             # form a filter expression of the users with 'change' permission
             # over this instance's collection
             filter_expr = self._users_with_perm_filter(
-                ['change'], collection=instance.collection
+                ["change"], collection=instance.collection
             )
 
             # add on the item's owner, if they still have 'add' permission
             # (and the owner field isn't blank)
             owner = getattr(instance, self.owner_field_name)
             if owner is not None and self._check_perm(
-                owner, ['add'], collection=instance.collection
+                owner, ["add"], collection=instance.collection
             ):
                 filter_expr = filter_expr | Q(pk=owner.pk)
 
@@ -341,14 +341,14 @@ class CollectionOwnershipPermissionPolicy(
         elif not user.is_authenticated:
             return Collection.objects.none()
 
-        elif 'change' in actions or 'delete' in actions:
+        elif "change" in actions or "delete" in actions:
             # return collections which are covered by either 'add' or 'change' permissions
             # (since collections with 'add' permissions can *potentially* contain instances
             # they own and can therefore edit)
-            return self._collections_with_perm(user, ['add', 'change'])
+            return self._collections_with_perm(user, ["add", "change"])
 
-        elif 'add' in actions:
-            return self._collections_with_perm(user, ['add'])
+        elif "add" in actions:
+            return self._collections_with_perm(user, ["add"])
 
         else:
             # action is not recognised, and so non-superusers

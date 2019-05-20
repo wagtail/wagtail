@@ -16,7 +16,7 @@ class Vector:
         return tuple(self) == tuple(other)
 
     def __repr__(self):
-        return 'Vector(x: %d, y: %d)' % (self.x, self.y)
+        return "Vector(x: %d, y: %d)" % (self.x, self.y)
 
 
 class Rect:
@@ -162,7 +162,7 @@ class Rect:
         return tuple(self) == tuple(other)
 
     def __repr__(self):
-        return 'Rect(left: %d, top: %d, right: %d, bottom: %d)' % (
+        return "Rect(left: %d, top: %d, right: %d, bottom: %d)" % (
             self.left,
             self.top,
             self.right,

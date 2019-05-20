@@ -19,12 +19,12 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 def get_chooser_context():
     """construct context variables needed by the chooser JS"""
     return {
-        'step': 'chooser',
-        'error_label': _("Server Error"),
-        'error_message': _(
+        "step": "chooser",
+        "error_label": _("Server Error"),
+        "error_message": _(
             "Report this error to your webmaster with the following information:"
         ),
-        'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
+        "tag_autocomplete_url": reverse("wagtailadmin_tag_autocomplete"),
     }
 
 
@@ -35,18 +35,18 @@ def get_document_result_data(document):
     """
 
     return {
-        'id': document.id,
-        'title': document.title,
-        'url': document.url,
-        'filename': document.filename,
-        'edit_link': reverse('wagtaildocs:edit', args=(document.id,)),
+        "id": document.id,
+        "title": document.title,
+        "url": document.url,
+        "filename": document.filename,
+        "edit_link": reverse("wagtaildocs:edit", args=(document.id,)),
     }
 
 
 def chooser(request):
     Document = get_document_model()
 
-    if permission_policy.user_has_permission(request.user, 'add'):
+    if permission_policy.user_has_permission(request.user, "add"):
         DocumentForm = get_document_form(Document)
         uploadform = DocumentForm(user=request.user)
     else:
@@ -55,41 +55,41 @@ def chooser(request):
     documents = Document.objects.all()
 
     # allow hooks to modify the queryset
-    for hook in hooks.get_hooks('construct_document_chooser_queryset'):
+    for hook in hooks.get_hooks("construct_document_chooser_queryset"):
         documents = hook(documents, request)
 
     q = None
-    if 'q' in request.GET or 'p' in request.GET or 'collection_id' in request.GET:
+    if "q" in request.GET or "p" in request.GET or "collection_id" in request.GET:
 
-        collection_id = request.GET.get('collection_id')
+        collection_id = request.GET.get("collection_id")
         if collection_id:
             documents = documents.filter(collection=collection_id)
         documents_exist = documents.exists()
 
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
-            q = searchform.cleaned_data['q']
+            q = searchform.cleaned_data["q"]
 
             documents = documents.search(q)
             is_searching = True
         else:
-            documents = documents.order_by('-created_at')
+            documents = documents.order_by("-created_at")
             is_searching = False
 
         # Pagination
         paginator = Paginator(documents, per_page=10)
-        documents = paginator.get_page(request.GET.get('p'))
+        documents = paginator.get_page(request.GET.get("p"))
 
         return render(
             request,
             "wagtaildocs/chooser/results.html",
             {
-                'documents': documents,
-                'documents_exist': documents_exist,
-                'uploadform': uploadform,
-                'query_string': q,
-                'is_searching': is_searching,
-                'collection_id': collection_id,
+                "documents": documents,
+                "documents_exist": documents_exist,
+                "uploadform": uploadform,
+                "query_string": q,
+                "is_searching": is_searching,
+                "collection_id": collection_id,
             },
         )
     else:
@@ -101,22 +101,22 @@ def chooser(request):
         else:
             collections = Collection.order_for_display(collections)
 
-        documents = documents.order_by('-created_at')
+        documents = documents.order_by("-created_at")
         documents_exist = documents.exists()
         paginator = Paginator(documents, per_page=10)
-        documents = paginator.get_page(request.GET.get('p'))
+        documents = paginator.get_page(request.GET.get("p"))
 
         return render_modal_workflow(
             request,
-            'wagtaildocs/chooser/chooser.html',
+            "wagtaildocs/chooser/chooser.html",
             None,
             {
-                'documents': documents,
-                'documents_exist': documents_exist,
-                'uploadform': uploadform,
-                'searchform': searchform,
-                'collections': collections,
-                'is_searching': False,
+                "documents": documents,
+                "documents_exist": documents_exist,
+                "uploadform": uploadform,
+                "searchform": searchform,
+                "collections": collections,
+                "is_searching": False,
             },
             json_data=get_chooser_context(),
         )
@@ -131,18 +131,18 @@ def document_chosen(request, document_id):
         None,
         None,
         json_data={
-            'step': 'document_chosen',
-            'result': get_document_result_data(document),
+            "step": "document_chosen",
+            "result": get_document_result_data(document),
         },
     )
 
 
-@permission_checker.require('add')
+@permission_checker.require("add")
 def chooser_upload(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         document = Document(uploaded_by_user=request.user)
         form = DocumentForm(
             request.POST, request.FILES, instance=document, user=request.user
@@ -167,19 +167,19 @@ def chooser_upload(request):
                 None,
                 None,
                 json_data={
-                    'step': 'document_chosen',
-                    'result': get_document_result_data(document),
+                    "step": "document_chosen",
+                    "result": get_document_result_data(document),
                 },
             )
     else:
         form = DocumentForm(user=request.user)
 
-    documents = Document.objects.order_by('title')
+    documents = Document.objects.order_by("title")
 
     return render_modal_workflow(
         request,
-        'wagtaildocs/chooser/chooser.html',
+        "wagtaildocs/chooser/chooser.html",
         None,
-        {'documents': documents, 'uploadform': form},
+        {"documents": documents, "uploadform": form},
         json_data=get_chooser_context(),
     )

@@ -8,7 +8,7 @@ class Author(index.Indexed, models.Model):
     name = models.CharField(max_length=255)
     date_of_birth = models.DateField(null=True)
 
-    search_fields = [index.SearchField('name'), index.FilterField('date_of_birth')]
+    search_fields = [index.SearchField("name"), index.FilterField("date_of_birth")]
 
     def __str__(self):
         return self.name
@@ -16,23 +16,23 @@ class Author(index.Indexed, models.Model):
 
 class Book(index.Indexed, models.Model):
     title = models.CharField(max_length=255)
-    authors = models.ManyToManyField(Author, related_name='books')
+    authors = models.ManyToManyField(Author, related_name="books")
     publication_date = models.DateField()
     number_of_pages = models.IntegerField()
     tags = TaggableManager()
 
     search_fields = [
-        index.SearchField('title', partial_match=True, boost=2.0),
-        index.AutocompleteField('title'),
-        index.FilterField('title'),
-        index.FilterField('authors'),
-        index.RelatedFields('authors', Author.search_fields),
-        index.FilterField('publication_date'),
-        index.FilterField('number_of_pages'),
+        index.SearchField("title", partial_match=True, boost=2.0),
+        index.AutocompleteField("title"),
+        index.FilterField("title"),
+        index.FilterField("authors"),
+        index.RelatedFields("authors", Author.search_fields),
+        index.FilterField("publication_date"),
+        index.FilterField("number_of_pages"),
         index.RelatedFields(
-            'tags', [index.SearchField('name'), index.FilterField('slug')]
+            "tags", [index.SearchField("name"), index.FilterField("slug")]
         ),
-        index.FilterField('tags'),
+        index.FilterField("tags"),
     ]
 
     @classmethod
@@ -42,11 +42,11 @@ class Book(index.Indexed, models.Model):
         # Don't index books using Book class that they have a more specific type
         if cls is Book:
             indexed_objects = indexed_objects.exclude(
-                id__in=Novel.objects.values_list('book_ptr_id', flat=True)
+                id__in=Novel.objects.values_list("book_ptr_id", flat=True)
             )
 
             indexed_objects = indexed_objects.exclude(
-                id__in=ProgrammingGuide.objects.values_list('book_ptr_id', flat=True)
+                id__in=ProgrammingGuide.objects.values_list("book_ptr_id", flat=True)
             )
 
         # Exclude Books that have the title "Don't index me!"
@@ -69,7 +69,7 @@ class Book(index.Indexed, models.Model):
 class Character(models.Model):
     name = models.CharField(max_length=255)
     novel = models.ForeignKey(
-        'Novel', related_name='characters', on_delete=models.CASCADE
+        "Novel", related_name="characters", on_delete=models.CASCADE
     )
 
     def __str__(self):
@@ -79,26 +79,26 @@ class Character(models.Model):
 class Novel(Book):
     setting = models.CharField(max_length=255)
     protagonist = models.OneToOneField(
-        Character, related_name='+', null=True, on_delete=models.SET_NULL
+        Character, related_name="+", null=True, on_delete=models.SET_NULL
     )
 
     search_fields = Book.search_fields + [
-        index.SearchField('setting', partial_match=True),
-        index.RelatedFields('characters', [index.SearchField('name', boost=0.25)]),
+        index.SearchField("setting", partial_match=True),
+        index.RelatedFields("characters", [index.SearchField("name", boost=0.25)]),
         index.RelatedFields(
-            'protagonist',
-            [index.SearchField('name', boost=0.5), index.FilterField('novel')],
+            "protagonist",
+            [index.SearchField("name", boost=0.5), index.FilterField("novel")],
         ),
-        index.FilterField('protagonist'),
+        index.FilterField("protagonist"),
     ]
 
 
 class ProgrammingGuide(Book):
     programming_language = models.CharField(
-        max_length=255, choices=[('py', "Python"), ('js', "Javascript"), ('rs', "Rust")]
+        max_length=255, choices=[("py", "Python"), ("js", "Javascript"), ("rs", "Rust")]
     )
 
     search_fields = Book.search_fields + [
-        index.SearchField('get_programming_language_display'),
-        index.FilterField('programming_language'),
+        index.SearchField("get_programming_language_display"),
+        index.FilterField("programming_language"),
     ]

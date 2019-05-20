@@ -19,18 +19,18 @@ from wagtail.tests.testapp.models import StreamModel
 class TestLazyStreamField(TestCase):
     def setUp(self):
         self.image = Image.objects.create(
-            title='Test image', file=get_test_image_file()
+            title="Test image", file=get_test_image_file()
         )
         self.with_image = StreamModel.objects.create(
             body=json.dumps(
                 [
-                    {'type': 'image', 'value': self.image.pk},
-                    {'type': 'text', 'value': 'foo'},
+                    {"type": "image", "value": self.image.pk},
+                    {"type": "text", "value": "foo"},
                 ]
             )
         )
         self.no_image = StreamModel.objects.create(
-            body=json.dumps([{'type': 'text', 'value': 'foo'}])
+            body=json.dumps([{"type": "text", "value": "foo"}])
         )
         self.nonjson_body = StreamModel.objects.create(body="<h1>hello world</h1>")
 
@@ -54,7 +54,7 @@ class TestLazyStreamField(TestCase):
         with self.assertNumQueries(0):
             # Everything has been fetched now, no further database queries.
             self.assertEqual(body[0].value, self.image)
-            self.assertEqual(body[1].value, 'foo')
+            self.assertEqual(body[1].value, "foo")
 
     def test_lazy_load_no_images(self):
         """
@@ -69,7 +69,7 @@ class TestLazyStreamField(TestCase):
             # Access the body. The StreamField has no images, so nothing should
             # happen
             body = instance.body
-            self.assertEqual(body[0].value, 'foo')
+            self.assertEqual(body[0].value, "foo")
 
     def test_lazy_load_queryset(self):
         """
@@ -94,16 +94,16 @@ class TestLazyStreamField(TestCase):
         queryset list
         """
         file_obj = get_test_image_file()
-        image_1 = Image.objects.create(title='Test image 1', file=file_obj)
-        image_3 = Image.objects.create(title='Test image 3', file=file_obj)
+        image_1 = Image.objects.create(title="Test image 1", file=file_obj)
+        image_3 = Image.objects.create(title="Test image 3", file=file_obj)
 
         with_image = StreamModel.objects.create(
             body=json.dumps(
                 [
-                    {'type': 'image', 'value': image_1.pk},
-                    {'type': 'image', 'value': None},
-                    {'type': 'image', 'value': image_3.pk},
-                    {'type': 'text', 'value': 'foo'},
+                    {"type": "image", "value": image_1.pk},
+                    {"type": "image", "value": None},
+                    {"type": "image", "value": image_3.pk},
+                    {"type": "text", "value": "foo"},
                 ]
             )
         )
@@ -119,9 +119,9 @@ class TestLazyStreamField(TestCase):
         # 2. The blank block '1' should be None.
         # 3. The values should be in the original order.
         with self.assertNumQueries(0):
-            assert instance.body[0].value.title == 'Test image 1'
+            assert instance.body[0].value.title == "Test image 1"
             assert instance.body[1].value is None
-            assert instance.body[2].value.title == 'Test image 3'
+            assert instance.body[2].value.title == "Test image 3"
 
     def test_lazy_load_get_prep_value(self):
         """
@@ -143,9 +143,9 @@ class TestSystemCheck(TestCase):
     def tearDown(self):
         # unregister InvalidStreamModel from the overall model registry
         # so that it doesn't break tests elsewhere
-        for package in ('wagtailcore', 'wagtail.core.tests'):
+        for package in ("wagtailcore", "wagtail.core.tests"):
             try:
-                del apps.all_models[package]['invalidstreammodel']
+                del apps.all_models[package]["invalidstreammodel"]
             except KeyError:
                 pass
         apps.clear_cache()
@@ -153,20 +153,20 @@ class TestSystemCheck(TestCase):
     def test_system_check_validates_block(self):
         class InvalidStreamModel(models.Model):
             body = StreamField(
-                [('heading', blocks.CharBlock()), ('rich text', blocks.RichTextBlock())]
+                [("heading", blocks.CharBlock()), ("rich text", blocks.RichTextBlock())]
             )
 
         errors = InvalidStreamModel.check()
         self.assertEqual(len(errors), 1)
-        self.assertEqual(errors[0].id, 'wagtailcore.E001')
+        self.assertEqual(errors[0].id, "wagtailcore.E001")
         self.assertEqual(errors[0].hint, "Block names cannot contain spaces")
-        self.assertEqual(errors[0].obj, InvalidStreamModel._meta.get_field('body'))
+        self.assertEqual(errors[0].obj, InvalidStreamModel._meta.get_field("body"))
 
 
 class TestStreamValueAccess(TestCase):
     def setUp(self):
         self.json_body = StreamModel.objects.create(
-            body=json.dumps([{'type': 'text', 'value': 'foo'}])
+            body=json.dumps([{"type": "text", "value": "foo"}])
         )
         self.nonjson_body = StreamModel.objects.create(body="<h1>hello world</h1>")
 
@@ -179,7 +179,7 @@ class TestStreamValueAccess(TestCase):
         self.assertEqual(self.nonjson_body.body.raw_text, "<h1>hello world</h1>")
 
     def test_can_assign_as_list(self):
-        self.json_body.body = [('rich_text', RichText("<h2>hello world</h2>"))]
+        self.json_body.body = [("rich_text", RichText("<h2>hello world</h2>"))]
         self.json_body.save()
 
         # the body should now be a stream consisting of a single rich_text block
@@ -193,22 +193,22 @@ class TestStreamValueAccess(TestCase):
 class TestStreamFieldRenderingBase(TestCase):
     def setUp(self):
         self.image = Image.objects.create(
-            title='Test image', file=get_test_image_file()
+            title="Test image", file=get_test_image_file()
         )
 
         self.instance = StreamModel.objects.create(
             body=json.dumps(
                 [
-                    {'type': 'rich_text', 'value': '<p>Rich text</p>'},
-                    {'type': 'rich_text', 'value': '<p>Привет, Микола</p>'},
-                    {'type': 'image', 'value': self.image.pk},
-                    {'type': 'text', 'value': 'Hello, World!'},
+                    {"type": "rich_text", "value": "<p>Rich text</p>"},
+                    {"type": "rich_text", "value": "<p>Привет, Микола</p>"},
+                    {"type": "image", "value": self.image.pk},
+                    {"type": "text", "value": "Hello, World!"},
                 ]
             )
         )
 
-        img_tag = self.image.get_rendition('original').img_tag()
-        self.expected = ''.join(
+        img_tag = self.image.get_rendition("original").img_tag()
+        self.expected = "".join(
             [
                 '<div class="block-rich_text"><div class="rich-text"><p>Rich text</p></div></div>',
                 '<div class="block-rich_text"><div class="rich-text"><p>Привет, Микола</p></div></div>',
@@ -235,28 +235,28 @@ class TestStreamFieldDjangoRendering(TestStreamFieldRenderingBase):
         return Template(string).render(Context(context))
 
     def test_render(self):
-        rendered = self.render('{{ instance.body }}', {'instance': self.instance})
+        rendered = self.render("{{ instance.body }}", {"instance": self.instance})
         self.assertHTMLEqual(rendered, self.expected)
 
 
 class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
     def setUp(self):
         super().setUp()
-        self.engine = engines['jinja2']
+        self.engine = engines["jinja2"]
 
     def render(self, string, context):
         return self.engine.from_string(string).render(context)
 
     def test_render(self):
-        rendered = self.render('{{ instance.body }}', {'instance': self.instance})
+        rendered = self.render("{{ instance.body }}", {"instance": self.instance})
         self.assertHTMLEqual(rendered, self.expected)
 
 
 class TestRequiredStreamField(TestCase):
     def test_non_blank_field_is_required(self):
-        field = StreamField([('paragraph', blocks.CharBlock())], blank=False)
+        field = StreamField([("paragraph", blocks.CharBlock())], blank=False)
         self.assertTrue(field.stream_block.required)
 
     def test_blank_field_is_not_required(self):
-        field = StreamField([('paragraph', blocks.CharBlock())], blank=True)
+        field = StreamField([("paragraph", blocks.CharBlock())], blank=True)
         self.assertFalse(field.stream_block.required)

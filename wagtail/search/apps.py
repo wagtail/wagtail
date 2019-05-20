@@ -5,8 +5,8 @@ from wagtail.search.signal_handlers import register_signal_handlers
 
 
 class WagtailSearchAppConfig(AppConfig):
-    name = 'wagtail.search'
-    label = 'wagtailsearch'
+    name = "wagtail.search"
+    label = "wagtailsearch"
     verbose_name = _("Wagtail search")
 
     def ready(self):

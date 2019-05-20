@@ -29,60 +29,60 @@ from wagtail.utils.deprecation import RemovedInWagtail27Warning
 
 register = template.Library()
 
-register.filter('intcomma', intcomma)
+register.filter("intcomma", intcomma)
 
 
 @register.simple_tag(takes_context=True)
 def menu_search(context):
-    request = context['request']
+    request = context["request"]
 
     search_areas = admin_search_areas.search_items_for_request(request)
     if not search_areas:
-        return ''
+        return ""
     search_area = search_areas[0]
 
     return render_to_string(
-        'wagtailadmin/shared/menu_search.html', {'search_url': search_area.url}
+        "wagtailadmin/shared/menu_search.html", {"search_url": search_area.url}
     )
 
 
-@register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/main_nav.html", takes_context=True)
 def main_nav(context):
-    request = context['request']
+    request = context["request"]
 
-    return {'menu_html': admin_menu.render_html(request), 'request': request}
+    return {"menu_html": admin_menu.render_html(request), "request": request}
 
 
-@register.inclusion_tag('wagtailadmin/shared/breadcrumb.html', takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/breadcrumb.html", takes_context=True)
 def explorer_breadcrumb(context, page, include_self=False):
-    user = context['request'].user
+    user = context["request"].user
 
     # find the closest common ancestor of the pages that this user has direct explore permission
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
     cca = get_explorable_root_page(user)
     if not cca:
-        return {'pages': Page.objects.none()}
+        return {"pages": Page.objects.none()}
 
     return {
-        'pages': page.get_ancestors(inclusive=include_self)
+        "pages": page.get_ancestors(inclusive=include_self)
         .descendant_of(cca, inclusive=True)
         .specific()
     }
 
 
-@register.inclusion_tag('wagtailadmin/shared/search_other.html', takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/search_other.html", takes_context=True)
 def search_other(context, current=None):
-    request = context['request']
+    request = context["request"]
 
     return {
-        'options_html': admin_search_areas.render_html(request, current),
-        'request': request,
+        "options_html": admin_search_areas.render_html(request, current),
+        "request": request,
     }
 
 
 @register.simple_tag
 def main_nav_js():
-    return admin_menu.media['js']
+    return admin_menu.media["js"]
 
 
 @register.filter("ellipsistrim")
@@ -120,12 +120,12 @@ def widgettype(bound_field):
 def _get_user_page_permissions(context):
     # Create a UserPagePermissionsProxy object to represent the user's global permissions, and
     # cache it in the context for the duration of the page request, if one does not exist already
-    if 'user_page_permissions' not in context:
-        context['user_page_permissions'] = UserPagePermissionsProxy(
-            context['request'].user
+    if "user_page_permissions" not in context:
+        context["user_page_permissions"] = UserPagePermissionsProxy(
+            context["request"].user
         )
 
-    return context['user_page_permissions']
+    return context["user_page_permissions"]
 
 
 @register.simple_tag(takes_context=True)
@@ -147,14 +147,14 @@ def test_collection_is_public(context, collection):
     Caches the list of collection view restrictions in the context, to avoid repeated
     DB queries on repeated calls.
     """
-    if 'all_collection_view_restrictions' not in context:
+    if "all_collection_view_restrictions" not in context:
         context[
-            'all_collection_view_restrictions'
-        ] = CollectionViewRestriction.objects.select_related('collection').values_list(
-            'collection__name', flat=True
+            "all_collection_view_restrictions"
+        ] = CollectionViewRestriction.objects.select_related("collection").values_list(
+            "collection__name", flat=True
         )
 
-    is_private = collection.name in context['all_collection_view_restrictions']
+    is_private = collection.name in context["all_collection_view_restrictions"]
 
     return not is_private
 
@@ -168,17 +168,17 @@ def test_page_is_public(context, page):
     Caches the list of page view restrictions in the context, to avoid repeated
     DB queries on repeated calls.
     """
-    if 'all_page_view_restriction_paths' not in context:
+    if "all_page_view_restriction_paths" not in context:
         context[
-            'all_page_view_restriction_paths'
-        ] = PageViewRestriction.objects.select_related('page').values_list(
-            'page__path', flat=True
+            "all_page_view_restriction_paths"
+        ] = PageViewRestriction.objects.select_related("page").values_list(
+            "page__path", flat=True
         )
 
     is_private = any(
         [
             page.path.startswith(restricted_path)
-            for restricted_path in context['all_page_view_restriction_paths']
+            for restricted_path in context["all_page_view_restriction_paths"]
         ]
     )
 
@@ -194,31 +194,31 @@ def hook_output(hook_name):
     Note that the output is not escaped - it is the hook function's responsibility to escape unsafe content.
     """
     snippets = [fn() for fn in hooks.get_hooks(hook_name)]
-    return mark_safe(''.join(snippets))
+    return mark_safe("".join(snippets))
 
 
 @register.simple_tag
 def usage_count_enabled():
-    return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
+    return getattr(settings, "WAGTAIL_USAGE_COUNT_ENABLED", False)
 
 
 @register.simple_tag
 def base_url_setting():
-    return getattr(settings, 'BASE_URL', None)
+    return getattr(settings, "BASE_URL", None)
 
 
 @register.simple_tag
 def allow_unicode_slugs():
-    return getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
+    return getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
 
 
 @register.simple_tag
 def auto_update_preview():
-    return getattr(settings, 'WAGTAIL_AUTO_UPDATE_PREVIEW', False)
+    return getattr(settings, "WAGTAIL_AUTO_UPDATE_PREVIEW", False)
 
 
 class EscapeScriptNode(template.Node):
-    TAG_NAME = 'escapescript'
+    TAG_NAME = "escapescript"
 
     def __init__(self, nodelist):
         super().__init__()
@@ -230,7 +230,7 @@ class EscapeScriptNode(template.Node):
 
     @classmethod
     def handle(cls, parser, token):
-        nodelist = parser.parse(('end' + EscapeScriptNode.TAG_NAME,))
+        nodelist = parser.parse(("end" + EscapeScriptNode.TAG_NAME,))
         parser.delete_first_token()
         return cls(nodelist)
 
@@ -248,11 +248,11 @@ def render_with_errors(bound_field):
     a render_with_errors method, call that; otherwise, call the regular widget rendering mechanism.
     """
     widget = bound_field.field.widget
-    if bound_field.errors and hasattr(widget, 'render_with_errors'):
+    if bound_field.errors and hasattr(widget, "render_with_errors"):
         return widget.render_with_errors(
             bound_field.html_name,
             bound_field.value(),
-            attrs={'id': bound_field.auto_id},
+            attrs={"id": bound_field.auto_id},
             errors=bound_field.errors,
         )
     else:
@@ -266,7 +266,7 @@ def has_unrendered_errors(bound_field):
     the widget does not support the render_with_errors method
     """
     return bound_field.errors and not hasattr(
-        bound_field.field.widget, 'render_with_errors'
+        bound_field.field.widget, "render_with_errors"
     )
 
 
@@ -288,7 +288,7 @@ def querystring(context, **kwargs):
 
         <a href="/page/?foo=bar&key=value">
     """
-    request = context['request']
+    request = context["request"]
     querydict = request.GET.copy()
     # Can't do querydict.update(kwargs), because QueryDict.update() appends to
     # the list of values, instead of replacing the values.
@@ -300,7 +300,7 @@ def querystring(context, **kwargs):
             # Set the key otherwise
             querydict[key] = str(value)
 
-    return '?' + querydict.urlencode()
+    return "?" + querydict.urlencode()
 
 
 @register.simple_tag(takes_context=True)
@@ -309,8 +309,8 @@ def table_header_label(
     label=None,
     sortable=True,
     ordering=None,
-    sort_context_var='ordering',
-    sort_param='ordering',
+    sort_context_var="ordering",
+    sort_param="ordering",
     sort_field=None,
 ):
     """
@@ -361,7 +361,7 @@ def table_header_label(
 
 
 @register.simple_tag(takes_context=True)
-def pagination_querystring(context, page_number, page_key='p'):
+def pagination_querystring(context, page_number, page_key="p"):
     """
     Print out a querystring with an updated page number:
 
@@ -375,7 +375,7 @@ def pagination_querystring(context, page_number, page_key='p'):
 @register.inclusion_tag(
     "wagtailadmin/pages/listing/_pagination.html", takes_context=True
 )
-def paginate(context, page, base_url='', page_key='p', classnames=''):
+def paginate(context, page, base_url="", page_key="p", classnames=""):
     """
     Print pagination previous/next links, and the page count. Take the
     following arguments:
@@ -395,42 +395,42 @@ def paginate(context, page, base_url='', page_key='p', classnames=''):
     classnames
         Extra classes to add to the next/previous links.
     """
-    request = context['request']
+    request = context["request"]
     return {
-        'base_url': base_url,
-        'classnames': classnames,
-        'request': request,
-        'page': page,
-        'page_key': page_key,
-        'paginator': page.paginator,
+        "base_url": base_url,
+        "classnames": classnames,
+        "request": request,
+        "page": page,
+        "page_key": page_key,
+        "paginator": page.paginator,
     }
 
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
 def page_listing_buttons(context, page, page_perms, is_parent=False):
-    button_hooks = hooks.get_hooks('register_page_listing_buttons')
+    button_hooks = hooks.get_hooks("register_page_listing_buttons")
     buttons = sorted(
         itertools.chain.from_iterable(
             hook(page, page_perms, is_parent) for hook in button_hooks
         )
     )
-    return {'page': page, 'buttons': buttons}
+    return {"page": page, "buttons": buttons}
 
 
 @register.simple_tag
 def message_tags(message):
     level_tag = MESSAGE_TAGS.get(message.level)
     if message.extra_tags and level_tag:
-        return message.extra_tags + ' ' + level_tag
+        return message.extra_tags + " " + level_tag
     elif message.extra_tags:
         return message.extra_tags
     elif level_tag:
         return level_tag
     else:
-        return ''
+        return ""
 
 
-@register.filter('abs')
+@register.filter("abs")
 def _abs(val):
     return abs(val)
 
@@ -448,22 +448,22 @@ def avatar_url(user, size=50):
     Example usage: {% avatar_url request.user 50 %}
     """
 
-    if hasattr(user, 'wagtail_userprofile') and user.wagtail_userprofile.avatar:
+    if hasattr(user, "wagtail_userprofile") and user.wagtail_userprofile.avatar:
         return user.wagtail_userprofile.avatar.url
 
-    if hasattr(user, 'email'):
+    if hasattr(user, "email"):
         gravatar_url = get_gravatar_url(user.email, size=size)
         if gravatar_url is not None:
             return gravatar_url
 
-    return static('wagtailadmin/images/default-user-avatar.png')
+    return static("wagtailadmin/images/default-user-avatar.png")
 
 
 @register.simple_tag
 def ajax_pagination_nav_deprecation_warning():
     warn(
-        'Passing is_ajax=1 to wagtailadmin/shared/pagination_nav.html is deprecated. '
-        'Use wagtailadmin/shared/ajax_pagination_nav.html instead',
+        "Passing is_ajax=1 to wagtailadmin/shared/pagination_nav.html is deprecated. "
+        "Use wagtailadmin/shared/ajax_pagination_nav.html instead",
         category=RemovedInWagtail27Warning,
     )
-    return ''
+    return ""

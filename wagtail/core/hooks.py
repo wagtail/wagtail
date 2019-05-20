@@ -40,7 +40,7 @@ _searched_for_hooks = False
 def search_for_hooks():
     global _searched_for_hooks
     if not _searched_for_hooks:
-        list(get_app_submodules('wagtail_hooks'))
+        list(get_app_submodules("wagtail_hooks"))
         _searched_for_hooks = True
 
 

@@ -35,10 +35,10 @@ class ImageRenditionField(Field):
 
             return OrderedDict(
                 [
-                    ('url', thumbnail.url),
-                    ('width', thumbnail.width),
-                    ('height', thumbnail.height),
+                    ("url", thumbnail.url),
+                    ("width", thumbnail.width),
+                    ("height", thumbnail.height),
                 ]
             )
         except SourceImageIOError:
-            return OrderedDict([('error', 'SourceImageIOError')])
+            return OrderedDict([("error", "SourceImageIOError")])

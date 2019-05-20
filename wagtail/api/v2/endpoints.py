@@ -42,22 +42,22 @@ class BaseAPIEndpoint(GenericViewSet):
 
     known_query_parameters = frozenset(
         [
-            'limit',
-            'offset',
-            'fields',
-            'order',
-            'search',
-            'search_operator',
+            "limit",
+            "offset",
+            "fields",
+            "order",
+            "search",
+            "search_operator",
             # Used by jQuery for cache-busting. See #1671
-            '_',
+            "_",
             # Required by BrowsableAPIRenderer
-            'format',
+            "format",
         ]
     )
-    body_fields = ['id']
-    meta_fields = ['type', 'detail_url']
-    listing_default_fields = ['id', 'type', 'detail_url']
-    nested_default_fields = ['id', 'type', 'detail_url']
+    body_fields = ["id"]
+    meta_fields = ["type", "detail_url"]
+    listing_default_fields = ["id", "type", "detail_url"]
+    nested_default_fields = ["id", "type", "detail_url"]
     detail_only_fields = []
     name = None  # Set on subclass.
 
@@ -71,7 +71,7 @@ class BaseAPIEndpoint(GenericViewSet):
         self.seen_types = OrderedDict()
 
     def get_queryset(self):
-        return self.model.objects.all().order_by('id')
+        return self.model.objects.all().order_by("id")
 
     def listing_view(self, request):
         queryset = self.get_queryset()
@@ -117,15 +117,15 @@ class BaseAPIEndpoint(GenericViewSet):
         """
         Override this to implement more find methods.
         """
-        if 'id' in request.GET:
-            return queryset.get(id=request.GET['id'])
+        if "id" in request.GET:
+            return queryset.get(id=request.GET["id"])
 
     def handle_exception(self, exc):
         if isinstance(exc, Http404):
-            data = {'message': str(exc)}
+            data = {"message": str(exc)}
             return Response(data, status=status.HTTP_404_NOT_FOUND)
         elif isinstance(exc, BadRequestError):
-            data = {'message': str(exc)}
+            data = {"message": str(exc)}
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
         return super().handle_exception(exc)
 
@@ -139,7 +139,7 @@ class BaseAPIEndpoint(GenericViewSet):
     @classmethod
     def get_body_fields(cls, model):
         return cls._convert_api_fields(
-            cls.body_fields + list(getattr(model, 'api_fields', ()))
+            cls.body_fields + list(getattr(model, "api_fields", ()))
         )
 
     @classmethod
@@ -149,7 +149,7 @@ class BaseAPIEndpoint(GenericViewSet):
     @classmethod
     def get_meta_fields(cls, model):
         return cls._convert_api_fields(
-            cls.meta_fields + list(getattr(model, 'api_meta_fields', ()))
+            cls.meta_fields + list(getattr(model, "api_meta_fields", ()))
         )
 
     @classmethod
@@ -183,7 +183,7 @@ class BaseAPIEndpoint(GenericViewSet):
             for field in model._meta.get_fields():
                 database_fields.add(field.name)
 
-                if hasattr(field, 'attname'):
+                if hasattr(field, "attname"):
                     database_fields.add(field.attname)
 
             fields = [field for field in fields if field in database_fields]
@@ -216,7 +216,7 @@ class BaseAPIEndpoint(GenericViewSet):
         if unknown_parameters:
             raise BadRequestError(
                 "query parameter is not an operation or a recognised field: %s"
-                % ', '.join(sorted(unknown_parameters))
+                % ", ".join(sorted(unknown_parameters))
             )
 
     @classmethod
@@ -249,10 +249,10 @@ class BaseAPIEndpoint(GenericViewSet):
 
         # If first field is '*' start with all fields
         # If first field is '_' start with no fields
-        if fields_config and fields_config[0][0] == '*':
+        if fields_config and fields_config[0][0] == "*":
             fields = set(all_fields)
             fields_config = fields_config[1:]
-        elif fields_config and fields_config[0][0] == '_':
+        elif fields_config and fields_config[0][0] == "_":
             fields = set()
             fields_config = fields_config[1:]
 
@@ -276,7 +276,7 @@ class BaseAPIEndpoint(GenericViewSet):
 
         if unknown_fields:
             raise BadRequestError(
-                "unknown fields: %s" % ', '.join(sorted(unknown_fields))
+                "unknown fields: %s" % ", ".join(sorted(unknown_fields))
             )
 
         # Build nested serialisers
@@ -292,10 +292,10 @@ class BaseAPIEndpoint(GenericViewSet):
                 child_sub_fields = sub_fields.get(field_name, [])
 
                 # Inline (aka "child") models should display all fields by default
-                if isinstance(getattr(django_field, 'field', None), ParentalKey):
-                    if not child_sub_fields or child_sub_fields[0][0] not in ['*', '_']:
+                if isinstance(getattr(django_field, "field", None), ParentalKey):
+                    if not child_sub_fields or child_sub_fields[0][0] not in ["*", "_"]:
                         child_sub_fields = list(child_sub_fields)
-                        child_sub_fields.insert(0, ('*', False, None))
+                        child_sub_fields.insert(0, ("*", False, None))
 
                 # Get a serializer class for the related object
                 child_model = django_field.related_model
@@ -337,15 +337,15 @@ class BaseAPIEndpoint(GenericViewSet):
         request = self.request
 
         # Get model
-        if self.action == 'listing_view':
+        if self.action == "listing_view":
             model = self.get_queryset().model
         else:
             model = type(self.get_object())
 
         # Fields
-        if 'fields' in request.GET:
+        if "fields" in request.GET:
             try:
-                fields_config = parse_fields_parameter(request.GET['fields'])
+                fields_config = parse_fields_parameter(request.GET["fields"])
             except ValueError as e:
                 raise BadRequestError("fields error: %s" % str(e))
         else:
@@ -353,7 +353,7 @@ class BaseAPIEndpoint(GenericViewSet):
             fields_config = []
 
         # Allow "detail_only" (eg parent) fields on detail view
-        if self.action == 'listing_view':
+        if self.action == "listing_view":
             show_details = False
         else:
             show_details = True
@@ -370,14 +370,14 @@ class BaseAPIEndpoint(GenericViewSet):
         The serialization context differs between listing and detail views.
         """
         return {
-            'request': self.request,
-            'view': self,
-            'router': self.request.wagtailapi_router,
+            "request": self.request,
+            "view": self,
+            "router": self.request.wagtailapi_router,
         }
 
     def get_renderer_context(self):
         context = super().get_renderer_context()
-        context['indent'] = 4
+        context["indent"] = 4
         return context
 
     @classmethod
@@ -386,26 +386,26 @@ class BaseAPIEndpoint(GenericViewSet):
         This returns a list of URL patterns for the endpoint
         """
         return [
-            url(r'^$', cls.as_view({'get': 'listing_view'}), name='listing'),
-            url(r'^(?P<pk>\d+)/$', cls.as_view({'get': 'detail_view'}), name='detail'),
-            url(r'^find/$', cls.as_view({'get': 'find_view'}), name='find'),
+            url(r"^$", cls.as_view({"get": "listing_view"}), name="listing"),
+            url(r"^(?P<pk>\d+)/$", cls.as_view({"get": "detail_view"}), name="detail"),
+            url(r"^find/$", cls.as_view({"get": "find_view"}), name="find"),
         ]
 
     @classmethod
-    def get_model_listing_urlpath(cls, model, namespace=''):
+    def get_model_listing_urlpath(cls, model, namespace=""):
         if namespace:
-            url_name = namespace + ':listing'
+            url_name = namespace + ":listing"
         else:
-            url_name = 'listing'
+            url_name = "listing"
 
         return reverse(url_name)
 
     @classmethod
-    def get_object_detail_urlpath(cls, model, pk, namespace=''):
+    def get_object_detail_urlpath(cls, model, pk, namespace=""):
         if namespace:
-            url_name = namespace + ':detail'
+            url_name = namespace + ":detail"
         else:
-            url_name = 'detail'
+            url_name = "detail"
 
         return reverse(url_name, args=(pk,))
 
@@ -420,27 +420,27 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         SearchFilter,
     ]
     known_query_parameters = BaseAPIEndpoint.known_query_parameters.union(
-        ['type', 'child_of', 'descendant_of']
+        ["type", "child_of", "descendant_of"]
     )
-    body_fields = BaseAPIEndpoint.body_fields + ['title']
+    body_fields = BaseAPIEndpoint.body_fields + ["title"]
     meta_fields = BaseAPIEndpoint.meta_fields + [
-        'html_url',
-        'slug',
-        'show_in_menus',
-        'seo_title',
-        'search_description',
-        'first_published_at',
-        'parent',
+        "html_url",
+        "slug",
+        "show_in_menus",
+        "seo_title",
+        "search_description",
+        "first_published_at",
+        "parent",
     ]
     listing_default_fields = BaseAPIEndpoint.listing_default_fields + [
-        'title',
-        'html_url',
-        'slug',
-        'first_published_at',
+        "title",
+        "html_url",
+        "slug",
+        "first_published_at",
     ]
-    nested_default_fields = BaseAPIEndpoint.nested_default_fields + ['title']
-    detail_only_fields = ['parent']
-    name = 'pages'
+    nested_default_fields = BaseAPIEndpoint.nested_default_fields + ["title"]
+    detail_only_fields = ["parent"]
+    name = "pages"
     model = Page
 
     def get_queryset(self):
@@ -449,7 +449,7 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         # Allow pages to be filtered to a specific type
         try:
             models = page_models_from_string(
-                request.GET.get('type', 'wagtailcore.Page')
+                request.GET.get("type", "wagtailcore.Page")
             )
         except (LookupError, ValueError):
             raise BadRequestError("type doesn't exist")
@@ -482,9 +482,9 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         return base.specific
 
     def find_object(self, queryset, request):
-        if 'html_path' in request.GET and request.site is not None:
-            path = request.GET['html_path']
-            path_components = [component for component in path.split('/') if component]
+        if "html_path" in request.GET and request.site is not None:
+            path = request.GET["html_path"]
+            path_components = [component for component in path.split("/") if component]
 
             try:
                 page, _, _ = request.site.root_page.specific.route(

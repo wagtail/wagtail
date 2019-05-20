@@ -1,8 +1,8 @@
 import re
 from collections import Mapping
 
-ELEMENT_SELECTOR = re.compile(r'^([\w-]+)$')
-ELEMENT_WITH_ATTR_SELECTOR = re.compile(r'^([\w-]+)\[([\w-]+)\]$')
+ELEMENT_SELECTOR = re.compile(r"^([\w-]+)$")
+ELEMENT_WITH_ATTR_SELECTOR = re.compile(r"^([\w-]+)\[([\w-]+)\]$")
 ELEMENT_WITH_ATTR_EXACT_SINGLE_QUOTE_SELECTOR = re.compile(
     r"^([\w-]+)\[([\w-]+)='(.*)'\]$"
 )

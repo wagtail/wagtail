@@ -14,7 +14,7 @@ class TestModerationList(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a submitter
         submitter = get_user_model().objects.create_user(
-            username='submitter', email='submitter@email.com', password='password'
+            username="submitter", email="submitter@email.com", password="password"
         )
 
         # Find root page
@@ -22,9 +22,9 @@ class TestModerationList(TestCase, WagtailTestUtils):
 
         # Create a page
         self.page = SimplePage(
-            title='Wagtail, the powerful CMS for modern websites',
-            slug='wagtail',
-            content='Fast, elegant, open source',
+            title="Wagtail, the powerful CMS for modern websites",
+            slug="wagtail",
+            content="Fast, elegant, open source",
         )
 
         self.root_page.add_child(instance=self.page)
@@ -36,30 +36,30 @@ class TestModerationList(TestCase, WagtailTestUtils):
         self.revision = self.page.get_latest_revision()
 
         self.edit_page_url = reverse(
-            'wagtailadmin_pages:edit', args=(self.revision.page.id,)
+            "wagtailadmin_pages:edit", args=(self.revision.page.id,)
         )
         self.preview_page_url = reverse(
-            'wagtailadmin_pages:preview_for_moderation', args=(self.revision.id,)
+            "wagtailadmin_pages:preview_for_moderation", args=(self.revision.id,)
         )
 
     def login_as_moderator_without_edit(self):
         # Create moderators group without edit permissions
-        moderators_group = Group.objects.create(name='Moderators without edit')
+        moderators_group = Group.objects.create(name="Moderators without edit")
 
         admin_permission = Permission.objects.get(
-            content_type__app_label='wagtailadmin', codename='access_admin'
+            content_type__app_label="wagtailadmin", codename="access_admin"
         )
 
         moderators_group.permissions.add(admin_permission)
 
         # Create group permissions
         GroupPagePermission.objects.create(
-            group=moderators_group, page=self.root_page, permission_type='publish'
+            group=moderators_group, page=self.root_page, permission_type="publish"
         )
 
         # Create a moderator without edit permissions
         moderator = get_user_model().objects.create_user(
-            username='moderator', email='moderator@email.com', password='password'
+            username="moderator", email="moderator@email.com", password="password"
         )
 
         moderator.groups.add(moderators_group)
@@ -67,7 +67,7 @@ class TestModerationList(TestCase, WagtailTestUtils):
         self.login(moderator)
 
     def get(self):
-        return self.client.get(reverse('wagtailadmin_home'))
+        return self.client.get(reverse("wagtailadmin_home"))
 
     def test_edit_page(self):
         # Login as moderator
@@ -76,7 +76,7 @@ class TestModerationList(TestCase, WagtailTestUtils):
         response = self.get()
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/home.html')
+        self.assertTemplateUsed(response, "wagtailadmin/home.html")
 
         # Check response
         self.assertContains(response, self.edit_page_url, count=2)
@@ -88,7 +88,7 @@ class TestModerationList(TestCase, WagtailTestUtils):
         response = self.get()
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/home.html')
+        self.assertTemplateUsed(response, "wagtailadmin/home.html")
 
         # Check response
         self.assertContains(response, self.preview_page_url, count=2)

@@ -19,21 +19,21 @@ def choose(request, app_label, model_name):
     # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
     # (to ensure pagination is consistent)
     if not items.ordered:
-        items = items.order_by('pk')
+        items = items.order_by("pk")
 
     # Search
     is_searchable = class_is_indexed(model)
     is_searching = False
     search_query = None
-    if is_searchable and 'q' in request.GET:
+    if is_searchable and "q" in request.GET:
         search_form = SearchForm(
             request.GET,
             placeholder=_("Search %(snippet_type_name)s")
-            % {'snippet_type_name': model._meta.verbose_name},
+            % {"snippet_type_name": model._meta.verbose_name},
         )
 
         if search_form.is_valid():
-            search_query = search_form.cleaned_data['q']
+            search_query = search_form.cleaned_data["q"]
 
             search_backend = get_search_backend()
             items = search_backend.search(search_query, items)
@@ -42,39 +42,39 @@ def choose(request, app_label, model_name):
     else:
         search_form = SearchForm(
             placeholder=_("Search %(snippet_type_name)s")
-            % {'snippet_type_name': model._meta.verbose_name}
+            % {"snippet_type_name": model._meta.verbose_name}
         )
 
     # Pagination
     paginator = Paginator(items, per_page=25)
-    paginated_items = paginator.get_page(request.GET.get('p'))
+    paginated_items = paginator.get_page(request.GET.get("p"))
 
     # If paginating or searching, render "results.html"
-    if request.GET.get('results', None) == 'true':
+    if request.GET.get("results", None) == "true":
         return render(
             request,
             "wagtailsnippets/chooser/results.html",
             {
-                'model_opts': model._meta,
-                'items': paginated_items,
-                'query_string': search_query,
-                'is_searching': is_searching,
+                "model_opts": model._meta,
+                "items": paginated_items,
+                "query_string": search_query,
+                "is_searching": is_searching,
             },
         )
 
     return render_modal_workflow(
         request,
-        'wagtailsnippets/chooser/choose.html',
+        "wagtailsnippets/chooser/choose.html",
         None,
         {
-            'model_opts': model._meta,
-            'items': paginated_items,
-            'is_searchable': is_searchable,
-            'search_form': search_form,
-            'query_string': search_query,
-            'is_searching': is_searching,
+            "model_opts": model._meta,
+            "items": paginated_items,
+            "is_searchable": is_searchable,
+            "search_form": search_form,
+            "query_string": search_query,
+            "is_searching": is_searching,
         },
-        json_data={'step': 'choose'},
+        json_data={"step": "choose"},
     )
 
 
@@ -83,13 +83,13 @@ def chosen(request, app_label, model_name, pk):
     item = get_object_or_404(model, pk=unquote(pk))
 
     snippet_data = {
-        'id': str(item.pk),
-        'string': str(item),
-        'edit_link': reverse(
-            'wagtailsnippets:edit', args=(app_label, model_name, quote(item.pk))
+        "id": str(item.pk),
+        "string": str(item),
+        "edit_link": reverse(
+            "wagtailsnippets:edit", args=(app_label, model_name, quote(item.pk))
         ),
     }
 
     return render_modal_workflow(
-        request, None, None, None, json_data={'step': 'chosen', 'result': snippet_data}
+        request, None, None, None, json_data={"step": "chosen", "result": snippet_data}
     )

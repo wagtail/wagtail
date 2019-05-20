@@ -5,14 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [('modeladmintest', '0001_initial')]
+    dependencies = [("modeladmintest", "0001_initial")]
 
     operations = [
         migrations.CreateModel(
-            name='Token',
+            name="Token",
             fields=[
                 (
-                    'key',
+                    "key",
                     models.CharField(max_length=40, primary_key=True, serialize=False),
                 )
             ],

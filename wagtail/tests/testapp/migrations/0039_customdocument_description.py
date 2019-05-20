@@ -5,12 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [('tests', '0038_singletonpageviamaxcount')]
+    dependencies = [("tests", "0038_singletonpageviamaxcount")]
 
     operations = [
         migrations.AddField(
-            model_name='customdocument',
-            name='description',
+            model_name="customdocument",
+            name="description",
             field=models.TextField(blank=True),
         )
     ]

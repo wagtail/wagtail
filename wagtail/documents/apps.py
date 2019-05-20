@@ -3,8 +3,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class WagtailDocsAppConfig(AppConfig):
-    name = 'wagtail.documents'
-    label = 'wagtaildocs'
+    name = "wagtail.documents"
+    label = "wagtaildocs"
     verbose_name = _("Wagtail documents")
 
     def ready(self):

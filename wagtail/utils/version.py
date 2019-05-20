@@ -10,9 +10,9 @@ def get_version(version):
 
     main = get_main_version(version)
 
-    sub = ''
-    if version[3] != 'final':
-        mapping = {'alpha': 'a', 'beta': 'b', 'rc': 'c'}
+    sub = ""
+    if version[3] != "final":
+        mapping = {"alpha": "a", "beta": "b", "rc": "c"}
         sub = mapping[version[3]] + str(version[4])
 
     return main + sub
@@ -21,14 +21,14 @@ def get_version(version):
 def get_main_version(version):
     "Returns main version (X.Y[.Z]) from VERSION."
     parts = 2 if version[2] == 0 else 3
-    return '.'.join(str(x) for x in version[:parts])
+    return ".".join(str(x) for x in version[:parts])
 
 
 def get_semver_version(version):
     "Returns the semver version (X.Y.Z[-(alpha|beta)]) from VERSION"
-    main = '.'.join(str(x) for x in version[:3])
+    main = ".".join(str(x) for x in version[:3])
 
-    sub = ''
-    if version[3] != 'final':
-        sub = '-{}.{}'.format(*version[3:])
+    sub = ""
+    if version[3] != "final":
+        sub = "-{}.{}".format(*version[3:])
     return main + sub

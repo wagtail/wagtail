@@ -16,19 +16,19 @@ from .forms import FormBuilder, WagtailAdminFormPageForm
 from .views import SubmissionsListView
 
 FORM_FIELD_CHOICES = (
-    ('singleline', _('Single line text')),
-    ('multiline', _('Multi-line text')),
-    ('email', _('Email')),
-    ('number', _('Number')),
-    ('url', _('URL')),
-    ('checkbox', _('Checkbox')),
-    ('checkboxes', _('Checkboxes')),
-    ('dropdown', _('Drop down')),
-    ('multiselect', _('Multiple select')),
-    ('radio', _('Radio buttons')),
-    ('date', _('Date')),
-    ('datetime', _('Date/time')),
-    ('hidden', _('Hidden field')),
+    ("singleline", _("Single line text")),
+    ("multiline", _("Multi-line text")),
+    ("email", _("Email")),
+    ("number", _("Number")),
+    ("url", _("URL")),
+    ("checkbox", _("Checkbox")),
+    ("checkboxes", _("Checkboxes")),
+    ("dropdown", _("Drop down")),
+    ("multiselect", _("Multiple select")),
+    ("radio", _("Radio buttons")),
+    ("date", _("Date")),
+    ("datetime", _("Date/time")),
+    ("hidden", _("Hidden field")),
 )
 
 
@@ -43,7 +43,7 @@ class AbstractFormSubmission(models.Model):
     form_data = models.TextField()
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
 
-    submit_time = models.DateTimeField(verbose_name=_('submit time'), auto_now_add=True)
+    submit_time = models.DateTimeField(verbose_name=_("submit time"), auto_now_add=True)
 
     def get_data(self):
         """
@@ -52,7 +52,7 @@ class AbstractFormSubmission(models.Model):
         You can override this method to add additional data.
         """
         form_data = json.loads(self.form_data)
-        form_data.update({'submit_time': self.submit_time})
+        form_data.update({"submit_time": self.submit_time})
 
         return form_data
 
@@ -61,7 +61,7 @@ class AbstractFormSubmission(models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = _('form submission')
+        verbose_name = _("form submission")
 
 
 class FormSubmission(AbstractFormSubmission):
@@ -74,29 +74,29 @@ class AbstractFormField(Orderable):
     """
 
     label = models.CharField(
-        verbose_name=_('label'),
+        verbose_name=_("label"),
         max_length=255,
-        help_text=_('The label of the form field'),
+        help_text=_("The label of the form field"),
     )
     field_type = models.CharField(
-        verbose_name=_('field type'), max_length=16, choices=FORM_FIELD_CHOICES
+        verbose_name=_("field type"), max_length=16, choices=FORM_FIELD_CHOICES
     )
-    required = models.BooleanField(verbose_name=_('required'), default=True)
+    required = models.BooleanField(verbose_name=_("required"), default=True)
     choices = models.TextField(
-        verbose_name=_('choices'),
+        verbose_name=_("choices"),
         blank=True,
         help_text=_(
-            'Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.'
+            "Comma separated list of choices. Only applicable in checkboxes, radio and dropdown."
         ),
     )
     default_value = models.CharField(
-        verbose_name=_('default value'),
+        verbose_name=_("default value"),
         max_length=255,
         blank=True,
-        help_text=_('Default value. Comma separated values supported for checkboxes.'),
+        help_text=_("Default value. Comma separated values supported for checkboxes."),
     )
     help_text = models.CharField(
-        verbose_name=_('help text'), max_length=255, blank=True
+        verbose_name=_("help text"), max_length=255, blank=True
     )
 
     @property
@@ -107,17 +107,17 @@ class AbstractFormField(Orderable):
         return str(slugify(str(unidecode(self.label))))
 
     panels = [
-        FieldPanel('label'),
-        FieldPanel('help_text'),
-        FieldPanel('required'),
-        FieldPanel('field_type', classname="formbuilder-type"),
-        FieldPanel('choices', classname="formbuilder-choices"),
-        FieldPanel('default_value', classname="formbuilder-default"),
+        FieldPanel("label"),
+        FieldPanel("help_text"),
+        FieldPanel("required"),
+        FieldPanel("field_type", classname="formbuilder-type"),
+        FieldPanel("choices", classname="formbuilder-choices"),
+        FieldPanel("default_value", classname="formbuilder-default"),
     ]
 
     class Meta:
         abstract = True
-        ordering = ['sort_order']
+        ordering = ["sort_order"]
 
 
 class AbstractForm(Page):
@@ -133,9 +133,9 @@ class AbstractForm(Page):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if not hasattr(self, 'landing_page_template'):
+        if not hasattr(self, "landing_page_template"):
             name, ext = os.path.splitext(self.template)
-            self.landing_page_template = name + '_landing' + ext
+            self.landing_page_template = name + "_landing" + ext
 
     class Meta:
         abstract = True
@@ -154,7 +154,7 @@ class AbstractForm(Page):
         Returns a list of tuples with (field_name, field_label).
         """
 
-        data_fields = [('submit_time', _('Submission date'))]
+        data_fields = [("submit_time", _("Submission date"))]
         data_fields += [
             (field.clean_name, field.label) for field in self.get_form_fields()
         ]
@@ -209,7 +209,7 @@ class AbstractForm(Page):
         landing page. E.g. you could return a redirect to a separate page.
         """
         context = self.get_context(request)
-        context['form_submission'] = form_submission
+        context["form_submission"] = form_submission
         return render(request, self.get_landing_page_template(request), context)
 
     def serve_submissions_list_view(self, request, *args, **kwargs):
@@ -223,7 +223,7 @@ class AbstractForm(Page):
         return view(request, form_page=self, *args, **kwargs)
 
     def serve(self, request, *args, **kwargs):
-        if request.method == 'POST':
+        if request.method == "POST":
             form = self.get_form(
                 request.POST, request.FILES, page=self, user=request.user
             )
@@ -237,13 +237,13 @@ class AbstractForm(Page):
             form = self.get_form(page=self, user=request.user)
 
         context = self.get_context(request)
-        context['form'] = form
+        context["form"] = form
         return render(request, self.get_template(request), context)
 
-    preview_modes = [('form', 'Form'), ('landing', 'Landing page')]
+    preview_modes = [("form", "Form"), ("landing", "Landing page")]
 
     def serve_preview(self, request, mode):
-        if mode == 'landing':
+        if mode == "landing":
             request.is_preview = True
             return self.render_landing_page(request)
         else:
@@ -256,7 +256,7 @@ class AbstractEmailForm(AbstractForm):
     """
 
     to_address = models.CharField(
-        verbose_name=_('to address'),
+        verbose_name=_("to address"),
         max_length=255,
         blank=True,
         help_text=_(
@@ -264,9 +264,9 @@ class AbstractEmailForm(AbstractForm):
         ),
     )
     from_address = models.CharField(
-        verbose_name=_('from address'), max_length=255, blank=True
+        verbose_name=_("from address"), max_length=255, blank=True
     )
-    subject = models.CharField(verbose_name=_('subject'), max_length=255, blank=True)
+    subject = models.CharField(verbose_name=_("subject"), max_length=255, blank=True)
 
     def process_form_submission(self, form):
         submission = super().process_form_submission(form)
@@ -275,14 +275,14 @@ class AbstractEmailForm(AbstractForm):
         return submission
 
     def send_mail(self, form):
-        addresses = [x.strip() for x in self.to_address.split(',')]
+        addresses = [x.strip() for x in self.to_address.split(",")]
         content = []
         for field in form:
             value = field.value()
             if isinstance(value, list):
-                value = ', '.join(value)
-            content.append('{}: {}'.format(field.label, value))
-        content = '\n'.join(content)
+                value = ", ".join(value)
+            content.append("{}: {}".format(field.label, value))
+        content = "\n".join(content)
         send_mail(self.subject, content, addresses, self.from_address)
 
     class Meta:

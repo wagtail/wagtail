@@ -13,10 +13,10 @@ def serve(request, path):
     if not request.site:
         raise Http404
 
-    path_components = [component for component in path.split('/') if component]
+    path_components = [component for component in path.split("/") if component]
     page, args, kwargs = request.site.root_page.specific.route(request, path_components)
 
-    for fn in hooks.get_hooks('before_serve_page'):
+    for fn in hooks.get_hooks("before_serve_page"):
         result = fn(page, request, args, kwargs)
         if isinstance(result, HttpResponse):
             return result
@@ -32,16 +32,16 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
     restriction = get_object_or_404(PageViewRestriction, id=page_view_restriction_id)
     page = get_object_or_404(Page, id=page_id).specific
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = PasswordViewRestrictionForm(request.POST, instance=restriction)
         if form.is_valid():
             restriction.mark_as_passed(request)
 
-            return redirect(form.cleaned_data['return_url'])
+            return redirect(form.cleaned_data["return_url"])
     else:
         form = PasswordViewRestrictionForm(instance=restriction)
 
     action_url = reverse(
-        'wagtailcore_authenticate_with_password', args=[restriction.id, page.id]
+        "wagtailcore_authenticate_with_password", args=[restriction.id, page.id]
     )
     return page.serve_password_required_response(request, form, action_url)

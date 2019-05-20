@@ -13,19 +13,19 @@ from wagtail.search.models import Query
 
 
 @any_permission_required(
-    'wagtailsearchpromotions.add_searchpromotion',
-    'wagtailsearchpromotions.change_searchpromotion',
-    'wagtailsearchpromotions.delete_searchpromotion',
+    "wagtailsearchpromotions.add_searchpromotion",
+    "wagtailsearchpromotions.change_searchpromotion",
+    "wagtailsearchpromotions.delete_searchpromotion",
 )
-@vary_on_headers('X-Requested-With')
+@vary_on_headers("X-Requested-With")
 def index(request):
     is_searching = False
-    query_string = request.GET.get('q', "")
+    query_string = request.GET.get("q", "")
 
     queries = (
         Query.objects.filter(editors_picks__isnull=False)
         .distinct()
-        .order_by('query_string')
+        .order_by("query_string")
     )
 
     # Search
@@ -34,27 +34,27 @@ def index(request):
         is_searching = True
 
     paginator = Paginator(queries, per_page=20)
-    queries = paginator.get_page(request.GET.get('p'))
+    queries = paginator.get_page(request.GET.get("p"))
 
     if request.is_ajax():
         return render(
             request,
             "wagtailsearchpromotions/results.html",
             {
-                'is_searching': is_searching,
-                'queries': queries,
-                'query_string': query_string,
+                "is_searching": is_searching,
+                "queries": queries,
+                "query_string": query_string,
             },
         )
     else:
         return render(
             request,
-            'wagtailsearchpromotions/index.html',
+            "wagtailsearchpromotions/index.html",
             {
-                'is_searching': is_searching,
-                'queries': queries,
-                'query_string': query_string,
-                'search_form': SearchForm(
+                "is_searching": is_searching,
+                "queries": queries,
+                "query_string": query_string,
+                "search_form": SearchForm(
                     data=dict(q=query_string) if query_string else None,
                     placeholder=_("Search promoted results"),
                 ),
@@ -83,13 +83,13 @@ def save_searchpicks(query, new_query, searchpicks_formset):
         return False
 
 
-@permission_required('wagtailsearchpromotions.add_searchpromotion')
+@permission_required("wagtailsearchpromotions.add_searchpromotion")
 def add(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         # Get query
         query_form = search_forms.QueryForm(request.POST)
         if query_form.is_valid():
-            query = Query.get(query_form['query_string'].value())
+            query = Query.get(query_form["query_string"].value())
 
             # Save search picks
             searchpicks_formset = forms.SearchPromotionsFormSet(
@@ -101,12 +101,12 @@ def add(request):
                     _("Editor's picks for '{0}' created.").format(query),
                     buttons=[
                         messages.button(
-                            reverse('wagtailsearchpromotions:edit', args=(query.id,)),
-                            _('Edit'),
+                            reverse("wagtailsearchpromotions:edit", args=(query.id,)),
+                            _("Edit"),
                         )
                     ],
                 )
-                return redirect('wagtailsearchpromotions:index')
+                return redirect("wagtailsearchpromotions:index")
             else:
                 if len(searchpicks_formset.non_form_errors()):
                     # formset level error (e.g. no forms submitted)
@@ -130,20 +130,20 @@ def add(request):
 
     return render(
         request,
-        'wagtailsearchpromotions/add.html',
+        "wagtailsearchpromotions/add.html",
         {
-            'query_form': query_form,
-            'searchpicks_formset': searchpicks_formset,
-            'form_media': query_form.media + searchpicks_formset.media,
+            "query_form": query_form,
+            "searchpicks_formset": searchpicks_formset,
+            "form_media": query_form.media + searchpicks_formset.media,
         },
     )
 
 
-@permission_required('wagtailsearchpromotions.change_searchpromotion')
+@permission_required("wagtailsearchpromotions.change_searchpromotion")
 def edit(request, query_id):
     query = get_object_or_404(Query, id=query_id)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         # Get query
         query_form = search_forms.QueryForm(request.POST)
         # and the recommendations
@@ -152,7 +152,7 @@ def edit(request, query_id):
         )
 
         if query_form.is_valid():
-            new_query = Query.get(query_form['query_string'].value())
+            new_query = Query.get(query_form["query_string"].value())
 
             # Save search picks
             if save_searchpicks(query, new_query, searchpicks_formset):
@@ -161,12 +161,12 @@ def edit(request, query_id):
                     _("Editor's picks for '{0}' updated.").format(new_query),
                     buttons=[
                         messages.button(
-                            reverse('wagtailsearchpromotions:edit', args=(query.id,)),
-                            _('Edit'),
+                            reverse("wagtailsearchpromotions:edit", args=(query.id,)),
+                            _("Edit"),
                         )
                     ],
                 )
-                return redirect('wagtailsearchpromotions:index')
+                return redirect("wagtailsearchpromotions:index")
             else:
                 if len(searchpicks_formset.non_form_errors()):
                     messages.error(
@@ -190,25 +190,25 @@ def edit(request, query_id):
 
     return render(
         request,
-        'wagtailsearchpromotions/edit.html',
+        "wagtailsearchpromotions/edit.html",
         {
-            'query_form': query_form,
-            'searchpicks_formset': searchpicks_formset,
-            'query': query,
-            'form_media': query_form.media + searchpicks_formset.media,
+            "query_form": query_form,
+            "searchpicks_formset": searchpicks_formset,
+            "query": query,
+            "form_media": query_form.media + searchpicks_formset.media,
         },
     )
 
 
-@permission_required('wagtailsearchpromotions.delete_searchpromotion')
+@permission_required("wagtailsearchpromotions.delete_searchpromotion")
 def delete(request, query_id):
     query = get_object_or_404(Query, id=query_id)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         query.editors_picks.all().delete()
         messages.success(request, _("Editor's picks deleted."))
-        return redirect('wagtailsearchpromotions:index')
+        return redirect("wagtailsearchpromotions:index")
 
     return render(
-        request, 'wagtailsearchpromotions/confirm_delete.html', {'query': query}
+        request, "wagtailsearchpromotions/confirm_delete.html", {"query": query}
     )

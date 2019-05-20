@@ -6,14 +6,14 @@ import uuid
 
 
 class Migration(migrations.Migration):
-    dependencies = [('tests', '0033_eventpagespeaker_related_query_name')]
+    dependencies = [("tests", "0033_eventpagespeaker_related_query_name")]
 
     operations = [
         migrations.CreateModel(
-            name='AdvertWithCustomUUIDPrimaryKey',
+            name="AdvertWithCustomUUIDPrimaryKey",
             fields=[
                 (
-                    'advert_id',
+                    "advert_id",
                     models.UUIDField(
                         primary_key=True,
                         editable=False,
@@ -21,9 +21,9 @@ class Migration(migrations.Migration):
                         serialize=False,
                     ),
                 ),
-                ('url', models.URLField(blank=True, null=True)),
-                ('text', models.CharField(max_length=255)),
+                ("url", models.URLField(blank=True, null=True)),
+                ("text", models.CharField(max_length=255)),
             ],
-            options={'abstract': False},
+            options={"abstract": False},
         )
     ]

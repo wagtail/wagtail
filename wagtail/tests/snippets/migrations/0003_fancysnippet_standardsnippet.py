@@ -5,36 +5,36 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [('snippetstests', '0002_searchablesnippet')]
+    dependencies = [("snippetstests", "0002_searchablesnippet")]
 
     operations = [
         migrations.CreateModel(
-            name='FancySnippet',
+            name="FancySnippet",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 )
             ],
         ),
         migrations.CreateModel(
-            name='StandardSnippet',
+            name="StandardSnippet",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('text', models.CharField(max_length=255)),
+                ("text", models.CharField(max_length=255)),
             ],
         ),
     ]

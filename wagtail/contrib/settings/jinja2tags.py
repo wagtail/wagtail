@@ -46,12 +46,12 @@ class SiteSettings(dict):
         Get the settings instance for this site, and store it for later
         """
         try:
-            app_label, model_name = key.split('.', 1)
+            app_label, model_name = key.split(".", 1)
         except ValueError:
-            raise KeyError('Invalid model name: {}'.format(key))
+            raise KeyError("Invalid model name: {}".format(key))
         Model = registry.get_by_natural_key(app_label, model_name)
         if Model is None:
-            raise KeyError('Unknown setting: {}'.format(key))
+            raise KeyError("Unknown setting: {}".format(key))
 
         out = self[key] = Model.for_site(self.site)
         return out
@@ -61,11 +61,11 @@ class SiteSettings(dict):
 def get_setting(context, model_string, use_default_site=False):
     if use_default_site:
         site = Site.objects.get(is_default_site=True)
-    elif 'request' in context:
-        site = context['request'].site
+    elif "request" in context:
+        site = context["request"].site
     else:
         raise RuntimeError(
-            'No request found in context, and use_default_site ' 'flag not set'
+            "No request found in context, and use_default_site " "flag not set"
         )
 
     # Sadly, WeakKeyDictionary can not implement __missing__, so we have to do
@@ -81,7 +81,7 @@ def get_setting(context, model_string, use_default_site=False):
 class SettingsExtension(Extension):
     def __init__(self, environment):
         super().__init__(environment)
-        self.environment.globals.update({'settings': get_setting})
+        self.environment.globals.update({"settings": get_setting})
 
 
 settings = SettingsExtension

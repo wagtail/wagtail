@@ -27,7 +27,7 @@ class CustomUserManager(BaseUserManager):
         Creates and saves a User with the given username, email and password.
         """
         if not username:
-            raise ValueError('The given username must be set')
+            raise ValueError("The given username must be set")
         email = self.normalize_email(email)
         user = self.model(
             username=username,
@@ -61,18 +61,18 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     country = models.CharField(max_length=100, blank=True)
     attachment = models.FileField(blank=True)
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["email"]
 
     objects = CustomUserManager()
 
     def get_full_name(self):
-        return self.first_name + ' ' + self.last_name
+        return self.first_name + " " + self.last_name
 
     def get_short_name(self):
         return self.first_name
 
-    panels = [FieldPanel('first_name'), FieldPanel('last_name')]
+    panels = [FieldPanel("first_name"), FieldPanel("last_name")]
 
 
 class EmailUserManager(BaseUserManager):
@@ -109,26 +109,26 @@ class EmailUser(AbstractBaseUser):
     last_name = models.CharField(max_length=50, blank=True)
 
     is_superuser = models.BooleanField(default=False)
-    groups = models.ManyToManyField(Group, related_name='+', blank=True)
-    user_permissions = models.ManyToManyField(Permission, related_name='+', blank=True)
+    groups = models.ManyToManyField(Group, related_name="+", blank=True)
+    user_permissions = models.ManyToManyField(Permission, related_name="+", blank=True)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
 
     objects = EmailUserManager()
 
     def get_full_name(self):
-        return self.first_name + ' ' + self.last_name
+        return self.first_name + " " + self.last_name
 
     def get_short_name(self):
         return self.first_name
 
 
 methods = [
-    'get_group_permissions',
-    'get_all_permissions',
-    'has_perm',
-    'has_perms',
-    'has_module_perms',
+    "get_group_permissions",
+    "get_all_permissions",
+    "has_perm",
+    "has_perms",
+    "has_module_perms",
 ]
 for method in methods:
     func = getattr(PermissionsMixin, method)

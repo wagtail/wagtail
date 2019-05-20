@@ -11,64 +11,64 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0029_unicode_slugfield_dj19'),
-        ('tests', '0007_jadeformpage'),
+        ("wagtailcore", "0029_unicode_slugfield_dj19"),
+        ("tests", "0007_jadeformpage"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='InlineStreamPage',
+            name="InlineStreamPage",
             fields=[
                 (
-                    'page_ptr',
+                    "page_ptr",
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to='wagtailcore.Page',
+                        to="wagtailcore.Page",
                     ),
                 )
             ],
-            options={'abstract': False},
-            bases=('wagtailcore.page',),
+            options={"abstract": False},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='InlineStreamPageSection',
+            name="InlineStreamPageSection",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'sort_order',
+                    "sort_order",
                     models.IntegerField(blank=True, editable=False, null=True),
                 ),
                 (
-                    'body',
+                    "body",
                     wagtail.core.fields.StreamField(
                         (
-                            ('text', wagtail.core.blocks.CharBlock()),
-                            ('rich_text', wagtail.core.blocks.RichTextBlock()),
-                            ('image', wagtail.images.blocks.ImageChooserBlock()),
+                            ("text", wagtail.core.blocks.CharBlock()),
+                            ("rich_text", wagtail.core.blocks.RichTextBlock()),
+                            ("image", wagtail.images.blocks.ImageChooserBlock()),
                         )
                     ),
                 ),
                 (
-                    'page',
+                    "page",
                     modelcluster.fields.ParentalKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name='sections',
-                        to='tests.InlineStreamPage',
+                        related_name="sections",
+                        to="tests.InlineStreamPage",
                     ),
                 ),
             ],
-            options={'abstract': False, 'ordering': ['sort_order']},
+            options={"abstract": False, "ordering": ["sort_order"]},
         ),
     ]

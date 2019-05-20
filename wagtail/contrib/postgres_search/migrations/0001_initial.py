@@ -16,42 +16,42 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [('contenttypes', '0002_remove_content_type_name')]
+    dependencies = [("contenttypes", "0002_remove_content_type_name")]
 
     operations = [
         migrations.CreateModel(
-            name='IndexEntry',
+            name="IndexEntry",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('object_id', models.TextField()),
-                ('body_search', django.contrib.postgres.search.SearchVectorField()),
+                ("object_id", models.TextField()),
+                ("body_search", django.contrib.postgres.search.SearchVectorField()),
                 (
-                    'content_type',
+                    "content_type",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='contenttypes.ContentType',
+                        to="contenttypes.ContentType",
                     ),
                 ),
             ],
             options={
-                'verbose_name_plural': 'index entries',
-                'verbose_name': 'index entry',
+                "verbose_name_plural": "index entries",
+                "verbose_name": "index entry",
             },
         ),
         migrations.AlterUniqueTogether(
-            name='indexentry', unique_together=set([('content_type', 'object_id')])
+            name="indexentry", unique_together=set([("content_type", "object_id")])
         ),
         migrations.RunSQL(
-            'CREATE INDEX {0}_body_search ON {0} '
-            'USING GIN(body_search);'.format(table),
-            'DROP INDEX {}_body_search;'.format(table),
+            "CREATE INDEX {0}_body_search ON {0} "
+            "USING GIN(body_search);".format(table),
+            "DROP INDEX {}_body_search;".format(table),
         ),
     ]

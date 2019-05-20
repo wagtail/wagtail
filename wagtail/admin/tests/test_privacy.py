@@ -22,7 +22,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
             instance=SimplePage(title="Private page", content="hello", live=True)
         )
         PageViewRestriction.objects.create(
-            page=self.private_page, restriction_type='password', password='password123'
+            page=self.private_page, restriction_type="password", password="password123"
         )
 
         self.private_child_page = self.private_page.add_child(
@@ -33,10 +33,10 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
             instance=SimplePage(title="Private groups page", content="hello", live=True)
         )
         restriction = PageViewRestriction.objects.create(
-            page=self.private_groups_page, restriction_type='groups'
+            page=self.private_groups_page, restriction_type="groups"
         )
-        self.group = Group.objects.create(name='Private page group')
-        self.group2 = Group.objects.create(name='Private page group2')
+        self.group = Group.objects.create(name="Private page group")
+        self.group2 = Group.objects.create(name="Private page group2")
         restriction.groups.add(self.group)
         restriction.groups.add(self.group2)
 
@@ -51,16 +51,16 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         This tests that a blank form is returned when a user opens the set_privacy view on a public page
         """
         response = self.client.get(
-            reverse('wagtailadmin_pages:set_privacy', args=(self.public_page.id,))
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,))
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/page_privacy/set_privacy.html')
-        self.assertEqual(response.context['page'].specific, self.public_page)
+        self.assertTemplateUsed(response, "wagtailadmin/page_privacy/set_privacy.html")
+        self.assertEqual(response.context["page"].specific, self.public_page)
 
         # Check form attributes
-        self.assertEqual(response.context['form']['restriction_type'].value(), 'none')
+        self.assertEqual(response.context["form"]["restriction_type"].value(), "none")
 
     def test_get_private(self):
         """
@@ -68,20 +68,20 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         when a user opens the set_privacy view on a public page
         """
         response = self.client.get(
-            reverse('wagtailadmin_pages:set_privacy', args=(self.private_page.id,))
+            reverse("wagtailadmin_pages:set_privacy", args=(self.private_page.id,))
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/page_privacy/set_privacy.html')
-        self.assertEqual(response.context['page'].specific, self.private_page)
+        self.assertTemplateUsed(response, "wagtailadmin/page_privacy/set_privacy.html")
+        self.assertEqual(response.context["page"].specific, self.private_page)
 
         # Check form attributes
         self.assertEqual(
-            response.context['form']['restriction_type'].value(), 'password'
+            response.context["form"]["restriction_type"].value(), "password"
         )
-        self.assertEqual(response.context['form']['password'].value(), 'password123')
-        self.assertEqual(response.context['form']['groups'].value(), [])
+        self.assertEqual(response.context["form"]["password"].value(), "password123")
+        self.assertEqual(response.context["form"]["groups"].value(), [])
 
     def test_get_private_child(self):
         """
@@ -90,17 +90,17 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         """
         response = self.client.get(
             reverse(
-                'wagtailadmin_pages:set_privacy', args=(self.private_child_page.id,)
+                "wagtailadmin_pages:set_privacy", args=(self.private_child_page.id,)
             )
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
-            response, 'wagtailadmin/page_privacy/ancestor_privacy.html'
+            response, "wagtailadmin/page_privacy/ancestor_privacy.html"
         )
         self.assertEqual(
-            response.context['page_with_restriction'].specific, self.private_page
+            response.context["page_with_restriction"].specific, self.private_page
         )
 
     def test_set_password_restriction(self):
@@ -108,12 +108,12 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         This tests that setting a password restriction using the set_privacy view works
         """
         post_data = {
-            'restriction_type': 'password',
-            'password': 'helloworld',
-            'groups': [],
+            "restriction_type": "password",
+            "password": "helloworld",
+            "groups": [],
         }
         response = self.client.post(
-            reverse('wagtailadmin_pages:set_privacy', args=(self.public_page.id,)),
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,)),
             post_data,
         )
 
@@ -128,10 +128,10 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         restriction = PageViewRestriction.objects.get(page=self.public_page)
 
         # Check that the password is set correctly
-        self.assertEqual(restriction.password, 'helloworld')
+        self.assertEqual(restriction.password, "helloworld")
 
         # Check that the restriction_type is set correctly
-        self.assertEqual(restriction.restriction_type, 'password')
+        self.assertEqual(restriction.restriction_type, "password")
 
         # Be sure there are no groups set
         self.assertEqual(restriction.groups.count(), 0)
@@ -140,9 +140,9 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         """
         This tests that the password field on the form is validated correctly
         """
-        post_data = {'restriction_type': 'password', 'password': '', 'groups': []}
+        post_data = {"restriction_type": "password", "password": "", "groups": []}
         response = self.client.post(
-            reverse('wagtailadmin_pages:set_privacy', args=(self.public_page.id,)),
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,)),
             post_data,
         )
 
@@ -150,15 +150,15 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that a form error was raised
-        self.assertFormError(response, 'form', 'password', "This field is required.")
+        self.assertFormError(response, "form", "password", "This field is required.")
 
     def test_unset_password_restriction(self):
         """
         This tests that removing a password restriction using the set_privacy view works
         """
-        post_data = {'restriction_type': 'none', 'password': '', 'groups': []}
+        post_data = {"restriction_type": "none", "password": "", "groups": []}
         response = self.client.post(
-            reverse('wagtailadmin_pages:set_privacy', args=(self.private_page.id,)),
+            reverse("wagtailadmin_pages:set_privacy", args=(self.private_page.id,)),
             post_data,
         )
 
@@ -177,20 +177,20 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         """
         response = self.client.get(
             reverse(
-                'wagtailadmin_pages:set_privacy', args=(self.private_groups_page.id,)
+                "wagtailadmin_pages:set_privacy", args=(self.private_groups_page.id,)
             )
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/page_privacy/set_privacy.html')
-        self.assertEqual(response.context['page'].specific, self.private_groups_page)
+        self.assertTemplateUsed(response, "wagtailadmin/page_privacy/set_privacy.html")
+        self.assertEqual(response.context["page"].specific, self.private_groups_page)
 
         # Check form attributes
-        self.assertEqual(response.context['form']['restriction_type'].value(), 'groups')
-        self.assertEqual(response.context['form']['password'].value(), '')
+        self.assertEqual(response.context["form"]["restriction_type"].value(), "groups")
+        self.assertEqual(response.context["form"]["password"].value(), "")
         self.assertEqual(
-            response.context['form']['groups'].value(), [self.group.id, self.group2.id]
+            response.context["form"]["groups"].value(), [self.group.id, self.group2.id]
         )
 
     def test_set_group_restriction(self):
@@ -198,12 +198,12 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         This tests that setting a group restriction using the set_privacy view works
         """
         post_data = {
-            'restriction_type': 'groups',
-            'password': '',
-            'groups': [self.group.id, self.group2.id],
+            "restriction_type": "groups",
+            "password": "",
+            "groups": [self.group.id, self.group2.id],
         }
         response = self.client.post(
-            reverse('wagtailadmin_pages:set_privacy', args=(self.public_page.id,)),
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,)),
             post_data,
         )
 
@@ -219,10 +219,10 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         restriction = PageViewRestriction.objects.get(page=self.public_page)
 
         # restriction_type should be 'groups'
-        self.assertEqual(restriction.restriction_type, 'groups')
+        self.assertEqual(restriction.restriction_type, "groups")
 
         # Be sure there is no password set
-        self.assertEqual(restriction.password, '')
+        self.assertEqual(restriction.password, "")
 
         # Check that the groups are set correctly
         self.assertEqual(
@@ -234,9 +234,9 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         """
         This tests that the group fields on the form are validated correctly
         """
-        post_data = {'restriction_type': 'groups', 'password': '', 'groups': []}
+        post_data = {"restriction_type": "groups", "password": "", "groups": []}
         response = self.client.post(
-            reverse('wagtailadmin_pages:set_privacy', args=(self.public_page.id,)),
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,)),
             post_data,
         )
 
@@ -245,16 +245,16 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
 
         # Check that a form error was raised
         self.assertFormError(
-            response, 'form', 'groups', "Please select at least one group."
+            response, "form", "groups", "Please select at least one group."
         )
 
     def test_unset_group_restriction(self):
         """
         This tests that removing a groups restriction using the set_privacy view works
         """
-        post_data = {'restriction_type': 'none', 'password': '', 'groups': []}
+        post_data = {"restriction_type": "none", "password": "", "groups": []}
         response = self.client.post(
-            reverse('wagtailadmin_pages:set_privacy', args=(self.private_page.id,)),
+            reverse("wagtailadmin_pages:set_privacy", args=(self.private_page.id,)),
             post_data,
         )
 
@@ -283,7 +283,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
             instance=SimplePage(title="Private page", content="hello", live=True)
         )
         PageViewRestriction.objects.create(
-            page=self.private_page, restriction_type='password', password='password123'
+            page=self.private_page, restriction_type="password", password="password123"
         )
 
         self.private_child_page = self.private_page.add_child(
@@ -295,14 +295,14 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         This tests that the privacy indicator on the public pages explore view is set to "PUBLIC"
         """
         response = self.client.get(
-            reverse('wagtailadmin_explore', args=(self.public_page.id,))
+            reverse("wagtailadmin_explore", args=(self.public_page.id,))
         )
 
         # Check the response
         self.assertEqual(response.status_code, 200)
 
         # Check the privacy indicator is public
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/_privacy_switch.html')
+        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
         self.assertContains(response, '<div class="privacy-indicator public">')
         self.assertNotContains(response, '<div class="privacy-indicator private">')
 
@@ -311,14 +311,14 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         This tests that the privacy indicator on the private pages explore view is set to "PRIVATE"
         """
         response = self.client.get(
-            reverse('wagtailadmin_explore', args=(self.private_page.id,))
+            reverse("wagtailadmin_explore", args=(self.private_page.id,))
         )
 
         # Check the response
         self.assertEqual(response.status_code, 200)
 
         # Check the privacy indicator is public
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/_privacy_switch.html')
+        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
         self.assertContains(response, '<div class="privacy-indicator private">')
         self.assertNotContains(response, '<div class="privacy-indicator public">')
 
@@ -327,14 +327,14 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         This tests that the privacy indicator on the private child pages explore view is set to "PRIVATE"
         """
         response = self.client.get(
-            reverse('wagtailadmin_explore', args=(self.private_child_page.id,))
+            reverse("wagtailadmin_explore", args=(self.private_child_page.id,))
         )
 
         # Check the response
         self.assertEqual(response.status_code, 200)
 
         # Check the privacy indicator is public
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/_privacy_switch.html')
+        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
         self.assertContains(response, '<div class="privacy-indicator private">')
         self.assertNotContains(response, '<div class="privacy-indicator public">')
 
@@ -343,7 +343,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         This tests that there is a padlock displayed next to the private page in the homepages explorer listing
         """
         response = self.client.get(
-            reverse('wagtailadmin_explore', args=(self.homepage.id,))
+            reverse("wagtailadmin_explore", args=(self.homepage.id,))
         )
 
         # Check the response
@@ -352,7 +352,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         # Must have one privacy icon (next to the private page)
         self.assertContains(
             response,
-            "<span class=\"indicator privacy-indicator icon icon-no-view\"",
+            '<span class="indicator privacy-indicator icon icon-no-view"',
             count=1,
         )
 
@@ -362,7 +362,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         next to the private child page in the private pages explorer listing
         """
         response = self.client.get(
-            reverse('wagtailadmin_explore', args=(self.private_page.id,))
+            reverse("wagtailadmin_explore", args=(self.private_page.id,))
         )
 
         # Check the response
@@ -371,7 +371,7 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         # Must have one privacy icon (next to the private child page)
         self.assertContains(
             response,
-            "<span class=\"indicator privacy-indicator icon icon-no-view\"",
+            '<span class="indicator privacy-indicator icon icon-no-view"',
             count=1,
         )
 
@@ -380,14 +380,14 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         This tests that the privacy indicator on the public pages edit view is set to "PUBLIC"
         """
         response = self.client.get(
-            reverse('wagtailadmin_pages:edit', args=(self.public_page.id,))
+            reverse("wagtailadmin_pages:edit", args=(self.public_page.id,))
         )
 
         # Check the response
         self.assertEqual(response.status_code, 200)
 
         # Check the privacy indicator is public
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/_privacy_switch.html')
+        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
         self.assertContains(response, '<div class="privacy-indicator public">')
         self.assertNotContains(response, '<div class="privacy-indicator private">')
 
@@ -396,14 +396,14 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         This tests that the privacy indicator on the private pages edit view is set to "PRIVATE"
         """
         response = self.client.get(
-            reverse('wagtailadmin_pages:edit', args=(self.private_page.id,))
+            reverse("wagtailadmin_pages:edit", args=(self.private_page.id,))
         )
 
         # Check the response
         self.assertEqual(response.status_code, 200)
 
         # Check the privacy indicator is public
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/_privacy_switch.html')
+        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
         self.assertContains(response, '<div class="privacy-indicator private">')
         self.assertNotContains(response, '<div class="privacy-indicator public">')
 
@@ -412,13 +412,13 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         This tests that the privacy indicator on the private child pages edit view is set to "PRIVATE"
         """
         response = self.client.get(
-            reverse('wagtailadmin_pages:edit', args=(self.private_child_page.id,))
+            reverse("wagtailadmin_pages:edit", args=(self.private_child_page.id,))
         )
 
         # Check the response
         self.assertEqual(response.status_code, 200)
 
         # Check the privacy indicator is public
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/_privacy_switch.html')
+        self.assertTemplateUsed(response, "wagtailadmin/pages/_privacy_switch.html")
         self.assertContains(response, '<div class="privacy-indicator private">')
         self.assertNotContains(response, '<div class="privacy-indicator public">')

@@ -2,10 +2,10 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 EMBED_TYPES = (
-    ('video', 'Video'),
-    ('photo', 'Photo'),
-    ('link', 'Link'),
-    ('rich', 'Rich'),
+    ("video", "Video"),
+    ("photo", "Photo"),
+    ("link", "Link"),
+    ("rich", "Rich"),
 )
 
 
@@ -34,9 +34,9 @@ class Embed(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ('url', 'max_width')
-        verbose_name = _('embed')
-        verbose_name_plural = _('embeds')
+        unique_together = ("url", "max_width")
+        verbose_name = _("embed")
+        verbose_name_plural = _("embeds")
 
     @property
     def ratio(self):

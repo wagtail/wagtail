@@ -36,27 +36,27 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
     ]
 
     meta_fields = PagesAPIEndpoint.meta_fields + [
-        'latest_revision_created_at',
-        'status',
-        'children',
-        'descendants',
-        'parent',
+        "latest_revision_created_at",
+        "status",
+        "children",
+        "descendants",
+        "parent",
     ]
 
-    body_fields = PagesAPIEndpoint.body_fields + ['admin_display_title']
+    body_fields = PagesAPIEndpoint.body_fields + ["admin_display_title"]
 
     listing_default_fields = PagesAPIEndpoint.listing_default_fields + [
-        'latest_revision_created_at',
-        'status',
-        'children',
-        'admin_display_title',
+        "latest_revision_created_at",
+        "status",
+        "children",
+        "admin_display_title",
     ]
 
     # Allow the parent field to appear on listings
     detail_only_fields = []
 
     known_query_parameters = PagesAPIEndpoint.known_query_parameters.union(
-        ['for_explorer', 'has_children']
+        ["for_explorer", "has_children"]
     )
 
     def get_queryset(self):
@@ -65,7 +65,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         # Allow pages to be filtered to a specific type
         try:
             models = page_models_from_string(
-                request.GET.get('type', 'wagtailcore.Page')
+                request.GET.get("type", "wagtailcore.Page")
             )
         except (LookupError, ValueError):
             raise BadRequestError("type doesn't exist")
@@ -93,8 +93,8 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         for name, model in self.seen_types.items():
             types[name] = OrderedDict(
                 [
-                    ('verbose_name', model._meta.verbose_name),
-                    ('verbose_name_plural', model._meta.verbose_name_plural),
+                    ("verbose_name", model._meta.verbose_name),
+                    ("verbose_name_plural", model._meta.verbose_name_plural),
                 ]
             )
 
@@ -102,10 +102,10 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
 
     def listing_view(self, request):
         response = super().listing_view(request)
-        response.data['__types'] = self.get_type_info()
+        response.data["__types"] = self.get_type_info()
         return response
 
     def detail_view(self, request, pk):
         response = super().detail_view(request, pk)
-        response.data['__types'] = self.get_type_info()
+        response.data["__types"] = self.get_type_info()
         return response

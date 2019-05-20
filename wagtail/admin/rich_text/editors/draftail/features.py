@@ -54,16 +54,16 @@ class ListFeature(Feature):
 class EntityFeature(ListFeature):
     """A feature which is listed in the entityTypes list of the options"""
 
-    option_name = 'entityTypes'
+    option_name = "entityTypes"
 
 
 class BlockFeature(ListFeature):
     """A feature which is listed in the blockTypes list of the options"""
 
-    option_name = 'blockTypes'
+    option_name = "blockTypes"
 
 
 class InlineStyleFeature(ListFeature):
     """A feature which is listed in the inlineStyles list of the options"""
 
-    option_name = 'inlineStyles'
+    option_name = "inlineStyles"

@@ -22,9 +22,9 @@ def serve(request, document_id, document_filename):
     # document_id. If not we can't be sure that the document the user wants to access is the one corresponding to the
     # <document_id, document_filename> pair.
     if doc.filename != document_filename:
-        raise Http404('This document does not match the given filename.')
+        raise Http404("This document does not match the given filename.")
 
-    for fn in hooks.get_hooks('before_serve_document'):
+    for fn in hooks.get_hooks("before_serve_document"):
         result = fn(doc, request)
         if isinstance(result, HttpResponse):
             return result
@@ -42,7 +42,7 @@ def serve(request, document_id, document_filename):
         # Use wagtail.utils.sendfile to serve the file;
         # this provides support for mimetypes, if-modified-since and django-sendfile backends
 
-        if hasattr(settings, 'SENDFILE_BACKEND'):
+        if hasattr(settings, "SENDFILE_BACKEND"):
             return sendfile(
                 request, local_path, attachment=True, attachment_filename=doc.filename
             )
@@ -65,13 +65,13 @@ def serve(request, document_id, document_filename):
 
         wrapper = FileWrapper(doc.file)
         response = StreamingHttpResponse(
-            wrapper, content_type='application/octet-stream'
+            wrapper, content_type="application/octet-stream"
         )
 
-        response['Content-Disposition'] = 'attachment; filename=%s' % doc.filename
+        response["Content-Disposition"] = "attachment; filename=%s" % doc.filename
 
         # FIXME: storage backends are not guaranteed to implement 'size'
-        response['Content-Length'] = doc.file.size
+        response["Content-Length"] = doc.file.size
 
         return response
 
@@ -83,24 +83,24 @@ def authenticate_with_password(request, restriction_id):
     """
     restriction = get_object_or_404(CollectionViewRestriction, id=restriction_id)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = PasswordViewRestrictionForm(request.POST, instance=restriction)
         if form.is_valid():
             restriction.mark_as_passed(request)
 
-            return redirect(form.cleaned_data['return_url'])
+            return redirect(form.cleaned_data["return_url"])
     else:
         form = PasswordViewRestrictionForm(instance=restriction)
 
     action_url = reverse(
-        'wagtaildocs_authenticate_with_password', args=[restriction.id]
+        "wagtaildocs_authenticate_with_password", args=[restriction.id]
     )
 
     password_required_template = getattr(
         settings,
-        'DOCUMENT_PASSWORD_REQUIRED_TEMPLATE',
-        'wagtaildocs/password_required.html',
+        "DOCUMENT_PASSWORD_REQUIRED_TEMPLATE",
+        "wagtaildocs/password_required.html",
     )
 
-    context = {'form': form, 'action_url': action_url}
+    context = {"form": form, "action_url": action_url}
     return TemplateResponse(request, password_required_template, context)

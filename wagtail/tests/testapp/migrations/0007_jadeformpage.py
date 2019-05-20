@@ -8,131 +8,131 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0029_unicode_slugfield_dj19'),
-        ('tests', '0006_sectionedrichtextpage_sectionedrichtextpagesection'),
+        ("wagtailcore", "0029_unicode_slugfield_dj19"),
+        ("tests", "0006_sectionedrichtextpage_sectionedrichtextpagesection"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='JadeFormField',
+            name="JadeFormField",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'sort_order',
+                    "sort_order",
                     models.IntegerField(blank=True, editable=False, null=True),
                 ),
                 (
-                    'label',
+                    "label",
                     models.CharField(
-                        help_text='The label of the form field',
+                        help_text="The label of the form field",
                         max_length=255,
-                        verbose_name='label',
+                        verbose_name="label",
                     ),
                 ),
                 (
-                    'field_type',
+                    "field_type",
                     models.CharField(
                         choices=[
-                            ('singleline', 'Single line text'),
-                            ('multiline', 'Multi-line text'),
-                            ('email', 'Email'),
-                            ('number', 'Number'),
-                            ('url', 'URL'),
-                            ('checkbox', 'Checkbox'),
-                            ('checkboxes', 'Checkboxes'),
-                            ('dropdown', 'Drop down'),
-                            ('radio', 'Radio buttons'),
-                            ('date', 'Date'),
-                            ('datetime', 'Date/time'),
+                            ("singleline", "Single line text"),
+                            ("multiline", "Multi-line text"),
+                            ("email", "Email"),
+                            ("number", "Number"),
+                            ("url", "URL"),
+                            ("checkbox", "Checkbox"),
+                            ("checkboxes", "Checkboxes"),
+                            ("dropdown", "Drop down"),
+                            ("radio", "Radio buttons"),
+                            ("date", "Date"),
+                            ("datetime", "Date/time"),
                         ],
                         max_length=16,
-                        verbose_name='field type',
+                        verbose_name="field type",
                     ),
                 ),
                 (
-                    'required',
-                    models.BooleanField(default=True, verbose_name='required'),
+                    "required",
+                    models.BooleanField(default=True, verbose_name="required"),
                 ),
                 (
-                    'choices',
+                    "choices",
                     models.TextField(
                         blank=True,
-                        help_text='Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.',
-                        verbose_name='choices',
+                        help_text="Comma separated list of choices. Only applicable in checkboxes, radio and dropdown.",
+                        verbose_name="choices",
                     ),
                 ),
                 (
-                    'default_value',
+                    "default_value",
                     models.CharField(
                         blank=True,
-                        help_text='Default value. Comma separated values supported for checkboxes.',
+                        help_text="Default value. Comma separated values supported for checkboxes.",
                         max_length=255,
-                        verbose_name='default value',
+                        verbose_name="default value",
                     ),
                 ),
                 (
-                    'help_text',
+                    "help_text",
                     models.CharField(
-                        blank=True, max_length=255, verbose_name='help text'
+                        blank=True, max_length=255, verbose_name="help text"
                     ),
                 ),
             ],
-            options={'ordering': ['sort_order'], 'abstract': False},
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
         migrations.CreateModel(
-            name='JadeFormPage',
+            name="JadeFormPage",
             fields=[
                 (
-                    'page_ptr',
+                    "page_ptr",
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to='wagtailcore.Page',
+                        to="wagtailcore.Page",
                     ),
                 ),
                 (
-                    'to_address',
+                    "to_address",
                     models.CharField(
                         blank=True,
-                        help_text='Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma.',
+                        help_text="Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma.",
                         max_length=255,
-                        verbose_name='to address',
+                        verbose_name="to address",
                     ),
                 ),
                 (
-                    'from_address',
+                    "from_address",
                     models.CharField(
-                        blank=True, max_length=255, verbose_name='from address'
+                        blank=True, max_length=255, verbose_name="from address"
                     ),
                 ),
                 (
-                    'subject',
+                    "subject",
                     models.CharField(
-                        blank=True, max_length=255, verbose_name='subject'
+                        blank=True, max_length=255, verbose_name="subject"
                     ),
                 ),
             ],
-            options={'abstract': False},
-            bases=('wagtailcore.page',),
+            options={"abstract": False},
+            bases=("wagtailcore.page",),
         ),
         migrations.AddField(
-            model_name='jadeformfield',
-            name='page',
+            model_name="jadeformfield",
+            name="page",
             field=modelcluster.fields.ParentalKey(
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name='form_fields',
-                to='tests.JadeFormPage',
+                related_name="form_fields",
+                to="tests.JadeFormPage",
             ),
         ),
     ]

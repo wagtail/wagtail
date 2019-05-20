@@ -10,27 +10,27 @@ class Migration(migrations.Migration):
     This migration fixes this.
     """
 
-    dependencies = [('wagtailimages', '0002_initial_data')]
+    dependencies = [("wagtailimages", "0002_initial_data")]
 
     operations = [
         migrations.AlterField(
-            model_name='image',
-            name='focal_point_height',
+            model_name="image",
+            name="focal_point_height",
             field=models.PositiveIntegerField(null=True, blank=True),
         ),
         migrations.AlterField(
-            model_name='image',
-            name='focal_point_width',
+            model_name="image",
+            name="focal_point_width",
             field=models.PositiveIntegerField(null=True, blank=True),
         ),
         migrations.AlterField(
-            model_name='image',
-            name='focal_point_x',
+            model_name="image",
+            name="focal_point_x",
             field=models.PositiveIntegerField(null=True, blank=True),
         ),
         migrations.AlterField(
-            model_name='image',
-            name='focal_point_y',
+            model_name="image",
+            name="focal_point_y",
             field=models.PositiveIntegerField(null=True, blank=True),
         ),
     ]

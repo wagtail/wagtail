@@ -3,7 +3,7 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-    dependencies = [('wagtailsearch', '0002_add_verbose_names')]
+    dependencies = [("wagtailsearch", "0002_add_verbose_names")]
 
     operations = [
         # EditorsPicks have been moved to the "wagtailsearchpromotions" module.
@@ -15,9 +15,9 @@ class Migration(migrations.Migration):
         # even if we decide to squash these migrations.
         migrations.SeparateDatabaseAndState(
             state_operations=[
-                migrations.RemoveField(model_name='editorspick', name='page'),
-                migrations.RemoveField(model_name='editorspick', name='query'),
-                migrations.DeleteModel(name='EditorsPick'),
+                migrations.RemoveField(model_name="editorspick", name="page"),
+                migrations.RemoveField(model_name="editorspick", name="query"),
+                migrations.DeleteModel(name="EditorsPick"),
             ],
             database_operations=[],
         )

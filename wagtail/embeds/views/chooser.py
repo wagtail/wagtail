@@ -20,29 +20,29 @@ def chooser(request):
 
     return render_modal_workflow(
         request,
-        'wagtailembeds/chooser/chooser.html',
+        "wagtailembeds/chooser/chooser.html",
         None,
-        {'form': form},
-        json_data={'step': 'chooser'},
+        {"form": form},
+        json_data={"step": "chooser"},
     )
 
 
 def chooser_upload(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = EmbedForm(request.POST, request.FILES)
 
         if form.is_valid():
             error = None
             try:
-                embed_html = embed_to_editor_html(form.cleaned_data['url'])
-                embed_obj = embeds.get_embed(form.cleaned_data['url'])
+                embed_html = embed_to_editor_html(form.cleaned_data["url"])
+                embed_obj = embeds.get_embed(form.cleaned_data["url"])
                 embed_data = {
-                    'embedType': embed_obj.type,
-                    'url': embed_obj.url,
-                    'providerName': embed_obj.provider_name,
-                    'authorName': embed_obj.author_name,
-                    'thumbnail': embed_obj.thumbnail_url,
-                    'title': embed_obj.title,
+                    "embedType": embed_obj.type,
+                    "url": embed_obj.url,
+                    "providerName": embed_obj.provider_name,
+                    "authorName": embed_obj.author_name,
+                    "thumbnail": embed_obj.thumbnail_url,
+                    "title": embed_obj.title,
                 }
                 return render_modal_workflow(
                     request,
@@ -50,9 +50,9 @@ def chooser_upload(request):
                     None,
                     None,
                     json_data={
-                        'step': 'embed_chosen',
-                        'embed_html': embed_html,
-                        'embed_data': embed_data,
+                        "step": "embed_chosen",
+                        "embed_html": embed_html,
+                        "embed_data": embed_data,
                     },
                 )
             except AccessDeniedEmbedlyException:
@@ -68,22 +68,22 @@ def chooser_upload(request):
                 )
 
             if error:
-                errors = form._errors.setdefault('url', ErrorList())
+                errors = form._errors.setdefault("url", ErrorList())
                 errors.append(error)
                 return render_modal_workflow(
                     request,
-                    'wagtailembeds/chooser/chooser.html',
+                    "wagtailembeds/chooser/chooser.html",
                     None,
-                    {'form': form},
-                    json_data={'step': 'chooser'},
+                    {"form": form},
+                    json_data={"step": "chooser"},
                 )
     else:
         form = EmbedForm()
 
     return render_modal_workflow(
         request,
-        'wagtailembeds/chooser/chooser.html',
+        "wagtailembeds/chooser/chooser.html",
         None,
-        {'form': form},
-        json_data={'step': 'chooser'},
+        {"form": form},
+        json_data={"step": "chooser"},
     )

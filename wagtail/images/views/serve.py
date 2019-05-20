@@ -33,7 +33,7 @@ def generate_signature(image_id, filter_spec, key=None):
 
     # Based on libthumbor hmac generation
     # https://github.com/thumbor/libthumbor/blob/b19dc58cf84787e08c8e397ab322e86268bb4345/libthumbor/crypto.py#L50
-    url = '{}/{}/'.format(image_id, filter_spec)
+    url = "{}/{}/".format(image_id, filter_spec)
     return force_text(
         base64.urlsafe_b64encode(hmac.new(key, url.encode(), hashlib.sha1).digest())
     )
@@ -43,22 +43,22 @@ def verify_signature(signature, image_id, filter_spec, key=None):
     return force_text(signature) == generate_signature(image_id, filter_spec, key=key)
 
 
-def generate_image_url(image, filter_spec, viewname='wagtailimages_serve', key=None):
+def generate_image_url(image, filter_spec, viewname="wagtailimages_serve", key=None):
     signature = generate_signature(image.id, filter_spec, key)
     url = reverse(viewname, args=(signature, image.id, filter_spec))
-    url += image.file.name[len('original_images/') :]
+    url += image.file.name[len("original_images/") :]
     return url
 
 
 class ServeView(View):
     model = get_image_model()
-    action = 'serve'
+    action = "serve"
     key = None
 
     @classonlymethod
     def as_view(cls, **initkwargs):
-        if 'action' in initkwargs:
-            if initkwargs['action'] not in ['serve', 'redirect']:
+        if "action" in initkwargs:
+            if initkwargs["action"] not in ["serve", "redirect"]:
                 raise ImproperlyConfigured(
                     "ServeView action must be either 'serve' or 'redirect'"
                 )
@@ -78,12 +78,12 @@ class ServeView(View):
             rendition = image.get_rendition(filter_spec)
         except SourceImageIOError:
             return HttpResponse(
-                "Source image file not found", content_type='text/plain', status=410
+                "Source image file not found", content_type="text/plain", status=410
             )
         except InvalidFilterSpecError:
             return HttpResponse(
                 "Invalid filter spec: " + filter_spec,
-                content_type='text/plain',
+                content_type="text/plain",
                 status=400,
             )
 
@@ -91,10 +91,10 @@ class ServeView(View):
 
     def serve(self, rendition):
         # Open and serve the file
-        rendition.file.open('rb')
+        rendition.file.open("rb")
         image_format = imghdr.what(rendition.file)
         return StreamingHttpResponse(
-            FileWrapper(rendition.file), content_type='image/' + image_format
+            FileWrapper(rendition.file), content_type="image/" + image_format
         )
 
     def redirect(self, rendition):

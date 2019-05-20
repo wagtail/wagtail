@@ -13,7 +13,7 @@ def get_permission_panel_classes():
     global _permission_panel_classes
     if _permission_panel_classes is None:
         _permission_panel_classes = [GroupPagePermissionFormSet]
-        for fn in hooks.get_hooks('register_group_permission_panel'):
+        for fn in hooks.get_hooks("register_group_permission_panel"):
             _permission_panel_classes.append(fn())
 
     return _permission_panel_classes
@@ -23,11 +23,11 @@ class PermissionPanelFormsMixin:
     def get_permission_panel_form_kwargs(self, cls):
         kwargs = {}
 
-        if self.request.method in ('POST', 'PUT'):
-            kwargs.update({'data': self.request.POST, 'files': self.request.FILES})
+        if self.request.method in ("POST", "PUT"):
+            kwargs.update({"data": self.request.POST, "files": self.request.FILES})
 
-        if hasattr(self, 'object'):
-            kwargs.update({'instance': self.object})
+        if hasattr(self, "object"):
+            kwargs.update({"instance": self.object})
 
         return kwargs
 
@@ -38,8 +38,8 @@ class PermissionPanelFormsMixin:
         ]
 
     def get_context_data(self, **kwargs):
-        if 'permission_panels' not in kwargs:
-            kwargs['permission_panels'] = self.get_permission_panel_forms()
+        if "permission_panels" not in kwargs:
+            kwargs["permission_panels"] = self.get_permission_panel_forms()
 
         return super().get_context_data(**kwargs)
 
@@ -48,23 +48,23 @@ class IndexView(mixins.SearchableListMixin, generic.IndexView):
     page_title = _("Groups")
     add_item_label = _("Add a group")
     search_box_placeholder = _("Search groups")
-    search_fields = ['name']
-    context_object_name = 'groups'
+    search_fields = ["name"]
+    context_object_name = "groups"
     paginate_by = 20
-    page_kwarg = 'p'
-    ordering = ['name']
+    page_kwarg = "p"
+    ordering = ["name"]
 
     def get_template_names(self):
         if self.request.is_ajax():
-            return ['wagtailusers/groups/results.html']
+            return ["wagtailusers/groups/results.html"]
         else:
-            return ['wagtailusers/groups/index.html']
+            return ["wagtailusers/groups/index.html"]
 
 
 class CreateView(PermissionPanelFormsMixin, generic.CreateView):
     page_title = _("Add group")
     success_message = _("Group '{0}' created.")
-    template_name = 'wagtailusers/groups/create.html'
+    template_name = "wagtailusers/groups/create.html"
 
     def post(self, request, *args, **kwargs):
         """
@@ -90,10 +90,10 @@ class CreateView(PermissionPanelFormsMixin, generic.CreateView):
         context = super().get_context_data(**kwargs)
 
         # add a 'form_media' variable for the collected js/css media from the form and all formsets
-        form_media = context['form'].media
-        for panel in context['permission_panels']:
+        form_media = context["form"].media
+        for panel in context["permission_panels"]:
             form_media += panel.media
-        context['form_media'] = form_media
+        context["form_media"] = form_media
 
         return context
 
@@ -102,8 +102,8 @@ class EditView(PermissionPanelFormsMixin, generic.EditView):
     success_message = _("Group '{0}' updated.")
     error_message = _("The group could not be saved due to errors.")
     delete_item_label = _("Delete group")
-    context_object_name = 'group'
-    template_name = 'wagtailusers/groups/edit.html'
+    context_object_name = "group"
+    template_name = "wagtailusers/groups/edit.html"
 
     def post(self, request, *args, **kwargs):
         """
@@ -128,10 +128,10 @@ class EditView(PermissionPanelFormsMixin, generic.EditView):
         context = super().get_context_data(**kwargs)
 
         # add a 'form_media' variable for the collected js/css media from the form and all formsets
-        form_media = context['form'].media
-        for panel in context['permission_panels']:
+        form_media = context["form"].media
+        for panel in context["permission_panels"]:
             form_media += panel.media
-        context['form_media'] = form_media
+        context["form_media"] = form_media
 
         return context
 
@@ -140,11 +140,11 @@ class DeleteView(generic.DeleteView):
     success_message = _("Group '{0}' deleted.")
     page_title = _("Delete group")
     confirmation_message = _("Are you sure you want to delete this group?")
-    template_name = 'wagtailusers/groups/confirm_delete.html'
+    template_name = "wagtailusers/groups/confirm_delete.html"
 
 
 class GroupViewSet(ModelViewSet):
-    icon = 'group'
+    icon = "group"
     model = Group
 
     index_view_class = IndexView

@@ -7,7 +7,7 @@ from wagtail.core.models import Page, PageRevision
 
 
 def revision_date_expired(r):
-    expiry_str = json.loads(r.content_json).get('expire_at')
+    expiry_str = json.loads(r.content_json).get("expire_at")
     if not expiry_str:
         return False
     expire_at = dateparse.parse_datetime(expiry_str)
@@ -20,16 +20,16 @@ def revision_date_expired(r):
 class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
-            '--dryrun',
-            action='store_true',
-            dest='dryrun',
+            "--dryrun",
+            action="store_true",
+            dest="dryrun",
             default=False,
             help="Dry run -- dont't change anything.",
         )
 
     def handle(self, *args, **options):
         dryrun = False
-        if options['dryrun']:
+        if options["dryrun"]:
             self.stdout.write("Will do a dry run.")
             dryrun = True
 
@@ -74,10 +74,10 @@ class Command(BaseCommand):
                     self.stdout.write(
                         "{0}\t{1}\t{2}".format(
                             dateparse.parse_datetime(
-                                rev_data.get('expire_at')
+                                rev_data.get("expire_at")
                             ).strftime("%Y-%m-%d %H:%M"),
-                            rev_data.get('slug'),
-                            rev_data.get('title'),
+                            rev_data.get("slug"),
+                            rev_data.get("title"),
                         )
                     )
             else:
@@ -102,8 +102,8 @@ class Command(BaseCommand):
                     self.stdout.write(
                         "{0}\t\t{1}\t{2}".format(
                             rp.approved_go_live_at.strftime("%Y-%m-%d %H:%M"),
-                            rev_data.get('slug'),
-                            rev_data.get('title'),
+                            rev_data.get("slug"),
+                            rev_data.get("title"),
                         )
                     )
             else:

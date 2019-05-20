@@ -87,16 +87,16 @@ class Command(BaseCommand):
             if not schema_only:
                 for model in models:
                     self.stdout.write(
-                        '{}: {}.{} '.format(
+                        "{}: {}.{} ".format(
                             backend_name, model._meta.app_label, model.__name__
                         ).ljust(35),
-                        ending='',
+                        ending="",
                     )
 
                     # Add items (chunk_size at a time)
                     for chunk in self.print_iter_progress(
                         self.queryset_chunks(
-                            model.get_indexed_objects().order_by('pk'), chunk_size
+                            model.get_indexed_objects().order_by("pk"), chunk_size
                         )
                     ):
                         index.add_items(model, chunk)
@@ -112,23 +112,23 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--backend',
-            action='store',
-            dest='backend_name',
+            "--backend",
+            action="store",
+            dest="backend_name",
             default=None,
             help="Specify a backend to update",
         )
         parser.add_argument(
-            '--schema-only',
-            action='store_true',
-            dest='schema_only',
+            "--schema-only",
+            action="store_true",
+            dest="schema_only",
             default=False,
             help="Prevents loading any data into the index",
         )
         parser.add_argument(
-            '--chunk_size',
-            action='store',
-            dest='chunk_size',
+            "--chunk_size",
+            action="store",
+            dest="chunk_size",
             default=DEFAULT_CHUNK_SIZE,
             type=int,
             help="Set number of records to be fetched at once for inserting into the index",
@@ -136,26 +136,26 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         # Get list of backends to index
-        if options['backend_name']:
+        if options["backend_name"]:
             # index only the passed backend
-            backend_names = [options['backend_name']]
-        elif hasattr(settings, 'WAGTAILSEARCH_BACKENDS'):
+            backend_names = [options["backend_name"]]
+        elif hasattr(settings, "WAGTAILSEARCH_BACKENDS"):
             # index all backends listed in settings
             backend_names = settings.WAGTAILSEARCH_BACKENDS.keys()
         else:
             # index the 'default' backend only
-            backend_names = ['default']
+            backend_names = ["default"]
 
         # Update backends
         for backend_name in backend_names:
             self.update_backend(
                 backend_name,
-                schema_only=options.get('schema_only', False),
-                chunk_size=options.get('chunk_size'),
+                schema_only=options.get("schema_only", False),
+                chunk_size=options.get("chunk_size"),
             )
 
     def print_newline(self):
-        self.stdout.write('')
+        self.stdout.write("")
 
     def print_iter_progress(self, iterable):
         """
@@ -170,13 +170,13 @@ class Command(BaseCommand):
         """
         for i, value in enumerate(iterable, start=1):
             yield value
-            self.stdout.write('.', ending='')
+            self.stdout.write(".", ending="")
             if i % 40 == 0:
                 self.print_newline()
-                self.stdout.write(' ' * 35, ending='')
+                self.stdout.write(" " * 35, ending="")
 
             elif i % 10 == 0:
-                self.stdout.write(' ', ending='')
+                self.stdout.write(" ", ending="")
 
             self.stdout.flush()
 

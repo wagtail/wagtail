@@ -19,9 +19,9 @@ def register_snippet(model):
         SNIPPET_MODELS.append(model)
         SNIPPET_MODELS.sort(key=lambda x: x._meta.verbose_name)
 
-        @checks.register('panels')
+        @checks.register("panels")
         def modeladmin_model_check(app_configs, **kwargs):
-            errors = check_panels_in_model(model, 'snippets')
+            errors = check_panels_in_model(model, "snippets")
             return errors
 
     return model
@@ -29,6 +29,6 @@ def register_snippet(model):
 
 def get_snippet_usage_url(self):
     return reverse(
-        'wagtailsnippets:usage',
+        "wagtailsnippets:usage",
         args=(self._meta.app_label, self._meta.model_name, quote(self.pk)),
     )

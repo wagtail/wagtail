@@ -40,41 +40,41 @@ install_requires = [
 # Testing dependencies
 testing_extras = [
     # Required for running the tests
-    'python-dateutil>=2.2',
-    'pytz>=2014.7',
-    'elasticsearch>=1.0.0,<3.0',
-    'Jinja2>=2.8,<3.0',
-    'boto3>=1.4,<1.5',
-    'freezegun>=0.3.8',
+    "python-dateutil>=2.2",
+    "pytz>=2014.7",
+    "elasticsearch>=1.0.0,<3.0",
+    "Jinja2>=2.8,<3.0",
+    "boto3>=1.4,<1.5",
+    "freezegun>=0.3.8",
     # For coverage and PEP8 linting
-    'coverage>=3.7.0',
-    'flake8>=3.6.0',
-    'isort==4.2.5',
-    'flake8-blind-except==0.1.1',
-    'flake8-print==2.0.2',
+    "coverage>=3.7.0",
+    "flake8>=3.6.0",
+    "isort==4.2.5",
+    "flake8-blind-except==0.1.1",
+    "flake8-print==2.0.2",
     # For templates linting
-    'jinjalint>=0.5',
+    "jinjalint>=0.5",
 ]
 
 # Documentation dependencies
 documentation_extras = [
-    'pyenchant==1.6.8',
-    'sphinxcontrib-spelling>=2.3.0',
-    'Sphinx>=1.5.2',
-    'sphinx-autobuild>=0.6.0',
-    'sphinx_rtd_theme>=0.1.9',
+    "pyenchant==1.6.8",
+    "sphinxcontrib-spelling>=2.3.0",
+    "Sphinx>=1.5.2",
+    "sphinx-autobuild>=0.6.0",
+    "sphinx_rtd_theme>=0.1.9",
 ]
 
 setup(
-    name='wagtail',
+    name="wagtail",
     version=__version__,
-    description='A Django content management system.',
-    author='Wagtail core team + contributors',
-    author_email='hello@wagtail.io',  # For support queries, please see http://docs.wagtail.io/en/stable/support.html
-    url='http://wagtail.io/',
+    description="A Django content management system.",
+    author="Wagtail core team + contributors",
+    author_email="hello@wagtail.io",  # For support queries, please see http://docs.wagtail.io/en/stable/support.html
+    url="http://wagtail.io/",
     packages=find_packages(),
     include_package_data=True,
-    license='BSD',
+    license="BSD",
     long_description="Wagtail is an open source content management \
 system built on Django, with a strong community and commercial support. \
 It’s focused on user experience, and offers precise control for \
@@ -82,29 +82,29 @@ designers and developers.\n\n\
 For more details, see https://wagtail.io, http://docs.wagtail.io and \
 https://github.com/wagtail/wagtail/.",
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: Web Environment',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Framework :: Django',
-        'Framework :: Django :: 2.0',
-        'Framework :: Django :: 2.1',
-        'Framework :: Django :: 2.2',
-        'Framework :: Wagtail',
-        'Topic :: Internet :: WWW/HTTP :: Site Management',
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Web Environment",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: BSD License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Framework :: Django",
+        "Framework :: Django :: 2.0",
+        "Framework :: Django :: 2.1",
+        "Framework :: Django :: 2.2",
+        "Framework :: Wagtail",
+        "Topic :: Internet :: WWW/HTTP :: Site Management",
     ],
     install_requires=install_requires,
-    extras_require={'testing': testing_extras, 'docs': documentation_extras},
+    extras_require={"testing": testing_extras, "docs": documentation_extras},
     entry_points="""
             [console_scripts]
             wagtail=wagtail.bin.wagtail:main
     """,
     zip_safe=False,
-    cmdclass={'sdist': sdist, 'bdist_egg': check_bdist_egg, 'assets': assets},
+    cmdclass={"sdist": sdist, "bdist_egg": check_bdist_egg, "assets": assets},
 )

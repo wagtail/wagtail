@@ -5,14 +5,14 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [('wagtailcore', '0040_page_draft_title')]
+    dependencies = [("wagtailcore", "0040_page_draft_title")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='groupcollectionpermission',
+            name="groupcollectionpermission",
             options={
-                'verbose_name': 'group collection permission',
-                'verbose_name_plural': 'group collection permissions',
+                "verbose_name": "group collection permission",
+                "verbose_name_plural": "group collection permissions",
             },
         )
     ]

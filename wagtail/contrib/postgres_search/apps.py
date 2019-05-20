@@ -5,7 +5,7 @@ from .utils import get_postgresql_connections, set_weights
 
 
 class PostgresSearchConfig(AppConfig):
-    name = 'wagtail.contrib.postgres_search'
+    name = "wagtail.contrib.postgres_search"
 
     def ready(self):
         @register(Tags.compatibility, Tags.database)
@@ -14,8 +14,8 @@ class PostgresSearchConfig(AppConfig):
                 return []
             return [
                 Error(
-                    'You must use a PostgreSQL database ' 'to use PostgreSQL search.',
-                    id='wagtail.contrib.postgres_search.E001',
+                    "You must use a PostgreSQL database " "to use PostgreSQL search.",
+                    id="wagtail.contrib.postgres_search.E001",
                 )
             ]
 

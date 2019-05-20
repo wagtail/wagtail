@@ -4,8 +4,8 @@ Utility classes for rewriting elements of HTML-like strings
 
 import re
 
-FIND_A_TAG = re.compile(r'<a(\b[^>]*)>')
-FIND_EMBED_TAG = re.compile(r'<embed(\b[^>]*)/>')
+FIND_A_TAG = re.compile(r"<a(\b[^>]*)>")
+FIND_EMBED_TAG = re.compile(r"<embed(\b[^>]*)/>")
 FIND_ATTRS = re.compile(r'([\w-]+)\="([^"]*)"')
 
 
@@ -16,10 +16,10 @@ def extract_attrs(attr_string):
     attributes = {}
     for name, val in FIND_ATTRS.findall(attr_string):
         val = (
-            val.replace('&lt;', '<')
-            .replace('&gt;', '>')
-            .replace('&quot;', '"')
-            .replace('&amp;', '&')
+            val.replace("&lt;", "<")
+            .replace("&gt;", ">")
+            .replace("&quot;", '"')
+            .replace("&amp;", "&")
         )
         attributes[name] = val
     return attributes
@@ -38,10 +38,10 @@ class EmbedRewriter:
     def replace_tag(self, match):
         attrs = extract_attrs(match.group(1))
         try:
-            rule = self.embed_rules[attrs['embedtype']]
+            rule = self.embed_rules[attrs["embedtype"]]
         except KeyError:
             # silently drop any tags with an unrecognised or missing embedtype attribute
-            return ''
+            return ""
         return rule(attrs)
 
     def __call__(self, html):
@@ -61,18 +61,18 @@ class LinkRewriter:
     def replace_tag(self, match):
         attrs = extract_attrs(match.group(1))
         try:
-            link_type = attrs['linktype']
+            link_type = attrs["linktype"]
         except KeyError:
             link_type = None
-            href = attrs.get('href', None)
+            href = attrs.get("href", None)
             if href:
                 # From href attribute we try to detect only the linktypes that we
                 # currently support (`external` & `email`, `page` has a default handler)
                 # from the link chooser.
-                if href.startswith(('http:', 'https:')):
-                    link_type = 'external'
-                elif href.startswith('mailto:'):
-                    link_type = 'email'
+                if href.startswith(("http:", "https:")):
+                    link_type = "external"
+                elif href.startswith("mailto:"):
+                    link_type = "email"
 
             if not link_type:
                 # otherwise return ordinary links without a linktype unchanged
@@ -81,12 +81,12 @@ class LinkRewriter:
         try:
             rule = self.link_rules[link_type]
         except KeyError:
-            if link_type in ['email', 'external']:
+            if link_type in ["email", "external"]:
                 # If no rule is registered for supported types
                 # return ordinary links without a linktype unchanged
                 return match.group(0)
             # unrecognised link type
-            return '<a>'
+            return "<a>"
 
         return rule(attrs)
 

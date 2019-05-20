@@ -12,7 +12,7 @@ class PageSearchTests(object):
     # for each search backend defined in WAGTAILSEARCH_BACKENDS, with the backend name available
     # as self.backend_name
 
-    fixtures = ['test.json']
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.backend = get_search_backend(self.backend_name)
@@ -36,18 +36,18 @@ class PageSearchTests(object):
 
     def test_order_by_title(self):
         list(
-            Page.objects.order_by('title').search(
-                'blah', order_by_relevance=False, backend=self.backend_name
+            Page.objects.order_by("title").search(
+                "blah", order_by_relevance=False, backend=self.backend_name
             )
         )
 
     def test_search_specific_queryset(self):
-        list(Page.objects.specific().search('bread', backend=self.backend_name))
+        list(Page.objects.specific().search("bread", backend=self.backend_name))
 
     def test_search_specific_queryset_with_fields(self):
         list(
             Page.objects.specific().search(
-                'bread', fields=['title'], backend=self.backend_name
+                "bread", fields=["title"], backend=self.backend_name
             )
         )
 
@@ -55,5 +55,5 @@ class PageSearchTests(object):
 for backend_name in settings.WAGTAILSEARCH_BACKENDS.keys():
     test_name = str("Test%sBackend" % backend_name.title())
     globals()[test_name] = type(
-        test_name, (PageSearchTests, TestCase), {'backend_name': backend_name}
+        test_name, (PageSearchTests, TestCase), {"backend_name": backend_name}
     )

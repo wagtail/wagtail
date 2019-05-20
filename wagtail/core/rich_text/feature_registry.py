@@ -55,7 +55,7 @@ class FeatureRegistry:
         return self.default_features
 
     def _scan_for_features(self):
-        for fn in hooks.get_hooks('register_rich_text_features'):
+        for fn in hooks.get_hooks("register_rich_text_features"):
             fn(self)
         self.has_scanned_for_features = True
 
@@ -77,8 +77,8 @@ class FeatureRegistry:
             # invoked as register_link_type(identifier, handler_function) - deprecated
             identifier = identifier_or_handler_obj
             warn(
-                'FeatureRegistry.register_link_type(link_type, handler_function) is deprecated. '
-                'Use FeatureRegistry.register_link_type(handler_object) instead',
+                "FeatureRegistry.register_link_type(link_type, handler_function) is deprecated. "
+                "Use FeatureRegistry.register_link_type(handler_object) instead",
                 category=RemovedInWagtail27Warning,
             )
             self.link_types[identifier] = self.function_as_entity_handler(
@@ -99,8 +99,8 @@ class FeatureRegistry:
             # invoked as register_embed_type(identifier, handler_function) - deprecated
             identifier = identifier_or_handler_obj
             warn(
-                'FeatureRegistry.register_embed_type(link_type, handler_function) is deprecated. '
-                'Use FeatureRegistry.register_embed_type(handler_object) instead',
+                "FeatureRegistry.register_embed_type(link_type, handler_function) is deprecated. "
+                "Use FeatureRegistry.register_embed_type(handler_object) instead",
                 category=RemovedInWagtail27Warning,
             )
             self.embed_types[identifier] = self.function_as_entity_handler(
@@ -133,7 +133,7 @@ class FeatureRegistry:
     def function_as_entity_handler(identifier, fn):
         """Supports legacy registering of entity handlers as functions."""
         return type(
-            'EntityHandlerRegisteredAsFunction',
+            "EntityHandlerRegisteredAsFunction",
             (object,),
-            {'identifier': identifier, 'expand_db_attributes': staticmethod(fn)},
+            {"identifier": identifier, "expand_db_attributes": staticmethod(fn)},
         )

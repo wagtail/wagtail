@@ -5,6 +5,6 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [('wagtailimages', '0018_remove_rendition_filter')]
+    dependencies = [("wagtailimages", "0018_remove_rendition_filter")]
 
-    operations = [migrations.DeleteModel(name='Filter')]
+    operations = [migrations.DeleteModel(name="Filter")]

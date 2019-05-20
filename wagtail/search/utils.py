@@ -23,10 +23,10 @@ def normalise_query_string(query_string):
     query_string = query_string.lower()
 
     # Strip punctuation characters
-    query_string = ''.join([c for c in query_string if c not in string.punctuation])
+    query_string = "".join([c for c in query_string if c not in string.punctuation])
 
     # Remove double spaces
-    query_string = ' '.join(query_string.split())
+    query_string = " ".join(query_string.split())
 
     return query_string
 
@@ -37,8 +37,8 @@ def separate_filters_from_query(query_string):
     filters = {}
     for match_object in re.finditer(filters_regexp, query_string):
         key, value = match_object.groups()
-        filters[key] = value.strip("\"")
+        filters[key] = value.strip('"')
 
-    query_string = re.sub(filters_regexp, '', query_string).strip()
+    query_string = re.sub(filters_regexp, "", query_string).strip()
 
     return filters, query_string

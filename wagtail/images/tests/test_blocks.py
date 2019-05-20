@@ -20,16 +20,16 @@ class TestImageChooserBlock(TestCase):
         # (which bypasses FileField's attempt to read the file)
         self.bad_image = list(
             serializers.deserialize(
-                'python',
+                "python",
                 [
                     {
-                        'fields': {
-                            'title': 'missing image',
-                            'height': 100,
-                            'file': 'original_images/missing-image.jpg',
-                            'width': 100,
+                        "fields": {
+                            "title": "missing image",
+                            "height": 100,
+                            "file": "original_images/missing-image.jpg",
+                            "width": 100,
                         },
-                        'model': 'wagtailimages.image',
+                        "model": "wagtailimages.image",
                     }
                 ],
             )
@@ -41,7 +41,7 @@ class TestImageChooserBlock(TestCase):
         Get the generated filename for a resized image
         """
         name, ext = os.path.splitext(os.path.basename(image.file.name))
-        return '{}images/{}.{}{}'.format(settings.MEDIA_URL, name, filterspec, ext)
+        return "{}images/{}.{}{}".format(settings.MEDIA_URL, name, filterspec, ext)
 
     def test_render(self):
         block = ImageChooserBlock()

@@ -10,21 +10,21 @@ from wagtail.core.models import Page
 
 class Command(BaseCommand):
     help = "Checks for data integrity errors on the page tree, and fixes them where possible."
-    stealth_options = ('delete_orphans',)
+    stealth_options = ("delete_orphans",)
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--noinput',
-            action='store_false',
-            dest='interactive',
+            "--noinput",
+            action="store_false",
+            dest="interactive",
             default=True,
-            help='If provided, any fixes requiring user interaction will be skipped.',
+            help="If provided, any fixes requiring user interaction will be skipped.",
         )
 
     def numberlist_to_string(self, numberlist):
         # Converts a list of numbers into a string
         # Doesn't put "L" after longs
-        return '[' + ', '.join(map(str, numberlist)) + ']'
+        return "[" + ", ".join(map(str, numberlist)) + "]"
 
     def handle(self, **options):
         any_problems_fixed = False
@@ -63,7 +63,7 @@ class Command(BaseCommand):
             # Deleting only the *actual* orphans is a bit silly (since it'll just create
             # more orphans), so generate a queryset that contains descendants as well.
             orphan_paths = Page.objects.filter(id__in=orphans).values_list(
-                'path', flat=True
+                "path", flat=True
             )
             filter_conditions = []
             for path in orphan_paths:
@@ -81,15 +81,15 @@ class Command(BaseCommand):
             self.stdout.write("Orphaned pages found:")
             for page in pages_to_delete:
                 self.stdout.write("ID %d: %s" % (page.id, page.title))
-            self.stdout.write('')
+            self.stdout.write("")
 
-            if options.get('interactive', True):
+            if options.get("interactive", True):
                 yes_or_no = input("Delete these pages? [y/N] ")
-                delete_orphans = yes_or_no.lower().startswith('y')
-                self.stdout.write('')
+                delete_orphans = yes_or_no.lower().startswith("y")
+                self.stdout.write("")
             else:
                 # Running tests, check for the "delete_orphans" option
-                delete_orphans = options.get('delete_orphans', False)
+                delete_orphans = options.get("delete_orphans", False)
 
             if delete_orphans:
                 deletion_count = len(pages_to_delete)

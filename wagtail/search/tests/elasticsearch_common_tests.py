@@ -28,7 +28,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         with self.assertRaises(FilterError):
             list(
                 self.backend.search(
-                    "Hello", models.Book.objects.filter(title__iregex='h(ea)llo')
+                    "Hello", models.Book.objects.filter(title__iregex="h(ea)llo")
                 )
             )
 
@@ -115,7 +115,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
     def test_and_operator_with_single_field(self):
         # Testing for bug #1859
         results = self.backend.search(
-            "JavaScript", models.Book, operator='and', fields=['title']
+            "JavaScript", models.Book, operator="and", fields=["title"]
         )
         self.assertUnsortedListEqual(
             [r.title for r in results],
@@ -124,7 +124,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
 
     def test_update_index_command_schema_only(self):
         management.call_command(
-            'update_index',
+            "update_index",
             backend_name=self.backend_name,
             schema_only=True,
             stdout=StringIO(),

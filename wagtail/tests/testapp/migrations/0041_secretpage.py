@@ -8,29 +8,29 @@ import wagtail.tests.testapp.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
-        ('tests', '0040_customdocument_file_hash'),
+        ("wagtailcore", "0041_group_collection_permissions_verbose_name_plural"),
+        ("tests", "0040_customdocument_file_hash"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='SecretPage',
+            name="SecretPage",
             fields=[
                 (
-                    'page_ptr',
+                    "page_ptr",
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to='wagtailcore.Page',
+                        to="wagtailcore.Page",
                     ),
                 ),
-                ('boring_data', models.TextField()),
-                ('secret_data', models.TextField()),
+                ("boring_data", models.TextField()),
+                ("secret_data", models.TextField()),
             ],
-            options={'abstract': False},
-            bases=(wagtail.tests.testapp.models.PerUserPageMixin, 'wagtailcore.page'),
+            options={"abstract": False},
+            bases=(wagtail.tests.testapp.models.PerUserPageMixin, "wagtailcore.page"),
         )
     ]

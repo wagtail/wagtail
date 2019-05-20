@@ -14,7 +14,7 @@ def reject_request(request):
         raise PermissionDenied
 
     return auth_redirect_to_login(
-        request.get_full_path(), login_url=reverse('wagtailadmin_login')
+        request.get_full_path(), login_url=reverse("wagtailadmin_login")
     )
 
 
@@ -25,8 +25,8 @@ def require_admin_access(view_func):
         if user.is_anonymous:
             return reject_request(request)
 
-        if user.has_perms(['wagtailadmin.access_admin']):
-            if hasattr(user, 'wagtail_userprofile'):
+        if user.has_perms(["wagtailadmin.access_admin"]):
+            if hasattr(user, "wagtail_userprofile"):
                 language = user.wagtail_userprofile.get_preferred_language()
                 l18n.set_language(language)
                 activate_lang(language)
@@ -35,7 +35,7 @@ def require_admin_access(view_func):
             return view_func(request, *args, **kwargs)
 
         if not request.is_ajax():
-            messages.error(request, _('You do not have permission to access the admin'))
+            messages.error(request, _("You do not have permission to access the admin"))
 
         return reject_request(request)
 

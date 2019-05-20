@@ -36,9 +36,9 @@ class ConvertedValue(str):
 
 
 class ConvertedValueField(models.IntegerField):
-    '''
+    """
         Roughly copied from https://github.com/django/django/blob/d6eaf7c0183cd04b78f2a55e1d60bb7e59598310/tests/custom_pk/fields.py
-    '''
+    """
 
     def pre_save(self, instance, add):
         value = getattr(instance, self.attname, None)

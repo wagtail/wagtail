@@ -18,7 +18,7 @@ KEEP_WHITESPACE = 1
 FORCE_WHITESPACE = 2
 
 # match one or more consecutive normal spaces, new-lines, tabs and form-feeds
-WHITESPACE_RE = re.compile(r'[ \t\n\f\r]+')
+WHITESPACE_RE = re.compile(r"[ \t\n\f\r]+")
 
 
 class HandlerState:
@@ -44,23 +44,23 @@ class HandlerState:
     def push(self):
         self.pushed_states.append(
             {
-                'current_block': self.current_block,
-                'current_inline_styles': self.current_inline_styles,
-                'current_entity_ranges': self.current_entity_ranges,
-                'leading_whitespace': self.leading_whitespace,
-                'list_depth': self.list_depth,
-                'list_item_type': self.list_item_type,
+                "current_block": self.current_block,
+                "current_inline_styles": self.current_inline_styles,
+                "current_entity_ranges": self.current_entity_ranges,
+                "leading_whitespace": self.leading_whitespace,
+                "list_depth": self.list_depth,
+                "list_item_type": self.list_item_type,
             }
         )
 
     def pop(self):
         last_state = self.pushed_states.pop()
-        self.current_block = last_state['current_block']
-        self.current_inline_styles = last_state['current_inline_styles']
-        self.current_entity_ranges = last_state['current_entity_ranges']
-        self.leading_whitespace = last_state['leading_whitespace']
-        self.list_depth = last_state['list_depth']
-        self.list_item_type = last_state['list_item_type']
+        self.current_block = last_state["current_block"]
+        self.current_inline_styles = last_state["current_inline_styles"]
+        self.current_entity_ranges = last_state["current_entity_ranges"]
+        self.leading_whitespace = last_state["leading_whitespace"]
+        self.list_depth = last_state["list_depth"]
+        self.list_item_type = last_state["list_item_type"]
 
 
 def add_paragraph_block(state, contentstate):
@@ -69,7 +69,7 @@ def add_paragraph_block(state, contentstate):
     useful for element handlers that aren't paragraph elements themselves, but need
     to insert paragraphs to ensure correctness
     """
-    block = Block('unstyled', depth=state.list_depth)
+    block = Block("unstyled", depth=state.list_depth)
     contentstate.blocks.append(block)
     state.current_block = block
     state.leading_whitespace = STRIP_WHITESPACE
@@ -151,7 +151,7 @@ class InlineStyleElementHandler:
         if state.leading_whitespace == FORCE_WHITESPACE:
             # any pending whitespace should be output before handling this tag,
             # and subsequent whitespace should be collapsed into it (= stripped)
-            state.current_block.text += ' '
+            state.current_block.text += " "
             state.leading_whitespace = STRIP_WHITESPACE
 
         inline_style_range = InlineStyleRange(self.style)
@@ -185,7 +185,7 @@ class InlineEntityElementHandler:
         if state.leading_whitespace == FORCE_WHITESPACE:
             # any pending whitespace should be output before handling this tag,
             # and subsequent whitespace should be collapsed into it (= stripped)
-            state.current_block.text += ' '
+            state.current_block.text += " "
             state.leading_whitespace = STRIP_WHITESPACE
 
         # convert attrs from a list of (name, value) tuples to a dict
@@ -215,28 +215,28 @@ class InlineEntityElementHandler:
 
 
 class LinkElementHandler(InlineEntityElementHandler):
-    mutability = 'MUTABLE'
+    mutability = "MUTABLE"
 
 
 class ExternalLinkElementHandler(LinkElementHandler):
     def get_attribute_data(self, attrs):
-        return {'url': attrs['href']}
+        return {"url": attrs["href"]}
 
 
 class PageLinkElementHandler(LinkElementHandler):
     def get_attribute_data(self, attrs):
         try:
-            page = Page.objects.get(id=attrs['id']).specific
+            page = Page.objects.get(id=attrs["id"]).specific
         except Page.DoesNotExist:
             # retain ID so that it's still identified as a page link (albeit a broken one)
-            return {'id': int(attrs['id']), 'url': None, 'parentId': None}
+            return {"id": int(attrs["id"]), "url": None, "parentId": None}
 
         parent_page = page.get_parent()
 
         return {
-            'id': page.id,
-            'url': page.url,
-            'parentId': parent_page.id if parent_page else None,
+            "id": page.id,
+            "url": page.url,
+            "parentId": parent_page.id if parent_page else None,
         }
 
 
@@ -260,9 +260,9 @@ class AtomicBlockEntityElementHandler:
         entity = self.create_entity(name, attr_dict, state, contentstate)
         key = contentstate.add_entity(entity)
 
-        block = Block('atomic', depth=state.list_depth)
+        block = Block("atomic", depth=state.list_depth)
         contentstate.blocks.append(block)
-        block.text = ' '
+        block.text = " "
         entity_range = EntityRange(key)
         entity_range.offset = 0
         entity_range.length = 1
@@ -275,7 +275,7 @@ class AtomicBlockEntityElementHandler:
 
 class HorizontalRuleHandler(AtomicBlockEntityElementHandler):
     def create_entity(self, name, attrs, state, contentstate):
-        return Entity('HORIZONTAL_RULE', 'IMMUTABLE', {})
+        return Entity("HORIZONTAL_RULE", "IMMUTABLE", {})
 
 
 class LineBreakHandler:
@@ -284,7 +284,7 @@ class LineBreakHandler:
             # ignore line breaks that exist at the top level
             return
 
-        state.current_block.text += '\n'
+        state.current_block.text += "\n"
 
     def handle_endtag(self, name, state, contentstate):
         pass
@@ -292,14 +292,14 @@ class LineBreakHandler:
 
 class HtmlToContentStateHandler(HTMLParser):
     def __init__(self, features=()):
-        self.paragraph_handler = BlockElementHandler('unstyled')
+        self.paragraph_handler = BlockElementHandler("unstyled")
         self.element_handlers = HTMLRuleset(
-            {'p': self.paragraph_handler, 'br': LineBreakHandler()}
+            {"p": self.paragraph_handler, "br": LineBreakHandler()}
         )
         for feature in features:
-            rule = feature_registry.get_converter_rule('contentstate', feature)
+            rule = feature_registry.get_converter_rule("contentstate", feature)
             if rule is not None:
-                self.element_handlers.add_rules(rule['from_database_format'])
+                self.element_handlers.add_rules(rule["from_database_format"])
 
         super().__init__(convert_charrefs=True)
 
@@ -341,17 +341,17 @@ class HtmlToContentStateHandler(HTMLParser):
     def handle_data(self, content):
         # normalise whitespace sequences to a single space
         # This is in line with https://www.w3.org/TR/html4/struct/text.html#h-9.1
-        content = re.sub(WHITESPACE_RE, ' ', content)
+        content = re.sub(WHITESPACE_RE, " ", content)
 
         if self.state.current_block is None:
-            if content == ' ':
+            if content == " ":
                 # ignore top-level whitespace
                 return
             else:
                 # create a new paragraph block for this content
                 add_paragraph_block(self.state, self.contentstate)
 
-        if content == ' ':
+        if content == " ":
             # if leading_whitespace = strip, this whitespace node is not significant
             #   and should be skipped.
             # For other cases, _don't_ output the whitespace yet, but set leading_whitespace = force
@@ -365,11 +365,11 @@ class HtmlToContentStateHandler(HTMLParser):
                 content = content.lstrip()
             elif (
                 self.state.leading_whitespace == FORCE_WHITESPACE
-                and not content.startswith(' ')
+                and not content.startswith(" ")
             ):
-                content = ' ' + content
+                content = " " + content
 
-            if content.endswith(' '):
+            if content.endswith(" "):
                 # don't output trailing whitespace yet, because we want to discard it if the end
                 # of the block follows. Instead, we'll set leading_whitespace = force so that
                 # any following text or inline element will be prefixed by a space

@@ -9,7 +9,7 @@ from wagtail.documents.models import get_document_model
 
 
 class DocumentLinkHandler(LinkHandler):
-    identifier = 'document'
+    identifier = "document"
 
     @staticmethod
     def get_model():

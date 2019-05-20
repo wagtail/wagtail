@@ -13,12 +13,12 @@ from wagtail.tests.utils import WagtailTestUtils
 class TestUserbarTag(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_superuser(
-            username='test', email='test@email.com', password='password'
+            username="test", email="test@email.com", password="password"
         )
         self.homepage = Page.objects.get(id=2)
 
     def dummy_request(self, user=None):
-        request = RequestFactory().get('/')
+        request = RequestFactory().get("/")
         request.user = user or AnonymousUser()
         request.site = Site.objects.first()
         return request
@@ -29,7 +29,7 @@ class TestUserbarTag(TestCase):
             Context(
                 {
                     PAGE_TEMPLATE_VAR: self.homepage,
-                    'request': self.dummy_request(self.user),
+                    "request": self.dummy_request(self.user),
                 }
             )
         )
@@ -48,7 +48,7 @@ class TestUserbarTag(TestCase):
         """
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
         content = template.render(
-            Context({'self': self.homepage, 'request': self.dummy_request(self.user)})
+            Context({"self": self.homepage, "request": self.dummy_request(self.user)})
         )
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
@@ -56,11 +56,11 @@ class TestUserbarTag(TestCase):
     def test_userbar_tag_anonymous_user(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
         content = template.render(
-            Context({PAGE_TEMPLATE_VAR: self.homepage, 'request': self.dummy_request()})
+            Context({PAGE_TEMPLATE_VAR: self.homepage, "request": self.dummy_request()})
         )
 
         # Make sure nothing was rendered
-        self.assertEqual(content, '')
+        self.assertEqual(content, "")
 
 
 class TestUserbarFrontend(TestCase, WagtailTestUtils):
@@ -70,18 +70,18 @@ class TestUserbarFrontend(TestCase, WagtailTestUtils):
 
     def test_userbar_frontend(self):
         response = self.client.get(
-            reverse('wagtailadmin_userbar_frontend', args=(self.homepage.id,))
+            reverse("wagtailadmin_userbar_frontend", args=(self.homepage.id,))
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/userbar/base.html')
+        self.assertTemplateUsed(response, "wagtailadmin/userbar/base.html")
 
     def test_userbar_frontend_anonymous_user_cannot_see(self):
         # Logout
         self.client.logout()
 
         response = self.client.get(
-            reverse('wagtailadmin_userbar_frontend', args=(self.homepage.id,))
+            reverse("wagtailadmin_userbar_frontend", args=(self.homepage.id,))
         )
 
         # Check that the user received a forbidden message
@@ -89,27 +89,27 @@ class TestUserbarFrontend(TestCase, WagtailTestUtils):
 
 
 class TestUserbarAddLink(TestCase, WagtailTestUtils):
-    fixtures = ['test.json']
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.login()
-        self.homepage = Page.objects.get(url_path='/home/')
-        self.event_index = Page.objects.get(url_path='/home/events/')
+        self.homepage = Page.objects.get(url_path="/home/")
+        self.event_index = Page.objects.get(url_path="/home/events/")
 
-        self.business_index = BusinessIndex(title='Business', live=True)
+        self.business_index = BusinessIndex(title="Business", live=True)
         self.homepage.add_child(instance=self.business_index)
 
-        self.business_child = BusinessChild(title='Business Child', live=True)
+        self.business_child = BusinessChild(title="Business Child", live=True)
         self.business_index.add_child(instance=self.business_child)
 
     def test_page_allowing_subpages(self):
         response = self.client.get(
-            reverse('wagtailadmin_userbar_frontend', args=(self.event_index.id,))
+            reverse("wagtailadmin_userbar_frontend", args=(self.event_index.id,))
         )
 
         # page allows subpages, so the 'add page' button should show
         expected_url = reverse(
-            'wagtailadmin_pages:add_subpage', args=(self.event_index.id,)
+            "wagtailadmin_pages:add_subpage", args=(self.event_index.id,)
         )
         expected_link = (
             '<a href="%s" target="_parent">Add a child page</a>' % expected_url
@@ -118,12 +118,12 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
 
     def test_page_disallowing_subpages(self):
         response = self.client.get(
-            reverse('wagtailadmin_userbar_frontend', args=(self.business_child.id,))
+            reverse("wagtailadmin_userbar_frontend", args=(self.business_child.id,))
         )
 
         # page disallows subpages, so the 'add page' button shouldn't show
         expected_url = reverse(
-            'wagtailadmin_pages:add_subpage', args=(self.business_index.id,)
+            "wagtailadmin_pages:add_subpage", args=(self.business_index.id,)
         )
         expected_link = (
             '<a href="%s" target="_parent">Add a child page</a>' % expected_url
@@ -140,18 +140,18 @@ class TestUserbarModeration(TestCase, WagtailTestUtils):
 
     def test_userbar_moderation(self):
         response = self.client.get(
-            reverse('wagtailadmin_userbar_moderation', args=(self.revision.id,))
+            reverse("wagtailadmin_userbar_moderation", args=(self.revision.id,))
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/userbar/base.html')
+        self.assertTemplateUsed(response, "wagtailadmin/userbar/base.html")
 
     def test_userbar_moderation_anonymous_user_cannot_see(self):
         # Logout
         self.client.logout()
 
         response = self.client.get(
-            reverse('wagtailadmin_userbar_moderation', args=(self.revision.id,))
+            reverse("wagtailadmin_userbar_moderation", args=(self.revision.id,))
         )
 
         # Check that the user received a forbidden message

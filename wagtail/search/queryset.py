@@ -9,7 +9,7 @@ class SearchableQuerySetMixin:
         operator=None,
         order_by_relevance=True,
         partial_match=True,
-        backend='default',
+        backend="default",
     ):
         """
         This runs a search query on all the items in the QuerySet
@@ -30,7 +30,7 @@ class SearchableQuerySetMixin:
         fields=None,
         operator=None,
         order_by_relevance=True,
-        backend='default',
+        backend="default",
     ):
         """
         This runs an autocomplete query on all the items in the QuerySet

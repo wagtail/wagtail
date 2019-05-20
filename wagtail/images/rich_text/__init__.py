@@ -9,7 +9,7 @@ from wagtail.images.formats import get_image_format
 
 
 class ImageEmbedHandler(EmbedHandler):
-    identifier = 'image'
+    identifier = "image"
 
     @staticmethod
     def get_model():
@@ -26,5 +26,5 @@ class ImageEmbedHandler(EmbedHandler):
         except ObjectDoesNotExist:
             return '<img alt="">'
 
-        image_format = get_image_format(attrs['format'])
-        return image_format.image_to_html(image, attrs.get('alt', ''))
+        image_format = get_image_format(attrs["format"])
+        return image_format.image_to_html(image, attrs.get("alt", ""))

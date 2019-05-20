@@ -11,7 +11,7 @@ from modelcluster.fields import ParentalManyToManyField
 from wagtail.search.backends import get_search_backends_with_name
 
 
-logger = logging.getLogger('wagtail.search.index')
+logger = logging.getLogger("wagtail.search.index")
 
 
 class Indexed:
@@ -26,13 +26,13 @@ class Indexed:
     @classmethod
     def indexed_get_content_type(cls):
         # Work out content type
-        content_type = (cls._meta.app_label + '_' + cls.__name__).lower()
+        content_type = (cls._meta.app_label + "_" + cls.__name__).lower()
 
         # Get parent content type
         parent = cls.indexed_get_parent()
         if parent:
             parent_content_type = parent.indexed_get_content_type()
-            return parent_content_type + '_' + content_type
+            return parent_content_type + "_" + content_type
         else:
             return content_type
 
@@ -44,7 +44,7 @@ class Indexed:
             return parent.indexed_get_content_type()
         else:
             # At toplevel, return this content type
-            return (cls._meta.app_label + '_' + cls.__name__).lower()
+            return (cls._meta.app_label + "_" + cls.__name__).lower()
 
     @classmethod
     def get_search_fields(cls):
@@ -220,8 +220,8 @@ class BaseField:
                     return base_cls
 
     def get_type(self, cls):
-        if 'type' in self.kwargs:
-            return self.kwargs['type']
+        if "type" in self.kwargs:
+            return self.kwargs["type"]
 
         try:
             field = self.get_field(cls)
@@ -238,7 +238,7 @@ class BaseField:
             return field.get_internal_type()
 
         except models.fields.FieldDoesNotExist:
-            return 'CharField'
+            return "CharField"
 
     def get_value(self, obj):
         from taggit.managers import TaggableManager
@@ -246,13 +246,13 @@ class BaseField:
         try:
             field = self.get_field(obj.__class__)
             value = field.value_from_object(obj)
-            if hasattr(field, 'get_searchable_content'):
+            if hasattr(field, "get_searchable_content"):
                 value = field.get_searchable_content(value)
             elif isinstance(field, TaggableManager):
                 # Special case for tags fields. Convert QuerySet of TaggedItems into QuerySet of Tags
                 Tag = field.remote_field.model
                 value = Tag.objects.filter(
-                    id__in=value.values_list('tag_id', flat=True)
+                    id__in=value.values_list("tag_id", flat=True)
                 )
             elif isinstance(field, RelatedField):
                 # The type of the ForeignKey may have a get_searchable_content method that we should
@@ -263,17 +263,17 @@ class BaseField:
                 while isinstance(remote_field, RelatedField):
                     remote_field = remote_field.target_field
 
-                if hasattr(remote_field, 'get_searchable_content'):
+                if hasattr(remote_field, "get_searchable_content"):
                     value = remote_field.get_searchable_content(value)
             return value
         except models.fields.FieldDoesNotExist:
             value = getattr(obj, self.field_name, None)
-            if hasattr(value, '__call__'):
+            if hasattr(value, "__call__"):
                 value = value()
             return value
 
     def __repr__(self):
-        return '<%s: %s>' % (self.__class__.__name__, self.field_name)
+        return "<%s: %s>" % (self.__class__.__name__, self.field_name)
 
 
 class SearchField(BaseField):

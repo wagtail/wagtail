@@ -5,14 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [('wagtailcore', '0037_set_page_owner_editable')]
+    dependencies = [("wagtailcore", "0037_set_page_owner_editable")]
 
     operations = [
         migrations.AlterField(
-            model_name='page',
-            name='first_published_at',
+            model_name="page",
+            name="first_published_at",
             field=models.DateTimeField(
-                blank=True, db_index=True, null=True, verbose_name='first published at'
+                blank=True, db_index=True, null=True, verbose_name="first published at"
             ),
         )
     ]

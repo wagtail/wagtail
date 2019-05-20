@@ -24,7 +24,7 @@ class PermissionPolicyTestUtils:
         confirm that all tuples correctly represent permissions for that user as
         returned by user_has_permission
         """
-        actions = ['add', 'change', 'delete', 'frobnicate']
+        actions = ["add", "change", "delete", "frobnicate"]
         for test_case in test_cases:
             user = test_case[0]
             expected_results = zip(actions, test_case[1:])
@@ -48,7 +48,7 @@ class PermissionPolicyTestUtils:
         confirm that all tuples correctly represent permissions for that user on
         the given instance, as returned by user_has_permission_for_instance
         """
-        actions = ['change', 'delete', 'frobnicate']
+        actions = ["change", "delete", "frobnicate"]
         for test_case in test_cases:
             user = test_case[0]
             expected_results = zip(actions, test_case[1:])
@@ -77,13 +77,13 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
         # Permissions
         image_content_type = ContentType.objects.get_for_model(Image)
         add_image_permission = Permission.objects.get(
-            content_type=image_content_type, codename='add_image'
+            content_type=image_content_type, codename="add_image"
         )
         change_image_permission = Permission.objects.get(
-            content_type=image_content_type, codename='change_image'
+            content_type=image_content_type, codename="change_image"
         )
         delete_image_permission = Permission.objects.get(
-            content_type=image_content_type, codename='delete_image'
+            content_type=image_content_type, codename="delete_image"
         )
 
         # Groups
@@ -97,66 +97,66 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
         User = get_user_model()
 
         self.superuser = User.objects.create_superuser(
-            'superuser', 'superuser@example.com', 'password'
+            "superuser", "superuser@example.com", "password"
         )
         self.inactive_superuser = User.objects.create_superuser(
-            'inactivesuperuser',
-            'inactivesuperuser@example.com',
-            'password',
+            "inactivesuperuser",
+            "inactivesuperuser@example.com",
+            "password",
             is_active=False,
         )
 
         # a user with add_image permission through the 'Image adders' group
         self.image_adder = User.objects.create_user(
-            'imageadder', 'imageadder@example.com', 'password'
+            "imageadder", "imageadder@example.com", "password"
         )
         self.image_adder.groups.add(image_adders_group)
 
         # a user with add_image permission through user_permissions
         self.oneoff_image_adder = User.objects.create_user(
-            'oneoffimageadder', 'oneoffimageadder@example.com', 'password'
+            "oneoffimageadder", "oneoffimageadder@example.com", "password"
         )
         self.oneoff_image_adder.user_permissions.add(add_image_permission)
 
         # a user that has add_image permission, but is inactive
         self.inactive_image_adder = User.objects.create_user(
-            'inactiveimageadder',
-            'inactiveimageadder@example.com',
-            'password',
+            "inactiveimageadder",
+            "inactiveimageadder@example.com",
+            "password",
             is_active=False,
         )
         self.inactive_image_adder.groups.add(image_adders_group)
 
         # a user with change_image permission through the 'Image changers' group
         self.image_changer = User.objects.create_user(
-            'imagechanger', 'imagechanger@example.com', 'password'
+            "imagechanger", "imagechanger@example.com", "password"
         )
         self.image_changer.groups.add(image_changers_group)
 
         # a user with change_image permission through user_permissions
         self.oneoff_image_changer = User.objects.create_user(
-            'oneoffimagechanger', 'oneoffimagechanger@example.com', 'password'
+            "oneoffimagechanger", "oneoffimagechanger@example.com", "password"
         )
         self.oneoff_image_changer.user_permissions.add(change_image_permission)
 
         # a user that has change_image permission, but is inactive
         self.inactive_image_changer = User.objects.create_user(
-            'inactiveimagechanger',
-            'inactiveimagechanger@example.com',
-            'password',
+            "inactiveimagechanger",
+            "inactiveimagechanger@example.com",
+            "password",
             is_active=False,
         )
         self.inactive_image_changer.groups.add(image_changers_group)
 
         # a user with delete_image permission through user_permissions
         self.oneoff_image_deleter = User.objects.create_user(
-            'oneoffimagedeleter', 'oneoffimagedeleter@example.com', 'password'
+            "oneoffimagedeleter", "oneoffimagedeleter@example.com", "password"
         )
         self.oneoff_image_deleter.user_permissions.add(delete_image_permission)
 
         # a user with no permissions
         self.useless_user = User.objects.create_user(
-            'uselessuser', 'uselessuser@example.com', 'password'
+            "uselessuser", "uselessuser@example.com", "password"
         )
 
         self.anonymous_user = AnonymousUser()
@@ -213,19 +213,19 @@ class TestBlanketPermissionPolicy(PermissionPolicyTestCase):
     def test_user_has_any_permission(self):
         for user in self.all_users:
             self.assertTrue(
-                self.policy.user_has_any_permission(user, ['add', 'change'])
+                self.policy.user_has_any_permission(user, ["add", "change"])
             )
 
     def test_users_with_permission(self):
         # all active users have permission
-        users_with_add_permission = self.policy.users_with_permission('add')
+        users_with_add_permission = self.policy.users_with_permission("add")
 
         self.assertResultSetEqual(users_with_add_permission, self.active_users)
 
     def test_users_with_any_permission(self):
         # all active users have permission
         users_with_add_or_change_permission = self.policy.users_with_any_permission(
-            ['add', 'change']
+            ["add", "change"]
         )
 
         self.assertResultSetEqual(
@@ -242,7 +242,7 @@ class TestBlanketPermissionPolicy(PermissionPolicyTestCase):
         for user in self.all_users:
             self.assertTrue(
                 self.policy.user_has_any_permission_for_instance(
-                    user, ['change', 'delete'], self.adder_image
+                    user, ["change", "delete"], self.adder_image
                 )
             )
 
@@ -252,7 +252,7 @@ class TestBlanketPermissionPolicy(PermissionPolicyTestCase):
         # all users can edit all instances
         for user in self.all_users:
             self.assertResultSetEqual(
-                self.policy.instances_user_has_permission_for(user, 'change'),
+                self.policy.instances_user_has_permission_for(user, "change"),
                 all_images,
             )
 
@@ -262,7 +262,7 @@ class TestBlanketPermissionPolicy(PermissionPolicyTestCase):
         for user in self.all_users:
             self.assertResultSetEqual(
                 self.policy.instances_user_has_any_permission_for(
-                    user, ['change', 'delete']
+                    user, ["change", "delete"]
                 ),
                 all_images,
             )
@@ -270,7 +270,7 @@ class TestBlanketPermissionPolicy(PermissionPolicyTestCase):
     def test_users_with_permission_for_instance(self):
         # all active users have permission
         users_with_change_permission = self.policy.users_with_permission_for_instance(
-            'change', self.useless_image
+            "change", self.useless_image
         )
 
         self.assertResultSetEqual(users_with_change_permission, self.active_users)
@@ -278,7 +278,7 @@ class TestBlanketPermissionPolicy(PermissionPolicyTestCase):
     def test_users_with_any_permission_for_instance(self):
         # all active users have permission
         users_with_change_or_del_permission = self.policy.users_with_any_permission_for_instance(
-            ['change', 'delete'], self.useless_image
+            ["change", "delete"], self.useless_image
         )
 
         self.assertResultSetEqual(
@@ -312,26 +312,26 @@ class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
 
     def test_user_has_any_permission(self):
         self.assertTrue(
-            self.policy.user_has_any_permission(self.superuser, ['add', 'change'])
+            self.policy.user_has_any_permission(self.superuser, ["add", "change"])
         )
 
         self.assertFalse(
             self.policy.user_has_any_permission(
-                self.inactive_superuser, ['add', 'change']
+                self.inactive_superuser, ["add", "change"]
             )
         )
 
         self.assertTrue(
-            self.policy.user_has_any_permission(self.useless_user, ['add', 'change'])
+            self.policy.user_has_any_permission(self.useless_user, ["add", "change"])
         )
 
         self.assertFalse(
-            self.policy.user_has_any_permission(self.anonymous_user, ['add', 'change'])
+            self.policy.user_has_any_permission(self.anonymous_user, ["add", "change"])
         )
 
     def test_users_with_permission(self):
         # all active users have permission
-        users_with_add_permission = self.policy.users_with_permission('add')
+        users_with_add_permission = self.policy.users_with_permission("add")
 
         self.assertResultSetEqual(
             users_with_add_permission,
@@ -349,7 +349,7 @@ class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
     def test_users_with_any_permission(self):
         # all active users have permission
         users_with_add_or_change_permission = self.policy.users_with_any_permission(
-            ['add', 'change']
+            ["add", "change"]
         )
 
         self.assertResultSetEqual(
@@ -390,28 +390,28 @@ class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
         # superuser has permission
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
-                self.superuser, ['change', 'delete'], self.adder_image
+                self.superuser, ["change", "delete"], self.adder_image
             )
         )
 
         # inactive user has no permission
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.inactive_superuser, ['change', 'delete'], self.adder_image
+                self.inactive_superuser, ["change", "delete"], self.adder_image
             )
         )
 
         # ordinary user has permission
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
-                self.useless_user, ['change', 'delete'], self.adder_image
+                self.useless_user, ["change", "delete"], self.adder_image
             )
         )
 
         # anonymous user has no permission
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.anonymous_user, ['change', 'delete'], self.adder_image
+                self.anonymous_user, ["change", "delete"], self.adder_image
             )
         )
 
@@ -421,28 +421,28 @@ class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
 
         # the set of images editable by superuser includes all images
         self.assertResultSetEqual(
-            self.policy.instances_user_has_permission_for(self.superuser, 'change'),
+            self.policy.instances_user_has_permission_for(self.superuser, "change"),
             all_images,
         )
 
         # the set of images editable by inactive superuser includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
-                self.inactive_superuser, 'change'
+                self.inactive_superuser, "change"
             ),
             no_images,
         )
 
         # the set of images editable by ordinary user includes all images
         self.assertResultSetEqual(
-            self.policy.instances_user_has_permission_for(self.useless_user, 'change'),
+            self.policy.instances_user_has_permission_for(self.useless_user, "change"),
             all_images,
         )
 
         # the set of images editable by anonymous user includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
-                self.anonymous_user, 'change'
+                self.anonymous_user, "change"
             ),
             no_images,
         )
@@ -454,7 +454,7 @@ class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
         # the set of images editable by superuser includes all images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.superuser, ['change', 'delete']
+                self.superuser, ["change", "delete"]
             ),
             all_images,
         )
@@ -462,7 +462,7 @@ class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
         # the set of images editable by inactive superuser includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.inactive_superuser, ['change', 'delete']
+                self.inactive_superuser, ["change", "delete"]
             ),
             no_images,
         )
@@ -470,7 +470,7 @@ class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
         # the set of images editable by ordinary user includes all images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.useless_user, ['change', 'delete']
+                self.useless_user, ["change", "delete"]
             ),
             all_images,
         )
@@ -478,7 +478,7 @@ class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
         # the set of images editable by anonymous user includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.anonymous_user, ['change', 'delete']
+                self.anonymous_user, ["change", "delete"]
             ),
             no_images,
         )
@@ -486,7 +486,7 @@ class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
     def test_users_with_permission_for_instance(self):
         # all active users have permission
         users_with_change_permission = self.policy.users_with_permission_for_instance(
-            'change', self.useless_image
+            "change", self.useless_image
         )
 
         self.assertResultSetEqual(
@@ -505,7 +505,7 @@ class TestAuthenticationOnlyPermissionPolicy(PermissionPolicyTestCase):
     def test_users_with_any_permission_for_instance(self):
         # all active users have permission
         users_with_change_or_del_permission = self.policy.users_with_any_permission_for_instance(
-            ['change', 'delete'], self.useless_image
+            ["change", "delete"], self.useless_image
         )
 
         self.assertResultSetEqual(
@@ -558,62 +558,62 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
     def test_user_has_any_permission(self):
         # Superuser can do everything
         self.assertTrue(
-            self.policy.user_has_any_permission(self.superuser, ['add', 'change'])
+            self.policy.user_has_any_permission(self.superuser, ["add", "change"])
         )
 
         # Inactive superuser can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission(
-                self.inactive_superuser, ['add', 'change']
+                self.inactive_superuser, ["add", "change"]
             )
         )
 
         # Only one of the permissions in the list needs to pass
         # in order for user_has_any_permission to return true
         self.assertTrue(
-            self.policy.user_has_any_permission(self.image_adder, ['add', 'change'])
+            self.policy.user_has_any_permission(self.image_adder, ["add", "change"])
         )
         self.assertTrue(
             self.policy.user_has_any_permission(
-                self.oneoff_image_adder, ['add', 'change']
+                self.oneoff_image_adder, ["add", "change"]
             )
         )
         self.assertTrue(
-            self.policy.user_has_any_permission(self.image_changer, ['add', 'change'])
+            self.policy.user_has_any_permission(self.image_changer, ["add", "change"])
         )
 
         # User with some permission, but not the ones in the list,
         # should return false
         self.assertFalse(
-            self.policy.user_has_any_permission(self.image_changer, ['add', 'delete'])
+            self.policy.user_has_any_permission(self.image_changer, ["add", "delete"])
         )
 
         # Inactive user with the appropriate permissions can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission(
-                self.inactive_image_adder, ['add', 'delete']
+                self.inactive_image_adder, ["add", "delete"]
             )
         )
 
         # User with no permissions can do nothing
         self.assertFalse(
-            self.policy.user_has_any_permission(self.useless_user, ['add', 'change'])
+            self.policy.user_has_any_permission(self.useless_user, ["add", "change"])
         )
 
         # Anonymous user can do nothing
         self.assertFalse(
-            self.policy.user_has_any_permission(self.anonymous_user, ['add', 'change'])
+            self.policy.user_has_any_permission(self.anonymous_user, ["add", "change"])
         )
 
     def test_users_with_permission(self):
-        users_with_add_permission = self.policy.users_with_permission('add')
+        users_with_add_permission = self.policy.users_with_permission("add")
 
         self.assertResultSetEqual(
             users_with_add_permission,
             [self.superuser, self.image_adder, self.oneoff_image_adder],
         )
 
-        users_with_change_permission = self.policy.users_with_permission('change')
+        users_with_change_permission = self.policy.users_with_permission("change")
 
         self.assertResultSetEqual(
             users_with_change_permission,
@@ -622,7 +622,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
 
     def test_users_with_any_permission(self):
         users_with_add_or_change_permission = self.policy.users_with_any_permission(
-            ['add', 'change']
+            ["add", "change"]
         )
 
         self.assertResultSetEqual(
@@ -637,7 +637,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         )
 
         users_with_change_or_delete_permission = self.policy.users_with_any_permission(
-            ['change', 'delete']
+            ["change", "delete"]
         )
 
         self.assertResultSetEqual(
@@ -675,14 +675,14 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         # Superuser can do everything
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
-                self.superuser, ['change', 'delete'], self.adder_image
+                self.superuser, ["change", "delete"], self.adder_image
             )
         )
 
         # Inactive superuser can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.inactive_superuser, ['change', 'delete'], self.adder_image
+                self.inactive_superuser, ["change", "delete"], self.adder_image
             )
         )
 
@@ -690,12 +690,12 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         # in order for user_has_any_permission to return true
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
-                self.image_changer, ['change', 'delete'], self.adder_image
+                self.image_changer, ["change", "delete"], self.adder_image
             )
         )
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
-                self.oneoff_image_changer, ['change', 'delete'], self.adder_image
+                self.oneoff_image_changer, ["change", "delete"], self.adder_image
             )
         )
 
@@ -703,28 +703,28 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         # should return false
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.image_adder, ['change', 'delete'], self.adder_image
+                self.image_adder, ["change", "delete"], self.adder_image
             )
         )
 
         # Inactive user with the appropriate permissions can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.inactive_image_changer, ['change', 'delete'], self.adder_image
+                self.inactive_image_changer, ["change", "delete"], self.adder_image
             )
         )
 
         # User with no permissions can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.useless_user, ['change', 'delete'], self.adder_image
+                self.useless_user, ["change", "delete"], self.adder_image
             )
         )
 
         # Anonymous user can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.anonymous_user, ['change', 'delete'], self.adder_image
+                self.anonymous_user, ["change", "delete"], self.adder_image
             )
         )
 
@@ -734,56 +734,56 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
 
         # the set of images editable by superuser includes all images
         self.assertResultSetEqual(
-            self.policy.instances_user_has_permission_for(self.superuser, 'change'),
+            self.policy.instances_user_has_permission_for(self.superuser, "change"),
             all_images,
         )
 
         # the set of images editable by inactive superuser includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
-                self.inactive_superuser, 'change'
+                self.inactive_superuser, "change"
             ),
             no_images,
         )
 
         # given the relevant model permission at the group level, a user can edit all images
         self.assertResultSetEqual(
-            self.policy.instances_user_has_permission_for(self.image_changer, 'change'),
+            self.policy.instances_user_has_permission_for(self.image_changer, "change"),
             all_images,
         )
 
         # given the relevant model permission at the user level, a user can edit all images
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
-                self.oneoff_image_changer, 'change'
+                self.oneoff_image_changer, "change"
             ),
             all_images,
         )
 
         # a user with no permission can edit no images
         self.assertResultSetEqual(
-            self.policy.instances_user_has_permission_for(self.useless_user, 'change'),
+            self.policy.instances_user_has_permission_for(self.useless_user, "change"),
             no_images,
         )
 
         # an inactive user with the relevant permission can edit no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
-                self.inactive_image_changer, 'change'
+                self.inactive_image_changer, "change"
             ),
             no_images,
         )
 
         # a user with permission, but not the matching one, can edit no images
         self.assertResultSetEqual(
-            self.policy.instances_user_has_permission_for(self.image_changer, 'delete'),
+            self.policy.instances_user_has_permission_for(self.image_changer, "delete"),
             no_images,
         )
 
         # the set of images editable by anonymous user includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
-                self.anonymous_user, 'change'
+                self.anonymous_user, "change"
             ),
             no_images,
         )
@@ -795,7 +795,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         # the set of images editable by superuser includes all images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.superuser, ['change', 'delete']
+                self.superuser, ["change", "delete"]
             ),
             all_images,
         )
@@ -803,7 +803,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         # the set of images editable by inactive superuser includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.inactive_superuser, ['change', 'delete']
+                self.inactive_superuser, ["change", "delete"]
             ),
             no_images,
         )
@@ -811,7 +811,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         # given the relevant model permission at the group level, a user can edit all images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.image_changer, ['change', 'delete']
+                self.image_changer, ["change", "delete"]
             ),
             all_images,
         )
@@ -819,7 +819,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         # given the relevant model permission at the user level, a user can edit all images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.oneoff_image_changer, ['change', 'delete']
+                self.oneoff_image_changer, ["change", "delete"]
             ),
             all_images,
         )
@@ -827,7 +827,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         # a user with no permission can edit no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.useless_user, ['change', 'delete']
+                self.useless_user, ["change", "delete"]
             ),
             no_images,
         )
@@ -835,7 +835,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         # an inactive user with the relevant permission can edit no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.inactive_image_changer, ['change', 'delete']
+                self.inactive_image_changer, ["change", "delete"]
             ),
             no_images,
         )
@@ -843,7 +843,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         # a user with permission, but not the matching one, can edit no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.image_adder, ['change', 'delete']
+                self.image_adder, ["change", "delete"]
             ),
             no_images,
         )
@@ -851,14 +851,14 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         # the set of images editable by anonymous user includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.anonymous_user, ['change', 'delete']
+                self.anonymous_user, ["change", "delete"]
             ),
             no_images,
         )
 
     def test_users_with_permission_for_instance(self):
         users_with_change_permission = self.policy.users_with_permission_for_instance(
-            'change', self.useless_image
+            "change", self.useless_image
         )
 
         self.assertResultSetEqual(
@@ -867,7 +867,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
         )
 
         users_with_delete_permission = self.policy.users_with_permission_for_instance(
-            'delete', self.useless_image
+            "delete", self.useless_image
         )
 
         self.assertResultSetEqual(
@@ -876,7 +876,7 @@ class TestModelPermissionPolicy(PermissionPolicyTestCase):
 
     def test_users_with_any_permission_for_instance(self):
         users_with_change_or_del_permission = self.policy.users_with_any_permission_for_instance(
-            ['change', 'delete'], self.useless_image
+            ["change", "delete"], self.useless_image
         )
 
         self.assertResultSetEqual(
@@ -894,7 +894,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
     def setUp(self):
         super().setUp()
         self.policy = OwnershipPermissionPolicy(
-            Image, owner_field_name='uploaded_by_user'
+            Image, owner_field_name="uploaded_by_user"
         )
 
     def test_user_has_permission(self):
@@ -930,24 +930,24 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
     def test_user_has_any_permission(self):
         # Superuser can do everything
         self.assertTrue(
-            self.policy.user_has_any_permission(self.superuser, ['add', 'change'])
+            self.policy.user_has_any_permission(self.superuser, ["add", "change"])
         )
 
         # Inactive superuser can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission(
-                self.inactive_superuser, ['add', 'change']
+                self.inactive_superuser, ["add", "change"]
             )
         )
 
         # Only one of the permissions in the list needs to pass
         # in order for user_has_any_permission to return true
         self.assertTrue(
-            self.policy.user_has_any_permission(self.image_changer, ['add', 'change'])
+            self.policy.user_has_any_permission(self.image_changer, ["add", "change"])
         )
         self.assertTrue(
             self.policy.user_has_any_permission(
-                self.oneoff_image_changer, ['add', 'change']
+                self.oneoff_image_changer, ["add", "change"]
             )
         )
 
@@ -955,29 +955,29 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # should return false
         self.assertFalse(
             self.policy.user_has_any_permission(
-                self.oneoff_image_deleter, ['add', 'change']
+                self.oneoff_image_deleter, ["add", "change"]
             )
         )
 
         # Inactive user with the appropriate permissions can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission(
-                self.inactive_image_changer, ['add', 'delete']
+                self.inactive_image_changer, ["add", "delete"]
             )
         )
 
         # User with no permissions can do nothing
         self.assertFalse(
-            self.policy.user_has_any_permission(self.useless_user, ['add', 'change'])
+            self.policy.user_has_any_permission(self.useless_user, ["add", "change"])
         )
 
         # Anonymous user can do nothing
         self.assertFalse(
-            self.policy.user_has_any_permission(self.anonymous_user, ['add', 'change'])
+            self.policy.user_has_any_permission(self.anonymous_user, ["add", "change"])
         )
 
     def test_users_with_permission(self):
-        users_with_add_permission = self.policy.users_with_permission('add')
+        users_with_add_permission = self.policy.users_with_permission("add")
 
         self.assertResultSetEqual(
             users_with_add_permission,
@@ -985,7 +985,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         )
 
         # users with add permission have change permission too (i.e. for their own images)
-        users_with_change_permission = self.policy.users_with_permission('change')
+        users_with_change_permission = self.policy.users_with_permission("change")
 
         self.assertResultSetEqual(
             users_with_change_permission,
@@ -1000,7 +1000,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
 
         # conditions for deletion are the same as for change; 'delete' permission
         # records in django.contrib.auth are ignored
-        users_with_delete_permission = self.policy.users_with_permission('delete')
+        users_with_delete_permission = self.policy.users_with_permission("delete")
 
         self.assertResultSetEqual(
             users_with_delete_permission,
@@ -1015,14 +1015,14 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
 
         # non-standard permissions are only available to superusers
         users_with_frobnicate_permission = self.policy.users_with_permission(
-            'frobnicate'
+            "frobnicate"
         )
 
         self.assertResultSetEqual(users_with_frobnicate_permission, [self.superuser])
 
     def test_users_with_any_permission(self):
         users_with_add_or_change_permission = self.policy.users_with_any_permission(
-            ['add', 'change']
+            ["add", "change"]
         )
 
         self.assertResultSetEqual(
@@ -1037,7 +1037,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         )
 
         users_with_add_or_frobnicate_permission = self.policy.users_with_any_permission(
-            ['add', 'frobnicate']
+            ["add", "frobnicate"]
         )
 
         self.assertResultSetEqual(
@@ -1125,14 +1125,14 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # Superuser can do everything
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
-                self.superuser, ['change', 'delete'], self.adder_image
+                self.superuser, ["change", "delete"], self.adder_image
             )
         )
 
         # Inactive superuser can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.inactive_superuser, ['change', 'delete'], self.adder_image
+                self.inactive_superuser, ["change", "delete"], self.adder_image
             )
         )
 
@@ -1140,12 +1140,12 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # in order for user_has_any_permission to return true
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
-                self.image_changer, ['change', 'frobnicate'], self.adder_image
+                self.image_changer, ["change", "frobnicate"], self.adder_image
             )
         )
         self.assertTrue(
             self.policy.user_has_any_permission_for_instance(
-                self.oneoff_image_changer, ['change', 'frobnicate'], self.adder_image
+                self.oneoff_image_changer, ["change", "frobnicate"], self.adder_image
             )
         )
 
@@ -1153,28 +1153,28 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # should return false
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.oneoff_image_deleter, ['change', 'delete'], self.adder_image
+                self.oneoff_image_deleter, ["change", "delete"], self.adder_image
             )
         )
 
         # Inactive user with the appropriate permissions can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.inactive_image_changer, ['change', 'delete'], self.adder_image
+                self.inactive_image_changer, ["change", "delete"], self.adder_image
             )
         )
 
         # User with no permissions can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.useless_user, ['change', 'delete'], self.adder_image
+                self.useless_user, ["change", "delete"], self.adder_image
             )
         )
 
         # Anonymous user can do nothing
         self.assertFalse(
             self.policy.user_has_any_permission_for_instance(
-                self.anonymous_user, ['change', 'delete'], self.adder_image
+                self.anonymous_user, ["change", "delete"], self.adder_image
             )
         )
 
@@ -1184,39 +1184,39 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
 
         # the set of images editable by superuser includes all images
         self.assertResultSetEqual(
-            self.policy.instances_user_has_permission_for(self.superuser, 'change'),
+            self.policy.instances_user_has_permission_for(self.superuser, "change"),
             all_images,
         )
 
         # the set of images editable by inactive superuser includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
-                self.inactive_superuser, 'change'
+                self.inactive_superuser, "change"
             ),
             no_images,
         )
 
         # a user with 'add' permission can change their own images
         self.assertResultSetEqual(
-            self.policy.instances_user_has_permission_for(self.image_adder, 'change'),
+            self.policy.instances_user_has_permission_for(self.image_adder, "change"),
             [self.adder_image],
         )
         # a user with 'add' permission can also delete their own images
         self.assertResultSetEqual(
-            self.policy.instances_user_has_permission_for(self.image_adder, 'delete'),
+            self.policy.instances_user_has_permission_for(self.image_adder, "delete"),
             [self.adder_image],
         )
 
         # a user with 'change' permission can change all images
         self.assertResultSetEqual(
-            self.policy.instances_user_has_permission_for(self.image_changer, 'change'),
+            self.policy.instances_user_has_permission_for(self.image_changer, "change"),
             all_images,
         )
 
         # ditto for 'change' permission assigned at the user level
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
-                self.oneoff_image_changer, 'change'
+                self.oneoff_image_changer, "change"
             ),
             all_images,
         )
@@ -1224,21 +1224,21 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # an inactive user with the relevant permission can edit no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
-                self.inactive_image_changer, 'change'
+                self.inactive_image_changer, "change"
             ),
             no_images,
         )
 
         # a user with no permission can edit no images
         self.assertResultSetEqual(
-            self.policy.instances_user_has_permission_for(self.useless_user, 'change'),
+            self.policy.instances_user_has_permission_for(self.useless_user, "change"),
             no_images,
         )
 
         # the set of images editable by anonymous user includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_permission_for(
-                self.anonymous_user, 'change'
+                self.anonymous_user, "change"
             ),
             no_images,
         )
@@ -1250,7 +1250,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # the set of images editable by superuser includes all images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.superuser, ['change', 'delete']
+                self.superuser, ["change", "delete"]
             ),
             all_images,
         )
@@ -1258,7 +1258,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # the set of images editable by inactive superuser includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.inactive_superuser, ['change', 'delete']
+                self.inactive_superuser, ["change", "delete"]
             ),
             no_images,
         )
@@ -1266,7 +1266,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # a user with 'add' permission can change/delete their own images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.image_adder, ['delete', 'frobnicate']
+                self.image_adder, ["delete", "frobnicate"]
             ),
             [self.adder_image],
         )
@@ -1274,7 +1274,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # a user with 'edit' permission can change/delete all images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.oneoff_image_changer, ['delete', 'frobnicate']
+                self.oneoff_image_changer, ["delete", "frobnicate"]
             ),
             all_images,
         )
@@ -1282,7 +1282,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # a user with no permission can edit no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.useless_user, ['change', 'delete']
+                self.useless_user, ["change", "delete"]
             ),
             no_images,
         )
@@ -1290,7 +1290,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # an inactive user with the relevant permission can edit no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.inactive_image_changer, ['change', 'delete']
+                self.inactive_image_changer, ["change", "delete"]
             ),
             no_images,
         )
@@ -1298,7 +1298,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # a user with permission, but not the matching one, can edit no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.oneoff_image_deleter, ['change', 'delete']
+                self.oneoff_image_deleter, ["change", "delete"]
             ),
             no_images,
         )
@@ -1306,7 +1306,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # the set of images editable by anonymous user includes no images
         self.assertResultSetEqual(
             self.policy.instances_user_has_any_permission_for(
-                self.anonymous_user, ['change', 'delete']
+                self.anonymous_user, ["change", "delete"]
             ),
             no_images,
         )
@@ -1315,7 +1315,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # adder_image can be edited by its owner (who has add permission) and
         # all users with 'change' permission
         users_with_change_permission = self.policy.users_with_permission_for_instance(
-            'change', self.adder_image
+            "change", self.adder_image
         )
 
         self.assertResultSetEqual(
@@ -1330,7 +1330,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
 
         # the same set of users can also delete
         users_with_delete_permission = self.policy.users_with_permission_for_instance(
-            'delete', self.adder_image
+            "delete", self.adder_image
         )
 
         self.assertResultSetEqual(
@@ -1345,7 +1345,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
 
         # custom actions are available to superusers only
         users_with_delete_permission = self.policy.users_with_permission_for_instance(
-            'frobnicate', self.adder_image
+            "frobnicate", self.adder_image
         )
 
         self.assertResultSetEqual(users_with_delete_permission, [self.superuser])
@@ -1353,7 +1353,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # useless_user can NOT edit their own image, because they do not have
         # 'add' permission
         users_with_change_permission = self.policy.users_with_permission_for_instance(
-            'change', self.useless_image
+            "change", self.useless_image
         )
 
         self.assertResultSetEqual(
@@ -1364,7 +1364,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
         # an image with no owner is treated as if it's owned by 'somebody else' -
         # i.e. users with 'change' permission can edit it
         users_with_change_permission = self.policy.users_with_permission_for_instance(
-            'change', self.anonymous_image
+            "change", self.anonymous_image
         )
 
         self.assertResultSetEqual(
@@ -1374,7 +1374,7 @@ class TestOwnershipPermissionPolicy(PermissionPolicyTestCase):
 
     def test_users_with_any_permission_for_instance(self):
         users_with_change_or_frob_permission = self.policy.users_with_any_permission_for_instance(
-            ['change', 'frobnicate'], self.adder_image
+            ["change", "frobnicate"], self.adder_image
         )
 
         self.assertResultSetEqual(

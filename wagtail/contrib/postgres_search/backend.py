@@ -28,7 +28,7 @@ from .utils import (
     unidecode,
 )
 
-EMPTY_VECTOR = SearchVector(Value(''))
+EMPTY_VECTOR = SearchVector(Value(""))
 
 
 class Index:
@@ -37,9 +37,9 @@ class Index:
         self.name = self.backend.index_name
         self.db_alias = DEFAULT_DB_ALIAS if db_alias is None else db_alias
         self.connection = connections[self.db_alias]
-        if self.connection.vendor != 'postgresql':
+        if self.connection.vendor != "postgresql":
             raise NotSupportedError(
-                'You must select a PostgreSQL database ' 'to use PostgreSQL search.'
+                "You must select a PostgreSQL database " "to use PostgreSQL search."
             )
         self.entries = IndexEntry._default_manager.using(self.db_alias)
 
@@ -52,8 +52,8 @@ class Index:
     def delete_stale_model_entries(self, model):
         existing_pks = (
             model._default_manager.using(self.db_alias)
-            .annotate(object_id=Cast('pk', TextField()))
-            .values('object_id')
+            .annotate(object_id=Cast("pk", TextField()))
+            .values("object_id")
         )
         content_types_pks = get_descendants_content_types_pks(model)
         stale_entries = self.entries.filter(
@@ -72,9 +72,9 @@ class Index:
         if isinstance(value, str):
             return value
         if isinstance(value, list):
-            return ', '.join(self.prepare_value(item) for item in value)
+            return ", ".join(self.prepare_value(item) for item in value)
         if isinstance(value, dict):
-            return ', '.join(self.prepare_value(item) for item in value.values())
+            return ", ".join(self.prepare_value(item) for item in value.values())
         return force_text(value)
 
     def prepare_field(self, obj, field):
@@ -121,25 +121,25 @@ class Index:
         body_sql = []
         data_params = []
         sql_template = (
-            'to_tsvector(%s)' if config is None else "to_tsvector('%s', %%s)" % config
+            "to_tsvector(%s)" if config is None else "to_tsvector('%s', %%s)" % config
         )
-        sql_template = 'setweight(%s, %%s)' % sql_template
+        sql_template = "setweight(%s, %%s)" % sql_template
         for obj in objs:
             data_params.extend((content_type_pk, obj._object_id_))
             if obj._autocomplete_:
                 autocomplete_sql.append(
-                    '||'.join(sql_template for _ in obj._autocomplete_)
+                    "||".join(sql_template for _ in obj._autocomplete_)
                 )
                 data_params.extend([v for t in obj._autocomplete_ for v in t])
             else:
                 autocomplete_sql.append("''::tsvector")
             if obj._body_:
-                body_sql.append('||'.join(sql_template for _ in obj._body_))
+                body_sql.append("||".join(sql_template for _ in obj._body_))
                 data_params.extend([v for t in obj._body_ for v in t])
             else:
                 body_sql.append("''::tsvector")
-        data_sql = ', '.join(
-            ['(%%s, %%s, %s, %s)' % (a, b) for a, b in zip(autocomplete_sql, body_sql)]
+        data_sql = ", ".join(
+            ["(%%s, %%s, %s, %s)" % (a, b) for a, b in zip(autocomplete_sql, body_sql)]
         )
         with self.connection.cursor() as cursor:
             cursor.execute(
@@ -182,7 +182,7 @@ class Index:
         index_entries_for_ct = self.entries.filter(content_type_id=content_type_pk)
         indexed_ids = frozenset(
             index_entries_for_ct.filter(object_id__in=ids_and_objs).values_list(
-                'object_id', flat=True
+                "object_id", flat=True
             )
         )
         for indexed_id in indexed_ids:
@@ -230,10 +230,10 @@ class Index:
 
 
 class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
-    DEFAULT_OPERATOR = 'and'
-    TSQUERY_AND = ' & '
-    TSQUERY_OR = ' | '
-    TSQUERY_OPERATORS = {'and': TSQUERY_AND, 'or': TSQUERY_OR}
+    DEFAULT_OPERATOR = "and"
+    TSQUERY_AND = " & "
+    TSQUERY_OR = " | "
+    TSQUERY_OPERATORS = {"and": TSQUERY_AND, "or": TSQUERY_OR}
     TSQUERY_WORD_FORMAT = "'%s'"
 
     def __init__(self, *args, **kwargs):
@@ -278,7 +278,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             operator = self.TSQUERY_OPERATORS[query.operator]
             query_format = operator.join(query_formats)
             if group and len(query_formats) > 1:
-                query_format = '(%s)' % query_format
+                query_format = "(%s)" % query_format
             return query_format, query_params
         if isinstance(query, Boost):
             return self.build_tsquery_content(query.subquery)
@@ -286,7 +286,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             query_format, query_params = self.build_tsquery_content(
                 query.subquery, group=True
             )
-            return '!' + query_format, query_params
+            return "!" + query_format, query_params
         if isinstance(query, (And, Or)):
             query_formats = []
             query_params = []
@@ -299,7 +299,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             operator = self.TSQUERY_AND if isinstance(query, And) else self.TSQUERY_OR
             return operator.join(query_formats), query_params
         raise NotImplementedError(
-            '`%s` is not supported by the PostgreSQL search backend.'
+            "`%s` is not supported by the PostgreSQL search backend."
             % query.__class__.__name__
         )
 
@@ -334,13 +334,13 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 for subquery in query.subqueries
             ) / (len(query.subqueries) or 1)
         raise NotImplementedError(
-            '`%s` is not supported by the PostgreSQL search backend.'
+            "`%s` is not supported by the PostgreSQL search backend."
             % query.__class__.__name__
         )
 
     def get_index_vector(self, search_query):
-        return F('index_entries__autocomplete')._combine(
-            F('index_entries__body'), '||', False
+        return F("index_entries__autocomplete")._combine(
+            F("index_entries__body"), "||", False
         )
 
     def get_fields_vector(self, search_query):
@@ -370,22 +370,22 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         rank_expression = self.build_tsrank(vector, self.query, config=config)
         queryset = self.queryset.annotate(_vector_=vector).filter(_vector_=search_query)
         if self.order_by_relevance:
-            queryset = queryset.order_by(rank_expression.desc(), '-pk')
+            queryset = queryset.order_by(rank_expression.desc(), "-pk")
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
-            queryset = queryset.order_by('-pk')
-            rank_expression = F('pk')
+            queryset = queryset.order_by("-pk")
+            rank_expression = F("pk")
         if score_field is not None:
             queryset = queryset.annotate(**{score_field: rank_expression})
         return queryset[start:stop]
 
     def _process_lookup(self, field, lookup, value):
-        return Q(**{field.get_attname(self.queryset.model) + '__' + lookup: value})
+        return Q(**{field.get_attname(self.queryset.model) + "__" + lookup: value})
 
     def _connect_filters(self, filters, connector, negated):
-        if connector == 'AND':
+        if connector == "AND":
             q = Q(*filters)
-        elif connector == 'OR':
+        elif connector == "OR":
             q = OR([Q(fil) for fil in filters])
         else:
             return
@@ -400,7 +400,7 @@ class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
     TSQUERY_WORD_FORMAT = "'%s':*"
 
     def get_index_vector(self, search_query):
-        return F('index_entries__autocomplete')
+        return F("index_entries__autocomplete")
 
     def get_fields_vector(self, search_query):
         return ADD(
@@ -439,21 +439,21 @@ class PostgresSearchResults(BaseSearchResults):
             raise FilterFieldError(
                 'Cannot facet search results with field "'
                 + field_name
-                + '". Please add index.FilterField(\''
+                + "\". Please add index.FilterField('"
                 + field_name
-                + '\') to '
+                + "') to "
                 + self.query_compiler.queryset.model.__name__
-                + '.search_fields.',
+                + ".search_fields.",
                 field_name=field_name,
             )
 
         query = self.query_compiler.search(self.backend.config, None, None)
         results = (
-            query.values(field_name).annotate(count=Count('pk')).order_by('-count')
+            query.values(field_name).annotate(count=Count("pk")).order_by("-count")
         )
 
         return OrderedDict(
-            [(result[field_name], result['count']) for result in results]
+            [(result[field_name], result["count"]) for result in results]
         )
 
 
@@ -500,9 +500,9 @@ class PostgresSearchBackend(BaseSearchBackend):
 
     def __init__(self, params):
         super().__init__(params)
-        self.index_name = params.get('INDEX', 'default')
-        self.config = params.get('SEARCH_CONFIG')
-        if params.get('ATOMIC_REBUILD', False):
+        self.index_name = params.get("INDEX", "default")
+        self.config = params.get("SEARCH_CONFIG")
+        if params.get("ATOMIC_REBUILD", False):
             self.rebuilder_class = self.atomic_rebuilder_class
 
     def get_index_for_model(self, model, db_alias=None):

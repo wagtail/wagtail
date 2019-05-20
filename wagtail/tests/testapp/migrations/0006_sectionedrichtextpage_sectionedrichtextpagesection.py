@@ -7,22 +7,22 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0028_merge'),
+        ("wagtailcore", "0028_merge"),
         (
-            'tests',
-            '0005_customrichblockfieldpage_customrichtextfieldpage_defaultrichblockfieldpage_defaultrichtextfieldpage',
+            "tests",
+            "0005_customrichblockfieldpage_customrichtextfieldpage_defaultrichblockfieldpage_defaultrichtextfieldpage",
         ),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='SectionedRichTextPage',
+            name="SectionedRichTextPage",
             fields=[
                 (
-                    'page_ptr',
+                    "page_ptr",
                     models.OneToOneField(
                         parent_link=True,
-                        to='wagtailcore.Page',
+                        to="wagtailcore.Page",
                         serialize=False,
                         auto_created=True,
                         primary_key=True,
@@ -30,35 +30,35 @@ class Migration(migrations.Migration):
                     ),
                 )
             ],
-            options={'abstract': False},
-            bases=('wagtailcore.page',),
+            options={"abstract": False},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='SectionedRichTextPageSection',
+            name="SectionedRichTextPageSection",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
-                        verbose_name='ID',
+                        verbose_name="ID",
                         primary_key=True,
                         serialize=False,
                         auto_created=True,
                     ),
                 ),
                 (
-                    'sort_order',
+                    "sort_order",
                     models.IntegerField(editable=False, null=True, blank=True),
                 ),
-                ('body', wagtail.core.fields.RichTextField()),
+                ("body", wagtail.core.fields.RichTextField()),
                 (
-                    'page',
+                    "page",
                     modelcluster.fields.ParentalKey(
-                        related_name='sections',
-                        to='tests.SectionedRichTextPage',
+                        related_name="sections",
+                        to="tests.SectionedRichTextPage",
                         on_delete=models.CASCADE,
                     ),
                 ),
             ],
-            options={'ordering': ['sort_order'], 'abstract': False},
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
     ]

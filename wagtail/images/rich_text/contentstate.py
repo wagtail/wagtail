@@ -19,12 +19,12 @@ def image_entity(props):
     when converting from contentstate data
     """
     return DOM.create_element(
-        'embed',
+        "embed",
         {
-            'embedtype': 'image',
-            'format': props.get('format'),
-            'id': props.get('id'),
-            'alt': props.get('alt'),
+            "embedtype": "image",
+            "format": props.get("format"),
+            "id": props.get("id"),
+            "alt": props.get("alt"),
         },
     )
 
@@ -38,26 +38,26 @@ class ImageElementHandler(AtomicBlockEntityElementHandler):
     def create_entity(self, name, attrs, state, contentstate):
         Image = get_image_model()
         try:
-            image = Image.objects.get(id=attrs['id'])
-            image_format = get_image_format(attrs['format'])
+            image = Image.objects.get(id=attrs["id"])
+            image_format = get_image_format(attrs["format"])
             rendition = get_rendition_or_not_found(image, image_format.filter_spec)
             src = rendition.url
         except Image.DoesNotExist:
-            src = ''
+            src = ""
 
         return Entity(
-            'IMAGE',
-            'IMMUTABLE',
+            "IMAGE",
+            "IMMUTABLE",
             {
-                'id': attrs['id'],
-                'src': src,
-                'alt': attrs.get('alt'),
-                'format': attrs['format'],
+                "id": attrs["id"],
+                "src": src,
+                "alt": attrs.get("alt"),
+                "format": attrs["format"],
             },
         )
 
 
 ContentstateImageConversionRule = {
-    'from_database_format': {'embed[embedtype="image"]': ImageElementHandler()},
-    'to_database_format': {'entity_decorators': {'IMAGE': image_entity}},
+    "from_database_format": {'embed[embedtype="image"]': ImageElementHandler()},
+    "to_database_format": {"entity_decorators": {"IMAGE": image_entity}},
 }

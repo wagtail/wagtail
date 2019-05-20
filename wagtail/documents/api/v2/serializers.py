@@ -16,7 +16,7 @@ class DocumentDownloadUrlField(Field):
         return instance
 
     def to_representation(self, document):
-        return get_full_url(self.context['request'], document.url)
+        return get_full_url(self.context["request"], document.url)
 
 
 class DocumentSerializer(BaseSerializer):

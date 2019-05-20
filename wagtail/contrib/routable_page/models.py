@@ -17,7 +17,7 @@ def route(pattern, name=None):
         _creation_counter += 1
 
         # Make sure page has _routablepage_routes attribute
-        if not hasattr(view_func, '_routablepage_routes'):
+        if not hasattr(view_func, "_routablepage_routes"):
             view_func._routablepage_routes = []
 
         # Add new route to view
@@ -39,9 +39,9 @@ class RoutablePageMixin:
     added to it.
     """
 
-    @route(r'^$')
+    @route(r"^$")
     def index_route(self, request, *args, **kwargs):
-        request.is_preview = getattr(request, 'is_preview', False)
+        request.is_preview = getattr(request, "is_preview", False)
 
         return TemplateResponse(
             request,
@@ -59,7 +59,7 @@ class RoutablePageMixin:
         for klass in cls.__mro__:
             routes_for_class = []
             for val in klass.__dict__.values():
-                if hasattr(val, '_routablepage_routes'):
+                if hasattr(val, "_routablepage_routes"):
                     routes_for_class.extend(val._routablepage_routes)
 
             # sort routes by _creation_counter so that ones earlier in the class definition
@@ -72,10 +72,10 @@ class RoutablePageMixin:
 
     @classmethod
     def get_resolver(cls):
-        if '_routablepage_urlresolver' not in cls.__dict__:
+        if "_routablepage_urlresolver" not in cls.__dict__:
             subpage_urls = cls.get_subpage_urls()
             cls._routablepage_urlresolver = URLResolver(
-                RegexPattern(r'^/'), subpage_urls
+                RegexPattern(r"^/"), subpage_urls
             )
 
         return cls._routablepage_urlresolver
@@ -106,9 +106,9 @@ class RoutablePageMixin:
         """
         if self.live:
             try:
-                path = '/'
+                path = "/"
                 if path_components:
-                    path += '/'.join(path_components) + '/'
+                    path += "/".join(path_components) + "/"
 
                 view, args, kwargs = self.resolve_subpage(path)
                 return RouteResult(self, args=(view, args, kwargs))
@@ -127,7 +127,7 @@ class RoutablePageMixin:
         return view(request, *args, **kwargs)
 
     def serve_preview(self, request, mode_name):
-        view, args, kwargs = self.resolve_subpage('/')
+        view, args, kwargs = self.resolve_subpage("/")
         request.is_preview = True
 
         return view(request, *args, **kwargs)

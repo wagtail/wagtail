@@ -6,12 +6,12 @@ def get_fill_filter_spec_migrations(app_name, rendition_model_name):
     def fill_filter_spec_forward(apps, schema_editor):
         # Populate Rendition.filter_spec with the spec string of the corresponding Filter object
         Rendition = apps.get_model(app_name, rendition_model_name)
-        Filter = apps.get_model('wagtailimages', 'Filter')
+        Filter = apps.get_model("wagtailimages", "Filter")
 
         db_alias = schema_editor.connection.alias
         for flt in Filter.objects.using(db_alias):
             renditions = Rendition.objects.using(db_alias).filter(
-                filter=flt, filter_spec=''
+                filter=flt, filter_spec=""
             )
             renditions.update(filter_spec=flt.spec)
 
@@ -19,7 +19,7 @@ def get_fill_filter_spec_migrations(app_name, rendition_model_name):
         # Populate the Rendition.filter field with Filter objects that match the spec in the
         # Rendition's filter_spec field
         Rendition = apps.get_model(app_name, rendition_model_name)
-        Filter = apps.get_model('wagtailimages', 'Filter')
+        Filter = apps.get_model("wagtailimages", "Filter")
         db_alias = schema_editor.connection.alias
 
         while True:
@@ -31,7 +31,7 @@ def get_fill_filter_spec_migrations(app_name, rendition_model_name):
             unmatched_filter_specs = (
                 Rendition.objects.using(db_alias)
                 .filter(filter__isnull=True)
-                .values_list('filter_spec', flat=True)
+                .values_list("filter_spec", flat=True)
                 .distinct()
             )
             if not unmatched_filter_specs:
@@ -66,6 +66,6 @@ def parse_color_string(color_string):
         g = int(color_string[2:4], 16)
         b = int(color_string[4:6], 16)
     else:
-        raise ValueError('Color string must be either 3 or 6 hexadecimal digits long')
+        raise ValueError("Color string must be either 3 or 6 hexadecimal digits long")
 
     return r, g, b

@@ -9,7 +9,7 @@ MATCH_HOSTNAME = 3
 
 def get_site_for_hostname(hostname, port):
     """Return the wagtailcore.Site object for the given hostname and port."""
-    Site = apps.get_model('wagtailcore.Site')
+    Site = apps.get_model("wagtailcore.Site")
 
     sites = list(
         Site.objects.annotate(
@@ -31,8 +31,8 @@ def get_site_for_hostname(hostname, port):
             )
         )
         .filter(Q(hostname=hostname) | Q(is_default_site=True))
-        .order_by('match')
-        .select_related('root_page')
+        .order_by("match")
+        .select_related("root_page")
     )
 
     if sites:

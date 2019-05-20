@@ -8,7 +8,7 @@ from wagtail.embeds.models import Embed
 
 
 class MediaEmbedHandler(EmbedHandler):
-    identifier = 'media'
+    identifier = "media"
 
     @staticmethod
     def get_model():
@@ -16,7 +16,7 @@ class MediaEmbedHandler(EmbedHandler):
 
     @staticmethod
     def get_instance(attrs):
-        return get_embed(attrs['url'])
+        return get_embed(attrs["url"])
 
     @staticmethod
     def expand_db_attributes(attrs):
@@ -24,4 +24,4 @@ class MediaEmbedHandler(EmbedHandler):
         Given a dict of attributes from the <embed> tag, return the real HTML
         representation for use on the front-end.
         """
-        return format.embed_to_frontend_html(attrs['url'])
+        return format.embed_to_frontend_html(attrs["url"])

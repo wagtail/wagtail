@@ -9,40 +9,40 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='UserProfile',
+            name="UserProfile",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                         auto_created=True,
                         primary_key=True,
                     ),
                 ),
                 (
-                    'submitted_notifications',
+                    "submitted_notifications",
                     models.BooleanField(
                         default=True,
-                        help_text='Receive notification when a page is submitted for moderation',
+                        help_text="Receive notification when a page is submitted for moderation",
                     ),
                 ),
                 (
-                    'approved_notifications',
+                    "approved_notifications",
                     models.BooleanField(
                         default=True,
-                        help_text='Receive notification when your page edit is approved',
+                        help_text="Receive notification when your page edit is approved",
                     ),
                 ),
                 (
-                    'rejected_notifications',
+                    "rejected_notifications",
                     models.BooleanField(
                         default=True,
-                        help_text='Receive notification when your page edit is rejected',
+                        help_text="Receive notification when your page edit is rejected",
                     ),
                 ),
                 (
-                    'user',
+                    "user",
                     models.OneToOneField(
                         on_delete=models.CASCADE, to=settings.AUTH_USER_MODEL
                     ),

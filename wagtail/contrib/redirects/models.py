@@ -9,11 +9,11 @@ class Redirect(models.Model):
         verbose_name=_("redirect from"), max_length=255, db_index=True
     )
     site = models.ForeignKey(
-        'wagtailcore.Site',
-        verbose_name=_('site'),
+        "wagtailcore.Site",
+        verbose_name=_("site"),
         null=True,
         blank=True,
-        related_name='redirects',
+        related_name="redirects",
         db_index=True,
         on_delete=models.CASCADE,
     )
@@ -26,7 +26,7 @@ class Redirect(models.Model):
         ),
     )
     redirect_page = models.ForeignKey(
-        'wagtailcore.Page',
+        "wagtailcore.Page",
         verbose_name=_("redirect to a page"),
         null=True,
         blank=True,
@@ -72,28 +72,28 @@ class Redirect(models.Model):
 
         # Path must start with / but not end with /
         path = url_parsed[2]
-        if not path.startswith('/'):
-            path = '/' + path
+        if not path.startswith("/"):
+            path = "/" + path
 
-        if path.endswith('/') and len(path) > 1:
+        if path.endswith("/") and len(path) > 1:
             path = path[:-1]
 
         # Parameters must be sorted alphabetically
         parameters = url_parsed[3]
-        parameters_components = parameters.split(';')
-        parameters = ';'.join(sorted(parameters_components))
+        parameters_components = parameters.split(";")
+        parameters = ";".join(sorted(parameters_components))
 
         # Query string components must be sorted alphabetically
         query_string = url_parsed[4]
-        query_string_components = query_string.split('&')
-        query_string = '&'.join(sorted(query_string_components))
+        query_string_components = query_string.split("&")
+        query_string = "&".join(sorted(query_string_components))
 
         if parameters:
-            path = path + ';' + parameters
+            path = path + ";" + parameters
 
         # Add query string to path
         if query_string:
-            path = path + '?' + query_string
+            path = path + "?" + query_string
 
         return path
 
@@ -102,5 +102,5 @@ class Redirect(models.Model):
         self.old_path = Redirect.normalise_path(self.old_path)
 
     class Meta:
-        verbose_name = _('redirect')
-        unique_together = [('old_path', 'site')]
+        verbose_name = _("redirect")
+        unique_together = [("old_path", "site")]

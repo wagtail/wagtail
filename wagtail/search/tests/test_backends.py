@@ -26,12 +26,12 @@ from wagtail.tests.utils import WagtailTestUtils
 class BackendTests(WagtailTestUtils):
     # To test a specific backend, subclass BackendTests and define self.backend_path.
 
-    fixtures = ['search']
+    fixtures = ["search"]
 
     def setUp(self):
         # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
         for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
-            if backend_conf['BACKEND'] == self.backend_path:
+            if backend_conf["BACKEND"] == self.backend_path:
                 self.backend = get_search_backend(backend_name)
                 self.backend_name = backend_name
                 break
@@ -42,7 +42,7 @@ class BackendTests(WagtailTestUtils):
             )
 
         management.call_command(
-            'update_index',
+            "update_index",
             backend_name=self.backend_name,
             stdout=StringIO(),
             chunk_size=50,
@@ -82,7 +82,7 @@ class BackendTests(WagtailTestUtils):
     def test_ranking(self):
         # Note: also tests the "or" operator
         results = list(
-            self.backend.search("JavaScript Definitive", models.Book, operator='or')
+            self.backend.search("JavaScript Definitive", models.Book, operator="or")
         )
         self.assertUnsortedListEqual(
             [r.title for r in results],
@@ -94,7 +94,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_annotate_score(self):
         results = self.backend.search("JavaScript", models.Book).annotate_score(
-            '_score'
+            "_score"
         )
 
         for result in results:
@@ -103,7 +103,7 @@ class BackendTests(WagtailTestUtils):
     def test_annotate_score_with_slice(self):
         # #3431 - Annotate score wasn't being passed to new queryset when slicing
         results = self.backend.search("JavaScript", models.Book).annotate_score(
-            '_score'
+            "_score"
         )[:10]
 
         for result in results:
@@ -112,7 +112,7 @@ class BackendTests(WagtailTestUtils):
     def test_search_and_operator(self):
         # Should not return "JavaScript: The good parts" as it does not have "Definitive"
         results = self.backend.search(
-            "JavaScript Definitive", models.Book, operator='and'
+            "JavaScript Definitive", models.Book, operator="and"
         )
         self.assertUnsortedListEqual(
             [r.title for r in results], ["JavaScript: The Definitive Guide"]
@@ -141,7 +141,7 @@ class BackendTests(WagtailTestUtils):
         # The following query shouldn't search the Novel.setting field so none
         # of the Novels set in "Westeros" should be returned
         results = self.backend.search(
-            "Westeros Hobbit", models.Book, fields=['title'], operator='or'
+            "Westeros Hobbit", models.Book, fields=["title"], operator="or"
         )
 
         self.assertUnsortedListEqual([r.title for r in results], ["The Hobbit"])
@@ -150,7 +150,7 @@ class BackendTests(WagtailTestUtils):
         with self.assertRaises(FieldError):
             list(
                 self.backend.search(
-                    "Westeros Hobbit", models.Book, fields=['unknown'], operator='or'
+                    "Westeros Hobbit", models.Book, fields=["unknown"], operator="or"
                 )
             )
 
@@ -160,8 +160,8 @@ class BackendTests(WagtailTestUtils):
                 self.backend.search(
                     "Westeros Hobbit",
                     models.Book,
-                    fields=['number_of_pages'],
-                    operator='or',
+                    fields=["number_of_pages"],
+                    operator="or",
                 )
             )
 
@@ -331,7 +331,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_filter_in_values_list_subquery(self):
         values = models.Book.objects.filter(number_of_pages__lt=440).values_list(
-            'number_of_pages', flat=True
+            "number_of_pages", flat=True
         )
         results = self.backend.search(
             MATCH_ALL, models.Book.objects.filter(number_of_pages__in=values)
@@ -435,7 +435,7 @@ class BackendTests(WagtailTestUtils):
     def test_order_by_relevance(self):
         results = self.backend.search(
             MATCH_ALL,
-            models.Novel.objects.order_by('number_of_pages'),
+            models.Novel.objects.order_by("number_of_pages"),
             order_by_relevance=False,
         )
 
@@ -459,7 +459,7 @@ class BackendTests(WagtailTestUtils):
             list(
                 self.backend.search(
                     MATCH_ALL,
-                    models.Author.objects.order_by('name'),
+                    models.Author.objects.order_by("name"),
                     order_by_relevance=False,
                 )
             )
@@ -469,7 +469,7 @@ class BackendTests(WagtailTestUtils):
     def test_single_result(self):
         results = self.backend.search(
             MATCH_ALL,
-            models.Novel.objects.order_by('number_of_pages'),
+            models.Novel.objects.order_by("number_of_pages"),
             order_by_relevance=False,
         )
 
@@ -480,7 +480,7 @@ class BackendTests(WagtailTestUtils):
         # Note: we need consistent ordering for this test
         results = self.backend.search(
             MATCH_ALL,
-            models.Novel.objects.order_by('number_of_pages'),
+            models.Novel.objects.order_by("number_of_pages"),
             order_by_relevance=False,
         )
 
@@ -495,7 +495,7 @@ class BackendTests(WagtailTestUtils):
         # Note: we need consistent ordering for this test
         results = self.backend.search(
             MATCH_ALL,
-            models.Novel.objects.order_by('number_of_pages'),
+            models.Novel.objects.order_by("number_of_pages"),
             order_by_relevance=False,
         )
 
@@ -517,7 +517,7 @@ class BackendTests(WagtailTestUtils):
         # Note: we need consistent ordering for this test
         results = self.backend.search(
             MATCH_ALL,
-            models.Novel.objects.order_by('number_of_pages'),
+            models.Novel.objects.order_by("number_of_pages"),
             order_by_relevance=False,
         )
 
@@ -537,12 +537,12 @@ class BackendTests(WagtailTestUtils):
 
     def test_facet(self):
         results = self.backend.search(MATCH_ALL, models.ProgrammingGuide).facet(
-            'programming_language'
+            "programming_language"
         )
 
         # Not testing ordering here as two of the items have the same count, so the ordering is undefined.
         # See test_facet_tags for a test of the ordering
-        self.assertDictEqual(dict(results), {'js': 2, 'py': 2, 'rs': 1})
+        self.assertDictEqual(dict(results), {"js": 2, "py": 2, "rs": 1})
 
     def test_facet_tags(self):
         # The test data doesn't contain any tags, add some
@@ -552,9 +552,9 @@ class BackendTests(WagtailTestUtils):
             book = book.get_indexed_instance()
 
             if book.id in FANTASY_BOOKS:
-                book.tags.add('Fantasy')
+                book.tags.add("Fantasy")
             if book.id in SCIFI_BOOKS:
-                book.tags.add('Science Fiction')
+                book.tags.add("Science Fiction")
 
             self.backend.add(book)
 
@@ -562,10 +562,10 @@ class BackendTests(WagtailTestUtils):
         if index:
             index.refresh()
 
-        fantasy_tag = Tag.objects.get(name='Fantasy')
-        scifi_tag = Tag.objects.get(name='Science Fiction')
+        fantasy_tag = Tag.objects.get(name="Fantasy")
+        scifi_tag = Tag.objects.get(name="Science Fiction")
 
-        results = self.backend.search(MATCH_ALL, models.Book).facet('tags')
+        results = self.backend.search(MATCH_ALL, models.Book).facet("tags")
 
         self.assertEqual(
             results, OrderedDict([(fantasy_tag.id, 7), (None, 5), (scifi_tag.id, 1)])
@@ -573,7 +573,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_facet_with_nonexistent_field(self):
         with self.assertRaises(FilterFieldError):
-            self.backend.search(MATCH_ALL, models.ProgrammingGuide).facet('foo')
+            self.backend.search(MATCH_ALL, models.ProgrammingGuide).facet("foo")
 
     # MISC TESTS
 
@@ -585,7 +585,7 @@ class BackendTests(WagtailTestUtils):
         index = self.backend.get_index_for_model(models.Book)
         for i in range(10):
             obj = models.Book.objects.create(
-                title='Rank %s' % i,
+                title="Rank %s" % i,
                 publication_date=date(2017, 10, 18),
                 number_of_pages=100,
             )
@@ -593,7 +593,7 @@ class BackendTests(WagtailTestUtils):
             same_rank_objects.add(obj)
         index.refresh()
 
-        results = self.backend.search('Rank', models.Book)
+        results = self.backend.search("Rank", models.Book)
         results_across_pages = set()
         for i, obj in enumerate(same_rank_objects):
             results_across_pages.add(results[i : i + 1][0])
@@ -619,7 +619,7 @@ class BackendTests(WagtailTestUtils):
         # Note: we need consistent ordering for this test
         results = self.backend.search(
             MATCH_ALL,
-            models.Novel.objects.order_by('number_of_pages'),
+            models.Novel.objects.order_by("number_of_pages"),
             order_by_relevance=False,
         )
 
@@ -638,78 +638,78 @@ class BackendTests(WagtailTestUtils):
 
     def test_plain_text_single_word(self):
         results = self.backend.search(
-            PlainText('Javascript'), models.Book.objects.all()
+            PlainText("Javascript"), models.Book.objects.all()
         )
         self.assertSetEqual(
             {r.title for r in results},
-            {'JavaScript: The Definitive Guide', 'JavaScript: The good parts'},
+            {"JavaScript: The Definitive Guide", "JavaScript: The good parts"},
         )
 
     def test_incomplete_plain_text(self):
-        results = self.backend.search(PlainText('pro'), models.Book.objects.all())
+        results = self.backend.search(PlainText("pro"), models.Book.objects.all())
 
         self.assertSetEqual({r.title for r in results}, set())
 
     def test_plain_text_multiple_words_or(self):
         results = self.backend.search(
-            PlainText('Javascript Definitive', operator='or'), models.Book.objects.all()
+            PlainText("Javascript Definitive", operator="or"), models.Book.objects.all()
         )
         self.assertSetEqual(
             {r.title for r in results},
-            {'JavaScript: The Definitive Guide', 'JavaScript: The good parts'},
+            {"JavaScript: The Definitive Guide", "JavaScript: The good parts"},
         )
 
     def test_plain_text_multiple_words_and(self):
         results = self.backend.search(
-            PlainText('Javascript Definitive', operator='and'),
+            PlainText("Javascript Definitive", operator="and"),
             models.Book.objects.all(),
         )
         self.assertSetEqual(
-            {r.title for r in results}, {'JavaScript: The Definitive Guide'}
+            {r.title for r in results}, {"JavaScript: The Definitive Guide"}
         )
 
     def test_plain_text_operator_case(self):
         results = self.backend.search(
-            PlainText('Guide', operator='AND'), models.Book.objects.all()
+            PlainText("Guide", operator="AND"), models.Book.objects.all()
         )
         self.assertSetEqual(
-            {r.title for r in results}, {'JavaScript: The Definitive Guide'}
+            {r.title for r in results}, {"JavaScript: The Definitive Guide"}
         )
 
         results = self.backend.search(
-            PlainText('Guide', operator='aNd'), models.Book.objects.all()
+            PlainText("Guide", operator="aNd"), models.Book.objects.all()
         )
         self.assertSetEqual(
-            {r.title for r in results}, {'JavaScript: The Definitive Guide'}
+            {r.title for r in results}, {"JavaScript: The Definitive Guide"}
         )
 
         results = self.backend.search(
-            'Guide', models.Book.objects.all(), operator='AND'
+            "Guide", models.Book.objects.all(), operator="AND"
         )
         self.assertSetEqual(
-            {r.title for r in results}, {'JavaScript: The Definitive Guide'}
+            {r.title for r in results}, {"JavaScript: The Definitive Guide"}
         )
 
         results = self.backend.search(
-            'Guide', models.Book.objects.all(), operator='aNd'
+            "Guide", models.Book.objects.all(), operator="aNd"
         )
         self.assertSetEqual(
-            {r.title for r in results}, {'JavaScript: The Definitive Guide'}
+            {r.title for r in results}, {"JavaScript: The Definitive Guide"}
         )
 
     def test_plain_text_invalid_operator(self):
         with self.assertRaises(ValueError):
             self.backend.search(
-                PlainText('Guide', operator='xor'), models.Book.objects.all()
+                PlainText("Guide", operator="xor"), models.Book.objects.all()
             )
 
         with self.assertRaises(ValueError):
-            self.backend.search('Guide', models.Book.objects.all(), operator='xor')
+            self.backend.search("Guide", models.Book.objects.all(), operator="xor")
 
     def test_boost(self):
         results = self.backend.search(
-            PlainText('JavaScript Definitive')
-            | Boost(PlainText('Learning Python'), 2.0),
+            PlainText("JavaScript Definitive")
+            | Boost(PlainText("Learning Python"), 2.0),
             models.Book.objects.all(),
         )
 
@@ -720,8 +720,8 @@ class BackendTests(WagtailTestUtils):
         )
 
         results = self.backend.search(
-            PlainText('JavaScript Definitive')
-            | Boost(PlainText('Learning Python'), 0.5),
+            PlainText("JavaScript Definitive")
+            | Boost(PlainText("Learning Python"), 0.5),
             models.Book.objects.all(),
         )
 
@@ -737,103 +737,103 @@ class BackendTests(WagtailTestUtils):
 
     def test_and(self):
         results = self.backend.search(
-            And([PlainText('javascript'), PlainText('definitive')]),
+            And([PlainText("javascript"), PlainText("definitive")]),
             models.Book.objects.all(),
         )
         self.assertSetEqual(
-            {r.title for r in results}, {'JavaScript: The Definitive Guide'}
+            {r.title for r in results}, {"JavaScript: The Definitive Guide"}
         )
 
         results = self.backend.search(
-            PlainText('javascript') & PlainText('definitive'), models.Book.objects.all()
+            PlainText("javascript") & PlainText("definitive"), models.Book.objects.all()
         )
         self.assertSetEqual(
-            {r.title for r in results}, {'JavaScript: The Definitive Guide'}
+            {r.title for r in results}, {"JavaScript: The Definitive Guide"}
         )
 
     def test_or(self):
         results = self.backend.search(
-            Or([PlainText('hobbit'), PlainText('towers')]), models.Book.objects.all()
+            Or([PlainText("hobbit"), PlainText("towers")]), models.Book.objects.all()
         )
         self.assertSetEqual(
-            {r.title for r in results}, {'The Hobbit', 'The Two Towers'}
+            {r.title for r in results}, {"The Hobbit", "The Two Towers"}
         )
 
         results = self.backend.search(
-            PlainText('hobbit') | PlainText('towers'), models.Book.objects.all()
+            PlainText("hobbit") | PlainText("towers"), models.Book.objects.all()
         )
         self.assertSetEqual(
-            {r.title for r in results}, {'The Hobbit', 'The Two Towers'}
+            {r.title for r in results}, {"The Hobbit", "The Two Towers"}
         )
 
     def test_not(self):
         all_other_titles = {
-            'A Clash of Kings',
-            'A Game of Thrones',
-            'A Storm of Swords',
-            'Foundation',
-            'Learning Python',
-            'The Hobbit',
-            'The Two Towers',
-            'The Fellowship of the Ring',
-            'The Return of the King',
-            'The Rust Programming Language',
-            'Two Scoops of Django 1.11',
+            "A Clash of Kings",
+            "A Game of Thrones",
+            "A Storm of Swords",
+            "Foundation",
+            "Learning Python",
+            "The Hobbit",
+            "The Two Towers",
+            "The Fellowship of the Ring",
+            "The Return of the King",
+            "The Rust Programming Language",
+            "Two Scoops of Django 1.11",
         }
 
         results = self.backend.search(
-            Not(PlainText('javascript')), models.Book.objects.all()
+            Not(PlainText("javascript")), models.Book.objects.all()
         )
         self.assertSetEqual({r.title for r in results}, all_other_titles)
 
         results = self.backend.search(
-            ~PlainText('javascript'), models.Book.objects.all()
+            ~PlainText("javascript"), models.Book.objects.all()
         )
         self.assertSetEqual({r.title for r in results}, all_other_titles)
 
         # Tests multiple words
         results = self.backend.search(
-            ~PlainText('javascript the'), models.Book.objects.all()
+            ~PlainText("javascript the"), models.Book.objects.all()
         )
         self.assertSetEqual({r.title for r in results}, all_other_titles)
 
     def test_operators_combination(self):
         results = self.backend.search(
             (
-                (PlainText('javascript') & ~PlainText('definitive'))
-                | PlainText('python')
-                | PlainText('rust')
+                (PlainText("javascript") & ~PlainText("definitive"))
+                | PlainText("python")
+                | PlainText("rust")
             )
-            | PlainText('two'),
+            | PlainText("two"),
             models.Book.objects.all(),
         )
         self.assertSetEqual(
             {r.title for r in results},
             {
-                'JavaScript: The good parts',
-                'Learning Python',
-                'The Two Towers',
-                'The Rust Programming Language',
-                'Two Scoops of Django 1.11',
+                "JavaScript: The good parts",
+                "Learning Python",
+                "The Two Towers",
+                "The Rust Programming Language",
+                "Two Scoops of Django 1.11",
             },
         )
 
 
 @override_settings(
-    WAGTAILSEARCH_BACKENDS={'default': {'BACKEND': 'wagtail.search.backends.db'}}
+    WAGTAILSEARCH_BACKENDS={"default": {"BACKEND": "wagtail.search.backends.db"}}
 )
 class TestBackendLoader(TestCase):
     def test_import_by_name(self):
-        db = get_search_backend(backend='default')
+        db = get_search_backend(backend="default")
         self.assertIsInstance(db, DatabaseSearchBackend)
 
     def test_import_by_path(self):
-        db = get_search_backend(backend='wagtail.search.backends.db')
+        db = get_search_backend(backend="wagtail.search.backends.db")
         self.assertIsInstance(db, DatabaseSearchBackend)
 
     def test_import_by_full_path(self):
         db = get_search_backend(
-            backend='wagtail.search.backends.db.DatabaseSearchBackend'
+            backend="wagtail.search.backends.db.DatabaseSearchBackend"
         )
         self.assertIsInstance(db, DatabaseSearchBackend)
 
@@ -841,7 +841,7 @@ class TestBackendLoader(TestCase):
         self.assertRaises(
             InvalidSearchBackendError,
             get_search_backend,
-            backend='wagtail.search.backends.doesntexist',
+            backend="wagtail.search.backends.doesntexist",
         )
 
     def test_invalid_backend_import(self):
@@ -864,8 +864,8 @@ class TestBackendLoader(TestCase):
 
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
-            'default': {'BACKEND': 'wagtail.search.backends.db'},
-            'another-backend': {'BACKEND': 'wagtail.search.backends.db'},
+            "default": {"BACKEND": "wagtail.search.backends.db"},
+            "another-backend": {"BACKEND": "wagtail.search.backends.db"},
         }
     )
     def test_get_search_backends_multiple(self):
@@ -881,7 +881,7 @@ class TestBackendLoader(TestCase):
 
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
-            'default': {'BACKEND': 'wagtail.search.backends.db', 'AUTO_UPDATE': False}
+            "default": {"BACKEND": "wagtail.search.backends.db", "AUTO_UPDATE": False}
         }
     )
     def test_get_search_backends_with_auto_update_disabled(self):
@@ -891,7 +891,7 @@ class TestBackendLoader(TestCase):
 
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
-            'default': {'BACKEND': 'wagtail.search.backends.db', 'AUTO_UPDATE': False}
+            "default": {"BACKEND": "wagtail.search.backends.db", "AUTO_UPDATE": False}
         }
     )
     def test_get_search_backends_without_auto_update_disabled(self):

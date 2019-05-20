@@ -1,7 +1,7 @@
 # Imported for historical reasons
 from wagtail import __semver__, __version__  # noqa
 
-default_app_config = 'wagtail.core.apps.WagtailCoreAppConfig'
+default_app_config = "wagtail.core.apps.WagtailCoreAppConfig"
 
 
 def setup():

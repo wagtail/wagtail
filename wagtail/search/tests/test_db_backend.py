@@ -6,7 +6,7 @@ from .test_backends import BackendTests
 
 
 class TestDBBackend(BackendTests, TestCase):
-    backend_path = 'wagtail.search.backends.db'
+    backend_path = "wagtail.search.backends.db"
 
     # Doesn't support autocomplete
     @unittest.expectedFailure

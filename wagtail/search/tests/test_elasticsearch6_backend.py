@@ -15,7 +15,7 @@ from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 
 
 class TestElasticsearch6SearchBackend(ElasticsearchCommonSearchBackendTests, TestCase):
-    backend_path = 'wagtail.search.backends.elasticsearch6'
+    backend_path = "wagtail.search.backends.elasticsearch6"
 
 
 class TestElasticsearch6SearchQuery(TestCase):
@@ -34,12 +34,12 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': {'match': {'content_type': 'searchtests.Book'}},
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+            "bool": {
+                "filter": {"match": {"content_type": "searchtests.Book"}},
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -52,9 +52,9 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': {'match': {'content_type': 'searchtests.Book'}},
-                'must': {'match_all': {}},
+            "bool": {
+                "filter": {"match": {"content_type": "searchtests.Book"}},
+                "must": {"match_all": {}},
             }
         }
         self.assertDictEqual(query.get_query(), expected_result)
@@ -62,18 +62,18 @@ class TestElasticsearch6SearchQuery(TestCase):
     def test_and_operator(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.all(), "Hello", operator='and'
+            models.Book.objects.all(), "Hello", operator="and"
         )
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': {'match': {'content_type': 'searchtests.Book'}},
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
-                        'operator': 'and',
+            "bool": {
+                "filter": {"match": {"content_type": "searchtests.Book"}},
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
+                        "operator": "and",
                     }
                 },
             }
@@ -88,15 +88,15 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
-                    {'term': {'title_filter': 'Test'}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
+                    {"term": {"title_filter": "Test"}},
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -114,22 +114,22 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
                     {
-                        'bool': {
-                            'must': [
-                                {'term': {'publication_date_filter': '2017-10-18'}},
-                                {'term': {'title_filter': 'Test'}},
+                        "bool": {
+                            "must": [
+                                {"term": {"publication_date_filter": "2017-10-18"}},
+                                {"term": {"title_filter": "Test"}},
                             ]
                         }
                     },
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -137,9 +137,9 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
         query = query.get_query()
-        field_filters = query['bool']['filter'][1]['bool']['must']
+        field_filters = query["bool"]["filter"][1]["bool"]["must"]
         field_filters[:] = sorted(
-            field_filters, key=lambda f: list(f['term'].keys())[0]
+            field_filters, key=lambda f: list(f["term"].keys())[0]
         )
 
         self.assertDictEqual(query, expected_result)
@@ -155,29 +155,29 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Make sure field filters are sorted (as they can be in any order which may cause false positives)
         query = query.get_query()
-        field_filters = query['bool']['filter'][1]['bool']['should']
+        field_filters = query["bool"]["filter"][1]["bool"]["should"]
         field_filters[:] = sorted(
-            field_filters, key=lambda f: list(f['term'].keys())[0]
+            field_filters, key=lambda f: list(f["term"].keys())[0]
         )
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
                     {
-                        'bool': {
-                            'should': [
-                                {'term': {'publication_date_filter': '2017-10-18'}},
-                                {'term': {'title_filter': 'Test'}},
+                        "bool": {
+                            "should": [
+                                {"term": {"publication_date_filter": "2017-10-18"}},
+                                {"term": {"title_filter": "Test"}},
                             ]
                         }
                     },
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -193,21 +193,21 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
                     {
-                        'bool': {
-                            'mustNot': {
-                                'term': {'publication_date_filter': '2017-10-18'}
+                        "bool": {
+                            "mustNot": {
+                                "term": {"publication_date_filter": "2017-10-18"}
                             }
                         }
                     },
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -217,14 +217,14 @@ class TestElasticsearch6SearchQuery(TestCase):
     def test_fields(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.all(), "Hello", fields=['title']
+            models.Book.objects.all(), "Hello", fields=["title"]
         )
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': {'match': {'content_type': 'searchtests.Book'}},
-                'must': {'match': {'title': {'query': 'Hello'}}},
+            "bool": {
+                "filter": {"match": {"content_type": "searchtests.Book"}},
+                "must": {"match": {"title": {"query": "Hello"}}},
             }
         }
         self.assertDictEqual(query.get_query(), expected_result)
@@ -232,14 +232,14 @@ class TestElasticsearch6SearchQuery(TestCase):
     def test_fields_with_and_operator(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.all(), "Hello", fields=['title'], operator='and'
+            models.Book.objects.all(), "Hello", fields=["title"], operator="and"
         )
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': {'match': {'content_type': 'searchtests.Book'}},
-                'must': {'match': {'title': {'query': 'Hello', 'operator': 'and'}}},
+            "bool": {
+                "filter": {"match": {"content_type": "searchtests.Book"}},
+                "must": {"match": {"title": {"query": "Hello", "operator": "and"}}},
             }
         }
         self.assertDictEqual(query.get_query(), expected_result)
@@ -247,15 +247,15 @@ class TestElasticsearch6SearchQuery(TestCase):
     def test_multiple_fields(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.all(), "Hello", fields=['title', 'content']
+            models.Book.objects.all(), "Hello", fields=["title", "content"]
         )
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': {'match': {'content_type': 'searchtests.Book'}},
-                'must': {
-                    'multi_match': {'fields': ['title', 'content'], 'query': 'Hello'}
+            "bool": {
+                "filter": {"match": {"content_type": "searchtests.Book"}},
+                "must": {
+                    "multi_match": {"fields": ["title", "content"], "query": "Hello"}
                 },
             }
         }
@@ -266,19 +266,19 @@ class TestElasticsearch6SearchQuery(TestCase):
         query = self.query_compiler_class(
             models.Book.objects.all(),
             "Hello",
-            fields=['title', 'content'],
-            operator='and',
+            fields=["title", "content"],
+            operator="and",
         )
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': {'match': {'content_type': 'searchtests.Book'}},
-                'must': {
-                    'multi_match': {
-                        'fields': ['title', 'content'],
-                        'query': 'Hello',
-                        'operator': 'and',
+            "bool": {
+                "filter": {"match": {"content_type": "searchtests.Book"}},
+                "must": {
+                    "multi_match": {
+                        "fields": ["title", "content"],
+                        "query": "Hello",
+                        "operator": "and",
                     }
                 },
             }
@@ -293,15 +293,15 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
-                    {'term': {'title_filter': 'Test'}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
+                    {"term": {"title_filter": "Test"}},
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -316,15 +316,15 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
-                    {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
+                    {"bool": {"mustNot": {"exists": {"field": "title_filter"}}}},
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -339,15 +339,15 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
-                    {'bool': {'mustNot': {'exists': {'field': 'title_filter'}}}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
+                    {"bool": {"mustNot": {"exists": {"field": "title_filter"}}}},
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -362,15 +362,15 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
-                    {'exists': {'field': 'title_filter'}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
+                    {"exists": {"field": "title_filter"}},
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -385,15 +385,15 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
-                    {'prefix': {'title_filter': 'Test'}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
+                    {"prefix": {"title_filter": "Test"}},
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -413,15 +413,15 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
-                    {'range': {'publication_date_filter': {'gt': '2014-04-29'}}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
+                    {"range": {"publication_date_filter": {"gt": "2014-04-29"}}},
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -439,15 +439,15 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
-                    {'range': {'publication_date_filter': {'lt': '2014-04-29'}}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
+                    {"range": {"publication_date_filter": {"lt": "2014-04-29"}}},
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -465,15 +465,15 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
-                    {'range': {'publication_date_filter': {'gte': '2014-04-29'}}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
+                    {"range": {"publication_date_filter": {"gte": "2014-04-29"}}},
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -491,15 +491,15 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
-                    {'range': {'publication_date_filter': {'lte': '2014-04-29'}}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
+                    {"range": {"publication_date_filter": {"lte": "2014-04-29"}}},
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -518,22 +518,22 @@ class TestElasticsearch6SearchQuery(TestCase):
 
         # Check it
         expected_result = {
-            'bool': {
-                'filter': [
-                    {'match': {'content_type': 'searchtests.Book'}},
+            "bool": {
+                "filter": [
+                    {"match": {"content_type": "searchtests.Book"}},
                     {
-                        'range': {
-                            'publication_date_filter': {
-                                'gte': '2014-04-29',
-                                'lte': '2014-08-19',
+                        "range": {
+                            "publication_date_filter": {
+                                "gte": "2014-04-29",
+                                "lte": "2014-08-19",
                             }
                         }
                     },
                 ],
-                'must': {
-                    'multi_match': {
-                        'query': 'Hello',
-                        'fields': ['_all_text', '_edgengrams'],
+                "must": {
+                    "multi_match": {
+                        "query": "Hello",
+                        "fields": ["_all_text", "_edgengrams"],
                     }
                 },
             }
@@ -543,45 +543,45 @@ class TestElasticsearch6SearchQuery(TestCase):
     def test_custom_ordering(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.order_by('publication_date'),
+            models.Book.objects.order_by("publication_date"),
             "Hello",
             order_by_relevance=False,
         )
 
         # Check it
-        expected_result = [{'publication_date_filter': 'asc'}]
+        expected_result = [{"publication_date_filter": "asc"}]
         self.assertDictEqual(query.get_sort(), expected_result)
 
     def test_custom_ordering_reversed(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.order_by('-publication_date'),
+            models.Book.objects.order_by("-publication_date"),
             "Hello",
             order_by_relevance=False,
         )
 
         # Check it
-        expected_result = [{'publication_date_filter': 'desc'}]
+        expected_result = [{"publication_date_filter": "desc"}]
         self.assertDictEqual(query.get_sort(), expected_result)
 
     def test_custom_ordering_multiple(self):
         # Create a query
         query = self.query_compiler_class(
-            models.Book.objects.order_by('publication_date', 'number_of_pages'),
+            models.Book.objects.order_by("publication_date", "number_of_pages"),
             "Hello",
             order_by_relevance=False,
         )
 
         # Check it
         expected_result = [
-            {'publication_date_filter': 'asc'},
-            {'number_of_pages_filter': 'asc'},
+            {"publication_date_filter": "asc"},
+            {"number_of_pages_filter": "asc"},
         ]
         self.assertDictEqual(query.get_sort(), expected_result)
 
 
 class TestElasticsearch6SearchResults(TestCase):
-    fixtures = ['search']
+    fixtures = ["search"]
 
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
@@ -591,32 +591,32 @@ class TestElasticsearch6SearchResults(TestCase):
         backend = Elasticsearch6SearchBackend({})
         query = mock.MagicMock()
         query.queryset = models.Book.objects.all()
-        query.get_query.return_value = 'QUERY'
+        query.get_query.return_value = "QUERY"
         query.get_sort.return_value = None
         return backend.results_class(backend, query)
 
     def construct_search_response(self, results):
         return {
-            '_shards': {'failed': 0, 'successful': 5, 'total': 5},
-            'hits': {
-                'hits': [
+            "_shards": {"failed": 0, "successful": 5, "total": 5},
+            "hits": {
+                "hits": [
                     {
-                        '_id': 'searchtests_book:' + str(result),
-                        '_index': 'wagtail',
-                        '_score': 1,
-                        '_type': 'searchtests_book',
-                        'fields': {'pk': [str(result)]},
+                        "_id": "searchtests_book:" + str(result),
+                        "_index": "wagtail",
+                        "_score": 1,
+                        "_type": "searchtests_book",
+                        "fields": {"pk": [str(result)]},
                     }
                     for result in results
                 ],
-                'max_score': 1,
-                'total': len(results),
+                "max_score": 1,
+                "total": len(results),
             },
-            'timed_out': False,
-            'took': 2,
+            "timed_out": False,
+            "took": 2,
         }
 
-    @mock.patch('elasticsearch.Elasticsearch.search')
+    @mock.patch("elasticsearch.Elasticsearch.search")
     def test_basic_search(self, search):
         search.return_value = self.construct_search_response([])
         results = self.get_results()
@@ -624,15 +624,15 @@ class TestElasticsearch6SearchResults(TestCase):
         list(results)  # Performs search
 
         search.assert_any_call(
-            body={'query': 'QUERY'},
+            body={"query": "QUERY"},
             _source=False,
-            stored_fields='pk',
-            index='wagtail__searchtests_book',
-            scroll='2m',
+            stored_fields="pk",
+            index="wagtail__searchtests_book",
+            scroll="2m",
             size=100,
         )
 
-    @mock.patch('elasticsearch.Elasticsearch.search')
+    @mock.patch("elasticsearch.Elasticsearch.search")
     def test_get_single_item(self, search):
         # Need to return something to prevent index error
         search.return_value = self.construct_search_response([1])
@@ -642,14 +642,14 @@ class TestElasticsearch6SearchResults(TestCase):
 
         search.assert_any_call(
             from_=10,
-            body={'query': 'QUERY'},
+            body={"query": "QUERY"},
             _source=False,
-            stored_fields='pk',
-            index='wagtail__searchtests_book',
+            stored_fields="pk",
+            index="wagtail__searchtests_book",
             size=1,
         )
 
-    @mock.patch('elasticsearch.Elasticsearch.search')
+    @mock.patch("elasticsearch.Elasticsearch.search")
     def test_slice_results(self, search):
         search.return_value = self.construct_search_response([])
         results = self.get_results()[1:4]
@@ -658,14 +658,14 @@ class TestElasticsearch6SearchResults(TestCase):
 
         search.assert_any_call(
             from_=1,
-            body={'query': 'QUERY'},
+            body={"query": "QUERY"},
             _source=False,
-            stored_fields='pk',
-            index='wagtail__searchtests_book',
+            stored_fields="pk",
+            index="wagtail__searchtests_book",
             size=3,
         )
 
-    @mock.patch('elasticsearch.Elasticsearch.search')
+    @mock.patch("elasticsearch.Elasticsearch.search")
     def test_slice_results_multiple_times(self, search):
         search.return_value = self.construct_search_response([])
         results = self.get_results()[10:][:10]
@@ -674,14 +674,14 @@ class TestElasticsearch6SearchResults(TestCase):
 
         search.assert_any_call(
             from_=10,
-            body={'query': 'QUERY'},
+            body={"query": "QUERY"},
             _source=False,
-            stored_fields='pk',
-            index='wagtail__searchtests_book',
+            stored_fields="pk",
+            index="wagtail__searchtests_book",
             size=10,
         )
 
-    @mock.patch('elasticsearch.Elasticsearch.search')
+    @mock.patch("elasticsearch.Elasticsearch.search")
     def test_slice_results_and_get_item(self, search):
         # Need to return something to prevent index error
         search.return_value = self.construct_search_response([1])
@@ -691,35 +691,35 @@ class TestElasticsearch6SearchResults(TestCase):
 
         search.assert_any_call(
             from_=20,
-            body={'query': 'QUERY'},
+            body={"query": "QUERY"},
             _source=False,
-            stored_fields='pk',
-            index='wagtail__searchtests_book',
+            stored_fields="pk",
+            index="wagtail__searchtests_book",
             size=1,
         )
 
-    @mock.patch('elasticsearch.Elasticsearch.search')
+    @mock.patch("elasticsearch.Elasticsearch.search")
     def test_result_returned(self, search):
         search.return_value = self.construct_search_response([1])
         results = self.get_results()
 
         self.assertEqual(results[0], models.Book.objects.get(id=1))
 
-    @mock.patch('elasticsearch.Elasticsearch.search')
+    @mock.patch("elasticsearch.Elasticsearch.search")
     def test_len_1(self, search):
         search.return_value = self.construct_search_response([1])
         results = self.get_results()
 
         self.assertEqual(len(results), 1)
 
-    @mock.patch('elasticsearch.Elasticsearch.search')
+    @mock.patch("elasticsearch.Elasticsearch.search")
     def test_len_2(self, search):
         search.return_value = self.construct_search_response([1, 2])
         results = self.get_results()
 
         self.assertEqual(len(results), 2)
 
-    @mock.patch('elasticsearch.Elasticsearch.search')
+    @mock.patch("elasticsearch.Elasticsearch.search")
     def test_duplicate_results(self, search):  # Duplicates will not be removed
         search.return_value = self.construct_search_response([1, 1])
         results = list(
@@ -730,7 +730,7 @@ class TestElasticsearch6SearchResults(TestCase):
         self.assertEqual(results[0], models.Book.objects.get(id=1))
         self.assertEqual(results[1], models.Book.objects.get(id=1))
 
-    @mock.patch('elasticsearch.Elasticsearch.search')
+    @mock.patch("elasticsearch.Elasticsearch.search")
     def test_result_order(self, search):
         search.return_value = self.construct_search_response([1, 2, 3])
         results = list(
@@ -741,7 +741,7 @@ class TestElasticsearch6SearchResults(TestCase):
         self.assertEqual(results[1], models.Book.objects.get(id=2))
         self.assertEqual(results[2], models.Book.objects.get(id=3))
 
-    @mock.patch('elasticsearch.Elasticsearch.search')
+    @mock.patch("elasticsearch.Elasticsearch.search")
     def test_result_order_2(self, search):
         search.return_value = self.construct_search_response([3, 2, 1])
         results = list(
@@ -754,7 +754,7 @@ class TestElasticsearch6SearchResults(TestCase):
 
 
 class TestElasticsearch6Mapping(TestCase):
-    fixtures = ['search']
+    fixtures = ["search"]
 
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
@@ -771,7 +771,7 @@ class TestElasticsearch6Mapping(TestCase):
         self.obj = models.Book.objects.get(id=4)
 
     def test_get_document_type(self):
-        self.assertEqual(self.es_mapping.get_document_type(), 'doc')
+        self.assertEqual(self.es_mapping.get_document_type(), "doc")
 
     def test_get_mapping(self):
         # Build mapping
@@ -779,47 +779,47 @@ class TestElasticsearch6Mapping(TestCase):
 
         # Check
         expected_result = {
-            'doc': {
-                'properties': {
-                    'pk': {'type': 'keyword', 'store': True},
-                    'content_type': {'type': 'keyword'},
-                    '_all_text': {'type': 'text'},
-                    '_edgengrams': {
-                        'analyzer': 'edgengram_analyzer',
-                        'search_analyzer': 'standard',
-                        'type': 'text',
+            "doc": {
+                "properties": {
+                    "pk": {"type": "keyword", "store": True},
+                    "content_type": {"type": "keyword"},
+                    "_all_text": {"type": "text"},
+                    "_edgengrams": {
+                        "analyzer": "edgengram_analyzer",
+                        "search_analyzer": "standard",
+                        "type": "text",
                     },
-                    'title': {
-                        'type': 'text',
-                        'boost': 2.0,
-                        'copy_to': '_all_text',
-                        'analyzer': 'edgengram_analyzer',
-                        'search_analyzer': 'standard',
+                    "title": {
+                        "type": "text",
+                        "boost": 2.0,
+                        "copy_to": "_all_text",
+                        "analyzer": "edgengram_analyzer",
+                        "search_analyzer": "standard",
                     },
-                    'title_edgengrams': {
-                        'type': 'text',
-                        'analyzer': 'edgengram_analyzer',
-                        'search_analyzer': 'standard',
+                    "title_edgengrams": {
+                        "type": "text",
+                        "analyzer": "edgengram_analyzer",
+                        "search_analyzer": "standard",
                     },
-                    'title_filter': {'type': 'keyword'},
-                    'authors': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {'type': 'text', 'copy_to': '_all_text'},
-                            'date_of_birth_filter': {'type': 'date'},
+                    "title_filter": {"type": "keyword"},
+                    "authors": {
+                        "type": "nested",
+                        "properties": {
+                            "name": {"type": "text", "copy_to": "_all_text"},
+                            "date_of_birth_filter": {"type": "date"},
                         },
                     },
-                    'authors_filter': {'type': 'integer'},
-                    'publication_date_filter': {'type': 'date'},
-                    'number_of_pages_filter': {'type': 'integer'},
-                    'tags': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {'type': 'text', 'copy_to': '_all_text'},
-                            'slug_filter': {'type': 'keyword'},
+                    "authors_filter": {"type": "integer"},
+                    "publication_date_filter": {"type": "date"},
+                    "number_of_pages_filter": {"type": "integer"},
+                    "tags": {
+                        "type": "nested",
+                        "properties": {
+                            "name": {"type": "text", "copy_to": "_all_text"},
+                            "slug_filter": {"type": "keyword"},
                         },
                     },
-                    'tags_filter': {'type': 'integer'},
+                    "tags_filter": {"type": "integer"},
                 }
             }
         }
@@ -834,35 +834,35 @@ class TestElasticsearch6Mapping(TestCase):
         document = self.es_mapping.get_document(self.obj)
 
         # Sort edgengrams
-        if '_edgengrams' in document:
-            document['_edgengrams'].sort()
+        if "_edgengrams" in document:
+            document["_edgengrams"].sort()
 
         # Check
         expected_result = {
-            'pk': '4',
-            'content_type': ["searchtests.Book"],
-            '_edgengrams': ['The Fellowship of the Ring', 'The Fellowship of the Ring'],
-            'title': 'The Fellowship of the Ring',
-            'title_edgengrams': 'The Fellowship of the Ring',
-            'title_filter': 'The Fellowship of the Ring',
-            'authors': [
+            "pk": "4",
+            "content_type": ["searchtests.Book"],
+            "_edgengrams": ["The Fellowship of the Ring", "The Fellowship of the Ring"],
+            "title": "The Fellowship of the Ring",
+            "title_edgengrams": "The Fellowship of the Ring",
+            "title_filter": "The Fellowship of the Ring",
+            "authors": [
                 {
-                    'name': 'J. R. R. Tolkien',
-                    'date_of_birth_filter': datetime.date(1892, 1, 3),
+                    "name": "J. R. R. Tolkien",
+                    "date_of_birth_filter": datetime.date(1892, 1, 3),
                 }
             ],
-            'authors_filter': [2],
-            'publication_date_filter': datetime.date(1954, 7, 29),
-            'number_of_pages_filter': 423,
-            'tags': [],
-            'tags_filter': [],
+            "authors_filter": [2],
+            "publication_date_filter": datetime.date(1954, 7, 29),
+            "number_of_pages_filter": 423,
+            "tags": [],
+            "tags_filter": [],
         }
 
         self.assertDictEqual(document, expected_result)
 
 
 class TestElasticsearch6MappingInheritance(TestCase):
-    fixtures = ['search']
+    fixtures = ["search"]
 
     def assertDictEqual(self, a, b):
         default = JSONSerializer().default
@@ -878,7 +878,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
         self.obj = models.Novel.objects.get(id=4)
 
     def test_get_document_type(self):
-        self.assertEqual(self.es_mapping.get_document_type(), 'doc')
+        self.assertEqual(self.es_mapping.get_document_type(), "doc")
 
     def test_get_mapping(self):
         # Build mapping
@@ -886,77 +886,77 @@ class TestElasticsearch6MappingInheritance(TestCase):
 
         # Check
         expected_result = {
-            'doc': {
-                'properties': {
+            "doc": {
+                "properties": {
                     # New
-                    'searchtests_novel__setting': {
-                        'type': 'text',
-                        'copy_to': '_all_text',
-                        'analyzer': 'edgengram_analyzer',
-                        'search_analyzer': 'standard',
+                    "searchtests_novel__setting": {
+                        "type": "text",
+                        "copy_to": "_all_text",
+                        "analyzer": "edgengram_analyzer",
+                        "search_analyzer": "standard",
                     },
-                    'searchtests_novel__protagonist': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {
-                                'type': 'text',
-                                'boost': 0.5,
-                                'copy_to': '_all_text',
+                    "searchtests_novel__protagonist": {
+                        "type": "nested",
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "boost": 0.5,
+                                "copy_to": "_all_text",
                             },
-                            'novel_id_filter': {'type': 'integer'},
+                            "novel_id_filter": {"type": "integer"},
                         },
                     },
-                    'searchtests_novel__protagonist_id_filter': {'type': 'integer'},
-                    'searchtests_novel__characters': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {
-                                'type': 'text',
-                                'boost': 0.25,
-                                'copy_to': '_all_text',
+                    "searchtests_novel__protagonist_id_filter": {"type": "integer"},
+                    "searchtests_novel__characters": {
+                        "type": "nested",
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "boost": 0.25,
+                                "copy_to": "_all_text",
                             }
                         },
                     },
                     # Inherited
-                    'pk': {'type': 'keyword', 'store': True},
-                    'content_type': {'type': 'keyword'},
-                    '_all_text': {'type': 'text'},
-                    '_edgengrams': {
-                        'analyzer': 'edgengram_analyzer',
-                        'search_analyzer': 'standard',
-                        'type': 'text',
+                    "pk": {"type": "keyword", "store": True},
+                    "content_type": {"type": "keyword"},
+                    "_all_text": {"type": "text"},
+                    "_edgengrams": {
+                        "analyzer": "edgengram_analyzer",
+                        "search_analyzer": "standard",
+                        "type": "text",
                     },
-                    'title': {
-                        'type': 'text',
-                        'boost': 2.0,
-                        'copy_to': '_all_text',
-                        'analyzer': 'edgengram_analyzer',
-                        'search_analyzer': 'standard',
+                    "title": {
+                        "type": "text",
+                        "boost": 2.0,
+                        "copy_to": "_all_text",
+                        "analyzer": "edgengram_analyzer",
+                        "search_analyzer": "standard",
                     },
-                    'title_edgengrams': {
-                        'type': 'text',
-                        'analyzer': 'edgengram_analyzer',
-                        'search_analyzer': 'standard',
+                    "title_edgengrams": {
+                        "type": "text",
+                        "analyzer": "edgengram_analyzer",
+                        "search_analyzer": "standard",
                     },
-                    'title_filter': {'type': 'keyword'},
-                    'authors': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {'type': 'text', 'copy_to': '_all_text'},
-                            'date_of_birth_filter': {'type': 'date'},
+                    "title_filter": {"type": "keyword"},
+                    "authors": {
+                        "type": "nested",
+                        "properties": {
+                            "name": {"type": "text", "copy_to": "_all_text"},
+                            "date_of_birth_filter": {"type": "date"},
                         },
                     },
-                    'authors_filter': {'type': 'integer'},
-                    'publication_date_filter': {'type': 'date'},
-                    'number_of_pages_filter': {'type': 'integer'},
-                    'tags': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {'type': 'text', 'copy_to': '_all_text'},
-                            'slug_filter': {'type': 'keyword'},
+                    "authors_filter": {"type": "integer"},
+                    "publication_date_filter": {"type": "date"},
+                    "number_of_pages_filter": {"type": "integer"},
+                    "tags": {
+                        "type": "nested",
+                        "properties": {
+                            "name": {"type": "text", "copy_to": "_all_text"},
+                            "slug_filter": {"type": "keyword"},
                         },
                     },
-                    'tags_filter': {'type': 'integer'},
+                    "tags_filter": {"type": "integer"},
                 }
             }
         }
@@ -974,56 +974,56 @@ class TestElasticsearch6MappingInheritance(TestCase):
         document = self.es_mapping.get_document(self.obj)
 
         # Sort edgengrams
-        if '_edgengrams' in document:
-            document['_edgengrams'].sort()
+        if "_edgengrams" in document:
+            document["_edgengrams"].sort()
 
         # Sort characters
-        if 'searchtests_novel__characters' in document:
-            document['searchtests_novel__characters'].sort(key=lambda c: c['name'])
+        if "searchtests_novel__characters" in document:
+            document["searchtests_novel__characters"].sort(key=lambda c: c["name"])
 
         # Check
         expected_result = {
             # New
-            'searchtests_novel__setting': "Middle Earth",
-            'searchtests_novel__protagonist': {
-                'name': "Frodo Baggins",
-                'novel_id_filter': 4,
+            "searchtests_novel__setting": "Middle Earth",
+            "searchtests_novel__protagonist": {
+                "name": "Frodo Baggins",
+                "novel_id_filter": 4,
             },
-            'searchtests_novel__protagonist_id_filter': 8,
-            'searchtests_novel__characters': [
-                {'name': "Bilbo Baggins"},
-                {'name': "Frodo Baggins"},
-                {'name': "Gandalf"},
+            "searchtests_novel__protagonist_id_filter": 8,
+            "searchtests_novel__characters": [
+                {"name": "Bilbo Baggins"},
+                {"name": "Frodo Baggins"},
+                {"name": "Gandalf"},
             ],
             # Changed
-            'content_type': ["searchtests.Novel", "searchtests.Book"],
-            '_edgengrams': [
-                'Middle Earth',
-                'The Fellowship of the Ring',
-                'The Fellowship of the Ring',
+            "content_type": ["searchtests.Novel", "searchtests.Book"],
+            "_edgengrams": [
+                "Middle Earth",
+                "The Fellowship of the Ring",
+                "The Fellowship of the Ring",
             ],
             # Inherited
-            'pk': '4',
-            'title': 'The Fellowship of the Ring',
-            'title_edgengrams': 'The Fellowship of the Ring',
-            'title_filter': 'The Fellowship of the Ring',
-            'authors': [
+            "pk": "4",
+            "title": "The Fellowship of the Ring",
+            "title_edgengrams": "The Fellowship of the Ring",
+            "title_filter": "The Fellowship of the Ring",
+            "authors": [
                 {
-                    'name': 'J. R. R. Tolkien',
-                    'date_of_birth_filter': datetime.date(1892, 1, 3),
+                    "name": "J. R. R. Tolkien",
+                    "date_of_birth_filter": datetime.date(1892, 1, 3),
                 }
             ],
-            'authors_filter': [2],
-            'publication_date_filter': datetime.date(1954, 7, 29),
-            'number_of_pages_filter': 423,
-            'tags': [],
-            'tags_filter': [],
+            "authors_filter": [2],
+            "publication_date_filter": datetime.date(1954, 7, 29),
+            "number_of_pages_filter": 423,
+            "tags": [],
+            "tags_filter": [],
         }
 
         self.assertDictEqual(document, expected_result)
 
 
-@mock.patch('wagtail.search.backends.elasticsearch2.Elasticsearch')
+@mock.patch("wagtail.search.backends.elasticsearch2.Elasticsearch")
 class TestBackendConfiguration(TestCase):
     def test_default_settings(self, Elasticsearch):
         Elasticsearch6SearchBackend(params={})
@@ -1031,12 +1031,12 @@ class TestBackendConfiguration(TestCase):
         Elasticsearch.assert_called_with(
             hosts=[
                 {
-                    'host': 'localhost',
-                    'port': 9200,
-                    'url_prefix': '',
-                    'use_ssl': False,
-                    'verify_certs': False,
-                    'http_auth': None,
+                    "host": "localhost",
+                    "port": 9200,
+                    "url_prefix": "",
+                    "use_ssl": False,
+                    "verify_certs": False,
+                    "http_auth": None,
                 }
             ],
             timeout=10,
@@ -1045,12 +1045,12 @@ class TestBackendConfiguration(TestCase):
     def test_hosts(self, Elasticsearch):
         Elasticsearch6SearchBackend(
             params={
-                'HOSTS': [
+                "HOSTS": [
                     {
-                        'host': '127.0.0.1',
-                        'port': 9300,
-                        'use_ssl': True,
-                        'verify_certs': True,
+                        "host": "127.0.0.1",
+                        "port": 9300,
+                        "use_ssl": True,
+                        "verify_certs": True,
                     }
                 ]
             }
@@ -1059,10 +1059,10 @@ class TestBackendConfiguration(TestCase):
         Elasticsearch.assert_called_with(
             hosts=[
                 {
-                    'host': '127.0.0.1',
-                    'port': 9300,
-                    'use_ssl': True,
-                    'verify_certs': True,
+                    "host": "127.0.0.1",
+                    "port": 9300,
+                    "use_ssl": True,
+                    "verify_certs": True,
                 }
             ],
             timeout=10,
@@ -1072,11 +1072,11 @@ class TestBackendConfiguration(TestCase):
         # This test backwards compatibility with old URLS setting
         Elasticsearch6SearchBackend(
             params={
-                'URLS': [
-                    'http://localhost:12345',
-                    'https://127.0.0.1:54321',
-                    'http://username:password@elasticsearch.mysite.com',
-                    'https://elasticsearch.mysite.com/hello',
+                "URLS": [
+                    "http://localhost:12345",
+                    "https://127.0.0.1:54321",
+                    "http://username:password@elasticsearch.mysite.com",
+                    "https://elasticsearch.mysite.com/hello",
                 ]
             }
         )
@@ -1084,36 +1084,36 @@ class TestBackendConfiguration(TestCase):
         Elasticsearch.assert_called_with(
             hosts=[
                 {
-                    'host': 'localhost',
-                    'port': 12345,
-                    'url_prefix': '',
-                    'use_ssl': False,
-                    'verify_certs': False,
-                    'http_auth': None,
+                    "host": "localhost",
+                    "port": 12345,
+                    "url_prefix": "",
+                    "use_ssl": False,
+                    "verify_certs": False,
+                    "http_auth": None,
                 },
                 {
-                    'host': '127.0.0.1',
-                    'port': 54321,
-                    'url_prefix': '',
-                    'use_ssl': True,
-                    'verify_certs': True,
-                    'http_auth': None,
+                    "host": "127.0.0.1",
+                    "port": 54321,
+                    "url_prefix": "",
+                    "use_ssl": True,
+                    "verify_certs": True,
+                    "http_auth": None,
                 },
                 {
-                    'host': 'elasticsearch.mysite.com',
-                    'port': 80,
-                    'url_prefix': '',
-                    'use_ssl': False,
-                    'verify_certs': False,
-                    'http_auth': ('username', 'password'),
+                    "host": "elasticsearch.mysite.com",
+                    "port": 80,
+                    "url_prefix": "",
+                    "use_ssl": False,
+                    "verify_certs": False,
+                    "http_auth": ("username", "password"),
                 },
                 {
-                    'host': 'elasticsearch.mysite.com',
-                    'port': 443,
-                    'url_prefix': '/hello',
-                    'use_ssl': True,
-                    'verify_certs': True,
-                    'http_auth': None,
+                    "host": "elasticsearch.mysite.com",
+                    "port": 443,
+                    "url_prefix": "/hello",
+                    "use_ssl": True,
+                    "verify_certs": True,
+                    "http_auth": None,
                 },
             ],
             timeout=10,

@@ -22,8 +22,8 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
     sys.exit(1)
 
 
-def pluralize(value, arg='s'):
-    return '' if value == 1 else arg
+def pluralize(value, arg="s"):
+    return "" if value == 1 else arg
 
 
 class Command:
@@ -37,7 +37,7 @@ class Command:
             prog = "%s %s" % (prog_name(), command_name)
 
         parser = ArgumentParser(
-            description=getattr(self, 'description', None), add_help=False, prog=prog
+            description=getattr(self, "description", None), add_help=False, prog=prog
         )
         self.add_arguments(parser)
         return parser
@@ -60,10 +60,10 @@ class CreateProject(Command):
     description = "Creates the directory structure for a new Wagtail project."
 
     def add_arguments(self, parser):
-        parser.add_argument('project_name', help="Name for your Wagtail project")
+        parser.add_argument("project_name", help="Name for your Wagtail project")
         parser.add_argument(
-            'dest_dir',
-            nargs='?',
+            "dest_dir",
+            nargs="?",
             help="Destination directory inside which to create the project",
         )
 
@@ -82,7 +82,7 @@ class CreateProject(Command):
 
         print(
             "Creating a Wagtail project called %(project_name)s"
-            % {'project_name': project_name}
+            % {"project_name": project_name}
         )  # noqa
 
         # Create the project from the Wagtail template using startapp
@@ -91,15 +91,15 @@ class CreateProject(Command):
         import wagtail
 
         wagtail_path = os.path.dirname(wagtail.__file__)
-        template_path = os.path.join(wagtail_path, 'project_template')
+        template_path = os.path.join(wagtail_path, "project_template")
 
         # Call django-admin startproject
         utility_args = [
-            'django-admin.py',
-            'startproject',
-            '--template=' + template_path,
-            '--ext=html,rst',
-            '--name=Dockerfile',
+            "django-admin.py",
+            "startproject",
+            "--template=" + template_path,
+            "--ext=html,rst",
+            "--name=Dockerfile",
             project_name,
         ]
 
@@ -111,7 +111,7 @@ class CreateProject(Command):
 
         print(
             "Success! %(project_name)s has been created"
-            % {'project_name': project_name}
+            % {"project_name": project_name}
         )  # noqa
 
 
@@ -119,64 +119,64 @@ class UpdateModulePaths(Command):
     description = "Update a Wagtail project tree to use Wagtail 2.x module paths"
 
     REPLACEMENTS = [
-        (re.compile(r'\bwagtail\.wagtailcore\b'), 'wagtail.core'),
-        (re.compile(r'\bwagtail\.wagtailadmin\b'), 'wagtail.admin'),
-        (re.compile(r'\bwagtail\.wagtaildocs\b'), 'wagtail.documents'),
-        (re.compile(r'\bwagtail\.wagtailembeds\b'), 'wagtail.embeds'),
-        (re.compile(r'\bwagtail\.wagtailimages\b'), 'wagtail.images'),
-        (re.compile(r'\bwagtail\.wagtailsearch\b'), 'wagtail.search'),
-        (re.compile(r'\bwagtail\.wagtailsites\b'), 'wagtail.sites'),
-        (re.compile(r'\bwagtail\.wagtailsnippets\b'), 'wagtail.snippets'),
-        (re.compile(r'\bwagtail\.wagtailusers\b'), 'wagtail.users'),
-        (re.compile(r'\bwagtail\.wagtailforms\b'), 'wagtail.contrib.forms'),
-        (re.compile(r'\bwagtail\.wagtailredirects\b'), 'wagtail.contrib.redirects'),
+        (re.compile(r"\bwagtail\.wagtailcore\b"), "wagtail.core"),
+        (re.compile(r"\bwagtail\.wagtailadmin\b"), "wagtail.admin"),
+        (re.compile(r"\bwagtail\.wagtaildocs\b"), "wagtail.documents"),
+        (re.compile(r"\bwagtail\.wagtailembeds\b"), "wagtail.embeds"),
+        (re.compile(r"\bwagtail\.wagtailimages\b"), "wagtail.images"),
+        (re.compile(r"\bwagtail\.wagtailsearch\b"), "wagtail.search"),
+        (re.compile(r"\bwagtail\.wagtailsites\b"), "wagtail.sites"),
+        (re.compile(r"\bwagtail\.wagtailsnippets\b"), "wagtail.snippets"),
+        (re.compile(r"\bwagtail\.wagtailusers\b"), "wagtail.users"),
+        (re.compile(r"\bwagtail\.wagtailforms\b"), "wagtail.contrib.forms"),
+        (re.compile(r"\bwagtail\.wagtailredirects\b"), "wagtail.contrib.redirects"),
         (
-            re.compile(r'\bwagtail\.contrib\.wagtailfrontendcache\b'),
-            'wagtail.contrib.frontend_cache',
+            re.compile(r"\bwagtail\.contrib\.wagtailfrontendcache\b"),
+            "wagtail.contrib.frontend_cache",
         ),
         (
-            re.compile(r'\bwagtail\.contrib\.wagtailroutablepage\b'),
-            'wagtail.contrib.routable_page',
+            re.compile(r"\bwagtail\.contrib\.wagtailroutablepage\b"),
+            "wagtail.contrib.routable_page",
         ),
         (
-            re.compile(r'\bwagtail\.contrib\.wagtailsearchpromotions\b'),
-            'wagtail.contrib.search_promotions',
+            re.compile(r"\bwagtail\.contrib\.wagtailsearchpromotions\b"),
+            "wagtail.contrib.search_promotions",
         ),
         (
-            re.compile(r'\bwagtail\.contrib\.wagtailsitemaps\b'),
-            'wagtail.contrib.sitemaps',
+            re.compile(r"\bwagtail\.contrib\.wagtailsitemaps\b"),
+            "wagtail.contrib.sitemaps",
         ),
         (
-            re.compile(r'\bwagtail\.contrib\.wagtailstyleguide\b'),
-            'wagtail.contrib.styleguide',
+            re.compile(r"\bwagtail\.contrib\.wagtailstyleguide\b"),
+            "wagtail.contrib.styleguide",
         ),
     ]
 
     def add_arguments(self, parser):
-        parser.add_argument('root_path', nargs='?', help="Path to your project's root")
+        parser.add_argument("root_path", nargs="?", help="Path to your project's root")
         parser.add_argument(
-            '--list',
-            action='store_true',
-            dest='list_files',
+            "--list",
+            action="store_true",
+            dest="list_files",
             help="Show the list of files to change, without modifying them",
         )
         parser.add_argument(
-            '--diff',
-            action='store_true',
+            "--diff",
+            action="store_true",
             help="Show the changes that would be made, without modifying the files",
         )
         parser.add_argument(
-            '--ignore-dir',
-            action='append',
-            dest='ignored_dirs',
-            metavar='NAME',
+            "--ignore-dir",
+            action="append",
+            dest="ignored_dirs",
+            metavar="NAME",
             help="Ignore files in this directory",
         )
         parser.add_argument(
-            '--ignore-file',
-            action='append',
-            dest='ignored_patterns',
-            metavar='NAME',
+            "--ignore-file",
+            action="append",
+            dest="ignored_patterns",
+            metavar="NAME",
             help="Ignore files with this name (supports wildcards)",
         )
 
@@ -210,7 +210,7 @@ class UpdateModulePaths(Command):
                 continue
 
             for filename in filenames:
-                if not filename.lower().endswith('.py'):
+                if not filename.lower().endswith(".py"):
                     continue
 
                 if any(
@@ -309,14 +309,14 @@ class UpdateModulePaths(Command):
         with fileinput.FileInput(filename, inplace=True) as f:
             for original_line in f:
                 line = self._rewrite_line(original_line)
-                print(line, end='')  # NOQA
+                print(line, end="")  # NOQA
                 if line != original_line:
                     change_count += 1
 
         return change_count
 
 
-COMMANDS = {'start': CreateProject(), 'updatemodulepaths': UpdateModulePaths()}
+COMMANDS = {"start": CreateProject(), "updatemodulepaths": UpdateModulePaths()}
 
 
 def prog_name():
@@ -345,7 +345,7 @@ def main():
         help_index()
         return
 
-    if command_name == 'help':
+    if command_name == "help":
         try:
             help_command_name = sys.argv[2]
         except IndexError:

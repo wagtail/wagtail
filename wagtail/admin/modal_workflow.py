@@ -18,7 +18,7 @@ def render_modal_workflow(
     response = {}
 
     if html_template:
-        response['html'] = render_to_string(
+        response["html"] = render_to_string(
             html_template, template_vars or {}, request=request
         )
 

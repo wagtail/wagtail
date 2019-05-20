@@ -19,5 +19,5 @@ def get_rendition_or_not_found(image, specs):
             image.renditions.model
         )  # pick up any custom Image / Rendition classes that may be in use
         rendition = Rendition(image=image, width=0, height=0)
-        rendition.file.name = 'not-found'
+        rendition.file.name = "not-found"
         return rendition

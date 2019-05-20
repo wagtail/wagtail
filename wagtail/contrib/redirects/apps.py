@@ -3,6 +3,6 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class WagtailRedirectsAppConfig(AppConfig):
-    name = 'wagtail.contrib.redirects'
-    label = 'wagtailredirects'
+    name = "wagtail.contrib.redirects"
+    label = "wagtailredirects"
     verbose_name = _("Wagtail redirects")

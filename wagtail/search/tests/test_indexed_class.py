@@ -22,24 +22,24 @@ def patch_search_fields(model, new_search_fields):
 class TestContentTypeNames(TestCase):
     def test_base_content_type_name(self):
         name = models.Novel.indexed_get_toplevel_content_type()
-        self.assertEqual(name, 'searchtests_book')
+        self.assertEqual(name, "searchtests_book")
 
     def test_qualified_content_type_name(self):
         name = models.Novel.indexed_get_content_type()
-        self.assertEqual(name, 'searchtests_book_searchtests_novel')
+        self.assertEqual(name, "searchtests_book_searchtests_novel")
 
 
 class TestSearchFields(TestCase):
     def make_dummy_type(self, search_fields):
         return type(
-            str('DummyType'), (index.Indexed,), dict(search_fields=search_fields)
+            str("DummyType"), (index.Indexed,), dict(search_fields=search_fields)
         )
 
     def test_basic(self):
         cls = self.make_dummy_type(
             [
-                index.SearchField('test', boost=100, partial_match=False),
-                index.FilterField('filter_test'),
+                index.SearchField("test", boost=100, partial_match=False),
+                index.FilterField("filter_test"),
             ]
         )
 
@@ -59,8 +59,8 @@ class TestSearchFields(TestCase):
         # as intended.
         cls = self.make_dummy_type(
             [
-                index.SearchField('test', boost=100, partial_match=False),
-                index.SearchField('test', partial_match=True),
+                index.SearchField("test", boost=100, partial_match=False),
+                index.SearchField("test", partial_match=True),
             ]
         )
 
@@ -81,8 +81,8 @@ class TestSearchFields(TestCase):
         # A search and filter field with the same name should be able to coexist
         cls = self.make_dummy_type(
             [
-                index.SearchField('test', boost=100, partial_match=False),
-                index.FilterField('test'),
+                index.SearchField("test", boost=100, partial_match=False),
+                index.FilterField("test"),
             ]
         )
 
@@ -92,7 +92,7 @@ class TestSearchFields(TestCase):
 
     def test_checking_search_fields(self):
         with patch_search_fields(
-            models.Book, models.Book.search_fields + [index.SearchField('foo')]
+            models.Book, models.Book.search_fields + [index.SearchField("foo")]
         ):
             expected_errors = [
                 checks.Warning(

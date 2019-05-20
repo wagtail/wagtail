@@ -20,51 +20,51 @@ from taggit.models import Tag
 from wagtail.core.models import GroupPagePermission, Page, PageRevision
 from wagtail.users.models import UserProfile
 
-logger = logging.getLogger('wagtail.admin')
+logger = logging.getLogger("wagtail.admin")
 
 # Wagtail languages with >=90% coverage
 # This list is manually maintained
 WAGTAILADMIN_PROVIDED_LANGUAGES = [
-    ('ar', ugettext_lazy('Arabic')),
-    ('ca', ugettext_lazy('Catalan')),
-    ('de', ugettext_lazy('German')),
-    ('el', ugettext_lazy('Greek')),
-    ('en', ugettext_lazy('English')),
-    ('es', ugettext_lazy('Spanish')),
-    ('fi', ugettext_lazy('Finnish')),
-    ('fr', ugettext_lazy('French')),
-    ('gl', ugettext_lazy('Galician')),
-    ('id-id', ugettext_lazy('Indonesian')),
-    ('is-is', ugettext_lazy('Icelandic')),
-    ('it', ugettext_lazy('Italian')),
-    ('ko', ugettext_lazy('Korean')),
-    ('lt', ugettext_lazy('Lithuanian')),
-    ('mn', ugettext_lazy('Mongolian')),
-    ('nb', ugettext_lazy('Norwegian Bokmål')),
-    ('nl-nl', ugettext_lazy('Netherlands Dutch')),
-    ('fa', ugettext_lazy('Persian')),
-    ('pl', ugettext_lazy('Polish')),
-    ('pt-br', ugettext_lazy('Brazilian Portuguese')),
-    ('pt-pt', ugettext_lazy('Portuguese')),
-    ('ro', ugettext_lazy('Romanian')),
-    ('ru', ugettext_lazy('Russian')),
-    ('sv', ugettext_lazy('Swedish')),
-    ('sk-sk', ugettext_lazy('Slovak')),
-    ('th', ugettext_lazy('Thai')),
-    ('uk', ugettext_lazy('Ukrainian')),
-    ('zh-hans', ugettext_lazy('Chinese (Simplified)')),
-    ('zh-hant', ugettext_lazy('Chinese (Traditional)')),
+    ("ar", ugettext_lazy("Arabic")),
+    ("ca", ugettext_lazy("Catalan")),
+    ("de", ugettext_lazy("German")),
+    ("el", ugettext_lazy("Greek")),
+    ("en", ugettext_lazy("English")),
+    ("es", ugettext_lazy("Spanish")),
+    ("fi", ugettext_lazy("Finnish")),
+    ("fr", ugettext_lazy("French")),
+    ("gl", ugettext_lazy("Galician")),
+    ("id-id", ugettext_lazy("Indonesian")),
+    ("is-is", ugettext_lazy("Icelandic")),
+    ("it", ugettext_lazy("Italian")),
+    ("ko", ugettext_lazy("Korean")),
+    ("lt", ugettext_lazy("Lithuanian")),
+    ("mn", ugettext_lazy("Mongolian")),
+    ("nb", ugettext_lazy("Norwegian Bokmål")),
+    ("nl-nl", ugettext_lazy("Netherlands Dutch")),
+    ("fa", ugettext_lazy("Persian")),
+    ("pl", ugettext_lazy("Polish")),
+    ("pt-br", ugettext_lazy("Brazilian Portuguese")),
+    ("pt-pt", ugettext_lazy("Portuguese")),
+    ("ro", ugettext_lazy("Romanian")),
+    ("ru", ugettext_lazy("Russian")),
+    ("sv", ugettext_lazy("Swedish")),
+    ("sk-sk", ugettext_lazy("Slovak")),
+    ("th", ugettext_lazy("Thai")),
+    ("uk", ugettext_lazy("Ukrainian")),
+    ("zh-hans", ugettext_lazy("Chinese (Simplified)")),
+    ("zh-hant", ugettext_lazy("Chinese (Traditional)")),
 ]
 
 
 def get_available_admin_languages():
     return getattr(
-        settings, 'WAGTAILADMIN_PERMITTED_LANGUAGES', WAGTAILADMIN_PROVIDED_LANGUAGES
+        settings, "WAGTAILADMIN_PERMITTED_LANGUAGES", WAGTAILADMIN_PROVIDED_LANGUAGES
     )
 
 
 def get_available_admin_time_zones():
-    return getattr(settings, 'WAGTAIL_USER_TIME_ZONES', pytz.common_timezones)
+    return getattr(settings, "WAGTAIL_USER_TIME_ZONES", pytz.common_timezones)
 
 
 def get_object_usage(obj):
@@ -86,7 +86,7 @@ def get_object_usage(obj):
             pages |= Page.objects.filter(
                 id__in=related_model._base_manager.filter(
                     **{relation.field.name: obj.id}
-                ).values_list('id', flat=True)
+                ).values_list("id", flat=True)
             )
         else:
             # if the relation is between obj and an object that has a page as a
@@ -109,8 +109,8 @@ def popular_tags_for_model(model, count=10):
     content_type = ContentType.objects.get_for_model(model)
     return (
         Tag.objects.filter(taggit_taggeditem_items__content_type=content_type)
-        .annotate(item_count=Count('taggit_taggeditem_items'))
-        .order_by('-item_count')[:count]
+        .annotate(item_count=Count("taggit_taggeditem_items"))
+        .order_by("-item_count")[:count]
     )
 
 
@@ -139,8 +139,8 @@ def permission_denied(request):
 
     from wagtail.admin import messages
 
-    messages.error(request, _('Sorry, you do not have permission to access this area.'))
-    return redirect('wagtailadmin_home')
+    messages.error(request, _("Sorry, you do not have permission to access this area."))
+    return redirect("wagtailadmin_home")
 
 
 def user_passes_test(test):
@@ -225,28 +225,28 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
     Custom from_email handling and special Auto-Submitted header.
     """
     if not from_email:
-        if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
+        if hasattr(settings, "WAGTAILADMIN_NOTIFICATION_FROM_EMAIL"):
             from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
-        elif hasattr(settings, 'DEFAULT_FROM_EMAIL'):
+        elif hasattr(settings, "DEFAULT_FROM_EMAIL"):
             from_email = settings.DEFAULT_FROM_EMAIL
         else:
-            from_email = 'webmaster@localhost'
+            from_email = "webmaster@localhost"
 
-    connection = kwargs.get('connection', False) or get_connection(
-        username=kwargs.get('auth_user', None),
-        password=kwargs.get('auth_password', None),
-        fail_silently=kwargs.get('fail_silently', None),
+    connection = kwargs.get("connection", False) or get_connection(
+        username=kwargs.get("auth_user", None),
+        password=kwargs.get("auth_password", None),
+        fail_silently=kwargs.get("fail_silently", None),
     )
     multi_alt_kwargs = {
-        'connection': connection,
-        'headers': {'Auto-Submitted': 'auto-generated'},
+        "connection": connection,
+        "headers": {"Auto-Submitted": "auto-generated"},
     }
     mail = EmailMultiAlternatives(
         subject, message, from_email, recipient_list, **multi_alt_kwargs
     )
-    html_message = kwargs.get('html_message', None)
+    html_message = kwargs.get("html_message", None)
     if html_message:
-        mail.attach_alternative(html_message, 'text/html')
+        mail.attach_alternative(html_message, "text/html")
 
     return mail.send()
 
@@ -256,15 +256,15 @@ def send_notification(page_revision_id, notification, excluded_user_id):
     revision = PageRevision.objects.get(id=page_revision_id)
 
     # Get list of recipients
-    if notification == 'submitted':
+    if notification == "submitted":
         # Get list of publishers
         include_superusers = getattr(
-            settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True
+            settings, "WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS", True
         )
         recipients = users_with_page_permission(
-            revision.page, 'publish', include_superusers
+            revision.page, "publish", include_superusers
         )
-    elif notification in ['rejected', 'approved']:
+    elif notification in ["rejected", "approved"]:
         # Get submitter
         recipients = [revision.user]
     else:
@@ -277,7 +277,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         if recipient.email
         and recipient.pk != excluded_user_id
         and getattr(
-            UserProfile.get_for_user(recipient), notification + '_notifications'
+            UserProfile.get_for_user(recipient), notification + "_notifications"
         )
     ]
 
@@ -286,9 +286,9 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         return True
 
     # Get template
-    template_subject = 'wagtailadmin/notifications/' + notification + '_subject.txt'
-    template_text = 'wagtailadmin/notifications/' + notification + '.txt'
-    template_html = 'wagtailadmin/notifications/' + notification + '.html'
+    template_subject = "wagtailadmin/notifications/" + notification + "_subject.txt"
+    template_text = "wagtailadmin/notifications/" + notification + ".txt"
+    template_html = "wagtailadmin/notifications/" + notification + ".html"
 
     # Common context to template
     context = {"revision": revision, "settings": settings}
@@ -307,8 +307,8 @@ def send_notification(page_revision_id, notification, excluded_user_id):
                 email_content = render_to_string(template_text, context).strip()
 
             kwargs = {}
-            if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
-                kwargs['html_message'] = render_to_string(template_html, context)
+            if getattr(settings, "WAGTAILADMIN_NOTIFICATION_USE_HTML", False):
+                kwargs["html_message"] = render_to_string(template_html, context)
 
             # Send email
             send_mail(email_subject, email_content, [recipient.email], **kwargs)

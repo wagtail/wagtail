@@ -6,29 +6,29 @@ import modelcluster.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [('tests', '0013_auto_20161220_1957')]
+    dependencies = [("tests", "0013_auto_20161220_1957")]
 
     operations = [
         migrations.CreateModel(
-            name='EventCategory',
+            name="EventCategory",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('name', models.CharField(max_length=255, verbose_name='Name')),
+                ("name", models.CharField(max_length=255, verbose_name="Name")),
             ],
         ),
         migrations.AddField(
-            model_name='eventpage',
-            name='categories',
+            model_name="eventpage",
+            name="categories",
             field=modelcluster.fields.ParentalManyToManyField(
-                blank=True, to='tests.EventCategory'
+                blank=True, to="tests.EventCategory"
             ),
         ),
     ]

@@ -6,14 +6,14 @@ from wagtail.tests.utils import WagtailTestUtils
 
 
 class TestLoginView(TestCase, WagtailTestUtils):
-    fixtures = ['test.json']
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.create_test_user()
-        self.events_index = Page.objects.get(url_path='/home/events/')
+        self.events_index = Page.objects.get(url_path="/home/events/")
 
     def test_get(self):
-        response = self.client.get(reverse('wagtailcore_login'))
+        response = self.client.get(reverse("wagtailcore_login"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<h1>Log in</h1>")
         self.assertNotContains(
@@ -23,11 +23,11 @@ class TestLoginView(TestCase, WagtailTestUtils):
 
     def test_post_incorrect_password(self):
         response = self.client.post(
-            reverse('wagtailcore_login'),
+            reverse("wagtailcore_login"),
             {
-                'username': 'test@email.com',
-                'password': 'wrongpassword',
-                'next': self.events_index.url,
+                "username": "test@email.com",
+                "password": "wrongpassword",
+                "next": self.events_index.url,
             },
         )
         self.assertEqual(response.status_code, 200)
@@ -39,11 +39,11 @@ class TestLoginView(TestCase, WagtailTestUtils):
 
     def test_post_correct_password(self):
         response = self.client.post(
-            reverse('wagtailcore_login'),
+            reverse("wagtailcore_login"),
             {
-                'username': 'test@email.com',
-                'password': 'password',
-                'next': self.events_index.url,
+                "username": "test@email.com",
+                "password": "password",
+                "next": self.events_index.url,
             },
         )
         self.assertRedirects(response, self.events_index.url)

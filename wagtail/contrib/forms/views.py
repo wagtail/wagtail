@@ -17,7 +17,7 @@ from wagtail.core.models import Page
 
 def get_submissions_list_view(request, *args, **kwargs):
     """ Call the form page's list submissions view class """
-    page_id = kwargs.get('page_id')
+    page_id = kwargs.get("page_id")
     form_page = get_object_or_404(Page, id=page_id).specific
     return form_page.serve_submissions_list_view(request, *args, **kwargs)
 
@@ -26,7 +26,7 @@ class SafePaginateListView(ListView):
     """ Listing view with safe pagination, allowing incorrect or out of range values """
 
     paginate_by = 20
-    page_kwarg = 'p'
+    page_kwarg = "p"
 
     def paginate_queryset(self, queryset, page_size):
         """Paginate the queryset if needed with nice defaults on invalid param."""
@@ -43,7 +43,7 @@ class SafePaginateListView(ListView):
         try:
             page_number = int(page_request)
         except ValueError:
-            if page_request == 'last':
+            if page_request == "last":
                 page_number = paginator.num_pages
             else:
                 page_number = 0
@@ -61,8 +61,8 @@ class SafePaginateListView(ListView):
 class FormPagesListView(SafePaginateListView):
     """ Lists the available form pages for the current user """
 
-    template_name = 'wagtailforms/index.html'
-    context_object_name = 'form_pages'
+    template_name = "wagtailforms/index.html"
+    context_object_name = "form_pages"
 
     def get_queryset(self):
         """ Return the queryset of form pages for this view """
@@ -78,14 +78,14 @@ class FormPagesListView(SafePaginateListView):
 class DeleteSubmissionsView(TemplateView):
     """ Delete the selected submissions """
 
-    template_name = 'wagtailforms/confirm_delete.html'
+    template_name = "wagtailforms/confirm_delete.html"
     page = None
     submissions = None
-    success_url = 'wagtailforms:list_submissions'
+    success_url = "wagtailforms:list_submissions"
 
     def get_queryset(self):
         """ Returns a queryset for the selected submissions """
-        submission_ids = self.request.GET.getlist('selected-submissions')
+        submission_ids = self.request.GET.getlist("selected-submissions")
         submission_class = self.page.get_submission_class()
         return submission_class._default_manager.filter(id__in=submission_ids)
 
@@ -96,11 +96,11 @@ class DeleteSubmissionsView(TemplateView):
         messages.success(
             self.request,
             ungettext(
-                'One submission has been deleted.',
-                '%(count)d submissions have been deleted.',
+                "One submission has been deleted.",
+                "%(count)d submissions have been deleted.",
                 count,
             )
-            % {'count': count},
+            % {"count": count},
         )
 
     def get_success_url(self):
@@ -109,7 +109,7 @@ class DeleteSubmissionsView(TemplateView):
 
     def dispatch(self, request, *args, **kwargs):
         """ Check permissions, set the page and submissions, handle delete """
-        page_id = kwargs.get('page_id')
+        page_id = kwargs.get("page_id")
 
         if not get_forms_for_user(self.request.user).filter(id=page_id).exists():
             raise PermissionDenied
@@ -118,7 +118,7 @@ class DeleteSubmissionsView(TemplateView):
 
         self.submissions = self.get_queryset()
 
-        if self.request.method == 'POST':
+        if self.request.method == "POST":
             self.handle_delete(self.submissions)
             return redirect(self.get_success_url(), page_id)
 
@@ -128,7 +128,7 @@ class DeleteSubmissionsView(TemplateView):
         """ Get the context for this view """
         context = super().get_context_data(**kwargs)
 
-        context.update({'page': self.page, 'submissions': self.submissions})
+        context.update({"page": self.page, "submissions": self.submissions})
 
         return context
 
@@ -136,23 +136,23 @@ class DeleteSubmissionsView(TemplateView):
 class SubmissionsListView(SafePaginateListView):
     """ Lists submissions for the provided form page """
 
-    template_name = 'wagtailforms/index_submissions.html'
-    context_object_name = 'submissions'
+    template_name = "wagtailforms/index_submissions.html"
+    context_object_name = "submissions"
     form_page = None
-    ordering = ('-submit_time',)
-    ordering_csv = ('submit_time',)  # keep legacy CSV ordering
-    orderable_fields = ('id', 'submit_time')  # used to validate ordering in URL
+    ordering = ("-submit_time",)
+    ordering_csv = ("submit_time",)  # keep legacy CSV ordering
+    orderable_fields = ("id", "submit_time")  # used to validate ordering in URL
     select_date_form = None
 
     def dispatch(self, request, *args, **kwargs):
         """ Check permissions and set the form page """
 
-        self.form_page = kwargs.get('form_page')
+        self.form_page = kwargs.get("form_page")
 
         if not get_forms_for_user(request.user).filter(pk=self.form_page.id).exists():
             raise PermissionDenied
 
-        self.is_csv_export = self.request.GET.get('action') == 'CSV'
+        self.is_csv_export = self.request.GET.get("action") == "CSV"
         if self.is_csv_export:
             self.paginate_by = None
 
@@ -192,14 +192,14 @@ class SubmissionsListView(SafePaginateListView):
             default_ordering = self.ordering or ()
         if isinstance(default_ordering, str):
             default_ordering = (default_ordering,)
-        ordering_strs = self.request.GET.getlist('order_by') or list(default_ordering)
+        ordering_strs = self.request.GET.getlist("order_by") or list(default_ordering)
         for order in ordering_strs:
             try:
-                _, prefix, field_name = order.rpartition('-')
+                _, prefix, field_name = order.rpartition("-")
                 if field_name in orderable_fields:
                     ordering[field_name] = (
                         prefix,
-                        'descending' if prefix == '-' else 'ascending',
+                        "descending" if prefix == "-" else "ascending",
                     )
             except (IndexError, ValueError):
                 continue  # invalid ordering specified, skip it
@@ -215,33 +215,33 @@ class SubmissionsListView(SafePaginateListView):
         self.select_date_form = SelectDateForm(self.request.GET)
         result = dict()
         if self.select_date_form.is_valid():
-            date_from = self.select_date_form.cleaned_data.get('date_from')
-            date_to = self.select_date_form.cleaned_data.get('date_to')
+            date_from = self.select_date_form.cleaned_data.get("date_from")
+            date_to = self.select_date_form.cleaned_data.get("date_to")
             if date_to:
                 # careful: date_to must be increased by 1 day
                 # as submit_time is a time so will always be greater
                 date_to += datetime.timedelta(days=1)
                 if date_from:
-                    result['submit_time__range'] = [date_from, date_to]
+                    result["submit_time__range"] = [date_from, date_to]
                 else:
-                    result['submit_time__lte'] = date_to
+                    result["submit_time__lte"] = date_to
             elif date_from:
-                result['submit_time__gte'] = date_from
+                result["submit_time__gte"] = date_from
         return result
 
     def get_csv_filename(self):
         """ Returns the filename for the generated CSV file """
-        return 'export-{}.csv'.format(datetime.datetime.today().strftime('%Y-%m-%d'))
+        return "export-{}.csv".format(datetime.datetime.today().strftime("%Y-%m-%d"))
 
     def get_csv_response(self, context):
         """ Returns a CSV response """
         filename = self.get_csv_filename()
-        response = HttpResponse(content_type='text/csv; charset=utf-8')
-        response['Content-Disposition'] = 'attachment;filename={}'.format(filename)
+        response = HttpResponse(content_type="text/csv; charset=utf-8")
+        response["Content-Disposition"] = "attachment;filename={}".format(filename)
 
         writer = csv.writer(response)
-        writer.writerow(context['data_headings'])
-        for data_row in context['data_rows']:
+        writer.writerow(context["data_headings"])
+        for data_row in context["data_rows"]:
             writer.writerow(data_row)
         return response
 
@@ -266,7 +266,7 @@ class SubmissionsListView(SafePaginateListView):
                 for name, label in data_fields:
                     val = form_data.get(name)
                     if isinstance(val, list):
-                        val = ', '.join(val)
+                        val = ", ".join(val)
                     data_row.append(smart_str(val))
                 data_rows.append(data_row)
             data_headings = [smart_str(label) for name, label in data_fields]
@@ -278,9 +278,9 @@ class SubmissionsListView(SafePaginateListView):
                 for name, label in data_fields:
                     val = form_data.get(name)
                     if isinstance(val, list):
-                        val = ', '.join(val)
+                        val = ", ".join(val)
                     data_row.append(val)
-                data_rows.append({'model_id': submission.id, 'fields': data_row})
+                data_rows.append({"model_id": submission.id, "fields": data_row})
             # Build data_headings as list of dicts containing model_id and fields
             ordering_by_field = self.get_validated_ordering()
             orderable_fields = self.orderable_fields
@@ -292,18 +292,18 @@ class SubmissionsListView(SafePaginateListView):
                     if order:
                         order_label = order[1]  # 'ascending' or 'descending'
                     else:
-                        order_label = 'orderable'  # not ordered yet but can be
+                        order_label = "orderable"  # not ordered yet but can be
                 data_headings.append(
-                    {'name': name, 'label': label, 'order': order_label}
+                    {"name": name, "label": label, "order": order_label}
                 )
 
         context.update(
             {
-                'form_page': self.form_page,
-                'select_date_form': self.select_date_form,
-                'data_headings': data_headings,
-                'data_rows': data_rows,
-                'submissions': submissions,
+                "form_page": self.form_page,
+                "select_date_form": self.select_date_form,
+                "data_headings": data_headings,
+                "data_rows": data_rows,
+                "submissions": submissions,
             }
         )
 

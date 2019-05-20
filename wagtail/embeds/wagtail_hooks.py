@@ -12,12 +12,12 @@ from wagtail.embeds.rich_text.contentstate import ContentstateMediaConversionRul
 from wagtail.embeds.rich_text.editor_html import EditorHTMLEmbedConversionRule
 
 
-@hooks.register('register_admin_urls')
+@hooks.register("register_admin_urls")
 def register_admin_urls():
-    return [url(r'^embeds/', include(urls, namespace='wagtailembeds'))]
+    return [url(r"^embeds/", include(urls, namespace="wagtailembeds"))]
 
 
-@hooks.register('insert_editor_js')
+@hooks.register("insert_editor_js")
 def editor_js():
     return format_html(
         """
@@ -25,24 +25,24 @@ def editor_js():
                 window.chooserUrls.embedsChooser = '{0}';
             </script>
         """,
-        reverse('wagtailembeds:chooser'),
+        reverse("wagtailembeds:chooser"),
     )
 
 
-@hooks.register('register_rich_text_features')
+@hooks.register("register_rich_text_features")
 def register_embed_feature(features):
     # define a handler for converting <embed embedtype="media"> tags into frontend HTML
     features.register_embed_type(MediaEmbedHandler)
 
     # define a hallo.js plugin to use when the 'embed' feature is active
     features.register_editor_plugin(
-        'hallo',
-        'embed',
+        "hallo",
+        "embed",
         HalloPlugin(
-            name='hallowagtailembeds',
+            name="hallowagtailembeds",
             js=[
-                'wagtailembeds/js/embed-chooser-modal.js',
-                'wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js',
+                "wagtailembeds/js/embed-chooser-modal.js",
+                "wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js",
             ],
         ),
     )
@@ -50,24 +50,24 @@ def register_embed_feature(features):
     # define how to convert between editorhtml's representation of embeds and
     # the database representation
     features.register_converter_rule(
-        'editorhtml', 'embed', EditorHTMLEmbedConversionRule
+        "editorhtml", "embed", EditorHTMLEmbedConversionRule
     )
 
     # define a draftail plugin to use when the 'embed' feature is active
     features.register_editor_plugin(
-        'draftail',
-        'embed',
+        "draftail",
+        "embed",
         draftail_features.EntityFeature(
-            {'type': 'EMBED', 'icon': 'media', 'description': _('Embed')},
-            js=['wagtailembeds/js/embed-chooser-modal.js'],
+            {"type": "EMBED", "icon": "media", "description": _("Embed")},
+            js=["wagtailembeds/js/embed-chooser-modal.js"],
         ),
     )
 
     # define how to convert between contentstate's representation of embeds and
     # the database representation-
     features.register_converter_rule(
-        'contentstate', 'embed', ContentstateMediaConversionRule
+        "contentstate", "embed", ContentstateMediaConversionRule
     )
 
     # add 'embed' to the set of on-by-default rich text features
-    features.default_features.append('embed')
+    features.default_features.append("embed")

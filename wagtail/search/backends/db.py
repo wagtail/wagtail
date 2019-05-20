@@ -16,8 +16,8 @@ from wagtail.search.utils import AND, OR
 
 
 class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
-    DEFAULT_OPERATOR = 'and'
-    OPERATORS = {'and': AND, 'or': OR}
+    DEFAULT_OPERATOR = "and"
+    OPERATORS = {"and": AND, "or": OR}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -39,13 +39,13 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def _process_lookup(self, field, lookup, value):
         return models.Q(
-            **{field.get_attname(self.queryset.model) + '__' + lookup: value}
+            **{field.get_attname(self.queryset.model) + "__" + lookup: value}
         )
 
     def _connect_filters(self, filters, connector, negated):
-        if connector == 'AND':
+        if connector == "AND":
             q = models.Q(*filters)
-        elif connector == 'OR':
+        elif connector == "OR":
             q = OR([models.Q(fil) for fil in filters])
         else:
             return
@@ -58,12 +58,12 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
     def build_single_term_filter(self, term):
         term_query = models.Q()
         for field_name in self.fields_names:
-            term_query |= models.Q(**{field_name + '__icontains': term})
+            term_query |= models.Q(**{field_name + "__icontains": term})
         return term_query
 
     def check_boost(self, query, boost=1.0):
         if query.boost * boost != 1.0:
-            warn('Database search backend does not support term boosting.')
+            warn("Database search backend does not support term boosting.")
 
     def build_database_filter(self, query=None, boost=1.0):
         if query is None:
@@ -101,7 +101,7 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
                 for subquery in query.subqueries
             )
         raise NotImplementedError(
-            '`%s` is not supported by the database search backend.'
+            "`%s` is not supported by the database search backend."
             % query.__class__.__name__
         )
 
@@ -140,21 +140,21 @@ class DatabaseSearchResults(BaseSearchResults):
             raise FilterFieldError(
                 'Cannot facet search results with field "'
                 + field_name
-                + '". Please add index.FilterField(\''
+                + "\". Please add index.FilterField('"
                 + field_name
-                + '\') to '
+                + "') to "
                 + self.query_compiler.queryset.model.__name__
-                + '.search_fields.',
+                + ".search_fields.",
                 field_name=field_name,
             )
 
         query = self.get_queryset()
         results = (
-            query.values(field_name).annotate(count=Count('pk')).order_by('-count')
+            query.values(field_name).annotate(count=Count("pk")).order_by("-count")
         )
 
         return OrderedDict(
-            [(result[field_name], result['count']) for result in results]
+            [(result[field_name], result["count"]) for result in results]
         )
 
 

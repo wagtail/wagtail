@@ -8,8 +8,8 @@ from wagtail.core.blocks import Block, BlockField, StreamBlock, StreamValue
 
 class RichTextField(models.TextField):
     def __init__(self, *args, **kwargs):
-        self.editor = kwargs.pop('editor', 'default')
-        self.features = kwargs.pop('features', None)
+        self.editor = kwargs.pop("editor", "default")
+        self.features = kwargs.pop("features", None)
         # TODO: preserve 'editor' and 'features' when deconstructing for migrations
         super().__init__(*args, **kwargs)
 
@@ -17,7 +17,7 @@ class RichTextField(models.TextField):
         from wagtail.admin.rich_text import get_rich_text_editor_widget
 
         defaults = {
-            'widget': get_rich_text_editor_widget(self.editor, features=self.features)
+            "widget": get_rich_text_editor_widget(self.editor, features=self.features)
         }
         defaults.update(kwargs)
         return super().formfield(**defaults)
@@ -52,7 +52,7 @@ class StreamField(models.Field):
             self.stream_block = StreamBlock(block_types, required=not self.blank)
 
     def get_internal_type(self):
-        return 'TextField'
+        return "TextField"
 
     def get_panel(self):
         from wagtail.admin.edit_handlers import StreamFieldPanel
@@ -66,7 +66,7 @@ class StreamField(models.Field):
         return name, path, args, kwargs
 
     def to_python(self, value):
-        if value is None or value == '':
+        if value is None or value == "":
             return StreamValue(self.stream_block, [])
         elif isinstance(value, StreamValue):
             return value
@@ -127,7 +127,7 @@ class StreamField(models.Field):
         Override formfield to use a plain forms.Field so that we do no transformation on the value
         (as distinct from the usual fallback of forms.CharField, which transforms it into a string).
         """
-        defaults = {'form_class': BlockField, 'block': self.stream_block}
+        defaults = {"form_class": BlockField, "block": self.stream_block}
         defaults.update(kwargs)
         return super().formfield(**defaults)
 

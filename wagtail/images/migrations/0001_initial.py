@@ -10,81 +10,81 @@ import wagtail.search.index
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0001_initial'),
+        ("taggit", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Filter',
+            name="Filter",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         primary_key=True,
                         serialize=False,
                         auto_created=True,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('spec', models.CharField(db_index=True, max_length=255)),
+                ("spec", models.CharField(db_index=True, max_length=255)),
             ],
             options={},
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Image',
+            name="Image",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         primary_key=True,
                         serialize=False,
                         auto_created=True,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('title', models.CharField(verbose_name='Title', max_length=255)),
+                ("title", models.CharField(verbose_name="Title", max_length=255)),
                 (
-                    'file',
+                    "file",
                     models.ImageField(
-                        width_field='width',
+                        width_field="width",
                         upload_to=wagtail.images.models.get_upload_to,
-                        verbose_name='File',
-                        height_field='height',
+                        verbose_name="File",
+                        height_field="height",
                     ),
                 ),
-                ('width', models.IntegerField(editable=False)),
-                ('height', models.IntegerField(editable=False)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ("width", models.IntegerField(editable=False)),
+                ("height", models.IntegerField(editable=False)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
                 (
-                    'focal_point_x',
+                    "focal_point_x",
                     models.PositiveIntegerField(editable=False, null=True),
                 ),
                 (
-                    'focal_point_y',
+                    "focal_point_y",
                     models.PositiveIntegerField(editable=False, null=True),
                 ),
                 (
-                    'focal_point_width',
+                    "focal_point_width",
                     models.PositiveIntegerField(editable=False, null=True),
                 ),
                 (
-                    'focal_point_height',
+                    "focal_point_height",
                     models.PositiveIntegerField(editable=False, null=True),
                 ),
                 (
-                    'tags',
+                    "tags",
                     taggit.managers.TaggableManager(
-                        verbose_name='Tags',
+                        verbose_name="Tags",
                         blank=True,
                         help_text=None,
-                        to='taggit.Tag',
-                        through='taggit.TaggedItem',
+                        to="taggit.Tag",
+                        through="taggit.TaggedItem",
                     ),
                 ),
                 (
-                    'uploaded_by_user',
+                    "uploaded_by_user",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
                         editable=False,
@@ -94,47 +94,47 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={'abstract': False},
+            options={"abstract": False},
             bases=(models.Model, wagtail.search.index.Indexed),
         ),
         migrations.CreateModel(
-            name='Rendition',
+            name="Rendition",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         primary_key=True,
                         serialize=False,
                         auto_created=True,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'file',
+                    "file",
                     models.ImageField(
-                        width_field='width', upload_to='images', height_field='height'
+                        width_field="width", upload_to="images", height_field="height"
                     ),
                 ),
-                ('width', models.IntegerField(editable=False)),
-                ('height', models.IntegerField(editable=False)),
+                ("width", models.IntegerField(editable=False)),
+                ("height", models.IntegerField(editable=False)),
                 (
-                    'focal_point_key',
+                    "focal_point_key",
                     models.CharField(editable=False, max_length=18, null=True),
                 ),
                 (
-                    'filter',
+                    "filter",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
-                        related_name='+',
-                        to='wagtailimages.Filter',
+                        related_name="+",
+                        to="wagtailimages.Filter",
                     ),
                 ),
                 (
-                    'image',
+                    "image",
                     models.ForeignKey(
                         on_delete=models.CASCADE,
-                        related_name='renditions',
-                        to='wagtailimages.Image',
+                        related_name="renditions",
+                        to="wagtailimages.Image",
                     ),
                 ),
             ],
@@ -142,7 +142,7 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.AlterUniqueTogether(
-            name='rendition',
-            unique_together=set([('image', 'filter', 'focal_point_key')]),
+            name="rendition",
+            unique_together=set([("image", "filter", "focal_point_key")]),
         ),
     ]

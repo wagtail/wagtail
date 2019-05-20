@@ -25,16 +25,16 @@ def replace_in_model(model, from_text, to_text):
 class Command(BaseCommand):
     def add_arguments(self, parser):
         # Positional arguments
-        parser.add_argument('from_text')
-        parser.add_argument('to_text')
+        parser.add_argument("from_text")
+        parser.add_argument("to_text")
 
     def handle(self, *args, **options):
-        from_text = options['from_text']
-        to_text = options['to_text']
+        from_text = options["from_text"]
+        to_text = options["to_text"]
 
         for revision in PageRevision.objects.filter(content_json__contains=from_text):
             revision.content_json = revision.content_json.replace(from_text, to_text)
-            revision.save(update_fields=['content_json'])
+            revision.save(update_fields=["content_json"])
 
         for page_class in get_page_models():
             self.stdout.write("scanning %s" % page_class._meta.verbose_name)

@@ -10,11 +10,11 @@ from .permissions import user_can_edit_setting_type
 
 
 class SettingMenuItem(MenuItem):
-    def __init__(self, model, icon='cog', classnames='', **kwargs):
+    def __init__(self, model, icon="cog", classnames="", **kwargs):
 
-        icon_classes = 'icon icon-' + icon
+        icon_classes = "icon icon-" + icon
         if classnames:
-            classnames += ' ' + icon_classes
+            classnames += " " + icon_classes
         else:
             classnames = icon_classes
 
@@ -22,7 +22,7 @@ class SettingMenuItem(MenuItem):
         super().__init__(
             label=capfirst(model._meta.verbose_name),
             url=reverse(
-                'wagtailsettings:edit',
+                "wagtailsettings:edit",
                 args=[model._meta.app_label, model._meta.model_name],
             ),
             classnames=classnames,
@@ -45,15 +45,15 @@ class Registry(list):
         self.append(model)
 
         # Register a new menu item in the settings menu
-        @hooks.register('register_settings_menu_item')
+        @hooks.register("register_settings_menu_item")
         def menu_hook():
             return SettingMenuItem(model, **kwargs)
 
-        @hooks.register('register_permissions')
+        @hooks.register("register_permissions")
         def permissions_hook():
             return Permission.objects.filter(
                 content_type__app_label=model._meta.app_label,
-                codename='change_{}'.format(model._meta.model_name),
+                codename="change_{}".format(model._meta.model_name),
             )
 
         return model

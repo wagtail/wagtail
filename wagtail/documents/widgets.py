@@ -8,9 +8,9 @@ from wagtail.documents.models import get_document_model
 
 
 class AdminDocumentChooser(AdminChooser):
-    choose_one_text = _('Choose a document')
-    choose_another_text = _('Choose another document')
-    link_to_chosen_text = _('Edit this document')
+    choose_one_text = _("Choose a document")
+    choose_another_text = _("Choose another document")
+    link_to_chosen_text = _("Edit this document")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -23,11 +23,11 @@ class AdminDocumentChooser(AdminChooser):
         return render_to_string(
             "wagtaildocs/widgets/document_chooser.html",
             {
-                'widget': self,
-                'original_field_html': original_field_html,
-                'attrs': attrs,
-                'value': value,
-                'document': instance,
+                "widget": self,
+                "original_field_html": original_field_html,
+                "attrs": attrs,
+                "value": value,
+                "document": instance,
             },
         )
 
@@ -36,6 +36,6 @@ class AdminDocumentChooser(AdminChooser):
 
     class Media:
         js = [
-            'wagtaildocs/js/document-chooser-modal.js',
-            'wagtaildocs/js/document-chooser.js',
+            "wagtaildocs/js/document-chooser-modal.js",
+            "wagtaildocs/js/document-chooser.js",
         ]

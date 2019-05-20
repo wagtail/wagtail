@@ -10,9 +10,9 @@ class AdminSnippetChooser(AdminChooser):
     def __init__(self, model, **kwargs):
         self.target_model = model
         name = self.target_model._meta.verbose_name
-        self.choose_one_text = _('Choose %s') % name
-        self.choose_another_text = _('Choose another %s') % name
-        self.link_to_chosen_text = _('Edit this %s') % name
+        self.choose_one_text = _("Choose %s") % name
+        self.choose_another_text = _("Choose another %s") % name
+        self.link_to_chosen_text = _("Edit this %s") % name
 
         super().__init__(**kwargs)
 
@@ -24,12 +24,12 @@ class AdminSnippetChooser(AdminChooser):
         return render_to_string(
             "wagtailsnippets/widgets/snippet_chooser.html",
             {
-                'widget': self,
-                'model_opts': self.target_model._meta,
-                'original_field_html': original_field_html,
-                'attrs': attrs,
-                'value': value,
-                'item': instance,
+                "widget": self,
+                "model_opts": self.target_model._meta,
+                "original_field_html": original_field_html,
+                "attrs": attrs,
+                "value": value,
+                "item": instance,
             },
         )
 
@@ -39,7 +39,7 @@ class AdminSnippetChooser(AdminChooser):
         return "createSnippetChooser({id}, {model});".format(
             id=json.dumps(id_),
             model=json.dumps(
-                '{app}/{model}'.format(
+                "{app}/{model}".format(
                     app=model._meta.app_label, model=model._meta.model_name
                 )
             ),
@@ -47,6 +47,6 @@ class AdminSnippetChooser(AdminChooser):
 
     class Media:
         js = [
-            'wagtailsnippets/js/snippet-chooser-modal.js',
-            'wagtailsnippets/js/snippet-chooser.js',
+            "wagtailsnippets/js/snippet-chooser-modal.js",
+            "wagtailsnippets/js/snippet-chooser.js",
         ]

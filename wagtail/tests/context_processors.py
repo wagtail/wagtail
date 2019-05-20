@@ -4,4 +4,4 @@ def do_not_use_static_url(request):
             "Do not use STATIC_URL in templates. Use the {% static %} templatetag instead."
         )
 
-    return {'STATIC_URL': lambda: exception()}
+    return {"STATIC_URL": lambda: exception()}

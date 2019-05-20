@@ -7,27 +7,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0028_merge'),
-        ('tests', '0002_customimage_collections'),
+        ("wagtailcore", "0028_merge"),
+        ("tests", "0002_customimage_collections"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='OneToOnePage',
+            name="OneToOnePage",
             fields=[
                 (
-                    'page_ptr',
+                    "page_ptr",
                     models.OneToOneField(
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
-                        related_name='+',
+                        related_name="+",
                         serialize=False,
-                        to='wagtailcore.Page',
+                        to="wagtailcore.Page",
                     ),
                 )
             ],
-            options={'abstract': False},
-            bases=('wagtailcore.page',),
+            options={"abstract": False},
+            bases=("wagtailcore.page",),
         )
     ]

@@ -31,7 +31,7 @@ class OrderByFieldError(FieldError):
 
 
 class BaseSearchQueryCompiler:
-    DEFAULT_OPERATOR = 'or'
+    DEFAULT_OPERATOR = "or"
 
     def __init__(
         self,
@@ -45,7 +45,7 @@ class BaseSearchQueryCompiler:
         self.queryset = queryset
         if query is None:
             warn(
-                'Querying `None` is deprecated, use `MATCH_ALL` instead.',
+                "Querying `None` is deprecated, use `MATCH_ALL` instead.",
                 DeprecationWarning,
             )
             query = MATCH_ALL
@@ -79,11 +79,11 @@ class BaseSearchQueryCompiler:
             raise FilterFieldError(
                 'Cannot filter search results with field "'
                 + field_attname
-                + '". Please add index.FilterField(\''
+                + "\". Please add index.FilterField('"
                 + field_attname
-                + '\') to '
+                + "') to "
                 + self.queryset.model.__name__
-                + '.search_fields.',
+                + ".search_fields.",
                 field_name=field_attname,
             )
 
@@ -95,9 +95,9 @@ class BaseSearchQueryCompiler:
             raise FilterError(
                 'Could not apply filter on search results: "'
                 + field_attname
-                + '__'
+                + "__"
                 + lookup
-                + ' = '
+                + " = "
                 + str(value)
                 + '". Lookup "'
                 + lookup
@@ -114,7 +114,7 @@ class BaseSearchQueryCompiler:
             value = where_node.rhs
 
             # Ignore pointer fields that show up in specific page type queries
-            if field_attname.endswith('_ptr_id'):
+            if field_attname.endswith("_ptr_id"):
                 return
 
             # Process the filter
@@ -124,7 +124,7 @@ class BaseSearchQueryCompiler:
 
         elif isinstance(where_node, SubqueryConstraint):
             raise FilterError(
-                'Could not apply filter on search results: Subqueries are not allowed.'
+                "Could not apply filter on search results: Subqueries are not allowed."
             )
 
         elif isinstance(where_node, WhereNode):
@@ -145,7 +145,7 @@ class BaseSearchQueryCompiler:
 
         else:
             raise FilterError(
-                'Could not apply filter on search results: Unknown where node: '
+                "Could not apply filter on search results: Unknown where node: "
                 + str(type(where_node))
             )
 
@@ -159,7 +159,7 @@ class BaseSearchQueryCompiler:
         for field_name in self.queryset.query.order_by:
             reverse = False
 
-            if field_name.startswith('-'):
+            if field_name.startswith("-"):
                 reverse = True
                 field_name = field_name[1:]
 
@@ -169,11 +169,11 @@ class BaseSearchQueryCompiler:
                 raise OrderByFieldError(
                     'Cannot sort search results with field "'
                     + field_name
-                    + '". Please add index.FilterField(\''
+                    + "\". Please add index.FilterField('"
                     + field_name
-                    + '\') to '
+                    + "') to "
                     + self.queryset.model.__name__
-                    + '.search_fields.',
+                    + ".search_fields.",
                     field_name=field_name,
                 )
 
@@ -192,11 +192,11 @@ class BaseSearchQueryCompiler:
                     raise SearchFieldError(
                         'Cannot search with field "'
                         + field_name
-                        + '". Please add index.SearchField(\''
+                        + "\". Please add index.SearchField('"
                         + field_name
-                        + '\') to '
+                        + "') to "
                         + self.queryset.model.__name__
-                        + '.search_fields.',
+                        + ".search_fields.",
                         field_name=field_name,
                     )
 
@@ -296,7 +296,7 @@ class BaseSearchResults:
         data = list(self[:21])
         if len(data) > 20:
             data[-1] = "...(remaining elements truncated)..."
-        return '<SearchResults %r>' % data
+        return "<SearchResults %r>" % data
 
     def annotate_score(self, field_name):
         clone = self._clone()

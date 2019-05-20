@@ -17,7 +17,7 @@ def media_embed_entity(props):
     <embed embedtype="media" url="https://www.youtube.com/watch?v=y8Kyi0WNg40"/>
     when converting from contentstate data
     """
-    return DOM.create_element('embed', {'embedtype': 'media', 'url': props.get('url')})
+    return DOM.create_element("embed", {"embedtype": "media", "url": props.get("url")})
 
 
 class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
@@ -28,21 +28,21 @@ class MediaEmbedElementHandler(AtomicBlockEntityElementHandler):
 
     def create_entity(self, name, attrs, state, contentstate):
         try:
-            embed_obj = embeds.get_embed(attrs['url'])
+            embed_obj = embeds.get_embed(attrs["url"])
             embed_data = {
-                'embedType': embed_obj.type,
-                'url': embed_obj.url,
-                'providerName': embed_obj.provider_name,
-                'authorName': embed_obj.author_name,
-                'thumbnail': embed_obj.thumbnail_url,
-                'title': embed_obj.title,
+                "embedType": embed_obj.type,
+                "url": embed_obj.url,
+                "providerName": embed_obj.provider_name,
+                "authorName": embed_obj.author_name,
+                "thumbnail": embed_obj.thumbnail_url,
+                "title": embed_obj.title,
             }
         except EmbedException:
-            embed_data = {'url': attrs['url']}
-        return Entity('EMBED', 'IMMUTABLE', embed_data)
+            embed_data = {"url": attrs["url"]}
+        return Entity("EMBED", "IMMUTABLE", embed_data)
 
 
 ContentstateMediaConversionRule = {
-    'from_database_format': {'embed[embedtype="media"]': MediaEmbedElementHandler()},
-    'to_database_format': {'entity_decorators': {'EMBED': media_embed_entity}},
+    "from_database_format": {'embed[embedtype="media"]': MediaEmbedElementHandler()},
+    "to_database_format": {"entity_decorators": {"EMBED": media_embed_entity}},
 }

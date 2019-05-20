@@ -5,12 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [('wagtaildocs', '0009_document_verbose_name_plural')]
+    dependencies = [("wagtaildocs", "0009_document_verbose_name_plural")]
 
     operations = [
         migrations.AddField(
-            model_name='document',
-            name='file_hash',
+            model_name="document",
+            name="file_hash",
             field=models.CharField(blank=True, editable=False, max_length=40),
         )
     ]

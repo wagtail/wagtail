@@ -1,3 +1,3 @@
 default_app_config = (
-    'wagtail.contrib.search_promotions.apps.WagtailSearchPromotionsAppConfig'
+    "wagtail.contrib.search_promotions.apps.WagtailSearchPromotionsAppConfig"
 )

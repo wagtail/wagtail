@@ -22,5 +22,5 @@ class ImageFieldComparison(ForeignObjectComparison):
 
         return render_to_string(
             "wagtailimages/widgets/compare.html",
-            {'image_a': image_a, 'image_b': image_b},
+            {"image_a": image_a, "image_b": image_b},
         )

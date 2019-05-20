@@ -11,33 +11,33 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0040_page_draft_title'),
-        ('tests', '0023_formpagewithredirect_redirectformfield'),
+        ("wagtailcore", "0040_page_draft_title"),
+        ("tests", "0023_formpagewithredirect_redirectformfield"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='TableBlockStreamPage',
+            name="TableBlockStreamPage",
             fields=[
                 (
-                    'page_ptr',
+                    "page_ptr",
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to='wagtailcore.Page',
+                        to="wagtailcore.Page",
                     ),
                 ),
                 (
-                    'table',
+                    "table",
                     wagtail.core.fields.StreamField(
-                        (('table', wagtail.contrib.table_block.blocks.TableBlock()),)
+                        (("table", wagtail.contrib.table_block.blocks.TableBlock()),)
                     ),
                 ),
             ],
-            options={'abstract': False},
-            bases=('wagtailcore.page',),
+            options={"abstract": False},
+            bases=("wagtailcore.page",),
         )
     ]

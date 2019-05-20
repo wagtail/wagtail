@@ -57,10 +57,10 @@ class RichText:
     """
 
     def __init__(self, source):
-        self.source = source or ''
+        self.source = source or ""
 
     def __html__(self):
-        return '<div class="rich-text">' + expand_db_html(self.source) + '</div>'
+        return '<div class="rich-text">' + expand_db_html(self.source) + "</div>"
 
     def __str__(self):
         return mark_safe(self.__html__())
@@ -94,7 +94,7 @@ class EntityHandler:
     @classmethod
     def get_instance(cls, attrs: dict) -> Model:
         model = cls.get_model()
-        return model._default_manager.get(id=attrs['id'])
+        return model._default_manager.get(id=attrs["id"])
 
     @staticmethod
     def expand_db_attributes(attrs: dict) -> str:

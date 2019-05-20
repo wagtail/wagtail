@@ -8,24 +8,24 @@ from wagtail.sites.forms import SiteForm
 
 
 class IndexView(generic.IndexView):
-    template_name = 'wagtailsites/index.html'
+    template_name = "wagtailsites/index.html"
     page_title = ugettext_lazy("Sites")
     add_item_label = ugettext_lazy("Add a site")
-    context_object_name = 'sites'
+    context_object_name = "sites"
 
 
 class CreateView(generic.CreateView):
     page_title = ugettext_lazy("Add site")
     success_message = ugettext_lazy("Site '{0}' created.")
-    template_name = 'wagtailsites/create.html'
+    template_name = "wagtailsites/create.html"
 
 
 class EditView(generic.EditView):
     success_message = ugettext_lazy("Site '{0}' updated.")
     error_message = ugettext_lazy("The site could not be saved due to errors.")
     delete_item_label = ugettext_lazy("Delete site")
-    context_object_name = 'site'
-    template_name = 'wagtailsites/edit.html'
+    context_object_name = "site"
+    template_name = "wagtailsites/edit.html"
 
 
 class DeleteView(generic.DeleteView):
@@ -35,7 +35,7 @@ class DeleteView(generic.DeleteView):
 
 
 class SiteViewSet(ModelViewSet):
-    icon = 'site'
+    icon = "site"
     model = Site
     permission_policy = site_permission_policy
 

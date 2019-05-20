@@ -53,7 +53,7 @@ class RegisterDecorator(models.Model):
 class SearchableSnippet(index.Indexed, models.Model):
     text = models.CharField(max_length=255)
 
-    search_fields = [index.SearchField('text')]
+    search_fields = [index.SearchField("text")]
 
     def __str__(self):
         return self.text
@@ -76,16 +76,16 @@ class FileUploadSnippet(models.Model):
 
 class RichTextSection(models.Model):
     snippet = ParentalKey(
-        'MultiSectionRichTextSnippet', related_name='sections', on_delete=models.CASCADE
+        "MultiSectionRichTextSnippet", related_name="sections", on_delete=models.CASCADE
     )
     body = RichTextField()
 
-    panels = [FieldPanel('body')]
+    panels = [FieldPanel("body")]
 
 
 @register_snippet
 class MultiSectionRichTextSnippet(ClusterableModel):
-    panels = [InlinePanel('sections')]
+    panels = [InlinePanel("sections")]
 
 
 @register_snippet

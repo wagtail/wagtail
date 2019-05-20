@@ -14,8 +14,8 @@ class WagtailTestUtils:
         user_model = get_user_model()
         # Create a user
         user_data = dict()
-        user_data[user_model.USERNAME_FIELD] = 'test@email.com'
-        user_data['password'] = 'password'
+        user_data[user_model.USERNAME_FIELD] = "test@email.com"
+        user_data["password"] = "password"
 
         for field in user_model.REQUIRED_FIELDS:
             user_data[field] = field
@@ -30,7 +30,7 @@ class WagtailTestUtils:
         # Login
         self.assertTrue(
             self.client.login(
-                password='password', **{user_model.USERNAME_FIELD: user.username}
+                password="password", **{user_model.USERNAME_FIELD: user.username}
             )
         )
 
@@ -67,7 +67,7 @@ class WagtailTestUtils:
             hooks._hooks[hook_name].remove((fn, order))
 
     def _tag_is_equal(self, tag1, tag2):
-        if not hasattr(tag1, 'name') or not hasattr(tag2, 'name'):
+        if not hasattr(tag1, "name") or not hasattr(tag2, "name"):
             return False
         if tag1.name != tag2.name:
             return False
@@ -91,7 +91,7 @@ class WagtailTestUtils:
     def _tag_matches_with_extra_attrs(self, thin_tag, fat_tag):
         # return true if thin_tag and fat_tag have the same name,
         # and all attributes on thin_tag exist on fat_tag
-        if not hasattr(thin_tag, 'name') or not hasattr(fat_tag, 'name'):
+        if not hasattr(thin_tag, "name") or not hasattr(fat_tag, "name"):
             return False
         if thin_tag.name != fat_tag.name:
             return False
@@ -121,7 +121,7 @@ class WagtailTestUtils:
             if self._tag_is_equal(needle, haystack):
                 count += 1
 
-        if hasattr(haystack, 'children'):
+        if hasattr(haystack, "children"):
             count += sum(
                 self._count_tag_occurrences(
                     needle, child, allow_extra_attrs=allow_extra_attrs
@@ -132,12 +132,12 @@ class WagtailTestUtils:
         return count
 
     def _tag_is_template_script(self, tag):
-        if tag.name != 'script':
+        if tag.name != "script":
             return False
-        return any(attr == ('type', 'text/template') for attr in tag.attributes)
+        return any(attr == ("type", "text/template") for attr in tag.attributes)
 
     def _find_template_script_tags(self, haystack):
-        if not hasattr(haystack, 'name'):
+        if not hasattr(haystack, "name"):
             return
 
         if self._tag_is_template_script(haystack):
@@ -148,13 +148,13 @@ class WagtailTestUtils:
                     yield script_tag
 
     def assertTagInHTML(
-        self, needle, haystack, count=None, msg_prefix='', allow_extra_attrs=False
+        self, needle, haystack, count=None, msg_prefix="", allow_extra_attrs=False
     ):
         needle = assert_and_parse_html(
-            self, needle, None, 'First argument is not valid HTML:'
+            self, needle, None, "First argument is not valid HTML:"
         )
         haystack = assert_and_parse_html(
-            self, haystack, None, 'Second argument is not valid HTML:'
+            self, haystack, None, "Second argument is not valid HTML:"
         )
         real_count = self._count_tag_occurrences(
             needle, haystack, allow_extra_attrs=allow_extra_attrs
@@ -172,15 +172,15 @@ class WagtailTestUtils:
                 real_count != 0, msg_prefix + "Couldn't find '%s' in response" % needle
             )
 
-    def assertNotInHTML(self, needle, haystack, msg_prefix=''):
+    def assertNotInHTML(self, needle, haystack, msg_prefix=""):
         self.assertInHTML(needle, haystack, count=0, msg_prefix=msg_prefix)
 
-    def assertTagInTemplateScript(self, needle, haystack, count=None, msg_prefix=''):
+    def assertTagInTemplateScript(self, needle, haystack, count=None, msg_prefix=""):
         needle = assert_and_parse_html(
-            self, needle, None, 'First argument is not valid HTML:'
+            self, needle, None, "First argument is not valid HTML:"
         )
         haystack = assert_and_parse_html(
-            self, haystack, None, 'Second argument is not valid HTML:'
+            self, haystack, None, "Second argument is not valid HTML:"
         )
         real_count = 0
 
@@ -191,7 +191,7 @@ class WagtailTestUtils:
                     self,
                     script_tag.children[0],
                     None,
-                    'Script tag content is not valid HTML:',
+                    "Script tag content is not valid HTML:",
                 )
                 real_count += self._count_tag_occurrences(needle, script_html)
 

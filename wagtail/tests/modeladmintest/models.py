@@ -10,7 +10,7 @@ class Author(models.Model):
     date_of_birth = models.DateField()
 
     def author_birth_string(self):
-        return 'This author was born in pallet town'
+        return "This author was born in pallet town"
 
     author_birth_string.short_description = "Birth information"
 
@@ -22,14 +22,14 @@ class Author(models.Model):
         book = self.book_set.first()
         if book:
             return book.title
-        return ''
+        return ""
 
 
 class Book(models.Model, index.Indexed):
     author = models.ForeignKey(Author, on_delete=models.PROTECT)
     title = models.CharField(max_length=255)
     cover_image = models.ForeignKey(
-        'wagtailimages.Image', on_delete=models.SET_NULL, null=True, blank=True
+        "wagtailimages.Image", on_delete=models.SET_NULL, null=True, blank=True
     )
 
     def __str__(self):
@@ -89,9 +89,9 @@ class Person(models.Model):
     address = models.CharField(max_length=255)
 
     panels = [
-        FieldPanel('first_name'),
-        FieldPanel('last_name'),
-        FieldPanel('phone_number'),
+        FieldPanel("first_name"),
+        FieldPanel("last_name"),
+        FieldPanel("phone_number"),
     ]
     edit_handler = TabbedInterface([ObjectList(panels)])
 
@@ -107,7 +107,7 @@ class Friend(models.Model):
     phone_number = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
 
-    panels = [FieldPanel('first_name'), FieldPanel('phone_number')]
+    panels = [FieldPanel("first_name"), FieldPanel("phone_number")]
 
     def __str__(self):
         return self.first_name

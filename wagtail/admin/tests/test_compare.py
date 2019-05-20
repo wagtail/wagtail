@@ -23,7 +23,7 @@ class TestFieldComparison(TestCase):
 
     def test_hasnt_changed(self):
         comparison = self.comparison_class(
-            SimplePage._meta.get_field('content'),
+            SimplePage._meta.get_field("content"),
             SimplePage(content="Content"),
             SimplePage(content="Content"),
         )
@@ -31,13 +31,13 @@ class TestFieldComparison(TestCase):
         self.assertTrue(comparison.is_field)
         self.assertFalse(comparison.is_child_relation)
         self.assertEqual(comparison.field_label(), "Content")
-        self.assertEqual(comparison.htmldiff(), 'Content')
+        self.assertEqual(comparison.htmldiff(), "Content")
         self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertFalse(comparison.has_changed())
 
     def test_has_changed(self):
         comparison = self.comparison_class(
-            SimplePage._meta.get_field('content'),
+            SimplePage._meta.get_field("content"),
             SimplePage(content="Original content"),
             SimplePage(content="Modified content"),
         )
@@ -51,8 +51,8 @@ class TestFieldComparison(TestCase):
 
     def test_htmldiff_escapes_value(self):
         comparison = self.comparison_class(
-            SimplePage._meta.get_field('content'),
-            SimplePage(content='Original content'),
+            SimplePage._meta.get_field("content"),
+            SimplePage(content="Original content"),
             SimplePage(
                 content='<script type="text/javascript">doSomethingBad();</script>'
             ),
@@ -72,7 +72,7 @@ class TestTextFieldComparison(TestFieldComparison):
     # instead of the whole field value.
     def test_has_changed(self):
         comparison = self.comparison_class(
-            SimplePage._meta.get_field('content'),
+            SimplePage._meta.get_field("content"),
             SimplePage(content="Original content"),
             SimplePage(content="Modified content"),
         )
@@ -91,7 +91,7 @@ class TestRichTextFieldComparison(TestTextFieldComparison):
     # Only change from FieldComparison is that this comparison disregards HTML tags
     def test_has_changed_html(self):
         comparison = self.comparison_class(
-            SimplePage._meta.get_field('content'),
+            SimplePage._meta.get_field("content"),
             SimplePage(content="<b>Original</b> content"),
             SimplePage(content="Modified <i>content</i>"),
         )
@@ -106,8 +106,8 @@ class TestRichTextFieldComparison(TestTextFieldComparison):
     def test_htmldiff_escapes_value(self):
         # Need to override this one as the HTML tags are stripped by RichTextFieldComparison
         comparison = self.comparison_class(
-            SimplePage._meta.get_field('content'),
-            SimplePage(content='Original content'),
+            SimplePage._meta.get_field("content"),
+            SimplePage(content="Original content"),
             SimplePage(
                 content='<script type="text/javascript">doSomethingBad();</script>'
             ),
@@ -124,15 +124,15 @@ class TestStreamFieldComparison(TestCase):
     comparison_class = compare.StreamFieldComparison
 
     def test_hasnt_changed(self):
-        field = StreamPage._meta.get_field('body')
+        field = StreamPage._meta.get_field("body")
 
         comparison = self.comparison_class(
             field,
             StreamPage(
-                body=StreamValue(field.stream_block, [('text', "Content", '1')])
+                body=StreamValue(field.stream_block, [("text", "Content", "1")])
             ),
             StreamPage(
-                body=StreamValue(field.stream_block, [('text', "Content", '1')])
+                body=StreamValue(field.stream_block, [("text", "Content", "1")])
             ),
         )
 
@@ -146,18 +146,18 @@ class TestStreamFieldComparison(TestCase):
         self.assertFalse(comparison.has_changed())
 
     def test_has_changed(self):
-        field = StreamPage._meta.get_field('body')
+        field = StreamPage._meta.get_field("body")
 
         comparison = self.comparison_class(
             field,
             StreamPage(
                 body=StreamValue(
-                    field.stream_block, [('text', "Original content", '1')]
+                    field.stream_block, [("text", "Original content", "1")]
                 )
             ),
             StreamPage(
                 body=StreamValue(
-                    field.stream_block, [('text', "Modified content", '1')]
+                    field.stream_block, [("text", "Modified content", "1")]
                 )
             ),
         )
@@ -170,17 +170,17 @@ class TestStreamFieldComparison(TestCase):
         self.assertTrue(comparison.has_changed())
 
     def test_add_block(self):
-        field = StreamPage._meta.get_field('body')
+        field = StreamPage._meta.get_field("body")
 
         comparison = self.comparison_class(
             field,
             StreamPage(
-                body=StreamValue(field.stream_block, [('text', "Content", '1')])
+                body=StreamValue(field.stream_block, [("text", "Content", "1")])
             ),
             StreamPage(
                 body=StreamValue(
                     field.stream_block,
-                    [('text', "Content", '1'), ('text', "New Content", '2')],
+                    [("text", "Content", "1"), ("text", "New Content", "2")],
                 )
             ),
         )
@@ -193,7 +193,7 @@ class TestStreamFieldComparison(TestCase):
         self.assertTrue(comparison.has_changed())
 
     def test_delete_block(self):
-        field = StreamPage._meta.get_field('body')
+        field = StreamPage._meta.get_field("body")
 
         comparison = self.comparison_class(
             field,
@@ -201,16 +201,16 @@ class TestStreamFieldComparison(TestCase):
                 body=StreamValue(
                     field.stream_block,
                     [
-                        ('text', "Content", '1'),
-                        ('text', "Content Foo", '2'),
-                        ('text', "Content Bar", '3'),
+                        ("text", "Content", "1"),
+                        ("text", "Content Foo", "2"),
+                        ("text", "Content Bar", "3"),
                     ],
                 )
             ),
             StreamPage(
                 body=StreamValue(
                     field.stream_block,
-                    [('text', "Content", '1'), ('text', "Content Bar", '3')],
+                    [("text", "Content", "1"), ("text", "Content Bar", "3")],
                 )
             ),
         )
@@ -223,7 +223,7 @@ class TestStreamFieldComparison(TestCase):
         self.assertTrue(comparison.has_changed())
 
     def test_edit_block(self):
-        field = StreamPage._meta.get_field('body')
+        field = StreamPage._meta.get_field("body")
 
         comparison = self.comparison_class(
             field,
@@ -231,9 +231,9 @@ class TestStreamFieldComparison(TestCase):
                 body=StreamValue(
                     field.stream_block,
                     [
-                        ('text', "Content", '1'),
-                        ('text', "Content Foo", '2'),
-                        ('text', "Content Bar", '3'),
+                        ("text", "Content", "1"),
+                        ("text", "Content Foo", "2"),
+                        ("text", "Content Bar", "3"),
                     ],
                 )
             ),
@@ -241,9 +241,9 @@ class TestStreamFieldComparison(TestCase):
                 body=StreamValue(
                     field.stream_block,
                     [
-                        ('text', "Content", '1'),
-                        ('text', "Content Baz", '2'),
-                        ('text', "Content Bar", '3'),
+                        ("text", "Content", "1"),
+                        ("text", "Content Baz", "2"),
+                        ("text", "Content Bar", "3"),
                     ],
                 )
             ),
@@ -257,18 +257,18 @@ class TestStreamFieldComparison(TestCase):
         self.assertTrue(comparison.has_changed())
 
     def test_has_changed_richtext(self):
-        field = StreamPage._meta.get_field('body')
+        field = StreamPage._meta.get_field("body")
 
         comparison = self.comparison_class(
             field,
             StreamPage(
                 body=StreamValue(
-                    field.stream_block, [('rich_text', "<b>Original</b> content", '1')]
+                    field.stream_block, [("rich_text", "<b>Original</b> content", "1")]
                 )
             ),
             StreamPage(
                 body=StreamValue(
-                    field.stream_block, [('rich_text', "Modified <i>content</i>", '1')]
+                    field.stream_block, [("rich_text", "Modified <i>content</i>", "1")]
                 )
             ),
         )
@@ -281,13 +281,13 @@ class TestStreamFieldComparison(TestCase):
         self.assertTrue(comparison.has_changed())
 
     def test_htmldiff_escapes_value(self):
-        field = StreamPage._meta.get_field('body')
+        field = StreamPage._meta.get_field("body")
 
         comparison = self.comparison_class(
             field,
             StreamPage(
                 body=StreamValue(
-                    field.stream_block, [('text', "Original content", '1')]
+                    field.stream_block, [("text", "Original content", "1")]
                 )
             ),
             StreamPage(
@@ -295,9 +295,9 @@ class TestStreamFieldComparison(TestCase):
                     field.stream_block,
                     [
                         (
-                            'text',
+                            "text",
                             '<script type="text/javascript">doSomethingBad();</script>',
-                            '1',
+                            "1",
                         )
                     ],
                 )
@@ -311,13 +311,13 @@ class TestStreamFieldComparison(TestCase):
         self.assertIsInstance(comparison.htmldiff(), SafeText)
 
     def test_htmldiff_escapes_value_richtext(self):
-        field = StreamPage._meta.get_field('body')
+        field = StreamPage._meta.get_field("body")
 
         comparison = self.comparison_class(
             field,
             StreamPage(
                 body=StreamValue(
-                    field.stream_block, [('rich_text', "Original content", '1')]
+                    field.stream_block, [("rich_text", "Original content", "1")]
                 )
             ),
             StreamPage(
@@ -325,9 +325,9 @@ class TestStreamFieldComparison(TestCase):
                     field.stream_block,
                     [
                         (
-                            'rich_text',
+                            "rich_text",
                             '<script type="text/javascript">doSomethingBad();</script>',
-                            '1',
+                            "1",
                         )
                     ],
                 )
@@ -341,20 +341,20 @@ class TestStreamFieldComparison(TestCase):
         self.assertIsInstance(comparison.htmldiff(), SafeText)
 
     def test_compare_structblock(self):
-        field = StreamPage._meta.get_field('body')
+        field = StreamPage._meta.get_field("body")
 
         comparison = self.comparison_class(
             field,
             StreamPage(
                 body=StreamValue(
                     field.stream_block,
-                    [('product', {'name': 'a packet of rolos', 'price': '75p'}, '1')],
+                    [("product", {"name": "a packet of rolos", "price": "75p"}, "1")],
                 )
             ),
             StreamPage(
                 body=StreamValue(
                     field.stream_block,
-                    [('product', {'name': 'a packet of rolos', 'price': '85p'}, '1')],
+                    [("product", {"name": "a packet of rolos", "price": "85p"}, "1")],
                 )
             ),
         )
@@ -380,15 +380,15 @@ class TestStreamFieldComparison(TestCase):
             title="Test image 2", file=get_test_image_file()
         )
 
-        field = StreamPage._meta.get_field('body')
+        field = StreamPage._meta.get_field("body")
 
         comparison = self.comparison_class(
             field,
             StreamPage(
-                body=StreamValue(field.stream_block, [('image', test_image_1, '1')])
+                body=StreamValue(field.stream_block, [("image", test_image_1, "1")])
             ),
             StreamPage(
-                body=StreamValue(field.stream_block, [('image', test_image_2, '1')])
+                body=StreamValue(field.stream_block, [("image", test_image_2, "1")])
             ),
         )
 
@@ -407,7 +407,7 @@ class TestChoiceFieldComparison(TestCase):
 
     def test_hasnt_changed(self):
         comparison = self.comparison_class(
-            EventPage._meta.get_field('audience'),
+            EventPage._meta.get_field("audience"),
             EventPage(audience="public"),
             EventPage(audience="public"),
         )
@@ -415,13 +415,13 @@ class TestChoiceFieldComparison(TestCase):
         self.assertTrue(comparison.is_field)
         self.assertFalse(comparison.is_child_relation)
         self.assertEqual(comparison.field_label(), "Audience")
-        self.assertEqual(comparison.htmldiff(), 'Public')
+        self.assertEqual(comparison.htmldiff(), "Public")
         self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertFalse(comparison.has_changed())
 
     def test_has_changed(self):
         comparison = self.comparison_class(
-            EventPage._meta.get_field('audience'),
+            EventPage._meta.get_field("audience"),
             EventPage(audience="public"),
             EventPage(audience="private"),
         )
@@ -439,32 +439,32 @@ class TestTagsFieldComparison(TestCase):
 
     def test_hasnt_changed(self):
         a = TaggedPage()
-        a.tags.add('wagtail')
-        a.tags.add('bird')
+        a.tags.add("wagtail")
+        a.tags.add("bird")
 
         b = TaggedPage()
-        b.tags.add('wagtail')
-        b.tags.add('bird')
+        b.tags.add("wagtail")
+        b.tags.add("bird")
 
-        comparison = self.comparison_class(TaggedPage._meta.get_field('tags'), a, b)
+        comparison = self.comparison_class(TaggedPage._meta.get_field("tags"), a, b)
 
         self.assertTrue(comparison.is_field)
         self.assertFalse(comparison.is_child_relation)
         self.assertEqual(comparison.field_label(), "Tags")
-        self.assertEqual(comparison.htmldiff(), 'wagtail, bird')
+        self.assertEqual(comparison.htmldiff(), "wagtail, bird")
         self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertFalse(comparison.has_changed())
 
     def test_has_changed(self):
         a = TaggedPage()
-        a.tags.add('wagtail')
-        a.tags.add('bird')
+        a.tags.add("wagtail")
+        a.tags.add("bird")
 
         b = TaggedPage()
-        b.tags.add('wagtail')
-        b.tags.add('motacilla')
+        b.tags.add("wagtail")
+        b.tags.add("motacilla")
 
-        comparison = self.comparison_class(TaggedPage._meta.get_field('tags'), a, b)
+        comparison = self.comparison_class(TaggedPage._meta.get_field("tags"), a, b)
 
         self.assertEqual(
             comparison.htmldiff(),
@@ -475,25 +475,25 @@ class TestTagsFieldComparison(TestCase):
 
 
 class TestM2MFieldComparison(TestCase):
-    fixtures = ['test.json']
+    fixtures = ["test.json"]
     comparison_class = compare.M2MFieldComparison
 
     def setUp(self):
-        self.meetings_category = EventCategory.objects.create(name='Meetings')
-        self.parties_category = EventCategory.objects.create(name='Parties')
-        self.holidays_category = EventCategory.objects.create(name='Holidays')
+        self.meetings_category = EventCategory.objects.create(name="Meetings")
+        self.parties_category = EventCategory.objects.create(name="Parties")
+        self.holidays_category = EventCategory.objects.create(name="Holidays")
 
     def test_hasnt_changed(self):
-        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         saint_patrick_event = EventPage.objects.get(
-            url_path='/home/events/saint-patrick/'
+            url_path="/home/events/saint-patrick/"
         )
 
         christmas_event.categories = [self.meetings_category, self.parties_category]
         saint_patrick_event.categories = [self.meetings_category, self.parties_category]
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('categories'),
+            EventPage._meta.get_field("categories"),
             christmas_event,
             saint_patrick_event,
         )
@@ -502,13 +502,13 @@ class TestM2MFieldComparison(TestCase):
         self.assertFalse(comparison.is_child_relation)
         self.assertEqual(comparison.field_label(), "Categories")
         self.assertFalse(comparison.has_changed())
-        self.assertEqual(comparison.htmldiff(), 'Meetings, Parties')
+        self.assertEqual(comparison.htmldiff(), "Meetings, Parties")
         self.assertIsInstance(comparison.htmldiff(), SafeText)
 
     def test_has_changed(self):
-        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
         saint_patrick_event = EventPage.objects.get(
-            url_path='/home/events/saint-patrick/'
+            url_path="/home/events/saint-patrick/"
         )
 
         christmas_event.categories = [self.meetings_category, self.parties_category]
@@ -518,7 +518,7 @@ class TestM2MFieldComparison(TestCase):
         ]
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('categories'),
+            EventPage._meta.get_field("categories"),
             christmas_event,
             saint_patrick_event,
         )
@@ -546,7 +546,7 @@ class TestForeignObjectComparison(TestCase):
 
     def test_hasnt_changed(self):
         comparison = self.comparison_class(
-            EventPage._meta.get_field('feed_image'),
+            EventPage._meta.get_field("feed_image"),
             EventPage(feed_image=self.test_image_1),
             EventPage(feed_image=self.test_image_1),
         )
@@ -554,13 +554,13 @@ class TestForeignObjectComparison(TestCase):
         self.assertTrue(comparison.is_field)
         self.assertFalse(comparison.is_child_relation)
         self.assertEqual(comparison.field_label(), "Feed image")
-        self.assertEqual(comparison.htmldiff(), 'Test image 1')
+        self.assertEqual(comparison.htmldiff(), "Test image 1")
         self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertFalse(comparison.has_changed())
 
     def test_has_changed(self):
         comparison = self.comparison_class(
-            EventPage._meta.get_field('feed_image'),
+            EventPage._meta.get_field("feed_image"),
             EventPage(feed_image=self.test_image_1),
             EventPage(feed_image=self.test_image_2),
         )
@@ -592,15 +592,15 @@ class TestChildRelationComparison(TestCase):
         )
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('speaker'),
+            EventPage._meta.get_field("speaker"),
             [
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('first_name'),
+                    EventPageSpeaker._meta.get_field("first_name"),
                 ),
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('last_name'),
+                    EventPageSpeaker._meta.get_field("last_name"),
                 ),
             ],
             event_page,
@@ -641,15 +641,15 @@ class TestChildRelationComparison(TestCase):
         )
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('speaker'),
+            EventPage._meta.get_field("speaker"),
             [
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('first_name'),
+                    EventPageSpeaker._meta.get_field("first_name"),
                 ),
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('last_name'),
+                    EventPageSpeaker._meta.get_field("last_name"),
                 ),
             ],
             event_page,
@@ -692,15 +692,15 @@ class TestChildRelationComparison(TestCase):
         )
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('speaker'),
+            EventPage._meta.get_field("speaker"),
             [
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('first_name'),
+                    EventPageSpeaker._meta.get_field("first_name"),
                 ),
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('last_name'),
+                    EventPageSpeaker._meta.get_field("last_name"),
                 ),
             ],
             event_page,
@@ -737,15 +737,15 @@ class TestChildRelationComparison(TestCase):
         )
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('speaker'),
+            EventPage._meta.get_field("speaker"),
             [
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('first_name'),
+                    EventPageSpeaker._meta.get_field("first_name"),
                 ),
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('last_name'),
+                    EventPageSpeaker._meta.get_field("last_name"),
                 ),
             ],
             event_page,
@@ -783,11 +783,11 @@ class TestChildObjectComparison(TestCase):
             [
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('first_name'),
+                    EventPageSpeaker._meta.get_field("first_name"),
                 ),
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('last_name'),
+                    EventPageSpeaker._meta.get_field("last_name"),
                 ),
             ],
             obj_a,
@@ -810,11 +810,11 @@ class TestChildObjectComparison(TestCase):
             [
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('first_name'),
+                    EventPageSpeaker._meta.get_field("first_name"),
                 ),
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('last_name'),
+                    EventPageSpeaker._meta.get_field("last_name"),
                 ),
             ],
             obj_a,
@@ -841,11 +841,11 @@ class TestChildObjectComparison(TestCase):
             [
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('first_name'),
+                    EventPageSpeaker._meta.get_field("first_name"),
                 ),
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('last_name'),
+                    EventPageSpeaker._meta.get_field("last_name"),
                 ),
             ],
             obj_a,
@@ -866,11 +866,11 @@ class TestChildObjectComparison(TestCase):
             [
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('first_name'),
+                    EventPageSpeaker._meta.get_field("first_name"),
                 ),
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('last_name'),
+                    EventPageSpeaker._meta.get_field("last_name"),
                 ),
             ],
             None,
@@ -891,11 +891,11 @@ class TestChildObjectComparison(TestCase):
             [
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('first_name'),
+                    EventPageSpeaker._meta.get_field("first_name"),
                 ),
                 partial(
                     self.field_comparison_class,
-                    EventPageSpeaker._meta.get_field('last_name'),
+                    EventPageSpeaker._meta.get_field("last_name"),
                 ),
             ],
             obj,
@@ -931,11 +931,11 @@ class TestChildRelationComparisonUsingPK(TestCase):
         modified_event_page.head_counts.add(HeadCountRelatedModelUsingPK(head_count=25))
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('head_counts'),
+            EventPage._meta.get_field("head_counts"),
             [
                 partial(
                     self.field_comparison_class,
-                    HeadCountRelatedModelUsingPK._meta.get_field('head_count'),
+                    HeadCountRelatedModelUsingPK._meta.get_field("head_count"),
                 )
             ],
             event_page,
@@ -944,7 +944,7 @@ class TestChildRelationComparisonUsingPK(TestCase):
 
         self.assertFalse(comparison.is_field)
         self.assertTrue(comparison.is_child_relation)
-        self.assertEqual(comparison.field_label(), 'Head counts')
+        self.assertEqual(comparison.field_label(), "Head counts")
         self.assertTrue(comparison.has_changed())
 
         # Check mapping
@@ -972,11 +972,11 @@ class TestChildRelationComparisonUsingPK(TestCase):
         )
 
         comparison = self.comparison_class(
-            EventPage._meta.get_field('head_counts'),
+            EventPage._meta.get_field("head_counts"),
             [
                 partial(
                     self.field_comparison_class,
-                    HeadCountRelatedModelUsingPK._meta.get_field('head_count'),
+                    HeadCountRelatedModelUsingPK._meta.get_field("head_count"),
                 )
             ],
             event_page,

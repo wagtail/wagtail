@@ -6,22 +6,22 @@ from .templatetags.wagtailcore_tags import pageurl, richtext, slugurl, wagtail_v
 
 
 class WagtailCoreExtension(Extension):
-    tags = {'include_block'}
+    tags = {"include_block"}
 
     def __init__(self, environment):
         super().__init__(environment)
 
         self.environment.globals.update(
             {
-                'pageurl': jinja2.contextfunction(pageurl),
-                'slugurl': jinja2.contextfunction(slugurl),
-                'wagtail_version': wagtail_version,
+                "pageurl": jinja2.contextfunction(pageurl),
+                "slugurl": jinja2.contextfunction(slugurl),
+                "wagtail_version": wagtail_version,
             }
         )
-        self.environment.filters.update({'richtext': richtext})
+        self.environment.filters.update({"richtext": richtext})
 
     def parse(self, parser):
-        parse_method = getattr(self, 'parse_' + parser.stream.current.value)
+        parse_method = getattr(self, "parse_" + parser.stream.current.value)
 
         return parse_method(parser)
 
@@ -32,9 +32,9 @@ class WagtailCoreExtension(Extension):
 
         with_context = True
         if parser.stream.current.test_any(
-            'name:with', 'name:without'
-        ) and parser.stream.look().test('name:context'):
-            with_context = next(parser.stream).value == 'with'
+            "name:with", "name:without"
+        ) and parser.stream.look().test("name:context"):
+            with_context = next(parser.stream).value == "with"
             parser.stream.skip()
 
         if with_context:
@@ -43,11 +43,11 @@ class WagtailCoreExtension(Extension):
             # Actually we can just skip else branch because context arg default to None
             args.append(jinja2.nodes.Const(None))
 
-        node = self.call_method('_include_block', args, lineno=lineno)
+        node = self.call_method("_include_block", args, lineno=lineno)
         return jinja2.nodes.Output([node], lineno=lineno)
 
     def _include_block(self, value, context=None):
-        if hasattr(value, 'render_as_block'):
+        if hasattr(value, "render_as_block"):
             if context:
                 new_context = context.get_all()
             else:

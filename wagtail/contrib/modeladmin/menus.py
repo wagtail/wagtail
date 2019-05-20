@@ -10,7 +10,7 @@ class ModelAdminMenuItem(MenuItem):
     def __init__(self, model_admin, order):
         self.model_admin = model_admin
         url = model_admin.url_helper.index_url
-        classnames = 'icon icon-%s' % model_admin.get_menu_icon()
+        classnames = "icon icon-%s" % model_admin.get_menu_icon()
         super().__init__(
             label=model_admin.get_menu_label(),
             url=url,
@@ -30,7 +30,7 @@ class GroupMenuItem(SubmenuMenuItem):
     """
 
     def __init__(self, modeladmingroup, order, menu):
-        classnames = 'icon icon-%s' % modeladmingroup.get_menu_icon()
+        classnames = "icon icon-%s" % modeladmingroup.get_menu_icon()
         super().__init__(
             label=modeladmingroup.get_menu_label(),
             menu=menu,

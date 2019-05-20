@@ -10,30 +10,30 @@ if WAGTAIL_APPEND_SLASH:
     # (possibly empty) list of path segments ending in slashes.
     # CommonMiddleware will redirect requests without a trailing slash to
     # a URL with a trailing slash
-    serve_pattern = r'^((?:[\w\-]+/)*)$'
+    serve_pattern = r"^((?:[\w\-]+/)*)$"
 else:
     # If WAGTAIL_APPEND_SLASH is False, allow Wagtail to serve pages on URLs
     # with and without trailing slashes
-    serve_pattern = r'^([\w\-/]*)$'
+    serve_pattern = r"^([\w\-/]*)$"
 
 
 WAGTAIL_FRONTEND_LOGIN_TEMPLATE = getattr(
-    settings, 'WAGTAIL_FRONTEND_LOGIN_TEMPLATE', 'wagtailcore/login.html'
+    settings, "WAGTAIL_FRONTEND_LOGIN_TEMPLATE", "wagtailcore/login.html"
 )
 
 
 urlpatterns = [
     url(
-        r'^_util/authenticate_with_password/(\d+)/(\d+)/$',
+        r"^_util/authenticate_with_password/(\d+)/(\d+)/$",
         views.authenticate_with_password,
-        name='wagtailcore_authenticate_with_password',
+        name="wagtailcore_authenticate_with_password",
     ),
     url(
-        r'^_util/login/$',
+        r"^_util/login/$",
         auth_views.LoginView.as_view(template_name=WAGTAIL_FRONTEND_LOGIN_TEMPLATE),
-        name='wagtailcore_login',
+        name="wagtailcore_login",
     ),
     # Front-end page views are handled through Wagtail's core.views.serve
     # mechanism
-    url(serve_pattern, views.serve, name='wagtail_serve'),
+    url(serve_pattern, views.serve, name="wagtail_serve"),
 ]

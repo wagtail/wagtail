@@ -10,136 +10,136 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [('taggit', '0002_auto_20150616_2121')]
+    dependencies = [("taggit", "0002_auto_20150616_2121")]
 
     operations = [
         migrations.CreateModel(
-            name='Author',
+            name="Author",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('name', models.CharField(max_length=255)),
-                ('date_of_birth', models.DateField(null=True)),
+                ("name", models.CharField(max_length=255)),
+                ("date_of_birth", models.DateField(null=True)),
             ],
             bases=(models.Model, wagtail.search.index.Indexed),
         ),
         migrations.CreateModel(
-            name='Book',
+            name="Book",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('title', models.CharField(max_length=255)),
-                ('publication_date', models.DateField()),
-                ('number_of_pages', models.IntegerField()),
+                ("title", models.CharField(max_length=255)),
+                ("publication_date", models.DateField()),
+                ("number_of_pages", models.IntegerField()),
             ],
             bases=(models.Model, wagtail.search.index.Indexed),
         ),
         migrations.CreateModel(
-            name='Character',
+            name="Character",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('name', models.CharField(max_length=255)),
+                ("name", models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name='Novel',
+            name="Novel",
             fields=[
                 (
-                    'book_ptr',
+                    "book_ptr",
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to='searchtests.Book',
+                        to="searchtests.Book",
                     ),
                 ),
-                ('setting', models.CharField(max_length=255)),
+                ("setting", models.CharField(max_length=255)),
                 (
-                    'protagonist',
+                    "protagonist",
                     models.OneToOneField(
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
-                        related_name='+',
-                        to='searchtests.Character',
+                        related_name="+",
+                        to="searchtests.Character",
                     ),
                 ),
             ],
-            bases=('searchtests.book',),
+            bases=("searchtests.book",),
         ),
         migrations.CreateModel(
-            name='ProgrammingGuide',
+            name="ProgrammingGuide",
             fields=[
                 (
-                    'book_ptr',
+                    "book_ptr",
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to='searchtests.Book',
+                        to="searchtests.Book",
                     ),
                 ),
                 (
-                    'programming_language',
+                    "programming_language",
                     models.CharField(
                         choices=[
-                            ('py', 'Python'),
-                            ('js', 'Javascript'),
-                            ('rs', 'Rust'),
+                            ("py", "Python"),
+                            ("js", "Javascript"),
+                            ("rs", "Rust"),
                         ],
                         max_length=255,
                     ),
                 ),
             ],
-            bases=('searchtests.book',),
+            bases=("searchtests.book",),
         ),
         migrations.AddField(
-            model_name='book',
-            name='authors',
-            field=models.ManyToManyField(related_name='books', to='searchtests.Author'),
+            model_name="book",
+            name="authors",
+            field=models.ManyToManyField(related_name="books", to="searchtests.Author"),
         ),
         migrations.AddField(
-            model_name='book',
-            name='tags',
+            model_name="book",
+            name="tags",
             field=taggit.managers.TaggableManager(
-                help_text='A comma-separated list of tags.',
-                through='taggit.TaggedItem',
-                to='taggit.Tag',
-                verbose_name='Tags',
+                help_text="A comma-separated list of tags.",
+                through="taggit.TaggedItem",
+                to="taggit.Tag",
+                verbose_name="Tags",
             ),
         ),
         migrations.AddField(
-            model_name='character',
-            name='novel',
+            model_name="character",
+            name="novel",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name='characters',
-                to='searchtests.Novel',
+                related_name="characters",
+                to="searchtests.Novel",
             ),
         ),
     ]

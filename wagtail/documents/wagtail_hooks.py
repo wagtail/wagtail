@@ -26,35 +26,35 @@ from wagtail.documents.rich_text.contentstate import (
 from wagtail.documents.rich_text.editor_html import EditorHTMLDocumentLinkConversionRule
 
 
-@hooks.register('register_admin_urls')
+@hooks.register("register_admin_urls")
 def register_admin_urls():
-    return [url(r'^documents/', include(admin_urls, namespace='wagtaildocs'))]
+    return [url(r"^documents/", include(admin_urls, namespace="wagtaildocs"))]
 
 
-@hooks.register('construct_admin_api')
+@hooks.register("construct_admin_api")
 def construct_admin_api(router):
-    router.register_endpoint('documents', DocumentsAdminAPIEndpoint)
+    router.register_endpoint("documents", DocumentsAdminAPIEndpoint)
 
 
 class DocumentsMenuItem(MenuItem):
     def is_shown(self, request):
         return permission_policy.user_has_any_permission(
-            request.user, ['add', 'change', 'delete']
+            request.user, ["add", "change", "delete"]
         )
 
 
-@hooks.register('register_admin_menu_item')
+@hooks.register("register_admin_menu_item")
 def register_documents_menu_item():
     return DocumentsMenuItem(
-        _('Documents'),
-        reverse('wagtaildocs:index'),
-        name='documents',
-        classnames='icon icon-doc-full-inverse',
+        _("Documents"),
+        reverse("wagtaildocs:index"),
+        name="documents",
+        classnames="icon icon-doc-full-inverse",
         order=400,
     )
 
 
-@hooks.register('insert_editor_js')
+@hooks.register("insert_editor_js")
 def editor_js():
     return format_html(
         """
@@ -62,62 +62,62 @@ def editor_js():
             window.chooserUrls.documentChooser = '{0}';
         </script>
         """,
-        reverse('wagtaildocs:chooser'),
+        reverse("wagtaildocs:chooser"),
     )
 
 
-@hooks.register('register_rich_text_features')
+@hooks.register("register_rich_text_features")
 def register_document_feature(features):
     features.register_link_type(DocumentLinkHandler)
 
     features.register_editor_plugin(
-        'hallo',
-        'document-link',
+        "hallo",
+        "document-link",
         HalloPlugin(
-            name='hallowagtaildoclink',
+            name="hallowagtaildoclink",
             js=[
-                'wagtaildocs/js/document-chooser-modal.js',
-                'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js',
+                "wagtaildocs/js/document-chooser-modal.js",
+                "wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js",
             ],
         ),
     )
     features.register_editor_plugin(
-        'draftail',
-        'document-link',
+        "draftail",
+        "document-link",
         draftail_features.EntityFeature(
             {
-                'type': 'DOCUMENT',
-                'icon': 'doc-full',
-                'description': ugettext('Document'),
+                "type": "DOCUMENT",
+                "icon": "doc-full",
+                "description": ugettext("Document"),
             },
-            js=['wagtaildocs/js/document-chooser-modal.js'],
+            js=["wagtaildocs/js/document-chooser-modal.js"],
         ),
     )
 
     features.register_converter_rule(
-        'editorhtml', 'document-link', EditorHTMLDocumentLinkConversionRule
+        "editorhtml", "document-link", EditorHTMLDocumentLinkConversionRule
     )
     features.register_converter_rule(
-        'contentstate', 'document-link', ContentstateDocumentLinkConversionRule
+        "contentstate", "document-link", ContentstateDocumentLinkConversionRule
     )
 
-    features.default_features.append('document-link')
+    features.default_features.append("document-link")
 
 
 class DocumentsSummaryItem(SummaryItem):
     order = 300
-    template = 'wagtaildocs/homepage/site_summary_documents.html'
+    template = "wagtaildocs/homepage/site_summary_documents.html"
 
     def get_context(self):
-        return {'total_docs': get_document_model().objects.count()}
+        return {"total_docs": get_document_model().objects.count()}
 
     def is_shown(self):
         return permission_policy.user_has_any_permission(
-            self.request.user, ['add', 'change', 'delete']
+            self.request.user, ["add", "change", "delete"]
         )
 
 
-@hooks.register('construct_homepage_summary_items')
+@hooks.register("construct_homepage_summary_items")
 def add_documents_summary_item(request, items):
     items.append(DocumentsSummaryItem(request))
 
@@ -125,42 +125,42 @@ def add_documents_summary_item(request, items):
 class DocsSearchArea(SearchArea):
     def is_shown(self, request):
         return permission_policy.user_has_any_permission(
-            request.user, ['add', 'change', 'delete']
+            request.user, ["add", "change", "delete"]
         )
 
 
-@hooks.register('register_admin_search_area')
+@hooks.register("register_admin_search_area")
 def register_documents_search_area():
     return DocsSearchArea(
-        _('Documents'),
-        reverse('wagtaildocs:index'),
-        name='documents',
-        classnames='icon icon-doc-full-inverse',
+        _("Documents"),
+        reverse("wagtaildocs:index"),
+        name="documents",
+        classnames="icon icon-doc-full-inverse",
         order=400,
     )
 
 
-@hooks.register('register_group_permission_panel')
+@hooks.register("register_group_permission_panel")
 def register_document_permissions_panel():
     return GroupDocumentPermissionFormSet
 
 
-@hooks.register('describe_collection_contents')
+@hooks.register("describe_collection_contents")
 def describe_collection_docs(collection):
     docs_count = get_document_model().objects.filter(collection=collection).count()
     if docs_count:
-        url = reverse('wagtaildocs:index') + ('?collection_id=%d' % collection.id)
+        url = reverse("wagtaildocs:index") + ("?collection_id=%d" % collection.id)
         return {
-            'count': docs_count,
-            'count_text': ungettext(
+            "count": docs_count,
+            "count_text": ungettext(
                 "%(count)s document", "%(count)s documents", docs_count
             )
-            % {'count': docs_count},
-            'url': url,
+            % {"count": docs_count},
+            "url": url,
         }
 
 
-@hooks.register('before_serve_document')
+@hooks.register("before_serve_document")
 def check_view_restrictions(document, request):
     """
     Check whether there are any view restrictions on this document which are
@@ -176,19 +176,19 @@ def check_view_restrictions(document, request):
 
                 form = PasswordViewRestrictionForm(
                     instance=restriction,
-                    initial={'return_url': request.get_full_path()},
+                    initial={"return_url": request.get_full_path()},
                 )
                 action_url = reverse(
-                    'wagtaildocs_authenticate_with_password', args=[restriction.id]
+                    "wagtaildocs_authenticate_with_password", args=[restriction.id]
                 )
 
                 password_required_template = getattr(
                     settings,
-                    'DOCUMENT_PASSWORD_REQUIRED_TEMPLATE',
-                    'wagtaildocs/password_required.html',
+                    "DOCUMENT_PASSWORD_REQUIRED_TEMPLATE",
+                    "wagtaildocs/password_required.html",
                 )
 
-                context = {'form': form, 'action_url': action_url}
+                context = {"form": form, "action_url": action_url}
                 return TemplateResponse(request, password_required_template, context)
 
             elif restriction.restriction_type in [

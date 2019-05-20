@@ -8,10 +8,10 @@ from wagtail.core.models import Page
 
 
 def get_model_listing_url(context, model):
-    url_path = context['router'].get_model_listing_urlpath(model)
+    url_path = context["router"].get_model_listing_urlpath(model)
 
     if url_path:
-        return get_full_url(context['request'], url_path)
+        return get_full_url(context["request"], url_path)
 
 
 class PageStatusField(Field):
@@ -32,9 +32,9 @@ class PageStatusField(Field):
     def to_representation(self, page):
         return OrderedDict(
             [
-                ('status', page.status_string),
-                ('live', page.live),
-                ('has_unpublished_changes', page.has_unpublished_changes),
+                ("status", page.status_string),
+                ("live", page.live),
+                ("has_unpublished_changes", page.has_unpublished_changes),
             ]
         )
 
@@ -56,11 +56,11 @@ class PageChildrenField(Field):
     def to_representation(self, page):
         return OrderedDict(
             [
-                ('count', page.numchild),
+                ("count", page.numchild),
                 (
-                    'listing_url',
+                    "listing_url",
                     get_model_listing_url(self.context, Page)
-                    + '?child_of='
+                    + "?child_of="
                     + str(page.id),
                 ),
             ]
@@ -84,11 +84,11 @@ class PageDescendantsField(Field):
     def to_representation(self, page):
         return OrderedDict(
             [
-                ('count', page.get_descendants().count()),
+                ("count", page.get_descendants().count()),
                 (
-                    'listing_url',
+                    "listing_url",
                     get_model_listing_url(self.context, Page)
-                    + '?descendant_of='
+                    + "?descendant_of="
                     + str(page.id),
                 ),
             ]
@@ -99,4 +99,4 @@ class AdminPageSerializer(PageSerializer):
     status = PageStatusField(read_only=True)
     children = PageChildrenField(read_only=True)
     descendants = PageDescendantsField(read_only=True)
-    admin_display_title = ReadOnlyField(source='get_admin_display_title')
+    admin_display_title = ReadOnlyField(source="get_admin_display_title")

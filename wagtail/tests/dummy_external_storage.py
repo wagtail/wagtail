@@ -21,7 +21,7 @@ class DummyExternalStorage(Storage):
         # This is what an external storage backend would have
         raise NotImplementedError("This backend doesn't support absolute paths.")
 
-    def _open(self, name, mode='rb'):
+    def _open(self, name, mode="rb"):
         # Overridden to return a DummyExternalStorageFile instead of a normal
         # File object
         return DummyExternalStorageFile(open(self.wrapped.path(name), mode))

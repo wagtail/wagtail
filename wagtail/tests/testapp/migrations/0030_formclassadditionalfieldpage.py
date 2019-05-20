@@ -8,29 +8,29 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0040_page_draft_title'),
-        ('tests', '0029_auto_20180215_1950'),
+        ("wagtailcore", "0040_page_draft_title"),
+        ("tests", "0029_auto_20180215_1950"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='FormClassAdditionalFieldPage',
+            name="FormClassAdditionalFieldPage",
             fields=[
                 (
-                    'page_ptr',
+                    "page_ptr",
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to='wagtailcore.Page',
+                        to="wagtailcore.Page",
                     ),
                 ),
-                ('location', models.CharField(max_length=255)),
-                ('body', wagtail.core.fields.RichTextField(blank=True)),
+                ("location", models.CharField(max_length=255)),
+                ("body", wagtail.core.fields.RichTextField(blank=True)),
             ],
-            options={'abstract': False},
-            bases=('wagtailcore.page',),
+            options={"abstract": False},
+            bases=("wagtailcore.page",),
         )
     ]

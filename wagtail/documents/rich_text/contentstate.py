@@ -15,7 +15,7 @@ def document_link_entity(props):
     """
 
     return DOM.create_element(
-        'a', {'linktype': 'document', 'id': props.get('id')}, props['children']
+        "a", {"linktype": "document", "id": props.get("id")}, props["children"]
     )
 
 
@@ -28,21 +28,21 @@ class DocumentLinkElementHandler(LinkElementHandler):
     def get_attribute_data(self, attrs):
         Document = get_document_model()
         try:
-            id = int(attrs['id'])
+            id = int(attrs["id"])
         except (KeyError, ValueError):
             return {}
 
         try:
             doc = Document.objects.get(id=id)
         except Document.DoesNotExist:
-            return {'id': id}
+            return {"id": id}
 
-        return {'id': doc.id, 'url': doc.url, 'filename': doc.filename}
+        return {"id": doc.id, "url": doc.url, "filename": doc.filename}
 
 
 ContentstateDocumentLinkConversionRule = {
-    'from_database_format': {
-        'a[linktype="document"]': DocumentLinkElementHandler('DOCUMENT')
+    "from_database_format": {
+        'a[linktype="document"]': DocumentLinkElementHandler("DOCUMENT")
     },
-    'to_database_format': {'entity_decorators': {'DOCUMENT': document_link_entity}},
+    "to_database_format": {"entity_decorators": {"DOCUMENT": document_link_entity}},
 }

@@ -24,9 +24,9 @@ class BenchPageExplorerWith50LargePages(Benchmark, WagtailTestUtils, TestCase):
 
         # Create a large piece of body text
         body = (
-            '['
-            + ','.join(['{"type": "text", "value": "%s"}' % ('foo' * 2000)] * 100)
-            + ']'
+            "["
+            + ",".join(['{"type": "text", "value": "%s"}' % ("foo" * 2000)] * 100)
+            + "]"
         )
 
         # Create 50 simple pages with long content fields
@@ -41,7 +41,7 @@ class BenchPageExplorerWith50LargePages(Benchmark, WagtailTestUtils, TestCase):
 
     def bench(self):
         response = self.client.get(
-            reverse('wagtailadmin_explore', args=(self.root_page.id,))
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
         )
 
         # Check the response was good
@@ -82,7 +82,7 @@ class BenchPageExplorerWithCustomURLPages(Benchmark, WagtailTestUtils, TestCase)
 
     def bench(self):
         response = self.client.get(
-            reverse('wagtailadmin_explore', args=(self.root_page.id,))
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
         )
 
         # Check the response was good

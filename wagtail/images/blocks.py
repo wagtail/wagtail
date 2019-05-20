@@ -22,9 +22,9 @@ class ImageChooserBlock(ChooserBlock):
 
     def render_basic(self, value, context=None):
         if value:
-            return get_rendition_or_not_found(value, 'original').img_tag()
+            return get_rendition_or_not_found(value, "original").img_tag()
         else:
-            return ''
+            return ""
 
     def get_comparison_class(self):
         return ImageChooserBlockComparison
@@ -36,11 +36,11 @@ class ImageChooserBlock(ChooserBlock):
 class ImageChooserBlockComparison(BlockComparison):
     def htmlvalue(self, val):
         return render_to_string(
-            "wagtailimages/widgets/compare.html", {'image_a': val, 'image_b': val}
+            "wagtailimages/widgets/compare.html", {"image_a": val, "image_b": val}
         )
 
     def htmldiff(self):
         return render_to_string(
             "wagtailimages/widgets/compare.html",
-            {'image_a': self.val_a, 'image_b': self.val_b},
+            {"image_a": self.val_a, "image_b": self.val_b},
         )

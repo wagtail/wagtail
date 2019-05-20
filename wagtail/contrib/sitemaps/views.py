@@ -13,7 +13,7 @@ def sitemap(request, sitemaps=None, **kwargs):
     if sitemaps:
         sitemaps = prepare_sitemaps(request, sitemaps)
     else:
-        sitemaps = {'wagtail': Sitemap(request)}
+        sitemaps = {"wagtail": Sitemap(request)}
     return sitemap_views.sitemap(request, sitemaps, **kwargs)
 
 

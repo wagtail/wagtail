@@ -5,14 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [('wagtailredirects', '0005_capitalizeverbose')]
+    dependencies = [("wagtailredirects", "0005_capitalizeverbose")]
 
     operations = [
         migrations.AlterField(
-            model_name='redirect',
-            name='redirect_link',
+            model_name="redirect",
+            name="redirect_link",
             field=models.URLField(
-                blank=True, max_length=255, verbose_name='redirect to any URL'
+                blank=True, max_length=255, verbose_name="redirect to any URL"
             ),
         )
     ]

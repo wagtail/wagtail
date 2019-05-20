@@ -14,11 +14,11 @@ class Sitemap(DjangoSitemap):
         return obj.last_published_at or obj.latest_revision_created_at
 
     def get_wagtail_site(self):
-        site = getattr(self.request, 'site', None)
+        site = getattr(self.request, "site", None)
         if site is None:
             from wagtail.core.models import Site
 
-            return Site.objects.select_related('root_page').get(is_default_site=True)
+            return Site.objects.select_related("root_page").get(is_default_site=True)
         return site
 
     def items(self):
@@ -27,7 +27,7 @@ class Sitemap(DjangoSitemap):
             .root_page.get_descendants(inclusive=True)
             .live()
             .public()
-            .order_by('path')
+            .order_by("path")
             .specific()
         )
 
@@ -41,7 +41,7 @@ class Sitemap(DjangoSitemap):
 
             for url_info in url_info_items:
                 urls.append(url_info)
-                last_mods.add(url_info.get('lastmod'))
+                last_mods.add(url_info.get("lastmod"))
 
         # last_mods might be empty if the whole site is private
         if last_mods and None not in last_mods:

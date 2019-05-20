@@ -9,8 +9,8 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.images import urls as wagtailimages_urls
 
 urlpatterns = [
-    url(r'^admin/', include(wagtailadmin_urls)),
-    url(r'^documents/', include(wagtaildocs_urls)),
-    url(r'^images/', include(wagtailimages_urls)),
-    url(r'^site/', include(wagtail_urls)),
+    url(r"^admin/", include(wagtailadmin_urls)),
+    url(r"^documents/", include(wagtaildocs_urls)),
+    url(r"^images/", include(wagtailimages_urls)),
+    url(r"^site/", include(wagtail_urls)),
 ]

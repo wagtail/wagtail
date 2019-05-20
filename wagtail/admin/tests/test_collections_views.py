@@ -11,12 +11,12 @@ class TestCollectionsIndexView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailadmin_collections:index'), params)
+        return self.client.get(reverse("wagtailadmin_collections:index"), params)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/collections/index.html')
+        self.assertTemplateUsed(response, "wagtailadmin/collections/index.html")
 
         # Initially there should be no collections listed
         # (Root should not be shown)
@@ -28,7 +28,7 @@ class TestCollectionsIndexView(TestCase, WagtailTestUtils):
         # Now the listing should contain our collection
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/collections/index.html')
+        self.assertTemplateUsed(response, "wagtailadmin/collections/index.html")
         self.assertNotContains(response, "No collections have been created.")
         self.assertContains(response, "Holiday snaps")
 
@@ -39,8 +39,8 @@ class TestCollectionsIndexView(TestCase, WagtailTestUtils):
         root_collection.add_child(name="Avacado")
         response = self.get()
         self.assertEqual(
-            [collection.name for collection in response.context['object_list']],
-            ['Avacado', 'Bread', 'Milk'],
+            [collection.name for collection in response.context["object_list"]],
+            ["Avacado", "Bread", "Milk"],
         )
 
 
@@ -49,20 +49,20 @@ class TestAddCollection(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailadmin_collections:add'), params)
+        return self.client.get(reverse("wagtailadmin_collections:add"), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailadmin_collections:add'), post_data)
+        return self.client.post(reverse("wagtailadmin_collections:add"), post_data)
 
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
     def test_post(self):
-        response = self.post({'name': "Holiday snaps"})
+        response = self.post({"name": "Holiday snaps"})
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+        self.assertRedirects(response, reverse("wagtailadmin_collections:index"))
 
         # Check that the collection was created and is a child of root
         self.assertEqual(Collection.objects.filter(name="Holiday snaps").count(), 1)
@@ -82,7 +82,7 @@ class TestEditCollection(TestCase, WagtailTestUtils):
     def get(self, params={}, collection_id=None):
         return self.client.get(
             reverse(
-                'wagtailadmin_collections:edit',
+                "wagtailadmin_collections:edit",
                 args=(collection_id or self.collection.id,),
             ),
             params,
@@ -91,7 +91,7 @@ class TestEditCollection(TestCase, WagtailTestUtils):
     def post(self, post_data={}, collection_id=None):
         return self.client.post(
             reverse(
-                'wagtailadmin_collections:edit',
+                "wagtailadmin_collections:edit",
                 args=(collection_id or self.collection.id,),
             ),
             post_data,
@@ -110,10 +110,10 @@ class TestEditCollection(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
     def test_post(self):
-        response = self.post({'name': "Skiing photos"})
+        response = self.post({"name": "Skiing photos"})
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+        self.assertRedirects(response, reverse("wagtailadmin_collections:index"))
 
         # Check that the collection was edited
         self.assertEqual(
@@ -130,7 +130,7 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
     def get(self, params={}, collection_id=None):
         return self.client.get(
             reverse(
-                'wagtailadmin_collections:delete',
+                "wagtailadmin_collections:delete",
                 args=(collection_id or self.collection.id,),
             ),
             params,
@@ -139,7 +139,7 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
     def post(self, post_data={}, collection_id=None):
         return self.client.post(
             reverse(
-                'wagtailadmin_collections:delete',
+                "wagtailadmin_collections:delete",
                 args=(collection_id or self.collection.id,),
             ),
             post_data,
@@ -148,7 +148,7 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/generic/confirm_delete.html')
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
 
     def test_cannot_delete_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
@@ -164,14 +164,14 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
-            response, 'wagtailadmin/collections/delete_not_empty.html'
+            response, "wagtailadmin/collections/delete_not_empty.html"
         )
 
     def test_post(self):
         response = self.post()
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+        self.assertRedirects(response, reverse("wagtailadmin_collections:index"))
 
         # Check that the collection was deleted
         with self.assertRaises(Collection.DoesNotExist):

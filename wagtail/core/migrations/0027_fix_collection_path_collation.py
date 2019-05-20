@@ -10,7 +10,7 @@ def set_collection_path_collation(apps, schema_editor):
 
     See: https://groups.google.com/d/msg/wagtail/q0leyuCnYWI/I9uDvVlyBAAJ
     """
-    if schema_editor.connection.vendor == 'postgresql':
+    if schema_editor.connection.vendor == "postgresql":
         schema_editor.execute(
             """
             ALTER TABLE wagtailcore_collection ALTER COLUMN path TYPE VARCHAR(255) COLLATE "C"
@@ -20,7 +20,7 @@ def set_collection_path_collation(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    dependencies = [('wagtailcore', '0026_group_collection_permission')]
+    dependencies = [("wagtailcore", "0026_group_collection_permission")]
 
     operations = [
         migrations.RunPython(set_collection_path_collation, migrations.RunPython.noop)

@@ -22,15 +22,15 @@ class FieldBlock(Block):
     def id_for_label(self, prefix):
         return self.field.widget.id_for_label(prefix)
 
-    def render_form(self, value, prefix='', errors=None):
+    def render_form(self, value, prefix="", errors=None):
         field = self.field
         widget = field.widget
 
-        widget_attrs = {'id': prefix, 'placeholder': self.label}
+        widget_attrs = {"id": prefix, "placeholder": self.label}
 
         field_value = field.prepare_value(self.value_for_form(value))
 
-        if hasattr(widget, 'render_with_errors'):
+        if hasattr(widget, "render_with_errors"):
             widget_html = widget.render_with_errors(
                 prefix, field_value, attrs=widget_attrs, errors=errors
             )
@@ -40,13 +40,13 @@ class FieldBlock(Block):
             widget_has_rendered_errors = False
 
         return render_to_string(
-            'wagtailadmin/block_forms/field.html',
+            "wagtailadmin/block_forms/field.html",
             {
-                'name': self.name,
-                'classes': self.meta.classname,
-                'widget': widget_html,
-                'field': field,
-                'errors': errors if (not widget_has_rendered_errors) else None,
+                "name": self.name,
+                "classes": self.meta.classname,
+                "widget": widget_html,
+                "field": field,
+                "errors": errors if (not widget_has_rendered_errors) else None,
             },
         )
 
@@ -138,11 +138,11 @@ class TextBlock(FieldBlock):
         **kwargs
     ):
         self.field_options = {
-            'required': required,
-            'help_text': help_text,
-            'max_length': max_length,
-            'min_length': min_length,
-            'validators': validators,
+            "required": required,
+            "help_text": help_text,
+            "max_length": max_length,
+            "min_length": min_length,
+            "validators": validators,
         }
         self.rows = rows
         super().__init__(**kwargs)
@@ -151,7 +151,7 @@ class TextBlock(FieldBlock):
     def field(self):
         from wagtail.admin.widgets import AdminAutoHeightTextInput
 
-        field_kwargs = {'widget': AdminAutoHeightTextInput(attrs={'rows': self.rows})}
+        field_kwargs = {"widget": AdminAutoHeightTextInput(attrs={"rows": self.rows})}
         field_kwargs.update(self.field_options)
         return forms.CharField(**field_kwargs)
 
@@ -165,9 +165,9 @@ class TextBlock(FieldBlock):
 class BlockQuoteBlock(TextBlock):
     def render_basic(self, value, context=None):
         if value:
-            return format_html('<blockquote>{0}</blockquote>', value)
+            return format_html("<blockquote>{0}</blockquote>", value)
         else:
-            return ''
+            return ""
 
     class Meta:
         icon = "openquote"
@@ -292,12 +292,12 @@ class DateBlock(FieldBlock):
         self, required=True, help_text=None, format=None, validators=(), **kwargs
     ):
         self.field_options = {
-            'required': required,
-            'help_text': help_text,
-            'validators': validators,
+            "required": required,
+            "help_text": help_text,
+            "validators": validators,
         }
         try:
-            self.field_options['input_formats'] = kwargs.pop('input_formats')
+            self.field_options["input_formats"] = kwargs.pop("input_formats")
         except KeyError:
             pass
         self.format = format
@@ -307,7 +307,7 @@ class DateBlock(FieldBlock):
     def field(self):
         from wagtail.admin.widgets import AdminDateInput
 
-        field_kwargs = {'widget': AdminDateInput(format=self.format)}
+        field_kwargs = {"widget": AdminDateInput(format=self.format)}
         field_kwargs.update(self.field_options)
         return forms.DateField(**field_kwargs)
 
@@ -327,9 +327,9 @@ class DateBlock(FieldBlock):
 class TimeBlock(FieldBlock):
     def __init__(self, required=True, help_text=None, validators=(), **kwargs):
         self.field_options = {
-            'required': required,
-            'help_text': help_text,
-            'validators': validators,
+            "required": required,
+            "help_text": help_text,
+            "validators": validators,
         }
         super().__init__(**kwargs)
 
@@ -337,7 +337,7 @@ class TimeBlock(FieldBlock):
     def field(self):
         from wagtail.admin.widgets import AdminTimeInput
 
-        field_kwargs = {'widget': AdminTimeInput}
+        field_kwargs = {"widget": AdminTimeInput}
         field_kwargs.update(self.field_options)
         return forms.TimeField(**field_kwargs)
 
@@ -356,9 +356,9 @@ class DateTimeBlock(FieldBlock):
         self, required=True, help_text=None, format=None, validators=(), **kwargs
     ):
         self.field_options = {
-            'required': required,
-            'help_text': help_text,
-            'validators': validators,
+            "required": required,
+            "help_text": help_text,
+            "validators": validators,
         }
         self.format = format
         super().__init__(**kwargs)
@@ -367,7 +367,7 @@ class DateTimeBlock(FieldBlock):
     def field(self):
         from wagtail.admin.widgets import AdminDateTimeInput
 
-        field_kwargs = {'widget': AdminDateTimeInput(format=self.format)}
+        field_kwargs = {"widget": AdminDateTimeInput(format=self.format)}
         field_kwargs.update(self.field_options)
         return forms.DateTimeField(**field_kwargs)
 
@@ -445,11 +445,11 @@ class ChoiceBlock(FieldBlock):
 
         # keep a copy of all kwargs (including our normalised choices list) for deconstruct()
         self._constructor_kwargs = kwargs.copy()
-        self._constructor_kwargs['choices'] = choices_for_constructor
+        self._constructor_kwargs["choices"] = choices_for_constructor
         if required is not True:
-            self._constructor_kwargs['required'] = required
+            self._constructor_kwargs["required"] = required
         if help_text is not None:
-            self._constructor_kwargs['help_text'] = help_text
+            self._constructor_kwargs["help_text"] = help_text
 
         # We will need to modify the choices list to insert a blank option, if there isn't
         # one already. We have to do this at render time in the case of callable choices - so rather
@@ -494,12 +494,12 @@ class ChoiceBlock(FieldBlock):
             for v1, v2 in local_choices:
                 if isinstance(v2, (list, tuple)):
                     # this is a named group, and v2 is the value list
-                    has_blank_choice = any([value in ('', None) for value, label in v2])
+                    has_blank_choice = any([value in ("", None) for value, label in v2])
                     if has_blank_choice:
                         break
                 else:
                     # this is an individual choice; v1 is the value
-                    if v1 in ('', None):
+                    if v1 in ("", None):
                         has_blank_choice = True
                         break
 
@@ -517,7 +517,7 @@ class ChoiceBlock(FieldBlock):
         users to define subclasses of ChoiceBlock in their models.py, with specific choice lists
         passed in, without references to those classes ending up frozen into migrations.
         """
-        return ('wagtail.core.blocks.ChoiceBlock', [], self._constructor_kwargs)
+        return ("wagtail.core.blocks.ChoiceBlock", [], self._constructor_kwargs)
 
     def get_searchable_content(self, value):
         # Return the display value as the searchable value
@@ -545,15 +545,15 @@ class RichTextBlock(FieldBlock):
         self,
         required=True,
         help_text=None,
-        editor='default',
+        editor="default",
         features=None,
         validators=(),
         **kwargs
     ):
         self.field_options = {
-            'required': required,
-            'help_text': help_text,
-            'validators': validators,
+            "required": required,
+            "help_text": help_text,
+            "validators": validators,
         }
         self.editor = editor
         self.features = features
@@ -621,7 +621,7 @@ class RawHTMLBlock(FieldBlock):
         super().__init__(**kwargs)
 
     def get_default(self):
-        return mark_safe(self.meta.default or '')
+        return mark_safe(self.meta.default or "")
 
     def to_python(self, value):
         return mark_safe(value)
@@ -629,17 +629,17 @@ class RawHTMLBlock(FieldBlock):
     def get_prep_value(self, value):
         # explicitly convert to a plain string, just in case we're using some serialisation method
         # that doesn't cope with SafeText values correctly
-        return str(value) + ''
+        return str(value) + ""
 
     def value_for_form(self, value):
         # need to explicitly mark as unsafe, or it'll output unescaped HTML in the textarea
-        return str(value) + ''
+        return str(value) + ""
 
     def value_from_form(self, value):
         return mark_safe(value)
 
     class Meta:
-        icon = 'code'
+        icon = "code"
 
 
 class ChooserBlock(FieldBlock):
@@ -749,7 +749,7 @@ class PageChooserBlock(ChooserBlock):
         if len(self.target_models) == 1:
             return self.target_models[0]
 
-        return resolve_model_string('wagtailcore.Page')
+        return resolve_model_string("wagtailcore.Page")
 
     @cached_property
     def target_models(self):
@@ -772,20 +772,20 @@ class PageChooserBlock(ChooserBlock):
         if value:
             return format_html('<a href="{0}">{1}</a>', value.url, value.title)
         else:
-            return ''
+            return ""
 
     def deconstruct(self):
         name, args, kwargs = super().deconstruct()
 
-        if 'target_model' in kwargs or 'page_type' in kwargs:
+        if "target_model" in kwargs or "page_type" in kwargs:
             target_models = []
 
             for target_model in self.target_models:
                 opts = target_model._meta
-                target_models.append('{}.{}'.format(opts.app_label, opts.object_name))
+                target_models.append("{}.{}".format(opts.app_label, opts.object_name))
 
-            kwargs.pop('target_model', None)
-            kwargs['page_type'] = target_models
+            kwargs.pop("target_model", None)
+            kwargs["page_type"] = target_models
 
         return name, args, kwargs
 
@@ -817,6 +817,6 @@ block_classes = [
     BlockQuoteBlock,
 ]
 DECONSTRUCT_ALIASES = {
-    cls: 'wagtail.core.blocks.%s' % cls.__name__ for cls in block_classes
+    cls: "wagtail.core.blocks.%s" % cls.__name__ for cls in block_classes
 }
 __all__ = [cls.__name__ for cls in block_classes]

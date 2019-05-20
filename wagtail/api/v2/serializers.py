@@ -23,8 +23,8 @@ class TypeField(Field):
         return instance
 
     def to_representation(self, obj):
-        name = type(obj)._meta.app_label + '.' + type(obj).__name__
-        self.context['view'].seen_types[name] = type(obj)
+        name = type(obj)._meta.app_label + "." + type(obj).__name__
+        self.context["view"].seen_types[name] = type(obj)
         return name
 
 
@@ -38,7 +38,7 @@ class DetailUrlField(Field):
 
     def get_attribute(self, instance):
         url = get_object_detail_url(
-            self.context['router'], self.context['request'], type(instance), instance.pk
+            self.context["router"], self.context["request"], type(instance), instance.pk
         )
 
         if url:
@@ -87,8 +87,8 @@ class PageTypeField(Field):
     def to_representation(self, page):
         if page.specific_class is None:
             return None
-        name = page.specific_class._meta.app_label + '.' + page.specific_class.__name__
-        self.context['view'].seen_types[name] = page.specific_class
+        name = page.specific_class._meta.app_label + "." + page.specific_class.__name__
+        self.context["view"].seen_types[name] = page.specific_class
         return name
 
 
@@ -108,7 +108,7 @@ class RelatedField(relations.RelatedField):
     """
 
     def __init__(self, *args, **kwargs):
-        self.serializer_class = kwargs.pop('serializer_class')
+        self.serializer_class = kwargs.pop("serializer_class")
         super().__init__(*args, **kwargs)
 
     def to_representation(self, value):
@@ -129,15 +129,15 @@ class PageParentField(relations.RelatedField):
     def get_attribute(self, instance):
         parent = instance.get_parent()
 
-        site_pages = pages_for_site(self.context['request'].site)
+        site_pages = pages_for_site(self.context["request"].site)
         if site_pages.filter(id=parent.id).exists():
             return parent
 
     def to_representation(self, value):
         serializer_class = get_serializer_class(
             value.__class__,
-            ['id', 'type', 'detail_url', 'html_url', 'title'],
-            meta_fields=['type', 'detail_url', 'html_url'],
+            ["id", "type", "detail_url", "html_url", "title"],
+            meta_fields=["type", "detail_url", "html_url"],
             base=PageSerializer,
         )
         serializer = serializer_class(context=self.context)
@@ -184,7 +184,7 @@ class ChildRelationField(Field):
     """
 
     def __init__(self, *args, **kwargs):
-        self.serializer_class = kwargs.pop('serializer_class')
+        self.serializer_class = kwargs.pop("serializer_class")
         super().__init__(*args, **kwargs)
 
     def to_representation(self, value):
@@ -249,7 +249,7 @@ class TagsField(Field):
     """
 
     def to_representation(self, value):
-        return list(value.all().order_by('name').values_list('name', flat=True))
+        return list(value.all().order_by("name").values_list("name", flat=True))
 
 
 class BaseSerializer(serializers.ModelSerializer):
@@ -275,8 +275,8 @@ class BaseSerializer(serializers.ModelSerializer):
         fields = [field for field in fields if field.field_name not in self.meta_fields]
 
         # Make sure id is always first. This will be filled in later
-        if 'id' in [field.field_name for field in fields]:
-            data['id'] = None
+        if "id" in [field.field_name for field in fields]:
+            data["id"] = None
 
         # Serialise meta fields
         meta = OrderedDict()
@@ -294,7 +294,7 @@ class BaseSerializer(serializers.ModelSerializer):
                 meta[field.field_name] = field.to_representation(attribute)
 
         if meta:
-            data['meta'] = meta
+            data["meta"] = meta
 
         # Serialise core fields
         for field in fields:
@@ -324,7 +324,7 @@ class BaseSerializer(serializers.ModelSerializer):
         field_class, field_kwargs = super().build_relational_field(
             field_name, relation_info
         )
-        field_kwargs['serializer_class'] = self.child_serializer_classes[field_name]
+        field_kwargs["serializer_class"] = self.child_serializer_classes[field_name]
         return field_class, field_kwargs
 
 
@@ -337,7 +337,7 @@ class PageSerializer(BaseSerializer):
         # Find all relation fields that point to child class and make them use
         # the ChildRelationField class.
         if relation_info.to_many:
-            model = getattr(self.Meta, 'model')
+            model = getattr(self.Meta, "model")
             child_relations = {
                 child_relation.field.remote_field.related_name: child_relation.related_model
                 for child_relation in get_all_child_relations(model)
@@ -349,7 +349,7 @@ class PageSerializer(BaseSerializer):
             ):
                 return (
                     ChildRelationField,
-                    {'serializer_class': self.child_serializer_classes[field_name]},
+                    {"serializer_class": self.child_serializer_classes[field_name]},
                 )
 
         return super().build_relational_field(field_name, relation_info)
@@ -370,12 +370,12 @@ def get_serializer_class(
         fields = list(field_names)
 
     attrs = {
-        'Meta': Meta,
-        'meta_fields': list(meta_fields),
-        'child_serializer_classes': child_serializer_classes or {},
+        "Meta": Meta,
+        "meta_fields": list(meta_fields),
+        "child_serializer_classes": child_serializer_classes or {},
     }
 
     if field_serializer_overrides:
         attrs.update(field_serializer_overrides)
 
-    return type(str(model_.__name__ + 'Serializer'), (base,), attrs)
+    return type(str(model_.__name__ + "Serializer"), (base,), attrs)

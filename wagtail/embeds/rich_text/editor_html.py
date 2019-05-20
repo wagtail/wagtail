@@ -21,7 +21,7 @@ class MediaEmbedHandler:
         data-embedtype="media" attribute), return a dict of the attributes we should
         have on the resulting <embed> element.
         """
-        return {'url': tag['data-url']}
+        return {"url": tag["data-url"]}
 
     @staticmethod
     def expand_db_attributes(attrs):
@@ -30,10 +30,10 @@ class MediaEmbedHandler:
         representation for use within the editor.
         """
         try:
-            return format.embed_to_editor_html(attrs['url'])
+            return format.embed_to_editor_html(attrs["url"])
         except EmbedException:
             # Could be replaced with a nice error message
-            return ''
+            return ""
 
 
-EditorHTMLEmbedConversionRule = [editor_html.EmbedTypeRule('media', MediaEmbedHandler)]
+EditorHTMLEmbedConversionRule = [editor_html.EmbedTypeRule("media", MediaEmbedHandler)]

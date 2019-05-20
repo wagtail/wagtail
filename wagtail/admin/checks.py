@@ -8,7 +8,7 @@ def css_install_check(app_configs, **kwargs):
     errors = []
 
     css_path = os.path.join(
-        os.path.dirname(__file__), 'static', 'wagtailadmin', 'css', 'normalize.css'
+        os.path.dirname(__file__), "static", "wagtailadmin", "css", "normalize.css"
     )
 
     if not os.path.isfile(css_path):
@@ -27,7 +27,7 @@ def css_install_check(app_configs, **kwargs):
             Warning(
                 "CSS for the Wagtail admin is missing",
                 hint=error_hint,
-                id='wagtailadmin.W001',
+                id="wagtailadmin.W001",
             )
         )
     return errors
@@ -51,7 +51,7 @@ def base_form_class_check(app_configs, **kwargs):
                         cls.base_form_class.__module__, cls.base_form_class.__name__
                     ),
                     obj=cls,
-                    id='wagtailadmin.E001',
+                    id="wagtailadmin.E001",
                 )
             )
 
@@ -77,14 +77,14 @@ def get_form_class_check(app_configs, **kwargs):
                         cls=cls.__name__
                     ),
                     obj=cls,
-                    id='wagtailadmin.E002',
+                    id="wagtailadmin.E002",
                 )
             )
 
     return errors
 
 
-@register('panels')
+@register("panels")
 def inline_panel_model_panels_check(app_configs, **kwargs):
     from wagtail.core.models import get_page_models
 
@@ -102,14 +102,14 @@ def inline_panel_model_panels_check(app_configs, **kwargs):
     return unique_errors
 
 
-def check_panels_in_model(cls, context='model'):
+def check_panels_in_model(cls, context="model"):
     """Check panels configuration uses `panels` when `edit_handler` not in use."""
     from wagtail.core.models import Page
     from wagtail.admin.edit_handlers import InlinePanel
 
     errors = []
 
-    if hasattr(cls, 'get_edit_handler'):
+    if hasattr(cls, "get_edit_handler"):
         # must check the InlinePanel related models
         edit_handler = cls.get_edit_handler()
         for tab in edit_handler.children:
@@ -120,28 +120,28 @@ def check_panels_in_model(cls, context='model'):
                 errors.extend(
                     check_panels_in_model(
                         inline_panel_child.db_field.related_model,
-                        context='InlinePanel model',
+                        context="InlinePanel model",
                     )
                 )
 
-    if issubclass(cls, Page) or hasattr(cls, 'edit_handler'):
+    if issubclass(cls, Page) or hasattr(cls, "edit_handler"):
         # Pages do not need to be checked for standalone tabbed_panel usage
         # if edit_handler is used on any model, assume config is correct
         return errors
 
-    tabbed_panels = ['content_panels', 'promote_panels', 'settings_panels']
+    tabbed_panels = ["content_panels", "promote_panels", "settings_panels"]
 
     for panel_name in tabbed_panels:
         class_name = cls.__name__
         if not hasattr(cls, panel_name):
             continue
 
-        panel_name_short = panel_name.replace('_panels', '').title()
+        panel_name_short = panel_name.replace("_panels", "").title()
         error_title = "{}.{} will have no effect on {} editing".format(
             class_name, panel_name, context
         )
 
-        if 'InlinePanel' in context:
+        if "InlinePanel" in context:
             error_hint = """Ensure that {} uses `panels` instead of `{}`.
 There are no tabs on non-Page model editing within InlinePanels.""".format(
                 class_name, panel_name
@@ -154,7 +154,7 @@ There are no default tabs on non-Page models so there will be no \
                 class_name, panel_name, panel_name_short, panel_name
             )
 
-        error = Warning(error_title, hint=error_hint, obj=cls, id='wagtailadmin.W002')
+        error = Warning(error_title, hint=error_hint, obj=cls, id="wagtailadmin.W002")
 
         errors.append(error)
 

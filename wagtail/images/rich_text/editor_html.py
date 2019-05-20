@@ -23,9 +23,9 @@ class ImageEmbedHandler:
         have on the resulting <embed> element.
         """
         return {
-            'id': tag['data-id'],
-            'format': tag['data-format'],
-            'alt': tag['data-alt'],
+            "id": tag["data-id"],
+            "format": tag["data-format"],
+            "alt": tag["data-alt"],
         }
 
     @staticmethod
@@ -36,13 +36,13 @@ class ImageEmbedHandler:
         """
         Image = get_image_model()
         try:
-            image = Image.objects.get(id=attrs['id'])
+            image = Image.objects.get(id=attrs["id"])
         except Image.DoesNotExist:
             return '<img alt="">'
 
-        image_format = get_image_format(attrs['format'])
+        image_format = get_image_format(attrs["format"])
 
-        return image_format.image_to_editor_html(image, attrs.get('alt', ''))
+        return image_format.image_to_editor_html(image, attrs.get("alt", ""))
 
 
-EditorHTMLImageConversionRule = [editor_html.EmbedTypeRule('image', ImageEmbedHandler)]
+EditorHTMLImageConversionRule = [editor_html.EmbedTypeRule("image", ImageEmbedHandler)]

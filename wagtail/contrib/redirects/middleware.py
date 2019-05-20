@@ -9,7 +9,7 @@ from wagtail.contrib.redirects import models
 
 def _get_redirect(request, path):
     if (
-        '\0' in path
+        "\0" in path
     ):  # reject URLs with null characters, which crash on Postgres (#4496)
         return None
 
@@ -39,7 +39,7 @@ class RedirectMiddleware(MiddlewareMixin):
 
         # If a middleware before `SiteMiddleware` returned a response the
         # `site` attribute was never set, ref #2120
-        if not hasattr(request, 'site'):
+        if not hasattr(request, "site"):
             return response
 
         # Get the path

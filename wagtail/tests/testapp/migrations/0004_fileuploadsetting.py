@@ -6,31 +6,31 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [('wagtailcore', '0028_merge'), ('tests', '0003_onetoonepage')]
+    dependencies = [("wagtailcore", "0028_merge"), ("tests", "0003_onetoonepage")]
 
     operations = [
         migrations.CreateModel(
-            name='FileUploadSetting',
+            name="FileUploadSetting",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.AutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('file', models.FileField(upload_to='')),
+                ("file", models.FileField(upload_to="")),
                 (
-                    'site',
+                    "site",
                     models.OneToOneField(
                         editable=False,
                         on_delete=django.db.models.deletion.CASCADE,
-                        to='wagtailcore.Site',
+                        to="wagtailcore.Site",
                     ),
                 ),
             ],
-            options={'abstract': False},
+            options={"abstract": False},
         )
     ]

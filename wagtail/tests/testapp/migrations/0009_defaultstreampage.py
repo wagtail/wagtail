@@ -10,38 +10,38 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0029_unicode_slugfield_dj19'),
-        ('tests', '0008_inlinestreampage_inlinestreampagesection'),
+        ("wagtailcore", "0029_unicode_slugfield_dj19"),
+        ("tests", "0008_inlinestreampage_inlinestreampagesection"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DefaultStreamPage',
+            name="DefaultStreamPage",
             fields=[
                 (
-                    'page_ptr',
+                    "page_ptr",
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to='wagtailcore.Page',
+                        to="wagtailcore.Page",
                     ),
                 ),
                 (
-                    'body',
+                    "body",
                     wagtail.core.fields.StreamField(
                         (
-                            ('text', wagtail.core.blocks.CharBlock()),
-                            ('rich_text', wagtail.core.blocks.RichTextBlock()),
-                            ('image', wagtail.images.blocks.ImageChooserBlock()),
+                            ("text", wagtail.core.blocks.CharBlock()),
+                            ("rich_text", wagtail.core.blocks.RichTextBlock()),
+                            ("image", wagtail.images.blocks.ImageChooserBlock()),
                         ),
-                        default='',
+                        default="",
                     ),
                 ),
             ],
-            options={'abstract': False},
-            bases=('wagtailcore.page',),
+            options={"abstract": False},
+            bases=("wagtailcore.page",),
         )
     ]

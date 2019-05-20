@@ -5,12 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [('wagtailimages', '0020_add-verbose-name')]
+    dependencies = [("wagtailimages", "0020_add-verbose-name")]
 
     operations = [
         migrations.AddField(
-            model_name='image',
-            name='file_hash',
+            model_name="image",
+            name="file_hash",
             field=models.CharField(blank=True, editable=False, max_length=40),
         )
     ]

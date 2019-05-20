@@ -23,17 +23,17 @@ from wagtail.snippets.widgets import AdminSnippetChooser
 class ExampleForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['page_chooser'].widget = AdminPageChooser()
-        self.fields['image_chooser'].widget = AdminImageChooser()
-        self.fields['document_chooser'].widget = AdminDocumentChooser()
-        self.fields['snippet_chooser'].widget = AdminSnippetChooser(Page)
-        self.fields['date'].widget = AdminDateInput()
-        self.fields['time'].widget = AdminTimeInput()
-        self.fields['datetime'].widget = AdminDateTimeInput()
-        self.fields['auto_height_text'].widget = AdminAutoHeightTextInput()
-        self.fields['default_rich_text'].widget = get_rich_text_editor_widget('default')
+        self.fields["page_chooser"].widget = AdminPageChooser()
+        self.fields["image_chooser"].widget = AdminImageChooser()
+        self.fields["document_chooser"].widget = AdminDocumentChooser()
+        self.fields["snippet_chooser"].widget = AdminSnippetChooser(Page)
+        self.fields["date"].widget = AdminDateInput()
+        self.fields["time"].widget = AdminTimeInput()
+        self.fields["datetime"].widget = AdminDateTimeInput()
+        self.fields["auto_height_text"].widget = AdminAutoHeightTextInput()
+        self.fields["default_rich_text"].widget = get_rich_text_editor_widget("default")
 
-    CHOICES = (('choice1', 'choice 1'), ('choice2', 'choice 2'))
+    CHOICES = (("choice1", "choice 1"), ("choice2", "choice 2"))
 
     text = forms.CharField(required=True, help_text="help text")
     auto_height_text = forms.CharField(required=True)
@@ -61,31 +61,31 @@ def index(request):
     messages.success(
         request,
         _("Success message"),
-        buttons=[messages.button('', _('View live')), messages.button('', _('Edit'))],
+        buttons=[messages.button("", _("View live")), messages.button("", _("Edit"))],
     )
     messages.warning(
         request,
         _("Warning message"),
-        buttons=[messages.button('', _('View live')), messages.button('', _('Edit'))],
+        buttons=[messages.button("", _("View live")), messages.button("", _("Edit"))],
     )
     messages.error(
         request,
         _("Error message"),
-        buttons=[messages.button('', _('View live')), messages.button('', _('Edit'))],
+        buttons=[messages.button("", _("View live")), messages.button("", _("Edit"))],
     )
 
     paginator = Paginator(list(range(100)), 10)
     page = paginator.page(2)
 
-    user = User(email='david@torchbox.com')
+    user = User(email="david@torchbox.com")
 
     return render(
         request,
-        'wagtailstyleguide/base.html',
+        "wagtailstyleguide/base.html",
         {
-            'search_form': form,
-            'example_form': example_form,
-            'example_page': page,
-            'user': user,
+            "search_form": form,
+            "example_form": example_form,
+            "example_page": page,
+            "user": user,
         },
     )

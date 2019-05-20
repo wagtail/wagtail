@@ -6,27 +6,27 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [('modeladmintest', '0003_publisher')]
+    dependencies = [("modeladmintest", "0003_publisher")]
 
     operations = [
         migrations.CreateModel(
-            name='VenuePage',
+            name="VenuePage",
             fields=[
                 (
-                    'page_ptr',
+                    "page_ptr",
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to='wagtailcore.Page',
+                        to="wagtailcore.Page",
                     ),
                 ),
-                ('address', models.CharField(max_length=300)),
-                ('capacity', models.IntegerField()),
+                ("address", models.CharField(max_length=300)),
+                ("capacity", models.IntegerField()),
             ],
-            options={'abstract': False},
-            bases=('wagtailcore.page',),
+            options={"abstract": False},
+            bases=("wagtailcore.page",),
         )
     ]

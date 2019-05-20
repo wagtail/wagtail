@@ -23,7 +23,7 @@ class Benchmark:
             timings.append(end_time - start_time)
             memory_usage.append(
                 sum(
-                    [t.size for t in after_memory.compare_to(before_memory, 'filename')]
+                    [t.size for t in after_memory.compare_to(before_memory, "filename")]
                 )
             )
 

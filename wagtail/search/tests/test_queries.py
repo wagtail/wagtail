@@ -51,12 +51,12 @@ class TestQueryStringNormalisation(TestCase):
             self.assertNotEqual(self.query, models.Query.get(query))
 
     def test_truncation(self):
-        test_querystring = 'a' * 1000
+        test_querystring = "a" * 1000
         result = normalise_query_string(test_querystring)
         self.assertEqual(len(result), 255)
 
     def test_no_truncation(self):
-        test_querystring = 'a' * 10
+        test_querystring = "a" * 10
         result = normalise_query_string(test_querystring)
         self.assertEqual(len(result), 10)
 
@@ -127,11 +127,11 @@ class TestGarbageCollectCommand(TestCase):
             q = models.Query.get("Foo bar {}".format(i))
             q.add_hit(date=old_hit_date)
             SearchPromotion.objects.create(
-                query=q, page_id=1, sort_order=0, description='Test'
+                query=q, page_id=1, sort_order=0, description="Test"
             )
             promoted_querie_ids.append(q.id)
 
-        management.call_command('search_garbage_collect', stdout=StringIO())
+        management.call_command("search_garbage_collect", stdout=StringIO())
 
         self.assertFalse(
             models.Query.objects.filter(id__in=querie_ids_to_be_deleted).exists()
@@ -168,56 +168,56 @@ class TestQueryChooserView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get('/admin/search/queries/chooser/', params)
+        return self.client.get("/admin/search/queries/chooser/", params)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearch/queries/chooser/chooser.html')
+        self.assertTemplateUsed(response, "wagtailsearch/queries/chooser/chooser.html")
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json['step'], 'chooser')
+        self.assertEqual(response_json["step"], "chooser")
 
     def test_search(self):
-        response = self.get({'q': "Hello"})
+        response = self.get({"q": "Hello"})
         self.assertEqual(response.status_code, 200)
 
     def test_pagination(self):
-        pages = ['0', '1', '-1', '9999', 'Not a page']
+        pages = ["0", "1", "-1", "9999", "Not a page"]
         for page in pages:
-            response = self.get({'p': page})
+            response = self.get({"p": page})
             self.assertEqual(response.status_code, 200)
 
 
 class TestSeparateFiltersFromQuery(SimpleTestCase):
     def test_only_query(self):
-        filters, query = separate_filters_from_query('hello world')
+        filters, query = separate_filters_from_query("hello world")
 
         self.assertDictEqual(filters, {})
-        self.assertEqual(query, 'hello world')
+        self.assertEqual(query, "hello world")
 
     def test_filter(self):
-        filters, query = separate_filters_from_query('author:foo')
+        filters, query = separate_filters_from_query("author:foo")
 
-        self.assertDictEqual(filters, {'author': 'foo'})
-        self.assertEqual(query, '')
+        self.assertDictEqual(filters, {"author": "foo"})
+        self.assertEqual(query, "")
 
     def test_filter_with_quotation_mark(self):
         filters, query = separate_filters_from_query('author:"foo bar"')
 
-        self.assertDictEqual(filters, {'author': 'foo bar'})
-        self.assertEqual(query, '')
+        self.assertDictEqual(filters, {"author": "foo bar"})
+        self.assertEqual(query, "")
 
     def test_filter_and_query(self):
-        filters, query = separate_filters_from_query('author:foo hello world')
+        filters, query = separate_filters_from_query("author:foo hello world")
 
-        self.assertDictEqual(filters, {'author': 'foo'})
-        self.assertEqual(query, 'hello world')
+        self.assertDictEqual(filters, {"author": "foo"})
+        self.assertEqual(query, "hello world")
 
     def test_filter_with_quotation_mark_and_query(self):
         filters, query = separate_filters_from_query('author:"foo bar" hello world')
 
-        self.assertDictEqual(filters, {'author': 'foo bar'})
-        self.assertEqual(query, 'hello world')
+        self.assertDictEqual(filters, {"author": "foo bar"})
+        self.assertEqual(query, "hello world")
 
     def test_filter_with_unclosed_quotation_mark_and_query(self):
         filters, query = separate_filters_from_query('author:"foo bar hello world')
@@ -230,5 +230,5 @@ class TestSeparateFiltersFromQuery(SimpleTestCase):
             'author:"foo bar" hello world bar:beer'
         )
 
-        self.assertDictEqual(filters, {'author': 'foo bar', 'bar': 'beer'})
-        self.assertEqual(query, 'hello world')
+        self.assertDictEqual(filters, {"author": "foo bar", "bar": "beer"})
+        self.assertEqual(query, "hello world")

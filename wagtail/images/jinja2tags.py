@@ -12,7 +12,7 @@ allowed_filter_pattern = re.compile(r"^[A-Za-z0-9_\-\.\|]+$")
 
 def image(image, filterspec, **attrs):
     if not image:
-        return ''
+        return ""
 
     if not allowed_filter_pattern.match(filterspec):
         raise template.TemplateSyntaxError(
@@ -32,7 +32,7 @@ class WagtailImagesExtension(Extension):
     def __init__(self, environment):
         super().__init__(environment)
 
-        self.environment.globals.update({'image': image, 'image_url': image_url})
+        self.environment.globals.update({"image": image, "image_url": image_url})
 
 
 # Nicer import names

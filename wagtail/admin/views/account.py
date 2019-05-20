@@ -23,7 +23,7 @@ from wagtail.utils.loading import get_custom_form
 
 
 def get_user_login_form():
-    form_setting = 'WAGTAILADMIN_USER_LOGIN_FORM'
+    form_setting = "WAGTAILADMIN_USER_LOGIN_FORM"
     if hasattr(settings, form_setting):
         return get_custom_form(form_setting)
     else:
@@ -36,12 +36,12 @@ def get_user_login_form():
 
 
 def password_management_enabled():
-    return getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)
+    return getattr(settings, "WAGTAIL_PASSWORD_MANAGEMENT_ENABLED", True)
 
 
 def password_reset_enabled():
     return getattr(
-        settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', password_management_enabled()
+        settings, "WAGTAIL_PASSWORD_RESET_ENABLED", password_management_enabled()
     )
 
 
@@ -51,12 +51,12 @@ def password_reset_enabled():
 def account(request):
     items = []
 
-    for fn in hooks.get_hooks('register_account_menu_item'):
+    for fn in hooks.get_hooks("register_account_menu_item"):
         item = fn(request)
         if item:
             items.append(item)
 
-    return render(request, 'wagtailadmin/account/account.html', {'items': items})
+    return render(request, "wagtailadmin/account/account.html", {"items": items})
 
 
 def change_password(request):
@@ -66,7 +66,7 @@ def change_password(request):
     can_change_password = request.user.has_usable_password()
 
     if can_change_password:
-        if request.method == 'POST':
+        if request.method == "POST":
             form = PasswordChangeForm(request.user, request.POST)
 
             if form.is_valid():
@@ -76,7 +76,7 @@ def change_password(request):
                 messages.success(
                     request, _("Your password has been changed successfully!")
                 )
-                return redirect('wagtailadmin_account')
+                return redirect("wagtailadmin_account")
         else:
             form = PasswordChangeForm(request.user)
     else:
@@ -84,23 +84,23 @@ def change_password(request):
 
     return render(
         request,
-        'wagtailadmin/account/change_password.html',
-        {'form': form, 'can_change_password': can_change_password},
+        "wagtailadmin/account/change_password.html",
+        {"form": form, "can_change_password": can_change_password},
     )
 
 
 def change_email(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = EmailForm(request.POST, instance=request.user)
 
         if form.is_valid():
             form.save()
             messages.success(request, _("Your email has been changed successfully!"))
-            return redirect('wagtailadmin_account')
+            return redirect("wagtailadmin_account")
     else:
         form = EmailForm(instance=request.user)
 
-    return render(request, 'wagtailadmin/account/change_email.html', {'form': form})
+    return render(request, "wagtailadmin/account/change_email.html", {"form": form})
 
 
 class PasswordResetEnabledViewMixin:
@@ -118,34 +118,34 @@ class PasswordResetEnabledViewMixin:
 
 
 class PasswordResetView(PasswordResetEnabledViewMixin, auth_views.PasswordResetView):
-    template_name = 'wagtailadmin/account/password_reset/form.html'
-    email_template_name = 'wagtailadmin/account/password_reset/email.txt'
-    subject_template_name = 'wagtailadmin/account/password_reset/email_subject.txt'
+    template_name = "wagtailadmin/account/password_reset/form.html"
+    email_template_name = "wagtailadmin/account/password_reset/email.txt"
+    subject_template_name = "wagtailadmin/account/password_reset/email_subject.txt"
     form_class = PasswordResetForm
-    success_url = reverse_lazy('wagtailadmin_password_reset_done')
+    success_url = reverse_lazy("wagtailadmin_password_reset_done")
 
 
 class PasswordResetDoneView(
     PasswordResetEnabledViewMixin, auth_views.PasswordResetDoneView
 ):
-    template_name = 'wagtailadmin/account/password_reset/done.html'
+    template_name = "wagtailadmin/account/password_reset/done.html"
 
 
 class PasswordResetConfirmView(
     PasswordResetEnabledViewMixin, auth_views.PasswordResetConfirmView
 ):
-    template_name = 'wagtailadmin/account/password_reset/confirm.html'
-    success_url = reverse_lazy('wagtailadmin_password_reset_complete')
+    template_name = "wagtailadmin/account/password_reset/confirm.html"
+    success_url = reverse_lazy("wagtailadmin_password_reset_complete")
 
 
 class PasswordResetCompleteView(
     PasswordResetEnabledViewMixin, auth_views.PasswordResetCompleteView
 ):
-    template_name = 'wagtailadmin/account/password_reset/complete.html'
+    template_name = "wagtailadmin/account/password_reset/complete.html"
 
 
 def notification_preferences(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = NotificationPreferencesForm(
             request.POST, instance=UserProfile.get_for_user(request.user)
         )
@@ -153,7 +153,7 @@ def notification_preferences(request):
         if form.is_valid():
             form.save()
             messages.success(request, _("Your preferences have been updated."))
-            return redirect('wagtailadmin_account')
+            return redirect("wagtailadmin_account")
     else:
         form = NotificationPreferencesForm(
             instance=UserProfile.get_for_user(request.user)
@@ -162,15 +162,15 @@ def notification_preferences(request):
     # quick-and-dirty catch-all in case the form has been rendered with no
     # fields, as the user has no customisable permissions
     if not form.fields:
-        return redirect('wagtailadmin_account')
+        return redirect("wagtailadmin_account")
 
     return render(
-        request, 'wagtailadmin/account/notification_preferences.html', {'form': form}
+        request, "wagtailadmin/account/notification_preferences.html", {"form": form}
     )
 
 
 def language_preferences(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = PreferredLanguageForm(
             request.POST, instance=UserProfile.get_for_user(request.user)
         )
@@ -181,17 +181,17 @@ def language_preferences(request):
             # (so that the 'success' messages is in the right language)
             activate(user_profile.get_preferred_language())
             messages.success(request, _("Your preferences have been updated."))
-            return redirect('wagtailadmin_account')
+            return redirect("wagtailadmin_account")
     else:
         form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
 
     return render(
-        request, 'wagtailadmin/account/language_preferences.html', {'form': form}
+        request, "wagtailadmin/account/language_preferences.html", {"form": form}
     )
 
 
 def current_time_zone(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = CurrentTimeZoneForm(
             request.POST, instance=UserProfile.get_for_user(request.user)
         )
@@ -199,17 +199,17 @@ def current_time_zone(request):
         if form.is_valid():
             form.save()
             messages.success(request, _("Your preferences have been updated."))
-            return redirect('wagtailadmin_account')
+            return redirect("wagtailadmin_account")
     else:
         form = CurrentTimeZoneForm(instance=UserProfile.get_for_user(request.user))
 
     return render(
-        request, 'wagtailadmin/account/current_time_zone.html', {'form': form}
+        request, "wagtailadmin/account/current_time_zone.html", {"form": form}
     )
 
 
 def change_avatar(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         user_profile = UserProfile.get_for_user(request.user)
         form = AvatarPreferencesForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
@@ -217,23 +217,23 @@ def change_avatar(request):
             messages.success(
                 request, _("Your preferences have been updated successfully!")
             )
-            return redirect('wagtailadmin_account_change_avatar')
+            return redirect("wagtailadmin_account_change_avatar")
     else:
         form = AvatarPreferencesForm(instance=UserProfile.get_for_user(request.user))
 
-    return render(request, 'wagtailadmin/account/change_avatar.html', {'form': form})
+    return render(request, "wagtailadmin/account/change_avatar.html", {"form": form})
 
 
 class LoginView(auth_views.LoginView):
-    template_name = 'wagtailadmin/login.html'
+    template_name = "wagtailadmin/login.html"
 
     def get_success_url(self):
-        return self.get_redirect_url() or reverse('wagtailadmin_home')
+        return self.get_redirect_url() or reverse("wagtailadmin_home")
 
     def get(self, *args, **kwargs):
         # If user is already logged in, redirect them to the dashboard
         if self.request.user.is_authenticated and self.request.user.has_perm(
-            'wagtailadmin.access_admin'
+            "wagtailadmin.access_admin"
         ):
             return redirect(self.get_success_url())
 
@@ -245,12 +245,12 @@ class LoginView(auth_views.LoginView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['show_password_reset'] = password_reset_enabled()
+        context["show_password_reset"] = password_reset_enabled()
 
         from django.contrib.auth import get_user_model
 
         User = get_user_model()
-        context['username_field'] = User._meta.get_field(
+        context["username_field"] = User._meta.get_field(
             User.USERNAME_FIELD
         ).verbose_name
 
@@ -258,12 +258,12 @@ class LoginView(auth_views.LoginView):
 
 
 class LogoutView(auth_views.LogoutView):
-    next_page = 'wagtailadmin_login'
+    next_page = "wagtailadmin_login"
 
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
 
-        messages.success(self.request, _('You have been successfully logged out.'))
+        messages.success(self.request, _("You have been successfully logged out."))
         # By default, logging out will generate a fresh sessionid cookie. We want to use the
         # absence of sessionid as an indication that front-end pages are being viewed by a
         # non-logged-in user and are therefore cacheable, so we forcibly delete the cookie here.

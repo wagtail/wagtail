@@ -8,23 +8,23 @@ import wagtail.tests.testapp.models
 
 class Migration(migrations.Migration):
 
-    dependencies = [('tests', '0028_headcountrelatedmodelusingpk')]
+    dependencies = [("tests", "0028_headcountrelatedmodelusingpk")]
 
     operations = [
         migrations.AlterField(
-            model_name='streampage',
-            name='body',
+            model_name="streampage",
+            name="body",
             field=wagtail.core.fields.StreamField(
                 (
-                    ('text', wagtail.core.blocks.CharBlock()),
-                    ('rich_text', wagtail.core.blocks.RichTextBlock()),
-                    ('image', wagtail.tests.testapp.models.ExtendedImageChooserBlock()),
+                    ("text", wagtail.core.blocks.CharBlock()),
+                    ("rich_text", wagtail.core.blocks.RichTextBlock()),
+                    ("image", wagtail.tests.testapp.models.ExtendedImageChooserBlock()),
                     (
-                        'product',
+                        "product",
                         wagtail.core.blocks.StructBlock(
                             (
-                                ('name', wagtail.core.blocks.CharBlock()),
-                                ('price', wagtail.core.blocks.CharBlock()),
+                                ("name", wagtail.core.blocks.CharBlock()),
+                                ("price", wagtail.core.blocks.CharBlock()),
                             )
                         ),
                     ),

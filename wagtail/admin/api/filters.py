@@ -10,9 +10,9 @@ class HasChildrenFilter(BaseFilterBackend):
     """
 
     def filter_queryset(self, request, queryset, view):
-        if 'has_children' in request.GET:
+        if "has_children" in request.GET:
             try:
-                has_children_filter = parse_boolean(request.GET['has_children'])
+                has_children_filter = parse_boolean(request.GET["has_children"])
             except ValueError:
                 raise BadRequestError("has_children must be 'true' or 'false'")
 

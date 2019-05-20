@@ -5,12 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [('tests', '0039_customdocument_description')]
+    dependencies = [("tests", "0039_customdocument_description")]
 
     operations = [
         migrations.AddField(
-            model_name='customdocument',
-            name='file_hash',
+            model_name="customdocument",
+            name="file_hash",
             field=models.CharField(blank=True, editable=False, max_length=40),
         )
     ]

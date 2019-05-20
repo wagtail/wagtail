@@ -9,17 +9,17 @@ from wagtail.documents import models
 from wagtail.tests.utils import WagtailTestUtils
 
 
-@override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=['elasticsearch'])
+@override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=["elasticsearch"])
 class TestIssue613(TestCase, WagtailTestUtils):
     def get_elasticsearch_backend(self):
         from django.conf import settings
         from wagtail.search.backends import get_search_backend
 
-        backend_path = 'wagtail.search.backends.elasticsearch'
+        backend_path = "wagtail.search.backends.elasticsearch"
 
         # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
         for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
-            if backend_conf['BACKEND'] == backend_path:
+            if backend_conf["BACKEND"] == backend_path:
                 return get_search_backend(backend_name)
         else:
             # no conf entry found - skip tests for this backend
@@ -34,45 +34,45 @@ class TestIssue613(TestCase, WagtailTestUtils):
     def add_document(self, **params):
         # Build a fake file
         fake_file = ContentFile(b"A boring example document")
-        fake_file.name = 'test.txt'
+        fake_file.name = "test.txt"
 
         # Submit
-        post_data = {'title': "Test document", 'file': fake_file}
+        post_data = {"title": "Test document", "file": fake_file}
         post_data.update(params)
-        response = self.client.post(reverse('wagtaildocs:add'), post_data)
+        response = self.client.post(reverse("wagtaildocs:add"), post_data)
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtaildocs:index'))
+        self.assertRedirects(response, reverse("wagtaildocs:index"))
 
         # Document should be created
-        doc = models.Document.objects.filter(title=post_data['title'])
+        doc = models.Document.objects.filter(title=post_data["title"])
         self.assertTrue(doc.exists())
         return doc.first()
 
     def edit_document(self, **params):
         # Build a fake file
         fake_file = ContentFile(b"A boring example document")
-        fake_file.name = 'test.txt'
+        fake_file.name = "test.txt"
 
         # Create a document without tags to edit
         document = models.Document.objects.create(title="Test document", file=fake_file)
 
         # Build another fake file
         another_fake_file = ContentFile(b"A boring example document")
-        another_fake_file.name = 'test.txt'
+        another_fake_file.name = "test.txt"
 
         # Submit
-        post_data = {'title': "Test document changed!", 'file': another_fake_file}
+        post_data = {"title": "Test document changed!", "file": another_fake_file}
         post_data.update(params)
         response = self.client.post(
-            reverse('wagtaildocs:edit', args=(document.id,)), post_data
+            reverse("wagtaildocs:edit", args=(document.id,)), post_data
         )
 
         # User should be redirected back to the index
-        self.assertRedirects(response, reverse('wagtaildocs:index'))
+        self.assertRedirects(response, reverse("wagtaildocs:index"))
 
         # Document should be changed
-        doc = models.Document.objects.filter(title=post_data['title'])
+        doc = models.Document.objects.filter(title=post_data["title"])
         self.assertTrue(doc.exists())
         return doc.first()
 

@@ -19,7 +19,7 @@ try:
         else:
             _aux_dict[k] = v
 
-    tz_fullnames = L18NListMap('/', _aux_dict, _main_dict)
+    tz_fullnames = L18NListMap("/", _aux_dict, _main_dict)
 
 except ImportError:
     tz_cities = {}

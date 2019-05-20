@@ -11,7 +11,7 @@ def post_delete_file_cleanup(instance, **kwargs):
 
 
 def pre_save_image_feature_detection(instance, **kwargs):
-    if getattr(settings, 'WAGTAILIMAGES_FEATURE_DETECTION_ENABLED', False):
+    if getattr(settings, "WAGTAILIMAGES_FEATURE_DETECTION_ENABLED", False):
         # Make sure the image doesn't already have a focal point
         if not instance.has_focal_point():
             # Set the focal point

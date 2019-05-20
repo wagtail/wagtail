@@ -7,7 +7,7 @@ from .widgets import AdminSnippetChooser
 
 
 class SnippetChooserPanel(BaseChooserPanel):
-    object_type_name = 'item'
+    object_type_name = "item"
 
     def widget_overrides(self):
         return {self.field_name: AdminSnippetChooser(model=self.target_model)}
@@ -17,7 +17,7 @@ class SnippetChooserPanel(BaseChooserPanel):
         return mark_safe(
             render_to_string(
                 self.field_template,
-                {'field': self.bound_field, self.object_type_name: instance_obj},
+                {"field": self.bound_field, self.object_type_name: instance_obj},
             )
         )
 

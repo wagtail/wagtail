@@ -15,7 +15,7 @@ class PageChoiceField(forms.ModelChoiceField):
 
 class ParentChooserForm(forms.Form):
     parent_page = PageChoiceField(
-        label=_('Parent page'),
+        label=_("Parent page"),
         required=True,
         empty_label=None,
         queryset=Page.objects.none(),
@@ -25,4 +25,4 @@ class ParentChooserForm(forms.Form):
     def __init__(self, valid_parents_qs, *args, **kwargs):
         self.valid_parents_qs = valid_parents_qs
         super().__init__(*args, **kwargs)
-        self.fields['parent_page'].queryset = self.valid_parents_qs
+        self.fields["parent_page"].queryset = self.valid_parents_qs

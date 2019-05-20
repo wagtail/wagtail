@@ -18,7 +18,7 @@ def get_postgresql_connections():
     return [
         connection
         for connection in connections.all()
-        if connection.vendor == 'postgresql'
+        if connection.vendor == "postgresql"
     ]
 
 
@@ -79,7 +79,7 @@ def get_search_fields(search_fields):
                 yield sub_field
 
 
-WEIGHTS = 'ABCD'
+WEIGHTS = "ABCD"
 WEIGHTS_COUNT = len(WEIGHTS)
 # These are filled when apps are ready.
 BOOSTS_WEIGHTS = []
@@ -131,4 +131,4 @@ def get_weight(boost):
 
 
 def get_sql_weights():
-    return '{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'
+    return "{" + ",".join(map(str, WEIGHTS_VALUES)) + "}"

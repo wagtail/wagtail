@@ -7,34 +7,34 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0040_page_draft_title'),
-        ('tests', '0021_hidden_form_field'),
+        ("wagtailcore", "0040_page_draft_title"),
+        ("tests", "0021_hidden_form_field"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PageWithExcludedCopyField',
+            name="PageWithExcludedCopyField",
             fields=[
                 (
-                    'page_ptr',
+                    "page_ptr",
                     models.OneToOneField(
                         auto_created=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to='wagtailcore.Page',
+                        to="wagtailcore.Page",
                     ),
                 ),
-                ('content', models.TextField()),
+                ("content", models.TextField()),
                 (
-                    'special_field',
+                    "special_field",
                     models.CharField(
-                        blank=True, default='Very Special', max_length=255
+                        blank=True, default="Very Special", max_length=255
                     ),
                 ),
             ],
-            options={'abstract': False},
-            bases=('wagtailcore.page',),
+            options={"abstract": False},
+            bases=("wagtailcore.page",),
         )
     ]

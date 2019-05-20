@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
 
-default_app_config = 'wagtail.images.apps.WagtailImagesAppConfig'
+default_app_config = "wagtail.images.apps.WagtailImagesAppConfig"
 
 
 def get_image_model_string():
@@ -11,7 +11,7 @@ def get_image_model_string():
     Useful for developers making Wagtail plugins that need to refer to the
     image model, such as in foreign keys, but the model itself is not required.
     """
-    return getattr(settings, 'WAGTAILIMAGES_IMAGE_MODEL', 'wagtailimages.Image')
+    return getattr(settings, "WAGTAILIMAGES_IMAGE_MODEL", "wagtailimages.Image")
 
 
 def get_image_model():
