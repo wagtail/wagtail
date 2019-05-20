@@ -20,6 +20,9 @@ Changelog
  * Fix: Admin HTML now includes the correct `dir` attribute for the active language (Andreas Bernacca)
  * Fix: Fix type error when using `--chunk_size` argument on `./manage.py update_index` (Seb Brown)
  * Fix: Avoid rendering entire form in EditHandler's `repr` method (Alex Tomkins)
+ * Fix: Add empty alt attributes to HTML output of Embedly and oEmbed embed finders (Andreas Bernacca)
+ * Fix: Add empty alt attributes to all images in the CMS admin (Andreas Bernacca)
+ * Fix: Make URL generator preview image alt translateable (Thibaud Colas)
 
 
 2.5.1 (07.05.2019)
