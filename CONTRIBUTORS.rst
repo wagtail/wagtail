@@ -378,6 +378,7 @@ Contributors
 * George Hickman
 * Eric Dyken
 * Jordan Bauer
+* Fidel Ramos
 
 Translators
 ===========

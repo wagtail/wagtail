@@ -1623,15 +1623,17 @@ class UserPagePermissionsProxy:
 
         # get the list of pages for which they have direct publish permission
         # (i.e. they can publish any page within this subtree)
-        publishable_pages = [perm.page for perm in self.permissions if perm.permission_type == 'publish']
-        if not publishable_pages:
+        publishable_pages_paths = self.permissions.filter(
+            permission_type='publish'
+        ).values_list('page__path', flat=True).distinct()
+        if not publishable_pages_paths:
             return PageRevision.objects.none()
 
         # compile a filter expression to apply to the PageRevision.submitted_revisions manager:
         # return only those pages whose paths start with one of the publishable_pages paths
-        only_my_sections = Q(page__path__startswith=publishable_pages[0].path)
-        for page in publishable_pages[1:]:
-            only_my_sections = only_my_sections | Q(page__path__startswith=page.path)
+        only_my_sections = Q(page__path__startswith=publishable_pages_paths[0])
+        for page_path in publishable_pages_paths[1:]:
+            only_my_sections = only_my_sections | Q(page__path__startswith=page_path)
 
         # return the filtered queryset
         return PageRevision.submitted_revisions.filter(only_my_sections)
