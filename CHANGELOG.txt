@@ -10,6 +10,7 @@ Changelog
  * Added support for specifying cell alignment on TableBlock (Samuel Mendes)
  * Added more informative error when a non-image object is passed to the `image` template tag (Deniz Dogan)
  * Added more ARIA landmarks across the admin interface and welcome page for screen reader users to navigate the CMS more easily (Beth Menzies)
+ * Added ButtonHelper examples in the modelAdmin primer page within documentation (Kalob Taulien)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
