@@ -17,9 +17,12 @@ def get_explorable_root_page(user):
     # Get the highest common explorable ancestor for the given user. If the user
     # has no permissions over any pages, this method will return None.
     pages = get_pages_with_direct_explore_permission(user)
-    if pages:
-        return pages.first_common_ancestor(
+    try:
+        root_page = pages.first_common_ancestor(
             include_self=True,
-            strict=True)
-    else:
-        return None
+            strict=True
+        )
+    except Page.DoesNotExist:
+        root_page = None
+
+    return root_page
