@@ -371,7 +371,28 @@ custom class instead of the default, like so:
 
 
     class MyButtonHelper(ButtonHelper):
-        ...
+        def add_button(self, classnames_add=None, classnames_exclude=None):
+            if classnames_add is None:
+                classnames_add = []
+            if classnames_exclude is None:
+                classnames_exclude = []
+            classnames = self.add_button_classnames + classnames_add
+            cn = self.finalise_classname(classnames, classnames_exclude)
+            return {
+                'url': self.url_helper.create_url,
+                'label': _('Add %s') % self.verbose_name,
+                'classname': cn,
+                'title': _('Add a new %s') % self.verbose_name,
+            }
+
+        def inspect_button(self, pk, classnames_add=None, classnames_exclude=None):
+            ...
+
+        def edit_button(self, pk, classnames_add=None, classnames_exclude=None):
+            ...
+
+        def delete_button(self, pk, classnames_add=None, classnames_exclude=None):
+            ...
 
 
     class MyModelAdmin(ModelAdmin):
@@ -380,6 +401,23 @@ custom class instead of the default, like so:
 
     modeladmin_register(MyModelAdmin)
 
+To customise the buttons found in the ModelAdmin List View you can change the
+returned dictionary in the ``add_button``, ``delete_button``, ``edit_button``
+or ``inspect_button`` methods. For example if you wanted to change the ``Delete``
+button you could modify the ``delete_button`` method in your ``ButtonHelper`` like so:
+
+.. code-block:: python
+
+    class MyButtonHelper(ButtonHelper):
+        ...
+        def delete_button(self, pk, classnames_add=None, classnames_exclude=None):
+            ...
+            return {
+                'url': reverse("your_custom_url"),
+                'label': _('Delete'),
+                'classname': "custom-css-class",
+                'title': _('Delete this item')
+            }
 
 Or, if you have a more complicated use case, where simply setting an attribute
 isn't possible or doesn't meet your needs, you can override the
