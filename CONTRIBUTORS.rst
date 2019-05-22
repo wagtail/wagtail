@@ -373,6 +373,7 @@ Contributors
 * Andreas Bernacca
 * Alex Tomkins
 * Beth Menzies
+* Michael Bunsen
 
 Translators
 ===========

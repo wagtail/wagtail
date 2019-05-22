@@ -11,6 +11,8 @@ Changelog
  * Added more informative error when a non-image object is passed to the `image` template tag (Deniz Dogan)
  * Added more ARIA landmarks across the admin interface and welcome page for screen reader users to navigate the CMS more easily (Beth Menzies)
  * Added ButtonHelper examples in the modelAdmin primer page within documentation (Kalob Taulien)
+ * Multiple clarifications, grammar and typo fixes throughout documentation (Dan Swain)
+ * Use correct URL in API example in documentation (Michael Bunsen)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
@@ -24,6 +26,7 @@ Changelog
  * Fix: Add empty alt attributes to HTML output of Embedly and oEmbed embed finders (Andreas Bernacca)
  * Fix: Add empty alt attributes to all images in the CMS admin (Andreas Bernacca)
  * Fix: Make URL generator preview image alt translateable (Thibaud Colas)
+ * Fix: Clear pending AJAX request if error occurs on page chooser (Matt Westcott)
 
 
 2.5.1 (07.05.2019)
