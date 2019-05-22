@@ -13,6 +13,7 @@ import Explorer, {
   ExplorerToggle,
   initExplorer,
 } from './components/Explorer';
+import { initFocusOutline } from './utils/focus';
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   Explorer,
   ExplorerToggle,
   initExplorer,
+  initFocusOutline,
 };
