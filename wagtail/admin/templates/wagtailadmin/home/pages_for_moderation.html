@@ -21,7 +21,7 @@
                         {% page_permissions revision.page as page_perms %}
                         <tr>
                             <td class="title" valign="top">
-                                <h2>
+                                <div class="title-wrapper">
                                     {% if page_perms.can_edit %}
                                         <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_admin_display_title }}</a>
                                     {% else %}
@@ -30,7 +30,7 @@
 
                                     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
                                     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.page %}
-                                </h2>
+                                </div>
                                 <ul class="actions">
                                     <li>
                                          <form action="{% url 'wagtailadmin_pages:approve_moderation' revision.id %}" method="POST">

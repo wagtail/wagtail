@@ -19,12 +19,14 @@ header {
     }
 
     h1,
-    h2 {
+    .user-name {
         color: $color-white;
     }
 
-    h2 {
+    .user-name {
         text-transform: none;
+        font-size: 1.3em;
+        font-weight: 600;
     }
 }
 

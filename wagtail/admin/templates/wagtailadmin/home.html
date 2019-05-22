@@ -17,7 +17,7 @@
             </div>
             <div class="col9">
                 <h1>{% block branding_welcome %}{% blocktrans %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}</h1>
-                <h2>{{ user.get_full_name|default:user.get_username }}</h2>
+                <div class="user-name">{{ user.get_full_name|default:user.get_username }}</div>
             </div>
         </div>
     </header>
