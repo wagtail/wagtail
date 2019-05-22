@@ -70,8 +70,13 @@ $color-button-no: $color-red-dark;
 $color-button-no-hover: darken($color-button-no, 20%);
 $color-button-warning: $color-orange-dark;
 $color-button-warning-hover: darken($color-button-warning, 20%);
+
 $color-link: $color-teal-darker;
 $color-link-hover: $color-teal-dark;
+
+// The focus outline color is defined without reusing a named color variable
+// because it shouldn’t be reused for anything else in the UI.
+$color-focus-outline: #ffbf47;
 
 $color-text-base: darken($color-white, 85);
 $color-text-input: darken($color-white, 90);
