@@ -8,8 +8,7 @@ from wagtail.tests.testapp.models import (
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
     SectionedRichTextPage, SimplePage, StreamPage)
 from wagtail.tests.utils import WagtailPageTests, WagtailTestUtils
-from wagtail.tests.utils.form_data import inline_formset, nested_form_data, \
-    rich_text, streamfield
+from wagtail.tests.utils.form_data import inline_formset, nested_form_data, rich_text, streamfield
 
 
 class TestAssertTagInHTML(WagtailTestUtils, TestCase):
