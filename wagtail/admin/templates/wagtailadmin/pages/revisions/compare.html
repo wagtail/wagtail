@@ -30,7 +30,7 @@
                 {% for comp in comparison %}
                     <tr>
                         <td class="title" valign="top">
-                            <h2>{{ comp.field_label }}:</h2>
+                            <div class="title-wrapper">{{ comp.field_label }}:</div>
                         </td>
                         <td class="comparison{% if not comp.is_field %} no-padding{% endif %}">
                             {% if comp.is_field %}

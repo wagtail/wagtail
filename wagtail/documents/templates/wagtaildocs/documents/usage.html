@@ -23,7 +23,7 @@
                 {% for page in used_by %}
                     <tr>
                         <td class="title" valign="top">
-                            <h2><a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.title }}</a></h2>
+                            <div class="title-wrapper"><a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.title }}</a></div>
                         </td>
                         <td>
                             {% if page.get_parent %}

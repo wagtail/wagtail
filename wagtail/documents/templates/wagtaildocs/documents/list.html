@@ -37,9 +37,9 @@
             <tr>
                 <td class="title">
                     {% if choosing %}
-                        <h2><a href="{% url 'wagtaildocs:document_chosen' doc.id %}" class="document-choice">{{ doc.title }}</a></h2>
+                        <div class="title-wrapper"><a href="{% url 'wagtaildocs:document_chosen' doc.id %}" class="document-choice">{{ doc.title }}</a></div>
                     {% else %}
-                        <h2><a href="{% url 'wagtaildocs:edit' doc.id %}">{{ doc.title }}</a></h2>
+                        <div class="title-wrapper"><a href="{% url 'wagtaildocs:edit' doc.id %}">{{ doc.title }}</a></div>
                     {% endif %}
                 </td>
                 <td><a href="{{ doc.url }}" class="nolink" download>{{ doc.filename }}</a></td>

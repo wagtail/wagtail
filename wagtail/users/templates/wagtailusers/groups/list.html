@@ -11,9 +11,9 @@
         {% for group in groups %}
             <tr>
                 <td class="title">
-                    <h2>
+                    <div class="title-wrapper">
                         <a href="{% url 'wagtailusers_groups:edit' group.id %}">{{ group.name }}</a>
-                    </h2>
+                    </div>
                 </td>
             </tr>
         {% endfor %}

@@ -18,12 +18,12 @@
                     {% for revision, page in last_edits %}
                         <tr>
                             <td class="title" valign="top">
-                                <h2>
+                                <div class="title-wrapper">
                                     <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
 
                                     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
                                     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
-                                </h2>
+                                </div>
                                 <ul class="actions">
                                     <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
                                     {% if page.has_unpublished_changes %}
