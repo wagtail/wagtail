@@ -86,7 +86,7 @@ $object-title-height: 40px;
         opacity: 1;
     }
 
-    > h2 {
+    > h3 {
         box-sizing: border-box;
         height: $object-title-height;
         -webkit-font-smoothing: auto;
@@ -150,7 +150,7 @@ $object-title-height: 40px;
     }
 
     &.required {
-        > h2 label:after {
+        > h3 label:after {
             content: '*';
             color: $color-red;
             font-weight: bold;
@@ -218,7 +218,7 @@ $object-title-height: 40px;
 
     // special panel for the publishing fields, requires a bit more pizzazz
     &.publishing {
-        > h2:before {
+        > h3:before {
             content: map-get($icons, 'date');
             font-size: 1.8rem;
             line-height: 1.4em;
@@ -251,7 +251,7 @@ $object-title-height: 40px;
     &.empty {
         border-bottom: 1px solid $color-white;
 
-        > h2 {
+        > h3 {
             margin: 0;
             border-bottom: 1px solid $color-white;
         }
@@ -301,7 +301,7 @@ $object-title-height: 40px;
         // and h2 has position: absolute which doesn't add to it either, so it would be 0 without this
         min-height: 41px;
 
-        > h2 {
+        > h3 {
             &:before,
             > label:before {
                 content: map-get($icons, 'collapse-up');
@@ -310,7 +310,7 @@ $object-title-height: 40px;
         }
 
         &.collapsed {
-            > h2 {
+            > h3 {
                 &:before,
                 > label:before {
                     content: map-get($icons, 'collapse-down');

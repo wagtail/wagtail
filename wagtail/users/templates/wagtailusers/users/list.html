@@ -33,10 +33,10 @@
         {% for user in users %}
             <tr>
                 <td class="title" valign="top">
-                    <h2>
+                    <div class="title-wrapper">
                         <span class="avatar small"><img src="{% avatar_url user size=25 %}" alt="" /></span>
                         <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user.get_full_name|default:user.get_username }}</a>
-                    </h2>
+                    </div>
                     <ul class="actions">
                         {% user_listing_buttons user %}
                     </ul>
