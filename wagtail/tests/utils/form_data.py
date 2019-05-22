@@ -5,6 +5,7 @@ page types, it can be difficult to construct this data structure by hand;
 the ``wagtail.tests.utils.form_data`` module provides a set of helper
 functions to assist with this.
 """
+import json
 
 from wagtail.admin.rich_text import get_rich_text_editor_widget
 
@@ -52,11 +53,11 @@ def streamfield(items):
             ('text', 'Hello, world'),
         ])})
         # Returns:
-        # [
-        #     {'type': 'text', 'value': 'Hello, world'},
-        # ]
+        # "[{'type': 'text', 'value': 'Hello, world'}]"
     """
-    return [{'type': block, 'value': value} for block, value in items]
+    return json.dumps([
+        {'type': block, 'value': value} for block, value in items
+    ])
 
 
 def inline_formset(items, initial=0, min=0, max=1000):
