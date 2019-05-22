@@ -53,7 +53,7 @@ def streamfield(items):
             ('text', 'Hello, world'),
         ])})
         # Returns:
-        # "[{'type': 'text', 'value': 'Hello, world'}]"
+        # '[{"type": "text", "value": "Hello, world"}]'
     """
     return json.dumps([
         {'type': block, 'value': value} for block, value in items

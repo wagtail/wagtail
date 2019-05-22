@@ -8,7 +8,8 @@ from wagtail.tests.testapp.models import (
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
     SectionedRichTextPage, SimplePage, StreamPage)
 from wagtail.tests.utils import WagtailPageTests, WagtailTestUtils
-from wagtail.tests.utils.form_data import inline_formset, nested_form_data, rich_text
+from wagtail.tests.utils.form_data import inline_formset, nested_form_data, \
+    rich_text, streamfield
 
 
 class TestAssertTagInHTML(WagtailTestUtils, TestCase):
@@ -203,6 +204,24 @@ class TestFormDataHelpers(TestCase):
         self.assertEqual(
             result,
             {'foo': 'bar', 'parent-child': 'field'}
+        )
+
+    def test_streamfield(self):
+        result = nested_form_data({'content': streamfield([
+            ('text', 'Hello, world'),
+            ('text', 'Goodbye, world'),
+            ('coffee', {'type': 'latte', 'milk': 'soya'}),
+        ])})
+
+        self.assertEqual(
+            result,
+            {
+                'content':
+                    '[{"type": "text", "value": "Hello, world"}, '
+                    '{"type": "text", "value": "Goodbye, world"}, '
+                    '{"type": "cofee", '
+                    '"value": {"type": "latte", "milk": "soya"}]',
+            }
         )
 
     def test_inline_formset(self):
