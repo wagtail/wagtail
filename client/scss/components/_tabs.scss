@@ -16,6 +16,11 @@
         }
     }
 
+    h2 {
+        margin: 0;
+        font-size: inherit;
+    }
+
     a {
         @include transition(border-color 0.2s ease);
         background-color: $color-teal-darker;
