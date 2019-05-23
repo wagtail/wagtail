@@ -19,7 +19,6 @@
     a {
         @include transition(border-color 0.2s ease);
         background-color: $color-teal-darker;
-        outline: none;
         text-transform: uppercase;
         font-weight: 700;
         font-size: 1.2em;
