@@ -29,6 +29,10 @@ $menu-footer-height: 50px;
         z-index: 500;
         left: $menu-width;
     }
+
+    *:focus {
+        @include show-focus-outline-inside;
+    }
 }
 
 .c-explorer {

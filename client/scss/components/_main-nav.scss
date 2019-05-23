@@ -119,6 +119,10 @@
     .account {
         display: none;
     }
+
+    *:focus {
+        @include show-focus-outline-inside;
+    }
 }
 
 .submenu-trigger:after {
@@ -311,7 +315,6 @@ body.explorer-open {
 
         .footer-submenu {
             @include transition(max-height 0.2s ease);
-            overflow: hidden;
             max-height: 0;
         }
 
