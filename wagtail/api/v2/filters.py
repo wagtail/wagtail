@@ -76,23 +76,17 @@ class OrderingFilter(BaseFilterBackend):
 
                 return queryset.order_by('?')
 
-            # Check if reverse ordering is set
             if order_by.startswith('-'):
-                reverse_order = True
-                order_by = order_by[1:]
+                order_by_field = order_by[1:]
             else:
-                reverse_order = False
+                order_by_field = order_by
 
             # Add ordering
-            if order_by in view.get_available_fields(queryset.model):
+            if order_by_field in view.get_available_fields(queryset.model):
                 queryset = queryset.order_by(order_by)
             else:
                 # Unknown field
-                raise BadRequestError("cannot order by '%s' (unknown field)" % order_by)
-
-            # Reverse order
-            if reverse_order:
-                queryset = queryset.reverse()
+                raise BadRequestError("cannot order by '%s' (unknown field)" % order_by_field)
 
         return queryset
 
