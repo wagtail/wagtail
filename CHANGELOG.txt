@@ -15,6 +15,8 @@ Changelog
  * Use correct URL in API example in documentation (Michael Bunsen)
  * Move datetime widget initialiser JS into the widget's form media instead of page editor media (Matt Westcott)
  * Add form field prefixes for input forms in chooser modals (Matt Westcott)
+ * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
+ * Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
@@ -29,6 +31,7 @@ Changelog
  * Fix: Add empty alt attributes to all images in the CMS admin (Andreas Bernacca)
  * Fix: Make URL generator preview image alt translateable (Thibaud Colas)
  * Fix: Clear pending AJAX request if error occurs on page chooser (Matt Westcott)
+ * Fix: Prevent text from overlapping in focal point editing UI (Beth Menzies)
 
 
 2.5.1 (07.05.2019)
