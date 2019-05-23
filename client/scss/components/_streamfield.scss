@@ -252,7 +252,6 @@ li.sequence-member {
         z-index: 1;
         color: $color-grey-1;
         background-color: $color-white;
-        outline: none;
 
         span {
             @include visuallyhidden();
@@ -305,7 +304,6 @@ li.sequence-member {
         display: block;
         width: 100%;
         padding: 0 0 0.5em;
-        outline: $color-teal;
         overflow: visible;
 
         span {
