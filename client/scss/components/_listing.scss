@@ -422,6 +422,8 @@ ul.listing {
 }
 
 .image-choice {
+    // Force the link to be displayed as a block, so its focus outline has the right shape.
+    display: block;
     color: inherit;
     overflow-wrap: break-word;
     word-wrap: break-word;
