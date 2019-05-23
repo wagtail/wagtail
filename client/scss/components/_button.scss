@@ -222,7 +222,7 @@
     &.disabled {
         background-color: $color-grey-3;
         border-color: $color-grey-3;
-        color: lighten($color-grey-2, 15%);
+        color: $color-grey-2;
         cursor: default;
     }
 
