@@ -44,7 +44,7 @@ ul.listing {
         border-bottom: 1px solid $color-grey-4;
 
         th {
-            font-size: 0.85em;
+            font-size: 0.9em;
             text-align: left;
             font-weight: normal;
             white-space: nowrap;
@@ -129,7 +129,7 @@ ul.listing {
             }
 
             .parent a {
-                color: $color-link-hover;
+                color: $color-white;
             }
 
             .status-tag {

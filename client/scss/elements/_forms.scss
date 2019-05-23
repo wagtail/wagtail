@@ -40,6 +40,10 @@ label,
         display: inline;
     }
 
+    &.no-float {
+        float: none;
+    }
+
     @include media-breakpoint-up(sm) {
         @include column(2);
         padding-top: 1.2em;
