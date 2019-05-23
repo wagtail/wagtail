@@ -24,6 +24,8 @@ Other features
  * Use correct URL in API example in documentation (Michael Bunsen)
  * Move datetime widget initialiser JS into the widget's form media instead of page editor media (Matt Westcott)
  * Add form field prefixes for input forms in chooser modals (Matt Westcott)
+ * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
+ * Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
 
 Bug fixes
 ~~~~~~~~~
@@ -42,6 +44,7 @@ Bug fixes
  * Add empty alt attributes to all images in the CMS admin (Andreas Bernacca)
  * Make URL generator preview image alt translateable (Thibaud Colas)
  * Clear pending AJAX request if error occurs on page chooser (Matt Westcott)
+ * Prevent text from overlapping in focal point editing UI (Beth Menzies)
 
 
 Upgrade considerations
