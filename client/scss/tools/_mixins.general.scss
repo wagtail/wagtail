@@ -114,3 +114,9 @@
         @content;
     }
 }
+
+// Where included, show the focus outline within focusable items instead of around them.
+// This is useful when focusable items are tightly packed and there is no space in-between.
+@mixin show-focus-outline-inside {
+    outline-offset: -1 * $focus-outline-width;
+}
