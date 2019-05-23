@@ -80,7 +80,6 @@ select,
     color: $color-text-input;
     font-size: 1.2em;
     font-weight: 300;
-    outline: none;
 
     &:hover {
         background-color: $color-white;
@@ -89,7 +88,6 @@ select,
     &:focus {
         background-color: $color-input-focus;
         border-color: $color-input-focus-border;
-        outline: none;
     }
 
     &:disabled,

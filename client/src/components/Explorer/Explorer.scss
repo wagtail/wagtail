@@ -58,7 +58,6 @@ $menu-footer-height: 50px;
     &:focus {
         background-color: $c-explorer-bg-active;
         color: $color-white;
-        outline: none;
     }
 
     // Overrides for default link hover.
@@ -88,7 +87,6 @@ $menu-footer-height: 50px;
     &:focus {
         background-color: $c-explorer-bg-active;
         color: $color-white;
-        outline: none;
     }
 
     // Overrides for default link hover.
@@ -136,7 +134,6 @@ $menu-footer-height: 50px;
     &:focus {
         color: $c-explorer-secondary;
         background: $c-explorer-bg-active;
-        outline: none;
     }
 
     // Overrides for default link hover.

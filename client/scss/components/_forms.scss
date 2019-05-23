@@ -51,7 +51,6 @@
 //     color: $color-text-input;
 //     font-size: 1.2em;
 //     font-weight: 300;
-//     outline: none;
 //
 //     &:hover {
 //         background-color: $color-white;
@@ -60,7 +59,6 @@
 //     &:focus {
 //         background-color: $color-input-focus;
 //         border-color: $color-input-focus-border;
-//         outline: none;
 //     }
 //
 //     &:disabled,
@@ -83,10 +81,6 @@ select::-ms-expand {
 .model_choice_field .input,
 .typed_choice_field .input {
     position: relative;
-
-    select {
-        outline: none;
-    }
 
     // Add select arrow back on browsers where native ui has been removed
     select ~ span:after {

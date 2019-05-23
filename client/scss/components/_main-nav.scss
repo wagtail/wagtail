@@ -62,7 +62,6 @@
         // making the text semi-transparent
         &:hover,
         &:focus {
-            outline: none;
             background-color: $nav-item-hover-bg;
             color: $color-white;
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
@@ -333,7 +332,6 @@ body.explorer-open {
             cursor: pointer;
 
             &:hover {
-                outline: none;
                 background-color: rgba(100, 100, 100, 0.15);
                 color: $color-white;
                 text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
