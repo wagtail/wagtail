@@ -59,7 +59,7 @@ jobs:
       - run: npm run dist
       - run: PYTHONPATH=. python scripts/nightly/get_version.py > wagtail/__init__.py
       - run: python setup.py bdist_wheel
-      - run: python cripts/nightly/upload.py
+      - run: python scripts/nightly/upload.py
 
 workflows:
     version: 2
