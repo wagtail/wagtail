@@ -111,7 +111,7 @@ Image renditions can encompass more of the head by reducing the crop percentage 
 Switching on feature detection in Wagtail
 -----------------------------------------
 
-Once OpenCV is installed, you need to set the ``WAGTAILIMAGES_FEATURE_DETECTION_ENABLED`` setting to ``True``:
+Once installed, you need to set the ``WAGTAILIMAGES_FEATURE_DETECTION_ENABLED`` setting to ``True`` to automatically detect faces/features whenever a new image is uploaded in to Wagtail or when an image without a focal point is saved (this is done via a pre-save signal handler):
 
  .. code-block:: python
 
@@ -123,9 +123,9 @@ Once OpenCV is installed, you need to set the ``WAGTAILIMAGES_FEATURE_DETECTION_
 Manually running feature detection
 ----------------------------------
 
-Feature detection runs when new images are uploaded in to Wagtail. If you already have images in your Wagtail site and would like to run feature detection on them, you will have to run it manually.
+If you already have images in your Wagtail site and would like to run feature detection on them, or you want to apply feature detection selectively when the ``WAGTAILIMAGES_FEATURE_DETECTION_ENABLED`` is set to ``False`` you can run it manually using the `get_suggested_focal_point()` method on the ``Image`` model.
 
-You can manually run feature detection on all images by running the following code in the python shell:
+For example, you can manually run feature detection on all images by running the following code in the python shell:
 
  .. code-block:: python
 
@@ -137,3 +137,5 @@ You can manually run feature detection on all images by running the following co
         if not image.has_focal_point():
             image.set_focal_point(image.get_suggested_focal_point())
             image.save()
+            
+        
