@@ -26,6 +26,7 @@ Other features
  * Add form field prefixes for input forms in chooser modals (Matt Westcott)
  * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
  * Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
+ * Added consistent focus outline styles across the whole admin (Thibaud Colas)
 
 Bug fixes
 ~~~~~~~~~

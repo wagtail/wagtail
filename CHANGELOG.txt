@@ -17,6 +17,7 @@ Changelog
  * Add form field prefixes for input forms in chooser modals (Matt Westcott)
  * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
  * Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
+ * Added consistent focus outline styles across the whole admin (Thibaud Colas)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
