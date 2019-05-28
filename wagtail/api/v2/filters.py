@@ -4,7 +4,7 @@ from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
 from wagtail.core import hooks
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.core.models import Page, UserPagePermissionsProxy, Site
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
 
@@ -167,10 +167,12 @@ class RestrictedChildOfFilter(ChildOfFilter):
     site to be specified.
     """
     def get_root_page(self, request):
-        return request.site.root_page
+        site = Site.find_for_request(request)
+        return site.root_page
 
     def get_page_by_id(self, request, page_id):
-        site_pages = pages_for_site(request.site)
+        site = Site.find_for_request(request)
+        site_pages = pages_for_site(site)
         return site_pages.get(id=page_id)
 
 
@@ -214,10 +216,12 @@ class RestrictedDescendantOfFilter(DescendantOfFilter):
     site to be specified.
     """
     def get_root_page(self, request):
-        return request.site.root_page
+        site = Site.find_for_request(request)
+        return site.root_page
 
     def get_page_by_id(self, request, page_id):
-        site_pages = pages_for_site(request.site)
+        site = Site.find_for_request(request)
+        site_pages = pages_for_site(site)
         return site_pages.get(id=page_id)
 
 
