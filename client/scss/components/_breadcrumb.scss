@@ -15,8 +15,7 @@
         white-space: nowrap;
         line-height: 1.5em;
 
-        a,
-        span {
+        a {
             color: $color-white;
             display: block;
             max-width: 12em;
@@ -73,7 +72,7 @@
         }
     }
 
-    header &  li {
+    header & li {
         &:before {
             border-left: 1em solid $color-white;
             position: absolute;
@@ -96,13 +95,8 @@
         margin-left: -($desktop-nice-padding);
         margin-right: -($desktop-nice-padding);
 
-        li {
-            a,
-            span {
-                &:after {
-                    color: $color-teal;
-                }
-            }
+        li a &:after {
+            color: $color-teal;
         }
     }
 }
