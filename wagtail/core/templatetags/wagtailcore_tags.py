@@ -160,3 +160,11 @@ def include_block(parser, token):
         raise template.TemplateSyntaxError("Unexpected argument to %r tag: %r" % (tag_name, tokens[0]))
 
     return IncludeBlockNode(block_var, extra_context, use_parent_context)
+
+
+@register.simple_tag(takes_context=True)
+def wagtail_site(context):
+    """
+        Returns the Site object for the given request
+    """
+    return Site.find_for_request(request=context.request)
