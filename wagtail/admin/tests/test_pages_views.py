@@ -572,6 +572,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertNotContains(response, """<li class="home"><a href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""")
 
 
+@override_settings(ALLOWED_HOSTS=['*'])
 class TestPageCreation(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
@@ -1884,6 +1885,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'slug', "This slug is already in use")
 
+    @override_settings(ALLOWED_HOSTS=['*'])
     def test_preview_on_edit(self):
         post_data = {
             'title': "I've been edited!",
@@ -1953,7 +1955,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Check that the correct site object has been selected by the site middleware
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
-        self.assertEqual(response.context['request'].site.hostname, 'childpage.example.com')
 
     def test_editor_picks_up_direct_model_edits(self):
         # If a page has no draft edits, the editor should show the version from the live database
@@ -4150,6 +4151,7 @@ class TestChildRelationsOnSuperclass(TestCase, WagtailTestUtils):
         self.assertContains(response, "alwaysDirty: true")
 
 
+@override_settings(ALLOWED_HOSTS=['*'])
 class TestRevisions(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
@@ -4547,6 +4549,7 @@ class TestRevisionsUnscheduleForUnpublishedPages(TestCase, WagtailTestUtils):
         self.assertIsNone(self.unpublished_event.revisions.get(id=self.unpublished_revision.id).approved_go_live_at)
 
 
+@override_settings(ALLOWED_HOSTS=['*'])
 class TestIssue2599(TestCase, WagtailTestUtils):
     """
     When previewing a page on creation, we need to assign it a path value consistent with its
@@ -5205,7 +5208,7 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         # Error on title shown in the header message
         self.assertContains(response, "<li>Title: This field is required.</li>", count=1)
 
-
+@override_settings(ALLOWED_HOSTS=['*'])
 class TestDraftAccess(TestCase, WagtailTestUtils):
     """Tests for the draft view access restrictions."""
 
@@ -5226,6 +5229,8 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
         user.user_permissions.add(
             Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         )
+
+        self.site = Site.objects.first()
 
     def test_draft_access_admin(self):
         """Test that admin can view draft."""
@@ -5263,7 +5268,7 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
         # User can view
         self.assertEqual(response.status_code, 200)
 
-
+@override_settings(ALLOWED_HOSTS=['*'])
 class TestPreview(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 

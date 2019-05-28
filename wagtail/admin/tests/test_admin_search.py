@@ -3,7 +3,7 @@ Tests for the search box in the admin side menu, and the custom search hooks.
 """
 from django.contrib.auth.models import Permission
 from django.template import Context, Template
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin.utils import user_has_any_page_permission
@@ -14,17 +14,23 @@ from wagtail.tests.utils import WagtailTestUtils
 class BaseSearchAreaTestCase(WagtailTestUtils, TestCase):
     rf = RequestFactory()
 
+    @override_settings(ALLOWED_HOSTS=['*'])
     def search_other(self, current_url='/admin/', data=None):
         request = self.rf.get(current_url, data=data)
         request.user = self.user
-        request.site = Site.objects.get()
+        site = Site.objects.get()
+        request.META['HTTP_HOST'] = site.hostname
+        request.META['SERVER_PORT'] = site.port
         template = Template("{% load wagtailadmin_tags %}{% search_other %}")
         return template.render(Context({'request': request}))
 
+    @override_settings(ALLOWED_HOSTS=['*'])
     def menu_search(self, current_url='/admin/', data=None):
         request = self.rf.get(current_url, data=data)
         request.user = self.user
-        request.site = Site.objects.get()
+        site = Site.objects.get()
+        request.META['HTTP_HOST'] = site.hostname
+        request.META['SERVER_PORT'] = site.port
         template = Template("{% load wagtailadmin_tags %}{% menu_search %}")
         return template.render(Context({'request': request}))
 

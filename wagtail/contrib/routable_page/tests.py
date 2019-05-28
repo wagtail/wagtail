@@ -1,6 +1,6 @@
 from unittest import mock
 
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory, TestCase, override_settings
 from django.urls.exceptions import NoReverseMatch
 
 from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import routablepageurl
@@ -150,6 +150,8 @@ class TestRoutablePage(TestCase):
 
 
 class TestRoutablePageTemplateTag(TestCase):
+
+    @override_settings(ALLOWED_HOSTS=['*'])
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
         self.routable_page = self.home_page.add_child(instance=RoutablePageTest(
@@ -159,7 +161,9 @@ class TestRoutablePageTemplateTag(TestCase):
 
         self.rf = RequestFactory()
         self.request = self.rf.get(self.routable_page.url)
-        self.request.site = Site.find_for_request(self.request)
+        site = Site.find_for_request(self.request)
+        self.request.META['HTTP_HOST'] = site.hostname
+        self.request.META['SERVER_PORT'] = site.port
         self.context = {'request': self.request}
 
     def test_templatetag_reverse_index_route(self):
@@ -252,6 +256,7 @@ class TestRoutablePageTemplateTagForSecondSiteAtSameRoot(TestCase):
         self.assertEqual(url, expected)
 
 
+@override_settings(ALLOWED_HOSTS=['*'])
 class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
     """
     When multiple sites exist, relative URLs between such sites should include the domain portion
@@ -274,10 +279,11 @@ class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
 
         self.rf = RequestFactory()
         self.request = self.rf.get(self.routable_page.url)
-        self.request.site = Site.find_for_request(self.request)
         self.context = {'request': self.request}
 
-        self.request.site = second_site
+        self.request.META['HTTP_HOST'] = second_site.hostname
+        self.request.META['SERVER_PORT'] = second_site.port
+
 
     def test_templatetag_reverse_index_route(self):
         url = routablepageurl(self.context, self.routable_page,

@@ -1,11 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+from django.http import HttpRequest
 from django.template import engines
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, Site
 
 
+@override_settings(ALLOWED_HOSTS=['*'])
 class TestCoreJinja(TestCase):
 
     def setUp(self):
@@ -28,8 +30,9 @@ class TestCoreJinja(TestCase):
     def dummy_request(self, user=None):
         site = Site.objects.get(is_default_site=True)
 
-        request = self.client.get('/')
-        request.site = site
+        request = HttpRequest()
+        request.META['HTTP_HOST'] = site.hostname
+        request.META['SERVER_PORT'] = site.port
         request.user = user or AnonymousUser()
         return request
 

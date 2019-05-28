@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.template import Context, Template
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.test.client import RequestFactory
 from django.urls import reverse
 
@@ -10,8 +10,10 @@ from wagtail.tests.testapp.models import BusinessChild, BusinessIndex
 from wagtail.tests.utils import WagtailTestUtils
 
 
+@override_settings(ALLOWED_HOSTS=['*'])
 class TestUserbarTag(TestCase):
     def setUp(self):
+
         self.user = get_user_model().objects.create_superuser(
             username='test',
             email='test@email.com',
@@ -22,8 +24,11 @@ class TestUserbarTag(TestCase):
     def dummy_request(self, user=None):
         request = RequestFactory().get('/')
         request.user = user or AnonymousUser()
-        request.site = Site.objects.first()
+        site = Site.objects.first()
+        request.META['HTTP_HOST'] = site.hostname
+        request.META['SERVER_PORT'] = site.port
         return request
+
 
     def test_userbar_tag(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
@@ -64,6 +69,7 @@ class TestUserbarTag(TestCase):
         self.assertEqual(content, '')
 
 
+@override_settings(ALLOWED_HOSTS=['*'])
 class TestUserbarFrontend(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
@@ -85,6 +91,7 @@ class TestUserbarFrontend(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 403)
 
 
+@override_settings(ALLOWED_HOSTS=['*'])
 class TestUserbarAddLink(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
@@ -118,6 +125,7 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
         self.assertNotContains(response, expected_link)
 
 
+@override_settings(ALLOWED_HOSTS=['*'])
 class TestUserbarModeration(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()

@@ -1,7 +1,7 @@
 from django import template
 from django.core.cache import cache
 from django.http import HttpRequest
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeText
 
@@ -63,6 +63,7 @@ class TestPageUrlTags(TestCase):
         result = slugurl(context=template.Context({'request': HttpRequest()}), slug='bad-slug-doesnt-exist')
         self.assertEqual(result, None)
 
+    @override_settings(ALLOWED_HOSTS=['*'])
     def test_slugurl_tag_returns_url_for_current_site(self):
         home_page = Page.objects.get(url_path='/home/')
         new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
@@ -72,16 +73,19 @@ class TestPageUrlTags(TestCase):
         new_christmas_page = Page(title='Christmas', slug='christmas')
         new_home_page.add_child(instance=new_christmas_page)
         request = HttpRequest()
-        request.site = second_site
+        request.META['HTTP_HOST'] = second_site.hostname
+        request.META['SERVER_PORT'] = second_site.port
         url = slugurl(context=template.Context({'request': request}), slug='christmas')
         self.assertEqual(url, '/christmas/')
 
+    @override_settings(ALLOWED_HOSTS=['*'])
     def test_slugurl_tag_returns_url_for_other_site(self):
         home_page = Page.objects.get(url_path='/home/')
         new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
         second_site = Site.objects.create(hostname='site2.example.com', root_page=new_home_page)
         request = HttpRequest()
-        request.site = second_site
+        request.META['HTTP_HOST'] = second_site.hostname
+        request.META['SERVER_PORT'] = second_site.port
         # There is no page with this slug on the current site, so this
         # should return an absolute URL for the page on the first site.
         url = slugurl(slug='christmas', context=template.Context({'request': request}))
