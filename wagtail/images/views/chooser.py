@@ -70,7 +70,7 @@ def chooser(request):
 
     if permission_policy.user_has_permission(request.user, 'add'):
         ImageForm = get_image_form(Image)
-        uploadform = ImageForm(user=request.user)
+        uploadform = ImageForm(user=request.user, prefix='image-chooser-upload')
     else:
         uploadform = None
 
@@ -145,7 +145,9 @@ def chooser_upload(request):
 
     if request.method == 'POST':
         image = Image(uploaded_by_user=request.user)
-        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
+        form = ImageForm(
+            request.POST, request.FILES, instance=image, user=request.user, prefix='image-chooser-upload'
+        )
 
         if form.is_valid():
             # Set image file size
@@ -162,7 +164,9 @@ def chooser_upload(request):
             search_index.insert_or_update_object(image)
 
             if request.GET.get('select_format'):
-                form = ImageInsertionForm(initial={'alt_text': image.default_alt_text})
+                form = ImageInsertionForm(
+                    initial={'alt_text': image.default_alt_text}, prefix='image-chooser-insertion'
+                )
                 return render_modal_workflow(
                     request, 'wagtailimages/chooser/select_format.html', None,
                     {'image': image, 'form': form}, json_data={'step': 'select_format'}
@@ -174,7 +178,7 @@ def chooser_upload(request):
                     None, json_data={'step': 'image_chosen', 'result': get_image_result_data(image)}
                 )
     else:
-        form = ImageForm(user=request.user)
+        form = ImageForm(user=request.user, prefix='image-chooser-upload')
 
     images = Image.objects.order_by('-created_at')
 
@@ -200,7 +204,9 @@ def chooser_select_format(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     if request.method == 'POST':
-        form = ImageInsertionForm(request.POST, initial={'alt_text': image.default_alt_text})
+        form = ImageInsertionForm(
+            request.POST, initial={'alt_text': image.default_alt_text}, prefix='image-chooser-insertion'
+        )
         if form.is_valid():
 
             format = get_image_format(form.cleaned_data['format'])
@@ -228,7 +234,7 @@ def chooser_select_format(request, image_id):
     else:
         initial = {'alt_text': image.default_alt_text}
         initial.update(request.GET.dict())
-        form = ImageInsertionForm(initial=initial)
+        form = ImageInsertionForm(initial=initial, prefix='image-chooser-insertion')
 
     return render_modal_workflow(
         request, 'wagtailimages/chooser/select_format.html', None,
