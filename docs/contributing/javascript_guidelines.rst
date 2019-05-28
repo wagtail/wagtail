@@ -13,7 +13,7 @@ Write JavaScript according to the `Airbnb Styleguide <http://github.com/airbnb/j
 Linting and formatting code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail provides some tooling configuration to help check your code meets the
+Wagtail uses the `ESLint <https://eslint.org/>`_ linter to help check your code meets the
 styleguide. You'll need node.js and npm on your development machine.
 Ensure project dependencies are installed by running ``npm install --no-save``
 
@@ -36,7 +36,7 @@ Formatting code
 
 .. code-block:: console
 
-    $ npm run format:js
+    $ npm run lint:js -- --fix
 
 This will perform safe edits to conform your JS code to the styleguide.
 It won't touch the line-length, or convert quotemarks from double to single.
@@ -47,10 +47,7 @@ you need to make to the codebase.
 Changing the linter configuration
 ---------------------------------
 
-Under the hood, the tasks use the `JavaScript Code Style <http://jscs.info/>`_ library.
-
-To edit the settings for ignored files, or to change the linting rules,
-edit the ``.jscsrc`` file in the wagtail project root.
-
-A complete list of the possible linting rules can be found here:
-`JSCS Rules <http://jscs.info/rules.html>`_
+The configuration for the linting rules is managed in an external
+repository so that it can be easily shared across other Wagtail projects
+or plugins. This configuration can be found at
+`eslint-config-wagtail <https://github.com/wagtail/eslint-config-wagtail>`_.

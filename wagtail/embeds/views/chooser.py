@@ -10,7 +10,7 @@ from wagtail.embeds.forms import EmbedForm
 
 
 def chooser(request):
-    form = EmbedForm(initial=request.GET.dict())
+    form = EmbedForm(initial=request.GET.dict(), prefix='embed-chooser')
 
     return render_modal_workflow(
         request, 'wagtailembeds/chooser/chooser.html', None,
@@ -21,7 +21,7 @@ def chooser(request):
 
 def chooser_upload(request):
     if request.method == 'POST':
-        form = EmbedForm(request.POST, request.FILES)
+        form = EmbedForm(request.POST, request.FILES, prefix='embed-chooser')
 
         if form.is_valid():
             error = None
@@ -59,7 +59,7 @@ def chooser_upload(request):
                     json_data={'step': 'chooser'}
                 )
     else:
-        form = EmbedForm()
+        form = EmbedForm(prefix='embed-chooser')
 
     return render_modal_workflow(
         request, 'wagtailembeds/chooser/chooser.html', None,

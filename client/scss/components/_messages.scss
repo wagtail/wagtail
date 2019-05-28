@@ -32,7 +32,7 @@
     }
 
     .error {
-        background-color: $color-red;
+        background-color: $color-red-dark;
 
         &:before {
             font-family: wagtail;
@@ -41,7 +41,7 @@
     }
 
     .warning {
-        background-color: $color-orange;
+        background-color: $color-orange-dark;
 
         &:before {
             font-family: wagtail;
@@ -50,7 +50,7 @@
     }
 
     .success {
-        background-color: $color-green;
+        background-color: $color-green-dark;
 
         &:before {
             font-family: wagtail;
@@ -64,11 +64,10 @@
 
     .button-secondary {
         border-color: rgba(255, 255, 255, 0.5);
-        color: rgba(255, 255, 255, 0.8);
+        color: $color-white;
 
         &:hover {
             border-color: transparent;
-            color: $color-white;
         }
     }
 

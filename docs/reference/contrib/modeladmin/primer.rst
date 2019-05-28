@@ -105,8 +105,7 @@ The ``ModelAdmin`` class provides several attributes to enable you to easily
 add additional stylesheets and JavaScript to the admin interface for your
 model. Each attribute simply needs to be a list of paths to the files you
 want to include. If the path is for a file in your project's static directory,
-Wagtail will automatically prepended paths for each path with ``STATIC_URL``,
-so you don't need to repeat it each time in your list of paths.
+then Wagtail will automatically prepend the path with ``STATIC_URL`` so that you don't need to repeat it each time in your list of paths.
 
 If you'd like to add styles or scripts to the ``IndexView``, you should set the
 following attributes:
@@ -371,7 +370,28 @@ custom class instead of the default, like so:
 
 
     class MyButtonHelper(ButtonHelper):
-        ...
+        def add_button(self, classnames_add=None, classnames_exclude=None):
+            if classnames_add is None:
+                classnames_add = []
+            if classnames_exclude is None:
+                classnames_exclude = []
+            classnames = self.add_button_classnames + classnames_add
+            cn = self.finalise_classname(classnames, classnames_exclude)
+            return {
+                'url': self.url_helper.create_url,
+                'label': _('Add %s') % self.verbose_name,
+                'classname': cn,
+                'title': _('Add a new %s') % self.verbose_name,
+            }
+
+        def inspect_button(self, pk, classnames_add=None, classnames_exclude=None):
+            ...
+
+        def edit_button(self, pk, classnames_add=None, classnames_exclude=None):
+            ...
+
+        def delete_button(self, pk, classnames_add=None, classnames_exclude=None):
+            ...
 
 
     class MyModelAdmin(ModelAdmin):
@@ -380,6 +400,23 @@ custom class instead of the default, like so:
 
     modeladmin_register(MyModelAdmin)
 
+To customise the buttons found in the ModelAdmin List View you can change the
+returned dictionary in the ``add_button``, ``delete_button``, ``edit_button``
+or ``inspect_button`` methods. For example if you wanted to change the ``Delete``
+button you could modify the ``delete_button`` method in your ``ButtonHelper`` like so:
+
+.. code-block:: python
+
+    class MyButtonHelper(ButtonHelper):
+        ...
+        def delete_button(self, pk, classnames_add=None, classnames_exclude=None):
+            ...
+            return {
+                'url': reverse("your_custom_url"),
+                'label': _('Delete'),
+                'classname': "custom-css-class",
+                'title': _('Delete this item')
+            }
 
 Or, if you have a more complicated use case, where simply setting an attribute
 isn't possible or doesn't meet your needs, you can override the

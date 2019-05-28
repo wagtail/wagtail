@@ -44,7 +44,7 @@ ul.listing {
         border-bottom: 1px solid $color-grey-4;
 
         th {
-            font-size: 0.85em;
+            font-size: 0.9em;
             text-align: left;
             font-weight: normal;
             white-space: nowrap;
@@ -129,7 +129,7 @@ ul.listing {
             }
 
             .parent a {
-                color: $color-link-hover;
+                color: $color-white;
             }
 
             .status-tag {
@@ -422,6 +422,8 @@ ul.listing {
 }
 
 .image-choice {
+    // Force the link to be displayed as a block, so its focus outline has the right shape.
+    display: block;
     color: inherit;
     overflow-wrap: break-word;
     word-wrap: break-word;

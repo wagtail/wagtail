@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { initExplorer, Icon, Portal } from 'wagtail-client';
+import { initExplorer, Icon, Portal, initFocusOutline } from 'wagtail-client';
 
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance
@@ -26,4 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (explorerNode && toggleNode) {
     initExplorer(explorerNode, toggleNode);
   }
+
+  initFocusOutline();
 });
