@@ -5,7 +5,7 @@ Feature Detection
 
 Wagtail has the ability to automatically detect faces and features inside your images and crop the images to those features.
 
-Feature detection uses third-party tools to detect faces/features in an image when the image is uploaded. The detected features stored internally as a focal point in the ``focal_point_{x, y, width, height}`` fields on the ``Image`` model. These fields are used by the ``fill`` image filter when an image is rendered in a template to crop the image.
+Feature detection uses third-party tools to detect faces/features in an image when the image is uploaded. The detected features are stored internally as a focal point in the ``focal_point_{x, y, width, height}`` fields on the ``Image`` model. These fields are used by the ``fill`` image filter when an image is rendered in a template to crop the image.
 
 
 Installation
@@ -66,7 +66,7 @@ If you don't see an ``ImportError``, it worked. (If you see the error ``libdc139
 Rustface
 ~~~~~~~~
 
-Rustface_ is python library with prebuilt wheel files provided for Linux and macOS. Although implemented in Rust it is pip-installable:
+Rustface_ is Python library with prebuilt wheel files provided for Linux and macOS. Although implemented in Rust it is pip-installable:
 
  .. code-block:: console
 
