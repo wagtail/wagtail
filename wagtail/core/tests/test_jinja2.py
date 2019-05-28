@@ -21,8 +21,6 @@ class TestCoreGlobalsAndFilters(TestCase):
         if request_context:
             site = Site.objects.get(is_default_site=True)
             request = self.client.get('/test/', HTTP_HOST=site.hostname)
-            #request.META['HTTP_HOST'] = site.hostname
-            #request.META['SERVER_PORT'] = site.port
             context['request'] = request
 
         template = self.engine.from_string(string)

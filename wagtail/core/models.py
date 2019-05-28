@@ -19,7 +19,7 @@ from django.http import Http404
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.functional import cached_property, lazy
+from django.utils.functional import cached_property
 from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import (

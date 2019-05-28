@@ -1,8 +1,7 @@
-from django.utils.deprecation import MiddlewareMixin
-
-from wagtail.core.models import Site
-
 import warnings
+
+from django.utils.deprecation import MiddlewareMixin
+from wagtail.core.models import Site
 from wagtail.utils.deprecation import RemovedInWagtail28Warning
 
 

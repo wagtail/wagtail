@@ -30,7 +30,7 @@ class TemplateTestCase(TestCase, WagtailTestUtils):
     def get_request(self, site=None):
         if site is None:
             site = self.default_site
-        #request = self.client.get('/test/', HTTP_HOST=site.hostname)
+
         request = HttpRequest()
         request.META['HTTP_HOST'] = site.hostname
         request.META['SERVER_PORT'] = site.port
@@ -177,7 +177,6 @@ class TestSettingsJinja(TemplateTestCase):
             else:
                 site = Site.objects.get(is_default_site=True)
 
-            #request = self.client.get('/test/', HTTP_HOST=site.hostname)
             request = HttpRequest()
             request.META['HTTP_HOST'] = site.hostname
             request.META['SERVER_PORT'] = site.port

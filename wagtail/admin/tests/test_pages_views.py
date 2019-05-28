@@ -5208,6 +5208,7 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         # Error on title shown in the header message
         self.assertContains(response, "<li>Title: This field is required.</li>", count=1)
 
+
 @override_settings(ALLOWED_HOSTS=['*'])
 class TestDraftAccess(TestCase, WagtailTestUtils):
     """Tests for the draft view access restrictions."""
@@ -5267,6 +5268,7 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
 
         # User can view
         self.assertEqual(response.status_code, 200)
+
 
 @override_settings(ALLOWED_HOSTS=['*'])
 class TestPreview(TestCase, WagtailTestUtils):

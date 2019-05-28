@@ -4,7 +4,7 @@ from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
 from wagtail.core import hooks
-from wagtail.core.models import Page, UserPagePermissionsProxy, Site
+from wagtail.core.models import Page, Site, UserPagePermissionsProxy
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
 
