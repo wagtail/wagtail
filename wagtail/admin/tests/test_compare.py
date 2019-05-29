@@ -243,6 +243,63 @@ class TestStreamFieldComparison(TestCase):
         self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object"><span class="deletion">Original content</span><span class="addition">doSomethingBad();</span></div>')
         self.assertIsInstance(comparison.htmldiff(), SafeText)
 
+    def test_compare_structblock(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('product', {'name': 'a packet of rolos', 'price': '75p'}, '1'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('product', {'name': 'a packet of rolos', 'price': '85p'}, '1'),
+            ])),
+        )
+
+        expected = """
+            <div class="comparison__child-object"><dl>
+                <dt>Name</dt>
+                <dd>a packet of rolos</dd>
+                <dt>Price</dt>
+                <dd><span class="deletion">75p</span><span class="addition">85p</span></dd>
+            </dl></div>
+        """
+        self.assertHTMLEqual(comparison.htmldiff(), expected)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
+        self.assertTrue(comparison.has_changed())
+
+    def test_compare_imagechooserblock(self):
+        image_model = get_image_model()
+        test_image_1 = image_model.objects.create(
+            title="Test image 1",
+            file=get_test_image_file(),
+        )
+        test_image_2 = image_model.objects.create(
+            title="Test image 2",
+            file=get_test_image_file(),
+        )
+
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('image', test_image_1, '1'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('image', test_image_2, '1'),
+            ])),
+        )
+
+        result = comparison.htmldiff()
+        self.assertIn('<div class="preview-image deletion">', result)
+        self.assertIn('alt="Test image 1"', result)
+        self.assertIn('<div class="preview-image addition">', result)
+        self.assertIn('alt="Test image 2"', result)
+
+        self.assertIsInstance(result, SafeText)
+        self.assertTrue(comparison.has_changed())
+
 
 class TestChoiceFieldComparison(TestCase):
     comparison_class = compare.ChoiceFieldComparison

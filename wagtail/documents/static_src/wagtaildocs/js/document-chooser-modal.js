@@ -16,7 +16,7 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 // Set current collection ID at upload form tab
                 let collectionId = $('#collection_chooser_collection_id').val();
                 if (collectionId) {
-                  $('#id_collection').val(collectionId);
+                  $('#id_document-chooser-upload-collection').val(collectionId);
                 }
 
                 // Select upload form tab
@@ -92,10 +92,6 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         });
 
         $('#collection_chooser_collection_id').on('change', search);
-
-        $('#id_tags', modal.body).tagit({
-            autocomplete: {source: jsonData['tag_autocomplete_url']}
-        });
     },
     'document_chosen': function(modal, jsonData) {
         modal.respond('documentChosen', jsonData['result']);

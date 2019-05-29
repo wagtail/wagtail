@@ -18,7 +18,7 @@ Core team
 * Lisa Adams (Praekelt)
 * Naomi Morduch Toubman
 * Kalob Taulien
-* Jonny Scholes (Takeflight)
+* Jonny Scholes (Neon Jungle)
 * Andy Babic (Torchbox)
 
 Contributors
@@ -367,6 +367,13 @@ Contributors
 * Deniz Dogan
 * Po-Chuan Hsieh
 * scil
+* Mike Hearn
+* Samuel Mendes
+* Adam Eikman
+* Andreas Bernacca
+* Alex Tomkins
+* Beth Menzies
+* Michael Bunsen
 
 Translators
 ===========

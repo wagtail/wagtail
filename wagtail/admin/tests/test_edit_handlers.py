@@ -204,6 +204,17 @@ class TestPageEditHandlers(TestCase):
             errors = ValidatedPage.check()
             self.assertEqual(errors, [])
 
+    @clear_edit_handler(ValidatedPage)
+    def test_repr(self):
+        edit_handler = ValidatedPage.get_edit_handler()
+
+        handler_handler_repr = repr(edit_handler)
+
+        self.assertIn("model=<class 'wagtail.tests.testapp.models.ValidatedPage'>", handler_handler_repr)
+        self.assertIn('instance=None', handler_handler_repr)
+        self.assertIn("request=None", handler_handler_repr)
+        self.assertIn('form=None', handler_handler_repr)
+
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
     def test_can_extract_panel_property(self):
@@ -279,8 +290,8 @@ class TestTabbedInterface(TestCase):
 
         # result should contain tab panels
         self.assertIn('<div class="tab-content">', result)
-        self.assertIn('<section id="tab-event-details" class="shiny active">', result)
-        self.assertIn('<section id="tab-speakers" class=" ">', result)
+        self.assertIn('<section id="tab-event-details" class="shiny active" role="tabpanel" aria-labelledby="tab-label-event-details">', result)
+        self.assertIn('<section id="tab-speakers" class=" " role="tabpanel" aria-labelledby="tab-label-speakers">', result)
 
         # result should contain rendered content from descendants
         self.assertIn('Abergavenny sheepdog trials</textarea>', result)
@@ -458,6 +469,19 @@ class TestFieldPanel(TestCase):
 
         self.assertIn('<p class="error-message">', result)
         self.assertIn('<span>Enter a valid date.</span>', result)
+
+    def test_repr(self):
+        form = self.EventPageForm()
+        field_panel = self.end_date_panel.bind_to(
+            form=form,
+        )
+
+        field_panel_repr = repr(field_panel)
+
+        self.assertIn("model=<class 'wagtail.tests.testapp.models.EventPage'>", field_panel_repr)
+        self.assertIn('instance=None', field_panel_repr)
+        self.assertIn("request=<WSGIRequest: GET '/'>", field_panel_repr)
+        self.assertIn('form=EventPageForm', field_panel_repr)
 
 
 class TestFieldRowPanel(TestCase):

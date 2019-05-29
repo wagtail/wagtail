@@ -16,7 +16,7 @@
     <div class="nice-padding">
         <div class="drop-zone">
             <p>{% trans "Drag and drop documents into this area to upload immediately." %}</p>
-            <p>{{ help_text }}
+            <p>{{ help_text }}</p>
 
             <form action="{% url 'wagtaildocs:add_multiple' %}" method="POST" enctype="multipart/form-data">
                 <div class="replace-file-input">

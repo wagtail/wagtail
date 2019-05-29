@@ -99,6 +99,13 @@ class TableBlock(FieldBlock):
                 'html_renderer': self.is_html_renderer(),
                 'data': value['data'][1:] if table_header else value.get('data', [])
             })
+
+            if value.get('cell'):
+                new_context['classnames'] = {}
+                for meta in value['cell']:
+                    if 'className' in meta:
+                        new_context['classnames'][(meta['row'], meta['col'])] = meta['className']
+
             return render_to_string(template, new_context)
         else:
             return self.render_basic(value, context=context)
@@ -106,8 +113,8 @@ class TableBlock(FieldBlock):
     @property
     def media(self):
         return forms.Media(
-            css={'all': ['table_block/css/vendor/handsontable-0.24.2.full.min.css']},
-            js=['table_block/js/vendor/handsontable-0.24.2.full.min.js', 'table_block/js/table.js']
+            css={'all': ['table_block/css/vendor/handsontable-6.2.2.full.min.css']},
+            js=['table_block/js/vendor/handsontable-6.2.2.full.min.js', 'table_block/js/table.js']
         )
 
     def get_table_options(self, table_options=None):
@@ -115,7 +122,7 @@ class TableBlock(FieldBlock):
         Return a dict of table options using the defaults unless custom options provided
 
         table_options can contain any valid handsontable options:
-        http://docs.handsontable.com/0.18.0/Options.html
+        https://handsontable.com/docs/6.2.2/Options.html
         contextMenu: if value from table_options is True, still use default
         language: if value is not in table_options, attempt to get from envrionment
         """
@@ -132,8 +139,6 @@ class TableBlock(FieldBlock):
         if 'language' not in collected_table_options:
             # attempt to gather the current set language of not provided
             language = translation.get_language()
-            if language is not None and len(language) > 2:
-                language = language[:2]
             collected_table_options['language'] = language
 
         return collected_table_options

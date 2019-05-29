@@ -2,7 +2,7 @@
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans with title=page_to_move.get_admin_display_title %}Select a new parent page for {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
-    <header class="nice-padding">
+    <header class="nice-padding" role="banner">
         <h1 class="icon icon-doc-empty-inverse">{% blocktrans with title=page_to_move.get_admin_display_title %}Select a new parent page for <span>{{ title }}</span>{% endblocktrans %}</h1>
     </header>
 

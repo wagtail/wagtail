@@ -179,7 +179,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         get_embed.return_value = Embed(html='<img src="http://www.example.com" />', title="An example embed")
 
         response = self.client.post(reverse('wagtailembeds:chooser_upload'), {
-            'url': 'http://www.example.com/'
+            'embed-chooser-url': 'http://www.example.com/'
         })
         self.assertEqual(response.status_code, 200)
         response_json = json.loads(response.content.decode())
@@ -191,7 +191,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         get_embed.side_effect = EmbedNotFoundException
 
         response = self.client.post(reverse('wagtailembeds:chooser_upload'), {
-            'url': 'http://www.example.com/'
+            'embed-chooser-url': 'http://www.example.com/'
         })
         self.assertEqual(response.status_code, 200)
 
@@ -259,7 +259,7 @@ class TestEmbedly(TestCase):
             oembed.return_value = {'type': 'photo',
                                    'url': 'http://www.example.com'}
             result = EmbedlyFinder(key='foo').find_embed('http://www.example.com')
-            self.assertEqual(result['html'], '<img src="http://www.example.com" />')
+            self.assertEqual(result['html'], '<img src="http://www.example.com" alt="">')
 
             oembed.return_value = {'type': 'something else',
                                    'html': '<foo>bar</foo>'}
@@ -325,7 +325,7 @@ class TestOembed(TestCase):
                               'url': 'http://www.example.com'}
         result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
         self.assertEqual(result['type'], 'photo')
-        self.assertEqual(result['html'], '<img src="http://www.example.com" />')
+        self.assertEqual(result['html'], '<img src="http://www.example.com" alt="">')
         loads.assert_called_with("foo")
 
     @patch('urllib.request.urlopen')

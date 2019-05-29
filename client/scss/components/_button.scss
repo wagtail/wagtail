@@ -22,7 +22,6 @@
     white-space: nowrap;
     position: relative;
     overflow: hidden;
-    outline: none;
     box-sizing: border-box;
     -webkit-font-smoothing: auto;
     // stylelint-disable-next-line property-no-vendor-prefix
@@ -163,7 +162,6 @@
         white-space: nowrap;
         position: relative;
         overflow: hidden;
-        outline: none;
         box-sizing: border-box;
         -webkit-font-smoothing: auto;
         // stylelint-disable-next-line property-no-vendor-prefix
@@ -222,7 +220,7 @@
     &.disabled {
         background-color: $color-grey-3;
         border-color: $color-grey-3;
-        color: lighten($color-grey-2, 15%);
+        color: $color-grey-2;
         cursor: default;
     }
 

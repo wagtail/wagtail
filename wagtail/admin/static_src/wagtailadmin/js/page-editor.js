@@ -7,56 +7,6 @@ function registerHalloPlugin(name, opts) {
     compatibility, without throwing an error on later versions. */
 }
 
-// Compare two date objects. Ignore minutes and seconds.
-function dateEqual(x, y) {
-    return x.getDate() === y.getDate() &&
-           x.getMonth() === y.getMonth() &&
-           x.getYear() === y.getYear()
-}
-
-/*
-Remove the xdsoft_current css class from markup unless the selected date is currently in view.
-Keep the normal behaviour if the home button is clicked.
- */
-function hideCurrent(current, input) {
-    var selected = new Date(input[0].value);
-    if (!dateEqual(selected, current)) {
-        $(this).find('.xdsoft_datepicker .xdsoft_current:not(.xdsoft_today)').removeClass('xdsoft_current');
-    }
-}
-
-
-function onChangeDateTime (picker, $input) {
-    $input[0].dispatchEvent(new Event('change'));
-}
-
-
-function initDateChooser(id, opts) {
-    $('#' + id).datetimepicker($.extend({
-        timepicker: false,
-        scrollInput: false,
-        format: 'Y-m-d',
-        onGenerate: hideCurrent,
-        onChangeDateTime: onChangeDateTime,
-    }, opts || {}));
-}
-
-function initTimeChooser(id) {
-    $('#' + id).datetimepicker({
-        datepicker: false,
-        format: 'H:i',
-        onChangeDateTime: onChangeDateTime,
-    });
-}
-
-function initDateTimeChooser(id, opts) {
-    $('#' + id).datetimepicker($.extend({
-        format: 'Y-m-d H:i',
-        onGenerate: hideCurrent,
-        onChangeDateTime: onChangeDateTime,
-    }, opts || {}));
-}
-
 function InlinePanel(opts) {
     var self = {};
 

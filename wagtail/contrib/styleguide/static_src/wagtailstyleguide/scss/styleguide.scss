@@ -67,6 +67,10 @@ section {
         color: $color-green;
     }
 
+    .color-green-dark-text {
+        color: $color-green-dark;
+    }
+
     .color-teal-darker-text {
         color: $color-teal-darker;
     }
@@ -83,12 +87,20 @@ section {
         color: $color-red;
     }
 
+    .color-red-dark-text {
+        color: $color-red-dark;
+    }
+
     .color-teal-text {
         color: $color-teal;
     }
 
     .color-orange-text {
         color: $color-orange;
+    }
+
+    .color-orange-dark-text {
+        color: $color-orange-dark;
     }
 
     .color-blue-text {
@@ -131,12 +143,24 @@ section {
         background-color: $color-red;
     }
 
+    .color-red-dark {
+        background-color: $color-red-dark;
+    }
+
     .color-orange {
         background-color: $color-orange;
     }
 
+    .color-orange-dark {
+        background-color: $color-orange-dark;
+    }
+
     .color-green {
         background-color: $color-green;
+    }
+
+    .color-green-dark {
+        background-color: $color-green-dark;
     }
 
     .color-blue {
