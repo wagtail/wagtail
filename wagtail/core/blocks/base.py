@@ -180,7 +180,10 @@ class Block(metaclass=BaseBlock):
         model definition type (e.g. something like StructValue which incorporates a
         pointer back to the block definion object).
         """
-        return self.meta.default
+        default = self.meta.default
+        if callable(default):
+            default = default()
+        return default
 
     def clean(self, value):
         """
