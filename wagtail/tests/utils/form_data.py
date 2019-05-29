@@ -57,7 +57,7 @@ def streamfield(items):
     """
     return json.dumps([
         {'type': block, 'value': value} for block, value in items
-    ])
+    ], sort_keys=True)
 
 
 def inline_formset(items, initial=0, min=0, max=1000):

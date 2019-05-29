@@ -178,7 +178,7 @@ class Block(metaclass=BaseBlock):
         converted to the value type expected by this block. This caters for the case
         where that value type is not something that can be expressed statically at
         model definition type (e.g. something like StructValue which incorporates a
-        pointer back to the block definion object).
+        pointer back to the block definition object).
         """
         default = self.meta.default
         if callable(default):
