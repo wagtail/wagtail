@@ -219,7 +219,7 @@ class TestFormDataHelpers(TestCase):
                     '[{"type": "text", "value": "Hello, world"}, '
                     '{"type": "text", "value": "Goodbye, world"}, '
                     '{"type": "coffee", '
-                    '"value": {"type": "latte", "milk": "soya"}}]',
+                    '"value": {"milk": "soya", "type": "latte"}}]',
             }
         )
 
