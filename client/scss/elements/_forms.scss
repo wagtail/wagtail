@@ -135,27 +135,32 @@ input[type=checkbox] {
     border: 0;
 }
 
+$radio-size: 28px;
+
 input[type=radio] {
-    height: 12px;
-    width: auto;
+    box-sizing: border-box;
+    height: $radio-size;
+    width: $radio-size;
     position: relative;
-    margin-right: 27px;
+    top: -5px;
+    left: -2px;
+    margin-bottom: -16px;
+    background-color: transparent;
 }
 
 input[type=radio]:before {
+    box-sizing: border-box;
     border-radius: 100%;
     font-family: wagtail;
     font-style: normal;
     text-align: center;
     position: absolute;
-    top: -5px;
-    left: -2px;
     cursor: pointer;
     display: block;
     content: map-get($icons, 'radio-full');
-    width: 1em;
-    height: 1em;
-    line-height: 1.1em;
+    width: $radio-size;
+    height: $radio-size;
+    line-height: 18px;
     padding: 4px;
     background-color: $color-white;
     color: $color-grey-4;
