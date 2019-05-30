@@ -56,6 +56,17 @@ To replace the favicon displayed when viewing admin pages, create a template fil
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
     {% endblock %}
 
+``branding_title``
+------------------
+
+To replace the title prefix (which is 'Wagtail' by default), create a template file ``dashboard/templates/wagtailadmin/admin_base.html`` that overrides the block ``branding_title``:
+
+.. code-block:: html+django
+
+    {% extends "wagtailadmin/admin_base.html" %}
+
+    {% block branding_title %}Frank's CMS{% endblock %}
+
 ``branding_login``
 ------------------
 
