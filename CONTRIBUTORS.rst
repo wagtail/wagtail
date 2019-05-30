@@ -374,6 +374,7 @@ Contributors
 * Alex Tomkins
 * Beth Menzies
 * Michael Bunsen
+* Dillen Meijboom
 
 Translators
 ===========

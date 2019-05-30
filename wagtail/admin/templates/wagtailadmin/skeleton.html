@@ -5,7 +5,7 @@
 <html class="no-js" lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
 <head>
     <meta charset="utf-8" />
-    <title>Wagtail - {% block titletag %}{% endblock %}</title>
+    <title>{% block branding_title %}Wagtail{% endblock %} - {% block titletag %}{% endblock %}</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
