@@ -16,7 +16,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
-from django.views.generic import View
+from django.views.generic import TemplateView, View
 
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
@@ -179,7 +179,9 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
     })
 
 
-class CreatePageView(View):
+class CreatePageView(TemplateView):
+    template_name = 'wagtailadmin/pages/create.html'
+
     def dispatch(self, request, content_type_app_name, content_type_model_name, parent_page_id):
         self.parent_page = get_object_or_404(Page, id=parent_page_id).specific
         self.parent_page_perms = self.parent_page.permissions_for_user(request.user)
@@ -217,118 +219,130 @@ class CreatePageView(View):
 
         self.next_url = get_valid_next_url_from_request(request)
 
-        if request.method == 'POST':
-            self.form = self.form_class(request.POST, request.FILES, instance=self.page,
-                                        parent_page=self.parent_page)
+        return super().dispatch(request, content_type_app_name, content_type_model_name, parent_page_id)
 
-            if self.form.is_valid():
-                self.page = self.form.save(commit=False)
+    def post(self, request, content_type_app_name, content_type_model_name, parent_page_id):
+        self.form = self.form_class(request.POST, request.FILES, instance=self.page,
+                                    parent_page=self.parent_page)
 
-                is_publishing = bool(request.POST.get('action-publish')) and self.parent_page_perms.can_publish_subpage()
-                is_submitting = bool(request.POST.get('action-submit'))
+        if self.form.is_valid():
+            self.page = self.form.save(commit=False)
 
-                if not is_publishing:
-                    self.page.live = False
+            is_publishing = bool(request.POST.get('action-publish')) and self.parent_page_perms.can_publish_subpage()
+            is_submitting = bool(request.POST.get('action-submit'))
 
-                # Save page
-                self.parent_page.add_child(instance=self.page)
+            if not is_publishing:
+                self.page.live = False
 
-                # Save revision
-                revision = self.page.save_revision(
-                    user=request.user,
-                    submitted_for_moderation=is_submitting,
-                )
+            # Save page
+            self.parent_page.add_child(instance=self.page)
 
-                # Publish
-                if is_publishing:
-                    revision.publish()
+            # Save revision
+            revision = self.page.save_revision(
+                user=request.user,
+                submitted_for_moderation=is_submitting,
+            )
 
-                # Notifications
-                if is_publishing:
-                    if self.page.go_live_at and self.page.go_live_at > timezone.now():
-                        messages.success(
-                            request,
-                            _("Page '{0}' created and scheduled for publishing.").format(self.page.get_admin_display_title()),
-                            buttons=[
-                                messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit'))
-                            ]
-                        )
-                    else:
-                        buttons = []
-                        if self.page.url is not None:
-                            buttons.append(messages.button(self.page.url, _('View live'), new_window=True))
-                        buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit')))
-                        messages.success(
-                            request,
-                            _("Page '{0}' created and published.").format(self.page.get_admin_display_title()),
-                            buttons=buttons
-                        )
-                elif is_submitting:
+            # Publish
+            if is_publishing:
+                revision.publish()
+
+            # Notifications
+            if is_publishing:
+                if self.page.go_live_at and self.page.go_live_at > timezone.now():
                     messages.success(
                         request,
-                        _("Page '{0}' created and submitted for moderation.").format(self.page.get_admin_display_title()),
+                        _("Page '{0}' created and scheduled for publishing.").format(self.page.get_admin_display_title()),
                         buttons=[
-                            messages.button(
-                                reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
-                                _('View draft'),
-                                new_window=True
-                            ),
-                            messages.button(
-                                reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                                _('Edit')
-                            )
+                            messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit'))
                         ]
                     )
-                    if not send_notification(self.page.get_latest_revision().id, 'submitted', request.user.pk):
-                        messages.error(request, _("Failed to send notifications to moderators"))
                 else:
-                    messages.success(request, _("Page '{0}' created.").format(self.page.get_admin_display_title()))
-
-                for fn in hooks.get_hooks('after_create_page'):
-                    result = fn(request, self.page)
-                    if hasattr(result, 'status_code'):
-                        return result
-
-                if is_publishing or is_submitting:
-                    # we're done here
-                    if self.next_url:
-                        # redirect back to 'next' url if present
-                        return redirect(self.next_url)
-                    # redirect back to the explorer
-                    return redirect('wagtailadmin_explore', self.page.get_parent().id)
-                else:
-                    # Just saving - remain on edit page for further edits
-                    target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
-                    if self.next_url:
-                        # Ensure the 'next' url is passed through again if present
-                        target_url += '?next=%s' % urlquote(self.next_url)
-                    return redirect(target_url)
-            else:
-                messages.validation_error(
-                    request, _("The page could not be created due to validation errors"), self.form
+                    buttons = []
+                    if self.page.url is not None:
+                        buttons.append(messages.button(self.page.url, _('View live'), new_window=True))
+                    buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit')))
+                    messages.success(
+                        request,
+                        _("Page '{0}' created and published.").format(self.page.get_admin_display_title()),
+                        buttons=buttons
+                    )
+            elif is_submitting:
+                messages.success(
+                    request,
+                    _("Page '{0}' created and submitted for moderation.").format(self.page.get_admin_display_title()),
+                    buttons=[
+                        messages.button(
+                            reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
+                            _('View draft'),
+                            new_window=True
+                        ),
+                        messages.button(
+                            reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
+                            _('Edit')
+                        )
+                    ]
                 )
-                self.has_unsaved_changes = True
-        else:
-            signals.init_new_page.send(sender=self, page=self.page, parent=self.parent_page)
-            self.form = self.form_class(instance=self.page, parent_page=self.parent_page)
-            self.has_unsaved_changes = False
+                if not send_notification(self.page.get_latest_revision().id, 'submitted', request.user.pk):
+                    messages.error(request, _("Failed to send notifications to moderators"))
+            else:
+                messages.success(request, _("Page '{0}' created.").format(self.page.get_admin_display_title()))
 
+            for fn in hooks.get_hooks('after_create_page'):
+                result = fn(request, self.page)
+                if hasattr(result, 'status_code'):
+                    return result
+
+            if is_publishing or is_submitting:
+                # we're done here
+                if self.next_url:
+                    # redirect back to 'next' url if present
+                    return redirect(self.next_url)
+                # redirect back to the explorer
+                return redirect('wagtailadmin_explore', self.page.get_parent().id)
+            else:
+                # Just saving - remain on edit page for further edits
+                target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
+                if self.next_url:
+                    # Ensure the 'next' url is passed through again if present
+                    target_url += '?next=%s' % urlquote(self.next_url)
+                return redirect(target_url)
+        else:
+            messages.validation_error(
+                request, _("The page could not be created due to validation errors"), self.form
+            )
+            self.has_unsaved_changes = True
+
+            context = self.get_context_data()
+            return self.render_to_response(context)
+
+    def get(self, request, content_type_app_name, content_type_model_name, parent_page_id):
+        signals.init_new_page.send(sender=self, page=self.page, parent=self.parent_page)
+        self.form = self.form_class(instance=self.page, parent_page=self.parent_page)
+        self.has_unsaved_changes = False
+
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
+    def get_context_data(self):
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
-        return render(request, 'wagtailadmin/pages/create.html', {
+        return {
             'content_type': self.content_type,
             'page_class': self.page_class,
             'parent_page': self.parent_page,
             'edit_handler': self.edit_handler,
-            'action_menu': PageActionMenu(request, view='create', parent_page=self.parent_page),
+            'action_menu': PageActionMenu(self.request, view='create', parent_page=self.parent_page),
             'preview_modes': self.page.preview_modes,
             'form': self.form,
             'next': self.next_url,
             'has_unsaved_changes': self.has_unsaved_changes,
-        })
+        }
 
 
-class EditPageView(View):
+class EditPageView(TemplateView):
+    template_name = 'wagtailadmin/pages/edit.html'
+
     def dispatch(self, request, page_id):
         self.real_page_record = get_object_or_404(Page, id=page_id)
         self.latest_revision = self.real_page_record.get_latest_revision()
@@ -355,175 +369,185 @@ class EditPageView(View):
 
         self.errors_debug = None
 
-        if request.method == 'POST':
-            self.form = self.form_class(request.POST, request.FILES, instance=self.page,
-                                        parent_page=self.parent)
+        return super().dispatch(request, page_id)
 
-            if self.form.is_valid() and not self.page.locked:
-                self.page = self.form.save(commit=False)
+    def post(self, request, page_id):
+        self.form = self.form_class(request.POST, request.FILES, instance=self.page,
+                                    parent_page=self.parent)
 
-                is_publishing = bool(request.POST.get('action-publish')) and self.page_perms.can_publish()
-                is_submitting = bool(request.POST.get('action-submit'))
-                is_reverting = bool(request.POST.get('revision'))
+        if self.form.is_valid() and not self.page.locked:
+            self.page = self.form.save(commit=False)
 
-                # If a revision ID was passed in the form, get that revision so its
-                # date can be referenced in notification messages
-                if is_reverting:
-                    previous_revision = get_object_or_404(self.page.revisions, id=request.POST.get('revision'))
+            is_publishing = bool(request.POST.get('action-publish')) and self.page_perms.can_publish()
+            is_submitting = bool(request.POST.get('action-submit'))
+            is_reverting = bool(request.POST.get('revision'))
 
-                # Save revision
-                revision = self.page.save_revision(
-                    user=request.user,
-                    submitted_for_moderation=is_submitting,
-                )
-                # store submitted go_live_at for messaging below
-                go_live_at = self.page.go_live_at
+            # If a revision ID was passed in the form, get that revision so its
+            # date can be referenced in notification messages
+            if is_reverting:
+                previous_revision = get_object_or_404(self.page.revisions, id=request.POST.get('revision'))
 
-                # Publish
-                if is_publishing:
-                    revision.publish()
-                    # Need to reload the page because the URL may have changed, and we
-                    # need the up-to-date URL for the "View Live" button.
-                    self.page = self.page.specific_class.objects.get(pk=self.page.pk)
+            # Save revision
+            revision = self.page.save_revision(
+                user=request.user,
+                submitted_for_moderation=is_submitting,
+            )
+            # store submitted go_live_at for messaging below
+            go_live_at = self.page.go_live_at
 
-                # Notifications
-                if is_publishing:
-                    if go_live_at and go_live_at > timezone.now():
-                        # Page has been scheduled for publishing in the future
+            # Publish
+            if is_publishing:
+                revision.publish()
+                # Need to reload the page because the URL may have changed, and we
+                # need the up-to-date URL for the "View Live" button.
+                self.page = self.page.specific_class.objects.get(pk=self.page.pk)
 
-                        if is_reverting:
-                            message = _(
-                                "Revision from {0} of page '{1}' has been scheduled for publishing."
-                            ).format(
-                                previous_revision.created_at.strftime("%d %b %Y %H:%M"),
-                                self.page.get_admin_display_title()
-                            )
-                        else:
-                            if self.page.live:
-                                message = _(
-                                    "Page '{0}' is live and this revision has been scheduled for publishing."
-                                ).format(
-                                    self.page.get_admin_display_title()
-                                )
-                            else:
-                                message = _(
-                                    "Page '{0}' has been scheduled for publishing."
-                                ).format(
-                                    self.page.get_admin_display_title()
-                                )
+            # Notifications
+            if is_publishing:
+                if go_live_at and go_live_at > timezone.now():
+                    # Page has been scheduled for publishing in the future
 
-                        messages.success(request, message, buttons=[
-                            messages.button(
-                                reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                                _('Edit')
-                            )
-                        ])
-
-                    else:
-                        # Page is being published now
-
-                        if is_reverting:
-                            message = _(
-                                "Revision from {0} of page '{1}' has been published."
-                            ).format(
-                                previous_revision.created_at.strftime("%d %b %Y %H:%M"),
-                                self.page.get_admin_display_title()
-                            )
-                        else:
-                            message = _(
-                                "Page '{0}' has been published."
-                            ).format(
-                                self.page.get_admin_display_title()
-                            )
-
-                        buttons = []
-                        if self.page.url is not None:
-                            buttons.append(messages.button(self.page.url, _('View live'), new_window=True))
-                        buttons.append(
-                            messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
+                    if is_reverting:
+                        message = _(
+                            "Revision from {0} of page '{1}' has been scheduled for publishing."
+                        ).format(
+                            previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                            self.page.get_admin_display_title()
                         )
-                        messages.success(request, message, buttons=buttons)
-
-                elif is_submitting:
-
-                    message = _(
-                        "Page '{0}' has been submitted for moderation."
-                    ).format(
-                        self.page.get_admin_display_title()
-                    )
+                    else:
+                        if self.page.live:
+                            message = _(
+                                "Page '{0}' is live and this revision has been scheduled for publishing."
+                            ).format(
+                                self.page.get_admin_display_title()
+                            )
+                        else:
+                            message = _(
+                                "Page '{0}' has been scheduled for publishing."
+                            ).format(
+                                self.page.get_admin_display_title()
+                            )
 
                     messages.success(request, message, buttons=[
                         messages.button(
-                            reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
-                            _('View draft'),
-                            new_window=True
-                        ),
-                        messages.button(
-                            reverse('wagtailadmin_pages:edit', args=(page_id,)),
+                            reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
                             _('Edit')
                         )
                     ])
 
-                    if not send_notification(self.page.get_latest_revision().id, 'submitted', request.user.pk):
-                        messages.error(request, _("Failed to send notifications to moderators"))
-
-                else:  # Saving
+                else:
+                    # Page is being published now
 
                     if is_reverting:
                         message = _(
-                            "Page '{0}' has been replaced with revision from {1}."
+                            "Revision from {0} of page '{1}' has been published."
                         ).format(
-                            self.page.get_admin_display_title(),
-                            previous_revision.created_at.strftime("%d %b %Y %H:%M")
+                            previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                            self.page.get_admin_display_title()
                         )
                     else:
                         message = _(
-                            "Page '{0}' has been updated."
+                            "Page '{0}' has been published."
                         ).format(
                             self.page.get_admin_display_title()
                         )
 
-                    messages.success(request, message)
-
-                for fn in hooks.get_hooks('after_edit_page'):
-                    result = fn(request, self.page)
-                    if hasattr(result, 'status_code'):
-                        return result
-
-                if is_publishing or is_submitting:
-                    # we're done here - redirect back to the explorer
-                    if self.next_url:
-                        # redirect back to 'next' url if present
-                        return redirect(self.next_url)
-                    # redirect back to the explorer
-                    return redirect('wagtailadmin_explore', self.page.get_parent().id)
-                else:
-                    # Just saving - remain on edit page for further edits
-                    target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
-                    if self.next_url:
-                        # Ensure the 'next' url is passed through again if present
-                        target_url += '?next=%s' % urlquote(self.next_url)
-                    return redirect(target_url)
-            else:
-                if self.page.locked:
-                    messages.error(request, _("The page could not be saved as it is locked"))
-                else:
-                    messages.validation_error(
-                        request, _("The page could not be saved due to validation errors"), self.form
+                    buttons = []
+                    if self.page.url is not None:
+                        buttons.append(messages.button(self.page.url, _('View live'), new_window=True))
+                    buttons.append(
+                        messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit'))
                     )
-                self.errors_debug = (
-                    repr(self.form.errors)
-                    + repr([
-                        (name, formset.errors)
-                        for (name, formset) in self.form.formsets.items()
-                        if formset.errors
-                    ])
-                )
-                self.has_unsaved_changes = True
-        else:
-            self.form = self.form_class(instance=self.page, parent_page=self.parent)
-            self.has_unsaved_changes = False
+                    messages.success(request, message, buttons=buttons)
 
+            elif is_submitting:
+
+                message = _(
+                    "Page '{0}' has been submitted for moderation."
+                ).format(
+                    self.page.get_admin_display_title()
+                )
+
+                messages.success(request, message, buttons=[
+                    messages.button(
+                        reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
+                        _('View draft'),
+                        new_window=True
+                    ),
+                    messages.button(
+                        reverse('wagtailadmin_pages:edit', args=(page_id,)),
+                        _('Edit')
+                    )
+                ])
+
+                if not send_notification(self.page.get_latest_revision().id, 'submitted', request.user.pk):
+                    messages.error(request, _("Failed to send notifications to moderators"))
+
+            else:  # Saving
+
+                if is_reverting:
+                    message = _(
+                        "Page '{0}' has been replaced with revision from {1}."
+                    ).format(
+                        self.page.get_admin_display_title(),
+                        previous_revision.created_at.strftime("%d %b %Y %H:%M")
+                    )
+                else:
+                    message = _(
+                        "Page '{0}' has been updated."
+                    ).format(
+                        self.page.get_admin_display_title()
+                    )
+
+                messages.success(request, message)
+
+            for fn in hooks.get_hooks('after_edit_page'):
+                result = fn(request, self.page)
+                if hasattr(result, 'status_code'):
+                    return result
+
+            if is_publishing or is_submitting:
+                # we're done here - redirect back to the explorer
+                if self.next_url:
+                    # redirect back to 'next' url if present
+                    return redirect(self.next_url)
+                # redirect back to the explorer
+                return redirect('wagtailadmin_explore', self.page.get_parent().id)
+            else:
+                # Just saving - remain on edit page for further edits
+                target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
+                if self.next_url:
+                    # Ensure the 'next' url is passed through again if present
+                    target_url += '?next=%s' % urlquote(self.next_url)
+                return redirect(target_url)
+        else:
+            if self.page.locked:
+                messages.error(request, _("The page could not be saved as it is locked"))
+            else:
+                messages.validation_error(
+                    request, _("The page could not be saved due to validation errors"), self.form
+                )
+            self.errors_debug = (
+                repr(self.form.errors)
+                + repr([
+                    (name, formset.errors)
+                    for (name, formset) in self.form.formsets.items()
+                    if formset.errors
+                ])
+            )
+            self.has_unsaved_changes = True
+
+            context = self.get_context_data()
+            return self.render_to_response(context)
+
+    def get(self, request, page_id):
+        self.form = self.form_class(instance=self.page, parent_page=self.parent)
+        self.has_unsaved_changes = False
+
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
+    def get_context_data(self):
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
         # Check for revisions still undergoing moderation and warn
@@ -536,7 +560,7 @@ class EditPageView(View):
                     _('Compare with live version')
                 ))
 
-            messages.warning(request, _("This page is currently awaiting moderation"), buttons=buttons)
+            messages.warning(self.request, _("This page is currently awaiting moderation"), buttons=buttons)
 
         if self.page.live and self.page.has_unpublished_changes:
             # Page status needs to present the version of the page containing the correct live URL
@@ -544,18 +568,18 @@ class EditPageView(View):
         else:
             page_for_status = self.page
 
-        return render(request, 'wagtailadmin/pages/edit.html', {
+        return {
             'page': self.page,
             'page_for_status': page_for_status,
             'content_type': self.content_type,
             'edit_handler': self.edit_handler,
             'errors_debug': self.errors_debug,
-            'action_menu': PageActionMenu(request, view='edit', page=self.page),
+            'action_menu': PageActionMenu(self.request, view='edit', page=self.page),
             'preview_modes': self.page.preview_modes,
             'form': self.form,
             'next': self.next_url,
             'has_unsaved_changes': self.has_unsaved_changes,
-        })
+        }
 
 
 def delete(request, page_id):
