@@ -306,7 +306,7 @@ assuming they are indexed, you can override this property with the included
 `WagtailBackendSearchHandler` class e.g.
 
 .. code-block:: python
-    from wagtail.contrib.helpers import WagtailBackendSearchHandler
+    from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 
     from .models import IndexedModel
 
