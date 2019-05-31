@@ -182,6 +182,15 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
 class CreatePageView(TemplateView):
     template_name = 'wagtailadmin/pages/create.html'
 
+    def get_page_instance(self):
+        return self.page_class(owner=self.request.user)
+
+    def get_edit_handler(self):
+        return self.page_class.get_edit_handler()
+
+    def get_form_class(self):
+        return self.edit_handler.get_form_class()
+
     def dispatch(self, request, content_type_app_name, content_type_model_name, parent_page_id):
         self.parent_page = get_object_or_404(Page, id=parent_page_id).specific
         self.parent_page_perms = self.parent_page.permissions_for_user(request.user)
@@ -212,10 +221,10 @@ class CreatePageView(TemplateView):
             if hasattr(result, 'status_code'):
                 return result
 
-        self.page = self.page_class(owner=request.user)
-        self.edit_handler = self.page_class.get_edit_handler()
+        self.page = self.get_page_instance()
+        self.edit_handler = self.get_edit_handler()
         self.edit_handler = self.edit_handler.bind_to(request=request, instance=self.page)
-        self.form_class = self.edit_handler.get_form_class()
+        self.form_class = self.get_form_class()
 
         self.next_url = get_valid_next_url_from_request(request)
 
@@ -343,10 +352,22 @@ class CreatePageView(TemplateView):
 class EditPageView(TemplateView):
     template_name = 'wagtailadmin/pages/edit.html'
 
+    def get_latest_revision(self):
+        return self.real_page_record.get_latest_revision()
+
+    def get_page_instance(self):
+        return self.real_page_record.get_latest_revision_as_page()
+
+    def get_edit_handler(self):
+        return self.page_class.get_edit_handler()
+
+    def get_form_class(self):
+        return self.edit_handler.get_form_class()
+
     def dispatch(self, request, page_id):
         self.real_page_record = get_object_or_404(Page, id=page_id)
-        self.latest_revision = self.real_page_record.get_latest_revision()
-        self.page = self.real_page_record.get_latest_revision_as_page()
+        self.latest_revision = self.get_latest_revision()
+        self.page = self.get_page_instance()
         self.parent = self.page.get_parent()
 
         self.content_type = ContentType.objects.get_for_model(self.page)
@@ -361,9 +382,9 @@ class EditPageView(TemplateView):
             if hasattr(result, 'status_code'):
                 return result
 
-        self.edit_handler = self.page_class.get_edit_handler()
+        self.edit_handler = self.get_edit_handler()
         self.edit_handler = self.edit_handler.bind_to(instance=self.page, request=request)
-        self.form_class = self.edit_handler.get_form_class()
+        self.form_class = self.get_form_class()
 
         self.next_url = get_valid_next_url_from_request(request)
 
