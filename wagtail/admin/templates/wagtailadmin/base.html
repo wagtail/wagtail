@@ -4,7 +4,7 @@
 {% block furniture %}
     <aside class="nav-wrapper">
         <div class="inner">
-            <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
+            <a href="{% url 'wagtailadmin_home' %}" class="logo" aria-label="{% trans 'Dashboard' %}">
                 {% block branding_logo %}
                     {# Mobile-only logo: #}
                     <div class="wagtail-logo-container__mobile u-hidden@sm">
