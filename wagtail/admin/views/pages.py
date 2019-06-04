@@ -179,6 +179,25 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
     })
 
 
+# Support for customising create-page / edit-page views on a
+# per-page-type basis.
+# _create_page_views_by_page_class is a mapping of page classes to
+# custom view functions that should be invoked when creating a page
+# of that type.
+# _edit_page_views_by_page_class is the same for the page edit action.
+
+_create_page_views_by_page_class = {}
+_edit_page_views_by_page_class = {}
+
+
+def register_create_page_view(page_class, view):
+    _create_page_views_by_page_class[page_class] = view
+
+
+def register_edit_page_view(page_class, view):
+    _edit_page_views_by_page_class[page_class] = view
+
+
 class CreatePageView(TemplateView):
     template_name = 'wagtailadmin/pages/create.html'
 
@@ -192,11 +211,6 @@ class CreatePageView(TemplateView):
         return self.edit_handler.get_form_class()
 
     def dispatch(self, request, content_type_app_name, content_type_model_name, parent_page_id):
-        self.parent_page = get_object_or_404(Page, id=parent_page_id).specific
-        self.parent_page_perms = self.parent_page.permissions_for_user(request.user)
-        if not self.parent_page_perms.can_add_subpage():
-            raise PermissionDenied
-
         try:
             self.content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
         except ContentType.DoesNotExist:
@@ -208,6 +222,29 @@ class CreatePageView(TemplateView):
         # Make sure the class is a descendant of Page
         if not issubclass(self.page_class, Page):
             raise Http404
+
+        # Check _create_page_views_by_page_class to see if we've registered a custom
+        # create view for this page type - if so, we'll defer to that view instead of
+        # continuing here
+
+        # If there _is_ a custom view registered, and it's a subclass of CreatePageView (as expected),
+        # we'll end up back here when we call it. We therefore need to set a flag on the request to
+        # not repeat the lookup (and end up in an infinite loop)
+        if not getattr(request, '_using_custom_create_page_view', False):
+            # check page_class and all its superclasses for an entry in _create_page_views_by_page_class
+            for cls in self.page_class.__mro__:
+                try:
+                    view = _create_page_views_by_page_class[cls]
+                except KeyError:
+                    continue
+
+                request._using_custom_create_page_view = True
+                return view(request, content_type_app_name, content_type_model_name, parent_page_id)
+
+        self.parent_page = get_object_or_404(Page, id=parent_page_id).specific
+        self.parent_page_perms = self.parent_page.permissions_for_user(request.user)
+        if not self.parent_page_perms.can_add_subpage():
+            raise PermissionDenied
 
         # page must be in the list of allowed subpage types for this parent ID
         if self.page_class not in self.parent_page.creatable_subpage_models():
@@ -366,12 +403,27 @@ class EditPageView(TemplateView):
 
     def dispatch(self, request, page_id):
         self.real_page_record = get_object_or_404(Page, id=page_id)
-        self.latest_revision = self.get_latest_revision()
         self.page = self.get_page_instance()
-        self.parent = self.page.get_parent()
 
         self.content_type = ContentType.objects.get_for_model(self.page)
         self.page_class = self.content_type.model_class()
+
+        # If there _is_ a custom view registered, and it's a subclass of EditPageView (as expected),
+        # we'll end up back here when we call it. We therefore need to set a flag on the request to
+        # not repeat the lookup (and end up in an infinite loop)
+        if not getattr(request, '_using_custom_edit_page_view', False):
+            # check page_class and all its superclasses for an entry in _edit_page_views_by_page_class
+            for cls in self.page_class.__mro__:
+                try:
+                    view = _edit_page_views_by_page_class[cls]
+                except KeyError:
+                    continue
+
+                request._using_custom_edit_page_view = True
+                return view(request, page_id)
+
+        self.latest_revision = self.get_latest_revision()
+        self.parent = self.page.get_parent()
 
         self.page_perms = self.page.permissions_for_user(request.user)
         if not self.page_perms.can_edit():
