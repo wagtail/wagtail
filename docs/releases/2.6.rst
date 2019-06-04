@@ -27,6 +27,7 @@ Other features
  * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
  * Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
  * Added consistent focus outline styles across the whole admin (Thibaud Colas)
+ * Removed version number from the logo link’s title. The version can now be found under the Settings menu (Thibaud Colas)
 
 Bug fixes
 ~~~~~~~~~
@@ -46,6 +47,7 @@ Bug fixes
  * Make URL generator preview image alt translateable (Thibaud Colas)
  * Clear pending AJAX request if error occurs on page chooser (Matt Westcott)
  * Prevent text from overlapping in focal point editing UI (Beth Menzies)
+ * Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
 
 
 Upgrade considerations

@@ -18,6 +18,7 @@ Changelog
  * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
  * Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
  * Added consistent focus outline styles across the whole admin (Thibaud Colas)
+ * Removed version number from the logo link’s title. The version can now be found under the Settings menu (Thibaud Colas)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
@@ -33,6 +34,7 @@ Changelog
  * Fix: Make URL generator preview image alt translateable (Thibaud Colas)
  * Fix: Clear pending AJAX request if error occurs on page chooser (Matt Westcott)
  * Fix: Prevent text from overlapping in focal point editing UI (Beth Menzies)
+ * Fix: Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
 
 
 2.5.1 (07.05.2019)
