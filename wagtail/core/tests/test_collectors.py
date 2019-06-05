@@ -306,6 +306,7 @@ class ModelStreamFieldCollectorTest(TestCase):
 class GetAllUsesTest(TestCase):
     def setUp(self):
         self.is_sqlite = connection.vendor == 'sqlite'
+        self.is_postgres = connection.vendor == 'postgresql'
         self.has_postgres_search = connection.vendor == 'postgresql' and any(
             conf['BACKEND'] == 'wagtail.contrib.postgres_search.backend'
             for conf in settings.WAGTAILSEARCH_BACKENDS.values())
@@ -353,27 +354,28 @@ class GetAllUsesTest(TestCase):
         self.assertListEqual(uses, self.to_uses(objects))
 
     def test_empty(self):
-        with self.assertNumQueries(57 if self.has_postgres_search else 55):
+        with self.assertNumQueries(60 if self.has_postgres_search
+                                   else (59 if self.is_postgres else 58)):
             uses = list(get_all_uses(self.obj0))
             self.assert_uses(uses, [])
 
     def test_foreign_key(self):
-        with self.assertNumQueries(57 if self.has_postgres_search
-                                   else (56 if self.is_sqlite else 55)):
+        with self.assertNumQueries(60 if self.has_postgres_search
+                                   else (59 if self.is_sqlite else 58)):
             uses = list(get_all_uses(self.obj1))
             self.assert_uses(uses, [self.obj2])
 
     def test_rich_text(self):
-        with self.assertNumQueries(59 if self.has_postgres_search else 58):
+        with self.assertNumQueries(62 if self.has_postgres_search else 61):
             uses = list(get_all_uses(self.obj3))
             self.assert_uses(uses, [self.obj4])
 
     def test_streamfield(self):
-        with self.assertNumQueries(59 if self.has_postgres_search else 58):
+        with self.assertNumQueries(62 if self.has_postgres_search else 61):
             uses = list(get_all_uses(self.obj3))
             self.assert_uses(uses, [self.obj4])
 
     def test_multiple(self):
-        with self.assertNumQueries(50 if self.has_postgres_search or self.is_sqlite else 49):
+        with self.assertNumQueries(53 if self.has_postgres_search or self.is_sqlite else 52):
             uses = list(get_all_uses(self.obj7))
             self.assert_uses(uses, [self.obj8, self.obj9, self.obj10])
