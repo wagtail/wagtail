@@ -24,35 +24,37 @@
         {{ edit_handler.render_form_content }}
 
         <footer role="contentinfo">
-            <ul>
-                <li class="actions">
-                    <div class="dropdown dropup dropdown-button match-width">
-                        <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Save draft' %}</em></button>
-                        {{ action_menu.render_html }}
-                    </div>
-                </li>
-
-                <li class="preview">
-                    {% trans 'Preview' as preview_label %}
-                    {% if preview_modes|length > 1 %}
+            <nav aria-label="{% trans 'Actions' %}">
+                <ul>
+                    <li class="actions">
                         <div class="dropdown dropup dropdown-button match-width">
-                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
-                            <div class="dropdown-toggle icon icon-arrow-up"></div>
-                            <ul role="menu">
-                                {% for mode_name, mode_display_name in preview_modes %}
-                                    <li>
-                                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with mode=mode_name label=mode_display_name %}
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                            <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Save draft' %}</em></button>
+                            {{ action_menu.render_html }}
                         </div>
-                    {% else %}
-                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
-                    {% endif %}
-                </li>
-                {% block extra_footer_actions %}
-                {% endblock %}
-            </ul>
+                    </li>
+
+                    <li class="preview">
+                        {% trans 'Preview' as preview_label %}
+                        {% if preview_modes|length > 1 %}
+                            <div class="dropdown dropup dropdown-button match-width">
+                                {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                                <div class="dropdown-toggle icon icon-arrow-up"></div>
+                                <ul>
+                                    {% for mode_name, mode_display_name in preview_modes %}
+                                        <li>
+                                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with mode=mode_name label=mode_display_name %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                        {% endif %}
+                    </li>
+                    {% block extra_footer_actions %}
+                    {% endblock %}
+                </ul>
+            </nav>
         </footer>
     </form>
 
