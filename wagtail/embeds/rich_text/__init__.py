@@ -18,6 +18,10 @@ class MediaEmbedHandler(EmbedHandler):
         return get_embed(attrs['url'])
 
     @staticmethod
+    def get_id_pair_from_instance(instance: Embed):
+        return 'url', instance.url
+
+    @staticmethod
     def expand_db_attributes(attrs):
         """
         Given a dict of attributes from the <embed> tag, return the real HTML
