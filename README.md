@@ -1,8 +1,12 @@
-<h1 align="center">
-	<img width="343" src="https://cdn.rawgit.com/wagtail/wagtail/master/.github/wagtail.svg" alt="Wagtail">
-	<br>
-	<br>
-</h1>
+# Wagtail - NYPR fork
+
+### Includes the following patches on top of upstream master:
+
+* [#5266 - Support required fields on custom image models in the multiple image uploader](https://github.com/wagtail/wagtail/pull/5266)
+* [#5286 - Output form media on add/edit image forms](https://github.com/wagtail/wagtail/pull/5286)
+* [#5353 - Support custom add/edit page views on a per-page-type basis](https://github.com/wagtail/wagtail/pull/5353)
+* [#4702 - New UI for listing object uses, including in RichText and StreamField](https://github.com/wagtail/wagtail/pull/4702)
+
 
 Wagtail is an open source content management system built on Django, with a strong community and commercial support. It's focused on user experience, and offers precise control for designers and developers.
 
