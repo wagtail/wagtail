@@ -35,49 +35,51 @@
         {% endif %}
 
         <footer role="contentinfo">
-            <ul>
-                <li class="actions">
-                    <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
-                        <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Saving…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
+            <nav aria-label="{% trans 'Actions' %}">
+                <ul>
+                    <li class="actions">
+                        <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+                            <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Saving…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
 
-                        {{ action_menu.render_html }}
-                    </div>
-                </li>
-
-                <li class="preview">
-                    {% trans 'Preview' as preview_label %}
-                    {% if preview_modes|length > 1 %}
-                        <div class="dropdown dropup dropdown-button match-width">
-                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                            <div class="dropdown-toggle icon icon-arrow-up"></div>
-                            <ul role="menu">
-                                {% for mode_name, mode_display_name in preview_modes %}
-                                    <li>
-                                        {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                            {{ action_menu.render_html }}
                         </div>
-                    {% else %}
-                        {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                    {% endif %}
-                </li>
+                    </li>
 
-                <li class="meta">
-                    <p class="modified">
-                        {% if page.get_latest_revision %}
-                            {% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}
-                            {% if page.get_latest_revision.user %}
-                                {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username %}by {{ modified_by }}{% endblocktrans %}
-                                <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
-                            {% endif %}
-                            <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="underlined">{% trans 'Revisions' %}</a>
+                    <li class="preview">
+                        {% trans 'Preview' as preview_label %}
+                        {% if preview_modes|length > 1 %}
+                            <div class="dropdown dropup dropdown-button match-width">
+                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
+                                <div class="dropdown-toggle icon icon-arrow-up"></div>
+                                <ul>
+                                    {% for mode_name, mode_display_name in preview_modes %}
+                                        <li>
+                                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
                         {% endif %}
-                    </p>
-                </li>
-                {% block extra_footer_actions %}
-                {% endblock %}
-            </ul>
+                    </li>
+
+                    <li class="meta">
+                        <p class="modified">
+                            {% if page.get_latest_revision %}
+                                {% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}
+                                {% if page.get_latest_revision.user %}
+                                    {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username %}by {{ modified_by }}{% endblocktrans %}
+                                    <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
+                                {% endif %}
+                                <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="underlined">{% trans 'Revisions' %}</a>
+                            {% endif %}
+                        </p>
+                    </li>
+                    {% block extra_footer_actions %}
+                    {% endblock %}
+                </ul>
+            </nav>
         </footer>
     </form>
 

@@ -35,6 +35,7 @@ Changelog
  * Fix: Clear pending AJAX request if error occurs on page chooser (Matt Westcott)
  * Fix: Prevent text from overlapping in focal point editing UI (Beth Menzies)
  * Fix: Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
+ * Fix: Screen readers now treat page-level action dropdowns as navigation instead of menus (Helen Chapman)
 
 
 2.5.1 (07.05.2019)

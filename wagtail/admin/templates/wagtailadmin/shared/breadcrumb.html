@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<nav role="navigation" aria-label="{% trans 'Breadcrumb' %}">
+<nav aria-label="{% trans 'Breadcrumb' %}">
     <ul class="breadcrumb">
         {% for page in pages %}
             {% if page.is_root %}
