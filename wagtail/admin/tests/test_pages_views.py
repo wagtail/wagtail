@@ -1220,6 +1220,17 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # page should be created
         self.assertTrue(Page.objects.filter(title="New page!").exists())
 
+    def test_custom_create_page_view(self):
+        # SingleEventPage has a custom create view allowing passing location as a URL parameter
+
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=('tests', 'singleeventpage', self.root_page.id)),
+            {'location': "Massachusetts"}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"Massachusetts"')
+
 
 class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
@@ -2089,6 +2100,25 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # page should be edited
         self.assertEqual(Page.objects.get(id=self.child_page.id).title, "I've been edited!")
+
+
+class TestCustomPageEditView(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def test_custom_edit_page_view(self):
+        self.login()
+
+        page_id = Page.objects.get(url_path='/home/events/saint-patrick/').id
+
+        # SingleEventPage has a custom edit view that adds [UPDATED] to the title
+        # if 'updated' is passed in the URL
+        response = self.client.get(
+            reverse('wagtailadmin_pages:edit', args=(page_id, )),
+            {'updated': '1'}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"Saint Patrick [UPDATED]"')
 
 
 class TestPageEditReordering(TestCase, WagtailTestUtils):
