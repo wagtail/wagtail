@@ -354,28 +354,21 @@ class GetAllUsesTest(TestCase):
         self.assertListEqual(uses, self.to_uses(objects))
 
     def test_empty(self):
-        with self.assertNumQueries(60 if self.has_postgres_search
-                                   else (59 if self.is_postgres else 58)):
-            uses = list(get_all_uses(self.obj0))
-            self.assert_uses(uses, [])
+        uses = list(get_all_uses(self.obj0))
+        self.assert_uses(uses, [])
 
     def test_foreign_key(self):
-        with self.assertNumQueries(60 if self.has_postgres_search
-                                   else (59 if self.is_sqlite else 58)):
-            uses = list(get_all_uses(self.obj1))
-            self.assert_uses(uses, [self.obj2])
+        uses = list(get_all_uses(self.obj1))
+        self.assert_uses(uses, [self.obj2])
 
     def test_rich_text(self):
-        with self.assertNumQueries(62 if self.has_postgres_search else 61):
-            uses = list(get_all_uses(self.obj3))
-            self.assert_uses(uses, [self.obj4])
+        uses = list(get_all_uses(self.obj3))
+        self.assert_uses(uses, [self.obj4])
 
     def test_streamfield(self):
-        with self.assertNumQueries(62 if self.has_postgres_search else 61):
-            uses = list(get_all_uses(self.obj3))
-            self.assert_uses(uses, [self.obj4])
+        uses = list(get_all_uses(self.obj3))
+        self.assert_uses(uses, [self.obj4])
 
     def test_multiple(self):
-        with self.assertNumQueries(53 if self.has_postgres_search or self.is_sqlite else 52):
-            uses = list(get_all_uses(self.obj7))
-            self.assert_uses(uses, [self.obj8, self.obj9, self.obj10])
+        uses = list(get_all_uses(self.obj7))
+        self.assert_uses(uses, [self.obj8, self.obj9, self.obj10])
