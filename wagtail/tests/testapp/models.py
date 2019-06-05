@@ -899,8 +899,8 @@ class SnippetChooserModelWithCustomPrimaryKey(models.Model):
 
 
 class CustomImage(AbstractImage):
-    caption = models.CharField(max_length=255)
-    not_editable_field = models.CharField(max_length=255)
+    caption = models.CharField(max_length=255, blank=True)
+    not_editable_field = models.CharField(max_length=255, blank=True)
 
     admin_form_fields = Image.admin_form_fields + (
         'caption',
@@ -909,6 +909,24 @@ class CustomImage(AbstractImage):
 
 class CustomRendition(AbstractRendition):
     image = models.ForeignKey(CustomImage, related_name='renditions', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (
+            ('image', 'filter_spec', 'focal_point_key'),
+        )
+
+
+# Custom image model with a required field
+class CustomImageWithAuthor(AbstractImage):
+    author = models.CharField(max_length=255)
+
+    admin_form_fields = Image.admin_form_fields + (
+        'author',
+    )
+
+
+class CustomRenditionWithAuthor(AbstractRendition):
+    image = models.ForeignKey(CustomImageWithAuthor, related_name='renditions', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (
