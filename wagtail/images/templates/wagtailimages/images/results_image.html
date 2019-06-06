@@ -15,8 +15,4 @@
 
 {% load wagtailimages_tags %}
 
-{% with image.width|stringformat:"s" as image_width and image.height|stringformat:"s" as image_height %}
-    {% with image_description=image.title|add:" ("|add:image_width|add:" pixels by "|add:image_height|add:" pixels)" %}
-        <div class="image">{% image image max-165x165 class="show-transparency" alt=image_description %}</div>
-    {% endwith %}
-{% endwith %}
+<div class="image">{% image image max-165x165 class="show-transparency" alt="" %}</div>
