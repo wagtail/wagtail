@@ -15,7 +15,7 @@
                     uuid: this.options.uuid,
                     editable: this.options.editable,
                     label: 'Documents',
-                    icon: 'icon-file-text-alt',
+                    icon: 'icon-doc-full',
                     command: null
                 });
                 toolbar.append(button);
