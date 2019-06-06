@@ -361,8 +361,8 @@ class TestObjectList(TestCase):
         # result should contain ObjectList furniture
         self.assertIn('<ul class="objects">', result)
 
-        # result should contain h2 headings (including labels) for children
-        self.assertInHTML('<h2><label for="id_date_from">Start date</label></h2>', result)
+        # result should contain labels for children
+        self.assertInHTML('<label for="id_date_from">Start date</label>', result)
 
         # result should include help text for children
         self.assertIn('<div class="object-help help"><span class="icon-help-inverse" aria-hidden="true"></span>Not required if event is on a single day</div>', result)
