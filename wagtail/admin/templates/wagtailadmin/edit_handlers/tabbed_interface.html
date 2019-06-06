@@ -2,7 +2,7 @@
 <ul class="tab-nav merged" role="tablist">
     {% for child in self.children %}
         <li class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}">
-            <h2><a href="#tab-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}">{{ child.heading }}</a></h2>
+            <a href="#tab-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}">{{ child.heading }}</a>
         </li>
     {% endfor %}
 </ul>
