@@ -232,7 +232,7 @@
             font-family: wagtail;
             font-weight: 200;
             text-transform: none;
-            content: 'f';
+            content: map-get($icons, 'search');
             display: block;
             height: 100%;
             line-height: 3.3em;

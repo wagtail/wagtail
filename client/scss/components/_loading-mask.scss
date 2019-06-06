@@ -28,7 +28,7 @@
             margin: -15px 0 0 -15px;
             font-family: wagtail;
             animation: spin 0.5s infinite linear;
-            content: '1';
+            content: map-get($icons, 'spinner');
             z-index: 2;
             color: $color-teal;
         }

@@ -122,7 +122,7 @@
     $size: 15px;
 
     &:before {
-        content: '?';
+        content: map-get($icons, 'help');
         display: inline-block;
         width: $size;
         height: $size;
