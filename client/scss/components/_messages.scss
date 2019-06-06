@@ -36,7 +36,7 @@
 
         &:before {
             font-family: wagtail;
-            content: '!';
+            content: map-get($icons, 'warning');
         }
     }
 
@@ -45,7 +45,7 @@
 
         &:before {
             font-family: wagtail;
-            content: '!';
+            content: map-get($icons, 'warning');
         }
     }
 
@@ -54,7 +54,7 @@
 
         &:before {
             font-family: wagtail;
-            content: '9';
+            content: map-get($icons, 'success');
         }
     }
 

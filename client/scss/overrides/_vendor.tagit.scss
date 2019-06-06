@@ -34,7 +34,7 @@
         font-family: wagtail;
         display: block;
         color: $color-grey-3;
-        content: 'g';
+        content: map-get($icons, 'cross');
     }
 
     .ui-icon-close:hover:before {

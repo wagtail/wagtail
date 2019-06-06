@@ -261,7 +261,7 @@ li.sequence-member {
             transform: rotate(-45deg);
             position: absolute;
             font-family: wagtail;
-            content: 'B';
+            content: map-get($icons, 'plus-inverse');
             line-height: 1em;
             text-align: center;
         }

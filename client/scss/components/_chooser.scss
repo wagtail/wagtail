@@ -85,7 +85,7 @@ overriden here? hmm.
     .unchosen,
     .chosen {
         &:before {
-            content: 'b';
+            content: map-get($icons, 'doc-empty-inverse');
         }
     }
 }
@@ -94,7 +94,7 @@ overriden here? hmm.
     .unchosen,
     .chosen {
         &:before {
-            content: 'D';
+            content: map-get($icons, 'snippet');
         }
     }
 }
@@ -103,7 +103,7 @@ overriden here? hmm.
     .unchosen,
     .chosen {
         &:before {
-            content: 'r';
+            content: map-get($icons, 'doc-full-inverse');
         }
     }
 }
@@ -112,7 +112,7 @@ overriden here? hmm.
     .unchosen,
     .chosen {
         &:before {
-            content: 'o';
+            content: map-get($icons, 'image');
         }
     }
 

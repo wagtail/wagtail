@@ -84,7 +84,7 @@
         float: left;
 
         &:before {
-            content: 'z';
+            content: map-get($icons, 'arrow-left');
         }
     }
 
@@ -93,7 +93,7 @@
         margin-left: 5px;
 
         &:before {
-            content: 'W';
+            content: map-get($icons, 'home');
         }
     }
 
@@ -101,7 +101,7 @@
         float: right;
 
         &:before {
-            content: 'n';
+            content: map-get($icons, 'arrow-right');
         }
     }
 
@@ -127,11 +127,11 @@
         }
 
         .xdsoft_prev:before {
-            content: 'e';
+            content: map-get($icons, 'arrow-up');
         }
 
         .xdsoft_next:before {
-            content: 'q';
+            content: map-get($icons, 'arrow-down');
         }
 
         .xdsoft_time_box {

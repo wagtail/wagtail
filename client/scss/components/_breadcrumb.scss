@@ -31,7 +31,7 @@
                 // z-index: 5;
                 position: absolute;
                 font-family: wagtail;
-                content: 'n';
+                content: map-get($icons, 'arrow-right');
                 padding-left: 20px;
                 font-size: 2em;
                 color: $color-teal-darker;
