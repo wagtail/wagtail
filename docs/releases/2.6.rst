@@ -51,6 +51,7 @@ Bug fixes
  * Prevent text from overlapping in focal point editing UI (Beth Menzies)
  * Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
  * Screen readers now treat page-level action dropdowns as navigation instead of menus (Helen Chapman)
+ * Make icon font implementation more screen-reader-friendly (Thibaud Colas)
 
 
 Upgrade considerations
@@ -60,3 +61,13 @@ Removed support for Python 3.4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Python 3.4 is no longer supported as of this release; please upgrade to Python 3.5 or above before upgrading Wagtail.
+
+Icon font implementation changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The icon font implementation has been changed to be invisible, by switching to using `Private Use Areas <https://en.wikipedia.org/wiki/Private_Use_Areas>`_ Unicode code points. All of the icon classes (``icon-user``, ``icon-search``, etc) should still work the same, except for two which have been removed because they were duplicates:
+
+ * ``icon-picture`` is removed. Use ``icon-image`` instead (same visual).
+ * ``icon-file-text-alt`` is removed. Use ``icon-doc-full`` instead (same visual).
+
+For a list of all available icons, please see the :ref:`styleguide`.
