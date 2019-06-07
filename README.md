@@ -6,7 +6,7 @@
 * [#5286 - Output form media on add/edit image forms](https://github.com/wagtail/wagtail/pull/5286)
 * [#5353 - Support custom add/edit page views on a per-page-type basis](https://github.com/wagtail/wagtail/pull/5353)
 * [#4702 - New UI for listing object uses, including in RichText and StreamField](https://github.com/wagtail/wagtail/pull/4702)
-
+* [#5361 - Offer no delete options, as is on pages and snippets #5361](https://github.com/wagtail/wagtail/pull/5361)
 
 Wagtail is an open source content management system built on Django, with a strong community and commercial support. It's focused on user experience, and offers precise control for designers and developers.
 
@@ -19,7 +19,7 @@ Wagtail is an open source content management system built on Django, with a stro
 * Scales to millions of pages and thousands of editors
 * Fast out of the box, cache-friendly when you need it
 * Content API for 'headless' sites with de-coupled front-end
-* Runs on a Raspberry Pi or a multi-datacenter cloud platform 
+* Runs on a Raspberry Pi or a multi-datacenter cloud platform
 * StreamField encourages flexible content without compromising structure
 * Powerful, integrated search, using Elasticsearch or PostgreSQL
 * Excellent support for images and embedded content
@@ -103,6 +103,6 @@ We thank [BrowserStack](https://www.browserstack.com/), who provide the project 
 
 [![Build Status](https://api.travis-ci.org/wagtail/wagtail.svg?branch=master)](https://travis-ci.org/wagtail/wagtail)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/) 
+[![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/)
 [![Coverage](http://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master)](http://codecov.io/github/wagtail/wagtail?branch=master)
 [![Slack](https://wagtail-slack.now.sh/badge.svg)](https://wagtail-slack.now.sh)
