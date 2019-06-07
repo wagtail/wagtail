@@ -18,6 +18,7 @@
         <form action="{% url 'wagtaildocs:delete' document.id %}" method="POST">
             {% csrf_token %}
             <input type="submit" value='{% trans "Yes, delete" %}' class="button serious" />
+            <a href="{% url 'wagtaildocs:index' %}" class="button button-secondary">{% trans "No, don't delete" %}</a>
         </form>
     </div>
 {% endblock %}
