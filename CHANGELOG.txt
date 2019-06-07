@@ -21,6 +21,7 @@ Changelog
  * Removed version number from the logo link’s title. The version can now be found under the Settings menu (Thibaud Colas)
  * Added "don't delete" option to confirmation screen when deleting images, documents and modeladmin models (Kevin Howbrook)
  * Added `branding_title` template block for the admin title prefix (Dillen Meijboom)
+ * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
@@ -39,6 +40,7 @@ Changelog
  * Fix: Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
  * Fix: Screen readers now treat page-level action dropdowns as navigation instead of menus (Helen Chapman)
  * Fix: Make icon font implementation more screen-reader-friendly (Thibaud Colas)
+ * Fix: Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
 
 
 2.5.1 (07.05.2019)

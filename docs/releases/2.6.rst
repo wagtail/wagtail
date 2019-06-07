@@ -30,6 +30,7 @@ Other features
  * Removed version number from the logo link’s title. The version can now be found under the Settings menu (Thibaud Colas)
  * Added "don't delete" option to confirmation screen when deleting images, documents and modeladmin models (Kevin Howbrook)
  * Added ``branding_title`` template block for the admin title prefix (Dillen Meijboom)
+ * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
 
 Bug fixes
 ~~~~~~~~~
@@ -52,6 +53,7 @@ Bug fixes
  * Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
  * Screen readers now treat page-level action dropdowns as navigation instead of menus (Helen Chapman)
  * Make icon font implementation more screen-reader-friendly (Thibaud Colas)
+ * Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
 
 
 Upgrade considerations
