@@ -15,7 +15,7 @@
                     uuid: this.options.uuid,
                     editable: this.options.editable,
                     label: 'Images',
-                    icon: 'icon-picture',
+                    icon: 'icon-image',
                     command: null
                 });
                 toolbar.append(button);

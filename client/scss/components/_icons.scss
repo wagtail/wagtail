@@ -67,37 +67,11 @@
     font-size: 1.1rem;
 }
 
-.icon-view:before {
-    content: '4';
-}
-
-.icon-no-view:before {
-    content: '^';
-}
-
-.icon-collapse-down:before {
-    content: '5';
-}
-
-.icon-collapse-up:before {
-    content: '6';
-}
-
-.icon-date:before {
-    content: '7';
-}
-
-.icon-time:before {
-    content: '8';
-}
-
-
 .icon-spinner:after,
 .icon-spinner:before {
     width: 1em;
     animation: spin 0.5s infinite linear;
     display: inline-block;
-    // content: '1';
 }
 
 .icon-horizontalrule:before {
@@ -148,7 +122,7 @@
     $size: 15px;
 
     &:before {
-        content: '?';
+        content: map-get($icons, 'help');
         display: inline-block;
         width: $size;
         height: $size;

@@ -12,7 +12,7 @@
         font-family: wagtail;
         display: inline-block;
         color: $color-white;
-        content: 'u';
+        content: map-get($icons, 'tag');
         padding-right: 0.5em;
     }
 

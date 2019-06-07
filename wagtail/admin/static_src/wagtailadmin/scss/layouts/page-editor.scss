@@ -121,7 +121,7 @@ $object-title-height: 40px;
             text-shadow: none;
             font-family: wagtail;
             text-transform: none;
-            content: 'q';
+            content: map-get($icons, 'arrow-down');
             text-align: center;
             display: block;
             position: absolute;
@@ -219,7 +219,7 @@ $object-title-height: 40px;
     // special panel for the publishing fields, requires a bit more pizzazz
     &.publishing {
         > h2:before {
-            content: '7';
+            content: map-get($icons, 'date');
             font-size: 1.8rem;
             line-height: 1.4em;
             width: 1.4em;
@@ -304,7 +304,7 @@ $object-title-height: 40px;
         > h2 {
             &:before,
             > label:before {
-                content: '6';
+                content: map-get($icons, 'collapse-up');
                 cursor: pointer;
             }
         }
@@ -313,7 +313,7 @@ $object-title-height: 40px;
             > h2 {
                 &:before,
                 > label:before {
-                    content: '5';
+                    content: map-get($icons, 'collapse-down');
                 }
             }
         }
