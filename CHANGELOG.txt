@@ -19,6 +19,7 @@ Changelog
  * Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
  * Added consistent focus outline styles across the whole admin (Thibaud Colas)
  * Removed version number from the logo link’s title. The version can now be found under the Settings menu (Thibaud Colas)
+ * Added "don't delete" option to confirmation screen when deleting images, documents and modeladmin models (Kevin Howbrook)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)

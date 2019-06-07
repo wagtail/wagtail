@@ -28,6 +28,7 @@ Other features
  * Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
  * Added consistent focus outline styles across the whole admin (Thibaud Colas)
  * Removed version number from the logo link’s title. The version can now be found under the Settings menu (Thibaud Colas)
+ * Added "don't delete" option to confirmation screen when deleting images, documents and modeladmin models (Kevin Howbrook)
 
 Bug fixes
 ~~~~~~~~~
