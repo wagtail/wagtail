@@ -28,9 +28,9 @@
                     {% for site in sites %}
                         <tr>
                             <td class="hostname title">
-                                <h2>
+                                <div class="title-wrapper">
                                     <a href="{% url 'wagtailsites:edit' site.id %}">{{ site.hostname }}</a>
-                                </h2>
+                                </div>
                             </td>
                             <td class="port">{{ site.port }}</td>
                             <td class="site-name">
