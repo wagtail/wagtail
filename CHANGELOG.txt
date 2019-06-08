@@ -22,6 +22,7 @@ Changelog
  * Added "don't delete" option to confirmation screen when deleting images, documents and modeladmin models (Kevin Howbrook)
  * Added `branding_title` template block for the admin title prefix (Dillen Meijboom)
  * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
+ * Added support for custom search handler classes to modeladmin's IndexView, and added a class that uses the default Wagtail search backend for searching (Seb Brown, Andy Babic)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
