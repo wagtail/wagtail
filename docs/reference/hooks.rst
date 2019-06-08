@@ -624,6 +624,8 @@ Hooks for customising the way admins are directed through the process of editing
 
   .. code-block:: python
 
+    from django.http import HttpResponse
+
     from wagtail.core import hooks
 
     from .models import AwesomePage
@@ -851,6 +853,8 @@ Page serving
   Called when Wagtail is about to serve a page. The callable passed into the hook will receive the page object, the request object, and the ``args`` and ``kwargs`` that will be passed to the page's ``serve()`` method. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``serve()`` on the page.
 
   .. code-block:: python
+
+    from django.http import HttpResponse
 
     from wagtail.core import hooks
 
