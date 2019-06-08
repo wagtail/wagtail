@@ -31,6 +31,8 @@ Other features
  * Added "don't delete" option to confirmation screen when deleting images, documents and modeladmin models (Kevin Howbrook)
  * Added ``branding_title`` template block for the admin title prefix (Dillen Meijboom)
  * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
+ * Added support for custom search handler classes to modeladmin's IndexView, and added a class that uses the default Wagtail search backend for searching (Seb Brown, Andy Babic)
+
 
 Bug fixes
 ~~~~~~~~~
