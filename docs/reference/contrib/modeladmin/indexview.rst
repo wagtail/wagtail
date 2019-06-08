@@ -311,6 +311,7 @@ models, you can use the ``WagtailBackendSearchHandler`` class instead. For
 example:
 
 .. code-block:: python
+
     from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 
     from .models import Person
@@ -361,6 +362,7 @@ and will tell you what you need to change.
 For example, to override the ``WagtailBackendSearchHandler`` default operator you could do the following:
 
 .. code-block:: python
+
     from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
     from wagtail.search.utils import OR
 
