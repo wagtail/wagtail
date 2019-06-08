@@ -27,7 +27,7 @@ lines:
     {% image box.image filter_specs.large as hidpi_retina %}
     <img src="{{ regular.url }}" srcset="{{ regular.url }} 1x, {{ hidpi_retina.url }} 2x" />
 
-Wagtail let's you do just that, because the filter spec can be a template variable.
+Wagtail lets you do just that, because the filter spec can be a template variable.
 
 You can implement this any way you want. An example is illustrated below.
 
@@ -37,18 +37,17 @@ Setup
 
 We are going to achieve three things:
 
-1. We will unify all filter specs in a common python file (e.g. ``settings.py``).
+1. We will unify all filter specs in a common Python file (e.g. ``settings.py``).
 2. A context processor will put these specs into our templates.
 3. As the filter specs now live in a single place (``settings.py``) you can
-   also import them in your python code. This is great if you are :ref:`image_renditions`.
+   also import them in your Python code.
 
 
 Common filter specs
 ^^^^^^^^^^^^^^^^^^^
 
-You can put the filter specs anywhere you want. Highly recommended is a place
-that you can access freely from anywhere in your code. For most django
-projects, this will be the ``settings.py``, used here as example.
+You can put the filter specs anywhere you want. For most Django projects, this will
+be the ``settings.py``, used here as example.
 
  .. code-block:: python
 
@@ -68,7 +67,7 @@ Now we will make these specs available in the templates, via a context
 processor. We assume you add this to ``yourapp/context_processors.py``.
 
  .. code-block:: python
-    
+
     # yourapp/context_processors.py
     # Again, assuming you put the RENDITION_FILTER_SPECS in your project's settings.py
     from django.conf import settings
@@ -106,7 +105,7 @@ Using the filter specs
 ----------------------
 
 Following are two examples showing how to use these newly standardized filter
-specs in your templates and in your python code.
+specs in your templates and in your Python code.
 
 In the templates
 ^^^^^^^^^^^^^^^^
@@ -125,14 +124,14 @@ In your code
 As before, this assumes that you have your filter specs in the ``settings.py``.
 
  .. code-block:: python
- 
+
     from django.conf import settings
 
-    # Let's say you want to generate a tiny, low quality, version of an image.
+    # Lets say you want to generate a tiny, low quality, version of an image.
     low_quali_image = myimage.get_rendition(
         "{spec}|jpegquality-25".format(
             spec=settings.RENDITION_FILTER_SPECS['thumbnail']
         )
     )
-    # or if you are using python 3.6 and like f-strings
+    # or if you are using Python 3.6 or later and like f-strings
     low_quali_image = myimage.get_rendition(f"{settings.RENDITION_FILTER_SPECS['thumbnail']}|jpegquality-25")
