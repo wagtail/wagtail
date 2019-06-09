@@ -26,14 +26,12 @@ page data when proxy models are in use.
 Proxy models registered with ``modeladmin``
 -------------------------------------------
 
-From Wagtail 2.6 ``modeladmin`` will work correctly for **proxy page type models**, but support for
-other proxy models is still a work in progress.
-
-While Wagtail will allow you to register other types of proxy model with ``modeladmin``, the
-various CRUD views will not work correctly, and it is not possible to manage group permissions
-pertaining to these models via the admin UI. In fact, registering (non page) proxy models with
-``modeladmin`` can silently prevent you from managing group permissions for the 'concrete'
-model, if that too has been registered.
+From Wagtail 2.6 ``modeladmin`` works correctly for **proxy page type models** in all
+supported versions of Django. Non-page proxy models are also supported, but only when using
+Wagail in combination with Django 2.2+. With earlier versions of Django, ``modeladmin`` will
+allow you to register non-page proxy models, but the various CRUD views will not work
+correctly, and it is not possible to manage group permissions pertaining to these models via
+the admin UI.
 
 
 Proxy models registered as Snippets
