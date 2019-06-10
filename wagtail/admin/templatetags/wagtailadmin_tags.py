@@ -291,7 +291,7 @@ def querystring(context, **kwargs):
 
 
 @register.simple_tag(takes_context=True)
-def table_header_label(context, label=None, sortable=True, ordering=None, sort_context_var='ordering', sort_param='ordering', sort_field=None):
+def table_header_label(context, label=None, sortable=True, ordering=None, sort_context_var='ordering', sort_param='ordering', sort_field=None, parent_page_title=None):
     """
     A label to go in a table header cell, optionally with a 'sort' link that alternates between
     forward and reverse sorting
@@ -305,6 +305,7 @@ def table_header_label(context, label=None, sortable=True, ordering=None, sort_c
         For example, if sort_param='ordering' and sort_field='title', then a URL parameter of
         ordering=title indicates that the listing is ordered forwards on this column, and a URL parameter
         of ordering=-title indicated that the listing is ordered in reverse on this column
+    parent_page_title = the title of the parent page, for context in the title attribute on the label
     To disable sorting on this column, set sortable=False or leave sort_field unspecified.
     """
     if not sortable or not sort_field:
@@ -319,21 +320,25 @@ def table_header_label(context, label=None, sortable=True, ordering=None, sort_c
         # currently ordering forwards on this column; link should change to reverse ordering
         url = querystring(context, **{sort_param: reverse_sort_field})
         classname = "icon icon-arrow-down-after teal"
+        ordering_label = 'descending'
 
     elif ordering == reverse_sort_field:
         # currently ordering backwards on this column; link should change to forward ordering
         url = querystring(context, **{sort_param: sort_field})
         classname = "icon icon-arrow-up-after teal"
+        ordering_label = 'ascending'
 
     else:
         # not currently ordering on this column; link should change to forward ordering
         url = querystring(context, **{sort_param: sort_field})
         classname = "icon icon-arrow-down-after"
+        ordering_label = 'ascending'
+    print(ordering_label)
 
     return format_html(
         # need whitespace around label for correct positioning of arrow icon
-        '<a href="{url}" class="{classname}"> {label} </a>',
-        url=url, classname=classname, label=label
+        '<a href="{url}" class="{classname}" title="Sort the order of child pages within &quot;{parent_page_title}&quot; by &quot;{label}&quot; in {ordering_label} order">{label}</a>',
+        url=url, classname=classname, label=label, parent_page_title=parent_page_title, ordering_label=ordering_label
     )
 
 
