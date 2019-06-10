@@ -11,6 +11,7 @@ from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
+from wagtail.admin.utils import get_site_for_user
 from wagtail.core import hooks
 from wagtail.core.models import BaseViewRestriction
 from wagtail.core.wagtail_hooks import require_wagtail_login
@@ -103,8 +104,11 @@ class DocumentsSummaryItem(SummaryItem):
     template = 'wagtaildocs/homepage/site_summary_documents.html'
 
     def get_context(self):
+        site_name = get_site_for_user(self.request.user)['site_name']
+
         return {
             'total_docs': get_document_model().objects.count(),
+            'site_name': site_name,
         }
 
     def is_shown(self):
