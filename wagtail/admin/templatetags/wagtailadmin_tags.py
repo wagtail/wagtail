@@ -333,7 +333,6 @@ def table_header_label(context, label=None, sortable=True, ordering=None, sort_c
         url = querystring(context, **{sort_param: sort_field})
         classname = "icon icon-arrow-down-after"
         ordering_label = 'ascending'
-    print(ordering_label)
 
     return format_html(
         # need whitespace around label for correct positioning of arrow icon
