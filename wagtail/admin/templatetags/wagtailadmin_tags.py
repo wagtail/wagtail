@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
@@ -320,24 +321,32 @@ def table_header_label(context, label=None, sortable=True, ordering=None, sort_c
         # currently ordering forwards on this column; link should change to reverse ordering
         url = querystring(context, **{sort_param: reverse_sort_field})
         classname = "icon icon-arrow-down-after teal"
-        ordering_label = 'descending'
+        ordering_label = _('descending')
 
     elif ordering == reverse_sort_field:
         # currently ordering backwards on this column; link should change to forward ordering
         url = querystring(context, **{sort_param: sort_field})
         classname = "icon icon-arrow-up-after teal"
-        ordering_label = 'ascending'
+        ordering_label = _('ascending')
 
     else:
         # not currently ordering on this column; link should change to forward ordering
         url = querystring(context, **{sort_param: sort_field})
         classname = "icon icon-arrow-down-after"
-        ordering_label = 'ascending'
+        ordering_label = _('ascending')
+
+    title_tag = _('Sort the order of child pages within \'')
+    title_tag += parent_page_title
+    title_tag += "%s" % (_('\' by \''))
+    title_tag += label
+    title_tag += "%s" % (_('\' in '))
+    title_tag += "%s" % (ordering_label)
+    title_tag += "%s" % (_(' order.'))
 
     return format_html(
         # need whitespace around label for correct positioning of arrow icon
-        '<a href="{url}" class="{classname}" title="Sort the order of child pages within &quot;{parent_page_title}&quot; by &quot;{label}&quot; in {ordering_label} order">{label}</a>',
-        url=url, classname=classname, label=label, parent_page_title=parent_page_title, ordering_label=ordering_label
+        '<a href="{url}" class="{classname}" title="{title_tag}"> {label} </a>',
+        url=url, classname=classname, label=label, title_tag=title_tag
     )
 
 
