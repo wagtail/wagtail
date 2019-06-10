@@ -356,14 +356,14 @@ ul.listing {
         padding-left: 20px;
     }
 
-    .unpublished h2 {
+    .unpublished .title-wrapper {
         opacity: 0.7;
     }
 
     .index {
         background-color: $color-grey-4;
 
-        .title h2 {
+        .title .title-wrapper {
             font-size: 1.2em;
             opacity: 1;
 
