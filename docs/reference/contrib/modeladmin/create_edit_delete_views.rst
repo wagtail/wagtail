@@ -56,7 +56,10 @@ Or alternatively:
         ]
         edit_handler = ObjectList(custom_panels)
         # or
-        edit_handler = TabbedInterface([ObjectList(custom_panels), ObjectList(...)])
+        edit_handler = TabbedInterface([
+            ObjectList(custom_panels, heading='First Tab'),
+            ObjectList(...)
+        ])
 
 
 .. versionadded:: 2.5
