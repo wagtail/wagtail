@@ -86,7 +86,7 @@ $object-title-height: 40px;
         opacity: 1;
     }
 
-    > h3 {
+    > .title-wrapper {
         box-sizing: border-box;
         height: $object-title-height;
         -webkit-font-smoothing: auto;
@@ -115,8 +115,7 @@ $object-title-height: 40px;
             font-size: inherit;
         }
 
-        &:before,
-        label:before {
+        &:before {
             @include font-smoothing;
             text-shadow: none;
             font-family: wagtail;
@@ -218,7 +217,7 @@ $object-title-height: 40px;
 
     // special panel for the publishing fields, requires a bit more pizzazz
     &.publishing {
-        > h3:before {
+        > .title-wrapper:before {
             content: map-get($icons, 'date');
             font-size: 1.8rem;
             line-height: 1.4em;
@@ -301,18 +300,16 @@ $object-title-height: 40px;
         // and h2 has position: absolute which doesn't add to it either, so it would be 0 without this
         min-height: 41px;
 
-        > h3 {
-            &:before,
-            > label:before {
+        .title-wrapper {
+            &:before {
                 content: map-get($icons, 'collapse-up');
                 cursor: pointer;
             }
         }
 
         &.collapsed {
-            > h3 {
-                &:before,
-                > label:before {
+            .title-wrapper {
+                &:before {
                     content: map-get($icons, 'collapse-down');
                 }
             }
