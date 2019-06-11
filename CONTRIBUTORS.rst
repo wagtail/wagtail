@@ -391,6 +391,7 @@ Contributors
 * Sanyam Khurana
 * Pavel Denisov
 * Mikael Engström
+* Zac Connelly
 
 Translators
 ===========
