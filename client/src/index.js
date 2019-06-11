@@ -11,7 +11,7 @@ import Portal from "./components/Portal/Portal";
 import Transition from "./components/Transition/Transition";
 import Explorer, { ExplorerToggle, initExplorer } from "./components/Explorer";
 import { initFocusOutline } from "./utils/focus";
-import { initSubmenu } from "./components/Submenu";
+import { initSubmenus } from "./includes/initSubmenus";
 
 export {
   Button,
