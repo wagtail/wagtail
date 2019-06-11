@@ -59,7 +59,9 @@ def format_permissions(permission_bound_field):
             permission_action = perm.codename.split('_')[0]
             if permission_action in ['add', 'change', 'delete']:
                 content_perms_dict['object'] = perm.content_type.name
-                content_perms_dict[permission_action] = checkbox
+                content_perms_dict[permission_action] = {
+                    'perm': perm, 'checkbox': checkbox,
+                }
             else:
                 other_perms.append((perm, checkbox))
         if content_perms_dict:
