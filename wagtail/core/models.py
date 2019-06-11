@@ -27,7 +27,7 @@ from modelcluster.models import (
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.query import PageQuerySet, TreeQuerySet
-from wagtail.core.signals import page_published, page_unpublished, post_page_moved, pre_page_moved
+from wagtail.core.signals import page_published, page_unpublished, post_page_move, pre_page_move
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
@@ -1036,7 +1036,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def move(self, target, pos=None):
         """
         Extension to the treebeard 'move' method to ensure that url_path is updated,
-        and to emit a 'pre_page_moved' and 'post_page_moved' signals.
+        and to emit a 'pre_page_move' and 'post_page_move' signals.
         """
         # Determine old and new parents
         parent_before = self.get_parent()
@@ -1051,8 +1051,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         old_url_path = old_self.url_path
         new_url_path = old_self.set_url_path(parent=parent_after)
 
-        # Emit pre_page_moved signal
-        pre_page_moved.send(
+        # Emit pre_page_move signal
+        pre_page_move.send(
             sender=self.specific_class or self.__class__,
             instance=self,
             parent_page_before=parent_before,
@@ -1076,8 +1076,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if old_url_path != new_url_path:
                 new_self._update_descendant_url_paths(old_url_path, new_url_path)
 
-        # Emit post_page_moved signal
-        post_page_moved.send(
+        # Emit post_page_move signal
+        post_page_move.send(
             sender=self.specific_class or self.__class__,
             instance=new_self,
             parent_page_before=parent_before,

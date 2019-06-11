@@ -84,16 +84,16 @@ This signal is emitted from a ``Page`` when the page is unpublished.
 :kwargs: Any other arguments passed to ``page_unpublished.send()``
 
 
-``pre_page_moved`` and ``post_page_moved``
+``pre_page_move`` and ``post_page_move``
 ------------------------------------------
 
 .. versionadded:: 2.6
 
 These signals are emitted from a ``Page`` immediately before and after it is moved.
 
-Subscribe to ``pre_page_moved`` if you need to know values BEFORE any database changes are applied. For example: Getting the page's previous URL, or that of its descendants.
+Subscribe to ``pre_page_move`` if you need to know values BEFORE any database changes are applied. For example: Getting the page's previous URL, or that of its descendants.
 
-Subscribe to ``post_page_moved`` if you need to know values AFTER database changes have been applied. For example: Getting the page's new URL, or that of its descendants.
+Subscribe to ``post_page_move`` if you need to know values AFTER database changes have been applied. For example: Getting the page's new URL, or that of its descendants.
 
 The following arguments are emitted for both signals:
 
@@ -103,7 +103,7 @@ The following arguments are emitted for both signals:
 :parent_page_after: The parent page of ``instance`` **after** moving.
 :url_path_before: The value of ``instance.url_path`` **before** moving.
 :url_path_after: The value of ``instance.url_path`` **after** moving.
-:kwargs: Any other arguments passed to ``pre_page_moved.send()`` or ``post_page_moved.send()``.
+:kwargs: Any other arguments passed to ``pre_page_move.send()`` or ``post_page_move.send()``.
 
 
 Distinguishing between a 'move' and a 'reorder'
@@ -115,7 +115,7 @@ The best way to distinguish between a 'move' and 'reorder' is to compare the ``u
 
 .. code-block:: python
 
-    from wagtail.core.signals import pre_page_moved
+    from wagtail.core.signals import pre_page_move
     from wagtail.contrib.frontend_cache.utils import purge_page_from_cache
 
     # Clear a page's old URLs from the cache when it moves to a different section
@@ -130,4 +130,4 @@ The best way to distinguish between a 'move' and 'reorder' is to compare the ``u
         purge_page_from_cache(kwargs['instance'])
 
     # Register a receiver
-    pre_page_moved.connect(clear_old_page_urls_from_cache)
+    pre_page_move.connect(clear_old_page_urls_from_cache)

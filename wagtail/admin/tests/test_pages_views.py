@@ -23,7 +23,7 @@ from freezegun import freeze_time
 from wagtail.admin.views.home import RecentEditsPanel
 from wagtail.admin.views.pages import PreviewOnEdit
 from wagtail.core.models import GroupPagePermission, Page, PageRevision, Site
-from wagtail.core.signals import page_published, page_unpublished, post_page_moved, pre_page_moved
+from wagtail.core.signals import page_published, page_unpublished, post_page_move, pre_page_move
 from wagtail.search.index import SearchField
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, BusinessChild, BusinessIndex, BusinessSubIndex,
@@ -2634,12 +2634,12 @@ class TestPageMove(TestCase, WagtailTestUtils):
         self.assertIn("{}".format(self.test_page_b.slug), messages[0].message)
 
     def test_move_triggers_signals(self):
-        # Connect a mock signal handler to pre_page_moved and post_page_moved signals
+        # Connect a mock signal handler to pre_page_move and post_page_move signals
         pre_moved_handler = mock.MagicMock()
         post_moved_handler = mock.MagicMock()
 
-        pre_page_moved.connect(pre_moved_handler)
-        post_page_moved.connect(post_moved_handler)
+        pre_page_move.connect(pre_moved_handler)
+        post_page_move.connect(post_moved_handler)
 
         # Post to view to move page
         try:
@@ -2648,10 +2648,10 @@ class TestPageMove(TestCase, WagtailTestUtils):
             )
         finally:
             # Disconnect mock handler to prevent cross-test pollution
-            pre_page_moved.disconnect(pre_moved_handler)
-            post_page_moved.disconnect(post_moved_handler)
+            pre_page_move.disconnect(pre_moved_handler)
+            post_page_move.disconnect(post_moved_handler)
 
-        # Check that the pre_page_moved signal was fired
+        # Check that the pre_page_move signal was fired
         self.assertEqual(pre_moved_handler.call_count, 1)
         self.assertTrue(pre_moved_handler.called_with(
             sender=self.test_page_a.specific_class,
@@ -2662,7 +2662,7 @@ class TestPageMove(TestCase, WagtailTestUtils):
             url_path_after='/home/section-b/hello-world/',
         ))
 
-        # Check that the post_page_moved signal was fired
+        # Check that the post_page_move signal was fired
         self.assertEqual(post_moved_handler.call_count, 1)
         self.assertTrue(post_moved_handler.called_with(
             sender=self.test_page_a.specific_class,
