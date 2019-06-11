@@ -11,3 +11,4 @@ Reference
     hooks
     signals
     project_template
+    multi_site_capabilities
