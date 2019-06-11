@@ -19,13 +19,13 @@
         <tr>
             <td class="title"><h3>{{ content_perms_dict.object|capfirst }}</h3></td>
             <td>
-                {% if content_perms_dict.add %}{{ content_perms_dict.add.tag }}{% endif %}
+                {% if content_perms_dict.add %}{{ content_perms_dict.add.checkbox.tag }}{% endif %}
             </td>
             <td>
-                {% if content_perms_dict.change %}{{ content_perms_dict.change.tag }}{% endif %}
+                {% if content_perms_dict.change %}{{ content_perms_dict.change.checkbox.tag }}{% endif %}
             </td>
             <td>
-                {% if content_perms_dict.delete %}{{ content_perms_dict.delete.tag }}{% endif %}
+                {% if content_perms_dict.delete %}{{ content_perms_dict.delete.checkbox.tag }}{% endif %}
             </td>
         </tr>
         {% endfor %}
