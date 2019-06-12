@@ -1,6 +1,5 @@
 from django.template.loader import render_to_string
 
-from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.utils import get_site_for_user, user_has_any_page_permission
 from wagtail.core import hooks
 from wagtail.core.models import Page, Site
@@ -27,8 +26,9 @@ class PagesSummaryItem(SummaryItem):
     template = 'wagtailadmin/home/site_summary_pages.html'
 
     def get_context(self):
-        root_page = get_explorable_root_page(self.request.user)
-        site_name = get_site_for_user(self.request.user)['site_name']
+        site_details = get_site_for_user(self.request.user)
+        root_page = site_details['root_page']
+        site_name = site_details['site_name']
 
         if root_page:
             page_count = Page.objects.descendant_of(root_page, inclusive=True).count()
