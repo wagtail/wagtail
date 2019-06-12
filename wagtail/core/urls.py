@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
+from django.views.i18n import JavaScriptCatalog
 
 from wagtail.core import views
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH
@@ -27,6 +28,7 @@ urlpatterns = [
         name='wagtailcore_authenticate_with_password'),
     url(r'^_util/login/$', auth_views.LoginView.as_view(template_name=WAGTAIL_FRONTEND_LOGIN_TEMPLATE),
         name='wagtailcore_login'),
+    url(r'^jsi18n/', JavaScriptCatalog.as_view(), name='jsi18n'),
 
     # Front-end page views are handled through Wagtail's core.views.serve
     # mechanism
