@@ -7,8 +7,18 @@
     {% trans "Privacy" %}
     <a href="{% url 'wagtailadmin_collections:set_privacy' collection.id %}" class="status-tag primary  action-set-privacy">
         {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
-        <span class="label-public icon icon-view">{% trans 'Public' %}</span>
-        <span class="label-private icon icon-no-view">{% trans 'Private' %}</span>
+        <span class="label-public icon icon-view">
+            <span class="visuallyhidden">
+                {% trans "Set collection privacy. Current status: " %}
+            </span>
+            {% trans "Public" %}
+        </span>
+        <span class="label-private icon icon-no-view">
+            <span class="visuallyhidden">
+                {% trans "Set collection privacy. Current status: " %}
+            </span>
+            {% trans "Private" %}
+        </span>
     </a>
 </div>
 {% endif %}
