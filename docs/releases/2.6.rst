@@ -32,6 +32,7 @@ Other features
  * Added ``branding_title`` template block for the admin title prefix (Dillen Meijboom)
  * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
  * Added support for custom search handler classes to modeladmin's IndexView, and added a class that uses the default Wagtail search backend for searching (Seb Brown, Andy Babic)
+ * Improved heading structure for screen reader users navigating the CMS admin (Beth Menzies, Helen Chapman)
 
 
 Bug fixes
@@ -56,6 +57,7 @@ Bug fixes
  * Screen readers now treat page-level action dropdowns as navigation instead of menus (Helen Chapman)
  * Make icon font implementation more screen-reader-friendly (Thibaud Colas)
  * Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
+ * Restore custom "Date" icon for scheduled publishing panel in Edit page’s Settings tab (Helen Chapman)
 
 
 Upgrade considerations
