@@ -30,6 +30,8 @@ $icons: (
     'grip': '\e03b',
     'group': '\e031',
     'help': '\e041',
+    // help-inverse directly renders the corresponding character.
+    'help-inverse': '?',
     'home': '\e035',
     // horizontalrule is not rendered as an icon font – it uses a unicode dash character rendered with a fallback font.
     'horizontalrule': '\2014',
