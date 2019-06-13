@@ -115,4 +115,4 @@ class SubmenuMenuItem(MenuItem):
 
 
 admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')
-settings_menu = Menu(register_hook_name='register_settings_menu_item')
+settings_menu = Menu(register_hook_name='register_settings_menu_item', construct_hook_name='construct_settings_menu')

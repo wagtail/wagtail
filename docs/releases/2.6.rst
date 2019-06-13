@@ -73,6 +73,7 @@ Other features
  * Improve performance of Pages for Moderation panel (Fidel Ramos)
  * Added ``process_child_object`` and ``exclude_fields`` arguments to ``Page.copy()`` to make it easier for third-party apps to customise copy behavior (Karl Hobley)
  * Added ``Page.with_content_json()``, allowing revision content loading behaviour to be customised on a per-model basis (Karl Hobley)
+ * Added ``construct_settings_menu`` hook (Jordan Bauer, Quadric)
 
 Bug fixes
 ~~~~~~~~~

@@ -212,6 +212,14 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   As ``register_admin_menu_item``, but registers menu items into the 'Settings' sub-menu rather than the top-level menu.
 
 
+.. _construct_settings_menu:
+
+``construct_settings_menu``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  As ``construct_main_menu``, but modifies the 'Settings' sub-menu rather than the top-level menu.
+
+
 .. _register_admin_search_area:
 
 ``register_admin_search_area``
