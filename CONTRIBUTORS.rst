@@ -375,6 +375,7 @@ Contributors
 * Beth Menzies
 * Michael Bunsen
 * Dillen Meijboom
+* George Hickman
 
 Translators
 ===========

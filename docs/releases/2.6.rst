@@ -33,6 +33,7 @@ Other features
  * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
  * Added support for custom search handler classes to modeladmin's IndexView, and added a class that uses the default Wagtail search backend for searching (Seb Brown, Andy Babic)
  * Improved heading structure for screen reader users navigating the CMS admin (Beth Menzies, Helen Chapman)
+ * Update group edit view to expose the ``Permission`` object for each checkbox (George Hickman)
 
 
 Bug fixes
