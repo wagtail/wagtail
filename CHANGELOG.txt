@@ -34,6 +34,7 @@ Changelog
  * Added screen reader labels for page privacy toggle, edit lock, status tag in page explorer & edit views (Helen Chapman, Katie Locke)
  * Added screen-reader labels for dashboard summary cards (Helen Chapman, Katie Locke)
  * Added screen-reader labels for privacy toggle of collections (Helen Chapman, Katie Locke)
+ * Added `construct_settings_menu` hook (Jordan Bauer, Quadric)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)

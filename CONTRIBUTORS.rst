@@ -379,6 +379,7 @@ Contributors
 * Eric Dyken
 * Jordan Bauer
 * Fidel Ramos
+* Quadric
 
 Translators
 ===========
