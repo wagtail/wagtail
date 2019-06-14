@@ -36,4 +36,4 @@ If you are editing a page, and you find yourself in need of a new snippet, do no
 * You should now see your new snippet, even though you didn't leave the edit page.
 
 .. Note::
-    Even though this is possible, it is worth saving your page as a draft as often as possible, to avoid your changes being lost by navigating away from the edit page accidentally.
+    Even though this is possible, it is worth saving your page as a draft as often as possible, to avoid your changes being lost by navigating away from the edit page accidentally. 
