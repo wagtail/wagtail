@@ -1,7 +1,7 @@
 Collections
 ~~~~~~~~~~~
 
-Access to specific sets of images and documents can be controlled by setting up ‘collections’. By default all images and documents belong to the ‘root’ collection, but new collections can be created through the Settings -> Collections area of the admin interface.
+Access to specific sets of images and documents can be controlled by setting up ‘collections’. By default all images and documents belong to the ‘root’ collection, but new collections can be created through the **Settings -> Collections** area of the admin interface.
 
 .. image:: ../../_static/images/collections_list.png
 
