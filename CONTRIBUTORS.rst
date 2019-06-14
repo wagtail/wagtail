@@ -376,6 +376,7 @@ Contributors
 * Michael Bunsen
 * Dillen Meijboom
 * George Hickman
+* Eric Dyken
 
 Translators
 ===========

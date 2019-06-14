@@ -17,4 +17,4 @@ Documents such as PDFs can be managed from the Documents interface, available in
 * Save or delete documents using the buttons at the bottom of the interface.
 
 .. Warning::
-    Deleted documents cannot be recovered.
+    Deleted documents cannot be recovered. 
