@@ -12,9 +12,7 @@ Wagtail provides multi-site capability via the :ref:`site-model-ref` model.  One
 
 While Wagtail provides multi-site capability and adds the ``site`` object to the request, multi-tenant capability is not currently supported.  Therefore, if more than one site is set up, any user who has access to the admin can log in through any hostname that has been defined for a site.  After logging in, however, all user rights that were assigned via Groups are honored.
 
-.. note::
-
-When a user has rights to view or edit a particular ``BaseSetting``-derived object type, all instances of that object type will be editable, even if a user only has rights to edit the page tree of a particular site.  However, the ``BaseSetting``-derived object instance that is first presented for editing will be the instance that corresponds to the site/hostname under which the user is logged in.
+.. note:: When a user has rights to view or edit a particular ``BaseSetting``-derived object type, all instances of that object type will be editable, even if a user only has rights to edit the page tree of a particular site.  However, the ``BaseSetting``-derived object instance that is first presented for editing will be the instance that corresponds to the site/hostname under which the user is logged in.
 
 Site-Specific Error Pages
 -------------------------
