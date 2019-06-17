@@ -43,6 +43,7 @@ global.wagtailConfig = {
     EDITOR_CRASH: 'The editor just crashed. Content has been reset to the last saved version.',
     BROKEN_LINK: 'Broken link',
     MISSING_DOCUMENT: 'Missing document',
+    CLOSE: 'Close',
   },
 };
 
