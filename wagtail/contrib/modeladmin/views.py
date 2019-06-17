@@ -439,19 +439,9 @@ class IndexView(WMABaseView):
         # database backends.
         pk_name = self.opts.pk.name
 
-        if hasattr(self.model, 'get_filterable_search_fields'):
-            # The model is indexed, so let's be careful to only add
-            # indexed fields to ordering where possible
-            filterable_fields = self.model.get_filterable_search_fields()
-        else:
-            filterable_fields = None
-
         if not (set(ordering) & {'pk', '-pk', pk_name, '-' + pk_name}):
             # ordering isn't already being applied to pk
-            if filterable_fields is None or 'pk' in filterable_fields:
-                ordering.append('-pk')
-            else:
-                ordering.append('-' + pk_name)
+            ordering.append('-' + pk_name)
 
         return ordering
 
