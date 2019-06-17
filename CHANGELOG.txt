@@ -45,6 +45,7 @@ Changelog
  * Fix: Make icon font implementation more screen-reader-friendly (Thibaud Colas)
  * Fix: Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
  * Fix: Restore custom "Date" icon for scheduled publishing panel in Edit page’s Settings tab (Helen Chapman)
+ * Fix: Added missing form media to user edit form template (Matt Westcott)
 
 
 2.5.1 (07.05.2019)
