@@ -61,6 +61,7 @@ Bug fixes
  * Restore custom "Date" icon for scheduled publishing panel in Edit page’s Settings tab (Helen Chapman)
  * Added missing form media to user edit form template (Matt Westcott)
  * Added a label to the modals’ “close” button for screen reader users (Helen Chapman, Katie Locke)
+ * Ensured the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
 
 
 Upgrade considerations
