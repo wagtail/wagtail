@@ -46,6 +46,7 @@ Changelog
  * Fix: Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
  * Fix: Restore custom "Date" icon for scheduled publishing panel in Edit page’s Settings tab (Helen Chapman)
  * Fix: Added missing form media to user edit form template (Matt Westcott)
+ * Fix: Add a label to the modals’ “close” button for screen reader users (Helen Chapman, Katie Locke)
 
 
 2.5.1 (07.05.2019)
