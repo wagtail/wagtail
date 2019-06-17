@@ -279,8 +279,13 @@ ul.listing {
             font-size: 1.5rem;
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
             color: $color-teal;
+        }
+
+        &:focus {
+            opacity: 1; //opacity is already changed on hover on the parent tr
         }
     }
 
