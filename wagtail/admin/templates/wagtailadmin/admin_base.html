@@ -51,6 +51,7 @@
                 EDITOR_CRASH: "{% trans 'The editor just crashed. Content has been reset to the last saved version.' %}",
                 BROKEN_LINK: "{% trans 'Broken link' %}",
                 MISSING_DOCUMENT: "{% trans 'Missing document' %}",
+                CLOSE: "{% trans 'Close' %}",
 
                 MONTHS: [
                     "{% trans 'January' %}",
@@ -102,7 +103,6 @@
     <script src="{% static 'wagtailadmin/js/core.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/vendor.js' %}"></script>
     <script src="{% static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
-    <script type="text/javascript" src="{% url 'jsi18n' %}"></script>
     {% hook_output 'insert_global_admin_js' %}
 
 
