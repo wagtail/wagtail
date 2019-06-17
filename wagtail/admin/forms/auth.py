@@ -5,11 +5,10 @@ from django.utils.translation import ugettext_lazy
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
-        max_length=254, widget=forms.TextInput(attrs={'tabindex': '0'}))
+        max_length=254, widget=forms.TextInput())
 
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            'tabindex': '0',
             'placeholder': ugettext_lazy("Enter password"),
         }))
 

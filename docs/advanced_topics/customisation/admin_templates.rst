@@ -163,7 +163,7 @@ To add extra buttons to the login form, override the ``submit_buttons`` block. Y
 
     {% block submit_buttons %}
         {{ block.super }}
-        <a href="{% url 'signup' %}"><button type="button" class="button" tabindex="4">{% trans 'Sign up' %}</button></a>
+        <a href="{% url 'signup' %}"><button type="button" class="button">{% trans 'Sign up' %}</button></a>
     {% endblock %}
 
 ``login_form``
