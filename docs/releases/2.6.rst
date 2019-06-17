@@ -59,6 +59,7 @@ Bug fixes
  * Make icon font implementation more screen-reader-friendly (Thibaud Colas)
  * Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
  * Restore custom "Date" icon for scheduled publishing panel in Edit page’s Settings tab (Helen Chapman)
+ * Added missing form media to user edit form template (Matt Westcott)
 
 
 Upgrade considerations
