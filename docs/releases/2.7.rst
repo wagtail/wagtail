@@ -53,6 +53,7 @@ Bug fixes
  * Output form media on add/edit image forms with custom models (Matt Westcott)
  * Fixes layout for the clear checkbox in default FileField widget (Mikalai Radchuk)
  * Remove ASCII conversion from Postgres search backend, to support stemming in non-Latin alphabets (Pavel Denisov)
+ * Prevent tab labels on page edit view from being cut off on very narrow screens (Kevin Howbrook)
 
 
 Upgrade considerations
