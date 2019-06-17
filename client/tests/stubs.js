@@ -44,6 +44,7 @@ global.wagtailConfig = {
     BROKEN_LINK: 'Broken link',
     MISSING_DOCUMENT: 'Missing document',
     CLOSE: 'Close',
+    VIEW_CHILD_PAGES_OF: 'View child pages of',
   },
 };
 
