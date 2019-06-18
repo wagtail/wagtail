@@ -25,6 +25,7 @@
                 <li>
                     {% format_permissions permission_bound_field=form.permissions %}
                 </li>
+
                 {% for panel in permission_panels %}
                     <li>
                         {{ panel.as_admin_panel }}

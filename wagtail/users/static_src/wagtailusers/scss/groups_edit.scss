@@ -1,6 +1,8 @@
+@import '../../../../../client/scss/tools/mixins.general';
+
 .listing {
     .field label {
-        display: none;
+        @include visuallyhidden;
     }
 
     input,
