@@ -376,7 +376,7 @@ class ModelAdmin(WagtailRegisterable):
     def edit_view(self, request, instance_pk):
         """
         Instantiates a class-based view to provide 'edit' functionality for the
-        assigned model, or redirect to Wagtail's edit view if the assinged
+        assigned model, or redirect to Wagtail's edit view if the assigned
         model extends 'Page'. The view class used can be overridden by changing
         the  'edit_view_class' attribute.
         """
@@ -388,7 +388,7 @@ class ModelAdmin(WagtailRegisterable):
         """
         Instantiates a class-based view to provide 'delete confirmation'
         functionality for the assigned model, or redirect to Wagtail's delete
-        confirmation view if the assinged model extends 'Page'. The view class
+        confirmation view if the assigned model extends 'Page'. The view class
         used can be overridden by changing the 'delete_view_class'
         attribute.
         """
