@@ -377,6 +377,7 @@ Contributors
 * Dillen Meijboom
 * George Hickman
 * Eric Dyken
+* Jordan Bauer
 
 Translators
 ===========

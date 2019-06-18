@@ -48,6 +48,7 @@ Changelog
  * Fix: Added missing form media to user edit form template (Matt Westcott)
  * Fix: Add a label to the modals’ “close” button for screen reader users (Helen Chapman, Katie Locke)
  * Fix: Ensure the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
+ * Fix: Remove tab order customisations in CMS admin (Jordan Bauer)
 
 
 2.5.1 (07.05.2019)
