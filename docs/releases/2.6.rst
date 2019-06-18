@@ -63,6 +63,7 @@ Bug fixes
  * Added a label to the modals’ “close” button for screen reader users (Helen Chapman, Katie Locke)
  * Ensured the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
  * Removed buggy tab order customisations in the CMS admin (Jordan Bauer)
+ * Added labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
 
 Upgrade considerations
 ======================
