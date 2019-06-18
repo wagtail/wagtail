@@ -82,6 +82,7 @@ class MediaBlock extends Component {
     return (
       <button
         type="button"
+        tabIndex={-1}
         className="MediaBlock"
         onClick={this.openTooltip}
         data-draftail-trigger

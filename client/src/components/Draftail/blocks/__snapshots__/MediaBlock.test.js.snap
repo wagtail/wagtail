@@ -5,6 +5,7 @@ exports[`MediaBlock no data 1`] = `
   className="MediaBlock"
   data-draftail-trigger={true}
   onClick={[Function]}
+  tabIndex={-1}
   type="button"
 >
   <span
@@ -31,6 +32,7 @@ exports[`MediaBlock renders 1`] = `
   className="MediaBlock"
   data-draftail-trigger={true}
   onClick={[Function]}
+  tabIndex={-1}
   type="button"
 >
   <span
