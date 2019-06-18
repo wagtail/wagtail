@@ -7,16 +7,18 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
+      "initialFocus": ".c-explorer__header",
       "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close u-hidden"
+    className="c-explorer__close visuallyhidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
@@ -32,10 +34,17 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
     duration={210}
     name="push"
   >
-    <div
+    <nav
+      aria-labelledby="nav-page-explorer-header"
       className="c-transition-group"
       key="0"
     >
+      <h2
+        className="visuallyhidden"
+        id="nav-page-explorer-header"
+      >
+        Page Explorer
+      </h2>
       <ExplorerHeader
         depth={0}
         onClick={[Function]}
@@ -71,7 +80,7 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
           }
         }
       />
-    </div>
+    </nav>
   </Transition>
 </FocusTrap>
 `;
@@ -83,16 +92,18 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
+      "initialFocus": ".c-explorer__header",
       "onDeactivate": [MockFunction],
     }
   }
   paused={true}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close u-hidden"
+    className="c-explorer__close visuallyhidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
@@ -108,10 +119,17 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
     duration={210}
     name="push"
   >
-    <div
+    <nav
+      aria-labelledby="nav-page-explorer-header"
       className="c-transition-group"
       key="0"
     >
+      <h2
+        className="visuallyhidden"
+        id="nav-page-explorer-header"
+      >
+        Page Explorer
+      </h2>
       <ExplorerHeader
         depth={0}
         onClick={[Function]}
@@ -137,7 +155,7 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
           <LoadingSpinner />
         </div>
       </div>
-    </div>
+    </nav>
   </Transition>
 </FocusTrap>
 `;
@@ -149,16 +167,18 @@ exports[`ExplorerPanel general rendering #items 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
+      "initialFocus": ".c-explorer__header",
       "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close u-hidden"
+    className="c-explorer__close visuallyhidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
@@ -174,10 +194,17 @@ exports[`ExplorerPanel general rendering #items 1`] = `
     duration={210}
     name="push"
   >
-    <div
+    <nav
+      aria-labelledby="nav-page-explorer-header"
       className="c-transition-group"
       key="0"
     >
+      <h2
+        className="visuallyhidden"
+        id="nav-page-explorer-header"
+      >
+        Page Explorer
+      </h2>
       <ExplorerHeader
         depth={0}
         onClick={[Function]}
@@ -228,7 +255,7 @@ exports[`ExplorerPanel general rendering #items 1`] = `
           />
         </div>
       </div>
-    </div>
+    </nav>
   </Transition>
 </FocusTrap>
 `;
@@ -240,16 +267,18 @@ exports[`ExplorerPanel general rendering no children 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
+      "initialFocus": ".c-explorer__header",
       "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close u-hidden"
+    className="c-explorer__close visuallyhidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
@@ -265,10 +294,17 @@ exports[`ExplorerPanel general rendering no children 1`] = `
     duration={210}
     name="push"
   >
-    <div
+    <nav
+      aria-labelledby="nav-page-explorer-header"
       className="c-transition-group"
       key="0"
     >
+      <h2
+        className="visuallyhidden"
+        id="nav-page-explorer-header"
+      >
+        Page Explorer
+      </h2>
       <ExplorerHeader
         depth={0}
         onClick={[Function]}
@@ -288,7 +324,7 @@ exports[`ExplorerPanel general rendering no children 1`] = `
           No results
         </div>
       </div>
-    </div>
+    </nav>
   </Transition>
 </FocusTrap>
 `;
@@ -300,16 +336,18 @@ exports[`ExplorerPanel general rendering renders 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
+      "initialFocus": ".c-explorer__header",
       "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close u-hidden"
+    className="c-explorer__close visuallyhidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
@@ -325,10 +363,17 @@ exports[`ExplorerPanel general rendering renders 1`] = `
     duration={210}
     name="push"
   >
-    <div
+    <nav
+      aria-labelledby="nav-page-explorer-header"
       className="c-transition-group"
       key="0"
     >
+      <h2
+        className="visuallyhidden"
+        id="nav-page-explorer-header"
+      >
+        Page Explorer
+      </h2>
       <ExplorerHeader
         depth={0}
         onClick={[Function]}
@@ -347,7 +392,7 @@ exports[`ExplorerPanel general rendering renders 1`] = `
           key="children"
         />
       </div>
-    </div>
+    </nav>
   </Transition>
 </FocusTrap>
 `;
