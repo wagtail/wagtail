@@ -24,5 +24,5 @@ export {
   ExplorerToggle,
   initExplorer,
   initFocusOutline,
-  initSubmenus
+  initSubmenus,
 };
