@@ -137,8 +137,9 @@ class ExplorerPanel extends React.Component {
 
     return (
       <FocusTrap
-        tag="nav"
+        tag="div"
         aria-labelledby="nav-page-explorer-header"
+        role="dialog"
         className="explorer"
         paused={paused || !page || page.isFetching}
         focusTrapOptions={{
@@ -147,7 +148,7 @@ class ExplorerPanel extends React.Component {
         }}
       >
         <h2 className="visuallyhidden" id="nav-page-explorer-header">Page Explorer</h2>
-        <Button className="c-explorer__close u-hidden" onClick={onClose}>
+        <Button className="c-explorer__close visuallyhidden" onClick={onClose}>
           {STRINGS.CLOSE_EXPLORER}
         </Button>
         <Transition name={transition} className="c-explorer">
