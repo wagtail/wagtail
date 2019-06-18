@@ -5,7 +5,7 @@
 
 {% block form_actions %}
     <div class="dropdown dropup dropdown-button match-width">
-        <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving…' %}" {% if page.locked %}disabled {% endif %}>
+        <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}" {% if page.locked %}disabled {% endif %}>
             <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
         </button>
 

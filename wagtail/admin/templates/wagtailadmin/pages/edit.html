@@ -39,7 +39,7 @@
                 <ul>
                     <li class="actions">
                         <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
-                            <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" tabindex="3" data-clicked-text="{% trans 'Saving…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
+                            <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" data-clicked-text="{% trans 'Saving…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
 
                             {{ action_menu.render_html }}
                         </div>
