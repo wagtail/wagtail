@@ -195,6 +195,17 @@ def collection_member_permission_formset_factory(
     if default_prefix is None:
         default_prefix = '%s_permissions' % model._meta.model_name
 
+    class PermissionMultipleChoiceField(forms.ModelMultipleChoiceField):
+        """
+        Allows the custom labels from ``permission_types`` to be applied to
+        permission checkboxes for the ``CollectionMemberPermissionsForm`` below
+        """
+        def label_from_instance(self, obj):
+            for codename, short_label, long_label in permission_types:
+                if codename == obj.codename:
+                    return long_label
+            return str(obj)
+
     class CollectionMemberPermissionsForm(forms.Form):
         """
         For a given model with CollectionMember behaviour,
@@ -204,7 +215,7 @@ def collection_member_permission_formset_factory(
         collection = forms.ModelChoiceField(
             queryset=Collection.objects.all().prefetch_related('group_permissions')
         )
-        permissions = forms.ModelMultipleChoiceField(
+        permissions = PermissionMultipleChoiceField(
             queryset=permission_queryset,
             required=False,
             widget=forms.CheckboxSelectMultiple
