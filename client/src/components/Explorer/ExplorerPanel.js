@@ -138,7 +138,6 @@ class ExplorerPanel extends React.Component {
     return (
       <FocusTrap
         tag="div"
-        aria-labelledby="nav-page-explorer-header"
         role="dialog"
         className="explorer"
         paused={paused || !page || page.isFetching}
@@ -147,12 +146,12 @@ class ExplorerPanel extends React.Component {
           onDeactivate: onClose,
         }}
       >
-        <h2 className="visuallyhidden" id="nav-page-explorer-header">Page Explorer</h2>
         <Button className="c-explorer__close visuallyhidden" onClick={onClose}>
           {STRINGS.CLOSE_EXPLORER}
         </Button>
         <Transition name={transition} className="c-explorer">
-          <div key={path.length} className="c-transition-group">
+          <nav key={path.length} className="c-transition-group" aria-labelledby="nav-page-explorer-header">
+            <h2 className="visuallyhidden" id="nav-page-explorer-header">Page Explorer</h2>
             <ExplorerHeader
               depth={path.length}
               page={page}
@@ -164,7 +163,7 @@ class ExplorerPanel extends React.Component {
             {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
               <PageCount page={page} />
             ) : null}
-          </div>
+          </nav>
         </Transition>
       </FocusTrap>
     );
