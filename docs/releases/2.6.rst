@@ -13,30 +13,32 @@ What's new
 Accessibility targets and improvements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail now has official accessibility support targets : We are aiming for compliance with `WCAG2.1 <https://www.w3.org/TR/WCAG21/>`_, AA level. WCAG 2.1 is the international standard which underpins many national accessibility laws.
+Wagtail now has official accessibility support targets: we are aiming for compliance with `WCAG2.1 <https://www.w3.org/TR/WCAG21/>`_, AA level. WCAG 2.1 is the international standard which underpins many national accessibility laws.
 
-Wagtail isn’t fully compliant just yet, but we have made many changes to the admin interface to get there. Here are improvements which should make Wagtail more usable for all users regardless of abilities:
+Wagtail isn’t fully compliant just yet, but we have made many changes to the admin interface to get there. We thank the UK Government (in particular the CMS team at the Department for International Trade), who commissioned many of these improvements.
+
+Here are changes which should make Wagtail more usable for all users regardless of abilities:
 
 * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
 * Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
 * Added consistent focus outline styles across the whole admin (Thibaud Colas)
 * Ensured the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
 
-This release also contains very meaningful improvements for screen reader users in particular:
+This release also contains many big improvements for screen reader users:
 
 * Added more ARIA landmarks across the admin interface and welcome page for screen reader users to navigate the CMS more easily (Beth Menzies)
 * Improved heading structure for screen reader users navigating the CMS admin (Beth Menzies, Helen Chapman)
 * Make icon font implementation more screen-reader-friendly (Thibaud Colas)
 * Removed buggy tab order customisations in the CMS admin (Jordan Bauer)
 * Screen readers now treat page-level action dropdowns as navigation instead of menus (Helen Chapman)
-* Fixed occurences of invalid HTML across the CMS admin (Thibaud Colas)
+* Fixed occurrences of invalid HTML across the CMS admin (Thibaud Colas)
 * Add empty alt attributes to all images in the CMS admin (Andreas Bernacca)
 
-And even more improvements to how controls are labeled across the UI:
+We’ve also had a look at how controls are labeled across the UI for screen reader users:
 
 * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
 * Add more contextual information for screen readers in the explorer menu’s links (Helen Chapman)
-* Make URL generator preview image alt translateable (Thibaud Colas)
+* Make URL generator preview image alt translatable (Thibaud Colas)
 * Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
 * Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
 * Added a label to the modals’ “close” button for screen reader users (Helen Chapman, Katie Locke)
