@@ -65,3 +65,19 @@ Removed support for Django 1.11
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Django 1.11 is no longer supported in this release; please upgrade your project to Django 2.0 or 2.1 before upgrading to Wagtail 2.4.
+
+
+Custom image model migrations created on Wagtail <1.8 may fail
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Projects with a custom image model (see :ref:`custom_image_model`) created on Wagtail 1.7 or earlier are likely to have one or more migrations that refer to the (now-deleted) ``wagtailimages.Filter`` model. In Wagtail 2.4, the migrations that defined this model have been squashed, which may result in the error ``ValueError: Related model 'wagtailimages.Filter' cannot be resolved`` when bringing up a new instance of the database. To rectify this, check your project's migrations for ``ForeignKey`` references to ``wagtailimages.Filter``, and change them to ``IntegerField`` definitions. For example, the line:
+
+  .. code-block:: python
+
+    ('filter', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailimages.Filter')),
+
+should become:
+
+  .. code-block:: python
+
+    ('filter', models.IntegerField(blank=True, null=True)),
