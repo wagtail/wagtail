@@ -26,6 +26,7 @@ Changelog
  * Improved heading structure for screen reader users navigating the CMS admin (Beth Menzies, Helen Chapman)
  * Updated group edit view to expose the Permission object for each checkbox (George Hickman)
  * Improve performance of Pages for Moderation panel (Fidel Ramos)
+ * Add more contextual information for screen readers in the explorer menu’s links (Helen Chapman)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)

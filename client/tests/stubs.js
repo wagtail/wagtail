@@ -20,14 +20,12 @@ global.wagtailConfig = {
     SHORT_DATE_FORMAT: 'DD/MM/YYYY',
   },
   STRINGS: {
-    EDIT: 'Edit',
     DELETE: 'Delete',
     PAGE: 'Page',
     PAGES: 'Pages',
     LOADING: 'Loading…',
     NO_RESULTS: 'No results',
     SERVER_ERROR: 'Server Error',
-    SEE_CHILDREN: 'See children',
     SEE_ALL: 'See all',
     CLOSE_EXPLORER: 'Close explorer',
     ALT_TEXT: 'Alt text',
@@ -44,6 +42,8 @@ global.wagtailConfig = {
     BROKEN_LINK: 'Broken link',
     MISSING_DOCUMENT: 'Missing document',
     CLOSE: 'Close',
+    EDIT_PAGE: 'Edit \'{title}\'',
+    VIEW_CHILD_PAGES_OF_PAGE: 'View child pages of \'{title}\'',
   },
 };
 
