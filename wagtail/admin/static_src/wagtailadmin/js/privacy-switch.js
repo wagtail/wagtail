@@ -1,8 +1,8 @@
 $(function() {
     /* Interface to set permissions from the explorer / editor */
-    $('a.action-set-privacy').on('click', function() {
+    $('button.action-set-privacy').on('click', function() {
         ModalWorkflow({
-            url: this.href,
+            url: this.getAttribute('data-url'),
             onload: {
                 'set_privacy': function(modal, jsonData) {
                     $('form', modal.body).on('submit', function() {
