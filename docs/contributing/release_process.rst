@@ -159,8 +159,8 @@ Wagtail 1.4 will still support only Django 1.8 (LTS) and 1.9.
 Release process
 ===============
 
-Wagtail uses a time-based release schedule, with feature releases every 
-`three months <https://github.com/wagtail/wagtail/wiki/Release-schedule>`_.
+Wagtail uses a `time-based release schedule <https://github.com/wagtail/wagtail/wiki/Release-schedule>`_, 
+with feature releases every three months.
 
 After each feature release, the release manager will announce a timeline for
 the next feature release.
