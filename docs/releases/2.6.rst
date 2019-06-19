@@ -10,6 +10,42 @@ Wagtail 2.6 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Accessibility targets and improvements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail now has official accessibility support targets: we are aiming for compliance with `WCAG2.1 <https://www.w3.org/TR/WCAG21/>`_, AA level. WCAG 2.1 is the international standard which underpins many national accessibility laws.
+
+Wagtail isn’t fully compliant just yet, but we have made many changes to the admin interface to get there. We thank the UK Government (in particular the CMS team at the Department for International Trade), who commissioned many of these improvements.
+
+Here are changes which should make Wagtail more usable for all users regardless of abilities:
+
+* Increase font-size across the whole admin (Beth Menzies, Katie Locke)
+* Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
+* Added consistent focus outline styles across the whole admin (Thibaud Colas)
+* Ensured the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
+
+This release also contains many big improvements for screen reader users:
+
+* Added more ARIA landmarks across the admin interface and welcome page for screen reader users to navigate the CMS more easily (Beth Menzies)
+* Improved heading structure for screen reader users navigating the CMS admin (Beth Menzies, Helen Chapman)
+* Make icon font implementation more screen-reader-friendly (Thibaud Colas)
+* Removed buggy tab order customisations in the CMS admin (Jordan Bauer)
+* Screen readers now treat page-level action dropdowns as navigation instead of menus (Helen Chapman)
+* Fixed occurrences of invalid HTML across the CMS admin (Thibaud Colas)
+* Add empty alt attributes to all images in the CMS admin (Andreas Bernacca)
+
+We’ve also had a look at how controls are labeled across the UI for screen reader users:
+
+* Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
+* Add more contextual information for screen readers in the explorer menu’s links (Helen Chapman)
+* Make URL generator preview image alt translatable (Thibaud Colas)
+* Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
+* Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
+* Added a label to the modals’ “close” button for screen reader users (Helen Chapman, Katie Locke)
+* Added labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
+
+Again, this is still a work in progress – if you are aware of other existing accessibility issues, please do `open an issue <https://github.com/wagtail/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3AAccessibility>`_ if there isn’t one already.
+
 
 Other features
 ~~~~~~~~~~~~~~
@@ -18,24 +54,17 @@ Other features
  * Rearranged SCSS folder structure to the client folder and split them approximately according to ITCSS. (Naomi Morduch Toubman, Jonny Scholes, Janneke Janssen, Hugo van den Berg)
  * Added support for specifying cell alignment on TableBlock (Samuel Mendes)
  * Added more informative error when a non-image object is passed to the ``image`` template tag (Deniz Dogan)
- * Added more ARIA landmarks across the admin interface and welcome page for screen reader users to navigate the CMS more easily (Beth Menzies)
  * Added ButtonHelper examples in the modelAdmin primer page within documentation (Kalob Taulien)
  * Multiple clarifications, grammar and typo fixes throughout documentation (Dan Swain)
  * Use correct URL in API example in documentation (Michael Bunsen)
  * Move datetime widget initialiser JS into the widget's form media instead of page editor media (Matt Westcott)
  * Add form field prefixes for input forms in chooser modals (Matt Westcott)
- * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
- * Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
- * Added consistent focus outline styles across the whole admin (Thibaud Colas)
  * Removed version number from the logo link’s title. The version can now be found under the Settings menu (Thibaud Colas)
  * Added "don't delete" option to confirmation screen when deleting images, documents and modeladmin models (Kevin Howbrook)
  * Added ``branding_title`` template block for the admin title prefix (Dillen Meijboom)
- * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
  * Added support for custom search handler classes to modeladmin's IndexView, and added a class that uses the default Wagtail search backend for searching (Seb Brown, Andy Babic)
- * Improved heading structure for screen reader users navigating the CMS admin (Beth Menzies, Helen Chapman)
  * Update group edit view to expose the ``Permission`` object for each checkbox (George Hickman)
  * Improve performance of Pages for Moderation panel (Fidel Ramos)
- * Add more contextual information for screen readers in the explorer menu’s links (Helen Chapman)
 
 
 Bug fixes
@@ -47,25 +76,15 @@ Bug fixes
  * Revised test decorator to ensure TestPageEditHandlers test cases run correctly (Alex Tomkins)
  * Wagtail bird animation in admin now ends correctly on all browsers (Deniz Dogan)
  * Explorer menu no longer shows sibling pages for which the user does not have access (Mike Hearn)
- * Fixed occurences of invalid HTML across the CMS admin (Thibaud Colas)
  * Admin HTML now includes the correct ``dir`` attribute for the active language (Andreas Bernacca)
  * Fix type error when using ``--chunk_size`` argument on ``./manage.py update_index`` (Seb Brown)
  * Avoid rendering entire form in EditHandler's ``repr`` method (Alex Tomkins)
  * Add empty alt attributes to HTML output of Embedly and oEmbed embed finders (Andreas Bernacca)
- * Add empty alt attributes to all images in the CMS admin (Andreas Bernacca)
- * Make URL generator preview image alt translateable (Thibaud Colas)
  * Clear pending AJAX request if error occurs on page chooser (Matt Westcott)
  * Prevent text from overlapping in focal point editing UI (Beth Menzies)
- * Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
- * Screen readers now treat page-level action dropdowns as navigation instead of menus (Helen Chapman)
- * Make icon font implementation more screen-reader-friendly (Thibaud Colas)
- * Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
  * Restore custom "Date" icon for scheduled publishing panel in Edit page’s Settings tab (Helen Chapman)
  * Added missing form media to user edit form template (Matt Westcott)
- * Added a label to the modals’ “close” button for screen reader users (Helen Chapman, Katie Locke)
- * Ensured the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
- * Removed buggy tab order customisations in the CMS admin (Jordan Bauer)
- * Added labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
+
 
 Upgrade considerations
 ======================
@@ -78,7 +97,7 @@ Python 3.4 is no longer supported as of this release; please upgrade to Python 3
 Icon font implementation changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The icon font implementation has been changed to be invisible, by switching to using `Private Use Areas <https://en.wikipedia.org/wiki/Private_Use_Areas>`_ Unicode code points. All of the icon classes (``icon-user``, ``icon-search``, etc) should still work the same, except for two which have been removed because they were duplicates:
+The icon font implementation has been changed to be invisible for screen-reader users, by switching to using `Private Use Areas <https://en.wikipedia.org/wiki/Private_Use_Areas>`_ Unicode code points. All of the icon classes (``icon-user``, ``icon-search``, etc) should still work the same, except for two which have been removed because they were duplicates:
 
  * ``icon-picture`` is removed. Use ``icon-image`` instead (same visual).
  * ``icon-file-text-alt`` is removed. Use ``icon-doc-full`` instead (same visual).
