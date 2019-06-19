@@ -39,7 +39,7 @@ const ExplorerItem = ({ item, onClick }) => {
         href={`${ADMIN_URLS.PAGES}${id}/edit/`}
         className="c-explorer__item__action c-explorer__item__action--small"
       >
-        <Icon name="edit" title={`${STRINGS.EDIT} ${title}`} />
+        <Icon name="edit" title={STRINGS.EDIT_PAGE.replace('{0}', `'${title}'`)} />
       </Button>
       {hasChildren ? (
         <Button
@@ -47,7 +47,7 @@ const ExplorerItem = ({ item, onClick }) => {
           onClick={onClick}
           href={`${ADMIN_URLS.PAGES}${id}/`}
         >
-          <Icon name="arrow-right" title={`${STRINGS.VIEW_CHILD_PAGES_OF} ${title}`} />
+          <Icon name="arrow-right" title={STRINGS.VIEW_CHILD_PAGES_OF_PAGE.replace('{0}', `'${title}'`)} />
         </Button>
       ) : null}
     </div>
