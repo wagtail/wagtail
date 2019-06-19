@@ -1131,7 +1131,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     setattr(child_object, parental_key_name, page_copy.id)
 
                     if process_child_object is not None:
-                        process_child_object(child_relation, child_object)
+                        process_child_object(specific_self, page_copy, child_relation, child_object)
 
                     child_object.save()
 
