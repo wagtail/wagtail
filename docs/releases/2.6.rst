@@ -35,6 +35,7 @@ Other features
  * Improved heading structure for screen reader users navigating the CMS admin (Beth Menzies, Helen Chapman)
  * Update group edit view to expose the ``Permission`` object for each checkbox (George Hickman)
  * Improve performance of Pages for Moderation panel (Fidel Ramos)
+ * Add more contextual information for screen readers in the explorer menu’s links (Helen Chapman)
 
 
 Bug fixes
