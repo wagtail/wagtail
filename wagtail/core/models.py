@@ -1409,19 +1409,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def with_content_json(self, content_json):
         obj = self.specific_class.from_json(content_json)
 
-        # Override the possibly-outdated tree parameter fields from this revision object
-        # with up-to-date values
+        # Override the possibly-outdated tree parameter fields from the supplied content
         obj.pk = self.pk
         obj.path = self.path
         obj.depth = self.depth
         obj.numchild = self.numchild
 
-        # Populate url_path based on the revision's current slug and the parent page as determined
-        # by path
+        # Update url_path to reflect potential slug changes, but maintining the page's
+        # existing tree position
         obj.set_url_path(self.get_parent())
 
-        # also copy over other properties which are meaningful for the page as a whole, not a
-        # specific revision of it
+        # Ensure other values that are meaningful for the page as a whole (rather than
+        # to a specific revision) are preserved
         obj.draft_title = self.draft_title
         obj.live = self.live
         obj.has_unpublished_changes = self.has_unpublished_changes
