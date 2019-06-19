@@ -1,5 +1,6 @@
 import datetime
 import json
+from unittest.mock import Mock
 
 import pytz
 from django.contrib.auth import get_user_model
@@ -736,6 +737,57 @@ class TestCopyPage(TestCase):
             new_christmas_event.categories.all().in_bulk(),
             christmas_event.categories.all().in_bulk()
         )
+
+    def test_copy_page_does_not_copy_child_objects_if_accessor_name_in_exclude_fields(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Copy the page as in `test_copy_page_copies_child_objects()``, but using exclude_fields
+        # to prevent 'advert_placements' from being copied to the new version
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'},
+            exclude_fields=['advert_placements']
+        )
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(christmas_event.speakers.count(), 1, "Child objects were removed from the original page")
+
+        # Check that advert placements were NOT copied over, but were not removed from the old page
+        self.assertFalse(
+            new_christmas_event.advert_placements.exists(),
+            "Child objects were copied despite accessor_name being specified in `exclude_fields`"
+        )
+        self.assertEqual(
+            christmas_event.advert_placements.count(),
+            1,
+            "Child objects defined on the superclass were removed from the original page"
+        )
+
+    def test_copy_page_with_process_child_object_supplied(self):
+
+        # We'll provide this when copying and test that it gets called twice:
+        # Once for the single speaker, and another for the single advert_placement
+        modify_child = Mock()
+
+        old_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        new_event = old_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'},
+            process_child_object=modify_child
+        )
+
+        # The method should have been called with these arguments when copying
+        # the advert placement
+        relationship = EventPage._meta.get_field('advert_placements')
+        child_object = new_event.advert_placements.get()
+        modify_child.assert_any_call(old_event, new_event, relationship, child_object)
+
+        # And again with these arguments when copying the speaker
+        relationship = EventPage._meta.get_field('speaker')
+        child_object = new_event.speakers.get()
+        modify_child.assert_any_call(old_event, new_event, relationship, child_object)
 
     def test_copy_page_copies_revisions(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
