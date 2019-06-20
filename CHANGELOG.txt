@@ -28,6 +28,7 @@ Changelog
  * Improve performance of Pages for Moderation panel (Fidel Ramos)
  * Add more contextual information for screen readers in the explorer menu’s links (Helen Chapman)
  * Added `process_child_object` and `exclude_fields` arguments to ``Page.copy()`` to make it easier for third-party apps to customise copy behavior (Karl Hobley)
+ * Added `Page.with_content_json()`, allowing revision content loading behaviour to be customised on a per-model basis (Karl Hobley)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
