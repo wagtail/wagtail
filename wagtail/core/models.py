@@ -1421,6 +1421,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # Ensure other values that are meaningful for the page as a whole (rather than
         # to a specific revision) are preserved
+        obj.content_type = self.content_type
         obj.draft_title = self.draft_title
         obj.live = self.live
         obj.has_unpublished_changes = self.has_unpublished_changes
@@ -1428,6 +1429,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.locked = self.locked
         obj.latest_revision_created_at = self.latest_revision_created_at
         obj.first_published_at = self.first_published_at
+        obj.show_in_menus = self.show_in_menus
 
         return obj
 
