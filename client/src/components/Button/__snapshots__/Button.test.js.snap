@@ -30,6 +30,17 @@ exports[`Button #children 1`] = `
 </a>
 `;
 
+exports[`Button #dialogTrigger 1`] = `
+<a
+  aria-haspopup="dialog"
+  className=" "
+  href="#"
+  onClick={[Function]}
+  rel={null}
+  target={null}
+/>
+`;
+
 exports[`Button #icon 1`] = `
 <a
   aria-haspopup={null}

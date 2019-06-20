@@ -20,6 +20,10 @@ describe('Button', () => {
     expect(shallow(<Button accessibleLabel="I am here in the shadows" />)).toMatchSnapshot();
   });
 
+  it('#dialogTrigger', () => {
+    expect(shallow(<Button dialogTrigger />)).toMatchSnapshot();
+  });
+
   it('#icon', () => {
     expect(shallow(<Button icon="test-icon" />)).toMatchSnapshot();
   });
