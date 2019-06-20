@@ -1586,3 +1586,62 @@ class TestShowInMenusDefaultOption(TestCase):
 
         # Check that the page instance creates with show_in_menu as True
         self.assertTrue(page.show_in_menus)
+
+
+class TestPageWithContentJSON(TestCase):
+    fixtures = ['test.json']
+
+    def test_with_content_json_preserves_values(self):
+        original_page = SimplePage.objects.get(url_path='/home/about-us/')
+        eventpage_content_type = ContentType.objects.get_for_model(EventPage)
+
+        # Take a json representation of the page and update it
+        # with some alternative values
+        content = json.loads(original_page.to_json())
+        content.update(
+            title='About them',
+            draft_title='About them',
+            slug='about-them',
+            url_path='/home/some-section/about-them/',
+            pk=original_page.pk + 999,
+            numchild=original_page.numchild + 999,
+            depth=original_page.depth + 999,
+            path=original_page.path + 'ABCDEF',
+            content='<p>They are not as good</p>',
+            first_published_at="2000-01-01T00:00:00Z",
+            last_published_at="2000-01-01T00:00:00Z",
+            live=not original_page.live,
+            locked=not original_page.locked,
+            has_unpublished_changes=not original_page.has_unpublished_changes,
+            content_type=eventpage_content_type.id,
+            show_in_menus=not original_page.show_in_menus,
+            owner=1
+        )
+
+        # Convert values back to json and pass them to with_content_json()
+        # to get an updated version of the page
+        content_json = json.dumps(content)
+        updated_page = original_page.with_content_json(content_json)
+
+        # The following attributes values should have changed
+        for attr_name in ('title', 'slug', 'content', 'url_path', 'show_in_menus'):
+            self.assertNotEqual(
+                getattr(original_page, attr_name),
+                getattr(updated_page, attr_name)
+            )
+
+        # The following attribute values should have been preserved,
+        # despite new values being provided in content_json
+        for attr_name in (
+            'pk', 'path', 'depth', 'numchild', 'content_type', 'draft_title',
+            'live', 'has_unpublished_changes', 'owner', 'locked',
+            'latest_revision_created_at', 'first_published_at',
+        ):
+            self.assertEqual(
+                getattr(original_page, attr_name),
+                getattr(updated_page, attr_name)
+            )
+
+        # The url_path should reflect the new slug value, but the
+        # rest of the path should have remained unchanged
+        self.assertEqual(updated_page.url_path, '/home/about-them/')
