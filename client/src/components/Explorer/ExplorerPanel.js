@@ -150,17 +150,19 @@ class ExplorerPanel extends React.Component {
           {STRINGS.CLOSE_EXPLORER}
         </Button>
         <Transition name={transition} className="c-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
-          <ExplorerHeader
-            depth={path.length}
-            page={page}
-            onClick={this.onHeaderClick}
-          />
+          <div key={path.length} className="c-transition-group">
+            <ExplorerHeader
+              depth={path.length}
+              page={page}
+              onClick={this.onHeaderClick}
+            />
 
-          {this.renderChildren()}
+            {this.renderChildren()}
 
-          {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
-            <PageCount page={page} />
-          ) : null}
+            {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
+              <PageCount page={page} />
+            ) : null}
+          </div>
         </Transition>
       </FocusTrap>
     );

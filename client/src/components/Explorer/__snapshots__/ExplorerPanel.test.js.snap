@@ -35,41 +35,46 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
     label="Page explorer"
     name="push"
   >
-    <ExplorerHeader
-      depth={0}
-      onClick={[Function]}
-      page={
-        Object {
-          "children": Object {
-            "items": Array [],
-          },
-          "isError": true,
-        }
-      }
-    />
     <div
-      className="c-explorer__drawer"
+      className="c-transition-group"
+      key="0"
     >
-      <div
-        key="children"
+      <ExplorerHeader
+        depth={0}
+        onClick={[Function]}
+        page={
+          Object {
+            "children": Object {
+              "items": Array [],
+            },
+            "isError": true,
+          }
+        }
       />
       <div
-        className="c-explorer__placeholder"
-        key="error"
+        className="c-explorer__drawer"
       >
-        Server Error
+        <div
+          key="children"
+        />
+        <div
+          className="c-explorer__placeholder"
+          key="error"
+        >
+          Server Error
+        </div>
       </div>
-    </div>
-    <PageCount
-      page={
-        Object {
-          "children": Object {
-            "items": Array [],
-          },
-          "isError": true,
+      <PageCount
+        page={
+          Object {
+            "children": Object {
+              "items": Array [],
+            },
+            "isError": true,
+          }
         }
-      }
-    />
+      />
+    </div>
   </Transition>
 </FocusTrap>
 `;
@@ -109,29 +114,34 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
     label="Page explorer"
     name="push"
   >
-    <ExplorerHeader
-      depth={0}
-      onClick={[Function]}
-      page={
-        Object {
-          "children": Object {
-            "items": Array [],
-          },
-          "isFetching": true,
-        }
-      }
-    />
     <div
-      className="c-explorer__drawer"
+      className="c-transition-group"
+      key="0"
     >
-      <div
-        key="children"
+      <ExplorerHeader
+        depth={0}
+        onClick={[Function]}
+        page={
+          Object {
+            "children": Object {
+              "items": Array [],
+            },
+            "isFetching": true,
+          }
+        }
       />
       <div
-        className="c-explorer__placeholder"
-        key="fetching"
+        className="c-explorer__drawer"
       >
-        <LoadingSpinner />
+        <div
+          key="children"
+        />
+        <div
+          className="c-explorer__placeholder"
+          key="fetching"
+        >
+          <LoadingSpinner />
+        </div>
       </div>
     </div>
   </Transition>
@@ -173,54 +183,59 @@ exports[`ExplorerPanel general rendering #items 1`] = `
     label="Page explorer"
     name="push"
   >
-    <ExplorerHeader
-      depth={0}
-      onClick={[Function]}
-      page={
-        Object {
-          "children": Object {
-            "items": Array [
-              1,
-              2,
-            ],
-          },
-        }
-      }
-    />
     <div
-      className="c-explorer__drawer"
+      className="c-transition-group"
+      key="0"
     >
+      <ExplorerHeader
+        depth={0}
+        onClick={[Function]}
+        page={
+          Object {
+            "children": Object {
+              "items": Array [
+                1,
+                2,
+              ],
+            },
+          }
+        }
+      />
       <div
-        key="children"
+        className="c-explorer__drawer"
       >
-        <ExplorerItem
-          item={
-            Object {
-              "admin_display_title": "Test",
-              "id": 1,
-              "meta": Object {
-                "status": Object {},
-                "type": "test",
-              },
+        <div
+          key="children"
+        >
+          <ExplorerItem
+            item={
+              Object {
+                "admin_display_title": "Test",
+                "id": 1,
+                "meta": Object {
+                  "status": Object {},
+                  "type": "test",
+                },
+              }
             }
-          }
-          key="1"
-          onClick={[Function]}
-        />
-        <ExplorerItem
-          item={
-            Object {
-              "admin_display_title": "Foo",
-              "id": 2,
-              "meta": Object {
-                "status": Object {},
-                "type": "foo",
-              },
+            key="1"
+            onClick={[Function]}
+          />
+          <ExplorerItem
+            item={
+              Object {
+                "admin_display_title": "Foo",
+                "id": 2,
+                "meta": Object {
+                  "status": Object {},
+                  "type": "foo",
+                },
+              }
             }
-          }
-          key="2"
-          onClick={[Function]}
-        />
+            key="2"
+            onClick={[Function]}
+          />
+        </div>
       </div>
     </div>
   </Transition>
@@ -262,23 +277,28 @@ exports[`ExplorerPanel general rendering no children 1`] = `
     label="Page explorer"
     name="push"
   >
-    <ExplorerHeader
-      depth={0}
-      onClick={[Function]}
-      page={
-        Object {
-          "children": Object {},
-        }
-      }
-    />
     <div
-      className="c-explorer__drawer"
+      className="c-transition-group"
+      key="0"
     >
+      <ExplorerHeader
+        depth={0}
+        onClick={[Function]}
+        page={
+          Object {
+            "children": Object {},
+          }
+        }
+      />
       <div
-        className="c-explorer__placeholder"
-        key="empty"
+        className="c-explorer__drawer"
       >
-        No results
+        <div
+          className="c-explorer__placeholder"
+          key="empty"
+        >
+          No results
+        </div>
       </div>
     </div>
   </Transition>
@@ -320,23 +340,28 @@ exports[`ExplorerPanel general rendering renders 1`] = `
     label="Page explorer"
     name="push"
   >
-    <ExplorerHeader
-      depth={0}
-      onClick={[Function]}
-      page={
-        Object {
-          "children": Object {
-            "items": Array [],
-          },
-        }
-      }
-    />
     <div
-      className="c-explorer__drawer"
+      className="c-transition-group"
+      key="0"
     >
-      <div
-        key="children"
+      <ExplorerHeader
+        depth={0}
+        onClick={[Function]}
+        page={
+          Object {
+            "children": Object {
+              "items": Array [],
+            },
+          }
+        }
       />
+      <div
+        className="c-explorer__drawer"
+      >
+        <div
+          key="children"
+        />
+      </div>
     </div>
   </Transition>
 </FocusTrap>
