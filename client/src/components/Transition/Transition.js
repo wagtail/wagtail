@@ -18,6 +18,7 @@ const Transition = ({
   className,
   duration,
   children,
+  label,
 }) => (
   <CSSTransitionGroup
     component={component}
@@ -25,6 +26,7 @@ const Transition = ({
     transitionLeaveTimeout={duration}
     transitionName={`c-transition-${name}`}
     className={className}
+    aria-label={label}
   >
     {children}
   </CSSTransitionGroup>

@@ -17,7 +17,7 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close visuallyhidden"
+    className="c-explorer__close u-hidden"
     dialogTrigger={false}
     href="#"
     icon=""
@@ -30,57 +30,46 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
-    <nav
-      aria-labelledby="nav-page-explorer-header"
-      className="c-transition-group"
-      key="0"
-    >
-      <h2
-        className="visuallyhidden"
-        id="nav-page-explorer-header"
-      >
-        Page Explorer
-      </h2>
-      <ExplorerHeader
-        depth={0}
-        onClick={[Function]}
-        page={
-          Object {
-            "children": Object {
-              "items": Array [],
-            },
-            "isError": true,
-          }
+    <ExplorerHeader
+      depth={0}
+      onClick={[Function]}
+      page={
+        Object {
+          "children": Object {
+            "items": Array [],
+          },
+          "isError": true,
         }
+      }
+    />
+    <div
+      className="c-explorer__drawer"
+    >
+      <div
+        key="children"
       />
       <div
-        className="c-explorer__drawer"
+        className="c-explorer__placeholder"
+        key="error"
       >
-        <div
-          key="children"
-        />
-        <div
-          className="c-explorer__placeholder"
-          key="error"
-        >
-          Server Error
-        </div>
+        Server Error
       </div>
-      <PageCount
-        page={
-          Object {
-            "children": Object {
-              "items": Array [],
-            },
-            "isError": true,
-          }
+    </div>
+    <PageCount
+      page={
+        Object {
+          "children": Object {
+            "items": Array [],
+          },
+          "isError": true,
         }
-      />
-    </nav>
+      }
+    />
   </Transition>
 </FocusTrap>
 `;
@@ -102,7 +91,7 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close visuallyhidden"
+    className="c-explorer__close u-hidden"
     dialogTrigger={false}
     href="#"
     icon=""
@@ -115,47 +104,36 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
-    <nav
-      aria-labelledby="nav-page-explorer-header"
-      className="c-transition-group"
-      key="0"
-    >
-      <h2
-        className="visuallyhidden"
-        id="nav-page-explorer-header"
-      >
-        Page Explorer
-      </h2>
-      <ExplorerHeader
-        depth={0}
-        onClick={[Function]}
-        page={
-          Object {
-            "children": Object {
-              "items": Array [],
-            },
-            "isFetching": true,
-          }
+    <ExplorerHeader
+      depth={0}
+      onClick={[Function]}
+      page={
+        Object {
+          "children": Object {
+            "items": Array [],
+          },
+          "isFetching": true,
         }
+      }
+    />
+    <div
+      className="c-explorer__drawer"
+    >
+      <div
+        key="children"
       />
       <div
-        className="c-explorer__drawer"
+        className="c-explorer__placeholder"
+        key="fetching"
       >
-        <div
-          key="children"
-        />
-        <div
-          className="c-explorer__placeholder"
-          key="fetching"
-        >
-          <LoadingSpinner />
-        </div>
+        <LoadingSpinner />
       </div>
-    </nav>
+    </div>
   </Transition>
 </FocusTrap>
 `;
@@ -177,7 +155,7 @@ exports[`ExplorerPanel general rendering #items 1`] = `
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close visuallyhidden"
+    className="c-explorer__close u-hidden"
     dialogTrigger={false}
     href="#"
     icon=""
@@ -190,72 +168,61 @@ exports[`ExplorerPanel general rendering #items 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
-    <nav
-      aria-labelledby="nav-page-explorer-header"
-      className="c-transition-group"
-      key="0"
-    >
-      <h2
-        className="visuallyhidden"
-        id="nav-page-explorer-header"
-      >
-        Page Explorer
-      </h2>
-      <ExplorerHeader
-        depth={0}
-        onClick={[Function]}
-        page={
-          Object {
-            "children": Object {
-              "items": Array [
-                1,
-                2,
-              ],
-            },
-          }
+    <ExplorerHeader
+      depth={0}
+      onClick={[Function]}
+      page={
+        Object {
+          "children": Object {
+            "items": Array [
+              1,
+              2,
+            ],
+          },
         }
-      />
+      }
+    />
+    <div
+      className="c-explorer__drawer"
+    >
       <div
-        className="c-explorer__drawer"
+        key="children"
       >
-        <div
-          key="children"
-        >
-          <ExplorerItem
-            item={
-              Object {
-                "admin_display_title": "Test",
-                "id": 1,
-                "meta": Object {
-                  "status": Object {},
-                  "type": "test",
-                },
-              }
+        <ExplorerItem
+          item={
+            Object {
+              "admin_display_title": "Test",
+              "id": 1,
+              "meta": Object {
+                "status": Object {},
+                "type": "test",
+              },
             }
-            key="1"
-            onClick={[Function]}
-          />
-          <ExplorerItem
-            item={
-              Object {
-                "admin_display_title": "Foo",
-                "id": 2,
-                "meta": Object {
-                  "status": Object {},
-                  "type": "foo",
-                },
-              }
+          }
+          key="1"
+          onClick={[Function]}
+        />
+        <ExplorerItem
+          item={
+            Object {
+              "admin_display_title": "Foo",
+              "id": 2,
+              "meta": Object {
+                "status": Object {},
+                "type": "foo",
+              },
             }
-            key="2"
-            onClick={[Function]}
-          />
-        </div>
+          }
+          key="2"
+          onClick={[Function]}
+        />
       </div>
-    </nav>
+    </div>
   </Transition>
 </FocusTrap>
 `;
@@ -277,7 +244,7 @@ exports[`ExplorerPanel general rendering no children 1`] = `
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close visuallyhidden"
+    className="c-explorer__close u-hidden"
     dialogTrigger={false}
     href="#"
     icon=""
@@ -290,41 +257,30 @@ exports[`ExplorerPanel general rendering no children 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
-    <nav
-      aria-labelledby="nav-page-explorer-header"
-      className="c-transition-group"
-      key="0"
-    >
-      <h2
-        className="visuallyhidden"
-        id="nav-page-explorer-header"
-      >
-        Page Explorer
-      </h2>
-      <ExplorerHeader
-        depth={0}
-        onClick={[Function]}
-        page={
-          Object {
-            "children": Object {},
-          }
+    <ExplorerHeader
+      depth={0}
+      onClick={[Function]}
+      page={
+        Object {
+          "children": Object {},
         }
-      />
+      }
+    />
+    <div
+      className="c-explorer__drawer"
+    >
       <div
-        className="c-explorer__drawer"
+        className="c-explorer__placeholder"
+        key="empty"
       >
-        <div
-          className="c-explorer__placeholder"
-          key="empty"
-        >
-          No results
-        </div>
+        No results
       </div>
-    </nav>
+    </div>
   </Transition>
 </FocusTrap>
 `;
@@ -346,7 +302,7 @@ exports[`ExplorerPanel general rendering renders 1`] = `
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close visuallyhidden"
+    className="c-explorer__close u-hidden"
     dialogTrigger={false}
     href="#"
     icon=""
@@ -359,40 +315,29 @@ exports[`ExplorerPanel general rendering renders 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
-    <nav
-      aria-labelledby="nav-page-explorer-header"
-      className="c-transition-group"
-      key="0"
-    >
-      <h2
-        className="visuallyhidden"
-        id="nav-page-explorer-header"
-      >
-        Page Explorer
-      </h2>
-      <ExplorerHeader
-        depth={0}
-        onClick={[Function]}
-        page={
-          Object {
-            "children": Object {
-              "items": Array [],
-            },
-          }
+    <ExplorerHeader
+      depth={0}
+      onClick={[Function]}
+      page={
+        Object {
+          "children": Object {
+            "items": Array [],
+          },
         }
-      />
+      }
+    />
+    <div
+      className="c-explorer__drawer"
+    >
       <div
-        className="c-explorer__drawer"
-      >
-        <div
-          key="children"
-        />
-      </div>
-    </nav>
+        key="children"
+      />
+    </div>
   </Transition>
 </FocusTrap>
 `;

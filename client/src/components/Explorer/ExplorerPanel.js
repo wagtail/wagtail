@@ -146,24 +146,21 @@ class ExplorerPanel extends React.Component {
           onDeactivate: onClose,
         }}
       >
-        <Button className="c-explorer__close visuallyhidden" onClick={onClose}>
+        <Button className="c-explorer__close u-hidden" onClick={onClose}>
           {STRINGS.CLOSE_EXPLORER}
         </Button>
-        <Transition name={transition} className="c-explorer">
-          <nav key={path.length} className="c-transition-group" aria-labelledby="nav-page-explorer-header">
-            <h2 className="visuallyhidden" id="nav-page-explorer-header">Page Explorer</h2>
-            <ExplorerHeader
-              depth={path.length}
-              page={page}
-              onClick={this.onHeaderClick}
-            />
+        <Transition name={transition} className="c-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
+          <ExplorerHeader
+            depth={path.length}
+            page={page}
+            onClick={this.onHeaderClick}
+          />
 
-            {this.renderChildren()}
+          {this.renderChildren()}
 
-            {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
-              <PageCount page={page} />
-            ) : null}
-          </nav>
+          {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
+            <PageCount page={page} />
+          ) : null}
         </Transition>
       </FocusTrap>
     );
