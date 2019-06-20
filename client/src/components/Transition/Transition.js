@@ -38,6 +38,7 @@ Transition.propTypes = {
   className: PropTypes.string,
   duration: PropTypes.number,
   children: PropTypes.node,
+  label: PropTypes.string,
 };
 
 Transition.defaultProps = {
@@ -45,6 +46,7 @@ Transition.defaultProps = {
   children: null,
   className: null,
   duration: TRANSITION_DURATION,
+  label: null,
 };
 
 export default Transition;
