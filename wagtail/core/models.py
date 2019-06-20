@@ -1429,7 +1429,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.locked = self.locked
         obj.latest_revision_created_at = self.latest_revision_created_at
         obj.first_published_at = self.first_published_at
-        obj.show_in_menus = self.show_in_menus
 
         return obj
 
