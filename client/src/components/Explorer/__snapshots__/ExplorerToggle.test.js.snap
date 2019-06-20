@@ -4,6 +4,7 @@ exports[`ExplorerToggle basic 1`] = `
 <Button
   accessibleLabel={null}
   className="submenu-trigger"
+  dialogTrigger={true}
   href="#"
   icon="folder-open-inverse"
   isLoading={false}
