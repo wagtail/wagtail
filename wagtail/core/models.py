@@ -1503,7 +1503,7 @@ class PageRevision(models.Model):
             self.page.revisions.exclude(id=self.id).update(submitted_for_moderation=False)
 
     def as_page_object(self):
-        return self.page.with_content_json(self.content_json)
+        return self.page.specific.with_content_json(self.content_json)
 
     def approve_moderation(self):
         if self.submitted_for_moderation:
