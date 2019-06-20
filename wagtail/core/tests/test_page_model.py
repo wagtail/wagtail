@@ -1544,7 +1544,7 @@ class TestPageWithContentJSON(TestCase):
         eventpage_content_type = ContentType.objects.get_for_model(EventPage)
 
         # Take a json representation of the page and update it
-        # with the above values
+        # with some alternative values
         content = json.loads(original_page.to_json())
         content.update(
             title='About them',
@@ -1572,7 +1572,7 @@ class TestPageWithContentJSON(TestCase):
         updated_page = original_page.with_content_json(content_json)
 
         # The following attributes values should have changed
-        for attr_name in ('title', 'slug', 'content', 'url_path'):
+        for attr_name in ('title', 'slug', 'content', 'url_path', 'show_in_menus'):
             self.assertNotEqual(
                 getattr(original_page, attr_name),
                 getattr(updated_page, attr_name)
@@ -1582,7 +1582,7 @@ class TestPageWithContentJSON(TestCase):
         # despite new values being provided in content_json
         for attr_name in (
             'pk', 'path', 'depth', 'numchild', 'content_type', 'draft_title',
-            'live', 'has_unpublished_changes', 'owner', 'locked', 'show_in_menus',
+            'live', 'has_unpublished_changes', 'owner', 'locked',
             'latest_revision_created_at', 'first_published_at',
         ):
             self.assertEqual(
