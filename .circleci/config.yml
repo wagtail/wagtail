@@ -57,7 +57,8 @@ jobs:
       - run: pip install wheel boto3
       - run: npm install
       - run: npm run dist
-      - run: PYTHONPATH=. python scripts/nightly/get_version.py > wagtail/__init__.py
+      - run: PYTHONPATH=. python scripts/nightly/get_version.py > __init__.py
+      - run: mv __init__.py wagtail/__init__.py
       - run: python setup.py bdist_wheel
       - run: python scripts/nightly/upload.py
 
