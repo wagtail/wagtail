@@ -1407,10 +1407,32 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return TemplateResponse(request, self.password_required_template, context)
 
     def with_content_json(self, content_json):
+        """
+        Returns a new version of the page with field values updated to reflect changes
+        in the provided ``content_json`` (which usually comes from a previously-saved
+        page revision).
+
+        Certain field values are preserved in order to prevent errors if the returned
+        page is saved, such as ``id``, ``content_type`` and some tree-related values.
+        The following field values are also preserved, as they are considered to be
+        meaningful to the page as a whole, rather than to a specific revision:
+
+        * ``draft_title``
+        * ``live``
+        * ``has_unpublished_changes``
+        * ``owner``
+        * ``locked``
+        * ``latest_revision_created_at``
+        * ``first_published_at``
+        """
+
         obj = self.specific_class.from_json(content_json)
 
-        # Override the possibly-outdated tree parameter fields from the supplied content
+        # These should definitely never change between revisions
         obj.pk = self.pk
+        obj.content_type = self.content_type
+
+        # Override possibly-outdated tree parameter fields
         obj.path = self.path
         obj.depth = self.depth
         obj.numchild = self.numchild
@@ -1421,7 +1443,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # Ensure other values that are meaningful for the page as a whole (rather than
         # to a specific revision) are preserved
-        obj.content_type = self.content_type
         obj.draft_title = self.draft_title
         obj.live = self.live
         obj.has_unpublished_changes = self.has_unpublished_changes
