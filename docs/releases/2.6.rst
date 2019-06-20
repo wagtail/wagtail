@@ -65,6 +65,7 @@ Other features
  * Added support for custom search handler classes to modeladmin's IndexView, and added a class that uses the default Wagtail search backend for searching (Seb Brown, Andy Babic)
  * Update group edit view to expose the ``Permission`` object for each checkbox (George Hickman)
  * Improve performance of Pages for Moderation panel (Fidel Ramos)
+ * Added ``process_child_object`` and ``exclude_fields`` arguments to ``Page.copy()`` to make it easier for third-party apps to customise copy behavior (Karl Hobley)
 
 
 Bug fixes
@@ -84,6 +85,7 @@ Bug fixes
  * Prevent text from overlapping in focal point editing UI (Beth Menzies)
  * Restore custom "Date" icon for scheduled publishing panel in Edit page’s Settings tab (Helen Chapman)
  * Added missing form media to user edit form template (Matt Westcott)
+ * ``Page.copy()`` no longer copies child objects when the accesssor name is included in ``exclude_fields_in_copy`` (Karl Hobley)
 
 
 Upgrade considerations
