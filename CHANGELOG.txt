@@ -27,6 +27,7 @@ Changelog
  * Updated group edit view to expose the Permission object for each checkbox (George Hickman)
  * Improve performance of Pages for Moderation panel (Fidel Ramos)
  * Add more contextual information for screen readers in the explorer menu’s links (Helen Chapman)
+ * Added `process_child_object` and `exclude_fields` arguments to ``Page.copy()`` to make it easier for third-party apps to customise copy behavior (Karl Hobley)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
@@ -52,6 +53,7 @@ Changelog
  * Fix: Ensure the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
  * Fix: Remove tab order customisations in CMS admin (Jordan Bauer)
  * Fix: Add labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
+ * Fix: Page.copy() no longer copies child objects when the accesssor name is included in `exclude_fields_in_copy` (Karl Hobley)
 
 
 2.5.1 (07.05.2019)
