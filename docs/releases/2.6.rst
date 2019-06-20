@@ -43,6 +43,7 @@ We’ve also had a look at how controls are labeled across the UI for screen rea
 * Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
 * Added a label to the modals’ “close” button for screen reader users (Helen Chapman, Katie Locke)
 * Added labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
+* Improve screen-reader labels for action links in page listing (Helen Chapman, Katie Locke)
 
 Again, this is still a work in progress – if you are aware of other existing accessibility issues, please do `open an issue <https://github.com/wagtail/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3AAccessibility>`_ if there isn’t one already.
 
