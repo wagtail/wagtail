@@ -11,4 +11,8 @@ describe('Transition', () => {
   it('basic', () => {
     expect(shallow(<Transition name={PUSH} />)).toMatchSnapshot();
   });
+
+  it('label', () => {
+    expect(shallow(<Transition name={PUSH} label="Page explorer" />)).toMatchSnapshot();
+  });
 });

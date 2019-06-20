@@ -56,6 +56,7 @@ Changelog
  * Fix: Remove tab order customisations in CMS admin (Jordan Bauer)
  * Fix: Add labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
  * Fix: Page.copy() no longer copies child objects when the accesssor name is included in `exclude_fields_in_copy` (Karl Hobley)
+ * Fix: Move focus to the pages explorer menu when open (Helen Chapman)
 
 
 2.5.1 (07.05.2019)

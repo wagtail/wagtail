@@ -7,16 +7,18 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
+      "initialFocus": ".c-explorer__header",
       "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
     className="c-explorer__close u-hidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
@@ -28,8 +30,9 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
     <div
@@ -83,16 +86,18 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
+      "initialFocus": ".c-explorer__header",
       "onDeactivate": [MockFunction],
     }
   }
   paused={true}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
     className="c-explorer__close u-hidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
@@ -104,8 +109,9 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
     <div
@@ -149,16 +155,18 @@ exports[`ExplorerPanel general rendering #items 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
+      "initialFocus": ".c-explorer__header",
       "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
     className="c-explorer__close u-hidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
@@ -170,8 +178,9 @@ exports[`ExplorerPanel general rendering #items 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
     <div
@@ -240,16 +249,18 @@ exports[`ExplorerPanel general rendering no children 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
+      "initialFocus": ".c-explorer__header",
       "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
     className="c-explorer__close u-hidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
@@ -261,8 +272,9 @@ exports[`ExplorerPanel general rendering no children 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
     <div
@@ -300,16 +312,18 @@ exports[`ExplorerPanel general rendering renders 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
+      "initialFocus": ".c-explorer__header",
       "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
     className="c-explorer__close u-hidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
@@ -321,8 +335,9 @@ exports[`ExplorerPanel general rendering renders 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
     <div

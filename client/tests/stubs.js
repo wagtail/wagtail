@@ -44,6 +44,7 @@ global.wagtailConfig = {
     CLOSE: 'Close',
     EDIT_PAGE: 'Edit \'{title}\'',
     VIEW_CHILD_PAGES_OF_PAGE: 'View child pages of \'{title}\'',
+    PAGE_EXPLORER: 'Page explorer',
   },
 };
 

@@ -33,6 +33,7 @@ This release also contains many big improvements for screen reader users:
 * Screen readers now treat page-level action dropdowns as navigation instead of menus (Helen Chapman)
 * Fixed occurrences of invalid HTML across the CMS admin (Thibaud Colas)
 * Add empty alt attributes to all images in the CMS admin (Andreas Bernacca)
+* Fixed focus not moving to the pages explorer menu when open (Helen Chapman)
 
 We’ve also had a look at how controls are labeled across the UI for screen reader users:
 
