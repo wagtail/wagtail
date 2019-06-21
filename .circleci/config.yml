@@ -54,7 +54,7 @@ jobs:
       - checkout
       - run: cd ~ && wget https://nodejs.org/dist/v8.7.0/node-v8.7.0-linux-x64.tar.gz
       - run: cd /usr/local/ && sudo tar --strip-components 1 -xzf ~/node-v8.7.0-linux-x64.tar.gz
-      - run: pip install wheel boto3
+      - run: pip install --user wheel boto3
       - run: npm install
       - run: npm run dist
       - run: PYTHONPATH=. python scripts/nightly/get_version.py > __init__.py
