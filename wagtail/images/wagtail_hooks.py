@@ -9,6 +9,7 @@ from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
+from wagtail.admin.utils import get_site_for_user
 from wagtail.core import hooks
 from wagtail.images import admin_urls, get_image_model, image_operations
 from wagtail.images.api.admin.endpoints import ImagesAdminAPIEndpoint
@@ -126,8 +127,11 @@ class ImagesSummaryItem(SummaryItem):
     template = 'wagtailimages/homepage/site_summary_images.html'
 
     def get_context(self):
+        site_name = get_site_for_user(self.request.user)['site_name']
+
         return {
             'total_images': get_image_model().objects.count(),
+            'site_name': site_name,
         }
 
     def is_shown(self):

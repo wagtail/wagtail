@@ -29,7 +29,11 @@ Changelog
  * Add more contextual information for screen readers in the explorer menu’s links (Helen Chapman)
  * Added `process_child_object` and `exclude_fields` arguments to ``Page.copy()`` to make it easier for third-party apps to customise copy behavior (Karl Hobley)
  * Added `Page.with_content_json()`, allowing revision content loading behaviour to be customised on a per-model basis (Karl Hobley)
- * Improve screen-reader labels for action links in page listing (Helen Chapman, Katie Locke)
+ * Improved screen-reader labels for action links in page listing (Helen Chapman, Katie Locke)
+ * Added screen-reader labels for table headings in page listing (Helen Chapman, Katie Locke)
+ * Added screen reader labels for page privacy toggle, edit lock, status tag in page explorer & edit views (Helen Chapman, Katie Locke)
+ * Added screen-reader labels for dashboard summary cards (Helen Chapman, Katie Locke)
+ * Added screen-reader labels for privacy toggle of collections (Helen Chapman, Katie Locke)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
@@ -57,6 +61,7 @@ Changelog
  * Fix: Add labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
  * Fix: Page.copy() no longer copies child objects when the accesssor name is included in `exclude_fields_in_copy` (Karl Hobley)
  * Fix: Move focus to the pages explorer menu when open (Helen Chapman)
+ * Fix: Clicking the privacy toggle while the page is still loading no longer loads the wrong data in the page (Helen Chapman)
 
 
 2.5.1 (07.05.2019)
