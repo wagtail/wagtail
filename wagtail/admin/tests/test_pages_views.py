@@ -1993,8 +1993,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
 
-        link_to_draft = '<a href="/revised-slug-in-draft-only/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
-        link_to_live = '<a href="/hello-world/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
+        link_to_draft = '<a href="/revised-slug-in-draft-only/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
+        link_to_live = '<a href="/hello-world/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
 
@@ -2016,8 +2016,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.single_event_page.id, )))
 
-        link_to_draft = '<a href="/revised-slug-in-draft-only/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
-        link_to_live = '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
+        link_to_draft = '<a href="/revised-slug-in-draft-only/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
+        link_to_live = '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" id="id_slug" maxlength="255" required />'
 

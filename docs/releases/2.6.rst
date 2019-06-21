@@ -45,6 +45,10 @@ We’ve also had a look at how controls are labeled across the UI for screen rea
 * Added a label to the modals’ “close” button for screen reader users (Helen Chapman, Katie Locke)
 * Added labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
 * Improve screen-reader labels for action links in page listing (Helen Chapman, Katie Locke)
+* Add screen-reader labels for table headings in page listing (Helen Chapman, Katie Locke)
+* Add screen reader labels for page privacy toggle, edit lock, status tag in page explorer & edit views (Helen Chapman, Katie Locke)
+* Add screen-reader labels for dashboard summary cards (Helen Chapman, Katie Locke)
+* Add screen-reader labels for privacy toggle of collections (Helen Chapman, Katie Locke)
 
 Again, this is still a work in progress – if you are aware of other existing accessibility issues, please do `open an issue <https://github.com/wagtail/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3AAccessibility>`_ if there isn’t one already.
 
@@ -88,6 +92,7 @@ Bug fixes
  * Restore custom "Date" icon for scheduled publishing panel in Edit page’s Settings tab (Helen Chapman)
  * Added missing form media to user edit form template (Matt Westcott)
  * ``Page.copy()`` no longer copies child objects when the accesssor name is included in ``exclude_fields_in_copy`` (Karl Hobley)
+ * Clicking the privacy toggle while the page is still loading no longer loads the wrong data in the page (Helen Chapman)
 
 
 Upgrade considerations
