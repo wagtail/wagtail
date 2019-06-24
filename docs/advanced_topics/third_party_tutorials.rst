@@ -15,6 +15,7 @@ Third-party tutorials
 * `How to Deploy Wagtail to Jelastic PaaS <https://jelastic.com/blog/deploy-wagtail-python-cms/>`_ (11 October 2018)
 * `Basic Introduction to Setting Up Wagtail <https://medium.com/nonstopio/wagtail-an-open-source-cms-cec6b93706da>`_ (15 August 2018)
 * `E-Commerce for Django developers (with Wagtail shop tutorial) <https://snipcart.com/blog/django-ecommerce-tutorial-wagtail-cms>`_ (5 July 2018)
+* `Supporting StreamFields, Snippets and Images in a Wagtail GraphQL API <https://wagtail.io/blog/graphql-with-streamfield/>`_ (14 June 2018)
 * `Wagtail and GraphQL <https://jossingram.wordpress.com/2018/04/19/wagtail-and-graphql/>`_ (19 April 2018)
 * `Wagtail and Azure storage blob containers <https://jossingram.wordpress.com/2017/11/29/wagtail-and-azure-storage-blob-containers/>`_ (29 November 2017)
 * `Building TwilioQuest with Twilio Sync, Django [incl. Wagtail], and Vue.js <https://www.twilio.com/blog/2017/11/building-twilioquest-with-twilio-sync-django-and-vue-js.html>`_ (6 November 2017)
