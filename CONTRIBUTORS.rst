@@ -4,7 +4,7 @@ Core team
 * Matthew Westcott (Torchbox)
 * Karl Hobley (Torchbox)
 * Tom Dyson (Torchbox)
-* Mikalai Radchuk (Torchbox)
+* Mikalai Radchuk
 * Thibaud Colas (Torchbox)
 * Janneke Janssen (Lukkien)
 * Mike Dingjan (Lab Digital)
