@@ -380,6 +380,7 @@ Contributors
 * Jordan Bauer
 * Fidel Ramos
 * Quadric
+* jonny5532
 
 Translators
 ===========

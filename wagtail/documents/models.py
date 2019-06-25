@@ -52,6 +52,17 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         index.FilterField('uploaded_by_user'),
     ]
 
+    def is_stored_locally(self):
+        """
+        Returns True if the image is hosted on the local filesystem
+        """
+        try:
+            self.file.path
+
+            return True
+        except NotImplementedError:
+            return False
+
     @contextmanager
     def open_file(self):
         # Open file if it is closed
