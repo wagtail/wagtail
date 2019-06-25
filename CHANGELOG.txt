@@ -63,6 +63,7 @@ Changelog
  * Fix: Page.copy() no longer copies child objects when the accesssor name is included in `exclude_fields_in_copy` (Karl Hobley)
  * Fix: Move focus to the pages explorer menu when open (Helen Chapman)
  * Fix: Clicking the privacy toggle while the page is still loading no longer loads the wrong data in the page (Helen Chapman)
+ * Fix: Added missing `is_stored_locally` method to `AbstractDocument` (jonny5532)
 
 
 2.5.1 (07.05.2019)
