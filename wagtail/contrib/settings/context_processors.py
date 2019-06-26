@@ -1,3 +1,5 @@
+from django.utils.functional import SimpleLazyObject
+
 from wagtail.core.models import Site
 
 from .registry import registry
@@ -51,12 +53,15 @@ class SettingModuleProxy(dict):
 
 
 def settings(request):
-    site = Site.find_for_request(request)
-    if site is None:
-        # find_for_request() can't determine the site
-        # old SiteMiddleware case
-        # Unittest or email templates might also mock request
-        # objects that don't have a request.site.
-        return {}
-    else:
-        return {'settings': SettingsProxy(site)}
+    def _inner(request):
+        site = Site.find_for_request(request)
+        if site is None:
+            # find_for_request() can't determine the site
+            # old SiteMiddleware case
+            # Unittest or email templates might also mock request
+            # objects that don't have a request.site.
+            return {}
+        else:
+            return SettingsProxy(site)
+
+    return {'settings': SimpleLazyObject(lambda: _inner(request))}
