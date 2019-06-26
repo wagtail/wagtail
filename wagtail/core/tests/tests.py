@@ -63,7 +63,7 @@ class TestPageUrlTags(TestCase):
         result = slugurl(context=template.Context({'request': HttpRequest()}), slug='bad-slug-doesnt-exist')
         self.assertEqual(result, None)
 
-    @override_settings(ALLOWED_HOSTS=['*'])
+    @override_settings(ALLOWED_HOSTS=['localhost', 'site2.example.com'])
     def test_slugurl_tag_returns_url_for_current_site(self):
         home_page = Page.objects.get(url_path='/home/')
         new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
@@ -78,7 +78,7 @@ class TestPageUrlTags(TestCase):
         url = slugurl(context=template.Context({'request': request}), slug='christmas')
         self.assertEqual(url, '/christmas/')
 
-    @override_settings(ALLOWED_HOSTS=['*'])
+    @override_settings(ALLOWED_HOSTS=['localhost', 'site2.example.com'])
     def test_slugurl_tag_returns_url_for_other_site(self):
         home_page = Page.objects.get(url_path='/home/')
         new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})

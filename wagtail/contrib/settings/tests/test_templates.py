@@ -7,7 +7,6 @@ from wagtail.tests.testapp.models import TestSetting
 from wagtail.tests.utils import WagtailTestUtils
 
 
-@override_settings(ALLOWED_HOSTS=['*'])
 class TemplateTestCase(TestCase, WagtailTestUtils):
     def setUp(self):
         root = Page.objects.first()
@@ -51,6 +50,7 @@ class TestContextProcessor(TemplateTestCase):
             self.render(request, '{{ settings.tests.TestSetting.title }}'),
             self.test_setting.title)
 
+    @override_settings(ALLOWED_HOSTS=['localhost', 'other'])
     def test_multisite(self):
         """ Check that the correct setting for the current site is returned """
         request = self.get_request(site=self.default_site)
@@ -104,6 +104,7 @@ class TestTemplateTag(TemplateTestCase):
         context = Context()
         self.assertEqual(template.render(context), '')
 
+    @override_settings(ALLOWED_HOSTS=['localhost', 'other'])
     def test_get_settings_request_context(self):
         """ Check that the {% get_settings %} tag works """
         request = self.get_request(site=self.other_site)
@@ -191,6 +192,7 @@ class TestSettingsJinja(TemplateTestCase):
             self.render('{{ settings("tests.TestSetting").title }}'),
             self.test_setting.title)
 
+    @override_settings(ALLOWED_HOSTS=['localhost', 'other'])
     def test_multisite(self):
         """ Check that the correct setting for the current site is returned """
         context = {'site': self.default_site}

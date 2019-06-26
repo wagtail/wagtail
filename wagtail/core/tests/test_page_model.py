@@ -254,7 +254,7 @@ class TestRouting(TestCase):
         self.assertEqual(root.relative_url(default_site), None)
         self.assertEqual(root.get_site(), None)
 
-    @override_settings(ALLOWED_HOSTS=['*'])
+    @override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com', 'second-events.example.com'])
     def test_urls_with_multiple_sites(self):
         events_page = Page.objects.get(url_path='/home/events/')
         events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
@@ -341,7 +341,6 @@ class TestRouting(TestCase):
         (found_page, args, kwargs) = homepage.route(request, ['events', 'christmas'])
         self.assertEqual(found_page, christmas_page)
 
-    @override_settings(ALLOWED_HOSTS=['*'])
     def test_request_serving(self):
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
 
@@ -376,7 +375,7 @@ class TestRouting(TestCase):
     # Override CACHES so we don't generate any cache-related SQL queries (tests use DatabaseCache
     # otherwise) and so cache.get will always return None.
     @override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
-    @override_settings(ALLOWED_HOSTS=['*'])
+    @override_settings(ALLOWED_HOSTS=['localhost', 'dummy'])
     def test_request_scope_site_root_paths_cache(self):
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
@@ -392,6 +391,7 @@ class TestRouting(TestCase):
             self.assertEqual(christmas_page.get_url(), '/events/christmas/')
 
         # with a request, the first call to get_url should issue 1 SQL query
+
         request = HttpRequest()
         request.META['HTTP_HOST'] = "dummy"
         request.META['SERVER_PORT'] = "8888"
@@ -1517,7 +1517,6 @@ class TestDummyRequest(TestCase):
         # validation won't reject
         self.assertEqual(request.META['HTTP_HOST'], 'production.example.com')
 
-    @override_settings(ALLOWED_HOSTS=['*'])
     def test_dummy_request_for_inaccessible_page_with_wildcard_allowed_hosts(self):
         root_page = Page.objects.get(url_path='/')
         request = root_page.dummy_request()

@@ -151,7 +151,6 @@ class TestRoutablePage(TestCase):
 
 class TestRoutablePageTemplateTag(TestCase):
 
-    @override_settings(ALLOWED_HOSTS=['*'])
     def setUp(self):
         self.home_page = Page.objects.get(id=2)
         self.routable_page = self.home_page.add_child(instance=RoutablePageTest(
@@ -256,7 +255,7 @@ class TestRoutablePageTemplateTagForSecondSiteAtSameRoot(TestCase):
         self.assertEqual(url, expected)
 
 
-@override_settings(ALLOWED_HOSTS=['*'])
+@override_settings(ALLOWED_HOSTS=['events.local'])
 class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
     """
     When multiple sites exist, relative URLs between such sites should include the domain portion
