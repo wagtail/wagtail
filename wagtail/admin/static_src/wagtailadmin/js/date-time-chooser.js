@@ -64,12 +64,18 @@ function initDateTimeChooser(id, opts) {
             closeOnDateSelect: true,
             format: 'Y-m-d H:i',
             scrollInput: false,
-            onGenerate: hideCurrent
+            onGenerate: hideCurrent,
+            onChangeDateTime: function(_, $el) {
+              $el.get(0).dispatchEvent(new Event('change'))
+            }
         }, opts || {}));
     } else {
         $('#' + id).datetimepicker($.extend({
             format: 'Y-m-d H:i',
-            onGenerate: hideCurrent
+            onGenerate: hideCurrent,
+            onChangeDateTime: function(_, $el) {
+              $el.get(0).dispatchEvent(new Event('change'))
+            }
         }, opts || {}));
     }
 }
