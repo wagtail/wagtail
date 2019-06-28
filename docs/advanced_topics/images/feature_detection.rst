@@ -88,11 +88,11 @@ This should be done somewhere that gets run on application startup:
 
     registry.register_plugin(rustface.willow)
 
-For example, in an app's AppConfig.onready_.
+For example, in an app's AppConfig.ready_.
 
 .. _Willow: https://github.com/wagtail/Willow
 
-.. _AppConfig.onready: https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig.ready
+.. _AppConfig.ready: https://docs.djangoproject.com/en/2.2/ref/applications/#django.apps.AppConfig.ready
 
 
 Cropping
