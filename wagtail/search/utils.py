@@ -1,6 +1,5 @@
 import operator
 import re
-import string
 from functools import partial, reduce
 
 # Reduce any iterable to a single value using a logical OR e.g. (a | b | ...)
@@ -22,11 +21,8 @@ def normalise_query_string(query_string):
     # Convert query_string to lowercase
     query_string = query_string.lower()
 
-    # Strip punctuation characters
-    query_string = ''.join([c for c in query_string if c not in string.punctuation])
-
-    # Remove double spaces
-    query_string = ' '.join(query_string.split())
+    # Remove leading, trailing and multiple spaces
+    query_string = re.sub(' +', ' ', query_string).strip()
 
     return query_string
 
