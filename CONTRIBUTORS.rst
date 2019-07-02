@@ -380,6 +380,7 @@ Contributors
 * Jordan Bauer
 * Fidel Ramos
 * Quadric
+* William Blackie
 
 Translators
 ===========
