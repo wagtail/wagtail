@@ -20,5 +20,5 @@ s3.upload_file(str(f), 'releases.wagtail.io', 'nightly/' + f.name, ExtraArgs={'A
 print("Updating latest.json")
 
 boto3.resource('s3').Object('releases.wagtail.io', 'nightly/latest.json').put(Body=json.dumps({
-    "url": 'https://releases.wagtail.io/nightly/' + f.name,
+    "url": 'https://releases.wagtail.io/nightly/dist/' + f.name,
 }))
