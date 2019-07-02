@@ -96,6 +96,7 @@ Bug fixes
  * ``Page.copy()`` no longer copies child objects when the accesssor name is included in ``exclude_fields_in_copy`` (Karl Hobley)
  * Clicking the privacy toggle while the page is still loading no longer loads the wrong data in the page (Helen Chapman)
  * Added missing ``is_stored_locally`` method to ``AbstractDocument`` (jonny5532)
+ * Query model no longer removes punctuation as part of string normalisation (William Blackie)
 
 
 Upgrade considerations

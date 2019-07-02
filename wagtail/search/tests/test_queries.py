@@ -33,17 +33,17 @@ class TestHitCounter(TestCase):
 
 class TestQueryStringNormalisation(TestCase):
     def setUp(self):
-        self.query = models.Query.get("Hello World!")
+        self.query = models.Query.get("  Hello  World!  ")
 
     def test_normalisation(self):
-        self.assertEqual(str(self.query), "hello world")
+        self.assertEqual(str(self.query), "hello world!")
 
-    def test_equivilant_queries(self):
+    def test_equivalent_queries(self):
         queries = [
-            "Hello World",
-            "Hello  World!!",
-            "hello world",
-            "Hello' world",
+            "  Hello World!",
+            "Hello World!  ",
+            "hello  world!",
+            "  Hello  world!  ",
         ]
 
         for query in queries:
@@ -52,7 +52,8 @@ class TestQueryStringNormalisation(TestCase):
     def test_different_queries(self):
         queries = [
             "HelloWorld",
-            "Hello orld!!",
+            "HelloWorld!"
+            "  Hello  World!  ",
             "Hello",
         ]
 

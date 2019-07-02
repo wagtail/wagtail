@@ -381,6 +381,7 @@ Contributors
 * Fidel Ramos
 * Quadric
 * jonny5532
+* William Blackie
 
 Translators
 ===========
