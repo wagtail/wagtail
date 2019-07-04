@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~~
 
  * Added `construct_page_listing_buttons` hook (Michael van Tellingen)
+ * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
 
 
 2.6 (xx.xx.xxxx) - IN DEVELOPMENT
