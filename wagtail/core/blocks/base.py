@@ -506,7 +506,11 @@ class BlockWidget(forms.Widget):
 
     @property
     def media(self):
-        return self.block_def.all_media()
+        return self.block_def.all_media() + forms.Media(
+            css={'all': [
+                'wagtailadmin/css/panels/streamfield.css',
+            ]}
+        )
 
     def value_from_datadict(self, data, files, name):
         return self.block_def.value_from_datadict(data, files, name)

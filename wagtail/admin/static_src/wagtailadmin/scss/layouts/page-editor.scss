@@ -1,5 +1,4 @@
 @import 'wagtailadmin/scss/helpers';
-@import '../../../../../../client/scss/components/streamfield';
 
 .page-editor {
     .content-wrapper {
@@ -194,24 +193,29 @@ $object-title-height: 40px;
         }
     }
 
-    // cursory styling for streamfield. Main styling in components/streamfield.scss
+    // cursory styling for streamfield. Main styling in client/src/components/StreamField/StreamField.scss
     &.stream-field {
-        padding-left: 0;
-        padding-right: 0;
+        background-color: #f6f6f6;
+        padding-left: 20px;
+        padding-right: 20px;
 
         &.required .field > label:after {
             display: none;
         }
 
-        // Undo column widths usually applied to the contents of a field panel
-        .object-layout_big-part > fieldset {
-            width: 100%;
-            max-width: none;
+        .object-layout_big-part {
+            max-width: 100%;
+        }
+
+        fieldset {
+            padding-bottom: 0;
+            max-width: unset;
+            // Workaround to make sure blocks do not overflow horizontally.
+            min-width: 0;
         }
 
         .block_field > .field-content {
             width: 100%;
-            display: block;
         }
     }
 
