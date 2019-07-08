@@ -12,7 +12,17 @@
 
 
 {% endcomment %}
-<div class="sequence-container sequence-type-{% block sequence_type_class %}{% endblock %}">
+
+{% if help_text %}
+    <span>
+        <div class="help">
+            <span class="icon-help-inverse" aria-hidden="true"></span>
+            {{ help_text }}
+        </div>
+    </span>
+{% endif %}
+
+<div class="c-sf-container">
     <input type="hidden" name="{{ prefix }}-count" id="{{ prefix }}-count" value="{{ list_members_html|length }}">
 
     {% block header %}{% endblock %}
@@ -23,12 +33,10 @@
         {% endfor %}
     {% endif %}
 
-    <div class="sequence-container-inner">
-        <ul id="{{ prefix }}-list" class="sequence">
-            {% for list_member_html in list_members_html %}
-                {{ list_member_html }}
-            {% endfor %}
-        </ul>
-        {% block footer %}{% endblock %}
+    <div id="{{ prefix }}-list">
+        {% for list_member_html in list_members_html %}
+            {{ list_member_html }}
+        {% endfor %}
     </div>
+    {% block footer %}{% endblock %}
 </div>

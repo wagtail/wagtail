@@ -64,7 +64,7 @@ class BaseStreamBlock(Block):
 
     def render_list_member(self, block_type_name, value, prefix, index, errors=None, id=None):
         """
-        Render the HTML for a single list item. This consists of an <li> wrapper, hidden fields
+        Render the HTML for a single list item. This consists of a container, hidden fields
         to manage ID/deleted state/type, delete/reorder buttons, and the child block's own HTML.
         """
         child_block = self.child_blocks[block_type_name]
@@ -72,6 +72,7 @@ class BaseStreamBlock(Block):
         return render_to_string('wagtailadmin/block_forms/stream_member.html', {
             'child_blocks': self.sorted_child_blocks(),
             'block_type_name': block_type_name,
+            'child_block': child_block,
             'prefix': prefix,
             'child': child,
             'index': index,
@@ -143,6 +144,7 @@ class BaseStreamBlock(Block):
 
         return render_to_string('wagtailadmin/block_forms/stream.html', {
             'prefix': prefix,
+            'help_text': getattr(self.meta, 'help_text', None),
             'list_members_html': list_members_html,
             'child_blocks': self.sorted_child_blocks(),
             'header_menu_prefix': '%s-before' % prefix,

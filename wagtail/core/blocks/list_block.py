@@ -43,6 +43,7 @@ class ListBlock(Block):
         """
         child = self.child_block.bind(value, prefix="%s-value" % prefix, errors=errors)
         return render_to_string('wagtailadmin/block_forms/list_member.html', {
+            'child_block': self.child_block,
             'prefix': prefix,
             'child': child,
             'index': index,
