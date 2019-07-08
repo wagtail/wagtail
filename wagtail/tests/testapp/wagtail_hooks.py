@@ -8,6 +8,7 @@ from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
+from wagtail.admin.widgets import Button
 from wagtail.core import hooks
 
 
@@ -149,3 +150,13 @@ def register_relax_menu_item(menu_items, request, context):
         raise AttributeError('all core sub-classes of ActionMenuItems must have a name attribute', names)
 
     menu_items.append(RelaxMenuItem())
+
+
+@hooks.register('construct_page_listing_buttons')
+def register_page_listing_button_item(buttons, page, page_perms, is_parent=False, context=None):
+    item = Button(
+        label="Dummy Button",
+        url='/dummy-button',
+        priority=10,
+    )
+    buttons.append(item)

@@ -572,6 +572,23 @@ Hooks for customising the way users are directed through the process of creating
     def remove_submit_to_moderator_option(menu_items, request, context):
         menu_items[:] = [item for item in menu_items if item.name != 'action-submit']
 
+.. construct_page_listing_buttons:
+
+``construct_page_listing_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Modify the final list of page listing buttons in the page explorer. The
+  callable passed to this hook receives a list of ``Button`` objects, a request
+  object and a context dictionary as per ``register_page_action_menu_item``,
+  and should modify the list of menu items in-place.
+
+  .. code-block:: python
+
+    @hooks.register('construct_page_listing_buttons')
+    def remove_page_listing_button_item(buttons, page, page_perms, is_parent=False, context=None):
+        if is_parent:
+            buttons.pop() # removes the last 'more' dropdown button on the parent page listing buttons
+
 
 .. _construct_wagtail_userbar:
 

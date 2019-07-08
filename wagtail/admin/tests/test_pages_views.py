@@ -190,6 +190,18 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         page_ids = [page.id for page in response.context['pages']]
         self.assertEqual(page_ids, [self.child_page.id])
 
+    def test_construct_construct_page_listing_buttons_hook(self):
+        # testapp implements a construct_page_listing_buttons hook
+        # that add's an dummy button with the label 'Dummy Button' which points
+        # to '/dummy-button'
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        self.assertContains(response, 'Dummy Button')
+        self.assertContains(response, '/dummy-button')
+
     def make_pages(self):
         for i in range(150):
             self.root_page.add_child(instance=SimplePage(
