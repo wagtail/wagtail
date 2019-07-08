@@ -12,15 +12,31 @@
 
 
 {% endcomment %}
-<li id="{{ prefix }}-container" class="sequence-member">
+<div id="{{ prefix }}-container" aria-hidden="false">
     <input type="hidden" id="{{ prefix }}-deleted" name="{{ prefix }}-deleted" value="">
     <input type="hidden" id="{{ prefix }}-order" name="{{ prefix }}-order" value="{{ index }}">
-    
     {% block hidden_fields %}{% endblock %}
 
-    {% block header_controls %}{% endblock %}
-
-    <div class="sequence-member-inner {% block sequence_member_inner_classes %}{% endblock %}">{{ child.render_form }}</div>
-
-    {% block footer_controls %}{% endblock %}
-</li>
+    <div>
+        <div class="c-sf-container__block-container">
+            <div class="c-sf-block">
+                <div class="c-sf-block__header">
+                    <span class="c-sf-block__header__icon">
+                        <i class="icon icon-{{ child_block.meta.icon }}"></i>
+                    </span>
+                    <h3 class="c-sf-block__header__title"></h3>
+                    <div class="c-sf-block__actions">
+                        <span class="c-sf-block__type">{% block block_type_label %}{% endblock %}</span>
+                        {% block header_controls %}{% endblock %}
+                    </div>
+                </div>
+                <div class="c-sf-block__content" aria-hidden="false">
+                    <div class="c-sf-block__content-inner">
+                        {{ child.render_form }}
+                    </div>
+                </div>
+            </div>
+            {% block footer_controls %}{% endblock %}
+        </div>
+    </div>
+</div>
