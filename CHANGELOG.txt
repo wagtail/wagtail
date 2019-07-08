@@ -4,7 +4,7 @@ Changelog
 2.7 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
 
- * ...
+ * Added `construct_page_listing_buttons` hook (Michael van Tellingen)
 
 
 2.6 (xx.xx.xxxx) - IN DEVELOPMENT

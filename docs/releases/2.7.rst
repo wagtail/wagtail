@@ -17,7 +17,7 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
- * ...
+ * Added ``construct_page_listing_buttons`` hook (Michael van Tellingen)
 
 
 Bug fixes
