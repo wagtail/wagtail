@@ -1,6 +1,5 @@
 import functools
 import re
-from warnings import warn
 
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
@@ -18,7 +17,6 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.decorators import cached_classmethod
-from wagtail.utils.deprecation import RemovedInWagtail27Warning
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
 # compatibility, as people are likely importing them from here and then
@@ -157,18 +155,6 @@ class EditHandler:
             new.on_form_bound()
 
         return new
-
-    def bind_to_model(self, model):
-        warn('EditHandler.bind_to_model(model) is deprecated. '
-             'Use EditHandler.bind_to(model=model) instead',
-             category=RemovedInWagtail27Warning)
-        return self.bind_to(model=model)
-
-    def bind_to_instance(self, instance, form, request):
-        warn('EditHandler.bind_to_instance(instance, request, form) is deprecated. '
-             'Use EditHandler.bind_to(instance=instance, request=request, form=form) instead',
-             category=RemovedInWagtail27Warning)
-        return self.bind_to(instance=instance, request=request, form=form)
 
     def on_model_bound(self):
         pass

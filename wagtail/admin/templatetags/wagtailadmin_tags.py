@@ -1,5 +1,4 @@
 import itertools
-from warnings import warn
 
 from django import template
 from django.conf import settings
@@ -22,7 +21,6 @@ from wagtail.core.models import (
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url
-from wagtail.utils.deprecation import RemovedInWagtail27Warning
 
 register = template.Library()
 
@@ -471,11 +469,3 @@ def avatar_url(user, size=50):
             return gravatar_url
 
     return static('wagtailadmin/images/default-user-avatar.png')
-
-
-@register.simple_tag
-def ajax_pagination_nav_deprecation_warning():
-    warn('Passing is_ajax=1 to wagtailadmin/shared/pagination_nav.html is deprecated. '
-         'Use wagtailadmin/shared/ajax_pagination_nav.html instead',
-         category=RemovedInWagtail27Warning)
-    return ''
