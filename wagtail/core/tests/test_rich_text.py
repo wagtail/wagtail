@@ -1,6 +1,5 @@
 from unittest.mock import patch
 
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from wagtail.core.rich_text import RichText, expand_db_html
@@ -94,36 +93,6 @@ class TestFeatureRegistry(TestCase):
         )
         self.assertIsNone(
             features.get_editor_plugin('hallo', 'made_up_feature')
-        )
-
-    def test_legacy_register_link_type(self):
-        User = get_user_model()
-        User.objects.create(username='wagtail', email='hello@wagtail.io')
-
-        def user_expand_db_attributes(attrs):
-            user = User.objects.get(username=attrs['username'])
-            return '<a href="mailto:%s">' % user.email
-
-        features = FeatureRegistry()
-        features.register_link_type('user', user_expand_db_attributes)
-
-        handler = features.get_link_types()['user']
-        self.assertEqual(
-            handler.expand_db_attributes({'username': 'wagtail'}),
-            '<a href="mailto:hello@wagtail.io">'
-        )
-
-    def test_legacy_register_embed_type(self):
-        def embed_expand_db_attributes(attrs):
-            return '<div>embedded content: %s</div>' % attrs['content']
-
-        features = FeatureRegistry()
-        features.register_embed_type('mock_embed', embed_expand_db_attributes)
-
-        handler = features.get_embed_types()['mock_embed']
-        self.assertEqual(
-            handler.expand_db_attributes({'content': 'foo'}),
-            '<div>embedded content: foo</div>'
         )
 
 

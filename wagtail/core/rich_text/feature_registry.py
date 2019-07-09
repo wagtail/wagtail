@@ -1,7 +1,4 @@
-from warnings import warn
-
 from wagtail.core import hooks
-from wagtail.utils.deprecation import RemovedInWagtail27Warning
 
 
 class FeatureRegistry:
@@ -71,40 +68,16 @@ class FeatureRegistry:
         except KeyError:
             return None
 
-    def register_link_type(self, identifier_or_handler_obj, handler_fn=None):
-        if handler_fn is not None:
-            # invoked as register_link_type(identifier, handler_function) - deprecated
-            identifier = identifier_or_handler_obj
-            warn(
-                'FeatureRegistry.register_link_type(link_type, handler_function) is deprecated. '
-                'Use FeatureRegistry.register_link_type(handler_object) instead',
-                category=RemovedInWagtail27Warning
-            )
-            self.link_types[identifier] = self.function_as_entity_handler(identifier, handler_fn)
-        else:
-            # invoked as register_link_type(handler_object)
-            handler = identifier_or_handler_obj
-            self.link_types[handler.identifier] = handler
+    def register_link_type(self, handler):
+        self.link_types[handler.identifier] = handler
 
     def get_link_types(self):
         if not self.has_scanned_for_features:
             self._scan_for_features()
         return self.link_types
 
-    def register_embed_type(self, identifier_or_handler_obj, handler_fn=None):
-        if handler_fn is not None:
-            # invoked as register_embed_type(identifier, handler_function) - deprecated
-            identifier = identifier_or_handler_obj
-            warn(
-                'FeatureRegistry.register_embed_type(link_type, handler_function) is deprecated. '
-                'Use FeatureRegistry.register_embed_type(handler_object) instead',
-                category=RemovedInWagtail27Warning
-            )
-            self.embed_types[identifier] = self.function_as_entity_handler(identifier, handler_fn)
-        else:
-            # invoked as register_embed_type(handler_object)
-            handler = identifier_or_handler_obj
-            self.embed_types[handler.identifier] = handler
+    def register_embed_type(self, handler):
+        self.embed_types[handler.identifier] = handler
 
     def get_embed_types(self):
         if not self.has_scanned_for_features:
