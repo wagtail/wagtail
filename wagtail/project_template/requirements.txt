@@ -1,2 +1,2 @@
 Django>=2.2,<2.3
-wagtail==2.6a0
+wagtail==2.7a0
