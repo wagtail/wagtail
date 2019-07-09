@@ -15,7 +15,7 @@ Accessibility targets and improvements
 
 Wagtail now has official accessibility support targets: we are aiming for compliance with `WCAG2.1 <https://www.w3.org/TR/WCAG21/>`_, AA level. WCAG 2.1 is the international standard which underpins many national accessibility laws.
 
-Wagtail isn’t fully compliant just yet, but we have made many changes to the admin interface to get there. We thank the UK Government (in particular the CMS team at the Department for International Trade), who commissioned many of these improvements.
+Wagtail isn't fully compliant just yet, but we have made many changes to the admin interface to get there. We thank the UK Government (in particular the CMS team at the Department for International Trade), who commissioned many of these improvements.
 
 Here are changes which should make Wagtail more usable for all users regardless of abilities:
 
@@ -38,11 +38,11 @@ This release also contains many big improvements for screen reader users:
 We’ve also had a look at how controls are labeled across the UI for screen reader users:
 
 * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
-* Add more contextual information for screen readers in the explorer menu’s links (Helen Chapman)
+* Add more contextual information for screen readers in the explorer menu's links (Helen Chapman)
 * Make URL generator preview image alt translatable (Thibaud Colas)
-* Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
+* Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail's version number (Thibaud Colas)
 * Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
-* Added a label to the modals’ “close” button for screen reader users (Helen Chapman, Katie Locke)
+* Added a label to the modals' "close" button for screen reader users (Helen Chapman, Katie Locke)
 * Added labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
 * Improve screen-reader labels for action links in page listing (Helen Chapman, Katie Locke)
 * Add screen-reader labels for table headings in page listing (Helen Chapman, Katie Locke)
@@ -50,7 +50,7 @@ We’ve also had a look at how controls are labeled across the UI for screen rea
 * Add screen-reader labels for dashboard summary cards (Helen Chapman, Katie Locke)
 * Add screen-reader labels for privacy toggle of collections (Helen Chapman, Katie Locke)
 
-Again, this is still a work in progress – if you are aware of other existing accessibility issues, please do `open an issue <https://github.com/wagtail/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3AAccessibility>`_ if there isn’t one already.
+Again, this is still a work in progress – if you are aware of other existing accessibility issues, please do `open an issue <https://github.com/wagtail/wagtail/issues?q=is%3Aopen+is%3Aissue+label%3AAccessibility>`_ if there isn't one already.
 
 
 Other features
@@ -65,7 +65,7 @@ Other features
  * Use correct URL in API example in documentation (Michael Bunsen)
  * Move datetime widget initialiser JS into the widget's form media instead of page editor media (Matt Westcott)
  * Add form field prefixes for input forms in chooser modals (Matt Westcott)
- * Removed version number from the logo link’s title. The version can now be found under the Settings menu (Thibaud Colas)
+ * Removed version number from the logo link's title. The version can now be found under the Settings menu (Thibaud Colas)
  * Added "don't delete" option to confirmation screen when deleting images, documents and modeladmin models (Kevin Howbrook)
  * Added ``branding_title`` template block for the admin title prefix (Dillen Meijboom)
  * Added support for custom search handler classes to modeladmin's IndexView, and added a class that uses the default Wagtail search backend for searching (Seb Brown, Andy Babic)
@@ -94,7 +94,7 @@ Bug fixes
  * Prevent text from overlapping in focal point editing UI (Beth Menzies)
  * Restore custom "Date" icon for scheduled publishing panel in Edit page’s Settings tab (Helen Chapman)
  * Added missing form media to user edit form template (Matt Westcott)
- * ``Page.copy()`` no longer copies child objects when the accesssor name is included in ``exclude_fields_in_copy`` (Karl Hobley)
+ * ``Page.copy()`` no longer copies child objects when the accessor name is included in ``exclude_fields_in_copy`` (Karl Hobley)
  * Clicking the privacy toggle while the page is still loading no longer loads the wrong data in the page (Helen Chapman)
  * Added missing ``is_stored_locally`` method to ``AbstractDocument`` (jonny5532)
  * Query model no longer removes punctuation as part of string normalisation (William Blackie)
