@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Onorio de Jesus <onorio@catalpa.io>, 2019
+# Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
 # Peter Coward <peter@catalpa.io>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-03-27 14:10+0000\n"
-"Last-Translator: Onorio de Jesus <onorio@catalpa.io>\n"
+"PO-Revision-Date: 2019-06-05 04:36+0000\n"
+"Last-Translator: Peter Coward <peter@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgid "This setting could not be opened because there is no site defined."
 msgstr "Konfigurasaun ita boot la bele haree tanba laiha definisaun situs."
 
 msgid "{setting_type} updated."
-msgstr "{setting_type} atualiza ona."
+msgstr "{setting_type} troka ona."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Konfigurasaun nee la bele rai tanba iha erru sira."

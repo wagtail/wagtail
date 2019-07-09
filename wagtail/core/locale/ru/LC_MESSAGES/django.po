@@ -11,13 +11,14 @@
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Мирон Левицкий <miron200504@gmail.com>, 2018
+# Михаил Герасимов, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-22 14:54+0000\n"
+"Last-Translator: Михаил Герасимов\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -313,6 +314,9 @@ msgstr "право доступа"
 
 msgid "group collection permission"
 msgstr "право доступа к коллекции у группы"
+
+msgid "group collection permissions"
+msgstr "права доступа к коллекции у группы"
 
 msgid "Log in"
 msgstr "Войти"

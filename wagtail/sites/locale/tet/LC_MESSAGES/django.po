@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Onorio de Jesus <onorio@catalpa.io>, 2019
+# Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
+# Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-03-30 00:51+0000\n"
-"Last-Translator: Onorio de Jesus <onorio@catalpa.io>\n"
+"PO-Revision-Date: 2019-05-11 02:53+0000\n"
+"Last-Translator: Onorio de Jesus Afonso <onorio@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -59,13 +60,13 @@ msgid "Site '{0}' created."
 msgstr "Site '{0}' kria ona"
 
 msgid "Site '{0}' updated."
-msgstr "Site '{0}' update ona"
+msgstr "Situs '{0}' atualiza ona"
 
 msgid "The site could not be saved due to errors."
 msgstr "Site nee la bele rai tamba iha erru sira."
 
 msgid "Delete site"
-msgstr "Hamoos site"
+msgstr "Hamoos situs"
 
 msgid "Site '{0}' deleted."
 msgstr "Site '{0}' hamoos ona"

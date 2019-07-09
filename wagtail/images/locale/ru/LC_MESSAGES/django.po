@@ -11,14 +11,15 @@
 # Rustam Mirzaev <mirus@2x2.pw>, 2017
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Мирон Левицкий <miron200504@gmail.com>, 2018
+# Михаил Герасимов, 2019
 # gsstver <gsstver@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-22 14:56+0000\n"
+"Last-Translator: Михаил Герасимов\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -58,6 +59,10 @@ msgstr "Невалидное %s изображение."
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Файл слишком большой (%%s). Максимальный размер файла %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "В этом файле слишком много пикселей (%%). Максимум пикселей %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."

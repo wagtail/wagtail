@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-05-04 19:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-03 15:09+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -20,8 +21,202 @@ msgstr ""
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail ModelAdmin"
+
 msgid "Parent page"
 msgstr "Szülő oldal"
 
+#, python-format
+msgid "Add %s"
+msgstr "%s hozzáadása"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "Új %s hozzáadása"
+
+msgid "Inspect"
+msgstr "Vizsgálat"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "%s vizsgálata"
+
 msgid "Edit"
-msgstr "Szerkeszt"
+msgstr "Szerkesztés"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%s szerkesztése"
+
+msgid "Delete"
+msgstr "Törlés"
+
+#, python-format
+msgid "Delete this %s"
+msgstr "%s törlése"
+
+msgid "Unpublish"
+msgstr "Visszavonás"
+
+#, python-format
+msgid "Unpublish this %s"
+msgstr "%s visszavonása"
+
+msgid "Copy"
+msgstr "Másolás"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "%s másolása"
+
+msgid "image"
+msgstr "kép"
+
+msgid "Choose a parent page"
+msgstr "Válasszon szülő oldalt"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"A(z) %(plural)s tartalmak több helyre is hozzáadhatóak. A következők közül "
+"melyik legyen az új oldal szülő oldala?"
+
+msgid "Continue"
+msgstr "Folytatás"
+
+msgid "Saving…"
+msgstr "Mentés folyamatban..."
+
+msgid "Save"
+msgstr "Mentés"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "A(z) %(model_name)s nem törölhető"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"A(z) \"%(instance_name)s\" jelenleg kapcsolatban van más rekordokkal, és nem "
+"lehet törölni az adatok integritásának megsértése nélkül. A törléshez előbb "
+"távolítsa el a hivatkozásokat a következő rekordokból, majd próbálja újra: "
+
+msgid "Go back to listing"
+msgstr "Vissza a listához"
+
+msgid "Yes, delete"
+msgstr "Igen, törlés"
+
+msgid "Home"
+msgstr "Kezdőlap"
+
+#, python-format
+msgid " By %(filter_title)s "
+msgstr "ez alapján: %(filter_title)s"
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr ""
+"Sajnáljuk de nincs %(name)s, amelyik megfelelne a keresési feltételeknek."
+
+msgid "Search for"
+msgstr "Keresés:"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "%(name)s keresés"
+
+msgid "Filter"
+msgstr "Szűrő"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Még nincs egyetlen %(name)s sem létrehozva. Legalább egyet létre kell hozni "
+"a következőkből, mielőtt hozzáadna egy %(name)s rekordot:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Még nincs %(name)s létrehozva."
+
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"Miért nem <a href=\"%(url)s\">ad hozzá egyet</a>?"
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "%(current_page)s/%(num_pages)s. oldal"
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Vissza a(z) %(model_name)s listához"
+
+msgid "Previous"
+msgstr "Előző"
+
+msgid "Next"
+msgstr "Következő"
+
+msgid "{model_name} '{instance}' created."
+msgstr "{model_name} '{instance}' létrehozva."
+
+#, python-format
+msgid "The %s could not be created due to errors."
+msgstr "Hiba a(z) %s létrehozása közben."
+
+msgid "New"
+msgstr "Új"
+
+#, python-format
+msgid "Create new %s"
+msgstr "Új %s létrehozása"
+
+msgid "Editing"
+msgstr "Szerkesztés"
+
+#, python-format
+msgid "Editing %s"
+msgstr "%s szerkesztése"
+
+msgid "{model_name} '{instance}' updated."
+msgstr "{model_name} '{instance}' frissítve."
+
+#, python-format
+msgid "The %s could not be saved due to errors."
+msgstr "Hiba a(z) %s mentése közben."
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "%s törlésének megerősítése"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %s? If other things in your site are "
+"related to it, they may also be affected."
+msgstr ""
+"Biztosan törölni kívánja ezt a(z) %s rekordot? Ha más tartalom is hivatkozik "
+"rá, azt is értintheti a törlés."
+
+msgid "{model} '{instance}' deleted."
+msgstr "{model_name} '{instance}' törölve."
+
+msgid "Inspecting"
+msgstr "Vizsgálat"
+
+#, python-format
+msgid "Inspecting %s"
+msgstr "%s vizsgálata"

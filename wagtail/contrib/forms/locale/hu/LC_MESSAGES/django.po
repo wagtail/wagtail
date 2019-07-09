@@ -4,6 +4,7 @@
 #
 # Translators:
 # B N <biczoxd@gmail.com>, 2018
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 msgid ""
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-05-18 12:05+0000\n"
-"Last-Translator: B N <biczoxd@gmail.com>\n"
+"PO-Revision-Date: 2019-05-03 15:10+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail forms"
+msgstr "Űrlapok"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s adatsor"
 
 msgid "Date from"
 msgstr "Dátumtól"
@@ -29,7 +37,8 @@ msgstr "Dátumig"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
-msgstr "Már van egy mező a(z) %s címkével, kérlek változasd meg valamelyiket!"
+msgstr ""
+"Már van egy mező ezzel a címkével: %s, kérjük változtassa meg valamelyiket!"
 
 msgid "Single line text"
 msgstr "Egysoros szöveg"
@@ -114,6 +123,16 @@ msgstr "Beküldés dátuma"
 msgid "to address"
 msgstr "címzett"
 
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Opcionális - a beküldött adatok el lesznek küldve emailben ezekre a címekre. "
+"Az egyes címeket vesszővel kell elválasztani."
+
+msgid "from address"
+msgstr "feladó címe"
+
 msgid "subject"
 msgstr "tárgy"
 
@@ -122,13 +141,45 @@ msgid "Delete form data %(title)s"
 msgstr "%(title)störlése"
 
 msgid "Delete form data"
-msgstr "Form adat törlése"
+msgstr "Űrlap adat törlése"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"Biztosan törölni kívánja a kiválasztott űrlap beküldést?"
+msgstr[1] ""
+"\n"
+"Biztosan törölni kívánja a kiválasztott űrlap beküldéseket?"
 
 msgid "Delete"
 msgstr "Törlés"
 
+msgid "Total submissions"
+msgstr "Összes beküldés"
+
+msgid "Latest submission"
+msgstr "Legfrissebb beküldés"
+
+msgid "Forms"
+msgstr "Űrlapok"
+
 msgid "Pages"
 msgstr "Oldalak"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "%(form_title)s beküldött adatai"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Űrlap adatok <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "Szűrő"
@@ -136,5 +187,24 @@ msgstr "Szűrő"
 msgid "Download CSV"
 msgstr "CSV letöltése"
 
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nincs még beküldött adat ehhez az űrlaphoz: \"%(title)s\"."
+
 msgid "Title"
 msgstr "Cím"
+
+msgid "Origin"
+msgstr "Eredet"
+
+msgid "Delete selected submissions"
+msgstr "Kiválasztott beküldések törlése"
+
+msgid "No form pages have been created."
+msgstr "Nincs még űrlap oldal létrehozva."
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "A beküldés sikeresen törölve."
+msgstr[1] "%(count)d beküldés sikeresen törölve."

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Miłosz Miśkiewicz, 2016
-# Miłosz Miśkiewicz, 2018
+# Miłosz Miśkiewicz, 2018-2019
 # Miłosz Miśkiewicz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-05-15 08:19+0000\n"
+"PO-Revision-Date: 2019-05-09 13:33+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -41,8 +41,8 @@ msgstr "Ustawienia"
 
 msgid "This setting could not be opened because there is no site defined."
 msgstr ""
-"To ustawienie nie mogło zostać otwarte ponieważ nie zdefiniowano żadnej "
-"strony."
+"To ustawienie nie mogło zostać otwarte ponieważ nie zdefiniowano żadnego "
+"serwisu."
 
 msgid "{setting_type} updated."
 msgstr "{setting_type} uaktualnione."

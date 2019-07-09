@@ -4,6 +4,7 @@
 #
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
+# shuhei hirota, 2019
 # Sangmin Ahn <gijigae@gmail.com>, 2015
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-30 05:33+0000\n"
+"Last-Translator: shuhei hirota\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail forms"
+msgstr "Wagtail フォーム"
 
 msgid "Single line text"
 msgstr "一行テキスト"
@@ -47,6 +51,9 @@ msgstr " 複数のチェックボックス"
 msgid "Drop down"
 msgstr "セレクトボックス"
 
+msgid "Multiple select"
+msgstr "複数セレクター"
+
 msgid "Radio buttons"
 msgstr "ラジオボタン"
 
@@ -55,6 +62,9 @@ msgstr "日付"
 
 msgid "Date/time"
 msgstr "日時"
+
+msgid "Hidden field"
+msgstr "非表示フィールド"
 
 msgid "submit time"
 msgstr "送信時刻"

@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-07-08 10:35+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -317,6 +317,12 @@ msgstr "Zobrazit chyby"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editor zhavaroval. Obsah byl obnoven z poslední uložené verze."
+
+msgid "Broken link"
+msgstr "Nefunkční odkaz"
+
+msgid "Missing document"
+msgstr "Chybějící dokument"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -931,6 +937,9 @@ msgstr "Tato stránka není veřejně viditelná"
 msgid "Disable ordering of child pages"
 msgstr "Vypnout řazení podstránek"
 
+msgid "Sort"
+msgstr "Třídění"
+
 msgid "Enable ordering of child pages"
 msgstr "Zapnout řazení podstránek"
 
@@ -1302,6 +1311,9 @@ msgstr "Korean"
 msgid "Lithuanian"
 msgstr "Lithuanian"
 
+msgid "Mongolian"
+msgstr "mongolština"
+
 msgid "Norwegian Bokmål"
 msgstr "Norwegian Bokmål"
 
@@ -1332,8 +1344,17 @@ msgstr "Swedish"
 msgid "Slovak"
 msgstr "Slovak"
 
+msgid "Thai"
+msgstr "thajština"
+
 msgid "Ukrainian"
 msgstr "Ukrainian"
+
+msgid "Chinese (Simplified)"
+msgstr "čínština (zjednodušená)"
+
+msgid "Chinese (Traditional)"
+msgstr "čínština (tradiční)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Promiňte, ale na přístup k této části nemáte oprávnění."
@@ -1450,6 +1471,13 @@ msgstr "Stránka '{0}' byla smazána."
 
 msgid "Page '{0}' unpublished."
 msgstr "Stránce '{0}' byla zrušena publikace."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Slug (identifikátor) '{0}' je už použit v nadřazené stránce. Použijte "
+"unikátní identifikátor a zkuste to znova"
 
 msgid "Page '{0}' moved."
 msgstr "Stránka '{0}' byla přesunuta."
@@ -1570,6 +1598,9 @@ msgstr "Nečíslovaný seznam"
 msgid "Numbered list"
 msgstr "Číslovaný seznam"
 
+msgid "Blockquote"
+msgstr "Blockquote (Zvýrazněný blok)"
+
 msgid "Bold"
 msgstr "Tučné"
 
@@ -1578,6 +1609,18 @@ msgstr "Šikmé"
 
 msgid "Link"
 msgstr "Odkaz"
+
+msgid "Superscript"
+msgstr "Superscript (Horní index)"
+
+msgid "Subscript"
+msgstr "Subscript (Dolní index)"
+
+msgid "Strikethrough"
+msgstr "Přeškrtnuté"
+
+msgid "Code"
+msgstr "Kód"
 
 msgid "Choose an item"
 msgstr "Zvolit položku"

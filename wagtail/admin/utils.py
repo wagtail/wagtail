@@ -28,6 +28,7 @@ logger = logging.getLogger('wagtail.admin')
 WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('ar', ugettext_lazy('Arabic')),
     ('ca', ugettext_lazy('Catalan')),
+    ('cs', ugettext_lazy('Czech')),
     ('de', ugettext_lazy('German')),
     ('el', ugettext_lazy('Greek')),
     ('en', ugettext_lazy('English')),
@@ -35,6 +36,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('fi', ugettext_lazy('Finnish')),
     ('fr', ugettext_lazy('French')),
     ('gl', ugettext_lazy('Galician')),
+    ('hu', ugettext_lazy('Hungarian')),
     ('id-id', ugettext_lazy('Indonesian')),
     ('is-is', ugettext_lazy('Icelandic')),
     ('it', ugettext_lazy('Italian')),

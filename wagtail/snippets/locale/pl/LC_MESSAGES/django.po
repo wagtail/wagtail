@@ -4,8 +4,9 @@
 #
 # Translators:
 # utek <mail@utek.pl>, 2014
+# Matt Westcott <matthew@torchbox.com>, 2019
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017-2018
+# Miłosz Miśkiewicz, 2017-2019
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:09+0000\n"
+"PO-Revision-Date: 2019-05-20 12:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -100,6 +101,9 @@ msgstr "Czy na pewno chcesz usunąć %(count)s %(snippet_type_name)s?"
 msgid "Yes, delete"
 msgstr "Tak, usuń"
 
+msgid "No, don't delete"
+msgstr "Nie usuwaj"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Nowy %(snippet_type_name)s"
@@ -137,7 +141,7 @@ msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
 "\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Żaden%(snippet_type_name_plural)s nie został stworzony. Czemu nie <a href="
+"Żaden %(snippet_type_name_plural)s nie został stworzony. Czemu nie <a href="
 "\"%(wagtailsnippets_create_url)s\">dodać jednego</a>?"
 
 #, python-format
