@@ -4,15 +4,17 @@
 #
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
+# shuhei hirota, 2019
 # Tri Minh <minh.nguyentri.95@gmail.com>, 2019
+# 溝江 智徳 <tomo.mizoe@gmail.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-23 07:44+0000\n"
-"Last-Translator: Tri Minh <minh.nguyentri.95@gmail.com>\n"
+"PO-Revision-Date: 2019-06-04 02:16+0000\n"
+"Last-Translator: 溝江 智徳 <tomo.mizoe@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +34,9 @@ msgstr "削除"
 
 msgid "Wagtail admin"
 msgstr "Wagtail管理"
+
+msgid "You do not have permission to access the admin"
+msgstr "管理画面へアクセスする権限がありません"
 
 msgid "Scheduled publishing"
 msgstr "予定公開日"
@@ -60,6 +65,9 @@ msgstr "パスワードをリセットするにはEメールアドレスを入�
 
 msgid "URL"
 msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "同一コレクション内で複数の権限を持つことはできません"
 
 msgid "New title"
 msgstr "新規タイトル"
@@ -102,9 +110,16 @@ msgstr[0] ""
 "しますか？"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "\"%(page_title)s\" にコピーする権限がありません。"
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "このスラッグ（\"%s\"）は親ページで既に使用されています。"
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "サブページをコピーするとき、それ自身にコピーすることはできません。"
 
 msgid "This slug is already in use"
 msgstr "このスラッグはすでに使われています"
@@ -221,6 +236,9 @@ msgstr "ここに書いて"
 
 msgid "Horizontal line"
 msgstr "横線"
+
+msgid "Line break"
+msgstr "改行"
 
 msgid "Reload the page"
 msgstr "ページをリロードします"
@@ -349,6 +367,9 @@ msgstr "編集"
 msgid "Edit this page"
 msgstr "ページを編集"
 
+msgid "Preview this page"
+msgstr "このページをプレビューする"
+
 msgid "Approve"
 msgstr "承認"
 
@@ -407,6 +428,9 @@ msgstr "Wagtailへサインイン"
 msgid "Forgotten it?"
 msgstr "パスワードを忘れましたか？"
 
+msgid "Signing in…"
+msgstr "サインイン中..."
+
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
 msgstr "ページ：%(title)s が承認されました"
@@ -461,6 +485,12 @@ msgstr "ロックあり"
 msgid "Unlocked"
 msgstr "ロックなし"
 
+msgid "Publishing…"
+msgstr "公開中..."
+
+msgid "Publish this revision"
+msgstr "このリビジョンを公開"
+
 msgid "Publish"
 msgstr "公開"
 
@@ -504,6 +534,16 @@ msgstr "はい、削除します"
 
 msgid "No, don't delete it"
 msgstr "いいえ、削除しません"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"別の選択肢として、<a href=\"%(unpublish_url)s\">このページを非公開</a>に変更"
+"することができます。非公開に設定されたページはのちに編集、再度公開することが"
+"可能です。"
 
 #, python-format
 msgid "Move %(title)s"
@@ -571,6 +611,9 @@ msgstr "%(page_type)s <span>%(title)s</span>を編集"
 
 msgid "Page locked"
 msgstr "ページはロックされています"
+
+msgid "Replace current draft"
+msgstr "現在の下書きを置き換える"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -709,11 +752,21 @@ msgstr "%(title)sの親ページを選択"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "<span>%(title)s</span>の親ページを選択"
 
+msgid "Preview error"
+msgstr "プレビューエラー"
+
 msgid "Close"
 msgstr "閉じる"
 
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "%(title)sを比較"
+
 msgid "Comparing"
 msgstr "比較"
+
+msgid "View revisions"
+msgstr "修正を見る"
 
 #, python-format
 msgid ""
@@ -876,6 +929,12 @@ msgstr "パスワードが変更されました。"
 msgid "Your email has been changed successfully!"
 msgstr "メールを更新済み"
 
+msgid "Your preferences have been updated."
+msgstr "設定が更新されました。"
+
+msgid "Your preferences have been updated successfully!"
+msgstr "設定が更新されました。"
+
 msgid "Collections"
 msgstr "各コレクション"
 
@@ -975,8 +1034,20 @@ msgstr "最新"
 msgid "Edit '{title}'"
 msgstr "'{title}'を編集します"
 
+msgid "Preview draft version of '{title}'"
+msgstr "'{title}'の草稿バージョンをプレビュー"
+
+msgid "View live version of '{title}'"
+msgstr "'{title}'の最新版を確認"
+
+msgid "Add a child page to '{title}' "
+msgstr "'{title}'の子ページを追加"
+
 msgid "More"
 msgstr "詳細表示"
+
+msgid "View more options for '{title}'"
+msgstr "'{title}'のオプションをもっと表示"
 
 msgid "Move page '{title}'"
 msgstr "'{title}'　ページを移動します"
@@ -987,11 +1058,20 @@ msgstr "'{title}'　ページをコピーします"
 msgid "Delete page '{title}'"
 msgstr "'{title}'　ページを削除します"
 
+msgid "Unpublish page '{title}'"
+msgstr "'{title}'ページを非公開にする"
+
+msgid "View revision history for '{title}'"
+msgstr "'{title}'の更新履歴を確認"
+
 msgid "Set profile picture"
 msgstr "プロファイル写真を設定します"
 
 msgid "Change your profile picture"
 msgstr "プロファイル写真を変更します"
+
+msgid "Change the email address linked to your account."
+msgstr "アカウントに設定された電子メールアドレスを変更して下さい。"
 
 msgid "Change the password you use to log in."
 msgstr "ログインに使用するパスワードを変更します。"

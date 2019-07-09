@@ -5,13 +5,14 @@
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
 # Marek Turnovec <aesculap@gmail.com>, 2016
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:09+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-07-08 11:34+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -30,20 +31,179 @@ msgstr "Zvolit"
 msgid "Search"
 msgstr "Hledat"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Je %(counter)s shoda\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Jsou %(counter)s shody\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Je(jsou) %(counter)s shody(a)\n"
+"        "
+msgstr[3] ""
+"\n"
+"Je/jsou %(counter)s shoda/y\n"
+"        "
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Bohužel, žádný úryvek neodpovídá \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
+msgstr ""
+"Nevytvořil(a) jste žádný %(snippet_type_name)s úryvek. Pojďme <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">nějaký vytvořit</a>."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Zrušit %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Zrušit"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použito %(usage_count)s -krát"
+msgstr[1] "Použito %(usage_count)s -krát"
+msgstr[2] "Použito %(usage_count)s -krát"
+msgstr[3] "Použito %(usage_count)s -krát"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Určitě chcete smazat následující %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Určitě chcete smazat %(count)s %(snippet_type_name)s?"
+
 msgid "Yes, delete"
 msgstr "Ano, smazat"
+
+msgid "No, don't delete"
+msgstr "Ne, nerušit."
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "Nový %(snippet_type_name)s"
 
 msgid "New"
 msgstr "Nový"
 
+msgid "Saving…"
+msgstr "Ukládá se..."
+
 msgid "Save"
 msgstr "Uložit"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "Edituje se %(snippet_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Edituje se"
 
 msgid "Delete"
 msgstr "Smazat"
 
+msgid "Usage"
+msgstr "Použití"
+
+msgid "Snippets"
+msgstr "Úryvky"
+
 msgid "Title"
 msgstr "Název"
 
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Žádné %(snippet_type_name_plural)s zatím nebyly vytvořeny. Pojďme <a href="
+"\"%(wagtailsnippets_create_url)s\">nějaký vytořit</a>?"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Úryvky %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr "Úryvky <span>%(snippet_type_name_plural)s</span>"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Přidat %(snippet_type_name)s"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Použití %(title)s"
+
+msgid "Usage of"
+msgstr "Použití"
+
+msgid "Parent"
+msgstr "Nadřazený objekt"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Edit this page"
+msgstr "Editovat tuto stránku"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Hledat %(snippet_type_name)s"
+
+msgid "{snippet_type} '{instance}' created."
+msgstr "{snippet_type} '{instance}' vytvořen(o)."
+
 msgid "Edit"
 msgstr "Upravit"
+
+msgid "The snippet could not be created due to errors."
+msgstr "Úryvek nemohl být vytvořen kvůli chybám."
+
+msgid "{snippet_type} '{instance}' updated."
+msgstr "{snippet_type} '{instance}' byl aktualizován."
+
+msgid "The snippet could not be saved due to errors."
+msgstr "Úryvek nemohl být uložen kvůli chybám."
+
+msgid "{snippet_type} '{instance}' deleted."
+msgstr "{snippet_type} '{instance}' byl zrušen."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} zrušeno."
+
+#, python-format
+msgid "Choose %s"
+msgstr "Zvol %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Zvol další %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Edituj %s"

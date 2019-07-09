@@ -5,7 +5,7 @@
 # Translators:
 # utek <mail@utek.pl>, 2014
 # Miłosz Miśkiewicz, 2017
-# Miłosz Miśkiewicz, 2017-2018
+# Miłosz Miśkiewicz, 2017-2019
 # Miłosz Miśkiewicz, 2016-2017
 # utek <mail@utek.pl>, 2014
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-12-02 21:50+0000\n"
+"PO-Revision-Date: 2019-05-09 13:37+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -67,16 +67,16 @@ msgstr ""
 "obsługę żądań (przekierowanie portów będzie nadal działało)."
 
 msgid "site name"
-msgstr "Nazwa strony"
+msgstr "Nazwa serwisu"
 
 msgid "Human-readable name for the site."
-msgstr "Nazwa strony przyjazna człowiekowi"
+msgstr "Nazwa serwisu przyjazna człowiekowi"
 
 msgid "root page"
 msgstr "Strona nadrzędna"
 
 msgid "is default site"
-msgstr "czy strona domyślna"
+msgstr "czy serwis domyślny"
 
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
@@ -86,18 +86,18 @@ msgstr ""
 "innych hostów, które nie mają ustawionej strony."
 
 msgid "site"
-msgstr "strona"
+msgstr "serwis"
 
 msgid "sites"
-msgstr "strony"
+msgstr "serwisy"
 
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"%(hostname)s jest już skonfigurowana jako domyślna strona. Przed zapisem "
-"strony jako domyślna musisz usunąć to ustawienie."
+"%(hostname)s jest już skonfigurowany jako domyślny serwis. Przed zapisaniem "
+"serwisu jako domyślnego musisz usunąć to ustawienie."
 
 msgid "title"
 msgstr "tytuł"

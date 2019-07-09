@@ -13,6 +13,7 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2017
+# Peter Dreuw <archandha@gmx.net>, 2019
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Vorlif <flori@vorlif.org>, 2015
 # Wasilis Mandratzis-Walz, 2015
@@ -22,8 +23,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-09 13:57+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2019-05-19 11:17+0000\n"
+"Last-Translator: Peter Dreuw <archandha@gmx.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -271,6 +272,22 @@ msgstr "Inaktiv"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "vor %(time_period)s"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Es gibt %(counter)s Ergebnisse."
+msgstr[1] ""
+"\n"
+"Es gibt %(counter)s Ergebnisse."
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

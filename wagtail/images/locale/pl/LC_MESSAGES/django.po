@@ -5,7 +5,7 @@
 # Translators:
 # utek <mail@utek.pl>, 2014
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017-2018
+# Miłosz Miśkiewicz, 2017-2019
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-04-25 11:15+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +54,12 @@ msgstr "Nieprawidłowy obraz %s."
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Ten obraz jest za duży (%%s). Maksymalny rozmiar pliku %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"Ten plik ma zbyt wiele pikesli: (%%s). Maksymalna dopuszczalna ilość pikseli "
+"to %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."

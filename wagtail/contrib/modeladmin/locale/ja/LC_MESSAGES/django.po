@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# shuhei hirota, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"PO-Revision-Date: 2019-05-30 04:13+0000\n"
+"Last-Translator: shuhei hirota\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Parent page"
+msgstr "親ページ"
+
+#, python-format
+msgid "Add %s"
+msgstr "%s を追加"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "%s を新規追加"
+
+msgid "Edit"
+msgstr "編集"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%sを編集"
+
+msgid "Delete"
+msgstr "削除"
+
+#, python-format
+msgid "Delete this %s"
+msgstr "%sを削除"
+
+msgid "Unpublish"
+msgstr "非公開"
+
+#, python-format
+msgid "Unpublish this %s"
+msgstr "%sを非公開"
+
+msgid "Copy"
+msgstr "複製"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "%sを複製"
+
+msgid "image"
+msgstr "画像"
+
+msgid "Choose a parent page"
+msgstr "親ページを選択"
+
+msgid "Saving…"
+msgstr "保存中..."
+
+msgid "Save"
+msgstr "保存"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)sは削除できませんでした"
+
+msgid "Yes, delete"
+msgstr "はい、削除します"
+
+msgid "Home"
+msgstr "ホーム"
+
+msgid "Filter"
+msgstr "フィルター"

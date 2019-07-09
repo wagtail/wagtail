@@ -8,7 +8,7 @@
 # utek <mail@utek.pl>, 2014
 # Mateusz <undefined5102@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2018
-# Miłosz Miśkiewicz, 2017-2018
+# Miłosz Miśkiewicz, 2017-2019
 # Miłosz Miśkiewicz, 2016-2017
 # utek <mail@utek.pl>, 2014
 # Мирон Левицкий <miron200504@gmail.com>, 2018
@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-09 13:36+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -320,6 +320,12 @@ msgid ""
 msgstr ""
 "Edytor napotkał błąd. Zawartość została cofnięta do ostatniej zapisanej "
 "wersji."
+
+msgid "Broken link"
+msgstr "Zepsuty link"
+
+msgid "Missing document"
+msgstr "Brakujący dokument"
 
 msgid "Dashboard"
 msgstr "Kokpit"
@@ -847,7 +853,7 @@ msgstr ""
 "adresem URL do momentu przypisania ich do strony."
 
 msgid "Configure a site now."
-msgstr "Skonfiguruj stronę teraz"
+msgstr "Skonfiguruj serwis teraz"
 
 msgid ""
 "\n"
@@ -856,8 +862,8 @@ msgid ""
 "                        "
 msgstr ""
 "\n"
-"Jeśli chcesz dodać strony do istniejących, utwórz je jako podstrony strony "
-"głównej"
+"Jeśli chcesz dodać strony do istniejących serwisów, utwórz je jako podstrony "
+"strony głównej"
 
 msgid ""
 "\n"
@@ -868,7 +874,8 @@ msgid ""
 msgstr ""
 "\n"
 "Strony utworzone tutaj nie będą dostępne pod jakimkolwiek adresem URL. Aby "
-"dodać strony do istniejącej, utwórz je jako podstrony strony nadrzędnej."
+"dodać strony do istniejącego serwisu, utwórz je jako podstrony strony "
+"głównej."
 
 msgid ""
 "\n"
@@ -878,9 +885,9 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"Podana lokalizacja nie zawiera żadnej konfiguracji stron. Strony utworzone "
-"tutaj nie będą dostępne pod jakimkolwiek adresem URL do momentu przypisania "
-"tutaj strony."
+"Podana lokalizacja nie zawiera żadnego serwisu. Strony utworzone tutaj nie "
+"będą dostępne pod jakimkolwiek adresem URL do momentu przypisania tutaj "
+"serwisu."
 
 msgid ""
 "\n"
@@ -922,7 +929,7 @@ msgid "Add child page"
 msgstr "Dodaj stronę podrzędną"
 
 msgid "Sites menu"
-msgstr "Menu stron"
+msgstr "Menu serwisów"
 
 #, python-format
 msgid ""
@@ -945,6 +952,9 @@ msgstr "Strona nie jest publicznie dostępna"
 
 msgid "Disable ordering of child pages"
 msgstr "Wyłącz sortowanie stron podrzędnych"
+
+msgid "Sort"
+msgstr "Sortuj"
 
 msgid "Enable ordering of child pages"
 msgstr "Włącz sortowanie stron podrzędnych"
@@ -1320,6 +1330,9 @@ msgstr "Koreański"
 msgid "Lithuanian"
 msgstr "Litewski"
 
+msgid "Mongolian"
+msgstr "Mongolski"
+
 msgid "Norwegian Bokmål"
 msgstr "Norweski Bokmål"
 
@@ -1350,8 +1363,17 @@ msgstr "Szwedzki"
 msgid "Slovak"
 msgstr "Słowacki"
 
+msgid "Thai"
+msgstr "Tajski"
+
 msgid "Ukrainian"
 msgstr "Ukraiński"
+
+msgid "Chinese (Simplified)"
+msgstr "Chiński (uproszczony)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chiński (tradycyjny)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Przepraszamy, ale nie posiadasz praw dostępu do tego miejsca."
@@ -1467,6 +1489,13 @@ msgstr "Usunięto stronę '{0}'."
 
 msgid "Page '{0}' unpublished."
 msgstr "Cofnięto publikację strony '{0}'."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Slug '{0}' jest już wykorzystywany w wybranej stronie nadrzędnej. Upewnij "
+"się, że slug jest unikalny i spróbuj ponownie."
 
 msgid "Page '{0}' moved."
 msgstr "Przesunięto stronę '{0}'."
@@ -1587,6 +1616,9 @@ msgstr "Lista wypunktowana"
 msgid "Numbered list"
 msgstr "Lista numeryczna"
 
+msgid "Blockquote"
+msgstr "Cytat"
+
 msgid "Bold"
 msgstr "Pogrubienie"
 
@@ -1595,6 +1627,18 @@ msgstr "Kursywa"
 
 msgid "Link"
 msgstr "Link"
+
+msgid "Superscript"
+msgstr "Superscript"
+
+msgid "Subscript"
+msgstr "Subscript"
+
+msgid "Strikethrough"
+msgstr "Przekreślenie"
+
+msgid "Code"
+msgstr "Kod"
 
 msgid "Choose an item"
 msgstr "Wybierz rzecz"

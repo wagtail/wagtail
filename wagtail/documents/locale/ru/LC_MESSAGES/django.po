@@ -10,13 +10,14 @@
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# Михаил Герасимов, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-22 15:12+0000\n"
+"Last-Translator: Михаил Герасимов\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -65,6 +66,9 @@ msgstr "Поиск"
 
 msgid "Upload"
 msgstr "Загрузка"
+
+msgid "Uploading…"
+msgstr "Загрузка..."
 
 msgid "Latest documents"
 msgstr "Последние документы"

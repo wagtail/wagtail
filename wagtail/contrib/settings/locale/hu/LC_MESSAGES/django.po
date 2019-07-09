@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # B N <biczoxd@gmail.com>, 2018
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-05-10 18:29+0000\n"
-"Last-Translator: B N <biczoxd@gmail.com>\n"
+"PO-Revision-Date: 2019-05-03 17:37+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +39,7 @@ msgid "Settings"
 msgstr "Beállítások"
 
 msgid "This setting could not be opened because there is no site defined."
-msgstr "Ez a beállítás nem nyitható meg, mert nincs oldal definiálva."
+msgstr "Ez a beállítás nem nyitható meg, mert nincs webhely definiálva."
 
 msgid "{setting_type} updated."
 msgstr "{setting_type} frissítve."

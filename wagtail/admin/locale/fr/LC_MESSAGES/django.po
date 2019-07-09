@@ -8,7 +8,7 @@
 # Antonin ENFRUN <anton@zorgameuh.org>, 2016
 # Aurélien Debord <contact@aureliendebord.com>, 2017
 # Axel Haustant, 2016
-# Benoît Vogel <contact@spicy-informatique.com>, 2016
+# Benoît Vogel <contact@spicy-informatique.com>, 2016,2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # fpoulain <fpoulain@metrodore.fr>, 2018
@@ -28,8 +28,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-22 22:05+0000\n"
+"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -100,7 +100,7 @@ msgid "This copy will be a child of this given parent page."
 msgstr "Cette copie sera une sous-page de la page parente sélectionnée."
 
 msgid "Copy subpages"
-msgstr "Copier une sous-page"
+msgstr "Copier les sous-pages"
 
 #, python-format
 msgid "This will copy %(count)s subpage."
@@ -321,6 +321,12 @@ msgid ""
 msgstr ""
 "L’éditeur a rencontré un problème. Le dernier contenu sauvegardé a été "
 "restauré."
+
+msgid "Broken link"
+msgstr "Lien mort"
+
+msgid "Missing document"
+msgstr "Document manquant"
 
 msgid "Dashboard"
 msgstr "Tableau de bord"
@@ -912,6 +918,9 @@ msgstr "Cette page n'est pas visible publiquement"
 msgid "Disable ordering of child pages"
 msgstr "Désactiver le tri des sous-pages"
 
+msgid "Sort"
+msgstr "Tri"
+
 msgid "Enable ordering of child pages"
 msgstr "Activer le tri des sous-pages"
 
@@ -1265,6 +1274,9 @@ msgstr "coréen"
 msgid "Lithuanian"
 msgstr "lituanien"
 
+msgid "Mongolian"
+msgstr "Mongol"
+
 msgid "Norwegian Bokmål"
 msgstr "norvégien bokmål"
 
@@ -1295,8 +1307,17 @@ msgstr "suédois"
 msgid "Slovak"
 msgstr "Slovaque"
 
+msgid "Thai"
+msgstr "Thaï"
+
 msgid "Ukrainian"
 msgstr "Ukrainien"
+
+msgid "Chinese (Simplified)"
+msgstr "Chinois (Simplifié)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinois (Traditionnel)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Désolé, vous n'avez pas les autorisations pour accéder à cette zone."
@@ -1414,6 +1435,13 @@ msgstr "Page '{0}' supprimée."
 
 msgid "Page '{0}' unpublished."
 msgstr "Page '{0}' dépubliée."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Le slug '{0}' est déjà utilisé au niveau de la page parent sélectionnée. "
+"Assurez-vous que le slug est unique et réessayez."
 
 msgid "Page '{0}' moved."
 msgstr "Page '{0}' déplacée."
@@ -1534,6 +1562,9 @@ msgstr "List à puce"
 msgid "Numbered list"
 msgstr "Liste numérotée"
 
+msgid "Blockquote"
+msgstr "Bloc de citation"
+
 msgid "Bold"
 msgstr "Gras"
 
@@ -1542,6 +1573,18 @@ msgstr "Italique"
 
 msgid "Link"
 msgstr "Lien"
+
+msgid "Superscript"
+msgstr "Exposant"
+
+msgid "Subscript"
+msgstr "Indice"
+
+msgid "Strikethrough"
+msgstr "Barré"
+
+msgid "Code"
+msgstr "Code"
 
 msgid "Choose an item"
 msgstr "Choisissez un élément"

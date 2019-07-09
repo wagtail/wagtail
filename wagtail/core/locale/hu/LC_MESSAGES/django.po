@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-03 15:10+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail core"
+msgstr "Alapok"
+
+msgid "{label}: this block has no options."
+msgstr "{label}: ehhez az elemhez nincsenek beállítások."
+
+msgid "This block has no options."
+msgstr "Ehhez az elemhez nincsenek beállítások."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Az elemek minimális száma %d"
+
+msgid "This field is required."
+msgstr "Ennek a mezőnek a megadása kötelező."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Az elemek maximális száma %d"
+
+msgid "Password"
+msgstr "Jelszó"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "A megadott jelszó érvénytelen. Kérjük próbálja újra."
 
 msgid "hostname"
 msgstr "hosztnév"
@@ -32,38 +59,45 @@ msgid ""
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
-"A port száma, amely az oldal URL nevében fog szerepelni (pl. fejlesztéshez "
+"A port száma, amely a webhely URL nevében fog szerepelni (pl. fejlesztéshez "
 "állítsa 80-ról 8000-re). Az oldal betöltését nem befolyásolja (a port "
 "továbbítás automatikusan működik)."
 
 msgid "site name"
-msgstr "oldal neve"
+msgstr "webhely neve"
 
 msgid "Human-readable name for the site."
-msgstr "Az oldal neve (emberi nyelven)"
+msgstr "A webhely neve emberi nyelven"
 
 msgid "root page"
 msgstr "főoldal"
 
 msgid "is default site"
-msgstr "az alapértelmezett oldal"
+msgstr "az alapértelmezett webhely"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Ha igazra van állítva, ez a webhely fogja az összes olyan hosztnév kéréseit "
+"lekezelni, amelyhez nem tartozik saját webhely."
 
 msgid "site"
-msgstr "oldal"
+msgstr "webhely"
 
 msgid "sites"
-msgstr "oldalak"
+msgstr "webhelyek"
 
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
-"A %(hostname)s az alapértelmezett oldal. Először törölje azt a beállítást és "
-"utána teheti a jelenlegi oldalt alapértelmezetté."
+"A %(hostname)s az alapértelmezett webhely. Először törölje azt a beállítást "
+"és utána teheti a jelenlegi webhelyet alapértelmezetté."
 
 msgid "title"
-msgstr "oldalcím"
+msgstr "cím"
 
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "Az oldal címe a közzététel után"
@@ -104,11 +138,11 @@ msgstr ""
 "böngészőablak tetején."
 
 msgid "show in menus"
-msgstr "szerepeljen menüsoron"
+msgstr "szerepeljen a menükben"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
-msgstr "Erre az oldalra mutató link fog megjelenni a menüsoron. "
+msgstr "Erre az oldalra mutató link fog megjelenni a generált menükben "
 
 msgid "search description"
 msgstr "leírás a keresőmotor számára"
@@ -128,20 +162,26 @@ msgstr "zárolt"
 msgid "first published at"
 msgstr "első közététel időpontja"
 
+msgid "last published at"
+msgstr "utolsó közzététel időpontja"
+
 msgid "latest revision created at"
 msgstr "a legutóbbi verzió letrehozásának időpontja"
 
 msgid "This slug is already in use"
-msgstr "Ez a slug már használatban van"
+msgstr "Ez a rövidítés már használatban van"
 
 msgid "scheduled"
-msgstr "közzététel időzítése"
+msgstr "időzítve"
 
 msgid "draft"
 msgstr "vázlat"
 
+msgid "live + scheduled"
+msgstr "közzétéve + időzítve"
+
 msgid "live + draft"
-msgstr "közzétett + vázlat"
+msgstr "közzétéve + vázlat"
 
 msgid "Default"
 msgstr "Alapértelmezett"
@@ -162,13 +202,13 @@ msgid "user"
 msgstr "felhasználó"
 
 msgid "content JSON"
-msgstr "JSON tartalma"
+msgstr "JSON tartalom"
 
 msgid "approved go live at"
-msgstr "közzététel jóváhagyásának ideje"
+msgstr "jóváhagyott közzététel időpontja"
 
 msgid "page revision"
-msgstr "az oldal verziója"
+msgstr "oldal verzió"
 
 msgid "page revisions"
 msgstr "oldal verziók"
@@ -177,25 +217,31 @@ msgid "Add"
 msgstr "Hozzáadás"
 
 msgid "Add/edit pages you own"
-msgstr "Oldalaim létrehozása/szerkesztése"
+msgstr "Saját oldalaim létrehozása/szerkesztése"
 
 msgid "Edit"
 msgstr "Szerkesztés"
 
 msgid "Edit any page"
-msgstr "Valamely oldal szerkesztése"
+msgstr "Bármelyik oldal szerkesztése"
 
 msgid "Publish"
 msgstr "Közzététel"
 
 msgid "Publish any page"
-msgstr "Valamely oldal közzététele"
+msgstr "Bármelyik oldal közzététele"
+
+msgid "Bulk delete"
+msgstr "Kötegelt törlés"
+
+msgid "Delete pages with children"
+msgstr "Oldalak törlése a gyermek oldalakkal együtt"
 
 msgid "Lock"
 msgstr "Zárolás"
 
 msgid "Lock/unlock any page"
-msgstr "Valamely oldal zárolása/feloldása"
+msgstr "Bármelyik oldal zárolása/feloldása"
 
 msgid "group"
 msgstr "csoport"
@@ -209,8 +255,29 @@ msgstr "csoport hozzáférés"
 msgid "group page permissions"
 msgstr "csoport hozzáférések"
 
+msgid "Public"
+msgstr "Publikus"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privát, csak bejelentkezett felhasználók érik el"
+
+msgid "Private, accessible with the following password"
+msgstr "Privát, csak a következő jelszó megadávásal érhető el"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privát, csak a megadott csoportba tartozó felhasználók látják"
+
 msgid "password"
 msgstr "jelszó"
+
+msgid "groups"
+msgstr "csoportok"
+
+msgid "view restriction"
+msgstr "elérési korlátozás"
+
+msgid "view restrictions"
+msgstr "elérési korlátozások"
 
 msgid "page view restriction"
 msgstr "az oldal megtekintésének korlátozása"
@@ -221,6 +288,12 @@ msgstr "az oldal megtekintésének korlátozásai"
 msgid "collection"
 msgstr "gyűjtemény"
 
+msgid "collection view restriction"
+msgstr "gyűjtemény elérési korlátozás"
+
+msgid "collection view restrictions"
+msgstr "gyűjtemény elérési korlátozások"
+
 msgid "name"
 msgstr "név"
 
@@ -229,3 +302,31 @@ msgstr "gyűjtemények"
 
 msgid "permission"
 msgstr "hozzáférés"
+
+msgid "group collection permission"
+msgstr "csoportos gyűjtemény engedély"
+
+msgid "group collection permissions"
+msgstr "csoportos gyűjtemény engedélyek"
+
+msgid "Log in"
+msgstr "Bejelentkezés"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "A felhasználónév és jelszó nem megfelelő. Kérjük próbálja újra."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"A fiókjának nincs jogosultsága elérni ezt az oldalt. Kérjük jelentkezzen be "
+"egy olyan fiókkal, amely rendelkezik a megfelelő engedélyekkel."
+
+msgid "Password required"
+msgstr "Jelszó szükséges"
+
+msgid "You need a password to access this page."
+msgstr "Ezen oldal megtekintéséhez jelszó szükséges."
+
+msgid "Continue"
+msgstr "Folytatás"

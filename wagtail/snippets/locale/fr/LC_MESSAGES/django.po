@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benoît Vogel <contact@spicy-informatique.com>, 2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
@@ -16,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:09+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-05 03:34+0000\n"
+"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -88,6 +89,9 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer %(count)s %(snippet_type_name)s?
 
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
+
+msgid "No, don't delete"
+msgstr "Non, ne pas supprimer"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"

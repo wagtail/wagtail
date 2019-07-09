@@ -9,14 +9,15 @@
 # Edd <edd.baldry@googlemail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2016,2018
+# Guglielmo Celata <guglielmo.celata@gmail.com>, 2019
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-07-04 07:40+0000\n"
+"Last-Translator: Guglielmo Celata <guglielmo.celata@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -307,6 +308,12 @@ msgid ""
 msgstr ""
 "L'editor è appena andato in crash. Il contenuto è stato reimpostato "
 "sull'ultima versione salvata."
+
+msgid "Broken link"
+msgstr "Link non funzionante"
+
+msgid "Missing document"
+msgstr "Documento non trovato"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -906,6 +913,9 @@ msgstr "Questa pagina è protetta dalla vista pubblica"
 msgid "Disable ordering of child pages"
 msgstr "Disabilita ordine delle pagine figlio"
 
+msgid "Sort"
+msgstr "Ordinamento"
+
 msgid "Enable ordering of child pages"
 msgstr "Attiva ordine di pagine figlio"
 
@@ -1273,6 +1283,9 @@ msgstr "Koreano"
 msgid "Lithuanian"
 msgstr "Lithuanian"
 
+msgid "Mongolian"
+msgstr "Mongolo"
+
 msgid "Norwegian Bokmål"
 msgstr "Norwegian Bokmål"
 
@@ -1303,8 +1316,17 @@ msgstr "Svedese"
 msgid "Slovak"
 msgstr "Slovacco"
 
+msgid "Thai"
+msgstr "Tailandese"
+
 msgid "Ukrainian"
 msgstr "Ucraino"
+
+msgid "Chinese (Simplified)"
+msgstr "Cinese (semplificato)"
+
+msgid "Chinese (Traditional)"
+msgstr "Cinese (tradizionale)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Spiacente, non hai i permessi per accedere a questa area."
@@ -1421,6 +1443,13 @@ msgstr "Pagina '{0}' eliminata."
 
 msgid "Page '{0}' unpublished."
 msgstr "Pagina '{0}' non pubblicata."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Lo slug '{0}' è già utilizzato nella pagina genitrice selezionata. "
+"Assicurarsi che lo slug sia unico e riprovare"
 
 msgid "Page '{0}' moved."
 msgstr "Page '{0}' spostata."
@@ -1549,6 +1578,9 @@ msgstr "Corsivo"
 
 msgid "Link"
 msgstr "Link"
+
+msgid "Code"
+msgstr "Codice"
 
 msgid "Choose an item"
 msgstr "Scegli un elemento"
