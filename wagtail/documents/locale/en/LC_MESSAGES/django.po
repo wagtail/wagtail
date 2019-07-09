@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,11 +57,11 @@ msgstr ""
 msgid "tags"
 msgstr ""
 
-#: models.py:135
+#: models.py:146
 msgid "document"
 msgstr ""
 
-#: models.py:136
+#: models.py:147
 msgid "documents"
 msgstr ""
 
@@ -164,6 +164,10 @@ msgstr ""
 msgid "Yes, delete"
 msgstr ""
 
+#: templates/wagtaildocs/documents/confirm_delete.html:21
+msgid "No, don't delete"
+msgstr ""
+
 #: templates/wagtaildocs/documents/edit.html:4
 #, python-format
 msgid "Editing %(title)s"
@@ -189,8 +193,8 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:49
-#: wagtail_hooks.py:131
+#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:50
+#: wagtail_hooks.py:135
 msgid "Documents"
 msgstr ""
 
@@ -261,11 +265,13 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Document\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
 "    "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Documents\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
 "    "
 msgstr[0] ""
 msgstr[1] ""
@@ -354,11 +360,11 @@ msgstr ""
 msgid "Document '{0}' deleted."
 msgstr ""
 
-#: wagtail_hooks.py:87
+#: wagtail_hooks.py:88
 msgid "Document"
 msgstr ""
 
-#: wagtail_hooks.py:150
+#: wagtail_hooks.py:154
 #, python-format
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"

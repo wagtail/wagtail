@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -147,7 +147,7 @@ msgstr ""
 
 #: templates/wagtailusers/groups/confirm_delete.html:3
 #: templates/wagtailusers/groups/confirm_delete.html:6
-#: templates/wagtailusers/groups/edit.html:37 views/groups.py:107
+#: templates/wagtailusers/groups/edit.html:38 views/groups.py:107
 #: views/groups.py:144
 msgid "Delete group"
 msgstr ""
@@ -195,39 +195,43 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailusers/groups/edit.html:34
+#: templates/wagtailusers/groups/edit.html:35
 #: templates/wagtailusers/users/edit.html:41
 #: templates/wagtailusers/users/edit.html:56
 msgid "Save"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:3
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:4
+msgid "Permissions"
+msgstr ""
+
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:5
 msgid "Object permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:11
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:41
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:13
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:52
 #: templates/wagtailusers/groups/list.html:6
 #: templates/wagtailusers/users/list.html:8
 #: templates/wagtailusers/users/list.html:12
 msgid "Name"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:12
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:14
 msgid "Add"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:13
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:15
 msgid "Change"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:14
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:16
 #: templates/wagtailusers/groups/includes/page_permissions_form.html:13
 #: wagtail_hooks.py:109
 msgid "Delete"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:35
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:46
 msgid "Other permissions"
 msgstr ""
 
