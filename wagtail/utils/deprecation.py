@@ -1,9 +1,9 @@
-class RemovedInWagtail27Warning(DeprecationWarning):
+class RemovedInWagtail28Warning(DeprecationWarning):
     pass
 
 
-removed_in_next_version_warning = RemovedInWagtail27Warning
+removed_in_next_version_warning = RemovedInWagtail28Warning
 
 
-class RemovedInWagtail28Warning(PendingDeprecationWarning):
+class RemovedInWagtail29Warning(PendingDeprecationWarning):
     pass
