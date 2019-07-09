@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgid "Delete "
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/confirm_delete.html:23
-#: templates/wagtailsnippets/snippets/edit.html:42
+#: templates/wagtailsnippets/snippets/edit.html:40
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -103,12 +103,12 @@ msgid "New"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/create.html:16
-#: templates/wagtailsnippets/snippets/edit.html:23
+#: templates/wagtailsnippets/snippets/edit.html:20
 msgid "Saving…"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/create.html:17
-#: templates/wagtailsnippets/snippets/edit.html:24
+#: templates/wagtailsnippets/snippets/edit.html:21
 msgid "Save"
 msgstr ""
 
@@ -121,11 +121,15 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/edit.html:28
+#: templates/wagtailsnippets/snippets/edit.html:16
+msgid "Actions"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/edit.html:25
 msgid "Delete"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/edit.html:40
+#: templates/wagtailsnippets/snippets/edit.html:38
 msgid "Usage"
 msgstr ""
 
