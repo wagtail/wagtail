@@ -35,3 +35,8 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+``Page.dummy_request`` is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The internal ``Page.dummy_request`` method (which generates an HTTP request object simulating a real page request, for use in previews) has been deprecated, as it did not correctly handle errors generated during middleware processing. Any code that calls this method to render page previews should be updated to use the new method ``Page.make_preview_request(original_request=None, preview_mode=None)``, which builds the request and calls ``Page.serve_preview`` as a single operation.
