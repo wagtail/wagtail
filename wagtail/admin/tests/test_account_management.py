@@ -411,6 +411,31 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the current language is assumed as English
         self.assertEqual(profile.get_preferred_language(), "en")
 
+    def test_change_name(self):
+        """
+        This tests that the change name view responds with a change name page
+        """
+        # Get change name page
+        response = self.client.get(reverse('wagtailadmin_account_change_name'))
+
+        # Check that the user received a change name page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/change_name.html')
+
+    def test_change_name_post(self):
+        post_data = {
+            'first_name': 'Fox',
+            'last_name': 'Mulder',
+        }
+        response = self.client.post(reverse('wagtailadmin_account_change_name'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check that the name was changed
+        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).first_name, post_data['first_name'])
+        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).last_name, post_data['last_name'])
+
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English'), ('es', 'Spanish')])
     def test_available_admin_languages_with_permitted_languages(self):
         self.assertListEqual(get_available_admin_languages(), [('en', 'English'), ('es', 'Spanish')])
