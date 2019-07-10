@@ -3,6 +3,7 @@ import logging
 from collections import defaultdict
 from io import StringIO
 from urllib.parse import urlparse
+from warnings import warn
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -32,6 +33,8 @@ from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
 from wagtail.search import index
+from wagtail.utils.deprecation import RemovedInWagtail29Warning
+
 
 logger = logging.getLogger('wagtail.core')
 
@@ -1216,15 +1219,50 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         user_perms = UserPagePermissionsProxy(user)
         return user_perms.for_page(self)
 
-    def dummy_request(self, original_request=None, **meta):
+    def make_preview_request(self, original_request=None, preview_mode=None, extra_request_attrs=None):
         """
-        Construct a HttpRequest object that is, as far as possible, representative of ones that would
-        receive this page as a response. Used for previewing / moderation and any other place where we
+        Simulate a request to this page, by constructing a fake HttpRequest object that is (as far
+        as possible) representative of a real request to this page's front-end URL, and invoking
+        serve_preview with that request (and the given preview_mode).
+
+        Used for previewing / moderation and any other place where we
         want to display a view of this page in the admin interface without going through the regular
         page routing logic.
 
         If you pass in a real request object as original_request, additional information (e.g. client IP, cookies)
         will be included in the dummy request.
+        """
+        dummy_meta = self._get_dummy_headers(original_request)
+        request = WSGIRequest(dummy_meta)
+
+        # Add a flag to let middleware know that this is a dummy request.
+        request.is_dummy = True
+
+        if extra_request_attrs:
+            for k, v in extra_request_attrs.items():
+                setattr(request, k, v)
+
+        page = self
+
+        # Build a custom django.core.handlers.BaseHandler subclass that invokes serve_preview as
+        # the eventual view function called at the end of the middleware chain, rather than going
+        # through the URL resolver
+        class Handler(BaseHandler):
+            def _get_response(self, request):
+                response = page.serve_preview(request, preview_mode)
+                if hasattr(response, 'render') and callable(response.render):
+                    response = response.render()
+                return response
+
+        # Invoke this custom handler.
+        handler = Handler()
+        handler.load_middleware()
+        return handler.get_response(request)
+
+    def _get_dummy_headers(self, original_request=None):
+        """
+        Return a dict of META information to be included in a faked HttpRequest object to pass to
+        serve_preview.
         """
         url = self.full_url
         if url:
@@ -1278,6 +1316,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             for header in HEADERS_FROM_ORIGINAL_REQUEST:
                 if header in original_request.META:
                     dummy_values[header] = original_request.META[header]
+
+        return dummy_values
+
+    def dummy_request(self, original_request=None, **meta):
+        warn(
+            "Page.dummy_request is deprecated. Use Page.make_preview_request instead",
+            category=RemovedInWagtail29Warning
+        )
+
+        dummy_values = self._get_dummy_headers(original_request)
 
         # Add additional custom metadata sent by the caller.
         dummy_values.update(**meta)
