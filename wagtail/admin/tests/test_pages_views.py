@@ -1,6 +1,7 @@
 import datetime
 import logging
 import os
+import unittest
 from itertools import chain
 from unittest import mock
 
@@ -5274,6 +5275,19 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
 
         # User can view
         self.assertEqual(response.status_code, 200)
+
+    @unittest.expectedFailure
+    def test_middleware_response_is_returned(self):
+        """
+        If middleware returns a response while serving a page preview, that response should be
+        returned back to the user
+        """
+        self.login()
+        response = self.client.get(
+            reverse('wagtailadmin_pages:view_draft', args=(self.child_page.id, )),
+            HTTP_USER_AGENT='EvilHacker'
+        )
+        self.assertEqual(response.status_code, 403)
 
 
 class TestPreview(TestCase, WagtailTestUtils):
