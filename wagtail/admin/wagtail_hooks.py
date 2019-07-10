@@ -203,7 +203,7 @@ def register_account_set_profile_picture(request):
     return {
         'url': reverse('wagtailadmin_account_change_avatar'),
         'label': _('Set profile picture'),
-        'help_text': _("Change your profile picture")
+        'help_text': _("Change your profile picture.")
     }
 
 
@@ -255,6 +255,15 @@ def register_account_current_time_zone(request):
             'label': _('Current Time Zone'),
             'help_text': _('Choose your current time zone.'),
         }
+
+
+@hooks.register('register_account_menu_item')
+def register_account_change_name(request):
+    return {
+        'url': reverse('wagtailadmin_account_change_name'),
+        'label': _('Change name'),
+        'help_text': _('Change your first and last name on your account.'),
+    }
 
 
 @hooks.register('register_rich_text_features')

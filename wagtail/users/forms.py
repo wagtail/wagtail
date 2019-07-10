@@ -409,6 +409,15 @@ class EmailForm(forms.ModelForm):
         fields = ("email",)
 
 
+class NameForm(forms.ModelForm):
+    first_name = forms.CharField(required=True, label=_('First Name'))
+    last_name = forms.CharField(required=True, label=_('Last Name'))
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name",)
+
+
 def _get_time_zone_choices():
     time_zones = [(tz, str(l18n.tz_fullnames.get(tz, tz)))
                   for tz in get_available_admin_time_zones()]
