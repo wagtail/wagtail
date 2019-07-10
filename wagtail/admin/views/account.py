@@ -12,7 +12,7 @@ from django.utils.translation import activate
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.core import hooks
 from wagtail.users.forms import (
-    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NotificationPreferencesForm, PreferredLanguageForm)
+    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NameForm, NotificationPreferencesForm, PreferredLanguageForm)
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 
@@ -91,6 +91,22 @@ def change_email(request):
         form = EmailForm(instance=request.user)
 
     return render(request, 'wagtailadmin/account/change_email.html', {
+        'form': form,
+    })
+
+
+def change_name(request):
+    if request.method == 'POST':
+        form = NameForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your name has been changed successfully!"))
+            return redirect('wagtailadmin_account')
+    else:
+        form = NameForm(instance=request.user)
+
+    return render(request, 'wagtailadmin/account/change_name.html', {
         'form': form,
     })
 
