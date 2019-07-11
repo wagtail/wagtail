@@ -54,6 +54,7 @@ Bug fixes
  * Fixes layout for the clear checkbox in default FileField widget (Mikalai Radchuk)
  * Remove ASCII conversion from Postgres search backend, to support stemming in non-Latin alphabets (Pavel Denisov)
  * Prevent tab labels on page edit view from being cut off on very narrow screens (Kevin Howbrook)
+ * Very long words in page listings are now broken where necessary (Kevin Howbrook)
 
 
 Upgrade considerations
