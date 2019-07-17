@@ -10,6 +10,7 @@ Changelog
  * Fix: Added https support for Scribd oEmbed provider (Rodrigo)
  * Fix: Changed StreamField group labels color so labels are visible (Catherine Farman)
  * Fix: Prevented images with a very wide aspect ratio from being displayed distorted in the rich text editor (Iman Syed)
+ * Fix: Prevent exception when deleting a model with a protected One-to-one relationship (Neal Todd)
 
 
 2.6.1 (xx.xx.xxxx) - IN DEVELOPMENT

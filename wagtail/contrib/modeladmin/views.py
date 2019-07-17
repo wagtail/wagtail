@@ -6,11 +6,12 @@ from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
     get_fields_from_path, label_for_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ImproperlyConfigured, PermissionDenied, SuspiciousOperation
+from django.core.exceptions import (
+    ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied, SuspiciousOperation)
 from django.core.paginator import InvalidPage, Paginator
 from django.db import models
 from django.db.models.fields import FieldDoesNotExist
-from django.db.models.fields.related import ManyToManyField
+from django.db.models.fields.related import ManyToManyField, OneToOneRel
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
 from django.utils.decorators import method_decorator
@@ -738,9 +739,17 @@ class DeleteView(InstanceSpecificView):
                 obj.field, ManyToManyField))
             for rel in fields:
                 if rel.on_delete == models.PROTECT:
-                    qs = getattr(self.instance, rel.get_accessor_name())
-                    for obj in qs.all():
-                        linked_objects.append(obj)
+                    if isinstance(rel, OneToOneRel):
+                        try:
+                            obj = getattr(self.instance, rel.get_accessor_name())
+                        except ObjectDoesNotExist:
+                            pass
+                        else:
+                            linked_objects.append(obj)
+                    else:
+                        qs = getattr(self.instance, rel.get_accessor_name())
+                        for obj in qs.all():
+                            linked_objects.append(obj)
             context = self.get_context_data(
                 protected_error=True,
                 linked_objects=linked_objects

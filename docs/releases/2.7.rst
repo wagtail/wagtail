@@ -28,6 +28,7 @@ Bug fixes
  * Added https support for Scribd oEmbed provider (Rodrigo)
  * Changed StreamField group label color so labels are visible (Catherine Farman)
  * Prevented images with a very wide aspect ratio from being displayed distorted in the rich text editor (Iman Syed)
+ * Prevent exception when deleting a model with a protected One-to-one relationship (Neal Todd)
 
 
 Upgrade considerations

@@ -40,6 +40,14 @@ class Book(models.Model, index.Indexed):
         return self.title
 
 
+class SoloBook(models.Model):
+    author = models.OneToOneField(Author, on_delete=models.PROTECT)
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+
 class Token(models.Model):
     key = models.CharField(max_length=40, primary_key=True)
 
