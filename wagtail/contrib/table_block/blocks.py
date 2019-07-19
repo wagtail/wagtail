@@ -97,6 +97,7 @@ class TableBlock(FieldBlock):
                 'table_header': table_header,
                 'first_col_is_header': first_col_is_header,
                 'html_renderer': self.is_html_renderer(),
+                'table_caption': value.get('table_caption'),
                 'data': value['data'][1:] if table_header else value.get('data', [])
             })
 
@@ -128,7 +129,6 @@ class TableBlock(FieldBlock):
         """
 
         collected_table_options = DEFAULT_TABLE_OPTIONS.copy()
-
         if table_options is not None:
             if table_options.get('contextMenu', None) is True:
                 # explicity check for True, as value could also be array
