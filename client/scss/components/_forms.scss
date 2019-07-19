@@ -133,7 +133,8 @@ li.focused > .help {
     opacity: 1;
 }
 
-.required .field > label:after {
+.required .field > label:after,
+.required .title-wrapper > label:after {
     content: '*';
     color: $color-red;
     font-weight: bold;
