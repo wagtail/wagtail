@@ -4,7 +4,7 @@
 #
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
-# Benoît Vogel <contact@spicy-informatique.com>, 2016
+# Benoît Vogel <contact@spicy-informatique.com>, 2016,2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-05 03:19+0000\n"
+"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -58,6 +58,12 @@ msgstr "Image %s non valide."
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr ""
 "Ce fichier est trop gros (%%s). La taille de fichier maximale est de %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"Ce fichier a un trop grand nombre de pixels (%%s). Nombre maximum de pixels "
+"%s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."

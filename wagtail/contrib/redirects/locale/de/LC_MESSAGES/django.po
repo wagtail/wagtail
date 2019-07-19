@@ -12,6 +12,7 @@
 # karlsander <karlsander@gmail.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# Peter Dreuw <archandha@gmx.net>, 2019
 # Vorlif <flori@vorlif.org>, 2015
 # Wasilis Mandratzis-Walz, 2015
 # Wasilis Mandratzis-Walz, 2015
@@ -20,8 +21,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-19 11:16+0000\n"
+"Last-Translator: Peter Dreuw <archandha@gmx.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -117,6 +118,22 @@ msgstr "Typ"
 
 msgid "Edit this redirect"
 msgstr "Diese Weiterleitung bearbeiten"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Es gibt %(counter)s Ergebnis."
+msgstr[1] ""
+"\n"
+"Es gibt %(counter)s Ergebnisse."
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

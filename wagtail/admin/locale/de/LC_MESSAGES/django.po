@@ -19,6 +19,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# Peter Dreuw <archandha@gmx.net>, 2019
 # tobias schmidt <tobias.schmidt82@gmail.com>, 2016
 # Vorlif <flori@vorlif.org>, 2016
 # Wasilis Mandratzis-Walz, 2015
@@ -27,8 +28,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-09 13:57+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2019-06-23 14:49+0000\n"
+"Last-Translator: Peter Dreuw <archandha@gmx.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -331,6 +332,9 @@ msgid ""
 msgstr ""
 "Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
 "Version zurückgesetzt."
+
+msgid "Broken link"
+msgstr "Defekter Link"
 
 msgid "Missing document"
 msgstr "Fehlendes Dokument"
@@ -1336,6 +1340,12 @@ msgstr "Slowakisch"
 msgid "Ukrainian"
 msgstr "Ukrainisch"
 
+msgid "Chinese (Simplified)"
+msgstr "Chinesisch (vereinfacht)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinesisch (traditionell)"
+
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sie haben leider keinen Zugang zu diesem Bereich."
 
@@ -1458,6 +1468,13 @@ msgstr "Seite ‚{0}‘ gelöscht."
 
 msgid "Page '{0}' unpublished."
 msgstr "Veröffentlichung der Seite \"{0}\" aufgehoben."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Der Kurztitel '{0}' wird innerhalb der Eltern-Seite bereits verwendet. Bitte "
+"wählen Sie einen eindeutigen Kurztitel und versuchen Sie es erneut."
 
 msgid "Page '{0}' moved."
 msgstr "Seite ‚{0}‘ verschoben."
@@ -1589,6 +1606,15 @@ msgstr "Kursiv"
 
 msgid "Link"
 msgstr "Link"
+
+msgid "Superscript"
+msgstr "Hochgestellt"
+
+msgid "Subscript"
+msgstr "Tiefgestellt"
+
+msgid "Strikethrough"
+msgstr "Durchgestrichen"
 
 msgid "Code"
 msgstr "Code"

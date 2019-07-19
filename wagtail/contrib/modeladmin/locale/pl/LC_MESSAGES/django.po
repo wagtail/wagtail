@@ -4,14 +4,14 @@
 #
 # Translators:
 # Miłosz Miśkiewicz, 2016
-# Miłosz Miśkiewicz, 2018
+# Miłosz Miśkiewicz, 2018-2019
 # Miłosz Miśkiewicz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-05-15 08:28+0000\n"
+"PO-Revision-Date: 2019-05-09 13:38+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -83,7 +83,7 @@ msgid ""
 "%(plural)s can be added to more than one place within your site. Which of "
 "the following would you like to be the parent of your new page?"
 msgstr ""
-"%(plural)s może zostać dodany w więcej niż jednym miejscu na Twojej stronie. "
+"%(plural)s może zostać dodany w więcej niż jednym miejscu na Twoim serwisie. "
 "Które z poniższych chciałbyś ustawić jako nadrzędne dla Twojej nowej strony?"
 
 msgid "Continue"
@@ -212,7 +212,7 @@ msgid ""
 "related to it, they may also be affected."
 msgstr ""
 "Czy na pewno chcesz usunąć %s? Może mieć to wpływ na pozostałe, zależne "
-"elementy na Twojej stronie."
+"elementy w Twoim serwisie."
 
 msgid "{model} '{instance}' deleted."
 msgstr "{model} '{instance}' usunięto."

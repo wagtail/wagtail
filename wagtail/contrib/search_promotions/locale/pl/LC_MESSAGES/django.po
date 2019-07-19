@@ -4,7 +4,7 @@
 #
 # Translators:
 # Miłosz Miśkiewicz, 2016
-# Miłosz Miśkiewicz, 2018
+# Miłosz Miśkiewicz, 2018-2019
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-12-02 22:04+0000\n"
+"PO-Revision-Date: 2019-05-09 13:38+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -72,7 +72,7 @@ msgstr ""
 "<p>Pole \"Fraza(-y) wyszukiwania\" poniżej musi zawierać pełną i dokładną "
 "wartość dla której chciałbyś dostarczyć rekomendowane wyniki "
 "<em>uwzględniając</em> wszystkie literówki/błędy użytkownika. Pomocny może "
-"być wybór fraz wyszukiwania, które były popularne na Twojej stronie.</p>\n"
+"być wybór fraz wyszukiwania, które były popularne na Twoim serwisie.</p>\n"
 "            "
 
 msgid "Save"

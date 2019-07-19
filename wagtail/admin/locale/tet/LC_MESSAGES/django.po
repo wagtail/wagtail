@@ -5,16 +5,17 @@
 # Translators:
 # Joanico Barros <joanico@catalpa.io>, 2019
 # Mariano de Deus <dedeus_mariano@yahoo.com>, 2019
-# Mario Alves Pinto <mario@catalpa.io>, 2019
-# Onorio de Jesus <onorio@catalpa.io>, 2019
+# Mario <mario@catalpa.io>, 2019
+# Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
+# Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
 # Peter Coward <peter@catalpa.io>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-06-06 07:00+0000\n"
+"Last-Translator: Onorio de Jesus Afonso <onorio@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Submit for moderation"
-msgstr "Submete ba revisaun"
+msgstr "Submete ba moderasaun"
 
 msgid "Unpublish"
 msgstr "Halo la publika"
@@ -57,14 +58,14 @@ msgid "Settings"
 msgstr "Konfigurasaun"
 
 msgid "Enter password"
-msgstr "Hatama password"
+msgstr "Hatama seña"
 
 #, python-format
 msgid "Enter your %s"
 msgstr "Hatama ita nia 1%s"
 
 msgid "Enter your email address to reset your password"
-msgstr "Hatama enderessu email hodi defini fali ita nia password"
+msgstr "Hatama ita boot nia enderessu email hodi defini fali ita boot nia seña"
 
 msgid "URL"
 msgstr "URL"
@@ -79,11 +80,10 @@ msgid "New slug"
 msgstr "Slug foun"
 
 msgid "New parent page"
-msgstr "Pajina inan aman foun"
+msgstr "Pajina inan-aman foun"
 
 msgid "This copy will be a child of this given parent page."
-msgstr ""
-"Kopia ida nee sei sai hanesan pajina labarik hodi fo ba pajina inan aman "
+msgstr "Kopia ida nee sei sai hanesan pajina oan hodi fo ba pajina inan-aman."
 
 msgid "Copy subpages"
 msgstr "Kopia pajina labarik sira"
@@ -91,7 +91,7 @@ msgstr "Kopia pajina labarik sira"
 #, python-format
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
-msgstr[0] "Sei kopia pajina labarik %(count)s "
+msgstr[0] "Sei kopia pajina oan sira %(count)s "
 
 msgid "Publish copied page"
 msgstr "Halo pajina kopia publika"
@@ -118,12 +118,11 @@ msgstr "Ita boot laiha permisaun atu kopia pajina \"%(page_title)s\""
 #, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
-msgstr "Slug nee uza tiha ona iha laran kontextu ninia pajina inan aman \"%s\""
+msgstr "Slug nee uza tiha ona iha laran kontextu ninia pajina inan-aman \"%s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
-"Ita boot labele kopia pajina iha rasik laran bainhira kopia pajina labarik "
-"sira"
+"Ita boot labele kopia pajina iha rasik laran bainhira kopia pajina oan sira"
 
 msgid "This slug is already in use"
 msgstr "Slug nee uza tiha ona"
@@ -301,6 +300,12 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editor foin mak monu. Konteudu reset tiha ona ba rai verjaun foun ikus"
 
+msgid "Broken link"
+msgstr "Ligasaun ladiak"
+
+msgid "Missing document"
+msgstr "Dokumentu lakon"
+
 msgid "Dashboard"
 msgstr "Painel kontrolu"
 
@@ -328,11 +333,40 @@ msgstr "Ligasaun externa"
 msgid "Email link"
 msgstr "Ligasaun email"
 
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Iha resultado %(counter)s "
+
 msgid "Choose"
 msgstr "Hili"
 
 msgid "Choose a page"
 msgstr "Hili pajina ida"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"It boot bele uza deit tipu pajina nee:%(type)s. Buka resultado sei la inklui "
+"pajina nebee iha tipu seluk sira."
 
 msgid "Add an email link"
 msgstr "Aumenta ligasaun email ida"
@@ -346,8 +380,17 @@ msgstr "Aumenta ligasaun externa ida"
 msgid "Collection privacy"
 msgstr "Rekolla privasidade"
 
+msgid "You can edit the privacy settings on:"
+msgstr "Ita boot bele troka konfigurasaun privado iha:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Konfigurasaun privado determina se mak bele haree dokumentu sira iha "
+"koleksaun nee."
+
 msgid "Save"
-msgstr "Salva"
+msgstr "Rai"
 
 msgid "Privacy"
 msgstr "Privasidade"
@@ -358,12 +401,24 @@ msgstr "Públiku"
 msgid "Private"
 msgstr "Privadu"
 
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Koleksaun nee labele hamoos tanba laos mamuk. Iha laran:"
+
 msgid "Name"
 msgstr "Naran"
 
 #, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Koleksaun sira seidauk kria. Karik <a href=\"%(add_collection_url)s\">hatama "
+"ida</a>?"
+
+#, python-format
 msgid "Add %(label)s"
-msgstr " Aumenta %(label)s"
+msgstr " Hatama %(label)s"
 
 msgid "Yes, delete"
 msgstr "Sin, hamoos"
@@ -372,8 +427,20 @@ msgstr "Sin, hamoos"
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Benvindu ba %(site_name)s Wagtail CMS"
 
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Nee ita boot nia pajina analisa no informasaun konaba pjaina nia conteudu."
+
+msgid "Pages awaiting moderation"
+msgstr "Pajina sira hein ba moderasaun"
+
 msgid "Title"
 msgstr "Titlu"
+
+msgid "Parent"
+msgstr "Inan-aman"
 
 msgid "Type"
 msgstr "Tipu"
@@ -384,15 +451,24 @@ msgstr "Hadia tiha ona"
 msgid "Edit this page"
 msgstr "Hadia pájina ida ne'e"
 
+msgid "Preview this page"
+msgstr "Haree pajina nee"
+
 msgid "Approve"
 msgstr "Aprova"
 
 msgid "Reject"
 msgstr "Rejeita"
 
+msgid "Preview"
+msgstr "Haree"
+
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s liubá"
+
+msgid "Your most recent edits"
+msgstr "Ita boot nia troka sira"
 
 msgid "Date"
 msgstr "Data"
@@ -403,8 +479,40 @@ msgstr "Estadu"
 msgid "Draft"
 msgstr "Esbosu"
 
+msgid "Live"
+msgstr "Ativu"
+
+msgid "Site summary"
+msgstr "Sumariu Situs"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Page\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Pages\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Pajina sira"
+
+msgid "Sign in"
+msgstr "Tama"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Ita boot nia%(username_field)s ka seña laloos. Favor ida koko fali."
+
+msgid "Sign in to Wagtail"
+msgstr "Tama ba Wagtail"
+
 msgid "Forgotten it?"
 msgstr "Haluha ida-neʼe?"
+
+msgid "Signing in…"
+msgstr "Tama hela..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -435,8 +543,16 @@ msgstr "Ita-boot bele hadia pájina neʼe:"
 msgid "The page \"%(title)s\" has been rejected"
 msgstr "Pájina \"%(title)s\" rejeita ona "
 
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "Pajina \"%(page)s\" submete ona ba moderasaun husi%(editor)s."
+
 msgid "You can preview the page here:"
 msgstr "Ita-boot bele prevee pájina neʼe:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Pajina \"%(page)s\" submete ona ba moderasaun"
 
 msgid "Page privacy"
 msgstr "Pájina privasidade"
@@ -444,11 +560,20 @@ msgstr "Pájina privasidade"
 msgid "This page has been made private by a parent page."
 msgstr "Pájina ida ne'e, sai privadu husi pájina hun ida."
 
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Pajina privasidade mos aplika ba pajina nee nia oan sira."
+
+msgid "Edit lock"
+msgstr "Xavi"
+
 msgid "Locked"
-msgstr "Taka"
+msgstr "Xavi tiha"
 
 msgid "Unlocked"
 msgstr "Loke"
+
+msgid "Publishing…"
+msgstr "Publika hela..."
 
 msgid "Publish this revision"
 msgstr "Publika revizaun ida-ne'e"
@@ -463,12 +588,33 @@ msgstr "Kria pájina ida iha %(title)s"
 msgid "Create a page in"
 msgstr "Kria pájina ida iha"
 
+msgid "Choose which type of page you'd like to create."
+msgstr "Hili tipu pajina ita boot hakarek kria."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Pajina uza%(page_type)s"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Hamoos %(title)s"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "Ita serteza duni katak ita hakarak hamoos pájina ida-neʼe?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"Nee mos hamoos %(descendant_count)s pajina oan sira tan."
 
 msgid "Yes, delete it"
 msgstr "Sim, hamoos."
@@ -477,11 +623,32 @@ msgid "No, don't delete it"
 msgstr "Lae, la hamoos"
 
 #, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Ita boot mos bele <a href=\"%(unpublish_url)s\">subar pajina </a>. Nee subar "
+"pajina husi publika, no ita boot bele troka ka halo publika tarde liu."
+
+#, python-format
 msgid "Move %(title)s"
 msgstr "Muda %(title)s"
 
 msgid "Move"
 msgstr "Muda"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "ita boot hakarak muda pajina ida nee too  '%(title)s' nia laran?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Ita boot hakarak muda pajina ida nee, no oan hotu-hotu to'o '%(title)s' nia "
+"laran?"
 
 msgid "Yes, move this page"
 msgstr "Sin, muda pájina ida-ne'e"
@@ -492,6 +659,26 @@ msgstr "La publika %(title)s"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ita iha serteza katak ita hakarak la publika pájina neʼe?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"Pajina nee iha pajina oan sira %(live_descendant_count)s. Subar mos?"
+
+msgid "Yes, unpublish it"
+msgstr "Sin, subar"
+
+msgid "No, don't unpublish"
+msgstr "Lae, la subar"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -517,8 +704,28 @@ msgstr "Foun %(page_type)s"
 msgid "New"
 msgstr "Foun"
 
+msgid "Saving…"
+msgstr "Rai hela..."
+
 msgid "Save draft"
 msgstr "Salva hanesan esbosu"
+
+msgid "This page has unsaved changes."
+msgstr "Pajina ne'e iha sasan troka la salva ona."
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Hadia hela %(page_type)s:%(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "Hadia hela %(page_type)s<span>%(title)s</span>"
+
+msgid "Page locked"
+msgstr "Pajina xave ona"
+
+msgid "Replace current draft"
+msgstr "Troka rakunnu ida neebe agora"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -529,13 +736,42 @@ msgid "by %(modified_by)s"
 msgstr "Husi  %(modified_by)s"
 
 msgid "Revisions"
-msgstr "Revizaun"
+msgstr "Revizaun sira"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "Explora %(title)s"
 
 msgid "Drag"
-msgstr "Esbosu"
+msgstr "Rasta"
 
 msgid "Updated"
 msgstr "Atualiza ona"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"Nivel huun nee mak ida nebee ita boot bele hatama situs foun ba ita nian "
+"instalasaun Wagtail. Pajina kria ona iha nee sei la presija assessu iha URL "
+"ruma to'o sira ligadu ona ho situs ida."
+
+msgid "Configure a site now."
+msgstr "Konfigura situs ida agora"
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Se karik ita boot hakarak atu hatama pajina sira ba site ida nebee iha ona, "
+"kria sira hanesan oan sira maibe iha pagina uma."
 
 msgid "Explore"
 msgstr "Esplora"

@@ -12,13 +12,14 @@
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassily <zuber.kg@gmail.com>, 2017
 # Мирон Левицкий <miron200504@gmail.com>, 2018
+# Михаил Герасимов, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-12-06 16:42+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-22 15:06+0000\n"
+"Last-Translator: Михаил Герасимов\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -268,6 +269,10 @@ msgstr "Активный"
 
 msgid "Inactive"
 msgstr "Неактивный"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s назад"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

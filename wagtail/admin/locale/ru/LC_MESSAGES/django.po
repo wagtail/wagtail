@@ -21,13 +21,14 @@
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassily <zuber.kg@gmail.com>, 2019
 # Мирон Левицкий <miron200504@gmail.com>, 2018
+# Михаил Герасимов, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-22 15:12+0000\n"
+"Last-Translator: Михаил Герасимов\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -1098,11 +1099,17 @@ msgstr "Черновик"
 msgid "Live version"
 msgstr "Опубликованная версия"
 
+msgid "Scheduled for"
+msgstr "Запланированно на"
+
 msgid "Review this revision"
 msgstr "Ревью этой версии"
 
 msgid "Compare with previous revision"
 msgstr "Сравнить с предыдущей версией"
+
+msgid "Cancel scheduled publish"
+msgstr "Отменить запланированную публикацию"
 
 msgid "No revisions of this page exist"
 msgstr "Нет других версий этой страницы"
@@ -1448,6 +1455,13 @@ msgstr "Страница '{0}' удалена."
 msgid "Page '{0}' unpublished."
 msgstr "Страница '{0}' снята с публикации."
 
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Слаг '{0}' уже используется в выбранной родительской странице. Убедитесь что "
+"слаг уникален и попробуйте заново"
+
 msgid "Page '{0}' moved."
 msgstr "Страница '{0}' перемещена."
 
@@ -1491,6 +1505,12 @@ msgstr "Ранний"
 
 msgid "Latest"
 msgstr "Последний"
+
+msgid "revision {0} of \"{1}\""
+msgstr "версия {0} страницы \"{1}\""
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Версия {0} страницы '{1}' перестала быть запланированной к публикации."
 
 msgid "Edit '{title}'"
 msgstr "Редактировать '{title}'"
@@ -1542,6 +1562,21 @@ msgstr "Языковые настройки"
 
 msgid "Choose the language you want to use here."
 msgstr "Выберите язык, который вы хотите использовать."
+
+msgid "Heading {level}"
+msgstr "Заголовок {level}"
+
+msgid "Bulleted list"
+msgstr "Маркированный список"
+
+msgid "Numbered list"
+msgstr "Нумерованный список"
+
+msgid "Bold"
+msgstr "Жирный"
+
+msgid "Italic"
+msgstr "Наклонный"
 
 msgid "Link"
 msgstr "Ссылка"

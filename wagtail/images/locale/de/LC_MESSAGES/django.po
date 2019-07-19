@@ -12,6 +12,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# Peter Dreuw <archandha@gmx.net>, 2019
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 # Wasilis Mandratzis-Walz, 2015
@@ -20,8 +21,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-09 13:57+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2019-05-19 11:18+0000\n"
+"Last-Translator: Peter Dreuw <archandha@gmx.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -59,6 +60,10 @@ msgstr "Kein gültiges %s Bild."
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Die Datei ist zu groß (%%s). Maximale Dateigröße %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "Dieses Bild hat zu viele Pixel (%%). Das Maximum ist %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -237,8 +242,18 @@ msgstr "Bearbeiten"
 msgid "URL Generator"
 msgstr "URL Generator"
 
+msgid "Focal point"
+msgstr "Fokuspunkt"
+
 msgid "(optional)"
 msgstr "(optional)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Zeichnen Sie eine Box auf dem Bild, um den wichtigsten Bereich des Bildes zu "
+"definieren."
 
 msgid "Current focal point shown"
 msgstr "Aktueller Fokuspunkt wird angezeigt"

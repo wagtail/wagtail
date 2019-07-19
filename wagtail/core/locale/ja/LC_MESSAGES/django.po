@@ -4,6 +4,7 @@
 #
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2016
+# shuhei hirota, 2019
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # 石田秀 <ishidashu@gmail.com>, 2015
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-05-30 02:21+0000\n"
+"Last-Translator: shuhei hirota\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "{label}: this block has no options."
+msgstr "{label}: このブロックはオプションがありません。"
+
+msgid "This block has no options."
+msgstr "このブロックはオプションがありません。"
+
+msgid "Password"
+msgstr "パスワード"
 
 msgid "hostname"
 msgstr "ホスト名"
@@ -136,6 +146,9 @@ msgstr "最初の公開日時"
 msgid "latest revision created at"
 msgstr "最終更新日"
 
+msgid "This slug is already in use"
+msgstr "このスラッグはすでに使われています"
+
 msgid "scheduled"
 msgstr "予定日"
 
@@ -175,14 +188,26 @@ msgstr "ページの修正"
 msgid "page revisions"
 msgstr "ページの修正"
 
+msgid "Add"
+msgstr "追加"
+
 msgid "Add/edit pages you own"
 msgstr "自分のページを追加/編集"
+
+msgid "Edit"
+msgstr "編集"
 
 msgid "Edit any page"
 msgstr "ページを編集"
 
+msgid "Publish"
+msgstr "公開"
+
 msgid "Publish any page"
 msgstr "ページを公開"
+
+msgid "Bulk delete"
+msgstr "一括削除"
 
 msgid "Lock/unlock any page"
 msgstr "ページのロックを編集"
@@ -198,6 +223,15 @@ msgstr "グループページの権限"
 
 msgid "group page permissions"
 msgstr "グループページの権限"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Private, accessible to logged-in users"
+msgstr "限定公開、ログインユーザのみアクセス可能"
+
+msgid "Private, accessible with the following password"
+msgstr "限定公開、次のパスワードによりアクセス可能"
 
 msgid "password"
 msgstr "パスワード"
