@@ -60,8 +60,8 @@ function initTable(id, tableOptions) {
         }
         if (dataForForm.hasOwnProperty('table_caption')) {
             tableCaption.on('change', function() {
-                xsthis.value = dataForForm.table_caption
-            };
+                this.value = dataForForm.table_caption;
+            });
         }
     }
 

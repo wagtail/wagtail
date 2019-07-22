@@ -66,6 +66,7 @@ class TableBlock(FieldBlock):
         return forms.CharField(widget=TableInput(table_options=self.table_options), **self.field_options)
 
     def value_from_form(self, value):
+        print(value)
         return json.loads(value)
 
     def value_for_form(self, value):
@@ -129,6 +130,7 @@ class TableBlock(FieldBlock):
         """
 
         collected_table_options = DEFAULT_TABLE_OPTIONS.copy()
+
         if table_options is not None:
             if table_options.get('contextMenu', None) is True:
                 # explicity check for True, as value could also be array
