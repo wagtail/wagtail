@@ -39,6 +39,7 @@ Changelog
  * Fix: Language chosen in user preferences no longer persists on subsequent requests (Bojan Mihelac)
  * Fix: Prevent new block IDs from being assigned on repeated calls to `StreamBlock.get_prep_value` (Colin Klein)
  * Fix: Prevent broken images in notification emails when static files are hosted on a remote domain (Eduard Luca)
+ * Fix: Replace styleguide example avatar with default image to avoid issues when custom user model is used (Matt Westcott)
 
 
 2.6.2 (19.09.2019)
