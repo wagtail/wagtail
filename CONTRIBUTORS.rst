@@ -383,6 +383,7 @@ Contributors
 * jonny5532
 * William Blackie
 * Andrew Miller
+* Rodrigo
 
 Translators
 ===========

@@ -92,7 +92,7 @@ revision3 = {
 scribd = {
     "endpoint": "http://www.scribd.com/services/oembed",
     "urls": [
-        r'^http://[-\w]+\.scribd\.com/.+$',
+        r'^http(?:s)?://[-\w]+\.scribd\.com/.+$',
     ],
 }
 
