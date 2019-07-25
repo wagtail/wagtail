@@ -24,7 +24,7 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
- * ...
+ * Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
 
 
 Upgrade considerations
