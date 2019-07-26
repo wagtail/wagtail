@@ -13,7 +13,7 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from freezegun import freeze_time
 
-from wagtail.core.models import Page, PageManager, Site, get_page_models
+from wagtail.core.models import Page, PageManager, get_site_model, get_page_models
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,

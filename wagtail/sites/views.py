@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy
 
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
-from wagtail.core.models import Site
+from wagtail.core.models import get_site_model
 from wagtail.core.permissions import site_permission_policy
 from wagtail.sites.forms import SiteForm
 

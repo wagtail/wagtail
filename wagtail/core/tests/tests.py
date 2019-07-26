@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeText
 
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Page, get_site_model
 from wagtail.core.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.core.utils import resolve_model_string
 from wagtail.tests.testapp.models import SimplePage

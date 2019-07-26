@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.shortcuts import get_current_site
 from django.test import RequestFactory, TestCase
 
-from wagtail.core.models import Page, PageViewRestriction, Site
+from wagtail.core.models import Page, PageViewRestriction, get_site_model
 from wagtail.tests.testapp.models import EventIndex, SimplePage
 
 from .sitemap_generator import Sitemap

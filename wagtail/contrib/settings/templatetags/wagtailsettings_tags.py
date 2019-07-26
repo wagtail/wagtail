@@ -1,6 +1,6 @@
 from django.template import Library
 
-from wagtail.core.models import Site
+from wagtail.core.models import get_site_model
 
 from ..context_processors import SettingsProxy
 
