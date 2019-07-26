@@ -149,7 +149,7 @@ $object-title-height: 40px;
     }
 
     &.required {
-        > h3 label:after {
+        > .title-wrapper label:after {
             content: '*';
             color: $color-red;
             font-weight: bold;
