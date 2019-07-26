@@ -180,22 +180,6 @@ $(function() {
         $(this).closest('li').removeClass('focused');
     });
 
-    /* tabs */
-    if (window.location.hash) {
-      $('a[href="' + window.location.hash + '"]').tab('show');
-    }
-
-    $(document).on('click', '.tab-nav a', function(e) {
-      e.preventDefault();
-      $(this).tab('show');
-      window.history.replaceState(null, null, $(this).attr('href'));
-    });
-
-    $(document).on('click', '.tab-toggle', function(e) {
-        e.preventDefault();
-        $('.tab-nav a[href="' + $(this).attr('href') + '"]').trigger('click');
-    });
-
     $('.dropdown').each(function() {
         var $dropdown = $(this);
 

@@ -1,8 +1,8 @@
 {% load wagtailadmin_tags %}
-<ul class="tab-nav merged" role="tablist">
+<ul class="tab-nav merged" role="tablist" aria-owns="{% for child in self.children %}tab-label-{{ child.heading|cautious_slugify }} {% endfor %}">
     {% for child in self.children %}
-        <li class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}">
-            <a href="#tab-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}">{{ child.heading }}</a>
+        <li role="presentation" {% if child.classes %}class="{{ child.classes|join:" " }}"{% endif %}>
+            <a href="#tab-{{ child.heading|cautious_slugify }}" id="tab-label-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}" role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}" {% if forloop.first %}aria-selected="true"{% endif %}>{{ child.heading }}</a>
         </li>
     {% endfor %}
 </ul>

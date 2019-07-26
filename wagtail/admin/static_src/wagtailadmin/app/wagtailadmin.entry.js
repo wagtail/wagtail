@@ -6,6 +6,7 @@ import {
   initExplorer,
   initFocusOutline,
   initSubmenus,
+  initDefaultTabs,
   initUpgradeNotification,
 } from 'wagtail-client';
 
@@ -36,5 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initFocusOutline();
   initSubmenus();
+  initDefaultTabs();
   initUpgradeNotification();
 });
