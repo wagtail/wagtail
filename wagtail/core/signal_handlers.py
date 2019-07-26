@@ -29,6 +29,7 @@ def post_delete_page_log_deletion(sender, instance, **kwargs):
 
 
 def register_signal_handlers():
+    Site = get_site_model()
     post_save.connect(post_save_site_signal_handler, sender=Site)
     post_delete.connect(post_delete_site_signal_handler, sender=Site)
 

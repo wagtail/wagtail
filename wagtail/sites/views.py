@@ -3,29 +3,29 @@ from django.utils.translation import ugettext_lazy
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.core.models import get_site_model
-from wagtail.core.permissions import site_permission_policy
+from wagtail.core.permissions import get_site_permission_policy
 from wagtail.sites.forms import SiteForm
 
 
 class IndexView(generic.IndexView):
-    template_name = 'wagtailsites/index.html'
+    template_name = "wagtailsites/index.html"
     page_title = ugettext_lazy("Sites")
     add_item_label = ugettext_lazy("Add a site")
-    context_object_name = 'sites'
+    context_object_name = "sites"
 
 
 class CreateView(generic.CreateView):
     page_title = ugettext_lazy("Add site")
     success_message = ugettext_lazy("Site '{0}' created.")
-    template_name = 'wagtailsites/create.html'
+    template_name = "wagtailsites/create.html"
 
 
 class EditView(generic.EditView):
     success_message = ugettext_lazy("Site '{0}' updated.")
     error_message = ugettext_lazy("The site could not be saved due to errors.")
     delete_item_label = ugettext_lazy("Delete site")
-    context_object_name = 'site'
-    template_name = 'wagtailsites/edit.html'
+    context_object_name = "site"
+    template_name = "wagtailsites/edit.html"
 
 
 class DeleteView(generic.DeleteView):
@@ -35,14 +35,20 @@ class DeleteView(generic.DeleteView):
 
 
 class SiteViewSet(ModelViewSet):
-    icon = 'site'
-    model = Site
-    permission_policy = site_permission_policy
+    icon = "site"
 
     index_view_class = IndexView
     add_view_class = CreateView
     edit_view_class = EditView
     delete_view_class = DeleteView
+
+    @property
+    def model(self):
+        return get_site_model()
+
+    @property
+    def permission_policy(self):
+        return get_site_permission_policy()
 
     def get_form_class(self, for_update=False):
         return SiteForm

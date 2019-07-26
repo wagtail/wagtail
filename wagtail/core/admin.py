@@ -1,10 +1,20 @@
+
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.admin import GroupAdmin
 from django.contrib.auth.models import Group
 
 from wagtail.core.models import GroupPagePermission, Page, get_site_model
 
-admin.site.register(Site)
+if hasattr(settings, 'WAGTAIL_SITE_MODEL') and settings.WAGTAIL_SITE_MODEL != 'wagtailcore.Site':
+    # This installation provides its own custom site class;
+    # to avoid confusion, we won't expose the unused wagtailcore.Site class
+    # in the admin.
+    pass
+else:
+    admin.site.register(Site)
+
+
 admin.site.register(Page)
 
 

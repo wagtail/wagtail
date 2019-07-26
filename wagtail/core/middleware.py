@@ -10,6 +10,7 @@ class SiteMiddleware(MiddlewareMixin):
         according to hostname matching rules
         """
         try:
+            Site = get_site_model()
             request.site = Site.find_for_request(request)
         except Site.DoesNotExist:
             request.site = None

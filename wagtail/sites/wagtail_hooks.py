@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
 from wagtail.core import hooks
-from wagtail.core.permissions import site_permission_policy
+from wagtail.core.permissions import get_site_permission_policy
 
 from .views import SiteViewSet
 
@@ -16,6 +16,7 @@ def register_viewset():
 
 class SitesMenuItem(MenuItem):
     def is_shown(self, request):
+        site_permission_policy = get_site_permission_policy()
         return site_permission_policy.user_has_any_permission(
             request.user, ['add', 'change', 'delete']
         )
@@ -23,11 +24,17 @@ class SitesMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_sites_menu_item():
-    return SitesMenuItem(_('Sites'), reverse('wagtailsites:index'),
-                         classnames='icon icon-site', order=602)
+    return SitesMenuItem(
+        _('Sites'),
+        reverse('wagtailsites:index'),
+        classnames='icon icon-site',
+        order=602,
+    )
 
 
 @hooks.register('register_permissions')
 def register_permissions():
-    return Permission.objects.filter(content_type__app_label='wagtailcore',
-                                     codename__in=['add_site', 'change_site', 'delete_site'])
+    return Permission.objects.filter(
+        content_type__app_label='wagtailcore',
+        codename__in=['add_site', 'change_site', 'delete_site'],
+    )
