@@ -26,6 +26,7 @@ class TestCoreJinja(TestCase):
         return template.render(context)
 
     def dummy_request(self, user=None):
+        Site = get_site_model()
         site = Site.objects.get(is_default_site=True)
 
         request = self.client.get('/')

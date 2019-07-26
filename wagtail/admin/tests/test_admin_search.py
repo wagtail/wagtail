@@ -15,6 +15,7 @@ class BaseSearchAreaTestCase(WagtailTestUtils, TestCase):
     rf = RequestFactory()
 
     def search_other(self, current_url='/admin/', data=None):
+        Site = get_site_model()
         request = self.rf.get(current_url, data=data)
         request.user = self.user
         request.site = Site.objects.get()
@@ -22,6 +23,7 @@ class BaseSearchAreaTestCase(WagtailTestUtils, TestCase):
         return template.render(Context({'request': request}))
 
     def menu_search(self, current_url='/admin/', data=None):
+        Site = get_site_model()
         request = self.rf.get(current_url, data=data)
         request.user = self.user
         request.site = Site.objects.get()

@@ -46,15 +46,18 @@ class TestPagesSummary(TestCase, WagtailTestUtils):
         self.assertTrue(PagesSummaryItem(self.request).is_shown())
 
     def test_single_site_summary_links_to_site_root(self):
+        Site = get_site_model()
         self.assertEqual(Site.objects.count(), 1)
         site = Site.objects.first()
         self.assertSummaryContainsLinkToPage(site.root_page.pk)
 
     def test_multiple_sites_summary_links_to_wagtail_root(self):
+        Site = get_site_model()
         Site.objects.create(hostname='foo.com', root_page=self.wagtail_root)
         self.assertSummaryContainsLinkToPage(self.wagtail_root.pk)
 
     def test_no_sites_summary_links_to_wagtail_root(self):
+        Site = get_site_model()
         Site.objects.all().delete()
         self.assertSummaryContainsLinkToPage(self.wagtail_root.pk)
 

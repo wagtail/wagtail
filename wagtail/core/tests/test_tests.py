@@ -65,6 +65,7 @@ class TestAssertTagInHTML(WagtailTestUtils, TestCase):
 class TestWagtailPageTests(WagtailPageTests):
     def setUp(self):
         super().setUp()
+        Site = get_site_model()
         site = Site.objects.get(is_default_site=True)
         self.root = site.root_page.specific
 

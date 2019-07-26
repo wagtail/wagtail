@@ -17,6 +17,7 @@ class BenchPageExplorerWith50LargePages(Benchmark, WagtailTestUtils, TestCase):
     """
 
     def setUp(self):
+        Site = get_site_model()
         self.root_page = Page.objects.get(id=1)
 
         # Add a site so the URLs render correctly
@@ -54,6 +55,7 @@ class BenchPageExplorerWithCustomURLPages(Benchmark, WagtailTestUtils, TestCase)
     """
 
     def setUp(self):
+        Site = get_site_model()
         self.root_page = Page.objects.get(id=1)
 
         # Add a site so the URLs render correctly

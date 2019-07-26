@@ -784,6 +784,7 @@ class TestPageListing(TestCase):
     # REGRESSION TESTS
 
     def test_issue_3967(self):
+        Site = get_site_model()
         # The API crashed whenever the listing view was called without a site configured
         Site.objects.all().delete()
         response = self.get_response()

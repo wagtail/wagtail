@@ -117,6 +117,7 @@ class TestSiteRouting(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
+        Site = get_site_model()
         self.default_site = Site.objects.get(is_default_site=True)
         events_page = Page.objects.get(url_path='/home/events/')
         about_page = Page.objects.get(url_path='/home/about-us/')
@@ -133,6 +134,7 @@ class TestSiteRouting(TestCase):
 
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
+        Site = get_site_model()
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.events_site.hostname
@@ -142,6 +144,7 @@ class TestSiteRouting(TestCase):
 
     def test_ports_in_request_headers_are_respected(self):
         # ports in the Host: header should be respected
+        Site = get_site_model()
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.alternate_port_events_site.hostname
@@ -151,6 +154,7 @@ class TestSiteRouting(TestCase):
 
     def test_unrecognised_host_header_routes_to_default_site(self):
         # requests with an unrecognised Host: header should be directed to the default site
+        Site = get_site_model()
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
@@ -170,6 +174,7 @@ class TestSiteRouting(TestCase):
     def test_unrecognised_port_and_unrecognised_host_routes_to_default_site(self):
         # requests with an unrecognised Host: header _and_ an unrecognised port
         # hould be directed to the default site
+        Site = get_site_model()
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
@@ -180,6 +185,7 @@ class TestSiteRouting(TestCase):
     def test_unrecognised_port_on_known_hostname_routes_there_if_no_ambiguity(self):
         # requests on an unrecognised port should be directed to the site with
         # matching hostname if there is no ambiguity
+        Site = get_site_model()
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.about_site.hostname
@@ -191,6 +197,7 @@ class TestSiteRouting(TestCase):
         # requests on an unrecognised port should be directed to the default
         # site, even if their hostname (but not port) matches more than one
         # other entry
+        Site = get_site_model()
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.events_site.hostname
@@ -200,6 +207,7 @@ class TestSiteRouting(TestCase):
 
     def test_port_in_http_host_header_is_ignored(self):
         # port in the HTTP_HOST header is ignored
+        Site = get_site_model()
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = "%s:%s" % (self.events_site.hostname, self.events_site.port)
@@ -222,6 +230,7 @@ class TestRouting(TestCase):
         clear_url_caches()
 
     def test_urls(self):
+        Site = get_site_model()
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = Page.objects.get(url_path='/home/events/christmas/')
@@ -246,6 +255,7 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.get_site(), default_site)
 
     def test_page_with_no_url(self):
+        Site = get_site_model()
         root = Page.objects.get(url_path='/')
         default_site = Site.objects.get(is_default_site=True)
 
@@ -256,6 +266,7 @@ class TestRouting(TestCase):
         self.assertEqual(root.get_site(), None)
 
     def test_urls_with_multiple_sites(self):
+        Site = get_site_model()
         events_page = Page.objects.get(url_path='/home/events/')
         events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
 
@@ -304,6 +315,7 @@ class TestRouting(TestCase):
 
     @override_settings(ROOT_URLCONF='wagtail.tests.non_root_urls')
     def test_urls_with_non_root_urlconf(self):
+        Site = get_site_model()
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = Page.objects.get(url_path='/home/events/christmas/')
@@ -337,6 +349,7 @@ class TestRouting(TestCase):
         self.assertEqual(found_page, christmas_page)
 
     def test_request_serving(self):
+        Site = get_site_model()
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
 
         request = HttpRequest()
@@ -446,6 +459,7 @@ class TestServeView(TestCase):
 
     @override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com'])
     def test_serve_with_multiple_sites(self):
+        Site = get_site_model()
         events_page = Page.objects.get(url_path='/home/events/')
         Site.objects.create(hostname='events.example.com', root_page=events_page)
 
@@ -1462,6 +1476,7 @@ class TestDummyRequest(TestCase):
         self.assertIn('wsgi.run_once', request.META)
 
     def test_dummy_request_for_accessible_page_https(self):
+        Site = get_site_model()
         Site.objects.update(port=443)
 
         event_index = Page.objects.get(url_path='/home/events/')
@@ -1487,6 +1502,7 @@ class TestDummyRequest(TestCase):
         self.assertIn('wsgi.run_once', request.META)
 
     def test_dummy_request_for_accessible_page_non_standard_port(self):
+        Site = get_site_model()
         Site.objects.update(port=8888)
 
         event_index = Page.objects.get(url_path='/home/events/')

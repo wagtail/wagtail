@@ -12,6 +12,7 @@ if hasattr(settings, 'WAGTAIL_SITE_MODEL') and settings.WAGTAIL_SITE_MODEL != 'w
     # in the admin.
     pass
 else:
+    Site = get_site_model()
     admin.site.register(Site)
 
 

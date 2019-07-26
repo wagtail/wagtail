@@ -29,6 +29,7 @@ class TestSiteIndexView(TestCase, WagtailTestUtils):
 
 class TestSiteCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
+        Site = get_site_model()
         self.login()
         self.home_page = Page.objects.get(id=2)
         self.localhost = Site.objects.all()[0]
@@ -40,6 +41,7 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
         return self.client.post(reverse('wagtailsites:add'), post_data)
 
     def create_site(self, hostname='testsite', port=80, is_default_site=False, root_page=None):
+        Site = get_site_model()
         root_page = root_page or self.home_page
         Site.objects.create(
             hostname=hostname,
@@ -60,6 +62,7 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailsites/create.html')
 
     def test_create(self):
+        Site = get_site_model()
         response = self.post({
             'hostname': "testsite",
             'port': "80",
@@ -73,6 +76,7 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(Site.objects.filter(hostname='testsite').count(), 1)
 
     def test_duplicate_defaults_not_allowed(self):
+        Site = get_site_model()
         response = self.post({
             'hostname': "also_default",
             'port': "80",
@@ -89,6 +93,7 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(sites.count(), 0)
 
     def test_duplicate_hostnames_on_different_ports_allowed(self):
+        Site = get_site_model()
         response = self.post({
             'hostname': "localhost",
             'port': "8000",
@@ -102,6 +107,7 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(Site.objects.filter(hostname='localhost').count(), 2)
 
     def test_duplicate_hostnames_on_same_port_not_allowed(self):
+        Site = get_site_model()
         # Confirm there's one localhost already
         self.assertEqual(Site.objects.filter(hostname='localhost').count(), 1)
 
@@ -121,6 +127,7 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
 
 class TestSiteEditView(TestCase, WagtailTestUtils):
     def setUp(self):
+        Site = get_site_model()
         self.login()
         self.home_page = Page.objects.get(id=2)
         self.localhost = Site.objects.all()[0]
@@ -129,6 +136,7 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
         return self.client.get(reverse('wagtailsites:edit', args=(site_id or self.localhost.id, )), params)
 
     def post(self, post_data={}, site_id=None):
+        Site = get_site_model()
         site_id = site_id or self.localhost.id
         site = Site.objects.get(id=site_id)
         post_defaults = {
@@ -154,6 +162,7 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
         self.assertEqual(self.get(site_id=100000).status_code, 404)
 
     def test_edit(self):
+        Site = get_site_model()
         edited_hostname = 'edited'
         response = self.post({
             'hostname': edited_hostname,
@@ -166,6 +175,7 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
         self.assertEqual(Site.objects.get(id=self.localhost.id).hostname, edited_hostname)
 
     def test_changing_the_default_site_workflow(self):
+        Site = get_site_model()
         # First create a second, non-default, site
         second_site = Site.objects.create(
             hostname="not_yet_default",
@@ -200,6 +210,7 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
         self.assertEqual(Site.objects.get(id=second_site.id).is_default_site, True)
 
     def test_making_a_second_site_the_default_not_allowed(self):
+        Site = get_site_model()
         second_site = Site.objects.create(
             hostname="also_default",
             port=80,
@@ -223,6 +234,7 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
 
 class TestSiteDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
+        Site = get_site_model()
         self.login()
         self.home_page = Page.objects.get(id=2)
         self.localhost = Site.objects.all()[0]
@@ -242,6 +254,7 @@ class TestSiteDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(self.get(site_id=100000).status_code, 404)
 
     def test_posting_deletes_site(self):
+        Site = get_site_model()
         response = self.post()
 
         # Should redirect back to index
@@ -254,6 +267,7 @@ class TestSiteDeleteView(TestCase, WagtailTestUtils):
 
 class TestLimitedPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
+        Site = get_site_model()
         # Create a user
         user = get_user_model().objects.create_user(username='test', email='test@email.com', password='password')
         user.user_permissions.add(
@@ -280,6 +294,7 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailsites/create.html')
 
     def test_create(self):
+        Site = get_site_model()
         response = self.client.post(reverse('wagtailsites:add'), {
             'hostname': "testsite",
             'port': "80",
@@ -299,6 +314,7 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailsites/edit.html')
 
     def test_edit(self):
+        Site = get_site_model()
         edit_url = reverse('wagtailsites:edit', args=(self.localhost.id,))
         edited_hostname = 'edited'
         response = self.client.post(edit_url, {
@@ -320,6 +336,7 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/generic/confirm_delete.html')
 
     def test_delete(self):
+        Site = get_site_model()
         delete_url = reverse('wagtailsites:delete', args=(self.localhost.id,))
         response = self.client.post(delete_url)
 

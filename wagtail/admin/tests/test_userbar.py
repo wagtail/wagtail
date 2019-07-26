@@ -20,6 +20,7 @@ class TestUserbarTag(TestCase):
         self.homepage = Page.objects.get(id=2)
 
     def dummy_request(self, user=None):
+        Site = get_site_model()
         request = RequestFactory().get('/')
         request.user = user or AnonymousUser()
         request.site = Site.objects.first()

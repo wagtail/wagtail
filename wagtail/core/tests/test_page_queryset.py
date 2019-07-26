@@ -411,6 +411,7 @@ class TestPageQueryInSite(TestCase):
     fixtures = ['test.json']
 
     def setUp(self):
+        Site = get_site_model()
         self.site_2_page = SimplePage(
             title="Site 2 page",
             slug="site_2_page",

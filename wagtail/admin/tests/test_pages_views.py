@@ -1944,6 +1944,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
     @modify_settings(ALLOWED_HOSTS={'append': 'childpage.example.com'})
     def test_preview_uses_correct_site(self):
         # create a Site record for the child page
+        Site = get_site_model()
         Site.objects.create(hostname='childpage.example.com', root_page=self.child_page)
 
         post_data = {

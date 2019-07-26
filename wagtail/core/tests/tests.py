@@ -64,6 +64,7 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(result, None)
 
     def test_slugurl_tag_returns_url_for_current_site(self):
+        Site = get_site_model()
         home_page = Page.objects.get(url_path='/home/')
         new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
         second_site = Site.objects.create(hostname='site2.example.com', root_page=new_home_page)
@@ -77,6 +78,7 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(url, '/christmas/')
 
     def test_slugurl_tag_returns_url_for_other_site(self):
+        Site = get_site_model()
         home_page = Page.objects.get(url_path='/home/')
         new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
         second_site = Site.objects.create(hostname='site2.example.com', root_page=new_home_page)
@@ -127,6 +129,7 @@ class TestSiteRootPathsCache(TestCase):
         self.assertTrue(cache.get('wagtail_site_root_paths'))
 
         # Save the site
+        Site = get_site_model()
         Site.objects.get(is_default_site=True).save()
 
         # Check that the cache has been cleared
@@ -146,6 +149,7 @@ class TestSiteRootPathsCache(TestCase):
         self.assertTrue(cache.get('wagtail_site_root_paths'))
 
         # Delete the site
+        Site = get_site_model()
         Site.objects.get(is_default_site=True).delete()
 
         # Check that the cache has been cleared
@@ -165,6 +169,7 @@ class TestSiteRootPathsCache(TestCase):
         Discussion: https://github.com/wagtail/wagtail/issues/7
         """
         # Get homepage, root page and site
+        Site = get_site_model()
         root_page = Page.objects.get(id=1)
         homepage = Page.objects.get(url_path='/home/')
         default_site = Site.objects.get(is_default_site=True)

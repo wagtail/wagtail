@@ -224,6 +224,7 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
         self.assertTrue(any([isinstance(panel, ImageChooserPanel) for panel in result]))
 
     def test_exclude(self):
+        Site = get_site_model()
         panels = extract_panel_definitions_from_model_class(Site, exclude=['hostname'])
         for panel in panels:
             self.assertNotEqual(panel.field_name, 'hostname')
@@ -756,6 +757,7 @@ class TestPageChooserPanel(TestCase):
         self.assertIn(expected_js, result)
 
     def test_target_models(self):
+        Site = get_site_model()
         result = PageChooserPanel(
             'page',
             'wagtailcore.site'

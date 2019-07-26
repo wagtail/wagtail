@@ -19,6 +19,7 @@ class TestCoreGlobalsAndFilters(TestCase):
 
         # Add a request to the template, to simulate a RequestContext
         if request_context:
+            Site = get_site_model()
             site = Site.objects.get(is_default_site=True)
             request = self.client.get('/test/', HTTP_HOST=site.hostname)
             request.site = site
