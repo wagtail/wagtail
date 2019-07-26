@@ -43,7 +43,7 @@ class SiteManager(models.Manager):
         return self.get(hostname=hostname, port=port)
 
 
-class Site(models.Model):
+class AbstractSite(models.Model):
     hostname = models.CharField(verbose_name=_('hostname'), max_length=255, db_index=True)
     port = models.IntegerField(
         verbose_name=_('port'),
@@ -75,6 +75,7 @@ class Site(models.Model):
         unique_together = ('hostname', 'port')
         verbose_name = _('site')
         verbose_name_plural = _('sites')
+        abstract = True
 
     def natural_key(self):
         return (self.hostname, self.port)
@@ -159,6 +160,33 @@ class Site(models.Model):
             cache.set('wagtail_site_root_paths', result, 3600)
 
         return result
+
+class Site(AbstractSite):
+    pass
+
+def get_site_model():
+    """
+    Get the site model from the ``WAGTAIL_SITE_MODEL`` setting.
+    Defaults to the standard :class:`~wagtail.sites.models.Site` model
+    if no custom model is defined.
+    """
+    from django.conf import settings
+    from django.apps import apps
+
+    try:
+        app_label, model_name = settings.WAGTAIL_SITE_MODEL.split('.')
+    except AttributeError:
+        return Site
+    except ValueError:
+        raise ImproperlyConfigured("WAGTAIL_SITE_MODEL must be of the form 'app_label.model_name'")
+
+    site_model = apps.get_model(app_label, model_name)
+    if site_model is None:
+        raise ImproperlyConfigured(
+            "WAGTAIL_SITE_MODEL refers to model '%s' that has not been installed" %
+            settings.WAGTAIL_SITE_MODEL
+        )
+    return site_model
 
 
 PAGE_MODEL_CLASSES = []
