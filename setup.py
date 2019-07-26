@@ -33,6 +33,7 @@ install_requires = [
     "Unidecode>=0.04.14,<2.0",
     "Willow>=1.1,<1.2",
     "requests>=2.11.1,<3.0",
+    "swapper>=1.1.1",
     "pytz>=2016.6",  # for l18n
     "six>=1.11,<2.0",  # for l18n
 ]

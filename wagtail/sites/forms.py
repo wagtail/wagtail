@@ -1,3 +1,5 @@
+import swapper
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -15,5 +17,5 @@ class SiteForm(forms.ModelForm):
     required_css_class = "required"
 
     class Meta:
-        model = Site
-        fields = ('hostname', 'port', 'site_name', 'root_page', 'is_default_site')
+        model = swapper.load_model("wagtailcore", "Site")
+        fields = swapper.load_model("wagtailcore", "Site").admin_form_fields

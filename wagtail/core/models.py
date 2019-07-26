@@ -1,5 +1,7 @@
 import json
 import logging
+import swapper
+
 from collections import defaultdict
 from io import StringIO
 from urllib.parse import urlparse
@@ -44,6 +46,13 @@ class SiteManager(models.Manager):
 
 
 class AbstractSite(models.Model):
+    admin_form_fields = (
+        'hostname',
+        'port',
+        'site_name',
+        'root_page',
+        'is_default_site',
+    )
     hostname = models.CharField(verbose_name=_('hostname'), max_length=255, db_index=True)
     port = models.IntegerField(
         verbose_name=_('port'),
@@ -60,7 +69,7 @@ class AbstractSite(models.Model):
         blank=True,
         help_text=_("Human-readable name for the site.")
     )
-    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here', on_delete=models.CASCADE)
+    root_page = models.ForeignKey('wagtailcore.Page', verbose_name=_('root page'), related_name='sites_rooted_here', on_delete=models.CASCADE)
     is_default_site = models.BooleanField(
         verbose_name=_('is default site'),
         default=False,
@@ -124,6 +133,8 @@ class AbstractSite(models.Model):
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude)
+        Site = swapper.load_model("wagtailcore", "Site")
+
         # Only one site can have the is_default_site flag set
         try:
             default = Site.objects.get(is_default_site=True)
@@ -150,7 +161,7 @@ class AbstractSite(models.Model):
         first - used to translate url_paths into actual URLs with hostnames
         """
         result = cache.get('wagtail_site_root_paths')
-
+        Site = swapper.load_model("wagtailcore", "Site")
         if result is None:
             result = [
                 (site.id, site.root_page.url_path, site.root_url)
@@ -163,7 +174,8 @@ class AbstractSite(models.Model):
 
 
 class Site(AbstractSite):
-    pass
+    class Meta:
+       swappable = swapper.swappable_setting('wagtailcore', 'Site')
 
 
 def get_site_model():
@@ -172,23 +184,9 @@ def get_site_model():
     Defaults to the standard :class:`~wagtail.sites.models.Site` model
     if no custom model is defined.
     """
-    from django.conf import settings
-    from django.apps import apps
+    Site = swapper.load_model("wagtailcore", "Site")
+    return Site
 
-    try:
-        app_label, model_name = settings.WAGTAIL_SITE_MODEL.split('.')
-    except AttributeError:
-        return Site
-    except ValueError:
-        raise ImproperlyConfigured("WAGTAIL_SITE_MODEL must be of the form 'app_label.model_name'")
-
-    site_model = apps.get_model(app_label, model_name)
-    if site_model is None:
-        raise ImproperlyConfigured(
-            "WAGTAIL_SITE_MODEL refers to model '%s' that has not been installed" %
-            settings.WAGTAIL_SITE_MODEL
-        )
-    return site_model
 
 
 PAGE_MODEL_CLASSES = []
