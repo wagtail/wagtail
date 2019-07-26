@@ -471,6 +471,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         update_descendant_url_paths = False
         is_new = self.id is None
+        Site = get_site_model()
 
         if is_new:
             # we are creating a record. If we're doing things properly, this should happen
@@ -763,6 +764,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         request object if available.
         """
         # if we have a request, use that to cache site_root_paths; otherwise, use self
+        Site = get_site_model()
         cache_object = request if request else self
         try:
             return cache_object._wagtail_cached_site_root_paths
@@ -882,6 +884,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Return the Site object that this page belongs to.
         """
+        Site = get_site_model()
 
         url_parts = self.get_url_parts()
 
