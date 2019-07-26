@@ -11,7 +11,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
-from django.core.exceptions import ImproperlyConfigured, ValidationError
+from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
@@ -175,7 +175,7 @@ class AbstractSite(models.Model):
 
 class Site(AbstractSite):
     class Meta:
-       swappable = swapper.swappable_setting('wagtailcore', 'Site')
+        swappable = swapper.swappable_setting('wagtailcore', 'Site')
 
 
 def get_site_model():
