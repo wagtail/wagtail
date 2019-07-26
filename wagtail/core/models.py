@@ -24,8 +24,8 @@ from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import (
     ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
-
 from treebeard.mp_tree import MP_Node
+
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import page_published, page_unpublished
 from wagtail.core.sites import get_site_for_hostname

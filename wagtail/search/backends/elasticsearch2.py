@@ -7,9 +7,9 @@ from django.db import DEFAULT_DB_ALIAS, models
 from django.db.models.sql import Query
 from django.db.models.sql.constants import MULTI
 from django.utils.crypto import get_random_string
-
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
+
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.index import (

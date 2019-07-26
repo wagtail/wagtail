@@ -5,8 +5,8 @@ from unittest import mock
 
 from django.db.models import Q
 from django.test import TestCase
-
 from elasticsearch.serializer import JSONSerializer
+
 from wagtail.search.backends.elasticsearch6 import Elasticsearch6SearchBackend
 from wagtail.search.query import MATCH_ALL
 from wagtail.tests.search import models

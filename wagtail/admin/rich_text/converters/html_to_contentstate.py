@@ -1,5 +1,4 @@
 import re
-
 from html.parser import HTMLParser
 
 from wagtail.admin.rich_text.converters.contentstate_models import (

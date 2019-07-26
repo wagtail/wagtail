@@ -11,8 +11,8 @@ from django.http import Http404, HttpRequest
 from django.test import Client, TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
-
 from freezegun import freeze_time
+
 from wagtail.core.models import Page, PageManager, get_page_models, get_site_model
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,

@@ -2,9 +2,9 @@ from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
+from draftjs_exporter.dom import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
-from draftjs_exporter.dom import DOM
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (

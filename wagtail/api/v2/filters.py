@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.db import models
+from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
-from rest_framework.filters import BaseFilterBackend
 from wagtail.core import hooks
 from wagtail.core.models import Page, UserPagePermissionsProxy
 from wagtail.search.backends import get_search_backend

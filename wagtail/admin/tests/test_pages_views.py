@@ -18,8 +18,8 @@ from django.test import TestCase, modify_settings, override_settings
 from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.dateparse import parse_date
-
 from freezegun import freeze_time
+
 from wagtail.admin.views.home import RecentEditsPanel
 from wagtail.admin.views.pages import PreviewOnEdit
 from wagtail.core.models import GroupPagePermission, Page, PageRevision, get_site_model

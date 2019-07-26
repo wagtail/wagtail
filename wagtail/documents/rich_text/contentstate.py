@@ -1,4 +1,5 @@
 from draftjs_exporter.dom import DOM
+
 from wagtail.admin.rich_text.converters.html_to_contentstate import LinkElementHandler
 from wagtail.documents.models import get_document_model
 
