@@ -7,6 +7,7 @@ Advanced topics
 
     images/index
     documents/index
+    sites/index
     embeds
     settings
     deploying
