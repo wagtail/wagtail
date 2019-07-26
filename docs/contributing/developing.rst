@@ -12,8 +12,8 @@ If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <h
 If you'd prefer to set up all the components manually, read on. These instructions assume that you're familiar with using pip and virtualenv to manage Python packages.
 
 
-Setting up the Wagtail codebase
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Setting up the Wagtail codebase & linking it to a project
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Install Node.js, version 8. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_.
 You can also use Node version manager (nvm) since Wagtail supplies a ``.nvmrc`` file in the root of the project with the minimum required Node version - see nvm's `installation instructions <https://github.com/creationix/nvm>`_.
@@ -45,14 +45,7 @@ Compile the assets:
 
     $ npm run build
 
-Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail.  We recommend using the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_ as a basis for developing Wagtail. Keep in mind that the setup steps for a Wagtail site may include installing a release version of Wagtail, which will override the development version you've just set up. In this case, you should install the site before running the ``pip install -e`` step, or re-run that step after the site is installed.
-
-Linking your local Wagtail codebase to a local project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-You can also link your local Wagtail codebase to a prexisting project you may have using wagtail. 
-
-To do this, you'll want to remove the wagtail version specified in your requirements. 
+You will then need to link your local Wagtail codebase to a prexisting project you may have using wagtail. 
 
 Then, with your preferred virtualenv activated, install the Wagtail package in development mode with the included testing and documentation dependencies as a dependency in your project (testing or documentation dependencies could also be considered optional depending on your needs):
 
@@ -63,7 +56,9 @@ Then, with your preferred virtualenv activated, install the Wagtail package in d
 If you're using pipenv, the command is slighlty different:
 .. code-block:: console
 
-    $ pipenv install --dev -e '../wagtail/[testing, docs]'
+    $ pipenv install --dev -e '.[testing, docs]'
+
+Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail.  We recommend using the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_ as a basis for developing Wagtail. Keep in mind that the setup steps for a Wagtail site may include installing a release version of Wagtail, which will override the development version you've just set up. In this case, you should install the site before running the ``pip install -e`` step, or re-run that step after the site is installed.
 
 .. _testing:
 
