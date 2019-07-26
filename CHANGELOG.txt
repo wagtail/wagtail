@@ -8,6 +8,7 @@ Changelog
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
  * Fix: Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
  * Fix: Added https support for Scribd oEmbed provider (Rodrigo)
+ * Fix: Changed StreamField group labels color so labels are visible (Catherine Farman)
 
 
 2.6 (xx.xx.xxxx) - IN DEVELOPMENT

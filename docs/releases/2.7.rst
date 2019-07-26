@@ -26,6 +26,7 @@ Bug fixes
 
  * Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
  * Added https support for Scribd oEmbed provider (Rodrigo)
+ * Changed StreamField group label color so labels are visible (Catherine Farman)
 
 
 Upgrade considerations
