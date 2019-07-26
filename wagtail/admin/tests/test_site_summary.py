@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.admin.site_summary import PagesSummaryItem
-from wagtail.core.models import GroupPagePermission, Page, Site
+from wagtail.core.models import GroupPagePermission, Page, get_site_model
 from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils
 

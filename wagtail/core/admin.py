@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import GroupAdmin
 from django.contrib.auth.models import Group
 
-from wagtail.core.models import GroupPagePermission, Page, Site
+from wagtail.core.models import GroupPagePermission, Page, get_site_model
 
 admin.site.register(Site)
 admin.site.register(Page)

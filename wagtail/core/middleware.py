@@ -1,6 +1,6 @@
 from django.utils.deprecation import MiddlewareMixin
 
-from wagtail.core.models import Site
+from wagtail.core.models import get_site_model
 
 
 class SiteMiddleware(MiddlewareMixin):

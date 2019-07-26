@@ -3,7 +3,7 @@ import json
 from django.test import TestCase
 
 from wagtail.admin.tests.test_contentstate import content_state_equal
-from wagtail.core.models import PAGE_MODEL_CLASSES, Page, Site
+from wagtail.core.models import PAGE_MODEL_CLASSES, Page, get_site_model
 from wagtail.tests.testapp.models import (
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
     SectionedRichTextPage, SimplePage, StreamPage)

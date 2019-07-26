@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.core.models import Site
+from wagtail.core.models import get_site_model
 
 
 class RedirectForm(forms.ModelForm):
