@@ -209,6 +209,7 @@ def generate_url(request, image_id, filter_spec):
     url = reverse('wagtailimages_serve', args=(signature, image_id, filter_spec))
 
     # Get site root url
+    Site = get_site_model()
     try:
         site_root_url = Site.objects.get(is_default_site=True).root_url
     except Site.DoesNotExist:

@@ -40,7 +40,7 @@ class TestImagesJinja(TestCase):
 
         # Add a request to the template, to simulate a RequestContext
         if request_context:
-            site = Site.objects.get(is_default_site=True)
+            site = get_site_model().get(is_default_site=True)
             request = self.client.get('/test/', HTTP_HOST=site.hostname)
             request.site = site
             context['request'] = request

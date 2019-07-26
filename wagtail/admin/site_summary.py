@@ -42,8 +42,8 @@ class PagesSummaryItem(SummaryItem):
                 # tree root, to discourage people from trying to create pages as siblings
                 # of the homepage (#1883)
                 try:
-                    root_page = Site.objects.get().root_page
-                except (Site.DoesNotExist, Site.MultipleObjectsReturned):
+                    root_page = get_site_model().objects.get().root_page
+                except (get_site_model().DoesNotExist, get_site_model().MultipleObjectsReturned):
                     pass
         else:
             page_count = 0
