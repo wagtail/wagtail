@@ -6,7 +6,7 @@ from django.core import serializers
 from django.template import engines
 from django.test import TestCase
 
-from wagtail.core.models import Site
+from wagtail.core.models import get_site_model
 
 from .utils import Image, get_test_image_file
 
@@ -40,7 +40,7 @@ class TestImagesJinja(TestCase):
 
         # Add a request to the template, to simulate a RequestContext
         if request_context:
-            site = Site.objects.get(is_default_site=True)
+            site = get_site_model().get(is_default_site=True)
             request = self.client.get('/test/', HTTP_HOST=site.hostname)
             request.site = site
             context['request'] = request

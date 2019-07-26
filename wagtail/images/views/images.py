@@ -11,7 +11,7 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
-from wagtail.core.models import Collection, Site
+from wagtail.core.models import Collection, get_site_model
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.forms import URLGeneratorForm, get_image_form
@@ -209,6 +209,7 @@ def generate_url(request, image_id, filter_spec):
     url = reverse('wagtailimages_serve', args=(signature, image_id, filter_spec))
 
     # Get site root url
+    Site = get_site_model()
     try:
         site_root_url = Site.objects.get(is_default_site=True).root_url
     except Site.DoesNotExist:
