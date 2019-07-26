@@ -3,7 +3,7 @@ from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Page, get_site_model
 from wagtail.tests.utils import WagtailTestUtils
 
 

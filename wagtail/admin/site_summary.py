@@ -2,7 +2,7 @@ from django.template.loader import render_to_string
 
 from wagtail.admin.utils import get_site_for_user, user_has_any_page_permission
 from wagtail.core import hooks
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Page, get_site_model
 
 
 class SummaryItem:

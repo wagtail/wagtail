@@ -1,7 +1,7 @@
 from django import forms
 from django.urls import reverse
 
-from wagtail.core.models import Site
+from wagtail.core.models import get_site_model
 
 
 class SiteSwitchForm(forms.Form):
