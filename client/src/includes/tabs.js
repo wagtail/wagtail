@@ -21,11 +21,15 @@ class TabPanel {
     if (window.location.hash) {
       // If there's a tab that matches the location hash, activate it
       const newActiveTab = this.el.querySelector(`[href="${window.location.hash}"]`);
-      newActiveTab.click(); // Simulate a click to activate tab
-    } else {
-      // Otherwise just run render to ensure attributes are all properly set
-      this.render();
+      if (newActiveTab) {
+        // Simulate a click to activate tab. Triggers a render
+        newActiveTab.click();
+        return; // Early return to avoid a rerender
+      }
     }
+
+    // Run render to ensure attributes are all properly set
+    this.render();
   }
 
   setActiveTab(evt) {
