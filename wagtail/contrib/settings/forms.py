@@ -13,6 +13,7 @@ class SiteSwitchForm(forms.Form):
         ]
 
     def __init__(self, current_site, model, **kwargs):
+        Site = get_site_model()
         initial_data = {'site': self.get_change_url(current_site, model)}
         super().__init__(initial=initial_data, **kwargs)
         sites = [(self.get_change_url(site, model), site)

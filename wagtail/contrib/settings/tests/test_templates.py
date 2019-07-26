@@ -8,6 +8,7 @@ from wagtail.tests.utils import WagtailTestUtils
 
 class TemplateTestCase(TestCase, WagtailTestUtils):
     def setUp(self):
+        Site = get_site_model()
         root = Page.objects.first()
         other_home = Page(title='Other Root')
         root.add_child(instance=other_home)
@@ -168,6 +169,7 @@ class TestSettingsJinja(TemplateTestCase):
             if 'site' in context:
                 site = context['site']
             else:
+                Site = get_site_model()
                 site = Site.objects.get(is_default_site=True)
 
             request = self.client.get('/test/', HTTP_HOST=site.hostname)
@@ -216,6 +218,7 @@ class TestSettingsJinja(TemplateTestCase):
 
         # Cant use the default 'self.render()' as it does DB queries to get
         # site, dummy request
+        Site = get_site_model()
         site = Site.objects.get(is_default_site=True)
         request = self.client.get('/test/', HTTP_HOST=site.hostname)
         request.site = site

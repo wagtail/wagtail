@@ -77,6 +77,7 @@ class TestSettingCreateView(BaseTestSettingView):
         self.assertContains(response, "This field is required", count=2)
 
     def test_edit(self):
+        Site = get_site_model()
         response = self.post(post_data={'title': 'Edited site title',
                                         'email': 'test@example.com'})
         self.assertEqual(response.status_code, 302)
@@ -94,6 +95,7 @@ class TestSettingCreateView(BaseTestSettingView):
 
 class TestSettingEditView(BaseTestSettingView):
     def setUp(self):
+        Site = get_site_model()
         default_site = Site.objects.get(is_default_site=True)
 
         self.test_setting = TestSetting()
@@ -122,6 +124,7 @@ class TestSettingEditView(BaseTestSettingView):
         self.assertContains(response, "This field is required", count=2)
 
     def test_edit(self):
+        Site = get_site_model()
         response = self.post(post_data={'title': 'Edited site title',
                                         'email': 'test@example.com'})
         self.assertEqual(response.status_code, 302)
@@ -132,6 +135,7 @@ class TestSettingEditView(BaseTestSettingView):
         self.assertEqual(setting.email, 'test@example.com')
 
     def test_get_edit_current_site(self):
+        Site = get_site_model()
         url = reverse('wagtailsettings:edit', args=('tests', 'testsetting'))
         default_site = Site.objects.get(is_default_site=True)
 
@@ -139,6 +143,7 @@ class TestSettingEditView(BaseTestSettingView):
         self.assertRedirects(response, status_code=302, expected_url='%s%s/' % (url, default_site.pk))
 
     def test_get_edit_current_site_invalid(self):
+        Site = get_site_model()
         Site.objects.all().delete()
         url = reverse('wagtailsettings:edit', args=('tests', 'testsetting'))
         response = self.client.get(url)
@@ -148,6 +153,7 @@ class TestSettingEditView(BaseTestSettingView):
 @override_settings(ALLOWED_HOSTS=['testserver', 'example.com', 'noneoftheabove.example.com'])
 class TestMultiSite(BaseTestSettingView):
     def setUp(self):
+        Site = get_site_model()
         self.default_site = Site.objects.get(is_default_site=True)
         self.other_site = Site.objects.create(hostname='example.com', root_page=Page.objects.get(pk=2))
         self.login()

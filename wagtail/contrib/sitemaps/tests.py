@@ -47,6 +47,7 @@ class TestSitemapGenerator(TestCase):
             latest_revision_created_at=datetime.datetime(2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc)
         ))
 
+        Site = get_site_model()
         self.site = Site.objects.get(is_default_site=True)
 
         # Clear the cache to that runs are deterministic regarding the sql count

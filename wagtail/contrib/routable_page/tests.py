@@ -151,6 +151,7 @@ class TestRoutablePage(TestCase):
 
 class TestRoutablePageTemplateTag(TestCase):
     def setUp(self):
+        Site = get_site_model()
         self.home_page = Page.objects.get(id=2)
         self.routable_page = self.home_page.add_child(instance=RoutablePageTest(
             title="Routable Page",
@@ -200,6 +201,7 @@ class TestRoutablePageTemplateTagForSecondSiteAtSameRoot(TestCase):
     omit the domain, in line with #4390
     """
     def setUp(self):
+        Site = get_site_model()
         default_site = Site.objects.get(is_default_site=True)
         second_site = Site.objects.create(  # add another site with the same root page
             hostname='development.local',
@@ -257,6 +259,7 @@ class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
     When multiple sites exist, relative URLs between such sites should include the domain portion
     """
     def setUp(self):
+        Site = get_site_model()
         self.home_page = Page.objects.get(id=2)
 
         events_page = self.home_page.add_child(instance=Page(title='Events', live=True))

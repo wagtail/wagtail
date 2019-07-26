@@ -21,6 +21,7 @@ class ContextCache(dict):
         """
         Make a SiteSetting for a new Site
         """
+        Site = get_site_model()
         if not(isinstance(key, Site)):
             raise TypeError
         out = self[key] = SiteSettings(key)
@@ -58,6 +59,7 @@ class SiteSettings(dict):
 @jinja2.contextfunction
 def get_setting(context, model_string, use_default_site=False):
     if use_default_site:
+        Site = get_site_model()
         site = Site.objects.get(is_default_site=True)
     elif 'request' in context:
         site = context['request'].site

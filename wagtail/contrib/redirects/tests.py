@@ -149,6 +149,7 @@ class TestRedirects(TestCase):
         self.assertRedirects(response, '/events/christmas/', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_from_any_site(self):
+        Site = get_site_model()
         contact_page = Page.objects.get(url_path='/home/contact-us/')
         Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
 
@@ -163,6 +164,7 @@ class TestRedirects(TestCase):
         self.assertRedirects(response, 'http://localhost/events/christmas/', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_from_specific_site(self):
+        Site = get_site_model()
         contact_page = Page.objects.get(url_path='/home/contact-us/')
         other_site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
 
@@ -192,6 +194,7 @@ class TestRedirects(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_duplicate_redirects_when_match_is_for_generic(self):
+        Site = get_site_model()
         contact_page = Page.objects.get(url_path='/home/contact-us/')
         site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
 
@@ -204,6 +207,7 @@ class TestRedirects(TestCase):
         self.assertRedirects(response, '/generic', status_code=301, fetch_redirect_response=False)
 
     def test_duplicate_redirects_with_query_string_when_match_is_for_generic(self):
+        Site = get_site_model()
         contact_page = Page.objects.get(url_path='/home/contact-us/')
         site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
 
@@ -225,6 +229,7 @@ class TestRedirects(TestCase):
         self.assertRedirects(response, '/generic', status_code=301, fetch_redirect_response=False)
 
     def test_duplicate_redirects_when_match_is_for_specific(self):
+        Site = get_site_model()
         contact_page = Page.objects.get(url_path='/home/contact-us/')
         site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
 
@@ -237,6 +242,7 @@ class TestRedirects(TestCase):
         self.assertRedirects(response, '/site-specific', status_code=301, fetch_redirect_response=False)
 
     def test_duplicate_redirects_with_query_string_when_match_is_for_specific_with_qs(self):
+        Site = get_site_model()
         contact_page = Page.objects.get(url_path='/home/contact-us/')
         site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
 
@@ -258,6 +264,7 @@ class TestRedirects(TestCase):
         self.assertRedirects(response, '/site-specific', status_code=301, fetch_redirect_response=False)
 
     def test_duplicate_page_redirects_when_match_is_for_specific(self):
+        Site = get_site_model()
         contact_page = Page.objects.get(url_path='/home/contact-us/')
         site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
         christmas_page = Page.objects.get(url_path='/home/events/christmas/')
@@ -377,6 +384,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         self.assertEqual(redirects.first().site, None)
 
     def test_add_with_site(self):
+        Site = get_site_model()
         localhost = Site.objects.get(hostname='localhost')
         response = self.post({
             'old_path': '/test',
@@ -418,6 +426,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
     def test_cannot_add_duplicate_on_same_site(self):
+        Site = get_site_model()
         localhost = Site.objects.get(hostname='localhost')
         models.Redirect.objects.create(old_path='/test', site=localhost, redirect_link='http://elsewhere.com/')
         response = self.post({
@@ -431,6 +440,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
     def test_can_reuse_path_on_other_site(self):
+        Site = get_site_model()
         localhost = Site.objects.get(hostname='localhost')
         contact_page = Page.objects.get(url_path='/home/contact-us/')
         other_site = Site.objects.create(hostname='other.example.com', port=80, root_page=contact_page)
@@ -509,6 +519,7 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         self.assertEqual(redirects.first().site, None)
 
     def test_edit_with_site(self):
+        Site = get_site_model()
         localhost = Site.objects.get(hostname='localhost')
 
         response = self.post({

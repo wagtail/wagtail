@@ -8,7 +8,7 @@ from wagtail.core.models import get_site_model
 
 class RedirectForm(forms.ModelForm):
     site = forms.ModelChoiceField(
-        label=_("From site"), queryset=Site.objects.all(), required=False, empty_label=_("All sites")
+        label=_("From site"), queryset=get_site_model().objects.all(), required=False, empty_label=_("All sites")
     )
 
     def __init__(self, *args, **kwargs):
