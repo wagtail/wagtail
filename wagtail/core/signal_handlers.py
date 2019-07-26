@@ -6,6 +6,7 @@ from django.db.models.signals import post_delete, post_save, pre_delete
 from wagtail.core.models import Page, get_site_model
 
 logger = logging.getLogger('wagtail.core')
+Site = get_site_model()
 
 
 # Clear the wagtail_site_root_paths from the cache whenever Site records are updated.

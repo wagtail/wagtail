@@ -1,6 +1,8 @@
 from django.apps import apps
 from django.db.models import Case, IntegerField, Q, When
 
+from wagtail.core.models import get_site_model
+
 MATCH_HOSTNAME_PORT = 0
 MATCH_HOSTNAME_DEFAULT = 1
 MATCH_DEFAULT = 2
@@ -9,7 +11,7 @@ MATCH_HOSTNAME = 3
 
 def get_site_for_hostname(hostname, port):
     """Return the wagtailcore.Site object for the given hostname and port."""
-    Site = apps.get_model('wagtailcore.Site')
+    Site = get_site_model()
 
     sites = list(Site.objects.annotate(match=Case(
         # annotate the results by best choice descending
