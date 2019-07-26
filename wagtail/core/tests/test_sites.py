@@ -11,7 +11,6 @@ class TestSiteNaturalKey(TestCase):
         self.assertEqual(site.natural_key(), ('example.com', 8080))
 
     def test_get_by_natural_key(self):
-        Site = get_site_model()
         site = Site.objects.create(hostname='example.com', port=8080, root_page=Page.objects.get(pk=2))
         self.assertEqual(Site.objects.get_by_natural_key('example.com', 8080),
                          site)
