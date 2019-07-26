@@ -11,15 +11,16 @@ from django.http import Http404, HttpRequest
 from django.test import Client, TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
-from freezegun import freeze_time
 
-from wagtail.core.models import Page, PageManager, get_site_model, get_page_models
+from freezegun import freeze_time
+from wagtail.core.models import Page, PageManager, get_page_models, get_site_model
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
-    CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
-    MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimpleChildPage,
-    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
+    CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage,
+    ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
+    PageWithExcludedCopyField, SimpleChildPage, SimplePage, SimpleParentPage, SingleEventPage,
+    SingletonPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 

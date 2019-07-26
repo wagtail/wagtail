@@ -6,11 +6,11 @@ from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import reverse
 from modelcluster.fields import ParentalKey
+
 from rest_framework import status
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-
 from wagtail.api import APIField
 from wagtail.core.models import Page
 

@@ -1,5 +1,6 @@
 from django.forms import Media
 
+
 # Feature objects: these are mapped to feature identifiers within the rich text
 # feature registry (wagtail.core.rich_text.features). Each one implements
 # a `construct_options` method which modifies an options dict as appropriate to

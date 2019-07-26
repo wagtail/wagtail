@@ -1,6 +1,5 @@
 from django.db.models import Case, IntegerField, Q, When
 
-
 MATCH_HOSTNAME_PORT = 0
 MATCH_HOSTNAME_DEFAULT = 1
 MATCH_DEFAULT = 2

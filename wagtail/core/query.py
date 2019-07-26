@@ -6,8 +6,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import CharField, Q
 from django.db.models.functions import Length, Substr
 from django.db.models.query import BaseIterable
-from treebeard.mp_tree import MP_NodeQuerySet
 
+from treebeard.mp_tree import MP_NodeQuerySet
 from wagtail.search.queryset import SearchableQuerySetMixin
 
 

@@ -7,7 +7,6 @@ from django.urls.resolvers import RegexPattern
 from wagtail.core.models import Page
 from wagtail.core.url_routing import RouteResult
 
-
 _creation_counter = 0
 
 

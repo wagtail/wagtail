@@ -9,7 +9,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
-from django.core.exceptions import ValidationError, ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
@@ -24,8 +24,8 @@ from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
 from modelcluster.models import (
     ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
-from treebeard.mp_tree import MP_Node
 
+from treebeard.mp_tree import MP_Node
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import page_published, page_unpublished
 from wagtail.core.sites import get_site_for_hostname

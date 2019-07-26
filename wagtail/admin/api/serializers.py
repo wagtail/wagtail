@@ -1,7 +1,6 @@
 from collections import OrderedDict
 
 from rest_framework.fields import Field, ReadOnlyField
-
 from wagtail.api.v2.serializers import PageSerializer
 from wagtail.api.v2.utils import get_full_url
 from wagtail.core.models import Page

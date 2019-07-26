@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 from functools import wraps
-import pytz
 
+import pytz
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType

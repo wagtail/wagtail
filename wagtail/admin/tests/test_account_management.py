@@ -2,7 +2,6 @@ import os
 import tempfile
 
 import pytz
-
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
