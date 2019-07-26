@@ -773,9 +773,14 @@ class TestCopyPage(TestCase):
 
         old_event = EventPage.objects.get(url_path='/home/events/christmas/')
 
+        # Create a child event
+        child_event = old_event.copy(update_attrs={'title': "Child christmas event", 'slug': 'child-christmas-event'})
+        child_event.move(old_event, pos='last-child')
+
         new_event = old_event.copy(
             update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'},
-            process_child_object=modify_child
+            process_child_object=modify_child,
+            recursive=True,
         )
 
         # The method should have been called with these arguments when copying
@@ -788,6 +793,11 @@ class TestCopyPage(TestCase):
         relationship = EventPage._meta.get_field('speaker')
         child_object = new_event.speakers.get()
         modify_child.assert_any_call(old_event, new_event, relationship, child_object)
+
+        # Check that process_child_object was run on the child event page as well
+        new_child_event = new_event.get_children().get().specific
+        child_object = new_child_event.speakers.get()
+        modify_child.assert_any_call(child_event, new_child_event, relationship, child_object)
 
     def test_copy_page_copies_revisions(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')

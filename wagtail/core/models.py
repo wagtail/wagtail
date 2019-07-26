@@ -1201,7 +1201,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     to=page_copy,
                     copy_revisions=copy_revisions,
                     keep_live=keep_live,
-                    user=user
+                    user=user,
+                    process_child_object=process_child_object,
                 )
 
         return page_copy
