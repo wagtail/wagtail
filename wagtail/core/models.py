@@ -9,7 +9,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
@@ -161,8 +161,10 @@ class AbstractSite(models.Model):
 
         return result
 
+
 class Site(AbstractSite):
     pass
+
 
 def get_site_model():
     """

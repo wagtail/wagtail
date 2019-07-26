@@ -1,4 +1,3 @@
-from django.apps import apps
 from django.db.models import Case, IntegerField, Q, When
 
 from wagtail.core.models import get_site_model

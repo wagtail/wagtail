@@ -164,6 +164,7 @@ class TestSiteRouting(TestCase):
 
     def test_unrecognised_port_and_default_host_routes_to_default_site(self):
         # requests to the default host on an unrecognised port should be directed to the default site
+        Site = get_site_model()
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.default_site.hostname
