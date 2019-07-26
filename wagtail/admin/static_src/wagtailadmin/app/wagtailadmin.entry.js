@@ -7,6 +7,7 @@ import {
   initFocusOutline,
   initSubmenus,
   initDefaultTabs,
+  TabPanel,
   initUpgradeNotification,
 } from 'wagtail-client';
 
@@ -22,6 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 window.wagtail.components = {
   Icon,
   Portal,
+  TabPanel,
 };
 
 /**

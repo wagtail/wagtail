@@ -7,7 +7,12 @@ const DEFAULT_OPTIONS = {
 
 class TabPanel {
   constructor(el, options) {
+    // If this element has already been instantiated as a tabpanel, bail early
+    if ('WTTabpanel' in el) return;
+
     this.el = el;
+    this.el.WTTabpanel = this;
+
     this.options = Object.assign({}, DEFAULT_OPTIONS, options);
 
     this.setActiveTab = this.setActiveTab.bind(this);

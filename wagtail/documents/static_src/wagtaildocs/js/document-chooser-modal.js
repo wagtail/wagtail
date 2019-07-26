@@ -1,5 +1,9 @@
 DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'chooser': function(modal, jsonData) {
+        // Instantiate Tabs
+        const tabNav = modal.body[0].querySelector('.tab-nav')
+        const tabPanel = new wagtail.components.TabPanel(tabNav)
+
         function ajaxifyLinks (context) {
             $('a.document-choice', context).on('click', function() {
                 modal.loadUrl(this.href);
@@ -19,8 +23,9 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                   $('#id_document-chooser-upload-collection').val(collectionId);
                 }
 
-                // Select upload form tab
-                $('a[href="#upload"]').tab('show');
+                // Activate upload form tab
+                modal.body[0].querySelector('a[href="#upload"]').click()
+
                 e.preventDefault();
             });
         };
