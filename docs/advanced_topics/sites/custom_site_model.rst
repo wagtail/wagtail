@@ -10,7 +10,7 @@ You need to complete the following steps in your project to do this:
  - Create a new document model that inherits from
    ``wagtail.core.models.AbstractSite``. This is where you would
    add additional fields.
- - Point ``WAGTAIL_SITE_MODEL`` to the new model.
+ - Point ``WAGTAILCORE_SITE_MODEL`` to the new model.
 
 Here's an example:
 
@@ -37,7 +37,7 @@ Then in your settings module:
 
     # Ensure that you replace app_label with the app you placed your custom
     # model in.
-    WAGTAIL_SITE_MODEL = 'app_label.CustomSite'
+    WAGTAILCORE_SITE_MODEL = 'app_label.CustomSite'
 
 .. topic:: Migrating from the builtin site model
 
