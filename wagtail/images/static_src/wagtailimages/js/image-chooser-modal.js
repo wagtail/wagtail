@@ -1,5 +1,9 @@
 IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'chooser': function(modal, jsonData) {
+        // Instantiate tabs
+        const tabNav = modal.body[0].querySelector('.tab-nav')
+        const tabPanel = new wagtail.components.TabPanel(tabNav)
+
         var searchUrl = $('form.image-search', modal.body).attr('action');
 
         /* currentTag stores the tag currently being filtered on, so that we can
