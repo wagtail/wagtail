@@ -4,6 +4,7 @@ from collections import defaultdict
 from io import StringIO
 from urllib.parse import urlparse
 
+import swapper
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -26,7 +27,6 @@ from modelcluster.models import (
     ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
 from treebeard.mp_tree import MP_Node
 
-import swapper
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import page_published, page_unpublished
 from wagtail.core.sites import get_site_for_hostname

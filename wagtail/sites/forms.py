@@ -1,7 +1,7 @@
+import swapper
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-import swapper
 from wagtail.admin.widgets import AdminPageChooser
 
 
