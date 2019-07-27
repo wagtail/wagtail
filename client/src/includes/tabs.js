@@ -23,16 +23,22 @@ class TabInterface {
     this.render = this.render.bind(this);
 
     this.tabs = Array.from(this.el.querySelectorAll(this.options.tabLinkSelector));
+
     this.activeTab = this.tabs[this.options.initialActiveTab];
 
     this.tabs.forEach(tab => tab.addEventListener('click', this.setActiveTab));
 
+    // If there's a tab that already has the active class, activate it instead
+    const activeClassTab = this.el.querySelector(`${this.options.tabLinkSelector}.${this.options.tabActiveClass}`);
+    if (activeClassTab) {
+      this.activeTab = activeClassTab;
+    }
+
+    // If there's a tab that matches the location hash, activate it instead
     if (window.location.hash) {
-      // If there's a tab that matches the location hash, activate it
-      const newActiveTab = this.el.querySelector(`[href="${window.location.hash}"]`);
-      if (newActiveTab) {
-        this.setActiveTab(newActiveTab);
-        return; // Early return to avoid a rerender
+      const activeHashTab = this.el.querySelector(`[href="${window.location.hash}"]`);
+      if (activeHashTab) {
+        this.activeTab = activeHashTab;
       }
     }
 
