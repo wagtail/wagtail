@@ -3,7 +3,7 @@
 exports[`ExplorerToggle basic 1`] = `
 <Button
   accessibleLabel={null}
-  className="submenu-trigger"
+  className=""
   dialogTrigger={true}
   href="#"
   isLoading={false}

@@ -12,7 +12,6 @@ import Icon from '../../components/Icon/Icon';
  */
 const ExplorerToggle = ({ children, onToggle }) => (
   <Button
-    className="submenu-trigger"
     dialogTrigger={true}
     onClick={onToggle}
   >
