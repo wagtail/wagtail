@@ -122,7 +122,7 @@ $(function() {
     function initLogo() {
         var sensitivity = 8; // the amount of times the user must stroke the wagtail to trigger the animation
 
-        var $logoContainer = $('.wagtail-logo-container__desktop');
+        var $logoContainer = $('.animated-logo-container');
         var mouseX = 0;
         var lastMouseX = 0;
         var dir = '';
