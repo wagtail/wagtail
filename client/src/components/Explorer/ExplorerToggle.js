@@ -15,9 +15,9 @@ const ExplorerToggle = ({ children, onToggle }) => (
     dialogTrigger={true}
     onClick={onToggle}
   >
-    <Icon name="folder-open-inverse" className={'icon--menuitem'} />
+    <Icon name="folder-open-inverse" className="icon--menuitem" />
     {children}
-    <Icon name="arrow-right" className={'icon--submenu-trigger'} />
+    <Icon name="arrow-right" className="icon--submenu-trigger" />
   </Button>
 );
 
