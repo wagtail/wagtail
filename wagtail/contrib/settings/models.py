@@ -1,3 +1,4 @@
+import swapper
 from django.db import models
 
 from .registry import register_setting
@@ -12,7 +13,7 @@ class BaseSetting(models.Model):
     """
 
     site = models.OneToOneField(
-        'wagtailcore.Site', unique=True, db_index=True, editable=False, on_delete=models.CASCADE)
+        swapper.get_model_name('wagtailcore', 'Site'), unique=True, db_index=True, editable=False, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
