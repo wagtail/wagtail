@@ -2,7 +2,7 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'chooser': function(modal, jsonData) {
         // Instantiate Tabs
         const tabNav = modal.body[0].querySelector('.tab-nav')
-        const tabPanel = new wagtail.components.TabPanel(tabNav)
+        const tabPanel = new wagtail.components.TabInterface(tabNav)
 
         function ajaxifyLinks (context) {
             $('a.document-choice', context).on('click', function() {
@@ -24,7 +24,7 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 }
 
                 // Activate upload form tab
-                modal.body[0].querySelector('a[href="#upload"]').click()
+                tabPanel.setActiveTab(modal.body[0].querySelector('a[href="#upload"]'))
 
                 e.preventDefault();
             });

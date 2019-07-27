@@ -5,13 +5,17 @@ const DEFAULT_OPTIONS = {
   initialActiveTab: 0,
 };
 
-class TabPanel {
+class TabInterface {
+  /**
+   * TabInterface expects to be provided an element which is the ancestor of all
+   * tabs the interface includes, most likely an element with role="tablist"
+   */
   constructor(el, options) {
     // If this element has already been instantiated as a tabpanel, bail early
-    if ('WTTabpanel' in el) return;
+    if ('wagtailTabInterface' in el) return;
 
     this.el = el;
-    this.el.WTTabpanel = this;
+    this.el.wagtailTabInterface = this;
 
     this.options = Object.assign({}, DEFAULT_OPTIONS, options);
 
@@ -27,8 +31,7 @@ class TabPanel {
       // If there's a tab that matches the location hash, activate it
       const newActiveTab = this.el.querySelector(`[href="${window.location.hash}"]`);
       if (newActiveTab) {
-        // Simulate a click to activate tab. Triggers a render
-        newActiveTab.click();
+        this.setActiveTab(newActiveTab);
         return; // Early return to avoid a rerender
       }
     }
@@ -37,15 +40,40 @@ class TabPanel {
     this.render();
   }
 
-  setActiveTab(evt) {
-    // If the clicked tab is already active, bail out
-    if (this.activeTab === evt.target) return;
+  /**
+   * setActiveTab changes the currently active tab in an interface. It accepts
+   * three argument types:
+   * - an integer index
+   * - the tab DOM element
+   * - an Event triggered by the tab DOM element
+   */
+  setActiveTab(arg) {
+    let targetTab;
 
-    this.activeTab = evt.target;
+    // Handle these cases: arg is event-like, arg is integer index, arg is element
+    if (arg instanceof Event) {
+      // Extract DOM element from event
+      targetTab = arg.target;
+    } else if (typeof arg === 'number') {
+      // Use arg as in index
+      targetTab = self.tabs[arg];
+    } else {
+      // Assume it's a DOM element
+      targetTab = arg;
+    }
+
+    // If the clicked tab is already active, bail out
+    if (this.activeTab === targetTab) return;
+
+    this.activeTab = targetTab;
     window.history.replaceState(null, null, this.activeTab.href);
     this.render();
-    evt.stopPropagation();
-    evt.preventDefault();
+
+    // If arg is an event, stop propagation and prevent default behavior
+    if (arg instanceof Event) {
+      arg.stopPropagation();
+      arg.preventDefault();
+    }
   }
 
   render() {
@@ -57,16 +85,20 @@ class TabPanel {
         tab.setAttribute('aria-selected', 'true');
         // Show active pane
         pane = document.getElementById(tab.getAttribute('aria-controls'));
-        pane.classList.add(this.options.paneActiveClass);
-        pane.hidden = false;
+        if (pane) {
+          pane.classList.add(this.options.paneActiveClass);
+          pane.hidden = false;
+        }
       } else {
         // Remove active class and ARIA attribute from any inactive tab
         tab.classList.remove(this.options.tabActiveClass);
         tab.setAttribute('aria-selected', 'false');
         // Hide inactive panes
         pane = document.getElementById(tab.getAttribute('aria-controls'));
-        pane.classList.remove(this.options.paneActiveClass);
-        pane.hidden = true;
+        if (pane) {
+          pane.classList.remove(this.options.paneActiveClass);
+          pane.hidden = true;
+        }
       }
     });
   }
@@ -74,7 +106,7 @@ class TabPanel {
 
 const initDefaultTabs = () => {
   const tabPanels = Array.from(document.querySelectorAll('.tab-nav'));
-  tabPanels.forEach(el => new TabPanel(el));
+  tabPanels.forEach(el => new TabInterface(el));
 };
 
-export { TabPanel, initDefaultTabs };
+export { TabInterface, initDefaultTabs };

@@ -12,7 +12,7 @@ import PublicationStatus from './components/PublicationStatus/PublicationStatus'
 import Transition from './components/Transition/Transition';
 import { initFocusOutline } from './utils/focus';
 import { initSubmenus } from './includes/initSubmenus';
-import { initDefaultTabs, TabPanel } from './includes/tabs';
+import { initDefaultTabs, TabInterface } from './includes/tabs';
 import { initUpgradeNotification } from './components/UpgradeNotification';
 
 export {
@@ -28,6 +28,6 @@ export {
   initFocusOutline,
   initSubmenus,
   initDefaultTabs,
-  TabPanel,
+  TabInterface,
   initUpgradeNotification,
 };
