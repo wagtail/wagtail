@@ -41,39 +41,6 @@ exports[`Button #dialogTrigger 1`] = `
 />
 `;
 
-exports[`Button #icon 1`] = `
-<a
-  aria-haspopup={null}
-  className=""
-  href="#"
-  onClick={[Function]}
-  rel={null}
-  target={null}
-/>
-`;
-
-exports[`Button #icon changes with #isLoading 1`] = `
-<a
-  aria-haspopup={null}
-  className=""
-  href="#"
-  onClick={[Function]}
-  rel={null}
-  target={null}
-/>
-`;
-
-exports[`Button #multiple icons 1`] = `
-<a
-  aria-haspopup={null}
-  className=""
-  href="#"
-  onClick={[Function]}
-  rel={null}
-  target={null}
-/>
-`;
-
 exports[`Button #target 1`] = `
 <a
   aria-haspopup={null}
