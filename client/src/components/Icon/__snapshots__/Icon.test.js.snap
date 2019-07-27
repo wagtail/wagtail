@@ -3,7 +3,8 @@
 exports[`Icon #className 1`] = `
 <span>
   <svg
-    className="u-test"
+    aria-hidden="true"
+    className="icon icon-test u-test"
   >
     <use
       href="#test"
@@ -15,7 +16,8 @@ exports[`Icon #className 1`] = `
 exports[`Icon #name 1`] = `
 <span>
   <svg
-    className=""
+    aria-hidden="true"
+    className="icon icon-test "
   >
     <use
       href="#test"
@@ -27,7 +29,8 @@ exports[`Icon #name 1`] = `
 exports[`Icon #title 1`] = `
 <span>
   <svg
-    className=""
+    aria-hidden="true"
+    className="icon icon-test "
   >
     <use
       href="#test"
