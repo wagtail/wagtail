@@ -285,8 +285,8 @@ class TestTabbedInterface(TestCase):
         result = tabbed_interface.render()
 
         # result should contain tab buttons
-        self.assertIn('<a href="#tab-event-details" class="active">Event details</a>', result)
-        self.assertIn('<a href="#tab-speakers" class="">Speakers</a>', result)
+        self.assertIn('<a href="#tab-event-details" id="tab-label-event-details" class="active" role="tab" aria-controls="tab-event-details" aria-selected="true">Event details</a>', result)
+        self.assertIn('<a href="#tab-speakers" id="tab-label-speakers" class="" role="tab" aria-controls="tab-speakers" >Speakers</a>', result)
 
         # result should contain tab panels
         self.assertIn('<div class="tab-content">', result)
