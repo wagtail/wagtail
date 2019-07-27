@@ -173,7 +173,7 @@ class AbstractSite(models.Model):
 
 
 class Site(AbstractSite):
-    class Meta:
+    class Meta(AbstractSite.Meta):
         swappable = swapper.swappable_setting('wagtailcore', 'Site')
 
 

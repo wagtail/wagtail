@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import swapper
 from django.conf import settings
 from django.db import migrations, models
 
@@ -148,6 +149,7 @@ class Migration(migrations.Migration):
                 ('root_page', models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page', related_name='sites_rooted_here')),
             ],
             options={
+                'swappable': swapper.swappable_setting('wagtailcore', 'Site'),
             },
             bases=(models.Model,),
         ),

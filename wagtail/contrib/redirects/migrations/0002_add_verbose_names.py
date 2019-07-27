@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import swapper
 from django.db import migrations, models
 
 
@@ -19,7 +20,8 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(
                 on_delete=models.CASCADE,
                 related_name='redirects', blank=True, editable=False,
-                to='wagtailcore.Site', null=True, verbose_name='Site'
+                to=swapper.get_model_name('wagtailcore', 'Site'),
+                null=True, verbose_name='Site'
             ),
         ),
     ]
