@@ -690,25 +690,37 @@
         <section id="tabs">
             <h2>Tabs</h2>
 
-            <ul class="tab-nav">
-                <li class="active"><a href="#tab1">Tab 1</a></li>
-                <li><a href="#tab2">Tab 2</a></li>
+            <ul class="tab-nav" role="tablist" aria-owns="tab-1-1 tab-1-2">
+                <li role="presentation">
+                  <a href="#tab1" id="tab-1-1" role="tab">Tab 1</a>
+                </li>
+                <li role="presentation">
+                  <a href="#tab2" id="tab-1-2" role="tab">Tab 2</a>
+                </li>
             </ul>
 
             <p>Tabs are currently only used following headers, where they often appear merged with the bottom of the header:</p>
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
-            <ul class="tab-nav merged">
-                <li class="active"><a href="#">Tab1</a></li>
-                <li><a href="#">Tab2</a></li>
+            <ul class="tab-nav merged" role="tablist" aria-owns="tab-2-1 tab-2-2">
+                <li role="presentation">
+                  <a href="#" id="tab-2-1" role="tab">Tab1</a>
+                </li>
+                <li role="presentation">
+                  <a href="#" id="tab-2-2" role="tab">Tab2</a>
+                </li>
             </ul>
 
             <p>Tabs can also indicate errors:</p>
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
-            <ul class="tab-nav merged">
-                <li class="active"><a href="#" class="errors" data-count="123">Tab1</a></li>
-                <li><a href="#" class="errors" data-count="1">Tab2</a></li>
+            <ul class="tab-nav merged" role="tablist" aria-owns="tab-3-1 tab-3-2">
+                <li role="presentation">
+                  <a href="#" class="errors" id="tab-3-1" role="tab" data-count="123">Tab1</a>
+                </li>
+                <li role="presentation">
+                  <a href="#" class="errors" id="tab-3-2" role="tab" data-count="1">Tab2</a>
+                </li>
             </ul>
         </section>
 
