@@ -229,3 +229,25 @@ Adding tags to snippets is very similar to adding tags to pages. The only differ
         ]
 
 The :ref:`documentation on tagging pages <tagging>` has more information on how to use tags in views.
+
+
+ClusterableModel snippets
+-------------------------
+
+If you want to group a snippet you can use ClusterableModel. For example you want to insert bands and there members.
+The band member can then be orderd accordingly.
+
+.. code-block:: python
+
+    class BandMember(Orderable):
+         band = ParentalKey('Band', related_name='members', on_delete=models.CASCADE)
+         name = models.CharField(max_length=255)
+
+    @register_snippet
+    class Band(ClusterableModel):
+         name = models.CharField(max_length=255)
+
+         panels = [
+             FieldPanel('name'),
+             InlinePanel('members')
+      ]
