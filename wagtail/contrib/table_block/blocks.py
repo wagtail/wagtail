@@ -43,7 +43,13 @@ class TableInput(forms.HiddenInput):
 
     def get_context(self, name, value, attrs=None):
         context = super().get_context(name, value, attrs)
+        print(value)
+        table_caption = ''
+        if value and value != 'null':
+            table_caption = json.loads(value)['table_caption']
         context['widget']['table_options_json'] = json.dumps(self.table_options)
+        context['widget']['table_caption'] = table_caption
+
         return context
 
 
@@ -59,6 +65,7 @@ class TableBlock(FieldBlock):
         """
         self.table_options = self.get_table_options(table_options=table_options)
         self.field_options = {'required': required, 'help_text': help_text}
+
         super().__init__(**kwargs)
 
     @cached_property
@@ -66,7 +73,7 @@ class TableBlock(FieldBlock):
         return forms.CharField(widget=TableInput(table_options=self.table_options), **self.field_options)
 
     def value_from_form(self, value):
-        print(value)
+        print("from form", value)
         return json.loads(value)
 
     def value_for_form(self, value):

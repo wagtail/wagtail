@@ -23,9 +23,9 @@
     <label for="{{ widget.attrs.id }}-handsontable-col-caption">{% trans 'Table caption' %}</label>
     <div class="field-content">
         <div class="input">
-          <input type="text" id="{{ widget.attrs.id }}-handsontable-col-caption" name="handsontable-col-caption"/>
+          <input type="text" id="{{ widget.attrs.id }}-handsontable-col-caption" name="handsontable-col-caption" value="{{ widget.table_caption }}"/>
         </div>
-        <p class="help">{% trans 'Display caption - helpful for users with screen reader' %}</p>
+        <p class="help">{% trans 'A heading that identifies the overall topic of the table, and is useful for screen reader users' %}</p>
     </div>
 </div>
 <br/>
