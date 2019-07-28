@@ -24,6 +24,10 @@ function setupJcrop(image, original, focalPointOriginal, fields) {
         }
     }, function() {
         jcropapi = this
+
+        // Set alt="" on the image so its src is not read out loud to screen reader users.
+        var $holderImage = $('img', jcropapi.ui.holder);
+        $holderImage.attr('alt', '');
     });
 }
 
