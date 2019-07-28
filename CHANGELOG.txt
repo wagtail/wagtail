@@ -78,6 +78,7 @@ Changelog
  * Fix: Added missing `is_stored_locally` method to `AbstractDocument` (jonny5532)
  * Fix: Query model no longer removes punctuation as part of string normalisation (William Blackie)
  * Fix: Make login test helper work with user models with non-default username fields (Andrew Miller)
+ * Fix: Delay dirty form check to prevent "unsaved changes" warning from being wrongly triggered (Thibaud Colas)
 
 
 2.5.1 (07.05.2019)
