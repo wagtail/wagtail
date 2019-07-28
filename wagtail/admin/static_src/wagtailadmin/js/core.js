@@ -57,16 +57,23 @@ function enableDirtyFormCheck(formSelector, options) {
     var $form = $(formSelector);
     var confirmationMessage = options.confirmationMessage || ' ';
     var alwaysDirty = options.alwaysDirty || false;
-    var initialData = $form.serialize();
+    var initialData = null;
     var formSubmitted = false;
 
     $form.on('submit', function() {
         formSubmitted = true;
     });
 
+    // Delay snapshotting the form’s data to avoid race conditions with form widgets that might process the values.
+    // User interaction with the form within that delay also won’t trigger the confirmation message.
+    setTimeout(function() {
+        initialData = $form.serialize();
+    }, 1000 * 10);
+
     window.addEventListener('beforeunload', function(event) {
+        var isDirty = initialData && $form.serialize() != initialData;
         var displayConfirmation = (
-            !formSubmitted && (alwaysDirty || $form.serialize() != initialData)
+            !formSubmitted && (alwaysDirty || isDirty)
         );
 
         if (displayConfirmation) {
