@@ -59,9 +59,7 @@ function initTable(id, tableOptions) {
             colHeaderCheckbox.prop('checked', dataForForm.first_col_is_header);
         }
         if (dataForForm.hasOwnProperty('table_caption')) {
-            tableCaption.on('change', function() {
-                this.value = dataForForm.table_caption;
-            });
+            tableCaption.prop('value', dataForForm.table_caption);
         }
     }
 
