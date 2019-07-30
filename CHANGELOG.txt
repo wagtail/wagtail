@@ -81,6 +81,12 @@ Changelog
  * Fix: Delay dirty form check to prevent "unsaved changes" warning from being wrongly triggered (Thibaud Colas)
 
 
+2.5.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Delay dirty form check to prevent "unsaved changes" warning from being wrongly triggered (Thibaud Colas)
+
+
 2.5.1 (07.05.2019)
 ~~~~~~~~~~~~~~~~~~
 
