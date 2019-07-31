@@ -53,7 +53,7 @@ class FieldBlock(Block):
         if isinstance(self, (CharBlock, TextBlock, FloatBlock,
                              DecimalBlock, RegexBlock, URLBlock,
                              DateBlock, TimeBlock, DateTimeBlock,
-                             EmailBlock, IntegerBlock)):
+                             EmailBlock, IntegerBlock)) and self.name:
             return '${%s}' % self.name
 
     def render_form(self, value, prefix='', errors=None):
