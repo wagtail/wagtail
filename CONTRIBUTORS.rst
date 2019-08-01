@@ -384,6 +384,7 @@ Contributors
 * William Blackie
 * Andrew Miller
 * Rodrigo
+* Iman Syed
 
 Translators
 ===========

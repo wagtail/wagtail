@@ -9,6 +9,7 @@ Changelog
  * Fix: Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
  * Fix: Added https support for Scribd oEmbed provider (Rodrigo)
  * Fix: Changed StreamField group labels color so labels are visible (Catherine Farman)
+ * Fix: Prevented images with a very wide aspect ratio from being displayed distorted in the rich text editor (Iman Syed)
 
 
 2.6 (01.08.2019)
