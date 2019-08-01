@@ -121,6 +121,17 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             return false;
         });
     },
+    'phone_link': function(modal, jsonData) {
+        $('p.link-types a', modal.body).on('click', function() {
+            modal.loadUrl(this.href);
+            return false;
+        });
+
+        $('form', modal.body).on('submit', function() {
+            modal.postForm(this.action, $(this).serialize());
+            return false;
+        });
+    },
     'external_link': function(modal, jsonData) {
         $('p.link-types a', modal.body).on('click', function() {
             modal.loadUrl(this.href);

@@ -57,6 +57,7 @@ Object {
   "urlParams": Object {
     "allow_email_link": true,
     "allow_external_link": true,
+    "allow_phone_link": true,
     "link_text": "",
     "link_url": "https://www.example.com/",
     "page_type": "wagtailcore.page",
@@ -73,6 +74,7 @@ Object {
   "urlParams": Object {
     "allow_email_link": true,
     "allow_external_link": true,
+    "allow_phone_link": true,
     "link_text": "",
     "link_url": "test@example.com",
     "page_type": "wagtailcore.page",
@@ -89,6 +91,7 @@ Object {
   "urlParams": Object {
     "allow_email_link": true,
     "allow_external_link": true,
+    "allow_phone_link": true,
     "link_text": "",
     "page_type": "wagtailcore.page",
   },
@@ -104,6 +107,7 @@ Object {
   "urlParams": Object {
     "allow_email_link": true,
     "allow_external_link": true,
+    "allow_phone_link": true,
     "link_text": "",
     "page_type": "wagtailcore.page",
   },
@@ -119,6 +123,7 @@ Object {
   "urlParams": Object {
     "allow_email_link": true,
     "allow_external_link": true,
+    "allow_phone_link": true,
     "link_text": "",
     "page_type": "wagtailcore.page",
   },
