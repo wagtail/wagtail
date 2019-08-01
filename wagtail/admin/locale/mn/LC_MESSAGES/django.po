@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -241,9 +241,6 @@ msgstr "Нууц үг сэргээх"
 msgid "Reset your password"
 msgstr "Нууц үгээ сэргээх"
 
-msgid "Edit"
-msgstr "Засах"
-
 msgid "Page"
 msgstr "Хуудас"
 
@@ -258,9 +255,6 @@ msgstr "Үр дүн олдсонгүй"
 
 msgid "Server Error"
 msgstr "Серверийн алдаа"
-
-msgid "See children"
-msgstr "Дэд хуудсуудыг харах"
 
 msgid "See all"
 msgstr "Бүгдийг харах"
@@ -303,6 +297,87 @@ msgid ""
 msgstr ""
 "Текст засварлагчид алдаа гарлаа. Контент сүүлийн хадгалагдсан хувилбараар "
 "хадгалагдсан."
+
+msgid "Close"
+msgstr "Хаах"
+
+msgid "January"
+msgstr "Нэгдүгээр сар"
+
+msgid "February"
+msgstr "Хоёрдугаар сар"
+
+msgid "March"
+msgstr "Гуравдугаар сар"
+
+msgid "April"
+msgstr "Дөрөвдүгээр сар"
+
+msgid "May"
+msgstr "Тавдугаар сар"
+
+msgid "June"
+msgstr "Зургадугаар сар"
+
+msgid "July"
+msgstr "Долдугаар сар"
+
+msgid "August"
+msgstr "Наймдугаар сар"
+
+msgid "September"
+msgstr "Есдүгээр сар"
+
+msgid "October"
+msgstr "Аравдугаар сар"
+
+msgid "November"
+msgstr "Арван нэгдүгээр сар"
+
+msgid "December"
+msgstr "Арван хоёрдугаар сар"
+
+msgid "Sunday"
+msgstr "Ням гариг"
+
+msgid "Monday"
+msgstr "Даваа гариг"
+
+msgid "Tuesday"
+msgstr "Мягмар гариг"
+
+msgid "Wednesday"
+msgstr "Лхагва гариг"
+
+msgid "Thursday"
+msgstr "Пүрэв гариг"
+
+msgid "Friday"
+msgstr "Баасан гариг"
+
+msgid "Saturday"
+msgstr "Бямба гариг"
+
+msgid "Sun"
+msgstr "Ням"
+
+msgid "Mon"
+msgstr "Дав"
+
+msgid "Tue"
+msgstr "Мяг"
+
+msgid "Wed"
+msgstr "Лха"
+
+msgid "Thu"
+msgstr "Пүр"
+
+msgid "Fri"
+msgstr "Баа"
+
+msgid "Sat"
+msgstr "Бям"
 
 msgid "Dashboard"
 msgstr "Хянах самбар"
@@ -430,6 +505,9 @@ msgstr "Зөвшөөрөх"
 msgid "Reject"
 msgstr "Татгалзах"
 
+msgid "Edit"
+msgstr "Засах"
+
 msgid "Preview"
 msgstr "Урдчилж харах"
 
@@ -454,24 +532,6 @@ msgstr "Нийтлэгдсэн"
 
 msgid "Site summary"
 msgstr "Сайтын хураангуй"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Хуудсууд\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Хуудсууд\n"
-"    "
 
 msgid "Sign in"
 msgstr "Нэвтрэх"
@@ -752,9 +812,6 @@ msgstr "Дэд хуудсуудыг эрэмбэлэх"
 msgid "Preview error"
 msgstr "Урдчилж харахад алдаа гарлаа"
 
-msgid "Close"
-msgstr "Хаах"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "%(title)s-г харьцуулж байна"
@@ -900,84 +957,6 @@ msgstr "Нүүр хуудас"
 
 msgid "All collections"
 msgstr "Цуглуулга нэмэх"
-
-msgid "January"
-msgstr "Нэгдүгээр сар"
-
-msgid "February"
-msgstr "Хоёрдугаар сар"
-
-msgid "March"
-msgstr "Гуравдугаар сар"
-
-msgid "April"
-msgstr "Дөрөвдүгээр сар"
-
-msgid "May"
-msgstr "Тавдугаар сар"
-
-msgid "June"
-msgstr "Зургадугаар сар"
-
-msgid "July"
-msgstr "Долдугаар сар"
-
-msgid "August"
-msgstr "Наймдугаар сар"
-
-msgid "September"
-msgstr "Есдүгээр сар"
-
-msgid "October"
-msgstr "Аравдугаар сар"
-
-msgid "November"
-msgstr "Арван нэгдүгээр сар"
-
-msgid "December"
-msgstr "Арван хоёрдугаар сар"
-
-msgid "Sunday"
-msgstr "Ням гариг"
-
-msgid "Monday"
-msgstr "Даваа гариг"
-
-msgid "Tuesday"
-msgstr "Мягмар гариг"
-
-msgid "Wednesday"
-msgstr "Лхагва гариг"
-
-msgid "Thursday"
-msgstr "Пүрэв гариг"
-
-msgid "Friday"
-msgstr "Баасан гариг"
-
-msgid "Saturday"
-msgstr "Бямба гариг"
-
-msgid "Sun"
-msgstr "Ням"
-
-msgid "Mon"
-msgstr "Дав"
-
-msgid "Tue"
-msgstr "Мяг"
-
-msgid "Wed"
-msgstr "Лха"
-
-msgid "Thu"
-msgstr "Пүр"
-
-msgid "Fri"
-msgstr "Баа"
-
-msgid "Sat"
-msgstr "Бям"
 
 msgid "Edit your account"
 msgstr "Хэрэглэгчийн эрхээ засах"

@@ -4,13 +4,14 @@
 #
 # Translators:
 # shuhei hirota, 2019
+# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-05-30 04:13+0000\n"
-"Last-Translator: shuhei hirota\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-29 23:47+0000\n"
+"Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail モデル管理"
 
 msgid "Parent page"
 msgstr "親ページ"
@@ -29,6 +33,13 @@ msgstr "%s を追加"
 #, python-format
 msgid "Add a new %s"
 msgstr "%s を新規追加"
+
+msgid "Inspect"
+msgstr "検索する"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "この%sを検査する"
 
 msgid "Edit"
 msgstr "編集"
@@ -64,6 +75,9 @@ msgstr "画像"
 msgid "Choose a parent page"
 msgstr "親ページを選択"
 
+msgid "Continue"
+msgstr "続ける"
+
 msgid "Saving…"
 msgstr "保存中..."
 
@@ -77,8 +91,49 @@ msgstr "%(model_name)sは削除できませんでした"
 msgid "Yes, delete"
 msgstr "はい、削除します"
 
+msgid "No, don't delete"
+msgstr "いいえ、削除しません"
+
 msgid "Home"
 msgstr "ホーム"
 
+#, python-format
+msgid " By %(filter_title)s "
+msgstr "%(filter_title)sによって"
+
+msgid "Search for"
+msgstr "を検索する"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "%(name)sを検索"
+
 msgid "Filter"
 msgstr "フィルター"
+
+msgid "Pagination"
+msgstr "ページネーション"
+
+msgid "Previous"
+msgstr "前のページ"
+
+msgid "New"
+msgstr "新規作成"
+
+#, python-format
+msgid "Create new %s"
+msgstr "%sを新規作成"
+
+msgid "Editing"
+msgstr "編集"
+
+#, python-format
+msgid "Editing %s"
+msgstr "%sを編集中"
+
+msgid "Inspecting"
+msgstr "検索"
+
+#, python-format
+msgid "Inspecting %s"
+msgstr "%sを検査中"

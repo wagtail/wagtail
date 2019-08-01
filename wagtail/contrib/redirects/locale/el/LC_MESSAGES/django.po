@@ -11,12 +11,12 @@
 # serafeim <serafeim@torchbox.com>, 2014
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Yiannis Inglessis <inactive+ne0the0ne@transifex.com>, 2015
-# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
+# Yiannis Inglessis <negtheone@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
 "PO-Revision-Date: 2018-10-28 14:55+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"

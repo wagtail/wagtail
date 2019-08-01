@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -180,11 +180,65 @@ msgstr "Restablecer contrasinal"
 msgid "Reset your password"
 msgstr "Restablecer o teu contrasinal"
 
-msgid "Edit"
-msgstr "Editar"
-
 msgid "Pages"
 msgstr "Páxinas"
+
+msgid "January"
+msgstr "Enero"
+
+msgid "February"
+msgstr "Febrero"
+
+msgid "March"
+msgstr "Marzo"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May"
+msgstr "Maio"
+
+msgid "June"
+msgstr "Xuño"
+
+msgid "July"
+msgstr "Xullo"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "September"
+msgstr "Setembro"
+
+msgid "October"
+msgstr "Outubro"
+
+msgid "November"
+msgstr "Novembro"
+
+msgid "December"
+msgstr "Decembro"
+
+msgid "Sun"
+msgstr "Do"
+
+msgid "Mon"
+msgstr "Lu"
+
+msgid "Tue"
+msgstr "Ma"
+
+msgid "Wed"
+msgstr "Me"
+
+msgid "Thu"
+msgstr "Xo"
+
+msgid "Fri"
+msgstr "Ve"
+
+msgid "Sat"
+msgstr "Sa"
 
 msgid "Dashboard"
 msgstr "Panel de control"
@@ -319,6 +373,9 @@ msgstr "Aprobar"
 msgid "Reject"
 msgstr "Rexeitar"
 
+msgid "Edit"
+msgstr "Editar"
+
 msgid "Preview"
 msgstr "Previsualizar"
 
@@ -339,24 +396,6 @@ msgstr "En vivo"
 
 msgid "Site summary"
 msgstr "Resumo do sitio"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Páxina\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Páxinas\n"
-"    "
 
 msgid "Sign in"
 msgstr "Iniciar sesión"
@@ -763,63 +802,6 @@ msgstr "Principal"
 
 msgid "All collections"
 msgstr "Todas as coleccións"
-
-msgid "January"
-msgstr "Enero"
-
-msgid "February"
-msgstr "Febrero"
-
-msgid "March"
-msgstr "Marzo"
-
-msgid "April"
-msgstr "Abril"
-
-msgid "May"
-msgstr "Maio"
-
-msgid "June"
-msgstr "Xuño"
-
-msgid "July"
-msgstr "Xullo"
-
-msgid "August"
-msgstr "Agosto"
-
-msgid "September"
-msgstr "Setembro"
-
-msgid "October"
-msgstr "Outubro"
-
-msgid "November"
-msgstr "Novembro"
-
-msgid "December"
-msgstr "Decembro"
-
-msgid "Sun"
-msgstr "Do"
-
-msgid "Mon"
-msgstr "Lu"
-
-msgid "Tue"
-msgstr "Ma"
-
-msgid "Wed"
-msgstr "Me"
-
-msgid "Thu"
-msgstr "Xo"
-
-msgid "Fri"
-msgstr "Ve"
-
-msgid "Sat"
-msgstr "Sa"
 
 msgid "Edit your account"
 msgstr "Editar a túa conta"

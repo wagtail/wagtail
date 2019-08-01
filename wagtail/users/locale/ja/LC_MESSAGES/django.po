@@ -8,14 +8,15 @@
 # Sangmin Ahn <gijigae@gmail.com>, 2016
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
+# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-05-30 05:35+0000\n"
-"Last-Translator: shuhei hirota\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-28 21:27+0000\n"
+"Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -64,11 +65,18 @@ msgstr "確認のため、再度パスワードを入力してください。"
 msgid "Administrator"
 msgstr "管理者"
 
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"管理者はいかなるオブジェクトや設定を管理できる全ての権限を持っています。"
+
 msgid "A group with that name already exists."
 msgstr "このグループ名は既に使用されています。"
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "同一ページ内で複数の権限を持つことはできません"
+
+msgid "Preferred language"
+msgstr "好みの言語"
 
 msgid "Current time zone"
 msgstr "現在のタイムゾーン"
@@ -94,6 +102,9 @@ msgstr "拒否通知"
 msgid "Receive notification when your page edit is rejected"
 msgstr "ページの編集が却下された際、通知を受け取る"
 
+msgid "preferred language"
+msgstr "好みの言語"
+
 msgid "Select language for the admin"
 msgstr "管理者の言語を選択"
 
@@ -114,6 +125,21 @@ msgstr "プロフィール"
 
 msgid "Delete group"
 msgstr "グループを削除"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"グループ%(group_name)sには%(group_user_count)s名のメンバーがいます。"
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -136,6 +162,9 @@ msgstr "編集"
 
 msgid "Save"
 msgstr "保存"
+
+msgid "Permissions"
+msgstr "権限"
 
 msgid "Object permissions"
 msgstr "オブジェクト権限"
@@ -228,6 +257,19 @@ msgstr "無効"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s前"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"%(counter)s件の一致があります。"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

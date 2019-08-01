@@ -8,13 +8,13 @@
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014,2016
 # Wasilis Mandratzis-Walz, 2015
-# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
+# Yiannis Inglessis <negtheone@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -192,11 +192,65 @@ msgstr "Ανανέωση κωδικού"
 msgid "Reset your password"
 msgstr "Ανανεώστε τον κωδικό σας"
 
-msgid "Edit"
-msgstr "Διόρθωση"
-
 msgid "Pages"
 msgstr "Σελίδες"
+
+msgid "January"
+msgstr "Ιανουάριος"
+
+msgid "February"
+msgstr "Φεβρουάριος"
+
+msgid "March"
+msgstr "Μάρτιος"
+
+msgid "April"
+msgstr "Απρίλιος"
+
+msgid "May"
+msgstr "Μάιος"
+
+msgid "June"
+msgstr "Ιούνιος"
+
+msgid "July"
+msgstr "Ιούλιος"
+
+msgid "August"
+msgstr "Αύγουστος"
+
+msgid "September"
+msgstr "Σεπτέμβριος"
+
+msgid "October"
+msgstr "Οκτώβριος"
+
+msgid "November"
+msgstr "Νοέμβριος"
+
+msgid "December"
+msgstr "Δεκέμβριος"
+
+msgid "Sun"
+msgstr "Κυρ"
+
+msgid "Mon"
+msgstr "Δευ"
+
+msgid "Tue"
+msgstr "Τρ"
+
+msgid "Wed"
+msgstr "Τετ"
+
+msgid "Thu"
+msgstr "Πεμ"
+
+msgid "Fri"
+msgstr "Παρ"
+
+msgid "Sat"
+msgstr "Σαβ"
 
 msgid "Dashboard"
 msgstr "Πίνακας ελέγχου"
@@ -332,6 +386,9 @@ msgstr "Έγκριση"
 msgid "Reject"
 msgstr "Απόρριψη"
 
+msgid "Edit"
+msgstr "Διόρθωση"
+
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
@@ -356,24 +413,6 @@ msgstr "Live"
 
 msgid "Site summary"
 msgstr "Κατάσταση site"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"                <span>%(total)s</span> Σελίδα\n"
-"            "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Σελίδες\n"
-"    "
 
 msgid "Sign in"
 msgstr "Είσοδος"
@@ -882,63 +921,6 @@ msgstr "Αρχή"
 
 msgid "All collections"
 msgstr "Όλες οι συλλογές"
-
-msgid "January"
-msgstr "Ιανουάριος"
-
-msgid "February"
-msgstr "Φεβρουάριος"
-
-msgid "March"
-msgstr "Μάρτιος"
-
-msgid "April"
-msgstr "Απρίλιος"
-
-msgid "May"
-msgstr "Μάιος"
-
-msgid "June"
-msgstr "Ιούνιος"
-
-msgid "July"
-msgstr "Ιούλιος"
-
-msgid "August"
-msgstr "Αύγουστος"
-
-msgid "September"
-msgstr "Σεπτέμβριος"
-
-msgid "October"
-msgstr "Οκτώβριος"
-
-msgid "November"
-msgstr "Νοέμβριος"
-
-msgid "December"
-msgstr "Δεκέμβριος"
-
-msgid "Sun"
-msgstr "Κυρ"
-
-msgid "Mon"
-msgstr "Δευ"
-
-msgid "Tue"
-msgstr "Τρ"
-
-msgid "Wed"
-msgstr "Τετ"
-
-msgid "Thu"
-msgstr "Πεμ"
-
-msgid "Fri"
-msgstr "Παρ"
-
-msgid "Sat"
-msgstr "Σαβ"
 
 msgid "Edit your account"
 msgstr "Επεξεργαστείτε το λογαριασμό σας"

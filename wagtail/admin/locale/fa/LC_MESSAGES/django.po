@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -194,9 +194,6 @@ msgstr "بازنشانی رمزعبور"
 msgid "Reset your password"
 msgstr "رمزعبور را بازنشانی کنید"
 
-msgid "Edit"
-msgstr "تصحیح"
-
 msgid "Page"
 msgstr "صفحه"
 
@@ -209,14 +206,71 @@ msgstr "بدون نتیجه"
 msgid "Server Error"
 msgstr "خطای سرور"
 
-msgid "See children"
-msgstr "نمایش زیرگروه"
-
 msgid "See all"
 msgstr "نمایش همه"
 
 msgid "Close explorer"
 msgstr "بستن کاوشگر"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "January"
+msgstr "ژانویه"
+
+msgid "February"
+msgstr "فوریه"
+
+msgid "March"
+msgstr "مارس"
+
+msgid "April"
+msgstr "آپریل"
+
+msgid "May"
+msgstr "مه"
+
+msgid "June"
+msgstr "ژوئن"
+
+msgid "July"
+msgstr "جولای"
+
+msgid "August"
+msgstr "آگوست"
+
+msgid "September"
+msgstr "سپتامبر"
+
+msgid "October"
+msgstr "اکتبر"
+
+msgid "November"
+msgstr "نوامبر"
+
+msgid "December"
+msgstr "دسامبر"
+
+msgid "Sun"
+msgstr "یکشنبه"
+
+msgid "Mon"
+msgstr "دوشنبه"
+
+msgid "Tue"
+msgstr "سه شنبه"
+
+msgid "Wed"
+msgstr "چهارشنبه"
+
+msgid "Thu"
+msgstr "پنجشنبه"
+
+msgid "Fri"
+msgstr "جمعه"
+
+msgid "Sat"
+msgstr "شنبه"
 
 msgid "Dashboard"
 msgstr "داشبورد"
@@ -358,6 +412,9 @@ msgstr "تایید"
 msgid "Reject"
 msgstr "رد"
 
+msgid "Edit"
+msgstr "تصحیح"
+
 msgid "Preview"
 msgstr "نمایش"
 
@@ -382,22 +439,6 @@ msgstr "زنده"
 
 msgid "Site summary"
 msgstr "خلاصه سایت"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> صفحه"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> صفحه"
 
 msgid "Sign in"
 msgstr "ورود"
@@ -782,9 +823,6 @@ msgstr ""
 "ببندید و صفحه را برای برطرف سازی خطا ویرایش نمایید سپس مجددا از پیش نمایش "
 "استفاده نمایید."
 
-msgid "Close"
-msgstr "بستن"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "مقایسه %(title)s"
@@ -910,63 +948,6 @@ msgstr "خانه"
 
 msgid "All collections"
 msgstr "همه مجموعه ها"
-
-msgid "January"
-msgstr "ژانویه"
-
-msgid "February"
-msgstr "فوریه"
-
-msgid "March"
-msgstr "مارس"
-
-msgid "April"
-msgstr "آپریل"
-
-msgid "May"
-msgstr "مه"
-
-msgid "June"
-msgstr "ژوئن"
-
-msgid "July"
-msgstr "جولای"
-
-msgid "August"
-msgstr "آگوست"
-
-msgid "September"
-msgstr "سپتامبر"
-
-msgid "October"
-msgstr "اکتبر"
-
-msgid "November"
-msgstr "نوامبر"
-
-msgid "December"
-msgstr "دسامبر"
-
-msgid "Sun"
-msgstr "یکشنبه"
-
-msgid "Mon"
-msgstr "دوشنبه"
-
-msgid "Tue"
-msgstr "سه شنبه"
-
-msgid "Wed"
-msgstr "چهارشنبه"
-
-msgid "Thu"
-msgstr "پنجشنبه"
-
-msgid "Fri"
-msgstr "جمعه"
-
-msgid "Sat"
-msgstr "شنبه"
 
 msgid "Edit your account"
 msgstr "ویرایش حساب شما"

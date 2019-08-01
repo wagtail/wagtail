@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-05-03 17:41+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-16 11:16+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -242,9 +242,6 @@ msgstr "Jelszó módosítása"
 msgid "Reset your password"
 msgstr "Módosítsa jelszavát"
 
-msgid "Edit"
-msgstr "Szerkeszt"
-
 msgid "Page"
 msgstr "Oldal"
 
@@ -259,9 +256,6 @@ msgstr "Nincs találat"
 
 msgid "Server Error"
 msgstr "Szerverhiba"
-
-msgid "See children"
-msgstr "Aloldalak megjelenítése"
 
 msgid "See all"
 msgstr "Összes megjelenítése"
@@ -310,6 +304,96 @@ msgstr "Törött link"
 
 msgid "Missing document"
 msgstr "Hiányzó dokumentum"
+
+msgid "Close"
+msgstr "Bezár"
+
+msgid "Edit \\"
+msgstr "Szerkesztés \\"
+
+msgid "View child pages of \\"
+msgstr "Gyermek oldalainak megtekintése \\"
+
+msgid "Page explorer"
+msgstr "Intéző"
+
+msgid "January"
+msgstr "január"
+
+msgid "February"
+msgstr "február"
+
+msgid "March"
+msgstr "március"
+
+msgid "April"
+msgstr "április"
+
+msgid "May"
+msgstr "május"
+
+msgid "June"
+msgstr "június"
+
+msgid "July"
+msgstr "július"
+
+msgid "August"
+msgstr "augusztus"
+
+msgid "September"
+msgstr "szeptember"
+
+msgid "October"
+msgstr "október"
+
+msgid "November"
+msgstr "november"
+
+msgid "December"
+msgstr "december"
+
+msgid "Sunday"
+msgstr "vasárnap"
+
+msgid "Monday"
+msgstr "hétfő"
+
+msgid "Tuesday"
+msgstr "kedd"
+
+msgid "Wednesday"
+msgstr "szerda"
+
+msgid "Thursday"
+msgstr "csütörtök"
+
+msgid "Friday"
+msgstr "péntek"
+
+msgid "Saturday"
+msgstr "szombat"
+
+msgid "Sun"
+msgstr "V"
+
+msgid "Mon"
+msgstr "H"
+
+msgid "Tue"
+msgstr "K"
+
+msgid "Wed"
+msgstr "Sze"
+
+msgid "Thu"
+msgstr "Cs"
+
+msgid "Fri"
+msgstr "P"
+
+msgid "Sat"
+msgstr "Szo"
 
 msgid "Dashboard"
 msgstr "Műszerfal"
@@ -410,8 +494,14 @@ msgstr "Mentés"
 msgid "Privacy"
 msgstr "Láthatóság"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Gyűjtemény láthatóságának beállítása. Jelenlegi státusz: publikus"
+
 msgid "Public"
 msgstr "Publikus"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Gyűjtemény láthatóságának beállítása. Jelenlegi státusz: privát"
 
 msgid "Private"
 msgstr "Privát"
@@ -476,6 +566,9 @@ msgstr "Jóváhagy"
 msgid "Reject"
 msgstr "Elutasít"
 
+msgid "Edit"
+msgstr "Szerkeszt"
+
 msgid "Preview"
 msgstr "Előnézet"
 
@@ -496,7 +589,7 @@ msgid "Draft"
 msgstr "Vázlat"
 
 msgid "Live"
-msgstr "Közétett oldal"
+msgstr "Közzétett oldal"
 
 msgid "Site summary"
 msgstr "Oldal összegzés"
@@ -504,18 +597,22 @@ msgstr "Oldal összegzés"
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Page\n"
-"    "
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgstr[0] ""
 "\n"
-"<span>%(total)s</span> Oldal"
+"<span>%(total)s</span> oldal <span class=\"visuallyhidden\">létehozva itt: "
+"%(site_name)s</span>"
 msgstr[1] ""
 "\n"
-"<span>%(total)s</span> oldal"
+"            <span>%(total)s</span> oldal <span class=\"visuallyhidden"
+"\">létrehozva itt: %(site_name)s</span>"
 
 msgid "Sign in"
 msgstr "Bejelentkezés"
@@ -589,11 +686,29 @@ msgstr ""
 msgid "Edit lock"
 msgstr "Szerkesztési zárolás"
 
+msgid "Remove editor lock. Current status: Locked"
+msgstr "Szerkesztési zár levétele. Jelenlegi státusz: lezárt"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "Szerkesztési zár beállítása: Jelenlegi státusz: nyitott"
+
 msgid "Locked"
 msgstr "Zárolt"
 
 msgid "Unlocked"
 msgstr "Nyitott"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Oldal láthatóságának beállítása. Jelenlegi státusz: publikus"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Oldal láthatóságának beállítása. Jelenlegi státusz: privát"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Oldal láthatóság. Jelenlegi: publikus"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Oldal láthatóság. Jelenlegi: privát"
 
 msgid "Publishing…"
 msgstr "Közzététel folyamatban..."
@@ -735,6 +850,9 @@ msgstr "Új %(page_type)s"
 msgid "New"
 msgstr "Új"
 
+msgid "Actions"
+msgstr "Akciók"
+
 msgid "Saving…"
 msgstr "Mentés..."
 
@@ -868,6 +986,9 @@ msgstr "Gyermek oldal hozzáadása"
 msgid "Sites menu"
 msgstr "Webhely menü"
 
+msgid "Pagination"
+msgstr "Lapozó"
+
 #, python-format
 msgid ""
 "\n"
@@ -917,9 +1038,6 @@ msgstr ""
 "Nem lehet az oldal előnézetét megtekinteni, mert hibák vannak az űrlapon. \n"
 "Kérjük zárja be ezt a fület, és szerkessze tovább az oldalt,\n"
 "majd próbálja meg újra."
-
-msgid "Close"
-msgstr "Bezár"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1068,6 +1186,9 @@ msgstr "Gyűjtemény"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(page_num)s/%(total_pages)s. oldal"
 
+msgid "Breadcrumb"
+msgstr "Navigációs sáv"
+
 msgid "Root"
 msgstr "Gyökér"
 
@@ -1077,84 +1198,6 @@ msgstr "Nyitólap"
 msgid "All collections"
 msgstr "Összes gyűjtemény"
 
-msgid "January"
-msgstr "január"
-
-msgid "February"
-msgstr "február"
-
-msgid "March"
-msgstr "március"
-
-msgid "April"
-msgstr "április"
-
-msgid "May"
-msgstr "május"
-
-msgid "June"
-msgstr "június"
-
-msgid "July"
-msgstr "július"
-
-msgid "August"
-msgstr "augusztus"
-
-msgid "September"
-msgstr "szeptember"
-
-msgid "October"
-msgstr "október"
-
-msgid "November"
-msgstr "november"
-
-msgid "December"
-msgstr "december"
-
-msgid "Sunday"
-msgstr "vasárnap"
-
-msgid "Monday"
-msgstr "hétfő"
-
-msgid "Tuesday"
-msgstr "kedd"
-
-msgid "Wednesday"
-msgstr "szerda"
-
-msgid "Thursday"
-msgstr "csütörtök"
-
-msgid "Friday"
-msgstr "péntek"
-
-msgid "Saturday"
-msgstr "szombat"
-
-msgid "Sun"
-msgstr "V"
-
-msgid "Mon"
-msgstr "H"
-
-msgid "Tue"
-msgstr "K"
-
-msgid "Wed"
-msgstr "Sze"
-
-msgid "Thu"
-msgstr "Cs"
-
-msgid "Fri"
-msgstr "P"
-
-msgid "Sat"
-msgstr "Szo"
-
 msgid "Edit your account"
 msgstr "Fiók szerkesztése"
 
@@ -1163,6 +1206,12 @@ msgstr "Fiók beállítások"
 
 msgid "Log out"
 msgstr "Kijelentkezés"
+
+msgid "Visit the live page"
+msgstr "Élő oldal megtekintése"
+
+msgid "Current page status:"
+msgstr "Oldal jelenlegi státusza:"
 
 msgid "Other searches"
 msgstr "További keresések"
@@ -1200,6 +1249,22 @@ msgstr "Gyermek oldal hozzáadása"
 msgid "Show in Explorer"
 msgstr "Megtekintés az intézőben"
 
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"A(z) '%(parent)s' oldal alá tartozó gyermekoldalak sorbarendezése "
+"'%(label)s' alapján növekvő sorrendbe."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"A(z) '%(parent)s' oldal alá tartozó gyermekoldalak sorbarendezése "
+"'%(label)s' alapján csökkenő sorrendbe."
+
 msgid "Test"
 msgstr "Teszt"
 
@@ -1208,6 +1273,9 @@ msgstr "arab"
 
 msgid "Catalan"
 msgstr "katalán"
+
+msgid "Czech"
+msgstr "cseh"
 
 msgid "German"
 msgstr "német"
@@ -1229,6 +1297,9 @@ msgstr "francia"
 
 msgid "Galician"
 msgstr "galíciai"
+
+msgid "Hungarian"
+msgstr "magyar"
 
 msgid "Indonesian"
 msgstr "indonéz"

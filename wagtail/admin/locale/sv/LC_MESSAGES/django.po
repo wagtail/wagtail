@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-17 21:12+0000\n"
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -244,9 +244,6 @@ msgstr "Återställ lösenord"
 msgid "Reset your password"
 msgstr "Återställ ditt lösenord"
 
-msgid "Edit"
-msgstr "Editera"
-
 msgid "Page"
 msgstr "Sida"
 
@@ -261,9 +258,6 @@ msgstr "Inga resultat funna"
 
 msgid "Server Error"
 msgstr "Serverfel"
-
-msgid "See children"
-msgstr "Se barn"
 
 msgid "See all"
 msgstr "Visa alla"
@@ -312,6 +306,87 @@ msgstr "Bruten länk"
 
 msgid "Missing document"
 msgstr "Dokument saknas"
+
+msgid "Close"
+msgstr "Stäng"
+
+msgid "January"
+msgstr "Januari"
+
+msgid "February"
+msgstr "Februari"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Maj"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "Augusti"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sunday"
+msgstr "Söndag"
+
+msgid "Monday"
+msgstr "Måndag"
+
+msgid "Tuesday"
+msgstr "Tisdag"
+
+msgid "Wednesday"
+msgstr "Onsdag"
+
+msgid "Thursday"
+msgstr "Torsdag"
+
+msgid "Friday"
+msgstr "Fredag"
+
+msgid "Saturday"
+msgstr "Lördag"
+
+msgid "Sun"
+msgstr "Sön"
+
+msgid "Mon"
+msgstr "Mån"
+
+msgid "Tue"
+msgstr "Tis"
+
+msgid "Wed"
+msgstr "Ons"
+
+msgid "Thu"
+msgstr "Tor"
+
+msgid "Fri"
+msgstr "Fre"
+
+msgid "Sat"
+msgstr "Lör"
 
 msgid "Dashboard"
 msgstr "Instrumentpanel"
@@ -481,6 +556,9 @@ msgstr "Godkänn"
 msgid "Reject"
 msgstr "Avvisa"
 
+msgid "Edit"
+msgstr "Editera"
+
 msgid "Preview"
 msgstr "Förhandsgranska"
 
@@ -505,24 +583,6 @@ msgstr "Publicerad"
 
 msgid "Site summary"
 msgstr "Sajtsammanställning"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Sida\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Sidor\n"
-"    "
 
 msgid "Sign in"
 msgstr "Logga in"
@@ -936,9 +996,6 @@ msgstr ""
 "stäng den här fliken, redigera sidan för att åtgärda felen och klicka "
 "därefter på förhandsgranska igen."
 
-msgid "Close"
-msgstr "Stäng"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Jämför %(title)s"
@@ -1102,84 +1159,6 @@ msgstr "Hem"
 
 msgid "All collections"
 msgstr "Alla samlingar"
-
-msgid "January"
-msgstr "Januari"
-
-msgid "February"
-msgstr "Februari"
-
-msgid "March"
-msgstr "Mars"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "Augusti"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sunday"
-msgstr "Söndag"
-
-msgid "Monday"
-msgstr "Måndag"
-
-msgid "Tuesday"
-msgstr "Tisdag"
-
-msgid "Wednesday"
-msgstr "Onsdag"
-
-msgid "Thursday"
-msgstr "Torsdag"
-
-msgid "Friday"
-msgstr "Fredag"
-
-msgid "Saturday"
-msgstr "Lördag"
-
-msgid "Sun"
-msgstr "Sön"
-
-msgid "Mon"
-msgstr "Mån"
-
-msgid "Tue"
-msgstr "Tis"
-
-msgid "Wed"
-msgstr "Ons"
-
-msgid "Thu"
-msgstr "Tor"
-
-msgid "Fri"
-msgstr "Fre"
-
-msgid "Sat"
-msgstr "Lör"
 
 msgid "Edit your account"
 msgstr "Editera ditt konto"
