@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -208,9 +208,6 @@ msgstr "Atjaunot paroli"
 msgid "Reset your password"
 msgstr "Atjaunot paroli"
 
-msgid "Edit"
-msgstr "Labot"
-
 msgid "Page"
 msgstr "Lapa"
 
@@ -225,9 +222,6 @@ msgstr "Nav rezultātu"
 
 msgid "Server Error"
 msgstr "Servera kļūda"
-
-msgid "See children"
-msgstr "Skatīt zemāka līmeņa ierakstus"
 
 msgid "See all"
 msgstr "Apskatīt visu"
@@ -252,6 +246,63 @@ msgstr "Atsaukt"
 
 msgid "Redo"
 msgstr "Atcelt atsaukšanu"
+
+msgid "January"
+msgstr "Janvāris"
+
+msgid "February"
+msgstr "Februāris"
+
+msgid "March"
+msgstr "Marts"
+
+msgid "April"
+msgstr "Aprīlis"
+
+msgid "May"
+msgstr "Maijs"
+
+msgid "June"
+msgstr "Jūnijs"
+
+msgid "July"
+msgstr "Jūlijs"
+
+msgid "August"
+msgstr "Augusts"
+
+msgid "September"
+msgstr "Septembris"
+
+msgid "October"
+msgstr "Oktobris"
+
+msgid "November"
+msgstr "Novembris"
+
+msgid "December"
+msgstr "Decembris"
+
+msgid "Sun"
+msgstr "Sv"
+
+msgid "Mon"
+msgstr "P"
+
+msgid "Tue"
+msgstr "O"
+
+msgid "Wed"
+msgstr "T"
+
+msgid "Thu"
+msgstr "C"
+
+msgid "Fri"
+msgstr "Pk"
+
+msgid "Sat"
+msgstr "S"
 
 msgid "Dashboard"
 msgstr "Informācijas panelis"
@@ -351,6 +402,9 @@ msgstr "Apstiprināt"
 
 msgid "Reject"
 msgstr "Noraidīt"
+
+msgid "Edit"
+msgstr "Labot"
 
 msgid "Preview"
 msgstr "Priekšskatīt"
@@ -653,63 +707,6 @@ msgstr "Sākumlapa"
 
 msgid "All collections"
 msgstr "Visas kolekcijas"
-
-msgid "January"
-msgstr "Janvāris"
-
-msgid "February"
-msgstr "Februāris"
-
-msgid "March"
-msgstr "Marts"
-
-msgid "April"
-msgstr "Aprīlis"
-
-msgid "May"
-msgstr "Maijs"
-
-msgid "June"
-msgstr "Jūnijs"
-
-msgid "July"
-msgstr "Jūlijs"
-
-msgid "August"
-msgstr "Augusts"
-
-msgid "September"
-msgstr "Septembris"
-
-msgid "October"
-msgstr "Oktobris"
-
-msgid "November"
-msgstr "Novembris"
-
-msgid "December"
-msgstr "Decembris"
-
-msgid "Sun"
-msgstr "Sv"
-
-msgid "Mon"
-msgstr "P"
-
-msgid "Tue"
-msgstr "O"
-
-msgid "Wed"
-msgstr "T"
-
-msgid "Thu"
-msgstr "C"
-
-msgid "Fri"
-msgstr "Pk"
-
-msgid "Sat"
-msgstr "S"
 
 msgid "Edit your account"
 msgstr "Mainīt konta iestatījumus"

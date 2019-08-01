@@ -398,7 +398,7 @@ Translators
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu, shengsheng gz
 * Chinese (Simplified): Ed, hanfeng, Yi Huang, Daniel Hwang, Jian Li, Aosp T, Listeng Teng, Feng Wang, whuim, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
-* Chinese (Traditional): gogobook, Lihan Li, Jp Shieh, Yeh Yen-Ke
+* Chinese (Traditional): c o, gogobook, Lihan Li, Jp Shieh, Yeh Yen-Ke
 * Croatian (Croatia): Ivica Dosen, Luka Matijević
 * Czech: Ales Dvorak, Martin Galda, IT Management, Eva Mikesova, Sophy O, Martina Oleksakova, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Stanislav Vasko, Mirek Zvolský
 * Danish: Mads Kronborg, MRostgaard, Asger Sørensen
@@ -415,7 +415,7 @@ Translators
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
 * Indonesian (Indonesia): atmosuwiryo, Sutrisno Efendi, Dzikri Hakim, Geek Pantura, Ronggo Radityo, M. Febrian Ramadhana
 * Italian: Sandro Badalamenti, Edd Baldry, Claudio Bantaloukas, Guglielmo Celata, Gian-Maria Daffre, Giacomo Ghizzani, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
-* Japanese: Sangmin Ahn, Shuhei Hirota, Shu Ishida, Tri Minh, Tomo Mizoe, Daigo Shitara, Shimizu Taku
+* Japanese: Sangmin Ahn, Shuhei Hirota, Shu Ishida, Tri Minh, Takuya Miraidenshi, Tomo Mizoe, Daigo Shitara, Shimizu Taku
 * Korean: Kyungil Choi, Jihan Chung
 * Latvian: Reinis Rozenbergs, Maris Serzans
 * Lithuanian: Matas Dailyda

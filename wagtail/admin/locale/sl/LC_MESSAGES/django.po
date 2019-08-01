@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -177,11 +177,65 @@ msgstr "Geslo ponastavljeno"
 msgid "Reset your password"
 msgstr "Ponastavi geslo"
 
-msgid "Edit"
-msgstr "Uredi"
-
 msgid "Pages"
 msgstr "Strani"
+
+msgid "January"
+msgstr "Januar"
+
+msgid "February"
+msgstr "Februar"
+
+msgid "March"
+msgstr "Marec"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Maj"
+
+msgid "June"
+msgstr "Junij"
+
+msgid "July"
+msgstr "Julij"
+
+msgid "August"
+msgstr "Avgust"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sun"
+msgstr "Ned"
+
+msgid "Mon"
+msgstr "Pon"
+
+msgid "Tue"
+msgstr "Tor"
+
+msgid "Wed"
+msgstr "Sre"
+
+msgid "Thu"
+msgstr "Čet"
+
+msgid "Fri"
+msgstr "Pet"
+
+msgid "Sat"
+msgstr "Sob"
 
 msgid "Dashboard"
 msgstr "Nadzorna plošča"
@@ -293,6 +347,9 @@ msgstr "Potrdi"
 msgid "Reject"
 msgstr "Zavrni"
 
+msgid "Edit"
+msgstr "Uredi"
+
 msgid "Preview"
 msgstr "Predogled"
 
@@ -313,31 +370,6 @@ msgstr "V živo"
 
 msgid "Site summary"
 msgstr "Povzetek spletnega mesta"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> stran\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> strani\n"
-"    "
-msgstr[2] ""
-"\n"
-"        <span>%(total)s</span> strani    "
-msgstr[3] ""
-"\n"
-"        <span>%(total)s</span> strani\n"
-"    "
 
 msgid "Sign in"
 msgstr "Prijava"
@@ -664,63 +696,6 @@ msgstr "Domov"
 
 msgid "All collections"
 msgstr "Vse zbirke"
-
-msgid "January"
-msgstr "Januar"
-
-msgid "February"
-msgstr "Februar"
-
-msgid "March"
-msgstr "Marec"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Junij"
-
-msgid "July"
-msgstr "Julij"
-
-msgid "August"
-msgstr "Avgust"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sun"
-msgstr "Ned"
-
-msgid "Mon"
-msgstr "Pon"
-
-msgid "Tue"
-msgstr "Tor"
-
-msgid "Wed"
-msgstr "Sre"
-
-msgid "Thu"
-msgstr "Čet"
-
-msgid "Fri"
-msgstr "Pet"
-
-msgid "Sat"
-msgstr "Sob"
 
 msgid "Edit your account"
 msgstr "Uredite vaš račun"

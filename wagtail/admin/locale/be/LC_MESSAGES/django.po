@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
@@ -240,9 +240,6 @@ msgstr "Аднаўленне пароля"
 msgid "Reset your password"
 msgstr "Скінуць пароль"
 
-msgid "Edit"
-msgstr "Рэдактаваць"
-
 msgid "Page"
 msgstr "Старонка"
 
@@ -257,9 +254,6 @@ msgstr "Няма вынікаў"
 
 msgid "Server Error"
 msgstr "Памылка Сервера"
-
-msgid "See children"
-msgstr "Паглядзець дзіцячыя старонкі"
 
 msgid "See all"
 msgstr "Усё паглядзець"
@@ -423,6 +417,9 @@ msgstr "Пацвярдзіць"
 
 msgid "Reject"
 msgstr "Адхіліць"
+
+msgid "Edit"
+msgstr "Рэдактаваць"
 
 msgid "Preview"
 msgstr "Папярэдні прагляд"
