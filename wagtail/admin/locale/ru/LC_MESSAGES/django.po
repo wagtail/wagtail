@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-05-22 15:12+0000\n"
-"Last-Translator: Михаил Герасимов\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -274,9 +274,6 @@ msgstr "Восстановление пароля"
 msgid "Reset your password"
 msgstr "Сбросить ваш пароль"
 
-msgid "Edit"
-msgstr "Редактировать"
-
 msgid "Page"
 msgstr "Страница"
 
@@ -291,9 +288,6 @@ msgstr "Нет результатов"
 
 msgid "Server Error"
 msgstr "Ошибка Сервера"
-
-msgid "See children"
-msgstr "Просмотреть дочерние страницы"
 
 msgid "See all"
 msgstr "Смотреть все"
@@ -335,6 +329,87 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 "Редактор сломался. Содержимое было возвращено к последней сохранённой версии"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "January"
+msgstr "Январь"
+
+msgid "February"
+msgstr "Февраль"
+
+msgid "March"
+msgstr "Март"
+
+msgid "April"
+msgstr "Апрель"
+
+msgid "May"
+msgstr "Май"
+
+msgid "June"
+msgstr "Июнь"
+
+msgid "July"
+msgstr "Июль"
+
+msgid "August"
+msgstr "Август"
+
+msgid "September"
+msgstr "Сентябрь"
+
+msgid "October"
+msgstr "Октябрь"
+
+msgid "November"
+msgstr "Ноябрь"
+
+msgid "December"
+msgstr "Декабрь"
+
+msgid "Sunday"
+msgstr "Воскрксенье"
+
+msgid "Monday"
+msgstr "Понедельник"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "Thursday"
+msgstr "Четверг"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Saturday"
+msgstr "Суббота"
+
+msgid "Sun"
+msgstr "Вс"
+
+msgid "Mon"
+msgstr "Пн"
+
+msgid "Tue"
+msgstr "Вт"
+
+msgid "Wed"
+msgstr "Ср"
+
+msgid "Thu"
+msgstr "Чт"
+
+msgid "Fri"
+msgstr "Пт"
+
+msgid "Sat"
+msgstr "Сб"
 
 msgid "Dashboard"
 msgstr "Панель управления"
@@ -516,6 +591,9 @@ msgstr "Одобрить"
 msgid "Reject"
 msgstr "Отклонить"
 
+msgid "Edit"
+msgstr "Редактировать"
+
 msgid "Preview"
 msgstr "Предпросмотр"
 
@@ -540,31 +618,6 @@ msgstr "Опубликовано"
 
 msgid "Site summary"
 msgstr "Общая информация"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Страница\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Страницы\n"
-"    "
-msgstr[2] ""
-"\n"
-"        <span>%(total)s</span> Страницы"
-msgstr[3] ""
-"\n"
-"        <span>%(total)s</span> Страниц\n"
-"    "
 
 msgid "Sign in"
 msgstr "Войти"
@@ -984,9 +1037,6 @@ msgstr ""
 "                После исправления ошибок - попробуйте еще раз.\n"
 "            "
 
-msgid "Close"
-msgstr "Закрыть"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Сравниваем %(title)s"
@@ -1166,84 +1216,6 @@ msgstr "Главная"
 
 msgid "All collections"
 msgstr "Все коллекции"
-
-msgid "January"
-msgstr "Январь"
-
-msgid "February"
-msgstr "Февраль"
-
-msgid "March"
-msgstr "Март"
-
-msgid "April"
-msgstr "Апрель"
-
-msgid "May"
-msgstr "Май"
-
-msgid "June"
-msgstr "Июнь"
-
-msgid "July"
-msgstr "Июль"
-
-msgid "August"
-msgstr "Август"
-
-msgid "September"
-msgstr "Сентябрь"
-
-msgid "October"
-msgstr "Октябрь"
-
-msgid "November"
-msgstr "Ноябрь"
-
-msgid "December"
-msgstr "Декабрь"
-
-msgid "Sunday"
-msgstr "Воскрксенье"
-
-msgid "Monday"
-msgstr "Понедельник"
-
-msgid "Tuesday"
-msgstr "Вторник"
-
-msgid "Wednesday"
-msgstr "Среда"
-
-msgid "Thursday"
-msgstr "Четверг"
-
-msgid "Friday"
-msgstr "Пятница"
-
-msgid "Saturday"
-msgstr "Суббота"
-
-msgid "Sun"
-msgstr "Вс"
-
-msgid "Mon"
-msgstr "Пн"
-
-msgid "Tue"
-msgstr "Вт"
-
-msgid "Wed"
-msgstr "Ср"
-
-msgid "Thu"
-msgstr "Чт"
-
-msgid "Fri"
-msgstr "Пт"
-
-msgid "Sat"
-msgstr "Сб"
 
 msgid "Edit your account"
 msgstr "Редактировать ваш аккаунт"

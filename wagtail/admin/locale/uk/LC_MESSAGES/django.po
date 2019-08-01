@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -256,9 +256,6 @@ msgstr "Скидання паролю"
 msgid "Reset your password"
 msgstr "Скинути Ваш пароль"
 
-msgid "Edit"
-msgstr "Редагування"
-
 msgid "Page"
 msgstr "Сторінка"
 
@@ -273,9 +270,6 @@ msgstr "Результати відсутні"
 
 msgid "Server Error"
 msgstr "Помилка Сервера"
-
-msgid "See children"
-msgstr "Показати дочірні елементи"
 
 msgid "See all"
 msgstr "Показати все"
@@ -317,6 +311,66 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 "Редактор щойно впав. Вміст був скинутий до останньої збереженої версії."
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "January"
+msgstr "Січень"
+
+msgid "February"
+msgstr "Лютий"
+
+msgid "March"
+msgstr "Березень"
+
+msgid "April"
+msgstr "Квітень"
+
+msgid "May"
+msgstr "Травень"
+
+msgid "June"
+msgstr "Червень"
+
+msgid "July"
+msgstr "Липень"
+
+msgid "August"
+msgstr "Серпень"
+
+msgid "September"
+msgstr "Вересень"
+
+msgid "October"
+msgstr "Жовтень"
+
+msgid "November"
+msgstr "Листопад"
+
+msgid "December"
+msgstr "Грудень"
+
+msgid "Sun"
+msgstr "Неділя"
+
+msgid "Mon"
+msgstr "Понеділок"
+
+msgid "Tue"
+msgstr "Вівторок"
+
+msgid "Wed"
+msgstr "Середа"
+
+msgid "Thu"
+msgstr "Четвер"
+
+msgid "Fri"
+msgstr "П'ятниця"
+
+msgid "Sat"
+msgstr "Субота"
 
 msgid "Dashboard"
 msgstr "Панель"
@@ -480,6 +534,9 @@ msgstr "Підтвердити"
 msgid "Reject"
 msgstr "Відхилити"
 
+msgid "Edit"
+msgstr "Редагування"
+
 msgid "Preview"
 msgstr "Попередній перегляд"
 
@@ -504,32 +561,6 @@ msgstr "Наживо"
 
 msgid "Site summary"
 msgstr "Резюме сайту"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Сторінка\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Сторінки\n"
-"    "
-msgstr[2] ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgstr[3] ""
-"\n"
-"        <span>%(total)s</span> Сторінок\n"
-"    "
 
 msgid "Sign in"
 msgstr "Увійдіть"
@@ -965,9 +996,6 @@ msgstr ""
 "                і тоді зробіть ще раз попередній перегляд.\n"
 "            "
 
-msgid "Close"
-msgstr "Закрити"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Порівняння %(title)s"
@@ -1158,63 +1186,6 @@ msgstr "Головна"
 
 msgid "All collections"
 msgstr "Усі колекції"
-
-msgid "January"
-msgstr "Січень"
-
-msgid "February"
-msgstr "Лютий"
-
-msgid "March"
-msgstr "Березень"
-
-msgid "April"
-msgstr "Квітень"
-
-msgid "May"
-msgstr "Травень"
-
-msgid "June"
-msgstr "Червень"
-
-msgid "July"
-msgstr "Липень"
-
-msgid "August"
-msgstr "Серпень"
-
-msgid "September"
-msgstr "Вересень"
-
-msgid "October"
-msgstr "Жовтень"
-
-msgid "November"
-msgstr "Листопад"
-
-msgid "December"
-msgstr "Грудень"
-
-msgid "Sun"
-msgstr "Неділя"
-
-msgid "Mon"
-msgstr "Понеділок"
-
-msgid "Tue"
-msgstr "Вівторок"
-
-msgid "Wed"
-msgstr "Середа"
-
-msgid "Thu"
-msgstr "Четвер"
-
-msgid "Fri"
-msgstr "П'ятниця"
-
-msgid "Sat"
-msgstr "Субота"
 
 msgid "Edit your account"
 msgstr "Редагувати ваш аккаунт"

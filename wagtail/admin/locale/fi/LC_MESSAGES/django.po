@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -189,11 +189,65 @@ msgstr "Salasanan palautus"
 msgid "Reset your password"
 msgstr "Palauta salasanasi"
 
-msgid "Edit"
-msgstr "Muokkaa"
-
 msgid "Pages"
 msgstr "Sivut"
+
+msgid "January"
+msgstr "Tammi"
+
+msgid "February"
+msgstr "Helmi"
+
+msgid "March"
+msgstr "Maalis"
+
+msgid "April"
+msgstr "Huhti"
+
+msgid "May"
+msgstr "Touko"
+
+msgid "June"
+msgstr "Kesä"
+
+msgid "July"
+msgstr "Heinä"
+
+msgid "August"
+msgstr "Elo"
+
+msgid "September"
+msgstr "Syys"
+
+msgid "October"
+msgstr "Loka"
+
+msgid "November"
+msgstr "Marras"
+
+msgid "December"
+msgstr "Joulu"
+
+msgid "Sun"
+msgstr "Su"
+
+msgid "Mon"
+msgstr "Ma"
+
+msgid "Tue"
+msgstr "Ti"
+
+msgid "Wed"
+msgstr "Ke"
+
+msgid "Thu"
+msgstr "To"
+
+msgid "Fri"
+msgstr "Pe"
+
+msgid "Sat"
+msgstr "La"
 
 msgid "Dashboard"
 msgstr "Kojelauta"
@@ -326,6 +380,9 @@ msgstr "Hyväksy"
 msgid "Reject"
 msgstr "Hylkää"
 
+msgid "Edit"
+msgstr "Muokkaa"
+
 msgid "Preview"
 msgstr "Esikatsele"
 
@@ -350,22 +407,6 @@ msgstr "Julkinen"
 
 msgid "Site summary"
 msgstr "Sivuston yhteenveto"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Sivu"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Sivua"
 
 msgid "Sign in"
 msgstr "Kirjaudu sisään"
@@ -800,63 +841,6 @@ msgstr "Koti"
 
 msgid "All collections"
 msgstr "Kaikki kokoelmat"
-
-msgid "January"
-msgstr "Tammi"
-
-msgid "February"
-msgstr "Helmi"
-
-msgid "March"
-msgstr "Maalis"
-
-msgid "April"
-msgstr "Huhti"
-
-msgid "May"
-msgstr "Touko"
-
-msgid "June"
-msgstr "Kesä"
-
-msgid "July"
-msgstr "Heinä"
-
-msgid "August"
-msgstr "Elo"
-
-msgid "September"
-msgstr "Syys"
-
-msgid "October"
-msgstr "Loka"
-
-msgid "November"
-msgstr "Marras"
-
-msgid "December"
-msgstr "Joulu"
-
-msgid "Sun"
-msgstr "Su"
-
-msgid "Mon"
-msgstr "Ma"
-
-msgid "Tue"
-msgstr "Ti"
-
-msgid "Wed"
-msgstr "Ke"
-
-msgid "Thu"
-msgstr "To"
-
-msgid "Fri"
-msgstr "Pe"
-
-msgid "Sat"
-msgstr "La"
 
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"

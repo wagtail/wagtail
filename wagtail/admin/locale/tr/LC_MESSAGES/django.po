@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-29 20:13+0000\n"
-"Last-Translator: Umut Bektaş <info@umutbektas.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -238,9 +238,6 @@ msgstr "Şifre sıfırla"
 msgid "Reset your password"
 msgstr "Şifreni sıfırla"
 
-msgid "Edit"
-msgstr "Düzenle"
-
 msgid "Page"
 msgstr "Sayfa"
 
@@ -255,9 +252,6 @@ msgstr "Sonuç yok"
 
 msgid "Server Error"
 msgstr "Sunucu Hatası"
-
-msgid "See children"
-msgstr "Alt elemanlar"
 
 msgid "See all"
 msgstr "Tümünü gör"
@@ -304,6 +298,63 @@ msgstr "Kırık link"
 
 msgid "Missing document"
 msgstr "Eksik belge"
+
+msgid "January"
+msgstr "Ocak"
+
+msgid "February"
+msgstr "Şubat"
+
+msgid "March"
+msgstr "Mart"
+
+msgid "April"
+msgstr "Nisan"
+
+msgid "May"
+msgstr "Mayıs"
+
+msgid "June"
+msgstr "Haziran"
+
+msgid "July"
+msgstr "Temmuz"
+
+msgid "August"
+msgstr "Ağustos"
+
+msgid "September"
+msgstr "Eylül"
+
+msgid "October"
+msgstr "Ekim"
+
+msgid "November"
+msgstr "Kasım"
+
+msgid "December"
+msgstr "Aralık"
+
+msgid "Sun"
+msgstr "Paz"
+
+msgid "Mon"
+msgstr "Pzt"
+
+msgid "Tue"
+msgstr "Sal"
+
+msgid "Wed"
+msgstr "Çrş"
+
+msgid "Thu"
+msgstr "Per"
+
+msgid "Fri"
+msgstr "Cum"
+
+msgid "Sat"
+msgstr "Cts"
 
 msgid "Dashboard"
 msgstr "Kontrol paneli"
@@ -469,6 +520,9 @@ msgstr "Onayla"
 msgid "Reject"
 msgstr "Reddet"
 
+msgid "Edit"
+msgstr "Düzenle"
+
 msgid "Preview"
 msgstr "Önizleme"
 
@@ -493,22 +547,6 @@ msgstr "Yayınla"
 
 msgid "Site summary"
 msgstr "Site özeti"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Sayfa"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Sayfa"
 
 msgid "Sign in"
 msgstr "Oturum aç"
@@ -633,63 +671,6 @@ msgstr "Alt sayfa ekle"
 
 msgid "Home"
 msgstr "Ana Sayfa"
-
-msgid "January"
-msgstr "Ocak"
-
-msgid "February"
-msgstr "Şubat"
-
-msgid "March"
-msgstr "Mart"
-
-msgid "April"
-msgstr "Nisan"
-
-msgid "May"
-msgstr "Mayıs"
-
-msgid "June"
-msgstr "Haziran"
-
-msgid "July"
-msgstr "Temmuz"
-
-msgid "August"
-msgstr "Ağustos"
-
-msgid "September"
-msgstr "Eylül"
-
-msgid "October"
-msgstr "Ekim"
-
-msgid "November"
-msgstr "Kasım"
-
-msgid "December"
-msgstr "Aralık"
-
-msgid "Sun"
-msgstr "Paz"
-
-msgid "Mon"
-msgstr "Pzt"
-
-msgid "Tue"
-msgstr "Sal"
-
-msgid "Wed"
-msgstr "Çrş"
-
-msgid "Thu"
-msgstr "Per"
-
-msgid "Fri"
-msgstr "Cum"
-
-msgid "Sat"
-msgstr "Cts"
 
 msgid "Edit your account"
 msgstr "Hesabını düzenle"

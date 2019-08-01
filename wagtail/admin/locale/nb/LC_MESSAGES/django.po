@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -242,9 +242,6 @@ msgstr "Passordnullstilling"
 msgid "Reset your password"
 msgstr "Nullstill ditt passord"
 
-msgid "Edit"
-msgstr "Redigér"
-
 msgid "Page"
 msgstr "Side"
 
@@ -259,9 +256,6 @@ msgstr "Ingen resultater"
 
 msgid "Server Error"
 msgstr "Serverfeil"
-
-msgid "See children"
-msgstr "Se undersider"
 
 msgid "See all"
 msgstr "Se alle"
@@ -302,6 +296,66 @@ msgstr "Vis feil"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editoren krasjet. Innholdet er tilbakestilt til sist lagrede versjon."
+
+msgid "Close"
+msgstr "Lukk"
+
+msgid "January"
+msgstr "januar"
+
+msgid "February"
+msgstr "februar"
+
+msgid "March"
+msgstr "mars"
+
+msgid "April"
+msgstr "april"
+
+msgid "May"
+msgstr "mai"
+
+msgid "June"
+msgstr "juni"
+
+msgid "July"
+msgstr "juli"
+
+msgid "August"
+msgstr "august"
+
+msgid "September"
+msgstr "september"
+
+msgid "October"
+msgstr "oktober"
+
+msgid "November"
+msgstr "november"
+
+msgid "December"
+msgstr "desember"
+
+msgid "Sun"
+msgstr "Søn"
+
+msgid "Mon"
+msgstr "Man"
+
+msgid "Tue"
+msgstr "Tir"
+
+msgid "Wed"
+msgstr "Ons"
+
+msgid "Thu"
+msgstr "Tor"
+
+msgid "Fri"
+msgstr "Fre"
+
+msgid "Sat"
+msgstr "Lør"
 
 msgid "Dashboard"
 msgstr "Kontrollpanel"
@@ -451,6 +505,9 @@ msgstr "Godkjenn"
 msgid "Reject"
 msgstr "Avslå"
 
+msgid "Edit"
+msgstr "Redigér"
+
 msgid "Preview"
 msgstr "Forhåndsvis"
 
@@ -475,24 +532,6 @@ msgstr "Publisert"
 
 msgid "Site summary"
 msgstr "Oppsummering for nettstedet"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> side\n"
-" "
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> sider\n"
-" "
 
 msgid "Sign in"
 msgstr "Logg inn"
@@ -893,9 +932,6 @@ msgstr ""
 "Lukk denne fanen, rediger siden for å korrigere feilene og bruk "
 "forhåndsvisning på nytt."
 
-msgid "Close"
-msgstr "Lukk"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Sammenligner %(title)s"
@@ -1058,63 +1094,6 @@ msgstr "Hjem"
 
 msgid "All collections"
 msgstr "Alle samlinger"
-
-msgid "January"
-msgstr "januar"
-
-msgid "February"
-msgstr "februar"
-
-msgid "March"
-msgstr "mars"
-
-msgid "April"
-msgstr "april"
-
-msgid "May"
-msgstr "mai"
-
-msgid "June"
-msgstr "juni"
-
-msgid "July"
-msgstr "juli"
-
-msgid "August"
-msgstr "august"
-
-msgid "September"
-msgstr "september"
-
-msgid "October"
-msgstr "oktober"
-
-msgid "November"
-msgstr "november"
-
-msgid "December"
-msgstr "desember"
-
-msgid "Sun"
-msgstr "Søn"
-
-msgid "Mon"
-msgstr "Man"
-
-msgid "Tue"
-msgstr "Tir"
-
-msgid "Wed"
-msgstr "Ons"
-
-msgid "Thu"
-msgstr "Tor"
-
-msgid "Fri"
-msgstr "Fre"
-
-msgid "Sat"
-msgstr "Lør"
 
 msgid "Edit your account"
 msgstr "Endre din konto"

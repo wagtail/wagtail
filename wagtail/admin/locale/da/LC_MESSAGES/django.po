@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
@@ -240,9 +240,6 @@ msgstr "Gendan kodeord"
 msgid "Reset your password"
 msgstr "Gendan dit kodeord"
 
-msgid "Edit"
-msgstr "Rediger"
-
 msgid "Page"
 msgstr "Side"
 
@@ -257,9 +254,6 @@ msgstr "Ingen resultater"
 
 msgid "Server Error"
 msgstr "Server Fejl"
-
-msgid "See children"
-msgstr "Se undersider"
 
 msgid "See all"
 msgstr "Se alle"
@@ -302,6 +296,66 @@ msgid ""
 msgstr ""
 "Redigeringsprogrammet crashede. Indholdet er blevet sat til den nyeste gemte "
 "version."
+
+msgid "Close"
+msgstr "Luk"
+
+msgid "January"
+msgstr "Januar"
+
+msgid "February"
+msgstr "Februar"
+
+msgid "March"
+msgstr "Marts"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Maj"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sun"
+msgstr "Søn"
+
+msgid "Mon"
+msgstr "Man"
+
+msgid "Tue"
+msgstr "Tir"
+
+msgid "Wed"
+msgstr "Ons"
+
+msgid "Thu"
+msgstr "Tor"
+
+msgid "Fri"
+msgstr "Fre"
+
+msgid "Sat"
+msgstr "Lør"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -445,6 +499,9 @@ msgstr "Godkend"
 msgid "Reject"
 msgstr "Afvis"
 
+msgid "Edit"
+msgstr "Rediger"
+
 msgid "Preview"
 msgstr "Forhåndsvis"
 
@@ -469,24 +526,6 @@ msgstr "Live"
 
 msgid "Site summary"
 msgstr "Side opsummering"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Side\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Sider\n"
-"    "
 
 msgid "Sign in"
 msgstr "Log Ind"
@@ -780,9 +819,6 @@ msgstr "Vælg en ny forældreside til <span>%(title)s</span>"
 msgid "Preview error"
 msgstr "Forhåndsvis fejl"
 
-msgid "Close"
-msgstr "Luk"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Sammenligner %(title)s"
@@ -861,63 +897,6 @@ msgstr "Rod"
 
 msgid "Home"
 msgstr "Hjem"
-
-msgid "January"
-msgstr "Januar"
-
-msgid "February"
-msgstr "Februar"
-
-msgid "March"
-msgstr "Marts"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sun"
-msgstr "Søn"
-
-msgid "Mon"
-msgstr "Man"
-
-msgid "Tue"
-msgstr "Tir"
-
-msgid "Wed"
-msgstr "Ons"
-
-msgid "Thu"
-msgstr "Tor"
-
-msgid "Fri"
-msgstr "Fre"
-
-msgid "Sat"
-msgstr "Lør"
 
 msgid "Edit your account"
 msgstr "Rediger din konto"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -219,9 +219,6 @@ msgstr "Slaptažodžio atstatymas"
 msgid "Reset your password"
 msgstr "Atstatyti savo slaptažodį"
 
-msgid "Edit"
-msgstr "Redaguoti"
-
 msgid "Page"
 msgstr "Puslapis"
 
@@ -236,9 +233,6 @@ msgstr "Nėra rezultatų"
 
 msgid "Server Error"
 msgstr "Serverio klaida"
-
-msgid "See children"
-msgstr "Žiūrėti vidinius"
 
 msgid "See all"
 msgstr "Žiūrėti viską"
@@ -263,6 +257,66 @@ msgstr "Anuliuoti"
 
 msgid "Redo"
 msgstr "Atgrąžinti"
+
+msgid "Close"
+msgstr "Uždaryti"
+
+msgid "January"
+msgstr "Sausis"
+
+msgid "February"
+msgstr "Vasaris"
+
+msgid "March"
+msgstr "Kovas"
+
+msgid "April"
+msgstr "Balandis"
+
+msgid "May"
+msgstr "Gegužė"
+
+msgid "June"
+msgstr "Birželis"
+
+msgid "July"
+msgstr "Liepa"
+
+msgid "August"
+msgstr "Rugpjūtis"
+
+msgid "September"
+msgstr "Rugsėjis"
+
+msgid "October"
+msgstr "Spalis"
+
+msgid "November"
+msgstr "Lapkritis"
+
+msgid "December"
+msgstr "Gruodis"
+
+msgid "Sun"
+msgstr "Sek"
+
+msgid "Mon"
+msgstr "Pir"
+
+msgid "Tue"
+msgstr "Antr"
+
+msgid "Wed"
+msgstr "Tre"
+
+msgid "Thu"
+msgstr "Ketv"
+
+msgid "Fri"
+msgstr "Pen"
+
+msgid "Sat"
+msgstr "Šeš"
 
 msgid "Dashboard"
 msgstr "Prietaisų skydas"
@@ -418,6 +472,9 @@ msgstr "Patvirtinti"
 msgid "Reject"
 msgstr "Atmesti"
 
+msgid "Edit"
+msgstr "Redaguoti"
+
 msgid "Preview"
 msgstr "Peržiūrėti"
 
@@ -442,28 +499,6 @@ msgstr "Veikiantis"
 
 msgid "Site summary"
 msgstr "Tinklalapio suvestinė"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> puslapis"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> puslapiai"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> puslapių"
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span> puslapių"
 
 msgid "Sign in"
 msgstr "Prisijungti"
@@ -873,9 +908,6 @@ msgstr ""
 "klaidas,\n"
 "ir tik tada bandyti peržiūrėti puslapį dar karta."
 
-msgid "Close"
-msgstr "Uždaryti"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Lyginami %(title)s"
@@ -1044,63 +1076,6 @@ msgstr "Namai"
 
 msgid "All collections"
 msgstr "Visos kolekcijos"
-
-msgid "January"
-msgstr "Sausis"
-
-msgid "February"
-msgstr "Vasaris"
-
-msgid "March"
-msgstr "Kovas"
-
-msgid "April"
-msgstr "Balandis"
-
-msgid "May"
-msgstr "Gegužė"
-
-msgid "June"
-msgstr "Birželis"
-
-msgid "July"
-msgstr "Liepa"
-
-msgid "August"
-msgstr "Rugpjūtis"
-
-msgid "September"
-msgstr "Rugsėjis"
-
-msgid "October"
-msgstr "Spalis"
-
-msgid "November"
-msgstr "Lapkritis"
-
-msgid "December"
-msgstr "Gruodis"
-
-msgid "Sun"
-msgstr "Sek"
-
-msgid "Mon"
-msgstr "Pir"
-
-msgid "Tue"
-msgstr "Antr"
-
-msgid "Wed"
-msgstr "Tre"
-
-msgid "Thu"
-msgstr "Ketv"
-
-msgid "Fri"
-msgstr "Pen"
-
-msgid "Sat"
-msgstr "Šeš"
 
 msgid "Edit your account"
 msgstr "Redaguoti savo vartotoją"

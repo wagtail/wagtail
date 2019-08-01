@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -239,9 +239,6 @@ msgstr "密码已重置。"
 msgid "Reset your password"
 msgstr "重设密码"
 
-msgid "Edit"
-msgstr "编辑"
-
 msgid "Page"
 msgstr "页面"
 
@@ -256,9 +253,6 @@ msgstr "没有结果"
 
 msgid "Server Error"
 msgstr "服务器错误"
-
-msgid "See children"
-msgstr "查看子页面"
 
 msgid "See all"
 msgstr "查看全部"
@@ -299,6 +293,87 @@ msgstr "显示错误"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "编辑器崩溃了😭，内容被重新设置为最后保存的版本。"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "January"
+msgstr "一月"
+
+msgid "February"
+msgstr "二月"
+
+msgid "March"
+msgstr "三月"
+
+msgid "April"
+msgstr "四月"
+
+msgid "May"
+msgstr "五月"
+
+msgid "June"
+msgstr "六月"
+
+msgid "July"
+msgstr "七月"
+
+msgid "August"
+msgstr "八月"
+
+msgid "September"
+msgstr "九月"
+
+msgid "October"
+msgstr "十月"
+
+msgid "November"
+msgstr "十一月"
+
+msgid "December"
+msgstr "十二月"
+
+msgid "Sunday"
+msgstr "星期天"
+
+msgid "Monday"
+msgstr "星期一"
+
+msgid "Tuesday"
+msgstr "星期四"
+
+msgid "Wednesday"
+msgstr "星期三"
+
+msgid "Thursday"
+msgstr "星期四"
+
+msgid "Friday"
+msgstr "星期五"
+
+msgid "Saturday"
+msgstr "星期六"
+
+msgid "Sun"
+msgstr "周日"
+
+msgid "Mon"
+msgstr "周一"
+
+msgid "Tue"
+msgstr "周二"
+
+msgid "Wed"
+msgstr "周三"
+
+msgid "Thu"
+msgstr "周四"
+
+msgid "Fri"
+msgstr "周五"
+
+msgid "Sat"
+msgstr "周六"
 
 msgid "Dashboard"
 msgstr "控制面板"
@@ -453,6 +528,9 @@ msgstr "通过"
 msgid "Reject"
 msgstr "拒绝"
 
+msgid "Edit"
+msgstr "编辑"
+
 msgid "Preview"
 msgstr "预览"
 
@@ -477,20 +555,6 @@ msgstr "发布"
 
 msgid "Site summary"
 msgstr "网站摘要"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> 页面\n"
-"    "
 
 msgid "Sign in"
 msgstr "登录"
@@ -875,9 +939,6 @@ msgstr ""
 "                然后再进行预览。\n"
 "            "
 
-msgid "Close"
-msgstr "关闭"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "比较 %(title)s"
@@ -1022,84 +1083,6 @@ msgstr "主页"
 
 msgid "All collections"
 msgstr "所有集合"
-
-msgid "January"
-msgstr "一月"
-
-msgid "February"
-msgstr "二月"
-
-msgid "March"
-msgstr "三月"
-
-msgid "April"
-msgstr "四月"
-
-msgid "May"
-msgstr "五月"
-
-msgid "June"
-msgstr "六月"
-
-msgid "July"
-msgstr "七月"
-
-msgid "August"
-msgstr "八月"
-
-msgid "September"
-msgstr "九月"
-
-msgid "October"
-msgstr "十月"
-
-msgid "November"
-msgstr "十一月"
-
-msgid "December"
-msgstr "十二月"
-
-msgid "Sunday"
-msgstr "星期天"
-
-msgid "Monday"
-msgstr "星期一"
-
-msgid "Tuesday"
-msgstr "星期四"
-
-msgid "Wednesday"
-msgstr "星期三"
-
-msgid "Thursday"
-msgstr "星期四"
-
-msgid "Friday"
-msgstr "星期五"
-
-msgid "Saturday"
-msgstr "星期六"
-
-msgid "Sun"
-msgstr "周日"
-
-msgid "Mon"
-msgstr "周一"
-
-msgid "Tue"
-msgstr "周二"
-
-msgid "Wed"
-msgstr "周三"
-
-msgid "Thu"
-msgstr "周四"
-
-msgid "Fri"
-msgstr "周五"
-
-msgid "Sat"
-msgstr "周六"
 
 msgid "Edit your account"
 msgstr "编辑账户"

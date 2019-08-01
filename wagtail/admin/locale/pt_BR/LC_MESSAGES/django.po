@@ -8,7 +8,7 @@
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014,2017
-# Guilherme Nabanete <neoheartz@gmail.com>, 2016
+# Guilherme Nabanete <neoheartz@gmail.com>, 2016,2019
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2019
@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-12 18:12+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-17 19:16+0000\n"
+"Last-Translator: Guilherme Nabanete <neoheartz@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -246,9 +246,6 @@ msgstr "Redefinição de senha"
 msgid "Reset your password"
 msgstr "Redefina sua senha"
 
-msgid "Edit"
-msgstr "Editar"
-
 msgid "Page"
 msgstr "Página"
 
@@ -263,9 +260,6 @@ msgstr "Nenhum resultado"
 
 msgid "Server Error"
 msgstr "Erro de servidor"
-
-msgid "See children"
-msgstr "Ver filhos"
 
 msgid "See all"
 msgstr "Ver todos"
@@ -314,6 +308,96 @@ msgstr "Link quebrado"
 
 msgid "Missing document"
 msgstr "Documento ausente"
+
+msgid "Close"
+msgstr "Fechar"
+
+msgid "Edit \\"
+msgstr "Editar \\"
+
+msgid "View child pages of \\"
+msgstr "Ver páginas-filho de \\"
+
+msgid "Page explorer"
+msgstr "Navegador de páginas"
+
+msgid "January"
+msgstr "Janeiro"
+
+msgid "February"
+msgstr "Fevereiro"
+
+msgid "March"
+msgstr "Março"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May"
+msgstr "Maio"
+
+msgid "June"
+msgstr "Junho"
+
+msgid "July"
+msgstr "Julho"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "September"
+msgstr "Setembro"
+
+msgid "October"
+msgstr "Outubro"
+
+msgid "November"
+msgstr "Novembro"
+
+msgid "December"
+msgstr "Dezembro"
+
+msgid "Sunday"
+msgstr "Domingo"
+
+msgid "Monday"
+msgstr "Segunda-feira"
+
+msgid "Tuesday"
+msgstr "Terça-feira"
+
+msgid "Wednesday"
+msgstr "Quarta-feira"
+
+msgid "Thursday"
+msgstr "Quinta-feira"
+
+msgid "Friday"
+msgstr "Sexta-feira"
+
+msgid "Saturday"
+msgstr "Sábado"
+
+msgid "Sun"
+msgstr "Dom"
+
+msgid "Mon"
+msgstr "Seg"
+
+msgid "Tue"
+msgstr "Ter"
+
+msgid "Wed"
+msgstr "Qua"
+
+msgid "Thu"
+msgstr "Qui"
+
+msgid "Fri"
+msgstr "Sex"
+
+msgid "Sat"
+msgstr "Sáb"
 
 msgid "Dashboard"
 msgstr "Painel"
@@ -419,8 +503,14 @@ msgstr "Salvar"
 msgid "Privacy"
 msgstr "Particular"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Definir privacidade da coleção. Estado atual: Pública"
+
 msgid "Public"
 msgstr "Público"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Definir privacidade da coleção. Estado atual: Privada"
 
 msgid "Private"
 msgstr "Privativo"
@@ -485,6 +575,9 @@ msgstr "Aprovar"
 msgid "Reject"
 msgstr "Rejeitar"
 
+msgid "Edit"
+msgstr "Editar"
+
 msgid "Preview"
 msgstr "Pré-visualizar"
 
@@ -513,18 +606,24 @@ msgstr "Resumo do site"
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Page\n"
-"    "
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgstr[0] ""
 "\n"
-"<span>%(total)s</span> Página"
+"            <span>%(total)s</span> Página<span class=\"visuallyhidden"
+"\">criada em %(site_name)s</span>\n"
+"        "
 msgstr[1] ""
 "\n"
-"<span>%(total)s</span> Páginas"
+"            <span>%(total)s</span> Páginas <span class=\"visuallyhidden"
+"\">criadas em %(site_name)s</span>\n"
+"        "
 
 msgid "Sign in"
 msgstr "Entrar"
@@ -597,11 +696,29 @@ msgstr ""
 msgid "Edit lock"
 msgstr "Editar bloqueio"
 
+msgid "Remove editor lock. Current status: Locked"
+msgstr "Remover bloqueio do editor. Estado atual: Bloqueado"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "Aplicar bloqueio do editor. Estado atual: Desbloqueado"
+
 msgid "Locked"
 msgstr "Bloqueado"
 
 msgid "Unlocked"
 msgstr "Desbloqueado"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Definir privacidade da página. Estado atual: Pública"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Definir privacidade da página. Estado atual: Privada"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Privacidade da página. Estado atual: Pública"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Privacidade da página. Estado atual: Privada"
 
 msgid "Publishing…"
 msgstr "Publicando..."
@@ -747,6 +864,9 @@ msgstr "Adicionar %(page_type)s"
 msgid "New"
 msgstr "Adicionar"
 
+msgid "Actions"
+msgstr "Ações"
+
 msgid "Saving…"
 msgstr "Salvando…"
 
@@ -886,6 +1006,9 @@ msgstr "Adicionar subpágina"
 msgid "Sites menu"
 msgstr "Menu de sites"
 
+msgid "Pagination"
+msgstr "Paginação"
+
 #, python-format
 msgid ""
 "\n"
@@ -937,9 +1060,6 @@ msgstr ""
 "esses erros,\n"
 "                então use a pré-visualização novamente.\n"
 "            "
-
-msgid "Close"
-msgstr "Fechar"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1097,6 +1217,9 @@ msgstr "Coleção"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Página %(page_num)s de %(total_pages)s."
 
+msgid "Breadcrumb"
+msgstr "Navegação"
+
 msgid "Root"
 msgstr "Raiz"
 
@@ -1106,84 +1229,6 @@ msgstr "Página inicial"
 msgid "All collections"
 msgstr "Todas as coleções"
 
-msgid "January"
-msgstr "Janeiro"
-
-msgid "February"
-msgstr "Fevereiro"
-
-msgid "March"
-msgstr "Março"
-
-msgid "April"
-msgstr "Abril"
-
-msgid "May"
-msgstr "Maio"
-
-msgid "June"
-msgstr "Junho"
-
-msgid "July"
-msgstr "Julho"
-
-msgid "August"
-msgstr "Agosto"
-
-msgid "September"
-msgstr "Setembro"
-
-msgid "October"
-msgstr "Outubro"
-
-msgid "November"
-msgstr "Novembro"
-
-msgid "December"
-msgstr "Dezembro"
-
-msgid "Sunday"
-msgstr "Domingo"
-
-msgid "Monday"
-msgstr "Segunda-feira"
-
-msgid "Tuesday"
-msgstr "Terça-feira"
-
-msgid "Wednesday"
-msgstr "Quarta-feira"
-
-msgid "Thursday"
-msgstr "Quinta-feira"
-
-msgid "Friday"
-msgstr "Sexta-feira"
-
-msgid "Saturday"
-msgstr "Sábado"
-
-msgid "Sun"
-msgstr "Dom"
-
-msgid "Mon"
-msgstr "Seg"
-
-msgid "Tue"
-msgstr "Ter"
-
-msgid "Wed"
-msgstr "Qua"
-
-msgid "Thu"
-msgstr "Qui"
-
-msgid "Fri"
-msgstr "Sex"
-
-msgid "Sat"
-msgstr "Sáb"
-
 msgid "Edit your account"
 msgstr "Edite sua conta"
 
@@ -1192,6 +1237,12 @@ msgstr "Configurações da Conta"
 
 msgid "Log out"
 msgstr "Sair"
+
+msgid "Visit the live page"
+msgstr "Visitar a página em tempo real"
+
+msgid "Current page status:"
+msgstr "Estado atual da página:"
 
 msgid "Other searches"
 msgstr "Outras buscas"
@@ -1240,6 +1291,9 @@ msgstr "Árabe"
 msgid "Catalan"
 msgstr "Catalão"
 
+msgid "Czech"
+msgstr "Tcheco"
+
 msgid "German"
 msgstr "Alemão"
 
@@ -1260,6 +1314,9 @@ msgstr "Francês"
 
 msgid "Galician"
 msgstr "Galego"
+
+msgid "Hungarian"
+msgstr "Húngaro"
 
 msgid "Indonesian"
 msgstr "Indonésio"
@@ -1308,6 +1365,9 @@ msgstr "Sueco"
 
 msgid "Slovak"
 msgstr "Eslovaco"
+
+msgid "Thai"
+msgstr "Thailandês"
 
 msgid "Ukrainian"
 msgstr "Ucraniano"

@@ -7,14 +7,15 @@
 # shuhei hirota, 2019
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
+# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-05-30 02:21+0000\n"
-"Last-Translator: shuhei hirota\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-29 05:19+0000\n"
+"Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -23,14 +24,31 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Wagtail core"
+msgstr "Wagtail コア"
+
 msgid "{label}: this block has no options."
 msgstr "{label}: このブロックはオプションがありません。"
 
 msgid "This block has no options."
 msgstr "このブロックはオプションがありません。"
 
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "項目の最小数は%dです。"
+
+msgid "This field is required."
+msgstr "この項目は必須です。"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "項目の最大数は%dです。"
+
 msgid "Password"
 msgstr "パスワード"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "入力されたパスワードは正しくありませんでした。再度試してください。"
 
 msgid "hostname"
 msgstr "ホスト名"
@@ -143,6 +161,9 @@ msgstr "ロックされています"
 msgid "first published at"
 msgstr "最初の公開日時"
 
+msgid "last published at"
+msgstr "最終の公開日時"
+
 msgid "latest revision created at"
 msgstr "最終更新日"
 
@@ -209,6 +230,12 @@ msgstr "ページを公開"
 msgid "Bulk delete"
 msgstr "一括削除"
 
+msgid "Delete pages with children"
+msgstr "子要素と共にページを削除します。"
+
+msgid "Lock"
+msgstr "ロックあり"
+
 msgid "Lock/unlock any page"
 msgstr "ページのロックを編集"
 
@@ -233,11 +260,63 @@ msgstr "限定公開、ログインユーザのみアクセス可能"
 msgid "Private, accessible with the following password"
 msgstr "限定公開、次のパスワードによりアクセス可能"
 
+msgid "Private, accessible to users in specific groups"
+msgstr "限定公開、特定のグループに属するユーザのみアクセス可能"
+
 msgid "password"
 msgstr "パスワード"
+
+msgid "groups"
+msgstr "グループ"
+
+msgid "view restriction"
+msgstr "閲覧権限"
+
+msgid "view restrictions"
+msgstr "閲覧権限"
 
 msgid "page view restriction"
 msgstr "ページ閲覧の権限"
 
 msgid "page view restrictions"
 msgstr "ページ閲覧の権限"
+
+msgid "collection"
+msgstr "コレクション"
+
+msgid "name"
+msgstr "名前"
+
+msgid "collections"
+msgstr "コレクション"
+
+msgid "permission"
+msgstr "権限"
+
+msgid "group collection permission"
+msgstr "グループコレクションの権限"
+
+msgid "group collection permissions"
+msgstr "グループコレクションの権限"
+
+msgid "Log in"
+msgstr "ログイン"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "ユーザネームとパスワードが一致しませんでした。再度試してください。"
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"あなたのアカウントにはこのページへのアクセス権限がありません。進めるには、ア"
+"クセス権限のあるアカウントにログインしてください。"
+
+msgid "Password required"
+msgstr "パスワードが必要です。"
+
+msgid "You need a password to access this page."
+msgstr "このページへアクセスするためにはパスワードが必要です。"
+
+msgid "Continue"
+msgstr "続ける"

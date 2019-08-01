@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -243,9 +243,6 @@ msgstr "Pengaturan ulang kata sandi"
 msgid "Reset your password"
 msgstr "Atur ulang kata sandi Anda"
 
-msgid "Edit"
-msgstr "Ubah"
-
 msgid "Page"
 msgstr "Halaman"
 
@@ -260,9 +257,6 @@ msgstr "Tidak ada hasil"
 
 msgid "Server Error"
 msgstr "Galat pada Server"
-
-msgid "See children"
-msgstr "Lihat turunan"
 
 msgid "See all"
 msgstr "Lihat semua"
@@ -305,6 +299,87 @@ msgid ""
 msgstr ""
 "Editor telah gagal. Konten telah dipasang ulang dengan versi terakhir yang "
 "disimpan."
+
+msgid "Close"
+msgstr "Tutup"
+
+msgid "January"
+msgstr "Januari"
+
+msgid "February"
+msgstr "Februari"
+
+msgid "March"
+msgstr "Maret"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Mei"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "Agustus"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "Desember"
+
+msgid "Sunday"
+msgstr "Minggu"
+
+msgid "Monday"
+msgstr "Senin"
+
+msgid "Tuesday"
+msgstr "Selasa"
+
+msgid "Wednesday"
+msgstr "Rabu"
+
+msgid "Thursday"
+msgstr "Kamis"
+
+msgid "Friday"
+msgstr "Jum'at"
+
+msgid "Saturday"
+msgstr "Sabtu"
+
+msgid "Sun"
+msgstr "Min"
+
+msgid "Mon"
+msgstr "Sen"
+
+msgid "Tue"
+msgstr "Sel"
+
+msgid "Wed"
+msgstr "Rab"
+
+msgid "Thu"
+msgstr "Kam"
+
+msgid "Fri"
+msgstr "Jum"
+
+msgid "Sat"
+msgstr "Sab"
 
 msgid "Dashboard"
 msgstr "Dasbor"
@@ -467,6 +542,9 @@ msgstr "Menyetujui"
 msgid "Reject"
 msgstr "Tolak"
 
+msgid "Edit"
+msgstr "Ubah"
+
 msgid "Preview"
 msgstr "Pratinjau"
 
@@ -491,20 +569,6 @@ msgstr "Terpublikasi"
 
 msgid "Site summary"
 msgstr "Ringkasan situs"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Halaman\n"
-"    "
 
 msgid "Sign in"
 msgstr "Masuk"
@@ -911,9 +975,6 @@ msgstr ""
 "                setelah itu tampilkan pratinjau lagi.\n"
 "            "
 
-msgid "Close"
-msgstr "Tutup"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Membandingkan %(title)s"
@@ -1064,84 +1125,6 @@ msgstr "Beranda"
 
 msgid "All collections"
 msgstr "Semua koleksi"
-
-msgid "January"
-msgstr "Januari"
-
-msgid "February"
-msgstr "Februari"
-
-msgid "March"
-msgstr "Maret"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Mei"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "Agustus"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "Desember"
-
-msgid "Sunday"
-msgstr "Minggu"
-
-msgid "Monday"
-msgstr "Senin"
-
-msgid "Tuesday"
-msgstr "Selasa"
-
-msgid "Wednesday"
-msgstr "Rabu"
-
-msgid "Thursday"
-msgstr "Kamis"
-
-msgid "Friday"
-msgstr "Jum'at"
-
-msgid "Saturday"
-msgstr "Sabtu"
-
-msgid "Sun"
-msgstr "Min"
-
-msgid "Mon"
-msgstr "Sen"
-
-msgid "Tue"
-msgstr "Sel"
-
-msgid "Wed"
-msgstr "Rab"
-
-msgid "Thu"
-msgstr "Kam"
-
-msgid "Fri"
-msgstr "Jum"
-
-msgid "Sat"
-msgstr "Sab"
 
 msgid "Edit your account"
 msgstr "Ubah akun Anda"

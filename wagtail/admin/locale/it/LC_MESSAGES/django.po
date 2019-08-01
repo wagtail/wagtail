@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-07-04 07:40+0000\n"
-"Last-Translator: Guglielmo Celata <guglielmo.celata@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -246,9 +246,6 @@ msgstr "Resetta password"
 msgid "Reset your password"
 msgstr "Inserisci password"
 
-msgid "Edit"
-msgstr "Modifica"
-
 msgid "Page"
 msgstr "Pagina"
 
@@ -263,9 +260,6 @@ msgstr "Nessun risultato"
 
 msgid "Server Error"
 msgstr "Errore del Server"
-
-msgid "See children"
-msgstr "Vedi figlio"
 
 msgid "See all"
 msgstr "Vedi tutto"
@@ -314,6 +308,87 @@ msgstr "Link non funzionante"
 
 msgid "Missing document"
 msgstr "Documento non trovato"
+
+msgid "Close"
+msgstr "Chiudi"
+
+msgid "January"
+msgstr "Gennaio"
+
+msgid "February"
+msgstr "Febbraio"
+
+msgid "March"
+msgstr "Marzo"
+
+msgid "April"
+msgstr "Aprile"
+
+msgid "May"
+msgstr "Maggio"
+
+msgid "June"
+msgstr "Giugno"
+
+msgid "July"
+msgstr "Luglio"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "September"
+msgstr "Settembre"
+
+msgid "October"
+msgstr "Ottobre"
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "December"
+msgstr "Dicembre"
+
+msgid "Sunday"
+msgstr "Domenica"
+
+msgid "Monday"
+msgstr "Lunedì"
+
+msgid "Tuesday"
+msgstr "Martedì"
+
+msgid "Wednesday"
+msgstr "Mercoledì"
+
+msgid "Thursday"
+msgstr "Giovedì"
+
+msgid "Friday"
+msgstr "Venerdì"
+
+msgid "Saturday"
+msgstr "Sabato"
+
+msgid "Sun"
+msgstr "Dom"
+
+msgid "Mon"
+msgstr "Lun"
+
+msgid "Tue"
+msgstr "Mar"
+
+msgid "Wed"
+msgstr "Mer"
+
+msgid "Thu"
+msgstr "Gio"
+
+msgid "Fri"
+msgstr "Ven"
+
+msgid "Sat"
+msgstr "Sab"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -485,6 +560,9 @@ msgstr "Approva"
 msgid "Reject"
 msgstr "Rigettato"
 
+msgid "Edit"
+msgstr "Modifica"
+
 msgid "Preview"
 msgstr "Anteprima"
 
@@ -509,24 +587,6 @@ msgstr "Live"
 
 msgid "Site summary"
 msgstr "Sommario del sito"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Pagina\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Pagine\n"
-"    "
 
 msgid "Sign in"
 msgstr "Loggati"
@@ -945,9 +1005,6 @@ msgstr ""
 "                e riprova l'anteprima.\n"
 "            "
 
-msgid "Close"
-msgstr "Chiudi"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Compara %(title)s"
@@ -1112,84 +1169,6 @@ msgstr "Home"
 
 msgid "All collections"
 msgstr "Tutte le raccolte"
-
-msgid "January"
-msgstr "Gennaio"
-
-msgid "February"
-msgstr "Febbraio"
-
-msgid "March"
-msgstr "Marzo"
-
-msgid "April"
-msgstr "Aprile"
-
-msgid "May"
-msgstr "Maggio"
-
-msgid "June"
-msgstr "Giugno"
-
-msgid "July"
-msgstr "Luglio"
-
-msgid "August"
-msgstr "Agosto"
-
-msgid "September"
-msgstr "Settembre"
-
-msgid "October"
-msgstr "Ottobre"
-
-msgid "November"
-msgstr "Novembre"
-
-msgid "December"
-msgstr "Dicembre"
-
-msgid "Sunday"
-msgstr "Domenica"
-
-msgid "Monday"
-msgstr "Lunedì"
-
-msgid "Tuesday"
-msgstr "Martedì"
-
-msgid "Wednesday"
-msgstr "Mercoledì"
-
-msgid "Thursday"
-msgstr "Giovedì"
-
-msgid "Friday"
-msgstr "Venerdì"
-
-msgid "Saturday"
-msgstr "Sabato"
-
-msgid "Sun"
-msgstr "Dom"
-
-msgid "Mon"
-msgstr "Lun"
-
-msgid "Tue"
-msgstr "Mar"
-
-msgid "Wed"
-msgstr "Mer"
-
-msgid "Thu"
-msgstr "Gio"
-
-msgid "Fri"
-msgstr "Ven"
-
-msgid "Sat"
-msgstr "Sab"
 
 msgid "Edit your account"
 msgstr "Modifica il tuo account"

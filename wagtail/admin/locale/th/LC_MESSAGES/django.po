@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -232,9 +232,6 @@ msgstr "ตั้งรหัสใหม่"
 msgid "Reset your password"
 msgstr "ตั้งรหัสใหม่"
 
-msgid "Edit"
-msgstr "แก้ไข"
-
 msgid "Page"
 msgstr "หน้า"
 
@@ -249,9 +246,6 @@ msgstr "ไม่พบ"
 
 msgid "Server Error"
 msgstr "เซิฟเวอร์ขัดข้อง"
-
-msgid "See children"
-msgstr "ดูหน้าย่อย"
 
 msgid "See all"
 msgstr "เปิดทั้งหมด"
@@ -292,6 +286,87 @@ msgstr "แสดงข้อผิดพลาด"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "โปรแกรมที่แก้ไขมีปัญหา เนื้อหาเก่าได้ถูกเซฟไว้เรียบร้อยแล้ว"
+
+msgid "Close"
+msgstr "ปิด"
+
+msgid "January"
+msgstr "มกราคม"
+
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+msgid "March"
+msgstr "มีนาคม"
+
+msgid "April"
+msgstr "เมษายน"
+
+msgid "May"
+msgstr "พฤษภาคม"
+
+msgid "June"
+msgstr "มิถุนายน"
+
+msgid "July"
+msgstr "กรกฎาคม"
+
+msgid "August"
+msgstr "สิงหาคม"
+
+msgid "September"
+msgstr "กันยายน"
+
+msgid "October"
+msgstr "ตุลาคม"
+
+msgid "November"
+msgstr "พฤศจิกายน"
+
+msgid "December"
+msgstr "ธันวาคม"
+
+msgid "Sunday"
+msgstr "วันอาทิตย์"
+
+msgid "Monday"
+msgstr "วันจันทร์"
+
+msgid "Tuesday"
+msgstr "วันอังคาร"
+
+msgid "Wednesday"
+msgstr "วันพุธ"
+
+msgid "Thursday"
+msgstr "วันพฤหัสบดี"
+
+msgid "Friday"
+msgstr "วันศุกร์"
+
+msgid "Saturday"
+msgstr "วันเสาร์"
+
+msgid "Sun"
+msgstr "วันอาทิตย์"
+
+msgid "Mon"
+msgstr "วันจันทร์"
+
+msgid "Tue"
+msgstr "วันอังคาร"
+
+msgid "Wed"
+msgstr "วันพุธ"
+
+msgid "Thu"
+msgstr "วันพฤหัสบดี"
+
+msgid "Fri"
+msgstr "วันศุกร์"
+
+msgid "Sat"
+msgstr "วันเสาร์"
 
 msgid "Dashboard"
 msgstr "แผงควบคุม , หน้าจอที่ควบคุม"
@@ -449,6 +524,9 @@ msgstr "ยืนยัน"
 msgid "Reject"
 msgstr "ไม่ผ่าน"
 
+msgid "Edit"
+msgstr "แก้ไข"
+
 msgid "Preview"
 msgstr "ภาพตัวอย่าง"
 
@@ -473,20 +551,6 @@ msgstr "กำลังแสดงสดอยู่,ถ่ายทอดส�
 
 msgid "Site summary"
 msgstr "สรุป,หน้าหลักของเว็บไซด์"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-" <span>%(total)s</span> หลายหน้า\n"
-"    "
 
 msgid "Sign in"
 msgstr "ลงชื่อเข้าใช้"
@@ -875,9 +939,6 @@ msgstr ""
 "ไม่สามารถแสดงภาพตัวอย่างของหน้านี้,มีบางอย่างเกิดข้อผิดพลาด กรุณาปิดหน้าต่างนี้,"
 "เพื่อแก้ไขข้อผิดพลาด,จากนั้นใช้ภาพตัวอย่างอีกครั้งหนึ่ง"
 
-msgid "Close"
-msgstr "ปิด"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "กำลังเปรียบเทียบ %(title)s"
@@ -1029,84 +1090,6 @@ msgstr "หน้าหลัก"
 
 msgid "All collections"
 msgstr "ทุกชุด"
-
-msgid "January"
-msgstr "มกราคม"
-
-msgid "February"
-msgstr "กุมภาพันธ์"
-
-msgid "March"
-msgstr "มีนาคม"
-
-msgid "April"
-msgstr "เมษายน"
-
-msgid "May"
-msgstr "พฤษภาคม"
-
-msgid "June"
-msgstr "มิถุนายน"
-
-msgid "July"
-msgstr "กรกฎาคม"
-
-msgid "August"
-msgstr "สิงหาคม"
-
-msgid "September"
-msgstr "กันยายน"
-
-msgid "October"
-msgstr "ตุลาคม"
-
-msgid "November"
-msgstr "พฤศจิกายน"
-
-msgid "December"
-msgstr "ธันวาคม"
-
-msgid "Sunday"
-msgstr "วันอาทิตย์"
-
-msgid "Monday"
-msgstr "วันจันทร์"
-
-msgid "Tuesday"
-msgstr "วันอังคาร"
-
-msgid "Wednesday"
-msgstr "วันพุธ"
-
-msgid "Thursday"
-msgstr "วันพฤหัสบดี"
-
-msgid "Friday"
-msgstr "วันศุกร์"
-
-msgid "Saturday"
-msgstr "วันเสาร์"
-
-msgid "Sun"
-msgstr "วันอาทิตย์"
-
-msgid "Mon"
-msgstr "วันจันทร์"
-
-msgid "Tue"
-msgstr "วันอังคาร"
-
-msgid "Wed"
-msgstr "วันพุธ"
-
-msgid "Thu"
-msgstr "วันพฤหัสบดี"
-
-msgid "Fri"
-msgstr "วันศุกร์"
-
-msgid "Sat"
-msgstr "วันเสาร์"
 
 msgid "Edit your account"
 msgstr "แก้ไขบัญชีของคุณ"

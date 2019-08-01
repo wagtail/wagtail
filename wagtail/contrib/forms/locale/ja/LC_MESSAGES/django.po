@@ -8,14 +8,15 @@
 # Sangmin Ahn <gijigae@gmail.com>, 2015
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
 # SHIMIZU Taku <shimizu.taku@gmail.com>, 2015
+# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-05-30 05:33+0000\n"
-"Last-Translator: shuhei hirota\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-29 23:49+0000\n"
+"Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,10 @@ msgstr ""
 
 msgid "Wagtail forms"
 msgstr "Wagtail フォーム"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%sの送信"
 
 msgid "Single line text"
 msgstr "一行テキスト"
@@ -104,6 +109,9 @@ msgstr ""
 msgid "help text"
 msgstr "説明文"
 
+msgid "Submission date"
+msgstr "送信日"
+
 msgid "to address"
 msgstr "送信先"
 
@@ -113,8 +121,14 @@ msgstr "送信元"
 msgid "subject"
 msgstr "件名"
 
+msgid "Delete form data"
+msgstr "データから削除する"
+
 msgid "Delete"
 msgstr "削除"
+
+msgid "Latest submission"
+msgstr "最新の送信"
 
 msgid "Forms"
 msgstr "フォーム"

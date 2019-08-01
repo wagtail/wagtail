@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-07-08 10:35+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -257,9 +257,6 @@ msgstr "Obnovení hesla"
 msgid "Reset your password"
 msgstr "Nastavit nové heslo"
 
-msgid "Edit"
-msgstr "Upravit"
-
 msgid "Page"
 msgstr "Stránka"
 
@@ -274,9 +271,6 @@ msgstr "Žádné výsledky"
 
 msgid "Server Error"
 msgstr "Chyba serveru"
-
-msgid "See children"
-msgstr "Zobrazit podstránky"
 
 msgid "See all"
 msgstr "Zobrazit vse"
@@ -323,6 +317,87 @@ msgstr "Nefunkční odkaz"
 
 msgid "Missing document"
 msgstr "Chybějící dokument"
+
+msgid "Close"
+msgstr "Zavřít"
+
+msgid "January"
+msgstr "leden"
+
+msgid "February"
+msgstr "únor"
+
+msgid "March"
+msgstr "březen"
+
+msgid "April"
+msgstr "duben"
+
+msgid "May"
+msgstr "květen"
+
+msgid "June"
+msgstr "červen"
+
+msgid "July"
+msgstr "červenec"
+
+msgid "August"
+msgstr "srpen"
+
+msgid "September"
+msgstr "září"
+
+msgid "October"
+msgstr "říjen"
+
+msgid "November"
+msgstr "listopad"
+
+msgid "December"
+msgstr "prosinec"
+
+msgid "Sunday"
+msgstr "neděle"
+
+msgid "Monday"
+msgstr "pondělí"
+
+msgid "Tuesday"
+msgstr "úterý"
+
+msgid "Wednesday"
+msgstr "středa"
+
+msgid "Thursday"
+msgstr "čtvrtek"
+
+msgid "Friday"
+msgstr "pátek"
+
+msgid "Saturday"
+msgstr "dobota"
+
+msgid "Sun"
+msgstr "ne"
+
+msgid "Mon"
+msgstr "po"
+
+msgid "Tue"
+msgstr "út"
+
+msgid "Wed"
+msgstr "st"
+
+msgid "Thu"
+msgstr "čt"
+
+msgid "Fri"
+msgstr "pá"
+
+msgid "Sat"
+msgstr "so"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -503,6 +578,9 @@ msgstr "Schválit"
 msgid "Reject"
 msgstr "Zamítnout"
 
+msgid "Edit"
+msgstr "Upravit"
+
 msgid "Preview"
 msgstr "Náhled"
 
@@ -527,28 +605,6 @@ msgstr "Publikováno"
 
 msgid "Site summary"
 msgstr "Přehled obsahu"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Stránka"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Stránky"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> Stránek"
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span> stránek"
 
 msgid "Sign in"
 msgstr "Přihlásit se"
@@ -965,9 +1021,6 @@ msgstr ""
 "Není možné zobrazit náhled této stránky protože zbývají nějaké chyby.\n"
 "Zavřete tuto kartu, opravte chyby ve stránce a znovu použijte náhled."
 
-msgid "Close"
-msgstr "Zavřít"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Porovnání %(title)s"
@@ -1140,84 +1193,6 @@ msgstr "Domů"
 
 msgid "All collections"
 msgstr "Všechny kolekce"
-
-msgid "January"
-msgstr "leden"
-
-msgid "February"
-msgstr "únor"
-
-msgid "March"
-msgstr "březen"
-
-msgid "April"
-msgstr "duben"
-
-msgid "May"
-msgstr "květen"
-
-msgid "June"
-msgstr "červen"
-
-msgid "July"
-msgstr "červenec"
-
-msgid "August"
-msgstr "srpen"
-
-msgid "September"
-msgstr "září"
-
-msgid "October"
-msgstr "říjen"
-
-msgid "November"
-msgstr "listopad"
-
-msgid "December"
-msgstr "prosinec"
-
-msgid "Sunday"
-msgstr "neděle"
-
-msgid "Monday"
-msgstr "pondělí"
-
-msgid "Tuesday"
-msgstr "úterý"
-
-msgid "Wednesday"
-msgstr "středa"
-
-msgid "Thursday"
-msgstr "čtvrtek"
-
-msgid "Friday"
-msgstr "pátek"
-
-msgid "Saturday"
-msgstr "dobota"
-
-msgid "Sun"
-msgstr "ne"
-
-msgid "Mon"
-msgstr "po"
-
-msgid "Tue"
-msgstr "út"
-
-msgid "Wed"
-msgstr "st"
-
-msgid "Thu"
-msgstr "čt"
-
-msgid "Fri"
-msgstr "pá"
-
-msgid "Sat"
-msgstr "so"
 
 msgid "Edit your account"
 msgstr "Upravte svůj účet"

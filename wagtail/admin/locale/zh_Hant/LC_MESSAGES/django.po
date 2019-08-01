@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# c o <ihcgno@icloud.com>, 2019
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-16 03:50+0000\n"
+"Last-Translator: c o <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +36,7 @@ msgid "None"
 msgstr "無"
 
 msgid "You do not have permission to access the admin"
-msgstr "你沒有訪問後台管理的權限"
+msgstr "您沒有後台管理權限"
 
 msgid "Scheduled publishing"
 msgstr "定時發布"
@@ -60,7 +61,7 @@ msgid "Enter your %s"
 msgstr "輸入你的 %s"
 
 msgid "Enter your email address to reset your password"
-msgstr "輸入郵件地址以重置密碼"
+msgstr "輸入電子郵件地址以重置密碼"
 
 msgid "URL"
 msgstr "URL"
@@ -72,7 +73,7 @@ msgid "New title"
 msgstr "新標題"
 
 msgid "New slug"
-msgstr "新縮略名"
+msgstr "新增短標題"
 
 msgid "New parent page"
 msgstr "新父頁面"
@@ -92,7 +93,7 @@ msgid "Publish copied page"
 msgstr "發布復制的頁面。"
 
 msgid "This page is live. Would you like to publish its copy as well?"
-msgstr "此頁面已發布。你也想發布它的副本嗎？"
+msgstr "此頁面已上線。是否同時發布其副本？"
 
 msgid "Publish copies"
 msgstr "發布副本"
@@ -119,10 +120,10 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr "你在復制子頁面時不能復制當前頁面本身"
 
 msgid "This slug is already in use"
-msgstr "此縮略名已被使用"
+msgstr "此短標題已被使用"
 
 msgid "Go live date/time must be before expiry date/time"
-msgstr "發布日期/時間必須早於過期日期/時間"
+msgstr "上線時間須早於截止期限"
 
 msgid "Expiry date/time must be in the future"
 msgstr "過期日期/時間必須是未來時間。"
@@ -137,7 +138,7 @@ msgid "Visibility"
 msgstr "是否可見"
 
 msgid "This field is required."
-msgstr "必需欄位"
+msgstr "必要欄位"
 
 msgid "Please select at least one group."
 msgstr "請至少選擇一個組。"
@@ -158,32 +159,32 @@ msgid "Account"
 msgstr "帳號"
 
 msgid "Change profile picture"
-msgstr "更改配置圖片"
+msgstr "更改個人資料圖片"
 
 msgid "Your current profile picture:"
-msgstr "你現在的頭像"
+msgstr "您目前的個人資料圖片："
 
 msgid "Update"
 msgstr "更新"
 
 msgid "Change email"
-msgstr "更改郵箱"
+msgstr "更改電子郵件"
 
 msgid "Change password"
-msgstr "修改密碼"
+msgstr "更改密碼"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "您不能修改密碼，請聯系管理員。"
 
 msgid "Set Time Zone"
-msgstr "設置時區"
+msgstr "設定時區"
 
 msgid "Language Preferences"
-msgstr "語言首選項"
+msgstr "語言偏好設定"
 
 msgid "Notification preferences"
-msgstr "提醒設置"
+msgstr "通知偏好設定"
 
 msgid "Reset password"
 msgstr "重置密碼"
@@ -214,10 +215,10 @@ msgstr "檢查您的郵件"
 msgid ""
 "A link to reset your password has been emailed to you if an account exists "
 "for this address."
-msgstr "一個密碼重置鏈接將被發送到該地址。"
+msgstr "密碼重置鏈接將發送到該電子郵件。"
 
 msgid "Please follow the link below to reset your password:"
-msgstr "請點擊下麵的鏈接來重置密碼"
+msgstr "請點擊以下連結以重置密碼"
 
 msgid "Your username (in case you've forgotten):"
 msgstr "以防遺忘，請填寫你的用戶名:"
@@ -226,10 +227,7 @@ msgid "Password reset"
 msgstr "密碼已重置。"
 
 msgid "Reset your password"
-msgstr "重設密碼"
-
-msgid "Edit"
-msgstr "編輯"
+msgstr "重置密碼"
 
 msgid "Page"
 msgstr "頁面"
@@ -244,10 +242,7 @@ msgid "No results"
 msgstr "沒有結果"
 
 msgid "Server Error"
-msgstr "服務器錯誤"
-
-msgid "See children"
-msgstr "查看子頁面"
+msgstr "伺服器錯誤"
 
 msgid "See all"
 msgstr "查看全部"
@@ -256,22 +251,22 @@ msgid "Close explorer"
 msgstr "關閉資源管理"
 
 msgid "Alt text"
-msgstr "Alt標簽"
+msgstr "替代文字"
 
 msgid "Write here…"
 msgstr "寫在這里..."
 
 msgid "Horizontal line"
-msgstr "橫線"
+msgstr "水平線"
 
 msgid "Line break"
 msgstr "換行"
 
 msgid "Undo"
-msgstr "撤銷"
+msgstr "復原"
 
 msgid "Redo"
-msgstr "重復"
+msgstr "取消復原"
 
 msgid "Reload the page"
 msgstr "刷新頁面"
@@ -289,11 +284,95 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "編輯器崩潰了😭，內容被重新設置為最後保存的版本。"
 
+msgid "Broken link"
+msgstr "無效連結"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "January"
+msgstr "一月"
+
+msgid "February"
+msgstr "二月"
+
+msgid "March"
+msgstr "三月"
+
+msgid "April"
+msgstr "四月"
+
+msgid "May"
+msgstr "五月"
+
+msgid "June"
+msgstr "六月"
+
+msgid "July"
+msgstr "七月"
+
+msgid "August"
+msgstr "八月"
+
+msgid "September"
+msgstr "九月"
+
+msgid "October"
+msgstr "十月"
+
+msgid "November"
+msgstr "十一月"
+
+msgid "December"
+msgstr "十二月"
+
+msgid "Sunday"
+msgstr "星期日"
+
+msgid "Monday"
+msgstr "星期一"
+
+msgid "Tuesday"
+msgstr "星期二"
+
+msgid "Wednesday"
+msgstr "星期三"
+
+msgid "Thursday"
+msgstr "星期四"
+
+msgid "Friday"
+msgstr "星期五"
+
+msgid "Saturday"
+msgstr "星期六"
+
+msgid "Sun"
+msgstr "周日"
+
+msgid "Mon"
+msgstr "周一"
+
+msgid "Tue"
+msgstr "周二"
+
+msgid "Wed"
+msgstr "周三"
+
+msgid "Thu"
+msgstr "周四"
+
+msgid "Fri"
+msgstr "周五"
+
+msgid "Sat"
+msgstr "周六"
+
 msgid "Dashboard"
 msgstr "控制面板"
 
 msgid "Menu"
-msgstr "菜單"
+msgstr "選單"
 
 msgid "Add another"
 msgstr "新增其它"
@@ -308,13 +387,13 @@ msgid "Explorer"
 msgstr "資源管理"
 
 msgid "Internal link"
-msgstr "內部鏈接"
+msgstr "內部連結"
 
 msgid "External link"
-msgstr "外部鏈接"
+msgstr "外部連結"
 
 msgid "Email link"
-msgstr "電子郵件鏈接"
+msgstr "電子郵件連結"
 
 #, python-format
 msgid ""
@@ -333,7 +412,7 @@ msgid "Choose"
 msgstr "選擇"
 
 msgid "Choose a page"
-msgstr "選擇一個頁面"
+msgstr "選擇頁面"
 
 #, python-format
 msgid ""
@@ -351,13 +430,13 @@ msgstr[0] ""
 "這里只能選擇 \"%(type)s\"類型的頁面。搜索結果會過濾掉其它類型。"
 
 msgid "Add an email link"
-msgstr "新增一個電子郵件Link"
+msgstr "新增電子郵件"
 
 msgid "Insert link"
-msgstr "插入鏈接"
+msgstr "插入連結"
 
 msgid "Add an external link"
-msgstr "新增一個外部Link"
+msgstr "新增外部連結"
 
 msgid "Collection privacy"
 msgstr "集合私有設置"
@@ -373,7 +452,7 @@ msgid ""
 msgstr "私有設置決定誰可以查看這個集合中的文檔。"
 
 msgid "Save"
-msgstr "保存"
+msgstr "儲存"
 
 msgid "Privacy"
 msgstr "私有設置"
@@ -389,7 +468,7 @@ msgid ""
 msgstr "集合非空，不能刪除，它包含有："
 
 msgid "Name"
-msgstr "名字"
+msgstr "名稱"
 
 #, python-format
 msgid ""
@@ -403,7 +482,7 @@ msgid "Add %(label)s"
 msgstr "增加 %(label)s"
 
 msgid "Yes, delete"
-msgstr "是的， 刪除"
+msgstr "確認刪除"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -415,7 +494,7 @@ msgid ""
 msgstr "這是您的主控台，將會顯示您創建的內容的幫助信息。"
 
 msgid "Pages awaiting moderation"
-msgstr "頁面等待審核中"
+msgstr "等待頁面審核中"
 
 msgid "Title"
 msgstr "標題"
@@ -441,6 +520,9 @@ msgstr "通過"
 msgid "Reject"
 msgstr "拒絕"
 
+msgid "Edit"
+msgstr "編輯"
+
 msgid "Preview"
 msgstr "預覽"
 
@@ -461,37 +543,23 @@ msgid "Draft"
 msgstr "草稿"
 
 msgid "Live"
-msgstr "發布"
+msgstr "上線"
 
 msgid "Site summary"
 msgstr "網站摘要"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> 頁面\n"
-"    "
 
 msgid "Sign in"
 msgstr "登錄"
 
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "用戶 %(username_field)s 密碼不匹配，請重試"
+msgstr "帳戶 %(username_field)s 密碼不正確，請重試。"
 
 msgid "Sign in to Wagtail"
 msgstr "登錄Wagtail"
 
 msgid "Forgotten it?"
-msgstr "不記得了？"
+msgstr "忘記密碼？"
 
 msgid "Signing in…"
 msgstr "正在登錄..."
@@ -512,7 +580,7 @@ msgid "Hello %(username)s,"
 msgstr "%(username)s 你好，"
 
 msgid "Edit your notification preferences here:"
-msgstr "在此編輯通知選擇"
+msgstr "在此編輯通知偏好設定："
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -537,7 +605,7 @@ msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "頁面\"%(page)s\"已提交審核"
 
 msgid "Page privacy"
-msgstr "頁面私有設置"
+msgstr "頁面隱私設置"
 
 msgid "This page has been made private by a parent page."
 msgstr "此頁面已被父節點設置為私有。"
@@ -815,6 +883,9 @@ msgstr "新增子頁面"
 msgid "Sites menu"
 msgstr "站點菜單"
 
+msgid "Pagination"
+msgstr "分頁"
+
 #, python-format
 msgid ""
 "\n"
@@ -862,9 +933,6 @@ msgstr ""
 "                請關閉當前標簽頁, 並編輯頁面以修正錯誤,\n"
 "                然後再進行預覽。\n"
 "            "
-
-msgid "Close"
-msgstr "關閉"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -949,7 +1017,7 @@ msgid "Current draft"
 msgstr "當前草稿"
 
 msgid "Live version"
-msgstr "發布版本"
+msgstr "線上版本"
 
 msgid "Scheduled for"
 msgstr "定時發布"
@@ -1011,84 +1079,6 @@ msgstr "主頁"
 msgid "All collections"
 msgstr "所有集合"
 
-msgid "January"
-msgstr "一月"
-
-msgid "February"
-msgstr "二月"
-
-msgid "March"
-msgstr "三月"
-
-msgid "April"
-msgstr "四月"
-
-msgid "May"
-msgstr "五月"
-
-msgid "June"
-msgstr "六月"
-
-msgid "July"
-msgstr "七月"
-
-msgid "August"
-msgstr "八月"
-
-msgid "September"
-msgstr "九月"
-
-msgid "October"
-msgstr "十月"
-
-msgid "November"
-msgstr "十一月"
-
-msgid "December"
-msgstr "十二月"
-
-msgid "Sunday"
-msgstr "星期天"
-
-msgid "Monday"
-msgstr "星期一"
-
-msgid "Tuesday"
-msgstr "星期四"
-
-msgid "Wednesday"
-msgstr "星期三"
-
-msgid "Thursday"
-msgstr "星期四"
-
-msgid "Friday"
-msgstr "星期五"
-
-msgid "Saturday"
-msgstr "星期六"
-
-msgid "Sun"
-msgstr "周日"
-
-msgid "Mon"
-msgstr "周一"
-
-msgid "Tue"
-msgstr "周二"
-
-msgid "Wed"
-msgstr "周三"
-
-msgid "Thu"
-msgstr "周四"
-
-msgid "Fri"
-msgstr "周五"
-
-msgid "Sat"
-msgstr "周六"
-
 msgid "Edit your account"
 msgstr "編輯帳號"
 
@@ -1097,6 +1087,9 @@ msgstr "帳號設置"
 
 msgid "Log out"
 msgstr "登出"
+
+msgid "Visit the live page"
+msgstr "查看線上頁面"
 
 msgid "Other searches"
 msgstr "其它搜索"
@@ -1272,7 +1265,7 @@ msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "頁面 {1} 的版本 {0} 正在計劃發布中。"
 
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "頁面 {0} 正在使用，這個修訂版本已預定發布時間。"
+msgstr "頁面 {0} 已上線，此修訂版本已預定發布時間。"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "頁面 {0} 已預定發布時間。"
@@ -1299,7 +1292,7 @@ msgid "The page could not be saved due to validation errors"
 msgstr "頁面無法保存。出現驗證錯誤。"
 
 msgid "Compare with live version"
-msgstr "與發布版本進行比較"
+msgstr "與線上版本進行比較"
 
 msgid "This page is currently awaiting moderation"
 msgstr "頁面等待審核中"
@@ -1367,7 +1360,7 @@ msgid "Preview draft version of '{title}'"
 msgstr "預覽 '{title}' 的草稿"
 
 msgid "View live version of '{title}'"
-msgstr "查看 '{title}' 的發布版本"
+msgstr "查看 '{title}' 的線上版本"
 
 msgid "Add a child page to '{title}' "
 msgstr "為 '{title}' 新增子頁面"

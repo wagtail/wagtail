@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -236,9 +236,6 @@ msgstr "비밀번호 초기화"
 msgid "Reset your password"
 msgstr "비밀번호 초기화"
 
-msgid "Edit"
-msgstr "수정"
-
 msgid "Page"
 msgstr "페이지"
 
@@ -253,9 +250,6 @@ msgstr "결과 없음"
 
 msgid "Server Error"
 msgstr "서버 오류"
-
-msgid "See children"
-msgstr "하위 항목 보기"
 
 msgid "See all"
 msgstr "모두 보기"
@@ -298,6 +292,87 @@ msgid ""
 msgstr ""
 "에디터에 문제가 발생했습니다. 내용은 마지막으로 저장된 버전으로 초기화되었습"
 "니다."
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "January"
+msgstr "1월"
+
+msgid "February"
+msgstr "2월"
+
+msgid "March"
+msgstr "3월"
+
+msgid "April"
+msgstr "4월"
+
+msgid "May"
+msgstr "5월"
+
+msgid "June"
+msgstr "6월"
+
+msgid "July"
+msgstr "7월"
+
+msgid "August"
+msgstr "8월"
+
+msgid "September"
+msgstr "9월"
+
+msgid "October"
+msgstr "10월"
+
+msgid "November"
+msgstr "11월"
+
+msgid "December"
+msgstr "12월"
+
+msgid "Sunday"
+msgstr "일요일"
+
+msgid "Monday"
+msgstr "월요일"
+
+msgid "Tuesday"
+msgstr "화요일"
+
+msgid "Wednesday"
+msgstr "수요일"
+
+msgid "Thursday"
+msgstr "목요일"
+
+msgid "Friday"
+msgstr "금요일"
+
+msgid "Saturday"
+msgstr "토요일"
+
+msgid "Sun"
+msgstr "일요일"
+
+msgid "Mon"
+msgstr "월요일"
+
+msgid "Tue"
+msgstr "화요일"
+
+msgid "Wed"
+msgstr "수요일"
+
+msgid "Thu"
+msgstr "목요일"
+
+msgid "Fri"
+msgstr "금요일"
+
+msgid "Sat"
+msgstr "토요일"
 
 msgid "Dashboard"
 msgstr "대시보드"
@@ -453,6 +528,9 @@ msgstr "승인"
 msgid "Reject"
 msgstr "거절"
 
+msgid "Edit"
+msgstr "수정"
+
 msgid "Preview"
 msgstr "미리보기"
 
@@ -477,19 +555,6 @@ msgstr "라이브"
 
 msgid "Site summary"
 msgstr "사이트 요약"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> 페이지들"
 
 msgid "Sign in"
 msgstr "로그인"
@@ -873,9 +938,6 @@ msgstr ""
 "오류가 남아있어서 페이지의 미리보기가 불가능합니다. 이 탭을 닫고 페이지를 수"
 "정하여 오류를 고친 후에 다시 미리보기 해 주세요."
 
-msgid "Close"
-msgstr "닫기"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "%(title)s와 비교"
@@ -1020,84 +1082,6 @@ msgstr "홈"
 
 msgid "All collections"
 msgstr "모든 모음"
-
-msgid "January"
-msgstr "1월"
-
-msgid "February"
-msgstr "2월"
-
-msgid "March"
-msgstr "3월"
-
-msgid "April"
-msgstr "4월"
-
-msgid "May"
-msgstr "5월"
-
-msgid "June"
-msgstr "6월"
-
-msgid "July"
-msgstr "7월"
-
-msgid "August"
-msgstr "8월"
-
-msgid "September"
-msgstr "9월"
-
-msgid "October"
-msgstr "10월"
-
-msgid "November"
-msgstr "11월"
-
-msgid "December"
-msgstr "12월"
-
-msgid "Sunday"
-msgstr "일요일"
-
-msgid "Monday"
-msgstr "월요일"
-
-msgid "Tuesday"
-msgstr "화요일"
-
-msgid "Wednesday"
-msgstr "수요일"
-
-msgid "Thursday"
-msgstr "목요일"
-
-msgid "Friday"
-msgstr "금요일"
-
-msgid "Saturday"
-msgstr "토요일"
-
-msgid "Sun"
-msgstr "일요일"
-
-msgid "Mon"
-msgstr "월요일"
-
-msgid "Tue"
-msgstr "화요일"
-
-msgid "Wed"
-msgstr "수요일"
-
-msgid "Thu"
-msgstr "목요일"
-
-msgid "Fri"
-msgstr "금요일"
-
-msgid "Sat"
-msgstr "토요일"
 
 msgid "Edit your account"
 msgstr "당신의 계정 변경"
