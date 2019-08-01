@@ -27,66 +27,7 @@
                 EXTRA_CHILDREN_PARAMETERS: '',
             };
 
-            wagtailConfig.STRINGS = {
-                DELETE: "{% trans 'Delete' %}",
-                PAGE: "{% trans 'Page' %}",
-                PAGES: "{% trans 'Pages' %}",
-                LOADING: "{% trans 'Loading…' %}",
-                NO_RESULTS: "{% trans 'No results' %}",
-                SERVER_ERROR: "{% trans 'Server Error' %}",
-                SEE_ALL: "{% trans 'See all' %}",
-                CLOSE_EXPLORER: "{% trans 'Close explorer' %}",
-                ALT_TEXT: "{% trans 'Alt text' %}",
-                WRITE_HERE: "{% trans 'Write here…' %}",
-                HORIZONTAL_LINE: "{% trans 'Horizontal line' %}",
-                LINE_BREAK: "{% trans 'Line break' %}",
-                UNDO: "{% trans 'Undo' %}",
-                REDO: "{% trans 'Redo' %}",
-                RELOAD_PAGE: "{% trans 'Reload the page' %}",
-                RELOAD_EDITOR: "{% trans 'Reload saved content' %}",
-                SHOW_LATEST_CONTENT: "{% trans 'Show latest content' %}",
-                SHOW_ERROR: "{% trans 'Show error' %}",
-                EDITOR_CRASH: "{% trans 'The editor just crashed. Content has been reset to the last saved version.' %}",
-                BROKEN_LINK: "{% trans 'Broken link' %}",
-                MISSING_DOCUMENT: "{% trans 'Missing document' %}",
-                CLOSE: "{% trans 'Close' %}",
-                EDIT_PAGE: "{% trans 'Edit \'{title}\'' %}",
-                VIEW_CHILD_PAGES_OF_PAGE: "{% trans 'View child pages of \'{title}\'' %}",
-                PAGE_EXPLORER: "{% trans 'Page explorer' %}",
-
-                MONTHS: [
-                    "{% trans 'January' %}",
-                    "{% trans 'February' %}",
-                    "{% trans 'March' %}",
-                    "{% trans 'April' %}",
-                    "{% trans 'May' %}",
-                    "{% trans 'June' %}",
-                    "{% trans 'July' %}",
-                    "{% trans 'August' %}",
-                    "{% trans 'September' %}",
-                    "{% trans 'October' %}",
-                    "{% trans 'November' %}",
-                    "{% trans 'December' %}"
-                ],
-                WEEKDAYS: [
-                    "{% trans 'Sunday' %}",
-                    "{% trans 'Monday' %}",
-                    "{% trans 'Tuesday' %}",
-                    "{% trans 'Wednesday' %}",
-                    "{% trans 'Thursday' %}",
-                    "{% trans 'Friday' %}",
-                    "{% trans 'Saturday' %}"
-                ],
-                WEEKDAYS_SHORT: [
-                    "{% trans 'Sun' %}",
-                    "{% trans 'Mon' %}",
-                    "{% trans 'Tue' %}",
-                    "{% trans 'Wed' %}",
-                    "{% trans 'Thu' %}",
-                    "{% trans 'Fri' %}",
-                    "{% trans 'Sat' %}"
-                ]
-            };
+            wagtailConfig.STRINGS = {% js_translation_strings %};
 
             wagtailConfig.ADMIN_URLS = {
                 PAGES: '{% url "wagtailadmin_explore_root" %}'
