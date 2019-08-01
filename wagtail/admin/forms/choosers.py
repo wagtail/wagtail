@@ -34,3 +34,8 @@ class ExternalLinkChooserForm(forms.Form):
 class EmailLinkChooserForm(forms.Form):
     email_address = forms.EmailField(required=True)
     link_text = forms.CharField(required=False)
+
+
+class PhoneLinkChooserForm(forms.Form):
+    phone_number = forms.CharField(required=True)
+    link_text = forms.CharField(required=False)
