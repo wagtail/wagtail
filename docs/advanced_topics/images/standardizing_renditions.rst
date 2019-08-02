@@ -127,7 +127,7 @@ As before, this assumes that you have your filter specs in the ``settings.py``.
 
     from django.conf import settings
 
-    # Lets say you want to generate a tiny, low quality, version of an image.
+    # Let's say you want to generate a tiny, low quality, version of an image.
     low_quali_image = myimage.get_rendition(
         "{spec}|jpegquality-25".format(
             spec=settings.RENDITION_FILTER_SPECS['thumbnail']
