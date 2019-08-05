@@ -12,25 +12,52 @@ const EmbedBlock = props => {
   const { entity, onRemoveEntity } = props.blockProps;
   const { url, title, thumbnail } = entity.getData();
 
-  return (
-    <MediaBlock {...props} src={thumbnail} alt="">
-      {url ? (
-        <a
-          className="Tooltip__link EmbedBlock__link"
-          href={url}
-          title={url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {title}
-        </a>
-      ) : null}
+  const username = url.split("/").slice()[3]
+  const profile_image = 'https://twitter.com/' + username + '/profile_image?size=original'
+  
+  if (thumbnail) {
+    return (
+      <MediaBlock {...props} src={thumbnail} alt="">
+        {url ? (
+          <a
+            className="Tooltip__link EmbedBlock__link"
+            href={url}
+            title={url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {title}
+          </a>
+        ) : null}
 
-      <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
-        {STRINGS.DELETE}
-      </button>
-    </MediaBlock>
-  );
+        <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
+          {STRINGS.DELETE}
+        </button>
+      </MediaBlock>
+    );
+  }
+
+  else {
+    return (
+      <MediaBlock {...props} src={profile_image} alt="">
+        {url ? (
+          <a
+            className="Tooltip__link EmbedBlock__link"
+            href={url}
+            title={url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {title}
+          </a>
+        ) : null}
+
+        <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
+          {STRINGS.DELETE}
+        </button>
+      </MediaBlock>
+    );
+  };
 };
 
 EmbedBlock.propTypes = {
