@@ -2,8 +2,7 @@
 Committing code
 ===============
 
-This section is for the committers of Wagtail,
-or for anyone interested in the process of getting code committed to Wagtail.
+**This section is for the core team of Wagtail, or for anyone interested in the process of getting code committed to Wagtail.**
 
 Code should only be committed after it has been reviewed
 by at least one other reviewer or committer,
@@ -66,6 +65,10 @@ depending on which will be more readable in the commit history.
 
 Update ``CHANGELOG.txt`` and release notes
 ==========================================
+
+.. note::
+
+    This should only be done by core committers, once the changes have been reviewed and accepted.
 
 Every significant change to Wagtail should get an entry in the ``CHANGELOG.txt``,
 and the release notes for the current version.
