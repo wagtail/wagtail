@@ -6,7 +6,12 @@
     <col width="16%" />
     <thead>
         <tr class="table-headers">
-            {% if can_delete_snippets %}<th><input type="checkbox" class="toggle-select-all"/></th>{% endif %}
+            {% if can_delete_snippets %}
+            <th>
+                <input type="checkbox" class="toggle-select-all" id="toggle-select-all-snippets" />
+                <label for="toggle-select-all-snippets" class="visuallyhidden">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural %}Select all {{ snippet_type_name_plural }}{% endblocktrans %}</label>
+            </th>
+        {% endif %}
             <th>{% trans "Title" %}</th>
         </tr>
     </thead>
@@ -14,7 +19,10 @@
         {% for snippet in items %}
             <tr id="snippet-row-{{ snippet.pk }}">
                 {% if can_delete_snippets %}
-                    <td class="select"><input type="checkbox" name="select_snippet" value="{{ snippet.pk }}" class="toggle-select-row"/></td>
+                    <td class="select">
+                        <input type="checkbox" name="select_snippet" id="select-snippet-{{ snippet.pk }}" value="{{ snippet.pk }}" class="toggle-select-row"/>
+                        <label for="select-snippet-{{ snippet.pk }}" class="visuallyhidden">{% blocktrans %}Select {{ snippet }}{% endblocktrans %}</label>
+                    </td>
                 {% endif %}
                 <td class="title">
                     {% if choosing %}
