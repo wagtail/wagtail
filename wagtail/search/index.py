@@ -225,9 +225,9 @@ class BaseField:
             if hasattr(field, 'get_searchable_content'):
                 value = field.get_searchable_content(value)
             elif isinstance(field, TaggableManager):
-                # Special case for tags fields. Convert QuerySet of TaggedItems into QuerySet of Tags
-                Tag = field.remote_field.model
-                value = Tag.objects.filter(id__in=value.values_list('tag_id', flat=True))
+                # As of django-taggit 1.0, value_from_object returns a list of Tag objects,
+                # which matches what we want
+                pass
             elif isinstance(field, RelatedField):
                 # The type of the ForeignKey may have a get_searchable_content method that we should
                 # call. Firstly we need to find the field its referencing but it may be referencing
