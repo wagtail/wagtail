@@ -4,6 +4,7 @@ import os
 from itertools import chain
 from unittest import mock
 
+from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -3002,9 +3003,14 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that a form error was raised
-        self.assertFormError(
-            response, 'form', 'new_slug', "Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
-        )
+        if DJANGO_VERSION >= (3, 0):
+            self.assertFormError(
+                response, 'form', 'new_slug', "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+            )
+        else:
+            self.assertFormError(
+                response, 'form', 'new_slug', "Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
+            )
 
     def test_page_copy_no_publish_permission(self):
         # Turn user into an editor who can add pages but not publish them
