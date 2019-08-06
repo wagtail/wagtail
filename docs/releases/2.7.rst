@@ -26,6 +26,7 @@ Other features
  * Add ability to insert internal anchor links/links with fragment identifiers in Draftail (rich text) fields (Iman Syed)
  * Added Table Block caption for accessibility (Rahmi Pruitt)
  * Upgrade django-modelcluster to>=5.0 and upgrade django-taggit to >=1.0 for Django 3.0 support (Matt Westcott)
+ * Revise tests to ensure all pass in Django 3.0 (Matt Westcott)
 
 
 
