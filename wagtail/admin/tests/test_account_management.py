@@ -3,6 +3,7 @@ import tempfile
 
 import pytz
 
+from django import VERSION as DJANGO_VERSION
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -309,7 +310,10 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # Check that a validation error was raised
         self.assertTrue('new_password2' in response.context['form'].errors.keys())
-        self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
+        if DJANGO_VERSION >= (3, 0):
+            self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
+        else:
+            self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
         self.assertTrue(get_user_model().objects.get(pk=self.user.pk).check_password('password'))
@@ -692,7 +696,12 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.password_reset_uid = force_text(urlsafe_base64_encode(force_bytes(self.user.pk)))
 
         # Create url_args
-        self.url_kwargs = dict(uidb64=self.password_reset_uid, token=auth_views.INTERNAL_RESET_URL_TOKEN)
+        if DJANGO_VERSION >= (3, 0):
+            token = auth_views.PasswordResetConfirmView.reset_url_token
+        else:
+            token = auth_views.INTERNAL_RESET_URL_TOKEN
+
+        self.url_kwargs = dict(uidb64=self.password_reset_uid, token=token)
 
         # Add token to session object
         s = self.client.session
@@ -772,7 +781,11 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
 
         # Check that a validation error was raised
         self.assertTrue('new_password2' in response.context['form'].errors.keys())
-        self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
+
+        if DJANGO_VERSION >= (3, 0):
+            self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
+        else:
+            self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
         self.assertTrue(get_user_model().objects.get(username='test').check_password('password'))

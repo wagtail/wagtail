@@ -4,6 +4,7 @@ import os
 from itertools import chain
 from unittest import mock
 
+from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -1916,7 +1917,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Check the HTML response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
-        self.assertContains(response, "I&#39;ve been edited!")
+        self.assertContains(response, "I&#39;ve been edited!", html=True)
 
     def test_preview_on_edit_no_session_key(self):
         preview_url = reverse('wagtailadmin_pages:preview_on_edit',
@@ -3002,9 +3003,14 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that a form error was raised
-        self.assertFormError(
-            response, 'form', 'new_slug', "Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
-        )
+        if DJANGO_VERSION >= (3, 0):
+            self.assertFormError(
+                response, 'form', 'new_slug', "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+            )
+        else:
+            self.assertFormError(
+                response, 'form', 'new_slug', "Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
+            )
 
     def test_page_copy_no_publish_permission(self):
         # Turn user into an editor who can add pages but not publish them
@@ -4354,7 +4360,11 @@ class TestCompareRevisions(TestCase, WagtailTestUtils):
         response = self.client.get(compare_url)
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>')
+        self.assertContains(
+            response,
+            '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>',
+            html=True
+        )
 
     def test_compare_revisions_earliest(self):
         compare_url = reverse(
@@ -4364,7 +4374,11 @@ class TestCompareRevisions(TestCase, WagtailTestUtils):
         response = self.client.get(compare_url)
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>')
+        self.assertContains(
+            response,
+            '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>',
+            html=True
+        )
 
     def test_compare_revisions_latest(self):
         compare_url = reverse(
@@ -4374,7 +4388,11 @@ class TestCompareRevisions(TestCase, WagtailTestUtils):
         response = self.client.get(compare_url)
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>')
+        self.assertContains(
+            response,
+            '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>',
+            html=True
+        )
 
     def test_compare_revisions_live(self):
         # Mess with the live version, bypassing revisions
@@ -4391,7 +4409,11 @@ class TestCompareRevisions(TestCase, WagtailTestUtils):
         response = self.client.get(compare_url)
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll just feed it to the dog</span>')
+        self.assertContains(
+            response,
+            '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll just feed it to the dog</span>',
+            html=True
+        )
 
 
 class TestCompareRevisionsWithNonModelField(TestCase, WagtailTestUtils):
