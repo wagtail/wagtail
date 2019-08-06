@@ -385,6 +385,7 @@ Contributors
 * Andrew Miller
 * Rodrigo
 * Iman Syed
+* John Carter
 
 Translators
 ===========
