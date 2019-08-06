@@ -274,19 +274,6 @@ class M2MFieldComparison(FieldComparison):
 
 
 class TagsFieldComparison(M2MFieldComparison):
-    def get_items(self):
-        tags_a = [
-            tag.tag
-            for tag in self.val_a
-        ]
-
-        tags_b = [
-            tag.tag
-            for tag in self.val_b
-        ]
-
-        return tags_a, tags_b
-
     def get_item_display(self, tag):
         return tag.slug
 
