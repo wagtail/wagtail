@@ -11,7 +11,7 @@ import MediaBlock from '../blocks/MediaBlock';
 const EmbedBlock = props => {
   const { entity, onRemoveEntity } = props.blockProps;
   const { url, title, thumbnail, providerName, authorName } = entity.getData();
-  
+
   if (thumbnail) {
     return (
       <MediaBlock {...props} src={thumbnail} alt="">
@@ -34,19 +34,17 @@ const EmbedBlock = props => {
     );
   }
 
-  else {
-    return (
-      <strong>
-        <a href={url} target={'_blank'}>
-          {providerName + ' - ' + authorName + '  '}
-        </a>
+  return (
+    <strong>
+      <a href={url} target={'_blank'}>
+        {providerName + ' - ' + authorName + '  '}
+      </a>
 
-        <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity} >
-          {STRINGS.DELETE}
-        </button>
-      </strong>
-    );
-  };
+      <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity} >
+        {STRINGS.DELETE}
+      </button>
+    </strong>
+  );
 };
 
 EmbedBlock.propTypes = {
