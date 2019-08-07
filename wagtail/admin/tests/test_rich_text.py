@@ -12,8 +12,7 @@ from wagtail.core.models import Page, get_page_models
 from wagtail.core.rich_text import features as feature_registry
 from wagtail.core.rich_text import RichText
 from wagtail.tests.testapp.models import (
-    SingleEventPage, DefaultRichBlockFieldPage, CustomRichBlockFieldPage,
-)
+    CustomRichBlockFieldPage, DefaultRichBlockFieldPage, SingleEventPage)
 from wagtail.tests.testapp.rich_text import CustomRichTextArea
 from wagtail.tests.utils import WagtailTestUtils
 
