@@ -1,5 +1,6 @@
 import datetime
 import json
+from unittest.mock import Mock
 
 import pytz
 from django.contrib.auth import get_user_model
@@ -736,6 +737,67 @@ class TestCopyPage(TestCase):
             new_christmas_event.categories.all().in_bulk(),
             christmas_event.categories.all().in_bulk()
         )
+
+    def test_copy_page_does_not_copy_child_objects_if_accessor_name_in_exclude_fields(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Copy the page as in `test_copy_page_copies_child_objects()``, but using exclude_fields
+        # to prevent 'advert_placements' from being copied to the new version
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'},
+            exclude_fields=['advert_placements']
+        )
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(christmas_event.speakers.count(), 1, "Child objects were removed from the original page")
+
+        # Check that advert placements were NOT copied over, but were not removed from the old page
+        self.assertFalse(
+            new_christmas_event.advert_placements.exists(),
+            "Child objects were copied despite accessor_name being specified in `exclude_fields`"
+        )
+        self.assertEqual(
+            christmas_event.advert_placements.count(),
+            1,
+            "Child objects defined on the superclass were removed from the original page"
+        )
+
+    def test_copy_page_with_process_child_object_supplied(self):
+
+        # We'll provide this when copying and test that it gets called twice:
+        # Once for the single speaker, and another for the single advert_placement
+        modify_child = Mock()
+
+        old_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Create a child event
+        child_event = old_event.copy(update_attrs={'title': "Child christmas event", 'slug': 'child-christmas-event'})
+        child_event.move(old_event, pos='last-child')
+
+        new_event = old_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'},
+            process_child_object=modify_child,
+            recursive=True,
+        )
+
+        # The method should have been called with these arguments when copying
+        # the advert placement
+        relationship = EventPage._meta.get_field('advert_placements')
+        child_object = new_event.advert_placements.get()
+        modify_child.assert_any_call(old_event, new_event, relationship, child_object)
+
+        # And again with these arguments when copying the speaker
+        relationship = EventPage._meta.get_field('speaker')
+        child_object = new_event.speakers.get()
+        modify_child.assert_any_call(old_event, new_event, relationship, child_object)
+
+        # Check that process_child_object was run on the child event page as well
+        new_child_event = new_event.get_children().get().specific
+        child_object = new_child_event.speakers.get()
+        modify_child.assert_any_call(child_event, new_child_event, relationship, child_object)
 
     def test_copy_page_copies_revisions(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
@@ -1534,3 +1596,62 @@ class TestShowInMenusDefaultOption(TestCase):
 
         # Check that the page instance creates with show_in_menu as True
         self.assertTrue(page.show_in_menus)
+
+
+class TestPageWithContentJSON(TestCase):
+    fixtures = ['test.json']
+
+    def test_with_content_json_preserves_values(self):
+        original_page = SimplePage.objects.get(url_path='/home/about-us/')
+        eventpage_content_type = ContentType.objects.get_for_model(EventPage)
+
+        # Take a json representation of the page and update it
+        # with some alternative values
+        content = json.loads(original_page.to_json())
+        content.update(
+            title='About them',
+            draft_title='About them',
+            slug='about-them',
+            url_path='/home/some-section/about-them/',
+            pk=original_page.pk + 999,
+            numchild=original_page.numchild + 999,
+            depth=original_page.depth + 999,
+            path=original_page.path + 'ABCDEF',
+            content='<p>They are not as good</p>',
+            first_published_at="2000-01-01T00:00:00Z",
+            last_published_at="2000-01-01T00:00:00Z",
+            live=not original_page.live,
+            locked=not original_page.locked,
+            has_unpublished_changes=not original_page.has_unpublished_changes,
+            content_type=eventpage_content_type.id,
+            show_in_menus=not original_page.show_in_menus,
+            owner=1
+        )
+
+        # Convert values back to json and pass them to with_content_json()
+        # to get an updated version of the page
+        content_json = json.dumps(content)
+        updated_page = original_page.with_content_json(content_json)
+
+        # The following attributes values should have changed
+        for attr_name in ('title', 'slug', 'content', 'url_path', 'show_in_menus'):
+            self.assertNotEqual(
+                getattr(original_page, attr_name),
+                getattr(updated_page, attr_name)
+            )
+
+        # The following attribute values should have been preserved,
+        # despite new values being provided in content_json
+        for attr_name in (
+            'pk', 'path', 'depth', 'numchild', 'content_type', 'draft_title',
+            'live', 'has_unpublished_changes', 'owner', 'locked',
+            'latest_revision_created_at', 'first_published_at',
+        ):
+            self.assertEqual(
+                getattr(original_page, attr_name),
+                getattr(updated_page, attr_name)
+            )
+
+        # The url_path should reflect the new slug value, but the
+        # rest of the path should have remained unchanged
+        self.assertEqual(updated_page.url_path, '/home/about-them/')

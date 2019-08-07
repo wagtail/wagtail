@@ -92,7 +92,7 @@ select::-ms-expand {
         bottom: 0;
         width: 1.5em;
         font-family: wagtail;
-        content: 'q';
+        content: map-get($icons, 'arrow-down');
         border: 1px solid $color-input-border;
         border-width: 0 0 0 1px;
         text-align: center;

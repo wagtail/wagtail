@@ -1,6 +1,16 @@
 Changelog
 =========
 
+2.7 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~
+
+ * Added `construct_page_listing_buttons` hook (Michael van Tellingen)
+ * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
+ * Fix: Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
+ * Fix: Added https support for Scribd oEmbed provider (Rodrigo)
+ * Fix: Changed StreamField group labels color so labels are visible (Catherine Farman)
+
+
 2.6 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
@@ -18,6 +28,25 @@ Changelog
  * Increase font-size across the whole admin (Beth Menzies, Katie Locke)
  * Improved text color contrast across the whole admin (Beth Menzies, Katie Locke)
  * Added consistent focus outline styles across the whole admin (Thibaud Colas)
+ * Removed version number from the logo link’s title. The version can now be found under the Settings menu (Thibaud Colas)
+ * Added "don't delete" option to confirmation screen when deleting images, documents and modeladmin models (Kevin Howbrook)
+ * Added `branding_title` template block for the admin title prefix (Dillen Meijboom)
+ * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
+ * Added support for custom search handler classes to modeladmin's IndexView, and added a class that uses the default Wagtail search backend for searching (Seb Brown, Andy Babic)
+ * Improved heading structure for screen reader users navigating the CMS admin (Beth Menzies, Helen Chapman)
+ * Updated group edit view to expose the Permission object for each checkbox (George Hickman)
+ * Improve performance of Pages for Moderation panel (Fidel Ramos)
+ * Add more contextual information for screen readers in the explorer menu’s links (Helen Chapman)
+ * Added `process_child_object` and `exclude_fields` arguments to ``Page.copy()`` to make it easier for third-party apps to customise copy behavior (Karl Hobley)
+ * Added `Page.with_content_json()`, allowing revision content loading behaviour to be customised on a per-model basis (Karl Hobley)
+ * Improved screen-reader labels for action links in page listing (Helen Chapman, Katie Locke)
+ * Added screen-reader labels for table headings in page listing (Helen Chapman, Katie Locke)
+ * Added screen reader labels for page privacy toggle, edit lock, status tag in page explorer & edit views (Helen Chapman, Katie Locke)
+ * Added screen-reader labels for dashboard summary cards (Helen Chapman, Katie Locke)
+ * Added screen-reader labels for privacy toggle of collections (Helen Chapman, Katie Locke)
+ * Added `construct_settings_menu` hook (Jordan Bauer, Quadric)
+ * Fixed compatibility of date / time choosers with wagtail-react-streamfield (Mike Hearn)
+ * Performance optimization of several admin functions, including breadcrumbs, home and index pages (Fidel Ramos)
  * Fix: ModelAdmin no longer fails when filtering over a foreign key relation (Jason Dilworth, Matt Westcott)
  * Fix: The Wagtail version number is now visible within the Settings menu (Kevin Howbrook)
  * Fix: Scaling images now rounds values to an integer so that images render without errors (Adrian Brunyate)
@@ -33,6 +62,29 @@ Changelog
  * Fix: Make URL generator preview image alt translateable (Thibaud Colas)
  * Fix: Clear pending AJAX request if error occurs on page chooser (Matt Westcott)
  * Fix: Prevent text from overlapping in focal point editing UI (Beth Menzies)
+ * Fix: Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
+ * Fix: Screen readers now treat page-level action dropdowns as navigation instead of menus (Helen Chapman)
+ * Fix: Make icon font implementation more screen-reader-friendly (Thibaud Colas)
+ * Fix: Remove duplicate labels in image gallery and image choosers for screen reader users (Helen Chapman)
+ * Fix: Restore custom "Date" icon for scheduled publishing panel in Edit page’s Settings tab (Helen Chapman)
+ * Fix: Added missing form media to user edit form template (Matt Westcott)
+ * Fix: Add a label to the modals’ “close” button for screen reader users (Helen Chapman, Katie Locke)
+ * Fix: Ensure the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
+ * Fix: Remove tab order customisations in CMS admin (Jordan Bauer)
+ * Fix: Add labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
+ * Fix: Page.copy() no longer copies child objects when the accesssor name is included in `exclude_fields_in_copy` (Karl Hobley)
+ * Fix: Move focus to the pages explorer menu when open (Helen Chapman)
+ * Fix: Clicking the privacy toggle while the page is still loading no longer loads the wrong data in the page (Helen Chapman)
+ * Fix: Added missing `is_stored_locally` method to `AbstractDocument` (jonny5532)
+ * Fix: Query model no longer removes punctuation as part of string normalisation (William Blackie)
+ * Fix: Make login test helper work with user models with non-default username fields (Andrew Miller)
+ * Fix: Delay dirty form check to prevent "unsaved changes" warning from being wrongly triggered (Thibaud Colas)
+
+
+2.5.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Delay dirty form check to prevent "unsaved changes" warning from being wrongly triggered (Thibaud Colas)
 
 
 2.5.1 (07.05.2019)

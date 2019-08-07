@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019
 # B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-05-10 18:32+0000\n"
-"Last-Translator: B N <biczoxd@gmail.com>\n"
+"PO-Revision-Date: 2019-05-03 17:22+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -20,10 +21,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail search"
-msgstr "Wagtail keresés"
+msgstr "Keresés"
 
 msgid "Search term(s)/phrase"
-msgstr "Kifejezés(ek) keresése"
+msgstr "Keresett kifejezés(ek)/szó"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Írja be a teljes kifejezést az egyezéshez. A teljes egyezés szükséges a "
+"népszerűsített eredmények megjelenítéshez, a helyettesítő karakterek NEM "
+"engedélyezettek."
+
+msgid "Query Daily Hits"
+msgstr "Napi találatok lekérdezése"
 
 msgid "Popular search terms"
 msgstr "Népszerű keresések"
@@ -33,6 +45,9 @@ msgstr "Keresés"
 
 msgid "Terms"
 msgstr "Kifejezések"
+
+msgid "Views (past week)"
+msgstr "Megtekintések (elmúlt hétben)"
 
 msgid "No results found"
 msgstr "Nincs találat."

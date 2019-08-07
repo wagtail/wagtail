@@ -1,0 +1,33 @@
+==========================================
+Wagtail 2.7 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+Wagtail 2.7 is designated a Long Term Support (LTS) release. Long Term Support releases will continue to receive maintenance updates as necessary to address security and data-loss related issues, up until the next LTS release (typically a period of 12 months).
+
+
+What's new
+==========
+
+
+Other features
+~~~~~~~~~~~~~~
+
+ * Added ``construct_page_listing_buttons`` hook (Michael van Tellingen)
+ * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
+
+
+Bug fixes
+~~~~~~~~~
+
+ * Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
+ * Added https support for Scribd oEmbed provider (Rodrigo)
+ * Changed StreamField group label color so labels are visible (Catherine Farman)
+
+
+Upgrade considerations
+======================

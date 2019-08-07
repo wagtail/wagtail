@@ -74,7 +74,7 @@
                     </div>
 
                     {% block pagination %}
-                        <nav class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}" role="navigation" aria-label="{% trans 'Pagination' %}">
+                        <nav class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}" aria-label="{% trans 'Pagination' %}">
                             <p>{% blocktrans with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
                             {% if paginator.num_pages > 1 %}
                                 <ul>

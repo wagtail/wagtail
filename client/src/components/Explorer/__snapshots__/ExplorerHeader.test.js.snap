@@ -4,6 +4,7 @@ exports[`ExplorerHeader #depth at root 1`] = `
 <Button
   accessibleLabel={null}
   className="c-explorer__header"
+  dialogTrigger={false}
   href="/admin/pages/"
   icon=""
   isLoading={false}
@@ -30,6 +31,7 @@ exports[`ExplorerHeader #page 1`] = `
 <Button
   accessibleLabel={null}
   className="c-explorer__header"
+  dialogTrigger={false}
   href="/admin/pages/a/"
   icon=""
   isLoading={false}
@@ -56,6 +58,7 @@ exports[`ExplorerHeader basic 1`] = `
 <Button
   accessibleLabel={null}
   className="c-explorer__header"
+  dialogTrigger={false}
   href="/admin/pages/"
   icon=""
   isLoading={false}

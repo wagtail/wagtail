@@ -1,5 +1,5 @@
 {% load i18n static %}
-{% if view.search_fields %}
+{% if show_search %}
 <form id="changelist-search" class="col search-form" action="{{ view.index_url }}" method="get">
     <ul class="fields">
         <li class="required">

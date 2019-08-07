@@ -9,11 +9,9 @@ import PublicationStatus from './components/PublicationStatus/PublicationStatus'
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import Portal from './components/Portal/Portal';
 import Transition from './components/Transition/Transition';
-import Explorer, {
-  ExplorerToggle,
-  initExplorer,
-} from './components/Explorer';
+import Explorer, { ExplorerToggle, initExplorer } from './components/Explorer';
 import { initFocusOutline } from './utils/focus';
+import { initSubmenus } from './includes/initSubmenus';
 
 export {
   Button,
@@ -26,4 +24,5 @@ export {
   ExplorerToggle,
   initExplorer,
   initFocusOutline,
+  initSubmenus,
 };

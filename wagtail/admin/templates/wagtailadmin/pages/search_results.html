@@ -12,8 +12,8 @@
         {% search_other %}
 
         {% if pages.object_list.supports_facet %}
-            <nav class="listing-filter" role="navigation">
-                <h3 class="filter-title">{% trans "Page types" %}</h3>
+            <nav class="listing-filter" aria-labelledby="page-types-title">
+                <h3 id="page-types-title" class="filter-title">{% trans "Page types" %}</h3>
                 <ul class="filter-options">
                     {% if not selected_content_type %}
                         <li style="background-color: #E6E6E6">All ({{ all_pages.count }})</li>

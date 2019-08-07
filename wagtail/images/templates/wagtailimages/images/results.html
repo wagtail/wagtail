@@ -19,8 +19,14 @@
         {% for image in images %}
             <li>
                 <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% url 'wagtailimages:edit' image.id %}">
-                    {% include "wagtailimages/images/results_image.html" %}
-                    <h3>{{ image.title|ellipsistrim:60 }}</h3>
+                    <figure>
+                        {% include "wagtailimages/images/results_image.html" %}
+                        {% trans "pixels" as translated_pixels %}
+                        <figcaption>
+                            {{ image.title|ellipsistrim:60 }}
+                            <span class="visuallyhidden">{{ image.width }} {{ translated_pixels  }} &#215; {{ image.height }} {{ translated_pixels}}</span>
+                        </figcaption>
+                    </figure>
                 </a>
             </li>
         {% endfor %}

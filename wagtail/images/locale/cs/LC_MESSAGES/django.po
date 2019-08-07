@@ -6,13 +6,14 @@
 # IT Management <info@itmanagement.cz>, 2018
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Marek Turnovec <aesculap@gmail.com>, 2016
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:08+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-07-08 11:01+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +52,10 @@ msgstr "Toto není validní obrázek %s."
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Soubor je příliš velký (%%s). Maximální velikost souboru %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "Soubor má příliš mnoho bodů (%%). Maximum je %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -244,6 +249,18 @@ msgstr "Úprava"
 
 msgid "URL Generator"
 msgstr "Generátor URL"
+
+msgid "Focal point"
+msgstr "Bod pro ostření"
+
+msgid "(optional)"
+msgstr "(volitelné)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Určete nejdůležitější oblast obrázku tím, že přesunete box nad obrázkem."
 
 msgid "Current focal point shown"
 msgstr "Zobrazen aktuální středový bod"

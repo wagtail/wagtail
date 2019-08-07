@@ -8,14 +8,15 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2018
+# Peter Dreuw <archandha@gmx.net>, 2019
 # Vorlif <flori@vorlif.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-06-23 14:45+0000\n"
+"Last-Translator: Peter Dreuw <archandha@gmx.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +57,7 @@ msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."
 msgstr ""
-"Beim Versuch, diese URL einzubetten ist ein Fehler mit Embedly aufgetreten. "
+"Beim Versuch, diese URL einzubetten, ist ein Fehler mit Embedly aufgetreten. "
 "Bitte versuchen Sie es später erneut."
 
 msgid "Embed"

@@ -30,14 +30,20 @@ function initDateChooser(id, opts) {
             timepicker: false,
             scrollInput: false,
             format: 'Y-m-d',
-            onGenerate: hideCurrent
+            onGenerate: hideCurrent,
+            onChangeDateTime: function(_, $el) {
+              $el.get(0).dispatchEvent(new Event('change'))
+            }
         }, opts || {}));
     } else {
         $('#' + id).datetimepicker($.extend({
             timepicker: false,
             scrollInput: false,
             format: 'Y-m-d',
-            onGenerate: hideCurrent
+            onGenerate: hideCurrent,
+            onChangeDateTime: function(_, $el) {
+              $el.get(0).dispatchEvent(new Event('change'))
+            }
         }, opts || {}));
     }
 }
@@ -49,11 +55,17 @@ function initTimeChooser(id) {
             datepicker: false,
             scrollInput: false,
             format: 'H:i',
+            onChangeDateTime: function(_, $el) {
+              $el.get(0).dispatchEvent(new Event('change'))
+            }
         });
     } else {
         $('#' + id).datetimepicker({
             datepicker: false,
-            format: 'H:i'
+            format: 'H:i',
+            onChangeDateTime: function(_, $el) {
+              $el.get(0).dispatchEvent(new Event('change'))
+            }
         });
     }
 }
@@ -64,12 +76,18 @@ function initDateTimeChooser(id, opts) {
             closeOnDateSelect: true,
             format: 'Y-m-d H:i',
             scrollInput: false,
-            onGenerate: hideCurrent
+            onGenerate: hideCurrent,
+            onChangeDateTime: function(_, $el) {
+              $el.get(0).dispatchEvent(new Event('change'))
+            }
         }, opts || {}));
     } else {
         $('#' + id).datetimepicker($.extend({
             format: 'Y-m-d H:i',
-            onGenerate: hideCurrent
+            onGenerate: hideCurrent,
+            onChangeDateTime: function(_, $el) {
+              $el.get(0).dispatchEvent(new Event('change'))
+            }
         }, opts || {}));
     }
 }

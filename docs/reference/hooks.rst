@@ -212,6 +212,14 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   As ``register_admin_menu_item``, but registers menu items into the 'Settings' sub-menu rather than the top-level menu.
 
 
+.. _construct_settings_menu:
+
+``construct_settings_menu``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  As ``construct_main_menu``, but modifies the 'Settings' sub-menu rather than the top-level menu.
+
+
 .. _register_admin_search_area:
 
 ``register_admin_search_area``
@@ -564,6 +572,23 @@ Hooks for customising the way users are directed through the process of creating
     def remove_submit_to_moderator_option(menu_items, request, context):
         menu_items[:] = [item for item in menu_items if item.name != 'action-submit']
 
+.. construct_page_listing_buttons:
+
+``construct_page_listing_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Modify the final list of page listing buttons in the page explorer. The
+  callable passed to this hook receives a list of ``Button`` objects, a request
+  object and a context dictionary as per ``register_page_action_menu_item``,
+  and should modify the list of menu items in-place.
+
+  .. code-block:: python
+
+    @hooks.register('construct_page_listing_buttons')
+    def remove_page_listing_button_item(buttons, page, page_perms, is_parent=False, context=None):
+        if is_parent:
+            buttons.pop() # removes the last 'more' dropdown button on the parent page listing buttons
+
 
 .. _construct_wagtail_userbar:
 
@@ -623,6 +648,8 @@ Hooks for customising the way admins are directed through the process of editing
   This can be used to completely override the user editor on a per-view basis:
 
   .. code-block:: python
+
+    from django.http import HttpResponse
 
     from wagtail.core import hooks
 
@@ -851,6 +878,8 @@ Page serving
   Called when Wagtail is about to serve a page. The callable passed into the hook will receive the page object, the request object, and the ``args`` and ``kwargs`` that will be passed to the page's ``serve()`` method. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``serve()`` on the page.
 
   .. code-block:: python
+
+    from django.http import HttpResponse
 
     from wagtail.core import hooks
 

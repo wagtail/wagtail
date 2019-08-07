@@ -5,57 +5,71 @@ Feature Detection
 
 Wagtail has the ability to automatically detect faces and features inside your images and crop the images to those features.
 
-Feature detection uses OpenCV to detect faces/features in an image when the image is uploaded. The detected features stored internally as a focal point in the ``focal_point_{x, y, width, height}`` fields on the ``Image`` model. These fields are used by the ``fill`` image filter when an image is rendered in a template to crop the image.
+Feature detection uses `OpenCV <https://opencv.org>`_, the Open Source Computer Vision Library, to detect faces/features in an image when the image is uploaded. The detected features are stored internally as a focal point in the ``focal_point_{x, y, width, height}`` fields on the ``Image`` model. These fields are used by the ``fill`` image filter when an image is rendered in a template to crop the image.
 
 
-Setup
------
+Installation
+------------
 
-Feature detection requires OpenCV which can be a bit tricky to install as it's not currently pip-installable.
+Three components are required to get this working with Wagtail:
 
-
-Installing OpenCV on Debian/Ubuntu
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Debian and ubuntu provide an apt-get package called ``python-opencv``:
-
- .. code-block:: console
-
-    $ sudo apt-get install python-opencv python-numpy
-
-This will install PyOpenCV into your site packages. If you are using a virtual environment, you need to make sure site packages are enabled or Wagtail will not be able to import PyOpenCV.
+* OpenCV itself
+* various system-level components that OpenCV relies on
+* a Python interface to OpenCV, exposed as ``cv2``
 
 
-Enabling site packages in the virtual environment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Installation options
+~~~~~~~~~~~~~~~~~~~~
 
-If you are not using a virtual environment, you can skip this step.
-
-Enabling site packages is different depending on whether you are using pyvenv (Python 3.3+ only) or virtualenv to manage your virtual environment.
+There is more than one way to install these components, but in each case you will need to test that both OpenCV itself *and* the Python interface have been correctly installed.
 
 
-pyvenv
-``````
+Install ``opencv-python``
+`````````````````````````
 
-Go into your pyvenv directory and open the ``pyvenv.cfg`` file then set ``include-system-site-packages`` to ``true``.
+`opencv-python <https://pypi.org/project/opencv-python/>`_ is available on PyPI.
+It includes a Python interface to OpenCV, as well as the statically-built OpenCV binaries themselves.
+
+To install:
+
+.. code-block:: console
+
+    $ pip install opencv-python
+
+Depending on what else is installed on your system, this may be all that is required. On lighter-weight Linux systems, you may need to identify and install missing system libraries (for example, a slim version of Debian Stretch requires ``libsm6 libxrender1 libxext6`` to be installed with ``apt``).
 
 
-virtualenv
-``````````
+Install a system-level package
+``````````````````````````````
 
-Go into your virtualenv directory and delete a file called ``lib/python-x.x/no-global-site-packages.txt``.
+A system-level package can take care of all of the required components. Check what is available for your operating system. For example, `python-opencv <https://packages.debian.org/stretch/python-opencv>`_ is available for Debian; it installs OpenCV itself, and sets up Python bindings.
+
+However, it may make incorrect assumptions about how you're using Python (for example, which version you're using) - test as described below.
 
 
-Testing the OpenCV installation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Testing the installation
+````````````````````````
 
-You can test that OpenCV can be seen by Wagtail by opening up a python shell (with your virtual environment active) and typing:
+Test the installation::
 
- .. code-block:: python
+    python3
+    >>> import cv2
 
-    import cv
+An error such as::
 
-If you don't see an ``ImportError``, it worked. (If you see the error ``libdc1394 error: Failed to initialize libdc1394``, this is harmless and can be ignored.)
+    ImportError: libSM.so.6: cannot open shared object file: No such file or directory
+
+indicates that a required system library (in this case ``libsm6``) has not been installed.
+
+On the other hand,
+
+::
+
+    ModuleNotFoundError: No module named 'cv2'
+
+means that the Python components have not been set up correctly in your Python environment.
+
+If you don't get an import error, installation has probably been successful.
 
 
 Switching on feature detection in Wagtail
@@ -75,7 +89,7 @@ Manually running feature detection
 
 Feature detection runs when new images are uploaded in to Wagtail. If you already have images in your Wagtail site and would like to run feature detection on them, you will have to run it manually.
 
-You can manually run feature detection on all images by running the following code in the python shell:
+You can manually run feature detection on all images by running the following code in the Python shell:
 
  .. code-block:: python
 

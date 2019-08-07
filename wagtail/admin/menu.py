@@ -1,7 +1,6 @@
 from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
-from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
@@ -101,10 +100,6 @@ class SubmenuMenuItem(MenuItem):
         self.menu = menu
         super().__init__(label, '#', **kwargs)
 
-    @property
-    def media(self):
-        return Media(js=[static('wagtailadmin/js/submenu.js')]) + self.menu.media
-
     def is_shown(self, request):
         # show the submenu if one or more of its children is shown
         return bool(self.menu.menu_items_for_request(request))
@@ -120,4 +115,4 @@ class SubmenuMenuItem(MenuItem):
 
 
 admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')
-settings_menu = Menu(register_hook_name='register_settings_menu_item')
+settings_menu = Menu(register_hook_name='register_settings_menu_item', construct_hook_name='construct_settings_menu')

@@ -12,8 +12,8 @@ from wagtail.core import hooks
 from wagtail.core.models import Page
 
 from .helpers import (
-    AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
-    PermissionHelper)
+    AdminURLHelper, ButtonHelper, DjangoORMSearchHandler, PageAdminURLHelper, PageButtonHelper,
+    PagePermissionHelper, PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
 from .mixins import ThumbnailMixin  # NOQA
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
@@ -96,6 +96,8 @@ class ModelAdmin(WagtailRegisterable):
     inspect_template_name = ''
     delete_template_name = ''
     choose_parent_template_name = ''
+    search_handler_class = DjangoORMSearchHandler
+    extra_search_kwargs = {}
     permission_helper_class = None
     url_helper_class = None
     button_helper_class = None
@@ -238,6 +240,22 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.search_fields or ()
 
+    def get_search_handler(self, request, search_fields=None):
+        """
+        Returns an instance of ``self.search_handler_class`` that can be used by
+        ``IndexView``.
+        """
+        return self.search_handler_class(
+            search_fields or self.get_search_fields(request)
+        )
+
+    def get_extra_search_kwargs(self, request, search_term):
+        """
+        Returns a dictionary of additional kwargs to be sent to
+        ``SearchHandler.search_queryset()``.
+        """
+        return self.extra_search_kwargs
+
     def get_extra_attrs_for_row(self, obj, context):
         """
         Return a dictionary of HTML attributes to be added to the `<tr>`
@@ -358,7 +376,7 @@ class ModelAdmin(WagtailRegisterable):
     def edit_view(self, request, instance_pk):
         """
         Instantiates a class-based view to provide 'edit' functionality for the
-        assigned model, or redirect to Wagtail's edit view if the assinged
+        assigned model, or redirect to Wagtail's edit view if the assigned
         model extends 'Page'. The view class used can be overridden by changing
         the  'edit_view_class' attribute.
         """
@@ -370,7 +388,7 @@ class ModelAdmin(WagtailRegisterable):
         """
         Instantiates a class-based view to provide 'delete confirmation'
         functionality for the assigned model, or redirect to Wagtail's delete
-        confirmation view if the assinged model extends 'Page'. The view class
+        confirmation view if the assigned model extends 'Page'. The view class
         used can be overridden by changing the 'delete_view_class'
         attribute.
         """

@@ -280,16 +280,99 @@ for your model. For example:
 ``ModelAdmin.search_fields``
 ----------------------------
 
-**Expected value**: A list or tuple, where each item is the name of a model field
-of type ``CharField``, ``TextField``, ``RichTextField`` or ``StreamField``.
+**Expected value**: A list or tuple, where each item is the name of a model
+field of type ``CharField``, ``TextField``, ``RichTextField`` or
+``StreamField``.
 
 Set ``search_fields`` to enable a search box at the top of the index page
 for your model. You should add names of any fields on the model that should
 be searched whenever somebody submits a search query using the search box.
 
-Searching is all handled via Django's QuerySet API, rather than using Wagtail's
-search backend. This means it will work for all models, whatever search backend
+Searching is handled via Django's QuerySet API by default,
+see `ModelAdmin.search_handler_class`_ about changing this behaviour.
+This means by default it will work for all models, whatever search backend
 your project is using, and without any additional setup or configuration.
+
+
+.. _modeladmin_search_handler_class:
+
+-----------------------------------
+``ModelAdmin.search_handler_class``
+-----------------------------------
+
+**Expected value**: A subclass of
+``wagtail.contrib.modeladmin.helpers.search.BaseSearchHandler``
+
+The default value is ``DjangoORMSearchHandler``, which uses the Django ORM to
+perform lookups on the fields specified by ``search_fields``.
+
+If you would prefer to use the built-in Wagtail search backend to search your
+models, you can use the ``WagtailBackendSearchHandler`` class instead. For
+example:
+
+.. code-block:: python
+
+    from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
+
+    from .models import Person
+
+    class PersonAdmin(ModelAdmin):
+        model = Person
+        search_handler_class = WagtailBackendSearchHandler
+
+
+Extra considerations when using ``WagtailBackendSearchHandler``
+===============================================================
+
+
+``ModelAdmin.search_fields`` is used differently
+------------------------------------------------
+
+The value of ``search_fields`` is passed to the underlying search backend to
+limit the fields used when matching. Each item in the list must be indexed
+on your model using :ref:`wagtailsearch_index_searchfield`.
+
+To allow matching on **any** indexed field, set the ``search_fields`` attribute
+on your ``ModelAdmin`` class to ``None``, or remove it completely.
+
+
+Indexing extra fields using ``index.FilterField``
+-------------------------------------------------
+
+The underlying search backend must be able to interpret all of the fields and
+relationships used in the queryset created by ``IndexView``, including those
+used in ``prefetch()`` or ``select_related()`` queryset methods, or used in
+``list_display``, ``list_filter`` or ``ordering``.
+
+Be sure to test things thoroughly in a development environment (ideally
+using the same search backend as you use in production). Wagtail will raise
+an ``IndexError`` if the backend encounters something it does not understand,
+and will tell you what you need to change.
+
+
+.. _modeladmin_extra_search_kwargs:
+
+----------------------------------
+``ModelAdmin.extra_search_kwargs``
+----------------------------------
+
+**Expected value**: A dictionary of keyword arguments that will be passed on to the ``search()`` method of
+``search_handler_class``.
+
+For example, to override the ``WagtailBackendSearchHandler`` default operator you could do the following:
+
+.. code-block:: python
+
+    from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
+    from wagtail.search.utils import OR
+
+    from .models import IndexedModel
+
+    class DemoAdmin(ModelAdmin):
+        model = IndexedModel
+        search_handler_class = WagtailBackendSearchHandler
+        extra_search_kwargs = {'operator': OR}
+
 
 .. _modeladmin_ordering:
 
@@ -317,6 +400,7 @@ language) you can override the ``get_ordering()`` method instead.
 
 Set ``list_per_page`` to control how many items appear on each paginated page
 of the index view. By default, this is set to ``100``.
+
 
 .. _modeladmin_get_queryset:
 
@@ -646,4 +730,3 @@ See the following part of the docs to find out more:
 
 See the following part of the docs to find out more:
 :ref:`modeladmin_overriding_views`
-

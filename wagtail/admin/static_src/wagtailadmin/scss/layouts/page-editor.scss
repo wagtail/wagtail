@@ -85,7 +85,7 @@ $object-title-height: 40px;
         opacity: 1;
     }
 
-    > h2 {
+    > .title-wrapper {
         box-sizing: border-box;
         height: $object-title-height;
         -webkit-font-smoothing: auto;
@@ -114,13 +114,12 @@ $object-title-height: 40px;
             font-size: inherit;
         }
 
-        &:before,
-        label:before {
+        &:before {
             @include font-smoothing;
             text-shadow: none;
             font-family: wagtail;
             text-transform: none;
-            content: 'q';
+            content: map-get($icons, 'arrow-down');
             text-align: center;
             display: block;
             position: absolute;
@@ -149,7 +148,7 @@ $object-title-height: 40px;
     }
 
     &.required {
-        > h2 label:after {
+        > .title-wrapper label:after {
             content: '*';
             color: $color-red;
             font-weight: bold;
@@ -222,8 +221,8 @@ $object-title-height: 40px;
 
     // special panel for the publishing fields, requires a bit more pizzazz
     &.publishing {
-        > h2:before {
-            content: '7';
+        > .title-wrapper:before {
+            content: map-get($icons, 'date');
             font-size: 1.8rem;
             line-height: 1.4em;
             width: 1.4em;
@@ -255,7 +254,7 @@ $object-title-height: 40px;
     &.empty {
         border-bottom: 1px solid $color-white;
 
-        > h2 {
+        > h3 {
             margin: 0;
             border-bottom: 1px solid $color-white;
         }
@@ -305,19 +304,17 @@ $object-title-height: 40px;
         // and h2 has position: absolute which doesn't add to it either, so it would be 0 without this
         min-height: 41px;
 
-        > h2 {
-            &:before,
-            > label:before {
-                content: '6';
+        .title-wrapper {
+            &:before {
+                content: map-get($icons, 'collapse-up');
                 cursor: pointer;
             }
         }
 
         &.collapsed {
-            > h2 {
-                &:before,
-                > label:before {
-                    content: '5';
+            .title-wrapper {
+                &:before {
+                    content: map-get($icons, 'collapse-down');
                 }
             }
         }

@@ -31,9 +31,9 @@ issued from those branches.
 .. glossary::
 
   Feature release
-    Feature releases (A.B, A.B+1, etc.) will happen roughly every two months
+    Feature releases (A.B, A.B+1, etc.) happen every three months
     -- see `release process <#release-process>`__ for details. These releases will contain new
-    features, improvements to existing features, and such.
+    features and improvements to existing features.
 
   Patch release
     Patch releases (A.B.C, A.B.C+1, etc.) will be issued as needed, to fix
@@ -159,7 +159,8 @@ Wagtail 1.4 will still support only Django 1.8 (LTS) and 1.9.
 Release process
 ===============
 
-Wagtail uses a time-based release schedule, with feature releases every two months or so.
+Wagtail uses a `time-based release schedule <https://github.com/wagtail/wagtail/wiki/Release-schedule>`_, 
+with feature releases every three months.
 
 After each feature release, the release manager will announce a timeline for
 the next feature release.

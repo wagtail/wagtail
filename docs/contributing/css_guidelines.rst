@@ -96,7 +96,7 @@ Formatting
    param, e.g., ``rgba(#000, .5)``).
 -  Use ``//`` for comment blocks (instead of ``/* */``).
 -  Use single quotes for string values
-   ``background: url('my/image.png')`` or ``content: 'moose'``
+   ``background: url('my/image.png')``
 -  Avoid specifying units for zero values, e.g., ``margin: 0;`` instead
    of ``margin: 0px;``.
 -  Strive to limit use of shorthand declarations to instances where you

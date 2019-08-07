@@ -30,7 +30,7 @@
         position: absolute;
         left: 1em;
         top: 0.7em;
-        content: '?';
+        content: map-get($icons, 'help');
         font-size: 1.4em;
     }
 }
@@ -48,7 +48,7 @@
 
     &:before {
         color: $color-orange;
-        content: '!';
+        content: map-get($icons, 'warning');
     }
 }
 
@@ -57,6 +57,6 @@
 
     &:before {
         color: $color-red;
-        content: '!';
+        content: map-get($icons, 'warning');
     }
 }

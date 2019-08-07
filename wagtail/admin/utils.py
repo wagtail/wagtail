@@ -17,6 +17,7 @@ from django.utils.translation import override, ugettext_lazy
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
+from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core.models import GroupPagePermission, Page, PageRevision
 from wagtail.users.models import UserProfile
 
@@ -27,6 +28,7 @@ logger = logging.getLogger('wagtail.admin')
 WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('ar', ugettext_lazy('Arabic')),
     ('ca', ugettext_lazy('Catalan')),
+    ('cs', ugettext_lazy('Czech')),
     ('de', ugettext_lazy('German')),
     ('el', ugettext_lazy('Greek')),
     ('en', ugettext_lazy('English')),
@@ -34,6 +36,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('fi', ugettext_lazy('Finnish')),
     ('fr', ugettext_lazy('French')),
     ('gl', ugettext_lazy('Galician')),
+    ('hu', ugettext_lazy('Hungarian')),
     ('id-id', ugettext_lazy('Indonesian')),
     ('is-is', ugettext_lazy('Icelandic')),
     ('it', ugettext_lazy('Italian')),
@@ -329,3 +332,19 @@ def user_has_any_page_permission(user):
 
     # No luck! This user can not do anything with pages.
     return False
+
+
+def get_site_for_user(user):
+    root_page = get_explorable_root_page(user)
+    if root_page:
+        root_site = root_page.get_site()
+    else:
+        root_site = None
+    real_site_name = None
+    if root_site:
+        real_site_name = root_site.site_name if root_site.site_name else root_site.hostname
+    return {
+        'root_page': root_page,
+        'root_site': root_site,
+        'site_name': real_site_name if real_site_name else settings.WAGTAIL_SITE_NAME,
+    }

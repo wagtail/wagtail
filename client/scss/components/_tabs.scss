@@ -16,6 +16,11 @@
         }
     }
 
+    h2 {
+        margin: 0;
+        font-size: inherit;
+    }
+
     a {
         @include transition(border-color 0.2s ease);
         background-color: $color-teal-darker;
@@ -68,7 +73,7 @@
             font-family: wagtail;
             vertical-align: middle;
             text-transform: none;
-            content: 'w';
+            content: map-get($icons, 'cog');
             margin-right: 0.5em;
             font-size: 1.2em;
             font-weight: normal;

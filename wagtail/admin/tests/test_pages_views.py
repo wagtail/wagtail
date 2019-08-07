@@ -190,6 +190,18 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         page_ids = [page.id for page in response.context['pages']]
         self.assertEqual(page_ids, [self.child_page.id])
 
+    def test_construct_construct_page_listing_buttons_hook(self):
+        # testapp implements a construct_page_listing_buttons hook
+        # that add's an dummy button with the label 'Dummy Button' which points
+        # to '/dummy-button'
+        response = self.client.get(
+            reverse('wagtailadmin_explore', args=(self.root_page.id, )),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        self.assertContains(response, 'Dummy Button')
+        self.assertContains(response, '/dummy-button')
+
     def make_pages(self):
         for i in range(150):
             self.root_page.add_child(instance=SimplePage(
@@ -1993,8 +2005,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
 
-        link_to_draft = '<a href="/revised-slug-in-draft-only/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
-        link_to_live = '<a href="/hello-world/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
+        link_to_draft = '<a href="/revised-slug-in-draft-only/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
+        link_to_live = '<a href="/hello-world/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
 
@@ -2016,8 +2028,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.single_event_page.id, )))
 
-        link_to_draft = '<a href="/revised-slug-in-draft-only/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
-        link_to_live = '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
+        link_to_draft = '<a href="/revised-slug-in-draft-only/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
+        link_to_live = '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" id="id_slug" maxlength="255" required />'
 

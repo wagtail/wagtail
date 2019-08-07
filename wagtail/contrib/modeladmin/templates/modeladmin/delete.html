@@ -23,6 +23,7 @@
                 <form action="{{ view.delete_url }}" method="POST">
                     {% csrf_token %}
                     <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+                    <a href="{{ view.index_url }}" class="button button-secondary">{% trans "No, don't delete" %}</a>
                 </form>
             {% endif %}
         </div>

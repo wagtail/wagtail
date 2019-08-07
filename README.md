@@ -88,6 +88,9 @@ You might like to start by reviewing the [contributing guidelines](http://docs.w
 
 We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/projects/p/wagtail/).
 
+### License
+[BSD](https://github.com/wagtail/wagtail/blob/master/LICENSE)
+
 ### Thanks
 
 We thank [BrowserStack](https://www.browserstack.com/), who provide the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.

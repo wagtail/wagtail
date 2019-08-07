@@ -1050,11 +1050,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Log
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
-    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None):
+    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None, process_child_object=None, exclude_fields=None):
         # Fill dict with self.specific values
         specific_self = self.specific
         default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
-        exclude_fields = default_exclude_fields + specific_self.exclude_fields_in_copy
+        exclude_fields = default_exclude_fields + specific_self.exclude_fields_in_copy + (exclude_fields or [])
         specific_dict = {}
 
         for field in specific_self._meta.get_fields():
@@ -1117,6 +1117,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         specific_self = self.specific
         for child_relation in get_all_child_relations(specific_self):
             accessor_name = child_relation.get_accessor_name()
+
+            if accessor_name in exclude_fields:
+                continue
+
             parental_key_name = child_relation.field.attname
             child_objects = getattr(specific_self, accessor_name, None)
 
@@ -1125,6 +1129,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     old_pk = child_object.pk
                     child_object.pk = None
                     setattr(child_object, parental_key_name, page_copy.id)
+
+                    if process_child_object is not None:
+                        process_child_object(specific_self, page_copy, child_relation, child_object)
+
                     child_object.save()
 
                     # Add mapping to new primary key (so we can apply this change to revisions)
@@ -1193,7 +1201,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     to=page_copy,
                     copy_revisions=copy_revisions,
                     keep_live=keep_live,
-                    user=user
+                    user=user,
+                    process_child_object=process_child_object,
                 )
 
         return page_copy
@@ -1406,6 +1415,53 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         context['action_url'] = action_url
         return TemplateResponse(request, self.password_required_template, context)
 
+    def with_content_json(self, content_json):
+        """
+        Returns a new version of the page with field values updated to reflect changes
+        in the provided ``content_json`` (which usually comes from a previously-saved
+        page revision).
+
+        Certain field values are preserved in order to prevent errors if the returned
+        page is saved, such as ``id``, ``content_type`` and some tree-related values.
+        The following field values are also preserved, as they are considered to be
+        meaningful to the page as a whole, rather than to a specific revision:
+
+        * ``draft_title``
+        * ``live``
+        * ``has_unpublished_changes``
+        * ``owner``
+        * ``locked``
+        * ``latest_revision_created_at``
+        * ``first_published_at``
+        """
+
+        obj = self.specific_class.from_json(content_json)
+
+        # These should definitely never change between revisions
+        obj.pk = self.pk
+        obj.content_type = self.content_type
+
+        # Override possibly-outdated tree parameter fields
+        obj.path = self.path
+        obj.depth = self.depth
+        obj.numchild = self.numchild
+
+        # Update url_path to reflect potential slug changes, but maintining the page's
+        # existing tree position
+        obj.set_url_path(self.get_parent())
+
+        # Ensure other values that are meaningful for the page as a whole (rather than
+        # to a specific revision) are preserved
+        obj.draft_title = self.draft_title
+        obj.live = self.live
+        obj.has_unpublished_changes = self.has_unpublished_changes
+        obj.owner = self.owner
+        obj.locked = self.locked
+        obj.latest_revision_created_at = self.latest_revision_created_at
+        obj.first_published_at = self.first_published_at
+
+        return obj
+
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
@@ -1456,30 +1512,7 @@ class PageRevision(models.Model):
             self.page.revisions.exclude(id=self.id).update(submitted_for_moderation=False)
 
     def as_page_object(self):
-        obj = self.page.specific_class.from_json(self.content_json)
-
-        # Override the possibly-outdated tree parameter fields from this revision object
-        # with up-to-date values
-        obj.pk = self.page.pk
-        obj.path = self.page.path
-        obj.depth = self.page.depth
-        obj.numchild = self.page.numchild
-
-        # Populate url_path based on the revision's current slug and the parent page as determined
-        # by path
-        obj.set_url_path(self.page.get_parent())
-
-        # also copy over other properties which are meaningful for the page as a whole, not a
-        # specific revision of it
-        obj.draft_title = self.page.draft_title
-        obj.live = self.page.live
-        obj.has_unpublished_changes = self.page.has_unpublished_changes
-        obj.owner = self.page.owner
-        obj.locked = self.page.locked
-        obj.latest_revision_created_at = self.page.latest_revision_created_at
-        obj.first_published_at = self.page.first_published_at
-
-        return obj
+        return self.page.specific.with_content_json(self.content_json)
 
     def approve_moderation(self):
         if self.submitted_for_moderation:
@@ -1623,15 +1656,17 @@ class UserPagePermissionsProxy:
 
         # get the list of pages for which they have direct publish permission
         # (i.e. they can publish any page within this subtree)
-        publishable_pages = [perm.page for perm in self.permissions if perm.permission_type == 'publish']
-        if not publishable_pages:
+        publishable_pages_paths = self.permissions.filter(
+            permission_type='publish'
+        ).values_list('page__path', flat=True).distinct()
+        if not publishable_pages_paths:
             return PageRevision.objects.none()
 
         # compile a filter expression to apply to the PageRevision.submitted_revisions manager:
         # return only those pages whose paths start with one of the publishable_pages paths
-        only_my_sections = Q(page__path__startswith=publishable_pages[0].path)
-        for page in publishable_pages[1:]:
-            only_my_sections = only_my_sections | Q(page__path__startswith=page.path)
+        only_my_sections = Q(page__path__startswith=publishable_pages_paths[0])
+        for page_path in publishable_pages_paths[1:]:
+            only_my_sections = only_my_sections | Q(page__path__startswith=page_path)
 
         # return the filtered queryset
         return PageRevision.submitted_revisions.filter(only_my_sections)

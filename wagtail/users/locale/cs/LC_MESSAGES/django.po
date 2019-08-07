@@ -5,13 +5,14 @@
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-12-06 16:42+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-07-08 10:59+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -250,6 +251,9 @@ msgstr "Úroveň"
 msgid "Status"
 msgstr "Stav"
 
+msgid "Last Login"
+msgstr "Poslední přihlášení"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -258,6 +262,10 @@ msgstr "Aktivní"
 
 msgid "Inactive"
 msgstr "Neaktivní"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "před %(time_period)s"
 
 #, python-format
 msgid ""

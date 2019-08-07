@@ -188,6 +188,7 @@ ul.listing {
     }
 
     .title {
+        .title-wrapper,
         h2 {
             text-transform: none;
             margin: 0;
@@ -278,8 +279,13 @@ ul.listing {
             font-size: 1.5rem;
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
             color: $color-teal;
+        }
+
+        &:focus {
+            opacity: 1; //opacity is already changed on hover on the parent tr
         }
     }
 
@@ -355,14 +361,14 @@ ul.listing {
         padding-left: 20px;
     }
 
-    .unpublished h2 {
+    .unpublished .title-wrapper {
         opacity: 0.7;
     }
 
     .index {
         background-color: $color-grey-4;
 
-        .title h2 {
+        .title .title-wrapper {
             font-size: 1.2em;
             opacity: 1;
 

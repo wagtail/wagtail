@@ -13,6 +13,7 @@ const ExplorerToggle = ({ children, onToggle }) => (
   <Button
     className="submenu-trigger"
     icon="folder-open-inverse"
+    dialogTrigger={true}
     onClick={onToggle}
   >
     {children}

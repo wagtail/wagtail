@@ -242,7 +242,7 @@ function initCollapsibleBlocks() {
             $fieldset.hide();
         }
 
-        $li.find('> h2').on('click', function() {
+        $li.find('> .title-wrapper').on('click', function() {
             if (!$li.hasClass('collapsed')) {
                 $li.addClass('collapsed');
                 $fieldset.hide('slow');

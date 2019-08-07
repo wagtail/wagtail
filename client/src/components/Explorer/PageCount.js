@@ -11,7 +11,6 @@ const PageCount = ({ page }) => {
     <a
       href={`${ADMIN_URLS.PAGES}${page.id}/`}
       className="c-explorer__see-more"
-      tabIndex={0}
     >
       {STRINGS.SEE_ALL}
       <span>{` ${count} ${count === 1 ? STRINGS.PAGE.toLowerCase() : STRINGS.PAGES.toLowerCase()}`}</span>

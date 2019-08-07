@@ -5,13 +5,14 @@
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
 # Marek Turnovec <aesculap@gmail.com>, 2016
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-11-27 19:46+0000\n"
-"Last-Translator: IT Management <info@itmanagement.cz>\n"
+"PO-Revision-Date: 2019-07-08 11:20+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail ModelAdmin"
 
 msgid "Parent page"
 msgstr "Nadřazená stránka"
@@ -32,23 +36,54 @@ msgstr "Přidat %s"
 msgid "Add a new %s"
 msgstr "Přidat nový %s"
 
+msgid "Inspect"
+msgstr "Prozkoumat"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "Prozkoumat  %s"
+
 msgid "Edit"
 msgstr "Upravit"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Editovat %s"
 
 msgid "Delete"
 msgstr "Smazat"
 
+#, python-format
+msgid "Delete this %s"
+msgstr "Přidat %s"
+
 msgid "Unpublish"
 msgstr "Zrušit publikaci"
 
+#, python-format
+msgid "Unpublish this %s"
+msgstr "Zrušit publikování %s"
+
 msgid "Copy"
 msgstr "Kopírovat"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "Kopírovat %s"
 
 msgid "image"
 msgstr "obrázek"
 
 msgid "Choose a parent page"
 msgstr "Zvolit rodičovskou stránku"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s mohou být přidány na více míst Vašeho webu. Vyberte, kam má být "
+"Vaše nová stránka přidána."
 
 msgid "Continue"
 msgstr "Pokračovat"
@@ -59,11 +94,133 @@ msgstr "Ukládání…"
 msgid "Save"
 msgstr "Uložit"
 
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s nemohl být zrušen"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"'%(instance_name)s' je právě odkazován jinými objekty a nemůže (nemohou) být "
+"zrušen(y) s ohledem na integritu dat. Nejprve je potřeba odebrat odkazy z "
+"těchot objektů; potom to zkuste znova:"
+
+msgid "Go back to listing"
+msgstr "Zpět na seznam"
+
+msgid "Yes, delete"
+msgstr "Ano, zrušit"
+
+msgid "Home"
+msgstr "Domů"
+
+#, python-format
+msgid " By %(filter_title)s "
+msgstr " Pomocí %(filter_title)s "
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr ""
+"Bohužel nejsou žádná %(name)s, která by odpovídala Vašemu parametru "
+"vyhledávání."
+
+msgid "Search for"
+msgstr "Hledat.."
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Hledat %(name)s"
+
+msgid "Filter"
+msgstr "Filtr"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Žádná %(name)s zatím nebyla vytvořena. Alespoň něco je potřeba vytvořit, než "
+"budete moci přidávat %(name)s:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Žádný(á/é) %(name)s ještě nebyl(a/o) vytvořen(a/o)."
+
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"                                                Pojďme <a href=\"%(url)s"
+"\">nějaký(ou/é) přidat</a>?\n"
+"                                            "
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Stránka %(current_page)s z %(num_pages)s."
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Zpátky na seznam %(model_name)s"
+
 msgid "Previous"
 msgstr "Předchozí"
 
 msgid "Next"
 msgstr "Další"
 
+msgid "{model_name} '{instance}' created."
+msgstr "{model_name} '{instance}' byl(o) vytvořen(o)."
+
+#, python-format
+msgid "The %s could not be created due to errors."
+msgstr " %s nemohlo být vytvořeno kvůli chybám."
+
 msgid "New"
 msgstr "Nový"
+
+#, python-format
+msgid "Create new %s"
+msgstr "Vytvořit nový(ou/é) %s"
+
+msgid "Editing"
+msgstr "Editování"
+
+#, python-format
+msgid "Editing %s"
+msgstr "Editování %s"
+
+msgid "{model_name} '{instance}' updated."
+msgstr "{model_name} '{instance}' byl(a/o) aktualizován(a/o)."
+
+#, python-format
+msgid "The %s could not be saved due to errors."
+msgstr "%s nemohlo být uloženo kvůli chybám."
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "Potvrďte smazání %s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %s? If other things in your site are "
+"related to it, they may also be affected."
+msgstr ""
+"Jste si jistý/á, že chcete zrušit %s? Jestliže se k tomu vztahují další věci "
+"na Vašem webu, mohou být rovněž ovlivněny."
+
+msgid "{model} '{instance}' deleted."
+msgstr "{model} '{instance}' bylo zrušeno."
+
+msgid "Inspecting"
+msgstr "Prohlíží se.."
+
+#, python-format
+msgid "Inspecting %s"
+msgstr "Prohlíží se %s"

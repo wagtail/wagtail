@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -218,11 +218,13 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Image\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
 "    "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Images\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
 "    "
 msgstr[0] ""
 msgstr[1] ""
@@ -267,6 +269,10 @@ msgstr ""
 
 #: templates/wagtailimages/images/confirm_delete.html:23
 msgid "Yes, delete"
+msgstr ""
+
+#: templates/wagtailimages/images/confirm_delete.html:24
+msgid "No, don't delete"
 msgstr ""
 
 #: templates/wagtailimages/images/edit.html:3
@@ -322,24 +328,28 @@ msgid "Usage"
 msgstr ""
 
 #: templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:44
-#: wagtail_hooks.py:154
+#: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:45
+#: wagtail_hooks.py:158
 msgid "Images"
 msgstr ""
 
-#: templates/wagtailimages/images/results.html:33
+#: templates/wagtailimages/images/results.html:24
+msgid "pixels"
+msgstr ""
+
+#: templates/wagtailimages/images/results.html:39
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 
-#: templates/wagtailimages/images/results.html:39
+#: templates/wagtailimages/images/results.html:45
 #, python-format
 msgid ""
 "You haven't uploaded any images in this collection. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 
-#: templates/wagtailimages/images/results.html:41
+#: templates/wagtailimages/images/results.html:47
 #, python-format
 msgid ""
 "You haven't uploaded any images. Why not <a href="
@@ -355,6 +365,7 @@ msgid "URL"
 msgstr ""
 
 #: templates/wagtailimages/images/url_generator.html:27
+#: templates/wagtailimages/images/url_generator.html:30
 msgid "Preview"
 msgstr ""
 
@@ -486,11 +497,11 @@ msgstr ""
 msgid "The image could not be created due to errors."
 msgstr ""
 
-#: wagtail_hooks.py:87
+#: wagtail_hooks.py:88
 msgid "Image"
 msgstr ""
 
-#: wagtail_hooks.py:173
+#: wagtail_hooks.py:177
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
