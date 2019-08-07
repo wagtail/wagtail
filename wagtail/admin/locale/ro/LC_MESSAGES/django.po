@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -246,9 +246,6 @@ msgstr "Resetarea parolei"
 msgid "Reset your password"
 msgstr "Resetează parola"
 
-msgid "Edit"
-msgstr "Editează"
-
 msgid "Page"
 msgstr "Pagină"
 
@@ -263,9 +260,6 @@ msgstr "Nici un rezultat"
 
 msgid "Server Error"
 msgstr "Eroare de server"
-
-msgid "See children"
-msgstr "Vezi descendenți"
 
 msgid "See all"
 msgstr "Vezi toate"
@@ -306,6 +300,87 @@ msgstr "Afișează eroare"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
+
+msgid "Close"
+msgstr "Închideți"
+
+msgid "January"
+msgstr "Ianuarie"
+
+msgid "February"
+msgstr "Februarie"
+
+msgid "March"
+msgstr "Martie"
+
+msgid "April"
+msgstr "Aprilie"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Iunie"
+
+msgid "July"
+msgstr "Iulie"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "Septembrie"
+
+msgid "October"
+msgstr "Octombrie"
+
+msgid "November"
+msgstr "Noiembrie"
+
+msgid "December"
+msgstr "Decembrie"
+
+msgid "Sunday"
+msgstr "Duminică"
+
+msgid "Monday"
+msgstr "Luni"
+
+msgid "Tuesday"
+msgstr "Marți"
+
+msgid "Wednesday"
+msgstr "Miercuri"
+
+msgid "Thursday"
+msgstr "Joi"
+
+msgid "Friday"
+msgstr "Vineri"
+
+msgid "Saturday"
+msgstr "Sâmbătă"
+
+msgid "Sun"
+msgstr "D"
+
+msgid "Mon"
+msgstr "L"
+
+msgid "Tue"
+msgstr "Ma"
+
+msgid "Wed"
+msgstr "Mi"
+
+msgid "Thu"
+msgstr "J"
+
+msgid "Fri"
+msgstr "V"
+
+msgid "Sat"
+msgstr "S"
 
 msgid "Dashboard"
 msgstr "Bord"
@@ -480,6 +555,9 @@ msgstr "Aprobă"
 msgid "Reject"
 msgstr "Respinge"
 
+msgid "Edit"
+msgstr "Editează"
+
 msgid "Preview"
 msgstr "Examinare"
 
@@ -504,25 +582,6 @@ msgstr "Activată"
 
 msgid "Site summary"
 msgstr "Rezumat sait"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> pagină"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> pagini"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> pagini"
 
 msgid "Sign in"
 msgstr "Conectare"
@@ -932,9 +991,6 @@ msgstr ""
 "                folosiți din nou funcția de previzualizare.\n"
 "            "
 
-msgid "Close"
-msgstr "Închideți"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Comparare %(title)s"
@@ -1110,84 +1166,6 @@ msgstr "Acasă"
 
 msgid "All collections"
 msgstr "Toate colecțiile"
-
-msgid "January"
-msgstr "Ianuarie"
-
-msgid "February"
-msgstr "Februarie"
-
-msgid "March"
-msgstr "Martie"
-
-msgid "April"
-msgstr "Aprilie"
-
-msgid "May"
-msgstr "Mai"
-
-msgid "June"
-msgstr "Iunie"
-
-msgid "July"
-msgstr "Iulie"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "Septembrie"
-
-msgid "October"
-msgstr "Octombrie"
-
-msgid "November"
-msgstr "Noiembrie"
-
-msgid "December"
-msgstr "Decembrie"
-
-msgid "Sunday"
-msgstr "Duminică"
-
-msgid "Monday"
-msgstr "Luni"
-
-msgid "Tuesday"
-msgstr "Marți"
-
-msgid "Wednesday"
-msgstr "Miercuri"
-
-msgid "Thursday"
-msgstr "Joi"
-
-msgid "Friday"
-msgstr "Vineri"
-
-msgid "Saturday"
-msgstr "Sâmbătă"
-
-msgid "Sun"
-msgstr "D"
-
-msgid "Mon"
-msgstr "L"
-
-msgid "Tue"
-msgstr "Ma"
-
-msgid "Wed"
-msgstr "Mi"
-
-msgid "Thu"
-msgstr "J"
-
-msgid "Fri"
-msgstr "V"
-
-msgid "Sat"
-msgstr "S"
 
 msgid "Edit your account"
 msgstr "Editează contul utilizator"

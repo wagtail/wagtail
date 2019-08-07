@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-05-03 15:09+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-16 11:19+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -113,6 +113,9 @@ msgstr "Vissza a listához"
 msgid "Yes, delete"
 msgstr "Igen, törlés"
 
+msgid "No, don't delete"
+msgstr "Nem, ne töröljük"
+
 msgid "Home"
 msgstr "Kezdőlap"
 
@@ -156,6 +159,9 @@ msgid ""
 msgstr ""
 "\n"
 "Miért nem <a href=\"%(url)s\">ad hozzá egyet</a>?"
+
+msgid "Pagination"
+msgstr "Lapozó"
 
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."

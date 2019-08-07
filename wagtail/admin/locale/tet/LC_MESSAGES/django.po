@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-06-06 07:00+0000\n"
-"Last-Translator: Onorio de Jesus Afonso <onorio@catalpa.io>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -239,9 +239,6 @@ msgstr "Seña muda"
 msgid "Reset your password"
 msgstr "Muda ita nia Seña "
 
-msgid "Edit"
-msgstr "Hadia"
-
 msgid "Page"
 msgstr "Pajina"
 
@@ -256,9 +253,6 @@ msgstr "La iha rezultadu"
 
 msgid "Server Error"
 msgstr "Servidor erru"
-
-msgid "See children"
-msgstr "Haree labarik"
 
 msgid "See all"
 msgstr "Haree hotu"
@@ -305,6 +299,9 @@ msgstr "Ligasaun ladiak"
 
 msgid "Missing document"
 msgstr "Dokumentu lakon"
+
+msgid "Close"
+msgstr "Taka"
 
 msgid "Dashboard"
 msgstr "Painel kontrolu"
@@ -460,6 +457,9 @@ msgstr "Aprova"
 msgid "Reject"
 msgstr "Rejeita"
 
+msgid "Edit"
+msgstr "Hadia"
+
 msgid "Preview"
 msgstr "Haree"
 
@@ -484,19 +484,6 @@ msgstr "Ativu"
 
 msgid "Site summary"
 msgstr "Sumariu Situs"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Pajina sira"
 
 msgid "Sign in"
 msgstr "Tama"
@@ -778,9 +765,6 @@ msgstr "Esplora"
 
 msgid "Next"
 msgstr "Tuir mai"
-
-msgid "Close"
-msgstr "Taka"
 
 msgid "Test"
 msgstr "Test"

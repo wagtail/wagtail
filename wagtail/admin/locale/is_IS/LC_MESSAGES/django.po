@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -250,9 +250,6 @@ msgstr "Endursetja lykilorð"
 msgid "Reset your password"
 msgstr "Endursettu lykilorðið þitt"
 
-msgid "Edit"
-msgstr "Breyta"
-
 msgid "Page"
 msgstr "Síða"
 
@@ -267,9 +264,6 @@ msgstr "Engar niðurstöður"
 
 msgid "Server Error"
 msgstr "Villa á vefþjóni"
-
-msgid "See children"
-msgstr "Sjá undirsíður"
 
 msgid "See all"
 msgstr "Sjá allt"
@@ -312,6 +306,87 @@ msgid ""
 msgstr ""
 "Ritillinn lenti í villu. Efnið hefur verið endurstillt í síðustu vistuðu "
 "útgáfu."
+
+msgid "Close"
+msgstr "Loka"
+
+msgid "January"
+msgstr "Janúar"
+
+msgid "February"
+msgstr "Febrúar"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "April"
+msgstr "Apríl"
+
+msgid "May"
+msgstr "Maí"
+
+msgid "June"
+msgstr "Júní"
+
+msgid "July"
+msgstr "Júlí"
+
+msgid "August"
+msgstr "Ágúst"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Október"
+
+msgid "November"
+msgstr "Nóvember"
+
+msgid "December"
+msgstr "Desember"
+
+msgid "Sunday"
+msgstr "Sunnudagur"
+
+msgid "Monday"
+msgstr "Mánudagur"
+
+msgid "Tuesday"
+msgstr "Þriðjudagur"
+
+msgid "Wednesday"
+msgstr "Miðvikudagur"
+
+msgid "Thursday"
+msgstr "Fimmtudagur"
+
+msgid "Friday"
+msgstr "Föstudagur"
+
+msgid "Saturday"
+msgstr "Laugardagur"
+
+msgid "Sun"
+msgstr "Sun"
+
+msgid "Mon"
+msgstr "Mán"
+
+msgid "Tue"
+msgstr "Þri"
+
+msgid "Wed"
+msgstr "Mið"
+
+msgid "Thu"
+msgstr "Fim"
+
+msgid "Fri"
+msgstr "Fös"
+
+msgid "Sat"
+msgstr "Lau"
 
 msgid "Dashboard"
 msgstr "Yfirlitssíða"
@@ -478,6 +553,9 @@ msgstr "Samþykkja"
 msgid "Reject"
 msgstr "Hafna"
 
+msgid "Edit"
+msgstr "Breyta"
+
 msgid "Preview"
 msgstr "Forskoða"
 
@@ -502,24 +580,6 @@ msgstr "Í birtingu"
 
 msgid "Site summary"
 msgstr "Upplýsingar um vef"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Síða\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Síður\n"
-"    "
 
 msgid "Sign in"
 msgstr "Innskrá"
@@ -924,9 +984,6 @@ msgstr ""
 "Vinsamlegast lokið þessum flipa, lagið villur á síðunni, \n"
 "og forskoðið svo aftur."
 
-msgid "Close"
-msgstr "Loka"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Bera saman %(title)s"
@@ -1090,84 +1147,6 @@ msgstr "Heim"
 
 msgid "All collections"
 msgstr "Öll söfn"
-
-msgid "January"
-msgstr "Janúar"
-
-msgid "February"
-msgstr "Febrúar"
-
-msgid "March"
-msgstr "Mars"
-
-msgid "April"
-msgstr "Apríl"
-
-msgid "May"
-msgstr "Maí"
-
-msgid "June"
-msgstr "Júní"
-
-msgid "July"
-msgstr "Júlí"
-
-msgid "August"
-msgstr "Ágúst"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Október"
-
-msgid "November"
-msgstr "Nóvember"
-
-msgid "December"
-msgstr "Desember"
-
-msgid "Sunday"
-msgstr "Sunnudagur"
-
-msgid "Monday"
-msgstr "Mánudagur"
-
-msgid "Tuesday"
-msgstr "Þriðjudagur"
-
-msgid "Wednesday"
-msgstr "Miðvikudagur"
-
-msgid "Thursday"
-msgstr "Fimmtudagur"
-
-msgid "Friday"
-msgstr "Föstudagur"
-
-msgid "Saturday"
-msgstr "Laugardagur"
-
-msgid "Sun"
-msgstr "Sun"
-
-msgid "Mon"
-msgstr "Mán"
-
-msgid "Tue"
-msgstr "Þri"
-
-msgid "Wed"
-msgstr "Mið"
-
-msgid "Thu"
-msgstr "Fim"
-
-msgid "Fri"
-msgstr "Fös"
-
-msgid "Sat"
-msgstr "Lau"
 
 msgid "Edit your account"
 msgstr "Breyta reikningnum þínum"

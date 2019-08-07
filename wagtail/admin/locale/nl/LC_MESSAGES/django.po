@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -192,8 +192,62 @@ msgstr "Wachtwoord herstel"
 msgid "Reset your password"
 msgstr "Herstel uw wachtwoord"
 
-msgid "Edit"
-msgstr "Wijzigen"
+msgid "January"
+msgstr "januari"
+
+msgid "February"
+msgstr "februari"
+
+msgid "March"
+msgstr "maart"
+
+msgid "April"
+msgstr "april"
+
+msgid "May"
+msgstr "mei"
+
+msgid "June"
+msgstr "juni"
+
+msgid "July"
+msgstr "juli"
+
+msgid "August"
+msgstr "augustus"
+
+msgid "September"
+msgstr "september"
+
+msgid "October"
+msgstr "oktober"
+
+msgid "November"
+msgstr "november"
+
+msgid "December"
+msgstr "december"
+
+msgid "Sun"
+msgstr "Zo"
+
+msgid "Mon"
+msgstr "Ma"
+
+msgid "Tue"
+msgstr "Di"
+
+msgid "Wed"
+msgstr "Wo"
+
+msgid "Thu"
+msgstr "Do"
+
+msgid "Fri"
+msgstr "Vr"
+
+msgid "Sat"
+msgstr "Za"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -315,6 +369,9 @@ msgstr "Goedkeuren"
 msgid "Reject"
 msgstr "Afwijzen"
 
+msgid "Edit"
+msgstr "Wijzigen"
+
 msgid "Preview"
 msgstr "Voorbeeld bekijken"
 
@@ -335,22 +392,6 @@ msgstr "Live"
 
 msgid "Site summary"
 msgstr "Site samenvatting"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Pagina"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Pagina's"
 
 msgid "Sign in"
 msgstr "Inloggen"
@@ -679,63 +720,6 @@ msgstr "Home"
 
 msgid "All collections"
 msgstr "Alle collecties"
-
-msgid "January"
-msgstr "januari"
-
-msgid "February"
-msgstr "februari"
-
-msgid "March"
-msgstr "maart"
-
-msgid "April"
-msgstr "april"
-
-msgid "May"
-msgstr "mei"
-
-msgid "June"
-msgstr "juni"
-
-msgid "July"
-msgstr "juli"
-
-msgid "August"
-msgstr "augustus"
-
-msgid "September"
-msgstr "september"
-
-msgid "October"
-msgstr "oktober"
-
-msgid "November"
-msgstr "november"
-
-msgid "December"
-msgstr "december"
-
-msgid "Sun"
-msgstr "Zo"
-
-msgid "Mon"
-msgstr "Ma"
-
-msgid "Tue"
-msgstr "Di"
-
-msgid "Wed"
-msgstr "Wo"
-
-msgid "Thu"
-msgstr "Do"
-
-msgid "Fri"
-msgstr "Vr"
-
-msgid "Sat"
-msgstr "Za"
 
 msgid "Edit your account"
 msgstr "Bewerk uw account"

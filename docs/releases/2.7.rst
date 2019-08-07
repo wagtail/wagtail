@@ -19,6 +19,7 @@ Other features
 
  * Added ``construct_page_listing_buttons`` hook (Michael van Tellingen)
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
+ * Move and refactor upgrade notification JS (Jonny Scholes)
 
 
 Bug fixes
@@ -27,6 +28,9 @@ Bug fixes
  * Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
  * Added https support for Scribd oEmbed provider (Rodrigo)
  * Changed StreamField group label color so labels are visible (Catherine Farman)
+ * Prevented images with a very wide aspect ratio from being displayed distorted in the rich text editor (Iman Syed)
+ * Prevent exception when deleting a model with a protected One-to-one relationship (Neal Todd)
+ * Added labels to snippet bulk edit checkboxes for screen reader users (Martey Dodoo)
 
 
 Upgrade considerations
