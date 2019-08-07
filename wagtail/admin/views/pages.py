@@ -1174,6 +1174,11 @@ def revisions_revert(request, page_id, revision_id):
 @user_passes_test(user_has_any_page_permission)
 def revisions_view(request, page_id, revision_id):
     page = get_object_or_404(Page, id=page_id).specific
+
+    perms = page.permissions_for_user(request.user)
+    if not (perms.can_publish() or perms.can_edit()):
+        raise PermissionDenied
+
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_page_object()
 
