@@ -208,7 +208,13 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
-        self.assertInHTML("foobarbaz (simple page)", response.json().get('html'))
+        html = response.json().get('html')
+        self.assertInHTML("foobarbaz (simple page)", html)
+
+        # The data-title attribute should not use the custom admin display title,
+        # because JS code that uses that attribute (e.g. the rich text editor)
+        # should use the real page title.
+        self.assertIn('data-title="foobarbaz"', html)
 
     def test_parent_with_admin_display_title(self):
         # Add another child under child_page so it renders a chooser list
