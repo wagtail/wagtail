@@ -14,6 +14,7 @@ Changelog
  * Fix: Prevent exception when deleting a model with a protected One-to-one relationship (Neal Todd)
  * Fix: Added labels to snippet bulk edit checkboxes for screen reader users (Martey Dodoo)
  * Fix: Middleware responses during page preview are now properly returned to the user (Matt Westcott)
+ * Fix: Default text of page links in rich text uses the public page title rather than the admin display title (Andy Chosak)
 
 
 2.6.1 (05.08.2019)
