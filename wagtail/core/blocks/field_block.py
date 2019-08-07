@@ -40,8 +40,9 @@ class FieldBlock(Block):
             return self.render_form(value, prefix=Block.FIELD_NAME_TEMPLATE,
                                     errors=errors)
 
-    def get_definition(self):
-        definition = super().get_definition()
+    @cached_property
+    def definition(self):
+        definition = super().definition
         definition['html'] = self.render_form(self.get_default(),
                                               prefix=self.FIELD_NAME_TEMPLATE)
         title_template = self.get_title_template()

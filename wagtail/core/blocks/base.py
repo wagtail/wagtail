@@ -1,5 +1,6 @@
 import collections
 import json
+from django.utils.functional import cached_property
 from importlib import import_module
 
 from django import forms
@@ -134,7 +135,8 @@ class Block(metaclass=BaseBlock):
                 }
             )
 
-    def get_definition(self):
+    @cached_property
+    def definition(self):
         definition = {
             'key': self.name,
             'label': capfirst(self.label),
@@ -516,7 +518,7 @@ class BlockWidget(forms.Widget):
             'maxNum': self.block_def.meta.max_num,
             'icons': self.get_actions_icons(),
             'labels': self.get_action_labels(),
-            'blockDefinitions': self.block_def.get_definition()['children'],
+            'blockDefinitions': self.block_def.definition['children'],
             'value': self.block_def.prepare_value(value, errors=errors),
         }
 

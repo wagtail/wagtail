@@ -86,11 +86,12 @@ class BaseStructBlock(Block):
             prepared_value.append(child_value)
         return prepared_value
 
-    def get_definition(self):
-        definition = super(BaseStructBlock, self).get_definition()
+    @cached_property
+    def definition(self):
+        definition = super(BaseStructBlock, self).definition
         definition.update(
             isStruct=True,
-            children=[child_block.get_definition()
+            children=[child_block.definition
                       for child_block in self.child_blocks.values()],
         )
         html = self.get_instance_html({})

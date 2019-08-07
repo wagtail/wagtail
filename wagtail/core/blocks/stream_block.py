@@ -4,6 +4,7 @@ from collections.abc import Sequence
 
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
+from django.utils.functional import cached_property
 from django.utils.html import format_html_join
 from django.utils.translation import ugettext as _
 
@@ -89,11 +90,12 @@ class BaseStreamBlock(Block):
             prepared_value.append(child_value)
         return prepared_value
 
-    def get_definition(self):
-        definition = super(BaseStreamBlock, self).get_definition()
+    @cached_property
+    def definition(self):
+        definition = super(BaseStreamBlock, self).definition
         definition.update(
             children=[
-                child_block.get_definition()
+                child_block.definition
                 for child_block in self.child_blocks.values()
             ],
             minNum=self.meta.min_num,

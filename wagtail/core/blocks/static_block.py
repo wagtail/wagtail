@@ -1,3 +1,4 @@
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from .base import Block
@@ -20,8 +21,9 @@ class StaticBlock(Block):
     def value_from_datadict(self, data, files, prefix):
         return None
 
-    def get_definition(self):
-        definition = Block.get_definition(self)
+    @cached_property
+    def definition(self):
+        definition = Block.definition.func(self)
         definition.update(
             isStatic=True,
             html=self.render_form(self.get_default(),

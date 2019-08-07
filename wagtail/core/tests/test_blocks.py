@@ -45,7 +45,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
     def test_charfield_definition(self):
         block = blocks.CharBlock()
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertInHTML(
             '<input type="text" name="field-__ID__" id="field-__ID__" '
             'placeholder="Test" />',
@@ -256,7 +256,7 @@ class TestIntegerBlock(TestCase):
     def test_definition(self):
         block = blocks.IntegerBlock()
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertInHTML(
             '<input type="number" name="field-__ID__" id="field-__ID__" '
             'placeholder="Test" />',
@@ -313,7 +313,7 @@ class TestEmailBlock(TestCase):
     def test_definition(self):
         block = blocks.EmailBlock()
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertInHTML(
             '<input type="email" name="field-__ID__" id="field-__ID__" '
             'placeholder="Test" />',
@@ -358,7 +358,7 @@ class TestBlockQuoteBlock(TestCase):
     def test_definition(self):
         block = blocks.BlockQuoteBlock()
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertInHTML(
             '<textarea name="field-__ID__" cols="40" rows="1" '
             'id="field-__ID__" placeholder="Test"></textarea>',
@@ -391,7 +391,7 @@ class TestFloatBlock(TestCase):
     def test_definition(self):
         block = blocks.FloatBlock()
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertInHTML(
             '<input type="number" name="field-__ID__" step="any" '
             'id="field-__ID__" placeholder="Test" />',
@@ -447,7 +447,7 @@ class TestDecimalBlock(TestCase):
     def test_definition(self):
         block = blocks.DecimalBlock()
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertInHTML(
             '<input type="number" name="field-__ID__" step="any" '
             'id="field-__ID__" placeholder="Test" />',
@@ -504,7 +504,7 @@ class TestRegexBlock(TestCase):
     def test_definition(self):
         block = blocks.RegexBlock(regex=r'^[0-9]{3}$')
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertInHTML(
             '<input type="text" name="field-__ID__" id="field-__ID__" '
             'placeholder="Test" />',
@@ -584,7 +584,7 @@ class TestRichTextBlock(TestCase):
     def test_definition(self):
         block = blocks.RichTextBlock()
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertIn("window.draftail.initEditor('#field\\u002D__ID__',",
                       definition['html'])
         del definition['html']
@@ -680,7 +680,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
 
         block = ChoiceBlock()
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertInHTML("""
             <select name="field-__ID__" id="field-__ID__"
                     placeholder="Test">
@@ -991,7 +991,7 @@ class TestRawHTMLBlock(TestCase):
     def test_definition(self):
         block = blocks.RawHTMLBlock()
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertInHTML(
             '<textarea name="field-__ID__" cols="40" rows="10" '
             'id="field-__ID__" placeholder="Test"></textarea>',
@@ -1164,7 +1164,7 @@ class TestStructBlock(SimpleTestCase):
             ('link', blocks.URLBlock()),
         ])
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         del definition['children'][0]['html']
         del definition['children'][1]['html']
         self.assertDictEqual(definition, {
@@ -1346,8 +1346,8 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock(required=True)
 
         block = LinkBlock()
-        self.assertFalse(block.get_definition()['children'][0]['required'])
-        self.assertTrue(block.get_definition()['children'][1]['required'])
+        self.assertFalse(block.definition['children'][0]['required'])
+        self.assertTrue(block.definition['children'][1]['required'])
 
     def test_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
@@ -1373,7 +1373,7 @@ class TestStructBlock(SimpleTestCase):
             link = blocks.URLBlock(default="http://www.torchbox.com")
 
         block = LinkBlock()
-        children_definitions = block.get_definition()['children']
+        children_definitions = block.definition['children']
         self.assertEqual(children_definitions[0]['default'], 'Torchbox')
         self.assertEqual(children_definitions[1]['default'],
                          'http://www.torchbox.com')
@@ -1387,13 +1387,13 @@ class TestStructBlock(SimpleTestCase):
                 help_text = "Self-promotion is encouraged"
 
         block = LinkBlock()
-        html = block.get_definition()['html']
+        html = block.definition['html']
 
         self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is encouraged</div>', html)
 
         # check it can be overridden in the block constructor
         block = LinkBlock(help_text="Self-promotion is discouraged")
-        html = block.get_definition()['html']
+        html = block.definition['html']
 
         self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is discouraged</div>', html)
 
@@ -1539,7 +1539,7 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
             ('link', blocks.URLBlock()),
         ], value_class=CustomStructValue)
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         del definition['children'][0]['html']
         del definition['children'][1]['html']
         self.assertDictEqual(definition, {
@@ -1732,7 +1732,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         char_block.set_name('test_child')
         block = blocks.ListBlock(char_block)
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         del definition['children'][0]['html']
         del definition['default']
         self.assertDictEqual(definition, {
@@ -1843,7 +1843,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             link = blocks.URLBlock()
 
         block = blocks.ListBlock(LinkBlock)
-        list_childen_definitions = block.get_definition()['children']
+        list_childen_definitions = block.definition['children']
         struct_children_definitions = list_childen_definitions[0]['children']
 
         self.assertEqual(struct_children_definitions[0]['label'], 'Title')
@@ -1855,7 +1855,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             link = blocks.URLBlock(default="http://www.github.com")
 
         block = blocks.ListBlock(LinkBlock)
-        list_children_definitions = block.get_definition()['children']
+        list_children_definitions = block.definition['children']
         struct_children_definitions = list_children_definitions[0]['children']
         self.assertEqual(struct_children_definitions[0]['default'], 'Github')
         self.assertEqual(struct_children_definitions[1]['default'],
@@ -1938,7 +1938,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         ])
 
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         del definition['children'][0]['html']
         del definition['children'][1]['html']
         self.assertDictEqual(definition, {
@@ -2399,7 +2399,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             paragraph = blocks.CharBlock(default="Lorem ipsum dolor sit amet")
 
         block = ArticleBlock()
-        children_definitions = block.get_definition()['children']
+        children_definitions = block.definition['children']
         self.assertEqual(children_definitions[0]['default'],
                          'Fish found on moon')
         self.assertEqual(children_definitions[1]['default'],
@@ -2556,7 +2556,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ('b4', Group2Block2()),
             ('ngb', NoGroupBlock()),
         ])
-        children_definitions = block.get_definition()['children']
+        children_definitions = block.definition['children']
         self.assertEqual(children_definitions[0]['group'], 'group1')
         self.assertEqual(children_definitions[1]['group'], 'group1')
         self.assertEqual(children_definitions[2]['group'], 'group2')
@@ -2675,7 +2675,7 @@ class TestPageChooserBlock(TestCase):
     def test_definition(self):
         block = blocks.PageChooserBlock()
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertInHTML(
             '<button type="button" class="button action-choose button-small '
             'button-secondary">Choose a page</button>',
@@ -2832,7 +2832,7 @@ class TestStaticBlock(TestCase):
             template='tests/blocks/posts_static_block.html'
         )
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         self.assertHTMLEqual(
             "Latest posts - This block doesn't need "
             "to be configured, it will be displayed automatically",
@@ -2915,7 +2915,7 @@ class TestDateBlock(TestCase):
     def test_definition(self):
         block = blocks.DateBlock()
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         try:
             self.assertInHTML(
                 '<script>initDateChooser("field\\u002D__ID__", '
@@ -2968,7 +2968,7 @@ class TestDateTimeBlock(TestCase):
     def test_definition(self):
         block = blocks.DateTimeBlock(format='%d.%m.%Y %H:%M')
         block.set_name('test')
-        definition = block.get_definition()
+        definition = block.definition
         try:
             self.assertInHTML(
                 '<script>initDateTimeChooser("field\\u002D__ID__", '
