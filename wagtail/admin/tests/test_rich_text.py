@@ -11,7 +11,9 @@ from wagtail.core.blocks import RichTextBlock
 from wagtail.core.models import Page, get_page_models
 from wagtail.core.rich_text import features as feature_registry
 from wagtail.core.rich_text import RichText
-from wagtail.tests.testapp.models import SingleEventPage
+from wagtail.tests.testapp.models import (
+    SingleEventPage, DefaultRichBlockFieldPage, CustomRichBlockFieldPage,
+)
 from wagtail.tests.testapp.rich_text import CustomRichTextArea
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -34,12 +36,25 @@ class BaseRichTextEditHandlerTestCase(TestCase):
         for page_class in get_page_models():
             page_class.get_edit_handler.cache_clear()
 
+    def _clear_block_definition_cache(self):
+        def uncache_definition(block):
+            if 'definition' in block.__dict__:
+                del block.definition
+
+        for model in (DefaultRichBlockFieldPage, CustomRichBlockFieldPage):
+            stream_block = model._meta.get_field('body').stream_block
+            uncache_definition(stream_block)
+            for child_block in stream_block.child_blocks.values():
+                uncache_definition(child_block)
+
     def setUp(self):
         super().setUp()
         self._clear_edit_handler_cache()
+        self._clear_block_definition_cache()
 
     def tearDown(self):
         self._clear_edit_handler_cache()
+        self._clear_block_definition_cache()
         super().tearDown()
 
 
