@@ -1,6 +1,5 @@
 import collections
 import json
-from django.utils.functional import cached_property
 from importlib import import_module
 
 from django import forms
@@ -9,6 +8,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.forms import Media
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
+from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
