@@ -1,57 +1,107 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MediaBlock no data 1`] = `
-<button
-  className="MediaBlock"
-  data-draftail-trigger={true}
-  onClick={[Function]}
-  tabIndex={-1}
-  type="button"
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
 >
-  <span
-    aria-hidden={true}
-    className="MediaBlock__icon-wrapper"
+  <button
+    className="MediaBlock"
+    data-draftail-trigger={true}
+    onClick={[Function]}
+    tabIndex={-1}
+    type="button"
   >
-    <Icon
-      className="MediaBlock__icon"
-      icon="#icon-test"
-      title={null}
+    <span
+      aria-hidden={true}
+      className="MediaBlock__icon-wrapper"
+    >
+      <Icon
+        className="MediaBlock__icon"
+        icon="#icon-test"
+        title={null}
+      />
+    </span>
+    <img
+      alt=""
+      className="MediaBlock__img"
+      src=""
+      width="256"
     />
-  </span>
-  <img
-    alt=""
-    className="MediaBlock__img"
-    src=""
-    width="256"
-  />
-</button>
+    <small
+      style={
+        Object {
+          "alignItems": "center",
+          "bottom": "0px",
+          "display": "flex",
+          "justifyContent": "center",
+          "left": "0px",
+          "position": "absolute",
+          "right": "0px",
+          "textAlign": "center",
+          "top": "0px",
+        }
+      }
+    >
+      <br />
+    </small>
+  </button>
+</div>
 `;
 
 exports[`MediaBlock renders 1`] = `
-<button
-  className="MediaBlock"
-  data-draftail-trigger={true}
-  onClick={[Function]}
-  tabIndex={-1}
-  type="button"
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
 >
-  <span
-    aria-hidden={true}
-    className="MediaBlock__icon-wrapper"
+  <button
+    className="MediaBlock"
+    data-draftail-trigger={true}
+    onClick={[Function]}
+    tabIndex={-1}
+    type="button"
   >
-    <Icon
-      className="MediaBlock__icon"
-      icon="#icon-test"
-      title={null}
+    <span
+      aria-hidden={true}
+      className="MediaBlock__icon-wrapper"
+    >
+      <Icon
+        className="MediaBlock__icon"
+        icon="#icon-test"
+        title={null}
+      />
+    </span>
+    <img
+      alt=""
+      className="MediaBlock__img"
+      src="example.png"
+      width="256"
     />
-  </span>
-  <img
-    alt=""
-    className="MediaBlock__img"
-    src="example.png"
-    width="256"
-  />
-</button>
+    <small
+      style={
+        Object {
+          "alignItems": "center",
+          "bottom": "0px",
+          "display": "flex",
+          "justifyContent": "center",
+          "left": "0px",
+          "position": "absolute",
+          "right": "0px",
+          "textAlign": "center",
+          "top": "0px",
+        }
+      }
+    >
+      <br />
+    </small>
+  </button>
+</div>
 `;
 
 exports[`MediaBlock tooltip opens 1`] = `
