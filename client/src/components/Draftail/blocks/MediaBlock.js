@@ -90,6 +90,7 @@ class MediaBlock extends Component {
       alignItems: 'center',
     };
 
+
     return (
       <div style={{ position: 'relative' }}>
         <button
@@ -99,18 +100,13 @@ class MediaBlock extends Component {
           onClick={this.openTooltip}
           data-draftail-trigger
         >
-
-
           <span className="MediaBlock__icon-wrapper" aria-hidden>
             <Icon icon={entityType.icon} className="MediaBlock__icon" />
           </span>
-
           <img className="MediaBlock__img" src={src} alt={alt} width="256" />
-
           <small style={fallbackStyle}>
             {authorName}<br></br>{providerName}
           </small>
-
           {showTooltipAt && this.renderTooltip()}
         </button>
       </div>

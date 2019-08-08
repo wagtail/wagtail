@@ -10,6 +10,8 @@ describe('MediaBlock', () => {
         <MediaBlock
           src="example.png"
           alt=""
+          authorName="Example Author"
+          providerName="Example Provider"
           blockProps={{
             entityType: {
               icon: '#icon-test',
@@ -17,6 +19,8 @@ describe('MediaBlock', () => {
             entity: {
               getData: () => ({
                 src: 'example.png',
+                authorName: 'Example Author',
+                providerName: 'Example Provider',
               }),
             },
           }}
@@ -33,6 +37,8 @@ describe('MediaBlock', () => {
         <MediaBlock
           src=""
           alt=""
+          authorName="Example Author"
+          providerName="Example Provider"
           blockProps={{
             entityType: {
               icon: '#icon-test',
@@ -62,6 +68,8 @@ describe('MediaBlock', () => {
         <MediaBlock
           src="example.png"
           alt=""
+          authorName="Example Author"
+          providerName="Example Provider"
           blockProps={{
             entityType: {
               icon: '#icon-test',
