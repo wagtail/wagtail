@@ -31,6 +31,7 @@ Bug fixes
  * Prevented images with a very wide aspect ratio from being displayed distorted in the rich text editor (Iman Syed)
  * Prevent exception when deleting a model with a protected One-to-one relationship (Neal Todd)
  * Added labels to snippet bulk edit checkboxes for screen reader users (Martey Dodoo)
+ * Middleware responses during page preview are now properly returned to the user (Matt Westcott)
 
 
 Upgrade considerations
