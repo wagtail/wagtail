@@ -3,6 +3,7 @@
 exports[`EmbedBlock no data 1`] = `
 <MediaBlock
   alt=""
+  authorName=""
   blockProps={
     Object {
       "entity": Object {
@@ -11,6 +12,7 @@ exports[`EmbedBlock no data 1`] = `
       "entityType": Object {},
     }
   }
+  providerName=""
   src={null}
 >
   <button
@@ -24,6 +26,7 @@ exports[`EmbedBlock no data 1`] = `
 exports[`EmbedBlock renders 1`] = `
 <MediaBlock
   alt=""
+  authorName=""
   blockProps={
     Object {
       "entity": Object {
@@ -32,6 +35,7 @@ exports[`EmbedBlock renders 1`] = `
       "entityType": Object {},
     }
   }
+  providerName=""
   src="http://www.example.com/example.png"
 >
   <a

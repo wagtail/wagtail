@@ -15,8 +15,6 @@ describe('EmbedBlock', () => {
                 url: 'http://www.example.com/',
                 title: 'Test title',
                 thumbnail: 'http://www.example.com/example.png',
-                authorName: 'Example author',
-                providerName: 'Example provider',
               }),
             },
           }}

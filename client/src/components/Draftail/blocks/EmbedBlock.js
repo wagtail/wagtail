@@ -12,9 +12,9 @@ const EmbedBlock = props => {
   const { entity, onRemoveEntity } = props.blockProps;
   const { url, title, thumbnail, providerName, authorName } = entity.getData();
 
-  if (thumbnail) {
+  if (!thumbnail) {
     return (
-      <MediaBlock {...props} src={thumbnail} alt="">
+      <MediaBlock {...props} src={null} alt="" providerName={providerName} authorName={authorName}>
         {url ? (
           <a
             className="Tooltip__link EmbedBlock__link"
@@ -35,15 +35,23 @@ const EmbedBlock = props => {
   }
 
   return (
-    <strong>
-      <a href={url} target={'_blank'}>
-        {providerName + ' - ' + authorName + '  '}
-      </a>
+    <MediaBlock {...props} src={thumbnail} alt="">
+      {url ? (
+        <a
+          className="Tooltip__link EmbedBlock__link"
+          href={url}
+          title={url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {title}
+        </a>
+      ) : null}
 
-      <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity} >
+      <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
         {STRINGS.DELETE}
       </button>
-    </strong>
+    </MediaBlock>
   );
 };
 
