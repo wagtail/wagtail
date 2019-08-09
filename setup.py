@@ -51,7 +51,7 @@ testing_extras = [
 
 # Documentation dependencies
 documentation_extras = [
-    'Sphinx>=1.3.1',
+    'Sphinx>=1.3.1,<2.0',
     'sphinx-autobuild>=0.5.2',
     'sphinx_rtd_theme>=0.1.8',
     'sphinxcontrib-spelling==2.1.1',
