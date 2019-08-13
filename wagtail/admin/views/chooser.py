@@ -2,7 +2,8 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 
-from wagtail.admin.forms.choosers import EmailLinkChooserForm, ExternalLinkChooserForm
+from wagtail.admin.forms.choosers import (
+    AnchorLinkChooserForm, EmailLinkChooserForm, ExternalLinkChooserForm)
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core import hooks
@@ -12,13 +13,14 @@ from wagtail.core.utils import resolve_model_string
 
 def shared_context(request, extra_context=None):
     context = {
-        # parent_page ID is passed as a GET parameter on the external_link and email_link views
+        # parent_page ID is passed as a GET parameter on the external_link, anchor_link and mail_link views
         # so that it's remembered when browsing from 'Internal link' to another link type
         # and back again. On the 'browse' / 'internal link' view this will be overridden to be
         # sourced from the standard URL path parameter instead.
         'parent_page_id': request.GET.get('parent_page_id'),
         'allow_external_link': request.GET.get('allow_external_link'),
         'allow_email_link': request.GET.get('allow_email_link'),
+        'allow_anchor_link': request.GET.get('allow_anchor_link'),
     }
     if extra_context:
         context.update(extra_context)
@@ -219,6 +221,37 @@ def external_link(request):
         shared_context(request, {
             'form': form,
         }), json_data={'step': 'external_link'}
+    )
+
+
+def anchor_link(request):
+    initial_data = {
+        'link_text': request.GET.get('link_text', ''),
+        'url': request.GET.get('link_url', ''),
+    }
+
+    if request.method == 'POST':
+        form = AnchorLinkChooserForm(request.POST, initial=initial_data, prefix='anchor-link-chooser')
+
+        if form.is_valid():
+            result = {
+                'url': '#' + form.cleaned_data['url'],
+                'title': form.cleaned_data['link_text'].strip() or form.cleaned_data['url'],
+                'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
+            }
+            return render_modal_workflow(
+                request, None, None,
+                None, json_data={'step': 'external_link_chosen', 'result': result}
+            )
+    else:
+        form = AnchorLinkChooserForm(initial=initial_data, prefix='anchor-link-chooser')
+
+    return render_modal_workflow(
+        request,
+        'wagtailadmin/chooser/anchor_link.html', None,
+        shared_context(request, {
+            'form': form,
+        }), json_data={'step': 'anchor_link'}
     )
 
 
