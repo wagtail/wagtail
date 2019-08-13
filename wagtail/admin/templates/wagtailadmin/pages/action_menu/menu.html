@@ -1,6 +1,11 @@
 {% if show_menu %}
+    {{ default_menu_item }}
     <div class="dropdown-toggle icon icon-arrow-up"></div>
     <ul>
-        {% for item in rendered_menu_items %}{{ item }}{% endfor %}
+        {% for item in rendered_menu_items %}
+            <li>
+                 {{ item }}
+            </li>
+        {% endfor %}
     </ul>
 {% endif %}

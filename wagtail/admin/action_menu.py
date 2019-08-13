@@ -57,6 +57,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
 
 
 class PublishMenuItem(ActionMenuItem):
+    label = "Publish"
     name = 'action-publish'
     template = 'wagtailadmin/pages/action_menu/publish.html'
 
@@ -121,6 +122,17 @@ class DeleteMenuItem(ActionMenuItem):
         return reverse('wagtailadmin_pages:delete', args=(context['page'].id,))
 
 
+class SaveDraftMenuItem(ActionMenuItem):
+    name = 'action-save-draft'
+    label = _("Save Draft")
+    template = 'wagtailadmin/pages/action_menu/save_draft.html'
+
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        context['is_revision'] = (context['view'] == 'revisions_revert')
+        return context
+
+
 BASE_PAGE_ACTION_MENU_ITEMS = None
 
 
@@ -137,6 +149,7 @@ def _get_base_page_action_menu_items():
             DeleteMenuItem(order=20),
             PublishMenuItem(order=30),
             SubmitForModerationMenuItem(order=40),
+            SaveDraftMenuItem(order=50),
         ]
         for hook in hooks.get_hooks('register_page_action_menu_item'):
             BASE_PAGE_ACTION_MENU_ITEMS.append(hook())
@@ -163,13 +176,16 @@ class PageActionMenu:
         for hook in hooks.get_hooks('construct_page_action_menu'):
             hook(self.menu_items, self.request, self.context)
 
+        self.default_item = self.menu_items.pop() if self.menu_items else SaveDraftMenuItem(order=50)
+
     def render_html(self):
         return render_to_string(self.template, {
+            'default_menu_item': self.default_item.render_html(self.request, self.context),
             'show_menu': bool(self.menu_items),
             'rendered_menu_items': [
                 menu_item.render_html(self.request, self.context)
                 for menu_item in self.menu_items
-            ]
+            ],
         }, request=self.request)
 
     @cached_property
