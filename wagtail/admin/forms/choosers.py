@@ -27,9 +27,12 @@ class URLOrAbsolutePathField(forms.URLField):
 
 
 class ExternalLinkChooserForm(forms.Form):
-    url = URLOrAbsolutePathField(required=True, label=ugettext_lazy("URL"))
+    url = URLOrAbsolutePathField(required=True, label=ugettext_lazy(""))
     link_text = forms.CharField(required=False)
 
+class AnchorLinkChooserForm(forms.Form):
+    url = forms.CharField(required=True, label=ugettext_lazy("#"))
+    link_text = forms.CharField(required=False)
 
 class EmailLinkChooserForm(forms.Form):
     email_address = forms.EmailField(required=True)

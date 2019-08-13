@@ -771,6 +771,21 @@ class TestHtmlToContentState(TestCase):
                 {'inlineStyleRanges': [], 'text': 'Multiple non-breaking whitespace characters: \xa0\xa0\xa0 should be preserved', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
             ]
         })
+    
+    def pre_tag_whitespace_characters(self):
+         # We expect whitespace to be preserved in <pre> tags
+        converter = ContentstateConverter(features=[])
+        result = json.loads(converter.from_database_format(
+            '''
+            <pre>Multiple whitespaces:     should  be preserved</pre>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Multiple whitespaces:     should  be preserved', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+            ]
+        })
 
     def test_extra_end_tag_before(self):
         converter = ContentstateConverter(features=[])
