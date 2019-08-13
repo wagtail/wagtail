@@ -566,11 +566,28 @@ Hooks for customising the way users are directed through the process of creating
 
   Modify the final list of action menu items on the page creation and edit views. The callable passed to this hook receives a list of ``ActionMenuItem`` objects, a request object and a context dictionary as per ``register_page_action_menu_item``, and should modify the list of menu items in-place.
 
+  Can also be used to customize default action menu.
+
   .. code-block:: python
 
     @hooks.register('construct_page_action_menu')
     def remove_submit_to_moderator_option(menu_items, request, context):
         menu_items[:] = [item for item in menu_items if item.name != 'action-submit']
+
+    from wagtail.admin.action_menu import UnpublishMenuItem, DeleteMenuItem, SubmitForModerationMenuItem, SaveDraftMenuItem, PublishMenuItem
+
+    @hooks.register('construct_page_action_menu')
+    def make_publish_default_action(menu_items, request, context):
+        menu_items[:] = [
+                UnpublishMenuItem(order=10),
+                DeleteMenuItem(order=20),
+                SubmitForModerationMenuItem(order=30),
+                SaveDraftMenuItem(order=40),
+                PublishMenuItem(_isDefault=True),
+        ]
+
+
+
 
 .. construct_page_listing_buttons:
 

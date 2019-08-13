@@ -1,5 +1,6 @@
 """Handles rendering of the list of actions in the footer of the page create/edit views."""
 
+from django.core.exceptions import ImproperlyConfigured
 from django.forms import Media, MediaDefiningClass
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -18,9 +19,10 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
     label = ''
     name = None
 
-    def __init__(self, order=None):
+    def __init__(self, order=None, _isDefault=False):
         if order is not None:
             self.order = order
+        self._isDefault = _isDefault
 
     def is_shown(self, request, context):
         """
@@ -56,6 +58,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
 
 
 class PublishMenuItem(ActionMenuItem):
+    label = "Publish"
     name = 'action-publish'
     template = 'wagtailadmin/pages/action_menu/publish.html'
 
@@ -99,6 +102,7 @@ class UnpublishMenuItem(ActionMenuItem):
         )
 
     def get_url(self, request, context):
+        print(self.is_shown(request, context), self._isDefault)
         return reverse('wagtailadmin_pages:unpublish', args=(context['page'].id,))
 
 
@@ -115,6 +119,17 @@ class DeleteMenuItem(ActionMenuItem):
 
     def get_url(self, request, context):
         return reverse('wagtailadmin_pages:delete', args=(context['page'].id,))
+
+
+class SaveDraftMenuItem(ActionMenuItem):
+    name = 'action-save-draft'
+    label = ('Save Draft')
+    template = 'wagtailadmin/pages/action_menu/save_draft.html'
+
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        context['is_revision'] = (context['view'] == 'revisions_revert')
+        return context
 
 
 BASE_PAGE_ACTION_MENU_ITEMS = None
@@ -147,6 +162,7 @@ class PageActionMenu:
         self.request = request
         self.context = kwargs
         self.context['user_page_permissions'] = UserPagePermissionsProxy(self.request.user)
+        self.default_item = SaveDraftMenuItem(_isDefault=True)
 
         self.menu_items = [
             menu_item
@@ -154,10 +170,21 @@ class PageActionMenu:
             if menu_item.is_shown(self.request, self.context)
         ]
 
-        self.menu_items.sort(key=lambda item: item.order)
+
+        self.menu_items.sort(key=lambda item: (item._isDefault, item.order))
 
         for hook in hooks.get_hooks('construct_page_action_menu'):
             hook(self.menu_items, self.request, self.context)
+
+        # Chcek improperly configured default menu_itmes
+        default_count = 0
+        for menu_item in self.menu_items:
+            if menu_item._isDefault:
+                self.default_item = menu_item
+                default_count += 1
+
+            if default_count > 1:
+                raise ImproperlyConfigured("Only one menu item can be default")
 
     def render_html(self):
         return render_to_string(self.template, {
@@ -165,8 +192,12 @@ class PageActionMenu:
             'rendered_menu_items': [
                 menu_item.render_html(self.request, self.context)
                 for menu_item in self.menu_items
-            ]
+                if not menu_item._isDefault and menu_item.is_shown(self.request, self.context)
+            ],
         }, request=self.request)
+
+    def render_default_html(self):
+        return self.default_item.render_html(self.request, self.context)
 
     @cached_property
     def media(self):
