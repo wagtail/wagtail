@@ -1,7 +1,7 @@
 const DEFAULT_OPTIONS = {
   tabActiveClass: 'active',
   paneActiveClass: 'active',
-  tabLinkSelector: 'li > a',
+  tabLinkSelector: '[role="tab"]',
   initialActiveTab: 0,
 };
 

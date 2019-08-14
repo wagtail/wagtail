@@ -8,6 +8,8 @@ import {
   Explorer,
   ExplorerToggle,
   initExplorer,
+  TabInterface,
+  initDefaultTabs,
 } from './index';
 
 describe('wagtail package API', () => {
@@ -45,5 +47,13 @@ describe('wagtail package API', () => {
 
   it('has initExplorer', () => {
     expect(initExplorer).toBeDefined();
+  });
+
+  it('has TabInterface', () => {
+    expect(TabInterface).toBeDefined();
+  });
+
+  it('has initDefaultTabs', () => {
+    expect(initDefaultTabs).toBeDefined();
   });
 });
