@@ -29,6 +29,9 @@ export const getLinkAttributes = (data) => {
   } else if (url.startsWith('mailto:')) {
     icon = MAIL_ICON;
     label = getEmailAddress(url);
+  } else if (url.startsWith('#')) {
+    icon = LINK_ICON;
+    label = url;
   } else {
     icon = LINK_ICON;
     label = getDomainName(url);
