@@ -1,11 +1,11 @@
 {% load i18n wagtailadmin_tags %}
-{% trans "Add an anchor link" as email_str %}
-{% include "wagtailadmin/shared/header.html" with title=email_str %}
+{% trans "Add an anchor link" as anchor_str %}
+{% include "wagtailadmin/shared/header.html" with title=anchor_str %}
 
 <div class="nice-padding">
     {% include 'wagtailadmin/chooser/_link_types.html' with current='anchor' %}
 
-    <form action="{% url 'wagtailadmin_choose_page_email_link' %}{% querystring %}" method="post" novalidate>
+    <form action="{% url 'wagtailadmin_choose_page_anchor_link' %}{% querystring %}" method="post" novalidate>
         {% csrf_token %}
         <ul class="fields">
             {% for field in form %}
