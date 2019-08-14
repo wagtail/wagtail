@@ -315,9 +315,11 @@ class HtmlToContentStateHandler(HTMLParser):
             element_handler.handle_endtag(name, self.state, self.contentstate)
 
     def handle_data(self, content):
-        # normalise whitespace sequences to a single space
+        # normalise whitespace sequences to a single space unless it is contained in <pre> tag, in
+        # which case leave it alone
         # This is in line with https://www.w3.org/TR/html4/struct/text.html#h-9.1
-        content = re.sub(WHITESPACE_RE, ' ', content)
+        if not (content.startswith('<pre>') and content.endswith('</pre>')):
+            content = re.sub(WHITESPACE_RE, ' ', content)
 
         if self.state.current_block is None:
             if content == ' ':
