@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -218,9 +218,6 @@ msgstr "Obnova hesla"
 msgid "Reset your password"
 msgstr "Resetovanie vášho hesla"
 
-msgid "Edit"
-msgstr "Upraviť"
-
 msgid "Page"
 msgstr "Stránka"
 
@@ -233,14 +230,71 @@ msgstr "Žiadne výsledky"
 msgid "Server Error"
 msgstr "Chyba servera"
 
-msgid "See children"
-msgstr "Vidieť dieťa"
-
 msgid "See all"
 msgstr "Vidieť všetko"
 
 msgid "Close explorer"
 msgstr "Zavrieť prehliadač"
+
+msgid "Close"
+msgstr "Zavrieť"
+
+msgid "January"
+msgstr "Január"
+
+msgid "February"
+msgstr "Február"
+
+msgid "March"
+msgstr "Marec"
+
+msgid "April"
+msgstr "Apríl"
+
+msgid "May"
+msgstr "Máj"
+
+msgid "June"
+msgstr "Jún"
+
+msgid "July"
+msgstr "Júl"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Október"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sun"
+msgstr "Ne"
+
+msgid "Mon"
+msgstr "Pon"
+
+msgid "Tue"
+msgstr "Ut"
+
+msgid "Wed"
+msgstr "Str"
+
+msgid "Thu"
+msgstr "Štv"
+
+msgid "Fri"
+msgstr "Pia"
+
+msgid "Sat"
+msgstr "So"
 
 msgid "Dashboard"
 msgstr "Nástenka"
@@ -395,6 +449,9 @@ msgstr "Schváliť"
 msgid "Reject"
 msgstr "Odmietnuť"
 
+msgid "Edit"
+msgstr "Upraviť"
+
 msgid "Preview"
 msgstr "Náhľad"
 
@@ -419,28 +476,6 @@ msgstr "Live"
 
 msgid "Site summary"
 msgstr "Prehľad sídla"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Stránka"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Stránky"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> Stránok"
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span> Stránok"
 
 msgid "Sign in"
 msgstr "Prihlásiť sa"
@@ -850,9 +885,6 @@ msgstr ""
 "                a použite náhľad znovu.\n"
 "            "
 
-msgid "Close"
-msgstr "Zavrieť"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Porovnať %(title)s"
@@ -1015,63 +1047,6 @@ msgstr "Domov"
 
 msgid "All collections"
 msgstr "Všetky kolekcie"
-
-msgid "January"
-msgstr "Január"
-
-msgid "February"
-msgstr "Február"
-
-msgid "March"
-msgstr "Marec"
-
-msgid "April"
-msgstr "Apríl"
-
-msgid "May"
-msgstr "Máj"
-
-msgid "June"
-msgstr "Jún"
-
-msgid "July"
-msgstr "Júl"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Október"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sun"
-msgstr "Ne"
-
-msgid "Mon"
-msgstr "Pon"
-
-msgid "Tue"
-msgstr "Ut"
-
-msgid "Wed"
-msgstr "Str"
-
-msgid "Thu"
-msgstr "Štv"
-
-msgid "Fri"
-msgstr "Pia"
-
-msgid "Sat"
-msgstr "So"
 
 msgid "Edit your account"
 msgstr "Upraviť váš účet"

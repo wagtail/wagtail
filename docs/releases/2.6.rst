@@ -1,6 +1,6 @@
-==========================================
-Wagtail 2.6 release notes - IN DEVELOPMENT
-==========================================
+=========================
+Wagtail 2.6 release notes
+=========================
 
 .. contents::
     :local:
@@ -99,6 +99,7 @@ Bug fixes
  * Added missing ``is_stored_locally`` method to ``AbstractDocument`` (jonny5532)
  * Query model no longer removes punctuation as part of string normalisation (William Blackie)
  * Make login test helper work with user models with non-default username fields (Andrew Miller)
+ * Delay dirty form check to prevent "unsaved changes" warning from being wrongly triggered (Thibaud Colas)
 
 
 Upgrade considerations

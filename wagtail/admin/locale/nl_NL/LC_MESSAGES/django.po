@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-16 12:39+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-20 23:35+0000\n"
 "Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -251,9 +251,6 @@ msgstr "Wachtwoord herstel"
 msgid "Reset your password"
 msgstr "Reset uw wachtwoord"
 
-msgid "Edit"
-msgstr "Wijzig"
-
 msgid "Page"
 msgstr "Pagina"
 
@@ -268,9 +265,6 @@ msgstr "Geen resultaten"
 
 msgid "Server Error"
 msgstr "Server error"
-
-msgid "See children"
-msgstr "Bekijk onderliggende"
 
 msgid "See all"
 msgstr "Toon"
@@ -319,6 +313,87 @@ msgstr "Defecte link"
 
 msgid "Missing document"
 msgstr "Ontbrekend document"
+
+msgid "Close"
+msgstr "Sluit"
+
+msgid "January"
+msgstr "januari"
+
+msgid "February"
+msgstr "februari"
+
+msgid "March"
+msgstr "maart"
+
+msgid "April"
+msgstr "april"
+
+msgid "May"
+msgstr "mei"
+
+msgid "June"
+msgstr "juni"
+
+msgid "July"
+msgstr "juli"
+
+msgid "August"
+msgstr "augustus"
+
+msgid "September"
+msgstr "september"
+
+msgid "October"
+msgstr "oktober"
+
+msgid "November"
+msgstr "november"
+
+msgid "December"
+msgstr "december"
+
+msgid "Sunday"
+msgstr "Zondag"
+
+msgid "Monday"
+msgstr "Maandag"
+
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+msgid "Wednesday"
+msgstr "Woensdag"
+
+msgid "Thursday"
+msgstr "Donderdag"
+
+msgid "Friday"
+msgstr "Vrijdag"
+
+msgid "Saturday"
+msgstr "Zaterdag"
+
+msgid "Sun"
+msgstr "Zo"
+
+msgid "Mon"
+msgstr "Ma"
+
+msgid "Tue"
+msgstr "Di"
+
+msgid "Wed"
+msgstr "Wo"
+
+msgid "Thu"
+msgstr "Do"
+
+msgid "Fri"
+msgstr "Vr"
+
+msgid "Sat"
+msgstr "Za"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -489,6 +564,9 @@ msgstr "Keur goed"
 msgid "Reject"
 msgstr "Keur af"
 
+msgid "Edit"
+msgstr "Wijzig"
+
 msgid "Preview"
 msgstr "Voorbeeld"
 
@@ -513,22 +591,6 @@ msgstr "Live"
 
 msgid "Site summary"
 msgstr "Site samenvatting"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Pagina"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Pagina's"
 
 msgid "Sign in"
 msgstr "Inloggen"
@@ -937,9 +999,6 @@ msgstr ""
 "Sluit dit tab, bewerk de pagina om de fouten te verbeteren,\n"
 "en bekijk daarna het voorbeeld opnieuw."
 
-msgid "Close"
-msgstr "Sluit"
-
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Vergelijk %(title)s"
@@ -1086,6 +1145,9 @@ msgstr "Collectie"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s van %(total_pages)s."
 
+msgid "Breadcrumb"
+msgstr "Broodkruimel"
+
 msgid "Root"
 msgstr "Root"
 
@@ -1094,84 +1156,6 @@ msgstr "Home"
 
 msgid "All collections"
 msgstr "Alle collecties"
-
-msgid "January"
-msgstr "januari"
-
-msgid "February"
-msgstr "februari"
-
-msgid "March"
-msgstr "maart"
-
-msgid "April"
-msgstr "april"
-
-msgid "May"
-msgstr "mei"
-
-msgid "June"
-msgstr "juni"
-
-msgid "July"
-msgstr "juli"
-
-msgid "August"
-msgstr "augustus"
-
-msgid "September"
-msgstr "september"
-
-msgid "October"
-msgstr "oktober"
-
-msgid "November"
-msgstr "november"
-
-msgid "December"
-msgstr "december"
-
-msgid "Sunday"
-msgstr "Zondag"
-
-msgid "Monday"
-msgstr "Maandag"
-
-msgid "Tuesday"
-msgstr "Dinsdag"
-
-msgid "Wednesday"
-msgstr "Woensdag"
-
-msgid "Thursday"
-msgstr "Donderdag"
-
-msgid "Friday"
-msgstr "Vrijdag"
-
-msgid "Saturday"
-msgstr "Zaterdag"
-
-msgid "Sun"
-msgstr "Zo"
-
-msgid "Mon"
-msgstr "Ma"
-
-msgid "Tue"
-msgstr "Di"
-
-msgid "Wed"
-msgstr "Wo"
-
-msgid "Thu"
-msgstr "Do"
-
-msgid "Fri"
-msgstr "Vr"
-
-msgid "Sat"
-msgstr "Za"
 
 msgid "Edit your account"
 msgstr "Wijzig uw account"

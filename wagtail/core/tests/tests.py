@@ -48,6 +48,16 @@ class TestPageUrlTags(TestCase):
         result = tpl.render(template.Context({'page': page, 'request': HttpRequest()}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
+    def test_pageurl_with_null_site_in_request(self):
+        page = Page.objects.get(url_path='/home/events/')
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>''')
+
+        # 'request' object in context, but site is None
+        request = HttpRequest()
+        request.site = None
+        result = tpl.render(template.Context({'page': page, 'request': request}))
+        self.assertIn('<a href="/events/">Events</a>', result)
+
     def test_bad_pageurl(self):
         tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>''')
 
@@ -94,6 +104,13 @@ class TestPageUrlTags(TestCase):
 
         # 'request' object in context, but no 'site' attribute
         result = slugurl(template.Context({'request': HttpRequest()}), 'events')
+        self.assertEqual(result, '/events/')
+
+    def test_slugurl_with_null_site_in_request(self):
+        # 'request' object in context, but site is None
+        request = HttpRequest()
+        request.site = None
+        result = slugurl(template.Context({'request': request}), 'events')
         self.assertEqual(result, '/events/')
 
 

@@ -7,7 +7,7 @@
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
-# Guilherme Nabanete <neoheartz@gmail.com>, 2016
+# Guilherme Nabanete <neoheartz@gmail.com>, 2016,2019
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-12-07 11:25+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-17 19:16+0000\n"
+"Last-Translator: Guilherme Nabanete <neoheartz@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -173,6 +173,9 @@ msgstr "Editando"
 
 msgid "Save"
 msgstr "Salvar"
+
+msgid "Permissions"
+msgstr "Permissões"
 
 msgid "Object permissions"
 msgstr "Permissões de objetos"

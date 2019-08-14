@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -176,8 +176,62 @@ msgstr "איתחול סיסמה"
 msgid "Reset your password"
 msgstr "אתחלו את סיסמתכם"
 
-msgid "Edit"
-msgstr "עריכה"
+msgid "January"
+msgstr "ינואר"
+
+msgid "February"
+msgstr "פברואר"
+
+msgid "March"
+msgstr "מרץ"
+
+msgid "April"
+msgstr "אפריל"
+
+msgid "May"
+msgstr "מאי"
+
+msgid "June"
+msgstr "יוני"
+
+msgid "July"
+msgstr "יולי"
+
+msgid "August"
+msgstr "אוגוסט"
+
+msgid "September"
+msgstr "ספטמבר"
+
+msgid "October"
+msgstr "אוקטובר"
+
+msgid "November"
+msgstr "נובמבר"
+
+msgid "December"
+msgstr "דצמבר"
+
+msgid "Sun"
+msgstr "ראשון"
+
+msgid "Mon"
+msgstr "שני"
+
+msgid "Tue"
+msgstr "שלישי"
+
+msgid "Wed"
+msgstr "רביעי"
+
+msgid "Thu"
+msgstr "חמישי"
+
+msgid "Fri"
+msgstr "שישי"
+
+msgid "Sat"
+msgstr "שבת"
 
 msgid "Dashboard"
 msgstr "לוח מחוונים"
@@ -279,6 +333,9 @@ msgstr "אשרו"
 msgid "Reject"
 msgstr "דחו"
 
+msgid "Edit"
+msgstr "עריכה"
+
 msgid "Preview"
 msgstr "תצוגה מקדימה"
 
@@ -299,28 +356,6 @@ msgstr "חי"
 
 msgid "Site summary"
 msgstr "סיכום אתר"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"עמוד <span>%(total)s</span>"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> עמודים"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> עמודים"
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span> עמודים"
 
 msgid "Sign in"
 msgstr "התחברות "
@@ -580,63 +615,6 @@ msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
 
 msgid "Home"
 msgstr "לעמוד הבית "
-
-msgid "January"
-msgstr "ינואר"
-
-msgid "February"
-msgstr "פברואר"
-
-msgid "March"
-msgstr "מרץ"
-
-msgid "April"
-msgstr "אפריל"
-
-msgid "May"
-msgstr "מאי"
-
-msgid "June"
-msgstr "יוני"
-
-msgid "July"
-msgstr "יולי"
-
-msgid "August"
-msgstr "אוגוסט"
-
-msgid "September"
-msgstr "ספטמבר"
-
-msgid "October"
-msgstr "אוקטובר"
-
-msgid "November"
-msgstr "נובמבר"
-
-msgid "December"
-msgstr "דצמבר"
-
-msgid "Sun"
-msgstr "ראשון"
-
-msgid "Mon"
-msgstr "שני"
-
-msgid "Tue"
-msgstr "שלישי"
-
-msgid "Wed"
-msgstr "רביעי"
-
-msgid "Thu"
-msgstr "חמישי"
-
-msgid "Fri"
-msgstr "שישי"
-
-msgid "Sat"
-msgstr "שבת"
 
 msgid "Edit your account"
 msgstr "ערכו את חשבונכם"

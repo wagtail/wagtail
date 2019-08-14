@@ -1,6 +1,6 @@
 language: python
 cache: pip
-dist: trusty
+dist: xenial
 
 addons:
   postgresql: "9.6"
@@ -17,22 +17,18 @@ matrix:
      python: 3.6
    - env: TOXENV=py37-dj21-postgres-noelasticsearch
      python: 3.7
-     dist: xenial
    - env: TOXENV=py37-dj22-sqlite-noelasticsearch
      python: 3.7
-     dist: xenial
    - env: TOXENV=py37-dj22-mysql-noelasticsearch
      python: 3.7
-     dist: xenial
    - env: TOXENV=py37-dj22-postgres-noelasticsearch
      python: 3.7
-     dist: xenial
    - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
      python: 3.7
-     dist: xenial
    - env: TOXENV=py37-djmaster-postgres-noelasticsearch
      python: 3.7
-     dist: xenial
+   - env: TOXENV=py38-dj22-postgres-noelasticsearch
+     python: 3.8-dev
    - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.6
    - env: TOXENV=py36-dj21-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -45,7 +41,6 @@ matrix:
      python: 3.6
    - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
      python: 3.7
-     dist: xenial
   allow_failures:
     # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky
     - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -58,6 +53,8 @@ matrix:
     - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
     # allow failures against Django master
     - env: TOXENV=py37-djmaster-postgres-noelasticsearch
+    # allow failures against Python 3.8-dev
+    - env: TOXENV=py38-dj22-postgres-noelasticsearch
 
 # Services
 services:

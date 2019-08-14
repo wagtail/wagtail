@@ -773,9 +773,14 @@ class TestCopyPage(TestCase):
 
         old_event = EventPage.objects.get(url_path='/home/events/christmas/')
 
+        # Create a child event
+        child_event = old_event.copy(update_attrs={'title': "Child christmas event", 'slug': 'child-christmas-event'})
+        child_event.move(old_event, pos='last-child')
+
         new_event = old_event.copy(
             update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'},
-            process_child_object=modify_child
+            process_child_object=modify_child,
+            recursive=True,
         )
 
         # The method should have been called with these arguments when copying
@@ -788,6 +793,11 @@ class TestCopyPage(TestCase):
         relationship = EventPage._meta.get_field('speaker')
         child_object = new_event.speakers.get()
         modify_child.assert_any_call(old_event, new_event, relationship, child_object)
+
+        # Check that process_child_object was run on the child event page as well
+        new_child_event = new_event.get_children().get().specific
+        child_object = new_child_event.speakers.get()
+        modify_child.assert_any_call(child_event, new_child_event, relationship, child_object)
 
     def test_copy_page_copies_revisions(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
@@ -1434,13 +1444,14 @@ class TestIssue2024(TestCase):
         self.assertEqual(event_index.content_type, ContentType.objects.get_for_model(Page))
 
 
-@override_settings(ALLOWED_HOSTS=['localhost'])
-class TestDummyRequest(TestCase):
+class TestMakePreviewRequest(TestCase):
     fixtures = ['test.json']
 
-    def test_dummy_request_for_accessible_page(self):
+    def test_make_preview_request_for_accessible_page(self):
         event_index = Page.objects.get(url_path='/home/events/')
-        request = event_index.dummy_request()
+        response = event_index.make_preview_request()
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, '/events/')
@@ -1461,11 +1472,13 @@ class TestDummyRequest(TestCase):
         self.assertIn('wsgi.multiprocess', request.META)
         self.assertIn('wsgi.run_once', request.META)
 
-    def test_dummy_request_for_accessible_page_https(self):
+    def test_make_preview_request_for_accessible_page_https(self):
         Site.objects.update(port=443)
 
         event_index = Page.objects.get(url_path='/home/events/')
-        request = event_index.dummy_request()
+        response = event_index.make_preview_request()
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, '/events/')
@@ -1486,11 +1499,13 @@ class TestDummyRequest(TestCase):
         self.assertIn('wsgi.multiprocess', request.META)
         self.assertIn('wsgi.run_once', request.META)
 
-    def test_dummy_request_for_accessible_page_non_standard_port(self):
+    def test_make_preview_request_for_accessible_page_non_standard_port(self):
         Site.objects.update(port=8888)
 
         event_index = Page.objects.get(url_path='/home/events/')
-        request = event_index.dummy_request()
+        response = event_index.make_preview_request()
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, '/events/')
@@ -1511,7 +1526,7 @@ class TestDummyRequest(TestCase):
         self.assertIn('wsgi.multiprocess', request.META)
         self.assertIn('wsgi.run_once', request.META)
 
-    def test_dummy_request_for_accessible_page_with_original_request(self):
+    def test_make_preview_request_for_accessible_page_with_original_request(self):
         event_index = Page.objects.get(url_path='/home/events/')
         original_headers = {
             'REMOTE_ADDR': '192.168.0.1',
@@ -1522,7 +1537,9 @@ class TestDummyRequest(TestCase):
         }
         factory = RequestFactory(**original_headers)
         original_request = factory.get('/home/events/')
-        request = event_index.dummy_request(original_request)
+        response = event_index.make_preview_request(original_request)
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
 
         # request should have the all the special headers we set in original_request
         self.assertEqual(request.META['REMOTE_ADDR'], original_request.META['REMOTE_ADDR'])
@@ -1547,9 +1564,11 @@ class TestDummyRequest(TestCase):
         self.assertIn('wsgi.run_once', request.META)
 
     @override_settings(ALLOWED_HOSTS=['production.example.com'])
-    def test_dummy_request_for_inaccessible_page_should_use_valid_host(self):
+    def test_make_preview_request_for_inaccessible_page_should_use_valid_host(self):
         root_page = Page.objects.get(url_path='/')
-        request = root_page.dummy_request()
+        response = root_page.make_preview_request()
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
 
         # in the absence of an actual Site record where we can access this page,
         # dummy_request should still provide a hostname that Django's host header
@@ -1559,7 +1578,9 @@ class TestDummyRequest(TestCase):
     @override_settings(ALLOWED_HOSTS=['*'])
     def test_dummy_request_for_inaccessible_page_with_wildcard_allowed_hosts(self):
         root_page = Page.objects.get(url_path='/')
-        request = root_page.dummy_request()
+        response = root_page.make_preview_request()
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
 
         # '*' is not a valid hostname, so ensure that we replace it with something sensible
         self.assertNotEqual(request.META['HTTP_HOST'], '*')

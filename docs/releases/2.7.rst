@@ -19,13 +19,28 @@ Other features
 
  * Added ``construct_page_listing_buttons`` hook (Michael van Tellingen)
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
+ * Move and refactor upgrade notification JS (Jonny Scholes)
 
 
 Bug fixes
 ~~~~~~~~~
 
- * ...
+ * Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
+ * Added https support for Scribd oEmbed provider (Rodrigo)
+ * Changed StreamField group label color so labels are visible (Catherine Farman)
+ * Prevented images with a very wide aspect ratio from being displayed distorted in the rich text editor (Iman Syed)
+ * Prevent exception when deleting a model with a protected One-to-one relationship (Neal Todd)
+ * Added labels to snippet bulk edit checkboxes for screen reader users (Martey Dodoo)
+ * Middleware responses during page preview are now properly returned to the user (Matt Westcott)
+ * Default text of page links in rich text uses the public page title rather than the admin display title (Andy Chosak)
+ * Specific page permission checks are now enforced when viewing a page revision (Andy Chosak)
+ * ``pageurl`` and ``slugurl`` tags no longer fail when ``request.site`` is ``None`` (Samir Shah)
 
 
 Upgrade considerations
 ======================
+
+``Page.dummy_request`` is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The internal ``Page.dummy_request`` method (which generates an HTTP request object simulating a real page request, for use in previews) has been deprecated, as it did not correctly handle errors generated during middleware processing. Any code that calls this method to render page previews should be updated to use the new method ``Page.make_preview_request(original_request=None, preview_mode=None)``, which builds the request and calls ``Page.serve_preview`` as a single operation.

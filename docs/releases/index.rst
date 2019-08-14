@@ -6,7 +6,9 @@ Release notes
 
    upgrading
    2.7
+   2.6.1
    2.6
+   2.5.2
    2.5.1
    2.5
    2.4
