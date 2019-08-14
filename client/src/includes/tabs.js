@@ -30,6 +30,7 @@ class TabInterface {
 
     this.options = Object.assign({}, DEFAULT_OPTIONS, options);
 
+    this.handleKeypress = this.handleKeypress.bind(this);
     this.setActiveTab = this.setActiveTab.bind(this);
     this.render = this.render.bind(this);
 
@@ -63,8 +64,9 @@ class TabInterface {
     tabs.forEach(tab => {
       let tabPanelId;
 
-      // Add click behavior to tab
+      // Add click and arrow key behavior to tab
       tab.addEventListener('click', this.setActiveTab);
+      tab.addEventListener('keydown', this.handleKeypress);
 
       // Add aria attributes to the tab
       if (tab.href) {
@@ -82,6 +84,20 @@ class TabInterface {
         tabPanel.setAttribute('aria-labelledby', tabId);
       }
     });
+  }
+
+  handleKeypress(evt) {
+    const currentTabIndex = this.tabs.indexOf(this.activeTab);
+    const nextTabIndex = (currentTabIndex + 1) % this.tabs.length;
+    const prevTabIndex = (currentTabIndex - 1 + this.tabs.length) % this.tabs.length;
+    // Click and focus on the appropriate next or previous tab
+    if (evt.keyCode === 37) { // ←
+      this.tabs[prevTabIndex].click();
+      this.tabs[prevTabIndex].focus();
+    } else if (evt.keyCode === 39) { // →
+      this.tabs[nextTabIndex].click();
+      this.tabs[nextTabIndex].focus();
+    }
   }
 
   /**
@@ -120,6 +136,10 @@ class TabInterface {
     }
   }
 
+  /**
+   * Update all tabs and tabpanels to be selected or not in DOM attributes,
+   * reading from the value of this.activeTab
+   */
   render() {
     this.tabs.forEach(tab => {
       let pane;
@@ -130,6 +150,7 @@ class TabInterface {
         // Show active pane
         pane = document.getElementById(tab.getAttribute('aria-controls'));
         if (pane) {
+          pane.setAttribute('tabindex', '0');
           pane.classList.add(this.options.paneActiveClass);
           pane.hidden = false;
         }
@@ -140,6 +161,7 @@ class TabInterface {
         // Hide inactive panes
         pane = document.getElementById(tab.getAttribute('aria-controls'));
         if (pane) {
+          pane.setAttribute('tabindex', '-1');
           pane.classList.remove(this.options.paneActiveClass);
           pane.hidden = true;
         }
