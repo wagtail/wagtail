@@ -591,14 +591,14 @@ class TestChooserAnchorLink(TestCase, WagtailTestUtils):
         self.assertContains(response, 'exampleanchor')
 
     def test_create_link(self):
-        response = self.post({'anchor-link-chooser-anchor': 'exampleanchor', 'anchor-link-chooser-link_text': 'Example Anchor Text'})
+        response = self.post({'anchor-link-chooser-url': 'exampleanchor', 'anchor-link-chooser-link_text': 'Example Anchor Text'})
         result = json.loads(response.content.decode())['result']
         self.assertEqual(result['url'], "#exampleanchor")
         self.assertEqual(result['title'], "Example Anchor Text")  # When link text is given, it is used
         self.assertEqual(result['prefer_this_title_as_link_text'], True)
 
     def test_create_link_without_text(self):
-        response = self.post({'anchor-link-chooser-anchor': 'exampleanchor'})
+        response = self.post({'anchor-link-chooser-url': 'exampleanchor'})
         result = json.loads(response.content.decode())['result']
         self.assertEqual(result['url'], "#exampleanchor")
         self.assertEqual(result['title'], "exampleanchor")  # When no link text is given, it uses anchor
@@ -606,7 +606,7 @@ class TestChooserAnchorLink(TestCase, WagtailTestUtils):
 
     def test_notice_changes_to_link_text(self):
         response = self.post(
-            {'anchor-link-chooser-anchor': 'exampleanchor2', 'anchor-link-chooser-link_text': 'Example Anchor Text 2'},  # POST data
+            {'anchor-link-chooser-url': 'exampleanchor2', 'anchor-link-chooser-link_text': 'Example Anchor Text 2'},  # POST data
             {'link_url': 'exampleanchor2', 'link_text': 'Example Anchor Text'}  # GET params - initial data
         )
         result = json.loads(response.content.decode())['result']
