@@ -8,12 +8,12 @@
 {% if uploadform %}
     <ul class="tab-nav merged" role="tablist" aria-owns="tab-label-search tab-label-upload">
         <li role="presentation">
-          <a href="#search" id="tab-label-search" class="{% if not uploadform.errors %}active {% endif %}" role="tab" aria-controls="search" {% if not uploadform.errors %}aria-selected="true"{% endif %}>
+          <a href="#search" id="tab-label-search" class="{% if not uploadform.errors %}active{% endif %}" role="tab">
             {% trans "Search" %}
           </a>
         </li>
         <li role="presentation">
-          <a href="#upload" id="tab-label-upload" class="{% if uploadform.errors %}active {% endif %}" role="tab" aria-controls="upload" {% if uploadform.errors %}aria-selected="true"{% endif %}>
+          <a href="#upload" id="tab-label-upload" class="{% if uploadform.errors %}active{% endif %}" role="tab">
             {% trans "Upload" %}
           </a>
         </li>
@@ -21,7 +21,7 @@
 {% endif %}
 
 <div class="tab-content">
-    <section id="search" class="{% if not uploadform.errors %}active {% endif %}nice-padding" role="tabpanel" aria-labelledby="tab-label-chooser" {% if uploadform.errors %}hidden{% endif %}>
+    <section id="search" class="{% if not uploadform.errors %}active {% endif %}nice-padding" role="tabpanel">
         <form class="document-search search-bar" action="{% url 'wagtaildocs:chooser' %}" method="GET" novalidate>
             <ul class="fields">
                 {% for field in searchform %}
@@ -37,7 +37,7 @@
         </div>
     </section>
     {% if uploadform %}
-        <section id="upload" class="{% if uploadform.errors %}active {% endif %}nice-padding" role="tabpanel" aria-labelledby="tab-label-upload" {% if not uploadform.errors %}hidden{% endif %}>
+        <section id="upload" class="{% if uploadform.errors %}active {% endif %}nice-padding" role="tabpanel">
             <form class="document-upload" action="{% url 'wagtaildocs:chooser_upload' %}" method="POST" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <ul class="fields">

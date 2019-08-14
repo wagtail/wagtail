@@ -9,6 +9,17 @@ class TabInterface {
   /**
    * TabInterface expects to be provided an element which is the ancestor of all
    * tabs the interface includes, most likely an element with role="tablist"
+   *
+   * Tab elements should either be the tab list's immediate children or listed
+   * in the tab list's aria-owns property.
+   *
+   * To specify which tab is active first, ensure that tab has the active class.
+   * Otherwise TabInterface will automatically activate the first tab.
+   *
+   * TabInterface will handle filling in aria-selected, aria-controls,
+   * aria-labelledby, and hidden html attributes. Please ensure that the HTML
+   * contains appropriate role attributes and that each tab has either an href
+   * _or_ an aria-control attribute pointing to the appropriate tab panel.
    */
   constructor(el, options) {
     // If this element has already been instantiated as a tabpanel, bail early
@@ -26,7 +37,7 @@ class TabInterface {
 
     this.activeTab = this.tabs[this.options.initialActiveTab];
 
-    this.tabs.forEach(tab => tab.addEventListener('click', this.setActiveTab));
+    this.setUpTabs();
 
     // If there's a tab that already has the active class, activate it instead
     const activeClassTab = this.el.querySelector(`${this.options.tabLinkSelector}.${this.options.tabActiveClass}`);
@@ -44,6 +55,33 @@ class TabInterface {
 
     // Run render to ensure attributes are all properly set
     this.render();
+  }
+
+  /** Add initial properties and listeners to tabs */
+  setUpTabs() {
+    const tabs = this.tabs;
+    tabs.forEach(tab => {
+      let tabPanelId;
+
+      // Add click behavior to tab
+      tab.addEventListener('click', this.setActiveTab);
+
+      // Add aria attributes to the tab
+      if (tab.href) {
+        tabPanelId = tab.href.split('#')[1];
+        tab.setAttribute('aria-controls', tabPanelId);
+      } else {
+        tabPanelId = tab.getAttribute('aria-controls');
+      }
+
+      // Assuming a matching tabPanel exists, set the appropriate attributes
+      // on that panel
+      const tabId = tab.id;
+      const tabPanel = document.getElementById(tabPanelId);
+      if (tabPanel) {
+        tabPanel.setAttribute('aria-labelledby', tabId);
+      }
+    });
   }
 
   /**

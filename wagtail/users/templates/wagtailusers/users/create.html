@@ -9,12 +9,12 @@
 
     <ul class="tab-nav merged" role="tablist" aria-owns="tab-label-roles">
         <li role="presentation">
-          <a href="#account" id="tab-label-account" class="active" role="tab" aria-controls="account">
+          <a href="#account" id="tab-label-account" role="tab">
             {% trans "Account" %}
           </a>
         </li>
         <li role="presentation">
-          <a href="#roles" id="tab-label-roles" role="tab" aria-controls="roles">
+          <a href="#roles" id="tab-label-roles" role="tab">
             {% trans "Roles" %}
           </a>
         </li>
@@ -23,7 +23,7 @@
     <form action="{% url 'wagtailusers_users:add' %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         <div class="tab-content">
             {% csrf_token %}
-            <section id="account" class="active nice-padding" role="tabpanel" aria-labelledby="tab-label-account">
+            <section id="account" class="nice-padding" role="tabpanel">
                 <ul class="fields">
                     {% block fields %}
                         {% if form.separate_username_field %}
@@ -44,7 +44,7 @@
                     <li><a href="#roles" class="button lowpriority tab-toggle icon icon-arrow-right-after">{% trans "Roles" %}</a></li>
                 </ul>
             </section>
-            <section id="roles" class="nice-padding" role="tabpanel" aria-labelledby="tab-label-roles" hidden>
+            <section id="roles" class="nice-padding" role="tabpanel">
                 <ul class="fields">
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_superuser %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=form.groups %}
