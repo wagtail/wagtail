@@ -19,6 +19,16 @@
     </div>
 </div>
 <br/>
+<div class="field">
+    <label for="{{ widget.attrs.id }}-handsontable-col-caption">{% trans 'Table caption' %}</label>
+    <div class="field-content">
+        <div class="input">
+          <input type="text" id="{{ widget.attrs.id }}-handsontable-col-caption" name="handsontable-col-caption" value="{{ widget.table_caption }}"/>
+        </div>
+        <p class="help">{% trans 'A heading that identifies the overall topic of the table, and is useful for screen reader users' %}</p>
+    </div>
+</div>
+<br/>
 <div id="{{ widget.attrs.id }}-handsontable-container"></div>
 {% include 'django/forms/widgets/hidden.html' %}
 <script>initTable("{{ widget.attrs.id|escapejs }}", {{ widget.table_options_json|safe }});</script>
