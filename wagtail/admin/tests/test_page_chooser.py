@@ -566,9 +566,6 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['result']['title'], "admin")
 
 
-
-
-
 class TestChooserAnchorLink(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
@@ -627,12 +624,6 @@ class TestChooserAnchorLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['title'], "Example Anchor Test 2.1")
         # link text has changed, so tell the caller to use it
         self.assertEqual(result['prefer_this_title_as_link_text'], True)
-
-
-
-
-
-
 
 
 class TestChooserEmailLink(TestCase, WagtailTestUtils):

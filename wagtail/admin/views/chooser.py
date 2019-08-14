@@ -222,6 +222,7 @@ def external_link(request):
         }), json_data={'step': 'external_link'}
     )
 
+
 def email_link(request):
     initial_data = {
         'link_text': request.GET.get('link_text', ''),
@@ -254,6 +255,7 @@ def email_link(request):
             'form': form,
         }), json_data={'step': 'email_link'}
     )
+
 
 def anchor_link(request):
     initial_data = {
