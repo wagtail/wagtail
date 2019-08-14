@@ -241,6 +241,30 @@ class TestTableBlock(TestCase):
         self.assertIn("<div>A fascinating table.</div>", result)
 
 
+    def test_table_block_caption_render(self):
+        """
+        Test a generic render with caption.
+        """
+        value = {'table_caption': 'caption', 'first_row_is_table_header': False,
+                 'first_col_is_header': False,
+                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, None, None],
+                          [None, None, None]]}
+        block = TableBlock()
+        result = block.render(value)
+        expected = """
+            <table>
+                <caption>caption</caption>
+                <tbody>
+                    <tr><td>Test 1</td><td>Test 2</td><td>Test 3</td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
+        self.assertHTMLEqual(result, expected)
+        self.assertIn('Test 2', result)
+
+
 class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
 
     def setUp(self):

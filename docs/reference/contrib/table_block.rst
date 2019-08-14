@@ -2,7 +2,7 @@
 TableBlock
 ==========
 
-The TableBlock module provides an HTML table block type for StreamField. This module uses `handsontable 6.2.2 <https://handsontable.com/>`_ to provide users with the ability to create and edit HTML tables in Wagtail.
+The TableBlock module provides an HTML table block type for StreamField. This module uses `handsontable 6.2.2 <https://handsontable.com/>`_ to provide users with the ability to create and edit HTML tables in Wagtail. Table blocks provides a caption field for accessibility.
 
 .. image:: ../../_static/images/screen40_table_block.png
 
@@ -83,7 +83,7 @@ Every key in the ``table_options`` dictionary maps to a `handsontable <https://h
 * `startCols <https://handsontable.com/docs/6.2.2/Options.html#startCols>`_ - The default number of columns for new tables.
 * `colHeaders <https://handsontable.com/docs/6.2.2/Options.html#colHeaders>`_ - Can be set to ``True`` or ``False``. This setting designates if new tables should be created with column headers. **Note:** this only sets the behaviour for newly created tables. Page editors can override this by checking the the “Column header” checkbox in the table editor in the Wagtail admin.
 * `rowHeaders <https://handsontable.com/docs/6.2.2/Options.html#rowHeaders>`_ - Operates the same as ``colHeaders`` to designate if new tables should be created with the first column as a row header. Just like ``colHeaders`` this option can be overridden by the page editor in the Wagtail admin.
-* `contextMenu <https://handsontable.com/docs/6.2.2/Options.html#contextMenu>`_ - Enables or disables the Handsontable right-click menu. By default this is set to ``True``. Alternatively you can provide a list or a dictionary with [specific options](https://handsontable.com/docs/6.2.2/demo-context-menu.html#page-specific). 
+* `contextMenu <https://handsontable.com/docs/6.2.2/Options.html#contextMenu>`_ - Enables or disables the Handsontable right-click menu. By default this is set to ``True``. Alternatively you can provide a list or a dictionary with [specific options](https://handsontable.com/docs/6.2.2/demo-context-menu.html#page-specific).
 * `editor <https://handsontable.com/docs/6.2.2/Options.html#editor>`_ - Defines the editor used for table cells. The default setting is text.
 * `stretchH <https://handsontable.com/docs/6.2.2/Options.html#stretchH>`_ - Sets the default horizontal resizing of tables. Options include, 'none', 'last', and 'all'. By default TableBlock uses 'all' for the even resizing of columns.
 * `height <https://handsontable.com/docs/6.2.2/Options.html#height>`_ - The default height of the grid. By default TableBlock sets the height to ``108`` for the optimal appearance of new tables in the editor. This is optimized for tables with ``startRows`` set to ``3``. If you change the number of ``startRows`` in the configuration, you might need to change the ``height`` setting to improve the default appearance in the editor.

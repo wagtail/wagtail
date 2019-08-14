@@ -1,6 +1,9 @@
 {% load table_block_tags %}
 
 <table>
+    {% if table_caption %}
+       <caption>{{ table_caption }}</caption>
+    {% endif %}
     {% if table_header %}
         <thead>
         <tr>

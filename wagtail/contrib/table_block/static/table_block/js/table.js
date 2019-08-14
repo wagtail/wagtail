@@ -4,9 +4,11 @@ function initTable(id, tableOptions) {
     var containerId = id + '-handsontable-container';
     var tableHeaderCheckboxId = id + '-handsontable-header';
     var colHeaderCheckboxId = id + '-handsontable-col-header';
+    var tableCaptionId = id + '-handsontable-col-caption';
     var hiddenStreamInput = $('#' + id);
     var tableHeaderCheckbox = $('#' + tableHeaderCheckboxId);
     var colHeaderCheckbox = $('#' + colHeaderCheckboxId);
+    var tableCaption = $('#' + tableCaptionId);
     var hot;
     var defaultOptions;
     var finalOptions = {};
@@ -18,6 +20,7 @@ function initTable(id, tableOptions) {
     var structureEvent;
     var dataForForm = null;
     var isInitialized = false;
+
     var getWidth = function() {
         return $('.widget-table_input').closest('.sequence-member-inner').width();
     };
@@ -55,6 +58,9 @@ function initTable(id, tableOptions) {
         if (dataForForm.hasOwnProperty('first_col_is_header')) {
             colHeaderCheckbox.prop('checked', dataForForm.first_col_is_header);
         }
+        if (dataForForm.hasOwnProperty('table_caption')) {
+            tableCaption.prop('value', dataForForm.table_caption);
+        }
     }
 
     if (!tableOptions.hasOwnProperty('width') || !tableOptions.hasOwnProperty('height')) {
@@ -88,7 +94,8 @@ function initTable(id, tableOptions) {
             data: hot.getData(),
             cell: getCellsClassnames(),
             first_row_is_table_header: tableHeaderCheckbox.prop('checked'),
-            first_col_is_header: colHeaderCheckbox.prop('checked')
+            first_col_is_header: colHeaderCheckbox.prop('checked'),
+            table_caption: tableCaption.val()
         }));
     };
 
@@ -120,6 +127,10 @@ function initTable(id, tableOptions) {
     });
 
     colHeaderCheckbox.on('change', function() {
+        persist();
+    });
+
+    tableCaption.on('change', function() {
         persist();
     });
 
