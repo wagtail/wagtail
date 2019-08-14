@@ -28,6 +28,12 @@ Object {
 }
 `;
 
+exports[`ModalWorkflowSource #filterEntityData LINK anchor 1`] = `
+Object {
+  "url": "#testanchor",
+}
+`;
+
 exports[`ModalWorkflowSource #filterEntityData LINK external 1`] = `
 Object {
   "url": "https://www.example.com/",
