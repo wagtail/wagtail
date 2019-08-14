@@ -318,8 +318,7 @@ class HtmlToContentStateHandler(HTMLParser):
         # normalise whitespace sequences to a single space unless whitespace is contained in <pre> tag,
         # in which case, leave it alone
         # This is in line with https://www.w3.org/TR/html4/struct/text.html#h-9.1
-        if not (content.startswith('<pre>') and content.endswith('</pre>')):
-            content = re.sub(WHITESPACE_RE, ' ', content)
+        content = re.sub(WHITESPACE_RE, ' ', content)
 
         if self.state.current_block is None:
             if content == ' ':

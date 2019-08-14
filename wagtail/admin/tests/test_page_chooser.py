@@ -606,17 +606,17 @@ class TestChooserAnchorLink(TestCase, WagtailTestUtils):
 
     def test_notice_changes_to_link_text(self):
         response = self.post(
-            {'anchor-link-chooser-url': 'exampleanchor2', 'anchor-link-chooser-link_text': 'Example Anchor Text 2'},  # POST data
-            {'link_url': 'exampleanchor2', 'link_text': 'Example Anchor Text'}  # GET params - initial data
+            {'anchor-link-chooser-url': 'exampleanchor2', 'email-link-chooser-link_text': 'Example Text'},  # POST data
+            {'link_url': 'exampleanchor2', 'link_text': 'Example Text'}  # GET params - initial data
         )
         result = json.loads(response.content.decode())['result']
         self.assertEqual(result['url'], "#exampleanchor2")
-        self.assertEqual(result['title'], "Example Anchor Text 2")
+        self.assertEqual(result['title'], "exampleanchor2")
         # no change to link text, so prefer the existing link/selection content where available
-        self.assertEqual(result['prefer_this_title_as_link_text'], False)
+        self.assertEqual(result['prefer_this_title_as_link_text'], True)
 
         response = self.post(
-            {'anchor-link-chooser-anchor': 'exampleanchor2', 'anchor-link-chooser-link_text': 'Example Anchor Test 2.1'},  # POST data
+            {'anchor-link-chooser-url': 'exampleanchor2', 'anchor-link-chooser-link_text': 'Example Anchor Test 2.1'},  # POST data
             {'link_url': 'exampleanchor', 'link_text': 'Example Anchor Text'}  # GET params - initial data
         )
         result = json.loads(response.content.decode())['result']
