@@ -34,6 +34,7 @@ Bug fixes
  * Middleware responses during page preview are now properly returned to the user (Matt Westcott)
  * Default text of page links in rich text uses the public page title rather than the admin display title (Andy Chosak)
  * Specific page permission checks are now enforced when viewing a page revision (Andy Chosak)
+ * ``pageurl`` and ``slugurl`` tags no longer fail when ``request.site`` is ``None`` (Samir Shah)
 
 
 Upgrade considerations
