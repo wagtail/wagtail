@@ -55,6 +55,7 @@ Object {
   },
   "url": "/admin/choose-external-link/",
   "urlParams": Object {
+    "allow_anchor_link": true,
     "allow_email_link": true,
     "allow_external_link": true,
     "link_text": "",
@@ -71,6 +72,7 @@ Object {
   },
   "url": "/admin/choose-email-link/",
   "urlParams": Object {
+    "allow_anchor_link": true,
     "allow_email_link": true,
     "allow_external_link": true,
     "link_text": "",
@@ -87,6 +89,7 @@ Object {
   },
   "url": "/admin/choose-page/",
   "urlParams": Object {
+    "allow_anchor_link": true,
     "allow_email_link": true,
     "allow_external_link": true,
     "link_text": "",
@@ -102,6 +105,7 @@ Object {
   },
   "url": "/admin/choose-page/1/",
   "urlParams": Object {
+    "allow_anchor_link": true,
     "allow_email_link": true,
     "allow_external_link": true,
     "link_text": "",
@@ -117,6 +121,7 @@ Object {
   },
   "url": "/admin/choose-page/",
   "urlParams": Object {
+    "allow_anchor_link": true,
     "allow_email_link": true,
     "allow_external_link": true,
     "link_text": "",
