@@ -13,6 +13,7 @@ Wagtail 2.7 is designated a Long Term Support (LTS) release. Long Term Support r
 What's new
 ==========
 
+* Upgraded Elasticsearch client library dependency to 6.4.0 or above, 7.0.0 or above is still supported.
 
 Other features
 ~~~~~~~~~~~~~~
@@ -20,6 +21,7 @@ Other features
  * Added ``construct_page_listing_buttons`` hook (Michael van Tellingen)
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
  * Move and refactor upgrade notification JS (Jonny Scholes)
+ * Remove need for Elasticsearch ``update_all_types`` workaround, upgrade minimum release to 6.4.0 or above (Jonathan Liuti)
 
 
 Bug fixes
