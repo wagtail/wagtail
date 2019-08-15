@@ -15,6 +15,7 @@ What's new
 
 * Upgraded Elasticsearch client library dependency to 6.4.0 or above, 7.0.0 or above is still supported.
 
+
 Other features
 ~~~~~~~~~~~~~~
 
@@ -23,6 +24,7 @@ Other features
  * Move and refactor upgrade notification JS (Jonny Scholes)
  * Remove need for Elasticsearch ``update_all_types`` workaround, upgrade minimum release to 6.4.0 or above (Jonathan Liuti)
  * Add ability to insert internal anchor links/links with fragment identifiers in Draftail (rich text) fields (Iman Syed)
+ * Added Table Block caption for accessibility (Rahmi Pruitt)
 
 
 Bug fixes
