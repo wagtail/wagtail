@@ -387,6 +387,7 @@ Contributors
 * Iman Syed
 * John Carter
 * Jonathan Liuti
+* Rahmi Pruitt
 
 Translators
 ===========
