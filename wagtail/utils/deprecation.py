@@ -49,7 +49,7 @@ class MovedDefinitionHandler(object):
 
             warnings.warn(
                 "%s has been moved from %s to %s" % (name, self.real_module.__name__, new_module_name),
-                category=self.warning_class
+                category=self.warning_class, stacklevel=2
             )
 
             # load the requested definition from the module named in moved_definitions
