@@ -55,3 +55,49 @@ Upgrade considerations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The internal ``Page.dummy_request`` method (which generates an HTTP request object simulating a real page request, for use in previews) has been deprecated, as it did not correctly handle errors generated during middleware processing. Any code that calls this method to render page previews should be updated to use the new method ``Page.make_preview_request(original_request=None, preview_mode=None)``, which builds the request and calls ``Page.serve_preview`` as a single operation.
+
+
+``wagtail.admin.utils`` and ``wagtail.admin.decorators`` modules deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The modules ``wagtail.admin.utils`` and ``wagtail.admin.decorators`` have been deprecated. The helper functions defined here exist primarily for Wagtail's internal use; however, some of them (particularly ``send_mail`` and ``permission_required``) may be found in user code, and import lines will need to be updated. The new locations for these definitions are as follows:
+
++---------------------------------+--------------------------+--------------------------+
+| Definition                      | Old location             | New location             |
++=================================+==========================+==========================+
+| any_permission_required         | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| permission_denied               | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| permission_required             | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| PermissionPolicyChecker         | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| user_has_any_page_permission    | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| user_passes_test                | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| users_with_page_permission      | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| reject_request                  | wagtail.admin.decorators | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| require_admin_access            | wagtail.admin.decorators | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| get_available_admin_languages   | wagtail.admin.utils      | wagtail.admin.locale     |
++---------------------------------+--------------------------+--------------------------+
+| get_available_admin_time_zones  | wagtail.admin.utils      | wagtail.admin.locale     |
++---------------------------------+--------------------------+--------------------------+
+| get_js_translation_strings      | wagtail.admin.utils      | wagtail.admin.locale     |
++---------------------------------+--------------------------+--------------------------+
+| WAGTAILADMIN_PROVIDED_LANGUAGES | wagtail.admin.utils      | wagtail.admin.locale     |
++---------------------------------+--------------------------+--------------------------+
+| send_mail                       | wagtail.admin.utils      | wagtail.admin.mail       |
++---------------------------------+--------------------------+--------------------------+
+| send_notification               | wagtail.admin.utils      | wagtail.admin.mail       |
++---------------------------------+--------------------------+--------------------------+
+| get_object_usage                | wagtail.admin.utils      | wagtail.admin.models     |
++---------------------------------+--------------------------+--------------------------+
+| popular_tags_for_model          | wagtail.admin.utils      | wagtail.admin.models     |
++---------------------------------+--------------------------+--------------------------+
+| get_site_for_user               | wagtail.admin.utils      | wagtail.admin.navigation |
++---------------------------------+--------------------------+--------------------------+
