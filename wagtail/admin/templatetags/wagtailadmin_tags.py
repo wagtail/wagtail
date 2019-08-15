@@ -13,10 +13,10 @@ from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.admin.locale import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
-from wagtail.admin.utils import get_js_translation_strings
 from wagtail.core import hooks
 from wagtail.core.models import (
     CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
