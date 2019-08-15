@@ -14,7 +14,6 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
-from unidecode import unidecode
 from willow.image import Image as WillowImage
 
 from wagtail.admin.utils import get_object_usage
@@ -24,6 +23,7 @@ from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.rect import Rect
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
+from wagtail.utils.text import string_to_ascii
 
 
 class SourceImageIOError(IOError):
@@ -128,9 +128,10 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         folder_name = 'original_images'
         filename = self.file.field.storage.get_valid_name(filename)
 
-        # do a unidecode in the filename and then
-        # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
-        filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
+        # convert the filename to ascii only characters and then replace
+        # extended ascii characters in filename with _ , to sidestep issues
+        # with filesystem encoding
+        filename = "".join((i if ord(i) < 128 else '_') for i in string_to_ascii(filename))
 
         # Truncate filename so it fits in the 100 character limit
         # https://code.djangoproject.com/ticket/9893

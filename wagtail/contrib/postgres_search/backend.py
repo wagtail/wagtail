@@ -12,12 +12,13 @@ from wagtail.search.backends.base import (
 from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
 from wagtail.search.utils import ADD, MUL, OR
+from wagtail.utils.text import string_to_ascii
 
 from .models import RawSearchQuery as PostgresRawSearchQuery
 from .models import IndexEntry
 from .utils import (
     get_content_type_pk, get_descendants_content_types_pks, get_postgresql_connections,
-    get_sql_weights, get_weight, unidecode)
+    get_sql_weights, get_weight)
 
 EMPTY_VECTOR = SearchVector(Value(''))
 
@@ -70,7 +71,7 @@ class Index:
     def prepare_field(self, obj, field):
         if isinstance(field, SearchField):
             yield (field, get_weight(field.boost),
-                   unidecode(self.prepare_value(field.get_value(obj))))
+                   string_to_ascii(self.prepare_value(field.get_value(obj))))
         elif isinstance(field, RelatedFields):
             sub_obj = field.get_value(obj)
             if sub_obj is None:
@@ -228,7 +229,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 return self.get_search_field(sub_field_name, field.fields)
 
     def prepare_word(self, word):
-        return unidecode(word)
+        return string_to_ascii(word)
 
     def build_tsquery_content(self, query, group=False):
         if isinstance(query, PlainText):

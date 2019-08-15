@@ -6,11 +6,11 @@ from django.db import models
 from django.shortcuts import render
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
-from unidecode import unidecode
 
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.utils import send_mail
 from wagtail.core.models import Orderable, Page
+from wagtail.utils.text import string_to_ascii
 
 from .forms import FormBuilder, WagtailAdminFormPageForm
 from .views import SubmissionsListView
@@ -97,10 +97,8 @@ class AbstractFormField(Orderable):
 
     @property
     def clean_name(self):
-        # unidecode will return an ascii string while slugify wants a
-        # unicode string on the other hand, slugify returns a safe-string
-        # which will be converted to a normal str
-        return str(slugify(str(unidecode(self.label))))
+        # slugify returns a safe-string which will be converted to a normal str
+        return str(slugify(string_to_ascii(self.label)))
 
     panels = [
         FieldPanel('label'),
