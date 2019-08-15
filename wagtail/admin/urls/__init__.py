@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 from django.http import Http404
 from django.views.defaults import page_not_found
 
+from wagtail.admin.auth import require_admin_access
 from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import collections as wagtailadmin_collections_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
@@ -13,7 +14,6 @@ from wagtail.admin.views import account, chooser, home, pages, tags, userbar
 from wagtail.admin.api import urls as api_urls
 from wagtail.core import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
-from wagtail.admin.decorators import require_admin_access
 
 
 urlpatterns = [

@@ -5,6 +5,8 @@ from django.utils.translation import ugettext
 from draftjs_exporter.dom import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.auth import user_has_any_page_permission
+from wagtail.admin.locale import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
@@ -16,9 +18,6 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
-from wagtail.admin.utils import (
-    get_available_admin_languages, get_available_admin_time_zones,
-    user_has_any_page_permission)
 from wagtail.admin.views.account import password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton

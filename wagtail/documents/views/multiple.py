@@ -6,7 +6,7 @@ from django.utils.encoding import force_text
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
-from wagtail.admin.utils import PermissionPolicyChecker
+from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.core.models import Collection
 from wagtail.search.backends import get_search_backends
 

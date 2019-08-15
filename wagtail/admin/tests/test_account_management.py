@@ -12,7 +12,7 @@ from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.admin.utils import (
+from wagtail.admin.locale import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
