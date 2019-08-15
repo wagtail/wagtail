@@ -2112,12 +2112,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
                 DeleteMenuItem(order=20),
                 SubmitForModerationMenuItem(order=30),
                 SaveDraftMenuItem(order=40),
-                PublishMenuItem(_isDefault=True),
+                PublishMenuItem(order=50),
             ]
 
         default_item = '<button type="submit" name="action-publish" value="action-publish" class="button button-longrunning " data-clicked-text="Publishing…"><span class="icon icon-spinner"></span><em>Publish</em></button>'
-        menu_items_html = '''
-        <ul>
+        menu_items_html = '''<ul>
             <li>
                 <a class="button" href="/admin/pages/6/unpublish/">Unpublish</a>
             </li>
@@ -2130,8 +2129,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             <li>
                 <button type="submit" class="button action-save button-longrunning " data-clicked-text="Saving…" ><span class="icon icon-spinner"></span><em>Save draft</em></button>
             </li>
-        </ul>
-        '''
+        </ul>'''
         with self.register_hook('construct_page_action_menu', hook_func):
             response = self.client.get(reverse('wagtailadmin_pages:edit',
                                        args=(self.single_event_page.id, )))
