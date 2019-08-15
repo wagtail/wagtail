@@ -386,6 +386,7 @@ Contributors
 * Rodrigo
 * Iman Syed
 * John Carter
+* Jonathan Liuti
 
 Translators
 ===========

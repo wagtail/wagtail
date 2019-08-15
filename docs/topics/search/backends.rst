@@ -113,11 +113,12 @@ Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elastic
 
 .. code-block:: sh
 
-  pip install "elasticsearch>=6.0.0,<6.3.1"  # for Elasticsearch 6.x
+  pip install "elasticsearch>=6.4.0,<7.0.0"  # for Elasticsearch 6.x
 
 .. warning::
 
-    | Version 6.3.1 of the Elasticsearch client library is incompatible with Wagtail. Use 6.3.0 or earlier.
+    | Version 6.3.1 of the Elasticsearch client library is incompatible with Wagtail. Use 6.4.0 or above.
+
 
 The backend is configured in settings:
 
