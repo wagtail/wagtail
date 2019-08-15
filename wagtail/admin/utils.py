@@ -5,67 +5,21 @@ from functools import wraps
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.mail import get_connection
 from django.core.mail.message import EmailMultiAlternatives
-from django.db.models import Count, Q
+from django.db.models import Q
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from django.utils.translation import override
-from modelcluster.fields import ParentalKey
-from taggit.models import Tag
 
 from wagtail.admin.navigation import get_explorable_root_page
-from wagtail.core.models import GroupPagePermission, Page, PageRevision
+from wagtail.core.models import GroupPagePermission, PageRevision
 from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import MovedDefinitionHandler, RemovedInWagtail29Warning
 
 logger = logging.getLogger('wagtail.admin')
-
-
-def get_object_usage(obj):
-    "Returns a queryset of pages that link to a particular object"
-
-    pages = Page.objects.none()
-
-    # get all the relation objects for obj
-    relations = [f for f in type(obj)._meta.get_fields(include_hidden=True)
-                 if (f.one_to_many or f.one_to_one) and f.auto_created]
-    for relation in relations:
-        related_model = relation.related_model
-
-        # if the relation is between obj and a page, get the page
-        if issubclass(related_model, Page):
-            pages |= Page.objects.filter(
-                id__in=related_model._base_manager.filter(**{
-                    relation.field.name: obj.id
-                }).values_list('id', flat=True)
-            )
-        else:
-            # if the relation is between obj and an object that has a page as a
-            # property, return the page
-            for f in related_model._meta.fields:
-                if isinstance(f, ParentalKey) and issubclass(f.remote_field.model, Page):
-                    pages |= Page.objects.filter(
-                        id__in=related_model._base_manager.filter(
-                            **{
-                                relation.field.name: obj.id
-                            }).values_list(f.attname, flat=True)
-                    )
-
-    return pages
-
-
-def popular_tags_for_model(model, count=10):
-    """Return a queryset of the most frequently used tags used on this model class"""
-    content_type = ContentType.objects.get_for_model(model)
-    return Tag.objects.filter(
-        taggit_taggeditem_items__content_type=content_type
-    ).annotate(
-        item_count=Count('taggit_taggeditem_items')
-    ).order_by('-item_count')[:count]
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
@@ -312,6 +266,9 @@ MOVED_DEFINITIONS = {
     'get_js_translation_strings': 'wagtail.admin.locale',
     'get_available_admin_languages': 'wagtail.admin.locale',
     'get_available_admin_time_zones': 'wagtail.admin.locale',
+
+    'get_object_usage': 'wagtail.admin.models',
+    'popular_tags_for_model': 'wagtail.admin.models',
 }
 
 sys.modules[__name__] = MovedDefinitionHandler(sys.modules[__name__], MOVED_DEFINITIONS, RemovedInWagtail29Warning)
