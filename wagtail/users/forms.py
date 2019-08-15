@@ -14,7 +14,7 @@ from django.template.loader import render_to_string
 from django.utils.html import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.admin.utils import get_available_admin_languages, get_available_admin_time_zones
+from wagtail.admin.locale import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.core import hooks
 from wagtail.core.models import (

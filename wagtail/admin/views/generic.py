@@ -7,7 +7,7 @@ from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdate
 from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
-from wagtail.admin.utils import permission_denied
+from wagtail.admin.auth import permission_denied
 
 
 class PermissionCheckedMixin:

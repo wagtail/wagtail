@@ -10,8 +10,9 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag
 
+from wagtail.admin.auth import user_has_any_page_permission
+from wagtail.admin.mail import send_mail
 from wagtail.admin.menu import MenuItem
-from wagtail.admin.utils import send_mail, user_has_any_page_permission
 from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailTestUtils
 

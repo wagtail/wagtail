@@ -6,7 +6,7 @@ from django.template import Context, Template
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
-from wagtail.admin.utils import user_has_any_page_permission
+from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.core.models import Site
 from wagtail.tests.utils import WagtailTestUtils
 
