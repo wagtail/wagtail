@@ -75,26 +75,29 @@ class MediaBlock extends Component {
   }
 
   render() {
-    const { blockProps, src, alt } = this.props;
+    const { blockProps, src, alt, authorName, providerName } = this.props;
     const { showTooltipAt } = this.state;
     const { entityType } = blockProps;
 
     return (
-      <button
-        type="button"
-        tabIndex={-1}
-        className="MediaBlock"
-        onClick={this.openTooltip}
-        data-draftail-trigger
-      >
-        <span className="MediaBlock__icon-wrapper" aria-hidden>
-          <Icon icon={entityType.icon} className="MediaBlock__icon" />
-        </span>
-
-        <img className="MediaBlock__img" src={src} alt={alt} width="256" />
-
-        {showTooltipAt && this.renderTooltip()}
-      </button>
+      <div>
+        <button
+          type="button"
+          tabIndex={-1}
+          className="MediaBlock"
+          onClick={this.openTooltip}
+          data-draftail-trigger
+        >
+          <span className="MediaBlock__icon-wrapper" aria-hidden>
+            <Icon icon={entityType.icon} className="MediaBlock__icon" />
+          </span>
+          <img className="MediaBlock__img" src={src} alt={alt} width="256" />
+          <small className="MediaBlock__fallback">
+            {authorName}<br></br>{providerName}
+          </small>
+          {showTooltipAt && this.renderTooltip()}
+        </button>
+      </div>
     );
   }
 }
@@ -105,12 +108,16 @@ MediaBlock.propTypes = {
   }).isRequired,
   src: PropTypes.string,
   alt: PropTypes.string,
+  providerName: PropTypes.string,
+  authorName: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
 MediaBlock.defaultProps = {
   src: null,
   alt: '',
+  providerName: '',
+  authorName: '',
 };
 
 export default MediaBlock;
