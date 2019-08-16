@@ -92,7 +92,7 @@ class MediaBlock extends Component {
             <Icon icon={entityType.icon} className="MediaBlock__icon" />
           </span>
           <img className="MediaBlock__img" src={src} alt={alt} width="256" />
-          <small className="MediaBlock__fallback">
+          <small className="MediaBlock__no-thumbnail-fallback">
             {authorName}<br></br>{providerName}
           </small>
           {showTooltipAt && this.renderTooltip()}
