@@ -11,13 +11,13 @@ TIME_ZONE = 'Asia/Tokyo'
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.environ.get('DATABASE_NAME', 'wagtail'),
+        'NAME': os.environ.get('DATABASE_NAME', 'wagtail.db'),
         'USER': os.environ.get('DATABASE_USER', None),
         'PASSWORD': os.environ.get('DATABASE_PASS', None),
         'HOST': os.environ.get('DATABASE_HOST', None),
 
         'TEST': {
-            'NAME': os.environ.get('DATABASE_NAME', None),
+            'NAME': os.environ.get('DATABASE_NAME', "wagtail.db"),
         }
     }
 }
@@ -165,6 +165,8 @@ WAGTAILSEARCH_BACKENDS = {
 }
 
 AUTH_USER_MODEL = 'customuser.CustomUser'
+
+WAGTAILCORE_SITE_MODEL = 'tests.CustomSite'
 
 if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     INSTALLED_APPS += ('wagtail.contrib.postgres_search',)

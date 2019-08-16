@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
-from django.test import TestCase
+from django.core.exceptions import ImproperlyConfigured
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.core.models import Page, get_site_model
@@ -346,3 +348,30 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
         # Check that the site was edited
         with self.assertRaises(Site.DoesNotExist):
             Site.objects.get(id=self.localhost.id)
+
+
+class TestGetSiteModel(WagtailTestUtils, TestCase):
+    @override_settings(WAGTAIL_SITE_MODEL='tests.CustomSite')
+    def test_custom_get_site_model(self):
+        """Test get_site_model with a custom site model"""
+        from wagtail.tests.testapp.models import CustomSite
+        self.assertIs(get_site_model(), CustomSite)
+
+    @override_settings()
+    def test_standard_get_site_model(self):
+        """Test get_site_model with no WAGTAIL_SITE_MODEL"""
+        del settings.WAGTAIL_SITE_MODEL
+        from wagtail.core.models import Site
+        self.assertIs(get_site_model(), Site)
+
+    @override_settings(WAGTAIL_SITE_MODEL='tests.UnknownModel')
+    def test_unknown_get_site_model(self):
+        """Test get_site_model with an unknown model"""
+        with self.assertRaises(ImproperlyConfigured):
+            get_site_model()
+
+    @override_settings(WAGTAILI_SITE_MODEL='invalid-string')
+    def test_invalid_get_site_model(self):
+        """Test get_site_model with an invalid model string"""
+        with self.assertRaises(ImproperlyConfigured):
+            get_site_model()
