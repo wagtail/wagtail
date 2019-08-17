@@ -389,6 +389,7 @@ Contributors
 * Jonathan Liuti
 * Rahmi Pruitt
 * Sanyam Khurana
+* Pavel Denisov
 
 Translators
 ===========
