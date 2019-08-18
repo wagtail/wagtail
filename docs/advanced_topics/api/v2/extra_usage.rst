@@ -5,12 +5,14 @@ Extra information on exposing the API
 Images
 ------
 
-If you have in your model an image you can expose the image by using the ImageRenditionField.
+You can expose an Image's rendition, a specific size of a related Image field's image, by using the ImageRenditionField class.
 :class:`wagtail.images.api.fields.ImageRenditionField`. The ImageRenditionField will return url, width, height.
 
 ..code-block:: python
 
-    class SomePage(Page):
+    from wagtail.images.api.fields import ImageRenditionField
+
+    class RockStars(Page):
         ...
         image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
         ...
@@ -53,7 +55,7 @@ You can expose your snippet to the API
 
 ..code-block:: python
 
-    class SomePage(Page):
+    class RockStarPage(Page):
         ...
         group = models.ForeignKey('snippet.band', null=True, blank=True, on_delete=models.SET_NULL, related_name="+")
 
@@ -72,6 +74,8 @@ Where streamfields are easy to include in your APIField it takes a littlebit ext
 snippets in combination. You have to add the fields to your API manualy in the streamfield block
 
 ..code-block:: python
+
+    from wagtail.images.api.fields import ImageRenditionField
 
     class BandBlock(blocks.StructBlock):
         band = block.SnippetChooserBlock('snippet.band')
