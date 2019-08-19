@@ -34,7 +34,7 @@ class TabInterface {
     this.setActiveTab = this.setActiveTab.bind(this);
     this.render = this.render.bind(this);
 
-    this.tabs = Array.from(this.el.querySelectorAll(this.options.tabLinkSelector));
+    this.tabs = [...this.el.querySelectorAll(this.options.tabLinkSelector)];
 
     this.activeTab = this.tabs[this.options.initialActiveTab];
 
@@ -171,7 +171,7 @@ class TabInterface {
 }
 
 const initDefaultTabs = () => {
-  const tabPanels = Array.from(document.querySelectorAll('.tab-nav'));
+  const tabPanels = [...document.querySelectorAll('.tab-nav')];
   tabPanels.forEach(el => new TabInterface(el));
 };
 
