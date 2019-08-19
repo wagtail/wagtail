@@ -285,13 +285,13 @@ class TestTabbedInterface(TestCase):
         result = tabbed_interface.render()
 
         # result should contain tab buttons
-        self.assertIn('<a href="#tab-event-details" id="tab-label-event-details" class="active" role="tab" aria-controls="tab-event-details" aria-selected="true">Event details</a>', result)
-        self.assertIn('<a href="#tab-speakers" id="tab-label-speakers" class="" role="tab" aria-controls="tab-speakers" >Speakers</a>', result)
+        self.assertIn('<a href="#tab-event-details" id="tab-label-event-details" class="active" role="tab">Event details</a>', result)
+        self.assertIn('<a href="#tab-speakers" id="tab-label-speakers" class="" role="tab">Speakers</a>', result)
 
         # result should contain tab panels
         self.assertIn('<div class="tab-content">', result)
-        self.assertIn('<section id="tab-event-details" class="shiny active" role="tabpanel" aria-labelledby="tab-label-event-details">', result)
-        self.assertIn('<section id="tab-speakers" class=" " role="tabpanel" aria-labelledby="tab-label-speakers">', result)
+        self.assertIn('<section id="tab-event-details" class="shiny" role="tabpanel">', result)
+        self.assertIn('<section id="tab-speakers" class="" role="tabpanel">', result)
 
         # result should contain rendered content from descendants
         self.assertIn('Abergavenny sheepdog trials</textarea>', result)

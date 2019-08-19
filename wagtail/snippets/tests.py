@@ -180,8 +180,8 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
         self.assertContains(response, '<ul class="tab-nav merged" role="tablist" aria-owns="tab-label-advert tab-label-other ">')
-        self.assertContains(response, '<a href="#tab-advert" id="tab-label-advert" class="active" role="tab" aria-controls="tab-advert" aria-selected="true">Advert</a>', html=True)
-        self.assertContains(response, '<a href="#tab-other" id="tab-label-other" class="" role="tab" aria-controls="tab-other">Other</a>', html=True)
+        self.assertContains(response, '<a href="#tab-advert" id="tab-label-advert" class="active" role="tab">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#tab-other" id="tab-label-other" class="" role="tab">Other</a>', html=True)
 
     def test_create_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -316,8 +316,8 @@ class TestEditTabbedSnippet(BaseTestSnippetEditView):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
         self.assertContains(response, '<ul class="tab-nav merged" role="tablist" aria-owns="tab-label-advert tab-label-other ">')
-        self.assertContains(response, '<a href="#tab-advert" id="tab-label-advert" class="active" role="tab" aria-controls="tab-advert" aria-selected="true">Advert</a>', html=True)
-        self.assertContains(response, '<a href="#tab-other" id="tab-label-other" class="" role="tab" aria-controls="tab-other">Other</a>', html=True)
+        self.assertContains(response, '<a href="#tab-advert" id="tab-label-advert" class="active" role="tab">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#tab-other" id="tab-label-other" class="" role="tab">Other</a>', html=True)
 
 
 class TestEditFileUploadSnippet(BaseTestSnippetEditView):
