@@ -47,17 +47,17 @@ class MovedDefinitionHandler(object):
                 # in the stack trace
                 raise e from None
 
-            warnings.warn(
-                "%s has been moved from %s to %s" % (name, self.real_module.__name__, new_module_name),
-                category=self.warning_class, stacklevel=2
-            )
+        warnings.warn(
+            "%s has been moved from %s to %s" % (name, self.real_module.__name__, new_module_name),
+            category=self.warning_class, stacklevel=2
+        )
 
-            # load the requested definition from the module named in moved_definitions
-            new_module = import_module(new_module_name)
-            definition = getattr(new_module, name)
+        # load the requested definition from the module named in moved_definitions
+        new_module = import_module(new_module_name)
+        definition = getattr(new_module, name)
 
-            # stash that definition into the current module so that we don't have to
-            # redo this import next time we access it
-            setattr(self.real_module, name, definition)
+        # stash that definition into the current module so that we don't have to
+        # redo this import next time we access it
+        setattr(self.real_module, name, definition)
 
-            return definition
+        return definition
