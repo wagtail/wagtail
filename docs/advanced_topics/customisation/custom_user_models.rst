@@ -31,6 +31,7 @@ Create your custom user 'create' and 'edit' forms in your app:
   from django.utils.translation import ugettext_lazy as _
 
   from wagtail.users.forms import UserEditForm, UserCreationForm
+  from wagtail.admin.widgets import AdminDateTimeInput
 
   from users.models import MembershipStatus
 
@@ -38,12 +39,16 @@ Create your custom user 'create' and 'edit' forms in your app:
   class CustomUserEditForm(UserEditForm):
       country = forms.CharField(required=True, label=_("Country"))
       status = forms.ModelChoiceField(queryset=MembershipStatus.objects, required=True, label=_("Status"))
+      access_expiry = forms.DateTimeField(required=True, label=_("Access expiry"), widget=AdminDateTimeInput)
 
 
   class CustomUserCreationForm(UserCreationForm):
       country = forms.CharField(required=True, label=_("Country"))
       status = forms.ModelChoiceField(queryset=MembershipStatus.objects, required=True, label=_("Status"))
+      access_expiry = forms.DateTimeField(required=True, label=_("Access expiry"), widget=AdminDateTimeInput)
 
+**Note:**
+For some fields like the ``DateTimeField`` you need to explicitly specify the widget in this case to enable the date picker.
 
 Extend the Wagtail user 'create' and 'edit' templates. These extended templates should be placed in a
 template directory ``wagtailusers/users``.
@@ -57,6 +62,7 @@ Template create.html:
   {% block extra_fields %}
       {% include "wagtailadmin/shared/field_as_li.html" with field=form.country %}
       {% include "wagtailadmin/shared/field_as_li.html" with field=form.status %}
+      {% include "wagtailadmin/shared/field_as_li.html" with field=form.access_expiry %}
   {% endblock extra_fields %}
 
 Template edit.html:
@@ -68,6 +74,7 @@ Template edit.html:
   {% block extra_fields %}
       {% include "wagtailadmin/shared/field_as_li.html" with field=form.country %}
       {% include "wagtailadmin/shared/field_as_li.html" with field=form.status %}
+      {% include "wagtailadmin/shared/field_as_li.html" with field=form.access_expiry %}
   {% endblock extra_fields %}
 
 The ``extra_fields`` block allows fields to be inserted below the ``last_name`` field
@@ -81,7 +88,7 @@ Add the wagtail settings to your project to reference the user form additions:
 
   WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
   WAGTAIL_USER_CREATION_FORM = 'users.forms.CustomUserCreationForm'
-  WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'status']
+  WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'status', 'access_expiry']
 
 
 .. _AUTH_USER_MODEL: https://docs.djangoproject.com/en/dev/topics/auth/customizing/#substituting-a-custom-user-model
