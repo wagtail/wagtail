@@ -388,6 +388,7 @@ Contributors
 * John Carter
 * Jonathan Liuti
 * Rahmi Pruitt
+* Sanyam Khurana
 
 Translators
 ===========
