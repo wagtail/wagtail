@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n modeladmin_tags modeladmin_tags %}
 
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
@@ -20,6 +20,7 @@
     {{ edit_handler.html_declarations }}
 
     {{ view.media.js }}
+    {% prepopulated_slugs %}
 {% endblock %}
 
 {% block content %}

@@ -147,10 +147,16 @@ class ModelFormView(WMABaseView, FormView):
     def get_context_data(self, form=None, **kwargs):
         if form is None:
             form = self.get_form()
+        
+        prepopulated_fields = [
+            {'field': form[field_name], 'dependencies': [form[f] for f in dependencies]}
+            for field_name, dependencies in self.model_admin.prepopulated_fields.items()
+        ]
         context = {
             'is_multipart': form.is_multipart(),
             'edit_handler': self.edit_handler,
             'form': form,
+            'prepopulated_fields': prepopulated_fields,
         }
         context.update(kwargs)
         return super().get_context_data(**context)

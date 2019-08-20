@@ -85,6 +85,7 @@ class ModelAdmin(WagtailRegisterable):
     search_fields = None
     ordering = None
     parent = None
+    prepopulated_fields = {}
     index_view_class = IndexView
     create_view_class = CreateView
     edit_view_class = EditView
@@ -291,6 +292,12 @@ class ModelAdmin(WagtailRegisterable):
         Must always return a dictionary.
         """
         return {}
+
+    def get_prepopulated_fields(self, request):
+        """
+        Returns a sequence specifying custom prepopulated fields slugs on Create/Edit pages.
+        """
+        return self.prepopulated_fields or {}    
 
     def get_form_fields_exclude(self, request):
         """
