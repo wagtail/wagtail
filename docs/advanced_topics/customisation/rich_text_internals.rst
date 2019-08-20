@@ -87,7 +87,7 @@ You can create custom rewrite handlers to support your own new ``linktype`` and 
 
         Required. The ``identifier`` attribute is a string that indicates which rich text tags should be handled by this handler.
 
-        For example, ``PageLinkHandler.get_identifier`` returns the string ``"page"``, indicating that any rich text tags with ``<a linktype="page">`` should be handled by it.
+        For example, ``PageLinkHandler.identifier`` is set to the string ``"page"``, indicating that any rich text tags with ``<a linktype="page">`` should be handled by it.
 
     .. method:: expand_db_attributes(attrs)
 
