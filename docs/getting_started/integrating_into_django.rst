@@ -42,6 +42,9 @@ Add the following entries to ``MIDDLEWARE``:
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
+.. note::
+   Wagtail is currently incompatible with projects using ``django.contrib.sites.middleware.CurrentSiteMiddleware``, as both this and ``wagtail.core.middleware.SiteMiddleware`` set the attribute ``request.site``.
+
 Add a ``STATIC_ROOT`` setting, if your project does not have one already:
 
 .. code-block:: python
