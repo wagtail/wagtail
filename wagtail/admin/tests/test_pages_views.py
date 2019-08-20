@@ -2134,6 +2134,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             response = self.client.get(reverse('wagtailadmin_pages:edit',
                                        args=(self.single_event_page.id, )))
 
+        print(response.context)
+
         self.assertContains(response, default_item, html=True)
         self.assertContains(response, menu_items_html, html=True)
 
