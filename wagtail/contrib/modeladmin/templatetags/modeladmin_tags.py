@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from django.contrib.admin.templatetags.admin_list import ResultList, result_headers
 from django.contrib.admin.utils import display_for_field, display_for_value, lookup_field
@@ -185,3 +186,39 @@ def result_row_value_display(context, index):
 @register.filter
 def get_content_type_for_obj(obj):
     return obj.__class__._meta.verbose_name
+
+
+@register.inclusion_tag("modeladmin/prepopulated_slugs.html", takes_context=True)
+def prepopulated_slugs(context):
+    """
+    Create a list of prepopulated_fields that should render Javascript for
+    the prepopulated fields for modeladmin forms.
+    """
+    prepopulated_fields = []
+    if "prepopulated_fields" in context:
+        prepopulated_fields.extend(context["prepopulated_fields"])
+
+    prepopulated_fields_json = []
+    for field in prepopulated_fields:
+        prepopulated_fields_json.append(
+            {
+                "id": "#%s" % field["field"].auto_id,
+                "name": field["field"].name,
+                "dependency_ids": [
+                    "#%s" % dependency.auto_id for dependency in field["dependencies"]
+                ],
+                "dependency_list": [
+                    dependency.name for dependency in field["dependencies"]
+                ],
+                "maxLength": field["field"].field.max_length or 50,
+                "allowUnicode": getattr(field["field"].field, "allow_unicode", False),
+            }
+        )
+
+    context.update(
+        {
+            "prepopulated_fields": prepopulated_fields,
+            "prepopulated_fields_json": json.dumps(prepopulated_fields_json),
+        }
+    )
+    return context

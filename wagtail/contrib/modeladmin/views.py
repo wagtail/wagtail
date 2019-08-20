@@ -140,12 +140,17 @@ class ModelFormView(WMABaseView, FormView):
         instance = self.get_instance()
         edit_handler = self.get_edit_handler()
         form = self.get_form()
+        prepopulated_fields = [
+            {'field': form[field_name], 'dependencies': [form[f] for f in dependencies]}
+            for field_name, dependencies in self.model_admin.prepopulated_fields.items()
+        ]
         edit_handler = edit_handler.bind_to(
             instance=instance, request=self.request, form=form)
         context = {
             'is_multipart': form.is_multipart(),
             'edit_handler': edit_handler,
             'form': form,
+            'prepopulated_fields': prepopulated_fields,
         }
         context.update(kwargs)
         return super().get_context_data(**context)
