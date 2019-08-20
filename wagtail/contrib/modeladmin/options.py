@@ -297,7 +297,7 @@ class ModelAdmin(WagtailRegisterable):
         """
         Returns a sequence specifying custom prepopulated fields slugs on Create/Edit pages.
         """
-        return self.prepopulated_fields or {}    
+        return self.prepopulated_fields or {}
 
     def get_form_fields_exclude(self, request):
         """
