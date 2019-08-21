@@ -1,4 +1,4 @@
-<button type="button" title="Add" class="c-sf-add-button c-sf-add-button--visible {% if state == 'open' %}c-sf-add-button--closed{% endif %}" id="{{ menu_id }}-openclose">
+<button type="button" title="Add" class="c-sf-add-button c-sf-add-button--visible {% if state == 'open' %}c-sf-add-button--close{% endif %}" id="{{ menu_id }}-openclose">
     <i aria-hidden="true">+</i>
 </button>
 <div aria-hidden="{% if state == 'closed' %}true{% else %}false{% endif %}" {% if state == 'closed' %}class="stream-menu-closed"{% endif %} id="{{ menu_id }}">

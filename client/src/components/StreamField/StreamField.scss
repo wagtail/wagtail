@@ -26,6 +26,15 @@ $action-font-size: 18px;
         &::after {
             content: ''; // LEGIT
         }
+
+        input[type='radio'] {
+            margin-bottom: 1.1em;
+            vertical-align: middle;
+
+            &::before {
+                top: unset;
+            }
+        }
     }
 
     // TODO: #CSSoverhaul This should be fixed as part of Wagtail CSS overhaul. The default
