@@ -20,14 +20,14 @@
             self.container.slideDown();
             self.container.removeClass('stream-menu-closed');
             self.container.attr('aria-hidden', 'false');
-            self.openCloseButton.addClass('c-sf-add-button--closed');
+            self.openCloseButton.addClass('c-sf-add-button--close');
         };
 
         self.hide = function() {
             self.container.slideUp();
             self.container.addClass('stream-menu-closed');
             self.container.attr('aria-hidden', 'true');
-            self.openCloseButton.removeClass('c-sf-add-button--closed');
+            self.openCloseButton.removeClass('c-sf-add-button--close');
         };
 
         self.addFirstBlock = function() {
