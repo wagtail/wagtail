@@ -63,6 +63,13 @@ describe('Link', () => {
       });
     });
 
+    it('anchor', () => {
+      expect(getLinkAttributes({ url: '#testanchor' })).toMatchObject({
+        url: '#testanchor',
+        label: '#testanchor',
+      });
+    });
+
     it('external', () => {
       expect(getLinkAttributes({ url: 'http://www.ex.com/' })).toMatchObject({
         url: 'http://www.ex.com/',

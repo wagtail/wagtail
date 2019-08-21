@@ -5,6 +5,8 @@ from django.utils.translation import ugettext
 from draftjs_exporter.dom import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.auth import user_has_any_page_permission
+from wagtail.admin.locale import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
@@ -16,9 +18,6 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
-from wagtail.admin.utils import (
-    get_available_admin_languages, get_available_admin_time_zones,
-    user_has_any_page_permission)
 from wagtail.admin.views.account import password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
@@ -203,7 +202,7 @@ def register_account_set_profile_picture(request):
     return {
         'url': reverse('wagtailadmin_account_change_avatar'),
         'label': _('Set profile picture'),
-        'help_text': _("Change your profile picture")
+        'help_text': _("Change your profile picture.")
     }
 
 
@@ -255,6 +254,15 @@ def register_account_current_time_zone(request):
             'label': _('Current Time Zone'),
             'help_text': _('Choose your current time zone.'),
         }
+
+
+@hooks.register('register_account_menu_item')
+def register_account_change_name(request):
+    return {
+        'url': reverse('wagtailadmin_account_change_name'),
+        'label': _('Change name'),
+        'help_text': _('Change your first and last name on your account.'),
+    }
 
 
 @hooks.register('register_rich_text_features')

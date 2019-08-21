@@ -6,7 +6,7 @@ from django.utils.encoding import force_text
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
-from wagtail.admin.utils import PermissionPolicyChecker
+from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.core.models import Collection
 from wagtail.images import get_image_model
 from wagtail.images.fields import ALLOWED_EXTENSIONS
@@ -93,16 +93,19 @@ def add(request):
                 'error_message': '\n'.join(['\n'.join([force_text(i) for i in v]) for k, v in form.errors.items()]),
             })
     else:
+        # Instantiate a dummy copy of the form that we can retrieve validation messages and media from;
+        # actual rendering of forms will happen on AJAX POST rather than here
         form = ImageForm(user=request.user)
 
-    return render(request, 'wagtailimages/multiple/add.html', {
-        'max_filesize': form.fields['file'].max_upload_size,
-        'help_text': form.fields['file'].help_text,
-        'allowed_extensions': ALLOWED_EXTENSIONS,
-        'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
-        'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
-        'collections': collections_to_choose,
-    })
+        return render(request, 'wagtailimages/multiple/add.html', {
+            'max_filesize': form.fields['file'].max_upload_size,
+            'help_text': form.fields['file'].help_text,
+            'allowed_extensions': ALLOWED_EXTENSIONS,
+            'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
+            'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
+            'collections': collections_to_choose,
+            'form_media': form.media,
+        })
 
 
 @require_POST

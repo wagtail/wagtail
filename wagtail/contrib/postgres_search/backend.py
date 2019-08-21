@@ -17,7 +17,7 @@ from .models import RawSearchQuery as PostgresRawSearchQuery
 from .models import IndexEntry
 from .utils import (
     get_content_type_pk, get_descendants_content_types_pks, get_postgresql_connections,
-    get_sql_weights, get_weight, unidecode)
+    get_sql_weights, get_weight)
 
 EMPTY_VECTOR = SearchVector(Value(''))
 
@@ -70,7 +70,7 @@ class Index:
     def prepare_field(self, obj, field):
         if isinstance(field, SearchField):
             yield (field, get_weight(field.boost),
-                   unidecode(self.prepare_value(field.get_value(obj))))
+                   self.prepare_value(field.get_value(obj)))
         elif isinstance(field, RelatedFields):
             sub_obj = field.get_value(obj)
             if sub_obj is None:
@@ -227,16 +227,13 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                     and field.field_name == field_lookup:
                 return self.get_search_field(sub_field_name, field.fields)
 
-    def prepare_word(self, word):
-        return unidecode(word)
-
     def build_tsquery_content(self, query, group=False):
         if isinstance(query, PlainText):
             query_formats = []
             query_params = []
             for word in query.query_string.split():
                 query_formats.append(self.TSQUERY_WORD_FORMAT)
-                query_params.append(self.prepare_word(word))
+                query_params.append(word)
             operator = self.TSQUERY_OPERATORS[query.operator]
             query_format = operator.join(query_formats)
             if group and len(query_formats) > 1:

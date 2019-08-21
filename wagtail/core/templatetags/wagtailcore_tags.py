@@ -31,6 +31,10 @@ def pageurl(context, page, fallback=None):
         # request.site not available in the current context; fall back on page.url
         return page.url
 
+    if current_site is None:
+        # request.site is set to None; fall back on page.url
+        return page.url
+
     # Pass page.relative_url the request object, which may contain a cached copy of
     # Site.get_site_root_paths()
     # This avoids page.relative_url having to make a database/cache fetch for this list
@@ -48,13 +52,15 @@ def slugurl(context, slug):
     that matches the slug on any site.
     """
 
+    page = None
     try:
         current_site = context['request'].site
     except (KeyError, AttributeError):
         # No site object found - allow the fallback below to take place.
-        page = None
+        pass
     else:
-        page = Page.objects.in_site(current_site).filter(slug=slug).first()
+        if current_site is not None:
+            page = Page.objects.in_site(current_site).filter(slug=slug).first()
 
     # If no page is found, fall back to searching the whole tree.
     if page is None:

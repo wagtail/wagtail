@@ -6,9 +6,32 @@ Changelog
 
  * Added `construct_page_listing_buttons` hook (Michael van Tellingen)
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
+ * Added Table Block caption for accessibility (Rahmi Pruitt)
+ * Move and refactor upgrade notification JS (Jonny Scholes)
+ * Add ability to insert internal anchor links/links with fragment identifiers in Draftail (rich text) fields (Iman Syed)
+ * Remove need for Elasticsearch `update_all_types` workaround, upgrade minimum release to 6.4.0 or above (Jonathan Liuti)
+ * Upgrade django-modelcluster to>=5.0 and upgrade django-taggit to >=1.0 for Django 3.0 support (Matt Westcott)
+ * Revise tests to ensure all pass in Django 3.0 (Matt Westcott)
+ * Add ability for users to change their own name via the account settings page (Kevin Howbrook)
  * Fix: Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
  * Fix: Added https support for Scribd oEmbed provider (Rodrigo)
  * Fix: Changed StreamField group labels color so labels are visible (Catherine Farman)
+ * Fix: Prevented images with a very wide aspect ratio from being displayed distorted in the rich text editor (Iman Syed)
+ * Fix: Prevent exception when deleting a model with a protected One-to-one relationship (Neal Todd)
+ * Fix: Added labels to snippet bulk edit checkboxes for screen reader users (Martey Dodoo)
+ * Fix: Middleware responses during page preview are now properly returned to the user (Matt Westcott)
+ * Fix: Default text of page links in rich text uses the public page title rather than the admin display title (Andy Chosak)
+ * Fix: Specific page permission checks are now enforced when viewing a page revision (Andy Chosak)
+ * Fix: `pageurl` and `slugurl` tags no longer fail when `request.site` is `None` (Samir Shah)
+ * Fix: Output form media on add/edit image forms with custom models (Matt Westcott)
+ * Fix: Layout for the clear checkbox in default FileField widget (Mikalai Radchuk)
+ * Fix: Remove ASCII conversion from Postgres search backend, to support stemming in non-Latin alphabets (Pavel Denisov)
+
+
+2.6.1 (05.08.2019)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent Javascript errors caused by unescaped quote characters in translation strings (Matt Westcott)
 
 
 2.6 (01.08.2019)

@@ -1,4 +1,5 @@
 import itertools
+import json
 
 from django import template
 from django.conf import settings
@@ -12,6 +13,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.admin.locale import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
@@ -473,3 +475,8 @@ def avatar_url(user, size=50):
             return gravatar_url
 
     return static('wagtailadmin/images/default-user-avatar.png')
+
+
+@register.simple_tag
+def js_translation_strings():
+    return mark_safe(json.dumps(get_js_translation_strings()))

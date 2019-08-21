@@ -3,6 +3,7 @@ import tempfile
 
 import pytz
 
+from django import VERSION as DJANGO_VERSION
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -11,7 +12,7 @@ from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.admin.utils import (
+from wagtail.admin.locale import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
@@ -309,7 +310,10 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # Check that a validation error was raised
         self.assertTrue('new_password2' in response.context['form'].errors.keys())
-        self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
+        if DJANGO_VERSION >= (3, 0):
+            self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
+        else:
+            self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
         self.assertTrue(get_user_model().objects.get(pk=self.user.pk).check_password('password'))
@@ -406,6 +410,31 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # Check that the current language is assumed as English
         self.assertEqual(profile.get_preferred_language(), "en")
+
+    def test_change_name(self):
+        """
+        This tests that the change name view responds with a change name page
+        """
+        # Get change name page
+        response = self.client.get(reverse('wagtailadmin_account_change_name'))
+
+        # Check that the user received a change name page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/change_name.html')
+
+    def test_change_name_post(self):
+        post_data = {
+            'first_name': 'Fox',
+            'last_name': 'Mulder',
+        }
+        response = self.client.post(reverse('wagtailadmin_account_change_name'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check that the name was changed
+        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).first_name, post_data['first_name'])
+        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).last_name, post_data['last_name'])
 
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English'), ('es', 'Spanish')])
     def test_available_admin_languages_with_permitted_languages(self):
@@ -692,7 +721,12 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.password_reset_uid = force_text(urlsafe_base64_encode(force_bytes(self.user.pk)))
 
         # Create url_args
-        self.url_kwargs = dict(uidb64=self.password_reset_uid, token=auth_views.INTERNAL_RESET_URL_TOKEN)
+        if DJANGO_VERSION >= (3, 0):
+            token = auth_views.PasswordResetConfirmView.reset_url_token
+        else:
+            token = auth_views.INTERNAL_RESET_URL_TOKEN
+
+        self.url_kwargs = dict(uidb64=self.password_reset_uid, token=token)
 
         # Add token to session object
         s = self.client.session
@@ -772,7 +806,11 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
 
         # Check that a validation error was raised
         self.assertTrue('new_password2' in response.context['form'].errors.keys())
-        self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
+
+        if DJANGO_VERSION >= (3, 0):
+            self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
+        else:
+            self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
         self.assertTrue(get_user_model().objects.get(username='test').check_password('password'))

@@ -13,12 +13,22 @@ Wagtail 2.7 is designated a Long Term Support (LTS) release. Long Term Support r
 What's new
 ==========
 
+* Upgraded Elasticsearch client library dependency to 6.4.0 or above, 7.0.0 or above is still supported.
+
 
 Other features
 ~~~~~~~~~~~~~~
 
  * Added ``construct_page_listing_buttons`` hook (Michael van Tellingen)
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
+ * Move and refactor upgrade notification JS (Jonny Scholes)
+ * Remove need for Elasticsearch ``update_all_types`` workaround, upgrade minimum release to 6.4.0 or above (Jonathan Liuti)
+ * Add ability to insert internal anchor links/links with fragment identifiers in Draftail (rich text) fields (Iman Syed)
+ * Added Table Block caption for accessibility (Rahmi Pruitt)
+ * Upgrade django-modelcluster to>=5.0 and upgrade django-taggit to >=1.0 for Django 3.0 support (Matt Westcott)
+ * Revise tests to ensure all pass in Django 3.0 (Matt Westcott)
+ * Add ability for users to change their own name via the account settings page (Kevin Howbrook)
+
 
 
 Bug fixes
@@ -27,7 +37,68 @@ Bug fixes
  * Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
  * Added https support for Scribd oEmbed provider (Rodrigo)
  * Changed StreamField group label color so labels are visible (Catherine Farman)
+ * Prevented images with a very wide aspect ratio from being displayed distorted in the rich text editor (Iman Syed)
+ * Prevent exception when deleting a model with a protected One-to-one relationship (Neal Todd)
+ * Added labels to snippet bulk edit checkboxes for screen reader users (Martey Dodoo)
+ * Middleware responses during page preview are now properly returned to the user (Matt Westcott)
+ * Default text of page links in rich text uses the public page title rather than the admin display title (Andy Chosak)
+ * Specific page permission checks are now enforced when viewing a page revision (Andy Chosak)
+ * ``pageurl`` and ``slugurl`` tags no longer fail when ``request.site`` is ``None`` (Samir Shah)
+ * Output form media on add/edit image forms with custom models (Matt Westcott)
+ * Fixes layout for the clear checkbox in default FileField widget (Mikalai Radchuk)
+ * Remove ASCII conversion from Postgres search backend, to support stemming in non-Latin alphabets (Pavel Denisov)
 
 
 Upgrade considerations
 ======================
+
+``Page.dummy_request`` is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The internal ``Page.dummy_request`` method (which generates an HTTP request object simulating a real page request, for use in previews) has been deprecated, as it did not correctly handle errors generated during middleware processing. Any code that calls this method to render page previews should be updated to use the new method ``Page.make_preview_request(original_request=None, preview_mode=None)``, which builds the request and calls ``Page.serve_preview`` as a single operation.
+
+
+``wagtail.admin.utils`` and ``wagtail.admin.decorators`` modules deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The modules ``wagtail.admin.utils`` and ``wagtail.admin.decorators`` have been deprecated. The helper functions defined here exist primarily for Wagtail's internal use; however, some of them (particularly ``send_mail`` and ``permission_required``) may be found in user code, and import lines will need to be updated. The new locations for these definitions are as follows:
+
++---------------------------------+--------------------------+--------------------------+
+| Definition                      | Old location             | New location             |
++=================================+==========================+==========================+
+| any_permission_required         | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| permission_denied               | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| permission_required             | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| PermissionPolicyChecker         | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| user_has_any_page_permission    | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| user_passes_test                | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| users_with_page_permission      | wagtail.admin.utils      | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| reject_request                  | wagtail.admin.decorators | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| require_admin_access            | wagtail.admin.decorators | wagtail.admin.auth       |
++---------------------------------+--------------------------+--------------------------+
+| get_available_admin_languages   | wagtail.admin.utils      | wagtail.admin.locale     |
++---------------------------------+--------------------------+--------------------------+
+| get_available_admin_time_zones  | wagtail.admin.utils      | wagtail.admin.locale     |
++---------------------------------+--------------------------+--------------------------+
+| get_js_translation_strings      | wagtail.admin.utils      | wagtail.admin.locale     |
++---------------------------------+--------------------------+--------------------------+
+| WAGTAILADMIN_PROVIDED_LANGUAGES | wagtail.admin.utils      | wagtail.admin.locale     |
++---------------------------------+--------------------------+--------------------------+
+| send_mail                       | wagtail.admin.utils      | wagtail.admin.mail       |
++---------------------------------+--------------------------+--------------------------+
+| send_notification               | wagtail.admin.utils      | wagtail.admin.mail       |
++---------------------------------+--------------------------+--------------------------+
+| get_object_usage                | wagtail.admin.utils      | wagtail.admin.models     |
++---------------------------------+--------------------------+--------------------------+
+| popular_tags_for_model          | wagtail.admin.utils      | wagtail.admin.models     |
++---------------------------------+--------------------------+--------------------------+
+| get_site_for_user               | wagtail.admin.utils      | wagtail.admin.navigation |
++---------------------------------+--------------------------+--------------------------+

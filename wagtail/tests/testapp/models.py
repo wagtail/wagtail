@@ -22,7 +22,7 @@ from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
     TabbedInterface)
 from wagtail.admin.forms import WagtailAdminPageForm
-from wagtail.admin.utils import send_mail
+from wagtail.admin.mail import send_mail
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
@@ -899,11 +899,13 @@ class SnippetChooserModelWithCustomPrimaryKey(models.Model):
 
 
 class CustomImage(AbstractImage):
-    caption = models.CharField(max_length=255)
-    not_editable_field = models.CharField(max_length=255)
+    caption = models.CharField(max_length=255, blank=True)
+    fancy_caption = RichTextField(blank=True)
+    not_editable_field = models.CharField(max_length=255, blank=True)
 
     admin_form_fields = Image.admin_form_fields + (
         'caption',
+        'fancy_caption',
     )
 
 

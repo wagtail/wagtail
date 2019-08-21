@@ -43,6 +43,7 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
       allow_external_link: true,
       allow_email_link: true,
       allow_phone_link: true,
+      allow_anchor_link: true,
       link_text: selectedText,
     };
 
@@ -61,6 +62,9 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
       } else if (data.url.startsWith('tel:')) {
         url = global.chooserUrls.phoneLinkChooser;
         urlParams.link_url = data.url.replace('tel:', '');
+      } else if (data.url.startsWith('#')) {
+        url = global.chooserUrls.anchorLinkChooser;
+        urlParams.link_url = data.url.replace('#', '');
       } else {
         url = global.chooserUrls.externalLinkChooser;
         urlParams.link_url = data.url;

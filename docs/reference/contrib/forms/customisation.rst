@@ -716,7 +716,7 @@ If you want to change the content of the email that is sent when a form submits 
 To do this, you need to:
 
 * Ensure you have your form model defined that extends ``wagtail.contrib.forms.models.AbstractEmailForm``.
-* In your models.py file, import the ``wagtail.admin.utils.send_mail`` function.
+* In your models.py file, import the ``wagtail.admin.mail.send_mail`` function.
 * Override the ``send_mail`` method in your page model.
 
 Example:
@@ -725,7 +725,7 @@ Example:
 
     from datetime import date
     # ... additional wagtail imports
-    from wagtail.admin.utils import send_mail
+    from wagtail.admin.mail import send_mail
     from wagtail.contrib.forms.models import AbstractEmailForm
 
 
@@ -763,6 +763,6 @@ Example:
             # Content is joined with a new line to separate each text line
             content = '\n'.join(content)
 
-            # wagtail.wagtailadmin.utils - send_mail function is called
+            # wagtail.admin.mail - send_mail function is called
             # This function extends the Django default send_mail function
             send_mail(subject, content, addresses, self.from_address)

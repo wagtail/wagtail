@@ -384,6 +384,12 @@ Contributors
 * William Blackie
 * Andrew Miller
 * Rodrigo
+* Iman Syed
+* John Carter
+* Jonathan Liuti
+* Rahmi Pruitt
+* Sanyam Khurana
+* Pavel Denisov
 
 Translators
 ===========

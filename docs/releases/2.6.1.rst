@@ -1,0 +1,16 @@
+===========================
+Wagtail 2.6.1 release notes
+===========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Prevent Javascript errors caused by unescaped quote characters in translation strings (Matt Westcott)

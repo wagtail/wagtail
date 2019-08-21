@@ -14,7 +14,7 @@ from django.template.loader import render_to_string
 from django.utils.html import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.admin.utils import get_available_admin_languages, get_available_admin_time_zones
+from wagtail.admin.locale import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.core import hooks
 from wagtail.core.models import (
@@ -407,6 +407,15 @@ class EmailForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("email",)
+
+
+class NameForm(forms.ModelForm):
+    first_name = forms.CharField(required=True, label=_('First Name'))
+    last_name = forms.CharField(required=True, label=_('Last Name'))
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name",)
 
 
 def _get_time_zone_choices():

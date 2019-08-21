@@ -66,6 +66,8 @@ class LinkRewriter:
                     link_type = 'external'
                 elif href.startswith('mailto:'):
                     link_type = 'email'
+                elif href.startswith('#'):
+                    link_type = 'anchor'
 
             if not link_type:
                 # otherwise return ordinary links without a linktype unchanged
@@ -74,7 +76,7 @@ class LinkRewriter:
         try:
             rule = self.link_rules[link_type]
         except KeyError:
-            if link_type in ['email', 'external']:
+            if link_type in ['email', 'external', 'anchor']:
                 # If no rule is registered for supported types
                 # return ordinary links without a linktype unchanged
                 return match.group(0)
