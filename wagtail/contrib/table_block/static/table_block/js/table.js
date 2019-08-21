@@ -16,6 +16,7 @@ function initTable(id, tableOptions) {
     var metaEvent;
     var initEvent;
     var structureEvent;
+    var isInitialized = false;
     var dataForForm = null;
     var getHeight = function() {
         var tableParent = $('#' + id).parent();
