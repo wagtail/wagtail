@@ -1,6 +1,7 @@
 from django import forms
 from django.urls import reverse
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.models import Site
 
 
@@ -9,7 +10,7 @@ class SiteSwitchForm(forms.Form):
 
     class Media:
         js = [
-            'wagtailsettings/js/site-switcher.js',
+            versioned_static('wagtailsettings/js/site-switcher.js'),
         ]
 
     def __init__(self, current_site, model, **kwargs):

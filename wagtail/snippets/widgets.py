@@ -3,6 +3,7 @@ import json
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
 
 
@@ -42,6 +43,6 @@ class AdminSnippetChooser(AdminChooser):
 
     class Media:
         js = [
-            'wagtailsnippets/js/snippet-chooser-modal.js',
-            'wagtailsnippets/js/snippet-chooser.js',
+            versioned_static('wagtailsnippets/js/snippet-chooser-modal.js'),
+            versioned_static('wagtailsnippets/js/snippet-chooser.js'),
         ]

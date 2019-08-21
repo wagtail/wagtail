@@ -2,10 +2,10 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
-from django.templatetags.static import static
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.utils import escape_script
 
 from .base import Block
@@ -34,7 +34,10 @@ class ListBlock(Block):
 
     @property
     def media(self):
-        return forms.Media(js=[static('wagtailadmin/js/blocks/sequence.js'), static('wagtailadmin/js/blocks/list.js')])
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/blocks/sequence.js'),
+            versioned_static('wagtailadmin/js/blocks/list.js')
+        ])
 
     def render_list_member(self, value, prefix, index, errors=None):
         """

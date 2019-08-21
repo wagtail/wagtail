@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags wagtailadmin_tags static i18n l10n %}
+{% load wagtailimages_tags wagtailadmin_tags i18n l10n %}
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
@@ -7,8 +7,8 @@
     {{ form.media.css }}
 
     <!-- Focal point chooser -->
-    <link rel="stylesheet" href="{% static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% versioned_static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% versioned_static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
 {% endblock %}
 
 {% block extra_js %}
@@ -26,9 +26,9 @@
     </script>
 
     <!-- Focal point chooser -->
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/vendor/jquery.Jcrop.min.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/focal-point-chooser.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/jquery.Jcrop.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/focal-point-chooser.js' %}"></script>
 {% endblock %}
 
 {% block content %}

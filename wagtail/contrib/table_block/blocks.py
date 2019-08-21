@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.functional import cached_property
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.blocks import FieldBlock
 
 DEFAULT_TABLE_OPTIONS = {
@@ -120,8 +121,13 @@ class TableBlock(FieldBlock):
     @property
     def media(self):
         return forms.Media(
-            css={'all': ['table_block/css/vendor/handsontable-6.2.2.full.min.css']},
-            js=['table_block/js/vendor/handsontable-6.2.2.full.min.js', 'table_block/js/table.js']
+            css={'all': [
+                versioned_static('table_block/css/vendor/handsontable-6.2.2.full.min.css')
+            ]},
+            js=[
+                versioned_static('table_block/js/vendor/handsontable-6.2.2.full.min.js'),
+                versioned_static('table_block/js/table.js')
+            ]
         )
 
     def get_table_options(self, table_options=None):

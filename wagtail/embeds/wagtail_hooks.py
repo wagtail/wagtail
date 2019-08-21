@@ -5,6 +5,7 @@ from django.utils.translation import ugettext as _
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text import HalloPlugin
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core import hooks
 from wagtail.embeds import urls
 from wagtail.embeds.rich_text import MediaEmbedHandler
@@ -42,8 +43,8 @@ def register_embed_feature(features):
         HalloPlugin(
             name='hallowagtailembeds',
             js=[
-                'wagtailembeds/js/embed-chooser-modal.js',
-                'wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js',
+                versioned_static('wagtailembeds/js/embed-chooser-modal.js'),
+                versioned_static('wagtailembeds/js/hallo-plugins/hallo-wagtailembeds.js'),
             ],
         )
     )
@@ -58,7 +59,7 @@ def register_embed_feature(features):
             'type': 'EMBED',
             'icon': 'media',
             'description': _('Embed'),
-        }, js=['wagtailembeds/js/embed-chooser-modal.js'])
+        }, js=[versioned_static('wagtailembeds/js/embed-chooser-modal.js')])
     )
 
     # define how to convert between contentstate's representation of embeds and

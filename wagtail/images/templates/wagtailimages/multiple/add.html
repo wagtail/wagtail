@@ -1,15 +1,14 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% load l10n %}
-{% load static %}
-{% load wagtailimages_tags %}
+{% load wagtailadmin_tags wagtailimages_tags %}
 {% block titletag %}{% trans "Add multiple images" %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
 
     {{ form_media.css }}
 
-    <link rel="stylesheet" href="{% static 'wagtailimages/css/add-multiple.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailimages/css/add-multiple.css' %}" type="text/css" />
 {% endblock %}
 
 {% block content %}
@@ -80,17 +79,17 @@
     {{ form_media.js }}
 
     <!-- this exact order of plugins is vital -->
-    <script src="{% static 'wagtailimages/js/vendor/load-image.min.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/vendor/canvas-to-blob.min.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/vendor/jquery.fileupload-image.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/vendor/jquery.fileupload-validate.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/load-image.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/canvas-to-blob.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/jquery.fileupload-image.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/jquery.fileupload-validate.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
 
     <!-- Main script -->
-    <script src="{% static 'wagtailimages/js/add-multiple.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/add-multiple.js' %}"></script>
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>

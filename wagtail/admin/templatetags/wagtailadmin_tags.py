@@ -19,6 +19,7 @@ from wagtail.admin.locale import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
+from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
 from wagtail.core.models import (
     CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
@@ -476,7 +477,7 @@ def avatar_url(user, size=50):
         if gravatar_url is not None:
             return gravatar_url
 
-    return static('wagtailadmin/images/default-user-avatar.png')
+    return versioned_static_func('wagtailadmin/images/default-user-avatar.png')
 
 
 @register.simple_tag
@@ -491,3 +492,12 @@ def notification_static(path):
     a full URL using BASE_URL if the static URL isn't already a full URL.
     """
     return urljoin(base_url_setting(), static(path))
+
+
+@register.simple_tag
+def versioned_static(path):
+    """
+    Wrapper for Django's static file finder to append a cache-busting query parameter
+    that updates on each Wagtail version
+    """
+    return versioned_static_func(path)
