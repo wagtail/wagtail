@@ -3,6 +3,7 @@ import json
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
 from wagtail.images import get_image_model
 
@@ -33,6 +34,6 @@ class AdminImageChooser(AdminChooser):
 
     class Media:
         js = [
-            'wagtailimages/js/image-chooser-modal.js',
-            'wagtailimages/js/image-chooser.js',
+            versioned_static('wagtailimages/js/image-chooser-modal.js'),
+            versioned_static('wagtailimages/js/image-chooser.js'),
         ]

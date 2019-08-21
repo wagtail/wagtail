@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.test.utils import override_settings
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.users.models import UserProfile
@@ -42,3 +43,9 @@ class TestAvatarTemplateTag(TestCase):
 
         url = avatar_url(self.test_user)
         self.assertIn('custom-avatar', url)
+
+
+class TestVersionedStatic(TestCase):
+    def test_versioned_static(self):
+        result = versioned_static('wagtailadmin/js/core.js')
+        self.assertRegex(result, r'^/static/wagtailadmin/js/core.js\?v=(\w+)$')

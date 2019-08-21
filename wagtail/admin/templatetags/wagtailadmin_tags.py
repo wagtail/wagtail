@@ -8,7 +8,6 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
-from django.templatetags.static import static
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -17,6 +16,7 @@ from wagtail.admin.locale import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
+from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
 from wagtail.core.models import (
     CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
@@ -474,9 +474,18 @@ def avatar_url(user, size=50):
         if gravatar_url is not None:
             return gravatar_url
 
-    return static('wagtailadmin/images/default-user-avatar.png')
+    return versioned_static_func('wagtailadmin/images/default-user-avatar.png')
 
 
 @register.simple_tag
 def js_translation_strings():
     return mark_safe(json.dumps(get_js_translation_strings()))
+
+
+@register.simple_tag
+def versioned_static(path):
+    """
+    Wrapper for Django's static file finder to append a cache-busting query parameter
+    that updates on each Wagtail version
+    """
+    return versioned_static_func(path)
