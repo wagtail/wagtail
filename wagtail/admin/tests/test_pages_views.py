@@ -2120,6 +2120,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         with self.register_hook('construct_page_action_menu', hook_func):
             response = self.client.get(reverse('wagtailadmin_pages:edit',
                                        args=(self.single_event_page.id, )))
+
+        print(response.content)
         for item in menu:
             if item.template:
                 self.assertTemplateUsed(response, item.template)
