@@ -564,6 +564,14 @@ can only choose between front office languages:
     LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
                                                     ('pt', 'Portuguese')]
 
+Static files
+------------
+
+.. code-block:: python
+
+    WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS = False
+
+Static file URLs within the Wagtail admin are given a version-specific query string of the form ``?v=1a2b3c4d``, to prevent outdated cached copies of Javascript and CSS files from persisting after a Wagtail upgrade. To disable these, set ``WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS`` to ``False``.
 
 API Settings
 ------------

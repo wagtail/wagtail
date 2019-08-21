@@ -1,14 +1,14 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% load l10n %}
-{% load static %}
+{% load wagtailadmin_tags %}
 {% block titletag %}{% trans "Add multiple documents" %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
 
     {{ form_media.css }}
 
-    <link rel="stylesheet" href="{% static 'wagtaildocs/css/add-multiple.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtaildocs/css/add-multiple.css' %}" type="text/css" />
 {% endblock %}
 
 {% block content %}
@@ -72,13 +72,13 @@
     {{ form_media.js }}
 
     <!-- this exact order of plugins is vital -->
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
 
     <!-- Main script -->
-    <script src="{% static 'wagtaildocs/js/add-multiple.js' %}"></script>
+    <script src="{% versioned_static 'wagtaildocs/js/add-multiple.js' %}"></script>
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>

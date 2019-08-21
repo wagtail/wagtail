@@ -1,12 +1,12 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load wagtailadmin_tags wagtailcore_tags static i18n %}
+{% load wagtailadmin_tags wagtailcore_tags i18n %}
 {% block titletag %}{% trans "Error 404: Page not found" %}{% endblock %}
 
 
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/404.css' %}" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/404.css' %}" />
 {% endblock %}
 
 

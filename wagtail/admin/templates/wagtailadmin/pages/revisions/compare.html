@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load static i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin_tags %}
 
 {% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Comparing {{ title }}{% endblocktrans %}{% endblock %}
 
@@ -86,5 +86,5 @@
 
 {% block extra_css %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/compare-revisions.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/compare-revisions.css' %}" type="text/css" />
 {% endblock %}

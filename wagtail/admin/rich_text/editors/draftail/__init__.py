@@ -4,6 +4,7 @@ from django.forms import Media, widgets
 
 from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.rich_text import features as feature_registry
 
 
@@ -24,9 +25,9 @@ class DraftailRichTextArea(widgets.HiddenInput):
         self.options = {}
 
         self._media = Media(js=[
-            'wagtailadmin/js/draftail.js',
+            versioned_static('wagtailadmin/js/draftail.js'),
         ], css={
-            'all': ['wagtailadmin/css/panels/draftail.css']
+            'all': [versioned_static('wagtailadmin/css/panels/draftail.css')]
         })
 
         self.features = kwargs.pop('features', None)
