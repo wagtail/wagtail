@@ -14,7 +14,15 @@ exports[`Portal #children 1`] = `
   }
   onClose={[Function]}
 >
-  Test!
+  <Portal
+    containerInfo={
+      <div>
+        Test!
+      </div>
+    }
+  >
+    Test!
+  </Portal>
 </Portal>
 `;
 
@@ -31,5 +39,9 @@ exports[`Portal empty 1`] = `
     </body>
   }
   onClose={[Function]}
-/>
+>
+  <Portal
+    containerInfo={<div />}
+  />
+</Portal>
 `;

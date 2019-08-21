@@ -83,8 +83,7 @@ describe('MediaBlock', () => {
 
       expect(
         wrapper
-          .find('Portal')
-          .instance().portal
+          .find('Portal > Portal').prop('containerInfo')
       ).toMatchSnapshot();
     });
 
@@ -110,9 +109,8 @@ describe('MediaBlock', () => {
 
       expect(
         wrapper
-          .find('Portal')
-          .instance()
-          .portal.querySelector('.Tooltip').className
+          .find('.Tooltip')
+          .prop('className')
       ).toBe('Tooltip Tooltip--left');
     });
 
