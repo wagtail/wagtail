@@ -3,7 +3,8 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 
 from wagtail.admin.forms.choosers import (
-    AnchorLinkChooserForm, EmailLinkChooserForm, ExternalLinkChooserForm)
+    AnchorLinkChooserForm, EmailLinkChooserForm, ExternalLinkChooserForm, PhoneLinkChooserForm)
+
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core import hooks
@@ -20,6 +21,7 @@ def shared_context(request, extra_context=None):
         'parent_page_id': request.GET.get('parent_page_id'),
         'allow_external_link': request.GET.get('allow_external_link'),
         'allow_email_link': request.GET.get('allow_email_link'),
+        'allow_phone_link': request.GET.get('allow_phone_link'),
         'allow_anchor_link': request.GET.get('allow_anchor_link'),
     }
     if extra_context:
@@ -286,4 +288,38 @@ def email_link(request):
         shared_context(request, {
             'form': form,
         }), json_data={'step': 'email_link'}
+    )
+
+
+def phone_link(request):
+    initial_data = {
+        'link_text': request.GET.get('link_text', ''),
+        'phone_number': request.GET.get('link_url', ''),
+    }
+
+    if request.method == 'POST':
+        form = PhoneLinkChooserForm(request.POST, initial=initial_data, prefix='phone-link-chooser')
+
+        if form.is_valid():
+            result = {
+                'url': 'tel:' + form.cleaned_data['phone_number'],
+                'title': form.cleaned_data['link_text'].strip() or form.cleaned_data['phone_number'],
+                # If the user has explicitly entered / edited something in the link_text field,
+                # always use that text. If not, we should favour keeping the existing link/selection
+                # text, where applicable.
+                'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
+            }
+            return render_modal_workflow(
+                request, None, None,
+                None, json_data={'step': 'external_link_chosen', 'result': result}
+            )
+    else:
+        form = PhoneLinkChooserForm(initial=initial_data, prefix='phone-link-chooser')
+
+    return render_modal_workflow(
+        request,
+        'wagtailadmin/chooser/phone_link.html', None,
+        shared_context(request, {
+            'form': form,
+        }), json_data={'step': 'phone_link'}
     )
