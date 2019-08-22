@@ -28,6 +28,7 @@ Other features
  * Upgrade django-modelcluster to>=5.0 and upgrade django-taggit to >=1.0 for Django 3.0 support (Matt Westcott)
  * Revise tests to ensure all pass in Django 3.0 (Matt Westcott)
  * Add ability for users to change their own name via the account settings page (Kevin Howbrook)
+ * Add ability to insert telephone numbers as links in Draftail (rich text) fields (Mikael Engström and Liam Brenner)
 
 
 
