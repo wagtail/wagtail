@@ -72,6 +72,12 @@ Bug fixes
 Upgrade considerations
 ======================
 
+Query strings added to static file URLs within the admin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To avoid problems caused by outdated cached JavaScript / CSS files following a Wagtail upgrade, URLs to static files within the Wagtail admin now include a version-specific query parameter of the form ``?v=1a2b3c4d``. Under certain front-end cache configurations (such as `Cloudflare's 'No Query String' caching level <https://support.cloudflare.com/hc/en-us/articles/200168256-What-are-Cloudflare-s-caching-levels->`_), the presence of this parameter may prevent the file from being cached at all. If you are using such a setup, and have some other method in place to expire outdated files (e.g. clearing the cache on deployment), you can disable the query parameter by setting ``WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS`` to False in your project settings. (Note that this is automatically disabled when ``ManifestStaticFilesStorage`` is in use.)
+
+
 ``Page.dummy_request`` is deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
