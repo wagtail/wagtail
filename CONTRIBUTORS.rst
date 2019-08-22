@@ -390,6 +390,7 @@ Contributors
 * Rahmi Pruitt
 * Sanyam Khurana
 * Pavel Denisov
+* Mikael Engström
 
 Translators
 ===========
