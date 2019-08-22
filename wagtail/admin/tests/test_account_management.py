@@ -11,6 +11,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils.translation import get_language
 
 from wagtail.admin.locale import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
@@ -410,6 +411,15 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # Check that the current language is assumed as English
         self.assertEqual(profile.get_preferred_language(), "en")
+
+    def test_language_preferences_reapplies_original_language(self):
+        post_data = {
+            'preferred_language': 'es'
+        }
+        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        self.assertEqual(get_language(), "en")
 
     def test_change_name(self):
         """

@@ -7,7 +7,7 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
-from django.utils.translation import activate
+from django.utils.translation import override
 
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.core import hooks
@@ -174,8 +174,8 @@ def language_preferences(request):
             user_profile = form.save()
             # This will set the language only for this request/thread
             # (so that the 'success' messages is in the right language)
-            activate(user_profile.get_preferred_language())
-            messages.success(request, _("Your preferences have been updated."))
+            with override(user_profile.get_preferred_language()):
+                messages.success(request, _("Your preferences have been updated."))
             return redirect('wagtailadmin_account')
     else:
         form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))

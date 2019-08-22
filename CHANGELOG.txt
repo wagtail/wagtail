@@ -31,6 +31,7 @@ Changelog
  * Fix: Remove ASCII conversion from Postgres search backend, to support stemming in non-Latin alphabets (Pavel Denisov)
  * Fix: Prevent tab labels on page edit view from being cut off on very narrow screens (Kevin Howbrook)
  * Fix: Very long words in page listings are now broken where necessary (Kevin Howbrook)
+ * Fix: Language chosen in user preferences no longer persists on subsequent requests (Bojan Mihelac)
 
 
 2.6.1 (05.08.2019)

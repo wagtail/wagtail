@@ -55,6 +55,7 @@ Bug fixes
  * Remove ASCII conversion from Postgres search backend, to support stemming in non-Latin alphabets (Pavel Denisov)
  * Prevent tab labels on page edit view from being cut off on very narrow screens (Kevin Howbrook)
  * Very long words in page listings are now broken where necessary (Kevin Howbrook)
+ * Language chosen in user preferences no longer persists on subsequent requests (Bojan Mihelac)
 
 
 Upgrade considerations
