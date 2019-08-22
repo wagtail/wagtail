@@ -7,8 +7,8 @@ from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.timezone import activate as activate_tz
-from django.utils.translation import activate as activate_lang
 from django.utils.translation import ugettext as _
+from django.utils.translation import override
 
 from wagtail.admin import messages
 from wagtail.core.models import GroupPagePermission
@@ -154,13 +154,17 @@ def require_admin_access(view_func):
             return reject_request(request)
 
         if user.has_perms(['wagtailadmin.access_admin']):
+            preferred_language = None
             if hasattr(user, 'wagtail_userprofile'):
-                language = user.wagtail_userprofile.get_preferred_language()
-                l18n.set_language(language)
-                activate_lang(language)
+                preferred_language = user.wagtail_userprofile.get_preferred_language()
+                l18n.set_language(preferred_language)
                 time_zone = user.wagtail_userprofile.get_current_time_zone()
                 activate_tz(time_zone)
-            return view_func(request, *args, **kwargs)
+            if preferred_language:
+                with override(preferred_language):
+                    return view_func(request, *args, **kwargs)
+            else:
+                return view_func(request, *args, **kwargs)
 
         if not request.is_ajax():
             messages.error(request, _('You do not have permission to access the admin'))
