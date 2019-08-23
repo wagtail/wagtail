@@ -28,6 +28,7 @@ Changelog
  * Fix: Output form media on add/edit image forms with custom models (Matt Westcott)
  * Fix: Layout for the clear checkbox in default FileField widget (Mikalai Radchuk)
  * Fix: Remove ASCII conversion from Postgres search backend, to support stemming in non-Latin alphabets (Pavel Denisov)
+ * Update release schedule info and move to wiki, linked from docs and readme (Matt Westcott)
 
 
 2.6.1 (05.08.2019)
