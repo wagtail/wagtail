@@ -4,6 +4,7 @@ Changelog
 2.7 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
 
+ * Improved StreamField design (Bertrand Bordage)
  * Added `construct_page_listing_buttons` hook (Michael van Tellingen)
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
  * Added Table Block caption for accessibility (Rahmi Pruitt)
