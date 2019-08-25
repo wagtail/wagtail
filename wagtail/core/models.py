@@ -246,7 +246,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
     )
     content_type = models.ForeignKey(
-        'contenttypes.ContentType',
+        ContentType,
         verbose_name=_('content type'),
         related_name='pages',
         on_delete=models.SET(get_default_page_content_type)
