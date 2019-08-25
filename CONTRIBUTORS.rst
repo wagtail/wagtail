@@ -393,6 +393,7 @@ Contributors
 * Mikael Engström
 * Zac Connelly
 * Sarath Kumar Somana
+* Dani Hodovic
 
 Translators
 ===========
