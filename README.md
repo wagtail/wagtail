@@ -84,6 +84,10 @@ If you want to send an encrypted email (optional), the public key ID for securit
 
 Feature releases of Wagtail are released every three months. Selected releases are designated as Long Term Support (LTS) releases, and will receive maintenance updates for an extended period to address any security and data-loss related issues. For dates of past and upcoming releases and support periods, see [Release Schedule](https://github.com/wagtail/wagtail/wiki/Release-schedule).
 
+#### Nightly releases
+
+To try out the latest features before a release, we also create builds from master every night. You can find instructions on how to install the latest nightly release at https://releases.wagtail.io/nightly/index.html
+
 ### Contributing
 
 If you're a Python or Django developer, fork the repo and get stuck in! We run a separate group for developers of Wagtail itself at https://groups.google.com/forum/#!forum/wagtail-developers (please note that this is not for support requests).
