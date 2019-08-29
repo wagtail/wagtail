@@ -351,26 +351,26 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
 
 
 class TestGetSiteModel(WagtailTestUtils, TestCase):
-    @override_settings(WAGTAIL_SITE_MODEL='tests.CustomSite')
+    @override_settings(WAGTAILCORE_SITE_MODEL='tests.Site')
     def test_custom_get_site_model(self):
         """Test get_site_model with a custom site model"""
-        from wagtail.tests.testapp.models import CustomSite
-        self.assertIs(get_site_model(), CustomSite)
+        from wagtail.tests.testapp.models import Site
+        self.assertIs(get_site_model(), Site)
 
     @override_settings()
     def test_standard_get_site_model(self):
         """Test get_site_model with no WAGTAIL_SITE_MODEL"""
-        del settings.WAGTAIL_SITE_MODEL
+        del settings.WAGTAILCORE_SITE_MODEL
         from wagtail.core.models import Site
         self.assertIs(get_site_model(), Site)
 
-    @override_settings(WAGTAIL_SITE_MODEL='tests.UnknownModel')
+    @override_settings(WAGTAILCORE_SITE_MODEL='tests.UnknownModel')
     def test_unknown_get_site_model(self):
         """Test get_site_model with an unknown model"""
         with self.assertRaises(ImproperlyConfigured):
             get_site_model()
 
-    @override_settings(WAGTAILI_SITE_MODEL='invalid-string')
+    @override_settings(WAGTAILCORE_SITE_MODEL='invalid-string')
     def test_invalid_get_site_model(self):
         """Test get_site_model with an invalid model string"""
         with self.assertRaises(ImproperlyConfigured):

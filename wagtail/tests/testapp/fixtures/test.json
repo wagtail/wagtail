@@ -613,7 +613,7 @@
 
 {
     "pk": 1,
-    "model": "wagtailcore.site",
+    "model": "tests.Site",
     "fields": {
         "root_page": 2,
         "hostname": "localhost",

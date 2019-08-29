@@ -1,3 +1,5 @@
+import swapper
+
 from datetime import date
 from functools import wraps
 from unittest import mock
@@ -758,7 +760,7 @@ class TestPageChooserPanel(TestCase):
         Site = get_site_model()
         result = PageChooserPanel(
             'page',
-            'wagtailcore.site'
+            swapper.get_model_name('wagtailcore', 'site')
         ).bind_to(model=PageChooserModel).target_models()
         self.assertEqual(result, [Site])
 

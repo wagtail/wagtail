@@ -166,7 +166,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 AUTH_USER_MODEL = 'customuser.CustomUser'
 
-WAGTAILCORE_SITE_MODEL = 'tests.CustomSite'
+WAGTAILCORE_SITE_MODEL = 'tests.Site'
 
 if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     INSTALLED_APPS += ('wagtail.contrib.postgres_search',)

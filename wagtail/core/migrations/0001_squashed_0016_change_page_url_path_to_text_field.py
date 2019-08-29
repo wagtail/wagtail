@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import swapper
 import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
@@ -10,7 +11,6 @@ def initial_data(apps, schema_editor):
     ContentType = apps.get_model('contenttypes.ContentType')
     Group = apps.get_model('auth.Group')
     Page = apps.get_model('wagtailcore.Page')
-    Site = apps.get_model('wagtailcore.Site')
     GroupPagePermission = apps.get_model('wagtailcore.GroupPagePermission')
 
     # Create page content type
@@ -39,13 +39,6 @@ def initial_data(apps, schema_editor):
         depth=2,
         numchild=0,
         url_path='/home/',
-    )
-
-    # Create default site
-    Site.objects.get_or_create(
-        hostname='localhost',
-        root_page_id=homepage.id,
-        is_default_site=True
     )
 
     # Create auth groups
@@ -100,8 +93,6 @@ def remove_initial_data(apps, schema_editor):
     # )
 
     # Page objects: Do nothing, the table will be deleted when reversing 0001
-
-    # Do not reverse Site creation since other models might depend on it
 
     # Remove auth groups -- is this safe? External objects might depend
     # on these groups... seems unsafe.
@@ -339,6 +330,10 @@ class Migration(migrations.Migration):
                 )
                 ),
             ],
+            options={
+                'swappable': swapper.swappable_setting('wagtailcore', 'Site'),
+            },
+
         ),
         migrations.AlterUniqueTogether(
             name='site',

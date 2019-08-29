@@ -924,8 +924,11 @@ class CustomDocument(AbstractDocument):
     )
 
 
-class CustomSite(AbstractSite):
-    registrar = models.CharField(max_length=255)
+class Site(AbstractSite):
+    registrar = models.CharField(max_length=255, blank=True)
+
+    class Meta(AbstractSite.Meta):
+        pass
 
 
 class StreamModel(models.Model):

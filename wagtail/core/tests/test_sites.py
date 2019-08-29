@@ -1,9 +1,10 @@
+import swapper
 from django.core.exceptions import ValidationError
 from django.http.request import HttpRequest
 from django.test import TestCase, override_settings
 
-from wagtail.core.models import Page, Site
-
+from wagtail.core.models import Page
+Site = swapper.load_model("wagtailcore", "Site")
 
 class TestSiteNaturalKey(TestCase):
     def test_natural_key(self):

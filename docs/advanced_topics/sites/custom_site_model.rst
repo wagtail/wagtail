@@ -19,7 +19,7 @@ Here's an example:
     # models.py
     from wagtail.core.models import AbstractSite
 
-    class CustomSite(AbstractSite):
+    class Site(AbstractSite):
         # Custom field example:
         registrar = models.CharField(
             max_length=255,
@@ -37,7 +37,7 @@ Then in your settings module:
 
     # Ensure that you replace app_label with the app you placed your custom
     # model in.
-    WAGTAILCORE_SITE_MODEL = 'app_label.CustomSite'
+    WAGTAILCORE_SITE_MODEL = 'app_label.Site'
 
 .. topic:: Migrating from the builtin site model
 

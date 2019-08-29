@@ -275,7 +275,7 @@
 
 {
     "pk": 1,
-    "model": "wagtailcore.site",
+    "model": "tests.site",
     "fields": {
         "root_page": 2,
         "hostname": "testserver",
@@ -285,7 +285,7 @@
 },
 {
     "pk": 2,
-    "model": "wagtailcore.site",
+    "model": "tests.site",
     "fields": {
         "root_page": 4,
         "hostname": "example.com",
@@ -295,7 +295,7 @@
 },
 {
     "pk": 3,
-    "model": "wagtailcore.site",
+    "model": "tests.site",
     "fields": {
         "root_page": 10,
         "hostname": "example2.com",
