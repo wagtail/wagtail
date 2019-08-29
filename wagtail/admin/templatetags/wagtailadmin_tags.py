@@ -1,6 +1,8 @@
 import itertools
 import json
 
+from urllib.parse import urljoin
+
 from django import template
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -480,3 +482,8 @@ def avatar_url(user, size=50):
 @register.simple_tag
 def js_translation_strings():
     return mark_safe(json.dumps(get_js_translation_strings()))
+
+
+@register.simple_tag
+def notification_static(path):
+    return urljoin(settings.BASE_URL, static(path))
