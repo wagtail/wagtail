@@ -34,6 +34,7 @@ Changelog
  * Fix: Very long words in page listings are now broken where necessary (Kevin Howbrook)
  * Fix: Language chosen in user preferences no longer persists on subsequent requests (Bojan Mihelac)
  * Fix: Prevent new block IDs from being assigned on repeated calls to `StreamBlock.get_prep_value` (Colin Klein)
+ * Fix: Prevent broken images in notification emails when static files are hosted on a remote domain (Eduard Luca)
 
 
 2.6.1 (05.08.2019)

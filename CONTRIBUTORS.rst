@@ -396,6 +396,7 @@ Contributors
 * Dani Hodovic
 * Janne Alatalo
 * Colin Klein
+* Eduard Luca
 
 Translators
 ===========
