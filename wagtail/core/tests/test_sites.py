@@ -6,6 +6,7 @@ from django.test import TestCase, override_settings
 from wagtail.core.models import Page
 Site = swapper.load_model("wagtailcore", "Site")
 
+
 class TestSiteNaturalKey(TestCase):
     def test_natural_key(self):
         site = Site(hostname='example.com', port=8080)

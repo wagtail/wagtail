@@ -1,9 +1,8 @@
-import swapper
-
 from datetime import date
 from functools import wraps
 from unittest import mock
 
+import swapper
 from django import forms
 from django.contrib.auth.models import AnonymousUser
 from django.core import checks

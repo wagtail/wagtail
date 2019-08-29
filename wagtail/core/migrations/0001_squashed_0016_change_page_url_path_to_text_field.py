@@ -31,7 +31,7 @@ def initial_data(apps, schema_editor):
     )
 
     # Create homepage
-    homepage = Page.objects.create(
+    Page.objects.create(
         title="Welcome to your new Wagtail site!",
         slug='home',
         content_type=page_content_type,
