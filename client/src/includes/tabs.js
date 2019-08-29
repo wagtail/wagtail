@@ -173,6 +173,17 @@ class TabInterface {
 const initDefaultTabs = () => {
   const tabPanels = [...document.querySelectorAll('.tab-nav')];
   tabPanels.forEach(el => new TabInterface(el));
+  // Tab toggles have special behavior where they trigger a tab to be clicked
+  // at a distance. They must have a href that matches the tab to be activated
+  const tabToggles = [...document.querySelectorAll('.tab-toggle')];
+  tabToggles.forEach(el => {
+    el.addEventListener('click', evt => {
+      // Find the first tab element with a matching href and click on it
+      const href = '#' + evt.currentTarget.href.split('#')[1];
+      document.querySelector(`[href$="${href}"][role="tab"]`).click();
+      evt.stopPropagation();
+    });
+  });
 };
 
 export { TabInterface, initDefaultTabs };
