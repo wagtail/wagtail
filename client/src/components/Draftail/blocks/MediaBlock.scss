@@ -38,10 +38,8 @@
         pointer-events: none;
     }
 
-    &__no-thumbnail-fallback {
-        color: white;
+    &__fallback {
         position: absolute;
-        text-align: center;
         top: 0;
         right: 0;
         bottom: 0;
@@ -49,5 +47,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        color: $color-white;
       }
 }
