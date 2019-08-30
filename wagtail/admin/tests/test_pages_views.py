@@ -2114,6 +2114,22 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             PublishMenuItem(order=50),
         ]
 
+        default_item = '<button type="submit" name="action-publish" value="action-publish" class="button button-longrunning " data-clicked-text="Publishing…"><span class="icon icon-spinner"></span><em>Publish</em></button>'
+        menu_items_html = '''<ul>
+            <li>
+                <a class="button" href="/admin/pages/{id}/unpublish/">Unpublish</a>
+            </li>
+            <li>
+                <a class="button" href="/admin/pages/{id}/delete/">Delete</a>
+            </li>
+            <li>
+                <input type="submit" name="action-submit" value="Submit for moderation" class="button" />
+            </li>
+            <li>
+                <button type="submit" class="button action-save button-longrunning " data-clicked-text="Saving…" ><span class="icon icon-spinner"></span><em>Save draft</em></button>
+            </li>
+        </ul>'''.format(id=self.single_event_page.id)
+
         def hook_func(menu_items, request, context):
             menu_items[:] = menu
 
@@ -2121,7 +2137,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             response = self.client.get(reverse('wagtailadmin_pages:edit',
                                        args=(self.single_event_page.id, )))
 
-        print(response.content)
+        self.assertContains(response, default_item, html=True)
+        self.assertContains(response, menu_items_html, html=True)
+
         for item in menu:
             if item.template:
                 self.assertTemplateUsed(response, item.template)
@@ -2133,12 +2151,24 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             SubmitForModerationMenuItem(order=30),
         ]
 
+        default_item = '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />'
+        menu_items_html = '''<ul>
+            <li>
+                <a class="button" href="/admin/pages/{id}/delete/">Delete</a>
+            </li>
+        </ul>'''.format(id=self.single_event_page.id)
+
+
         def hook_func(menu_items, request, context):
             menu_items[:] = menu
 
         with self.register_hook('construct_page_action_menu', hook_func):
             response = self.client.get(reverse('wagtailadmin_pages:edit',
                                        args=(self.single_event_page.id, )))
+
+        self.assertContains(response, default_item, html=True)
+        self.assertContains(response, menu_items_html, html=True)
+
         for item in menu:
             if item.template:
                 self.assertTemplateUsed(response, item.template)
