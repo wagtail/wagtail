@@ -103,14 +103,17 @@ def page_listing_buttons(page, page_perms, is_parent=False):
         yield PageListingButton(
             _('Edit'),
             reverse('wagtailadmin_pages:edit', args=[page.id]),
-            attrs={'aria-label': _("Edit '{title}'").format(title=page.get_admin_display_title())},
+            attrs={'aria-label': _("Edit '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=10
         )
     if page.has_unpublished_changes:
         yield PageListingButton(
             _('View draft'),
             reverse('wagtailadmin_pages:view_draft', args=[page.id]),
-            attrs={'aria-label': _("Preview draft version of '{title}'").format(title=page.get_admin_display_title()), 'target': '_blank', 'rel': 'noopener noreferrer'},
+            attrs={
+                'aria-label': _("Preview draft version of '%(title)s'") % {'title': page.get_admin_display_title()},
+                'target': '_blank', 'rel': 'noopener noreferrer'
+            },
             priority=20
         )
     if page.live and page.url:
@@ -119,7 +122,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
             page.url,
             attrs={
                 'target': "_blank", 'rel': 'noopener noreferrer',
-                'aria-label': _("View live version of '{title}'").format(title=page.get_admin_display_title()),
+                'aria-label': _("View live version of '%(title)s'") % {'title': page.get_admin_display_title()},
             },
             priority=30
         )
@@ -129,7 +132,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
                 _('Add child page'),
                 reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
                 attrs={
-                    'aria-label': _("Add a child page to '{title}' ").format(title=page.get_admin_display_title()),
+                    'aria-label': _("Add a child page to '%(title)s' ") % {'title': page.get_admin_display_title()},
                 },
                 classes={'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'},
                 priority=40
@@ -138,7 +141,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
             yield PageListingButton(
                 _('Add child page'),
                 reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
-                attrs={'aria-label': _("Add a child page to '{title}' ").format(title=page.get_admin_display_title())},
+                attrs={'aria-label': _("Add a child page to '%(title)s' ") % {'title': page.get_admin_display_title()}},
                 priority=40
             )
 
@@ -148,7 +151,10 @@ def page_listing_buttons(page, page_perms, is_parent=False):
         page=page,
         page_perms=page_perms,
         is_parent=is_parent,
-        attrs={'target': '_blank', 'rel': 'noopener noreferrer', 'title': _("View more options for '{title}'").format(title=page.get_admin_display_title())},
+        attrs={
+            'target': '_blank', 'rel': 'noopener noreferrer',
+            'title': _("View more options for '%(title)s'") % {'title': page.get_admin_display_title()}
+        },
         priority=50
     )
 
@@ -159,35 +165,35 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
         yield Button(
             _('Move'),
             reverse('wagtailadmin_pages:move', args=[page.id]),
-            attrs={"title": _("Move page '{title}'").format(title=page.get_admin_display_title())},
+            attrs={"title": _("Move page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=10
         )
     if page_perms.can_copy():
         yield Button(
             _('Copy'),
             reverse('wagtailadmin_pages:copy', args=[page.id]),
-            attrs={'title': _("Copy page '{title}'").format(title=page.get_admin_display_title())},
+            attrs={'title': _("Copy page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=20
         )
     if page_perms.can_delete():
         yield Button(
             _('Delete'),
             reverse('wagtailadmin_pages:delete', args=[page.id]),
-            attrs={'title': _("Delete page '{title}'").format(title=page.get_admin_display_title())},
+            attrs={'title': _("Delete page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=30
         )
     if page_perms.can_unpublish():
         yield Button(
             _('Unpublish'),
             reverse('wagtailadmin_pages:unpublish', args=[page.id]),
-            attrs={'title': _("Unpublish page '{title}'").format(title=page.get_admin_display_title())},
+            attrs={'title': _("Unpublish page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=40
         )
     if page_perms.can_view_revisions():
         yield Button(
             _('Revisions'),
             reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
-            attrs={'title': _("View revision history for '{title}'").format(title=page.get_admin_display_title())},
+            attrs={'title': _("View revision history for '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=50
         )
 
@@ -356,7 +362,7 @@ def register_core_features(features):
         'draftail', 'h1', draftail_features.BlockFeature({
             'label': 'H1',
             'type': 'header-one',
-            'description': ugettext('Heading {level}').format(level=1),
+            'description': ugettext('Heading %(level)d') % {'level': 1},
         })
     )
     features.register_converter_rule('contentstate', 'h1', {
@@ -371,7 +377,7 @@ def register_core_features(features):
         'draftail', 'h2', draftail_features.BlockFeature({
             'label': 'H2',
             'type': 'header-two',
-            'description': ugettext('Heading {level}').format(level=2),
+            'description': ugettext('Heading %(level)d') % {'level': 2},
         })
     )
     features.register_converter_rule('contentstate', 'h2', {
@@ -386,7 +392,7 @@ def register_core_features(features):
         'draftail', 'h3', draftail_features.BlockFeature({
             'label': 'H3',
             'type': 'header-three',
-            'description': ugettext('Heading {level}').format(level=3),
+            'description': ugettext('Heading %(level)d') % {'level': 3},
         })
     )
     features.register_converter_rule('contentstate', 'h3', {
@@ -401,7 +407,7 @@ def register_core_features(features):
         'draftail', 'h4', draftail_features.BlockFeature({
             'label': 'H4',
             'type': 'header-four',
-            'description': ugettext('Heading {level}').format(level=4),
+            'description': ugettext('Heading %(level)d') % {'level': 4},
         })
     )
     features.register_converter_rule('contentstate', 'h4', {
@@ -416,7 +422,7 @@ def register_core_features(features):
         'draftail', 'h5', draftail_features.BlockFeature({
             'label': 'H5',
             'type': 'header-five',
-            'description': ugettext('Heading {level}').format(level=5),
+            'description': ugettext('Heading %(level)d') % {'level': 5},
         })
     )
     features.register_converter_rule('contentstate', 'h5', {
@@ -431,7 +437,7 @@ def register_core_features(features):
         'draftail', 'h6', draftail_features.BlockFeature({
             'label': 'H6',
             'type': 'header-six',
-            'description': ugettext('Heading {level}').format(level=6),
+            'description': ugettext('Heading %(level)d') % {'level': 6},
         })
     )
     features.register_converter_rule('contentstate', 'h6', {

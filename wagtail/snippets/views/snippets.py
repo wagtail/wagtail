@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
+from django.utils.translation import ungettext
 
 from wagtail.admin import messages
 from wagtail.admin.auth import permission_denied
@@ -144,10 +145,10 @@ def create(request, app_label, model_name):
 
             messages.success(
                 request,
-                _("{snippet_type} '{instance}' created.").format(
-                    snippet_type=capfirst(model._meta.verbose_name),
-                    instance=instance
-                ),
+                _("%(snippet_type)s '%(instance)s' created.") % {
+                    'snippet_type': capfirst(model._meta.verbose_name),
+                    'instance': instance
+                },
                 buttons=[
                     messages.button(reverse(
                         'wagtailsnippets:edit', args=(app_label, model_name, quote(instance.pk))
@@ -191,10 +192,10 @@ def edit(request, app_label, model_name, pk):
 
             messages.success(
                 request,
-                _("{snippet_type} '{instance}' updated.").format(
-                    snippet_type=capfirst(model._meta.verbose_name_plural),
-                    instance=instance
-                ),
+                _("%(snippet_type)s '%(instance)s' updated.") % {
+                    'snippet_type': capfirst(model._meta.verbose_name),
+                    'instance': instance
+                },
                 buttons=[
                     messages.button(reverse(
                         'wagtailsnippets:edit', args=(app_label, model_name, quote(instance.pk))
@@ -239,15 +240,22 @@ def delete(request, app_label, model_name, pk=None):
             instance.delete()
 
         if count == 1:
-            message_content = _("{snippet_type} '{instance}' deleted.").format(
-                snippet_type=capfirst(model._meta.verbose_name_plural),
-                instance=instance
-            )
+            message_content = _("%(snippet_type)s '%(instance)s' deleted.") % {
+                'snippet_type': capfirst(model._meta.verbose_name),
+                'instance': instance
+            }
         else:
-            message_content = _("{count} {snippet_type} deleted.").format(
-                snippet_type=capfirst(model._meta.verbose_name_plural),
-                count=count
-            )
+            # This message is only used in plural form, but we'll define it with ungettext so that
+            # languages with multiple plural forms can be handled correctly (or, at least, as
+            # correctly as possible within the limitations of verbose_name_plural...)
+            message_content = ungettext(
+                "%(count)d %(snippet_type)s deleted.",
+                "%(count)d %(snippet_type)s deleted.",
+                count
+            ) % {
+                'snippet_type': capfirst(model._meta.verbose_name_plural),
+                'count': count
+            }
 
         messages.success(request, message_content)
 
