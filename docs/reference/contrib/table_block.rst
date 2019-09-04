@@ -26,13 +26,36 @@ Basic Usage
 
 After installation, the TableBlock module can be used in a similar fashion to other StreamField blocks in the Wagtail core.
 
-Just import the TableBlock ``from wagtail.contrib.table_block.blocks import TableBlock`` and add it to your StreamField declaration.
+Import the TableBlock ``from wagtail.contrib.table_block.blocks import TableBlock`` and add it to your StreamField declaration.
 
  .. code-block:: python
 
     class DemoStreamBlock(StreamBlock):
         ...
         table = TableBlock()
+
+
+Then, on your page template, the ``{% include_block %}`` tag (called on either the individual block, or the StreamField value as a whole) will render any table blocks it encounters as an HTML ``<table>`` element:
+
+.. code-block:: html+django
+
+    {% load wagtailcore_tags %}
+
+    {% include_block page.body %}
+
+Or:
+
+.. code-block:: html+django
+
+    {% load wagtailcore_tags %}
+
+    {% for block in page.body %}
+        {% if block.block_type == 'table' %}
+            {% include_block block %}
+        {% else %}
+            {# rendering for other block types #}
+        {% endif %}
+    {% endfor %}
 
 
 Advanced Usage
