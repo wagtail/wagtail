@@ -41,9 +41,10 @@ class PagesSummaryItem(SummaryItem):
                 # If precisely one site exists, link to its homepage rather than the
                 # tree root, to discourage people from trying to create pages as siblings
                 # of the homepage (#1883)
+                Site = get_site_model()
                 try:
-                    root_page = get_site_model().objects.get().root_page
-                except (get_site_model().DoesNotExist, get_site_model().MultipleObjectsReturned):
+                    root_page = Site.objects.get().root_page
+                except (Site.DoesNotExist, Site.MultipleObjectsReturned):
                     pass
         else:
             page_count = 0

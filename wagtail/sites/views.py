@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.core.models import get_site_model
-from wagtail.core.permissions import get_site_permission_policy
+from wagtail.core.permissions import site_permission_policy
 from wagtail.sites.forms import SiteForm
 
 
@@ -48,7 +48,7 @@ class SiteViewSet(ModelViewSet):
 
     @property
     def permission_policy(self):
-        return get_site_permission_policy()
+        return site_permission_policy
 
     def get_form_class(self, for_update=False):
         return SiteForm
