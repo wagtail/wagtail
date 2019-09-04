@@ -486,4 +486,4 @@ def js_translation_strings():
 
 @register.simple_tag
 def notification_static(path):
-    return urljoin(settings.BASE_URL, static(path))
+    return urljoin(base_url_setting(), static(path))
