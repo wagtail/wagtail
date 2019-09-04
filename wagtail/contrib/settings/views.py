@@ -68,10 +68,10 @@ def edit(request, app_name, model_name, site_pk):
 
             messages.success(
                 request,
-                _("{setting_type} updated.").format(
-                    setting_type=capfirst(setting_type_name),
-                    instance=instance
-                )
+                _("%(setting_type)s updated.") % {
+                    'setting_type': capfirst(setting_type_name),
+                    'instance': instance
+                }
             )
             return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
         else:

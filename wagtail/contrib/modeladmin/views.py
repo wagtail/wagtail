@@ -150,8 +150,9 @@ class ModelFormView(WMABaseView, FormView):
         return super().get_context_data(**context)
 
     def get_success_message(self, instance):
-        return _("{model_name} '{instance}' created.").format(
-            model_name=capfirst(self.opts.verbose_name), instance=instance)
+        return _("%(model_name)s '%(instance)s' created.") % {
+            'model_name': capfirst(self.opts.verbose_name), 'instance': instance
+        }
 
     def get_success_message_buttons(self, instance):
         button_url = self.url_helper.get_action_url('edit', quote(instance.pk))
@@ -640,8 +641,9 @@ class EditView(ModelFormView, InstanceSpecificView):
         return _('Editing %s') % self.verbose_name
 
     def get_success_message(self, instance):
-        return _("{model_name} '{instance}' updated.").format(
-            model_name=capfirst(self.verbose_name), instance=instance)
+        return _("%(model_name)s '%(instance)s' updated.") % {
+            'model_name': capfirst(self.verbose_name), 'instance': instance
+        }
 
     def get_context_data(self, **kwargs):
         context = {
@@ -726,8 +728,9 @@ class DeleteView(InstanceSpecificView):
 
     def post(self, request, *args, **kwargs):
         try:
-            msg = _("{model} '{instance}' deleted.").format(
-                model=self.verbose_name, instance=self.instance)
+            msg = _("%(model_name)s '%(instance)s' deleted.") % {
+                'model_name': self.verbose_name, 'instance': self.instance
+            }
             self.delete_instance()
             messages.success(request, msg)
             return redirect(self.index_url)

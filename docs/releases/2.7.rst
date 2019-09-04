@@ -71,6 +71,7 @@ Bug fixes
  * Prevent broken images in notification emails when static files are hosted on a remote domain (Eduard Luca)
  * Replace styleguide example avatar with default image to avoid issues when custom user model is used (Matt Westcott)
  * ``DraftailRichTextArea`` is no longer treated as a hidden field by Django's form logic (Sergey Fedoseev)
+ * Replace format() placeholders in translatable strings with % formatting (Matt Westcott)
 
 
 Upgrade considerations
