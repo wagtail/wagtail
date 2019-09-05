@@ -3,7 +3,7 @@ from django.core.cache import cache
 from django.http import HttpRequest
 from django.test import TestCase
 from django.urls.exceptions import NoReverseMatch
-from django.utils.safestring import SafeText
+from django.utils.safestring import SafeString
 
 from wagtail.core.models import Page, Site
 from wagtail.core.templatetags.wagtailcore_tags import richtext, slugurl
@@ -284,7 +284,7 @@ class TestRichtextTag(TestCase):
     def test_call_with_text(self):
         result = richtext("Hello world!")
         self.assertEqual(result, '<div class="rich-text">Hello world!</div>')
-        self.assertIsInstance(result, SafeText)
+        self.assertIsInstance(result, SafeString)
 
     def test_call_with_none(self):
         result = richtext(None)
