@@ -435,16 +435,14 @@ class StreamValue(Sequence):
             else:
                 # convert the bound block back into JSONish data
                 child = self[i]
+                # As this method is preparing this value to be saved to the database,
+                # this is an appropriate place to ensure that each block has a unique id.
+                child.id = child.id or str(uuid.uuid4())
                 prep_value_item = {
                     'type': child.block.name,
                     'value': child.block.get_prep_value(child.value),
                     'id': child.id,
                 }
-
-            # As this method is preparing this value to be saved to the database,
-            # this is an appropriate place to ensure that each block has a unique id.
-            if not prep_value_item.get('id'):
-                prep_value_item['id'] = str(uuid.uuid4())
 
             prep_value.append(prep_value_item)
 
