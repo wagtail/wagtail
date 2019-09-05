@@ -2,7 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
@@ -90,7 +90,7 @@ def add(request):
                 'success': False,
 
                 # https://github.com/django/django/blob/stable/1.6.x/django/forms/util.py#L45
-                'error_message': '\n'.join(['\n'.join([force_text(i) for i in v]) for k, v in form.errors.items()]),
+                'error_message': '\n'.join(['\n'.join([force_str(i) for i in v]) for k, v in form.errors.items()]),
             })
     else:
         # Instantiate a dummy copy of the form that we can retrieve validation messages and media from;

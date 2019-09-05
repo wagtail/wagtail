@@ -1,7 +1,7 @@
 from django import template
 from django.shortcuts import reverse
 from django.template.defaulttags import token_kwargs
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.safestring import mark_safe
 
 from wagtail import VERSION, __version__
@@ -130,7 +130,7 @@ class IncludeBlockNode(template.Node):
 
             return value.render_as_block(context=new_context)
         else:
-            return force_text(value)
+            return force_str(value)
 
 
 @register.tag
