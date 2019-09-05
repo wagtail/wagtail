@@ -57,6 +57,7 @@ Bug fixes
  * Prevent tab labels on page edit view from being cut off on very narrow screens (Kevin Howbrook)
  * Very long words in page listings are now broken where necessary (Kevin Howbrook)
  * Language chosen in user preferences no longer persists on subsequent requests (Bojan Mihelac)
+ * Prevent new block IDs from being assigned on repeated calls to ``StreamBlock.get_prep_value`` (Colin Klein)
 
 
 Upgrade considerations

@@ -33,6 +33,7 @@ Changelog
  * Fix: Prevent tab labels on page edit view from being cut off on very narrow screens (Kevin Howbrook)
  * Fix: Very long words in page listings are now broken where necessary (Kevin Howbrook)
  * Fix: Language chosen in user preferences no longer persists on subsequent requests (Bojan Mihelac)
+ * Fix: Prevent new block IDs from being assigned on repeated calls to `StreamBlock.get_prep_value` (Colin Klein)
 
 
 2.6.1 (05.08.2019)

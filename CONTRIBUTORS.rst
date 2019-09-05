@@ -395,6 +395,7 @@ Contributors
 * Sarath Kumar Somana
 * Dani Hodovic
 * Janne Alatalo
+* Colin Klein
 
 Translators
 ===========
