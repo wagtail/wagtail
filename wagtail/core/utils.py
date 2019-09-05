@@ -5,7 +5,7 @@ import unicodedata
 from django.apps import apps
 from django.conf import settings
 from django.db.models import Model
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.text import slugify
 
 WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
@@ -70,7 +70,7 @@ def cautious_slugify(value):
     This ensures that the result of slugifying e.g. Cyrillic text will not be an empty
     string, and can thus be safely used as an identifier (albeit not a human-readable one).
     """
-    value = force_text(value)
+    value = force_str(value)
 
     # Normalize the string to decomposed unicode form. This causes accented Latin
     # characters to be split into 'base character' + 'accent modifier'; the latter will

@@ -15,7 +15,7 @@ from django.db.models.fields.related import ManyToManyField, OneToOneRel
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
 from django.utils.decorators import method_decorator
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
@@ -53,10 +53,10 @@ class WMABaseView(TemplateView):
         self.model_admin = model_admin
         self.model = model_admin.model
         self.opts = self.model._meta
-        self.app_label = force_text(self.opts.app_label)
-        self.model_name = force_text(self.opts.model_name)
-        self.verbose_name = force_text(self.opts.verbose_name)
-        self.verbose_name_plural = force_text(self.opts.verbose_name_plural)
+        self.app_label = force_str(self.opts.app_label)
+        self.model_name = force_str(self.opts.model_name)
+        self.verbose_name = force_str(self.opts.verbose_name)
+        self.verbose_name_plural = force_str(self.opts.verbose_name_plural)
         self.pk_attname = self.opts.pk.attname
         self.is_pagemodel = model_admin.is_pagemodel
         self.permission_helper = model_admin.permission_helper

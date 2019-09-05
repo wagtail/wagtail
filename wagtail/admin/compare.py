@@ -1,7 +1,7 @@
 import difflib
 
 from bs4 import BeautifulSoup
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.html import escape, format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
@@ -52,8 +52,8 @@ class TextFieldComparison(FieldComparison):
 class RichTextFieldComparison(TextFieldComparison):
     def htmldiff(self):
         return diff_text(
-            BeautifulSoup(force_text(self.val_a), 'html5lib').getText(),
-            BeautifulSoup(force_text(self.val_b), 'html5lib').getText()
+            BeautifulSoup(force_str(self.val_a), 'html5lib').getText(),
+            BeautifulSoup(force_str(self.val_b), 'html5lib').getText()
         ).to_html()
 
 
@@ -95,16 +95,16 @@ class BlockComparison:
 class CharBlockComparison(BlockComparison):
     def htmldiff(self):
         return diff_text(
-            force_text(self.val_a),
-            force_text(self.val_b)
+            force_str(self.val_a),
+            force_str(self.val_b)
         ).to_html()
 
 
 class RichTextBlockComparison(BlockComparison):
     def htmldiff(self):
         return diff_text(
-            BeautifulSoup(force_text(self.val_a), 'html5lib').getText(),
-            BeautifulSoup(force_text(self.val_b), 'html5lib').getText()
+            BeautifulSoup(force_str(self.val_a), 'html5lib').getText(),
+            BeautifulSoup(force_str(self.val_b), 'html5lib').getText()
         ).to_html()
 
 
@@ -219,15 +219,15 @@ class StreamFieldComparison(FieldComparison):
         else:
             # Fall back to diffing the HTML representation
             return diff_text(
-                BeautifulSoup(force_text(self.val_a), 'html5lib').getText(),
-                BeautifulSoup(force_text(self.val_b), 'html5lib').getText()
+                BeautifulSoup(force_str(self.val_a), 'html5lib').getText(),
+                BeautifulSoup(force_str(self.val_b), 'html5lib').getText()
             ).to_html()
 
 
 class ChoiceFieldComparison(FieldComparison):
     def htmldiff(self):
-        val_a = force_text(dict(self.field.flatchoices).get(self.val_a, self.val_a), strings_only=True)
-        val_b = force_text(dict(self.field.flatchoices).get(self.val_b, self.val_b), strings_only=True)
+        val_a = force_str(dict(self.field.flatchoices).get(self.val_a, self.val_a), strings_only=True)
+        val_b = force_str(dict(self.field.flatchoices).get(self.val_b, self.val_b), strings_only=True)
 
         if self.val_a != self.val_b:
             return TextDiff([('deletion', val_a), ('addition', val_b)]).to_html()
@@ -291,16 +291,16 @@ class ForeignObjectComparison(FieldComparison):
         if obj_a != obj_b:
             if obj_a and obj_b:
                 # Changed
-                return TextDiff([('deletion', force_text(obj_a)), ('addition', force_text(obj_b))]).to_html()
+                return TextDiff([('deletion', force_str(obj_a)), ('addition', force_str(obj_b))]).to_html()
             elif obj_b:
                 # Added
-                return TextDiff([('addition', force_text(obj_b))]).to_html()
+                return TextDiff([('addition', force_str(obj_b))]).to_html()
             elif obj_a:
                 # Removed
-                return TextDiff([('deletion', force_text(obj_a))]).to_html()
+                return TextDiff([('deletion', force_str(obj_a))]).to_html()
         else:
             if obj_a:
-                return escape(force_text(obj_a))
+                return escape(force_str(obj_a))
             else:
                 return mark_safe(_("None"))
 

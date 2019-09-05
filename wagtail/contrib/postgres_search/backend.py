@@ -5,7 +5,7 @@ from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transact
 from django.db.models import Count, F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
@@ -65,7 +65,7 @@ class Index:
         if isinstance(value, dict):
             return ', '.join(self.prepare_value(item)
                              for item in value.values())
-        return force_text(value)
+        return force_str(value)
 
     def prepare_field(self, obj, field):
         if isinstance(field, SearchField):
@@ -86,7 +86,7 @@ class Index:
                     yield from self.prepare_field(sub_obj, sub_field)
 
     def prepare_obj(self, obj, search_fields):
-        obj._object_id_ = force_text(obj.pk)
+        obj._object_id_ = force_str(obj.pk)
         obj._autocomplete_ = []
         obj._body_ = []
         for field in search_fields:
