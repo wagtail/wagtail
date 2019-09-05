@@ -5,7 +5,7 @@ from django.apps import apps
 from django.db import models
 from django.template import Context, Template, engines
 from django.test import TestCase
-from django.utils.safestring import SafeText
+from django.utils.safestring import SafeString
 
 from wagtail.core import blocks
 from wagtail.core.blocks import StreamValue
@@ -203,12 +203,12 @@ class TestStreamFieldRendering(TestStreamFieldRenderingBase):
     def test_to_string(self):
         rendered = str(self.instance.body)
         self.assertHTMLEqual(rendered, self.expected)
-        self.assertIsInstance(rendered, SafeText)
+        self.assertIsInstance(rendered, SafeString)
 
     def test___html___access(self):
         rendered = self.instance.body.__html__()
         self.assertHTMLEqual(rendered, self.expected)
-        self.assertIsInstance(rendered, SafeText)
+        self.assertIsInstance(rendered, SafeString)
 
 
 class TestStreamFieldDjangoRendering(TestStreamFieldRenderingBase):

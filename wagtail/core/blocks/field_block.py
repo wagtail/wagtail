@@ -541,7 +541,7 @@ class RawHTMLBlock(FieldBlock):
 
     def get_prep_value(self, value):
         # explicitly convert to a plain string, just in case we're using some serialisation method
-        # that doesn't cope with SafeText values correctly
+        # that doesn't cope with SafeString values correctly
         return str(value) + ''
 
     def value_for_form(self, value):
