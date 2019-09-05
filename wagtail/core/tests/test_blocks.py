@@ -2748,6 +2748,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         # ID to this block, as it didn't have one already.
         self.assertTrue(jsonish_value[1]['id'])
 
+        # Calling get_prep_value again should preserve existing IDs, including the one
+        # just assigned to block 1
+        jsonish_value_again = block.get_prep_value(value)
+        self.assertEqual(jsonish_value[0]['id'], jsonish_value_again[0]['id'])
+        self.assertEqual(jsonish_value[1]['id'], jsonish_value_again[1]['id'])
+
     def test_get_prep_value_not_lazy(self):
         stream_data = [
             ('heading', 'this is my heading', '0000'),
