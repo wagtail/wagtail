@@ -1,5 +1,7 @@
 from functools import wraps
 
+import l18n
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
 from django.core.exceptions import PermissionDenied
@@ -12,7 +14,6 @@ from django.utils.translation import override
 
 from wagtail.admin import messages
 from wagtail.core.models import GroupPagePermission
-from wagtail.utils import l18n
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
