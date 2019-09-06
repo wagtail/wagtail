@@ -19,6 +19,7 @@ from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, EventCategory,
     EventPage, EventPageCarouselItem, FilePage, ManyToManyBlogPage, SimplePage, SingleEventPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.tests.utils.form_data import inline_formset, nested_form_data
 
 
 class TestPageEdit(TestCase, WagtailTestUtils):
@@ -1632,3 +1633,92 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""", count=1, html=True)
         # Error on title shown in the header message
         self.assertContains(response, "<li>Title: This field is required.</li>", count=1)
+
+
+class TestNestedInlinePanel(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.events_index = Page.objects.get(url_path='/home/events/')
+        self.christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.speaker = self.christmas_page.speakers.first()
+        self.speaker.awards.create(
+            name="Beard Of The Year", date_awarded=datetime.date(1997, 12, 25)
+        )
+        self.speaker.save()
+        self.user = self.login()
+
+    def test_get_edit_form(self):
+        response = self.client.get(
+            reverse('wagtailadmin_pages:edit', args=(self.christmas_page.id, ))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            """<input type="text" name="speakers-0-awards-0-name" value="Beard Of The Year" maxlength="255" id="id_speakers-0-awards-0-name">""",
+            count=1, html=True
+        )
+
+        # there should be no "extra" forms, as the nested formset should respect the extra_form_count=0 set on WagtailAdminModelForm
+        self.assertContains(
+            response,
+            """<input type="hidden" name="speakers-0-awards-TOTAL_FORMS" value="1" id="id_speakers-0-awards-TOTAL_FORMS">""",
+            count=1, html=True
+        )
+        self.assertContains(
+            response,
+            """<input type="text" name="speakers-0-awards-1-name" value="" maxlength="255" id="id_speakers-0-awards-1-name">""",
+            count=0, html=True
+        )
+
+        # date field should use AdminDatePicker
+        self.assertContains(
+            response,
+            """<input type="text" name="speakers-0-awards-0-date_awarded" value="1997-12-25" autocomplete="new-date" id="id_speakers-0-awards-0-date_awarded">""",
+            count=1, html=True
+        )
+
+    def test_post_edit(self):
+        post_data = nested_form_data({
+            'title': "Christmas",
+            'date_from': "2017-12-25",
+            'date_to': "2017-12-25",
+            'slug': "christmas",
+            'audience': "public",
+            'location': "The North Pole",
+            'cost': "Free",
+            'carousel_items': inline_formset([]),
+            'speakers': inline_formset([
+                {
+                    'id': self.speaker.id,
+                    'first_name': "Jeff",
+                    'last_name': "Christmas",
+                    'awards': inline_formset([
+                        {
+                            'id': self.speaker.awards.first().id,
+                            'name': "Beard Of The Century",
+                            'date_awarded': "1997-12-25",
+                        },
+                        {
+                            'name': "Bobsleigh Olympic gold medallist",
+                            'date_awarded': "2018-02-01",
+                        },
+                    ], initial=1)
+                },
+            ], initial=1),
+            'related_links': inline_formset([]),
+            'head_counts': inline_formset([]),
+            'action-publish': "Publish",
+        })
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(self.christmas_page.id, )),
+            post_data
+        )
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.events_index.id, )))
+
+        new_christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.assertEqual(new_christmas_page.speakers.first().first_name, "Jeff")
+        awards = new_christmas_page.speakers.first().awards.all()
+        self.assertEqual(len(awards), 2)
+        self.assertEqual(awards[0].name, "Beard Of The Century")
+        self.assertEqual(awards[1].name, "Bobsleigh Olympic gold medallist")
