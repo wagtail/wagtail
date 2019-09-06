@@ -13,7 +13,7 @@ class RemovedInWagtail29Warning(PendingDeprecationWarning):
     pass
 
 
-class MovedDefinitionHandler(object):
+class MovedDefinitionHandler:
     """
     A wrapper for module objects to enable definitions to be moved to a new module, with a
     deprecation path for the old location. Importing the name from the old location will

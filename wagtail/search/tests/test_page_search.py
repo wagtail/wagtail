@@ -7,7 +7,7 @@ from wagtail.core.models import Page
 from wagtail.search.backends import get_search_backend
 
 
-class PageSearchTests(object):
+class PageSearchTests:
     # A TestCase with this class mixed in will be dynamically created
     # for each search backend defined in WAGTAILSEARCH_BACKENDS, with the backend name available
     # as self.backend_name
