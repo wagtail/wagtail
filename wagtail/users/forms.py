@@ -2,6 +2,7 @@ import warnings
 from itertools import groupby
 from operator import itemgetter
 
+import l18n
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -13,8 +14,6 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django.template.loader import render_to_string
 from django.utils.html import mark_safe
 from django.utils.translation import ugettext_lazy as _
-
-import l18n
 
 from wagtail.admin.locale import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.widgets import AdminPageChooser
