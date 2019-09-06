@@ -2,6 +2,8 @@ import warnings
 from itertools import groupby
 from operator import itemgetter
 
+import l18n
+
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -21,7 +23,6 @@ from wagtail.core.models import (
     PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
     UserPagePermissionsProxy)
 from wagtail.users.models import UserProfile
-from wagtail.utils import l18n
 
 User = get_user_model()
 
