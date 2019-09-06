@@ -10,9 +10,10 @@ from django.utils.timezone import activate as activate_tz
 from django.utils.translation import ugettext as _
 from django.utils.translation import override
 
+import l18n
+
 from wagtail.admin import messages
 from wagtail.core.models import GroupPagePermission
-from wagtail.utils import l18n
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
