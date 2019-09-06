@@ -198,7 +198,18 @@ class EventPageRelatedLink(Orderable, RelatedLink):
     page = ParentalKey('tests.EventPage', related_name='related_links', on_delete=models.CASCADE)
 
 
-class EventPageSpeaker(Orderable, LinkFields):
+class EventPageSpeakerAward(Orderable, models.Model):
+    speaker = ParentalKey('tests.EventPageSpeaker', related_name='awards', on_delete=models.CASCADE)
+    name = models.CharField("Award name", max_length=255)
+    date_awarded = models.DateField(null=True, blank=True)
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('date_awarded'),
+    ]
+
+
+class EventPageSpeaker(Orderable, LinkFields, ClusterableModel):
     page = ParentalKey('tests.EventPage', related_name='speakers', related_query_name='speaker', on_delete=models.CASCADE)
     first_name = models.CharField("Name", max_length=255, blank=True)
     last_name = models.CharField("Surname", max_length=255, blank=True)
@@ -219,6 +230,7 @@ class EventPageSpeaker(Orderable, LinkFields):
         FieldPanel('last_name'),
         ImageChooserPanel('image'),
         MultiFieldPanel(LinkFields.panels, "Link"),
+        InlinePanel('awards', label="Awards"),
     ]
 
 
