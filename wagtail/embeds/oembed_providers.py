@@ -221,7 +221,7 @@ twitter = {
 soundcloud = {
     "endpoint": "https://soundcloud.com/oembed",
     "urls": [
-        r'^https://soundcloud\.com/[^#?/]+/.+$',
+        r'^https://soundcloud\.com/.+$',
     ],
 }
 

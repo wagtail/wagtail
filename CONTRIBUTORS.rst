@@ -397,6 +397,7 @@ Contributors
 * Janne Alatalo
 * Colin Klein
 * Eduard Luca
+* Kiril Staikov
 
 Translators
 ===========
