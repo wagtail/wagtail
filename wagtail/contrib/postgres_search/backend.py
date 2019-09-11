@@ -19,7 +19,7 @@ from .utils import (
     get_content_type_pk, get_descendants_content_types_pks, get_postgresql_connections,
     get_sql_weights, get_weight)
 
-EMPTY_VECTOR = SearchVector(Value(''))
+EMPTY_VECTOR = SearchVector(Value('', output_field=TextField()))
 
 
 class Index:
@@ -32,6 +32,10 @@ class Index:
             raise NotSupportedError(
                 'You must select a PostgreSQL database '
                 'to use PostgreSQL search.')
+
+        # Whether to allow adding items via the faster upsert method available in Postgres >=9.5
+        self._enable_upsert = (self.connection.pg_version >= 90500)
+
         self.entries = IndexEntry._default_manager.using(self.db_alias)
 
     def add_model(self, model):
@@ -137,11 +141,11 @@ class Index:
         ids_and_objs = {}
         for obj in objs:
             obj._autocomplete_ = (
-                ADD([SearchVector(Value(text), weight=weight, config=config)
+                ADD([SearchVector(Value(text, output_field=TextField()), weight=weight, config=config)
                      for text, weight in obj._autocomplete_])
                 if obj._autocomplete_ else EMPTY_VECTOR)
             obj._body_ = (
-                ADD([SearchVector(Value(text), weight=weight, config=config)
+                ADD([SearchVector(Value(text, output_field=TextField()), weight=weight, config=config)
                      for text, weight in obj._body_])
                 if obj._body_ else EMPTY_VECTOR)
             ids_and_objs[obj._object_id_] = obj
@@ -173,9 +177,9 @@ class Index:
         # TODO: Delete unindexed objects while dealing with proxy models.
         if objs:
             content_type_pk = get_content_type_pk(model)
-            # Use a faster method for PostgreSQL >= 9.5
+
             update_method = (
-                self.add_items_upsert if self.connection.pg_version >= 90500
+                self.add_items_upsert if self._enable_upsert
                 else self.add_items_update_then_create)
             update_method(content_type_pk, objs)
 
