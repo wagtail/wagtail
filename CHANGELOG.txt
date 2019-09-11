@@ -17,6 +17,7 @@ Changelog
  * Add ability to insert telephone numbers as links in Draftail (rich text) fields (Mikael Engström and Liam Brenner)
  * Increase delay before search in the snippet chooser, to prevent redundant search request round trips (Robert Rollins)
  * Add `WAGTAIL_EMAIL_MANAGEMENT_ENABLED` setting to determine whether users can change their email address (Janne Alatalo)
+ * Recognise Soundcloud artist URLs as embeddable (Kiril Staikov)
  * Fix: Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
  * Fix: Added https support for Scribd oEmbed provider (Rodrigo)
  * Fix: Changed StreamField group labels color so labels are visible (Catherine Farman)
