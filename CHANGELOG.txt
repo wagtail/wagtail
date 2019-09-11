@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.6.2 (xx.xx.xxxx)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent search indexing failures on Postgres 9.4 and Django >= 2.2.1 (Matt Westcott)
+
+
 2.6.1 (05.08.2019)
 ~~~~~~~~~~~~~~~~~~
 
