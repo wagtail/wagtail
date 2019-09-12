@@ -20,8 +20,8 @@ def serve(request, document_id, document_filename):
 
     # We want to ensure that the document filename provided in the URL matches the one associated with the considered
     # document_id. If not we can't be sure that the document the user wants to access is the one corresponding to the
-    # <document_id, document_filename> pair.
-    if doc.filename != document_filename:
+    # <document_id, document_filename> pair. We can use title as a fallback for a more permanent URL.
+    if doc.filename != document_filename and doc.title != document_filename:
         raise Http404('This document does not match the given filename.')
 
     for fn in hooks.get_hooks('before_serve_document'):
