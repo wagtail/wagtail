@@ -267,6 +267,23 @@ This setting lets you override the maximum number of pixels an image can have. I
 
 This setting enables feature detection once OpenCV is installed, see all details on the :ref:`image_feature_detection` documentation.
 
+.. code-block:: python
+
+    WAGTAILIMAGES_INDEX_PAGE_SIZE = 20
+
+This setting allows you to change the page size when viewing images in the Wagtail admin.
+
+.. code-block:: python
+
+    WAGTAILIMAGES_USAGE_PAGE_SIZE = 20
+
+This setting allows you to change the page size when viewing image usage lists, e.g. in the delete view.
+
+.. code-block:: python
+
+    WAGTAILIMAGES_CHOOSER_PAGE_SIZE = 12
+
+This setting allows you to change the page size when using the image chooser modal.
 
 Password Management
 -------------------
