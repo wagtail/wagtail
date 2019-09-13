@@ -407,6 +407,7 @@ Contributors
 * Dawid Bugajewski
 * Dawn Wages
 * Jacob Topp-Mugglestone
+* Brian Whitton
 
 Translators
 ===========
