@@ -275,6 +275,24 @@ This setting lets you override the maximum number of pixels an image can have. I
 
 This setting enables feature detection once OpenCV is installed, see all details on the :ref:`image_feature_detection` documentation.
 
+.. code-block:: python
+
+    WAGTAILIMAGES_INDEX_PAGE_SIZE = 20
+
+Specifies the number of images per page shown on the main Images listing in the Wagtail admin.
+
+.. code-block:: python
+
+    WAGTAILIMAGES_USAGE_PAGE_SIZE = 20
+
+Specifies the number of items per page shown when viewing an image's usage (see :ref:`WAGTAIL_USAGE_COUNT_ENABLED <WAGTAIL_USAGE_COUNT_ENABLED>`).
+
+.. code-block:: python
+
+    WAGTAILIMAGES_CHOOSER_PAGE_SIZE = 12
+
+Specifies the number of images shown per page in the image chooser modal.
+
 
 Documents
 ---------
@@ -474,6 +492,8 @@ a custom user model is being used and extra fields are required in the user crea
   WAGTAIL_USER_CUSTOM_FIELDS = ['country']
 
 A list of the extra custom fields to be appended to the default list.
+
+.. _WAGTAIL_USAGE_COUNT_ENABLED:
 
 Usage for images, documents and snippets
 ----------------------------------------
