@@ -403,6 +403,7 @@ Contributors
 * Colin Klein
 * Eduard Luca
 * Kiril Staikov
+* Saptak Sengupta
 
 Translators
 ===========
