@@ -245,8 +245,8 @@ class AbstractForm(Page):
         )
 
     preview_modes = [
-        ('form', 'Form'),
-        ('landing', 'Landing page'),
+        ('form', _('Form')),
+        ('landing', _('Landing page')),
     ]
 
     def serve_preview(self, request, mode):
