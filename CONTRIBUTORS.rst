@@ -4,7 +4,6 @@ Core team
 * Matthew Westcott (Torchbox)
 * Karl Hobley (Torchbox)
 * Tom Dyson (Torchbox)
-* Mikalai Radchuk
 * Thibaud Colas (Torchbox)
 * Janneke Janssen (Lukkien)
 * Mike Dingjan (Lab Digital)
@@ -20,6 +19,7 @@ Core team
 * Kalob Taulien
 * Jonny Scholes (Neon Jungle)
 * Andy Babic (Torchbox)
+* Dan Braghis (Torchbox)
 
 Contributors
 ============
