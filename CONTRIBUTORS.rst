@@ -404,6 +404,7 @@ Contributors
 * Eduard Luca
 * Kiril Staikov
 * Saptak Sengupta
+* Dawid Bugajewski
 
 Translators
 ===========
