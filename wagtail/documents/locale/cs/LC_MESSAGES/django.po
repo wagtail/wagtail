@@ -5,7 +5,7 @@
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
-# Stanislav Vasko <stanislav.vasko@gmail.com>, 2017
+# Mořeplavec <stanislav.vasko@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

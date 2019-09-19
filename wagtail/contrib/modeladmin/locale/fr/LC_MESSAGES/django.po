@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benoît Vogel <contact@spicy-informatique.com>, 2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Tom Dyson <tom@torchbox.com>, 2016
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-09-17 01:23+0000\n"
+"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -114,6 +115,9 @@ msgstr "Retourner à la liste"
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
 
+msgid "No, don't delete"
+msgstr "Non, ne pas supprimer"
+
 msgid "Home"
 msgstr "Accueil"
 
@@ -160,6 +164,9 @@ msgstr ""
 "                                                Pourquoi ne pas <a href="
 "\"%(url)s\">en ajouter un(e)</a> ?\n"
 "                                            "
+
+msgid "Pagination"
+msgstr "Pagination"
 
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
