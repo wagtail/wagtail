@@ -1,5 +1,6 @@
 """Handles rendering of the list of actions in the footer of the page create/edit views."""
 
+from django.conf import settings
 from django.forms import Media, MediaDefiningClass
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -9,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
 
+WAGTAIL_DISPLAY_MODERATION = getattr(settings, 'WAGTAIL_DISPLAY_MODERATION', True)
 
 class ActionMenuItem(metaclass=MediaDefiningClass):
     """Defines an item in the actions drop-up on the page creation/edit view"""
@@ -79,7 +81,9 @@ class SubmitForModerationMenuItem(ActionMenuItem):
     name = 'action-submit'
 
     def is_shown(self, request, context):
-        if context['view'] == 'create':
+        if not WAGTAIL_DISPLAY_MODERATION:
+            return False
+        elif context['view'] == 'create':
             return True
         elif context['view'] == 'edit':
             return not context['page'].locked
