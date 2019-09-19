@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import timezone
 
@@ -39,6 +40,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "Abstract page")
         # List of available page types should not contain pages whose parent_page_types forbid it
         self.assertNotContains(response, "Business child")
+
 
     def test_add_subpage_with_subpage_types(self):
         # Add a BusinessIndex to test business rules in
@@ -114,6 +116,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertContains(response, 'testapp/js/siren.js')
         # test construct_page_action_menu hook
         self.assertContains(response, '<input type="submit" name="action-relax" value="Relax." class="button" />')
+
 
     def test_create_multipart(self):
         """
@@ -665,6 +668,21 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # page should be created
         self.assertTrue(Page.objects.filter(title="New page!").exists())
+
+    def test_display_moderation_button(self):
+        """
+        Tests that by default the "Submit for Moderation" button is shown.
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
+        self.assertContains(response,'<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
+
+    @override_settings(WAGTAIL_DISPLAY_MODERATION=False)
+    def test_not_display_moderation_button(self):
+        """
+        Tests that if WAGTAIL_DISPLAY_MODERATION is set to False, the "Submit for Moderation" button is not shown.
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
+        self.assertNotContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
 
 
 class TestPerRequestEditHandler(TestCase, WagtailTestUtils):

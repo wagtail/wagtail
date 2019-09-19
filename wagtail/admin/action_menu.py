@@ -10,8 +10,6 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
 
-WAGTAIL_DISPLAY_MODERATION = getattr(settings, 'WAGTAIL_DISPLAY_MODERATION', True)
-
 class ActionMenuItem(metaclass=MediaDefiningClass):
     """Defines an item in the actions drop-up on the page creation/edit view"""
     order = 100  # default order index if one is not specified on init
@@ -81,6 +79,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
     name = 'action-submit'
 
     def is_shown(self, request, context):
+        WAGTAIL_DISPLAY_MODERATION = getattr(settings, 'WAGTAIL_DISPLAY_MODERATION', True)
         if not WAGTAIL_DISPLAY_MODERATION:
             return False
         elif context['view'] == 'create':
