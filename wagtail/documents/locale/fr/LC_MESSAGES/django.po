@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Benoît Vogel <contact@spicy-informatique.com>, 2017
+# Benoît Vogel <contact@spicy-informatique.com>, 2017,2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-09-17 01:21+0000\n"
+"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -143,6 +143,9 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer ce document ?"
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
 
+msgid "No, don't delete"
+msgstr "Non, ne pas supprimer"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Édition de %(title)s"
@@ -215,6 +218,28 @@ msgstr "Statut"
 
 msgid "Edit this page"
 msgstr "Modifier cette page"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden\">créé "
+"dans %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">créés dans %(site_name)s</span>\n"
+"    "
 
 msgid "Add multiple documents"
 msgstr "Ajouter plusieurs documents"

@@ -28,8 +28,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-09-17 01:17+0000\n"
+"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -324,6 +324,9 @@ msgstr "Document manquant"
 
 msgid "Close"
 msgstr "Fermer"
+
+msgid "View child pages of \\"
+msgstr "Voir les sous-pages de \\"
 
 msgid "January"
 msgstr "Janvier"
@@ -1217,6 +1220,9 @@ msgstr "Arabe"
 msgid "Catalan"
 msgstr "catalan"
 
+msgid "Czech"
+msgstr "Tchèque"
+
 msgid "German"
 msgstr "allemand"
 
@@ -1237,6 +1243,9 @@ msgstr "français"
 
 msgid "Galician"
 msgstr "galicien"
+
+msgid "Hungarian"
+msgstr "Hongrois"
 
 msgid "Indonesian"
 msgstr "Indonésien"

@@ -5,14 +5,15 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Guglielmo Celata <guglielmo.celata@gmail.com>, 2019
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-09-16 09:46+0000\n"
+"Last-Translator: Guglielmo Celata <guglielmo.celata@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -50,6 +51,12 @@ msgstr "Immagine %s non valida"
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Questo file è troppo grande (%%s). Dimensione massima del file %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"La risoluzione di questo file è di troppi pixel (%%). Il numero massimo di "
+"pixel è %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -175,6 +182,26 @@ msgstr "Scegli un formato"
 msgid "Insert image"
 msgstr "Inserisci immagine"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span>immagine <span class=\"visuallyhidden\">creata in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span>immagini <span class=\"visuallyhidden\">create in "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Cambia immagine"
 
@@ -201,6 +228,9 @@ msgstr "Sei sicuro di voler eliminare questa immagine?"
 
 msgid "Yes, delete"
 msgstr "Si, elimina"
+
+msgid "No, don't delete"
+msgstr "No, non rimuovere"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -245,6 +275,9 @@ msgstr "Uso"
 
 msgid "Images"
 msgstr "Immagini"
+
+msgid "pixels"
+msgstr "pixel"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

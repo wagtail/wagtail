@@ -7,6 +7,7 @@
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
+# Mohammed Abdul gadir <weekmo@aol.com>, 2019
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
 msgid ""
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-08-22 14:29+0000\n"
+"Last-Translator: Mohammed Abdul gadir <weekmo@aol.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -302,8 +303,23 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "المحرر تحطمت للتو. تمت إعادة تعيين المحتوى إلى آخر إصدار تم حفظه."
 
+msgid "Broken link"
+msgstr "رابط معطوب"
+
+msgid "Missing document"
+msgstr "مستند مفقود"
+
 msgid "Close"
 msgstr "اغلاق"
+
+msgid "Edit \\"
+msgstr "تعديل /"
+
+msgid "View child pages of \\"
+msgstr "اظهر الصفحات الفرعية ل /"
+
+msgid "Page explorer"
+msgstr "مستكشف الصفحة"
 
 msgid "January"
 msgstr "يناير"

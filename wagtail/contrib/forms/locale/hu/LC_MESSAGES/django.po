@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-05-03 15:10+0000\n"
+"PO-Revision-Date: 2019-08-01 11:54+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -189,7 +189,7 @@ msgstr "CSV letöltése"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
-msgstr "Nincs még beküldött adat ehhez az űrlaphoz: \"%(title)s\"."
+msgstr "Nincs még beküldött adat ehhez az űrlaphoz: '%(title)s'."
 
 msgid "Title"
 msgstr "Cím"

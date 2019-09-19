@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alessandro <alessandro@catalpa.io>, 2019
 # Joanico Barros <joanico@catalpa.io>, 2019
 # Mariano de Deus <dedeus_mariano@yahoo.com>, 2019
 # Mario <mario@catalpa.io>, 2019
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-08-26 07:56+0000\n"
+"Last-Translator: Alessandro <alessandro@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -302,6 +303,27 @@ msgstr "Dokumentu lakon"
 
 msgid "Close"
 msgstr "Taka"
+
+msgid "Sunday"
+msgstr "Domingu"
+
+msgid "Monday"
+msgstr "Segunda"
+
+msgid "Tuesday"
+msgstr "Tersa"
+
+msgid "Wednesday"
+msgstr "Kuarta"
+
+msgid "Thursday"
+msgstr "Kinta"
+
+msgid "Friday"
+msgstr "Sesta"
+
+msgid "Saturday"
+msgstr "Sabadu"
 
 msgid "Dashboard"
 msgstr "Painel kontrolu"

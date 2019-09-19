@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-06-22 06:29+0000\n"
+"PO-Revision-Date: 2019-08-14 02:22+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -98,6 +98,9 @@ msgstr ""
 
 msgid "has unpublished changes"
 msgstr "Iha sasan la hanesan publiku"
+
+msgid "owner"
+msgstr "nain"
 
 msgid "page title"
 msgstr "titlu pajina"

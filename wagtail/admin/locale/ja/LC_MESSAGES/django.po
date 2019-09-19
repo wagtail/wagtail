@@ -5,6 +5,7 @@
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
 # shuhei hirota, 2019
+# umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2019
 # Tri Minh <minh.nguyentri.95@gmail.com>, 2019
 # 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
 # 溝江 智徳 <tomo.mizoe@gmail.com>, 2019
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-28 21:22+0000\n"
-"Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>\n"
+"PO-Revision-Date: 2019-08-18 03:59+0000\n"
+"Last-Translator: umepon0626 <ryuichi-astrona@ymobile.ne.jp>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -261,6 +262,9 @@ msgstr "全部表示"
 msgid "Close explorer"
 msgstr "エクスプローラーを閉じる。"
 
+msgid "Alt text"
+msgstr "Alt 属性に記載するテキスト"
+
 msgid "Write here…"
 msgstr "ここに書いて"
 
@@ -287,6 +291,12 @@ msgstr "新着内容を表示します"
 
 msgid "Show error"
 msgstr "エラーを表示します"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"エディタがクラッシュしました。内容が最後に保存されたバージョンになっていま"
+"す。"
 
 msgid "Broken link"
 msgstr "壊れたリンク"

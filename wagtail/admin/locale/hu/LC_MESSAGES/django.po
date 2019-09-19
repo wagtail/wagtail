@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-16 11:16+0000\n"
+"PO-Revision-Date: 2019-09-03 16:46+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -461,8 +461,8 @@ msgstr[0] ""
 "atugorja majd a többi fajta oldalakat."
 msgstr[1] ""
 "\n"
-"Csak a \"%(type)s\" típusú oldalak választható ki ennél a mezőnél. A keresés "
-"atugorja majd a többi oldaltípust."
+"Csak a %(type)s típusú oldalak választhatóak ki ennél a mezőnél. A keresés "
+"átugorja majd a többi oldaltípust."
 
 msgid "Add an email link"
 msgstr "Email link hozzáadása"
@@ -782,7 +782,7 @@ msgstr "Mozgatás"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
-msgstr "Biztosan átmozgatja ezt az oldalt ide: \"%(title)s\"?"
+msgstr "Biztosan átmozgatja ezt az oldalt ide: '%(title)s'?"
 
 #, python-format
 msgid ""
@@ -790,7 +790,7 @@ msgid ""
 "'%(title)s'?"
 msgstr ""
 "Biztosan átmozgatja ezt az oldalt, és a hozzá tartozó aloldalakat ide: "
-"\"%(title)s\"?"
+"'%(title)s'?"
 
 msgid "Yes, move this page"
 msgstr "Igen, átmozgatom"
@@ -967,18 +967,18 @@ msgstr "Ez az oldal zárolva van, így nem lehet szerkeszteni"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
-msgstr "%(title)s aloldalainak tallózása"
+msgstr "'%(title)s' aloldalainak tallózása"
 
 msgid "Explore"
 msgstr "Tallózás"
 
 #, python-format
 msgid "Explore child pages of '%(title)s'"
-msgstr "\"%(title)s\" gyermek oldalainak tallózása"
+msgstr "'%(title)s' gyermek oldalainak tallózása"
 
 #, python-format
 msgid "Add a child page to '%(title)s'"
-msgstr "Gyermek oldal hozzáadása ehhez: \"%(title)s\""
+msgstr "Gyermek oldal hozzáadása ehhez: '%(title)s'"
 
 msgid "Add child page"
 msgstr "Gyermek oldal hozzáadása"
@@ -1428,34 +1428,34 @@ msgid "Failed to send notifications to moderators"
 msgstr "Nem sikerült értesíteni a moderátorokat"
 
 msgid "Page '{0}' created."
-msgstr " \"{0}\" oldal létrehozva."
+msgstr " '{0}' oldal létrehozva."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Az oldal nem jött létre az űrlapon található hibák miatt"
 
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "\"{1}\" oldal {0} verziójának közzététele időzítve lett."
+msgstr "'{1}' oldal {0} verziójának közzététele időzítve lett."
 
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "\"{0}\" oldal közzé van téve, és ez a verzió időzítve lett."
+msgstr "'{0}' oldal közzé van téve, és ez a verzió időzítve lett."
 
 msgid "Page '{0}' has been scheduled for publishing."
-msgstr "\"{0}\" oldal közzététele időzítve."
+msgstr "'{0}' oldal közzététele időzítve."
 
 msgid "Revision from {0} of page '{1}' has been published."
-msgstr "\"{1}\" oldal {0} verziója közzétéve."
+msgstr "'{1}' oldal {0} verziója közzétéve."
 
 msgid "Page '{0}' has been published."
-msgstr "\"{0}\" oldal közzétéve."
+msgstr "'{0}' oldal közzétéve."
 
 msgid "Page '{0}' has been submitted for moderation."
-msgstr "\"{0}\" be lett nyújtva moderálásra."
+msgstr "'{0}' be lett nyújtva moderálásra."
 
 msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "\"{0}\" oldal le lett cserélve a következő verzióra: {1}."
+msgstr "'{0}' oldal le lett cserélve a következő verzióra: {1}."
 
 msgid "Page '{0}' has been updated."
-msgstr "\"{0}\" oldal frissítve."
+msgstr "'{0}' oldal frissítve."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Az oldal mentése nem sikerült, mert zárolva van."
@@ -1470,47 +1470,47 @@ msgid "This page is currently awaiting moderation"
 msgstr "Ez az oldal jelenleg moderálásra vár"
 
 msgid "Page '{0}' deleted."
-msgstr "\"{0}\" oldal törölve."
+msgstr "'{0}' oldal törölve."
 
 msgid "Page '{0}' unpublished."
-msgstr "\"{0}\" oldal visszavonva."
+msgstr "'{0}' oldal visszavonva."
 
 msgid ""
 "The slug '{0}' is already in use at the selected parent page. Make sure the "
 "slug is unique and try again"
 msgstr ""
-"A \"{0}\" domain-darabka már használatban van a kiválasztott szülőoldalon. "
+"A '{0}' domain-darabka már használatban van a kiválasztott szülőoldalon. "
 "Győződjön meg róla, hogy a rövidítés egyedi, és próbálja újra."
 
 msgid "Page '{0}' moved."
-msgstr "\"{0}\" oldal átmozgatva."
+msgstr "'{0}' oldal átmozgatva."
 
 msgid "Page '{0}' and {1} subpages copied."
-msgstr "\"{0}\" oldal és {1} aloldal átmásolva."
+msgstr "'{0}' oldal és {1} aloldal átmásolva."
 
 msgid "Page '{0}' copied."
-msgstr "\"{0}\" oldal átmásolva."
+msgstr "'{0}' oldal átmásolva."
 
 msgid "The page '{0}' is not currently awaiting moderation."
-msgstr "\"{0}\" oldal jelenleg moderálásra vár."
+msgstr "'{0}' oldal jelenleg moderálásra vár."
 
 msgid "Page '{0}' published."
-msgstr "\"{0}\" oldal közzétéve."
+msgstr "'{0}' oldal közzétéve."
 
 msgid "Failed to send approval notifications"
 msgstr "Nem sikerült értesítést küldeni a jóváhagyásról."
 
 msgid "Page '{0}' rejected for publication."
-msgstr "\"{0}\" oldal közzététele el lett utasítva."
+msgstr "'{0}' oldal közzététele el lett utasítva."
 
 msgid "Failed to send rejection notifications"
 msgstr "Nem sikerült értesítést küldeni az elutasításról."
 
 msgid "Page '{0}' is now locked."
-msgstr "\"{0}\" oldal zárolva lett."
+msgstr "'{0}' oldal zárolva lett."
 
 msgid "Page '{0}' is now unlocked."
-msgstr "\"{0}\" oldal zárolása fel lett oldva."
+msgstr "'{0}' oldal zárolása fel lett oldva."
 
 #, python-format
 msgid ""
@@ -1527,43 +1527,43 @@ msgid "Latest"
 msgstr "Legkésőbbi"
 
 msgid "revision {0} of \"{1}\""
-msgstr "\"{1}\" {0}. verziója"
+msgstr "'{1}' {0}. verziója"
 
 msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "\"{1}\" {0}. verziójának időzítése visszavonva. "
+msgstr "'{1}' {0}. verziójának időzítése visszavonva. "
 
 msgid "Edit '{title}'"
-msgstr "\"{title}\" szerkesztése"
+msgstr "'{title}' szerkesztése"
 
 msgid "Preview draft version of '{title}'"
-msgstr "\"{title}\" vázlatának előnézete"
+msgstr "'{title}' vázlatának előnézete"
 
 msgid "View live version of '{title}'"
-msgstr "\"{title}\" közzétett verziójának megtekintése"
+msgstr "'{title}' közzétett verziójának megtekintése"
 
 msgid "Add a child page to '{title}' "
-msgstr "Gyermek oldal hozzáadása ehhez: \"{title}\" "
+msgstr "Gyermek oldal hozzáadása ehhez: '{title}'"
 
 msgid "More"
 msgstr "Tovább"
 
 msgid "View more options for '{title}'"
-msgstr "\"{title}\" további beállításai"
+msgstr "'{title}' további beállításai"
 
 msgid "Move page '{title}'"
-msgstr "\"{title}\" oldal mozgatása"
+msgstr "'{title}' oldal mozgatása"
 
 msgid "Copy page '{title}'"
-msgstr "\"{title}\" oldal másolása"
+msgstr "'{title}' oldal másolása"
 
 msgid "Delete page '{title}'"
-msgstr "\"{title}\" oldal törlése"
+msgstr "'{title}' oldal törlése"
 
 msgid "Unpublish page '{title}'"
-msgstr "\"{title}\" visszavonása"
+msgstr "'{title}' visszavonása"
 
 msgid "View revision history for '{title}'"
-msgstr "\"{title}\" korábbi verzióinak megtekintése"
+msgstr "'{title}' korábbi verzióinak megtekintése"
 
 msgid "Set profile picture"
 msgstr "Profilkép beállítása"
