@@ -21,6 +21,13 @@ Core team
 * Andy Babic (Torchbox)
 * Dan Braghis (Torchbox)
 
+Core team alumni
+================
+
+* Josh Barr
+* Tim Heap
+* Mikalai Radchuk
+
 Contributors
 ============
 
@@ -45,7 +52,6 @@ Contributors
 * Tom Talbot
 * Jeffrey Hearn
 * Robert Clark
-* Tim Heap
 * Nathan Brizendine
 * Gordon Pendleton
 * John-Scott Atlakson
@@ -88,7 +94,6 @@ Contributors
 * Alex Gleason
 * Ryan Pineo
 * Petr Vacha
-* Josh Barr
 * Sævar Öfjörð Magnússon
 * Ashia Zawaduk
 * Denis Voskvitsov
