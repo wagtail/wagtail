@@ -38,6 +38,7 @@ Other features
  * Add ``WAGTAIL_EMAIL_MANAGEMENT_ENABLED`` setting to determine whether users can change their email address (Janne Alatalo)
  * Recognise Soundcloud artist URLs as embeddable (Kiril Staikov)
  * Add ``WAGTAILDOCS_SERVE_METHOD`` setting to determine how document downloads will be linked to and served (Tobias McNulty, Matt Westcott)
+ * Add ``WAGTAIL_MODERATION_ENABLED`` setting to enable / disable the 'Submit for Moderation' option (Jacob Topp-Mugglestone)
 
 
 Bug fixes
