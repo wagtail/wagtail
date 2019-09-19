@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import timezone
 
@@ -665,6 +666,21 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # page should be created
         self.assertTrue(Page.objects.filter(title="New page!").exists())
+
+    def test_display_moderation_button_by_default(self):
+        """
+        Tests that by default the "Submit for Moderation" button is shown in the action menu.
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
+        self.assertContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
+
+    @override_settings(WAGTAIL_MODERATION_ENABLED=False)
+    def test_hide_moderation_button(self):
+        """
+        Tests that if WAGTAIL_MODERATION_ENABLED is set to False, the "Submit for Moderation" button is not shown.
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
+        self.assertNotContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
 
 
 class TestPerRequestEditHandler(TestCase, WagtailTestUtils):

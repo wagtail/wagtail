@@ -1,5 +1,6 @@
 """Handles rendering of the list of actions in the footer of the page create/edit views."""
 
+from django.conf import settings
 from django.forms import Media, MediaDefiningClass
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -79,7 +80,10 @@ class SubmitForModerationMenuItem(ActionMenuItem):
     name = 'action-submit'
 
     def is_shown(self, request, context):
-        if context['view'] == 'create':
+        WAGTAIL_MODERATION_ENABLED = getattr(settings, 'WAGTAIL_MODERATION_ENABLED', True)
+        if not WAGTAIL_MODERATION_ENABLED:
+            return False
+        elif context['view'] == 'create':
             return True
         elif context['view'] == 'edit':
             return not context['page'].locked

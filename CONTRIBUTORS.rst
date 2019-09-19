@@ -406,6 +406,7 @@ Contributors
 * Saptak Sengupta
 * Dawid Bugajewski
 * Dawn Wages
+* Jacob Topp-Mugglestone
 
 Translators
 ===========
