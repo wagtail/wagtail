@@ -6,7 +6,7 @@
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2018
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
-# Meteor0id, 2019
+# Meteor 0id, 2019
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2018
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
 "PO-Revision-Date: 2019-07-20 23:35+0000\n"
-"Last-Translator: Meteor0id\n"
+"Last-Translator: Meteor 0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"

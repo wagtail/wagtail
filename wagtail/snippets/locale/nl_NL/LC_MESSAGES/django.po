@@ -4,7 +4,7 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
-# Meteor0id, 2018-2019
+# Meteor 0id, 2018-2019
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""

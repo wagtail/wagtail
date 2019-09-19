@@ -4,14 +4,15 @@
 #
 # Translators:
 # shuhei hirota, 2019
+# Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>, 2019
 # 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-29 23:47+0000\n"
-"Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>\n"
+"PO-Revision-Date: 2019-08-29 14:24+0000\n"
+"Last-Translator: Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -88,6 +89,9 @@ msgstr "保存"
 msgid "%(model_name)s could not be deleted"
 msgstr "%(model_name)sは削除できませんでした"
 
+msgid "Go back to listing"
+msgstr "リストに戻る"
+
 msgid "Yes, delete"
 msgstr "はい、削除します"
 
@@ -116,6 +120,9 @@ msgstr "ページネーション"
 
 msgid "Previous"
 msgstr "前のページ"
+
+msgid "Next"
+msgstr "次へ"
 
 msgid "New"
 msgstr "新規作成"

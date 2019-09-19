@@ -6,13 +6,14 @@
 # Istvan Farkas <istvan.farkas@gmail.com>, 2019
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-16 11:19+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
+"PO-Revision-Date: 2019-09-03 17:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +104,7 @@ msgid ""
 "deleted without jeopardising data integrity. To delete it successfully, "
 "first remove references from the following objects, then try again:"
 msgstr ""
-"A(z) \"%(instance_name)s\" jelenleg kapcsolatban van más rekordokkal, és nem "
+"A(z) '%(instance_name)s' jelenleg kapcsolatban van más rekordokkal, és nem "
 "lehet törölni az adatok integritásának megsértése nélkül. A törléshez előbb "
 "távolítsa el a hivatkozásokat a következő rekordokból, majd próbálja újra: "
 
@@ -218,7 +219,7 @@ msgstr ""
 "rá, azt is értintheti a törlés."
 
 msgid "{model} '{instance}' deleted."
-msgstr "{model_name} '{instance}' törölve."
+msgstr "{model} '{instance}' törölve."
 
 msgid "Inspecting"
 msgstr "Vizsgálat"
