@@ -669,15 +669,15 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # page should be created
         self.assertTrue(Page.objects.filter(title="New page!").exists())
 
-    def test_display_moderation_button(self):
+    def test_display_moderation_button_by_default(self):
         """
-        Tests that by default the "Submit for Moderation" button is shown.
+        Tests that by default the "Submit for Moderation" button is shown in the action menu.
         """
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
         self.assertContains(response,'<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
 
     @override_settings(WAGTAIL_DISPLAY_MODERATION=False)
-    def test_not_display_moderation_button(self):
+    def test_hide_moderation_button(self):
         """
         Tests that if WAGTAIL_DISPLAY_MODERATION is set to False, the "Submit for Moderation" button is not shown.
         """
