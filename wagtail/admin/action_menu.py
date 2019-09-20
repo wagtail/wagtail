@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
 
+
 class ActionMenuItem(metaclass=MediaDefiningClass):
     """Defines an item in the actions drop-up on the page creation/edit view"""
     order = 100  # default order index if one is not specified on init
