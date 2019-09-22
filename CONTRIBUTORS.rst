@@ -405,6 +405,7 @@ Contributors
 * Kiril Staikov
 * Saptak Sengupta
 * Dawid Bugajewski
+* Dawn Wages
 
 Translators
 ===========

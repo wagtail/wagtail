@@ -159,7 +159,7 @@ JSON format. You can override the serialiser for any field using the
 
         api_fields = [
             # Change the format of the published_date field to "Thursday 06 April 2017"
-            APIField('published_date', serializer=DateField(format='%A $d %B %Y')),
+            APIField('published_date', serializer=DateField(format='%A %d %B %Y')),
             ...
         ]
 
