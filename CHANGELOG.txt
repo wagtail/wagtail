@@ -33,6 +33,7 @@ Changelog
  * Fix: Specific page permission checks are now enforced when viewing a page revision (Andy Chosak)
  * Fix: `pageurl` and `slugurl` tags no longer fail when `request.site` is `None` (Samir Shah)
  * Fix: Output form media on add/edit image forms with custom models (Matt Westcott)
+ * Fix: Output form media on add/edit document forms with custom models (Sergey Fedoseev)
  * Fix: Layout for the clear checkbox in default FileField widget (Mikalai Radchuk)
  * Fix: Remove ASCII conversion from Postgres search backend, to support stemming in non-Latin alphabets (Pavel Denisov)
  * Fix: Prevent tab labels on page edit view from being cut off on very narrow screens (Kevin Howbrook)
