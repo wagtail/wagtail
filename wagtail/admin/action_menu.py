@@ -80,8 +80,8 @@ class SubmitForModerationMenuItem(ActionMenuItem):
     name = 'action-submit'
 
     def is_shown(self, request, context):
-        WAGTAIL_DISPLAY_MODERATION = getattr(settings, 'WAGTAIL_DISPLAY_MODERATION', True)
-        if not WAGTAIL_DISPLAY_MODERATION:
+        WAGTAIL_MODERATION_ENABLED = getattr(settings, 'WAGTAIL_MODERATION_ENABLED', True)
+        if not WAGTAIL_MODERATION_ENABLED:
             return False
         elif context['view'] == 'create':
             return True

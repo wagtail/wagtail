@@ -41,7 +41,6 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # List of available page types should not contain pages whose parent_page_types forbid it
         self.assertNotContains(response, "Business child")
 
-
     def test_add_subpage_with_subpage_types(self):
         # Add a BusinessIndex to test business rules in
         business_index = BusinessIndex(
@@ -676,10 +675,10 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
         self.assertContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
 
-    @override_settings(WAGTAIL_DISPLAY_MODERATION=False)
+    @override_settings(WAGTAIL_MODERATION_ENABLED=False)
     def test_hide_moderation_button(self):
         """
-        Tests that if WAGTAIL_DISPLAY_MODERATION is set to False, the "Submit for Moderation" button is not shown.
+        Tests that if WAGTAIL_MODERATION_ENABLED is set to False, the "Submit for Moderation" button is not shown.
         """
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
         self.assertNotContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')

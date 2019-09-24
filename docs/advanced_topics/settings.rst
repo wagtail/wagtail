@@ -241,7 +241,7 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 
 .. code-block:: python
 
-  WAGTAIL_DISPLAY_MODERATION = True
+  WAGTAIL_MODERATION_ENABLED = True
 
 Changes whether the Submit for Moderation button is displayed in the action menu.
 
