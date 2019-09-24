@@ -6,6 +6,8 @@
 {% block extra_js %}
     {{ block.super }}
 
+    {{ form.media.js }}
+
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
         $(function() {
@@ -14,6 +16,11 @@
             });
         });
     </script>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
 {% endblock %}
 
 {% block content %}

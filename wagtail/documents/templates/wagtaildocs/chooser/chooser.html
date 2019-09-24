@@ -2,6 +2,8 @@
 {% trans "Choose a document" as  choose_str %}
 {% include "wagtailadmin/shared/header.html" with title=choose_str tabbed=1 merged=1 icon="doc-full-inverse" %}
 
+{{ uploadform.media.js }}
+{{ uploadform.media.css }}
 
 {% if uploadform %}
     <ul class="tab-nav merged">

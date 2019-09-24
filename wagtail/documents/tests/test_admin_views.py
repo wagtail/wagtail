@@ -11,7 +11,7 @@ from django.urls import reverse
 from wagtail.core.models import Collection, GroupCollectionPermission, Page
 from wagtail.documents import models
 from wagtail.documents.tests.utils import get_test_document_file
-from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
+from wagtail.tests.testapp.models import CustomDocument, EventPage, EventPageRelatedLink
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -115,6 +115,9 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
 
+        # draftail should NOT be a standard JS include on this page
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
         root_collection.add_child(name="Evil plans")
@@ -125,6 +128,21 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '<label for="id_collection">')
         self.assertContains(response, "Evil plans")
+
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+    def test_get_with_custom_document_model(self):
+        response = self.client.get(reverse('wagtaildocs:add'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
+
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
+        # custom fields should be included
+        self.assertContains(response, 'name="fancy_description"')
+
+        # form media should be imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
 
     def test_post(self):
         # Build a fake file
@@ -259,6 +277,11 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
 
+        # draftail should NOT be a standard JS include on this page
+        # (see TestDocumentEditViewWithCustomDocumentModel - this confirms that form media
+        # definitions are being respected)
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
     def test_post(self):
         # Build a fake file
         fake_file = get_test_document_file()
@@ -339,6 +362,34 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
                          b'An updated test content.')
 
 
+@override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+class TestDocumentEditViewWithCustomDocumentModel(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+        # Create a document to edit
+        self.document = CustomDocument.objects.create(
+            title="Test document",
+            file=get_test_document_file(),
+        )
+
+        self.storage = self.document.file.storage
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtaildocs:edit', args=(self.document.id,)), params)
+
+    def test_get_with_custom_document_model(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
+
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
+        # form media should be imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
+
 class TestDocumentDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
@@ -393,6 +444,10 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertEqual(self.doc.title, "New title!")
         self.assertFalse(self.doc.tags.all())
 
+    def check_form_media_in_response(self, response):
+        # draftail should NOT be a standard JS include on this page
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
     def test_add(self):
         """
         This tests that the add view responds correctly on a GET request
@@ -406,6 +461,8 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
 
         # no collection chooser when only one collection exists
         self.assertNotContains(response, '<label for="id_adddocument_collection">')
+
+        self.check_form_media_in_response(response)
 
     def test_add_with_collections(self):
         root_collection = Collection.get_first_root_node()
@@ -657,6 +714,10 @@ class TestMultipleCustomDocumentUploader(TestMultipleDocumentUploader):
         super().check_doc_after_edit()
         self.assertEqual(self.doc.description, "New description.")
 
+    def check_form_media_in_response(self, response):
+        # form media should be imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
 
 class TestMultipleCustomDocumentUploaderNoCollection(TestMultipleCustomDocumentUploader):
     @classmethod
@@ -683,6 +744,23 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'chooser')
+
+        # draftail should NOT be a standard JS include on this page
+        self.assertNotIn('wagtailadmin/js/draftail.js', response_json['html'])
+
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+    def test_with_custom_document_model(self):
+        response = self.client.get(reverse('wagtaildocs:chooser'))
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+
+        # custom form fields should be present
+        self.assertIn('name="document-chooser-upload-fancy_description"', response_json['html'])
+
+        # form media imports should appear on the page
+        self.assertIn('wagtailadmin/js/draftail.js', response_json['html'])
 
     def test_search(self):
         response = self.client.get(reverse('wagtaildocs:chooser'), {'q': "Hello"})
