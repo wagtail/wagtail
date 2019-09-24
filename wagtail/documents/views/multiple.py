@@ -79,12 +79,15 @@ def add(request):
                 'error_message': '\n'.join(['\n'.join([force_str(i) for i in v]) for k, v in form.errors.items()]),
             })
     else:
+        # Instantiate a dummy copy of the form that we can retrieve validation messages and media from;
+        # actual rendering of forms will happen on AJAX POST rather than here
         form = DocumentForm(user=request.user)
 
-    return render(request, 'wagtaildocs/multiple/add.html', {
-        'help_text': form.fields['file'].help_text,
-        'collections': collections_to_choose,
-    })
+        return render(request, 'wagtaildocs/multiple/add.html', {
+            'help_text': form.fields['file'].help_text,
+            'collections': collections_to_choose,
+            'form_media': form.media,
+        })
 
 
 @require_POST
