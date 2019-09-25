@@ -364,6 +364,28 @@ class TestChoiceFieldComparison(TestCase):
         self.assertIsInstance(comparison.htmldiff(), SafeString)
         self.assertTrue(comparison.has_changed())
 
+    def test_from_none_to_value_only_shows_addition(self):
+        comparison = self.comparison_class(
+            EventPage._meta.get_field('audience'),
+            EventPage(audience=None),
+            EventPage(audience="private"),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<span class="addition">Private</span>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
+
+    def test_from_value_to_none_only_shows_deletion(self):
+        comparison = self.comparison_class(
+            EventPage._meta.get_field('audience'),
+            EventPage(audience="public"),
+            EventPage(audience=None),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<span class="deletion">Public</span>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
+
 
 class TestTagsFieldComparison(TestCase):
     comparison_class = compare.TagsFieldComparison
