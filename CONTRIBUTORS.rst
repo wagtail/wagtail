@@ -408,6 +408,7 @@ Contributors
 * Dawn Wages
 * Jacob Topp-Mugglestone
 * Brian Whitton
+* Tim White
 
 Translators
 ===========
