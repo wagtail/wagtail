@@ -593,7 +593,7 @@ def diff_text(a, b):
         tokens = []
         current_token = ""
 
-        for c in text:
+        for c in text or "":
             if c.isalnum():
                 current_token += c
             else:
