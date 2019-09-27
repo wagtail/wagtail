@@ -204,6 +204,29 @@ Therefore, if you'd added the field ``author`` to your AbstractImage in the abov
     The image property used for the ``src`` attribute is actually ``image.url``, not ``image.src``.
 
 
+Alternative HTML tags
+`````````````````````
+
+The `as` syntax also allows alternative HTML image tags (such as `<picture>` or `<amp-img>`) to be used.
+For example, to use the `<picture>` tag.
+
+.. code-block:: html+django
+
+    <picture>
+        {% image page.photo width-800 as wide_photo %}
+        <source srcset="{{ wide_photo.url }}" media="(min-width: 800px)">
+        {% image page.photo width-400 %}
+    </picture>
+
+And to use the `<amp-img>` tag.
+
+.. code-block:: html+django
+
+    {% image page.photo width-400 as photo %}
+    <amp-img src="{{ photo.url }}" width="{{ photo.width }}"
+        height="{{ photo.height }}" alt="{{ photo.alt }}">
+
+
 The ``attrs`` shortcut
 -----------------------
 
