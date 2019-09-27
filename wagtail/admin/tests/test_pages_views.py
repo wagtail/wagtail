@@ -1965,7 +1965,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Check that the correct site object has been selected by the site middleware
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tests/simple_page.html')
-        self.assertEqual(response.context['request'].site.hostname, 'childpage.example.com')
 
     def test_editor_picks_up_direct_model_edits(self):
         # If a page has no draft edits, the editor should show the version from the live database
@@ -5238,6 +5237,8 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
         user.user_permissions.add(
             Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         )
+
+        self.site = Site.objects.first()
 
     def test_draft_access_admin(self):
         """Test that admin can view draft."""

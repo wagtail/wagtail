@@ -40,7 +40,8 @@ def get_setting_edit_handler(model):
 def edit_current_site(request, app_name, model_name):
     # Redirect the user to the edit page for the current site
     # (or the current request does not correspond to a site, the first site in the list)
-    site = request.site or Site.objects.first()
+    site_request = Site.find_for_request(request)
+    site = site_request or Site.objects.first()
     if not site:
         messages.error(request, _("This setting could not be opened because there is no site defined."))
         return redirect('wagtailadmin_home')

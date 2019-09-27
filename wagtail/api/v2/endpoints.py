@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Site
 
 from .filters import (
     FieldsFilter, OrderingFilter, RestrictedChildOfFilter, RestrictedDescendantOfFilter,
@@ -425,8 +425,9 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         queryset = queryset.public().live()
 
         # Filter by site
-        if request.site:
-            queryset = queryset.descendant_of(request.site.root_page, inclusive=True)
+        site = Site.find_for_request(request)
+        if site:
+            queryset = queryset.descendant_of(site.root_page, inclusive=True)
         else:
             # No sites configured
             queryset = queryset.none()
@@ -438,12 +439,13 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         return base.specific
 
     def find_object(self, queryset, request):
-        if 'html_path' in request.GET and request.site is not None:
+        site = Site.find_for_request(request)
+        if 'html_path' in request.GET and site is not None:
             path = request.GET['html_path']
             path_components = [component for component in path.split('/') if component]
 
             try:
-                page, _, _ = request.site.root_page.specific.route(request, path_components)
+                page, _, _ = site.root_page.specific.route(request, path_components)
             except Http404:
                 return
 

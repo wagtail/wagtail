@@ -7,6 +7,7 @@ from rest_framework.fields import Field, SkipField
 from taggit.managers import _TaggableManager
 
 from wagtail.core import fields as wagtailcore_fields
+from wagtail.core.models import Site
 
 from .utils import get_object_detail_url, pages_for_site
 
@@ -121,7 +122,8 @@ class PageParentField(relations.RelatedField):
     def get_attribute(self, instance):
         parent = instance.get_parent()
 
-        site_pages = pages_for_site(self.context['request'].site)
+        site = Site.find_for_request(self.context['request'])
+        site_pages = pages_for_site(site)
         if site_pages.filter(id=parent.id).exists():
             return parent
 

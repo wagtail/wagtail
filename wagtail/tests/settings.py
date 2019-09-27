@@ -8,6 +8,8 @@ MEDIA_URL = '/media/'
 
 TIME_ZONE = 'Asia/Tokyo'
 
+ALLOWED_HOSTS = ['localhost', ]
+
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
@@ -94,7 +96,6 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
 
