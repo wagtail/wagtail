@@ -44,7 +44,8 @@ Other features
  * Allow ``register_page_action_menu_item`` and ``construct_page_action_menu`` hooks to override the default menu action (Rahmi Pruitt, Matt Westcott) - thanks to `The Motley Fool <https://www.fool.com/>`_ for sponsoring review of this feature
  * Add docs table template rendering example (Matt Westcott)
  * Add blog about image uploads in Wagtail forms to third party tutorial documentation (a-mere-peasant)
- * Fix multiple minor documentation issues (David T Thompson, ryanomor, kailwallin)
+ * Clean up multiple minor documentation issues (David T Thompson, ryanomor, kailwallin)
+ * Add AbstractUser import to custom user model documentation (LB (Ben Johnston))
 
 
 Bug fixes
