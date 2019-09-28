@@ -11,7 +11,8 @@ Create a custom user model. In this case we extend the ``AbstractUser`` class an
 two fields. The foreign key references another model (not shown).
 
 .. code-block:: python
-
+  from django.contrib.auth.models import AbstractUser
+  
   class User(AbstractUser):
       country = models.CharField(verbose_name='country', max_length=255)
       status = models.ForeignKey(MembershipStatus, on_delete=models.SET_NULL, null=True, default=1)
