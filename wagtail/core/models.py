@@ -1264,7 +1264,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Return a dict of META information to be included in a faked HttpRequest object to pass to
         serve_preview.
         """
-        url = self.full_url
+        url = self._get_dummy_header_url(original_request)
         if url:
             url_info = urlparse(url)
             hostname = url_info.hostname
@@ -1318,6 +1318,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     dummy_values[header] = original_request.META[header]
 
         return dummy_values
+
+    def _get_dummy_header_url(self, original_request=None):
+        """
+        Return the URL that _get_dummy_headers() should use to set META headers
+        for the faked HttpRequest.
+        """
+        return self.full_url
 
     def dummy_request(self, original_request=None, **meta):
         warn(
