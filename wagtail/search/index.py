@@ -97,7 +97,7 @@ class Indexed:
         try:
             cls._meta.get_field(name)
             return True
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             return hasattr(cls, name)
 
     @classmethod
@@ -182,14 +182,14 @@ class BaseField:
         try:
             field = self.get_field(cls)
             return field.attname
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             return self.field_name
 
     def get_definition_model(self, cls):
         try:
             field = self.get_field(cls)
             return field.model
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             # Find where it was defined by walking the inheritance tree
             for base_cls in inspect.getmro(cls):
                 if self.field_name in base_cls.__dict__:
@@ -213,7 +213,7 @@ class BaseField:
 
             return field.get_internal_type()
 
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             return 'CharField'
 
     def get_value(self, obj):
@@ -240,7 +240,7 @@ class BaseField:
                 if hasattr(remote_field, 'get_searchable_content'):
                     value = remote_field.get_searchable_content(value)
             return value
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             value = getattr(obj, self.field_name, None)
             if hasattr(value, '__call__'):
                 value = value()
