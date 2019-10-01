@@ -856,19 +856,14 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def test_render_required_multiple_choice_block(self):
         block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
         html = block.render_form('coffee', prefix='beverage')
-        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
-        # blank option should still be rendered for required fields
-        # (we may want it as an initial value)
-        self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
     def test_render_required_multiple_choice_block_with_default(self):
         block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], default='tea')
         html = block.render_form('coffee', prefix='beverage')
-        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
-        # blank option should NOT be rendered if default and required are set.
-        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
@@ -878,10 +873,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
 
         block = blocks.MultipleChoiceBlock(choices=callable_choices)
         html = block.render_form('coffee', prefix='beverage')
-        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
-        # blank option should still be rendered for required fields
-        # (we may want it as an initial value)
-        self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
@@ -901,8 +893,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def test_render_non_required_multiple_choice_block(self):
         block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
         html = block.render_form('coffee', prefix='beverage')
-        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
@@ -912,8 +903,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
 
         block = blocks.MultipleChoiceBlock(choices=callable_choices, required=False)
         html = block.render_form('coffee', prefix='beverage')
-        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<option value="tea">Tea</option>', html)
         self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
@@ -924,14 +914,14 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean(['whisky'])
 
-        self.assertEqual(block.clean(''), '')
-        self.assertEqual(block.clean(None), '')
+        self.assertEqual(block.clean(''), [])
+        self.assertEqual(block.clean(None), [])
 
     def test_render_multiple_choice_block_with_existing_blank_choice(self):
         block = blocks.MultipleChoiceBlock(
             choices=[('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')],
             required=False)
-        html = block.render_form(None, prefix='beverage')
+        html = block.render_form("", prefix='beverage')
         self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
@@ -945,7 +935,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         block = blocks.MultipleChoiceBlock(
             choices=callable_choices,
             required=False)
-        html = block.render_form(None, prefix='beverage')
+        html = block.render_form("", prefix='beverage')
         self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
@@ -968,14 +958,12 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         # test rendering with the blank option selected
         html = block.render_form(None, prefix='beverage')
         self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertInHTML('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<optgroup label="Alcoholic">', html)
         self.assertIn('<option value="tea">Tea</option>', html)
 
         # test rendering with a non-blank option selected
         html = block.render_form('tea', prefix='beverage')
-        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
         self.assertIn('<optgroup label="Alcoholic">', html)
         self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
 
@@ -1000,14 +988,12 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         html = block.render_form(None, prefix='beverage')
         self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
-        self.assertNotInHTML('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<optgroup label="Alcoholic">', html)
         self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
 
         # test rendering with a non-blank option selected
         html = block.render_form('tea', prefix='beverage')
-        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
         self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
         self.assertNotInHTML('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
         self.assertIn('<optgroup label="Alcoholic">', html)
@@ -1022,14 +1008,14 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
 
         block = BeverageMultipleChoiceBlock(required=False)
         html = block.render_form('tea', prefix='beverage')
-        self.assertTagInHTML('<select id="beverage" name="beverage" placeholder="">', html)
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
         self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
 
         # subclasses of ChoiceBlock should deconstruct to a basic ChoiceBlock for migrations
         self.assertEqual(
             block.deconstruct(),
             (
-                'wagtail.core.blocks.ChoiceBlock',
+                'wagtail.core.blocks.MultipleChoiceBlock',
                 [],
                 {
                     'choices': [('tea', 'Tea'), ('coffee', 'Coffee')],
