@@ -12,7 +12,7 @@ You may then register formats of your subclass using ``register_image_format`` a
 
 .. code-block:: python
 
-    #image_formats.py
+    # image_formats.py
     from wagtail.images.formats import Format, register_image_format
 
 
@@ -20,9 +20,9 @@ You may then register formats of your subclass using ``register_image_format`` a
 
         def image_to_html(self, image, alt_text, extra_attributes=None):
 
-            custom_html = #the custom HTML representation of your image here
-                          #in Format, the image's rendition.img_tag(extra_attributes) is used to generate the HTML
-                          #representation
+            custom_html = # the custom HTML representation of your image here
+                          # in Format, the image's rendition.img_tag(extra_attributes) is used to generate the HTML
+                          # representation
 
             return custom_html
 
@@ -35,7 +35,7 @@ As an example, let's say you want the alt text to be displayed as a caption for 
 
 .. code-block:: python
 
-    #image_formats.py
+    # image_formats.py
     from django.utils.html import format_html
     from wagtail.images.formats import Format, register_image_format
 
