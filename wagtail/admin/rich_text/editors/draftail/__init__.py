@@ -9,6 +9,7 @@ from wagtail.core.rich_text import features as feature_registry
 
 class DraftailRichTextArea(widgets.HiddenInput):
     template_name = 'wagtailadmin/widgets/draftail_rich_text_area.html'
+    is_hidden = False
 
     # this class's constructor accepts a 'features' kwarg
     accepts_features = True
