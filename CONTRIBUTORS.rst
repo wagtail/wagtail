@@ -409,6 +409,7 @@ Contributors
 * Jacob Topp-Mugglestone
 * Brian Whitton
 * Tim White
+* James O'Toole
 
 Translators
 ===========
