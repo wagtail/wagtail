@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 
 import sys
-
 from wagtail import __version__
 from wagtail.utils.setup import assets, sdist, check_bdist_egg
-
 try:
     from setuptools import setup, find_packages
 except ImportError:
