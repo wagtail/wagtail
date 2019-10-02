@@ -86,7 +86,7 @@ The available resizing methods are as follows:
 
             {% image page.photo height-480 %}
 
-        Resize the height of the image to the dimension specified.
+        Reduces the height of the image to the dimension specified.
 
     ``scale``
         (takes percentage)
