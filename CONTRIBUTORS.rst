@@ -410,6 +410,7 @@ Contributors
 * Brian Whitton
 * Tim White
 * Mike Janger
+* Prithvi MK
 
 Translators
 ===========
