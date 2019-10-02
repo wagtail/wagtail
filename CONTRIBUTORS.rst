@@ -409,6 +409,7 @@ Contributors
 * Jacob Topp-Mugglestone
 * Brian Whitton
 * Tim White
+* Prithvi MK
 
 Translators
 ===========
