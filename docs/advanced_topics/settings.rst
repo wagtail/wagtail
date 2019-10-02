@@ -238,6 +238,7 @@ Allows the default ``LoginForm`` to be extended with extra fields.
 
 If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to ``None`` to disable the use of remote avatars completely.
 
+.. _wagtail_moderation_enabled:
 
 .. code-block:: python
 
