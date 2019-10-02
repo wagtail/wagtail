@@ -920,8 +920,10 @@ class CustomRendition(AbstractRendition):
 
 class CustomDocument(AbstractDocument):
     description = models.TextField(blank=True)
+    fancy_description = RichTextField(blank=True)
     admin_form_fields = Document.admin_form_fields + (
         'description',
+        'fancy_description'
     )
 
 
