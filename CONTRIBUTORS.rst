@@ -411,6 +411,7 @@ Contributors
 * Tim White
 * Mike Janger
 * Prithvi MK
+* George Y. Kussumoto (georgeyk)
 
 Translators
 ===========
