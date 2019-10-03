@@ -217,7 +217,7 @@ You can also use the ``attrs`` property as a shorthand to output the attributes 
 Alternative HTML tags
 ---------------------
 
-The ``as`` syntax allows alternative HTML image tags (such as ``<picture>`` or ``<amp-img>``) to be used.
+The ``as`` keyword allows alternative HTML image tags (such as ``<picture>`` or ``<amp-img>``) to be used.
 For example, to use the ``<picture>`` tag:
 
 .. code-block:: html+django
