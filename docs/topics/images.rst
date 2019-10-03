@@ -204,11 +204,21 @@ Therefore, if you'd added the field ``author`` to your AbstractImage in the abov
     The image property used for the ``src`` attribute is actually ``image.url``, not ``image.src``.
 
 
-Alternative HTML tags
-`````````````````````
+The ``attrs`` shortcut
+-----------------------
 
-The `as` syntax also allows alternative HTML image tags (such as `<picture>` or `<amp-img>`) to be used.
-For example, to use the `<picture>` tag.
+You can also use the ``attrs`` property as a shorthand to output the attributes ``src``, ``width``, ``height`` and ``alt`` in one go:
+
+.. code-block:: html+django
+
+    <img {{ tmp_photo.attrs }} class="my-custom-class" />
+
+
+Alternative HTML tags
+---------------------
+
+The ``as`` syntax allows alternative HTML image tags (such as ``<picture>`` or ``<amp-img>``) to be used.
+For example, to use the ``<picture>`` tag:
 
 .. code-block:: html+django
 
@@ -218,23 +228,23 @@ For example, to use the `<picture>` tag.
         {% image page.photo width-400 %}
     </picture>
 
-And to use the `<amp-img>` tag.
+And to use the ``<amp-img>`` tag (based on the `Mountains example <https://amp.dev/documentation/components/amp-img/#example:-specifying-a-fallback-image>`_ from the AMP docs):
 
 .. code-block:: html+django
 
-    {% image page.photo width-400 as photo %}
-    <amp-img src="{{ photo.url }}" width="{{ photo.width }}"
-        height="{{ photo.height }}" alt="{{ photo.alt }}">
+    {% image image width-550 format-webp as webp_image %}
+    {% image image width-550 format-jpeg as jpeg_image %}
 
-
-The ``attrs`` shortcut
------------------------
-
-You can also use the ``attrs`` property as a shorthand to output the attributes ``src``, ``width``, ``height`` and ``alt`` in one go:
-
-.. code-block:: html+django
-
-    <img {{ tmp_photo.attrs }} class="my-custom-class" />
+    <amp-img alt="{{ image.alt }}"
+        width="{{ webp_image.width }}"
+        height="{{ webp_image.height }}"
+        src="{{ webp_image.url }}">
+        <amp-img alt="{{ image.alt }}"
+            fallback
+            width="{{ jpeg_image.width }}"
+            height="{{ jpeg_image.height }}"
+            src="{{ jpeg_image.url }}"></amp-img>
+    </amp-img>
 
 
 Images embedded in rich text
