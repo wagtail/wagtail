@@ -321,7 +321,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
 
 def edit(request, page_id):
-    real_page_record = get_object_or_404(Page, id=page_id)
+    real_page_record = get_object_or_404(Page, id=page_id).specific
     latest_revision = real_page_record.get_latest_revision()
     page = real_page_record.get_latest_revision_as_page()
     parent = page.get_parent()
