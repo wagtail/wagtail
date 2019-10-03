@@ -127,10 +127,13 @@ class ImagesSummaryItem(SummaryItem):
     template = 'wagtailimages/homepage/site_summary_images.html'
 
     def get_context(self):
+        collections = permission_policy.collections_user_has_any_permission_for(
+            self.request.user, ['add', 'change', 'delete']
+        )
         site_name = get_site_for_user(self.request.user)['site_name']
 
         return {
-            'total_images': get_image_model().objects.count(),
+            'total_images': get_image_model().objects.filter(collection__in=collections).count(),
             'site_name': site_name,
         }
 

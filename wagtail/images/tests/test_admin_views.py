@@ -10,6 +10,7 @@ from django.utils.http import RFC3986_SUBDELIMS, urlquote
 
 from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.images.views.serve import generate_signature
+from wagtail.images.wagtail_hooks import ImagesSummaryItem
 from wagtail.tests.testapp.models import CustomImage
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -1542,3 +1543,61 @@ class TestImageAddMultipleView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailimages:add_multiple'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
+
+
+class TestImageSummary(TestCase, WagtailTestUtils):
+
+    def setUp(self):
+        self.user = self.login()
+        self.request = self.client.get('/').wsgi_request
+
+    def assertSummaryContains(self, content):
+        summary = ImagesSummaryItem(self.request).render()
+        self.assertIn(content, summary)
+
+    def test_user_with_permissions_is_shown(self):
+        self.assertTrue(ImagesSummaryItem(self.request).is_shown())
+
+    def test_summary_includes_zero_image_count(self):
+        self.assertSummaryContains("<span>0</span> Images")
+
+    def test_summary_includes_image_count(self):
+        Image.objects.create(title="Test image", file=get_test_image_file())
+        self.assertSummaryContains("<span>1</span> Image")
+
+    def test_user_without_permissions_is_not_shown(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.assertFalse(ImagesSummaryItem(self.request).is_shown())
+
+    def test_user_without_collection_permission_includes_zero_image_count(self):
+        self.user.is_superuser = False
+        self.user.save()
+
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+        Image.objects.create(title="Test image", file=get_test_image_file(), collection=evil_plans_collection)
+
+        self.assertSummaryContains("<span>0</span> Image")
+
+    def test_user_with_collection_permission_includes_image_count(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        conspirators_group = Group.objects.create(name="Evil conspirators")
+        add_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='add_image')
+        conspirators_group.permissions.add(add_permission)
+        GroupCollectionPermission.objects.create(
+            group=conspirators_group,
+            collection=evil_plans_collection,
+            permission=add_permission
+        )
+
+        self.user.is_superuser = False
+        self.user.groups.add(conspirators_group)
+        self.user.save()
+
+        Image.objects.create(title="Counted image", file=get_test_image_file(), collection=evil_plans_collection)
+        Image.objects.create(title="Not counted image", file=get_test_image_file(), collection=root_collection)
+
+        self.assertSummaryContains("<span>1</span> Image")
