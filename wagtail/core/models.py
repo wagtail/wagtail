@@ -3,6 +3,7 @@ import logging
 from collections import defaultdict
 from io import StringIO
 from urllib.parse import urlparse
+from warnings import warn
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -13,7 +14,7 @@ from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
-from django.db.models import Q, Value
+from django.db.models import Case, Q, Value, When
 from django.db.models.functions import Concat, Substr
 from django.http import Http404
 from django.template.response import TemplateResponse
@@ -22,7 +23,8 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
-from modelcluster.models import ClusterableModel, get_all_child_relations
+from modelcluster.models import (
+    ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.query import PageQuerySet, TreeQuerySet
@@ -31,6 +33,8 @@ from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
 from wagtail.search import index
+from wagtail.utils.deprecation import RemovedInWagtail29Warning
+
 
 logger = logging.getLogger('wagtail.core')
 
@@ -81,14 +85,14 @@ class Site(models.Model):
     def __str__(self):
         if self.site_name:
             return(
-                self.site_name +
-                (" [default]" if self.is_default_site else "")
+                self.site_name
+                + (" [default]" if self.is_default_site else "")
             )
         else:
             return(
-                self.hostname +
-                ("" if self.port == 80 else (":%d" % self.port)) +
-                (" [default]" if self.is_default_site else "")
+                self.hostname
+                + ("" if self.port == 80 else (":%d" % self.port))
+                + (" [default]" if self.is_default_site else "")
             )
 
     @staticmethod
@@ -107,16 +111,8 @@ class Site(models.Model):
         still be routed to a different hostname which is set as the default
         """
 
-        try:
-            hostname = request.get_host().split(':')[0]
-        except KeyError:
-            hostname = None
-
-        try:
-            port = request.get_port()
-        except (AttributeError, KeyError):
-            port = request.META.get('SERVER_PORT')
-
+        hostname = request.get_host().split(':')[0]
+        port = request.get_port()
         return get_site_for_hostname(hostname, port)
 
     @property
@@ -250,7 +246,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
     )
     content_type = models.ForeignKey(
-        'contenttypes.ContentType',
+        ContentType,
         verbose_name=_('content type'),
         related_name='pages',
         on_delete=models.SET(get_default_page_content_type)
@@ -346,6 +342,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     # Do not allow plain Page instances to be created through the Wagtail admin
     is_creatable = False
+
+    # Define the maximum number of instances this page type can have. Default to unlimited.
+    max_count = None
+
+    # Define the maximum number of instances this page can have under a specific parent. Default to unlimited.
+    max_count_per_parent = None
 
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
@@ -979,7 +981,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Checks if this page type can be created as a subpage under a parent
         page instance.
         """
-        return cls.is_creatable and cls.can_exist_under(parent)
+        can_create = cls.is_creatable and cls.can_exist_under(parent)
+
+        if cls.max_count is not None:
+            can_create = can_create and cls.objects.count() < cls.max_count
+
+        if cls.max_count_per_parent is not None:
+            can_create = can_create and parent.get_children().type(cls).count() < cls.max_count_per_parent
+
+        return can_create
 
     def can_move_to(self, parent):
         """
@@ -1043,11 +1053,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Log
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
-    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None):
+    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None, process_child_object=None, exclude_fields=None):
         # Fill dict with self.specific values
         specific_self = self.specific
         default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
-        exclude_fields = default_exclude_fields + specific_self.exclude_fields_in_copy
+        exclude_fields = default_exclude_fields + specific_self.exclude_fields_in_copy + (exclude_fields or [])
         specific_dict = {}
 
         for field in specific_self._meta.get_fields():
@@ -1069,6 +1079,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 continue
 
             specific_dict[field.name] = getattr(specific_self, field.name)
+
+        # copy child m2m relations
+        for related_field in get_all_child_m2m_relations(specific_self):
+            field = getattr(specific_self, related_field.name)
+            if field and hasattr(field, 'all'):
+                values = field.all()
+                if values:
+                    specific_dict[related_field.name] = values
 
         # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
         page_copy = self.specific_class(**specific_dict)
@@ -1102,6 +1120,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         specific_self = self.specific
         for child_relation in get_all_child_relations(specific_self):
             accessor_name = child_relation.get_accessor_name()
+
+            if accessor_name in exclude_fields:
+                continue
+
             parental_key_name = child_relation.field.attname
             child_objects = getattr(specific_self, accessor_name, None)
 
@@ -1110,6 +1132,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     old_pk = child_object.pk
                     child_object.pk = None
                     setattr(child_object, parental_key_name, page_copy.id)
+
+                    if process_child_object is not None:
+                        process_child_object(specific_self, page_copy, child_relation, child_object)
+
                     child_object.save()
 
                     # Add mapping to new primary key (so we can apply this change to revisions)
@@ -1178,7 +1204,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     to=page_copy,
                     copy_revisions=copy_revisions,
                     keep_live=keep_live,
-                    user=user
+                    user=user,
+                    process_child_object=process_child_object,
                 )
 
         return page_copy
@@ -1192,22 +1219,57 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         user_perms = UserPagePermissionsProxy(user)
         return user_perms.for_page(self)
 
-    def dummy_request(self, original_request=None, **meta):
+    def make_preview_request(self, original_request=None, preview_mode=None, extra_request_attrs=None):
         """
-        Construct a HttpRequest object that is, as far as possible, representative of ones that would
-        receive this page as a response. Used for previewing / moderation and any other place where we
+        Simulate a request to this page, by constructing a fake HttpRequest object that is (as far
+        as possible) representative of a real request to this page's front-end URL, and invoking
+        serve_preview with that request (and the given preview_mode).
+
+        Used for previewing / moderation and any other place where we
         want to display a view of this page in the admin interface without going through the regular
         page routing logic.
 
         If you pass in a real request object as original_request, additional information (e.g. client IP, cookies)
         will be included in the dummy request.
         """
-        url = self.full_url
+        dummy_meta = self._get_dummy_headers(original_request)
+        request = WSGIRequest(dummy_meta)
+
+        # Add a flag to let middleware know that this is a dummy request.
+        request.is_dummy = True
+
+        if extra_request_attrs:
+            for k, v in extra_request_attrs.items():
+                setattr(request, k, v)
+
+        page = self
+
+        # Build a custom django.core.handlers.BaseHandler subclass that invokes serve_preview as
+        # the eventual view function called at the end of the middleware chain, rather than going
+        # through the URL resolver
+        class Handler(BaseHandler):
+            def _get_response(self, request):
+                response = page.serve_preview(request, preview_mode)
+                if hasattr(response, 'render') and callable(response.render):
+                    response = response.render()
+                return response
+
+        # Invoke this custom handler.
+        handler = Handler()
+        handler.load_middleware()
+        return handler.get_response(request)
+
+    def _get_dummy_headers(self, original_request=None):
+        """
+        Return a dict of META information to be included in a faked HttpRequest object to pass to
+        serve_preview.
+        """
+        url = self._get_dummy_header_url(original_request)
         if url:
             url_info = urlparse(url)
             hostname = url_info.hostname
             path = url_info.path
-            port = url_info.port or 80
+            port = url_info.port or (443 if url_info.scheme == 'https' else 80)
             scheme = url_info.scheme
         else:
             # Cannot determine a URL to this page - cobble one together based on
@@ -1224,13 +1286,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             port = 80
             scheme = 'http'
 
+        http_host = hostname
+        if port != (443 if scheme == 'https' else 80):
+            http_host = '%s:%s' % (http_host, port)
         dummy_values = {
             'REQUEST_METHOD': 'GET',
             'PATH_INFO': path,
             'SERVER_NAME': hostname,
             'SERVER_PORT': port,
             'SERVER_PROTOCOL': 'HTTP/1.1',
-            'HTTP_HOST': hostname,
+            'HTTP_HOST': http_host,
             'wsgi.version': (1, 0),
             'wsgi.input': StringIO(),
             'wsgi.errors': StringIO(),
@@ -1242,7 +1307,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # Add important values from the original request object, if it was provided.
         HEADERS_FROM_ORIGINAL_REQUEST = [
-            'REMOTE_ADDR', 'HTTP_X_FORWARDED_FOR', 'HTTP_COOKIE', 'HTTP_USER_AGENT',
+            'REMOTE_ADDR', 'HTTP_X_FORWARDED_FOR', 'HTTP_COOKIE', 'HTTP_USER_AGENT', 'HTTP_AUTHORIZATION',
             'wsgi.version', 'wsgi.multithread', 'wsgi.multiprocess', 'wsgi.run_once',
         ]
         if settings.SECURE_PROXY_SSL_HEADER:
@@ -1251,6 +1316,23 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             for header in HEADERS_FROM_ORIGINAL_REQUEST:
                 if header in original_request.META:
                     dummy_values[header] = original_request.META[header]
+
+        return dummy_values
+
+    def _get_dummy_header_url(self, original_request=None):
+        """
+        Return the URL that _get_dummy_headers() should use to set META headers
+        for the faked HttpRequest.
+        """
+        return self.full_url
+
+    def dummy_request(self, original_request=None, **meta):
+        warn(
+            "Page.dummy_request is deprecated. Use Page.make_preview_request instead",
+            category=RemovedInWagtail29Warning
+        )
+
+        dummy_values = self._get_dummy_headers(original_request)
 
         # Add additional custom metadata sent by the caller.
         dummy_values.update(**meta)
@@ -1261,19 +1343,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         request.is_dummy = True
 
         # Apply middleware to the request
-        # Note that Django makes sure only one of the middleware settings are
-        # used in a project
-        if hasattr(settings, 'MIDDLEWARE'):
-            handler = BaseHandler()
-            handler.load_middleware()
-            handler._middleware_chain(request)
-        elif hasattr(settings, 'MIDDLEWARE_CLASSES'):
-            # Pre Django 1.10 style - see http://www.mellowmorning.com/2011/04/18/mock-django-request-for-testing/
-            handler = BaseHandler()
-            handler.load_middleware()
-            # call each middleware in turn and throw away any responses that they might return
-            for middleware_method in handler._request_middleware:
-                middleware_method(request)
+        handler = BaseHandler()
+        handler.load_middleware()
+        handler._middleware_chain(request)
 
         return request
 
@@ -1353,12 +1425,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 yield '/' + child.slug + path
 
     def get_ancestors(self, inclusive=False):
+        """
+        Returns a queryset of the current page's ancestors, starting at the root page
+        and descending to the parent, or to the current page itself if ``inclusive`` is true.
+        """
         return Page.objects.ancestor_of(self, inclusive)
 
     def get_descendants(self, inclusive=False):
+        """
+        Returns a queryset of all pages underneath the current page, any number of levels deep.
+        If ``inclusive`` is true, the current page itself is included in the queryset.
+        """
         return Page.objects.descendant_of(self, inclusive)
 
     def get_siblings(self, inclusive=True):
+        """
+        Returns a queryset of all other pages with the same parent as the current page.
+        If ``inclusive`` is true, the current page itself is included in the queryset.
+        """
         return Page.objects.sibling_of(self, inclusive)
 
     def get_next_siblings(self, inclusive=False):
@@ -1385,6 +1469,53 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         context['form'] = form
         context['action_url'] = action_url
         return TemplateResponse(request, self.password_required_template, context)
+
+    def with_content_json(self, content_json):
+        """
+        Returns a new version of the page with field values updated to reflect changes
+        in the provided ``content_json`` (which usually comes from a previously-saved
+        page revision).
+
+        Certain field values are preserved in order to prevent errors if the returned
+        page is saved, such as ``id``, ``content_type`` and some tree-related values.
+        The following field values are also preserved, as they are considered to be
+        meaningful to the page as a whole, rather than to a specific revision:
+
+        * ``draft_title``
+        * ``live``
+        * ``has_unpublished_changes``
+        * ``owner``
+        * ``locked``
+        * ``latest_revision_created_at``
+        * ``first_published_at``
+        """
+
+        obj = self.specific_class.from_json(content_json)
+
+        # These should definitely never change between revisions
+        obj.pk = self.pk
+        obj.content_type = self.content_type
+
+        # Override possibly-outdated tree parameter fields
+        obj.path = self.path
+        obj.depth = self.depth
+        obj.numchild = self.numchild
+
+        # Update url_path to reflect potential slug changes, but maintining the page's
+        # existing tree position
+        obj.set_url_path(self.get_parent())
+
+        # Ensure other values that are meaningful for the page as a whole (rather than
+        # to a specific revision) are preserved
+        obj.draft_title = self.draft_title
+        obj.live = self.live
+        obj.has_unpublished_changes = self.has_unpublished_changes
+        obj.owner = self.owner
+        obj.locked = self.locked
+        obj.latest_revision_created_at = self.latest_revision_created_at
+        obj.first_published_at = self.first_published_at
+
+        return obj
 
     class Meta:
         verbose_name = _('page')
@@ -1436,30 +1567,7 @@ class PageRevision(models.Model):
             self.page.revisions.exclude(id=self.id).update(submitted_for_moderation=False)
 
     def as_page_object(self):
-        obj = self.page.specific_class.from_json(self.content_json)
-
-        # Override the possibly-outdated tree parameter fields from this revision object
-        # with up-to-date values
-        obj.pk = self.page.pk
-        obj.path = self.page.path
-        obj.depth = self.page.depth
-        obj.numchild = self.page.numchild
-
-        # Populate url_path based on the revision's current slug and the parent page as determined
-        # by path
-        obj.set_url_path(self.page.get_parent())
-
-        # also copy over other properties which are meaningful for the page as a whole, not a
-        # specific revision of it
-        obj.draft_title = self.page.draft_title
-        obj.live = self.page.live
-        obj.has_unpublished_changes = self.page.has_unpublished_changes
-        obj.owner = self.page.owner
-        obj.locked = self.page.locked
-        obj.latest_revision_created_at = self.page.latest_revision_created_at
-        obj.first_published_at = self.page.first_published_at
-
-        return obj
+        return self.page.specific.with_content_json(self.content_json)
 
     def approve_moderation(self):
         if self.submitted_for_moderation:
@@ -1603,15 +1711,17 @@ class UserPagePermissionsProxy:
 
         # get the list of pages for which they have direct publish permission
         # (i.e. they can publish any page within this subtree)
-        publishable_pages = [perm.page for perm in self.permissions if perm.permission_type == 'publish']
-        if not publishable_pages:
+        publishable_pages_paths = self.permissions.filter(
+            permission_type='publish'
+        ).values_list('page__path', flat=True).distinct()
+        if not publishable_pages_paths:
             return PageRevision.objects.none()
 
         # compile a filter expression to apply to the PageRevision.submitted_revisions manager:
         # return only those pages whose paths start with one of the publishable_pages paths
-        only_my_sections = Q(page__path__startswith=publishable_pages[0].path)
-        for page in publishable_pages[1:]:
-            only_my_sections = only_my_sections | Q(page__path__startswith=page.path)
+        only_my_sections = Q(page__path__startswith=publishable_pages_paths[0])
+        for page_path in publishable_pages_paths[1:]:
+            only_my_sections = only_my_sections | Q(page__path__startswith=page_path)
 
         # return the filtered queryset
         return PageRevision.submitted_revisions.filter(only_my_sections)
@@ -1620,6 +1730,46 @@ class UserPagePermissionsProxy:
         """Return a PagePermissionTester object that can be used to query whether this user has
         permission to perform specific tasks on the given page"""
         return PagePermissionTester(self, page)
+
+    def explorable_pages(self):
+        """Return a queryset of pages that the user has access to view in the
+        explorer (e.g. add/edit/publish permission). Includes all pages with
+        specific group permissions and also the ancestors of those pages (in
+        order to enable navigation in the explorer)"""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
+        explorable_pages = Page.objects.none()
+
+        # Creates a union queryset of all objects the user has access to add,
+        # edit and publish
+        for perm in self.permissions.filter(
+            Q(permission_type="add")
+            | Q(permission_type="edit")
+            | Q(permission_type="publish")
+            | Q(permission_type="lock")
+        ):
+            explorable_pages |= Page.objects.descendant_of(
+                perm.page, inclusive=True
+            )
+
+        # For all pages with specific permissions, add their ancestors as
+        # explorable. This will allow deeply nested pages to be accessed in the
+        # explorer. For example, in the hierarchy A>B>C>D where the user has
+        # 'edit' access on D, they will be able to navigate to D without having
+        # explicit access to A, B or C.
+        page_permissions = Page.objects.filter(group_permissions__in=self.permissions)
+        for page in page_permissions:
+            explorable_pages |= page.get_ancestors()
+
+        # Remove unnecessary top-level ancestors that the user has no access to
+        fca_page = page_permissions.first_common_ancestor()
+        explorable_pages = explorable_pages.filter(path__startswith=fca_page.path)
+
+        return explorable_pages
 
     def editable_pages(self):
         """Return a queryset of the pages that this user has permission to edit"""
@@ -1696,9 +1846,9 @@ class PagePermissionTester:
         if self.page_is_root:  # root node is not a page and can never be edited, even by superusers
             return False
         return (
-            self.user.is_superuser or
-            ('edit' in self.permissions) or
-            ('add' in self.permissions and self.page.owner_id == self.user.pk)
+            self.user.is_superuser
+            or ('edit' in self.permissions)
+            or ('add' in self.permissions and self.page.owner_id == self.user.pk)
         )
 
     def can_delete(self):
@@ -1839,9 +1989,15 @@ class PagePermissionTester:
         if recursive and (self.page == destination or destination.is_descendant_of(self.page)):
             return False
 
-        # shortcut the trivial 'everything' / 'nothing' permissions
+        # reject inactive users early
         if not self.user.is_active:
             return False
+
+        # reject early if pages of this type cannot be created at the destination
+        if not self.page.specific_class.can_create_at(destination):
+            return False
+
+        # skip permission checking for super users
         if self.user.is_superuser:
             return True
 
@@ -1984,6 +2140,14 @@ class Collection(MP_Node):
         """Return a query set of all collection view restrictions that apply to this collection"""
         return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
 
+    @staticmethod
+    def order_for_display(queryset):
+        return queryset.annotate(
+            display_order=Case(
+                When(depth=1, then=Value('')),
+                default='name')
+        ).order_by('display_order')
+
     class Meta:
         verbose_name = _('collection')
         verbose_name_plural = _('collections')
@@ -2046,3 +2210,4 @@ class GroupCollectionPermission(models.Model):
     class Meta:
         unique_together = ('group', 'collection', 'permission')
         verbose_name = _('group collection permission')
+        verbose_name_plural = _('group collection permissions')

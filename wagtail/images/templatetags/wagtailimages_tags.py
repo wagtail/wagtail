@@ -1,13 +1,17 @@
 import re
 
 from django import template
+from django.core.exceptions import ImproperlyConfigured
+from django.urls import NoReverseMatch
 from django.utils.functional import cached_property
 
 from wagtail.images.models import Filter
 from wagtail.images.shortcuts import get_rendition_or_not_found
+from wagtail.images.views.serve import generate_image_url
+
 
 register = template.Library()
-allowed_filter_pattern = re.compile("^[A-Za-z0-9_\-\.]+$")
+allowed_filter_pattern = re.compile(r"^[A-Za-z0-9_\-\.]+$")
 
 
 @register.tag(name="image")
@@ -95,6 +99,9 @@ class ImageNode(template.Node):
         if not image:
             return ''
 
+        if not hasattr(image, 'get_rendition'):
+            raise ValueError("image tag expected an Image object, got %r" % image)
+
         rendition = get_rendition_or_not_found(image, self.filter)
 
         if self.output_var_name:
@@ -107,3 +114,14 @@ class ImageNode(template.Node):
             for key in self.attrs:
                 resolved_attrs[key] = self.attrs[key].resolve(context)
             return rendition.img_tag(resolved_attrs)
+
+
+@register.simple_tag()
+def image_url(image, filter_spec, viewname='wagtailimages_serve'):
+    try:
+        return generate_image_url(image, filter_spec, viewname)
+    except NoReverseMatch:
+        raise ImproperlyConfigured(
+            "'image_url' tag requires the " + viewname + " view to be configured. Please see "
+            "https://docs.wagtail.io/en/stable/advanced_topics/images/image_serve_view.html#setup for instructions."
+        )

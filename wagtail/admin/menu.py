@@ -1,4 +1,3 @@
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
@@ -88,11 +87,7 @@ class Menu:
 
         rendered_menu_items = []
         for item in sorted(menu_items, key=lambda i: i.order):
-            try:
-                rendered_menu_items.append(item.render_html(request))
-            except TypeError:
-                # fallback for older render_html methods that don't accept a request arg
-                rendered_menu_items.append(item.render_html(request))
+            rendered_menu_items.append(item.render_html(request))
 
         return mark_safe(''.join(rendered_menu_items))
 
@@ -104,10 +99,6 @@ class SubmenuMenuItem(MenuItem):
     def __init__(self, label, menu, **kwargs):
         self.menu = menu
         super().__init__(label, '#', **kwargs)
-
-    @property
-    def media(self):
-        return Media(js=[static('wagtailadmin/js/submenu.js')]) + self.menu.media
 
     def is_shown(self, request):
         # show the submenu if one or more of its children is shown
@@ -124,4 +115,4 @@ class SubmenuMenuItem(MenuItem):
 
 
 admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')
-settings_menu = Menu(register_hook_name='register_settings_menu_item')
+settings_menu = Menu(register_hook_name='register_settings_menu_item', construct_hook_name='construct_settings_menu')

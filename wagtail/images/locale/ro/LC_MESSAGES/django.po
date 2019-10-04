@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2016,2018
+# Dan Braghis, 2014-2016,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Wagtail images"
+msgstr "Imagini Wagtail"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -122,6 +125,12 @@ msgstr "încărcată de utlizator"
 msgid "tags"
 msgstr "etichete"
 
+msgid "image"
+msgstr "imagine"
+
+msgid "images"
+msgstr "imagini"
+
 msgid "Choose an image"
 msgstr "Alege imagine"
 
@@ -137,16 +146,10 @@ msgstr "Etichete populare"
 msgid "Uploading…"
 msgstr "În curs de încărcare…"
 
-msgid "Server Error"
-msgstr "Eroare de server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportează această eroare webmasterului cu următoarele informații:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -154,13 +157,16 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"Există o potrivire"
+"            Există %(counter)s potrivire\n"
+"        "
 msgstr[1] ""
 "\n"
-"Sunt %(counter)s potriviri"
+"            Sunt %(counter)s potriviri\n"
+"        "
 msgstr[2] ""
 "\n"
-"Sunt %(counter)s potriviri"
+"            Sunt %(counter)s potriviri\n"
+"        "
 
 msgid "Latest images"
 msgstr "Imagini recente"
@@ -170,25 +176,6 @@ msgstr "Alege un format"
 
 msgid "Insert image"
 msgstr "Inserează imagine"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> imagine"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> imagini"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> imagini"
 
 msgid "Change image file:"
 msgstr "Schimbă fișierul imaginii:"
@@ -225,24 +212,27 @@ msgstr "Editare imagine %(title)s"
 msgid "Editing"
 msgstr "Editare"
 
-msgid "Focal point (optional)"
-msgstr "Punct focal (opțional)"
+msgid "URL Generator"
+msgstr "Generator URL"
+
+msgid "Focal point"
+msgstr "Punct focal"
+
+msgid "(optional)"
+msgstr "(opțional)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
-"below."
+"above."
 msgstr ""
 "Pentru a defini regiunea cea mai importantă a imaginii, trageți un perimetru "
-"peste imaginea de mai jos."
+"peste imaginea de mai sus."
 
 msgid "Current focal point shown"
 msgstr "Punctul focal curent este afișat"
 
 msgid "Remove focal area"
 msgstr "Șterge zona focală"
-
-msgid "URL Generator"
-msgstr "Generator URL"
 
 msgid "Max dimensions"
 msgstr "Dimensiuni maxime"
@@ -340,12 +330,18 @@ msgid ""
 "if necessary. You may also delete the image completely if the upload wasn't "
 "required."
 msgstr ""
-"Încărcare de succsess. Dacă este necesar, actualizați această imagine cu un "
+"Încărcare de success. Dacă este necesar, actualizați această imagine cu un "
 "titlu potrivit. Puteți deasemenea să ștergeți imaginea în întregime dacă "
 "încărcarea nu a fost necesară."
 
 msgid "Sorry, upload failed."
 msgstr "Încărcarea a eșuat."
+
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportează această eroare webmasterului cu următoarele informații:"
 
 msgid "Image updated."
 msgstr "Imaginea a fost actualizată."

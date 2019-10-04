@@ -34,7 +34,7 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
 .. code-block:: html+django
 
     {% extends "wagtailadmin/base.html" %}
-    {% load staticfiles %}
+    {% load static %}
 
     {% block branding_logo %}
         <img src="{% static 'images/custom-logo.svg' %}" alt="Custom Project" width="80" />
@@ -52,11 +52,22 @@ To replace the favicon displayed when viewing admin pages, create a template fil
 .. code-block:: html+django
 
     {% extends "wagtailadmin/admin_base.html" %}
-    {% load staticfiles %}
+    {% load static %}
 
     {% block branding_favicon %}
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
     {% endblock %}
+
+``branding_title``
+------------------
+
+To replace the title prefix (which is 'Wagtail' by default), create a template file ``dashboard/templates/wagtailadmin/admin_base.html`` that overrides the block ``branding_title``:
+
+.. code-block:: html+django
+
+    {% extends "wagtailadmin/admin_base.html" %}
+
+    {% block branding_title %}Frank's CMS{% endblock %}
 
 ``branding_login``
 ------------------
@@ -165,7 +176,7 @@ To add extra buttons to the login form, override the ``submit_buttons`` block. Y
 
     {% block submit_buttons %}
         {{ block.super }}
-        <a href="{% url 'signup' %}"><button type="button" class="button" tabindex="4">{% trans 'Sign up' %}</button></a>
+        <a href="{% url 'signup' %}"><button type="button" class="button">{% trans 'Sign up' %}</button></a>
     {% endblock %}
 
 ``login_form``

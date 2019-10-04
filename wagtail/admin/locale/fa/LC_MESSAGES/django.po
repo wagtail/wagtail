@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Submit for moderation"
+msgstr "فرستادن برای نظارت"
+
+msgid "Unpublish"
+msgstr "لغو انتشار"
+
+msgid "Delete"
+msgstr "حذف"
 
 msgid "None"
 msgstr "خالی"
@@ -42,15 +51,6 @@ msgstr "ترویج"
 msgid "Settings"
 msgstr "تنظیمات"
 
-msgid "Search"
-msgstr "جستجو"
-
-msgid "Search term"
-msgstr "عبارت جستجو"
-
-msgid "URL"
-msgstr "نشانی"
-
 msgid "Enter password"
 msgstr "رمزعبور را وارد کنید"
 
@@ -60,6 +60,12 @@ msgstr "%s خود را وارد کنید"
 
 msgid "Enter your email address to reset your password"
 msgstr "برای بازنشانی رمز، نشانی ایمیل خود را وارد کنید"
+
+msgid "URL"
+msgstr "نشانی"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "نمی‌توانید چند رکورد مجوز برای یک مجموعه معین داشته باشید."
 
 msgid "New title"
 msgstr "عنوان جدید"
@@ -115,15 +121,6 @@ msgstr "این اسلاگ در حال استفاده داخل محتوای صف�
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "هنگامی که صفحه ها کپی میشوند نمی‌توان یک صفحه را به داخل خودش کپی کرد"
 
-msgid "Visibility"
-msgstr "دیده شدن"
-
-msgid "This field is required."
-msgstr "این فیلد لازم است."
-
-msgid "Please select at least one group."
-msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
-
 msgid "This slug is already in use"
 msgstr "این اسلاگ در حال استفاده است"
 
@@ -133,8 +130,20 @@ msgstr "تاریخ/ساعت زنده شدن باید پیش از تاریخ/سا
 msgid "Expiry date/time must be in the future"
 msgstr "تاریخ/ساعت انقضا باید در آینده باشد"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "نمی‌توانید چند رکورد مجوز برای یک مجموعه معین داشته باشید."
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Search term"
+msgstr "عبارت جستجو"
+
+msgid "Visibility"
+msgstr "دیده شدن"
+
+msgid "This field is required."
+msgstr "این فیلد لازم است."
+
+msgid "Please select at least one group."
+msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
 
 msgid "Go to Wagtail admin"
 msgstr "رفتن به رابط راهبری وگتیل"
@@ -185,12 +194,6 @@ msgstr "بازنشانی رمزعبور"
 msgid "Reset your password"
 msgstr "رمزعبور را بازنشانی کنید"
 
-msgid "Edit"
-msgstr "تصحیح"
-
-msgid "Delete"
-msgstr "حذف"
-
 msgid "Page"
 msgstr "صفحه"
 
@@ -203,14 +206,71 @@ msgstr "بدون نتیجه"
 msgid "Server Error"
 msgstr "خطای سرور"
 
-msgid "See children"
-msgstr "نمایش زیرگروه"
-
 msgid "See all"
 msgstr "نمایش همه"
 
 msgid "Close explorer"
 msgstr "بستن کاوشگر"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "January"
+msgstr "ژانویه"
+
+msgid "February"
+msgstr "فوریه"
+
+msgid "March"
+msgstr "مارس"
+
+msgid "April"
+msgstr "آپریل"
+
+msgid "May"
+msgstr "مه"
+
+msgid "June"
+msgstr "ژوئن"
+
+msgid "July"
+msgstr "جولای"
+
+msgid "August"
+msgstr "آگوست"
+
+msgid "September"
+msgstr "سپتامبر"
+
+msgid "October"
+msgstr "اکتبر"
+
+msgid "November"
+msgstr "نوامبر"
+
+msgid "December"
+msgstr "دسامبر"
+
+msgid "Sun"
+msgstr "یکشنبه"
+
+msgid "Mon"
+msgstr "دوشنبه"
+
+msgid "Tue"
+msgstr "سه شنبه"
+
+msgid "Wed"
+msgstr "چهارشنبه"
+
+msgid "Thu"
+msgstr "پنجشنبه"
+
+msgid "Fri"
+msgstr "جمعه"
+
+msgid "Sat"
+msgstr "شنبه"
 
 msgid "Dashboard"
 msgstr "داشبورد"
@@ -238,22 +298,6 @@ msgstr "لینک بیرونی"
 
 msgid "Email link"
 msgstr "لینک ایمیل"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"%(counter)s مورد پیدا شد"
-msgstr[1] ""
-"\n"
-"%(counter)s مورد پیدا شد"
 
 msgid "Choose"
 msgstr "انتخاب کن"
@@ -368,6 +412,9 @@ msgstr "تایید"
 msgid "Reject"
 msgstr "رد"
 
+msgid "Edit"
+msgstr "تصحیح"
+
 msgid "Preview"
 msgstr "نمایش"
 
@@ -392,22 +439,6 @@ msgstr "زنده"
 
 msgid "Site summary"
 msgstr "خلاصه سایت"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> صفحه"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> صفحه"
 
 msgid "Sign in"
 msgstr "ورود"
@@ -479,6 +510,12 @@ msgstr "قفل"
 
 msgid "Unlocked"
 msgstr "گشوده"
+
+msgid "Publish this revision"
+msgstr "انتشار این بازبینی"
+
+msgid "Publish"
+msgstr "انتشار"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -559,9 +596,6 @@ msgstr "بله، منتقل شود"
 msgid "Unpublish %(title)s"
 msgstr "لغو انتشار %(title)s"
 
-msgid "Unpublish"
-msgstr "لغو انتشار"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "آیا میخواهید این صفحه لغو انتشار شود؟"
 
@@ -615,12 +649,6 @@ msgstr "جدید"
 msgid "Save draft"
 msgstr "ذخیره پیشنویس"
 
-msgid "Publish"
-msgstr "انتشار"
-
-msgid "Submit for moderation"
-msgstr "فرستادن برای نظارت"
-
 msgid "This page has unsaved changes."
 msgstr "این صفحه تغییرات ذخیره نشده دارد."
 
@@ -637,9 +665,6 @@ msgstr "صفحه قفل شده"
 
 msgid "Replace current draft"
 msgstr "جایگزینی پیشنویس فعلی"
-
-msgid "Publish this revision"
-msgstr "انتشار این بازبینی"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -772,9 +797,6 @@ msgstr "این صفحه از دید عمومی پنهان شده است"
 msgid "Disable ordering of child pages"
 msgstr "غیرفعال سازی ترتیب زیرصفحه ها"
 
-msgid "Order"
-msgstr "ترتیب"
-
 msgid "Enable ordering of child pages"
 msgstr "فعال سازی ترتیب زیرصفحه ها"
 
@@ -800,9 +822,6 @@ msgstr ""
 "امکان پیش نمایش صفحه وجود ندارد، برخی خطاها باقی مانده اند. لطفا این تب را "
 "ببندید و صفحه را برای برطرف سازی خطا ویرایش نمایید سپس مجددا از پیش نمایش "
 "استفاده نمایید."
-
-msgid "Close"
-msgstr "بستن"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -920,68 +939,15 @@ msgstr "صفحه ای استفاده نمی‌کند"
 msgid "Collection"
 msgstr "مجموعه"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "صفحه %(page_num)s از %(total_pages)s."
+
 msgid "Home"
 msgstr "خانه"
 
 msgid "All collections"
 msgstr "همه مجموعه ها"
-
-msgid "January"
-msgstr "ژانویه"
-
-msgid "February"
-msgstr "فوریه"
-
-msgid "March"
-msgstr "مارس"
-
-msgid "April"
-msgstr "آپریل"
-
-msgid "May"
-msgstr "مه"
-
-msgid "June"
-msgstr "ژوئن"
-
-msgid "July"
-msgstr "جولای"
-
-msgid "August"
-msgstr "آگوست"
-
-msgid "September"
-msgstr "سپتامبر"
-
-msgid "October"
-msgstr "اکتبر"
-
-msgid "November"
-msgstr "نوامبر"
-
-msgid "December"
-msgstr "دسامبر"
-
-msgid "Sun"
-msgstr "یکشنبه"
-
-msgid "Mon"
-msgstr "دوشنبه"
-
-msgid "Tue"
-msgstr "سه شنبه"
-
-msgid "Wed"
-msgstr "چهارشنبه"
-
-msgid "Thu"
-msgstr "پنجشنبه"
-
-msgid "Fri"
-msgstr "جمعه"
-
-msgid "Sat"
-msgstr "شنبه"
 
 msgid "Edit your account"
 msgstr "ویرایش حساب شما"
@@ -991,10 +957,6 @@ msgstr "تنظیمات حساب"
 
 msgid "Log out"
 msgstr "خروج"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "صفحه %(page_num)s از %(total_pages)s."
 
 msgid "Other searches"
 msgstr "جستجوهای دیگر"
@@ -1007,22 +969,6 @@ msgstr ""
 "شما از یک مرورگر <strong>قدیمی</strong> استفاده می‌کنید که توسط این نرم افزار "
 "پشتیبانی نمی‌شود. لطفا مرورگر خود را <a href=\"http://browsehappy.com/"
 "\">بروزرسانی</a> کنید."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"برای استفاده از وگتیل نیاز به جاواسکریپت دارید که در حال حاضر غیرفعال است."
-"<br />\n"
-"در اینجا <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener\">دستورالعمل های فعال سازی جاواسکریپت</a> را برای مرورگر خود آمده "
-"است."
 
 msgid "Go to Wagtail admin interface"
 msgstr "رفتن به رابط راهبری وگتیل"
@@ -1092,9 +1038,6 @@ msgstr "رومانیایی"
 
 msgid "Russian"
 msgstr "روسی"
-
-msgid "Chinese (China)"
-msgstr "چینی (چین)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "متاسفانه مجوز لازم برای دسترسی به این ناحیه را ندارید."

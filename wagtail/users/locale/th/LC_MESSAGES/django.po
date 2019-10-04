@@ -1,0 +1,319 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jon Combe <jon@naremit.com>, 2019
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail users"
+msgstr "ผู้ใช้ Wagtail"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"จำเป็นต้องใช้ตัวหนังสือ30 ตัวหนังสือหรือต่ำกว่านั้น\n"
+"ตัวอักษร,ตัวเลขและ@/./+/-/_เท่านั้น"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "ตรงนี้สามารถใช้ตัวอักษร,ตัวเลขและ@/./+/-/_เท่านั้น"
+
+msgid "A user with that username already exists."
+msgstr "มีผู้ใช้ชื่อผู้ใช้นี้แล้ว"
+
+msgid "The two password fields didn't match."
+msgstr "สองรหัสผ่านนี้ไม่ถูกต้อง"
+
+msgid "Email"
+msgstr "อีเมล"
+
+msgid "First Name"
+msgstr "ชื่อจริง"
+
+msgid "Last Name"
+msgstr "นามสกุล"
+
+msgid "Password"
+msgstr "รหัสผ่าน"
+
+msgid "Leave blank if not changing."
+msgstr "ปล่อยให้ว่างถ้าไม่ต้องการเปลี่ยน"
+
+msgid "Password confirmation"
+msgstr "การยืนยันรหัสผ่าน"
+
+msgid "Enter the same password as above, for verification."
+msgstr "กรอกรหัสผ่านเหมือนเดิมตามข้างบน,สำหรับการตรวจสอบ"
+
+msgid "Administrator"
+msgstr "ผู้บริหารของเว็บไซด์"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "ผู้บริหารมีอำนาจในการจัดการทุกอย่างได้หรือตั้งค่าได้"
+
+msgid "A group with that name already exists."
+msgstr "ชื่อกลุ่มนี้มีผู้ใช้แล้ว"
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "คุณไม่สามารถที่จะได้รับการอนุญาตในหน้าเดิมหลายครั้งได้"
+
+msgid "Preferred language"
+msgstr "ภาษาที่ต้องการใช้"
+
+msgid "Current time zone"
+msgstr "โซนเวลาปัจจุบัน"
+
+msgid "Upload a profile picture"
+msgstr "อัพโหลดรูปภาพข้อมูลส่วนตัว"
+
+msgid "submitted notifications"
+msgstr "ประกาศแจ้งเตือนถูกส่ง"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "คุณจะได้รับการแจ้งเตือนเมื่อหน้าถูกส่งสำหรับตรวจ"
+
+msgid "approved notifications"
+msgstr "ประกาศแจ้งเตือนได้รับการอนุมัติ"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "คุณจะได้รับการแจ้งเตือนเมื่อหน้าที่แก้ไขของคุณได้รับการอนุมัติแล้ว"
+
+msgid "rejected notifications"
+msgstr "การแจ้งเตือนที่ไม่อนุมัติ"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "คุณจะได้รับการแจ้งเตือนเมื่อหน้าที่แก้ไขของคุณไม่ได้รับการอนุมัติ"
+
+msgid "preferred language"
+msgstr "ภาษาที่ต้องการใช้"
+
+msgid "Select language for the admin"
+msgstr "เลือกภาษาสำหรับบริหาร"
+
+msgid "current time zone"
+msgstr "โซนเวลาปัจจุบัน"
+
+msgid "Select your current time zone"
+msgstr "เลือกโซนเวลาปัจจุบัน"
+
+msgid "profile picture"
+msgstr "รูปภาพประวัติส่วนตัว"
+
+msgid "user profile"
+msgstr "ข้อมูลส่วนตัวของผู้ใช้"
+
+msgid "user profiles"
+msgstr "ข้อมูลส่วนตัวของผู้ใช้"
+
+msgid "Delete group"
+msgstr "ลบกลุ่มทิ้ง"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+" กลุ่มนี้ '%(group_name)s' มี <strong>%(group_user_count)s</strong> สมาชิก\n"
+" "
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "ถ้าคุณลบกลุ่มนี้สมาชิกทุกคนในกลุ่มจะถูกลบสิทธ์ไปด้วย"
+
+msgid "Are you sure you want to delete this group?"
+msgstr "คุณแน่ใจว่าคุณต้องการจะลบทิ้งกลุ่มนี้?"
+
+msgid "Yes, delete"
+msgstr "ใช่,ลบทิ้ง"
+
+msgid "Add group"
+msgstr "เพิ่มกลุ่ม"
+
+msgid "Editing"
+msgstr "กำลังแก้ไข"
+
+msgid "Save"
+msgstr "เซฟ,บันทึก"
+
+msgid "Object permissions"
+msgstr "สิ่งที่ถูกอนุญาต"
+
+msgid "Name"
+msgstr "ชื่อ"
+
+msgid "Add"
+msgstr "เพิ่ม,เติม"
+
+msgid "Change"
+msgstr "เปลี่ยน"
+
+msgid "Delete"
+msgstr "ลบ"
+
+msgid "Other permissions"
+msgstr "การอนุญาตอย่างอื่น"
+
+msgid "Page permissions"
+msgstr "หน้าที่อนุญาต"
+
+msgid "Page"
+msgstr "หน้า"
+
+msgid "Add a page permission"
+msgstr "เพิ่มการขออนุญาตของหน้า"
+
+msgid "groups"
+msgstr "หลายๆกลุ่ม"
+
+msgid "Add a group"
+msgstr "เพิ่มกลุ่ม"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "ขออภัย,ไม่มีกลุ่มที่ตรงกัน \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"ไม่มีโครงสร้างกลุ่ม ทำไมคุณไม่ <a href=\"%(wagtailusers_create_group_url)s"
+"\">เพิ่มสักอัน</a>?"
+
+msgid "Delete user"
+msgstr "ลบทิ้งผู้ใช้นี้"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "คุณแน่ใจว่าคุณต้องการจะลบทิ้งผู้ใช้นี้?"
+
+msgid "Add user"
+msgstr "เพิ่มผู้ใช้"
+
+msgid "Account"
+msgstr "บัญชี"
+
+msgid "Roles"
+msgstr "บทบาท"
+
+msgid "Users"
+msgstr "หลายๆผู้ใช้"
+
+msgid "Add a user"
+msgstr "เพิ่มผู้ใช้"
+
+msgid "Username"
+msgstr "ชื่อผู้ใช้"
+
+msgid "Level"
+msgstr "ระดับ"
+
+msgid "Status"
+msgstr "สถานะ"
+
+msgid "Last Login"
+msgstr "ล็อกอินครั้งสุดท้าย,เข้าใช้ครั้งสุดท้าย"
+
+msgid "Admin"
+msgstr "บริหาร"
+
+msgid "Active"
+msgstr "กำลังใช้งานอยู่,กำลังเปิดอยู่"
+
+msgid "Inactive"
+msgstr "ไม่ได้ใช้งาน"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s ที่ผ่านมา"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+" มี %(counter)s ที่ตรงกัน\n"
+" "
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "ขออภัย,ไม่มีผู้ใช้ที่ตรงกัน \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"ไม่มีโครงสร้างผู้ใช้ ทำไมคุณไม่ <a href=\"%(wagtailusers_create_url)s\">เพิ่มสักอัน</a>?"
+
+msgid "Groups"
+msgstr "หลายกลุ่ม"
+
+msgid "Search groups"
+msgstr "ค้นหากลุ่ม"
+
+msgid "Group '{0}' created."
+msgstr "กลุ่ม'{0}'ถูกสร้างแล้ว"
+
+msgid "Group '{0}' updated."
+msgstr "กลุ่ม'{0}'ถูกอัพเดทแล้ว"
+
+msgid "The group could not be saved due to errors."
+msgstr "กลุ่มนี้ไม่สามารถถูกเซฟได้ในขณะที่มีข้อผิดพลาด"
+
+msgid "Group '{0}' deleted."
+msgstr "กลุ่ม'{0}'ถูกลบทิ้งแล้ว"
+
+msgid "Search users"
+msgstr "ค้นหาผู้ใช้"
+
+msgid "User '{0}' created."
+msgstr "ผู้ใช้'{0}'ถูกสร้างแล้ว"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "The user could not be created due to errors."
+msgstr "ผู้ใช้นี้ไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
+
+msgid "User '{0}' updated."
+msgstr "ผู้ใช้'{0}'ถูกอัพเดทแล้ว"
+
+msgid "The user could not be saved due to errors."
+msgstr "ผู้ใช้นี้ไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"
+
+msgid "User '{0}' deleted."
+msgstr "ผู้ใช้'{0}'ถูกลบทิ้งแล้ว"
+
+msgid "Edit this user"
+msgstr "แก้ไขผู้ใช้นี้"
+
+msgid "Delete this user"
+msgstr "ลบทิ้งผู้ใช้นี้"

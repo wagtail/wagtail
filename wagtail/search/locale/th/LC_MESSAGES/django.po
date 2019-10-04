@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-10 11:18+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search"
+msgstr "ค้นหา Wagtail"
+
+msgid "Search term(s)/phrase"
+msgstr "ค้นหาวาระ(s)/จากคำพูดหรือถ้อยคำ"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"เข้าค้นหากลุ่มคำที่เข้าพวกกัน "
+"การเข้าพวกกันนี้จำเป็นที่จะต้องหาให้พบถึงจะสามารถแสดงผลของการหาได้,ไม่สามารถรับสัญลักษณ์แทนได้"
+
+msgid "Query Daily Hits"
+msgstr "คำถามประจำวันที่นิยมถามบ่อย"
+
+msgid "Popular search terms"
+msgstr "วาระที่ค้นหามากที่สุด"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "Terms"
+msgstr "วาระ"
+
+msgid "Views (past week)"
+msgstr "ดู(อาทิตย์ที่แล้ว)"
+
+msgid "No results found"
+msgstr "ไม่พบผล"
+
+msgid "Date"
+msgstr "วันที่"
+
+msgid "Choose from popular search terms"
+msgstr "เลือกจากวาระที่ค้นหามากที่สุด"

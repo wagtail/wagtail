@@ -199,9 +199,9 @@ class BaseDjangoAuthPermissionPolicy(BasePermissionPolicy):
             codename__in=permission_codenames
         )
         return (
-            Q(is_superuser=True) |
-            Q(user_permissions__in=permissions) |
-            Q(groups__permissions__in=permissions)
+            Q(is_superuser=True)
+            | Q(user_permissions__in=permissions)
+            | Q(groups__permissions__in=permissions)
         ) & Q(is_active=True)
 
     def _get_users_with_any_permission_codenames(self, permission_codenames):
@@ -268,8 +268,8 @@ class OwnershipPermissionPolicy(BaseDjangoAuthPermissionPolicy):
                 # having 'add' permission means that there are *potentially*
                 # some instances they can edit (namely: ones they own),
                 # which is sufficient for returning True here
-                user.has_perm(self._get_permission_name('add')) or
-                user.has_perm(self._get_permission_name('change'))
+                user.has_perm(self._get_permission_name('add'))
+                or user.has_perm(self._get_permission_name('change'))
             )
         else:
             # unrecognised actions are only allowed for active superusers
@@ -302,8 +302,8 @@ class OwnershipPermissionPolicy(BaseDjangoAuthPermissionPolicy):
             if user.has_perm(self._get_permission_name('change')):
                 return True
             elif (
-                user.has_perm(self._get_permission_name('add')) and
-                getattr(instance, self.owner_field_name) == user
+                user.has_perm(self._get_permission_name('add'))
+                and getattr(instance, self.owner_field_name) == user
             ):
                 return True
             else:

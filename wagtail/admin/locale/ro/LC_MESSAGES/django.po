@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2018
+# Dan Braghis, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-05 00:19+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,15 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Submit for moderation"
+msgstr "Trimite pentru moderare"
+
+msgid "Unpublish"
+msgstr "Anulează publicarea"
+
+msgid "Delete"
+msgstr "Șterge"
 
 msgid "Wagtail admin"
 msgstr "Administrare Wagtail"
@@ -44,15 +53,6 @@ msgstr "Promovează"
 msgid "Settings"
 msgstr "Setări"
 
-msgid "Search"
-msgstr "Căutare"
-
-msgid "Search term"
-msgstr "Termen de căutare"
-
-msgid "URL"
-msgstr "Adresă de internet"
-
 msgid "Enter password"
 msgstr "Introduceți parola"
 
@@ -62,6 +62,13 @@ msgstr "Introduceți %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Introduceți adresa de e-mail pentru a reseta parola"
+
+msgid "URL"
+msgstr "Adresă de internet"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
 
 msgid "New title"
 msgstr "Titlu nou"
@@ -123,15 +130,6 @@ msgstr "Acest slug este deja folosit în contextul paginii părinte \"%s\""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Nu puteți copia o pagină în sine atunci când copiați subpagini"
 
-msgid "Visibility"
-msgstr "Vizibilitate"
-
-msgid "This field is required."
-msgstr "Acest câmp este obligatoriu."
-
-msgid "Please select at least one group."
-msgstr "Selectați cel puțin un grup"
-
 msgid "This slug is already in use"
 msgstr "Această fisă a fost deja folosită"
 
@@ -142,9 +140,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Data/timpul de expirare trebuie să fie în viitor"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
+msgid "Search"
+msgstr "Căutare"
+
+msgid "Search term"
+msgstr "Termen de căutare"
+
+msgid "Visibility"
+msgstr "Vizibilitate"
+
+msgid "This field is required."
+msgstr "Acest câmp este obligatoriu."
+
+msgid "Please select at least one group."
+msgstr "Selectați cel puțin un grup"
 
 msgid "Error 404: Page not found"
 msgstr "Eroare 404: Pagina nu a fost găsită"
@@ -237,12 +246,6 @@ msgstr "Resetarea parolei"
 msgid "Reset your password"
 msgstr "Resetează parola"
 
-msgid "Edit"
-msgstr "Editează"
-
-msgid "Delete"
-msgstr "Șterge"
-
 msgid "Page"
 msgstr "Pagină"
 
@@ -257,9 +260,6 @@ msgstr "Nici un rezultat"
 
 msgid "Server Error"
 msgstr "Eroare de server"
-
-msgid "See children"
-msgstr "Vezi descendenți"
 
 msgid "See all"
 msgstr "Vezi toate"
@@ -301,6 +301,87 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
 
+msgid "Close"
+msgstr "Închideți"
+
+msgid "January"
+msgstr "Ianuarie"
+
+msgid "February"
+msgstr "Februarie"
+
+msgid "March"
+msgstr "Martie"
+
+msgid "April"
+msgstr "Aprilie"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Iunie"
+
+msgid "July"
+msgstr "Iulie"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "Septembrie"
+
+msgid "October"
+msgstr "Octombrie"
+
+msgid "November"
+msgstr "Noiembrie"
+
+msgid "December"
+msgstr "Decembrie"
+
+msgid "Sunday"
+msgstr "Duminică"
+
+msgid "Monday"
+msgstr "Luni"
+
+msgid "Tuesday"
+msgstr "Marți"
+
+msgid "Wednesday"
+msgstr "Miercuri"
+
+msgid "Thursday"
+msgstr "Joi"
+
+msgid "Friday"
+msgstr "Vineri"
+
+msgid "Saturday"
+msgstr "Sâmbătă"
+
+msgid "Sun"
+msgstr "D"
+
+msgid "Mon"
+msgstr "L"
+
+msgid "Tue"
+msgstr "Ma"
+
+msgid "Wed"
+msgstr "Mi"
+
+msgid "Thu"
+msgstr "J"
+
+msgid "Fri"
+msgstr "V"
+
+msgid "Sat"
+msgstr "S"
+
 msgid "Dashboard"
 msgstr "Bord"
 
@@ -331,7 +412,7 @@ msgstr "Link e-mail"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -339,14 +420,16 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"Există o potrivire"
+"        Există %(counter)s potrivire\n"
+"    "
 msgstr[1] ""
 "\n"
-"Sunt %(counter)s potriviri"
+"        Sunt %(counter)s potriviri\n"
+"    "
 msgstr[2] ""
 "\n"
-"\n"
-"Sunt %(counter)s potriviri"
+"        Sunt %(counter)s potriviri\n"
+"    "
 
 msgid "Choose"
 msgstr "Alege"
@@ -463,11 +546,17 @@ msgstr "Editat"
 msgid "Edit this page"
 msgstr "Editează această pagină"
 
+msgid "Preview this page"
+msgstr "Previzualizează această pagină"
+
 msgid "Approve"
 msgstr "Aprobă"
 
 msgid "Reject"
 msgstr "Respinge"
+
+msgid "Edit"
+msgstr "Editează"
 
 msgid "Preview"
 msgstr "Examinare"
@@ -493,25 +582,6 @@ msgstr "Activată"
 
 msgid "Site summary"
 msgstr "Rezumat sait"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> pagină"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> pagini"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> pagini"
 
 msgid "Sign in"
 msgstr "Conectare"
@@ -590,6 +660,15 @@ msgstr "Blocat"
 
 msgid "Unlocked"
 msgstr "Deblocat"
+
+msgid "Publishing…"
+msgstr "În curs de publicare…"
+
+msgid "Publish this revision"
+msgstr "Publică această revizie"
+
+msgid "Publish"
+msgstr "Publică"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -673,9 +752,6 @@ msgstr "Da, mută această pagină"
 msgid "Unpublish %(title)s"
 msgstr "Anulează publicarea %(title)s"
 
-msgid "Unpublish"
-msgstr "Anulează publicarea"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Sigur doriți să anulați publicarea aceastei pagini?"
 
@@ -737,15 +813,6 @@ msgstr "În curs de salvare..."
 msgid "Save draft"
 msgstr "Salvează ca ciornă"
 
-msgid "Publishing…"
-msgstr "În curs de publicare…"
-
-msgid "Publish"
-msgstr "Publică"
-
-msgid "Submit for moderation"
-msgstr "Trimite pentru moderare"
-
 msgid "This page has unsaved changes."
 msgstr "Această pagină conține modificări nesalvate."
 
@@ -762,9 +829,6 @@ msgstr "Pagină blocată"
 
 msgid "Replace current draft"
 msgstr "Înlocuiește ciorna curentă"
-
-msgid "Publish this revision"
-msgstr "Publică această revizie"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -898,9 +962,6 @@ msgstr "Această pagină este protejată de ochii publicului"
 msgid "Disable ordering of child pages"
 msgstr "Dezactivează rânduirea paginilor dependente"
 
-msgid "Order"
-msgstr "Ordine"
-
 msgid "Enable ordering of child pages"
 msgstr "Activează rânduirea paginilor dependente"
 
@@ -929,9 +990,6 @@ msgstr ""
 "apoi\n"
 "                folosiți din nou funcția de previzualizare.\n"
 "            "
-
-msgid "Close"
-msgstr "Închideți"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1079,6 +1137,9 @@ msgstr[2] ""
 "\n"
 "%(counter)s pagini se potrivesc"
 
+msgid "Page types"
+msgstr "Tipuri pagini"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1093,6 +1154,10 @@ msgstr "Nici o pagină nu utilizează"
 msgid "Collection"
 msgstr "Colecție"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Pagina %(page_num)s din %(total_pages)s."
+
 msgid "Root"
 msgstr "Pagină de bază"
 
@@ -1102,63 +1167,6 @@ msgstr "Acasă"
 msgid "All collections"
 msgstr "Toate colecțiile"
 
-msgid "January"
-msgstr "Ianuarie"
-
-msgid "February"
-msgstr "Februarie"
-
-msgid "March"
-msgstr "Martie"
-
-msgid "April"
-msgstr "Aprilie"
-
-msgid "May"
-msgstr "Mai"
-
-msgid "June"
-msgstr "Iunie"
-
-msgid "July"
-msgstr "Iulie"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "Septembrie"
-
-msgid "October"
-msgstr "Octombrie"
-
-msgid "November"
-msgstr "Noiembrie"
-
-msgid "December"
-msgstr "Decembrie"
-
-msgid "Sun"
-msgstr "D"
-
-msgid "Mon"
-msgstr "L"
-
-msgid "Tue"
-msgstr "Ma"
-
-msgid "Wed"
-msgstr "Mi"
-
-msgid "Thu"
-msgstr "J"
-
-msgid "Fri"
-msgstr "V"
-
-msgid "Sat"
-msgstr "S"
-
 msgid "Edit your account"
 msgstr "Editează contul utilizator"
 
@@ -1167,10 +1175,6 @@ msgstr "Setări cont"
 
 msgid "Log out"
 msgstr "Deconectare"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pagina %(page_num)s din %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Alte căutări"
@@ -1189,16 +1193,16 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
 "            Wagtail are nevoie de Javascript, care în prezent e deactivat."
 "<br />\n"
 "            Vezi <a href=\"http://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener\">instrucțiuni de activare JavaScript în web "
-"browser-ul Dvs</a>.\n"
+"\"_blank\" rel=\"noopener noreferrer\">instrucțiuni de activare JavaScript "
+"în web browser-ul Dvs</a>.\n"
 "        "
 
 msgid "Go to Wagtail admin interface"
@@ -1212,6 +1216,9 @@ msgstr "Arată în Explorator"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabă"
 
 msgid "Catalan"
 msgstr "Catalană"
@@ -1236,6 +1243,9 @@ msgstr "Franceză"
 
 msgid "Galician"
 msgstr "Galiciană"
+
+msgid "Indonesian"
+msgstr "Indoneză"
 
 msgid "Icelandic"
 msgstr "Islandeză"
@@ -1281,9 +1291,6 @@ msgstr "Slovacă"
 
 msgid "Ukrainian"
 msgstr "ucraineană"
-
-msgid "Chinese (China)"
-msgstr "Chineză"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Ne pare rău, nu aveți permisiunea de a accesa această zonă."

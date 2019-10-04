@@ -261,7 +261,7 @@ docstrings for details of what each method does:
                 'thumbnail_url': "URL to thumbnail image",
                 'width': width_in_pixels,
                 'height': height_in_pixels,
-                'html': "<h2>The Embed HTML</h2>,
+                'html': "<h2>The Embed HTML</h2>",
             }
 
 Once you've implemented all of those methods, you just need to add it to your

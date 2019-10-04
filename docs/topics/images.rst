@@ -50,7 +50,7 @@ The available resizing methods are as follows:
         .. figure:: ../_static/images/image_filter_max.png
           :alt: Example of max filter on an image.
 
-          Exmple: The image will keep its proportions but fit within the max (green line) dimensions provided.
+          Example: The image will keep its proportions but fit within the max (green line) dimensions provided.
 
 
     ``min``
@@ -86,7 +86,16 @@ The available resizing methods are as follows:
 
             {% image page.photo height-480 %}
 
-        Resize the height of the image to the dimension specified.
+        Reduces the height of the image to the dimension specified.
+
+    ``scale``
+        (takes percentage)
+
+        .. code-block:: html+django
+
+            {% image page.photo scale-50 %}
+
+        Resize the image to the percentage specified.
 
     ``fill``
         (takes two dimensions and an optional ``-c`` parameter)
@@ -97,7 +106,7 @@ The available resizing methods are as follows:
 
         Resize and **crop** to fill the **exact** dimensions specified.
 
-        This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000 and height 1000 treated with the ``fill200x200`` rule would have its height reduced to 200, then its width (ordinarily 400) cropped to 200.
+        This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000 and height 1000 treated with the ``fill-200x200`` rule would have its height reduced to 200, then its width (ordinarily 400) cropped to 200.
 
         This resize-rule will crop to the image's focal point if it has been set. If not, it will crop to the centre of the image.
 

@@ -1,15 +1,19 @@
 from django.conf.urls import url
+from django.contrib.admin import site as default_django_admin_site
 from django.contrib.auth.models import Permission
+from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
 from django.utils.safestring import mark_safe
 
+from wagtail.admin.checks import check_panels_in_model
+from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.core import hooks
 from wagtail.core.models import Page
 
 from .helpers import (
-    AdminURLHelper, ButtonHelper, PageAdminURLHelper, PageButtonHelper, PagePermissionHelper,
-    PermissionHelper)
+    AdminURLHelper, ButtonHelper, DjangoORMSearchHandler, PageAdminURLHelper, PageButtonHelper,
+    PagePermissionHelper, PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
 from .mixins import ThumbnailMixin  # NOQA
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
@@ -92,6 +96,8 @@ class ModelAdmin(WagtailRegisterable):
     inspect_template_name = ''
     delete_template_name = ''
     choose_parent_template_name = ''
+    search_handler_class = DjangoORMSearchHandler
+    extra_search_kwargs = {}
     permission_helper_class = None
     url_helper_class = None
     button_helper_class = None
@@ -117,6 +123,10 @@ class ModelAdmin(WagtailRegisterable):
         self.permission_helper = self.get_permission_helper_class()(
             self.model, self.inspect_view_enabled)
         self.url_helper = self.get_url_helper_class()(self.model)
+
+        # Needed to support RelatedFieldListFilter in Django 2.2+
+        # See: https://github.com/wagtail/wagtail/issues/5105
+        self.admin_site = default_django_admin_site
 
     def get_permission_helper_class(self):
         """
@@ -230,6 +240,22 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.search_fields or ()
 
+    def get_search_handler(self, request, search_fields=None):
+        """
+        Returns an instance of ``self.search_handler_class`` that can be used by
+        ``IndexView``.
+        """
+        return self.search_handler_class(
+            search_fields or self.get_search_fields(request)
+        )
+
+    def get_extra_search_kwargs(self, request, search_term):
+        """
+        Returns a dictionary of additional kwargs to be sent to
+        ``SearchHandler.search_queryset()``.
+        """
+        return self.extra_search_kwargs
+
     def get_extra_attrs_for_row(self, obj, context):
         """
         Return a dictionary of HTML attributes to be added to the `<tr>`
@@ -297,8 +323,8 @@ class ModelAdmin(WagtailRegisterable):
             for f in self.model._meta.get_fields():
                 if f.name not in self.inspect_view_fields_exclude:
                     if f.concrete and (
-                        not f.is_relation or
-                        (not f.auto_created and f.related_model)
+                        not f.is_relation
+                        or (not f.auto_created and f.related_model)
                     ):
                         found_fields.append(f.name)
             return found_fields
@@ -350,7 +376,7 @@ class ModelAdmin(WagtailRegisterable):
     def edit_view(self, request, instance_pk):
         """
         Instantiates a class-based view to provide 'edit' functionality for the
-        assigned model, or redirect to Wagtail's edit view if the assinged
+        assigned model, or redirect to Wagtail's edit view if the assigned
         model extends 'Page'. The view class used can be overridden by changing
         the  'edit_view_class' attribute.
         """
@@ -362,13 +388,36 @@ class ModelAdmin(WagtailRegisterable):
         """
         Instantiates a class-based view to provide 'delete confirmation'
         functionality for the assigned model, or redirect to Wagtail's delete
-        confirmation view if the assinged model extends 'Page'. The view class
+        confirmation view if the assigned model extends 'Page'. The view class
         used can be overridden by changing the 'delete_view_class'
         attribute.
         """
         kwargs = {'model_admin': self, 'instance_pk': instance_pk}
         view_class = self.delete_view_class
         return view_class.as_view(**kwargs)(request)
+
+    def get_edit_handler(self, instance, request):
+        """
+        Returns the appropriate edit_handler for this modeladmin class.
+        edit_handlers can be defined either on the model itself or on the
+        modeladmin (as property edit_handler or panels). Falls back to
+        extracting panel / edit handler definitions from the model class.
+        """
+        if hasattr(self, 'edit_handler'):
+            edit_handler = self.edit_handler
+        elif hasattr(self, 'panels'):
+            panels = self.panels
+            edit_handler = ObjectList(panels)
+        elif hasattr(self.model, 'edit_handler'):
+            edit_handler = self.model.edit_handler
+        elif hasattr(self.model, 'panels'):
+            panels = self.model.panels
+            edit_handler = ObjectList(panels)
+        else:
+            fields_to_exclude = self.get_form_fields_exclude(request=request)
+            panels = extract_panel_definitions_from_model_class(self.model, exclude=fields_to_exclude)
+            edit_handler = ObjectList(panels)
+        return edit_handler
 
     def get_templates(self, action='index'):
         """
@@ -497,6 +546,14 @@ class ModelAdmin(WagtailRegisterable):
             queryset = queryset.not_type(self.model)
         return queryset
 
+    def register_with_wagtail(self):
+        super().register_with_wagtail()
+
+        @checks.register('panels')
+        def modeladmin_model_check(app_configs, **kwargs):
+            errors = check_panels_in_model(self.model, 'modeladmin')
+            return errors
+
 
 class ModelAdminGroup(WagtailRegisterable):
     """
@@ -583,6 +640,16 @@ class ModelAdminGroup(WagtailRegisterable):
             queryset = instance.modify_explorer_page_queryset(
                 parent_page, queryset, request)
         return queryset
+
+    def register_with_wagtail(self):
+        super().register_with_wagtail()
+
+        @checks.register('panels')
+        def modeladmin_model_check(app_configs, **kwargs):
+            errors = []
+            for modeladmin_class in self.items:
+                errors.extend(check_panels_in_model(modeladmin_class.model))
+            return errors
 
 
 def modeladmin_register(modeladmin_class):

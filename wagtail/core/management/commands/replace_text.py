@@ -7,8 +7,8 @@ from wagtail.core.models import PageRevision, get_page_models
 
 def replace_in_model(model, from_text, to_text):
     text_field_names = [field.name for field in model._meta.fields if (
-        isinstance(field, models.TextField) or
-        isinstance(field, models.CharField)
+        isinstance(field, models.TextField)
+        or isinstance(field, models.CharField)
     )
     ]
     updated_fields = []

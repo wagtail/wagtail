@@ -2,11 +2,12 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
-from wagtail.admin.utils import PermissionPolicyChecker
+from wagtail.admin.auth import PermissionPolicyChecker
+from wagtail.core.models import Collection
 from wagtail.search.backends import get_search_backends
 
 from ..forms import get_document_form, get_document_multi_form
@@ -25,7 +26,7 @@ def add(request):
 
     collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
     if len(collections) > 1:
-        collections_to_choose = collections
+        collections_to_choose = Collection.order_for_display(collections)
     else:
         # no need to show a collections chooser
         collections_to_choose = None
@@ -50,6 +51,12 @@ def add(request):
             doc = form.save(commit=False)
             doc.uploaded_by_user = request.user
             doc.file_size = doc.file.size
+
+            # Set new document file hash
+            doc.file.seek(0)
+            doc._set_file_hash(doc.file.read())
+            doc.file.seek(0)
+
             doc.save()
 
             # Success! Send back an edit form for this document to the user
@@ -69,15 +76,18 @@ def add(request):
                 'success': False,
 
                 # https://github.com/django/django/blob/stable/1.6.x/django/forms/util.py#L45
-                'error_message': '\n'.join(['\n'.join([force_text(i) for i in v]) for k, v in form.errors.items()]),
+                'error_message': '\n'.join(['\n'.join([force_str(i) for i in v]) for k, v in form.errors.items()]),
             })
     else:
+        # Instantiate a dummy copy of the form that we can retrieve validation messages and media from;
+        # actual rendering of forms will happen on AJAX POST rather than here
         form = DocumentForm(user=request.user)
 
-    return render(request, 'wagtaildocs/multiple/add.html', {
-        'help_text': form.fields['file'].help_text,
-        'collections': collections_to_choose,
-    })
+        return render(request, 'wagtaildocs/multiple/add.html', {
+            'help_text': form.fields['file'].help_text,
+            'collections': collections_to_choose,
+            'form_media': form.media,
+        })
 
 
 @require_POST

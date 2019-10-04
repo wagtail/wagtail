@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/skeleton.html" %}
-{% load i18n staticfiles wagtailadmin_tags %}
+{% load i18n static wagtailadmin_tags %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'wagtailadmin/css/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css' %}" />
@@ -27,29 +27,7 @@
                 EXTRA_CHILDREN_PARAMETERS: '',
             };
 
-            wagtailConfig.STRINGS = {
-                EDIT: "{% trans 'Edit' %}",
-                DELETE: "{% trans 'Delete' %}",
-                PAGE: "{% trans 'Page' %}",
-                PAGES: "{% trans 'Pages' %}",
-                LOADING: "{% trans 'Loading…' %}",
-                NO_RESULTS: "{% trans 'No results' %}",
-                SERVER_ERROR: "{% trans 'Server Error' %}",
-                SEE_CHILDREN: "{% trans 'See children' %}",
-                SEE_ALL: "{% trans 'See all' %}",
-                CLOSE_EXPLORER: "{% trans 'Close explorer' %}",
-                ALT_TEXT: "{% trans 'Alt text' %}",
-                WRITE_HERE: "{% trans 'Write here…' %}",
-                HORIZONTAL_LINE: "{% trans 'Horizontal line' %}",
-                LINE_BREAK: "{% trans 'Line break' %}",
-                UNDO: "{% trans 'Undo' %}",
-                REDO: "{% trans 'Redo' %}",
-                RELOAD_PAGE: "{% trans 'Reload the page' %}",
-                RELOAD_EDITOR: "{% trans 'Reload saved content' %}",
-                SHOW_LATEST_CONTENT: "{% trans 'Show latest content' %}",
-                SHOW_ERROR: "{% trans 'Show error' %}",
-                EDITOR_CRASH: "{% trans 'The editor just crashed. Content has been reset to the last saved version.' %}",
-            };
+            wagtailConfig.STRINGS = {% js_translation_strings %};
 
             wagtailConfig.ADMIN_URLS = {
                 PAGES: '{% url "wagtailadmin_explore_root" %}'

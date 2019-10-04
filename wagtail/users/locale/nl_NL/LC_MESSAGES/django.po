@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018
 # Kees Hink <keeshink@gmail.com>, 2017
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
+# Meteor 0id, 2018-2019
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 09:04+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -75,6 +77,12 @@ msgstr ""
 "Het is niet mogelijk om meerdere machtigingen voor dezelfde pagina in te "
 "stellen."
 
+msgid "Preferred language"
+msgstr "Voorkeurstaal"
+
+msgid "Current time zone"
+msgstr "Huidige tijd zone"
+
 msgid "Upload a profile picture"
 msgstr "Upload een profiel foto"
 
@@ -97,7 +105,7 @@ msgid "Receive notification when your page edit is rejected"
 msgstr "Ontvang notificaties wanneer uw paginawijziging is afgekeurd."
 
 msgid "preferred language"
-msgstr "Voorkeurstaal"
+msgstr "voorkeurstaal"
 
 msgid "Select language for the admin"
 msgstr "Selecteer de taal voor de admin"
@@ -113,6 +121,9 @@ msgstr "profiel foto"
 
 msgid "user profile"
 msgstr "gebruikersprofiel"
+
+msgid "user profiles"
+msgstr "gebruikersprofielen"
 
 msgid "Delete group"
 msgstr "Verwijder groep"
@@ -235,6 +246,9 @@ msgstr "Level"
 msgid "Status"
 msgstr "Status"
 
+msgid "Last Login"
+msgstr "Laaste login"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -245,9 +259,13 @@ msgid "Inactive"
 msgstr "Inactief"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s geleden"
+
+#, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -255,12 +273,12 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Er is één resultaat\n"
+"           Er is %(counter)s overeenkomst\n"
 "        "
 msgstr[1] ""
 "\n"
-"            Er zijn %(counter)s resultaten\n"
-"        "
+"           Er zijn %(counter)s overeenkomsten\n"
+"     "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -284,7 +302,7 @@ msgid "Group '{0}' created."
 msgstr "Groep '{0}' aangemaakt."
 
 msgid "Group '{0}' updated."
-msgstr "Groep '{0}' gewijzigd."
+msgstr "Groep '{0}' is gewijzigd."
 
 msgid "The group could not be saved due to errors."
 msgstr "De groep kon vanwege fouten niet worden opgeslagen."
@@ -304,12 +322,8 @@ msgstr "Wijzig"
 msgid "The user could not be created due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden aangemaakt."
 
-msgid ""
-"Your details have been updated. You've been logged out for security reasons, "
-"please login to continue."
-msgstr ""
-"Je details zijn opgeslagen. Je bent uitgelogd vanwege "
-"veiligheidsoverwegingen, log opnieuw in om verder te gaan."
+msgid "User '{0}' updated."
+msgstr "Gebruiker '{0}' is gewijzigd."
 
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."

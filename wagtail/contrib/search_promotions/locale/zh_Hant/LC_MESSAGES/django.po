@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-05 05:37+0000\n"
+"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail 進階搜索"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "請至少指定一條針對此搜索條件的建議。"
+
+msgid "page"
+msgstr "頁面"
+
+msgid "description"
+msgstr "描述"
+
+msgid "search promotion"
+msgstr "搜索推廣"
+
+msgid "Add search promotion"
+msgstr "增加搜索推廣"
+
+msgid "Add search pick"
+msgstr "增加搜索精選"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>推廣搜索結果是一種推薦原本不容易出現在搜索結果前列的特定頁"
+"面的一種方式。比如通過不太常見的詞條“<em>捐助</em>”來推薦你的重要的募款頁面給"
+"用戶。</p>\n"
+"            "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>下面的“搜索詞條(s)/語句”欄位必須包含完整且完全一致的你想要"
+"提供的推薦內容的搜索條目，<em>包括</em> 任何拼寫/用戶錯誤。你可以從你的網站上"
+"的用戶熱門詞條中進行挑選。</p>\n"
+"            "
+
+msgid "Save"
+msgstr "儲存"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "刪除%(query)s"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "確定刪除此搜索詞條下的所有推廣結果？"
+
+msgid "Yes, delete"
+msgstr "是，刪除"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "編輯%(query)s"
+
+msgid "Editing"
+msgstr "編輯"
+
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Promoted search result"
+msgstr "推廣搜索結果"
+
+msgid "Add recommended page"
+msgstr "增加推薦頁面"
+
+msgid "Search Terms"
+msgstr "檢索詞"
+
+msgid "Promoted search results"
+msgstr "推廣搜索結果"
+
+msgid "Add new promoted result"
+msgstr "新增推廣結果"
+
+msgid "Search term(s)"
+msgstr "搜索詞條(s)"
+
+msgid "Promoted results"
+msgstr "推廣結果"
+
+msgid "Views (past week)"
+msgstr "查看 (上周)"
+
+msgid "Edit this promotion"
+msgstr "編輯此推廣"
+
+msgid "None"
+msgstr "無"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "對不起，沒有符合\"<em>%(query_string)s</em>\"的推廣結果"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"還沒有創建過推廣結果。為何不<a href=\"%(wagtailsearchpromotions_add_url)s\">"
+"創建一個</a>？"
+
+msgid "Search promoted results"
+msgstr "搜索推廣結果"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "為'{0}'的編輯精選已被創建。"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "無法創建推薦，出現錯誤。"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "為'{0}'的編輯精選已被更新。"
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "無法儲存推薦，出現錯誤。"
+
+msgid "Editor's picks deleted."
+msgstr "編輯精選已被刪除。"

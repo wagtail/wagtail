@@ -1,0 +1,177 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jon Combe <jon@naremit.com>, 2019
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-28 15:44+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search promotions"
+msgstr "ค้าหาWagtail โปรโมชั่น"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "กรุณาเจาะจงอย่างน้อยข้อที่แนะนำสำหรับการค้นหานี้"
+
+msgid "page"
+msgstr "หน้า"
+
+msgid "description"
+msgstr "ลักษณะ"
+
+msgid "search promotion"
+msgstr "ค้าหาโปรโมชั่น"
+
+msgid "Add search promotion"
+msgstr "ค้าหาโปรโมชั่นเพิ่ม"
+
+msgid "Add search pick"
+msgstr "เพิ่มคำที่เราจะค้นหา"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+" <p>ผลการค้นหาโปรโมทเป็นวิธีที่สามารถแนะนำหน้าที่เฉพาะเจาะจงได้ที่ปกติหน้าที่เจาะจงอาจจะไม่แสดงผลในการค้นหา "
+"อย่างเช่น การแนะนำหน้าการบริจาคให้ผู้ใช้คนอื่นที่กำลังหาคำที่พบได้น้อย \"<em>กำลังให้</em>\".</"
+"p>\n"
+" "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+" <p>\"การค้นหาคำ(กลุ่มคำ)\" ช่องด้านล่างต้องกรอกให้เต็มและถูกต้อง ที่คุณอยากจะแนะนำผลนี้, "
+"<em>รวมไปถึง</em> คำที่สะกดผิด/ความผิดพลาดของผู้ใช้ เพื่อที่จะช่วย,"
+"คุณสามารถค้นหาคำที่นิยมกับผู้ใช้ในเว็บไซด์นี้.</p>\n"
+" "
+
+msgid "Save"
+msgstr "เซฟ,บันทึก"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "ลบ %(query)s"
+
+msgid "Delete"
+msgstr "ลบ"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "คุณแน่ใจว่าคุณต้องการจะลบผลของการค้าหาโปรโมชั่นทั้งหมดนี้?"
+
+msgid "Yes, delete"
+msgstr "ใช่,ลบทิ้ง"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "กำลังแก้ไข %(query)s"
+
+msgid "Editing"
+msgstr "แก้ไข"
+
+msgid "Move up"
+msgstr "เลื่อนขึ้น,ขยับขึ้น"
+
+msgid "Move down"
+msgstr "เลื่อนลง,ขยับลง"
+
+msgid "Promoted search result"
+msgstr "ผลการค้นหาที่โปรโมท"
+
+msgid "Add recommended page"
+msgstr "เพิ่มหน้าที่ได้แนะนำแล้ว"
+
+msgid "Search Terms"
+msgstr "คำที่ต้องการค้นหา"
+
+msgid "Promoted search results"
+msgstr "ผลการค้นหาที่โปรโมทแล้ว"
+
+msgid "Add new promoted result"
+msgstr "เพิ่มผลการโปรโมทอันใหม่"
+
+msgid "Search term(s)"
+msgstr "ค้นหาคำ(s)"
+
+msgid "Promoted results"
+msgstr "ผลที่โปรโมท"
+
+msgid "Views (past week)"
+msgstr "ดู(ของอาทิตย์ที่แล้ว)"
+
+msgid "Edit this promotion"
+msgstr "แก้ไขโปรโมชั่นนี้"
+
+msgid "None"
+msgstr "ไม่มี,ไม่"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+" มี %(counter)s ที่ตรงกัน\n"
+" "
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "ขออภัย,ไม่มีผลโปรโมทที่ตรงกัน \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"ไม่มีผลการโปรโมทถูกสร้างขึ้น ทำไมคุฯไม่ <a href=\"%(wagtailsearchpromotions_add_url)s"
+"\">เพิ่มสักหนึ่งอัน</a>?"
+
+msgid "Search promoted results"
+msgstr "หาผลที่โปรโมท"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "สิ่งที่โปรแกรมการจัดการข้อมูล'{0}'ถูกสร้างขึ้นแล้ว"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "คำแนะนำไม่สามารถถูกสร้างขึ้นได้ในขณะที่มีข้อผิดพลาด"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "สิ่งที่โปรแกรมการจัดการข้อมูลเลือกสำหรับ'{0}'ถูกอัพเดทแล้ว"
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "คำแนะนำไม่สามารถถูกเซฟในขณะที่มีข้อผิดพลาด"
+
+msgid "Editor's picks deleted."
+msgstr "สิ่งที่โปรแกรมการจัดการข้อมูลเลือกถูกลบทิ้งแล้ว"

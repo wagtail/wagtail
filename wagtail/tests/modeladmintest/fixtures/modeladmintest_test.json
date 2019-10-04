@@ -32,6 +32,14 @@
     }
 },
 {
+    "pk": 5,
+    "model": "modeladmintest.author",
+    "fields": {
+        "name": "Harper Lee",
+        "date_of_birth": "1926-04-28"
+    }
+},
+{
     "pk": 1,
     "model": "modeladmintest.book",
     "fields": {
@@ -61,6 +69,14 @@
     "fields": {
         "title": "The Chronicles of Narnia",
         "author_id": 3
+    }
+},
+{
+    "pk": 4,
+    "model": "modeladmintest.solobook",
+    "fields": {
+        "title": "To Kill a Mockingbird",
+        "author_id": 5
     }
 },
 {

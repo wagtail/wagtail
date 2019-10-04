@@ -1,6 +1,5 @@
 import copy
 import json
-import warnings
 from collections import OrderedDict
 from urllib.parse import urlparse
 
@@ -16,7 +15,6 @@ from wagtail.search.backends.base import (
 from wagtail.search.index import (
     AutocompleteField, FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
-from wagtail.utils.deprecation import RemovedInWagtail22Warning
 from wagtail.utils.utils import deep_update
 
 
@@ -68,7 +66,6 @@ class Elasticsearch2Mapping:
         'IPAddressField': 'string',
         'GenericIPAddressField': 'string',
         'NullBooleanField': 'boolean',
-        'OneToOneField': 'integer',
         'PositiveIntegerField': 'integer',
         'PositiveSmallIntegerField': 'integer',
         'SlugField': 'string',
@@ -264,6 +261,8 @@ class Elasticsearch2Mapping:
                     value = list(value.values_list('pk', flat=True))
                 elif isinstance(value, models.Model):
                     value = value.pk
+                elif isinstance(value, (list, tuple)):
+                    value = [item.pk if isinstance(item, models.Model) else item for item in value]
 
             doc[self.get_field_column_name(field)] = value
 
@@ -431,7 +430,7 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 'bool': {
                     'must': [
                         self._compile_query(child_query, field, boost)
-                        for child_query in query.get_children()
+                        for child_query in query.subqueries
                     ]
                 }
             }
@@ -441,7 +440,7 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 'bool': {
                     'should': [
                         self._compile_query(child_query, field, boost)
-                        for child_query in query.get_children()
+                        for child_query in query.subqueries
                     ]
                 }
             }
@@ -626,8 +625,8 @@ class Elasticsearch2SearchResults(BaseSearchResults):
         field = self.query_compiler._get_filterable_field(field_name)
         if field is None:
             raise FilterFieldError(
-                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
-                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\''
+                + field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
                 field_name=field_name
             )
 
@@ -639,6 +638,7 @@ class Elasticsearch2SearchResults(BaseSearchResults):
             field_name: {
                 'terms': {
                     'field': column_name,
+                    'missing': 0,
                 }
             }
         }
@@ -651,7 +651,7 @@ class Elasticsearch2SearchResults(BaseSearchResults):
         )
 
         return OrderedDict([
-            (bucket['key'], bucket['doc_count'])
+            (bucket['key'] if bucket['key'] != 0 else None, bucket['doc_count'])
             for bucket in response['aggregations'][field_name]['buckets']
         ])
 
@@ -1097,51 +1097,6 @@ class Elasticsearch2SearchBackend(BaseSearchBackend):
     def reset_index(self):
         # Use the rebuilder to reset the index
         self.get_rebuilder().reset_index()
-
-    def add_type(self, model):
-        warnings.warn(
-            "The `backend.add_type(model)` method is deprecated. "
-            "Please use `backend.get_index_for_model(model).add_model(model)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(model).add_model(model)
-
-    def refresh_index(self):
-        warnings.warn(
-            "The `backend.refresh_index()` method is deprecated. "
-            "Please use `backend.get_index_for_model(model).refresh()` for each model instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index().refresh()
-
-    def add(self, obj):
-        warnings.warn(
-            "The `backend.add(obj)` method is deprecated. "
-            "Please use `backend.get_index_for_model(type(obj)).add_item(obj)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(type(obj)).add_item(obj)
-
-    def add_bulk(self, model, obj_list):
-        warnings.warn(
-            "The `backend.add_bulk(model, obj_list)` method is deprecated. "
-            "Please use `self.get_index_for_model(model).add_items(model, obj_list)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(model).add_items(model, obj_list)
-
-    def delete(self, obj):
-        warnings.warn(
-            "The `backend.delete(obj)` method is deprecated. "
-            "Please use `backend.get_index_for_model(type(obj)).delete_item(obj)` instead.",
-            category=RemovedInWagtail22Warning
-        )
-
-        self.get_index_for_model(type(obj)).delete_item(obj)
 
 
 SearchBackend = Elasticsearch2SearchBackend

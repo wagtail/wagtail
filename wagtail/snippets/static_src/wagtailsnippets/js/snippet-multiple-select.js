@@ -19,13 +19,13 @@ var updateDeleteButton = function(anySelected, newState) {
     });
     if (anySelected) {
         // enable button and add url
-        $deleteButton.removeClass('disabled');
+        $deleteButton.removeClass('visuallyhidden');
         var url = $deleteButton.data('url');
         url = url + $.param({id: ids}, true);
         $deleteButton.attr('href', url);
     } else {
         // disable button and remove url
-        $deleteButton.addClass('disabled');
+        $deleteButton.addClass('visuallyhidden');
         $deleteButton.attr('href', null);
     }
 };

@@ -2,7 +2,8 @@ from django import template
 from django.core.cache import cache
 from django.http import HttpRequest
 from django.test import TestCase
-from django.utils.safestring import SafeText
+from django.urls.exceptions import NoReverseMatch
+from django.utils.safestring import SafeString
 
 from wagtail.core.models import Page, Site
 from wagtail.core.templatetags.wagtailcore_tags import richtext, slugurl
@@ -18,6 +19,16 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response,
                             '<a href="/events/christmas/">Christmas</a>')
+
+    def test_pageurl_fallback(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page fallback='fallback' %}">Fallback</a>''')
+        result = tpl.render(template.Context({'page': None}))
+        self.assertIn('<a href="/fallback/">Fallback</a>', result)
+
+    def test_pageurl_fallback_without_valid_fallback(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page fallback='not-existing-endpoint' %}">Fallback</a>''')
+        with self.assertRaises(NoReverseMatch):
+            tpl.render(template.Context({'page': None}))
 
     def test_slugurl_tag(self):
         response = self.client.get('/events/christmas/')
@@ -35,6 +46,16 @@ class TestPageUrlTags(TestCase):
 
         # 'request' object in context, but no 'site' attribute
         result = tpl.render(template.Context({'page': page, 'request': HttpRequest()}))
+        self.assertIn('<a href="/events/">Events</a>', result)
+
+    def test_pageurl_with_null_site_in_request(self):
+        page = Page.objects.get(url_path='/home/events/')
+        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>''')
+
+        # 'request' object in context, but site is None
+        request = HttpRequest()
+        request.site = None
+        result = tpl.render(template.Context({'page': page, 'request': request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
     def test_bad_pageurl(self):
@@ -83,6 +104,13 @@ class TestPageUrlTags(TestCase):
 
         # 'request' object in context, but no 'site' attribute
         result = slugurl(template.Context({'request': HttpRequest()}), 'events')
+        self.assertEqual(result, '/events/')
+
+    def test_slugurl_with_null_site_in_request(self):
+        # 'request' object in context, but site is None
+        request = HttpRequest()
+        request.site = None
+        result = slugurl(template.Context({'request': request}), 'events')
         self.assertEqual(result, '/events/')
 
 
@@ -256,8 +284,16 @@ class TestRichtextTag(TestCase):
     def test_call_with_text(self):
         result = richtext("Hello world!")
         self.assertEqual(result, '<div class="rich-text">Hello world!</div>')
-        self.assertIsInstance(result, SafeText)
+        self.assertIsInstance(result, SafeString)
 
     def test_call_with_none(self):
         result = richtext(None)
         self.assertEqual(result, '<div class="rich-text"></div>')
+
+    def test_call_with_invalid_value(self):
+        with self.assertRaisesRegex(TypeError, "'richtext' template filter received an invalid value"):
+            richtext(42)
+
+    def test_call_with_bytes(self):
+        with self.assertRaisesRegex(TypeError, "'richtext' template filter received an invalid value"):
+            richtext(b"Hello world!")

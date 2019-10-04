@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jon Combe <jon@naremit.com>, 2019
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-10 07:53+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail embeds"
+msgstr "ต้องการใส่ข้อมูลเพิ่มของ Wagtail"
+
+msgid "Cannot find an embed for this URL."
+msgstr "ไม่พบข้อมูลที่เราลิงค์ใน URL นี้"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Please enter a valid URL"
+msgstr "กรุณาเอ็นเทอร์ URL ที่ถูกต้อง"
+
+msgid "embed"
+msgstr "วางลิงค์"
+
+msgid "embeds"
+msgstr "วางหลายๆลิงค์"
+
+msgid "Insert embed"
+msgstr "ใส่ลิงค์"
+
+msgid "Insert"
+msgstr "ใส่,เสียบ"
+
+msgid ""
+"There seems to be a problem with your embedly API key. Please check your "
+"settings."
+msgstr "มีปัญหากับการใส่ลิงค์API กรุณาเช็คการติดตั้งของคุณ"
+
+msgid ""
+"There seems to be an error with Embedly while trying to embed this URL. "
+"Please try again later."
+msgstr ""
+"มีข้อผิดพลาดเกี่ยวกับการใส่ลิงค์ ในขณะที่กำลังพยายามใส่ลิงค์ใน URL นี้ กรุณาลองทำใหม่อีกคร้ง"
+
+msgid "Embed"
+msgstr "วางลิงค์"

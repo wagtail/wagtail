@@ -32,6 +32,16 @@ class TestCollectionsIndexView(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "No collections have been created.")
         self.assertContains(response, "Holiday snaps")
 
+    def test_ordering(self):
+        root_collection = Collection.get_first_root_node()
+        root_collection.add_child(name="Milk")
+        root_collection.add_child(name="Bread")
+        root_collection.add_child(name="Avacado")
+        response = self.get()
+        self.assertEqual(
+            [collection.name for collection in response.context['object_list']],
+            ['Avacado', 'Bread', 'Milk'])
+
 
 class TestAddCollection(TestCase, WagtailTestUtils):
     def setUp(self):

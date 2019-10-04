@@ -4,7 +4,7 @@ from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
 
-from wagtail.search.index import class_is_indexed
+from wagtail.search.index import class_is_indexed, get_indexed_models
 from wagtail.search.query import MATCH_ALL, PlainText
 
 
@@ -68,8 +68,8 @@ class BaseSearchQueryCompiler:
 
         if field is None:
             raise FilterFieldError(
-                'Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\'' +
-                field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
+                'Cannot filter search results with field "' + field_attname + '". Please add index.FilterField(\''
+                + field_attname + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
                 field_name=field_attname
             )
 
@@ -79,8 +79,8 @@ class BaseSearchQueryCompiler:
 
         if result is None:
             raise FilterError(
-                'Could not apply filter on search results: "' + field_attname + '__' +
-                lookup + ' = ' + str(value) + '". Lookup "' + lookup + '"" not recognised.'
+                'Could not apply filter on search results: "' + field_attname + '__'
+                + lookup + ' = ' + str(value) + '". Lookup "' + lookup + '"" not recognised.'
             )
 
         return result
@@ -132,8 +132,8 @@ class BaseSearchQueryCompiler:
 
             if field is None:
                 raise OrderByFieldError(
-                    'Cannot sort search results with field "' + field_name + '". Please add index.FilterField(\'' +
-                    field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
+                    'Cannot sort search results with field "' + field_name + '". Please add index.FilterField(\''
+                    + field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
                     field_name=field_name
                 )
 
@@ -147,8 +147,8 @@ class BaseSearchQueryCompiler:
             for field_name in self.fields:
                 if field_name not in allowed_fields:
                     raise SearchFieldError(
-                        'Cannot search with field "' + field_name + '". Please add index.SearchField(\'' +
-                        field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
+                        'Cannot search with field "' + field_name + '". Please add index.SearchField(\''
+                        + field_name + '\') to ' + self.queryset.model.__name__ + '.search_fields.',
                         field_name=field_name
                     )
 
@@ -260,7 +260,7 @@ class BaseSearchResults:
 
 class EmptySearchResults(BaseSearchResults):
     def __init__(self):
-        return super().__init__(None, None)
+        super().__init__(None, None)
 
     def _clone(self):
         return self.__class__()
@@ -270,6 +270,28 @@ class EmptySearchResults(BaseSearchResults):
 
     def _do_count(self):
         return 0
+
+
+class NullIndex:
+    """
+    Index class that provides do-nothing implementations of the indexing operations required by
+    BaseSearchBackend. Use this for search backends that do not maintain an index, such as the
+    database backend.
+    """
+    def add_model(self, model):
+        pass
+
+    def refresh(self):
+        pass
+
+    def add_item(self, item):
+        pass
+
+    def add_items(self, model, items):
+        pass
+
+    def delete_item(self, item):
+        pass
 
 
 class BaseSearchBackend:
@@ -282,7 +304,7 @@ class BaseSearchBackend:
         pass
 
     def get_index_for_model(self, model):
-        return None
+        return NullIndex()
 
     def get_rebuilder(self):
         return None
@@ -291,19 +313,24 @@ class BaseSearchBackend:
         raise NotImplementedError
 
     def add_type(self, model):
-        raise NotImplementedError
+        self.get_index_for_model(model).add_model(model)
 
     def refresh_index(self):
-        raise NotImplementedError
+        refreshed_indexes = []
+        for model in get_indexed_models:
+            index = self.get_index_for_model(model)
+            if index not in refreshed_indexes:
+                index.refresh()
+                refreshed_indexes.append(index)
 
     def add(self, obj):
-        raise NotImplementedError
+        self.get_index_for_model(type(obj)).add_item(obj)
 
     def add_bulk(self, model, obj_list):
-        raise NotImplementedError
+        self.get_index_for_model(model).add_items(model, obj_list)
 
     def delete(self, obj):
-        raise NotImplementedError
+        self.get_index_for_model(type(obj)).delete_item(obj)
 
     def _search(self, query_compiler_class, query, model_or_queryset, **kwargs):
         # Find model/queryset
@@ -323,7 +350,6 @@ class BaseSearchBackend:
             return EmptySearchResults()
 
         # Search
-        query_compiler_class = query_compiler_class
         search_query = query_compiler_class(
             queryset, query, **kwargs
         )

@@ -5,26 +5,25 @@ from django.utils.translation import ugettext
 from draftjs_exporter.dom import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail.admin.auth import user_has_any_page_permission
+from wagtail.admin.locale import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
     HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin)
 from wagtail.admin.rich_text.converters.contentstate import link_entity
-from wagtail.admin.rich_text.converters.editor_html import LinkTypeRule, WhitelistRule
+from wagtail.admin.rich_text.converters.editor_html import (
+    LinkTypeRule, PageLinkHandler, WhitelistRule)
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
-from wagtail.admin.utils import (
-    get_available_admin_languages, get_available_admin_time_zones,
-    user_has_any_page_permission)
-from wagtail.admin.views.account import password_management_enabled
+from wagtail.admin.views.account import email_management_enabled, password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.core.permissions import collection_permission_policy
-from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
@@ -103,21 +102,24 @@ def page_listing_buttons(page, page_perms, is_parent=False):
         yield PageListingButton(
             _('Edit'),
             reverse('wagtailadmin_pages:edit', args=[page.id]),
-            attrs={'title': _("Edit '{title}'").format(title=page.get_admin_display_title())},
+            attrs={'aria-label': _("Edit '{title}'").format(title=page.get_admin_display_title())},
             priority=10
         )
     if page.has_unpublished_changes:
         yield PageListingButton(
             _('View draft'),
             reverse('wagtailadmin_pages:view_draft', args=[page.id]),
-            attrs={'title': _("Preview draft version of '{title}'").format(title=page.get_admin_display_title()), 'target': '_blank'},
+            attrs={'aria-label': _("Preview draft version of '{title}'").format(title=page.get_admin_display_title()), 'target': '_blank', 'rel': 'noopener noreferrer'},
             priority=20
         )
     if page.live and page.url:
         yield PageListingButton(
             _('View live'),
             page.url,
-            attrs={'target': "_blank", 'title': _("View live version of '{title}'").format(title=page.get_admin_display_title())},
+            attrs={
+                'target': "_blank", 'rel': 'noopener noreferrer',
+                'aria-label': _("View live version of '{title}'").format(title=page.get_admin_display_title()),
+            },
             priority=30
         )
     if page_perms.can_add_subpage():
@@ -125,7 +127,9 @@ def page_listing_buttons(page, page_perms, is_parent=False):
             yield Button(
                 _('Add child page'),
                 reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
-                attrs={'title': _("Add a child page to '{title}' ").format(title=page.get_admin_display_title())},
+                attrs={
+                    'aria-label': _("Add a child page to '{title}' ").format(title=page.get_admin_display_title()),
+                },
                 classes={'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'},
                 priority=40
             )
@@ -133,7 +137,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
             yield PageListingButton(
                 _('Add child page'),
                 reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
-                attrs={'title': _("Add a child page to '{title}' ").format(title=page.get_admin_display_title())},
+                attrs={'aria-label': _("Add a child page to '{title}' ").format(title=page.get_admin_display_title())},
                 priority=40
             )
 
@@ -143,7 +147,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
         page=page,
         page_perms=page_perms,
         is_parent=is_parent,
-        attrs={'target': '_blank', 'title': _("View more options for '{title}'").format(title=page.get_admin_display_title())},
+        attrs={'target': '_blank', 'rel': 'noopener noreferrer', 'title': _("View more options for '{title}'").format(title=page.get_admin_display_title())},
         priority=50
     )
 
@@ -198,17 +202,18 @@ def register_account_set_profile_picture(request):
     return {
         'url': reverse('wagtailadmin_account_change_avatar'),
         'label': _('Set profile picture'),
-        'help_text': _("Change your profile picture")
+        'help_text': _("Change your profile picture.")
     }
 
 
 @hooks.register('register_account_menu_item')
 def register_account_change_email(request):
-    return {
-        'url': reverse('wagtailadmin_account_change_email'),
-        'label': _('Change email'),
-        'help_text': _('Change the email address linked to your account.'),
-    }
+    if email_management_enabled():
+        return {
+            'url': reverse('wagtailadmin_account_change_email'),
+            'label': _('Change email'),
+            'help_text': _('Change the email address linked to your account.'),
+        }
 
 
 @hooks.register('register_account_menu_item')
@@ -250,6 +255,15 @@ def register_account_current_time_zone(request):
             'label': _('Current Time Zone'),
             'help_text': _('Choose your current time zone.'),
         }
+
+
+@hooks.register('register_account_menu_item')
+def register_account_change_name(request):
+    return {
+        'url': reverse('wagtailadmin_account_change_name'),
+        'label': _('Change name'),
+        'help_text': _('Change your first and last name on your account.'),
+    }
 
 
 @hooks.register('register_rich_text_features')
@@ -459,6 +473,21 @@ def register_core_features(features):
             'block_map': {'ordered-list-item': {'element': 'li', 'wrapper': 'ol'}}
         }
     })
+    features.register_editor_plugin(
+        'draftail', 'blockquote', draftail_features.BlockFeature({
+            'type': 'blockquote',
+            'icon': 'openquote',
+            'description': ugettext('Blockquote'),
+        })
+    )
+    features.register_converter_rule('contentstate', 'blockquote', {
+        'from_database_format': {
+            'blockquote': BlockElementHandler('blockquote'),
+        },
+        'to_database_format': {
+            'block_map': {'blockquote': 'blockquote'}
+        }
+    })
 
     features.register_editor_plugin(
         'draftail', 'bold', draftail_features.InlineStyleFeature({
@@ -516,5 +545,65 @@ def register_core_features(features):
         },
         'to_database_format': {
             'entity_decorators': {'LINK': link_entity}
+        }
+    })
+    features.register_editor_plugin(
+        'draftail', 'superscript', draftail_features.InlineStyleFeature({
+            'type': 'SUPERSCRIPT',
+            'icon': 'superscript',
+            'description': ugettext('Superscript'),
+        })
+    )
+    features.register_converter_rule('contentstate', 'superscript', {
+        'from_database_format': {
+            'sup': InlineStyleElementHandler('SUPERSCRIPT'),
+        },
+        'to_database_format': {
+            'style_map': {'SUPERSCRIPT': 'sup'}
+        }
+    })
+    features.register_editor_plugin(
+        'draftail', 'subscript', draftail_features.InlineStyleFeature({
+            'type': 'SUBSCRIPT',
+            'icon': 'subscript',
+            'description': ugettext('Subscript'),
+        })
+    )
+    features.register_converter_rule('contentstate', 'subscript', {
+        'from_database_format': {
+            'sub': InlineStyleElementHandler('SUBSCRIPT'),
+        },
+        'to_database_format': {
+            'style_map': {'SUBSCRIPT': 'sub'}
+        }
+    })
+    features.register_editor_plugin(
+        'draftail', 'strikethrough', draftail_features.InlineStyleFeature({
+            'type': 'STRIKETHROUGH',
+            'icon': 'strikethrough',
+            'description': ugettext('Strikethrough'),
+        })
+    )
+    features.register_converter_rule('contentstate', 'strikethrough', {
+        'from_database_format': {
+            's': InlineStyleElementHandler('STRIKETHROUGH'),
+        },
+        'to_database_format': {
+            'style_map': {'STRIKETHROUGH': 's'}
+        }
+    })
+    features.register_editor_plugin(
+        'draftail', 'code', draftail_features.InlineStyleFeature({
+            'type': 'CODE',
+            'icon': 'code',
+            'description': ugettext('Code'),
+        })
+    )
+    features.register_converter_rule('contentstate', 'code', {
+        'from_database_format': {
+            'code': InlineStyleElementHandler('CODE'),
+        },
+        'to_database_format': {
+            'style_map': {'CODE': 'code'}
         }
     })

@@ -1,5 +1,5 @@
 {% load i18n %}
-<li id="inline_child_{{ child.form.prefix }}">
+<li data-inline-panel-child id="inline_child_{{ child.form.prefix }}">
     <ul class="controls">
         {% if can_order %}
             <li><button type="button" class="button icon text-replace white icon-order-up inline-child-move-up" id="{{ child.form.prefix }}-move-up" title="{% trans 'Move up' %}">{% trans "Move up" %}</button></li>

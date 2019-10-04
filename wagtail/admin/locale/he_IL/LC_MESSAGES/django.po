@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Adi Ron <adi@bnop.co>, 2019
 # bjesus <bjesus@gmail.com>, 2015
 # lior abazon <abazon@v15.org.il>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -20,6 +21,21 @@ msgstr ""
 "Language: he_IL\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
 "1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+
+msgid "Submit for moderation"
+msgstr "שלח לעריכה"
+
+msgid "Unpublish"
+msgstr "ביטול פרסום"
+
+msgid "Delete"
+msgstr "מחק"
+
+msgid "Wagtail admin"
+msgstr "ממשק הניהול של Wagtail"
+
+msgid "You do not have permission to access the admin"
+msgstr "אין לך הרשאות גישה לממשק הניהול"
 
 msgid "Scheduled publishing"
 msgstr "פרסום מתוזמן"
@@ -36,12 +52,6 @@ msgstr "קידום"
 msgid "Settings"
 msgstr "הגדרות"
 
-msgid "Search"
-msgstr "חיפוש"
-
-msgid "Search term"
-msgstr "ערך לחיפוש"
-
 msgid "Enter password"
 msgstr "הזינו סיסמה"
 
@@ -51,6 +61,9 @@ msgstr "הזינו את ה%s שלכם"
 
 msgid "Enter your email address to reset your password"
 msgstr "הזינו את כתובת הדוא\"ל שלכם כדי לאתחל את הסיסמה"
+
+msgid "URL"
+msgstr "כתובת "
 
 msgid "New title"
 msgstr "כותרת חדשה"
@@ -108,9 +121,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "הכתובת שבחרת כבר בשימוש בתוך הקונטקסט של עמוד ההורה \"%s\""
 
-msgid "This field is required."
-msgstr "שדה חובה"
-
 msgid "This slug is already in use"
 msgstr "שדה זה כבר בשימוש"
 
@@ -119,6 +129,15 @@ msgstr "זמן פרסום חייב להיות לפני זמן תפוגת תוק�
 
 msgid "Expiry date/time must be in the future"
 msgstr "זמן תפוגה חייב להיות בעתיד"
+
+msgid "Search"
+msgstr "חיפוש"
+
+msgid "Search term"
+msgstr "ערך לחיפוש"
+
+msgid "This field is required."
+msgstr "שדה חובה"
 
 msgid "Account"
 msgstr "חשבון"
@@ -157,11 +176,62 @@ msgstr "איתחול סיסמה"
 msgid "Reset your password"
 msgstr "אתחלו את סיסמתכם"
 
-msgid "Edit"
-msgstr "עריכה"
+msgid "January"
+msgstr "ינואר"
 
-msgid "Delete"
-msgstr "מחיקה"
+msgid "February"
+msgstr "פברואר"
+
+msgid "March"
+msgstr "מרץ"
+
+msgid "April"
+msgstr "אפריל"
+
+msgid "May"
+msgstr "מאי"
+
+msgid "June"
+msgstr "יוני"
+
+msgid "July"
+msgstr "יולי"
+
+msgid "August"
+msgstr "אוגוסט"
+
+msgid "September"
+msgstr "ספטמבר"
+
+msgid "October"
+msgstr "אוקטובר"
+
+msgid "November"
+msgstr "נובמבר"
+
+msgid "December"
+msgstr "דצמבר"
+
+msgid "Sun"
+msgstr "ראשון"
+
+msgid "Mon"
+msgstr "שני"
+
+msgid "Tue"
+msgstr "שלישי"
+
+msgid "Wed"
+msgstr "רביעי"
+
+msgid "Thu"
+msgstr "חמישי"
+
+msgid "Fri"
+msgstr "שישי"
+
+msgid "Sat"
+msgstr "שבת"
 
 msgid "Dashboard"
 msgstr "לוח מחוונים"
@@ -190,28 +260,6 @@ msgstr "קישור חיצוני"
 msgid "Email link"
 msgstr "קישור דואר אלקטרוני"
 
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"יש תוצאה אחת"
-msgstr[1] ""
-"\n"
-"יש %(counter)s תוצאות"
-msgstr[2] ""
-"\n"
-"יש %(counter)s תוצאות"
-msgstr[3] ""
-"\n"
-"יש %(counter)s תוצאות"
-
 msgid "Choose"
 msgstr "בחרו"
 
@@ -230,6 +278,9 @@ msgstr "הוסיפו קישור חיצוני"
 msgid "You can edit the privacy settings on:"
 msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
 
+msgid "Save"
+msgstr "שמור"
+
 msgid "Privacy"
 msgstr "פרטיות"
 
@@ -238,6 +289,16 @@ msgstr "ציבורי"
 
 msgid "Private"
 msgstr "פרטי"
+
+msgid "Name"
+msgstr "שם"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "הוסף %(label)s "
+
+msgid "Yes, delete"
+msgstr "כן, מחק"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -272,6 +333,9 @@ msgstr "אשרו"
 msgid "Reject"
 msgstr "דחו"
 
+msgid "Edit"
+msgstr "עריכה"
+
 msgid "Preview"
 msgstr "תצוגה מקדימה"
 
@@ -293,28 +357,6 @@ msgstr "חי"
 msgid "Site summary"
 msgstr "סיכום אתר"
 
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"עמוד <span>%(total)s</span>"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> עמודים"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> עמודים"
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span> עמודים"
-
 msgid "Sign in"
 msgstr "התחברות "
 
@@ -327,6 +369,9 @@ msgstr "התחברות לWagtail"
 
 msgid "Forgotten it?"
 msgstr "שכחתם את זה?"
+
+msgid "Signing in…"
+msgstr "מתחבר..."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -377,6 +422,12 @@ msgstr "נעול"
 
 msgid "Unlocked"
 msgstr "בלתי נעול"
+
+msgid "Publishing…"
+msgstr "מפרסם..."
+
+msgid "Publish"
+msgstr "פרסם"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -446,9 +497,6 @@ msgstr "כן, העבר את העמוד"
 msgid "Unpublish %(title)s"
 msgstr "הסתר את %(title)s"
 
-msgid "Unpublish"
-msgstr "ביטול פרסום"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "בטוחים כי תרצו לבטל את פרסום העמוד?"
 
@@ -477,12 +525,6 @@ msgstr "חדש "
 
 msgid "Save draft"
 msgstr "שמור טיוטה"
-
-msgid "Publish"
-msgstr "פרסם"
-
-msgid "Submit for moderation"
-msgstr "הזן לעריכה"
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
@@ -546,9 +588,6 @@ msgstr "עמוד זה מוגן מתצוגה פומבית"
 msgid "Disable ordering of child pages"
 msgstr "כיבוי סידור של תתי-עמודים"
 
-msgid "Order"
-msgstr "פקוד"
-
 msgid "Enable ordering of child pages"
 msgstr "הפעלת סידור של תתי-עמודים"
 
@@ -570,75 +609,18 @@ msgstr "הכנס מונח לחיפוש"
 msgid "No pages use"
 msgstr "אף עמוד בשימוש"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
+
 msgid "Home"
 msgstr "לעמוד הבית "
-
-msgid "January"
-msgstr "ינואר"
-
-msgid "February"
-msgstr "פברואר"
-
-msgid "March"
-msgstr "מרץ"
-
-msgid "April"
-msgstr "אפריל"
-
-msgid "May"
-msgstr "מאי"
-
-msgid "June"
-msgstr "יוני"
-
-msgid "July"
-msgstr "יולי"
-
-msgid "August"
-msgstr "אוגוסט"
-
-msgid "September"
-msgstr "ספטמבר"
-
-msgid "October"
-msgstr "אוקטובר"
-
-msgid "November"
-msgstr "נובמבר"
-
-msgid "December"
-msgstr "דצמבר"
-
-msgid "Sun"
-msgstr "ראשון"
-
-msgid "Mon"
-msgstr "שני"
-
-msgid "Tue"
-msgstr "שלישי"
-
-msgid "Wed"
-msgstr "רביעי"
-
-msgid "Thu"
-msgstr "חמישי"
-
-msgid "Fri"
-msgstr "שישי"
-
-msgid "Sat"
-msgstr "שבת"
 
 msgid "Edit your account"
 msgstr "ערכו את חשבונכם"
 
 msgid "Log out"
 msgstr "התנתקות"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
 
 msgid "Other searches"
 msgstr "חיפושים אחרים"

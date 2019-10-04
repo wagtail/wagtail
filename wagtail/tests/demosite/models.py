@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.core.paginator import Paginator
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -13,7 +14,6 @@ from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
-from wagtail.utils.pagination import paginate
 
 
 # ABSTRACT MODELS
@@ -351,7 +351,8 @@ class BlogIndexPage(Page):
         if tag:
             entries = entries.filter(tags__name=tag)
 
-        paginator, entries = paginate(request, entries, page_key='page', per_page=10)
+        paginator = Paginator(entries, per_page=10)
+        entries = paginator.get_page(request.GET.get('page'))
 
         # Update template context
         context = super().get_context(request)

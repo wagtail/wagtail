@@ -26,7 +26,6 @@ class DummyExternalStorage(Storage):
         # File object
         return DummyExternalStorageFile(open(self.wrapped.path(name), mode))
 
-
     # Wrap all other functions
 
     def _save(self, name, content):

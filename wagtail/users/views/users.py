@@ -1,5 +1,6 @@
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -7,14 +8,13 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm
-from wagtail.admin.utils import any_permission_required, permission_denied, permission_required
+from wagtail.admin.auth import any_permission_required, permission_denied, permission_required
+from wagtail.admin.forms.search import SearchForm
 from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
 from wagtail.utils.loading import get_custom_form
-from wagtail.utils.pagination import paginate
 
 User = get_user_model()
 
@@ -88,7 +88,8 @@ def index(request):
     else:
         ordering = 'name'
 
-    paginator, users = paginate(request, users)
+    paginator = Paginator(users, per_page=20)
+    users = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():
         return render(request, "wagtailusers/users/results.html", {
@@ -149,8 +150,14 @@ def edit(request, user_id):
         form = get_user_edit_form()(request.POST, request.FILES, instance=user, editing_self=editing_self)
         if form.is_valid():
             user = form.save()
-            messages.success(request, _("Your details have been updated. You've been logged out for security reasons, "
-                                        "please login to continue."))
+
+            if user == request.user and 'password1' in form.changed_data:
+                # User is changing their own password; need to update their session hash
+                update_session_auth_hash(request, user)
+
+            messages.success(request, _("User '{0}' updated.").format(user), buttons=[
+                messages.button(reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit'))
+            ])
             for fn in hooks.get_hooks('after_edit_user'):
                 result = fn(request, user)
                 if hasattr(result, 'status_code'):

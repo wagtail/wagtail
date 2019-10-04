@@ -1,0 +1,285 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Yeh Yen-Ke <yyken@outlook.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail 文件"
+
+msgid "Add"
+msgstr "新增"
+
+msgid "Add/edit documents you own"
+msgstr "新增/編輯所屬的文件"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Edit any document"
+msgstr "編輯任意文件"
+
+msgid "title"
+msgstr "標題"
+
+msgid "file"
+msgstr "文件"
+
+msgid "created at"
+msgstr "創建於"
+
+msgid "uploaded by user"
+msgstr "使用者上傳"
+
+msgid "tags"
+msgstr "標簽"
+
+msgid "document"
+msgstr "文件"
+
+msgid "documents"
+msgstr "文件"
+
+msgid "Choose a document"
+msgstr "選擇一個文件"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Upload"
+msgstr "上傳"
+
+msgid "Uploading…"
+msgstr "正在上傳…"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"總共%(counter)s符合"
+
+msgid "Latest documents"
+msgstr "最新文件"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "對不起。沒找到符合\"<em>%(query_string)s</em>\"的文件"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "你尚未上傳任何文件在這個集合"
+
+msgid "You haven't uploaded any documents."
+msgstr "你尚未上傳任何文件"
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"一個文件都沒有呢，現在<a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">上傳一個</a>?"
+
+msgid "Change document:"
+msgstr "修改文件："
+
+msgid "Add a document"
+msgstr "新增一個文件"
+
+msgid "Add document"
+msgstr "新增文件"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "刪除 %(title)s"
+
+msgid "Delete document"
+msgstr "刪除文件"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "確定刪除此文件？"
+
+msgid "Yes, delete"
+msgstr "是，刪除"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "編輯%(title)s"
+
+msgid "Editing"
+msgstr "編輯"
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Filesize"
+msgstr "文件大小"
+
+msgid "File not found"
+msgstr "未找到文件"
+
+msgid "Usage"
+msgstr "使用情況"
+
+msgid "Documents"
+msgstr "文件"
+
+msgid "Title"
+msgstr "標題"
+
+msgid "File"
+msgstr "文件"
+
+msgid "Collection"
+msgstr "集合"
+
+msgid "Uploaded"
+msgstr "已上傳"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 之前"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"此集合中還沒有文件。為何不 <a href=\"%(wagtaildocs_add_document_url)s\">上傳"
+"一份</a> ？"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"一個文件都沒有呢，現在<a href=\"%(wagtaildocs_add_document_url)s\">上傳一個</"
+"a> ？"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s的使用情況"
+
+msgid "Usage of"
+msgstr "使用情況"
+
+msgid "Parent"
+msgstr "上一層"
+
+msgid "Type"
+msgstr "類型"
+
+msgid "Status"
+msgstr "狀態"
+
+msgid "Edit this page"
+msgstr "編輯此頁面"
+
+msgid "Add multiple documents"
+msgstr "新增多個文件"
+
+msgid "Add documents"
+msgstr "新增多個文件"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "拖曳多個文件到此區域即可上傳。"
+
+msgid "Or choose from your computer"
+msgstr "或者打開本地文件選擇框"
+
+msgid "Add to collection:"
+msgstr "新增到集合："
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"上傳成功。如有必要，可為圖片填寫更合適的標題。如果不需要本次上傳的圖片，也可"
+"以徹底刪除它們。"
+
+msgid "Sorry, upload failed."
+msgstr "對不起，上傳失敗。"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "You need a password to access this document."
+msgstr "你需要一個密碼來訪問這個文件。"
+
+msgid "Document permissions"
+msgstr "文件權限"
+
+msgid "Add a document permission"
+msgstr "新增一個文件權限"
+
+msgid "Server Error"
+msgstr "伺服器錯誤"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "將此錯誤報告給你的網路管理員，包含如下信息："
+
+msgid "Search documents"
+msgstr "搜索文件"
+
+msgid "Document '{0}' added."
+msgstr "文件'{0}' 已新增"
+
+msgid "The document could not be saved due to errors."
+msgstr "無法儲存文件，出現錯誤。"
+
+msgid "Document '{0}' updated"
+msgstr "文件'{0}' 已更新"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "無法找到文件。請修改源或者刪除文件。"
+
+msgid "Document '{0}' deleted."
+msgstr "文件'{0}' 已刪除"
+
+msgid "Document"
+msgstr "文件"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s 個文件"
+
+msgid "Choose another document"
+msgstr "選擇另一個文件"
+
+msgid "Edit this document"
+msgstr "編輯此文件"

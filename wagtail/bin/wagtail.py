@@ -8,12 +8,10 @@ from argparse import ArgumentParser
 from difflib import unified_diff
 
 from django.core.management import ManagementUtility
-# Need to use the django.utils.six version of print, to avoid a syntax error on Py2 when using print(..., end='')
-from django.utils.six import print_
 
 
 CURRENT_PYTHON = sys.version_info[:2]
-REQUIRED_PYTHON = (3, 4)
+REQUIRED_PYTHON = (3, 5)
 
 if CURRENT_PYTHON < REQUIRED_PYTHON:
     sys.stderr.write("This version of Wagtail requires Python {}.{} or above - you are running {}.{}\n".format(*(REQUIRED_PYTHON + CURRENT_PYTHON)))
@@ -237,7 +235,7 @@ class UpdateModulePaths(Command):
         with fileinput.FileInput(filename, inplace=True) as f:
             for original_line in f:
                 line = self._rewrite_line(original_line)
-                print_(line, end='')  # NOQA
+                print(line, end='')  # NOQA
                 if line != original_line:
                     change_count += 1
 

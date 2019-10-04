@@ -4,14 +4,14 @@
 #
 # Translators:
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2018
+# Dan Braghis, 2014-2019
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
+msgid "Wagtail snippets"
+msgstr "Fragment Wagtail"
+
 msgid "Choose"
 msgstr "Alege"
 
@@ -31,7 +34,7 @@ msgstr "Căută"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -39,7 +42,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"Există o potrivire"
+"Sunt %(counter)s potriviri"
 msgstr[1] ""
 "\n"
 "Sunt %(counter)s potriviri"
@@ -56,18 +59,18 @@ msgstr ""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
-"a>?"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
 msgstr ""
-"Nu au fost create %(snippet_type_name)s. De să nu <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">adăugați unul</"
-"a>?"
+"Nu au fost creat nici un fragment %(snippet_type_name)s. De să nu <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">adăugați unul</a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Șterge %(snippet_type_name)s - %(instance)s"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Șterge %(snippet_type_name)s"
 
-msgid "Delete"
+msgid "Delete "
 msgstr "Șterge"
 
 #, python-format
@@ -80,6 +83,10 @@ msgstr[2] "%(usage_count)s utilizări"
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Sigur doriți să ștergeți acest %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Sigur doriți să ștergeți %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Da, șterge"
@@ -103,6 +110,9 @@ msgstr "Editare %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editare"
+
+msgid "Delete"
+msgstr "Șterge"
 
 msgid "Usage"
 msgstr "Utilizare"
@@ -173,6 +183,9 @@ msgstr "Fragmentul nu a fost salvat din cauza erorilor."
 
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' a fost șters."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} au fost șterse."
 
 #, python-format
 msgid "Choose %s"

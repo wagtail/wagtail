@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -23,6 +23,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Enviar para moderação"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Delete"
+msgstr "Apagar"
 
 msgid "You do not have permission to access the admin"
 msgstr "Você não tem permissão para aceder à administração."
@@ -42,15 +51,6 @@ msgstr "Promover"
 msgid "Settings"
 msgstr "Definições"
 
-msgid "Search"
-msgstr "Pesquisar"
-
-msgid "Search term"
-msgstr "Termo de pesquisa"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Introduza a sua senha"
 
@@ -60,6 +60,13 @@ msgstr "Introduza %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Introduza o seu e-mail para reinicializar a sua senha"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Não é permitido ter múltiplos registos de permissões para a mesma coleção. "
 
 msgid "New title"
 msgstr "Novo título"
@@ -110,15 +117,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Este \"slug\" já está a ser usado no contexto da sua página-mãe \"%s\""
 
-msgid "Visibility"
-msgstr "Visibilidade"
-
-msgid "This field is required."
-msgstr "Este campo é obrigatório."
-
-msgid "Please select at least one group."
-msgstr "Por favor selecione pelo menos um grupo."
-
 msgid "This slug is already in use"
 msgstr "Este “slug” já existe"
 
@@ -128,9 +126,20 @@ msgstr "A data/hora de publicação tem de ser anterior à data/hora final"
 msgid "Expiry date/time must be in the future"
 msgstr "A data/hora final deve ficar no futuro"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Não é permitido ter múltiplos registos de permissões para a mesma coleção. "
+msgid "Search"
+msgstr "Pesquisar"
+
+msgid "Search term"
+msgstr "Termo de pesquisa"
+
+msgid "Visibility"
+msgstr "Visibilidade"
+
+msgid "This field is required."
+msgstr "Este campo é obrigatório."
+
+msgid "Please select at least one group."
+msgstr "Por favor selecione pelo menos um grupo."
 
 msgid "Go to Wagtail admin"
 msgstr "Ir para a administração do Wagtail"
@@ -180,14 +189,65 @@ msgstr "Reinicializar senha"
 msgid "Reset your password"
 msgstr "Reinicialize a sua senha"
 
-msgid "Edit"
-msgstr "Alterar"
-
-msgid "Delete"
-msgstr "Apagar"
-
 msgid "Pages"
 msgstr "Páginas"
+
+msgid "January"
+msgstr "Janeiro"
+
+msgid "February"
+msgstr "Fevereiro"
+
+msgid "March"
+msgstr "Março"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May"
+msgstr "Maio"
+
+msgid "June"
+msgstr "Junho"
+
+msgid "July"
+msgstr "Julho"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "September"
+msgstr "Setembro"
+
+msgid "October"
+msgstr "Outubro"
+
+msgid "November"
+msgstr "Novembro"
+
+msgid "December"
+msgstr "Dezembro"
+
+msgid "Sun"
+msgstr "Dom"
+
+msgid "Mon"
+msgstr "Seg"
+
+msgid "Tue"
+msgstr "Ter"
+
+msgid "Wed"
+msgstr "Qua"
+
+msgid "Thu"
+msgstr "Qui"
+
+msgid "Fri"
+msgstr "Sex"
+
+msgid "Sat"
+msgstr "Sáb"
 
 msgid "Dashboard"
 msgstr "Painel de controlo"
@@ -215,23 +275,6 @@ msgstr "Link externo"
 
 msgid "Email link"
 msgstr "Link de e-mail"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Encontrado um resultado"
-msgstr[1] ""
-"\n"
-"Encontrados %(counter)s resultados\n"
-" "
 
 msgid "Choose"
 msgstr "Escolher"
@@ -337,6 +380,9 @@ msgstr "Aprovar"
 msgid "Reject"
 msgstr "Rejeitar"
 
+msgid "Edit"
+msgstr "Alterar"
+
 msgid "Preview"
 msgstr "Visualizar"
 
@@ -357,23 +403,6 @@ msgstr "Publicada"
 
 msgid "Site summary"
 msgstr "Resumo do site"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Página"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Páginas\n"
-" "
 
 msgid "Sign in"
 msgstr "Entrar"
@@ -449,6 +478,12 @@ msgstr "Trancada"
 
 msgid "Unlocked"
 msgstr "Destrancada"
+
+msgid "Publish this revision"
+msgstr "Publicar esta versão."
+
+msgid "Publish"
+msgstr "Publicar"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -533,9 +568,6 @@ msgstr "Sim, mover esta página"
 msgid "Unpublish %(title)s"
 msgstr "Despublicar %(title)s"
 
-msgid "Unpublish"
-msgstr "Despublicar"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Tem certeza que quer despublicar esta página?"
 
@@ -589,12 +621,6 @@ msgstr "Nova"
 msgid "Save draft"
 msgstr "Guardar rascunho"
 
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Submit for moderation"
-msgstr "Enviar para moderação"
-
 msgid "This page has unsaved changes."
 msgstr "Esta página tem alterações por guardar."
 
@@ -611,9 +637,6 @@ msgstr "Página trancada"
 
 msgid "Replace current draft"
 msgstr "Substituir rascunho atual."
-
-msgid "Publish this revision"
-msgstr "Publicar esta versão."
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -748,9 +771,6 @@ msgstr "Esta página está protegida da visualização pública"
 msgid "Disable ordering of child pages"
 msgstr "Desativar ordenação de páginas-filha"
 
-msgid "Order"
-msgstr "Ordem"
-
 msgid "Enable ordering of child pages"
 msgstr "Ativar ordenação de páginas-filha"
 
@@ -818,68 +838,15 @@ msgstr "Nenhuma página usa"
 msgid "Collection"
 msgstr "Coleção"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Página %(page_num)s de %(total_pages)s."
+
 msgid "Home"
 msgstr "Início"
 
 msgid "All collections"
 msgstr "Todas as coleções"
-
-msgid "January"
-msgstr "Janeiro"
-
-msgid "February"
-msgstr "Fevereiro"
-
-msgid "March"
-msgstr "Março"
-
-msgid "April"
-msgstr "Abril"
-
-msgid "May"
-msgstr "Maio"
-
-msgid "June"
-msgstr "Junho"
-
-msgid "July"
-msgstr "Julho"
-
-msgid "August"
-msgstr "Agosto"
-
-msgid "September"
-msgstr "Setembro"
-
-msgid "October"
-msgstr "Outubro"
-
-msgid "November"
-msgstr "Novembro"
-
-msgid "December"
-msgstr "Dezembro"
-
-msgid "Sun"
-msgstr "Dom"
-
-msgid "Mon"
-msgstr "Seg"
-
-msgid "Tue"
-msgstr "Ter"
-
-msgid "Wed"
-msgstr "Qua"
-
-msgid "Thu"
-msgstr "Qui"
-
-msgid "Fri"
-msgstr "Sex"
-
-msgid "Sat"
-msgstr "Sáb"
 
 msgid "Edit your account"
 msgstr "Alterar a sua conta"
@@ -889,10 +856,6 @@ msgstr "Configurações da conta"
 
 msgid "Log out"
 msgstr "Sair"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Página %(page_num)s de %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Outras pesquisas"
@@ -905,23 +868,6 @@ msgstr ""
 "Está a usar um browser <strong>desatualizado</strong> que não é suportado "
 "por este software. Por favor <a href=\"http://browserhappy.com/\">atualize o "
 "seu browser</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            O Javascript é necessário para usar o Wagtail, mas neste momento "
-"está desativado.<br />\n"
-"            Aqui estão as <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instruções para ativar o JavaScript no "
-"seu browser</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ir para a interface de administração do Wagtail"

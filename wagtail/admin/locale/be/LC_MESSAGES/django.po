@@ -1,0 +1,548 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Delete"
+msgstr "Выдаліць"
+
+msgid "None"
+msgstr "Некалькі"
+
+msgid "You do not have permission to access the admin"
+msgstr "У вас няма доступу да панэлі адміністратара"
+
+msgid "Scheduled publishing"
+msgstr "Адкладзеная публікацыя"
+
+msgid "Common page configuration"
+msgstr "Агульныя настройкі старонкі"
+
+msgid "Content"
+msgstr "Змест"
+
+msgid "Promote"
+msgstr "Прасоўванне"
+
+msgid "Settings"
+msgstr "Налады"
+
+msgid "Enter password"
+msgstr "Увядзіце пароль"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Увядзіце вашае %s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Калі ласка, увядзіце адрас электроннай пошты для змены пароля"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Вы не можаце мець некалькі дазволаў для адной і той жа калекцыі."
+
+msgid "New title"
+msgstr "Новая назва"
+
+msgid "New slug"
+msgstr "Новы slug"
+
+msgid "New parent page"
+msgstr "Новая бацькоўская старонка"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Гэтая копія будзе дзіцячай старонкай гэтай бацькоўскай старонкі."
+
+msgid "Copy subpages"
+msgstr "Капіраванне подстаронак"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Капіраванне %(count)s падстаронкі."
+msgstr[1] "Капіраванне %(count)s падстаронак."
+msgstr[2] "Капіраванне %(count)s падстаронак."
+msgstr[3] "Капіраванне %(count)s падстаронак."
+
+msgid "Publish copied page"
+msgstr "Апублікаваць копію старонкі"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Гэтая старонка размешчана. Вы жадаеце апублікаваць яе копію?"
+
+msgid "Publish copies"
+msgstr "Размясціць копіі? "
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s капіраваная старонка размешчана. Хочаце размясціць яе копію?"
+msgstr[1] ""
+"%(count)s капіраваныя старонкі размешчаны. Хочаце размясціць іх копіі?"
+msgstr[2] ""
+"%(count)s капіраваныя старонкі размешчаны. Хочаце размясціць іх копіі?"
+msgstr[3] ""
+"%(count)s капіраваныя старонкі размешчаны. Хочаце размясціць іх копіі?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "У вас няма дазволу для капіравання старонкі \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr ""
+"Гэты slug ужо выкарыстоўваецца ў кантэксце сваёй бацькоўскай старонкі \"%s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Вы не можаце зрабіць копію старонкі ў сябе, калі выбрана опцыя \"капіраванне "
+"падстаронак\""
+
+msgid "This slug is already in use"
+msgstr "Гэты slug ужо выкарыстоўваецца"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Час размяшчэння павінен быць раней часу зняцця з размяшчэння."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Тэрмін адмены размяшшчэння павінен быць у будучыні"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search term"
+msgstr "Крытэр пошуку"
+
+msgid "Visibility"
+msgstr "Бачнасць"
+
+msgid "This field is required."
+msgstr "Гэта поле з'яўляецца абавязковым."
+
+msgid "Please select at least one group."
+msgstr "Калі ласка, выберыце мінімум 1 гурт."
+
+msgid "Error 404: Page not found"
+msgstr "Памылка 404: старонка не знойдзена"
+
+msgid "Error 404"
+msgstr "Памылка 404"
+
+msgid "The requested page could not be found."
+msgstr "Старонка не можа быць знойдзена"
+
+msgid "Go to Wagtail admin"
+msgstr "Перайсці да адміністратара Wagtail"
+
+msgid "Account"
+msgstr "Аккаунт"
+
+msgid "Change profile picture"
+msgstr "Змяніць выгляд профіля"
+
+msgid "Your current profile picture:"
+msgstr "Ваша існуючае афармленне профіля:"
+
+msgid "Update"
+msgstr "Аднаўленне"
+
+msgid "Change email"
+msgstr "Змяніць электронную пошту"
+
+msgid "Change password"
+msgstr "Змяніць пароль"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Ваш пароль не можа быць зменены. Калі ласка, звярніцеся да адміністратара "
+"сайта."
+
+msgid "Set Time Zone"
+msgstr "Уладкаванне часавога поясу"
+
+msgid "Language Preferences"
+msgstr "Наладка мовы"
+
+msgid "Notification preferences"
+msgstr "Наладка паведамленняў"
+
+msgid "Reset password"
+msgstr "Заменя пароля"
+
+msgid "Password change successful"
+msgstr "Паспяховая змена пароля"
+
+msgid "Login"
+msgstr "Увайсці"
+
+msgid "Set your new password"
+msgstr "Задайце новы пароль"
+
+msgid "Invalid password reset link"
+msgstr "Няправільная спасылка для аднаўлення паролю"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Спасылка для аднаўлення паролю не дзейнічае, магчыма таму, што яна ўжо была "
+"выкарыстана."
+
+msgid "Request a new password reset"
+msgstr "Запытаеце новы скід пароля"
+
+msgid "Check your email"
+msgstr "Праверце свою электонную пошту"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Спасылка для скіду пароля была адпраўлена на электронную пошту, калі існуе "
+"гэтая пошта для ўліковага запісу."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Калі ласка, перайдзіце па спасылцы ніжэй, каб скінуць пароль:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Ваша імя карыстальніка (у выпадку, калі вы забылі):"
+
+msgid "Password reset"
+msgstr "Аднаўленне пароля"
+
+msgid "Reset your password"
+msgstr "Скінуць пароль"
+
+msgid "Page"
+msgstr "Старонка"
+
+msgid "Pages"
+msgstr "Старонкі"
+
+msgid "Loading…"
+msgstr "Загрузка..."
+
+msgid "No results"
+msgstr "Няма вынікаў"
+
+msgid "Server Error"
+msgstr "Памылка Сервера"
+
+msgid "See all"
+msgstr "Усё паглядзець"
+
+msgid "Close explorer"
+msgstr "Зачыніць даследчык"
+
+msgid "Alt text"
+msgstr "Тэкст падказкі"
+
+msgid "Write here…"
+msgstr "Пішыце тут..."
+
+msgid "Horizontal line"
+msgstr "Гарызантальная лінія"
+
+msgid "Line break"
+msgstr "Канец радка"
+
+msgid "Undo"
+msgstr "Адмяніць дзеянне"
+
+msgid "Redo"
+msgstr "Абнавіць"
+
+msgid "Reload the page"
+msgstr "Абнавіць старонку"
+
+msgid "Reload saved content"
+msgstr " Обнавиць захаваны змест"
+
+msgid "Show latest content"
+msgstr "Паказаць апошні змест"
+
+msgid "Show error"
+msgstr "Паказаць памылку"
+
+msgid "Dashboard"
+msgstr "Панэль кіравання"
+
+msgid "Menu"
+msgstr "Меню"
+
+msgid "Add another"
+msgstr "Яшчэ дадаць"
+
+msgid "Move up"
+msgstr "Падвінуць наверх"
+
+msgid "Move down"
+msgstr "Падвінусь уніз"
+
+msgid "Explorer"
+msgstr "Даследчык"
+
+msgid "Internal link"
+msgstr "Унутранная спасылка"
+
+msgid "External link"
+msgstr "Знешняя спасылка"
+
+msgid "Email link"
+msgstr "Спасылка па электроннай пошце"
+
+msgid "Choose"
+msgstr "Выбраць"
+
+msgid "Choose a page"
+msgstr "Выбраць старонку"
+
+msgid "Add an email link"
+msgstr "Дадаць спасылку па электроннай пошце"
+
+msgid "Insert link"
+msgstr "Уставіць спасылку"
+
+msgid "Add an external link"
+msgstr "Дадаць знешнюю спасылку"
+
+msgid "Collection privacy"
+msgstr "Прыватнасць калекцыі"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Гэтая калекцыя была зачынена бацькоўскай калекцыяй"
+
+msgid "You can edit the privacy settings on:"
+msgstr "Вы можаце смяніць налады прыватнасці:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Параметры прыватнасці вызначаюць, хто можа праглядаць дакументы ў гэтай "
+"калекцыі."
+
+msgid "Save"
+msgstr "Захаваць"
+
+msgid "Privacy"
+msgstr "Сакрэтнасць"
+
+msgid "Public"
+msgstr "Публічна"
+
+msgid "Private"
+msgstr "Прыватна"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Гэтая калекцыя не можа быць выдалена, таму што яна не пустая. Яна змяшчае:"
+
+msgid "Name"
+msgstr "Імя"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Калекцыі яшчэ не былі створаны. Давай <a href=\"%(add_collection_url)s"
+"\">створым адну</a>?"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Дадаць %(label)s"
+
+msgid "Yes, delete"
+msgstr "Так. Выдаліць"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Вітаем %(site_name)s у Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Гэта ваша панэль кіравання. На ёй адлюстроўваецца  карысная інфармацыю пра "
+"створаны вамі змест."
+
+msgid "Pages awaiting moderation"
+msgstr "Старонкі, якія чакаюць мадэрацыі"
+
+msgid "Title"
+msgstr "Назва"
+
+msgid "Parent"
+msgstr "Бацькоўскі элемент"
+
+msgid "Type"
+msgstr "Тып"
+
+msgid "Edited"
+msgstr "Зменена"
+
+msgid "Edit this page"
+msgstr "Змяніць гэтую старонку"
+
+msgid "Approve"
+msgstr "Пацвярдзіць"
+
+msgid "Reject"
+msgstr "Адхіліць"
+
+msgid "Edit"
+msgstr "Рэдактаваць"
+
+msgid "Preview"
+msgstr "Папярэдні прагляд"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s таму назад"
+
+msgid "Your most recent edits"
+msgstr "Самыя апошнія змены"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Draft"
+msgstr "Чарнавік"
+
+msgid "Live"
+msgstr "Размешчана"
+
+msgid "Site summary"
+msgstr "Агульная інформацыя"
+
+msgid "Sign in"
+msgstr "Увайсці"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Вашы %(username_field)s і пароль не супадаюць. Калі ласка, паспрабуйце яшчэ "
+"раз."
+
+msgid "Sign in to Wagtail"
+msgstr "Увайсці у Wagtail"
+
+msgid "Forgotten it?"
+msgstr "Забылі?"
+
+msgid "Signing in…"
+msgstr "Выконваецца ўваход..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Старонка \"%(title)s\"  зацверджана."
+
+msgid "You can view the page here:"
+msgstr "Вы можаце праглядзець старонку вось тут:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Старонка \"%(title)s\" была зацверджана"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Витаю %(username)s."
+
+msgid "Edit your notification preferences here:"
+msgstr "Змяніць налады апавяшчэнняў тут:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Старонка \"%(title)s\" была адхілена."
+
+msgid "You can edit the page here:"
+msgstr "Вы можаце рэдактаваць старонку вось тут:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Старонка \"%(title)s\" была адхілена"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "Старонка \"%(page)s\" адпраўлена на мадэрацыю %(editor)s."
+
+msgid "You can preview the page here:"
+msgstr "Вы можаце праглядзець старонку вось тут:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Старонка \"%(page)s\" адпраўленна на мадэрацыю"
+
+msgid "Page privacy"
+msgstr "Прыватнасць старонкі"
+
+msgid "This page has been made private by a parent page."
+msgstr "Гэтая старонка была зачынена бацькоўскай старонкай"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Канфідэнцыяльнасць інфармацыі распаўсюджваецца на ўсе дзіцячыя старонкі."
+
+msgid "Edit lock"
+msgstr "Блакаваць рэдактаванне"
+
+msgid "Locked"
+msgstr "Заблакавана"
+
+msgid "Unlocked"
+msgstr "Разблакавана"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Стварыць старонку %(title)s"
+
+msgid "Create a page in"
+msgstr "Стварыць старонку ў"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Выберыце, які тып старонкі вы хочаце стварыць."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Старонкі, якія выкарыстоўваюць %(page_type)s"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Выдаліць %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Вы ўпэўненыя, што жадаеце выдаліць гэтую старонку?"
+
+msgid "Yes, delete it"
+msgstr "Так. Выдаліць"

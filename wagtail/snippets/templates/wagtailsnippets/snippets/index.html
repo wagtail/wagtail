@@ -10,11 +10,11 @@
             {% for model_opts in snippet_model_opts %}
                 <li>
                     <div class="row row-flush title">
-                        <h2>
+                        <div class="title-wrapper">
                             <a href="{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}" class="col6">
                                 {{ model_opts.verbose_name_plural|capfirst }}
                             </a>
-                        </h2>
+                        </div>
                     </div>
                 </li>
             {% endfor %}

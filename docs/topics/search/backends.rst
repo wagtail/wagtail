@@ -73,6 +73,8 @@ It also doesn't support:
 
 If any of these features are important to you, we recommend using Elasticsearch instead.
 
+.. _wagtailsearch_backends_postgresql:
+
 PostgreSQL Backend
 ------------------
 
@@ -88,10 +90,6 @@ See :ref:`postgres_search` for more detail.
 
 Elasticsearch Backend
 ---------------------
-
-.. versionchanged:: 2.1
-
-    Support for Elasticsearch 6.x was added
 
 Elasticsearch versions 2, 5 and 6 are supported. Use the appropriate backend for your version:
 
@@ -115,7 +113,12 @@ Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elastic
 
 .. code-block:: sh
 
-  pip install "elasticsearch>=6.0.0,<7.0.0"  # for Elasticsearch 6.x
+  pip install "elasticsearch>=6.4.0,<7.0.0"  # for Elasticsearch 6.x
+
+.. warning::
+
+    | Version 6.3.1 of the Elasticsearch client library is incompatible with Wagtail. Use 6.4.0 or above.
+
 
 The backend is configured in settings:
 

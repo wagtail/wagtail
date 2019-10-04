@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load staticfiles i18n %}
+{% load static i18n %}
 {% block titletag %}
     {% if validlink %}
         {% trans "Set your new password" %}
@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block furniture %}
-    <div class="content-wrapper">
+    <main class="content-wrapper" role="main">
     {% if validlink %}
         <form method="post" novalidate>
             {% csrf_token %}
@@ -68,5 +68,5 @@
         <a href="{% url 'wagtailadmin_password_reset' %}" class="button">{% trans 'Request a new password reset' %}</a>
     {% endif %}
 
-    </div>
+    </main>
 {% endblock %}

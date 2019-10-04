@@ -5,13 +5,15 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Guglielmo Celata <guglielmo.celata@gmail.com>, 2019
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-10 14:16+0000\n"
-"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-09-16 09:46+0000\n"
+"Last-Translator: Guglielmo Celata <guglielmo.celata@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +51,12 @@ msgstr "Immagine %s non valida"
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Questo file è troppo grande (%%s). Dimensione massima del file %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"La risoluzione di questo file è di troppi pixel (%%). Il numero massimo di "
+"pixel è %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -147,16 +155,10 @@ msgstr "Tags popolari"
 msgid "Uploading…"
 msgstr "Caricamento…"
 
-msgid "Server Error"
-msgstr "Errore del Server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -164,7 +166,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            C'è una corrispondenza\n"
+"            C'è %(counter)s corrispondenza\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -183,20 +185,22 @@ msgstr "Inserisci immagine"
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Image\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
 "    "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Images\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
 "    "
 msgstr[0] ""
 "\n"
-"        <span>%(total)s</span> Immagine\n"
-"    "
+"<span>%(total)s</span>immagine <span class=\"visuallyhidden\">creata in "
+"%(site_name)s</span>"
 msgstr[1] ""
 "\n"
-"        <span>%(total)s</span> Immagini\n"
-"    "
+"<span>%(total)s</span>immagini <span class=\"visuallyhidden\">create in "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Cambia immagine"
@@ -225,6 +229,9 @@ msgstr "Sei sicuro di voler eliminare questa immagine?"
 msgid "Yes, delete"
 msgstr "Si, elimina"
 
+msgid "No, don't delete"
+msgstr "No, non rimuovere"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Modifica immagine %(title)s"
@@ -232,24 +239,27 @@ msgstr "Modifica immagine %(title)s"
 msgid "Editing"
 msgstr "Modifica"
 
-msgid "Focal point (optional)"
-msgstr "Punto focale (optional)"
+msgid "URL Generator"
+msgstr "URL Generator"
+
+msgid "Focal point"
+msgstr "Punto focale"
+
+msgid "(optional)"
+msgstr "(opzionale)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
-"below."
+"above."
 msgstr ""
-"Per definire la regione più importante di questa immagine, fai il drag di un "
-"box sopra l'immagine qui sotto."
+"Per definire la regione più importante di questa immagine, selezionala "
+"sull'immagine qui sotto."
 
 msgid "Current focal point shown"
 msgstr "Punto focale corrente indicato"
 
 msgid "Remove focal area"
 msgstr "Elimina focal area"
-
-msgid "URL Generator"
-msgstr "URL Generator"
 
 msgid "Max dimensions"
 msgstr "Dimensioni massime"
@@ -265,6 +275,9 @@ msgstr "Uso"
 
 msgid "Images"
 msgstr "Immagini"
+
+msgid "pixels"
+msgstr "pixel"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -352,6 +365,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Spiacente, caricamento fallito."
+
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 msgid "Image updated."
 msgstr "Immagine aggiornata."

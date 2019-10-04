@@ -8,7 +8,9 @@
 # Axel Haustant, 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
+# Loic Teixeira <hello@lta.me>, 2018
 # nahuel, 2014
 # nahuel, 2014
 # pierre marfoure <pierre@onoffdesign.com>, 2016
@@ -17,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 14:55+0000\n"
-"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -80,6 +82,12 @@ msgstr "Un groupe avec ce nom existe déjà."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Vous ne pouvez avoir plusieurs permissions pour la même page."
 
+msgid "Preferred language"
+msgstr "Langue préférée"
+
+msgid "Current time zone"
+msgstr "Fuseau horaire actuel"
+
 msgid "Upload a profile picture"
 msgstr "Transférer une photo de profil"
 
@@ -119,6 +127,9 @@ msgid "profile picture"
 msgstr "photo de profil"
 
 msgid "user profile"
+msgstr "compte utilisateur"
+
+msgid "user profiles"
 msgstr "compte utilisateur"
 
 msgid "Delete group"
@@ -241,6 +252,9 @@ msgstr "Niveau"
 msgid "Status"
 msgstr "Statut"
 
+msgid "Last Login"
+msgstr "Dernière connexion"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -251,9 +265,13 @@ msgid "Inactive"
 msgstr "Inactif"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "il y a %(time_period)s"
+
+#, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -261,12 +279,10 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            1 résultat correspondant\n"
-"        "
+"        Il y a %(counter)s correspondance"
 msgstr[1] ""
 "\n"
-"            %(counter)s résultats correspondants\n"
-"        "
+"        Il y a %(counter)s correspondances"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -311,12 +327,8 @@ msgstr "Modifier"
 msgid "The user could not be created due to errors."
 msgstr "L'utilisateur ne peut être créé du fait d'erreurs."
 
-msgid ""
-"Your details have been updated. You've been logged out for security reasons, "
-"please login to continue."
-msgstr ""
-"Vos informations ont été mises à jour. Vous avez été déconnecté(e) pour des "
-"raisons de sécurité, veuillez vous connecter pour continuer."
+msgid "User '{0}' updated."
+msgstr "Utilisateur '{0}' mis à jour."
 
 msgid "The user could not be saved due to errors."
 msgstr "L'utilisateur ne peut être enregistré du fait d'erreurs."

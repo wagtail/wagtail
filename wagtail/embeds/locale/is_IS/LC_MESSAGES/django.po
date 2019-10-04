@@ -4,13 +4,13 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
-# saevarom <saevar@saevar.is>, 2018
+# saevarom <saevar@saevar.is>, 2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 10:33+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-01-18 08:38+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -23,13 +23,19 @@ msgstr ""
 msgid "Wagtail embeds"
 msgstr "Wagtail embed"
 
-msgid "Please enter a valid URL"
-msgstr "Vinsamlegast sláðu inn gilda slóð"
+msgid "Cannot find an embed for this URL."
+msgstr "Gat ekki fundið efni til að innfella á þessari slóð."
 
 msgid "URL"
 msgstr "Slóð"
 
+msgid "Please enter a valid URL"
+msgstr "Vinsamlegast sláðu inn gilda slóð"
+
 msgid "embed"
+msgstr "innfellt efni"
+
+msgid "embeds"
 msgstr "innfellt efni"
 
 msgid "Insert embed"
@@ -44,9 +50,6 @@ msgid ""
 msgstr ""
 "Það virðist vera vandamál með embedly API lykilinn þinn. Vinsamlegast "
 "athugaðu stillingarnar þínar."
-
-msgid "Cannot find an embed for this URL."
-msgstr "Gat ekki fundið efni til að innfella á þessari slóð."
 
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "

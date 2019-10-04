@@ -90,6 +90,16 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(content, ["Hello world!"])
 
+    def test_charfield_with_validator(self):
+        def validate_is_foo(value):
+            if value != 'foo':
+                raise ValidationError("Value must be 'foo'")
+
+        block = blocks.CharBlock(validators=[validate_is_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean("bar")
+
     def test_choicefield_render(self):
         class ChoiceBlock(blocks.FieldBlock):
             field = forms.ChoiceField(choices=(
@@ -259,6 +269,16 @@ class TestIntegerBlock(unittest.TestCase):
         with self.assertRaises(ValidationError):
             block.clean(10)
 
+    def test_render_with_validator(self):
+        def validate_is_even(value):
+            if value % 2 > 0:
+                raise ValidationError("Value must be even")
+
+        block = blocks.IntegerBlock(validators=[validate_is_even])
+
+        with self.assertRaises(ValidationError):
+            block.clean(3)
+
 
 class TestEmailBlock(unittest.TestCase):
     def test_render(self):
@@ -279,6 +299,16 @@ class TestEmailBlock(unittest.TestCase):
         with self.assertRaises(ValidationError):
             block.clean("example.email.com")
 
+    def test_render_with_validator(self):
+        def validate_is_example_domain(value):
+            if not value.endswith('@example.com'):
+                raise ValidationError("E-mail address must end in @example.com")
+
+        block = blocks.EmailBlock(validators=[validate_is_example_domain])
+
+        with self.assertRaises(ValidationError):
+            block.clean("foo@example.net")
+
 
 class TestBlockQuoteBlock(unittest.TestCase):
     def test_render(self):
@@ -286,6 +316,16 @@ class TestBlockQuoteBlock(unittest.TestCase):
         quote = block.render("Now is the time...")
 
         self.assertEqual(quote, "<blockquote>Now is the time...</blockquote>")
+
+    def test_render_with_validator(self):
+        def validate_is_proper_story(value):
+            if not value.startswith('Once upon a time'):
+                raise ValidationError("Value must be a proper story")
+
+        block = blocks.BlockQuoteBlock(validators=[validate_is_proper_story])
+
+        with self.assertRaises(ValidationError):
+            block.clean("A long, long time ago")
 
 
 class TestFloatBlock(TestCase):
@@ -318,6 +358,16 @@ class TestFloatBlock(TestCase):
         with self.assertRaises(ValidationError):
             block.clean('19.99')
 
+    def test_render_with_validator(self):
+        def validate_is_even(value):
+            if value % 2 > 0:
+                raise ValidationError("Value must be even")
+
+        block = blocks.FloatBlock(validators=[validate_is_even])
+
+        with self.assertRaises(ValidationError):
+            block.clean('3.0')
+
 
 class TestDecimalBlock(TestCase):
     def test_type(self):
@@ -349,6 +399,16 @@ class TestDecimalBlock(TestCase):
 
         with self.assertRaises(ValidationError):
             block.clean('19.99')
+
+    def test_render_with_validator(self):
+        def validate_is_even(value):
+            if value % 2 > 0:
+                raise ValidationError("Value must be even")
+
+        block = blocks.DecimalBlock(validators=[validate_is_even])
+
+        with self.assertRaises(ValidationError):
+            block.clean('3.0')
 
 
 class TestRegexBlock(TestCase):
@@ -403,6 +463,16 @@ class TestRegexBlock(TestCase):
             errors=ErrorList([ValidationError(test_message)]))
 
         self.assertIn(test_message, html)
+
+    def test_render_with_validator(self):
+        def validate_is_foo(value):
+            if value != 'foo':
+                raise ValidationError("Value must be 'foo'")
+
+        block = blocks.RegexBlock(regex=r'^.*$', validators=[validate_is_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean('bar')
 
 
 class TestRichTextBlock(TestCase):
@@ -468,6 +538,16 @@ class TestRichTextBlock(TestCase):
         result = block.clean(RichText(''))
         self.assertIsInstance(result, RichText)
         self.assertEqual(result.source, '')
+
+    def test_render_with_validator(self):
+        def validate_contains_foo(value):
+            if 'foo' not in value:
+                raise ValidationError("Value must contain 'foo'")
+
+        block = blocks.RichTextBlock(validators=[validate_contains_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean(RichText('<p>bar</p>'))
 
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
@@ -753,6 +833,20 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             )
         )
 
+    def test_render_with_validator(self):
+        choices = [
+            ('tea', 'Tea'),
+            ('coffee', 'Coffee'),
+        ]
+
+        def validate_tea_is_selected(value):
+            raise ValidationError("You must select 'tea'")
+
+        block = blocks.ChoiceBlock(choices=choices, validators=[validate_tea_is_selected])
+
+        with self.assertRaises(ValidationError):
+            block.clean('coffee')
+
 
 class TestRawHTMLBlock(unittest.TestCase):
     def test_get_default_with_fallback_value(self):
@@ -830,6 +924,16 @@ class TestRawHTMLBlock(unittest.TestCase):
         result = block.clean(mark_safe(''))
         self.assertEqual(result, '')
         self.assertIsInstance(result, SafeData)
+
+    def test_render_with_validator(self):
+        def validate_contains_foo(value):
+            if 'foo' not in value:
+                raise ValidationError("Value must contain 'foo'")
+
+        block = blocks.RawHTMLBlock(validators=[validate_contains_foo])
+
+        with self.assertRaises(ValidationError):
+            block.clean(mark_safe('<p>bar</p>'))
 
 
 class TestMeta(unittest.TestCase):
@@ -1096,7 +1200,7 @@ class TestStructBlock(SimpleTestCase):
 
         self.assertIn('<div class="struct-block">', html)
         self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
-        self.assertIn('<label for="mylink-title">Title:</label>', html)
+        self.assertIn('<label class="field__label" for="mylink-title">Title</label>', html)
         self.assertInHTML(
             '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html
         )
@@ -1121,7 +1225,7 @@ class TestStructBlock(SimpleTestCase):
             'link': 'http://www.wagtail.io',
         }), prefix='mylink')
 
-        self.assertIn('<li class="required">', html)
+        self.assertIn('<div class="field required">', html)
 
     def test_render_form_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
@@ -1186,7 +1290,7 @@ class TestStructBlock(SimpleTestCase):
             'link': 'http://www.wagtail.io',
         }), prefix='mylink')
 
-        self.assertIn('<div class="sequence-member__help help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is encouraged</div>', html)
+        self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span> Self-promotion is encouraged</div>', html)
 
         # check it can be overridden in the block constructor
         block = LinkBlock(help_text="Self-promotion is discouraged")
@@ -1195,7 +1299,7 @@ class TestStructBlock(SimpleTestCase):
             'link': 'http://www.wagtail.io',
         }), prefix='mylink')
 
-        self.assertIn('<div class="sequence-member__help help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is discouraged</div>', html)
+        self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span> Self-promotion is discouraged</div>', html)
 
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
@@ -1630,7 +1734,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
     def test_render_form_wrapper_class(self):
         html = self.render_form()
 
-        self.assertIn('<div class="sequence-container sequence-type-list">', html)
+        self.assertIn('<div class="c-sf-container">', html)
 
     def test_render_form_count_field(self):
         html = self.render_form()
@@ -1651,8 +1755,8 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
     def test_render_form_labels(self):
         html = self.render_form()
 
-        self.assertIn('<label for="links-0-value-title">Title:</label>', html)
-        self.assertIn('<label for="links-0-value-link">Link:</label>', html)
+        self.assertIn('<label class="field__label" for="links-0-value-title">Title</label>', html)
+        self.assertIn('<label class="field__label" for="links-0-value-link">Link</label>', html)
 
     def test_render_form_values(self):
         html = self.render_form()
@@ -1888,7 +1992,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
     def test_initialisation_with_mixins(self):
         """
-        The order of child blocks of ``StreamBlock``\s with multiple parent
+        The order of child blocks of a ``StreamBlock`` with multiple parent
         classes is slightly surprising at first. Child blocks are inherited in
         a bottom-up order, by traversing the MRO in reverse. In the example
         below, ``ArticleWithIntroBlock`` will have an MRO of::
@@ -2127,7 +2231,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_render_form_wrapper_class(self):
         html = self.render_form()
 
-        self.assertIn('<div class="sequence-container sequence-type-stream">', html)
+        self.assertIn('<div class="c-sf-container">', html)
 
     def test_render_form_count_field(self):
         html = self.render_form()
@@ -2558,7 +2662,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertTrue(value1 != value3)
 
     def test_render_considers_group_attribute(self):
-        """If group attributes are set in Block Meta classes, render a <h3> for each different block"""
+        """If group attributes are set in Block Meta classes, render a <h4> for each different block"""
 
         class Group1Block1(blocks.CharBlock):
             class Meta:
@@ -2587,9 +2691,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ('ngb', NoGroupBlock()),
         ])
         html = block.render_form('')
-        self.assertNotIn('<h3></h3>', block.render_form(''))
-        self.assertIn('<h3>group1</h3>', html)
-        self.assertIn('<h3>group2</h3>', html)
+        self.assertNotIn('<h4 class="c-sf-add-panel__group-title"></h4>', block.render_form(''))
+        self.assertIn('<h4 class="c-sf-add-panel__group-title">group1</h4>', html)
+        self.assertIn('<h4 class="c-sf-add-panel__group-title">group2</h4>', html)
 
     def test_value_from_datadict(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -2626,26 +2730,91 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(value[1].id, '0000')
         self.assertEqual(value[1].value, 'this is my heading')
 
-    def test_get_prep_value(self):
+    def check_get_prep_value(self, stream_data, is_lazy):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
             paragraph = blocks.CharBlock()
 
         block = ArticleBlock()
 
-        value = blocks.StreamValue(block, [
-            ('heading', 'this is my heading', '0000'),
-            ('paragraph', '<p>this is a paragraph</p>')
-        ])
+        value = blocks.StreamValue(block, stream_data, is_lazy=is_lazy)
         jsonish_value = block.get_prep_value(value)
 
         self.assertEqual(len(jsonish_value), 2)
         self.assertEqual(jsonish_value[0], {'type': 'heading', 'value': 'this is my heading', 'id': '0000'})
         self.assertEqual(jsonish_value[1]['type'], 'paragraph')
         self.assertEqual(jsonish_value[1]['value'], '<p>this is a paragraph</p>')
-        # get_prep_value should assign a new (random and non-empty) ID to this block, as it didn't
-        # have one already
+        # get_prep_value should assign a new (random and non-empty)
+        # ID to this block, as it didn't have one already.
         self.assertTrue(jsonish_value[1]['id'])
+
+        # Calling get_prep_value again should preserve existing IDs, including the one
+        # just assigned to block 1
+        jsonish_value_again = block.get_prep_value(value)
+        self.assertEqual(jsonish_value[0]['id'], jsonish_value_again[0]['id'])
+        self.assertEqual(jsonish_value[1]['id'], jsonish_value_again[1]['id'])
+
+    def test_get_prep_value_not_lazy(self):
+        stream_data = [
+            ('heading', 'this is my heading', '0000'),
+            ('paragraph', '<p>this is a paragraph</p>')
+        ]
+        self.check_get_prep_value(stream_data, is_lazy=False)
+
+    def test_get_prep_value_is_lazy(self):
+        stream_data = [
+            {'type': 'heading', 'value': 'this is my heading', 'id': '0000'},
+            {'type': 'paragraph', 'value': '<p>this is a paragraph</p>'},
+        ]
+        self.check_get_prep_value(stream_data, is_lazy=True)
+
+    def check_get_prep_value_nested_streamblocks(self, stream_data, is_lazy):
+        class TwoColumnBlock(blocks.StructBlock):
+            left = blocks.StreamBlock([('text', blocks.CharBlock())])
+            right = blocks.StreamBlock([('text', blocks.CharBlock())])
+
+        block = TwoColumnBlock()
+
+        value = {
+            k: blocks.StreamValue(block.child_blocks[k], v, is_lazy=is_lazy)
+            for k, v in stream_data.items()
+        }
+        jsonish_value = block.get_prep_value(value)
+
+        self.assertEqual(len(jsonish_value), 2)
+        self.assertEqual(
+            jsonish_value['left'],
+            [{'type': 'text', 'value': 'some text', 'id': '0000'}]
+        )
+
+        self.assertEqual(len(jsonish_value['right']), 1)
+        right_block = jsonish_value['right'][0]
+        self.assertEqual(right_block['type'], 'text')
+        self.assertEqual(right_block['value'], 'some other text')
+        # get_prep_value should assign a new (random and non-empty)
+        # ID to this block, as it didn't have one already.
+        self.assertTrue(right_block['id'])
+
+    def test_get_prep_value_nested_streamblocks_not_lazy(self):
+        stream_data = {
+            'left': [('text', 'some text', '0000')],
+            'right': [('text', 'some other text')],
+        }
+        self.check_get_prep_value_nested_streamblocks(stream_data, is_lazy=False)
+
+    def test_get_prep_value_nested_streamblocks_is_lazy(self):
+        stream_data = {
+            'left': [{
+                'type': 'text',
+                'value': 'some text',
+                'id': '0000',
+            }],
+            'right': [{
+                'type': 'text',
+                'value': 'some other text',
+            }],
+        }
+        self.check_get_prep_value_nested_streamblocks(stream_data, is_lazy=True)
 
 
 class TestPageChooserBlock(TestCase):
@@ -2690,22 +2859,22 @@ class TestPageChooserBlock(TestCase):
         self.assertIn('createPageChooser("page", ["wagtailcore.page"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_string(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model='tests.SimplePage')
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type='tests.SimplePage')
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_literal(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=SimplePage)
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=SimplePage)
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_multiple_strings(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=['tests.SimplePage', 'tests.EventPage'])
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=['tests.SimplePage', 'tests.EventPage'])
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false, null);', empty_form_html)
 
     def test_form_render_with_target_model_multiple_literals(self):
-        block = blocks.PageChooserBlock(help_text="pick a page, any page", target_model=[SimplePage, EventPage])
+        block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=[SimplePage, EventPage])
         empty_form_html = block.render_form(None, 'page')
         self.assertIn('createPageChooser("page", ["tests.simplepage", "tests.eventpage"], null, false, null);', empty_form_html)
 
@@ -2741,19 +2910,19 @@ class TestPageChooserBlock(TestCase):
         self.assertEqual(block.target_model, Page)
 
     def test_target_model_string(self):
-        block = blocks.PageChooserBlock(target_model='tests.SimplePage')
+        block = blocks.PageChooserBlock(page_type='tests.SimplePage')
         self.assertEqual(block.target_model, SimplePage)
 
     def test_target_model_literal(self):
-        block = blocks.PageChooserBlock(target_model=SimplePage)
+        block = blocks.PageChooserBlock(page_type=SimplePage)
         self.assertEqual(block.target_model, SimplePage)
 
     def test_target_model_multiple_strings(self):
-        block = blocks.PageChooserBlock(target_model=['tests.SimplePage', 'tests.EventPage'])
+        block = blocks.PageChooserBlock(page_type=['tests.SimplePage', 'tests.EventPage'])
         self.assertEqual(block.target_model, Page)
 
     def test_target_model_multiple_literals(self):
-        block = blocks.PageChooserBlock(target_model=[SimplePage, EventPage])
+        block = blocks.PageChooserBlock(page_type=[SimplePage, EventPage])
         self.assertEqual(block.target_model, Page)
 
     def test_deconstruct_target_model_default(self):
@@ -2763,28 +2932,28 @@ class TestPageChooserBlock(TestCase):
             (), {}))
 
     def test_deconstruct_target_model_string(self):
-        block = blocks.PageChooserBlock(target_model='tests.SimplePage')
+        block = blocks.PageChooserBlock(page_type='tests.SimplePage')
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage']}))
+            (), {'page_type': ['tests.SimplePage']}))
 
     def test_deconstruct_target_model_literal(self):
-        block = blocks.PageChooserBlock(target_model=SimplePage)
+        block = blocks.PageChooserBlock(page_type=SimplePage)
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage']}))
+            (), {'page_type': ['tests.SimplePage']}))
 
     def test_deconstruct_target_model_multiple_strings(self):
-        block = blocks.PageChooserBlock(target_model=['tests.SimplePage', 'tests.EventPage'])
+        block = blocks.PageChooserBlock(page_type=['tests.SimplePage', 'tests.EventPage'])
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage', 'tests.EventPage']}))
+            (), {'page_type': ['tests.SimplePage', 'tests.EventPage']}))
 
     def test_deconstruct_target_model_multiple_literals(self):
-        block = blocks.PageChooserBlock(target_model=[SimplePage, EventPage])
+        block = blocks.PageChooserBlock(page_type=[SimplePage, EventPage])
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
-            (), {'target_model': ['tests.SimplePage', 'tests.EventPage']}))
+            (), {'page_type': ['tests.SimplePage', 'tests.EventPage']}))
 
 
 class TestStaticBlock(unittest.TestCase):
@@ -2870,7 +3039,7 @@ class TestDateBlock(TestCase):
         self.assertIn('"format": "Y-m-d"', result)
 
         self.assertInHTML(
-            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="2015-08-13" />',
+            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="2015-08-13" autocomplete="new-date" />',
             result
         )
 
@@ -2883,7 +3052,7 @@ class TestDateBlock(TestCase):
         self.assertIn('"dayOfWeekStart": 0', result)
         self.assertIn('"format": "d.m.Y"', result)
         self.assertInHTML(
-            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" />',
+            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" autocomplete="new-date" />',
             result
         )
 
@@ -2899,7 +3068,7 @@ class TestDateTimeBlock(TestCase):
             result
         )
         self.assertInHTML(
-            '<input id="datetimeblock" name="datetimeblock" placeholder="" type="text" value="13.08.2015 10:00" />',
+            '<input id="datetimeblock" name="datetimeblock" placeholder="" type="text" value="13.08.2015 10:00" autocomplete="new-date-time" />',
             result
         )
 

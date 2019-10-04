@@ -1,0 +1,1447 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# c o <ihcgno@icloud.com>, 2019
+# Yeh Yen-Ke <yyken@outlook.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-16 03:50+0000\n"
+"Last-Translator: c o <ihcgno@icloud.com>\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Submit for moderation"
+msgstr "提交審核"
+
+msgid "Unpublish"
+msgstr "取消發布"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Wagtail admin"
+msgstr "Wagtail 管理"
+
+msgid "None"
+msgstr "無"
+
+msgid "You do not have permission to access the admin"
+msgstr "您沒有後台管理權限"
+
+msgid "Scheduled publishing"
+msgstr "定時發布"
+
+msgid "Common page configuration"
+msgstr "常用頁面配置"
+
+msgid "Content"
+msgstr "內容"
+
+msgid "Promote"
+msgstr "推薦"
+
+msgid "Settings"
+msgstr "設置"
+
+msgid "Enter password"
+msgstr "輸入密碼"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "輸入你的 %s"
+
+msgid "Enter your email address to reset your password"
+msgstr "輸入電子郵件地址以重置密碼"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "對於同一個集合你不能設置多重權限"
+
+msgid "New title"
+msgstr "新標題"
+
+msgid "New slug"
+msgstr "新增短標題"
+
+msgid "New parent page"
+msgstr "新父頁面"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "此副本將成為指定父頁面的子頁面。"
+
+msgid "Copy subpages"
+msgstr "復制子頁面"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "此操作將復制%(count)s 子頁面。"
+
+msgid "Publish copied page"
+msgstr "發布復制的頁面。"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "此頁面已上線。是否同時發布其副本？"
+
+msgid "Publish copies"
+msgstr "發布副本"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] "正在復制的 %(count)s 個頁面已是發布狀態，你要發布他們的副本嗎？"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "你沒有權限復制到頁面“%(page_title)s”"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "此縮略名在其父頁面\"%s\"上下文中已被使用。"
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "你在復制子頁面時不能復制當前頁面本身"
+
+msgid "This slug is already in use"
+msgstr "此短標題已被使用"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "上線時間須早於截止期限"
+
+msgid "Expiry date/time must be in the future"
+msgstr "過期日期/時間必須是未來時間。"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Search term"
+msgstr "搜索條件"
+
+msgid "Visibility"
+msgstr "是否可見"
+
+msgid "This field is required."
+msgstr "必要欄位"
+
+msgid "Please select at least one group."
+msgstr "請至少選擇一個組。"
+
+msgid "Error 404: Page not found"
+msgstr "404錯誤：沒有找到頁面"
+
+msgid "Error 404"
+msgstr "404錯誤"
+
+msgid "The requested page could not be found."
+msgstr "找不到請求的頁面。"
+
+msgid "Go to Wagtail admin"
+msgstr "轉到管理界面"
+
+msgid "Account"
+msgstr "帳號"
+
+msgid "Change profile picture"
+msgstr "更改個人資料圖片"
+
+msgid "Your current profile picture:"
+msgstr "您目前的個人資料圖片："
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Change email"
+msgstr "更改電子郵件"
+
+msgid "Change password"
+msgstr "更改密碼"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "您不能修改密碼，請聯系管理員。"
+
+msgid "Set Time Zone"
+msgstr "設定時區"
+
+msgid "Language Preferences"
+msgstr "語言偏好設定"
+
+msgid "Notification preferences"
+msgstr "通知偏好設定"
+
+msgid "Reset password"
+msgstr "重置密碼"
+
+msgid "Password change successful"
+msgstr "密碼修改成功。"
+
+msgid "Login"
+msgstr "登錄"
+
+msgid "Set your new password"
+msgstr "設置新密碼"
+
+msgid "Invalid password reset link"
+msgstr "忘記密碼"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "密碼重置鏈接已被使用。"
+
+msgid "Request a new password reset"
+msgstr "請求重新設置密碼"
+
+msgid "Check your email"
+msgstr "檢查您的郵件"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr "密碼重置鏈接將發送到該電子郵件。"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "請點擊以下連結以重置密碼"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "以防遺忘，請填寫你的用戶名:"
+
+msgid "Password reset"
+msgstr "密碼已重置。"
+
+msgid "Reset your password"
+msgstr "重置密碼"
+
+msgid "Page"
+msgstr "頁面"
+
+msgid "Pages"
+msgstr "頁面"
+
+msgid "Loading…"
+msgstr "正在載入..."
+
+msgid "No results"
+msgstr "沒有結果"
+
+msgid "Server Error"
+msgstr "伺服器錯誤"
+
+msgid "See all"
+msgstr "查看全部"
+
+msgid "Close explorer"
+msgstr "關閉資源管理"
+
+msgid "Alt text"
+msgstr "替代文字"
+
+msgid "Write here…"
+msgstr "寫在這里..."
+
+msgid "Horizontal line"
+msgstr "水平線"
+
+msgid "Line break"
+msgstr "換行"
+
+msgid "Undo"
+msgstr "復原"
+
+msgid "Redo"
+msgstr "取消復原"
+
+msgid "Reload the page"
+msgstr "刷新頁面"
+
+msgid "Reload saved content"
+msgstr "重新加載已保存內容"
+
+msgid "Show latest content"
+msgstr "顯示最新內容"
+
+msgid "Show error"
+msgstr "顯示錯誤"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "編輯器崩潰了😭，內容被重新設置為最後保存的版本。"
+
+msgid "Broken link"
+msgstr "無效連結"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "January"
+msgstr "一月"
+
+msgid "February"
+msgstr "二月"
+
+msgid "March"
+msgstr "三月"
+
+msgid "April"
+msgstr "四月"
+
+msgid "May"
+msgstr "五月"
+
+msgid "June"
+msgstr "六月"
+
+msgid "July"
+msgstr "七月"
+
+msgid "August"
+msgstr "八月"
+
+msgid "September"
+msgstr "九月"
+
+msgid "October"
+msgstr "十月"
+
+msgid "November"
+msgstr "十一月"
+
+msgid "December"
+msgstr "十二月"
+
+msgid "Sunday"
+msgstr "星期日"
+
+msgid "Monday"
+msgstr "星期一"
+
+msgid "Tuesday"
+msgstr "星期二"
+
+msgid "Wednesday"
+msgstr "星期三"
+
+msgid "Thursday"
+msgstr "星期四"
+
+msgid "Friday"
+msgstr "星期五"
+
+msgid "Saturday"
+msgstr "星期六"
+
+msgid "Sun"
+msgstr "周日"
+
+msgid "Mon"
+msgstr "周一"
+
+msgid "Tue"
+msgstr "周二"
+
+msgid "Wed"
+msgstr "周三"
+
+msgid "Thu"
+msgstr "周四"
+
+msgid "Fri"
+msgstr "周五"
+
+msgid "Sat"
+msgstr "周六"
+
+msgid "Dashboard"
+msgstr "控制面板"
+
+msgid "Menu"
+msgstr "選單"
+
+msgid "Add another"
+msgstr "新增其它"
+
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Explorer"
+msgstr "資源管理"
+
+msgid "Internal link"
+msgstr "內部連結"
+
+msgid "External link"
+msgstr "外部連結"
+
+msgid "Email link"
+msgstr "電子郵件連結"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"總共有 %(counter)s 符合"
+
+msgid "Choose"
+msgstr "選擇"
+
+msgid "Choose a page"
+msgstr "選擇頁面"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"這里只能選擇 \"%(type)s\"類型的頁面。搜索結果會過濾掉其它類型。"
+
+msgid "Add an email link"
+msgstr "新增電子郵件"
+
+msgid "Insert link"
+msgstr "插入連結"
+
+msgid "Add an external link"
+msgstr "新增外部連結"
+
+msgid "Collection privacy"
+msgstr "集合私有設置"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "這個集合已經被父集合設為私有。"
+
+msgid "You can edit the privacy settings on:"
+msgstr "你可以在這里修改此私有設置："
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr "私有設置決定誰可以查看這個集合中的文檔。"
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Privacy"
+msgstr "私有設置"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Private"
+msgstr "私有"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "集合非空，不能刪除，它包含有："
+
+msgid "Name"
+msgstr "名稱"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"沒有創建任何集合，為何不<a href=\"%(add_collection_url)s\">創建一個</a>"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "增加 %(label)s"
+
+msgid "Yes, delete"
+msgstr "確認刪除"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "歡迎使用 %(site_name)s  Wagtail 內容管理系統"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "這是您的主控台，將會顯示您創建的內容的幫助信息。"
+
+msgid "Pages awaiting moderation"
+msgstr "等待頁面審核中"
+
+msgid "Title"
+msgstr "標題"
+
+msgid "Parent"
+msgstr "上一級"
+
+msgid "Type"
+msgstr "類型"
+
+msgid "Edited"
+msgstr "已編輯"
+
+msgid "Edit this page"
+msgstr "編輯此頁"
+
+msgid "Preview this page"
+msgstr "預覽頁面"
+
+msgid "Approve"
+msgstr "通過"
+
+msgid "Reject"
+msgstr "拒絕"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Preview"
+msgstr "預覽"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 之前"
+
+msgid "Your most recent edits"
+msgstr "最近編輯"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Status"
+msgstr "狀態"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "Live"
+msgstr "上線"
+
+msgid "Site summary"
+msgstr "網站摘要"
+
+msgid "Sign in"
+msgstr "登錄"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "帳戶 %(username_field)s 密碼不正確，請重試。"
+
+msgid "Sign in to Wagtail"
+msgstr "登錄Wagtail"
+
+msgid "Forgotten it?"
+msgstr "忘記密碼？"
+
+msgid "Signing in…"
+msgstr "正在登錄..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "頁面\"%(title)s\"已批準。"
+
+msgid "You can view the page here:"
+msgstr "在這里查看頁面："
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "頁面\"%(title)s\"已批準"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "%(username)s 你好，"
+
+msgid "Edit your notification preferences here:"
+msgstr "在此編輯通知偏好設定："
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "頁面\"%(title)s\"被駁回。"
+
+msgid "You can edit the page here:"
+msgstr "你可以在此編輯頁面："
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "頁面\"%(title)s\"被駁回"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "頁面“%(page)s”已被“%(editor)s”審核"
+
+msgid "You can preview the page here:"
+msgstr "可以在此預覽頁面："
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "頁面\"%(page)s\"已提交審核"
+
+msgid "Page privacy"
+msgstr "頁面隱私設置"
+
+msgid "This page has been made private by a parent page."
+msgstr "此頁面已被父節點設置為私有。"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "私有設置也會應用到此頁面的所有子頁面。"
+
+msgid "Edit lock"
+msgstr "編輯鎖定"
+
+msgid "Locked"
+msgstr "已鎖定"
+
+msgid "Unlocked"
+msgstr "已解鎖"
+
+msgid "Publishing…"
+msgstr "正在發布..."
+
+msgid "Publish this revision"
+msgstr "發布這個版本"
+
+msgid "Publish"
+msgstr "發布"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "在%(title)s中創建一個頁面"
+
+msgid "Create a page in"
+msgstr "創建一個頁面，在"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "選擇創建的頁面類型"
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr " %(page_type)s類型的頁面"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "刪除%(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "確定要刪除此頁面嗎？"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"這還會刪除 %(descendant_count)s 個子頁面。"
+
+msgid "Yes, delete it"
+msgstr "是，刪除此頁面"
+
+msgid "No, don't delete it"
+msgstr "否，不刪除此頁面"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"或者你可以 <a href=\"%(unpublish_url)s\">取消發布此頁面</a>。此頁面將不再公開"
+"展示，稍後你可以進行編輯或者重新發布。"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "移動%(title)s"
+
+msgid "Move"
+msgstr "移動"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "確認將此頁面移到'%(title)s'？"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr "確認將此頁面極其子頁面移到'%(title)s'？"
+
+msgid "Yes, move this page"
+msgstr "是的，請開始移動吧"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "取消發布%(title)s"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "此頁面確定要取消發布嗎？"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    此頁面有 %(live_descendant_count)s 個子頁面。它們也都會被"
+"取消發布\n"
+"                "
+
+msgid "Yes, unpublish it"
+msgstr "是，取消發布"
+
+msgid "No, don't unpublish"
+msgstr "否，不取消發布"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "使用%(page_class_verbose_name)s的頁面"
+
+msgid "Pages using"
+msgstr "頁面使用"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "復制%(title)s"
+
+msgid "Copy"
+msgstr "復制"
+
+msgid "Copy this page"
+msgstr "復制此頁"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "新%(page_type)s頁面類型"
+
+msgid "New"
+msgstr "新"
+
+msgid "Saving…"
+msgstr "正在保存..."
+
+msgid "Save draft"
+msgstr "保存草稿"
+
+msgid "This page has unsaved changes."
+msgstr "頁面還沒保存"
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "編輯 %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "編輯 %(page_type)s <span>%(title)s</span>"
+
+msgid "Page locked"
+msgstr "頁面已鎖定"
+
+msgid "Replace current draft"
+msgstr "替換當前的草稿"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "上一次編輯： %(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "由%(modified_by)s"
+
+msgid "Revisions"
+msgstr "修訂"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "瀏覽 %(title)s"
+
+msgid "Drag"
+msgstr "拖曳"
+
+msgid "Updated"
+msgstr "已更新"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"你可以在根節點新增一個新站點。除非關聯一個站點，否則新增的頁面將無法通過URL訪"
+"問。\n"
+"                        "
+
+msgid "Configure a site now."
+msgstr "現在配置一個站點。"
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"如果你只是想給已有的站點新增一個頁面，請直接在首頁中新增子頁面。"
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"在這里創建的頁面將無法通過URL訪問，如果想給已有的站點新增頁面，請在首頁中新增"
+"子頁面。"
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"當前位置沒有配置站點，在這里創建的頁面將無法通過任何URL訪問。"
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"當前位置沒有配置站點，頁面將無法訪問。"
+
+msgid "No pages have been created at this location."
+msgstr "這個位置還沒有創建頁面。"
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "要不<a href=\"%(add_page_url)s\">創建一個</a>?"
+
+msgid "This page is locked to further editing"
+msgstr "此頁面已鎖定，無法編輯"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "查看'%(title)s'的子頁面"
+
+msgid "Explore"
+msgstr "瀏覽"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "查看'%(title)s'的子頁面"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "為'%(title)s'新增子頁面"
+
+msgid "Add child page"
+msgstr "新增子頁面"
+
+msgid "Sites menu"
+msgstr "站點菜單"
+
+msgid "Pagination"
+msgstr "分頁"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"第 %(page_number)s 頁 共 %(num_pages)s 頁。"
+
+msgid "Previous"
+msgstr "上一個"
+
+msgid "Next"
+msgstr "下一個"
+
+msgid "This page is protected from public view"
+msgstr "此頁面已受保護，公眾不可見。"
+
+msgid "Disable ordering of child pages"
+msgstr "禁用子頁面排序"
+
+msgid "Enable ordering of child pages"
+msgstr "啟用子頁面排序"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "為 %(title)s選擇新父節點"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "為<span>%(title)s</span>選擇新的父節點"
+
+msgid "Preview error"
+msgstr "預覽錯誤"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"                無法預覽當前頁面, 一些錯誤依然存在。\n"
+"                請關閉當前標簽頁, 並編輯頁面以修正錯誤,\n"
+"                然後再進行預覽。\n"
+"            "
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "比較 %(title)s"
+
+msgid "Comparing"
+msgstr "正在比較"
+
+msgid "View revisions"
+msgstr "查看修訂版本"
+
+msgid "Fields"
+msgstr "欄位"
+
+msgid "Changes"
+msgstr "更改"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"下移 %(counter)s 位。"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"上移 %(counter)s 位。"
+
+msgid "There are no differences between these two revisions"
+msgstr "這兩個修訂版本內容一致。"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "取消%(title)s修訂版本%(revision.id)s的預定發布"
+
+msgid "Unschedule"
+msgstr "取消預定發布"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "確定要取消這個修訂版本的預定發布嗎？"
+
+msgid "Yes, unschedule"
+msgstr "是的，取消定時發布"
+
+msgid "No, don't unschedule"
+msgstr "否，不取消預定發布"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "%(title)s 的修訂"
+
+msgid "Revisions of"
+msgstr "修訂"
+
+msgid "Revision date"
+msgstr "修訂時間"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "修訂人"
+
+msgid "Current draft"
+msgstr "當前草稿"
+
+msgid "Live version"
+msgstr "線上版本"
+
+msgid "Scheduled for"
+msgstr "定時發布"
+
+msgid "Review this revision"
+msgstr "查看這個修訂"
+
+msgid "Compare with previous revision"
+msgstr "與上一個修訂版本進行比較"
+
+msgid "Cancel scheduled publish"
+msgstr "取消預定的發布"
+
+msgid "No revisions of this page exist"
+msgstr "當前頁面沒有修訂記錄"
+
+msgid "No revision of this page exist"
+msgstr "當前頁面沒有修訂記錄"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"有%(counter)s個符合要求的頁面"
+
+msgid "Page types"
+msgstr "頁面類型"
+
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "對不起，沒有符合<em>\"%(query_string)s\"</em>的頁面"
+
+msgid "Enter a search term above"
+msgstr "輸入上面的搜索條件"
+
+msgid "No pages use"
+msgstr "沒有頁面使用"
+
+msgid "Collection"
+msgstr "集合"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
+
+msgid "Root"
+msgstr "根"
+
+msgid "Home"
+msgstr "主頁"
+
+msgid "All collections"
+msgstr "所有集合"
+
+msgid "Edit your account"
+msgstr "編輯帳號"
+
+msgid "Account settings"
+msgstr "帳號設置"
+
+msgid "Log out"
+msgstr "登出"
+
+msgid "Visit the live page"
+msgstr "查看線上頁面"
+
+msgid "Other searches"
+msgstr "其它搜索"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"您正在使用一個本軟體不支持的<strong>過期的</strong> 瀏覽器。請 <a href="
+"\"http://browsehappy.com/\">更新瀏覽器</a>。"
+
+msgid "Go to Wagtail admin interface"
+msgstr "轉到管理界面"
+
+msgid "Add a child page"
+msgstr "新增子頁面"
+
+msgid "Show in Explorer"
+msgstr "在資源管理器中顯示"
+
+msgid "Test"
+msgstr "測試"
+
+msgid "Arabic"
+msgstr "阿拉伯語"
+
+msgid "Catalan"
+msgstr "加泰羅尼亞語"
+
+msgid "German"
+msgstr "德語"
+
+msgid "Greek"
+msgstr "希臘語"
+
+msgid "English"
+msgstr "英語"
+
+msgid "Spanish"
+msgstr "西班牙語"
+
+msgid "Finnish"
+msgstr "芬蘭語"
+
+msgid "French"
+msgstr "法語"
+
+msgid "Galician"
+msgstr "加利西亞語"
+
+msgid "Indonesian"
+msgstr "印度尼西亞"
+
+msgid "Icelandic"
+msgstr "冰島語"
+
+msgid "Italian"
+msgstr "義大利語"
+
+msgid "Korean"
+msgstr "韓國語"
+
+msgid "Lithuanian"
+msgstr "立陶宛語"
+
+msgid "Norwegian Bokmål"
+msgstr "挪威博克馬爾語"
+
+msgid "Netherlands Dutch"
+msgstr "荷蘭語"
+
+msgid "Persian"
+msgstr "波斯語"
+
+msgid "Polish"
+msgstr "波蘭語"
+
+msgid "Brazilian Portuguese"
+msgstr "巴西葡萄牙語"
+
+msgid "Portuguese"
+msgstr "葡萄牙語"
+
+msgid "Romanian"
+msgstr "羅馬尼亞語"
+
+msgid "Russian"
+msgstr "俄語"
+
+msgid "Swedish"
+msgstr "瑞典語"
+
+msgid "Slovak"
+msgstr "斯洛伐克語"
+
+msgid "Ukrainian"
+msgstr "烏克蘭語"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "對不起， 你沒有權限訪問。"
+
+msgid "Your password has been changed successfully!"
+msgstr "密碼成功修改！"
+
+msgid "Your email has been changed successfully!"
+msgstr "修改郵箱成功！😊"
+
+msgid "Your preferences have been updated."
+msgstr "你的首選項已被更新。"
+
+msgid "Your preferences have been updated successfully!"
+msgstr "已更新您的配置！"
+
+msgid "You have been successfully logged out."
+msgstr "成功登出"
+
+msgid "Collections"
+msgstr "集合"
+
+msgid "Add a collection"
+msgstr "新增一個集合"
+
+msgid "Add collection"
+msgstr "新增集合"
+
+msgid "Collection '{0}' created."
+msgstr "集合 '{0}' 已創建"
+
+msgid "Collection '{0}' updated."
+msgstr "集合 '{0}' 已更新"
+
+msgid "The collection could not be saved due to errors."
+msgstr "無法保存集合，出現錯誤。"
+
+msgid "Delete collection"
+msgstr "刪除集合"
+
+msgid "Collection '{0}' deleted."
+msgstr "集合 '{0}' 已刪除"
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "確定刪除此集合？"
+
+msgid "Editing"
+msgstr "正在編輯"
+
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "頁面 {0} 已創建並計劃發布中。"
+
+msgid "View live"
+msgstr "即時查看"
+
+msgid "Page '{0}' created and published."
+msgstr "頁面'{0}'已創建並發布。"
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "頁面 '{0}' 已創建並提交審核。"
+
+msgid "View draft"
+msgstr "查看草稿"
+
+msgid "Failed to send notifications to moderators"
+msgstr "向版主發送通知失敗"
+
+msgid "Page '{0}' created."
+msgstr "頁面'{0}'已創建"
+
+msgid "The page could not be created due to validation errors"
+msgstr "驗證錯誤，頁面無法創建。"
+
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "頁面 {1} 的版本 {0} 正在計劃發布中。"
+
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr "頁面 {0} 已上線，此修訂版本已預定發布時間。"
+
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "頁面 {0} 已預定發布時間。"
+
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "頁面 '{1}' 的修訂版本 {0} 已經發布。"
+
+msgid "Page '{0}' has been published."
+msgstr "頁面 '{0}' 已經發布。"
+
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "頁面 '{0}' 已經提交給版主。"
+
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "頁面 '{0}' 的修訂版本 {1} 已經被替換。"
+
+msgid "Page '{0}' has been updated."
+msgstr "頁面 '{0}' 已被更新。"
+
+msgid "The page could not be saved as it is locked"
+msgstr "頁面無法保存，已被鎖定。"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "頁面無法保存。出現驗證錯誤。"
+
+msgid "Compare with live version"
+msgstr "與線上版本進行比較"
+
+msgid "This page is currently awaiting moderation"
+msgstr "頁面等待審核中"
+
+msgid "Page '{0}' deleted."
+msgstr "頁面'{0}'已刪除"
+
+msgid "Page '{0}' unpublished."
+msgstr "頁面'{0}'已取消發布。"
+
+msgid "Page '{0}' moved."
+msgstr "頁面 '{0}' 已移動。"
+
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "頁面 '{0}' 和 {1} 個子頁面已復制。"
+
+msgid "Page '{0}' copied."
+msgstr "頁面'{0}'已復制。"
+
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "頁面 '{0}'目前不在等待審核。"
+
+msgid "Page '{0}' published."
+msgstr "頁面'{0}'已發布"
+
+msgid "Failed to send approval notifications"
+msgstr "發送批準通知失敗。"
+
+msgid "Page '{0}' rejected for publication."
+msgstr "頁面 '{0}'審核失敗"
+
+msgid "Failed to send rejection notifications"
+msgstr "發送拒絕通知失敗。"
+
+msgid "Page '{0}' is now locked."
+msgstr "頁面 '{0}'已鎖定"
+
+msgid "Page '{0}' is now unlocked."
+msgstr "頁面 '{0}'已解鎖。"
+
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"你正在查看當前頁面的修訂版本，版本時間：<b>%(created_at)s</b> 版本編輯： "
+"%(user)s"
+
+msgid "Earliest"
+msgstr "最早的"
+
+msgid "Latest"
+msgstr "最近的"
+
+msgid "revision {0} of \"{1}\""
+msgstr " \"{1}\"的修訂版本{0}"
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr " \"{1}\"的修訂版本{0}已取消預定的發布。"
+
+msgid "Edit '{title}'"
+msgstr "編輯 '{title}'"
+
+msgid "Preview draft version of '{title}'"
+msgstr "預覽 '{title}' 的草稿"
+
+msgid "View live version of '{title}'"
+msgstr "查看 '{title}' 的線上版本"
+
+msgid "Add a child page to '{title}' "
+msgstr "為 '{title}' 新增子頁面"
+
+msgid "More"
+msgstr "更多"
+
+msgid "View more options for '{title}'"
+msgstr "查看 '{title}' 的更多選項"
+
+msgid "Move page '{title}'"
+msgstr "移動頁面 '{title}'"
+
+msgid "Copy page '{title}'"
+msgstr "復制頁面 '{title}'"
+
+msgid "Delete page '{title}'"
+msgstr "刪除頁面 '{title}'"
+
+msgid "Unpublish page '{title}'"
+msgstr "取消發布頁面 '{title}'"
+
+msgid "View revision history for '{title}'"
+msgstr "查看 '{title}' 的修訂歷史"
+
+msgid "Set profile picture"
+msgstr "頭像設置"
+
+msgid "Change your profile picture"
+msgstr "更改你的頭像"
+
+msgid "Change the email address linked to your account."
+msgstr "更改帳號關聯信箱"
+
+msgid "Change the password you use to log in."
+msgstr "修改用於登錄的密碼"
+
+msgid "Choose which email notifications to receive."
+msgstr "選擇接收哪些郵件提醒"
+
+msgid "Language preferences"
+msgstr "語言首選項"
+
+msgid "Choose the language you want to use here."
+msgstr "請在這里選擇你想使用的語言。"
+
+msgid "Current Time Zone"
+msgstr "當前時區"
+
+msgid "Choose your current time zone."
+msgstr "選擇你的當前時區"
+
+msgid "Heading {level}"
+msgstr "標題{level}"
+
+msgid "Bulleted list"
+msgstr "項目列表"
+
+msgid "Numbered list"
+msgstr "編號列表"
+
+msgid "Bold"
+msgstr "粗體"
+
+msgid "Italic"
+msgstr "斜體"
+
+msgid "Link"
+msgstr "超連接"
+
+msgid "Choose an item"
+msgstr "選擇一項"
+
+msgid "Choose another item"
+msgstr "選擇其它項"
+
+msgid "Clear choice"
+msgstr "清除選擇"
+
+msgid "Edit this item"
+msgstr "編輯此項"
+
+msgid "Choose another page"
+msgstr "選擇其它頁面"

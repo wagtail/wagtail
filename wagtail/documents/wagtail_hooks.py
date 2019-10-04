@@ -8,6 +8,7 @@ from django.utils.translation import ugettext, ungettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
+from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
@@ -19,9 +20,9 @@ from wagtail.documents.api.admin.endpoints import DocumentsAdminAPIEndpoint
 from wagtail.documents.forms import GroupDocumentPermissionFormSet
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
-from wagtail.documents.rich_text import (
-    ContentstateDocumentLinkConversionRule, EditorHTMLDocumentLinkConversionRule,
-    document_linktype_handler)
+from wagtail.documents.rich_text import DocumentLinkHandler
+from wagtail.documents.rich_text.contentstate import ContentstateDocumentLinkConversionRule
+from wagtail.documents.rich_text.editor_html import EditorHTMLDocumentLinkConversionRule
 
 
 @hooks.register('register_admin_urls')
@@ -68,7 +69,7 @@ def editor_js():
 
 @hooks.register('register_rich_text_features')
 def register_document_feature(features):
-    features.register_link_type('document', document_linktype_handler)
+    features.register_link_type(DocumentLinkHandler)
 
     features.register_editor_plugin(
         'hallo', 'document-link',
@@ -103,8 +104,11 @@ class DocumentsSummaryItem(SummaryItem):
     template = 'wagtaildocs/homepage/site_summary_documents.html'
 
     def get_context(self):
+        site_name = get_site_for_user(self.request.user)['site_name']
+
         return {
             'total_docs': get_document_model().objects.count(),
+            'site_name': site_name,
         }
 
     def is_shown(self):

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benjamin Thurm, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
@@ -11,6 +12,7 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
+# Peter Dreuw <archandha@gmx.net>, 2019
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Vorlif <flori@vorlif.org>, 2015,2017
 # Wasilis Mandratzis-Walz, 2015
@@ -19,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-09 09:52+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-06-23 14:53+0000\n"
+"Last-Translator: Peter Dreuw <archandha@gmx.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -127,7 +129,7 @@ msgid "live"
 msgstr "Veröffentlicht"
 
 msgid "has unpublished changes"
-msgstr "Hat unveröffentlichte Änderungen"
+msgstr "hat unveröffentlichte Änderungen"
 
 msgid "URL path"
 msgstr "URL Pfad"
@@ -313,7 +315,10 @@ msgid "permission"
 msgstr "Berechtigung"
 
 msgid "group collection permission"
-msgstr "Gruppen Sammlungsberechtigungen"
+msgstr "Gruppen Sammlungs-Berechtigung"
+
+msgid "group collection permissions"
+msgstr "Gruppen-Sammlungs-Berechtigungen"
 
 msgid "Log in"
 msgstr "Anmelden"

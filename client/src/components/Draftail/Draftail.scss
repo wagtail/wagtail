@@ -103,3 +103,10 @@ $draftail-editor-font-family: $font-serif;
 .title .Draftail-Editor .public-DraftEditorPlaceholder-root {
     font-size: 2em;
 }
+
+.Draftail-block--blockquote {
+    border-left: 0.25em solid $color-grey-3;
+    color: $color-grey-2;
+    margin: 1em 0;
+    padding: 1em 2em;
+}

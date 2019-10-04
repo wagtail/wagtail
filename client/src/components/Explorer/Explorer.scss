@@ -1,5 +1,5 @@
 $c-explorer-bg: #4c4e4d;
-$c-explorer-bg-dark: $color-grey-1;
+$c-explorer-bg-dark: $nav-grey-1;
 $c-explorer-bg-active: rgba(0, 0, 0, 0.425);
 $c-explorer-secondary: #a5a5a5;
 $c-explorer-easing: cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -22,12 +22,16 @@ $menu-footer-height: 50px;
     display: flex;
     flex-direction: column;
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         width: 485px;
         height: 100vh;
         position: fixed;
         z-index: 500;
         left: $menu-width;
+    }
+
+    *:focus {
+        @include show-focus-outline-inside;
     }
 }
 
@@ -37,7 +41,7 @@ $menu-footer-height: 50px;
     overflow: hidden;
     background: $c-explorer-bg;
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         box-shadow: 2px 2px 5px $c-explorer-bg-active;
     }
 }
@@ -58,7 +62,6 @@ $menu-footer-height: 50px;
     &:focus {
         background-color: $c-explorer-bg-active;
         color: $color-white;
-        outline: none;
     }
 
     // Overrides for default link hover.
@@ -66,7 +69,7 @@ $menu-footer-height: 50px;
         color: $c-explorer-secondary;
     }
 
-    @include small {
+    @include media-breakpoint-down(xs) {
         .explorer-open & {
             display: block;
         }
@@ -88,7 +91,6 @@ $menu-footer-height: 50px;
     &:focus {
         background-color: $c-explorer-bg-active;
         color: $color-white;
-        outline: none;
     }
 
     // Overrides for default link hover.
@@ -113,7 +115,7 @@ $menu-footer-height: 50px;
         font-size: 1rem;
     }
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         padding: 1em 1.5em;
     }
 }
@@ -122,7 +124,7 @@ $menu-footer-height: 50px;
     padding: 1em;
     color: $color-white;
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         padding: 1em 1.75em;
     }
 }
@@ -136,7 +138,6 @@ $menu-footer-height: 50px;
     &:focus {
         color: $c-explorer-secondary;
         background: $c-explorer-bg-active;
-        outline: none;
     }
 
     // Overrides for default link hover.
@@ -148,7 +149,7 @@ $menu-footer-height: 50px;
         background: $c-explorer-bg-active;
     }
 
-    @include medium {
+    @include media-breakpoint-up(sm) {
         padding: 1em 1.75em;
         height: $menu-footer-height;
     }

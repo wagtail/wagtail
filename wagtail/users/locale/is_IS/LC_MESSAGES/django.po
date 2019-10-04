@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
-# saevarom <saevar@saevar.is>, 2017-2018
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
+# saevarom <saevar@saevar.is>, 2017-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 10:18+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -71,6 +71,12 @@ msgstr "Hópur með þessu nafni er þegar til."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Þú getur ekki haft margar heimildafærslur fyrir sömu síðuna."
 
+msgid "Preferred language"
+msgstr "Valið tungumál"
+
+msgid "Current time zone"
+msgstr "Núverandi tímabelti"
+
 msgid "Upload a profile picture"
 msgstr "Hlaða upp prófílmynd"
 
@@ -110,6 +116,9 @@ msgstr "prófílmynd"
 
 msgid "user profile"
 msgstr "uppsetning notanda"
+
+msgid "user profiles"
+msgstr "uppsetning notenda"
 
 msgid "Delete group"
 msgstr "Eyða hóp"
@@ -233,6 +242,9 @@ msgstr "Stig"
 msgid "Status"
 msgstr "Staða"
 
+msgid "Last Login"
+msgstr "Síðasta innskráning"
+
 msgid "Admin"
 msgstr "Stjórnandi"
 
@@ -243,9 +255,13 @@ msgid "Inactive"
 msgstr "Óvirkur"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s síðan"
+
+#, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -253,12 +269,10 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Það er ein niðurstaða\n"
-"        "
+"Það er %(counter)s niðurstaða"
 msgstr[1] ""
 "\n"
-"            Það eru %(counter)s niðurstöður\n"
-"        "
+"Það eru %(counter)s niðurstöður"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -304,12 +318,8 @@ msgid "The user could not be created due to errors."
 msgstr ""
 "Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
 
-msgid ""
-"Your details have been updated. You've been logged out for security reasons, "
-"please login to continue."
-msgstr ""
-"Upplýsingarnar þínar hafa verið vistaðar. Þú hefur verið útskráð/ur af "
-"öryggisástæðu, vinsamlegast skráðu þig aftur inn til að halda áfram."
+msgid "User '{0}' updated."
+msgstr "Notandi '{0}' uppfærður."
 
 msgid "The user could not be saved due to errors."
 msgstr ""

@@ -61,7 +61,13 @@ describe('ModalWorkflowSource', () => {
 
       it('page', () => {
         expect(getChooserConfig({ type: 'LINK' }, {
-          getData: () => ({ id: 1, parentId: 0 })
+          getData: () => ({ id: 2, parentId: 1 })
+        }, '')).toMatchSnapshot();
+      });
+
+      it('root page', () => {
+        expect(getChooserConfig({ type: 'LINK' }, {
+          getData: () => ({ id: 1, parentId: null })
         }, '')).toMatchSnapshot();
       });
 
@@ -135,6 +141,14 @@ describe('ModalWorkflowSource', () => {
           prefer_this_title_as_link_text: false,
           title: 'test@example.com',
           url: 'mailto:test@example.com',
+        })).toMatchSnapshot();
+      });
+
+      it('anchor', () => {
+        expect(filterEntityData({ type: 'LINK' }, {
+          prefer_this_title_as_link_text: false,
+          title: 'testanchor',
+          url: '#testanchor',
         })).toMatchSnapshot();
       });
 

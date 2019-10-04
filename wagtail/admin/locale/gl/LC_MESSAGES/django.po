@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Enviar para ser moderado"
+
+msgid "Unpublish"
+msgstr "Non publicar"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "You do not have permission to access the admin"
 msgstr "Non tes permisos para acceder ao administrador."
@@ -39,15 +48,6 @@ msgstr "Promocionar"
 msgid "Settings"
 msgstr "Propiedades"
 
-msgid "Search"
-msgstr "Porcurar"
-
-msgid "Search term"
-msgstr "Procurar termo"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Introduce contrasinal"
 
@@ -57,6 +57,12 @@ msgstr "Introduce o teu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escribe a túa dirección de correo para restaurar o teu contrasinal"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
 
 msgid "New title"
 msgstr "Novo título"
@@ -107,9 +113,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Este slug está xa en uso no contexto da súa páxina pai \"%s\""
 
-msgid "This field is required."
-msgstr "Este campo é requirido."
-
 msgid "This slug is already in use"
 msgstr "Este slug ya está en uso"
 
@@ -120,8 +123,14 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "A data/tempo de expiración debe ser no futuro"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
+msgid "Search"
+msgstr "Porcurar"
+
+msgid "Search term"
+msgstr "Procurar termo"
+
+msgid "This field is required."
+msgstr "Este campo é requirido."
 
 msgid "Go to Wagtail admin"
 msgstr "Ir ao administrador de Wagtail"
@@ -171,14 +180,65 @@ msgstr "Restablecer contrasinal"
 msgid "Reset your password"
 msgstr "Restablecer o teu contrasinal"
 
-msgid "Edit"
-msgstr "Editar"
-
-msgid "Delete"
-msgstr "Eliminar"
-
 msgid "Pages"
 msgstr "Páxinas"
+
+msgid "January"
+msgstr "Enero"
+
+msgid "February"
+msgstr "Febrero"
+
+msgid "March"
+msgstr "Marzo"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May"
+msgstr "Maio"
+
+msgid "June"
+msgstr "Xuño"
+
+msgid "July"
+msgstr "Xullo"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "September"
+msgstr "Setembro"
+
+msgid "October"
+msgstr "Outubro"
+
+msgid "November"
+msgstr "Novembro"
+
+msgid "December"
+msgstr "Decembro"
+
+msgid "Sun"
+msgstr "Do"
+
+msgid "Mon"
+msgstr "Lu"
+
+msgid "Tue"
+msgstr "Ma"
+
+msgid "Wed"
+msgstr "Me"
+
+msgid "Thu"
+msgstr "Xo"
+
+msgid "Fri"
+msgstr "Ve"
+
+msgid "Sat"
+msgstr "Sa"
 
 msgid "Dashboard"
 msgstr "Panel de control"
@@ -206,24 +266,6 @@ msgstr "Ligazón externa"
 
 msgid "Email link"
 msgstr "Ligazón de correo electrónico"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"        Hai unha coincidencia\n"
-"    "
-msgstr[1] ""
-"\n"
-"        Hai %(counter)s coincidencias\n"
-"    "
 
 msgid "Choose"
 msgstr "Seleccionar"
@@ -331,6 +373,9 @@ msgstr "Aprobar"
 msgid "Reject"
 msgstr "Rexeitar"
 
+msgid "Edit"
+msgstr "Editar"
+
 msgid "Preview"
 msgstr "Previsualizar"
 
@@ -351,24 +396,6 @@ msgstr "En vivo"
 
 msgid "Site summary"
 msgstr "Resumo do sitio"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Páxina\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Páxinas\n"
-"    "
 
 msgid "Sign in"
 msgstr "Iniciar sesión"
@@ -444,6 +471,12 @@ msgstr "Bloqueada"
 msgid "Unlocked"
 msgstr "Desbloqueada"
 
+msgid "Publish this revision"
+msgstr "Publicar esta revisión"
+
+msgid "Publish"
+msgstr "Publicar"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Crear unha páxina en %(title)s"
@@ -511,9 +544,6 @@ msgstr "Sí, mover esta páxina"
 msgid "Unpublish %(title)s"
 msgstr "Non publicar %(title)s"
 
-msgid "Unpublish"
-msgstr "Non publicar"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "¿Seguro que non queres publicar esta páxina?"
 
@@ -543,12 +573,6 @@ msgstr "Nova"
 msgid "Save draft"
 msgstr "Gardar borrador"
 
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Submit for moderation"
-msgstr "Enviar para ser moderado"
-
 msgid "This page has unsaved changes."
 msgstr "Esta páxina ten cambios sen gardar."
 
@@ -565,9 +589,6 @@ msgstr "Páxina bloqueada"
 
 msgid "Replace current draft"
 msgstr "Substituír borrador actual"
-
-msgid "Publish this revision"
-msgstr "Publicar esta revisión"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -704,9 +725,6 @@ msgstr "Esta páxina está protexida da vista pública"
 msgid "Disable ordering of child pages"
 msgstr "Deshabilitar organización de páxinas fillas"
 
-msgid "Order"
-msgstr "Orden"
-
 msgid "Enable ordering of child pages"
 msgstr "Habilitar organización de páxinas fillas"
 
@@ -775,78 +793,21 @@ msgstr "Non hay uso de páxinas"
 msgid "Collection"
 msgstr "Colección"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Páxina %(page_num)s de %(total_pages)s."
+
 msgid "Home"
 msgstr "Principal"
 
 msgid "All collections"
 msgstr "Todas as coleccións"
 
-msgid "January"
-msgstr "Enero"
-
-msgid "February"
-msgstr "Febrero"
-
-msgid "March"
-msgstr "Marzo"
-
-msgid "April"
-msgstr "Abril"
-
-msgid "May"
-msgstr "Maio"
-
-msgid "June"
-msgstr "Xuño"
-
-msgid "July"
-msgstr "Xullo"
-
-msgid "August"
-msgstr "Agosto"
-
-msgid "September"
-msgstr "Setembro"
-
-msgid "October"
-msgstr "Outubro"
-
-msgid "November"
-msgstr "Novembro"
-
-msgid "December"
-msgstr "Decembro"
-
-msgid "Sun"
-msgstr "Do"
-
-msgid "Mon"
-msgstr "Lu"
-
-msgid "Tue"
-msgstr "Ma"
-
-msgid "Wed"
-msgstr "Me"
-
-msgid "Thu"
-msgstr "Xo"
-
-msgid "Fri"
-msgstr "Ve"
-
-msgid "Sat"
-msgstr "Sa"
-
 msgid "Edit your account"
 msgstr "Editar a túa conta"
 
 msgid "Log out"
 msgstr "Cerrar sesión"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Páxina %(page_num)s de %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Outras procuras"

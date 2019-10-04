@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -5,12 +6,11 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm
-from wagtail.admin.utils import PermissionPolicyChecker, permission_denied
+from wagtail.admin.auth import PermissionPolicyChecker, permission_denied
+from wagtail.admin.forms.search import SearchForm
 from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.forms import RedirectForm
 from wagtail.contrib.redirects.permissions import permission_policy
-from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -25,9 +25,9 @@ def index(request):
 
     # Search
     if query_string:
-        redirects = redirects.filter(Q(old_path__icontains=query_string) |
-                                     Q(redirect_page__url_path__icontains=query_string) |
-                                     Q(redirect_link__icontains=query_string))
+        redirects = redirects.filter(Q(old_path__icontains=query_string)
+                                     | Q(redirect_page__url_path__icontains=query_string)
+                                     | Q(redirect_link__icontains=query_string))
 
     # Ordering (A bit useless at the moment as only 'old_path' is allowed)
     if ordering not in ['old_path']:
@@ -36,7 +36,8 @@ def index(request):
     redirects = redirects.order_by(ordering)
 
     # Pagination
-    paginator, redirects = paginate(request, redirects)
+    paginator = Paginator(redirects, per_page=20)
+    redirects = paginator.get_page(request.GET.get('p'))
 
     # Render template
     if request.is_ajax():

@@ -3,7 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2016-2017
+# Benjamin Thurm, 2018
+# Ettore Atalan <atalanttore@googlemail.com>, 2016-2017,2019
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
@@ -12,6 +13,7 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2017
+# Peter Dreuw <archandha@gmx.net>, 2019
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Vorlif <flori@vorlif.org>, 2015
 # Wasilis Mandratzis-Walz, 2015
@@ -20,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-09 09:56+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +53,7 @@ msgid "The two password fields didn't match."
 msgstr "Die beiden Passwortfelder stimmen nicht überein."
 
 msgid "Email"
-msgstr "Email"
+msgstr "E-Mail"
 
 msgid "First Name"
 msgstr "Vorname"
@@ -86,8 +88,14 @@ msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 "Sie können nicht mehrere Berechtigungseinträge für dieselbe Seite haben."
 
+msgid "Preferred language"
+msgstr "Bevorzugte Sprache"
+
+msgid "Current time zone"
+msgstr "Aktuelle Zeitzone"
+
 msgid "Upload a profile picture"
-msgstr "Ein Profil-Bild hochladen"
+msgstr "Ein Profilbild hochladen"
 
 msgid "submitted notifications"
 msgstr "Eingereicht-Benachrichtigungen"
@@ -121,10 +129,13 @@ msgid "Select your current time zone"
 msgstr "Wählen Sie Ihre aktuelle Zeitzone"
 
 msgid "profile picture"
-msgstr "Profil-Bild"
+msgstr "Profilbild"
 
 msgid "user profile"
 msgstr "Benutzerprofil"
+
+msgid "user profiles"
+msgstr "Benutzerprofile"
 
 msgid "Delete group"
 msgstr "Gruppe löschen"
@@ -246,6 +257,9 @@ msgstr "Level"
 msgid "Status"
 msgstr "Status"
 
+msgid "Last Login"
+msgstr "Letzte Anmeldung"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -256,9 +270,13 @@ msgid "Inactive"
 msgstr "Inaktiv"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "vor %(time_period)s"
+
+#, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -266,12 +284,10 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Es gibt ein Ergebnis\n"
-"        "
+"Es gibt %(counter)s Ergebnisse."
 msgstr[1] ""
 "\n"
-"            Es gibt %(counter)s Ergebnisse\n"
-"        "
+"Es gibt %(counter)s Ergebnisse."
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -316,12 +332,8 @@ msgstr "Bearbeiten"
 msgid "The user could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht erstellt werden."
 
-msgid ""
-"Your details have been updated. You've been logged out for security reasons, "
-"please login to continue."
-msgstr ""
-"Ihre Angaben wurden aktualisiert. Aus Sicherheitsgründen wurden Sie "
-"abgemeldet, bitte melden Sie sich an, um fortzufahren."
+msgid "User '{0}' updated."
+msgstr "Benutzer '{0}' aktualisiert."
 
 msgid "The user could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."

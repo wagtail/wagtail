@@ -27,7 +27,7 @@ class Embed(models.Model):
     title = models.TextField(blank=True)
     author_name = models.TextField(blank=True)
     provider_name = models.TextField(blank=True)
-    thumbnail_url = models.URLField(null=True, blank=True)
+    thumbnail_url = models.URLField(max_length=255, null=True, blank=True)
     width = models.IntegerField(null=True, blank=True)
     height = models.IntegerField(null=True, blank=True)
     last_updated = models.DateTimeField(auto_now=True)
@@ -35,6 +35,7 @@ class Embed(models.Model):
     class Meta:
         unique_together = ('url', 'max_width')
         verbose_name = _('embed')
+        verbose_name_plural = _('embeds')
 
     @property
     def ratio(self):

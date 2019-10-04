@@ -5,7 +5,7 @@
     "fields": {
         "title": "Root",
         "draft_title": "Root",
-        "numchild": 1,
+        "numchild": 2,
         "show_in_menus": false,
         "live": true,
         "depth": 1,
@@ -594,6 +594,22 @@
     }
 },
 
+{
+    "pk": 20,
+    "model": "wagtailcore.page",
+    "fields": {
+        "title": "This page doesn't get served",
+        "draft_title": "This page doesn't get served",
+        "numchild": 0,
+        "show_in_menus": false,
+        "live": true,
+        "depth": 2,
+        "content_type": ["wagtailcore", "page"],
+        "path": "00010002",
+        "url_path": "/does-not-exist/",
+        "slug": "does-not-exist"
+    }
+},
 
 {
     "pk": 1,
@@ -656,6 +672,19 @@
     }
 },
 {
+    "pk": 7,
+    "model": "auth.group",
+    "fields": {
+        "name": "Corporate Editor",
+        "permissions": [
+            ["access_admin", "wagtailadmin", "admin"],
+            ["add_image", "wagtailimages", "image"],
+            ["change_image", "wagtailimages", "image"],
+            ["delete_image", "wagtailimages", "image"]
+        ]
+    }
+},
+{
     "pk": 1,
     "model": "wagtailcore.grouppagepermission",
     "fields": {
@@ -707,6 +736,24 @@
         "group": ["Event moderators"],
         "page": 3,
         "permission_type": "lock"
+    }
+},
+{
+    "pk": 7,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Corporate Editor"],
+        "page": 7,
+        "permission_type": "edit"
+    }
+},
+{
+    "pk": 8,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Corporate Editor"],
+        "page": 15,
+        "permission_type": "add"
     }
 },
 {
@@ -814,6 +861,24 @@
         "user_permissions": [],
         "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
         "email": "admin_only_user@example.com"
+    }
+},
+{
+    "pk": 7,
+    "model": "customuser.customuser",
+    "fields": {
+        "username": "corporateeditor",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "groups": [
+            ["Corporate Editor"]
+        ],
+        "user_permissions": [],
+        "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+        "email": "corporateeditor@example.com"
     }
 },
 {
@@ -1006,6 +1071,14 @@
 {
   "pk": "advert/01",
   "model": "tests.advertwithcustomprimarykey",
+  "fields": {
+      "text": "test_advert",
+      "url": "http://www.example.com"
+      }
+},
+{
+  "pk": "2dbe9aa7-1f4a-428a-8cca-b929ee5bff5b",
+  "model": "tests.advertwithcustomuuidprimarykey",
   "fields": {
       "text": "test_advert",
       "url": "http://www.example.com"

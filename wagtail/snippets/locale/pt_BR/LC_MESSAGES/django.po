@@ -8,14 +8,14 @@
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-08-04 02:26+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Pesquisa"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -41,7 +41,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Há um resultado\n"
+"            Há %(counter)s resultado\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -55,19 +55,19 @@ msgstr "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
-"a>?"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
 msgstr ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
-"a>?"
+"Você não criou nenhum %(snippet_type_name)s fragmento. Por que não <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">criar um agora</a>?"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Excluir %(snippet_type_name)s - %(instance)s"
+msgid "Delete %(snippet_type_name)s"
+msgstr "Remover %(snippet_type_name)s"
 
-msgid "Delete"
-msgstr "Excluir"
+msgid "Delete "
+msgstr "Remover"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -79,8 +79,15 @@ msgstr[1] "Usado %(usage_count)s vezes"
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "Você tem certeza que deseja excluir essa %(snippet_type_name)s?"
 
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Tem certeza de que deseja excluir %(count)s %(snippet_type_name)s?"
+
 msgid "Yes, delete"
 msgstr "Sim, exclua"
+
+msgid "No, don't delete"
+msgstr "Não, não apague"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"
@@ -101,6 +108,12 @@ msgstr "Editando %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Actions"
+msgstr "Ações"
+
+msgid "Delete"
+msgstr "Excluir"
 
 msgid "Usage"
 msgstr "Uso"
@@ -171,6 +184,9 @@ msgstr "O snippet não pode ser salvo por conter erros."
 
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}' removido."
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} removido."
 
 #, python-format
 msgid "Choose %s"

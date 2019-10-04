@@ -9,11 +9,14 @@
 
     {% csrf_token %}
     <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}" />
-    <button type="submit" class="status-tag {{ page.locked|yesno:'primary,secondary' }}{% if not page_perms.can_lock %} disabled{% endif %}">
+    <button
+        type="submit"
+        class="status-tag {{ page.locked|yesno:'primary,secondary' }}{% if not page_perms.can_lock %} disabled{% endif %}"
+        aria-label="{% if page.locked %}{% trans 'Remove editor lock. Current status: Locked' %}{% else %}{% trans 'Apply editor lock. Current status: Unlocked' %}{% endif %}">
         {% if page.locked %}
-            {% trans 'Locked' %}
+            {% trans "Locked" %}
         {% else %}
-            {% trans 'Unlocked' %}
+            {% trans "Unlocked" %}
         {% endif %}
     </button>
 </form>

@@ -5,7 +5,7 @@ Integrating Wagtail into a Django project
 
 Wagtail provides the ``wagtail start`` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 1.11 and 2.0. First, install the ``wagtail`` package from PyPI:
+Wagtail is currently compatible with Django 2.0, 2.1 and 2.2. First, install the ``wagtail`` package from PyPI:
 
 .. code-block:: console
 
@@ -42,11 +42,21 @@ Add the following entries to ``MIDDLEWARE``:
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
+.. note::
+   Wagtail is currently incompatible with projects using ``django.contrib.sites.middleware.CurrentSiteMiddleware``, as both this and ``wagtail.core.middleware.SiteMiddleware`` set the attribute ``request.site``.
+
 Add a ``STATIC_ROOT`` setting, if your project does not have one already:
 
 .. code-block:: python
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    
+Add ``MEDIA_ROOT`` and ``MEDIA_URL`` settings, if your project does not have these already:
+
+.. code-block:: python
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
 
 Add a ``WAGTAIL_SITE_NAME`` - this will be displayed on the main dashboard of the Wagtail admin backend:
 
@@ -87,7 +97,7 @@ The URL paths here can be altered as necessary to fit your project's URL scheme.
 
 .. code-block:: python
 
-    url(r'', include(wagtail_urls)),
+    re_path(r'', include(wagtail_urls)),
 
 In this case, this should be placed at the end of the ``urlpatterns`` list, so that it does not override more specific URL patterns.
 

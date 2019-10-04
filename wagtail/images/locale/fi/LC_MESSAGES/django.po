@@ -5,7 +5,7 @@
 # Translators:
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
-# Eetu Häivälä <eetu.haivala@anders.fi>, 2016-2017
+# Eetu Häivälä, 2016-2017
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -142,28 +142,6 @@ msgstr "Suositut asiasanat"
 msgid "Uploading…"
 msgstr "Lähetetään…"
 
-msgid "Server Error"
-msgstr "Palvelinvirhe"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"Löytyi yksi osuma"
-msgstr[1] ""
-"\n"
-"Löytyi %(counter)s osumaa"
-
 msgid "Latest images"
 msgstr "Tuoreimmat kuvat"
 
@@ -172,22 +150,6 @@ msgstr "Valitse muoto"
 
 msgid "Insert image"
 msgstr "Lisää kuva"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Kuva"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Kuvaa"
 
 msgid "Change image file:"
 msgstr "Vaihda kuvatiedosto:"
@@ -217,21 +179,11 @@ msgstr "Muokataan kuvaa %(title)s"
 msgid "Editing"
 msgstr "Muokataan"
 
-msgid "Focal point (optional)"
-msgstr "Kiintopiste (ei pakollinen)"
-
-msgid ""
-"To define this image's most important region, drag a box over the image "
-"below."
-msgstr ""
-"Raahaa laatikko alla olevan kuvan päälle määritelläksesi kuvan tärkeimmän "
-"alueen."
+msgid "URL Generator"
+msgstr "URL-generaattori"
 
 msgid "Current focal point shown"
 msgstr "Nykyinen kiintopiste näkyy"
-
-msgid "URL Generator"
-msgstr "URL-generaattori"
 
 msgid "Max dimensions"
 msgstr "Enimmäismitat"
@@ -329,6 +281,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Pahoittelut, siirto epäonnistui."
+
+msgid "Server Error"
+msgstr "Palvelinvirhe"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
 
 msgid "Image updated."
 msgstr "Kuva päivitetty."

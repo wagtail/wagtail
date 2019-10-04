@@ -49,7 +49,7 @@ class Elasticsearch6SearchResults(Elasticsearch5SearchResults):
     pass
 
 
-class Elasticsearch6AutocompleteQueryCompiler(Elasticsearch5SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
+class Elasticsearch6AutocompleteQueryCompiler(Elasticsearch6SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
     pass
 
 

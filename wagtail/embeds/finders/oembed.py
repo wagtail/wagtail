@@ -65,7 +65,7 @@ class OEmbedFinder(EmbedFinder):
 
         # Convert photos into HTML
         if oembed['type'] == 'photo':
-            html = '<img src="%s" />' % (oembed['url'], )
+            html = '<img src="%s" alt="">' % (oembed['url'], )
         else:
             html = oembed.get('html')
 

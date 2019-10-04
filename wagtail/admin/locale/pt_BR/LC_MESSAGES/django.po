@@ -8,18 +8,18 @@
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014,2017
-# Guilherme Nabanete <neoheartz@gmail.com>, 2016
+# Guilherme Nabanete <neoheartz@gmail.com>, 2016,2019
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2019
 # Marcio Mazza <marciomazza@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-17 19:16+0000\n"
+"Last-Translator: Guilherme Nabanete <neoheartz@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Enviar para moderação"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Delete"
+msgstr "Excluir"
+
+msgid "Wagtail admin"
+msgstr "Administração Wagtail"
 
 msgid "None"
 msgstr "Nenhum"
@@ -49,15 +61,6 @@ msgstr "Promover"
 msgid "Settings"
 msgstr "Configurações"
 
-msgid "Search"
-msgstr "Pesquisar"
-
-msgid "Search term"
-msgstr "Termo de pesquisa"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Digite sua senha"
 
@@ -67,6 +70,12 @@ msgstr "Digite seu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Entre com seu email para resetar sua senha"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Você não pode ter vários registros de permissão para a mesma coleção."
 
 msgid "New title"
 msgstr "Novo título"
@@ -124,15 +133,6 @@ msgstr "Este endereço já está em uso no contexto desta página raíz \"%s\""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Você não pode copiar uma página em si mesmo ao copiar subpáginas"
 
-msgid "Visibility"
-msgstr "Visibilidade"
-
-msgid "This field is required."
-msgstr "Este campo é obrigatório."
-
-msgid "Please select at least one group."
-msgstr "Por favor selecione pelo menos um grupo."
-
 msgid "This slug is already in use"
 msgstr "Esse endereço já existe"
 
@@ -142,8 +142,20 @@ msgstr "Data/hora para ficar online deve ser antes da data/hora de expiração"
 msgid "Expiry date/time must be in the future"
 msgstr "Data/hora de expiração deve ser no futuro."
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Você não pode ter vários registros de permissão para a mesma coleção."
+msgid "Search"
+msgstr "Pesquisar"
+
+msgid "Search term"
+msgstr "Termo de pesquisa"
+
+msgid "Visibility"
+msgstr "Visibilidade"
+
+msgid "This field is required."
+msgstr "Este campo é obrigatório."
+
+msgid "Please select at least one group."
+msgstr "Por favor selecione pelo menos um grupo."
 
 msgid "Error 404: Page not found"
 msgstr "Erro 404: Página não encontrada"
@@ -160,8 +172,17 @@ msgstr "Ir para administração Wagtail"
 msgid "Account"
 msgstr "Minha conta"
 
+msgid "Change profile picture"
+msgstr "Alterar foto do perfil"
+
+msgid "Your current profile picture:"
+msgstr "Sua foto atual do perfil:"
+
 msgid "Update"
 msgstr "Atualizar"
+
+msgid "Change email"
+msgstr "Alterar e-mail"
 
 msgid "Change password"
 msgstr "Alterar senha"
@@ -169,6 +190,9 @@ msgstr "Alterar senha"
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "Sua senha não pode ser alterada. Contacte o administrador do site."
+
+msgid "Set Time Zone"
+msgstr "Definir fuso horário"
 
 msgid "Language Preferences"
 msgstr "Preferências de idioma"
@@ -188,8 +212,27 @@ msgstr "Entrar"
 msgid "Set your new password"
 msgstr "Definir sua nova senha"
 
+msgid "Invalid password reset link"
+msgstr "Link de redefinição de senha inválido"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"O link de redefinição de senha é inválido, possivelmente porque já foi usado."
+
+msgid "Request a new password reset"
+msgstr "Solicitar uma nova redefinição de senha"
+
 msgid "Check your email"
 msgstr "Verifique seu e-mail"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Um link para redefinir sua senha foi enviado para você, caso exista uma "
+"conta para esse endereço."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Por favor, siga o link abaixo para redefinir sua senha:"
@@ -202,12 +245,6 @@ msgstr "Redefinição de senha"
 
 msgid "Reset your password"
 msgstr "Redefina sua senha"
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "Delete"
-msgstr "Excluir"
 
 msgid "Page"
 msgstr "Página"
@@ -223,9 +260,6 @@ msgstr "Nenhum resultado"
 
 msgid "Server Error"
 msgstr "Erro de servidor"
-
-msgid "See children"
-msgstr "Ver filhos"
 
 msgid "See all"
 msgstr "Ver todos"
@@ -250,6 +284,120 @@ msgstr "Desfazer"
 
 msgid "Redo"
 msgstr "Refazer"
+
+msgid "Reload the page"
+msgstr "Recarregue a página"
+
+msgid "Reload saved content"
+msgstr "Recarregar conteúdo salvo"
+
+msgid "Show latest content"
+msgstr "Mostrar conteúdo mais recente"
+
+msgid "Show error"
+msgstr "Mostrar erro"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"O editor simplesmente travou. O conteúdo foi redefinido para a última versão "
+"salva."
+
+msgid "Broken link"
+msgstr "Link quebrado"
+
+msgid "Missing document"
+msgstr "Documento ausente"
+
+msgid "Close"
+msgstr "Fechar"
+
+msgid "Edit \\"
+msgstr "Editar \\"
+
+msgid "View child pages of \\"
+msgstr "Ver páginas-filho de \\"
+
+msgid "Page explorer"
+msgstr "Navegador de páginas"
+
+msgid "January"
+msgstr "Janeiro"
+
+msgid "February"
+msgstr "Fevereiro"
+
+msgid "March"
+msgstr "Março"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May"
+msgstr "Maio"
+
+msgid "June"
+msgstr "Junho"
+
+msgid "July"
+msgstr "Julho"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "September"
+msgstr "Setembro"
+
+msgid "October"
+msgstr "Outubro"
+
+msgid "November"
+msgstr "Novembro"
+
+msgid "December"
+msgstr "Dezembro"
+
+msgid "Sunday"
+msgstr "Domingo"
+
+msgid "Monday"
+msgstr "Segunda-feira"
+
+msgid "Tuesday"
+msgstr "Terça-feira"
+
+msgid "Wednesday"
+msgstr "Quarta-feira"
+
+msgid "Thursday"
+msgstr "Quinta-feira"
+
+msgid "Friday"
+msgstr "Sexta-feira"
+
+msgid "Saturday"
+msgstr "Sábado"
+
+msgid "Sun"
+msgstr "Dom"
+
+msgid "Mon"
+msgstr "Seg"
+
+msgid "Tue"
+msgstr "Ter"
+
+msgid "Wed"
+msgstr "Qua"
+
+msgid "Thu"
+msgstr "Qui"
+
+msgid "Fri"
+msgstr "Sex"
+
+msgid "Sat"
+msgstr "Sáb"
 
 msgid "Dashboard"
 msgstr "Painel"
@@ -281,7 +429,7 @@ msgstr "Link de e-mail"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -289,7 +437,8 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"Não há resultados"
+"            Há %(counter)s resultado\n"
+"        "
 msgstr[1] ""
 "\n"
 "Há %(counter)s resultados"
@@ -354,8 +503,14 @@ msgstr "Salvar"
 msgid "Privacy"
 msgstr "Particular"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Definir privacidade da coleção. Estado atual: Pública"
+
 msgid "Public"
 msgstr "Público"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Definir privacidade da coleção. Estado atual: Privada"
 
 msgid "Private"
 msgstr "Privativo"
@@ -411,11 +566,17 @@ msgstr "Editado"
 msgid "Edit this page"
 msgstr "Editar essa página"
 
+msgid "Preview this page"
+msgstr "Pré-visualizar esta página"
+
 msgid "Approve"
 msgstr "Aprovar"
 
 msgid "Reject"
 msgstr "Rejeitar"
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "Preview"
 msgstr "Pré-visualizar"
@@ -445,18 +606,24 @@ msgstr "Resumo do site"
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Page\n"
-"    "
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgstr[0] ""
 "\n"
-"<span>%(total)s</span> Página"
+"            <span>%(total)s</span> Página<span class=\"visuallyhidden"
+"\">criada em %(site_name)s</span>\n"
+"        "
 msgstr[1] ""
 "\n"
-"<span>%(total)s</span> Páginas"
+"            <span>%(total)s</span> Páginas <span class=\"visuallyhidden"
+"\">criadas em %(site_name)s</span>\n"
+"        "
 
 msgid "Sign in"
 msgstr "Entrar"
@@ -529,11 +696,38 @@ msgstr ""
 msgid "Edit lock"
 msgstr "Editar bloqueio"
 
+msgid "Remove editor lock. Current status: Locked"
+msgstr "Remover bloqueio do editor. Estado atual: Bloqueado"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "Aplicar bloqueio do editor. Estado atual: Desbloqueado"
+
 msgid "Locked"
 msgstr "Bloqueado"
 
 msgid "Unlocked"
 msgstr "Desbloqueado"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Definir privacidade da página. Estado atual: Pública"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Definir privacidade da página. Estado atual: Privada"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Privacidade da página. Estado atual: Pública"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Privacidade da página. Estado atual: Privada"
+
+msgid "Publishing…"
+msgstr "Publicando..."
+
+msgid "Publish this revision"
+msgstr "Publicar esta revisão"
+
+msgid "Publish"
+msgstr "Publicar"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -617,9 +811,6 @@ msgstr "Sim, quero mover"
 msgid "Unpublish %(title)s"
 msgstr "Despublicar %(title)s"
 
-msgid "Unpublish"
-msgstr "Despublicar"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Tem certeza que deseja despublicar essa página?"
 
@@ -673,20 +864,14 @@ msgstr "Adicionar %(page_type)s"
 msgid "New"
 msgstr "Adicionar"
 
+msgid "Actions"
+msgstr "Ações"
+
 msgid "Saving…"
 msgstr "Salvando…"
 
 msgid "Save draft"
 msgstr "Salvar rascunho"
-
-msgid "Publishing…"
-msgstr "Publicando..."
-
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Submit for moderation"
-msgstr "Enviar para moderação"
 
 msgid "This page has unsaved changes."
 msgstr "Esta página tem alterações não salvas."
@@ -704,9 +889,6 @@ msgstr "Página bloqueada"
 
 msgid "Replace current draft"
 msgstr "Substituir rascunho atual"
-
-msgid "Publish this revision"
-msgstr "Publicar esta revisão"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -824,6 +1006,9 @@ msgstr "Adicionar subpágina"
 msgid "Sites menu"
 msgstr "Menu de sites"
 
+msgid "Pagination"
+msgstr "Paginação"
+
 #, python-format
 msgid ""
 "\n"
@@ -845,7 +1030,7 @@ msgstr "Esta página está protegida da visualização pública"
 msgid "Disable ordering of child pages"
 msgstr "Desabilitar ordenação de subpáginas"
 
-msgid "Order"
+msgid "Sort"
 msgstr "Ordenar"
 
 msgid "Enable ordering of child pages"
@@ -875,9 +1060,6 @@ msgstr ""
 "esses erros,\n"
 "                então use a pré-visualização novamente.\n"
 "            "
-
-msgid "Close"
-msgstr "Fechar"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1014,6 +1196,9 @@ msgstr[1] ""
 "                Há %(counter)s páginas correspondentes\n"
 "            "
 
+msgid "Page types"
+msgstr "Tipos de página"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1028,6 +1213,13 @@ msgstr "Nenhuma página utilizada"
 msgid "Collection"
 msgstr "Coleção"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Página %(page_num)s de %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Navegação"
+
 msgid "Root"
 msgstr "Raiz"
 
@@ -1036,63 +1228,6 @@ msgstr "Página inicial"
 
 msgid "All collections"
 msgstr "Todas as coleções"
-
-msgid "January"
-msgstr "Janeiro"
-
-msgid "February"
-msgstr "Fevereiro"
-
-msgid "March"
-msgstr "Março"
-
-msgid "April"
-msgstr "Abril"
-
-msgid "May"
-msgstr "Maio"
-
-msgid "June"
-msgstr "Junho"
-
-msgid "July"
-msgstr "Julho"
-
-msgid "August"
-msgstr "Agosto"
-
-msgid "September"
-msgstr "Setembro"
-
-msgid "October"
-msgstr "Outubro"
-
-msgid "November"
-msgstr "Novembro"
-
-msgid "December"
-msgstr "Dezembro"
-
-msgid "Sun"
-msgstr "Dom"
-
-msgid "Mon"
-msgstr "Seg"
-
-msgid "Tue"
-msgstr "Ter"
-
-msgid "Wed"
-msgstr "Qua"
-
-msgid "Thu"
-msgstr "Qui"
-
-msgid "Fri"
-msgstr "Sex"
-
-msgid "Sat"
-msgstr "Sáb"
 
 msgid "Edit your account"
 msgstr "Edite sua conta"
@@ -1103,9 +1238,11 @@ msgstr "Configurações da Conta"
 msgid "Log out"
 msgstr "Sair"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Página %(page_num)s de %(total_pages)s."
+msgid "Visit the live page"
+msgstr "Visitar a página em tempo real"
+
+msgid "Current page status:"
+msgstr "Estado atual da página:"
 
 msgid "Other searches"
 msgstr "Outras buscas"
@@ -1124,16 +1261,16 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
-"            Javascript é necessário para usar Wagtail, mas ele está "
-"desativado no momento.<br />\n"
-"            Aqui estão as <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instruções sobre como ativar o JavaScript "
-"em seu navegador web</a>.\n"
+"            Javascript é necessário para usar Wagtail, mas está desativado."
+"<br />\n"
+"            Aqui está as <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instruções de como ativar o "
+"JavaScript no seu navegador da web</a>.\n"
 "        "
 
 msgid "Go to Wagtail admin interface"
@@ -1148,8 +1285,14 @@ msgstr "Mostrar no Explorador"
 msgid "Test"
 msgstr "Teste"
 
+msgid "Arabic"
+msgstr "Árabe"
+
 msgid "Catalan"
 msgstr "Catalão"
+
+msgid "Czech"
+msgstr "Tcheco"
 
 msgid "German"
 msgstr "Alemão"
@@ -1172,6 +1315,12 @@ msgstr "Francês"
 msgid "Galician"
 msgstr "Galego"
 
+msgid "Hungarian"
+msgstr "Húngaro"
+
+msgid "Indonesian"
+msgstr "Indonésio"
+
 msgid "Icelandic"
 msgstr "Islandês"
 
@@ -1183,6 +1332,9 @@ msgstr "Coreano"
 
 msgid "Lithuanian"
 msgstr "Lituano"
+
+msgid "Mongolian"
+msgstr "Mongol"
 
 msgid "Norwegian Bokmål"
 msgstr "Bokmål norueguês"
@@ -1214,8 +1366,17 @@ msgstr "Sueco"
 msgid "Slovak"
 msgstr "Eslovaco"
 
-msgid "Chinese (China)"
-msgstr "Chinês (China)"
+msgid "Thai"
+msgstr "Thailandês"
+
+msgid "Ukrainian"
+msgstr "Ucraniano"
+
+msgid "Chinese (Simplified)"
+msgstr "Chinês (simplificado)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinês (tradicional)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Desculpe, você não tem permissão para acessar esta área."
@@ -1223,8 +1384,14 @@ msgstr "Desculpe, você não tem permissão para acessar esta área."
 msgid "Your password has been changed successfully!"
 msgstr "Sua senha foi alterada com sucesso!"
 
+msgid "Your email has been changed successfully!"
+msgstr "Seu email foi alterado com sucesso!"
+
 msgid "Your preferences have been updated."
 msgstr "Suas preferências foram atualizadas."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Suas preferências foram atualizadas com sucesso!"
 
 msgid "You have been successfully logged out."
 msgstr "Você foi desconectado com sucesso."
@@ -1326,6 +1493,13 @@ msgstr "Página '{0}' excluida."
 msgid "Page '{0}' unpublished."
 msgstr "Página '{0}' despublicada."
 
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"O slug '{0}' já está em uso na página pai selecionada. Certifique-se de que "
+"o slug é único e tente novamente"
+
 msgid "Page '{0}' moved."
 msgstr "Página '{0}' movida."
 
@@ -1409,6 +1583,15 @@ msgstr "Despublicar página '{title}'"
 msgid "View revision history for '{title}'"
 msgstr "Ver histórico de revisões para '{title}'"
 
+msgid "Set profile picture"
+msgstr "Definir foto do perfil"
+
+msgid "Change your profile picture"
+msgstr "Alterar sua foto de perfil"
+
+msgid "Change the email address linked to your account."
+msgstr "Altere o endereço de e-mail vinculado à sua conta."
+
 msgid "Change the password you use to log in."
 msgstr "Altere sua senha para entrar."
 
@@ -1421,6 +1604,12 @@ msgstr "Preferências de idioma"
 msgid "Choose the language you want to use here."
 msgstr "Escolha o idioma que deseja usar aqui."
 
+msgid "Current Time Zone"
+msgstr "Fuso horário atual"
+
+msgid "Choose your current time zone."
+msgstr "Escolha seu fuso horário atual."
+
 msgid "Heading {level}"
 msgstr "Cabeçalho {level}"
 
@@ -1430,6 +1619,9 @@ msgstr "Lista com marcadores"
 msgid "Numbered list"
 msgstr "Lista numerada"
 
+msgid "Blockquote"
+msgstr "Bloco de citação"
+
 msgid "Bold"
 msgstr "Negrito"
 
@@ -1438,6 +1630,18 @@ msgstr "Itálico"
 
 msgid "Link"
 msgstr "Link"
+
+msgid "Superscript"
+msgstr "Sobrescrito"
+
+msgid "Subscript"
+msgstr "Subscrito"
+
+msgid "Strikethrough"
+msgstr "Tachado"
+
+msgid "Code"
+msgstr "Código"
 
 msgid "Choose an item"
 msgstr "Escolha um item"

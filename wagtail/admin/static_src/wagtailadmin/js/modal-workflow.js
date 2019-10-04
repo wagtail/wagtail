@@ -21,7 +21,7 @@ function ModalWorkflow(opts) {
     $('body > .modal').remove();
 
     // set default contents of container
-    var container = $('<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n    <div class="modal-dialog">\n        <div class="modal-content">\n            <button type="button" class="button close icon text-replace icon-cross" data-dismiss="modal" aria-hidden="true">&times;</button>\n            <div class="modal-body"></div>\n        </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog -->\n</div>');
+    var container = $('<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n    <div class="modal-dialog">\n        <div class="modal-content">\n            <button type="button" class="button close icon text-replace icon-cross" data-dismiss="modal">' + wagtailConfig.STRINGS.CLOSE + '</button>\n            <div class="modal-body"></div>\n        </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog -->\n</div>');
 
     // add container to body and hide it, so content can be added to it before display
     $('body').append(container);
@@ -55,15 +55,7 @@ function ModalWorkflow(opts) {
     };
 
     self.loadResponseText = function(responseText, textStatus, xhr) {
-        /* RemovedInWagtail24Warning - support for eval()-ing text/javascript responses
-        (rather than JSON.parse) will be dropped */
-        var response;
-        if (xhr && xhr.getResponseHeader('content-type') != 'text/javascript') {
-            response = JSON.parse(responseText);
-        } else {
-            response = eval('(' + responseText + ')');
-        }
-
+        var response = JSON.parse(responseText);
         self.loadBody(response);
     };
 
@@ -72,12 +64,6 @@ function ModalWorkflow(opts) {
             // if response contains an 'html' item, replace modal body with it
             self.body.html(response.html);
             container.modal('show');
-        }
-
-        if (response.onload) {
-            // if response contains an 'onload' function, call it
-            // (passing this modal object and the full response data)
-            response.onload(self, response);
         }
 
         /* If response contains a 'step' identifier, and that identifier is found in

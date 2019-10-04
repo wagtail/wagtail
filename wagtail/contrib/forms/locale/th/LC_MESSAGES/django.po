@@ -1,0 +1,200 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jon Combe <jon@naremit.com>, 2019
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-28 15:47+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail forms"
+msgstr "แบบฟอร์ม Wagtail"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s ส่ง"
+
+msgid "Date from"
+msgstr "จากวันที่"
+
+msgid "Date to"
+msgstr "ถึงวันที่"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "มีช่องใส่ข้อมูลอื่นที่มีป้ายกำกับ %s, กรุณาเปลี่ยนอันใดอันหนึ่ง"
+
+msgid "Single line text"
+msgstr "ข้อความบรรทัดเดียว"
+
+msgid "Multi-line text"
+msgstr "ข้อความหลายบรรทัด"
+
+msgid "Email"
+msgstr "อีเมล"
+
+msgid "Number"
+msgstr "ตัวเลข"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "ช่องสำหรับทำเครื่องหมาย"
+
+msgid "Checkboxes"
+msgstr "ช่องสำหรับเทำเครื่องหมาย"
+
+msgid "Drop down"
+msgstr "ลากลงมา"
+
+msgid "Multiple select"
+msgstr "หลายตัวเลือก"
+
+msgid "Radio buttons"
+msgstr "ปุ่มกดวิทยุ"
+
+msgid "Date"
+msgstr "วันที่"
+
+msgid "Date/time"
+msgstr "วันที่/เวลา"
+
+msgid "Hidden field"
+msgstr "ซ้อนข้อความนี้"
+
+msgid "submit time"
+msgstr "เวลาส่ง"
+
+msgid "form submission"
+msgstr "แบบฟอร์มการส่ง"
+
+msgid "label"
+msgstr "ป้าย,แทบ"
+
+msgid "The label of the form field"
+msgstr "แทบของแบบฟอร์ม"
+
+msgid "field type"
+msgstr "ประเภทของช่องที่ใส่ตัวเลือก"
+
+msgid "required"
+msgstr "จำเป็น"
+
+msgid "choices"
+msgstr "ทางเลือก"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"เครื่องหมายจุลภาคจะช่วยแบ่งรายการเลือกของเรา เกี่ยวข้องกับช่องสำหรับทำเครื่องหมาย,"
+"วิทยุและการเลือกที่เราลากลงมา"
+
+msgid "default value"
+msgstr "คุณค่าของต้นฉบับ"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr "ค่าของต้นฉบับ ค่าที่คั่นด้วยเครื่องหมายจุลภาคจะรองรับช่องทำเครื่องหมาย"
+
+msgid "help text"
+msgstr "ข้อความช่วยเหลือ"
+
+msgid "Submission date"
+msgstr "วันที่ส่ง"
+
+msgid "to address"
+msgstr "ถึงที่อยู่"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr "ตัวเลือก- แบบฟอร์มการส่งจะถูกส่งไปที่อีเมลนี้ แยกที่อยู่หลายๆที่อยู่โดยใช้เครื่องหมายจุลภาค"
+
+msgid "from address"
+msgstr "จากที่อยู่"
+
+msgid "subject"
+msgstr "เรื่อง"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "ลบทิ้งรูปแบบข้อมูล %(title)s"
+
+msgid "Delete form data"
+msgstr "ลบจากข้อมูล"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"คุณแน่ใจว่าคุณต้องการจะลบสิ่งนี้จากแบบฟอร์มการส่ง?"
+
+msgid "Delete"
+msgstr "ลบ"
+
+msgid "Total submissions"
+msgstr "การส่งทั้งหมด"
+
+msgid "Latest submission"
+msgstr "การส่งล่าสุด"
+
+msgid "Forms"
+msgstr "แบบฟอร์ม"
+
+msgid "Pages"
+msgstr "หลายหน้า"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "การส่งของ %(form_title)s"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "รูปแแบข้อมูล <span>%(form_title)s</span>"
+
+msgid "Filter"
+msgstr "คัดกรอง"
+
+msgid "Download CSV"
+msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "ไม่เคยมีการส่งของ '%(title)s' รูปแบบ"
+
+msgid "Title"
+msgstr "หัวข้อ"
+
+msgid "Origin"
+msgstr "ต้นแบบ"
+
+msgid "Delete selected submissions"
+msgstr "การส่งที่เราเลือกลบแล้ว"
+
+msgid "No form pages have been created."
+msgstr "ไม่มีหน้าแบบฟอร์มที่ถูกสร้าง"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "%(count)d การส่งถูกลบทิ้งแล้ว"

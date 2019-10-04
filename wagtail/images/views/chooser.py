@@ -1,10 +1,13 @@
+from django.conf import settings
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.auth import PermissionPolicyChecker
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.utils import PermissionPolicyChecker, popular_tags_for_model
+from wagtail.admin.models import popular_tags_for_model
 from wagtail.core import hooks
 from wagtail.core.models import Collection
 from wagtail.images import get_image_model
@@ -12,9 +15,10 @@ from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
 from wagtail.images.permissions import permission_policy
 from wagtail.search import index as search_index
-from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
+
+CHOOSER_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_CHOOSER_PAGE_SIZE', 12)
 
 
 def get_chooser_js_data():
@@ -52,6 +56,8 @@ def get_chooser_context(request):
     collections = Collection.objects.all()
     if len(collections) < 2:
         collections = None
+    else:
+        collections = Collection.order_for_display(collections)
 
     return {
         'searchform': SearchForm(),
@@ -68,7 +74,7 @@ def chooser(request):
 
     if permission_policy.user_has_permission(request.user, 'add'):
         ImageForm = get_image_form(Image)
-        uploadform = ImageForm(user=request.user)
+        uploadform = ImageForm(user=request.user, prefix='image-chooser-upload')
     else:
         uploadform = None
 
@@ -79,8 +85,8 @@ def chooser(request):
         images = hook(images, request)
 
     if (
-        'q' in request.GET or 'p' in request.GET or 'tag' in request.GET or
-        'collection_id' in request.GET
+        'q' in request.GET or 'p' in request.GET or 'tag' in request.GET
+        or 'collection_id' in request.GET
     ):
         # this request is triggered from search, pagination or 'popular tags';
         # we will just render the results.html fragment
@@ -103,7 +109,8 @@ def chooser(request):
                 images = images.filter(tags__name=tag_name)
 
         # Pagination
-        paginator, images = paginate(request, images, per_page=12)
+        paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
+        images = paginator.get_page(request.GET.get('p'))
 
         return render(request, "wagtailimages/chooser/results.html", {
             'images': images,
@@ -112,7 +119,8 @@ def chooser(request):
             'will_select_format': request.GET.get('select_format')
         })
     else:
-        paginator, images = paginate(request, images, per_page=12)
+        paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
+        images = paginator.get_page(request.GET.get('p'))
 
         context = get_chooser_context(request)
         context.update({
@@ -141,7 +149,9 @@ def chooser_upload(request):
 
     if request.method == 'POST':
         image = Image(uploaded_by_user=request.user)
-        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
+        form = ImageForm(
+            request.POST, request.FILES, instance=image, user=request.user, prefix='image-chooser-upload'
+        )
 
         if form.is_valid():
             # Set image file size
@@ -150,6 +160,7 @@ def chooser_upload(request):
             # Set image file hash
             image.file.seek(0)
             image._set_file_hash(image.file.read())
+            image.file.seek(0)
 
             form.save()
 
@@ -157,7 +168,9 @@ def chooser_upload(request):
             search_index.insert_or_update_object(image)
 
             if request.GET.get('select_format'):
-                form = ImageInsertionForm(initial={'alt_text': image.default_alt_text})
+                form = ImageInsertionForm(
+                    initial={'alt_text': image.default_alt_text}, prefix='image-chooser-insertion'
+                )
                 return render_modal_workflow(
                     request, 'wagtailimages/chooser/select_format.html', None,
                     {'image': image, 'form': form}, json_data={'step': 'select_format'}
@@ -169,7 +182,7 @@ def chooser_upload(request):
                     None, json_data={'step': 'image_chosen', 'result': get_image_result_data(image)}
                 )
     else:
-        form = ImageForm(user=request.user)
+        form = ImageForm(user=request.user, prefix='image-chooser-upload')
 
     images = Image.objects.order_by('-created_at')
 
@@ -177,7 +190,8 @@ def chooser_upload(request):
     for hook in hooks.get_hooks('construct_image_chooser_queryset'):
         images = hook(images, request)
 
-    paginator, images = paginate(request, images, per_page=12)
+    paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
+    images = paginator.get_page(request.GET.get('p'))
 
     context = get_chooser_context(request)
     context.update({
@@ -194,7 +208,9 @@ def chooser_select_format(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     if request.method == 'POST':
-        form = ImageInsertionForm(request.POST, initial={'alt_text': image.default_alt_text})
+        form = ImageInsertionForm(
+            request.POST, initial={'alt_text': image.default_alt_text}, prefix='image-chooser-insertion'
+        )
         if form.is_valid():
 
             format = get_image_format(form.cleaned_data['format'])
@@ -222,7 +238,7 @@ def chooser_select_format(request, image_id):
     else:
         initial = {'alt_text': image.default_alt_text}
         initial.update(request.GET.dict())
-        form = ImageInsertionForm(initial=initial)
+        form = ImageInsertionForm(initial=initial, prefix='image-chooser-insertion')
 
     return render_modal_workflow(
         request, 'wagtailimages/chooser/select_format.html', None,

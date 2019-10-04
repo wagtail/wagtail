@@ -1,0 +1,384 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail images"
+msgstr "รูปภาพ Wagtail"
+
+msgid "GIF, JPEG, PNG"
+msgstr ""
+"GIF รูปแบบแฟ้มภาพเคลื่อนไหว,JPEGรูปแบบการบีมอัดแฟ้มภาพโดยให้เสียความละเอียดของภาพน้อยที่สุด,"
+"PNGรูปแบบรูปภาพที่พัฒนาขึ้นมาจากรูปแบบรูปภาพGIF"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"รูปที่สามารถใช้ได้: %(supported_formats)s. ขนาดไฟล์สูงสุด: %(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "รูปที่สามารถใช้ได้: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "รูปนี้ใช้ไม่ได้ รูปที่สามารถใช้ได้: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "ไม่ถูกต้อง %s รูปภาพ"
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "ไฟล์นี้ใหญ่เกินไป (%%s). ขนาดไฟล์สูงสุด %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "ไฟล์นี้ใหญ่เกินไป ขนาดไฟล์สูงสุด %s"
+
+msgid "Full width"
+msgstr "ความกว้างแบบเต็ม"
+
+msgid "Left-aligned"
+msgstr "แนวราบ-ด้านซ้าย"
+
+msgid "Right-aligned"
+msgstr "แนวราบ-ด้านขวา"
+
+msgid "Filter"
+msgstr "กรอง"
+
+msgid "Original size"
+msgstr "ขนาดดั่งเดิม"
+
+msgid "Resize to width"
+msgstr "ปรับขนาดด้านกว้าง"
+
+msgid "Resize to height"
+msgstr "ปรับขนาดความสูง"
+
+msgid "Resize to min"
+msgstr "ปรับขนาดให้เล็กลง"
+
+msgid "Resize to max"
+msgstr "ปรับขนาดให้ใหญ่ขึ้น"
+
+msgid "Resize to fill"
+msgstr "ใส่ขนาดที่เราจะปรับไซส์"
+
+msgid "Width"
+msgstr "ความกว้าง"
+
+msgid "Height"
+msgstr "ความสูง"
+
+msgid "Closeness"
+msgstr "ความสนิทสนม,ความใกล้ชิด"
+
+msgid "Add"
+msgstr "เพิ่ม,เติม"
+
+msgid "Add/edit images you own"
+msgstr "เพิ่ม/แก้ไขรูปภาพของคุณ"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "Edit any image"
+msgstr "แก้ไขรูปภาพอันไหนก็ได้"
+
+msgid "title"
+msgstr "หัวเรื่อง,หัวข้อ"
+
+msgid "file"
+msgstr "ไฟล์,แฟ้ม"
+
+msgid "width"
+msgstr "ความกว้าง"
+
+msgid "height"
+msgstr "ความสูง"
+
+msgid "created at"
+msgstr "ถูกสร้างที่"
+
+msgid "uploaded by user"
+msgstr "อัพโหลดโดยผู้ใช้"
+
+msgid "tags"
+msgstr "แท็กซ์"
+
+msgid "image"
+msgstr "รูปภาพ"
+
+msgid "images"
+msgstr "รูปภาพ"
+
+msgid "Choose an image"
+msgstr "เลือกรูปภาพ"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "Upload"
+msgstr "อัพโหลด"
+
+msgid "Popular tags"
+msgstr "แท็กซ์ที่เป็นที่นิยม"
+
+msgid "Uploading…"
+msgstr "กำลังอัพโหลด...."
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+" มี %(counter)s ที่ตรงกัน\n"
+" "
+
+msgid "Latest images"
+msgstr "รูปภาพล่าสุด"
+
+msgid "Choose a format"
+msgstr "เลือกรูปแบบ"
+
+msgid "Insert image"
+msgstr "ใส่รูปภาพ"
+
+msgid "Change image file:"
+msgstr "เปลี่ยนแฟ้มรูปภาพ:"
+
+msgid "Add an image"
+msgstr "เพิ่มรูปภาพ"
+
+msgid "Add image"
+msgstr "เพิ่มรูปภาพ"
+
+msgid "Save"
+msgstr "เซฟ"
+
+msgid "Delete image"
+msgstr "ลบรูปภาพ"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
+
+msgid "Are you sure you want to delete this image?"
+msgstr "คุณแน่ใจว่าคุณต้องการลบรูปภาพนี้?"
+
+msgid "Yes, delete"
+msgstr "ใช่,ลบทิ้ง"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "รูปภาพกำลังแก้ไข %(title)s"
+
+msgid "Editing"
+msgstr "กำลังแก้ไข"
+
+msgid "URL Generator"
+msgstr "โปรแกรมก่อกำเนิดURL"
+
+msgid "Focal point"
+msgstr "จุดโฟกัส"
+
+msgid "(optional)"
+msgstr "(ตัวเลือก)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr "เพื่อเน้นบริเวณจุดสำคัญของภาพ,ลากกล่องลงมาให้อยู่บนรูปภาพ"
+
+msgid "Current focal point shown"
+msgstr "โชว์จุดโฟกัสปัจจุบัน"
+
+msgid "Remove focal area"
+msgstr "เอาพื้นที่โฟกัสออก"
+
+msgid "Max dimensions"
+msgstr "มิติสูงสุด"
+
+msgid "Filesize"
+msgstr "ขนาดไฟล์"
+
+msgid "File not found"
+msgstr "ไม่พบไฟล์นี้"
+
+msgid "Usage"
+msgstr "การใช้"
+
+msgid "Images"
+msgstr "รูปภาพ"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "ขออภัย,ไม่มีรูปภาพที่ตรงกัน \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"คุณไม่ได้อัพโหลดรูปภาพไหนเลยในชุดนี้ ทำไมคุณไม่ <a href="
+"\"%(wagtailimages_add_image_url)s\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"คุณไม่ได้อัพโหลดรูปภาพอันไหนเลย ทำไมคุณไม่ <a href=\"%(wagtailimages_add_image_url)s"
+"\">อัพโหลดหนึ่งอันในตอนนี้</a>?"
+
+msgid "Generating URL"
+msgstr "ที่ก่อให้เกิด URL"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "ภาพตัวอย่าง"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"ให้สังเกตภาพที่คุณสร้างที่ใหญ่กว่าหน้าจอมันจะเล็กกว่าของจริงเมื่อคุณขอดูภาพตัวอย่าง,"
+"มันจะได้อยู่ในหน้าจอ"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "การใช้ของ%(title)s"
+
+msgid "Usage of"
+msgstr "การใช้งานของ"
+
+msgid "Title"
+msgstr "หัวข้อ,หัวเรื่อง"
+
+msgid "Parent"
+msgstr "หน้าแรก,หน้าหลัก"
+
+msgid "Type"
+msgstr "แบบ,รูปแบบ"
+
+msgid "Status"
+msgstr "สถานะ"
+
+msgid "Edit this page"
+msgstr "แก้ไขหน้านี้"
+
+msgid "Add multiple images"
+msgstr "แก้ไขหลายรูปภาพ"
+
+msgid "Add images"
+msgstr "เพิ่มรูปภาพ"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "ลากรูปภาพลงมาในพื้นที่อัพโหลดนี้ทันที"
+
+msgid "Or choose from your computer"
+msgstr "หรือจะเลือกจากคอมพิวเตอร์ของคุณ"
+
+msgid "Add to collection:"
+msgstr "เพิ่มเข้าไปในชุด:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"การอัพโหลดสำเร็จ กรุณาอัพเดทรูปนี้กับใช้หัวข้อให้เหมาะสมมากกว่านี้,ถ้าจำเป็น คุณสามารถลบทิ้งรูปนี้ "
+"ถ้าคุณไม่จำเป็นต้องอัพโหลด"
+
+msgid "Sorry, upload failed."
+msgstr "ขออภัย,การอัพโหลดผิดพลาด"
+
+msgid "Server Error"
+msgstr "เซฟเว่อร์เกิดข้อผิดพลาด"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "รายงานข้อผิดพลาดนี้ของคุณกับเจ้าของเว็บไซด์ดยให้ทำตามข้อมูลนี้"
+
+msgid "Image updated."
+msgstr "รูปภาพถูกอัพเดทแล้ว"
+
+msgid "Update"
+msgstr "อัพเดท"
+
+msgid "Delete"
+msgstr "ลบ"
+
+msgid "Image permissions"
+msgstr "การอนุญาตรูปภาพ"
+
+msgid "Add an image permission"
+msgstr "เพิ่มการอนุญาตรูปภาพ"
+
+msgid "Search images"
+msgstr "ค้นหารูปภาพ"
+
+msgid "Image '{0}' updated."
+msgstr "รูปภาพ'{0}'ถูกอัพเดทแล้ว"
+
+msgid "Edit again"
+msgstr "แก้ไขอีกครั้ง"
+
+msgid "The image could not be saved due to errors."
+msgstr "รูปภาพไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr "ไม่สามารถพบต้นฉบับของไฟล์รูป กรุณาเปลี่ยนต้นฉบับหรือลบรูปทิ้ง"
+
+msgid "Image '{0}' deleted."
+msgstr "รูปภาพ'{0}'ถูกลบแล้ว"
+
+msgid "Image '{0}' added."
+msgstr "รูปภาพ'{0}' ถูกเพิ่มเรียบร้อยแล้ว"
+
+msgid "The image could not be created due to errors."
+msgstr "รูปภาพไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
+
+msgid "Image"
+msgstr "รูปภาพ"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s รูปภาพ"
+
+msgid "Change image"
+msgstr "เปลี่ยนรูปภาพ"
+
+msgid "Edit this image"
+msgstr "แก้ไขรูปภาพนี้"

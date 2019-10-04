@@ -1,0 +1,62 @@
+// Help text formatters
+.help-block {
+    padding: 1em;
+    margin: 1em 0;
+    clear: both;
+    color: $color-text-base;
+
+    p {
+        margin-top: 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    a {
+        color: $color-link;
+    }
+}
+
+.help-info,
+.help-warning,
+.help-critical {
+    border-radius: 3px;
+    padding-left: 3.5em;
+    position: relative;
+
+    &:before {
+        font-family: wagtail;
+        position: absolute;
+        left: 1em;
+        top: 0.7em;
+        content: map-get($icons, 'help');
+        font-size: 1.4em;
+    }
+}
+
+.help-info {
+    background-color: lighten($color-blue, 30%);
+
+    &:before {
+        color: $color-blue;
+    }
+}
+
+.help-warning {
+    background-color: lighten($color-orange, 30%);
+
+    &:before {
+        color: $color-orange;
+        content: map-get($icons, 'warning');
+    }
+}
+
+.help-critical {
+    background-color: lighten($color-red, 40%);
+
+    &:before {
+        color: $color-red;
+        content: map-get($icons, 'warning');
+    }
+}

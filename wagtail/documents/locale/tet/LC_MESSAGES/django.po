@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Peter Coward <peter@catalpa.io>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokumentu sira"
+
+msgid "Add"
+msgstr "Hatama"
+
+msgid "Add/edit documents you own"
+msgstr "Hatama/troka ita boot nia dokumentu sira"
+
+msgid "Edit"
+msgstr "Hadia"
+
+msgid "title"
+msgstr "titlu"
+
+msgid "Search"
+msgstr "Buka"
+
+msgid "Change document:"
+msgstr "Troka dokumentu"
+
+msgid "Add a document"
+msgstr "Hatama dokumentu"
+
+msgid "Add document"
+msgstr "Hatama dokumentu"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Hamoos %(title)s"
+
+msgid "Delete document"
+msgstr "Hamoos dokumentu"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uza dala %(usage_count)s"
+
+msgid "Yes, delete"
+msgstr "Sim, hamoos"
+
+msgid "Documents"
+msgstr "Dokumentu sira"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Collection"
+msgstr "Koleksaun"
+
+msgid "Search documents"
+msgstr "Buka documentu"
+
+msgid "Document '{0}' added."
+msgstr "Dkumentu '{0}' hatama ona"
+
+msgid "Document"
+msgstr "Dokumentu"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokumentu"
+
+msgid "Edit this document"
+msgstr "Hadia dokumentu nee"

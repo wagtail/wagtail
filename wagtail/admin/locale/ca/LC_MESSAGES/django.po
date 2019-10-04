@@ -5,13 +5,13 @@
 # Translators:
 # Antoni Aloy <aaloy@apsl.net>, 2016
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017
+# Roger Pons <rogerpons@gmail.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -20,6 +20,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Envia per moderació"
+
+msgid "Unpublish"
+msgstr "Despublica"
+
+msgid "Delete"
+msgstr "Esborra"
+
+msgid "Wagtail admin"
+msgstr "Administració de Wagtail"
 
 msgid "None"
 msgstr "Cap"
@@ -42,15 +54,6 @@ msgstr "Promoure"
 msgid "Settings"
 msgstr "Configuració"
 
-msgid "Search"
-msgstr "Cercar"
-
-msgid "Search term"
-msgstr "Termini de cerca"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Introdueix la contrassenya"
 
@@ -60,6 +63,13 @@ msgstr "Introdueix el teu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"No podeu tenir múltiples registres de permisos per la mateixa col·lecció."
 
 msgid "New title"
 msgstr "Nou títol"
@@ -104,18 +114,17 @@ msgstr[1] ""
 "%(count)s de les pàgines a copiar estan en viu. Voleu publicar-ne les còpies?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "No teniu permís per copiar a la pàgina \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Aquest slug ja està en ús dins el context de la seva plana pare \"%s\""
 
-msgid "Visibility"
-msgstr "Visibilitat"
-
-msgid "This field is required."
-msgstr "Aquest camp és obligatori"
-
-msgid "Please select at least one group."
-msgstr "Seleccioneu com a mínim un grup."
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"No podeu copiar una pàgina a ella mateixa quan esteu copiant subpàgines"
 
 msgid "This slug is already in use"
 msgstr "Aquest llimac ja està en ús"
@@ -127,9 +136,29 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "La data/hora de caducitat ha d'estar en el futur"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"No podeu tenir múltiples registres de permisos per la mateixa col·lecció."
+msgid "Search"
+msgstr "Cercar"
+
+msgid "Search term"
+msgstr "Termini de cerca"
+
+msgid "Visibility"
+msgstr "Visibilitat"
+
+msgid "This field is required."
+msgstr "Aquest camp és obligatori"
+
+msgid "Please select at least one group."
+msgstr "Seleccioneu com a mínim un grup."
+
+msgid "Error 404: Page not found"
+msgstr "Error 404: Pàgina no trobada"
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "No s'ha trobat la pàgina demanada"
 
 msgid "Go to Wagtail admin"
 msgstr "Anar a l'administració de Wagtail"
@@ -137,8 +166,17 @@ msgstr "Anar a l'administració de Wagtail"
 msgid "Account"
 msgstr "Compte"
 
+msgid "Change profile picture"
+msgstr "Modificar imatge de perfil"
+
+msgid "Your current profile picture:"
+msgstr "La vostra imatge de perfil actual:"
+
 msgid "Update"
 msgstr "Actualitzar"
+
+msgid "Change email"
+msgstr "Modificar correu electrònic"
 
 msgid "Change password"
 msgstr "Canviar contrasenya"
@@ -179,14 +217,65 @@ msgstr "Contrasenya reiniciada"
 msgid "Reset your password"
 msgstr "Reinicia la teva contrasenya "
 
-msgid "Edit"
-msgstr "Edita"
-
-msgid "Delete"
-msgstr "Esborra"
-
 msgid "Pages"
 msgstr "Pàgines"
+
+msgid "January"
+msgstr "Gener"
+
+msgid "February"
+msgstr "Febrer"
+
+msgid "March"
+msgstr "Març"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May"
+msgstr "Maig"
+
+msgid "June"
+msgstr "Juny"
+
+msgid "July"
+msgstr "Juliol"
+
+msgid "August"
+msgstr "Agost"
+
+msgid "September"
+msgstr "Setembre"
+
+msgid "October"
+msgstr "Octubre"
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "December"
+msgstr "Desembre"
+
+msgid "Sun"
+msgstr "Dg"
+
+msgid "Mon"
+msgstr "Dl"
+
+msgid "Tue"
+msgstr "Dt"
+
+msgid "Wed"
+msgstr "Dc"
+
+msgid "Thu"
+msgstr "Dj"
+
+msgid "Fri"
+msgstr "Dv"
+
+msgid "Sat"
+msgstr "Ds"
 
 msgid "Dashboard"
 msgstr "Tauler de control"
@@ -214,24 +303,6 @@ msgstr "Enllaç extern"
 
 msgid "Email link"
 msgstr "Enllaç de correu electrònic"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"        Hi ha una coincidència\n"
-"    "
-msgstr[1] ""
-"\n"
-"        Hi ha %(counter)s coincidències\n"
-"    "
 
 msgid "Choose"
 msgstr "Seleccionar"
@@ -341,6 +412,9 @@ msgstr "Aprovar"
 msgid "Reject"
 msgstr "Rebutjar"
 
+msgid "Edit"
+msgstr "Edita"
+
 msgid "Preview"
 msgstr "Vista prèvia"
 
@@ -365,24 +439,6 @@ msgstr "En viu"
 
 msgid "Site summary"
 msgstr "Resum del lloc"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Pàgina\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Pàgines\n"
-"    "
 
 msgid "Sign in"
 msgstr "Registra't"
@@ -457,6 +513,12 @@ msgstr "Bloquejada"
 
 msgid "Unlocked"
 msgstr "Desbloquejada"
+
+msgid "Publish this revision"
+msgstr "Publicar aquesta revisió"
+
+msgid "Publish"
+msgstr "Publica"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -538,9 +600,6 @@ msgstr "Si, mou la pàgina"
 msgid "Unpublish %(title)s"
 msgstr "Despublica %(title)s"
 
-msgid "Unpublish"
-msgstr "Despublica"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Estàs segur que vols despublicar aquesta pàgina?"
 
@@ -593,12 +652,6 @@ msgstr "Nou"
 msgid "Save draft"
 msgstr "Desa esborrany"
 
-msgid "Publish"
-msgstr "Publica"
-
-msgid "Submit for moderation"
-msgstr "Envia per moderació"
-
 msgid "This page has unsaved changes."
 msgstr "Aquesta pàgina té modificacions no desades"
 
@@ -615,9 +668,6 @@ msgstr "Pàgina bloquejada"
 
 msgid "Replace current draft"
 msgstr "Reemplaçar l'esborrany actual"
-
-msgid "Publish this revision"
-msgstr "Publicar aquesta revisió"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -754,9 +804,6 @@ msgstr "Aquesta pàgina està protegida de la vista pública"
 msgid "Disable ordering of child pages"
 msgstr "Desactiva l'ordenació de les pàgines fill"
 
-msgid "Order"
-msgstr "Ordre"
-
 msgid "Enable ordering of child pages"
 msgstr "Activa l'ordenació de les pàgines fill"
 
@@ -891,68 +938,15 @@ msgstr "No hi ha pàgines que enllacin"
 msgid "Collection"
 msgstr "Col·lecció"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Pàgina %(page_num)s de %(total_pages)s."
+
 msgid "Home"
 msgstr "Inici"
 
 msgid "All collections"
 msgstr "Totes les col·leccions"
-
-msgid "January"
-msgstr "Gener"
-
-msgid "February"
-msgstr "Febrer"
-
-msgid "March"
-msgstr "Març"
-
-msgid "April"
-msgstr "Abril"
-
-msgid "May"
-msgstr "Maig"
-
-msgid "June"
-msgstr "Juny"
-
-msgid "July"
-msgstr "Juliol"
-
-msgid "August"
-msgstr "Agost"
-
-msgid "September"
-msgstr "Setembre"
-
-msgid "October"
-msgstr "Octubre"
-
-msgid "November"
-msgstr "Novembre"
-
-msgid "December"
-msgstr "Desembre"
-
-msgid "Sun"
-msgstr "Dg"
-
-msgid "Mon"
-msgstr "Dl"
-
-msgid "Tue"
-msgstr "Dt"
-
-msgid "Wed"
-msgstr "Dc"
-
-msgid "Thu"
-msgstr "Dj"
-
-msgid "Fri"
-msgstr "Dv"
-
-msgid "Sat"
-msgstr "Ds"
 
 msgid "Edit your account"
 msgstr "Modifica el teu compte d'usuari"
@@ -962,10 +956,6 @@ msgstr "Configuració del compte"
 
 msgid "Log out"
 msgstr "Desconnecta"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pàgina %(page_num)s de %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Altres cerques"
@@ -978,23 +968,6 @@ msgstr ""
 "Esteu utilitzant un navegador <strong>obsolet</strong> no compatible amb "
 "aquest programari. <a href=\"http://browsehappy.com/\">Actualitzeu el vostre "
 "navegador</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Es requereix Javascript per utilitzar Wagtail, però actualment "
-"està deshabilitat.<br />\n"
-"            Aquí teniu les <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instruccions sobre com habilitar "
-"JavaScript al vostre navegador</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Anar a la interfície d'administració de Wagtail"

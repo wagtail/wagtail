@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -24,6 +24,15 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Odoslať na moderáciu"
+
+msgid "Unpublish"
+msgstr "Nezverejniť"
+
+msgid "Delete"
+msgstr "Vymazať"
 
 msgid "None"
 msgstr "Nič"
@@ -46,15 +55,6 @@ msgstr "Propagovať"
 msgid "Settings"
 msgstr "Nastavenia"
 
-msgid "Search"
-msgstr "Hľadať"
-
-msgid "Search term"
-msgstr "Hľadaný výraz"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Zadajte heslo"
 
@@ -64,6 +64,12 @@ msgstr "Zadajte vaše %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Zadajte vašu emailovú adresu pre obnovu hesla"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
 
 msgid "New title"
 msgstr "Nový titulok"
@@ -129,15 +135,6 @@ msgstr "Tento slug je už použitý v kontexte jeho rodičovskej stránky \"%s\"
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Nemôžete skopírovať stránku do seba samej."
 
-msgid "Visibility"
-msgstr "Viditeľnosť"
-
-msgid "This field is required."
-msgstr "Toto pole je povinné."
-
-msgid "Please select at least one group."
-msgstr "Prosím, vyberte aspoň jednu skupinu."
-
 msgid "This slug is already in use"
 msgstr "Tento slug sa už používa"
 
@@ -147,8 +144,20 @@ msgstr "Dátum publikácie musí byť pred dátumom expirácie"
 msgid "Expiry date/time must be in the future"
 msgstr "Dátum expirácie musí byť v budúcnosti"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "Search term"
+msgstr "Hľadaný výraz"
+
+msgid "Visibility"
+msgstr "Viditeľnosť"
+
+msgid "This field is required."
+msgstr "Toto pole je povinné."
+
+msgid "Please select at least one group."
+msgstr "Prosím, vyberte aspoň jednu skupinu."
 
 msgid "Error 404: Page not found"
 msgstr "Chyba 404: Stránka nebola nájdená"
@@ -209,12 +218,6 @@ msgstr "Obnova hesla"
 msgid "Reset your password"
 msgstr "Resetovanie vášho hesla"
 
-msgid "Edit"
-msgstr "Upraviť"
-
-msgid "Delete"
-msgstr "Vymazať"
-
 msgid "Page"
 msgstr "Stránka"
 
@@ -227,14 +230,71 @@ msgstr "Žiadne výsledky"
 msgid "Server Error"
 msgstr "Chyba servera"
 
-msgid "See children"
-msgstr "Vidieť dieťa"
-
 msgid "See all"
 msgstr "Vidieť všetko"
 
 msgid "Close explorer"
 msgstr "Zavrieť prehliadač"
+
+msgid "Close"
+msgstr "Zavrieť"
+
+msgid "January"
+msgstr "Január"
+
+msgid "February"
+msgstr "Február"
+
+msgid "March"
+msgstr "Marec"
+
+msgid "April"
+msgstr "Apríl"
+
+msgid "May"
+msgstr "Máj"
+
+msgid "June"
+msgstr "Jún"
+
+msgid "July"
+msgstr "Júl"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Október"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sun"
+msgstr "Ne"
+
+msgid "Mon"
+msgstr "Pon"
+
+msgid "Tue"
+msgstr "Ut"
+
+msgid "Wed"
+msgstr "Str"
+
+msgid "Thu"
+msgstr "Štv"
+
+msgid "Fri"
+msgstr "Pia"
+
+msgid "Sat"
+msgstr "So"
 
 msgid "Dashboard"
 msgstr "Nástenka"
@@ -262,28 +322,6 @@ msgstr "Externý odkaz"
 
 msgid "Email link"
 msgstr "Emailový odkaz"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Jeden výsledok hľadania"
-msgstr[1] ""
-"\n"
-"%(counter)s výsledkov hľadania"
-msgstr[2] ""
-"\n"
-"%(counter)s výsledkov hľadania"
-msgstr[3] ""
-"\n"
-"%(counter)s výsledkov hľadania"
 
 msgid "Choose"
 msgstr "Zvoliť"
@@ -411,6 +449,9 @@ msgstr "Schváliť"
 msgid "Reject"
 msgstr "Odmietnuť"
 
+msgid "Edit"
+msgstr "Upraviť"
+
 msgid "Preview"
 msgstr "Náhľad"
 
@@ -435,28 +476,6 @@ msgstr "Live"
 
 msgid "Site summary"
 msgstr "Prehľad sídla"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Stránka"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Stránky"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> Stránok"
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span> Stránok"
 
 msgid "Sign in"
 msgstr "Prihlásiť sa"
@@ -528,6 +547,12 @@ msgstr "Zamknuté"
 
 msgid "Unlocked"
 msgstr "Odomknuté"
+
+msgid "Publish this revision"
+msgstr "Publikovať túto revíziu"
+
+msgid "Publish"
+msgstr "Publikovať"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -614,9 +639,6 @@ msgstr "Áno, presunúť túto stránku"
 msgid "Unpublish %(title)s"
 msgstr "Odpublikovať %(title)s"
 
-msgid "Unpublish"
-msgstr "Nezverejniť"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Naozaj chcete odpublikovať túto stránku?"
 
@@ -683,12 +705,6 @@ msgstr "Nový"
 msgid "Save draft"
 msgstr "Uložiť koncept"
 
-msgid "Publish"
-msgstr "Publikovať"
-
-msgid "Submit for moderation"
-msgstr "Odoslať na moderáciu"
-
 msgid "This page has unsaved changes."
 msgstr "Táto stránka má neuložené zmeny."
 
@@ -705,9 +721,6 @@ msgstr "Stránka je uzamknutá"
 
 msgid "Replace current draft"
 msgstr "Prepísať aktuálny koncept"
-
-msgid "Publish this revision"
-msgstr "Publikovať túto revíziu"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -845,9 +858,6 @@ msgstr "Táto stránka je chránená pred zobrazením návštevníkom"
 msgid "Disable ordering of child pages"
 msgstr "Zakázať usporiadanie podstránok"
 
-msgid "Order"
-msgstr "Poradie"
-
 msgid "Enable ordering of child pages"
 msgstr "Povoliť usporiadanie child stránok"
 
@@ -874,9 +884,6 @@ msgstr ""
 "                Prosím zavrite tento tab, opravte chyby na stránke \n"
 "                a použite náhľad znovu.\n"
 "            "
-
-msgid "Close"
-msgstr "Zavrieť"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1028,6 +1035,10 @@ msgstr "Nepoužívajú žiadne stránky"
 msgid "Collection"
 msgstr "Kolekcie"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Strana %(page_num)s z %(total_pages)s."
+
 msgid "Root"
 msgstr "Koreň"
 
@@ -1037,63 +1048,6 @@ msgstr "Domov"
 msgid "All collections"
 msgstr "Všetky kolekcie"
 
-msgid "January"
-msgstr "Január"
-
-msgid "February"
-msgstr "Február"
-
-msgid "March"
-msgstr "Marec"
-
-msgid "April"
-msgstr "Apríl"
-
-msgid "May"
-msgstr "Máj"
-
-msgid "June"
-msgstr "Jún"
-
-msgid "July"
-msgstr "Júl"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Október"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sun"
-msgstr "Ne"
-
-msgid "Mon"
-msgstr "Pon"
-
-msgid "Tue"
-msgstr "Ut"
-
-msgid "Wed"
-msgstr "Str"
-
-msgid "Thu"
-msgstr "Štv"
-
-msgid "Fri"
-msgstr "Pia"
-
-msgid "Sat"
-msgstr "So"
-
 msgid "Edit your account"
 msgstr "Upraviť váš účet"
 
@@ -1102,10 +1056,6 @@ msgstr "Nastavenia účtu"
 
 msgid "Log out"
 msgstr "Odhlásiť sa"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Strana %(page_num)s z %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Ostatné výsledky hľadania"
@@ -1118,23 +1068,6 @@ msgstr ""
 "Používate <strong>zastaralý</strong> prehliadač, ktorý nie je podporovaný "
 "týmto systémom. Prosím <a href=\"http://browsehappy.com/\">aktualizujte váš "
 "prehliadač</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Javascript je potrebný na použitie Wagtailu, ale momentálne je "
-"vypnutý.<br />\n"
-"            Tu sú <a href=\"http://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener\">inštrukcie ako zapnúť JavaScript vo Vašom "
-"webovom prehliadači</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Pokračovať do administrátorskej časti"
@@ -1210,9 +1143,6 @@ msgstr "Rusky"
 
 msgid "Swedish"
 msgstr "Švédsky"
-
-msgid "Chinese (China)"
-msgstr "Čínsky"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"

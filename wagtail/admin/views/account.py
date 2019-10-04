@@ -7,12 +7,12 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
-from django.utils.translation import activate
+from django.utils.translation import override
 
-from wagtail.admin import forms
+from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.core import hooks
 from wagtail.users.forms import (
-    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NotificationPreferencesForm, PreferredLanguageForm)
+    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NameForm, NotificationPreferencesForm, PreferredLanguageForm)
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 
@@ -22,7 +22,7 @@ def get_user_login_form():
     if hasattr(settings, form_setting):
         return get_custom_form(form_setting)
     else:
-        return forms.LoginForm
+        return LoginForm
 
 
 # Helper functions to check password management settings to enable/disable views as appropriate.
@@ -31,6 +31,10 @@ def get_user_login_form():
 
 def password_management_enabled():
     return getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)
+
+
+def email_management_enabled():
+    return getattr(settings, 'WAGTAIL_EMAIL_MANAGEMENT_ENABLED', True)
 
 
 def password_reset_enabled():
@@ -80,6 +84,8 @@ def change_password(request):
 
 
 def change_email(request):
+    if not email_management_enabled():
+        raise Http404
     if request.method == 'POST':
         form = EmailForm(request.POST, instance=request.user)
 
@@ -91,6 +97,22 @@ def change_email(request):
         form = EmailForm(instance=request.user)
 
     return render(request, 'wagtailadmin/account/change_email.html', {
+        'form': form,
+    })
+
+
+def change_name(request):
+    if request.method == 'POST':
+        form = NameForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your name has been changed successfully!"))
+            return redirect('wagtailadmin_account')
+    else:
+        form = NameForm(instance=request.user)
+
+    return render(request, 'wagtailadmin/account/change_name.html', {
         'form': form,
     })
 
@@ -112,7 +134,7 @@ class PasswordResetView(PasswordResetEnabledViewMixin, auth_views.PasswordResetV
     template_name = 'wagtailadmin/account/password_reset/form.html'
     email_template_name = 'wagtailadmin/account/password_reset/email.txt'
     subject_template_name = 'wagtailadmin/account/password_reset/email_subject.txt'
-    form_class = forms.PasswordResetForm
+    form_class = PasswordResetForm
     success_url = reverse_lazy('wagtailadmin_password_reset_done')
 
 
@@ -158,8 +180,8 @@ def language_preferences(request):
             user_profile = form.save()
             # This will set the language only for this request/thread
             # (so that the 'success' messages is in the right language)
-            activate(user_profile.get_preferred_language())
-            messages.success(request, _("Your preferences have been updated."))
+            with override(user_profile.get_preferred_language()):
+                messages.success(request, _("Your preferences have been updated."))
             return redirect('wagtailadmin_account')
     else:
         form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
@@ -203,7 +225,7 @@ class LoginView(auth_views.LoginView):
     template_name = 'wagtailadmin/login.html'
 
     def get_success_url(self):
-        return reverse('wagtailadmin_home')
+        return self.get_redirect_url() or reverse('wagtailadmin_home')
 
     def get(self, *args, **kwargs):
         # If user is already logged in, redirect them to the dashboard

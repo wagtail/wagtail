@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load staticfiles i18n %}
+{% load static i18n %}
 {% block titletag %}{% trans "Sign in" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block furniture %}
-    <div class="content-wrapper">
+    <main class="content-wrapper" role="main">
         {% if messages or form.errors %}
             <div class="messages">
                 <ul>
@@ -79,7 +79,7 @@
                 {% endblock %}
                 <li class="submit">
                     {% block submit_buttons %}
-                    <button type="submit" class="button button-longrunning" tabindex="3" data-clicked-text="{% trans 'Signing in…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
+                    <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
                     {% endblock %}
                 </li>
             </ul>
@@ -88,7 +88,7 @@
 
         {% block below_login %}{% endblock %}
 
-    </div>
+    </main>
 {% endblock %}
 
 {% block extra_js %}

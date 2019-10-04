@@ -4,8 +4,9 @@
 #
 # Translators:
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2018
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loïc Teixeira <hello@lta.me>, 2018
+# Loic Teixeira <hello@lta.me>, 2018
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 14:37+0000\n"
-"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2018-12-27 14:51+0000\n"
+"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -27,14 +28,20 @@ msgstr ""
 msgid "Wagtail embeds"
 msgstr "Intégrations Wagtail"
 
-msgid "Please enter a valid URL"
-msgstr "Entrez une URL valide"
+msgid "Cannot find an embed for this URL."
+msgstr "Impossible de trouver une intégration pour cette URL."
 
 msgid "URL"
 msgstr "URL"
 
+msgid "Please enter a valid URL"
+msgstr "Entrez une URL valide"
+
 msgid "embed"
-msgstr "intègre"
+msgstr "intègration"
+
+msgid "embeds"
+msgstr "intégrations"
 
 msgid "Insert embed"
 msgstr "Insérer une intégration"
@@ -48,9 +55,6 @@ msgid ""
 msgstr ""
 "Il semble y avoir un problème avec votre clé d'API embedly. Vérifiez vos "
 "paramètres."
-
-msgid "Cannot find an embed for this URL."
-msgstr "Impossible de trouver une intégration pour cette URL."
 
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "

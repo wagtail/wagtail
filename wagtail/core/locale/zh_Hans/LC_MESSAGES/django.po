@@ -1,0 +1,327 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Daniel Hwang <danielblinkhw@gmail.com>, 2015
+# Ed <724195301@qq.com>, 2018
+# Fred Zeng <979738295@qq.com>, 2016
+# jszsj <zhushajun@gmail.com>, 2017
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# jszsj <zhushajun@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017-2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-26 23:35+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail 核心组件"
+
+msgid "{label}: this block has no options."
+msgstr "{label}: 这个区块没有选项"
+
+msgid "This block has no options."
+msgstr "这个区块没有选项"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "条目的最小数是%d"
+
+msgid "This field is required."
+msgstr "必需字段。"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "条目的最大数是%d"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "密码错误，请重新输入"
+
+msgid "hostname"
+msgstr "主机名"
+
+msgid "port"
+msgstr "端口号"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"将此处设置为一个非80的值，如果你需要指定显示在URL中的端口（如8000）。不影响请"
+"求处理（端口转发依旧有效）。"
+
+msgid "site name"
+msgstr "站点名称"
+
+msgid "Human-readable name for the site."
+msgstr "此站点的可读名称"
+
+msgid "root page"
+msgstr "根页面"
+
+msgid "is default site"
+msgstr "是默认站点"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "如果勾选，此站点将处理通过其它主机名访问的，尚没有站点内容的请求。"
+
+msgid "site"
+msgstr "站点"
+
+msgid "sites"
+msgstr "站点"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s已被配置为默认站点。在您将此站点设置为默认前，您必须取消原来的默"
+"认站点。"
+
+msgid "title"
+msgstr "标题"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "你想让公众看到的页面标题"
+
+msgid "slug"
+msgstr "缩略名"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr "用于URL的页面名称，如http://domain.com/work/[my-work]/"
+
+msgid "content type"
+msgstr "内容类型"
+
+msgid "live"
+msgstr "在用"
+
+msgid "has unpublished changes"
+msgstr "有未发布的修改"
+
+msgid "URL path"
+msgstr "URL路径"
+
+msgid "owner"
+msgstr "所有者"
+
+msgid "page title"
+msgstr "页面标题"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr "可选。“对搜索引擎友好”的标题。这将出现在浏览器顶部"
+
+msgid "show in menus"
+msgstr "在菜单中显示"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "是否需要在自动生成的菜单中出现此页面的链接。"
+
+msgid "search description"
+msgstr "搜索描述"
+
+msgid "go live date/time"
+msgstr "上线日期/时间"
+
+msgid "expiry date/time"
+msgstr "过期日期/时间"
+
+msgid "expired"
+msgstr "已过期"
+
+msgid "locked"
+msgstr "已锁定"
+
+msgid "first published at"
+msgstr "第一次发布于"
+
+msgid "last published at"
+msgstr "最后发布于"
+
+msgid "latest revision created at"
+msgstr "最近修订版本创建于"
+
+msgid "This slug is already in use"
+msgstr "此缩略名已被使用"
+
+msgid "scheduled"
+msgstr "已计划"
+
+msgid "draft"
+msgstr "草稿"
+
+msgid "live + scheduled"
+msgstr "在用 + 已预定"
+
+msgid "live + draft"
+msgstr "发布+草稿"
+
+msgid "Default"
+msgstr "默认"
+
+msgid "page"
+msgstr "页面"
+
+msgid "pages"
+msgstr "页面"
+
+msgid "submitted for moderation"
+msgstr "已提交审核"
+
+msgid "created at"
+msgstr "创建时间"
+
+msgid "user"
+msgstr "用户"
+
+msgid "content JSON"
+msgstr "内容JSON"
+
+msgid "approved go live at"
+msgstr "批准上线时间"
+
+msgid "page revision"
+msgstr "页版本"
+
+msgid "page revisions"
+msgstr "页版本"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Add/edit pages you own"
+msgstr "添加/编辑所属的页面"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Edit any page"
+msgstr "编辑任意页面"
+
+msgid "Publish"
+msgstr "发布"
+
+msgid "Publish any page"
+msgstr "发布任意页面"
+
+msgid "Bulk delete"
+msgstr "批量删除"
+
+msgid "Delete pages with children"
+msgstr "删除页面及其子页面"
+
+msgid "Lock"
+msgstr "锁定"
+
+msgid "Lock/unlock any page"
+msgstr "锁定/解锁任意页面"
+
+msgid "group"
+msgstr "组"
+
+msgid "permission type"
+msgstr "权限类型"
+
+msgid "group page permission"
+msgstr "群组页面权限"
+
+msgid "group page permissions"
+msgstr "群组页面权限"
+
+msgid "Public"
+msgstr "公开"
+
+msgid "Private, accessible to logged-in users"
+msgstr "私有，登录用户可访问"
+
+msgid "Private, accessible with the following password"
+msgstr "私有，使用下列的密码访问："
+
+msgid "Private, accessible to users in specific groups"
+msgstr "私有，特定用户组中的用户可访问"
+
+msgid "password"
+msgstr "密码"
+
+msgid "groups"
+msgstr "组"
+
+msgid "view restriction"
+msgstr "查看限制"
+
+msgid "view restrictions"
+msgstr "查看限制"
+
+msgid "page view restriction"
+msgstr "查看页面限制"
+
+msgid "page view restrictions"
+msgstr "查看页面限制"
+
+msgid "collection"
+msgstr "集合"
+
+msgid "collection view restriction"
+msgstr "集合查看限制"
+
+msgid "collection view restrictions"
+msgstr "集合查看限制"
+
+msgid "name"
+msgstr "名字"
+
+msgid "collections"
+msgstr "集合"
+
+msgid "permission"
+msgstr "权限"
+
+msgid "group collection permission"
+msgstr "群组集合权限"
+
+msgid "group collection permissions"
+msgstr "群组集合权限"
+
+msgid "Log in"
+msgstr "登录"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "用户密码不匹配，请重试"
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr "你的账户无权访问该页面。若要继续访问，请使用有访问权限的账户登录。"
+
+msgid "Password required"
+msgstr "需要密码"
+
+msgid "You need a password to access this page."
+msgstr "你需要访问该页面的密码。"
+
+msgid "Continue"
+msgstr "继续"

@@ -5,13 +5,14 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015,2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-10 14:13+0000\n"
-"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-03-08 21:58+0000\n"
+"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -23,13 +24,19 @@ msgstr ""
 msgid "Wagtail embeds"
 msgstr "Incorporazioni Wagtail"
 
-msgid "Please enter a valid URL"
-msgstr "Inserire una URL valida"
+msgid "Cannot find an embed for this URL."
+msgstr "Impossibile trovare un embed per questa URL."
 
 msgid "URL"
 msgstr "URL"
 
+msgid "Please enter a valid URL"
+msgstr "Inserire una URL valida"
+
 msgid "embed"
+msgstr "embed"
+
+msgid "embeds"
 msgstr "embed"
 
 msgid "Insert embed"
@@ -44,9 +51,6 @@ msgid ""
 msgstr ""
 "Sembra che ci siano problemi con la tua embedly API key. Verifica le "
 "impostazioni."
-
-msgid "Cannot find an embed for this URL."
-msgstr "Impossibile trovare un embed per questa URL."
 
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "

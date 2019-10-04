@@ -4,7 +4,7 @@
 #
 # Translators:
 # Aarni Koskela, 2016
-# Eetu Häivälä <eetu.haivala@anders.fi>, 2016-2017
+# Eetu Häivälä, 2016-2017
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -22,6 +22,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Lähetä tarkistettavaksi"
+
+msgid "Unpublish"
+msgstr "Piilota"
+
+msgid "Delete"
+msgstr "Poista"
 
 msgid "None"
 msgstr "Ei mitään"
@@ -44,15 +53,6 @@ msgstr "Nosto"
 msgid "Settings"
 msgstr "Asetukset"
 
-msgid "Search"
-msgstr "Haku"
-
-msgid "Search term"
-msgstr "Hakutermi"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Syötä salasana"
 
@@ -62,6 +62,12 @@ msgstr "Syötä %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Syötä sähköpostiosoitteesi palauttaaksesi salasanasi"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
 
 msgid "New title"
 msgstr "Uusi otsikko"
@@ -111,15 +117,6 @@ msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Lyhytnimi on jo käytössä isäntäsivun \"%s\" alla"
 
-msgid "Visibility"
-msgstr "Näkyvyys"
-
-msgid "This field is required."
-msgstr "Tämä kenttä on pakollinen."
-
-msgid "Please select at least one group."
-msgstr "Valitse vähintään yksi ryhmä."
-
 msgid "This slug is already in use"
 msgstr "Lyhytnimi on jo käytössä"
 
@@ -129,8 +126,20 @@ msgstr "Julkaisuajankohdan täytyy olla ennen julkaisun päättymisajankohtaa."
 msgid "Expiry date/time must be in the future"
 msgstr "Julkaisun päättymisajankohdan täytyy olla tulevaisuudessa."
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
+msgid "Search"
+msgstr "Haku"
+
+msgid "Search term"
+msgstr "Hakutermi"
+
+msgid "Visibility"
+msgstr "Näkyvyys"
+
+msgid "This field is required."
+msgstr "Tämä kenttä on pakollinen."
+
+msgid "Please select at least one group."
+msgstr "Valitse vähintään yksi ryhmä."
 
 msgid "Go to Wagtail admin"
 msgstr "Siirry Wagtailin hallintaan"
@@ -180,14 +189,65 @@ msgstr "Salasanan palautus"
 msgid "Reset your password"
 msgstr "Palauta salasanasi"
 
-msgid "Edit"
-msgstr "Muokkaa"
-
-msgid "Delete"
-msgstr "Poista"
-
 msgid "Pages"
 msgstr "Sivut"
+
+msgid "January"
+msgstr "Tammi"
+
+msgid "February"
+msgstr "Helmi"
+
+msgid "March"
+msgstr "Maalis"
+
+msgid "April"
+msgstr "Huhti"
+
+msgid "May"
+msgstr "Touko"
+
+msgid "June"
+msgstr "Kesä"
+
+msgid "July"
+msgstr "Heinä"
+
+msgid "August"
+msgstr "Elo"
+
+msgid "September"
+msgstr "Syys"
+
+msgid "October"
+msgstr "Loka"
+
+msgid "November"
+msgstr "Marras"
+
+msgid "December"
+msgstr "Joulu"
+
+msgid "Sun"
+msgstr "Su"
+
+msgid "Mon"
+msgstr "Ma"
+
+msgid "Tue"
+msgstr "Ti"
+
+msgid "Wed"
+msgstr "Ke"
+
+msgid "Thu"
+msgstr "To"
+
+msgid "Fri"
+msgstr "Pe"
+
+msgid "Sat"
+msgstr "La"
 
 msgid "Dashboard"
 msgstr "Kojelauta"
@@ -215,22 +275,6 @@ msgstr "Ulkoinen linkki"
 
 msgid "Email link"
 msgstr "Sähköpostilinkki"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Löytyi yksi osuma"
-msgstr[1] ""
-"\n"
-"Löytyi %(counter)s osumaa"
 
 msgid "Choose"
 msgstr "Valitse"
@@ -336,6 +380,9 @@ msgstr "Hyväksy"
 msgid "Reject"
 msgstr "Hylkää"
 
+msgid "Edit"
+msgstr "Muokkaa"
+
 msgid "Preview"
 msgstr "Esikatsele"
 
@@ -360,22 +407,6 @@ msgstr "Julkinen"
 
 msgid "Site summary"
 msgstr "Sivuston yhteenveto"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Sivu"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Sivua"
 
 msgid "Sign in"
 msgstr "Kirjaudu sisään"
@@ -450,6 +481,12 @@ msgstr "Lukittu"
 
 msgid "Unlocked"
 msgstr "Ei lukittu"
+
+msgid "Publish this revision"
+msgstr "Julkaise tämä versio"
+
+msgid "Publish"
+msgstr "Julkaise"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -530,9 +567,6 @@ msgstr "Kyllä, siirrä sivu"
 msgid "Unpublish %(title)s"
 msgstr "Piilota %(title)s"
 
-msgid "Unpublish"
-msgstr "Piilota"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Haluatko varmasti piilottaa tämän sivun?"
 
@@ -565,12 +599,6 @@ msgstr "Uusi"
 msgid "Save draft"
 msgstr "Tallenna luonnos"
 
-msgid "Publish"
-msgstr "Julkaise"
-
-msgid "Submit for moderation"
-msgstr "Lähetä tarkistettavaksi"
-
 msgid "This page has unsaved changes."
 msgstr "Tällä sivulla on tallentamattomia muutoksia."
 
@@ -587,9 +615,6 @@ msgstr "Sivu lukittu"
 
 msgid "Replace current draft"
 msgstr "Korvaa nykyinen luonnos"
-
-msgid "Publish this revision"
-msgstr "Julkaise tämä versio"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -719,9 +744,6 @@ msgstr "Sivu on suojattu näkymästä julkisesti"
 msgid "Disable ordering of child pages"
 msgstr "Estä alasivujen uudelleenjärjestäminen"
 
-msgid "Order"
-msgstr "Järjestä"
-
 msgid "Enable ordering of child pages"
 msgstr "Salli alasivujen uudelleenjärjestäminen"
 
@@ -810,68 +832,15 @@ msgstr "Yhtään sivua ei käytä"
 msgid "Collection"
 msgstr "Kokoelma"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
+
 msgid "Home"
 msgstr "Koti"
 
 msgid "All collections"
 msgstr "Kaikki kokoelmat"
-
-msgid "January"
-msgstr "Tammi"
-
-msgid "February"
-msgstr "Helmi"
-
-msgid "March"
-msgstr "Maalis"
-
-msgid "April"
-msgstr "Huhti"
-
-msgid "May"
-msgstr "Touko"
-
-msgid "June"
-msgstr "Kesä"
-
-msgid "July"
-msgstr "Heinä"
-
-msgid "August"
-msgstr "Elo"
-
-msgid "September"
-msgstr "Syys"
-
-msgid "October"
-msgstr "Loka"
-
-msgid "November"
-msgstr "Marras"
-
-msgid "December"
-msgstr "Joulu"
-
-msgid "Sun"
-msgstr "Su"
-
-msgid "Mon"
-msgstr "Ma"
-
-msgid "Tue"
-msgstr "Ti"
-
-msgid "Wed"
-msgstr "Ke"
-
-msgid "Thu"
-msgstr "To"
-
-msgid "Fri"
-msgstr "Pe"
-
-msgid "Sat"
-msgstr "La"
 
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"
@@ -881,10 +850,6 @@ msgstr "Tiliasetukset"
 
 msgid "Log out"
 msgstr "Kirjaudu ulos"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
 
 msgid "Other searches"
 msgstr "Muut haut"

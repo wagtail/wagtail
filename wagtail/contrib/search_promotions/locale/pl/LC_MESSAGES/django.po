@@ -4,15 +4,15 @@
 #
 # Translators:
 # Miłosz Miśkiewicz, 2016
-# Miłosz Miśkiewicz, 2018
+# Miłosz Miśkiewicz, 2018-2019
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-15 08:29+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-05-09 13:38+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -72,7 +72,7 @@ msgstr ""
 "<p>Pole \"Fraza(-y) wyszukiwania\" poniżej musi zawierać pełną i dokładną "
 "wartość dla której chciałbyś dostarczyć rekomendowane wyniki "
 "<em>uwzględniając</em> wszystkie literówki/błędy użytkownika. Pomocny może "
-"być wybór fraz wyszukiwania, które były popularne na Twojej stronie.</p>\n"
+"być wybór fraz wyszukiwania, które były popularne na Twoim serwisie.</p>\n"
 "            "
 
 msgid "Save"
@@ -140,7 +140,7 @@ msgstr "Brak"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -148,19 +148,19 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Jedno dopasowanie\n"
+"Znaleziono %(counter)s dopasowanie\n"
 "        "
 msgstr[1] ""
 "\n"
-"            Są %(counter)s dopasowania\n"
+"Znaleziono %(counter)s dopasowań\n"
 "        "
 msgstr[2] ""
 "\n"
-"            Jest %(counter)s dopasowań\n"
+"Znaleziono %(counter)s dopasowań\n"
 "        "
 msgstr[3] ""
 "\n"
-"            Jest %(counter)s dopasowań\n"
+"Znaleziono %(counter)s dopasowań\n"
 "        "
 
 #, python-format

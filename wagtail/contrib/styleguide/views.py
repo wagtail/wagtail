@@ -1,11 +1,10 @@
 from django import forms
-from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.rich_text import get_rich_text_editor_widget
 from wagtail.admin.widgets import (
     AdminAutoHeightTextInput, AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput)
@@ -72,11 +71,8 @@ def index(request):
     paginator = Paginator(list(range(100)), 10)
     page = paginator.page(2)
 
-    user = User(email='david@torchbox.com')
-
     return render(request, 'wagtailstyleguide/base.html', {
         'search_form': form,
         'example_form': example_form,
         'example_page': page,
-        'user': user,
     })

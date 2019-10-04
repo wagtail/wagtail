@@ -6,7 +6,6 @@ from django.utils import translation
 from django.utils.functional import cached_property
 
 from wagtail.core.blocks import FieldBlock
-from wagtail.utils.widgets import WidgetWithScript
 
 DEFAULT_TABLE_OPTIONS = {
     'minSpareRows': 0,
@@ -35,22 +34,22 @@ DEFAULT_TABLE_OPTIONS = {
 }
 
 
-class TableInput(WidgetWithScript, forms.HiddenInput):
+class TableInput(forms.HiddenInput):
+    template_name = "table_block/widgets/table.html"
 
     def __init__(self, table_options=None, attrs=None):
         self.table_options = table_options
         super().__init__(attrs=attrs)
 
-    def render(self, name, value, attrs=None):
-        original_field_html = super().render(name, value, attrs)
-        return render_to_string("table_block/widgets/table.html", {
-            'original_field_html': original_field_html,
-            'attrs': attrs,
-            'value': value,
-        })
+    def get_context(self, name, value, attrs=None):
+        context = super().get_context(name, value, attrs)
+        table_caption = ''
+        if value and value != 'null':
+            table_caption = json.loads(value).get('table_caption', '')
+        context['widget']['table_options_json'] = json.dumps(self.table_options)
+        context['widget']['table_caption'] = table_caption
 
-    def render_js_init(self, id_, name, value):
-        return "initTable({0}, {1});".format(json.dumps(id_), json.dumps(self.table_options))
+        return context
 
 
 class TableBlock(FieldBlock):
@@ -65,6 +64,7 @@ class TableBlock(FieldBlock):
         """
         self.table_options = self.get_table_options(table_options=table_options)
         self.field_options = {'required': required, 'help_text': help_text}
+
         super().__init__(**kwargs)
 
     @cached_property
@@ -103,8 +103,16 @@ class TableBlock(FieldBlock):
                 'table_header': table_header,
                 'first_col_is_header': first_col_is_header,
                 'html_renderer': self.is_html_renderer(),
+                'table_caption': value.get('table_caption'),
                 'data': value['data'][1:] if table_header else value.get('data', [])
             })
+
+            if value.get('cell'):
+                new_context['classnames'] = {}
+                for meta in value['cell']:
+                    if 'className' in meta:
+                        new_context['classnames'][(meta['row'], meta['col'])] = meta['className']
+
             return render_to_string(template, new_context)
         else:
             return self.render_basic(value, context=context)
@@ -112,8 +120,8 @@ class TableBlock(FieldBlock):
     @property
     def media(self):
         return forms.Media(
-            css={'all': ['table_block/css/vendor/handsontable-0.24.2.full.min.css']},
-            js=['table_block/js/vendor/handsontable-0.24.2.full.min.js', 'table_block/js/table.js']
+            css={'all': ['table_block/css/vendor/handsontable-6.2.2.full.min.css']},
+            js=['table_block/js/vendor/handsontable-6.2.2.full.min.js', 'table_block/js/table.js']
         )
 
     def get_table_options(self, table_options=None):
@@ -121,7 +129,7 @@ class TableBlock(FieldBlock):
         Return a dict of table options using the defaults unless custom options provided
 
         table_options can contain any valid handsontable options:
-        http://docs.handsontable.com/0.18.0/Options.html
+        https://handsontable.com/docs/6.2.2/Options.html
         contextMenu: if value from table_options is True, still use default
         language: if value is not in table_options, attempt to get from envrionment
         """
@@ -138,8 +146,6 @@ class TableBlock(FieldBlock):
         if 'language' not in collected_table_options:
             # attempt to gather the current set language of not provided
             language = translation.get_language()
-            if language is not None and len(language) > 2:
-                language = language[:2]
             collected_table_options['language'] = language
 
         return collected_table_options

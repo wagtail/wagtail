@@ -5,16 +5,16 @@
 # Translators:
 # utek <mail@utek.pl>, 2014
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017-2018
+# Miłosz Miśkiewicz, 2017-2019
 # Miłosz Miśkiewicz, 2016
 # utek <mail@utek.pl>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-15 08:27+0000\n"
-"Last-Translator: Miłosz Miśkiewicz\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +54,12 @@ msgstr "Nieprawidłowy obraz %s."
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Ten obraz jest za duży (%%s). Maksymalny rozmiar pliku %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"Ten plik ma zbyt wiele pikesli: (%%s). Maksymalna dopuszczalna ilość pikseli "
+"to %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -152,16 +158,10 @@ msgstr "Popularne tagi"
 msgid "Uploading…"
 msgstr "Wgrywanie…"
 
-msgid "Server Error"
-msgstr "Błąd serwera"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -169,19 +169,19 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Jedno dopasowanie\n"
+"Znaleziono %(counter)s dopasowanie\n"
 "        "
 msgstr[1] ""
 "\n"
-"            Znaleziono %(counter)s dopasowania\n"
+"Znaleziono %(counter)s dopasowań\n"
 "        "
 msgstr[2] ""
 "\n"
-"            Znaleziono %(counter)s dopasowań\n"
+"Znaleziono %(counter)s dopasowań\n"
 "        "
 msgstr[3] ""
 "\n"
-"            Znaleziono %(counter)s dopasowań\n"
+"Znaleziono %(counter)s dopasowań\n"
 "        "
 
 msgid "Latest images"
@@ -192,28 +192,6 @@ msgstr "Wybierz format"
 
 msgid "Insert image"
 msgstr "Wstaw obraz"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Obraz"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Obrazy"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> Obrazy"
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span> Obrazy"
 
 msgid "Change image file:"
 msgstr "Zmień plik obrazu:"
@@ -251,12 +229,18 @@ msgstr "Edycja obrazu %(title)s"
 msgid "Editing"
 msgstr "Edycja"
 
-msgid "Focal point (optional)"
-msgstr "Punkt ogniskowy (opcjonalne)"
+msgid "URL Generator"
+msgstr "Generator adresu URL"
+
+msgid "Focal point"
+msgstr "Punkt ogniskowy"
+
+msgid "(optional)"
+msgstr "(opcjonalne)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
-"below."
+"above."
 msgstr ""
 "Aby zaznaczyć najważniejszy fragment tego obrazka, przeciągnij zaznaczenie w "
 "odpowiednie miejsce."
@@ -266,9 +250,6 @@ msgstr "Pokazano obecny punkt ogniskowy"
 
 msgid "Remove focal area"
 msgstr "Usuń obszar centralny"
-
-msgid "URL Generator"
-msgstr "Generator adresu URL"
 
 msgid "Max dimensions"
 msgstr "Maksymalne wymiary"
@@ -368,6 +349,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Przepraszamy, przesyłanie się nie powiodło."
+
+msgid "Server Error"
+msgstr "Błąd serwera"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
 
 msgid "Image updated."
 msgstr "Uaktualniono obraz."

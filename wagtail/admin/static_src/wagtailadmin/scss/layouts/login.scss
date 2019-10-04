@@ -1,6 +1,4 @@
-@import 'wagtailadmin/scss/variables';
-@import 'wagtailadmin/scss/mixins';
-@import 'wagtailadmin/scss/grid';
+@import 'wagtailadmin/scss/helpers';
 
 // overrides default nice padding defined in variables.scss
 $desktop-nice-padding: 100px;
@@ -142,7 +140,7 @@ input[type=checkbox]:before {
     }
 }
 
-@media screen and (min-width: $breakpoint-mobile) {
+@include media-breakpoint-up(sm) {
     .content-wrapper {
         float: none;
         height: auto;

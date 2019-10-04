@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+
+msgid "Submit for moderation"
+msgstr "Iesniegt moderācijai"
+
+msgid "Unpublish"
+msgstr "Atsaukt publicēšanu"
+
+msgid "Delete"
+msgstr "Dzēst"
 
 msgid "None"
 msgstr "Nav"
@@ -42,15 +51,6 @@ msgstr "Veicināšana"
 msgid "Settings"
 msgstr "Iestatījumi"
 
-msgid "Search"
-msgstr "Meklēt"
-
-msgid "Search term"
-msgstr "Meklēšanas termins"
-
-msgid "URL"
-msgstr "Norāde (URL)"
-
 msgid "Enter password"
 msgstr "Ievadīt paroli"
 
@@ -60,6 +60,12 @@ msgstr "Ievadiet jūsu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ievadiet savu e-pasta adresi, lai atjaunotu paroli"
+
+msgid "URL"
+msgstr "Norāde (URL)"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
 
 msgid "New title"
 msgstr "Jauns virsraksts"
@@ -120,15 +126,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Kopējot apakšlapas nav iespējams kopēt lapu uz sevi pašu"
 
-msgid "Visibility"
-msgstr "Redzamība"
-
-msgid "This field is required."
-msgstr "Šis lauks ir nepieciešams"
-
-msgid "Please select at least one group."
-msgstr "Lūdzu izvēlieties vismaz vienu grupu"
-
 msgid "This slug is already in use"
 msgstr "Šis tekstuālais identifikators jau tiek lietots"
 
@@ -138,8 +135,20 @@ msgstr "Publicēšanas datumam/laikam jābūt pirms beigu datuma/laika"
 msgid "Expiry date/time must be in the future"
 msgstr "Beigu datumam/laikam jābūt nākotnē"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
+msgid "Search"
+msgstr "Meklēt"
+
+msgid "Search term"
+msgstr "Meklēšanas termins"
+
+msgid "Visibility"
+msgstr "Redzamība"
+
+msgid "This field is required."
+msgstr "Šis lauks ir nepieciešams"
+
+msgid "Please select at least one group."
+msgstr "Lūdzu izvēlieties vismaz vienu grupu"
 
 msgid "Error 404: Page not found"
 msgstr "Kļūda 404: lapa nav atrasta"
@@ -199,12 +208,6 @@ msgstr "Atjaunot paroli"
 msgid "Reset your password"
 msgstr "Atjaunot paroli"
 
-msgid "Edit"
-msgstr "Labot"
-
-msgid "Delete"
-msgstr "Dzēst"
-
 msgid "Page"
 msgstr "Lapa"
 
@@ -219,9 +222,6 @@ msgstr "Nav rezultātu"
 
 msgid "Server Error"
 msgstr "Servera kļūda"
-
-msgid "See children"
-msgstr "Skatīt zemāka līmeņa ierakstus"
 
 msgid "See all"
 msgstr "Apskatīt visu"
@@ -246,6 +246,63 @@ msgstr "Atsaukt"
 
 msgid "Redo"
 msgstr "Atcelt atsaukšanu"
+
+msgid "January"
+msgstr "Janvāris"
+
+msgid "February"
+msgstr "Februāris"
+
+msgid "March"
+msgstr "Marts"
+
+msgid "April"
+msgstr "Aprīlis"
+
+msgid "May"
+msgstr "Maijs"
+
+msgid "June"
+msgstr "Jūnijs"
+
+msgid "July"
+msgstr "Jūlijs"
+
+msgid "August"
+msgstr "Augusts"
+
+msgid "September"
+msgstr "Septembris"
+
+msgid "October"
+msgstr "Oktobris"
+
+msgid "November"
+msgstr "Novembris"
+
+msgid "December"
+msgstr "Decembris"
+
+msgid "Sun"
+msgstr "Sv"
+
+msgid "Mon"
+msgstr "P"
+
+msgid "Tue"
+msgstr "O"
+
+msgid "Wed"
+msgstr "T"
+
+msgid "Thu"
+msgstr "C"
+
+msgid "Fri"
+msgstr "Pk"
+
+msgid "Sat"
+msgstr "S"
 
 msgid "Dashboard"
 msgstr "Informācijas panelis"
@@ -346,6 +403,9 @@ msgstr "Apstiprināt"
 msgid "Reject"
 msgstr "Noraidīt"
 
+msgid "Edit"
+msgstr "Labot"
+
 msgid "Preview"
 msgstr "Priekšskatīt"
 
@@ -433,6 +493,12 @@ msgstr "Slēgts"
 msgid "Unlocked"
 msgstr "Atslēgts"
 
+msgid "Publish this revision"
+msgstr "Publicēt šo versiju"
+
+msgid "Publish"
+msgstr "Publicēt"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Izveidot lapu %(title)s"
@@ -472,9 +538,6 @@ msgstr "Pārvietot šo lapu"
 msgid "Unpublish %(title)s"
 msgstr "Atsaukt %(title)s publicēšanu"
 
-msgid "Unpublish"
-msgstr "Atsaukt publicēšanu"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Atsaukt lapas publicēšanu?"
 
@@ -504,12 +567,6 @@ msgstr "Jauns"
 msgid "Save draft"
 msgstr "Saglabāt melnrakstu"
 
-msgid "Publish"
-msgstr "Publicēt"
-
-msgid "Submit for moderation"
-msgstr "Iesniegt moderācijai"
-
 msgid "This page has unsaved changes."
 msgstr "Šai lapai ir nesaglabātas izmaiņas"
 
@@ -526,9 +583,6 @@ msgstr "Lapa slēgta"
 
 msgid "Replace current draft"
 msgstr "Aizvietot pašreizējo melnrakstu"
-
-msgid "Publish this revision"
-msgstr "Publicēt šo versiju"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -594,9 +648,6 @@ msgstr "Lapa nav publiski pieejama"
 msgid "Disable ordering of child pages"
 msgstr "Atspējot apakšlapu kārtošanu"
 
-msgid "Order"
-msgstr "Kārtība"
-
 msgid "Enable ordering of child pages"
 msgstr "Iespējot apakšlapu kārtošanu"
 
@@ -647,78 +698,21 @@ msgstr "Neviena lapa nelieto"
 msgid "Collection"
 msgstr "Kolekcija"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām."
+
 msgid "Home"
 msgstr "Sākumlapa"
 
 msgid "All collections"
 msgstr "Visas kolekcijas"
 
-msgid "January"
-msgstr "Janvāris"
-
-msgid "February"
-msgstr "Februāris"
-
-msgid "March"
-msgstr "Marts"
-
-msgid "April"
-msgstr "Aprīlis"
-
-msgid "May"
-msgstr "Maijs"
-
-msgid "June"
-msgstr "Jūnijs"
-
-msgid "July"
-msgstr "Jūlijs"
-
-msgid "August"
-msgstr "Augusts"
-
-msgid "September"
-msgstr "Septembris"
-
-msgid "October"
-msgstr "Oktobris"
-
-msgid "November"
-msgstr "Novembris"
-
-msgid "December"
-msgstr "Decembris"
-
-msgid "Sun"
-msgstr "Sv"
-
-msgid "Mon"
-msgstr "P"
-
-msgid "Tue"
-msgstr "O"
-
-msgid "Wed"
-msgstr "T"
-
-msgid "Thu"
-msgstr "C"
-
-msgid "Fri"
-msgstr "Pk"
-
-msgid "Sat"
-msgstr "S"
-
 msgid "Edit your account"
 msgstr "Mainīt konta iestatījumus"
 
 msgid "Log out"
 msgstr "Iziet"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām."
 
 msgid "Other searches"
 msgstr "Citi meklējumi"

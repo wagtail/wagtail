@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Amawalee Combe <dang@getsalebox.com>, 2019
+# Jon Combe <jon@naremit.com>, 2019
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-28 03:27+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "กำลังแก้ไข %(setting_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "กำลังแก้ไข"
+
+msgid "Saving…"
+msgstr "กำลังเก็บ"
+
+msgid "Save"
+msgstr "เก็บรักษา"
+
+msgid "Settings"
+msgstr "ตั้งค่า"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "การตั้งค่าไม่สามารถเปิดได้ เนื่องจากไม่ได้ระบุเว็บไซด์"
+
+msgid "{setting_type} updated."
+msgstr "{setting_type} ที่ได้อัพเดทไปแล้ว"
+
+msgid "The setting could not be saved due to errors."
+msgstr "การตั้งค่าไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"

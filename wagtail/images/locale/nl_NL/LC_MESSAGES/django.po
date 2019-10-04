@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
+# Meteor 0id, 2018-2019
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 09:24+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -50,6 +52,12 @@ msgstr "Geen juiste %s afbeelding."
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Dit bestand is te groot (%%s). De maximale bestandsgrootte is %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"Dit bestand bevat teveel pixels (%%s). Het maximum aantal toegestane pixels "
+"is %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -148,17 +156,10 @@ msgstr "Populaire tags"
 msgid "Uploading…"
 msgstr "Bezig met uploaden…"
 
-msgid "Server Error"
-msgstr "Server error"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -166,11 +167,11 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Er is één resultaat\n"
+"            Er is %(counter)s overeenkomst\n"
 "        "
 msgstr[1] ""
 "\n"
-"            Er zijn %(counter)s resultaten\n"
+"            Er zijn %(counter)s overeenkomsten\n"
 "        "
 
 msgid "Latest images"
@@ -181,24 +182,6 @@ msgstr "Kies een formaat"
 
 msgid "Insert image"
 msgstr "Voeg afbeelding in"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Afbeelding\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Afbeeldingen\n"
-"    "
 
 msgid "Change image file:"
 msgstr "Wijzig bestand:"
@@ -234,24 +217,27 @@ msgstr "Wijzig afbeelding %(title)s"
 msgid "Editing"
 msgstr "Wijzigen"
 
-msgid "Focal point (optional)"
-msgstr "Brandpunt (optioneel)"
+msgid "URL Generator"
+msgstr "URL Generator"
+
+msgid "Focal point"
+msgstr "Brandpunt"
+
+msgid "(optional)"
+msgstr "(optioneel)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
-"below."
+"above."
 msgstr ""
-"Om het belangrijkste deel van de afbeelding te definiëren, sleep een "
-"selectiebox over de onderstaande afbeelding."
+"Om het meest belangrijke deel van deze afbeelding aan te geven, sleep een "
+"vierkant over de afbeelding hierboven."
 
 msgid "Current focal point shown"
-msgstr "Huidige brandpunt getoond"
+msgstr "Huidige focusgebied getoond"
 
 msgid "Remove focal area"
 msgstr "Verwijder focusgebied"
-
-msgid "URL Generator"
-msgstr "URL Generator"
 
 msgid "Max dimensions"
 msgstr "Maximale afmetingen"
@@ -352,6 +338,13 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Sorry, upload ging fout."
+
+msgid "Server Error"
+msgstr "Server error"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
 
 msgid "Image updated."
 msgstr "Afbeelding is bijgewerkt."

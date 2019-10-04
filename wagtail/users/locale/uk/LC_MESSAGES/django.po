@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail users"
+msgstr "Користувачі Wagtail "
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -69,6 +72,20 @@ msgstr ""
 msgid "A group with that name already exists."
 msgstr "Група з таким ім'ям вже існує."
 
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Ви не можете мати декілька записів з правами доступу для однієї і тієї ж "
+"сторінки. "
+
+msgid "Preferred language"
+msgstr "Бажана мова"
+
+msgid "Current time zone"
+msgstr "Поточний часовий пояс"
+
+msgid "Upload a profile picture"
+msgstr "Завантажити зображення для профілю"
+
 msgid "submitted notifications"
 msgstr "сповіщення у разі додавання"
 
@@ -92,6 +109,15 @@ msgstr "бажана мова"
 
 msgid "Select language for the admin"
 msgstr "Оберіть мову для адміністратора"
+
+msgid "current time zone"
+msgstr "поточний часовий пояс"
+
+msgid "Select your current time zone"
+msgstr "Оберіть поточний часовий пояс"
+
+msgid "profile picture"
+msgstr "зображення профілю користувача"
 
 msgid "user profile"
 msgstr "профіль користувача"
@@ -236,32 +262,6 @@ msgstr "Активний"
 
 msgid "Inactive"
 msgstr "Неактивний"
-
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Знайдений один збіг\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Є %(counter)s збігів\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
-msgstr[3] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

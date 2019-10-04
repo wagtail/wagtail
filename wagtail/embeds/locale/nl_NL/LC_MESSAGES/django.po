@@ -4,14 +4,15 @@
 #
 # Translators:
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018
+# Meteor 0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 09:25+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2018-12-01 21:07+0000\n"
+"Last-Translator: Meteor 0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -23,14 +24,20 @@ msgstr ""
 msgid "Wagtail embeds"
 msgstr "Wagtail embeds"
 
-msgid "Please enter a valid URL"
-msgstr "Voer een geldige URL in"
+msgid "Cannot find an embed for this URL."
+msgstr "Kan geen embed voor deze URL vinden."
 
 msgid "URL"
 msgstr "URL"
 
+msgid "Please enter a valid URL"
+msgstr "Voer een geldige URL in"
+
 msgid "embed"
 msgstr "embed"
+
+msgid "embeds"
+msgstr "embeds"
 
 msgid "Insert embed"
 msgstr "Voeg embed toe"
@@ -44,9 +51,6 @@ msgid ""
 msgstr ""
 "Er lijkt een probleem met uw embedly API key te zijn. Controleer uw "
 "instellingen. "
-
-msgid "Cannot find an embed for this URL."
-msgstr "Kan geen embed voor deze URL vinden."
 
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "

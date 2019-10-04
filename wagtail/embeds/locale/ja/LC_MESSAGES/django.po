@@ -4,14 +4,15 @@
 #
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2016
+# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-28 21:24+0000\n"
+"Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,14 +21,23 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Please enter a valid URL"
-msgstr "正しいURLを入力してください"
+msgid "Wagtail embeds"
+msgstr "Wagtail エンベッド"
+
+msgid "Cannot find an embed for this URL."
+msgstr "埋め込みURLを見つけられません。"
 
 msgid "URL"
 msgstr "URL"
 
+msgid "Please enter a valid URL"
+msgstr "正しいURLを入力してください"
+
 msgid "embed"
 msgstr "埋め込み済み"
+
+msgid "embeds"
+msgstr "埋め込む"
 
 msgid "Insert embed"
 msgstr "埋め込みを挿入"
@@ -40,11 +50,11 @@ msgid ""
 "settings."
 msgstr "埋め込みのAPIキーに問題があるようです。設定を確認してください。"
 
-msgid "Cannot find an embed for this URL."
-msgstr "埋め込みURLを見つけられません。"
-
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."
 msgstr ""
 "このURLの埋め込みにエラーがあるようです。あとでもう一度お試しください。"
+
+msgid "Embed"
+msgstr "埋め込み済み"

@@ -35,19 +35,21 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
     def test_image_file_deleted_oncommit(self):
         with transaction.atomic():
             image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
-            self.assertTrue(image.file.storage.exists(image.file.name))
+            filename = image.file.name
+            self.assertTrue(image.file.storage.exists(filename))
             image.delete()
-            self.assertTrue(image.file.storage.exists(image.file.name))
-        self.assertFalse(image.file.storage.exists(image.file.name))
+            self.assertTrue(image.file.storage.exists(filename))
+        self.assertFalse(image.file.storage.exists(filename))
 
     def test_rendition_file_deleted_oncommit(self):
         with transaction.atomic():
             image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
             rendition = image.get_rendition('original')
-            self.assertTrue(rendition.file.storage.exists(rendition.file.name))
+            filename = rendition.file.name
+            self.assertTrue(rendition.file.storage.exists(filename))
             rendition.delete()
-            self.assertTrue(rendition.file.storage.exists(rendition.file.name))
-        self.assertFalse(rendition.file.storage.exists(rendition.file.name))
+            self.assertTrue(rendition.file.storage.exists(filename))
+        self.assertFalse(rendition.file.storage.exists(filename))
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')

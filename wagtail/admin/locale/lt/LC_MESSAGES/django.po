@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Pateikti moderavimui"
+
+msgid "Unpublish"
+msgstr "Nebepublikuoti"
+
+msgid "Delete"
+msgstr "Ištrinti"
 
 msgid "None"
 msgstr "Joks"
@@ -42,15 +51,6 @@ msgstr "Skelbti"
 msgid "Settings"
 msgstr "Nustatymai"
 
-msgid "Search"
-msgstr "Paieška"
-
-msgid "Search term"
-msgstr "Paieškos frazė"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Įveskite slaptažodį"
 
@@ -61,6 +61,12 @@ msgstr "Įveskite savo %s"
 msgid "Enter your email address to reset your password"
 msgstr ""
 "Įveskite savo elektroninio pašto adresą kad atstatytumėte savo slaptažodį"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
 
 msgid "New title"
 msgstr "Naujas pavadinimas"
@@ -128,15 +134,6 @@ msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
 "Jūs negalite kopijuoti puslapio į jį patį kopijuojant vidinius puslapius"
 
-msgid "Visibility"
-msgstr "Matomumas"
-
-msgid "This field is required."
-msgstr "Šis laukas yra privalomas."
-
-msgid "Please select at least one group."
-msgstr "Prašome pasirinkti bent vieną grupę."
-
 msgid "This slug is already in use"
 msgstr "Šis trumpinys jau naudojamas"
 
@@ -147,8 +144,20 @@ msgstr ""
 msgid "Expiry date/time must be in the future"
 msgstr "Galiojimo pabaigos data/laikas turi būti ateityje"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
+msgid "Search"
+msgstr "Paieška"
+
+msgid "Search term"
+msgstr "Paieškos frazė"
+
+msgid "Visibility"
+msgstr "Matomumas"
+
+msgid "This field is required."
+msgstr "Šis laukas yra privalomas."
+
+msgid "Please select at least one group."
+msgstr "Prašome pasirinkti bent vieną grupę."
 
 msgid "Error 404: Page not found"
 msgstr "Klaida 404: Puslapis nerastas"
@@ -210,12 +219,6 @@ msgstr "Slaptažodžio atstatymas"
 msgid "Reset your password"
 msgstr "Atstatyti savo slaptažodį"
 
-msgid "Edit"
-msgstr "Redaguoti"
-
-msgid "Delete"
-msgstr "Ištrinti"
-
 msgid "Page"
 msgstr "Puslapis"
 
@@ -230,9 +233,6 @@ msgstr "Nėra rezultatų"
 
 msgid "Server Error"
 msgstr "Serverio klaida"
-
-msgid "See children"
-msgstr "Žiūrėti vidinius"
 
 msgid "See all"
 msgstr "Žiūrėti viską"
@@ -257,6 +257,66 @@ msgstr "Anuliuoti"
 
 msgid "Redo"
 msgstr "Atgrąžinti"
+
+msgid "Close"
+msgstr "Uždaryti"
+
+msgid "January"
+msgstr "Sausis"
+
+msgid "February"
+msgstr "Vasaris"
+
+msgid "March"
+msgstr "Kovas"
+
+msgid "April"
+msgstr "Balandis"
+
+msgid "May"
+msgstr "Gegužė"
+
+msgid "June"
+msgstr "Birželis"
+
+msgid "July"
+msgstr "Liepa"
+
+msgid "August"
+msgstr "Rugpjūtis"
+
+msgid "September"
+msgstr "Rugsėjis"
+
+msgid "October"
+msgstr "Spalis"
+
+msgid "November"
+msgstr "Lapkritis"
+
+msgid "December"
+msgstr "Gruodis"
+
+msgid "Sun"
+msgstr "Sek"
+
+msgid "Mon"
+msgstr "Pir"
+
+msgid "Tue"
+msgstr "Antr"
+
+msgid "Wed"
+msgstr "Tre"
+
+msgid "Thu"
+msgstr "Ketv"
+
+msgid "Fri"
+msgstr "Pen"
+
+msgid "Sat"
+msgstr "Šeš"
 
 msgid "Dashboard"
 msgstr "Prietaisų skydas"
@@ -284,28 +344,6 @@ msgstr "Išorinė nuoroda"
 
 msgid "Email link"
 msgstr "Elektroninio pašto nuoroda"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"Yra vienas atitikmuo"
-msgstr[1] ""
-"\n"
-"Yra %(counter)s atitikmenys"
-msgstr[2] ""
-"\n"
-"Yra %(counter)s atitikmenų"
-msgstr[3] ""
-"\n"
-"Yra %(counter)s atitikmenų"
 
 msgid "Choose"
 msgstr "Pasirinkti"
@@ -434,6 +472,9 @@ msgstr "Patvirtinti"
 msgid "Reject"
 msgstr "Atmesti"
 
+msgid "Edit"
+msgstr "Redaguoti"
+
 msgid "Preview"
 msgstr "Peržiūrėti"
 
@@ -458,28 +499,6 @@ msgstr "Veikiantis"
 
 msgid "Site summary"
 msgstr "Tinklalapio suvestinė"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> puslapis"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> puslapiai"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> puslapių"
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span> puslapių"
 
 msgid "Sign in"
 msgstr "Prisijungti"
@@ -554,6 +573,15 @@ msgstr "Užrakinta"
 
 msgid "Unlocked"
 msgstr "Atrakinta"
+
+msgid "Publishing…"
+msgstr "Publikuojama..."
+
+msgid "Publish this revision"
+msgstr "Publikuoti šia reviziją"
+
+msgid "Publish"
+msgstr "Publikuoti"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -641,9 +669,6 @@ msgstr "Taip, perkelti šį puslapį"
 msgid "Unpublish %(title)s"
 msgstr "Nebepublikuoti %(title)s"
 
-msgid "Unpublish"
-msgstr "Nebepublikuoti"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ar tikrai norite nebepublikuoti šio puslapio?"
 
@@ -709,15 +734,6 @@ msgstr "Saugoma..."
 msgid "Save draft"
 msgstr "Išsaugoti juodraštį"
 
-msgid "Publishing…"
-msgstr "Publikuojama..."
-
-msgid "Publish"
-msgstr "Publikuoti"
-
-msgid "Submit for moderation"
-msgstr "Pateikti moderavimui"
-
 msgid "This page has unsaved changes."
 msgstr "Šis puslapis turi neišsaugotų pakeitimų."
 
@@ -734,9 +750,6 @@ msgstr "Puslapis užrakintas"
 
 msgid "Replace current draft"
 msgstr "Pakeisti dabartinį juodraštį"
-
-msgid "Publish this revision"
-msgstr "Publikuoti šia reviziją"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -868,9 +881,6 @@ msgstr "Šis puslapis apsaugotas nuo viešo matymo"
 msgid "Disable ordering of child pages"
 msgstr "Išjungti vidinių puslapių rikiavimą"
 
-msgid "Order"
-msgstr "Tvarka"
-
 msgid "Enable ordering of child pages"
 msgstr "Įgalinti vidinių puslapių rikiavimą"
 
@@ -897,9 +907,6 @@ msgstr ""
 "Prašome uždaryti šį skirtuką ir redaguoti puslapį kad ištaisytumėte "
 "klaidas,\n"
 "ir tik tada bandyti peržiūrėti puslapį dar karta."
-
-msgid "Close"
-msgstr "Uždaryti"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1057,6 +1064,10 @@ msgstr "Jokie puslapiai nenaudoja"
 msgid "Collection"
 msgstr "Kolekcija"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Puslapis %(page_num)s iš %(total_pages)s."
+
 msgid "Root"
 msgstr "Šakninis"
 
@@ -1066,63 +1077,6 @@ msgstr "Namai"
 msgid "All collections"
 msgstr "Visos kolekcijos"
 
-msgid "January"
-msgstr "Sausis"
-
-msgid "February"
-msgstr "Vasaris"
-
-msgid "March"
-msgstr "Kovas"
-
-msgid "April"
-msgstr "Balandis"
-
-msgid "May"
-msgstr "Gegužė"
-
-msgid "June"
-msgstr "Birželis"
-
-msgid "July"
-msgstr "Liepa"
-
-msgid "August"
-msgstr "Rugpjūtis"
-
-msgid "September"
-msgstr "Rugsėjis"
-
-msgid "October"
-msgstr "Spalis"
-
-msgid "November"
-msgstr "Lapkritis"
-
-msgid "December"
-msgstr "Gruodis"
-
-msgid "Sun"
-msgstr "Sek"
-
-msgid "Mon"
-msgstr "Pir"
-
-msgid "Tue"
-msgstr "Antr"
-
-msgid "Wed"
-msgstr "Tre"
-
-msgid "Thu"
-msgstr "Ketv"
-
-msgid "Fri"
-msgstr "Pen"
-
-msgid "Sat"
-msgstr "Šeš"
-
 msgid "Edit your account"
 msgstr "Redaguoti savo vartotoją"
 
@@ -1131,10 +1085,6 @@ msgstr "Vartotojo nustatymai"
 
 msgid "Log out"
 msgstr "Atsijungti"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Puslapis %(page_num)s iš %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Kitos paieškos"
@@ -1147,20 +1097,6 @@ msgstr ""
 "Jūs naudojate <strong>pasenusią</strong> naršyklę, kuri yra nepalaikoma "
 "programinės įrangos. Prašome <a href=\"http://browsehappy.com/\">atnaujinti "
 "naršyklę</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"JavaScript būtinas naudojant Wagtail, bet dabar jis yra išjungtas.<br />\n"
-"Čia yra <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener\">instrukcijos kaip įjungti JavaScript savo naršyklėje.</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Eiti į Wagtail administravimo sąsają."
@@ -1239,9 +1175,6 @@ msgstr "Švedų"
 
 msgid "Slovak"
 msgstr "Slovakų"
-
-msgid "Chinese (China)"
-msgstr "Kinų (Kinija)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Atsiprašome, jūs neturite leidimo pasiekti šios zonos."

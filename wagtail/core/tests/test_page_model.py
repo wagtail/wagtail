@@ -1,5 +1,6 @@
 import datetime
 import json
+from unittest.mock import Mock
 
 import pytz
 from django.contrib.auth import get_user_model
@@ -16,9 +17,9 @@ from wagtail.core.models import Page, PageManager, Site, get_page_models
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
-    CustomPageQuerySet, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage, MTIBasePage,
-    MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimplePage,
-    SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
+    CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
+    MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimpleChildPage,
+    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -129,13 +130,6 @@ class TestSiteRouting(TestCase):
         self.alternate_port_default_site = Site.objects.create(hostname=self.default_site.hostname, port='8765', root_page=self.default_site.root_page)
         self.unrecognised_port = '8000'
         self.unrecognised_hostname = 'unknown.site.com'
-
-    def test_no_host_header_routes_to_default_site(self):
-        # requests without a Host: header should be directed to the default site
-        request = HttpRequest()
-        request.path = '/'
-        with self.assertNumQueries(1):
-            self.assertEqual(Site.find_for_request(request), self.default_site)
 
     def test_valid_headers_route_to_specific_site(self):
         # requests with a known Host: header should be directed to the specific site
@@ -709,6 +703,102 @@ class TestCopyPage(TestCase):
             "Child objects defined on the superclass were removed from the original page"
         )
 
+    def test_copy_page_copies_parental_relations(self):
+        """Test that a page will be copied with parental many to many relations intact."""
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        summer_category = EventCategory.objects.create(name='Summer')
+        holiday_category = EventCategory.objects.create(name='Holidays')
+
+        # add parental many to many relations
+        christmas_event.categories = (summer_category, holiday_category)
+        christmas_event.save()
+
+        # Copy it
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
+
+        # check that original eventt is untouched
+        self.assertEqual(
+            christmas_event.categories.count(),
+            2,
+            "Child objects (parental many to many) defined on the superclass were removed from the original page"
+        )
+
+        # check that parental many to many are copied
+        self.assertEqual(
+            new_christmas_event.categories.count(),
+            2,
+            "Child objects (parental many to many) weren't copied"
+        )
+
+        # check that the original and copy are related to the same categories
+        self.assertEqual(
+            new_christmas_event.categories.all().in_bulk(),
+            christmas_event.categories.all().in_bulk()
+        )
+
+    def test_copy_page_does_not_copy_child_objects_if_accessor_name_in_exclude_fields(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Copy the page as in `test_copy_page_copies_child_objects()``, but using exclude_fields
+        # to prevent 'advert_placements' from being copied to the new version
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'},
+            exclude_fields=['advert_placements']
+        )
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(christmas_event.speakers.count(), 1, "Child objects were removed from the original page")
+
+        # Check that advert placements were NOT copied over, but were not removed from the old page
+        self.assertFalse(
+            new_christmas_event.advert_placements.exists(),
+            "Child objects were copied despite accessor_name being specified in `exclude_fields`"
+        )
+        self.assertEqual(
+            christmas_event.advert_placements.count(),
+            1,
+            "Child objects defined on the superclass were removed from the original page"
+        )
+
+    def test_copy_page_with_process_child_object_supplied(self):
+
+        # We'll provide this when copying and test that it gets called twice:
+        # Once for the single speaker, and another for the single advert_placement
+        modify_child = Mock()
+
+        old_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Create a child event
+        child_event = old_event.copy(update_attrs={'title': "Child christmas event", 'slug': 'child-christmas-event'})
+        child_event.move(old_event, pos='last-child')
+
+        new_event = old_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'},
+            process_child_object=modify_child,
+            recursive=True,
+        )
+
+        # The method should have been called with these arguments when copying
+        # the advert placement
+        relationship = EventPage._meta.get_field('advert_placements')
+        child_object = new_event.advert_placements.get()
+        modify_child.assert_any_call(old_event, new_event, relationship, child_object)
+
+        # And again with these arguments when copying the speaker
+        relationship = EventPage._meta.get_field('speaker')
+        child_object = new_event.speakers.get()
+        modify_child.assert_any_call(old_event, new_event, relationship, child_object)
+
+        # Check that process_child_object was run on the child event page as well
+        new_child_event = new_event.get_children().get().specific
+        child_object = new_child_event.speakers.get()
+        modify_child.assert_any_call(child_event, new_child_event, relationship, child_object)
+
     def test_copy_page_copies_revisions(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision()
@@ -1139,6 +1229,23 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
         self.assertFalse(BusinessChild.can_create_at(SimplePage()))
         self.assertFalse(BusinessSubIndex.can_create_at(SimplePage()))
 
+    def test_can_create_at_with_max_count_per_parent_limited_to_one(self):
+        root_page = Page.objects.get(url_path='/home/')
+
+        # Create 2 parent pages for our limited page model
+        parent1 = root_page.add_child(instance=SimpleParentPage(title='simple parent', slug='simple-parent'))
+        parent2 = root_page.add_child(instance=SimpleParentPage(title='simple parent', slug='simple-parent-2'))
+
+        # Add a child page to one of the pages (assert just to be sure)
+        self.assertTrue(SimpleChildPage.can_create_at(parent1))
+        parent1.add_child(instance=SimpleChildPage(title='simple child', slug='simple-child'))
+
+        # We already have a `SimpleChildPage` as a child of `parent1`, and since it is limited
+        # to have only 1 child page, we cannot create anoter one. However, we should still be able
+        # to create an instance for this page at a different location (as child of `parent2`)
+        self.assertFalse(SimpleChildPage.can_create_at(parent1))
+        self.assertTrue(SimpleChildPage.can_create_at(parent2))
+
     def test_can_move_to(self):
         self.assertTrue(SimplePage().can_move_to(SimplePage()))
 
@@ -1337,13 +1444,14 @@ class TestIssue2024(TestCase):
         self.assertEqual(event_index.content_type, ContentType.objects.get_for_model(Page))
 
 
-@override_settings(ALLOWED_HOSTS=['localhost'])
-class TestDummyRequest(TestCase):
+class TestMakePreviewRequest(TestCase):
     fixtures = ['test.json']
 
-    def test_dummy_request_for_accessible_page(self):
+    def test_make_preview_request_for_accessible_page(self):
         event_index = Page.objects.get(url_path='/home/events/')
-        request = event_index.dummy_request()
+        response = event_index.make_preview_request()
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
 
         # request should have the correct path and hostname for this page
         self.assertEqual(request.path, '/events/')
@@ -1364,23 +1472,81 @@ class TestDummyRequest(TestCase):
         self.assertIn('wsgi.multiprocess', request.META)
         self.assertIn('wsgi.run_once', request.META)
 
-    def test_dummy_request_for_accessible_page_with_original_request(self):
+    def test_make_preview_request_for_accessible_page_https(self):
+        Site.objects.update(port=443)
+
+        event_index = Page.objects.get(url_path='/home/events/')
+        response = event_index.make_preview_request()
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
+
+        # request should have the correct path and hostname for this page
+        self.assertEqual(request.path, '/events/')
+        self.assertEqual(request.META['HTTP_HOST'], 'localhost')
+
+        # check other env vars required by the WSGI spec
+        self.assertEqual(request.META['REQUEST_METHOD'], 'GET')
+        self.assertEqual(request.META['SCRIPT_NAME'], '')
+        self.assertEqual(request.META['PATH_INFO'], '/events/')
+        self.assertEqual(request.META['SERVER_NAME'], 'localhost')
+        self.assertEqual(request.META['SERVER_PORT'], 443)
+        self.assertEqual(request.META['SERVER_PROTOCOL'], 'HTTP/1.1')
+        self.assertEqual(request.META['wsgi.version'], (1, 0))
+        self.assertEqual(request.META['wsgi.url_scheme'], 'https')
+        self.assertIn('wsgi.input', request.META)
+        self.assertIn('wsgi.errors', request.META)
+        self.assertIn('wsgi.multithread', request.META)
+        self.assertIn('wsgi.multiprocess', request.META)
+        self.assertIn('wsgi.run_once', request.META)
+
+    def test_make_preview_request_for_accessible_page_non_standard_port(self):
+        Site.objects.update(port=8888)
+
+        event_index = Page.objects.get(url_path='/home/events/')
+        response = event_index.make_preview_request()
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
+
+        # request should have the correct path and hostname for this page
+        self.assertEqual(request.path, '/events/')
+        self.assertEqual(request.META['HTTP_HOST'], 'localhost:8888')
+
+        # check other env vars required by the WSGI spec
+        self.assertEqual(request.META['REQUEST_METHOD'], 'GET')
+        self.assertEqual(request.META['SCRIPT_NAME'], '')
+        self.assertEqual(request.META['PATH_INFO'], '/events/')
+        self.assertEqual(request.META['SERVER_NAME'], 'localhost')
+        self.assertEqual(request.META['SERVER_PORT'], 8888)
+        self.assertEqual(request.META['SERVER_PROTOCOL'], 'HTTP/1.1')
+        self.assertEqual(request.META['wsgi.version'], (1, 0))
+        self.assertEqual(request.META['wsgi.url_scheme'], 'http')
+        self.assertIn('wsgi.input', request.META)
+        self.assertIn('wsgi.errors', request.META)
+        self.assertIn('wsgi.multithread', request.META)
+        self.assertIn('wsgi.multiprocess', request.META)
+        self.assertIn('wsgi.run_once', request.META)
+
+    def test_make_preview_request_for_accessible_page_with_original_request(self):
         event_index = Page.objects.get(url_path='/home/events/')
         original_headers = {
             'REMOTE_ADDR': '192.168.0.1',
             'HTTP_X_FORWARDED_FOR': '192.168.0.2,192.168.0.3',
             'HTTP_COOKIE': "test=1;blah=2",
             'HTTP_USER_AGENT': "Test Agent",
+            'HTTP_AUTHORIZATION': "Basic V2FndGFpbDpXYWd0YWlsCg==",
         }
         factory = RequestFactory(**original_headers)
         original_request = factory.get('/home/events/')
-        request = event_index.dummy_request(original_request)
+        response = event_index.make_preview_request(original_request)
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
 
         # request should have the all the special headers we set in original_request
         self.assertEqual(request.META['REMOTE_ADDR'], original_request.META['REMOTE_ADDR'])
         self.assertEqual(request.META['HTTP_X_FORWARDED_FOR'], original_request.META['HTTP_X_FORWARDED_FOR'])
         self.assertEqual(request.META['HTTP_COOKIE'], original_request.META['HTTP_COOKIE'])
         self.assertEqual(request.META['HTTP_USER_AGENT'], original_request.META['HTTP_USER_AGENT'])
+        self.assertEqual(request.META['HTTP_AUTHORIZATION'], original_request.META['HTTP_AUTHORIZATION'])
 
         # check other env vars required by the WSGI spec
         self.assertEqual(request.META['REQUEST_METHOD'], 'GET')
@@ -1398,9 +1564,11 @@ class TestDummyRequest(TestCase):
         self.assertIn('wsgi.run_once', request.META)
 
     @override_settings(ALLOWED_HOSTS=['production.example.com'])
-    def test_dummy_request_for_inaccessible_page_should_use_valid_host(self):
+    def test_make_preview_request_for_inaccessible_page_should_use_valid_host(self):
         root_page = Page.objects.get(url_path='/')
-        request = root_page.dummy_request()
+        response = root_page.make_preview_request()
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
 
         # in the absence of an actual Site record where we can access this page,
         # dummy_request should still provide a hostname that Django's host header
@@ -1410,7 +1578,9 @@ class TestDummyRequest(TestCase):
     @override_settings(ALLOWED_HOSTS=['*'])
     def test_dummy_request_for_inaccessible_page_with_wildcard_allowed_hosts(self):
         root_page = Page.objects.get(url_path='/')
-        request = root_page.dummy_request()
+        response = root_page.make_preview_request()
+        self.assertEqual(response.status_code, 200)
+        request = response.context_data['request']
 
         # '*' is not a valid hostname, so ensure that we replace it with something sensible
         self.assertNotEqual(request.META['HTTP_HOST'], '*')
@@ -1437,3 +1607,62 @@ class TestShowInMenusDefaultOption(TestCase):
 
         # Check that the page instance creates with show_in_menu as True
         self.assertTrue(page.show_in_menus)
+
+
+class TestPageWithContentJSON(TestCase):
+    fixtures = ['test.json']
+
+    def test_with_content_json_preserves_values(self):
+        original_page = SimplePage.objects.get(url_path='/home/about-us/')
+        eventpage_content_type = ContentType.objects.get_for_model(EventPage)
+
+        # Take a json representation of the page and update it
+        # with some alternative values
+        content = json.loads(original_page.to_json())
+        content.update(
+            title='About them',
+            draft_title='About them',
+            slug='about-them',
+            url_path='/home/some-section/about-them/',
+            pk=original_page.pk + 999,
+            numchild=original_page.numchild + 999,
+            depth=original_page.depth + 999,
+            path=original_page.path + 'ABCDEF',
+            content='<p>They are not as good</p>',
+            first_published_at="2000-01-01T00:00:00Z",
+            last_published_at="2000-01-01T00:00:00Z",
+            live=not original_page.live,
+            locked=not original_page.locked,
+            has_unpublished_changes=not original_page.has_unpublished_changes,
+            content_type=eventpage_content_type.id,
+            show_in_menus=not original_page.show_in_menus,
+            owner=1
+        )
+
+        # Convert values back to json and pass them to with_content_json()
+        # to get an updated version of the page
+        content_json = json.dumps(content)
+        updated_page = original_page.with_content_json(content_json)
+
+        # The following attributes values should have changed
+        for attr_name in ('title', 'slug', 'content', 'url_path', 'show_in_menus'):
+            self.assertNotEqual(
+                getattr(original_page, attr_name),
+                getattr(updated_page, attr_name)
+            )
+
+        # The following attribute values should have been preserved,
+        # despite new values being provided in content_json
+        for attr_name in (
+            'pk', 'path', 'depth', 'numchild', 'content_type', 'draft_title',
+            'live', 'has_unpublished_changes', 'owner', 'locked',
+            'latest_revision_created_at', 'first_published_at',
+        ):
+            self.assertEqual(
+                getattr(original_page, attr_name),
+                getattr(updated_page, attr_name)
+            )
+
+        # The url_path should reflect the new slug value, but the
+        # rest of the path should have remained unchanged
+        self.assertEqual(updated_page.url_path, '/home/about-them/')

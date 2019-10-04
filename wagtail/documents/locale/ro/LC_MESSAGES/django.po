@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2018
+# Dan Braghis, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
+
+msgid "Wagtail documents"
+msgstr "Documente Wagtail"
 
 msgid "Add"
 msgstr "Adaugă"
@@ -50,6 +53,9 @@ msgstr "etichete"
 msgid "document"
 msgstr "document"
 
+msgid "documents"
+msgstr "documente"
+
 msgid "Choose a document"
 msgstr "Alege document"
 
@@ -62,16 +68,10 @@ msgstr "Încărcare"
 msgid "Uploading…"
 msgstr "În curs de încărcare…"
 
-msgid "Server Error"
-msgstr "Eroare de server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportează această eroare webmasterului cu următoarele informații:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -79,13 +79,16 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"Există o potrivire"
+"            Există %(counter)s potrivire\n"
+"        "
 msgstr[1] ""
 "\n"
-"Sunt %(counter)s potriviri"
+"            Sunt%(counter)s potriviry\n"
+"        "
 msgstr[2] ""
 "\n"
-"Sunt %(counter)s potriviri"
+"            Sunt %(counter)s potriviri\n"
+"        "
 
 msgid "Latest documents"
 msgstr "Documente recente"
@@ -95,6 +98,24 @@ msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
 "document"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Nu ați încărcat nici un document în această colecție."
+
+msgid "You haven't uploaded any documents."
+msgstr "Nu ați încărcat nici un document. "
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            De ce să nu <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?\n"
+"            "
 
 msgid "Change document:"
 msgstr "Schimbă documentul:"
@@ -153,6 +174,9 @@ msgstr "Titlu"
 msgid "File"
 msgstr "Fișier"
 
+msgid "Collection"
+msgstr "Colecție"
+
 msgid "Uploaded"
 msgstr "Încărcat"
 
@@ -195,26 +219,6 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Editează această pagină"
 
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> document\n"
-"    "
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> documente"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> documente"
-
 msgid "Add multiple documents"
 msgstr "Adaugă mai multe documente"
 
@@ -232,7 +236,7 @@ msgid "Add to collection:"
 msgstr "Adaugă la colecția:"
 
 msgid ""
-"Upload successful. Please update this documents with a more appropriate "
+"Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
@@ -257,6 +261,12 @@ msgstr "Permisiunile documentului"
 
 msgid "Add a document permission"
 msgstr "Adaugă permisiune document"
+
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportează această eroare webmasterului cu următoarele informații:"
 
 msgid "Search documents"
 msgstr "Caută documente"

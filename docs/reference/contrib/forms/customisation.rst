@@ -609,7 +609,7 @@ Customise form submissions listing in Wagtail Admin
 
 The Admin listing of form submissions can be customised by setting the attribute ``submissions_list_view_class`` on your FormPage model.
 
-The list view class must be a subclass of ``SubmissionsListView`` from ``wagtail.contrib.forms.views``, which is a child class of `Django's class based ListView <https://docs.djangoproject.com/en/stable/ref/class-based-views/generic-display/#listview>`_.
+The list view class must be a subclass of ``SubmissionsListView`` from ``wagtail.contrib.forms.views``, which is a child class of Django's class based :class:`~django.views.generic.list.ListView`.
 
 Example:
 
@@ -716,7 +716,7 @@ If you want to change the content of the email that is sent when a form submits 
 To do this, you need to:
 
 * Ensure you have your form model defined that extends ``wagtail.contrib.forms.models.AbstractEmailForm``.
-* In your models.py file, import the ``wagtail.admin.utils.send_mail`` function.
+* In your models.py file, import the ``wagtail.admin.mail.send_mail`` function.
 * Override the ``send_mail`` method in your page model.
 
 Example:
@@ -725,7 +725,7 @@ Example:
 
     from datetime import date
     # ... additional wagtail imports
-    from wagtail.admin.utils import send_mail
+    from wagtail.admin.mail import send_mail
     from wagtail.contrib.forms.models import AbstractEmailForm
 
 
@@ -763,6 +763,6 @@ Example:
             # Content is joined with a new line to separate each text line
             content = '\n'.join(content)
 
-            # wagtail.wagtailadmin.utils - send_mail function is called
+            # wagtail.admin.mail - send_mail function is called
             # This function extends the Django default send_mail function
             send_mail(subject, content, addresses, self.from_address)

@@ -13,18 +13,8 @@
     &.full {
         margin-left: $mobile-nice-padding;
 
-        @media screen and (min-width: $breakpoint-mobile) {
+        @include media-breakpoint-up(sm) {
             margin-left: $desktop-nice-padding;
-        }
-    }
-
-    // stream-field is added to hallotoolbar when invoked on a field within a stream-field
-    &.stream-field {
-        margin-top: -1em;
-        margin-left: 0;
-
-        &.affixed {
-            margin-top: 0;
         }
     }
 

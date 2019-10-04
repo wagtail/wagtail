@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ettore Atalan <atalanttore@googlemail.com>, 2019
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -10,6 +11,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# Peter Dreuw <archandha@gmx.net>, 2019
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 # Wasilis Mandratzis-Walz, 2015
@@ -17,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-09 09:53+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -61,6 +63,9 @@ msgstr "Schlagwörter"
 msgid "document"
 msgstr "Dokument"
 
+msgid "documents"
+msgstr "Dokumente"
+
 msgid "Choose a document"
 msgstr "Dokument auswählen"
 
@@ -73,18 +78,10 @@ msgstr "Hochladen"
 msgid "Uploading…"
 msgstr "Lade hoch…"
 
-msgid "Server Error"
-msgstr "Server-Fehler"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
-"Information:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -92,7 +89,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Es gibt ein Ergebnis\n"
+"            Es gibt %(counter)s Ergebnis\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -106,6 +103,23 @@ msgstr "Neueste Dokumente"
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Es gibt leider keine Dokumente zum Suchbegriff „<em>%(query_string)s</em>“"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Sie haben in dieser Sammlung keine Dokumente hochgeladen."
+
+msgid "You haven't uploaded any documents."
+msgstr "Sie haben noch keine Dokumente hochgeladen."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"Warum nicht <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\"> jetzt eins hochladen</a>?"
 
 msgid "Change document:"
 msgstr "Dokument ändern:"
@@ -163,6 +177,9 @@ msgstr "Titel"
 msgid "File"
 msgstr "Datei"
 
+msgid "Collection"
+msgstr "Sammlung"
+
 msgid "Uploaded"
 msgstr "Hochgeladen"
 
@@ -205,24 +222,6 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Diese Seite bearbeiten"
 
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Dokument\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Dokumente\n"
-"    "
-
 msgid "Add multiple documents"
 msgstr "Mehrere Dokumente hinzufügen"
 
@@ -239,7 +238,7 @@ msgid "Add to collection:"
 msgstr "Zu Sammlung hinzufügen:"
 
 msgid ""
-"Upload successful. Please update this documents with a more appropriate "
+"Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
@@ -263,6 +262,14 @@ msgstr "Dokumenten-Berechtigungen"
 
 msgid "Add a document permission"
 msgstr "Einfügen einer Dokumenten-Berechtigung"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
+"Information:"
 
 msgid "Search documents"
 msgstr "Nach Dokumenten suchen"

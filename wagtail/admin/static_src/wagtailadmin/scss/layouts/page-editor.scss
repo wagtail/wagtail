@@ -1,7 +1,4 @@
-@import 'wagtailadmin/scss/variables';
-@import 'wagtailadmin/scss/mixins';
-@import 'wagtailadmin/scss/grid';
-@import 'wagtailadmin/scss/components/streamfield';
+@import 'wagtailadmin/scss/helpers';
 
 .page-editor {
     .content-wrapper {
@@ -11,7 +8,7 @@
     .breadcrumb {
         margin: -1.2em 0 2em;
 
-        @include medium {
+        @include media-breakpoint-up(sm) {
             margin-top: -1.8em;
         }
     }
@@ -36,7 +33,7 @@
     .header-title {
         padding-left: 3.1em;
 
-        @media screen and (max-width: $breakpoint-mobile) {
+        @include media-breakpoint-down(xs) {
             padding-left: 0;
             margin-left: -28px;
             // Because it's nested within tab-merged which we've given padding
@@ -88,7 +85,7 @@ $object-title-height: 40px;
         opacity: 1;
     }
 
-    > h2 {
+    > .title-wrapper {
         box-sizing: border-box;
         height: $object-title-height;
         -webkit-font-smoothing: auto;
@@ -117,13 +114,12 @@ $object-title-height: 40px;
             font-size: inherit;
         }
 
-        &:before,
-        label:before {
+        &:before {
             @include font-smoothing;
             text-shadow: none;
             font-family: wagtail;
             text-transform: none;
-            content: 'q';
+            content: map-get($icons, 'arrow-down');
             text-align: center;
             display: block;
             position: absolute;
@@ -152,7 +148,7 @@ $object-title-height: 40px;
     }
 
     &.required {
-        > h2 label:after {
+        > .title-wrapper label:after {
             content: '*';
             color: $color-red;
             font-weight: bold;
@@ -197,31 +193,36 @@ $object-title-height: 40px;
         }
     }
 
-    // cursory styling for streamfield. Main styling in components/streamfield.scss
+    // cursory styling for streamfield. Main styling in client/src/components/StreamField/StreamField.scss
     &.stream-field {
-        padding-left: 0;
-        padding-right: 0;
+        background-color: #f6f6f6;
+        padding-left: 20px;
+        padding-right: 20px;
 
         &.required .field > label:after {
             display: none;
         }
 
-        // Undo column widths usually applied to the contents of a field panel
-        > fieldset {
-            width: 100%;
-            max-width: none;
+        .object-layout_big-part {
+            max-width: 100%;
+        }
+
+        fieldset {
+            padding-bottom: 0;
+            max-width: unset;
+            // Workaround to make sure blocks do not overflow horizontally.
+            min-width: 0;
         }
 
         .block_field > .field-content {
             width: 100%;
-            display: block;
         }
     }
 
     // special panel for the publishing fields, requires a bit more pizzazz
     &.publishing {
-        > h2:before {
-            content: '7';
+        > .title-wrapper:before {
+            content: map-get($icons, 'date');
             font-size: 1.8rem;
             line-height: 1.4em;
             width: 1.4em;
@@ -253,7 +254,7 @@ $object-title-height: 40px;
     &.empty {
         border-bottom: 1px solid $color-white;
 
-        > h2 {
+        > h3 {
             margin: 0;
             border-bottom: 1px solid $color-white;
         }
@@ -303,19 +304,17 @@ $object-title-height: 40px;
         // and h2 has position: absolute which doesn't add to it either, so it would be 0 without this
         min-height: 41px;
 
-        > h2 {
-            &:before,
-            > label:before {
-                content: '6';
+        .title-wrapper {
+            &:before {
+                content: map-get($icons, 'collapse-up');
                 cursor: pointer;
             }
         }
 
         &.collapsed {
-            > h2 {
-                &:before,
-                > label:before {
-                    content: '5';
+            .title-wrapper {
+                &:before {
+                    content: map-get($icons, 'collapse-down');
                 }
             }
         }
@@ -345,7 +344,7 @@ $object-title-height: 40px;
 footer .preview {
     button,
     .button {
-        @media screen and (max-width: $breakpoint-mobile) {
+        @include media-breakpoint-down(xs) {
             width: 100%;
             margin-top: 2px;
             margin-bottom: 2px;
@@ -387,10 +386,9 @@ footer .preview {
     }
 }
 
-@include medium {
+@include media-breakpoint-up(sm) {
     .object {
         fieldset {
-            @include column(10);
             // Override column mixin for column items.
             display: block;
             // Override column mixin for column items.
@@ -404,32 +402,37 @@ footer .preview {
             }
         }
 
+        .object-layout {
+            display: flex;
+            flex-flow: row-reverse wrap;
+
+            &_small-part {
+                // IE11 requires units on the flex basis. Unitless breaks.
+                // stylelint-disable-next-line length-zero-no-unit
+                flex: 1 0 0%;
+            }
+
+            &_big-part {
+                // IE11 requires units on the flex basis. Unitless breaks.
+                // stylelint-disable-next-line length-zero-no-unit
+                flex: 5 0 0%;
+            }
+        }
+
         .object-help {
-            @include column(2);
-            position: absolute;
-            right: 0;
-            padding-right: $grid-gutter-width / 2;
-            float: right;
+            padding-bottom: 40px;
+            margin-left: 10px;
             opacity: 0;
-            padding-left: 3em;
         }
 
         &.stream-field {
             .object-help {
-                opacity: 0;
-                position: relative;
-                width: 100%;
                 padding-left: 6.4em;
-            }
-
-            &:hover .object-help {
-                opacity: 1;
             }
         }
 
         &.full {
             fieldset {
-                @include column(11);
                 // Override column mixin for column items.
                 display: block;
                 // Override column mixin for column items.

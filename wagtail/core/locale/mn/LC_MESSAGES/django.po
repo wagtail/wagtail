@@ -1,0 +1,287 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
+# Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-01-25 06:48+0000\n"
+"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
+"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
+"mn/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "{label}: this block has no options."
+msgstr "{label}: сонголтгүй блок"
+
+msgid "This block has no options."
+msgstr "Статик блок нь ямар нэг сонголтгүй."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Хамгийн багадаа %d хэсэг байна"
+
+msgid "This field is required."
+msgstr "Энэ талбарыг заавал бөглөх шаардлагатай."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Хамгийн ихдээ %d хэсэг байна"
+
+msgid "Password"
+msgstr "Нууц үг"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Таны оруулсан нууц үг буруу байна. Дахин оролдоно уу."
+
+msgid "hostname"
+msgstr "хост"
+
+msgid "port"
+msgstr "порт"
+
+msgid "site name"
+msgstr "сайтын нэр"
+
+msgid "Human-readable name for the site."
+msgstr "Хүмүүст харагдах сайтын нэр."
+
+msgid "root page"
+msgstr "үндэс хуудас"
+
+msgid "is default site"
+msgstr "өгөгдмөл сайт уу"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "sites"
+msgstr "сайтууд"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s өгөгдмөл сайтаар тохируулагдсан байна. Энэ сайтыг өгөгдмөл сайт "
+"болгохоос урьтаж өгөгдмөл сайтыг хасах хэрэгтэй."
+
+msgid "title"
+msgstr "гарчиг"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Нийтэд харагдах хуудасны гарчиг"
+
+msgid "slug"
+msgstr "слаг"
+
+msgid "content type"
+msgstr "контентын төрөл"
+
+msgid "live"
+msgstr "нийтлэгдсэн"
+
+msgid "has unpublished changes"
+msgstr "нийтлэгдэж амжаагүй өөрчлөлтүүд"
+
+msgid "URL path"
+msgstr "URL зам"
+
+msgid "owner"
+msgstr "эзэмшигч"
+
+msgid "page title"
+msgstr "хуудасны гарчиг"
+
+msgid "show in menus"
+msgstr "цэсэнд харуулах"
+
+msgid "search description"
+msgstr "хайлтын тайлбар"
+
+msgid "go live date/time"
+msgstr "нийтлэгдэх өдөр/цаг"
+
+msgid "expiry date/time"
+msgstr "хаагдах өдөр/цаг"
+
+msgid "expired"
+msgstr "хугацаа нь дууссан"
+
+msgid "locked"
+msgstr "түгжигдсэн"
+
+msgid "first published at"
+msgstr "анх нийтлэгдсэн "
+
+msgid "last published at"
+msgstr "сүүлд нийтлэгдсэн"
+
+msgid "latest revision created at"
+msgstr "сүүлийн засвар үүссэн"
+
+msgid "This slug is already in use"
+msgstr "Ийм слагтай мэдээ өмнө нь нийтлэгдсэн байна"
+
+msgid "scheduled"
+msgstr "төлөвлөгдсөн"
+
+msgid "draft"
+msgstr "ноорог"
+
+msgid "live + scheduled"
+msgstr "нийтлэгдсэн + төлөвлөгдсөн"
+
+msgid "live + draft"
+msgstr "нийтлэгдсэн + ноорог"
+
+msgid "Default"
+msgstr "Өгөгдмөл"
+
+msgid "page"
+msgstr "хуудас"
+
+msgid "pages"
+msgstr "хуудсууд"
+
+msgid "submitted for moderation"
+msgstr "хянуулахаар илгээсэн"
+
+msgid "created at"
+msgstr "үүссэн"
+
+msgid "user"
+msgstr "хэрэглэгч"
+
+msgid "content JSON"
+msgstr "контент JSON"
+
+msgid "approved go live at"
+msgstr "нийтлэхээр зөвшөөрөгдсөн"
+
+msgid "page revision"
+msgstr "хуудасны өөрчлөлтийн түүх"
+
+msgid "page revisions"
+msgstr "хуудасны өөрчлөлтийн түүхүүд"
+
+msgid "Add"
+msgstr "Нэмэх"
+
+msgid "Add/edit pages you own"
+msgstr "Өөрийн хуудсаа нэмэх/засах"
+
+msgid "Edit"
+msgstr "Засах"
+
+msgid "Edit any page"
+msgstr "Ямар ч хуудсыг засах"
+
+msgid "Publish"
+msgstr "Нийтлэх"
+
+msgid "Publish any page"
+msgstr "Ямар ч хуудсыг нийтлэх"
+
+msgid "Bulk delete"
+msgstr "Бөөнөөр нь устгах"
+
+msgid "Delete pages with children"
+msgstr "Дэд хуудсуудтай нь устгах"
+
+msgid "Lock"
+msgstr "Түгжих"
+
+msgid "Lock/unlock any page"
+msgstr "Ямар ч хуудсыг түгжих/түгжээг нь гаргах"
+
+msgid "group"
+msgstr "бүлэг"
+
+msgid "permission type"
+msgstr "эрхийн төрөл"
+
+msgid "Public"
+msgstr "Нийтэд нээлттэй"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Хувийн, зөвхөн нэвтэрсэн хэрэглэгчид хандах боломжтой"
+
+msgid "Private, accessible with the following password"
+msgstr "Хувийн, нууц үгтэй хүмүүс хандах боломжтой"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Хувийн, тодорхой бүлгийн гишүүд хандах боломжтой"
+
+msgid "password"
+msgstr "нууц үг"
+
+msgid "groups"
+msgstr "бүлгүүд"
+
+msgid "view restriction"
+msgstr "хязгаарлалтуудыг харах"
+
+msgid "view restrictions"
+msgstr "хязгаарлалтуудыг харах"
+
+msgid "page view restriction"
+msgstr "хуудас харах хязгаарлалт"
+
+msgid "page view restrictions"
+msgstr "хуудас харах хязгаарлалтууд"
+
+msgid "collection"
+msgstr "цуглуулга"
+
+msgid "collection view restriction"
+msgstr "цуглуулга харах хязгаарлалт"
+
+msgid "collection view restrictions"
+msgstr "цуглуулга харах хязгаарлалтууд"
+
+msgid "name"
+msgstr "нэр"
+
+msgid "collections"
+msgstr "цуглуулгууд"
+
+msgid "permission"
+msgstr "эрх"
+
+msgid "group collection permission"
+msgstr "бүлэг цуглуулгын эрх"
+
+msgid "group collection permissions"
+msgstr "бүлэг цуглуулгын эрх"
+
+msgid "Log in"
+msgstr "Нэвтрэх"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Хэрэглэгчийн нэр болон нууц үг тохирохгүй байна. Дахин оролдоно уу."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Та энэ хуудсанд хандах боломжгүй. Хандах эрхтэй өөр хэрэглэгчийн эрхээр "
+"нэвтэрнэ үү. "
+
+msgid "Password required"
+msgstr "Нууц үг шаардлагатай"
+
+msgid "You need a password to access this page."
+msgstr "Энэ хуудсанд хандахын тулд нууц үг оруулах хэрэгтэй."
+
+msgid "Continue"
+msgstr "Үргэлжлүүлэх"

@@ -1,0 +1,322 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Amawalee Combe <dang@getsalebox.com>, 2019
+# Jon Combe <jon@naremit.com>, 2019
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-28 14:50+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail core"
+
+msgid "{label}: this block has no options."
+msgstr "{label}: บล็อคนี้ไม่มีตัวเลือก"
+
+msgid "This block has no options."
+msgstr "บล็อคนี้ไม่มีตัวเลือก"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "ตัวเลขน้อยที่สุดของสิ่งนี้คือ %d"
+
+msgid "This field is required."
+msgstr "ไฟล์นี้จำเป็นต้องใช้"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "จำนวนมากสุดของสิ่งนี้คือ %d"
+
+msgid "Password"
+msgstr "รหัสผ่าน"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "พาสเวิร์ดที่คุณกรอกไม่ถูกต้อง กรุณาลองอีกครั้ง"
+
+msgid "hostname"
+msgstr "ชื่อเจ้าของ"
+
+msgid "port"
+msgstr "พอร์ท,รหัสเครื่องคอมพิวเตอร์"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"ติดตั้งอย่างอื่นที่ไม่ใช่  80 ถ้าคุณต้องการเจาะจงรหัสเครื่องคอมพิวเตอร์ที่ขึ้นใร URL (เช่น "
+"การพัฒนาที่รหัสเครื่อง 8000) มันไม่มีผลกระทบถึงการขอ (ดังนั้นพอร์ทยังสามารถส่งต่อได้)"
+
+msgid "site name"
+msgstr "ชื่อเว็บไซต์"
+
+msgid "Human-readable name for the site."
+msgstr "ชื่อของเว็บไซด์ที่มนุษย์อ่านได้"
+
+msgid "root page"
+msgstr "ต้นฉบับ"
+
+msgid "is default site"
+msgstr "คือเว็บไซด์ต้นแบบ"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "ถ้าใช่,เว็บไซด์นี้จะเปิดรับการขอสำหรับชื่อจากเจ้าของอื่นที่ยังไม่มีเว็บไซด์"
+
+msgid "site"
+msgstr "เว็บไซด์"
+
+msgid "sites"
+msgstr "หลายเว็บไซด์"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s โครงสร้างนี้ถูกตั้งค่าเริ่มต้นในเว็บไซด์เรียบร้อยแล้ว "
+"คุณต้องการยกเลิกโครงสร้างนี้ก่อนที่คุณจะทำการเซฟ เหมือนตอนตั้งค่าเริ่มต้น"
+
+msgid "title"
+msgstr "หัวข้อ"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "หัวข้อของหน้านี้ ที่คุณอยากเปิดให้เป็นสาธารณะ"
+
+msgid "slug"
+msgstr "slug , ส่วนหนึ่งของURL"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr "ชื่อของหน้านี้ จะปรากฏใน URLs e.g http://domain.com/blog/[my-slug]/"
+
+msgid "content type"
+msgstr "ประเภทของเนื้อหา"
+
+msgid "live"
+msgstr "ถ่ายทอดสด"
+
+msgid "has unpublished changes"
+msgstr "มีการเปลี่ยนแปลงยกเลิก"
+
+msgid "URL path"
+msgstr "ช่องทางของ URL"
+
+msgid "owner"
+msgstr "เจ้าของ"
+
+msgid "page title"
+msgstr "ชื่อหน้า"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr "สามารถเลือกได้, หัวข้อนี้ใช้กับเว็บไซด์ที่ช่วยในการค้นหา มันจะปรากฎบริเวณด้านบนของหน้าจอ"
+
+msgid "show in menus"
+msgstr "ปรากฎในเมนู"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "อย่างไรก็ตามลิงค์ของหน้านี้จะปรากฎขึ้นโดยอัตโนมัติในเมนู"
+
+msgid "search description"
+msgstr "ค้นหาคำอธิบาย"
+
+msgid "go live date/time"
+msgstr "ถ่ายทอดสด วันที่/เวลา"
+
+msgid "expiry date/time"
+msgstr "วันหมดอายุ/เวลา"
+
+msgid "expired"
+msgstr "หมดอายุ"
+
+msgid "locked"
+msgstr "ล็อค"
+
+msgid "first published at"
+msgstr "ตีพิมพ์ครั้งแรกเมื่อ"
+
+msgid "last published at"
+msgstr "ตีพิมพ์ครั้งสุดท้ายเมื่อ"
+
+msgid "latest revision created at"
+msgstr "การแก้ไขครั้งล่าสุดเกิดขึ้นเมื่อ"
+
+msgid "This slug is already in use"
+msgstr "Slug นี้กำลังใช้อยู่"
+
+msgid "scheduled"
+msgstr "ตารางที่กำหนดไว้แล้ว"
+
+msgid "draft"
+msgstr "ร่าง"
+
+msgid "live + scheduled"
+msgstr "ถ่ายทอดสด + ตาราง"
+
+msgid "live + draft"
+msgstr "ถ่ายทอดสด +ร่าง,ข้อความที่ต้องการเก็บเอาไว้ใช้ใหม่"
+
+msgid "Default"
+msgstr "ต้นแบบ"
+
+msgid "page"
+msgstr "หน้า"
+
+msgid "pages"
+msgstr "หลายๆหน้า"
+
+msgid "submitted for moderation"
+msgstr "ส่งสำหรับตรวจเรียบร้อยแล้ว"
+
+msgid "created at"
+msgstr "สร้างขึ้นเมื่อ"
+
+msgid "user"
+msgstr "ผู้ใช้"
+
+msgid "content JSON"
+msgstr "ข้อมูลของ JSON"
+
+msgid "approved go live at"
+msgstr "อนุมัติให้ไปยังถ่ายทอดสด"
+
+msgid "page revision"
+msgstr "หน้าที่แก้ไขแล้ว"
+
+msgid "page revisions"
+msgstr "หน้าที่แก้ไขแล้ว"
+
+msgid "Add"
+msgstr "เพิ่ม"
+
+msgid "Add/edit pages you own"
+msgstr "เพิ่มหรือแก้ไขหน้าเพจของคุณ"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "Edit any page"
+msgstr "แก้ไขหน้าอื่นๆ"
+
+msgid "Publish"
+msgstr "จัดพิมพ์,ตีพิมพ์"
+
+msgid "Publish any page"
+msgstr "จัดพิมพ์หน้าที่คุณเลือก"
+
+msgid "Bulk delete"
+msgstr "ลบทิ้งบางส่วน"
+
+msgid "Delete pages with children"
+msgstr "ลบหน้าที่มีหน้าย่อย"
+
+msgid "Lock"
+msgstr "ล็อค"
+
+msgid "Lock/unlock any page"
+msgstr "ล็อค/ปลดล็อคหน้าอื่นๆ"
+
+msgid "group"
+msgstr "กลุ่ม"
+
+msgid "permission type"
+msgstr "ประเภทของการอนุญาต"
+
+msgid "group page permission"
+msgstr "การอนุญาตหลายๆหน้า"
+
+msgid "group page permissions"
+msgstr "การอนุญาตหลายๆหน้า"
+
+msgid "Public"
+msgstr "สาธารณะ"
+
+msgid "Private, accessible to logged-in users"
+msgstr "ส่วนตัว,ผู้ใช้ที่ล็อคอินยังสามารถเข้าระบบได้"
+
+msgid "Private, accessible with the following password"
+msgstr "ส่วนตัว,คุณสามารถใช้ได้เมื่อผู้ใช้มีรหัสผ่าน"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "ส่วนตัว,สำหรับผู้ใช้ที่เป็นกลุ่มเฉพาะเจาะจง"
+
+msgid "password"
+msgstr "รหัสผ่าน"
+
+msgid "groups"
+msgstr "กลุ่ม"
+
+msgid "view restriction"
+msgstr "ดูข้อจำกัด"
+
+msgid "view restrictions"
+msgstr "ดูข้อจำกัดต่างๆ"
+
+msgid "page view restriction"
+msgstr "การเปิดดูหน้ามีข้อจำกัด"
+
+msgid "page view restrictions"
+msgstr "การเปิดดูหน้ามีข้อจำกัด"
+
+msgid "collection"
+msgstr "ของสะสม"
+
+msgid "collection view restriction"
+msgstr "การดูชุดมีข้อจำกัด"
+
+msgid "collection view restrictions"
+msgstr "การดูชุดมีข้อจำกัด"
+
+msgid "name"
+msgstr "ชื่อ"
+
+msgid "collections"
+msgstr "ของสะสมต่างๆ"
+
+msgid "permission"
+msgstr "การอนุญาต"
+
+msgid "group collection permission"
+msgstr "การสะสมกลุ่มที่จะอนุญาต"
+
+msgid "group collection permissions"
+msgstr "การสะสมกลุ่มที่จะอนุญาต"
+
+msgid "Log in"
+msgstr "เข้าสู่ระบบ"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "ชื่อผู้ใช้และรหัสผ่านของคุณไม่ตรงกัน กรุณาลองอีกครั้ง"
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr "บัญชีผู้ใช้ของคุณไม่มีสิทธิ์เข้าถึงหน้านี้ เพื่อดำเนินการต่อ โปรดเข้าสู่ระบบด้วยบัญชีที่มีการเข้าถึง"
+
+msgid "Password required"
+msgstr "ต้องใช้รหัสผ่าน"
+
+msgid "You need a password to access this page."
+msgstr "คุณต้องมีรหัสผ่านเพื่อเข้าสู่หน้านี้"
+
+msgid "Continue"
+msgstr "ต่อเนื่อง"

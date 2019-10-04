@@ -25,7 +25,7 @@ WAGTAIL_FRONTEND_LOGIN_TEMPLATE = getattr(
 urlpatterns = [
     url(r'^_util/authenticate_with_password/(\d+)/(\d+)/$', views.authenticate_with_password,
         name='wagtailcore_authenticate_with_password'),
-    url(r'^_util/login/$', auth_views.login, {'template_name': WAGTAIL_FRONTEND_LOGIN_TEMPLATE},
+    url(r'^_util/login/$', auth_views.LoginView.as_view(template_name=WAGTAIL_FRONTEND_LOGIN_TEMPLATE),
         name='wagtailcore_login'),
 
     # Front-end page views are handled through Wagtail's core.views.serve

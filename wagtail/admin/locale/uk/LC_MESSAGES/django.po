@@ -6,12 +6,13 @@
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
+# Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -23,6 +24,18 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Надіслати на модерацію"
+
+msgid "Unpublish"
+msgstr "Зняти з публікації"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Wagtail admin"
+msgstr "Адміністрування Wagtail "
 
 msgid "None"
 msgstr "Нічого"
@@ -45,15 +58,6 @@ msgstr "Просування"
 msgid "Settings"
 msgstr "Налаштування"
 
-msgid "Search"
-msgstr "Пошук"
-
-msgid "Search term"
-msgstr "Пошуковий термін"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Введіть пароль"
 
@@ -63,6 +67,13 @@ msgstr "Введіть ваш %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Введіть вашу е-мейл адресу для скидання паролю"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Ви не можете мати декілька записів дозволів для однієї і тієї ж колекції."
 
 msgid "New title"
 msgstr "Новий заголовок"
@@ -130,15 +141,6 @@ msgstr ""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Не можливо скопіювати сторінку в саму себе, коли копіюєте підсторінки"
 
-msgid "Visibility"
-msgstr "Видимість"
-
-msgid "This field is required."
-msgstr "Це поле необхідно заповнити"
-
-msgid "Please select at least one group."
-msgstr "Будь ласка, виберіть як мінімум одну групу"
-
 msgid "This slug is already in use"
 msgstr "Ця коротка назва вже використовується"
 
@@ -148,9 +150,20 @@ msgstr "Дата/час наживо має знаходитись перед д
 msgid "Expiry date/time must be in the future"
 msgstr "Дата/час закінчення має бути у майбутньому"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Ви не можете мати декілька записів дозволів для однієї і тієї ж колекції."
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search term"
+msgstr "Пошуковий термін"
+
+msgid "Visibility"
+msgstr "Видимість"
+
+msgid "This field is required."
+msgstr "Це поле необхідно заповнити"
+
+msgid "Please select at least one group."
+msgstr "Будь ласка, виберіть як мінімум одну групу"
 
 msgid "Error 404: Page not found"
 msgstr "Помилка 404: сторінку не знайдено"
@@ -167,8 +180,17 @@ msgstr "Перехід до адмінпанелі"
 msgid "Account"
 msgstr "Обліковий запис"
 
+msgid "Change profile picture"
+msgstr "Змінити зображення профілю"
+
+msgid "Your current profile picture:"
+msgstr "Ваше поточне зображення профілю"
+
 msgid "Update"
 msgstr "Оновити"
+
+msgid "Change email"
+msgstr "Змінити email"
 
 msgid "Change password"
 msgstr "Зміна паролю"
@@ -177,6 +199,9 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ваш пароль неможливо змінити. Будь-ласка, зверніться до адміністратора."
+
+msgid "Set Time Zone"
+msgstr "Задати часовий пояс"
 
 msgid "Language Preferences"
 msgstr "Налаштування мови"
@@ -196,8 +221,28 @@ msgstr "Вхід"
 msgid "Set your new password"
 msgstr "Встановіть новий пароль"
 
+msgid "Invalid password reset link"
+msgstr "Неправильне посилання для скидання паролю"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Посилання для скидання паролю недійсне, можливо через те, що воно вже було "
+"використане. "
+
+msgid "Request a new password reset"
+msgstr "Зробити запит для нового скидання паролю"
+
 msgid "Check your email"
 msgstr "Перевірте Вашу пошту"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Посилання на скидання паролю було відправлено вам на електронну пошту, якщо "
+"для цієї адреси було заведено аккаунт. "
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Слідуйте за посиланням щоб скинути пароль"
@@ -210,12 +255,6 @@ msgstr "Скидання паролю"
 
 msgid "Reset your password"
 msgstr "Скинути Ваш пароль"
-
-msgid "Edit"
-msgstr "Редагування"
-
-msgid "Delete"
-msgstr "Видалити"
 
 msgid "Page"
 msgstr "Сторінка"
@@ -231,9 +270,6 @@ msgstr "Результати відсутні"
 
 msgid "Server Error"
 msgstr "Помилка Сервера"
-
-msgid "See children"
-msgstr "Показати дочірні елементи"
 
 msgid "See all"
 msgstr "Показати все"
@@ -258,6 +294,83 @@ msgstr "Відмінити"
 
 msgid "Redo"
 msgstr "Повторити"
+
+msgid "Reload the page"
+msgstr "Перезавантажити цю сторінку"
+
+msgid "Reload saved content"
+msgstr "Перезавантажити збережений контент"
+
+msgid "Show latest content"
+msgstr "Показати останній вміст"
+
+msgid "Show error"
+msgstr "Показати помилку"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Редактор щойно впав. Вміст був скинутий до останньої збереженої версії."
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "January"
+msgstr "Січень"
+
+msgid "February"
+msgstr "Лютий"
+
+msgid "March"
+msgstr "Березень"
+
+msgid "April"
+msgstr "Квітень"
+
+msgid "May"
+msgstr "Травень"
+
+msgid "June"
+msgstr "Червень"
+
+msgid "July"
+msgstr "Липень"
+
+msgid "August"
+msgstr "Серпень"
+
+msgid "September"
+msgstr "Вересень"
+
+msgid "October"
+msgstr "Жовтень"
+
+msgid "November"
+msgstr "Листопад"
+
+msgid "December"
+msgstr "Грудень"
+
+msgid "Sun"
+msgstr "Неділя"
+
+msgid "Mon"
+msgstr "Понеділок"
+
+msgid "Tue"
+msgstr "Вівторок"
+
+msgid "Wed"
+msgstr "Середа"
+
+msgid "Thu"
+msgstr "Четвер"
+
+msgid "Fri"
+msgstr "П'ятниця"
+
+msgid "Sat"
+msgstr "Субота"
 
 msgid "Dashboard"
 msgstr "Панель"
@@ -285,32 +398,6 @@ msgstr "Зовнішнє посилання"
 
 msgid "Email link"
 msgstr "Посилання на email"
-
-#, python-format
-msgid ""
-"\n"
-"        There is one match\n"
-"    "
-msgid_plural ""
-"\n"
-"        There are %(counter)s matches\n"
-"    "
-msgstr[0] ""
-"\n"
-"            Знайдено один збіг\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Знайдено %(counter)s збіги\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
-msgstr[3] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
 
 msgid "Choose"
 msgstr "Вибрати"
@@ -362,6 +449,12 @@ msgstr "Вставити посилання"
 msgid "Add an external link"
 msgstr "Вставити зовнішнє посилання"
 
+msgid "Collection privacy"
+msgstr "Загальнодоступність колекції"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Батьківська колекція зробила цю колекцію приватною. "
+
 msgid "You can edit the privacy settings on:"
 msgstr "Ви можете редагувати налаштування приватності для:"
 
@@ -382,6 +475,11 @@ msgstr "Загальнодоступний"
 
 msgid "Private"
 msgstr "Приватний"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Цю колекцію не можна видалити, тому що вона не є порожньою. Вона містить: "
 
 msgid "Name"
 msgstr "Ім'я"
@@ -436,6 +534,9 @@ msgstr "Підтвердити"
 msgid "Reject"
 msgstr "Відхилити"
 
+msgid "Edit"
+msgstr "Редагування"
+
 msgid "Preview"
 msgstr "Попередній перегляд"
 
@@ -457,6 +558,9 @@ msgstr "Чернетка"
 
 msgid "Live"
 msgstr "Наживо"
+
+msgid "Site summary"
+msgstr "Резюме сайту"
 
 msgid "Sign in"
 msgstr "Увійдіть"
@@ -535,6 +639,15 @@ msgstr "Заблоковано"
 
 msgid "Unlocked"
 msgstr "Розблоковано"
+
+msgid "Publishing…"
+msgstr "Опубліковується..."
+
+msgid "Publish this revision"
+msgstr "Опублікувати цю ревізію"
+
+msgid "Publish"
+msgstr "Опублікувати"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -629,9 +742,6 @@ msgstr "Так, перемістити цю сторінку"
 msgid "Unpublish %(title)s"
 msgstr "Зняти з публікації %(title)s"
 
-msgid "Unpublish"
-msgstr "Зняти з публікації"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Ви впевнені, що хочете зняти з публікації цю сторінку?"
 
@@ -702,15 +812,6 @@ msgstr "Йде збереження..."
 msgid "Save draft"
 msgstr "Зберегти чернетку"
 
-msgid "Publishing…"
-msgstr "Опубліковується..."
-
-msgid "Publish"
-msgstr "Опублікувати"
-
-msgid "Submit for moderation"
-msgstr "Надіслати на модерацію"
-
 msgid "This page has unsaved changes."
 msgstr "Ця сторінка має незбережені зміни"
 
@@ -727,9 +828,6 @@ msgstr "Сторінку заблоковано"
 
 msgid "Replace current draft"
 msgstr "Замінити поточну чернетку"
-
-msgid "Publish this revision"
-msgstr "Опублікувати цю ревізію"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -768,6 +866,54 @@ msgstr ""
 msgid "Configure a site now."
 msgstr "Сконфігурувати сайт зараз."
 
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"                            Якщо ви хочете просто додати сторінки на сайт, "
+"створіть їх як дочірні по відношенню до головної.\n"
+"                        "
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"                        Сторінки, створені у даному розташуванні, не будуть "
+"доступні за жодним посиланням. Аби додавати сторінки на існуючий сайт, "
+"створіть їх як дочірні для домашньої сторінки.\n"
+"                    "
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"                       За цим розташуванням немає налаштованого сайту. "
+"Сторінки, створені тут, не будуть доступні за жодним посиланням, допоки сайт "
+"не буде асоційований із цим розташуванням.\n"
+"                    "
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"                        Для цього розташування немає запису сайту. Сторінки, "
+"створені тут, не будуть доступні за жодним посиланням.\n"
+"                    "
+
 msgid "No pages have been created at this location."
 msgstr "У цьому розташування немає створених сторінок."
 
@@ -796,6 +942,19 @@ msgstr "Додати дочірню сторінку для'%(title)s'"
 msgid "Add child page"
 msgstr "Додати дочірню сторінку"
 
+msgid "Sites menu"
+msgstr "Меню сайтів"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"        Сторінка %(page_number)s з %(num_pages)s.\n"
+"    "
+
 msgid "Previous"
 msgstr "Попередній"
 
@@ -807,9 +966,6 @@ msgstr "Ця сторінка захищена від публічного пе�
 
 msgid "Disable ordering of child pages"
 msgstr "Відключити впорядковування дочірніх сторінок"
-
-msgid "Order"
-msgstr "Порядок"
 
 msgid "Enable ordering of child pages"
 msgstr "Увімкнути впорядковування дочірніх сторінок"
@@ -825,8 +981,20 @@ msgstr "Обрати нову батьківську сторінку для <sp
 msgid "Preview error"
 msgstr "Помилка попереднього перегляду"
 
-msgid "Close"
-msgstr "Закрити"
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"                Неможливо зробити попередній перегляд цієї сторінки, "
+"лишаються ще деякі помилки.\n"
+"                Будь ласка, закрийте цю вкладу, відредагуйте сторінку, щоб "
+"виправити ці помилки \n"
+"                і тоді зробіть ще раз попередній перегляд.\n"
+"            "
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -844,8 +1012,76 @@ msgstr "Поля"
 msgid "Changes"
 msgstr "Зміни"
 
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Переміщено вниз "
+"на 1 місце.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Переміщено вниз "
+"на %(counter)s місць.\n"
+"                                                        "
+msgstr[2] ""
+"\n"
+"                                                            Переміщено вниз "
+"на %(counter)s місць.\n"
+"                                                        "
+msgstr[3] ""
+"\n"
+"                                                            Переміщено вниз "
+"на %(counter)s місць.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Переміщено вгору "
+"на 1 місце.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Переміщено вгору "
+"на %(counter)s місць.\n"
+"                                                        "
+msgstr[2] ""
+"\n"
+"                                                            Переміщено вгору "
+"на %(counter)s місць.\n"
+"                                                        "
+msgstr[3] ""
+"\n"
+"                                                            Переміщено вгору "
+"на %(counter)s місць.\n"
+"                                                        "
+
 msgid "There are no differences between these two revisions"
 msgstr "Немає ніяких відмінностей між цими двома ревізіями"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Знято з розкладу ревізію %(revision.id)s для «%(title)s»"
 
 msgid "Unschedule"
 msgstr "Зняти з плану"
@@ -861,13 +1097,17 @@ msgstr "Ні, не знімати з плану"
 
 #, python-format
 msgid "Revisions of %(title)s"
-msgstr "Ревізії для %(title)s"
+msgstr "Ревізії для «%(title)s»"
 
 msgid "Revisions of"
 msgstr "Ревізії"
 
 msgid "Revision date"
 msgstr "Дата ревізії"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "користувачем"
 
 msgid "Current draft"
 msgstr "Поточна чернетка"
@@ -918,6 +1158,9 @@ msgstr[3] ""
 "                Знайдено %(counter)s сторінок, що мають відповідність\n"
 "            "
 
+msgid "Page types"
+msgstr "Типи сторінок"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Вибачте, жодна сторінка не відповідає <em>\"%(query_string)s\"</em>"
@@ -931,6 +1174,10 @@ msgstr "Не використовується жодна сторінка"
 msgid "Collection"
 msgstr "Колекція"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Сторінка %(page_num)s з %(total_pages)s."
+
 msgid "Root"
 msgstr "Корінь"
 
@@ -939,63 +1186,6 @@ msgstr "Головна"
 
 msgid "All collections"
 msgstr "Усі колекції"
-
-msgid "January"
-msgstr "Січень"
-
-msgid "February"
-msgstr "Лютий"
-
-msgid "March"
-msgstr "Березень"
-
-msgid "April"
-msgstr "Квітень"
-
-msgid "May"
-msgstr "Травень"
-
-msgid "June"
-msgstr "Червень"
-
-msgid "July"
-msgstr "Липень"
-
-msgid "August"
-msgstr "Серпень"
-
-msgid "September"
-msgstr "Вересень"
-
-msgid "October"
-msgstr "Жовтень"
-
-msgid "November"
-msgstr "Листопад"
-
-msgid "December"
-msgstr "Грудень"
-
-msgid "Sun"
-msgstr "Неділя"
-
-msgid "Mon"
-msgstr "Понеділок"
-
-msgid "Tue"
-msgstr "Вівторок"
-
-msgid "Wed"
-msgstr "Середа"
-
-msgid "Thu"
-msgstr "Четвер"
-
-msgid "Fri"
-msgstr "П'ятниця"
-
-msgid "Sat"
-msgstr "Субота"
 
 msgid "Edit your account"
 msgstr "Редагувати ваш аккаунт"
@@ -1006,12 +1196,17 @@ msgstr "Налаштування аккаунту"
 msgid "Log out"
 msgstr "Вийти"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Сторінка %(page_num)s з %(total_pages)s."
-
 msgid "Other searches"
 msgstr "Інші пошуки"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Ви використовуєте <strong>застарілий</strong> браузер, що не підтримується "
+"даним програмним забезпеченням. Будь ласка, <a href=\"http://browsehappy.com/"
+"\">оновіть ваш браузер</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Перейти до адмінського інтерфейсу Wagtail"
@@ -1061,6 +1256,12 @@ msgstr "Корейська"
 msgid "Lithuanian"
 msgstr "Литовська"
 
+msgid "Norwegian Bokmål"
+msgstr "Норвезький букмол"
+
+msgid "Netherlands Dutch"
+msgstr "Нідерландська мова"
+
 msgid "Persian"
 msgstr "Перська"
 
@@ -1085,8 +1286,8 @@ msgstr "Шведська"
 msgid "Slovak"
 msgstr "Словацька"
 
-msgid "Chinese (China)"
-msgstr "Китайська (Китай)"
+msgid "Ukrainian"
+msgstr "Українська"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Вибачте, ви не маєте дозволів для доступу у цей розділ."
@@ -1094,8 +1295,14 @@ msgstr "Вибачте, ви не маєте дозволів для досту�
 msgid "Your password has been changed successfully!"
 msgstr "Ваш пароль успішно змінено!"
 
+msgid "Your email has been changed successfully!"
+msgstr "Ваш email успішно змінений!"
+
 msgid "Your preferences have been updated."
 msgstr "Ваші вподобання оновлено."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Ваші параметри успішно оновлені!"
 
 msgid "You have been successfully logged out."
 msgstr "Ви успішно вийшли."
@@ -1227,6 +1434,14 @@ msgstr "Сторінку '{0}' заблоковано."
 msgid "Page '{0}' is now unlocked."
 msgstr "Сторінку '{0}' розблоковано."
 
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Ви переглядаєте попередню ревізію цієї сторінки від <b>%(created_at)s</b> "
+"створену %(user)s"
+
 msgid "Earliest"
 msgstr "Найбільш раннє"
 
@@ -1252,7 +1467,7 @@ msgid "Add a child page to '{title}' "
 msgstr "Додати дочірню сторінку для '{title}' "
 
 msgid "More"
-msgstr "Білье"
+msgstr "Більше"
 
 msgid "View more options for '{title}'"
 msgstr "Показати більше опцій для '{title}'"
@@ -1272,6 +1487,15 @@ msgstr "Зняти з публікації сторінку '{title}'"
 msgid "View revision history for '{title}'"
 msgstr "Переглянути історію ревізій для '{title}'"
 
+msgid "Set profile picture"
+msgstr "Задати зображення профілю"
+
+msgid "Change your profile picture"
+msgstr "Змінити зображення профілю"
+
+msgid "Change the email address linked to your account."
+msgstr "Змінити email адресу вашого аккаунту. "
+
 msgid "Change the password you use to log in."
 msgstr "Змінити пароль, використаний для входу."
 
@@ -1283,6 +1507,12 @@ msgstr "Налаштування мови"
 
 msgid "Choose the language you want to use here."
 msgstr "Виберіть мову, яку ви хочете тут використовувати"
+
+msgid "Current Time Zone"
+msgstr "Поточний часовий пояс"
+
+msgid "Choose your current time zone."
+msgstr "Оберіть поточний часовий пояс"
 
 msgid "Heading {level}"
 msgstr "Заголовок {level}"

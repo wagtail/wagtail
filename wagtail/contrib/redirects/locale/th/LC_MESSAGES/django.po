@@ -1,0 +1,154 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-28 15:21+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail redirects"
+msgstr "การกำหนดทิศทางใหม่ของWagtail"
+
+msgid "From site"
+msgstr "จากเว็บไซด์"
+
+msgid "All sites"
+msgstr "ทุกเว็บไซด์"
+
+msgid "A redirect with this path already exists."
+msgstr "การกำหนดทิศทางใหม่นี้มีอยู่แล้ว"
+
+msgid "redirect from"
+msgstr "การกำหนดทิศทางใหม่จาก"
+
+msgid "site"
+msgstr "เว็บไซด์"
+
+msgid "permanent"
+msgstr "ไม่มีกำหนดเวลา,ถาวร,ตลอดไป"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"คำแนะนำ "
+"การกำหนดทิศทางใหม่ในทุกๆครั้งเป็นที่แน่นอนว่าเว็บไซด์ที่ช่วยในการค้นหาจะลืมหน้าเก่าที่เคยค้นหา(จากการกำหนดทิศทาง)และมันจะขึ้นหน้าใหม่ให้แทน"
+
+msgid "redirect to a page"
+msgstr "การกำหนดหน้าใหม่"
+
+msgid "redirect to any URL"
+msgstr "การกำหนด URL อันไหนก็ได้"
+
+msgid "temporary"
+msgstr "ชั่วคราว"
+
+msgid "redirect"
+msgstr "กำหนดทิศทางใหม่"
+
+msgid "Add redirect"
+msgstr "เพิ่มทิศทางใหม่"
+
+msgid "Save"
+msgstr "เซฟ,เก็บรักษา"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "ลบการกำหนดทิศทาง %(title)s"
+
+msgid "Delete"
+msgstr "ลบ"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "คุณแน่ใจว่าคุณต้องการจะลบทิ้งการกำหนดทิศทางใหม่นี้?"
+
+msgid "Yes, delete"
+msgstr "ใช่,ลบทิ้ง"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "กำลังแก้ไข %(title)s"
+
+msgid "Editing"
+msgstr "กำลังแก้ไข"
+
+msgid "Delete redirect"
+msgstr "ลบการกำหนดทิศทางทิ้ง"
+
+msgid "Redirects"
+msgstr "การกำหนดหลายทิศทาง"
+
+msgid "From"
+msgstr "จาก"
+
+msgid "Site"
+msgstr "เว็บไซด์"
+
+msgid "To"
+msgstr "ถึง"
+
+msgid "Type"
+msgstr "แบบ,รูปแบบ"
+
+msgid "Edit this redirect"
+msgstr "แก้ไขการกำหนดทิศทางนี้"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+" มี %(counter)s ที่ตรงกัน\n"
+" "
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr "ขออภัย,ไม่มีการเปลี่ยนทิศทางที่ตรงกัน \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"ไม่มีการกำคุณไม่หนดทิศทางถูกสร้างขึ้น ทำไมคุณไม่<a href="
+"\"%(wagtailredirects_add_redirect_url)s\">เพิ่มหนึ่งอัน</a>?"
+
+msgid "Search redirects"
+msgstr "ค้นหาหลายการกำหนดทิศทาง"
+
+msgid "Redirect '{0}' updated."
+msgstr "การกำหนดทิศทาง'{0}'ถูกอัพเดทแล้ว"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "การกำหนดทิศทางไม่สามารถเซฟได้ในขณะที่เกิดข้อผิดพลาด"
+
+msgid "Redirect '{0}' deleted."
+msgstr "การกำหนดทิศทาง'{0}'ถูกลบทิ้งแล้ว"
+
+msgid "Redirect '{0}' added."
+msgstr "การกำหนดทิศทาง'{0}'ถูกเพิ่มแล้ว"
+
+msgid "The redirect could not be created due to errors."
+msgstr "การกำหนดทิศทางไม่สามารถถูกสร้างขึ้นได้ในขณะที่เกิดข้อผิดพลาด"

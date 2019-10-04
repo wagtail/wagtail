@@ -7,7 +7,7 @@
         <li class="footer" id="footer">
             <div class="account" id="account-settings" title="{% trans 'Edit your account' %}">
                 <span class="avatar square avatar-on-dark">
-                    <img src="{% avatar_url request.user size=50 %}" />
+                    <img src="{% avatar_url request.user size=50 %}" alt="" />
                 </span>
                 <em class="icon icon-arrow-up-after">{{ request.user.first_name|default:request.user.get_username }}</em>
             </div>

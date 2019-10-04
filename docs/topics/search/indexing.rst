@@ -26,6 +26,21 @@ Signal handlers
 
 ``wagtailsearch`` provides some signal handlers which bind to the save/delete signals of all indexed models. This would automatically add and delete them from all backends you have registered in ``WAGTAILSEARCH_BACKENDS``. These signal handlers are automatically registered when the ``wagtail.search`` app is loaded.
 
+In some cases, you may not want your content to be automatically reindexed and instead rely on the ``update_index`` command for indexing. If you need to disable these signal handlers, use one of the following methods:
+
+Disabling auto update signal handlers for a model
+`````````````````````````````````````````````````
+You can disable the signal handlers for an individual model by adding ``search_auto_update = False`` as an attribute on the model class.
+
+Disabling auto update signal handlers for a search backend/whole site
+`````````````````````````````````````````````````````````````````````
+
+You can disable the signal handlers for a whole search backend by setting the ``AUTO_UPDATE`` setting on the backend to ``False``.
+
+If all search backends have ``AUTO_UPDATE`` set to ``False``, the signal handlers will be completely disabled for the whole site.
+
+For documentation on the ``AUTO_UPDATE`` setting, see :ref:`wagtailsearch_backends_auto_update`.
+
 
 The ``update_index`` command
 ----------------------------
@@ -41,6 +56,10 @@ It is recommended to run this command once a week and at the following times:
 
 The search may not return any results while this command is running, so avoid running it at peak times.
 
+.. note::
+
+    The ``update_index`` command is also aliased as ``wagtail_update_index``, for use when another installed package (such as `Haystack <http://haystacksearch.org/>`_) provides a conflicting ``update_index`` command. In this case, the other package's entry in ``INSTALLED_APPS`` should appear above ``wagtail.search`` so that its ``update_index`` command takes precedence over Wagtail's.
+
 
 .. _wagtailsearch_indexing_fields:
 
@@ -49,7 +68,7 @@ Indexing extra fields
 
 .. warning::
 
-    Indexing extra fields is not supported by the database backend. If you're using the database backend, any other fields you define via ``search_fields`` will be ignored.
+    Indexing extra fields is only supported by the :ref:`wagtailsearch_backends_elasticsearch` and :ref:`wagtailsearch_backends_postgresql`.  Indexing extra fields is not supported by the :ref:`wagtailsearch_backends_database`. If you're using the database backend, any other fields you define via ``search_fields`` will be ignored.
 
 
 Fields must be explicitly added to the ``search_fields`` property of your ``Page``-derived model, in order for you to be able to search/filter on them. This is done by overriding ``search_fields`` to append a list of extra ``SearchField``/``FilterField`` objects to it.
@@ -80,6 +99,8 @@ This creates an ``EventPage`` model with two fields: ``description`` and ``date`
     >>> EventPage.objects.filter(date__gt=timezone.now()).search("Christmas")
 
 
+.. _wagtailsearch_index_searchfield:
+
 ``index.SearchField``
 ---------------------
 
@@ -93,6 +114,8 @@ Options
  - **boost** (``int/float``) - This allows you to set fields as being more important than others. Setting this to a high number on a field will cause pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
  - **es_extra** (``dict``) - This field is to allow the developer to set or override any setting on the field in the ElasticSearch mapping. Use this if you want to make use of any ElasticSearch features that are not yet supported in Wagtail.
 
+
+.. _wagtailsearch_index_filterfield:
 
 ``index.FilterField``
 ---------------------

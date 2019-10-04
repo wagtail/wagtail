@@ -1,0 +1,383 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Ed <724195301@qq.com>, 2018
+# Feng Wang <wangfeng.w@gmail.com>, 2015
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017-2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail 图片"
+
+msgid "GIF, JPEG, PNG"
+msgstr "GIF, JPEG, PNG"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr "支持的格式：%(supported_formats)s。最大文件大小：%(max_upload_size)s。"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "支持的格式：%(supported_formats)s。"
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "不支持的图片格式。支持类型如下： %s"
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "无效的 %s图片。"
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "文件过大 (%%s)，文件大小上限为 %s。"
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "文件过大，文件大小上限为 %s。"
+
+msgid "Full width"
+msgstr "全屏宽度"
+
+msgid "Left-aligned"
+msgstr "左对齐"
+
+msgid "Right-aligned"
+msgstr "右对齐"
+
+msgid "Filter"
+msgstr "过滤器"
+
+msgid "Original size"
+msgstr "原始尺寸"
+
+msgid "Resize to width"
+msgstr "调整宽度到"
+
+msgid "Resize to height"
+msgstr "调整高度到"
+
+msgid "Resize to min"
+msgstr "调至最小"
+
+msgid "Resize to max"
+msgstr "调至最大"
+
+msgid "Resize to fill"
+msgstr "调至合适"
+
+msgid "Width"
+msgstr "宽度"
+
+msgid "Height"
+msgstr "高度"
+
+msgid "Closeness"
+msgstr "接近"
+
+msgid "Add"
+msgstr "新增"
+
+msgid "Add/edit images you own"
+msgstr "增加/编辑所属的图片"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Edit any image"
+msgstr "编辑任意图片"
+
+msgid "title"
+msgstr "标题"
+
+msgid "file"
+msgstr "文件"
+
+msgid "width"
+msgstr "宽度"
+
+msgid "height"
+msgstr "高度"
+
+msgid "created at"
+msgstr "创建于"
+
+msgid "uploaded by user"
+msgstr "用户上传"
+
+msgid "tags"
+msgstr "标签"
+
+msgid "image"
+msgstr "图片"
+
+msgid "images"
+msgstr "图片"
+
+msgid "Choose an image"
+msgstr "选择一个图片"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Upload"
+msgstr "上传"
+
+msgid "Popular tags"
+msgstr "热门标签"
+
+msgid "Uploading…"
+msgstr "正在上传…"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            有%(counter)s条匹配结果\n"
+"        "
+
+msgid "Latest images"
+msgstr "最新图片"
+
+msgid "Choose a format"
+msgstr "选择格式"
+
+msgid "Insert image"
+msgstr "插入图片"
+
+msgid "Change image file:"
+msgstr "修改图片文件："
+
+msgid "Add an image"
+msgstr "添加一个图片"
+
+msgid "Add image"
+msgstr "添加图片"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Delete image"
+msgstr "删除图片"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
+
+msgid "Are you sure you want to delete this image?"
+msgstr "确认删除此图片？"
+
+msgid "Yes, delete"
+msgstr "是的，删除吧。"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "编辑图片%(title)s"
+
+msgid "Editing"
+msgstr "编辑"
+
+msgid "URL Generator"
+msgstr "URL生成器"
+
+msgid "Focal point"
+msgstr "焦点"
+
+msgid "(optional)"
+msgstr "（可选）"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr "要定义此图片的最重要区域，请在上面的图片上拖放出一个方框。"
+
+msgid "Current focal point shown"
+msgstr "显示当前焦点"
+
+msgid "Remove focal area"
+msgstr "删除焦点区域"
+
+msgid "Max dimensions"
+msgstr "最大尺寸"
+
+msgid "Filesize"
+msgstr "文件大小"
+
+msgid "File not found"
+msgstr "未找到文件"
+
+msgid "Usage"
+msgstr "使用情况"
+
+msgid "Images"
+msgstr "图片"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "对不起，没有符合\"<em>%(query_string)s</em>\"的图片。"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"此集合中还没有图片。为何不 <a href=\"%(wagtailimages_add_image_url)s\">上传一"
+"个</a> ？"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"还没上传图片呢。来<a href=\"%(wagtailimages_add_image_url)s\">上传一个</a>吧?"
+
+msgid "Generating URL"
+msgstr "生成URL"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "预览"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"备注：生成的图片大于屏幕时，在预览时可能显示会小一些。因为是适应屏幕的。"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s的使用情况"
+
+msgid "Usage of"
+msgstr "使用情况"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Parent"
+msgstr "上一级"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Edit this page"
+msgstr "编辑此页面"
+
+msgid "Add multiple images"
+msgstr "添加多个图片"
+
+msgid "Add images"
+msgstr "添加多个图片"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "拖曳多个图片到此区域来快速上传。"
+
+msgid "Or choose from your computer"
+msgstr "或者打开本地文件选择框"
+
+msgid "Add to collection:"
+msgstr "添加到集合："
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"上传成功。如有必要，可为图片填写更合适的标题。如果不需要本次上传的图片，也可"
+"以彻底删除它们。"
+
+msgid "Sorry, upload failed."
+msgstr "对不起啊，上传失败。"
+
+msgid "Server Error"
+msgstr "服务器错误"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "将此错误报告给你的网站管理员，包含如下信息："
+
+msgid "Image updated."
+msgstr "图片已更新。"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Image permissions"
+msgstr "图片权限"
+
+msgid "Add an image permission"
+msgstr "添加一个图片权限"
+
+msgid "Search images"
+msgstr "搜索图片"
+
+msgid "Image '{0}' updated."
+msgstr "图片 '{0}' 已更新。"
+
+msgid "Edit again"
+msgstr "再次编辑"
+
+msgid "The image could not be saved due to errors."
+msgstr "图片无法保存。出现错误。"
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr "无法找到图片源文件。请修改源文件或者删除图片。"
+
+msgid "Image '{0}' deleted."
+msgstr "图片'{0}' 已删除。"
+
+msgid "Image '{0}' added."
+msgstr "图片'{0}'已添加"
+
+msgid "The image could not be created due to errors."
+msgstr "无法创建图片，出现错误。"
+
+msgid "Image"
+msgstr "图片"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s 个图片"
+
+msgid "Change image"
+msgstr "修改图片"
+
+msgid "Edit this image"
+msgstr "编辑此图片"

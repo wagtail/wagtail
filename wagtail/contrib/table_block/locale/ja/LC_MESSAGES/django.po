@@ -1,0 +1,35 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-28 21:29+0000\n"
+"Last-Translator: 山本 卓也 <takuya.miraidenshi@gmail.com>\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail table block"
+msgstr "Wagtail テーブルブロック"
+
+msgid "Row header"
+msgstr "行ヘッダー"
+
+msgid "Display the first row as a header."
+msgstr "最初の行をヘッダーとして表示する。"
+
+msgid "Column header"
+msgstr "列ヘッダー"
+
+msgid "Display the first column as a header."
+msgstr "最初の列をヘッダーとして表示する。"

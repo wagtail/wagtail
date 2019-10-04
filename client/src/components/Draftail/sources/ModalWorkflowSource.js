@@ -42,7 +42,8 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
       page_type: 'wagtailcore.page',
       allow_external_link: true,
       allow_email_link: true,
-      can_choose_root: 'false',
+      allow_phone_link: true,
+      allow_anchor_link: true,
       link_text: selectedText,
     };
 
@@ -50,10 +51,20 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
       const data = entity.getData();
 
       if (data.id) {
-        url = `${global.chooserUrls.pageChooser}${data.parentId}/`;
+        if (data.parentId !== null) {
+          url = `${global.chooserUrls.pageChooser}${data.parentId}/`;
+        } else {
+          url = global.chooserUrls.pageChooser;
+        }
       } else if (data.url.startsWith('mailto:')) {
         url = global.chooserUrls.emailLinkChooser;
         urlParams.link_url = data.url.replace('mailto:', '');
+      } else if (data.url.startsWith('tel:')) {
+        url = global.chooserUrls.phoneLinkChooser;
+        urlParams.link_url = data.url.replace('tel:', '');
+      } else if (data.url.startsWith('#')) {
+        url = global.chooserUrls.anchorLinkChooser;
+        urlParams.link_url = data.url.replace('#', '');
       } else {
         url = global.chooserUrls.externalLinkChooser;
         urlParams.link_url = data.url;

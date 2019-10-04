@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n admin_static %}
+{% load i18n static %}
 
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
@@ -42,7 +42,7 @@
 
     {% block footer %}
         {% if buttons %}
-            <footer>
+            <footer role="contentinfo">
                 <div class="button-group">
                     {% for button in buttons %}
                         {% include "modeladmin/includes/button.html" %}

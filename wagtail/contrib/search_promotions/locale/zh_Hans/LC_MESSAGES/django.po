@@ -1,0 +1,181 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ed <724195301@qq.com>, 2018
+# hanfeng <appweb.cn@gmail.com>, 2014
+# jszsj <zhushajun@gmail.com>, 2017
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# jszsj <zhushajun@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-26 23:45+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail 高级搜索"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "请至少指定一条针对此搜索条件的建议。"
+
+msgid "page"
+msgstr "页面"
+
+msgid "description"
+msgstr "描述"
+
+msgid "search promotion"
+msgstr "搜索推广"
+
+msgid "Add search promotion"
+msgstr "增加搜索推广"
+
+msgid "Add search pick"
+msgstr "增加搜索精选"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>推广搜索结果是一种推荐原本不容易出现在搜索结果前列的特定页"
+"面的一种方式。比如通过不太常见的词条“<em>捐助</em>”来推荐你的重要的募款页面给"
+"用户。</p>\n"
+"            "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>下面的“搜索词条(s)/语句”字段必须包含完整且完全一致的你想要"
+"提供的推荐内容的搜索条目，<em>包括</em> 任何拼写/用户错误。你可以从你的网站上"
+"的用户热门词条中进行挑选。</p>\n"
+"            "
+
+msgid "Save"
+msgstr "保存"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "删除%(query)s"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "确定删除此搜索词条下的所有推广结果？"
+
+msgid "Yes, delete"
+msgstr "是，删除"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "编辑%(query)s"
+
+msgid "Editing"
+msgstr "编辑"
+
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Promoted search result"
+msgstr "推广搜索结果"
+
+msgid "Add recommended page"
+msgstr "增加推荐页面"
+
+msgid "Search Terms"
+msgstr "检索词"
+
+msgid "Promoted search results"
+msgstr "推广搜索结果"
+
+msgid "Add new promoted result"
+msgstr "新增推广结果"
+
+msgid "Search term(s)"
+msgstr "搜索词条(s)"
+
+msgid "Promoted results"
+msgstr "推广结果"
+
+msgid "Views (past week)"
+msgstr "查看 (上周)"
+
+msgid "Edit this promotion"
+msgstr "编辑此推广"
+
+msgid "None"
+msgstr "无"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            有%(counter)s条匹配结果\n"
+"        "
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的推广结果"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"还没有创建过推广结果。为何不<a href=\"%(wagtailsearchpromotions_add_url)s\">"
+"创建一个</a>？"
+
+msgid "Search promoted results"
+msgstr "搜索推广结果"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "为'{0}'的编辑精选已被创建。"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "无法创建推荐，出现错误。"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "为'{0}'的编辑精选已被更新。"
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "无法保存推荐，出现错误。"
+
+msgid "Editor's picks deleted."
+msgstr "编辑精选已被删除。"

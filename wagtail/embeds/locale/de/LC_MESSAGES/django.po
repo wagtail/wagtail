@@ -8,14 +8,15 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2018
+# Peter Dreuw <archandha@gmx.net>, 2019
 # Vorlif <flori@vorlif.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-09 09:53+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-06-23 14:45+0000\n"
+"Last-Translator: Peter Dreuw <archandha@gmx.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +28,14 @@ msgstr ""
 msgid "Wagtail embeds"
 msgstr "Wagtail embeds"
 
-msgid "Please enter a valid URL"
-msgstr "Bitte geben Sie eine gültige URL ein"
+msgid "Cannot find an embed for this URL."
+msgstr "Für diese URL wurde kein Element gefunden."
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Please enter a valid URL"
+msgstr "Bitte geben Sie eine gültige URL ein"
 
 msgid "embed"
 msgstr "Einbetten"
@@ -49,14 +53,11 @@ msgstr ""
 "Es gibt ein Problem mit Ihrem Embedly API-Key. Bitte überprüfen Sie Ihre "
 "Einstellungen!"
 
-msgid "Cannot find an embed for this URL."
-msgstr "Für diese URL wurde kein Element gefunden."
-
 msgid ""
 "There seems to be an error with Embedly while trying to embed this URL. "
 "Please try again later."
 msgstr ""
-"Beim Versuch, diese URL einzubetten ist ein Fehler mit Embedly aufgetreten. "
+"Beim Versuch, diese URL einzubetten, ist ein Fehler mit Embedly aufgetreten. "
 "Bitte versuchen Sie es später erneut."
 
 msgid "Embed"

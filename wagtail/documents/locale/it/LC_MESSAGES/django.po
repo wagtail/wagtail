@@ -5,13 +5,14 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-10 14:11+0000\n"
-"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +54,9 @@ msgstr "tags"
 msgid "document"
 msgstr "documento"
 
+msgid "documents"
+msgstr "documenti"
+
 msgid "Choose a document"
 msgstr "Scegli un documento"
 
@@ -65,16 +69,10 @@ msgstr "Carica"
 msgid "Uploading…"
 msgstr "Caricamento…"
 
-msgid "Server Error"
-msgstr "Errore del Server"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -82,7 +80,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            C'è una corrispondenza\n"
+"            C'è %(counter)s corrispondenza\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -96,6 +94,24 @@ msgstr "Ultimi documenti"
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Spiacente, nessun documento corrispondente \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Non hai ancora caricato alcun documento in questa raccolta."
+
+msgid "You haven't uploaded any documents."
+msgstr "Non hai ancora caricato alcun documento."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            Perché non ne <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">carichi uno adesso</a>?\n"
+"            "
 
 msgid "Change document:"
 msgstr "Cambia documento"
@@ -153,6 +169,9 @@ msgstr "Titolo"
 msgid "File"
 msgstr "File"
 
+msgid "Collection"
+msgstr "Raccolta"
+
 msgid "Uploaded"
 msgstr "Caricato"
 
@@ -195,24 +214,6 @@ msgstr "Stato"
 msgid "Edit this page"
 msgstr "Modifica questa pagina"
 
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Documento\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Documenti\n"
-"    "
-
 msgid "Add multiple documents"
 msgstr "Aggiungi documenti multipli"
 
@@ -231,7 +232,7 @@ msgid "Add to collection:"
 msgstr "Aggiungi alla raccolta:"
 
 msgid ""
-"Upload successful. Please update this documents with a more appropriate "
+"Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
@@ -256,6 +257,12 @@ msgstr "Permessi del documento"
 
 msgid "Add a document permission"
 msgstr "Aggiungi un permesso al documento"
+
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 msgid "Search documents"
 msgstr "Cerca documenti"

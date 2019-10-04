@@ -21,7 +21,7 @@ def check_url(url_string):
     unescaped = unescaped.replace("&lt;", "<")
     unescaped = unescaped.replace("&gt;", ">")
     unescaped = unescaped.replace("&amp;", "&")
-    unescaped = re.sub("[`\000-\040\177-\240\s]+", '', unescaped)
+    unescaped = re.sub(r'[`\000-\040\177-\240\s]+', '', unescaped)
     unescaped = unescaped.replace("\ufffd", "")
     if PROTOCOL_RE.match(unescaped):
         protocol = unescaped.split(':', 1)[0]

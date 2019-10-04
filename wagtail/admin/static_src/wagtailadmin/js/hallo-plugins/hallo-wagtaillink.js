@@ -37,7 +37,9 @@
                     url = window.chooserUrls.pageChooser;
                     urlParams = {
                         'allow_external_link': true,
-                        'allow_email_link': true
+                        'allow_email_link': true,
+                        'allow_phone_link': true,
+                        'allow_anchor_link': true,
                     };
 
                     enclosingLink = getEnclosingLink();
@@ -55,6 +57,14 @@
                         } else if (href.startsWith('mailto:')) {
                             url = window.chooserUrls.emailLinkChooser;
                             href = href.replace('mailto:', '');
+                            urlParams['link_url'] = href;
+                        } else if (href.startsWith('tel:')) {
+                            url = window.chooserUrls.phoneLinkChooser;
+                            href = href.replace('tel:', '');
+                            urlParams['link_url'] = href;
+                        } else if (href.startsWith('#')) {
+                            url = window.chooserUrls.anchorLinkChooser;
+                            href = href.replace('#', '');
                             urlParams['link_url'] = href;
                         } else if (!linkType) {  /* external link */
                             url = window.chooserUrls.externalLinkChooser;

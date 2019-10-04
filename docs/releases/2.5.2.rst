@@ -1,0 +1,16 @@
+===========================
+Wagtail 2.5.2 release notes
+===========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Delay dirty form check to prevent "unsaved changes" warning from being wrongly triggered (Thibaud Colas)

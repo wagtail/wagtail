@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018
-# saevarom <saevar@saevar.is>, 2015
+# saevarom <saevar@saevar.is>, 2015,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-07 10:28+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-01-18 08:40+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgstr "Breyta þessari tilvísun"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -118,12 +118,10 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Ein niðurstaða fannst\n"
-"        "
+"Það er %(counter)s niðurstaða"
 msgstr[1] ""
 "\n"
-"            Það eru %(counter)s niðurstöður\n"
-"        "
+"Það eru %(counter)s niðurstöður"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

@@ -93,7 +93,6 @@ class TestParseFieldsParameter(TestCase):
             ('test_', False, None),
         ])
 
-
     # BAD STUFF
 
     def test_invalid_char(self):
@@ -257,7 +256,6 @@ class TestParseBoolean(TestCase):
         parsed = parse_boolean('0')
 
         self.assertEqual(parsed, False)
-
 
     # BAD STUFF
 

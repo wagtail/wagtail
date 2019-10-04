@@ -27,11 +27,10 @@ function makeHalloRichTextEditable(id, plugins) {
     }
 
     var closestObj = input.closest('.object');
-    var isRoot = input.closest('.struct-block').length == 0;
 
     editor.hallo({
         toolbar: 'halloToolbarFixed',
-        toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : (closestObj.hasClass('stream-field') && isRoot) ? 'stream-field' : '',
+        toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : '',
         /* use the passed-in plugins arg */
         plugins: plugins
     }).on('hallomodified', function(event, data) {

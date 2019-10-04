@@ -1,4 +1,4 @@
-{% load wagtailadmin_tags staticfiles %}
+{% load wagtailadmin_tags static %}
 
 {% comment %}
     Javascript declarations to be included on the 'create page' and 'edit page' views
@@ -9,7 +9,9 @@
     window.chooserUrls = {
         'pageChooser': '{% url "wagtailadmin_choose_page" %}',
         'externalLinkChooser': '{% url "wagtailadmin_choose_page_external_link" %}',
-        'emailLinkChooser': '{% url "wagtailadmin_choose_page_email_link" %}'
+        'emailLinkChooser': '{% url "wagtailadmin_choose_page_email_link" %}',
+        'phoneLinkChooser': '{% url "wagtailadmin_choose_page_phone_link" %}',
+        'anchorLinkChooser': '{% url "wagtailadmin_choose_page_anchor_link" %}',
     };
     window.unicodeSlugsEnabled = {% if unicode_slugs_enabled %}true{% else %}false{% endif %};
 </script>
@@ -25,5 +27,3 @@
 <script src="{% static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>
 
 {% hook_output 'insert_editor_js' %}
-
-{% include "wagtailadmin/shared/datetimepicker_translations.html" %}

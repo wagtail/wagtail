@@ -4,14 +4,16 @@
 #
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2016
+# shuhei hirota, 2019
+# 小口英昭 <oguchi@bluff-lab.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-09-17 03:18+0000\n"
+"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail snippets"
+msgstr "Wagtail スニペット"
 
 msgid "Choose"
 msgstr "選択"
@@ -29,7 +34,7 @@ msgstr "検索"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -37,17 +42,17 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"%(counter)s 件の一致があります"
+"%(counter)s件の一致があります。"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "\"<em>%(query_string)s</em>\"に一致する結果はありません。"
 
 #, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "%(snippet_type_name)s - %(instance)sを削除"
+msgid "Delete %(snippet_type_name)s"
+msgstr "%(snippet_type_name)sを削除"
 
-msgid "Delete"
+msgid "Delete "
 msgstr "削除"
 
 #, python-format
@@ -57,12 +62,18 @@ msgstr "%(snippet_type_name)sを削除してよろしいですか？"
 msgid "Yes, delete"
 msgstr "はい、削除します"
 
+msgid "No, don't delete"
+msgstr "いいえ、削除しません"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "新しい %(snippet_type_name)s"
 
 msgid "New"
 msgstr "新規"
+
+msgid "Saving…"
+msgstr "保存中..."
 
 msgid "Save"
 msgstr "保存"
@@ -73,6 +84,15 @@ msgstr "%(snippet_type_name)s - %(instance)sを編集"
 
 msgid "Editing"
 msgstr "編集"
+
+msgid "Actions"
+msgstr "操作"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Usage"
+msgstr "使用法"
 
 msgid "Snippets"
 msgstr "スニペット"
@@ -140,6 +160,9 @@ msgstr "このスニペットはエラーにより保存されませんでした
 
 msgid "{snippet_type} '{instance}' deleted."
 msgstr "{snippet_type} '{instance}'が削除されました。"
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{snippet_type} が {count} 件削除されました。"
 
 #, python-format
 msgid "Choose %s"

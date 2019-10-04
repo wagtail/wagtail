@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ed <724195301@qq.com>, 2018
+# 飘 赵 <275980464@qq.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2018-06-30 00:27+0000\n"
+"Last-Translator: Ed <724195301@qq.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail style guide"
+msgstr "Wagtail 风格指南"
+
+msgid "Styleguide"
+msgstr "样式引导"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Delete image"
+msgstr "删除图像"
+
+msgid "Search something"
+msgstr "搜索"
+
+msgid "Success message"
+msgstr "成功信息"
+
+msgid "View live"
+msgstr "实时查看"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Warning message"
+msgstr "警告信息"
+
+msgid "Error message"
+msgstr "错误信息"

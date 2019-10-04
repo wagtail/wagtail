@@ -1,0 +1,188 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail snippets"
+msgstr "เกร็ดเล็กเกร็ดน้อยของWagtail"
+
+msgid "Choose"
+msgstr "เลือก"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+" มี %(counter)s ที่ตรงกัน\n"
+" "
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "ขออภัย, ไม่มีเกร็ดเล็กเกร็ดน้อยที่ตรงกัน \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
+msgstr ""
+"คุณยังไม่ได้สร้าง%(snippet_type_name)s เกร็ดเล็กเกร็ดน้อยอันไหนเลย ทำไมคุณไม่ <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">สร้างหนึ่งอันในตอนนี้</a>?"
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "ลบ %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "ลบ,ลบทิ้ง"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "คุณแน่ใจว่าคุณต้องการจะลบสิ่งนี้%(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "คุณแน่ใจว่าคุณต้องการจะลบทิ้ง %(count)s %(snippet_type_name)s?"
+
+msgid "Yes, delete"
+msgstr "ใช่,ลบทิ้ง"
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "ใหม่ %(snippet_type_name)s"
+
+msgid "New"
+msgstr "ใหม่"
+
+msgid "Saving…"
+msgstr "กำลังเซฟ...,กำลังเก็บข้อมูล"
+
+msgid "Save"
+msgstr "เซฟ,เก็บข้อมูล"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "กำลังแก้ไข%(snippet_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "กำลังแก้ไข"
+
+msgid "Delete"
+msgstr "ลบ,ลบทิ้ง"
+
+msgid "Usage"
+msgstr "การใช้"
+
+msgid "Snippets"
+msgstr "เกร็ดเล็กเกร็ดน้อย"
+
+msgid "Title"
+msgstr "หัวข้อ,หัวเรื่อง"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"ไม่%(snippet_type_name_plural)s มีการถูกสร้าง ทำไมคุณไม่ <a href="
+"\"%(wagtailsnippets_create_url)s\">เพิ่มสักอัน</a>?"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "เกร็ดเล็กเกร็ดน้อย %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr " เกร็ดเล็กเกร็ดน้อย<span>%(snippet_type_name_plural)s</span>"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "เพิ่ม %(snippet_type_name)s"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "การใช้ของ%(title)s"
+
+msgid "Usage of"
+msgstr "การใช้ของ"
+
+msgid "Parent"
+msgstr "หน้าแรก,หน้าหลัก"
+
+msgid "Type"
+msgstr "แบบ,รูปแบบ"
+
+msgid "Status"
+msgstr "สถานะ"
+
+msgid "Edit this page"
+msgstr "แก้ไขหน้านี้"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "ค้นหา %(snippet_type_name)s"
+
+msgid "{snippet_type} '{instance}' created."
+msgstr "{snippet_type} '{instance}' ถูกสร้างขึ้น"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "The snippet could not be created due to errors."
+msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
+
+msgid "{snippet_type} '{instance}' updated."
+msgstr "{snippet_type} '{instance}' อัพเดท"
+
+msgid "The snippet could not be saved due to errors."
+msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกเซฟได้ในขณะที่เกิดข้อผิดพลาด"
+
+msgid "{snippet_type} '{instance}' deleted."
+msgstr "{snippet_type} '{instance}' ถูกลบทิ้ง"
+
+msgid "{count} {snippet_type} deleted."
+msgstr "{count} {snippet_type} ถูกลบทิ้ง"
+
+#, python-format
+msgid "Choose %s"
+msgstr "เลือก %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "เลือกอันอื่น %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "แก้ไขสิ่งนี้ %s"

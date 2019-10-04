@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from warnings import warn
 
+from django.core.exceptions import FieldDoesNotExist
 from django.db import models
 from django.db.models import Count
 from django.db.models.expressions import Value
@@ -30,7 +31,7 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         for field_name in fields_names:
             try:
                 model._meta.get_field(field_name)
-            except models.fields.FieldDoesNotExist:
+            except FieldDoesNotExist:
                 continue
             else:
                 yield field_name
@@ -125,8 +126,8 @@ class DatabaseSearchResults(BaseSearchResults):
         field = self.query_compiler._get_filterable_field(field_name)
         if field is None:
             raise FilterFieldError(
-                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\'' +
-                field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
+                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\''
+                + field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
                 field_name=field_name
             )
 

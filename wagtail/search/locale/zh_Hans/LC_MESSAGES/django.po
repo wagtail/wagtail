@@ -1,0 +1,60 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Ed <724195301@qq.com>, 2018
+# hanfeng <appweb.cn@gmail.com>, 2014
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2018-06-30 00:24+0000\n"
+"Last-Translator: Ed <724195301@qq.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search"
+msgstr "Wagtail 搜索"
+
+msgid "Search term(s)/phrase"
+msgstr "搜索词/短语"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"输入完整搜索词条进行匹配。要显示推广结果必须使用完全匹配，不允许出现通配符。"
+
+msgid "Query Daily Hits"
+msgstr "每日查询次数"
+
+msgid "Popular search terms"
+msgstr "热门搜索词"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Terms"
+msgstr "词语"
+
+msgid "Views (past week)"
+msgstr "查看 (上周)"
+
+msgid "No results found"
+msgstr "没有找到结果"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Choose from popular search terms"
+msgstr "从热门搜索词中选择"

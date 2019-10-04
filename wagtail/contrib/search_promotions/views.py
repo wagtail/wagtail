@@ -1,15 +1,15 @@
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm
-from wagtail.admin.utils import any_permission_required, permission_required
+from wagtail.admin.auth import any_permission_required, permission_required
+from wagtail.admin.forms.search import SearchForm
 from wagtail.contrib.search_promotions import forms
 from wagtail.search import forms as search_forms
 from wagtail.search.models import Query
-from wagtail.utils.pagination import paginate
 
 
 @any_permission_required(
@@ -29,7 +29,8 @@ def index(request):
         queries = queries.filter(query_string__icontains=query_string)
         is_searching = True
 
-    paginator, queries = paginate(request, queries)
+    paginator = Paginator(queries, per_page=20)
+    queries = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():
         return render(request, "wagtailsearchpromotions/results.html", {

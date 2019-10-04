@@ -1,7 +1,7 @@
 from io import BytesIO
+from unittest.mock import Mock, patch
 
 from django.test import TestCase, override_settings
-from mock import Mock, patch
 
 from wagtail.core import hooks
 from wagtail.images import image_operations
@@ -23,10 +23,19 @@ class WillowOperationRecorder:
 
     def __getattr__(self, attr):
         def operation(*args, **kwargs):
+            self.validate_operation(attr, args, kwargs)
             self.ran_operations.append((attr, args, kwargs))
             return self
 
         return operation
+
+    def validate_operation(self, operation, args, kwargs):
+        """Check if the requested operation is sane and raise an exception if not."""
+        # The Willow docs say resize must take integral dimensions.
+        if operation == "resize":
+            x, y = args[0]
+            if x != int(x) or y != int(y):
+                raise ValueError
 
     def get_size(self):
         size = self.start_size
@@ -46,6 +55,7 @@ class ImageOperationTestCase(TestCase):
     filter_spec_tests = []
     filter_spec_error_tests = []
     run_tests = []
+    norun_tests = []
 
     @classmethod
     def make_filter_spec_test(cls, filter_spec, expected_output):
@@ -89,6 +99,25 @@ class ImageOperationTestCase(TestCase):
         return test_run
 
     @classmethod
+    def make_norun_test(cls, filter_spec, image_kwargs):
+        def test_norun(self):
+            image = Image(**image_kwargs)
+
+            # Make operation
+            operation = self.operation_class(*filter_spec.split('-'))
+
+            # Make operation recorder
+            operation_recorder = WillowOperationRecorder((image.width, image.height))
+
+            # Attempt (and hopefully fail) to run
+            with self.assertRaises(ValueError):
+                operation.run(operation_recorder, image, {})
+
+        test_norun.__name__ = str('test_norun_%s' % filter_spec)
+        return test_norun
+
+
+    @classmethod
     def setup_test_methods(cls):
         if cls.operation_class is None:
             return
@@ -107,6 +136,11 @@ class ImageOperationTestCase(TestCase):
         for args in cls.run_tests:
             run_test = cls.make_run_test(*args)
             setattr(cls, run_test.__name__, run_test)
+
+        # Runtime error tests
+        for args in cls.norun_tests:
+            norun_test = cls.make_norun_test(*args)
+            setattr(cls, norun_test.__name__, norun_test)
 
 
 class TestDoNothingOperation(ImageOperationTestCase):
@@ -362,6 +396,40 @@ class TestWidthHeightOperation(ImageOperationTestCase):
 TestWidthHeightOperation.setup_test_methods()
 
 
+class TestScaleOperation(ImageOperationTestCase):
+    operation_class = image_operations.ScaleOperation
+
+    filter_spec_tests = [
+        ('scale-100', dict(method='scale', percent=100)),
+        ('scale-50', dict(method='scale', percent=50)),
+    ]
+
+    filter_spec_error_tests = [
+        'scale',
+        'scale-800x600',
+        'scale-abc',
+        'scale-800-c100',
+    ]
+
+    run_tests = [
+        # Basic almost a no-op of scale
+        ('scale-100', dict(width=1000, height=500), [
+            ('resize', ((1000, 500), ), {}),
+        ]),
+        # Basic usage of scale
+        ('scale-50', dict(width=1000, height=500), [
+            ('resize', ((500, 250), ), {}),
+        ]),
+        # Rounded usage of scale
+        ('scale-83.0322', dict(width=1000, height=500), [
+            ('resize', ((int(1000 * 0.830322), int(500 * 0.830322)), ), {}),
+        ]),
+    ]
+
+
+TestScaleOperation.setup_test_methods()
+
+
 class TestCacheKey(TestCase):
     def test_cache_key(self):
         image = Image(width=1000, height=1000)
@@ -580,6 +648,14 @@ class TestBackgroundColorFilter(TestCase):
 
     def test_invalid(self):
         fil = Filter(spec='width-400|bgcolor-foo')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        self.assertRaises(ValueError, fil.run, image, BytesIO())
+
+    def test_invalid_length(self):
+        fil = Filter(spec='width-400|bgcolor-1234')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),

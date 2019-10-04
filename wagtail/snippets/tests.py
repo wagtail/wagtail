@@ -3,6 +3,7 @@ import json
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Permission
+from django.core import checks
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -11,6 +12,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from taggit.models import Tag
 
+from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
@@ -22,8 +24,8 @@ from wagtail.tests.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
     SearchableSnippet, StandardSnippet, StandardSnippetWithCustomPrimaryKey, ZuluSnippet)
 from wagtail.tests.testapp.models import (
-    Advert, AdvertWithCustomPrimaryKey, AdvertWithTabbedInterface, SnippetChooserModel,
-    SnippetChooserModelWithCustomPrimaryKey)
+    Advert, AdvertWithCustomPrimaryKey, AdvertWithCustomUUIDPrimaryKey, AdvertWithTabbedInterface,
+    SnippetChooserModel, SnippetChooserModelWithCustomPrimaryKey)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -167,7 +169,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
-        self.assertNotContains(response, '<ul class="tab-nav merged">')
+        self.assertNotContains(response, '<ul class="tab-nav merged" role="tablist">')
         self.assertNotContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
         self.assertNotContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
@@ -177,7 +179,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
-        self.assertContains(response, '<ul class="tab-nav merged">')
+        self.assertContains(response, '<ul class="tab-nav merged" role="tablist">')
         self.assertContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
         self.assertContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
@@ -253,7 +255,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
-        self.assertNotContains(response, '<ul class="tab-nav merged">')
+        self.assertNotContains(response, '<ul class="tab-nav merged" role="tablist">')
         self.assertNotContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
         self.assertNotContains(response, '<a href="#other" class="">Other</a>', html=True)
 
@@ -313,7 +315,7 @@ class TestEditTabbedSnippet(BaseTestSnippetEditView):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
-        self.assertContains(response, '<ul class="tab-nav merged">')
+        self.assertContains(response, '<ul class="tab-nav merged" role="tablist">')
         self.assertContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
         self.assertContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
 
@@ -442,9 +444,8 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         self.edit_handler = get_snippet_edit_handler(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
-                                                          form=form,
-                                                          request=self.request)
+        edit_handler = self.edit_handler.bind_to(
+            instance=test_snippet, form=form, request=self.request)
 
         self.snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -462,9 +463,8 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModel()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
-                                                          form=form,
-                                                          request=self.request)
+        edit_handler = self.edit_handler.bind_to(
+            instance=test_snippet, form=form, request=self.request)
 
         snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -482,7 +482,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     def test_target_model_autodetected(self):
         result = SnippetChooserPanel(
             'advert'
-        ).bind_to_model(SnippetChooserModel).target_model
+        ).bind_to(model=SnippetChooserModel).target_model
         self.assertEqual(result, Advert)
 
 
@@ -1043,9 +1043,8 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.edit_handler = get_snippet_edit_handler(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
-                                                          form=form,
-                                                          request=self.request)
+        edit_handler = self.edit_handler.bind_to(
+            instance=test_snippet, form=form, request=self.request)
 
         self.snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -1063,9 +1062,8 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModelWithCustomPrimaryKey()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to_instance(instance=test_snippet,
-                                                          form=form,
-                                                          request=self.request)
+        edit_handler = self.edit_handler.bind_to(
+            instance=test_snippet, form=form, request=self.request)
 
         snippet_chooser_panel = [
             panel for panel in edit_handler.children
@@ -1083,7 +1081,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def test_target_model_autodetected(self):
         result = SnippetChooserPanel(
             'advertwithcustomprimarykey'
-        ).bind_to_model(SnippetChooserModelWithCustomPrimaryKey).target_model
+        ).bind_to(model=SnippetChooserModelWithCustomPrimaryKey).target_model
         self.assertEqual(result, AdvertWithCustomPrimaryKey)
 
 
@@ -1129,3 +1127,56 @@ class TestSnippetChosenWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         response = self.get(pk=AdvertWithCustomPrimaryKey.objects.all()[0].pk)
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'chosen')
+
+
+class TestSnippetChosenWithCustomUUIDPrimaryKey(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.login()
+
+    def get(self, pk, params=None):
+        return self.client.get(reverse('wagtailsnippets:chosen',
+                                       args=('tests', 'advertwithcustomuuidprimarykey', quote(pk))),
+                               params or {})
+
+    def test_choose_a_page(self):
+        response = self.get(pk=AdvertWithCustomUUIDPrimaryKey.objects.all()[0].pk)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chosen')
+
+
+class TestPanelConfigurationChecks(TestCase, WagtailTestUtils):
+
+    def setUp(self):
+        self.warning_id = 'wagtailadmin.W002'
+
+        def get_checks_result():
+            # run checks only with the 'panels' tag
+            checks_result = checks.run_checks(tags=['panels'])
+            return [
+                warning for warning in
+                checks_result if warning.id == self.warning_id]
+
+        self.get_checks_result = get_checks_result
+
+    def test_model_with_single_tabbed_panel_only(self):
+
+        StandardSnippet.content_panels = [FieldPanel('text')]
+
+        warning = checks.Warning(
+            "StandardSnippet.content_panels will have no effect on snippets editing",
+            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels`\
+or set up an `edit_handler` if you want a tabbed editing interface.
+There are no default tabs on non-Page models so there will be no\
+ Content tab for the content_panels to render in.""",
+            obj=StandardSnippet,
+            id='wagtailadmin.W002',
+        )
+
+        checks_results = self.get_checks_result()
+
+        self.assertEqual([warning], checks_results)
+
+        # clean up for future checks
+        delattr(StandardSnippet, 'content_panels')

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "site"
 msgstr ""
 
-#: models.py:17 models.py:42
+#: models.py:17 models.py:44
 msgid "permanent"
 msgstr ""
 
@@ -59,11 +59,11 @@ msgstr ""
 msgid "redirect to any URL"
 msgstr ""
 
-#: models.py:44
+#: models.py:46
 msgid "temporary"
 msgstr ""
 
-#: models.py:93
+#: models.py:95
 msgid "redirect"
 msgstr ""
 
@@ -137,7 +137,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -158,33 +158,30 @@ msgid ""
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:54
+#: views.py:55
 msgid "Search redirects"
 msgstr ""
 
-#: views.py:73
-#, python-brace-format
+#: views.py:74
 msgid "Redirect '{0}' updated."
 msgstr ""
 
-#: views.py:74 views.py:116
+#: views.py:75 views.py:117
 msgid "Edit"
 msgstr ""
 
-#: views.py:78
+#: views.py:79
 msgid "The redirect could not be saved due to errors."
 msgstr ""
 
-#: views.py:100
-#, python-brace-format
+#: views.py:101
 msgid "Redirect '{0}' deleted."
 msgstr ""
 
-#: views.py:115
-#, python-brace-format
+#: views.py:116
 msgid "Redirect '{0}' added."
 msgstr ""
 
-#: views.py:120
+#: views.py:121
 msgid "The redirect could not be created due to errors."
 msgstr ""

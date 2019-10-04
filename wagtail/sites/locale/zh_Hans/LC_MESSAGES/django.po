@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# hanfeng <appweb.cn@gmail.com>, 2014-2015
+# Ed <724195301@qq.com>, 2018
+# hanfeng <appweb.cn@gmail.com>, 2014
+# jszsj <zhushajun@gmail.com>, 2017
+# jszsj <zhushajun@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2018-06-30 00:26+0000\n"
+"Last-Translator: Ed <724195301@qq.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail sites"
+msgstr "Wagtail 站点"
+
+msgid "Choose a root page"
+msgstr "选择根页面"
+
+msgid "Choose a different root page"
+msgstr "选择另外一个根页面"
+
+msgid "Site"
+msgstr "站点"
+
+msgid "Port"
+msgstr "端口"
+
+msgid "Site name"
+msgstr "站点名称"
+
+msgid "Root page"
+msgstr "根页面"
+
+msgid "Default?"
+msgstr "默认？"
+
+msgid "Default"
+msgstr "默认"
+
+msgid "Sites"
+msgstr "站点"
+
+msgid "Add a site"
+msgstr "增加一个站点"
+
+msgid "Add site"
+msgstr "增加站点"
+
+msgid "Site '{0}' created."
+msgstr "站点 '{0}' 已创建。"
+
+msgid "Site '{0}' updated."
+msgstr "站点 '{0}' 已更新。"
+
+msgid "The site could not be saved due to errors."
+msgstr "此站点无法保存，出现错误。"
+
+msgid "Delete site"
+msgstr "删除站点"
+
+msgid "Site '{0}' deleted."
+msgstr "站点 '{0}' 已删除。"
+
+msgid "Are you sure you want to delete this site?"
+msgstr "确定删除此站点？"

@@ -1,73 +1,65 @@
 language: python
 cache: pip
-dist: trusty
+dist: xenial
 
-# Use container-based infrastructure
-sudo: false
-
-# Install JDK9 for Elasticsearch 5
 addons:
-  apt:
-    packages:
-     - oracle-java9-installer
-     - oracle-java9-set-default
+  postgresql: "9.6"
 
 matrix:
   include:
-   - env: TOXENV=py34-dj111-postgres-noelasticsearch
-     python: 3.4
-   - env: TOXENV=py34-dj111-sqlite-noelasticsearch
-     python: 3.4
-   - env: TOXENV=py34-dj20-mysql-noelasticsearch
-     python: 3.4
-   - env: TOXENV=py35-dj111-postgres-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj111-mysql-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-     python: 3.5
-     sudo: true
    - env: TOXENV=py35-dj20-sqlite-noelasticsearch
      python: 3.5
-   - env: TOXENV=py36-dj111-sqlite-noelasticsearch
-     python: 3.6
-   - env: TOXENV=py36-dj111-postgres-noelasticsearch
-     python: 3.6
-   - env: TOXENV=py36-dj111-mysql-noelasticsearch
-     python: 3.6
+   - env: TOXENV=py35-dj21-mysql-noelasticsearch
+     python: 3.5
    - env: TOXENV=py36-dj20-postgres-noelasticsearch
      python: 3.6
-   - env: TOXENV=py36-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+   - env: TOXENV=py36-dj21-postgres-noelasticsearch
      python: 3.6
-     sudo: true
+   - env: TOXENV=py37-dj21-postgres-noelasticsearch
+     python: 3.7
+   - env: TOXENV=py37-dj22-sqlite-noelasticsearch
+     python: 3.7
+   - env: TOXENV=py37-dj22-mysql-noelasticsearch
+     python: 3.7
+   - env: TOXENV=py37-dj22-postgres-noelasticsearch
+     python: 3.7
+   - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
+     python: 3.7
+   - env: TOXENV=py37-djmaster-postgres-noelasticsearch
+     python: 3.7
+   - env: TOXENV=py38-dj22-postgres-noelasticsearch
+     python: 3.8-dev
    - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.6
-     sudo: true
-   - env: TOXENV=py36-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+   - env: TOXENV=py36-dj21-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.6
-     sudo: true
-   - env: TOXENV=py36-dj20-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+   - env: TOXENV=py36-dj21-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
      python: 3.6
-     sudo: true
-   - env: TOXENV=py36-dj111-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
-     python: 3.6
-     sudo: true
    - env: TOXENV=py36-dj20-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
      python: 3.6
-     sudo: true
+   - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+     python: 3.6
+   - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+     python: 3.7
   allow_failures:
     # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky
-    - env: TOXENV=py35-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-    - env: TOXENV=py36-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
     - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-    - env: TOXENV=py36-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-    - env: TOXENV=py36-dj20-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-    - env: TOXENV=py36-dj111-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    - env: TOXENV=py36-dj21-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+    - env: TOXENV=py36-dj21-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
     - env: TOXENV=py36-dj20-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    # allow failures against Django 2.2.x stable branch
+    - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
+    # allow failures against Django master
+    - env: TOXENV=py37-djmaster-postgres-noelasticsearch
+    # allow failures against Python 3.8-dev
+    - env: TOXENV=py38-dj22-postgres-noelasticsearch
 
 # Services
 services:
   - elasticsearch
+  - mysql
 
 # Package installation
 install:

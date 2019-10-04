@@ -1,0 +1,319 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mario <mario@catalpa.io>, 2019
+# Mario <mario@catalpa.io>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail users"
+msgstr "Usuariu Wagtail"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Requere. karakter 30 ka menus. Letra digitu no @/./+/-_only."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Valor nee so bele prenxe deit ho letra, numeru no karakter @/./+/-/_"
+
+msgid "A user with that username already exists."
+msgstr "Usuariu ho naran usuariu nebaa  existe tia ona."
+
+msgid "The two password fields didn't match."
+msgstr "seña husi coluna rua nee la coresponde"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Naran Dahuluk"
+
+msgid "Last Name"
+msgstr "Naran Ikus"
+
+msgid "Password"
+msgstr "Seña"
+
+msgid "Leave blank if not changing."
+msgstr "Husik mamuk karik la troka."
+
+msgid "Password confirmation"
+msgstr "Konfirama seña"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Hatama seña hanesan iha leten, hodi halo verifikasaun."
+
+msgid "Administrator"
+msgstr "Administrador"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administrador iha dever tomak atu asesu hodi jere objetu saida deit ka "
+"konfigura."
+
+msgid "A group with that name already exists."
+msgstr "Grupu ho naran nebaa existe tia ona."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Ita la iha autorizasaun oin-oin rekorda ba pajina hanesan."
+
+msgid "Preferred language"
+msgstr "Prefere lian"
+
+msgid "Current time zone"
+msgstr "Zona tempu agora dadaun"
+
+msgid "Upload a profile picture"
+msgstr "Upload imajen profile"
+
+msgid "submitted notifications"
+msgstr "notifikasaun submete ona"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Simu notifikasaun bainhira pajina submete ba moderasaun"
+
+msgid "approved notifications"
+msgstr "notifikasaun aprova ona"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Simu notifikasaun bainhira ita nia pajina troka aprova ona"
+
+msgid "rejected notifications"
+msgstr "notifikasaun rejeita ona"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Simu notifikasaun bainhira ita hadia ita nia pajina lasimu"
+
+msgid "preferred language"
+msgstr "prefere lian"
+
+msgid "Select language for the admin"
+msgstr "Hili lian ba admin"
+
+msgid "current time zone"
+msgstr "zona tempu agora dadaun"
+
+msgid "Select your current time zone"
+msgstr "Hili ita nia zona agora dadaun"
+
+msgid "profile picture"
+msgstr "perfil imajen"
+
+msgid "user profile"
+msgstr "perfil user"
+
+msgid "user profiles"
+msgstr "perfil user sira"
+
+msgid "Delete group"
+msgstr "Hamoos grupu"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Grupu '%(group_name)s' iha %(group_user_count)s membru"
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Hamoos grupu nee sei afeita ba grupu nee nia permisaun husi membru user sira"
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Ita boot prontu dunik ita boot hakarak hamoos grupu nee?"
+
+msgid "Yes, delete"
+msgstr "Sim, hamoos"
+
+msgid "Add group"
+msgstr "Hatama grupu"
+
+msgid "Editing"
+msgstr "Hadia"
+
+msgid "Save"
+msgstr "Rai"
+
+msgid "Object permissions"
+msgstr "Permisaun sira ba Objetu"
+
+msgid "Name"
+msgstr "Naran"
+
+msgid "Add"
+msgstr "Hatama"
+
+msgid "Change"
+msgstr "Troka"
+
+msgid "Delete"
+msgstr "Hamoos"
+
+msgid "Other permissions"
+msgstr "Permisaun sira seluk"
+
+msgid "Page permissions"
+msgstr "Permisaun sira ba pajina"
+
+msgid "Page"
+msgstr "Pajina"
+
+msgid "Add a page permission"
+msgstr "Hatama permisaun ba pajina"
+
+msgid "groups"
+msgstr "grupu sira"
+
+msgid "Add a group"
+msgstr "Hatama grupu"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Deskulpa, laiha grupu sira apar \"1%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Laiha grupu sira maka konfigura. Tamba sa labele<a href="
+"\"%(wagtailusers_create_group_url)s\">hatama balu</a>?"
+
+msgid "Delete user"
+msgstr "Hamoos usuariu"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Ita boot prontu dunik ita boot hakarak hamoos usuariu nee?"
+
+msgid "Add user"
+msgstr "Hatama usuariu"
+
+msgid "Account"
+msgstr "Konta"
+
+msgid "Roles"
+msgstr "Knar"
+
+msgid "Users"
+msgstr "Usuariu sira"
+
+msgid "Add a user"
+msgstr "Hatama usuariu"
+
+msgid "Username"
+msgstr "Naran Usuariu"
+
+msgid "Level"
+msgstr "Level"
+
+msgid "Status"
+msgstr "Estatus"
+
+msgid "Last Login"
+msgstr "Login ikus"
+
+msgid "Admin"
+msgstr "Administrasaun"
+
+msgid "Active"
+msgstr "Ativu"
+
+msgid "Inactive"
+msgstr "La ativu"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "1%(time_period)s liuba"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Iha neeba%(counter)s resultadu hanesan"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Deskulpa, user sira la hanesan \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Laiha user sira nebee mak configura. Tamba sa la <a href="
+"\"%(wagtailusers_create_url)s\">hatama balu</a>?"
+
+msgid "Groups"
+msgstr "Grupu sira"
+
+msgid "Search groups"
+msgstr "Buka grupu sira"
+
+msgid "Group '{0}' created."
+msgstr "Grupu '{0}' kria ona."
+
+msgid "Group '{0}' updated."
+msgstr "Grupu '{0}' troka ona."
+
+msgid "The group could not be saved due to errors."
+msgstr "Grupu labele rai tamba erru."
+
+msgid "Group '{0}' deleted."
+msgstr "Grupu '{0}' hamoos ona."
+
+msgid "Search users"
+msgstr "Buka usuariu"
+
+msgid "User '{0}' created."
+msgstr "Usuariu '{0}' kria ona"
+
+msgid "Edit"
+msgstr "Hadia"
+
+msgid "The user could not be created due to errors."
+msgstr "Usuariu labele kria tamba erru."
+
+msgid "User '{0}' updated."
+msgstr "Usuariu '{0}' troka ona"
+
+msgid "The user could not be saved due to errors."
+msgstr "Usuariu labele rai tamba erru."
+
+msgid "User '{0}' deleted."
+msgstr "Usuariu '{0}' hamoos ona."
+
+msgid "Edit this user"
+msgstr "Hadia user nee"
+
+msgid "Delete this user"
+msgstr "Hamoos usuariu nee"

@@ -1,0 +1,108 @@
+.breadcrumb {
+    @include unlist();
+    @include clearfix();
+    overflow: hidden;
+    padding-top: 1.4em;
+    font-size: 0.85em;
+
+    li {
+        display: block;
+        float: left;
+        padding: 0.5em 1.3em;
+        position: relative;
+        text-decoration: none;
+        color: $color-white;
+        white-space: nowrap;
+        line-height: 1.5em;
+
+        a,
+        span {
+            color: $color-white;
+            display: block;
+            max-width: 12em;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            line-height: 1.6em;
+            padding-right: 1em;
+
+            &:after {
+                right: 0;
+                // z-index: 5;
+                position: absolute;
+                font-family: wagtail;
+                content: map-get($icons, 'arrow-right');
+                padding-left: 20px;
+                font-size: 2em;
+                color: $color-teal-darker;
+                line-height: 0.9em;
+            }
+        }
+
+        &:hover {
+            background: $color-teal-dark;
+
+            a {
+                color: $color-white;
+            }
+        }
+
+        &:hover:after {
+            border-left-color: $color-teal-dark;
+        }
+
+        &.home {
+            a {
+                // stylelint-disable max-nesting-depth
+                padding-right: 0;
+                text-align: center;
+                width: 3em;
+                font-size: 1em;
+                text-overflow: clip;
+
+                &:before {
+                    font-size: 1.15rem;
+                    line-height: 0.85em;
+                    padding-top: 0.1em;
+                }
+
+                &:after {
+                    right: -0.3em;
+                }
+            }
+        }
+    }
+
+    header &  li {
+        &:before {
+            border-left: 1em solid $color-white;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+
+    &.single {
+        li a {
+            white-space: nowrap;
+            text-overflow: inherit;
+            max-width: 100%;
+        }
+    }
+
+    @include media-breakpoint-up(sm) {
+        padding-top: 0;
+        background: $color-teal-darker;
+        margin-left: -($desktop-nice-padding);
+        margin-right: -($desktop-nice-padding);
+
+        li {
+            a,
+            span {
+                &:after {
+                    color: $color-teal;
+                }
+            }
+        }
+    }
+}

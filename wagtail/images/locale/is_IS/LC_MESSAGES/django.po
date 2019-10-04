@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
-# saevarom <saevar@saevar.is>, 2015
+# saevarom <saevar@saevar.is>, 2015,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 10:29+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -147,16 +147,10 @@ msgstr "Vinsæl merki"
 msgid "Uploading…"
 msgstr "Hleð upp..."
 
-msgid "Server Error"
-msgstr "Villa á netþjóni"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -164,11 +158,12 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Það er ein niðurstaða\n"
+"            Það er %(counter)s niðurstaða\n"
 "        "
 msgstr[1] ""
 "\n"
-"Það eru %(counter)s niðurstöður"
+"            Það eru %(counter)s niðurstöður\n"
+"        "
 
 msgid "Latest images"
 msgstr "Nýjustu myndirnar"
@@ -178,24 +173,6 @@ msgstr "Veldu snið"
 
 msgid "Insert image"
 msgstr "Setja inn mynd"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> mynd\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> myndir\n"
-"    "
 
 msgid "Change image file:"
 msgstr "Breyta um myndaskrá:"
@@ -231,12 +208,18 @@ msgstr "Breyti mynd %(title)s"
 msgid "Editing"
 msgstr "Breyti"
 
-msgid "Focal point (optional)"
-msgstr "Fókus svæði (valkvætt)"
+msgid "URL Generator"
+msgstr "Slóð"
+
+msgid "Focal point"
+msgstr "Fókus svæði"
+
+msgid "(optional)"
+msgstr "(valkvætt)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
-"below."
+"above."
 msgstr ""
 "Til að skilgreina mikilvægasta svæði myndarinnar, smelltu og dragðu kassa "
 "yfir það svæði á myndinni fyrir neðan."
@@ -246,9 +229,6 @@ msgstr "Núverandi fókuspunktur sýndur"
 
 msgid "Remove focal area"
 msgstr "Fjarlægja fókussvæði"
-
-msgid "URL Generator"
-msgstr "Slóð"
 
 msgid "Max dimensions"
 msgstr "Stærsta hæð/breidd"
@@ -349,6 +329,12 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Því miður tókst ekki að hlaða upp myndunum."
+
+msgid "Server Error"
+msgstr "Villa á netþjóni"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
 
 msgid "Image updated."
 msgstr "Mynd uppfærð"

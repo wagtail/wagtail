@@ -1,4 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 from django.test import TestCase
 
 from wagtail.core.models import Page, PageViewRestriction, Site
@@ -396,6 +397,14 @@ class TestPageQuerySet(TestCase):
 
         # Check that the event is in the results
         self.assertTrue(pages.filter(id=event.id).exists())
+
+    def test_merge_queries(self):
+        type_q = Page.objects.type_q(EventPage)
+        query = Q()
+
+        query |= type_q
+
+        self.assertTrue(Page.objects.filter(query).exists())
 
 
 class TestPageQueryInSite(TestCase):

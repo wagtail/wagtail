@@ -16,27 +16,6 @@ class SearchQuery:
     def __invert__(self):
         return Not(self)
 
-    def apply(self, func):
-        raise NotImplementedError
-
-    def clone(self):
-        return self.apply(lambda o: o)
-
-    def get_children(self):
-        return ()
-
-    @property
-    def children(self):
-        return list(self.get_children())
-
-    @property
-    def child(self):
-        children = self.children
-        if len(children) != 1:
-            raise IndexError('`%s` object has %d children, not a single child.'
-                             % self.__class__.__name__, len(children))
-        return children[0]
-
 
 #
 # Basic query classes
@@ -55,14 +34,9 @@ class PlainText(SearchQuery):
             raise ValueError("`operator` must be either 'or' or 'and'.")
         self.boost = boost
 
-    def apply(self, func):
-        return func(self.__class__(self.query_string, self.operator,
-                                   self.boost))
-
 
 class MatchAll(SearchQuery):
-    def apply(self, func):
-        return self.__class__()
+    pass
 
 
 class Boost(SearchQuery):
@@ -70,48 +44,25 @@ class Boost(SearchQuery):
         self.subquery = subquery
         self.boost = boost
 
-    def apply(self, func):
-        return func(self.__class__(self.subquery.apply(func), self.boost))
-
 
 #
-# Operators
+# Combinators
 #
 
 
-class SearchQueryOperator(SearchQuery):
-    pass
-
-
-class MultiOperandsSearchQueryOperator(SearchQueryOperator):
+class And(SearchQuery):
     def __init__(self, subqueries):
         self.subqueries = subqueries
 
-    def apply(self, func):
-        return func(self.__class__(
-            [subquery.apply(func) for subquery in self.subqueries]))
 
-    def get_children(self):
-        yield from self.subqueries
+class Or(SearchQuery):
+    def __init__(self, subqueries):
+        self.subqueries = subqueries
 
 
-class And(MultiOperandsSearchQueryOperator):
-    pass
-
-
-class Or(MultiOperandsSearchQueryOperator):
-    pass
-
-
-class Not(SearchQueryOperator):
+class Not(SearchQuery):
     def __init__(self, subquery: SearchQuery):
         self.subquery = subquery
-
-    def apply(self, func):
-        return func(self.__class__(self.subquery.apply(func)))
-
-    def get_children(self):
-        yield self.subquery
 
 
 MATCH_ALL = MatchAll()

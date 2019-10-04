@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2018-10-27 13:26+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail search"
+msgstr "Пошук Wagtail"
+
+msgid "Search term(s)/phrase"
+msgstr "Крытэр пошуку (фраза)"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Каб адпавядаць - увядзіце поўны радок пошуку. Патрабуецца дакладнае "
+"супадзенне для вашых Вынікаў Прасоўвання, якія будуць адлюстроўвацца. Не "
+"дапускаюцца групавыя сімвалы."
+
+msgid "Query Daily Hits"
+msgstr "Запыт штодзенных хітоў"
+
+msgid "Popular search terms"
+msgstr "Папулярныя пошукавыя запыты"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Terms"
+msgstr "Тэрміны"
+
+msgid "Views (past week)"
+msgstr "Прагляды (мінулы тыдзень)"
+
+msgid "No results found"
+msgstr "Нічога не знойдзена"
+
+msgid "Date"
+msgstr "Дата"

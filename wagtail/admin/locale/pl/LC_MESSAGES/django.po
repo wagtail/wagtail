@@ -8,16 +8,17 @@
 # utek <mail@utek.pl>, 2014
 # Mateusz <undefined5102@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2018
-# Miłosz Miśkiewicz, 2017-2018
+# Miłosz Miśkiewicz, 2017-2019
 # Miłosz Miśkiewicz, 2016-2017
 # utek <mail@utek.pl>, 2014
+# Мирон Левицкий <miron200504@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-15 08:25+0000\n"
-"Last-Translator: Miłosz Miśkiewicz\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +28,15 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "Submit for moderation"
+msgstr "Przekaż do przeglądu"
+
+msgid "Unpublish"
+msgstr "Cofnij publikację"
+
+msgid "Delete"
+msgstr "Usuń"
 
 msgid "Wagtail admin"
 msgstr "Admin Wagtail"
@@ -52,15 +62,6 @@ msgstr "Promocja SEO"
 msgid "Settings"
 msgstr "Ustawienia"
 
-msgid "Search"
-msgstr "Szukaj"
-
-msgid "Search term"
-msgstr "Wyszukiwania fraza"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Wpisz hasło"
 
@@ -70,6 +71,12 @@ msgstr "Wpisz %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Podaj swój adres email aby zresetować hasło"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej kolekcji."
 
 msgid "New title"
 msgstr "Nowy tytuł"
@@ -135,15 +142,6 @@ msgstr "Slug jest już wykorzystywany w kontekście strony nadrzędnej \"%s\""
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Nie możesz skopiować strony do siebie samej kiedy kopiujesz podstrony"
 
-msgid "Visibility"
-msgstr "Widoczność"
-
-msgid "This field is required."
-msgstr "To pole jest wymagane."
-
-msgid "Please select at least one group."
-msgstr "Proszę wybrać co najmniej jedną grupę"
-
 msgid "This slug is already in use"
 msgstr "Ten slug jest już w użyciu"
 
@@ -153,8 +151,20 @@ msgstr "Data/czas publikacji musi być wcześniejszy niż data wykończenia"
 msgid "Expiry date/time must be in the future"
 msgstr "Data/czas wykończenia musi znajdować się w przyszłości."
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej kolekcji."
+msgid "Search"
+msgstr "Szukaj"
+
+msgid "Search term"
+msgstr "Wyszukiwania fraza"
+
+msgid "Visibility"
+msgstr "Widoczność"
+
+msgid "This field is required."
+msgstr "To pole jest wymagane."
+
+msgid "Please select at least one group."
+msgstr "Proszę wybrać co najmniej jedną grupę"
 
 msgid "Error 404: Page not found"
 msgstr "Błąd 404: Strona nie została znaleziona"
@@ -248,12 +258,6 @@ msgstr "Reset hasła"
 msgid "Reset your password"
 msgstr "Zresetuj swoje hasło"
 
-msgid "Edit"
-msgstr "Edytuj"
-
-msgid "Delete"
-msgstr "Usuń"
-
 msgid "Page"
 msgstr "Strona"
 
@@ -268,9 +272,6 @@ msgstr "Brak wyników"
 
 msgid "Server Error"
 msgstr "Błąd serwera"
-
-msgid "See children"
-msgstr "Zobacz elementy podrzędne"
 
 msgid "See all"
 msgstr "Zobacz wszystkie"
@@ -314,6 +315,93 @@ msgstr ""
 "Edytor napotkał błąd. Zawartość została cofnięta do ostatniej zapisanej "
 "wersji."
 
+msgid "Broken link"
+msgstr "Zepsuty link"
+
+msgid "Missing document"
+msgstr "Brakujący dokument"
+
+msgid "Close"
+msgstr "Zamknij"
+
+msgid "January"
+msgstr "Styczeń"
+
+msgid "February"
+msgstr "Luty"
+
+msgid "March"
+msgstr "Marzec"
+
+msgid "April"
+msgstr "Kwiecień"
+
+msgid "May"
+msgstr "Maj"
+
+msgid "June"
+msgstr "Czerwiec"
+
+msgid "July"
+msgstr "Lipiec"
+
+msgid "August"
+msgstr "Sierpień"
+
+msgid "September"
+msgstr "Wrzesień"
+
+msgid "October"
+msgstr "Październik"
+
+msgid "November"
+msgstr "Listopad"
+
+msgid "December"
+msgstr "Grudzień"
+
+msgid "Sunday"
+msgstr "Niedziela"
+
+msgid "Monday"
+msgstr "Poniedziałek"
+
+msgid "Tuesday"
+msgstr "Wtorek"
+
+msgid "Wednesday"
+msgstr "Środa"
+
+msgid "Thursday"
+msgstr "Czwartek"
+
+msgid "Friday"
+msgstr "Piątek"
+
+msgid "Saturday"
+msgstr "Sobota"
+
+msgid "Sun"
+msgstr "Nd"
+
+msgid "Mon"
+msgstr "Pon"
+
+msgid "Tue"
+msgstr "Wt"
+
+msgid "Wed"
+msgstr "Śr"
+
+msgid "Thu"
+msgstr "Czw"
+
+msgid "Fri"
+msgstr "Pt"
+
+msgid "Sat"
+msgstr "Sob"
+
 msgid "Dashboard"
 msgstr "Kokpit"
 
@@ -344,7 +432,7 @@ msgstr "Wyślij link pocztą email"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -352,18 +440,20 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"Znaleziono jedno dopasowanie"
+"        Znaleziono %(counter)s dopasowanie\n"
+"    "
 msgstr[1] ""
 "\n"
-"Znaleziono %(counter)s dopasowań"
+"        Znaleziono %(counter)s dopasowań\n"
+"    "
 msgstr[2] ""
 "\n"
-"Znaleziono %(counter)s dopasowań\n"
-"        "
+"        Znaleziono %(counter)s dopasowań\n"
+"    "
 msgstr[3] ""
 "\n"
-"Znaleziono %(counter)s dopasowań\n"
-"        "
+"        Znaleziono %(counter)s dopasowań\n"
+"    "
 
 msgid "Choose"
 msgstr "Wybierz"
@@ -486,11 +576,17 @@ msgstr "Edytowane"
 msgid "Edit this page"
 msgstr "Edytuj tę stronę"
 
+msgid "Preview this page"
+msgstr "Podejrzyj tę stronę"
+
 msgid "Approve"
 msgstr "Zatwierdź"
 
 msgid "Reject"
 msgstr "Odrzuć"
+
+msgid "Edit"
+msgstr "Edytuj"
 
 msgid "Preview"
 msgstr "Podgląd"
@@ -516,28 +612,6 @@ msgstr "Opublikowana"
 
 msgid "Site summary"
 msgstr "Streszczenie strony"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Strona"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Stron"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> Stron"
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span> Stron"
 
 msgid "Sign in"
 msgstr "Zaloguj się"
@@ -615,6 +689,15 @@ msgstr "Zablokowany"
 
 msgid "Unlocked"
 msgstr "Odblokowany"
+
+msgid "Publishing…"
+msgstr "Publikowanie..."
+
+msgid "Publish this revision"
+msgstr "Opublikuj tą rewizję"
+
+msgid "Publish"
+msgstr "Opublikuj"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -709,9 +792,6 @@ msgstr "Tak, przesuń tę stronę"
 msgid "Unpublish %(title)s"
 msgstr "Cofnij publikację %(title)s"
 
-msgid "Unpublish"
-msgstr "Cofnij publikację"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Czy na pewno chcesz cofnąć publikację tej strony?"
 
@@ -778,15 +858,6 @@ msgstr "Zapisywanie..."
 msgid "Save draft"
 msgstr "Zapisz szkic"
 
-msgid "Publishing…"
-msgstr "Publikowanie..."
-
-msgid "Publish"
-msgstr "Opublikuj"
-
-msgid "Submit for moderation"
-msgstr "Przekaż do przeglądu"
-
 msgid "This page has unsaved changes."
 msgstr "Strona posiada niezapisane zmiany"
 
@@ -803,9 +874,6 @@ msgstr "Strona zablokowana"
 
 msgid "Replace current draft"
 msgstr "Zastąp aktualny szkic"
-
-msgid "Publish this revision"
-msgstr "Opublikuj tą rewizję"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -841,7 +909,7 @@ msgstr ""
 "adresem URL do momentu przypisania ich do strony."
 
 msgid "Configure a site now."
-msgstr "Skonfiguruj stronę teraz"
+msgstr "Skonfiguruj serwis teraz"
 
 msgid ""
 "\n"
@@ -850,8 +918,8 @@ msgid ""
 "                        "
 msgstr ""
 "\n"
-"Jeśli chcesz dodać strony do istniejących, utwórz je jako podstrony strony "
-"głównej"
+"Jeśli chcesz dodać strony do istniejących serwisów, utwórz je jako podstrony "
+"strony głównej"
 
 msgid ""
 "\n"
@@ -862,7 +930,8 @@ msgid ""
 msgstr ""
 "\n"
 "Strony utworzone tutaj nie będą dostępne pod jakimkolwiek adresem URL. Aby "
-"dodać strony do istniejącej, utwórz je jako podstrony strony nadrzędnej."
+"dodać strony do istniejącego serwisu, utwórz je jako podstrony strony "
+"głównej."
 
 msgid ""
 "\n"
@@ -872,9 +941,9 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"Podana lokalizacja nie zawiera żadnej konfiguracji stron. Strony utworzone "
-"tutaj nie będą dostępne pod jakimkolwiek adresem URL do momentu przypisania "
-"tutaj strony."
+"Podana lokalizacja nie zawiera żadnego serwisu. Strony utworzone tutaj nie "
+"będą dostępne pod jakimkolwiek adresem URL do momentu przypisania tutaj "
+"serwisu."
 
 msgid ""
 "\n"
@@ -916,7 +985,7 @@ msgid "Add child page"
 msgstr "Dodaj stronę podrzędną"
 
 msgid "Sites menu"
-msgstr "Menu stron"
+msgstr "Menu serwisów"
 
 #, python-format
 msgid ""
@@ -940,8 +1009,8 @@ msgstr "Strona nie jest publicznie dostępna"
 msgid "Disable ordering of child pages"
 msgstr "Wyłącz sortowanie stron podrzędnych"
 
-msgid "Order"
-msgstr "Porządek"
+msgid "Sort"
+msgstr "Sortuj"
 
 msgid "Enable ordering of child pages"
 msgstr "Włącz sortowanie stron podrzędnych"
@@ -969,9 +1038,6 @@ msgstr ""
 "                Zamknij tą informację i popraw błędy, a następnie\n"
 "                spróbuj jeszcze raz ją podejrzeć.\n"
 "            "
-
-msgid "Close"
-msgstr "Zamknij"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1118,6 +1184,9 @@ msgstr[3] ""
 "\n"
 "Znaleziono %(counter)s pasujących stron"
 
+msgid "Page types"
+msgstr "Typy stron"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Przepraszamy, żadna strona nie pasuje do <em>\"%(query_string)s\"</em>"
@@ -1131,6 +1200,10 @@ msgstr "Żadna strona nie używa"
 msgid "Collection"
 msgstr "Kolekcja"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Strona %(page_num)s z %(total_pages)s."
+
 msgid "Root"
 msgstr "Główny"
 
@@ -1140,63 +1213,6 @@ msgstr "Start"
 msgid "All collections"
 msgstr "Wszystkie kolekcje"
 
-msgid "January"
-msgstr "Styczeń"
-
-msgid "February"
-msgstr "Luty"
-
-msgid "March"
-msgstr "Marzec"
-
-msgid "April"
-msgstr "Kwiecień"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Czerwiec"
-
-msgid "July"
-msgstr "Lipiec"
-
-msgid "August"
-msgstr "Sierpień"
-
-msgid "September"
-msgstr "Wrzesień"
-
-msgid "October"
-msgstr "Październik"
-
-msgid "November"
-msgstr "Listopad"
-
-msgid "December"
-msgstr "Grudzień"
-
-msgid "Sun"
-msgstr "Nd"
-
-msgid "Mon"
-msgstr "Pon"
-
-msgid "Tue"
-msgstr "Wt"
-
-msgid "Wed"
-msgstr "Śr"
-
-msgid "Thu"
-msgstr "Czw"
-
-msgid "Fri"
-msgstr "Pt"
-
-msgid "Sat"
-msgstr "Sob"
-
 msgid "Edit your account"
 msgstr "Edytuj swoje konto"
 
@@ -1205,10 +1221,6 @@ msgstr "Ustawienia konta"
 
 msgid "Log out"
 msgstr "Wyloguj się"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Strona %(page_num)s z %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Inne wyszukiwania"
@@ -1227,16 +1239,16 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
-"            Javascript jest wymagany do korzystanie z Wagtail, jednak "
-"obecnie jest wyłączony.<br />\n"
-"            Tutaj znajdują się instrukcje jak  <a href=\"http://www.enable-"
-"javascript.com/\" target=\"_blank\" rel=\"noopener\">uruchomić JavaScript w "
-"Twojej przeglądarce</a>.\n"
+"            Javascript jest wymagany aby korzystać z Wagtail. Niestety "
+"wygląda na to, że jest wyłączony.<br />\n"
+"            Tutaj znajdziesz <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instrukcje jak włączyć "
+"JavaScript w swojej przeglądarce</a>.\n"
 "        "
 
 msgid "Go to Wagtail admin interface"
@@ -1250,6 +1262,9 @@ msgstr "Pokaż w Przeglądarce"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabski ęzyk"
 
 msgid "Catalan"
 msgstr "Kataloński"
@@ -1275,6 +1290,9 @@ msgstr "Francuski"
 msgid "Galician"
 msgstr "Galicyjski"
 
+msgid "Indonesian"
+msgstr "Indonezyjski"
+
 msgid "Icelandic"
 msgstr "Islandzki"
 
@@ -1286,6 +1304,9 @@ msgstr "Koreański"
 
 msgid "Lithuanian"
 msgstr "Litewski"
+
+msgid "Mongolian"
+msgstr "Mongolski"
 
 msgid "Norwegian Bokmål"
 msgstr "Norweski Bokmål"
@@ -1317,11 +1338,17 @@ msgstr "Szwedzki"
 msgid "Slovak"
 msgstr "Słowacki"
 
+msgid "Thai"
+msgstr "Tajski"
+
 msgid "Ukrainian"
 msgstr "Ukraiński"
 
-msgid "Chinese (China)"
-msgstr "Chiński (Chiny)"
+msgid "Chinese (Simplified)"
+msgstr "Chiński (uproszczony)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chiński (tradycyjny)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Przepraszamy, ale nie posiadasz praw dostępu do tego miejsca."
@@ -1437,6 +1464,13 @@ msgstr "Usunięto stronę '{0}'."
 
 msgid "Page '{0}' unpublished."
 msgstr "Cofnięto publikację strony '{0}'."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Slug '{0}' jest już wykorzystywany w wybranej stronie nadrzędnej. Upewnij "
+"się, że slug jest unikalny i spróbuj ponownie."
 
 msgid "Page '{0}' moved."
 msgstr "Przesunięto stronę '{0}'."
@@ -1557,6 +1591,9 @@ msgstr "Lista wypunktowana"
 msgid "Numbered list"
 msgstr "Lista numeryczna"
 
+msgid "Blockquote"
+msgstr "Cytat"
+
 msgid "Bold"
 msgstr "Pogrubienie"
 
@@ -1565,6 +1602,18 @@ msgstr "Kursywa"
 
 msgid "Link"
 msgstr "Link"
+
+msgid "Superscript"
+msgstr "Superscript"
+
+msgid "Subscript"
+msgstr "Subscript"
+
+msgid "Strikethrough"
+msgstr "Przekreślenie"
+
+msgid "Code"
+msgstr "Kod"
 
 msgid "Choose an item"
 msgstr "Wybierz rzecz"

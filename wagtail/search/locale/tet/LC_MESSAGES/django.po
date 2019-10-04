@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mariano de Deus <dedeus_mariano@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-04-04 02:14+0000\n"
+"Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search"
+msgstr "Buka Wagtail"
+
+msgid "Search term(s)/phrase"
+msgstr "Buka termus / frase"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Tama buka hotu  talin ne'ebe  jogu. Jogu  lo-loos sei  presiza ba ita  "
+"promove resultadu se  hatudu, kartaun-fuik ne'ebe la permiti."
+
+msgid "Query Daily Hits"
+msgstr " Pergunta tula liman loro-loron"
+
+msgid "Popular search terms"
+msgstr "Buka  termus populár "
+
+msgid "Search"
+msgstr "Buka"
+
+msgid "Terms"
+msgstr "Termus"
+
+msgid "Views (past week)"
+msgstr " Haree(Semana kotuk)"
+
+msgid "No results found"
+msgstr "Resultadu lahetan"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Choose from popular search terms"
+msgstr "Hili husi buka termus populár  "

@@ -26,15 +26,18 @@ Find out more at [wagtail.io](https://wagtail.io/).
 
 ### Getting started
 
-Wagtail works with Python 3, on any platform.
+Wagtail works with [Python 3](https://www.python.org/downloads/), on any platform.
 
-```
-    pip install wagtail
-    wagtail start mysite
-    cd mysite
-    python manage.py migrate
-    python manage.py createsuperuser
-    python manage.py runserver
+To get started with Wagtail, run the following in a virtual environment:
+
+``` bash
+pip install wagtail
+wagtail start mysite
+cd mysite
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
 ```
 
 For detailed installation and setup docs, see [docs.wagtail.io](http://docs.wagtail.io/).
@@ -51,11 +54,11 @@ Wagtail is used by NASA, Google, Oxfam, the NHS, Mozilla, MIT, the Red Cross, Sa
 
 Wagtail supports:
 
-* Django 1.11.x and 2.0
-* Python 3.4, 3.5 and 3.6
+* Django 2.0.x, 2.1.x and 2.2.x
+* Python 3.5, 3.6 and 3.7
 * PostgreSQL, MySQL and SQLite as database backends
 
-Previous versions of Wagtail (1.13 and earlier) additionally supported Python 2.7.
+Previous versions of Wagtail (1.13 and earlier) additionally supported Python 2.7 and Django 1.x.
 
 ---
 
@@ -71,6 +74,20 @@ We maintain a curated list of third party packages, articles and other resources
 
 Wagtail is sponsored by [Torchbox](https://torchbox.com/). If you need help implementing or hosting Wagtail, please contact us: hello@torchbox.com. See also [madewithwagtail.org/developers/](https://madewithwagtail.org/developers/) for expert Wagtail developers around the world.
 
+### Security
+
+We take the security of Wagtail, and related packages we maintain, seriously. If you have found a security issue with any of our projects please email us at [security@wagtail.io](mailto:security@wagtail.io) so we can work together to find and patch the issue. We appreciate responsible disclosure with any security related issues, so please contact us first before creating a Github issue.
+
+If you want to send an encrypted email (optional), the public key ID for security@wagtail.io is 0x6ba1e1a86e0f8ce8, and this public key is available from most commonly-used keyservers.
+
+### Release schedule
+
+Feature releases of Wagtail are released every three months. Selected releases are designated as Long Term Support (LTS) releases, and will receive maintenance updates for an extended period to address any security and data-loss related issues. For dates of past and upcoming releases and support periods, see [Release Schedule](https://github.com/wagtail/wagtail/wiki/Release-schedule).
+
+#### Nightly releases
+
+To try out the latest features before a release, we also create builds from master every night. You can find instructions on how to install the latest nightly release at https://releases.wagtail.io/nightly/index.html
+
 ### Contributing
 
 If you're a Python or Django developer, fork the repo and get stuck in! We run a separate group for developers of Wagtail itself at https://groups.google.com/forum/#!forum/wagtail-developers (please note that this is not for support requests).
@@ -78,6 +95,9 @@ If you're a Python or Django developer, fork the repo and get stuck in! We run a
 You might like to start by reviewing the [contributing guidelines](http://docs.wagtail.io/en/latest/contributing/index.html) and checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
 We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/projects/p/wagtail/).
+
+### License
+[BSD](https://github.com/wagtail/wagtail/blob/master/LICENSE)
 
 ### Thanks
 

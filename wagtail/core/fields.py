@@ -105,7 +105,7 @@ class StreamField(models.Field):
         else:
             return json.dumps(self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder)
 
-    def from_db_value(self, value, expression, connection, context):
+    def from_db_value(self, value, expression, connection):
         return self.to_python(value)
 
     def formfield(self, **kwargs):

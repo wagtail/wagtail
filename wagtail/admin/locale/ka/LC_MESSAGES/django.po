@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:30+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Georgian (http://www.transifex.com/torchbox/wagtail/language/"
 "ka/)\n"
@@ -19,14 +19,11 @@ msgstr ""
 "Language: ka\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
+msgid "Delete"
+msgstr "წაშლა"
+
 msgid "Content"
 msgstr "შიგთავსი"
-
-msgid "Search"
-msgstr "ძიება"
-
-msgid "Search term"
-msgstr "ძიების ტერმინი"
 
 msgid "Enter password"
 msgstr "შეიყვანეთ პაროლი"
@@ -37,6 +34,12 @@ msgstr "შეიყვანეთ თქვენი %s"
 
 msgid "New title"
 msgstr "ახალი სათაური"
+
+msgid "Search"
+msgstr "ძიება"
+
+msgid "Search term"
+msgstr "ძიების ტერმინი"
 
 msgid "Account"
 msgstr "ანგარიში"
@@ -49,57 +52,6 @@ msgstr "შესვლა"
 
 msgid "Check your email"
 msgstr "შეამოწმეთ თქვენი ელფოსტა"
-
-msgid "Delete"
-msgstr "წაშლა"
-
-msgid "Menu"
-msgstr "მენიუ"
-
-msgid "Internal link"
-msgstr "შიდა ბმული"
-
-msgid "Save"
-msgstr "შენახვა"
-
-msgid "Title"
-msgstr "სათაური"
-
-msgid "Type"
-msgstr "ტიპი"
-
-msgid "Edit this page"
-msgstr "ამ გვერდის რედაქტირება"
-
-msgid "Date"
-msgstr "თარიღი"
-
-msgid "Status"
-msgstr "სტატუსი"
-
-msgid "You can view the page here:"
-msgstr "გვერდის ნახვა შეგიძლიათ აქ:"
-
-msgid "You can edit the page here:"
-msgstr "გვერდის რესქტირება შეგიძლიათ აქ:"
-
-msgid "Copy"
-msgstr "კოპირება"
-
-msgid "New"
-msgstr "ახალი"
-
-msgid "Publish"
-msgstr "გამოქვეყნება"
-
-msgid "Previous"
-msgstr "წინა"
-
-msgid "Next"
-msgstr "შემდეგი"
-
-msgid "Order"
-msgstr "მიმდევრობა"
 
 msgid "January"
 msgstr "იანვარი"
@@ -136,6 +88,51 @@ msgstr "ნოემბერი"
 
 msgid "December"
 msgstr "დეკემბერი"
+
+msgid "Menu"
+msgstr "მენიუ"
+
+msgid "Internal link"
+msgstr "შიდა ბმული"
+
+msgid "Save"
+msgstr "შენახვა"
+
+msgid "Title"
+msgstr "სათაური"
+
+msgid "Type"
+msgstr "ტიპი"
+
+msgid "Edit this page"
+msgstr "ამ გვერდის რედაქტირება"
+
+msgid "Date"
+msgstr "თარიღი"
+
+msgid "Status"
+msgstr "სტატუსი"
+
+msgid "You can view the page here:"
+msgstr "გვერდის ნახვა შეგიძლიათ აქ:"
+
+msgid "You can edit the page here:"
+msgstr "გვერდის რესქტირება შეგიძლიათ აქ:"
+
+msgid "Publish"
+msgstr "გამოქვეყნება"
+
+msgid "Copy"
+msgstr "კოპირება"
+
+msgid "New"
+msgstr "ახალი"
+
+msgid "Previous"
+msgstr "წინა"
+
+msgid "Next"
+msgstr "შემდეგი"
 
 msgid "Log out"
 msgstr "გამოსვლა"

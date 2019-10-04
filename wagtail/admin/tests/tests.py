@@ -10,8 +10,9 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag
 
+from wagtail.admin.auth import user_has_any_page_permission
+from wagtail.admin.mail import send_mail
 from wagtail.admin.menu import MenuItem
-from wagtail.admin.utils import send_mail, user_has_any_page_permission
 from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -57,10 +58,10 @@ class TestHome(TestCase, WagtailTestUtils):
         # This tests that wagtailadmins global cache settings have been applied correctly
         response = self.client.get(reverse('wagtailadmin_home'))
 
-        self.assertIn('private', response['Cache-Control'])
         self.assertIn('no-cache', response['Cache-Control'])
         self.assertIn('no-store', response['Cache-Control'])
         self.assertIn('max-age=0', response['Cache-Control'])
+        self.assertIn('must-revalidate', response['Cache-Control'])
 
     def test_nonascii_email(self):
         # Test that non-ASCII email addresses don't break the admin; previously these would
@@ -140,6 +141,29 @@ class TestSendMail(TestCase):
         self.assertEqual(mail.outbox[0].body, "Test content")
         self.assertEqual(mail.outbox[0].to, ["nobody@email.com"])
         self.assertEqual(mail.outbox[0].from_email, "webmaster@localhost")
+
+    def test_send_html_email(self):
+        """Test that the kwarg 'html_message' works as expected on send_mail by creating 'alternatives' on the EmailMessage object"""
+
+        send_mail("Test HTML subject", "TEXT content", ["has.html@email.com"], html_message="<h2>Test HTML content</h2>")
+        send_mail("Test TEXT subject", "TEXT content", ["mr.plain.text@email.com"])
+
+        # Check that the emails were sent
+        self.assertEqual(len(mail.outbox), 2)
+
+        # check that the first email is the HTML email
+        email_message = mail.outbox[0]
+        self.assertEqual(email_message.subject, "Test HTML subject")
+        self.assertEqual(email_message.alternatives, [('<h2>Test HTML content</h2>', 'text/html')])
+        self.assertEqual(email_message.body, "TEXT content")  # note: plain text will alwasy be added to body, even with alternatives
+        self.assertEqual(email_message.to, ["has.html@email.com"])
+
+        # confirm that without html_message kwarg we do not get 'alternatives'
+        email_message = mail.outbox[1]
+        self.assertEqual(email_message.subject, "Test TEXT subject")
+        self.assertEqual(email_message.alternatives, [])
+        self.assertEqual(email_message.body, "TEXT content")
+        self.assertEqual(email_message.to, ["mr.plain.text@email.com"])
 
 
 class TestTagsAutocomplete(TestCase, WagtailTestUtils):

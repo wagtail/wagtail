@@ -1,3 +1,4 @@
+import inspect
 from django.contrib.sitemaps import views as sitemap_views
 
 from .sitemap_generator import Sitemap
@@ -20,7 +21,7 @@ def prepare_sitemaps(request, sitemaps):
     """Intialize the wagtail Sitemap by passing the request.site value. """
     initialised_sitemaps = {}
     for name, sitemap_cls in sitemaps.items():
-        if issubclass(sitemap_cls, Sitemap):
+        if inspect.isclass(sitemap_cls) and issubclass(sitemap_cls, Sitemap):
             initialised_sitemaps[name] = sitemap_cls(request)
         else:
             initialised_sitemaps[name] = sitemap_cls

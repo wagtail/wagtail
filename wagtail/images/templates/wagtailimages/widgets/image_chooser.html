@@ -6,9 +6,9 @@
 {% block chosen_state_view %}
     <div class="preview-image">
         {% if image %}
-            {% image image max-165x165 class="show-transparency" %}
+            {% image image max-165x165 class="show-transparency" title=image.title %}
         {% else %}
-            <img>
+            <img alt="">
         {% endif %}
     </div>
 {% endblock %}

@@ -3,25 +3,23 @@
 {% block titletag %}{% blocktrans with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
 {% block extra_js %}
     {{ block.super }}
-    {% include "wagtailadmin/shared/datetimepicker_translations.html" %}
 
     <script>
+        $.fn.datetimepicker.defaults.i18n.wagtail_custom_locale = {
+            months: wagtailConfig.STRINGS.MONTHS,
+            dayOfWeek: wagtailConfig.STRINGS.WEEKDAYS,
+            dayOfWeekShort: wagtailConfig.STRINGS.WEEKDAYS_SHORT,
+        }
+        $.datetimepicker.setLocale('wagtail_custom_locale');
+
         $(function() {
             $('#id_date_from').datetimepicker({
                 timepicker: false,
                 format: 'Y-m-d',
-                i18n: {
-                    lang: window.dateTimePickerTranslations
-                },
-                lang: 'lang'
             });
             $('#id_date_to').datetimepicker({
                 timepicker: false,
                 format: 'Y-m-d',
-                i18n: {
-                    lang: window.dateTimePickerTranslations
-                },
-                lang: 'lang'
             });
 
             var selectAllCheckbox = document.getElementById('select-all');
@@ -84,7 +82,7 @@
     </script>
 {% endblock %}
 {% block content %}
-    <header class="nice-padding">
+    <header class="nice-padding" role="banner">
         <form action="" method="get" novalidate>
             <div class="row">
                 <div class="left">
@@ -114,7 +112,7 @@
         {% if submissions %}
             <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
                 {% include "wagtailforms/list_submissions.html" %}
-                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj is_searching=False %}
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
             </form>
         {% else %}
             <p class="no-results-message">{% blocktrans with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>

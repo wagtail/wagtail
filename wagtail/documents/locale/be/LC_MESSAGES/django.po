@@ -1,0 +1,205 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Stas Rudakou <stas@garage22.net>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail дакументы "
+
+msgid "Add"
+msgstr "Дадаць"
+
+msgid "Add/edit documents you own"
+msgstr "Дадаць/рэдагаваць дакументы, якімі вы валодаеце"
+
+msgid "Edit"
+msgstr "Рэдагаваць"
+
+msgid "Edit any document"
+msgstr "Рэдагаваць любы дакумент"
+
+msgid "title"
+msgstr "Назва"
+
+msgid "file"
+msgstr "Файл"
+
+msgid "uploaded by user"
+msgstr "Запампована карыстальнікам"
+
+msgid "tags"
+msgstr "Тэгі"
+
+msgid "document"
+msgstr "дакумент"
+
+msgid "Choose a document"
+msgstr "Абраць дакумент"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Upload"
+msgstr "Запампаваць"
+
+msgid "Uploading…"
+msgstr "Запампоўваецца..."
+
+msgid "Latest documents"
+msgstr "Апошнія дакументы"
+
+msgid "Change document:"
+msgstr "Змяніць дакумент:"
+
+msgid "Add a document"
+msgstr "Дадаць дакумент"
+
+msgid "Add document"
+msgstr "Дадаць дакумент"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Выдаліць %(title)s"
+
+msgid "Delete document"
+msgstr "Выдаліць дакумент"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Выкарыстоўваецца %(usage_count)s раз"
+msgstr[1] "Выкарыстоўваецца %(usage_count)s разы"
+msgstr[2] "Выкарыстоўваецца %(usage_count)s разоў"
+msgstr[3] "Выкарыстоўваецца %(usage_count)s разоў"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Вы ўпэўнены, што хочаце выдаліць гэты дакумент?"
+
+msgid "Yes, delete"
+msgstr "Так, выдаліць"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Рэдагаванне %(title)s"
+
+msgid "Editing"
+msgstr "Рэдагаванне"
+
+msgid "Save"
+msgstr "Захаваць"
+
+msgid "Filesize"
+msgstr "Памер файла"
+
+msgid "File not found"
+msgstr "Файл не знойдзены"
+
+msgid "Usage"
+msgstr "Выкарыстоўванне"
+
+msgid "Documents"
+msgstr "Дакументы"
+
+msgid "Title"
+msgstr "Назва"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Uploaded"
+msgstr "Запампованы"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s таму"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Выкарыстоўванне %(title)s"
+
+msgid "Type"
+msgstr "Тып"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Edit this page"
+msgstr "Рэдагаваць гэтую старонку"
+
+msgid "Add multiple documents"
+msgstr "Дадаць некалькі дакументаў"
+
+msgid "Add documents"
+msgstr "Дадаць дакументы"
+
+msgid "Add to collection:"
+msgstr "Дадаць да калекцыі:"
+
+msgid "Sorry, upload failed."
+msgstr "На жаль, не атрымалася запампаваць."
+
+msgid "Update"
+msgstr "Абнавіць"
+
+msgid "Delete"
+msgstr "Выдаліць"
+
+msgid "You need a password to access this document."
+msgstr "Патрэбны пароль, каб атрымаць доступ да гэтага дакумента."
+
+msgid "Server Error"
+msgstr "Памылка сервера"
+
+msgid "Search documents"
+msgstr "Пошул дакументаў"
+
+msgid "Document '{0}' added."
+msgstr "Дакумент '{0}' даданы."
+
+msgid "The document could not be saved due to errors."
+msgstr "Дакумент на можа быць захаваны з-за памылак."
+
+msgid "Document '{0}' updated"
+msgstr "Дакумент '{0}' абноўлены"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Файл не знойдзены. Калі ласка, змяніце крыніцу ці выдаліце дакумент."
+
+msgid "Document '{0}' deleted."
+msgstr "Дакумент '{0}' выдалены."
+
+msgid "Document"
+msgstr "Дакумент"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s дакумент"
+msgstr[1] "%(count)s дакументы"
+msgstr[2] "%(count)s дакументаў"
+msgstr[3] "%(count)s дакументаў"
+
+msgid "Choose another document"
+msgstr "Абраць іншы дакумент"
+
+msgid "Edit this document"
+msgstr "Рэдагаваць гэты дакумент"

@@ -3,7 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2017
+# Benjamin Thurm, 2018
+# Ettore Atalan <atalanttore@googlemail.com>, 2017,2019
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
@@ -11,6 +12,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# Peter Dreuw <archandha@gmx.net>, 2019
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 # Wasilis Mandratzis-Walz, 2015
@@ -18,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-09 09:54+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -40,12 +42,12 @@ msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
 msgstr ""
-"Unterstützte Dateiformate: %(supported_formats)s. Maximale Dateigrößen"
+"Unterstützte Dateiformate: %(supported_formats)s. Maximale Dateigröße: "
 "%(max_upload_size)s."
 
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
-msgstr "Unterstütze Formate: %(supported_formats)s."
+msgstr "Unterstütze Dateiformate: %(supported_formats)s."
 
 #, python-format
 msgid "Not a supported image format. Supported formats: %s."
@@ -57,11 +59,15 @@ msgstr "Kein gültiges %s Bild."
 
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
-msgstr "Die Datei ist zu groß (%%s). Maximum Dateigröße %s."
+msgstr "Die Datei ist zu groß (%%s). Maximale Dateigröße %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "Dieses Bild hat zu viele Pixel (%%). Das Maximum ist %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
-msgstr "Die Datei ist zu groß. Maximum Dateigröße %s."
+msgstr "Die Datei ist zu groß. Maximale Dateigröße %s."
 
 msgid "Full width"
 msgstr "Ganze Breite"
@@ -156,18 +162,10 @@ msgstr "Häufig verwendete Schlagwörter"
 msgid "Uploading…"
 msgstr "Lade hoch…"
 
-msgid "Server Error"
-msgstr "Server-Fehler"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
-"Information:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -175,7 +173,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Es gibt ein Ergebnis\n"
+"            Es gibt %(counter)s Ergebnis\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -190,22 +188,6 @@ msgstr "Format wählen"
 
 msgid "Insert image"
 msgstr "Bild einfügen"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Bild"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Bilder"
 
 msgid "Change image file:"
 msgstr "Bild-Datei ändern: "
@@ -241,12 +223,18 @@ msgstr "Bild %(title)s bearbeiten"
 msgid "Editing"
 msgstr "Bearbeiten"
 
-msgid "Focal point (optional)"
-msgstr "Fokuspunkt (optional)"
+msgid "URL Generator"
+msgstr "URL Generator"
+
+msgid "Focal point"
+msgstr "Fokuspunkt"
+
+msgid "(optional)"
+msgstr "(optional)"
 
 msgid ""
 "To define this image's most important region, drag a box over the image "
-"below."
+"above."
 msgstr ""
 "Zeichnen Sie eine Box auf dem Bild, um den wichtigsten Bereich des Bildes zu "
 "definieren."
@@ -256,9 +244,6 @@ msgstr "Aktueller Fokuspunkt wird angezeigt"
 
 msgid "Remove focal area"
 msgstr "Schwerpunktbereich entfernen"
-
-msgid "URL Generator"
-msgstr "URL Generator"
 
 msgid "Max dimensions"
 msgstr "Max Dimensionen"
@@ -360,6 +345,14 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Entschuldigung, der Upload ist fehlgeschlagen."
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
+"Information:"
 
 msgid "Image updated."
 msgstr "Bild geändert."

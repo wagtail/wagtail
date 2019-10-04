@@ -1,0 +1,197 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-05 05:33+0000\n"
+"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail forms"
+msgstr "Wagtail 表單"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s提交"
+
+msgid "Date from"
+msgstr "起始日起"
+
+msgid "Date to"
+msgstr "結束日期"
+
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr "%s 標簽被其它欄位使用，請更換一個標簽。"
+
+msgid "Single line text"
+msgstr "單行文本"
+
+msgid "Multi-line text"
+msgstr "多行文本"
+
+msgid "Email"
+msgstr "電子郵件"
+
+msgid "Number"
+msgstr "數字"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "檢查框"
+
+msgid "Checkboxes"
+msgstr "多選框"
+
+msgid "Drop down"
+msgstr "下拉列表框"
+
+msgid "Multiple select"
+msgstr "多選列表框"
+
+msgid "Radio buttons"
+msgstr "單選按鈕"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Date/time"
+msgstr "日期/時間"
+
+msgid "Hidden field"
+msgstr "隱藏欄位"
+
+msgid "submit time"
+msgstr "提交時間"
+
+msgid "form submission"
+msgstr "提交表格"
+
+msgid "label"
+msgstr "標簽"
+
+msgid "The label of the form field"
+msgstr "欄位的標簽"
+
+msgid "field type"
+msgstr "欄位類型"
+
+msgid "required"
+msgstr "必填"
+
+msgid "choices"
+msgstr "選項"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr "使用逗號分隔多個選項。只能用於多選框、單選按鈕和下拉列表框。"
+
+msgid "default value"
+msgstr "預設值"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr "預設值。多選框支持使用逗號分隔多個值。"
+
+msgid "help text"
+msgstr "幫助文本"
+
+msgid "Submission date"
+msgstr "提交日期"
+
+msgid "to address"
+msgstr "收件人"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr "可選 - 提交的表單將通過email發送給這些地址。多個地址請用逗號隔開。"
+
+msgid "from address"
+msgstr "發件人"
+
+msgid "subject"
+msgstr "主題"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "刪除表單數據 %(title)s"
+
+msgid "Delete form data"
+msgstr "刪除表單數據"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"                確認要刪除這些表單的提交嗎？\n"
+"            "
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Total submissions"
+msgstr "所有的提交"
+
+msgid "Latest submission"
+msgstr "上一次提交"
+
+msgid "Forms"
+msgstr "表單"
+
+msgid "Pages"
+msgstr "頁面"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "提交%(form_title)s"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "表格數據 <span>%(form_title)s</span>"
+
+msgid "Filter"
+msgstr "過濾器"
+
+msgid "Download CSV"
+msgstr "下載為CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "表格%(title)s沒有已提交的內容"
+
+msgid "Title"
+msgstr "標題"
+
+msgid "Origin"
+msgstr "原始"
+
+msgid "Delete selected submissions"
+msgstr "刪除選中提交"
+
+msgid "No form pages have been created."
+msgstr "還沒有創建表單頁面。"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "%(count)d 次提交已被刪除。"

@@ -287,7 +287,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
-        self.assertFalse(users.first().has_usable_password())
+        self.assertEqual(users.first().password, '')
 
     @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
     def test_optional_password_is_still_validated(self):
@@ -330,7 +330,6 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
-        self.assertTrue(users.first().has_usable_password())
         self.assertTrue(users.first().check_password('banana'))
 
     @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
@@ -344,7 +343,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
 
     @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
     def test_password_fields_ignored_when_disabled(self):
-        """When WAGTAILUSERS_PASSWORD_REQUIRED is False, users should always be created without a usable password"""
+        """When WAGTAILUSERS_PASSWORD_ENABLED is False, users should always be created without a usable password"""
         response = self.post({
             'username': "testuser",
             'email': "test@user.com",
@@ -361,7 +360,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         users = get_user_model().objects.filter(username='testuser')
         self.assertEqual(users.count(), 1)
         self.assertEqual(users.first().email, 'test@user.com')
-        self.assertFalse(users.first().has_usable_password())
+        self.assertEqual(users.first().password, '')
 
     def test_before_create_user_hook(self):
         def hook_func(request):
@@ -768,6 +767,29 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertEqual(user.is_superuser, True)
         # Check that the user is still active
         self.assertEqual(user.is_active, True)
+
+    def test_editing_own_password_does_not_log_out(self):
+        response = self.post({
+            'username': 'test@email.com',
+            'email': 'test@email.com',
+            'first_name': "Edited Myself",
+            'last_name': "User",
+            'password1': "c0rrecth0rse",
+            'password2': "c0rrecth0rse",
+            'is_active': 'on',
+            'is_superuser': 'on',
+        }, self.current_user.pk)
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailusers_users:index'))
+
+        # Check that the user was edited
+        user = get_user_model().objects.get(pk=self.current_user.pk)
+        self.assertEqual(user.first_name, 'Edited Myself')
+
+        # Check user is not logged out
+        response = self.client.get(reverse('wagtailusers_users:index'))
+        self.assertEqual(response.status_code, 200)
 
     def test_cannot_demote_self(self):
         """

@@ -1,0 +1,36 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# IT Management <info@itmanagement.cz>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2018-11-26 13:54+0000\n"
+"Last-Translator: IT Management <info@itmanagement.cz>\n"
+"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Wagtail table block"
+msgstr "Wagtail tabulkový odstavec"
+
+msgid "Row header"
+msgstr "Záhlaví řádku"
+
+msgid "Display the first row as a header."
+msgstr "Zobraz první řádek jako záhlaví."
+
+msgid "Column header"
+msgstr "Záhlaví sloupce"
+
+msgid "Display the first column as a header."
+msgstr "Zobraz první sloupec jako záhlaví."

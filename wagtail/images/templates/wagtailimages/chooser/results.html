@@ -4,7 +4,7 @@
     {% if is_searching %}
         <h2>
         {% blocktrans count counter=images.paginator.count %}
-            There is one match
+            There is {{ counter }} match
         {% plural %}
             There are {{ counter }} matches
         {% endblocktrans %}
@@ -12,11 +12,11 @@
     {% else %}
         <h2>{% trans "Latest images" %}</h2>
     {% endif %}
-    
+
     <ul class="listing horiz images chooser">
         {% for image in images %}
             <li>
-                <a class="image-choice" href="{% if will_select_format %}{% url 'wagtailimages:chooser_select_format' image.id %}{% else %}{% url 'wagtailimages:image_chosen' image.id %}{% endif %}">
+                <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% if will_select_format %}{% url 'wagtailimages:chooser_select_format' image.id %}{% else %}{% url 'wagtailimages:image_chosen' image.id %}{% endif %}">
                     <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
                     <h3>{{ image.title|ellipsistrim:60 }}</h3>
                 </a>
@@ -24,5 +24,5 @@
         {% endfor %}
     </ul>
 
-    {% include "wagtailadmin/shared/pagination_nav.html" with items=images is_ajax=1 %}
+    {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=images %}
 {% endif %}

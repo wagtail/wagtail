@@ -7,6 +7,7 @@ exports[`ExplorerItem children 1`] = `
   <Button
     accessibleLabel={null}
     className="c-explorer__item__link"
+    dialogTrigger={false}
     href="/admin/pages/5/"
     icon=""
     isLoading={false}
@@ -28,6 +29,7 @@ exports[`ExplorerItem children 1`] = `
   <Button
     accessibleLabel={null}
     className="c-explorer__item__action c-explorer__item__action--small"
+    dialogTrigger={false}
     href="/admin/pages/5/edit/"
     icon=""
     isLoading={false}
@@ -38,12 +40,13 @@ exports[`ExplorerItem children 1`] = `
     <Icon
       className={null}
       name="edit"
-      title="Edit"
+      title="Edit 'test'"
     />
   </Button>
   <Button
     accessibleLabel={null}
     className="c-explorer__item__action"
+    dialogTrigger={false}
     href="/admin/pages/5/"
     icon=""
     isLoading={false}
@@ -54,7 +57,7 @@ exports[`ExplorerItem children 1`] = `
     <Icon
       className={null}
       name="arrow-right"
-      title="See children"
+      title="View child pages of 'test'"
     />
   </Button>
 </div>
@@ -67,6 +70,7 @@ exports[`ExplorerItem renders 1`] = `
   <Button
     accessibleLabel={null}
     className="c-explorer__item__link"
+    dialogTrigger={false}
     href="/admin/pages/5/"
     icon=""
     isLoading={false}
@@ -83,6 +87,7 @@ exports[`ExplorerItem renders 1`] = `
   <Button
     accessibleLabel={null}
     className="c-explorer__item__action c-explorer__item__action--small"
+    dialogTrigger={false}
     href="/admin/pages/5/edit/"
     icon=""
     isLoading={false}
@@ -93,7 +98,7 @@ exports[`ExplorerItem renders 1`] = `
     <Icon
       className={null}
       name="edit"
-      title="Edit"
+      title="Edit 'test'"
     />
   </Button>
 </div>
@@ -106,6 +111,7 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
   <Button
     accessibleLabel={null}
     className="c-explorer__item__link"
+    dialogTrigger={false}
     href="/admin/pages/5/"
     icon=""
     isLoading={false}
@@ -140,6 +146,7 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
   <Button
     accessibleLabel={null}
     className="c-explorer__item__action c-explorer__item__action--small"
+    dialogTrigger={false}
     href="/admin/pages/5/edit/"
     icon=""
     isLoading={false}
@@ -150,12 +157,13 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     <Icon
       className={null}
       name="edit"
-      title="Edit"
+      title="Edit 'test'"
     />
   </Button>
   <Button
     accessibleLabel={null}
     className="c-explorer__item__action"
+    dialogTrigger={false}
     href="/admin/pages/5/"
     icon=""
     isLoading={false}
@@ -166,7 +174,7 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     <Icon
       className={null}
       name="arrow-right"
-      title="See children"
+      title="View child pages of 'test'"
     />
   </Button>
 </div>
@@ -179,6 +187,7 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
   <Button
     accessibleLabel={null}
     className="c-explorer__item__link"
+    dialogTrigger={false}
     href="/admin/pages/5/"
     icon=""
     isLoading={false}
@@ -213,6 +222,7 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
   <Button
     accessibleLabel={null}
     className="c-explorer__item__action c-explorer__item__action--small"
+    dialogTrigger={false}
     href="/admin/pages/5/edit/"
     icon=""
     isLoading={false}
@@ -223,12 +233,13 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     <Icon
       className={null}
       name="edit"
-      title="Edit"
+      title="Edit 'test'"
     />
   </Button>
   <Button
     accessibleLabel={null}
     className="c-explorer__item__action"
+    dialogTrigger={false}
     href="/admin/pages/5/"
     icon=""
     isLoading={false}
@@ -239,7 +250,7 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     <Icon
       className={null}
       name="arrow-right"
-      title="See children"
+      title="View child pages of 'test'"
     />
   </Button>
 </div>

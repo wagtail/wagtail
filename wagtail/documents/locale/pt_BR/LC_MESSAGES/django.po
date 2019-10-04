@@ -6,16 +6,16 @@
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2017
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2019
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-08-04 02:27+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Documentos Wagtail"
 
 msgid "Add"
 msgstr "Adicionar"
@@ -54,6 +57,9 @@ msgstr "tags"
 msgid "document"
 msgstr "documento"
 
+msgid "documents"
+msgstr "documentos"
+
 msgid "Choose a document"
 msgstr "Escolha um documento"
 
@@ -66,16 +72,10 @@ msgstr "Enviar"
 msgid "Uploading…"
 msgstr "Enviando…"
 
-msgid "Server Error"
-msgstr "Erro de servidor"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
-
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -83,7 +83,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Há um resultado\n"
+"            Há %(counter)s resultado\n"
 "        "
 msgstr[1] ""
 "\n"
@@ -97,6 +97,24 @@ msgstr "Últimos documentos"
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Desculpe, não há resultados de documentos para \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Você não enviou nenhum documento nesta coleção."
+
+msgid "You haven't uploaded any documents."
+msgstr "Você não enviou nenhum documento."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            Por que não <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?\n"
+"            "
 
 msgid "Change document:"
 msgstr "Alterar documento"
@@ -126,6 +144,9 @@ msgstr "Você tem certeza que deseja apagar este documento?"
 msgid "Yes, delete"
 msgstr "Sim, apague"
 
+msgid "No, don't delete"
+msgstr "Não, não apague"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Editando %(title)s"
@@ -153,6 +174,9 @@ msgstr "Título"
 
 msgid "File"
 msgstr "Arquivo"
+
+msgid "Collection"
+msgstr "Coleção"
 
 msgid "Uploaded"
 msgstr "Enviados"
@@ -199,18 +223,24 @@ msgstr "Editar esta página"
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Document\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
 "    "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Documents\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
 "    "
 msgstr[0] ""
 "\n"
-"<span>%(total)s</span> Documento"
+"        <span>%(total)s</span> Documento <span class=\"visuallyhidden"
+"\">criado em %(site_name)s</span>\n"
+"    "
 msgstr[1] ""
 "\n"
-"<span>%(total)s</span> Documentos"
+"        <span>%(total)s</span> Documentos <span class=\"visuallyhidden"
+"\">criado em %(site_name)s</span>\n"
+"    "
 
 msgid "Add multiple documents"
 msgstr "Adicionar vários documentos"
@@ -229,13 +259,13 @@ msgid "Add to collection:"
 msgstr "Adicionar a coleção:"
 
 msgid ""
-"Upload successful. Please update this documents with a more appropriate "
+"Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
-"Enviado com sucesso. Por favor, atualize estes documentos com um título mais "
+"Enviado com sucesso. Por favor, atualize este documento com um título mais "
 "apropriado, se necessário. Você também pode excluir o documento "
-"completamente se o envio não foi necessário."
+"completamente se o upload não for necessário."
 
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o envio falhou."
@@ -254,6 +284,12 @@ msgstr "Permissões de documentos"
 
 msgid "Add a document permission"
 msgstr "Adicionar uma permissão de documento"
+
+msgid "Server Error"
+msgstr "Erro de servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
 
 msgid "Search documents"
 msgstr "Buscar documentos"

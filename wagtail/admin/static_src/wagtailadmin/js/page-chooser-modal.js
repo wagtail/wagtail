@@ -25,18 +25,24 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         /* save initial page browser HTML, so that we can restore it if the search box gets cleared */
         var initialPageResultsHtml = $('.page-results', modal.body).html();
 
+        var request;
+
         function search() {
             var query = $('#id_q', modal.body).val();
             if (query != '') {
-                $.ajax({
+                request = $.ajax({
                     url: searchUrl,
                     data: {
                         q: query,
                         results_only: true
                     },
                     success: function(data, status) {
+                        request = null;
                         $('.page-results', modal.body).html(data);
                         ajaxifySearchResults();
+                    },
+                    error: function() {
+                        request = null;
                     }
                 });
             } else {
@@ -48,6 +54,9 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         }
 
         $('#id_q', modal.body).on('input', function() {
+            if(request) {
+              request.abort();
+            }
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);
@@ -67,6 +76,11 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             and the result loaded into .page-results (and ajaxified) */
             $('.page-results a.navigate-pages', modal.body).on('click', function() {
                 $('.page-results', modal.body).load(this.href, ajaxifySearchResults);
+                return false;
+            });
+            /* Set up parent navigation links (.navigate-parent) to open in the modal */
+            $('.page-results a.navigate-parent', modal.body).on('click',function() {
+                modal.loadUrl(this.href);
                 return false;
             });
         }
@@ -96,7 +110,30 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         */
         $('#id_q', modal.body).trigger('focus');
     },
+
+    'anchor_link': function(modal, jsonData) {
+        $('p.link-types a', modal.body).on('click', function() {
+            modal.loadUrl(this.href);
+            return false;
+        });
+
+        $('form', modal.body).on('submit', function() {
+            modal.postForm(this.action, $(this).serialize());
+            return false;
+        });
+    },
     'email_link': function(modal, jsonData) {
+        $('p.link-types a', modal.body).on('click', function() {
+            modal.loadUrl(this.href);
+            return false;
+        });
+
+        $('form', modal.body).on('submit', function() {
+            modal.postForm(this.action, $(this).serialize());
+            return false;
+        });
+    },
+    'phone_link': function(modal, jsonData) {
         $('p.link-types a', modal.body).on('click', function() {
             modal.loadUrl(this.href);
             return false;
@@ -121,5 +158,5 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'external_link_chosen': function(modal, jsonData) {
         modal.respond('pageChosen', jsonData['result']);
         modal.close();
-    }
+    },
 };

@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# shuhei hirota, 2019
+# Tri Minh <minh.nguyentri.95@gmail.com>, 2019
+# 溝江 智徳 <tomo.mizoe@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-06-04 02:07+0000\n"
+"Last-Translator: 溝江 智徳 <tomo.mizoe@gmail.com>\n"
+"Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "%(setting_type_name)s - %(instance)s を編集"
+
+msgid "Editing"
+msgstr "編集中"
+
+msgid "Saving…"
+msgstr "保存中"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "サイトが定義されていないため、この設定を開けません。"
+
+msgid "{setting_type} updated."
+msgstr "{setting_type} が更新されました。"
+
+msgid "The setting could not be saved due to errors."
+msgstr "エラーが発生したため、サイトを保存できませんでした。"

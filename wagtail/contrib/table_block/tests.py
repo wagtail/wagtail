@@ -3,7 +3,6 @@ import json
 from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 from django.utils import translation
-from django.utils.html import escape
 
 from wagtail.contrib.table_block.blocks import DEFAULT_TABLE_OPTIONS, TableBlock
 from wagtail.core.models import Page
@@ -11,45 +10,7 @@ from wagtail.tests.testapp.models import TableBlockStreamPage
 from wagtail.tests.utils import WagtailTestUtils
 
 
-def tiny_escape(val):
-    """
-    Helper function used in building a test html
-    table.
-    """
-    return '' if val is None else escape(val)
-
-
-def get_test_html_from_value(value):
-    """
-    Generate a test html from a TableBlock value.
-    Individual column values are escaped because
-    that's what we expect from the TableBlock.
-    """
-    data = list(value['data'])  # Make a copy
-    table = '<table>'
-    if value['first_row_is_table_header']:
-        row_header = data.pop(0)
-        table += '<thead><tr>'
-        for th in row_header:
-            table += '<th>%s</th>' % tiny_escape(th)
-        table += '</tr></thead>'
-    table += '<tbody>'
-    for row in data:
-        table += '<tr>'
-        first = True
-        for col in row:
-            if value['first_col_is_header'] and first:
-                table += '<th>%s</th>' % tiny_escape(col)
-            else:
-                table += '<td>%s</td>' % tiny_escape(col)
-            first = False
-        table += '</tr>'
-    table += '</tbody></table>'
-    return table
-
-
-class TestTableBlockRenderingBase(TestCase):
-
+class TestTableBlock(TestCase):
     def setUp(self):
         self.default_table_options = {
             'minSpareRows': 0,
@@ -66,15 +27,6 @@ class TestTableBlockRenderingBase(TestCase):
             'autoColumnSize': False,
         }
 
-        self.default_value = {'first_row_is_table_header': False,
-                              'first_col_is_header': False, 'data': [[None, None, None],
-                                                                     [None, None, None], [None, None, None]]}
-
-        self.default_expected = get_test_html_from_value(self.default_value)
-
-
-class TestTableBlock(TestTableBlockRenderingBase):
-
     def test_table_block_render(self):
         """
         Test a generic render.
@@ -84,7 +36,41 @@ class TestTableBlock(TestTableBlockRenderingBase):
                           [None, None, None]]}
         block = TableBlock()
         result = block.render(value)
-        expected = get_test_html_from_value(value)
+        expected = """
+            <table role="table">
+                <tbody>
+                    <tr><td>Test 1</td><td>Test 2</td><td>Test 3</td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
+
+        self.assertHTMLEqual(result, expected)
+        self.assertIn('Test 2', result)
+
+    def test_table_block_alignment_render(self):
+        """
+        Test a generic render with some cells aligned.
+        """
+        value = {'first_row_is_table_header': True, 'first_col_is_header': False,
+                 'cell': [{'row': 0, 'col': 1, 'className': 'htLeft'},
+                          {'row': 1, 'col': 1, 'className': 'htRight'}],
+                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, None, None],
+                          [None, None, None]]}
+        block = TableBlock()
+        result = block.render(value)
+        expected = """
+            <table role="table">
+                <thead>
+                    <tr><th>Test 1</th><th class="htLeft">Test 2</th><th>Test 3</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td></td><td class="htRight"></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
 
         self.assertHTMLEqual(result, expected)
         self.assertIn('Test 2', result)
@@ -94,8 +80,25 @@ class TestTableBlock(TestTableBlockRenderingBase):
         An empty table should render okay.
         """
         block = TableBlock()
-        result = block.render(self.default_value)
-        self.assertHTMLEqual(result, self.default_expected)
+        result = block.render({
+            'first_row_is_table_header': False,
+            'first_col_is_header': False,
+            'data': [
+                [None, None, None],
+                [None, None, None],
+                [None, None, None]
+            ]
+        })
+        expected = """
+            <table role="table">
+                <tbody>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
+        self.assertHTMLEqual(result, expected)
 
     def test_do_not_render_html(self):
         """
@@ -106,7 +109,15 @@ class TestTableBlock(TestTableBlockRenderingBase):
                  'data': [['<p><strong>Test</strong></p>', None, None], [None, None, None],
                           [None, None, None]]}
 
-        expected = get_test_html_from_value(value)
+        expected = """
+            <table role="table">
+                <tbody>
+                    <tr><td>&lt;p&gt;&lt;strong&gt;Test&lt;/strong&gt;&lt;/p&gt;</td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
 
         block = TableBlock()
         result = block.render(value)
@@ -119,7 +130,17 @@ class TestTableBlock(TestTableBlockRenderingBase):
         value = {'first_row_is_table_header': True, 'first_col_is_header': False,
                  'data': [['Foo', 'Bar', 'Baz'], [None, None, None], [None, None, None]]}
 
-        expected = get_test_html_from_value(value)
+        expected = """
+            <table role="table">
+                <thead>
+                    <tr><th>Foo</th><th>Bar</th><th>Baz</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
         block = TableBlock()
         result = block.render(value)
         self.assertHTMLEqual(result, expected)
@@ -131,7 +152,15 @@ class TestTableBlock(TestTableBlockRenderingBase):
         value = {'first_row_is_table_header': False, 'first_col_is_header': True,
                  'data': [['Foo', 'Bar', 'Baz'], ['one', 'two', 'three'], ['four', 'five', 'six']]}
 
-        expected = get_test_html_from_value(value)
+        expected = """
+            <table role="table">
+                <tbody>
+                    <tr><th>Foo</th><td>Bar</td><td>Baz</td></tr>
+                    <tr><th>one</th><td>two</td><td>three</td></tr>
+                    <tr><th>four</th><td>five</td><td>six</td></tr>
+                </tbody>
+            </table>
+        """
         block = TableBlock()
         result = block.render(value)
         self.assertHTMLEqual(result, expected)
@@ -143,7 +172,17 @@ class TestTableBlock(TestTableBlockRenderingBase):
         value = {'first_row_is_table_header': True, 'first_col_is_header': True,
                  'data': [['Foo', 'Bar', 'Baz'], ['one', 'two', 'three'], ['four', 'five', 'six']]}
 
-        expected = get_test_html_from_value(value)
+        expected = """
+            <table role="table">
+                <thead>
+                    <tr><th>Foo</th><th>Bar</th><th>Baz</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th>one</th><td>two</td><td>three</td></tr>
+                    <tr><th>four</th><td>five</td><td>six</td></tr>
+                </tbody>
+            </table>
+        """
         block = TableBlock()
         result = block.render(value)
         self.assertHTMLEqual(result, expected)
@@ -202,6 +241,30 @@ class TestTableBlock(TestTableBlockRenderingBase):
         self.assertIn("<div>A fascinating table.</div>", result)
 
 
+    def test_table_block_caption_render(self):
+        """
+        Test a generic render with caption.
+        """
+        value = {'table_caption': 'caption', 'first_row_is_table_header': False,
+                 'first_col_is_header': False,
+                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, None, None],
+                          [None, None, None]]}
+        block = TableBlock()
+        result = block.render(value)
+        expected = """
+            <table role="table">
+                <caption>caption</caption>
+                <tbody>
+                    <tr><td>Test 1</td><td>Test 2</td><td>Test 3</td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
+        self.assertHTMLEqual(result, expected)
+        self.assertIn('Test 2', result)
+
+
 class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
 
     def setUp(self):
@@ -219,8 +282,6 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         }
         # set language from testing envrionment
         language = translation.get_language()
-        if language is not None and len(language) > 2:
-            language = language[:2]
 
         self.default_table_options = DEFAULT_TABLE_OPTIONS.copy()
         self.default_table_options['language'] = language
@@ -251,7 +312,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         # French
         translation.activate('fr-fr')
         block_fr = TableBlock()
-        self.assertEqual('fr', block_fr.table_options['language'])
+        self.assertEqual('fr-fr', block_fr.table_options['language'])
         translation.activate('it')
         # Italian
         block_it = TableBlock()
@@ -354,6 +415,6 @@ class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Battlestar')
         self.assertContains(response, 'Galactica')
         # check init
-        self.assertContains(response, 'initTable("table-0-value"')
+        self.assertContains(response, 'initTable("table\\u002D0\\u002Dvalue"')
         self.assertContains(response, 'minSpareRows')
         self.assertContains(response, 'startRows')

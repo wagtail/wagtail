@@ -5,13 +5,9 @@ from django import forms
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
-
-# unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
-# return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
-# calls force_text, which would cause it to lose its 'safe' flag
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
 
@@ -101,7 +97,7 @@ class Block(metaclass=BaseBlock):
     def set_name(self, name):
         self.name = name
         if not self.meta.label:
-            self.label = capfirst(force_text(name).replace('_', ' '))
+            self.label = capfirst(force_str(name).replace('_', ' '))
 
     @property
     def media(self):
@@ -256,7 +252,7 @@ class Block(metaclass=BaseBlock):
         Return a text rendering of 'value', suitable for display on templates. render() will fall back on
         this if the block does not define a 'template' property.
         """
-        return force_text(value)
+        return force_str(value)
 
     def get_searchable_content(self, value):
         """
@@ -485,7 +481,7 @@ class BlockWidget(forms.Widget):
         super().__init__(attrs=attrs)
         self.block_def = block_def
 
-    def render_with_errors(self, name, value, attrs=None, errors=None):
+    def render_with_errors(self, name, value, attrs=None, errors=None, renderer=None):
         bound_block = self.block_def.bind(value, prefix=name, errors=errors)
         js_initializer = self.block_def.js_initializer()
         if js_initializer:
@@ -501,12 +497,16 @@ class BlockWidget(forms.Widget):
             js_snippet = ''
         return mark_safe(bound_block.render_form() + js_snippet)
 
-    def render(self, name, value, attrs=None):
-        return self.render_with_errors(name, value, attrs=attrs, errors=None)
+    def render(self, name, value, attrs=None, renderer=None):
+        return self.render_with_errors(name, value, attrs=attrs, errors=None, renderer=renderer)
 
     @property
     def media(self):
-        return self.block_def.all_media()
+        return self.block_def.all_media() + forms.Media(
+            css={'all': [
+                'wagtailadmin/css/panels/streamfield.css',
+            ]}
+        )
 
     def value_from_datadict(self, data, files, name):
         return self.block_def.value_from_datadict(data, files, name)

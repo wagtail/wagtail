@@ -1,0 +1,36 @@
+// Loading mask: overlays a certain area with a loading spinner and a faded out cover to prevent interaction
+.loading-mask {
+    &.loading {
+        position: relative;
+
+        &:before,
+        &:after {
+            position: absolute;
+            display: block;
+        }
+
+        &:before {
+            content: '';
+            top: -5px;
+            left: -5px;
+            bottom: -5px;
+            right: -5px;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        &:after {
+            font-size: 30px;
+            width: 30px;
+            line-height: 30px;
+            left: 50%;
+            top: 50%;
+            margin: -15px 0 0 -15px;
+            font-family: wagtail;
+            animation: spin 0.5s infinite linear;
+            content: map-get($icons, 'spinner');
+            z-index: 2;
+            color: $color-teal;
+        }
+    }
+}

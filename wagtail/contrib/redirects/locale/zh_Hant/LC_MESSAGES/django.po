@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-05 06:28+0000\n"
+"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtail 重定向"
+
+msgid "From site"
+msgstr "來自站點"
+
+msgid "All sites"
+msgstr "全部站點"
+
+msgid "A redirect with this path already exists."
+msgstr "使用此路徑的重定向已被占用。"
+
+msgid "redirect from"
+msgstr "重定向自"
+
+msgid "site"
+msgstr "站點"
+
+msgid "permanent"
+msgstr "永久"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr "推薦。永久重定向保證搜索引擎忘掉舊頁面轉而抓取索引新頁面。"
+
+msgid "redirect to a page"
+msgstr "重定向到頁面"
+
+msgid "redirect to any URL"
+msgstr "重定向到任意URL"
+
+msgid "temporary"
+msgstr "臨時的"
+
+msgid "redirect"
+msgstr "重定向"
+
+msgid "Add redirect"
+msgstr "增加重定向"
+
+msgid "Save"
+msgstr "儲存"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "刪除重定向%(title)s"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "確認刪除此重定向？"
+
+msgid "Yes, delete"
+msgstr "是的。刪除。"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "編輯 %(title)s"
+
+msgid "Editing"
+msgstr "編輯"
+
+msgid "Delete redirect"
+msgstr "刪除重定向"
+
+msgid "Redirects"
+msgstr "重定向"
+
+msgid "From"
+msgstr "從"
+
+msgid "Site"
+msgstr "站點"
+
+msgid "To"
+msgstr " 到"
+
+msgid "Type"
+msgstr "類型"
+
+msgid "Edit this redirect"
+msgstr "編輯重定向"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr "對不起，沒有重定向符合\"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"還沒有創建過重定向呢。為何不 <a href=\"%(wagtailredirects_add_redirect_url)s"
+"\">創建一個</a>?"
+
+msgid "Search redirects"
+msgstr "搜索重定向"
+
+msgid "Redirect '{0}' updated."
+msgstr "重定向'{0}'已更新"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "重定向不能儲存。出現錯誤。"
+
+msgid "Redirect '{0}' deleted."
+msgstr "重定向 '{0}'已刪除"
+
+msgid "Redirect '{0}' added."
+msgstr "重定向 '{0}'已增加"
+
+msgid "The redirect could not be created due to errors."
+msgstr "重定向無法創建。出現錯誤。"

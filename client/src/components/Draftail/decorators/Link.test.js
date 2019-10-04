@@ -56,6 +56,20 @@ describe('Link', () => {
       });
     });
 
+    it('phone', () => {
+      expect(getLinkAttributes({ url: 'tel:+46700000000' })).toMatchObject({
+        url: 'tel:+46700000000',
+        label: '+46700000000',
+      });
+    });
+
+    it('anchor', () => {
+      expect(getLinkAttributes({ url: '#testanchor' })).toMatchObject({
+        url: '#testanchor',
+        label: '#testanchor',
+      });
+    });
+
     it('external', () => {
       expect(getLinkAttributes({ url: 'http://www.ex.com/' })).toMatchObject({
         url: 'http://www.ex.com/',
@@ -64,7 +78,7 @@ describe('Link', () => {
     });
 
     it('no data', () => {
-      expect(getLinkAttributes({})).toMatchObject({ url: '' });
+      expect(getLinkAttributes({})).toMatchObject({ url: null, label: 'Broken link' });
     });
   });
 });

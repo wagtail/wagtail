@@ -1,6 +1,4 @@
-@import 'wagtailadmin/scss/variables';
-@import 'wagtailadmin/scss/mixins';
-@import 'wagtailadmin/scss/grid';
+@import 'wagtailadmin/scss/helpers';
 
 .page404__bg {
     position: fixed;
@@ -63,14 +61,14 @@ a.button.page404__button { // more specific to override standard button styles
 }
 
 // SMALL DESKTOP CHANGES:
-@media screen and (max-width: $breakpoint-desktop-small) { // 900px
+@include media-breakpoint-down(sm) {
     .wagtail-logo-container__desktop {
         display: none;
     }
 }
 
 // MOBILE CHANGES:
-@media screen and (max-width: $breakpoint-mobile) { // 800px
+@include media-breakpoint-down(xs) {
     .page404__text-container {
         width: 400px;
     }

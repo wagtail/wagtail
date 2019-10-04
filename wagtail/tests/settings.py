@@ -41,13 +41,14 @@ SECRET_KEY = 'not needed'
 ROOT_URLCONF = 'wagtail.tests.urls'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = STATIC_ROOT
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
 USE_TZ = True
+
+LANGUAGE_CODE = "en"
 
 TEMPLATES = [
     {
@@ -88,10 +89,12 @@ MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
+    'wagtail.tests.middleware.BlockDodgyUserAgentMiddleware',
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
@@ -155,6 +158,7 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
 )
 
+ALLOWED_HOSTS = ['localhost', 'testserver']
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {

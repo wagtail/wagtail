@@ -4,14 +4,16 @@
 #
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2016
+# Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>, 2019
+# Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-08-30 10:07+0000\n"
+"Last-Translator: Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail images"
+msgstr "Wagtailの画像"
 
 msgid "GIF, JPEG, PNG"
 msgstr "GIF, JPEG, PNG"
@@ -50,6 +55,15 @@ msgstr "このファイルは大きすぎます（%%s）。ファイルサイズ
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "このファイルは大きすぎます。ファイルサイズの上限は%sです。"
+
+msgid "Full width"
+msgstr "最大幅"
+
+msgid "Left-aligned"
+msgstr "左揃え"
+
+msgid "Right-aligned"
+msgstr "右揃え"
 
 msgid "Filter"
 msgstr "フィルタ"
@@ -84,6 +98,9 @@ msgstr "近さ"
 msgid "Edit"
 msgstr "編集"
 
+msgid "Edit any image"
+msgstr "画像を編集する"
+
 msgid "title"
 msgstr "タイトル"
 
@@ -105,6 +122,12 @@ msgstr "アップロードしたユーザ"
 msgid "tags"
 msgstr "タグ"
 
+msgid "image"
+msgstr "画像"
+
+msgid "images"
+msgstr "画像"
+
 msgid "Choose an image"
 msgstr "画像を選択"
 
@@ -120,19 +143,6 @@ msgstr "人気のタグ"
 msgid "Uploading…"
 msgstr "アップロード中…"
 
-#, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"%(counter)s件の一致があります"
-
 msgid "Latest images"
 msgstr "最近の画像"
 
@@ -141,19 +151,6 @@ msgstr "フォーマットを選択"
 
 msgid "Insert image"
 msgstr "画像を挿入"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span>枚の画像"
 
 msgid "Change image file:"
 msgstr "画像ファイルを変更"
@@ -183,19 +180,17 @@ msgstr "%(title)sの画像を編集"
 msgid "Editing"
 msgstr "編集"
 
-msgid "Focal point (optional)"
-msgstr "焦点（オプション）"
+msgid "URL Generator"
+msgstr "URLを生成"
 
-msgid ""
-"To define this image's most important region, drag a box over the image "
-"below."
-msgstr "この画像でもっとも際立たせたい部分を四角で選択してください。"
+msgid "Focal point"
+msgstr "焦点"
+
+msgid "(optional)"
+msgstr "(任意)"
 
 msgid "Current focal point shown"
 msgstr "現在の焦点が表示されています。"
-
-msgid "URL Generator"
-msgstr "URLを生成"
 
 msgid "Max dimensions"
 msgstr "最大の寸法"
@@ -206,8 +201,14 @@ msgstr "ファイルサイズ"
 msgid "File not found"
 msgstr "ファイルは見つかりませんでした"
 
+msgid "Usage"
+msgstr "使用法"
+
 msgid "Images"
 msgstr "画像"
+
+msgid "pixels"
+msgstr "ピクセル"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -311,6 +312,12 @@ msgstr "画像 '{0}' が追加されました。 "
 
 msgid "The image could not be created due to errors."
 msgstr "この画像はエラーにより生成できませんでした。 "
+
+msgid "Image"
+msgstr "画像"
+
+msgid "Change image"
+msgstr "画像を変更"
 
 msgid "Edit this image"
 msgstr "画像を編集"

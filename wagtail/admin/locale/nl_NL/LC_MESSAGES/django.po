@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2017
+# Meteor 0id, 2019
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 09:32+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-20 23:35+0000\n"
+"Last-Translator: Meteor 0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +22,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Dien in ter controle"
+
+msgid "Unpublish"
+msgstr "Publicatie intrekken"
+
+msgid "Delete"
+msgstr "Verwijder"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -45,15 +56,6 @@ msgstr "Eigenschappen"
 msgid "Settings"
 msgstr "Instellingen"
 
-msgid "Search"
-msgstr "Zoeken"
-
-msgid "Search term"
-msgstr "Zoekterm"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Voer wachtwoord in"
 
@@ -63,6 +65,14 @@ msgstr "Voer uw %s in"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vul uw e-mailadres in om uw wachtwoord te herstellen"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Het is niet mogelijk om meerdere machtigingen voor dezelfde collectie in te "
+"stellen."
 
 msgid "New title"
 msgstr "Nieuwe titel"
@@ -126,15 +136,6 @@ msgstr ""
 "Het is niet mogelijk een pagina naar zichzelf te kopiëren bij het kopiëren "
 "van onderliggende pagina's"
 
-msgid "Visibility"
-msgstr "Zichtbaarheid"
-
-msgid "This field is required."
-msgstr "Dit is een verplicht veld."
-
-msgid "Please select at least one group."
-msgstr "Selecteer minimaal één groep."
-
 msgid "This slug is already in use"
 msgstr "Deze slug is al in gebruik"
 
@@ -144,10 +145,20 @@ msgstr "Publicatiedatum/tijd moet voor de vervaldatum/tijd liggen."
 msgid "Expiry date/time must be in the future"
 msgstr "Vervaldatum moet in de toekomst liggen"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr ""
-"Het is niet mogelijk om meerdere machtigingen voor dezelfde collectie in te "
-"stellen."
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Search term"
+msgstr "Zoekterm"
+
+msgid "Visibility"
+msgstr "Zichtbaarheid"
+
+msgid "This field is required."
+msgstr "Dit is een verplicht veld."
+
+msgid "Please select at least one group."
+msgstr "Selecteer minimaal één groep."
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pagina niet gevonden"
@@ -240,12 +251,6 @@ msgstr "Wachtwoord herstel"
 msgid "Reset your password"
 msgstr "Reset uw wachtwoord"
 
-msgid "Edit"
-msgstr "Wijzig"
-
-msgid "Delete"
-msgstr "Verwijder"
-
 msgid "Page"
 msgstr "Pagina"
 
@@ -261,11 +266,8 @@ msgstr "Geen resultaten"
 msgid "Server Error"
 msgstr "Server error"
 
-msgid "See children"
-msgstr "Bekijk onderliggende"
-
 msgid "See all"
-msgstr "Zie alles"
+msgstr "Toon"
 
 msgid "Close explorer"
 msgstr "Sluit verkenner"
@@ -306,6 +308,93 @@ msgstr ""
 "De editor is vastgelopen. Inhoud is terug gezet naar de laatst opgeslagen "
 "versie."
 
+msgid "Broken link"
+msgstr "Defecte link"
+
+msgid "Missing document"
+msgstr "Ontbrekend document"
+
+msgid "Close"
+msgstr "Sluit"
+
+msgid "January"
+msgstr "januari"
+
+msgid "February"
+msgstr "februari"
+
+msgid "March"
+msgstr "maart"
+
+msgid "April"
+msgstr "april"
+
+msgid "May"
+msgstr "mei"
+
+msgid "June"
+msgstr "juni"
+
+msgid "July"
+msgstr "juli"
+
+msgid "August"
+msgstr "augustus"
+
+msgid "September"
+msgstr "september"
+
+msgid "October"
+msgstr "oktober"
+
+msgid "November"
+msgstr "november"
+
+msgid "December"
+msgstr "december"
+
+msgid "Sunday"
+msgstr "Zondag"
+
+msgid "Monday"
+msgstr "Maandag"
+
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+msgid "Wednesday"
+msgstr "Woensdag"
+
+msgid "Thursday"
+msgstr "Donderdag"
+
+msgid "Friday"
+msgstr "Vrijdag"
+
+msgid "Saturday"
+msgstr "Zaterdag"
+
+msgid "Sun"
+msgstr "Zo"
+
+msgid "Mon"
+msgstr "Ma"
+
+msgid "Tue"
+msgstr "Di"
+
+msgid "Wed"
+msgstr "Wo"
+
+msgid "Thu"
+msgstr "Do"
+
+msgid "Fri"
+msgstr "Vr"
+
+msgid "Sat"
+msgstr "Za"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -336,7 +425,7 @@ msgstr "Email link"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -344,7 +433,7 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"Er is één resultaat"
+"Er is %(counter)s resultaat"
 msgstr[1] ""
 "\n"
 "Er zijn %(counter)s resultaten"
@@ -466,11 +555,17 @@ msgstr "Gewijzigd"
 msgid "Edit this page"
 msgstr "Wijzig deze pagina"
 
+msgid "Preview this page"
+msgstr "Toon voorbeeld van deze pagina"
+
 msgid "Approve"
 msgstr "Keur goed"
 
 msgid "Reject"
 msgstr "Keur af"
+
+msgid "Edit"
+msgstr "Wijzig"
 
 msgid "Preview"
 msgstr "Voorbeeld"
@@ -496,22 +591,6 @@ msgstr "Live"
 
 msgid "Site summary"
 msgstr "Site samenvatting"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Pagina"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Pagina's"
 
 msgid "Sign in"
 msgstr "Inloggen"
@@ -589,6 +668,15 @@ msgstr "Geblokkeerd"
 
 msgid "Unlocked"
 msgstr "Gedeblokkeerd"
+
+msgid "Publishing…"
+msgstr "Bezig met publiceren..."
+
+msgid "Publish this revision"
+msgstr "Publiceer deze versie"
+
+msgid "Publish"
+msgstr "Publiceer"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -670,9 +758,6 @@ msgstr "Ja, verplaats deze pagina"
 msgid "Unpublish %(title)s"
 msgstr "Publicatie intrekken van %(title)s"
 
-msgid "Unpublish"
-msgstr "Publicatie intrekken"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Weet u zeker dat u de publicatie van deze pagina wilt intrekken?"
 
@@ -730,15 +815,6 @@ msgstr "Bezig met opslaan…"
 msgid "Save draft"
 msgstr "Bewaar concept"
 
-msgid "Publishing…"
-msgstr "Bezig met publiceren..."
-
-msgid "Publish"
-msgstr "Publiceer"
-
-msgid "Submit for moderation"
-msgstr "Dien in ter controle"
-
 msgid "This page has unsaved changes."
 msgstr "Deze pagina heeft wijzigingen die nog niet zijn opgeslagen."
 
@@ -755,9 +831,6 @@ msgstr "Pagina is geblokkeerd"
 
 msgid "Replace current draft"
 msgstr "Vervang huidig concept"
-
-msgid "Publish this revision"
-msgstr "Publiceer deze versie"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -896,8 +969,8 @@ msgstr "Deze pagina is beveiligd voor het publiek"
 msgid "Disable ordering of child pages"
 msgstr "Schakel ordening van onderliggende pagina's uit"
 
-msgid "Order"
-msgstr "Volgorde"
+msgid "Sort"
+msgstr "Sorteer"
 
 msgid "Enable ordering of child pages"
 msgstr "Schakel ordening van onderliggende pagina's in"
@@ -925,9 +998,6 @@ msgstr ""
 "nog foutmeldingen zijn.\n"
 "Sluit dit tab, bewerk de pagina om de fouten te verbeteren,\n"
 "en bekijk daarna het voorbeeld opnieuw."
-
-msgid "Close"
-msgstr "Sluit"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1054,6 +1124,9 @@ msgstr[1] ""
 "\n"
 "Er zijn %(counter)s pagina's gevonden"
 
+msgid "Page types"
+msgstr "Pagina types"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1068,6 +1141,13 @@ msgstr "Geen pagina's maken gebruik van"
 msgid "Collection"
 msgstr "Collectie"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Pagina %(page_num)s van %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Broodkruimel"
+
 msgid "Root"
 msgstr "Root"
 
@@ -1077,63 +1157,6 @@ msgstr "Home"
 msgid "All collections"
 msgstr "Alle collecties"
 
-msgid "January"
-msgstr "januari"
-
-msgid "February"
-msgstr "februari"
-
-msgid "March"
-msgstr "maart"
-
-msgid "April"
-msgstr "april"
-
-msgid "May"
-msgstr "mei"
-
-msgid "June"
-msgstr "juni"
-
-msgid "July"
-msgstr "juli"
-
-msgid "August"
-msgstr "augustus"
-
-msgid "September"
-msgstr "september"
-
-msgid "October"
-msgstr "oktober"
-
-msgid "November"
-msgstr "november"
-
-msgid "December"
-msgstr "december"
-
-msgid "Sun"
-msgstr "Zo"
-
-msgid "Mon"
-msgstr "Ma"
-
-msgid "Tue"
-msgstr "Di"
-
-msgid "Wed"
-msgstr "Wo"
-
-msgid "Thu"
-msgstr "Do"
-
-msgid "Fri"
-msgstr "Vr"
-
-msgid "Sat"
-msgstr "Za"
-
 msgid "Edit your account"
 msgstr "Wijzig uw account"
 
@@ -1142,10 +1165,6 @@ msgstr "Accountinstellingen"
 
 msgid "Log out"
 msgstr "Uitloggen"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pagina %(page_num)s van %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Andere zoekacties"
@@ -1164,15 +1183,16 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
-"JavaScript is benodigd voor Wagtail maar is nu uitgeschakeld.<br />\n"
-"<a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener\">Hier staan de instructies om JavaScript in uw browser aan te "
-"zetten</a>."
+"Om Wagtail te kunnen gebruiken is Javascript vereist. Dit staat momenteel "
+"uitgeschakeld. <br />\n"
+"De <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
+"\"noopener noreferrer\">instructies om om javascript in te schakelen zijn "
+"hier te vinden</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail admin interface"
@@ -1185,6 +1205,9 @@ msgstr "Toon in verkenner"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabisch"
 
 msgid "Catalan"
 msgstr "Catalaans"
@@ -1210,6 +1233,9 @@ msgstr "Frans"
 msgid "Galician"
 msgstr "Galicisch"
 
+msgid "Indonesian"
+msgstr "Indonesisch"
+
 msgid "Icelandic"
 msgstr "IJslands"
 
@@ -1221,6 +1247,9 @@ msgstr "Koreaans"
 
 msgid "Lithuanian"
 msgstr "Litouws"
+
+msgid "Mongolian"
+msgstr "Mongools"
 
 msgid "Norwegian Bokmål"
 msgstr "Noors Bokmål"
@@ -1252,11 +1281,17 @@ msgstr "Zweeds"
 msgid "Slovak"
 msgstr "Slowaaks"
 
+msgid "Thai"
+msgstr "Thais"
+
 msgid "Ukrainian"
 msgstr "Oekraïens"
 
-msgid "Chinese (China)"
-msgstr "Chinees (China)"
+msgid "Chinese (Simplified)"
+msgstr "Chinees (Vereenvoudigd)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinees (Traditioneel)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sorry, u heeft geen toegang tot dit gedeelte."
@@ -1265,13 +1300,13 @@ msgid "Your password has been changed successfully!"
 msgstr "Uw wachtwoord is succesvol gewijzigd!"
 
 msgid "Your email has been changed successfully!"
-msgstr "Je email is succesvol gewijzigd!"
+msgstr "Uw e-mailadres is succesvol gewijzigd!"
 
 msgid "Your preferences have been updated."
 msgstr "Uw voorkeuren zijn aangepast."
 
 msgid "Your preferences have been updated successfully!"
-msgstr "Je instellingen zijn succesvol gewijzigd!"
+msgstr "Uw instellingen zijn succesvol gewijzigd!"
 
 msgid "You have been successfully logged out."
 msgstr "U bent succesvol uitgelogd."
@@ -1372,6 +1407,13 @@ msgstr "Pagina '{0}' verwijderd."
 msgid "Page '{0}' unpublished."
 msgstr "Publicatie van pagina '{0}' is ingetrokken."
 
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"De slug '{0}' is al in gebruik bij de geselecteerde bovenliggende pagina. Ga "
+"na dat de slug uniek is en probeer het opnieuw"
+
 msgid "Page '{0}' moved."
 msgstr "Pagina '{0}' is verplaatst."
 
@@ -1397,7 +1439,7 @@ msgid "Failed to send rejection notifications"
 msgstr "Het versturen van afkeuringsnotificaties is mislukt"
 
 msgid "Page '{0}' is now locked."
-msgstr "Pagina '{0}' is nu op slot."
+msgstr "Pagina '{0}' is nu vergrendeld."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is nu geopend."
@@ -1456,16 +1498,16 @@ msgid "View revision history for '{title}'"
 msgstr "Bekijk de versiegeschiedenis van '{title}' "
 
 msgid "Set profile picture"
-msgstr "Zet profiel foto"
+msgstr "Profielfoto instellen"
 
 msgid "Change your profile picture"
-msgstr "Wijzig je profiel foto"
+msgstr "Wijzig uw profielfoto."
 
 msgid "Change the email address linked to your account."
-msgstr "Wijzig je email adres welke is gelinkt aan je account"
+msgstr "Wijzig het e-mailadres dat aan uw account is gekoppeld."
 
 msgid "Change the password you use to log in."
-msgstr "Wijzig het wachtwoord dat u gebruikt om mee in te loggen."
+msgstr "Wijzig het wachtwoord waarmee u inlogt."
 
 msgid "Choose which email notifications to receive."
 msgstr "Kies hier welke e-mailnotificaties u wilt ontvangen."
@@ -1477,19 +1519,22 @@ msgid "Choose the language you want to use here."
 msgstr "Kies de taal die u hier wilt gebruiken."
 
 msgid "Current Time Zone"
-msgstr "Huidige tijd zone"
+msgstr "Huidige tijdzone"
 
 msgid "Choose your current time zone."
-msgstr "Wijzig je huidige tijd zone."
+msgstr "Wijzig uw tijdzone"
 
 msgid "Heading {level}"
-msgstr "Heading {level}"
+msgstr "Kop {level}"
 
 msgid "Bulleted list"
 msgstr "Lijst met opsommingstekens"
 
 msgid "Numbered list"
 msgstr "Genummerde lijst"
+
+msgid "Blockquote"
+msgstr "Blokquote"
 
 msgid "Bold"
 msgstr "Bold"
@@ -1499,6 +1544,18 @@ msgstr "Italic"
 
 msgid "Link"
 msgstr "Link"
+
+msgid "Superscript"
+msgstr "Bovenschrift"
+
+msgid "Subscript"
+msgstr "Onderschrift"
+
+msgid "Strikethrough"
+msgstr "Doorstreep"
+
+msgid "Code"
+msgstr "Code"
 
 msgid "Choose an item"
 msgstr "Kies een item"

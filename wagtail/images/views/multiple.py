@@ -2,11 +2,12 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
-from wagtail.admin.utils import PermissionPolicyChecker
+from wagtail.admin.auth import PermissionPolicyChecker
+from wagtail.core.models import Collection
 from wagtail.images import get_image_model
 from wagtail.images.fields import ALLOWED_EXTENSIONS
 from wagtail.images.forms import get_image_form
@@ -42,7 +43,7 @@ def add(request):
 
     collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
     if len(collections) > 1:
-        collections_to_choose = collections
+        collections_to_choose = Collection.order_for_display(collections)
     else:
         # no need to show a collections chooser
         collections_to_choose = None
@@ -69,6 +70,7 @@ def add(request):
             image.file_size = image.file.size
             image.file.seek(0)
             image._set_file_hash(image.file.read())
+            image.file.seek(0)
             image.save()
 
             # Success! Send back an edit form for this image to the user
@@ -88,19 +90,22 @@ def add(request):
                 'success': False,
 
                 # https://github.com/django/django/blob/stable/1.6.x/django/forms/util.py#L45
-                'error_message': '\n'.join(['\n'.join([force_text(i) for i in v]) for k, v in form.errors.items()]),
+                'error_message': '\n'.join(['\n'.join([force_str(i) for i in v]) for k, v in form.errors.items()]),
             })
     else:
+        # Instantiate a dummy copy of the form that we can retrieve validation messages and media from;
+        # actual rendering of forms will happen on AJAX POST rather than here
         form = ImageForm(user=request.user)
 
-    return render(request, 'wagtailimages/multiple/add.html', {
-        'max_filesize': form.fields['file'].max_upload_size,
-        'help_text': form.fields['file'].help_text,
-        'allowed_extensions': ALLOWED_EXTENSIONS,
-        'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
-        'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
-        'collections': collections_to_choose,
-    })
+        return render(request, 'wagtailimages/multiple/add.html', {
+            'max_filesize': form.fields['file'].max_upload_size,
+            'help_text': form.fields['file'].help_text,
+            'allowed_extensions': ALLOWED_EXTENSIONS,
+            'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
+            'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
+            'collections': collections_to_choose,
+            'form_media': form.media,
+        })
 
 
 @require_POST

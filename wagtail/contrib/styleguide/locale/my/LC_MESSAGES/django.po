@@ -1,0 +1,50 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# ime11 <pmh.yourworstnightmare@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-01-28 14:01+0000\n"
+"Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>\n"
+"Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
+"my/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: my\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail style guide"
+msgstr "ဝဂ်တေးစတိုင်လမ်းညွှန်"
+
+msgid "Styleguide"
+msgstr "စတိုင်လမ်းညွှန်"
+
+msgid "Save"
+msgstr "သိမ်းဆည်းပါ"
+
+msgid "Delete image"
+msgstr "ပုံဖျက်သိမ်းပါ"
+
+msgid "Search something"
+msgstr "တစ်ခုခုကိုရှာပါ"
+
+msgid "Success message"
+msgstr "အောင်မြင်ကြောင်းပြစာ"
+
+msgid "View live"
+msgstr "တိုက်ရိုက်ကြည့်ပါ"
+
+msgid "Edit"
+msgstr "ပြင်ဆင်ပါ"
+
+msgid "Warning message"
+msgstr "သတိပေးစာ"
+
+msgid "Error message"
+msgstr "မှားယွင်းကြောင်းပြစာ"

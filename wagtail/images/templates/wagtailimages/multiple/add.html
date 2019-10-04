@@ -1,11 +1,13 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% load l10n %}
-{% load staticfiles %}
+{% load static %}
 {% load wagtailimages_tags %}
 {% block titletag %}{% trans "Add multiple images" %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
+
+    {{ form_media.css }}
 
     <link rel="stylesheet" href="{% static 'wagtailimages/css/add-multiple.css' %}" type="text/css" />
 {% endblock %}
@@ -17,7 +19,7 @@
     <div class="nice-padding">
         <div class="drop-zone">
             <p>{% trans "Drag and drop images into this area to upload immediately." %}</p>
-            <p>{{ help_text }}
+            <p>{{ help_text }}</p>
 
             <form action="{% url 'wagtailimages:add_multiple' %}" method="POST" enctype="multipart/form-data">
                 <div class="replace-file-input">
@@ -74,6 +76,8 @@
 
 {% block extra_js %}
     {{ block.super }}
+
+    {{ form_media.js }}
 
     <!-- this exact order of plugins is vital -->
     <script src="{% static 'wagtailimages/js/vendor/load-image.min.js' %}"></script>

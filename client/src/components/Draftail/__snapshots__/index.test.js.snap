@@ -7,6 +7,7 @@ Object {
   "autoComplete": null,
   "autoCorrect": null,
   "blockTypes": Array [],
+  "bottomToolbar": null,
   "controls": Array [],
   "decorators": Array [],
   "enableHorizontalRule": Object {
@@ -25,8 +26,11 @@ Object {
   ],
   "inlineStyles": Array [],
   "maxListNesting": 4,
+  "onBlur": null,
+  "onFocus": null,
   "onSave": [Function],
   "placeholder": "Write here…",
+  "plugins": Array [],
   "rawContentState": null,
   "showRedoControl": Object {
     "description": "Redo",
@@ -39,6 +43,7 @@ Object {
   "stripPastedStyles": false,
   "textAlignment": null,
   "textDirectionality": null,
+  "topToolbar": [Function],
 }
 `;
 

@@ -8,11 +8,13 @@
 # Antonin ENFRUN <anton@zorgameuh.org>, 2016
 # Aurélien Debord <contact@aureliendebord.com>, 2017
 # Axel Haustant, 2016
-# Benoît Vogel <contact@spicy-informatique.com>, 2016
+# Benoît Vogel <contact@spicy-informatique.com>, 2016,2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # Dominique PERETTI <dperetti@gmail.com>, 2016
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loïc Teixeira <hello@lta.me>, 2018
+# Loic Teixeira <hello@lta.me>, 2018
+# Loic Teixeira <hello@lta.me>, 2018
 # Matt Westcott <matthew@torchbox.com>, 2016
 # nahuel, 2014
 # nahuel, 2014
@@ -25,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:22+0100\n"
-"PO-Revision-Date: 2018-05-07 14:35+0000\n"
-"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-09-17 01:17+0000\n"
+"Last-Translator: Benoît Vogel <contact@spicy-informatique.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +37,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Submit for moderation"
+msgstr "Soumettre pour modération"
+
+msgid "Unpublish"
+msgstr "Dépublier"
+
+msgid "Delete"
+msgstr "Supprimer"
 
 msgid "Wagtail admin"
 msgstr "Administration Wagtail"
@@ -60,15 +71,6 @@ msgstr "Promotion"
 msgid "Settings"
 msgstr "Paramètres"
 
-msgid "Search"
-msgstr "Rechercher"
-
-msgid "Search term"
-msgstr "Terme de recherche"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "Entrez un mot de passe"
 
@@ -78,6 +80,12 @@ msgstr "Entrez votre %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Entrez votre adresse e-mail pour réinitialiser votre mot de passe"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Vous ne pouvez avoir plusieurs permissions pour la même collection."
 
 msgid "New title"
 msgstr "Nouveau titre"
@@ -92,7 +100,7 @@ msgid "This copy will be a child of this given parent page."
 msgstr "Cette copie sera une sous-page de la page parente sélectionnée."
 
 msgid "Copy subpages"
-msgstr "Copier une sous-page"
+msgstr "Copier les sous-pages"
 
 #, python-format
 msgid "This will copy %(count)s subpage."
@@ -136,15 +144,6 @@ msgstr ""
 "Vous ne pouvez pas copier une page sous elle-même lors de la copie de sous-"
 "pages"
 
-msgid "Visibility"
-msgstr "Visibilité"
-
-msgid "This field is required."
-msgstr "Champ requis."
-
-msgid "Please select at least one group."
-msgstr "Vous devez sélectionner au moins un groupe."
-
 msgid "This slug is already in use"
 msgstr "Ce slug est déjà utilisé"
 
@@ -154,8 +153,20 @@ msgstr "La date de publication doit être antérieure à la date d'expiration"
 msgid "Expiry date/time must be in the future"
 msgstr "La date d'expiration doit être dans le futur"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "Vous ne pouvez avoir plusieurs permissions pour la même collection."
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Search term"
+msgstr "Terme de recherche"
+
+msgid "Visibility"
+msgstr "Visibilité"
+
+msgid "This field is required."
+msgstr "Champ requis."
+
+msgid "Please select at least one group."
+msgstr "Vous devez sélectionner au moins un groupe."
 
 msgid "Error 404: Page not found"
 msgstr "Erreur 404 : Page introuvable"
@@ -248,12 +259,6 @@ msgstr "Réinitialisation de mot de passe"
 msgid "Reset your password"
 msgstr "Réinitialisez votre mot de passe"
 
-msgid "Edit"
-msgstr "Modifier"
-
-msgid "Delete"
-msgstr "Supprimer"
-
 msgid "Page"
 msgstr "Page"
 
@@ -268,9 +273,6 @@ msgstr "Aucun résultat"
 
 msgid "Server Error"
 msgstr "Erreur de serveur"
-
-msgid "See children"
-msgstr "Voir les enfants"
 
 msgid "See all"
 msgstr "Tout voir"
@@ -314,6 +316,96 @@ msgstr ""
 "L’éditeur a rencontré un problème. Le dernier contenu sauvegardé a été "
 "restauré."
 
+msgid "Broken link"
+msgstr "Lien mort"
+
+msgid "Missing document"
+msgstr "Document manquant"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "View child pages of \\"
+msgstr "Voir les sous-pages de \\"
+
+msgid "January"
+msgstr "Janvier"
+
+msgid "February"
+msgstr "Février"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "April"
+msgstr "Avril"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Juin"
+
+msgid "July"
+msgstr "Juillet"
+
+msgid "August"
+msgstr "Août"
+
+msgid "September"
+msgstr "Septembre"
+
+msgid "October"
+msgstr "Octobre"
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "December"
+msgstr "Décembre"
+
+msgid "Sunday"
+msgstr "Dimanche"
+
+msgid "Monday"
+msgstr "Lundi"
+
+msgid "Tuesday"
+msgstr "Mardi"
+
+msgid "Wednesday"
+msgstr "Mercredi"
+
+msgid "Thursday"
+msgstr "Jeudi"
+
+msgid "Friday"
+msgstr "Vendredi"
+
+msgid "Saturday"
+msgstr "Samedi"
+
+msgid "Sun"
+msgstr "Dim"
+
+msgid "Mon"
+msgstr "Lun"
+
+msgid "Tue"
+msgstr "Mar"
+
+msgid "Wed"
+msgstr "Mer"
+
+msgid "Thu"
+msgstr "Jeu"
+
+msgid "Fri"
+msgstr "Ven"
+
+msgid "Sat"
+msgstr "Sam"
+
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -344,7 +436,7 @@ msgstr "E-mail"
 #, python-format
 msgid ""
 "\n"
-"        There is one match\n"
+"        There is %(counter)s match\n"
 "    "
 msgid_plural ""
 "\n"
@@ -352,12 +444,11 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"        Aucun résultat trouvé\n"
+"        Il y a %(counter)s correspondance\n"
 "    "
 msgstr[1] ""
 "\n"
-"        %(counter)s résultats trouvés\n"
-"    "
+"        Il y a %(counter)s correspondances"
 
 msgid "Choose"
 msgstr "Choisir"
@@ -474,11 +565,17 @@ msgstr "Modifié"
 msgid "Edit this page"
 msgstr "Modifier cette page"
 
+msgid "Preview this page"
+msgstr "Prévisualiser cette page"
+
 msgid "Approve"
 msgstr "Approuver"
 
 msgid "Reject"
 msgstr "Rejeter"
+
+msgid "Edit"
+msgstr "Modifier"
 
 msgid "Preview"
 msgstr "Prévisualisation"
@@ -504,24 +601,6 @@ msgstr "Publié"
 
 msgid "Site summary"
 msgstr "Sommaire du site"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> page\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> pages\n"
-"    "
 
 msgid "Sign in"
 msgstr "S'identifier"
@@ -600,6 +679,15 @@ msgstr "Verrouillé"
 
 msgid "Unlocked"
 msgstr "Déverrouillé"
+
+msgid "Publishing…"
+msgstr "Publication..."
+
+msgid "Publish this revision"
+msgstr "Publier cette version"
+
+msgid "Publish"
+msgstr "Publier"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -684,9 +772,6 @@ msgstr "Oui, déplacer cette page"
 msgid "Unpublish %(title)s"
 msgstr "Dépublier %(title)s"
 
-msgid "Unpublish"
-msgstr "Dépublier"
-
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Êtes vous sûr(e) de vouloir dépublier cette page ?"
 
@@ -746,15 +831,6 @@ msgstr "Enregistrement…"
 msgid "Save draft"
 msgstr "Enregistrer le brouillon"
 
-msgid "Publishing…"
-msgstr "Publication..."
-
-msgid "Publish"
-msgstr "Publier"
-
-msgid "Submit for moderation"
-msgstr "Soumettre pour modération"
-
 msgid "This page has unsaved changes."
 msgstr "Cette page contient des changements non enregistrés."
 
@@ -771,9 +847,6 @@ msgstr "Page vérouillée"
 
 msgid "Replace current draft"
 msgstr "Remplacer le brouillon actuel"
-
-msgid "Publish this revision"
-msgstr "Publier cette version"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -908,8 +981,8 @@ msgstr "Cette page n'est pas visible publiquement"
 msgid "Disable ordering of child pages"
 msgstr "Désactiver le tri des sous-pages"
 
-msgid "Order"
-msgstr "Ordre"
+msgid "Sort"
+msgstr "Tri"
 
 msgid "Enable ordering of child pages"
 msgstr "Activer le tri des sous-pages"
@@ -936,9 +1009,6 @@ msgstr ""
 "Impossible de prévisualiser cette page, il reste des erreurs.\n"
 "Veuillez fermer cet onglet, modifier la page pour corriger ces erreurs,\n"
 "puis utiliser à nouveau la prévisualisation."
-
-msgid "Close"
-msgstr "Fermer"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1066,6 +1136,9 @@ msgstr[1] ""
 "\n"
 "Il y a %(counter)s pages correspondantes"
 
+msgid "Page types"
+msgstr "Type de pages"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Désolé, aucune page ne correspond à <em>\"%(query_string)s\"</em>"
@@ -1079,6 +1152,10 @@ msgstr "Aucune page utilisée"
 msgid "Collection"
 msgstr "Collection"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Page %(page_num)s sur %(total_pages)s."
+
 msgid "Root"
 msgstr "Racine"
 
@@ -1088,63 +1165,6 @@ msgstr "Accueil"
 msgid "All collections"
 msgstr "Toutes les collections"
 
-msgid "January"
-msgstr "Janvier"
-
-msgid "February"
-msgstr "Février"
-
-msgid "March"
-msgstr "Mars"
-
-msgid "April"
-msgstr "Avril"
-
-msgid "May"
-msgstr "Mai"
-
-msgid "June"
-msgstr "Juin"
-
-msgid "July"
-msgstr "Juillet"
-
-msgid "August"
-msgstr "Août"
-
-msgid "September"
-msgstr "Septembre"
-
-msgid "October"
-msgstr "Octobre"
-
-msgid "November"
-msgstr "Novembre"
-
-msgid "December"
-msgstr "Décembre"
-
-msgid "Sun"
-msgstr "Dim"
-
-msgid "Mon"
-msgstr "Lun"
-
-msgid "Tue"
-msgstr "Mar"
-
-msgid "Wed"
-msgstr "Mer"
-
-msgid "Thu"
-msgstr "Jeu"
-
-msgid "Fri"
-msgstr "Ven"
-
-msgid "Sat"
-msgstr "Sam"
-
 msgid "Edit your account"
 msgstr "Modifiez votre compte"
 
@@ -1153,10 +1173,6 @@ msgstr "Paramètres du compte"
 
 msgid "Log out"
 msgstr "Se déconnecter"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Page %(page_num)s sur %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Autres recherches"
@@ -1174,15 +1190,15 @@ msgid ""
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener\">instructions how to enable JavaScript in "
-"your web browser</a>.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
-"            Javascript est nécessaire pour utiliser Wagtail mais est "
+"            Javascript est nécessaire pour utiliser Wagtail, mais est "
 "actuellement désactivé.<br />\n"
-"            Voici les <a href=\"http://www.enable-javascript.com/fr/\" "
-"target=\"_blank\" rel=\"noopener\">instructions à suivre pour activer "
+"            Voici les <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">instructions à suivre pour activer "
 "JavaScript dans votre navigateur</a>.\n"
 "        "
 
@@ -1198,8 +1214,14 @@ msgstr "Montrer dans l’explorateur"
 msgid "Test"
 msgstr "Test"
 
+msgid "Arabic"
+msgstr "Arabe"
+
 msgid "Catalan"
 msgstr "catalan"
+
+msgid "Czech"
+msgstr "Tchèque"
 
 msgid "German"
 msgstr "allemand"
@@ -1222,6 +1244,12 @@ msgstr "français"
 msgid "Galician"
 msgstr "galicien"
 
+msgid "Hungarian"
+msgstr "Hongrois"
+
+msgid "Indonesian"
+msgstr "Indonésien"
+
 msgid "Icelandic"
 msgstr "islandais"
 
@@ -1233,6 +1261,9 @@ msgstr "coréen"
 
 msgid "Lithuanian"
 msgstr "lituanien"
+
+msgid "Mongolian"
+msgstr "Mongol"
 
 msgid "Norwegian Bokmål"
 msgstr "norvégien bokmål"
@@ -1264,11 +1295,17 @@ msgstr "suédois"
 msgid "Slovak"
 msgstr "Slovaque"
 
+msgid "Thai"
+msgstr "Thaï"
+
 msgid "Ukrainian"
 msgstr "Ukrainien"
 
-msgid "Chinese (China)"
-msgstr "chinois (Chine)"
+msgid "Chinese (Simplified)"
+msgstr "Chinois (Simplifié)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinois (Traditionnel)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Désolé, vous n'avez pas les autorisations pour accéder à cette zone."
@@ -1386,6 +1423,13 @@ msgstr "Page '{0}' supprimée."
 
 msgid "Page '{0}' unpublished."
 msgstr "Page '{0}' dépubliée."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Le slug '{0}' est déjà utilisé au niveau de la page parent sélectionnée. "
+"Assurez-vous que le slug est unique et réessayez."
 
 msgid "Page '{0}' moved."
 msgstr "Page '{0}' déplacée."
@@ -1506,6 +1550,9 @@ msgstr "List à puce"
 msgid "Numbered list"
 msgstr "Liste numérotée"
 
+msgid "Blockquote"
+msgstr "Bloc de citation"
+
 msgid "Bold"
 msgstr "Gras"
 
@@ -1514,6 +1561,18 @@ msgstr "Italique"
 
 msgid "Link"
 msgstr "Lien"
+
+msgid "Superscript"
+msgstr "Exposant"
+
+msgid "Subscript"
+msgstr "Indice"
+
+msgid "Strikethrough"
+msgstr "Barré"
+
+msgid "Code"
+msgstr "Code"
 
 msgid "Choose an item"
 msgstr "Choisissez un élément"

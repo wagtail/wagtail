@@ -72,8 +72,8 @@ def sendfile(request, filename, attachment=False, attachment_filename=None, mime
         parts = ['attachment']
         if attachment_filename:
             from unidecode import unidecode
-            from django.utils.encoding import force_text
-            attachment_filename = force_text(attachment_filename)
+            from django.utils.encoding import force_str
+            attachment_filename = force_str(attachment_filename)
             ascii_filename = unidecode(attachment_filename)
             parts.append('filename="%s"' % ascii_filename)
             if ascii_filename != attachment_filename:

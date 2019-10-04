@@ -1,6 +1,4 @@
-@import 'wagtailadmin/scss/variables';
-@import 'wagtailadmin/scss/mixins';
-@import 'wagtailadmin/scss/grid';
+@import 'wagtailadmin/scss/helpers';
 
 section {
     border-top: 1px solid $color-grey-3;
@@ -69,16 +67,16 @@ section {
         color: $color-green;
     }
 
+    .color-green-dark-text {
+        color: $color-green-dark;
+    }
+
     .color-teal-darker-text {
         color: $color-teal-darker;
     }
 
     .color-teal-dark-text {
         color: $color-teal-dark;
-    }
-
-    .color-grey-1-1-text {
-        color: $color-grey-1-1;
     }
 
     .color-grey-2-text {
@@ -89,12 +87,20 @@ section {
         color: $color-red;
     }
 
+    .color-red-dark-text {
+        color: $color-red-dark;
+    }
+
     .color-teal-text {
         color: $color-teal;
     }
 
     .color-orange-text {
         color: $color-orange;
+    }
+
+    .color-orange-dark-text {
+        color: $color-orange-dark;
     }
 
     .color-blue-text {
@@ -137,12 +143,24 @@ section {
         background-color: $color-red;
     }
 
+    .color-red-dark {
+        background-color: $color-red-dark;
+    }
+
     .color-orange {
         background-color: $color-orange;
     }
 
+    .color-orange-dark {
+        background-color: $color-orange-dark;
+    }
+
     .color-green {
         background-color: $color-green;
+    }
+
+    .color-green-dark {
+        background-color: $color-green-dark;
     }
 
     .color-blue {
@@ -151,10 +169,6 @@ section {
 
     .color-grey-1 {
         background-color: $color-grey-1;
-    }
-
-    .color-grey-1-1 {
-        background-color: $color-grey-1-1;
     }
 
     .color-grey-2 {

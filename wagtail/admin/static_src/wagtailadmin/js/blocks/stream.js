@@ -4,30 +4,30 @@
         Helper object to handle the menu of available block types.
         Options:
         childBlocks: list of block definitions (same as passed to StreamBlock)
-        id: ID of the container element (the one with class="stream-menu")
+        id: ID of the container element (the one around 'c-sf-add-panel')
         onChooseBlock: callback fired when a block type is chosen -
             the corresponding childBlock is passed as a parameter
         */
         var self = {};
         self.container = $('#' + opts.id);
-        self.inner = $('.stream-menu-inner', self.container);
-        self.blocklist = $('ul', self.inner);
+        self.openCloseButton = $('#' + opts.id + '-openclose');
 
         if (self.container.hasClass('stream-menu-closed')) {
-            self.inner.css('height', 0);
+            self.container.hide();
         }
 
         self.show = function() {
-            self.inner.animate({height: self.blocklist.outerHeight()}, 250, 'swing', function() {
-                $(this).height('auto');
-            });
-
+            self.container.slideDown();
             self.container.removeClass('stream-menu-closed');
+            self.container.attr('aria-hidden', 'false');
+            self.openCloseButton.addClass('c-sf-add-button--close');
         };
 
         self.hide = function() {
-            self.inner.animate({height: 0}, 250)
+            self.container.slideUp();
             self.container.addClass('stream-menu-closed');
+            self.container.attr('aria-hidden', 'true');
+            self.openCloseButton.removeClass('c-sf-add-button--close');
         };
 
         self.addFirstBlock = function() {
@@ -48,7 +48,7 @@
         };
 
         /* set up show/hide on click behaviour */
-        self.container.on('click', function(e) {
+        self.openCloseButton.on('click', function(e) {
             e.preventDefault();
             self.toggle();
         });
@@ -58,6 +58,7 @@
             var button = self.container.find('.action-add-block-' + childBlock.name);
             button.on('click', function() {
                 if (opts.onChooseBlock) opts.onChooseBlock(childBlock);
+                self.hide();
             });
         });
 

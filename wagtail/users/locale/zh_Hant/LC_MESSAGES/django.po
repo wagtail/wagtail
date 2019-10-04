@@ -1,0 +1,315 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Yeh Yen-Ke <yyken@outlook.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail 使用者"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "必填。30字元以內。只能使用字母，數字和@/./+/-/_"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "只能使用字母，數字和@/./+/-/_字元。"
+
+msgid "A user with that username already exists."
+msgstr "此使用者名已被占用"
+
+msgid "The two password fields didn't match."
+msgstr "密碼欄位不符合"
+
+msgid "Email"
+msgstr "電子郵件"
+
+msgid "First Name"
+msgstr "名"
+
+msgid "Last Name"
+msgstr "姓"
+
+msgid "Password"
+msgstr "密碼"
+
+msgid "Leave blank if not changing."
+msgstr "如不修改則留空"
+
+msgid "Password confirmation"
+msgstr "確認密碼"
+
+msgid "Enter the same password as above, for verification."
+msgstr "輸入同樣的密碼，以備驗證。"
+
+msgid "Administrator"
+msgstr "管理員"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "管理員擁有完全的權限去管理對象和配置"
+
+msgid "A group with that name already exists."
+msgstr "此群組名已被占用。"
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "對於同一個頁面你不能設置多重權限"
+
+msgid "Preferred language"
+msgstr "首選語言"
+
+msgid "Current time zone"
+msgstr "當前時區"
+
+msgid "Upload a profile picture"
+msgstr "上傳新的頭像"
+
+msgid "submitted notifications"
+msgstr "提交通知"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "當存在頁面提交審查時接收提醒。"
+
+msgid "approved notifications"
+msgstr "批準通知"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "當您的頁面編輯動作通過時接收提醒。"
+
+msgid "rejected notifications"
+msgstr "已拒絕通知"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "當您的頁面編輯動作被拒絕時接收提醒。"
+
+msgid "preferred language"
+msgstr "首選語言"
+
+msgid "Select language for the admin"
+msgstr "為管理員選擇語言"
+
+msgid "current time zone"
+msgstr "當前時區"
+
+msgid "Select your current time zone"
+msgstr "選擇你所在時區"
+
+msgid "profile picture"
+msgstr "配置圖片"
+
+msgid "user profile"
+msgstr "使用者資料"
+
+msgid "user profiles"
+msgstr "個人資訊"
+
+msgid "Delete group"
+msgstr "刪除群組"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                '%(group_name)s' 群組有 <strong>%(group_user_count)s</"
+"strong> 個成員。\n"
+"            "
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "刪除群組將會從所有群組成員移除群權限"
+
+msgid "Are you sure you want to delete this group?"
+msgstr "確定要刪除該群組？"
+
+msgid "Yes, delete"
+msgstr "確認刪除"
+
+msgid "Add group"
+msgstr "新增群群組"
+
+msgid "Editing"
+msgstr "編輯"
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Object permissions"
+msgstr "對象權限"
+
+msgid "Name"
+msgstr "名字"
+
+msgid "Add"
+msgstr "新增"
+
+msgid "Change"
+msgstr "更改"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Other permissions"
+msgstr "其他權限"
+
+msgid "Page permissions"
+msgstr "頁面權限"
+
+msgid "Page"
+msgstr "頁面"
+
+msgid "Add a page permission"
+msgstr "新增一個頁面權限"
+
+msgid "groups"
+msgstr "群組"
+
+msgid "Add a group"
+msgstr "新增一個群組"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "對不起，沒有符合“%(query)s”的群組"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"目前還沒有群組。<a href=\"%(wagtailusers_create_group_url)s\">新增</a>一個？"
+
+msgid "Delete user"
+msgstr "刪除使用者"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "確定刪除此使用者？"
+
+msgid "Add user"
+msgstr "新增使用者"
+
+msgid "Account"
+msgstr "帳號"
+
+msgid "Roles"
+msgstr "角色"
+
+msgid "Users"
+msgstr "使用者"
+
+msgid "Add a user"
+msgstr "新增使用者"
+
+msgid "Username"
+msgstr "使用者名"
+
+msgid "Level"
+msgstr "等級"
+
+msgid "Status"
+msgstr "狀態"
+
+msgid "Last Login"
+msgstr "上次登入"
+
+msgid "Admin"
+msgstr "管理"
+
+msgid "Active"
+msgstr "有效"
+
+msgid "Inactive"
+msgstr "無效"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 前"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"總共 %(counter)s 符合"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "對不起，沒有符合\"<em>%(query_string)s</em>\"的使用者"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"還沒使用者呢。為啥不<a href=\"%(wagtailusers_create_url)s\">創建</a>試試?"
+
+msgid "Groups"
+msgstr "群組"
+
+msgid "Search groups"
+msgstr "搜索群組"
+
+msgid "Group '{0}' created."
+msgstr "群組 '{0}' 已創建"
+
+msgid "Group '{0}' updated."
+msgstr "群組 '{0}' 已更新。"
+
+msgid "The group could not be saved due to errors."
+msgstr "無法儲存該群組。出現錯誤。"
+
+msgid "Group '{0}' deleted."
+msgstr "群組 '{0}' 已刪除。"
+
+msgid "Search users"
+msgstr "搜索使用者"
+
+msgid "User '{0}' created."
+msgstr "使用者 '{0}'已創建"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "The user could not be created due to errors."
+msgstr "無法創建使用者。出現錯誤。"
+
+msgid "User '{0}' updated."
+msgstr "使用者 '{0}' 已更新。"
+
+msgid "The user could not be saved due to errors."
+msgstr "無法儲存使用者。出現錯誤。"
+
+msgid "User '{0}' deleted."
+msgstr "使用者 '{0}' 已刪除。"
+
+msgid "Edit this user"
+msgstr "編輯此使用者"
+
+msgid "Delete this user"
+msgstr "刪除此使用者"

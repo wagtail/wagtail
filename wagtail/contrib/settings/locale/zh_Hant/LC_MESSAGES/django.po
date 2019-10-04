@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-02-05 05:04+0000\n"
+"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>\n"
+"Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "編輯 %(setting_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "編輯"
+
+msgid "Saving…"
+msgstr "儲存中..."
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "尚未定義Site，無法打開配置。"
+
+msgid "{setting_type} updated."
+msgstr "{setting_type}已變更"
+
+msgid "The setting could not be saved due to errors."
+msgstr "由於出現錯誤，設定無法儲存。"

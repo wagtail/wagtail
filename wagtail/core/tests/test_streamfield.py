@@ -5,7 +5,7 @@ from django.apps import apps
 from django.db import models
 from django.template import Context, Template, engines
 from django.test import TestCase
-from django.utils.safestring import SafeText
+from django.utils.safestring import SafeString
 
 from wagtail.core import blocks
 from wagtail.core.blocks import StreamValue
@@ -111,6 +111,21 @@ class TestLazyStreamField(TestCase):
             assert instance.body[1].value is None
             assert instance.body[2].value.title == 'Test image 3'
 
+    def test_lazy_load_get_prep_value(self):
+        """
+        Saving a lazy StreamField that hasn't had its data accessed should not
+        cause extra database queries by loading and then re-saving block values.
+        Instead the initial JSON stream data should be written back for any
+        blocks that have not been accessed.
+        """
+        with self.assertNumQueries(1):
+            instance = StreamModel.objects.get(pk=self.with_image.pk)
+
+        # Expect a single UPDATE to update the model, without any additional
+        # SELECT related to the image block that has not been accessed.
+        with self.assertNumQueries(1):
+            instance.save()
+
 
 class TestSystemCheck(TestCase):
     def tearDown(self):
@@ -188,12 +203,12 @@ class TestStreamFieldRendering(TestStreamFieldRenderingBase):
     def test_to_string(self):
         rendered = str(self.instance.body)
         self.assertHTMLEqual(rendered, self.expected)
-        self.assertIsInstance(rendered, SafeText)
+        self.assertIsInstance(rendered, SafeString)
 
     def test___html___access(self):
         rendered = self.instance.body.__html__()
         self.assertHTMLEqual(rendered, self.expected)
-        self.assertIsInstance(rendered, SafeText)
+        self.assertIsInstance(rendered, SafeString)
 
 
 class TestStreamFieldDjangoRendering(TestStreamFieldRenderingBase):

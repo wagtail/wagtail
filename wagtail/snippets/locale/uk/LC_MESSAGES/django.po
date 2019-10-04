@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -29,52 +29,9 @@ msgid "Search"
 msgstr "Пошук"
 
 #, python-format
-msgid ""
-"\n"
-"            There is one match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Знайдено один збіг\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Знайдено %(counter)s збіги\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
-msgstr[3] ""
-"\n"
-"            Знайдено %(counter)s збігів\n"
-"        "
-
-#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Вибачте, немає уривків, які б відповідали \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">create one now</"
-"a>?"
-msgstr ""
-"Ви не створили жодних %(snippet_type_name)s уривків. Чому б зараз не <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">створити "
-"якийсь</a>?"
-
-#, python-format
-msgid "Delete %(snippet_type_name)s - %(instance)s"
-msgstr "Видалити %(snippet_type_name)s - %(instance)s"
-
-msgid "Delete"
-msgstr "Видалити"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -110,6 +67,9 @@ msgstr "Редагування %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Редагування"
+
+msgid "Delete"
+msgstr "Видалити"
 
 msgid "Usage"
 msgstr "Використання"

@@ -1,4 +1,5 @@
 from django.conf.urls import include, url
+from django.http import HttpResponse
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.api.v2.endpoints import PagesAPIEndpoint
@@ -12,6 +13,7 @@ from wagtail.images import urls as wagtailimages_urls
 from wagtail.images.api.v2.endpoints import ImagesAPIEndpoint
 from wagtail.images.tests import urls as wagtailimages_test_urls
 from wagtail.tests.testapp import urls as testapp_urls
+from wagtail.tests.testapp.models import EventSitemap
 
 api_router = WagtailAPIRouter('wagtailapi_v2')
 api_router.register_endpoint('pages', PagesAPIEndpoint)
@@ -29,12 +31,14 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemaps_views.sitemap),
 
     url(r'^sitemap-index\.xml$', sitemaps_views.index, {
-        'sitemaps': {'pages': Sitemap},
+        'sitemaps': {'pages': Sitemap, 'events': EventSitemap(request=None)},
         'sitemap_url_name': 'sitemap',
     }),
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemaps_views.sitemap, name='sitemap'),
 
     url(r'^testapp/', include(testapp_urls)),
+
+    url(r'^fallback/', lambda: HttpResponse('ok'), name='fallback'),
 
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism

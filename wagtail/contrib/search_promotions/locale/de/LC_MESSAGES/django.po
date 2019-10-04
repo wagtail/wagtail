@@ -7,15 +7,16 @@
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # pcraston <patrick@craston.com>, 2014
+# Peter Dreuw <archandha@gmx.net>, 2019
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 20:23+0100\n"
-"PO-Revision-Date: 2018-05-09 09:55+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-05-19 11:16+0000\n"
+"Last-Translator: Peter Dreuw <archandha@gmx.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -141,7 +142,7 @@ msgstr "Keine"
 #, python-format
 msgid ""
 "\n"
-"            There is one match\n"
+"            There is %(counter)s match\n"
 "        "
 msgid_plural ""
 "\n"
@@ -149,12 +150,10 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"            Es gibt ein Ergebnis\n"
-"        "
+"Es gibt %(counter)s Ergebnisse."
 msgstr[1] ""
 "\n"
-"            Es gibt %(counter)s Ergebnisse\n"
-"        "
+"Es gibt %(counter)s Ergebnisse."
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

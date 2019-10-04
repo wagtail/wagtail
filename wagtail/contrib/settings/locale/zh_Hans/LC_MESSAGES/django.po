@@ -1,0 +1,49 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# hanfeng <appweb.cn@gmail.com>, 2018
+# Ed <724195301@qq.com>, 2018
+# jszsj <zhushajun@gmail.com>, 2017
+# jszsj <zhushajun@gmail.com>, 2017
+# 飘 赵 <275980464@qq.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2018-07-31 15:24+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "正在编辑 %(setting_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "正在编辑"
+
+msgid "Saving…"
+msgstr "正在保存"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "尚未定义站点，无法打开配置。"
+
+msgid "{setting_type} updated."
+msgstr "{setting_type} 已更新。"
+
+msgid "The setting could not be saved due to errors."
+msgstr "无法保存设置。出现错误。"

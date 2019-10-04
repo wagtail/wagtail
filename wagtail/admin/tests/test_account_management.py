@@ -3,6 +3,7 @@ import tempfile
 
 import pytz
 
+from django import VERSION as DJANGO_VERSION
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -10,8 +11,9 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils.translation import get_language
 
-from wagtail.admin.utils import (
+from wagtail.admin.locale import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
@@ -196,6 +198,8 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
         # Page should contain a 'Change password' option
         self.assertContains(response, "Change password")
+        # Page should contain a 'Change email' option
+        self.assertContains(response, "Change email")
 
     def test_change_email_view(self):
         """
@@ -238,6 +242,30 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # Check that the password was not changed
         self.assertNotEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
+
+
+    @override_settings(WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False)
+    def test_account_view_with_email_management_disabled(self):
+        # Get account page
+        response = self.client.get(reverse('wagtailadmin_account'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
+        # Page should NOT contain a 'Change email' option
+        self.assertNotContains(response, "Change email")
+
+
+    @override_settings(WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False)
+    def test_change_email_view_disabled(self):
+        """
+        This tests that the change email view responds with a 404
+        when setting WAGTAIL_EMAIL_MANAGEMENT_ENABLED is False
+        """
+        # Get change email page
+        response = self.client.get(reverse('wagtailadmin_account_change_email'))
+
+        # Check that the user received a 404
+        self.assertEqual(response.status_code, 404)
 
 
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
@@ -309,7 +337,10 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # Check that a validation error was raised
         self.assertTrue('new_password2' in response.context['form'].errors.keys())
-        self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
+        if DJANGO_VERSION >= (3, 0):
+            self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
+        else:
+            self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
         self.assertTrue(get_user_model().objects.get(pk=self.user.pk).check_password('password'))
@@ -363,6 +394,9 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Page should contain a 'Language Preferences' title
         self.assertContains(response, "Language Preferences")
 
+        # check that current language preference is indicated in HTML header
+        self.assertContains(response, '<html class="no-js" lang="en" dir="ltr">')
+
     def test_language_preferences_view_post(self):
         """
         This posts to the language preferences view and checks that the
@@ -382,6 +416,10 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the language preferences are stored
         self.assertEqual(profile.preferred_language, 'es')
 
+        # check that the updated language preference is now indicated in HTML header
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertContains(response, '<html class="no-js" lang="es" dir="ltr">')
+
     def test_unset_language_preferences(self):
         # Post new values to the language preferences page
         post_data = {
@@ -396,6 +434,43 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # Check that the language preferences are stored
         self.assertEqual(profile.preferred_language, '')
+
+        # Check that the current language is assumed as English
+        self.assertEqual(profile.get_preferred_language(), "en")
+
+    def test_language_preferences_reapplies_original_language(self):
+        post_data = {
+            'preferred_language': 'es'
+        }
+        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        self.assertEqual(get_language(), "en")
+
+    def test_change_name(self):
+        """
+        This tests that the change name view responds with a change name page
+        """
+        # Get change name page
+        response = self.client.get(reverse('wagtailadmin_account_change_name'))
+
+        # Check that the user received a change name page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/account/change_name.html')
+
+    def test_change_name_post(self):
+        post_data = {
+            'first_name': 'Fox',
+            'last_name': 'Mulder',
+        }
+        response = self.client.post(reverse('wagtailadmin_account_change_name'), post_data)
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check that the name was changed
+        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).first_name, post_data['first_name'])
+        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).last_name, post_data['last_name'])
 
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English'), ('es', 'Spanish')])
     def test_available_admin_languages_with_permitted_languages(self):
@@ -669,7 +744,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.assertEqual(len(mail.outbox), 0)
 
     def setup_password_reset_confirm_tests(self):
-        from django.utils.encoding import force_bytes, force_text
+        from django.utils.encoding import force_bytes, force_str
         from django.utils.http import urlsafe_base64_encode
 
         # Get user
@@ -679,10 +754,15 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.password_reset_token = PasswordResetTokenGenerator().make_token(self.user)
 
         # Generate a password reset uid
-        self.password_reset_uid = force_text(urlsafe_base64_encode(force_bytes(self.user.pk)))
+        self.password_reset_uid = force_str(urlsafe_base64_encode(force_bytes(self.user.pk)))
 
         # Create url_args
-        self.url_kwargs = dict(uidb64=self.password_reset_uid, token=auth_views.INTERNAL_RESET_URL_TOKEN)
+        if DJANGO_VERSION >= (3, 0):
+            token = auth_views.PasswordResetConfirmView.reset_url_token
+        else:
+            token = auth_views.INTERNAL_RESET_URL_TOKEN
+
+        self.url_kwargs = dict(uidb64=self.password_reset_uid, token=token)
 
         # Add token to session object
         s = self.client.session
@@ -762,7 +842,11 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
 
         # Check that a validation error was raised
         self.assertTrue('new_password2' in response.context['form'].errors.keys())
-        self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
+
+        if DJANGO_VERSION >= (3, 0):
+            self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
+        else:
+            self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
         self.assertTrue(get_user_model().objects.get(username='test').check_password('password'))

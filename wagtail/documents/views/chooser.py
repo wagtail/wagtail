@@ -1,17 +1,17 @@
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.auth import PermissionPolicyChecker
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.utils import PermissionPolicyChecker
 from wagtail.core import hooks
 from wagtail.core.models import Collection
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.search import index as search_index
-from wagtail.utils.pagination import paginate
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -46,7 +46,7 @@ def chooser(request):
 
     if permission_policy.user_has_permission(request.user, 'add'):
         DocumentForm = get_document_form(Document)
-        uploadform = DocumentForm(user=request.user)
+        uploadform = DocumentForm(user=request.user, prefix='document-chooser-upload')
     else:
         uploadform = None
 
@@ -62,6 +62,7 @@ def chooser(request):
         collection_id = request.GET.get('collection_id')
         if collection_id:
             documents = documents.filter(collection=collection_id)
+        documents_exist = documents.exists()
 
         searchform = SearchForm(request.GET)
         if searchform.is_valid():
@@ -74,12 +75,16 @@ def chooser(request):
             is_searching = False
 
         # Pagination
-        paginator, documents = paginate(request, documents, per_page=10)
+        paginator = Paginator(documents, per_page=10)
+        documents = paginator.get_page(request.GET.get('p'))
 
         return render(request, "wagtaildocs/chooser/results.html", {
             'documents': documents,
+            'documents_exist': documents_exist,
+            'uploadform': uploadform,
             'query_string': q,
             'is_searching': is_searching,
+            'collection_id': collection_id,
         })
     else:
         searchform = SearchForm()
@@ -87,12 +92,17 @@ def chooser(request):
         collections = Collection.objects.all()
         if len(collections) < 2:
             collections = None
+        else:
+            collections = Collection.order_for_display(collections)
 
         documents = documents.order_by('-created_at')
-        paginator, documents = paginate(request, documents, per_page=10)
+        documents_exist = documents.exists()
+        paginator = Paginator(documents, per_page=10)
+        documents = paginator.get_page(request.GET.get('p'))
 
         return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', None, {
             'documents': documents,
+            'documents_exist': documents_exist,
             'uploadform': uploadform,
             'searchform': searchform,
             'collections': collections,
@@ -116,10 +126,17 @@ def chooser_upload(request):
 
     if request.method == 'POST':
         document = Document(uploaded_by_user=request.user)
-        form = DocumentForm(request.POST, request.FILES, instance=document, user=request.user)
+        form = DocumentForm(
+            request.POST, request.FILES, instance=document, user=request.user, prefix='document-chooser-upload'
+        )
 
         if form.is_valid():
             document.file_size = document.file.size
+
+            # Set new document file hash
+            document.file.seek(0)
+            document._set_file_hash(document.file.read())
+            document.file.seek(0)
 
             form.save()
 
@@ -131,7 +148,7 @@ def chooser_upload(request):
                 None, json_data={'step': 'document_chosen', 'result': get_document_result_data(document)}
             )
     else:
-        form = DocumentForm(user=request.user)
+        form = DocumentForm(user=request.user, prefix='document-chooser-upload')
 
     documents = Document.objects.order_by('title')
 

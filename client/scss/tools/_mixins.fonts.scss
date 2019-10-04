@@ -1,0 +1,26 @@
+/*
+NB: Due to Wagtail's browser support the following @font-face formats are required:
+- WOFF for modern browsers
+- WOFF2 For super-modern browsers
+
+This example is all we need now:
+
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('myfont.woff2') format('woff2'),
+       url('myfont.woff') format('woff');
+}
+
+See https://css-tricks.com/snippets/css/using-font-face/ for more information.
+
+*/
+
+@mixin webfont($fontname, $filestub, $weight, $style:normal) {
+    @font-face {
+        font-family: '#{$fontname}';
+        src: url('#{$font-root}#{$filestub}.woff2') format('woff2'),
+            url('#{$font-root}#{$filestub}.woff') format('woff');
+        font-weight: $weight;
+        font-style: $style;
+    }
+}
