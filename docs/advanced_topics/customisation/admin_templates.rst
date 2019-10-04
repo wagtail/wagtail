@@ -100,7 +100,7 @@ To replace the branding in the title of the admin interface, create a template f
 
     {% extends "wagtailadmin/skeleton.html" %}
 
-    {{% block branding_title %}Editing -{% endblock %}
+    {% block branding_title %}Editing{% endblock %}
 
 Specifying a site or page in the branding
 =========================================
