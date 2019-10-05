@@ -25,6 +25,7 @@ Changelog
  * Allow `register_page_action_menu_item` and `construct_page_action_menu` hooks to override the default menu action (Rahmi Pruitt, Matt Westcott)
  * Add docs table template rendering example (Matt Westcott)
  * Add blog about image uploads in Wagtail forms to third party tutorial documentation (a-mere-peasant)
+ * Fix multiple minor documentation issues (David T Thompson, ryanomor, kailwallin)
  * Fix: Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
  * Fix: Added https support for Scribd oEmbed provider (Rodrigo)
  * Fix: Changed StreamField group labels color so labels are visible (Catherine Farman)

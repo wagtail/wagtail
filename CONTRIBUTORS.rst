@@ -413,6 +413,9 @@ Contributors
 * Prithvi MK
 * pySilver
 * a-mere-peasant
+* David T Thompson
+* kailwallin
+* ryanomor
 
 Translators
 ===========
