@@ -101,7 +101,7 @@ We also welcome translations for Wagtail's interface. Translation work should be
 
 ### Thanks
 
-We thank [BrowserStack](https://www.browserstack.com/), who provide the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
+We thank [BrowserStack](https://www.browserstack.com/), who provides the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
 
 [![Browserstack](https://cdn.rawgit.com/wagtail/wagtail/master/.github/browserstack-logo.svg)](https://www.browserstack.com/)
 
