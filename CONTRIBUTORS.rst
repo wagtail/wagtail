@@ -412,6 +412,7 @@ Contributors
 * Mike Janger
 * Prithvi MK
 * pySilver
+* a-mere-peasant
 
 Translators
 ===========
