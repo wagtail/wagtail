@@ -43,6 +43,7 @@ Other features
  * Added cache-busting query parameters to static files within the Wagtail admin (Matt Westcott)
  * Allow ``register_page_action_menu_item`` and ``construct_page_action_menu`` hooks to override the default menu action (Rahmi Pruitt, Matt Westcott) - thanks to `The Motley Fool <https://www.fool.com/>`_ for sponsoring review of this feature
  * Add docs table template rendering example (Matt Westcott)
+ * Add blog about image uploads in Wagtail forms to third party tutorial documentation (a-mere-peasant)
 
 
 Bug fixes
