@@ -5,7 +5,7 @@ Third-party tutorials
 
     The following list is a collection of tutorials and development notes from third-party developers.
     Some of the older links may not apply to the latest Wagtail versions.
-
+* `Image upload in wagtail forms<https://posts-by.lb.ee/image-uploads-in-wagtail-forms-3121c9b35d27>`_ - Tutorial on adding image uploads to wagtail forms(3 September 2017) 
 * `How do I Wagtail <https://foundation.mozilla.org/en/docs/how-do-i-wagtail/>`_ - An Editor's Guide for Mozilla's usage of Wagtail (25 April 2019)
 * `Learn Wagtail <https://learnwagtail.com/>`_ - Regular video tutorials about all aspects of Wagtail (1 March 2019)
 * `How to add buttons to ModelAdmin Index View in Wagtail CMS <https://timonweb.com/tutorials/how-to-add-buttons-to-modeladmin-index-view-in-wagtail-cms/>`_ (23 January 2019)
