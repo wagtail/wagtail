@@ -388,6 +388,10 @@ body.explorer-open {
             width: $menu-width;
         }
 
+        ul {
+            position: relative;
+        }
+
         h2 {
             display: block;
             padding: 0.2em 0;
@@ -409,6 +413,11 @@ body.explorer-open {
 
         .footer {
             position: absolute;
+
+            &-submenu {
+                position: sticky;
+                max-height: unset;
+            }
         }
 
     }
