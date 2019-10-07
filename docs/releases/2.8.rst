@@ -23,6 +23,7 @@ Bug fixes
  * Removed leftover Python 2.x compatibility code (Sergey Fedoseev)
  * Combine flake8 configurations (Sergey Fedoseev)
  * Rename documents listing column 'uploaded' to 'created' (LB (Ben Johnston))
+ * Submenu items longer then the page height are no longer broken by the submenu footer (Igor van Spengen)
 
 Upgrade considerations
 ======================

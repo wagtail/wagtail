@@ -417,6 +417,7 @@ Contributors
 * kailwallin
 * ryanomor
 * Thijs Baaijen
+* Igor van Spengen
 
 Translators
 ===========
