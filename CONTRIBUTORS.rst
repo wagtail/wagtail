@@ -411,6 +411,7 @@ Contributors
 * Tim White
 * Mike Janger
 * Prithvi MK
+* Igor van Spengen
 
 Translators
 ===========

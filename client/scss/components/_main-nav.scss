@@ -409,6 +409,11 @@ body.explorer-open {
 
         .footer {
             position: absolute;
+
+            &-submenu {
+                position: sticky;
+                max-height: unset;
+            }
         }
 
     }
