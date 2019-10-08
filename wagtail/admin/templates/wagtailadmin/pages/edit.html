@@ -10,11 +10,16 @@
     <header class="merged tab-merged">
         {% explorer_breadcrumb page %}
 
-        <div class="row">
-            <h1 class="left col9 header-title" title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
-                {{ page.get_admin_display_title }}
-            </h1>
-
+        <div class="row row-flush">
+            <div class="left col9 header-title" title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
+                <h1>
+                    {% icon name="doc-empty-inverse" class_name="header-title-icon" %}
+                    {% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}
+                    {% if content_type.model_class.get_page_description %}
+                        <span><small>{{ content_type.model_class.get_page_description }}</small></span>
+                    {% endif %}
+                </h1>
+            </div>
             <div class="right col3">
                 {% include "wagtailadmin/pages/_page_view_live_tag.html" with page=page_for_status %}
             </div>
