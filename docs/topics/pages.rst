@@ -192,6 +192,19 @@ By default, any page type can be created under any page type and it is not neces
 
 Setting ``parent_page_types`` to an empty list is a good way of preventing a particular page type from being created in the editor interface.
 
+.. _page_descriptions:
+
+Page descriptions
+-----------------
+
+With every Wagtail Page you are able to add a helpful description text, similar to a ``help_text`` model attribute. By adding ``page_description`` to your Page model you'll be adding a short description that can be seen when you create a new page, edit an existing page or when you're prompted to select a child page type.
+
+.. code-block:: python
+
+    class LandingPage(Page):
+
+        page_description = "Use this page for converting users"
+
 .. _page_urls:
 
 Page URLs
