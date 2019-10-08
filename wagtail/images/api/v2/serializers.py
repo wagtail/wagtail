@@ -1,4 +1,5 @@
 from rest_framework.fields import Field
+
 from wagtail.api.v2.serializers import BaseSerializer
 
 

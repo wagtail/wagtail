@@ -17,9 +17,10 @@ from wagtail.core.models import Page, PageManager, Site, get_page_models
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
-    CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
-    MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimpleChildPage,
-    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
+    CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage,
+    ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
+    PageWithExcludedCopyField, SimpleChildPage, SimplePage, SimpleParentPage, SingleEventPage,
+    SingletonPage, StandardIndex, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 

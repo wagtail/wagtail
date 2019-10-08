@@ -1,6 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count
-
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 

@@ -6,7 +6,6 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin import widgets
 
-
 # Form field properties to override whenever we encounter a model field
 # that matches one of these types - including subclasses
 FORM_FIELD_OVERRIDES = {

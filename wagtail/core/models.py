@@ -35,7 +35,6 @@ from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, re
 from wagtail.search import index
 from wagtail.utils.deprecation import RemovedInWagtail29Warning
 
-
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'

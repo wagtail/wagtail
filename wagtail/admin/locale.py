@@ -1,9 +1,7 @@
 import pytz
-
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
-
 
 # Wagtail languages with >=90% coverage
 # This list is manually maintained

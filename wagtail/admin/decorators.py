@@ -1,4 +1,5 @@
 import sys
+
 from wagtail.utils.deprecation import MovedDefinitionHandler, RemovedInWagtail29Warning
 
 MOVED_DEFINITIONS = {

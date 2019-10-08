@@ -12,7 +12,8 @@ from django.utils.translation import override
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.core import hooks
 from wagtail.users.forms import (
-    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NameForm, NotificationPreferencesForm, PreferredLanguageForm)
+    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NameForm, NotificationPreferencesForm,
+    PreferredLanguageForm)
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 

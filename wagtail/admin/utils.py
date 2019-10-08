@@ -2,7 +2,6 @@ import sys
 
 from wagtail.utils.deprecation import MovedDefinitionHandler, RemovedInWagtail29Warning
 
-
 MOVED_DEFINITIONS = {
     'WAGTAILADMIN_PROVIDED_LANGUAGES': 'wagtail.admin.locale',
     'get_js_translation_strings': 'wagtail.admin.locale',

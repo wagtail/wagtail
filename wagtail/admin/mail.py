@@ -10,7 +10,6 @@ from wagtail.admin.auth import users_with_page_permission
 from wagtail.core.models import PageRevision
 from wagtail.users.models import UserProfile
 
-
 logger = logging.getLogger('wagtail.admin')
 
 

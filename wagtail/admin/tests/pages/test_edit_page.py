@@ -16,8 +16,9 @@ from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.models import Page, PageRevision, Site
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
-    EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, EventCategory,
-    EventPage, EventPageCarouselItem, FilePage, ManyToManyBlogPage, SimplePage, SingleEventPage, StandardIndex, TaggedPage)
+    EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, EventCategory, EventPage,
+    EventPageCarouselItem, FilePage, ManyToManyBlogPage, SimplePage, SingleEventPage, StandardIndex,
+    TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 

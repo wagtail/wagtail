@@ -1,6 +1,5 @@
 import itertools
 import json
-
 from urllib.parse import urljoin
 
 from django import template
