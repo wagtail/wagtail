@@ -1499,6 +1499,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # except this doesn't convert any characters to lowercase
         return capfirst(cls._meta.verbose_name)
 
+    @classmethod
+    def get_page_description(cls):
+        """
+        Returns a page description, or nothing if it's not set. eg "A multi-purpose website".
+        """
+        return getattr(cls, "page_description", None)
+
     @property
     def status_string(self):
         if not self.live:
