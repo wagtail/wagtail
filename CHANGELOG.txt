@@ -22,6 +22,7 @@ Changelog
  * Add `WAGTAIL_MODERATION_ENABLED` setting to enable / disable the 'Submit for Moderation' option (Jacob Topp-Mugglestone)
  * Added settings to customise pagination page size for the Images admin area (Brian Whitton)
  * Added ARIA role to TableBlock output (Matt Westcott)
+ * Added cache-busting query parameters to static files within the Wagtail admin (Matt Westcott)
  * Fix: Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
  * Fix: Added https support for Scribd oEmbed provider (Rodrigo)
  * Fix: Changed StreamField group labels color so labels are visible (Catherine Farman)

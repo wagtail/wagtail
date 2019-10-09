@@ -41,6 +41,7 @@ Other features
  * Add ``WAGTAIL_MODERATION_ENABLED`` setting to enable / disable the 'Submit for Moderation' option (Jacob Topp-Mugglestone)
  * Added settings to customise pagination page size for the Images admin area (Brian Whitton)
  * Added ARIA role to TableBlock output (Matt Westcott)
+ * Added cache-busting query parameters to static files within the Wagtail admin (Matt Westcott)
 
 
 Bug fixes
