@@ -57,7 +57,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
 
 
 class PublishMenuItem(ActionMenuItem):
-    label = "Publish"
+    label = _("Publish")
     name = 'action-publish'
     template = 'wagtailadmin/pages/action_menu/publish.html'
 
@@ -133,6 +133,20 @@ class SaveDraftMenuItem(ActionMenuItem):
         return context
 
 
+class PageLockedMenuItem(ActionMenuItem):
+    name = 'action-page-locked'
+    label = _("Page locked")
+    template = 'wagtailadmin/pages/action_menu/page_locked.html'
+
+    def is_shown(self, request, context):
+        return ('page' in context) and (context['page'].locked)
+
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        context['is_revision'] = (context['view'] == 'revisions_revert')
+        return context
+
+
 BASE_PAGE_ACTION_MENU_ITEMS = None
 
 
@@ -150,6 +164,7 @@ def _get_base_page_action_menu_items():
             PublishMenuItem(order=30),
             SubmitForModerationMenuItem(order=40),
             SaveDraftMenuItem(order=50),
+            PageLockedMenuItem(order=10000),
         ]
         for hook in hooks.get_hooks('register_page_action_menu_item'):
             BASE_PAGE_ACTION_MENU_ITEMS.append(hook())
@@ -176,7 +191,10 @@ class PageActionMenu:
         for hook in hooks.get_hooks('construct_page_action_menu'):
             hook(self.menu_items, self.request, self.context)
 
-        self.default_item = self.menu_items.pop() if self.menu_items else SaveDraftMenuItem(order=50)
+        try:
+            self.default_item = self.menu_items.pop()
+        except IndexError:
+            self.default_item = None
 
     def render_html(self):
         return render_to_string(self.template, {
