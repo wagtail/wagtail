@@ -94,6 +94,30 @@ This release introduces a new setting :ref:`WAGTAILDOCS_SERVE_METHOD <wagtaildoc
 In Wagtail 2.7, the default behaviour on remote storage backends is to redirect to the storage's underlying URL after performing the permission check. If this is unsuitable for your project (for example, your storage provider is configured to block public access, or revealing its URL would be a security risk) you can revert to the previous behaviour by setting ``WAGTAILDOCS_SERVE_METHOD`` to ``'serve_view'``.
 
 
+Template change for page action menu hooks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When customising the action menu on the page edit view through the :ref:`register_page_action_menu_item <register_page_action_menu_item>` or :ref:`construct_page_action_menu <construct_page_action_menu>` hook, the ``ActionMenuItem`` object's ``template`` attribute or ``render_html`` method can be overridden to customise the menu item's HTML. As of Wagtail 2.7, the HTML returned from these should *not* include the enclosing ``<li>`` element.
+
+Any add-on library that uses this feature and needs to preserve backward compatibility with previous Wagtail versions can conditionally reinsert the ``<li>`` wrapper through its ``render_html`` method - for example:
+
+  .. code-block:: python
+
+    from django.utils.html import format_html
+    from wagtail import VERSION as WAGTAIL_VERSION
+    from wagtail.admin.action_menu import ActionMenuItem
+
+    class CustomMenuItem(ActionMenuItem):
+        template = 'myapp/my_menu_item.html'
+
+        def render_html(self, request, parent_context):
+            html = super().render_html(request, parent_context)
+            if WAGTAIL_VERSION < (2, 7):
+                html = format_html('<li>{}</li>', html)
+            return html
+
+
+
 ``wagtail.admin.utils`` and ``wagtail.admin.decorators`` modules deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
