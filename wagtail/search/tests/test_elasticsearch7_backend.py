@@ -518,32 +518,32 @@ class TestElasticsearch7Mapping(TestCase):
         # Check
         expected_result = {
             'properties': {
-                    'pk': {'type': 'keyword', 'store': True},
-                    'content_type': {'type': 'keyword'},
-                    '_all_text': {'type': 'text'},
-                    '_edgengrams': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
-                    'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'title_edgengrams': {'type': 'text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'title_filter': {'type': 'keyword'},
-                    'authors': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {'type': 'text', 'copy_to': '_all_text'},
-                            'date_of_birth_filter': {'type': 'date'},
-                        },
+                'pk': {'type': 'keyword', 'store': True},
+                'content_type': {'type': 'keyword'},
+                '_all_text': {'type': 'text'},
+                '_edgengrams': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
+                'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                'title_edgengrams': {'type': 'text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                'title_filter': {'type': 'keyword'},
+                'authors': {
+                    'type': 'nested',
+                    'properties': {
+                        'name': {'type': 'text', 'copy_to': '_all_text'},
+                        'date_of_birth_filter': {'type': 'date'},
                     },
-                    'authors_filter': {'type': 'integer'},
-                    'publication_date_filter': {'type': 'date'},
-                    'number_of_pages_filter': {'type': 'integer'},
-                    'tags': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {'type': 'text', 'copy_to': '_all_text'},
-                            'slug_filter': {'type': 'keyword'},
-                        },
+                },
+                'authors_filter': {'type': 'integer'},
+                'publication_date_filter': {'type': 'date'},
+                'number_of_pages_filter': {'type': 'integer'},
+                'tags': {
+                    'type': 'nested',
+                    'properties': {
+                        'name': {'type': 'text', 'copy_to': '_all_text'},
+                        'slug_filter': {'type': 'keyword'},
                     },
-                    'tags_filter': {'type': 'integer'}
-                }
+                },
+                'tags_filter': {'type': 'integer'}
+            }
         }
 
         self.assertDictEqual(mapping, expected_result)
@@ -608,50 +608,50 @@ class TestElasticsearch7MappingInheritance(TestCase):
         # Check
         expected_result = {
             'properties': {
-                    # New
-                    'searchtests_novel__setting': {'type': 'text', 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'searchtests_novel__protagonist': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {'type': 'text', 'boost': 0.5, 'copy_to': '_all_text'},
-                            'novel_id_filter': {'type': 'integer'}
-                        }
-                    },
-                    'searchtests_novel__protagonist_id_filter': {'type': 'integer'},
-                    'searchtests_novel__characters': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {'type': 'text', 'boost': 0.25, 'copy_to': '_all_text'}
-                        }
-                    },
+                # New
+                'searchtests_novel__setting': {'type': 'text', 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                'searchtests_novel__protagonist': {
+                    'type': 'nested',
+                    'properties': {
+                        'name': {'type': 'text', 'boost': 0.5, 'copy_to': '_all_text'},
+                        'novel_id_filter': {'type': 'integer'}
+                    }
+                },
+                'searchtests_novel__protagonist_id_filter': {'type': 'integer'},
+                'searchtests_novel__characters': {
+                    'type': 'nested',
+                    'properties': {
+                        'name': {'type': 'text', 'boost': 0.25, 'copy_to': '_all_text'}
+                    }
+                },
 
-                    # Inherited
-                    'pk': {'type': 'keyword', 'store': True},
-                    'content_type': {'type': 'keyword'},
-                    '_all_text': {'type': 'text'},
-                    '_edgengrams': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
-                    'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'title_edgengrams': {'type': 'text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
-                    'title_filter': {'type': 'keyword'},
-                    'authors': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {'type': 'text', 'copy_to': '_all_text'},
-                            'date_of_birth_filter': {'type': 'date'},
-                        },
+                # Inherited
+                'pk': {'type': 'keyword', 'store': True},
+                'content_type': {'type': 'keyword'},
+                '_all_text': {'type': 'text'},
+                '_edgengrams': {'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard', 'type': 'text'},
+                'title': {'type': 'text', 'boost': 2.0, 'copy_to': '_all_text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                'title_edgengrams': {'type': 'text', 'analyzer': 'edgengram_analyzer', 'search_analyzer': 'standard'},
+                'title_filter': {'type': 'keyword'},
+                'authors': {
+                    'type': 'nested',
+                    'properties': {
+                        'name': {'type': 'text', 'copy_to': '_all_text'},
+                        'date_of_birth_filter': {'type': 'date'},
                     },
-                    'authors_filter': {'type': 'integer'},
-                    'publication_date_filter': {'type': 'date'},
-                    'number_of_pages_filter': {'type': 'integer'},
-                    'tags': {
-                        'type': 'nested',
-                        'properties': {
-                            'name': {'type': 'text', 'copy_to': '_all_text'},
-                            'slug_filter': {'type': 'keyword'},
-                        },
+                },
+                'authors_filter': {'type': 'integer'},
+                'publication_date_filter': {'type': 'date'},
+                'number_of_pages_filter': {'type': 'integer'},
+                'tags': {
+                    'type': 'nested',
+                    'properties': {
+                        'name': {'type': 'text', 'copy_to': '_all_text'},
+                        'slug_filter': {'type': 'keyword'},
                     },
-                    'tags_filter': {'type': 'integer'}
-                }
+                },
+                'tags_filter': {'type': 'integer'}
+            }
         }
 
         self.assertDictEqual(mapping, expected_result)
