@@ -12,9 +12,6 @@ from django.test import TestCase, modify_settings
 from django.urls import reverse
 from django.utils import timezone
 
-from wagtail.admin.action_menu import (
-    DeleteMenuItem, PublishMenuItem, SaveDraftMenuItem, SubmitForModerationMenuItem,
-    UnpublishMenuItem)
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.models import Page, PageRevision, Site
 from wagtail.core.signals import page_published
@@ -857,74 +854,35 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # page should be edited
         self.assertEqual(Page.objects.get(id=self.child_page.id).title, "I've been edited!")
 
-    def test_construct_page_action_menu_hook(self):
-        menu = [
-            UnpublishMenuItem(order=10),
-            DeleteMenuItem(order=20),
-            SubmitForModerationMenuItem(order=30),
-            SaveDraftMenuItem(order=40),
-            PublishMenuItem(order=50),
-        ]
-
-        default_item = '<button type="submit" name="action-publish" value="action-publish" class="button button-longrunning " data-clicked-text="Publishing…"><span class="icon icon-spinner"></span><em>Publish</em></button>'
-        menu_items_html = '''<ul>
-            <li>
-                <a class="button" href="/admin/pages/{id}/unpublish/">Unpublish</a>
-            </li>
-            <li>
-                <a class="button" href="/admin/pages/{id}/delete/">Delete</a>
-            </li>
-            <li>
-                <input type="submit" name="action-submit" value="Submit for moderation" class="button" />
-            </li>
-            <li>
-                <button type="submit" class="button action-save button-longrunning " data-clicked-text="Saving…" ><span class="icon icon-spinner"></span><em>Save draft</em></button>
-            </li>
-        </ul>'''.format(id=self.single_event_page.id)
-
+    def test_override_default_action_menu_item(self):
         def hook_func(menu_items, request, context):
-            menu_items[:] = menu
+            for (index, item) in enumerate(menu_items):
+                if item.name == 'action-publish':
+                    # move to top of list
+                    menu_items.pop(index)
+                    menu_items.insert(0, item)
+                    break
 
         with self.register_hook('construct_page_action_menu', hook_func):
-            response = self.client.get(reverse('wagtailadmin_pages:edit',
-                                       args=(self.single_event_page.id, )))
+            response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.single_event_page.id, )))
 
-        self.assertContains(response, default_item, html=True)
-        self.assertContains(response, menu_items_html, html=True)
+        publish_button = '''
+            <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning " data-clicked-text="Publishing…">
+                <span class="icon icon-spinner"></span><em>Publish</em>
+            </button>
+        '''
+        save_button = '''
+            <button type="submit" class="button action-save button-longrunning " data-clicked-text="Saving…" >
+                <span class="icon icon-spinner"></span><em>Save draft</em>
+            </button>
+        '''
 
-        for item in menu:
-            if item.template:
-                self.assertTemplateUsed(response, item.template)
+        # save button should be in a <li>
+        self.assertContains(response, "<li>%s</li>" % save_button, html=True)
 
-    def test_construct_page_action_menu_hook_2(self):
-        menu = [
-            DeleteMenuItem(order=20),
-            SubmitForModerationMenuItem(order=30),
-        ]
-
-        default_item = '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />'
-        menu_items_html = '''<ul>
-            <li>
-                <a class="button" href="/admin/pages/{id}/delete/">Delete</a>
-            </li>
-        </ul>'''.format(id=self.single_event_page.id)
-
-        def hook_func(menu_items, request, context):
-            menu_items[:] = menu
-
-        with self.register_hook('construct_page_action_menu', hook_func):
-            response = self.client.get(reverse('wagtailadmin_pages:edit',
-                                       args=(self.single_event_page.id, )))
-
-        self.assertContains(response, default_item, html=True)
-        self.assertContains(response, menu_items_html, html=True)
-
-        for item in menu:
-            if item.template:
-                self.assertTemplateUsed(response, item.template)
-
-        self.assertTemplateNotUsed(response, "wagtailadmin/pages/action_menu/save_draft.html")
-        self.assertTemplateNotUsed(response, "wagtailadmin/pages/action_menu/publish.html")
+        # publish button should be present, but not in a <li>
+        self.assertContains(response, publish_button, html=True)
+        self.assertNotContains(response, "<li>%s</li>" % publish_button, html=True)
 
 
 class TestPageEditReordering(TestCase, WagtailTestUtils):

@@ -159,12 +159,12 @@ def _get_base_page_action_menu_items():
 
     if BASE_PAGE_ACTION_MENU_ITEMS is None:
         BASE_PAGE_ACTION_MENU_ITEMS = [
+            PageLockedMenuItem(order=-10000),
+            SaveDraftMenuItem(order=0),
             UnpublishMenuItem(order=10),
             DeleteMenuItem(order=20),
             PublishMenuItem(order=30),
             SubmitForModerationMenuItem(order=40),
-            SaveDraftMenuItem(order=50),
-            PageLockedMenuItem(order=10000),
         ]
         for hook in hooks.get_hooks('register_page_action_menu_item'):
             BASE_PAGE_ACTION_MENU_ITEMS.append(hook())
@@ -192,7 +192,7 @@ class PageActionMenu:
             hook(self.menu_items, self.request, self.context)
 
         try:
-            self.default_item = self.menu_items.pop()
+            self.default_item = self.menu_items.pop(0)
         except IndexError:
             self.default_item = None
 
