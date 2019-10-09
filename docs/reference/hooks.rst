@@ -524,7 +524,7 @@ Hooks for customising the way users are directed through the process of creating
 
   Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.action_menu.ActionMenuItem``. The following attributes and methods are available to be overridden on subclasses of ``ActionMenuItem``:
 
-  :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor
+  :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an ``order`` of 0).
   :label: the displayed text of the menu item
   :get_url: a method which returns a URL for the menu item to link to; by default, returns ``None`` which causes the menu item to behave as a form submit button instead
   :name: value of the ``name`` attribute of the submit button, if no URL is specified
@@ -574,23 +574,18 @@ Hooks for customising the way users are directed through the process of creating
         menu_items[:] = [item for item in menu_items if item.name != 'action-submit']
 
 
-.. _construct_page_action_menu:
-
-  Can also be used to customize default action menu button. The last item in menu_item variable is chosen as the default action. An example on changing the default to publish can be seen below.
+  The order of items in this list determines the menu ordering, and the first item in the list will be selected as the default action. For example, to change the default action to Publish:
 
   .. code-block:: python
 
-    from wagtail.admin.action_menu import UnpublishMenuItem, DeleteMenuItem, SubmitForModerationMenuItem, SaveDraftMenuItem, PublishMenuItem
-
     @hooks.register('construct_page_action_menu')
     def make_publish_default_action(menu_items, request, context):
-        menu_items[:] = [
-            UnpublishMenuItem(order=10),
-            DeleteMenuItem(order=20),
-            SubmitForModerationMenuItem(order=30),
-            SaveDraftMenuItem(order=40),
-            PublishMenuItem(order=50),
-        ]
+        for (index, item) in enumerate(menu_items):
+            if item.name == 'action-publish':
+                # move to top of list
+                menu_items.pop(index)
+                menu_items.insert(0, item)
+                break
 
 
 .. construct_page_listing_buttons:
