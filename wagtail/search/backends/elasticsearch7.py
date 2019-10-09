@@ -70,7 +70,7 @@ class Elasticsearch7Index(Elasticsearch6Index):
 
 
 class Elasticsearch7SearchQueryCompiler(Elasticsearch6SearchQueryCompiler):
-    mapping_class = Elasticsearch6Mapping
+    mapping_class = Elasticsearch7Mapping
 
 
 class Elasticsearch7SearchResults(Elasticsearch6SearchResults):
