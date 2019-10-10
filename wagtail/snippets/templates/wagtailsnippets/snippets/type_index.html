@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n static %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
 
 {% block extra_js %}
@@ -12,7 +12,7 @@
         }
     </script>
     {% if can_delete_snippets %}
-        <script src="{% static 'wagtailsnippets/js/snippet-multiple-select.js' %}"></script>
+        <script src="{% versioned_static 'wagtailsnippets/js/snippet-multiple-select.js' %}"></script>
     {% endif %}
 {% endblock %}
 

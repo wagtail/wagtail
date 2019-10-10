@@ -1,10 +1,10 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailadmin_tags i18n static %}
+{% load wagtailadmin_tags i18n %}
 
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% static 'wagtailstyleguide/css/styleguide.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailstyleguide/css/styleguide.css' %}" type="text/css" />
 
     {{ example_form.media.css }}
 {% endblock %}
@@ -742,9 +742,9 @@
             <h2>Misc formatters</h2>
             <h3>Avatar icons</h3>
 
-            <p><span class="avatar"><img src="{% static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar normal</p>
-            <p><span class="avatar square"><img src="{% static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar square</p>
-            <p><span class="avatar small"><img src="{% static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar small</p>
+            <p><span class="avatar"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar normal</p>
+            <p><span class="avatar square"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar square</p>
+            <p><span class="avatar small"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar small</p>
 
             <h3>Status tags</h3>
             <div class="status-tag primary">Primary tag</div>
@@ -755,12 +755,12 @@
             <p>Add the following <code>div</code> around any items you wish to display with a spinner overlay and fading out</p>
             <p>Remove the "loading" class to disable the effect</p>
             <div class="loading-mask loading" style="width:200px">
-                <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" alt="Wagtail" />
+                <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" alt="Wagtail" />
             </div>
 
             <h3>Image transparency</h3>
             <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> tag thus:</p>
-            <img src="{% static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" alt="Wagtail" />
+            <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" alt="Wagtail" />
         </section>
 
         <section id="icons" class="icons">

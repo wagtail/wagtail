@@ -412,6 +412,7 @@ Contributors
 * Mike Janger
 * Prithvi MK
 * Igor van Spengen
+* pySilver
 
 Translators
 ===========

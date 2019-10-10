@@ -1,13 +1,13 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n modeladmin_tags static %}
+{% load i18n modeladmin_tags wagtailadmin_tags %}
 
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
     {{ form.media.css }}
-    <link rel="stylesheet" href="{% static 'wagtailmodeladmin/css/choose_parent_page.css' %}" type="text/css"/>
-    <link rel="stylesheet" href="{% static 'wagtailmodeladmin/css/breadcrumbs_page.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% versioned_static 'wagtailmodeladmin/css/choose_parent_page.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% versioned_static 'wagtailmodeladmin/css/breadcrumbs_page.css' %}" type="text/css"/>
 {% endblock %}
 
 {% block extra_js %}

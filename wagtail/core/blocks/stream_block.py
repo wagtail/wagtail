@@ -6,11 +6,11 @@ from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
-from django.templatetags.static import static
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.utils import escape_script
 
 from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
@@ -94,7 +94,10 @@ class BaseStreamBlock(Block):
 
     @property
     def media(self):
-        return forms.Media(js=[static('wagtailadmin/js/blocks/sequence.js'), static('wagtailadmin/js/blocks/stream.js')])
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/blocks/sequence.js'),
+            versioned_static('wagtailadmin/js/blocks/stream.js')
+        ])
 
     def js_initializer(self):
         # compile a list of info dictionaries, one for each available block type

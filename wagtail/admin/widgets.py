@@ -14,6 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 from taggit.forms import TagWidget
 
 from wagtail.admin.datetimepicker import to_datetimepicker_format
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core import hooks
 from wagtail.core.models import Page
 from wagtail.utils.widgets import WidgetWithScript
@@ -59,7 +60,7 @@ class AdminDateInput(widgets.DateInput):
         return context
 
     class Media:
-        js = ['wagtailadmin/js/date-time-chooser.js']
+        js = [versioned_static('wagtailadmin/js/date-time-chooser.js')]
 
 
 class AdminTimeInput(widgets.TimeInput):
@@ -72,7 +73,7 @@ class AdminTimeInput(widgets.TimeInput):
         super().__init__(attrs=default_attrs, format=format)
 
     class Media:
-        js = ['wagtailadmin/js/date-time-chooser.js']
+        js = [versioned_static('wagtailadmin/js/date-time-chooser.js')]
 
 
 class AdminDateTimeInput(widgets.DateTimeInput):
@@ -100,7 +101,7 @@ class AdminDateTimeInput(widgets.DateTimeInput):
         return context
 
     class Media:
-        js = ['wagtailadmin/js/date-time-chooser.js']
+        js = [versioned_static('wagtailadmin/js/date-time-chooser.js')]
 
 
 class AdminTagWidget(TagWidget):
@@ -239,8 +240,8 @@ class AdminPageChooser(AdminChooser):
 
     class Media:
         js = [
-            'wagtailadmin/js/page-chooser-modal.js',
-            'wagtailadmin/js/page-chooser.js',
+            versioned_static('wagtailadmin/js/page-chooser-modal.js'),
+            versioned_static('wagtailadmin/js/page-chooser.js'),
         ]
 
 

@@ -5,6 +5,7 @@ from django.forms import Media, widgets
 
 from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.rich_text import features
 
 
@@ -71,7 +72,7 @@ class HalloListPlugin(HalloPlugin):
 CORE_HALLO_PLUGINS = [
     HalloPlugin(name='halloreundo', order=50),
     HalloPlugin(name='hallorequireparagraphs', js=[
-        'wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js',
+        versioned_static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
     ]),
     HalloHeadingPlugin(element='p')
 ]
@@ -138,10 +139,10 @@ class HalloRichTextArea(widgets.Textarea):
     @property
     def media(self):
         media = Media(js=[
-            'wagtailadmin/js/vendor/hallo.js',
-            'wagtailadmin/js/hallo-bootstrap.js',
+            versioned_static('wagtailadmin/js/vendor/hallo.js'),
+            versioned_static('wagtailadmin/js/hallo-bootstrap.js'),
         ], css={
-            'all': ['wagtailadmin/css/panels/hallo.css']
+            'all': [versioned_static('wagtailadmin/css/panels/hallo.css')]
         })
 
         for plugin in self.plugins:
