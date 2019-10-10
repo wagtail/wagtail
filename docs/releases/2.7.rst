@@ -24,6 +24,7 @@ The design of the StreamField user interface has been updated to improve clarity
 Other features
 ~~~~~~~~~~~~~~
 
+ * Added Elasticsearch 7 support (pySilver)
  * Added ``construct_page_listing_buttons`` hook (Michael van Tellingen)
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
  * Move and refactor upgrade notification JS (Jonny Scholes)
