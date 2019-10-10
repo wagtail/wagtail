@@ -176,7 +176,9 @@ if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     }
 
 if 'ELASTICSEARCH_URL' in os.environ:
-    if os.environ.get('ELASTICSEARCH_VERSION') == '6':
+    if os.environ.get('ELASTICSEARCH_VERSION') == '7':
+        backend = 'wagtail.search.backends.elasticsearch7'
+    elif os.environ.get('ELASTICSEARCH_VERSION') == '6':
         backend = 'wagtail.search.backends.elasticsearch6'
     elif os.environ.get('ELASTICSEARCH_VERSION') == '5':
         backend = 'wagtail.search.backends.elasticsearch5'

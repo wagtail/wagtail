@@ -91,13 +91,15 @@ See :ref:`postgres_search` for more detail.
 Elasticsearch Backend
 ---------------------
 
-Elasticsearch versions 2, 5 and 6 are supported. Use the appropriate backend for your version:
+Elasticsearch versions 2, 5, 6 and 7 are supported. Use the appropriate backend for your version:
 
 ``wagtail.search.backends.elasticsearch2`` (Elasticsearch 2.x)
 
 ``wagtail.search.backends.elasticsearch5`` (Elasticsearch 5.x)
 
 ``wagtail.search.backends.elasticsearch6`` (Elasticsearch 6.x)
+
+``wagtail.search.backends.elasticsearch7`` (Elasticsearch 7.x)
 
 Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package. The major version of the package must match the installed version of Elasticsearch:
 
@@ -114,6 +116,10 @@ Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elastic
 .. code-block:: sh
 
   pip install "elasticsearch>=6.4.0,<7.0.0"  # for Elasticsearch 6.x
+
+.. code-block:: sh
+
+  pip install "elasticsearch>=7.0.0,<8.0.0"  # for Elasticsearch 7.x  
 
 .. warning::
 
