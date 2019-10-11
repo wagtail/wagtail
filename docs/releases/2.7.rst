@@ -39,11 +39,11 @@ Other features
  * Add ``WAGTAIL_EMAIL_MANAGEMENT_ENABLED`` setting to determine whether users can change their email address (Janne Alatalo)
  * Recognise Soundcloud artist URLs as embeddable (Kiril Staikov)
  * Add ``WAGTAILDOCS_SERVE_METHOD`` setting to determine how document downloads will be linked to and served (Tobias McNulty, Matt Westcott)
- * Add ``WAGTAIL_MODERATION_ENABLED`` setting to enable / disable the 'Submit for Moderation' option (Jacob Topp-Mugglestone)
+ * Add ``WAGTAIL_MODERATION_ENABLED`` setting to enable / disable the 'Submit for Moderation' option (Jacob Topp-Mugglestone) - thanks to `The Motley Fool <https://www.fool.com/>`_ for sponsoring this feature
  * Added settings to customise pagination page size for the Images admin area (Brian Whitton)
  * Added ARIA role to TableBlock output (Matt Westcott)
  * Added cache-busting query parameters to static files within the Wagtail admin (Matt Westcott)
- * Allow ``register_page_action_menu_item`` and ``construct_page_action_menu`` hooks to override the default menu action (Rahmi Pruitt, Matt Westcott)
+ * Allow ``register_page_action_menu_item`` and ``construct_page_action_menu`` hooks to override the default menu action (Rahmi Pruitt, Matt Westcott) - thanks to `The Motley Fool <https://www.fool.com/>`_ for sponsoring review of this feature
 
 
 Bug fixes
