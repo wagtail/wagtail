@@ -43,6 +43,7 @@ Other features
  * Added settings to customise pagination page size for the Images admin area (Brian Whitton)
  * Added ARIA role to TableBlock output (Matt Westcott)
  * Added cache-busting query parameters to static files within the Wagtail admin (Matt Westcott)
+ * Allow ``register_page_action_menu_item`` and ``construct_page_action_menu`` hooks to override the default menu action (Rahmi Pruitt, Matt Westcott)
 
 
 Bug fixes
