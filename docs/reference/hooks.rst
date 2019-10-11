@@ -574,7 +574,7 @@ Hooks for customising the way users are directed through the process of creating
         menu_items[:] = [item for item in menu_items if item.name != 'action-submit']
 
 
-  The order of items in this list determines the menu ordering, and the first item in the list will be selected as the default action. For example, to change the default action to Publish:
+  The ``construct_page_action_menu`` hook is called after the menu items have been sorted by their order attributes, and so setting a menu item's order will have no effect at this point. Instead, items can be reordered by changing their position in the list, with the first item being selected as the default action. For example, to change the default action to Publish:
 
   .. code-block:: python
 
