@@ -432,6 +432,7 @@ For example:
 
 
     class PersonAdmin(ModelAdmin):
+        model = Person
         list_display = ('first_name', 'last_name')
 
         def get_queryset(self, request):
