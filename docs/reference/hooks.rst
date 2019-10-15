@@ -4,7 +4,11 @@
 Hooks
 =====
 
-On loading, Wagtail will search for any app with the file ``wagtail_hooks.py`` and execute the contents. This provides a way to register your own functions to execute at certain points in Wagtail's execution, such as when a ``Page`` object is saved or when the main menu is constructed.
+On loading, Wagtail will search for any app with the file ``wagtail_hooks.py`` and execute the contents. This provides a way to register your own functions to execute at certain points in Wagtail's execution, such as when a page is saved or when the main menu is constructed.
+
+.. note::
+   Hooks are typically used to customise the view-level behaviour of the Wagtail admin and front-end. For customisations that only deal with model-level behaviour - such as calling an external service when a page or document is added - it is often better to use :doc:`Django's signal mechanism <django:topics/signals>` (see also: :ref:`Wagtail signals <signals>`), as these are not dependent on a user taking a particular path through the admin interface.
+
 
 Registering functions with a Wagtail hook is done through the ``@hooks.register`` decorator:
 
