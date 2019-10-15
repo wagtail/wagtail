@@ -1,12 +1,12 @@
 <h1 align="center">
-	<img width="343" src="https://cdn.rawgit.com/wagtail/wagtail/master/.github/wagtail.svg" alt="Wagtail">
-	<br>
-	<br>
+    <img width="343" src="https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/wagtail.svg" alt="Wagtail">
+    <br>
+    <br>
 </h1>
 
 Wagtail is an open source content management system built on Django, with a strong community and commercial support. It's focused on user experience, and offers precise control for designers and developers.
 
-![Wagtail screenshot](https://cdn.rawgit.com/wagtail/wagtail/master/.github/wagtail-screenshot-with-browser.png)
+![Wagtail screenshot](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/wagtail-screenshot-with-browser.png)
 
 ### Features
 
@@ -103,7 +103,7 @@ We also welcome translations for Wagtail's interface. Translation work should be
 
 We thank [BrowserStack](https://www.browserstack.com/), who provides the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
 
-[![Browserstack](https://cdn.rawgit.com/wagtail/wagtail/master/.github/browserstack-logo.svg)](https://www.browserstack.com/)
+[![Browserstack](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/browserstack-logo.svg)](https://www.browserstack.com/)
 
 [![Build Status](https://api.travis-ci.org/wagtail/wagtail.svg?branch=master)](https://travis-ci.org/wagtail/wagtail)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
