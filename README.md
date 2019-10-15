@@ -101,9 +101,14 @@ We also welcome translations for Wagtail's interface. Translation work should be
 
 ### Thanks
 
-We thank [BrowserStack](https://www.browserstack.com/), who provides the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
+We thank the following organisations for their services used in Wagtail's development:
 
-[![Browserstack](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/browserstack-logo.svg)](https://www.browserstack.com/)
+[![Browserstack](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/browserstack-logo.svg)](https://www.browserstack.com/)<br>
+[BrowserStack](https://www.browserstack.com/) provides the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
+
+[![squash.io](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/squash-logo.svg)](https://www.squash.io/)<br>
+[Squash](https://www.squash.io/) provides the project with free test environments for reviewing pull requests.
+
 
 [![Build Status](https://api.travis-ci.org/wagtail/wagtail.svg?branch=master)](https://travis-ci.org/wagtail/wagtail)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
