@@ -1,5 +1,7 @@
 from django.db import models
 
+from wagtail.core.models import Site
+
 from .registry import register_setting
 
 __all__ = ['BaseSetting', 'register_setting']
@@ -12,7 +14,7 @@ class BaseSetting(models.Model):
     """
 
     site = models.OneToOneField(
-        'wagtailcore.Site', unique=True, db_index=True, editable=False, on_delete=models.CASCADE)
+        Site, unique=True, db_index=True, editable=False, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
