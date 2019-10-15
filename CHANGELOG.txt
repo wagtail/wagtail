@@ -6,6 +6,7 @@ Changelog
 
  * Improved StreamField design (Bertrand Bordage)
  * Added Elasticsearch 7 support (pySilver)
+ * Added Python 3.8 support (John Carter, Matt Westcott)
  * Added `construct_page_listing_buttons` hook (Michael van Tellingen)
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
  * Added Table Block caption for accessibility (Rahmi Pruitt)
