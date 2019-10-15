@@ -416,6 +416,7 @@ Contributors
 * David T Thompson
 * kailwallin
 * ryanomor
+* Thijs Baaijen
 
 Translators
 ===========
