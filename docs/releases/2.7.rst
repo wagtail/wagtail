@@ -31,6 +31,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Added Elasticsearch 7 support (pySilver)
+ * Provisional Python 3.8 support, pending an update to the Pillow library (John Carter, Matt Westcott)
  * Added ``construct_page_listing_buttons`` hook (Michael van Tellingen)
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
  * Move and refactor upgrade notification JS (Jonny Scholes)
@@ -48,10 +49,6 @@ Other features
  * Added ARIA role to TableBlock output (Matt Westcott)
  * Added cache-busting query parameters to static files within the Wagtail admin (Matt Westcott)
  * Allow ``register_page_action_menu_item`` and ``construct_page_action_menu`` hooks to override the default menu action (Rahmi Pruitt, Matt Westcott) - thanks to `The Motley Fool <https://www.fool.com/>`_ for sponsoring review of this feature
- * Add docs table template rendering example (Matt Westcott)
- * Add blog about image uploads in Wagtail forms to third party tutorial documentation (a-mere-peasant)
- * Clean up multiple minor documentation issues (David T Thompson, ryanomor, kailwallin)
- * Add AbstractUser import to custom user model documentation (LB (Ben Johnston))
  * ``WAGTAILIMAGES_MAX_IMAGE_PIXELS`` limit now takes the number of animation frames into account (Karl Hobley)
 
 
