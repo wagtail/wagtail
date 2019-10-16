@@ -13,7 +13,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.translation import get_language
 
-from wagtail.admin.locale import (
+from wagtail.admin.localization import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile

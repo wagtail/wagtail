@@ -4,10 +4,10 @@ from wagtail.utils.deprecation import MovedDefinitionHandler, RemovedInWagtail29
 
 
 MOVED_DEFINITIONS = {
-    'WAGTAILADMIN_PROVIDED_LANGUAGES': 'wagtail.admin.locale',
-    'get_js_translation_strings': 'wagtail.admin.locale',
-    'get_available_admin_languages': 'wagtail.admin.locale',
-    'get_available_admin_time_zones': 'wagtail.admin.locale',
+    'WAGTAILADMIN_PROVIDED_LANGUAGES': 'wagtail.admin.localization',
+    'get_js_translation_strings': 'wagtail.admin.localization',
+    'get_available_admin_languages': 'wagtail.admin.localization',
+    'get_available_admin_time_zones': 'wagtail.admin.localization',
 
     'get_object_usage': 'wagtail.admin.models',
     'popular_tags_for_model': 'wagtail.admin.models',
