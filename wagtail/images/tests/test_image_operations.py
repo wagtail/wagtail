@@ -7,7 +7,8 @@ from wagtail.core import hooks
 from wagtail.images import image_operations
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.models import Filter, Image
-from wagtail.images.tests.utils import get_test_image_file, get_test_image_file_jpeg
+from wagtail.images.tests.utils import (
+    get_test_image_file, get_test_image_file_jpeg, get_test_image_file_webp)
 
 
 class WillowOperationRecorder:
@@ -671,3 +672,32 @@ class TestBackgroundColorFilter(TestCase):
             file=get_test_image_file(),
         )
         self.assertRaises(ValueError, fil.run, image, BytesIO())
+
+
+class TestWebpFormatConversion(TestCase):
+    def test_webp_convert_to_png(self):
+        """by default, webp images will be converted to png"""
+
+        fil = Filter(spec='width-400')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_webp(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'png')
+
+    @override_settings(
+        WAGTAILIMAGES_FORMAT_CONVERSIONS={'webp': 'webp'}
+    )
+    def test_override_webp_convert_to_png(self):
+        """WAGTAILIMAGES_FORMAT_CONVERSIONS can be overridden to disable webp conversion"""
+
+        fil = Filter(spec='width-400')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_webp(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'webp')
