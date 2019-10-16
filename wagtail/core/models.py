@@ -296,6 +296,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     expired = models.BooleanField(verbose_name=_('expired'), default=False, editable=False)
 
     locked = models.BooleanField(verbose_name=_('locked'), default=False, editable=False)
+    locked_at = models.DateTimeField(verbose_name=_('locked at'), null=True, editable=False)
+    locked_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_('locked by'),
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.SET_NULL,
+        related_name='locked_pages'
+    )
 
     first_published_at = models.DateTimeField(
         verbose_name=_('first published at'),
@@ -1486,6 +1496,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``has_unpublished_changes``
         * ``owner``
         * ``locked``
+        * ``locked_by``
+        * ``locked_at``
         * ``latest_revision_created_at``
         * ``first_published_at``
         """
