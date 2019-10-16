@@ -440,7 +440,7 @@ class Filter:
                 return willow.save_as_png(output, optimize=True)
             elif output_format == 'gif':
                 return willow.save_as_gif(output)
-            elif output_format == 'webp' and hasattr(willow, 'save_as_webp'):
+            elif output_format == 'webp':
                 return willow.save_as_webp(output)
 
     def get_cache_key(self, image):
