@@ -7,6 +7,7 @@
 # shuhei hirota, 2019
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2019
 # Tri Minh <minh.nguyentri.95@gmail.com>, 2019
+# 小口英昭 <oguchi@bluff-lab.com>, 2019
 # 山本 卓也 <takuya.miraidenshi@gmail.com>, 2019
 # 溝江 智徳 <tomo.mizoe@gmail.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-08-18 03:59+0000\n"
-"Last-Translator: umepon0626 <ryuichi-astrona@ymobile.ne.jp>\n"
+"PO-Revision-Date: 2019-10-05 03:36+0000\n"
+"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -410,7 +411,7 @@ msgid "Move down"
 msgstr "下に移動"
 
 msgid "Explorer"
-msgstr "探索"
+msgstr "エクスプローラー"
 
 msgid "Internal link"
 msgstr "内部リンク"
@@ -468,8 +469,17 @@ msgstr "外部リンクを追加"
 msgid "Collection privacy"
 msgstr "コレクションプライバシー"
 
+msgid "This collection has been made private by a parent collection."
+msgstr "このコレクションは親ページにより非公開に設定されています。"
+
 msgid "You can edit the privacy settings on:"
 msgstr "公開設定を編集："
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"プライバシー設定により、このコレクション内のドキュメントを閲覧できるユーザー"
+"が決まります。"
 
 msgid "Save"
 msgstr "保存"
@@ -489,8 +499,21 @@ msgstr "コレクションのプライバシーを設定する。現在の状態
 msgid "Private"
 msgstr "非公開"
 
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"このコレクションが空でないため削除できません。次のものが含まれています:"
+
 msgid "Name"
 msgstr "名前"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"コレクションはありません。<a href=\"%(add_collection_url)s\">新しく作成</a>し"
+"ますか？"
 
 #, python-format
 msgid "Add %(label)s"
@@ -564,6 +587,23 @@ msgstr "公開"
 
 msgid "Site summary"
 msgstr "サイトの概要"
+
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"        <span class=\"visuallyhidden\">created in %(site_name)s</span>で作成"
+"された<span>%(total)s</span> 件のページ\n"
+"    "
 
 msgid "Sign in"
 msgstr "サインイン"
@@ -744,6 +784,22 @@ msgstr "%(title)sを非公開に設定"
 
 msgid "Are you sure you want to unpublish this page?"
 msgstr "このページを非公開に設定してよろしいですか？"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    このページには%(live_descendant_count)s件のサブページがあ"
+"ります。それらも非公開です。\n"
+"                "
 
 msgid "Yes, unpublish it"
 msgstr "はい、非公開に設定します。"
@@ -950,6 +1006,20 @@ msgstr "<span>%(title)s</span>の親ページを選択"
 msgid "Preview error"
 msgstr "プレビューエラー"
 
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"                いくつかのエラーが存在するため、このページをプレビューするこ"
+"とができません。\n"
+"このタブを閉じ、ページを編集してこれらのエラーを修正したのち、もう一度プレ"
+"ビューを使用してください。\n"
+"            "
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "%(title)sを比較"
@@ -998,6 +1068,10 @@ msgstr[0] ""
 
 msgid "There are no differences between these two revisions"
 msgstr "これら２つの改定には差異はありません。"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "%(title)sのリビジョン%(revision.id)sのスケジュールを解除"
 
 msgid "Unschedule"
 msgstr "予定外"
@@ -1123,11 +1197,43 @@ msgstr ""
 "ています。 <a href=\"http://browsehappy.com/\">ブラウザを更新</a>してくださ"
 "い。."
 
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtailの利用にはJavascriptが必要ですが現在無効に設定されていま"
+"す。<br />\n"
+"            <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" "
+"rel=\"noopener noreferrer\">WebブラウザでJavaScriptを有効にする方法</a>は次の"
+"とおりです。\n"
+"        "
+
 msgid "Go to Wagtail admin interface"
 msgstr "Wagtailの管理者インターフェースに移動"
 
 msgid "Add a child page"
 msgstr "子ページを追加"
+
+msgid "Show in Explorer"
+msgstr "エクスプローラーに表示"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr "'%(parent)s'内の子ページの順序を'%(label)s'で昇順に並べ替えます。"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr "'%(parent)s'内の子ページの順序を'%(label)s'で降順に並べ替えます。"
 
 msgid "Test"
 msgstr "テスト"
@@ -1273,6 +1379,9 @@ msgstr "コレクションを完全に削除しますか"
 msgid "Editing"
 msgstr "編集中"
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "ページ'{0}' が作成され、公開予定が設定されました。"
+
 msgid "View live"
 msgstr "閲覧"
 
@@ -1293,6 +1402,18 @@ msgstr "ページ：'{0}' が作成されました。"
 
 msgid "The page could not be created due to validation errors"
 msgstr "このページはエラーにより作成できませんでした。"
+
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "ページ'{1}'のリビジョン{0}が公開される予定です。"
+
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr "ページ'{0}' が公開され、このリビジョンの公開も予定されました。"
+
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "ページ'{0}'の公開が予定されました。"
+
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "ページ'{1}'のリビジョン{0}が公開されました。"
 
 msgid "Page '{0}' has been published."
 msgstr "ページ：'{0}' が公開されました。"
@@ -1328,6 +1449,13 @@ msgstr "ページ：'{0}' が削除されました。"
 msgid "Page '{0}' unpublished."
 msgstr "ページ：'{0}' が非公開に設定されました。"
 
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"スラッグ '{0}' は既に選択した親ページで使用されています。 スラッグが重複しな"
+"いことを確認したのち、再度操作を行ってください。"
+
 msgid "Page '{0}' moved."
 msgstr "ページ：'{0}' が除去されました。"
 
@@ -1358,11 +1486,25 @@ msgstr "ページ：'{0}' は現在ロックされています。"
 msgid "Page '{0}' is now unlocked."
 msgstr "ページ：'{0}' のロックが解除されました。"
 
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"%(user)sによりこのページの<b>%(created_at)s</b>以前のリビジョンを表示していま"
+"す"
+
 msgid "Earliest"
 msgstr "最も早い"
 
 msgid "Latest"
 msgstr "最新"
+
+msgid "revision {0} of \"{1}\""
+msgstr "\"{1}\"のリビジョン{0}"
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "\"{1}\"のリビジョン{0}の公開予定が取り消されました。"
 
 msgid "Edit '{title}'"
 msgstr "'{title}'を編集します"

@@ -5,6 +5,7 @@
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2016
 # Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>, 2019
+# 小口英昭 <oguchi@bluff-lab.com>, 2019
 # Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-08-30 10:07+0000\n"
-"Last-Translator: Yudai Kobayashi <yudai.kobayashi.miraidenshi@gmail.com>\n"
+"PO-Revision-Date: 2019-10-05 02:40+0000\n"
+"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +52,11 @@ msgstr "%sに該当しない画像形式です。"
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "このファイルは大きすぎます（%%s）。ファイルサイズの上限は%sです。"
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"このファイルのピクセル数 (%%s)は大きすぎます。ピクセル数の上限は%sです。"
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -94,6 +100,12 @@ msgstr "縦幅"
 
 msgid "Closeness"
 msgstr "近さ"
+
+msgid "Add"
+msgstr "追加"
+
+msgid "Add/edit images you own"
+msgstr "自分の画像を追加/編集"
 
 msgid "Edit"
 msgstr "編集"
@@ -143,6 +155,19 @@ msgstr "人気のタグ"
 msgid "Uploading…"
 msgstr "アップロード中…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"%(counter)s件の一致があります。"
+
 msgid "Latest images"
 msgstr "最近の画像"
 
@@ -151,6 +176,23 @@ msgstr "フォーマットを選択"
 
 msgid "Insert image"
 msgstr "画像を挿入"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span class=\"visuallyhidden\">created in %(site_name)s</span>で作成"
+"された<span>%(total)s</span> 枚の画像\n"
+"    "
 
 msgid "Change image file:"
 msgstr "画像ファイルを変更"
@@ -167,11 +209,19 @@ msgstr "保存"
 msgid "Delete image"
 msgstr "画像を削除"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s回使用"
+
 msgid "Are you sure you want to delete this image?"
 msgstr "この画像を削除してもよろしいですか？"
 
 msgid "Yes, delete"
 msgstr "はい、削除します"
+
+msgid "No, don't delete"
+msgstr "いいえ、削除しません"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -189,8 +239,16 @@ msgstr "焦点"
 msgid "(optional)"
 msgstr "(任意)"
 
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr "この画像でもっとも際立たせたい部分を四角で選択してください。"
+
 msgid "Current focal point shown"
 msgstr "現在の焦点が表示されています。"
+
+msgid "Remove focal area"
+msgstr "ピックアップ箇所削除"
 
 msgid "Max dimensions"
 msgstr "最大の寸法"
@@ -213,6 +271,22 @@ msgstr "ピクセル"
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "<em>%(query_string)s</em>に一致する画像はありませんでした。"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"まだこのコレクションに画像がアップロードされていません。<a href="
+"\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"まだ画像がアップロードされていません。<a href="
+"\"%(wagtailimages_add_image_url)s\">アップロード</a>しますか？"
 
 msgid "Generating URL"
 msgstr "URLを生成"
@@ -265,6 +339,9 @@ msgstr ""
 msgid "Or choose from your computer"
 msgstr "もしくはファイルを参照"
 
+msgid "Add to collection:"
+msgstr "コレクションに追加:"
+
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
 "if necessary. You may also delete the image completely if the upload wasn't "
@@ -276,6 +353,12 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "アップロードに失敗しました。"
 
+msgid "Server Error"
+msgstr "サーバーエラー"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "次の情報を添えて、このエラーを管理者に報告してください:"
+
 msgid "Image updated."
 msgstr "画像が更新されました。"
 
@@ -284,6 +367,12 @@ msgstr "アップデート"
 
 msgid "Delete"
 msgstr "削除"
+
+msgid "Image permissions"
+msgstr "画像権限"
+
+msgid "Add an image permission"
+msgstr "画像権限を追加"
 
 msgid "Search images"
 msgstr "画像を検索"
@@ -315,6 +404,11 @@ msgstr "この画像はエラーにより生成できませんでした。 "
 
 msgid "Image"
 msgstr "画像"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s件の画像 "
 
 msgid "Change image"
 msgstr "画像を変更"

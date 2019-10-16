@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-10-01 08:37+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -115,6 +115,9 @@ msgstr "Wróć do listy"
 msgid "Yes, delete"
 msgstr "Tak, usuń"
 
+msgid "No, don't delete"
+msgstr "Nie usuwaj"
+
 msgid "Home"
 msgstr "Start"
 
@@ -159,6 +162,9 @@ msgstr ""
 "                                                Dlaczego nie <a href="
 "\"%(url)s\">dodać jednego</a>?\n"
 "                                            "
+
+msgid "Pagination"
+msgstr "Stronicowanie"
 
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
