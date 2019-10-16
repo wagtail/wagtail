@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-10-01 08:36+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -324,6 +324,15 @@ msgstr "Brakujący dokument"
 msgid "Close"
 msgstr "Zamknij"
 
+msgid "Edit \\"
+msgstr "Edycja \\"
+
+msgid "View child pages of \\"
+msgstr "Pokaż strony podrzędne \\"
+
+msgid "Page explorer"
+msgstr "Przeglądarka stron"
+
 msgid "January"
 msgstr "Styczeń"
 
@@ -519,8 +528,14 @@ msgstr "Zapisz"
 msgid "Privacy"
 msgstr "Prywatność"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Ustaw widoczność kolekcji. Aktualna widoczność: Publiczna"
+
 msgid "Public"
 msgstr "Publiczna"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Ustaw widoczność kolekcji. Aktualna widoczność: Prywatna"
 
 msgid "Private"
 msgstr "Prywatna"
@@ -613,6 +628,37 @@ msgstr "Opublikowana"
 msgid "Site summary"
 msgstr "Streszczenie strony"
 
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"            <span>%(total)s</span> strona <span class=\"visuallyhidden"
+"\">utworzona w %(site_name)s</span>\n"
+"        "
+msgstr[1] ""
+"\n"
+"            <span>%(total)s</span> stron <span class=\"visuallyhidden"
+"\">utworzonych w %(site_name)s</span>\n"
+"        "
+msgstr[2] ""
+"\n"
+"            <span>%(total)s</span> stron <span class=\"visuallyhidden"
+"\">utworzonych w %(site_name)s</span>\n"
+"        "
+msgstr[3] ""
+"\n"
+"            <span>%(total)s</span> stron utworzonych w %(site_name)s</span>\n"
+"        "
+
 msgid "Sign in"
 msgstr "Zaloguj się"
 
@@ -684,11 +730,29 @@ msgstr ""
 msgid "Edit lock"
 msgstr "Edytuj blokadę"
 
+msgid "Remove editor lock. Current status: Locked"
+msgstr "Usuń blokadę edytorską. Aktualny status: Zablokowany"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "Ustaw blokadę edytorską. Aktualny status: Odblokowany"
+
 msgid "Locked"
 msgstr "Zablokowany"
 
 msgid "Unlocked"
 msgstr "Odblokowany"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Ustaw widoczność strony. Aktualny status: Publiczny"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Ustaw widoczność strony. Aktualny status: Prywatny"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Widoczność strony. Aktualny status: Publiczny"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Widoczność strony. Aktualny status: Prywatny"
 
 msgid "Publishing…"
 msgstr "Publikowanie..."
@@ -852,6 +916,9 @@ msgstr "Nowa %(page_type)s"
 msgid "New"
 msgstr "Nowy"
 
+msgid "Actions"
+msgstr "Akcje"
+
 msgid "Saving…"
 msgstr "Zapisywanie..."
 
@@ -986,6 +1053,9 @@ msgstr "Dodaj stronę podrzędną"
 
 msgid "Sites menu"
 msgstr "Menu serwisów"
+
+msgid "Pagination"
+msgstr "Stronicowanie"
 
 #, python-format
 msgid ""
@@ -1204,6 +1274,9 @@ msgstr "Kolekcja"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strona %(page_num)s z %(total_pages)s."
 
+msgid "Breadcrumb"
+msgstr "Breadcrumb"
+
 msgid "Root"
 msgstr "Główny"
 
@@ -1221,6 +1294,12 @@ msgstr "Ustawienia konta"
 
 msgid "Log out"
 msgstr "Wyloguj się"
+
+msgid "Visit the live page"
+msgstr "Odwiedź stronę \"na żywo\""
+
+msgid "Current page status:"
+msgstr "Aktualny status strony:"
 
 msgid "Other searches"
 msgstr "Inne wyszukiwania"
@@ -1260,6 +1339,18 @@ msgstr "Dodaj podstronę"
 msgid "Show in Explorer"
 msgstr "Pokaż w Przeglądarce"
 
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' rosnąco."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' malejąco."
+
 msgid "Test"
 msgstr "Test"
 
@@ -1268,6 +1359,9 @@ msgstr "Arabski ęzyk"
 
 msgid "Catalan"
 msgstr "Kataloński"
+
+msgid "Czech"
+msgstr "Czeski"
 
 msgid "German"
 msgstr "Niemiecki"
@@ -1289,6 +1383,9 @@ msgstr "Francuski"
 
 msgid "Galician"
 msgstr "Galicyjski"
+
+msgid "Hungarian"
+msgstr "Węgierski"
 
 msgid "Indonesian"
 msgstr "Indonezyjski"
