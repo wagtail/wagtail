@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from elasticsearch import NotFoundError
 from elasticsearch.helpers import bulk
 
@@ -90,9 +92,8 @@ class Elasticsearch7SearchBackend(Elasticsearch6SearchBackend):
     autocomplete_query_compiler_class = Elasticsearch7AutocompleteQueryCompiler
     results_class = Elasticsearch7SearchResults
 
-    def __init__(self, params):
-        self.settings["settings"]["index"] = {"max_ngram_diff": 12}
-        super().__init__(params)
+    settings = deepcopy(Elasticsearch6SearchBackend.settings)
+    settings["settings"]["index"] = {"max_ngram_diff": 12}
 
 
 SearchBackend = Elasticsearch7SearchBackend
