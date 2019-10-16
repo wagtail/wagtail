@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Joanico Barros <joanico@catalpa.io>, 2019
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
 # Peter Coward <peter@catalpa.io>, 2019
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-06-05 04:36+0000\n"
-"Last-Translator: Peter Coward <peter@catalpa.io>\n"
+"PO-Revision-Date: 2019-09-21 00:45+0000\n"
+"Last-Translator: Joanico Barros <joanico@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +26,7 @@ msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Ita boot troka %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
-msgstr "Ita boot troka"
+msgstr "Hadia hela"
 
 msgid "Saving…"
 msgstr "Rai hela..."

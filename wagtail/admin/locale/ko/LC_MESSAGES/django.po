@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2019
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Kyungil Choi <hanpama@gmail.com>, 2015,2017-2019
 # Matt Westcott <matthew@torchbox.com>, 2018
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-09-30 04:07+0000\n"
+"Last-Translator: Jihan Chung <jihanchung20@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -293,8 +294,23 @@ msgstr ""
 "에디터에 문제가 발생했습니다. 내용은 마지막으로 저장된 버전으로 초기화되었습"
 "니다."
 
+msgid "Broken link"
+msgstr "깨진 링크"
+
+msgid "Missing document"
+msgstr "문서 없음"
+
 msgid "Close"
 msgstr "닫기"
+
+msgid "Edit \\"
+msgstr "수정 \\"
+
+msgid "View child pages of \\"
+msgstr "하위 페이지 보기 \\"
+
+msgid "Page explorer"
+msgstr "페이지 탐색"
 
 msgid "January"
 msgstr "1월"
@@ -464,8 +480,14 @@ msgstr "저장"
 msgid "Privacy"
 msgstr "공개 범위"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "프라이버시 설정. 현재 상태: 공개"
+
 msgid "Public"
 msgstr "공개"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "프라이버시 설정. 현재 상태: 비공개"
 
 msgid "Private"
 msgstr "비공개"
@@ -624,11 +646,23 @@ msgstr "공개 범위를 바꾸면 모든 하위페이지에도 함께 적용됩
 msgid "Edit lock"
 msgstr "수정 잠금"
 
+msgid "Remove editor lock. Current status: Locked"
+msgstr "에디터 잠금 해제. 현재 상태: 잠김"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "에디터 잠금 설정. 현재 상태: 열림"
+
 msgid "Locked"
 msgstr "잠김"
 
 msgid "Unlocked"
 msgstr "잠금 풀림"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "페이지 프라이버시 설정. 현재 상태: 공개"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "페이지 프라이버시 설정. 현재 상태: 비공개"
 
 msgid "Publishing…"
 msgstr "게시 중..."
@@ -1091,6 +1125,12 @@ msgstr "계정 설정"
 
 msgid "Log out"
 msgstr "로그아웃"
+
+msgid "Visit the live page"
+msgstr "활성 페이지 보기"
+
+msgid "Current page status:"
+msgstr "현재 페이지 상태:"
 
 msgid "Other searches"
 msgstr "다른 검색결과들"

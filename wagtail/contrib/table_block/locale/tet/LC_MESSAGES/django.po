@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-09-21 00:26+0000\n"
+"PO-Revision-Date: 2019-09-21 00:32+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -19,32 +19,17 @@ msgstr ""
 "Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Wagtail style guide"
-msgstr "Wagtail matadalan stilu"
+msgid "Wagtail table block"
+msgstr "Wagtail bloku tabela"
 
-msgid "Styleguide"
-msgstr "Matadalan Stilu"
+msgid "Row header"
+msgstr "Lina leten"
 
-msgid "Save"
-msgstr "Rai"
+msgid "Display the first row as a header."
+msgstr "Hatudu lina dahuluk hanesan titlu."
 
-msgid "Delete image"
-msgstr "Hamoos imagen"
+msgid "Column header"
+msgstr "Koluna titlu"
 
-msgid "Search something"
-msgstr "Buka sasan"
-
-msgid "Success message"
-msgstr "Mensagem diak"
-
-msgid "View live"
-msgstr "Haree iha situ"
-
-msgid "Edit"
-msgstr "Hadia"
-
-msgid "Warning message"
-msgstr "Mensagem avisu"
-
-msgid "Error message"
-msgstr "Mensagem Erru"
+msgid "Display the first column as a header."
+msgstr "Hatudu koluna dahuluk hanesan titlu"
