@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,11 +41,11 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: forms.py:80
+#: forms.py:80 forms.py:413
 msgid "First Name"
 msgstr ""
 
-#: forms.py:81
+#: forms.py:81 forms.py:414
 msgid "Last Name"
 msgstr ""
 
@@ -85,11 +85,11 @@ msgstr ""
 msgid "Preferred language"
 msgstr ""
 
-#: forms.py:422
+#: forms.py:431
 msgid "Current time zone"
 msgstr ""
 
-#: forms.py:432
+#: forms.py:441
 msgid "Upload a profile picture"
 msgstr ""
 

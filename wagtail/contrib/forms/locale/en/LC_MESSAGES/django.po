@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,6 +139,14 @@ msgstr ""
 
 #: models.py:154
 msgid "Submission date"
+msgstr ""
+
+#: models.py:248
+msgid "Form"
+msgstr ""
+
+#: models.py:249
+msgid "Landing page"
 msgstr ""
 
 #: models.py:266

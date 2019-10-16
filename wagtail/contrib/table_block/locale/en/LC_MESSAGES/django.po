@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,4 +35,14 @@ msgstr ""
 
 #: templates/table_block/widgets/table.html:18
 msgid "Display the first column as a header."
+msgstr ""
+
+#: templates/table_block/widgets/table.html:23
+msgid "Table caption"
+msgstr ""
+
+#: templates/table_block/widgets/table.html:28
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
 msgstr ""
