@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~~
 
  * Improved StreamField design (Bertrand Bordage)
+ * Added WebP image support (frmdstryr, Karl Hobley, Matt Westcott)
  * Added Elasticsearch 7 support (pySilver)
  * Added `construct_page_listing_buttons` hook (Michael van Tellingen)
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)

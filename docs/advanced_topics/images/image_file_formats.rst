@@ -1,3 +1,5 @@
+.. _image_file_formats:
+
 Image file formats
 ==================
 

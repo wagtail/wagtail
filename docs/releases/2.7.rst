@@ -21,6 +21,12 @@ Improved StreamField design
 The design of the StreamField user interface has been updated to improve clarity and usability, including better handling of nested blocks. This work was completed by Bertrand Bordage as part of the `Wagtail's First Hatch <https://www.kickstarter.com/projects/noripyt/wagtails-first-hatch>`_ crowdfunding campaign. We would like to thank all `supporters of the campaign <https://wagtail.io/blog/wagtails-first-hatch-backers/>`_.
 
 
+WebP image support
+~~~~~~~~~~~~~~~~~~
+
+Images can now be uploaded and rendered in `WebP <https://developers.google.com/speed/webp>`_ format; see :ref:`image_file_formats` for details. This feature was developed by frmdstryr, Karl Hobley and Matt Westcott.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
