@@ -1072,6 +1072,8 @@ def lock(request, page_id):
     # Lock the page
     if not page.locked:
         page.locked = True
+        page.locked_by = request.user
+        page.locked_at = timezone.now()
         page.save()
 
         messages.success(request, _("Page '{0}' is now locked.").format(page.get_admin_display_title()))
@@ -1096,6 +1098,8 @@ def unlock(request, page_id):
     # Unlock the page
     if page.locked:
         page.locked = False
+        page.locked_by = None
+        page.locked_at = None
         page.save()
 
         messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()))
