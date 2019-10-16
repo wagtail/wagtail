@@ -342,6 +342,9 @@ def edit(request, page_id):
     edit_handler = edit_handler.bind_to(instance=page, request=request)
     form_class = edit_handler.get_form_class()
 
+    user_has_lock = page.locked_by_id == request.user.id
+    page_locked = page.locked and not user_has_lock
+
     next_url = get_valid_next_url_from_request(request)
 
     errors_debug = None
@@ -350,7 +353,7 @@ def edit(request, page_id):
         form = form_class(request.POST, request.FILES, instance=page,
                           parent_page=parent)
 
-        if form.is_valid() and not page.locked:
+        if form.is_valid() and not page_locked:
             page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
@@ -494,7 +497,7 @@ def edit(request, page_id):
                     target_url += '?next=%s' % urlquote(next_url)
                 return redirect(target_url)
         else:
-            if page.locked:
+            if page_locked:
                 messages.error(request, _("The page could not be saved as it is locked"))
             else:
                 messages.validation_error(
@@ -544,6 +547,8 @@ def edit(request, page_id):
         'form': form,
         'next': next_url,
         'has_unsaved_changes': has_unsaved_changes,
+        'page_locked': page_locked,
+        'user_has_lock': user_has_lock,
     })
 
 

@@ -4,17 +4,25 @@
     {% page_permissions page as page_perms %}
 {% endif %}
 
-<form action="{% url page.locked|yesno:'wagtailadmin_pages:unlock,wagtailadmin_pages:lock' page.id %}" method="POST" class="lock-indicator {{ page.locked|yesno:'locked,unlocked' }}">
+{% if user_has_lock %}
+    {% url 'wagtailadmin_pages:unlock' page.id as form_action %}
+{% elif not page.locked and page_perms.can_lock %}
+    {% url 'wagtailadmin_pages:lock' page.id as form_action %}
+{% endif %}
+
+<form action="{{ form_action }}" method="POST" class="lock-indicator {{ page.locked|yesno:'locked,unlocked' }}">
     {% trans "Edit lock" %}
 
     {% csrf_token %}
     <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}" />
     <button
         type="submit"
-        class="status-tag {{ page.locked|yesno:'primary,secondary' }}{% if not page_perms.can_lock %} disabled{% endif %}"
-        aria-label="{% if page.locked %}{% trans 'Remove editor lock. Current status: Locked' %}{% else %}{% trans 'Apply editor lock. Current status: Unlocked' %}{% endif %}">
-        {% if page.locked %}
+        class="status-tag {{ page.locked|yesno:'primary,secondary' }}{% if not form_action %} disabled{% endif %}"
+        aria-label="{% if page_locked %}{% trans 'Remove editor lock. Current status: Locked' %}{% else %}{% trans 'Apply editor lock. Current status: Unlocked' %}{% endif %}">
+        {% if page_locked %}
             {% trans "Locked" %}
+        {% elif user_has_lock %}
+            {% trans "Locked by you" %}
         {% else %}
             {% trans "Unlocked" %}
         {% endif %}
