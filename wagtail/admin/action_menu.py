@@ -36,7 +36,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
             'parent_page' (if view = 'create') = the parent page of the page being created
             'user_page_permissions' = a UserPagePermissionsProxy for the current user, to test permissions against
         """
-        return (context['view'] == 'create' or not context['page'].locked)
+        return (context['view'] == 'create' or not context['user_page_permissions'].for_page(context['page']).page_locked())
 
     def get_context(self, request, parent_context):
         """Defines context for the template, overridable to use more data"""
@@ -66,7 +66,7 @@ class PublishMenuItem(ActionMenuItem):
             return context['user_page_permissions'].for_page(context['parent_page']).can_publish_subpage()
         else:  # view == 'edit' or 'revisions_revert'
             return (
-                not context['page'].locked
+                not context['user_page_permissions'].for_page(context['page']).page_locked()
                 and context['user_page_permissions'].for_page(context['page']).can_publish()
             )
 
@@ -87,7 +87,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
         elif context['view'] == 'create':
             return True
         elif context['view'] == 'edit':
-            return not context['page'].locked
+            return not context['user_page_permissions'].for_page(context['page']).page_locked()
         else:  # context == revisions_revert
             return False
 
@@ -99,7 +99,7 @@ class UnpublishMenuItem(ActionMenuItem):
     def is_shown(self, request, context):
         return (
             context['view'] == 'edit'
-            and not context['page'].locked
+            and not context['user_page_permissions'].for_page(context['page']).page_locked()
             and context['user_page_permissions'].for_page(context['page']).can_unpublish()
         )
 
@@ -114,7 +114,7 @@ class DeleteMenuItem(ActionMenuItem):
     def is_shown(self, request, context):
         return (
             context['view'] == 'edit'
-            and not context['page'].locked
+            and not context['user_page_permissions'].for_page(context['page']).page_locked()
             and context['user_page_permissions'].for_page(context['page']).can_delete()
         )
 
@@ -139,7 +139,7 @@ class PageLockedMenuItem(ActionMenuItem):
     template = 'wagtailadmin/pages/action_menu/page_locked.html'
 
     def is_shown(self, request, context):
-        return ('page' in context) and (context['page'].locked)
+        return ('page' in context) and context['user_page_permissions'].for_page(context['page']).page_locked()
 
     def get_context(self, request, parent_context):
         context = super().get_context(request, parent_context)

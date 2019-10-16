@@ -1844,6 +1844,9 @@ class PagePermissionTester:
                 if self.page.path.startswith(perm.page.path)
             )
 
+    def page_locked(self):
+        return self.page.locked and self.page.locked_by_id is not self.user.id
+
     def can_add_subpage(self):
         if not self.user.is_active:
             return False
@@ -1906,7 +1909,7 @@ class PagePermissionTester:
             return False
         if (not self.page.live) or self.page_is_root:
             return False
-        if self.page.locked:
+        if self.page_locked():
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
