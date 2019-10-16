@@ -1,15 +1,14 @@
 Image formats
-=========================
+=============
 
 Using the picture element
 -------------------------
 
 The `picture element <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture>`_
-can be used with wagtails ``format-<type>`` image operation to specify different
-image formats and let the browser choose it's preferred one.
+can be used with the ``format-<type>`` image operation to specify different
+image formats and let the browser choose the one it prefers.
 
-
-To do this with wagtail:
+To do this with Wagtail:
 
 .. code-block:: python
 
@@ -24,7 +23,6 @@ To do this with wagtail:
 
         {{ image_png }}
     </picture>
-
 
 Customizing output formats
 --------------------------
