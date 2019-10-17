@@ -343,7 +343,7 @@ def edit(request, page_id):
     form_class = edit_handler.get_form_class()
 
     user_has_lock = page.locked_by_id == request.user.id
-    page_locked = page.locked and not user_has_lock
+    page_locked = page_perms.page_locked()
 
     next_url = get_valid_next_url_from_request(request)
 
