@@ -47,6 +47,22 @@ class PagesForModerationPanel:
         }, request=self.request)
 
 
+class LockedPagesPanel:
+    name = 'locked_pages'
+    order = 250
+
+    def __init__(self, request):
+        self.request = request
+
+    def render(self):
+        return render_to_string('wagtailadmin/home/locked_pages.html', {
+            'locked_pages': Page.objects.filter(
+                locked=True,
+                locked_by=self.request.user,
+            )
+        }, request=self.request)
+
+
 class RecentEditsPanel:
     name = 'recent_edits'
     order = 300
@@ -95,6 +111,7 @@ def home(request):
         SiteSummaryPanel(request),
         UpgradeNotificationPanel(request),
         PagesForModerationPanel(request),
+        LockedPagesPanel(request),
         RecentEditsPanel(request),
     ]
 
