@@ -2,7 +2,7 @@
 <div class="nice-padding">
     {% if pages %}
         <h2>
-            {% blocktrans count counter=all_pages.count %}
+            {% blocktrans trimmed count counter=all_pages.count %}
                 There is one matching page
             {% plural %}
                 There are {{ counter }} matching pages

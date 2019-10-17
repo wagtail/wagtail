@@ -2,7 +2,7 @@
 {% if users %}
     {% if is_searching %}
         <h2>
-        {% blocktrans count counter=users|length %}
+        {% blocktrans trimmed count counter=users|length %}
             There is {{ counter }} match
         {% plural %}
             There are {{ counter }} matches

@@ -61,7 +61,7 @@
                                     {% else %}
                                         <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
                                         {% if user_can_create %}
-                                            {% blocktrans with view.create_url as url %}
+                                            {% blocktrans trimmed with view.create_url as url %}
                                                 Why not <a href="{{ url }}">add one</a>?
                                             {% endblocktrans %}
                                         {% endif %}</p>

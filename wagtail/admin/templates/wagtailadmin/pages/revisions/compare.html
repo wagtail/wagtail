@@ -43,13 +43,13 @@
                                             <div class="help-block help-info">
                                                 <p>
                                                     {% if move > 0 %}
-                                                        {% blocktrans count counter=move %}
+                                                        {% blocktrans trimmed count counter=move %}
                                                             Moved down 1 place.
                                                         {% plural %}
                                                             Moved down {{ counter }} places.
                                                         {% endblocktrans %}
                                                     {% elif move < 0 %}
-                                                        {% blocktrans count counter=move|abs %}
+                                                        {% blocktrans trimmed count counter=move|abs %}
                                                             Moved up 1 place.
                                                         {% plural %}
                                                             Moved up {{ counter }} places.

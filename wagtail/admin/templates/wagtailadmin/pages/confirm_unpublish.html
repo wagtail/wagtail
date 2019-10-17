@@ -17,11 +17,13 @@
                         <div class="field-content">
                             <div class="input">
                                 <input id="id_include_descendants" name="include_descendants" type="checkbox">
-                                <label for="id_include_descendants" class="plain-checkbox-label">{% blocktrans count counter=live_descendant_count %}
-                    This page has one subpage. Unpublish this too
-                {% plural %}
-                    This page has {{ live_descendant_count }} subpages. Unpublish these too
-                {% endblocktrans %}</label>
+                                <label for="id_include_descendants" class="plain-checkbox-label">
+                                    {% blocktrans trimmed count counter=live_descendant_count %}
+                                        This page has one subpage. Unpublish this too
+                                    {% plural %}
+                                        This page has {{ live_descendant_count }} subpages. Unpublish these too
+                                    {% endblocktrans %}
+                                </label>
                             </div>
                         </div>
                     </div>

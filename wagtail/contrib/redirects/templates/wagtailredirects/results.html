@@ -2,7 +2,7 @@
 {% if redirects %}
     {% if query_string %}
         <h2>
-        {% blocktrans count counter=redirects.paginator.count %}
+        {% blocktrans trimmed count counter=redirects.paginator.count %}
             There is {{ counter }} match
         {% plural %}
             There are {{ counter }} matches

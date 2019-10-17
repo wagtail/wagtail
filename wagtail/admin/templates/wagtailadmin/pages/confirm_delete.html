@@ -10,7 +10,7 @@
         <p>
             {% trans 'Are you sure you want to delete this page?' %}
             {% if descendant_count %}
-                {% blocktrans count counter=descendant_count %}
+                {% blocktrans trimmed count counter=descendant_count %}
                     This will also delete one more subpage.
                 {% plural %}
                     This will also delete {{ descendant_count }} more subpages.
