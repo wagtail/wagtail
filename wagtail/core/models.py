@@ -1845,7 +1845,16 @@ class PagePermissionTester:
             )
 
     def page_locked(self):
-        return self.page.locked and self.page.locked_by_id is not self.user.id
+        if not self.page.locked:
+            # Page is not locked
+            return False
+
+        if getattr(settings, 'WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK', False):
+            # All locks are global
+            return True
+        else:
+            # Locked only if the current user was not the one who locked the page
+            return self.page.locked_by_id is not self.user.pk
 
     def can_add_subpage(self):
         if not self.user.is_active:

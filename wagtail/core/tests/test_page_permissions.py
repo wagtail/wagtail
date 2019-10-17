@@ -2,7 +2,8 @@ import json
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from django.test import Client, TestCase
+from django.test import Client, TestCase, override_settings
+from django.utils import timezone
 
 from wagtail.core.models import GroupPagePermission, Page, UserPagePermissionsProxy
 from wagtail.tests.testapp.models import (
@@ -516,6 +517,55 @@ class TestPagePermission(TestCase):
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertFalse(perms.can_lock())
+
+    def test_page_locked_for_unlocked_page(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        self.assertFalse(perms.page_locked())
+
+    def test_page_locked_for_locked_page(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Lock the page
+        christmas_page.locked = True
+        christmas_page.locked_by = user
+        christmas_page.locked_at = timezone.now()
+        christmas_page.save()
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        # The user who locked the page shouldn't see the page as locked
+        self.assertFalse(perms.page_locked())
+
+        # Other users should see the page as locked
+        other_user = get_user_model().objects.get(username='eventeditor')
+        other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
+        self.assertTrue(other_perms.page_locked())
+
+    @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
+    def test_page_locked_for_locked_page_with_global_lock_enabled(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Lock the page
+        christmas_page.locked = True
+        christmas_page.locked_by = user
+        christmas_page.locked_at = timezone.now()
+        christmas_page.save()
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        # The user who locked the page should now also see the page as locked
+        self.assertTrue(perms.page_locked())
+
+        # Other users should see the page as locked, like before
+        other_user = get_user_model().objects.get(username='eventeditor')
+        other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
+        self.assertTrue(other_perms.page_locked())
 
 
 class TestPagePermissionTesterCanCopyTo(TestCase):
