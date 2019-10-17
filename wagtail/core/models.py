@@ -1671,7 +1671,8 @@ PAGE_PERMISSION_TYPES = [
     ('edit', _("Edit"), _("Edit any page")),
     ('publish', _("Publish"), _("Publish any page")),
     ('bulk_delete', _("Bulk delete"), _("Delete pages with children")),
-    ('lock', _("Lock"), _("Lock/unlock any page")),
+    ('lock', _("Lock"), _("Lock/unlock pages you've locked")),
+    ('unlock', _("Unlock"), _("Unlock any page")),
 ]
 
 PAGE_PERMISSION_TYPE_CHOICES = [
@@ -1939,6 +1940,9 @@ class PagePermissionTester:
 
     def can_lock(self):
         return self.user.is_superuser or ('lock' in self.permissions)
+
+    def can_unlock(self):
+        return self.user.is_superuser or self.page.locked_by_id == self.user.pk or ('unlock' in self.permissions)
 
     def can_publish_subpage(self):
         """

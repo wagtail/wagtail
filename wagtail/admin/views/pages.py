@@ -549,6 +549,7 @@ def edit(request, page_id):
         'has_unsaved_changes': has_unsaved_changes,
         'page_locked': page_locked,
         'user_has_lock': user_has_lock,
+        'user_can_unlock': page_perms.can_unlock(),
     })
 
 
@@ -1097,7 +1098,7 @@ def unlock(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
 
     # Check permissions
-    if not page.permissions_for_user(request.user).can_lock():
+    if not page.permissions_for_user(request.user).can_unlock():
         raise PermissionDenied
 
     # Unlock the page
