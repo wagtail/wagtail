@@ -493,6 +493,7 @@ class TestPagePermission(TestCase):
 
         self.assertTrue(perms.can_lock())
         self.assertFalse(locked_perms.can_unpublish())  # locked pages can't be unpublished
+        self.assertTrue(perms.can_unlock())
 
     def test_lock_page_for_moderator(self):
         user = get_user_model().objects.get(username='eventmoderator')
@@ -501,6 +502,36 @@ class TestPagePermission(TestCase):
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertTrue(perms.can_lock())
+        self.assertTrue(perms.can_unlock())
+
+    def test_lock_page_for_moderator_without_unlock_permission(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        GroupPagePermission.objects.filter(group__name='Event moderators', permission_type='unlock').delete()
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        self.assertTrue(perms.can_lock())
+        self.assertFalse(perms.can_unlock())
+
+    def test_lock_page_for_moderator_whole_locked_page_without_unlock_permission(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Lock the page
+        christmas_page.locked = True
+        christmas_page.locked_by = user
+        christmas_page.locked_at = timezone.now()
+        christmas_page.save()
+
+        GroupPagePermission.objects.filter(group__name='Event moderators', permission_type='unlock').delete()
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        # Unlike in the previous test, the user can unlock this page as it was them who locked
+        self.assertTrue(perms.can_lock())
+        self.assertTrue(perms.can_unlock())
 
     def test_lock_page_for_editor(self):
         user = get_user_model().objects.get(username='eventeditor')
@@ -509,6 +540,7 @@ class TestPagePermission(TestCase):
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertFalse(perms.can_lock())
+        self.assertFalse(perms.can_unlock())
 
     def test_lock_page_for_non_editing_user(self):
         user = get_user_model().objects.get(username='admin_only_user')
@@ -517,6 +549,24 @@ class TestPagePermission(TestCase):
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertFalse(perms.can_lock())
+        self.assertFalse(perms.can_unlock())
+
+    def test_lock_page_for_editor_with_lock_permission(self):
+        user = get_user_model().objects.get(username='eventeditor')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        GroupPagePermission.objects.create(
+            group=Group.objects.get(name="Event editors"),
+            page=christmas_page,
+            permission_type='lock'
+        )
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        self.assertTrue(perms.can_lock())
+
+        # Still shouldn't have unlock permission
+        self.assertFalse(perms.can_unlock())
 
     def test_page_locked_for_unlocked_page(self):
         user = get_user_model().objects.get(username='eventmoderator')
