@@ -1,0 +1,21 @@
+{% extends "wagtailadmin/pages/listing/_list_explore.html" %}
+
+{% load i18n wagtailadmin_tags %}
+
+{% block page_navigation %}
+    <td>
+        {% page_permissions page as perms %}
+        <p>
+            Locked
+            {% if page.locked_by %}by <b>{% if page.locked_by_id == request.user.pk %}you{% else %}{{ page.locked_by }}{% endif %}</b>{% endif %}
+            {% if page.locked_at %}at <b>{{ page.locked_at|date:"d M Y H:i" }}</b>{% endif %}
+        </p>
+        {% if perms.can_unlock %}
+            <form action="{% url 'wagtailadmin_pages:unlock' page.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button type="submit" class="button button-secondary button-small">{% trans 'Unlock' %}</button>
+            </form>
+        {% endif %}
+    </td>
+{% endblock %}
