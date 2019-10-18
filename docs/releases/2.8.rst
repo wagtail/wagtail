@@ -21,7 +21,7 @@ Bug fixes
 ~~~~~~~~~
 
  * Removed leftover Python 2.x compatibility code (Sergey Fedoseev)
-
+ * Combine flake8 configurations (Sergey Fedoseev)
 
 Upgrade considerations
 ======================
