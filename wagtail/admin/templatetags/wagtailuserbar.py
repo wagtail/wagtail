@@ -49,21 +49,20 @@ def wagtailuserbar(context, position='bottom-right'):
     if getattr(request, 'is_preview', False):
         return ''
 
-    # Only render if the context contains a variable referencing a saved page
-    page = get_page_instance(context)
-    if page is None:
-        return ''
-
     # Dont render anything if the page has not been saved - i.e. a preview
-    if page.pk is None:
-        return ''
+    page = get_page_instance(context)
+    if page:
+        if page.pk is None:
+            return ''
 
     try:
         revision_id = request.revision_id
     except AttributeError:
         revision_id = None
 
-    if revision_id is None:
+    if page is None:
+        items = [AdminItem()]
+    elif revision_id is None:
         items = [
             AdminItem(),
             ExplorePageItem(Page.objects.get(id=page.id)),
