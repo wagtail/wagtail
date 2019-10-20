@@ -24,10 +24,10 @@
             <th>
                 {% if not is_searching %}
                     <a href="{% url 'wagtaildocs:index' %}{% if not ordering == "-created_at" %}?ordering=-created_at{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "-created_at" %}teal{% endif %}">
-                        {% trans "Uploaded" %}
+                        {% trans "Created" %}
                     </a>
                 {% else %}
-                    {% trans "Uploaded" %}
+                    {% trans "Created" %}
                 {% endif %}
             </th>
         </tr>
