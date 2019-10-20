@@ -2,6 +2,7 @@ from django import forms
 from django.forms.models import modelform_factory
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.core import hooks
 from wagtail.admin import widgets
 from wagtail.admin.forms.collections import (
     BaseCollectionMemberForm, collection_member_permission_formset_factory)
@@ -21,15 +22,19 @@ def get_document_form(model):
         # document to the root collection where the user may not have permission) -
         # and when only one collection exists, it will get hidden anyway.
         fields = list(fields) + ['collection']
-
+    form_widgets = {
+        'tags': widgets.AdminTagWidget,
+        'file': forms.FileInput()
+    }
+    for fn in hooks.get_hooks('get_document_form'):
+        result = fn(model, fields, form_widgets)
+        if isinstance(result, forms.ModelForm):
+            return result
     return modelform_factory(
         model,
         form=BaseDocumentForm,
         fields=fields,
-        widgets={
-            'tags': widgets.AdminTagWidget,
-            'file': forms.FileInput()
-        })
+        widgets=form_widgets)
 
 
 def get_document_multi_form(model):
