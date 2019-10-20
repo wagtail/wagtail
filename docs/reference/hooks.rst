@@ -909,7 +909,7 @@ Page serving
             return HttpResponse("<h1>bad googlebot no cookie</h1>")
 
 
-Document serving
+Documents
 ----------------
 
 .. _before_serve_document:
@@ -918,3 +918,22 @@ Document serving
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Called when Wagtail is about to serve a document. The callable passed into the hook will receive the document object and the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, instead of serving the document. Note that this hook will be skipped if the :ref:`WAGTAILDOCS_SERVE_METHOD <wagtaildocs_serve_method>` setting is set to ``direct``.
+
+.. _get_document_form:
+
+``get_document_form``
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when the document form is generated, e.g. when a admin user edits a document. This can be used to modify the form fields and widgets, especially for a custom document model. The available arguments are ``model``, ``fields`` and ``widgets`` which are all mutable and can thus be modified using the hook. If the callable returns a ``ModelForm``, that form will be rendered on the admin interface. Otherwise, the default ``modelform_factory`` is called.
+
+    .. code-block:: python
+
+    from django import forms
+
+    from wagtail.core import hooks
+
+    @hooks.register('get_document_form')
+    def add_field(model, fields, widget):
+        if 'custom_field' not in fields:
+          fields.append('custom_field')
+        widgets.update({'custom_field': forms.DateField()})
