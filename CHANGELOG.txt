@@ -6,6 +6,7 @@ Changelog
 
  * Removed leftover Python 2.x compatibility code (Sergey Fedoseev)
  * Combine flake8 configurations (Sergey Fedoseev)
+ * Fix: Rename documents listing column 'uploaded' to 'created' (LB (Ben Johnston))
 
 2.7 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~
