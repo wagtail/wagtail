@@ -1177,16 +1177,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # Create a new revision
         # This code serves a few purposes:
-        # * It makes sure update_attrs gets applied to the latest revision
         # * It bumps the last_revision_created_at value so the new page gets ordered as if it was just created
         # * It sets the user of the new revision so it's possible to see who copied the page by looking at its history
-        latest_revision = page_copy.get_latest_revision_as_page()
-
-        if update_attrs:
-            for field, value in update_attrs.items():
-                setattr(latest_revision, field, value)
-
-        latest_revision_as_page_revision = latest_revision.save_revision(user=user, changed=False)
+        latest_revision_as_page_revision = page_copy.save_revision(user=user, changed=False)
         if keep_live:
             page_copy.live_revision = latest_revision_as_page_revision
             page_copy.last_published_at = latest_revision_as_page_revision.created_at
