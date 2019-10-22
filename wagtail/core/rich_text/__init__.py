@@ -50,7 +50,6 @@ class RichText:
 
     def __bool__(self):
         return bool(self.source)
-    __nonzero__ = __bool__
 
 
 class EntityHandler:

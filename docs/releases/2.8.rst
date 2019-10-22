@@ -20,7 +20,7 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
- * ...
+ * Removed leftover Python 2.x compatibility code (Sergey Fedoseev)
 
 
 Upgrade considerations
