@@ -21,7 +21,7 @@ The Snippets menu
 * To delete snippets, select one or more snippets with the tickbox on the left and then click the delete button near the top right
 
 .. Warning::
-    Editing a snippet will change it on all of the pages on which it has been used. In the top-right of the Snippet edit screen you will see a label saying how many times the snippet has been used. Clicking this label will display a listing of all of these pages.
+    Editing a snippet will change it on all of the pages on which it has been used. In the top-right of the Snippet edit screen you will see a label saying how many times the snippet has been used. Clicking this label will display a listing of all of these pages. To activate this feature, you must set `WAGTAIL_USAGE_COUNT_ENABLED = True` in your settings file.
 
 .. image:: ../../_static/images/screen34_snippet_used_times.png
 
