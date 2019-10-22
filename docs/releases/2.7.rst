@@ -31,7 +31,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Added Elasticsearch 7 support (pySilver)
- * Provisional Python 3.8 support, pending an update to the Pillow library (John Carter, Matt Westcott)
+ * Added Python 3.8 support (John Carter, Matt Westcott)
  * Added ``construct_page_listing_buttons`` hook (Michael van Tellingen)
  * Added more detailed documentation and troubleshooting for installing OpenCV for feature detection (Daniele Procida)
  * Move and refactor upgrade notification JS (Jonny Scholes)
