@@ -220,3 +220,13 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
         'WIDGET': 'wagtail.tests.testapp.rich_text.CustomRichTextArea'
     },
 }
+
+
+# Set a non-standard DEFAULT_AUTHENTICATION_CLASSES value, to verify that the
+# admin API still works with session-based auth regardless of this setting
+# (see https://github.com/wagtail/wagtail/issues/5585)
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ]
+}
