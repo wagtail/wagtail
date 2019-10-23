@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2019
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Meteor 0id, 2018
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-12-01 21:08+0000\n"
-"Last-Translator: Meteor 0id\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 21:02+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -25,8 +26,9 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Wagtail core"
 
-msgid "{label}: this block has no options."
-msgstr "{label}: Dit blok heeft geen opties."
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: dit blok heeft geen opties."
 
 msgid "This block has no options."
 msgstr "Dit blok heeft geen opties."

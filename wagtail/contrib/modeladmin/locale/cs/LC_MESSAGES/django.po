@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -175,9 +175,6 @@ msgstr "Předchozí"
 msgid "Next"
 msgstr "Další"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' byl(o) vytvořen(o)."
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr " %s nemohlo být vytvořeno kvůli chybám."
@@ -196,9 +193,6 @@ msgstr "Editování"
 msgid "Editing %s"
 msgstr "Editování %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' byl(a/o) aktualizován(a/o)."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s nemohlo být uloženo kvůli chybám."
@@ -214,9 +208,6 @@ msgid ""
 msgstr ""
 "Jste si jistý/á, že chcete zrušit %s? Jestliže se k tomu vztahují další věci "
 "na Vašem webu, mohou být rovněž ovlivněny."
-
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' bylo zrušeno."
 
 msgid "Inspecting"
 msgstr "Prohlíží se.."

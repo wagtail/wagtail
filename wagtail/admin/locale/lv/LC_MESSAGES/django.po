@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
+msgid "Publish"
+msgstr "Publicēt"
+
 msgid "Submit for moderation"
 msgstr "Iesniegt moderācijai"
 
@@ -30,11 +33,17 @@ msgstr "Atsaukt publicēšanu"
 msgid "Delete"
 msgstr "Dzēst"
 
-msgid "None"
-msgstr "Nav"
+msgid "Page locked"
+msgstr "Lapa slēgta"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Atvainojiet, jums nav piekļuves tiesību šai zonai."
 
 msgid "You do not have permission to access the admin"
 msgstr "Jums nav tiesību pieklūt administrācijas videi"
+
+msgid "None"
+msgstr "Nav"
 
 msgid "Scheduled publishing"
 msgstr "Plānota publicēšana"
@@ -60,9 +69,6 @@ msgstr "Ievadiet jūsu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ievadiet savu e-pasta adresi, lai atjaunotu paroli"
-
-msgid "URL"
-msgstr "Norāde (URL)"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
@@ -149,64 +155,6 @@ msgstr "Šis lauks ir nepieciešams"
 
 msgid "Please select at least one group."
 msgstr "Lūdzu izvēlieties vismaz vienu grupu"
-
-msgid "Error 404: Page not found"
-msgstr "Kļūda 404: lapa nav atrasta"
-
-msgid "Error 404"
-msgstr "Kļūda 404"
-
-msgid "The requested page could not be found."
-msgstr "Pieprasīto lapu nav iespējams atrast"
-
-msgid "Go to Wagtail admin"
-msgstr "Doties uz Wagtail administrāciju"
-
-msgid "Account"
-msgstr "Konts"
-
-msgid "Update"
-msgstr "Atjaunot"
-
-msgid "Change password"
-msgstr "Mainīt paroli"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "Šeit nav iespējams mainīt jūsu paroli. Sazinieties are administratoru."
-
-msgid "Language Preferences"
-msgstr "Valodas uzstādījumi"
-
-msgid "Notification preferences"
-msgstr "Paziņojumu iestatījumi"
-
-msgid "Reset password"
-msgstr "Mainīt paroli"
-
-msgid "Password change successful"
-msgstr "Paroles maiņa izdevusies"
-
-msgid "Login"
-msgstr "Lietotājvārds"
-
-msgid "Set your new password"
-msgstr "Izvēlieties jaunu paroli"
-
-msgid "Check your email"
-msgstr "Pārbaudiet savu e-pastu"
-
-msgid "Please follow the link below to reset your password:"
-msgstr "Lūdzu sekojiet norādei lai atiestatītu jūsu paroli:"
-
-msgid "Your username (in case you've forgotten):"
-msgstr "Jūsu lietotājvārds (ja gadījumā to esat aizmirsis/-usi):"
-
-msgid "Password reset"
-msgstr "Atjaunot paroli"
-
-msgid "Reset your password"
-msgstr "Atjaunot paroli"
 
 msgid "Page"
 msgstr "Lapa"
@@ -304,14 +252,69 @@ msgstr "Pk"
 msgid "Sat"
 msgstr "S"
 
+msgid "Error 404: Page not found"
+msgstr "Kļūda 404: lapa nav atrasta"
+
+msgid "Error 404"
+msgstr "Kļūda 404"
+
+msgid "The requested page could not be found."
+msgstr "Pieprasīto lapu nav iespējams atrast"
+
+msgid "Go to Wagtail admin"
+msgstr "Doties uz Wagtail administrāciju"
+
+msgid "Account"
+msgstr "Konts"
+
+msgid "Update"
+msgstr "Atjaunot"
+
+msgid "Change password"
+msgstr "Mainīt paroli"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "Šeit nav iespējams mainīt jūsu paroli. Sazinieties are administratoru."
+
+msgid "Language Preferences"
+msgstr "Valodas uzstādījumi"
+
+msgid "Notification preferences"
+msgstr "Paziņojumu iestatījumi"
+
+msgid "Reset password"
+msgstr "Mainīt paroli"
+
+msgid "Password change successful"
+msgstr "Paroles maiņa izdevusies"
+
+msgid "Login"
+msgstr "Lietotājvārds"
+
+msgid "Set your new password"
+msgstr "Izvēlieties jaunu paroli"
+
+msgid "Check your email"
+msgstr "Pārbaudiet savu e-pastu"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Lūdzu sekojiet norādei lai atiestatītu jūsu paroli:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Jūsu lietotājvārds (ja gadījumā to esat aizmirsis/-usi):"
+
+msgid "Password reset"
+msgstr "Atjaunot paroli"
+
+msgid "Reset your password"
+msgstr "Atjaunot paroli"
+
 msgid "Dashboard"
 msgstr "Informācijas panelis"
 
 msgid "Menu"
 msgstr "Izvēlne"
-
-msgid "Add another"
-msgstr "Pievienot jaunu"
 
 msgid "Move up"
 msgstr "Uz augšu"
@@ -496,8 +499,11 @@ msgstr "Atslēgts"
 msgid "Publish this revision"
 msgstr "Publicēt šo versiju"
 
-msgid "Publish"
-msgstr "Publicēt"
+msgid "Replace current draft"
+msgstr "Aizvietot pašreizējo melnrakstu"
+
+msgid "Save draft"
+msgstr "Saglabāt melnrakstu"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -564,9 +570,6 @@ msgstr "Jauns %(page_type)s"
 msgid "New"
 msgstr "Jauns"
 
-msgid "Save draft"
-msgstr "Saglabāt melnrakstu"
-
 msgid "This page has unsaved changes."
 msgstr "Šai lapai ir nesaglabātas izmaiņas"
 
@@ -577,12 +580,6 @@ msgstr "Labo %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Labo %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Lapa slēgta"
-
-msgid "Replace current draft"
-msgstr "Aizvietot pašreizējo melnrakstu"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -737,9 +734,6 @@ msgstr "Parādīt pārlūkā"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Atvainojiet, jums nav piekļuves tiesību šai zonai."
 
 msgid "Your password has been changed successfully!"
 msgstr "Parole mainīta veiksmīgi."

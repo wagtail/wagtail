@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "Publikasikan"
 
 msgid "Submit for moderation"
 msgstr "Kirim untuk dimoderasi"
@@ -32,14 +35,20 @@ msgstr "Tarik publikasi"
 msgid "Delete"
 msgstr "Hapus"
 
+msgid "Page locked"
+msgstr "Halaman dikunci"
+
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
 
-msgid "None"
-msgstr "Tidak ada"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Maaf, Anda tidak memiliki izin untuk mengakses area ini"
 
 msgid "You do not have permission to access the admin"
 msgstr "Anda tidak memiliki izin untuk mengakses pengelolaan"
+
+msgid "None"
+msgstr "Tidak ada"
 
 msgid "Scheduled publishing"
 msgstr "Penerbitan terjadwal"
@@ -65,9 +74,6 @@ msgstr "Masukkan %s anda"
 
 msgid "Enter your email address to reset your password"
 msgstr "Masukkan alamat surel untuk atur ulang kata sandi anda"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -151,6 +157,216 @@ msgstr "Kolom ini  harus diisi."
 
 msgid "Please select at least one group."
 msgstr "Harap memilih minimal satu grup."
+
+msgid "Catalan"
+msgstr "Katalan"
+
+msgid "German"
+msgstr "Jerman"
+
+msgid "Greek"
+msgstr "Yunani"
+
+msgid "English"
+msgstr "Inggris"
+
+msgid "Spanish"
+msgstr "Spanyol"
+
+msgid "Finnish"
+msgstr "Finlandia"
+
+msgid "French"
+msgstr "Perancis"
+
+msgid "Galician"
+msgstr "Galicia"
+
+msgid "Icelandic"
+msgstr "Islandia"
+
+msgid "Italian"
+msgstr "Italia"
+
+msgid "Korean"
+msgstr "Korea"
+
+msgid "Lithuanian"
+msgstr "Lituania"
+
+msgid "Norwegian Bokmål"
+msgstr "Norwegia"
+
+msgid "Netherlands Dutch"
+msgstr "Belanda"
+
+msgid "Persian"
+msgstr "Persia"
+
+msgid "Polish"
+msgstr "Polandia"
+
+msgid "Brazilian Portuguese"
+msgstr "Portugis Brasil"
+
+msgid "Portuguese"
+msgstr "Portugis"
+
+msgid "Romanian"
+msgstr "Romania"
+
+msgid "Russian"
+msgstr "Rusia"
+
+msgid "Swedish"
+msgstr "Swedia"
+
+msgid "Slovak"
+msgstr "Slowakia"
+
+msgid "Ukrainian"
+msgstr "Ukraina"
+
+msgid "Page"
+msgstr "Halaman"
+
+msgid "Pages"
+msgstr "Halaman"
+
+msgid "Loading…"
+msgstr "Memuat..."
+
+msgid "No results"
+msgstr "Tidak ada hasil"
+
+msgid "Server Error"
+msgstr "Galat pada Server"
+
+msgid "See all"
+msgstr "Lihat semua"
+
+msgid "Close explorer"
+msgstr "Tutup penjelajah"
+
+msgid "Alt text"
+msgstr "Teks alt"
+
+msgid "Write here…"
+msgstr "Tulis disini..."
+
+msgid "Horizontal line"
+msgstr "Garis horizontal"
+
+msgid "Line break"
+msgstr "Akhir baris"
+
+msgid "Undo"
+msgstr "Urungkan"
+
+msgid "Redo"
+msgstr "Ulangi"
+
+msgid "Reload the page"
+msgstr "Muat ulang halaman"
+
+msgid "Reload saved content"
+msgstr "Muat ulang konten tersimpan"
+
+msgid "Show latest content"
+msgstr "Tampilkan konten terbaru"
+
+msgid "Show error"
+msgstr "Tampilkan error"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Editor telah gagal. Konten telah dipasang ulang dengan versi terakhir yang "
+"disimpan."
+
+msgid "Close"
+msgstr "Tutup"
+
+msgid "Edit '{title}'"
+msgstr "Ubah '{title}'"
+
+msgid "January"
+msgstr "Januari"
+
+msgid "February"
+msgstr "Februari"
+
+msgid "March"
+msgstr "Maret"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Mei"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "Agustus"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "Desember"
+
+msgid "Sunday"
+msgstr "Minggu"
+
+msgid "Monday"
+msgstr "Senin"
+
+msgid "Tuesday"
+msgstr "Selasa"
+
+msgid "Wednesday"
+msgstr "Rabu"
+
+msgid "Thursday"
+msgstr "Kamis"
+
+msgid "Friday"
+msgstr "Jum'at"
+
+msgid "Saturday"
+msgstr "Sabtu"
+
+msgid "Sun"
+msgstr "Min"
+
+msgid "Mon"
+msgstr "Sen"
+
+msgid "Tue"
+msgstr "Sel"
+
+msgid "Wed"
+msgstr "Rab"
+
+msgid "Thu"
+msgstr "Kam"
+
+msgid "Fri"
+msgstr "Jum"
+
+msgid "Sat"
+msgstr "Sab"
 
 msgid "Error 404: Page not found"
 msgstr "Galat 404: Halaman tidak ditemukan"
@@ -243,152 +459,11 @@ msgstr "Pengaturan ulang kata sandi"
 msgid "Reset your password"
 msgstr "Atur ulang kata sandi Anda"
 
-msgid "Page"
-msgstr "Halaman"
-
-msgid "Pages"
-msgstr "Halaman"
-
-msgid "Loading…"
-msgstr "Memuat..."
-
-msgid "No results"
-msgstr "Tidak ada hasil"
-
-msgid "Server Error"
-msgstr "Galat pada Server"
-
-msgid "See all"
-msgstr "Lihat semua"
-
-msgid "Close explorer"
-msgstr "Tutup penjelajah"
-
-msgid "Alt text"
-msgstr "Teks alt"
-
-msgid "Write here…"
-msgstr "Tulis disini..."
-
-msgid "Horizontal line"
-msgstr "Garis horizontal"
-
-msgid "Line break"
-msgstr "Akhir baris"
-
-msgid "Undo"
-msgstr "Urungkan"
-
-msgid "Redo"
-msgstr "Ulangi"
-
-msgid "Reload the page"
-msgstr "Muat ulang halaman"
-
-msgid "Reload saved content"
-msgstr "Muat ulang konten tersimpan"
-
-msgid "Show latest content"
-msgstr "Tampilkan konten terbaru"
-
-msgid "Show error"
-msgstr "Tampilkan error"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Editor telah gagal. Konten telah dipasang ulang dengan versi terakhir yang "
-"disimpan."
-
-msgid "Close"
-msgstr "Tutup"
-
-msgid "January"
-msgstr "Januari"
-
-msgid "February"
-msgstr "Februari"
-
-msgid "March"
-msgstr "Maret"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Mei"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "Agustus"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "Desember"
-
-msgid "Sunday"
-msgstr "Minggu"
-
-msgid "Monday"
-msgstr "Senin"
-
-msgid "Tuesday"
-msgstr "Selasa"
-
-msgid "Wednesday"
-msgstr "Rabu"
-
-msgid "Thursday"
-msgstr "Kamis"
-
-msgid "Friday"
-msgstr "Jum'at"
-
-msgid "Saturday"
-msgstr "Sabtu"
-
-msgid "Sun"
-msgstr "Min"
-
-msgid "Mon"
-msgstr "Sen"
-
-msgid "Tue"
-msgstr "Sel"
-
-msgid "Wed"
-msgstr "Rab"
-
-msgid "Thu"
-msgstr "Kam"
-
-msgid "Fri"
-msgstr "Jum"
-
-msgid "Sat"
-msgstr "Sab"
-
 msgid "Dashboard"
 msgstr "Dasbor"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Tambah yang lainnya"
 
 msgid "Move up"
 msgstr "Geser ke atas"
@@ -653,8 +728,14 @@ msgstr "Mempublikasikan..."
 msgid "Publish this revision"
 msgstr "Publikasi revisi ini"
 
-msgid "Publish"
-msgstr "Publikasikan"
+msgid "Saving…"
+msgstr "Menyimpan..."
+
+msgid "Replace current draft"
+msgstr "Gantikan konsep saat ini"
+
+msgid "Save draft"
+msgstr "Simpan konsep"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -783,12 +864,6 @@ msgstr "%(page_type)s baru"
 msgid "New"
 msgstr "Baru"
 
-msgid "Saving…"
-msgstr "Menyimpan..."
-
-msgid "Save draft"
-msgstr "Simpan konsep"
-
 msgid "This page has unsaved changes."
 msgstr "Terdapat perubahan yang belum disimpan dalam halaman ini."
 
@@ -799,12 +874,6 @@ msgstr "Mengubah %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Mengubah %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Halaman dikunci"
-
-msgid "Replace current draft"
-msgstr "Gantikan konsep saat ini"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1159,78 +1228,6 @@ msgstr "Tampilkan di Penjelajah"
 msgid "Test"
 msgstr "Uji"
 
-msgid "Catalan"
-msgstr "Katalan"
-
-msgid "German"
-msgstr "Jerman"
-
-msgid "Greek"
-msgstr "Yunani"
-
-msgid "English"
-msgstr "Inggris"
-
-msgid "Spanish"
-msgstr "Spanyol"
-
-msgid "Finnish"
-msgstr "Finlandia"
-
-msgid "French"
-msgstr "Perancis"
-
-msgid "Galician"
-msgstr "Galicia"
-
-msgid "Icelandic"
-msgstr "Islandia"
-
-msgid "Italian"
-msgstr "Italia"
-
-msgid "Korean"
-msgstr "Korea"
-
-msgid "Lithuanian"
-msgstr "Lituania"
-
-msgid "Norwegian Bokmål"
-msgstr "Norwegia"
-
-msgid "Netherlands Dutch"
-msgstr "Belanda"
-
-msgid "Persian"
-msgstr "Persia"
-
-msgid "Polish"
-msgstr "Polandia"
-
-msgid "Brazilian Portuguese"
-msgstr "Portugis Brasil"
-
-msgid "Portuguese"
-msgstr "Portugis"
-
-msgid "Romanian"
-msgstr "Romania"
-
-msgid "Russian"
-msgstr "Rusia"
-
-msgid "Swedish"
-msgstr "Swedia"
-
-msgid "Slovak"
-msgstr "Slowakia"
-
-msgid "Ukrainian"
-msgstr "Ukraina"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Maaf, Anda tidak memiliki izin untuk mengakses area ini"
-
 msgid "Your password has been changed successfully!"
 msgstr "Kata sandi Anda telah berhasil diubah!"
 
@@ -1392,44 +1389,11 @@ msgstr "revisi {0} dari \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Jadwal revisi {0} dari \"{1}\" dihapus."
 
-msgid "Edit '{title}'"
-msgstr "Ubah '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Pratinjau versi konsep dari '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Lihat versi aktif dari '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Tambahkan halaman turunan ke '{title}' "
-
 msgid "More"
 msgstr "Lainnya"
 
-msgid "View more options for '{title}'"
-msgstr "Tampilkan pilihan lain untuk '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Pindah halaman '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Salin halaman '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Hapus halaman '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Tarik publikasi halaman '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Tampilkan catatan revisi '{title}'"
-
 msgid "Set profile picture"
 msgstr "Atur gambar profil"
-
-msgid "Change your profile picture"
-msgstr "Ubah gambar profil Anda"
 
 msgid "Change the email address linked to your account."
 msgstr "Ubah alamat surel yang terkait dengan akun Anda."
@@ -1451,9 +1415,6 @@ msgstr "Zona Waktu Saat Ini"
 
 msgid "Choose your current time zone."
 msgstr "Pilih zona waktu saat ini."
-
-msgid "Heading {level}"
-msgstr "Titel {level}"
 
 msgid "Bulleted list"
 msgstr "Daftar Bullet"
