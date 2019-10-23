@@ -255,7 +255,7 @@ Contributors
 * Lucas Moeskops
 * Rob van der Linde
 * Paul Kamp
-* dwasyl
+* David Wasylciw
 * Eugene Morozov
 * Levi Adler
 * Edwar Baron
