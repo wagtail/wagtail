@@ -1,0 +1,27 @@
+==========================================
+Wagtail 2.8 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Other features
+~~~~~~~~~~~~~~
+
+ * ...
+
+
+Bug fixes
+~~~~~~~~~
+
+ * ...
+
+
+Upgrade considerations
+======================
