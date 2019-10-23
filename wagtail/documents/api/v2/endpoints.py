@@ -1,7 +1,7 @@
 from wagtail.api.v2.endpoints import BaseAPIEndpoint
 from wagtail.api.v2.filters import FieldsFilter, OrderingFilter, SearchFilter
 
-from ...models import get_document_model
+from ... import get_document_model
 from .serializers import DocumentSerializer
 
 
