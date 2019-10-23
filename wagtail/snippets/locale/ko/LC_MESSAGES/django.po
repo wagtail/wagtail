@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -156,26 +156,14 @@ msgstr "페이지 변경"
 msgid "Search %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s 검색"
 
-msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' 이 생성 되었습니다."
-
 msgid "Edit"
 msgstr "수정"
 
 msgid "The snippet could not be created due to errors."
 msgstr "에러로 인해 스니펫을 생성할 수 없습니다."
 
-msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}' 가 업데이트 되었습니다."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "에러로 인해 스니펫을 저장할 수 없습니다."
-
-msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' 가 삭제 되었습니다."
-
-msgid "{count} {snippet_type} deleted."
-msgstr "{snippet_type} {count}개가 삭제되었습니다."
 
 #, python-format
 msgid "Choose %s"

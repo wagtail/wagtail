@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Publish"
+msgstr "Yayınla"
 
 msgid "Submit for moderation"
 msgstr "Denetleme için gönder"
@@ -33,11 +36,14 @@ msgstr "Sil"
 msgid "Wagtail admin"
 msgstr "Wagtail Yönetim"
 
-msgid "None"
-msgstr "Yok"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Üzgünüm, bu alana erişim yetkiniz yok"
 
 msgid "You do not have permission to access the admin"
 msgstr "Yönetici bölümüne erişmeye yetkiniz yok"
+
+msgid "None"
+msgstr "Yok"
 
 msgid "Scheduled publishing"
 msgstr "Planlanmış yayın"
@@ -63,9 +69,6 @@ msgstr "%s gir"
 
 msgid "Enter your email address to reset your password"
 msgstr "Şifreyi sıfırlamak için e posta adresini gir"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Aynı kolleksiyona ait birden fazla yetkiye sahip olamazsınız"
@@ -149,94 +152,6 @@ msgstr "Bu alan zorunludur."
 
 msgid "Please select at least one group."
 msgstr "Lütfen en az bir grup seçin."
-
-msgid "Error 404: Page not found"
-msgstr "Hata 404: Sayfa bulunamadı"
-
-msgid "Error 404"
-msgstr "Hata 404"
-
-msgid "The requested page could not be found."
-msgstr "İstenilen sayfa bulunamadı."
-
-msgid "Go to Wagtail admin"
-msgstr "Wagtail yönetimine git"
-
-msgid "Account"
-msgstr "Hesap"
-
-msgid "Change profile picture"
-msgstr "Profil resmini değiştir"
-
-msgid "Your current profile picture:"
-msgstr "Mevcut profil resminiz:"
-
-msgid "Update"
-msgstr "Güncelle"
-
-msgid "Change email"
-msgstr "E-posta değiştir"
-
-msgid "Change password"
-msgstr "Şifre değiştir"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "Şifreniz değiştirilemiyor. Yönetici ile irtibata geçin."
-
-msgid "Set Time Zone"
-msgstr "Saat Dilimini Ayarla"
-
-msgid "Language Preferences"
-msgstr "Dil Tercihleri"
-
-msgid "Notification preferences"
-msgstr "Bildirim tercihleri"
-
-msgid "Reset password"
-msgstr "Şifreyi sıfırla"
-
-msgid "Password change successful"
-msgstr "Şifre değiştirme başarılı"
-
-msgid "Login"
-msgstr "Giriş"
-
-msgid "Set your new password"
-msgstr "Yeni şifre ayarla"
-
-msgid "Invalid password reset link"
-msgstr "Geçersiz şifre sıfırlama bağlantısı"
-
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used."
-msgstr "Parola sıfırlama bağlantısı geçersiz, muhtemelen daha önce kullanıldı."
-
-msgid "Request a new password reset"
-msgstr "Parolayı yenile"
-
-msgid "Check your email"
-msgstr "E postanızı kontrol edin"
-
-msgid ""
-"A link to reset your password has been emailed to you if an account exists "
-"for this address."
-msgstr ""
-"Bu adres için bir hesap mevcutsa, şifrenizi sıfırlamak için bir e-posta "
-"gönderildi."
-
-msgid "Please follow the link below to reset your password:"
-msgstr "Şifrenizi resetlemek için aşağıdaki bağlantıyı takip edin"
-
-msgid "Your username (in case you've forgotten):"
-msgstr "Kullanıcı adın(Unutmanız durumunda)"
-
-msgid "Password reset"
-msgstr "Şifre sıfırla"
-
-msgid "Reset your password"
-msgstr "Şifreni sıfırla"
 
 msgid "Page"
 msgstr "Sayfa"
@@ -356,14 +271,99 @@ msgstr "Cum"
 msgid "Sat"
 msgstr "Cts"
 
+msgid "Error 404: Page not found"
+msgstr "Hata 404: Sayfa bulunamadı"
+
+msgid "Error 404"
+msgstr "Hata 404"
+
+msgid "The requested page could not be found."
+msgstr "İstenilen sayfa bulunamadı."
+
+msgid "Go to Wagtail admin"
+msgstr "Wagtail yönetimine git"
+
+msgid "Account"
+msgstr "Hesap"
+
+msgid "Change profile picture"
+msgstr "Profil resmini değiştir"
+
+msgid "Your current profile picture:"
+msgstr "Mevcut profil resminiz:"
+
+msgid "Update"
+msgstr "Güncelle"
+
+msgid "Change email"
+msgstr "E-posta değiştir"
+
+msgid "Change password"
+msgstr "Şifre değiştir"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "Şifreniz değiştirilemiyor. Yönetici ile irtibata geçin."
+
+msgid "Set Time Zone"
+msgstr "Saat Dilimini Ayarla"
+
+msgid "Language Preferences"
+msgstr "Dil Tercihleri"
+
+msgid "Notification preferences"
+msgstr "Bildirim tercihleri"
+
+msgid "Reset password"
+msgstr "Şifreyi sıfırla"
+
+msgid "Password change successful"
+msgstr "Şifre değiştirme başarılı"
+
+msgid "Login"
+msgstr "Giriş"
+
+msgid "Set your new password"
+msgstr "Yeni şifre ayarla"
+
+msgid "Invalid password reset link"
+msgstr "Geçersiz şifre sıfırlama bağlantısı"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "Parola sıfırlama bağlantısı geçersiz, muhtemelen daha önce kullanıldı."
+
+msgid "Request a new password reset"
+msgstr "Parolayı yenile"
+
+msgid "Check your email"
+msgstr "E postanızı kontrol edin"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Bu adres için bir hesap mevcutsa, şifrenizi sıfırlamak için bir e-posta "
+"gönderildi."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Şifrenizi resetlemek için aşağıdaki bağlantıyı takip edin"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Kullanıcı adın(Unutmanız durumunda)"
+
+msgid "Password reset"
+msgstr "Şifre sıfırla"
+
+msgid "Reset your password"
+msgstr "Şifreni sıfırla"
+
 msgid "Dashboard"
 msgstr "Kontrol paneli"
 
 msgid "Menu"
 msgstr "Menü"
-
-msgid "Add another"
-msgstr "Başka ekle"
 
 msgid "Move up"
 msgstr "Yukarı taşı"
@@ -630,9 +630,6 @@ msgstr "Yayınlanıyor..."
 msgid "Publish this revision"
 msgstr "Bu düzeltmeyi yayınla"
 
-msgid "Publish"
-msgstr "Yayınla"
-
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "%(title)s sayfası oluşturuldu"
@@ -689,9 +686,6 @@ msgstr "Alt sayfa ekle"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Üzgünüm, bu alana erişim yetkiniz yok"
 
 msgid "Your password has been changed successfully!"
 msgstr "Şifreniz başarıyla değiştirildi!"

@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-08-26 07:56+0000\n"
-"Last-Translator: Alessandro <alessandro@catalpa.io>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-21 00:50+0000\n"
+"Last-Translator: Peter Coward <peter@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "Publika"
 
 msgid "Submit for moderation"
 msgstr "Submete ba moderasaun"
@@ -34,14 +37,23 @@ msgstr "Halo la publika"
 msgid "Delete"
 msgstr "Hamoos"
 
+msgid "Save Draft"
+msgstr "Rai hanesan ezbosu"
+
+msgid "Page locked"
+msgstr "Pajina xave ona"
+
 msgid "Wagtail admin"
 msgstr "Administrasaun Wagtail"
 
-msgid "None"
-msgstr "Mamuk"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Deskulpa, ita boot laiha permisaun atu assesu ba area ida nee."
 
 msgid "You do not have permission to access the admin"
 msgstr "It boot laiha permisaun atu assesu ba administrasaun"
+
+msgid "None"
+msgstr "Mamuk"
 
 msgid "Scheduled publishing"
 msgstr "Horariu Publikasaun"
@@ -67,9 +79,6 @@ msgstr "Hatama ita nia 1%s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Hatama ita boot nia enderessu email hodi defini fali ita boot nia seña"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Ita labele hatama permisaun rua ba koleksaun ida"
@@ -150,95 +159,101 @@ msgstr "Ita boot prezia hatama informasaun nee "
 msgid "Please select at least one group."
 msgstr "Favor ida hili grupu ida ka tan"
 
-msgid "Error 404: Page not found"
-msgstr "Erru 404: Pajina la hetan"
+msgid "Arabic"
+msgstr "Arabic"
 
-msgid "Error 404"
-msgstr "Erru 404"
+msgid "Catalan"
+msgstr "Catalan"
 
-msgid "The requested page could not be found."
-msgstr "Deskulpa! Ita boot husu ba pajina, maibee ami la hetan."
+msgid "Czech"
+msgstr "Czech"
 
-msgid "Go to Wagtail admin"
-msgstr "Ba administrasaun Wagtail"
+msgid "German"
+msgstr "German"
 
-msgid "Account"
-msgstr "Konta"
+msgid "Greek"
+msgstr "Greek"
 
-msgid "Change profile picture"
-msgstr "Troka imajen perfil"
+msgid "English"
+msgstr "English"
 
-msgid "Your current profile picture:"
-msgstr "Ita boot nia imagen perfil:"
+msgid "Spanish"
+msgstr " Espanhól"
 
-msgid "Update"
-msgstr "Troka"
+msgid "Finnish"
+msgstr "Finnish"
 
-msgid "Change email"
-msgstr "Troka email"
+msgid "French"
+msgstr "Fransa"
 
-msgid "Change password"
-msgstr "Troka seña"
+msgid "Galician"
+msgstr "Galician"
 
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Ita boot labele troka seña iha nee. Favor koalia malu situ administrador."
+msgid "Hungarian"
+msgstr "Hungarian"
 
-msgid "Set Time Zone"
-msgstr "Troka Zona Tempu"
+msgid "Indonesian"
+msgstr "Bahasa"
 
-msgid "Language Preferences"
-msgstr "Preferensia Lian"
+msgid "Icelandic"
+msgstr "Icelandic"
 
-msgid "Notification preferences"
-msgstr "Preferensia Notifikasaun"
+msgid "Italian"
+msgstr "Italian"
 
-msgid "Reset password"
-msgstr "Inisiu troka seña"
+msgid "Japanese"
+msgstr "Japanese"
 
-msgid "Password change successful"
-msgstr "Seña troka diak"
+msgid "Korean"
+msgstr "Korean"
 
-msgid "Login"
-msgstr "Tama"
+msgid "Lithuanian"
+msgstr "Lithuanian"
 
-msgid "Set your new password"
-msgstr "Hatama ita nia seña foun"
+msgid "Mongolian"
+msgstr "Mongolian"
 
-msgid "Invalid password reset link"
-msgstr "Link hafoun Seña la loos"
+msgid "Norwegian Bokmål"
+msgstr "Norwegian Bokmål"
 
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used."
-msgstr ""
-"Troka seña ligasaun ne'e la valido ona, mak ne'e ka tamba ida ne'e usa ona."
+msgid "Netherlands Dutch"
+msgstr "Netherlands Dutch"
 
-msgid "Request a new password reset"
-msgstr "Husu seña muda foun "
+msgid "Persian"
+msgstr "Persian"
 
-msgid "Check your email"
-msgstr "Revista ita-nia email"
+msgid "Polish"
+msgstr "Polish"
 
-msgid ""
-"A link to reset your password has been emailed to you if an account exists "
-"for this address."
-msgstr ""
-"Link hodi reset ita nian seña email tiha ona ba ita, karik konta existe ho "
-"enderessu nee."
+msgid "Brazilian Portuguese"
+msgstr "Brazilian Portuguese"
 
-msgid "Please follow the link below to reset your password:"
-msgstr "Favor ida tuir link iha kraik nee hodi reset ita nian seña."
+msgid "Portuguese"
+msgstr "Portuguese"
 
-msgid "Your username (in case you've forgotten):"
-msgstr "Ita nia Uzuario (iha kazu ne'e, ita haluhan ona)"
+msgid "Romanian"
+msgstr "Romanian"
 
-msgid "Password reset"
-msgstr "Seña muda"
+msgid "Russian"
+msgstr "Russian"
 
-msgid "Reset your password"
-msgstr "Muda ita nia Seña "
+msgid "Swedish"
+msgstr "Sweden"
+
+msgid "Slovak"
+msgstr "Slovak"
+
+msgid "Thai"
+msgstr "Thai"
+
+msgid "Ukrainian"
+msgstr "Ukrainian"
+
+msgid "Chinese (Simplified)"
+msgstr "Chinese (Simplified)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinese (Traditional)"
 
 msgid "Page"
 msgstr "Pajina"
@@ -304,6 +319,51 @@ msgstr "Dokumentu lakon"
 msgid "Close"
 msgstr "Taka"
 
+msgid "Edit '{title}'"
+msgstr " Edit '{titulu}'"
+
+msgid "View child pages of '{title}'"
+msgstr "Haree pajina oan sira husi '{title}'"
+
+msgid "Page explorer"
+msgstr "Explora pajina"
+
+msgid "January"
+msgstr "Janeiru"
+
+msgid "February"
+msgstr "Fevereiru"
+
+msgid "March"
+msgstr "Marsu"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May"
+msgstr "Maiu"
+
+msgid "June"
+msgstr "Juniu"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "Augusto"
+
+msgid "September"
+msgstr "Setembru"
+
+msgid "October"
+msgstr "Outubru"
+
+msgid "November"
+msgstr "Novembru"
+
+msgid "December"
+msgstr "Dezembru"
+
 msgid "Sunday"
 msgstr "Domingu"
 
@@ -325,14 +385,125 @@ msgstr "Sesta"
 msgid "Saturday"
 msgstr "Sabadu"
 
+msgid "Sun"
+msgstr "Dom"
+
+msgid "Mon"
+msgstr "Seg"
+
+msgid "Tue"
+msgstr "Ter"
+
+msgid "Wed"
+msgstr "Kua"
+
+msgid "Thu"
+msgstr "Kin"
+
+msgid "Fri"
+msgstr "Sex"
+
+msgid "Sat"
+msgstr "Sab"
+
+msgid "Error 404: Page not found"
+msgstr "Erru 404: Pajina la hetan"
+
+msgid "Error 404"
+msgstr "Erru 404"
+
+msgid "The requested page could not be found."
+msgstr "Deskulpa! Ita boot husu ba pajina, maibee ami la hetan."
+
+msgid "Go to Wagtail admin"
+msgstr "Ba administrasaun Wagtail"
+
+msgid "Account"
+msgstr "Konta"
+
+msgid "Change profile picture"
+msgstr "Troka imajen perfil"
+
+msgid "Your current profile picture:"
+msgstr "Ita boot nia imagen perfil:"
+
+msgid "Update"
+msgstr "Troka"
+
+msgid "Change email"
+msgstr "Troka email"
+
+msgid "Change name"
+msgstr "Troka naran"
+
+msgid "Change password"
+msgstr "Troka seña"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Ita boot labele troka seña iha nee. Favor koalia malu situ administrador."
+
+msgid "Set Time Zone"
+msgstr "Troka Zona Tempu"
+
+msgid "Language Preferences"
+msgstr "Preferensia Lian"
+
+msgid "Notification preferences"
+msgstr "Preferensia Notifikasaun"
+
+msgid "Reset password"
+msgstr "Inisiu troka seña"
+
+msgid "Password change successful"
+msgstr "Seña troka diak"
+
+msgid "Login"
+msgstr "Tama"
+
+msgid "Set your new password"
+msgstr "Hatama ita nia seña foun"
+
+msgid "Invalid password reset link"
+msgstr "Link hafoun Seña la loos"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Troka seña ligasaun ne'e la valido ona, mak ne'e ka tamba ida ne'e usa ona."
+
+msgid "Request a new password reset"
+msgstr "Husu seña muda foun "
+
+msgid "Check your email"
+msgstr "Revista ita-nia email"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Link hodi reset ita nian seña email tiha ona ba ita, karik konta existe ho "
+"enderessu nee."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Favor ida tuir link iha kraik nee hodi reset ita nian seña."
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Ita nia Uzuario (iha kazu ne'e, ita haluhan ona)"
+
+msgid "Password reset"
+msgstr "Seña muda"
+
+msgid "Reset your password"
+msgstr "Muda ita nia Seña "
+
 msgid "Dashboard"
 msgstr "Painel kontrolu"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Aumenta seluk"
 
 msgid "Move up"
 msgstr "Muda ba leten"
@@ -352,6 +523,12 @@ msgstr "Ligasaun externa"
 msgid "Email link"
 msgstr "Ligasaun email"
 
+msgid "Phone link"
+msgstr "Ligasaun telefone"
+
+msgid "Anchor link"
+msgstr "Ligasaun"
+
 #, python-format
 msgid ""
 "\n"
@@ -364,6 +541,12 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "Iha resultado %(counter)s "
+
+msgid "Add an anchor link"
+msgstr "Aumenta ligasaun"
+
+msgid "Insert anchor"
+msgstr "Hatama ligasaun"
 
 msgid "Choose"
 msgstr "Hili"
@@ -396,8 +579,14 @@ msgstr "Insere ligasaun"
 msgid "Add an external link"
 msgstr "Aumenta ligasaun externa ida"
 
+msgid "Add a phone link"
+msgstr "Aumenta ligasaun telefone"
+
 msgid "Collection privacy"
 msgstr "Rekolla privasidade"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Koleksaun nee halo privadu ona husi koleksaun inan-aman"
 
 msgid "You can edit the privacy settings on:"
 msgstr "Ita boot bele troka konfigurasaun privado iha:"
@@ -414,8 +603,14 @@ msgstr "Rai"
 msgid "Privacy"
 msgstr "Privasidade"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Troka koleksaun privadu. Status agora: Publiku"
+
 msgid "Public"
 msgstr "Públiku"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Troka koleksaun privadu. Status agora: Privadu"
 
 msgid "Private"
 msgstr "Privadu"
@@ -507,6 +702,22 @@ msgstr "Ativu"
 msgid "Site summary"
 msgstr "Sumariu Situs"
 
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span>Pajina <span class=\"visuallyhidden\">kria iha "
+"%(site_name)slaran </span>"
+
 msgid "Sign in"
 msgstr "Tama"
 
@@ -587,8 +798,14 @@ msgstr "Publika hela..."
 msgid "Publish this revision"
 msgstr "Publika revizaun ida-ne'e"
 
-msgid "Publish"
-msgstr "Publika"
+msgid "Saving…"
+msgstr "Rai hela..."
+
+msgid "Replace current draft"
+msgstr "Troka rakunnu ida neebe agora"
+
+msgid "Save draft"
+msgstr "Salva hanesan esbosu"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -713,12 +930,6 @@ msgstr "Foun %(page_type)s"
 msgid "New"
 msgstr "Foun"
 
-msgid "Saving…"
-msgstr "Rai hela..."
-
-msgid "Save draft"
-msgstr "Salva hanesan esbosu"
-
 msgid "This page has unsaved changes."
 msgstr "Pajina ne'e iha sasan troka la salva ona."
 
@@ -729,12 +940,6 @@ msgstr "Hadia hela %(page_type)s:%(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Hadia hela %(page_type)s<span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Pajina xave ona"
-
-msgid "Replace current draft"
-msgstr "Troka rakunnu ida neebe agora"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -791,27 +996,6 @@ msgstr "Tuir mai"
 msgid "Test"
 msgstr "Test"
 
-msgid "Arabic"
-msgstr "Arabic"
-
-msgid "Catalan"
-msgstr "Catalan"
-
-msgid "Greek"
-msgstr " Gregu"
-
-msgid "English"
-msgstr " Inglés"
-
-msgid "Spanish"
-msgstr " Espanhól"
-
-msgid "Finnish"
-msgstr " Remata"
-
-msgid "French"
-msgstr "Fransa"
-
 msgid "Latest"
 msgstr " Mak tardi liu"
 
@@ -820,6 +1004,3 @@ msgstr " revizaun {0} hosi \"{1}\""
 
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "  Revizaun {0} hosi \"{1}\"  oráriu laiha"
-
-msgid "Edit '{title}'"
-msgstr " Edit '{titulu}'"

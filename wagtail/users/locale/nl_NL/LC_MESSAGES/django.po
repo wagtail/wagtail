@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Coen van der Kamp <cvanderkamp@gmail.com>, 2018
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2019
 # Kees Hink <keeshink@gmail.com>, 2017
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Meteor 0id, 2018-2019
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 20:27+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -169,6 +169,9 @@ msgstr "Wijzigen"
 
 msgid "Save"
 msgstr "Opslaan"
+
+msgid "Permissions"
+msgstr "Machtigingen"
 
 msgid "Object permissions"
 msgstr "Machtigingen per type object"

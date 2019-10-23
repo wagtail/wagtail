@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# aaao <aron.santa@gmail.com>, 2019
 # B N <biczoxd@gmail.com>, 2018
 # Istvan Farkas <istvan.farkas@gmail.com>, 2019
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-09-03 16:46+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-21 02:26+0000\n"
+"Last-Translator: aaao <aron.santa@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Közzététel"
 
 msgid "Submit for moderation"
 msgstr "Beküldés moderálásra"
@@ -31,15 +35,24 @@ msgstr "Visszavonás"
 msgid "Delete"
 msgstr "Törlés"
 
+msgid "Save Draft"
+msgstr "Vázlat mentése"
+
+msgid "Page locked"
+msgstr "Zárolt oldal"
+
 msgid "Wagtail admin"
 msgstr "Wagtail Admin"
 
-msgid "None"
-msgstr "Üres"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Sajnáljuk, de nincs engedélye ezen felület eléréséhez."
 
 msgid "You do not have permission to access the admin"
 msgstr ""
 "Nincs megfelelő engedélye, hogy hozzáférjen az adminisztrációs felülethez."
+
+msgid "None"
+msgstr "Üres"
 
 msgid "Scheduled publishing"
 msgstr "Oldal közzététele későbbi időpontban"
@@ -65,9 +78,6 @@ msgstr "Adja meg a %s értéket"
 
 msgid "Enter your email address to reset your password"
 msgstr "Kérjük adja meg az email címét a jelszó változtatáshoz."
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nem lehet több engedély bejegyzés ugyanahhoz az oldalhoz."
@@ -151,6 +161,249 @@ msgstr "Egy mező megadása szükséges."
 
 msgid "Please select at least one group."
 msgstr "Kérjük válasszon ki legalább egy csoportot."
+
+msgid "Arabic"
+msgstr "arab"
+
+msgid "Catalan"
+msgstr "katalán"
+
+msgid "Czech"
+msgstr "cseh"
+
+msgid "German"
+msgstr "német"
+
+msgid "Greek"
+msgstr "görög"
+
+msgid "English"
+msgstr "angol"
+
+msgid "Spanish"
+msgstr "spanyol"
+
+msgid "Finnish"
+msgstr "finn"
+
+msgid "French"
+msgstr "francia"
+
+msgid "Galician"
+msgstr "galíciai"
+
+msgid "Hungarian"
+msgstr "magyar"
+
+msgid "Indonesian"
+msgstr "indonéz"
+
+msgid "Icelandic"
+msgstr "izlandi"
+
+msgid "Italian"
+msgstr "olasz"
+
+msgid "Korean"
+msgstr "koreai"
+
+msgid "Lithuanian"
+msgstr "litván"
+
+msgid "Mongolian"
+msgstr "mongol"
+
+msgid "Norwegian Bokmål"
+msgstr "norvég - bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "holland"
+
+msgid "Persian"
+msgstr "perzsa"
+
+msgid "Polish"
+msgstr "lengyel"
+
+msgid "Brazilian Portuguese"
+msgstr "brazíliai portugál"
+
+msgid "Portuguese"
+msgstr "portugál"
+
+msgid "Romanian"
+msgstr "román"
+
+msgid "Russian"
+msgstr "orosz"
+
+msgid "Swedish"
+msgstr "svéd"
+
+msgid "Slovak"
+msgstr "szlovák"
+
+msgid "Thai"
+msgstr "thai"
+
+msgid "Ukrainian"
+msgstr "ukrán"
+
+msgid "Chinese (Simplified)"
+msgstr "kínai (egyszerűsített)"
+
+msgid "Chinese (Traditional)"
+msgstr "kínai (hagyományos)"
+
+msgid "Page"
+msgstr "Oldal"
+
+msgid "Pages"
+msgstr "Oldalak"
+
+msgid "Loading…"
+msgstr "Betöltés..."
+
+msgid "No results"
+msgstr "Nincs találat"
+
+msgid "Server Error"
+msgstr "Szerverhiba"
+
+msgid "See all"
+msgstr "Összes megjelenítése"
+
+msgid "Close explorer"
+msgstr "Intéző bezárása"
+
+msgid "Alt text"
+msgstr "Alternatív szöveg"
+
+msgid "Write here…"
+msgstr "Írjon ide..."
+
+msgid "Horizontal line"
+msgstr "Vízszintes vonal"
+
+msgid "Line break"
+msgstr "Sortörés"
+
+msgid "Undo"
+msgstr "Visszavonás"
+
+msgid "Redo"
+msgstr "Újra"
+
+msgid "Reload the page"
+msgstr "Oldal újratöltése"
+
+msgid "Reload saved content"
+msgstr "Mentett tartalom újratöltése"
+
+msgid "Show latest content"
+msgstr "Legfrissebb tartalom megtekintése"
+
+msgid "Show error"
+msgstr "Hiba megtekintése"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"A szerkesztő összeomlott. A tartalom vissza lett állítva az utolsó mentett "
+"verzióra."
+
+msgid "Broken link"
+msgstr "Törött link"
+
+msgid "Missing document"
+msgstr "Hiányzó dokumentum"
+
+msgid "Close"
+msgstr "Bezár"
+
+msgid "Edit '{title}'"
+msgstr "'{title}' szerkesztése"
+
+msgid "Page explorer"
+msgstr "Intéző"
+
+msgid "January"
+msgstr "január"
+
+msgid "February"
+msgstr "február"
+
+msgid "March"
+msgstr "március"
+
+msgid "April"
+msgstr "április"
+
+msgid "May"
+msgstr "május"
+
+msgid "June"
+msgstr "június"
+
+msgid "July"
+msgstr "július"
+
+msgid "August"
+msgstr "augusztus"
+
+msgid "September"
+msgstr "szeptember"
+
+msgid "October"
+msgstr "október"
+
+msgid "November"
+msgstr "november"
+
+msgid "December"
+msgstr "december"
+
+msgid "Sunday"
+msgstr "vasárnap"
+
+msgid "Monday"
+msgstr "hétfő"
+
+msgid "Tuesday"
+msgstr "kedd"
+
+msgid "Wednesday"
+msgstr "szerda"
+
+msgid "Thursday"
+msgstr "csütörtök"
+
+msgid "Friday"
+msgstr "péntek"
+
+msgid "Saturday"
+msgstr "szombat"
+
+msgid "Sun"
+msgstr "V"
+
+msgid "Mon"
+msgstr "H"
+
+msgid "Tue"
+msgstr "K"
+
+msgid "Wed"
+msgstr "Sze"
+
+msgid "Thu"
+msgstr "Cs"
+
+msgid "Fri"
+msgstr "P"
+
+msgid "Sat"
+msgstr "Szo"
 
 msgid "Error 404: Page not found"
 msgstr "404-es hiba: az oldal nem található"
@@ -242,167 +495,11 @@ msgstr "Jelszó módosítása"
 msgid "Reset your password"
 msgstr "Módosítsa jelszavát"
 
-msgid "Page"
-msgstr "Oldal"
-
-msgid "Pages"
-msgstr "Oldalak"
-
-msgid "Loading…"
-msgstr "Betöltés..."
-
-msgid "No results"
-msgstr "Nincs találat"
-
-msgid "Server Error"
-msgstr "Szerverhiba"
-
-msgid "See all"
-msgstr "Összes megjelenítése"
-
-msgid "Close explorer"
-msgstr "Intéző bezárása"
-
-msgid "Alt text"
-msgstr "Alternatív szöveg"
-
-msgid "Write here…"
-msgstr "Írjon ide..."
-
-msgid "Horizontal line"
-msgstr "Vízszintes vonal"
-
-msgid "Line break"
-msgstr "Sortörés"
-
-msgid "Undo"
-msgstr "Visszavonás"
-
-msgid "Redo"
-msgstr "Újra"
-
-msgid "Reload the page"
-msgstr "Oldal újratöltése"
-
-msgid "Reload saved content"
-msgstr "Mentett tartalom újratöltése"
-
-msgid "Show latest content"
-msgstr "Legfrissebb tartalom megtekintése"
-
-msgid "Show error"
-msgstr "Hiba megtekintése"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"A szerkesztő összeomlott. A tartalom vissza lett állítva az utolsó mentett "
-"verzióra."
-
-msgid "Broken link"
-msgstr "Törött link"
-
-msgid "Missing document"
-msgstr "Hiányzó dokumentum"
-
-msgid "Close"
-msgstr "Bezár"
-
-msgid "Edit \\"
-msgstr "Szerkesztés \\"
-
-msgid "View child pages of \\"
-msgstr "Gyermek oldalainak megtekintése \\"
-
-msgid "Page explorer"
-msgstr "Intéző"
-
-msgid "January"
-msgstr "január"
-
-msgid "February"
-msgstr "február"
-
-msgid "March"
-msgstr "március"
-
-msgid "April"
-msgstr "április"
-
-msgid "May"
-msgstr "május"
-
-msgid "June"
-msgstr "június"
-
-msgid "July"
-msgstr "július"
-
-msgid "August"
-msgstr "augusztus"
-
-msgid "September"
-msgstr "szeptember"
-
-msgid "October"
-msgstr "október"
-
-msgid "November"
-msgstr "november"
-
-msgid "December"
-msgstr "december"
-
-msgid "Sunday"
-msgstr "vasárnap"
-
-msgid "Monday"
-msgstr "hétfő"
-
-msgid "Tuesday"
-msgstr "kedd"
-
-msgid "Wednesday"
-msgstr "szerda"
-
-msgid "Thursday"
-msgstr "csütörtök"
-
-msgid "Friday"
-msgstr "péntek"
-
-msgid "Saturday"
-msgstr "szombat"
-
-msgid "Sun"
-msgstr "V"
-
-msgid "Mon"
-msgstr "H"
-
-msgid "Tue"
-msgstr "K"
-
-msgid "Wed"
-msgstr "Sze"
-
-msgid "Thu"
-msgstr "Cs"
-
-msgid "Fri"
-msgstr "P"
-
-msgid "Sat"
-msgstr "Szo"
-
 msgid "Dashboard"
 msgstr "Műszerfal"
 
 msgid "Menu"
 msgstr "Menü"
-
-msgid "Add another"
-msgstr "Másik hozzáadása"
 
 msgid "Move up"
 msgstr "Mozgatás fel"
@@ -716,8 +813,14 @@ msgstr "Közzététel folyamatban..."
 msgid "Publish this revision"
 msgstr "Változat közzététele"
 
-msgid "Publish"
-msgstr "Közzététel"
+msgid "Saving…"
+msgstr "Mentés..."
+
+msgid "Replace current draft"
+msgstr "Jelenlegi vázlat lecserélése"
+
+msgid "Save draft"
+msgstr "Vázlat mentése"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -853,12 +956,6 @@ msgstr "Új"
 msgid "Actions"
 msgstr "Akciók"
 
-msgid "Saving…"
-msgstr "Mentés..."
-
-msgid "Save draft"
-msgstr "Vázlat mentése"
-
 msgid "This page has unsaved changes."
 msgstr "Ezen az oldalon mentetlen változtatások vannak."
 
@@ -869,12 +966,6 @@ msgstr "%(page_type)s szerkesztése: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "%(page_type)s szerkesztése <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Zárolt oldal"
-
-msgid "Replace current draft"
-msgstr "Jelenlegi vázlat lecserélése"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1268,102 +1359,6 @@ msgstr ""
 msgid "Test"
 msgstr "Teszt"
 
-msgid "Arabic"
-msgstr "arab"
-
-msgid "Catalan"
-msgstr "katalán"
-
-msgid "Czech"
-msgstr "cseh"
-
-msgid "German"
-msgstr "német"
-
-msgid "Greek"
-msgstr "görög"
-
-msgid "English"
-msgstr "angol"
-
-msgid "Spanish"
-msgstr "spanyol"
-
-msgid "Finnish"
-msgstr "finn"
-
-msgid "French"
-msgstr "francia"
-
-msgid "Galician"
-msgstr "galíciai"
-
-msgid "Hungarian"
-msgstr "magyar"
-
-msgid "Indonesian"
-msgstr "indonéz"
-
-msgid "Icelandic"
-msgstr "izlandi"
-
-msgid "Italian"
-msgstr "olasz"
-
-msgid "Korean"
-msgstr "koreai"
-
-msgid "Lithuanian"
-msgstr "litván"
-
-msgid "Mongolian"
-msgstr "mongol"
-
-msgid "Norwegian Bokmål"
-msgstr "norvég - bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "holland"
-
-msgid "Persian"
-msgstr "perzsa"
-
-msgid "Polish"
-msgstr "lengyel"
-
-msgid "Brazilian Portuguese"
-msgstr "brazíliai portugál"
-
-msgid "Portuguese"
-msgstr "portugál"
-
-msgid "Romanian"
-msgstr "román"
-
-msgid "Russian"
-msgstr "orosz"
-
-msgid "Swedish"
-msgstr "svéd"
-
-msgid "Slovak"
-msgstr "szlovák"
-
-msgid "Thai"
-msgstr "thai"
-
-msgid "Ukrainian"
-msgstr "ukrán"
-
-msgid "Chinese (Simplified)"
-msgstr "kínai (egyszerűsített)"
-
-msgid "Chinese (Traditional)"
-msgstr "kínai (hagyományos)"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Sajnáljuk, de nincs engedélye ezen felület eléréséhez."
-
 msgid "Your password has been changed successfully!"
 msgstr "Jelszó sikeresen megváltoztatva!"
 
@@ -1532,44 +1527,11 @@ msgstr "'{1}' {0}. verziója"
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "'{1}' {0}. verziójának időzítése visszavonva. "
 
-msgid "Edit '{title}'"
-msgstr "'{title}' szerkesztése"
-
-msgid "Preview draft version of '{title}'"
-msgstr "'{title}' vázlatának előnézete"
-
-msgid "View live version of '{title}'"
-msgstr "'{title}' közzétett verziójának megtekintése"
-
-msgid "Add a child page to '{title}' "
-msgstr "Gyermek oldal hozzáadása ehhez: '{title}'"
-
 msgid "More"
 msgstr "Tovább"
 
-msgid "View more options for '{title}'"
-msgstr "'{title}' további beállításai"
-
-msgid "Move page '{title}'"
-msgstr "'{title}' oldal mozgatása"
-
-msgid "Copy page '{title}'"
-msgstr "'{title}' oldal másolása"
-
-msgid "Delete page '{title}'"
-msgstr "'{title}' oldal törlése"
-
-msgid "Unpublish page '{title}'"
-msgstr "'{title}' visszavonása"
-
-msgid "View revision history for '{title}'"
-msgstr "'{title}' korábbi verzióinak megtekintése"
-
 msgid "Set profile picture"
 msgstr "Profilkép beállítása"
-
-msgid "Change your profile picture"
-msgstr "Profilkép cseréje"
 
 msgid "Change the email address linked to your account."
 msgstr "A fiókhoz társított e-mail cím megváltoztatása"
@@ -1591,9 +1553,6 @@ msgstr "Jelenlegi időzóna"
 
 msgid "Choose your current time zone."
 msgstr "Válassza ki a jelenlegi időzónáját."
-
-msgid "Heading {level}"
-msgstr "Címsor {level}"
 
 msgid "Bulleted list"
 msgstr "Lista"

@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-09-16 09:46+0000\n"
-"Last-Translator: Guglielmo Celata <guglielmo.celata@gmail.com>\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -24,9 +24,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Immagini Wagtail"
-
-msgid "GIF, JPEG, PNG"
-msgstr "GIF, JPEG, PNG"
 
 #, python-format
 msgid ""

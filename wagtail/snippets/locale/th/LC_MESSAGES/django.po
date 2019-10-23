@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -154,26 +154,14 @@ msgstr "แก้ไขหน้านี้"
 msgid "Search %(snippet_type_name)s"
 msgstr "ค้นหา %(snippet_type_name)s"
 
-msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' ถูกสร้างขึ้น"
-
 msgid "Edit"
 msgstr "แก้ไข"
 
 msgid "The snippet could not be created due to errors."
 msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
 
-msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}' อัพเดท"
-
 msgid "The snippet could not be saved due to errors."
 msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกเซฟได้ในขณะที่เกิดข้อผิดพลาด"
-
-msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' ถูกลบทิ้ง"
-
-msgid "{count} {snippet_type} deleted."
-msgstr "{count} {snippet_type} ถูกลบทิ้ง"
 
 #, python-format
 msgid "Choose %s"

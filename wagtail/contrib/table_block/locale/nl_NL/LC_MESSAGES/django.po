@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2019
 # Maarten Kling <kling.maarten@gmail.com>, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-05-07 09:04+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 21:48+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -34,3 +35,13 @@ msgstr "Kolomheader"
 
 msgid "Display the first column as a header."
 msgstr "Geef de eerste kolom als een header weer."
+
+msgid "Table caption"
+msgstr "Bijschrift"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"Een algemene omschrijving van de tabel. Nuttig voor bezoekers die gebruik "
+"maken van een screen reader."

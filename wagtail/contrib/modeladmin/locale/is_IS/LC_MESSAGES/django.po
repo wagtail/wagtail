@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -172,9 +172,6 @@ msgstr "Fyrra"
 msgid "Next"
 msgstr "Næsta"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' búið til."
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr "Ekki var hægt að búa til %s þar sem það stóðst ekki villuprófanir"
@@ -193,9 +190,6 @@ msgstr "Breyti"
 msgid "Editing %s"
 msgstr "Breyti %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' uppfært."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "Ekki var hægt að vista %s þar sem það stóðst ekki villuprófanir"
@@ -211,9 +205,6 @@ msgid ""
 msgstr ""
 "Ertu viss um að þú viljir eyða þessu %s? Ef aðrir hlutir á síðunni eru háðir "
 "þessu þá gæti þetta haft áhrif á þá."
-
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' eytt."
 
 msgid "Inspecting"
 msgstr "Skoða"

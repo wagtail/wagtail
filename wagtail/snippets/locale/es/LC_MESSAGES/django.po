@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -168,26 +168,14 @@ msgstr "Editar esta página"
 msgid "Search %(snippet_type_name)s"
 msgstr "Buscar %(snippet_type_name)s"
 
-msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' creado."
-
 msgid "Edit"
 msgstr "Editar"
 
 msgid "The snippet could not be created due to errors."
 msgstr "El fragmento no pudo ser creado debido a errores."
 
-msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}' actualizado."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "El fragmento no puedo ser guardado debido a errores."
-
-msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' eliminado."
-
-msgid "{count} {snippet_type} deleted."
-msgstr "{count} {snippet_type} eliminado."
 
 #, python-format
 msgid "Choose %s"

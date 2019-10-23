@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -29,6 +29,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
+msgid "Publish"
+msgstr "Publikovat"
+
 msgid "Submit for moderation"
 msgstr "Odeslat ke schválení"
 
@@ -38,14 +41,20 @@ msgstr "Zrušit publikaci"
 msgid "Delete"
 msgstr "Smazat"
 
+msgid "Page locked"
+msgstr "Stránka uzamčena"
+
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
 
-msgid "None"
-msgstr "Nic"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Promiňte, ale na přístup k této části nemáte oprávnění."
 
 msgid "You do not have permission to access the admin"
 msgstr "Nemáte povolení k přístupu do redakčního systému"
+
+msgid "None"
+msgstr "Nic"
 
 msgid "Scheduled publishing"
 msgstr "Naplánovat publikaci"
@@ -71,9 +80,6 @@ msgstr "Zadejte své %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Pro obnovení hesla zadejte svou e-mailovou adresu"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
@@ -167,6 +173,238 @@ msgstr "Toto pole je povinné."
 msgid "Please select at least one group."
 msgstr "Zvolte prosím alespoň jednu skupinu."
 
+msgid "Arabic"
+msgstr "Arabic"
+
+msgid "Catalan"
+msgstr "Catalan"
+
+msgid "German"
+msgstr "German"
+
+msgid "Greek"
+msgstr "Greek"
+
+msgid "English"
+msgstr "English"
+
+msgid "Spanish"
+msgstr "Spanish"
+
+msgid "Finnish"
+msgstr "Finnish"
+
+msgid "French"
+msgstr "French"
+
+msgid "Galician"
+msgstr "Galician"
+
+msgid "Indonesian"
+msgstr "Indonesian"
+
+msgid "Icelandic"
+msgstr "Icelandic"
+
+msgid "Italian"
+msgstr "Italian"
+
+msgid "Korean"
+msgstr "Korean"
+
+msgid "Lithuanian"
+msgstr "Lithuanian"
+
+msgid "Mongolian"
+msgstr "mongolština"
+
+msgid "Norwegian Bokmål"
+msgstr "Norwegian Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Netherlands Dutch"
+
+msgid "Persian"
+msgstr "Persian"
+
+msgid "Polish"
+msgstr "Polish"
+
+msgid "Brazilian Portuguese"
+msgstr "Brazilian Portuguese"
+
+msgid "Portuguese"
+msgstr "Portuguese"
+
+msgid "Romanian"
+msgstr "Romanian"
+
+msgid "Russian"
+msgstr "Russian"
+
+msgid "Swedish"
+msgstr "Swedish"
+
+msgid "Slovak"
+msgstr "Slovak"
+
+msgid "Thai"
+msgstr "thajština"
+
+msgid "Ukrainian"
+msgstr "Ukrainian"
+
+msgid "Chinese (Simplified)"
+msgstr "čínština (zjednodušená)"
+
+msgid "Chinese (Traditional)"
+msgstr "čínština (tradiční)"
+
+msgid "Page"
+msgstr "Stránka"
+
+msgid "Pages"
+msgstr "Stránky"
+
+msgid "Loading…"
+msgstr "Načítání..."
+
+msgid "No results"
+msgstr "Žádné výsledky"
+
+msgid "Server Error"
+msgstr "Chyba serveru"
+
+msgid "See all"
+msgstr "Zobrazit vse"
+
+msgid "Close explorer"
+msgstr "Zavřít explorer"
+
+msgid "Alt text"
+msgstr "Alternativní text"
+
+msgid "Write here…"
+msgstr "Pište zde..."
+
+msgid "Horizontal line"
+msgstr "Horizontální linie"
+
+msgid "Line break"
+msgstr "Nový řádek"
+
+msgid "Undo"
+msgstr "Vrátit zpět"
+
+msgid "Redo"
+msgstr "Opakovat"
+
+msgid "Reload the page"
+msgstr "Znovu načíst stránku"
+
+msgid "Reload saved content"
+msgstr "Znovu načíst uložený obsah"
+
+msgid "Show latest content"
+msgstr "Zobrazit aktuální obsah"
+
+msgid "Show error"
+msgstr "Zobrazit chyby"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Editor zhavaroval. Obsah byl obnoven z poslední uložené verze."
+
+msgid "Broken link"
+msgstr "Nefunkční odkaz"
+
+msgid "Missing document"
+msgstr "Chybějící dokument"
+
+msgid "Close"
+msgstr "Zavřít"
+
+msgid "Edit '{title}'"
+msgstr "Editovat '{title}'"
+
+msgid "January"
+msgstr "leden"
+
+msgid "February"
+msgstr "únor"
+
+msgid "March"
+msgstr "březen"
+
+msgid "April"
+msgstr "duben"
+
+msgid "May"
+msgstr "květen"
+
+msgid "June"
+msgstr "červen"
+
+msgid "July"
+msgstr "červenec"
+
+msgid "August"
+msgstr "srpen"
+
+msgid "September"
+msgstr "září"
+
+msgid "October"
+msgstr "říjen"
+
+msgid "November"
+msgstr "listopad"
+
+msgid "December"
+msgstr "prosinec"
+
+msgid "Sunday"
+msgstr "neděle"
+
+msgid "Monday"
+msgstr "pondělí"
+
+msgid "Tuesday"
+msgstr "úterý"
+
+msgid "Wednesday"
+msgstr "středa"
+
+msgid "Thursday"
+msgstr "čtvrtek"
+
+msgid "Friday"
+msgstr "pátek"
+
+msgid "Saturday"
+msgstr "dobota"
+
+msgid "Sun"
+msgstr "ne"
+
+msgid "Mon"
+msgstr "po"
+
+msgid "Tue"
+msgstr "út"
+
+msgid "Wed"
+msgstr "st"
+
+msgid "Thu"
+msgstr "čt"
+
+msgid "Fri"
+msgstr "pá"
+
+msgid "Sat"
+msgstr "so"
+
 msgid "Error 404: Page not found"
 msgstr "Error 404: Stránka nebyla nalezena"
 
@@ -257,156 +495,11 @@ msgstr "Obnovení hesla"
 msgid "Reset your password"
 msgstr "Nastavit nové heslo"
 
-msgid "Page"
-msgstr "Stránka"
-
-msgid "Pages"
-msgstr "Stránky"
-
-msgid "Loading…"
-msgstr "Načítání..."
-
-msgid "No results"
-msgstr "Žádné výsledky"
-
-msgid "Server Error"
-msgstr "Chyba serveru"
-
-msgid "See all"
-msgstr "Zobrazit vse"
-
-msgid "Close explorer"
-msgstr "Zavřít explorer"
-
-msgid "Alt text"
-msgstr "Alternativní text"
-
-msgid "Write here…"
-msgstr "Pište zde..."
-
-msgid "Horizontal line"
-msgstr "Horizontální linie"
-
-msgid "Line break"
-msgstr "Nový řádek"
-
-msgid "Undo"
-msgstr "Vrátit zpět"
-
-msgid "Redo"
-msgstr "Opakovat"
-
-msgid "Reload the page"
-msgstr "Znovu načíst stránku"
-
-msgid "Reload saved content"
-msgstr "Znovu načíst uložený obsah"
-
-msgid "Show latest content"
-msgstr "Zobrazit aktuální obsah"
-
-msgid "Show error"
-msgstr "Zobrazit chyby"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "Editor zhavaroval. Obsah byl obnoven z poslední uložené verze."
-
-msgid "Broken link"
-msgstr "Nefunkční odkaz"
-
-msgid "Missing document"
-msgstr "Chybějící dokument"
-
-msgid "Close"
-msgstr "Zavřít"
-
-msgid "January"
-msgstr "leden"
-
-msgid "February"
-msgstr "únor"
-
-msgid "March"
-msgstr "březen"
-
-msgid "April"
-msgstr "duben"
-
-msgid "May"
-msgstr "květen"
-
-msgid "June"
-msgstr "červen"
-
-msgid "July"
-msgstr "červenec"
-
-msgid "August"
-msgstr "srpen"
-
-msgid "September"
-msgstr "září"
-
-msgid "October"
-msgstr "říjen"
-
-msgid "November"
-msgstr "listopad"
-
-msgid "December"
-msgstr "prosinec"
-
-msgid "Sunday"
-msgstr "neděle"
-
-msgid "Monday"
-msgstr "pondělí"
-
-msgid "Tuesday"
-msgstr "úterý"
-
-msgid "Wednesday"
-msgstr "středa"
-
-msgid "Thursday"
-msgstr "čtvrtek"
-
-msgid "Friday"
-msgstr "pátek"
-
-msgid "Saturday"
-msgstr "dobota"
-
-msgid "Sun"
-msgstr "ne"
-
-msgid "Mon"
-msgstr "po"
-
-msgid "Tue"
-msgstr "út"
-
-msgid "Wed"
-msgstr "st"
-
-msgid "Thu"
-msgstr "čt"
-
-msgid "Fri"
-msgstr "pá"
-
-msgid "Sat"
-msgstr "so"
-
 msgid "Dashboard"
 msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Přidat další"
 
 msgid "Move up"
 msgstr "Posunout nahoru"
@@ -686,8 +779,14 @@ msgstr "Publikování..."
 msgid "Publish this revision"
 msgstr "Publikovat tuto revizi"
 
-msgid "Publish"
-msgstr "Publikovat"
+msgid "Saving…"
+msgstr "Ukládání..."
+
+msgid "Replace current draft"
+msgstr "Nahradit současný koncept"
+
+msgid "Save draft"
+msgstr "Uložit koncept"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -834,12 +933,6 @@ msgstr "Nový %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
-msgid "Saving…"
-msgstr "Ukládání..."
-
-msgid "Save draft"
-msgstr "Uložit koncept"
-
 msgid "This page has unsaved changes."
 msgstr "Na této stránce jsou neuložené změny."
 
@@ -850,12 +943,6 @@ msgstr "Upravit %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Upravit %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Stránka uzamčena"
-
-msgid "Replace current draft"
-msgstr "Nahradit současný koncept"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1244,96 +1331,6 @@ msgstr "Zobrazit v prohlížeči"
 msgid "Test"
 msgstr "Test"
 
-msgid "Arabic"
-msgstr "Arabic"
-
-msgid "Catalan"
-msgstr "Catalan"
-
-msgid "German"
-msgstr "German"
-
-msgid "Greek"
-msgstr "Greek"
-
-msgid "English"
-msgstr "English"
-
-msgid "Spanish"
-msgstr "Spanish"
-
-msgid "Finnish"
-msgstr "Finnish"
-
-msgid "French"
-msgstr "French"
-
-msgid "Galician"
-msgstr "Galician"
-
-msgid "Indonesian"
-msgstr "Indonesian"
-
-msgid "Icelandic"
-msgstr "Icelandic"
-
-msgid "Italian"
-msgstr "Italian"
-
-msgid "Korean"
-msgstr "Korean"
-
-msgid "Lithuanian"
-msgstr "Lithuanian"
-
-msgid "Mongolian"
-msgstr "mongolština"
-
-msgid "Norwegian Bokmål"
-msgstr "Norwegian Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Netherlands Dutch"
-
-msgid "Persian"
-msgstr "Persian"
-
-msgid "Polish"
-msgstr "Polish"
-
-msgid "Brazilian Portuguese"
-msgstr "Brazilian Portuguese"
-
-msgid "Portuguese"
-msgstr "Portuguese"
-
-msgid "Romanian"
-msgstr "Romanian"
-
-msgid "Russian"
-msgstr "Russian"
-
-msgid "Swedish"
-msgstr "Swedish"
-
-msgid "Slovak"
-msgstr "Slovak"
-
-msgid "Thai"
-msgstr "thajština"
-
-msgid "Ukrainian"
-msgstr "Ukrainian"
-
-msgid "Chinese (Simplified)"
-msgstr "čínština (zjednodušená)"
-
-msgid "Chinese (Traditional)"
-msgstr "čínština (tradiční)"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Promiňte, ale na přístup k této části nemáte oprávnění."
-
 msgid "Your password has been changed successfully!"
 msgstr "Vaše heslo bylo úspěšně změněno!"
 
@@ -1504,44 +1501,11 @@ msgstr "verze {0} \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Verze {0} \"{1}\" - naplánování bylo zrušeno."
 
-msgid "Edit '{title}'"
-msgstr "Editovat '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Prohlédnout návrh stránky '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Zobrazit aktuální vzhled '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Přidat podstránku ke '{title}'"
-
 msgid "More"
 msgstr "Více"
 
-msgid "View more options for '{title}'"
-msgstr "Zobrazit více voleb pro '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Přesunout stránku '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Zkopírovat stránku '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Zrušit stránku '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Nezveřejňovat stránku '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Zobrazit historii verzí '{title}'"
-
 msgid "Set profile picture"
 msgstr "Nastavit profilovou fotografii"
-
-msgid "Change your profile picture"
-msgstr "Změnit profilovou fotografii."
 
 msgid "Change the email address linked to your account."
 msgstr "Změnit e-mailovou adresu, přiřazenou k vašemu účtu."
@@ -1563,9 +1527,6 @@ msgstr "Aktuální časové pásmo"
 
 msgid "Choose your current time zone."
 msgstr "Zvolte vaše aktuální časové pásmo."
-
-msgid "Heading {level}"
-msgstr "Hlavička {level}"
 
 msgid "Bulleted list"
 msgstr "Nečíslovaný seznam"
