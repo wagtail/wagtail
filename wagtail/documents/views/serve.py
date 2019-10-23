@@ -9,7 +9,8 @@ from django.urls import reverse
 from wagtail.core import hooks
 from wagtail.core.forms import PasswordViewRestrictionForm
 from wagtail.core.models import CollectionViewRestriction
-from wagtail.documents.models import document_served, get_document_model
+from wagtail.documents import get_document_model
+from wagtail.documents.models import document_served
 from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.sendfile import sendfile
 

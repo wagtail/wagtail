@@ -6,7 +6,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
-from wagtail.documents.models import get_document_model
+from wagtail.documents import get_document_model
 
 
 class TestDocumentListing(TestCase):

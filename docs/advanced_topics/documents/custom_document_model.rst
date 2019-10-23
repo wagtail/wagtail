@@ -62,6 +62,8 @@ Then in your settings module:
 Referring to the document model
 ===============================
 
-.. module:: wagtail.documents.models
+.. module:: wagtail.documents
 
 .. autofunction:: get_document_model
+
+.. autofunction:: get_image_model_string
