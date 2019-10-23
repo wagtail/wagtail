@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -146,26 +146,14 @@ msgstr "Ubah halaman ini"
 msgid "Search %(snippet_type_name)s"
 msgstr "Pencarian %(snippet_type_name)s"
 
-msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' dibuat."
-
 msgid "Edit"
 msgstr "Ubah"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Potongan tidak dapat dibuat karena suatu kesalahan."
 
-msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}' diperbarui."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Potongan tidak dapat disimpan karena suatu kesalahan."
-
-msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' dihapus."
-
-msgid "{count} {snippet_type} deleted."
-msgstr "{count} {snippet_type} dihapus."
 
 #, python-format
 msgid "Choose %s"

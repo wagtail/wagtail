@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2019
 # Maarten Kling <kling.maarten@gmail.com>, 2017-2018
 # Thijs Kramer <thijskramer@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 21:52+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -113,6 +114,9 @@ msgstr "Ga terug naar de lijstweergave"
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
 
+msgid "No, don't delete"
+msgstr "Nee, niet verwijderen"
+
 msgid "Home"
 msgstr "Home"
 
@@ -156,6 +160,9 @@ msgstr ""
 "\n"
 "Waarom niet <a href=\"%(url)s\">een toevoegen</a>?"
 
+msgid "Pagination"
+msgstr "Paginering"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Pagina %(current_page)s van %(num_pages)s."
@@ -170,8 +177,9 @@ msgstr "Vorige"
 msgid "Next"
 msgstr "Volgende"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' aangemaakt."
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' aangemaakt."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -191,8 +199,9 @@ msgstr "Wijzigen"
 msgid "Editing %s"
 msgstr "Wijzigen %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' gewijzigd."
+#, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' bijgewerkt."
 
 #, python-format
 msgid "The %s could not be saved due to errors."
@@ -210,8 +219,9 @@ msgstr ""
 "Weet u zeker dat u dit %s wilt verwijderen? Als andere dingen hieraan zijn "
 "gerelateerd dan zullen deze mogelijk worden beïnvloed."
 
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' verwijderd."
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' verwijderd."
 
 msgid "Inspecting"
 msgstr "Bezig met inspecteren"

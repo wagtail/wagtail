@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -139,26 +139,14 @@ msgstr "حرر هذه الصفحة"
 msgid "Search %(snippet_type_name)s"
 msgstr "بحث %(snippet_type_name)s"
 
-msgid "{snippet_type} '{instance}' created."
-msgstr "تم إنشاء {snippet_type} '{instance}'."
-
 msgid "Edit"
 msgstr "تحرير"
 
 msgid "The snippet could not be created due to errors."
 msgstr "لم تنشئ القصااصة بسبب أخطاء"
 
-msgid "{snippet_type} '{instance}' updated."
-msgstr "تم تحديث {snippet_type} '{instance}'."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "لم تحفظ القصااصة بسبب أخطاء"
-
-msgid "{snippet_type} '{instance}' deleted."
-msgstr "تم حذف {snippet_type} '{instance}'."
-
-msgid "{count} {snippet_type} deleted."
-msgstr "تم حذف {count} {snippet_type}."
 
 #, python-format
 msgid "Choose %s"

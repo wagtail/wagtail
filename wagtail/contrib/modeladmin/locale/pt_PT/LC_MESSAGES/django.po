@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -170,9 +170,6 @@ msgstr "Anterior"
 msgid "Next"
 msgstr "Seguinte"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' criado."
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr "Não foi possível criar o %s devido a erros."
@@ -191,9 +188,6 @@ msgstr "A editar"
 msgid "Editing %s"
 msgstr "A editar %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' atualizado."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "O %s não pôde ser guardado devido a erros."
@@ -209,9 +203,6 @@ msgid ""
 msgstr ""
 "Tem a certeza que quer apagar este %s? Se outras coisas no seu site "
 "estiverem relacionados com ele, também podem ser afetadas."
-
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' apagado."
 
 msgid "Inspecting"
 msgstr "A inspecionar"

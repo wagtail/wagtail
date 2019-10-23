@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Coen van der Kamp <cvanderkamp@gmail.com>, 2018
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2019
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Meteor 0id, 2019
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-20 23:35+0000\n"
-"Last-Translator: Meteor 0id\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-17 19:22+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Publiceer"
 
 msgid "Submit for moderation"
 msgstr "Dien in ter controle"
@@ -32,14 +35,23 @@ msgstr "Publicatie intrekken"
 msgid "Delete"
 msgstr "Verwijder"
 
+msgid "Save Draft"
+msgstr "Concept opslaan"
+
+msgid "Page locked"
+msgstr "Pagina is geblokkeerd"
+
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
 
-msgid "None"
-msgstr "Geen"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Sorry, u heeft geen toegang tot dit gedeelte."
 
 msgid "You do not have permission to access the admin"
 msgstr "U heeft geen toegang tot de admin."
+
+msgid "None"
+msgstr "Geen"
 
 msgid "Scheduled publishing"
 msgstr "Geplande publicatie"
@@ -65,9 +77,6 @@ msgstr "Voer uw %s in"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vul uw e-mailadres in om uw wachtwoord te herstellen"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -160,96 +169,101 @@ msgstr "Dit is een verplicht veld."
 msgid "Please select at least one group."
 msgstr "Selecteer minimaal één groep."
 
-msgid "Error 404: Page not found"
-msgstr "Error 404: Pagina niet gevonden"
+msgid "Arabic"
+msgstr "Arabisch"
 
-msgid "Error 404"
-msgstr "Error 404"
+msgid "Catalan"
+msgstr "Catalaans"
 
-msgid "The requested page could not be found."
-msgstr "De pagina kon niet worden gevonden."
+msgid "Czech"
+msgstr "Tsjechisch"
 
-msgid "Go to Wagtail admin"
-msgstr "Ga naar de Wagtail admin"
+msgid "German"
+msgstr "Duits"
 
-msgid "Account"
-msgstr "Account"
+msgid "Greek"
+msgstr "Grieks"
 
-msgid "Change profile picture"
-msgstr "Wijzig profiel foto"
+msgid "English"
+msgstr "Engels"
 
-msgid "Your current profile picture:"
-msgstr "Je huidige profiel foto:"
+msgid "Spanish"
+msgstr "Spaans"
 
-msgid "Update"
-msgstr "Bijwerken"
+msgid "Finnish"
+msgstr "Fins"
 
-msgid "Change email"
-msgstr "Wijzig email"
+msgid "French"
+msgstr "Frans"
 
-msgid "Change password"
-msgstr "Wijzig wachtwoord"
+msgid "Galician"
+msgstr "Galicisch"
 
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Uw wachtwoord kan hier niet gewijzigd worden. Neem contact op met een "
-"beheerder van deze site."
+msgid "Hungarian"
+msgstr "Hongaars"
 
-msgid "Set Time Zone"
-msgstr "Zet tijd zone"
+msgid "Indonesian"
+msgstr "Indonesisch"
 
-msgid "Language Preferences"
-msgstr "Taalvoorkeuren"
+msgid "Icelandic"
+msgstr "IJslands"
 
-msgid "Notification preferences"
-msgstr "Notificatievoorkeuren"
+msgid "Italian"
+msgstr "Italiaans"
 
-msgid "Reset password"
-msgstr "Wachtwoord resetten"
+msgid "Japanese"
+msgstr "Japans"
 
-msgid "Password change successful"
-msgstr "Uw wachtwoord is succesvol gewijzigd."
+msgid "Korean"
+msgstr "Koreaans"
 
-msgid "Login"
-msgstr "Inloggen"
+msgid "Lithuanian"
+msgstr "Litouws"
 
-msgid "Set your new password"
-msgstr "Vul uw nieuwe wachtwoord in"
+msgid "Mongolian"
+msgstr "Mongools"
 
-msgid "Invalid password reset link"
-msgstr "Onjuiste wachtwoord reset link"
+msgid "Norwegian Bokmål"
+msgstr "Noors Bokmål"
 
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used."
-msgstr ""
-"De wachtwoord reset link is niet juist, waarschijnlijk is deze al gebruikt."
+msgid "Netherlands Dutch"
+msgstr "Nederlands"
 
-msgid "Request a new password reset"
-msgstr "Vraag een nieuw wachtwoord reset aan"
+msgid "Persian"
+msgstr "Perzisch"
 
-msgid "Check your email"
-msgstr "Controleer uw e-mail"
+msgid "Polish"
+msgstr "Pools"
 
-msgid ""
-"A link to reset your password has been emailed to you if an account exists "
-"for this address."
-msgstr ""
-"Een link om uw wachtwoord te herstellen is naar uw e-mailadres verstuurd als "
-"dit adres bestaat."
+msgid "Brazilian Portuguese"
+msgstr "Braziliaans Portugees"
 
-msgid "Please follow the link below to reset your password:"
-msgstr "Klik op de link hieronder om uw wachtwoord te wijzigen:"
+msgid "Portuguese"
+msgstr "Portugees"
 
-msgid "Your username (in case you've forgotten):"
-msgstr "Uw gebruikersnaam (mocht u die vergeten zijn):"
+msgid "Romanian"
+msgstr "Roemeens"
 
-msgid "Password reset"
-msgstr "Wachtwoord herstel"
+msgid "Russian"
+msgstr "Russisch"
 
-msgid "Reset your password"
-msgstr "Reset uw wachtwoord"
+msgid "Swedish"
+msgstr "Zweeds"
+
+msgid "Slovak"
+msgstr "Slowaaks"
+
+msgid "Thai"
+msgstr "Thais"
+
+msgid "Ukrainian"
+msgstr "Oekraïens"
+
+msgid "Chinese (Simplified)"
+msgstr "Chinees (Vereenvoudigd)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinees (Traditioneel)"
 
 msgid "Page"
 msgstr "Pagina"
@@ -316,6 +330,15 @@ msgstr "Ontbrekend document"
 
 msgid "Close"
 msgstr "Sluit"
+
+msgid "Edit '{title}'"
+msgstr "Wijzig '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "Toon onderliggende pagina's van '{title}'"
+
+msgid "Page explorer"
+msgstr "Paginaverkenner"
 
 msgid "January"
 msgstr "januari"
@@ -395,14 +418,105 @@ msgstr "Vr"
 msgid "Sat"
 msgstr "Za"
 
+msgid "Error 404: Page not found"
+msgstr "Error 404: Pagina niet gevonden"
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "De pagina kon niet worden gevonden."
+
+msgid "Go to Wagtail admin"
+msgstr "Ga naar de Wagtail admin"
+
+msgid "Account"
+msgstr "Account"
+
+msgid "Change profile picture"
+msgstr "Wijzig profiel foto"
+
+msgid "Your current profile picture:"
+msgstr "Je huidige profiel foto:"
+
+msgid "Update"
+msgstr "Bijwerken"
+
+msgid "Change email"
+msgstr "Wijzig email"
+
+msgid "Change name"
+msgstr "Naam wijzigen"
+
+msgid "Change password"
+msgstr "Wijzig wachtwoord"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Uw wachtwoord kan hier niet gewijzigd worden. Neem contact op met een "
+"beheerder van deze site."
+
+msgid "Set Time Zone"
+msgstr "Zet tijd zone"
+
+msgid "Language Preferences"
+msgstr "Taalvoorkeuren"
+
+msgid "Notification preferences"
+msgstr "Notificatievoorkeuren"
+
+msgid "Reset password"
+msgstr "Wachtwoord resetten"
+
+msgid "Password change successful"
+msgstr "Uw wachtwoord is succesvol gewijzigd."
+
+msgid "Login"
+msgstr "Inloggen"
+
+msgid "Set your new password"
+msgstr "Vul uw nieuwe wachtwoord in"
+
+msgid "Invalid password reset link"
+msgstr "Onjuiste wachtwoord reset link"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"De wachtwoord reset link is niet juist, waarschijnlijk is deze al gebruikt."
+
+msgid "Request a new password reset"
+msgstr "Vraag een nieuw wachtwoord reset aan"
+
+msgid "Check your email"
+msgstr "Controleer uw e-mail"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Een link om uw wachtwoord te herstellen is naar uw e-mailadres verstuurd als "
+"dit adres bestaat."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Klik op de link hieronder om uw wachtwoord te wijzigen:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Uw gebruikersnaam (mocht u die vergeten zijn):"
+
+msgid "Password reset"
+msgstr "Wachtwoord herstel"
+
+msgid "Reset your password"
+msgstr "Reset uw wachtwoord"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Voeg er nog een toe"
 
 msgid "Move up"
 msgstr "Verplaats naar boven"
@@ -422,6 +536,12 @@ msgstr "Externe link"
 msgid "Email link"
 msgstr "Email link"
 
+msgid "Phone link"
+msgstr "Telefoonlink"
+
+msgid "Anchor link"
+msgstr "Ankerlink"
+
 #, python-format
 msgid ""
 "\n"
@@ -437,6 +557,12 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "Er zijn %(counter)s resultaten"
+
+msgid "Add an anchor link"
+msgstr "Voeg een ankerlink toe"
+
+msgid "Insert anchor"
+msgstr "Anker toevoegen"
 
 msgid "Choose"
 msgstr "Kies"
@@ -475,6 +601,9 @@ msgstr "Voeg een link toe"
 msgid "Add an external link"
 msgstr "Voeg een externe link toe"
 
+msgid "Add a phone link"
+msgstr "Voeg een telefoonlink toe"
+
 msgid "Collection privacy"
 msgstr "Collectie privacy"
 
@@ -496,8 +625,14 @@ msgstr "Opslaan"
 msgid "Privacy"
 msgstr "Privacy"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Privacy-status van deze collectie. Huidige status: Openbaar"
+
 msgid "Public"
 msgstr "Openbaar"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Privacy-status van deze collectie. Huidige status: Privé"
 
 msgid "Private"
 msgstr "Privé"
@@ -556,7 +691,7 @@ msgid "Edit this page"
 msgstr "Wijzig deze pagina"
 
 msgid "Preview this page"
-msgstr "Toon voorbeeld van deze pagina"
+msgstr "Toon voorvertoning van deze pagina"
 
 msgid "Approve"
 msgstr "Keur goed"
@@ -591,6 +726,28 @@ msgstr "Live"
 
 msgid "Site summary"
 msgstr "Site samenvatting"
+
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"            <span>%(total)s</span> pagina aangemaakt in %(site_name)s</"
+"span>\n"
+"        "
+msgstr[1] ""
+"\n"
+"            <span>%(total)s</span> pagina's <span class=\"visuallyhidden"
+"\">aangemaakt in %(site_name)s</span>\n"
+"        "
 
 msgid "Sign in"
 msgstr "Inloggen"
@@ -663,11 +820,29 @@ msgstr ""
 msgid "Edit lock"
 msgstr "Bewerkingsblokkering"
 
+msgid "Remove editor lock. Current status: Locked"
+msgstr "Zet bewerkingsblokkering uit. Huidige status: Geblokkeerd"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "Zet bewerkingsblokkering aan. Huidige status: Gedeblokkeerd"
+
 msgid "Locked"
 msgstr "Geblokkeerd"
 
 msgid "Unlocked"
 msgstr "Gedeblokkeerd"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Privacy-status van deze pagina. Huidige status: Openbaar"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Privacy-status van deze pagina. Huidige status: Privé"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Privacy-status van deze pagina. Huidige status: Openbaar"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Privacy-status van deze pagina. Huidige status: Privé "
 
 msgid "Publishing…"
 msgstr "Bezig met publiceren..."
@@ -675,8 +850,14 @@ msgstr "Bezig met publiceren..."
 msgid "Publish this revision"
 msgstr "Publiceer deze versie"
 
-msgid "Publish"
-msgstr "Publiceer"
+msgid "Saving…"
+msgstr "Bezig met opslaan…"
+
+msgid "Replace current draft"
+msgstr "Vervang huidig concept"
+
+msgid "Save draft"
+msgstr "Bewaar concept"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -809,11 +990,8 @@ msgstr "Pagina van type '%(page_type)s' toevoegen"
 msgid "New"
 msgstr "Nieuw"
 
-msgid "Saving…"
-msgstr "Bezig met opslaan…"
-
-msgid "Save draft"
-msgstr "Bewaar concept"
+msgid "Actions"
+msgstr "Acties"
 
 msgid "This page has unsaved changes."
 msgstr "Deze pagina heeft wijzigingen die nog niet zijn opgeslagen."
@@ -825,12 +1003,6 @@ msgstr "Bewerk %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Bewerk %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Pagina is geblokkeerd"
-
-msgid "Replace current draft"
-msgstr "Vervang huidig concept"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -947,6 +1119,9 @@ msgstr "Voeg onderliggende pagina toe"
 
 msgid "Sites menu"
 msgstr "Sites menu"
+
+msgid "Pagination"
+msgstr "Pagineren"
 
 #, python-format
 msgid ""
@@ -1146,7 +1321,7 @@ msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s van %(total_pages)s."
 
 msgid "Breadcrumb"
-msgstr "Broodkruimel"
+msgstr "Kruimelpad"
 
 msgid "Root"
 msgstr "Root"
@@ -1165,6 +1340,12 @@ msgstr "Accountinstellingen"
 
 msgid "Log out"
 msgstr "Uitloggen"
+
+msgid "Visit the live page"
+msgstr "Bezoek de live pagina"
+
+msgid "Current page status:"
+msgstr "Huidige paginastatus:"
 
 msgid "Other searches"
 msgstr "Andere zoekacties"
@@ -1191,7 +1372,7 @@ msgstr ""
 "Om Wagtail te kunnen gebruiken is Javascript vereist. Dit staat momenteel "
 "uitgeschakeld. <br />\n"
 "De <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener noreferrer\">instructies om om javascript in te schakelen zijn "
+"\"noopener noreferrer\">instructies om om Javascript in te schakelen zijn "
 "hier te vinden</a>."
 
 msgid "Go to Wagtail admin interface"
@@ -1203,104 +1384,33 @@ msgstr "Voeg een onderliggende pagina toe"
 msgid "Show in Explorer"
 msgstr "Toon in verkenner"
 
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Sorteer onderliggende pagina's van '%(parent)s' op '%(label)s' in oplopende "
+"volgorde."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Sorteer onderliggende pagina's van '%(parent)s' op '%(label)s' in aflopende "
+"volgorde."
+
 msgid "Test"
 msgstr "Test"
-
-msgid "Arabic"
-msgstr "Arabisch"
-
-msgid "Catalan"
-msgstr "Catalaans"
-
-msgid "German"
-msgstr "Duits"
-
-msgid "Greek"
-msgstr "Grieks"
-
-msgid "English"
-msgstr "Engels"
-
-msgid "Spanish"
-msgstr "Spaans"
-
-msgid "Finnish"
-msgstr "Fins"
-
-msgid "French"
-msgstr "Frans"
-
-msgid "Galician"
-msgstr "Galicisch"
-
-msgid "Indonesian"
-msgstr "Indonesisch"
-
-msgid "Icelandic"
-msgstr "IJslands"
-
-msgid "Italian"
-msgstr "Italiaans"
-
-msgid "Korean"
-msgstr "Koreaans"
-
-msgid "Lithuanian"
-msgstr "Litouws"
-
-msgid "Mongolian"
-msgstr "Mongools"
-
-msgid "Norwegian Bokmål"
-msgstr "Noors Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Nederlands"
-
-msgid "Persian"
-msgstr "Perzisch"
-
-msgid "Polish"
-msgstr "Pools"
-
-msgid "Brazilian Portuguese"
-msgstr "Braziliaans Portugees"
-
-msgid "Portuguese"
-msgstr "Portugees"
-
-msgid "Romanian"
-msgstr "Roemeens"
-
-msgid "Russian"
-msgstr "Russisch"
-
-msgid "Swedish"
-msgstr "Zweeds"
-
-msgid "Slovak"
-msgstr "Slowaaks"
-
-msgid "Thai"
-msgstr "Thais"
-
-msgid "Ukrainian"
-msgstr "Oekraïens"
-
-msgid "Chinese (Simplified)"
-msgstr "Chinees (Vereenvoudigd)"
-
-msgid "Chinese (Traditional)"
-msgstr "Chinees (Traditioneel)"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Sorry, u heeft geen toegang tot dit gedeelte."
 
 msgid "Your password has been changed successfully!"
 msgstr "Uw wachtwoord is succesvol gewijzigd!"
 
 msgid "Your email has been changed successfully!"
 msgstr "Uw e-mailadres is succesvol gewijzigd!"
+
+msgid "Your name has been changed successfully!"
+msgstr "Je naam is succesvol gewijzigd!"
 
 msgid "Your preferences have been updated."
 msgstr "Uw voorkeuren zijn aangepast."
@@ -1411,8 +1521,8 @@ msgid ""
 "The slug '{0}' is already in use at the selected parent page. Make sure the "
 "slug is unique and try again"
 msgstr ""
-"De slug '{0}' is al in gebruik bij de geselecteerde bovenliggende pagina. Ga "
-"na dat de slug uniek is en probeer het opnieuw"
+"De slug '{0}' is al in gebruik bij de geselecteerde bovenliggende pagina. "
+"Zorg dat de slug uniek is en probeer het opnieuw."
 
 msgid "Page '{0}' moved."
 msgstr "Pagina '{0}' is verplaatst."
@@ -1464,44 +1574,54 @@ msgstr "Versie {0} van \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Versie {0} of \"{1}\" gestopt met plannen"
 
-msgid "Edit '{title}'"
-msgstr "Wijzig '{title}'"
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Wijzig '%(title)s'"
 
-msgid "Preview draft version of '{title}'"
-msgstr "Bekijk conceptversie van '{title}'"
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Voorvertoning van conceptversie '%(title)s'"
 
-msgid "View live version of '{title}'"
-msgstr "Bekijk live versie van '{title}'"
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Toon de live versie van '%(title)s'"
 
-msgid "Add a child page to '{title}' "
-msgstr "Voeg een onderliggende pagina toe aan '{title}'"
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Voeg onderliggende pagina toe aan '%(title)s'"
 
 msgid "More"
 msgstr "Meer"
 
-msgid "View more options for '{title}'"
-msgstr "Bekijk meer opties voor '{title}'"
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Bekijk meer opties voor '%(title)s'"
 
-msgid "Move page '{title}'"
-msgstr "Verplaats pagina '{title}'"
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Verplaats pagina '%(title)s'"
 
-msgid "Copy page '{title}'"
-msgstr "Kopieer pagina '{title}'"
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Kopieer pagina '%(title)s'"
 
-msgid "Delete page '{title}'"
-msgstr "Verwijder pagina '{title}'"
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Verwijder pagina '%(title)s'"
 
-msgid "Unpublish page '{title}'"
-msgstr "Publicatie van '{title}' intrekken"
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Trek publicatie van pagina '%(title)s' in."
 
-msgid "View revision history for '{title}'"
-msgstr "Bekijk de versiegeschiedenis van '{title}' "
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "Bekijk de versiegeschiedenis van '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Profielfoto instellen"
 
-msgid "Change your profile picture"
-msgstr "Wijzig uw profielfoto."
+msgid "Change your profile picture."
+msgstr "Wijzig je profielafbeelding."
 
 msgid "Change the email address linked to your account."
 msgstr "Wijzig het e-mailadres dat aan uw account is gekoppeld."
@@ -1524,8 +1644,12 @@ msgstr "Huidige tijdzone"
 msgid "Choose your current time zone."
 msgstr "Wijzig uw tijdzone"
 
-msgid "Heading {level}"
-msgstr "Kop {level}"
+msgid "Change your first and last name on your account."
+msgstr "Wijzig je voor- en achternaam in je account."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Kop %(level)d"
 
 msgid "Bulleted list"
 msgstr "Lijst met opsommingstekens"
@@ -1546,13 +1670,13 @@ msgid "Link"
 msgstr "Link"
 
 msgid "Superscript"
-msgstr "Bovenschrift"
+msgstr "Superscript"
 
 msgid "Subscript"
-msgstr "Onderschrift"
+msgstr "Subscript"
 
 msgid "Strikethrough"
-msgstr "Doorstreep"
+msgstr "Doorgestreept"
 
 msgid "Code"
 msgstr "Code"

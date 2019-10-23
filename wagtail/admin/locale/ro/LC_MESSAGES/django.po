@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
+msgid "Publish"
+msgstr "Publică"
+
 msgid "Submit for moderation"
 msgstr "Trimite pentru moderare"
 
@@ -29,14 +32,20 @@ msgstr "Anulează publicarea"
 msgid "Delete"
 msgstr "Șterge"
 
+msgid "Page locked"
+msgstr "Pagină blocată"
+
 msgid "Wagtail admin"
 msgstr "Administrare Wagtail"
 
-msgid "None"
-msgstr "Nici una"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Ne pare rău, nu aveți permisiunea de a accesa această zonă."
 
 msgid "You do not have permission to access the admin"
 msgstr "Nu aveți permisiunea de a accesa zona de administrare."
+
+msgid "None"
+msgstr "Nici una"
 
 msgid "Scheduled publishing"
 msgstr "Publicare programată"
@@ -62,9 +71,6 @@ msgstr "Introduceți %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Introduceți adresa de e-mail pentru a reseta parola"
-
-msgid "URL"
-msgstr "Adresă de internet"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -154,6 +160,220 @@ msgstr "Acest câmp este obligatoriu."
 
 msgid "Please select at least one group."
 msgstr "Selectați cel puțin un grup"
+
+msgid "Arabic"
+msgstr "Arabă"
+
+msgid "Catalan"
+msgstr "Catalană"
+
+msgid "German"
+msgstr "Germană"
+
+msgid "Greek"
+msgstr "Greacă"
+
+msgid "English"
+msgstr "Engleză"
+
+msgid "Spanish"
+msgstr "Spaniolă"
+
+msgid "Finnish"
+msgstr "Finlandeză"
+
+msgid "French"
+msgstr "Franceză"
+
+msgid "Galician"
+msgstr "Galiciană"
+
+msgid "Indonesian"
+msgstr "Indoneză"
+
+msgid "Icelandic"
+msgstr "Islandeză"
+
+msgid "Italian"
+msgstr "Italiană"
+
+msgid "Korean"
+msgstr "coreeană"
+
+msgid "Lithuanian"
+msgstr "Lituaniană"
+
+msgid "Norwegian Bokmål"
+msgstr "Norvegiană"
+
+msgid "Netherlands Dutch"
+msgstr "Olandeză"
+
+msgid "Persian"
+msgstr "Persiană"
+
+msgid "Polish"
+msgstr "Poloneză"
+
+msgid "Brazilian Portuguese"
+msgstr "Portugheză Braziliană"
+
+msgid "Portuguese"
+msgstr "Portugheză"
+
+msgid "Romanian"
+msgstr "Română"
+
+msgid "Russian"
+msgstr "Rusă"
+
+msgid "Swedish"
+msgstr "suedeză"
+
+msgid "Slovak"
+msgstr "Slovacă"
+
+msgid "Ukrainian"
+msgstr "ucraineană"
+
+msgid "Page"
+msgstr "Pagină"
+
+msgid "Pages"
+msgstr "Pagini"
+
+msgid "Loading…"
+msgstr "Se încarcă…"
+
+msgid "No results"
+msgstr "Nici un rezultat"
+
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "See all"
+msgstr "Vezi toate"
+
+msgid "Close explorer"
+msgstr "Închide exploratorul"
+
+msgid "Alt text"
+msgstr "Text alternativ"
+
+msgid "Write here…"
+msgstr "Scrieți aici…"
+
+msgid "Horizontal line"
+msgstr "Linie orizontală"
+
+msgid "Line break"
+msgstr "Sfârșit de linie"
+
+msgid "Undo"
+msgstr "Anulare"
+
+msgid "Redo"
+msgstr "Refacere"
+
+msgid "Reload the page"
+msgstr "Reîncarcă pagina"
+
+msgid "Reload saved content"
+msgstr "Reîncarcă conținutul salvat"
+
+msgid "Show latest content"
+msgstr "Afișează conținutul cel mai recent"
+
+msgid "Show error"
+msgstr "Afișează eroare"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
+
+msgid "Close"
+msgstr "Închideți"
+
+msgid "Edit '{title}'"
+msgstr "Editează '{title}'"
+
+msgid "January"
+msgstr "Ianuarie"
+
+msgid "February"
+msgstr "Februarie"
+
+msgid "March"
+msgstr "Martie"
+
+msgid "April"
+msgstr "Aprilie"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Iunie"
+
+msgid "July"
+msgstr "Iulie"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "Septembrie"
+
+msgid "October"
+msgstr "Octombrie"
+
+msgid "November"
+msgstr "Noiembrie"
+
+msgid "December"
+msgstr "Decembrie"
+
+msgid "Sunday"
+msgstr "Duminică"
+
+msgid "Monday"
+msgstr "Luni"
+
+msgid "Tuesday"
+msgstr "Marți"
+
+msgid "Wednesday"
+msgstr "Miercuri"
+
+msgid "Thursday"
+msgstr "Joi"
+
+msgid "Friday"
+msgstr "Vineri"
+
+msgid "Saturday"
+msgstr "Sâmbătă"
+
+msgid "Sun"
+msgstr "D"
+
+msgid "Mon"
+msgstr "L"
+
+msgid "Tue"
+msgstr "Ma"
+
+msgid "Wed"
+msgstr "Mi"
+
+msgid "Thu"
+msgstr "J"
+
+msgid "Fri"
+msgstr "V"
+
+msgid "Sat"
+msgstr "S"
 
 msgid "Error 404: Page not found"
 msgstr "Eroare 404: Pagina nu a fost găsită"
@@ -246,150 +466,11 @@ msgstr "Resetarea parolei"
 msgid "Reset your password"
 msgstr "Resetează parola"
 
-msgid "Page"
-msgstr "Pagină"
-
-msgid "Pages"
-msgstr "Pagini"
-
-msgid "Loading…"
-msgstr "Se încarcă…"
-
-msgid "No results"
-msgstr "Nici un rezultat"
-
-msgid "Server Error"
-msgstr "Eroare de server"
-
-msgid "See all"
-msgstr "Vezi toate"
-
-msgid "Close explorer"
-msgstr "Închide exploratorul"
-
-msgid "Alt text"
-msgstr "Text alternativ"
-
-msgid "Write here…"
-msgstr "Scrieți aici…"
-
-msgid "Horizontal line"
-msgstr "Linie orizontală"
-
-msgid "Line break"
-msgstr "Sfârșit de linie"
-
-msgid "Undo"
-msgstr "Anulare"
-
-msgid "Redo"
-msgstr "Refacere"
-
-msgid "Reload the page"
-msgstr "Reîncarcă pagina"
-
-msgid "Reload saved content"
-msgstr "Reîncarcă conținutul salvat"
-
-msgid "Show latest content"
-msgstr "Afișează conținutul cel mai recent"
-
-msgid "Show error"
-msgstr "Afișează eroare"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
-
-msgid "Close"
-msgstr "Închideți"
-
-msgid "January"
-msgstr "Ianuarie"
-
-msgid "February"
-msgstr "Februarie"
-
-msgid "March"
-msgstr "Martie"
-
-msgid "April"
-msgstr "Aprilie"
-
-msgid "May"
-msgstr "Mai"
-
-msgid "June"
-msgstr "Iunie"
-
-msgid "July"
-msgstr "Iulie"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "Septembrie"
-
-msgid "October"
-msgstr "Octombrie"
-
-msgid "November"
-msgstr "Noiembrie"
-
-msgid "December"
-msgstr "Decembrie"
-
-msgid "Sunday"
-msgstr "Duminică"
-
-msgid "Monday"
-msgstr "Luni"
-
-msgid "Tuesday"
-msgstr "Marți"
-
-msgid "Wednesday"
-msgstr "Miercuri"
-
-msgid "Thursday"
-msgstr "Joi"
-
-msgid "Friday"
-msgstr "Vineri"
-
-msgid "Saturday"
-msgstr "Sâmbătă"
-
-msgid "Sun"
-msgstr "D"
-
-msgid "Mon"
-msgstr "L"
-
-msgid "Tue"
-msgstr "Ma"
-
-msgid "Wed"
-msgstr "Mi"
-
-msgid "Thu"
-msgstr "J"
-
-msgid "Fri"
-msgstr "V"
-
-msgid "Sat"
-msgstr "S"
-
 msgid "Dashboard"
 msgstr "Bord"
 
 msgid "Menu"
 msgstr "Meniu"
-
-msgid "Add another"
-msgstr "Adaugă altă listă"
 
 msgid "Move up"
 msgstr "Deplasează în sus"
@@ -667,8 +748,14 @@ msgstr "În curs de publicare…"
 msgid "Publish this revision"
 msgstr "Publică această revizie"
 
-msgid "Publish"
-msgstr "Publică"
+msgid "Saving…"
+msgstr "În curs de salvare..."
+
+msgid "Replace current draft"
+msgstr "Înlocuiește ciorna curentă"
+
+msgid "Save draft"
+msgstr "Salvează ca ciornă"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -807,12 +894,6 @@ msgstr "%(page_type)s nouă"
 msgid "New"
 msgstr "Nou"
 
-msgid "Saving…"
-msgstr "În curs de salvare..."
-
-msgid "Save draft"
-msgstr "Salvează ca ciornă"
-
 msgid "This page has unsaved changes."
 msgstr "Această pagină conține modificări nesalvate."
 
@@ -823,12 +904,6 @@ msgstr "Editare %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Editare %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Pagină blocată"
-
-msgid "Replace current draft"
-msgstr "Înlocuiește ciorna curentă"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1217,84 +1292,6 @@ msgstr "Arată în Explorator"
 msgid "Test"
 msgstr "Test"
 
-msgid "Arabic"
-msgstr "Arabă"
-
-msgid "Catalan"
-msgstr "Catalană"
-
-msgid "German"
-msgstr "Germană"
-
-msgid "Greek"
-msgstr "Greacă"
-
-msgid "English"
-msgstr "Engleză"
-
-msgid "Spanish"
-msgstr "Spaniolă"
-
-msgid "Finnish"
-msgstr "Finlandeză"
-
-msgid "French"
-msgstr "Franceză"
-
-msgid "Galician"
-msgstr "Galiciană"
-
-msgid "Indonesian"
-msgstr "Indoneză"
-
-msgid "Icelandic"
-msgstr "Islandeză"
-
-msgid "Italian"
-msgstr "Italiană"
-
-msgid "Korean"
-msgstr "coreeană"
-
-msgid "Lithuanian"
-msgstr "Lituaniană"
-
-msgid "Norwegian Bokmål"
-msgstr "Norvegiană"
-
-msgid "Netherlands Dutch"
-msgstr "Olandeză"
-
-msgid "Persian"
-msgstr "Persiană"
-
-msgid "Polish"
-msgstr "Poloneză"
-
-msgid "Brazilian Portuguese"
-msgstr "Portugheză Braziliană"
-
-msgid "Portuguese"
-msgstr "Portugheză"
-
-msgid "Romanian"
-msgstr "Română"
-
-msgid "Russian"
-msgstr "Rusă"
-
-msgid "Swedish"
-msgstr "suedeză"
-
-msgid "Slovak"
-msgstr "Slovacă"
-
-msgid "Ukrainian"
-msgstr "ucraineană"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Ne pare rău, nu aveți permisiunea de a accesa această zonă."
-
 msgid "Your password has been changed successfully!"
 msgstr "Parola a fost schimbată cu succes!"
 
@@ -1457,44 +1454,11 @@ msgstr "revizia {0} pentru \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Programare anulată pentru revizia {0} a \"{1}\""
 
-msgid "Edit '{title}'"
-msgstr "Editează '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Previzualizează versiunea ciornă a '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Vezi versiunea live a '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Adaugă o pagină dependentă de '{title}'"
-
 msgid "More"
 msgstr "Mai mult"
 
-msgid "View more options for '{title}'"
-msgstr "Vezi mai multe opțiuni pentru '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Mutați pagina '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Copie pagina '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Șterge pagina '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Anulează publicarea paginii '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Vezi istoria reviziilor pentru '{title}'"
-
 msgid "Set profile picture"
 msgstr "Setează poză profil"
-
-msgid "Change your profile picture"
-msgstr "Schimbă poza de profil"
 
 msgid "Change the email address linked to your account."
 msgstr "Schimbă e-mailul asociat de contul D-stră."
@@ -1516,9 +1480,6 @@ msgstr "Fus orar curent"
 
 msgid "Choose your current time zone."
 msgstr "Alege fus orar curent"
-
-msgid "Heading {level}"
-msgstr "Antet {level}"
 
 msgid "Bulleted list"
 msgstr "Listă cu puncte"

@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-10-05 03:03+0000\n"
-"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -178,9 +178,6 @@ msgstr "前へ"
 msgid "Next"
 msgstr "次へ"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' が作成されました。"
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr "%sはエラーにより作成されませんでした。"
@@ -199,9 +196,6 @@ msgstr "編集"
 msgid "Editing %s"
 msgstr "%sを編集中"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' が更新されました。"
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%sはエラーにより保存されませんでした。"
@@ -217,9 +211,6 @@ msgid ""
 msgstr ""
 "%sを削除してもよいですか？サイトの他の要素がこれに関連している場合は、それら"
 "も影響を受ける可能性があります。"
-
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' が削除されました。"
 
 msgid "Inspecting"
 msgstr "詳細"

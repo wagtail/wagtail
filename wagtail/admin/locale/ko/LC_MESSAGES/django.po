@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-09-30 04:07+0000\n"
-"Last-Translator: Jihan Chung <jihanchung20@gmail.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "게시"
 
 msgid "Submit for moderation"
 msgstr "검토를 위한 제출"
@@ -31,14 +34,20 @@ msgstr "게시 해제"
 msgid "Delete"
 msgstr "삭제"
 
+msgid "Page locked"
+msgstr "페이지 잠금"
+
 msgid "Wagtail admin"
 msgstr "웨그테일 관리자"
 
-msgid "None"
-msgstr "없음"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "죄송합니다, 해당 영역에 접근할 권한이 없습니다."
 
 msgid "You do not have permission to access the admin"
 msgstr "관리자에 접근할 권한이 없습니다"
+
+msgid "None"
+msgstr "없음"
 
 msgid "Scheduled publishing"
 msgstr "예약 게시"
@@ -64,9 +73,6 @@ msgstr "%s 입력"
 
 msgid "Enter your email address to reset your password"
 msgstr "비밀번호 재설정을 위해 이메일을 적어주세요"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "같은 모음에 대해서 여러 개의 권한을 설정할 수는 없습니다."
@@ -147,6 +153,231 @@ msgstr "필수 작성 항목입니다"
 
 msgid "Please select at least one group."
 msgstr "적어도 한 개의 그룹을 선택해 주세요."
+
+msgid "Arabic"
+msgstr "아랍어"
+
+msgid "Catalan"
+msgstr "카탈로니아어"
+
+msgid "German"
+msgstr "독일어"
+
+msgid "Greek"
+msgstr "그리스어"
+
+msgid "English"
+msgstr "영어"
+
+msgid "Spanish"
+msgstr "스페인어"
+
+msgid "Finnish"
+msgstr "핀란드어"
+
+msgid "French"
+msgstr "프랑스어"
+
+msgid "Galician"
+msgstr "갈리시아어"
+
+msgid "Indonesian"
+msgstr "인도네시아어"
+
+msgid "Icelandic"
+msgstr "아이슬란드어"
+
+msgid "Italian"
+msgstr "이탈리아어"
+
+msgid "Korean"
+msgstr "한국어"
+
+msgid "Lithuanian"
+msgstr "리투아니아어"
+
+msgid "Norwegian Bokmål"
+msgstr "노르웨이 보크몰"
+
+msgid "Netherlands Dutch"
+msgstr "네덜란드어"
+
+msgid "Persian"
+msgstr "페르시아어"
+
+msgid "Polish"
+msgstr "폴란드어"
+
+msgid "Brazilian Portuguese"
+msgstr "브라질 포르투갈어"
+
+msgid "Portuguese"
+msgstr "포르투갈어"
+
+msgid "Romanian"
+msgstr "로마니아어"
+
+msgid "Russian"
+msgstr "러시아어"
+
+msgid "Swedish"
+msgstr "스웨덴어"
+
+msgid "Slovak"
+msgstr "슬로바키아어"
+
+msgid "Ukrainian"
+msgstr "우크라이나어"
+
+msgid "Page"
+msgstr "페이지"
+
+msgid "Pages"
+msgstr "페이지"
+
+msgid "Loading…"
+msgstr "불러오는 중..."
+
+msgid "No results"
+msgstr "결과 없음"
+
+msgid "Server Error"
+msgstr "서버 오류"
+
+msgid "See all"
+msgstr "모두 보기"
+
+msgid "Close explorer"
+msgstr "탐색기 닫기"
+
+msgid "Alt text"
+msgstr "대체 텍스트"
+
+msgid "Write here…"
+msgstr "여기에 작성..."
+
+msgid "Horizontal line"
+msgstr "수평선"
+
+msgid "Line break"
+msgstr "줄바꿈"
+
+msgid "Undo"
+msgstr "실행취소"
+
+msgid "Redo"
+msgstr "재실행"
+
+msgid "Reload the page"
+msgstr "페이지 다시 불러오기"
+
+msgid "Reload saved content"
+msgstr "저장된 컨텐츠 다시 불러오기"
+
+msgid "Show latest content"
+msgstr "최근 컨텐츠 보기"
+
+msgid "Show error"
+msgstr "오류 보기"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"에디터에 문제가 발생했습니다. 내용은 마지막으로 저장된 버전으로 초기화되었습"
+"니다."
+
+msgid "Broken link"
+msgstr "깨진 링크"
+
+msgid "Missing document"
+msgstr "문서 없음"
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Edit '{title}'"
+msgstr "'{title}' 수정"
+
+msgid "Page explorer"
+msgstr "페이지 탐색"
+
+msgid "January"
+msgstr "1월"
+
+msgid "February"
+msgstr "2월"
+
+msgid "March"
+msgstr "3월"
+
+msgid "April"
+msgstr "4월"
+
+msgid "May"
+msgstr "5월"
+
+msgid "June"
+msgstr "6월"
+
+msgid "July"
+msgstr "7월"
+
+msgid "August"
+msgstr "8월"
+
+msgid "September"
+msgstr "9월"
+
+msgid "October"
+msgstr "10월"
+
+msgid "November"
+msgstr "11월"
+
+msgid "December"
+msgstr "12월"
+
+msgid "Sunday"
+msgstr "일요일"
+
+msgid "Monday"
+msgstr "월요일"
+
+msgid "Tuesday"
+msgstr "화요일"
+
+msgid "Wednesday"
+msgstr "수요일"
+
+msgid "Thursday"
+msgstr "목요일"
+
+msgid "Friday"
+msgstr "금요일"
+
+msgid "Saturday"
+msgstr "토요일"
+
+msgid "Sun"
+msgstr "일요일"
+
+msgid "Mon"
+msgstr "월요일"
+
+msgid "Tue"
+msgstr "화요일"
+
+msgid "Wed"
+msgstr "수요일"
+
+msgid "Thu"
+msgstr "목요일"
+
+msgid "Fri"
+msgstr "금요일"
+
+msgid "Sat"
+msgstr "토요일"
 
 msgid "Error 404: Page not found"
 msgstr "에러 404: 페이지를 찾을 수 없습니다"
@@ -237,167 +468,11 @@ msgstr "비밀번호 초기화"
 msgid "Reset your password"
 msgstr "비밀번호 초기화"
 
-msgid "Page"
-msgstr "페이지"
-
-msgid "Pages"
-msgstr "페이지"
-
-msgid "Loading…"
-msgstr "불러오는 중..."
-
-msgid "No results"
-msgstr "결과 없음"
-
-msgid "Server Error"
-msgstr "서버 오류"
-
-msgid "See all"
-msgstr "모두 보기"
-
-msgid "Close explorer"
-msgstr "탐색기 닫기"
-
-msgid "Alt text"
-msgstr "대체 텍스트"
-
-msgid "Write here…"
-msgstr "여기에 작성..."
-
-msgid "Horizontal line"
-msgstr "수평선"
-
-msgid "Line break"
-msgstr "줄바꿈"
-
-msgid "Undo"
-msgstr "실행취소"
-
-msgid "Redo"
-msgstr "재실행"
-
-msgid "Reload the page"
-msgstr "페이지 다시 불러오기"
-
-msgid "Reload saved content"
-msgstr "저장된 컨텐츠 다시 불러오기"
-
-msgid "Show latest content"
-msgstr "최근 컨텐츠 보기"
-
-msgid "Show error"
-msgstr "오류 보기"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"에디터에 문제가 발생했습니다. 내용은 마지막으로 저장된 버전으로 초기화되었습"
-"니다."
-
-msgid "Broken link"
-msgstr "깨진 링크"
-
-msgid "Missing document"
-msgstr "문서 없음"
-
-msgid "Close"
-msgstr "닫기"
-
-msgid "Edit \\"
-msgstr "수정 \\"
-
-msgid "View child pages of \\"
-msgstr "하위 페이지 보기 \\"
-
-msgid "Page explorer"
-msgstr "페이지 탐색"
-
-msgid "January"
-msgstr "1월"
-
-msgid "February"
-msgstr "2월"
-
-msgid "March"
-msgstr "3월"
-
-msgid "April"
-msgstr "4월"
-
-msgid "May"
-msgstr "5월"
-
-msgid "June"
-msgstr "6월"
-
-msgid "July"
-msgstr "7월"
-
-msgid "August"
-msgstr "8월"
-
-msgid "September"
-msgstr "9월"
-
-msgid "October"
-msgstr "10월"
-
-msgid "November"
-msgstr "11월"
-
-msgid "December"
-msgstr "12월"
-
-msgid "Sunday"
-msgstr "일요일"
-
-msgid "Monday"
-msgstr "월요일"
-
-msgid "Tuesday"
-msgstr "화요일"
-
-msgid "Wednesday"
-msgstr "수요일"
-
-msgid "Thursday"
-msgstr "목요일"
-
-msgid "Friday"
-msgstr "금요일"
-
-msgid "Saturday"
-msgstr "토요일"
-
-msgid "Sun"
-msgstr "일요일"
-
-msgid "Mon"
-msgstr "월요일"
-
-msgid "Tue"
-msgstr "화요일"
-
-msgid "Wed"
-msgstr "수요일"
-
-msgid "Thu"
-msgstr "목요일"
-
-msgid "Fri"
-msgstr "금요일"
-
-msgid "Sat"
-msgstr "토요일"
-
 msgid "Dashboard"
 msgstr "대시보드"
 
 msgid "Menu"
 msgstr "메뉴"
-
-msgid "Add another"
-msgstr "추가"
 
 msgid "Move up"
 msgstr "위로 이동"
@@ -670,8 +745,14 @@ msgstr "게시 중..."
 msgid "Publish this revision"
 msgstr "이 수정안을 게시하기"
 
-msgid "Publish"
-msgstr "게시"
+msgid "Saving…"
+msgstr "저장 중..."
+
+msgid "Replace current draft"
+msgstr "현재 초안을 대체하기"
+
+msgid "Save draft"
+msgstr "초안 저장"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -795,12 +876,6 @@ msgstr "새로운 %(page_type)s"
 msgid "New"
 msgstr "새로운"
 
-msgid "Saving…"
-msgstr "저장 중..."
-
-msgid "Save draft"
-msgstr "초안 저장"
-
 msgid "This page has unsaved changes."
 msgstr "이 페이지는 저장되지 않은 변경사항이 있습니다."
 
@@ -811,12 +886,6 @@ msgstr "%(page_type)s: %(title)s 수정"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "%(page_type)s <span>%(title)s</span> 수정"
-
-msgid "Page locked"
-msgstr "페이지 잠금"
-
-msgid "Replace current draft"
-msgstr "현재 초안을 대체하기"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1171,84 +1240,6 @@ msgstr "탐색기에 표시"
 msgid "Test"
 msgstr "테스트"
 
-msgid "Arabic"
-msgstr "아랍어"
-
-msgid "Catalan"
-msgstr "카탈로니아어"
-
-msgid "German"
-msgstr "독일어"
-
-msgid "Greek"
-msgstr "그리스어"
-
-msgid "English"
-msgstr "영어"
-
-msgid "Spanish"
-msgstr "스페인어"
-
-msgid "Finnish"
-msgstr "핀란드어"
-
-msgid "French"
-msgstr "프랑스어"
-
-msgid "Galician"
-msgstr "갈리시아어"
-
-msgid "Indonesian"
-msgstr "인도네시아어"
-
-msgid "Icelandic"
-msgstr "아이슬란드어"
-
-msgid "Italian"
-msgstr "이탈리아어"
-
-msgid "Korean"
-msgstr "한국어"
-
-msgid "Lithuanian"
-msgstr "리투아니아어"
-
-msgid "Norwegian Bokmål"
-msgstr "노르웨이 보크몰"
-
-msgid "Netherlands Dutch"
-msgstr "네덜란드어"
-
-msgid "Persian"
-msgstr "페르시아어"
-
-msgid "Polish"
-msgstr "폴란드어"
-
-msgid "Brazilian Portuguese"
-msgstr "브라질 포르투갈어"
-
-msgid "Portuguese"
-msgstr "포르투갈어"
-
-msgid "Romanian"
-msgstr "로마니아어"
-
-msgid "Russian"
-msgstr "러시아어"
-
-msgid "Swedish"
-msgstr "스웨덴어"
-
-msgid "Slovak"
-msgstr "슬로바키아어"
-
-msgid "Ukrainian"
-msgstr "우크라이나어"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "죄송합니다, 해당 영역에 접근할 권한이 없습니다."
-
 msgid "Your password has been changed successfully!"
 msgstr "당신의 비밀번호가 성공적으로 변경 되었습니다"
 
@@ -1410,44 +1401,11 @@ msgstr "\"{1}\"의 수정안 {0}"
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "\"{1}\"의 수정안 {0}의 게시가 취소되었습니다."
 
-msgid "Edit '{title}'"
-msgstr "'{title}' 수정"
-
-msgid "Preview draft version of '{title}'"
-msgstr "'{title}'의 초고 버전 미리보기"
-
-msgid "View live version of '{title}'"
-msgstr "'{title}'의 라이브 버전 보기"
-
-msgid "Add a child page to '{title}' "
-msgstr "'{title}'에 하위 페이지 추가"
-
 msgid "More"
 msgstr "더 보기"
 
-msgid "View more options for '{title}'"
-msgstr "'{title}'에 대한 옵션 더 보기"
-
-msgid "Move page '{title}'"
-msgstr "'{title}' 페이지 이동"
-
-msgid "Copy page '{title}'"
-msgstr "'{title}' 페이지 복사"
-
-msgid "Delete page '{title}'"
-msgstr "'{title}' 페이지 삭제"
-
-msgid "Unpublish page '{title}'"
-msgstr "'{title}' 페이지 게시 해제"
-
-msgid "View revision history for '{title}'"
-msgstr "'{title}'의 수정 히스토리 보기"
-
 msgid "Set profile picture"
 msgstr "프로필 사진 설정"
-
-msgid "Change your profile picture"
-msgstr "프로필 사진 바꾸기"
 
 msgid "Change the email address linked to your account."
 msgstr "계정에 연동된 이메일 주소 바꾸기"
@@ -1469,9 +1427,6 @@ msgstr "현재 타임존"
 
 msgid "Choose your current time zone."
 msgstr "현재 타임존 선택"
-
-msgid "Heading {level}"
-msgstr "머릿말 {level}"
 
 msgid "Bulleted list"
 msgstr "머릿기호 목록"

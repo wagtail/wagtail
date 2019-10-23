@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -170,9 +170,6 @@ msgstr "Forrige"
 msgid "Next"
 msgstr "Neste"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' opprettet."
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr "%s kunne ikke opprettes grunnet feil."
@@ -191,9 +188,6 @@ msgstr "Redigerer"
 msgid "Editing %s"
 msgstr "Redigerer %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' oppdatert."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s kunne ikke lagres grunnet feil."
@@ -209,9 +203,6 @@ msgid ""
 msgstr ""
 "Er du sikker på at du vil slette %s? Hvis andre ting på nettstedet er "
 "relatert kan de også bli påvirket."
-
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' slettet."
 
 msgid "Inspecting"
 msgstr "Inspiserer"

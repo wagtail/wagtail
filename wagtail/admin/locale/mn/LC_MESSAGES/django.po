@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Нийтлэх"
 
 msgid "Submit for moderation"
 msgstr "Хянуулахаар илгээсэн"
@@ -30,14 +33,20 @@ msgstr "Нийтлэхгүй байх"
 msgid "Delete"
 msgstr "Устгах"
 
+msgid "Page locked"
+msgstr "Хуудас түгжигдсэн"
+
 msgid "Wagtail admin"
 msgstr "Админ панел"
 
-msgid "None"
-msgstr "Хоосон"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Танд энэ хэсэгт хандах эрх алга."
 
 msgid "You do not have permission to access the admin"
 msgstr "Та админ панел руу нэвтрэх эрхгүй"
+
+msgid "None"
+msgstr "Хоосон"
 
 msgid "Scheduled publishing"
 msgstr "Төлөвлөгөөт нийтлэл"
@@ -63,9 +72,6 @@ msgstr "Өөрийн%s оруулна уу"
 
 msgid "Enter your email address to reset your password"
 msgstr "Нууц үгээ шинээр сэргээхийн тулд имейл хаягаа оруулна уу"
-
-msgid "URL"
-msgstr "URL хаяг"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Нэг цуглуулганд олон хандалтын эрхийн бичлэг тохируулах боломжгүй."
@@ -150,6 +156,207 @@ msgstr "Энэ талбарыг заавал бөглөх шаардлагата
 
 msgid "Please select at least one group."
 msgstr "Ядаж нэг бүлэг сонгоно уу."
+
+msgid "Arabic"
+msgstr "Араб"
+
+msgid "Catalan"
+msgstr "Каталан хэл"
+
+msgid "German"
+msgstr "Герман"
+
+msgid "Greek"
+msgstr "Грек"
+
+msgid "English"
+msgstr "Англи хэл"
+
+msgid "Spanish"
+msgstr "Испани"
+
+msgid "Finnish"
+msgstr "Финланд хэл"
+
+msgid "French"
+msgstr "Франц"
+
+msgid "Indonesian"
+msgstr "Индонези"
+
+msgid "Italian"
+msgstr "Итали"
+
+msgid "Korean"
+msgstr "Солонгос хэл"
+
+msgid "Lithuanian"
+msgstr "Литва хэл"
+
+msgid "Persian"
+msgstr "Перс"
+
+msgid "Polish"
+msgstr "Польш хэл"
+
+msgid "Portuguese"
+msgstr "Португали"
+
+msgid "Romanian"
+msgstr "Румын"
+
+msgid "Russian"
+msgstr "Орос хэл"
+
+msgid "Swedish"
+msgstr "Швед хэл"
+
+msgid "Slovak"
+msgstr "Словак"
+
+msgid "Ukrainian"
+msgstr "Украйн"
+
+msgid "Page"
+msgstr "Хуудас"
+
+msgid "Pages"
+msgstr "Хуудсууд"
+
+msgid "Loading…"
+msgstr "Уншиж байна..."
+
+msgid "No results"
+msgstr "Үр дүн олдсонгүй"
+
+msgid "Server Error"
+msgstr "Серверийн алдаа"
+
+msgid "See all"
+msgstr "Бүгдийг харах"
+
+msgid "Close explorer"
+msgstr "Хаах"
+
+msgid "Alt text"
+msgstr "Зургийн тайлбар текст"
+
+msgid "Write here…"
+msgstr "Энд бичнэ үү..."
+
+msgid "Horizontal line"
+msgstr "Хөндлөн зураас"
+
+msgid "Line break"
+msgstr "Шинэ мөр лүү шилжих"
+
+msgid "Undo"
+msgstr "Буцаах"
+
+msgid "Redo"
+msgstr "Давтах"
+
+msgid "Reload the page"
+msgstr "Хуудсыг дахин ачааллах"
+
+msgid "Reload saved content"
+msgstr "Хадгалагдсан контентыг дахин ачааллах"
+
+msgid "Show latest content"
+msgstr "Сүүлийн контент харах"
+
+msgid "Show error"
+msgstr "Алдаа харуулах"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Текст засварлагчид алдаа гарлаа. Контент сүүлийн хадгалагдсан хувилбараар "
+"хадгалагдсан."
+
+msgid "Close"
+msgstr "Хаах"
+
+msgid "Edit '{title}'"
+msgstr "'{title}' засах"
+
+msgid "January"
+msgstr "Нэгдүгээр сар"
+
+msgid "February"
+msgstr "Хоёрдугаар сар"
+
+msgid "March"
+msgstr "Гуравдугаар сар"
+
+msgid "April"
+msgstr "Дөрөвдүгээр сар"
+
+msgid "May"
+msgstr "Тавдугаар сар"
+
+msgid "June"
+msgstr "Зургадугаар сар"
+
+msgid "July"
+msgstr "Долдугаар сар"
+
+msgid "August"
+msgstr "Наймдугаар сар"
+
+msgid "September"
+msgstr "Есдүгээр сар"
+
+msgid "October"
+msgstr "Аравдугаар сар"
+
+msgid "November"
+msgstr "Арван нэгдүгээр сар"
+
+msgid "December"
+msgstr "Арван хоёрдугаар сар"
+
+msgid "Sunday"
+msgstr "Ням гариг"
+
+msgid "Monday"
+msgstr "Даваа гариг"
+
+msgid "Tuesday"
+msgstr "Мягмар гариг"
+
+msgid "Wednesday"
+msgstr "Лхагва гариг"
+
+msgid "Thursday"
+msgstr "Пүрэв гариг"
+
+msgid "Friday"
+msgstr "Баасан гариг"
+
+msgid "Saturday"
+msgstr "Бямба гариг"
+
+msgid "Sun"
+msgstr "Ням"
+
+msgid "Mon"
+msgstr "Дав"
+
+msgid "Tue"
+msgstr "Мяг"
+
+msgid "Wed"
+msgstr "Лха"
+
+msgid "Thu"
+msgstr "Пүр"
+
+msgid "Fri"
+msgstr "Баа"
+
+msgid "Sat"
+msgstr "Бям"
 
 msgid "Error 404: Page not found"
 msgstr "Алдаа 404: Хуудас олдсонгүй"
@@ -241,152 +448,11 @@ msgstr "Нууц үг сэргээх"
 msgid "Reset your password"
 msgstr "Нууц үгээ сэргээх"
 
-msgid "Page"
-msgstr "Хуудас"
-
-msgid "Pages"
-msgstr "Хуудсууд"
-
-msgid "Loading…"
-msgstr "Уншиж байна..."
-
-msgid "No results"
-msgstr "Үр дүн олдсонгүй"
-
-msgid "Server Error"
-msgstr "Серверийн алдаа"
-
-msgid "See all"
-msgstr "Бүгдийг харах"
-
-msgid "Close explorer"
-msgstr "Хаах"
-
-msgid "Alt text"
-msgstr "Зургийн тайлбар текст"
-
-msgid "Write here…"
-msgstr "Энд бичнэ үү..."
-
-msgid "Horizontal line"
-msgstr "Хөндлөн зураас"
-
-msgid "Line break"
-msgstr "Шинэ мөр лүү шилжих"
-
-msgid "Undo"
-msgstr "Буцаах"
-
-msgid "Redo"
-msgstr "Давтах"
-
-msgid "Reload the page"
-msgstr "Хуудсыг дахин ачааллах"
-
-msgid "Reload saved content"
-msgstr "Хадгалагдсан контентыг дахин ачааллах"
-
-msgid "Show latest content"
-msgstr "Сүүлийн контент харах"
-
-msgid "Show error"
-msgstr "Алдаа харуулах"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Текст засварлагчид алдаа гарлаа. Контент сүүлийн хадгалагдсан хувилбараар "
-"хадгалагдсан."
-
-msgid "Close"
-msgstr "Хаах"
-
-msgid "January"
-msgstr "Нэгдүгээр сар"
-
-msgid "February"
-msgstr "Хоёрдугаар сар"
-
-msgid "March"
-msgstr "Гуравдугаар сар"
-
-msgid "April"
-msgstr "Дөрөвдүгээр сар"
-
-msgid "May"
-msgstr "Тавдугаар сар"
-
-msgid "June"
-msgstr "Зургадугаар сар"
-
-msgid "July"
-msgstr "Долдугаар сар"
-
-msgid "August"
-msgstr "Наймдугаар сар"
-
-msgid "September"
-msgstr "Есдүгээр сар"
-
-msgid "October"
-msgstr "Аравдугаар сар"
-
-msgid "November"
-msgstr "Арван нэгдүгээр сар"
-
-msgid "December"
-msgstr "Арван хоёрдугаар сар"
-
-msgid "Sunday"
-msgstr "Ням гариг"
-
-msgid "Monday"
-msgstr "Даваа гариг"
-
-msgid "Tuesday"
-msgstr "Мягмар гариг"
-
-msgid "Wednesday"
-msgstr "Лхагва гариг"
-
-msgid "Thursday"
-msgstr "Пүрэв гариг"
-
-msgid "Friday"
-msgstr "Баасан гариг"
-
-msgid "Saturday"
-msgstr "Бямба гариг"
-
-msgid "Sun"
-msgstr "Ням"
-
-msgid "Mon"
-msgstr "Дав"
-
-msgid "Tue"
-msgstr "Мяг"
-
-msgid "Wed"
-msgstr "Лха"
-
-msgid "Thu"
-msgstr "Пүр"
-
-msgid "Fri"
-msgstr "Баа"
-
-msgid "Sat"
-msgstr "Бям"
-
 msgid "Dashboard"
 msgstr "Хянах самбар"
 
 msgid "Menu"
 msgstr "Цэс"
-
-msgid "Add another"
-msgstr "Өөрийг нэмэх"
 
 msgid "Move up"
 msgstr "Дээш зөөх"
@@ -610,8 +676,14 @@ msgstr "Түгжигдээгүй"
 msgid "Publishing…"
 msgstr "Нийтэлж байна..."
 
-msgid "Publish"
-msgstr "Нийтлэх"
+msgid "Saving…"
+msgstr "Хадгалж байна..."
+
+msgid "Replace current draft"
+msgstr "Одоогийн нооргийг дарж хуулах"
+
+msgid "Save draft"
+msgstr "Ноорог хадгалах"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -727,12 +799,6 @@ msgstr "Шинэ %(page_type)s"
 msgid "New"
 msgstr "Шинэ"
 
-msgid "Saving…"
-msgstr "Хадгалж байна..."
-
-msgid "Save draft"
-msgstr "Ноорог хадгалах"
-
 msgid "This page has unsaved changes."
 msgstr "Хуудсанд хадгалаагүй өөрчлөлт байна."
 
@@ -743,12 +809,6 @@ msgstr "Засч байна %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Засч байна %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Хуудас түгжигдсэн"
-
-msgid "Replace current draft"
-msgstr "Одоогийн нооргийг дарж хуулах"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -979,69 +1039,6 @@ msgstr "Шинэ мэдээ нэмэх"
 msgid "Test"
 msgstr "Тест"
 
-msgid "Arabic"
-msgstr "Араб"
-
-msgid "Catalan"
-msgstr "Каталан хэл"
-
-msgid "German"
-msgstr "Герман"
-
-msgid "Greek"
-msgstr "Грек"
-
-msgid "English"
-msgstr "Англи хэл"
-
-msgid "Spanish"
-msgstr "Испани"
-
-msgid "Finnish"
-msgstr "Финланд хэл"
-
-msgid "French"
-msgstr "Франц"
-
-msgid "Indonesian"
-msgstr "Индонези"
-
-msgid "Italian"
-msgstr "Итали"
-
-msgid "Korean"
-msgstr "Солонгос хэл"
-
-msgid "Lithuanian"
-msgstr "Литва хэл"
-
-msgid "Persian"
-msgstr "Перс"
-
-msgid "Polish"
-msgstr "Польш хэл"
-
-msgid "Portuguese"
-msgstr "Португали"
-
-msgid "Romanian"
-msgstr "Румын"
-
-msgid "Russian"
-msgstr "Орос хэл"
-
-msgid "Swedish"
-msgstr "Швед хэл"
-
-msgid "Slovak"
-msgstr "Словак"
-
-msgid "Ukrainian"
-msgstr "Украйн"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Танд энэ хэсэгт хандах эрх алга."
-
 msgid "Your password has been changed successfully!"
 msgstr "Таны нууц үг амжилттай өөрчлөгдлөө!"
 
@@ -1180,44 +1177,11 @@ msgstr "\"{1}\"-с {0} дэх хувилбар"
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "\"{1}\"-с {0} дэх хувилбар төлөвлөгдсөнгүй."
 
-msgid "Edit '{title}'"
-msgstr "'{title}' засах"
-
-msgid "Preview draft version of '{title}'"
-msgstr "'{title}'-н ноорог хувилбарыг урдчилж харах"
-
-msgid "View live version of '{title}'"
-msgstr "'{title}' нийтлэгдсэн хувилбарыг нь харах"
-
-msgid "Add a child page to '{title}' "
-msgstr "'{title}'-д шинэ мэдээ нэмэх"
-
 msgid "More"
 msgstr "Дэлгэрэнгүй"
 
-msgid "View more options for '{title}'"
-msgstr "'{title}'-н сонголтуудыг харах"
-
-msgid "Move page '{title}'"
-msgstr "'{title}' хуудсыг зөөх"
-
-msgid "Copy page '{title}'"
-msgstr "'{title}' хуудсыг хуулах"
-
-msgid "Delete page '{title}'"
-msgstr "'{title}' хуудсыг устгах"
-
-msgid "Unpublish page '{title}'"
-msgstr "'{title}' хуудсыг хаах"
-
-msgid "View revision history for '{title}'"
-msgstr "'{title}' хуудсын өөрчлөлтийн түүхийг харах"
-
 msgid "Set profile picture"
 msgstr "Профайл зураг оруулах"
-
-msgid "Change your profile picture"
-msgstr "Профайл зургаа солих"
 
 msgid "Change the email address linked to your account."
 msgstr "Таны хэрэглэгчийн эрхтэй холбоотой имейл хаягийг өөрчлөх."
@@ -1239,9 +1203,6 @@ msgstr "Одоогийн цагийн бүс"
 
 msgid "Choose your current time zone."
 msgstr "Өөрийн цагийн бүсийг тохируулна уу."
-
-msgid "Heading {level}"
-msgstr "{level} гарчиг"
 
 msgid "Bulleted list"
 msgstr "Сумтай жагсаалт"

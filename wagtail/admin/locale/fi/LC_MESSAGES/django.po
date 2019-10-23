@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Julkaise"
 
 msgid "Submit for moderation"
 msgstr "Lähetä tarkistettavaksi"
@@ -32,11 +35,17 @@ msgstr "Piilota"
 msgid "Delete"
 msgstr "Poista"
 
-msgid "None"
-msgstr "Ei mitään"
+msgid "Page locked"
+msgstr "Sivu lukittu"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Pahoittelut, mutta sinulla ei ole pääsyä tähän osioon."
 
 msgid "You do not have permission to access the admin"
 msgstr "Sinulla ei ole oikeuksia käyttää hallintaa"
+
+msgid "None"
+msgstr "Ei mitään"
 
 msgid "Scheduled publishing"
 msgstr "Ajastettu julkistus"
@@ -62,9 +71,6 @@ msgstr "Syötä %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Syötä sähköpostiosoitteesi palauttaaksesi salasanasi"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
@@ -141,56 +147,11 @@ msgstr "Tämä kenttä on pakollinen."
 msgid "Please select at least one group."
 msgstr "Valitse vähintään yksi ryhmä."
 
-msgid "Go to Wagtail admin"
-msgstr "Siirry Wagtailin hallintaan"
-
-msgid "Account"
-msgstr "Tili"
-
-msgid "Update"
-msgstr "Päivitä"
-
-msgid "Change password"
-msgstr "Vaihda salasana"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Salasanaasi ei voi muuttaa täällä. Ole hyvä ja ota yhteys sivuston "
-"ylläpitäjään."
-
-msgid "Notification preferences"
-msgstr "Ilmoitusasetukset"
-
-msgid "Reset password"
-msgstr "Palauta salasana"
-
-msgid "Password change successful"
-msgstr "Salasanan vaihto onnistui."
-
-msgid "Login"
-msgstr "Kirjaudu sisään"
-
-msgid "Set your new password"
-msgstr "Aseta uusi salasana."
-
-msgid "Check your email"
-msgstr "Tarkista sähköpostisi"
-
-msgid "Please follow the link below to reset your password:"
-msgstr "Ole hyvä ja seuraa alla olevaa linkkiä nollataksesi salasanasi:"
-
-msgid "Your username (in case you've forgotten):"
-msgstr "Käyttäjätunnuksesi (siltä varalta että olet unohtanut sen):"
-
-msgid "Password reset"
-msgstr "Salasanan palautus"
-
-msgid "Reset your password"
-msgstr "Palauta salasanasi"
-
 msgid "Pages"
 msgstr "Sivut"
+
+msgid "Edit '{title}'"
+msgstr "Muokkaa '{title}'"
 
 msgid "January"
 msgstr "Tammi"
@@ -249,14 +210,59 @@ msgstr "Pe"
 msgid "Sat"
 msgstr "La"
 
+msgid "Go to Wagtail admin"
+msgstr "Siirry Wagtailin hallintaan"
+
+msgid "Account"
+msgstr "Tili"
+
+msgid "Update"
+msgstr "Päivitä"
+
+msgid "Change password"
+msgstr "Vaihda salasana"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Salasanaasi ei voi muuttaa täällä. Ole hyvä ja ota yhteys sivuston "
+"ylläpitäjään."
+
+msgid "Notification preferences"
+msgstr "Ilmoitusasetukset"
+
+msgid "Reset password"
+msgstr "Palauta salasana"
+
+msgid "Password change successful"
+msgstr "Salasanan vaihto onnistui."
+
+msgid "Login"
+msgstr "Kirjaudu sisään"
+
+msgid "Set your new password"
+msgstr "Aseta uusi salasana."
+
+msgid "Check your email"
+msgstr "Tarkista sähköpostisi"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Ole hyvä ja seuraa alla olevaa linkkiä nollataksesi salasanasi:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Käyttäjätunnuksesi (siltä varalta että olet unohtanut sen):"
+
+msgid "Password reset"
+msgstr "Salasanan palautus"
+
+msgid "Reset your password"
+msgstr "Palauta salasanasi"
+
 msgid "Dashboard"
 msgstr "Kojelauta"
 
 msgid "Menu"
 msgstr "Valikko"
-
-msgid "Add another"
-msgstr "Lisää toinen"
 
 msgid "Move up"
 msgstr "Siirrä ylös"
@@ -485,8 +491,11 @@ msgstr "Ei lukittu"
 msgid "Publish this revision"
 msgstr "Julkaise tämä versio"
 
-msgid "Publish"
-msgstr "Julkaise"
+msgid "Replace current draft"
+msgstr "Korvaa nykyinen luonnos"
+
+msgid "Save draft"
+msgstr "Tallenna luonnos"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -596,9 +605,6 @@ msgstr "Uusi %(page_type)s"
 msgid "New"
 msgstr "Uusi"
 
-msgid "Save draft"
-msgstr "Tallenna luonnos"
-
 msgid "This page has unsaved changes."
 msgstr "Tällä sivulla on tallentamattomia muutoksia."
 
@@ -609,12 +615,6 @@ msgstr "Muokataan %(page_type)s-sivua: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Muokataan %(page_type)s-sivua: <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Sivu lukittu"
-
-msgid "Replace current draft"
-msgstr "Korvaa nykyinen luonnos"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -874,9 +874,6 @@ msgstr "Näytä sivuselaimessa"
 msgid "Test"
 msgstr "Testi"
 
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Pahoittelut, mutta sinulla ei ole pääsyä tähän osioon."
-
 msgid "Your password has been changed successfully!"
 msgstr "Salasanasi on vaihdettu."
 
@@ -1019,9 +1016,6 @@ msgstr "Aikaisin"
 
 msgid "Latest"
 msgstr "Viimeisin"
-
-msgid "Edit '{title}'"
-msgstr "Muokkaa '{title}'"
 
 msgid "More"
 msgstr "Lisää"

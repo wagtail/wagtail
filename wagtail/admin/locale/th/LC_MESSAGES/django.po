@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "การจัดพิมพ์"
 
 msgid "Submit for moderation"
 msgstr "เสนอให้ตรวจ/ส่งให้ตรวจ"
@@ -30,14 +33,20 @@ msgstr "ยกเลิกประกาศ"
 msgid "Delete"
 msgstr "ลบ"
 
+msgid "Page locked"
+msgstr "หน้านี้ถูกล็อกไว้"
+
 msgid "Wagtail admin"
 msgstr "แอดมินแว็กเทล"
 
-msgid "None"
-msgstr "ไม่มี"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "ขออภัย, คุณไม่สามารถเปิดหน้านี้ได้"
 
 msgid "You do not have permission to access the admin"
 msgstr "คุณไม่ได้รับอนุญาตให้เข้าถึงผู้ดูแลระบบ"
+
+msgid "None"
+msgstr "ไม่มี"
 
 msgid "Scheduled publishing"
 msgstr "การจัดพิมพ์ตาราง"
@@ -65,9 +74,6 @@ msgstr "ใส่%s"
 
 msgid "Enter your email address to reset your password"
 msgstr "กรอกอีเมลของคุณเพื่อรีเซ็ตรหัสผ่านของคุณ"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "คุณไม่สามารถมีใบอนุญาติที่จดทะเบียนซ้ำกันได้"
@@ -145,6 +151,220 @@ msgstr "ต้องระบุข้อมูลในเนื้อหาน
 
 msgid "Please select at least one group."
 msgstr "โปรดเลือกอย่างน้อยหนึ่งกลุ่ม"
+
+msgid "Arabic"
+msgstr "ภาษาอาราบิก"
+
+msgid "Catalan"
+msgstr "ภาษาคาทาลัน"
+
+msgid "German"
+msgstr "ภาษาเยอรมัน"
+
+msgid "Greek"
+msgstr "ภาษากรีซ"
+
+msgid "English"
+msgstr "อังกฤษ"
+
+msgid "Spanish"
+msgstr "ภาษาสเปน"
+
+msgid "Finnish"
+msgstr "ภาษาฟินแลนด์"
+
+msgid "French"
+msgstr "ภาษาฝรั่งเศส"
+
+msgid "Galician"
+msgstr "ภาษากาลีเซีย"
+
+msgid "Indonesian"
+msgstr "ภาษาอินโดนีเซีย"
+
+msgid "Icelandic"
+msgstr "ภาษาไอร์แลนด์"
+
+msgid "Italian"
+msgstr "ภาษาอิตาเลี่ยน"
+
+msgid "Korean"
+msgstr "ภาษาเกาหลี"
+
+msgid "Lithuanian"
+msgstr "ภาษาลิทูเอเนียน"
+
+msgid "Norwegian Bokmål"
+msgstr "ภาษานอร์เวย์"
+
+msgid "Netherlands Dutch"
+msgstr "ภาษาฮอลแลนด์"
+
+msgid "Persian"
+msgstr "ภาษาเปอร์เซีย"
+
+msgid "Polish"
+msgstr "ภาษาโปลแลนด์"
+
+msgid "Brazilian Portuguese"
+msgstr "ภาษาโปรตุเกสที่ใช้ในประเทศบราซิล"
+
+msgid "Portuguese"
+msgstr "ภาษาโปรตุกีส"
+
+msgid "Romanian"
+msgstr "ภาษาโรมันเนีย"
+
+msgid "Russian"
+msgstr "ภาษารัสเซีย"
+
+msgid "Swedish"
+msgstr "ภาษาสวีเดน"
+
+msgid "Slovak"
+msgstr "ภาษาสโลวาเกีย"
+
+msgid "Ukrainian"
+msgstr "ภาษายูเครเนี่ยน"
+
+msgid "Page"
+msgstr "หน้า"
+
+msgid "Pages"
+msgstr "หลายหน้า"
+
+msgid "Loading…"
+msgstr "กำลังโหลด"
+
+msgid "No results"
+msgstr "ไม่พบ"
+
+msgid "Server Error"
+msgstr "เซิฟเวอร์ขัดข้อง"
+
+msgid "See all"
+msgstr "เปิดทั้งหมด"
+
+msgid "Close explorer"
+msgstr "ปิดอินเตอร์เน็ตเอ็กซ์โปรเล่อร์"
+
+msgid "Alt text"
+msgstr "ข้อความอย่างอื่น"
+
+msgid "Write here…"
+msgstr "พิมพ์ข้อความตรงนี้"
+
+msgid "Horizontal line"
+msgstr "บรรทัดแนวนอน"
+
+msgid "Line break"
+msgstr "ตัวแบ่งบรรทัด"
+
+msgid "Undo"
+msgstr "ถอยหลัง"
+
+msgid "Redo"
+msgstr "ทำใหม่"
+
+msgid "Reload the page"
+msgstr "โหลดหน้าที่ต้องการใหม่อีกครั้ง"
+
+msgid "Reload saved content"
+msgstr "โหลดเนื้อหาที่คุณเซฟใหม่อีกครั้ง"
+
+msgid "Show latest content"
+msgstr "แสดงเนื้อหาอันล่าสุด"
+
+msgid "Show error"
+msgstr "แสดงข้อผิดพลาด"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "โปรแกรมที่แก้ไขมีปัญหา เนื้อหาเก่าได้ถูกเซฟไว้เรียบร้อยแล้ว"
+
+msgid "Close"
+msgstr "ปิด"
+
+msgid "Edit '{title}'"
+msgstr "แก้ไข'{title}'"
+
+msgid "January"
+msgstr "มกราคม"
+
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+msgid "March"
+msgstr "มีนาคม"
+
+msgid "April"
+msgstr "เมษายน"
+
+msgid "May"
+msgstr "พฤษภาคม"
+
+msgid "June"
+msgstr "มิถุนายน"
+
+msgid "July"
+msgstr "กรกฎาคม"
+
+msgid "August"
+msgstr "สิงหาคม"
+
+msgid "September"
+msgstr "กันยายน"
+
+msgid "October"
+msgstr "ตุลาคม"
+
+msgid "November"
+msgstr "พฤศจิกายน"
+
+msgid "December"
+msgstr "ธันวาคม"
+
+msgid "Sunday"
+msgstr "วันอาทิตย์"
+
+msgid "Monday"
+msgstr "วันจันทร์"
+
+msgid "Tuesday"
+msgstr "วันอังคาร"
+
+msgid "Wednesday"
+msgstr "วันพุธ"
+
+msgid "Thursday"
+msgstr "วันพฤหัสบดี"
+
+msgid "Friday"
+msgstr "วันศุกร์"
+
+msgid "Saturday"
+msgstr "วันเสาร์"
+
+msgid "Sun"
+msgstr "วันอาทิตย์"
+
+msgid "Mon"
+msgstr "วันจันทร์"
+
+msgid "Tue"
+msgstr "วันอังคาร"
+
+msgid "Wed"
+msgstr "วันพุธ"
+
+msgid "Thu"
+msgstr "วันพฤหัสบดี"
+
+msgid "Fri"
+msgstr "วันศุกร์"
+
+msgid "Sat"
+msgstr "วันเสาร์"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404 : ไม่พบเนื้อหา"
@@ -232,150 +452,11 @@ msgstr "ตั้งรหัสใหม่"
 msgid "Reset your password"
 msgstr "ตั้งรหัสใหม่"
 
-msgid "Page"
-msgstr "หน้า"
-
-msgid "Pages"
-msgstr "หลายหน้า"
-
-msgid "Loading…"
-msgstr "กำลังโหลด"
-
-msgid "No results"
-msgstr "ไม่พบ"
-
-msgid "Server Error"
-msgstr "เซิฟเวอร์ขัดข้อง"
-
-msgid "See all"
-msgstr "เปิดทั้งหมด"
-
-msgid "Close explorer"
-msgstr "ปิดอินเตอร์เน็ตเอ็กซ์โปรเล่อร์"
-
-msgid "Alt text"
-msgstr "ข้อความอย่างอื่น"
-
-msgid "Write here…"
-msgstr "พิมพ์ข้อความตรงนี้"
-
-msgid "Horizontal line"
-msgstr "บรรทัดแนวนอน"
-
-msgid "Line break"
-msgstr "ตัวแบ่งบรรทัด"
-
-msgid "Undo"
-msgstr "ถอยหลัง"
-
-msgid "Redo"
-msgstr "ทำใหม่"
-
-msgid "Reload the page"
-msgstr "โหลดหน้าที่ต้องการใหม่อีกครั้ง"
-
-msgid "Reload saved content"
-msgstr "โหลดเนื้อหาที่คุณเซฟใหม่อีกครั้ง"
-
-msgid "Show latest content"
-msgstr "แสดงเนื้อหาอันล่าสุด"
-
-msgid "Show error"
-msgstr "แสดงข้อผิดพลาด"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "โปรแกรมที่แก้ไขมีปัญหา เนื้อหาเก่าได้ถูกเซฟไว้เรียบร้อยแล้ว"
-
-msgid "Close"
-msgstr "ปิด"
-
-msgid "January"
-msgstr "มกราคม"
-
-msgid "February"
-msgstr "กุมภาพันธ์"
-
-msgid "March"
-msgstr "มีนาคม"
-
-msgid "April"
-msgstr "เมษายน"
-
-msgid "May"
-msgstr "พฤษภาคม"
-
-msgid "June"
-msgstr "มิถุนายน"
-
-msgid "July"
-msgstr "กรกฎาคม"
-
-msgid "August"
-msgstr "สิงหาคม"
-
-msgid "September"
-msgstr "กันยายน"
-
-msgid "October"
-msgstr "ตุลาคม"
-
-msgid "November"
-msgstr "พฤศจิกายน"
-
-msgid "December"
-msgstr "ธันวาคม"
-
-msgid "Sunday"
-msgstr "วันอาทิตย์"
-
-msgid "Monday"
-msgstr "วันจันทร์"
-
-msgid "Tuesday"
-msgstr "วันอังคาร"
-
-msgid "Wednesday"
-msgstr "วันพุธ"
-
-msgid "Thursday"
-msgstr "วันพฤหัสบดี"
-
-msgid "Friday"
-msgstr "วันศุกร์"
-
-msgid "Saturday"
-msgstr "วันเสาร์"
-
-msgid "Sun"
-msgstr "วันอาทิตย์"
-
-msgid "Mon"
-msgstr "วันจันทร์"
-
-msgid "Tue"
-msgstr "วันอังคาร"
-
-msgid "Wed"
-msgstr "วันพุธ"
-
-msgid "Thu"
-msgstr "วันพฤหัสบดี"
-
-msgid "Fri"
-msgstr "วันศุกร์"
-
-msgid "Sat"
-msgstr "วันเสาร์"
-
 msgid "Dashboard"
 msgstr "แผงควบคุม , หน้าจอที่ควบคุม"
 
 msgid "Menu"
 msgstr "เมนู"
-
-msgid "Add another"
-msgstr "ใส่ข้อมูลเพิ่มเติม"
 
 msgid "Move up"
 msgstr "เลื่อนขึ้น"
@@ -632,8 +713,14 @@ msgstr "กำลังพิมพ์"
 msgid "Publish this revision"
 msgstr "จัดพิมพ์การแก้ไขนี้"
 
-msgid "Publish"
-msgstr "การจัดพิมพ์"
+msgid "Saving…"
+msgstr "กำลังเซฟ, กำลังเก็บข้อมูล"
+
+msgid "Replace current draft"
+msgstr "เปลี่ยนข้อความที่เก็บเอาไว้ทำใหม่อันล่าสุด"
+
+msgid "Save draft"
+msgstr "เซฟข้อความที่เก็บเอาไว้ทำใหม่"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -762,12 +849,6 @@ msgstr "ใหม่%(page_type)s"
 msgid "New"
 msgstr "ใหม่,อันใหม่"
 
-msgid "Saving…"
-msgstr "กำลังเซฟ, กำลังเก็บข้อมูล"
-
-msgid "Save draft"
-msgstr "เซฟข้อความที่เก็บเอาไว้ทำใหม่"
-
 msgid "This page has unsaved changes."
 msgstr "หน้านี้มีการเปลี่ยนแปลงที่ยังไม่ได้เซฟเอาไว้"
 
@@ -778,12 +859,6 @@ msgstr "กำลังแก้ไข %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "กำลังแก้ไข %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "หน้านี้ถูกล็อกไว้"
-
-msgid "Replace current draft"
-msgstr "เปลี่ยนข้อความที่เก็บเอาไว้ทำใหม่อันล่าสุด"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1140,84 +1215,6 @@ msgstr "โชว์ในอินเตอร์เน็ตเอ็กซ์
 msgid "Test"
 msgstr "ทดสอบ"
 
-msgid "Arabic"
-msgstr "ภาษาอาราบิก"
-
-msgid "Catalan"
-msgstr "ภาษาคาทาลัน"
-
-msgid "German"
-msgstr "ภาษาเยอรมัน"
-
-msgid "Greek"
-msgstr "ภาษากรีซ"
-
-msgid "English"
-msgstr "อังกฤษ"
-
-msgid "Spanish"
-msgstr "ภาษาสเปน"
-
-msgid "Finnish"
-msgstr "ภาษาฟินแลนด์"
-
-msgid "French"
-msgstr "ภาษาฝรั่งเศส"
-
-msgid "Galician"
-msgstr "ภาษากาลีเซีย"
-
-msgid "Indonesian"
-msgstr "ภาษาอินโดนีเซีย"
-
-msgid "Icelandic"
-msgstr "ภาษาไอร์แลนด์"
-
-msgid "Italian"
-msgstr "ภาษาอิตาเลี่ยน"
-
-msgid "Korean"
-msgstr "ภาษาเกาหลี"
-
-msgid "Lithuanian"
-msgstr "ภาษาลิทูเอเนียน"
-
-msgid "Norwegian Bokmål"
-msgstr "ภาษานอร์เวย์"
-
-msgid "Netherlands Dutch"
-msgstr "ภาษาฮอลแลนด์"
-
-msgid "Persian"
-msgstr "ภาษาเปอร์เซีย"
-
-msgid "Polish"
-msgstr "ภาษาโปลแลนด์"
-
-msgid "Brazilian Portuguese"
-msgstr "ภาษาโปรตุเกสที่ใช้ในประเทศบราซิล"
-
-msgid "Portuguese"
-msgstr "ภาษาโปรตุกีส"
-
-msgid "Romanian"
-msgstr "ภาษาโรมันเนีย"
-
-msgid "Russian"
-msgstr "ภาษารัสเซีย"
-
-msgid "Swedish"
-msgstr "ภาษาสวีเดน"
-
-msgid "Slovak"
-msgstr "ภาษาสโลวาเกีย"
-
-msgid "Ukrainian"
-msgstr "ภาษายูเครเนี่ยน"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "ขออภัย, คุณไม่สามารถเปิดหน้านี้ได้"
-
 msgid "Your password has been changed successfully!"
 msgstr "รหัสผ่านของคุณถูกเปลี่ยนสำเร็จแล้ว"
 
@@ -1381,44 +1378,11 @@ msgstr "การแก้ไข{0}ของหน้า{1}"
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "การแก้ไข{0}ของ\"{1}\"ไม่ใช่ตาราง"
 
-msgid "Edit '{title}'"
-msgstr "แก้ไข'{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "ภาพตัวอย่างข้อความที่เก็บเอาไว้ทำใหม่ในรุ่นของ'{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "ดูถ่ายทอดสดรุ่นของ'{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "เพิ่มเติมหน้าย่อยที่'{title}'"
-
 msgid "More"
 msgstr "เพิ่ม"
 
-msgid "View more options for '{title}'"
-msgstr "ดูตัวเลือกเพิ่มเติมสำหรับ'{title}'"
-
-msgid "Move page '{title}'"
-msgstr "เพิ่มหน้า'{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "ก๊อปปี้หน้า'{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "ลบทิ้งหน้า'{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "ไม่ตีพิมพ์หน้า'{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "ดูประวัติการแก้ไขสำหรับ'{title}'"
-
 msgid "Set profile picture"
 msgstr "ตั้งค่ารูปโปรไฟล์"
-
-msgid "Change your profile picture"
-msgstr "เปลี่ยนรูปโปรไฟล์"
 
 msgid "Change the email address linked to your account."
 msgstr "เปลี่ยนลิงค์ที่อยู่อีเมลในบัญชีของคุณ"
@@ -1440,9 +1404,6 @@ msgstr "โซนเวลาปัจจุบัน"
 
 msgid "Choose your current time zone."
 msgstr "เลือกโซนเวลาปัจจุบันของคุณ"
-
-msgid "Heading {level}"
-msgstr "หัวข้อ{level}"
 
 msgid "Bulleted list"
 msgstr "รายการสัญลักษณ์"

@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-10-05 03:36+0000\n"
-"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "公開"
 
 msgid "Submit for moderation"
 msgstr "承認を受ける"
@@ -35,14 +38,20 @@ msgstr "非公開に設定"
 msgid "Delete"
 msgstr "削除"
 
+msgid "Page locked"
+msgstr "ページはロックされています"
+
 msgid "Wagtail admin"
 msgstr "Wagtail管理"
 
-msgid "None"
-msgstr "存在しない"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "アクセス権がありません。"
 
 msgid "You do not have permission to access the admin"
 msgstr "管理画面へアクセスする権限がありません"
+
+msgid "None"
+msgstr "存在しない"
 
 msgid "Scheduled publishing"
 msgstr "予定公開日"
@@ -68,9 +77,6 @@ msgstr "%sを入力してください"
 
 msgid "Enter your email address to reset your password"
 msgstr "パスワードをリセットするにはEメールアドレスを入力してください"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "同一コレクション内で複数の権限を持つことはできません"
@@ -150,6 +156,249 @@ msgstr "この項目は必須です"
 
 msgid "Please select at least one group."
 msgstr "1グループ以上を選択してください"
+
+msgid "Arabic"
+msgstr "アラビア語"
+
+msgid "Catalan"
+msgstr "カタルーニャ語"
+
+msgid "Czech"
+msgstr "チェコ語"
+
+msgid "German"
+msgstr "ドイツ語"
+
+msgid "Greek"
+msgstr "ギリシャ語"
+
+msgid "English"
+msgstr "英語"
+
+msgid "Spanish"
+msgstr "スペイン語"
+
+msgid "Finnish"
+msgstr "フィンランド語"
+
+msgid "French"
+msgstr "フランス語"
+
+msgid "Galician"
+msgstr "ガリシア語"
+
+msgid "Hungarian"
+msgstr "ハンガリー語"
+
+msgid "Indonesian"
+msgstr "インドネシア語"
+
+msgid "Icelandic"
+msgstr "アイスランド語"
+
+msgid "Italian"
+msgstr "イタリア語"
+
+msgid "Korean"
+msgstr "韓国語"
+
+msgid "Lithuanian"
+msgstr "リトアニア語"
+
+msgid "Mongolian"
+msgstr "モンゴル語"
+
+msgid "Norwegian Bokmål"
+msgstr "ノルウェー・書籍語"
+
+msgid "Netherlands Dutch"
+msgstr "オランダ語"
+
+msgid "Persian"
+msgstr "ペルシア語"
+
+msgid "Polish"
+msgstr "ポーランド語"
+
+msgid "Brazilian Portuguese"
+msgstr "ブラジル・ポルトガル語"
+
+msgid "Portuguese"
+msgstr "ポルトガル語"
+
+msgid "Romanian"
+msgstr "ルーマニア語"
+
+msgid "Russian"
+msgstr "ロシア語"
+
+msgid "Swedish"
+msgstr "スウェーデン語"
+
+msgid "Slovak"
+msgstr "スロヴァキア語"
+
+msgid "Thai"
+msgstr "タイ語"
+
+msgid "Ukrainian"
+msgstr "ウクライナ語"
+
+msgid "Chinese (Simplified)"
+msgstr "中国語（簡体字）"
+
+msgid "Chinese (Traditional)"
+msgstr "中国語（繁体字）"
+
+msgid "Page"
+msgstr "ページ"
+
+msgid "Pages"
+msgstr "ページ"
+
+msgid "Loading…"
+msgstr "読み込み中"
+
+msgid "No results"
+msgstr "結果なし"
+
+msgid "Server Error"
+msgstr "サーバーエラー"
+
+msgid "See all"
+msgstr "全部表示"
+
+msgid "Close explorer"
+msgstr "エクスプローラーを閉じる。"
+
+msgid "Alt text"
+msgstr "Alt 属性に記載するテキスト"
+
+msgid "Write here…"
+msgstr "ここに書いて"
+
+msgid "Horizontal line"
+msgstr "横線"
+
+msgid "Line break"
+msgstr "改行"
+
+msgid "Undo"
+msgstr "取り消す"
+
+msgid "Redo"
+msgstr "やり直す"
+
+msgid "Reload the page"
+msgstr "ページをリロードします"
+
+msgid "Reload saved content"
+msgstr "保存した内容をリロードします"
+
+msgid "Show latest content"
+msgstr "新着内容を表示します"
+
+msgid "Show error"
+msgstr "エラーを表示します"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"エディタがクラッシュしました。内容が最後に保存されたバージョンになっていま"
+"す。"
+
+msgid "Broken link"
+msgstr "壊れたリンク"
+
+msgid "Missing document"
+msgstr "失われたドキュメント"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Edit '{title}'"
+msgstr "'{title}'を編集します"
+
+msgid "Page explorer"
+msgstr "ページ探索"
+
+msgid "January"
+msgstr "1月"
+
+msgid "February"
+msgstr "2月"
+
+msgid "March"
+msgstr "3月"
+
+msgid "April"
+msgstr "4月"
+
+msgid "May"
+msgstr "5月"
+
+msgid "June"
+msgstr "6月"
+
+msgid "July"
+msgstr "7月"
+
+msgid "August"
+msgstr "8月"
+
+msgid "September"
+msgstr "9月"
+
+msgid "October"
+msgstr "10月"
+
+msgid "November"
+msgstr "11月"
+
+msgid "December"
+msgstr "12月"
+
+msgid "Sunday"
+msgstr "日曜日"
+
+msgid "Monday"
+msgstr "月曜日"
+
+msgid "Tuesday"
+msgstr "火曜日"
+
+msgid "Wednesday"
+msgstr "水曜日"
+
+msgid "Thursday"
+msgstr "木曜日"
+
+msgid "Friday"
+msgstr "金曜日"
+
+msgid "Saturday"
+msgstr "土曜日"
+
+msgid "Sun"
+msgstr "日"
+
+msgid "Mon"
+msgstr "月"
+
+msgid "Tue"
+msgstr "火"
+
+msgid "Wed"
+msgstr "水"
+
+msgid "Thu"
+msgstr "木"
+
+msgid "Fri"
+msgstr "金"
+
+msgid "Sat"
+msgstr "土"
 
 msgid "Error 404: Page not found"
 msgstr "404エラー：ページが見つかりません"
@@ -242,167 +491,11 @@ msgstr "パスワードが再設定されました"
 msgid "Reset your password"
 msgstr "パスワードを再設定"
 
-msgid "Page"
-msgstr "ページ"
-
-msgid "Pages"
-msgstr "ページ"
-
-msgid "Loading…"
-msgstr "読み込み中"
-
-msgid "No results"
-msgstr "結果なし"
-
-msgid "Server Error"
-msgstr "サーバーエラー"
-
-msgid "See all"
-msgstr "全部表示"
-
-msgid "Close explorer"
-msgstr "エクスプローラーを閉じる。"
-
-msgid "Alt text"
-msgstr "Alt 属性に記載するテキスト"
-
-msgid "Write here…"
-msgstr "ここに書いて"
-
-msgid "Horizontal line"
-msgstr "横線"
-
-msgid "Line break"
-msgstr "改行"
-
-msgid "Undo"
-msgstr "取り消す"
-
-msgid "Redo"
-msgstr "やり直す"
-
-msgid "Reload the page"
-msgstr "ページをリロードします"
-
-msgid "Reload saved content"
-msgstr "保存した内容をリロードします"
-
-msgid "Show latest content"
-msgstr "新着内容を表示します"
-
-msgid "Show error"
-msgstr "エラーを表示します"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"エディタがクラッシュしました。内容が最後に保存されたバージョンになっていま"
-"す。"
-
-msgid "Broken link"
-msgstr "壊れたリンク"
-
-msgid "Missing document"
-msgstr "失われたドキュメント"
-
-msgid "Close"
-msgstr "閉じる"
-
-msgid "Edit \\"
-msgstr "編集する"
-
-msgid "View child pages of \\"
-msgstr "子ページを見る"
-
-msgid "Page explorer"
-msgstr "ページ探索"
-
-msgid "January"
-msgstr "1月"
-
-msgid "February"
-msgstr "2月"
-
-msgid "March"
-msgstr "3月"
-
-msgid "April"
-msgstr "4月"
-
-msgid "May"
-msgstr "5月"
-
-msgid "June"
-msgstr "6月"
-
-msgid "July"
-msgstr "7月"
-
-msgid "August"
-msgstr "8月"
-
-msgid "September"
-msgstr "9月"
-
-msgid "October"
-msgstr "10月"
-
-msgid "November"
-msgstr "11月"
-
-msgid "December"
-msgstr "12月"
-
-msgid "Sunday"
-msgstr "日曜日"
-
-msgid "Monday"
-msgstr "月曜日"
-
-msgid "Tuesday"
-msgstr "火曜日"
-
-msgid "Wednesday"
-msgstr "水曜日"
-
-msgid "Thursday"
-msgstr "木曜日"
-
-msgid "Friday"
-msgstr "金曜日"
-
-msgid "Saturday"
-msgstr "土曜日"
-
-msgid "Sun"
-msgstr "日"
-
-msgid "Mon"
-msgstr "月"
-
-msgid "Tue"
-msgstr "火"
-
-msgid "Wed"
-msgstr "水"
-
-msgid "Thu"
-msgstr "木"
-
-msgid "Fri"
-msgstr "金"
-
-msgid "Sat"
-msgstr "土"
-
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
 msgid "Menu"
 msgstr "メニュー"
-
-msgid "Add another"
-msgstr "項目を追加"
 
 msgid "Move up"
 msgstr "上に移動"
@@ -704,8 +797,14 @@ msgstr "公開中..."
 msgid "Publish this revision"
 msgstr "このリビジョンを公開"
 
-msgid "Publish"
-msgstr "公開"
+msgid "Saving…"
+msgstr "保存中"
+
+msgid "Replace current draft"
+msgstr "現在の下書きを置き換える"
+
+msgid "Save draft"
+msgstr "下書きを保存"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -834,12 +933,6 @@ msgstr "新規作成"
 msgid "Actions"
 msgstr "操作"
 
-msgid "Saving…"
-msgstr "保存中"
-
-msgid "Save draft"
-msgstr "下書きを保存"
-
 msgid "This page has unsaved changes."
 msgstr "このページは変更が保存されなかった"
 
@@ -850,12 +943,6 @@ msgstr "%(page_type)s: %(title)sを編集"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "%(page_type)s <span>%(title)s</span>を編集"
-
-msgid "Page locked"
-msgstr "ページはロックされています"
-
-msgid "Replace current draft"
-msgstr "現在の下書きを置き換える"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1238,102 +1325,6 @@ msgstr "'%(parent)s'内の子ページの順序を'%(label)s'で降順に並べ�
 msgid "Test"
 msgstr "テスト"
 
-msgid "Arabic"
-msgstr "アラビア語"
-
-msgid "Catalan"
-msgstr "カタルーニャ語"
-
-msgid "Czech"
-msgstr "チェコ語"
-
-msgid "German"
-msgstr "ドイツ語"
-
-msgid "Greek"
-msgstr "ギリシャ語"
-
-msgid "English"
-msgstr "英語"
-
-msgid "Spanish"
-msgstr "スペイン語"
-
-msgid "Finnish"
-msgstr "フィンランド語"
-
-msgid "French"
-msgstr "フランス語"
-
-msgid "Galician"
-msgstr "ガリシア語"
-
-msgid "Hungarian"
-msgstr "ハンガリー語"
-
-msgid "Indonesian"
-msgstr "インドネシア語"
-
-msgid "Icelandic"
-msgstr "アイスランド語"
-
-msgid "Italian"
-msgstr "イタリア語"
-
-msgid "Korean"
-msgstr "韓国語"
-
-msgid "Lithuanian"
-msgstr "リトアニア語"
-
-msgid "Mongolian"
-msgstr "モンゴル語"
-
-msgid "Norwegian Bokmål"
-msgstr "ノルウェー・書籍語"
-
-msgid "Netherlands Dutch"
-msgstr "オランダ語"
-
-msgid "Persian"
-msgstr "ペルシア語"
-
-msgid "Polish"
-msgstr "ポーランド語"
-
-msgid "Brazilian Portuguese"
-msgstr "ブラジル・ポルトガル語"
-
-msgid "Portuguese"
-msgstr "ポルトガル語"
-
-msgid "Romanian"
-msgstr "ルーマニア語"
-
-msgid "Russian"
-msgstr "ロシア語"
-
-msgid "Swedish"
-msgstr "スウェーデン語"
-
-msgid "Slovak"
-msgstr "スロヴァキア語"
-
-msgid "Thai"
-msgstr "タイ語"
-
-msgid "Ukrainian"
-msgstr "ウクライナ語"
-
-msgid "Chinese (Simplified)"
-msgstr "中国語（簡体字）"
-
-msgid "Chinese (Traditional)"
-msgstr "中国語（繁体字）"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "アクセス権がありません。"
-
 msgid "Your password has been changed successfully!"
 msgstr "パスワードが変更されました。"
 
@@ -1506,44 +1497,11 @@ msgstr "\"{1}\"のリビジョン{0}"
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "\"{1}\"のリビジョン{0}の公開予定が取り消されました。"
 
-msgid "Edit '{title}'"
-msgstr "'{title}'を編集します"
-
-msgid "Preview draft version of '{title}'"
-msgstr "'{title}'の草稿バージョンをプレビュー"
-
-msgid "View live version of '{title}'"
-msgstr "'{title}'の最新版を確認"
-
-msgid "Add a child page to '{title}' "
-msgstr "'{title}'の子ページを追加"
-
 msgid "More"
 msgstr "詳細表示"
 
-msgid "View more options for '{title}'"
-msgstr "'{title}'のオプションをもっと表示"
-
-msgid "Move page '{title}'"
-msgstr "'{title}'　ページを移動します"
-
-msgid "Copy page '{title}'"
-msgstr "'{title}'　ページをコピーします"
-
-msgid "Delete page '{title}'"
-msgstr "'{title}'　ページを削除します"
-
-msgid "Unpublish page '{title}'"
-msgstr "'{title}'ページを非公開にする"
-
-msgid "View revision history for '{title}'"
-msgstr "'{title}'の更新履歴を確認"
-
 msgid "Set profile picture"
 msgstr "プロファイル写真を設定します"
-
-msgid "Change your profile picture"
-msgstr "プロファイル写真を変更します"
 
 msgid "Change the email address linked to your account."
 msgstr "アカウントに設定された電子メールアドレスを変更して下さい。"
@@ -1565,9 +1523,6 @@ msgstr "現在タイムゾーン"
 
 msgid "Choose your current time zone."
 msgstr "現在タイムゾーンを選択"
-
-msgid "Heading {level}"
-msgstr "{level} ヘーダ"
 
 msgid "Bulleted list"
 msgstr "箇条書きにされたリスト"

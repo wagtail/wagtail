@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -24,6 +24,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Publicera"
 
 msgid "Submit for moderation"
 msgstr "Lämna in för moderering"
@@ -34,14 +37,20 @@ msgstr "Avpublicera"
 msgid "Delete"
 msgstr "Radera"
 
+msgid "Page locked"
+msgstr "Sida låst"
+
 msgid "Wagtail admin"
 msgstr "Wagtail administration"
 
-msgid "None"
-msgstr "Inget"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Ledsen, du har inte rättigheter att tillträda detta område."
 
 msgid "You do not have permission to access the admin"
 msgstr "Du har inte rättighet att tillträda admin"
+
+msgid "None"
+msgstr "Inget"
 
 msgid "Scheduled publishing"
 msgstr "Schemalagd publicering"
@@ -67,9 +76,6 @@ msgstr "Ange ditt %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ange din e-postadress för att återställa ditt lösenord"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
@@ -152,6 +158,240 @@ msgstr "Det här fältet är obligatoriskt"
 
 msgid "Please select at least one group."
 msgstr "Vänligen välj minst en grupp"
+
+msgid "Arabic"
+msgstr "Arabiska"
+
+msgid "Catalan"
+msgstr "Katalanska"
+
+msgid "German"
+msgstr "Tyska"
+
+msgid "Greek"
+msgstr "Grekiska"
+
+msgid "English"
+msgstr "Enelska"
+
+msgid "Spanish"
+msgstr "Spanska"
+
+msgid "Finnish"
+msgstr "Finska"
+
+msgid "French"
+msgstr "Franska"
+
+msgid "Galician"
+msgstr "Galiciska"
+
+msgid "Indonesian"
+msgstr "Indonesisk"
+
+msgid "Icelandic"
+msgstr "Isländska"
+
+msgid "Italian"
+msgstr "Italienska"
+
+msgid "Korean"
+msgstr "Koreanska"
+
+msgid "Lithuanian"
+msgstr "Litauiska"
+
+msgid "Mongolian"
+msgstr "Mongoliska"
+
+msgid "Norwegian Bokmål"
+msgstr "Norska Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Nederländska"
+
+msgid "Persian"
+msgstr "Persiska"
+
+msgid "Polish"
+msgstr "Polska"
+
+msgid "Brazilian Portuguese"
+msgstr "Brasiliansk portugisiska"
+
+msgid "Portuguese"
+msgstr "Portugisiska"
+
+msgid "Romanian"
+msgstr "Romänska"
+
+msgid "Russian"
+msgstr "Ryska"
+
+msgid "Swedish"
+msgstr "Svenska"
+
+msgid "Slovak"
+msgstr "Slovakiska"
+
+msgid "Thai"
+msgstr "Thailändska"
+
+msgid "Ukrainian"
+msgstr "Ukrainska"
+
+msgid "Chinese (Simplified)"
+msgstr "Kinesiska (Förenklad)"
+
+msgid "Chinese (Traditional)"
+msgstr "Kinesiska (Traditionell)"
+
+msgid "Page"
+msgstr "Sida"
+
+msgid "Pages"
+msgstr "Sidor"
+
+msgid "Loading…"
+msgstr "Laddar..."
+
+msgid "No results"
+msgstr "Inga resultat funna"
+
+msgid "Server Error"
+msgstr "Serverfel"
+
+msgid "See all"
+msgstr "Visa alla"
+
+msgid "Close explorer"
+msgstr "Stäng utforskaren"
+
+msgid "Alt text"
+msgstr "Alternativ text"
+
+msgid "Write here…"
+msgstr "Skriv här..."
+
+msgid "Horizontal line"
+msgstr "Horisontell linje"
+
+msgid "Line break"
+msgstr "Linjebrytning"
+
+msgid "Undo"
+msgstr "Ångra"
+
+msgid "Redo"
+msgstr "Gör om"
+
+msgid "Reload the page"
+msgstr "Ladda om sidan"
+
+msgid "Reload saved content"
+msgstr "Ladda om sparat innehåll"
+
+msgid "Show latest content"
+msgstr "Visa senaste innehållet"
+
+msgid "Show error"
+msgstr "Visa fel"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Textredigeraren kraschade. Innehållet har återställts till den senaste "
+"sparade versionen."
+
+msgid "Broken link"
+msgstr "Bruten länk"
+
+msgid "Missing document"
+msgstr "Dokument saknas"
+
+msgid "Close"
+msgstr "Stäng"
+
+msgid "Edit '{title}'"
+msgstr "Editera '{title}'"
+
+msgid "January"
+msgstr "Januari"
+
+msgid "February"
+msgstr "Februari"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Maj"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "Augusti"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sunday"
+msgstr "Söndag"
+
+msgid "Monday"
+msgstr "Måndag"
+
+msgid "Tuesday"
+msgstr "Tisdag"
+
+msgid "Wednesday"
+msgstr "Onsdag"
+
+msgid "Thursday"
+msgstr "Torsdag"
+
+msgid "Friday"
+msgstr "Fredag"
+
+msgid "Saturday"
+msgstr "Lördag"
+
+msgid "Sun"
+msgstr "Sön"
+
+msgid "Mon"
+msgstr "Mån"
+
+msgid "Tue"
+msgstr "Tis"
+
+msgid "Wed"
+msgstr "Ons"
+
+msgid "Thu"
+msgstr "Tor"
+
+msgid "Fri"
+msgstr "Fre"
+
+msgid "Sat"
+msgstr "Lör"
 
 msgid "Error 404: Page not found"
 msgstr "Sidfel 404: Sidan kunde inte hittas"
@@ -244,158 +484,11 @@ msgstr "Återställ lösenord"
 msgid "Reset your password"
 msgstr "Återställ ditt lösenord"
 
-msgid "Page"
-msgstr "Sida"
-
-msgid "Pages"
-msgstr "Sidor"
-
-msgid "Loading…"
-msgstr "Laddar..."
-
-msgid "No results"
-msgstr "Inga resultat funna"
-
-msgid "Server Error"
-msgstr "Serverfel"
-
-msgid "See all"
-msgstr "Visa alla"
-
-msgid "Close explorer"
-msgstr "Stäng utforskaren"
-
-msgid "Alt text"
-msgstr "Alternativ text"
-
-msgid "Write here…"
-msgstr "Skriv här..."
-
-msgid "Horizontal line"
-msgstr "Horisontell linje"
-
-msgid "Line break"
-msgstr "Linjebrytning"
-
-msgid "Undo"
-msgstr "Ångra"
-
-msgid "Redo"
-msgstr "Gör om"
-
-msgid "Reload the page"
-msgstr "Ladda om sidan"
-
-msgid "Reload saved content"
-msgstr "Ladda om sparat innehåll"
-
-msgid "Show latest content"
-msgstr "Visa senaste innehållet"
-
-msgid "Show error"
-msgstr "Visa fel"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Textredigeraren kraschade. Innehållet har återställts till den senaste "
-"sparade versionen."
-
-msgid "Broken link"
-msgstr "Bruten länk"
-
-msgid "Missing document"
-msgstr "Dokument saknas"
-
-msgid "Close"
-msgstr "Stäng"
-
-msgid "January"
-msgstr "Januari"
-
-msgid "February"
-msgstr "Februari"
-
-msgid "March"
-msgstr "Mars"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "Augusti"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sunday"
-msgstr "Söndag"
-
-msgid "Monday"
-msgstr "Måndag"
-
-msgid "Tuesday"
-msgstr "Tisdag"
-
-msgid "Wednesday"
-msgstr "Onsdag"
-
-msgid "Thursday"
-msgstr "Torsdag"
-
-msgid "Friday"
-msgstr "Fredag"
-
-msgid "Saturday"
-msgstr "Lördag"
-
-msgid "Sun"
-msgstr "Sön"
-
-msgid "Mon"
-msgstr "Mån"
-
-msgid "Tue"
-msgstr "Tis"
-
-msgid "Wed"
-msgstr "Ons"
-
-msgid "Thu"
-msgstr "Tor"
-
-msgid "Fri"
-msgstr "Fre"
-
-msgid "Sat"
-msgstr "Lör"
-
 msgid "Dashboard"
 msgstr "Instrumentpanel"
 
 msgid "Menu"
 msgstr "Meny"
-
-msgid "Add another"
-msgstr "Lägg till ytterligare"
 
 msgid "Move up"
 msgstr "Flytta upp"
@@ -667,8 +760,14 @@ msgstr "Publicerar..."
 msgid "Publish this revision"
 msgstr "Publicera denna revision"
 
-msgid "Publish"
-msgstr "Publicera"
+msgid "Saving…"
+msgstr "Sparar..."
+
+msgid "Replace current draft"
+msgstr "Ersätt existerande utkast"
+
+msgid "Save draft"
+msgstr "Spara utkast"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -806,12 +905,6 @@ msgstr "Nya %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Saving…"
-msgstr "Sparar..."
-
-msgid "Save draft"
-msgstr "Spara utkast"
-
 msgid "This page has unsaved changes."
 msgstr "Den här sidan har osparade ändringar."
 
@@ -822,12 +915,6 @@ msgstr "Editerar %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Editerar %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Sida låst"
-
-msgid "Replace current draft"
-msgstr "Ersätt existerande utkast"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1210,96 +1297,6 @@ msgstr "Visa i utforskaren"
 msgid "Test"
 msgstr "Test"
 
-msgid "Arabic"
-msgstr "Arabiska"
-
-msgid "Catalan"
-msgstr "Katalanska"
-
-msgid "German"
-msgstr "Tyska"
-
-msgid "Greek"
-msgstr "Grekiska"
-
-msgid "English"
-msgstr "Enelska"
-
-msgid "Spanish"
-msgstr "Spanska"
-
-msgid "Finnish"
-msgstr "Finska"
-
-msgid "French"
-msgstr "Franska"
-
-msgid "Galician"
-msgstr "Galiciska"
-
-msgid "Indonesian"
-msgstr "Indonesisk"
-
-msgid "Icelandic"
-msgstr "Isländska"
-
-msgid "Italian"
-msgstr "Italienska"
-
-msgid "Korean"
-msgstr "Koreanska"
-
-msgid "Lithuanian"
-msgstr "Litauiska"
-
-msgid "Mongolian"
-msgstr "Mongoliska"
-
-msgid "Norwegian Bokmål"
-msgstr "Norska Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Nederländska"
-
-msgid "Persian"
-msgstr "Persiska"
-
-msgid "Polish"
-msgstr "Polska"
-
-msgid "Brazilian Portuguese"
-msgstr "Brasiliansk portugisiska"
-
-msgid "Portuguese"
-msgstr "Portugisiska"
-
-msgid "Romanian"
-msgstr "Romänska"
-
-msgid "Russian"
-msgstr "Ryska"
-
-msgid "Swedish"
-msgstr "Svenska"
-
-msgid "Slovak"
-msgstr "Slovakiska"
-
-msgid "Thai"
-msgstr "Thailändska"
-
-msgid "Ukrainian"
-msgstr "Ukrainska"
-
-msgid "Chinese (Simplified)"
-msgstr "Kinesiska (Förenklad)"
-
-msgid "Chinese (Traditional)"
-msgstr "Kinesiska (Traditionell)"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Ledsen, du har inte rättigheter att tillträda detta område."
-
 msgid "Your password has been changed successfully!"
 msgstr "Ditt lösenord har framgångsrikt uppdaterats!"
 
@@ -1470,44 +1467,11 @@ msgstr "revision {0} av \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Revision {0} av \"{1}\" ej schemalagd."
 
-msgid "Edit '{title}'"
-msgstr "Editera '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Förhandsgranska utkastversion av '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Visa den publicerade versionen av '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Lägg till en undersida till '{title}' "
-
 msgid "More"
 msgstr "Mer"
 
-msgid "View more options for '{title}'"
-msgstr "Se fler alternativ för '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Flytta sida '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Kopiera sida '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Radera sida '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Avpublicera sida '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Se revisionshistorik för '{title}'"
-
 msgid "Set profile picture"
 msgstr "Ange profilbild"
-
-msgid "Change your profile picture"
-msgstr "Ändra profilbild"
 
 msgid "Change the email address linked to your account."
 msgstr "Ändra e-postadressen som är länkad till ditt konto."
@@ -1529,9 +1493,6 @@ msgstr "Aktuell tidszon"
 
 msgid "Choose your current time zone."
 msgstr "Välj din nuvarande tidszon"
-
-msgid "Heading {level}"
-msgstr "Titel {level}"
 
 msgid "Bulleted list"
 msgstr "Punktlista"

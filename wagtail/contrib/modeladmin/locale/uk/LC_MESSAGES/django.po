@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -175,9 +175,6 @@ msgstr "Назад"
 msgid "Next"
 msgstr "Далі"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' створено."
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr "%s не може бути створено через помилки."
@@ -196,9 +193,6 @@ msgstr "Редагування"
 msgid "Editing %s"
 msgstr "Редагування %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' оновлено."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s не може бути збережено через помилки."
@@ -214,9 +208,6 @@ msgid ""
 msgstr ""
 "Ви впевнені, що бажаєте видалити %s? Якщо є інші пов'язані сутності, то це "
 "також може їх зачепити."
-
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' видалено."
 
 msgid "Inspecting"
 msgstr "Перегляд"

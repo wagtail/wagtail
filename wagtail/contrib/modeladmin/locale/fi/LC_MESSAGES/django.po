@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -168,9 +168,6 @@ msgstr "Edellinen"
 msgid "Next"
 msgstr "Seuraava"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' luotu."
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr "%s ei voitu luoda virheiden vuoksi."
@@ -189,9 +186,6 @@ msgstr "Muokataan"
 msgid "Editing %s"
 msgstr "Muokataan %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' päivitetty."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s ei voitu tallentaa virheiden vuoksi."
@@ -207,9 +201,6 @@ msgid ""
 msgstr ""
 "Oletko varma, että haluat poistaa %s? Tämä saattaa vaikuttaa muihin "
 "sivustossa kohteeseen liityviin asioihin."
-
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' poistettu."
 
 msgid "Inspecting"
 msgstr "Tarkastellaan"

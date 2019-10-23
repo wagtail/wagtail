@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -161,26 +161,14 @@ msgstr "Энэ хуудсыг засах"
 msgid "Search %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s хайх"
 
-msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' үүслээ."
-
 msgid "Edit"
 msgstr "Засах"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Хэсэг дээрх алдаанаас болж хадгалагдсангүй."
 
-msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}' шинэчлэгдлээ."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Хэсэг дээрх алдаанаас болж шинэчлэгдсэнгүй."
-
-msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' устлаа."
-
-msgid "{count} {snippet_type} deleted."
-msgstr "{count} {snippet_type} устлаа."
 
 #, python-format
 msgid "Choose %s"

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -25,6 +25,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Publish"
+msgstr "Publikovať"
+
 msgid "Submit for moderation"
 msgstr "Odoslať na moderáciu"
 
@@ -34,11 +37,17 @@ msgstr "Nezverejniť"
 msgid "Delete"
 msgstr "Vymazať"
 
-msgid "None"
-msgstr "Nič"
+msgid "Page locked"
+msgstr "Stránka je uzamknutá"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"
 
 msgid "You do not have permission to access the admin"
 msgstr "Na prístup do administrácie nemáte práva."
+
+msgid "None"
+msgstr "Nič"
 
 msgid "Scheduled publishing"
 msgstr "Naplánovať publikovanie"
@@ -64,9 +73,6 @@ msgstr "Zadajte vaše %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Zadajte vašu emailovú adresu pre obnovu hesla"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
@@ -159,6 +165,150 @@ msgstr "Toto pole je povinné."
 msgid "Please select at least one group."
 msgstr "Prosím, vyberte aspoň jednu skupinu."
 
+msgid "Catalan"
+msgstr "Katalánsky"
+
+msgid "German"
+msgstr "Nemecky"
+
+msgid "Greek"
+msgstr "Grécky"
+
+msgid "English"
+msgstr "Anglicky"
+
+msgid "Spanish"
+msgstr "Španielsky"
+
+msgid "Finnish"
+msgstr "Fínsky"
+
+msgid "French"
+msgstr "Francúzsky"
+
+msgid "Galician"
+msgstr "Galicijsky"
+
+msgid "Icelandic"
+msgstr "Islandsky"
+
+msgid "Italian"
+msgstr "Taliansky"
+
+msgid "Korean"
+msgstr "Kórejsky"
+
+msgid "Lithuanian"
+msgstr "Litovsky"
+
+msgid "Norwegian Bokmål"
+msgstr " Norsky"
+
+msgid "Netherlands Dutch"
+msgstr "Holandsky"
+
+msgid "Persian"
+msgstr "Perzsky"
+
+msgid "Polish"
+msgstr "Poľsky"
+
+msgid "Brazilian Portuguese"
+msgstr "Portugalsky (Brazília)"
+
+msgid "Portuguese"
+msgstr "Portugalsky"
+
+msgid "Romanian"
+msgstr "Rumunsky"
+
+msgid "Russian"
+msgstr "Rusky"
+
+msgid "Swedish"
+msgstr "Švédsky"
+
+msgid "Page"
+msgstr "Stránka"
+
+msgid "Pages"
+msgstr "Stránky"
+
+msgid "No results"
+msgstr "Žiadne výsledky"
+
+msgid "Server Error"
+msgstr "Chyba servera"
+
+msgid "See all"
+msgstr "Vidieť všetko"
+
+msgid "Close explorer"
+msgstr "Zavrieť prehliadač"
+
+msgid "Close"
+msgstr "Zavrieť"
+
+msgid "Edit '{title}'"
+msgstr "Upraviť '{title}'"
+
+msgid "January"
+msgstr "Január"
+
+msgid "February"
+msgstr "Február"
+
+msgid "March"
+msgstr "Marec"
+
+msgid "April"
+msgstr "Apríl"
+
+msgid "May"
+msgstr "Máj"
+
+msgid "June"
+msgstr "Jún"
+
+msgid "July"
+msgstr "Júl"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Október"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sun"
+msgstr "Ne"
+
+msgid "Mon"
+msgstr "Pon"
+
+msgid "Tue"
+msgstr "Ut"
+
+msgid "Wed"
+msgstr "Str"
+
+msgid "Thu"
+msgstr "Štv"
+
+msgid "Fri"
+msgstr "Pia"
+
+msgid "Sat"
+msgstr "So"
+
 msgid "Error 404: Page not found"
 msgstr "Chyba 404: Stránka nebola nájdená"
 
@@ -218,92 +368,11 @@ msgstr "Obnova hesla"
 msgid "Reset your password"
 msgstr "Resetovanie vášho hesla"
 
-msgid "Page"
-msgstr "Stránka"
-
-msgid "Pages"
-msgstr "Stránky"
-
-msgid "No results"
-msgstr "Žiadne výsledky"
-
-msgid "Server Error"
-msgstr "Chyba servera"
-
-msgid "See all"
-msgstr "Vidieť všetko"
-
-msgid "Close explorer"
-msgstr "Zavrieť prehliadač"
-
-msgid "Close"
-msgstr "Zavrieť"
-
-msgid "January"
-msgstr "Január"
-
-msgid "February"
-msgstr "Február"
-
-msgid "March"
-msgstr "Marec"
-
-msgid "April"
-msgstr "Apríl"
-
-msgid "May"
-msgstr "Máj"
-
-msgid "June"
-msgstr "Jún"
-
-msgid "July"
-msgstr "Júl"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Október"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sun"
-msgstr "Ne"
-
-msgid "Mon"
-msgstr "Pon"
-
-msgid "Tue"
-msgstr "Ut"
-
-msgid "Wed"
-msgstr "Str"
-
-msgid "Thu"
-msgstr "Štv"
-
-msgid "Fri"
-msgstr "Pia"
-
-msgid "Sat"
-msgstr "So"
-
 msgid "Dashboard"
 msgstr "Nástenka"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Pridať ďalšie"
 
 msgid "Move up"
 msgstr "Posunúť vyššie"
@@ -551,8 +620,11 @@ msgstr "Odomknuté"
 msgid "Publish this revision"
 msgstr "Publikovať túto revíziu"
 
-msgid "Publish"
-msgstr "Publikovať"
+msgid "Replace current draft"
+msgstr "Prepísať aktuálny koncept"
+
+msgid "Save draft"
+msgstr "Uložiť koncept"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -702,9 +774,6 @@ msgstr "Nový  %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
-msgid "Save draft"
-msgstr "Uložiť koncept"
-
 msgid "This page has unsaved changes."
 msgstr "Táto stránka má neuložené zmeny."
 
@@ -715,12 +784,6 @@ msgstr "Upravujete %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Upravujete %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Stránka je uzamknutá"
-
-msgid "Replace current draft"
-msgstr "Prepísať aktuálny koncept"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1081,72 +1144,6 @@ msgstr "Zobraziť v prehliadači"
 msgid "Test"
 msgstr "Test"
 
-msgid "Catalan"
-msgstr "Katalánsky"
-
-msgid "German"
-msgstr "Nemecky"
-
-msgid "Greek"
-msgstr "Grécky"
-
-msgid "English"
-msgstr "Anglicky"
-
-msgid "Spanish"
-msgstr "Španielsky"
-
-msgid "Finnish"
-msgstr "Fínsky"
-
-msgid "French"
-msgstr "Francúzsky"
-
-msgid "Galician"
-msgstr "Galicijsky"
-
-msgid "Icelandic"
-msgstr "Islandsky"
-
-msgid "Italian"
-msgstr "Taliansky"
-
-msgid "Korean"
-msgstr "Kórejsky"
-
-msgid "Lithuanian"
-msgstr "Litovsky"
-
-msgid "Norwegian Bokmål"
-msgstr " Norsky"
-
-msgid "Netherlands Dutch"
-msgstr "Holandsky"
-
-msgid "Persian"
-msgstr "Perzsky"
-
-msgid "Polish"
-msgstr "Poľsky"
-
-msgid "Brazilian Portuguese"
-msgstr "Portugalsky (Brazília)"
-
-msgid "Portuguese"
-msgstr "Portugalsky"
-
-msgid "Romanian"
-msgstr "Rumunsky"
-
-msgid "Russian"
-msgstr "Rusky"
-
-msgid "Swedish"
-msgstr "Švédsky"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"
-
 msgid "Your password has been changed successfully!"
 msgstr "Vaše heslo bolo úspešne zmenené"
 
@@ -1293,38 +1290,8 @@ msgstr "Najstaršie"
 msgid "Latest"
 msgstr "Najnovšie"
 
-msgid "Edit '{title}'"
-msgstr "Upraviť '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Prezrieť koncept '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Zobraziť live verziu '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Pridať podstránku k '{title}' "
-
 msgid "More"
 msgstr "Viac"
-
-msgid "View more options for '{title}'"
-msgstr "Zobraziť viac možností pre '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Presunúť stránku '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Kopírovať stránku '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Vymazať stránku '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Odpublikovať stránku '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Zobraziť históriu revízii pre '{title}'"
 
 msgid "Change the password you use to log in."
 msgstr "Zmeniť heslo ktoré používate na prihlásenie."

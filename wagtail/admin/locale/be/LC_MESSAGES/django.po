@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
@@ -24,11 +24,11 @@ msgstr ""
 msgid "Delete"
 msgstr "Выдаліць"
 
-msgid "None"
-msgstr "Некалькі"
-
 msgid "You do not have permission to access the admin"
 msgstr "У вас няма доступу да панэлі адміністратара"
+
+msgid "None"
+msgstr "Некалькі"
 
 msgid "Scheduled publishing"
 msgstr "Адкладзеная публікацыя"
@@ -54,9 +54,6 @@ msgstr "Увядзіце вашае %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Калі ласка, увядзіце адрас электроннай пошты для змены пароля"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Вы не можаце мець некалькі дазволаў для адной і той жа калекцыі."
@@ -147,6 +144,57 @@ msgstr "Гэта поле з'яўляецца абавязковым."
 
 msgid "Please select at least one group."
 msgstr "Калі ласка, выберыце мінімум 1 гурт."
+
+msgid "Page"
+msgstr "Старонка"
+
+msgid "Pages"
+msgstr "Старонкі"
+
+msgid "Loading…"
+msgstr "Загрузка..."
+
+msgid "No results"
+msgstr "Няма вынікаў"
+
+msgid "Server Error"
+msgstr "Памылка Сервера"
+
+msgid "See all"
+msgstr "Усё паглядзець"
+
+msgid "Close explorer"
+msgstr "Зачыніць даследчык"
+
+msgid "Alt text"
+msgstr "Тэкст падказкі"
+
+msgid "Write here…"
+msgstr "Пішыце тут..."
+
+msgid "Horizontal line"
+msgstr "Гарызантальная лінія"
+
+msgid "Line break"
+msgstr "Канец радка"
+
+msgid "Undo"
+msgstr "Адмяніць дзеянне"
+
+msgid "Redo"
+msgstr "Абнавіць"
+
+msgid "Reload the page"
+msgstr "Абнавіць старонку"
+
+msgid "Reload saved content"
+msgstr " Обнавиць захаваны змест"
+
+msgid "Show latest content"
+msgstr "Паказаць апошні змест"
+
+msgid "Show error"
+msgstr "Паказаць памылку"
 
 msgid "Error 404: Page not found"
 msgstr "Памылка 404: старонка не знойдзена"
@@ -240,65 +288,11 @@ msgstr "Аднаўленне пароля"
 msgid "Reset your password"
 msgstr "Скінуць пароль"
 
-msgid "Page"
-msgstr "Старонка"
-
-msgid "Pages"
-msgstr "Старонкі"
-
-msgid "Loading…"
-msgstr "Загрузка..."
-
-msgid "No results"
-msgstr "Няма вынікаў"
-
-msgid "Server Error"
-msgstr "Памылка Сервера"
-
-msgid "See all"
-msgstr "Усё паглядзець"
-
-msgid "Close explorer"
-msgstr "Зачыніць даследчык"
-
-msgid "Alt text"
-msgstr "Тэкст падказкі"
-
-msgid "Write here…"
-msgstr "Пішыце тут..."
-
-msgid "Horizontal line"
-msgstr "Гарызантальная лінія"
-
-msgid "Line break"
-msgstr "Канец радка"
-
-msgid "Undo"
-msgstr "Адмяніць дзеянне"
-
-msgid "Redo"
-msgstr "Абнавіць"
-
-msgid "Reload the page"
-msgstr "Абнавіць старонку"
-
-msgid "Reload saved content"
-msgstr " Обнавиць захаваны змест"
-
-msgid "Show latest content"
-msgstr "Паказаць апошні змест"
-
-msgid "Show error"
-msgstr "Паказаць памылку"
-
 msgid "Dashboard"
 msgstr "Панэль кіравання"
 
 msgid "Menu"
 msgstr "Меню"
-
-msgid "Add another"
-msgstr "Яшчэ дадаць"
 
 msgid "Move up"
 msgstr "Падвінуць наверх"

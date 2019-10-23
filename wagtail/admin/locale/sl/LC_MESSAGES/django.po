@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-08-20 08:01+0000\n"
-"Last-Translator: Matej Stavanja <matej.stavanja@zfm.si>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Publish"
+msgstr "Objavi"
 
 msgid "Submit for moderation"
 msgstr "Oddaj v potrditev"
@@ -30,14 +33,20 @@ msgstr "Umakni iz objave"
 msgid "Delete"
 msgstr "Izbriši"
 
+msgid "Page locked"
+msgstr "Stran je zaklenjena"
+
 msgid "Wagtail admin"
 msgstr "Administrativni vmesnik Wagtail"
 
-msgid "None"
-msgstr "Brez"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Žal nimate dovoljenja za dostop do tega območja."
 
 msgid "You do not have permission to access the admin"
 msgstr "Nimate dovoljenja za dostop do administracije"
+
+msgid "None"
+msgstr "Brez"
 
 msgid "Scheduled publishing"
 msgstr "Načrtovanje objave"
@@ -63,9 +72,6 @@ msgstr "Vnesite vaše %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vnesite vaš e-naslov za ponastavitev gesla"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Za isto zbirko ne morate imeti več kot enega zapisa dovoljenj."
@@ -154,6 +160,84 @@ msgstr "Polje je obvezno."
 
 msgid "Please select at least one group."
 msgstr "Izberite vsaj eno skupino"
+
+msgid "Page"
+msgstr "Stran"
+
+msgid "Pages"
+msgstr "Strani"
+
+msgid "Loading…"
+msgstr "Nalaganje ..."
+
+msgid "No results"
+msgstr "Ni zadetkov"
+
+msgid "Server Error"
+msgstr "Napaka na strežniku"
+
+msgid "See all"
+msgstr "Poglej vse"
+
+msgid "Close explorer"
+msgstr "Zapri raziskovalca"
+
+msgid "January"
+msgstr "Januar"
+
+msgid "February"
+msgstr "Februar"
+
+msgid "March"
+msgstr "Marec"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Maj"
+
+msgid "June"
+msgstr "Junij"
+
+msgid "July"
+msgstr "Julij"
+
+msgid "August"
+msgstr "Avgust"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sun"
+msgstr "Ned"
+
+msgid "Mon"
+msgstr "Pon"
+
+msgid "Tue"
+msgstr "Tor"
+
+msgid "Wed"
+msgstr "Sre"
+
+msgid "Thu"
+msgstr "Čet"
+
+msgid "Fri"
+msgstr "Pet"
+
+msgid "Sat"
+msgstr "Sob"
 
 msgid "Error 404: Page not found"
 msgstr "Napaka 404: strani ni bilo mogoče najti"
@@ -247,92 +331,11 @@ msgstr "Geslo ponastavljeno"
 msgid "Reset your password"
 msgstr "Ponastavi geslo"
 
-msgid "Page"
-msgstr "Stran"
-
-msgid "Pages"
-msgstr "Strani"
-
-msgid "Loading…"
-msgstr "Nalaganje ..."
-
-msgid "No results"
-msgstr "Ni zadetkov"
-
-msgid "Server Error"
-msgstr "Napaka na strežniku"
-
-msgid "See all"
-msgstr "Poglej vse"
-
-msgid "Close explorer"
-msgstr "Zapri raziskovalca"
-
-msgid "January"
-msgstr "Januar"
-
-msgid "February"
-msgstr "Februar"
-
-msgid "March"
-msgstr "Marec"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Junij"
-
-msgid "July"
-msgstr "Julij"
-
-msgid "August"
-msgstr "Avgust"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sun"
-msgstr "Ned"
-
-msgid "Mon"
-msgstr "Pon"
-
-msgid "Tue"
-msgstr "Tor"
-
-msgid "Wed"
-msgstr "Sre"
-
-msgid "Thu"
-msgstr "Čet"
-
-msgid "Fri"
-msgstr "Pet"
-
-msgid "Sat"
-msgstr "Sob"
-
 msgid "Dashboard"
 msgstr "Nadzorna plošča"
 
 msgid "Menu"
 msgstr "Meni"
-
-msgid "Add another"
-msgstr "Dodaj še eno"
 
 msgid "Move up"
 msgstr "Premakni navzgor"
@@ -534,8 +537,11 @@ msgstr "Odklenjeno"
 msgid "Publish this revision"
 msgstr "Objavi to različico"
 
-msgid "Publish"
-msgstr "Objavi"
+msgid "Replace current draft"
+msgstr "Nadomesti trenutni osnutek"
+
+msgid "Save draft"
+msgstr "Shrani osnutek"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -610,9 +616,6 @@ msgstr "Nov %(page_type)s"
 msgid "New"
 msgstr "Nov"
 
-msgid "Save draft"
-msgstr "Shrani osnutek"
-
 msgid "This page has unsaved changes."
 msgstr "Na strani so ne shranjene spremembe."
 
@@ -623,12 +626,6 @@ msgstr "Urejanje %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Urejanje %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Stran je zaklenjena"
-
-msgid "Replace current draft"
-msgstr "Nadomesti trenutni osnutek"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -814,9 +811,6 @@ msgstr "Prikaži v Raziskovalcu"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Žal nimate dovoljenja za dostop do tega območja."
 
 msgid "Your password has been changed successfully!"
 msgstr "Vaše geslo je bil uspešno spremenjeno!"

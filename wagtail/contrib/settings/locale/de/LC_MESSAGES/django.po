@@ -4,14 +4,15 @@
 #
 # Translators:
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Matthias Martin, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-05-09 09:33+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-18 06:59+0000\n"
+"Last-Translator: Matthias Martin\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -41,8 +42,9 @@ msgstr ""
 "Diese Einstellung konnte nicht geöffnet werden, da keine Website definiert "
 "ist."
 
-msgid "{setting_type} updated."
-msgstr "{setting_type} geändert."
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s aktualisiert."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte die Einstellung nicht gespeichert werden."

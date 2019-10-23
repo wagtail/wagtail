@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -153,26 +153,14 @@ msgstr "編輯頁面"
 msgid "Search %(snippet_type_name)s"
 msgstr "尋找 %(snippet_type_name)s"
 
-msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' 已創建。"
-
 msgid "Edit"
 msgstr "編輯"
 
 msgid "The snippet could not be created due to errors."
 msgstr "無法創建片段，出現錯誤。"
 
-msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}' 已更新。"
-
 msgid "The snippet could not be saved due to errors."
 msgstr "無法保存片段，出現錯誤。"
-
-msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' 已刪除。"
-
-msgid "{count} {snippet_type} deleted."
-msgstr "{count} 個 {snippet_type} 已刪除"
 
 #, python-format
 msgid "Choose %s"

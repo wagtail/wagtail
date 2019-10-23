@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Udgiv"
 
 msgid "Submit for moderation"
 msgstr "Indsend til moderation"
@@ -30,14 +33,17 @@ msgstr "Afpublicer"
 msgid "Delete"
 msgstr "Slet"
 
+msgid "Page locked"
+msgstr "Siden er låst"
+
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
 
-msgid "None"
-msgstr "Intet"
-
 msgid "You do not have permission to access the admin"
 msgstr "Du mangler rettigheden til, at bruge admin-interfacet"
+
+msgid "None"
+msgstr "Intet"
 
 msgid "Scheduled publishing"
 msgstr "Planlagt udgivning"
@@ -63,9 +69,6 @@ msgstr "Skriv din %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Skriv din email addresse for at genindstille din adgangskode"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -149,6 +152,195 @@ msgstr "Dette felt er påkrævet."
 
 msgid "Please select at least one group."
 msgstr "Vælg venligst mindst én gruppe."
+
+msgid "Catalan"
+msgstr "Katalansk"
+
+msgid "German"
+msgstr "Tysk"
+
+msgid "Greek"
+msgstr "Græsk"
+
+msgid "English"
+msgstr "Engelsk"
+
+msgid "Spanish"
+msgstr "Spansk"
+
+msgid "Finnish"
+msgstr "Finsk"
+
+msgid "French"
+msgstr "Fransk"
+
+msgid "Galician"
+msgstr "Galicisk"
+
+msgid "Icelandic"
+msgstr "Islandsk"
+
+msgid "Italian"
+msgstr "Italiensk"
+
+msgid "Korean"
+msgstr "Koreansk"
+
+msgid "Lithuanian"
+msgstr "Litauensk"
+
+msgid "Norwegian Bokmål"
+msgstr "Norsk Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Hollandsk"
+
+msgid "Persian"
+msgstr "Persisk"
+
+msgid "Polish"
+msgstr "Polsk"
+
+msgid "Brazilian Portuguese"
+msgstr "Braziliansk Portugisisk"
+
+msgid "Portuguese"
+msgstr "Portugisisk"
+
+msgid "Romanian"
+msgstr "Romænsk"
+
+msgid "Russian"
+msgstr "Russisk"
+
+msgid "Swedish"
+msgstr "Svensk"
+
+msgid "Slovak"
+msgstr "Slovakisk"
+
+msgid "Ukrainian"
+msgstr "Ukrainsk"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "Pages"
+msgstr "Sider"
+
+msgid "Loading…"
+msgstr "Loader..."
+
+msgid "No results"
+msgstr "Ingen resultater"
+
+msgid "Server Error"
+msgstr "Server Fejl"
+
+msgid "See all"
+msgstr "Se alle"
+
+msgid "Close explorer"
+msgstr "Luk explorer"
+
+msgid "Alt text"
+msgstr "Alt text"
+
+msgid "Write here…"
+msgstr "Skriv her..."
+
+msgid "Horizontal line"
+msgstr "Horisontal linje"
+
+msgid "Line break"
+msgstr "Ny linje"
+
+msgid "Undo"
+msgstr "Gå tilbage"
+
+msgid "Redo"
+msgstr "Gå frem"
+
+msgid "Reload the page"
+msgstr "Genindlæs siden"
+
+msgid "Reload saved content"
+msgstr "Genindlæs gemt indhold"
+
+msgid "Show latest content"
+msgstr "Vis seneste indhold"
+
+msgid "Show error"
+msgstr "Vis fejl"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Redigeringsprogrammet crashede. Indholdet er blevet sat til den nyeste gemte "
+"version."
+
+msgid "Close"
+msgstr "Luk"
+
+msgid "Edit '{title}'"
+msgstr "Rediger '{title}'"
+
+msgid "January"
+msgstr "Januar"
+
+msgid "February"
+msgstr "Februar"
+
+msgid "March"
+msgstr "Marts"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Maj"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sun"
+msgstr "Søn"
+
+msgid "Mon"
+msgstr "Man"
+
+msgid "Tue"
+msgstr "Tir"
+
+msgid "Wed"
+msgstr "Ons"
+
+msgid "Thu"
+msgstr "Tor"
+
+msgid "Fri"
+msgstr "Fre"
+
+msgid "Sat"
+msgstr "Lør"
 
 msgid "Error 404: Page not found"
 msgstr "Fejl 404: Side ikke fundet"
@@ -240,131 +432,11 @@ msgstr "Gendan kodeord"
 msgid "Reset your password"
 msgstr "Gendan dit kodeord"
 
-msgid "Page"
-msgstr "Side"
-
-msgid "Pages"
-msgstr "Sider"
-
-msgid "Loading…"
-msgstr "Loader..."
-
-msgid "No results"
-msgstr "Ingen resultater"
-
-msgid "Server Error"
-msgstr "Server Fejl"
-
-msgid "See all"
-msgstr "Se alle"
-
-msgid "Close explorer"
-msgstr "Luk explorer"
-
-msgid "Alt text"
-msgstr "Alt text"
-
-msgid "Write here…"
-msgstr "Skriv her..."
-
-msgid "Horizontal line"
-msgstr "Horisontal linje"
-
-msgid "Line break"
-msgstr "Ny linje"
-
-msgid "Undo"
-msgstr "Gå tilbage"
-
-msgid "Redo"
-msgstr "Gå frem"
-
-msgid "Reload the page"
-msgstr "Genindlæs siden"
-
-msgid "Reload saved content"
-msgstr "Genindlæs gemt indhold"
-
-msgid "Show latest content"
-msgstr "Vis seneste indhold"
-
-msgid "Show error"
-msgstr "Vis fejl"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Redigeringsprogrammet crashede. Indholdet er blevet sat til den nyeste gemte "
-"version."
-
-msgid "Close"
-msgstr "Luk"
-
-msgid "January"
-msgstr "Januar"
-
-msgid "February"
-msgstr "Februar"
-
-msgid "March"
-msgstr "Marts"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sun"
-msgstr "Søn"
-
-msgid "Mon"
-msgstr "Man"
-
-msgid "Tue"
-msgstr "Tir"
-
-msgid "Wed"
-msgstr "Ons"
-
-msgid "Thu"
-msgstr "Tor"
-
-msgid "Fri"
-msgstr "Fre"
-
-msgid "Sat"
-msgstr "Lør"
-
 msgid "Dashboard"
 msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Tilføj flere"
 
 msgid "Move up"
 msgstr "Bevæg op"
@@ -583,8 +655,14 @@ msgstr "Udgiver..."
 msgid "Publish this revision"
 msgstr "Udgiv denne revision"
 
-msgid "Publish"
-msgstr "Udgiv"
+msgid "Saving…"
+msgstr "Gemmer..."
+
+msgid "Replace current draft"
+msgstr "Udskift nuværende skitse"
+
+msgid "Save draft"
+msgstr "Gem skitse"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -708,12 +786,6 @@ msgstr "Ny %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Saving…"
-msgstr "Gemmer..."
-
-msgid "Save draft"
-msgstr "Gem skitse"
-
 msgid "This page has unsaved changes."
 msgstr "Denne side har ugemte ændringer."
 
@@ -724,12 +796,6 @@ msgstr "Redigerer %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Redigerer %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Siden er låst"
-
-msgid "Replace current draft"
-msgstr "Udskift nuværende skitse"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -919,75 +985,6 @@ msgstr "Vis i Udforsker"
 msgid "Test"
 msgstr "Test"
 
-msgid "Catalan"
-msgstr "Katalansk"
-
-msgid "German"
-msgstr "Tysk"
-
-msgid "Greek"
-msgstr "Græsk"
-
-msgid "English"
-msgstr "Engelsk"
-
-msgid "Spanish"
-msgstr "Spansk"
-
-msgid "Finnish"
-msgstr "Finsk"
-
-msgid "French"
-msgstr "Fransk"
-
-msgid "Galician"
-msgstr "Galicisk"
-
-msgid "Icelandic"
-msgstr "Islandsk"
-
-msgid "Italian"
-msgstr "Italiensk"
-
-msgid "Korean"
-msgstr "Koreansk"
-
-msgid "Lithuanian"
-msgstr "Litauensk"
-
-msgid "Norwegian Bokmål"
-msgstr "Norsk Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Hollandsk"
-
-msgid "Persian"
-msgstr "Persisk"
-
-msgid "Polish"
-msgstr "Polsk"
-
-msgid "Brazilian Portuguese"
-msgstr "Braziliansk Portugisisk"
-
-msgid "Portuguese"
-msgstr "Portugisisk"
-
-msgid "Romanian"
-msgstr "Romænsk"
-
-msgid "Russian"
-msgstr "Russisk"
-
-msgid "Swedish"
-msgstr "Svensk"
-
-msgid "Slovak"
-msgstr "Slovakisk"
-
-msgid "Ukrainian"
-msgstr "Ukrainsk"
-
 msgid "Editing"
 msgstr "Redigerer"
 
@@ -1030,38 +1027,11 @@ msgstr "Tidligste"
 msgid "Latest"
 msgstr "Seneste"
 
-msgid "Edit '{title}'"
-msgstr "Rediger '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Tilføj en underside til '{title}'"
-
 msgid "More"
 msgstr "Mere"
 
-msgid "View more options for '{title}'"
-msgstr "Vis flere muligheder for '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Flyt side '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Kopier side '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Slet side '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Afpublicer side '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Vis revisionshistorie for '{title}'"
-
 msgid "Set profile picture"
 msgstr "Angiv profilbillede"
-
-msgid "Change your profile picture"
-msgstr "Skift dit profilbillede"
 
 msgid "Change the password you use to log in."
 msgstr "Skift den adgangskode du anvender til at logge ind med."
@@ -1077,9 +1047,6 @@ msgstr "Nuværende tidszone"
 
 msgid "Choose your current time zone."
 msgstr "Vælg din nuværende tidszone."
-
-msgid "Heading {level}"
-msgstr "Overskrift {level}"
 
 msgid "Bulleted list"
 msgstr "Liste med prikker"

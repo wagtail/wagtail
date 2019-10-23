@@ -9,6 +9,7 @@
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
+# Matthias Martin, 2019
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-06-23 14:53+0000\n"
-"Last-Translator: Peter Dreuw <archandha@gmx.net>\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-18 07:12+0000\n"
+"Last-Translator: Matthias Martin\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -35,8 +36,9 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Wagtail Kern"
 
-msgid "{label}: this block has no options."
-msgstr "{label}: dieser Block hat keine Einstellmöglichkeiten."
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: dieser Block hat keine Einstellmöglichkeiten."
 
 msgid "This block has no options."
 msgstr "Dieser Block hat keine Einstellmöglichkeiten."

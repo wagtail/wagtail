@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Публикувай"
 
 msgid "Submit for moderation"
 msgstr "Предостави за модерация"
@@ -198,8 +201,8 @@ msgstr "Можете да прегледате страницата тук:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Страницата \"%(page)s\" бе предоставена за модериране"
 
-msgid "Publish"
-msgstr "Публикувай"
+msgid "Save draft"
+msgstr "Запази като чернова"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -282,9 +285,6 @@ msgstr "Нова %(page_type)s"
 
 msgid "New"
 msgstr "Ново"
-
-msgid "Save draft"
-msgstr "Запази като чернова"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

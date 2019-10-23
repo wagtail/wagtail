@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Publish"
+msgstr "انتشار"
 
 msgid "Submit for moderation"
 msgstr "فرستادن برای نظارت"
@@ -30,11 +33,17 @@ msgstr "لغو انتشار"
 msgid "Delete"
 msgstr "حذف"
 
-msgid "None"
-msgstr "خالی"
+msgid "Page locked"
+msgstr "صفحه قفل شده"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "متاسفانه مجوز لازم برای دسترسی به این ناحیه را ندارید."
 
 msgid "You do not have permission to access the admin"
 msgstr "مجوز لازم برای دسترسی به ادمین را ندارید"
+
+msgid "None"
+msgstr "خالی"
 
 msgid "Scheduled publishing"
 msgstr "انتشار زمانبندی‌شده"
@@ -60,9 +69,6 @@ msgstr "%s خود را وارد کنید"
 
 msgid "Enter your email address to reset your password"
 msgstr "برای بازنشانی رمز، نشانی ایمیل خود را وارد کنید"
-
-msgid "URL"
-msgstr "نشانی"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "نمی‌توانید چند رکورد مجوز برای یک مجموعه معین داشته باشید."
@@ -145,54 +151,62 @@ msgstr "این فیلد لازم است."
 msgid "Please select at least one group."
 msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
 
-msgid "Go to Wagtail admin"
-msgstr "رفتن به رابط راهبری وگتیل"
+msgid "Catalan"
+msgstr "کاتالان"
 
-msgid "Account"
-msgstr "حساب"
+msgid "German"
+msgstr "آلمانی"
 
-msgid "Update"
-msgstr "بروزرسانی"
+msgid "Greek"
+msgstr "یونانی"
 
-msgid "Change password"
-msgstr "تغییر رمزعبور"
+msgid "English"
+msgstr "انگلیسی"
 
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "رمزعبور شما نمیتواند تغییر کند. لطفا با راهبر سایت تماس بگیرید."
+msgid "Spanish"
+msgstr "اسپانیولی"
 
-msgid "Language Preferences"
-msgstr "ترجیحات زبانی"
+msgid "Finnish"
+msgstr "فنلاندی"
 
-msgid "Notification preferences"
-msgstr "ترجیحات آگاهسازی"
+msgid "French"
+msgstr "فرانسوی"
 
-msgid "Reset password"
-msgstr "بازنشانی رمزعبور"
+msgid "Galician"
+msgstr "گالیسیایی"
 
-msgid "Password change successful"
-msgstr "رمزعبور تغییر یافت"
+msgid "Icelandic"
+msgstr "ایسلندی"
 
-msgid "Login"
-msgstr "ورود"
+msgid "Italian"
+msgstr "ایتالیایی"
 
-msgid "Set your new password"
-msgstr "رمزعبور جدید را وارد نمایید"
+msgid "Lithuanian"
+msgstr "لیتوانیایی"
 
-msgid "Check your email"
-msgstr "ایمیل خود را چک کنید"
+msgid "Norwegian Bokmål"
+msgstr "بوکمال نروژی"
 
-msgid "Please follow the link below to reset your password:"
-msgstr "لطفا لینک پایین را برای بازنشانی رمزعبور دنبال کنید:"
+msgid "Netherlands Dutch"
+msgstr "آلمانی هلندی"
 
-msgid "Your username (in case you've forgotten):"
-msgstr "نام کاربری شما (درصورتی که فراموش کرده اید):"
+msgid "Persian"
+msgstr "فارسی"
 
-msgid "Password reset"
-msgstr "بازنشانی رمزعبور"
+msgid "Polish"
+msgstr "لهستانی"
 
-msgid "Reset your password"
-msgstr "رمزعبور را بازنشانی کنید"
+msgid "Brazilian Portuguese"
+msgstr "پرتغالی برزیل"
+
+msgid "Portuguese"
+msgstr "پرتغالی"
+
+msgid "Romanian"
+msgstr "رومانیایی"
+
+msgid "Russian"
+msgstr "روسی"
 
 msgid "Page"
 msgstr "صفحه"
@@ -214,6 +228,9 @@ msgstr "بستن کاوشگر"
 
 msgid "Close"
 msgstr "بستن"
+
+msgid "Edit '{title}'"
+msgstr "ویرایش '{title}'"
 
 msgid "January"
 msgstr "ژانویه"
@@ -272,14 +289,60 @@ msgstr "جمعه"
 msgid "Sat"
 msgstr "شنبه"
 
+msgid "Go to Wagtail admin"
+msgstr "رفتن به رابط راهبری وگتیل"
+
+msgid "Account"
+msgstr "حساب"
+
+msgid "Update"
+msgstr "بروزرسانی"
+
+msgid "Change password"
+msgstr "تغییر رمزعبور"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "رمزعبور شما نمیتواند تغییر کند. لطفا با راهبر سایت تماس بگیرید."
+
+msgid "Language Preferences"
+msgstr "ترجیحات زبانی"
+
+msgid "Notification preferences"
+msgstr "ترجیحات آگاهسازی"
+
+msgid "Reset password"
+msgstr "بازنشانی رمزعبور"
+
+msgid "Password change successful"
+msgstr "رمزعبور تغییر یافت"
+
+msgid "Login"
+msgstr "ورود"
+
+msgid "Set your new password"
+msgstr "رمزعبور جدید را وارد نمایید"
+
+msgid "Check your email"
+msgstr "ایمیل خود را چک کنید"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "لطفا لینک پایین را برای بازنشانی رمزعبور دنبال کنید:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "نام کاربری شما (درصورتی که فراموش کرده اید):"
+
+msgid "Password reset"
+msgstr "بازنشانی رمزعبور"
+
+msgid "Reset your password"
+msgstr "رمزعبور را بازنشانی کنید"
+
 msgid "Dashboard"
 msgstr "داشبورد"
 
 msgid "Menu"
 msgstr "منو"
-
-msgid "Add another"
-msgstr "افزودن یکی دیگر"
 
 msgid "Move up"
 msgstr "حرکت به بالا"
@@ -514,8 +577,11 @@ msgstr "گشوده"
 msgid "Publish this revision"
 msgstr "انتشار این بازبینی"
 
-msgid "Publish"
-msgstr "انتشار"
+msgid "Replace current draft"
+msgstr "جایگزینی پیشنویس فعلی"
+
+msgid "Save draft"
+msgstr "ذخیره پیشنویس"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -646,9 +712,6 @@ msgstr "%(page_type)s جدید"
 msgid "New"
 msgstr "جدید"
 
-msgid "Save draft"
-msgstr "ذخیره پیشنویس"
-
 msgid "This page has unsaved changes."
 msgstr "این صفحه تغییرات ذخیره نشده دارد."
 
@@ -659,12 +722,6 @@ msgstr "ویرایش %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "ویرایش %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "صفحه قفل شده"
-
-msgid "Replace current draft"
-msgstr "جایگزینی پیشنویس فعلی"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -982,66 +1039,6 @@ msgstr "نمایش در کاوشگر"
 msgid "Test"
 msgstr "تست"
 
-msgid "Catalan"
-msgstr "کاتالان"
-
-msgid "German"
-msgstr "آلمانی"
-
-msgid "Greek"
-msgstr "یونانی"
-
-msgid "English"
-msgstr "انگلیسی"
-
-msgid "Spanish"
-msgstr "اسپانیولی"
-
-msgid "Finnish"
-msgstr "فنلاندی"
-
-msgid "French"
-msgstr "فرانسوی"
-
-msgid "Galician"
-msgstr "گالیسیایی"
-
-msgid "Icelandic"
-msgstr "ایسلندی"
-
-msgid "Italian"
-msgstr "ایتالیایی"
-
-msgid "Lithuanian"
-msgstr "لیتوانیایی"
-
-msgid "Norwegian Bokmål"
-msgstr "بوکمال نروژی"
-
-msgid "Netherlands Dutch"
-msgstr "آلمانی هلندی"
-
-msgid "Persian"
-msgstr "فارسی"
-
-msgid "Polish"
-msgstr "لهستانی"
-
-msgid "Brazilian Portuguese"
-msgstr "پرتغالی برزیل"
-
-msgid "Portuguese"
-msgstr "پرتغالی"
-
-msgid "Romanian"
-msgstr "رومانیایی"
-
-msgid "Russian"
-msgstr "روسی"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "متاسفانه مجوز لازم برای دسترسی به این ناحیه را ندارید."
-
 msgid "Your password has been changed successfully!"
 msgstr "رمز عبور شما با موفقیت تغییر یافت!"
 
@@ -1188,38 +1185,8 @@ msgstr "اولین"
 msgid "Latest"
 msgstr "آخرین"
 
-msgid "Edit '{title}'"
-msgstr "ویرایش '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "پیش نمایش نسخه پیش نویس '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "دیدن نسخه زنده '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "افزودن زیرصفحه به '{title}'"
-
 msgid "More"
 msgstr "بیشتر"
-
-msgid "View more options for '{title}'"
-msgstr "دیدن گزینه های بیشتر برای '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "انتقال صفحه '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "کپی صفحه '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "حذف صفحه '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "لغوانتشار صفحه '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "نمایش سابقه بازبینی‌های '{title}'"
 
 msgid "Change the password you use to log in."
 msgstr "رمزعبورتان را برای ورود تغییر دهید."

@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-08-22 14:29+0000\n"
-"Last-Translator: Mohammed Abdul gadir <weekmo@aol.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,9 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Publish"
+msgstr "انشر"
 
 msgid "Submit for moderation"
 msgstr "قدّم للمراجعة"
@@ -35,14 +38,20 @@ msgstr "غير منشور"
 msgid "Delete"
 msgstr "احذف"
 
+msgid "Page locked"
+msgstr "الصفحة مغلقة"
+
 msgid "Wagtail admin"
 msgstr "مشرف Wagtail"
 
-msgid "None"
-msgstr "فارغ"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "عذرًا ، ليس لديك إذن للوصول إلى هذه المنطقة."
 
 msgid "You do not have permission to access the admin"
 msgstr "ليس لديك الصلاحيات لدخول الى Admin"
+
+msgid "None"
+msgstr "فارغ"
 
 msgid "Scheduled publishing"
 msgstr "نشر مجدول"
@@ -68,9 +77,6 @@ msgstr "ادخل %s الخاص بك "
 
 msgid "Enter your email address to reset your password"
 msgstr "ادخل البريد الإلكتروني الخاص بك لإرجاع كلمة المرور الخاصة بك "
-
-msgid "URL"
-msgstr "الرابط"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "لا يوجد لديك العديد من الصلاحيات المسجلة في نفس المجموعة"
@@ -158,6 +164,229 @@ msgstr "هذا الحقل مقتضى"
 
 msgid "Please select at least one group."
 msgstr "نرجوا اختيار على الاقل مجموعة واحدة"
+
+msgid "Arabic"
+msgstr "عربي"
+
+msgid "Catalan"
+msgstr "الكاتالونية"
+
+msgid "German"
+msgstr "الألمانية"
+
+msgid "Greek"
+msgstr "اليونانية"
+
+msgid "English"
+msgstr "الإنجليزية"
+
+msgid "Spanish"
+msgstr "الأسبانية"
+
+msgid "Finnish"
+msgstr "الفنلندية"
+
+msgid "French"
+msgstr "الفرنسية"
+
+msgid "Galician"
+msgstr "الجاليكية"
+
+msgid "Indonesian"
+msgstr "الأندونيسية"
+
+msgid "Icelandic"
+msgstr "أيسلندي"
+
+msgid "Italian"
+msgstr "الإيطالي"
+
+msgid "Korean"
+msgstr "الكورية"
+
+msgid "Lithuanian"
+msgstr "اللتوانية"
+
+msgid "Norwegian Bokmål"
+msgstr "النرويجية بوكمال"
+
+msgid "Netherlands Dutch"
+msgstr "الهولندية"
+
+msgid "Persian"
+msgstr "الفارسية"
+
+msgid "Polish"
+msgstr "البولندي"
+
+msgid "Brazilian Portuguese"
+msgstr "البرتغالية البرازيلية"
+
+msgid "Portuguese"
+msgstr "البرتغالية"
+
+msgid "Romanian"
+msgstr "روماني"
+
+msgid "Russian"
+msgstr "الروسية"
+
+msgid "Swedish"
+msgstr "السويدية"
+
+msgid "Slovak"
+msgstr "السلوفاكية"
+
+msgid "Ukrainian"
+msgstr "الأوكراني"
+
+msgid "Page"
+msgstr "صفحة"
+
+msgid "Pages"
+msgstr "صفحات"
+
+msgid "Loading…"
+msgstr "تحميل..."
+
+msgid "No results"
+msgstr "لاتوجد نتائج"
+
+msgid "Server Error"
+msgstr "خطا بالخادم"
+
+msgid "See all"
+msgstr "مشاهدة الكل"
+
+msgid "Close explorer"
+msgstr "اغلق المستكشف"
+
+msgid "Alt text"
+msgstr "نص للمساعدة"
+
+msgid "Write here…"
+msgstr "اكتب هنا..."
+
+msgid "Horizontal line"
+msgstr "خط افقي"
+
+msgid "Line break"
+msgstr "خط فصل"
+
+msgid "Undo"
+msgstr "تراجع"
+
+msgid "Redo"
+msgstr "للامام"
+
+msgid "Reload the page"
+msgstr "اعادة تحميل الصفحه"
+
+msgid "Reload saved content"
+msgstr "اعادة تحميل المحتوى المحفوظ"
+
+msgid "Show latest content"
+msgstr "اظهر اخر محتوى"
+
+msgid "Show error"
+msgstr "اعرض الخطء"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "المحرر تحطمت للتو. تمت إعادة تعيين المحتوى إلى آخر إصدار تم حفظه."
+
+msgid "Broken link"
+msgstr "رابط معطوب"
+
+msgid "Missing document"
+msgstr "مستند مفقود"
+
+msgid "Close"
+msgstr "اغلاق"
+
+msgid "Edit '{title}'"
+msgstr "تحرير '{title}'"
+
+msgid "Page explorer"
+msgstr "مستكشف الصفحة"
+
+msgid "January"
+msgstr "يناير"
+
+msgid "February"
+msgstr "فبراير"
+
+msgid "March"
+msgstr "مارس"
+
+msgid "April"
+msgstr "أبريل"
+
+msgid "May"
+msgstr "مايو"
+
+msgid "June"
+msgstr "يونيو"
+
+msgid "July"
+msgstr "يوليو"
+
+msgid "August"
+msgstr "أغسطس"
+
+msgid "September"
+msgstr "سبتمبر"
+
+msgid "October"
+msgstr "اكتوبر"
+
+msgid "November"
+msgstr "نوفمبر"
+
+msgid "December"
+msgstr "ديسمبر"
+
+msgid "Sunday"
+msgstr "الاحد"
+
+msgid "Monday"
+msgstr "الاثنين"
+
+msgid "Tuesday"
+msgstr "الثلاثاء"
+
+msgid "Wednesday"
+msgstr "الاربعاء"
+
+msgid "Thursday"
+msgstr "الخميس"
+
+msgid "Friday"
+msgstr "الجمعة"
+
+msgid "Saturday"
+msgstr "السبت"
+
+msgid "Sun"
+msgstr "احد"
+
+msgid "Mon"
+msgstr "اثنين"
+
+msgid "Tue"
+msgstr "ثلاثاء"
+
+msgid "Wed"
+msgstr "اربعاء"
+
+msgid "Thu"
+msgstr "خميس"
+
+msgid "Fri"
+msgstr "جمعة"
+
+msgid "Sat"
+msgstr "سبت"
 
 msgid "Error 404: Page not found"
 msgstr "خطا 404: الصفحة المطلوبة غير متوفرة"
@@ -248,165 +477,11 @@ msgstr "أكملت إعادة تثبيت كلمة السر"
 msgid "Reset your password"
 msgstr "أعد تثبيت كلمةتك السرية"
 
-msgid "Page"
-msgstr "صفحة"
-
-msgid "Pages"
-msgstr "صفحات"
-
-msgid "Loading…"
-msgstr "تحميل..."
-
-msgid "No results"
-msgstr "لاتوجد نتائج"
-
-msgid "Server Error"
-msgstr "خطا بالخادم"
-
-msgid "See all"
-msgstr "مشاهدة الكل"
-
-msgid "Close explorer"
-msgstr "اغلق المستكشف"
-
-msgid "Alt text"
-msgstr "نص للمساعدة"
-
-msgid "Write here…"
-msgstr "اكتب هنا..."
-
-msgid "Horizontal line"
-msgstr "خط افقي"
-
-msgid "Line break"
-msgstr "خط فصل"
-
-msgid "Undo"
-msgstr "تراجع"
-
-msgid "Redo"
-msgstr "للامام"
-
-msgid "Reload the page"
-msgstr "اعادة تحميل الصفحه"
-
-msgid "Reload saved content"
-msgstr "اعادة تحميل المحتوى المحفوظ"
-
-msgid "Show latest content"
-msgstr "اظهر اخر محتوى"
-
-msgid "Show error"
-msgstr "اعرض الخطء"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "المحرر تحطمت للتو. تمت إعادة تعيين المحتوى إلى آخر إصدار تم حفظه."
-
-msgid "Broken link"
-msgstr "رابط معطوب"
-
-msgid "Missing document"
-msgstr "مستند مفقود"
-
-msgid "Close"
-msgstr "اغلاق"
-
-msgid "Edit \\"
-msgstr "تعديل /"
-
-msgid "View child pages of \\"
-msgstr "اظهر الصفحات الفرعية ل /"
-
-msgid "Page explorer"
-msgstr "مستكشف الصفحة"
-
-msgid "January"
-msgstr "يناير"
-
-msgid "February"
-msgstr "فبراير"
-
-msgid "March"
-msgstr "مارس"
-
-msgid "April"
-msgstr "أبريل"
-
-msgid "May"
-msgstr "مايو"
-
-msgid "June"
-msgstr "يونيو"
-
-msgid "July"
-msgstr "يوليو"
-
-msgid "August"
-msgstr "أغسطس"
-
-msgid "September"
-msgstr "سبتمبر"
-
-msgid "October"
-msgstr "اكتوبر"
-
-msgid "November"
-msgstr "نوفمبر"
-
-msgid "December"
-msgstr "ديسمبر"
-
-msgid "Sunday"
-msgstr "الاحد"
-
-msgid "Monday"
-msgstr "الاثنين"
-
-msgid "Tuesday"
-msgstr "الثلاثاء"
-
-msgid "Wednesday"
-msgstr "الاربعاء"
-
-msgid "Thursday"
-msgstr "الخميس"
-
-msgid "Friday"
-msgstr "الجمعة"
-
-msgid "Saturday"
-msgstr "السبت"
-
-msgid "Sun"
-msgstr "احد"
-
-msgid "Mon"
-msgstr "اثنين"
-
-msgid "Tue"
-msgstr "ثلاثاء"
-
-msgid "Wed"
-msgstr "اربعاء"
-
-msgid "Thu"
-msgstr "خميس"
-
-msgid "Fri"
-msgstr "جمعة"
-
-msgid "Sat"
-msgstr "سبت"
-
 msgid "Dashboard"
 msgstr "لوحة التحكم"
 
 msgid "Menu"
 msgstr "قائمة المحتويات"
-
-msgid "Add another"
-msgstr "أـضف آخر"
 
 msgid "Move up"
 msgstr "تقدم إلى فوق "
@@ -663,8 +738,14 @@ msgstr "يتم النشر..."
 msgid "Publish this revision"
 msgstr "نشر النسخه السابقه"
 
-msgid "Publish"
-msgstr "انشر"
+msgid "Saving…"
+msgstr "يتم الحفظ..."
+
+msgid "Replace current draft"
+msgstr "استبدال المسودة الحالية"
+
+msgid "Save draft"
+msgstr "احفظ المسوّد"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -759,12 +840,6 @@ msgstr "جديد %(page_type)s"
 msgid "New"
 msgstr "جديد"
 
-msgid "Saving…"
-msgstr "يتم الحفظ..."
-
-msgid "Save draft"
-msgstr "احفظ المسوّد"
-
 msgid "This page has unsaved changes."
 msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
 
@@ -775,12 +850,6 @@ msgstr "قيد التعديل %(page_type)s :%(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "تحرير %(page_type)s <span> %(title)s </span>"
-
-msgid "Page locked"
-msgstr "الصفحة مغلقة"
-
-msgid "Replace current draft"
-msgstr "استبدال المسودة الحالية"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1087,84 +1156,6 @@ msgstr "اعرض في المستكشف"
 msgid "Test"
 msgstr "اختبار"
 
-msgid "Arabic"
-msgstr "عربي"
-
-msgid "Catalan"
-msgstr "الكاتالونية"
-
-msgid "German"
-msgstr "الألمانية"
-
-msgid "Greek"
-msgstr "اليونانية"
-
-msgid "English"
-msgstr "الإنجليزية"
-
-msgid "Spanish"
-msgstr "الأسبانية"
-
-msgid "Finnish"
-msgstr "الفنلندية"
-
-msgid "French"
-msgstr "الفرنسية"
-
-msgid "Galician"
-msgstr "الجاليكية"
-
-msgid "Indonesian"
-msgstr "الأندونيسية"
-
-msgid "Icelandic"
-msgstr "أيسلندي"
-
-msgid "Italian"
-msgstr "الإيطالي"
-
-msgid "Korean"
-msgstr "الكورية"
-
-msgid "Lithuanian"
-msgstr "اللتوانية"
-
-msgid "Norwegian Bokmål"
-msgstr "النرويجية بوكمال"
-
-msgid "Netherlands Dutch"
-msgstr "الهولندية"
-
-msgid "Persian"
-msgstr "الفارسية"
-
-msgid "Polish"
-msgstr "البولندي"
-
-msgid "Brazilian Portuguese"
-msgstr "البرتغالية البرازيلية"
-
-msgid "Portuguese"
-msgstr "البرتغالية"
-
-msgid "Romanian"
-msgstr "روماني"
-
-msgid "Russian"
-msgstr "الروسية"
-
-msgid "Swedish"
-msgstr "السويدية"
-
-msgid "Slovak"
-msgstr "السلوفاكية"
-
-msgid "Ukrainian"
-msgstr "الأوكراني"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "عذرًا ، ليس لديك إذن للوصول إلى هذه المنطقة."
-
 msgid "Your password has been changed successfully!"
 msgstr "تم تغيير كلمة المرور الخاصة بك بنجاح!"
 
@@ -1326,44 +1317,11 @@ msgstr "مراجعة {0} من \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "مراجعة {0} من \"{1}\" غير المجدولة."
 
-msgid "Edit '{title}'"
-msgstr "تحرير '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "معاينة نسخة مسودة '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "عرض إصدار مباشر من '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "إضافة صفحة فرعية إلى '{title}'"
-
 msgid "More"
 msgstr "المزيد"
 
-msgid "View more options for '{title}'"
-msgstr "عرض مزيد من الخيارات لـ '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "نقل الصفحة '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "نسخة الصفحة '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "حذف الصفحة '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "إلغاء نشر الصفحة '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "عرض سجل النسخ السابقة لـ '{title}'"
-
 msgid "Set profile picture"
 msgstr "اضبط صورة الملف الشخصي"
-
-msgid "Change your profile picture"
-msgstr "غير صورة ملفك الشخصي"
 
 msgid "Change the email address linked to your account."
 msgstr "قم بتغيير عنوان البريد الإلكتروني المرتبط بحسابك."
@@ -1385,9 +1343,6 @@ msgstr "الوقت الزمني الحالي"
 
 msgid "Choose your current time zone."
 msgstr "اختر منطقتك الزمنية الحالية."
-
-msgid "Heading {level}"
-msgstr "Heading {level}"
 
 msgid "Bulleted list"
 msgstr "قائمة ذات تعداد نقطي"
