@@ -68,12 +68,18 @@ class HalloListPlugin(HalloPlugin):
         plugins[self.name]['lists'][self.list_type] = True
 
 
+class HalloRequireParagraphsPlugin(HalloPlugin):
+    @property
+    def media(self):
+        return Media(js=[
+            versioned_static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
+        ]) + super().media
+
+
 # Plugins which are always imported, and cannot be enabled/disabled via 'features'
 CORE_HALLO_PLUGINS = [
     HalloPlugin(name='halloreundo', order=50),
-    HalloPlugin(name='hallorequireparagraphs', js=[
-        versioned_static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
-    ]),
+    HalloRequireParagraphsPlugin(name='hallorequireparagraphs'),
     HalloHeadingPlugin(element='p')
 ]
 

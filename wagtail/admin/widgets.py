@@ -2,6 +2,7 @@ import itertools
 import json
 from functools import total_ordering
 
+from django import forms
 from django.conf import settings
 from django.forms import widgets
 from django.forms.utils import flatatt
@@ -59,8 +60,11 @@ class AdminDateInput(widgets.DateInput):
 
         return context
 
-    class Media:
-        js = [versioned_static('wagtailadmin/js/date-time-chooser.js')]
+    @property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/date-time-chooser.js'),
+        ])
 
 
 class AdminTimeInput(widgets.TimeInput):
@@ -72,8 +76,11 @@ class AdminTimeInput(widgets.TimeInput):
             default_attrs.update(attrs)
         super().__init__(attrs=default_attrs, format=format)
 
-    class Media:
-        js = [versioned_static('wagtailadmin/js/date-time-chooser.js')]
+    @property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/date-time-chooser.js'),
+        ])
 
 
 class AdminDateTimeInput(widgets.DateTimeInput):
@@ -100,8 +107,11 @@ class AdminDateTimeInput(widgets.DateTimeInput):
 
         return context
 
-    class Media:
-        js = [versioned_static('wagtailadmin/js/date-time-chooser.js')]
+    @property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/date-time-chooser.js'),
+        ])
 
 
 class AdminTagWidget(TagWidget):
@@ -238,11 +248,12 @@ class AdminPageChooser(AdminChooser):
             user_perms=json.dumps(self.user_perms),
         )
 
-    class Media:
-        js = [
+    @property
+    def media(self):
+        return forms.Media(js=[
             versioned_static('wagtailadmin/js/page-chooser-modal.js'),
             versioned_static('wagtailadmin/js/page-chooser.js'),
-        ]
+        ])
 
 
 @total_ordering
