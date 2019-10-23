@@ -3,6 +3,7 @@ from django.test.utils import override_settings
 
 from wagtail.admin import widgets
 from wagtail.core.models import Page
+from wagtail.tests.testapp.forms import AdminStarDateInput
 from wagtail.tests.testapp.models import EventPage, SimplePage
 
 
@@ -121,6 +122,16 @@ class TestAdminDateInput(TestCase):
             '"format": "d.m.Y."',
             html,
         )
+
+    def test_media_inheritance(self):
+        """
+        Widgets inheriting from AdminDateInput should have their media definitions merged
+        with AdminDateInput's
+        """
+        widget = AdminStarDateInput()
+        media_html = str(widget.media)
+        self.assertIn('wagtailadmin/js/date-time-chooser.js', media_html)
+        self.assertIn('vendor/star_date.js', media_html)
 
 
 class TestAdminDateTimeInput(TestCase):
