@@ -2,10 +2,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.html import escape
 
 from wagtail.core.rich_text import LinkHandler
-from wagtail.documents.models import get_document_model
-
+from wagtail.documents import get_document_model
 
 # Front-end conversion
+
 
 class DocumentLinkHandler(LinkHandler):
     identifier = 'document'
