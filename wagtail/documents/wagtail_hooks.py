@@ -3,9 +3,8 @@ from django.conf.urls import include, url
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext
+from django.utils.translation import ugettext, ungettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
