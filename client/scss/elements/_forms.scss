@@ -94,9 +94,9 @@ select,
     &[disabled],
     &:disabled:hover,
     &[disabled]:hover {
-        background-color: inherit;
-        cursor: default;
-        color: $color-grey-4;
+        background-color: $color-grey-4;
+        cursor: not-allowed;
+        color: $color-grey-2;
     }
 }
 
