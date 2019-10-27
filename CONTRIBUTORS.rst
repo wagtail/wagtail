@@ -418,6 +418,7 @@ Contributors
 * ryanomor
 * Thijs Baaijen
 * Igor van Spengen
+* Timothy Bautista
 
 Translators
 ===========
