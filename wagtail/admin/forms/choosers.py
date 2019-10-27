@@ -1,6 +1,7 @@
 from django import forms
 from django.core import validators
 from django.forms.widgets import TextInput
+from django.utils.translation import ugettext_lazy as _
 
 
 class URLOrAbsolutePathValidator(validators.URLValidator):
@@ -26,7 +27,7 @@ class URLOrAbsolutePathField(forms.URLField):
 
 
 class ExternalLinkChooserForm(forms.Form):
-    url = URLOrAbsolutePathField(required=True, label="")
+    url = URLOrAbsolutePathField(required=True, label=_("URL"))
     link_text = forms.CharField(required=False)
 
 
