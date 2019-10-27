@@ -51,6 +51,7 @@ Bug fixes
  * Prevent error from very tall / wide images being resized to 0 pixels (Fidel Ramos)
  * Remove excess margin when editing snippets (Quadric)
  * Added ``scope`` attribute to table headers in TableBlock output (Quadric)
+ * Prevent KeyError when accessing a StreamField on a deferred queryset (Paulo Alvarado)
 
 
 Upgrade considerations
