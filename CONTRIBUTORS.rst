@@ -417,6 +417,7 @@ Contributors
 * kailwallin
 * ryanomor
 * Thijs Baaijen
+* Timothy Bautista
 
 Translators
 ===========
