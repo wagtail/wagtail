@@ -5,7 +5,7 @@ from django.test import TestCase
 from wagtail.core.models import Page, PageViewRestriction, Site
 from wagtail.core.signals import page_unpublished
 from wagtail.search.query import MATCH_ALL
-from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage
+from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage, StreamPage
 
 
 class TestPageQuerySet(TestCase):
@@ -631,20 +631,26 @@ class TestSpecificQuery(TestCase):
     def test_deferred_specific_query(self):
         # Tests the "defer" keyword argument, which defers all specific fields
         root = Page.objects.get(url_path='/home/')
+        stream_page = StreamPage(
+            title='stream page',
+            slug='stream-page',
+            body='[{"type": "text", "value": "foo"}]',
+        )
+        root.add_child(instance=stream_page)
 
         with self.assertNumQueries(0):
             # The query should be lazy.
             qs = root.get_descendants().specific(defer=True)
 
-        with self.assertNumQueries(4):
-            # This still performs 4 queries (one for each specific class)
+        with self.assertNumQueries(5):
+            # This still performs 5 queries (one for each specific class)
             # even though we're only pulling in fields from the base Page
             # model.
             # TODO: Find a way to make this perform a single query
             pages = list(qs)
 
         self.assertIsInstance(pages, list)
-        self.assertEqual(len(pages), 7)
+        self.assertEqual(len(pages), 8)
 
         for page in pages:
             # An instance of the specific page type should be returned,
@@ -660,8 +666,11 @@ class TestSpecificQuery(TestCase):
 
         # Unlike before, the content fields should be now deferred. This means
         # that accessing them will generate a new query.
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(2):
+            # <EventPage: Christmas>
             pages[1].body
+            # <StreamPage: stream page>
+            pages[-1].body
 
 
 class TestFirstCommonAncestor(TestCase):

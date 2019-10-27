@@ -440,6 +440,7 @@ Contributors
 * Lars van de Kerkhof
 * pimarc
 * minusf
+* Paulo Alvarado
 
 Translators
 ===========
