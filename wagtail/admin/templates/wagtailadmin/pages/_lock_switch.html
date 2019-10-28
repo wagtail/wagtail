@@ -18,8 +18,8 @@
     <button
         type="submit"
         class="status-tag {{ page.locked|yesno:'primary,secondary' }}{% if not form_action %} disabled{% endif %}"
-        aria-label="{% if page_locked %}{% if user_can_unlock %}{% trans 'Remove editor lock. Current status: Locked' %}{% else %}{% trans 'Current status: Locked' %}{% endif %}{% else %}{% trans 'Apply editor lock. Current status: Unlocked' %}{% endif %}">
-        {% if page_locked %}
+        aria-label="{% if page_perms.page_locked %}{% if page_perms.can_unlock %}{% trans 'Remove editor lock. Current status: Locked' %}{% else %}{% trans 'Current status: Locked' %}{% endif %}{% else %}{% trans 'Apply editor lock. Current status: Unlocked' %}{% endif %}">
+        {% if page_perms.page_locked %}
             {% trans "Locked" %}
         {% elif user_has_lock %}
             {% trans "Locked by you" %}
