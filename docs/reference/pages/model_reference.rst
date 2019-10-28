@@ -104,10 +104,10 @@ Database fields
 
         (boolean)
 
-        When set to ``True``, the Wagtail editor will not allow any user's to edit
+        When set to ``True``, the Wagtail editor will not allow any users to edit
         the content of the page.
 
-        If ``locked_by`` is also set, only that user cat edit the page.
+        If ``locked_by`` is also set, only that user can edit the page.
 
     .. attribute:: locked_by
 
