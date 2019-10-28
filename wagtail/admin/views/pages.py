@@ -547,9 +547,7 @@ def edit(request, page_id):
         'form': form,
         'next': next_url,
         'has_unsaved_changes': has_unsaved_changes,
-        'page_locked': page_locked,
         'user_has_lock': user_has_lock,
-        'user_can_unlock': page_perms.can_unlock(),
     })
 
 
