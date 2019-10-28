@@ -59,7 +59,7 @@ set a thread local to indicate to all downstream code that AMP mode is active.
 
     (feel free to skip this part if you're not interested)
 
-    Modifying the ``request`` would obviously be the easiest way to do this.
+    Modifying the ``request`` object would be the most common way to do this.
     However, the image tag rendering is performed in a part of Wagtail that
     does not have access to the request.
 
@@ -169,8 +169,8 @@ file for the ``/amp`` prefix:
 After this, there shouldn't be any noticable difference to the AMP version of
 the site.
 
-Write a template context process so that AMP state can be checked in templates
-------------------------------------------------------------------------------
+Write a template context processor so that AMP state can be checked in templates
+--------------------------------------------------------------------------------
 
 This is optional, but worth doing so we can confirm that everything is working
 so far.
@@ -204,7 +204,7 @@ Now add the path to this context processor to the
                 'context_processors': [
                     ...
                     # Add this after other context processors
-                'myapp.amp_context_processors.amp',
+                    'myapp.amp_context_processors.amp',
                 ],
             },
         },
@@ -254,7 +254,7 @@ For example:
 
         ...
 
-Without a custom image model, you will have to monkey-patchi the builtin
+Without a custom image model, you will have to monkey-patch the builtin
 ``Rendition`` model.
 Add this anywhere in your project where it would be imported on start:
 
