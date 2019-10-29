@@ -661,6 +661,17 @@ Customise the behaviour of rich text fields. By default, ``RichTextField`` and `
  * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but both ``DraftailRichTextArea`` and ``HalloRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
 
 
+Page locking
+------------
+
+.. versionadded:: 2.8
+
+  The page locking logic has been changed so that pages are still editable
+  by the users who locked them.
+
+The ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` can be set to ``True`` to prevent users
+from editing pages that they have locked.
+
 
 URL Patterns
 ~~~~~~~~~~~~
