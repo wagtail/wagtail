@@ -62,11 +62,10 @@ Or alternatively:
         ])
 
 
-.. versionadded:: 2.5
-   ``edit_handler`` and ``panels`` can alternatively be 
-   defined on a ``ModelAdmin`` definition. This feature is especially useful
-   for use cases where you have to work with models that are 
-   'out of reach' (due to being part of a third-party package, for example).
+``edit_handler`` and ``panels`` can alternatively be
+defined on a ``ModelAdmin`` definition. This feature is especially useful
+for use cases where you have to work with models that are
+'out of reach' (due to being part of a third-party package, for example).
 
 .. code-block:: python
 
@@ -204,7 +203,6 @@ on the Model itself is more complicated.
 -----------------------------------
 ``ModelAdmin.get_edit_handler()``
 -----------------------------------
-.. versionadded:: 2.5
 
 **Must return**: An instance of ``wagtail.admin.edit_handlers.ObjectList``
 
