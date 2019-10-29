@@ -220,7 +220,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         from wagtail.core.models import PageViewRestriction
 
         q = Q()
-        for restriction in PageViewRestriction.objects.all():
+        for restriction in PageViewRestriction.objects.select_related('page').all():
             q &= ~self.descendant_of_q(restriction.page, inclusive=True)
         return q
 
