@@ -33,7 +33,6 @@ urlpatterns = [
 
     url(r'^(\d+)/lock/$', pages.lock, name='lock'),
     url(r'^(\d+)/unlock/$', pages.unlock, name='unlock'),
-    url(r'^locked/$', pages.locked_pages, name='locked_pages'),
 
     url(r'^(\d+)/revisions/$', pages.revisions_index, name='revisions_index'),
     url(r'^(\d+)/revisions/(\d+)/view/$', pages.revisions_view, name='revisions_view'),

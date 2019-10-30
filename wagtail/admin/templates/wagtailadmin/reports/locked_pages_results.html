@@ -1,9 +1,9 @@
 {% load i18n wagtailadmin_tags %}
 <div class="nice-padding">
     {% if pages %}
-        {% include "wagtailadmin/pages/listing/_list_unlock.html" %}
+        {% include "wagtailadmin/reports/listing/_list_unlock.html" %}
 
-        {% url 'wagtailadmin_pages:locked_pages' as pagination_base_url %}
+        {% url 'wagtailadmin_reports:locked_pages' as pagination_base_url %}
         {% paginate pages base_url=pagination_base_url %}
     {% else %}
         <p>{% trans 'No pages have been locked.' %}</p>
