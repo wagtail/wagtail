@@ -1106,7 +1106,7 @@ def unlock(request, page_id):
         page.locked_at = None
         page.save()
 
-        messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()))
+        messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()), extra_tags='unlock')
 
     # Redirect
     redirect_to = request.POST.get('next', None)
