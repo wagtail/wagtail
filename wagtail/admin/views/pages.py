@@ -345,6 +345,14 @@ def edit(request, page_id):
     user_has_lock = page.locked_by_id == request.user.id
     page_locked = page_perms.page_locked()
 
+    if user_has_lock:
+        messages.warning(request, _("Page '{0}' was locked by you on {1}.").format(page.get_admin_display_title(), page.locked_at.strftime("%d %b %Y %H:%M")), extra_tags='lock')
+    if page_locked:
+        locked_by_message = ""
+        if page.locked_by:
+            locked_by_message = " by " + str(page.locked_by)
+        messages.error(request, _("Page '{0}' was locked{1} on {2}.").format(page.get_admin_display_title(), locked_by_message, page.locked_at.strftime("%d %b %Y %H:%M")), extra_tags='lock')
+
     next_url = get_valid_next_url_from_request(request)
 
     errors_debug = None
