@@ -613,3 +613,24 @@ def register_core_features(features):
             'style_map': {'CODE': 'code'}
         }
     })
+
+class ReportsMenuItem(SubmenuMenuItem):
+    template = 'wagtailadmin/shared/menu_submenu_item.html'
+    def is_shown(self, request):
+        return True
+
+
+class LockedPagesMenuItem(MenuItem):
+    def is_shown(self, request):
+        return True
+
+
+@hooks.register('register_reports_menu_item')
+def register_locked_pages_menu_item():
+    return LockedPagesMenuItem(_('Locked Pages'), reverse('wagtailadmin_pages:locked_pages'), classnames='icon icon-locked', order=700)
+
+
+@hooks.register('register_admin_menu_item')
+def register_reports_menu():
+    return ReportsMenuItem(
+        _('Reports'), reports_menu, classnames='icon icon-site', order=9000)
