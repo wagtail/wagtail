@@ -1088,8 +1088,6 @@ def lock(request, page_id):
         page.locked_at = timezone.now()
         page.save()
 
-        messages.success(request, _("Page '{0}' is now locked.").format(page.get_admin_display_title()))
-
     # Redirect
     redirect_to = request.POST.get('next', None)
     if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
