@@ -436,7 +436,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def clean(self):
         super().clean()
-        if not Page._slug_is_available(self.slug, self.get_parent(), self):
+        parent = None
+        try:
+            parent = self.get_parent()
+        except Page.DoesNotExist:
+            pass
+
+        if not Page._slug_is_available(self.slug, parent, self):
             raise ValidationError({'slug': _("This slug is already in use")})
 
     @transaction.atomic
