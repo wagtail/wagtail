@@ -74,6 +74,18 @@
     .errorlist {
         margin: 0.5em 0 0 1em;
     }
+
+    .lock {
+        &:before {
+            content: map-get($icons, 'locked');
+        }
+    }
+
+    .unlock {
+        &:before {
+            content: map-get($icons, 'unlocked');
+        }
+    }
 }
 
 .messages.new > ul {

@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.html import format_html
 from django.utils.http import is_safe_url, urlquote
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -346,12 +347,12 @@ def edit(request, page_id):
     page_locked = page_perms.page_locked()
 
     if user_has_lock:
-        messages.warning(request, _("Page '{0}' was locked by you on {1}.").format(page.get_admin_display_title(), page.locked_at.strftime("%d %b %Y %H:%M")), extra_tags='lock')
+        messages.warning(request, format_html(_("<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."), page.get_admin_display_title(), page.locked_at.strftime("%d %b %Y %H:%M")), extra_tags='lock')
     if page_locked:
         locked_by_message = ""
         if page.locked_by:
-            locked_by_message = " by " + str(page.locked_by)
-        messages.error(request, _("Page '{0}' was locked{1} on {2}.").format(page.get_admin_display_title(), locked_by_message, page.locked_at.strftime("%d %b %Y %H:%M")), extra_tags='lock')
+            locked_by_message = format_html(" by <b>{}</b>", str(page.locked_by))
+        messages.error(request, format_html(_("<b>Page '{}' was locked</b>{} on <b>{}</b>."), page.get_admin_display_title(), locked_by_message, page.locked_at.strftime("%d %b %Y %H:%M")), extra_tags='lock')
 
     next_url = get_valid_next_url_from_request(request)
 
