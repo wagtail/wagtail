@@ -42,7 +42,7 @@ python manage.py runserver
 
 For detailed installation and setup docs, see [docs.wagtail.io](http://docs.wagtail.io/).
 
-### Who’s using it?
+### Who’s using it?? 
 
 Wagtail is used by NASA, Google, Oxfam, the NHS, Mozilla, MIT, the Red Cross, Salesforce, NBC, BMW, and the US and UK governments. Add your own Wagtail site to [madewithwagtail.org](http://madewithwagtail.org).
 
