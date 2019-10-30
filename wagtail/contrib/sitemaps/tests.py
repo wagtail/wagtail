@@ -72,7 +72,7 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         sitemap = Sitemap()
-        with self.assertNumQueries(18):
+        with self.assertNumQueries(17):
             urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage
@@ -84,7 +84,7 @@ class TestSitemapGenerator(TestCase):
 
         sitemap = Sitemap(request)
 
-        with self.assertNumQueries(16):
+        with self.assertNumQueries(15):
             urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage
