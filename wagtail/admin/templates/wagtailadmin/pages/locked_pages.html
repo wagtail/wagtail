@@ -4,7 +4,7 @@
 
 {% block content %}
     {% trans "Locked pages" as title %}
-    {% include "wagtailadmin/shared/header.html" with title=title icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=title icon="locked" %}
 
     <div id="page-results">
         {% include "wagtailadmin/pages/locked_pages_results.html" %}
