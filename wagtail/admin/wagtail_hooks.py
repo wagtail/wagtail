@@ -7,7 +7,7 @@ from draftjs_exporter.dom import DOM
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.locale import get_available_admin_languages, get_available_admin_time_zones
-from wagtail.admin.menu import MenuItem, reports_menu, SubmenuMenuItem, settings_menu
+from wagtail.admin.menu import MenuItem, SubmenuMenuItem, reports_menu, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
     HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin)
@@ -615,16 +615,14 @@ def register_core_features(features):
         }
     })
 
+
 class ReportsMenuItem(SubmenuMenuItem):
     template = 'wagtailadmin/shared/menu_submenu_item.html'
 
 
-class LockedPagesMenuItem(MenuItem):
-    pass
-
 @hooks.register('register_reports_menu_item')
 def register_locked_pages_menu_item():
-    return LockedPagesMenuItem(_('Locked Pages'), reverse('wagtailadmin_reports:locked_pages'), classnames='icon icon-locked', order=700)
+    return MenuItem(_('Locked Pages'), reverse('wagtailadmin_reports:locked_pages'), classnames='icon icon-locked', order=700)
 
 
 @hooks.register('register_admin_menu_item')
