@@ -14,7 +14,9 @@
                     {% endblock %}
                     {% paginate pages base_url=request.path %}
                 {% else %}
-                    <p>{% trans 'No pages available.' %}</p>
+                    {% block no_results %}
+                        <p>{% trans "No pages match this report's criteria." %}</p>
+                    {% endblock %}
                 {% endif %}
             </div>
         </div>
