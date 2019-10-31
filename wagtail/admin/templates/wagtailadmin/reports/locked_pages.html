@@ -1,12 +1,4 @@
-{% extends "wagtailadmin/base.html" %}
-{% load i18n %}
-{% block titletag %}{% trans "Locked pages" %}{% endblock %}
-
-{% block content %}
-    {% trans "Locked pages" as title %}
-    {% include "wagtailadmin/shared/header.html" with title=title icon="locked" %}
-
-    <div id="page-results">
-        {% include "wagtailadmin/reports/locked_pages_results.html" %}
-    </div>
+{% extends 'wagtailadmin/reports/base_report.html' %}
+{% block listing %}
+    {% include "wagtailadmin/reports/listing/_list_unlock.html" %}
 {% endblock %}
