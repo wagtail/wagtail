@@ -614,16 +614,14 @@ def register_core_features(features):
         }
     })
 
+
 class ReportsMenuItem(SubmenuMenuItem):
     template = 'wagtailadmin/shared/menu_submenu_item.html'
 
 
-class LockedPagesMenuItem(MenuItem):
-    pass
-
 @hooks.register('register_reports_menu_item')
 def register_locked_pages_menu_item():
-    return LockedPagesMenuItem(_('Locked Pages'), reverse('wagtailadmin_reports:locked_pages'), classnames='icon icon-locked', order=700)
+    return MenuItem(_('Locked Pages'), reverse('wagtailadmin_reports:locked_pages'), classnames='icon icon-locked', order=700)
 
 
 @hooks.register('register_admin_menu_item')
