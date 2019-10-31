@@ -82,15 +82,33 @@ class TestExtractAttrs(TestCase):
 
 
 class TestExpandDbHtml(TestCase):
-    def test_expand_db_html_with_linktype(self):
-        html = '<a id="1" linktype="document">foo</a>'
-        result = expand_db_html(html)
-        self.assertEqual(result, "<a>foo</a>")
+    fixtures = ["test.json"]
 
     def test_expand_db_html_no_linktype(self):
         html = '<a id="1">foo</a>'
         result = expand_db_html(html)
         self.assertEqual(result, '<a id="1">foo</a>')
+
+    def test_invalid_linktype_set_to_empty_link(self):
+        html = '<a id="1" linktype="invalid">foo</a>'
+        result = expand_db_html(html)
+        self.assertEqual(result, "<a>foo</a>")
+
+    def test_valid_linktype_and_reference(self):
+        html = '<a id="1" linktype="document">foo</a>'
+        result = expand_db_html(html)
+        self.assertEqual(result, '<a href="/documents/1/test.pdf">foo</a>')
+
+    def test_valid_linktype_invalid_reference_set_to_empty_link(self):
+        html = '<a id="9999" linktype="document">foo</a>'
+        result = expand_db_html(html)
+        self.assertEqual(result, "<a>foo</a>")
+
+    def test_no_embedtype_remove_tag(self):
+        self.assertEqual(expand_db_html('<embed id="1" />'), "")
+
+    def test_invalid_embedtype_remove_tag(self):
+        self.assertEqual(expand_db_html('<embed id="1" embedtype="invalid" />'), "")
 
     @patch("wagtail.embeds.embeds.get_embed")
     def test_expand_db_html_with_embed(self, get_embed):
