@@ -219,6 +219,65 @@ For example:
         AMP MODE IS ACTIVE!
     {% endif %}
 
+Using a different page template when AMP mode is active
+-------------------------------------------------------
+
+You're probably not going to want to use the same templates on the AMP site as
+you do on the regular web site. So let's add some logic in so Wagtail will
+automatically use separate whenever a page is served with AMP enabled.
+
+We can implement this logic as a mixin which allows us to implement it on many
+different page types. Add the following to the bottom of the amp_utils.py file
+that you created earlier:
+
+.. code-block:: python
+
+    # <app>/amp_utils.py
+
+    import os.path
+
+    ...
+
+    class PageAMPTemplateMixin:
+
+        @property
+        def amp_template(self):
+            # Get the default template name and insert `_amp` before the extension
+            name, ext = os.path.splitext(self.template)
+            return name + '_amp' + ext
+
+        def get_template(self, request):
+            if amp_mode_active():
+                return self.amp_template
+
+            return super().get_template(request)
+
+Now add this mixin to any page model, for example:
+
+.. code-block:: python
+
+    # <app>/models.py
+
+    from .amp_utils import PageAMPTemplateMixin
+
+    class MyPageModel(PageAMPTemplateMixin, Page):
+        ...
+
+When AMP mode is active, the template at ``app_label/mypagemodel_amp.html``
+will be used instead of the default one.
+
+If you have a different naming convention, you can override the
+``amp_template`` attribute on the model. For example:
+
+.. code-block:: python
+
+    # <app>/models.py
+
+    from .amp_utils import PageAMPTemplateMixin
+
+    class MyPageModel(PageAMPTemplateMixin, Page):
+        amp_template = 'my_custom_amp_template.html'
+
 Overriding the ``{% image %}`` tag to output ``<amp-img>`` tags
 ---------------------------------------------------------------
 
