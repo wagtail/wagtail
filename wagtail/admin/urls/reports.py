@@ -4,5 +4,5 @@ from wagtail.admin.views import reports
 
 app_name = 'wagtailadmin_reports'
 urlpatterns = [
-    url(r'^locked/$', reports.locked_pages, name='locked_pages')
+    url(r'^locked/$', reports.LockedPagesView.as_view(), name='locked_pages')
 ]
