@@ -213,14 +213,14 @@ PageManager = BasePageManager.from_queryset(PageQuerySet)
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
-    def __init__(cls, name, bases, dct):
-        super(PageBase, cls).__init__(name, bases, dct)
+    def __init__(cls, name, bases, dct, **kwargs):
+        super(PageBase, cls).__init__(name, bases, dct, **kwargs)
 
-        if 'template' not in dct:
+        if 'template' not in cls.__dict__:
             # Define a default template path derived from the app name and model name
             cls.template = "%s/%s.html" % (cls._meta.app_label, camelcase_to_underscore(name))
 
-        if 'ajax_template' not in dct:
+        if 'ajax_template' not in cls.__dict__:
             cls.ajax_template = None
 
         cls._clean_subpage_models = None  # to be filled in on first call to cls.clean_subpage_models
@@ -228,7 +228,7 @@ class PageBase(models.base.ModelBase):
 
         # All pages should be creatable unless explicitly set otherwise.
         # This attribute is not inheritable.
-        if 'is_creatable' not in dct:
+        if 'is_creatable' not in cls.__dict__:
             cls.is_creatable = not cls._meta.abstract
 
         if not cls._meta.abstract:
