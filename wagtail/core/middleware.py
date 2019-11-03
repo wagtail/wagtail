@@ -18,6 +18,6 @@ class SiteMiddleware(MiddlewareMixin):
         )
 
         try:
-            request.site = Site.find_for_request(request)
+            request._wagtail_site = Site.find_for_request(request)
         except Site.DoesNotExist:
-            request.site = None
+            request._wagtail_site = None

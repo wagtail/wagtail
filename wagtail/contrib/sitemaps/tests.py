@@ -54,7 +54,7 @@ class TestSitemapGenerator(TestCase):
 
     def get_request_and_django_site(self, url):
         request = RequestFactory().get(url)
-        request.site = self.site
+        request._wagtail_site = self.site
         return request, get_current_site(request)
 
     def test_items(self):
@@ -84,7 +84,7 @@ class TestSitemapGenerator(TestCase):
 
         sitemap = Sitemap(request)
 
-        with self.assertNumQueries(17):
+        with self.assertNumQueries(16):
             urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage

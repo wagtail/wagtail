@@ -12,7 +12,6 @@ from wagtail.tests.utils import WagtailTestUtils
 
 class TestUserbarTag(TestCase):
     def setUp(self):
-
         self.user = get_user_model().objects.create_superuser(
             username='test',
             email='test@email.com',
@@ -24,7 +23,6 @@ class TestUserbarTag(TestCase):
         request = RequestFactory().get('/')
         request.user = user or AnonymousUser()
         return request
-
 
     def test_userbar_tag(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")

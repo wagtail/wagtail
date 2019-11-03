@@ -1,7 +1,7 @@
 from django import template
 from django.core.cache import cache
 from django.http import HttpRequest
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeString
 
@@ -54,7 +54,7 @@ class TestPageUrlTags(TestCase):
 
         # 'request' object in context, but site is None
         request = HttpRequest()
-        request.site = None
+        request._wagtail_site = None
         result = tpl.render(template.Context({'page': page, 'request': request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
@@ -73,7 +73,6 @@ class TestPageUrlTags(TestCase):
         result = slugurl(context=template.Context({'request': HttpRequest()}), slug='bad-slug-doesnt-exist')
         self.assertEqual(result, None)
 
-    @override_settings(ALLOWED_HOSTS=['localhost', 'site2.example.com'])
     def test_slugurl_tag_returns_url_for_current_site(self):
         home_page = Page.objects.get(url_path='/home/')
         new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
@@ -83,19 +82,16 @@ class TestPageUrlTags(TestCase):
         new_christmas_page = Page(title='Christmas', slug='christmas')
         new_home_page.add_child(instance=new_christmas_page)
         request = HttpRequest()
-        request.META['HTTP_HOST'] = second_site.hostname
-        request.META['SERVER_PORT'] = second_site.port
+        request._wagtail_site = second_site
         url = slugurl(context=template.Context({'request': request}), slug='christmas')
         self.assertEqual(url, '/christmas/')
 
-    @override_settings(ALLOWED_HOSTS=['localhost', 'site2.example.com'])
     def test_slugurl_tag_returns_url_for_other_site(self):
         home_page = Page.objects.get(url_path='/home/')
         new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
         second_site = Site.objects.create(hostname='site2.example.com', root_page=new_home_page)
         request = HttpRequest()
-        request.META['HTTP_HOST'] = second_site.hostname
-        request.META['SERVER_PORT'] = second_site.port
+        request._wagtail_site = second_site
         # There is no page with this slug on the current site, so this
         # should return an absolute URL for the page on the first site.
         url = slugurl(slug='christmas', context=template.Context({'request': request}))
@@ -113,7 +109,7 @@ class TestPageUrlTags(TestCase):
     def test_slugurl_with_null_site_in_request(self):
         # 'request' object in context, but site is None
         request = HttpRequest()
-        request.site = None
+        request._wagtail_site = None
         result = slugurl(template.Context({'request': request}), 'events')
         self.assertEqual(result, '/events/')
 

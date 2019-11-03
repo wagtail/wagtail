@@ -1,6 +1,6 @@
 from django.http import HttpRequest
 from django.template import Context, RequestContext, Template, engines
-from django.test import TestCase, override_settings
+from django.test import TestCase
 
 from wagtail.core.models import Page, Site
 from wagtail.tests.testapp.models import TestSetting
@@ -29,10 +29,8 @@ class TemplateTestCase(TestCase, WagtailTestUtils):
     def get_request(self, site=None):
         if site is None:
             site = self.default_site
-
         request = HttpRequest()
-        request.META['HTTP_HOST'] = site.hostname
-        request.META['SERVER_PORT'] = site.port
+        request._wagtail_site = site
         return request
 
     def render(self, request, string, context=None, site=None):
@@ -50,7 +48,6 @@ class TestContextProcessor(TemplateTestCase):
             self.render(request, '{{ settings.tests.TestSetting.title }}'),
             self.test_setting.title)
 
-    @override_settings(ALLOWED_HOSTS=['localhost', 'other'])
     def test_multisite(self):
         """ Check that the correct setting for the current site is returned """
         request = self.get_request(site=self.default_site)
@@ -104,7 +101,6 @@ class TestTemplateTag(TemplateTestCase):
         context = Context()
         self.assertEqual(template.render(context), '')
 
-    @override_settings(ALLOWED_HOSTS=['localhost', 'other'])
     def test_get_settings_request_context(self):
         """ Check that the {% get_settings %} tag works """
         request = self.get_request(site=self.other_site)
@@ -177,10 +173,8 @@ class TestSettingsJinja(TemplateTestCase):
                 site = context['site']
             else:
                 site = Site.objects.get(is_default_site=True)
-
             request = HttpRequest()
-            request.META['HTTP_HOST'] = site.hostname
-            request.META['SERVER_PORT'] = site.port
+            request._wagtail_site = site
             context['request'] = request
 
         template = self.engine.from_string(string)
@@ -192,7 +186,6 @@ class TestSettingsJinja(TemplateTestCase):
             self.render('{{ settings("tests.TestSetting").title }}'),
             self.test_setting.title)
 
-    @override_settings(ALLOWED_HOSTS=['localhost', 'other'])
     def test_multisite(self):
         """ Check that the correct setting for the current site is returned """
         context = {'site': self.default_site}
@@ -228,8 +221,7 @@ class TestSettingsJinja(TemplateTestCase):
         # site, dummy request
         site = Site.objects.get(is_default_site=True)
         request = HttpRequest()
-        request.META['HTTP_HOST'] = site.hostname
-        request.META['SERVER_PORT'] = site.port
+        request._wagtail_site = site
 
         # run extra query before hand
         Site.find_for_request(request)

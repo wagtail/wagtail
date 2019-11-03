@@ -255,7 +255,6 @@ class TestRouting(TestCase):
         self.assertEqual(root.relative_url(default_site), None)
         self.assertEqual(root.get_site(), None)
 
-    @override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com', 'second-events.example.com'])
     def test_urls_with_multiple_sites(self):
         events_page = Page.objects.get(url_path='/home/events/')
         events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
@@ -292,8 +291,7 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.get_site(), events_site)
 
         request = HttpRequest()
-        request.META['HTTP_HOST'] = events_site.hostname
-        request.META['SERVER_PORT'] = events_site.port
+        request._wagtail_site = events_site
 
         self.assertEqual(
             christmas_page.get_url_parts(request=request),
@@ -301,8 +299,7 @@ class TestRouting(TestCase):
         )
 
         request2 = HttpRequest()
-        request2.META['HTTP_HOST'] = second_events_site.hostname
-        request2.META['SERVER_PORT'] = second_events_site.port
+        request2._wagtail_site = second_events_site
         self.assertEqual(
             christmas_page.get_url_parts(request=request2),
             (second_events_site.id, 'http://second-events.example.com', '/christmas/')
@@ -347,9 +344,7 @@ class TestRouting(TestCase):
 
         request = HttpRequest()
         request.user = AnonymousUser()
-        site = Site.objects.first()
-        request.META['HTTP_HOST'] = site.hostname
-        request.META['SERVER_PORT'] = site.port
+        request._wagtail_site = Site.objects.first()
 
         response = christmas_page.serve(request)
         self.assertEqual(response.status_code, 200)
@@ -376,7 +371,7 @@ class TestRouting(TestCase):
     # Override CACHES so we don't generate any cache-related SQL queries (tests use DatabaseCache
     # otherwise) and so cache.get will always return None.
     @override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
-    @override_settings(ALLOWED_HOSTS=['localhost', 'dummy'])
+    @override_settings(ALLOWED_HOSTS=['dummy'])
     def test_request_scope_site_root_paths_cache(self):
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
@@ -392,7 +387,6 @@ class TestRouting(TestCase):
             self.assertEqual(christmas_page.get_url(), '/events/christmas/')
 
         # with a request, the first call to get_url should issue 1 SQL query
-
         request = HttpRequest()
         request.META['HTTP_HOST'] = "dummy"
         request.META['SERVER_PORT'] = "8888"
@@ -1588,6 +1582,7 @@ class TestMakePreviewRequest(TestCase):
         # validation won't reject
         self.assertEqual(request.META['HTTP_HOST'], 'production.example.com')
 
+    @override_settings(ALLOWED_HOSTS=['*'])
     def test_dummy_request_for_inaccessible_page_with_wildcard_allowed_hosts(self):
         root_page = Page.objects.get(url_path='/')
         response = root_page.make_preview_request()
