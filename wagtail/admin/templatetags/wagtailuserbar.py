@@ -83,6 +83,9 @@ def wagtailuserbar(context, position='bottom-right'):
     for fn in hooks.get_hooks('construct_wagtail_userbar'):
         fn(request, items)
 
+    for fn in hooks.get_hooks('construct_wagtail_userbar_with_context'):
+        fn(request, items, context)
+
     # Render the items
     rendered_items = [item.render(request) for item in items]
 
