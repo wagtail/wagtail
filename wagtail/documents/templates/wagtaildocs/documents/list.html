@@ -24,10 +24,10 @@
             <th>
                 {% if not is_searching %}
                     <a href="{% url 'wagtaildocs:index' %}{% if not ordering == "-created_at" %}?ordering=-created_at{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "-created_at" %}teal{% endif %}">
-                        {% trans "Uploaded" %}
+                        {% trans "Created" %}
                     </a>
                 {% else %}
-                    {% trans "Uploaded" %}
+                    {% trans "Created" %}
                 {% endif %}
             </th>
         </tr>
@@ -46,7 +46,11 @@
                 {% if collections %}
                     <td>{{ doc.collection.name }}</td>
                 {% endif %}
-                <td><div class="human-readable-date" title="{{ doc.created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=doc.created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div></td>
+                <td>
+                    <div class="human-readable-date" title="{{ doc.created_at|date:"d M Y H:i" }}">
+                        {% blocktrans with time_period=doc.created_at|timesince %}{{ time_period }} ago{% endblocktrans %}
+                    </div>
+                </td>
             </tr>
         {% endfor %}
     </tbody>

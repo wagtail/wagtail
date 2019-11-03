@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from django.conf import settings
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 
@@ -741,4 +741,18 @@ class TestPageLinkHandler(TestCase):
         self.assertEqual(
             result,
             '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">' % events_page_id
+        )
+
+
+class TestWidgetNotHidden(SimpleTestCase):
+    def test_draftail(self):
+        self.assertIs(
+            DraftailRichTextArea().is_hidden,
+            False,
+        )
+
+    def test_hallo(self):
+        self.assertIs(
+            HalloRichTextArea().is_hidden,
+            False,
         )

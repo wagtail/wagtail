@@ -5,7 +5,7 @@ import string
 ALPHANUM = string.ascii_lowercase + string.digits
 
 
-class Block(object):
+class Block:
     def __init__(self, typ, depth=0):
         self.type = typ
         self.depth = depth
@@ -25,7 +25,7 @@ class Block(object):
         }
 
 
-class InlineStyleRange(object):
+class InlineStyleRange:
     def __init__(self, style):
         self.style = style
         self.offset = None
@@ -39,7 +39,7 @@ class InlineStyleRange(object):
         }
 
 
-class Entity(object):
+class Entity:
     def __init__(self, entity_type, mutability, data):
         self.entity_type = entity_type
         self.mutability = mutability
@@ -53,7 +53,7 @@ class Entity(object):
         }
 
 
-class EntityRange(object):
+class EntityRange:
     def __init__(self, key):
         self.key = key
         self.offset = None
@@ -67,7 +67,7 @@ class EntityRange(object):
         }
 
 
-class ContentState(object):
+class ContentState:
     """Pythonic representation of a draft.js contentState structure"""
     def __init__(self):
         self.blocks = []

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "Publicar"
+
 msgid "Submit for moderation"
 msgstr "Enviar para ser moderado"
 
@@ -29,6 +32,12 @@ msgstr "Non publicar"
 
 msgid "Delete"
 msgstr "Eliminar"
+
+msgid "Page locked"
+msgstr "Páxina bloqueada"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Síntoo, non tes permiso para acceder a esta área"
 
 msgid "You do not have permission to access the admin"
 msgstr "Non tes permisos para acceder ao administrador."
@@ -57,9 +66,6 @@ msgstr "Introduce o teu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escribe a túa dirección de correo para restaurar o teu contrasinal"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
@@ -132,54 +138,6 @@ msgstr "Procurar termo"
 msgid "This field is required."
 msgstr "Este campo é requirido."
 
-msgid "Go to Wagtail admin"
-msgstr "Ir ao administrador de Wagtail"
-
-msgid "Account"
-msgstr "Conta"
-
-msgid "Update"
-msgstr "Actualizar"
-
-msgid "Change password"
-msgstr "Cambiar contrasinal"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"O teu contrasinal non pode cambiarse aquí. Por favor, contacta co "
-"administrador."
-
-msgid "Notification preferences"
-msgstr "Preferencias de notificacións"
-
-msgid "Reset password"
-msgstr "Restablecer contrasinal"
-
-msgid "Password change successful"
-msgstr "Cambiouse o contrasinal correctamente"
-
-msgid "Login"
-msgstr "Login"
-
-msgid "Set your new password"
-msgstr "Establece o teu novo contrasinal"
-
-msgid "Check your email"
-msgstr "Revisa o teu correo electrónico"
-
-msgid "Please follow the link below to reset your password:"
-msgstr "Por favor, segue a seguinte ligazón para restablecer o contrasinal:"
-
-msgid "Your username (in case you've forgotten):"
-msgstr "O teu nome de usuario (no caso de que che esqueceses):"
-
-msgid "Password reset"
-msgstr "Restablecer contrasinal"
-
-msgid "Reset your password"
-msgstr "Restablecer o teu contrasinal"
-
 msgid "Pages"
 msgstr "Páxinas"
 
@@ -240,14 +198,59 @@ msgstr "Ve"
 msgid "Sat"
 msgstr "Sa"
 
+msgid "Go to Wagtail admin"
+msgstr "Ir ao administrador de Wagtail"
+
+msgid "Account"
+msgstr "Conta"
+
+msgid "Update"
+msgstr "Actualizar"
+
+msgid "Change password"
+msgstr "Cambiar contrasinal"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"O teu contrasinal non pode cambiarse aquí. Por favor, contacta co "
+"administrador."
+
+msgid "Notification preferences"
+msgstr "Preferencias de notificacións"
+
+msgid "Reset password"
+msgstr "Restablecer contrasinal"
+
+msgid "Password change successful"
+msgstr "Cambiouse o contrasinal correctamente"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Set your new password"
+msgstr "Establece o teu novo contrasinal"
+
+msgid "Check your email"
+msgstr "Revisa o teu correo electrónico"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Por favor, segue a seguinte ligazón para restablecer o contrasinal:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "O teu nome de usuario (no caso de que che esqueceses):"
+
+msgid "Password reset"
+msgstr "Restablecer contrasinal"
+
+msgid "Reset your password"
+msgstr "Restablecer o teu contrasinal"
+
 msgid "Dashboard"
 msgstr "Panel de control"
 
 msgid "Menu"
 msgstr "Menú"
-
-msgid "Add another"
-msgstr "Engadir outro"
 
 msgid "Move up"
 msgstr "Subir"
@@ -474,8 +477,11 @@ msgstr "Desbloqueada"
 msgid "Publish this revision"
 msgstr "Publicar esta revisión"
 
-msgid "Publish"
-msgstr "Publicar"
+msgid "Replace current draft"
+msgstr "Substituír borrador actual"
+
+msgid "Save draft"
+msgstr "Gardar borrador"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -570,9 +576,6 @@ msgstr "Nova %(page_type)s"
 msgid "New"
 msgstr "Nova"
 
-msgid "Save draft"
-msgstr "Gardar borrador"
-
 msgid "This page has unsaved changes."
 msgstr "Esta páxina ten cambios sen gardar."
 
@@ -583,12 +586,6 @@ msgstr "Editando %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Editando %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Páxina bloqueada"
-
-msgid "Replace current draft"
-msgstr "Substituír borrador actual"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -832,9 +829,6 @@ msgstr "Mostrar no Navegador"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Síntoo, non tes permiso para acceder a esta área"
 
 msgid "Your password has been changed successfully!"
 msgstr "¡O teu contrasinal foi cambiado correctamente!"

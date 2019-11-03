@@ -1,12 +1,12 @@
 <h1 align="center">
-	<img width="343" src="https://cdn.rawgit.com/wagtail/wagtail/master/.github/wagtail.svg" alt="Wagtail">
-	<br>
-	<br>
+    <img width="343" src="https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/wagtail.svg" alt="Wagtail">
+    <br>
+    <br>
 </h1>
 
 Wagtail is an open source content management system built on Django, with a strong community and commercial support. It's focused on user experience, and offers precise control for designers and developers.
 
-![Wagtail screenshot](https://cdn.rawgit.com/wagtail/wagtail/master/.github/wagtail-screenshot-with-browser.png)
+![Wagtail screenshot](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/wagtail-screenshot-with-browser.png)
 
 ### Features
 
@@ -55,7 +55,7 @@ Wagtail is used by NASA, Google, Oxfam, the NHS, Mozilla, MIT, the Red Cross, Sa
 Wagtail supports:
 
 * Django 2.0.x, 2.1.x and 2.2.x
-* Python 3.5, 3.6 and 3.7
+* Python 3.5, 3.6, 3.7 and 3.8
 * PostgreSQL, MySQL and SQLite as database backends
 
 Previous versions of Wagtail (1.13 and earlier) additionally supported Python 2.7 and Django 1.x.
@@ -80,6 +80,14 @@ We take the security of Wagtail, and related packages we maintain, seriously. If
 
 If you want to send an encrypted email (optional), the public key ID for security@wagtail.io is 0x6ba1e1a86e0f8ce8, and this public key is available from most commonly-used keyservers.
 
+### Release schedule
+
+Feature releases of Wagtail are released every three months. Selected releases are designated as Long Term Support (LTS) releases, and will receive maintenance updates for an extended period to address any security and data-loss related issues. For dates of past and upcoming releases and support periods, see [Release Schedule](https://github.com/wagtail/wagtail/wiki/Release-schedule).
+
+#### Nightly releases
+
+To try out the latest features before a release, we also create builds from master every night. You can find instructions on how to install the latest nightly release at https://releases.wagtail.io/nightly/index.html
+
 ### Contributing
 
 If you're a Python or Django developer, fork the repo and get stuck in! We run a separate group for developers of Wagtail itself at https://groups.google.com/forum/#!forum/wagtail-developers (please note that this is not for support requests).
@@ -93,9 +101,14 @@ We also welcome translations for Wagtail's interface. Translation work should be
 
 ### Thanks
 
-We thank [BrowserStack](https://www.browserstack.com/), who provide the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
+We thank the following organisations for their services used in Wagtail's development:
 
-[![Browserstack](https://cdn.rawgit.com/wagtail/wagtail/master/.github/browserstack-logo.svg)](https://www.browserstack.com/)
+[![Browserstack](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/browserstack-logo.svg)](https://www.browserstack.com/)<br>
+[BrowserStack](https://www.browserstack.com/) provides the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
+
+[![squash.io](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/squash-logo.svg)](https://www.squash.io/)<br>
+[Squash](https://www.squash.io/) provides the project with free test environments for reviewing pull requests.
+
 
 [![Build Status](https://api.travis-ci.org/wagtail/wagtail.svg?branch=master)](https://travis-ci.org/wagtail/wagtail)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)

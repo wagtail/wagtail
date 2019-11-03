@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 
-from wagtail.admin.utils import get_object_usage
+from wagtail.admin.models import get_object_usage
 from wagtail.core.models import CollectionMember
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
@@ -127,6 +127,13 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
     @property
     def url(self):
+        if getattr(settings, 'WAGTAILDOCS_SERVE_METHOD', None) == 'direct':
+            try:
+                return self.file.url
+            except NotImplementedError:
+                # backend does not provide a url, so fall back on the serve view
+                pass
+
         return reverse('wagtaildocs_serve', args=[self.id, self.filename])
 
     def get_usage(self):

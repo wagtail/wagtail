@@ -4,6 +4,7 @@
 #
 # Translators:
 # Bram <bram2w@live.nl>, 2015
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2019
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2017
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-05-07 09:24+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 21:49+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -119,6 +120,12 @@ msgstr "hulptekst"
 
 msgid "Submission date"
 msgstr "Datum van inzending"
+
+msgid "Form"
+msgstr "Formulier"
+
+msgid "Landing page"
+msgstr "Landingspagina"
 
 msgid "to address"
 msgstr "e-mailadres ontvanger"

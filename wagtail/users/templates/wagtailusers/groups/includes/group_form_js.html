@@ -1,12 +1,12 @@
-{% load static %}
+{% load wagtailadmin_tags %}
 <script>
     window.chooserUrls = {
         'pageChooser': '{% url "wagtailadmin_choose_page" %}'
     };
 </script>
 
-<script src="{% static 'wagtailadmin/js/expanding_formset.js' %}"></script>
-<script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
-<script src="{% static 'wagtailusers/js/group-form.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/expanding_formset.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+<script src="{% versioned_static 'wagtailusers/js/group-form.js' %}"></script>
 
 {{ form_media.js }}

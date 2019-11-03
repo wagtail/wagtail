@@ -3,8 +3,8 @@ import logging
 
 from django.apps import apps
 from django.core import checks
+from django.core.exceptions import FieldDoesNotExist
 from django.db import models
-from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
 
 from modelcluster.fields import ParentalManyToManyField
@@ -97,7 +97,7 @@ class Indexed:
         try:
             cls._meta.get_field(name)
             return True
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             return hasattr(cls, name)
 
     @classmethod
@@ -182,14 +182,14 @@ class BaseField:
         try:
             field = self.get_field(cls)
             return field.attname
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             return self.field_name
 
     def get_definition_model(self, cls):
         try:
             field = self.get_field(cls)
             return field.model
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             # Find where it was defined by walking the inheritance tree
             for base_cls in inspect.getmro(cls):
                 if self.field_name in base_cls.__dict__:
@@ -213,7 +213,7 @@ class BaseField:
 
             return field.get_internal_type()
 
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             return 'CharField'
 
     def get_value(self, obj):
@@ -225,9 +225,9 @@ class BaseField:
             if hasattr(field, 'get_searchable_content'):
                 value = field.get_searchable_content(value)
             elif isinstance(field, TaggableManager):
-                # Special case for tags fields. Convert QuerySet of TaggedItems into QuerySet of Tags
-                Tag = field.remote_field.model
-                value = Tag.objects.filter(id__in=value.values_list('tag_id', flat=True))
+                # As of django-taggit 1.0, value_from_object returns a list of Tag objects,
+                # which matches what we want
+                pass
             elif isinstance(field, RelatedField):
                 # The type of the ForeignKey may have a get_searchable_content method that we should
                 # call. Firstly we need to find the field its referencing but it may be referencing
@@ -240,7 +240,7 @@ class BaseField:
                 if hasattr(remote_field, 'get_searchable_content'):
                     value = remote_field.get_searchable_content(value)
             return value
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             value = getattr(obj, self.field_name, None)
             if hasattr(value, '__call__'):
                 value = value()

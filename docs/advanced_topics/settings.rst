@@ -233,6 +233,15 @@ Allows the default ``LoginForm`` to be extended with extra fields.
 
 If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to ``None`` to disable the use of remote avatars completely.
 
+.. _wagtail_moderation_enabled:
+
+.. code-block:: python
+
+  WAGTAIL_MODERATION_ENABLED = True
+
+Changes whether the Submit for Moderation button is displayed in the action menu.
+
+
 
 Images
 ------
@@ -254,13 +263,51 @@ This setting lets you override the maximum upload size for images (in bytes). If
 
     WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # i.e. 128 megapixels
 
-This setting lets you override the maximum number of pixels an image can have. If omitted, Wagtail will fall back to using its 128 megapixels default value.
+This setting lets you override the maximum number of pixels an image can have. If omitted, Wagtail will fall back to using its 128 megapixels default value. The pixel count takes animation frames into account - for example, a 25-frame animation of size 100x100 is considered to have 100 * 100 * 25 = 250000 pixels.
 
 .. code-block:: python
 
     WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = True
 
 This setting enables feature detection once OpenCV is installed, see all details on the :ref:`image_feature_detection` documentation.
+
+.. code-block:: python
+
+    WAGTAILIMAGES_INDEX_PAGE_SIZE = 20
+
+Specifies the number of images per page shown on the main Images listing in the Wagtail admin.
+
+.. code-block:: python
+
+    WAGTAILIMAGES_USAGE_PAGE_SIZE = 20
+
+Specifies the number of items per page shown when viewing an image's usage (see :ref:`WAGTAIL_USAGE_COUNT_ENABLED <WAGTAIL_USAGE_COUNT_ENABLED>`).
+
+.. code-block:: python
+
+    WAGTAILIMAGES_CHOOSER_PAGE_SIZE = 12
+
+Specifies the number of images shown per page in the image chooser modal.
+
+
+Documents
+---------
+
+.. _wagtaildocs_serve_method:
+
+.. code-block:: python
+
+  WAGTAILDOCS_SERVE_METHOD = 'redirect'
+
+Determines how document downloads will be linked to and served. Normally, requests for documents are sent through a Django view, to perform permission checks (see :ref:`image_document_permissions`) and potentially other housekeeping tasks such as hit counting. To fully protect against users bypassing this check, it needs to happen in the same request where the document is served; however, this incurs a performance hit as the document then needs to be served by the Django server. In particular, this cancels out much of the benefit of hosting documents on external storage, such as S3 or a CDN.
+
+For this reason, Wagtail provides a number of serving methods which trade some of the strictness of the permission check for performance:
+
+ * ``'direct'`` - links to documents point directly to the URL provided by the underlying storage, bypassing the Django view that provides the permission check. This is most useful when deploying sites as fully static HTML (e.g. using `wagtail-bakery <https://github.com/wagtail/wagtail-bakery>`_ or `Gatsby <https://www.gatsbyjs.org/>`_).
+ * ``'redirect'`` - links to documents point to a Django view which will check the user's permission; if successful, it will redirect to the URL provided by the underlying storage to allow the document to be downloaded. This is most suitable for remote storage backends such as S3, as it allows the document to be served independently of the Django server. Note that if a user is able to guess the latter URL, they will be able to bypass the permission check; some storage backends may provide configuration options to generate a random or short-lived URL to mitigate this.
+ * ``'serve_view'`` - links to documents point to a Django view which both checks the user's permission, and serves the document. Serving will be handled by `django-sendfile <https://github.com/johnsensible/django-sendfile>`_, if this is installed and supported by your server configuration, or as a streaming response from Django if not. When using this method, it is recommended that you configure your webserver to *disallow* serving documents directly from their location under ``MEDIA_ROOT``, as this would provide a way to bypass the permission check.
+
+If ``WAGTAILDOCS_SERVE_METHOD`` is unspecified or set to ``None``, the default method is ``'redirect'`` when a remote storage backend is in use (i.e. one that exposes a URL but not a local filesystem path), and ``'serve_view'`` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for ``'serve_view'``.
 
 
 Password Management
@@ -290,6 +337,11 @@ This specifies whether password fields are shown when creating or editing users 
 
 This specifies whether password is a required field when creating a new user. True by default; ignored if ``WAGTAILUSERS_PASSWORD_ENABLED`` is false. If this is set to False, and the password field is left blank when creating a user, then that user will have no usable password; in order to log in, they will have to reset their password (if ``WAGTAIL_PASSWORD_RESET_ENABLED`` is True) or use an alternative authentication system such as LDAP (if one is set up).
 
+.. code-block:: python
+
+  WAGTAIL_EMAIL_MANAGEMENT_ENABLED = True
+
+This specifies whether users are allowed to change their email (enabled by default).
 
 .. _email_notifications:
 
@@ -437,6 +489,8 @@ a custom user model is being used and extra fields are required in the user crea
 
 A list of the extra custom fields to be appended to the default list.
 
+.. _WAGTAIL_USAGE_COUNT_ENABLED:
+
 Usage for images, documents and snippets
 ----------------------------------------
 
@@ -505,6 +559,14 @@ can only choose between front office languages:
     LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
                                                     ('pt', 'Portuguese')]
 
+Static files
+------------
+
+.. code-block:: python
+
+    WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS = False
+
+Static file URLs within the Wagtail admin are given a version-specific query string of the form ``?v=1a2b3c4d``, to prevent outdated cached copies of Javascript and CSS files from persisting after a Wagtail upgrade. To disable these, set ``WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS`` to ``False``.
 
 API Settings
 ------------

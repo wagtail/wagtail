@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -25,6 +25,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Pubblica"
 
 msgid "Submit for moderation"
 msgstr "Invia per la moderazione"
@@ -35,14 +38,20 @@ msgstr "Annulla pubblicazione"
 msgid "Delete"
 msgstr "Elimina"
 
+msgid "Page locked"
+msgstr "Pagina bloccata"
+
 msgid "Wagtail admin"
 msgstr "Gestione Wagtail"
 
-msgid "None"
-msgstr "Nessuno"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Spiacente, non hai i permessi per accedere a questa area."
 
 msgid "You do not have permission to access the admin"
 msgstr "Spiacente, non hai i permessi per accedere all'area di amministrazione"
+
+msgid "None"
+msgstr "Nessuno"
 
 msgid "Scheduled publishing"
 msgstr "Data pubblicazione"
@@ -68,9 +77,6 @@ msgstr "Inserisci il tuo %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Digita la tua email per resettare la password"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -153,6 +159,240 @@ msgstr "Questo campo è obbligatorio"
 
 msgid "Please select at least one group."
 msgstr "Seleziona almeno un gruppo."
+
+msgid "Arabic"
+msgstr "Arabo"
+
+msgid "Catalan"
+msgstr "Catalano"
+
+msgid "German"
+msgstr "Tedesco"
+
+msgid "Greek"
+msgstr "Greco"
+
+msgid "English"
+msgstr "Inglese"
+
+msgid "Spanish"
+msgstr "Spagnolo"
+
+msgid "Finnish"
+msgstr "Finnico"
+
+msgid "French"
+msgstr "Francese"
+
+msgid "Galician"
+msgstr "Galician"
+
+msgid "Indonesian"
+msgstr "Indonesiano"
+
+msgid "Icelandic"
+msgstr "Icelandic"
+
+msgid "Italian"
+msgstr "Italiano"
+
+msgid "Korean"
+msgstr "Koreano"
+
+msgid "Lithuanian"
+msgstr "Lithuanian"
+
+msgid "Mongolian"
+msgstr "Mongolo"
+
+msgid "Norwegian Bokmål"
+msgstr "Norwegian Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Netherlands Dutch"
+
+msgid "Persian"
+msgstr "Persian"
+
+msgid "Polish"
+msgstr "Polish"
+
+msgid "Brazilian Portuguese"
+msgstr "Brazilian Portuguese"
+
+msgid "Portuguese"
+msgstr "Portuguese"
+
+msgid "Romanian"
+msgstr "Romanian"
+
+msgid "Russian"
+msgstr "Russian"
+
+msgid "Swedish"
+msgstr "Svedese"
+
+msgid "Slovak"
+msgstr "Slovacco"
+
+msgid "Thai"
+msgstr "Tailandese"
+
+msgid "Ukrainian"
+msgstr "Ucraino"
+
+msgid "Chinese (Simplified)"
+msgstr "Cinese (semplificato)"
+
+msgid "Chinese (Traditional)"
+msgstr "Cinese (tradizionale)"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Pages"
+msgstr "Pagine"
+
+msgid "Loading…"
+msgstr "Caricamento..."
+
+msgid "No results"
+msgstr "Nessun risultato"
+
+msgid "Server Error"
+msgstr "Errore del Server"
+
+msgid "See all"
+msgstr "Vedi tutto"
+
+msgid "Close explorer"
+msgstr "Chiudi explorer"
+
+msgid "Alt text"
+msgstr "Testo alternativo"
+
+msgid "Write here…"
+msgstr "Scrivi qui..."
+
+msgid "Horizontal line"
+msgstr "Linea orizzontale"
+
+msgid "Line break"
+msgstr "Interruzione di linea"
+
+msgid "Undo"
+msgstr "Annulla"
+
+msgid "Redo"
+msgstr "Ripristina"
+
+msgid "Reload the page"
+msgstr "Ricarica la pagina"
+
+msgid "Reload saved content"
+msgstr "Ricarica il contenuto salvato"
+
+msgid "Show latest content"
+msgstr "Mostra gli ultimi contenuti"
+
+msgid "Show error"
+msgstr "Mostra errore"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"L'editor è appena andato in crash. Il contenuto è stato reimpostato "
+"sull'ultima versione salvata."
+
+msgid "Broken link"
+msgstr "Link non funzionante"
+
+msgid "Missing document"
+msgstr "Documento non trovato"
+
+msgid "Close"
+msgstr "Chiudi"
+
+msgid "Edit '{title}'"
+msgstr "Modifica '{title}'"
+
+msgid "January"
+msgstr "Gennaio"
+
+msgid "February"
+msgstr "Febbraio"
+
+msgid "March"
+msgstr "Marzo"
+
+msgid "April"
+msgstr "Aprile"
+
+msgid "May"
+msgstr "Maggio"
+
+msgid "June"
+msgstr "Giugno"
+
+msgid "July"
+msgstr "Luglio"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "September"
+msgstr "Settembre"
+
+msgid "October"
+msgstr "Ottobre"
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "December"
+msgstr "Dicembre"
+
+msgid "Sunday"
+msgstr "Domenica"
+
+msgid "Monday"
+msgstr "Lunedì"
+
+msgid "Tuesday"
+msgstr "Martedì"
+
+msgid "Wednesday"
+msgstr "Mercoledì"
+
+msgid "Thursday"
+msgstr "Giovedì"
+
+msgid "Friday"
+msgstr "Venerdì"
+
+msgid "Saturday"
+msgstr "Sabato"
+
+msgid "Sun"
+msgstr "Dom"
+
+msgid "Mon"
+msgstr "Lun"
+
+msgid "Tue"
+msgstr "Mar"
+
+msgid "Wed"
+msgstr "Mer"
+
+msgid "Thu"
+msgstr "Gio"
+
+msgid "Fri"
+msgstr "Ven"
+
+msgid "Sat"
+msgstr "Sab"
 
 msgid "Error 404: Page not found"
 msgstr "Errore 404: Pagina non trovata"
@@ -246,158 +486,11 @@ msgstr "Resetta password"
 msgid "Reset your password"
 msgstr "Inserisci password"
 
-msgid "Page"
-msgstr "Pagina"
-
-msgid "Pages"
-msgstr "Pagine"
-
-msgid "Loading…"
-msgstr "Caricamento..."
-
-msgid "No results"
-msgstr "Nessun risultato"
-
-msgid "Server Error"
-msgstr "Errore del Server"
-
-msgid "See all"
-msgstr "Vedi tutto"
-
-msgid "Close explorer"
-msgstr "Chiudi explorer"
-
-msgid "Alt text"
-msgstr "Testo alternativo"
-
-msgid "Write here…"
-msgstr "Scrivi qui..."
-
-msgid "Horizontal line"
-msgstr "Linea orizzontale"
-
-msgid "Line break"
-msgstr "Interruzione di linea"
-
-msgid "Undo"
-msgstr "Annulla"
-
-msgid "Redo"
-msgstr "Ripristina"
-
-msgid "Reload the page"
-msgstr "Ricarica la pagina"
-
-msgid "Reload saved content"
-msgstr "Ricarica il contenuto salvato"
-
-msgid "Show latest content"
-msgstr "Mostra gli ultimi contenuti"
-
-msgid "Show error"
-msgstr "Mostra errore"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"L'editor è appena andato in crash. Il contenuto è stato reimpostato "
-"sull'ultima versione salvata."
-
-msgid "Broken link"
-msgstr "Link non funzionante"
-
-msgid "Missing document"
-msgstr "Documento non trovato"
-
-msgid "Close"
-msgstr "Chiudi"
-
-msgid "January"
-msgstr "Gennaio"
-
-msgid "February"
-msgstr "Febbraio"
-
-msgid "March"
-msgstr "Marzo"
-
-msgid "April"
-msgstr "Aprile"
-
-msgid "May"
-msgstr "Maggio"
-
-msgid "June"
-msgstr "Giugno"
-
-msgid "July"
-msgstr "Luglio"
-
-msgid "August"
-msgstr "Agosto"
-
-msgid "September"
-msgstr "Settembre"
-
-msgid "October"
-msgstr "Ottobre"
-
-msgid "November"
-msgstr "Novembre"
-
-msgid "December"
-msgstr "Dicembre"
-
-msgid "Sunday"
-msgstr "Domenica"
-
-msgid "Monday"
-msgstr "Lunedì"
-
-msgid "Tuesday"
-msgstr "Martedì"
-
-msgid "Wednesday"
-msgstr "Mercoledì"
-
-msgid "Thursday"
-msgstr "Giovedì"
-
-msgid "Friday"
-msgstr "Venerdì"
-
-msgid "Saturday"
-msgstr "Sabato"
-
-msgid "Sun"
-msgstr "Dom"
-
-msgid "Mon"
-msgstr "Lun"
-
-msgid "Tue"
-msgstr "Mar"
-
-msgid "Wed"
-msgstr "Mer"
-
-msgid "Thu"
-msgstr "Gio"
-
-msgid "Fri"
-msgstr "Ven"
-
-msgid "Sat"
-msgstr "Sab"
-
 msgid "Dashboard"
 msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Aggiungi un altro"
 
 msgid "Move up"
 msgstr "Sposta su"
@@ -673,8 +766,14 @@ msgstr "Pubblicazione in corso..."
 msgid "Publish this revision"
 msgstr "Pubblica questa revisione"
 
-msgid "Publish"
-msgstr "Pubblica"
+msgid "Saving…"
+msgstr "Salvataggio in corso…"
+
+msgid "Replace current draft"
+msgstr "Sostituisci la bozza corrente"
+
+msgid "Save draft"
+msgstr "Salva bozza"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -812,12 +911,6 @@ msgstr "Nuovo %(page_type)s"
 msgid "New"
 msgstr "Nuovo"
 
-msgid "Saving…"
-msgstr "Salvataggio in corso…"
-
-msgid "Save draft"
-msgstr "Salva bozza"
-
 msgid "This page has unsaved changes."
 msgstr "Questa pagina ha delle modifiche non salvate."
 
@@ -828,12 +921,6 @@ msgstr "Modifica %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Modifica %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Pagina bloccata"
-
-msgid "Replace current draft"
-msgstr "Sostituisci la bozza corrente"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1220,96 +1307,6 @@ msgstr "Mostra nell' Explorer"
 msgid "Test"
 msgstr "Test"
 
-msgid "Arabic"
-msgstr "Arabo"
-
-msgid "Catalan"
-msgstr "Catalano"
-
-msgid "German"
-msgstr "Tedesco"
-
-msgid "Greek"
-msgstr "Greco"
-
-msgid "English"
-msgstr "Inglese"
-
-msgid "Spanish"
-msgstr "Spagnolo"
-
-msgid "Finnish"
-msgstr "Finnico"
-
-msgid "French"
-msgstr "Francese"
-
-msgid "Galician"
-msgstr "Galician"
-
-msgid "Indonesian"
-msgstr "Indonesiano"
-
-msgid "Icelandic"
-msgstr "Icelandic"
-
-msgid "Italian"
-msgstr "Italiano"
-
-msgid "Korean"
-msgstr "Koreano"
-
-msgid "Lithuanian"
-msgstr "Lithuanian"
-
-msgid "Mongolian"
-msgstr "Mongolo"
-
-msgid "Norwegian Bokmål"
-msgstr "Norwegian Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Netherlands Dutch"
-
-msgid "Persian"
-msgstr "Persian"
-
-msgid "Polish"
-msgstr "Polish"
-
-msgid "Brazilian Portuguese"
-msgstr "Brazilian Portuguese"
-
-msgid "Portuguese"
-msgstr "Portuguese"
-
-msgid "Romanian"
-msgstr "Romanian"
-
-msgid "Russian"
-msgstr "Russian"
-
-msgid "Swedish"
-msgstr "Svedese"
-
-msgid "Slovak"
-msgstr "Slovacco"
-
-msgid "Thai"
-msgstr "Tailandese"
-
-msgid "Ukrainian"
-msgstr "Ucraino"
-
-msgid "Chinese (Simplified)"
-msgstr "Cinese (semplificato)"
-
-msgid "Chinese (Traditional)"
-msgstr "Cinese (tradizionale)"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Spiacente, non hai i permessi per accedere a questa area."
-
 msgid "Your password has been changed successfully!"
 msgstr "La tua password è stato modificata con successo"
 
@@ -1480,44 +1477,11 @@ msgstr "revisione {0} di \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Revisione {0} di \"{1}\", annulata programmazione. "
 
-msgid "Edit '{title}'"
-msgstr "Modifica '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Anteprima bozza di '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Visualizza versione live di '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Aggiungi una pagina figlio a '{title}'"
-
 msgid "More"
 msgstr "Altro"
 
-msgid "View more options for '{title}'"
-msgstr "Vedi altre opzioni per '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Sposta pagina '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Copia pagina '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Elimina pagina '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Annulla pubblicazione pagina '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Vedi storico revisioni per '{title}'"
-
 msgid "Set profile picture"
 msgstr "Imposta la foto del profilo"
-
-msgid "Change your profile picture"
-msgstr "Cambia la tua immagine di profilo"
 
 msgid "Change the email address linked to your account."
 msgstr "Cambia l'indirizzo email collegato al tuo account."
@@ -1539,9 +1503,6 @@ msgstr "Fuso orario attuale"
 
 msgid "Choose your current time zone."
 msgstr "Scegli il tuo fuso orario corrente."
-
-msgid "Heading {level}"
-msgstr "Intestazione {level}"
 
 msgid "Bulleted list"
 msgstr "Elenco puntato"

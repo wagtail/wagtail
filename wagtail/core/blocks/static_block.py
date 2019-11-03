@@ -12,7 +12,7 @@ class StaticBlock(Block):
     def render_form(self, value, prefix='', errors=None):
         if self.meta.admin_text is None:
             if self.label:
-                return _('{label}: this block has no options.').format(label=self.label)
+                return _('%(label)s: this block has no options.') % {'label': self.label}
             else:
                 return _('This block has no options.')
         return self.meta.admin_text

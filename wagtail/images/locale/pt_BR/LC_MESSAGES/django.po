@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -28,9 +28,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imagens Wagtail"
-
-msgid "GIF, JPEG, PNG"
-msgstr "GIF, JPEG, PNG"
 
 #, python-format
 msgid ""
@@ -184,6 +181,28 @@ msgstr "Escolha um formato"
 msgid "Insert image"
 msgstr "Inserir imagem"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Imagem <span class=\"visuallyhidden\">criado "
+"em %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Imagens <span class=\"visuallyhidden\">criado "
+"em %(site_name)s</span>\n"
+"    "
+
 msgid "Change image file:"
 msgstr "Altere o arquivo de imagem:"
 
@@ -210,6 +229,9 @@ msgstr "Você tem certeza que deseja apagar esta imagem?"
 
 msgid "Yes, delete"
 msgstr "Sim, apagar"
+
+msgid "No, don't delete"
+msgstr "Não, não apague"
 
 #, python-format
 msgid "Editing image %(title)s"

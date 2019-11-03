@@ -5,7 +5,7 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django.forms.fields import CallableChoiceIterator
 from django.template.loader import render_to_string
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -109,7 +109,7 @@ class CharBlock(FieldBlock):
         super().__init__(**kwargs)
 
     def get_searchable_content(self, value):
-        return [force_text(value)]
+        return [force_str(value)]
 
 
 class TextBlock(FieldBlock):
@@ -133,7 +133,7 @@ class TextBlock(FieldBlock):
         return forms.CharField(**field_kwargs)
 
     def get_searchable_content(self, value):
-        return [force_text(value)]
+        return [force_str(value)]
 
     class Meta:
         icon = "pilcrow"
@@ -453,16 +453,16 @@ class ChoiceBlock(FieldBlock):
 
     def get_searchable_content(self, value):
         # Return the display value as the searchable value
-        text_value = force_text(value)
+        text_value = force_str(value)
         for k, v in self.field.choices:
             if isinstance(v, (list, tuple)):
                 # This is an optgroup, so look inside the group for options
                 for k2, v2 in v:
-                    if value == k2 or text_value == force_text(k2):
-                        return [force_text(k), force_text(v2)]
+                    if value == k2 or text_value == force_str(k2):
+                        return [force_str(k), force_str(v2)]
             else:
-                if value == k or text_value == force_text(k):
-                    return [force_text(v)]
+                if value == k or text_value == force_str(k):
+                    return [force_str(v)]
         return []  # Value was not found in the list of choices
 
     class Meta:
@@ -518,7 +518,7 @@ class RichTextBlock(FieldBlock):
         return RichText(value)
 
     def get_searchable_content(self, value):
-        return [force_text(value.source)]
+        return [force_str(value.source)]
 
     class Meta:
         icon = "doc-full"
@@ -541,7 +541,7 @@ class RawHTMLBlock(FieldBlock):
 
     def get_prep_value(self, value):
         # explicitly convert to a plain string, just in case we're using some serialisation method
-        # that doesn't cope with SafeText values correctly
+        # that doesn't cope with SafeString values correctly
         return str(value) + ''
 
     def value_for_form(self, value):

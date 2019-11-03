@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Matej Stavanja <matej.stavanja@zfm.si>, 2019
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 
+msgid "Publish"
+msgstr "Objavi"
+
 msgid "Submit for moderation"
 msgstr "Oddaj v potrditev"
 
@@ -29,8 +33,20 @@ msgstr "Umakni iz objave"
 msgid "Delete"
 msgstr "Izbriši"
 
+msgid "Page locked"
+msgstr "Stran je zaklenjena"
+
+msgid "Wagtail admin"
+msgstr "Administrativni vmesnik Wagtail"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Žal nimate dovoljenja za dostop do tega območja."
+
 msgid "You do not have permission to access the admin"
 msgstr "Nimate dovoljenja za dostop do administracije"
+
+msgid "None"
+msgstr "Brez"
 
 msgid "Scheduled publishing"
 msgstr "Načrtovanje objave"
@@ -56,9 +72,6 @@ msgstr "Vnesite vaše %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vnesite vaš e-naslov za ponastavitev gesla"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Za isto zbirko ne morate imeti več kot enega zapisa dovoljenj."
@@ -113,9 +126,16 @@ msgstr[3] ""
 "kopije."
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Nimate dovoljenja za kopiranje v stran \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Ključ je že v uporabi znotraj konteksta nadrejene strani \"%s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Pri kopiranju podstrani strani ne morete kopirate same vase"
 
 msgid "This slug is already in use"
 msgstr "Ključ je že v uporabi"
@@ -132,53 +152,35 @@ msgstr "Iskanje"
 msgid "Search term"
 msgstr "Iskalni niz"
 
+msgid "Visibility"
+msgstr "Vidnost"
+
 msgid "This field is required."
 msgstr "Polje je obvezno."
 
-msgid "Go to Wagtail admin"
-msgstr "Pojdite v Wagtail admin"
+msgid "Please select at least one group."
+msgstr "Izberite vsaj eno skupino"
 
-msgid "Account"
-msgstr "Račun"
-
-msgid "Update"
-msgstr "Posodbi"
-
-msgid "Change password"
-msgstr "Spremeni geslo"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Vaše gesla tu ni mogoče spremeniti. Prosimo vzpostavite kontakt z "
-"administratorjem strani.  "
-
-msgid "Notification preferences"
-msgstr "Nastavitve obveščanja"
-
-msgid "Reset password"
-msgstr "Ponastavi geslo"
-
-msgid "Password change successful"
-msgstr "Sprememba gesla je bila uspešna"
-
-msgid "Login"
-msgstr "Prijava"
-
-msgid "Set your new password"
-msgstr "Nastavite novo geslo"
-
-msgid "Check your email"
-msgstr "Preverite vašo e-pošto."
-
-msgid "Password reset"
-msgstr "Geslo ponastavljeno"
-
-msgid "Reset your password"
-msgstr "Ponastavi geslo"
+msgid "Page"
+msgstr "Stran"
 
 msgid "Pages"
 msgstr "Strani"
+
+msgid "Loading…"
+msgstr "Nalaganje ..."
+
+msgid "No results"
+msgstr "Ni zadetkov"
+
+msgid "Server Error"
+msgstr "Napaka na strežniku"
+
+msgid "See all"
+msgstr "Poglej vse"
+
+msgid "Close explorer"
+msgstr "Zapri raziskovalca"
 
 msgid "January"
 msgstr "Januar"
@@ -237,14 +239,103 @@ msgstr "Pet"
 msgid "Sat"
 msgstr "Sob"
 
+msgid "Error 404: Page not found"
+msgstr "Napaka 404: strani ni bilo mogoče najti"
+
+msgid "Error 404"
+msgstr "Napaka 404"
+
+msgid "The requested page could not be found."
+msgstr "Zahtevane strani ni bilo mogoče najti."
+
+msgid "Go to Wagtail admin"
+msgstr "Pojdite v Wagtail admin"
+
+msgid "Account"
+msgstr "Račun"
+
+msgid "Change profile picture"
+msgstr "Spremeni profilno sliko"
+
+msgid "Your current profile picture:"
+msgstr "Trenutna profilna slika:"
+
+msgid "Update"
+msgstr "Posodbi"
+
+msgid "Change email"
+msgstr "Spremeni e-naslov"
+
+msgid "Change password"
+msgstr "Spremeni geslo"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Vaše gesla tu ni mogoče spremeniti. Prosimo vzpostavite kontakt z "
+"administratorjem strani.  "
+
+msgid "Set Time Zone"
+msgstr "Nastavi časovni pas"
+
+msgid "Language Preferences"
+msgstr "Jezikovne nastavitve"
+
+msgid "Notification preferences"
+msgstr "Nastavitve obveščanja"
+
+msgid "Reset password"
+msgstr "Ponastavi geslo"
+
+msgid "Password change successful"
+msgstr "Sprememba gesla je bila uspešna"
+
+msgid "Login"
+msgstr "Prijava"
+
+msgid "Set your new password"
+msgstr "Nastavite novo geslo"
+
+msgid "Invalid password reset link"
+msgstr "Neveljavna povezava za ponastavitev gesla"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Povezava za ponastavitev gesla je neveljavna, morda zato, ker je že bila "
+"uporabljena."
+
+msgid "Request a new password reset"
+msgstr "Zahtevajte novo ponastavitev gesla"
+
+msgid "Check your email"
+msgstr "Preverite vašo e-pošto."
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Povezava za ponastavitev gesla je bila poslana na vaš e-naslov, če ta e-"
+"naslov obstaja."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Sledite spodnji povezavi za ponastavitev gesla:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Vaše uporabniško ime (če ste ga morda pozabili):"
+
+msgid "Password reset"
+msgstr "Geslo ponastavljeno"
+
+msgid "Reset your password"
+msgstr "Ponastavi geslo"
+
 msgid "Dashboard"
 msgstr "Nadzorna plošča"
 
 msgid "Menu"
 msgstr "Meni"
-
-msgid "Add another"
-msgstr "Dodaj še eno"
 
 msgid "Move up"
 msgstr "Premakni navzgor"
@@ -446,8 +537,11 @@ msgstr "Odklenjeno"
 msgid "Publish this revision"
 msgstr "Objavi to različico"
 
-msgid "Publish"
-msgstr "Objavi"
+msgid "Replace current draft"
+msgstr "Nadomesti trenutni osnutek"
+
+msgid "Save draft"
+msgstr "Shrani osnutek"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -522,9 +616,6 @@ msgstr "Nov %(page_type)s"
 msgid "New"
 msgstr "Nov"
 
-msgid "Save draft"
-msgstr "Shrani osnutek"
-
 msgid "This page has unsaved changes."
 msgstr "Na strani so ne shranjene spremembe."
 
@@ -535,12 +626,6 @@ msgstr "Urejanje %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Urejanje %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Stran je zaklenjena"
-
-msgid "Replace current draft"
-msgstr "Nadomesti trenutni osnutek"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -726,9 +811,6 @@ msgstr "Prikaži v Raziskovalcu"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Žal nimate dovoljenja za dostop do tega območja."
 
 msgid "Your password has been changed successfully!"
 msgstr "Vaše geslo je bil uspešno spremenjeno!"

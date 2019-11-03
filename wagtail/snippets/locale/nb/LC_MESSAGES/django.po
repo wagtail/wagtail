@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -121,23 +121,14 @@ msgstr "Rediger denne siden"
 msgid "Search %(snippet_type_name)s"
 msgstr "Søk etter %(snippet_type_name)s"
 
-msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} \"{instance}\" opprettet."
-
 msgid "Edit"
 msgstr "Rediger"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Snutten kunne ikke opprettes grunnet feil."
 
-msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} \"{instance}\" oppdatert."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Snutten kunne ikke lagres grunnet feil."
-
-msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} \"{instance}\" slettet."
 
 #, python-format
 msgid "Choose %s"

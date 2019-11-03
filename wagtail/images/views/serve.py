@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponsePermanentRedirect, StreamingHt
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.decorators import classonlymethod
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.views.generic import View
 
 from wagtail.images import get_image_model
@@ -30,11 +30,11 @@ def generate_signature(image_id, filter_spec, key=None):
     # Based on libthumbor hmac generation
     # https://github.com/thumbor/libthumbor/blob/b19dc58cf84787e08c8e397ab322e86268bb4345/libthumbor/crypto.py#L50
     url = '{}/{}/'.format(image_id, filter_spec)
-    return force_text(base64.urlsafe_b64encode(hmac.new(key, url.encode(), hashlib.sha1).digest()))
+    return force_str(base64.urlsafe_b64encode(hmac.new(key, url.encode(), hashlib.sha1).digest()))
 
 
 def verify_signature(signature, image_id, filter_spec, key=None):
-    return force_text(signature) == generate_signature(image_id, filter_spec, key=key)
+    return force_str(signature) == generate_signature(image_id, filter_spec, key=key)
 
 
 def generate_image_url(image, filter_spec, viewname='wagtailimages_serve', key=None):

@@ -6,11 +6,11 @@ from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
-from django.templatetags.static import static
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.utils import escape_script
 
 from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
@@ -64,7 +64,7 @@ class BaseStreamBlock(Block):
 
     def render_list_member(self, block_type_name, value, prefix, index, errors=None, id=None):
         """
-        Render the HTML for a single list item. This consists of an <li> wrapper, hidden fields
+        Render the HTML for a single list item. This consists of a container, hidden fields
         to manage ID/deleted state/type, delete/reorder buttons, and the child block's own HTML.
         """
         child_block = self.child_blocks[block_type_name]
@@ -72,6 +72,7 @@ class BaseStreamBlock(Block):
         return render_to_string('wagtailadmin/block_forms/stream_member.html', {
             'child_blocks': self.sorted_child_blocks(),
             'block_type_name': block_type_name,
+            'child_block': child_block,
             'prefix': prefix,
             'child': child,
             'index': index,
@@ -93,7 +94,10 @@ class BaseStreamBlock(Block):
 
     @property
     def media(self):
-        return forms.Media(js=[static('wagtailadmin/js/blocks/sequence.js'), static('wagtailadmin/js/blocks/stream.js')])
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/blocks/sequence.js'),
+            versioned_static('wagtailadmin/js/blocks/stream.js')
+        ])
 
     def js_initializer(self):
         # compile a list of info dictionaries, one for each available block type
@@ -143,6 +147,7 @@ class BaseStreamBlock(Block):
 
         return render_to_string('wagtailadmin/block_forms/stream.html', {
             'prefix': prefix,
+            'help_text': getattr(self.meta, 'help_text', None),
             'list_members_html': list_members_html,
             'child_blocks': self.sorted_child_blocks(),
             'header_menu_prefix': '%s-before' % prefix,
@@ -430,19 +435,21 @@ class StreamValue(Sequence):
                 # value (stream_data_item here) is still valid
                 prep_value_item = stream_data_item
 
+                # As this method is preparing this value to be saved to the database,
+                # this is an appropriate place to ensure that each block has a unique id.
+                prep_value_item['id'] = prep_value_item.get('id', str(uuid.uuid4()))
+
             else:
                 # convert the bound block back into JSONish data
                 child = self[i]
+                # As this method is preparing this value to be saved to the database,
+                # this is an appropriate place to ensure that each block has a unique id.
+                child.id = child.id or str(uuid.uuid4())
                 prep_value_item = {
                     'type': child.block.name,
                     'value': child.block.get_prep_value(child.value),
                     'id': child.id,
                 }
-
-            # As this method is preparing this value to be saved to the database,
-            # this is an appropriate place to ensure that each block has a unique id.
-            if not prep_value_item.get('id'):
-                prep_value_item['id'] = str(uuid.uuid4())
 
             prep_value.append(prep_value_item)
 

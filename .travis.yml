@@ -1,6 +1,6 @@
 language: python
 cache: pip
-dist: trusty
+dist: xenial
 
 addons:
   postgresql: "9.6"
@@ -17,22 +17,18 @@ matrix:
      python: 3.6
    - env: TOXENV=py37-dj21-postgres-noelasticsearch
      python: 3.7
-     dist: xenial
    - env: TOXENV=py37-dj22-sqlite-noelasticsearch
      python: 3.7
-     dist: xenial
    - env: TOXENV=py37-dj22-mysql-noelasticsearch
      python: 3.7
-     dist: xenial
    - env: TOXENV=py37-dj22-postgres-noelasticsearch
      python: 3.7
-     dist: xenial
    - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
      python: 3.7
-     dist: xenial
    - env: TOXENV=py37-djmaster-postgres-noelasticsearch
      python: 3.7
-     dist: xenial
+   - env: TOXENV=py38-dj22-postgres-noelasticsearch
+     python: 3.8
    - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.6
    - env: TOXENV=py36-dj21-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -45,7 +41,10 @@ matrix:
      python: 3.6
    - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
      python: 3.7
-     dist: xenial
+   - env: TOXENV=py37-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+     python: 3.7
+   - env: TOXENV=py38-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+     python: 3.8
   allow_failures:
     # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky
     - env: TOXENV=py36-dj20-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -54,6 +53,8 @@ matrix:
     - env: TOXENV=py36-dj20-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    - env: TOXENV=py37-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+    - env: TOXENV=py38-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
     # allow failures against Django 2.2.x stable branch
     - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
     # allow failures against Django master
@@ -70,6 +71,7 @@ install:
   - 'if [[ -n "$INSTALL_ELASTICSEARCH2" ]]; then ./scripts/travis/install_elasticsearch2.sh; fi'
   - 'if [[ -n "$INSTALL_ELASTICSEARCH5" ]]; then ./scripts/travis/install_elasticsearch5.sh; fi'
   - 'if [[ -n "$INSTALL_ELASTICSEARCH6" ]]; then ./scripts/travis/install_elasticsearch6.sh; fi'
+  - 'if [[ -n "$INSTALL_ELASTICSEARCH7" ]]; then ./scripts/travis/install_elasticsearch7.sh; fi'
 
 # Pre-test configuration
 before_script:

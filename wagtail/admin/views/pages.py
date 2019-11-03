@@ -20,10 +20,11 @@ from django.views.generic import View
 
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
+from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
-from wagtail.admin.utils import send_notification, user_has_any_page_permission, user_passes_test
 from wagtail.core import hooks
 from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
 from wagtail.search.query import MATCH_ALL
@@ -586,7 +587,7 @@ def view_draft(request, page_id):
     perms = page.permissions_for_user(request.user)
     if not (perms.can_publish() or perms.can_edit()):
         raise PermissionDenied
-    return page.serve_preview(page.dummy_request(request), page.default_preview_mode)
+    return page.make_preview_request(request, page.default_preview_mode)
 
 
 class PreviewOnEdit(View):
@@ -646,8 +647,7 @@ class PreviewOnEdit(View):
 
         form.save(commit=False)
         preview_mode = request.GET.get('mode', page.default_preview_mode)
-        return page.serve_preview(page.dummy_request(request),
-                                  preview_mode)
+        return page.make_preview_request(request, preview_mode)
 
 
 class PreviewOnCreate(PreviewOnEdit):
@@ -1055,11 +1055,9 @@ def preview_for_moderation(request, revision_id):
 
     page = revision.as_page_object()
 
-    request.revision_id = revision_id
-
-    # pass in the real user request rather than page.dummy_request(), so that request.user
-    # and request.revision_id will be picked up by the wagtail user bar
-    return page.serve_preview(request, page.default_preview_mode)
+    return page.make_preview_request(request, page.default_preview_mode, extra_request_attrs={
+        'revision_id': revision_id
+    })
 
 
 @require_POST
@@ -1177,10 +1175,15 @@ def revisions_revert(request, page_id, revision_id):
 @user_passes_test(user_has_any_page_permission)
 def revisions_view(request, page_id, revision_id):
     page = get_object_or_404(Page, id=page_id).specific
+
+    perms = page.permissions_for_user(request.user)
+    if not (perms.can_publish() or perms.can_edit()):
+        raise PermissionDenied
+
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_page_object()
 
-    return revision_page.serve_preview(page.dummy_request(request), page.default_preview_mode)
+    return revision_page.make_preview_request(request, page.default_preview_mode)
 
 
 def revisions_compare(request, page_id, revision_id_a, revision_id_b):

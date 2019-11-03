@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Publish"
+msgstr "Setja í birtingu"
 
 msgid "Submit for moderation"
 msgstr "Senda inn til samþykktar"
@@ -31,14 +34,20 @@ msgstr "Taka úr loftinu"
 msgid "Delete"
 msgstr "Eyða"
 
+msgid "Page locked"
+msgstr "Síða læst"
+
 msgid "Wagtail admin"
 msgstr "Stjórnborð Wagtail"
 
-msgid "None"
-msgstr "Ekkert"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Því miður, þú hefur ekki heimildir til að skoða þetta svæði."
 
 msgid "You do not have permission to access the admin"
 msgstr "Þú ert ekki með réttindi til þess að skoða umsjónarsvæðið"
+
+msgid "None"
+msgstr "Ekkert"
 
 msgid "Scheduled publishing"
 msgstr "Tímasetning birtingar"
@@ -64,9 +73,6 @@ msgstr "Sláðu inn %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Sláðu inn netfangið þitt til að endursetja lykilorðið þitt."
-
-msgid "URL"
-msgstr "Slóð"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Þú getur ekki haft margar heimildafærslur fyrir sama safnið"
@@ -155,6 +161,222 @@ msgstr "Þennan reit þarf að fylla út."
 
 msgid "Please select at least one group."
 msgstr "Vinsamlegast veljið amk eina grúppu."
+
+msgid "Arabic"
+msgstr "Arabíska"
+
+msgid "Catalan"
+msgstr "Catalan"
+
+msgid "German"
+msgstr "Þýska"
+
+msgid "Greek"
+msgstr "Gríska"
+
+msgid "English"
+msgstr "Enska"
+
+msgid "Spanish"
+msgstr "Spænska"
+
+msgid "Finnish"
+msgstr "Finnska"
+
+msgid "French"
+msgstr "Franska"
+
+msgid "Galician"
+msgstr "Galiska"
+
+msgid "Indonesian"
+msgstr "Indónesíska"
+
+msgid "Icelandic"
+msgstr "Íslenska"
+
+msgid "Italian"
+msgstr "Ítalska"
+
+msgid "Korean"
+msgstr "Kóreyska"
+
+msgid "Lithuanian"
+msgstr "Litháenska"
+
+msgid "Norwegian Bokmål"
+msgstr "Norska"
+
+msgid "Netherlands Dutch"
+msgstr "Hollenska"
+
+msgid "Persian"
+msgstr "Persneska"
+
+msgid "Polish"
+msgstr "Pólska"
+
+msgid "Brazilian Portuguese"
+msgstr "Brasilísk Portúgalska"
+
+msgid "Portuguese"
+msgstr "Portúgalska"
+
+msgid "Romanian"
+msgstr "Rúmenska"
+
+msgid "Russian"
+msgstr "Rússneska"
+
+msgid "Swedish"
+msgstr "Sænska"
+
+msgid "Slovak"
+msgstr "Slóveska"
+
+msgid "Ukrainian"
+msgstr "Úkraínska"
+
+msgid "Page"
+msgstr "Síða"
+
+msgid "Pages"
+msgstr "Síður"
+
+msgid "Loading…"
+msgstr "Hleð..."
+
+msgid "No results"
+msgstr "Engar niðurstöður"
+
+msgid "Server Error"
+msgstr "Villa á vefþjóni"
+
+msgid "See all"
+msgstr "Sjá allt"
+
+msgid "Close explorer"
+msgstr "Loka veftré"
+
+msgid "Alt text"
+msgstr "Hjálpartexti"
+
+msgid "Write here…"
+msgstr "Skrifið hér..."
+
+msgid "Horizontal line"
+msgstr "Þverlína"
+
+msgid "Line break"
+msgstr "Ný lína"
+
+msgid "Undo"
+msgstr "Bakka"
+
+msgid "Redo"
+msgstr "Endurgera"
+
+msgid "Reload the page"
+msgstr "Endurhlaða síðunni"
+
+msgid "Reload saved content"
+msgstr "Endurhlaða vistuðu efni"
+
+msgid "Show latest content"
+msgstr "Sýna nýjasta efni"
+
+msgid "Show error"
+msgstr "Sýna villu"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Ritillinn lenti í villu. Efnið hefur verið endurstillt í síðustu vistuðu "
+"útgáfu."
+
+msgid "Close"
+msgstr "Loka"
+
+msgid "Edit '{title}'"
+msgstr "Breyta '{title}'"
+
+msgid "January"
+msgstr "Janúar"
+
+msgid "February"
+msgstr "Febrúar"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "April"
+msgstr "Apríl"
+
+msgid "May"
+msgstr "Maí"
+
+msgid "June"
+msgstr "Júní"
+
+msgid "July"
+msgstr "Júlí"
+
+msgid "August"
+msgstr "Ágúst"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Október"
+
+msgid "November"
+msgstr "Nóvember"
+
+msgid "December"
+msgstr "Desember"
+
+msgid "Sunday"
+msgstr "Sunnudagur"
+
+msgid "Monday"
+msgstr "Mánudagur"
+
+msgid "Tuesday"
+msgstr "Þriðjudagur"
+
+msgid "Wednesday"
+msgstr "Miðvikudagur"
+
+msgid "Thursday"
+msgstr "Fimmtudagur"
+
+msgid "Friday"
+msgstr "Föstudagur"
+
+msgid "Saturday"
+msgstr "Laugardagur"
+
+msgid "Sun"
+msgstr "Sun"
+
+msgid "Mon"
+msgstr "Mán"
+
+msgid "Tue"
+msgstr "Þri"
+
+msgid "Wed"
+msgstr "Mið"
+
+msgid "Thu"
+msgstr "Fim"
+
+msgid "Fri"
+msgstr "Fös"
+
+msgid "Sat"
+msgstr "Lau"
 
 msgid "Error 404: Page not found"
 msgstr "404: Síðan fannst ekki"
@@ -250,152 +472,11 @@ msgstr "Endursetja lykilorð"
 msgid "Reset your password"
 msgstr "Endursettu lykilorðið þitt"
 
-msgid "Page"
-msgstr "Síða"
-
-msgid "Pages"
-msgstr "Síður"
-
-msgid "Loading…"
-msgstr "Hleð..."
-
-msgid "No results"
-msgstr "Engar niðurstöður"
-
-msgid "Server Error"
-msgstr "Villa á vefþjóni"
-
-msgid "See all"
-msgstr "Sjá allt"
-
-msgid "Close explorer"
-msgstr "Loka veftré"
-
-msgid "Alt text"
-msgstr "Hjálpartexti"
-
-msgid "Write here…"
-msgstr "Skrifið hér..."
-
-msgid "Horizontal line"
-msgstr "Þverlína"
-
-msgid "Line break"
-msgstr "Ný lína"
-
-msgid "Undo"
-msgstr "Bakka"
-
-msgid "Redo"
-msgstr "Endurgera"
-
-msgid "Reload the page"
-msgstr "Endurhlaða síðunni"
-
-msgid "Reload saved content"
-msgstr "Endurhlaða vistuðu efni"
-
-msgid "Show latest content"
-msgstr "Sýna nýjasta efni"
-
-msgid "Show error"
-msgstr "Sýna villu"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Ritillinn lenti í villu. Efnið hefur verið endurstillt í síðustu vistuðu "
-"útgáfu."
-
-msgid "Close"
-msgstr "Loka"
-
-msgid "January"
-msgstr "Janúar"
-
-msgid "February"
-msgstr "Febrúar"
-
-msgid "March"
-msgstr "Mars"
-
-msgid "April"
-msgstr "Apríl"
-
-msgid "May"
-msgstr "Maí"
-
-msgid "June"
-msgstr "Júní"
-
-msgid "July"
-msgstr "Júlí"
-
-msgid "August"
-msgstr "Ágúst"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Október"
-
-msgid "November"
-msgstr "Nóvember"
-
-msgid "December"
-msgstr "Desember"
-
-msgid "Sunday"
-msgstr "Sunnudagur"
-
-msgid "Monday"
-msgstr "Mánudagur"
-
-msgid "Tuesday"
-msgstr "Þriðjudagur"
-
-msgid "Wednesday"
-msgstr "Miðvikudagur"
-
-msgid "Thursday"
-msgstr "Fimmtudagur"
-
-msgid "Friday"
-msgstr "Föstudagur"
-
-msgid "Saturday"
-msgstr "Laugardagur"
-
-msgid "Sun"
-msgstr "Sun"
-
-msgid "Mon"
-msgstr "Mán"
-
-msgid "Tue"
-msgstr "Þri"
-
-msgid "Wed"
-msgstr "Mið"
-
-msgid "Thu"
-msgstr "Fim"
-
-msgid "Fri"
-msgstr "Fös"
-
-msgid "Sat"
-msgstr "Lau"
-
 msgid "Dashboard"
 msgstr "Yfirlitssíða"
 
 msgid "Menu"
 msgstr "Valmynd"
-
-msgid "Add another"
-msgstr "Bæta við annarri"
 
 msgid "Move up"
 msgstr "Færa upp"
@@ -662,8 +743,14 @@ msgstr "Set í birtingu..."
 msgid "Publish this revision"
 msgstr "Setja þessa útgáfu í loftið"
 
-msgid "Publish"
-msgstr "Setja í birtingu"
+msgid "Saving…"
+msgstr "Vista..."
+
+msgid "Replace current draft"
+msgstr "Skipta út núverandi vinnuskjali"
+
+msgid "Save draft"
+msgstr "Vista uppkast"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -800,12 +887,6 @@ msgstr "Ný %(page_type)s"
 msgid "New"
 msgstr "Ný"
 
-msgid "Saving…"
-msgstr "Vista..."
-
-msgid "Save draft"
-msgstr "Vista uppkast"
-
 msgid "This page has unsaved changes."
 msgstr "Þessi síða er með óvistaðar breytingar."
 
@@ -816,12 +897,6 @@ msgstr "Breyti %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Breyti %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Síða læst"
-
-msgid "Replace current draft"
-msgstr "Skipta út núverandi vinnuskjali"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1199,84 +1274,6 @@ msgstr "Sýna í veftré"
 msgid "Test"
 msgstr "Prufa"
 
-msgid "Arabic"
-msgstr "Arabíska"
-
-msgid "Catalan"
-msgstr "Catalan"
-
-msgid "German"
-msgstr "Þýska"
-
-msgid "Greek"
-msgstr "Gríska"
-
-msgid "English"
-msgstr "Enska"
-
-msgid "Spanish"
-msgstr "Spænska"
-
-msgid "Finnish"
-msgstr "Finnska"
-
-msgid "French"
-msgstr "Franska"
-
-msgid "Galician"
-msgstr "Galiska"
-
-msgid "Indonesian"
-msgstr "Indónesíska"
-
-msgid "Icelandic"
-msgstr "Íslenska"
-
-msgid "Italian"
-msgstr "Ítalska"
-
-msgid "Korean"
-msgstr "Kóreyska"
-
-msgid "Lithuanian"
-msgstr "Litháenska"
-
-msgid "Norwegian Bokmål"
-msgstr "Norska"
-
-msgid "Netherlands Dutch"
-msgstr "Hollenska"
-
-msgid "Persian"
-msgstr "Persneska"
-
-msgid "Polish"
-msgstr "Pólska"
-
-msgid "Brazilian Portuguese"
-msgstr "Brasilísk Portúgalska"
-
-msgid "Portuguese"
-msgstr "Portúgalska"
-
-msgid "Romanian"
-msgstr "Rúmenska"
-
-msgid "Russian"
-msgstr "Rússneska"
-
-msgid "Swedish"
-msgstr "Sænska"
-
-msgid "Slovak"
-msgstr "Slóveska"
-
-msgid "Ukrainian"
-msgstr "Úkraínska"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Því miður, þú hefur ekki heimildir til að skoða þetta svæði."
-
 msgid "Your password has been changed successfully!"
 msgstr "Tókst að breyta lykilorðinu þínu!"
 
@@ -1441,44 +1438,11 @@ msgstr "útgáfa {0} af \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Útgáfa {0} af \"{1}\" ekki tímastillt."
 
-msgid "Edit '{title}'"
-msgstr "Breyta '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Forskoða uppkast af '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Skoða útgáfu af '{title}' í birtingu"
-
-msgid "Add a child page to '{title}' "
-msgstr "Bæta undirsíðu við '{title}'"
-
 msgid "More"
 msgstr "Meira"
 
-msgid "View more options for '{title}'"
-msgstr "Skoða fleiri valkosti fyrir '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Færa síðu '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Afrita síðu '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Eyða síðu '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Taka '{title}' úr loftinu"
-
-msgid "View revision history for '{title}'"
-msgstr "Skoða útgáfusögu '{title}'"
-
 msgid "Set profile picture"
 msgstr "Setja sem prófílmynd"
-
-msgid "Change your profile picture"
-msgstr "Breyttu prófílmynd þinni"
 
 msgid "Change the email address linked to your account."
 msgstr "Breyta netfanginu sem er tengt við aðganginn þinn."
@@ -1500,9 +1464,6 @@ msgstr "Núverandi tímabelti"
 
 msgid "Choose your current time zone."
 msgstr "Veldu þitt tímabelti"
-
-msgid "Heading {level}"
-msgstr "Millifyrirsögn {level}"
 
 msgid "Bulleted list"
 msgstr "Ónúmeraður listi"

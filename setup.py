@@ -22,8 +22,8 @@ except ImportError:
 
 install_requires = [
     "Django>=2.0,<2.3",
-    "django-modelcluster>=4.2,<5.0",
-    "django-taggit>=0.23,<1.0",
+    "django-modelcluster>=5.0,<6.0",
+    "django-taggit>=1.0,<2.0",
     "django-treebeard>=4.2.0,<5.0",
     "djangorestframework>=3.7.4,<4.0",
     "draftjs_exporter>=2.1.5,<3.0",
@@ -31,10 +31,9 @@ install_requires = [
     "beautifulsoup4>=4.5.1,<4.6.1",
     "html5lib>=0.999,<2",
     "Unidecode>=0.04.14,<2.0",
-    "Willow>=1.1,<1.2",
+    "Willow>=1.3,<1.4",
     "requests>=2.11.1,<3.0",
-    "pytz>=2016.6",  # for l18n
-    "six>=1.11,<2.0",  # for l18n
+    "l18n>=2018.5",
 ]
 
 # Testing dependencies
@@ -97,6 +96,7 @@ https://github.com/wagtail/wagtail/.",
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Framework :: Django',
         'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',

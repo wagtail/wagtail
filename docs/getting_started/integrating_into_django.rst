@@ -42,6 +42,9 @@ Add the following entries to ``MIDDLEWARE``:
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
+.. note::
+   Wagtail is currently incompatible with projects using ``django.contrib.sites.middleware.CurrentSiteMiddleware``, as both this and ``wagtail.core.middleware.SiteMiddleware`` set the attribute ``request.site``.
+
 Add a ``STATIC_ROOT`` setting, if your project does not have one already:
 
 .. code-block:: python
@@ -73,8 +76,8 @@ Now make the following additions to your ``urls.py`` file:
     from django.urls import path, re_path, include
 
     from wagtail.admin import urls as wagtailadmin_urls
-    from wagtail.documents import urls as wagtaildocs_urls
     from wagtail.core import urls as wagtail_urls
+    from wagtail.documents import urls as wagtaildocs_urls
 
     urlpatterns = [
         ...

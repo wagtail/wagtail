@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 from django.http import Http404
 from django.views.defaults import page_not_found
 
+from wagtail.admin.auth import require_admin_access
 from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import collections as wagtailadmin_collections_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
@@ -13,7 +14,6 @@ from wagtail.admin.views import account, chooser, home, pages, tags, userbar
 from wagtail.admin.api import urls as api_urls
 from wagtail.core import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
-from wagtail.admin.decorators import require_admin_access
 
 
 urlpatterns = [
@@ -37,6 +37,8 @@ urlpatterns = [
     url(r'^choose-page/search/$', chooser.search, name='wagtailadmin_choose_page_search'),
     url(r'^choose-external-link/$', chooser.external_link, name='wagtailadmin_choose_page_external_link'),
     url(r'^choose-email-link/$', chooser.email_link, name='wagtailadmin_choose_page_email_link'),
+    url(r'^choose-phone-link/$', chooser.phone_link, name='wagtailadmin_choose_page_phone_link'),
+    url(r'^choose-anchor-link/$', chooser.anchor_link, name='wagtailadmin_choose_page_anchor_link'),
 
     url(r'^tag-autocomplete/$', tags.autocomplete, name='wagtailadmin_tag_autocomplete'),
 
@@ -45,6 +47,7 @@ urlpatterns = [
     url(r'^account/$', account.account, name='wagtailadmin_account'),
     url(r'^account/change_password/$', account.change_password, name='wagtailadmin_account_change_password'),
     url(r'^account/change_email/$', account.change_email, name='wagtailadmin_account_change_email'),
+    url(r'^account/change_name/$', account.change_name, name='wagtailadmin_account_change_name'),
     url(
         r'^account/notification_preferences/$',
         account.notification_preferences,

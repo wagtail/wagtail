@@ -28,6 +28,12 @@ Object {
 }
 `;
 
+exports[`ModalWorkflowSource #filterEntityData LINK anchor 1`] = `
+Object {
+  "url": "#testanchor",
+}
+`;
+
 exports[`ModalWorkflowSource #filterEntityData LINK external 1`] = `
 Object {
   "url": "https://www.example.com/",
@@ -55,8 +61,10 @@ Object {
   },
   "url": "/admin/choose-external-link/",
   "urlParams": Object {
+    "allow_anchor_link": true,
     "allow_email_link": true,
     "allow_external_link": true,
+    "allow_phone_link": true,
     "link_text": "",
     "link_url": "https://www.example.com/",
     "page_type": "wagtailcore.page",
@@ -71,8 +79,10 @@ Object {
   },
   "url": "/admin/choose-email-link/",
   "urlParams": Object {
+    "allow_anchor_link": true,
     "allow_email_link": true,
     "allow_external_link": true,
+    "allow_phone_link": true,
     "link_text": "",
     "link_url": "test@example.com",
     "page_type": "wagtailcore.page",
@@ -87,8 +97,10 @@ Object {
   },
   "url": "/admin/choose-page/",
   "urlParams": Object {
+    "allow_anchor_link": true,
     "allow_email_link": true,
     "allow_external_link": true,
+    "allow_phone_link": true,
     "link_text": "",
     "page_type": "wagtailcore.page",
   },
@@ -102,8 +114,10 @@ Object {
   },
   "url": "/admin/choose-page/1/",
   "urlParams": Object {
+    "allow_anchor_link": true,
     "allow_email_link": true,
     "allow_external_link": true,
+    "allow_phone_link": true,
     "link_text": "",
     "page_type": "wagtailcore.page",
   },
@@ -117,8 +131,10 @@ Object {
   },
   "url": "/admin/choose-page/",
   "urlParams": Object {
+    "allow_anchor_link": true,
     "allow_email_link": true,
     "allow_external_link": true,
+    "allow_phone_link": true,
     "link_text": "",
     "page_type": "wagtailcore.page",
   },

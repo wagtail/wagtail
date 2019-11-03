@@ -188,6 +188,8 @@ ul.listing {
     }
 
     .title {
+        word-break: break-word;
+
         .title-wrapper,
         h2 {
             text-transform: none;

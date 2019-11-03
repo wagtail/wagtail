@@ -55,6 +55,7 @@ global.wagtail = {};
 global.chooserUrls = {
   documentChooser: '/admin/documents/chooser/',
   emailLinkChooser: '/admin/choose-email-link/',
+  anchorLinkChooser: '/admin/choose-anchor-link',
   embedsChooser: '/admin/embeds/chooser/',
   externalLinkChooser: '/admin/choose-external-link/',
   imageChooser: '/admin/images/chooser/',

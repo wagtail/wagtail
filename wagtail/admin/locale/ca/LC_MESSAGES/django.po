@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Publica"
 
 msgid "Submit for moderation"
 msgstr "Envia per moderació"
@@ -30,14 +33,20 @@ msgstr "Despublica"
 msgid "Delete"
 msgstr "Esborra"
 
+msgid "Page locked"
+msgstr "Pàgina bloquejada"
+
 msgid "Wagtail admin"
 msgstr "Administració de Wagtail"
 
-msgid "None"
-msgstr "Cap"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "No teniu permís per accedir a aquesta àrea."
 
 msgid "You do not have permission to access the admin"
 msgstr "No teniu permís per accedir a la pàgina d'administració"
+
+msgid "None"
+msgstr "Cap"
 
 msgid "Scheduled publishing"
 msgstr "Planificar la publicació"
@@ -63,9 +72,6 @@ msgstr "Introdueix el teu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -151,6 +157,69 @@ msgstr "Aquest camp és obligatori"
 msgid "Please select at least one group."
 msgstr "Seleccioneu com a mínim un grup."
 
+msgid "Pages"
+msgstr "Pàgines"
+
+msgid "Edit '{title}'"
+msgstr "Editar '{title}'"
+
+msgid "January"
+msgstr "Gener"
+
+msgid "February"
+msgstr "Febrer"
+
+msgid "March"
+msgstr "Març"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May"
+msgstr "Maig"
+
+msgid "June"
+msgstr "Juny"
+
+msgid "July"
+msgstr "Juliol"
+
+msgid "August"
+msgstr "Agost"
+
+msgid "September"
+msgstr "Setembre"
+
+msgid "October"
+msgstr "Octubre"
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "December"
+msgstr "Desembre"
+
+msgid "Sun"
+msgstr "Dg"
+
+msgid "Mon"
+msgstr "Dl"
+
+msgid "Tue"
+msgstr "Dt"
+
+msgid "Wed"
+msgstr "Dc"
+
+msgid "Thu"
+msgstr "Dj"
+
+msgid "Fri"
+msgstr "Dv"
+
+msgid "Sat"
+msgstr "Ds"
+
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pàgina no trobada"
 
@@ -217,74 +286,11 @@ msgstr "Contrasenya reiniciada"
 msgid "Reset your password"
 msgstr "Reinicia la teva contrasenya "
 
-msgid "Pages"
-msgstr "Pàgines"
-
-msgid "January"
-msgstr "Gener"
-
-msgid "February"
-msgstr "Febrer"
-
-msgid "March"
-msgstr "Març"
-
-msgid "April"
-msgstr "Abril"
-
-msgid "May"
-msgstr "Maig"
-
-msgid "June"
-msgstr "Juny"
-
-msgid "July"
-msgstr "Juliol"
-
-msgid "August"
-msgstr "Agost"
-
-msgid "September"
-msgstr "Setembre"
-
-msgid "October"
-msgstr "Octubre"
-
-msgid "November"
-msgstr "Novembre"
-
-msgid "December"
-msgstr "Desembre"
-
-msgid "Sun"
-msgstr "Dg"
-
-msgid "Mon"
-msgstr "Dl"
-
-msgid "Tue"
-msgstr "Dt"
-
-msgid "Wed"
-msgstr "Dc"
-
-msgid "Thu"
-msgstr "Dj"
-
-msgid "Fri"
-msgstr "Dv"
-
-msgid "Sat"
-msgstr "Ds"
-
 msgid "Dashboard"
 msgstr "Tauler de control"
 
 msgid "Menu"
 msgstr "Menú"
-
-msgid "Add another"
-msgstr "Afegir un altra"
 
 msgid "Move up"
 msgstr "Puja"
@@ -517,8 +523,11 @@ msgstr "Desbloquejada"
 msgid "Publish this revision"
 msgstr "Publicar aquesta revisió"
 
-msgid "Publish"
-msgstr "Publica"
+msgid "Replace current draft"
+msgstr "Reemplaçar l'esborrany actual"
+
+msgid "Save draft"
+msgstr "Desa esborrany"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -649,9 +658,6 @@ msgstr "Nova %(page_type)s"
 msgid "New"
 msgstr "Nou"
 
-msgid "Save draft"
-msgstr "Desa esborrany"
-
 msgid "This page has unsaved changes."
 msgstr "Aquesta pàgina té modificacions no desades"
 
@@ -662,12 +668,6 @@ msgstr "Editant %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Editant %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Pàgina bloquejada"
-
-msgid "Replace current draft"
-msgstr "Reemplaçar l'esborrany actual"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -981,9 +981,6 @@ msgstr "Mostrar a l'Explorer"
 msgid "Test"
 msgstr "Provar"
 
-msgid "Sorry, you do not have permission to access this area."
-msgstr "No teniu permís per accedir a aquesta àrea."
-
 msgid "Your password has been changed successfully!"
 msgstr "S'ha canviat la teva contrasenya!"
 
@@ -1129,38 +1126,8 @@ msgstr "La més antiga"
 msgid "Latest"
 msgstr "L'última"
 
-msgid "Edit '{title}'"
-msgstr "Editar '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Previsualitzar versió esborrany de '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Visualitzar versió en viu de '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Afegir una pàgina filla a '{title}'"
-
 msgid "More"
 msgstr "Més"
-
-msgid "View more options for '{title}'"
-msgstr "Veure més opcions per '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Moure pàgina '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Copiar pàgina '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Eliminar pàgina '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Despublicar pàgina '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Visualitzar historial de revisions de '{title}'"
 
 msgid "Change the password you use to log in."
 msgstr "Canvia la password que fas servir per connectar-te"

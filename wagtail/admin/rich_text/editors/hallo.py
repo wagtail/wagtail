@@ -5,6 +5,7 @@ from django.forms import Media, widgets
 
 from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.rich_text import features
 
 
@@ -67,12 +68,18 @@ class HalloListPlugin(HalloPlugin):
         plugins[self.name]['lists'][self.list_type] = True
 
 
+class HalloRequireParagraphsPlugin(HalloPlugin):
+    @property
+    def media(self):
+        return Media(js=[
+            versioned_static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
+        ]) + super().media
+
+
 # Plugins which are always imported, and cannot be enabled/disabled via 'features'
 CORE_HALLO_PLUGINS = [
     HalloPlugin(name='halloreundo', order=50),
-    HalloPlugin(name='hallorequireparagraphs', js=[
-        'wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js',
-    ]),
+    HalloRequireParagraphsPlugin(name='hallorequireparagraphs'),
     HalloHeadingPlugin(element='p')
 ]
 
@@ -138,10 +145,10 @@ class HalloRichTextArea(widgets.Textarea):
     @property
     def media(self):
         media = Media(js=[
-            'wagtailadmin/js/vendor/hallo.js',
-            'wagtailadmin/js/hallo-bootstrap.js',
+            versioned_static('wagtailadmin/js/vendor/hallo.js'),
+            versioned_static('wagtailadmin/js/hallo-bootstrap.js'),
         ], css={
-            'all': ['wagtailadmin/css/panels/hallo.css']
+            'all': [versioned_static('wagtailadmin/css/panels/hallo.css')]
         })
 
         for plugin in self.plugins:
