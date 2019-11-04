@@ -3,6 +3,7 @@
     <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
         <section>
             <h2>{% trans "Your locked pages" %}</h2>
+            <a href="{% url 'wagtailadmin_reports:locked_pages' %}" class="button button-small button-secondary">{% trans "See all locked pages" %}</a>
             <table class="listing listing-page">
                 <col />
                 <col width="15%"/>

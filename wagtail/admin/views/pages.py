@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.html import format_html
 from django.utils.http import is_safe_url, urlquote
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -344,6 +345,14 @@ def edit(request, page_id):
 
     user_has_lock = page.locked_by_id == request.user.id
     page_locked = page_perms.page_locked()
+
+    if user_has_lock:
+        messages.warning(request, format_html(_("<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."), page.get_admin_display_title(), page.locked_at.strftime("%d %b %Y %H:%M")), extra_tags='lock')
+    if page_locked:
+        locked_by_message = ""
+        if page.locked_by:
+            locked_by_message = format_html(" by <b>{}</b>", str(page.locked_by))
+        messages.error(request, format_html(_("<b>Page '{}' was locked</b>{} on <b>{}</b>."), page.get_admin_display_title(), locked_by_message, page.locked_at.strftime("%d %b %Y %H:%M")), extra_tags='lock')
 
     next_url = get_valid_next_url_from_request(request)
 
@@ -1080,8 +1089,6 @@ def lock(request, page_id):
         page.locked_at = timezone.now()
         page.save()
 
-        messages.success(request, _("Page '{0}' is now locked.").format(page.get_admin_display_title()))
-
     # Redirect
     redirect_to = request.POST.get('next', None)
     if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
@@ -1106,7 +1113,7 @@ def unlock(request, page_id):
         page.locked_at = None
         page.save()
 
-        messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()))
+        messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()), extra_tags='unlock')
 
     # Redirect
     redirect_to = request.POST.get('next', None)
@@ -1277,15 +1284,4 @@ def revisions_unschedule(request, page_id, revision_id):
         'revision': revision,
         'next': next_url,
         'subtitle': subtitle
-    })
-
-
-def locked_pages(request):
-    pages = UserPagePermissionsProxy(request.user).editable_pages().filter(locked=True)
-
-    paginator = Paginator(pages, per_page=10)
-    pages = paginator.get_page(request.GET.get('p'))
-
-    return render(request, 'wagtailadmin/pages/locked_pages.html', {
-        'pages': pages,
     })
