@@ -10,7 +10,7 @@ AMP version of the site.
 Overview
 --------
 
-In the next section we will add a new URL entry that points at Wagtail's
+In the next section, we will add a new URL entry that points at Wagtail's
 internal ``serve()`` view which will have the effect of rendering the whole
 site again under the ``/amp`` prefix.
 
@@ -29,7 +29,7 @@ Creating the second page tree
 
 We can render the whole site at a different prefix by duplicating the Wagtail
 URL in the project ``urls.py`` file and giving it a prefix. This must be before
-the default URL from Wagtail or it will try to find ``/amp`` as a page:
+the default URL from Wagtail, or it will try to find ``/amp`` as a page:
 
 .. code-block:: python
 
@@ -53,9 +53,9 @@ isn't any difference between the AMP version and the normal version.
 
 To make changes, we need to add a way to detect which URL was used to render
 the page. To do this, we will have to wrap Wagtail's ``serve()`` view and
-set a thread local to indicate to all downstream code that AMP mode is active.
+set a thread-local to indicate to all downstream code that AMP mode is active.
 
-.. note:: Why a thread local?
+.. note:: Why a thread-local?
 
     (feel free to skip this part if you're not interested)
 
@@ -63,20 +63,20 @@ set a thread local to indicate to all downstream code that AMP mode is active.
     However, the image tag rendering is performed in a part of Wagtail that
     does not have access to the request.
 
-    Thread locals are global variables that can have a different value for each
+    Thread-locals are global variables that can have a different value for each
     running thread. As each thread only handles one request at a time, we can
     use it as a way to pass around data that is specific to that request
     without having to pass the request object everywhere.
 
-    Django uses thread locals internally to track the currently active language
+    Django uses thread-locals internally to track the currently active language
     for the request.
 
     Please be aware though: In Django 3.x and above, you will need to use an
     ``asgiref.Local`` instead.
-    This is because Django 3.x handles multiple requests in the a single thread
-    so thread locals will no longer be unique to a single request.
+    This is because Django 3.x handles multiple requests in a single thread
+    so thread-locals will no longer be unique to a single request.
 
-Now let's create that thread local and some utility functions to interact with it,
+Now let's create that thread-local and some utility functions to interact with it,
 save this module as ``amp_utils.py`` in an app in your project:
 
 .. code-block:: python
@@ -166,7 +166,7 @@ file for the ``/amp`` prefix:
         url(r'', include(wagtail_urls)),
     ]
 
-After this, there shouldn't be any noticable difference to the AMP version of
+After this, there shouldn't be any noticeable difference to the AMP version of
 the site.
 
 Write a template context processor so that AMP state can be checked in templates
@@ -223,12 +223,11 @@ Using a different page template when AMP mode is active
 -------------------------------------------------------
 
 You're probably not going to want to use the same templates on the AMP site as
-you do on the regular web site. So let's add some logic in so Wagtail will
-automatically use separate whenever a page is served with AMP enabled.
+you do on the regular web site. Let's add some logic in to make Wagtail use a
+separate template whenever a page is served with AMP enabled.
 
-We can implement this logic as a mixin which allows us to implement it on many
-different page types. Add the following to the bottom of the amp_utils.py file
-that you created earlier:
+We can use a mixin, which allows us to re-use the logic on different page types.
+Add the following to the bottom of the amp_utils.py file that you created earlier:
 
 .. code-block:: python
 
@@ -281,7 +280,7 @@ If you have a different naming convention, you can override the
 Overriding the ``{% image %}`` tag to output ``<amp-img>`` tags
 ---------------------------------------------------------------
 
-Finally, let's change Wagtail's ``{% image %}`` tag so it renders an ``<amp-img>``
+Finally, let's change Wagtail's ``{% image %}`` tag, so it renders an ``<amp-img>``
 tags when rendering pages with AMP enabled. We'll make the change on the
 `Rendition` model itself so it applies to both images rendered with the
 ``{% image %}`` tag and images rendered in rich text fields as well.
