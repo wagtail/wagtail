@@ -11,20 +11,43 @@
 {% endif %}
 
 <form action="{{ form_action }}" method="POST" class="lock-indicator {{ page.locked|yesno:'locked,unlocked' }}">
-    {% trans "Edit lock" %}
+    <span class="lock-status">
+    {% if page.locked %}
+        {% trans "This page is locked" %}
+    {% else %}
+        {% trans "This page is unlocked" %}
+    {% endif %}</span>
 
     {% csrf_token %}
-    <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}" />
-    <button
-        type="submit"
-        class="status-tag {{ page.locked|yesno:'primary,secondary' }}{% if not form_action %} disabled{% endif %}"
-        aria-label="{% if page_perms.page_locked %}{% if page_perms.can_unlock %}{% trans 'Remove editor lock. Current status: Locked' %}{% else %}{% trans 'Current status: Locked' %}{% endif %}{% else %}{% trans 'Apply editor lock. Current status: Unlocked' %}{% endif %}">
-        {% if page_perms.page_locked %}
-            {% trans "Locked" %}
-        {% elif user_has_lock %}
-            {% trans "Locked by you" %}
+    {% if page.locked %}
+        {% if page_perms.can_unlock %}
+        <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}" />
+        <button
+            type="submit"
+            class="status-tag primary lock-status"
+            aria-label="{% trans 'Remove editor lock' %}">
+            {% trans "Unlock" %}
+        </button>
         {% else %}
-            {% trans "Unlocked" %}
+            <div class="lock-status">
+            ({% trans "You don't have permission to unlock" %})
+                </div>
         {% endif %}
-    </button>
+    {% else %}
+        {% if page_perms.can_lock %}
+            <input type="hidden" name="next" value="{% url 'wagtailadmin_pages:edit' page.id %}" />
+        <button
+            type="submit"
+            class="status-tag primary lock-status"
+            aria-label="{% trans 'Apply editor lock' %}">
+            {% trans "Lock" %}
+        </button>
+        {% else %}
+            <div class="lock-status">
+            ({% trans "You don't have permission to lock" %})
+                </div>
+        {% endif %}
+    {% endif %}
+
+
 </form>

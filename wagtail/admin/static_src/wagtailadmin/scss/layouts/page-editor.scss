@@ -475,3 +475,11 @@ footer .preview {
         }
     }
 }
+
+.lock-status {
+    margin: 0 0.5em 0.5em 0;
+}
+
+.lock-status.status-tag {
+    color: $color-teal;
+}
