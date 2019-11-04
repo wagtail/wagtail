@@ -669,7 +669,7 @@ Page locking
   The page locking logic has been changed so that pages are still editable
   by the users who locked them.
 
-The ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` can be set to ``True`` to prevent users
+``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` can be set to ``True`` to prevent users
 from editing pages that they have locked.
 
 
