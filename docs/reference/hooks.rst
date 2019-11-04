@@ -631,6 +631,39 @@ Hooks for customising the way users are directed through the process of creating
         return items.append( UserbarPuppyLinkItem() )
 
 
+.. _construct_wagtail_userbar_with_context:
+
+``construct_wagtail_userbar_with_context``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Works same as ``construct_wagtail_userbar`` but takes template context as third argument in hook function
+
+  .. code-block:: python
+  from django.views.generics import TemplateView
+  from wagtail.core import hooks
+
+  class SomeView(TemplateView):
+      ...
+      def get_context_data(self, **kwargs):
+          ctx = super().get_context_data()
+          ctx['puppy_link'] = "http://cuteoverload.com/tag/puppehs/"
+          return ctx
+
+  class UserbarPuppyLinkItemFromContext:
+
+        def __init__(context):
+            self.context = context
+
+        def render(self, request):
+            link = self.context.get('puppy_link')
+            return '<li><a href="' + link + '" ' \
+                + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
+
+    @hooks.register('construct_wagtail_userbar_with_context')
+    def add_puppy_link_item(request, items, context):
+        return items.append( UserbarPuppyLinkItemFromContext(context) )
+
+
 Admin workflow
 --------------
 Hooks for customising the way admins are directed through the process of editing users.
