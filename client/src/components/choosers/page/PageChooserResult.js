@@ -18,6 +18,11 @@ const defaultProps = {
   isParent: false,
 };
 
+// Capitalizes first letter without making any other letters lowercase
+function capitalizeFirstLetter(text) {
+  return text[0].toUpperCase() + text.slice(1);
+}
+
 class PageChooserResult extends React.Component {
   renderTitle() {
     const { isChoosable, onChoose, page } = this.props;
@@ -81,7 +86,7 @@ class PageChooserResult extends React.Component {
 
     return (
       <td className="type u-vertical-align-top">
-        {pageType}
+        {capitalizeFirstLetter(pageType)}
       </td>
     );
   }
