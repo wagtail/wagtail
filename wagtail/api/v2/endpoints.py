@@ -24,7 +24,7 @@ from .utils import (
     parse_fields_parameter)
 
 
-class BaseAPIEndpoint(GenericViewSet):
+class BaseAPIViewSet(GenericViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
 
     pagination_class = WagtailPagination
@@ -269,7 +269,7 @@ class BaseAPIEndpoint(GenericViewSet):
                 # Get a serializer class for the related object
                 child_model = django_field.related_model
                 child_endpoint_class = router.get_model_endpoint(child_model)
-                child_endpoint_class = child_endpoint_class[1] if child_endpoint_class else BaseAPIEndpoint
+                child_endpoint_class = child_endpoint_class[1] if child_endpoint_class else BaseAPIViewSet
                 child_serializer_classes[field_name] = child_endpoint_class._get_serializer_class(router, child_model, child_sub_fields, nested=True)
 
             else:
@@ -362,7 +362,7 @@ class BaseAPIEndpoint(GenericViewSet):
         return reverse(url_name, args=(pk, ))
 
 
-class PagesAPIEndpoint(BaseAPIEndpoint):
+class PagesAPIViewSet(BaseAPIViewSet):
     base_serializer_class = PageSerializer
     filter_backends = [
         FieldsFilter,
@@ -371,15 +371,15 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         OrderingFilter,
         SearchFilter
     ]
-    known_query_parameters = BaseAPIEndpoint.known_query_parameters.union([
+    known_query_parameters = BaseAPIViewSet.known_query_parameters.union([
         'type',
         'child_of',
         'descendant_of',
     ])
-    body_fields = BaseAPIEndpoint.body_fields + [
+    body_fields = BaseAPIViewSet.body_fields + [
         'title',
     ]
-    meta_fields = BaseAPIEndpoint.meta_fields + [
+    meta_fields = BaseAPIViewSet.meta_fields + [
         'html_url',
         'slug',
         'show_in_menus',
@@ -388,13 +388,13 @@ class PagesAPIEndpoint(BaseAPIEndpoint):
         'first_published_at',
         'parent',
     ]
-    listing_default_fields = BaseAPIEndpoint.listing_default_fields + [
+    listing_default_fields = BaseAPIViewSet.listing_default_fields + [
         'title',
         'html_url',
         'slug',
         'first_published_at',
     ]
-    nested_default_fields = BaseAPIEndpoint.nested_default_fields + [
+    nested_default_fields = BaseAPIViewSet.nested_default_fields + [
         'title',
     ]
     detail_only_fields = ['parent']
