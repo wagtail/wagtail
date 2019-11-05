@@ -4,12 +4,12 @@ from rest_framework.authentication import SessionAuthentication
 
 from wagtail.api.v2.endpoints import PagesAPIViewSet
 from wagtail.api.v2.filters import (
-    ChildOfFilter, DescendantOfFilter, FieldsFilter, ForExplorerFilter, OrderingFilter,
+    ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter,
     SearchFilter)
 from wagtail.api.v2.utils import BadRequestError, filter_page_type, page_models_from_string
 from wagtail.core.models import Page
 
-from .filters import HasChildrenFilter
+from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
 
 
