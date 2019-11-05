@@ -12,5 +12,5 @@ for fn in hooks.get_hooks('construct_admin_api'):
     fn(admin_api)
 
 urlpatterns = [
-    url(r'^v2beta/', admin_api.urls),
+    url(r'^main/', admin_api.urls),
 ]

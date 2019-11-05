@@ -189,7 +189,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
                 self.assertIsInstance(feed_image['meta'], dict)
                 self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url', 'download_url'})
                 self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
-                self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % feed_image['id'])
+                self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/main/images/%d/' % feed_image['id'])
 
     def test_fields_parent(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='parent')
@@ -203,7 +203,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
                 'id': 5,
                 'meta': {
                     'type': 'demosite.BlogIndexPage',
-                    'detail_url': 'http://localhost/admin/api/v2beta/pages/5/',
+                    'detail_url': 'http://localhost/admin/api/main/pages/5/',
                     'html_url': 'http://localhost/blog-index/',
                 },
                 'title': "Blog index"
@@ -217,7 +217,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             descendants = page['meta']['descendants']
             self.assertEqual(set(descendants.keys()), {'count', 'listing_url'})
             self.assertIsInstance(descendants['count'], int)
-            self.assertEqual(descendants['listing_url'], 'http://localhost/admin/api/v2beta/pages/?descendant_of=%d' % page['id'])
+            self.assertEqual(descendants['listing_url'], 'http://localhost/admin/api/main/pages/?descendant_of=%d' % page['id'])
 
     def test_fields_child_relation(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,related_links')
@@ -441,7 +441,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v2beta/pages/16/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/main/pages/16/')
 
         # Check the meta html_url
         self.assertIn('html_url', content['meta'])
@@ -461,7 +461,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIn('children', content['meta'])
         self.assertEqual(content['meta']['children'], {
             'count': 0,
-            'listing_url': 'http://localhost/admin/api/v2beta/pages/?child_of=16'
+            'listing_url': 'http://localhost/admin/api/main/pages/?child_of=16'
         })
 
         # Check the parent field
@@ -472,7 +472,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIsInstance(content['meta']['parent']['meta'], dict)
         self.assertEqual(set(content['meta']['parent']['meta'].keys()), {'type', 'detail_url', 'html_url'})
         self.assertEqual(content['meta']['parent']['meta']['type'], 'demosite.BlogIndexPage')
-        self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/admin/api/v2beta/pages/5/')
+        self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/admin/api/main/pages/5/')
         self.assertEqual(content['meta']['parent']['meta']['html_url'], 'http://localhost/blog-index/')
 
         # Check that the custom fields are included
@@ -496,7 +496,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIsInstance(content['feed_image']['meta'], dict)
         self.assertEqual(set(content['feed_image']['meta'].keys()), {'type', 'detail_url', 'download_url'})
         self.assertEqual(content['feed_image']['meta']['type'], 'wagtailimages.Image')
-        self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/7/')
+        self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/admin/api/main/images/7/')
 
         # Check that the child relations were serialised properly
         self.assertEqual(content['related_links'], [])
@@ -609,7 +609,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIn('children', content['meta'])
         self.assertEqual(content['meta']['children'], {
             'count': 5,
-            'listing_url': 'http://localhost/admin/api/v2beta/pages/?child_of=2'
+            'listing_url': 'http://localhost/admin/api/main/pages/?child_of=2'
         })
 
     def test_meta_descendants(self):
@@ -620,7 +620,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIn('descendants', content['meta'])
         self.assertEqual(content['meta']['descendants'], {
             'count': 18,
-            'listing_url': 'http://localhost/admin/api/v2beta/pages/?descendant_of=2'
+            'listing_url': 'http://localhost/admin/api/main/pages/?descendant_of=2'
         })
 
     # FIELDS
@@ -657,7 +657,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIsInstance(feed_image['meta'], dict)
         self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url', 'download_url'})
         self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
-        self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/v2beta/images/%d/' % feed_image['id'])
+        self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/admin/api/main/images/%d/' % feed_image['id'])
 
 
 class TestAdminPageDetailWithStreamField(AdminAPITestCase):
