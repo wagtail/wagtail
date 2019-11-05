@@ -420,6 +420,7 @@ Contributors
 * Igor van Spengen
 * Stefani Castellanos
 * Aliosha Padovani
+* Tom Readings
 
 Translators
 ===========
