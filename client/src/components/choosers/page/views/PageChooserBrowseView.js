@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { STRINGS } from '../../../../config/wagtailConfig';
+
 import PageChooserResultSet from '../PageChooserResultSet';
 
 // TODO Get rid of any propTypes.
@@ -43,7 +45,7 @@ class PageChooserBrowseView extends React.Component {
                 className="navigate-pages icon icon-home text-replace"
                 onClick={onClickNavigate}
               >
-                Home
+                {STRINGS.HOME}
               </a>
             </li>
           );
@@ -84,7 +86,7 @@ class PageChooserBrowseView extends React.Component {
 
     return (
       <div className="nice-padding">
-        <h2>Explorer</h2>
+        <h2>{STRINGS.EXPLORER}</h2>
         {this.renderBreadcrumb()}
         <PageChooserResultSet
           pageNumber={pageNumber}

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { STRINGS } from '../../../config/wagtailConfig';
+
 import PageChooserPagination from './PageChooserPagination';
 import PageChooserResult from './PageChooserResult';
 
@@ -111,10 +113,10 @@ class PageChooserResultSet extends React.Component {
           </colgroup>
           <thead>
             <tr className="table-headers">
-              <th className="title">Title</th>
-              <th className="updated">Updated</th>
-              <th className="type">Type</th>
-              <th className="status">Status</th>
+              <th className="title">{STRINGS.TITLE}</th>
+              <th className="updated">{STRINGS.UPDATED}</th>
+              <th className="type">{STRINGS.TYPE}</th>
+              <th className="status">{STRINGS.STATUS}</th>
               <th />
             </tr>
             {parent}

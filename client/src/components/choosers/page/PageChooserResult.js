@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
+import { STRINGS } from '../../../config/wagtailConfig';
+
 const propTypes = {
   isChoosable: PropTypes.bool.isRequired,
   isNavigable: PropTypes.bool,
@@ -119,9 +121,9 @@ class PageChooserResult extends React.Component {
             href="#"
             onClick={onNavigate}
             className="icon text-replace icon-arrow-right navigate-pages"
-            title={`Explore subpages of '${page.title}'`}
+            title={STRINGS.EXPLORE_SUBPAGES_OF_PAGE.replace('{title}', page.title)}
           >
-            Explore
+            {STRINGS.EXPLORE}
           </a>
         </td>
       );

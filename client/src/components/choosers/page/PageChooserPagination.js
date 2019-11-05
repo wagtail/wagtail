@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { STRINGS } from '../../../config/wagtailConfig';
+
 const propTypes = {
   totalPages: PropTypes.number.isRequired,
   pageNumber: PropTypes.number,
@@ -29,7 +31,7 @@ class PageChooserPagination extends React.Component {
             href="#"
             className="icon icon-arrow-left navigate-pages"
           >
-            Previous
+            {STRINGS.PREVIOUS}
           </a>
         </li>
       );
@@ -57,7 +59,7 @@ class PageChooserPagination extends React.Component {
             href="#"
             className="icon icon-arrow-right-after navigate-pages"
           >
-            Next
+            {STRINGS.NEXT}
           </a>
         </li>
       );

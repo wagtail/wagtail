@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { STRINGS } from '../../../../config/wagtailConfig';
+
 import PageChooserResultSet from '../PageChooserResultSet';
 
 // TODO Get rid of any propTypes.
@@ -20,11 +22,11 @@ const propTypes = {
 const renderTitle = (totalItems) => {
   switch (totalItems) {
   case 0:
-    return 'There are no matches';
+    return STRINGS.THERE_ARE_NO_MATCHES;
   case 1:
-    return 'There is 1 match';
+    return STRINGS.THERE_IS_ONE_MATCH;
   default:
-    return `There are ${totalItems} matches`;
+    return STRINGS.THERE_ARE_N_MATCHES.replace('{count}', totalItems);
   }
 };
 
