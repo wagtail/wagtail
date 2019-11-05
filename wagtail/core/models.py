@@ -358,7 +358,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         related_name='pages',
         verbose_name=_('workflow'),
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True,
     )
 
     search_fields = [
@@ -2391,8 +2392,8 @@ class GroupCollectionPermission(models.Model):
 
 
 class WorkflowTask(models.Model):
-    workflow = models.ForeignKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow'))
-    task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'))
+    workflow = models.ForeignKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow_tasks'))
+    task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='workflow_tasks')
     sort_order = models.PositiveIntegerField(verbose_name=_('priority'))
 
     class Meta:
@@ -2452,7 +2453,7 @@ class Task(models.Model):
 
 class Workflow(models.Model):
     name = models.CharField(max_length=255, verbose_name=_('name'))
-    tasks = models.ManyToManyField(Task, through=WorkflowTask)
+    tasks = models.ManyToManyField(Task, through=WorkflowTask, related_name='workflows')
 
     def __str__(self):
         return self.name
