@@ -51,7 +51,7 @@ class PageChildrenField(Field):
 
     def to_representation(self, page):
         return OrderedDict([
-            ('count', page.numchild),
+            ('count', self.context['base_queryset'].child_of(page).count()),
             ('listing_url', get_model_listing_url(self.context, Page) + '?child_of=' + str(page.id)),
         ])
 
@@ -71,7 +71,7 @@ class PageDescendantsField(Field):
 
     def to_representation(self, page):
         return OrderedDict([
-            ('count', page.get_descendants().count()),
+            ('count', self.context['base_queryset'].descendant_of(page).count()),
             ('listing_url', get_model_listing_url(self.context, Page) + '?descendant_of=' + str(page.id)),
         ])
 

@@ -32,12 +32,6 @@ def get_object_detail_url(router, request, model, pk):
         return get_full_url(request, url_path)
 
 
-def pages_for_site(site):
-    pages = Page.objects.public().live()
-    pages = pages.descendant_of(site.root_page, inclusive=True)
-    return pages
-
-
 def page_models_from_string(string):
     page_models = []
 
