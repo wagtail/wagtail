@@ -288,8 +288,8 @@ class TagsFieldComparison(M2MFieldComparison):
 class ForeignObjectComparison(FieldComparison):
     def get_objects(self):
         model = self.field.related_model
-        obj_a = model.objects.filter(id=self.val_a).first()
-        obj_b = model.objects.filter(id=self.val_b).first()
+        obj_a = model.objects.filter(pk=self.val_a).first()
+        obj_b = model.objects.filter(pk=self.val_b).first()
         return obj_a, obj_b
 
     def htmldiff(self):
