@@ -22,7 +22,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
     fixtures = ['demosite.json']
 
     def get_response(self, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:pages:listing'), params)
+        return self.client.get(reverse('wagtailadmin_api:pages:listing'), params)
 
     def get_page_id_list(self, content):
         return [page['id'] for page in content['items']]
@@ -416,7 +416,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
     fixtures = ['demosite.json']
 
     def get_response(self, page_id, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:pages:detail', args=(page_id, )), params)
+        return self.client.get(reverse('wagtailadmin_api:pages:detail', args=(page_id, )), params)
 
     def test_basic(self):
         response = self.get_response(16)
@@ -679,7 +679,7 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
     def test_can_fetch_streamfield_content(self):
         stream_page = self.make_stream_page('[{"type": "text", "value": "foo"}]')
 
-        response_url = reverse('wagtailadmin_api_v1:pages:detail', args=(stream_page.id, ))
+        response_url = reverse('wagtailadmin_api:pages:detail', args=(stream_page.id, ))
         response = self.client.get(response_url)
 
         self.assertEqual(response.status_code, 200)
@@ -698,7 +698,7 @@ class TestAdminPageDetailWithStreamField(AdminAPITestCase):
     def test_image_block(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
 
-        response_url = reverse('wagtailadmin_api_v1:pages:detail', args=(stream_page.id, ))
+        response_url = reverse('wagtailadmin_api:pages:detail', args=(stream_page.id, ))
         response = self.client.get(response_url)
         content = json.loads(response.content.decode('utf-8'))
 
@@ -716,7 +716,7 @@ class TestCustomAdminDisplayTitle(AdminAPITestCase):
         self.event_page = Page.objects.get(url_path='/home/events/saint-patrick/')
 
     def test_custom_admin_display_title_shown_on_detail_page(self):
-        api_url = reverse('wagtailadmin_api_v1:pages:detail', args=(self.event_page.id, ))
+        api_url = reverse('wagtailadmin_api:pages:detail', args=(self.event_page.id, ))
         response = self.client.get(api_url)
         content = json.loads(response.content.decode('utf-8'))
 
@@ -724,7 +724,7 @@ class TestCustomAdminDisplayTitle(AdminAPITestCase):
         self.assertEqual(content['admin_display_title'], "Saint Patrick (single event)")
 
     def test_custom_admin_display_title_shown_on_listing(self):
-        api_url = reverse('wagtailadmin_api_v1:pages:listing')
+        api_url = reverse('wagtailadmin_api:pages:listing')
         response = self.client.get(api_url)
         content = json.loads(response.content.decode('utf-8'))
 
