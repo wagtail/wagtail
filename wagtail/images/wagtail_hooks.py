@@ -13,7 +13,7 @@ from wagtail.admin.site_summary import SummaryItem
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core import hooks
 from wagtail.images import admin_urls, get_image_model, image_operations
-from wagtail.images.api.admin.endpoints import ImagesAdminAPIEndpoint
+from wagtail.images.api.admin.endpoints import ImagesAdminAPIViewSet
 from wagtail.images.forms import GroupImagePermissionFormSet
 from wagtail.images.permissions import permission_policy
 from wagtail.images.rich_text import ImageEmbedHandler
@@ -30,7 +30,7 @@ def register_admin_urls():
 
 @hooks.register('construct_admin_api')
 def construct_admin_api(router):
-    router.register_endpoint('images', ImagesAdminAPIEndpoint)
+    router.register_endpoint('images', ImagesAdminAPIViewSet)
 
 
 class ImagesMenuItem(MenuItem):
