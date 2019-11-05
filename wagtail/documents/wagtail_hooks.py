@@ -17,7 +17,7 @@ from wagtail.core import hooks
 from wagtail.core.models import BaseViewRestriction
 from wagtail.core.wagtail_hooks import require_wagtail_login
 from wagtail.documents import admin_urls
-from wagtail.documents.api.admin.endpoints import DocumentsAdminAPIEndpoint
+from wagtail.documents.api.admin.endpoints import DocumentsAdminAPIViewSet
 from wagtail.documents.forms import GroupDocumentPermissionFormSet
 from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
@@ -35,7 +35,7 @@ def register_admin_urls():
 
 @hooks.register('construct_admin_api')
 def construct_admin_api(router):
-    router.register_endpoint('documents', DocumentsAdminAPIEndpoint)
+    router.register_endpoint('documents', DocumentsAdminAPIViewSet)
 
 
 class DocumentsMenuItem(MenuItem):

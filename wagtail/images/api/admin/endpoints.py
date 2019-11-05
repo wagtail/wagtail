@@ -1,15 +1,15 @@
-from ..v2.endpoints import ImagesAPIEndpoint
+from ..v2.endpoints import ImagesAPIViewSet
 from .serializers import AdminImageSerializer
 
 
-class ImagesAdminAPIEndpoint(ImagesAPIEndpoint):
+class ImagesAdminAPIViewSet(ImagesAPIViewSet):
     base_serializer_class = AdminImageSerializer
 
-    body_fields = ImagesAPIEndpoint.body_fields + [
+    body_fields = ImagesAPIViewSet.body_fields + [
         'thumbnail',
     ]
 
-    listing_default_fields = ImagesAPIEndpoint.listing_default_fields + [
+    listing_default_fields = ImagesAPIViewSet.listing_default_fields + [
         'width',
         'height',
         'thumbnail',

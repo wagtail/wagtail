@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 from rest_framework.authentication import SessionAuthentication
 
-from wagtail.api.v2.endpoints import PagesAPIEndpoint
+from wagtail.api.v2.endpoints import PagesAPIViewSet
 from wagtail.api.v2.filters import (
     ChildOfFilter, DescendantOfFilter, FieldsFilter, ForExplorerFilter, OrderingFilter,
     SearchFilter)
@@ -13,7 +13,7 @@ from .filters import HasChildrenFilter
 from .serializers import AdminPageSerializer
 
 
-class PagesAdminAPIEndpoint(PagesAPIEndpoint):
+class PagesAdminAPIViewSet(PagesAPIViewSet):
     base_serializer_class = AdminPageSerializer
     authentication_classes = [SessionAuthentication]
 
@@ -29,7 +29,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         SearchFilter,
     ]
 
-    meta_fields = PagesAPIEndpoint.meta_fields + [
+    meta_fields = PagesAPIViewSet.meta_fields + [
         'latest_revision_created_at',
         'status',
         'children',
@@ -37,11 +37,11 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         'parent',
     ]
 
-    body_fields = PagesAPIEndpoint.body_fields + [
+    body_fields = PagesAPIViewSet.body_fields + [
         'admin_display_title',
     ]
 
-    listing_default_fields = PagesAPIEndpoint.listing_default_fields + [
+    listing_default_fields = PagesAPIViewSet.listing_default_fields + [
         'latest_revision_created_at',
         'status',
         'children',
@@ -51,7 +51,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
     # Allow the parent field to appear on listings
     detail_only_fields = []
 
-    known_query_parameters = PagesAPIEndpoint.known_query_parameters.union([
+    known_query_parameters = PagesAPIViewSet.known_query_parameters.union([
         'for_explorer',
         'has_children'
     ])

@@ -1,5 +1,5 @@
-from ..v2.endpoints import DocumentsAPIEndpoint
+from ..v2.endpoints import DocumentsAPIViewSet
 
 
-class DocumentsAdminAPIEndpoint(DocumentsAPIEndpoint):
+class DocumentsAdminAPIViewSet(DocumentsAPIViewSet):
     pass
