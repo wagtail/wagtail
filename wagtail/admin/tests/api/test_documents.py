@@ -12,7 +12,7 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
     fixtures = ['demosite.json']
 
     def get_response(self, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:documents:listing'), params)
+        return self.client.get(reverse('wagtailadmin_api:documents:listing'), params)
 
     def get_document_id_list(self, content):
         return [document['id'] for document in content['items']]
@@ -71,7 +71,7 @@ class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
     fixtures = ['demosite.json']
 
     def get_response(self, image_id, **params):
-        return self.client.get(reverse('wagtailadmin_api_v1:documents:detail', args=(image_id, )), params)
+        return self.client.get(reverse('wagtailadmin_api:documents:detail', args=(image_id, )), params)
 
     def test_basic(self):
         response = self.get_response(1)
