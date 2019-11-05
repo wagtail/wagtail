@@ -2,8 +2,8 @@ from collections import OrderedDict
 
 from rest_framework.authentication import SessionAuthentication
 
-from wagtail.api.v2.endpoints import PagesAPIViewSet
 from wagtail.api.v2.utils import filter_page_type
+from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.core.models import Page
 
 from .filters import ForExplorerFilter, HasChildrenFilter

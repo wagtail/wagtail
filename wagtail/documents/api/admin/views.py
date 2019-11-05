@@ -1,4 +1,4 @@
-from ..v2.endpoints import DocumentsAPIViewSet
+from ..v2.views import DocumentsAPIViewSet
 
 
 class DocumentsAdminAPIViewSet(DocumentsAPIViewSet):

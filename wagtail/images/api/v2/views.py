@@ -1,5 +1,5 @@
-from wagtail.api.v2.endpoints import BaseAPIViewSet
 from wagtail.api.v2.filters import FieldsFilter, OrderingFilter, SearchFilter
+from wagtail.api.v2.views import BaseAPIViewSet
 
 from ... import get_image_model
 from .serializers import ImageSerializer

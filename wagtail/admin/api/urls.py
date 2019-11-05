@@ -3,7 +3,7 @@ from django.conf.urls import url
 from wagtail.api.v2.router import WagtailAPIRouter
 from wagtail.core import hooks
 
-from .endpoints import PagesAdminAPIViewSet
+from .views import PagesAdminAPIViewSet
 
 admin_api = WagtailAPIRouter('wagtailadmin_api')
 admin_api.register_endpoint('pages', PagesAdminAPIViewSet)
