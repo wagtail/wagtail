@@ -8,7 +8,8 @@ from wagtail.core.blocks import StreamValue
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.testapp.models import (
-    EventCategory, EventPage, EventPageSpeaker, HeadCountRelatedModelUsingPK, SimplePage,
+    AdvertWithCustomPrimaryKey, EventCategory, EventPage, EventPageSpeaker,
+    HeadCountRelatedModelUsingPK, SimplePage, SnippetChooserModelWithCustomPrimaryKey,
     StreamPage, TaggedPage)
 
 
@@ -504,6 +505,54 @@ class TestForeignObjectComparison(TestCase):
         )
 
         self.assertEqual(comparison.htmldiff(), '<span class="deletion">Test image 1</span><span class="addition">Test image 2</span>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
+
+
+class TestForeignObjectComparisonWithCustomPK(TestCase):
+    """ForeignObjectComparison works with models declaring a custom primary key field"""
+
+    comparison_class = compare.ForeignObjectComparison
+
+    @classmethod
+    def setUpTestData(cls):
+        ad1 = AdvertWithCustomPrimaryKey.objects.create(
+            advert_id='ad1',
+            text='Advert 1'
+        )
+        ad2 = AdvertWithCustomPrimaryKey.objects.create(
+            advert_id='ad2',
+            text='Advert 2'
+        )
+        cls.test_obj_1 = SnippetChooserModelWithCustomPrimaryKey.objects.create(
+            advertwithcustomprimarykey=ad1
+        )
+        cls.test_obj_2 = SnippetChooserModelWithCustomPrimaryKey.objects.create(
+            advertwithcustomprimarykey=ad2
+        )
+
+    def test_hasnt_changed(self):
+        comparison = self.comparison_class(
+            SnippetChooserModelWithCustomPrimaryKey._meta.get_field('advertwithcustomprimarykey'),
+            self.test_obj_1,
+            self.test_obj_1,
+        )
+
+        self.assertTrue(comparison.is_field)
+        self.assertFalse(comparison.is_child_relation)
+        self.assertEqual(comparison.field_label(), 'Advertwithcustomprimarykey')
+        self.assertEqual(comparison.htmldiff(), 'Advert 1')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertFalse(comparison.has_changed())
+
+    def test_has_changed(self):
+        comparison = self.comparison_class(
+            SnippetChooserModelWithCustomPrimaryKey._meta.get_field('advertwithcustomprimarykey'),
+            self.test_obj_1,
+            self.test_obj_2,
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<span class="deletion">Advert 1</span><span class="addition">Advert 2</span>')
         self.assertIsInstance(comparison.htmldiff(), SafeString)
         self.assertTrue(comparison.has_changed())
 
