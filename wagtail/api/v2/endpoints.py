@@ -14,9 +14,7 @@ from rest_framework.viewsets import GenericViewSet
 from wagtail.api import APIField
 from wagtail.core.models import Page
 
-from .filters import (
-    FieldsFilter, OrderingFilter, RestrictedChildOfFilter, RestrictedDescendantOfFilter,
-    SearchFilter)
+from .filters import ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter, SearchFilter
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
@@ -366,8 +364,8 @@ class PagesAPIViewSet(BaseAPIViewSet):
     base_serializer_class = PageSerializer
     filter_backends = [
         FieldsFilter,
-        RestrictedChildOfFilter,
-        RestrictedDescendantOfFilter,
+        ChildOfFilter,
+        DescendantOfFilter,
         OrderingFilter,
         SearchFilter
     ]
@@ -401,16 +399,20 @@ class PagesAPIViewSet(BaseAPIViewSet):
     name = 'pages'
     model = Page
 
-    def get_queryset(self):
-        request = self.request
+    def get_root_page(self):
+        """
+        Returns the page that is used when the `&child_of=root` filter is used.
+        """
+        return self.request.site.root_page
 
-        # Allow pages to be filtered to a specific type
-        try:
-            models = page_models_from_string(request.GET.get('type', 'wagtailcore.Page'))
-        except (LookupError, ValueError):
-            raise BadRequestError("type doesn't exist")
+    def get_base_queryset(self, models=None):
+        """
+        Returns a queryset containing all pages that can be seen by this user.
 
-        if not models:
+        This is used as the base for get_queryset and is also used to find the
+        parent pages when using the child_of and descendant_of filters as well.
+        """
+        if models is None:
             models = [Page]
 
         if len(models) == 1:
@@ -425,13 +427,24 @@ class PagesAPIViewSet(BaseAPIViewSet):
         queryset = queryset.public().live()
 
         # Filter by site
-        if request.site:
-            queryset = queryset.descendant_of(request.site.root_page, inclusive=True)
+        if self.request.site:
+            queryset = queryset.descendant_of(self.request.site.root_page, inclusive=True)
         else:
             # No sites configured
             queryset = queryset.none()
 
         return queryset
+
+    def get_queryset(self):
+        request = self.request
+
+        # Allow pages to be filtered to a specific type
+        try:
+            models = page_models_from_string(request.GET.get('type', 'wagtailcore.Page'))
+        except (LookupError, ValueError):
+            raise BadRequestError("type doesn't exist")
+
+        return self.get_base_queryset(models)
 
     def get_object(self):
         base = super().get_object()

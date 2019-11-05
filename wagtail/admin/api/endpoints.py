@@ -3,10 +3,7 @@ from collections import OrderedDict
 from rest_framework.authentication import SessionAuthentication
 
 from wagtail.api.v2.endpoints import PagesAPIViewSet
-from wagtail.api.v2.filters import (
-    ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter,
-    SearchFilter)
-from wagtail.api.v2.utils import BadRequestError, filter_page_type, page_models_from_string
+from wagtail.api.v2.utils import filter_page_type
 from wagtail.core.models import Page
 
 from .filters import ForExplorerFilter, HasChildrenFilter
@@ -17,16 +14,10 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     base_serializer_class = AdminPageSerializer
     authentication_classes = [SessionAuthentication]
 
-    # Use unrestricted child_of/descendant_of filters
-    # Add has_children filter
-    filter_backends = [
-        FieldsFilter,
-        ChildOfFilter,
-        DescendantOfFilter,
-        ForExplorerFilter,
+    # Add has_children and for_explorer filters
+    filter_backends = PagesAPIViewSet.filter_backends + [
         HasChildrenFilter,
-        OrderingFilter,
-        SearchFilter,
+        ForExplorerFilter,
     ]
 
     meta_fields = PagesAPIViewSet.meta_fields + [
@@ -57,16 +48,20 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         'has_children'
     ])
 
-    def get_queryset(self):
-        request = self.request
+    def get_root_page(self):
+        """
+        Returns the page that is used when the `&child_of=root` filter is used.
+        """
+        return Page.get_first_root_node()
 
-        # Allow pages to be filtered to a specific type
-        try:
-            models = page_models_from_string(request.GET.get('type', 'wagtailcore.Page'))
-        except (LookupError, ValueError):
-            raise BadRequestError("type doesn't exist")
+    def get_base_queryset(self, models=None):
+        """
+        Returns a queryset containing all pages that can be seen by this user.
 
-        if not models:
+        This is used as the base for get_queryset and is also used to find the
+        parent pages when using the child_of and descendant_of filters as well.
+        """
+        if models is None:
             models = [Page]
 
         if len(models) == 1:
@@ -76,6 +71,11 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
 
             # Filter pages by specified models
             queryset = filter_page_type(queryset, models)
+
+        return queryset
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
 
         # Hide root page
         # TODO: Add "include_root" flag
