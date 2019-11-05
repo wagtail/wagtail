@@ -28,12 +28,12 @@ ExplorerToggle.propTypes = {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-  onToggle: (page) => dispatch(actions.toggleExplorer(page)),
+  onToggle: () => dispatch(actions.toggleExplorer('root')),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   children: ownProps.children,
-  onToggle: dispatchProps.onToggle.bind(null, ownProps.startPage),
+  onToggle: dispatchProps.onToggle.bind(null),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ExplorerToggle);

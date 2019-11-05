@@ -56,13 +56,13 @@ exports[`actions toggleExplorer open at root 1`] = `
 Array [
   Object {
     "payload": Object {
-      "id": 1,
+      "id": "root",
     },
     "type": "OPEN_EXPLORER",
   },
   Object {
     "payload": Object {
-      "id": 1,
+      "id": "root",
     },
     "type": "GET_CHILDREN_START",
   },

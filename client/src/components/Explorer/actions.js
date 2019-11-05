@@ -68,7 +68,7 @@ export function toggleExplorer(id) {
       }
 
       // We need to get the title of the starting page, only if it is not the site's root.
-      const isNotRoot = id !== 1;
+      const isNotRoot = id !== 'root';
       if (isNotRoot) {
         dispatch(getPage(id));
       }

@@ -34,11 +34,9 @@ const initExplorer = (explorerNode, toggleNode) => {
     window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : func => func
   ));
 
-  const startPage = parseInt(toggleNode.getAttribute('data-explorer-start-page'), 10);
-
   ReactDOM.render((
     <Provider store={store}>
-      <ExplorerToggle startPage={startPage}>{toggleNode.textContent}</ExplorerToggle>
+      <ExplorerToggle>{toggleNode.textContent}</ExplorerToggle>
     </Provider>
   ), toggleNode.parentNode);
 

@@ -2,10 +2,13 @@ from collections import OrderedDict
 
 from rest_framework.authentication import SessionAuthentication
 
+from wagtail.admin.navigation import get_explorable_root_page
+from wagtail.api.v2.utils import BadRequestError
 from wagtail.api.v2.views import PagesAPIViewSet
-from wagtail.core.models import Page
+from wagtail.core import hooks
+from wagtail.core.models import Page, UserPagePermissionsProxy
 
-from .filters import ForExplorerFilter, HasChildrenFilter
+from .filters import HasChildrenFilter
 from .serializers import AdminPageSerializer
 
 
@@ -13,10 +16,9 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     base_serializer_class = AdminPageSerializer
     authentication_classes = [SessionAuthentication]
 
-    # Add has_children and for_explorer filters
+    # Add has_children filter
     filter_backends = PagesAPIViewSet.filter_backends + [
         HasChildrenFilter,
-        ForExplorerFilter,
     ]
 
     meta_fields = PagesAPIViewSet.meta_fields + [
@@ -43,7 +45,6 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     detail_only_fields = []
 
     known_query_parameters = PagesAPIViewSet.known_query_parameters.union([
-        'for_explorer',
         'has_children'
     ])
 
@@ -91,3 +92,26 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         response = super().detail_view(request, pk)
         response.data['__types'] = self.get_type_info()
         return response
+
+
+class PagesForExplorerAdminAPIViewSet(PagesAdminAPIViewSet):
+    def get_root_page(self):
+        return get_explorable_root_page(self.request.user)
+
+    def get_base_queryset(self):
+        queryset = super().get_base_queryset()
+        user_perms = UserPagePermissionsProxy(self.request.user)
+        queryset = queryset & user_perms.explorable_pages()
+        return queryset
+
+    def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
+
+        if not hasattr(queryset, '_filtered_by_child_of'):
+            raise BadRequestError("calling explorer API without child_of is not supported")
+
+        parent_page = queryset._filtered_by_child_of
+        for hook in hooks.get_hooks('construct_explorer_page_queryset'):
+            queryset = hook(parent_page, queryset, self.request)
+
+        return queryset

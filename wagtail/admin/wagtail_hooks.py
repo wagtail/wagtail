@@ -8,7 +8,6 @@ import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, settings_menu
-from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
     HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin)
 from wagtail.admin.rich_text.converters.contentstate import link_entity
@@ -33,15 +32,6 @@ class ExplorerMenuItem(MenuItem):
 
     def is_shown(self, request):
         return user_has_any_page_permission(request.user)
-
-    def get_context(self, request):
-        context = super().get_context(request)
-        start_page = get_explorable_root_page(request.user)
-
-        if start_page:
-            context['start_page_id'] = start_page.id
-
-        return context
 
 
 @hooks.register('register_admin_menu_item')
