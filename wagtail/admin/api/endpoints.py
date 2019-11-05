@@ -35,6 +35,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         'children',
         'descendants',
         'parent',
+        'ancestors',
     ]
 
     body_fields = PagesAPIEndpoint.body_fields + [
