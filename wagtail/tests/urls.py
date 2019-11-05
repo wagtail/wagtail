@@ -2,15 +2,15 @@ from django.conf.urls import include, url
 from django.http import HttpResponse
 
 from wagtail.admin import urls as wagtailadmin_urls
-from wagtail.api.v2.endpoints import PagesAPIViewSet
 from wagtail.api.v2.router import WagtailAPIRouter
+from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.contrib.sitemaps import views as sitemaps_views
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
-from wagtail.documents.api.v2.endpoints import DocumentsAPIViewSet
+from wagtail.documents.api.v2.views import DocumentsAPIViewSet
 from wagtail.images import urls as wagtailimages_urls
-from wagtail.images.api.v2.endpoints import ImagesAPIViewSet
+from wagtail.images.api.v2.views import ImagesAPIViewSet
 from wagtail.images.tests import urls as wagtailimages_test_urls
 from wagtail.tests.testapp import urls as testapp_urls
 from wagtail.tests.testapp.models import EventSitemap

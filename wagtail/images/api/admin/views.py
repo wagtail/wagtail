@@ -1,4 +1,4 @@
-from ..v2.endpoints import ImagesAPIViewSet
+from ..v2.views import ImagesAPIViewSet
 from .serializers import AdminImageSerializer
 
 

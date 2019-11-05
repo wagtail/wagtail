@@ -45,13 +45,13 @@ can hook into the rest of your project.
 
 Wagtail provides three endpoint classes you can use:
 
- - Pages :class:`wagtail.api.v2.endpoints.PagesAPIViewSet`
- - Images :class:`wagtail.images.api.v2.endpoints.ImagesAPIViewSet`
- - Documents :class:`wagtail.documents.api.v2.endpoints.DocumentsAPIViewSet`
+ - Pages :class:`wagtail.api.v2.views.PagesAPIViewSet`
+ - Images :class:`wagtail.images.api.v2.views.ImagesAPIViewSet`
+ - Documents :class:`wagtail.documents.api.v2.views.DocumentsAPIViewSet`
 
 You can subclass any of these endpoint classes to customise their functionality.
 Additionally, there is a base endpoint class you can use for adding different
-content types to the API: :class:`wagtail.api.v2.endpoints.BaseAPIViewSet`
+content types to the API: :class:`wagtail.api.v2.views.BaseAPIViewSet`
 
 For this example, we will create an API that includes all three builtin content
 types in their default configuration:
@@ -60,10 +60,10 @@ types in their default configuration:
 
     # api.py
 
-    from wagtail.api.v2.endpoints import PagesAPIViewSet
+    from wagtail.api.v2.views import PagesAPIViewSet
     from wagtail.api.v2.router import WagtailAPIRouter
-    from wagtail.images.api.v2.endpoints import ImagesAPIViewSet
-    from wagtail.documents.api.v2.endpoints import DocumentsAPIViewSet
+    from wagtail.images.api.v2.views import ImagesAPIViewSet
+    from wagtail.documents.api.v2.views import DocumentsAPIViewSet
 
     # Create the router. "wagtailapi" is the URL namespace
     api_router = WagtailAPIRouter('wagtailapi')
