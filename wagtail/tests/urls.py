@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^testimages/', include(wagtailimages_test_urls)),
     url(r'^images/', include(wagtailimages_urls)),
 
-    url(r'^api/v2beta/', api_router.urls),
+    url(r'^api/main/', api_router.urls),
     url(r'^sitemap\.xml$', sitemaps_views.sitemap),
 
     url(r'^sitemap-index\.xml$', sitemaps_views.index, {
