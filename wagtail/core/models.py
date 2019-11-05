@@ -1661,6 +1661,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return obj
 
+    def get_workflow(self):
+        if self.workflow:
+            return self.workflow
+        else:
+            try:
+                workflow = self.get_ancestors().filter(workflow__isnull=False).order_by('-depth').first().workflow
+            except AttributeError:
+                workflow = None
+            return workflow
+
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
@@ -2394,7 +2404,7 @@ class GroupCollectionPermission(models.Model):
 class WorkflowTask(models.Model):
     workflow = models.ForeignKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow_tasks'))
     task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='workflow_tasks')
-    sort_order = models.PositiveIntegerField(verbose_name=_('priority'))
+    sort_order = models.PositiveIntegerField(verbose_name=_('sort_order'))
 
     class Meta:
         unique_together = [('workflow', 'sort_order')]
