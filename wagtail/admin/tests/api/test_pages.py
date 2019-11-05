@@ -518,6 +518,14 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertEqual(content['__types']['demosite.BlogIndexPage']['verbose_name'], 'blog index page')
         self.assertEqual(content['__types']['demosite.BlogIndexPage']['verbose_name_plural'], 'blog index pages')
 
+    # Overriden from public API tests
+    def test_meta_parent_id_doesnt_show_root_page(self):
+        # Root page is visible in the admin API
+        response = self.get_response(2)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIsNotNone(content['meta']['parent'])
+
     def test_field_ordering(self):
         # Need to override this as the admin API has a __types field
 

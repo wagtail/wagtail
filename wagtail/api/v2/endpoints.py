@@ -464,3 +464,11 @@ class PagesAPIViewSet(BaseAPIViewSet):
                 return page
 
         return super().find_object(queryset, request)
+
+    def get_serializer_context(self):
+        """
+        The serialization context differs between listing and detail views.
+        """
+        context = super().get_serializer_context()
+        context['base_queryset'] = self.get_base_queryset()
+        return context
