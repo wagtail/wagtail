@@ -51,7 +51,7 @@ class TestAdminDocumentListing(AdminAPITestCase, TestDocumentListing):
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
 
             # Check detail_url
-            self.assertEqual(document['meta']['detail_url'], 'http://localhost/admin/api/v2beta/documents/%d/' % document['id'])
+            self.assertEqual(document['meta']['detail_url'], 'http://localhost/admin/api/main/documents/%d/' % document['id'])
 
             # Check download_url
             self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
@@ -96,7 +96,7 @@ class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/v2beta/documents/1/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/admin/api/main/documents/1/')
 
         # Check the meta download_url
         self.assertIn('download_url', content['meta'])
