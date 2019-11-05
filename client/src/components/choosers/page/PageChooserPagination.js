@@ -35,11 +35,11 @@ class PageChooserPagination extends React.Component {
           </a>
         </li>
       );
-    } else {
-      return (
-        <li className="prev" />
-      );
     }
+
+    return (
+      <li className="prev" />
+    );
   }
 
   renderNext() {
@@ -63,11 +63,11 @@ class PageChooserPagination extends React.Component {
           </a>
         </li>
       );
-    } else {
-      return (
-        <li className="next" />
-      );
     }
+
+    return (
+      <li className="next" />
+    );
   }
 
   render() {

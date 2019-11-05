@@ -11,9 +11,6 @@ import PageChooserBrowseView from './views/PageChooserBrowseView';
 import PageChooserSearchView from './views/PageChooserSearchView';
 import PageChooserErrorView from './views/PageChooserErrorView';
 
-// TODO PageChooserExternalLinkView
-// TODO PageChooserEmailView
-
 const getTotalPages = (totalItems, itemsPerPage) => Math.ceil(totalItems / itemsPerPage);
 
 const propTypes = {
@@ -62,7 +59,6 @@ class PageChooser extends ModalWindow {
     };
 
     const onChangePage = (newPageNumber) => {
-      // TODO add missing default?
       switch (viewName) {
       case 'browse':
         browse(viewOptions.parentPageID, newPageNumber);
@@ -70,12 +66,13 @@ class PageChooser extends ModalWindow {
       case 'search':
         search(viewOptions.queryString, restrictPageTypes, newPageNumber);
         break;
+      default:
+        break;
       }
     };
 
     // Views
     let view = null;
-    // TODO add missing default?
     switch (viewName) {
     case 'browse':
       view = (
@@ -106,6 +103,8 @@ class PageChooser extends ModalWindow {
           onChangePage={onChangePage}
         />
       );
+      break;
+    default:
       break;
     }
 

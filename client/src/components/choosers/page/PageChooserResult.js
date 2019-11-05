@@ -47,15 +47,15 @@ class PageChooserResult extends React.Component {
           </h2>
         </td>
       );
-    } else {
-      return (
-        <td className="title u-vertical-align-top" data-listing-page-title="">
-          <h2>
-            {page.title}
-          </h2>
-        </td>
-      );
     }
+
+    return (
+      <td className="title u-vertical-align-top" data-listing-page-title="">
+        <h2>
+          {page.title}
+        </h2>
+      </td>
+    );
   }
 
   renderUpdatedAt() {
@@ -71,11 +71,11 @@ class PageChooserResult extends React.Component {
           </div>
         </td>
       );
-    } else {
-      return (
-        <td className="updated u-vertical-align-top" />
-      );
     }
+
+    return (
+      <td className="updated u-vertical-align-top" />
+    );
   }
 
   renderType() {
@@ -127,11 +127,11 @@ class PageChooserResult extends React.Component {
           </a>
         </td>
       );
-    } else {
-      return (
-        <td />
-      );
     }
+
+    return (
+      <td />
+    );
   }
 
   render() {

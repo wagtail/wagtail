@@ -23,9 +23,7 @@ function get(url) {
     case 200:
       return response.json();
     case 400:
-      return response.json().then((json) => {
-        return Promise.reject(`API Error: ${json.message}`);
-      });
+      return response.json().then((json) => Promise.reject(`API Error: ${json.message}`));
     case 403:
       return Promise.reject('You haven\'t got permission to view this. Please log in again.');
     case 500:
@@ -47,24 +45,24 @@ export const fetchPagesFailure = createAction('FETCH_FAILURE', message => ({ mes
 export function browse(parentPageID, pageNumber) {
   // HACK: Assuming page 1 is the root page
   // eslint-disable-next-line no-param-reassign
-  if (parentPageID == 1) { parentPageID = 'root'; }
+  if (parentPageID === 1) { parentPageID = 'root'; }
 
   return (dispatch) => {
     dispatch(fetchPagesStart());
 
     const limit = 20;
     const offset = (pageNumber - 1) * limit;
+    // eslint-disable-next-line max-len
     const itemsUrl = `${ADMIN_API.PAGES}?child_of=${parentPageID}&fields=parent,children&limit=${limit}&offset=${offset}`;
     const parentUrl = `${ADMIN_API.PAGES}${parentPageID}/?fields=ancestors`;
 
     // HACK: The admin API currently doesn't serve the root page
-    if (parentPageID == 'root') {
+    if (parentPageID === 'root') {
       return get(itemsUrl)
         .then((itemsJson) => {
           dispatch(setView('browse', { parentPageID, pageNumber }));
           dispatch(fetchPagesSuccess(itemsJson, null));
         }).catch((error) => {
-          console.error(error);
           dispatch(fetchPagesFailure(error));
         });
     }
@@ -74,7 +72,6 @@ export function browse(parentPageID, pageNumber) {
         dispatch(setView('browse', { parentPageID, pageNumber }));
         dispatch(fetchPagesSuccess(itemsJson, parentJson));
       }).catch((error) => {
-        console.error(error);
         dispatch(fetchPagesFailure(error));
       });
   };
@@ -98,7 +95,6 @@ export function search(queryString, restrictPageTypes, pageNumber) {
         dispatch(setView('search', { queryString, pageNumber }));
         dispatch(fetchPagesSuccess(json, null));
       }).catch((error) => {
-        console.error(error);
         dispatch(fetchPagesFailure(error));
       });
   };

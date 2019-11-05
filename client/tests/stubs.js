@@ -49,7 +49,7 @@ global.wagtailConfig = {
     EXPLORER: 'Explorer',
     THERE_ARE_NO_MATCHES: 'There are no matches',
     THERE_IS_ONE_MATCH: 'There is 1 match',
-    THERE_ARE_N_MATCHES:  'There are {count} matches',
+    THERE_ARE_N_MATCHES: 'There are {count} matches',
     CHOOSE_A_PAGE: 'Choose a page',
     SEARCH_TERM_COLON: 'Search term:',
     SEARCH: 'Search',

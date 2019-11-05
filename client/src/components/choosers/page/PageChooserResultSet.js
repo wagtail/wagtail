@@ -14,6 +14,9 @@ const propTypes = {
   onNavigate: PropTypes.func.isRequired,
   pageTypes: PropTypes.object,
   parentPage: PropTypes.any,
+  pageNumber: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  onChangePage: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

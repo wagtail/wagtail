@@ -5,18 +5,16 @@ import { STRINGS } from '../../../../config/wagtailConfig';
 
 import PageChooserResultSet from '../PageChooserResultSet';
 
-// TODO Get rid of any propTypes.
-// TODO Figure out whether those values are required or not.
 const propTypes = {
-  pageNumber: PropTypes.any,
-  totalPages: PropTypes.any,
+  pageNumber: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
   parentPage: PropTypes.object,
-  items: PropTypes.any,
-  pageTypes: PropTypes.any,
-  restrictPageTypes: PropTypes.any,
-  onPageChosen: PropTypes.func,
-  onNavigate: PropTypes.func,
-  onChangePage: PropTypes.func,
+  items: PropTypes.array,
+  pageTypes: PropTypes.object,
+  restrictPageTypes: PropTypes.array,
+  onPageChosen: PropTypes.func.isRequired,
+  onNavigate: PropTypes.func.isRequired,
+  onChangePage: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -37,7 +35,7 @@ class PageChooserBrowseView extends React.Component {
           e.preventDefault();
         };
 
-        if (ancestorPage.id == 1) {
+        if (ancestorPage.id === 1) {
           return (
             <li key={ancestorPage.id} className="home">
               <a
@@ -49,19 +47,19 @@ class PageChooserBrowseView extends React.Component {
               </a>
             </li>
           );
-        } else {
-          return (
-            <li key={ancestorPage.id}>
-              <a
-                href="#"
-                className="navigate-pages"
-                onClick={onClickNavigate}
-              >
-                {ancestorPage.title}
-              </a>
-            </li>
-          );
         }
+
+        return (
+          <li key={ancestorPage.id}>
+            <a
+              href="#"
+              className="navigate-pages"
+              onClick={onClickNavigate}
+            >
+              {ancestorPage.title}
+            </a>
+          </li>
+        );
       });
     }
 

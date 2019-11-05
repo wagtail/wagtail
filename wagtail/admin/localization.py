@@ -78,7 +78,7 @@ def get_js_translation_strings():
         'EXPLORER': _('Explorer'),
         'THERE_ARE_NO_MATCHES': _('There are no matches'),
         'THERE_IS_ONE_MATCH': _('There is 1 match'),
-        'THERE_ARE_N_MATCHES':  _('There are {count} matches'),
+        'THERE_ARE_N_MATCHES': _('There are {count} matches'),
         'CHOOSE_A_PAGE': _('Choose a page'),
         'SEARCH_TERM_COLON': _('Search term:'),
         'SEARCH': _('Search'),
