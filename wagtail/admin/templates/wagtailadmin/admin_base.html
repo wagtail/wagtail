@@ -19,7 +19,7 @@
         (function(document, window) {
             window.wagtailConfig = window.wagtailConfig || {};
             wagtailConfig.ADMIN_API = {
-                PAGES: '{% url "wagtailadmin_api:pages:listing" %}',
+                PAGES: '{% url "wagtailadmin_api_for_explorer:pages:listing" %}',
                 DOCUMENTS: '{% url "wagtailadmin_api:documents:listing" %}',
                 IMAGES: '{% url "wagtailadmin_api:images:listing" %}',
                 {# // Use this to add an extra query string on all API requests. #}

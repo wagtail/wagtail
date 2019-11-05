@@ -8,7 +8,7 @@ from django.utils import timezone
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.core.models import Page
 from wagtail.tests.demosite import models
-from wagtail.tests.testapp.models import SimplePage, StreamPage
+from wagtail.tests.testapp.models import StreamPage
 
 from .utils import AdminAPITestCase
 
@@ -296,42 +296,6 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 200)
-
-    # FOR EXPLORER FILTER
-
-    def make_simple_page(self, parent, title):
-        return parent.add_child(instance=SimplePage(title=title, content='Simple page'))
-
-    def test_for_explorer_filter(self):
-        movies = self.make_simple_page(Page.objects.get(pk=1), 'Movies')
-        visible_movies = [
-            self.make_simple_page(movies, 'The Way of the Dragon'),
-            self.make_simple_page(movies, 'Enter the Dragon'),
-            self.make_simple_page(movies, 'Dragons Forever'),
-        ]
-        hidden_movies = [
-            self.make_simple_page(movies, 'The Hidden Fortress'),
-            self.make_simple_page(movies, 'Crouching Tiger, Hidden Dragon'),
-            self.make_simple_page(movies, 'Crouching Tiger, Hidden Dragon: Sword of Destiny'),
-        ]
-
-        response = self.get_response(child_of=movies.pk, for_explorer=1)
-        content = json.loads(response.content.decode('UTF-8'))
-        page_id_list = self.get_page_id_list(content)
-        self.assertEqual(page_id_list, [page.pk for page in visible_movies])
-
-        response = self.get_response(child_of=movies.pk)
-        content = json.loads(response.content.decode('UTF-8'))
-        page_id_list = self.get_page_id_list(content)
-        self.assertEqual(page_id_list, [page.pk for page in visible_movies + hidden_movies])
-
-    def test_for_explorer_no_child_of(self):
-        response = self.get_response(for_explorer=1)
-        self.assertEqual(response.status_code, 400)
-        content = json.loads(response.content.decode('UTF-8'))
-        self.assertEqual(content, {
-            'message': 'filtering by for_explorer without child_of is not supported',
-        })
 
     # HAS CHILDREN FILTER
 

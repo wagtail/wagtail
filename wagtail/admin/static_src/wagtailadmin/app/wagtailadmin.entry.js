@@ -28,7 +28,7 @@ window.wagtail.components = {
  */
 document.addEventListener('DOMContentLoaded', () => {
   const explorerNode = document.querySelector('[data-explorer-menu]');
-  const toggleNode = document.querySelector('[data-explorer-start-page]');
+  const toggleNode = document.querySelector('[data-explorer-toggle]');
 
   if (explorerNode && toggleNode) {
     initExplorer(explorerNode, toggleNode);

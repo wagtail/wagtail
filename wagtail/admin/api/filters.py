@@ -2,7 +2,6 @@ from rest_framework.filters import BaseFilterBackend
 
 from wagtail.api.v2.utils import BadRequestError, parse_boolean
 from wagtail.core import hooks
-from wagtail.core.models import UserPagePermissionsProxy
 
 
 class HasChildrenFilter(BaseFilterBackend):
@@ -27,15 +26,11 @@ class HasChildrenFilter(BaseFilterBackend):
 
 class ForExplorerFilter(BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
-        if request.GET.get('for_explorer'):
-            if not hasattr(queryset, '_filtered_by_child_of'):
-                raise BadRequestError("filtering by for_explorer without child_of is not supported")
+        if not hasattr(queryset, '_filtered_by_child_of'):
+            raise BadRequestError("filtering without child_of is not supported")
 
-            parent_page = queryset._filtered_by_child_of
-            for hook in hooks.get_hooks('construct_explorer_page_queryset'):
-                queryset = hook(parent_page, queryset, request)
-
-            user_perms = UserPagePermissionsProxy(request.user)
-            queryset = queryset & user_perms.explorable_pages()
+        parent_page = queryset._filtered_by_child_of
+        for hook in hooks.get_hooks('construct_explorer_page_queryset'):
+            queryset = hook(parent_page, queryset, request)
 
         return queryset

@@ -22,7 +22,7 @@ describe('wagtailadmin.entry', () => {
   });
 
   it('init with DOM', () => {
-    document.body.innerHTML = '<div data-explorer-menu></div><div data-explorer-start-page></div>';
+    document.body.innerHTML = '<div data-explorer-menu></div><div data-explorer-toggle></div>';
     listener();
     expect(wagtail.initExplorer).toHaveBeenCalled();
   });

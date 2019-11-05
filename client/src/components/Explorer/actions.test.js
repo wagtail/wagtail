@@ -60,7 +60,7 @@ describe('actions', () => {
       const stub = Object.assign({}, stubState);
       stub.explorer.isVisible = false;
       const store = mockStore(stub);
-      store.dispatch(actions.toggleExplorer(1));
+      store.dispatch(actions.toggleExplorer('root'));
       expect(store.getActions()).toMatchSnapshot();
     });
   });
