@@ -347,11 +347,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     live_revision = models.ForeignKey(
         'PageRevision',
         related_name='+',
-        verbose_name='live revision',
+        verbose_name=_('live revision'),
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         editable=False
+    )
+    workflow = models.ForeignKey(
+        'Workflow',
+        related_name='pages',
+        verbose_name=_('workflow'),
+        null=True
     )
 
     search_fields = [
@@ -2381,3 +2387,76 @@ class GroupCollectionPermission(models.Model):
         unique_together = ('group', 'collection', 'permission')
         verbose_name = _('group collection permission')
         verbose_name_plural = _('group collection permissions')
+
+
+class WorkflowTask(models.Model):
+    workflow = models.ForeignKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow'))
+    task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'))
+    sort_order = models.PositiveIntegerField(verbose_name=_('priority'))
+
+    class Meta:
+        unique_together = [('workflow', 'sort_order')]
+        verbose_name = _('workflow task priority')
+        verbose_name_plural = _('workflow task priorities')
+
+
+class Task(models.Model):
+    name = models.CharField(max_length=255, verbose_name=_('name'))
+    content_type = models.ForeignKey(
+        ContentType,
+        verbose_name=_('content type'),
+        related_name='wagtail_tasks',
+        on_delete=models.CASCADE
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.id:
+            # this model is being newly created
+            # rather than retrieved from the db;
+            if not self.content_type_id:
+                # set content type to correctly represent the model class
+                # that this was created as
+                self.content_type = ContentType.objects.get_for_model(self)
+
+    def __str__(self):
+        return self.name
+
+    @cached_property
+    def specific(self):
+        """
+        Return this Task in its most specific subclassed form.
+        """
+        # the ContentType.objects manager keeps a cache, so this should potentially
+        # avoid a database lookup over doing self.content_type. I think.
+        content_type = ContentType.objects.get_for_id(self.content_type_id)
+        model_class = content_type.model_class()
+        if model_class is None:
+            # Cannot locate a model class for this content type. This might happen
+            # if the codebase and database are out of sync (e.g. the model exists
+            # on a different git branch and we haven't rolled back migrations before
+            # switching branches); if so, the best we can do is return the page
+            # unchanged.
+            return self
+        elif isinstance(self, model_class):
+            # self is already the an instance of the most specific class
+            return self
+        else:
+            return content_type.get_object_for_this_type(id=self.id)
+
+    class Meta:
+        verbose_name = _('task')
+        verbose_name_plural = _('tasks')
+
+
+class Workflow(models.Model):
+    name = models.CharField(max_length=255, verbose_name=_('name'))
+    tasks = models.ManyToManyField(Task, through=WorkflowTask)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        unique_together = [('name', 'tasks')]
+        verbose_name = _('workflow')
+        verbose_name_plural = _('workflows')
