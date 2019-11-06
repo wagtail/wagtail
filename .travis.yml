@@ -21,6 +21,8 @@ matrix:
      python: 3.7
    - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
      python: 3.7
+   - env: TOXENV=py37-dj30stable-postgres-noelasticsearch
+     python: 3.7
    - env: TOXENV=py37-djmaster-postgres-noelasticsearch
      python: 3.7
    - env: TOXENV=py38-dj22-postgres-noelasticsearch
@@ -47,6 +49,8 @@ matrix:
     - env: TOXENV=py38-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
     # allow failures against Django 2.2.x stable branch
     - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
+    # allow failures against Django 3.0.x stable branch
+    - env: TOXENV=py37-dj30stable-postgres-noelasticsearch
     # allow failures against Django master
     - env: TOXENV=py37-djmaster-postgres-noelasticsearch
 
