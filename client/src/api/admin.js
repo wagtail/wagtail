@@ -2,29 +2,44 @@ import { get } from '../api/client';
 
 import { ADMIN_API } from '../config/wagtailConfig';
 
+export class PagesAPI {
+  constructor(endpointUrl, extraChildParams = '') {
+    this.endpointUrl = endpointUrl;
+    this.extraChildParams = extraChildParams;
+  }
+
+  getPage(id) {
+    const url = `${this.endpointUrl}${id}/`;
+    return get(url);
+  }
+
+  getPageChildren(id, options = {}) {
+    let url = `${this.endpointUrl}?child_of=${id}`;
+
+    if (options.fields) {
+      url += `&fields=${global.encodeURIComponent(options.fields.join(','))}`;
+    }
+
+    if (options.onlyWithChildren) {
+      url += '&has_children=1';
+    }
+
+    if (options.offset) {
+      url += `&offset=${options.offset}`;
+    }
+
+    url += this.extraChildParams;
+
+    return get(url);
+  }
+}
 
 export const getPage = (id) => {
-  const url = `${ADMIN_API.PAGES}${id}/`;
-
-  return get(url);
+  const api = new PagesAPI(ADMIN_API.PAGES, ADMIN_API.EXTRA_CHILDREN_PARAMETERS);
+  return api.getPage(id);
 };
 
 export const getPageChildren = (id, options = {}) => {
-  let url = `${ADMIN_API.PAGES}?child_of=${id}`;
-
-  if (options.fields) {
-    url += `&fields=${global.encodeURIComponent(options.fields.join(','))}`;
-  }
-
-  if (options.onlyWithChildren) {
-    url += '&has_children=1';
-  }
-
-  if (options.offset) {
-    url += `&offset=${options.offset}`;
-  }
-
-  url += ADMIN_API.EXTRA_CHILDREN_PARAMETERS;
-
-  return get(url);
+  const api = new PagesAPI(ADMIN_API.PAGES, ADMIN_API.EXTRA_CHILDREN_PARAMETERS);
+  return api.getPageChildren(id, options);
 };
