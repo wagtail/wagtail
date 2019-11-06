@@ -11,6 +11,7 @@ from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import collections as wagtailadmin_collections_urls
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
+from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
 from wagtail.admin.views import account, chooser, home, pages, tags, userbar
 from wagtail.admin.api import urls as api_urls
 from wagtail.core import hooks
@@ -45,6 +46,7 @@ urlpatterns = [
     url(r'^tag-autocomplete/(\w+)/(\w+)/$', tags.autocomplete, name='wagtailadmin_tag_model_autocomplete'),
 
     url(r'^collections/', include(wagtailadmin_collections_urls, namespace='wagtailadmin_collections')),
+    url(r'^workflows/', include(wagtailadmin_workflows_urls, namespace='wagtailadmin_workflows')),
 
     url(r'^reports/', include(wagtailadmin_reports_urls, namespace='wagtailadmin_reports')),
 
