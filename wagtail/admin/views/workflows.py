@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy
 
 from wagtail.admin import messages
-from wagtail.admin.forms.collections import CollectionForm
+from wagtail.admin.forms.workflows import WorkflowForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.core import hooks
 from wagtail.core.models import Workflow
@@ -22,3 +22,14 @@ class Index(IndexView):
 
     def get_queryset(self):
         return Workflow.objects.all()
+
+
+class Create(CreateView):
+    permission_policy = workflow_permission_policy
+    form_class = WorkflowForm
+    page_title = ugettext_lazy("Add workflow")
+    success_message = ugettext_lazy("Workflow '{0}' created.")
+    add_url_name = 'wagtailadmin_workflows:add'
+    edit_url_name = 'wagtailadmin_workflows:edit'
+    index_url_name = 'wagtailadmin_workflows:index'
+    header_icon = 'placeholder'

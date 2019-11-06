@@ -11,6 +11,9 @@
                             <th>
                                 {% trans "Name" %}
                             </th>
+                            <th>
+                                {% trans "Tasks" %}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -19,6 +22,13 @@
                                 <td class="title">
                                     <div class="title-wrapper">
                                         {{ workflow }}
+                                    </div>
+                                </td>
+                                <td class="tasks">
+                                    <div class="task-wrapper">
+                                        {% for task in workflow.tasks.all %}
+                                            {{ task }}
+                                        {% endfor %}
                                     </div>
                                 </td>
                             </tr>
