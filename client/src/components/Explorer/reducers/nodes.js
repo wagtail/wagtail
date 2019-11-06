@@ -57,7 +57,6 @@ const defaultState = {};
  */
 export default function nodes(state = defaultState, { type, payload }) {
   switch (type) {
-
   case 'OPEN_EXPLORER':
   case 'GET_PAGE_SUCCESS':
   case 'GET_CHILDREN_START':
