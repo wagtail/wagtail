@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.7 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+2.7 LTS (06.11.2019)
 ~~~~~~~~~~~~~~~~~~~~
 
  * Improved StreamField design (Bertrand Bordage)
