@@ -4,15 +4,15 @@
 #
 # Translators:
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017-2018
+# Miłosz Miśkiewicz, 2017-2019
 # Miłosz Miśkiewicz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-10-25 10:04+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -118,6 +118,12 @@ msgstr "tekst pomocniczy"
 
 msgid "Submission date"
 msgstr "Data zgłoszenia"
+
+msgid "Form"
+msgstr "Formularz"
+
+msgid "Landing page"
+msgstr "Landing page"
 
 msgid "to address"
 msgstr "do adresu"

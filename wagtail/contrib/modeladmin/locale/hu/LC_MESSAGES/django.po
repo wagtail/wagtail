@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-10-28 12:42+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -179,6 +179,10 @@ msgid "Next"
 msgstr "Következő"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' létrehozva."
+
+#, python-format
 msgid "The %s could not be created due to errors."
 msgstr "Hiba a(z) %s létrehozása közben."
 
@@ -197,6 +201,10 @@ msgid "Editing %s"
 msgstr "%s szerkesztése"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s'%(instance)s' frissítve."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "Hiba a(z) %s mentése közben."
 
@@ -211,6 +219,10 @@ msgid ""
 msgstr ""
 "Biztosan törölni kívánja ezt a(z) %s rekordot? Ha más tartalom is hivatkozik "
 "rá, azt is értintheti a törlés."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' törölve."
 
 msgid "Inspecting"
 msgstr "Vizsgálat"

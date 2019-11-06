@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-18 07:11+0000\n"
+"PO-Revision-Date: 2019-10-25 13:41+0000\n"
 "Last-Translator: Matthias Martin\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -557,6 +557,12 @@ msgstr "Externer Link"
 msgid "Email link"
 msgstr "E-Mail-Link"
 
+msgid "Phone link"
+msgstr "Telefon-Link"
+
+msgid "Anchor link"
+msgstr "Anker-Link"
+
 #, python-format
 msgid ""
 "\n"
@@ -574,6 +580,12 @@ msgstr[1] ""
 "\n"
 "        Es gibt %(counter)s Ergebnisse\n"
 "    "
+
+msgid "Add an anchor link"
+msgstr "Anker-Link hinzufügen"
+
+msgid "Insert anchor"
+msgstr "Anker einfügen"
 
 msgid "Choose"
 msgstr "Auswählen"
@@ -609,6 +621,9 @@ msgstr "Link einfügen"
 
 msgid "Add an external link"
 msgstr "Externen Link hinzufügen"
+
+msgid "Add a phone link"
+msgstr "Telefon-Link hinzufügen"
 
 msgid "Collection privacy"
 msgstr "Privatsphäre-Einstellungen der Sammlung"
@@ -1650,8 +1665,15 @@ msgstr "Seite '%(title)s' löschen"
 msgid "Unpublish page '%(title)s'"
 msgstr "Veröffentlichung der Seite '%(title)s' aufheben"
 
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "Revisionsgeschichte von '%(title)s' anzeigen"
+
 msgid "Set profile picture"
 msgstr "Profilbild einstellen"
+
+msgid "Change your profile picture."
+msgstr "Ihr Profilbild ändern."
 
 msgid "Change the email address linked to your account."
 msgstr "E-Mail-Adresse ändern, die mit Ihrem Konto verknüpft ist."
@@ -1673,6 +1695,13 @@ msgstr "Aktuelle Zeitzone"
 
 msgid "Choose your current time zone."
 msgstr "Wählen Sie Ihre aktuelle Zeitzone."
+
+msgid "Change your first and last name on your account."
+msgstr "Vor- und Nachname für Ihren Account ändern."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Überschrift %(level)d"
 
 msgid "Bulleted list"
 msgstr "Aufzählung"
