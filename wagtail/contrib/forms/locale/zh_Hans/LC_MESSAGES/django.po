@@ -6,6 +6,7 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Ed <724195301@qq.com>, 2018
 # Feng Wang <wangfeng.w@gmail.com>, 2015
+# First Last <abc+github@mynook.info>, 2019
 # hanfeng <appweb.cn@gmail.com>, 2014
 # jszsj <zhushajun@gmail.com>, 2017
 # listeng, 2016
@@ -18,8 +19,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-11-01 02:59+0000\n"
+"Last-Translator: First Last <abc+github@mynook.info>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -121,6 +122,12 @@ msgstr "帮助文本"
 
 msgid "Submission date"
 msgstr "提交日期"
+
+msgid "Form"
+msgstr "表单"
+
+msgid "Landing page"
+msgstr "着陆页"
 
 msgid "to address"
 msgstr "收件人"
