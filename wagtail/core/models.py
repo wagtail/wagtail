@@ -24,6 +24,7 @@ from django.utils.cache import patch_cache_control
 from django.utils.functional import cached_property
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
+from modelcluster.fields import ParentalKey
 from modelcluster.models import (
     ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
 from treebeard.mp_tree import MP_Node
@@ -2401,15 +2402,14 @@ class GroupCollectionPermission(models.Model):
         verbose_name_plural = _('group collection permissions')
 
 
-class WorkflowTask(models.Model):
-    workflow = models.ForeignKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow_tasks'))
+class WorkflowTask(Orderable):
+    workflow = ParentalKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow_tasks'), related_name='workflow_tasks')
     task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='workflow_tasks')
-    sort_order = models.PositiveIntegerField(verbose_name=_('sort_order'))
 
     class Meta:
         unique_together = [('workflow', 'sort_order')]
-        verbose_name = _('workflow task priority')
-        verbose_name_plural = _('workflow task priorities')
+        verbose_name = _('workflow task order')
+        verbose_name_plural = _('workflow task orders')
 
 
 class Task(models.Model):
@@ -2461,9 +2461,8 @@ class Task(models.Model):
         verbose_name_plural = _('tasks')
 
 
-class Workflow(models.Model):
+class Workflow(ClusterableModel):
     name = models.CharField(max_length=255, verbose_name=_('name'))
-    tasks = models.ManyToManyField(Task, through=WorkflowTask, related_name='workflows')
 
     def __str__(self):
         return self.name
@@ -2471,6 +2470,7 @@ class Workflow(models.Model):
     class Meta:
         verbose_name = _('workflow')
         verbose_name_plural = _('workflows')
+
 
 class GroupApprovalTask(Task):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name=_('group'))
