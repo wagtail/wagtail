@@ -1,7 +1,5 @@
 import { get } from '../api/client';
 
-import { ADMIN_API } from '../config/wagtailConfig';
-
 export class PagesAPI {
   constructor(endpointUrl, extraChildParams = '') {
     this.endpointUrl = endpointUrl;
@@ -33,13 +31,3 @@ export class PagesAPI {
     return get(url);
   }
 }
-
-export const getPage = (id) => {
-  const api = new PagesAPI(ADMIN_API.PAGES, ADMIN_API.EXTRA_CHILDREN_PARAMETERS);
-  return api.getPage(id);
-};
-
-export const getPageChildren = (id, options = {}) => {
-  const api = new PagesAPI(ADMIN_API.PAGES, ADMIN_API.EXTRA_CHILDREN_PARAMETERS);
-  return api.getPageChildren(id, options);
-};

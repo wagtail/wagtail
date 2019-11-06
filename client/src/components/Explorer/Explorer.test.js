@@ -7,6 +7,8 @@ import * as actions from './actions';
 import explorer from './reducers/explorer';
 import nodes from './reducers/nodes';
 import Explorer from './Explorer';
+import { PagesAPI } from '../../api/admin';
+import { ADMIN_API } from '../../config/wagtailConfig';
 
 const rootReducer = combineReducers({
   explorer,
@@ -14,6 +16,9 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunkMiddleware));
+
+const api = new PagesAPI(ADMIN_API.PAGES, ADMIN_API.EXTRA_CHILDREN_PARAMETERS);
+store.dispatch(actions.setApi(api));
 
 describe('Explorer', () => {
   it('exists', () => {

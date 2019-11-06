@@ -2,6 +2,7 @@
 
 exports[`explorer OPEN_EXPLORER 1`] = `
 Object {
+  "api": null,
   "isVisible": true,
   "path": Array [
     1,
@@ -11,6 +12,7 @@ Object {
 
 exports[`explorer POP_PAGE 1`] = `
 Object {
+  "api": null,
   "isVisible": false,
   "path": Array [],
 }
@@ -18,6 +20,7 @@ Object {
 
 exports[`explorer PUSH_PAGE 1`] = `
 Object {
+  "api": null,
   "isVisible": false,
   "path": Array [
     100,

@@ -2,12 +2,17 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import * as actions from './actions';
+import { PagesAPI } from '../../api/admin';
+import { ADMIN_API } from '../../config/wagtailConfig';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+const api = new PagesAPI(ADMIN_API.PAGES, ADMIN_API.EXTRA_CHILDREN_PARAMETERS);
+
 const stubState = {
   explorer: {
+    api,
     isVisible: true,
   },
   nodes: {

@@ -9,6 +9,9 @@ import Explorer from './Explorer';
 import ExplorerToggle from './ExplorerToggle';
 import explorer from './reducers/explorer';
 import nodes from './reducers/nodes';
+import { PagesAPI } from '../../api/admin';
+import { ADMIN_API } from '../../config/wagtailConfig';
+import { setApi } from './actions';
 
 /**
  * Initialises the explorer component on the given nodes.
@@ -33,6 +36,9 @@ const initExplorer = (explorerNode, toggleNode) => {
     // Expose store to Redux DevTools extension.
     window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : func => func
   ));
+
+  const api = new PagesAPI(ADMIN_API.PAGES, ADMIN_API.EXTRA_CHILDREN_PARAMETERS);
+  store.dispatch(setApi(api));
 
   ReactDOM.render((
     <Provider store={store}>

@@ -1,6 +1,7 @@
-import * as admin from '../../api/admin';
 import { createAction } from '../../utils/actions';
 import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
+
+export const setApi = createAction('SET_API', (api) => ({ api }));
 
 const getPageStart = createAction('GET_PAGE_START');
 const getPageSuccess = createAction('GET_PAGE_SUCCESS', (id, data) => ({ id, data }));
@@ -10,10 +11,12 @@ const getPageFailure = createAction('GET_PAGE_FAILURE', (id, error) => ({ id, er
  * Gets a page from the API.
  */
 function getPage(id) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const { explorer: { api } } = getState();
+
     dispatch(getPageStart(id));
 
-    return admin.getPage(id).then((data) => {
+    return api.getPage(id).then((data) => {
       dispatch(getPageSuccess(id, data));
     }, (error) => {
       dispatch(getPageFailure(id, error));
@@ -29,10 +32,12 @@ const getChildrenFailure = createAction('GET_CHILDREN_FAILURE', (id, error) => (
  * Gets the children of a node from the API.
  */
 function getChildren(id, offset = 0) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const { explorer: { api } } = getState();
+
     dispatch(getChildrenStart(id));
 
-    return admin.getPageChildren(id, {
+    return api.getPageChildren(id, {
       offset: offset,
     }).then(({ items, meta }) => {
       const nbPages = offset + items.length;

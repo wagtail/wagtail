@@ -1,4 +1,5 @@
 const defaultState = {
+  api: null,
   isVisible: false,
   path: [],
 };
@@ -10,24 +11,34 @@ const defaultState = {
  */
 export default function explorer(prevState = defaultState, { type, payload }) {
   switch (type) {
+  case 'SET_API':
+    return Object.assign({}, prevState, {
+      api: payload.api,
+    });
+
   case 'OPEN_EXPLORER':
     // Provide a starting page when opening the explorer.
     return {
+      api: prevState.api,
       isVisible: true,
       path: [payload.id],
     };
 
   case 'CLOSE_EXPLORER':
-    return defaultState;
+    return Object.assign({}, defaultState, {
+      api: prevState.api,
+    });
 
   case 'PUSH_PAGE':
     return {
+      api: prevState.api,
       isVisible: prevState.isVisible,
       path: prevState.path.concat([payload.id]),
     };
 
   case 'POP_PAGE':
     return {
+      api: prevState.api,
       isVisible: prevState.isVisible,
       path: prevState.path.slice(0, -1),
     };
