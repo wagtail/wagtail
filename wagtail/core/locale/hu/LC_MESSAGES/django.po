@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-10-28 12:41+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,10 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Alapok"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: ehhez a blokkhoz nincsenek beállítások."
 
 msgid "This block has no options."
 msgstr "Ehhez az elemhez nincsenek beállítások."
@@ -157,7 +161,7 @@ msgid "locked"
 msgstr "zárolt"
 
 msgid "first published at"
-msgstr "első közététel időpontja"
+msgstr "első közzététel időpontja"
 
 msgid "last published at"
 msgstr "utolsó közzététel időpontja"

@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-10-25 10:15+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +40,9 @@ msgstr "Cofnij publikację"
 
 msgid "Delete"
 msgstr "Usuń"
+
+msgid "Save Draft"
+msgstr "Zapisz szkic"
 
 msgid "Page locked"
 msgstr "Strona zablokowana"
@@ -214,6 +217,9 @@ msgstr "Islandzki"
 msgid "Italian"
 msgstr "Włoski"
 
+msgid "Japanese"
+msgstr "Japoński"
+
 msgid "Korean"
 msgstr "Koreański"
 
@@ -334,6 +340,9 @@ msgstr "Zamknij"
 msgid "Edit '{title}'"
 msgstr "Edytuj '{title}'"
 
+msgid "View child pages of '{title}'"
+msgstr "Wyświetl podstrony dla '{title}'"
+
 msgid "Page explorer"
 msgstr "Przeglądarka stron"
 
@@ -442,6 +451,9 @@ msgstr "Uaktualnij"
 msgid "Change email"
 msgstr "Zmień email"
 
+msgid "Change name"
+msgstr "Zmień nazwę"
+
 msgid "Change password"
 msgstr "Zmień hasło"
 
@@ -531,6 +543,12 @@ msgstr "Link zewnętrzny"
 msgid "Email link"
 msgstr "Wyślij link pocztą email"
 
+msgid "Phone link"
+msgstr "Link telefonu"
+
+msgid "Anchor link"
+msgstr "Kotwica"
+
 #, python-format
 msgid ""
 "\n"
@@ -556,6 +574,12 @@ msgstr[3] ""
 "\n"
 "        Znaleziono %(counter)s dopasowań\n"
 "    "
+
+msgid "Add an anchor link"
+msgstr "Dodaj link do kotwicy"
+
+msgid "Insert anchor"
+msgstr "Dodaj kotwicę"
 
 msgid "Choose"
 msgstr "Wybierz"
@@ -599,6 +623,9 @@ msgstr "Wstaw link"
 
 msgid "Add an external link"
 msgstr "Dodaj link zewnętrzny"
+
+msgid "Add a phone link"
+msgstr "Dodaj link do telefonu"
 
 msgid "Collection privacy"
 msgstr "Prywatność kolekcji"
@@ -1447,6 +1474,9 @@ msgstr "Twoje hasło zostało zmienione poprawnie!"
 msgid "Your email has been changed successfully!"
 msgstr "Twój email został zmieniony pomyślnie!"
 
+msgid "Your name has been changed successfully!"
+msgstr "Twoje imię zostało zmienione pomyślnie!"
+
 msgid "Your preferences have been updated."
 msgstr "Twoje ustawienia zostały zaktualizowane."
 
@@ -1610,11 +1640,54 @@ msgstr "rewizja {0} z \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Rewizja {0} z \"{1}\" niezaplanowanych."
 
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Edytuj '%(title)s'"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Podejrzyj szkic '%(title)s'"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Podejrzyj opublikowaną wersję '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Dodaj podstronę dla '%(title)s' "
+
 msgid "More"
 msgstr "Więcej"
 
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Wyświetl więcej opcji dla '%(title)s'"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Przesuń stronę '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Kopiuj stronę '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Usuń stronę '%(title)s'"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Odpublikuj stronę '%(title)s'"
+
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "Wyświetl historyczną rewizję '%(title)s'"
+
 msgid "Set profile picture"
 msgstr "Ustaw zdjęcie profilu"
+
+msgid "Change your profile picture."
+msgstr "Zmień swoje zdjęcie profilowe."
 
 msgid "Change the email address linked to your account."
 msgstr "Zmień adres email przypisany do Twojego konta."
@@ -1636,6 +1709,13 @@ msgstr "Obecna strefa czasowa"
 
 msgid "Choose your current time zone."
 msgstr "Wybierz swoją obecną strefę czasową."
+
+msgid "Change your first and last name on your account."
+msgstr "Zmień imię i nazwisko w swoim koncie."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Nagłówek %(level)d"
 
 msgid "Bulleted list"
 msgstr "Lista wypunktowana"

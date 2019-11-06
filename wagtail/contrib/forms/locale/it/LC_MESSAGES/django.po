@@ -5,13 +5,14 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# LB (Ben Johnston) <mail@lb.ee>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-10-28 09:20+0000\n"
+"Last-Translator: LB (Ben Johnston) <mail@lb.ee>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -116,6 +117,9 @@ msgstr "testo di aiuto"
 msgid "Submission date"
 msgstr "Data di invio"
 
+msgid "Form"
+msgstr "Modulo"
+
 msgid "to address"
 msgstr "indirizzo destinazione"
 
@@ -166,7 +170,7 @@ msgid "Latest submission"
 msgstr "Ultimi invii"
 
 msgid "Forms"
-msgstr "Forms"
+msgstr "Modulistica"
 
 msgid "Pages"
 msgstr "Pagine"

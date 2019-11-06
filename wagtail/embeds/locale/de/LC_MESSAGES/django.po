@@ -7,6 +7,7 @@
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# Matthias Martin, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2018
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Vorlif <flori@vorlif.org>, 2015
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-06-23 14:45+0000\n"
-"Last-Translator: Peter Dreuw <archandha@gmx.net>\n"
+"PO-Revision-Date: 2019-10-25 13:46+0000\n"
+"Last-Translator: Matthias Martin\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +40,9 @@ msgstr "Bitte geben Sie eine gültige URL ein"
 
 msgid "embed"
 msgstr "Einbetten"
+
+msgid "embeds"
+msgstr "Einbettungen"
 
 msgid "Insert embed"
 msgstr "Element einbetten"

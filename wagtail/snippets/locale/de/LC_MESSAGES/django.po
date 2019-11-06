@@ -8,6 +8,7 @@
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Jannis, 2015
 # Jannis Vajen, 2015
+# Johannes Fleck, 2019
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -21,8 +22,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-18 13:02+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2019-10-31 14:35+0000\n"
+"Last-Translator: Johannes Fleck\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -121,6 +122,9 @@ msgstr "%(snippet_type_name)s - %(instance)s bearbeiten"
 msgid "Editing"
 msgstr "Bearbeiten"
 
+msgid "Actions"
+msgstr "Aktionen"
+
 msgid "Delete"
 msgstr "Löschen"
 
@@ -130,8 +134,16 @@ msgstr "Benutzung"
 msgid "Snippets"
 msgstr "Schnipsel"
 
+#, python-format
+msgid "Select all %(snippet_type_name_plural)s"
+msgstr "Wähle alle %(snippet_type_name_plural)s"
+
 msgid "Title"
 msgstr "Titel"
+
+#, python-format
+msgid "Select %(snippet)s"
+msgstr "Wähle %(snippet)s"
 
 #, python-format
 msgid ""
@@ -186,8 +198,16 @@ msgstr "Bearbeiten"
 msgid "The snippet could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht erstellt werden."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' updated."
+msgstr "%(snippet_type)s '%(instance)s' aktualisiert."
+
 msgid "The snippet could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht gespeichert werden."
+
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' gelöscht."
 
 #, python-format
 msgid "%(count)d %(snippet_type)s deleted."

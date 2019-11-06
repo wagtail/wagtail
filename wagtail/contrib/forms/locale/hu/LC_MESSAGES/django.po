@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-10-28 12:42+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -119,6 +119,12 @@ msgstr "segítő szöveg"
 
 msgid "Submission date"
 msgstr "Beküldés dátuma"
+
+msgid "Form"
+msgstr "Űrlap"
+
+msgid "Landing page"
+msgstr "Eredmény oldal"
 
 msgid "to address"
 msgstr "címzett"

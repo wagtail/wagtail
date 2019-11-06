@@ -6,6 +6,7 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Ed <724195301@qq.com>, 2018
 # Feng Wang <wangfeng.w@gmail.com>, 2015
+# First Last <abc+github@mynook.info>, 2019
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017-2019
 msgid ""
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-11-01 03:13+0000\n"
+"Last-Translator: First Last <abc+github@mynook.info>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail 图片"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -47,6 +51,10 @@ msgstr "无效的 %s图片。"
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "文件过大 (%%s)，文件大小上限为 %s。"
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "文件包含像素过多（%%）。像素数量上限为 %s。"
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -168,6 +176,22 @@ msgstr "选择格式"
 msgid "Insert image"
 msgstr "插入图片"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"在<span class=\"visuallyhidden\">%(site_name)s</span>中共创建了<span>"
+"%(total)s</span>张图片"
+
 msgid "Change image file:"
 msgstr "修改图片文件："
 
@@ -193,6 +217,9 @@ msgstr "确认删除此图片？"
 
 msgid "Yes, delete"
 msgstr "是的，删除吧。"
+
+msgid "No, don't delete"
+msgstr "否，不删除"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -235,6 +262,9 @@ msgstr "使用情况"
 
 msgid "Images"
 msgstr "图片"
+
+msgid "pixels"
+msgstr "像素"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

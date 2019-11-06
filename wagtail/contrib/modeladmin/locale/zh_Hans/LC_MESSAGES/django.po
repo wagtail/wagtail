@@ -4,6 +4,7 @@
 #
 # Translators:
 # Ed <724195301@qq.com>, 2018
+# First Last <abc+github@mynook.info>, 2019
 # Fred Zeng <979738295@qq.com>, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-11-01 03:14+0000\n"
+"Last-Translator: First Last <abc+github@mynook.info>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -113,6 +114,9 @@ msgstr "回到列表"
 msgid "Yes, delete"
 msgstr "确认删除"
 
+msgid "No, don't delete"
+msgstr "否，不删除"
+
 msgid "Home"
 msgstr "主页"
 
@@ -156,6 +160,9 @@ msgstr ""
 "加一个</a>？\n"
 "                                            "
 
+msgid "Pagination"
+msgstr "分页"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "页面  %(current_page)s /  %(num_pages)s "
@@ -169,6 +176,10 @@ msgstr "上一页"
 
 msgid "Next"
 msgstr "下一页"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' 已创建。"
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -189,6 +200,10 @@ msgid "Editing %s"
 msgstr "正在编辑%s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' 已更新。"
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s无法保存，出现错误。"
 
@@ -202,6 +217,10 @@ msgid ""
 "related to it, they may also be affected."
 msgstr ""
 "你确定要删除此%s？如果你网站中有其他内容与其相关，这些内容可能会受到影响。"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' 已删除。"
 
 msgid "Inspecting"
 msgstr "正在检查"

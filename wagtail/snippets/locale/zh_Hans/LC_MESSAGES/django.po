@@ -5,6 +5,7 @@
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015,2018
 # Ed <724195301@qq.com>, 2018
+# First Last <abc+github@mynook.info>, 2019
 # Fred Zeng <979738295@qq.com>, 2016
 # hanfeng <appweb.cn@gmail.com>, 2014
 # jszsj <zhushajun@gmail.com>, 2017
@@ -16,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-11-01 02:56+0000\n"
+"Last-Translator: First Last <abc+github@mynook.info>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -86,6 +87,9 @@ msgstr "你确定要删除 %(count)s%(snippet_type_name)s ？"
 msgid "Yes, delete"
 msgstr "是的，删除"
 
+msgid "No, don't delete"
+msgstr "否，不删除"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "新建  %(snippet_type_name)s "
@@ -106,6 +110,9 @@ msgstr "正在编辑 %(snippet_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "编辑"
 
+msgid "Actions"
+msgstr "动作"
+
 msgid "Delete"
 msgstr "删除"
 
@@ -115,8 +122,16 @@ msgstr "使用情况"
 msgid "Snippets"
 msgstr "片段"
 
+#, python-format
+msgid "Select all %(snippet_type_name_plural)s"
+msgstr "选择所有 %(snippet_type_name_plural)s"
+
 msgid "Title"
 msgstr "标题"
+
+#, python-format
+msgid "Select %(snippet)s"
+msgstr "选择 %(snippet)s"
 
 #, python-format
 msgid ""
@@ -161,14 +176,31 @@ msgstr "编辑此页面"
 msgid "Search %(snippet_type_name)s"
 msgstr "查找 %(snippet_type_name)s"
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created."
+msgstr "%(snippet_type)s '%(instance)s' 已创建。"
+
 msgid "Edit"
 msgstr "编辑"
 
 msgid "The snippet could not be created due to errors."
 msgstr "无法创建片段，出现错误。"
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' updated."
+msgstr "%(snippet_type)s '%(instance)s' 已更新。"
+
 msgid "The snippet could not be saved due to errors."
 msgstr "无法保存片段，出现错误。"
+
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' 已删除。"
+
+#, python-format
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] "%(count)d 个 %(snippet_type)s 已删除。"
 
 #, python-format
 msgid "Choose %s"

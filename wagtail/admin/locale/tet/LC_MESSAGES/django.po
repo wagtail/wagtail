@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-21 00:50+0000\n"
+"PO-Revision-Date: 2019-10-26 00:49+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -786,11 +786,29 @@ msgstr "Pajina privasidade mos aplika ba pajina nee nia oan sira."
 msgid "Edit lock"
 msgstr "Xavi"
 
+msgid "Remove editor lock. Current status: Locked"
+msgstr "Loke: Status agora xavi tiha ona"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "Xavi: Status agora loke tiha ona"
+
 msgid "Locked"
-msgstr "Xavi tiha"
+msgstr "Xavi tiha ona"
 
 msgid "Unlocked"
-msgstr "Loke"
+msgstr "Loke tiha ona"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Troka pajina privadu: Status agora publiku"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Troka pajina privadu: Status agora privadu"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Pajina privadu: Status agora Publiku"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Pajina privadu: Status agora Publiku"
 
 msgid "Publishing…"
 msgstr "Publika hela..."
@@ -930,6 +948,9 @@ msgstr "Foun %(page_type)s"
 msgid "New"
 msgstr "Foun"
 
+msgid "Actions"
+msgstr "Asaun sira"
+
 msgid "This page has unsaved changes."
 msgstr "Pajina ne'e iha sasan troka la salva ona."
 
@@ -987,11 +1008,97 @@ msgstr ""
 "Se karik ita boot hakarak atu hatama pajina sira ba site ida nebee iha ona, "
 "kria sira hanesan oan sira maibe iha pagina uma."
 
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"Pajina sira kria iha nee labele asesu iha URL ruma. Atu aumenta pajina sira "
+"ba situs ida, kria iha homepage nia laran"
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"Laiha situs ba fatin nee. Pajina sira kria iha nee labele asesu iha URL ruma "
+"too halo ligasaun no situs ida."
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"Fatin nee laiha situs. Pajina sira kria iha nee labele asesu iha URL ruma."
+
+msgid "No pages have been created at this location."
+msgstr "Laiha pajina iha nee"
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Hakarak <a href=\"%(add_page_url)s\">kria pajina ida</a>?"
+
+msgid "This page is locked to further editing"
+msgstr "Pajina nee xavi, labele troka"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Esplora pajina iha  '%(title)s' nia okos"
+
 msgid "Explore"
 msgstr "Esplora"
 
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Esplora pajina iha '%(title)s' nia okos"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Aumenta pajina iha '%(title)s' okos"
+
+msgid "Add child page"
+msgstr "Aumenta pajina iha okos"
+
+msgid "Sites menu"
+msgstr "Munu situs"
+
+msgid "Pagination"
+msgstr "Pajinasaun"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"Pajina %(page_number)s husi %(num_pages)s"
+
+msgid "Previous"
+msgstr "Antes"
+
 msgid "Next"
 msgstr "Tuir mai"
+
+msgid "This page is protected from public view"
+msgstr "Pajina nee la publiku"
+
+msgid "Disable ordering of child pages"
+msgstr "Xavi orden pajina"
+
+msgid "Sort"
+msgstr "Orden"
+
+msgid "Enable ordering of child pages"
+msgstr "Loke pajina orden"
 
 msgid "Test"
 msgstr "Test"
