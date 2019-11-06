@@ -15,6 +15,7 @@ Changelog
  * Fix: Unbundle the l18n library as it was bundled to avoid installation errors which have been resolved (Matt Westcott)
  * Fix: Prevent error when comparing pages that reference a model with a custom primary key (Fidel Ramos)
  * Fix: Moved ``get_document_model`` location so it can be imported when Models are not yet loaded (WinterComes)
+ * Fix: Fixed incorrect HTML escaping of Jinja2 form templates for StructBlocks (Brady Moe)
 
 2.7 LTS (06.11.2019)
 ~~~~~~~~~~~~~~~~~~~~
