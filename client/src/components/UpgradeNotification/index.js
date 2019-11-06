@@ -31,10 +31,10 @@ const initUpgradeNotification = () => {
       container.style.display = '';
     }
   })
-  .catch(err => {
-    // eslint-disable-next-line no-console
-    console.log(`Error fetching ${releasesUrl}. Error: ${err}`);
-  });
+    .catch(err => {
+      // eslint-disable-next-line no-console
+      console.log(`Error fetching ${releasesUrl}. Error: ${err}`);
+    });
 };
 
 export { initUpgradeNotification };

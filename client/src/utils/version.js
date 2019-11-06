@@ -1,5 +1,5 @@
 function compareVersion(versionA, versionB) {
-  const re = /(\.0)+[^\.]*$/;
+  const re = /(\.0)+[^.]*$/;
   const va = (versionA + '').replace(re, '').split('.');
   const vb = (versionB + '').replace(re, '').split('.');
   const len = Math.min(va.length, vb.length);
