@@ -6,6 +6,7 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
+from django.utils.safestring import mark_safe
 
 from wagtail.admin.staticfiles import versioned_static
 
@@ -106,7 +107,7 @@ class BaseStructBlock(Block):
     def render_form(self, value, prefix='', errors=None):
         context = self.get_form_context(value, prefix=prefix, errors=errors)
 
-        return render_to_string(self.meta.form_template, context)
+        return mark_safe(render_to_string(self.meta.form_template, context))
 
     def value_from_datadict(self, data, files, prefix):
         return self._to_struct_value([
