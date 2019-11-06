@@ -11,7 +11,7 @@ from wagtail.tests.testapp.models import (
     MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimpleChildPage,
     SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
 
-class TestPageQuerySet(TestCase):
+class TestWorkflows(TestCase):
     fixtures = ['test.json']
 
     def test_create_workflow(self):
@@ -32,8 +32,8 @@ class TestPageQuerySet(TestCase):
         workflow = Workflow.objects.create(name='test_workflow')
         task = Task.objects.create(name='test_task')
         workflow_task = WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
-        self.assertIn(task, workflow.tasks.all())
-        self.assertIn(workflow, task.workflows.all())
+        self.assertIn(task, Task.objects.filter(workflow_tasks__workflow=workflow))
+        self.assertIn(workflow, Workflow.objects.filter(workflow_tasks__task=task))
 
     def test_add_workflow_to_page(self):
         workflow = Workflow.objects.create(name='test_workflow')
