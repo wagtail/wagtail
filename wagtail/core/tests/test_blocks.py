@@ -1216,16 +1216,12 @@ class TestStructBlock(SimpleTestCase):
         self.assertNotIn('<li class="required">', html)
 
     def test_custom_render_form_template(self):
-        engine = engines['django']
-
-        template = engine.from_string('<div>Hello</div>').template
-
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock(required=False)
             link = blocks.URLBlock(required=False)
 
             class Meta:
-                form_template = template
+                form_template = 'tests/block_forms/struct_block_form_template.html'
 
         block = LinkBlock()
         html = block.render_form(block.to_python({
@@ -1238,16 +1234,12 @@ class TestStructBlock(SimpleTestCase):
         self.assertTrue(isinstance(html, SafeText))
 
     def test_custom_render_form_template_jinja(self):
-        engine = engines['jinja2']
-
-        template = engine.from_string('<div>Hello</div>').template
-
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock(required=False)
             link = blocks.URLBlock(required=False)
 
             class Meta:
-                form_template = template
+                form_template = 'tests/jinja2/struct_block_form_template.html'
 
         block = LinkBlock()
         html = block.render_form(block.to_python({
