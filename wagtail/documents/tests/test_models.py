@@ -14,7 +14,7 @@ from wagtail.documents import get_document_model, get_document_model_string, mod
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.testapp.models import CustomDocument
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail29Warning
+from wagtail.utils.deprecation import RemovedInWagtail210Warning
 
 
 class TestDocumentQuerySet(TestCase):
@@ -212,4 +212,4 @@ class TestGetDocumentModel(WagtailTestUtils, TestCase):
 
             self.assertIs(Document, get_document_model())
             self.assertEqual(len(ws), 1)
-            self.assertIs(ws[0].category, RemovedInWagtail29Warning)
+            self.assertIs(ws[0].category, RemovedInWagtail210Warning)
