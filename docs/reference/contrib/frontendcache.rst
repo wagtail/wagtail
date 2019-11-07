@@ -57,10 +57,17 @@ Cloudflare
 
 Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here: `Cloudflare Sign up <https://www.cloudflare.com/sign-up>`_
 
-Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.CloudflareBackend``. This backend requires three extra parameters, ``EMAIL`` (your Cloudflare account email), ``TOKEN`` (your API token from Cloudflare), and ``ZONEID`` (for zone id for your domain, see below).
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.CloudflareBackend``. 
 
-To find the ``ZONEID`` for your domain, read the `Cloudflare API Documentation <https://api.cloudflare.com/#getting-started-resource-ids>`_
+This backend can be configured to use an account-wide API key, or an API token with restricted access.
 
+To use an account-wide API key, find the key `as described in the Cloudflare documentation <https://support.cloudflare.com/hc/en-us/articles/200167836-Managing-API-Tokens-and-Keys#12345682>`_ and specify ``EMAIL`` and ``API_KEY`` parameters.
+
+To use a limited API token, `create a token <https://support.cloudflare.com/hc/en-us/articles/200167836-Managing-API-Tokens-and-Keys#12345680>`_ configured with the 'Zone, Cache Purge' permission and specify the ``BEARER_TOKEN`` parameter.
+
+A ``ZONEID`` parameter will need to be set for either option. To find the ``ZONEID`` for your domain, read the `Cloudflare API Documentation <https://api.cloudflare.com/#getting-started-resource-ids>`_
+
+With an API key:
 
 .. code-block:: python
 
@@ -70,7 +77,21 @@ To find the ``ZONEID`` for your domain, read the `Cloudflare API Documentation <
         'cloudflare': {
             'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
             'EMAIL': 'your-cloudflare-email-address@example.com',
-            'TOKEN': 'your cloudflare api token',
+            'API_KEY': 'your cloudflare api key',
+            'ZONEID': 'your cloudflare domain zone id',
+        },
+    }
+
+With an API token:
+
+.. code-block:: python
+
+    # settings.py
+
+    WAGTAILFRONTENDCACHE = {
+        'cloudflare': {
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
+            'BEARER_TOKEN': 'your cloudflare bearer token',
             'ZONEID': 'your cloudflare domain zone id',
         },
     }
