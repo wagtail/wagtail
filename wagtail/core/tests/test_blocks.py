@@ -10,10 +10,11 @@ from decimal import Decimal
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
+from django.template import engines
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
-from django.utils.safestring import SafeData, mark_safe
+from django.utils.safestring import SafeData, SafeText, mark_safe
 from django.utils.translation import ugettext_lazy as __
 
 from wagtail.core import blocks
@@ -1213,6 +1214,50 @@ class TestStructBlock(SimpleTestCase):
             html
         )
         self.assertNotIn('<li class="required">', html)
+
+    def test_custom_render_form_template(self):
+        engine = engines['django']
+
+        template = engine.from_string('<div>Hello</div>').template
+
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+            class Meta:
+                form_template = template
+
+        block = LinkBlock()
+        html = block.render_form(block.to_python({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }), prefix='mylink')
+
+        self.assertIn('<div>Hello</div>', html)
+        self.assertHTMLEqual('<div>Hello</div>', html)
+        self.assertTrue(isinstance(html, SafeText))
+
+    def test_custom_render_form_template_jinja(self):
+        engine = engines['jinja2']
+
+        template = engine.from_string('<div>Hello</div>').template
+
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+            class Meta:
+                form_template = template
+
+        block = LinkBlock()
+        html = block.render_form(block.to_python({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }), prefix='mylink')
+
+        self.assertIn('<div>Hello</div>', html)
+        self.assertHTMLEqual('<div>Hello</div>', html)
+        self.assertTrue(isinstance(html, SafeText))
 
     def test_render_required_field_indicator(self):
         class LinkBlock(blocks.StructBlock):
