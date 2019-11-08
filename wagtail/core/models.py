@@ -2407,7 +2407,7 @@ class WorkflowTask(Orderable):
     task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='workflow_tasks')
 
     class Meta:
-        unique_together = [('workflow', 'sort_order')]
+        unique_together = [('workflow', 'sort_order'), ('workflow', 'task')]
         verbose_name = _('workflow task order')
         verbose_name_plural = _('workflow task orders')
 
