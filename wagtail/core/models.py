@@ -2458,6 +2458,10 @@ class Workflow(ClusterableModel):
     def __str__(self):
         return self.name
 
+    @property
+    def tasks(self):
+        return Task.objects.filter(workflow_tasks__workflow=self)
+
     class Meta:
         verbose_name = _('workflow')
         verbose_name_plural = _('workflows')
