@@ -10,12 +10,12 @@ documentation, translations or just feature requests.
 The [issue tracker](https://github.com/wagtail/wagtail/issues) is
 the preferred channel for [bug reports](#bugs), [features requests](#features)
 and [submitting pull requests](#pull-requests). Please don't use the issue tracker
-for support - use [the 'wagtail' tag on Stack Overflow](http://stackoverflow.com/questions/tagged/wagtail) (preferred) or our [Wagtail support group](https://groups.google.com/forum/#!forum/wagtail).
+for support - use [the 'wagtail' tag on Stack Overflow](https://stackoverflow.com/questions/tagged/wagtail) (preferred) or our [Wagtail support group](https://groups.google.com/forum/#!forum/wagtail).
 
 ## New code
 
 Please review the 
-[contributing guidelines](http://docs.wagtail.io/en/latest/contributing/index.html). 
+[contributing guidelines](https://docs.wagtail.io/en/latest/contributing/index.html).
 You might like to start by checking issues with the 
 [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 

@@ -125,7 +125,7 @@ Third-Party Apps
 ``taggit``
   Tagging framework for Django. This is used internally within Wagtail for image and document tagging and is available for your own models as well. See :ref:`tagging` for a Wagtail model recipe or the `Taggit Documentation`_.
 
-.. _Taggit Documentation: http://django-taggit.readthedocs.org/en/latest/index.html
+.. _Taggit Documentation: https://django-taggit.readthedocs.org/en/latest/index.html
 
 ``modelcluster``
   Extension of Django ForeignKey relation functionality, which is used in Wagtail pages for on-the-fly related object creation. For more information, see :ref:`inline_panels` or `the django-modelcluster github project page`_.
@@ -843,7 +843,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   # A sample logging configuration. The only tangible logging
   # performed by this configuration is to send an email to
   # the site admins on every HTTP 500 error when DEBUG=False.
-  # See http://docs.djangoproject.com/en/dev/topics/logging for
+  # See https://docs.djangoproject.com/en/dev/topics/logging for
   # more details on how to customize your logging configuration.
   LOGGING = {
       'version': 1,
