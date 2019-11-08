@@ -2412,6 +2412,11 @@ class WorkflowTask(Orderable):
         verbose_name_plural = _('workflow task orders')
 
 
+class TaskManager(models.Manager):
+    def active(self):
+        return self.filter(active=True)
+
+
 class Task(models.Model):
     name = models.CharField(max_length=255, verbose_name=_('name'))
     content_type = models.ForeignKey(
@@ -2420,6 +2425,8 @@ class Task(models.Model):
         related_name='wagtail_tasks',
         on_delete=models.CASCADE
     )
+    active = models.BooleanField(verbose_name=_('active'), default=True)
+    objects = TaskManager()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -2461,8 +2468,15 @@ class Task(models.Model):
         verbose_name_plural = _('tasks')
 
 
+class WorkflowManager(models.Manager):
+    def active(self):
+        return self.filter(active=True)
+
+
 class Workflow(ClusterableModel):
     name = models.CharField(max_length=255, verbose_name=_('name'))
+    active = models.BooleanField(verbose_name=_('active'), default=True)
+    objects = WorkflowManager()
 
     def __str__(self):
         return self.name
