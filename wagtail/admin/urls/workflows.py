@@ -1,10 +1,10 @@
-from django.conf.urls import url
+from django.urls import path
 
 from wagtail.admin.views import workflows
 
 app_name = 'wagtailadmin_workflows'
 urlpatterns = [
-    url(r'^$', workflows.Index.as_view(), name='index'),
-    url(r'^add/$', workflows.Create.as_view(), name='add'),
-    url(r'^edit/$', workflows.Index.as_view(), name='edit'),
+    path('', workflows.Index.as_view(), name='index'),
+    path('add/', workflows.create, name='add'),
+    path('edit/<int:pk>', workflows.edit, name='edit'),
 ]
