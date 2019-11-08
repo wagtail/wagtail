@@ -21,13 +21,13 @@
                             <tr>
                                 <td class="title">
                                     <div class="title-wrapper">
-                                        {{ workflow }}
+                                        <a href="{% url view.edit_url_name workflow.pk %}">{{ workflow }}</a>
                                     </div>
                                 </td>
                                 <td class="tasks">
                                     <div class="task-wrapper">
                                         {% for task in workflow.tasks %}
-                                            {{ task }}
+                                        <button class="status-tag primary" >{{ task }}</button>
                                         {% endfor %}
                                     </div>
                                 </td>

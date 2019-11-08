@@ -31,6 +31,7 @@ class Index(IndexView):
     context_object_name = 'workflows'
     template_name = 'wagtailadmin/workflows/index.html'
     add_url_name = 'wagtailadmin_workflows:add'
+    edit_url_name = 'wagtailadmin_workflows:edit'
     page_title = ugettext_lazy("Workflows")
     add_item_label = ugettext_lazy("Add a workflow")
     header_icon = 'placeholder'
@@ -79,7 +80,7 @@ def edit(request, pk):
 
     edit_handler = edit_handler.bind_to(form=form)
 
-    return render(request, 'wagtailadmin/workflows/create.html', {
+    return render(request, 'wagtailadmin/workflows/edit.html', {
         'edit_handler': edit_handler,
         'form': form,
         'icon': 'placeholder',
