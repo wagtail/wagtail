@@ -12,6 +12,6 @@ Principles
 ~~~~~~~~~~
 
 * Write `valid HTML <https://validator.w3.org/nu/>`_. We target the HTML5 doctype.
-* Write `semantic HTML <http://html5doctor.com/element-index/>`_.
+* Write `semantic HTML <https://html5doctor.com/element-index/>`_.
 * Attach JavaScript behavior with ``data-`` attributes, rather than classes or IDs.
 * For comments, use Django templates syntax instead of HTML.

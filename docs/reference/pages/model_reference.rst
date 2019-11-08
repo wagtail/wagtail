@@ -108,7 +108,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
 .. note::
 
-    See also `django-treebeard <http://django-treebeard.readthedocs.io/en/latest/index.html>`_'s `node API <http://django-treebeard.readthedocs.io/en/latest/api.html>`_. ``Page`` is a subclass of `materialized path tree <http://django-treebeard.readthedocs.io/en/latest/mp_tree.html>`_ nodes.
+    See also `django-treebeard <https://django-treebeard.readthedocs.io/en/latest/index.html>`_'s `node API <https://django-treebeard.readthedocs.io/en/latest/api.html>`_. ``Page`` is a subclass of `materialized path tree <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html>`_ nodes.
 
 
 .. class:: Page

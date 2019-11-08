@@ -47,7 +47,7 @@ Set ``WAGTAILFRONTENDCACHE_LANGUAGES`` to a list of languages (typically equal t
 Finally, make sure you have configured your frontend cache to accept PURGE requests:
 
  - `Varnish <https://www.varnish-cache.org/docs/3.0/tutorial/purging.html>`_
- - `Squid <http://wiki.squid-cache.org/SquidFaq/OperatingSquid#How_can_I_purge_an_object_from_my_cache.3F>`_
+ - `Squid <https://wiki.squid-cache.org/SquidFaq/OperatingSquid#How_can_I_purge_an_object_from_my_cache.3F>`_
 
 
 .. _frontendcache_cloudflare:
@@ -93,7 +93,7 @@ Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter 
         },
     }
 
-Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: `Boto 3 Docs <http://boto3.readthedocs.org/en/latest/guide/configuration.html>`_
+Configuration of credentials can done in multiple ways. You won't need to store them in your Django settings file. You can read more about this here: `Boto 3 Docs <https://boto3.readthedocs.org/en/latest/guide/configuration.html>`_
 
 In case you run multiple sites with Wagtail and each site has its CloudFront distribution, provide a mapping instead of a single distribution. Make sure the mapping matches with the hostnames provided in your site settings.
 
