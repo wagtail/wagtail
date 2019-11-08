@@ -1,9 +1,12 @@
-from django import forms
-
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.core.models import Workflow
 
 
-class WorkflowForm(forms.ModelForm):
+class AdminWorkflow(Workflow):
     class Meta:
-        model = Workflow
-        fields = ('name', 'tasks')
+        proxy = True
+
+    content_panels = [
+        FieldPanel("name"),
+        InlinePanel("workflow_tasks"),
+    ]
