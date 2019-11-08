@@ -112,6 +112,10 @@ class Indexed:
         for field in cls.get_search_fields():
             message = "{model}.search_fields contains non-existent field '{name}'"
             if not cls._has_field(field.field_name):
+                # Special case for tag_id field
+                from taggit.models import TaggedItemBase
+                if field.field_name == 'tag_id' and any(issubclass(obj.related_model, TaggedItemBase) for obj in cls._meta.related_objects):
+                    continue
                 errors.append(
                     checks.Warning(
                         message.format(model=cls.__name__, name=field.field_name),
