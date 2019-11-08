@@ -24,7 +24,7 @@
         {% include "wagtailadmin/shared/header.html" with tabbed=1 merged=1 %}
     {% endblock %}
 
-    <form action="{% block form_action %}{{ view.create_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
+    <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}
 
         {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
@@ -35,11 +35,14 @@
                     <li class="actions">
                         {% block form_actions %}
                             <div class="dropdown dropup dropdown-button match-width">
-                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Creating…' %}">
-                                    <span class="icon icon-spinner"></span><em>{% trans 'Create' %}</em>
+                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
+                                    <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
                                 </button>
                             </div>
                         {% endblock %}
+                    </li>
+                    <li>
+                        <a href="{{ view.delete_url }}" class="button">Disable</a>
                     </li>
                 </ul>
             </footer>
