@@ -173,7 +173,7 @@ If you prefer not to run an Elasticsearch server in development or production, t
 -  Configure ``URLS`` in the Elasticsearch entry in ``WAGTAILSEARCH_BACKENDS`` using the Cluster URL from your Bonsai dashboard
 -  Run ``./manage.py update_index``
 
-.. _elasticsearch-py: http://elasticsearch-py.readthedocs.org
+.. _elasticsearch-py: https://elasticsearch-py.readthedocs.org
 .. _Bonsai: https://bonsai.io/signup
 
 Amazon AWS Elasticsearch

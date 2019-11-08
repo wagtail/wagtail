@@ -191,8 +191,8 @@ This adds two fields to the API (other fields omitted for brevity):
         "published_date_display": "Thursday 06 April 2017"
     }
 
-.. _Serialisers: http://www.django-rest-framework.org/api-guide/fields/
-.. _source: http://www.django-rest-framework.org/api-guide/fields/#source
+.. _Serialisers: https://www.django-rest-framework.org/api-guide/fields/
+.. _source: https://www.django-rest-framework.org/api-guide/fields/#source
 
 Images in the API
 -----------------

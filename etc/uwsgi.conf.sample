@@ -9,7 +9,7 @@
 # the 'mywagtail' user account, with the application deployed in
 # /home/mywagtail/app and the virtualenv in /home/mywagtail/venv.
 #
-# [0] http://uwsgi-docs.readthedocs.org/en/latest/Emperor.html
+# [0] https://uwsgi-docs.readthedocs.org/en/latest/Emperor.html
 
 [uwsgi]
 # Abort on unknown configuration options.
