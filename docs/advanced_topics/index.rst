@@ -11,7 +11,6 @@ Advanced topics
     settings
     deploying
     performance
-    i18n/index
     privacy
     customisation/index
     third_party_tutorials
