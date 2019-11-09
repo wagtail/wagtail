@@ -1,6 +1,6 @@
-==============================
-Configuring Django for Wagtail
-==============================
+==================================================
+How to add Wagtail into an existing Django project
+==================================================
 
 To install Wagtail completely from scratch, create a new Django project and an app within that project. For instructions on these tasks, see :doc:`Writing your first Django app <django:intro/tutorial01>`. Your project directory will look like the following::
 
@@ -131,6 +131,7 @@ Third-Party Apps
   Extension of Django ForeignKey relation functionality, which is used in Wagtail pages for on-the-fly related object creation. For more information, see :ref:`inline_panels` or `the django-modelcluster github project page`_.
 
 .. _the django-modelcluster github project page: https://github.com/torchbox/django-modelcluster
+
 
 URL Patterns
 ~~~~~~~~~~~~
