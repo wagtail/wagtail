@@ -8,7 +8,7 @@ Advanced topics
     images/index
     documents/index
     embeds
-    settings
+    add_to_django_project
     deploying
     performance
     privacy
