@@ -24,11 +24,7 @@ class DraftailRichTextArea(widgets.HiddenInput):
         kwargs.pop('options', None)
         self.options = {}
 
-        self._media = Media(js=[
-            versioned_static('wagtailadmin/js/draftail.js'),
-        ], css={
-            'all': [versioned_static('wagtailadmin/css/panels/draftail.css')]
-        })
+        self.plugin_media = Media()
 
         self.features = kwargs.pop('features', None)
         if self.features is None:
@@ -38,7 +34,7 @@ class DraftailRichTextArea(widgets.HiddenInput):
             plugin = feature_registry.get_editor_plugin('draftail', feature)
             if plugin:
                 plugin.construct_options(self.options)
-                self._media += plugin.media
+                self.plugin_media += plugin.media
 
         self.converter = ContentstateConverter(self.features)
 
@@ -73,4 +69,10 @@ class DraftailRichTextArea(widgets.HiddenInput):
 
     @property
     def media(self):
-        return self._media
+        media = Media(js=[
+            versioned_static('wagtailadmin/js/draftail.js'),
+        ], css={
+            'all': [versioned_static('wagtailadmin/css/panels/draftail.css')]
+        })
+
+        return media + self.plugin_media
