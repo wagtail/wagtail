@@ -24,6 +24,8 @@ Other features
  * Added ``ancestors`` field to pages endpoint in admin API (Karl Hobley)
  * Removed Django admin management of ``Page`` & ``Site`` models (Andreas Bernacca)
  * Cleaned up Django docs URLs in documentation (Pete Andrew)
+ * Add StreamFieldPanel to available panel types in documentation (Dan Swain)
+ * Add {{ block.super }} example to ModelAdmin customisation in documentation (Dan Swain)
 
 
 Bug fixes
