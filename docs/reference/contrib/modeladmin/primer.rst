@@ -162,7 +162,21 @@ each view:
 -   ``'delete.html'`` for ``DeleteView``
 -   ``'choose_parent.html'`` for ``ChooseParentView``
 
-If for any reason you'd rather bypass this behaviour and explicitly specify a
+To add extra information to a block within one of the above Wagtail templates, use Django's ``{{ block.super }}`` within the ``{% block ... %}`` that you wish to extend.  For example, if you wish to display an image in an edit form below the fields of the model that is being edited, you could do the following:
+
+.. code-block:: html+django
+
+    {% extends "modeladmin/edit.html" %}
+    {% load static %}
+
+    {% block content %}
+        {{ block.super }}
+        <div class="object">
+            <img src="{% get_media_prefix %}{{ instance.image }}"/>
+        </div>
+    {% endblock %}
+
+If for any reason you'd rather bypass the above behaviour and explicitly specify a
 template for a specific view, you can set either of the following attributes
 on your ``ModelAdmin`` class:
 
