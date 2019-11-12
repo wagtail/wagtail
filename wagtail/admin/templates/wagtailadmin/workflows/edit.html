@@ -28,24 +28,36 @@
         {% csrf_token %}
 
         {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
-
-        {% block footer %}
-            <footer role="contentinfo">
-                <ul>
-                    <li class="actions">
-                        {% block form_actions %}
-                            <div class="dropdown dropup dropdown-button match-width">
-                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
-                                    <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
-                                </button>
-                            </div>
-                        {% endblock %}
-                    </li>
-                    <li>
-                        <a href="{{ view.delete_url }}" class="button">Disable</a>
-                    </li>
-                </ul>
-            </footer>
-        {% endblock %}
+<div class="object">
+        <ul class="object-layout">
+            <li class="object-layout_big-part">
+                {% block form_actions %}
+                <p class="save">
+                    <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
+                        <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+                    </button>
+                </p>
+                {% endblock %}
+            </li>
+        </ul>
+    </div>
     </form>
+    {% if pages %}
+        <div class="object">
+             <div class="title-wrapper">Pages</div>
+        <div class="object-layout">
+            <div class="object-layout_big-part">
+                <div class="multiple">
+        {% include "wagtailadmin/workflows/listing/_list_workflow_pages.html" %}
+                                <p class="add">
+                <a class="button bicolor icon icon-plus">
+                Add
+            </a>
+            </p>
+
+                </div>
+                </div>
+        </div>
+            </div>
+    {% endif %}
 {% endblock %}
