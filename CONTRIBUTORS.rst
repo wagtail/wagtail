@@ -425,6 +425,7 @@ Contributors
 * Tim Gates
 * Timothy Bautista
 * Pete Andrew
+* Benedikt Willi
 
 Translators
 ===========
