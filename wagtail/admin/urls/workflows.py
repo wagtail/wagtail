@@ -7,4 +7,5 @@ urlpatterns = [
     path('', workflows.Index.as_view(), name='index'),
     path('add/', workflows.create, name='add'),
     path('edit/<int:pk>', workflows.edit, name='edit'),
+    path('remove/<int:pk>', workflows.remove_workflow, name='remove')
 ]
