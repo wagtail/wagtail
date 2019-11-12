@@ -1,20 +1,22 @@
-from django.http import HttpResponseForbidden
-from django.shortcuts import get_object_or_404, redirect
-from django.utils.translation import ugettext_lazy
+from django.core.exceptions import PermissionDenied
+from django.utils.http import is_safe_url
+from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.http import require_POST
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import ObjectList, FieldPanel, InlinePanel, get_edit_handler
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.core import hooks
-from wagtail.core.models import Workflow
+from wagtail.core.models import Page, Workflow
 from wagtail.admin.views.pages import get_valid_next_url_from_request
 from wagtail.core.permissions import workflow_permission_policy
 from django.shortcuts import get_object_or_404, redirect, render
 
 Workflow.panels = [
                     FieldPanel("name"),
-                    InlinePanel("workflow_tasks"),
+                    FieldPanel("active"),
+                    InlinePanel("workflow_tasks", heading="Tasks"),
                     ]
+
 
 def get_handler():
     handler = ObjectList(Workflow.panels)
@@ -32,8 +34,8 @@ class Index(IndexView):
     template_name = 'wagtailadmin/workflows/index.html'
     add_url_name = 'wagtailadmin_workflows:add'
     edit_url_name = 'wagtailadmin_workflows:edit'
-    page_title = ugettext_lazy("Workflows")
-    add_item_label = ugettext_lazy("Add a workflow")
+    page_title = _("Workflows")
+    add_item_label = _("Add a workflow")
     header_icon = 'placeholder'
 
 
@@ -58,7 +60,7 @@ def create(request):
         'edit_handler': edit_handler,
         'form': form,
         'icon': 'placeholder',
-        'title': ugettext_lazy("Workflows"),
+        'title': _("Workflows"),
         'next': next_url,
     })
 
@@ -68,6 +70,7 @@ def edit(request, pk):
     edit_handler = Workflow.get_edit_handler()
     edit_handler = edit_handler.bind_to(request=request, instance=workflow)
     form_class = edit_handler.get_form_class()
+    pages = Page.objects.filter(workflow=workflow)
 
     next_url = get_valid_next_url_from_request(request)
 
@@ -84,7 +87,32 @@ def edit(request, pk):
         'edit_handler': edit_handler,
         'form': form,
         'icon': 'placeholder',
-        'title': ugettext_lazy("Workflows"),
-        'subtitle': ugettext_lazy("Edit Workflow"),
+        'title': _("Workflows"),
+        'subtitle': _("Edit Workflow"),
         'next': next_url,
+        'pages': pages
     })
+
+
+@require_POST
+def remove_workflow(request, pk):
+    # Get the page
+    page = get_object_or_404(Page, id=pk).specific
+
+    # Check permissions
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
+    # Unlock the page
+    if page.workflow:
+        page.workflow = None
+        page.save()
+
+        messages.success(request, _("Workflow unassigned from Page '{0}'.").format(page.get_admin_display_title()))
+
+    # Redirect
+    redirect_to = request.POST.get('next', None)
+    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+        return redirect(redirect_to)
+    else:
+        return redirect('wagtailadmin_explore', page.get_parent().id)
