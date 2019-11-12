@@ -232,6 +232,10 @@
         color: $color-grey-3;
     }
 
+    &:not(:disabled):not(.disabled).active {
+        background-color: $color-button-active;
+    }
+
     &.button-nostroke {
         border: 0;
     }
