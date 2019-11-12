@@ -26,6 +26,7 @@ Other features
  * Cleaned up Django docs URLs in documentation (Pete Andrew)
  * Add StreamFieldPanel to available panel types in documentation (Dan Swain)
  * Add {{ block.super }} example to ModelAdmin customisation in documentation (Dan Swain)
+ * Add ability to filter image index by a tag (Benedikt Willi)
 
 
 Bug fixes

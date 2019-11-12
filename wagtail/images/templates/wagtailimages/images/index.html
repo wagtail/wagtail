@@ -1,4 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags %}
 {% load wagtailimages_tags %}
 {% load i18n %}
 
@@ -31,13 +32,33 @@
     {% endif %}
 
     <div class="nice-padding">
-        {% if collections %}
-            <form class="image-search search-bar" action="{% url 'wagtailimages:index' %}" method="GET" novalidate>
-                <ul class="fields">
+        <form class="image-search search-bar" action="{% url 'wagtailimages:index' %}" method="GET" novalidate>
+            <ul class="fields">
+                {% if collections %}
                     {% include "wagtailadmin/shared/collection_chooser.html" %}
-                </ul>
-            </form>
-        {% endif %}
+                    {% if current_tag %}
+                        <input type="hidden" name="tag" value="{{ current_tag }}" />
+                    {% endif %}
+                {% endif %}
+                {% if popular_tags %}
+                <li>
+                    <fieldset class="tagfilter">
+                    <legend>{% trans 'Popular Tags:' %}</legend>
+                      {% for tag in popular_tags %}
+                          {% if tag.name != current_tag %}
+                              <a class="button button-small button-secondary bicolor icon icon-tag" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{{ tag.name }}</a>
+                          {% else %}
+                              <a class="button button-small bicolor icon icon-tag" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{{ tag.name }}</a>
+                          {% endif %}
+                      {% endfor %}
+                      {% if current_tag %}
+                          <a class="button button-small bicolor button-secondary icon icon-cross" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% trans 'Clear choice' %}</a>
+                      {% endif %}
+                    </fieldset>
+                </li>
+                {% endif %}
+            </ul>
+        </form>
 
         <div id="image-results">
             {% include "wagtailimages/images/results.html" %}

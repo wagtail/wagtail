@@ -81,10 +81,10 @@
 
 
 @mixin visuallyvisible {
-    clip: none;
+    clip: auto;
     height: auto;
     width: auto;
-    margin: auto;
+    margin: initial;
     overflow: visible;
     position: initial;
 }
