@@ -36,6 +36,7 @@ Bug fixes
  * Moved ``get_document_model`` location so it can be imported when Models are not yet loaded (Andrey Smirnov)
  * Fixed incorrect HTML escaping of Jinja2 form templates for StructBlocks (Brady Moe)
  * All templates with wagtailsettings and modeladmin now use ``block.super`` for ``extra_js`` & ``extra_css`` (Timothy Bautista)
+ * Layout issue when using FieldRowPanel with a heading (Andreas Bernacca)
 
 
 Upgrade considerations

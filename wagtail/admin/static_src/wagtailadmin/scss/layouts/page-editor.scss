@@ -63,6 +63,10 @@ $object-title-height: 40px;
         padding-right: 0;
     }
 
+    .field-row {
+        padding-top: $object-title-height + 12px;
+    }
+
     .object-help {
         display: block;
         position: relative;
