@@ -34,8 +34,10 @@
                         <li class="field">
                             {{ form.page.errors }}
                             {% if not confirm %}
-                            <label for="{{ form.page.id_for_label }}">Page:</label>
-                            {{ form.page }}
+                                <label for="{{ form.page.id_for_label }}">Page:</label>
+                                {{ form.page }}
+                            {% else %}
+                                {{ form.page.as_hidden }}
                             {% endif %}
                         </li>
                         {{ form.workflow }}
