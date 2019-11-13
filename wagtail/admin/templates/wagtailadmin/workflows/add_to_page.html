@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 
-{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+{% block titletag %}Add Workflow to Page{% endblock %}
 
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
@@ -33,7 +33,10 @@
                         {{ form.workflow.errors }}
                         <li class="field">
                             {{ form.page.errors }}
+                            {% if not confirm %}
+                            <label for="{{ form.page.id_for_label }}">Page:</label>
                             {{ form.page }}
+                            {% endif %}
                         </li>
                         {{ form.workflow }}
                         {% if not confirm %}
@@ -42,7 +45,7 @@
                 </ul>
                 <div>
                     {% if confirm %}
-                        <button type="submit" name="override_existing" value="True" class="button">{% trans 'Override Existing Workflow' %}</button>
+                        <button type="submit" name="overwrite_existing" value="True" class="button">{% trans 'Overwrite Existing Workflow' %}</button>
                         <a href="." class="button button-secondary">{% trans 'Cancel' %}</a>
                     {% else %}
                         <button type="submit" class="button">{% trans 'Add to Page' %}</button>
