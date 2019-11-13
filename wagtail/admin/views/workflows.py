@@ -1,10 +1,13 @@
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.paginator import Paginator
+from django import forms
 from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 
-from wagtail.admin import messages
-from wagtail.admin.edit_handlers import ObjectList, FieldPanel, InlinePanel, get_edit_handler
+from wagtail.admin import messages, widgets
+from wagtail.admin.edit_handlers import ObjectList, FieldPanel, InlinePanel, get_edit_handler, PageChooserPanel
+from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.core.models import Page, Workflow
 from wagtail.admin.views.pages import get_valid_next_url_from_request
@@ -40,6 +43,8 @@ class Index(IndexView):
 
 
 def create(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied
     workflow = Workflow()
     edit_handler = Workflow.get_edit_handler()
     edit_handler = edit_handler.bind_to(request=request, instance=workflow)
@@ -66,6 +71,8 @@ def create(request):
 
 
 def edit(request, pk):
+    if not request.user.is_superuser:
+        raise PermissionDenied
     workflow = get_object_or_404(Workflow, pk=pk)
     edit_handler = Workflow.get_edit_handler()
     edit_handler = edit_handler.bind_to(request=request, instance=workflow)
@@ -82,17 +89,22 @@ def edit(request, pk):
         form = form_class(instance=workflow)
 
     edit_handler = edit_handler.bind_to(form=form)
+    pages.paginator = Paginator(pages, 5)
+    page_number = int(request.GET.get('p', 1))
+    page = pages.paginator.page(page_number)
+
 
     return render(request, 'wagtailadmin/workflows/edit.html', {
         'edit_handler': edit_handler,
+        'workflow': workflow,
         'form': form,
         'icon': 'placeholder',
         'title': _("Workflows"),
         'subtitle': _("Edit Workflow"),
         'next': next_url,
-        'pages': pages
+        'pages': page,
+        'paginator': pages.paginator,
     })
-
 
 @require_POST
 def remove_workflow(request, pk):
@@ -116,3 +128,52 @@ def remove_workflow(request, pk):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_explore', page.get_parent().id)
+
+
+class AddWorkflowToPageForm(forms.Form):
+    page = forms.ModelChoiceField(queryset=Page.objects.all(), widget=widgets.AdminPageChooser(
+            target_models=[Page],
+            can_choose_root=True))
+    workflow = forms.ModelChoiceField(queryset=Workflow.objects.active(), widget=forms.HiddenInput())
+    override_existing = forms.BooleanField(widget=forms.HiddenInput(), initial=False, required=False)
+
+    def clean(self):
+        page = self.cleaned_data.get('page')
+        if page:
+            existing_workflow = self.cleaned_data.get('page').workflow
+            if not self.errors and existing_workflow != self.cleaned_data['workflow'] and not self.cleaned_data['override_existing']:
+                self.add_error('page', ValidationError(_("This page already has workflow '{0}' assigned. Do you want to override?").format(existing_workflow), code='needs_confirmation'))
+
+    def save(self):
+        page = self.cleaned_data['page']
+        workflow = self.cleaned_data['workflow']
+        page.workflow = workflow
+        page.save()
+        return page
+
+
+def add_to_page(request, workflow_pk):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+    workflow = get_object_or_404(Workflow, pk=workflow_pk)
+    form_class = AddWorkflowToPageForm
+
+    next_url = get_valid_next_url_from_request(request)
+    if request.method == 'POST':
+        form = form_class(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            form = form_class(initial={'workflow': workflow.pk, 'override_existing': False})
+
+    else:
+        form = form_class(initial={'workflow': workflow.pk, 'override_existing': False})
+
+    confirm = form.has_error('page', 'needs_confirmation')
+
+    return render(request, 'wagtailadmin/workflows/add_to_page.html', {
+        'form': form,
+        'icon': 'placeholder',
+        'title': _("Workflows"),
+        'next': next_url,
+        'confirm': confirm
+    })
