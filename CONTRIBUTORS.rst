@@ -423,6 +423,7 @@ Contributors
 * Tom Readings
 * Andrey Smirnov
 * Tim Gates
+* Timothy Bautista
 
 Translators
 ===========
