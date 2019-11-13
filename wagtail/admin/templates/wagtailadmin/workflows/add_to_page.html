@@ -1,0 +1,58 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ form.media.css }}
+
+    {{ view.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form.media.js }}
+    {{ html_declarations }}
+
+    {{ view.media.js }}
+{% endblock %}
+
+{% block content %}
+
+    {% block header %}
+        {% include "wagtailadmin/shared/header.html" %}
+    {% endblock %}
+
+    <form action="" method="POST" novalidate>
+        {% csrf_token %}
+        <ul class="objects">
+        <li class="object">
+        <div class="object-layout">
+            <div class="object-layout_big-part">
+                {{ form.non_field_errors }}
+                <div class="fieldWrapper">
+    {{ form.page.errors }}
+    <label for="{{ form.page.id_for_label }}">Page:</label>
+    {{ form.page }}
+</div>
+                <div class="fieldWrapper">
+    {{ form.workflow.errors }}
+    {{ form.workflow }}
+</div>
+                {% if not confirm %}
+                <div class="fieldWrapper">
+    {{ form.override_existing.errors }}
+    {{ form.override_existing }}
+</div>
+                {% endif %}
+    {% if confirm %}
+            <button type="submit" name="override_existing" value="True" class="button">{% trans 'Override Existing Workflow' %}</button>
+                <a href="." class="button button-secondary">{% trans 'Cancel' %}</a>
+                {% else %}
+            <button type="submit" class="button">{% trans 'Add to Page' %}
+            </button>
+                {% endif %}
+            </div></div></li></ul>
+    </form>
+{% endblock %}
