@@ -171,6 +171,7 @@ def add_to_page(request, workflow_pk):
     confirm = form.has_error('page', 'needs_confirmation')
 
     return render(request, 'wagtailadmin/workflows/add_to_page.html', {
+        'workflow': workflow,
         'form': form,
         'icon': 'placeholder',
         'title': _("Workflows"),

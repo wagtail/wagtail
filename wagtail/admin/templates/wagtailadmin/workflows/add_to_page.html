@@ -24,35 +24,31 @@
         {% include "wagtailadmin/shared/header.html" %}
     {% endblock %}
 
-    <form action="" method="POST" novalidate>
+    <form action="{% url 'wagtailadmin_workflows:add_to_page' workflow.id %}" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
-        <ul class="objects">
-        <li class="object">
-        <div class="object-layout">
-            <div class="object-layout_big-part">
-                {{ form.non_field_errors }}
-                <div class="fieldWrapper">
-    {{ form.page.errors }}
-    <label for="{{ form.page.id_for_label }}">Page:</label>
-    {{ form.page }}
-</div>
-                <div class="fieldWrapper">
-    {{ form.workflow.errors }}
-    {{ form.workflow }}
-</div>
-                {% if not confirm %}
-                <div class="fieldWrapper">
-    {{ form.override_existing.errors }}
-    {{ form.override_existing }}
-</div>
-                {% endif %}
-    {% if confirm %}
-            <button type="submit" name="override_existing" value="True" class="button">{% trans 'Override Existing Workflow' %}</button>
-                <a href="." class="button button-secondary">{% trans 'Cancel' %}</a>
-                {% else %}
-            <button type="submit" class="button">{% trans 'Add to Page' %}
-            </button>
-                {% endif %}
-            </div></div></li></ul>
+        <div class="nice-padding">
+                <ul class="fields">
+                        {{ form.non_field_errors }}
+                        {{ form.override_existing.errors }}
+                        {{ form.workflow.errors }}
+                        <li class="field">
+                            {{ form.page.errors }}
+                            {{ form.page }}
+                        </li>
+                        {{ form.workflow }}
+                        {% if not confirm %}
+                            {{ form.override_existing }}
+                        {% endif %}
+                </ul>
+                <div>
+                    {% if confirm %}
+                        <button type="submit" name="override_existing" value="True" class="button">{% trans 'Override Existing Workflow' %}</button>
+                        <a href="." class="button button-secondary">{% trans 'Cancel' %}</a>
+                    {% else %}
+                        <button type="submit" class="button">{% trans 'Add to Page' %}</button>
+                    {% endif %}
+                </div>
+        </div>
     </form>
 {% endblock %}
+
