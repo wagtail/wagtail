@@ -4,11 +4,13 @@
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
     {{ view.media.css }}
     <link rel="stylesheet" href="{% versioned_static 'wagtailmodeladmin/css/breadcrumbs_page.css' %}" type="text/css"/>
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     {{ view.media.js }}
 {% endblock %}
 
