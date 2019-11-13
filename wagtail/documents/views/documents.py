@@ -140,7 +140,7 @@ def edit(request, document_id):
         original_file = doc.file
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
         if form.is_valid():
-            doc = form.save()
+            doc = form.save(commit=False)
             if 'file' in form.changed_data:
                 doc.file_size = doc.file.size
 
