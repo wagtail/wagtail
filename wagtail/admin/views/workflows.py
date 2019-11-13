@@ -135,14 +135,14 @@ class AddWorkflowToPageForm(forms.Form):
             target_models=[Page],
             can_choose_root=True))
     workflow = forms.ModelChoiceField(queryset=Workflow.objects.active(), widget=forms.HiddenInput())
-    override_existing = forms.BooleanField(widget=forms.HiddenInput(), initial=False, required=False)
+    overwrite_existing = forms.BooleanField(widget=forms.HiddenInput(), initial=False, required=False)
 
     def clean(self):
         page = self.cleaned_data.get('page')
         if page:
             existing_workflow = self.cleaned_data.get('page').workflow
-            if not self.errors and existing_workflow != self.cleaned_data['workflow'] and not self.cleaned_data['override_existing']:
-                self.add_error('page', ValidationError(_("This page already has workflow '{0}' assigned. Do you want to override?").format(existing_workflow), code='needs_confirmation'))
+            if not self.errors and existing_workflow != self.cleaned_data['workflow'] and not self.cleaned_data['overwrite_existing']:
+                self.add_error('page', ValidationError(_("This page already has workflow '{0}' assigned. Do you want to overwrite the existing workflow?").format(existing_workflow), code='needs_confirmation'))
 
     def save(self):
         page = self.cleaned_data['page']
@@ -163,10 +163,10 @@ def add_to_page(request, workflow_pk):
         form = form_class(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            form = form_class(initial={'workflow': workflow.pk, 'override_existing': False})
+            form = form_class(initial={'workflow': workflow.pk, 'overwrite_existing': False})
 
     else:
-        form = form_class(initial={'workflow': workflow.pk, 'override_existing': False})
+        form = form_class(initial={'workflow': workflow.pk, 'overwrite_existing': False})
 
     confirm = form.has_error('page', 'needs_confirmation')
 
