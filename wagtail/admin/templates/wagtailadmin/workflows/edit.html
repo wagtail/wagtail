@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
@@ -42,15 +42,17 @@
         </ul>
     </div>
     </form>
-    {% if pages %}
         <div class="object">
              <div class="title-wrapper">Pages</div>
         <div class="object-layout">
             <div class="object-layout_big-part">
                 <div class="multiple">
+                        {% if pages %}
         {% include "wagtailadmin/workflows/listing/_list_workflow_pages.html" %}
+                    {% paginate pages base_url=request.path %}
+                    {% endif %}
                                 <p class="add">
-                <a class="button bicolor icon icon-plus">
+                <a class="button bicolor icon icon-plus" href="{% url 'wagtailadmin_workflows:add_to_page' workflow.pk %}">
                 Add
             </a>
             </p>
@@ -59,5 +61,4 @@
                 </div>
         </div>
             </div>
-    {% endif %}
 {% endblock %}
