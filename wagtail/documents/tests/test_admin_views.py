@@ -333,14 +333,14 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
             'title': "My doc",
             'file': fake_file,
         }
-        response = self.client.post(reverse('wagtaildocs:add'), post_data)
+        self.client.post(reverse('wagtaildocs:add'), post_data)
 
         document = models.Document.objects.get(title="My doc")
         old_file_size = document.file_size
 
         new_file = SimpleUploadedFile(document.filename, b'less content')
 
-        response = self.client.post(reverse('wagtaildocs:edit', args=(document.pk,)), {
+        self.client.post(reverse('wagtaildocs:edit', args=(document.pk,)), {
             'title': document.title, 'file': new_file,
         })
 
