@@ -21,6 +21,7 @@ Other features
  * Added ``get_document_model_string`` function (Andrey Smirnov)
  * Added support for Cloudflare API tokens for frontend cache invalidation (Tom Usher)
  * Added ``ancestors`` field to pages endpoint in admin API (Karl Hobley)
+ * Removed Django admin management of ``Page`` & ``Site`` models (Andreas Bernacca)
 
 
 Bug fixes
@@ -45,6 +46,23 @@ Django 2.0 is no longer supported as of this release; please upgrade to Django 2
 
 
 ``wagtail.documents.models.get_document_model`` has moved
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``get_document_model`` function should now be imported from ``wagtail.documents`` rather than ``wagtail.documents.models``. See :ref:`custom_document_model`.
+
+
+Removed ``Page`` and ``Site`` models from Django admin 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django admin will no longer provide editing access to ``Page`` or ``Site`` models, if required these models can be registered within individual projects using `Django's ModelAdmin <https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#modeladmin-objects>`_.
+
+
+.. code-block:: python
+
+    # my_app/admin.py
+    from django.contrib import admin
+
+    from wagtail.core.models import Page, Site
+
+    admin.site.register(Site)
+    admin.site.register(Page)
