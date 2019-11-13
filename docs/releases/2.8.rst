@@ -37,6 +37,7 @@ Bug fixes
  * Fixed incorrect HTML escaping of Jinja2 form templates for StructBlocks (Brady Moe)
  * All templates with wagtailsettings and modeladmin now use ``block.super`` for ``extra_js`` & ``extra_css`` (Timothy Bautista)
  * Layout issue when using FieldRowPanel with a heading (Andreas Bernacca)
+ * ``file_size`` and ``file_hash`` not updated when Document file changed (Andreas Bernacca)
 
 
 Upgrade considerations
