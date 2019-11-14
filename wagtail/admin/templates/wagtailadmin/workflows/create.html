@@ -24,7 +24,7 @@
         {% include "wagtailadmin/shared/header.html" with tabbed=1 merged=1 %}
     {% endblock %}
 
-    <form action="{% block form_action %}{{ view.create_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
+    <form action="{% url wagtailadmin_workflows:create %}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}
 
         {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
