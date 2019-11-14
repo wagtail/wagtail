@@ -9,7 +9,7 @@ from wagtail.admin import messages, widgets
 from wagtail.admin.edit_handlers import ObjectList, FieldPanel, InlinePanel, get_edit_handler, PageChooserPanel, Workflow
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.core.models import Page
+from wagtail.core.models import Page, WorkflowPage
 from wagtail.admin.views.pages import get_valid_next_url_from_request
 from wagtail.core.permissions import workflow_permission_policy
 from django.shortcuts import get_object_or_404, redirect, render
@@ -62,7 +62,7 @@ def edit(request, pk):
     edit_handler = Workflow.get_edit_handler()
     edit_handler = edit_handler.bind_to(request=request, instance=workflow)
     form_class = edit_handler.get_form_class()
-    pages = Page.objects.filter(workflow=workflow)
+    pages = Page.objects.filter(workflowpage__workflow=workflow)
 
     next_url = get_valid_next_url_from_request(request)
 
@@ -125,16 +125,17 @@ class AddWorkflowToPageForm(forms.Form):
     def clean(self):
         page = self.cleaned_data.get('page')
         if page:
-            existing_workflow = self.cleaned_data.get('page').workflow
+            existing_workflow = self.cleaned_data.get('page').workflowpage.workflow
             if not self.errors and existing_workflow != self.cleaned_data['workflow'] and not self.cleaned_data['overwrite_existing']:
                 self.add_error('page', ValidationError(_("This page already has workflow '{0}' assigned. Do you want to overwrite the existing workflow?").format(existing_workflow), code='needs_confirmation'))
 
     def save(self):
         page = self.cleaned_data['page']
         workflow = self.cleaned_data['workflow']
-        page.workflow = workflow
-        page.save()
-        return page
+        WorkflowPage.objects.update_or_create(
+            page=page,
+            defaults={'workflow': workflow},
+        )
 
 
 def add_to_page(request, workflow_pk):
