@@ -28,37 +28,33 @@
         {% csrf_token %}
 
         {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
-<div class="object">
-        <ul class="object-layout">
-            <li class="object-layout_big-part">
-                {% block form_actions %}
-                <p class="save">
-                    <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
-                        <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
-                    </button>
-                </p>
-                {% endblock %}
-            </li>
-        </ul>
-    </div>
-    </form>
+
         <div class="object">
-             <div class="title-wrapper">Pages</div>
+            <ul class="object-layout">
+                <li class="object-layout_big-part">
+                    <p class="save">
+                        <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
+                            <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+                        </button>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </form>
+    <div class="object">
+        <div class="title-wrapper">Pages</div>
         <div class="object-layout">
             <div class="object-layout_big-part">
                 <div class="multiple">
-                        {% if pages %}
-        {% include "wagtailadmin/workflows/listing/_list_workflow_pages.html" %}
-                    {% paginate pages base_url=request.path %}
+                    {% if pages %}
+                        {% include "wagtailadmin/workflows/listing/_list_workflow_pages.html" %}
+                        {% paginate pages base_url=request.path %}
                     {% endif %}
-                                <p class="add">
-                <a class="button bicolor icon icon-plus" href="{% url 'wagtailadmin_workflows:add_to_page' workflow.pk %}">
-                Add
-            </a>
-            </p>
-
+                    <p class="add">
+                        <a class="button bicolor icon icon-plus" href="{% url 'wagtailadmin_workflows:add_to_page' workflow.pk %}">Add</a>
+                    </p>
                 </div>
-                </div>
-        </div>
             </div>
+        </div>
+    </div>
 {% endblock %}
