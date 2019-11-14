@@ -354,14 +354,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         blank=True,
         editable=False
     )
-    workflow = models.ForeignKey(
-        'Workflow',
-        related_name='pages',
-        verbose_name=_('workflow'),
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-    )
 
     search_fields = [
         index.SearchField('title', partial_match=True, boost=2),
@@ -1663,11 +1655,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return obj
 
     def get_workflow(self):
-        if self.workflow:
-            return self.workflow
+        if hasattr(self, 'workflowpage'):
+            return self.workflowpage.workflow
         else:
             try:
-                workflow = self.get_ancestors().filter(workflow__isnull=False).order_by('-depth').first().workflow
+                workflow = self.get_ancestors().filter(workflowpage__isnull=False).order_by('-depth').first().workflowpage.workflow
             except AttributeError:
                 workflow = None
             return workflow
@@ -2400,6 +2392,26 @@ class GroupCollectionPermission(models.Model):
         unique_together = ('group', 'collection', 'permission')
         verbose_name = _('group collection permission')
         verbose_name_plural = _('group collection permissions')
+
+
+class WorkflowPage(models.Model):
+    page = models.OneToOneField(
+        'Page',
+        verbose_name=_('page'),
+        on_delete=models.CASCADE,
+        primary_key=True,
+        unique=True
+    )
+    workflow = models.ForeignKey(
+        'Workflow',
+        related_name='workflow_pages',
+        verbose_name=_('workflow'),
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        verbose_name = _('workflow page')
+        verbose_name_plural = _('workflow pages')
 
 
 class WorkflowTask(Orderable):
