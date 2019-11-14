@@ -14,7 +14,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Workflow
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.decorators import cached_classmethod
 
@@ -785,6 +785,30 @@ Page.settings_panels = [
 ]
 
 Page.base_form_class = WagtailAdminPageForm
+
+#Similarly, set up wagtailcore.Workflow to have edit handlers
+Workflow.panels = [
+                    FieldPanel("name"),
+                    FieldPanel("active"),
+                    InlinePanel("workflow_tasks", heading="Tasks"),
+                    ]
+
+Workflow.base_form_class = WagtailAdminModelForm
+
+
+@cached_classmethod
+def get_simple_edit_handler(cls):
+    """
+    Get the EditHandler to use in the Wagtail admin when editing this class, constructing an ObjectList from the contents of cls.panels.
+    """
+    if hasattr(cls, 'edit_handler'):
+        edit_handler = cls.edit_handler
+    else:
+        edit_handler = ObjectList(cls.panels, base_form_class=cls.base_form_class)
+    return edit_handler.bind_to(model=cls)
+
+
+Workflow.get_edit_handler = get_simple_edit_handler
 
 
 @cached_classmethod

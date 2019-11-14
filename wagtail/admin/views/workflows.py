@@ -6,28 +6,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 
 from wagtail.admin import messages, widgets
-from wagtail.admin.edit_handlers import ObjectList, FieldPanel, InlinePanel, get_edit_handler, PageChooserPanel
+from wagtail.admin.edit_handlers import ObjectList, FieldPanel, InlinePanel, get_edit_handler, PageChooserPanel, Workflow
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.core.models import Page, Workflow
+from wagtail.core.models import Page
 from wagtail.admin.views.pages import get_valid_next_url_from_request
 from wagtail.core.permissions import workflow_permission_policy
 from django.shortcuts import get_object_or_404, redirect, render
-
-Workflow.panels = [
-                    FieldPanel("name"),
-                    FieldPanel("active"),
-                    InlinePanel("workflow_tasks", heading="Tasks"),
-                    ]
-
-
-def get_handler():
-    handler = ObjectList(Workflow.panels)
-    handler.bind_to(model=Workflow)
-    return handler
-
-
-Workflow.get_edit_handler = get_handler
 
 
 class Index(IndexView):
