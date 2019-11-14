@@ -100,42 +100,6 @@ class Edit(EditView):
         return context
 
 
-def edit(request, pk):
-    if not request.user.is_superuser:
-        raise PermissionDenied
-    workflow = get_object_or_404(Workflow, pk=pk)
-    edit_handler = Workflow.get_edit_handler()
-    edit_handler = edit_handler.bind_to(request=request, instance=workflow)
-    form_class = edit_handler.get_form_class()
-    pages = Page.objects.filter(workflowpage__workflow=workflow)
-
-    next_url = get_valid_next_url_from_request(request)
-
-    if request.method == 'POST':
-        form = form_class(request.POST, request.FILES, instance=workflow)
-        if form.is_valid():
-            workflow = form.save()
-    else:
-        form = form_class(instance=workflow)
-
-    edit_handler = edit_handler.bind_to(form=form)
-    page_number = int(request.GET.get('p', 1))
-    page = pages.paginator.page(page_number)
-
-
-    return render(request, 'wagtailadmin/workflows/edit.html', {
-        'edit_handler': edit_handler,
-        'workflow': workflow,
-        'form': form,
-        'icon': 'placeholder',
-        'title': _("Workflows"),
-        'subtitle': _("Edit Workflow"),
-        'next': next_url,
-        'pages': page,
-        'paginator': pages.paginator,
-    })
-
-
 @require_POST
 def remove_workflow(request, page_pk, workflow_pk=None):
     # Remove a workflow from a page (specifically a single workflow if workflow_pk is set)
@@ -199,6 +163,7 @@ def add_to_page(request, workflow_pk):
         form = form_class(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, _("Workflow '{0}' added to Page '{1}'.").format(workflow, form.cleaned_data['page']))
             form = form_class(initial={'workflow': workflow.pk, 'overwrite_existing': False})
 
     else:
