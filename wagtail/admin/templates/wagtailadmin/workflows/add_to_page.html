@@ -24,7 +24,7 @@
         {% include "wagtailadmin/shared/header.html" %}
     {% endblock %}
 
-    <form action="{% url 'wagtailadmin_workflows:add_to_page' workflow.id %}" method="POST" enctype="multipart/form-data" novalidate>
+    <form action="{% url 'wagtailadmin_workflows:add_to_page' workflow.pk %}" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         <div class="nice-padding">
                 <ul class="fields">
@@ -51,7 +51,7 @@
                         <a href="." class="button button-secondary">{% trans 'Cancel' %}</a>
                     {% else %}
                         <button type="submit" class="button">{% trans 'Add to Page' %}</button>
-                        <a href="{"
+                        <a href="{% url 'wagtailadmin_workflows:edit' workflow.pk %}" class="button button-secondary">{% trans 'Return to Workflow' %}</a>
                     {% endif %}
 
                 </div>
