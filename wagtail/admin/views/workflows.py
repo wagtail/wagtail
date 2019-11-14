@@ -27,32 +27,36 @@ class Index(IndexView):
     header_icon = 'placeholder'
 
 
-def create(request):
-    if not request.user.is_superuser:
-        raise PermissionDenied
-    workflow = Workflow()
-    edit_handler = Workflow.get_edit_handler()
-    edit_handler = edit_handler.bind_to(request=request, instance=workflow)
-    form_class = edit_handler.get_form_class()
+class Create(CreateView):
+    permission_policy = workflow_permission_policy
+    model = Workflow
+    page_title = _("Add workflow")
+    template_name = 'wagtailadmin/workflows/create.html'
+    success_message = _("Workflow '{0}' created.")
+    add_url_name = 'wagtailadmin_workflows:add'
+    edit_url_name = 'wagtailadmin_workflows:edit'
+    index_url_name = 'wagtailadmin_workflows:index'
+    header_icon = 'placeholder'
+    edit_handler = None
 
-    next_url = get_valid_next_url_from_request(request)
+    def get_edit_handler(self):
+        if not self.edit_handler:
+            self.edit_handler = self.model.get_edit_handler()
+            self.edit_handler = self.edit_handler.bind_to(request=self.request)
+        return self.edit_handler
 
-    if request.method == 'POST':
-        form = form_class(request.POST, request.FILES, instance=workflow)
-        if form.is_valid():
-            workflow = form.save()
-    else:
-        form = form_class(instance=workflow)
+    def get_form_class(self):
+        return self.get_edit_handler().get_form_class()
 
-    edit_handler = edit_handler.bind_to(form=form)
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        self.edit_handler = self.edit_handler.bind_to(form=form)
+        return form
 
-    return render(request, 'wagtailadmin/workflows/create.html', {
-        'edit_handler': edit_handler,
-        'form': form,
-        'icon': 'placeholder',
-        'title': _("Workflows"),
-        'next': next_url,
-    })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['edit_handler'] = self.edit_handler
+        return context
 
 
 def edit(request, pk):

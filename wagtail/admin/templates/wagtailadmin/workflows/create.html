@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 
-{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+{% block titletag %}{{ view.page_title }}{% endblock %}
 
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
@@ -20,11 +20,9 @@
 
 {% block content %}
 
-    {% block header %}
-        {% include "wagtailadmin/shared/header.html" with tabbed=1 merged=1 %}
-    {% endblock %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon %}
 
-    <form action="{% url wagtailadmin_workflows:create %}" enctype="multipart/form-data" method="POST" novalidate>
+    <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}
 
         {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
