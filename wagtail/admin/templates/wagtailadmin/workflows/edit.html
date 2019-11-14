@@ -20,9 +20,7 @@
 
 {% block content %}
 
-    {% block header %}
-        {% include "wagtailadmin/shared/header.html" with tabbed=1 merged=1 %}
-    {% endblock %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon %}
 
     <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}

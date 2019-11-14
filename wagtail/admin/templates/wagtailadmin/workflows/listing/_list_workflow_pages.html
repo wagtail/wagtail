@@ -4,7 +4,7 @@
 
 {% block page_navigation %}
     <td class="remove-workflow" valign="top">
-        <form action="{% url 'wagtailadmin_workflows:remove' page.id %}" method="post">
+        <form action="{% url 'wagtailadmin_workflows:remove' page.id workflow.pk %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ request.path }}">
             <button type="submit" class="button button-secondary button-small">{% trans 'Remove' %}</button>
