@@ -1,13 +1,12 @@
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
-from django import forms
 from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 
-from wagtail.admin import messages, widgets
-from wagtail.admin.edit_handlers import ObjectList, FieldPanel, InlinePanel, get_edit_handler, PageChooserPanel, Workflow
-from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.admin import messages
+from wagtail.admin.edit_handlers import Workflow
+from wagtail.admin.forms.workflow import AddWorkflowToPageForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.core.models import Page, WorkflowPage
 from wagtail.admin.views.pages import get_valid_next_url_from_request
@@ -123,31 +122,6 @@ def remove_workflow(request, page_pk, workflow_pk=None):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_explore', page.get_parent().id)
-
-
-class AddWorkflowToPageForm(forms.Form):
-    page = forms.ModelChoiceField(queryset=Page.objects.all(), widget=widgets.AdminPageChooser(
-            target_models=[Page],
-            can_choose_root=True))
-    workflow = forms.ModelChoiceField(queryset=Workflow.objects.active(), widget=forms.HiddenInput())
-    overwrite_existing = forms.BooleanField(widget=forms.HiddenInput(), initial=False, required=False)
-
-    def clean(self):
-        page = self.cleaned_data.get('page')
-        try:
-            existing_workflow = page.workflowpage.workflow
-            if not self.errors and existing_workflow != self.cleaned_data['workflow'] and not self.cleaned_data['overwrite_existing']:
-                self.add_error('page', ValidationError(_("This page already has workflow '{0}' assigned. Do you want to overwrite the existing workflow?").format(existing_workflow), code='needs_confirmation'))
-        except AttributeError:
-            pass
-
-    def save(self):
-        page = self.cleaned_data['page']
-        workflow = self.cleaned_data['workflow']
-        WorkflowPage.objects.update_or_create(
-            page=page,
-            defaults={'workflow': workflow},
-        )
 
 
 def add_to_page(request, workflow_pk):
