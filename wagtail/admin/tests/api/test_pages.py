@@ -633,6 +633,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertIn('ancestors', content['meta'])
         self.assertIsInstance(content['meta']['ancestors'], list)
         self.assertEqual(len(content['meta']['ancestors']), 3)
+        self.assertEqual(content['meta']['ancestors'][0].keys(), {'id', 'meta', 'title', 'admin_display_title'})
         self.assertEqual(content['meta']['ancestors'][0]['title'], 'Root')
         self.assertEqual(content['meta']['ancestors'][1]['title'], 'Home page')
         self.assertEqual(content['meta']['ancestors'][2]['title'], 'Blog index')
