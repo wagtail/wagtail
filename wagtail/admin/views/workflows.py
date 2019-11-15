@@ -8,9 +8,9 @@ from wagtail.admin import messages
 from wagtail.admin.edit_handlers import Workflow
 from wagtail.admin.forms.workflows import AddWorkflowToPageForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.core.models import Page, WorkflowPage
+from wagtail.core.models import Page, Task, WorkflowPage
 from wagtail.admin.views.pages import get_valid_next_url_from_request
-from wagtail.core.permissions import workflow_permission_policy
+from wagtail.core.permissions import workflow_permission_policy, task_permission_policy
 from django.shortcuts import get_object_or_404, redirect, render
 
 
@@ -155,3 +155,48 @@ def add_to_page(request, workflow_pk):
         'next': next_url,
         'confirm': confirm
     })
+
+
+class TaskIndex(IndexView):
+    permission_policy = task_permission_policy
+    model = Task
+    context_object_name = 'tasks'
+    template_name = 'wagtailadmin/workflows/task_index.html'
+    add_url_name = 'wagtailadmin_workflows:add_task'
+    edit_url_name = 'wagtailadmin_workflows:edit_task'
+    page_title = _("Tasks")
+    add_item_label = _("Add a task")
+    header_icon = 'placeholder'
+
+
+class CreateTask(CreateView):
+    permission_policy = task_permission_policy
+    model = None
+    page_title = _("Add task")
+    template_name = 'wagtailadmin/workflows/create_task.html'
+    success_message = _("Task '{0}' created.")
+    add_url_name = 'wagtailadmin_workflows:add_task'
+    edit_url_name = 'wagtailadmin_workflows:edit_task'
+    index_url_name = 'wagtailadmin_workflows:task_index'
+    header_icon = 'placeholder'
+    edit_handler = None
+
+
+    def get_edit_handler(self):
+        if not self.edit_handler:
+            self.edit_handler = self.model.get_edit_handler()
+            self.edit_handler = self.edit_handler.bind_to(request=self.request)
+        return self.edit_handler
+
+    def get_form_class(self):
+        return self.get_edit_handler().get_form_class()
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        self.edit_handler = self.edit_handler.bind_to(form=form)
+        return form
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['edit_handler'] = self.edit_handler
+        return context
