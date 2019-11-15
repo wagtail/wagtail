@@ -42,19 +42,31 @@ class MovedDefinitionHandler:
             try:
                 # is the missing name one of our moved definitions?
                 new_module_name = self.moved_definitions[name]
+                new_name = name
+
+                if isinstance(new_module_name, tuple):
+                    new_module_name, new_name = new_module_name
+
             except KeyError:
                 # raise the original AttributeError without including the inner try/catch
                 # in the stack trace
                 raise e from None
 
-        warnings.warn(
-            "%s has been moved from %s to %s" % (name, self.real_module.__name__, new_module_name),
-            category=self.warning_class, stacklevel=2
-        )
+        if new_name != name:
+            warnings.warn(
+                "%s has been moved from %s to %s and renamed to %s" % (name, self.real_module.__name__, new_module_name, new_name),
+                category=self.warning_class, stacklevel=2
+            )
+
+        else:
+            warnings.warn(
+                "%s has been moved from %s to %s" % (name, self.real_module.__name__, new_module_name),
+                category=self.warning_class, stacklevel=2
+            )
 
         # load the requested definition from the module named in moved_definitions
         new_module = import_module(new_module_name)
-        definition = getattr(new_module, name)
+        definition = getattr(new_module, new_name)
 
         # stash that definition into the current module so that we don't have to
         # redo this import next time we access it
