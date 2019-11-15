@@ -6,7 +6,7 @@ from django.views.decorators.http import require_POST
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import Workflow
-from wagtail.admin.forms.workflow import AddWorkflowToPageForm
+from wagtail.admin.forms.workflows import AddWorkflowToPageForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.core.models import Page, WorkflowPage
 from wagtail.admin.views.pages import get_valid_next_url_from_request
@@ -86,6 +86,7 @@ class Edit(EditView):
         return form
 
     def get_paginated_pages(self):
+        # Get the (paginated) list of Pages to which this Workflow is assigned.
         pages = Page.objects.filter(workflowpage__workflow=self.get_object())
         pages.paginator = Paginator(pages, self.MAX_PAGES)
         page_number = int(self.request.GET.get('p', 1))
@@ -125,6 +126,7 @@ def remove_workflow(request, page_pk, workflow_pk=None):
 
 
 def add_to_page(request, workflow_pk):
+    # Assign a "orkflow to a Page, including a confirmation step if the Page has a different Workflow assigned already.
 
     if not workflow_permission_policy.user_has_permission(request.user, 'add_to_page'):
         raise PermissionDenied

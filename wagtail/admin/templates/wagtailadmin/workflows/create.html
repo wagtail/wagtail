@@ -20,7 +20,7 @@
 
 {% block content %}
 
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon merged=1 %}
 
     <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}
