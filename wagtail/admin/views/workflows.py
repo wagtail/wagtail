@@ -126,7 +126,7 @@ def remove_workflow(request, page_pk, workflow_pk=None):
 
 
 def add_to_page(request, workflow_pk):
-    # Assign a "orkflow to a Page, including a confirmation step if the Page has a different Workflow assigned already.
+    # Assign a workflow to a Page, including a confirmation step if the Page has a different Workflow assigned already.
 
     if not workflow_permission_policy.user_has_permission(request.user, 'add_to_page'):
         raise PermissionDenied
