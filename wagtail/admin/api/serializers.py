@@ -103,16 +103,10 @@ class PageAncestorsField(Field):
     def get_attribute(self, instance):
         return instance
 
-    def serialize_page(self, page):
-        serializer_class = get_serializer_class(page.__class__, ['id', 'type', 'detail_url', 'html_url', 'title'], meta_fields=['type', 'detail_url', 'html_url'], base=PageSerializer)
-        serializer = serializer_class(context=self.context)
-        return serializer.to_representation(page)
-
     def to_representation(self, page):
-        return [
-            self.serialize_page(ancestor)
-            for ancestor in page.get_ancestors()
-        ]
+        serializer_class = get_serializer_class(Page, ['id', 'type', 'detail_url', 'html_url', 'title'], meta_fields=['type', 'detail_url', 'html_url'], base=PageSerializer)
+        serializer = serializer_class(context=self.context, many=True)
+        return serializer.to_representation(page.get_ancestors())
 
 
 class AdminPageSerializer(PageSerializer):
