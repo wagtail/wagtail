@@ -2487,7 +2487,7 @@ class WorkflowManager(models.Manager):
 
 class Workflow(ClusterableModel):
     name = models.CharField(max_length=255, verbose_name=_('name'))
-    active = models.BooleanField(verbose_name=_('active'), default=True)
+    active = models.BooleanField(verbose_name=_('active'), default=True, help_text=_("Active workflows can be added to pages. Deactivating a workflow does not remove it from existing pages."))
     objects = WorkflowManager()
 
     def __str__(self):
