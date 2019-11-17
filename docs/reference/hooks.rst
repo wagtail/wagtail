@@ -631,13 +631,7 @@ Hooks for customising the way users are directed through the process of creating
         return items.append( UserbarPuppyLinkItem() )
 
 
-.. _construct_wagtail_userbar_with_context:
-
-``construct_wagtail_userbar_with_context``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Works same as ``construct_wagtail_userbar`` but takes template context as third argument in hook function
-
+You also can use ``construct_wagtail_userbar`` with template context. You have to create hook function with named argument `context`
   .. code-block:: python
   from django.views.generics import TemplateView
   from wagtail.core import hooks
@@ -651,16 +645,20 @@ Works same as ``construct_wagtail_userbar`` but takes template context as third 
 
   class UserbarPuppyLinkItemFromContext:
 
-        def __init__(context):
+        def __init__(self, context):
             self.context = context
 
         def render(self, request):
             link = self.context.get('puppy_link')
-            return '<li><a href="' + link + '" ' \
-                + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
+            if link:
+                return '<li><a href="' + link + '" ' \
+                           + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
+            return ''
 
-    @hooks.register('construct_wagtail_userbar_with_context')
-    def add_puppy_link_item(request, items, context):
+    @hooks.register('construct_wagtail_userbar')
+    def add_puppy_link_item(request, items, context=None):
+        if not context:
+            context={}
         return items.append( UserbarPuppyLinkItemFromContext(context) )
 
 

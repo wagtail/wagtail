@@ -63,6 +63,55 @@ class TestUserbarTag(TestCase):
         # Make sure nothing was rendered
         self.assertEqual(content, '')
 
+    def test_add_item_without_template_context(self):
+        from wagtail.core import hooks
+
+        class UserbarKittenLinkItemFromContext:
+            def render(self, request):
+                return '<li><a href="www.kittenwar.com" ' \
+                       + 'target="_parent" class="action icon icon-wagtail">Kittens!</a></li>'
+
+        @hooks.register('construct_wagtail_userbar')
+        def add_kitten_link_item(request, items):
+            return items.append(UserbarKittenLinkItemFromContext())
+
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+        ctx = Context({
+            PAGE_TEMPLATE_VAR: self.homepage,
+            'request': self.dummy_request(self.user),
+        })
+        content = template.render(ctx)
+        self.assertIn("www.kittenwar.com", content)
+
+    def test_add_item_with_template_context(self):
+        from wagtail.core import hooks
+        class UserbarPuppyLinkItemFromContext:
+
+            def __init__(self, context):
+                self.context = context
+
+            def render(self, request):
+                link = self.context.get('puppy_link')
+                if link:
+                    return '<li><a href="' + link + '" ' \
+                           + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
+                return ''
+
+        @hooks.register('construct_wagtail_userbar')
+        def add_puppy_link_item(request, items, context=None):
+            if not context:
+                context = {}
+            return items.append(UserbarPuppyLinkItemFromContext(context))
+
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+        ctx = Context({
+            PAGE_TEMPLATE_VAR: self.homepage,
+            'request': self.dummy_request(self.user),
+            'puppy_link': "http://www.puppywar.com/"
+        })
+        content = template.render(ctx)
+        self.assertIn("http://www.puppywar.com/", content)
+
 
 class TestUserbarFrontend(TestCase, WagtailTestUtils):
     def setUp(self):

@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from wagtail.admin.userbar import (
     AddPageItem, AdminItem, ApproveModerationEditPageItem, EditPageItem, ExplorePageItem,
     RejectModerationEditPageItem)
-from wagtail.core import hooks
+from wagtail.core import hooks, utils
 from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, PageRevision
 
 # from django.contrib.auth.decorators import permission_required
@@ -81,10 +81,12 @@ def wagtailuserbar(context, position='bottom-right'):
         ]
 
     for fn in hooks.get_hooks('construct_wagtail_userbar'):
-        fn(request, items)
-
-    for fn in hooks.get_hooks('construct_wagtail_userbar_with_context'):
-        fn(request, items, context)
+        # magic for backward compatibility
+        # when hook functions didn't have template context in params
+        if utils.accepts_kwarg(fn, 'context'):
+            fn(request, items, context)
+        else:
+            fn(request, items)
 
     # Render the items
     rendered_items = [item.render(request) for item in items]
