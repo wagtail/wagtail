@@ -159,7 +159,7 @@ class TestPageUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
         # Check that the page was unpublished
         self.assertFalse(SimplePage.objects.get(id=self.test_page.id).live)
 
-        # Check that the descendant pages were unpiblished as well
+        # Check that the descendant pages were unpublished as well
         self.assertFalse(SimplePage.objects.get(id=self.test_child_page.id).live)
         self.assertFalse(SimplePage.objects.get(id=self.test_another_child_page.id).live)
 
