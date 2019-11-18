@@ -13,13 +13,13 @@
             <div class="right">
                 <div class="addbutton">
                     <a href="{% url view.add_url_name %}" class="button bicolor icon icon-plus">{{ view.add_item_label }}</a>
-                    <a href="{% url 'wagtailadmin_workflows:task_index' %}" class="button">Tasks</a>
+                    <a href="{% url 'wagtailadmin_workflows:index' %}" class="button">Workflows</a>
                 </div>
             </div>
         </div>
     </header>
     <div class="nice-padding">
-        {% if workflows %}
+        {% if tasks %}
             <div id="sites-list">
                 <table class="listing">
                     <thead>
@@ -28,27 +28,23 @@
                                 {% trans "Name" %}
                             </th>
                             <th>
-                                {% trans "Tasks" %}
+                                {% trans "Type" %}
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for workflow in workflows %}
+                        {% for task in tasks %}
                             <tr>
                                 <td class="title">
                                     <div class="title-wrapper">
-                                        <a href="{% url view.edit_url_name workflow.pk %}">{{ workflow }}</a>
-                                        {% if not workflow.active %}
+                                        <a href="{% url view.edit_url_name task.pk %}">{{ task }}</a>
+                                        {% if not task.active %}
                                             <span class="status-tag">Disabled</span>
                                         {% endif %}
                                     </div>
                                 </td>
-                                <td class="tasks">
-                                    <div class="task-wrapper">
-                                        {% for task in workflow.tasks %}
-                                        <button class="status-tag primary" >{{ task }}</button>
-                                        {% endfor %}
-                                    </div>
+                                <td>
+                                    {{ task.specific.get_verbose_name }}
                                 </td>
                             </tr>
                         {% endfor %}
@@ -58,9 +54,7 @@
             </div>
         {% else %}
             {% url view.add_url_name as add_url %}
-            <p>{% blocktrans %}No workflows have been created. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
+            <p>{% blocktrans %}No tasks have been created. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
         {% endif %}
-
-        <a href="{% url 'wagtailadmin_workflows:task_index' %}" class="button">{% trans "Task Listing" %}</a>
     </div>
 {% endblock %}
