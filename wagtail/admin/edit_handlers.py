@@ -14,7 +14,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page, Workflow
+from wagtail.core.models import Page, GroupApprovalTask, Task, Workflow
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.decorators import cached_classmethod
 
@@ -792,8 +792,14 @@ Workflow.panels = [
                     FieldPanel("active"),
                     InlinePanel("workflow_tasks", heading="Tasks"),
                     ]
+Task.panels = [
+                    FieldPanel("name"),
+                    FieldPanel("active"),
+                    ]
+GroupApprovalTask.panels = Task.panels + [FieldPanel('group')]
 
 Workflow.base_form_class = WagtailAdminModelForm
+Task.base_form_class = WagtailAdminModelForm
 
 
 @cached_classmethod
@@ -809,6 +815,7 @@ def get_simple_edit_handler(cls):
 
 
 Workflow.get_edit_handler = get_simple_edit_handler
+Task.get_edit_handler = get_simple_edit_handler
 
 
 @cached_classmethod
