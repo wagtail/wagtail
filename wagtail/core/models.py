@@ -2437,7 +2437,7 @@ class Task(models.Model):
         related_name='wagtail_tasks',
         on_delete=models.CASCADE
     )
-    active = models.BooleanField(verbose_name=_('active'), default=True)
+    active = models.BooleanField(verbose_name=_('active'), default=True, help_text=_("Active tasks can be added to workflows. Deactivating a task does not remove it from existing workflows."))
     objects = TaskManager()
 
     def __init__(self, *args, **kwargs):
@@ -2452,6 +2452,16 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+    @classmethod
+    def get_verbose_name(cls):
+        """
+        Returns the human-readable "verbose name" of this task model e.g "Group approval task".
+        """
+        # This is similar to doing cls._meta.verbose_name.title()
+        # except this doesn't convert any characters to lowercase
+        return capfirst(cls._meta.verbose_name)
+
 
     @cached_property
     def specific(self):
@@ -2504,3 +2514,9 @@ class Workflow(ClusterableModel):
 
 class GroupApprovalTask(Task):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name=_('group'))
+
+    class Meta:
+        verbose_name = _('Group approval task')
+        verbose_name_plural = _('Group approval tasks')
+
+
