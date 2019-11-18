@@ -2570,9 +2570,47 @@ class TaskState(models.Model):
     status = models.fields.CharField(choices=TASK_STATUS_CHOICES, blank=False, null=False, verbose_name=_("status"), max_length=50)
     started_at = models.DateTimeField(verbose_name=_('started at'), auto_now=True)
     finished_at = models.DateTimeField(verbose_name=_('finished at'), blank=True, null=True)
+    content_type = models.ForeignKey(
+        ContentType,
+        verbose_name=_('content type'),
+        related_name='wagtail_task_states',
+        on_delete=models.CASCADE
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.id:
+            # this model is being newly created
+            # rather than retrieved from the db;
+            if not self.content_type_id:
+                # set content type to correctly represent the model class
+                # that this was created as
+                self.content_type = ContentType.objects.get_for_model(self)
 
     def __str__(self):
         return _("Task '{0}' on Page Revision '{1}'").format(self.workflow, self.page_revision)
+
+    @cached_property
+    def specific(self):
+        """
+        Return this TaskState in its most specific subclassed form.
+        """
+        # the ContentType.objects manager keeps a cache, so this should potentially
+        # avoid a database lookup over doing self.content_type. I think.
+        content_type = ContentType.objects.get_for_id(self.content_type_id)
+        model_class = content_type.model_class()
+        if model_class is None:
+            # Cannot locate a model class for this content type. This might happen
+            # if the codebase and database are out of sync (e.g. the model exists
+            # on a different git branch and we haven't rolled back migrations before
+            # switching branches); if so, the best we can do is return the page
+            # unchanged.
+            return self
+        elif isinstance(self, model_class):
+            # self is already the an instance of the most specific class
+            return self
+        else:
+            return content_type.get_object_for_this_type(id=self.id)
 
     class Meta:
         verbose_name = _('Task state')
