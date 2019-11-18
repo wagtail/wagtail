@@ -16,6 +16,7 @@ Changelog
  * Fix: Prevent error when comparing pages that reference a model with a custom primary key (Fidel Ramos)
  * Fix: Moved ``get_document_model`` location so it can be imported when Models are not yet loaded (Andrey Smirnov)
  * Fix: Fixed incorrect HTML escaping of Jinja2 form templates for StructBlocks (Brady Moe)
+ * Fix: Resolved a small typo in an unpublish test case (Tim Gates)
 
 2.7 LTS (06.11.2019)
 ~~~~~~~~~~~~~~~~~~~~
