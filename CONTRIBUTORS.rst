@@ -422,6 +422,7 @@ Contributors
 * Aliosha Padovani
 * Tom Readings
 * Andrey Smirnov
+* Tim Gates
 
 Translators
 ===========
