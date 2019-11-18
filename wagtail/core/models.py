@@ -36,7 +36,6 @@ from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
 from wagtail.search import index
 
-
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
@@ -66,7 +65,8 @@ class Site(models.Model):
         blank=True,
         help_text=_("Human-readable name for the site.")
     )
-    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here', on_delete=models.CASCADE)
+    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here',
+                                  on_delete=models.CASCADE)
     is_default_site = models.BooleanField(
         verbose_name=_('is default site'),
         default=False,
@@ -88,12 +88,12 @@ class Site(models.Model):
     def __str__(self):
         default_suffix = " [{}]".format(_("default"))
         if self.site_name:
-            return(
+            return (
                 self.site_name
                 + (default_suffix if self.is_default_site else "")
             )
         else:
-            return(
+            return (
                 self.hostname
                 + ("" if self.port == 80 else (":%d" % self.port))
                 + (default_suffix if self.is_default_site else "")
@@ -214,6 +214,7 @@ PageManager = BasePageManager.from_queryset(PageQuerySet)
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
+
     def __init__(cls, name, bases, dct):
         super(PageBase, cls).__init__(name, bases, dct)
 
@@ -612,8 +613,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             .filter(path__startswith=self.path)
             .exclude(pk=self.pk)
             .update(url_path=Concat(
-                Value(new_url_path),
-                Substr('url_path', len(old_url_path) + 1))))
+            Value(new_url_path),
+            Substr('url_path', len(old_url_path) + 1))))
 
     @cached_property
     def specific(self):
@@ -1182,7 +1183,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Log
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
-    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None, process_child_object=None, exclude_fields=None):
+    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
+             process_child_object=None, exclude_fields=None):
         # Fill dict with self.specific values
         specific_self = self.specific
         default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
@@ -1659,7 +1661,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return self.workflowpage.workflow
         else:
             try:
-                workflow = self.get_ancestors().filter(workflowpage__isnull=False).order_by('-depth').first().workflowpage.workflow
+                workflow = self.get_ancestors().filter(workflowpage__isnull=False).order_by(
+                    '-depth').first().workflowpage.workflow
             except AttributeError:
                 workflow = None
             return workflow
@@ -2415,8 +2418,10 @@ class WorkflowPage(models.Model):
 
 
 class WorkflowTask(Orderable):
-    workflow = ParentalKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow_tasks'), related_name='workflow_tasks')
-    task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='workflow_tasks', limit_choices_to={'active': True})
+    workflow = ParentalKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow_tasks'),
+                           related_name='workflow_tasks')
+    task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='workflow_tasks',
+                             limit_choices_to={'active': True})
 
     class Meta:
         unique_together = [('workflow', 'sort_order'), ('workflow', 'task')]
@@ -2437,7 +2442,8 @@ class Task(models.Model):
         related_name='wagtail_tasks',
         on_delete=models.CASCADE
     )
-    active = models.BooleanField(verbose_name=_('active'), default=True, help_text=_("Active tasks can be added to workflows. Deactivating a task does not remove it from existing workflows."))
+    active = models.BooleanField(verbose_name=_('active'), default=True, help_text=_(
+        "Active tasks can be added to workflows. Deactivating a task does not remove it from existing workflows."))
     objects = TaskManager()
 
     def __init__(self, *args, **kwargs):
@@ -2461,7 +2467,6 @@ class Task(models.Model):
         # This is similar to doing cls._meta.verbose_name.title()
         # except this doesn't convert any characters to lowercase
         return capfirst(cls._meta.verbose_name)
-
 
     @cached_property
     def specific(self):
@@ -2497,7 +2502,8 @@ class WorkflowManager(models.Manager):
 
 class Workflow(ClusterableModel):
     name = models.CharField(max_length=255, verbose_name=_('name'))
-    active = models.BooleanField(verbose_name=_('active'), default=True, help_text=_("Active workflows can be added to pages. Deactivating a workflow does not remove it from existing pages."))
+    active = models.BooleanField(verbose_name=_('active'), default=True, help_text=_(
+        "Active workflows can be added to pages. Deactivating a workflow does not remove it from existing pages."))
     objects = WorkflowManager()
 
     def __str__(self):
@@ -2520,3 +2526,54 @@ class GroupApprovalTask(Task):
         verbose_name_plural = _('Group approval tasks')
 
 
+class WorkflowState(models.Model):
+    WORKFLOW_STATUS_CHOICES = (
+        ('in_progress', _("In progress")),
+        ('approved', _("Approved")),
+        ('rejected', _("Rejected")),
+        ('cancelled', _("Cancelled")),
+    )
+
+    page = models.ForeignKey('Page', on_delete=models.CASCADE, verbose_name=_("page"))
+    workflow = models.ForeignKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow'))
+    status = models.fields.CharField(choices=WORKFLOW_STATUS_CHOICES, blank=False, null=False, verbose_name=_("status"), max_length=50)
+    created_at = models.DateTimeField(auto_now=True, verbose_name=_("created at"))
+    requested_by = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                     verbose_name=_('requested by'),
+                                     null=True,
+                                     blank=True,
+                                     editable=True,
+                                     on_delete=models.SET_NULL,
+                                     related_name='requested_workflows')
+    current_task_state = models.OneToOneField('TaskState', on_delete=models.SET_NULL, null=True, blank=False,
+                                              verbose_name=_("current task state"))
+
+    def __str__(self):
+        return _("Workflow '{0}' on Page '{1}'").format(self.workflow, self.page)
+
+    class Meta:
+        verbose_name = _('Workflow state')
+        verbose_name_plural = _('Workflow states')
+
+
+class TaskState(models.Model):
+    TASK_STATUS_CHOICES = (
+        ('in_progress', _("In progress")),
+        ('approved', _("Approved")),
+        ('rejected', _("Rejected")),
+        ('skipped', _("Skipped")),
+    )
+
+    workflow_state = models.ForeignKey('WorkflowState', on_delete=models.CASCADE, verbose_name=_('workflow state'))
+    page_revision = models.ForeignKey('PageRevision', on_delete=models.CASCADE, verbose_name=_('page revision'))
+    task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'))
+    status = models.fields.CharField(choices=TASK_STATUS_CHOICES, blank=False, null=False, verbose_name=_("status"), max_length=50)
+    started_at = models.DateTimeField(verbose_name=_('started at'), auto_now=True)
+    finished_at = models.DateTimeField(verbose_name=_('finished at'), blank=True, null=True)
+
+    def __str__(self):
+        return _("Task '{0}' on Page Revision '{1}'").format(self.workflow, self.page_revision)
+
+    class Meta:
+        verbose_name = _('Task state')
+        verbose_name_plural = _('Task states')
