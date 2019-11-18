@@ -3,5 +3,5 @@ from wagtail.core.permission_policies import ModelPermissionPolicy
 
 site_permission_policy = ModelPermissionPolicy(Site)
 collection_permission_policy = ModelPermissionPolicy(Collection)
-talk_permission_policy = ModelPermissionPolicy(Task)
+task_permission_policy = ModelPermissionPolicy(Task)
 workflow_permission_policy = ModelPermissionPolicy(Workflow)
