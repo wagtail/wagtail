@@ -1,14 +1,18 @@
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
+from django.http import Http404
+from django.utils.functional import cached_property
 from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
+from django.urls import reverse
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import Workflow
 from wagtail.admin.forms.workflows import AddWorkflowToPageForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.core.models import Page, Task, WorkflowPage
+from wagtail.core.models import Page, Task, WorkflowPage, WorkflowTask
 from wagtail.admin.views.pages import get_valid_next_url_from_request
 from wagtail.core.permissions import workflow_permission_policy, task_permission_policy
 from django.shortcuts import get_object_or_404, redirect, render
@@ -162,11 +166,35 @@ class TaskIndex(IndexView):
     model = Task
     context_object_name = 'tasks'
     template_name = 'wagtailadmin/workflows/task_index.html'
-    add_url_name = 'wagtailadmin_workflows:add_task'
+    add_url_name = 'wagtailadmin_workflows:select_task_type'
     edit_url_name = 'wagtailadmin_workflows:edit_task'
     page_title = _("Tasks")
     add_item_label = _("Add a task")
     header_icon = 'placeholder'
+
+
+def select_task_type(request):
+    if not task_permission_policy.user_has_permission(request.user, 'add'):
+        raise PermissionDenied
+
+    task_types = [
+        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
+        for model in Task.__subclasses__()
+    ]
+    # sort by lower-cased version of verbose name
+    task_types.sort(key=lambda task_type: task_type[0].lower())
+
+    if len(task_types) == 1:
+        # Only one task type is available - redirect straight to the create form rather than
+        # making the user choose
+        verbose_name, app_label, model_name = task_types[0]
+        return redirect('wagtailadmin_workflows:add_task', app_label, model_name)
+
+    return render(request, 'wagtailadmin/workflows/select_task_type.html', {
+        'task_types': task_types,
+        'icon': 'placeholder',
+        'title': _("Workflows"),
+    })
 
 
 class CreateTask(CreateView):
@@ -181,6 +209,21 @@ class CreateTask(CreateView):
     header_icon = 'placeholder'
     edit_handler = None
 
+    @cached_property
+    def model(self):
+        try:
+            content_type = ContentType.objects.get_by_natural_key(self.kwargs['app_label'], self.kwargs['model_name'])
+        except (ContentType.DoesNotExist, AttributeError):
+            raise Http404
+
+        # Get class
+        model = content_type.model_class()
+
+        # Make sure the class is a descendant of Task
+        if not issubclass(model, Task):
+            raise Http404
+
+        return model
 
     def get_edit_handler(self):
         if not self.edit_handler:
@@ -199,4 +242,51 @@ class CreateTask(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['edit_handler'] = self.edit_handler
+        return context
+
+    def get_add_url(self):
+        return reverse(self.add_url_name, kwargs={'app_label': self.kwargs.get('app_label'), 'model_name': self.kwargs.get('model_name')})
+
+
+class EditTask(EditView):
+    permission_policy = task_permission_policy
+    model = None
+    page_title = _("Edit task")
+    template_name = 'wagtailadmin/workflows/edit_task.html'
+    success_message = _("Task '{0}' updated.")
+    add_url_name = 'wagtailadmin_workflows:select_task_type'
+    edit_url_name = 'wagtailadmin_workflows:edit_task'
+    index_url_name = 'wagtailadmin_workflows:task_index'
+    header_icon = 'placeholder'
+    edit_handler = None
+
+    @cached_property
+    def model(self):
+        return type(self.get_object())
+
+    def get_queryset(self):
+        if self.queryset is None:
+            return Task.objects.all()
+
+    def get_object(self, queryset=None):
+        return super().get_object().specific
+
+    def get_edit_handler(self):
+        if not self.edit_handler:
+            self.edit_handler = self.model.get_edit_handler()
+            self.edit_handler = self.edit_handler.bind_to(request=self.request, instance=self.get_object())
+        return self.edit_handler
+
+    def get_form_class(self):
+        return self.get_edit_handler().get_form_class()
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        self.edit_handler = self.edit_handler.bind_to(form=form)
+        return form
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['edit_handler'] = self.edit_handler
+        # TODO: add warning msg when there are pages currently on this task in a workflow, add interaction like resetting task state when saved
         return context
