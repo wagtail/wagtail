@@ -58,7 +58,7 @@ The search may not return any results while this command is running, so avoid ru
 
 .. note::
 
-    The ``update_index`` command is also aliased as ``wagtail_update_index``, for use when another installed package (such as `Haystack <http://haystacksearch.org/>`_) provides a conflicting ``update_index`` command. In this case, the other package's entry in ``INSTALLED_APPS`` should appear above ``wagtail.search`` so that its ``update_index`` command takes precedence over Wagtail's.
+    The ``update_index`` command is also aliased as ``wagtail_update_index``, for use when another installed package (such as `Haystack <https://haystacksearch.org/>`_) provides a conflicting ``update_index`` command. In this case, the other package's entry in ``INSTALLED_APPS`` should appear above ``wagtail.search`` so that its ``update_index`` command takes precedence over Wagtail's.
 
 
 .. _wagtailsearch_indexing_fields:

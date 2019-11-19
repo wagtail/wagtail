@@ -421,7 +421,7 @@ Contributors
 * Stefani Castellanos
 * Aliosha Padovani
 * Tom Readings
-* WinterComes
+* Andrey Smirnov
 
 Translators
 ===========

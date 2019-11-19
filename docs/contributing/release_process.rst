@@ -53,7 +53,7 @@ issued from those branches.
 Release cadence
 ===============
 
-Wagtail uses a loose form of `semantic versioning <http://semver.org/>`_.
+Wagtail uses a loose form of `semantic versioning <https://semver.org/>`_.
 SemVer makes it easier to see at a glance how compatible releases are with each
 other. It also helps to anticipate when compatibility shims will be removed.
 It's not a pure form of SemVer as each feature release will continue to have a

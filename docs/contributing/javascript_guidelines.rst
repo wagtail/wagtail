@@ -1,7 +1,7 @@
 JavaScript coding guidelines
 ============================
 
-Write JavaScript according to the `Airbnb Styleguide <http://github.com/airbnb/javascript>`_, with some exceptions:
+Write JavaScript according to the `Airbnb Styleguide <https://github.com/airbnb/javascript>`_, with some exceptions:
 
 -  Use soft-tabs with a four space indent. Spaces are the only way to
    guarantee code renders the same in any person's environment.

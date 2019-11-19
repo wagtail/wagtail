@@ -157,7 +157,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'admin_display_title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'status', 'latest_revision_created_at'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'ancestors', 'status', 'latest_revision_created_at'})
 
     def test_all_fields_then_remove_something(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='*,-title,-admin_display_title,-date,-seo_title,-status')
@@ -165,7 +165,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'latest_revision_created_at'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'ancestors', 'latest_revision_created_at'})
 
     def test_all_nested_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='feed_image(*)')
@@ -507,6 +507,8 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         # Check the type info
         self.assertIsInstance(content['__types'], dict)
         self.assertEqual(set(content['__types'].keys()), {
+            'wagtailcore.Page',
+            'demosite.HomePage',
             'demosite.BlogIndexPage',
             'demosite.BlogEntryPageCarouselItem',
             'demosite.BlogEntryPage',
@@ -623,10 +625,23 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
             'listing_url': 'http://localhost/admin/api/v2beta/pages/?descendant_of=2'
         })
 
+    def test_meta_ancestors(self):
+        # Homepage should have children
+        response = self.get_response(16)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('ancestors', content['meta'])
+        self.assertIsInstance(content['meta']['ancestors'], list)
+        self.assertEqual(len(content['meta']['ancestors']), 3)
+        self.assertEqual(content['meta']['ancestors'][0].keys(), {'id', 'meta', 'title', 'admin_display_title'})
+        self.assertEqual(content['meta']['ancestors'][0]['title'], 'Root')
+        self.assertEqual(content['meta']['ancestors'][1]['title'], 'Home page')
+        self.assertEqual(content['meta']['ancestors'][2]['title'], 'Blog index')
+
     # FIELDS
 
     def test_remove_all_meta_fields(self):
-        response = self.get_response(16, fields='-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-children,-show_in_menus,-seo_title,-parent,-status,-search_description')
+        response = self.get_response(16, fields='-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-children,-ancestors,-show_in_menus,-seo_title,-parent,-status,-search_description')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertNotIn('meta', set(content.keys()))
