@@ -20,6 +20,7 @@ Core team
 * Jonny Scholes (Neon Jungle)
 * Andy Babic (Torchbox)
 * Dan Braghis (Torchbox)
+* Dawn Wages
 
 Core team alumni
 ================
@@ -405,7 +406,6 @@ Contributors
 * Kiril Staikov
 * Saptak Sengupta
 * Dawid Bugajewski
-* Dawn Wages
 * Jacob Topp-Mugglestone
 * Brian Whitton
 * Tim White
