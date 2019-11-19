@@ -67,19 +67,35 @@ class HTTPBackend(BaseBackend):
 
 class CloudflareBackend(BaseBackend):
     def __init__(self, params):
-        self.cloudflare_email = params.pop('EMAIL')
-        self.cloudflare_token = params.pop('TOKEN')
-        self.cloudflare_zoneid = params.pop('ZONEID')
+        self.cloudflare_email = params.pop("EMAIL", None)
+        self.cloudflare_api_key = (
+            params.pop("TOKEN", None)
+            or params.pop("API_KEY", None)
+        )
+        self.cloudflare_token = params.pop("BEARER_TOKEN", None)
+        self.cloudflare_zoneid = params.pop("ZONEID")
+
+        if (
+            (not self.cloudflare_email and self.cloudflare_api_key)
+            or (self.cloudflare_email and not self.cloudflare_api_key)
+            or (not any([self.cloudflare_email, self.cloudflare_api_key, self.cloudflare_token]))
+        ):
+            raise ImproperlyConfigured(
+                "The setting 'WAGTAILFRONTENDCACHE' requires both 'EMAIL' and 'API_KEY', or 'BEARER_TOKEN' to be specified."
+            )
+
 
     def purge_batch(self, urls):
         try:
             purge_url = 'https://api.cloudflare.com/client/v4/zones/{0}/purge_cache'.format(self.cloudflare_zoneid)
 
-            headers = {
-                "X-Auth-Email": self.cloudflare_email,
-                "X-Auth-Key": self.cloudflare_token,
-                "Content-Type": "application/json",
-            }
+            headers = {"Content-Type": "application/json"}
+
+            if self.cloudflare_token:
+                headers["Authorization"] = "Bearer {}".format(self.cloudflare_token)
+            else:
+                headers["X-Auth-Email"] = self.cloudflare_email
+                headers["X-Auth-Key"] = self.cloudflare_api_key
 
             data = {"files": urls}
 

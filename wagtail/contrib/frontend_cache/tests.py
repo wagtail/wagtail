@@ -42,8 +42,9 @@ class TestBackendConfiguration(TestCase):
             'cloudflare': {
                 'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
-                'TOKEN': 'this is the token',
+                'API_KEY': 'this is the api key',
                 'ZONEID': 'this is a zone id',
+                'BEARER_TOKEN': 'this is a bearer token'
             },
         })
 
@@ -51,7 +52,8 @@ class TestBackendConfiguration(TestCase):
         self.assertIsInstance(backends['cloudflare'], CloudflareBackend)
 
         self.assertEqual(backends['cloudflare'].cloudflare_email, 'test@test.com')
-        self.assertEqual(backends['cloudflare'].cloudflare_token, 'this is the token')
+        self.assertEqual(backends['cloudflare'].cloudflare_api_key, 'this is the api key')
+        self.assertEqual(backends['cloudflare'].cloudflare_token, 'this is a bearer token')
 
     def test_cloudfront(self):
         backends = get_backends(backend_settings={
@@ -152,7 +154,7 @@ class TestBackendConfiguration(TestCase):
             'cloudflare': {
                 'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
-                'TOKEN': 'this is the token',
+                'API_KEY': 'this is the api key',
                 'ZONEID': 'this is a zone id',
             }
         })
@@ -168,7 +170,7 @@ class TestBackendConfiguration(TestCase):
             'cloudflare': {
                 'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
-                'TOKEN': 'this is the token',
+                'API_KEY': 'this is the api key',
                 'ZONEID': 'this is a zone id',
             }
         }, backends=['cloudflare'])
@@ -327,7 +329,7 @@ class TestPurgeBatchClass(TestCase):
             'cloudflare': {
                 'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
-                'TOKEN': 'this is the token',
+                'API_KEY': 'this is the api key',
                 'ZONEID': 'this is a zone id',
             },
         }
