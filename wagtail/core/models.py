@@ -2490,6 +2490,27 @@ class Task(models.Model):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
+    @transaction.atomic
+    def start(self, workflow_state):
+        task_state = TaskState(workflow_state=workflow_state)
+        task_state.status = 'in_progress'
+        task_state.page_revision = workflow_state.page.get_latest_revision()
+        task_state.task = self
+        task_state.save()
+        workflow_state.current_state = task_state
+        workflow_state.save()
+        return task_state
+
+    @transaction.atomic
+    def on_action(self, workflow_state, task_state, action_name):
+        latest_revision = workflow_state.page.get_latest_revision()
+        if action_name == 'approve':
+            task_state.approve()
+            workflow_state.update()
+        elif action_name == 'reject':
+            task_state.reject()
+            workflow_state.update()
+
     class Meta:
         verbose_name = _('task')
         verbose_name_plural = _('tasks')
@@ -2513,6 +2534,11 @@ class Workflow(ClusterableModel):
     def tasks(self):
         return Task.objects.filter(workflow_tasks__workflow=self)
 
+    def start(self, page, user):
+        state = WorkflowState(page=page, workflow=self, status='in_progress', requested_by=user)
+        state.save()
+        state.update()
+
     class Meta:
         verbose_name = _('workflow')
         verbose_name_plural = _('workflows')
@@ -2534,9 +2560,9 @@ class WorkflowState(models.Model):
         ('cancelled', _("Cancelled")),
     )
 
-    page = models.ForeignKey('Page', on_delete=models.CASCADE, verbose_name=_("page"))
-    workflow = models.ForeignKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow'))
-    status = models.fields.CharField(choices=WORKFLOW_STATUS_CHOICES, blank=False, null=False, verbose_name=_("status"), max_length=50)
+    page = models.ForeignKey('Page', on_delete=models.CASCADE, verbose_name=_("page"), related_name='workflow_states')
+    workflow = models.ForeignKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow'), related_name='workflow_states')
+    status = models.fields.CharField(choices=WORKFLOW_STATUS_CHOICES, blank=False, null=False, verbose_name=_("status"), max_length=50, default='in_progress')
     created_at = models.DateTimeField(auto_now=True, verbose_name=_("created at"))
     requested_by = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      verbose_name=_('requested by'),
@@ -2549,11 +2575,47 @@ class WorkflowState(models.Model):
                                               verbose_name=_("current task state"))
 
     def __str__(self):
-        return _("Workflow '{0}' on Page '{1}'").format(self.workflow, self.page)
+        return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
+
+    def update(self):
+        try:
+            current_status = self.current_task_state.status
+        except AttributeError:
+            current_status = None
+        if not current_status or current_status == 'approved':
+            next_task = self.get_next_task()
+            if next_task:
+                self.current_task_state = next_task.start(self)
+                self.save()
+            else:
+                self.finish()
+        elif current_status == 'rejected' or current_status == 'cancelled':
+            self.status = current_status
+            self.save()
+
+    def get_next_task(self):
+        return Task.objects.filter(workflow_tasks__workflow=self.workflow).exclude(task_states__page_revision=self.page.get_latest_revision()).order_by('workflow_tasks__sort_order').first()
+
+    def cancel(self):
+        self.current_task_state.status = 'cancelled'
+        self.current_task_state.save()
+        self.status = 'cancelled'
+        self.save()
+
+    def finish(self):
+        self.status = 'approved'
+        self.save()
+        if self.current_task_state:
+            self.current_task_state.page_revision.publish()
+        else:
+            self.page.get_latest_revision().publish()
 
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')
+        constraints = [
+            models.UniqueConstraint(fields=['page'], condition=Q(status='in_progress'), name='unique_in_progress_workflow')
+        ]
 
 
 class TaskState(models.Model):
@@ -2562,12 +2624,13 @@ class TaskState(models.Model):
         ('approved', _("Approved")),
         ('rejected', _("Rejected")),
         ('skipped', _("Skipped")),
+        ('cancelled', _("Cancelled")),
     )
 
-    workflow_state = models.ForeignKey('WorkflowState', on_delete=models.CASCADE, verbose_name=_('workflow state'))
-    page_revision = models.ForeignKey('PageRevision', on_delete=models.CASCADE, verbose_name=_('page revision'))
-    task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'))
-    status = models.fields.CharField(choices=TASK_STATUS_CHOICES, blank=False, null=False, verbose_name=_("status"), max_length=50)
+    workflow_state = models.ForeignKey('WorkflowState', on_delete=models.CASCADE, verbose_name=_('workflow state'), related_name='task_states')
+    page_revision = models.ForeignKey('PageRevision', on_delete=models.CASCADE, verbose_name=_('page revision'), related_name='task_states')
+    task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='task_states')
+    status = models.fields.CharField(choices=TASK_STATUS_CHOICES, blank=False, null=False, verbose_name=_("status"), max_length=50, default='in_progress')
     started_at = models.DateTimeField(verbose_name=_('started at'), auto_now=True)
     finished_at = models.DateTimeField(verbose_name=_('finished at'), blank=True, null=True)
     content_type = models.ForeignKey(
@@ -2588,7 +2651,7 @@ class TaskState(models.Model):
                 self.content_type = ContentType.objects.get_for_model(self)
 
     def __str__(self):
-        return _("Task '{0}' on Page Revision '{1}'").format(self.workflow, self.page_revision)
+        return _("Task '{0}' on Page Revision '{1}': {2}").format(self.task, self.page_revision, self.status)
 
     @cached_property
     def specific(self):
@@ -2611,6 +2674,24 @@ class TaskState(models.Model):
             return self
         else:
             return content_type.get_object_for_this_type(id=self.id)
+
+    def approve(self):
+        self.status = 'approved'
+        self.finished_at = timezone.now()
+        self.save()
+        return self
+
+    def reject(self):
+        self.status = 'rejected'
+        self.finished_at = timezone.now()
+        self.save()
+        return self
+
+    def cancel(self):
+        self.status = 'cancelled'
+        self.finished_at = timezone.now()
+        self.save()
+        return self
 
     class Meta:
         verbose_name = _('Task state')
