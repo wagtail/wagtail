@@ -19,6 +19,8 @@ Other features
  * Improved diffing behavior for text fields (Aliosha Padovani)
  * Improve contrast of disabled inputs (Nick Smith)
  * Added ``get_document_model_string`` function (Andrey Smirnov)
+ * Added support for Cloudflare API tokens for frontend cache invalidation (Tom Usher)
+ * Added ``ancestors`` field to pages endpoint in admin API (Karl Hobley)
 
 
 Bug fixes
