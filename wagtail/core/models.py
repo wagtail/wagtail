@@ -22,6 +22,7 @@ from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils.cache import patch_cache_control
 from django.utils.functional import cached_property
+from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
@@ -2490,20 +2491,16 @@ class Task(models.Model):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
-    @transaction.atomic
     def start(self, workflow_state):
         task_state = TaskState(workflow_state=workflow_state)
         task_state.status = 'in_progress'
         task_state.page_revision = workflow_state.page.get_latest_revision()
         task_state.task = self
         task_state.save()
-        workflow_state.current_state = task_state
-        workflow_state.save()
         return task_state
 
     @transaction.atomic
     def on_action(self, workflow_state, task_state, action_name):
-        latest_revision = workflow_state.page.get_latest_revision()
         if action_name == 'approve':
             task_state.approve()
             workflow_state.update()
@@ -2535,9 +2532,11 @@ class Workflow(ClusterableModel):
         return Task.objects.filter(workflow_tasks__workflow=self)
 
     def start(self, page, user):
+        # initiates a workflow by creating an instance of WorkflowState
         state = WorkflowState(page=page, workflow=self, status='in_progress', requested_by=user)
         state.save()
         state.update()
+        return state
 
     class Meta:
         verbose_name = _('workflow')
@@ -2553,6 +2552,7 @@ class GroupApprovalTask(Task):
 
 
 class WorkflowState(models.Model):
+    """Tracks the status of a started Workflow on a Page."""
     WORKFLOW_STATUS_CHOICES = (
         ('in_progress', _("In progress")),
         ('approved', _("Approved")),
@@ -2574,51 +2574,59 @@ class WorkflowState(models.Model):
     current_task_state = models.OneToOneField('TaskState', on_delete=models.SET_NULL, null=True, blank=False,
                                               verbose_name=_("current task state"))
 
+    # allows a custom function to be called on finishing the Workflow successfully.
+    on_finish = import_string(getattr(settings, 'WAGTAIL_FINISH_WORKFLOW_ACTION', 'wagtail.core.utils.publish_workflow_state'))
+
     def __str__(self):
         return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
 
     def update(self):
+        # checks the status of the current task, and progresses (or ends) the workflow if appropriate
         try:
             current_status = self.current_task_state.status
         except AttributeError:
             current_status = None
-        if not current_status or current_status == 'approved':
-            next_task = self.get_next_task()
-            if next_task:
-                self.current_task_state = next_task.start(self)
-                self.save()
-            else:
-                self.finish()
-        elif current_status == 'rejected' or current_status == 'cancelled':
+        if current_status == 'rejected':
             self.status = current_status
             self.save()
+        else:
+            next_task = self.get_next_task()
+            if next_task:
+                if not self.current_task_state or next_task != self.current_task_state.task:
+                    # if not on a task, or the next task to move to is not the current task (ie current task's status is
+                    # not 'in_progress'), move to the next task
+                    self.current_task_state = next_task.start(self)
+                    self.save()
+                # otherwise, continue on the current task
+            else:
+                # if there is no uncompleted task, finish the workflow.
+                self.finish()
 
     def get_next_task(self):
-        return Task.objects.filter(workflow_tasks__workflow=self.workflow).exclude(task_states__page_revision=self.page.get_latest_revision()).order_by('workflow_tasks__sort_order').first()
+        # finds the next task associated with the latest page revision, which has not been either approved or skipped
+        return Task.objects.filter(workflow_tasks__workflow=self.workflow).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status='approved') | Q(task_states__status='skipped')).order_by('workflow_tasks__sort_order').first()
 
     def cancel(self):
-        self.current_task_state.status = 'cancelled'
-        self.current_task_state.save()
         self.status = 'cancelled'
         self.save()
 
+    @transaction.atomic
     def finish(self):
         self.status = 'approved'
         self.save()
-        if self.current_task_state:
-            self.current_task_state.page_revision.publish()
-        else:
-            self.page.get_latest_revision().publish()
+        self.on_finish()
 
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')
+        # prevent multiple 'in_progress' workflows for the same page
         constraints = [
             models.UniqueConstraint(fields=['page'], condition=Q(status='in_progress'), name='unique_in_progress_workflow')
         ]
 
 
 class TaskState(models.Model):
+    """Tracks the status of a given Task for a particular page revision."""
     TASK_STATUS_CHOICES = (
         ('in_progress', _("In progress")),
         ('approved', _("Approved")),
@@ -2683,12 +2691,6 @@ class TaskState(models.Model):
 
     def reject(self):
         self.status = 'rejected'
-        self.finished_at = timezone.now()
-        self.save()
-        return self
-
-    def cancel(self):
-        self.status = 'cancelled'
         self.finished_at = timezone.now()
         self.save()
         return self
