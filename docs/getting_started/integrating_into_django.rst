@@ -64,7 +64,7 @@ Add a ``WAGTAIL_SITE_NAME`` - this will be displayed on the main dashboard of th
 
     WAGTAIL_SITE_NAME = 'My Example Site'
 
-Various other settings are available to configure Wagtail's behaviour - see :doc:`/advanced_topics/settings`.
+Various other settings are available to configure Wagtail's behaviour - see :doc:`/reference/settings`.
 
 URL configuration
 -----------------
