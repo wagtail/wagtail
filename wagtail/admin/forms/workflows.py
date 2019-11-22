@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin import widgets
 from wagtail.core.models import Page, Workflow, WorkflowPage
