@@ -1027,11 +1027,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 return _("expired")
             elif self.approved_schedule:
                 return _("scheduled")
+            elif self.workflow_in_progress():
+                return _("in moderation")
             else:
                 return _("draft")
         else:
             if self.approved_schedule:
                 return _("live + scheduled")
+            elif self.workflow_in_progress():
+                return _("live + in moderation")
             elif self.has_unpublished_changes:
                 return _("live + draft")
             else:
