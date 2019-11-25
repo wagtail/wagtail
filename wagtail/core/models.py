@@ -62,8 +62,7 @@ class Site(models.Model):
         blank=True,
         help_text=_("Human-readable name for the site.")
     )
-    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here',
-                                  on_delete=models.CASCADE)
+    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here', on_delete=models.CASCADE)
     is_default_site = models.BooleanField(
         verbose_name=_('is default site'),
         default=False,
@@ -84,12 +83,12 @@ class Site(models.Model):
 
     def __str__(self):
         if self.site_name:
-            return (
+            return(
                 self.site_name
                 + (" [default]" if self.is_default_site else "")
             )
         else:
-            return (
+            return(
                 self.hostname
                 + ("" if self.port == 80 else (":%d" % self.port))
                 + (" [default]" if self.is_default_site else "")
@@ -210,7 +209,6 @@ PageManager = BasePageManager.from_queryset(PageQuerySet)
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
-
     def __init__(cls, name, bases, dct):
         super(PageBase, cls).__init__(name, bases, dct)
 
@@ -609,8 +607,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             .filter(path__startswith=self.path)
             .exclude(pk=self.pk)
             .update(url_path=Concat(
-            Value(new_url_path),
-            Substr('url_path', len(old_url_path) + 1))))
+                Value(new_url_path),
+                Substr('url_path', len(old_url_path) + 1))))
 
     #: Return this page in its most specific subclassed form.
     @cached_property
@@ -1110,8 +1108,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Log
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
-    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
-             process_child_object=None, exclude_fields=None):
+    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None, process_child_object=None, exclude_fields=None):
         # Fill dict with self.specific values
         specific_self = self.specific
         default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
