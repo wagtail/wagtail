@@ -37,6 +37,7 @@ from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
 from wagtail.search import index
 
+
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
@@ -1659,8 +1660,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return self.workflowpage.workflow
         else:
             try:
-                workflow = self.get_ancestors().filter(workflowpage__isnull=False).order_by(
-                    '-depth').first().workflowpage.workflow
+                workflow = self.get_ancestors().filter(workflowpage__isnull=False).order_by('-depth').first().workflowpage.workflow
             except AttributeError:
                 workflow = None
             return workflow
@@ -2416,10 +2416,8 @@ class WorkflowPage(models.Model):
 
 
 class WorkflowTask(Orderable):
-    workflow = ParentalKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow_tasks'),
-                           related_name='workflow_tasks')
-    task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='workflow_tasks',
-                             limit_choices_to={'active': True})
+    workflow = ParentalKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow_tasks'), related_name='workflow_tasks')
+    task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='workflow_tasks', limit_choices_to={'active': True})
 
     class Meta:
         unique_together = [('workflow', 'sort_order'), ('workflow', 'task')]
@@ -2440,8 +2438,7 @@ class Task(models.Model):
         related_name='wagtail_tasks',
         on_delete=models.CASCADE
     )
-    active = models.BooleanField(verbose_name=_('active'), default=True, help_text=_(
-        "Active tasks can be added to workflows. Deactivating a task does not remove it from existing workflows."))
+    active = models.BooleanField(verbose_name=_('active'), default=True, help_text=_("Active tasks can be added to workflows. Deactivating a task does not remove it from existing workflows."))
     objects = TaskManager()
 
     def __init__(self, *args, **kwargs):
@@ -2517,8 +2514,7 @@ class WorkflowManager(models.Manager):
 
 class Workflow(ClusterableModel):
     name = models.CharField(max_length=255, verbose_name=_('name'))
-    active = models.BooleanField(verbose_name=_('active'), default=True, help_text=_(
-        "Active workflows can be added to pages. Deactivating a workflow does not remove it from existing pages."))
+    active = models.BooleanField(verbose_name=_('active'), default=True, help_text=_("Active workflows can be added to pages. Deactivating a workflow does not remove it from existing pages."))
     objects = WorkflowManager()
 
     def __str__(self):
