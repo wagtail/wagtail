@@ -126,7 +126,7 @@ def remove_workflow(request, page_pk, workflow_pk=None):
     if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
         return redirect(redirect_to)
     else:
-        return redirect('wagtailadmin_explore', page.get_parent().id)
+        return redirect('wagtailadmin_explore', page.id)
 
 
 def add_to_page(request, workflow_pk):
