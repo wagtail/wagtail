@@ -1648,6 +1648,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 workflow = None
             return workflow
 
+    def workflow_in_progress(self):
+        return WorkflowState.objects.filter(page=self, status='in_progress').exists()
+
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
@@ -2070,7 +2073,7 @@ class PagePermissionTester:
         return self.user.is_superuser or ('publish' in self.permissions)
 
     def can_submit_for_moderation(self):
-        return not self.page_locked() and self.page.has_workflow()
+        return not self.page_locked() and self.page.has_workflow() and not self.page.workflow_in_progress()
 
     def can_set_view_restrictions(self):
         return self.can_publish()
