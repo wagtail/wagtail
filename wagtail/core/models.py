@@ -1535,6 +1535,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return obj
 
+    def has_workflow(self):
+        return self.get_ancestors(inclusive=True).filter(workflowpage__isnull=False).exists()
+
     def get_workflow(self):
         if hasattr(self, 'workflowpage'):
             return self.workflowpage.workflow
@@ -1965,6 +1968,9 @@ class PagePermissionTester:
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
+
+    def can_submit_for_moderation(self):
+        return not self.page_locked() and self.page.has_workflow()
 
     def can_set_view_restrictions(self):
         return self.can_publish()

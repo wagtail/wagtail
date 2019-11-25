@@ -226,7 +226,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and parent_page_perms.can_publish_subpage()
-            is_submitting = bool(request.POST.get('action-submit'))
+            is_submitting = bool(request.POST.get('action-submit')) and parent_page.has_workflow()
 
             if not is_publishing:
                 page.live = False
@@ -372,7 +372,7 @@ def edit(request, page_id):
             page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
-            is_submitting = bool(request.POST.get('action-submit'))
+            is_submitting = bool(request.POST.get('action-submit')) and page_perms.can_submit_for_moderation()
             is_reverting = bool(request.POST.get('revision'))
 
             # If a revision ID was passed in the form, get that revision so its

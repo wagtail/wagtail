@@ -85,9 +85,9 @@ class SubmitForModerationMenuItem(ActionMenuItem):
         if not WAGTAIL_MODERATION_ENABLED:
             return False
         elif context['view'] == 'create':
-            return True
+            return context['parent_page'].has_workflow()
         elif context['view'] == 'edit':
-            return not context['user_page_permissions'].for_page(context['page']).page_locked()
+            return context['user_page_permissions'].for_page(context['page']).can_submit_for_moderation()
         else:  # context == revisions_revert
             return False
 
