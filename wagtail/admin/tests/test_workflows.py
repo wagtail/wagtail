@@ -39,7 +39,7 @@ class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "No workflows have been created.")
         self.assertContains(response, "test_workflow")
-        self.assertContains(response, "disabled")
+        self.assertContains(response, '<span class="status-tag">Disabled</span>', html=True)
 
 
 class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
@@ -241,7 +241,7 @@ class TestTaskIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "No tasks have been created.")
         self.assertContains(response, "test_task")
-        self.assertContains(response, "disabled")
+        self.assertContains(response, '<span class="status-tag">Disabled</span>', html=True)
 
 
 class TestCreateTaskView(TestCase, WagtailTestUtils):
