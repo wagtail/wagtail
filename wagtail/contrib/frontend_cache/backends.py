@@ -66,6 +66,8 @@ class HTTPBackend(BaseBackend):
 
 
 class CloudflareBackend(BaseBackend):
+    CHUNK_SIZE = 30
+
     def __init__(self, params):
         self.cloudflare_email = params.pop("EMAIL", None)
         self.cloudflare_api_key = (
@@ -84,8 +86,7 @@ class CloudflareBackend(BaseBackend):
                 "The setting 'WAGTAILFRONTENDCACHE' requires both 'EMAIL' and 'API_KEY', or 'BEARER_TOKEN' to be specified."
             )
 
-
-    def purge_batch(self, urls):
+    def _purge_urls(self, urls):
         try:
             purge_url = 'https://api.cloudflare.com/client/v4/zones/{0}/purge_cache'.format(self.cloudflare_zoneid)
 
@@ -124,6 +125,13 @@ class CloudflareBackend(BaseBackend):
             for url in urls:
                 logger.error("Couldn't purge '%s' from Cloudflare. Cloudflare errors '%s'", url, error_messages)
             return
+
+    def purge_batch(self, urls):
+        # Break the batched URLs in to chunks to fit within Cloudflare's maximum size for
+        # the purge_cache call (https://api.cloudflare.com/#zone-purge-files-by-url)
+        for i in range(0, len(urls), self.CHUNK_SIZE):
+            chunk = urls[i:i + self.CHUNK_SIZE]
+            self._purge_urls(chunk)
 
     def purge(self, url):
         self.purge_batch([url])
