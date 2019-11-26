@@ -1845,6 +1845,9 @@ class PagePermissionTester:
                 if self.page.path.startswith(perm.page.path)
             )
 
+    def user_has_lock(self):
+        return self.page.locked_by_id == self.user.pk
+
     def page_locked(self):
         if not self.page.locked:
             # Page is not locked
@@ -1855,7 +1858,7 @@ class PagePermissionTester:
             return True
         else:
             # Locked only if the current user was not the one who locked the page
-            return self.page.locked_by_id is not self.user.pk
+            return not self.user_has_lock()
 
     def can_add_subpage(self):
         if not self.user.is_active:
