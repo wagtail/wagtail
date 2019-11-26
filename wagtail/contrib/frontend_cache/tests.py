@@ -203,6 +203,9 @@ class MockCloudflareBackend(CloudflareBackend):
         pass
 
     def _purge_urls(self, urls):
+        if len(urls) > self.CHUNK_SIZE:
+            raise Exception("Cloudflare backend is not chunking requests as expected")
+
         PURGED_URLS.extend(urls)
 
 
