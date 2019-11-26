@@ -1945,7 +1945,7 @@ class PagePermissionTester:
         return self.user.is_superuser or ('lock' in self.permissions)
 
     def can_unlock(self):
-        return self.user.is_superuser or self.page.locked_by_id == self.user.pk or ('unlock' in self.permissions)
+        return self.user.is_superuser or self.user_has_lock() or ('unlock' in self.permissions)
 
     def can_publish_subpage(self):
         """
