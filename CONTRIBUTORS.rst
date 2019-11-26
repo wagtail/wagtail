@@ -424,6 +424,7 @@ Contributors
 * Andrey Smirnov
 * Tim Gates
 * Timothy Bautista
+* Pete Andrew
 
 Translators
 ===========

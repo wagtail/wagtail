@@ -23,6 +23,7 @@ Other features
  * Cloudflare frontend cache invalidation requests are now sent in chunks of 30 to fit within API limits (Tom Usher)
  * Added ``ancestors`` field to pages endpoint in admin API (Karl Hobley)
  * Removed Django admin management of ``Page`` & ``Site`` models (Andreas Bernacca)
+ * Cleaned up Django docs URLs in documentation (Pete Andrew)
 
 
 Bug fixes

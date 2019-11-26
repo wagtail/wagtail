@@ -85,4 +85,4 @@ Add the wagtail settings to your project to reference the user form additions:
   WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'status']
 
 
-.. _AUTH_USER_MODEL: https://docs.djangoproject.com/en/dev/topics/auth/customizing/#substituting-a-custom-user-model
+.. _AUTH_USER_MODEL: https://docs.djangoproject.com/en/stable/topics/auth/customizing/#substituting-a-custom-user-model
