@@ -432,6 +432,7 @@ For example:
 
 
     class PersonAdmin(ModelAdmin):
+        model = Person
         list_display = ('first_name', 'last_name')
 
         def get_queryset(self, request):
@@ -664,7 +665,7 @@ change a few attributes to change the thumbnail to your liking, like so:
         # Optionally specify a fallback image to be used when the object doesn't
         # have an image set, or the image has been deleted. It can an image from
         # your static files folder, or an external URL.
-        thumb_default = 'http://lorempixel.com/100/100'
+        thumb_default = 'https://lorempixel.com/100/100'
 
 
 .. _modeladmin_list_display_add_buttons:

@@ -853,7 +853,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
-        self.assertFormError(response, 'uploadform', 'file', "Not a supported image format. Supported formats: GIF, JPEG, PNG.")
+        self.assertFormError(response, 'uploadform', 'file', "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.")
 
         # the action URL of the re-rendered form should include the select_format=true parameter
         # (NB the HTML in the response is embedded in a JS string, so need to escape accordingly)
@@ -1050,7 +1050,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('error_message', response_json)
         self.assertFalse(response_json['success'])
         self.assertEqual(
-            response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG."
+            response_json['error_message'], "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP."
         )
 
     def test_edit_get(self):

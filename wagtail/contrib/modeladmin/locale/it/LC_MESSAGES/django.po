@@ -5,13 +5,14 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# LB (Ben Johnston) <mail@lb.ee>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-29 22:00+0000\n"
+"Last-Translator: LB (Ben Johnston) <mail@lb.ee>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -112,6 +113,9 @@ msgstr "Torna indietro alla lista"
 msgid "Yes, delete"
 msgstr "Si, elimina"
 
+msgid "No, don't delete"
+msgstr "No, non eliminarlo"
+
 msgid "Home"
 msgstr "Home"
 
@@ -173,9 +177,6 @@ msgstr "Precedente"
 msgid "Next"
 msgstr "Successivo"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' creato."
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr "%s non può essere creato a causa di errori. "
@@ -194,9 +195,6 @@ msgstr "Modifica"
 msgid "Editing %s"
 msgstr "Modifica %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' aggiornato."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s non può essere salvato a causa di errori."
@@ -212,9 +210,6 @@ msgid ""
 msgstr ""
 "Sei sicuro di voler cancellare %s? Saranno interessati tutti gli oggetti del "
 "sito in relazione a questo."
-
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' eliminato."
 
 msgid "Inspecting"
 msgstr "Controllo"

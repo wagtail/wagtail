@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2019
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-17 19:41+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -138,6 +139,9 @@ msgstr "Weet u zeker dat u dit document wilt verwijderen?"
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
 
+msgid "No, don't delete"
+msgstr "Nee, niet verwijderen"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Wijzigen %(title)s"
@@ -200,7 +204,7 @@ msgid "Usage of"
 msgstr "Gebruik van"
 
 msgid "Parent"
-msgstr "Parent"
+msgstr "Bovenliggende"
 
 msgid "Type"
 msgstr "Type"
@@ -210,6 +214,28 @@ msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Wijzig deze pagina"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> document <span class=\"visuallyhidden"
+"\">aangemaakt in %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> documenten <span class=\"visuallyhidden"
+"\">aangemaakt in%(site_name)s</span>\n"
+"    "
 
 msgid "Add multiple documents"
 msgstr "Voeg meerdere documenten toe"

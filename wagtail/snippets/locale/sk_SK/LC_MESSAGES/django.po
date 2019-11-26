@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -110,23 +110,14 @@ msgstr "Upraviť túto stránku"
 msgid "Search %(snippet_type_name)s"
 msgstr "Hľadať %(snippet_type_name)s"
 
-msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' vytvorený."
-
 msgid "Edit"
 msgstr "Upraviť"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Snipet nemôže byť vytvorený kvôli chybám."
 
-msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}' aktualizovaný."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Snipet nemôže byť uložený kvôli chybám."
-
-msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' bol zmazaný."
 
 #, python-format
 msgid "Choose %s"

@@ -7,6 +7,7 @@ Images
 
     renditions
     animated_gifs
+    image_file_formats
     custom_image_model
     changing_rich_text_representation
     feature_detection

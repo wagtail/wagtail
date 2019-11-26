@@ -1,0 +1,181 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Peter Coward <peter@catalpa.io>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail snippets"
+msgstr "Wagtail snippets"
+
+msgid "Choose"
+msgstr "Hili"
+
+msgid "Search"
+msgstr "Buka"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Iha resultadu %(counter)s maka hanesan"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Deskulpa, laiha snippet maka hanesan \"<em> %(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
+msgstr ""
+"Ita boot seidauk kria snippet %(snippet_type_name)s. <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Kria agora? </a>"
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Hamoos %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Hamoos"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uza dala %(usage_count)s"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Ita boot hakarak hamoos %(snippet_type_name)s ka?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Hamoos %(count)s %(snippet_type_name)s ka?"
+
+msgid "Yes, delete"
+msgstr "Sim hammos"
+
+msgid "No, don't delete"
+msgstr "Lae, labele hamoos"
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "Foun %(snippet_type_name)s"
+
+msgid "New"
+msgstr "Foun"
+
+msgid "Saving…"
+msgstr "Rai hela..."
+
+msgid "Save"
+msgstr "Rai"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "Hadia hela %(snippet_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Hadia hela"
+
+msgid "Actions"
+msgstr "Asaun sira"
+
+msgid "Delete"
+msgstr "Hamoos"
+
+msgid "Usage"
+msgstr "Uza"
+
+msgid "Snippets"
+msgstr "Snippet sira"
+
+msgid "Title"
+msgstr "Titlu"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Seidauk kria %(snippet_type_name_plural)s. <a href="
+"\"%(wagtailsnippets_create_url)s\">Kria agora</a>?"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Snippet sira %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr "Snippet sira <span>%(snippet_type_name_plural)s</span>"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Hatama %(snippet_type_name)s"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s uza iha nee"
+
+msgid "Usage of"
+msgstr "uza iha nee"
+
+msgid "Parent"
+msgstr "inan-aman"
+
+msgid "Type"
+msgstr "Tipu"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Hadia pajina nee"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Buka %(snippet_type_name)s"
+
+msgid "Edit"
+msgstr "Hadia"
+
+msgid "The snippet could not be created due to errors."
+msgstr "Snippet labele kria tanba erru."
+
+msgid "The snippet could not be saved due to errors."
+msgstr "Snippet labele rai tanba erru."
+
+#, python-format
+msgid "Choose %s"
+msgstr "Hili %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Hili seluk %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Hadia nee %s"

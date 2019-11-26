@@ -1,14 +1,20 @@
+import warnings
+
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.core.exceptions import ImproperlyConfigured
 from django.core.files.base import ContentFile
 from django.db import transaction
 from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 
 from wagtail.core.models import Collection, GroupCollectionPermission
-from wagtail.documents import models, signal_handlers
-from wagtail.documents.models import get_document_model
+from wagtail.documents import get_document_model, get_document_model_string, models, signal_handlers
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.tests.testapp.models import CustomDocument
+from wagtail.tests.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail210Warning
 
 
 class TestDocumentQuerySet(TestCase):
@@ -160,3 +166,50 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
     def test_document_model(self):
         cls = get_document_model()
         self.assertEqual('%s.%s' % (cls._meta.app_label, cls.__name__), 'tests.CustomDocument')
+
+
+class TestGetDocumentModel(WagtailTestUtils, TestCase):
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+    def test_custom_get_document_model(self):
+        """Test get_document_model with a custom document model"""
+        self.assertIs(get_document_model(), CustomDocument)
+
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+    def test_custom_get_document_model_string(self):
+        """Test get_document_model_string with a custom document model"""
+        self.assertEqual(get_document_model_string(), 'tests.CustomDocument')
+
+    @override_settings()
+    def test_standard_get_document_model(self):
+        """Test get_document_model with no WAGTAILDOCS_DOCUMENT_MODEL"""
+        del settings.WAGTAILDOCS_DOCUMENT_MODEL
+        from wagtail.documents.models import Document
+        self.assertIs(get_document_model(), Document)
+
+    @override_settings()
+    def test_standard_get_document_model_string(self):
+        """Test get_document_model_string with no WAGTAILDOCS_DOCUMENT_MODEL"""
+        del settings.WAGTAILDOCS_DOCUMENT_MODEL
+        self.assertEqual(get_document_model_string(), 'wagtaildocs.Document')
+
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.UnknownModel')
+    def test_unknown_get_document_model(self):
+        """Test get_document_model with an unknown model"""
+        with self.assertRaises(ImproperlyConfigured):
+            get_document_model()
+
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='invalid-string')
+    def test_invalid_get_document_model(self):
+        """Test get_document_model with an invalid model string"""
+        with self.assertRaises(ImproperlyConfigured):
+            get_document_model()
+
+    def test_deprecated_get_document_model(self):
+        from wagtail.documents.models import Document
+        from wagtail.documents.models import get_document_model
+        with warnings.catch_warnings(record=True) as ws:
+            warnings.simplefilter('always')
+
+            self.assertIs(Document, get_document_model())
+            self.assertEqual(len(ws), 1)
+            self.assertIs(ws[0].category, RemovedInWagtail210Warning)

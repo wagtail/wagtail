@@ -1,146 +1,11 @@
-==============================
-Configuring Django for Wagtail
-==============================
-
-To install Wagtail completely from scratch, create a new Django project and an app within that project. For instructions on these tasks, see :doc:`Writing your first Django app <django:intro/tutorial01>`. Your project directory will look like the following::
-
-  myproject/
-      myproject/
-          __init__.py
-          settings.py
-          urls.py
-          wsgi.py
-      myapp/
-          __init__.py
-          models.py
-          tests.py
-          admin.py
-          views.py
-      manage.py
-
-From your app directory, you can safely remove ``admin.py`` and ``views.py``, since Wagtail will provide this functionality for your models. Configuring Django to load Wagtail involves adding modules and variables to ``settings.py`` and URL configuration to ``urls.py``. For a more complete view of what's defined in these files, see :doc:`Django Settings <django:topics/settings>` and :doc:`Django URL Dispatcher <django:topics/http/urls>`.
-
-What follows is a settings reference which skips many boilerplate Django settings. If you just want to get your Wagtail install up quickly without fussing with settings at the moment, see :ref:`complete_example_config`.
-
-
-Middleware (``settings.py``)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-  MIDDLEWARE = [
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-
-    'wagtail.core.middleware.SiteMiddleware',
-
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-  ]
-
-Wagtail requires several common Django middleware modules to work and cover basic security. Wagtail provides its own middleware to cover these tasks:
-
-``SiteMiddleware``
-  Wagtail routes pre-defined hosts to pages within the Wagtail tree using this middleware.
-
-``RedirectMiddleware``
-  Wagtail provides a simple interface for adding arbitrary redirects to your site and this module makes it happen.
-
-
-Apps (``settings.py``)
-~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-  INSTALLED_APPS = [
-
-    'myapp',  # your own app
-
-    'wagtail.contrib.forms',
-    'wagtail.contrib.redirects',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
-    'wagtail.core',
-
-    'taggit',
-    'modelcluster',
-
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-  ]
-
-Wagtail requires several Django app modules, third-party apps, and defines several apps of its own. Wagtail was built to be modular, so many Wagtail apps can be omitted to suit your needs. Your own app (here ``myapp``) is where you define your models, templates, static assets, template tags, and other custom functionality for your site.
-
-
-Wagtail Apps
-------------
-
-``wagtailcore``
-  The core functionality of Wagtail, such as the ``Page`` class, the Wagtail tree, and model fields.
-
-``wagtailadmin``
-  The administration interface for Wagtail, including page edit handlers.
-
-``wagtaildocs``
-  The Wagtail document content type.
-
-``wagtailsnippets``
-  Editing interface for non-Page models and objects. See :ref:`Snippets`.
-
-``wagtailusers``
-  User editing interface.
-
-``wagtailimages``
-  The Wagtail image content type.
-
-``wagtailembeds``
-  Module governing oEmbed and Embedly content in Wagtail rich text fields. See :ref:`inserting_videos`.
-
-``wagtailsearch``
-  Search framework for Page content. See :ref:`wagtailsearch`.
-
-``wagtailredirects``
-  Admin interface for creating arbitrary redirects on your site.
-
-``wagtailforms``
-  Models for creating forms on your pages and viewing submissions. See :ref:`form_builder`.
-
-
-Third-Party Apps
-----------------
-
-``taggit``
-  Tagging framework for Django. This is used internally within Wagtail for image and document tagging and is available for your own models as well. See :ref:`tagging` for a Wagtail model recipe or the `Taggit Documentation`_.
-
-.. _Taggit Documentation: http://django-taggit.readthedocs.org/en/latest/index.html
-
-``modelcluster``
-  Extension of Django ForeignKey relation functionality, which is used in Wagtail pages for on-the-fly related object creation. For more information, see :ref:`inline_panels` or `the django-modelcluster github project page`_.
-
-.. _the django-modelcluster github project page: https://github.com/torchbox/django-modelcluster
-
-
-Settings Variables (``settings.py``)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+========
+Settings
+========
 
 Wagtail makes use of the following settings, in addition to :doc:`Django's core settings <ref/settings>`:
 
-
 Site Name
----------
+=========
 
 .. code-block:: python
 
@@ -148,11 +13,10 @@ Site Name
 
 This is the human-readable name of your Wagtail install which welcomes users upon login to the Wagtail admin.
 
-
 .. _append_slash:
 
 Append Slash
-------------
+============
 
 .. code-block:: python
 
@@ -172,7 +36,7 @@ When ``WAGTAIL_APPEND_SLASH`` is ``False``, requests to Wagtail pages will be se
 .. _this Google Webmaster Blog post: https://webmasters.googleblog.com/2010/04/to-slash-or-not-to-slash.html
 
 Search
-------
+======
 
 .. code-block:: python
 
@@ -200,9 +64,8 @@ Override the templates used by the search front-end views.
 
 Set the number of days (default 7) that search query logs are kept for; these are used to identify popular search terms for :ref:`promoted search results <editors-picks>`. Queries older than this will be removed by the :ref:`search_garbage_collect` command.
 
-
 Embeds
-------
+======
 
 Wagtail supports generating embed code from URLs to content on an external
 providers such as Youtube or Twitter. By default, Wagtail will fetch the embed
@@ -212,9 +75,8 @@ Wagtail has a builtin list of the most common providers.
 The embeds fetching can be fully configured using the ``WAGTAILEMBEDS_FINDERS``
 setting. This is fully documented in :ref:`configuring_embed_finders`.
 
-
 Dashboard
----------
+=========
 
 .. code-block:: python
 
@@ -246,10 +108,8 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 
 Changes whether the Submit for Moderation button is displayed in the action menu.
 
-
-
 Images
-------
+======
 
 .. code-block:: python
 
@@ -268,7 +128,7 @@ This setting lets you override the maximum upload size for images (in bytes). If
 
     WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # i.e. 128 megapixels
 
-This setting lets you override the maximum number of pixels an image can have. If omitted, Wagtail will fall back to using its 128 megapixels default value.
+This setting lets you override the maximum number of pixels an image can have. If omitted, Wagtail will fall back to using its 128 megapixels default value. The pixel count takes animation frames into account - for example, a 25-frame animation of size 100x100 is considered to have 100 * 100 * 25 = 250000 pixels.
 
 .. code-block:: python
 
@@ -294,9 +154,8 @@ Specifies the number of items per page shown when viewing an image's usage (see 
 
 Specifies the number of images shown per page in the image chooser modal.
 
-
 Documents
----------
+=========
 
 .. _wagtaildocs_serve_method:
 
@@ -314,9 +173,8 @@ For this reason, Wagtail provides a number of serving methods which trade some o
 
 If ``WAGTAILDOCS_SERVE_METHOD`` is unspecified or set to ``None``, the default method is ``'redirect'`` when a remote storage backend is in use (i.e. one that exposes a URL but not a local filesystem path), and ``'serve_view'`` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for ``'serve_view'``.
 
-
 Password Management
--------------------
+===================
 
 .. code-block:: python
 
@@ -351,7 +209,7 @@ This specifies whether users are allowed to change their email (enabled by defau
 .. _email_notifications:
 
 Email Notifications
--------------------
+===================
 
 .. code-block:: python
 
@@ -374,7 +232,7 @@ Notification emails are sent to moderators and superusers by default. You can ch
 .. _update_notifications:
 
 Wagtail update notifications
-----------------------------
+============================
 
 .. code-block:: python
 
@@ -384,7 +242,7 @@ For admins only, Wagtail performs a check on the dashboard to see if newer relea
 
 
 Private pages / documents
--------------------------
+=========================
 
 .. code-block:: python
 
@@ -398,9 +256,8 @@ This is the path to the Django template which will be used to display the "passw
 
 As above, but for password restrictions on documents. For more details, see the :ref:`private_pages` documentation.
 
-
 Login page
-----------
+==========
 
 The basic login page can be customised with a custom template.
 
@@ -416,10 +273,8 @@ Or the login page can be a redirect to an external or internal URL.
 
 For more details, see the :ref:`login_page` documentation.
 
-
-
 Case-Insensitive Tags
----------------------
+=====================
 
 .. code-block:: python
 
@@ -428,7 +283,7 @@ Case-Insensitive Tags
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable.
 
 Multi-word tags
----------------
+===============
 
 .. code-block:: python
 
@@ -437,7 +292,7 @@ Multi-word tags
 Tags can only consist of a single word, no spaces allowed. The default setting is ``True`` (spaces in tags are allowed).
 
 Tag limit
----------
+=========
 
 .. code-block:: python
 
@@ -446,7 +301,7 @@ Tag limit
 Limit the number of tags that can be added to (django-taggit) Tag model. Default setting is ``None``, meaning no limit on tags.
 
 Unicode Page Slugs
-------------------
+==================
 
 .. code-block:: python
 
@@ -457,7 +312,7 @@ By default, page slugs can contain any alphanumeric characters, including non-La
 .. _WAGTAIL_AUTO_UPDATE_PREVIEW:
 
 Auto update preview
--------------------
+===================
 
 .. code-block:: python
 
@@ -470,7 +325,7 @@ tab is not refreshed automatically, users have to do it manually.
 This behaviour is disabled by default.
 
 Custom User Edit Forms
-----------------------
+======================
 
 See :doc:`/advanced_topics/customisation/custom_user_models`.
 
@@ -497,7 +352,7 @@ A list of the extra custom fields to be appended to the default list.
 .. _WAGTAIL_USAGE_COUNT_ENABLED:
 
 Usage for images, documents and snippets
-----------------------------------------
+========================================
 
 .. code-block:: python
 
@@ -516,7 +371,7 @@ The link is also shown on the delete page, above the "Delete" button.
     The usage count only applies to direct (database) references. Using documents, images and snippets within StreamFields or rich text fields will not be taken into account.
 
 Date and DateTime inputs
-------------------------
+========================
 
 .. code-block:: python
 
@@ -529,7 +384,7 @@ Specifies the date and datetime format to be used in input fields in the Wagtail
 .. _WAGTAIL_USER_TIME_ZONES:
 
 Time zones
-----------
+==========
 
 Logged-in users can choose their current time zone for the admin interface in the account settings.  If is no time zone selected by the user, then ``TIME_ZONE`` will be used.
 (Note that time zones are only applied to datetime fields, not to plain time or date fields.  This is a Django design decision.)
@@ -545,7 +400,7 @@ If there is zero or one time zone permitted, the account settings form will be h
 .. _WAGTAILADMIN_PERMITTED_LANGUAGES:
 
 Admin languages
----------------
+===============
 
 Users can choose between several languages for the admin interface
 in the account settings. The list of languages is by default all the available
@@ -565,7 +420,7 @@ can only choose between front office languages:
                                                     ('pt', 'Portuguese')]
 
 Static files
-------------
+============
 
 .. code-block:: python
 
@@ -574,7 +429,7 @@ Static files
 Static file URLs within the Wagtail admin are given a version-specific query string of the form ``?v=1a2b3c4d``, to prevent outdated cached copies of Javascript and CSS files from persisting after a Wagtail upgrade. To disable these, set ``WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS`` to ``False``.
 
 API Settings
-------------
+============
 
 For full documenation on API configuration, including these settings, see :ref:`api_v2_configuration` documentation.
 
@@ -604,9 +459,8 @@ Default is true, setting this to false will disable full text search on all endp
 
 Requires ``wagtailfrontendcache`` app to be installed, inidicates the API should use the frontend cache.
 
-
 Frontend cache
---------------
+==============
 
 For full documenation on frontend cache invalidation, including these settings, see :ref:`frontend_cache_purging`.
 
@@ -633,12 +487,10 @@ See documentation linked above for full options available.
 
 Default is an empty list, must be a list of languages to also purge the urls for each language of a purging url. This setting needs ``settings.USE_I18N`` to be ``True`` to work.
 
-
-
 .. _WAGTAILADMIN_RICH_TEXT_EDITORS:
 
 Rich text
----------
+=========
 
 .. code-block:: python
 
@@ -660,9 +512,8 @@ Customise the behaviour of rich text fields. By default, ``RichTextField`` and `
 
  * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but both ``DraftailRichTextArea`` and ``HalloRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
 
-
 Page locking
-------------
+============
 
 .. versionadded:: 2.8
 
@@ -671,278 +522,3 @@ Page locking
 
 ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` can be set to ``True`` to prevent users
 from editing pages that they have locked.
-
-
-URL Patterns
-~~~~~~~~~~~~
-
-.. code-block:: python
-
-  from django.contrib import admin
-
-  from wagtail.core import urls as wagtail_urls
-  from wagtail.admin import urls as wagtailadmin_urls
-  from wagtail.documents import urls as wagtaildocs_urls
-
-  urlpatterns = [
-      re_path(r'^django-admin/', include(admin.site.urls)),
-
-      re_path(r'^admin/', include(wagtailadmin_urls)),
-      re_path(r'^documents/', include(wagtaildocs_urls)),
-
-      # Optional URL for including your own vanilla Django urls/views
-      re_path(r'', include('myapp.urls')),
-
-      # For anything not caught by a more specific rule above, hand over to
-      # Wagtail's serving mechanism
-      re_path(r'', include(wagtail_urls)),
-  ]
-
-This block of code for your project's ``urls.py`` does a few things:
-
-* Load the vanilla Django admin interface to ``/django-admin/``
-* Load the Wagtail admin and its various apps
-* Dispatch any vanilla Django apps you're using other than Wagtail which require their own URL configuration (this is optional, since Wagtail might be all you need)
-* Lets Wagtail handle any further URL dispatching.
-
-That's not everything you might want to include in your project's URL configuration, but it's what's necessary for Wagtail to flourish.
-
-
-.. _complete_example_config:
-
-Ready to Use Example Configuration Files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-These two files should reside in your project directory (``myproject/myproject/``).
-
-
-``settings.py``
----------------
-
-.. code-block:: python
-
-  import os
-
-  PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-  BASE_DIR = os.path.dirname(PROJECT_DIR)
-
-  DEBUG = True
-
-  # Application definition
-
-  INSTALLED_APPS = [
-      'myapp',
-
-      'wagtail.contrib.forms',
-      'wagtail.contrib.redirects',
-      'wagtail.embeds',
-      'wagtail.sites',
-      'wagtail.users',
-      'wagtail.snippets',
-      'wagtail.documents',
-      'wagtail.images',
-      'wagtail.search',
-      'wagtail.admin',
-      'wagtail.core',
-
-      'taggit',
-      'modelcluster',
-
-      'django.contrib.auth',
-      'django.contrib.contenttypes',
-      'django.contrib.sessions',
-      'django.contrib.messages',
-      'django.contrib.staticfiles',
-  ]
-
-
-  MIDDLEWARE = [
-      'django.contrib.sessions.middleware.SessionMiddleware',
-      'django.middleware.common.CommonMiddleware',
-      'django.middleware.csrf.CsrfViewMiddleware',
-      'django.contrib.auth.middleware.AuthenticationMiddleware',
-      'django.contrib.messages.middleware.MessageMiddleware',
-      'django.middleware.clickjacking.XFrameOptionsMiddleware',
-      'django.middleware.security.SecurityMiddleware',
-
-      'wagtail.core.middleware.SiteMiddleware',
-      'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-  ]
-
-  ROOT_URLCONF = 'myproject.urls'
-
-  TEMPLATES = [
-      {
-          'BACKEND': 'django.template.backends.django.DjangoTemplates',
-          'DIRS': [
-              os.path.join(PROJECT_DIR, 'templates'),
-          ],
-          'APP_DIRS': True,
-          'OPTIONS': {
-              'context_processors': [
-                  'django.template.context_processors.debug',
-                  'django.template.context_processors.request',
-                  'django.contrib.auth.context_processors.auth',
-                  'django.contrib.messages.context_processors.messages',
-              ],
-          },
-      },
-  ]
-
-  WSGI_APPLICATION = 'myproject.wsgi.application'
-
-  # Database
-
-  DATABASES = {
-      'default': {
-          'ENGINE': 'django.db.backends.postgresql',
-          'NAME': 'myprojectdb',
-          'USER': 'postgres',
-          'PASSWORD': '',
-          'HOST': '',  # Set to empty string for localhost.
-          'PORT': '',  # Set to empty string for default.
-          'CONN_MAX_AGE': 600,  # number of seconds database connections should persist for
-      }
-  }
-
-  # Internationalization
-
-  LANGUAGE_CODE = 'en-us'
-  TIME_ZONE = 'UTC'
-  USE_I18N = True
-  USE_L10N = True
-  USE_TZ = True
-
-
-  # Static files (CSS, JavaScript, Images)
-
-  STATICFILES_FINDERS = [
-      'django.contrib.staticfiles.finders.FileSystemFinder',
-      'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-  ]
-
-  STATICFILES_DIRS = [
-      os.path.join(PROJECT_DIR, 'static'),
-  ]
-
-  STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-  STATIC_URL = '/static/'
-
-  MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-  MEDIA_URL = '/media/'
-
-
-  ADMINS = [
-      # ('Your Name', 'your_email@example.com'),
-  ]
-  MANAGERS = ADMINS
-
-  # Default to dummy email backend. Configure dev/production/local backend
-  # as per https://docs.djangoproject.com/en/dev/topics/email/#email-backends
-  EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
-
-  # Hosts/domain names that are valid for this site; required if DEBUG is False
-  ALLOWED_HOSTS = []
-
-  # Make this unique, and don't share it with anybody.
-  SECRET_KEY = 'change-me'
-
-  EMAIL_SUBJECT_PREFIX = '[Wagtail] '
-
-  INTERNAL_IPS = ('127.0.0.1', '10.0.2.2')
-
-  # A sample logging configuration. The only tangible logging
-  # performed by this configuration is to send an email to
-  # the site admins on every HTTP 500 error when DEBUG=False.
-  # See http://docs.djangoproject.com/en/dev/topics/logging for
-  # more details on how to customize your logging configuration.
-  LOGGING = {
-      'version': 1,
-      'disable_existing_loggers': False,
-      'filters': {
-          'require_debug_false': {
-              '()': 'django.utils.log.RequireDebugFalse'
-          }
-      },
-      'handlers': {
-          'mail_admins': {
-              'level': 'ERROR',
-              'filters': ['require_debug_false'],
-              'class': 'django.utils.log.AdminEmailHandler'
-          }
-      },
-      'loggers': {
-          'django.request': {
-              'handlers': ['mail_admins'],
-              'level': 'ERROR',
-              'propagate': True,
-          },
-      }
-  }
-
-
-  # WAGTAIL SETTINGS
-
-  # This is the human-readable name of your Wagtail install
-  # which welcomes users upon login to the Wagtail admin.
-  WAGTAIL_SITE_NAME = 'My Project'
-
-  # Override the search results template for wagtailsearch
-  # WAGTAILSEARCH_RESULTS_TEMPLATE = 'myapp/search_results.html'
-  # WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
-
-  # Replace the search backend
-  #WAGTAILSEARCH_BACKENDS = {
-  #  'default': {
-  #    'BACKEND': 'wagtail.search.backends.elasticsearch2',
-  #    'INDEX': 'myapp'
-  #  }
-  #}
-
-  # Wagtail email notifications from address
-  # WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@myhost.io'
-
-  # Wagtail email notification format
-  # WAGTAILADMIN_NOTIFICATION_USE_HTML = True
-
-  # Reverse the default case-sensitive handling of tags
-  TAGGIT_CASE_INSENSITIVE = True
-
-
-``urls.py``
------------
-
-.. code-block:: python
-
-  from django.conf.urls import include, re_path
-  from django.conf.urls.static import static
-  from django.views.generic.base import RedirectView
-  from django.contrib import admin
-  from django.conf import settings
-  import os.path
-
-  from wagtail.core import urls as wagtail_urls
-  from wagtail.admin import urls as wagtailadmin_urls
-  from wagtail.documents import urls as wagtaildocs_urls
-
-
-  urlpatterns = [
-      re_path(r'^django-admin/', include(admin.site.urls)),
-
-      re_path(r'^admin/', include(wagtailadmin_urls)),
-      re_path(r'^documents/', include(wagtaildocs_urls)),
-
-      # For anything not caught by a more specific rule above, hand over to
-      # Wagtail's serving mechanism
-      re_path(r'', include(wagtail_urls)),
-  ]
-
-
-  if settings.DEBUG:
-      from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
-      urlpatterns += staticfiles_urlpatterns() # tell gunicorn where static files are in dev mode
-      urlpatterns += static(settings.MEDIA_URL + 'images/', document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
-      urlpatterns += [
-          re_path(r'^favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL + 'myapp/images/favicon.ico'))
-      ]

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# aaao <aron.santa@gmail.com>, 2019
 # B N <biczoxd@gmail.com>, 2018
 # Istvan Farkas <istvan.farkas@gmail.com>, 2019
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
@@ -11,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-09-03 16:46+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-28 12:41+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -21,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Közzététel"
 
 msgid "Submit for moderation"
 msgstr "Beküldés moderálásra"
@@ -31,15 +35,24 @@ msgstr "Visszavonás"
 msgid "Delete"
 msgstr "Törlés"
 
+msgid "Save Draft"
+msgstr "Vázlat mentése"
+
+msgid "Page locked"
+msgstr "Zárolt oldal"
+
 msgid "Wagtail admin"
 msgstr "Wagtail Admin"
 
-msgid "None"
-msgstr "Üres"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Sajnáljuk, de nincs engedélye ezen felület eléréséhez."
 
 msgid "You do not have permission to access the admin"
 msgstr ""
 "Nincs megfelelő engedélye, hogy hozzáférjen az adminisztrációs felülethez."
+
+msgid "None"
+msgstr "Üres"
 
 msgid "Scheduled publishing"
 msgstr "Oldal közzététele későbbi időpontban"
@@ -65,9 +78,6 @@ msgstr "Adja meg a %s értéket"
 
 msgid "Enter your email address to reset your password"
 msgstr "Kérjük adja meg az email címét a jelszó változtatáshoz."
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nem lehet több engedély bejegyzés ugyanahhoz az oldalhoz."
@@ -152,95 +162,101 @@ msgstr "Egy mező megadása szükséges."
 msgid "Please select at least one group."
 msgstr "Kérjük válasszon ki legalább egy csoportot."
 
-msgid "Error 404: Page not found"
-msgstr "404-es hiba: az oldal nem található"
+msgid "Arabic"
+msgstr "arab"
 
-msgid "Error 404"
-msgstr "404-es hiba"
+msgid "Catalan"
+msgstr "katalán"
 
-msgid "The requested page could not be found."
-msgstr "A keresett oldal nem található."
+msgid "Czech"
+msgstr "cseh"
 
-msgid "Go to Wagtail admin"
-msgstr "Admin felület megnyitása"
+msgid "German"
+msgstr "német"
 
-msgid "Account"
-msgstr "Felhasználói fiók"
+msgid "Greek"
+msgstr "görög"
 
-msgid "Change profile picture"
-msgstr "Profilkép cseréje"
+msgid "English"
+msgstr "angol"
 
-msgid "Your current profile picture:"
-msgstr "Jelenlegi profilképe:"
+msgid "Spanish"
+msgstr "spanyol"
 
-msgid "Update"
-msgstr "Frissítés"
+msgid "Finnish"
+msgstr "finn"
 
-msgid "Change email"
-msgstr "E-mail cím megváltoztatása"
+msgid "French"
+msgstr "francia"
 
-msgid "Change password"
-msgstr "Jelszó megváltoztatása"
+msgid "Galician"
+msgstr "galíciai"
 
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"A jelszavát itt nem tudja megváltoztatni. Kérem vegye fel a kapcsolatot az "
-"oldal rendszergazdájával."
+msgid "Hungarian"
+msgstr "magyar"
 
-msgid "Set Time Zone"
-msgstr "Időzóna beállítása"
+msgid "Indonesian"
+msgstr "indonéz"
 
-msgid "Language Preferences"
-msgstr "Nyelvi beállítások"
+msgid "Icelandic"
+msgstr "izlandi"
 
-msgid "Notification preferences"
-msgstr "Értesítési beállítások"
+msgid "Italian"
+msgstr "olasz"
 
-msgid "Reset password"
-msgstr "Jelszó módosítása"
+msgid "Japanese"
+msgstr "Japán"
 
-msgid "Password change successful"
-msgstr "A jelszót sikeresen módosította"
+msgid "Korean"
+msgstr "koreai"
 
-msgid "Login"
-msgstr "Bejelentkezés"
+msgid "Lithuanian"
+msgstr "litván"
 
-msgid "Set your new password"
-msgstr "Állítsa be az új jelszót"
+msgid "Mongolian"
+msgstr "mongol"
 
-msgid "Invalid password reset link"
-msgstr "Érvénytelen jelszó módosító link"
+msgid "Norwegian Bokmål"
+msgstr "norvég - bokmål"
 
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used."
-msgstr ""
-"A jelszó módosítására szolgáló link érvénytelen, valószínűleg azért, mert "
-"már fel lett használva."
+msgid "Netherlands Dutch"
+msgstr "holland"
 
-msgid "Request a new password reset"
-msgstr "Új jelszó igénylése"
+msgid "Persian"
+msgstr "perzsa"
 
-msgid "Check your email"
-msgstr "Ellenőrizze emailjeit"
+msgid "Polish"
+msgstr "lengyel"
 
-msgid ""
-"A link to reset your password has been emailed to you if an account exists "
-"for this address."
-msgstr "A jelszavának módosításához szükséges linket elküldtük e-mailben."
+msgid "Brazilian Portuguese"
+msgstr "brazíliai portugál"
 
-msgid "Please follow the link below to reset your password:"
-msgstr "Kérem kattintson az alábbi linkre a jelszava módosításához:"
+msgid "Portuguese"
+msgstr "portugál"
 
-msgid "Your username (in case you've forgotten):"
-msgstr "Felhasználónév (ha elfelejtette):"
+msgid "Romanian"
+msgstr "román"
 
-msgid "Password reset"
-msgstr "Jelszó módosítása"
+msgid "Russian"
+msgstr "orosz"
 
-msgid "Reset your password"
-msgstr "Módosítsa jelszavát"
+msgid "Swedish"
+msgstr "svéd"
+
+msgid "Slovak"
+msgstr "szlovák"
+
+msgid "Thai"
+msgstr "thai"
+
+msgid "Ukrainian"
+msgstr "ukrán"
+
+msgid "Chinese (Simplified)"
+msgstr "kínai (egyszerűsített)"
+
+msgid "Chinese (Traditional)"
+msgstr "kínai (hagyományos)"
 
 msgid "Page"
 msgstr "Oldal"
@@ -308,11 +324,11 @@ msgstr "Hiányzó dokumentum"
 msgid "Close"
 msgstr "Bezár"
 
-msgid "Edit \\"
-msgstr "Szerkesztés \\"
+msgid "Edit '{title}'"
+msgstr "'{title}' szerkesztése"
 
-msgid "View child pages of \\"
-msgstr "Gyermek oldalainak megtekintése \\"
+msgid "View child pages of '{title}'"
+msgstr "'{title}' gyerekoldalainak megtekintése"
 
 msgid "Page explorer"
 msgstr "Intéző"
@@ -395,14 +411,104 @@ msgstr "P"
 msgid "Sat"
 msgstr "Szo"
 
+msgid "Error 404: Page not found"
+msgstr "404-es hiba: az oldal nem található"
+
+msgid "Error 404"
+msgstr "404-es hiba"
+
+msgid "The requested page could not be found."
+msgstr "A keresett oldal nem található."
+
+msgid "Go to Wagtail admin"
+msgstr "Admin felület megnyitása"
+
+msgid "Account"
+msgstr "Felhasználói fiók"
+
+msgid "Change profile picture"
+msgstr "Profilkép cseréje"
+
+msgid "Your current profile picture:"
+msgstr "Jelenlegi profilképe:"
+
+msgid "Update"
+msgstr "Frissítés"
+
+msgid "Change email"
+msgstr "E-mail cím megváltoztatása"
+
+msgid "Change name"
+msgstr "Név megváltoztatása"
+
+msgid "Change password"
+msgstr "Jelszó megváltoztatása"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"A jelszavát itt nem tudja megváltoztatni. Kérem vegye fel a kapcsolatot az "
+"oldal rendszergazdájával."
+
+msgid "Set Time Zone"
+msgstr "Időzóna beállítása"
+
+msgid "Language Preferences"
+msgstr "Nyelvi beállítások"
+
+msgid "Notification preferences"
+msgstr "Értesítési beállítások"
+
+msgid "Reset password"
+msgstr "Jelszó módosítása"
+
+msgid "Password change successful"
+msgstr "A jelszót sikeresen módosította"
+
+msgid "Login"
+msgstr "Bejelentkezés"
+
+msgid "Set your new password"
+msgstr "Állítsa be az új jelszót"
+
+msgid "Invalid password reset link"
+msgstr "Érvénytelen jelszó módosító link"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"A jelszó módosítására szolgáló link érvénytelen, valószínűleg azért, mert "
+"már fel lett használva."
+
+msgid "Request a new password reset"
+msgstr "Új jelszó igénylése"
+
+msgid "Check your email"
+msgstr "Ellenőrizze emailjeit"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr "A jelszavának módosításához szükséges linket elküldtük e-mailben."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Kérem kattintson az alábbi linkre a jelszava módosításához:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Felhasználónév (ha elfelejtette):"
+
+msgid "Password reset"
+msgstr "Jelszó módosítása"
+
+msgid "Reset your password"
+msgstr "Módosítsa jelszavát"
+
 msgid "Dashboard"
 msgstr "Műszerfal"
 
 msgid "Menu"
 msgstr "Menü"
-
-msgid "Add another"
-msgstr "Másik hozzáadása"
 
 msgid "Move up"
 msgstr "Mozgatás fel"
@@ -422,6 +528,12 @@ msgstr "Külső link"
 msgid "Email link"
 msgstr "Email link"
 
+msgid "Phone link"
+msgstr "Telefonszám link"
+
+msgid "Anchor link"
+msgstr "Belső hivatkozás"
+
 #, python-format
 msgid ""
 "\n"
@@ -437,6 +549,12 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "Találatok száma: %(counter)s"
+
+msgid "Add an anchor link"
+msgstr "Belső hivatkozás hozzáadása"
+
+msgid "Insert anchor"
+msgstr "Belső hivatkozás beillesztése"
 
 msgid "Choose"
 msgstr "Kiválasztás"
@@ -472,6 +590,9 @@ msgstr "Link beszúrása"
 
 msgid "Add an external link"
 msgstr "Külső link hozzáadása"
+
+msgid "Add a phone link"
+msgstr "Telefonszám link hozzáadása"
 
 msgid "Collection privacy"
 msgstr "Gyűjtemény láthatósága"
@@ -716,8 +837,14 @@ msgstr "Közzététel folyamatban..."
 msgid "Publish this revision"
 msgstr "Változat közzététele"
 
-msgid "Publish"
-msgstr "Közzététel"
+msgid "Saving…"
+msgstr "Mentés..."
+
+msgid "Replace current draft"
+msgstr "Jelenlegi vázlat lecserélése"
+
+msgid "Save draft"
+msgstr "Vázlat mentése"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -853,12 +980,6 @@ msgstr "Új"
 msgid "Actions"
 msgstr "Akciók"
 
-msgid "Saving…"
-msgstr "Mentés..."
-
-msgid "Save draft"
-msgstr "Vázlat mentése"
-
 msgid "This page has unsaved changes."
 msgstr "Ezen az oldalon mentetlen változtatások vannak."
 
@@ -869,12 +990,6 @@ msgstr "%(page_type)s szerkesztése: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "%(page_type)s szerkesztése <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Zárolt oldal"
-
-msgid "Replace current draft"
-msgstr "Jelenlegi vázlat lecserélése"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1268,107 +1383,14 @@ msgstr ""
 msgid "Test"
 msgstr "Teszt"
 
-msgid "Arabic"
-msgstr "arab"
-
-msgid "Catalan"
-msgstr "katalán"
-
-msgid "Czech"
-msgstr "cseh"
-
-msgid "German"
-msgstr "német"
-
-msgid "Greek"
-msgstr "görög"
-
-msgid "English"
-msgstr "angol"
-
-msgid "Spanish"
-msgstr "spanyol"
-
-msgid "Finnish"
-msgstr "finn"
-
-msgid "French"
-msgstr "francia"
-
-msgid "Galician"
-msgstr "galíciai"
-
-msgid "Hungarian"
-msgstr "magyar"
-
-msgid "Indonesian"
-msgstr "indonéz"
-
-msgid "Icelandic"
-msgstr "izlandi"
-
-msgid "Italian"
-msgstr "olasz"
-
-msgid "Korean"
-msgstr "koreai"
-
-msgid "Lithuanian"
-msgstr "litván"
-
-msgid "Mongolian"
-msgstr "mongol"
-
-msgid "Norwegian Bokmål"
-msgstr "norvég - bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "holland"
-
-msgid "Persian"
-msgstr "perzsa"
-
-msgid "Polish"
-msgstr "lengyel"
-
-msgid "Brazilian Portuguese"
-msgstr "brazíliai portugál"
-
-msgid "Portuguese"
-msgstr "portugál"
-
-msgid "Romanian"
-msgstr "román"
-
-msgid "Russian"
-msgstr "orosz"
-
-msgid "Swedish"
-msgstr "svéd"
-
-msgid "Slovak"
-msgstr "szlovák"
-
-msgid "Thai"
-msgstr "thai"
-
-msgid "Ukrainian"
-msgstr "ukrán"
-
-msgid "Chinese (Simplified)"
-msgstr "kínai (egyszerűsített)"
-
-msgid "Chinese (Traditional)"
-msgstr "kínai (hagyományos)"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Sajnáljuk, de nincs engedélye ezen felület eléréséhez."
-
 msgid "Your password has been changed successfully!"
 msgstr "Jelszó sikeresen megváltoztatva!"
 
 msgid "Your email has been changed successfully!"
 msgstr "Az e-mail cím sikeresen megváltoztatva!"
+
+msgid "Your name has been changed successfully!"
+msgstr "Név sikeresen megváltoztatva!"
 
 msgid "Your preferences have been updated."
 msgstr "A beállítások frissítése megtörtént."
@@ -1532,44 +1554,54 @@ msgstr "'{1}' {0}. verziója"
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "'{1}' {0}. verziójának időzítése visszavonva. "
 
-msgid "Edit '{title}'"
-msgstr "'{title}' szerkesztése"
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' szerkesztése"
 
-msgid "Preview draft version of '{title}'"
-msgstr "'{title}' vázlatának előnézete"
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "'%(title)s' vázlatának előnézete"
 
-msgid "View live version of '{title}'"
-msgstr "'{title}' közzétett verziójának megtekintése"
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "'%(title)s' élő változatának előnézete"
 
-msgid "Add a child page to '{title}' "
-msgstr "Gyermek oldal hozzáadása ehhez: '{title}'"
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Gyermekoldal hozzáadása ehhez: '%(title)s'"
 
 msgid "More"
 msgstr "Tovább"
 
-msgid "View more options for '{title}'"
-msgstr "'{title}' további beállításai"
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "'%(title)s' oldal további lehetőségei"
 
-msgid "Move page '{title}'"
-msgstr "'{title}' oldal mozgatása"
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "'%(title)s' oldal mozgatása"
 
-msgid "Copy page '{title}'"
-msgstr "'{title}' oldal másolása"
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "'%(title)s' oldal másolása"
 
-msgid "Delete page '{title}'"
-msgstr "'{title}' oldal törlése"
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "'%(title)s' oldal törlése"
 
-msgid "Unpublish page '{title}'"
-msgstr "'{title}' visszavonása"
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "'%(title)s' oldal visszavonása"
 
-msgid "View revision history for '{title}'"
-msgstr "'{title}' korábbi verzióinak megtekintése"
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "'%(title)s' oldal korábbi verzióinak megtekintése"
 
 msgid "Set profile picture"
 msgstr "Profilkép beállítása"
 
-msgid "Change your profile picture"
-msgstr "Profilkép cseréje"
+msgid "Change your profile picture."
+msgstr "Profilkép megváltoztatása."
 
 msgid "Change the email address linked to your account."
 msgstr "A fiókhoz társított e-mail cím megváltoztatása"
@@ -1592,8 +1624,12 @@ msgstr "Jelenlegi időzóna"
 msgid "Choose your current time zone."
 msgstr "Válassza ki a jelenlegi időzónáját."
 
-msgid "Heading {level}"
-msgstr "Címsor {level}"
+msgid "Change your first and last name on your account."
+msgstr "A fiókhoz társított vezeték- és keresztnév megváltoztatása."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Fejléc %(level)d"
 
 msgid "Bulleted list"
 msgstr "Lista"

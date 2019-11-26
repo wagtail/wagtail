@@ -1,10 +1,32 @@
 Changelog
 =========
 
-2.7 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+2.8 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Removed support for Django 2.0
+ * Removed leftover Python 2.x compatibility code (Sergey Fedoseev)
+ * Combine flake8 configurations (Sergey Fedoseev)
+ * Improved diffing behavior for text fields (Aliosha Padovani)
+ * Improve contrast of disabled inputs (Nick Smith)
+ * Added `get_document_model_string` function (Andrey Smirnov)
+ * Added support for Cloudflare API tokens for frontend cache invalidation (Tom Usher)
+ * Cloudflare frontend cache invalidation requests are now sent in chunks of 30 to fit within API limits (Tom Usher)
+ * Added `ancestors` field to pages endpoint in admin API (Karl Hobley)
+ * Removed Django admin management of `Page` & `Site` models (Andreas Bernacca)
+ * Fix: Rename documents listing column 'uploaded' to 'created' (LB (Ben Johnston))
+ * Fix: Submenu items longer then the page height are no longer broken by the submenu footer (Igor van Spengen)
+ * Fix: Unbundle the l18n library as it was bundled to avoid installation errors which have been resolved (Matt Westcott)
+ * Fix: Prevent error when comparing pages that reference a model with a custom primary key (Fidel Ramos)
+ * Fix: Moved `get_document_model` location so it can be imported when Models are not yet loaded (Andrey Smirnov)
+ * Fix: Fixed incorrect HTML escaping of Jinja2 form templates for StructBlocks (Brady Moe)
+ * Fix: All templates with wagtailsettings and modeladmin now use `block.super` for `extra_js` & `extra_css` (Timothy Bautista)
+
+2.7 LTS (06.11.2019)
 ~~~~~~~~~~~~~~~~~~~~
 
  * Improved StreamField design (Bertrand Bordage)
+ * Added WebP image support (frmdstryr, Karl Hobley, Matt Westcott)
  * Added Elasticsearch 7 support (pySilver)
  * Added Python 3.8 support (John Carter, Matt Westcott)
  * Added `construct_page_listing_buttons` hook (Michael van Tellingen)
@@ -24,10 +46,7 @@ Changelog
  * Added ARIA role to TableBlock output (Matt Westcott)
  * Added cache-busting query parameters to static files within the Wagtail admin (Matt Westcott)
  * Allow `register_page_action_menu_item` and `construct_page_action_menu` hooks to override the default menu action (Rahmi Pruitt, Matt Westcott)
- * Add docs table template rendering example (Matt Westcott)
- * Add blog about image uploads in Wagtail forms to third party tutorial documentation (a-mere-peasant)
- * Clean up multiple minor documentation issues (David T Thompson, ryanomor, kailwallin)
- * Add AbstractUser import to custom user model documentation (LB (Ben Johnston))
+ * `WAGTAILIMAGES_MAX_IMAGE_PIXELS` limit now takes the number of animation frames into account (Karl Hobley)
  * Fix: Added line breaks to long filenames on multiple image / document uploader (Kevin Howbrook)
  * Fix: Added https support for Scribd oEmbed provider (Rodrigo)
  * Fix: Changed StreamField group labels color so labels are visible (Catherine Farman)
@@ -50,6 +69,14 @@ Changelog
  * Fix: Replace styleguide example avatar with default image to avoid issues when custom user model is used (Matt Westcott)
  * Fix: `DraftailRichTextArea` is no longer treated as a hidden field by Django's form logic (Sergey Fedoseev)
  * Fix: Replace format() placeholders in translatable strings with % formatting (Matt Westcott)
+ * Fix: Altering Django REST Framework's `DEFAULT_AUTHENTICATION_CLASSES` setting no longer breaks the page explorer menu and admin API (Matt Westcott)
+ * Fix: Regression - missing label for external link URL field in link chooser (Stefani Castellanos)
+
+
+2.6.3 (22.10.2019)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Altering Django REST Framework's `DEFAULT_AUTHENTICATION_CLASSES` setting no longer breaks the page explorer menu and admin API (Matt Westcott)
 
 
 2.6.2 (19.09.2019)

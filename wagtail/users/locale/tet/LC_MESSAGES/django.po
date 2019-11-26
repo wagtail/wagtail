@@ -5,13 +5,14 @@
 # Translators:
 # Mario <mario@catalpa.io>, 2019
 # Mario <mario@catalpa.io>, 2019
+# Peter Coward <peter@catalpa.io>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-09-21 00:27+0000\n"
+"Last-Translator: Peter Coward <peter@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -156,6 +157,9 @@ msgstr "Hadia"
 
 msgid "Save"
 msgstr "Rai"
+
+msgid "Permissions"
+msgstr "Permisaun sira"
 
 msgid "Object permissions"
 msgstr "Permisaun sira ba Objetu"

@@ -1,0 +1,69 @@
+==========================================
+Wagtail 2.8 release notes - IN DEVELOPMENT
+==========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Other features
+~~~~~~~~~~~~~~
+
+ * Removed leftover Python 2.x compatibility code (Sergey Fedoseev)
+ * Combine flake8 configurations (Sergey Fedoseev)
+ * Improved diffing behavior for text fields (Aliosha Padovani)
+ * Improve contrast of disabled inputs (Nick Smith)
+ * Added ``get_document_model_string`` function (Andrey Smirnov)
+ * Added support for Cloudflare API tokens for frontend cache invalidation (Tom Usher)
+ * Cloudflare frontend cache invalidation requests are now sent in chunks of 30 to fit within API limits (Tom Usher)
+ * Added ``ancestors`` field to pages endpoint in admin API (Karl Hobley)
+ * Removed Django admin management of ``Page`` & ``Site`` models (Andreas Bernacca)
+
+
+Bug fixes
+~~~~~~~~~
+
+ * Rename documents listing column 'uploaded' to 'created' (LB (Ben Johnston))
+ * Submenu items longer then the page height are no longer broken by the submenu footer (Igor van Spengen)
+ * Unbundle the l18n library as it was bundled to avoid installation errors which have been resolved (Matt Westcott)
+ * Prevent error when comparing pages that reference a model with a custom primary key (Fidel Ramos)
+ * Moved ``get_document_model`` location so it can be imported when Models are not yet loaded (Andrey Smirnov)
+ * Fixed incorrect HTML escaping of Jinja2 form templates for StructBlocks (Brady Moe)
+ * All templates with wagtailsettings and modeladmin now use ``block.super`` for ``extra_js`` & ``extra_css`` (Timothy Bautista)
+
+
+Upgrade considerations
+======================
+
+Removed support for Django 2.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django 2.0 is no longer supported as of this release; please upgrade to Django 2.1 or above before upgrading Wagtail.
+
+
+``wagtail.documents.models.get_document_model`` has moved
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``get_document_model`` function should now be imported from ``wagtail.documents`` rather than ``wagtail.documents.models``. See :ref:`custom_document_model`.
+
+
+Removed ``Page`` and ``Site`` models from Django admin 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django admin will no longer provide editing access to ``Page`` or ``Site`` models, if required these models can be registered within individual projects using `Django's ModelAdmin <https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#modeladmin-objects>`_.
+
+
+.. code-block:: python
+
+    # my_app/admin.py
+    from django.contrib import admin
+
+    from wagtail.core.models import Page, Site
+
+    admin.site.register(Site)
+    admin.site.register(Page)

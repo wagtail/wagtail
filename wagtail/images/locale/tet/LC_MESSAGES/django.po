@@ -1,0 +1,147 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mariano de Deus <dedeus_mariano@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail images"
+msgstr "Imajen Wagtail"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Suporta formatu:%(supported_formats)s. Maximu documentus nia medida:"
+"%(max_upload_size)s"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Suporta formatu: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "La suporta formatu imajen. Suporta formatu: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "La validu %simajen"
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Dokumentus ne'e bo'ot demais (%%s). Maximu Dokumentus nia medida %s. "
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "Dokumentu ne'e iha  piksel barak (%%s).  Maximu piksel %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Dokumentus ne'e bo'ot demais. Maximu medida dokumentus %s. "
+
+msgid "Full width"
+msgstr "Luan tomak"
+
+msgid "Left-aligned"
+msgstr " Alinha-karuk"
+
+msgid "Right-aligned"
+msgstr " Alinha-Loos"
+
+msgid "Filter"
+msgstr " Filtru"
+
+msgid "Original size"
+msgstr "Medida  orijinál"
+
+msgid "Resize to width"
+msgstr "Muda medida ba Luan"
+
+msgid "Resize to height"
+msgstr "Muda medida ba naruk"
+
+msgid "Resize to min"
+msgstr "Muda medida ba min"
+
+msgid "Resize to max"
+msgstr "Muda medida ba max"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Ita seidauk hatama tiha imajen balu. Tamba sa la<a href="
+"\"%(wagtailimages_add_image_url)s\">hatama ida agora</a>?"
+
+msgid "Generating URL"
+msgstr "Gerandu URL"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Pré-visualizasaun"
+
+msgid "Update"
+msgstr "Troka"
+
+msgid "Delete"
+msgstr "hamoos"
+
+msgid "Image permissions"
+msgstr "Permisaun imajen"
+
+msgid "Add an image permission"
+msgstr "Hatama permisaun imajen"
+
+msgid "Search images"
+msgstr "Buka imajen"
+
+msgid "Edit again"
+msgstr "Hadia fali"
+
+msgid "The image could not be saved due to errors."
+msgstr "Imajen labele rai tamba eru."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Fonte  dokumentus imajen lahetan. Favor troka nia fonte ou hamoos imajen "
+"ne'e."
+
+msgid "Image '{0}' deleted."
+msgstr "Imajen '{0}' hamoos ona."
+
+msgid "Image '{0}' added."
+msgstr "Imajen '{0}' hatama ona"
+
+msgid "Image"
+msgstr "Imagen"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s imagen sira"
+
+msgid "Change image"
+msgstr "Troka imajen"
+
+msgid "Edit this image"
+msgstr "Hadia imajen ne'e"

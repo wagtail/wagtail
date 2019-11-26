@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mariano de Deus <dedeus_mariano@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-09-23 02:13+0000\n"
+"Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtail troka dalan"
+
+msgid "From site"
+msgstr "Husi situs"
+
+msgid "All sites"
+msgstr "situs sira hotu"
+
+msgid "A redirect with this path already exists."
+msgstr "Troko dalan ho parte ne'ebe mak existi tiha ona"
+
+msgid "redirect from"
+msgstr "Troka dalan husi"
+
+msgid "site"
+msgstr "Situs"
+
+msgid "permanent"
+msgstr "permanente"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Rekomenda tiha. Permanente dalan ne'e garante katak buka ekipamentu la "
+"haluha ba pagina tuan(' torka dalan husi') no index foun em vez de."
+
+msgid "redirect to a page"
+msgstr "Trokda dala ba pajina"
+
+msgid "redirect to any URL"
+msgstr "Troka dalan URL balu"
+
+msgid "temporary"
+msgstr "Temporariu"
+
+msgid "redirect"
+msgstr "Troka dalan"
+
+msgid "Add redirect"
+msgstr "hatama troka dalan"
+
+msgid "Save"
+msgstr "Rai"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "hamoos toka dalan %(title)s"
+
+msgid "Delete"
+msgstr "hamoos"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Ita serteza hakarak hamos dalan ida ne'e?"
+
+msgid "Yes, delete"
+msgstr "Loos, hamoos"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Hadia hela %(title)s"
+
+msgid "Editing"
+msgstr "Hadia hela"
+
+msgid "Delete redirect"
+msgstr "hamoos toka dalan"
+
+msgid "Redirects"
+msgstr "Troka dalan"
+
+msgid "From"
+msgstr "Husi"
+
+msgid "Site"
+msgstr "situs"
+
+msgid "To"
+msgstr "Ba "
+
+msgid "Type"
+msgstr "Tipu"
+
+msgid "Edit this redirect"
+msgstr "Hadia dalan ida ne'e"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr "Diskulpa, laiha dalan hanesan \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Laiha dalan ne'ebe mak kria ona. Tamba sa <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">hatama ida</a>?"
+
+msgid "Search redirects"
+msgstr "Buka troka dalan"
+
+msgid "Redirect '{0}' updated."
+msgstr "Troka dalan  '{0}' Atualiza ona"
+
+msgid "Edit"
+msgstr "hadia"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Buka troka dalan labele labele rai tamba erru sira."
+
+msgid "Redirect '{0}' deleted."
+msgstr "Troka dalan '{0}' hamos ona."
+
+msgid "Redirect '{0}' added."
+msgstr "Troka dalan '{0}' hatama ona."
+
+msgid "The redirect could not be created due to errors."
+msgstr "Dalan labele kria tamba tamba erru."

@@ -31,10 +31,9 @@ install_requires = [
     "beautifulsoup4>=4.5.1,<4.6.1",
     "html5lib>=0.999,<2",
     "Unidecode>=0.04.14,<2.0",
-    "Willow>=1.1,<1.2",
+    "Willow>=1.3,<1.4",
     "requests>=2.11.1,<3.0",
-    "pytz>=2016.6",  # for l18n
-    "six>=1.11,<2.0",  # for l18n
+    "l18n>=2018.5",
 ]
 
 # Testing dependencies
@@ -75,8 +74,8 @@ setup(
     version=__version__,
     description='A Django content management system.',
     author='Wagtail core team + contributors',
-    author_email='hello@wagtail.io',  # For support queries, please see http://docs.wagtail.io/en/stable/support.html
-    url='http://wagtail.io/',
+    author_email='hello@wagtail.io',  # For support queries, please see https://docs.wagtail.io/en/stable/support.html
+    url='https://wagtail.io/',
     packages=find_packages(),
     include_package_data=True,
     license='BSD',
@@ -84,7 +83,7 @@ setup(
 system built on Django, with a strong community and commercial support. \
 It’s focused on user experience, and offers precise control for \
 designers and developers.\n\n\
-For more details, see https://wagtail.io, http://docs.wagtail.io and \
+For more details, see https://wagtail.io, https://docs.wagtail.io and \
 https://github.com/wagtail/wagtail/.",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -99,7 +98,6 @@ https://github.com/wagtail/wagtail/.",
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Framework :: Django',
-        'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',
         'Framework :: Django :: 2.2',
         'Framework :: Wagtail',

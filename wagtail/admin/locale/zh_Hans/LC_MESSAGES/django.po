@@ -7,6 +7,7 @@
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # Ed <724195301@qq.com>, 2018
 # Ed <724195301@qq.com>, 2018
+# First Last <abc+github@mynook.info>, 2019
 # Fred Zeng <979738295@qq.com>, 2016
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Aosp T, 2016
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-11-01 03:23+0000\n"
+"Last-Translator: First Last <abc+github@mynook.info>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +30,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "发布"
 
 msgid "Submit for moderation"
 msgstr "提交审核"
@@ -39,14 +43,23 @@ msgstr "取消发布"
 msgid "Delete"
 msgstr "删除"
 
+msgid "Save Draft"
+msgstr "保存草稿"
+
+msgid "Page locked"
+msgstr "页面已锁定"
+
 msgid "Wagtail admin"
 msgstr "Wagtail 管理"
 
-msgid "None"
-msgstr "无"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "对不起， 你没有权限访问。"
 
 msgid "You do not have permission to access the admin"
 msgstr "你没有访问后台管理的权限"
+
+msgid "None"
+msgstr "无"
 
 msgid "Scheduled publishing"
 msgstr "定时发布"
@@ -72,9 +85,6 @@ msgstr "输入你的 %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "输入邮件地址以重置密码"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "对于同一个集合你不能设置多重权限"
@@ -153,91 +163,101 @@ msgstr "必需字段"
 msgid "Please select at least one group."
 msgstr "请至少选择一个组。"
 
-msgid "Error 404: Page not found"
-msgstr "404错误：没有找到页面"
+msgid "Arabic"
+msgstr "阿拉伯语"
 
-msgid "Error 404"
-msgstr "404错误"
+msgid "Catalan"
+msgstr "加泰罗尼亚语"
 
-msgid "The requested page could not be found."
-msgstr "找不到请求的页面。"
+msgid "Czech"
+msgstr "捷克语"
 
-msgid "Go to Wagtail admin"
-msgstr "转到管理界面"
+msgid "German"
+msgstr "德语"
 
-msgid "Account"
-msgstr "帐号"
+msgid "Greek"
+msgstr "希腊语"
 
-msgid "Change profile picture"
-msgstr "更改配置图片"
+msgid "English"
+msgstr "英语"
 
-msgid "Your current profile picture:"
-msgstr "你现在的头像"
+msgid "Spanish"
+msgstr "西班牙语"
 
-msgid "Update"
-msgstr "更新"
+msgid "Finnish"
+msgstr "芬兰语"
 
-msgid "Change email"
-msgstr "更改邮箱"
+msgid "French"
+msgstr "法语"
 
-msgid "Change password"
-msgstr "修改密码"
+msgid "Galician"
+msgstr "加利西亚语"
 
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "您不能修改密码，请联系管理员。"
+msgid "Hungarian"
+msgstr "匈牙利语"
 
-msgid "Set Time Zone"
-msgstr "设置时区"
+msgid "Indonesian"
+msgstr "印度尼西亚"
 
-msgid "Language Preferences"
-msgstr "语言首选项"
+msgid "Icelandic"
+msgstr "冰岛语"
 
-msgid "Notification preferences"
-msgstr "提醒设置"
+msgid "Italian"
+msgstr "意大利语"
 
-msgid "Reset password"
-msgstr "重置密码"
+msgid "Japanese"
+msgstr "日语"
 
-msgid "Password change successful"
-msgstr "密码修改成功。"
+msgid "Korean"
+msgstr "韩国语"
 
-msgid "Login"
-msgstr "登录"
+msgid "Lithuanian"
+msgstr "立陶宛语"
 
-msgid "Set your new password"
-msgstr "设置新密码"
+msgid "Mongolian"
+msgstr "蒙古语"
 
-msgid "Invalid password reset link"
-msgstr "忘记密码"
+msgid "Norwegian Bokmål"
+msgstr "挪威博克马尔语"
 
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used."
-msgstr "密码重置链接已被使用。"
+msgid "Netherlands Dutch"
+msgstr "荷兰语"
 
-msgid "Request a new password reset"
-msgstr "请求重新设置密码"
+msgid "Persian"
+msgstr "波斯语"
 
-msgid "Check your email"
-msgstr "检查您的邮件"
+msgid "Polish"
+msgstr "波兰语"
 
-msgid ""
-"A link to reset your password has been emailed to you if an account exists "
-"for this address."
-msgstr "一个密码重置链接将被发送到该地址。"
+msgid "Brazilian Portuguese"
+msgstr "巴西葡萄牙语"
 
-msgid "Please follow the link below to reset your password:"
-msgstr "请点击下面的链接来重置密码"
+msgid "Portuguese"
+msgstr "葡萄牙语"
 
-msgid "Your username (in case you've forgotten):"
-msgstr "以防遗忘，请填写你的用户名:"
+msgid "Romanian"
+msgstr "罗马尼亚语"
 
-msgid "Password reset"
-msgstr "密码已重置。"
+msgid "Russian"
+msgstr "俄语"
 
-msgid "Reset your password"
-msgstr "重设密码"
+msgid "Swedish"
+msgstr "瑞典语"
+
+msgid "Slovak"
+msgstr "斯洛伐克语"
+
+msgid "Thai"
+msgstr "泰语"
+
+msgid "Ukrainian"
+msgstr "乌克兰语"
+
+msgid "Chinese (Simplified)"
+msgstr "中文（简体）"
+
+msgid "Chinese (Traditional)"
+msgstr "中文（繁体）"
 
 msgid "Page"
 msgstr "页面"
@@ -294,8 +314,23 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "编辑器崩溃了😭，内容被重新设置为最后保存的版本。"
 
+msgid "Broken link"
+msgstr "无效链接"
+
+msgid "Missing document"
+msgstr "缺失文档"
+
 msgid "Close"
 msgstr "关闭"
+
+msgid "Edit '{title}'"
+msgstr "编辑 '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "查看 '{title}' 的子页面"
+
+msgid "Page explorer"
+msgstr "页面管理"
 
 msgid "January"
 msgstr "一月"
@@ -375,14 +410,100 @@ msgstr "周五"
 msgid "Sat"
 msgstr "周六"
 
+msgid "Error 404: Page not found"
+msgstr "404错误：没有找到页面"
+
+msgid "Error 404"
+msgstr "404错误"
+
+msgid "The requested page could not be found."
+msgstr "找不到请求的页面。"
+
+msgid "Go to Wagtail admin"
+msgstr "转到管理界面"
+
+msgid "Account"
+msgstr "帐号"
+
+msgid "Change profile picture"
+msgstr "更改配置图片"
+
+msgid "Your current profile picture:"
+msgstr "你现在的头像"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Change email"
+msgstr "更改邮箱"
+
+msgid "Change name"
+msgstr "修改名字"
+
+msgid "Change password"
+msgstr "修改密码"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "您不能修改密码，请联系管理员。"
+
+msgid "Set Time Zone"
+msgstr "设置时区"
+
+msgid "Language Preferences"
+msgstr "语言首选项"
+
+msgid "Notification preferences"
+msgstr "提醒设置"
+
+msgid "Reset password"
+msgstr "重置密码"
+
+msgid "Password change successful"
+msgstr "密码修改成功。"
+
+msgid "Login"
+msgstr "登录"
+
+msgid "Set your new password"
+msgstr "设置新密码"
+
+msgid "Invalid password reset link"
+msgstr "忘记密码"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "密码重置链接已被使用。"
+
+msgid "Request a new password reset"
+msgstr "请求重新设置密码"
+
+msgid "Check your email"
+msgstr "检查您的邮件"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr "一个密码重置链接将被发送到该地址。"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "请点击下面的链接来重置密码"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "以防遗忘，请填写你的用户名:"
+
+msgid "Password reset"
+msgstr "密码已重置。"
+
+msgid "Reset your password"
+msgstr "重设密码"
+
 msgid "Dashboard"
 msgstr "控制面板"
 
 msgid "Menu"
 msgstr "菜单"
-
-msgid "Add another"
-msgstr "添加另外一个"
 
 msgid "Move up"
 msgstr "上移"
@@ -402,6 +523,12 @@ msgstr "外部链接"
 msgid "Email link"
 msgstr "电子邮件链接"
 
+msgid "Phone link"
+msgstr "电话链接"
+
+msgid "Anchor link"
+msgstr "锚链"
+
 #, python-format
 msgid ""
 "\n"
@@ -415,6 +542,12 @@ msgstr[0] ""
 "\n"
 "            有%(counter)s条匹配结果\n"
 "        "
+
+msgid "Add an anchor link"
+msgstr "添加一个锚链"
+
+msgid "Insert anchor"
+msgstr "插入锚链"
 
 msgid "Choose"
 msgstr "选择"
@@ -446,6 +579,9 @@ msgstr "插入链接"
 msgid "Add an external link"
 msgstr "添加一个外部链接"
 
+msgid "Add a phone link"
+msgstr "添加一个电话链接"
+
 msgid "Collection privacy"
 msgstr "集合私有设置"
 
@@ -465,8 +601,14 @@ msgstr "保存"
 msgid "Privacy"
 msgstr "私有设置"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "设置选集的隐私状态。当前状态：公开"
+
 msgid "Public"
 msgstr "公开"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "设置选集的隐私状态。当前状态：私密"
 
 msgid "Private"
 msgstr "私有"
@@ -556,6 +698,22 @@ msgstr "发布"
 msgid "Site summary"
 msgstr "网站摘要"
 
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"在<span class=\"visuallyhidden\">%(site_name)s</span>中共创建了<span>"
+"%(total)s</span>个页面"
+
 msgid "Sign in"
 msgstr "登录"
 
@@ -624,11 +782,29 @@ msgstr "私有设置也会应用到此页面的所有子页面。"
 msgid "Edit lock"
 msgstr "编辑锁定"
 
+msgid "Remove editor lock. Current status: Locked"
+msgstr "移除编辑锁。当前状态：锁定"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "应用编辑锁。当前状态：未锁定"
+
 msgid "Locked"
 msgstr "已锁定"
 
 msgid "Unlocked"
 msgstr "已解锁"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "设置页面的隐私状态。当前状态：公开"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "设置页面的隐私状态。当前状态：私密"
+
+msgid "Page privacy. Current status: Public"
+msgstr "页面的隐私状态。当前状态：公开"
+
+msgid "Page privacy. Current status: Private"
+msgstr "页面的隐私状态。当前状态：私密"
 
 msgid "Publishing…"
 msgstr "正在发布..."
@@ -636,8 +812,14 @@ msgstr "正在发布..."
 msgid "Publish this revision"
 msgstr "发布这个版本"
 
-msgid "Publish"
-msgstr "发布"
+msgid "Saving…"
+msgstr "正在保存..."
+
+msgid "Replace current draft"
+msgstr "替换当前的草稿"
+
+msgid "Save draft"
+msgstr "保存草稿"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -762,11 +944,8 @@ msgstr "新%(page_type)s页面类型"
 msgid "New"
 msgstr "新"
 
-msgid "Saving…"
-msgstr "正在保存..."
-
-msgid "Save draft"
-msgstr "保存草稿"
+msgid "Actions"
+msgstr "动作"
 
 msgid "This page has unsaved changes."
 msgstr "页面还没保存"
@@ -778,12 +957,6 @@ msgstr "编辑 %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "编辑 %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "页面已锁定"
-
-msgid "Replace current draft"
-msgstr "替换当前的草稿"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -891,6 +1064,9 @@ msgstr "添加子页面"
 msgid "Sites menu"
 msgstr "站点菜单"
 
+msgid "Pagination"
+msgstr "分页"
+
 #, python-format
 msgid ""
 "\n"
@@ -911,6 +1087,9 @@ msgstr "此页面已受保护，公众不可见。"
 
 msgid "Disable ordering of child pages"
 msgstr "禁用子页面排序"
+
+msgid "Sort"
+msgstr "排序"
 
 msgid "Enable ordering of child pages"
 msgstr "启用子页面排序"
@@ -1075,6 +1254,9 @@ msgstr "集合"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第 %(page_num)s 页，共 %(total_pages)s 页。"
 
+msgid "Breadcrumb"
+msgstr "面包屑导航"
+
 msgid "Root"
 msgstr "根"
 
@@ -1092,6 +1274,12 @@ msgstr "帐号设置"
 
 msgid "Log out"
 msgstr "注销"
+
+msgid "Visit the live page"
+msgstr "查看已发布的页面"
+
+msgid "Current page status:"
+msgstr "当前页面状态："
 
 msgid "Other searches"
 msgstr "其它搜索"
@@ -1129,92 +1317,29 @@ msgstr "添加子页面"
 msgid "Show in Explorer"
 msgstr "在资源管理器中显示"
 
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr "以'%(label)s'顺序排列'%(parent)s'的子页面"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr "以'%(label)s'倒序排列'%(parent)s'的子页面"
+
 msgid "Test"
 msgstr "测试"
-
-msgid "Arabic"
-msgstr "阿拉伯语"
-
-msgid "Catalan"
-msgstr "加泰罗尼亚语"
-
-msgid "German"
-msgstr "德语"
-
-msgid "Greek"
-msgstr "希腊语"
-
-msgid "English"
-msgstr "英语"
-
-msgid "Spanish"
-msgstr "西班牙语"
-
-msgid "Finnish"
-msgstr "芬兰语"
-
-msgid "French"
-msgstr "法语"
-
-msgid "Galician"
-msgstr "加利西亚语"
-
-msgid "Indonesian"
-msgstr "印度尼西亚"
-
-msgid "Icelandic"
-msgstr "冰岛语"
-
-msgid "Italian"
-msgstr "意大利语"
-
-msgid "Korean"
-msgstr "韩国语"
-
-msgid "Lithuanian"
-msgstr "立陶宛语"
-
-msgid "Norwegian Bokmål"
-msgstr "挪威博克马尔语"
-
-msgid "Netherlands Dutch"
-msgstr "荷兰语"
-
-msgid "Persian"
-msgstr "波斯语"
-
-msgid "Polish"
-msgstr "波兰语"
-
-msgid "Brazilian Portuguese"
-msgstr "巴西葡萄牙语"
-
-msgid "Portuguese"
-msgstr "葡萄牙语"
-
-msgid "Romanian"
-msgstr "罗马尼亚语"
-
-msgid "Russian"
-msgstr "俄语"
-
-msgid "Swedish"
-msgstr "瑞典语"
-
-msgid "Slovak"
-msgstr "斯洛伐克语"
-
-msgid "Ukrainian"
-msgstr "乌克兰语"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "对不起， 你没有权限访问。"
 
 msgid "Your password has been changed successfully!"
 msgstr "密码成功修改！"
 
 msgid "Your email has been changed successfully!"
 msgstr "修改邮箱成功！😊"
+
+msgid "Your name has been changed successfully!"
+msgstr "您的名字已修改成功！"
 
 msgid "Your preferences have been updated."
 msgstr "你的首选项已被更新。"
@@ -1321,6 +1446,11 @@ msgstr "页面'{0}'已删除"
 msgid "Page '{0}' unpublished."
 msgstr "页面'{0}'已取消发布。"
 
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr "简称 '{0}' 已经被选中的父页面使用。请确保简称的唯一性，然后重试"
+
 msgid "Page '{0}' moved."
 msgstr "页面 '{0}' 已移动。"
 
@@ -1371,44 +1501,54 @@ msgstr " \"{1}\"的修订版本{0}"
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr " \"{1}\"的修订版本{0}已取消预定的发布。"
 
-msgid "Edit '{title}'"
-msgstr "编辑 '{title}'"
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "编辑“%(title)s”"
 
-msgid "Preview draft version of '{title}'"
-msgstr "预览 '{title}' 的草稿"
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "预览“%(title)s”的草稿版本"
 
-msgid "View live version of '{title}'"
-msgstr "查看 '{title}' 的发布版本"
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "查看 '%(title)s' 的发布版本"
 
-msgid "Add a child page to '{title}' "
-msgstr "为 '{title}' 添加子页面"
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "添加“%(title)s”的子页面"
 
 msgid "More"
 msgstr "更多"
 
-msgid "View more options for '{title}'"
-msgstr "查看 '{title}' 的更多选项"
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "查看“%(title)s”的更多选项"
 
-msgid "Move page '{title}'"
-msgstr "移动页面 '{title}'"
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "移动页面“%(title)s”"
 
-msgid "Copy page '{title}'"
-msgstr "复制页面 '{title}'"
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "复制页面“%(title)s”"
 
-msgid "Delete page '{title}'"
-msgstr "删除页面 '{title}'"
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "删除页面“%(title)s”"
 
-msgid "Unpublish page '{title}'"
-msgstr "取消发布页面 '{title}'"
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "取消发布页面“%(title)s”"
 
-msgid "View revision history for '{title}'"
-msgstr "查看 '{title}' 的修订历史"
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "查看“%(title)s”的版本历史"
 
 msgid "Set profile picture"
 msgstr "头像设置"
 
-msgid "Change your profile picture"
-msgstr "更改你的头像"
+msgid "Change your profile picture."
+msgstr "更改您的头像。"
 
 msgid "Change the email address linked to your account."
 msgstr "更改账户关联邮箱"
@@ -1431,14 +1571,21 @@ msgstr "当前时区"
 msgid "Choose your current time zone."
 msgstr "选择你的当前时区"
 
-msgid "Heading {level}"
-msgstr "标题{level}"
+msgid "Change your first and last name on your account."
+msgstr "更改账户的姓名"
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "标题%(level)d"
 
 msgid "Bulleted list"
 msgstr "项目列表"
 
 msgid "Numbered list"
 msgstr "编号列表"
+
+msgid "Blockquote"
+msgstr "块引用"
 
 msgid "Bold"
 msgstr "粗体"
@@ -1448,6 +1595,18 @@ msgstr "斜体"
 
 msgid "Link"
 msgstr "链接"
+
+msgid "Superscript"
+msgstr "上标"
+
+msgid "Subscript"
+msgstr "下标"
+
+msgid "Strikethrough"
+msgstr "中划线"
+
+msgid "Code"
+msgstr "代码"
 
 msgid "Choose an item"
 msgstr "选择一项"

@@ -1,5 +1,7 @@
 from collections import OrderedDict
 
+from rest_framework.authentication import SessionAuthentication
+
 from wagtail.api.v2.endpoints import PagesAPIEndpoint
 from wagtail.api.v2.filters import (
     ChildOfFilter, DescendantOfFilter, FieldsFilter, ForExplorerFilter, OrderingFilter,
@@ -13,6 +15,7 @@ from .serializers import AdminPageSerializer
 
 class PagesAdminAPIEndpoint(PagesAPIEndpoint):
     base_serializer_class = AdminPageSerializer
+    authentication_classes = [SessionAuthentication]
 
     # Use unrestricted child_of/descendant_of filters
     # Add has_children filter
@@ -32,6 +35,7 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
         'children',
         'descendants',
         'parent',
+        'ancestors',
     ]
 
     body_fields = PagesAPIEndpoint.body_fields + [

@@ -16,10 +16,9 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.core import hooks
 from wagtail.core.models import BaseViewRestriction
 from wagtail.core.wagtail_hooks import require_wagtail_login
-from wagtail.documents import admin_urls
+from wagtail.documents import admin_urls, get_document_model
 from wagtail.documents.api.admin.endpoints import DocumentsAdminAPIEndpoint
 from wagtail.documents.forms import GroupDocumentPermissionFormSet
-from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.documents.rich_text import DocumentLinkHandler
 from wagtail.documents.rich_text.contentstate import ContentstateDocumentLinkConversionRule

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -24,6 +24,9 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "Publicar"
+
 msgid "Submit for moderation"
 msgstr "Enviar para moderação"
 
@@ -32,6 +35,12 @@ msgstr "Despublicar"
 
 msgid "Delete"
 msgstr "Apagar"
+
+msgid "Page locked"
+msgstr "Página trancada"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Desculpe, não tem permissão para aceder a esta área."
 
 msgid "You do not have permission to access the admin"
 msgstr "Você não tem permissão para aceder à administração."
@@ -60,9 +69,6 @@ msgstr "Introduza %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Introduza o seu e-mail para reinicializar a sua senha"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -141,54 +147,6 @@ msgstr "Este campo é obrigatório."
 msgid "Please select at least one group."
 msgstr "Por favor selecione pelo menos um grupo."
 
-msgid "Go to Wagtail admin"
-msgstr "Ir para a administração do Wagtail"
-
-msgid "Account"
-msgstr "Conta"
-
-msgid "Update"
-msgstr "Atualizar"
-
-msgid "Change password"
-msgstr "Alterar senha"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"A sua senha não pode ser alterada aqui. Por favor contacte um administrador "
-"do site."
-
-msgid "Notification preferences"
-msgstr "Preferências de notificação"
-
-msgid "Reset password"
-msgstr "Reinicializar senha"
-
-msgid "Password change successful"
-msgstr "Senha alterada com sucesso"
-
-msgid "Login"
-msgstr "Entrar"
-
-msgid "Set your new password"
-msgstr "Defina a sua nova senha"
-
-msgid "Check your email"
-msgstr "Verifique o seu e-mail"
-
-msgid "Please follow the link below to reset your password:"
-msgstr "Por favor siga o link abaixo para reinicializar a sua senha:"
-
-msgid "Your username (in case you've forgotten):"
-msgstr "O seu utilizador (caso o tenha esquecido):"
-
-msgid "Password reset"
-msgstr "Reinicializar senha"
-
-msgid "Reset your password"
-msgstr "Reinicialize a sua senha"
-
 msgid "Pages"
 msgstr "Páginas"
 
@@ -249,14 +207,59 @@ msgstr "Sex"
 msgid "Sat"
 msgstr "Sáb"
 
+msgid "Go to Wagtail admin"
+msgstr "Ir para a administração do Wagtail"
+
+msgid "Account"
+msgstr "Conta"
+
+msgid "Update"
+msgstr "Atualizar"
+
+msgid "Change password"
+msgstr "Alterar senha"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"A sua senha não pode ser alterada aqui. Por favor contacte um administrador "
+"do site."
+
+msgid "Notification preferences"
+msgstr "Preferências de notificação"
+
+msgid "Reset password"
+msgstr "Reinicializar senha"
+
+msgid "Password change successful"
+msgstr "Senha alterada com sucesso"
+
+msgid "Login"
+msgstr "Entrar"
+
+msgid "Set your new password"
+msgstr "Defina a sua nova senha"
+
+msgid "Check your email"
+msgstr "Verifique o seu e-mail"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Por favor siga o link abaixo para reinicializar a sua senha:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "O seu utilizador (caso o tenha esquecido):"
+
+msgid "Password reset"
+msgstr "Reinicializar senha"
+
+msgid "Reset your password"
+msgstr "Reinicialize a sua senha"
+
 msgid "Dashboard"
 msgstr "Painel de controlo"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Adicionar outro"
 
 msgid "Move up"
 msgstr "Subir"
@@ -482,8 +485,11 @@ msgstr "Destrancada"
 msgid "Publish this revision"
 msgstr "Publicar esta versão."
 
-msgid "Publish"
-msgstr "Publicar"
+msgid "Replace current draft"
+msgstr "Substituir rascunho atual."
+
+msgid "Save draft"
+msgstr "Guardar rascunho"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -618,9 +624,6 @@ msgstr "Nova %(page_type)s"
 msgid "New"
 msgstr "Nova"
 
-msgid "Save draft"
-msgstr "Guardar rascunho"
-
 msgid "This page has unsaved changes."
 msgstr "Esta página tem alterações por guardar."
 
@@ -631,12 +634,6 @@ msgstr "A alterar %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "A alterar %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Página trancada"
-
-msgid "Replace current draft"
-msgstr "Substituir rascunho atual."
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -880,9 +877,6 @@ msgstr "Mostrar no Explorador"
 
 msgid "Test"
 msgstr "Teste"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Desculpe, não tem permissão para aceder a esta área."
 
 msgid "Your password has been changed successfully!"
 msgstr "A sua senha foi alterada com sucesso!"

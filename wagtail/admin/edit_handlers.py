@@ -3,6 +3,7 @@ import re
 
 from django import forms
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.db.models.fields import CharField, TextField
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
@@ -500,6 +501,10 @@ class FieldPanel(EditHandler):
 
             if isinstance(field, RichTextField):
                 return compare.RichTextFieldComparison
+
+            if isinstance(field, (CharField, TextField)):
+                return compare.TextFieldComparison
+
         except FieldDoesNotExist:
             pass
 

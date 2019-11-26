@@ -10,8 +10,8 @@ from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.core.models import Collection
 from wagtail.search.backends import get_search_backends
 
+from .. import get_document_model
 from ..forms import get_document_form, get_document_multi_form
-from ..models import get_document_model
 from ..permissions import permission_policy
 
 permission_checker = PermissionPolicyChecker(permission_policy)

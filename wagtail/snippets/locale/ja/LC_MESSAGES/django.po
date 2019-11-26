@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-09-17 03:18+0000\n"
-"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +49,15 @@ msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "\"<em>%(query_string)s</em>\"に一致する結果はありません。"
 
 #, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
+msgstr ""
+"まだ%(snippet_type_name)sの形式のスニペットが作成されていません。<a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">作成しますか？"
+
+#, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "%(snippet_type_name)sを削除"
 
@@ -56,8 +65,17 @@ msgid "Delete "
 msgstr "削除"
 
 #, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s回使用"
+
+#, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
 msgstr "%(snippet_type_name)sを削除してよろしいですか？"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "%(count)s件の%(snippet_type_name)sを削除してよろしいですか？"
 
 msgid "Yes, delete"
 msgstr "はい、削除します"
@@ -143,26 +161,14 @@ msgstr "ページを編集"
 msgid "Search %(snippet_type_name)s"
 msgstr "%(snippet_type_name)sを検索"
 
-msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' が作成されました。"
-
 msgid "Edit"
 msgstr "編集"
 
 msgid "The snippet could not be created due to errors."
 msgstr "このスニペットはエラーにより作成されませんでした。"
 
-msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}'が更新されました。"
-
 msgid "The snippet could not be saved due to errors."
 msgstr "このスニペットはエラーにより保存されませんでした。"
-
-msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}'が削除されました。"
-
-msgid "{count} {snippet_type} deleted."
-msgstr "{snippet_type} が {count} 件削除されました。"
 
 #, python-format
 msgid "Choose %s"

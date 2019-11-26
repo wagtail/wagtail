@@ -4,15 +4,17 @@
 #
 # Translators:
 # Benjamin Thurm, 2018
+# Ettore Atalan <atalanttore@googlemail.com>, 2019
 # Henrik Kröger <hedwig@riseup.net>, 2018
+# Johannes Fleck, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-31 14:37+0000\n"
+"Last-Translator: Johannes Fleck\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -115,6 +117,9 @@ msgstr "Zurück zur Liste"
 msgid "Yes, delete"
 msgstr "Ja, löschen"
 
+msgid "No, don't delete"
+msgstr "Nein, nicht löschen"
+
 msgid "Home"
 msgstr "Home"
 
@@ -161,6 +166,9 @@ msgstr ""
 "Sie doch eine hinzu!</a>\n"
 "                                            "
 
+msgid "Pagination"
+msgstr "Seitennummerierung"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Seite %(current_page)s von %(num_pages)s."
@@ -175,8 +183,9 @@ msgstr "Vorherige"
 msgid "Next"
 msgstr "Nächste"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' erstellt."
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' erstellt."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -196,8 +205,9 @@ msgstr "Bearbeiten"
 msgid "Editing %s"
 msgstr "%s bearbeiten"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' geändert."
+#, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' geändert."
 
 #, python-format
 msgid "The %s could not be saved due to errors."
@@ -215,8 +225,9 @@ msgstr ""
 "Sind Sie sicher, dass Sie diese(s) %s löschen möchten? Andere Objekte, die "
 "damit verknüpft sind, können davon beeinträchtigt werden."
 
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' gelöscht."
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' gelöscht."
 
 msgid "Inspecting"
 msgstr "Ansehen"

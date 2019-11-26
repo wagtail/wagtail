@@ -11,7 +11,7 @@ Wagtail is currently compatible with Django 2.0, 2.1 and 2.2. First, install the
 
     $ pip install wagtail
 
-or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Settings
 --------
@@ -64,7 +64,7 @@ Add a ``WAGTAIL_SITE_NAME`` - this will be displayed on the main dashboard of th
 
     WAGTAIL_SITE_NAME = 'My Example Site'
 
-Various other settings are available to configure Wagtail's behaviour - see :doc:`/advanced_topics/settings`.
+Various other settings are available to configure Wagtail's behaviour - see :doc:`/reference/settings`.
 
 URL configuration
 -----------------

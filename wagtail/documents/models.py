@@ -1,9 +1,9 @@
 import hashlib
 import os.path
+import warnings
 from contextlib import contextmanager
 
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from django.dispatch import Signal
 from django.urls import reverse
@@ -14,10 +14,19 @@ from wagtail.admin.models import get_object_usage
 from wagtail.core.models import CollectionMember
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
+from wagtail.utils.deprecation import RemovedInWagtail210Warning
 
 
 class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
+
+
+def get_document_model():
+    warnings.warn("wagtail.documents.models.get_document_model "
+                  "has been moved to wagtail.documents.get_document_model",
+                  RemovedInWagtail210Warning)
+    from wagtail.documents import get_document_model
+    return get_document_model()
 
 
 class AbstractDocument(CollectionMember, index.Indexed, models.Model):
@@ -161,31 +170,6 @@ class Document(AbstractDocument):
         'collection',
         'tags'
     )
-
-
-def get_document_model():
-    """
-    Get the document model from the ``WAGTAILDOCS_DOCUMENT_MODEL`` setting.
-    Defauts to the standard :class:`~wagtail.documents.models.Document` model
-    if no custom model is defined.
-    """
-    from django.conf import settings
-    from django.apps import apps
-
-    try:
-        app_label, model_name = settings.WAGTAILDOCS_DOCUMENT_MODEL.split('.')
-    except AttributeError:
-        return Document
-    except ValueError:
-        raise ImproperlyConfigured("WAGTAILDOCS_DOCUMENT_MODEL must be of the form 'app_label.model_name'")
-
-    document_model = apps.get_model(app_label, model_name)
-    if document_model is None:
-        raise ImproperlyConfigured(
-            "WAGTAILDOCS_DOCUMENT_MODEL refers to model '%s' that has not been installed" %
-            settings.WAGTAILDOCS_DOCUMENT_MODEL
-        )
-    return document_model
 
 
 document_served = Signal(providing_args=['request'])

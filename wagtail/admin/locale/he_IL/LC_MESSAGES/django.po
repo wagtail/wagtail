@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
 "1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
+msgid "Publish"
+msgstr "פרסם"
+
 msgid "Submit for moderation"
 msgstr "שלח לעריכה"
 
@@ -30,6 +33,9 @@ msgstr "ביטול פרסום"
 
 msgid "Delete"
 msgstr "מחק"
+
+msgid "Page locked"
+msgstr "עמוד נעול"
 
 msgid "Wagtail admin"
 msgstr "ממשק הניהול של Wagtail"
@@ -61,9 +67,6 @@ msgstr "הזינו את ה%s שלכם"
 
 msgid "Enter your email address to reset your password"
 msgstr "הזינו את כתובת הדוא\"ל שלכם כדי לאתחל את הסיסמה"
-
-msgid "URL"
-msgstr "כתובת "
 
 msgid "New title"
 msgstr "כותרת חדשה"
@@ -139,43 +142,6 @@ msgstr "ערך לחיפוש"
 msgid "This field is required."
 msgstr "שדה חובה"
 
-msgid "Account"
-msgstr "חשבון"
-
-msgid "Update"
-msgstr "עדכן"
-
-msgid "Change password"
-msgstr "שינוי סיסמה"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "אי אפשר לשנות את הסיסמה. נא לפנות למנהל האתר."
-
-msgid "Notification preferences"
-msgstr "העדפות התראות"
-
-msgid "Reset password"
-msgstr "איתחול סיסמה"
-
-msgid "Password change successful"
-msgstr "שינוי סיסמה בוצע בהצלחה"
-
-msgid "Login"
-msgstr "התחברות"
-
-msgid "Set your new password"
-msgstr "הגדרת סיסמה חדשה"
-
-msgid "Check your email"
-msgstr "בדקו את תיבת הדואר האלקטרוני שלכם"
-
-msgid "Password reset"
-msgstr "איתחול סיסמה"
-
-msgid "Reset your password"
-msgstr "אתחלו את סיסמתכם"
-
 msgid "January"
 msgstr "ינואר"
 
@@ -233,14 +199,48 @@ msgstr "שישי"
 msgid "Sat"
 msgstr "שבת"
 
+msgid "Account"
+msgstr "חשבון"
+
+msgid "Update"
+msgstr "עדכן"
+
+msgid "Change password"
+msgstr "שינוי סיסמה"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "אי אפשר לשנות את הסיסמה. נא לפנות למנהל האתר."
+
+msgid "Notification preferences"
+msgstr "העדפות התראות"
+
+msgid "Reset password"
+msgstr "איתחול סיסמה"
+
+msgid "Password change successful"
+msgstr "שינוי סיסמה בוצע בהצלחה"
+
+msgid "Login"
+msgstr "התחברות"
+
+msgid "Set your new password"
+msgstr "הגדרת סיסמה חדשה"
+
+msgid "Check your email"
+msgstr "בדקו את תיבת הדואר האלקטרוני שלכם"
+
+msgid "Password reset"
+msgstr "איתחול סיסמה"
+
+msgid "Reset your password"
+msgstr "אתחלו את סיסמתכם"
+
 msgid "Dashboard"
 msgstr "לוח מחוונים"
 
 msgid "Menu"
 msgstr "תפריט"
-
-msgid "Add another"
-msgstr "הוסיפו עוד"
 
 msgid "Move up"
 msgstr "עברו מעלה"
@@ -426,8 +426,8 @@ msgstr "בלתי נעול"
 msgid "Publishing…"
 msgstr "מפרסם..."
 
-msgid "Publish"
-msgstr "פרסם"
+msgid "Save draft"
+msgstr "שמור טיוטה"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -523,9 +523,6 @@ msgstr "%(page_type)s חדש"
 msgid "New"
 msgstr "חדש "
 
-msgid "Save draft"
-msgstr "שמור טיוטה"
-
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "עריכת %(page_type)s: %(title)s"
@@ -533,9 +530,6 @@ msgstr "עריכת %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "עריכת %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "עמוד נעול"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

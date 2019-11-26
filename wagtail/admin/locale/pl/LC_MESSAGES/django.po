@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-25 10:15+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,9 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
+msgid "Publish"
+msgstr "Opublikuj"
+
 msgid "Submit for moderation"
 msgstr "Przekaż do przeglądu"
 
@@ -38,14 +41,23 @@ msgstr "Cofnij publikację"
 msgid "Delete"
 msgstr "Usuń"
 
+msgid "Save Draft"
+msgstr "Zapisz szkic"
+
+msgid "Page locked"
+msgstr "Strona zablokowana"
+
 msgid "Wagtail admin"
 msgstr "Admin Wagtail"
 
-msgid "None"
-msgstr "Brak"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Przepraszamy, ale nie posiadasz praw dostępu do tego miejsca."
 
 msgid "You do not have permission to access the admin"
 msgstr "Nie posiadasz praw dostępu do części administracyjnej"
+
+msgid "None"
+msgstr "Brak"
 
 msgid "Scheduled publishing"
 msgstr "Zaplanowane opublikowanie"
@@ -71,9 +83,6 @@ msgstr "Wpisz %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Podaj swój adres email aby zresetować hasło"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej kolekcji."
@@ -166,97 +175,101 @@ msgstr "To pole jest wymagane."
 msgid "Please select at least one group."
 msgstr "Proszę wybrać co najmniej jedną grupę"
 
-msgid "Error 404: Page not found"
-msgstr "Błąd 404: Strona nie została znaleziona"
+msgid "Arabic"
+msgstr "Arabski ęzyk"
 
-msgid "Error 404"
-msgstr "Błąd 404"
+msgid "Catalan"
+msgstr "Kataloński"
 
-msgid "The requested page could not be found."
-msgstr "Żądana strona nie została znaleziona."
+msgid "Czech"
+msgstr "Czeski"
 
-msgid "Go to Wagtail admin"
-msgstr "Idź do panelu administratora Wagtaila"
+msgid "German"
+msgstr "Niemiecki"
 
-msgid "Account"
-msgstr "Konto"
+msgid "Greek"
+msgstr "Grecki"
 
-msgid "Change profile picture"
-msgstr "Zmień zdjęcie profilu"
+msgid "English"
+msgstr "Angielski"
 
-msgid "Your current profile picture:"
-msgstr "Obecne zdjęcie Twojego profilu:"
+msgid "Spanish"
+msgstr "Hiszpański"
 
-msgid "Update"
-msgstr "Uaktualnij"
+msgid "Finnish"
+msgstr "Fiński"
 
-msgid "Change email"
-msgstr "Zmień email"
+msgid "French"
+msgstr "Francuski"
 
-msgid "Change password"
-msgstr "Zmień hasło"
+msgid "Galician"
+msgstr "Galicyjski"
 
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Twoje hasło nie może być zmienione. Proszę skontaktować się z "
-"administratorem."
+msgid "Hungarian"
+msgstr "Węgierski"
 
-msgid "Set Time Zone"
-msgstr "Ustaw strefę czasową"
+msgid "Indonesian"
+msgstr "Indonezyjski"
 
-msgid "Language Preferences"
-msgstr "Ustawienia Językowe"
+msgid "Icelandic"
+msgstr "Islandzki"
 
-msgid "Notification preferences"
-msgstr "Ustawienia powiadomień"
+msgid "Italian"
+msgstr "Włoski"
 
-msgid "Reset password"
-msgstr "Resetuj hasło"
+msgid "Japanese"
+msgstr "Japoński"
 
-msgid "Password change successful"
-msgstr "Zmiana hasła przebiegła poprawnie"
+msgid "Korean"
+msgstr "Koreański"
 
-msgid "Login"
-msgstr "Login"
+msgid "Lithuanian"
+msgstr "Litewski"
 
-msgid "Set your new password"
-msgstr "Ustaw nowe hasło"
+msgid "Mongolian"
+msgstr "Mongolski"
 
-msgid "Invalid password reset link"
-msgstr "Nieprawidłowy link do resetu hasła"
+msgid "Norwegian Bokmål"
+msgstr "Norweski Bokmål"
 
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used."
-msgstr ""
-"Link do resetu hasła był nieprawidłowy, prawdopodobnie został wykorzystany "
-"już wcześniej."
+msgid "Netherlands Dutch"
+msgstr "Holenderski"
 
-msgid "Request a new password reset"
-msgstr "Zarządaj nowego resetu hasła"
+msgid "Persian"
+msgstr "Perski"
 
-msgid "Check your email"
-msgstr "Sprawdz swoją skrzynkę pocztową"
+msgid "Polish"
+msgstr "Polski"
 
-msgid ""
-"A link to reset your password has been emailed to you if an account exists "
-"for this address."
-msgstr ""
-"Jeżeli konto istnieje w systemie, na Twój email został wysłany link do "
-"resetu Twojego hasła."
+msgid "Brazilian Portuguese"
+msgstr "Portugalski Brazylijski"
 
-msgid "Please follow the link below to reset your password:"
-msgstr "Użyj linku poniżej w celu zresetowania hasła:"
+msgid "Portuguese"
+msgstr "Portugalski"
 
-msgid "Your username (in case you've forgotten):"
-msgstr "Twoja nazwa użytkownika (na wypadek, gdybyś jej zapomniał):"
+msgid "Romanian"
+msgstr "Rumuński"
 
-msgid "Password reset"
-msgstr "Reset hasła"
+msgid "Russian"
+msgstr "Rosyjski"
 
-msgid "Reset your password"
-msgstr "Zresetuj swoje hasło"
+msgid "Swedish"
+msgstr "Szwedzki"
+
+msgid "Slovak"
+msgstr "Słowacki"
+
+msgid "Thai"
+msgstr "Tajski"
+
+msgid "Ukrainian"
+msgstr "Ukraiński"
+
+msgid "Chinese (Simplified)"
+msgstr "Chiński (uproszczony)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chiński (tradycyjny)"
 
 msgid "Page"
 msgstr "Strona"
@@ -323,6 +336,15 @@ msgstr "Brakujący dokument"
 
 msgid "Close"
 msgstr "Zamknij"
+
+msgid "Edit '{title}'"
+msgstr "Edytuj '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "Wyświetl podstrony dla '{title}'"
+
+msgid "Page explorer"
+msgstr "Przeglądarka stron"
 
 msgid "January"
 msgstr "Styczeń"
@@ -402,14 +424,106 @@ msgstr "Pt"
 msgid "Sat"
 msgstr "Sob"
 
+msgid "Error 404: Page not found"
+msgstr "Błąd 404: Strona nie została znaleziona"
+
+msgid "Error 404"
+msgstr "Błąd 404"
+
+msgid "The requested page could not be found."
+msgstr "Żądana strona nie została znaleziona."
+
+msgid "Go to Wagtail admin"
+msgstr "Idź do panelu administratora Wagtaila"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Change profile picture"
+msgstr "Zmień zdjęcie profilu"
+
+msgid "Your current profile picture:"
+msgstr "Obecne zdjęcie Twojego profilu:"
+
+msgid "Update"
+msgstr "Uaktualnij"
+
+msgid "Change email"
+msgstr "Zmień email"
+
+msgid "Change name"
+msgstr "Zmień nazwę"
+
+msgid "Change password"
+msgstr "Zmień hasło"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Twoje hasło nie może być zmienione. Proszę skontaktować się z "
+"administratorem."
+
+msgid "Set Time Zone"
+msgstr "Ustaw strefę czasową"
+
+msgid "Language Preferences"
+msgstr "Ustawienia Językowe"
+
+msgid "Notification preferences"
+msgstr "Ustawienia powiadomień"
+
+msgid "Reset password"
+msgstr "Resetuj hasło"
+
+msgid "Password change successful"
+msgstr "Zmiana hasła przebiegła poprawnie"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Set your new password"
+msgstr "Ustaw nowe hasło"
+
+msgid "Invalid password reset link"
+msgstr "Nieprawidłowy link do resetu hasła"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Link do resetu hasła był nieprawidłowy, prawdopodobnie został wykorzystany "
+"już wcześniej."
+
+msgid "Request a new password reset"
+msgstr "Zarządaj nowego resetu hasła"
+
+msgid "Check your email"
+msgstr "Sprawdz swoją skrzynkę pocztową"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Jeżeli konto istnieje w systemie, na Twój email został wysłany link do "
+"resetu Twojego hasła."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Użyj linku poniżej w celu zresetowania hasła:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Twoja nazwa użytkownika (na wypadek, gdybyś jej zapomniał):"
+
+msgid "Password reset"
+msgstr "Reset hasła"
+
+msgid "Reset your password"
+msgstr "Zresetuj swoje hasło"
+
 msgid "Dashboard"
 msgstr "Kokpit"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Dodaj kolejny"
 
 msgid "Move up"
 msgstr "Przesuń w górę"
@@ -428,6 +542,12 @@ msgstr "Link zewnętrzny"
 
 msgid "Email link"
 msgstr "Wyślij link pocztą email"
+
+msgid "Phone link"
+msgstr "Link telefonu"
+
+msgid "Anchor link"
+msgstr "Kotwica"
 
 #, python-format
 msgid ""
@@ -454,6 +574,12 @@ msgstr[3] ""
 "\n"
 "        Znaleziono %(counter)s dopasowań\n"
 "    "
+
+msgid "Add an anchor link"
+msgstr "Dodaj link do kotwicy"
+
+msgid "Insert anchor"
+msgstr "Dodaj kotwicę"
 
 msgid "Choose"
 msgstr "Wybierz"
@@ -498,6 +624,9 @@ msgstr "Wstaw link"
 msgid "Add an external link"
 msgstr "Dodaj link zewnętrzny"
 
+msgid "Add a phone link"
+msgstr "Dodaj link do telefonu"
+
 msgid "Collection privacy"
 msgstr "Prywatność kolekcji"
 
@@ -519,8 +648,14 @@ msgstr "Zapisz"
 msgid "Privacy"
 msgstr "Prywatność"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Ustaw widoczność kolekcji. Aktualna widoczność: Publiczna"
+
 msgid "Public"
 msgstr "Publiczna"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Ustaw widoczność kolekcji. Aktualna widoczność: Prywatna"
 
 msgid "Private"
 msgstr "Prywatna"
@@ -613,6 +748,37 @@ msgstr "Opublikowana"
 msgid "Site summary"
 msgstr "Streszczenie strony"
 
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"            <span>%(total)s</span> strona <span class=\"visuallyhidden"
+"\">utworzona w %(site_name)s</span>\n"
+"        "
+msgstr[1] ""
+"\n"
+"            <span>%(total)s</span> stron <span class=\"visuallyhidden"
+"\">utworzonych w %(site_name)s</span>\n"
+"        "
+msgstr[2] ""
+"\n"
+"            <span>%(total)s</span> stron <span class=\"visuallyhidden"
+"\">utworzonych w %(site_name)s</span>\n"
+"        "
+msgstr[3] ""
+"\n"
+"            <span>%(total)s</span> stron utworzonych w %(site_name)s</span>\n"
+"        "
+
 msgid "Sign in"
 msgstr "Zaloguj się"
 
@@ -684,11 +850,29 @@ msgstr ""
 msgid "Edit lock"
 msgstr "Edytuj blokadę"
 
+msgid "Remove editor lock. Current status: Locked"
+msgstr "Usuń blokadę edytorską. Aktualny status: Zablokowany"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "Ustaw blokadę edytorską. Aktualny status: Odblokowany"
+
 msgid "Locked"
 msgstr "Zablokowany"
 
 msgid "Unlocked"
 msgstr "Odblokowany"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Ustaw widoczność strony. Aktualny status: Publiczny"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Ustaw widoczność strony. Aktualny status: Prywatny"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Widoczność strony. Aktualny status: Publiczny"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Widoczność strony. Aktualny status: Prywatny"
 
 msgid "Publishing…"
 msgstr "Publikowanie..."
@@ -696,8 +880,14 @@ msgstr "Publikowanie..."
 msgid "Publish this revision"
 msgstr "Opublikuj tą rewizję"
 
-msgid "Publish"
-msgstr "Opublikuj"
+msgid "Saving…"
+msgstr "Zapisywanie..."
+
+msgid "Replace current draft"
+msgstr "Zastąp aktualny szkic"
+
+msgid "Save draft"
+msgstr "Zapisz szkic"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -852,11 +1042,8 @@ msgstr "Nowa %(page_type)s"
 msgid "New"
 msgstr "Nowy"
 
-msgid "Saving…"
-msgstr "Zapisywanie..."
-
-msgid "Save draft"
-msgstr "Zapisz szkic"
+msgid "Actions"
+msgstr "Akcje"
 
 msgid "This page has unsaved changes."
 msgstr "Strona posiada niezapisane zmiany"
@@ -868,12 +1055,6 @@ msgstr "Edycja %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Edycja %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Strona zablokowana"
-
-msgid "Replace current draft"
-msgstr "Zastąp aktualny szkic"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -986,6 +1167,9 @@ msgstr "Dodaj stronę podrzędną"
 
 msgid "Sites menu"
 msgstr "Menu serwisów"
+
+msgid "Pagination"
+msgstr "Stronicowanie"
 
 #, python-format
 msgid ""
@@ -1204,6 +1388,9 @@ msgstr "Kolekcja"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strona %(page_num)s z %(total_pages)s."
 
+msgid "Breadcrumb"
+msgstr "Breadcrumb"
+
 msgid "Root"
 msgstr "Główny"
 
@@ -1221,6 +1408,12 @@ msgstr "Ustawienia konta"
 
 msgid "Log out"
 msgstr "Wyloguj się"
+
+msgid "Visit the live page"
+msgstr "Odwiedź stronę \"na żywo\""
+
+msgid "Current page status:"
+msgstr "Aktualny status strony:"
 
 msgid "Other searches"
 msgstr "Inne wyszukiwania"
@@ -1260,104 +1453,29 @@ msgstr "Dodaj podstronę"
 msgid "Show in Explorer"
 msgstr "Pokaż w Przeglądarce"
 
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' rosnąco."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' malejąco."
+
 msgid "Test"
 msgstr "Test"
-
-msgid "Arabic"
-msgstr "Arabski ęzyk"
-
-msgid "Catalan"
-msgstr "Kataloński"
-
-msgid "German"
-msgstr "Niemiecki"
-
-msgid "Greek"
-msgstr "Grecki"
-
-msgid "English"
-msgstr "Angielski"
-
-msgid "Spanish"
-msgstr "Hiszpański"
-
-msgid "Finnish"
-msgstr "Fiński"
-
-msgid "French"
-msgstr "Francuski"
-
-msgid "Galician"
-msgstr "Galicyjski"
-
-msgid "Indonesian"
-msgstr "Indonezyjski"
-
-msgid "Icelandic"
-msgstr "Islandzki"
-
-msgid "Italian"
-msgstr "Włoski"
-
-msgid "Korean"
-msgstr "Koreański"
-
-msgid "Lithuanian"
-msgstr "Litewski"
-
-msgid "Mongolian"
-msgstr "Mongolski"
-
-msgid "Norwegian Bokmål"
-msgstr "Norweski Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Holenderski"
-
-msgid "Persian"
-msgstr "Perski"
-
-msgid "Polish"
-msgstr "Polski"
-
-msgid "Brazilian Portuguese"
-msgstr "Portugalski Brazylijski"
-
-msgid "Portuguese"
-msgstr "Portugalski"
-
-msgid "Romanian"
-msgstr "Rumuński"
-
-msgid "Russian"
-msgstr "Rosyjski"
-
-msgid "Swedish"
-msgstr "Szwedzki"
-
-msgid "Slovak"
-msgstr "Słowacki"
-
-msgid "Thai"
-msgstr "Tajski"
-
-msgid "Ukrainian"
-msgstr "Ukraiński"
-
-msgid "Chinese (Simplified)"
-msgstr "Chiński (uproszczony)"
-
-msgid "Chinese (Traditional)"
-msgstr "Chiński (tradycyjny)"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Przepraszamy, ale nie posiadasz praw dostępu do tego miejsca."
 
 msgid "Your password has been changed successfully!"
 msgstr "Twoje hasło zostało zmienione poprawnie!"
 
 msgid "Your email has been changed successfully!"
 msgstr "Twój email został zmieniony pomyślnie!"
+
+msgid "Your name has been changed successfully!"
+msgstr "Twoje imię zostało zmienione pomyślnie!"
 
 msgid "Your preferences have been updated."
 msgstr "Twoje ustawienia zostały zaktualizowane."
@@ -1522,44 +1640,54 @@ msgstr "rewizja {0} z \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Rewizja {0} z \"{1}\" niezaplanowanych."
 
-msgid "Edit '{title}'"
-msgstr "Edytuj '{title}'"
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Edytuj '%(title)s'"
 
-msgid "Preview draft version of '{title}'"
-msgstr "Podgląd szkicu wersji '{title}'"
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Podejrzyj szkic '%(title)s'"
 
-msgid "View live version of '{title}'"
-msgstr "Zobacz wersję Live '{title}'"
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Podejrzyj opublikowaną wersję '%(title)s'"
 
-msgid "Add a child page to '{title}' "
-msgstr "Dodaj podstronę do '{title}'"
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Dodaj podstronę dla '%(title)s' "
 
 msgid "More"
 msgstr "Więcej"
 
-msgid "View more options for '{title}'"
-msgstr "Wyświetl więcej opcji dla '{title}'"
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Wyświetl więcej opcji dla '%(title)s'"
 
-msgid "Move page '{title}'"
-msgstr "Przenieś stronę '{title}'"
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Przesuń stronę '%(title)s'"
 
-msgid "Copy page '{title}'"
-msgstr "Skopiuj stronę '{title}'"
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Kopiuj stronę '%(title)s'"
 
-msgid "Delete page '{title}'"
-msgstr "Usuń stronę '{title}'"
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Usuń stronę '%(title)s'"
 
-msgid "Unpublish page '{title}'"
-msgstr "Odpublikuj stronę '{title}'"
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Odpublikuj stronę '%(title)s'"
 
-msgid "View revision history for '{title}'"
-msgstr "Zobacz historię rewizji dla '{title}'"
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "Wyświetl historyczną rewizję '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Ustaw zdjęcie profilu"
 
-msgid "Change your profile picture"
-msgstr "Zmień zdjęcie swojego profilu"
+msgid "Change your profile picture."
+msgstr "Zmień swoje zdjęcie profilowe."
 
 msgid "Change the email address linked to your account."
 msgstr "Zmień adres email przypisany do Twojego konta."
@@ -1582,8 +1710,12 @@ msgstr "Obecna strefa czasowa"
 msgid "Choose your current time zone."
 msgstr "Wybierz swoją obecną strefę czasową."
 
-msgid "Heading {level}"
-msgstr "Tytuł {level}"
+msgid "Change your first and last name on your account."
+msgstr "Zmień imię i nazwisko w swoim koncie."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Nagłówek %(level)d"
 
 msgid "Bulleted list"
 msgstr "Lista wypunktowana"
