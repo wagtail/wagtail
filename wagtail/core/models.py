@@ -2575,7 +2575,7 @@ class WorkflowState(models.Model):
                                               verbose_name=_("current task state"))
 
     # allows a custom function to be called on finishing the Workflow successfully.
-    on_finish = import_string(getattr(settings, 'WAGTAIL_FINISH_WORKFLOW_ACTION', 'wagtail.core.utils.publish_workflow_state'))
+    on_finish = import_string(getattr(settings, 'WAGTAIL_FINISH_WORKFLOW_ACTION', 'wagtail.core.workflows.publish_workflow_state'))
 
     def __str__(self):
         return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
