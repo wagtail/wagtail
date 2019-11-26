@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -235,14 +235,11 @@ class TestLocking(TestCase, WagtailTestUtils):
     def test_unlock_post_bad_permissions(self):
         # Remove privileges from user
         self.user.is_superuser = False
-        self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
-        )
+        self.user.groups.add(Group.objects.get(name="Editors"))
         self.user.save()
 
         # Lock the page
         self.child_page.locked = True
-        self.child_page.locked_by = self.user
         self.child_page.locked_at = timezone.now()
         self.child_page.save()
 
@@ -254,5 +251,31 @@ class TestLocking(TestCase, WagtailTestUtils):
         # Check that the page is still locked
         page = Page.objects.get(id=self.child_page.id)
         self.assertTrue(page.locked)
-        self.assertEqual(page.locked_by, self.user)
         self.assertIsNotNone(page.locked_at)
+
+    def test_unlock_post_own_page_with_bad_permissions(self):
+        # Unlike the previous test, the user can unlock pages that they have locked
+
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.groups.add(Group.objects.get(name="Editors"))
+        self.user.save()
+
+        # Lock the page
+        self.child_page.locked = True
+        self.child_page.locked_by = self.user
+        self.child_page.locked_at = timezone.now()
+        self.child_page.save()
+
+        response = self.client.post(reverse('wagtailadmin_pages:unlock', args=(self.child_page.id, )), {
+            'next': reverse('wagtailadmin_pages:edit', args=(self.child_page.id, ))
+        })
+
+        # Check response
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+
+        # Check that the page is still locked
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertFalse(page.locked)
+        self.assertIsNone(page.locked_by)
+        self.assertIsNone(page.locked_at)
