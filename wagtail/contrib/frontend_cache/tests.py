@@ -198,6 +198,17 @@ class MockBackend(BaseBackend):
         PURGED_URLS.append(url)
 
 
+class MockCloudflareBackend(CloudflareBackend):
+    def __init__(self, config):
+        pass
+
+    def _purge_urls(self, urls):
+        if len(urls) > self.CHUNK_SIZE:
+            raise Exception("Cloudflare backend is not chunking requests as expected")
+
+        PURGED_URLS.extend(urls)
+
+
 @override_settings(WAGTAILFRONTENDCACHE={
     'varnish': {
         'BACKEND': 'wagtail.contrib.frontend_cache.tests.MockBackend',
@@ -236,6 +247,25 @@ class TestCachePurgingFunctions(TestCase):
         batch.purge()
 
         self.assertEqual(PURGED_URLS, ['http://localhost/events/', 'http://localhost/events/past/', 'http://localhost/foo'])
+
+
+@override_settings(WAGTAILFRONTENDCACHE={
+    'cloudflare': {
+        'BACKEND': 'wagtail.contrib.frontend_cache.tests.MockCloudflareBackend',
+    },
+})
+class TestCloudflareCachePurgingFunctions(TestCase):
+    def setUp(self):
+        # Reset PURGED_URLS to an empty list
+        PURGED_URLS[:] = []
+
+    def test_cloudflare_purge_batch_chunked(self):
+        batch = PurgeBatch()
+        urls = ['https://localhost/foo{}'.format(i) for i in range(1, 65)]
+        batch.add_urls(urls)
+        batch.purge()
+
+        self.assertCountEqual(PURGED_URLS, urls)
 
 
 @override_settings(WAGTAILFRONTENDCACHE={
