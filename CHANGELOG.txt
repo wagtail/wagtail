@@ -11,6 +11,7 @@ Changelog
  * Improve contrast of disabled inputs (Nick Smith)
  * Added `get_document_model_string` function (Andrey Smirnov)
  * Added support for Cloudflare API tokens for frontend cache invalidation (Tom Usher)
+ * Cloudflare frontend cache invalidation requests are now sent in chunks of 30 to fit within API limits (Tom Usher)
  * Added `ancestors` field to pages endpoint in admin API (Karl Hobley)
  * Removed Django admin management of `Page` & `Site` models (Andreas Bernacca)
  * Fix: Rename documents listing column 'uploaded' to 'created' (LB (Ben Johnston))
