@@ -343,12 +343,9 @@ def edit(request, page_id):
     edit_handler = edit_handler.bind_to(instance=page, request=request)
     form_class = edit_handler.get_form_class()
 
-    user_has_lock = page.locked_by_id == request.user.id
-    page_locked = page_perms.page_locked()
-
-    if user_has_lock:
+    if page_perms.user_has_lock():
         messages.warning(request, format_html(_("<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."), page.get_admin_display_title(), page.locked_at.strftime("%d %b %Y %H:%M")), extra_tags='lock')
-    if page_locked:
+    if page_perms.page_locked():
         locked_by_message = ""
         if page.locked_by:
             locked_by_message = format_html(" by <b>{}</b>", str(page.locked_by))
@@ -362,7 +359,7 @@ def edit(request, page_id):
         form = form_class(request.POST, request.FILES, instance=page,
                           parent_page=parent)
 
-        if form.is_valid() and not page_locked:
+        if form.is_valid() and not page_perms.page_locked():
             page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
@@ -506,7 +503,7 @@ def edit(request, page_id):
                     target_url += '?next=%s' % urlquote(next_url)
                 return redirect(target_url)
         else:
-            if page_locked:
+            if page_perms.page_locked():
                 messages.error(request, _("The page could not be saved as it is locked"))
             else:
                 messages.validation_error(
@@ -556,7 +553,6 @@ def edit(request, page_id):
         'form': form,
         'next': next_url,
         'has_unsaved_changes': has_unsaved_changes,
-        'user_has_lock': user_has_lock,
     })
 
 
