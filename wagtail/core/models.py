@@ -2619,6 +2619,17 @@ class Workflow(ClusterableModel):
 class GroupApprovalTask(Task):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name=_('group'))
 
+    def start(self, workflow_state):
+        if workflow_state.page.locked_by:
+            # If the person who locked the page isn't in the group, unlock the page
+            if not workflow_state.page.locked_by.groups.filter(id=self.group_id).exists():
+                workflow_state.page.locked = False
+                workflow_state.page.locked_by = None
+                workflow_state.page.locked_at = None
+                workflow_state.page.save(update_fields=['locked', 'locked_by', 'locked_at'])
+
+        return super().start(workflow_state)
+
     def user_can_access_editor(self, page, user):
         return user.groups.filter(id=self.group_id).exists()
 
@@ -2681,7 +2692,7 @@ class WorkflowState(models.Model):
                 if not self.current_task_state or next_task != self.current_task_state.task:
                     # if not on a task, or the next task to move to is not the current task (ie current task's status is
                     # not STATUS_IN_PROGRESS), move to the next task
-                    self.current_task_state = next_task.start(self)
+                    self.current_task_state = next_task.specific.start(self)
                     self.save()
                 # otherwise, continue on the current task
             else:
