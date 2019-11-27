@@ -2493,7 +2493,7 @@ class Task(models.Model):
 
     def start(self, workflow_state):
         task_state = TaskState(workflow_state=workflow_state)
-        task_state.status = 'in_progress'
+        task_state.status = TaskState.STATUS_IN_PROGRESS
         task_state.page_revision = workflow_state.page.get_latest_revision()
         task_state.task = self
         task_state.save()
@@ -2533,7 +2533,7 @@ class Workflow(ClusterableModel):
 
     def start(self, page, user):
         # initiates a workflow by creating an instance of WorkflowState
-        state = WorkflowState(page=page, workflow=self, status='in_progress', requested_by=user)
+        state = WorkflowState(page=page, workflow=self, status=WorkflowState.STATUS_IN_PROGRESS, requested_by=user)
         state.save()
         state.update()
         return state
@@ -2553,16 +2553,20 @@ class GroupApprovalTask(Task):
 
 class WorkflowState(models.Model):
     """Tracks the status of a started Workflow on a Page."""
-    WORKFLOW_STATUS_CHOICES = (
-        ('in_progress', _("In progress")),
-        ('approved', _("Approved")),
-        ('rejected', _("Rejected")),
-        ('cancelled', _("Cancelled")),
+    STATUS_IN_PROGRESS = 'in_progress'
+    STATUS_APPROVED = 'approved'
+    STATUS_REJECTED = 'rejected'
+    STATUS_CANCELLED = 'cancelled'
+    STATUS_CHOICES = (
+        (STATUS_IN_PROGRESS, _("In progress")),
+        (STATUS_APPROVED, _("Approved")),
+        (STATUS_REJECTED, _("Rejected")),
+        (STATUS_CANCELLED, _("Cancelled")),
     )
 
     page = models.ForeignKey('Page', on_delete=models.CASCADE, verbose_name=_("page"), related_name='workflow_states')
     workflow = models.ForeignKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow'), related_name='workflow_states')
-    status = models.fields.CharField(choices=WORKFLOW_STATUS_CHOICES, blank=False, null=False, verbose_name=_("status"), max_length=50, default='in_progress')
+    status = models.fields.CharField(choices=STATUS_CHOICES, verbose_name=_("status"), max_length=50, default=STATUS_IN_PROGRESS)
     created_at = models.DateTimeField(auto_now=True, verbose_name=_("created at"))
     requested_by = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      verbose_name=_('requested by'),
@@ -2594,7 +2598,7 @@ class WorkflowState(models.Model):
             if next_task:
                 if not self.current_task_state or next_task != self.current_task_state.task:
                     # if not on a task, or the next task to move to is not the current task (ie current task's status is
-                    # not 'in_progress'), move to the next task
+                    # not STATUS_IN_PROGRESS), move to the next task
                     self.current_task_state = next_task.start(self)
                     self.save()
                 # otherwise, continue on the current task
@@ -2604,7 +2608,7 @@ class WorkflowState(models.Model):
 
     def get_next_task(self):
         # finds the next task associated with the latest page revision, which has not been either approved or skipped
-        return Task.objects.filter(workflow_tasks__workflow=self.workflow).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status='approved') | Q(task_states__status='skipped')).order_by('workflow_tasks__sort_order').first()
+        return Task.objects.filter(workflow_tasks__workflow=self.workflow).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status=TaskState.STATUS_APPROVED) | Q(task_states__status=TaskState.STATUS_SKIPPED)).order_by('workflow_tasks__sort_order').first()
 
     def cancel(self):
         self.status = 'cancelled'
@@ -2619,7 +2623,7 @@ class WorkflowState(models.Model):
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')
-        # prevent multiple 'in_progress' workflows for the same page
+        # prevent multiple STATUS_IN_PROGRESS workflows for the same page
         constraints = [
             models.UniqueConstraint(fields=['page'], condition=Q(status='in_progress'), name='unique_in_progress_workflow')
         ]
@@ -2627,18 +2631,23 @@ class WorkflowState(models.Model):
 
 class TaskState(models.Model):
     """Tracks the status of a given Task for a particular page revision."""
-    TASK_STATUS_CHOICES = (
-        ('in_progress', _("In progress")),
-        ('approved', _("Approved")),
-        ('rejected', _("Rejected")),
-        ('skipped', _("Skipped")),
-        ('cancelled', _("Cancelled")),
+    STATUS_IN_PROGRESS = 'in_progress'
+    STATUS_APPROVED = 'approved'
+    STATUS_REJECTED = 'rejected'
+    STATUS_SKIPPED = 'skipped'
+    STATUS_CANCELLED = 'cancelled'
+    STATUS_CHOICES = (
+        (STATUS_IN_PROGRESS, _("In progress")),
+        (STATUS_APPROVED, _("Approved")),
+        (STATUS_REJECTED, _("Rejected")),
+        (STATUS_SKIPPED, _("Skipped")),
+        (STATUS_CANCELLED, _("Cancelled")),
     )
 
     workflow_state = models.ForeignKey('WorkflowState', on_delete=models.CASCADE, verbose_name=_('workflow state'), related_name='task_states')
     page_revision = models.ForeignKey('PageRevision', on_delete=models.CASCADE, verbose_name=_('page revision'), related_name='task_states')
     task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='task_states')
-    status = models.fields.CharField(choices=TASK_STATUS_CHOICES, blank=False, null=False, verbose_name=_("status"), max_length=50, default='in_progress')
+    status = models.fields.CharField(choices=STATUS_CHOICES, verbose_name=_("status"), max_length=50, default=STATUS_IN_PROGRESS)
     started_at = models.DateTimeField(verbose_name=_('started at'), auto_now=True)
     finished_at = models.DateTimeField(verbose_name=_('finished at'), blank=True, null=True)
     content_type = models.ForeignKey(
