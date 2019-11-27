@@ -2114,10 +2114,33 @@ class PagePermissionTester:
         return self.can_publish()
 
     def can_lock(self):
-        return self.user.is_superuser or ('lock' in self.permissions)
+        if self.user.is_superuser:
+            return True
+
+        if 'lock' in self.permissions:
+            return True
+
+        if self.page.current_workflow_task:
+            if self.page.current_workflow_task.user_can_lock(self.page, self.user):
+                return True
+
+        return False
 
     def can_unlock(self):
-        return self.user.is_superuser or self.user_has_lock() or ('unlock' in self.permissions)
+        if self.user.is_superuser:
+            return True
+
+        if self.user_has_lock():
+            return True
+
+        if 'unlock' in self.permissions:
+            return True
+
+        if self.page.current_workflow_task:
+            if self.page.current_workflow_task.user_can_unlock(self.page, self.user):
+                return True
+
+        return False
 
     def can_publish_subpage(self):
         """
@@ -2529,6 +2552,12 @@ class Task(models.Model):
     def user_can_access_editor(self, page, user):
         return False
 
+    def user_can_lock(self, page, user):
+        return False
+
+    def user_can_unlock(self, page, user):
+        return False
+
     class Meta:
         verbose_name = _('task')
         verbose_name_plural = _('tasks')
@@ -2569,6 +2598,12 @@ class GroupApprovalTask(Task):
 
     def user_can_access_editor(self, page, user):
         return user.groups.filter(id=self.group_id).exists()
+
+    def user_can_lock(self, page, user):
+        return user.groups.filter(id=self.group_id).exists()
+
+    def user_can_unlock(self, page, user):
+        return False
 
     class Meta:
         verbose_name = _('Group approval task')
