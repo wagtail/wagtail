@@ -1524,6 +1524,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.has_unpublished_changes = self.has_unpublished_changes
         obj.owner = self.owner
         obj.locked = self.locked
+        obj.locked_by = self.locked_by
+        obj.locked_at = self.locked_at
         obj.latest_revision_created_at = self.latest_revision_created_at
         obj.first_published_at = self.first_published_at
 
