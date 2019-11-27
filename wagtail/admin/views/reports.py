@@ -11,7 +11,7 @@ from django.views.generic.list import BaseListView
 from xlsxwriter.workbook import Workbook
 
 from wagtail.admin.auth import permission_denied
-from wagtail.core.models import UserPagePermissionsProxy
+from wagtail.core.models import Page, UserPagePermissionsProxy
 
 
 class Echo:
@@ -232,10 +232,9 @@ class LockedPagesView(PageReportView):
 
     def get_queryset(self):
         pages = (
-            UserPagePermissionsProxy(self.request.user)
-            .editable_pages()
-            .filter(locked=True)
-        )
+            UserPagePermissionsProxy(self.request.user).editable_pages()
+            | Page.objects.filter(locked_by=self.request.user)
+        ).filter(locked=True)
         self.queryset = pages
         return super().get_queryset()
 
