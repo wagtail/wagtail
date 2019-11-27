@@ -3,7 +3,7 @@ from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.list import BaseListView
 
 from wagtail.admin.auth import permission_denied
-from wagtail.core.models import UserPagePermissionsProxy
+from wagtail.core.models import Page, UserPagePermissionsProxy
 
 
 class ReportView(TemplateResponseMixin, BaseListView):
@@ -26,7 +26,7 @@ class LockedPagesView(ReportView):
     header_icon = 'locked'
 
     def get_queryset(self):
-        pages = UserPagePermissionsProxy(self.request.user).editable_pages().filter(locked=True)
+        pages = (UserPagePermissionsProxy(self.request.user).editable_pages() | Page.objects.filter(locked_by=self.request.user)).filter(locked=True)
         self.queryset = pages
         return super().get_queryset()
 
