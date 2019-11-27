@@ -1632,7 +1632,9 @@ class TestPageWithContentJSON(TestCase):
             first_published_at="2000-01-01T00:00:00Z",
             last_published_at="2000-01-01T00:00:00Z",
             live=not original_page.live,
-            locked=not original_page.locked,
+            locked=True,
+            locked_by=1,
+            locked_at="2000-01-01T00:00:00Z",
             has_unpublished_changes=not original_page.has_unpublished_changes,
             content_type=eventpage_content_type.id,
             show_in_menus=not original_page.show_in_menus,
@@ -1655,7 +1657,7 @@ class TestPageWithContentJSON(TestCase):
         # despite new values being provided in content_json
         for attr_name in (
             'pk', 'path', 'depth', 'numchild', 'content_type', 'draft_title',
-            'live', 'has_unpublished_changes', 'owner', 'locked',
+            'live', 'has_unpublished_changes', 'owner', 'locked', 'locked_by', 'locked_at',
             'latest_revision_created_at', 'first_published_at',
         ):
             self.assertEqual(
