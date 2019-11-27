@@ -29,7 +29,7 @@ from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
 from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
+from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy, WorkflowState
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -240,7 +240,6 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             # Save revision
             revision = page.save_revision(
                 user=request.user,
-                submitted_for_moderation=is_submitting,
             )
 
             # Publish
@@ -256,6 +255,11 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                     result = fn(request, page)
                     if hasattr(result, 'status_code'):
                         return result
+
+            # Submit
+            if is_submitting:
+                workflow = page.get_workflow()
+                workflow.start(page, request.user)
 
             # Notifications
             if is_publishing:
@@ -362,6 +366,7 @@ def edit(request, page_id):
     parent = page.get_parent()
 
     page_perms = page.permissions_for_user(request.user)
+
     if not page_perms.can_edit():
         raise PermissionDenied
 
@@ -415,7 +420,6 @@ def edit(request, page_id):
             # Save revision
             revision = page.save_revision(
                 user=request.user,
-                submitted_for_moderation=is_submitting,
             )
             # store submitted go_live_at for messaging below
             go_live_at = page.go_live_at
@@ -436,6 +440,11 @@ def edit(request, page_id):
                     result = fn(request, page)
                     if hasattr(result, 'status_code'):
                         return result
+
+            # Submit
+            if is_submitting:
+                workflow = page.get_workflow()
+                workflow.start(page, request.user)
 
             # Notifications
             if is_publishing:
