@@ -1577,6 +1577,23 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def workflow_in_progress(self):
         return WorkflowState.objects.filter(page=self, status='in_progress').exists()
 
+    @cached_property
+    def current_workflow_state(self):
+        try:
+            return WorkflowState.objects.get(page=self, status='in_progress')
+        except WorkflowState.DoesNotExist:
+            return
+
+    @cached_property
+    def current_workflow_task_state(self):
+        if self.current_workflow_state:
+            return self.current_workflow_state.current_task_state.specific
+
+    @cached_property
+    def current_workflow_task(self):
+        if self.current_workflow_task_state:
+            return self.current_workflow_task_state.task.specific
+
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
@@ -1933,13 +1950,24 @@ class PagePermissionTester:
     def can_edit(self):
         if not self.user.is_active:
             return False
+
         if self.page_is_root:  # root node is not a page and can never be edited, even by superusers
             return False
-        return (
-            self.user.is_superuser
-            or ('edit' in self.permissions)
-            or ('add' in self.permissions and self.page.owner_id == self.user.pk)
-        )
+
+        if self.user.is_superuser:
+            return True
+
+        if 'edit' in self.permissions:
+            return True
+
+        if 'add' in self.permissions and self.page.owner_id == self.user.pk:
+            return True
+
+        if self.page.current_workflow_task:
+            if self.page.current_workflow_task.user_can_access_editor(self.page, self.user):
+                return True
+
+        return False
 
     def can_delete(self):
         if not self.user.is_active:
@@ -2419,6 +2447,9 @@ class Task(models.Model):
             task_state.reject()
             workflow_state.update()
 
+    def user_can_access_editor(self, page, user):
+        return False
+
     class Meta:
         verbose_name = _('task')
         verbose_name_plural = _('tasks')
@@ -2456,6 +2487,9 @@ class Workflow(ClusterableModel):
 
 class GroupApprovalTask(Task):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name=_('group'))
+
+    def user_can_access_editor(self, page, user):
+        return user.groups.filter(id=self.group_id).exists()
 
     class Meta:
         verbose_name = _('Group approval task')
