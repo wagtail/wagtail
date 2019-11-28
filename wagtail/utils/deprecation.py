@@ -29,6 +29,13 @@ class MovedDefinitionHandler:
     }
 
     sys.modules[__name__] = MovedDefinitionHandler(sys.modules[__name__], MOVED_DEFINITIONS, RemovedInWagtailXWarning)
+
+    If the name of the definition has also changed, you can specify its new name along with
+    the path to its new module using a tuple. For example:
+
+    MOVED_DEFINITIONS = {
+        'SomeClassOrVariableName': ('path.to.new.module', 'NewClassOrVariableName'),
+    }
     """
     def __init__(self, real_module, moved_definitions, warning_class):
         self.real_module = real_module
