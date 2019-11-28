@@ -43,6 +43,16 @@
                         </div>
                     </li>
 
+                    {% if page.workflow_in_progress %}
+                        <li class="actions">
+                            <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+                                {% for action_name, action_label in workflow_actions %}
+                                    <button class="button action-save button-longrunning" data-workflow-action="{{ action_name }}"><span class="icon icon-spinner"></span><em>{{ action_label }}</em></button>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% endif %}
+
                     <li class="preview">
                         {% trans 'Preview' as preview_label %}
                         {% if preview_modes|length > 1 %}
@@ -119,6 +129,48 @@
                     {% endif %}
                 }
             );
+        });
+
+        /* When a workflow action button is pressed, trigger a POST request to the workflow_action view */
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('[data-workflow-action]').forEach(function (buttonElement) {
+                buttonElement.addEventListener('click', function (e) {
+                    // Stop the button from submitting the form
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    var formElement = document.createElement('form');
+
+                    {% url 'wagtailadmin_pages:workflow_action' page.id as form_action %}
+                    formElement.action = '{{ form_action|escapejs }}';
+                    formElement.method = 'POST';
+
+                    var csrftokenElement = document.createElement('input');
+                    csrftokenElement.type = 'hidden';
+                    csrftokenElement.name = 'csrfmiddlewaretoken';
+                    csrftokenElement.value = '{{ csrf_token|escapejs }}';
+                    formElement.appendChild(csrftokenElement);
+
+                    var actionFieldElement = document.createElement('input');
+                    actionFieldElement.type = 'hidden';
+                    actionFieldElement.name = 'action';
+                    actionFieldElement.value = buttonElement.dataset.workflowAction;
+                    formElement.appendChild(actionFieldElement);
+
+                    var nextFieldElement = document.createElement('input');
+                    nextFieldElement.type = 'hidden';
+                    nextFieldElement.name = 'next';
+                    {% url 'wagtailadmin_home' as dashboard_url %}
+                    nextFieldElement.value = '{{ dashboard_url|escapejs }}';
+                    formElement.appendChild(nextFieldElement);
+
+                    document.body.appendChild(formElement);
+                    formElement.submit();
+                }, {capture: true});
+            });
+        });
+        $(function() {
+            $('[data-workflow-action-button')
         });
     </script>
 {% endblock %}
