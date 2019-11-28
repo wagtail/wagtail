@@ -405,26 +405,15 @@ class PagesAPIViewSet(BaseAPIViewSet):
         """
         return self.request.site.root_page
 
-    def get_base_queryset(self, models=None):
+    def get_base_queryset(self):
         """
         Returns a queryset containing all pages that can be seen by this user.
 
         This is used as the base for get_queryset and is also used to find the
         parent pages when using the child_of and descendant_of filters as well.
         """
-        if models is None:
-            models = [Page]
-
-        if len(models) == 1:
-            queryset = models[0].objects.all()
-        else:
-            queryset = Page.objects.all()
-
-            # Filter pages by specified models
-            queryset = filter_page_type(queryset, models)
-
         # Get live pages that are not in a private section
-        queryset = queryset.public().live()
+        queryset = Page.objects.all().public().live()
 
         # Filter by site
         if self.request.site:
@@ -444,7 +433,14 @@ class PagesAPIViewSet(BaseAPIViewSet):
         except (LookupError, ValueError):
             raise BadRequestError("type doesn't exist")
 
-        return self.get_base_queryset(models)
+        if not models:
+            return self.get_base_queryset()
+
+        elif len(models) == 1:
+            return models[0].objects.filter(id__in=self.get_base_queryset().values_list('id', flat=True))
+
+        else:  # len(models) > 1
+            return filter_page_type(self.get_base_queryset(), models)
 
     def get_object(self):
         base = super().get_object()
