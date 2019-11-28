@@ -437,6 +437,8 @@ class PagesAPIViewSet(BaseAPIViewSet):
             return self.get_base_queryset()
 
         elif len(models) == 1:
+            # If a single page type has been specified, swap out the Page-based queryset for one based on
+            # the specific page model so that we can filter on any custom APIFields defined on that model
             return models[0].objects.filter(id__in=self.get_base_queryset().values_list('id', flat=True))
 
         else:  # len(models) > 1
