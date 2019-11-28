@@ -46,6 +46,40 @@ Removed support for Django 2.0
 Django 2.0 is no longer supported as of this release; please upgrade to Django 2.1 or above before upgrading Wagtail.
 
 
+API endpoint classes have moved
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For consistency with Django REST Framework, the ``PagesAPIEndpoint``, ``ImagesAPIEndpoint`` and ``DocumentsAPIEndpoint`` classes have been renamed to ``PagesAPIViewSet``, ``ImagesAPIViewSet`` and ``DocumentsAPIViewSet`` and moved to the ``views`` module in their respective packages. Projects using the Wagtail API should update their registration code accordingly.
+
+Old code:
+
+  .. code-block:: python
+
+    from wagtail.api.v2.endpoints import PagesAPIEndpoint
+    from wagtail.api.v2.router import WagtailAPIRouter
+    from wagtail.images.api.v2.endpoints import ImagesAPIEndpoint
+    from wagtail.documents.api.v2.endpoints import DocumentsAPIEndpoint
+
+    api_router = WagtailAPIRouter('wagtailapi')
+    api_router.register_endpoint('pages', PagesAPIEndpoint)
+    api_router.register_endpoint('images', ImagesAPIEndpoint)
+    api_router.register_endpoint('documents', DocumentsAPIEndpoint)
+
+New code:
+
+  .. code-block:: python
+
+    from wagtail.api.v2.views import PagesAPIViewSet
+    from wagtail.api.v2.router import WagtailAPIRouter
+    from wagtail.images.api.v2.views import ImagesAPIViewSet
+    from wagtail.documents.api.v2.views import DocumentsAPIViewSet
+
+    api_router = WagtailAPIRouter('wagtailapi')
+    api_router.register_endpoint('pages', PagesAPIViewSet)
+    api_router.register_endpoint('images', ImagesAPIViewSet)
+    api_router.register_endpoint('documents', DocumentsAPIViewSet)
+
+
 ``wagtail.documents.models.get_document_model`` has moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
