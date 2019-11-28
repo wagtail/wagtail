@@ -2,7 +2,6 @@ from collections import OrderedDict
 
 from rest_framework.authentication import SessionAuthentication
 
-from wagtail.api.v2.utils import filter_page_type
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.core.models import Page
 
@@ -54,25 +53,14 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         """
         return Page.get_first_root_node()
 
-    def get_base_queryset(self, models=None):
+    def get_base_queryset(self):
         """
         Returns a queryset containing all pages that can be seen by this user.
 
         This is used as the base for get_queryset and is also used to find the
         parent pages when using the child_of and descendant_of filters as well.
         """
-        if models is None:
-            models = [Page]
-
-        if len(models) == 1:
-            queryset = models[0].objects.all()
-        else:
-            queryset = Page.objects.all()
-
-            # Filter pages by specified models
-            queryset = filter_page_type(queryset, models)
-
-        return queryset
+        return Page.objects.all()
 
     def get_queryset(self):
         queryset = super().get_queryset()
