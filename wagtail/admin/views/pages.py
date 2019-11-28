@@ -28,7 +28,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
-from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy, WorkflowState
+from wagtail.core.models import Page, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState, WorkflowTask
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -397,6 +397,22 @@ def edit(request, page_id):
                 lock_message = format_html(_("<b>Page '{}' is locked</b>."), page.get_admin_display_title())
 
             messages.error(request, lock_message, extra_tags='lock')
+
+    workflow_state = page.current_workflow_state
+    if workflow_state:
+        workflow = workflow_state.workflow
+        task = workflow_state.current_task_state.task
+        workflow_tasks = WorkflowTask.objects.filter(workflow=workflow)
+        current_task_number = workflow_tasks.get(task=task).sort_order+1
+        current_task_name = task.name
+        workflow_name = workflow.name
+        total_tasks = workflow_tasks.count()
+        # TODO: add icon to message when we have added a workflows icon
+        workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, current_task_name, workflow_name)
+        if TaskState.objects.filter(workflow_state=workflow_state, page_revision=page.get_latest_revision(), status='approved').exists():
+            messages.warning(request, mark_safe(workflow_info+_("Editing this Page will cause earlier Tasks to need re-approval.")))
+        else:
+            messages.success(request, workflow_info)
 
     errors_debug = None
 
