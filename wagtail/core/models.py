@@ -2540,14 +2540,8 @@ class Task(models.Model):
         task_state.save()
         return task_state
 
-    @transaction.atomic
-    def on_action(self, workflow_state, task_state, action_name):
-        if action_name == 'approve':
-            task_state.approve()
-            workflow_state.update()
-        elif action_name == 'reject':
-            task_state.reject()
-            workflow_state.update()
+    def on_action(self, task_state, user, action_name):
+        pass
 
     def user_can_access_editor(self, page, user):
         return False
@@ -2615,6 +2609,24 @@ class GroupApprovalTask(Task):
 
     def user_can_unlock(self, page, user):
         return False
+
+    def get_actions(self, page, user):
+        if user.groups.filter(id=self.group_id).exists():
+            return [
+                ('approve', _("Approve")),
+                ('reject', _("Reject"))
+            ]
+        else:
+            return []
+
+    @transaction.atomic
+    def on_action(self, task_state, user, action_name):
+        if action_name == 'approve':
+            task_state.approve()
+            task_state.workflow_state.update()
+        elif action_name == 'reject':
+            task_state.reject()
+            task_state.workflow_state.update()
 
     class Meta:
         verbose_name = _('Group approval task')
