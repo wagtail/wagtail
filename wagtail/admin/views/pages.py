@@ -533,9 +533,6 @@ def edit(request, page_id):
                     )
                 ])
 
-                if not send_notification(page.get_latest_revision().id, 'submitted', request.user.pk):
-                    messages.error(request, _("Failed to send notifications to moderators"))
-
             else:  # Saving
 
                 if is_reverting:
