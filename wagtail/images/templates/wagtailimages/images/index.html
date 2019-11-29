@@ -41,18 +41,20 @@
                     {% endif %}
                 {% endif %}
                 {% if popular_tags %}
-                <li class="taglist">
-                    <h3>{% trans 'Popular tags' %}</h3>
-                    {% for tag in popular_tags %}
-                        {% if tag.name != current_tag %}
-                            <a class="button button-small bicolor icon icon-tag" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{{ tag.name }}</a>
-                        {% else %}
-                            <a class="button button-small bicolor icon icon-tag active" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{{ tag.name }}</a>
-                        {% endif %}
-                    {% endfor %}
-                    {% if current_tag %}
-                        <a class="button button-small button-secondary" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% trans 'Clear choice' %}</a>
-                    {% endif %}
+                <li>
+                    <fieldset class="tagfilter">
+                    <legend>{% trans 'Popular Tags:' %}</legend>
+                      {% for tag in popular_tags %}
+                          {% if tag.name != current_tag %}
+                              <a class="button button-small button-secondary bicolor icon icon-tag" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{{ tag.name }}</a>
+                          {% else %}
+                              <a class="button button-small bicolor icon icon-tag" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{{ tag.name }}</a>
+                          {% endif %}
+                      {% endfor %}
+                      {% if current_tag %}
+                          <a class="button button-small bicolor button-secondary icon icon-cross" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% trans 'Clear choice' %}</a>
+                      {% endif %}
+                    </fieldset>
                 </li>
                 {% endif %}
             </ul>

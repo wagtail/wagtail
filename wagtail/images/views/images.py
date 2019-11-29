@@ -62,7 +62,10 @@ def index(request):
     # Filter by tag
     current_tag = request.GET.get('tag')
     if current_tag:
-        images = images.filter(tags__name=current_tag)
+        try:
+            images = images.filter(tags__name=current_tag)
+        except (AttributeError):
+            current_tag = None
 
     paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
     images = paginator.get_page(request.GET.get('p'))
