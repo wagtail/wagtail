@@ -1,0 +1,11 @@
+<h2>{{ workflow_name }}</h2>
+Task {{ current_task_number }} of {{ total_tasks }}: {{ task_name }}
+<div>
+{% for status in task_statuses %}
+    {% if status == 'approved' %}
+        <i class="icon icon-success"></i>
+    {% else %}
+        <i class="icon icon-radio-empty"></i>
+    {% endif %}
+{% endfor %}
+</div>
