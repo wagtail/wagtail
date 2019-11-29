@@ -29,7 +29,7 @@ from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
 from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import Page, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState, WorkflowTask
+from wagtail.core.models import Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState, WorkflowTask
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -410,19 +410,39 @@ def edit(request, page_id):
 
             messages.error(request, lock_message, extra_tags='lock')
 
+    task_statuses = []
     workflow_state = page.current_workflow_state
+    workflow_name = ''
+    task_name = ''
+    total_tasks = 0
+    current_task_number = None
     if workflow_state:
         workflow = workflow_state.workflow
         task = workflow_state.current_task_state.task
         workflow_tasks = WorkflowTask.objects.filter(workflow=workflow)
-        current_task_number = workflow_tasks.get(task=task).sort_order+1
-        current_task_name = task.name
+        try:
+            current_task_number = workflow_tasks.get(task=task).sort_order+1
+        except Task.DoesNotExist:
+            pass
+        task_name = task.name
         workflow_name = workflow.name
-        total_tasks = workflow_tasks.count()
+        states = TaskState.objects.filter(workflow_state=workflow_state, page_revision=page.get_latest_revision()).values('task', 'status')
+        total_tasks = len(workflow_tasks)
+        for workflow_task in workflow_tasks:
+            try:
+                status = states.get(task=workflow_task.task)['status']
+            except TaskState.DoesNotExist:
+                status = 'not_started'
+            task_statuses.append(status)
+        approved_task = True if 'approved' in task_statuses else False
+
         # TODO: add icon to message when we have added a workflows icon
-        workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, current_task_name, workflow_name)
-        if TaskState.objects.filter(workflow_state=workflow_state, page_revision=page.get_latest_revision(), status='approved').exists():
-            messages.warning(request, mark_safe(workflow_info+_("Editing this Page will cause earlier Tasks to need re-approval.")))
+        if current_task_number:
+            workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
+        else:
+            workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
+        if approved_task:
+            messages.warning(request, mark_safe(workflow_info+_("Editing this Page will cause completed Tasks to need re-approval.")))
         else:
             messages.success(request, workflow_info)
 
@@ -639,6 +659,11 @@ def edit(request, page_id):
         'has_unsaved_changes': has_unsaved_changes,
         'page_locked': page_perms.page_locked(),
         'workflow_actions': page.current_workflow_task.get_actions(page, request.user) if page.current_workflow_task else [],
+        'task_statuses': task_statuses,
+        'current_task_number': current_task_number,
+        'task_name': task_name,
+        'workflow_name': workflow_name,
+        'total_tasks': total_tasks
     })
 
 
