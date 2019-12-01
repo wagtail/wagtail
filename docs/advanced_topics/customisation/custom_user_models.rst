@@ -7,8 +7,7 @@ Custom user forms example
 This example shows how to add a text field and foreign key field to a custom user model
 and configure Wagtail user forms to allow the fields values to be updated.
 
-Create a custom user model. In this case we extend the ``AbstractUser`` class and add
-two fields. The foreign key references another model (not shown).
+Create a custom user model. This must at minimum inherit from ``AbstractBaseUser`` and ``PermissionsMixin``. In this case we extend the ``AbstractUser`` class and add two fields. The foreign key references another model (not shown).
 
 .. code-block:: python
 
@@ -86,4 +85,4 @@ Add the wagtail settings to your project to reference the user form additions:
   WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'status']
 
 
-.. _AUTH_USER_MODEL: https://docs.djangoproject.com/en/dev/topics/auth/customizing/#substituting-a-custom-user-model
+.. _AUTH_USER_MODEL: https://docs.djangoproject.com/en/stable/topics/auth/customizing/#substituting-a-custom-user-model

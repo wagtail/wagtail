@@ -2,46 +2,37 @@ from collections import OrderedDict
 
 from rest_framework.authentication import SessionAuthentication
 
-from wagtail.api.v2.endpoints import PagesAPIEndpoint
-from wagtail.api.v2.filters import (
-    ChildOfFilter, DescendantOfFilter, FieldsFilter, ForExplorerFilter, OrderingFilter,
-    SearchFilter)
-from wagtail.api.v2.utils import BadRequestError, filter_page_type, page_models_from_string
+from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.core.models import Page
 
-from .filters import HasChildrenFilter
+from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
 
 
-class PagesAdminAPIEndpoint(PagesAPIEndpoint):
+class PagesAdminAPIViewSet(PagesAPIViewSet):
     base_serializer_class = AdminPageSerializer
     authentication_classes = [SessionAuthentication]
 
-    # Use unrestricted child_of/descendant_of filters
-    # Add has_children filter
-    filter_backends = [
-        FieldsFilter,
-        ChildOfFilter,
-        DescendantOfFilter,
-        ForExplorerFilter,
+    # Add has_children and for_explorer filters
+    filter_backends = PagesAPIViewSet.filter_backends + [
         HasChildrenFilter,
-        OrderingFilter,
-        SearchFilter,
+        ForExplorerFilter,
     ]
 
-    meta_fields = PagesAPIEndpoint.meta_fields + [
+    meta_fields = PagesAPIViewSet.meta_fields + [
         'latest_revision_created_at',
         'status',
         'children',
         'descendants',
         'parent',
+        'ancestors',
     ]
 
-    body_fields = PagesAPIEndpoint.body_fields + [
+    body_fields = PagesAPIViewSet.body_fields + [
         'admin_display_title',
     ]
 
-    listing_default_fields = PagesAPIEndpoint.listing_default_fields + [
+    listing_default_fields = PagesAPIViewSet.listing_default_fields + [
         'latest_revision_created_at',
         'status',
         'children',
@@ -51,30 +42,28 @@ class PagesAdminAPIEndpoint(PagesAPIEndpoint):
     # Allow the parent field to appear on listings
     detail_only_fields = []
 
-    known_query_parameters = PagesAPIEndpoint.known_query_parameters.union([
+    known_query_parameters = PagesAPIViewSet.known_query_parameters.union([
         'for_explorer',
         'has_children'
     ])
 
+    def get_root_page(self):
+        """
+        Returns the page that is used when the `&child_of=root` filter is used.
+        """
+        return Page.get_first_root_node()
+
+    def get_base_queryset(self):
+        """
+        Returns a queryset containing all pages that can be seen by this user.
+
+        This is used as the base for get_queryset and is also used to find the
+        parent pages when using the child_of and descendant_of filters as well.
+        """
+        return Page.objects.all()
+
     def get_queryset(self):
-        request = self.request
-
-        # Allow pages to be filtered to a specific type
-        try:
-            models = page_models_from_string(request.GET.get('type', 'wagtailcore.Page'))
-        except (LookupError, ValueError):
-            raise BadRequestError("type doesn't exist")
-
-        if not models:
-            models = [Page]
-
-        if len(models) == 1:
-            queryset = models[0].objects.all()
-        else:
-            queryset = Page.objects.all()
-
-            # Filter pages by specified models
-            queryset = filter_page_type(queryset, models)
+        queryset = super().get_queryset()
 
         # Hide root page
         # TODO: Add "include_root" flag

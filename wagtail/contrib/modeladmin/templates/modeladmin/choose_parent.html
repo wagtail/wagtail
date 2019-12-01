@@ -4,6 +4,7 @@
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
     {{ form.media.css }}
     <link rel="stylesheet" href="{% versioned_static 'wagtailmodeladmin/css/choose_parent_page.css' %}" type="text/css"/>
@@ -11,6 +12,7 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
     {{ form.media.js }}
 {% endblock %}
