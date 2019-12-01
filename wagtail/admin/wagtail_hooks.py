@@ -18,6 +18,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.views.account import email_management_enabled, password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
@@ -279,7 +280,7 @@ def register_core_features(features):
         'hallo', 'hr',
         HalloPlugin(
             name='hallohr',
-            js=['wagtailadmin/js/hallo-plugins/hallo-hr.js'],
+            js=[versioned_static('wagtailadmin/js/hallo-plugins/hallo-hr.js')],
             order=45,
         )
     )
@@ -292,8 +293,8 @@ def register_core_features(features):
         HalloPlugin(
             name='hallowagtaillink',
             js=[
-                'wagtailadmin/js/page-chooser-modal.js',
-                'wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js',
+                versioned_static('wagtailadmin/js/page-chooser-modal.js'),
+                versioned_static('wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js'),
             ],
         )
     )
@@ -541,7 +542,7 @@ def register_core_features(features):
                 'href': "^(http:|https:|undefined$)",
             }
         }, js=[
-            'wagtailadmin/js/page-chooser-modal.js',
+            versioned_static('wagtailadmin/js/page-chooser-modal.js'),
         ])
     )
     features.register_converter_rule('contentstate', 'link', {

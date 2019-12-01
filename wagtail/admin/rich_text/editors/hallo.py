@@ -13,8 +13,8 @@ class HalloPlugin:
     def __init__(self, **kwargs):
         self.name = kwargs.get('name', None)
         self.options = kwargs.get('options', {})
-        self.js = kwargs.get('js', [])
-        self.css = kwargs.get('css', {})
+        self.js = kwargs.get('js', None)
+        self.css = kwargs.get('css', None)
         self.order = kwargs.get('order', 100)
 
     def construct_plugins_list(self, plugins):
@@ -23,12 +23,7 @@ class HalloPlugin:
 
     @property
     def media(self):
-        js = [versioned_static(js_file) for js_file in self.js]
-        css = {}
-        for media_type, css_files in self.css.items():
-            css[media_type] = [versioned_static(css_file) for css_file in css_files]
-
-        return Media(js=js, css=css)
+        return Media(js=self.js, css=self.css)
 
 
 class HalloFormatPlugin(HalloPlugin):
