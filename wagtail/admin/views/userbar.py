@@ -1,9 +1,10 @@
+from warnings import warn
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
-
+from wagtail.utils.deprecation import RemovedInWagtail210Warning
 from wagtail.admin.userbar import (
     AddPageItem, ApproveModerationEditPageItem, EditPageItem, RejectModerationEditPageItem)
-from wagtail.core import hooks
+from wagtail.core import hooks, utils
 from wagtail.core.models import Page, PageRevision
 
 
@@ -15,7 +16,12 @@ def for_frontend(request, page_id):
     ]
 
     for fn in hooks.get_hooks('construct_wagtail_userbar'):
-        fn(request, items)
+        if utils.accepts_kwarg(fn, 'context'):
+            fn(request, items, {})
+        else:
+            warn("Your function for 'construct_wagtail_userbar' must accept the context of the template "
+                 "as third argument named 'context'", RemovedInWagtail210Warning)
+            fn(request, items)
 
     # Render the items
     rendered_items = [item.render(request) for item in items]
@@ -39,7 +45,12 @@ def for_moderation(request, revision_id):
     ]
 
     for fn in hooks.get_hooks('construct_wagtail_userbar'):
-        fn(request, items)
+        if utils.accepts_kwarg(fn, 'context'):
+            fn(request, items, {})
+        else:
+            warn("Your function for 'construct_wagtail_userbar' must accept the context of the template "
+                 "as third argument named 'context'", RemovedInWagtail210Warning)
+            fn(request, items)
 
     # Render the items
     rendered_items = [item.render(request) for item in items]

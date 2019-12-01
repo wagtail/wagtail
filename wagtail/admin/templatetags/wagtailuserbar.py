@@ -1,3 +1,6 @@
+from warnings import warn
+from wagtail.utils.deprecation import RemovedInWagtail210Warning
+
 from django import template
 from django.template.loader import render_to_string
 
@@ -86,6 +89,8 @@ def wagtailuserbar(context, position='bottom-right'):
         if utils.accepts_kwarg(fn, 'context'):
             fn(request, items, context)
         else:
+            warn("Your function for 'construct_wagtail_userbar' must accept the context of the template "
+                 "as third argument named 'context'", RemovedInWagtail210Warning)
             fn(request, items)
 
     # Render the items

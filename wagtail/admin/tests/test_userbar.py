@@ -70,21 +70,25 @@ class TestUserbarTag(TestCase):
             def render(self, request):
                 return '<li><a href="www.kittenwar.com" ' \
                        + 'target="_parent" class="action icon icon-wagtail">Kittens!</a></li>'
+        try:
+            @hooks.register('construct_wagtail_userbar')
+            def add_kitten_link_item(request, items):
+                return items.append(UserbarKittenLinkItemFromContext())
 
-        @hooks.register('construct_wagtail_userbar')
-        def add_kitten_link_item(request, items):
-            return items.append(UserbarKittenLinkItemFromContext())
-
-        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
-        ctx = Context({
-            PAGE_TEMPLATE_VAR: self.homepage,
-            'request': self.dummy_request(self.user),
-        })
-        content = template.render(ctx)
-        self.assertIn("www.kittenwar.com", content)
+            template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+            ctx = Context({
+                PAGE_TEMPLATE_VAR: self.homepage,
+                'request': self.dummy_request(self.user),
+            })
+            content = template.render(ctx)
+            self.assertIn("www.kittenwar.com", content)
+        finally:
+            hook_list = hooks._hooks['construct_wagtail_userbar']
+            hooks._hooks['construct_wagtail_userbar'] = [i for i in hook_list if i[0].__name__ != 'add_kitten_link_item']
 
     def test_add_item_with_template_context(self):
         from wagtail.core import hooks
+
         class UserbarPuppyLinkItemFromContext:
 
             def __init__(self, context):
@@ -96,21 +100,24 @@ class TestUserbarTag(TestCase):
                     return '<li><a href="' + link + '" ' \
                            + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
                 return ''
+        try:
+            @hooks.register('construct_wagtail_userbar')
+            def add_puppy_link_item(request, items, context=None):
+                if not context:
+                    context = {}
+                return items.append(UserbarPuppyLinkItemFromContext(context))
 
-        @hooks.register('construct_wagtail_userbar')
-        def add_puppy_link_item(request, items, context=None):
-            if not context:
-                context = {}
-            return items.append(UserbarPuppyLinkItemFromContext(context))
-
-        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
-        ctx = Context({
-            PAGE_TEMPLATE_VAR: self.homepage,
-            'request': self.dummy_request(self.user),
-            'puppy_link': "http://www.puppywar.com/"
-        })
-        content = template.render(ctx)
-        self.assertIn("http://www.puppywar.com/", content)
+            template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+            ctx = Context({
+                PAGE_TEMPLATE_VAR: self.homepage,
+                'request': self.dummy_request(self.user),
+                'puppy_link': "http://www.puppywar.com/"
+            })
+            content = template.render(ctx)
+            self.assertIn("http://www.puppywar.com/", content)
+        finally:
+            hook_list = hooks._hooks['construct_wagtail_userbar']
+            hooks._hooks['construct_wagtail_userbar'] = [i for i in hook_list if i[0].__name__ != 'add_puppy_link_item']
 
 
 class TestUserbarFrontend(TestCase, WagtailTestUtils):
