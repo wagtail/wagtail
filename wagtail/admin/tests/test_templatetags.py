@@ -66,3 +66,15 @@ class TestVersionedStatic(TestCase):
     def test_versioned_static(self):
         result = versioned_static('wagtailadmin/js/core.js')
         self.assertRegex(result, r'^/static/wagtailadmin/js/core.js\?v=(\w+)$')
+
+    def test_versioned_static_querystring(self):
+        result = versioned_static('wagtailadmin/js/core.js?version=1')
+        self.assertEqual(result, 'wagtailadmin/js/core.js?version=1')
+
+    def test_versioned_static_absolute_path(self):
+        result = versioned_static('/static/wagtailadmin/js/core.js')
+        self.assertEqual(result, '/static/wagtailadmin/js/core.js')
+
+    def test_versioned_static_url(self):
+        result = versioned_static('http://example.org/static/wagtailadmin/js/core.js')
+        self.assertEqual(result, 'http://example.org/static/wagtailadmin/js/core.js')
