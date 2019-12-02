@@ -410,20 +410,26 @@ def edit(request, page_id):
         workflow_tasks = WorkflowTask.objects.filter(workflow=workflow)
         try:
             current_task_number = workflow_tasks.get(task=task).sort_order+1
-        except Task.DoesNotExist:
+        except WorkflowTask.DoesNotExist:
+            # The Task has been removed from the Workflow
             pass
         task_name = task.name
         workflow_name = workflow.name
+
         states = TaskState.objects.filter(workflow_state=workflow_state, page_revision=page.get_latest_revision()).values('task', 'status')
-        total_tasks = len(workflow_tasks)
+        total_tasks = len(workflow_tasks) # len used as queryset is to be iterated over
+
+        # create a list of task statuses to be passed into the template to show workflow progress
         for workflow_task in workflow_tasks:
             try:
                 status = states.get(task=workflow_task.task)['status']
             except TaskState.DoesNotExist:
                 status = 'not_started'
             task_statuses.append(status)
-        approved_task = True if 'approved' in task_statuses else False
 
+        # add a warning message if tasks have been approved and may need to be re-approved
+        approved_task = True if 'approved' in task_statuses else False
+        # TODO: allow this warning message to be adapted based on whether tasks will auto-re-approve when an edit is made on a later task or not
         # TODO: add icon to message when we have added a workflows icon
         if current_task_number:
             workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
