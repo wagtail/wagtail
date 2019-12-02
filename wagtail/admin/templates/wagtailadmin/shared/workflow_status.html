@@ -1,11 +1,14 @@
+{% load wagtailui_tags %}
+{% if task_statuses %}
 <h2>{{ workflow_name }}</h2>
-Task {{ current_task_number }} of {{ total_tasks }}: {{ task_name }}
-<div>
-{% for status in task_statuses %}
-    {% if status == 'approved' %}
-        <i class="icon icon-success"></i>
-    {% else %}
-        <i class="icon icon-radio-empty"></i>
-    {% endif %}
-{% endfor %}
-</div>
+    Task {% if current_task_number %}{{ current_task_number }} of {{ total_tasks }}{% endif %}: {{ task_name }}
+    <div>
+    {% for status in task_statuses %}
+        {% if status == 'approved' %}
+                {% wagtail_icon name="success" title="Approved task" %}
+            {% else %}
+                {% wagtail_icon name="radio-empty" title="Incomplete task" %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
