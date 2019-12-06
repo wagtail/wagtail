@@ -29,6 +29,8 @@ Changelog
  * Fix: Layout issue when using FieldRowPanel with a heading (Andreas Bernacca)
  * Fix: `file_size` and `file_hash` not updated when Document file changed (Andreas Bernacca)
  * Fix: Fixed order of URLs in project template so that static / media URLs are not blocked (Nick Smith)
+ * Fix: Added verbose_name_plural for form submission model (Janneke Janssen)
+
 
 2.7 LTS (06.11.2019)
 ~~~~~~~~~~~~~~~~~~~~
