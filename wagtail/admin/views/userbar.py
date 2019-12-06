@@ -1,11 +1,13 @@
 from warnings import warn
+
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
-from wagtail.utils.deprecation import RemovedInWagtail210Warning
+
 from wagtail.admin.userbar import (
     AddPageItem, ApproveModerationEditPageItem, EditPageItem, RejectModerationEditPageItem)
 from wagtail.core import hooks, utils
 from wagtail.core.models import Page, PageRevision
+from wagtail.utils.deprecation import RemovedInWagtail210Warning
 
 
 @permission_required('wagtailadmin.access_admin', raise_exception=True)

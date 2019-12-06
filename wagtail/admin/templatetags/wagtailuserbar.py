@@ -1,5 +1,5 @@
 from warnings import warn
-from wagtail.utils.deprecation import RemovedInWagtail210Warning
+
 
 from django import template
 from django.template.loader import render_to_string
@@ -9,6 +9,7 @@ from wagtail.admin.userbar import (
     RejectModerationEditPageItem)
 from wagtail.core import hooks, utils
 from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, PageRevision
+from wagtail.utils.deprecation import RemovedInWagtail210Warning
 
 # from django.contrib.auth.decorators import permission_required
 
