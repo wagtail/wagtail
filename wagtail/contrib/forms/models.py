@@ -64,6 +64,7 @@ class AbstractFormSubmission(models.Model):
     class Meta:
         abstract = True
         verbose_name = _('form submission')
+        verbose_name_plural = _('form submissions')
 
 
 class FormSubmission(AbstractFormSubmission):
