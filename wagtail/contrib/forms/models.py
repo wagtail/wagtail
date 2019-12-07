@@ -3,7 +3,7 @@ import os
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.shortcuts import render
+from django.template.response import TemplateResponse
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from unidecode import unidecode
@@ -210,7 +210,7 @@ class AbstractForm(Page):
         """
         context = self.get_context(request)
         context['form_submission'] = form_submission
-        return render(
+        return TemplateResponse(
             request,
             self.get_landing_page_template(request),
             context
@@ -238,7 +238,7 @@ class AbstractForm(Page):
 
         context = self.get_context(request)
         context['form'] = form
-        return render(
+        return TemplateResponse(
             request,
             self.get_template(request),
             context

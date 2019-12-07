@@ -1,6 +1,7 @@
 from django.contrib.admin.utils import quote, unquote
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
@@ -48,7 +49,7 @@ def choose(request, app_label, model_name):
 
     # If paginating or searching, render "results.html"
     if request.GET.get('results', None) == 'true':
-        return render(request, "wagtailsnippets/chooser/results.html", {
+        return TemplateResponse(request, "wagtailsnippets/chooser/results.html", {
             'model_opts': model._meta,
             'items': paginated_items,
             'query_string': search_query,

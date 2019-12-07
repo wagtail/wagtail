@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
@@ -78,7 +79,7 @@ def chooser(request):
         paginator = Paginator(documents, per_page=10)
         documents = paginator.get_page(request.GET.get('p'))
 
-        return render(request, "wagtaildocs/chooser/results.html", {
+        return TemplateResponse(request, "wagtaildocs/chooser/results.html", {
             'documents': documents,
             'documents_exist': documents_exist,
             'uploadform': uploadform,

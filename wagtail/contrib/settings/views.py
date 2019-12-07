@@ -3,6 +3,7 @@ from functools import lru_cache
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.response import TemplateResponse
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
@@ -88,7 +89,7 @@ def edit(request, app_name, model_name, site_pk):
     if Site.objects.count() > 1:
         site_switcher = SiteSwitchForm(site, model)
 
-    return render(request, 'wagtailsettings/edit.html', {
+    return TemplateResponse(request, 'wagtailsettings/edit.html', {
         'opts': model._meta,
         'setting_type_name': setting_type_name,
         'instance': instance,

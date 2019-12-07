@@ -7,8 +7,9 @@ from django.db import transaction
 from django.db.models import Count
 from django.http import Http404, HttpResponse, JsonResponse
 from django.http.request import QueryDict
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.http import is_safe_url, urlquote
@@ -120,7 +121,7 @@ def index(request, parent_page_id=None):
         paginator = Paginator(pages, per_page=50)
         pages = paginator.get_page(request.GET.get('p'))
 
-    return render(request, 'wagtailadmin/pages/index.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/index.html', {
         'parent_page': parent_page.specific,
         'ordering': ordering,
         'pagination_query_params': "ordering=%s" % ordering,
@@ -148,7 +149,7 @@ def add_subpage(request, parent_page_id):
         verbose_name, app_label, model_name = page_types[0]
         return redirect('wagtailadmin_pages:add', app_label, model_name, parent_page.id)
 
-    return render(request, 'wagtailadmin/pages/add_subpage.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/add_subpage.html', {
         'parent_page': parent_page,
         'page_types': page_types,
         'next': get_valid_next_url_from_request(request),
@@ -172,7 +173,7 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
     paginator = Paginator(pages, per_page=10)
     pages = paginator.get_page(request.GET.get('p'))
 
-    return render(request, 'wagtailadmin/pages/content_type_use.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/content_type_use.html', {
         'pages': pages,
         'app_name': content_type_app_name,
         'content_type': content_type,
@@ -307,7 +308,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
     edit_handler = edit_handler.bind_to(form=form)
 
-    return render(request, 'wagtailadmin/pages/create.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/create.html', {
         'content_type': content_type,
         'page_class': page_class,
         'parent_page': parent_page,
@@ -533,7 +534,7 @@ def edit(request, page_id):
     else:
         page_for_status = page
 
-    return render(request, 'wagtailadmin/pages/edit.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/edit.html', {
         'page': page,
         'page_for_status': page_for_status,
         'content_type': content_type,
@@ -575,7 +576,7 @@ def delete(request, page_id):
                 return redirect(next_url)
             return redirect('wagtailadmin_explore', parent_id)
 
-    return render(request, 'wagtailadmin/pages/confirm_delete.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/confirm_delete.html', {
         'page': page,
         'descendant_count': page.get_descendant_count(),
         'next': next_url,
@@ -630,7 +631,7 @@ class PreviewOnEdit(View):
         return JsonResponse({'is_valid': form.is_valid()})
 
     def error_response(self, page):
-        return render(self.request, 'wagtailadmin/pages/preview_error.html',
+        return TemplateResponse(self.request, 'wagtailadmin/pages/preview_error.html',
                       {'page': page})
 
     def get(self, request, *args, **kwargs):
@@ -713,7 +714,7 @@ def unpublish(request, page_id):
             return redirect(next_url)
         return redirect('wagtailadmin_explore', page.get_parent().id)
 
-    return render(request, 'wagtailadmin/pages/confirm_unpublish.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/confirm_unpublish.html', {
         'page': page,
         'next': next_url,
         'live_descendant_count': page.get_descendants().live().count(),
@@ -750,7 +751,7 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
     paginator = Paginator(child_pages, per_page=50)
     child_pages = paginator.get_page(request.GET.get('p'))
 
-    return render(request, 'wagtailadmin/pages/move_choose_destination.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/move_choose_destination.html', {
         'page_to_move': page_to_move,
         'viewed_page': viewed_page,
         'child_pages': child_pages,
@@ -791,7 +792,7 @@ def move_confirm(request, page_to_move_id, destination_id):
 
         return redirect('wagtailadmin_explore', destination.id)
 
-    return render(request, 'wagtailadmin/pages/confirm_move.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/confirm_move.html', {
         'page_to_move': page_to_move,
         'destination': destination,
     })
@@ -905,7 +906,7 @@ def copy(request, page_id):
                 return redirect(next_url)
             return redirect('wagtailadmin_explore', parent_page.id)
 
-    return render(request, 'wagtailadmin/pages/copy.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/copy.html', {
         'page': page,
         'form': form,
         'next': next_url,
@@ -976,7 +977,7 @@ def search(request):
     pages = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():
-        return render(request, "wagtailadmin/pages/search_results.html", {
+        return TemplateResponse(request, "wagtailadmin/pages/search_results.html", {
             'pages': pages,
             'all_pages': all_pages,
             'query_string': q,
@@ -986,7 +987,7 @@ def search(request):
             'pagination_query_params': pagination_query_params.urlencode(),
         })
     else:
-        return render(request, "wagtailadmin/pages/search.html", {
+        return TemplateResponse(request, "wagtailadmin/pages/search.html", {
             'search_form': form,
             'pages': pages,
             'all_pages': all_pages,
@@ -1122,7 +1123,7 @@ def revisions_index(request, page_id):
     paginator = Paginator(revisions, per_page=20)
     revisions = paginator.get_page(request.GET.get('p'))
 
-    return render(request, 'wagtailadmin/pages/revisions/index.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/revisions/index.html', {
         'page': page,
         'ordering': ordering,
         'pagination_query_params': "ordering=%s" % ordering,
@@ -1159,7 +1160,7 @@ def revisions_revert(request, page_id, revision_id):
         }
     ))
 
-    return render(request, 'wagtailadmin/pages/edit.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/edit.html', {
         'page': page,
         'revision': revision,
         'is_revision': True,
@@ -1229,7 +1230,7 @@ def revisions_compare(request, page_id, revision_id_a, revision_id_b):
     comparison = [comp(revision_a, revision_b) for comp in comparison]
     comparison = [comp for comp in comparison if comp.has_changed()]
 
-    return render(request, 'wagtailadmin/pages/revisions/compare.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/revisions/compare.html', {
         'page': page,
         'revision_a_heading': revision_a_heading,
         'revision_a': revision_a,
@@ -1264,7 +1265,7 @@ def revisions_unschedule(request, page_id, revision_id):
             return redirect(next_url)
         return redirect('wagtailadmin_pages:revisions_index', page.id)
 
-    return render(request, 'wagtailadmin/pages/revisions/confirm_unschedule.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/revisions/confirm_unschedule.html', {
         'page': page,
         'revision': revision,
         'next': next_url,

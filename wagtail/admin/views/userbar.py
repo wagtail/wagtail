@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render
+from django.template.response import TemplateResponse
 
 from wagtail.admin.userbar import (
     AddPageItem, ApproveModerationEditPageItem, EditPageItem, RejectModerationEditPageItem)
@@ -24,7 +24,7 @@ def for_frontend(request, page_id):
     rendered_items = [item for item in rendered_items if item]
 
     # Render the edit bird
-    return render(request, 'wagtailadmin/userbar/base.html', {
+    return TemplateResponse(request, 'wagtailadmin/userbar/base.html', {
         'items': rendered_items,
     })
 
@@ -48,6 +48,6 @@ def for_moderation(request, revision_id):
     rendered_items = [item for item in rendered_items if item]
 
     # Render the edit bird
-    return render(request, 'wagtailadmin/userbar/base.html', {
+    return TemplateResponse(request, 'wagtailadmin/userbar/base.html', {
         'items': rendered_items,
     })
