@@ -1,7 +1,8 @@
 import os
 
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
@@ -70,14 +71,14 @@ def index(request):
 
     # Create response
     if request.is_ajax():
-        return render(request, 'wagtaildocs/documents/results.html', {
+        return TemplateResponse(request, 'wagtaildocs/documents/results.html', {
             'ordering': ordering,
             'documents': documents,
             'query_string': query_string,
             'is_searching': bool(query_string),
         })
     else:
-        return render(request, 'wagtaildocs/documents/index.html', {
+        return TemplateResponse(request, 'wagtaildocs/documents/index.html', {
             'ordering': ordering,
             'documents': documents,
             'query_string': query_string,
@@ -121,7 +122,7 @@ def add(request):
     else:
         form = DocumentForm(user=request.user)
 
-    return render(request, "wagtaildocs/documents/add.html", {
+    return TemplateResponse(request, "wagtaildocs/documents/add.html", {
         'form': form,
     })
 
@@ -186,7 +187,7 @@ def edit(request, document_id):
                 buttons=[messages.button(reverse('wagtaildocs:delete', args=(doc.id,)), _('Delete'))]
             )
 
-    return render(request, "wagtaildocs/documents/edit.html", {
+    return TemplateResponse(request, "wagtaildocs/documents/edit.html", {
         'document': doc,
         'filesize': doc.get_file_size(),
         'form': form,
@@ -209,7 +210,7 @@ def delete(request, document_id):
         messages.success(request, _("Document '{0}' deleted.").format(doc.title))
         return redirect('wagtaildocs:index')
 
-    return render(request, "wagtaildocs/documents/confirm_delete.html", {
+    return TemplateResponse(request, "wagtaildocs/documents/confirm_delete.html", {
         'document': doc,
     })
 
@@ -221,7 +222,7 @@ def usage(request, document_id):
     paginator = Paginator(doc.get_usage(), per_page=20)
     used_by = paginator.get_page(request.GET.get('p'))
 
-    return render(request, "wagtaildocs/documents/usage.html", {
+    return TemplateResponse(request, "wagtaildocs/documents/usage.html", {
         'document': doc,
         'used_by': used_by
     })

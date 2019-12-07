@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
@@ -41,13 +42,13 @@ def index(request):
 
     # Render template
     if request.is_ajax():
-        return render(request, "wagtailredirects/results.html", {
+        return TemplateResponse(request, "wagtailredirects/results.html", {
             'ordering': ordering,
             'redirects': redirects,
             'query_string': query_string,
         })
     else:
-        return render(request, "wagtailredirects/index.html", {
+        return TemplateResponse(request, "wagtailredirects/index.html", {
             'ordering': ordering,
             'redirects': redirects,
             'query_string': query_string,
@@ -80,7 +81,7 @@ def edit(request, redirect_id):
     else:
         form = RedirectForm(instance=theredirect)
 
-    return render(request, "wagtailredirects/edit.html", {
+    return TemplateResponse(request, "wagtailredirects/edit.html", {
         'redirect': theredirect,
         'form': form,
         'user_can_delete': permission_policy.user_has_permission(request.user, 'delete'),
@@ -101,7 +102,7 @@ def delete(request, redirect_id):
         messages.success(request, _("Redirect '{0}' deleted.").format(theredirect.title))
         return redirect('wagtailredirects:index')
 
-    return render(request, "wagtailredirects/confirm_delete.html", {
+    return TemplateResponse(request, "wagtailredirects/confirm_delete.html", {
         'redirect': theredirect,
     })
 
@@ -122,6 +123,6 @@ def add(request):
     else:
         form = RedirectForm()
 
-    return render(request, "wagtailredirects/add.html", {
+    return TemplateResponse(request, "wagtailredirects/add.html", {
         'form': form,
     })

@@ -1,6 +1,6 @@
 from django import forms
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.template.response import TemplateResponse
 from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
@@ -71,7 +71,7 @@ def index(request):
     paginator = Paginator(list(range(100)), 10)
     page = paginator.page(2)
 
-    return render(request, 'wagtailstyleguide/base.html', {
+    return TemplateResponse(request, 'wagtailstyleguide/base.html', {
         'search_form': form,
         'example_form': example_form,
         'example_page': page,
