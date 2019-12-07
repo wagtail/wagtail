@@ -2,8 +2,9 @@ import os.path
 
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.encoding import force_str
 from django.views.decorators.http import require_POST
@@ -122,7 +123,7 @@ def add(request):
         # actual rendering of forms will happen on AJAX POST rather than here
         form = ImageForm(user=request.user)
 
-        return render(request, 'wagtailimages/multiple/add.html', {
+        return TemplateResponse(request, 'wagtailimages/multiple/add.html', {
             'max_filesize': form.fields['file'].max_upload_size,
             'help_text': form.fields['file'].help_text,
             'allowed_extensions': ALLOWED_EXTENSIONS,

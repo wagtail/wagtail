@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import permission_required
 from django.db import connection
 from django.db.models import Max
 from django.http import Http404
-from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.template.response import TemplateResponse
 
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
@@ -121,7 +121,7 @@ def home(request):
 
     site_details = get_site_for_user(request.user)
 
-    return render(request, "wagtailadmin/home.html", {
+    return TemplateResponse(request, "wagtailadmin/home.html", {
         'root_page': site_details['root_page'],
         'root_site': site_details['root_site'],
         'site_name': site_details['site_name'],

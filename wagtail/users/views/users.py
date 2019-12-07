@@ -2,7 +2,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
@@ -92,14 +93,14 @@ def index(request):
     users = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():
-        return render(request, "wagtailusers/users/results.html", {
+        return TemplateResponse(request, "wagtailusers/users/results.html", {
             'users': users,
             'is_searching': is_searching,
             'query_string': q,
             'ordering': ordering,
         })
     else:
-        return render(request, "wagtailusers/users/index.html", {
+        return TemplateResponse(request, "wagtailusers/users/index.html", {
             'search_form': form,
             'users': users,
             'is_searching': is_searching,
@@ -131,7 +132,7 @@ def create(request):
     else:
         form = get_user_creation_form()()
 
-    return render(request, 'wagtailusers/users/create.html', {
+    return TemplateResponse(request, 'wagtailusers/users/create.html', {
         'form': form,
     })
 
@@ -168,7 +169,7 @@ def edit(request, user_id):
     else:
         form = get_user_edit_form()(instance=user, editing_self=editing_self)
 
-    return render(request, 'wagtailusers/users/edit.html', {
+    return TemplateResponse(request, 'wagtailusers/users/edit.html', {
         'user': user,
         'form': form,
         'can_delete': can_delete,
@@ -195,6 +196,6 @@ def delete(request, user_id):
                 return result
         return redirect('wagtailusers_users:index')
 
-    return render(request, "wagtailusers/users/confirm_delete.html", {
+    return TemplateResponse(request, "wagtailusers/users/confirm_delete.html", {
         'user': user,
     })

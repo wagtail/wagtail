@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
@@ -33,13 +34,13 @@ def index(request):
     queries = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():
-        return render(request, "wagtailsearchpromotions/results.html", {
+        return TemplateResponse(request, "wagtailsearchpromotions/results.html", {
             'is_searching': is_searching,
             'queries': queries,
             'query_string': query_string,
         })
     else:
-        return render(request, 'wagtailsearchpromotions/index.html', {
+        return TemplateResponse(request, 'wagtailsearchpromotions/index.html', {
             'is_searching': is_searching,
             'queries': queries,
             'query_string': query_string,
@@ -98,7 +99,7 @@ def add(request):
         query_form = search_forms.QueryForm()
         searchpicks_formset = forms.SearchPromotionsFormSet()
 
-    return render(request, 'wagtailsearchpromotions/add.html', {
+    return TemplateResponse(request, 'wagtailsearchpromotions/add.html', {
         'query_form': query_form,
         'searchpicks_formset': searchpicks_formset,
         'form_media': query_form.media + searchpicks_formset.media,
@@ -136,7 +137,7 @@ def edit(request, query_id):
         query_form = search_forms.QueryForm(initial=dict(query_string=query.query_string))
         searchpicks_formset = forms.SearchPromotionsFormSet(instance=query)
 
-    return render(request, 'wagtailsearchpromotions/edit.html', {
+    return TemplateResponse(request, 'wagtailsearchpromotions/edit.html', {
         'query_form': query_form,
         'searchpicks_formset': searchpicks_formset,
         'query': query,
@@ -153,6 +154,6 @@ def delete(request, query_id):
         messages.success(request, _("Editor's picks deleted."))
         return redirect('wagtailsearchpromotions:index')
 
-    return render(request, 'wagtailsearchpromotions/confirm_delete.html', {
+    return TemplateResponse(request, 'wagtailsearchpromotions/confirm_delete.html', {
         'query': query,
     })
