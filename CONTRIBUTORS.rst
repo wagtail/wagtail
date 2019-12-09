@@ -427,6 +427,7 @@ Contributors
 * Pete Andrew
 * Benedikt Willi
 * Johannes Vogel
+* Sam Costigan
 
 Translators
 ===========
