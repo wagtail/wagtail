@@ -1,7 +1,6 @@
 from functools import wraps
 
 import l18n
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
 from django.core.exceptions import PermissionDenied
@@ -9,7 +8,8 @@ from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.timezone import activate as activate_tz
-from django.utils.translation import override, ugettext as _
+from django.utils.translation import ugettext as _
+from django.utils.translation import override
 
 from wagtail.admin import messages
 from wagtail.core.models import GroupPagePermission

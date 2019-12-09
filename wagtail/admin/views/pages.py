@@ -631,8 +631,7 @@ class PreviewOnEdit(View):
         return JsonResponse({'is_valid': form.is_valid()})
 
     def error_response(self, page):
-        return TemplateResponse(self.request, 'wagtailadmin/pages/preview_error.html',
-                      {'page': page})
+        return TemplateResponse(self.request, 'wagtailadmin/pages/preview_error.html', {'page': page})
 
     def get(self, request, *args, **kwargs):
         page = self.get_page()

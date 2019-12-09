@@ -3,7 +3,7 @@ import os
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
