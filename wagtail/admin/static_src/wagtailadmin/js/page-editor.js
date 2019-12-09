@@ -38,13 +38,13 @@ function InlinePanel(opts) {
         if (opts.canOrder) {
             $('#' + prefix + '-move-up').on('click', function() {
                 var currentChild = $('#' + childId);
-                var currentChildOrderElem = currentChild.find('input[name$="-ORDER"]');
+                var currentChildOrderElem = currentChild.children('input[name$="-ORDER"]');
                 var currentChildOrder = currentChildOrderElem.val();
 
                 /* find the previous visible 'inline_child' li before this one */
                 var prevChild = currentChild.prevAll(':not(.deleted)').first();
                 if (!prevChild.length) return;
-                var prevChildOrderElem = prevChild.find('input[name$="-ORDER"]');
+                var prevChildOrderElem = prevChild.children('input[name$="-ORDER"]');
                 var prevChildOrder = prevChildOrderElem.val();
 
                 // async swap animation must run before the insertBefore line below, but doesn't need to finish first
@@ -59,13 +59,13 @@ function InlinePanel(opts) {
 
             $('#' + prefix + '-move-down').on('click', function() {
                 var currentChild = $('#' + childId);
-                var currentChildOrderElem = currentChild.find('input[name$="-ORDER"]');
+                var currentChildOrderElem = currentChild.children('input[name$="-ORDER"]');
                 var currentChildOrder = currentChildOrderElem.val();
 
                 /* find the next visible 'inline_child' li after this one */
                 var nextChild = currentChild.nextAll(':not(.deleted)').first();
                 if (!nextChild.length) return;
-                var nextChildOrderElem = nextChild.find('input[name$="-ORDER"]');
+                var nextChildOrderElem = nextChild.children('input[name$="-ORDER"]');
                 var nextChildOrder = nextChildOrderElem.val();
 
                 // async swap animation must run before the insertAfter line below, but doesn't need to finish first
