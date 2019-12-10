@@ -7,7 +7,7 @@ The Dashboard provides information on:
 
 * The number of pages, images, and documents currently held in the Wagtail CMS
 * Any pages currently awaiting moderation (if you have these privileges)
-* Any pages that you've locked
+* Any pages that you've locked (if your administrator has enabled :ref:`author-specific locking<WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK>`
 * Your most recently edited pages
 
 You can return to the Dashboard at any time by clicking the Wagtail logo in the top-left of the screen.
@@ -21,6 +21,11 @@ You can return to the Dashboard at any time by clicking the Wagtail logo in the 
   - Clicking the name of a page will take you to the ‘Edit page’ interface for this page.
   - Clicking approve or reject will either change the page status to live or return the page to draft status. An email will be sent to the creator of the page giving the result of moderation either way.
   - The *Parent* column tells you what the parent page of the page awaiting moderation is called. Clicking the parent page name will take you to its Edit page.
+
+- The *Your locked pages* table shows the pages you've locked so that only you can edit them.
+- The *Locked At* column displays the date you locked the page.
+- Clicking the name of a page will take you to the ‘Edit page’ interface for this page.
+- Clicking *See all locked pages* will take you to the *Locked Pages* Report, showing the pages locked by any user
 
 - The *Your most recent edits* table displays the five pages that you most recently edited.
 - The date column displays the date that you edited the page. Hover your mouse over the date for a more exact time/date.
