@@ -42,6 +42,7 @@ Bug fixes
  * All templates with wagtailsettings and modeladmin now use ``block.super`` for ``extra_js`` & ``extra_css`` (Timothy Bautista)
  * Layout issue when using FieldRowPanel with a heading (Andreas Bernacca)
  * ``file_size`` and ``file_hash`` not updated when Document file changed (Andreas Bernacca)
+ * Fixed order of URLs in project template so that static / media URLs are not blocked (Nick Smith)
 
 
 Upgrade considerations
