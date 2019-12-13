@@ -426,6 +426,7 @@ Contributors
 * Timothy Bautista
 * Pete Andrew
 * Benedikt Willi
+* Johannes Vogel
 
 Translators
 ===========
