@@ -14,7 +14,7 @@ from wagtail.documents import models
 @override_settings(WAGTAILDOCS_SERVE_METHOD=None)
 class TestServeView(TestCase):
     def setUp(self):
-        self.document = models.Document(title="Test document")
+        self.document = models.Document(title="Test document", file_hash="123456")
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def tearDown(self):
@@ -62,6 +62,12 @@ class TestServeView(TestCase):
     def test_with_incorrect_filename(self):
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'incorrectfilename')))
         self.assertEqual(response.status_code, 404)
+
+    def test_has_etag_header(self):
+        self.assertEqual(self.get()['ETag'], '"123456"')
+
+    def test_has_cache_control_header(self):
+        self.assertEqual(self.get()['Cache-Control'], 'max-age=3600, public')
 
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile

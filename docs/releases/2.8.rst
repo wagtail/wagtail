@@ -33,6 +33,7 @@ Other features
  * Add {{ block.super }} example to ModelAdmin customisation in documentation (Dan Swain)
  * Add ability to filter image index by a tag (Benedikt Willi)
  * Add formal support for nested InlinePanels (Matt Westcott)
+ * Added cache control headers when serving documents (Johannes Vogel)
 
 
 Bug fixes

@@ -5,6 +5,8 @@ from django.http import Http404, HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.views.decorators.cache import cache_control
+from django.views.decorators.http import etag
 
 from wagtail.core import hooks
 from wagtail.core.forms import PasswordViewRestrictionForm
@@ -15,6 +17,14 @@ from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.sendfile import sendfile
 
 
+def document_etag(request, document_id, document_filename):
+    Document = get_document_model()
+    if hasattr(Document, 'file_hash'):
+        return Document.objects.filter(id=document_id).values_list('file_hash', flat=True).first()
+
+
+@etag(document_etag)
+@cache_control(max_age=3600, public=True)
 def serve(request, document_id, document_filename):
     Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
