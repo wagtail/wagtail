@@ -17,7 +17,7 @@ __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 
 
 class StructValue(collections.OrderedDict):
-    """ A class that generates a StructBlock value from provded sub-blocks """
+    """ A class that generates a StructBlock value from provided sub-blocks """
     def __init__(self, block, *args):
         super().__init__(*args)
         self.block = block
