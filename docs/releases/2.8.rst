@@ -10,6 +10,11 @@ Wagtail 2.8 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Django 3.0 support
+~~~~~~~~~~~~~~~~~~
+
+This release is compatible with Django 3.0. Compatibility fixes were contributed by Matt Westcott and Mads Jensen.
+
 
 Other features
 ~~~~~~~~~~~~~~
