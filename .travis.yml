@@ -11,21 +11,19 @@ matrix:
      python: 3.5
    - env: TOXENV=py36-dj21-postgres-noelasticsearch
      python: 3.6
-   - env: TOXENV=py37-dj21-postgres-noelasticsearch
-     python: 3.7
-   - env: TOXENV=py37-dj22-sqlite-noelasticsearch
-     python: 3.7
-   - env: TOXENV=py37-dj22-mysql-noelasticsearch
+   - env: TOXENV=py37-dj21-sqlite-noelasticsearch
      python: 3.7
    - env: TOXENV=py37-dj22-postgres-noelasticsearch
      python: 3.7
-   - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
+   - env: TOXENV=py37-dj30-sqlite-noelasticsearch
      python: 3.7
-   - env: TOXENV=py37-dj30stable-postgres-noelasticsearch
+   - env: TOXENV=py37-dj30-mysql-noelasticsearch
      python: 3.7
-   - env: TOXENV=py37-djmaster-postgres-noelasticsearch
-     python: 3.7
-   - env: TOXENV=py38-dj22-postgres-noelasticsearch
+   - env: TOXENV=py38-dj30-postgres-noelasticsearch
+     python: 3.8
+   - env: TOXENV=py38-dj30stable-postgres-noelasticsearch
+     python: 3.8
+   - env: TOXENV=py38-djmaster-postgres-noelasticsearch
      python: 3.8
    - env: TOXENV=py36-dj21-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.6
@@ -39,6 +37,8 @@ matrix:
      python: 3.7
    - env: TOXENV=py38-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
      python: 3.8
+   - env: TOXENV=py38-dj30-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+     python: 3.8
   allow_failures:
     # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky
     - env: TOXENV=py36-dj21-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -47,12 +47,11 @@ matrix:
     - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     - env: TOXENV=py37-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
     - env: TOXENV=py38-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
-    # allow failures against Django 2.2.x stable branch
-    - env: TOXENV=py37-dj22stable-postgres-noelasticsearch
+    - env: TOXENV=py38-dj30-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
     # allow failures against Django 3.0.x stable branch
-    - env: TOXENV=py37-dj30stable-postgres-noelasticsearch
+    - env: TOXENV=py38-dj30stable-postgres-noelasticsearch
     # allow failures against Django master
-    - env: TOXENV=py37-djmaster-postgres-noelasticsearch
+    - env: TOXENV=py38-djmaster-postgres-noelasticsearch
 
 # Services
 services:
