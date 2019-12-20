@@ -1,0 +1,337 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014
+# Daniel Chimeno <daniel@chimeno.me>, 2015-2016
+# fooflare <amos.oviedo@gmail.com>, 2014
+# Joaquín Tita <carpincho@gmail.com>, 2014
+# José Luis <alagunajs@gmail.com>, 2015-2016
+# José Luis <alagunajs@gmail.com>, 2017-2018
+# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# José Luis <alagunajs@gmail.com>, 2016-2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
+"es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail core"
+msgstr "Núcleo Wagtail"
+
+msgid "This block has no options."
+msgstr "Este bloque no tiene opciones."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "El mínimo número de elementos es %d"
+
+msgid "This field is required."
+msgstr "Este campo es necesario."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "El máximo número de elementos es %d"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "La que ha ingresado no es correcta. Por favor intente de nuevo."
+
+msgid "hostname"
+msgstr "nombre del host"
+
+msgid "port"
+msgstr "puerto"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Cambia esto a algo que no sea el puerto 80 si necesitas que un puerto "
+"específico aparezca en las URLs (p.e. desarrollo en el puerto 8000). Esto no "
+"afecta al manejo de solicitudes (así que la redirección de puertos sigue "
+"funcionando)."
+
+msgid "site name"
+msgstr "nombre del sitio"
+
+msgid "Human-readable name for the site."
+msgstr "Nombre del sitio legible para usuarios"
+
+msgid "root page"
+msgstr "página raíz"
+
+msgid "is default site"
+msgstr "es sitio por defecto"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Si es afirmativo, este sitio manejará solicitudes para todos los demás "
+"nombres de host que no tengan un sitio para sí mismos"
+
+msgid "site"
+msgstr "sitio"
+
+msgid "sites"
+msgstr "sitios"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s está seleccionado como sitio por defecto. Debe desactivarlo "
+"antes de poder seleccionar este sitio por defecto."
+
+msgid "title"
+msgstr "Título"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "El título de la página como quieres que sea visto por el público"
+
+msgid "slug"
+msgstr "marquilla"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"El nombre de la página tal como aparecerá en URLs p.ej. http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "content type"
+msgstr "tipo de contenido"
+
+msgid "live"
+msgstr "Ver en vivo"
+
+msgid "has unpublished changes"
+msgstr "tiene cambios no publicados"
+
+msgid "URL path"
+msgstr "Dirección URL"
+
+msgid "owner"
+msgstr "propietario"
+
+msgid "page title"
+msgstr "título de la página"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Opcional. Título 'Amigable para el Motor de Búsqueda'. Aparecerá en la parte "
+"superior de la ventana del navegador."
+
+msgid "show in menus"
+msgstr "mostrar en menús"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Un enlace a esta página aparecerá en menús generados automáticamente"
+
+msgid "search description"
+msgstr "descripción para búsqueda"
+
+msgid "go live date/time"
+msgstr "fecha/hora ir en vivo"
+
+msgid "expiry date/time"
+msgstr "fecha/hora de expiración"
+
+msgid "expired"
+msgstr "expiró"
+
+msgid "locked"
+msgstr "bloqueado"
+
+msgid "first published at"
+msgstr "Publicado por primera vez a las"
+
+msgid "last published at"
+msgstr "última vez publicado en"
+
+msgid "latest revision created at"
+msgstr "última revisión creada a las"
+
+msgid "This slug is already in use"
+msgstr "Este slug ya está en uso"
+
+msgid "scheduled"
+msgstr "Agendado"
+
+msgid "draft"
+msgstr "Borrador"
+
+msgid "live + scheduled"
+msgstr "en vivo + programado"
+
+msgid "live + draft"
+msgstr "Ver borrador"
+
+msgid "Default"
+msgstr "Predeterminado"
+
+msgid "page"
+msgstr "página"
+
+msgid "pages"
+msgstr "páginas"
+
+msgid "submitted for moderation"
+msgstr "enviado para moderación"
+
+msgid "created at"
+msgstr "creado el"
+
+msgid "user"
+msgstr "usuario"
+
+msgid "content JSON"
+msgstr "contenido JSON"
+
+msgid "approved go live at"
+msgstr "aprovado para publicación a las"
+
+msgid "page revision"
+msgstr "revisión de página"
+
+msgid "page revisions"
+msgstr "revisiones de página"
+
+msgid "Add"
+msgstr "Agregar"
+
+msgid "Add/edit pages you own"
+msgstr "Añadir/editar tus propias páginas"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit any page"
+msgstr "Editar cualquier página"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Publish any page"
+msgstr "Publicar cualquier página"
+
+msgid "Bulk delete"
+msgstr "Eliminar volumen."
+
+msgid "Delete pages with children"
+msgstr "Eliminar páginas con hijos."
+
+msgid "Lock"
+msgstr "Bloquear"
+
+msgid "Lock/unlock any page"
+msgstr "Bloquear/desbloquear cualquier página"
+
+msgid "group"
+msgstr "grupo"
+
+msgid "permission type"
+msgstr "tipo de permiso"
+
+msgid "group page permission"
+msgstr "grupo de permisos de página"
+
+msgid "group page permissions"
+msgstr "grupos de permisos de páginas"
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privado, accesible para usuarios que han iniciado sesión"
+
+msgid "Private, accessible with the following password"
+msgstr "Privado, accesible con la siguiente contraseña"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privado, accesible para usuarios en grupos específicos"
+
+msgid "password"
+msgstr "contraseña"
+
+msgid "groups"
+msgstr "grupos"
+
+msgid "view restriction"
+msgstr "restricción de vista"
+
+msgid "view restrictions"
+msgstr "restricciones de vista"
+
+msgid "page view restriction"
+msgstr "restricción de vista de página"
+
+msgid "page view restrictions"
+msgstr "restricciones de vista de página"
+
+msgid "collection"
+msgstr "colección"
+
+msgid "collection view restriction"
+msgstr "Restrición de vista de la colección"
+
+msgid "collection view restrictions"
+msgstr "Restriciones de vista de la colección"
+
+msgid "name"
+msgstr "nombre"
+
+msgid "collections"
+msgstr "coleciones"
+
+msgid "permission"
+msgstr "permiso"
+
+msgid "group collection permission"
+msgstr "permiso de colección de grupo"
+
+msgid "group collection permissions"
+msgstr "permisos de colección de grupo"
+
+msgid "Log in"
+msgstr "Ingresar"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Su usuario y contraseña no coinciden. Intente de nuevo por favor."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Su cuenta no tiene acceso a ésta página. Para proceder, por favor ingrese "
+"con una cuenta que tenga acceso."
+
+msgid "Password required"
+msgstr "Contraseña requerida"
+
+msgid "You need a password to access this page."
+msgstr "Necesita una contraseña para acceder a esta página."
+
+msgid "Continue"
+msgstr "Continuar"

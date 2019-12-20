@@ -1,0 +1,733 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
+# Umut Bektaş <info@umutbektas.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Publish"
+msgstr "Yayınla"
+
+msgid "Submit for moderation"
+msgstr "Denetleme için gönder"
+
+msgid "Unpublish"
+msgstr "Yayından Kaldır"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Wagtail admin"
+msgstr "Wagtail Yönetim"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Üzgünüm, bu alana erişim yetkiniz yok"
+
+msgid "You do not have permission to access the admin"
+msgstr "Yönetici bölümüne erişmeye yetkiniz yok"
+
+msgid "None"
+msgstr "Yok"
+
+msgid "Scheduled publishing"
+msgstr "Planlanmış yayın"
+
+msgid "Common page configuration"
+msgstr "Ortak sayfa ayarları"
+
+msgid "Content"
+msgstr "İçerik"
+
+msgid "Promote"
+msgstr "Destekle"
+
+msgid "Settings"
+msgstr "Ayarlar"
+
+msgid "Enter password"
+msgstr "Şifre girin"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "%s gir"
+
+msgid "Enter your email address to reset your password"
+msgstr "Şifreyi sıfırlamak için e posta adresini gir"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Aynı kolleksiyona ait birden fazla yetkiye sahip olamazsınız"
+
+msgid "New title"
+msgstr "Yeni başlı"
+
+msgid "New slug"
+msgstr "Yeni url başlık"
+
+msgid "New parent page"
+msgstr "Yeni üst sayfa"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Bu kopya verilen ebeveyn sayfanın alt sayfası olmalı"
+
+msgid "Copy subpages"
+msgstr "Alt sayfaları kopyala"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Bu %(count)s alt sayfayı kopyalayacaktır."
+msgstr[1] "Bu %(count)s alt sayfayı kopyalayacaktır."
+
+msgid "Publish copied page"
+msgstr "Kopyalanan sayfayı yayınla"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Bu sayfa yayında. Kopyasını da yayınlamak istermisiniz?"
+
+msgid "Publish copies"
+msgstr "Kopyaları yayınla"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"Kopyalanan sayfalardan %(count)s tanesi canlı. Kopyalarını yayınlamak ister "
+"misiniz?"
+msgstr[1] ""
+"Kopyalanan sayfalardan %(count)s tanesi canlı. Kopyalarını yayınlamak ister "
+"misiniz?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "\"%(page_title)s\"  sayfasına kopyalamak için izniniz yok."
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "Bu slug \"%s\", zaten üst sayfası bağlamında kullanılıyor."
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Alt sayfaları kopyalarken bir sayfayı kendi içine kopyalayamazsınız."
+
+msgid "This slug is already in use"
+msgstr "Bu Slug kullanılmakta"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Yayın tarih/saati bitiş tarih/saatinden önce olmalı"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Bitiş tarihi ileri bir tarih olmalı"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "Search term"
+msgstr "Arama terimi"
+
+msgid "Visibility"
+msgstr "Görünürlük"
+
+msgid "This field is required."
+msgstr "Bu alan zorunludur."
+
+msgid "Please select at least one group."
+msgstr "Lütfen en az bir grup seçin."
+
+msgid "Page"
+msgstr "Sayfa"
+
+msgid "Pages"
+msgstr "Sayfalar"
+
+msgid "Loading…"
+msgstr "Yükleniyor…"
+
+msgid "No results"
+msgstr "Sonuç yok"
+
+msgid "Server Error"
+msgstr "Sunucu Hatası"
+
+msgid "See all"
+msgstr "Tümünü gör"
+
+msgid "Close explorer"
+msgstr "Gezgini kapat"
+
+msgid "Alt text"
+msgstr "Alt metin"
+
+msgid "Write here…"
+msgstr "Buraya yaz…"
+
+msgid "Horizontal line"
+msgstr "Yatay çizgi"
+
+msgid "Line break"
+msgstr "Satır sonu"
+
+msgid "Undo"
+msgstr "Geri al"
+
+msgid "Redo"
+msgstr "Yeniden"
+
+msgid "Reload the page"
+msgstr "Sayfayı yenile"
+
+msgid "Reload saved content"
+msgstr "Kayıtlı içeriği yeniden yükle"
+
+msgid "Show latest content"
+msgstr "Son içerikleri göster"
+
+msgid "Show error"
+msgstr "Hatayı göster"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Editör az önce çöktü. İçerik son kaydedilen sürüme sıfırlandı."
+
+msgid "Broken link"
+msgstr "Kırık link"
+
+msgid "Missing document"
+msgstr "Eksik belge"
+
+msgid "January"
+msgstr "Ocak"
+
+msgid "February"
+msgstr "Şubat"
+
+msgid "March"
+msgstr "Mart"
+
+msgid "April"
+msgstr "Nisan"
+
+msgid "May"
+msgstr "Mayıs"
+
+msgid "June"
+msgstr "Haziran"
+
+msgid "July"
+msgstr "Temmuz"
+
+msgid "August"
+msgstr "Ağustos"
+
+msgid "September"
+msgstr "Eylül"
+
+msgid "October"
+msgstr "Ekim"
+
+msgid "November"
+msgstr "Kasım"
+
+msgid "December"
+msgstr "Aralık"
+
+msgid "Sun"
+msgstr "Paz"
+
+msgid "Mon"
+msgstr "Pzt"
+
+msgid "Tue"
+msgstr "Sal"
+
+msgid "Wed"
+msgstr "Çrş"
+
+msgid "Thu"
+msgstr "Per"
+
+msgid "Fri"
+msgstr "Cum"
+
+msgid "Sat"
+msgstr "Cts"
+
+msgid "Error 404: Page not found"
+msgstr "Hata 404: Sayfa bulunamadı"
+
+msgid "Error 404"
+msgstr "Hata 404"
+
+msgid "The requested page could not be found."
+msgstr "İstenilen sayfa bulunamadı."
+
+msgid "Go to Wagtail admin"
+msgstr "Wagtail yönetimine git"
+
+msgid "Account"
+msgstr "Hesap"
+
+msgid "Change profile picture"
+msgstr "Profil resmini değiştir"
+
+msgid "Your current profile picture:"
+msgstr "Mevcut profil resminiz:"
+
+msgid "Update"
+msgstr "Güncelle"
+
+msgid "Change email"
+msgstr "E-posta değiştir"
+
+msgid "Change password"
+msgstr "Şifre değiştir"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "Şifreniz değiştirilemiyor. Yönetici ile irtibata geçin."
+
+msgid "Set Time Zone"
+msgstr "Saat Dilimini Ayarla"
+
+msgid "Language Preferences"
+msgstr "Dil Tercihleri"
+
+msgid "Notification preferences"
+msgstr "Bildirim tercihleri"
+
+msgid "Reset password"
+msgstr "Şifreyi sıfırla"
+
+msgid "Password change successful"
+msgstr "Şifre değiştirme başarılı"
+
+msgid "Login"
+msgstr "Giriş"
+
+msgid "Set your new password"
+msgstr "Yeni şifre ayarla"
+
+msgid "Invalid password reset link"
+msgstr "Geçersiz şifre sıfırlama bağlantısı"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "Parola sıfırlama bağlantısı geçersiz, muhtemelen daha önce kullanıldı."
+
+msgid "Request a new password reset"
+msgstr "Parolayı yenile"
+
+msgid "Check your email"
+msgstr "E postanızı kontrol edin"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Bu adres için bir hesap mevcutsa, şifrenizi sıfırlamak için bir e-posta "
+"gönderildi."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Şifrenizi resetlemek için aşağıdaki bağlantıyı takip edin"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Kullanıcı adın(Unutmanız durumunda)"
+
+msgid "Password reset"
+msgstr "Şifre sıfırla"
+
+msgid "Reset your password"
+msgstr "Şifreni sıfırla"
+
+msgid "Dashboard"
+msgstr "Kontrol paneli"
+
+msgid "Menu"
+msgstr "Menü"
+
+msgid "Move up"
+msgstr "Yukarı taşı"
+
+msgid "Move down"
+msgstr "Aşağı taşı"
+
+msgid "Explorer"
+msgstr "Keşfedici"
+
+msgid "Internal link"
+msgstr "İç bağlantı"
+
+msgid "External link"
+msgstr "Dış bağlantı"
+
+msgid "Email link"
+msgstr "E posta bağlantısı"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"       %(counter)seşleşme var"
+msgstr[1] ""
+"\n"
+"       %(counter)s eşleşme var"
+
+msgid "Choose"
+msgstr "Seç"
+
+msgid "Choose a page"
+msgstr "Bir sayfa seç"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"  Bu alan için sadece aşağıdaki sayfa tipleri seçilebilir:%(type)s . Arama "
+"sonuçları, başka türdeki sayfalardan hariç tutulacaktır."
+msgstr[1] ""
+"\n"
+"  Bu alan için sadece aşağıdaki sayfa tipleri seçilebilir: %(type)s. Arama "
+"sonuçları, başka türdeki sayfalardan hariç tutulacaktır."
+
+msgid "Add an email link"
+msgstr "Bir e posta bağlantısı ekle"
+
+msgid "Insert link"
+msgstr "Bağlantı ekle"
+
+msgid "Add an external link"
+msgstr "Bir dış bağlantı ekle"
+
+msgid "Collection privacy"
+msgstr "Koleksiyon gizliliği"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Bu koleksiyon bir üst koleksiyon tarafından gizli yapıldı."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Gizlilik ayarlarını düzenleyebilirsiniz:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Gizlilik ayarları, bu koleksiyondaki belgeleri kimin görebileceğini belirler."
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Privacy"
+msgstr "Gizlilik"
+
+msgid "Public"
+msgstr "Genel"
+
+msgid "Private"
+msgstr "Gizli"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Bu kolleksiyon silinemedi, çünkü boş değil ve şunları içeriyor:"
+
+msgid "Name"
+msgstr "İsim"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Hiçbir koleksiyon oluşturulmadı. Neden tane <a href=\"%(add_collection_url)s"
+"\">eklemiyorsun</a>?"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Ekle %(label)s"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "%(site_name)s Hoşgeldiniz - Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Bu, oluşturduğunuz içerikle ilgili faydalı bilgilerin görüntüleneceği "
+"gösterge tablonuzdur."
+
+msgid "Pages awaiting moderation"
+msgstr "Denetlenmeyi bekleyen sayfalar"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Parent"
+msgstr "Üst-Ebeveyn"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Edited"
+msgstr "Düzenlendi"
+
+msgid "Edit this page"
+msgstr "Bu sayfayı düzenle"
+
+msgid "Preview this page"
+msgstr "Bu sayfayı önizle"
+
+msgid "Approve"
+msgstr "Onayla"
+
+msgid "Reject"
+msgstr "Reddet"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Preview"
+msgstr "Önizleme"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s önce"
+
+msgid "Your most recent edits"
+msgstr "En son düzenlemeleriniz"
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Draft"
+msgstr "Taslak"
+
+msgid "Live"
+msgstr "Yayınla"
+
+msgid "Site summary"
+msgstr "Site özeti"
+
+msgid "Sign in"
+msgstr "Oturum aç"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "%(username_field)s ve şifre uyuşmuyor. Lütfen tekrar deneyin"
+
+msgid "Sign in to Wagtail"
+msgstr "Wagtail oturumu aç"
+
+msgid "Forgotten it?"
+msgstr "Unuttun mu?"
+
+msgid "Signing in…"
+msgstr "Giriş yapılıyor…"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Bu sayfa \"%(title)s\" onaylandı."
+
+msgid "You can view the page here:"
+msgstr "Sayfayı burada görüntüleyebilirsiniz:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Bu sayfa \"%(title)s\" onaylandı."
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Merhaba %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Bildirim tercihlerinizi burada düzenleyin:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Bu sayfa \"%(title)s\" reddedildi."
+
+msgid "You can edit the page here:"
+msgstr "Sayfayı burada düzenleyebilirsiniz:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Bu sayfa \"%(title)s\" reddedildi."
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr ""
+"Bu sayfa \"%(page)s\", %(editor)starafından denetlenmek üzere gönderildi."
+
+msgid "You can preview the page here:"
+msgstr "Sayfayı buradan önizleyebilirsiniz:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Bu sayfa \"%(page)s\", denetim için gönderildi"
+
+msgid "Page privacy"
+msgstr "Sayfa gizliliği"
+
+msgid "This page has been made private by a parent page."
+msgstr "Bu sayfa bir üst sayfa tarafından gizli yapıldı."
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Gizlilik değişiklikleri, bu sayfanın tüm alt elemanları için de geçerlidir."
+
+msgid "Edit lock"
+msgstr "Düzenleme kilidi"
+
+msgid "Locked"
+msgstr "Kilitlendi"
+
+msgid "Unlocked"
+msgstr "Kilitsiz"
+
+msgid "Publishing…"
+msgstr "Yayınlanıyor..."
+
+msgid "Publish this revision"
+msgstr "Bu düzeltmeyi yayınla"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "%(title)s sayfası oluşturuldu"
+
+msgid "Create a page in"
+msgstr "İçinde sayfa oluştur"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Hangi sayfa türünü oluşturmak istediğinizi seçin."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Sayfalar kullanılıyor %(page_type)s"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s sil"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Bu sayfayı silmek istediğinize emin misiniz?"
+
+msgid "Yes, delete it"
+msgstr "Evet, onu sil."
+
+msgid "No, don't delete it"
+msgstr "Hayır, onu silme!"
+
+msgid "Move"
+msgstr "Taşı"
+
+msgid "New"
+msgstr "Yeni"
+
+msgid "Add child page"
+msgstr "Alt sayfa ekle"
+
+msgid "Home"
+msgstr "Ana Sayfa"
+
+msgid "Edit your account"
+msgstr "Hesabını düzenle"
+
+msgid "Log out"
+msgstr "Çıkış"
+
+msgid "Other searches"
+msgstr "Diğer aramalar"
+
+msgid "Go to Wagtail admin interface"
+msgstr "Wagtail yönetici arayüzüne git"
+
+msgid "Add a child page"
+msgstr "Alt sayfa ekle"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Your password has been changed successfully!"
+msgstr "Şifreniz başarıyla değiştirildi!"
+
+msgid "View live"
+msgstr "Canlı göster"
+
+msgid "View draft"
+msgstr "Taslak görüntüle"
+
+msgid "The page could not be created due to validation errors"
+msgstr "Sayfa doğrulama hataları nedeniyle oluşturulamadı"
+
+msgid "Page '{0}' deleted."
+msgstr "Sayfa '{0}' silindi."
+
+msgid "Page '{0}' unpublished."
+msgstr "Sayfa '{0}' yayından kaldırıldı."
+
+msgid "Page '{0}' moved."
+msgstr "Sayfa '{0}' taşındı."
+
+msgid "More"
+msgstr "Daha fazla"
+
+msgid "Change the password you use to log in."
+msgstr "Giriş şifrenizi değiştirin"
+
+msgid "Choose which email notifications to receive."
+msgstr "Bildirimleri almak için e posta seçin"
+
+msgid "Choose an item"
+msgstr "Bir eleman seçiniz"
+
+msgid "Choose another item"
+msgstr "Başka bir eleman seçiniz"
+
+msgid "Clear choice"
+msgstr "Seçimi temizle"
+
+msgid "Edit this item"
+msgstr "Bunu düzenle"
+
+msgid "Choose another page"
+msgstr "Başka sayfa seç"

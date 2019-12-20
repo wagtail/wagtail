@@ -1,0 +1,60 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Claudio Bantaloukas <rockdreamer@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
+# giammi <gian-maria.daffre@giammi.org>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-05-10 14:18+0000\n"
+"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
+"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
+"it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search"
+msgstr "Ricerca Wagtail"
+
+msgid "Search term(s)/phrase"
+msgstr "Cerca termine(i)/frase"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Inserisci la stringa di ricerca completa. E' richiesta una corrispondenza "
+"esatta per mostrare i tuoi Risultati di ricerca sponsorizzati, wildcards NON "
+"sono permesse. "
+
+msgid "Query Daily Hits"
+msgstr "Query giornaliere"
+
+msgid "Popular search terms"
+msgstr "Termini di ricerca popolari"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Terms"
+msgstr "Termini"
+
+msgid "Views (past week)"
+msgstr "Viste (scorsa settimana)"
+
+msgid "No results found"
+msgstr "Nessun risultato"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Choose from popular search terms"
+msgstr "Scegli tra un termine di ricerca popolare"

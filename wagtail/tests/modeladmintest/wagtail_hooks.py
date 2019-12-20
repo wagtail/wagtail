@@ -1,12 +1,12 @@
-from __future__ import absolute_import, unicode_literals
-
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
+from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
 from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm
-from .models import Author, Book, Publisher, Token, VenuePage
+from .models import Author, Book, Contributor, Friend, Person, Publisher, Token, VenuePage, Visitor
 
 
 class AuthorModelAdmin(ModelAdmin):
@@ -16,7 +16,7 @@ class AuthorModelAdmin(ModelAdmin):
     list_filter = ('date_of_birth', )
     search_fields = ('name', )
     inspect_view_enabled = True
-    inspect_view_fields = ('name', )
+    inspect_view_fields = ('name', 'author_birth_string')
 
     def last_book(self, obj):
         # For testing use of modeladmin methods in list_display
@@ -34,7 +34,7 @@ class AuthorModelAdmin(ModelAdmin):
         return class_names
 
     def get_extra_attrs_for_field_col(self, obj, field_name):
-        attrs = super(AuthorModelAdmin, self).get_extra_attrs_for_field_col(
+        attrs = super().get_extra_attrs_for_field_col(
             field_name, obj
         )
         if field_name == 'last_book':
@@ -48,10 +48,10 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     list_display = ('title', 'author', 'admin_thumb')
     list_filter = ('author', )
     ordering = ('title', )
-    search_fields = ('title', )
     inspect_view_enabled = True
     inspect_view_fields_exclude = ('title', )
     thumb_image_field_name = 'cover_image'
+    search_handler_class = WagtailBackendSearchHandler
 
     def get_extra_attrs_for_row(self, obj, context):
         return {
@@ -93,6 +93,37 @@ class VenuePageAdmin(ModelAdmin):
     exclude_from_explorer = True
 
 
+class PersonAdmin(ModelAdmin):
+    model = Person
+
+
+class FriendAdmin(ModelAdmin):
+    model = Friend
+
+
+class VisitorAdmin(ModelAdmin):
+    model = Visitor
+
+    panels = [
+        FieldPanel('last_name'),
+        FieldPanel('phone_number'),
+        FieldPanel('address'),
+    ]
+    edit_handler = TabbedInterface([
+        ObjectList(panels),
+    ])
+
+
+class ContributorAdmin(ModelAdmin):
+    model = Contributor
+
+    panels = [
+        FieldPanel('last_name'),
+        FieldPanel('phone_number'),
+        FieldPanel('address'),
+    ]
+
+
 class EventsAdminGroup(ModelAdminGroup):
     menu_label = "Events"
     items = (EventPageAdmin, SingleEventPageAdmin, VenuePageAdmin)
@@ -111,3 +142,7 @@ modeladmin_register(TokenModelAdmin)
 modeladmin_register(PublisherModelAdmin)
 modeladmin_register(EventsAdminGroup)
 modeladmin_register(BusinessChildAdmin)
+modeladmin_register(PersonAdmin)
+modeladmin_register(FriendAdmin)
+modeladmin_register(VisitorAdmin)
+modeladmin_register(ContributorAdmin)

@@ -1,0 +1,96 @@
+$tooltip-spacing: 0.625rem;
+$tooltip-arrow-height: 15px;
+$tooltip-arrow-spacing: 25px;
+$tooltip-radius: $draftail-tooltip-radius;
+
+$tooltip-chrome: $draftail-tooltip-chrome;
+$tooltip-chrome-text: $draftail-tooltip-chrome-text;
+
+$tooltip-z-index: $draftail-tooltip-z-index;
+
+$tooltip-color-no: #f48880;
+
+@mixin arrow--top {
+    margin-top: $tooltip-arrow-spacing;
+    transform: translateX(-50%);
+
+    &::before {
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-bottom-color: $tooltip-chrome;
+    }
+}
+
+@mixin arrow--left {
+    margin-left: $tooltip-arrow-spacing;
+    transform: translateY(-50%);
+
+    &::before {
+        top: 50%;
+        right: 100%;
+        transform: translateY(-50%);
+        border-right-color: $tooltip-chrome;
+    }
+}
+
+@mixin arrow--top-left {
+    margin-top: $tooltip-arrow-spacing;
+
+    &::before {
+        bottom: 100%;
+        left: $tooltip-arrow-spacing;
+        border-bottom-color: $tooltip-chrome;
+    }
+}
+
+.Tooltip {
+    position: absolute;
+    padding: $tooltip-spacing;
+    background-color: $tooltip-chrome;
+    color: $tooltip-chrome-text;
+    z-index: $tooltip-z-index;
+    border-radius: $tooltip-radius;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
+    &::before {
+        content: '';
+        position: absolute;
+        border: $tooltip-arrow-height solid transparent;
+    }
+
+    &--top {
+        @include arrow--top;
+    }
+
+    &--left {
+        @include arrow--left;
+    }
+
+    &--top-left {
+        @include arrow--top-left;
+    }
+
+    &__link {
+        @include font-smoothing;
+        font-size: 0.875rem;
+        margin-right: $controls-spacing * 4;
+        display: inline-block;
+
+        &,
+        &:hover {
+            color: $color-white;
+        }
+    }
+
+    &__button {
+        &.no.button-secondary {
+            color: $tooltip-color-no;
+            border-color: currentColor;
+
+            &:hover {
+                color: $color-button-no;
+            }
+        }
+    }
+}

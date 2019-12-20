@@ -1,0 +1,343 @@
+@import 'wagtailadmin/scss/helpers';
+
+// =============================================================================
+// Variables
+// =============================================================================
+
+$size-home-button: 3.5em;
+$position: 2em;
+$width-arrow: 0.6em;
+$box-shadow-props: 0 0 1px 0 rgba(107, 214, 230, 1);
+$max-items: 12;
+$userbar-radius: 6px;
+
+
+// Classnames will start with this parameter, eg .wagtail-
+$namespace: 'wagtail';
+
+// Possible positions for the userbar to exist in. These are set through the
+// {% wagtailuserbar 'bottom-left' %} template tag.
+$positions: (
+    'top-left': (
+        'vertical': 'top',
+        'horizontal': 'left',
+        'arrow': 'bottom'
+    ),
+    'top-right': (
+        'vertical': 'top',
+        'horizontal': 'right',
+        'arrow': 'bottom'
+    ),
+    'bottom-left': (
+        'vertical': 'bottom',
+        'horizontal': 'left',
+        'arrow': 'top'
+    ),
+    'bottom-right': (
+        'vertical': 'bottom',
+        'horizontal': 'right',
+        'arrow': 'top'
+    )
+);
+
+
+// =============================================================================
+// Fonts
+// =============================================================================
+
+@include webfont(Open Sans, opensans-regular, 400, normal);
+
+@font-face {
+    font-family: 'wagtail';
+    src: url('#{$font-root}wagtail.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// =============================================================================
+// Namespaced icon component
+// =============================================================================
+
+//  TODO: refactor into a mixin
+.#{$namespace}-icon:before {
+    @include icon();
+}
+
+
+// =============================================================================
+// Icons
+// =============================================================================
+
+@each $icon, $content in $icons {
+    .#{$namespace}-icon-#{$icon}:before {
+        content: quote(#{$content});
+    }
+}
+
+@each $icon, $content in $icons-after {
+    .#{$namespace}-icon-#{$icon}:after {
+        content: quote(#{$content});
+    }
+}
+
+
+// =============================================================================
+// Wagtail userbar proper
+// =============================================================================
+.#{$namespace}-userbar-reset {
+    all: initial;
+}
+
+
+.#{$namespace}-userbar {
+    position: fixed;
+    z-index: 9999;
+    // stylelint-disable-next-line declaration-no-important
+    font-size: initial !important;
+    line-height: initial;
+    margin: 0;
+    padding: 0;
+    display: block;
+    border: 0;
+    width: auto;
+    height: auto;
+}
+
+
+@media print {
+    .#{$namespace}-userbar {
+        display: none;
+    }
+}
+
+// stylelint-disable declaration-no-important
+.#{$namespace}-userbar-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $size-home-button;
+    height: $size-home-button;
+    margin: 0 !important;
+    overflow: hidden;
+    background-color: $color-white;
+    border-radius: 50%;
+    color: $color-black;
+    padding: 0 !important;
+    cursor: pointer;
+    box-shadow: $box-shadow-props, 0 1px 10px 0 rgba(107, 214, 230, 0.7);
+    transition: all 0.2s ease-in-out;
+    font-size: 16px;
+    text-decoration: none !important;
+    position: relative;
+
+    .#{$namespace}-userbar.touch.is-active &,
+    .#{$namespace}-userbar.no-touch &:hover {
+        box-shadow: $box-shadow-props, 0 3px 15px 0 rgba(107, 214, 230, 0.95);
+    }
+
+    .#{$namespace}-userbar-help-text {
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+
+    &.#{$namespace}-icon:before {
+        transition: color 0.2s ease;
+        font-size: 32px;
+        width: auto;
+        margin: 0;
+    }
+}
+
+.#{$namespace}-userbar-items {
+    display: block;
+    list-style: none;
+    position: absolute;
+    margin: 0;
+    min-width: 210px;
+    visibility: hidden;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding-left: 0;
+    text-decoration: none;
+
+    .#{$namespace}-userbar.is-active & {
+        visibility: visible;
+    }
+}
+
+// Arrow
+.#{$namespace}-userbar-items:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    border: solid $width-arrow transparent;
+    transition-duration: 0.15s;
+    transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+
+    .#{$namespace}-userbar.is-active & {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.3s;
+    }
+}
+
+
+.#{$namespace}-userbar-nav {
+    background: transparent !important;
+    padding: 0;
+    margin: 0 !important;
+    display: block !important;
+
+    .#{$namespace}-action {
+
+        background: transparent;
+    }
+}
+
+
+
+.#{$namespace}-userbar__item {
+    margin: 0;
+    background-color: $color-grey-1;
+    opacity: 0;
+    overflow: hidden;
+    transition-duration: 0.125s;
+    transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px !important;
+    text-decoration: none !important;
+
+    &:first-child {
+        border-top-left-radius: $userbar-radius;
+        border-top-right-radius: $userbar-radius;
+    }
+
+    &:last-child {
+        border-bottom-right-radius: $userbar-radius;
+        border-bottom-left-radius: $userbar-radius;
+    }
+
+    & + & {
+        border-top: 1px solid darken($color-grey-1, 3%);
+    }
+
+
+    a,
+    .#{$namespace}-action {
+        color: #aaa;
+        display: block;
+        text-decoration: none !important;
+        transform: none !important;
+        transition: none !important;
+        margin: 0 !important;
+        font-size: 14px !important;
+
+        &:hover,
+        &:focus {
+            outline: none;
+            color: $color-white;
+            background-color: rgba(100, 100, 100, 0.15);
+        }
+    }
+
+    .#{$namespace}-icon {
+        position: relative;
+
+        &:before {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 14px;
+        }
+    }
+
+    a,
+    input {
+        font-size: 14px !important;
+        text-align: left;
+        padding: 0.8em 1.7em 0.8em 2.7em;
+    }
+
+    input {
+        border: 0;
+        background: none;
+        width: 100%;
+    }
+}
+
+
+
+
+// =============================================================================
+// Userbar positional classes (tl, tr, bl, br)
+// =============================================================================
+
+@each $pos, $attrs in $positions {
+    $vertical: map-get($attrs, vertical);
+    $horizontal: map-get($attrs, horizontal);
+    $arrow: map-get($attrs, arrow);
+
+    .#{$namespace}-userbar--#{$pos} {
+        #{$vertical}: $position;
+        #{$horizontal}: $position;
+
+        .#{$namespace}-userbar-items {
+            #{$vertical}: 100%;
+            #{$horizontal}: 0;
+            padding-#{$vertical}: $width-arrow * 2;
+        }
+
+        .#{$namespace}-userbar-nav .#{$namespace}-userbar__item {
+            @if $vertical == 'bottom' {
+                transform: translateY(1em);
+            } @else {
+                transform: translateY(-1em);
+            }
+        }
+
+        .#{$namespace}-userbar-items:after {
+            #{$vertical}: 2px;
+            #{$horizontal}: $size-home-button / 2 - $width-arrow / 2;
+            border-#{$arrow}-color: $color-grey-1;
+
+            @if $vertical == 'bottom' {
+                transform: translateY(-$width-arrow);
+            }
+            @if $vertical == 'top' {
+                transform: translateY($width-arrow);
+            }
+        }
+
+        &.is-active .#{$namespace}-userbar__item {
+            @for $i from 1 through $max-items {
+
+                @if $vertical == 'bottom' {
+                    $prop: 'nth-last-child' !global;
+                }
+
+                @if $vertical == 'top' {
+                    $prop: 'nth-child' !global;
+                }
+
+                &:#{unquote($prop)}(#{$i}) {
+                    transition-delay: 0.05s * $i;
+                }
+            }
+        }
+    }
+}
+
+
+// =============================================================================
+// States
+// =============================================================================
+
+// Active state for the list items comes last.
+.#{$namespace}-userbar.is-active .#{$namespace}-userbar__item {
+    transform: translateY(0);
+    opacity: 1;
+}

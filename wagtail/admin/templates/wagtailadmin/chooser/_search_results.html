@@ -1,0 +1,16 @@
+{% load i18n wagtailadmin_tags %}
+
+<h2>
+    {% blocktrans count counter=pages.paginator.count %}
+        There is {{ counter }} match
+    {% plural %}
+        There are {{ counter }} matches
+    {% endblocktrans %}
+</h2>
+
+{% if pages %}
+    {% include "wagtailadmin/pages/listing/_list_choose.html" with show_parent=1 pages=pages parent_page=parent_page %}
+
+    {% url 'wagtailadmin_choose_page_search' as pagination_base_url %}
+    {% paginate pages base_url=pagination_base_url classnames="navigate-pages" %}
+{% endif %}

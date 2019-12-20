@@ -1,0 +1,112 @@
+$editor-z-index: $draftail-editor-z-index;
+
+$draftail-editor-text: $color-text-input;
+$draftail-editor-chrome: $color-grey-1;
+$draftail-editor-chrome-text: $color-white;
+$draftail-editor-chrome-active: $color-white;
+$draftail-editor-chrome-accent: lighten($draftail-editor-chrome, 20%);
+
+$draftail-editor-border: 0;
+$draftail-editor-padding: 0;
+$draftail-editor-background: transparent;
+$draftail-toolbar-radius: 3px;
+
+$draftail-editor-font-family: $font-serif;
+
+@import '../../../../node_modules/draft-js/dist/Draft';
+@import '../../../../node_modules/draftail/lib/index';
+
+@import './Tooltip/Tooltip';
+@import './EditorFallback/EditorFallback';
+
+@import './decorators/TooltipEntity';
+
+@import './blocks/MediaBlock';
+@import './blocks/ImageBlock';
+@import './blocks/EmbedBlock';
+
+@include draftail-richtext-styles {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        // Overrides for other parts of the Wagtail admin.
+        text-transform: none;
+        font-family: inherit;
+        clear: both;
+        line-height: 1;
+    }
+
+    h1,
+    h2,
+    h3 {
+        line-height: 1.1;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1.1em;
+    }
+}
+
+.Draftail-Editor {
+    border-radius: 0;
+
+    &__wrapper {
+        // Ensure elements within the editor are positioned according to this container.
+        position: relative;
+    }
+}
+
+// When in a .full container, the editor has a specific appearance
+// so the whole area appears like a focusable area, and the editor
+// receives focus on click.
+.full .Draftail-Editor {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    background-color: $color-fieldset-hover;
+    border-right: 1px solid $color-input-border;
+
+    &--focus {
+        background-color: $color-input-focus;
+        border-color: $color-input-focus-border;
+    }
+}
+
+.full .Draftail-Editor .public-DraftEditor-content,
+.full .Draftail-Editor .public-DraftEditorPlaceholder-root {
+    @include nice-padding;
+}
+
+.full .Draftail-Toolbar {
+    @include nice-margin;
+}
+
+.title .Draftail-Editor .public-DraftEditor-content,
+.title .Draftail-Editor .public-DraftEditorPlaceholder-root {
+    font-size: 2em;
+}
+
+.Draftail-block--blockquote {
+    border-left: 0.25em solid $color-grey-3;
+    color: $color-grey-2;
+    margin: 1em 0;
+    padding: 1em 2em;
+}

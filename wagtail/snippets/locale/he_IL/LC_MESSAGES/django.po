@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# lior abazon <abazon@v15.org.il>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
+"language/he_IL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he_IL\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+
+msgid "Choose"
+msgstr "בחרו"
+
+msgid "Yes, delete"
+msgstr "כן, מחק"
+
+msgid "New"
+msgstr "חדש"
+
+msgid "Save"
+msgstr "שמור"
+
+msgid "Editing"
+msgstr "עריכה"
+
+msgid "Delete"
+msgstr "מחק"
+
+msgid "Snippets"
+msgstr "קטעים"
+
+msgid "Title"
+msgstr "כותרת "
+
+msgid "Usage of"
+msgstr "שימוש ב:"
+
+msgid "Parent"
+msgstr "הורה"
+
+msgid "Type"
+msgstr "סוג"
+
+msgid "Status"
+msgstr "סטטוס"
+
+msgid "Edit this page"
+msgstr "ערוך עמוד זה"
+
+msgid "Edit"
+msgstr "ערוך"
+
+msgid "The snippet could not be created due to errors."
+msgstr "לא ניתן ליצור את הקטע עקב שגיאה"
+
+msgid "The snippet could not be saved due to errors."
+msgstr "לא ניתן לשמור את הקטע עקב שגיאה"
+
+#, python-format
+msgid "Choose %s"
+msgstr "בחר %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "בחר %s נוסף"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "ערוך את %s זה"

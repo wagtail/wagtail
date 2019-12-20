@@ -1,0 +1,331 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mykola Zamkovoi <nickzam@gmail.com>, 2014
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Zoriana Zaiats, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail core"
+msgstr "Ядро Wagtail "
+
+msgid "This block has no options."
+msgstr "Для цього блоку немає опцій."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Мінімальна кількість елементів: %d"
+
+msgid "This field is required."
+msgstr "Це поле необхідно заповнити."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Максимальна кількість елементів: %d"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Пароль. який ви ввели, не є коректним. Будь ласка, спробуйте ще."
+
+msgid "hostname"
+msgstr "им'я хоста"
+
+msgid "port"
+msgstr "порт"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Задайте порт, відмінний від 80, якщо потрібно, щоб його було вказано у URL "
+"(наприклад, для розробки на порту 8000). Не впливає на обробку запитів "
+"(перенаправлення портів буде працювати)."
+
+msgid "site name"
+msgstr "Имя сайта"
+
+msgid "Human-readable name for the site."
+msgstr "Ім'я сайту, зручне для людини"
+
+msgid "root page"
+msgstr "коренева сторінка"
+
+msgid "is default site"
+msgstr "є типовим сайтом"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Якщо true (істина), цей сайт буде обробляти запити для всіх імен хостів, що "
+"не мають своїх окремих налаштувань"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "sites"
+msgstr "сайти"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s вже налаштовано, як типовий сайт. Якщо хочете зберегти цей сайт "
+"як типовий, спочатку приберіть цей атрибут."
+
+msgid "title"
+msgstr "заголовок"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Заголовок сторінки, який міг би зацікавити публіку"
+
+msgid "slug"
+msgstr "коротка назва для URL"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Назва сторінки, що з'явиться в URLs (краще латиницею), наприклад: http://"
+"domain.com/blog/[nazva_storinky]/"
+
+msgid "content type"
+msgstr "тип вмісту"
+
+msgid "live"
+msgstr "наживо"
+
+msgid "has unpublished changes"
+msgstr "має неопубліковані зміни"
+
+msgid "URL path"
+msgstr "рядок URL"
+
+msgid "owner"
+msgstr "власник"
+
+msgid "page title"
+msgstr "заголовок сторінки"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Необов'язково. Дружній для пошукових систем заголовок, буде розташований "
+"згори вікна браузера."
+
+msgid "show in menus"
+msgstr "показати у меню"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Чи буде посилання на цю сторінку з'являтися в автоматично сгенерованих меню"
+
+msgid "search description"
+msgstr "опис для пошукових систем"
+
+msgid "go live date/time"
+msgstr "дата/час початку живої публікації"
+
+msgid "expiry date/time"
+msgstr "буде доступним до дати/часу"
+
+msgid "expired"
+msgstr "більше не доступне"
+
+msgid "locked"
+msgstr "заблоковано"
+
+msgid "first published at"
+msgstr "вперше опубліковано о"
+
+msgid "last published at"
+msgstr "востаннє опубліковано о"
+
+msgid "latest revision created at"
+msgstr "останню ревізію створено о"
+
+msgid "This slug is already in use"
+msgstr "Ця коротка назва вже використовується"
+
+msgid "scheduled"
+msgstr "заплановано"
+
+msgid "draft"
+msgstr "чернетка"
+
+msgid "live + scheduled"
+msgstr "наживо + заплановано"
+
+msgid "live + draft"
+msgstr "наживо + чернетка"
+
+msgid "Default"
+msgstr "Типовий"
+
+msgid "page"
+msgstr "сторінка"
+
+msgid "pages"
+msgstr "сторінки"
+
+msgid "submitted for moderation"
+msgstr "надіслано на модерацію"
+
+msgid "created at"
+msgstr "створено о"
+
+msgid "user"
+msgstr "користувач"
+
+msgid "content JSON"
+msgstr "вміст JSON"
+
+msgid "approved go live at"
+msgstr "схвалено до публікації наживо о"
+
+msgid "page revision"
+msgstr "ревізія сторінки"
+
+msgid "page revisions"
+msgstr "ревізії сторінки"
+
+msgid "Add"
+msgstr "Додати"
+
+msgid "Add/edit pages you own"
+msgstr "Додавати/редагувати сторінки, які належать вам"
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Edit any page"
+msgstr "Редагувати будь-яку сторінку"
+
+msgid "Publish"
+msgstr "Опублікувати"
+
+msgid "Publish any page"
+msgstr "Публікувати будь-яку сторінку"
+
+msgid "Bulk delete"
+msgstr "Масове видалення"
+
+msgid "Delete pages with children"
+msgstr "Видаляти сторінки разом з дочірніми"
+
+msgid "Lock"
+msgstr "Блокувати"
+
+msgid "Lock/unlock any page"
+msgstr "Блокувати/розблоковувати будь-яку сторінку"
+
+msgid "group"
+msgstr "група"
+
+msgid "permission type"
+msgstr "тип дозволу"
+
+msgid "group page permission"
+msgstr "дозвіл для групи сторінок "
+
+msgid "group page permissions"
+msgstr "дозволи для групи сторінок "
+
+msgid "Public"
+msgstr "Загальнодоступний"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Приватний, доступна для користувачів, що здійснили вхід"
+
+msgid "Private, accessible with the following password"
+msgstr "Приватний, доступний з паролем"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Приватний, доступний для користувачів визначених груп"
+
+msgid "password"
+msgstr "пароль"
+
+msgid "groups"
+msgstr "групи"
+
+msgid "view restriction"
+msgstr "обмеження показу"
+
+msgid "view restrictions"
+msgstr "обмеження показу"
+
+msgid "page view restriction"
+msgstr "обмеження показу сторінки"
+
+msgid "page view restrictions"
+msgstr "обмеження показу сторінки"
+
+msgid "collection"
+msgstr "колекція"
+
+msgid "collection view restriction"
+msgstr "обмеження показу колекції"
+
+msgid "collection view restrictions"
+msgstr "обмеження показу колекції"
+
+msgid "name"
+msgstr "ім'я"
+
+msgid "collections"
+msgstr "колекції"
+
+msgid "permission"
+msgstr "дозвіл"
+
+msgid "group collection permission"
+msgstr "дозволи для групи колекцій "
+
+msgid "Log in"
+msgstr "Увійдіть"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Ваші ім'я користувача та пароль не відповідають один одному. Будь ласка, "
+"спробуйте ще."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ваш акканут не має доступу до цієї сторінки. Щоб продовжити, увійдіть із "
+"аккаунтом, що має такий доступ. "
+
+msgid "Password required"
+msgstr "Пароль обов'язковий"
+
+msgid "You need a password to access this page."
+msgstr "Для доступу до цієї сторінки необхідний пароль"
+
+msgid "Continue"
+msgstr "Продовжити"

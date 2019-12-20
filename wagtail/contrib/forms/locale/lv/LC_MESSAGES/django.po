@@ -1,0 +1,65 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Single line text"
+msgstr "Vienas rindiņas teksts"
+
+msgid "Email"
+msgstr "E-pasts"
+
+msgid "Number"
+msgstr "Skaits"
+
+msgid "URL"
+msgstr "Adrese"
+
+msgid "Date"
+msgstr "Datums"
+
+msgid "Date/time"
+msgstr "Datums/laiks"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Forms"
+msgstr "Formas"
+
+msgid "Pages"
+msgstr "Lapas"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "%(form_title)s iesniegumi"
+
+msgid "Filter"
+msgstr "Atsijāt"
+
+msgid "Download CSV"
+msgstr "Lejupielādēt CSV failu"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Nav '%(title)s' veida iesniegumu."
+
+msgid "Title"
+msgstr "Virsraksts"

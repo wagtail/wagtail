@@ -4,10 +4,10 @@
 Recipes
 =======
 
-Overriding the :meth:`~wagtail.wagtailcore.models.Page.serve` Method
+Overriding the :meth:`~wagtail.core.models.Page.serve` Method
 --------------------------------------------------------------------
 
-Wagtail defaults to serving :class:`~wagtail.wagtailcore.models.Page`-derived models by passing a reference to the page object to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the :meth:`~wagtail.wagtailcore.models.Page.serve` method provided by the :class:`~wagtail.wagtailcore.models.Page` class and handle the Django request and response more directly.
+Wagtail defaults to serving :class:`~wagtail.core.models.Page`-derived models by passing a reference to the page object to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the :meth:`~wagtail.core.models.Page.serve` method provided by the :class:`~wagtail.core.models.Page` class and handle the Django request and response more directly.
 
 Consider this example from the Wagtail demo site's ``models.py``, which serves an ``EventPage`` object as an iCal file if the ``format`` variable is set in the request:
 
@@ -32,21 +32,21 @@ Consider this example from the Wagtail demo site's ``models.py``, which serves a
                     return HttpResponse(message, content_type='text/plain')
             else:
                 # Display event page as usual
-                return super(EventPage, self).serve(request)
+                return super().serve(request)
 
-:meth:`~wagtail.wagtailcore.models.Page.serve` takes a Django request object and returns a Django response object. Wagtail returns a ``TemplateResponse`` object with the template and context which it generates, which allows middleware to function as intended, so keep in mind that a simpler response object like a ``HttpResponse`` will not receive these benefits.
+:meth:`~wagtail.core.models.Page.serve` takes a Django request object and returns a Django response object. Wagtail returns a ``TemplateResponse`` object with the template and context which it generates, which allows middleware to function as intended, so keep in mind that a simpler response object like a ``HttpResponse`` will not receive these benefits.
 
 With this strategy, you could use Django or Python utilities to render your model in JSON or XML or any other format you'd like.
 
 
 .. _overriding_route_method:
 
-Adding Endpoints with Custom :meth:`~wagtail.wagtailcore.models.Page.route` Methods
+Adding Endpoints with Custom :meth:`~wagtail.core.models.Page.route` Methods
 -----------------------------------------------------------------------------------
 
 .. note::
 
-    A much simpler way of adding more endpoints to pages is provided by the :mod:`~wagtail.contrib.wagtailroutablepage` module.
+    A much simpler way of adding more endpoints to pages is provided by the :mod:`~wagtail.contrib.routable_page` module.
 
 Wagtail routes requests by iterating over the path components (separated with a forward slash ``/``), finding matching objects based on their slug, and delegating further routing to that object's model class. The Wagtail source is very instructive in figuring out what's happening. This is the default ``route()`` method of the ``Page`` class:
 
@@ -80,20 +80,20 @@ Wagtail routes requests by iterating over the path components (separated with a 
                     # the page matches the request, but isn't published, so 404
                     raise Http404
 
-:meth:`~wagtail.wagtailcore.models.Page.route` takes the current object (``self``), the ``request`` object, and a list of the remaining ``path_components`` from the request URL. It either continues delegating routing by calling :meth:`~wagtail.wagtailcore.models.Page.route` again on one of its children in the Wagtail tree, or ends the routing process by returning a ``RouteResult`` object or raising a 404 error.
+:meth:`~wagtail.core.models.Page.route` takes the current object (``self``), the ``request`` object, and a list of the remaining ``path_components`` from the request URL. It either continues delegating routing by calling :meth:`~wagtail.core.models.Page.route` again on one of its children in the Wagtail tree, or ends the routing process by returning a ``RouteResult`` object or raising a 404 error.
 
-The ``RouteResult`` object (defined in wagtail.wagtailcore.url_routing) encapsulates all the information Wagtail needs to call a page's :meth:`~wagtail.wagtailcore.models.Page.serve` method and return a final response: this information consists of the page object, and any additional ``args``/``kwargs`` to be passed to :meth:`~wagtail.wagtailcore.models.Page.serve`.
+The ``RouteResult`` object (defined in wagtail.core.url_routing) encapsulates all the information Wagtail needs to call a page's :meth:`~wagtail.core.models.Page.serve` method and return a final response: this information consists of the page object, and any additional ``args``/``kwargs`` to be passed to :meth:`~wagtail.core.models.Page.serve`.
 
-By overriding the :meth:`~wagtail.wagtailcore.models.Page.route` method, we could create custom endpoints for each object in the Wagtail tree. One use case might be using an alternate template when encountering the ``print/`` endpoint in the path. Another might be a REST API which interacts with the current object. Just to see what's involved, lets make a simple model which prints out all of its child path components.
+By overriding the :meth:`~wagtail.core.models.Page.route` method, we could create custom endpoints for each object in the Wagtail tree. One use case might be using an alternate template when encountering the ``print/`` endpoint in the path. Another might be a REST API which interacts with the current object. Just to see what's involved, lets make a simple model which prints out all of its child path components.
 
 First, ``models.py``:
 
 .. code-block:: python
 
     from django.shortcuts import render
-    from wagtail.wagtailcore.url_routing import RouteResult
+    from wagtail.core.url_routing import RouteResult
     from django.http.response import Http404
-    from wagtail.wagtailcore.models import Page
+    from wagtail.core.models import Page
 
     ...
 
@@ -150,7 +150,7 @@ Using an example from the Wagtail demo site, here's what the tag model and the r
     from taggit.models import TaggedItemBase
 
     class BlogPageTag(TaggedItemBase):
-        content_object = ParentalKey('demo.BlogPage', related_name='tagged_items')
+        content_object = ParentalKey('demo.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
 
     class BlogPage(Page):
         ...
@@ -166,6 +166,8 @@ Wagtail's admin provides a nice interface for inputting tags into your content, 
 Now that we have the many-to-many tag relationship in place, we can fit in a way to render both sides of the relation. Here's more of the Wagtail demo site ``models.py``, where the index model for ``BlogPage`` is extended with logic for filtering the index by tag:
 
 .. code-block:: python
+
+    from django.shortcuts import render
 
     class BlogIndexPage(Page):
         ...
@@ -183,7 +185,7 @@ Now that we have the many-to-many tag relationship in place, we can fit in a way
                 'blogs': blogs,
             })
 
-Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django queryset filter on the ``BlogPageTag`` model to optionally limit the ``BlogPage`` objects sent to the template for rendering. Now, lets render both sides of the relation by showing the tags associated with an object and a way of showing all of the objects associated with each tag. This could be added to the ``blog_page.html`` template:
+Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django QuerySet filter on the ``BlogPageTag`` model to optionally limit the ``BlogPage`` objects sent to the template for rendering. Now, lets render both sides of the relation by showing the tags associated with an object and a way of showing all of the objects associated with each tag. This could be added to the ``blog_page.html`` template:
 
 .. code-block:: html+django
 
@@ -193,4 +195,30 @@ Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django queryset filter 
 
 Iterating through ``page.tags.all`` will display each tag associated with ``page``, while the link(s) back to the index make use of the filter option added to the ``BlogIndexPage`` model. A Django query could also use the ``tagged_items`` related name field to get ``BlogPage`` objects associated with a tag.
 
-This is just one possible way of creating a taxonomy for Wagtail objects. With all of the components for a taxonomy available through Wagtail, you should be able to fulfill even the most exotic taxonomic schemes.
+This is just one possible way of creating a taxonomy for Wagtail objects. With all of the components for a taxonomy available through Wagtail, you should be able to fulfil even the most exotic taxonomic schemes.
+
+
+Have redirects created automatically when changing page slug
+------------------------------------------------------------
+
+You may want redirects created automatically when a url gets changed in the admin so as to avoid broken links. You can add something like the following block to a ``wagtail_hooks.py`` file within one of your project's apps.
+
+
+.. code-block:: python
+
+    from wagtail.core import hooks
+    from wagtail.contrib.redirects.models import Redirect
+
+    # Create redirect when editing slugs
+    @hooks.register('before_edit_page')
+    def create_redirect_on_slug_change(request, page):
+        if request.method == 'POST':
+            if page.slug != request.POST['slug']:
+                Redirect.objects.create(
+                        old_path=page.url[:-1],
+                        site=page.get_site(),
+                        redirect_page=page
+                    )
+
+
+Note: This does not work in some cases e.g. when you redirect a page, create a new page in that url and then move the new one. It should be helpful in most cases however.

@@ -1,0 +1,45 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with title=document.title %}Usage of {{ title }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Usage of" as usage_str %}
+    {% include "wagtailadmin/shared/header.html" with title=usage_str subtitle=document.title %}
+
+    <div class="nice-padding">
+        <table class="listing">
+            <col />
+            <col width="30%"/>
+            <col width="15%"/>
+            <col width="15%"/>
+            <thead>
+                <tr>
+                    <th class="title">{% trans "Title" %}</th>
+                    <th>{% trans "Parent" %}</th>
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "Status" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for page in used_by %}
+                    <tr>
+                        <td class="title" valign="top">
+                            <div class="title-wrapper"><a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.title }}</a></div>
+                        </td>
+                        <td>
+                            {% if page.get_parent %}
+                                <a href="{% url 'wagtailadmin_explore' page.get_parent.id %}">{{ page.get_parent.title }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ page.content_type.model_class.get_verbose_name }}
+                        </td>
+                        <td>
+                            {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=used_by %}
+{% endblock %}

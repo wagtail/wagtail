@@ -1,0 +1,191 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "hostname"
+msgstr "hostname"
+
+msgid "port"
+msgstr "poortnummer"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Stel dit op iets anders dan 80 in als er een specifiek poortnummer in de URL "
+"moet komen (bijv. development op poort 8000). Dit heeft geen effect op "
+"request afhandeling (dus port forwarding blijft werken)."
+
+msgid "site name"
+msgstr "sitenaam"
+
+msgid "Human-readable name for the site."
+msgstr "Leesbare naam voor de site."
+
+msgid "root page"
+msgstr "beginpagina"
+
+msgid "is default site"
+msgstr "is standaard site"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Indien aangevinkt zal deze site requests voor alle andere hostnames afvangen "
+"die geen eigen site hebben."
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s is al geconfigureerd als de default site. Deze moet worden "
+"aangepast voordat deze site als default kan worden aangemerkt."
+
+msgid "title"
+msgstr "titel"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "De paginatitel zoals u wilt dat uw bezoekers dit zien"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"De manier waarop de pagina in URL's getoond wordt, bijv. http://domein.nl/"
+"blog/[mijn-slug]/"
+
+msgid "content type"
+msgstr "inhoudstype"
+
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "heeft ongepubliceerde wijzigingen"
+
+msgid "URL path"
+msgstr "URL pad"
+
+msgid "owner"
+msgstr "eigenaar"
+
+msgid "page title"
+msgstr "paginatitel"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Optioneel. 'Zoek machine vriendelijke' titel. Deze zal als browsertitel "
+"fungeren. "
+
+msgid "show in menus"
+msgstr "toon in menu's"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Of een link naar deze pagina in automatisch gegenereerde menu's zal "
+"verschijnen "
+
+msgid "search description"
+msgstr "zoekomschrijving"
+
+msgid "go live date/time"
+msgstr "datum/tijd livegang"
+
+msgid "expiry date/time"
+msgstr "verloopdatum/tijd"
+
+msgid "expired"
+msgstr "verlopen"
+
+msgid "locked"
+msgstr "vergrendeld"
+
+msgid "first published at"
+msgstr "voor het eerst gepubliceerd op"
+
+msgid "latest revision created at"
+msgstr "laatste versie aangemaakt op"
+
+msgid "scheduled"
+msgstr "ingepland"
+
+msgid "draft"
+msgstr "concept"
+
+msgid "live + draft"
+msgstr "live + concept"
+
+msgid "Default"
+msgstr "Standaard"
+
+msgid "page"
+msgstr "pagina"
+
+msgid "pages"
+msgstr "pagina's"
+
+msgid "created at"
+msgstr "gemaakt op"
+
+msgid "page revision"
+msgstr "pagina versie"
+
+msgid "page revisions"
+msgstr "pagina versies"
+
+msgid "Add/edit pages you own"
+msgstr "Alle pagina's toevoegen of bewerken die je beheert"
+
+msgid "Edit any page"
+msgstr "Alle pagina's bewerken"
+
+msgid "Publish any page"
+msgstr "Alle pagina's publiceren"
+
+msgid "Lock/unlock any page"
+msgstr "Alle pagina's vergrendelen of ontgrendelen"
+
+msgid "group page permission"
+msgstr "Groep pagina bevoegdheid"
+
+msgid "group page permissions"
+msgstr "Groep pagina bevoegdheden"
+
+msgid "page view restriction"
+msgstr "Pagina bekijk beperking"
+
+msgid "page view restrictions"
+msgstr "Pagina bekijk beperkingen"

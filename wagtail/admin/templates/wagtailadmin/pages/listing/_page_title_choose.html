@@ -1,0 +1,18 @@
+{% load l10n %}
+
+{% comment %}
+The title field for a page in the page listing, when in 'choose' mode.
+
+Expects a variable 'page', the page instance.
+{% endcomment %}
+
+<div class="title-wrapper">
+    {% if page.can_choose %}
+        <a class="choose-page" href="#{{ page.id|unlocalize }}" data-id="{{ page.id|unlocalize }}" data-title="{{ page.title }}" data-url="{{ page.url }}" data-parent-id="{{ page.get_parent.id|unlocalize }}" data-edit-url="{% url 'wagtailadmin_pages:edit' page.id %}">{{ page.get_admin_display_title }}</a>
+    {% else %}
+        {{ page.get_admin_display_title }}
+    {% endif %}
+
+    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+</div>

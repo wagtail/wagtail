@@ -1,0 +1,55 @@
+{% extends "wagtailadmin/skeleton.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css' %}" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/vendor/jquery.tagit.css' %}">
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}" type="text/css" />
+    {% hook_output 'insert_global_admin_css' %}
+
+    {% block extra_css %}{% endblock %}
+{% endblock %}
+
+{% block branding_favicon %}
+    <link rel="shortcut icon" href="{% versioned_static 'wagtailadmin/images/favicon.ico' %}" />
+{% endblock %}
+
+{% block js %}
+    <script>
+        (function(document, window) {
+            window.wagtailConfig = window.wagtailConfig || {};
+            wagtailConfig.ADMIN_API = {
+                PAGES: '{% url "wagtailadmin_api:pages:listing" %}',
+                DOCUMENTS: '{% url "wagtailadmin_api:documents:listing" %}',
+                IMAGES: '{% url "wagtailadmin_api:images:listing" %}',
+                {# // Use this to add an extra query string on all API requests. #}
+                {# // Example value: '&order=-id' #}
+                EXTRA_CHILDREN_PARAMETERS: '',
+            };
+
+            wagtailConfig.STRINGS = {% js_translation_strings %};
+
+            wagtailConfig.ADMIN_URLS = {
+                PAGES: '{% url "wagtailadmin_explore_root" %}'
+            };
+        })(document, window);
+    </script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-ui-1.12.1.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.datetimepicker.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.autosize.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-transition.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-modal.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-tab.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/core.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
+    {% hook_output 'insert_global_admin_js' %}
+
+
+
+    {% main_nav_js %}
+
+    {% block extra_js %}{% endblock %}
+{% endblock %}

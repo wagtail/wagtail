@@ -1,0 +1,11 @@
+{% load i18n wagtailadmin_tags %}
+
+<li class="icon icon-doc-empty-inverse">
+    <a href="{% url 'wagtailadmin_explore' root_page.pk %}">
+        {% blocktrans count counter=total_pages with total_pages|intcomma as total %}
+            <span>{{ total }}</span> Page <span class="visuallyhidden">created in {{ site_name }}</span>
+        {% plural %}
+            <span>{{ total }}</span> Pages <span class="visuallyhidden">created in {{ site_name }}</span>
+        {% endblocktrans %}
+    </a>
+</li>

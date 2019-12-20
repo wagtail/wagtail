@@ -13,7 +13,7 @@ publish_scheduled_pages
 
     $ ./manage.py publish_scheduled_pages
 
-This command publishes or unpublishes pages that have had these actions scheduled by an editor. It is recommended to run this command once an hour.
+This command publishes, updates or unpublishes pages that have had these actions scheduled by an editor. We recommend running this command once an hour.
 
 
 .. _fixtree:
@@ -57,7 +57,7 @@ update_index
 
     $ ./manage.py update_index [--backend <backend name>]
 
-This command rebuilds the search index from scratch. It is only required when using Elasticsearch.
+This command rebuilds the search index from scratch. It is not required when using the database search backend (``wagtail.search.backends.db``).
 
 It is recommended to run this command once a week and at the following times:
 
@@ -80,6 +80,8 @@ For example, to update just the default backend:
 
     $ python manage.py update_index --backend default
 
+The ``--chunk_size`` option can be used to set the size of chunks that are indexed at a time. This defaults to
+1000 but may need to be reduced for larger document sizes.
 
 Indexing the schema only
 ````````````````````````
@@ -89,6 +91,14 @@ You can prevent the ``update_index`` command from indexing any data by using the
 .. code-block:: console
 
     $ python manage.py update_index --schema-only
+
+
+.. _wagtail_update_index:
+
+wagtail_update_index
+--------------------
+
+An alias for the ``update_index`` command that can be used when another installed package (such as `Haystack <https://haystacksearch.org/>`_) provides a command named ``update_index``. In this case, the other package's entry in ``INSTALLED_APPS`` should appear above ``wagtail.search`` so that its ``update_index`` command takes precedence over Wagtail's.
 
 
 .. _search_garbage_collect:

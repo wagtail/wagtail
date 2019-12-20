@@ -4,13 +4,14 @@
 #
 # Translators:
 # Dan Braghis, 2016
+# Dan Braghis, 2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-08-01 13:59+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -27,8 +28,8 @@ msgstr "Editare %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Editare"
 
-msgid "Saving..."
-msgstr "În curse de salvare..."
+msgid "Saving…"
+msgstr "În curse de salvare…"
 
 msgid "Save"
 msgstr "Salvează"
@@ -36,9 +37,8 @@ msgstr "Salvează"
 msgid "Settings"
 msgstr "Setări"
 
-#, python-brace-format
-msgid "{setting_type} updated."
-msgstr "{setting_type} a fost actualizat(ă)."
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Setarea nu poate fi deschisă din cauzei lipsei definiților de sit."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Setarea nu a putut fi salvată din cauza erorilor."

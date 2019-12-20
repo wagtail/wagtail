@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Viktor Shytiuk <VicHunting@yandex.ua>, 2018
+# Николай Инкогнито <mmmsvit@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr "Редагування %(setting_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Редагування"
+
+msgid "Saving…"
+msgstr "Йде зберігання..."
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Settings"
+msgstr "Налаштування"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Налаштування не буде відчинене тому, що не призначено сайт."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Неможливо зберегти налаштування через помилки."

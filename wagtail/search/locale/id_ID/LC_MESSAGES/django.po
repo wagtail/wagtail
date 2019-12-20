@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-09-18 10:51+0000\n"
+"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search"
+msgstr "Wagtail pencarian"
+
+msgid "Search term(s)/phrase"
+msgstr "Kata kunci()/frase pencarian"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Masukkan string pencarian lengkap yang akan dicocokkan. Pencocokan yang sama "
+"persis dibutuhan untuk menampilkan Promoted Results anda, wildcard TIDAK "
+"diizinkan."
+
+msgid "Query Daily Hits"
+msgstr "Query Hits Harian"
+
+msgid "Popular search terms"
+msgstr "Kata kunci pencarian populer"
+
+msgid "Search"
+msgstr "Pencarian"
+
+msgid "Terms"
+msgstr "Kata kunci"
+
+msgid "Views (past week)"
+msgstr "Tampilan (seminggu lalu)"
+
+msgid "No results found"
+msgstr "Tidak ada hasil"
+
+msgid "Date"
+msgstr "Tanggal"
+
+msgid "Choose from popular search terms"
+msgstr "Pilih dari kata kunci pencarian populer"

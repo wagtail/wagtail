@@ -1,3 +1,5 @@
+.. _inserting_images:
+
 Inserting images and videos in a page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -44,21 +46,19 @@ The image below demonstrates finding and  inserting an image that is already pre
 Inserting images using the rich text field
 __________________________________________
 
-.. image:: ../../_static/images/screen11.6.5_images.png
+Images can also be inserted into the body text of a page via the rich text editor. When working in a rich text field, click the Image control. You will then be presented with the same options as for inserting images into the main carousel.
 
-Images can also be inserted into the body text of a page via the rich text editor. When working in a rich text field, click the image illustrated above. You will then be presented with the same options as for inserting images into the main carousel.
+In addition, Wagtail allows you to choose the format of your image.
 
-In addition, Wagtail allows you to choose an alignment for you image.
-
-.. image:: ../../_static/images/screen18_image_alignment.png
+.. image:: ../../_static/images/screen18_image_format.png
 
 #. You can select how the image is displayed by selecting one of the format options.
-#. You must provide specific alt text for your image.
+#. You must provide specific `alt text <https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Images_in_HTML#Alternative_text>`_ for your image.
 
-The alignments available are described below:
+The format options available are described below:
 
 * **Full width:** Image will be inserted using the full width of the text area.
-* **Half-width left/right aligned:** Inserts the image at half the width of the text area. If inserted in a block of text the text will wrap around the image. If two half-width images are inserted together they will display next to each other.
+* **Half-width left/right aligned:** Inserts the image at half the width of the text area. If inserted in a block of text, the text will wrap around the image. If two half-width images are inserted together, they will display next to each other.
 
 .. Note::
-    The display of images aligned in this way is dependent on your implementation of Wagtail, so you may get slightly different results.
+    The display of images formatted in this way is dependent on your implementation of Wagtail, so you may get slightly different results.

@@ -5,13 +5,14 @@
 # Translators:
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
+# Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-05-12 05:10+0000\n"
-"Last-Translator: Juha Yrjölä <juha.yrjola@iki.fi>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -27,18 +28,14 @@ msgstr "Muokataan %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Muokataan"
 
-msgid "Saving..."
-msgstr "Tallennetaan..."
+msgid "Saving…"
+msgstr "Tallennetaan…"
 
 msgid "Save"
 msgstr "Tallenna"
 
 msgid "Settings"
 msgstr "Asetukset"
-
-#, python-brace-format
-msgid "{setting_type} updated."
-msgstr "{setting_type} päivitetty."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Asetusta ei voitu tallentaa virheiden vuoksi."

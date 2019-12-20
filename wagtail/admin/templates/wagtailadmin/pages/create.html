@@ -1,0 +1,102 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags %}
+{% load i18n %}
+
+{% block titletag %}{% blocktrans with page_type=content_type.model_class.get_verbose_name %}New {{ page_type }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}page-editor create model-{{ content_type.model }}{% endblock %}
+
+{% block content %}
+
+    <header class="merged tab-merged" role="banner">
+        {% explorer_breadcrumb parent_page include_self=1 %}
+
+        <div class="row row-flush">
+            <div class="left col9 header-title">
+                <h1 class="icon icon-doc-empty-inverse">
+                {% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span></h1>
+            </div>
+        </div>
+    </header>
+
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ edit_handler.render_form_content }}
+
+        <footer role="contentinfo">
+            <nav aria-label="{% trans 'Actions' %}">
+                <ul>
+                  <li class="actions">
+                      <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+                          {{ action_menu.render_html }}
+                      </div>
+                  </li>
+
+                    <li class="preview">
+                        {% trans 'Preview' as preview_label %}
+                        {% if preview_modes|length > 1 %}
+                            <div class="dropdown dropup dropdown-button match-width">
+                                {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                                <div class="dropdown-toggle icon icon-arrow-up"></div>
+                                <ul>
+                                    {% for mode_name, mode_display_name in preview_modes %}
+                                        <li>
+                                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with mode=mode_name label=mode_display_name %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                        {% endif %}
+                    </li>
+                    {% block extra_footer_actions %}
+                    {% endblock %}
+                </ul>
+            </nav>
+        </footer>
+    </form>
+
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ edit_handler.form.media.css }}
+    {{ action_menu.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    {% comment %}
+        Additional js from widgets media. Allows for custom widgets in admin panel.
+    {% endcomment %}
+    {{ edit_handler.form.media.js }}
+    {{ action_menu.media.js }}
+
+    {% comment %}
+        Additional HTML code that edit handlers define through 'html_declarations'. (Technically this isn't Javascript, but it will generally be data that exists for Javascript to work with...)
+    {% endcomment %}
+    {{ edit_handler.html_declarations }}
+
+    <script>
+        $(function(){
+            $('#page-edit-form .tab-content section.active input').first().trigger('focus');
+
+            /* Make user confirm before leaving the editor if there are unsaved changes */
+            {% trans "This page has unsaved changes." as confirmation_message %}
+            enableDirtyFormCheck(
+                '#page-edit-form',
+                {
+                    confirmationMessage: '{{ confirmation_message|escapejs }}',
+
+                    {% if has_unsaved_changes %}
+                        alwaysDirty: true,
+                    {% endif %}
+                }
+            );
+        });
+    </script>
+{% endblock %}

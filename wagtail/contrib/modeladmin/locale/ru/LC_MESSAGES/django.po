@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-07-03 12:37+0000\n"
-"Last-Translator: Andrey Avdey <talkerbox@live.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -86,8 +86,8 @@ msgstr ""
 msgid "Continue"
 msgstr "Продолжить"
 
-msgid "Saving..."
-msgstr "Сохранение..."
+msgid "Saving…"
+msgstr "Сохранение…"
 
 msgid "Save"
 msgstr "Сохранить"
@@ -171,10 +171,6 @@ msgstr "Предыдущая"
 msgid "Next"
 msgstr "Следующая"
 
-#, python-brace-format
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' создан."
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr "Невозможно создать %s из-за ошибок."
@@ -193,10 +189,6 @@ msgstr "Редактирование"
 msgid "Editing %s"
 msgstr "Редактирование %s"
 
-#, python-brace-format
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' обновлен."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "Невозможно сохранить %s из-за ошибок."
@@ -212,10 +204,6 @@ msgid ""
 msgstr ""
 "Вы уверены, что хотите удалить %s? Если другие объекты на вашем сайте "
 "связаны с удаляемым объектом, они тоже могут быть затронуты."
-
-#, python-brace-format
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' удален."
 
 msgid "Inspecting"
 msgstr "Просмотр"

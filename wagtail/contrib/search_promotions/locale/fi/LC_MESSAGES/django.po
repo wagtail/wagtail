@@ -1,0 +1,163 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+# Aarni Koskela, 2016
+# Eetu Häivälä, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Ole hyvä ja määrittele ainakin yksi suositus tälle hakutermille."
+
+msgid "page"
+msgstr "sivu"
+
+msgid "description"
+msgstr "kuvaus"
+
+msgid "search promotion"
+msgstr "hakupromootio"
+
+msgid "Add search promotion"
+msgstr "Lisää hakupromootio"
+
+msgid "Add search pick"
+msgstr "Lisää hakuvalinta"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"</p>Nostetut hakutulokset mahdollistavat tiettyjen sivujen suosittelun "
+"silloin kun sivu ei ole luonnollisesti ensimmäisten hakutulosten joukossa. "
+"Esim. lahjoitussivua voi suositella käyttäjille jotka hakevat termillä "
+"\"<em>antaminen</em>\".</p>"
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>Alla olevan hakutermi/-lause -kentän täytyy sisältää täsmälleen se "
+"sisältö (sisältäen mahdolliset kirjoitusvirheet) jolla haluat suositellun "
+"sisällön löytyvän. Helpottaaksesi tätä voit valita sivustolla käytetyistä "
+"suosituista hakutermeistä.</p>"
+
+msgid "Save"
+msgstr "Tallenna"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Poista %(query)s"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "Haluatko varmasti poistaa kaikki nostetut tulokset tältä hakutermiltä?"
+
+msgid "Yes, delete"
+msgstr "Kyllä, poista"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Muokataan %(query)s"
+
+msgid "Editing"
+msgstr "Muokataan"
+
+msgid "Move up"
+msgstr "Siirrä ylös"
+
+msgid "Move down"
+msgstr "Siirrä alas"
+
+msgid "Promoted search result"
+msgstr "Nostettu hakutulos"
+
+msgid "Add recommended page"
+msgstr "Lisää suositeltu sivu"
+
+msgid "Search Terms"
+msgstr "Hakutermit"
+
+msgid "Promoted search results"
+msgstr "Nostetut hakutulokset"
+
+msgid "Add new promoted result"
+msgstr "Lisää uusi nostettu tulos"
+
+msgid "Search term(s)"
+msgstr "Hakutermi(t)"
+
+msgid "Promoted results"
+msgstr "Nostetut tulokset"
+
+msgid "Views (past week)"
+msgstr "Näytöt (kuluva viikko)"
+
+msgid "Edit this promotion"
+msgstr "Muokkaa nostoa"
+
+msgid "None"
+msgstr "Ei mitään"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Pahoittelut, yksikään nostettu tulos ei täsmää hakuun \"<em>"
+"%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Yhtään nostettua tulosta ei ole luotu. Mikset vaikka <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">lisäisi yhtä nyt</a>?"
+
+msgid "Search promoted results"
+msgstr "Etsi nostettuja tuloksia"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "Toimituksen valinnat kohteelle '{0}' luotu."
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Suosituksia ei voitu luoda virheiden vuoksi"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "Toimituksen valinnat kohteelle '{0}' päivitetty."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Suosituksia ei voitu tallentaa virheiden vuoksi."
+
+msgid "Editor's picks deleted."
+msgstr "Toimituksen valinnat poistettu."

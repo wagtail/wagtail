@@ -1,0 +1,66 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014
+# Joaquín Tita <carpincho@gmail.com>, 2014
+# José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015,2018
+# Mauricio Baeza <python@amigos.email>, 2015
+# Mauricio Baeza <python@amigos.email>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-05-07 13:09+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
+"es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search"
+msgstr "Búsqueda Wagtail"
+
+msgid "Search term(s)/phrase"
+msgstr "Término(s)/frase de búsqueda"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Introduce la cadena completa de búsqueda a encontrar. Es \n"
+"        necesaria una coincidencia exacta para que tus Selecciones del "
+"Editor sean \n"
+"        mostradas, los comodines NO están permitidos."
+
+msgid "Query Daily Hits"
+msgstr "Consultas de acceso diarias"
+
+msgid "Popular search terms"
+msgstr "Términos de búsqueda popular"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Terms"
+msgstr "Términos"
+
+msgid "Views (past week)"
+msgstr "Vistas (semana pasada)"
+
+msgid "No results found"
+msgstr "No hay resultados"
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Choose from popular search terms"
+msgstr "Escoger de los términos de búsqueda populares"

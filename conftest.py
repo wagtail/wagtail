@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import os
 import shutil
 import warnings
@@ -33,12 +31,17 @@ def pytest_configure(config):
         pass
 
     if config.getoption('postgres'):
-        os.environ['DATABASE_ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+        os.environ['DATABASE_ENGINE'] = 'django.db.backends.postgresql'
 
     # Setup django after processing the pytest arguments so that the env
     # variables are available in the settings
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wagtail.tests.settings')
     django.setup()
+
+    # Activate a language: This affects HTTP header HTTP_ACCEPT_LANGUAGE sent by
+    # the Django test client.
+    from django.utils import translation
+    translation.activate("en")
 
     from wagtail.tests.settings import MEDIA_ROOT, STATIC_ROOT
     shutil.rmtree(STATIC_ROOT, ignore_errors=True)

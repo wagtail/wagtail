@@ -1,18 +1,17 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
-from django.core.urlresolvers import reverse
 from django.test import TestCase, override_settings
+from django.urls import reverse
 from django.utils.text import capfirst
 
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.contrib.settings.views import get_setting_edit_handler
+from wagtail.core import hooks
+from wagtail.core.models import Page, Site
 from wagtail.tests.testapp.models import (
     FileUploadSetting, IconSetting, PanelSettings, TabbedSettings, TestSetting)
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import Page, Site
 
 
 class TestSettingMenu(TestCase, WagtailTestUtils):
@@ -73,7 +72,9 @@ class TestSettingCreateView(BaseTestSettingView):
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
         self.assertContains(response, "The setting could not be saved due to errors.")
-        self.assertContains(response, "This field is required.")
+        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""",
+                            count=2, html=True)
+        self.assertContains(response, "This field is required", count=2)
 
     def test_edit(self):
         response = self.post(post_data={'title': 'Edited site title',
@@ -116,7 +117,9 @@ class TestSettingEditView(BaseTestSettingView):
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
         self.assertContains(response, "The setting could not be saved due to errors.")
-        self.assertContains(response, "This field is required.")
+        self.assertContains(response, """<p class="error-message"><span>This field is required.</span></p>""",
+                            count=2, html=True)
+        self.assertContains(response, "This field is required", count=2)
 
     def test_edit(self):
         response = self.post(post_data={'title': 'Edited site title',
@@ -127,6 +130,19 @@ class TestSettingEditView(BaseTestSettingView):
         setting = TestSetting.objects.get(site=default_site)
         self.assertEqual(setting.title, 'Edited site title')
         self.assertEqual(setting.email, 'test@example.com')
+
+    def test_get_edit_current_site(self):
+        url = reverse('wagtailsettings:edit', args=('tests', 'testsetting'))
+        default_site = Site.objects.get(is_default_site=True)
+
+        response = self.client.get(url)
+        self.assertRedirects(response, status_code=302, expected_url='%s%s/' % (url, default_site.pk))
+
+    def test_get_edit_current_site_invalid(self):
+        Site.objects.all().delete()
+        url = reverse('wagtailsettings:edit', args=('tests', 'testsetting'))
+        response = self.client.get(url)
+        self.assertRedirects(response, status_code=302, expected_url='/admin/')
 
 
 @override_settings(ALLOWED_HOSTS=['testserver', 'example.com', 'noneoftheabove.example.com'])
@@ -142,7 +158,7 @@ class TestMultiSite(BaseTestSettingView):
         """
         start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
-        dest_url = 'http://testserver' + reverse('wagtailsettings:edit', args=[
+        dest_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting', self.default_site.pk])
         response = self.client.get(start_url, follow=True)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
@@ -154,7 +170,7 @@ class TestMultiSite(BaseTestSettingView):
         """
         start_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting'])
-        dest_url = 'http://example.com' + reverse('wagtailsettings:edit', args=[
+        dest_url = reverse('wagtailsettings:edit', args=[
             'tests', 'testsetting', self.other_site.pk])
         response = self.client.get(start_url, follow=True, HTTP_HOST=self.other_site.hostname)
         self.assertRedirects(response, dest_url, status_code=302, fetch_redirect_response=False)
@@ -227,24 +243,24 @@ class TestEditHandlers(TestCase):
 
     def test_default_model_introspection(self):
         handler = get_setting_edit_handler(TestSetting)
-        self.assertEqual(handler.__name__, '_ObjectList')
+        self.assertIsInstance(handler, ObjectList)
         self.assertEqual(len(handler.children), 2)
         first = handler.children[0]
-        self.assertEqual(first.__name__, '_FieldPanel')
+        self.assertIsInstance(first, FieldPanel)
         self.assertEqual(first.field_name, 'title')
         second = handler.children[1]
-        self.assertEqual(second.__name__, '_FieldPanel')
+        self.assertIsInstance(second, FieldPanel)
         self.assertEqual(second.field_name, 'email')
 
     def test_with_custom_panels(self):
         handler = get_setting_edit_handler(PanelSettings)
-        self.assertEqual(handler.__name__, '_ObjectList')
+        self.assertIsInstance(handler, ObjectList)
         self.assertEqual(len(handler.children), 1)
         first = handler.children[0]
-        self.assertEqual(first.__name__, '_FieldPanel')
+        self.assertIsInstance(first, FieldPanel)
         self.assertEqual(first.field_name, 'title')
 
     def test_with_custom_edit_handler(self):
         handler = get_setting_edit_handler(TabbedSettings)
-        self.assertEqual(handler.__name__, '_TabbedInterface')
+        self.assertIsInstance(handler, TabbedInterface)
         self.assertEqual(len(handler.children), 2)

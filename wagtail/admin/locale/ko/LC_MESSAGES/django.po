@@ -1,0 +1,1459 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2019
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017-2019
+# Matt Westcott <matthew@torchbox.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
+"ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "게시"
+
+msgid "Submit for moderation"
+msgstr "검토를 위한 제출"
+
+msgid "Unpublish"
+msgstr "게시 해제"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Page locked"
+msgstr "페이지 잠금"
+
+msgid "Wagtail admin"
+msgstr "웨그테일 관리자"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "죄송합니다, 해당 영역에 접근할 권한이 없습니다."
+
+msgid "You do not have permission to access the admin"
+msgstr "관리자에 접근할 권한이 없습니다"
+
+msgid "None"
+msgstr "없음"
+
+msgid "Scheduled publishing"
+msgstr "예약 게시"
+
+msgid "Common page configuration"
+msgstr "페이지 공통설정"
+
+msgid "Content"
+msgstr "콘텐츠"
+
+msgid "Promote"
+msgstr "홍보"
+
+msgid "Settings"
+msgstr "설정"
+
+msgid "Enter password"
+msgstr "패스워드 입력"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "%s 입력"
+
+msgid "Enter your email address to reset your password"
+msgstr "비밀번호 재설정을 위해 이메일을 적어주세요"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "같은 모음에 대해서 여러 개의 권한을 설정할 수는 없습니다."
+
+msgid "New title"
+msgstr "새로운 제목"
+
+msgid "New slug"
+msgstr "새로운 슬러그"
+
+msgid "New parent page"
+msgstr "새로운 상위 페이지"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "이 문서는 주어진 상위 페이지에 포함될 것입니다"
+
+msgid "Copy subpages"
+msgstr "하위페이지 다중 복사"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "이는 %(count)s 개의 하위 페이지들을 복사할 것입니다"
+
+msgid "Publish copied page"
+msgstr "복사된 페이지 게시"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "이 페이지는 라이브 상태입니다. 이 페이지의 복사본도 게시할까요?"
+
+msgid "Publish copies"
+msgstr "복사본 게시"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s 개의 복사본이 활성화되어 있습니다. 이 복사본을 게시할까요?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "\"%(page_title)s\" 페이지를 복사할 권한이 없습니다."
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "이 슬러그는 이미 상위 페이지 \"%s\" 에서 쓰이고 있습니다"
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"하위 페이지를 복사할 때 페이지를 그 페이지 자신으로 복사해 넣을 수는 없습니"
+"다."
+
+msgid "This slug is already in use"
+msgstr "이 슬러그는 이미 쓰이고 있습니다"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "라이브를 위한 날짜 및 시간은 만료 날짜 및 시간보다 앞서야 합니다"
+
+msgid "Expiry date/time must be in the future"
+msgstr "만료 날짜는 현재 이후의 날짜 및 시간이어야 합니다"
+
+msgid "Search"
+msgstr "검색"
+
+msgid "Search term"
+msgstr "검색어"
+
+msgid "Visibility"
+msgstr "보임"
+
+msgid "This field is required."
+msgstr "필수 작성 항목입니다"
+
+msgid "Please select at least one group."
+msgstr "적어도 한 개의 그룹을 선택해 주세요."
+
+msgid "Arabic"
+msgstr "아랍어"
+
+msgid "Catalan"
+msgstr "카탈로니아어"
+
+msgid "German"
+msgstr "독일어"
+
+msgid "Greek"
+msgstr "그리스어"
+
+msgid "English"
+msgstr "영어"
+
+msgid "Spanish"
+msgstr "스페인어"
+
+msgid "Finnish"
+msgstr "핀란드어"
+
+msgid "French"
+msgstr "프랑스어"
+
+msgid "Galician"
+msgstr "갈리시아어"
+
+msgid "Indonesian"
+msgstr "인도네시아어"
+
+msgid "Icelandic"
+msgstr "아이슬란드어"
+
+msgid "Italian"
+msgstr "이탈리아어"
+
+msgid "Korean"
+msgstr "한국어"
+
+msgid "Lithuanian"
+msgstr "리투아니아어"
+
+msgid "Norwegian Bokmål"
+msgstr "노르웨이 보크몰"
+
+msgid "Netherlands Dutch"
+msgstr "네덜란드어"
+
+msgid "Persian"
+msgstr "페르시아어"
+
+msgid "Polish"
+msgstr "폴란드어"
+
+msgid "Brazilian Portuguese"
+msgstr "브라질 포르투갈어"
+
+msgid "Portuguese"
+msgstr "포르투갈어"
+
+msgid "Romanian"
+msgstr "로마니아어"
+
+msgid "Russian"
+msgstr "러시아어"
+
+msgid "Swedish"
+msgstr "스웨덴어"
+
+msgid "Slovak"
+msgstr "슬로바키아어"
+
+msgid "Ukrainian"
+msgstr "우크라이나어"
+
+msgid "Page"
+msgstr "페이지"
+
+msgid "Pages"
+msgstr "페이지"
+
+msgid "Loading…"
+msgstr "불러오는 중..."
+
+msgid "No results"
+msgstr "결과 없음"
+
+msgid "Server Error"
+msgstr "서버 오류"
+
+msgid "See all"
+msgstr "모두 보기"
+
+msgid "Close explorer"
+msgstr "탐색기 닫기"
+
+msgid "Alt text"
+msgstr "대체 텍스트"
+
+msgid "Write here…"
+msgstr "여기에 작성..."
+
+msgid "Horizontal line"
+msgstr "수평선"
+
+msgid "Line break"
+msgstr "줄바꿈"
+
+msgid "Undo"
+msgstr "실행취소"
+
+msgid "Redo"
+msgstr "재실행"
+
+msgid "Reload the page"
+msgstr "페이지 다시 불러오기"
+
+msgid "Reload saved content"
+msgstr "저장된 컨텐츠 다시 불러오기"
+
+msgid "Show latest content"
+msgstr "최근 컨텐츠 보기"
+
+msgid "Show error"
+msgstr "오류 보기"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"에디터에 문제가 발생했습니다. 내용은 마지막으로 저장된 버전으로 초기화되었습"
+"니다."
+
+msgid "Broken link"
+msgstr "깨진 링크"
+
+msgid "Missing document"
+msgstr "문서 없음"
+
+msgid "Close"
+msgstr "닫기"
+
+msgid "Edit '{title}'"
+msgstr "'{title}' 수정"
+
+msgid "Page explorer"
+msgstr "페이지 탐색"
+
+msgid "January"
+msgstr "1월"
+
+msgid "February"
+msgstr "2월"
+
+msgid "March"
+msgstr "3월"
+
+msgid "April"
+msgstr "4월"
+
+msgid "May"
+msgstr "5월"
+
+msgid "June"
+msgstr "6월"
+
+msgid "July"
+msgstr "7월"
+
+msgid "August"
+msgstr "8월"
+
+msgid "September"
+msgstr "9월"
+
+msgid "October"
+msgstr "10월"
+
+msgid "November"
+msgstr "11월"
+
+msgid "December"
+msgstr "12월"
+
+msgid "Sunday"
+msgstr "일요일"
+
+msgid "Monday"
+msgstr "월요일"
+
+msgid "Tuesday"
+msgstr "화요일"
+
+msgid "Wednesday"
+msgstr "수요일"
+
+msgid "Thursday"
+msgstr "목요일"
+
+msgid "Friday"
+msgstr "금요일"
+
+msgid "Saturday"
+msgstr "토요일"
+
+msgid "Sun"
+msgstr "일요일"
+
+msgid "Mon"
+msgstr "월요일"
+
+msgid "Tue"
+msgstr "화요일"
+
+msgid "Wed"
+msgstr "수요일"
+
+msgid "Thu"
+msgstr "목요일"
+
+msgid "Fri"
+msgstr "금요일"
+
+msgid "Sat"
+msgstr "토요일"
+
+msgid "Error 404: Page not found"
+msgstr "에러 404: 페이지를 찾을 수 없습니다"
+
+msgid "Error 404"
+msgstr "에러 404"
+
+msgid "The requested page could not be found."
+msgstr "요청한 페이지를 찾을 수 없습니다."
+
+msgid "Go to Wagtail admin"
+msgstr "웨그테일 관리자로 이동"
+
+msgid "Account"
+msgstr "계정"
+
+msgid "Change profile picture"
+msgstr "프로필 사진 변경"
+
+msgid "Your current profile picture:"
+msgstr "현재 프로필 사진:"
+
+msgid "Update"
+msgstr "업데이트"
+
+msgid "Change email"
+msgstr "이메일 변경"
+
+msgid "Change password"
+msgstr "비밀번호 변경"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "비밀번호를 변경할 수 없습니다. 사이트 관리자에게 문의해 주세요."
+
+msgid "Set Time Zone"
+msgstr "타임존 설정"
+
+msgid "Language Preferences"
+msgstr "언어 선호"
+
+msgid "Notification preferences"
+msgstr "알림 선호 순위"
+
+msgid "Reset password"
+msgstr "비밀번호 초기화"
+
+msgid "Password change successful"
+msgstr "비밀번호가 성공적으로 변경되었습니다"
+
+msgid "Login"
+msgstr "로그인"
+
+msgid "Set your new password"
+msgstr "새로운 비밀번호를 설정해 주세요"
+
+msgid "Invalid password reset link"
+msgstr "잘못된 비밀번호 변경 링크"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"해당 비밀번호 초기화 링크는 유효하지 않으며 이미 사용된 링크일 수 있습니다."
+
+msgid "Request a new password reset"
+msgstr "새로운 비밀번호 초기화 요청"
+
+msgid "Check your email"
+msgstr "이메일을 확인하여 주세요"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"해당 주소에 대응되는 계정이 있다면 비밀번호 초기화를 위한 링크가 이메일로 전"
+"송되었습니다."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "패스워드를 재설정하려면 아래의 링크를 따라가 주세요."
+
+msgid "Your username (in case you've forgotten):"
+msgstr "사용자명(잊어버린 경우):"
+
+msgid "Password reset"
+msgstr "비밀번호 초기화"
+
+msgid "Reset your password"
+msgstr "비밀번호 초기화"
+
+msgid "Dashboard"
+msgstr "대시보드"
+
+msgid "Menu"
+msgstr "메뉴"
+
+msgid "Move up"
+msgstr "위로 이동"
+
+msgid "Move down"
+msgstr "아래로 이동"
+
+msgid "Explorer"
+msgstr "탐색기"
+
+msgid "Internal link"
+msgstr "내부 링크"
+
+msgid "External link"
+msgstr "외부 링크"
+
+msgid "Email link"
+msgstr "이메일 링크"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"%(counter)s 개의 연관된 결과가 있습니다"
+
+msgid "Choose"
+msgstr "선택"
+
+msgid "Choose a page"
+msgstr "페이지 선택"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"이 필드에는 다음의 페이지 타입만을 선택할 수 있습니다: %(type)s. 검색 결과에"
+"서 다른 타입들은 제외될 것입니다."
+
+msgid "Add an email link"
+msgstr "이메일 링크 추가"
+
+msgid "Insert link"
+msgstr "링크 삽입"
+
+msgid "Add an external link"
+msgstr "외부 링크 추가"
+
+msgid "Collection privacy"
+msgstr "모음 공개 범위"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "이 모음은 상위 모음에 의해 비공개로 설정되었습니다."
+
+msgid "You can edit the privacy settings on:"
+msgstr "공개 범위 바꾸기:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr "공개 범위를 설정하여 누가 이 모음을 볼 수 있는지 정합니다."
+
+msgid "Save"
+msgstr "저장"
+
+msgid "Privacy"
+msgstr "공개 범위"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "프라이버시 설정. 현재 상태: 공개"
+
+msgid "Public"
+msgstr "공개"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "프라이버시 설정. 현재 상태: 비공개"
+
+msgid "Private"
+msgstr "비공개"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "이 모음을 삭제할 수 없습니다. 모음이 비어 있지 않습니다:"
+
+msgid "Name"
+msgstr "이름"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"생성되어 있는 모음이 하나도 없습니다. <a href=\"%(add_collection_url)s\">하"
+"나 생성</a>해 보는 것은 어떠신가요?"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "%(label)s 추가"
+
+msgid "Yes, delete"
+msgstr "네, 지우겠습니다"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "%(site_name)s 웨그테일 CMS에 오신 것을 환영합니다"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "대시보드는 여러분이 생성한 컨텐츠들에 대한 유용한 정보들을 보여줍니다."
+
+msgid "Pages awaiting moderation"
+msgstr "검토를 기다리는 페이지"
+
+msgid "Title"
+msgstr "제목"
+
+msgid "Parent"
+msgstr "상위"
+
+msgid "Type"
+msgstr "타입"
+
+msgid "Edited"
+msgstr "수정된"
+
+msgid "Edit this page"
+msgstr "페이지 변경"
+
+msgid "Preview this page"
+msgstr "페이지 미리보기"
+
+msgid "Approve"
+msgstr "승인"
+
+msgid "Reject"
+msgstr "거절"
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "Preview"
+msgstr "미리보기"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 전"
+
+msgid "Your most recent edits"
+msgstr "최신 수정된 기록"
+
+msgid "Date"
+msgstr "날짜"
+
+msgid "Status"
+msgstr "상태"
+
+msgid "Draft"
+msgstr "초안"
+
+msgid "Live"
+msgstr "라이브"
+
+msgid "Site summary"
+msgstr "사이트 요약"
+
+msgid "Sign in"
+msgstr "로그인"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "%(username_field)s 과 비밀번호가 맞지 않습니다. 다시 시도해 주세요"
+
+msgid "Sign in to Wagtail"
+msgstr "웨그테일에 로그인"
+
+msgid "Forgotten it?"
+msgstr "잊어버리셨나요?"
+
+msgid "Signing in…"
+msgstr "로그인 중..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "\"%(title)s\" 페이지가 승인되었습니다"
+
+msgid "You can view the page here:"
+msgstr "여기서 페이지를 볼 수 있습니다"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "\"%(title)s\" 페이지가 승인되었습니다"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "%(username)s님, 안녕하세요."
+
+msgid "Edit your notification preferences here:"
+msgstr "당신의 알림 선호 순위를 여기서 바꿔주세요:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "\"%(title)s\" 가 거절되었습니다"
+
+msgid "You can edit the page here:"
+msgstr "여기서 페이지를 수정할 수 있습니다"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "\"%(title)s\" 페이지가 거절되었습니다"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "\"%(page)s\" 페이지에 대한 검토를 %(editor)s에게 신청했습니다."
+
+msgid "You can preview the page here:"
+msgstr "여기서 페이지를 미리 볼 수 있습니다:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "검토를 위해 \"%(page)s\" 페이지가 제출 되었습니다"
+
+msgid "Page privacy"
+msgstr "페이지 공개 범위"
+
+msgid "This page has been made private by a parent page."
+msgstr "이 페이지는 상위 페이지에 의해 비공개로 설정되었습니다"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "공개 범위를 바꾸면 모든 하위페이지에도 함께 적용됩니다."
+
+msgid "Edit lock"
+msgstr "수정 잠금"
+
+msgid "Remove editor lock. Current status: Locked"
+msgstr "에디터 잠금 해제. 현재 상태: 잠김"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "에디터 잠금 설정. 현재 상태: 열림"
+
+msgid "Locked"
+msgstr "잠김"
+
+msgid "Unlocked"
+msgstr "잠금 풀림"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "페이지 프라이버시 설정. 현재 상태: 공개"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "페이지 프라이버시 설정. 현재 상태: 비공개"
+
+msgid "Publishing…"
+msgstr "게시 중..."
+
+msgid "Publish this revision"
+msgstr "이 수정안을 게시하기"
+
+msgid "Saving…"
+msgstr "저장 중..."
+
+msgid "Replace current draft"
+msgstr "현재 초안을 대체하기"
+
+msgid "Save draft"
+msgstr "초안 저장"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "%(title)s 페이지 생성"
+
+msgid "Create a page in"
+msgstr "페이지 만들기"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "새로운 페이지를 만들기 위한 선택"
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "%(page_type)s 를 사용한 페이지들"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s 삭제"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "이 페이지를 정말 삭제하실건가요?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"%(descendant_count)s 개의 하위 페이지들도 삭제될 예정입니다"
+
+msgid "Yes, delete it"
+msgstr "네, 지웁니다"
+
+msgid "No, don't delete it"
+msgstr "아니요, 지우지 않습니다"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"다른 방법으로서 페이지의 <a href=\"%(unpublish_url)s\">게시를 해제</a>하는 것"
+"도 가능합니다. 다른 사람들의 시점에서는 페이지가 제거된 것처럼 보이며 나중에 "
+"페이지를 수정하거나 다시 게시할 수 있습니다."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "%(title)s 이동"
+
+msgid "Move"
+msgstr "이동"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "이 페이지를 '%(title)s' 으로 이동하겠습니까?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr "이 페이지와 관련 모든 하위 페이지들을 '%(title)s' 으로 이동하겠습니까?"
+
+msgid "Yes, move this page"
+msgstr "네, 이 페이지를 이동합니다"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "%(title)s 게시 해제"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "이 페이지의 게시를 해제하시겠습니까?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"%(live_descendant_count)s개의 하위 페이지의 게시도 함께 취소하기"
+
+msgid "Yes, unpublish it"
+msgstr "네, 게시를 해제합니다"
+
+msgid "No, don't unpublish"
+msgstr "아니요, 게시를 해제하지 않습니다"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "사용 중인 페이지들: %(page_class_verbose_name)s"
+
+msgid "Pages using"
+msgstr "사용한 페이지들"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "%(title)s 복사"
+
+msgid "Copy"
+msgstr "복사"
+
+msgid "Copy this page"
+msgstr "이 페이지 복사"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "새로운 %(page_type)s"
+
+msgid "New"
+msgstr "새로운"
+
+msgid "This page has unsaved changes."
+msgstr "이 페이지는 저장되지 않은 변경사항이 있습니다."
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "%(page_type)s: %(title)s 수정"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "%(page_type)s <span>%(title)s</span> 수정"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "마지막 수정: %(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "%(modified_by)s 에 의한"
+
+msgid "Revisions"
+msgstr "수정안"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "%(title)s 탐색"
+
+msgid "Drag"
+msgstr "끌기"
+
+msgid "Updated"
+msgstr "업데이트됨"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"루트 레벨은 웨그테일에 새로운 사이트를 추가하는 곳입니다. 여기에 생성된 페이"
+"지들은 사이트에 연동되지 않으면 어떤 URL로도 접근할 수 없습니다."
+
+msgid "Configure a site now."
+msgstr "지금 사이트를 설정하세요."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"기존 사이트에 페이지를 추가하고 싶다면 대신 홈페이지의 하위 페이지로 생성해 "
+"주세요."
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"여기에 생성된 페이지들은 어떤 URL로도 접근할 수 없습니다. 기존 사이트에 페이"
+"지를 추가하려면 홈페이지의 하위 페이지로 생성해 주세요."
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"이 위치로 설정된 사이트가 없습니다. 여기에 생성되는 페이지들은 사이트와 이 위"
+"치가 연동되지 않는 한 어떤 URL로도 접근할 수 없습니다."
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"이 위치에 대한 사이트 항목이 없습니다. 여기에 생성되는 페이지들은 어떤 URL로"
+"도 접근할 수 없습니다."
+
+msgid "No pages have been created at this location."
+msgstr "해당 위치에 생성된 페이지가 없습니다."
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "<a href=\"%(add_page_url)s\">만들어</a> 보는 건 어떠신가요?"
+
+msgid "This page is locked to further editing"
+msgstr "이 페이지는 추가 수정을 위해 잠겼습니다"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "'%(title)s' 의 하위 페이지 탐색"
+
+msgid "Explore"
+msgstr "탐색"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "'%(title)s' 의 하위 페이지 탐색"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "'%(title)s' 에 대한 하위 페이지 추가"
+
+msgid "Add child page"
+msgstr "하위 페이지 추가"
+
+msgid "Sites menu"
+msgstr "사이트 메뉴"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"%(num_pages)s 페이지 중 %(page_number)s"
+
+msgid "Previous"
+msgstr "이전"
+
+msgid "Next"
+msgstr "다음"
+
+msgid "This page is protected from public view"
+msgstr "이 페이지는 다른 이들이 보지 못하도록 보호되었습니다"
+
+msgid "Disable ordering of child pages"
+msgstr "하위 페이지들 순서 변경 기능 비활성화"
+
+msgid "Enable ordering of child pages"
+msgstr "하위 페이지들 순서 변경 기능 활성화"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "%(title)s 를 위한 새로운 상위 페이지 선택"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "<span>%(title)s</span>  를 위한 새로운 상위 페이지 선택"
+
+msgid "Preview error"
+msgstr "미리보기 오류"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"오류가 남아있어서 페이지의 미리보기가 불가능합니다. 이 탭을 닫고 페이지를 수"
+"정하여 오류를 고친 후에 다시 미리보기 해 주세요."
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "%(title)s와 비교"
+
+msgid "Comparing"
+msgstr "비교"
+
+msgid "View revisions"
+msgstr "수정안 보기"
+
+msgid "Fields"
+msgstr "필드"
+
+msgid "Changes"
+msgstr "변경"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"%(counter)s 위치만큼 내리기"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"%(counter)s 위치만큼 올리기"
+
+msgid "There are no differences between these two revisions"
+msgstr "두 수정안에는 차이점이 없습니다."
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "%(title)s에 수정안 %(revision.id)s 예약 취소"
+
+msgid "Unschedule"
+msgstr "예약 취소"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "이 수정안의 예약 게시를 취소하시겠습니까?"
+
+msgid "Yes, unschedule"
+msgstr "네, 취소합니다"
+
+msgid "No, don't unschedule"
+msgstr "아니요, 취소하지 않습니다"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "%(title)s의 수정안"
+
+msgid "Revisions of"
+msgstr "수정안 -"
+
+msgid "Revision date"
+msgstr "수정안 작성일"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "작성자:"
+
+msgid "Current draft"
+msgstr "현재 원고"
+
+msgid "Live version"
+msgstr "라이브 버전"
+
+msgid "Scheduled for"
+msgstr "예약 게시:"
+
+msgid "Review this revision"
+msgstr "이 수정안 살펴보기"
+
+msgid "Compare with previous revision"
+msgstr "지난 수정안과 비교"
+
+msgid "Cancel scheduled publish"
+msgstr "예약 게시 취소"
+
+msgid "No revisions of this page exist"
+msgstr "이 페이지는 수정안이 없습니다"
+
+msgid "No revision of this page exist"
+msgstr "이 페이지는 수정안이 없습니다"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"%(counter)s 개의 연관된 페이지가 있습니다"
+
+msgid "Page types"
+msgstr "페이지 타입"
+
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "죄송합니다. <em>\"%(query_string)s\"</em> 와 연관된 결과가 없습니다"
+
+msgid "Enter a search term above"
+msgstr "위의 검색어를 입력하세요"
+
+msgid "No pages use"
+msgstr "사용하는 페이지가 없습니다"
+
+msgid "Collection"
+msgstr "모음"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
+
+msgid "Root"
+msgstr "기본"
+
+msgid "Home"
+msgstr "홈"
+
+msgid "All collections"
+msgstr "모든 모음"
+
+msgid "Edit your account"
+msgstr "당신의 계정 변경"
+
+msgid "Account settings"
+msgstr "계정 설정"
+
+msgid "Log out"
+msgstr "로그아웃"
+
+msgid "Visit the live page"
+msgstr "활성 페이지 보기"
+
+msgid "Current page status:"
+msgstr "현재 페이지 상태:"
+
+msgid "Other searches"
+msgstr "다른 검색결과들"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"당신은 현재 이 서비스를 사용할 <strong>유효한</strong> 브라우저를 사용하고 있"
+"지 않습니다. 브라우저를 업그레이드 해주세요"
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            웨그테일을 사용하려면 자바스크립트가 필요하지만 현재 비활성화되"
+"어 있습니다.<br />\n"
+"            여기에서 <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">웹 브라우저에서 자바스크립트를 켜는 방"
+"법</a>을 볼 수 있습니다."
+
+msgid "Go to Wagtail admin interface"
+msgstr "웨그테일 관리자 페이지로 이동"
+
+msgid "Add a child page"
+msgstr "하위페이지 추가"
+
+msgid "Show in Explorer"
+msgstr "탐색기에 표시"
+
+msgid "Test"
+msgstr "테스트"
+
+msgid "Your password has been changed successfully!"
+msgstr "당신의 비밀번호가 성공적으로 변경 되었습니다"
+
+msgid "Your email has been changed successfully!"
+msgstr "이메일이 성공적으로 변경되었습니다!"
+
+msgid "Your preferences have been updated."
+msgstr "설정이 반영되었습니다."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "설정이 성공적으로 반영되었습니다!"
+
+msgid "You have been successfully logged out."
+msgstr "성공적으로 로그아웃 되었습니다."
+
+msgid "Collections"
+msgstr "모음"
+
+msgid "Add a collection"
+msgstr "모음 추가"
+
+msgid "Add collection"
+msgstr "모음 추가"
+
+msgid "Collection '{0}' created."
+msgstr "'{0}' 모음이 생성됨."
+
+msgid "Collection '{0}' updated."
+msgstr "'{0}' 모음이 수정됨."
+
+msgid "The collection could not be saved due to errors."
+msgstr "이 모음은 오류로 인해 저장하지 못했습니다."
+
+msgid "Delete collection"
+msgstr "모음 삭제"
+
+msgid "Collection '{0}' deleted."
+msgstr "'{0}' 모음이 삭제됨."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "이 모음을 지우려는 것이 확실한가요?"
+
+msgid "Editing"
+msgstr "수정"
+
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "'{0}' 페이지가 생성되었고 게시하도록 예약되었습니다."
+
+msgid "View live"
+msgstr "라이브 보기"
+
+msgid "Page '{0}' created and published."
+msgstr "'{0}' 페이지가 생성 및 게시되었습니다"
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "'{0}' 페이지가 생성되고 검토에 의해 제출되었습니다"
+
+msgid "View draft"
+msgstr "임시저장 보기"
+
+msgid "Failed to send notifications to moderators"
+msgstr "검토자에게 알림 보내기 실패"
+
+msgid "Page '{0}' created."
+msgstr "'{0}' 페이지가 생성되었습니다"
+
+msgid "The page could not be created due to validation errors"
+msgstr "이 페이지는 오류에 의해 생성될 수 없습니다"
+
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "'{1}' 페이지의 {0}로부터의 수정안을 게시하도록 예약했습니다."
+
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr "'{0}' 페이지가 활성화되었고 이 수정안을 게시하도록 예약했습니다."
+
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "'{0}' 페이지를 게시하도록 예약했습니다."
+
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "페이지 '{1}'의 {0}로부터의 수정안이 게시되었습니다."
+
+msgid "Page '{0}' has been published."
+msgstr "'{0}' 페이지가 게시되었습니다."
+
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "'{0}' 페이지를 검토할 수 있도록 제출했습니다."
+
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "'{0}' 페이지는 {1}로부터의 수정안으로 대체되었습니다."
+
+msgid "Page '{0}' has been updated."
+msgstr "'{0}' 페이지가 수정되었습니다."
+
+msgid "The page could not be saved as it is locked"
+msgstr "이 페이지는 잠겨 있으므로 저장할 수 없습니다"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "이 페이지는 오류에 의해 저장할 수 없습니다"
+
+msgid "Compare with live version"
+msgstr "라이브 버전과 비교"
+
+msgid "This page is currently awaiting moderation"
+msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
+
+msgid "Page '{0}' deleted."
+msgstr "'{0}' 페이지가 삭제되었습니다"
+
+msgid "Page '{0}' unpublished."
+msgstr "'{0}' 페이지의 게시가 해제 되었습니다"
+
+msgid "Page '{0}' moved."
+msgstr "'{0}' 페이지가 이동하였습니다"
+
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "'{0}' 페이지 그리고 {1} 개의 하위페이지가 복사되었습니다"
+
+msgid "Page '{0}' copied."
+msgstr "'{0}' 페이지가 복사 되었습니다"
+
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "'{0}' 페이지는 현재 검토를 기다리고 있지 않습니다"
+
+msgid "Page '{0}' published."
+msgstr "'{0}' 페이지가 게시되었습니다"
+
+msgid "Failed to send approval notifications"
+msgstr "승인 알림 보내기 실패"
+
+msgid "Page '{0}' rejected for publication."
+msgstr "'{0}' 페이지는 게시가 거절되었습니다"
+
+msgid "Failed to send rejection notifications"
+msgstr "거절 알림 보내기 실패"
+
+msgid "Page '{0}' is now locked."
+msgstr "'{0}' 페이지를 잠갔습니다."
+
+msgid "Page '{0}' is now unlocked."
+msgstr "'{0}' 페이지의 잠금을 풀었습니다."
+
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"%(user)s 사용자가 %(created_at)s에 만든 이 페이지의 이전 수정안을 보고 있습니"
+"다."
+
+msgid "Earliest"
+msgstr "최초"
+
+msgid "Latest"
+msgstr "최근"
+
+msgid "revision {0} of \"{1}\""
+msgstr "\"{1}\"의 수정안 {0}"
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "\"{1}\"의 수정안 {0}의 게시가 취소되었습니다."
+
+msgid "More"
+msgstr "더 보기"
+
+msgid "Set profile picture"
+msgstr "프로필 사진 설정"
+
+msgid "Change the email address linked to your account."
+msgstr "계정에 연동된 이메일 주소 바꾸기"
+
+msgid "Change the password you use to log in."
+msgstr "로그인을 위해 비밀번호 변경"
+
+msgid "Choose which email notifications to receive."
+msgstr "알림을 받기 위한 이메일 선택"
+
+msgid "Language preferences"
+msgstr "언어 선호"
+
+msgid "Choose the language you want to use here."
+msgstr "여기에서 사용하고 싶은 언어를 골라 주세요."
+
+msgid "Current Time Zone"
+msgstr "현재 타임존"
+
+msgid "Choose your current time zone."
+msgstr "현재 타임존 선택"
+
+msgid "Bulleted list"
+msgstr "머릿기호 목록"
+
+msgid "Numbered list"
+msgstr "숫자 목록"
+
+msgid "Bold"
+msgstr "굵게"
+
+msgid "Italic"
+msgstr "기울임꼴"
+
+msgid "Link"
+msgstr "링크"
+
+msgid "Choose an item"
+msgstr "아이템 선택"
+
+msgid "Choose another item"
+msgstr "다른 아이템 선택"
+
+msgid "Clear choice"
+msgstr "선택 초기화"
+
+msgid "Edit this item"
+msgstr "이 아이템 수정"
+
+msgid "Choose another page"
+msgstr "다른 페이지 선택"

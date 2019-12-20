@@ -4,12 +4,21 @@
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
+
     {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ edit_handler.form.media.css }}
+
     {{ view.media.css }}
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
+
     {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ edit_handler.form.media.js }}
+    {{ edit_handler.html_declarations }}
+
     {{ view.media.js }}
 {% endblock %}
 
@@ -25,12 +34,12 @@
         {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
 
         {% block footer %}
-            <footer>
+            <footer role="contentinfo">
                 <ul>
                     <li class="actions">
                         {% block form_actions %}
                             <div class="dropdown dropup dropdown-button match-width">
-                                <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}">
+                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
                                     <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
                                 </button>
                             </div>

@@ -1,0 +1,45 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{{ view.page_title }} {{ view.get_page_subtitle }}{% endblock %}
+
+{% block content %}
+
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+
+    <div class="nice-padding">
+        {% block before_form %}{% endblock %}
+        <form action="{{ view.get_edit_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+            {% csrf_token %}
+
+            {% block hidden_fields %}
+                {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+            {% endblock %}
+
+            <ul class="fields">
+                {% block visible_fields %}
+                    {% for field in form.visible_fields %}
+                        {% include "wagtailadmin/shared/field_as_li.html" %}
+                    {% endfor %}
+                {% endblock %}
+
+                <li>
+                    <input type="submit" value="{% trans 'Save' %}" class="button" />
+                    {% if can_delete %}
+                        <a href="{{ view.get_delete_url }}" class="button button-secondary no">{{ view.delete_item_label }}</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </form>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {{ form.media.js }}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}

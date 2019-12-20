@@ -1,14 +1,12 @@
-from __future__ import absolute_import, unicode_literals
-
 import json
+from unittest import mock
 
-import mock
-from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
-from wagtail.wagtaildocs.models import get_document_model
+from wagtail.documents import get_document_model
 
 
 class TestDocumentListing(TestCase):
@@ -19,7 +17,6 @@ class TestDocumentListing(TestCase):
 
     def get_document_id_list(self, content):
         return [document['id'] for document in content['items']]
-
 
     # BASIC TESTS
 
@@ -55,11 +52,10 @@ class TestDocumentListing(TestCase):
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
 
             # Check detail_url
-            self.assertEqual(document['meta']['detail_url'], 'http://localhost/api/v2beta/documents/%d/' % document['id'])
+            self.assertEqual(document['meta']['detail_url'], 'http://localhost/api/main/documents/%d/' % document['id'])
 
             # Check download_url
             self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
-
 
     # FIELDS
 
@@ -159,7 +155,6 @@ class TestDocumentListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "unknown fields: 123, abc"})
 
-
     # FILTERING
 
     def test_filtering_exact_filter(self):
@@ -191,7 +186,6 @@ class TestDocumentListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "query parameter is not an operation or a recognised field: not_a_field"})
-
 
     # ORDERING
 
@@ -241,7 +235,6 @@ class TestDocumentListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "cannot order by 'not_a_field' (unknown field)"})
 
-
     # LIMIT
 
     def test_limit_only_two_items_returned(self):
@@ -271,6 +264,14 @@ class TestDocumentListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "limit cannot be higher than 20"})
 
+    @override_settings(WAGTAILAPI_LIMIT_MAX=None)
+    def test_limit_max_none_gives_no_errors(self):
+        response = self.get_response(limit=1000000)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(content['items']), get_document_model().objects.count())
+
     @override_settings(WAGTAILAPI_LIMIT_MAX=10)
     def test_limit_maximum_can_be_changed(self):
         response = self.get_response(limit=20)
@@ -287,7 +288,6 @@ class TestDocumentListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(len(content['items']), 2)
-
 
     # OFFSET
 
@@ -316,7 +316,6 @@ class TestDocumentListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "offset must be a positive integer"})
-
 
     # SEARCH
 
@@ -381,7 +380,7 @@ class TestDocumentDetail(TestCase):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v2beta/documents/1/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/main/documents/1/')
 
         # Check the meta download_url
         self.assertIn('download_url', content['meta'])
@@ -479,16 +478,54 @@ class TestDocumentDetail(TestCase):
         self.assertEqual(content, {'message': "'title' does not support nested fields"})
 
 
+class TestDocumentFind(TestCase):
+    fixtures = ['demosite.json']
+
+    def get_response(self, **params):
+        return self.client.get(reverse('wagtailapi_v2:documents:find'), params)
+
+    def test_without_parameters(self):
+        response = self.get_response()
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content, {
+            'message': 'not found'
+        })
+
+    def test_find_by_id(self):
+        response = self.get_response(id=5)
+
+        self.assertRedirects(response, 'http://localhost' + reverse('wagtailapi_v2:documents:detail', args=[5]), fetch_redirect_response=False)
+
+    def test_find_by_id_nonexistent(self):
+        response = self.get_response(id=1234)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content, {
+            'message': 'not found'
+        })
+
+
 @override_settings(
     WAGTAILFRONTENDCACHE={
         'varnish': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
             'LOCATION': 'http://localhost:8000',
         },
     },
     WAGTAILAPI_BASE_URL='http://api.example.com',
 )
-@mock.patch('wagtail.contrib.wagtailfrontendcache.backends.HTTPBackend.purge')
+@mock.patch('wagtail.contrib.frontend_cache.backends.HTTPBackend.purge')
 class TestDocumentCacheInvalidation(TestCase):
     fixtures = ['demosite.json']
 
@@ -505,9 +542,9 @@ class TestDocumentCacheInvalidation(TestCase):
     def test_resave_document_purges(self, purge):
         get_document_model().objects.get(id=5).save()
 
-        purge.assert_any_call('http://api.example.com/api/v2beta/documents/5/')
+        purge.assert_any_call('http://api.example.com/api/main/documents/5/')
 
     def test_delete_document_purges(self, purge):
         get_document_model().objects.get(id=5).delete()
 
-        purge.assert_any_call('http://api.example.com/api/v2beta/documents/5/')
+        purge.assert_any_call('http://api.example.com/api/main/documents/5/')

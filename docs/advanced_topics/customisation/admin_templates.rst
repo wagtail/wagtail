@@ -4,10 +4,7 @@ Customising admin templates
 
 In your projects with Wagtail, you may wish to replace elements such as the Wagtail logo within the admin interface with your own branding. This can be done through Django's template inheritance mechanism.
 
-.. note::
-   Using ``{% extends %}`` in this way on a template you're currently overriding is only supported in Django 1.9 and above. On Django 1.8, you will need to use `django-overextends <https://github.com/stephenmcd/django-overextends>`_ instead.
-
-You need to create a ``templates/wagtailadmin/`` folder within one of your apps - this may be an existing one, or a new one created for this purpose, for example, ``dashboard``. This app must be registered in ``INSTALLED_APPS`` before ``wagtail.wagtailadmin``:
+You need to create a ``templates/wagtailadmin/`` folder within one of your apps - this may be an existing one, or a new one created for this purpose, for example, ``dashboard``. This app must be registered in ``INSTALLED_APPS`` before ``wagtail.admin``:
 
 .. code-block:: python
 
@@ -16,8 +13,8 @@ You need to create a ``templates/wagtailadmin/`` folder within one of your apps 
 
         'dashboard',
 
-        'wagtail.wagtailcore',
-        'wagtail.wagtailadmin',
+        'wagtail.core',
+        'wagtail.admin',
 
         # ...
     )
@@ -37,11 +34,13 @@ To replace the default logo, create a template file ``dashboard/templates/wagtai
 .. code-block:: html+django
 
     {% extends "wagtailadmin/base.html" %}
-    {% load staticfiles %}
+    {% load static %}
 
     {% block branding_logo %}
         <img src="{% static 'images/custom-logo.svg' %}" alt="Custom Project" width="80" />
     {% endblock %}
+
+The logo also appears on the admin 404 error page; to replace it there too, create a template file ``dashboard/templates/wagtailadmin/404.html`` that overrides the ``branding_logo`` block.
 
 ``branding_favicon``
 --------------------
@@ -51,11 +50,22 @@ To replace the favicon displayed when viewing admin pages, create a template fil
 .. code-block:: html+django
 
     {% extends "wagtailadmin/admin_base.html" %}
-    {% load staticfiles %}
+    {% load static %}
 
     {% block branding_favicon %}
         <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
     {% endblock %}
+
+``branding_title``
+------------------
+
+To replace the title prefix (which is 'Wagtail' by default), create a template file ``dashboard/templates/wagtailadmin/admin_base.html`` that overrides the block ``branding_title``:
+
+.. code-block:: html+django
+
+    {% extends "wagtailadmin/admin_base.html" %}
+
+    {% block branding_title %}Frank's CMS{% endblock %}
 
 ``branding_login``
 ------------------
@@ -153,7 +163,7 @@ To add extra buttons to the login form, override the ``submit_buttons`` block. Y
 
     {% block submit_buttons %}
         {{ block.super }}
-        <a href="{% url 'signup' %}"><button type="button" class="button" tabindex="4">{% trans 'Sign up' %}</button></a>
+        <a href="{% url 'signup' %}"><button type="button" class="button">{% trans 'Sign up' %}</button></a>
     {% endblock %}
 
 ``login_form``
@@ -169,3 +179,45 @@ To completely customise the login form, override the ``login_form`` block. This 
         <p>Some extra form content</p>
         {{ block.super }}
     {% endblock %}
+
+.. _extending_clientside_components:
+
+Extending client-side components
+================================
+
+Some of Wagtail’s admin interface is written as client-side JavaScript with `React <https://reactjs.org/>`_.
+In order to customise or extend those components, you may need to use React too, as well as other related libraries.
+To make this easier, Wagtail exposes its React-related dependencies as global variables within the admin. Here are the available packages:
+
+.. code-block:: javascript
+
+    // 'focus-trap-react'
+    window.FocusTrapReact;
+    // 'react'
+    window.React;
+    // 'react-dom'
+    window.ReactDOM;
+    // 'react-transition-group/CSSTransitionGroup'
+    window.CSSTransitionGroup;
+
+Wagtail also exposes some of its own React components. You can reuse:
+
+.. code-block:: javascript
+
+    window.wagtail.components.Icon;
+    window.wagtail.components.Portal;
+
+Pages containing rich text editors also have access to:
+
+.. code-block:: javascript
+
+    // 'draft-js'
+    window.DraftJS;
+    // 'draftail'
+    window.Draftail;
+
+    // Wagtail’s Draftail-related APIs and components.
+    window.draftail;
+    window.draftail.ModalWorkflowSource;
+    window.draftail.Tooltip;
+    window.draftail.TooltipEntity;

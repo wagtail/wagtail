@@ -7,38 +7,38 @@ Form builder
 The ``wagtailforms`` module allows you to set up single-page forms, such as a 'Contact us' form, as pages of a Wagtail site. It provides a set of base models that site implementers can extend to create their own ``FormPage`` type with their own site-specific templates. Once a page type has been set up in this way, editors can build forms within the usual page editor, consisting of any number of fields. Form submissions are stored for later retrieval through a new 'Forms' section within the Wagtail admin interface; in addition, they can be optionally e-mailed to an address specified by the editor.
 
 .. note::
-  **wagtailforms is not a replacement for** `Django's form support <https://docs.djangoproject.com/en/1.10/topics/forms/>`_. It is designed as a way for page authors to build general-purpose data collection forms without having to write code. If you intend to build a form that assigns specific behaviour to individual fields (such as creating user accounts), or needs a custom HTML layout, you will almost certainly be better served by a standard Django form, where the fields are fixed in code rather than defined on-the-fly by a page author. See the `wagtail-form-example project <https://github.com/gasman/wagtail-form-example/commits/master>`_ for an example of integrating a Django form into a Wagtail page.
+  **wagtailforms is not a replacement for** :doc:`Django's form support <django:topics/forms/index>`. It is designed as a way for page authors to build general-purpose data collection forms without having to write code. If you intend to build a form that assigns specific behaviour to individual fields (such as creating user accounts), or needs a custom HTML layout, you will almost certainly be better served by a standard Django form, where the fields are fixed in code rather than defined on-the-fly by a page author. See the `wagtail-form-example project <https://github.com/gasman/wagtail-form-example/commits/master>`_ for an example of integrating a Django form into a Wagtail page.
 
 .. _form_builder_usage:
 
 Usage
 ~~~~~
 
-Add ``wagtail.wagtailforms`` to your ``INSTALLED_APPS``:
+Add ``wagtail.contrib.forms`` to your ``INSTALLED_APPS``:
 
 .. code-block:: python
 
     INSTALLED_APPS = [
        ...
-       'wagtail.wagtailforms',
+       'wagtail.contrib.forms',
     ]
 
-Within the ``models.py`` of one of your apps, create a model that extends ``wagtailforms.models.AbstractEmailForm``:
+Within the ``models.py`` of one of your apps, create a model that extends ``wagtail.contrib.forms.models.AbstractEmailForm``:
 
 
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
-    from wagtail.wagtailadmin.edit_handlers import (
+    from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.wagtailcore.fields import RichTextField
-    from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+    from wagtail.core.fields import RichTextField
+    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
     class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', related_name='form_fields')
+        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
     class FormPage(AbstractEmailForm):
@@ -82,7 +82,7 @@ You now need to create two templates named ``form_page.html`` and ``form_page_la
         </body>
     </html>
 
-``form_page_landing.html`` is a regular Wagtail template, displayed after the user makes a successful form submission. If you want to dynamically override the landing page template, you can do so with the ``get_landing_page_template`` method (in the same way that you would with ``get_template``).
+``form_page_landing.html`` is a regular Wagtail template, displayed after the user makes a successful form submission, `form_submission` will available in this template. If you want to dynamically override the landing page template, you can do so with the ``get_landing_page_template`` method (in the same way that you would with ``get_template``).
 
 
 .. _wagtailforms_formsubmissionpanel:
@@ -94,7 +94,7 @@ Displaying form submission information
 
 .. code-block:: python
 
-    from wagtail.wagtailforms.edit_handlers import FormSubmissionsPanel
+    from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 
     class FormPage(AbstractEmailForm):
         # ...

@@ -1,9 +1,8 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.apps import AppConfig
+from django.utils.translation import ugettext_lazy as _
 
 
 class WagtailRoutablePageTestsAppConfig(AppConfig):
     name = 'wagtail.tests.routablepage'
     label = 'routablepagetests'
-    verbose_name = "Wagtail routable page tests"
+    verbose_name = _("Wagtail routable page tests")

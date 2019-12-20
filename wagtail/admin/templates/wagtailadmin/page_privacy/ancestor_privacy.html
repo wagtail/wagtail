@@ -1,0 +1,8 @@
+{% load i18n %}
+{% trans "Page privacy" as title_str %}
+{% include "wagtailadmin/shared/header.html" with title=title_str icon="no-view" %}
+
+<div class="nice-padding">
+    <p>{% trans "This page has been made private by a parent page." %}</p>
+    <p>{% trans "You can edit the privacy settings on:" %} <a href="{% url 'wagtailadmin_pages:edit' page_with_restriction.id %}">{{ page_with_restriction.get_admin_display_title }}</a></p>
+</div>

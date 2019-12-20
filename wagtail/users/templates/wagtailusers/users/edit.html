@@ -1,0 +1,76 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailimages_tags %}
+{% load i18n %}
+{% block titletag %}{% trans "Editing" %} {{ user.get_username}}{% endblock %}
+{% block content %}
+
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=user.get_username merged=1 tabbed=1 icon="user" %}
+
+    <ul class="tab-nav merged">
+        <li class="active"><a href="#account">{% trans "Account" %}</a></li>
+        <li><a href="#roles">{% trans "Roles" %}</a></li>
+    </ul>
+
+    <form action="{% url 'wagtailusers_users:edit' user.pk %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        <div class="tab-content">
+            {% csrf_token %}
+
+            <section id="account" class="active nice-padding">
+                <ul class="fields">
+                    {% block fields %}
+                        {% if form.separate_username_field %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=form.username_field %}
+                        {% endif %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.email %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.first_name %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.last_name %}
+                        {% block extra_fields %}{% endblock extra_fields %}
+                        {% if form.password1 %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=form.password1 %}
+                        {% endif %}
+                        {% if form.password2 %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=form.password2 %}
+                        {% endif %}
+                        {% if form.is_active %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_active %}
+                        {% endif %}
+
+                    {% endblock fields %}
+                    <li>
+                        <input type="submit" value="{% trans 'Save' %}" class="button" />
+                        {% if can_delete %}
+                            <a href="{% url 'wagtailusers_users:delete' user.pk %}" class="button button-secondary no">{% trans "Delete user" %}</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </section>
+            <section id="roles" class="nice-padding">
+                <ul class="fields">
+                    {% if form.is_superuser %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.is_superuser %}
+                    {% endif %}
+
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.groups %}
+                    <li>
+                        <input type="submit" value="{% trans 'Save' %}" class="button" />
+                        {% if can_delete %}
+                            <a href="{% url 'wagtailusers_users:delete' user.pk %}" class="button button-secondary no">{% trans "Delete user" %}</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </form>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ form.media.css }}
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form.media.js }}
+{% endblock %}

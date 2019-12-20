@@ -1,0 +1,33 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load wagtailadmin_tags wagtailcore_tags i18n %}
+{% block titletag %}{% trans "Error 404: Page not found" %}{% endblock %}
+
+
+{% block extra_css %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/404.css' %}" />
+{% endblock %}
+
+
+{% block furniture %}
+    <div class="page404__bg">
+        <div class="page404__wrapper">
+            {% block branding_logo %}
+                {% include "wagtailadmin/shared/animated_logo.html" %}
+            {% endblock %}
+
+            <div class="page404__text-container">
+                <h1 class="page404__header">
+                     {% trans "Error 404" %}
+                </h1>
+
+                <p class="page404__text">
+                    {% trans "The requested page could not be found." %}
+                </p>
+
+                <a class="page404__button button" href="{% url 'wagtailadmin_home' %}">{% trans "Go to Wagtail admin" %}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

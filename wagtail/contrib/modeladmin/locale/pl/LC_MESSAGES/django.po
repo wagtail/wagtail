@@ -4,12 +4,14 @@
 #
 # Translators:
 # Miłosz Miśkiewicz, 2016
+# Miłosz Miśkiewicz, 2018-2019
+# Miłosz Miśkiewicz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-06-06 07:12+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-25 10:04+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -20,6 +22,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail ModelAdmin"
 
 msgid "Parent page"
 msgstr "Strona nadrzędna"
@@ -78,14 +83,14 @@ msgid ""
 "%(plural)s can be added to more than one place within your site. Which of "
 "the following would you like to be the parent of your new page?"
 msgstr ""
-"%(plural)s może zostać dodany w więcej niż jednym miejscu na Twojej stronie. "
+"%(plural)s może zostać dodany w więcej niż jednym miejscu na Twoim serwisie. "
 "Które z poniższych chciałbyś ustawić jako nadrzędne dla Twojej nowej strony?"
 
 msgid "Continue"
 msgstr "Kontynuuj"
 
-msgid "Saving..."
-msgstr "Zapisywanie..."
+msgid "Saving…"
+msgstr "Zapisywanie…"
 
 msgid "Save"
 msgstr "Zapisz"
@@ -109,6 +114,9 @@ msgstr "Wróć do listy"
 
 msgid "Yes, delete"
 msgstr "Tak, usuń"
+
+msgid "No, don't delete"
+msgstr "Nie usuwaj"
 
 msgid "Home"
 msgstr "Start"
@@ -155,6 +163,9 @@ msgstr ""
 "\"%(url)s\">dodać jednego</a>?\n"
 "                                            "
 
+msgid "Pagination"
+msgstr "Stronicowanie"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Strona %(current_page)s z %(num_pages)s."
@@ -169,9 +180,9 @@ msgstr "Wstecz"
 msgid "Next"
 msgstr "Naprzód"
 
-#, python-brace-format
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' utworzona."
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' utworzony."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -191,9 +202,9 @@ msgstr "Edytowanie"
 msgid "Editing %s"
 msgstr "Edytowanie %s"
 
-#, python-brace-format
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' uaktualniony."
+#, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' zaktualizowane."
 
 #, python-format
 msgid "The %s could not be saved due to errors."
@@ -209,11 +220,11 @@ msgid ""
 "related to it, they may also be affected."
 msgstr ""
 "Czy na pewno chcesz usunąć %s? Może mieć to wpływ na pozostałe, zależne "
-"elementy na Twojej stronie."
+"elementy w Twoim serwisie."
 
-#, python-brace-format
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' usunięto."
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' usunięte."
 
 msgid "Inspecting"
 msgstr "Sprawdzanie"

@@ -1,0 +1,11 @@
+{% load i18n wagtailadmin_tags %}
+<div class="nice-padding">
+    {% if pages %}
+        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 %}
+
+        {% url 'wagtailadmin_pages:type_use' app_name content_type.model as pagination_base_url %}
+        {% paginate pages base_url=pagination_base_url %}
+    {% else %}
+        <p>{% trans 'No pages use' %}<em>"{{ page_class.get_verbose_name }}"</em>.</p>
+    {% endif %}
+</div>

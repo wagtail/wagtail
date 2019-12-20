@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Пошукова промоція Wagtail "
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+"Будь ласка, задайте хоча б одну рекомендацію для цього пошукового терміну."
+
+msgid "page"
+msgstr "сторінка"
+
+msgid "description"
+msgstr "опис"
+
+msgid "search promotion"
+msgstr "просування у пошуку"
+
+msgid "Add search promotion"
+msgstr "Додати просування у пошуку"
+
+msgid "Save"
+msgstr "Зберегти"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Видалити %(query)s"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Ви впевнені, що бажаєте видалити усі промотовані результати для цієї "
+"пошукової фрази?"
+
+msgid "Yes, delete"
+msgstr "Так, видалити"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Редагування %(query)s"
+
+msgid "Editing"
+msgstr "Редагування"
+
+msgid "Move up"
+msgstr "Перемістити нагору"
+
+msgid "Move down"
+msgstr "Перемістити вниз"
+
+msgid "Promoted search result"
+msgstr "Промотований результат пошуку"
+
+msgid "Add recommended page"
+msgstr "Додати рекомендовану сторінку"
+
+msgid "Search Terms"
+msgstr "Пошукові терміни"
+
+msgid "Promoted search results"
+msgstr "Промотовані результати пошуку"
+
+msgid "Add new promoted result"
+msgstr "Додати новий промотований результат"
+
+msgid "Search term(s)"
+msgstr "Пошуковий термін(и)"
+
+msgid "Promoted results"
+msgstr "Промотовані результати"
+
+msgid "Views (past week)"
+msgstr "Перегляди (останнього тижня)"
+
+msgid "Edit this promotion"
+msgstr "Редагувати цю промоцію"
+
+msgid "None"
+msgstr "Нічого"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Вибачте, відсутні промотовані результати для \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Жодного промотованого результату не створено. Чому б не <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">додати один</a>?"
+
+msgid "Search promoted results"
+msgstr "Пошукові промотовані результати"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "Вибір редактора для '{0}' створений."
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Рекомендації не були створені через помилки"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "Вибір редактора для '{0}' оновлений."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Рекомендації не були збережені через помилки"
+
+msgid "Editor's picks deleted."
+msgstr "Вибір редактора видалений"

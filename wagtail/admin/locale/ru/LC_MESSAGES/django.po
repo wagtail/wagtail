@@ -1,0 +1,1530 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# ajk, 2014
+# ajk, 2014
+# Alexandr <alexromantsov@gmail.com>, 2016
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Arseni M <arseni+transifex@mouchinski.com>, 2017
+# Daniil <fleepd@gmail.com>, 2015
+# Eugene <eugene.mechanism@gmail.com>, 2014-2016
+# Eugene <eugene.mechanism@gmail.com>, 2016-2017
+# Никита Викторович <hnknta@gmail.com>, 2014
+# Никита Викторович <hnknta@gmail.com>, 2014
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# Nikita Tonkoshkur <humapen@gmail.com>, 2018
+# Sergey Komarov <sjkomarov@gmail.com>, 2014
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Vassily <zuber.kg@gmail.com>, 2019
+# Мирон Левицкий <miron200504@gmail.com>, 2018
+# Михаил Герасимов, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Publish"
+msgstr "Опубликовать"
+
+msgid "Submit for moderation"
+msgstr "Отправить на модерацию"
+
+msgid "Unpublish"
+msgstr "Отменить публикацию"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Page locked"
+msgstr "Страница заблокирована"
+
+msgid "Wagtail admin"
+msgstr "Wagtail админ"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Извините, но у вас нет доступа в эту область."
+
+msgid "You do not have permission to access the admin"
+msgstr "У вас нет прав для доступа в админ-панель"
+
+msgid "None"
+msgstr "Ничего"
+
+msgid "Scheduled publishing"
+msgstr "Отложенная публикация"
+
+msgid "Common page configuration"
+msgstr "Общие настройки страниц"
+
+msgid "Content"
+msgstr "Содержимое"
+
+msgid "Promote"
+msgstr "Продвижение"
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Enter password"
+msgstr "Введите пароль"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Введите ваше %s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Введите ваш адрес электронной почты для сброса пароля"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Вы не можете иметь несколько записей с правами доступа к одной и той же "
+"коллекции."
+
+msgid "New title"
+msgstr "Новый заголовок"
+
+msgid "New slug"
+msgstr "Новый слаг"
+
+msgid "New parent page"
+msgstr "Новая родительская страница"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Эта копия будет дочерней к данной родительской странице."
+
+msgid "Copy subpages"
+msgstr "Копировать подстраницы"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Скопируется %(count)s подстраница."
+msgstr[1] "Скопируется %(count)s подстраниц."
+msgstr[2] "Скопируется %(count)s подстраниц."
+msgstr[3] "Скопируется %(count)s подстраниц."
+
+msgid "Publish copied page"
+msgstr "Опубликовать скопированную страницу"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr ""
+"Эта страница опубликована. Хотели бы вы опубликовать также и её копию? "
+
+msgid "Publish copies"
+msgstr "Опубликовать копии"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s копируемая страница опубликована. Хотели бы вы опубликовать её "
+"копию?"
+msgstr[1] ""
+"%(count)s копируемых страниц опубликованы. Хотели бы вы опубликовать их "
+"копии?"
+msgstr[2] ""
+"%(count)s копируемых страниц опубликованы. Хотели бы вы опубликовать их "
+"копии?"
+msgstr[3] ""
+"%(count)s копируемых страниц опубликованы. Хотели бы вы опубликовать их "
+"копии?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "У вас нет прав для копирования страницы \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr ""
+"Этот слаг уже используется в контексте своей родительской страницы \"%s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Вы не можете скопировать страницу саму в себя, когда выбрана опция "
+"\"Копировать подстраницы\""
+
+msgid "This slug is already in use"
+msgstr "Этот слаг уже используется"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Дата/время публикации должно быть раньше даты/времени снятия с публикации."
+
+msgid "Expiry date/time must be in the future"
+msgstr "Дата/время снятия с публикации должно быть в будущем."
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Search term"
+msgstr "Критерий поиска"
+
+msgid "Visibility"
+msgstr "Видимость"
+
+msgid "This field is required."
+msgstr "Требуется заполнить это поле."
+
+msgid "Please select at least one group."
+msgstr "Пожалуйста, выберите хотя бы одну группу."
+
+msgid "Catalan"
+msgstr "Каталанский"
+
+msgid "German"
+msgstr "Немецкий"
+
+msgid "Greek"
+msgstr "Греческий"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Spanish"
+msgstr "Испанский"
+
+msgid "Finnish"
+msgstr "Финский"
+
+msgid "French"
+msgstr "Французский"
+
+msgid "Galician"
+msgstr "Галисийский"
+
+msgid "Icelandic"
+msgstr "Исландский"
+
+msgid "Italian"
+msgstr "Итальянский"
+
+msgid "Korean"
+msgstr "Корейский"
+
+msgid "Lithuanian"
+msgstr "Литовский"
+
+msgid "Norwegian Bokmål"
+msgstr "Норвежский Букмол"
+
+msgid "Netherlands Dutch"
+msgstr "Голландский"
+
+msgid "Persian"
+msgstr "Персидский"
+
+msgid "Polish"
+msgstr "Польский"
+
+msgid "Brazilian Portuguese"
+msgstr "Бразильский португальский"
+
+msgid "Portuguese"
+msgstr "Португальский"
+
+msgid "Romanian"
+msgstr "Румынский"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Swedish"
+msgstr "Шведский"
+
+msgid "Slovak"
+msgstr "Словацкий язык"
+
+msgid "Ukrainian"
+msgstr "Украинский язык"
+
+msgid "Page"
+msgstr "Страница"
+
+msgid "Pages"
+msgstr "Страницы"
+
+msgid "Loading…"
+msgstr "Загрузка..."
+
+msgid "No results"
+msgstr "Нет результатов"
+
+msgid "Server Error"
+msgstr "Ошибка Сервера"
+
+msgid "See all"
+msgstr "Смотреть все"
+
+msgid "Close explorer"
+msgstr "Закрыть проводник"
+
+msgid "Alt text"
+msgstr "Текст подсказки"
+
+msgid "Write here…"
+msgstr "Введите текст..."
+
+msgid "Horizontal line"
+msgstr "Горизонтальная линия"
+
+msgid "Line break"
+msgstr "Разрыв строки"
+
+msgid "Undo"
+msgstr "Отменить дейсвие"
+
+msgid "Redo"
+msgstr "Вернуть"
+
+msgid "Reload the page"
+msgstr "Перезагрузить страницу"
+
+msgid "Reload saved content"
+msgstr "Перезагрузка сохраненного контента"
+
+msgid "Show latest content"
+msgstr "Показать последнее содержание"
+
+msgid "Show error"
+msgstr "Показать ошибку"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Редактор сломался. Содержимое было возвращено к последней сохранённой версии"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Edit '{title}'"
+msgstr "Редактировать '{title}'"
+
+msgid "January"
+msgstr "Январь"
+
+msgid "February"
+msgstr "Февраль"
+
+msgid "March"
+msgstr "Март"
+
+msgid "April"
+msgstr "Апрель"
+
+msgid "May"
+msgstr "Май"
+
+msgid "June"
+msgstr "Июнь"
+
+msgid "July"
+msgstr "Июль"
+
+msgid "August"
+msgstr "Август"
+
+msgid "September"
+msgstr "Сентябрь"
+
+msgid "October"
+msgstr "Октябрь"
+
+msgid "November"
+msgstr "Ноябрь"
+
+msgid "December"
+msgstr "Декабрь"
+
+msgid "Sunday"
+msgstr "Воскрксенье"
+
+msgid "Monday"
+msgstr "Понедельник"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "Thursday"
+msgstr "Четверг"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Saturday"
+msgstr "Суббота"
+
+msgid "Sun"
+msgstr "Вс"
+
+msgid "Mon"
+msgstr "Пн"
+
+msgid "Tue"
+msgstr "Вт"
+
+msgid "Wed"
+msgstr "Ср"
+
+msgid "Thu"
+msgstr "Чт"
+
+msgid "Fri"
+msgstr "Пт"
+
+msgid "Sat"
+msgstr "Сб"
+
+msgid "Error 404: Page not found"
+msgstr "Ошибка 404: Страница не найдена"
+
+msgid "Error 404"
+msgstr "Ошибка 404"
+
+msgid "The requested page could not be found."
+msgstr "Запрошенная страница не найдена."
+
+msgid "Go to Wagtail admin"
+msgstr "Идти в админ-панель Wagtail"
+
+msgid "Account"
+msgstr "Аккаунт"
+
+msgid "Change profile picture"
+msgstr "Выбрать фотографию профиля"
+
+msgid "Your current profile picture:"
+msgstr "Ваша текущая картинка профиля:"
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "Change email"
+msgstr "Выбрать email"
+
+msgid "Change password"
+msgstr "Изменить пароль"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Ваш пароль не может быть изменен здесь. Пожалуйста, свяжитесь с "
+"администратором сайта."
+
+msgid "Set Time Zone"
+msgstr "Установить временную зону"
+
+msgid "Language Preferences"
+msgstr "Языковые настройки"
+
+msgid "Notification preferences"
+msgstr "Настройки уведомления"
+
+msgid "Reset password"
+msgstr "Сбросить пароль"
+
+msgid "Password change successful"
+msgstr "Пароль изменен успешно"
+
+msgid "Login"
+msgstr "Войти"
+
+msgid "Set your new password"
+msgstr "Задайте ваш новый пароль"
+
+msgid "Invalid password reset link"
+msgstr "Неверная ссылка для восстановления пароля"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Ссылка для сброса пароля не работает, возможно её уже использовали ранее."
+
+msgid "Request a new password reset"
+msgstr "Запросить новый пароль"
+
+msgid "Check your email"
+msgstr "Проверьте вашу электронную почту"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Ссылка для сброса пароля была отправлена вам на email, если аккаунт с "
+"указанным адресом существует."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Пожалуйста, проследуйте по ссылке ниже чтобы сбросить ваш пароль:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Ваше имя пользователя (на случай, если вы забыли):"
+
+msgid "Password reset"
+msgstr "Восстановление пароля"
+
+msgid "Reset your password"
+msgstr "Сбросить ваш пароль"
+
+msgid "Dashboard"
+msgstr "Панель управления"
+
+msgid "Menu"
+msgstr "Меню"
+
+msgid "Move up"
+msgstr "Двигать наверх"
+
+msgid "Move down"
+msgstr "Двигать вниз"
+
+msgid "Explorer"
+msgstr "Проводник"
+
+msgid "Internal link"
+msgstr "Внутренняя ссылка"
+
+msgid "External link"
+msgstr "Внешняя ссылка"
+
+msgid "Email link"
+msgstr "Ссылка адреса электронной почты"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Есть %(counter)s совпадение"
+msgstr[1] ""
+"\n"
+"Есть %(counter)sсовпадения"
+msgstr[2] ""
+"\n"
+"Есть %(counter)sсовпадений"
+msgstr[3] ""
+"\n"
+"Есть %(counter)s совпадений"
+
+msgid "Choose"
+msgstr "Выбрать"
+
+msgid "Choose a page"
+msgstr "Выберите страницу"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Только страницы типа \"%(type)s\" могут быть выбраны для этого поля. "
+"Страницы других типов будут исключены из результатов поиска."
+msgstr[1] ""
+"\n"
+"Только страницы типов \"%(type)s\" могут быть использованы для этого поля. В "
+"результатах поиска будут исключены страницы других типов."
+msgstr[2] ""
+"\n"
+"Только следующие типы страниц могут быть использованы для этого поля: "
+"%(type)s. В результатах поиска будут исключены страницы других типов."
+msgstr[3] ""
+"\n"
+"Только следующие типы страниц могут быть использованы для этого поля: "
+"%(type)s. В результатах поиска будут исключены страницы других типов."
+
+msgid "Add an email link"
+msgstr "Добавить ссылку адреса электронной почты"
+
+msgid "Insert link"
+msgstr "Вставить ссылку"
+
+msgid "Add an external link"
+msgstr "Добавить внешнюю ссылку"
+
+msgid "Collection privacy"
+msgstr "Приватность коллекции"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Коллекция приватна в соответствии с родительской коллекцией."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Вы можете редактировать настройки приватности на:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Настройки приватности определяют кто в праве просматривать документы из этой "
+"коллекции."
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Privacy"
+msgstr "Приватность"
+
+msgid "Public"
+msgstr "Публично"
+
+msgid "Private"
+msgstr "Приватно"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Эта коллекция не может быть удалена, потому что она не пустая. Она содержит:"
+
+msgid "Name"
+msgstr "Имя"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Коллекции еще не были созданы. Почему бы не <a href=\"%(add_collection_url)s"
+"\">добавить одну</a>?"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Добавить %(label)s"
+
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Добро пожаловать на %(site_name)s Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Это ваша панель управления, на ней отображается полезная информация о "
+"созданном вами контенте."
+
+msgid "Pages awaiting moderation"
+msgstr "Страницы ожидающие модерации"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Parent"
+msgstr "Родительский элемент"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Edited"
+msgstr "Редактировано"
+
+msgid "Edit this page"
+msgstr "Редактировать эту страницу"
+
+msgid "Preview this page"
+msgstr "Предпросмотр этой страницы"
+
+msgid "Approve"
+msgstr "Одобрить"
+
+msgid "Reject"
+msgstr "Отклонить"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Preview"
+msgstr "Предпросмотр"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s назад"
+
+msgid "Your most recent edits"
+msgstr "Ваши последние правки"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Draft"
+msgstr "Черновик"
+
+msgid "Live"
+msgstr "Опубликовано"
+
+msgid "Site summary"
+msgstr "Общая информация"
+
+msgid "Sign in"
+msgstr "Войти"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Ваши %(username_field)s и пароль не совпали. Пожалуйста, попробуйте еще раз."
+
+msgid "Sign in to Wagtail"
+msgstr "Войти в Wagtail"
+
+msgid "Forgotten it?"
+msgstr "Забыли его?"
+
+msgid "Signing in…"
+msgstr "Выполняется вход..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Страница \"%(title)s\" была утверждена."
+
+msgid "You can view the page here:"
+msgstr "Вы можете посмотреть страницу здесь:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Страница \"%(title)s\" была утверждена"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Привет, %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Редактировать ваши настройки уведомления здесь:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Страница \"%(title)s\" была отклонена."
+
+msgid "You can edit the page here:"
+msgstr "Вы можете редактировать страницу здесь:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Страница \"%(title)s\" была отклонена"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr ""
+"Страница \"%(page)s\" была отправлена на модерацию пользователем %(editor)s."
+
+msgid "You can preview the page here:"
+msgstr "Вы можете предварительно просмотреть страницу здесь:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Страница \"%(page)s\" была отправлена на модерацию"
+
+msgid "Page privacy"
+msgstr "Приватность страницы"
+
+msgid "This page has been made private by a parent page."
+msgstr "Страница приватна в соответствии с родительской страницей."
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Изменения приватности также накладываются и на дочерние страницы."
+
+msgid "Edit lock"
+msgstr "Заблокировать редактирование"
+
+msgid "Locked"
+msgstr "Заблокировано"
+
+msgid "Unlocked"
+msgstr "Разблокировано"
+
+msgid "Publishing…"
+msgstr "Публикуется..."
+
+msgid "Publish this revision"
+msgstr "Опубликовать эту версию"
+
+msgid "Saving…"
+msgstr "Сохранение…"
+
+msgid "Replace current draft"
+msgstr "Изменить черновик"
+
+msgid "Save draft"
+msgstr "Сохранить черновик"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Создать страницу в %(title)s"
+
+msgid "Create a page in"
+msgstr "Создать страницу в"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Выберите тип создаваемой страницы."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Страницы, использующие %(page_type)s"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Удалить %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Вы уверены, что хотите удалить эту страницу?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"Это так же удалит еще одну субстраницу."
+msgstr[1] ""
+"\n"
+"Это так же удалит еще %(descendant_count)s субстраниц."
+msgstr[2] ""
+"\n"
+"Это так же удалит еще %(descendant_count)s субстраниц."
+msgstr[3] ""
+"\n"
+"Это так же удалит еще %(descendant_count)s подстраниц."
+
+msgid "Yes, delete it"
+msgstr "Да, удалить"
+
+msgid "No, don't delete it"
+msgstr "Нет, не удалять"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Как вариант, вы можете <a href=\"%(unpublish_url)s\">снять с публикации эту "
+"страницу</a>. Это скроет страницу от публичного просмотра и позже вы сможете "
+"отредактировать и опубликовать её снова."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Переместить %(title)s"
+
+msgid "Move"
+msgstr "Переместить"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Вы уверены, что хотите переместить эту страницу в '%(title)s'?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Вы уверены, что хотите переместить эту страницу и все её дочерние страницы в "
+"'%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "Да, переместить эту страницу"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Отменить публикацию %(title)s"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Вы уверены, что хотите отменить публикацию этой страницы?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"У этой страницы одна дочерняя страница. Распубликуйте её тоже."
+msgstr[1] ""
+"\n"
+"У этой страницы %(live_descendant_count)s дочерних страниц. Распубликуйте их "
+"тоже."
+msgstr[2] ""
+"\n"
+"У этой страницы %(live_descendant_count)s дочерних страниц. Распубликуйте их "
+"тоже."
+msgstr[3] ""
+"\n"
+"У этой страницы %(live_descendant_count)s дочерних страниц. Распубликуйте их "
+"тоже."
+
+msgid "Yes, unpublish it"
+msgstr "Да, отменить публикацию"
+
+msgid "No, don't unpublish"
+msgstr "Нет, оставить неопубликованным"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Страницы, использующие %(page_class_verbose_name)s"
+
+msgid "Pages using"
+msgstr "Страницы, использующие"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Копировать %(title)s"
+
+msgid "Copy"
+msgstr "Копировать"
+
+msgid "Copy this page"
+msgstr "Копировать эту страницу"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "Добавление %(page_type)s"
+
+msgid "New"
+msgstr "Новый"
+
+msgid "This page has unsaved changes."
+msgstr "На странице есть несохраненные изменения."
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Редактирование %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "Редактирование %(page_type)s <span>%(title)s</span>"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "Последние изменения: %(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "от %(modified_by)s"
+
+msgid "Revisions"
+msgstr "Версии"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "Обзор %(title)s"
+
+msgid "Drag"
+msgstr "Перетянуть"
+
+msgid "Updated"
+msgstr "Обновлено"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"Корневой уровень на котором вы можете добавлять новые сайты Wagtail. У "
+"созданных здесь страниц не будет адреса для просмотра, пока они не будут "
+"связаны с сайтом.\n"
+"                        "
+
+msgid "Configure a site now."
+msgstr "Настроить сайт."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Если вы хотите добавить страницы к существующему сайту, создайте их как "
+"дочерние страницы для главной страницы.\n"
+"                        "
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+" У созданных здесь страниц не будет адреса для просмотра. Чтобы добавить "
+"страницы к существующему сайту, создайте их как дочерние для главной "
+"страницы.\n"
+"                    "
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"Для этого адреса не настроен сайт.  У созданных здесь страниц не будет "
+"адреса для просмотра, пока они не будут связаны с этим расположением.\n"
+"                    "
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"Нет сайтов для этого адреса. У созданных здесь страниц не будет адреса для "
+"просмотра.\n"
+"                    "
+
+msgid "No pages have been created at this location."
+msgstr "В этом расположении не было создано страниц."
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Почему бы не <a href=\"%(add_page_url)s\">создать одну</a>?"
+
+msgid "This page is locked to further editing"
+msgstr "Эта страница заблокирована для дальнейшего редактирования"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Обзор подстраниц для '%(title)s'"
+
+msgid "Explore"
+msgstr "Обзор"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Обзор дочерних для '%(title)s' страниц"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Добавить дочернюю страницу к '%(title)s'"
+
+msgid "Add child page"
+msgstr "Добавить дочернюю страницу"
+
+msgid "Sites menu"
+msgstr "Список сайтов"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"Страница %(page_number)s из %(num_pages)s.\n"
+"    "
+
+msgid "Previous"
+msgstr "Предыдущая"
+
+msgid "Next"
+msgstr "Следующая"
+
+msgid "This page is protected from public view"
+msgstr "Эта страница защищена от публичного просмотра"
+
+msgid "Disable ordering of child pages"
+msgstr "Отключить упорядочение дочерних страниц"
+
+msgid "Enable ordering of child pages"
+msgstr "Включить упорядочение дочерних страниц"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "Выбрать новую родительскую страницу для '%(title)s'"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "Выбрать новую родительскую страницу для <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "Ошибка предпросмотра"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"                Предпросмотр этой страницы невозможен из-за ошибок.\n"
+"                Пожалуйста, закройте эту вкладку и отредактируйте страницу "
+"для того чтобы исправить ошибки.\n"
+"                После исправления ошибок - попробуйте еще раз.\n"
+"            "
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Сравниваем %(title)s"
+
+msgid "Comparing"
+msgstr "Сравниваем"
+
+msgid "View revisions"
+msgstr "Посмотреть версии"
+
+msgid "Fields"
+msgstr "Поля"
+
+msgid "Changes"
+msgstr "Изменения"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Перемещено вниз "
+"на 1 позицию.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Перемещено вниз "
+"на %(counter)s позиции.\n"
+"                                                        "
+msgstr[2] ""
+"\n"
+"                                                            Перемещено вниз "
+"на %(counter)s позиций.\n"
+"                                                        "
+msgstr[3] ""
+"\n"
+"                                                            Перемещено вниз "
+"на %(counter)s позиций.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Перемещено вверх "
+"на 1 позицию.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Перемещено вверх "
+"на %(counter)s позиции.\n"
+"                                                        "
+msgstr[2] ""
+"\n"
+"                                                            Перемещено вверх "
+"на %(counter)s позиции.\n"
+"                                                        "
+msgstr[3] ""
+"\n"
+"                                                            Перемещено вверх "
+"на %(counter)s позиций.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "Сравниваемые версии идентичны"
+
+msgid "Unschedule"
+msgstr "Отменить временную публикацию"
+
+msgid "Yes, unschedule"
+msgstr "Да, отменить временную публикацию"
+
+msgid "No, don't unschedule"
+msgstr "Нет, не отменять публикацию по расписанию"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Версии %(title)s"
+
+msgid "Revisions of"
+msgstr "Версия"
+
+msgid "Revision date"
+msgstr "Дата версии"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "создал"
+
+msgid "Current draft"
+msgstr "Черновик"
+
+msgid "Live version"
+msgstr "Опубликованная версия"
+
+msgid "Scheduled for"
+msgstr "Запланированно на"
+
+msgid "Review this revision"
+msgstr "Ревью этой версии"
+
+msgid "Compare with previous revision"
+msgstr "Сравнить с предыдущей версией"
+
+msgid "Cancel scheduled publish"
+msgstr "Отменить запланированную публикацию"
+
+msgid "No revisions of this page exist"
+msgstr "Нет других версий этой страницы"
+
+msgid "No revision of this page exist"
+msgstr "Нет другой версии этой страницы"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"Есть одна совпадающая страница"
+msgstr[1] ""
+"\n"
+"Есть %(counter)s совпадающих страниц"
+msgstr[2] ""
+"\n"
+"Есть %(counter)s совпадающих страниц"
+msgstr[3] ""
+"\n"
+"Есть %(counter)s совпадающих страниц\n"
+"            "
+
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr ""
+"Извините, для <em>\"%(query_string)s\"</em> подходящих страниц не найдено"
+
+msgid "Enter a search term above"
+msgstr "Введите критерий поиска выше"
+
+msgid "No pages use"
+msgstr "Нет страниц использующих"
+
+msgid "Collection"
+msgstr "Коллекция"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Страница %(page_num)s из %(total_pages)s."
+
+msgid "Root"
+msgstr "Главная"
+
+msgid "Home"
+msgstr "Главная"
+
+msgid "All collections"
+msgstr "Все коллекции"
+
+msgid "Edit your account"
+msgstr "Редактировать ваш аккаунт"
+
+msgid "Account settings"
+msgstr "Настройки аккаунта"
+
+msgid "Log out"
+msgstr "Выйти"
+
+msgid "Other searches"
+msgstr "Другие поиски"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Вы используете <strong>устаревший</strong> браузер не поддерживаемый этим "
+"сайтом. Пожалуйста, <a href=\"http://browsehappy.com/\">обновите ваш "
+"браузер</a>."
+
+msgid "Go to Wagtail admin interface"
+msgstr "Идти в интерфейс управления Wagtail"
+
+msgid "Add a child page"
+msgstr "Добавить дочернюю страницу"
+
+msgid "Show in Explorer"
+msgstr "Показать Проводник"
+
+msgid "Test"
+msgstr "Тест"
+
+msgid "Your password has been changed successfully!"
+msgstr "Ваш пароль был успешно изменен!"
+
+msgid "Your email has been changed successfully!"
+msgstr "Ваш email успешно поменялся"
+
+msgid "Your preferences have been updated."
+msgstr "Ваши настройки были обновлены."
+
+msgid "You have been successfully logged out."
+msgstr "Вы успешно вышли"
+
+msgid "Collections"
+msgstr "Коллекции"
+
+msgid "Add a collection"
+msgstr "Добавить коллекцию"
+
+msgid "Add collection"
+msgstr "Добавить коллекцию"
+
+msgid "Collection '{0}' created."
+msgstr "Коллекция '{0}' создана."
+
+msgid "Collection '{0}' updated."
+msgstr "Коллекция '{0}' обновлена."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Коллекция не может быть сохранена из-за ошибок."
+
+msgid "Delete collection"
+msgstr "Удалить коллекцию"
+
+msgid "Collection '{0}' deleted."
+msgstr "Коллекция '{0}' удалена."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Вы уверены что хотите удалить эту коллекцию?"
+
+msgid "Editing"
+msgstr "Редактирование"
+
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Страница '{0}' создана и запланирована к публикации."
+
+msgid "View live"
+msgstr "Смотреть на сайте"
+
+msgid "Page '{0}' created and published."
+msgstr "Страница '{0}' создана и опубликована."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Страница '{0}' создана и отправлена на модерацию."
+
+msgid "View draft"
+msgstr "Смотреть черновик"
+
+msgid "Failed to send notifications to moderators"
+msgstr "Не удалось отправить уведомления модераторам"
+
+msgid "Page '{0}' created."
+msgstr "Страница '{0}' создана."
+
+msgid "The page could not be created due to validation errors"
+msgstr "Эта страница не может быть создана из-за ошибок при проверке"
+
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "Версия {0} страницы '{1}' запланирована к публикации."
+
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "Страница '{0}' запланирована к публикации."
+
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "Версия {0} страницы '{1}' опубликована."
+
+msgid "Page '{0}' has been published."
+msgstr "Страница '{0}' опубликована."
+
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "Страница '{0}' была отправлена на модерацию."
+
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "Страница '{0}' заменена версией из {1}."
+
+msgid "Page '{0}' has been updated."
+msgstr "Страница '{0}' обновлена."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Страница не может быть сохранена, так как она заблокирована"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Страница не может быть сохранена из-за ошибок при проверке"
+
+msgid "Compare with live version"
+msgstr "Сравнить с опубликованной версией"
+
+msgid "This page is currently awaiting moderation"
+msgstr "Эта страница в данный момент ожидает модерации"
+
+msgid "Page '{0}' deleted."
+msgstr "Страница '{0}' удалена."
+
+msgid "Page '{0}' unpublished."
+msgstr "Страница '{0}' снята с публикации."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Слаг '{0}' уже используется в выбранной родительской странице. Убедитесь что "
+"слаг уникален и попробуйте заново"
+
+msgid "Page '{0}' moved."
+msgstr "Страница '{0}' перемещена."
+
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Страница '{0}' и {1} подстраниц скопировано."
+
+msgid "Page '{0}' copied."
+msgstr "Страница '{0}' скопирована."
+
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "Страница '{0}' в настоящее время не ожидает модерации."
+
+msgid "Page '{0}' published."
+msgstr "Страница '{0}' опубликована."
+
+msgid "Failed to send approval notifications"
+msgstr "Не удалось отправить уведомления об утверждении"
+
+msgid "Page '{0}' rejected for publication."
+msgstr "Публикация страницы '{0}' отклонена."
+
+msgid "Failed to send rejection notifications"
+msgstr "Не удалось отправить уведомления об отклонении"
+
+msgid "Page '{0}' is now locked."
+msgstr "Страница '{0}' заблокирована."
+
+msgid "Page '{0}' is now unlocked."
+msgstr "Страница '{0}' разблокирована."
+
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Вы просматриваете предыдущую версию этой страницы от <b>%(created_at)s</b> "
+"созданную пользователем %(user)s"
+
+msgid "Earliest"
+msgstr "Ранний"
+
+msgid "Latest"
+msgstr "Последний"
+
+msgid "revision {0} of \"{1}\""
+msgstr "версия {0} страницы \"{1}\""
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Версия {0} страницы '{1}' перестала быть запланированной к публикации."
+
+msgid "More"
+msgstr "Больше"
+
+msgid "Set profile picture"
+msgstr "Установить фото профиля"
+
+msgid "Change the password you use to log in."
+msgstr "Изменить пароль, который вы используете для входа."
+
+msgid "Choose which email notifications to receive."
+msgstr "Выберите какие уведомления принимать на электронную почту."
+
+msgid "Language preferences"
+msgstr "Языковые настройки"
+
+msgid "Choose the language you want to use here."
+msgstr "Выберите язык, который вы хотите использовать."
+
+msgid "Bulleted list"
+msgstr "Маркированный список"
+
+msgid "Numbered list"
+msgstr "Нумерованный список"
+
+msgid "Bold"
+msgstr "Жирный"
+
+msgid "Italic"
+msgstr "Наклонный"
+
+msgid "Link"
+msgstr "Ссылка"
+
+msgid "Choose an item"
+msgstr "Выбрать элемент"
+
+msgid "Choose another item"
+msgstr "Выбрать другой элемент"
+
+msgid "Clear choice"
+msgstr "Очистить выбор"
+
+msgid "Edit this item"
+msgstr "Редактировать этот элемент"
+
+msgid "Choose another page"
+msgstr "Выбрать другую страницу"

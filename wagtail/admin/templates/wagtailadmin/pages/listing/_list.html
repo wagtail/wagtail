@@ -1,0 +1,81 @@
+{% load i18n %}
+{% load l10n %}
+{% load wagtailadmin_tags %}
+<table class="listing {% if full_width %}full-width{% endif %} {% block table_classname %}{% endblock %}">
+    {% if show_ordering_column %}
+        <col width="65px" />
+    {% endif %}
+    <col />
+    {% if show_parent %}
+        <col />
+    {% endif %}
+    <col width="12%" />
+    <col width="12%" />
+    <col width="12%" />
+    <col width="10%" />
+    <thead>
+        {% block pre_parent_page_headers %}
+        {% endblock %}
+
+        {% if parent_page %}
+            {% page_permissions parent_page as parent_page_perms %}
+            <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% block parent_page_row_classname %}{% endblock %}">
+                <td class="title" {% if show_ordering_column %}colspan="2"{% endif %}>
+                    {% block parent_page_title %}
+                    {% endblock %}
+                </td>
+                <td class="updated" valign="bottom">{% if parent_page.latest_revision_created_at %}<div class="human-readable-date" title="{{ parent_page.latest_revision_created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=parent_page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
+                <td class="type" valign="bottom">
+                    {% if not parent_page.is_root %}
+                        {{ parent_page.content_type.model_class.get_verbose_name }}
+                    {% endif %}
+                </td>
+                <td class="status" valign="bottom">
+                    {% if not parent_page.is_root %}
+                        {% include "wagtailadmin/shared/page_status_tag.html" with page=parent_page %}
+                    {% endif %}
+                </td>
+                <td></td>
+            </tr>
+        {% endif %}
+
+        {% block post_parent_page_headers %}
+        {% endblock %}
+    </thead>
+    <tbody>
+        {% if pages %}
+            {% for page in pages %}
+                {% page_permissions page as page_perms %}
+                <tr {% if ordering == "ord" %}id="page_{{ page.id|unlocalize }}" data-page-title="{{ page.get_admin_display_title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
+                    {% if show_ordering_column %}
+                        <td class="ord">{% if orderable and ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
+                    {% endif %}
+                    <td class="title" valign="top" data-listing-page-title>
+                        {% block page_title %}
+                        {% endblock %}
+                    </td>
+                    {% if show_parent %}
+                            <td class="parent" valign="top">
+                                {% block page_parent_page_title %}
+                                    {% with page.get_parent as parent %}
+                                        {% if parent %}
+                                            <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.get_admin_display_title }}</a>
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endblock %}
+                            </td>
+                    {% endif %}
+                    <td class="updated" valign="top">{% if page.latest_revision_created_at %}<div class="human-readable-date" title="{{ page.latest_revision_created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=page.latest_revision_created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div>{% endif %}</td>
+                    <td class="type" valign="top">{{ page.content_type.model_class.get_verbose_name }}</td>
+                    <td class="status" valign="top">
+                        {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
+                    </td>
+                    {% block page_navigation %}
+                    {% endblock %}
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% block no_results %}{% endblock %}
+        {% endif %}
+    </tbody>
+</table>

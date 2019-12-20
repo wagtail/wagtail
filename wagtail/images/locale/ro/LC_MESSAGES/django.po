@@ -1,0 +1,400 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dan Braghis, 2014-2016,2018-2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "Wagtail images"
+msgstr "Imagini Wagtail"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Formate suportate: %(supported_formats)s. Mărime maximă: %(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formate suportate:  %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "Format de imagine neacceptat. Formate suportate: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Imaginea %s nu este validă."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Acest fișier este prea mare (%%s). Mărime maximă: %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Acest fișier este prea mare. Mărime maximă: %s."
+
+msgid "Full width"
+msgstr "Lățime maximă"
+
+msgid "Left-aligned"
+msgstr "Aliniat la stânga"
+
+msgid "Right-aligned"
+msgstr "Aliniat la dreapta"
+
+msgid "Filter"
+msgstr "Filtrează"
+
+msgid "Original size"
+msgstr "Dimensiune originală"
+
+msgid "Resize to width"
+msgstr "Redimensionare la lățime"
+
+msgid "Resize to height"
+msgstr "Redimensionare la înălțime"
+
+msgid "Resize to min"
+msgstr "Redimensionare la minimum"
+
+msgid "Resize to max"
+msgstr "Redimensionare la maximum"
+
+msgid "Resize to fill"
+msgstr "Redimensionare la împlinire"
+
+msgid "Width"
+msgstr "Lățime"
+
+msgid "Height"
+msgstr "Înălțime"
+
+msgid "Closeness"
+msgstr "Vecinătate"
+
+msgid "Add"
+msgstr "Adaugă"
+
+msgid "Add/edit images you own"
+msgstr "Adaugă/editeaza imagini deținute"
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "Edit any image"
+msgstr "Editează orice imagine"
+
+msgid "title"
+msgstr "titlu"
+
+msgid "file"
+msgstr "fișier"
+
+msgid "width"
+msgstr "lățime"
+
+msgid "height"
+msgstr "înălțime"
+
+msgid "created at"
+msgstr "creat la"
+
+msgid "uploaded by user"
+msgstr "încărcată de utlizator"
+
+msgid "tags"
+msgstr "etichete"
+
+msgid "image"
+msgstr "imagine"
+
+msgid "images"
+msgstr "imagini"
+
+msgid "Choose an image"
+msgstr "Alege imagine"
+
+msgid "Search"
+msgstr "Căutare"
+
+msgid "Upload"
+msgstr "Încărcare"
+
+msgid "Popular tags"
+msgstr "Etichete populare"
+
+msgid "Uploading…"
+msgstr "În curs de încărcare…"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Există %(counter)s potrivire\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Sunt %(counter)s potriviri\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Sunt %(counter)s potriviri\n"
+"        "
+
+msgid "Latest images"
+msgstr "Imagini recente"
+
+msgid "Choose a format"
+msgstr "Alege un format"
+
+msgid "Insert image"
+msgstr "Inserează imagine"
+
+msgid "Change image file:"
+msgstr "Schimbă fișierul imaginii:"
+
+msgid "Add an image"
+msgstr "Adaugă o imagine"
+
+msgid "Add image"
+msgstr "Adaugă imagine"
+
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Delete image"
+msgstr "Șterge imagine"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s utilizări"
+msgstr[1] "%(usage_count)s utilizări"
+msgstr[2] "%(usage_count)s utilizări"
+
+msgid "Are you sure you want to delete this image?"
+msgstr "Sigur doriți să ștergeți această imagine?"
+
+msgid "Yes, delete"
+msgstr "Da, șterge"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Editare imagine %(title)s"
+
+msgid "Editing"
+msgstr "Editare"
+
+msgid "URL Generator"
+msgstr "Generator URL"
+
+msgid "Focal point"
+msgstr "Punct focal"
+
+msgid "(optional)"
+msgstr "(opțional)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Pentru a defini regiunea cea mai importantă a imaginii, trageți un perimetru "
+"peste imaginea de mai sus."
+
+msgid "Current focal point shown"
+msgstr "Punctul focal curent este afișat"
+
+msgid "Remove focal area"
+msgstr "Șterge zona focală"
+
+msgid "Max dimensions"
+msgstr "Dimensiuni maxime"
+
+msgid "Filesize"
+msgstr "Mărime fișier"
+
+msgid "File not found"
+msgstr "Fișierul nu a fost găsit"
+
+msgid "Usage"
+msgstr "Utilizare"
+
+msgid "Images"
+msgstr "Imagini"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o imagine"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Nu ați încărcat nici o imagine în această colecție. De să nu <a href="
+"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Nu ați încărcat nici o imagine. De să nu <a href="
+"\"%(wagtailimages_add_image_url)s\">adăugați una</a>?"
+
+msgid "Generating URL"
+msgstr "Generarea URL"
+
+msgid "URL"
+msgstr "Adresă de internet"
+
+msgid "Preview"
+msgstr "Examinare"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"Rețineți că imaginile care sunt generate mai mari decât dimensiunile "
+"ecranului vor apărea mai mici când sunt previzualizate aici pentru a se "
+"încadra."
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Utilizare %(title)s"
+
+msgid "Usage of"
+msgstr "Utilizare"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Parent"
+msgstr "Bază"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Editează această pagină"
+
+msgid "Add multiple images"
+msgstr "Adaugă mai multe imagini"
+
+msgid "Add images"
+msgstr "Adaugă imagini"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr ""
+"Trageți și plasați fișiere imagini în această zonă pentru încărcare imediată."
+
+msgid "Or choose from your computer"
+msgstr "Sau alege de pe computer"
+
+msgid "Add to collection:"
+msgstr "Adaugă la colecția:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Încărcare de success. Dacă este necesar, actualizați această imagine cu un "
+"titlu potrivit. Puteți deasemenea să ștergeți imaginea în întregime dacă "
+"încărcarea nu a fost necesară."
+
+msgid "Sorry, upload failed."
+msgstr "Încărcarea a eșuat."
+
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportează această eroare webmasterului cu următoarele informații:"
+
+msgid "Image updated."
+msgstr "Imaginea a fost actualizată."
+
+msgid "Update"
+msgstr "Actualizează"
+
+msgid "Delete"
+msgstr "Șterge"
+
+msgid "Image permissions"
+msgstr "Permisiuni imagine"
+
+msgid "Add an image permission"
+msgstr "Adaugă o permisiune imagine"
+
+msgid "Search images"
+msgstr "Caută imagini"
+
+msgid "Image '{0}' updated."
+msgstr "Imaginea '{0}' a fost actualizată."
+
+msgid "Edit again"
+msgstr "Editează din nou"
+
+msgid "The image could not be saved due to errors."
+msgstr "Imaginea nu a fost salvată din cauza erorilor."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Fișierul sursă al imaginii nu a fost găsit. Schimbă sursa sau sterge "
+"imaginea."
+
+msgid "Image '{0}' deleted."
+msgstr "Imaginea '{0}' a fost ștearsă."
+
+msgid "Image '{0}' added."
+msgstr "Imaginea '{0}' a fost adăugată."
+
+msgid "The image could not be created due to errors."
+msgstr "Imaginea nu a fost creată din cauza erorilor."
+
+msgid "Image"
+msgstr "imagine"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s imagine"
+msgstr[1] "%(count)s imagini"
+msgstr[2] "%(count)s imagini"
+
+msgid "Change image"
+msgstr "Schimbă imaginea"
+
+msgid "Edit this image"
+msgstr "Editează această imagine"

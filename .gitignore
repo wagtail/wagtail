@@ -13,6 +13,8 @@
 npm-debug.log*
 *.idea/
 /*.egg/
+/.cache/
+/.pytest_cache/
 
 ### JetBrains
 .idea/
@@ -21,3 +23,6 @@ npm-debug.log*
 *.iws
 coverage/
 client/node_modules
+
+### vscode
+.vscode

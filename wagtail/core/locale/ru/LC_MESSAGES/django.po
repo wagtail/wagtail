@@ -1,0 +1,339 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# ajk, 2014
+# ajk, 2014
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Eugene <eugene.mechanism@gmail.com>, 2014-2016
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Мирон Левицкий <miron200504@gmail.com>, 2018
+# Михаил Герасимов, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail core"
+msgstr "Ядро Wagtail"
+
+msgid "This block has no options."
+msgstr "Этот блок не имеет опций."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Минимальное количество элементов: %d"
+
+msgid "This field is required."
+msgstr "Требуется заполнить это поле."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Максимальное количество элементов: %d"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Введённый вами пароль неверный. Попробуйте еще раз."
+
+msgid "hostname"
+msgstr "имя хоста"
+
+msgid "port"
+msgstr "порт"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Укажите какой-нибудь отличный от 80 порт, если вам нужен конкретный номер "
+"порта в URL-адресе (например, разработка на порту 8000). Не влияет на "
+"обработку запроса (так что форвардинг портов продолжает работать)."
+
+msgid "site name"
+msgstr "имя сайта"
+
+msgid "Human-readable name for the site."
+msgstr "Человеко-понятное имя для сайта."
+
+msgid "root page"
+msgstr "корневая страница"
+
+msgid "is default site"
+msgstr "сайт по умолчанию"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Если выбрано, этот сайт будет обрабатывать запросы для всех имеющихся имен "
+"хостов, не закрепленных за другими сайтами"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "sites"
+msgstr "сайты"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала отключить "
+"эту настройку у него, прежде, чем вы можете сохранить этот сайт по умолчанию."
+
+msgid "title"
+msgstr "заголовок"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Заголовок страницы видимый всем"
+
+msgid "slug"
+msgstr "слаг"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Имя страницы, которое будет отображаться в URL, например http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "content type"
+msgstr "тип содержимого"
+
+msgid "live"
+msgstr "опубликовано"
+
+msgid "has unpublished changes"
+msgstr "имеет неопубликованные изменения"
+
+msgid "URL path"
+msgstr "Путь URL"
+
+msgid "owner"
+msgstr "владелец"
+
+msgid "page title"
+msgstr "заголовок страницы"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Не обязательно. 'Дружелюбный для Поисковых Сервисов' заголовок. Он появится "
+"вверху окна браузера."
+
+msgid "show in menus"
+msgstr "показывать в меню"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Должна ли ссылка на эту страницу отображаться в автоматически генерируемых "
+"меню"
+
+msgid "search description"
+msgstr "описание для поиска/SEO"
+
+msgid "go live date/time"
+msgstr "дата/время публикации"
+
+msgid "expiry date/time"
+msgstr "дата/время истечения"
+
+msgid "expired"
+msgstr "истекло"
+
+msgid "locked"
+msgstr "заблокировано"
+
+msgid "first published at"
+msgstr "впервые опубликовано"
+
+msgid "last published at"
+msgstr "последний раз публиковалась"
+
+msgid "latest revision created at"
+msgstr "последняя версия создана"
+
+msgid "This slug is already in use"
+msgstr "Этот слаг уже используется"
+
+msgid "scheduled"
+msgstr "запланированное"
+
+msgid "draft"
+msgstr "черновик"
+
+msgid "live + scheduled"
+msgstr "размещена + запланированна"
+
+msgid "live + draft"
+msgstr "опубликовано + черновик"
+
+msgid "Default"
+msgstr "По умолчанию"
+
+msgid "page"
+msgstr "страница"
+
+msgid "pages"
+msgstr "страницы"
+
+msgid "submitted for moderation"
+msgstr "добавлено на модерацию"
+
+msgid "created at"
+msgstr "создано"
+
+msgid "user"
+msgstr "пользователь"
+
+msgid "content JSON"
+msgstr "сожержимое JSON"
+
+msgid "approved go live at"
+msgstr "подтверждено к публикации"
+
+msgid "page revision"
+msgstr "версия страницы"
+
+msgid "page revisions"
+msgstr "версии страницы"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Add/edit pages you own"
+msgstr "Добавить/редактировать свои страницы"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Edit any page"
+msgstr "Редактировать любую страницу"
+
+msgid "Publish"
+msgstr "Опубликовать"
+
+msgid "Publish any page"
+msgstr "Опубликовать любую страницу"
+
+msgid "Bulk delete"
+msgstr "Массовое удаление"
+
+msgid "Delete pages with children"
+msgstr "Удалить вместе с дочерними страницами"
+
+msgid "Lock"
+msgstr "Заблокировать"
+
+msgid "Lock/unlock any page"
+msgstr "Заблокировать/разблокировать любую страницу"
+
+msgid "group"
+msgstr "группа"
+
+msgid "permission type"
+msgstr "тип прав"
+
+msgid "group page permission"
+msgstr "право на страницу у группы"
+
+msgid "group page permissions"
+msgstr "права на страницу у группы"
+
+msgid "Public"
+msgstr "Публично"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Приватно, доступно для зарегистрированных пользователей"
+
+msgid "Private, accessible with the following password"
+msgstr "Приватно, доступно со следующим паролем"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Приватно, доступно для пользователей из указанных групп"
+
+msgid "password"
+msgstr "пароль"
+
+msgid "groups"
+msgstr "группы"
+
+msgid "view restriction"
+msgstr "ограничение на просмотр"
+
+msgid "view restrictions"
+msgstr "ограничения на просмотр"
+
+msgid "page view restriction"
+msgstr "ограничение на просмотр страницы"
+
+msgid "page view restrictions"
+msgstr "ограничения на просмотр страниц"
+
+msgid "collection"
+msgstr "коллекция"
+
+msgid "collection view restriction"
+msgstr "ограничение на просмотр коллекции"
+
+msgid "collection view restrictions"
+msgstr "ограничения на просмотр коллекции"
+
+msgid "name"
+msgstr "имя"
+
+msgid "collections"
+msgstr "коллекции"
+
+msgid "permission"
+msgstr "право доступа"
+
+msgid "group collection permission"
+msgstr "право доступа к коллекции у группы"
+
+msgid "group collection permissions"
+msgstr "права доступа к коллекции у группы"
+
+msgid "Log in"
+msgstr "Войти"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Ваши имя пользователя и пароль не подходят. Пожалуйста, попробуйте еще раз."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ваш аккаунт не имеет доступа к этой странице. Для просмотра, пожалуйста, "
+"войдите, используя аккаунт, который имеет доступ."
+
+msgid "Password required"
+msgstr "Требуется пароль"
+
+msgid "You need a password to access this page."
+msgstr "Вам нужен пароль для доступа к этой странице."
+
+msgid "Continue"
+msgstr "Продолжить"

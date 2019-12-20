@@ -1,0 +1,36 @@
+{% load i18n %}
+{% if documents %}
+    {% if is_searching %}
+        <h2>
+        {% blocktrans count counter=documents.paginator.count %}
+            There is {{ counter }} match
+        {% plural %}
+            There are {{ counter }} matches
+        {% endblocktrans %}
+        </h2>
+    {% else %}
+        <h2>{% trans "Latest documents" %}</h2>
+    {% endif %}
+
+    {% include "wagtaildocs/documents/list.html" with choosing=1 %}
+
+    {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=documents %}
+{% else %}
+    {% if documents_exist %}
+        <p>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    {% else %}
+        <p>
+        {% if collection_id %}
+            {% trans "You haven't uploaded any documents in this collection." %}
+        {% else %}
+            {% trans "You haven't uploaded any documents." %}
+        {% endif %}
+        {% if uploadform %}
+            {% url 'wagtaildocs:add_multiple' as wagtaildocs_add_document_url %}
+            {% blocktrans %}
+            Why not <a class="upload-one-now" href="{{ wagtaildocs_add_document_url }}">upload one now</a>?
+            {% endblocktrans %}
+        {% endif %}
+        </p>
+    {% endif %}
+{% endif %}

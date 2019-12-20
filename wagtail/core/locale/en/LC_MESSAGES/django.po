@@ -1,0 +1,410 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: apps.py:8
+msgid "Wagtail core"
+msgstr ""
+
+#: blocks/static_block.py:15
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr ""
+
+#: blocks/static_block.py:17
+msgid "This block has no options."
+msgstr ""
+
+#: blocks/stream_block.py:205 blocks/stream_block.py:227
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr ""
+
+#: blocks/stream_block.py:208
+msgid "This field is required."
+msgstr ""
+
+#: blocks/stream_block.py:212 blocks/stream_block.py:231
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr ""
+
+#: forms.py:7
+msgid "Password"
+msgstr ""
+
+#: forms.py:17
+msgid "The password you have entered is not correct. Please try again."
+msgstr ""
+
+#: models.py:50
+msgid "hostname"
+msgstr ""
+
+#: models.py:52
+msgid "port"
+msgstr ""
+
+#: models.py:55
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+
+#: models.py:60
+msgid "site name"
+msgstr ""
+
+#: models.py:64
+msgid "Human-readable name for the site."
+msgstr ""
+
+#: models.py:66
+msgid "root page"
+msgstr ""
+
+#: models.py:68
+msgid "is default site"
+msgstr ""
+
+#: models.py:71
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+
+#: models.py:79
+msgid "site"
+msgstr ""
+
+#: models.py:80
+msgid "sites"
+msgstr ""
+
+#: models.py:141
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+
+#: models.py:233
+msgid "title"
+msgstr ""
+
+#: models.py:235
+msgid "The page title as you'd like it to be seen by the public"
+msgstr ""
+
+#: models.py:243
+msgid "slug"
+msgstr ""
+
+#: models.py:246
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+
+#: models.py:250
+msgid "content type"
+msgstr ""
+
+#: models.py:254 models.py:1025
+msgid "live"
+msgstr ""
+
+#: models.py:256
+msgid "has unpublished changes"
+msgstr ""
+
+#: models.py:260
+msgid "URL path"
+msgstr ""
+
+#: models.py:263
+msgid "owner"
+msgstr ""
+
+#: models.py:272
+msgid "page title"
+msgstr ""
+
+#: models.py:275
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+
+#: models.py:280
+msgid "show in menus"
+msgstr ""
+
+#: models.py:282
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+
+#: models.py:284
+msgid "search description"
+msgstr ""
+
+#: models.py:287
+msgid "go live date/time"
+msgstr ""
+
+#: models.py:292
+msgid "expiry date/time"
+msgstr ""
+
+#: models.py:296 models.py:1014
+msgid "expired"
+msgstr ""
+
+#: models.py:298
+msgid "locked"
+msgstr ""
+
+#: models.py:301
+msgid "first published at"
+msgstr ""
+
+#: models.py:307
+msgid "last published at"
+msgstr ""
+
+#: models.py:312
+msgid "latest revision created at"
+msgstr ""
+
+#: models.py:440
+msgid "This slug is already in use"
+msgstr ""
+
+#: models.py:1016
+msgid "scheduled"
+msgstr ""
+
+#: models.py:1018
+msgid "draft"
+msgstr ""
+
+#: models.py:1021
+msgid "live + scheduled"
+msgstr ""
+
+#: models.py:1023
+msgid "live + draft"
+msgstr ""
+
+#: models.py:1352
+msgid "Default"
+msgstr ""
+
+#: models.py:1521 models.py:1540 models.py:1673 models.py:2080
+msgid "page"
+msgstr ""
+
+#: models.py:1522
+msgid "pages"
+msgstr ""
+
+#: models.py:1542
+msgid "submitted for moderation"
+msgstr ""
+
+#: models.py:1546
+msgid "created at"
+msgstr ""
+
+#: models.py:1548
+msgid "user"
+msgstr ""
+
+#: models.py:1551
+msgid "content JSON"
+msgstr ""
+
+#: models.py:1552
+msgid "approved go live at"
+msgstr ""
+
+#: models.py:1653
+msgid "page revision"
+msgstr ""
+
+#: models.py:1654
+msgid "page revisions"
+msgstr ""
+
+#: models.py:1658
+msgid "Add"
+msgstr ""
+
+#: models.py:1658
+msgid "Add/edit pages you own"
+msgstr ""
+
+#: models.py:1659
+msgid "Edit"
+msgstr ""
+
+#: models.py:1659
+msgid "Edit any page"
+msgstr ""
+
+#: models.py:1660
+msgid "Publish"
+msgstr ""
+
+#: models.py:1660
+msgid "Publish any page"
+msgstr ""
+
+#: models.py:1661
+msgid "Bulk delete"
+msgstr ""
+
+#: models.py:1661
+msgid "Delete pages with children"
+msgstr ""
+
+#: models.py:1662
+msgid "Lock"
+msgstr ""
+
+#: models.py:1662
+msgid "Lock/unlock any page"
+msgstr ""
+
+#: models.py:1672 models.py:2187
+msgid "group"
+msgstr ""
+
+#: models.py:1675
+msgid "permission type"
+msgstr ""
+
+#: models.py:1682
+msgid "group page permission"
+msgstr ""
+
+#: models.py:1683
+msgid "group page permissions"
+msgstr ""
+
+#: models.py:2027
+msgid "Public"
+msgstr ""
+
+#: models.py:2028
+msgid "Private, accessible to logged-in users"
+msgstr ""
+
+#: models.py:2029
+msgid "Private, accessible with the following password"
+msgstr ""
+
+#: models.py:2030
+msgid "Private, accessible to users in specific groups"
+msgstr ""
+
+#: models.py:2035
+msgid "password"
+msgstr ""
+
+#: models.py:2036
+msgid "groups"
+msgstr ""
+
+#: models.py:2074
+msgid "view restriction"
+msgstr ""
+
+#: models.py:2075
+msgid "view restrictions"
+msgstr ""
+
+#: models.py:2086
+msgid "page view restriction"
+msgstr ""
+
+#: models.py:2087
+msgid "page view restrictions"
+msgstr ""
+
+#: models.py:2101 models.py:2152 models.py:2167 models.py:2193
+msgid "collection"
+msgstr ""
+
+#: models.py:2109
+msgid "collection view restriction"
+msgstr ""
+
+#: models.py:2110
+msgid "collection view restrictions"
+msgstr ""
+
+#: models.py:2117
+msgid "name"
+msgstr ""
+
+#: models.py:2153
+msgid "collections"
+msgstr ""
+
+#: models.py:2199
+msgid "permission"
+msgstr ""
+
+#: models.py:2212
+msgid "group collection permission"
+msgstr ""
+
+#: models.py:2213
+msgid "group collection permissions"
+msgstr ""
+
+#: templates/wagtailcore/login.html:5 templates/wagtailcore/login.html:8
+#: templates/wagtailcore/login.html:21
+msgid "Log in"
+msgstr ""
+
+#: templates/wagtailcore/login.html:11
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+
+#: templates/wagtailcore/login.html:15
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+
+#: templates/wagtailcore/password_required.html:5
+#: templates/wagtailcore/password_required.html:8
+msgid "Password required"
+msgstr ""
+
+#: templates/wagtailcore/password_required.html:10
+msgid "You need a password to access this page."
+msgstr ""
+
+#: templates/wagtailcore/password_required.html:15
+msgid "Continue"
+msgstr ""

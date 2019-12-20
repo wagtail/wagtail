@@ -1,0 +1,827 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arne Turpyn <info@arneturpyn.com>, 2015
+# benny_AT_it_digin.com <benny@it-digin.com>, 2015
+# Bram <bram2w@live.nl>, 2015
+# Brecht Dervaux <info@dervauxbrecht.be>, 2015
+# Huib Keemink <huib@creativedutchmen.com>, 2015
+# mahulst, 2014
+# mahulst, 2014
+# Michael van Tellingen <michaelvantellingen@gmail.com>, 2015
+# Rob Moorman <rob@moori.nl>, 2017
+# Samuel Leeuwenburg, 2014
+# Samuel Leeuwenburg, 2014
+# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Publiceer"
+
+msgid "Submit for moderation"
+msgstr "Ter goedkeuring aanbieden"
+
+msgid "Unpublish"
+msgstr "Publicatie ongedaan maken"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Page locked"
+msgstr "Pagina vergrendeld"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Sorry, u heeft geen toestemming tot dit gedeelte."
+
+msgid "You do not have permission to access the admin"
+msgstr "U heeft geen permissies om de admin te bereiken"
+
+msgid "None"
+msgstr "Geen"
+
+msgid "Scheduled publishing"
+msgstr "Geplande publicatie"
+
+msgid "Common page configuration"
+msgstr "Algemene pagina-instellingen"
+
+msgid "Content"
+msgstr "Inhoud"
+
+msgid "Promote"
+msgstr "Eigenschappen"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Enter password"
+msgstr "Voer wachtwoord in"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Voer uw %s in"
+
+msgid "Enter your email address to reset your password"
+msgstr "Vul uw e-mailadres in om uw wachtwoord te resetten."
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"U kunt niet beschikken over meerdere permissies voor dezelfde collectie."
+
+msgid "New title"
+msgstr "Nieuwe titel"
+
+msgid "New slug"
+msgstr "Nieuwe slug"
+
+msgid "New parent page"
+msgstr "Nieuwe bovenliggende pagina"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Deze kopie zal onder deze bovenliggende pagina komen te staan."
+
+msgid "Copy subpages"
+msgstr "Kopieer subpagina's"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Dit zal %(count)s subpagina kopiëren"
+msgstr[1] "Dit zal %(count)s subpagina's kopiëren"
+
+msgid "Publish copied page"
+msgstr "Publiceer gekopieerde pagina"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Deze pagina is live. Wilt u de kopie ook publiceren?"
+
+msgid "Publish copies"
+msgstr "Publiceer kopieën"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s van de gekopieerde pagina's zijn live. Wilt u deze kopie "
+"publiceren?"
+msgstr[1] ""
+"%(count)s pagina's die gekopieerd worden zijn live. Wilt u de kopieën ook "
+"publiceren?"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "Deze slug is al in gebruik onder de bovenliggende pagina \"%s\""
+
+msgid "This slug is already in use"
+msgstr "Deze slug is al in gebruik"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"De datum en tijd waarop de pagina live moet komen te staan moet voor de "
+"datum en tijd liggen waarop de pagina vervalt"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Vervaldatum moet in de toekomst zijn."
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Search term"
+msgstr "Zoekterm"
+
+msgid "Visibility"
+msgstr "Zichtbaarheid"
+
+msgid "This field is required."
+msgstr "Dit veld is verplicht"
+
+msgid "Please select at least one group."
+msgstr "Selecteer minimaal één groep."
+
+msgid "January"
+msgstr "januari"
+
+msgid "February"
+msgstr "februari"
+
+msgid "March"
+msgstr "maart"
+
+msgid "April"
+msgstr "april"
+
+msgid "May"
+msgstr "mei"
+
+msgid "June"
+msgstr "juni"
+
+msgid "July"
+msgstr "juli"
+
+msgid "August"
+msgstr "augustus"
+
+msgid "September"
+msgstr "september"
+
+msgid "October"
+msgstr "oktober"
+
+msgid "November"
+msgstr "november"
+
+msgid "December"
+msgstr "december"
+
+msgid "Sun"
+msgstr "Zo"
+
+msgid "Mon"
+msgstr "Ma"
+
+msgid "Tue"
+msgstr "Di"
+
+msgid "Wed"
+msgstr "Wo"
+
+msgid "Thu"
+msgstr "Do"
+
+msgid "Fri"
+msgstr "Vr"
+
+msgid "Sat"
+msgstr "Za"
+
+msgid "Account"
+msgstr "Account"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Change password"
+msgstr "Wijzig wachtwoord"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Uw wachtwoord kan hier niet gewijzigd worden. Neem contact op met de "
+"beheerder van de site."
+
+msgid "Notification preferences"
+msgstr "Notificatievoorkeuren"
+
+msgid "Reset password"
+msgstr "Wachtwoord resetten"
+
+msgid "Password change successful"
+msgstr "Wachtwoord is succesvol gewijzigd"
+
+msgid "Login"
+msgstr "Log in"
+
+msgid "Set your new password"
+msgstr "Vul uw nieuwe wachtwoord in"
+
+msgid "Check your email"
+msgstr "Check uw e-mail"
+
+msgid "Password reset"
+msgstr "Wachtwoord herstel"
+
+msgid "Reset your password"
+msgstr "Herstel uw wachtwoord"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Move up"
+msgstr "Verplaats omhoog"
+
+msgid "Move down"
+msgstr "Verplaats naar beneden"
+
+msgid "Explorer"
+msgstr "Verkenner"
+
+msgid "Internal link"
+msgstr "Interne link"
+
+msgid "External link"
+msgstr "Externe link"
+
+msgid "Email link"
+msgstr "E-mail link"
+
+msgid "Choose"
+msgstr "Kies"
+
+msgid "Choose a page"
+msgstr "Kies een pagina"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Alleen pagina's van het type \"%(type)s\" kunnen gekozen worden voor dit "
+"veld. Resultaten van andere soorten pagina's zullen uitgesloten worden uit "
+"de zoekresultaten."
+msgstr[1] ""
+"\n"
+"Alleen de volgende soorten pagina's mogen gekozen worden voor dit veld: "
+"%(type)s. Resultaten van andere soorten pagina's zullen uitgesloten worden "
+"uit de zoekresultaten."
+
+msgid "Add an email link"
+msgstr "Voeg een e-mail link toe"
+
+msgid "Insert link"
+msgstr "Link invoegen"
+
+msgid "Add an external link"
+msgstr "Voeg een externe link toe"
+
+msgid "You can edit the privacy settings on:"
+msgstr "U kunt de privacyvoorkeuren wijzigen op:"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Privacy"
+msgstr "Privacy"
+
+msgid "Public"
+msgstr "Publiekelijk"
+
+msgid "Private"
+msgstr "Prive"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Yes, delete"
+msgstr "Ja, verwijder"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Welkom in het Wagtail CMS van %(site_name)s"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Dit is uw dashboard waarop nuttige informatie zal worden getoond over "
+"content die u gemaakt heeft."
+
+msgid "Pages awaiting moderation"
+msgstr "Pagina's wachtend op goedkeuring"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Parent"
+msgstr "Parent"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Edited"
+msgstr "Gewijzigd"
+
+msgid "Edit this page"
+msgstr "Wijzig deze pagina"
+
+msgid "Approve"
+msgstr "Goedkeuren"
+
+msgid "Reject"
+msgstr "Afwijzen"
+
+msgid "Edit"
+msgstr "Wijzigen"
+
+msgid "Preview"
+msgstr "Voorbeeld bekijken"
+
+msgid "Your most recent edits"
+msgstr "Uw meest recente wijzigingen"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Draft"
+msgstr "Concept"
+
+msgid "Live"
+msgstr "Live"
+
+msgid "Site summary"
+msgstr "Site samenvatting"
+
+msgid "Sign in"
+msgstr "Inloggen"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Uw %(username_field)s en wachtwoord komen niet overeen. Probeer opnieuw."
+
+msgid "Sign in to Wagtail"
+msgstr "Log in op Wagtail"
+
+msgid "Forgotten it?"
+msgstr "Wachtwoord vergeten?"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "De pagina \"%(title)s\" is goedgekeurd."
+
+msgid "You can view the page here:"
+msgstr "U kunt de pagina hier bekijken:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "De pagina \"%(title)s\" is goedgekeurd"
+
+msgid "Edit your notification preferences here:"
+msgstr "Pas uw hier notificatievoorkeuren hier aan:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "De pagina \"%(title)s\" is afgewezen."
+
+msgid "You can edit the page here:"
+msgstr "U kunt de pagina hier wijzigen:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "De pagina \"%(title)s\" is afgewezen"
+
+msgid "You can preview the page here:"
+msgstr "U kunt hier een voorbeeld van de pagina bekijken:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "De pagina \"%(page)s\" is ter goedkeuring aangeboden"
+
+msgid "Page privacy"
+msgstr "Afscherming van de pagina"
+
+msgid "This page has been made private by a parent page."
+msgstr "Deze pagina is door een bovenliggende pagina afgeschermd gemaakt."
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Privacywijzigingen hebben ook effect op alle onderliggende pagina's van deze "
+"pagina."
+
+msgid "Edit lock"
+msgstr "Wijzig vergrendeling"
+
+msgid "Locked"
+msgstr "Vergrendeld"
+
+msgid "Unlocked"
+msgstr "Ontgrendeld"
+
+msgid "Publish this revision"
+msgstr "Publiceer deze revisie"
+
+msgid "Save draft"
+msgstr "Concept opslaan"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Maak een pagina in %(title)s"
+
+msgid "Create a page in"
+msgstr "Maak een pagina in"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Kies het type pagina dat u wilt maken."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Pagina's die %(page_type)s gebruiken"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Verwijder %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Weet u zeker dat u deze pagina wilt verwijderen?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"Dit zal ook een subpagina verwijderen."
+msgstr[1] ""
+"\n"
+"Dit zal ook %(descendant_count)s onderliggende pagina's verwijderen."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Verplaats %(title)s"
+
+msgid "Move"
+msgstr "Verplaats"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Weet u zeker dat u deze pagina wilt verplaatsen naar '%(title)s'?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Weet u zeker dat u deze en alle onderliggende pagina's wilt verplaatsen naar "
+"'%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "Ja, verplaats deze pagina"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Publicatie ongedaan maken van %(title)s"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Weet u zeker dat u de publicatie van deze pagina ongedaan wilt maken?"
+
+msgid "Yes, unpublish it"
+msgstr "Ja, maak de publicatie ongedaan"
+
+msgid "Pages using"
+msgstr "Pagina's die gebruik maken van"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopieer %(title)s"
+
+msgid "Copy"
+msgstr "Kopieer"
+
+msgid "Copy this page"
+msgstr "Kopieer deze pagina"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "Nieuwe %(page_type)s"
+
+msgid "New"
+msgstr "Nieuwe"
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Bewerk %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "Bewerk %(page_type)s <span>%(title)s</span>"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "Laatste gewijzigd: %(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "door %(modified_by)s"
+
+msgid "Revisions"
+msgstr "Revisies"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "%(title)s aan het bekijken"
+
+msgid "Drag"
+msgstr "Sleep"
+
+msgid "Updated"
+msgstr "Aangepast"
+
+msgid "No pages have been created at this location."
+msgstr "Er zijn geen pagina's aangemaakt op deze locatie."
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Maak een <a href=\"%(add_page_url)s\">nieuwe pagina</a>."
+
+msgid "This page is locked to further editing"
+msgstr "Deze pagina is vergrendeld voor verdere aanpassingen"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Verken subpagina's van '%(title)s'"
+
+msgid "Explore"
+msgstr "Verken"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Bekijk onderliggende pagina's van '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Voeg een onderliggende pagina toe aan '%(title)s'"
+
+msgid "Add child page"
+msgstr "Voeg een onderliggende pagina toe"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"Pagina %(page_number)s van de %(num_pages)s."
+
+msgid "Previous"
+msgstr "Vorige"
+
+msgid "Next"
+msgstr "Volgende"
+
+msgid "This page is protected from public view"
+msgstr "Deze pagina is beschermd tegen publieke zichtbaarheid"
+
+msgid "Disable ordering of child pages"
+msgstr "Schakel sortering van onderliggende pagina's uit"
+
+msgid "Enable ordering of child pages"
+msgstr "Schakel sortering van onderliggende pagina's in"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "Selecteer een nieuwe bovenliggende pagina voor %(title)s"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "Selecteer een nieuwe bovenliggende pagina voor <span>%(title)s</span>"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Vergelijk %(title)s"
+
+msgid "Comparing"
+msgstr "Vegelijken"
+
+msgid "View revisions"
+msgstr "Bekijk revisies"
+
+msgid "Fields"
+msgstr "Velden"
+
+msgid "Changes"
+msgstr "Wijzigingen"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revisies van  %(title)s"
+
+msgid "Revisions of"
+msgstr "Revisies van"
+
+msgid "Revision date"
+msgstr "Revisie datum"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "door"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"Er is één overeenkomende pagina"
+msgstr[1] ""
+"\n"
+"Er zijn %(counter)s overeenkomende pagina's"
+
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr ""
+"Sorry, geen enkele pagina komt overeen met de zoekterm <em>\"%(query_string)s"
+"\"</em>"
+
+msgid "Enter a search term above"
+msgstr "Voer hierboven een zoekterm in"
+
+msgid "No pages use"
+msgstr "Geen enkele pagina maakt gebruik van"
+
+msgid "Collection"
+msgstr "Collectie"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Pagina %(page_num)s van %(total_pages)s."
+
+msgid "Home"
+msgstr "Home"
+
+msgid "All collections"
+msgstr "Alle collecties"
+
+msgid "Edit your account"
+msgstr "Bewerk uw account"
+
+msgid "Log out"
+msgstr "Uitloggen"
+
+msgid "Other searches"
+msgstr "Andere zoekresultaten"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"U gebruikt een <strong>verouderde</strong> browser die niet ondersteund "
+"wordt door deze sofware. <a href=\"http://browsehappy.com/\">upgrade uw "
+"browser</a> a.u.b."
+
+msgid "Go to Wagtail admin interface"
+msgstr "Ga naar de Wagtail beheer interface"
+
+msgid "Add a child page"
+msgstr "Voeg een onderliggende pagina toe"
+
+msgid "Your password has been changed successfully!"
+msgstr "Uw wachtwoord is succesvol gewijzigd."
+
+msgid "Collections"
+msgstr "Collecties"
+
+msgid "View live"
+msgstr "Bekijk live"
+
+msgid "Page '{0}' created and published."
+msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Pagina '{0}' aangemaakt en ter goedkeuring aangeboden."
+
+msgid "View draft"
+msgstr "Bekijk ontwerp"
+
+msgid "Page '{0}' created."
+msgstr "Pagina '{0}' aangemaakt."
+
+msgid "The page could not be created due to validation errors"
+msgstr "Deze pagina kon niet aangemaakt worden vanwege validatiefouten"
+
+msgid "The page could not be saved as it is locked"
+msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten"
+
+msgid "This page is currently awaiting moderation"
+msgstr "Deze pagina wacht momenteel op goedkeuring"
+
+msgid "Page '{0}' deleted."
+msgstr "Pagina '{0}' verwijderd"
+
+msgid "Page '{0}' unpublished."
+msgstr "Page '{0}' publicatie ongedaan gemaakt."
+
+msgid "Page '{0}' moved."
+msgstr "Pagina '{0}' verplaatst."
+
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Pagina '{0}' en {1} onderliggende pagina's gekopieerd."
+
+msgid "Page '{0}' copied."
+msgstr "Pagina '{0}' gekopieerd."
+
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "The page '{0}' is momenteel niet op goedkeuring aan het wachten."
+
+msgid "Page '{0}' published."
+msgstr "Pagina '{0}' gepubliceerd."
+
+msgid "Page '{0}' rejected for publication."
+msgstr "Pagina '{0}' is afgewezen voor publicatie."
+
+msgid "Page '{0}' is now locked."
+msgstr "Pagina '{0}' is vergrendeld."
+
+msgid "Page '{0}' is now unlocked."
+msgstr "Pagina '{0}' is ontgrendeld."
+
+msgid "Change the password you use to log in."
+msgstr "Wijzig uw wachtwoord om in te loggen."
+
+msgid "Choose which email notifications to receive."
+msgstr "Kies welke e-mailnotificaties u wilt ontvangen."
+
+msgid "Choose an item"
+msgstr "Kies een item"
+
+msgid "Choose another item"
+msgstr "Kies een ander item"
+
+msgid "Clear choice"
+msgstr "Leeg keuze"
+
+msgid "Edit this item"
+msgstr "Bewerk dit item"
+
+msgid "Choose another page"
+msgstr "Kies een andere pagina"

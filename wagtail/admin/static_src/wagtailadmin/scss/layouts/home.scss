@@ -1,0 +1,126 @@
+@import 'wagtailadmin/scss/helpers';
+
+h1 {
+    font-weight: 300;
+    font-size: 2.2em;
+}
+
+header {
+    .col1 {
+        width: 50px;
+        margin-right: 1em;
+        padding: 0;
+
+        // make way for the nav-menu button on mobile
+        @include media-breakpoint-down(xs) {
+            position: relative;
+            left: $mobile-nav-indent;
+        }
+    }
+
+    h1,
+    .user-name {
+        color: $color-white;
+    }
+
+    .user-name {
+        text-transform: none;
+        font-size: 1.3em;
+        font-weight: 600;
+    }
+}
+
+.panel {
+    margin-bottom: 4em;
+}
+
+.summary {
+    @include clearfix();
+    background-color: $color-grey-5;
+    margin-bottom: 2em;
+    padding-top: 2em;
+
+    ul.stats {
+        @include clearfix();
+        @include unlist();
+        width: 100%;
+
+        li {
+            @include column(4);
+            margin-bottom: 2em;
+        }
+
+        li:before {
+            opacity: 0.2;
+            font-size: 6em;
+            float: left;
+
+            @include media-breakpoint-down(md) {
+                font-size: 5em;
+            }
+
+            @include media-breakpoint-down(sm) {
+                font-size: 4.5em;
+            }
+
+            @include media-breakpoint-down(xs) {
+                font-size: 4em;
+            }
+        }
+
+        a {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        span {
+            font-family: $font-serif;
+            display: block;
+            font-size: 4em;
+            line-height: 1em;
+            font-weight: 300;
+
+            @include media-breakpoint-down(md) {
+                font-size: 3em;
+            }
+
+            @include media-breakpoint-down(sm) {
+                font-size: 2.5em;
+            }
+
+            @include media-breakpoint-down(xs) {
+                font-size: 2em;
+            }
+        }
+    }
+
+    .search-bar {
+        @include clearfix();
+        border-top: 1px solid $color-grey-4;
+        padding: 1em 0 0;
+
+        h2 {
+            display: inline-block;
+            margin-right: 1em;
+        }
+
+        .fields {
+            display: inline-block;
+            clear: none;
+        }
+
+        .field {
+            display: inline-block;
+        }
+
+        label {
+            display: inline-blo;
+        }
+
+        input {
+            background-color: $color-white;
+        }
+    }
+}

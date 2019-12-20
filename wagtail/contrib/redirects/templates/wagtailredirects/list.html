@@ -1,0 +1,43 @@
+{% load i18n %}
+<table class="listing">
+    <col width="35%"/>
+    <col width="30%"/>
+    <col width="25%"/>
+    <col />
+    <thead>
+        <tr>
+            <th class="title">
+                {% if not is_searching %}
+                    <a href="{% url 'wagtailredirects:index' %}{% if not ordering == "old_path" %}?ordering=old_path{% endif %}" class="icon icon-arrow-down-after {% if ordering == "old_path" %}teal{% endif %}">
+                        {% trans "From" %}
+                    </a>
+                {% else %}
+                    {% trans "From" %}
+                {% endif %}
+            </th>
+            <th>{% trans "Site" %}</th>
+            <th>{% trans "To" %}</th>
+            <th class="type">{% trans "Type" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for redirect in redirects %}
+            <tr>
+                <td class="title">
+                    <div class="title-wrapper"><a href="{% url 'wagtailredirects:edit' redirect.id %}" title="{% trans 'Edit this redirect' %}">{{ redirect.title }}</a></div>
+                </td>
+                <td>
+                    {% if redirect.site %}{{ redirect.site }}{% endif %}
+                </td>
+                <td>
+                    {% if redirect.redirect_page %}
+                        <a href="{% url 'wagtailadmin_pages:edit' redirect.redirect_page.id %}" class="nolink">{{ redirect.redirect_page.title }}</a>
+                    {% else %}
+                        {{ redirect.link }}
+                    {% endif %}
+                </td>
+                <td class="type"><div class="status-tag {% if redirect.is_permanent %}primary{% endif %}">{{ redirect.get_is_permanent_display }}</div></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

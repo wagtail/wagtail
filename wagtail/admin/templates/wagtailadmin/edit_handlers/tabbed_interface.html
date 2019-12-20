@@ -1,0 +1,16 @@
+{% load wagtailadmin_tags %}
+<ul class="tab-nav merged" role="tablist">
+    {% for child in self.children %}
+        <li class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}">
+            <a href="#tab-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}">{{ child.heading }}</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<div class="tab-content">
+    {% for child in self.children %}
+        <section id="tab-{{ child.heading|cautious_slugify }}" class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tabpanel" aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}">
+            {{ child.render_as_object }}
+        </section>
+    {% endfor %}
+</div>

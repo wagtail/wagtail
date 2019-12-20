@@ -1,0 +1,177 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-01-21 07:38+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
+"ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search promotions"
+msgstr "웨그테일 검색 프로모션"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "이 검색어를 위해 최소 한개의 추천을 지정하여 주시기 바랍니다."
+
+msgid "page"
+msgstr "페이지"
+
+msgid "description"
+msgstr "설명"
+
+msgid "search promotion"
+msgstr "검색 프로모션"
+
+msgid "Add search promotion"
+msgstr "검색 프로모션 추가"
+
+msgid "Add search pick"
+msgstr "검색 선별 추가"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>프로모션 검색 결과는 검색 결과에서 먼저 나오지 않을 수도 있는 특정 페이지"
+"들을 추천하기 위한 방법입니다. 예를 들어, 일반적이지 않은 \"<em>기부</em>\"같"
+"은 단어를 검색한 사용자에게, 후원 페이지를 추천하는 형태입니다.</p>"
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>아래의 \"검색어/문장\" 필드에는 추천 결과를 제공하길 원하는 검색어를 정확"
+"하게 넣어야 하며, 틀린 철자/사용자 오류 역시 이에 <em>포함됩니다</em>. 도움"
+"을 드리자면, 사이트에서 사용자들이 많이 사용한 검색어들 중에서 고를 수도 있습"
+"니다.</p>"
+
+msgid "Save"
+msgstr "저장"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "%(query)s 삭제"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "이 검색어와 관련된 모든 프로모션 결과들을 정말 삭제할까요?"
+
+msgid "Yes, delete"
+msgstr "네, 지우겠습니다."
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "%(query)s 수정"
+
+msgid "Editing"
+msgstr "수정중"
+
+msgid "Move up"
+msgstr "위로 이동"
+
+msgid "Move down"
+msgstr "아래로 이동"
+
+msgid "Promoted search result"
+msgstr "프로모션 검색 결과"
+
+msgid "Add recommended page"
+msgstr "추천 페이지 추가"
+
+msgid "Search Terms"
+msgstr "검색어"
+
+msgid "Promoted search results"
+msgstr "프로모션 검색 결과"
+
+msgid "Add new promoted result"
+msgstr "새로운 프로모션 결과 추가"
+
+msgid "Search term(s)"
+msgstr "검색어"
+
+msgid "Promoted results"
+msgstr "프로모션 결과"
+
+msgid "Views (past week)"
+msgstr "본 횟수(지난 주)"
+
+msgid "Edit this promotion"
+msgstr "이 프로모션 수정"
+
+msgid "None"
+msgstr "없음"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            일치하는 %(counter)s개의 결과가 있습니다."
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"죄송합니다, \"<em>%(query_string)s</em>\" 와 연관된 프로모션 결과가 없습니다."
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"생성된 프로모션 결과가 없습니다. 지금 프로모션 결과를 <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">추가 해 보시는건 어떨까요?"
+
+msgid "Search promoted results"
+msgstr "프로모션 결과 검색"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "'{0}' 를 위한 에디터의 선택이 추가 되었습니다."
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "에러로 인해 추천 결과를 생성할 수 없습니다"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "'{0}' 에 대한 에디터의 선택이 업데이트 되었습니다."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "에러로 인해 추천 결과를 저장할 수 없습니다"
+
+msgid "Editor's picks deleted."
+msgstr "에디터의 선택이 삭제 되었습니다."

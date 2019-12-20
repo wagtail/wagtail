@@ -1,0 +1,324 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Matas Dailyda <matas@dailyda.com>, 2017-2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
+"language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "This block has no options."
+msgstr "Šis blokas neturi jokių nustatymų."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Mažiausias vienetų kiekis %d"
+
+msgid "This field is required."
+msgstr "Šis laukas yra privalomas."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Didžiausias vienetų kiekis %d"
+
+msgid "Password"
+msgstr "Slaptažodis"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Slaptažodis kurį suvedėte yra neteisingas. Bandykite dar kartą."
+
+msgid "hostname"
+msgstr "svetainės kompiuterio vardas"
+
+msgid "port"
+msgstr "prievadas"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Nustatykite į ką nors kitko nei 80 jei reikia specifinio prievado numerio, "
+"kuris būtų atvaizduojamas URLs (pvz. vystymas 8000 prievade). Neįtakoja "
+"užklausų apdorojimo (prievadų peradresavimas vis dar veikia)."
+
+msgid "site name"
+msgstr "tinklalapio pavadinimas"
+
+msgid "Human-readable name for the site."
+msgstr "Skaitymui/atvaizdavimui skirtas tinklalapio pavadinimas."
+
+msgid "root page"
+msgstr "šakninis puslapis"
+
+msgid "is default site"
+msgstr "yra numatytasis tinklalapis"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Jei taip, šis tinklalapis apdoros visų kitų svetainės kompiuterio vardų "
+"užklausas kurios turi suvestus tinklalapius"
+
+msgid "site"
+msgstr "tinklalapis"
+
+msgid "sites"
+msgstr "tinklalapiai"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s jau nustatytas kaip numatytasis tinklalapis. Reikia panaikinti "
+"tą nustatymą kad galėtumėte išsaugoti ši tinklalapį kaip numatytąjį."
+
+msgid "title"
+msgstr "pavadinimas"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Puslapio pavadinimas kuris bus atvaizduojamas viešai"
+
+msgid "slug"
+msgstr "Adreso trumpinys"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Puslapio pavadinimas kuris bus atvaizduojamas URL pvz http://domain.com/blog/"
+"[my-slug]/"
+
+msgid "content type"
+msgstr "turinio tipas"
+
+msgid "live"
+msgstr "veikiantis"
+
+msgid "has unpublished changes"
+msgstr "turi nebepublikuojamų pakeitimų"
+
+msgid "URL path"
+msgstr "URL kelias"
+
+msgid "owner"
+msgstr "valdytojas"
+
+msgid "page title"
+msgstr "puslapio pavadinimas"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Nebūtina. 'Paieškos varikliams draugiškas' pavadinimas. Tai bus "
+"atvaizduojama naršyklės lango viršuje."
+
+msgid "show in menus"
+msgstr "rodyti meniu elementuose"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Ar nuoroda į šį puslapį bus atvaizduojama automatiškai sugeneruotose meniu"
+
+msgid "search description"
+msgstr "paieškos apibūdinimas"
+
+msgid "go live date/time"
+msgstr "veikimo įjungimo data/laikas"
+
+msgid "expiry date/time"
+msgstr "galiojimo pabaigos data/laikas"
+
+msgid "expired"
+msgstr "baigė galioti"
+
+msgid "locked"
+msgstr "Užrakintas"
+
+msgid "first published at"
+msgstr "pirmą kartą publikuotas"
+
+msgid "last published at"
+msgstr "paskutinį kartą publikuota"
+
+msgid "latest revision created at"
+msgstr "paskutinė revizija sukurta"
+
+msgid "This slug is already in use"
+msgstr "Šis adreso trumpinys jau naudojamas"
+
+msgid "scheduled"
+msgstr "planuotas"
+
+msgid "draft"
+msgstr "juodraštis"
+
+msgid "live + scheduled"
+msgstr "veikiantis + suplanuotas"
+
+msgid "live + draft"
+msgstr "veikiantis + juodraštis"
+
+msgid "Default"
+msgstr "Numatytasis"
+
+msgid "page"
+msgstr "puslapis"
+
+msgid "pages"
+msgstr "puslapiai"
+
+msgid "submitted for moderation"
+msgstr "pateikta moderavimui"
+
+msgid "created at"
+msgstr "sukurta"
+
+msgid "user"
+msgstr "vartotojas"
+
+msgid "content JSON"
+msgstr "turinys JSON"
+
+msgid "approved go live at"
+msgstr "patvirtintas įjungimas"
+
+msgid "page revision"
+msgstr "puslapio revizija"
+
+msgid "page revisions"
+msgstr "puslapio revizijos"
+
+msgid "Add"
+msgstr "Pridėti"
+
+msgid "Add/edit pages you own"
+msgstr "Pridėti/redaguoti puslapius kurie jums priklauso"
+
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "Edit any page"
+msgstr "Redaguoti bet kurį puslapį"
+
+msgid "Publish"
+msgstr "Publikuoti"
+
+msgid "Publish any page"
+msgstr "Publikuoti bet kurį puslapį"
+
+msgid "Bulk delete"
+msgstr "Didelio kiekio trinimas"
+
+msgid "Delete pages with children"
+msgstr "Trinti puslapius su vidiniais puslapiais"
+
+msgid "Lock"
+msgstr "Užrakinti"
+
+msgid "Lock/unlock any page"
+msgstr "Užrakinti/atrakinti bet kurį puslapį"
+
+msgid "group"
+msgstr "grupė"
+
+msgid "permission type"
+msgstr "leidimo tipas"
+
+msgid "group page permission"
+msgstr "grupės puslapio leidimas"
+
+msgid "group page permissions"
+msgstr "grupės puslapio leidimai"
+
+msgid "Public"
+msgstr "Viešas"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privatu, pasiekiama tik prisijungusiems vartotojams"
+
+msgid "Private, accessible with the following password"
+msgstr "Privatu, pasiekiama su žemiau pateiktu slaptažodžiu"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privatu, pasiekiama specifinėse grupėse esantiems vartotojams"
+
+msgid "password"
+msgstr "slaptažodis"
+
+msgid "groups"
+msgstr "grupės"
+
+msgid "view restriction"
+msgstr "žiūrėti apribojimą"
+
+msgid "view restrictions"
+msgstr "žiūrėti apribojimus"
+
+msgid "page view restriction"
+msgstr "puslapio peržiūros apribojimas"
+
+msgid "page view restrictions"
+msgstr "puslapio peržiūros apribojimai"
+
+msgid "collection"
+msgstr "kolekcija"
+
+msgid "collection view restriction"
+msgstr "žiūrėti kolekcijos apribojimą"
+
+msgid "collection view restrictions"
+msgstr "žiūrėti kolekcijos apribojimus"
+
+msgid "name"
+msgstr "pavadinimas"
+
+msgid "collections"
+msgstr "kolekcijos"
+
+msgid "permission"
+msgstr "leidimai"
+
+msgid "group collection permission"
+msgstr "grupės kolekcijos leidimas"
+
+msgid "Log in"
+msgstr "Prisijungti"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Jūsų vartotojo vardas ir slaptažodis nesutampa. Prašome bandyti dar kartą."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Jūsų vartotojas neturi leidimo pasiekti šio puslapio. Kad tęsti, prašome "
+"prisijungti su vartotoju kuris turi priėjimo teisę."
+
+msgid "Password required"
+msgstr "Reikalingas slaptažodis"
+
+msgid "You need a password to access this page."
+msgstr "Jums reikia slaptažodžio kad pasiekti šį puslapį."
+
+msgid "Continue"
+msgstr "Tęsti"

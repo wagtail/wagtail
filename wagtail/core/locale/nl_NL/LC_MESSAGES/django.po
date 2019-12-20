@@ -1,0 +1,337 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2019
+# Franklin Kingma <franklin@statix.net>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
+# Meteor 0id, 2018
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 21:02+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
+"wagtail/language/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail core"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: dit blok heeft geen opties."
+
+msgid "This block has no options."
+msgstr "Dit blok heeft geen opties."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Het minimale aantal items is %d"
+
+msgid "This field is required."
+msgstr "Dit veld is verplicht."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Het maximale aantal items is %d"
+
+msgid "Password"
+msgstr "Wachtwoord"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Het wachtwoord dat u heeft ingevuld is niet juist. Probeer opnieuw."
+
+msgid "hostname"
+msgstr "hostname"
+
+msgid "port"
+msgstr "poortnummer"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Stel dit op iets anders dan 80 in als er een specifiek poortnummer in de URL "
+"moet komen (bijv. development op poort 8000). Dit heeft geen effect op "
+"request afhandeling (dus port forwarding blijft werken)."
+
+msgid "site name"
+msgstr "sitenaam"
+
+msgid "Human-readable name for the site."
+msgstr "Leesbare naam voor de site."
+
+msgid "root page"
+msgstr "beginpagina"
+
+msgid "is default site"
+msgstr "is standaard site"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Indien aangevinkt zal deze site requests voor alle andere hostnames afvangen "
+"die geen eigen site hebben."
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s is al geconfigureerd als de default site. Deze moet worden "
+"aangepast voordat deze site als default kan worden aangemerkt."
+
+msgid "title"
+msgstr "titel"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "De paginatitel zoals u wilt dat uw bezoekers dit zien"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"De manier waarop de pagina in URL's getoond wordt, bijv. http://domein.nl/"
+"blog/[mijn-slug]/"
+
+msgid "content type"
+msgstr "inhoudstype"
+
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "heeft ongepubliceerde wijzigingen"
+
+msgid "URL path"
+msgstr "URL pad"
+
+msgid "owner"
+msgstr "eigenaar"
+
+msgid "page title"
+msgstr "paginatitel"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Optioneel. 'Zoekmachine vriendelijke' titel. Deze titel wordt getoond in de "
+"top van de browser."
+
+msgid "show in menus"
+msgstr "toon in menu's"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Indien aangevinkt komt er een link naar deze pagina in automatisch "
+"gegenereerde menu's te staan."
+
+msgid "search description"
+msgstr "zoekomschrijving"
+
+msgid "go live date/time"
+msgstr "Publiceer op"
+
+msgid "expiry date/time"
+msgstr "verloopdatum/tijd"
+
+msgid "expired"
+msgstr "verlopen"
+
+msgid "locked"
+msgstr "geblokkeerd"
+
+msgid "first published at"
+msgstr "voor het eerst gepubliceerd op"
+
+msgid "last published at"
+msgstr "voor het laatst gepubliceerd op"
+
+msgid "latest revision created at"
+msgstr "meest recente versie aangemaakt op"
+
+msgid "This slug is already in use"
+msgstr "Deze slug is al in gebruik"
+
+msgid "scheduled"
+msgstr "gepland"
+
+msgid "draft"
+msgstr "concept"
+
+msgid "live + scheduled"
+msgstr "live + gepland"
+
+msgid "live + draft"
+msgstr "live + concept"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "page"
+msgstr "pagina"
+
+msgid "pages"
+msgstr "pagina's"
+
+msgid "submitted for moderation"
+msgstr "voor moderatie ingediend"
+
+msgid "created at"
+msgstr "gemaakt op"
+
+msgid "user"
+msgstr "gebruiker"
+
+msgid "content JSON"
+msgstr "content JSON"
+
+msgid "approved go live at"
+msgstr "goedgekeurde publicatiedatum"
+
+msgid "page revision"
+msgstr "pagina revisie"
+
+msgid "page revisions"
+msgstr "pagina revisie"
+
+msgid "Add"
+msgstr "Toevoegen"
+
+msgid "Add/edit pages you own"
+msgstr "Eigen pagina's toevoegen/wijzigen"
+
+msgid "Edit"
+msgstr "Wijzigen"
+
+msgid "Edit any page"
+msgstr "Alle pagina's wijzigen"
+
+msgid "Publish"
+msgstr "Publiceren"
+
+msgid "Publish any page"
+msgstr "Elke pagina publiceren"
+
+msgid "Bulk delete"
+msgstr "Mag meerdere dingen tegelijk verwijderen"
+
+msgid "Delete pages with children"
+msgstr "Verwijder pagina's met onderliggende pagina's"
+
+msgid "Lock"
+msgstr "Vergrendelen"
+
+msgid "Lock/unlock any page"
+msgstr "Alle pagina's blokkeren/deblokkeren"
+
+msgid "group"
+msgstr "groep"
+
+msgid "permission type"
+msgstr "machtiging"
+
+msgid "group page permission"
+msgstr "groep pagina machtiging"
+
+msgid "group page permissions"
+msgstr "groep pagina machtigingen"
+
+msgid "Public"
+msgstr "Publiek"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Afgeschermd, toegankelijk voor ingelogde gebruikers"
+
+msgid "Private, accessible with the following password"
+msgstr "Afgeschermd, toegankelijk met het volgende wachtwoord"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Afgeschermd, toegankelijk voor gebruikers in bepaalde groepen"
+
+msgid "password"
+msgstr "wachtwoord"
+
+msgid "groups"
+msgstr "groepen"
+
+msgid "view restriction"
+msgstr "bekijk restrictie"
+
+msgid "view restrictions"
+msgstr "bekijk restricties"
+
+msgid "page view restriction"
+msgstr "pagina weergave recht"
+
+msgid "page view restrictions"
+msgstr "pagina weergave rechten"
+
+msgid "collection"
+msgstr "collectie"
+
+msgid "collection view restriction"
+msgstr "collectie bekijk restrictie"
+
+msgid "collection view restrictions"
+msgstr "collectie bekijk restricties"
+
+msgid "name"
+msgstr "naam"
+
+msgid "collections"
+msgstr "collecties"
+
+msgid "permission"
+msgstr "machtiging"
+
+msgid "group collection permission"
+msgstr "groepsmachtiging binnen collectie"
+
+msgid "group collection permissions"
+msgstr "groepsmachtigingen binnen collectie"
+
+msgid "Log in"
+msgstr "Inloggen"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Uw gebruikersnaam en wachtwoord komen niet overeen. Probeer het opnieuw."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Uw account heeft geen rechten op deze pagina. Om verder te gaan, login met "
+"een account met de juiste rechten."
+
+msgid "Password required"
+msgstr "Wachtwoord verplicht"
+
+msgid "You need a password to access this page."
+msgstr "U heeft een wachtwoord nodig om deze pagina te kunnen bekijken."
+
+msgid "Continue"
+msgstr "Ga verder"

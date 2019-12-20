@@ -1,0 +1,317 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail pengguna"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Wajib. 30 karakter atau kurang. Hanya karakter huruf, angka dan @/./+/-/_ "
+"saja."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Hanya dapat berisi karakter huruf, angka dan @/./+/-/_ saja."
+
+msgid "A user with that username already exists."
+msgstr "Pengguna dengan username tersebut sudah ada."
+
+msgid "The two password fields didn't match."
+msgstr "Kedua isian kata sandi tidak cocok."
+
+msgid "Email"
+msgstr "Email/Surel"
+
+msgid "First Name"
+msgstr "Nama Depan"
+
+msgid "Last Name"
+msgstr "Nama Belakang"
+
+msgid "Password"
+msgstr "Kata Kunci"
+
+msgid "Leave blank if not changing."
+msgstr "Kosongkan jika tidak berubah."
+
+msgid "Password confirmation"
+msgstr "Konfirmasi kata kunci"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Masukkan kata kunci yang sama dengan diatas untuk verifikasi."
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administrator memiliki akses penuh untuk mengelola objek atau pengaturan apa "
+"saja."
+
+msgid "A group with that name already exists."
+msgstr "Grup dengan nama tersebut sudah ada."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Anda tidak dapat memiliki beberapa catatan izin untuk halaman yang sama."
+
+msgid "Preferred language"
+msgstr "Bahasa pilihan"
+
+msgid "Current time zone"
+msgstr "Zona waktu saat ini"
+
+msgid "Upload a profile picture"
+msgstr "Unggah gambar profil"
+
+msgid "submitted notifications"
+msgstr "notifikasi terkirim"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Terima notifikasi ketika halaman dikirim untuk moderasi"
+
+msgid "approved notifications"
+msgstr "notifikasi diterima"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Terima notifikasi ketika halaman yang Anda ubah telah diterima"
+
+msgid "rejected notifications"
+msgstr "notifikasi ditolak"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Terima notifikasi ketika halaman yang Anda ubah ditolak"
+
+msgid "preferred language"
+msgstr "bahasa pilihan"
+
+msgid "Select language for the admin"
+msgstr "Pilih bahasa untuk admin"
+
+msgid "current time zone"
+msgstr "zona waktu saat ini"
+
+msgid "Select your current time zone"
+msgstr "Pilih zona waktu saat ini"
+
+msgid "profile picture"
+msgstr "gambar profil"
+
+msgid "user profile"
+msgstr "profil pengguna"
+
+msgid "Delete group"
+msgstr "Hapus grup"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Grup '%(group_name)s' memiliki <strong>%(group_user_count)s</strong> member."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Menghapus grup ini akan mencabut izin grup untuk semua member pengguna."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Apakah Anda yakin ingin menghapus grup ini?"
+
+msgid "Yes, delete"
+msgstr "Ya, hapus"
+
+msgid "Add group"
+msgstr "Tambah grup"
+
+msgid "Editing"
+msgstr "Mengubah"
+
+msgid "Save"
+msgstr "Simpan"
+
+msgid "Object permissions"
+msgstr "Izin objek"
+
+msgid "Name"
+msgstr "Nama"
+
+msgid "Add"
+msgstr "Tambah"
+
+msgid "Change"
+msgstr "Ubah"
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid "Other permissions"
+msgstr "Izin lain-lain"
+
+msgid "Page permissions"
+msgstr "Izin halaman"
+
+msgid "Page"
+msgstr "Halaman"
+
+msgid "Add a page permission"
+msgstr "Tambah izin halaman"
+
+msgid "groups"
+msgstr "grup"
+
+msgid "Add a group"
+msgstr "Tambah grup"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Maaf, tidak ada grup yang sesuai dengan \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Tidak ada grup yang terkonfigurasi. Mengapa <a href="
+"\"%(wagtailusers_create_group_url)s\">tidak menambahnya</a>?"
+
+msgid "Delete user"
+msgstr "Hapus pengguna"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Apakah anda yakin untuk menghapus pengguna ini?"
+
+msgid "Add user"
+msgstr "Tambah pengguna"
+
+msgid "Account"
+msgstr "Akun"
+
+msgid "Roles"
+msgstr "Role"
+
+msgid "Users"
+msgstr "Pengguna"
+
+msgid "Add a user"
+msgstr "Tambah pengguna"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Level"
+msgstr "Level"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Inactive"
+msgstr "Tidak Aktif"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s yang lalu"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Ada %(counter)s yang sesuai"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Maaf, tidak ada pengguna yang sesuai dengan \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Tidak ada pengguna yang terkonfigurasi. Mengapa <a href="
+"\"%(wagtailusers_create_url)s\">tidak menambahnya</a>?"
+
+msgid "Groups"
+msgstr "Grup"
+
+msgid "Search groups"
+msgstr "Pencarian Grup"
+
+msgid "Group '{0}' created."
+msgstr "Grup '{0}' dibuat."
+
+msgid "Group '{0}' updated."
+msgstr "Grup '{0}' diperbarui."
+
+msgid "The group could not be saved due to errors."
+msgstr "Grup tidak dapat disimpan karena suatu kesalahan."
+
+msgid "Group '{0}' deleted."
+msgstr "Grup '{0}' dihapus."
+
+msgid "Search users"
+msgstr "Pencarian pengguna"
+
+msgid "User '{0}' created."
+msgstr "Pengguna '{0}' dibuat."
+
+msgid "Edit"
+msgstr "Ubah"
+
+msgid "The user could not be created due to errors."
+msgstr "Pengguna tidak dapat dibuat karena suatu kesalahan."
+
+msgid "User '{0}' updated."
+msgstr "Pengguna '{0}' berhasil diperbaharui."
+
+msgid "The user could not be saved due to errors."
+msgstr "Pengguna tidak dapat disimpan karena suatu kesalahan."
+
+msgid "User '{0}' deleted."
+msgstr "Pengguna '{0}' dihapus."
+
+msgid "Edit this user"
+msgstr "Ubah pengguna ini"
+
+msgid "Delete this user"
+msgstr "Hapus pengguna ini"

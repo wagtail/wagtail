@@ -13,9 +13,6 @@ config.watchOptions = {
   aggregateTimeout: 300,
 };
 
-// See http://webpack.github.io/docs/configuration.html#devtool
-config.devtool = 'inline-source-map';
-
 // Set process.env.NODE_ENV to development to enable JS development aids.
 config.plugins.push(new webpack.DefinePlugin({
   'process.env': {

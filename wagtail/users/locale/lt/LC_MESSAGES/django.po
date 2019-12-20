@@ -1,0 +1,280 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Matas Dailyda <matas@dailyda.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
+"language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Būtinas. 30 simbolių arba mažiau. Tik raidės, skaičiai ir @/./+/-/_."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Ši reikšmė gali turėti tik raides, skaičius ir @/./+/-/_ simbolius."
+
+msgid "A user with that username already exists."
+msgstr "Vartotojas su šiuo vartotojo vardu jau egzistuoja."
+
+msgid "The two password fields didn't match."
+msgstr "Abu slaptažodžio laukai nesutapo."
+
+msgid "Email"
+msgstr "Elektroninis paštas"
+
+msgid "First Name"
+msgstr "Vardas"
+
+msgid "Last Name"
+msgstr "Pavardė"
+
+msgid "Password"
+msgstr "Slaptažodis"
+
+msgid "Leave blank if not changing."
+msgstr "Palikti tuščią jei nesikeičia."
+
+msgid "Password confirmation"
+msgstr "Slaptažodžio patvirtinimas"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Įveskite tą patį slaptažodį kaip aukščiau, patvirtinimui."
+
+msgid "Administrator"
+msgstr "Administratorius"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "Administratoriai turi pilną prieigą valdyti objektus arba nustatymus."
+
+msgid "A group with that name already exists."
+msgstr "Grupė su šiuo vardu jau egzistuoja."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Jūs negalite turėti daugybinių leidimų įrašų tam pačiam puslapiui."
+
+msgid "submitted notifications"
+msgstr "pateikti pranešimai"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Gauti pranešimą kai puslapis pateiktas moderavimui"
+
+msgid "approved notifications"
+msgstr "patvirtinti pranešimai"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Gauti pranešimą kai jūsų puslapio pakeitimas patvirtinas"
+
+msgid "rejected notifications"
+msgstr "atmesti pranešimai"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Gauti pranešimą kai jūsų puslapio pakeitimas atmestas"
+
+msgid "preferred language"
+msgstr "pageidaujama kalba"
+
+msgid "Select language for the admin"
+msgstr "Pasirinkti kalbą administravimui"
+
+msgid "user profile"
+msgstr "vartotojo profilis"
+
+msgid "Delete group"
+msgstr "Ištrinti grupę"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"' %(group_name)s' grupė turi <strong>%(group_user_count)s</strong> narį."
+msgstr[1] ""
+"\n"
+"\n"
+"' %(group_name)s' grupė turi <strong>%(group_user_count)s</strong> narius."
+msgstr[2] ""
+"\n"
+"' %(group_name)s' grupė turi <strong>%(group_user_count)s</strong> narių."
+msgstr[3] ""
+"\n"
+"' %(group_name)s' grupė turi <strong>%(group_user_count)s</strong> narių."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "Šios grupės ištrinimas panaikins grupės leidimus visiems jos nariams."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Ar tikrai norite ištrinti šia grupę?"
+
+msgid "Yes, delete"
+msgstr "Taip, ištrinti"
+
+msgid "Add group"
+msgstr "Pridėti grupę"
+
+msgid "Editing"
+msgstr "Redagavimas"
+
+msgid "Save"
+msgstr "Išsaugoti"
+
+msgid "Object permissions"
+msgstr "Objekto leidimai"
+
+msgid "Name"
+msgstr "Vardas"
+
+msgid "Add"
+msgstr "Pridėti"
+
+msgid "Change"
+msgstr "Keisti"
+
+msgid "Delete"
+msgstr "Ištrinti"
+
+msgid "Other permissions"
+msgstr "Kiti leidimai"
+
+msgid "Page permissions"
+msgstr "Puslapio leidimai"
+
+msgid "Page"
+msgstr "Puslapis"
+
+msgid "Add a page permission"
+msgstr "Pridėti puslapio leidimą"
+
+msgid "groups"
+msgstr "grupės"
+
+msgid "Add a group"
+msgstr "Pridėti grupę"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Atsiprašome, jokios grupės neatitinka \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Nėra sukonfigūruota jokia grupė. Kodėl gi <a href="
+"\"%(wagtailusers_create_group_url)s\">nesukūrus vienos</a>?"
+
+msgid "Delete user"
+msgstr "Ištrinti vartotoją"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Ar tikrai norite ištrinti šį vartotoją?"
+
+msgid "Add user"
+msgstr "Pridėti vartotoją"
+
+msgid "Account"
+msgstr "Vartotojas"
+
+msgid "Roles"
+msgstr "Rolės"
+
+msgid "Users"
+msgstr "Vartotojai"
+
+msgid "Add a user"
+msgstr "Pridėti vartotoją"
+
+msgid "Username"
+msgstr "Vartotojo vardas"
+
+msgid "Level"
+msgstr "Lygis"
+
+msgid "Status"
+msgstr "Statusas"
+
+msgid "Admin"
+msgstr "Administratorius"
+
+msgid "Active"
+msgstr "Aktyvus"
+
+msgid "Inactive"
+msgstr "Neaktyvus"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Atsiprašome, jokie vartotojai neatitiko \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Nėra sukonfigūruotas joks vartotojas. Kodėl gi <a href="
+"\"%(wagtailusers_create_url)s\">nesukūrus vieno</a>?"
+
+msgid "Groups"
+msgstr "Grupės"
+
+msgid "Search groups"
+msgstr "Ieškoti grupių"
+
+msgid "Group '{0}' created."
+msgstr "Grupė '{0}' sukurta."
+
+msgid "Group '{0}' updated."
+msgstr "Grupė '{0}' atnaujinta."
+
+msgid "The group could not be saved due to errors."
+msgstr "Ši grupė negali būti išsaugota dėl klaidų."
+
+msgid "Group '{0}' deleted."
+msgstr "Grupė '{0}' ištrinta."
+
+msgid "Search users"
+msgstr "Ieškoti vartotojų"
+
+msgid "User '{0}' created."
+msgstr "Vartotojas '{0}' sukurtas."
+
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "The user could not be created due to errors."
+msgstr "Šis vartotojas negalėjo būti sukurtas dėl klaidų."
+
+msgid "The user could not be saved due to errors."
+msgstr "Šis vartotojas negali būti išsaugotas dėl klaidų."
+
+msgid "User '{0}' deleted."
+msgstr "Vartotojas '{0}' ištrintas."
+
+msgid "Edit this user"
+msgstr "Redaguoti šį vartotoją"
+
+msgid "Delete this user"
+msgstr "Ištrinti šį vartotoją"

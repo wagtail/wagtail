@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "لطفا دست کم یک پیشنهاد برای این عبارت جستجو تعیین کنید."
+
+msgid "page"
+msgstr "صفحه"
+
+msgid "description"
+msgstr "شرح"
+
+msgid "search promotion"
+msgstr "جستجوی ترویج"
+
+msgid "Add search promotion"
+msgstr "افزودن ترویج جستجو"
+
+msgid "Add search pick"
+msgstr "افزودن جستجوی برگزیده"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>نتایج جستجوی ترویج یافت به این معنی هستند که صفحه های خاصی که ممکن است در "
+"نتایج جستجو به صورت ارگانیک بالا نیایند، پیشنهاد شوند. برای مثال پیشنهاد "
+"صفحه خیریه شما به یک بازدیدکننده که با عبارت نا متعارفی مانند <em>پول دادن</"
+"em> جستجویی انجام داده است."
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"</p>فیلد «عبارت(های) جستجو» در پایین باید حاوی عبارت کامل مورد جستجو باشد تا "
+"در نتایج بیاید، این <em>شامل</em> هرگونه خطا در تایپ نیز می‌شود. برای کمک به "
+"جستجو از میان عبارات جستجویی که توسط کاربران سایت شما پرتکرار شده اند نیز "
+"می‌توانید استفاده کنید.</p>"
+
+msgid "Save"
+msgstr "ذخیره"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "حذف %(query)s"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "آیا اطمینان دارید که همه نتایج ترویج شده برای این عبارت جستجو حذف شود؟"
+
+msgid "Yes, delete"
+msgstr "بله حذف شود"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "ویرایش%(query)s"
+
+msgid "Editing"
+msgstr "ویرایش"
+
+msgid "Move up"
+msgstr "حرکت به بالا"
+
+msgid "Move down"
+msgstr "حرکت به پایین"
+
+msgid "Promoted search result"
+msgstr "نتایج جستجوی ترویج شده"
+
+msgid "Add recommended page"
+msgstr "افزودن صفحه توصیه شده"
+
+msgid "Search Terms"
+msgstr "عبارات جستجو"
+
+msgid "Promoted search results"
+msgstr "نتایج جستجوی ترویج شده"
+
+msgid "Add new promoted result"
+msgstr "افزودن نتیجه ترویج شده جدید"
+
+msgid "Search term(s)"
+msgstr "عبارت(های) جستجو"
+
+msgid "Promoted results"
+msgstr "نتایج ترویج شده"
+
+msgid "Views (past week)"
+msgstr "بازدیدها (هفته پیش)"
+
+msgid "Edit this promotion"
+msgstr "ویرایش این ترویج"
+
+msgid "None"
+msgstr "خالی"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "متاسفانه نتایج ترویجی شامل «<em>%(query_string)s</em>» یافت نشد"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"هیچ نتیجه ترویج شده ای ایجاد نشده. می‌توانید یکی را <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">ایجاد</a> کنید."
+
+msgid "Search promoted results"
+msgstr "جستجوی نتایج ترویج شده"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "منتخب ویراستار برای '{0}' ایجاد شد."
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "پیشنهادها به دلیل بروز خطا ایجاد نشد"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "انتخاب ویراستار برای '{0}' آپدیت شد."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "پیشنهادها به دلیل بروز خطا ذخیره نشدند"
+
+msgid "Editor's picks deleted."
+msgstr "منتخب ویراستار حذف شد"

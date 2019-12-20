@@ -1,0 +1,294 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail-brukere"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Påkrevet. 30 tegn eller færre. Kun bokstaver, tall og tegnene @/./+/-/_."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Denne verdien kan kun inneholde bokstaver, tall og tegnene @/./+/-/_."
+
+msgid "A user with that username already exists."
+msgstr "En bruker med dette navnet eksisterer allerede."
+
+msgid "The two password fields didn't match."
+msgstr "Passordfeltene stemmer ikke overens."
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "First Name"
+msgstr "Fornavn"
+
+msgid "Last Name"
+msgstr "Etternavn"
+
+msgid "Password"
+msgstr "Passord"
+
+msgid "Leave blank if not changing."
+msgstr "La stå blankt om du ikke vil endre."
+
+msgid "Password confirmation"
+msgstr "Passord (bekreft)"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Skriv inn samme passord som over for å verifisere"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administratorer har full tilgang til å administrere alle objekter eller "
+"innstillinger."
+
+msgid "A group with that name already exists."
+msgstr "En gruppe med det navnet eksisterer allerede."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme side."
+
+msgid "Upload a profile picture"
+msgstr "Last opp profilbilde"
+
+msgid "submitted notifications"
+msgstr "innsendingsvarsel"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Motta varsel når en side blir sendt til godkjenning"
+
+msgid "approved notifications"
+msgstr "godkjenningsvarsel"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Motta varsel når din sideredigering blir godkjent"
+
+msgid "rejected notifications"
+msgstr "avvisningsvarsel"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Motta varsel når din sideredigering blir avvist"
+
+msgid "preferred language"
+msgstr "foretrukket språk"
+
+msgid "Select language for the admin"
+msgstr "Velg språk for adminsidene"
+
+msgid "current time zone"
+msgstr "nåværende tidssone"
+
+msgid "Select your current time zone"
+msgstr "Velg din nåværende tidssone"
+
+msgid "profile picture"
+msgstr "profilbilde"
+
+msgid "user profile"
+msgstr "brukerprofil"
+
+msgid "Delete group"
+msgstr "Slett gruppe"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Gruppen «%(group_name)s» har <strong>%(group_user_count)s</"
+"strong> medlem.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Gruppen «%(group_name)s» har <strong>%(group_user_count)s</"
+"strong> medlemmer.\n"
+"            "
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "Ved å slette denne gruppen fratas alle medlemmer gruppens rettigheter."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Er du sikker på at du vil slette denne gruppen?"
+
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+msgid "Add group"
+msgstr "Legg til gruppe"
+
+msgid "Editing"
+msgstr "Endrer"
+
+msgid "Save"
+msgstr "Lagre"
+
+msgid "Object permissions"
+msgstr "Objekttillatelser"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Add"
+msgstr "Legg til"
+
+msgid "Change"
+msgstr "Endre"
+
+msgid "Delete"
+msgstr "Slett"
+
+msgid "Other permissions"
+msgstr "Andre tillatelser"
+
+msgid "Page permissions"
+msgstr "Sidetillatelser"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "Add a page permission"
+msgstr "Legg til sidetillatelse"
+
+msgid "groups"
+msgstr "grupper"
+
+msgid "Add a group"
+msgstr "Legg til en gruppe"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Beklager, ingen grupper samsvarer med \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Det er ingen grupper konfigurert. Hvorfor ikke <a href="
+"\"%(wagtailusers_create_group_url)s\">legge en til</a>?"
+
+msgid "Delete user"
+msgstr "Slett bruker"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Er du sikker på at du vil slette denne brukeren?"
+
+msgid "Add user"
+msgstr "Legg til bruker"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Roles"
+msgstr "Roller"
+
+msgid "Users"
+msgstr "Brukere"
+
+msgid "Add a user"
+msgstr "Legg til en bruker"
+
+msgid "Username"
+msgstr "Brukernavn"
+
+msgid "Level"
+msgstr "Nivå"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Beklager, ingen brukere samsvarer med <em>\"%(query_string)s\"</em>"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Det er ingen brukere konfigurert. Hvorfor ikke <a href="
+"\"%(wagtailusers_create_url)s\">legge til noen</a>?"
+
+msgid "Groups"
+msgstr "Grupper"
+
+msgid "Search groups"
+msgstr "Søk i grupper"
+
+msgid "Group '{0}' created."
+msgstr "Gruppa \"{0}\" er opprettet."
+
+msgid "Group '{0}' updated."
+msgstr "Gruppa \"{0}\" er oppdatert."
+
+msgid "The group could not be saved due to errors."
+msgstr "Gruppa kunne ikke lagres grunnet feil."
+
+msgid "Group '{0}' deleted."
+msgstr "Gruppa \"{0}\" er slettet."
+
+msgid "Search users"
+msgstr "Søk blant brukere"
+
+msgid "User '{0}' created."
+msgstr "Brukeren \"{0}\" er opprettet."
+
+msgid "Edit"
+msgstr "Endre"
+
+msgid "The user could not be created due to errors."
+msgstr "Brukeren kunne ikke opprettes grunnet feil."
+
+msgid "The user could not be saved due to errors."
+msgstr "Brukeren kunne ikke lagres grunnet feil."
+
+msgid "User '{0}' deleted."
+msgstr "Brukeren \"{0}\" er slettet."
+
+msgid "Edit this user"
+msgstr "Rediger denne brukeren"
+
+msgid "Delete this user"
+msgstr "Slett denne brukeren"

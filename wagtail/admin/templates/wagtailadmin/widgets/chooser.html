@@ -1,0 +1,31 @@
+{% comment %}
+    Either the chosen or unchosen div will be shown, depending on the presence
+    of the 'blank' class on the container.
+
+    Any element with the 'action-choose' class will open the page chooser modal
+    when clicked.
+{% endcomment %}
+
+<div id="{{ attrs.id }}-chooser" class="chooser {% block chooser_class %}page-chooser{% endblock %} {% if not value %}blank{% endif %}">
+
+    <div class="chosen">
+        {% block chosen_state_view %}{% endblock %}
+
+        <ul class="actions">
+            {% if not widget.is_required %}
+                <li><button type="button" class="button action-clear button-small button-secondary">{{ widget.clear_choice_text }}</button></li>
+            {% endif %}
+            <li><button type="button" class="button action-choose button-small button-secondary">{{ widget.choose_another_text }}</button></li>
+            {% if widget.show_edit_link %}
+                <li><a href="{% block edit_chosen_item_url %}#{% endblock %}" class="edit-link button button-small button-secondary" target="_blank" rel="noopener noreferrer">{{ widget.link_to_chosen_text }}</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="unchosen">
+        <button type="button" class="button action-choose button-small button-secondary">{{ widget.choose_one_text }}</button>
+    </div>
+
+</div>
+
+{{ original_field_html }}

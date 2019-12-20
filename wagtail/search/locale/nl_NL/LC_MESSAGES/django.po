@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2018
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-05-07 09:23+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
+"wagtail/language/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search"
+msgstr "Wagtail zoeken"
+
+msgid "Search term(s)/phrase"
+msgstr "Zoekterm(en)/uitdrukking"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Voer de volledige zoekterm in. Een exacte match is nodig om gepromote "
+"resultaten te kunnen tonen, wildcards zijn NIET toegestaan."
+
+msgid "Query Daily Hits"
+msgstr "Aantal dagelijkse zoekopdrachten"
+
+msgid "Popular search terms"
+msgstr "Populaire zoektermen"
+
+msgid "Search"
+msgstr "Zoek"
+
+msgid "Terms"
+msgstr "Termen"
+
+msgid "Views (past week)"
+msgstr "Views (afgelopen week)"
+
+msgid "No results found"
+msgstr "Geen resultaten gevonden"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Choose from popular search terms"
+msgstr "Kies uit populaire zoektermen"

@@ -1,0 +1,297 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokument"
+
+msgid "Add"
+msgstr "Lägg till"
+
+msgid "Add/edit documents you own"
+msgstr "Lägg till/redigera dokument du äger"
+
+msgid "Edit"
+msgstr "Editera"
+
+msgid "Edit any document"
+msgstr "Redigera alla dokument"
+
+msgid "title"
+msgstr "titel"
+
+msgid "file"
+msgstr "fil"
+
+msgid "created at"
+msgstr "skapad vid"
+
+msgid "uploaded by user"
+msgstr "uppladdad av användare"
+
+msgid "tags"
+msgstr "taggar"
+
+msgid "document"
+msgstr "dokument"
+
+msgid "documents"
+msgstr "dokument"
+
+msgid "Choose a document"
+msgstr "Välj ett dokument"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Upload"
+msgstr "Ladda upp"
+
+msgid "Uploading…"
+msgstr "Laddar upp…"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Det finns %(counter)s matchning\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Det finns %(counter)s matchningar\n"
+"        "
+
+msgid "Latest documents"
+msgstr "Senaste dokument"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Ledsen, inga dokument matchar \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Du har inte laddat upp några dokument i den här samlingen."
+
+msgid "You haven't uploaded any documents."
+msgstr "Du har inte laddat upp några dokument."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            Varför inte <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">ladda up ett nu</a>?\n"
+"            "
+
+msgid "Change document:"
+msgstr "Ändra dokument:"
+
+msgid "Add a document"
+msgstr "Lägg till ett dokument"
+
+msgid "Add document"
+msgstr "Lägg till dokument"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Radera %(title)s"
+
+msgid "Delete document"
+msgstr "Ta bort dokument"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Använd %(usage_count)s gång"
+msgstr[1] "Använd %(usage_count)s gånger"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Är du säker på att du vill radera detta dokument?"
+
+msgid "Yes, delete"
+msgstr "Ja, radera"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Editerar %(title)s"
+
+msgid "Editing"
+msgstr "Editerar"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Filesize"
+msgstr "Filstorlek"
+
+msgid "File not found"
+msgstr "Filen hittades inte"
+
+msgid "Usage"
+msgstr "Användning"
+
+msgid "Documents"
+msgstr "Dokument"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "File"
+msgstr "Fil"
+
+msgid "Collection"
+msgstr "Samling"
+
+msgid "Uploaded"
+msgstr "Uppladdad"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sedan"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Du har inte laddat upp några dokument till den här samlingen. Varför inte <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ladda up ett nu</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Du har inte laddat upp några dokument. Varför inte <a href="
+"\"%(wagtaildocs_add_document_url)s\">ladda up ett nu</a>?"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Användning av %(title)s"
+
+msgid "Usage of"
+msgstr "Användning av"
+
+msgid "Parent"
+msgstr "Topp"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Editera denna sida"
+
+msgid "Add multiple documents"
+msgstr "Lägg till flera dokument"
+
+msgid "Add documents"
+msgstr "Lägg till dokument"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Dra och släpp dokument inom det här området för att ladda upp direkt."
+
+msgid "Or choose from your computer"
+msgstr "Eller välj från din dator"
+
+msgid "Add to collection:"
+msgstr "Lägg till i samling:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Uppladdningen lyckades. Vänligen uppdatera det här dokumentet med en mer "
+"lämplig titel, om nödvändigt. Du kan också radera dokumentet helt och hållet "
+"om uppladdningen inte var nödvändig."
+
+msgid "Sorry, upload failed."
+msgstr "Ledsen, uppladdningen misslyckades."
+
+msgid "Update"
+msgstr "Uppdatera"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "You need a password to access this document."
+msgstr "Du behöver ett lösenord för få åtkomst till dokumentet."
+
+msgid "Document permissions"
+msgstr "Dokumenträttigheter"
+
+msgid "Add a document permission"
+msgstr "Lägg till en dokumenträttighet"
+
+msgid "Server Error"
+msgstr "Serverfel"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapportera det här felet till din webadministratör med följande information:"
+
+msgid "Search documents"
+msgstr "Sök dokument"
+
+msgid "Document '{0}' added."
+msgstr "Dokument '{0}' lades till."
+
+msgid "The document could not be saved due to errors."
+msgstr "Dokumentet kunde inte sparas p.g.a. fel."
+
+msgid "Document '{0}' updated"
+msgstr "Dokument '{0}' laddades upp"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"Filen kunde inte hittas. Vänligen ändra källan eller ta bort dokumentet."
+
+msgid "Document '{0}' deleted."
+msgstr "Dokument '{0}' borttaget."
+
+msgid "Document"
+msgstr "Dokument"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokument"
+msgstr[1] "%(count)s dokument"
+
+msgid "Choose another document"
+msgstr "Välj ett annat dokument"
+
+msgid "Edit this document"
+msgstr "Redigera det här dokumentet"

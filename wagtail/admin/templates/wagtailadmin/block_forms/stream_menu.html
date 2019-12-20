@@ -1,0 +1,23 @@
+<button type="button" title="Add" class="c-sf-add-button c-sf-add-button--visible {% if state == 'open' %}c-sf-add-button--close{% endif %}" id="{{ menu_id }}-openclose">
+    <i aria-hidden="true">+</i>
+</button>
+<div aria-hidden="{% if state == 'closed' %}true{% else %}false{% endif %}" {% if state == 'closed' %}class="stream-menu-closed"{% endif %} id="{{ menu_id }}">
+    <div class="c-sf-add-panel">
+        {% regroup child_blocks by meta.group as grouped_child_blocks %}
+        {% for child_blocks in grouped_child_blocks %}
+            {% if child_blocks.grouper %}
+                <h4 class="c-sf-add-panel__group-title">{{ child_blocks.grouper }}</h4>
+            {% endif %}
+            <div class="c-sf-add-panel__grid">
+                {% for child_block in child_blocks.list %}
+                    <button type="button" class="c-sf-button action-add-block-{{ child_block.name }}">
+                        <span class="c-sf-button__icon">
+                            <i class="icon icon-{{ child_block.meta.icon }}"></i>
+                        </span>
+                        <span class="c-sf-button__label">{{ child_block.label }}</span>
+                    </button>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

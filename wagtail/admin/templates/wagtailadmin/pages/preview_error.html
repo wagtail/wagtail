@@ -1,0 +1,22 @@
+{% extends 'wagtailadmin/base.html' %}
+{% load i18n %}
+
+{% block titletag %}{% trans 'Preview error' %}{% endblock %}
+
+{% block content %}
+    <header class="nice-padding" role="banner">
+        <h1>{% trans 'Preview error' %}</h1>
+    </header>
+    <div class="nice-padding">
+        <p>
+            {% blocktrans %}
+                Impossible to preview this page, some errors are remaining.
+                Please close this tab, edit the page to fix these errors,
+                then use preview again.
+            {% endblocktrans %}
+        </p>
+        <a class="button" href="javascript:window.close()">
+            {% trans 'Close' %}
+        </a>
+    </div>
+{% endblock %}

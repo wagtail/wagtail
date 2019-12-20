@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageBlock alt 1`] = `
+<MediaBlock
+  alt=""
+  block={Object {}}
+  blockProps={
+    Object {
+      "editorState": Object {},
+      "entity": Object {
+        "getData": [Function],
+      },
+      "entityType": Object {},
+      "onChange": [Function],
+    }
+  }
+  src="example.png"
+>
+  <p
+    className="ImageBlock__alt"
+  >
+    Alt text: “Test”
+  </p>
+  <button
+    className="button button-secondary no Tooltip__button"
+  >
+    Delete
+  </button>
+</MediaBlock>
+`;
+
+exports[`ImageBlock no data 1`] = `
+<MediaBlock
+  alt=""
+  block={Object {}}
+  blockProps={
+    Object {
+      "editorState": Object {},
+      "entity": Object {
+        "getData": [Function],
+      },
+      "entityType": Object {},
+      "onChange": [Function],
+    }
+  }
+  src={null}
+>
+  <p
+    className="ImageBlock__alt"
+  >
+    Alt text: “”
+  </p>
+  <button
+    className="button button-secondary no Tooltip__button"
+  >
+    Delete
+  </button>
+</MediaBlock>
+`;
+
+exports[`ImageBlock renders 1`] = `
+<MediaBlock
+  alt=""
+  block={Object {}}
+  blockProps={
+    Object {
+      "editorState": Object {},
+      "entity": Object {
+        "getData": [Function],
+      },
+      "entityType": Object {},
+      "onChange": [Function],
+    }
+  }
+  src="example.png"
+>
+  <p
+    className="ImageBlock__alt"
+  >
+    Alt text: “”
+  </p>
+  <button
+    className="button button-secondary no Tooltip__button"
+  >
+    Delete
+  </button>
+</MediaBlock>
+`;

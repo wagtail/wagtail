@@ -1,0 +1,29 @@
+{% load wagtailadmin_tags %}
+
+{% comment %}
+    Javascript declarations to be included on the 'create page' and 'edit page' views
+{% endcomment %}
+
+{% allow_unicode_slugs as unicode_slugs_enabled %}
+<script>
+    window.chooserUrls = {
+        'pageChooser': '{% url "wagtailadmin_choose_page" %}',
+        'externalLinkChooser': '{% url "wagtailadmin_choose_page_external_link" %}',
+        'emailLinkChooser': '{% url "wagtailadmin_choose_page_email_link" %}',
+        'phoneLinkChooser': '{% url "wagtailadmin_choose_page_phone_link" %}',
+        'anchorLinkChooser': '{% url "wagtailadmin_choose_page_anchor_link" %}',
+    };
+    window.unicodeSlugsEnabled = {% if unicode_slugs_enabled %}true{% else %}false{% endif %};
+</script>
+
+<script src="{% versioned_static 'wagtailadmin/js/vendor/rangy-core.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/vendor/mousetrap.min.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/expanding_formset.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/page-editor.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/vendor/xregexp.min.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/vendor/urlify.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>
+
+{% hook_output 'insert_editor_js' %}

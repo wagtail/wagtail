@@ -5,13 +5,13 @@ Integrating Wagtail into a Django project
 
 Wagtail provides the ``wagtail start`` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 1.8, 1.10 and 1.11. First, install the ``wagtail`` package from PyPI:
+Wagtail is currently compatible with Django 2.1, 2.2 and 3.0. First, install the ``wagtail`` package from PyPI:
 
 .. code-block:: console
 
     $ pip install wagtail
 
-or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Settings
 --------
@@ -20,33 +20,43 @@ In your settings file, add the following apps to ``INSTALLED_APPS``:
 
 .. code-block:: python
 
-    'wagtail.wagtailforms',
-    'wagtail.wagtailredirects',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailsearch',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtailcore',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail.core',
 
     'modelcluster',
     'taggit',
 
-Add the following entries to ``MIDDLEWARE_CLASSES``:
+Add the following entries to ``MIDDLEWARE``:
 
 .. code-block:: python
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+
+.. note::
+   Wagtail is currently incompatible with projects using ``django.contrib.sites.middleware.CurrentSiteMiddleware``, as both this and ``wagtail.core.middleware.SiteMiddleware`` set the attribute ``request.site``.
 
 Add a ``STATIC_ROOT`` setting, if your project does not have one already:
 
 .. code-block:: python
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    
+Add ``MEDIA_ROOT`` and ``MEDIA_URL`` settings, if your project does not have these already:
+
+.. code-block:: python
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
 
 Add a ``WAGTAIL_SITE_NAME`` - this will be displayed on the main dashboard of the Wagtail admin backend:
 
@@ -54,7 +64,7 @@ Add a ``WAGTAIL_SITE_NAME`` - this will be displayed on the main dashboard of th
 
     WAGTAIL_SITE_NAME = 'My Example Site'
 
-Various other settings are available to configure Wagtail's behaviour - see :doc:`/advanced_topics/settings`.
+Various other settings are available to configure Wagtail's behaviour - see :doc:`/reference/settings`.
 
 URL configuration
 -----------------
@@ -63,15 +73,17 @@ Now make the following additions to your ``urls.py`` file:
 
 .. code-block:: python
 
-    from wagtail.wagtailadmin import urls as wagtailadmin_urls
-    from wagtail.wagtaildocs import urls as wagtaildocs_urls
-    from wagtail.wagtailcore import urls as wagtail_urls
+    from django.urls import path, re_path, include
+
+    from wagtail.admin import urls as wagtailadmin_urls
+    from wagtail.core import urls as wagtail_urls
+    from wagtail.documents import urls as wagtaildocs_urls
 
     urlpatterns = [
         ...
-        url(r'^cms/', include(wagtailadmin_urls)),
-        url(r'^documents/', include(wagtaildocs_urls)),
-        url(r'^pages/', include(wagtail_urls)),
+        re_path(r'^cms/', include(wagtailadmin_urls)),
+        re_path(r'^documents/', include(wagtaildocs_urls)),
+        re_path(r'^pages/', include(wagtail_urls)),
         ...
     ]
 
@@ -85,7 +97,7 @@ The URL paths here can be altered as necessary to fit your project's URL scheme.
 
 .. code-block:: python
 
-    url(r'', include(wagtail_urls)),
+    re_path(r'', include(wagtail_urls)),
 
 In this case, this should be placed at the end of the ``urlpatterns`` list, so that it does not override more specific URL patterns.
 
@@ -100,7 +112,7 @@ Finally, your project needs to be set up to serve user-uploaded files from ``MED
         # ... the rest of your URLconf goes here ...
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-Note that this only works in development mode (``DEBUG = True``); in production, you will need to configure your web server to serve files from ``MEDIA_ROOT``. For further details, see the Django documentation: `Serving files uploaded by a user during development <https://docs.djangoproject.com/en/1.9/howto/static-files/#serving-files-uploaded-by-a-user-during-development>`_ and `Deploying static files <https://docs.djangoproject.com/en/1.9/howto/static-files/deployment/>`_.
+Note that this only works in development mode (``DEBUG = True``); in production, you will need to configure your web server to serve files from ``MEDIA_ROOT``. For further details, see the Django documentation: `Serving files uploaded by a user during development <https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development>`_ and `Deploying static files <https://docs.djangoproject.com/en/stable/howto/static-files/deployment/>`_.
 
 With this configuration in place, you are ready to run ``./manage.py migrate`` to create the database tables used by Wagtail.
 

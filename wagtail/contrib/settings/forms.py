@@ -1,22 +1,22 @@
-from __future__ import absolute_import, unicode_literals
-
 from django import forms
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
-from wagtail.wagtailcore.models import Site
+from wagtail.admin.staticfiles import versioned_static
+from wagtail.core.models import Site
 
 
 class SiteSwitchForm(forms.Form):
     site = forms.ChoiceField(choices=[])
 
-    class Media:
-        js = [
-            'wagtailsettings/js/site-switcher.js',
-        ]
+    @property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailsettings/js/site-switcher.js'),
+        ])
 
     def __init__(self, current_site, model, **kwargs):
         initial_data = {'site': self.get_change_url(current_site, model)}
-        super(SiteSwitchForm, self).__init__(initial=initial_data, **kwargs)
+        super().__init__(initial=initial_data, **kwargs)
         sites = [(self.get_change_url(site, model), site)
                  for site in Site.objects.all()]
         self.fields['site'].choices = sites

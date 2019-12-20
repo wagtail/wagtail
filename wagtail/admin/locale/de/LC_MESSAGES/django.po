@@ -1,0 +1,1749 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Benjamin Thurm, 2018-2019
+# Daniel Manser <me@danielmanser.com>, 2015
+# Ettore Atalan <atalanttore@googlemail.com>, 2015-2017,2019
+# Henrik Kröger <hedwig@riseup.net>, 2015-2016,2018
+# hpoul <herbert.transifex@m.poul.at>, 2015
+# Jannis Vajen, 2016
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
+# karlsander <karlsander@gmail.com>, 2014
+# karlsander <karlsander@gmail.com>, 2014
+# M0rph 3u5 <transifex@m0rph3u5.net>, 2014
+# Martin Löhle <martin.loehle@web-forest.de>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Matthias Martin, 2019
+# Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
+# Norman Uekermann <nue@melexis.com>, 2019
+# pcraston <patrick@craston.com>, 2014
+# pcraston <patrick@craston.com>, 2014
+# Peter Dreuw <archandha@gmx.net>, 2019
+# tobias schmidt <tobias.schmidt82@gmail.com>, 2016
+# Vorlif <flori@vorlif.org>, 2016
+# Wasilis Mandratzis-Walz, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-25 13:41+0000\n"
+"Last-Translator: Matthias Martin\n"
+"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Veröffentlichen"
+
+msgid "Submit for moderation"
+msgstr "Zur Moderation einreichen"
+
+msgid "Unpublish"
+msgstr "Veröffentlichung aufheben"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Save Draft"
+msgstr "Entwurf speichern"
+
+msgid "Page locked"
+msgstr "Seite gesperrt"
+
+msgid "Wagtail admin"
+msgstr "Wagtail Admin-Interface"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Sie haben leider keinen Zugang zu diesem Bereich."
+
+msgid "You do not have permission to access the admin"
+msgstr "Sie haben nicht die nötige Berechtigung das Admin-Interface aufzurufen"
+
+msgid "None"
+msgstr "Nichts"
+
+msgid "Scheduled publishing"
+msgstr "Geplante Veröffentlichung"
+
+msgid "Common page configuration"
+msgstr "Allgemeine Seitenkonfiguration"
+
+msgid "Content"
+msgstr "Inhalt"
+
+msgid "Promote"
+msgstr "Veröffentlichung"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Enter password"
+msgstr "Bitte geben Sie Ihr Passwort ein"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Bitte %s eingeben"
+
+msgid "Enter your email address to reset your password"
+msgstr "Geben Sie Ihre E-Mail-Adresse ein, um Ihr Passwort zurückzusetzen"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Sie können nicht mehrere Berechtigungseinträge für dieselbe Sammlung anlegen."
+
+msgid "New title"
+msgstr "Neuer Titel"
+
+msgid "New slug"
+msgstr "Neuer Kurztitel"
+
+msgid "New parent page"
+msgstr "Neue übergeordnete Seite"
+
+msgid "This copy will be a child of this given parent page."
+msgstr ""
+"Diese Kopie wird als Unterseite der gewählten, übergeordneten Seite "
+"eingefügt."
+
+msgid "Copy subpages"
+msgstr "Unterseiten kopieren"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Es wird %(count)s Unterseite kopiert."
+msgstr[1] "Es werden %(count)s Unterseiten kopiert."
+
+msgid "Publish copied page"
+msgstr "Kopierte Seite veröffentlichen"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr ""
+"Diese Seite ist veröffentlicht. Möchten Sie die Kopie ebenfalls "
+"veröffentlichen?"
+
+msgid "Publish copies"
+msgstr "Kopien veröffentlichen"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"Von den kopierten Seiten ist %(count)s bereits veröffentlicht. Möchten Sie "
+"deren Kopie ebenfalls veröffentlichen?"
+msgstr[1] ""
+"Von den kopierten Seiten sind %(count)s bereits veröffentlicht. Möchten Sie "
+"deren Kopien ebenfalls veröffentlichen?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr ""
+"Sie haben nicht die nötige Berechtigung zur Seite \"%(page_title)s\" zu "
+"kopieren"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr ""
+"Dieser Kurztitel wird bereits im Rahmen der übergeordneten Seite „%s“ "
+"verwendet"
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Sie können beim Kopieren von Unterseiten keine Seite in sich selbst kopieren"
+
+msgid "This slug is already in use"
+msgstr "Der Kurztitel wird bereits verwendet"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Das Veröffentlichungsdatum muss vor dem Ablaufsdatum liegen"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Das Ablaufdatum muss in der Zukunft liegen"
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "Search term"
+msgstr "Suchbegriff"
+
+msgid "Visibility"
+msgstr "Sichtbarkeit"
+
+msgid "This field is required."
+msgstr "Dieses Feld muss ausgefüllt werden."
+
+msgid "Please select at least one group."
+msgstr "Bitte wählen Sie mindestens eine Gruppe aus."
+
+msgid "Arabic"
+msgstr "Arabisch"
+
+msgid "Catalan"
+msgstr "Katalanisch"
+
+msgid "Czech"
+msgstr "Tschechisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+msgid "Greek"
+msgstr "Griechisch"
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "Spanish"
+msgstr "Spanisch"
+
+msgid "Finnish"
+msgstr "Finnisch"
+
+msgid "French"
+msgstr "Französisch"
+
+msgid "Galician"
+msgstr "Galicisch"
+
+msgid "Hungarian"
+msgstr "Ungarisch"
+
+msgid "Indonesian"
+msgstr "Indonesisch"
+
+msgid "Icelandic"
+msgstr "Isländisch"
+
+msgid "Italian"
+msgstr "Italienisch"
+
+msgid "Japanese"
+msgstr "Japanisch"
+
+msgid "Korean"
+msgstr "Koreanisch"
+
+msgid "Lithuanian"
+msgstr "Litauisch"
+
+msgid "Mongolian"
+msgstr "Mongolisch"
+
+msgid "Norwegian Bokmål"
+msgstr "Norwegische Buchsprache"
+
+msgid "Netherlands Dutch"
+msgstr "Niederländisch"
+
+msgid "Persian"
+msgstr "Persisch"
+
+msgid "Polish"
+msgstr "Polnisch"
+
+msgid "Brazilian Portuguese"
+msgstr "Brasilianisches Portugiesisch"
+
+msgid "Portuguese"
+msgstr "Portugiesisch"
+
+msgid "Romanian"
+msgstr "Rumänisch"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "Swedish"
+msgstr "Schwedisch"
+
+msgid "Slovak"
+msgstr "Slowakisch"
+
+msgid "Thai"
+msgstr "Thailändisch"
+
+msgid "Ukrainian"
+msgstr "Ukrainisch"
+
+msgid "Chinese (Simplified)"
+msgstr "Chinesisch (vereinfacht)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinesisch (traditionell)"
+
+msgid "Page"
+msgstr "Seite"
+
+msgid "Pages"
+msgstr "Seiten"
+
+msgid "Loading…"
+msgstr "Laden..."
+
+msgid "No results"
+msgstr "Keine Ergebnisse"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "See all"
+msgstr "Alles einsehen"
+
+msgid "Close explorer"
+msgstr "Explorer schließen"
+
+msgid "Alt text"
+msgstr "Alternativtext"
+
+msgid "Write here…"
+msgstr "Hier schreiben..."
+
+msgid "Horizontal line"
+msgstr "Horizontale Linie"
+
+msgid "Line break"
+msgstr "Zeilenumbruch"
+
+msgid "Undo"
+msgstr "Widerrufen"
+
+msgid "Redo"
+msgstr "Wiederholen"
+
+msgid "Reload the page"
+msgstr "Seite erneut laden"
+
+msgid "Reload saved content"
+msgstr "Gespeicherten Inhalt erneut laden"
+
+msgid "Show latest content"
+msgstr "Aktuellen Inhalt anzeigen"
+
+msgid "Show error"
+msgstr "Fehler anzeigen"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
+"Version zurückgesetzt."
+
+msgid "Broken link"
+msgstr "Defekter Link"
+
+msgid "Missing document"
+msgstr "Fehlendes Dokument"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Edit '{title}'"
+msgstr "'{title}' bearbeiten"
+
+msgid "View child pages of '{title}'"
+msgstr "Unterseiten von '{title}' anzeigen"
+
+msgid "Page explorer"
+msgstr "Seitenübersicht"
+
+msgid "January"
+msgstr "Januar"
+
+msgid "February"
+msgstr "Februar"
+
+msgid "March"
+msgstr "März"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "Dezember"
+
+msgid "Sunday"
+msgstr "Sonntag"
+
+msgid "Monday"
+msgstr "Montag"
+
+msgid "Tuesday"
+msgstr "Dienstag"
+
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+msgid "Thursday"
+msgstr "Donnerstag"
+
+msgid "Friday"
+msgstr "Freitag"
+
+msgid "Saturday"
+msgstr "Samstag"
+
+msgid "Sun"
+msgstr "So"
+
+msgid "Mon"
+msgstr "Mo"
+
+msgid "Tue"
+msgstr "Di"
+
+msgid "Wed"
+msgstr "Mi"
+
+msgid "Thu"
+msgstr "Do"
+
+msgid "Fri"
+msgstr "Fr"
+
+msgid "Sat"
+msgstr "Sa"
+
+msgid "Error 404: Page not found"
+msgstr "Fehler 404: Seite nicht gefunden"
+
+msgid "Error 404"
+msgstr "Fehler 404"
+
+msgid "The requested page could not be found."
+msgstr "Die angeforderte Seite konnte nicht gefunden werden."
+
+msgid "Go to Wagtail admin"
+msgstr "Zum Wagtail Admin-Interface"
+
+msgid "Account"
+msgstr "Benutzerkonto"
+
+msgid "Change profile picture"
+msgstr "Profilbild ändern"
+
+msgid "Your current profile picture:"
+msgstr "Ihr aktuelles Profilbild:"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Change email"
+msgstr "E-Mail-Adresse ändern"
+
+msgid "Change name"
+msgstr "Name ändern"
+
+msgid "Change password"
+msgstr "Passwort ändern"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Sie können Ihr Passwort hier nicht ändern. Bitte kontaktieren Sie einen "
+"Administrator der Website."
+
+msgid "Set Time Zone"
+msgstr "Zeitzone einstellen"
+
+msgid "Language Preferences"
+msgstr "Spracheinstellungen"
+
+msgid "Notification preferences"
+msgstr "Benachrichtigungseinstellungen"
+
+msgid "Reset password"
+msgstr "Passwort zurücksetzen"
+
+msgid "Password change successful"
+msgstr "Passwort erfolgreich geändert"
+
+msgid "Login"
+msgstr "Anmeldung"
+
+msgid "Set your new password"
+msgstr "Setzen Sie Ihr neues Passwort"
+
+msgid "Invalid password reset link"
+msgstr "Ungültiger Passwort-Zurücksetzen-Link"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Der Passwort-Zurücksetzen-Link war ungültig, möglicherweise weil er bereits "
+"benutzt wurde."
+
+msgid "Request a new password reset"
+msgstr "Einen neuen Passwort-Zurücksetzen-Link anfordern"
+
+msgid "Check your email"
+msgstr "Überprüfen Sie Ihr E-Mail-Postfach"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Falls ein Konto unter dieser Adresse existiert, wurde ein Link zum "
+"Zurücksetzen Ihres Passworts an Sie versandt."
+
+msgid "Please follow the link below to reset your password:"
+msgstr ""
+"Bitte folgen Sie dem nachfolgenden Link, um Ihr Passwort zurückzusetzen:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Ihr Benutzername, falls Sie ihn vergessen haben:"
+
+msgid "Password reset"
+msgstr "Passwort zurückgesetzt"
+
+msgid "Reset your password"
+msgstr "Setzen Sie Ihr Passwort zurück"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Menu"
+msgstr "Menü"
+
+msgid "Move up"
+msgstr "Nach oben"
+
+msgid "Move down"
+msgstr "Nach unten"
+
+msgid "Explorer"
+msgstr "Explorer"
+
+msgid "Internal link"
+msgstr "Interner Link"
+
+msgid "External link"
+msgstr "Externer Link"
+
+msgid "Email link"
+msgstr "E-Mail-Link"
+
+msgid "Phone link"
+msgstr "Telefon-Link"
+
+msgid "Anchor link"
+msgstr "Anker-Link"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"        Es gibt %(counter)s Ergebnis\n"
+"    "
+msgstr[1] ""
+"\n"
+"        Es gibt %(counter)s Ergebnisse\n"
+"    "
+
+msgid "Add an anchor link"
+msgstr "Anker-Link hinzufügen"
+
+msgid "Insert anchor"
+msgstr "Anker einfügen"
+
+msgid "Choose"
+msgstr "Auswählen"
+
+msgid "Choose a page"
+msgstr "Seite auswählen"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Es können nur Seiten des Typs \"%(type)s\" für dieses Feld ausgewählt "
+"werden. Andere Seitentypen werden nicht in den Suchergebnissen aufgeführt."
+msgstr[1] ""
+"\n"
+"Es können nur folgende Seitentypen für dieses Feld ausgewählt werden: "
+"%(type)s. Andere Seitentypen werden nicht in den Suchergebnissen aufgeführt."
+
+msgid "Add an email link"
+msgstr "E-Mail-Link hinzufügen"
+
+msgid "Insert link"
+msgstr "Link einfügen"
+
+msgid "Add an external link"
+msgstr "Externen Link hinzufügen"
+
+msgid "Add a phone link"
+msgstr "Telefon-Link hinzufügen"
+
+msgid "Collection privacy"
+msgstr "Privatsphäre-Einstellungen der Sammlung"
+
+msgid "This collection has been made private by a parent collection."
+msgstr ""
+"Diese Sammlung wurde durch eine übergeordnete Sammlung als privat "
+"gekennzeichnet."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Sie können die Privatsphäre-Einstellungen hier bearbeiten:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Die Privatsphäre-Einstellungen legen fest, wer Dokumente in dieser Sammlung "
+"einsehen darf."
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Privacy"
+msgstr "Privatsphäre"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "Privatsphäre der Sammlung einstellen. Aktueller Status: Öffentlich"
+
+msgid "Public"
+msgstr "Öffentlich"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Privatsphäre der Sammlung einstellen. Aktueller Status: Privat"
+
+msgid "Private"
+msgstr "Privat"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Diese Sammlung kann nicht gelöscht werden, da sie nicht leer ist. Sie "
+"beinhaltet:"
+
+msgid "Name"
+msgstr "Name"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Es wurden noch keine Sammlungen erstellt. Warum nicht <a href="
+"\"%(add_collection_url)s\">eine anlegen</a>?"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "%(label)s hinzufügen"
+
+msgid "Yes, delete"
+msgstr "Ja, Löschen"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Willkommen zum %(site_name)s Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Das ist Ihr Dashboard, auf dem nützliche Informationen zu den Inhalten, die "
+"Sie erstellen, zusammengestellt werden."
+
+msgid "Pages awaiting moderation"
+msgstr "Seiten, die auf Freischaltung warten"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Parent"
+msgstr "Übergeordnetes Element"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Edited"
+msgstr "Bearbeitet"
+
+msgid "Edit this page"
+msgstr "Diese Seite bearbeiten"
+
+msgid "Preview this page"
+msgstr "Seitenvorschau anzeigen"
+
+msgid "Approve"
+msgstr "Freischalten"
+
+msgid "Reject"
+msgstr "Ablehnen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Preview"
+msgstr "Vorschau"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "vor %(time_period)s"
+
+msgid "Your most recent edits"
+msgstr "Ihre letzen Änderungen"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Draft"
+msgstr "Entwurf"
+
+msgid "Live"
+msgstr "Seite anzeigen"
+
+msgid "Site summary"
+msgstr "Seitenzusammenfassung"
+
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"            <span>%(total)s</span> Seite <span class=\"visuallyhidden"
+"\">erstellt in %(site_name)s</span>\n"
+"        "
+msgstr[1] ""
+"\n"
+"            <span>%(total)s</span> Seiten <span class=\"visuallyhidden"
+"\">erstellt in %(site_name)s</span>\n"
+"        "
+
+msgid "Sign in"
+msgstr "Anmelden"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Ihr %(username_field)s und Ihr Passwort wurden nicht erkannt. Bitte "
+"versuchen Sie es erneut."
+
+msgid "Sign in to Wagtail"
+msgstr "Bei Wagtail anmelden"
+
+msgid "Forgotten it?"
+msgstr "Vergessen?"
+
+msgid "Signing in…"
+msgstr "Anmelden..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Die Seite „%(title)s“ wurde freigeschaltet."
+
+msgid "You can view the page here:"
+msgstr "Sie können die Seite hier anzeigen:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Die Seite „%(title)s“ wurde freigeschaltet"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Hallo %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Sie können Ihre Benachrichtigungseinstellungen hier bearbeiten:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Die Seite „%(title)s“ wurde abgelehnt."
+
+msgid "You can edit the page here:"
+msgstr "Sie können die Seite hier bearbeiten:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Die Seite „%(title)s“ wurde abgelehnt"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr ""
+"Die Seite „%(page)s“ wurde von %(editor)s zur Freischaltung eingereicht."
+
+msgid "You can preview the page here:"
+msgstr "Sie können hier die Vorschau der Seite anzeigen:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Die Seite „%(page)s“ wurde zur Freischaltung eingereicht"
+
+msgid "Page privacy"
+msgstr "Privatsphäre-Einstellungen der Seite"
+
+msgid "This page has been made private by a parent page."
+msgstr ""
+"Diese Seite wurde durch eine übergeordnete Seite als privat gekennzeichnet."
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Die Privatsphäre-Einstellungen gelten ebenfalls für alle Unterseiten dieser "
+"Seite."
+
+msgid "Edit lock"
+msgstr "Sperre bearbeiten"
+
+msgid "Remove editor lock. Current status: Locked"
+msgstr "Bearbeitung sperren. Aktueller Status: Gesperrt"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "Bearbeitung sperren. Aktueller Status: Freigegeben"
+
+msgid "Locked"
+msgstr "Gesperrt"
+
+msgid "Unlocked"
+msgstr "Entsperrt"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Seiten-Privatsphäre einstellen. Aktueller Status: Öffentlich"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Seiten-Privatsphäre einstellen. Aktueller Status: Privat"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Seiten-Privatsphäre. Aktueller Status: Öffentlich"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Seiten-Privatsphäre. Aktueller Status: Privat"
+
+msgid "Publishing…"
+msgstr "Veröffentlichen..."
+
+msgid "Publish this revision"
+msgstr "Diese Revision veröffentlichen"
+
+msgid "Saving…"
+msgstr "Speichern…"
+
+msgid "Replace current draft"
+msgstr "Aktuellen Entwurf ersetzen"
+
+msgid "Save draft"
+msgstr "Entwurf speichern"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Seite in %(title)s erstellen"
+
+msgid "Create a page in"
+msgstr "Seite erstellen in"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Wählen Sie den Typ der Seite die Sie erstellen möchten."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Seiten, die %(page_type)s verwenden"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s löschen"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Sind Sie sicher, dass Sie diese Seite löschen möchten?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"Eine weitere Unterseite wird auch gelöscht."
+msgstr[1] ""
+"\n"
+"%(descendant_count)s Unterseiten werden auch gelöscht."
+
+msgid "Yes, delete it"
+msgstr "Ja, löschen"
+
+msgid "No, don't delete it"
+msgstr "Nein, nicht löschen"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Alternativ können Sie <a href=\"%(unpublish_url)s\">die Veröffentlichung der "
+"Seite aufheben</a>. Dadurch ist die Seite für die Öffentlichkeit nicht mehr "
+"einsehbar und kann zu einem späteren Zeitpunkt weiter bearbeitet oder erneut "
+"veröffentlicht werden."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "%(title)s verschieben"
+
+msgid "Move"
+msgstr "Verschieben"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr ""
+"Sind Sie sicher, dass Sie diese Seite nach ‚%(title)s‘ verschieben wollen?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Sind Sie sicher, dass Sie diese Seite und alle Unterseiten nach ‚%(title)s‘ "
+"verschieben wollen?"
+
+msgid "Yes, move this page"
+msgstr "Ja, diese Seite verschieben"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Veröffentlichung von %(title)s aufheben"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr ""
+"Sind Sie sicher, dass Sie die Veröffentlichung der Seite aufheben wollen?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Diese Seite hat eine Unterseite. Diese Unterseite "
+"ebenfalls depublizieren\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Diese Seite hat %(live_descendant_count)s Unterseiten. "
+"Die Veröffentlichung dieser Unterseiten ebenfalls aufheben\n"
+"                "
+
+msgid "Yes, unpublish it"
+msgstr "Ja, Veröffentlichung aufheben"
+
+msgid "No, don't unpublish"
+msgstr "Nein, veröffentlicht belassen"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Seiten, die %(page_class_verbose_name)s verwenden"
+
+msgid "Pages using"
+msgstr "Benutzende Seiten"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopiere %(title)s"
+
+msgid "Copy"
+msgstr "Kopieren"
+
+msgid "Copy this page"
+msgstr "Diese Seite kopieren"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "%(page_type)s erstellen"
+
+msgid "New"
+msgstr "Neu"
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "This page has unsaved changes."
+msgstr "Diese Seite hat ungesicherte Änderungen."
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Bearbeite %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "Wird bearbeitet %(page_type)s <span>%(title)s</span>"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "Zuletzt geändert: %(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "von %(modified_by)s"
+
+msgid "Revisions"
+msgstr "Revisionen"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "%(title)s durchstöbern"
+
+msgid "Drag"
+msgstr "Ziehen"
+
+msgid "Updated"
+msgstr "Aktualisiert"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"Die Ursprungs-Ebene ist der Ort, an dem Sie neue Websites zu Ihrer Wagtail-"
+"Installation hinzufügen können. Seiten, die hier erstellt werden, sind über "
+"keine URL zu erreichen, solange sie nicht einer Website zugeordnet werden."
+
+msgid "Configure a site now."
+msgstr "Konfigurieren Sie jetzt eine Website."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Falls Sie zu einer existierenden Website Seiten hinzufügen möchten, müssen "
+"Sie diese als Unterseiten der Startseite erstellen."
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"Seiten, die hier erstellt werden, sind über keine URL zu erreichen. Um "
+"Seiten zu einer existierenden Website hinzuzufügen, erstellen Sie sie als "
+"Unterseiten der Startseite."
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"Es ist keine Website für diesen Ort festgelegt. Seiten, die hier erstellt "
+"werden, sind über keine URL zu erreichen, solange keine Website für diesem "
+"Ort festgelegt wurde."
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"Es gibt keinen Website-Eintrag für diesen Ort. Seiten, die hier erstellt "
+"werden, sind über keine URL zu erreichen."
+
+msgid "No pages have been created at this location."
+msgstr "Es wurden keine Seiten an dieser Stelle angelegt."
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Warum nicht <a href=\"%(add_page_url)s\">eine anlegen</a>?"
+
+msgid "This page is locked to further editing"
+msgstr "Diese Seite ist gesperrt für weiteres Bearbeiten"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Unterseiten von ‚%(title)s‘ durchstöbern"
+
+msgid "Explore"
+msgstr "Durchstöbern"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Unterseiten von ‚%(title)s‘ durchsehen"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Unterseite zu ‚%(title)s‘ hinzufügen"
+
+msgid "Add child page"
+msgstr "Unterseite hinzufügen"
+
+msgid "Sites menu"
+msgstr "Seitenmenü"
+
+msgid "Pagination"
+msgstr "Seitennummerierung"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"        Seite %(page_number)s von %(num_pages)s.\n"
+"    "
+
+msgid "Previous"
+msgstr "Vorherige"
+
+msgid "Next"
+msgstr "Nächste"
+
+msgid "This page is protected from public view"
+msgstr "Diese Seite ist vor öffentlichem Zugriff geschützt"
+
+msgid "Disable ordering of child pages"
+msgstr "Sortierung von Unterseiten deaktivieren"
+
+msgid "Sort"
+msgstr "Sortieren"
+
+msgid "Enable ordering of child pages"
+msgstr "Sortierung von Unterseiten aktivieren"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "Wählen Sie eine neue übergeordnete Seite für %(title)s"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "Wählen Sie eine neue übergeordnete Seite für <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "Vorschaufehler"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Eine Vorschau dieser Seite ist unmöglich, da einige Fehler übrig geblieben "
+"sind.\n"
+"Bitte schließen Sie diese Registerkarte, bearbeiten Sie die\n"
+"Seite, um die Fehler zu beheben, und verwenden Sie dann\n"
+"erneut die Vorschau."
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "%(title)s vergleichen"
+
+msgid "Comparing"
+msgstr "Vergleichen"
+
+msgid "View revisions"
+msgstr "Revisionen ansehen"
+
+msgid "Fields"
+msgstr "Felder"
+
+msgid "Changes"
+msgstr "Änderungen"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Wurde um 1 "
+"Stelle nach unten verschoben.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Wurde um "
+"%(counter)s Stellen nach unten verschoben.\n"
+"                                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"                                                            Wurde um 1 "
+"Stelle nach oben verschoben.\n"
+"                                                        "
+msgstr[1] ""
+"\n"
+"                                                            Wurde um "
+"%(counter)s Stellen nach oben verschoben.\n"
+"                                                        "
+
+msgid "There are no differences between these two revisions"
+msgstr "Diese zwei Revisionen weisen keine Unterschiede auf"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr ""
+"Geplante Veröffentlichung von Revision %(revision.id)s für %(title)s aufheben"
+
+msgid "Unschedule"
+msgstr "Geplante Veröffentlichung aufheben"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr ""
+"Sie Sie sicher, dass Sie die geplante Veröffentlichung dieser Revision "
+"aufheben möchten?"
+
+msgid "Yes, unschedule"
+msgstr "Ja, aufheben"
+
+msgid "No, don't unschedule"
+msgstr "Nein, nicht aufheben"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revisionen von %(title)s"
+
+msgid "Revisions of"
+msgstr "Revisionen von"
+
+msgid "Revision date"
+msgstr "Revisionsdatum"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "von"
+
+msgid "Current draft"
+msgstr "Aktueller Entwurf"
+
+msgid "Live version"
+msgstr "Veröffentlichte Version"
+
+msgid "Scheduled for"
+msgstr "Geplant für"
+
+msgid "Review this revision"
+msgstr "Diese Revision begutachten"
+
+msgid "Compare with previous revision"
+msgstr "Mit vorheriger Revision vergleichen"
+
+msgid "Cancel scheduled publish"
+msgstr "Geplante Veröffentlichung aufheben"
+
+msgid "No revisions of this page exist"
+msgstr "Es existieren keine Revisionen dieser Seite"
+
+msgid "No revision of this page exist"
+msgstr "Es existiert keine Revision dieser Seite"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Es gibt eine passende Seite\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Es gibt %(counter)s passende Seiten\n"
+"            "
+
+msgid "Page types"
+msgstr "Seitentypen"
+
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr ""
+"Es gibt leider keine Seiten zum Suchbegriff <em>„%(query_string)s“</em>"
+
+msgid "Enter a search term above"
+msgstr "Geben Sie oben einen Suchbegriff ein"
+
+msgid "No pages use"
+msgstr "Keine Seite benutzt "
+
+msgid "Collection"
+msgstr "Sammlung"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Seite %(page_num)s von %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Brotkrümel"
+
+msgid "Root"
+msgstr "Ursprung"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "All collections"
+msgstr "Alle Sammlungen"
+
+msgid "Edit your account"
+msgstr "Bearbeiten Sie Ihr Konto"
+
+msgid "Account settings"
+msgstr "Kontoeinstellungen"
+
+msgid "Log out"
+msgstr "Abmelden"
+
+msgid "Visit the live page"
+msgstr "Live-Seite besuchen"
+
+msgid "Current page status:"
+msgstr "Status der aktuellen Seite"
+
+msgid "Other searches"
+msgstr "Andere Suchbegriffe"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Sie verwenden einen <strong>überholten</strong> Browser, der nicht von "
+"dieser Software unterstützt wird. Bitte <a href=\"http://browsehappy.com/"
+"\">aktualisieren Sie Ihren Browser</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"JavaScript wird benötigt um Wagtail auszuführen, ist aber deaktiviert.<br /"
+">\n"
+"Beachten Sie <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" "
+"rel=\"noopener noreferrer\">die Hinweise wie Sie JavaScript in ihrem Browser "
+"aktivieren können</a>.\n"
+" "
+
+msgid "Go to Wagtail admin interface"
+msgstr "Zum Wagtail Admin-Interface"
+
+msgid "Add a child page"
+msgstr "Unterseite hinzufügen"
+
+msgid "Show in Explorer"
+msgstr "Im Explorer anzeigen"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Sortiere die Unterseiten von '%(parent)s' nach '%(label)s' in aufsteigender "
+"Reihenfolge"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Sortiere die Unterseiten von '%(parent)s' nach '%(label)s' in absteigender "
+"Reihenfolge"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Your password has been changed successfully!"
+msgstr "Ihr Passwort wurde erfolgreich geändert!"
+
+msgid "Your email has been changed successfully!"
+msgstr "Ihre E-Mail-Adresse wurde erfolgreich geändert!"
+
+msgid "Your name has been changed successfully!"
+msgstr "Ihr Name wurde erfolgreich geändert!"
+
+msgid "Your preferences have been updated."
+msgstr "Ihre Einstellungen wurden aktualisiert."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Ihre Einstellungen wurden erfolgreich geändert!"
+
+msgid "You have been successfully logged out."
+msgstr "Sie wurden erfolgreich abgemeldet."
+
+msgid "Collections"
+msgstr "Sammlungen"
+
+msgid "Add a collection"
+msgstr "Sammlung hinzufügen"
+
+msgid "Add collection"
+msgstr "Sammlung hinzufügen"
+
+msgid "Collection '{0}' created."
+msgstr "Sammlung '{0}' wurde erstellt."
+
+msgid "Collection '{0}' updated."
+msgstr "Sammlung '{0}' geändert."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Beim Speichern der Sammlung sind Fehler aufgetreten."
+
+msgid "Delete collection"
+msgstr "Sammlung löschen"
+
+msgid "Collection '{0}' deleted."
+msgstr "Sammlung '{0}' gelöscht."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Sind Sie sicher, dass Sie diese Sammlung löschen möchten?"
+
+msgid "Editing"
+msgstr "Bearbeiten"
+
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr ""
+"Die Seite „{0}“ wurde erstellt und zur Veröffentlichung (zu einem Termin) "
+"eingeplant."
+
+msgid "View live"
+msgstr "Live anzeigen"
+
+msgid "Page '{0}' created and published."
+msgstr "Die Seite ‚{0}‘ wurde erstellt und veröffentlicht."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Die Seite ‚{0}‘ wurde erstellt und zur Freischaltung eingereicht."
+
+msgid "View draft"
+msgstr "Entwurf anzeigen"
+
+msgid "Failed to send notifications to moderators"
+msgstr "Benachrichtigungen an die Moderatoren konnten nicht versendet werden"
+
+msgid "Page '{0}' created."
+msgstr "Seite ‚{0}‘ erstellt."
+
+msgid "The page could not be created due to validation errors"
+msgstr "Die Seite konnte wegen Prüfungsfehlern nicht erstellt werden."
+
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr ""
+"Revision von {0} von Seite '{1}' wurde zur Veröffentlichung (zu einem "
+"Termin) eingeplant."
+
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"Seite '{0}' ist veröffentlicht und diese Revision wurde zur Veröffentlichung "
+"(zu einem Termin) eingeplant. "
+
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr ""
+"Die Seite „{0}“ wurde zur Veröffentlichung (zu einem Termin) eingeplant."
+
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "Revision von {0} von Seite '{1}' wurde veröffentlicht."
+
+msgid "Page '{0}' has been published."
+msgstr "Seite ‚{0}‘ wurde veröffentlicht."
+
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "Seite '{0}' wurde zur Moderation eingereicht."
+
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "Seite '{0}' wurde auf Version von {1} zurückgesetzt."
+
+msgid "Page '{0}' has been updated."
+msgstr "Seite '{0}' wurde aktualisiert."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Diese Seite konnte nicht gespeichert werden, da sie gesperrt ist."
+
+msgid "The page could not be saved due to validation errors"
+msgstr ""
+"Aufgrund von Fehlern bei der Validierung konnte die Seite nicht gespeichert "
+"werden."
+
+msgid "Compare with live version"
+msgstr "Mit veröffentlichter Revision vergleichen"
+
+msgid "This page is currently awaiting moderation"
+msgstr "Diese Seite wartet derzeit auf Freischaltung"
+
+msgid "Page '{0}' deleted."
+msgstr "Seite ‚{0}‘ gelöscht."
+
+msgid "Page '{0}' unpublished."
+msgstr "Veröffentlichung der Seite \"{0}\" aufgehoben."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Der Kurztitel '{0}' wird innerhalb der Eltern-Seite bereits verwendet. Bitte "
+"wählen Sie einen eindeutigen Kurztitel und versuchen Sie es erneut."
+
+msgid "Page '{0}' moved."
+msgstr "Seite ‚{0}‘ verschoben."
+
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Seite ‚{0}‘ und {1} Unterseiten kopiert."
+
+msgid "Page '{0}' copied."
+msgstr "Seite ‚{0}‘ kopiert."
+
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "Die Seite ‚{0}‘ wartet derzeit nicht auf Freischaltung."
+
+msgid "Page '{0}' published."
+msgstr "Seite ‚{0}‘ veröffentlicht."
+
+msgid "Failed to send approval notifications"
+msgstr "Bestätigungsbenachrichtigungen konnten nicht versendet werden"
+
+msgid "Page '{0}' rejected for publication."
+msgstr "Die Veröffentlichung der Seite ‚{0}‘ wurde abgelehnt."
+
+msgid "Failed to send rejection notifications"
+msgstr "Ablehnungsbenachrichtigungen konnten nicht versendet werden"
+
+msgid "Page '{0}' is now locked."
+msgstr "Die Seite ‚{0}‘ ist jetzt gesperrt."
+
+msgid "Page '{0}' is now unlocked."
+msgstr "Die Seite ‚{0}‘ ist jetzt entsperrt."
+
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Sie betrachten eine frühere Version dieser Seite vom <b>%(created_at)s</b> "
+"von %(user)s"
+
+msgid "Earliest"
+msgstr "Früheste"
+
+msgid "Latest"
+msgstr "Späteste"
+
+msgid "revision {0} of \"{1}\""
+msgstr "Revision {0} von \"{1}\""
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Geplante Veröffentlichung der Revision {0} von \"{1}\" aufgehoben."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' bearbeiten"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Entwurf von '%(title)s' ansehen"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Veröffentlichte Version von '%(title)s' ansehen"
+
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Unterseite zu '%(title)s' hinzufügen"
+
+msgid "More"
+msgstr "Mehr"
+
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Weiter Optionen für '%(title)s' anzeigen"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Seite '%(title)s' verschieben"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Seite '%(title)s' kopieren"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Seite '%(title)s' löschen"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Veröffentlichung der Seite '%(title)s' aufheben"
+
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "Revisionsgeschichte von '%(title)s' anzeigen"
+
+msgid "Set profile picture"
+msgstr "Profilbild einstellen"
+
+msgid "Change your profile picture."
+msgstr "Ihr Profilbild ändern."
+
+msgid "Change the email address linked to your account."
+msgstr "E-Mail-Adresse ändern, die mit Ihrem Konto verknüpft ist."
+
+msgid "Change the password you use to log in."
+msgstr "Ändern Sie das Passwort, dass Sie verwenden um sich anzumelden."
+
+msgid "Choose which email notifications to receive."
+msgstr "Wählen Sie, welche E-Mail-Benachrichtigungen Sie erhalten möchten!"
+
+msgid "Language preferences"
+msgstr "Spracheinstellungen"
+
+msgid "Choose the language you want to use here."
+msgstr "Wählen Sie die Sprache aus, die Sie hier verwenden möchten."
+
+msgid "Current Time Zone"
+msgstr "Aktuelle Zeitzone"
+
+msgid "Choose your current time zone."
+msgstr "Wählen Sie Ihre aktuelle Zeitzone."
+
+msgid "Change your first and last name on your account."
+msgstr "Vor- und Nachname für Ihren Account ändern."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Überschrift %(level)d"
+
+msgid "Bulleted list"
+msgstr "Aufzählung"
+
+msgid "Numbered list"
+msgstr "Nummerierte Liste"
+
+msgid "Blockquote"
+msgstr "Blockzitat"
+
+msgid "Bold"
+msgstr "Fett"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Superscript"
+msgstr "Hochgestellt"
+
+msgid "Subscript"
+msgstr "Tiefgestellt"
+
+msgid "Strikethrough"
+msgstr "Durchgestrichen"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Choose an item"
+msgstr "Eintrag wählen"
+
+msgid "Choose another item"
+msgstr "Anderen Eintrag wählen"
+
+msgid "Clear choice"
+msgstr "Auswahl zurücksetzen"
+
+msgid "Edit this item"
+msgstr "Dieses Objekt bearbeiten"
+
+msgid "Choose another page"
+msgstr "Andere Seite auswählen"

@@ -1,12 +1,7 @@
-# coding: utf-8
-from __future__ import absolute_import, unicode_literals
-
-from django.core.management import call_command
 from django.test import TestCase
-from django.utils.six import StringIO
 
-from wagtail.tests.search.models import SearchTest
-from wagtail.wagtailsearch.tests.test_backends import BackendTests
+from wagtail.search.tests.test_backends import BackendTests
+from wagtail.tests.search import models
 
 from ..utils import BOOSTS_WEIGHTS, WEIGHTS_VALUES, determine_boosts_weights, get_weight
 
@@ -14,47 +9,17 @@ from ..utils import BOOSTS_WEIGHTS, WEIGHTS_VALUES, determine_boosts_weights, ge
 class TestPostgresSearchBackend(BackendTests, TestCase):
     backend_path = 'wagtail.contrib.postgres_search.backend'
 
-    def test_update_index_command(self):
-        self.backend.reset_index()
-
-        results = self.backend.search(None, SearchTest)
-        # We find results anyway because we searched for nothing.
-        self.assertSetEqual(set(results),
-                            {self.testa, self.testb, self.testc.searchtest_ptr,
-                             self.testd.searchtest_ptr})
-
-        # But now, we can't find anything because the index is empty.
-        results = self.backend.search('hello', SearchTest)
-        self.assertSetEqual(set(results), set())
-        results = self.backend.search('world', SearchTest)
-        self.assertSetEqual(set(results), set())
-
-        # Run update_index command
-        with self.ignore_deprecation_warnings():
-            # ignore any DeprecationWarnings thrown by models with old-style
-            # indexed_fields definitions
-            call_command('update_index', backend_name=self.backend_name,
-                         interactive=False, stdout=StringIO())
-
-        # And now we can finally find results.
-        results = self.backend.search('hello', SearchTest)
-        self.assertSetEqual(set(results), {self.testa, self.testb,
-                                           self.testc.searchtest_ptr})
-        results = self.backend.search('world', SearchTest)
-        self.assertSetEqual(set(results), {self.testa,
-                                           self.testd.searchtest_ptr})
-
     def test_weights(self):
         self.assertListEqual(BOOSTS_WEIGHTS,
-                             [(10, 'A'), (2, 'B'), (0, 'C'), (0, 'D')])
-        self.assertListEqual(WEIGHTS_VALUES, [0, 0, 0.2, 1.0])
+                             [(10, 'A'), (2, 'B'), (0.5, 'C'), (0.25, 'D')])
+        self.assertListEqual(WEIGHTS_VALUES, [0.025, 0.05, 0.2, 1.0])
 
         self.assertEqual(get_weight(15), 'A')
         self.assertEqual(get_weight(10), 'A')
         self.assertEqual(get_weight(9.9), 'B')
         self.assertEqual(get_weight(2), 'B')
         self.assertEqual(get_weight(1.9), 'C')
-        self.assertEqual(get_weight(0), 'C')
+        self.assertEqual(get_weight(0), 'D')
         self.assertEqual(get_weight(-1), 'D')
 
         self.assertListEqual(determine_boosts_weights([1]),
@@ -72,27 +37,115 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
         self.assertListEqual(determine_boosts_weights([-2, -1, 0, 1, 2, 3, 4]),
                              [(4, 'A'), (2, 'B'), (0, 'C'), (-2, 'D')])
 
-    def test_ranking(self):
-        title_search_field = SearchTest.search_fields[0]
-        original_title_boost = title_search_field.boost
-        title_search_field.boost = 2
+    def test_search_tsquery_chars(self):
+        """
+        Checks that tsquery characters are correctly escaped
+        and do not generate a PostgreSQL syntax error.
+        """
 
-        SearchTest.objects.all().delete()
+        # Simple quote should be escaped inside each tsquery term.
+        results = self.backend.search("L'amour piqué par une abeille",
+                                      models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.search("'starting quote",
+                                      models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.search("ending quote'",
+                                      models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.search("double quo''te",
+                                      models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.search("triple quo'''te",
+                                      models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
 
-        vivaldi_composer = SearchTest.objects.create(
-            title='Antonio Vivaldi',
-            content='Born in 1678, Vivaldi is one of Earth’s '
-                    'most inspired composers. '
-                    'Read more about it in your favorite browser.')
-        vivaldi_browser = SearchTest.objects.create(
-            title='The Vivaldi browser',
-            content='This web browser is based on WebKit.')
+        # Now suffixes.
+        results = self.backend.search("Something:B", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.search("Something:*", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.search("Something:A*BCD", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
 
-        results = self.backend.search('vivaldi', SearchTest)
-        self.assertListEqual(list(results),
-                             [vivaldi_composer, vivaldi_browser])
-        results = self.backend.search('browser', SearchTest)
-        self.assertListEqual(list(results),
-                             [vivaldi_browser, vivaldi_composer])
+        # Now the AND operator.
+        results = self.backend.search("first & second", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
 
-        title_search_field.boost = original_title_boost
+        # Now the OR operator.
+        results = self.backend.search("first | second", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+        # Now the NOT operator.
+        results = self.backend.search("first & !second", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+        # Now the phrase operator.
+        results = self.backend.search("first <-> second", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+    def test_autocomplete_tsquery_chars(self):
+        """
+        Checks that tsquery characters are correctly escaped
+        and do not generate a PostgreSQL syntax error.
+        """
+
+        # Simple quote should be escaped inside each tsquery term.
+        results = self.backend.autocomplete("L'amour piqué par une abeille",
+                                            models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.autocomplete("'starting quote",
+                                            models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.autocomplete("ending quote'",
+                                            models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.autocomplete("double quo''te",
+                                            models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.autocomplete("triple quo'''te",
+                                            models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+        # Backslashes should be escaped inside each tsquery term.
+        results = self.backend.autocomplete("backslash\\",
+                                            models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+        # Now suffixes.
+        results = self.backend.autocomplete("Something:B", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.autocomplete("Something:*", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+        results = self.backend.autocomplete("Something:A*BCD", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+        # Now the AND operator.
+        results = self.backend.autocomplete("first & second", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+        # Now the OR operator.
+        results = self.backend.autocomplete("first | second", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+        # Now the NOT operator.
+        results = self.backend.autocomplete("first & !second", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+        # Now the phrase operator.
+        results = self.backend.autocomplete("first <-> second", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [])
+
+    def test_index_without_upsert(self):
+        # Test the add_items code path for Postgres 9.4, where upsert is not available
+        self.backend.reset_index()
+
+        index = self.backend.get_index_for_model(models.Book)
+        index._enable_upsert = False
+        index.add_items(models.Book, models.Book.objects.all())
+
+        results = self.backend.search("JavaScript", models.Book)
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "JavaScript: The good parts",
+            "JavaScript: The Definitive Guide"
+        ])

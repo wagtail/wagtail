@@ -119,8 +119,8 @@ to:
 
 and passing those through at the point where you are calling ``get_url_parts`` on ``super`` (if applicable).
 
-See also: :meth:`wagtail.wagtailcore.models.Page.get_url_parts`, :meth:`wagtail.wagtailcore.models.Page.get_url`,
-:meth:`wagtail.wagtailcore.models.Page.get_full_url`, and :meth:`wagtail.wagtailcore.models.Page.relative_url`
+See also: :meth:`wagtail.core.models.Page.get_url_parts`, :meth:`wagtail.core.models.Page.get_url`,
+:meth:`wagtail.core.models.Page.get_full_url`, and :meth:`wagtail.core.models.Page.relative_url`
 
 
 "Password required" template for documents

@@ -1,0 +1,116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Luka Matijević <lumatijev@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
+"language/hr_HR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Obavezno. 30 znakova ili manje. Dozvoljena su slova, brojevi i @/./+/-/_ "
+"znakovi."
+
+msgid "A user with that username already exists."
+msgstr "Korisničko ime već postoji."
+
+msgid "The two password fields didn't match."
+msgstr "Lozinke nisu jednake."
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Ime"
+
+msgid "Last Name"
+msgstr "Prezime"
+
+msgid "Password"
+msgstr "Lozinka"
+
+msgid "Password confirmation"
+msgstr "Potvrda lozinke"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "A group with that name already exists."
+msgstr "Grupa s danim imenom već postoji."
+
+msgid "Delete group"
+msgstr "Obriši grupu"
+
+msgid "Yes, delete"
+msgstr "Da, obriši"
+
+msgid "Add group"
+msgstr "Dodaj grupu"
+
+msgid "Editing"
+msgstr "Uređivanje"
+
+msgid "Save"
+msgstr "Pohrani"
+
+msgid "Name"
+msgstr "Ime"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Change"
+msgstr "Promijeni"
+
+msgid "Delete"
+msgstr "Obriši"
+
+msgid "Other permissions"
+msgstr "Ostale dozvole"
+
+msgid "Page permissions"
+msgstr "Dozvole stranice"
+
+msgid "Page"
+msgstr "Stranica"
+
+msgid "Add a page permission"
+msgstr "Dodaj dozvolu stranice"
+
+msgid "groups"
+msgstr "grupe"
+
+msgid "Add a group"
+msgstr "Dodaj grupu"
+
+msgid "Add user"
+msgstr "Dodaj korisnika"
+
+msgid "Account"
+msgstr "Korisnički račun"
+
+msgid "Roles"
+msgstr "Uloge"
+
+msgid "Users"
+msgstr "Korisnici"
+
+msgid "Add a user"
+msgstr "Dodaj korisnika"
+
+msgid "Username"
+msgstr "Korisničko ime"

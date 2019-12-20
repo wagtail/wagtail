@@ -1,0 +1,90 @@
+@import 'wagtailadmin/scss/helpers';
+
+.replace-file-input {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 2px;
+
+    [type=file] {
+        padding: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        direction: ltr;
+        width: auto;
+        display: block;
+        font-size: 5em;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        button {
+            background-color: $color-teal-darker;
+        }
+    }
+}
+
+.upload-list {
+    > li {
+        padding: 1em;
+    }
+
+    .left {
+        text-align: center;
+        word-break: break-all;
+    }
+
+    .preview {
+        width: 150px;
+        min-height: 150px;
+        display: block;
+        position: relative;
+        text-align: center;
+        max-width: 100%;
+        margin: auto;
+    }
+
+    .progress {
+        box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.4);
+        max-width: 100%;
+        z-index: 4;
+        margin-left: 20%;
+        margin-right: 20%;
+        width: 60%;
+    }
+
+    .status-msg {
+        display: none;
+    }
+
+    .upload-complete {
+        .progress {
+            opacity: 0;
+        }
+    }
+
+    .upload-success {
+        .status-msg.success {
+            display: block;
+        }
+    }
+
+    .upload-failure {
+        border-color: $color-red;
+
+        .preview {
+            display: none;
+        }
+
+        .status-msg.failure {
+            display: block;
+        }
+    }
+}

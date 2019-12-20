@@ -1,0 +1,142 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016,2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtail-videresending"
+
+msgid "From site"
+msgstr "Fra nettsted"
+
+msgid "All sites"
+msgstr "Alle nettsteder"
+
+msgid "A redirect with this path already exists."
+msgstr "En videresending med denne stien eksisterer allerede."
+
+msgid "redirect from"
+msgstr "videresend fra"
+
+msgid "site"
+msgstr "nettsted"
+
+msgid "permanent"
+msgstr "permanent"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Anbefales. Permanent videresending sørger for at søkemotorer glemmer den "
+"gamle siden (\"Videresend fra\") og indekserer den nye siden i stedet."
+
+msgid "redirect to a page"
+msgstr "videresend til en side"
+
+msgid "redirect to any URL"
+msgstr "videresend til URL"
+
+msgid "temporary"
+msgstr "midlertidig"
+
+msgid "redirect"
+msgstr "videresending"
+
+msgid "Add redirect"
+msgstr "Legg til videresending"
+
+msgid "Save"
+msgstr "Lagre"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Slett videresending %(title)s"
+
+msgid "Delete"
+msgstr "Slett"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Er du sikker på at du vil slette denne videresendingen?"
+
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Endrer %(title)s"
+
+msgid "Editing"
+msgstr "Endrer"
+
+msgid "Delete redirect"
+msgstr "Slett videresending"
+
+msgid "Redirects"
+msgstr "Videresendinger"
+
+msgid "From"
+msgstr "Fra"
+
+msgid "Site"
+msgstr "Nettsted"
+
+msgid "To"
+msgstr "Til"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Edit this redirect"
+msgstr "Endre denne videresendingen"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Beklager, ingen videresendinger samsvarer med \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Ingen videresendinger har blitt opprettet . Hvorfor ikke <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">legge til en</a>?"
+
+msgid "Search redirects"
+msgstr "Videresendinger for søk"
+
+msgid "Redirect '{0}' updated."
+msgstr "Videresendingen \"{0}\" er oppdatert."
+
+msgid "Edit"
+msgstr "Endre"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Videresendingen kunne ikke lagres grunnet feil."
+
+msgid "Redirect '{0}' deleted."
+msgstr "Videresendingen \"{0}\" er slettet."
+
+msgid "Redirect '{0}' added."
+msgstr "Videresendingen \"{0}\" er lagt til."
+
+msgid "The redirect could not be created due to errors."
+msgstr "Videresendingen kunne ikke opprettes grunnet feil."

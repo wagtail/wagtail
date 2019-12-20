@@ -1,0 +1,193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Claudio Bantaloukas <rockdreamer@gmail.com>, 2015
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015,2017
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-03-08 21:59+0000\n"
+"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>\n"
+"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
+"it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Promozioni di ricerca Wagtail"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+"Si prega di specificare almeno una raccomandazione per questo termine di "
+"ricerca."
+
+msgid "page"
+msgstr "pagina"
+
+msgid "description"
+msgstr "descrizione"
+
+msgid "search promotion"
+msgstr "ricerca promozionata"
+
+msgid "Add search promotion"
+msgstr "Aggiungi ricerca promozionata"
+
+msgid "Add search pick"
+msgstr "Aggiungi ricerca scelta"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>I risultati di ricerca promozionati sono un mezzo di "
+"pubblicizzare pagine specifiche che potrebbero non salire organicamente in "
+"alto nei risultati dei motori di ricerca. Ad esempio, pubblicizza la tua "
+"pagina donazione a un utente che fa una ricerca con il termine comune "
+"\"<em>dare</em>\".</p>\n"
+"            "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Il campo \"Termine(i)/frase\" qui sotto deve contenere la "
+"ricerca intera e esatta per cui vuoi pubblicizzare un risultato, "
+"<em>incluso</em> anche ogni errore di battitura dell'utente. Puoi aiutarti "
+"scegliendo fra i termini di ricerca più popolari degli utenti del tuo sito.</"
+"p>\n"
+"            "
+
+msgid "Save"
+msgstr "Salva"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Elimina %(query)s"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Sei sicuro di voler eliminare tutti i risultati di ricerca pubblicizzati per "
+"questo termine di ricerca?"
+
+msgid "Yes, delete"
+msgstr "Si, elimina"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Modifica %(query)s"
+
+msgid "Editing"
+msgstr "Modifica"
+
+msgid "Move up"
+msgstr "Sposta su"
+
+msgid "Move down"
+msgstr "Sposta giù"
+
+msgid "Promoted search result"
+msgstr "Risultati di ricerca promozionati"
+
+msgid "Add recommended page"
+msgstr "Aggiungi pagina raccomandata"
+
+msgid "Search Terms"
+msgstr "Termini di ricerca"
+
+msgid "Promoted search results"
+msgstr "Risultati di ricerca promozionati"
+
+msgid "Add new promoted result"
+msgstr "Aggiungi nuovo risultato promozionato"
+
+msgid "Search term(s)"
+msgstr "Termine(i) di ricerca"
+
+msgid "Promoted results"
+msgstr "Risultati promozionati"
+
+msgid "Views (past week)"
+msgstr "Viste (scorsa settimana)"
+
+msgid "Edit this promotion"
+msgstr "Modifica questa promozione"
+
+msgid "None"
+msgstr "Nessuno"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            C'è %(counter)s corrispondenza\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Ci sono %(counter)s corrispondenze\n"
+"        "
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Spiacente, nessun risultato promozionato corrispondente a \"<em>"
+"%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Non è stato creato nessun risultato promozionato. Perché non ne <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">aggiungi uno</a>?"
+
+msgid "Search promoted results"
+msgstr "Cerca risultati promozionati"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "Scelta dalla redazione per '{0}' creata."
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Raccomandazione non creata a causa di errori"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "Scelta dalla redazione per '{0}' aggiornata."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Raccomandazione non salvata a causa di errori"
+
+msgid "Editor's picks deleted."
+msgstr "Scelta dalla redazione eliminata."

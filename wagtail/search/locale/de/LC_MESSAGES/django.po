@@ -1,0 +1,66 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
+# M0rph 3u5 <transifex@m0rph3u5.net>, 2014
+# Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
+# pcraston <patrick@craston.com>, 2014
+# pcraston <patrick@craston.com>, 2014
+# Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Wasilis Mandratzis-Walz, 2015
+# Wasilis Mandratzis-Walz, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-05-09 09:54+0000\n"
+"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search"
+msgstr "Wagtail Suche"
+
+msgid "Search term(s)/phrase"
+msgstr "Suchbegriffe/Phrase"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Geben Sie den vollständigen Suchbegriff ein. Um Ihre hervorgehobenen "
+"Ergebnisse anzuzeigen, wird eine genaue Übereinstimmung benötigt. "
+"Platzhalter sind NICHT erlaubt."
+
+msgid "Query Daily Hits"
+msgstr "Nach täglichen Treffern suchen"
+
+msgid "Popular search terms"
+msgstr "Häufige Suchbegriffe"
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "Terms"
+msgstr "Begriffe"
+
+msgid "Views (past week)"
+msgstr "Aufrufe (letze Woche)"
+
+msgid "No results found"
+msgstr "Keine Ergebnisse gefunden"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Choose from popular search terms"
+msgstr "Wählen Sie aus populären Suchbegriffen"

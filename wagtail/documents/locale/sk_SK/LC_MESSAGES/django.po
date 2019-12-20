@@ -1,0 +1,237 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Add"
+msgstr "Pridať"
+
+msgid "Add/edit documents you own"
+msgstr "Pridať/upraviť dokumenty, ktoré vlastníte"
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "Edit any document"
+msgstr "Upraviť dokument"
+
+msgid "title"
+msgstr "titulok"
+
+msgid "file"
+msgstr "súbor"
+
+msgid "created at"
+msgstr "vytvorené"
+
+msgid "uploaded by user"
+msgstr "nahral používateľ"
+
+msgid "tags"
+msgstr "tagy"
+
+msgid "document"
+msgstr "dokument"
+
+msgid "Choose a document"
+msgstr "Zvoliť dokument"
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "Upload"
+msgstr "Nahrať"
+
+msgid "Uploading…"
+msgstr "Odosielam…"
+
+msgid "Latest documents"
+msgstr "Posledné dokumenty"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Prepáčte, žiadne dokumenty nezodpovedajú hľadanému výrazu \"<em>"
+"%(query_string)s</em>\""
+
+msgid "Change document:"
+msgstr "Zmeniť dokument"
+
+msgid "Add a document"
+msgstr "Pridať dokument"
+
+msgid "Add document"
+msgstr "Pridať dokument"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Zmazať %(title)s"
+
+msgid "Delete document"
+msgstr "Zmazať dokument"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Naozaj chcete zmazať tento dokument?"
+
+msgid "Yes, delete"
+msgstr "Áno, zmazať"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Úprava %(title)s"
+
+msgid "Editing"
+msgstr "Upraviť obrázok"
+
+msgid "Save"
+msgstr "Uložiť"
+
+msgid "Filesize"
+msgstr "Veľkosť súboru"
+
+msgid "File not found"
+msgstr "Súbor nebol nájdený"
+
+msgid "Documents"
+msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "File"
+msgstr "Súbor"
+
+msgid "Uploaded"
+msgstr "Nahrané"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s dozadu"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Zatiaľ ste do kolekcie nenahrali žiadne dokumenty. Prečo nenahrať <a href="
+"\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Zatial ste nenahrali žiadne dokumenty. Prečo nenahrať <a href="
+"\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Použitie %(title)s"
+
+msgid "Usage of"
+msgstr "Použitie"
+
+msgid "Parent"
+msgstr "Rodič"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Edit this page"
+msgstr "Upraviť túto stránku"
+
+msgid "Add multiple documents"
+msgstr "Pridať viaceré dokumenty"
+
+msgid "Add documents"
+msgstr "Pridať dokumenty"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr ""
+"Potiahnite a pustite dokumenty do tejto plochy pre okamžité nahrávanie."
+
+msgid "Or choose from your computer"
+msgstr "Alebo vyber z tvojho počítača"
+
+msgid "Add to collection:"
+msgstr "Pridať do kolekcie:"
+
+msgid "Sorry, upload failed."
+msgstr "Prepáčte, ale nahrávanie zlihalo."
+
+msgid "Update"
+msgstr "Aktualizovať"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "You need a password to access this document."
+msgstr "K prístupu k tomuto dokumentu potrebujete heslo."
+
+msgid "Document permissions"
+msgstr "Oprávnenia dokumentu"
+
+msgid "Add a document permission"
+msgstr "Pridať oprávnenia dokumentu"
+
+msgid "Server Error"
+msgstr "Chyba servera"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Nahláste túto chybu Vášmu webmasterovi s nasledujúcimi informáciami:"
+
+msgid "Search documents"
+msgstr "Hľadať dokumenty"
+
+msgid "Document '{0}' added."
+msgstr "Dokument '{0}' pridaný."
+
+msgid "The document could not be saved due to errors."
+msgstr "Dokument nemohol byť uložený kvôli chybám."
+
+msgid "Document '{0}' updated"
+msgstr "Dokument '{0}' bol aktualizovaný"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Súbor nebol nájdený. Prosím aktualizujte zdroj alebo zmažte dokument"
+
+msgid "Document '{0}' deleted."
+msgstr "Dokument '{0}' bol zmazaný."
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokument"
+msgstr[1] "%(count)s dokumenty"
+msgstr[2] "%(count)s dokumentov"
+msgstr[3] "%(count)s dokumentov"
+
+msgid "Choose another document"
+msgstr "Zvoliť ďalší dokument"
+
+msgid "Edit this document"
+msgstr "Upraviť tento dokument"

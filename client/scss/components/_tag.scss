@@ -1,0 +1,61 @@
+// free tagging tags from taggit
+.tag {
+    border-radius: 2px;
+    background-color: $color-teal;
+    padding-right: 0.5em;
+    padding: 0.2em 0.5em;
+    color: $color-white;
+    line-height: 2em;
+    white-space: nowrap;
+
+    &:before {
+        font-family: wagtail;
+        display: inline-block;
+        color: $color-white;
+        content: map-get($icons, 'tag');
+        padding-right: 0.5em;
+    }
+
+    .taglist & {
+        margin-right: 0.8em;
+    }
+}
+
+a.tag:hover {
+    background-color: $color-teal-darker;
+    color: $color-white;
+}
+
+.taglist {
+    font-size: 0.9em;
+    line-height: 2.4em;
+}
+
+.tagfilter {
+    legend {
+        @include visuallyvisible;
+
+        @include media-breakpoint-up(sm) {
+            @include column(2);
+            padding-left: 0;
+        }
+
+        font-weight: 700;
+        color: #333;
+        font-size: 1.1em;
+        display: block;
+        padding: 0 0 0.8em;
+    }
+
+    a {
+        font-size: 0.9em;
+    }
+
+    .button.bicolor.icon-cross {
+        padding-left: 2em;
+
+        &:before {
+            background-color: transparent;
+        }
+    }
+}

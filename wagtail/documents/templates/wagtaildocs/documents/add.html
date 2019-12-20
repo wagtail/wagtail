@@ -1,0 +1,47 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% load wagtailimages_tags %}
+{% block titletag %}{% trans "Add a document" %}{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {{ form.media.js }}
+
+    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+    <script>
+        $(function() {
+            $('#id_tags').tagit({
+                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}
+
+{% block content %}
+    {% trans "Add document" as add_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}
+
+    <div class="nice-padding">
+        <form action="{% url 'wagtaildocs:add' %}" method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <ul class="fields">
+                {% for field in form %}
+                    {% if field.is_hidden %}
+                        {{ field }}
+                    {% else %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                    {% endif %}
+                {% endfor %}
+                <li>
+                    <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Uploading…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Upload' %}</em></button>
+                </li>
+            </ul>
+        </form>
+    </div>
+{% endblock %}

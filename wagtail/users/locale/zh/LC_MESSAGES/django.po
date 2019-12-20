@@ -1,0 +1,113 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
+"zh/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "必填，30个字符以内。仅字母，数字，数字和 @/./+/-/_"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "这个值只能含有字母，数字，数字和 @/./+/-/_"
+
+msgid "A user with that username already exists."
+msgstr "一个用户已经占用那个用户名"
+
+msgid "The two password fields didn't match."
+msgstr "两个密码不匹配"
+
+msgid "Email"
+msgstr "电子邮件"
+
+msgid "First Name"
+msgstr "名"
+
+msgid "Last Name"
+msgstr "姓"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Leave blank if not changing."
+msgstr "留空如果不修改"
+
+msgid "Password confirmation"
+msgstr "密码确认"
+
+msgid "Enter the same password as above, for verification."
+msgstr "输入和上面一样的密码用于验证"
+
+msgid "Administrator"
+msgstr "管理员"
+
+msgid "Editing"
+msgstr "编辑"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Name"
+msgstr "名字"
+
+msgid "Add user"
+msgstr "添加用户"
+
+msgid "Account"
+msgstr "账号"
+
+msgid "Roles"
+msgstr "角色"
+
+msgid "Users"
+msgstr "用户"
+
+msgid "Add a user"
+msgstr "添加用户"
+
+msgid "Username"
+msgstr "用户名"
+
+msgid "Level"
+msgstr "等级"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Admin"
+msgstr "管理"
+
+msgid "Active"
+msgstr "有效"
+
+msgid "Inactive"
+msgstr "无效"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"没有用户. 为什么不 <a href=\"%(wagtailusers_create_url)s\">添加一个</a>?"
+
+msgid "User '{0}' created."
+msgstr "用户 '{0}' 已创建"
+
+msgid "The user could not be created due to errors."
+msgstr "无法创建用户，页面有错。"
+
+msgid "The user could not be saved due to errors."
+msgstr "用户无法保存，页面有错。"

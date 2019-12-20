@@ -1,0 +1,9 @@
+{% load wagtailadmin_tags %}
+
+{% comment %}
+    CSS declarations to be included on the 'create page' and 'edit page' views
+{% endcomment %}
+
+<link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/page-editor.css' %}" />
+
+{% hook_output 'insert_editor_css' %}

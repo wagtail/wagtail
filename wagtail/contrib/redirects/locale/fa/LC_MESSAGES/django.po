@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "From site"
+msgstr "از سایت"
+
+msgid "All sites"
+msgstr "همه سایت ها"
+
+msgid "A redirect with this path already exists."
+msgstr "ریدایرکتی با این مسیر وجود دارد."
+
+msgid "redirect from"
+msgstr "ریدایرکت از"
+
+msgid "site"
+msgstr "سایت"
+
+msgid "permanent"
+msgstr "ثابت"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"پیشنهاد شده. ریدایرکت های ثابت به موتورهای جستجو اطمینان می‌دهند تا نشانی "
+"قدیمی (ریدایرکت از) را حذف کنند و به جای آن صفحه جدید را ایندکس نمایند."
+
+msgid "redirect to a page"
+msgstr "ریدایرکت به یک صفحه"
+
+msgid "redirect to any URL"
+msgstr "ریدایرکت به هر نشانی"
+
+msgid "temporary"
+msgstr "موقتی"
+
+msgid "redirect"
+msgstr "ریدایرکت"
+
+msgid "Add redirect"
+msgstr "افزودن ریدایرکت"
+
+msgid "Save"
+msgstr "ذخیره"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "حذف ریدایرکت %(title)s"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "آیا میخواهید این ریدایرکت را حذف کنید؟"
+
+msgid "Yes, delete"
+msgstr "بله حذف شود"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "ویرایش %(title)s"
+
+msgid "Editing"
+msgstr "در حال ویرایش"
+
+msgid "Delete redirect"
+msgstr "حذف ریدایرکت"
+
+msgid "Redirects"
+msgstr "ریدایرکت ها"
+
+msgid "From"
+msgstr "از"
+
+msgid "Site"
+msgstr "سایت"
+
+msgid "To"
+msgstr "به"
+
+msgid "Type"
+msgstr "نوع"
+
+msgid "Edit this redirect"
+msgstr "ویرایش این ریدایرکت"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr "متاسفانه هیچ ریدایرکتی منطبق با «<em>%(query_string)s</em>» پیدا نشد"
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"هیچ ریدایرکتی ایجاد نشده. می‌توانید یکی را <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">ایجاد</a> کنید"
+
+msgid "Search redirects"
+msgstr "ریدایرکت های جستجو"
+
+msgid "Redirect '{0}' updated."
+msgstr "ریدایرکت  '{0}' بروزرسانی شد."
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "ریدایرکت به دلیل بروز خطا ذخیره نشد."
+
+msgid "Redirect '{0}' deleted."
+msgstr "ریدایرکت '{0}' حذف شد."
+
+msgid "Redirect '{0}' added."
+msgstr "ریدایرکت '{0}' افزوده شد."
+
+msgid "The redirect could not be created due to errors."
+msgstr "به دلیل بروز خطا ریدایرکتی ساخته نشد."

@@ -1,0 +1,390 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014
+# Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
+"bg/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Публикувай"
+
+msgid "Submit for moderation"
+msgstr "Предостави за модерация"
+
+msgid "Unpublish"
+msgstr "Отмени публикуването"
+
+msgid "Delete"
+msgstr "Изтрий"
+
+msgid "Enter your email address to reset your password"
+msgstr "Въведете вашият имейл адрес за да си възстановите паролата"
+
+msgid "This slug is already in use"
+msgstr "Този слъг е вече в употреба"
+
+msgid "Search"
+msgstr "Търсене"
+
+msgid "Search term"
+msgstr "Фраза за търсене"
+
+msgid "Account"
+msgstr "Профил"
+
+msgid "Change password"
+msgstr "Смени парола"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Вашата парола не може да бъде променена тук. Моля свържете се с "
+"администратора на сайта."
+
+msgid "Reset password"
+msgstr "Възстановете паролата"
+
+msgid "Password change successful"
+msgstr "Възстановяване на паролата е успешно"
+
+msgid "Login"
+msgstr "Влез"
+
+msgid "Set your new password"
+msgstr "Задайте нова парола"
+
+msgid "Check your email"
+msgstr "Проверете си имейла"
+
+msgid "Password reset"
+msgstr "Паролата е възстановена"
+
+msgid "Reset your password"
+msgstr "Възстановете паролата си"
+
+msgid "Dashboard"
+msgstr "Работно Табло"
+
+msgid "Menu"
+msgstr "Меню"
+
+msgid "Move up"
+msgstr "Нагоре"
+
+msgid "Move down"
+msgstr "Надолу"
+
+msgid "Explorer"
+msgstr "Файлов мениджър"
+
+msgid "Internal link"
+msgstr "Вътрешен линк"
+
+msgid "External link"
+msgstr "Външен линк"
+
+msgid "Email link"
+msgstr "Имейл линк"
+
+msgid "Choose a page"
+msgstr "Изберете страница"
+
+msgid "Add an email link"
+msgstr "Добави имейл линк"
+
+msgid "Insert link"
+msgstr "Добави линк"
+
+msgid "Add an external link"
+msgstr "Добави външен линк"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Добре дошъл в %(site_name)s Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Това е вашето работно табло, където ще бъде показана полезна информация за "
+"контент, който сте създали."
+
+msgid "Pages awaiting moderation"
+msgstr "Страници очакващи модерация"
+
+msgid "Title"
+msgstr "Заглавие"
+
+msgid "Parent"
+msgstr "Родител"
+
+msgid "Type"
+msgstr "Вид"
+
+msgid "Edit this page"
+msgstr "Редактирайте тази страница"
+
+msgid "Approve"
+msgstr "Одобрете"
+
+msgid "Reject"
+msgstr "Отхвърлете"
+
+msgid "Edit"
+msgstr "Редакция"
+
+msgid "Preview"
+msgstr "Преглед"
+
+msgid "Your most recent edits"
+msgstr "Вашите последни редакции"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Site summary"
+msgstr "Обобщение на Страницата"
+
+msgid "Sign in"
+msgstr "Влез"
+
+msgid "Sign in to Wagtail"
+msgstr "Влезте в Wagtail"
+
+msgid "Forgotten it?"
+msgstr "Забравихте ли?"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Страницата \"%(title)s\" беше одобрена."
+
+msgid "You can view the page here:"
+msgstr "Можете да прегледате страницата тук:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Страницата \"%(title)s\" беше одобрена"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Елемента \"%(title)s\" на страницата бе отхвърлен."
+
+msgid "You can edit the page here:"
+msgstr "Можете да редактирате страницата тук:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Елемента \"%(title)s\" на страницата бе отхвърлен"
+
+msgid "You can preview the page here:"
+msgstr "Можете да прегледате страницата тук:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "Страницата \"%(page)s\" бе предоставена за модериране"
+
+msgid "Save draft"
+msgstr "Запази като чернова"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Създайте страница в %(title)s"
+
+msgid "Create a page in"
+msgstr "Създайте страница в"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Изберете какъв тип страница искате да създадете."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Страници използващи %(page_type)s"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Изтрийте %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Сигурен ли сте, че искате да изтриете страницата?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Това ще изтрие още една подстраница.\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Това ще изтрие още %(descendant_count)s подстраници.\n"
+"                "
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Промести %(title)s"
+
+msgid "Move"
+msgstr "Премести"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Сигурни ли сте, че желаете да преместите страницата в '%(title)s'?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Сигурни ли сте, че искате да преместите страницата и принадлежащите към нея "
+"дъщерни страници в '%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "Да, премести тази страница"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Отмени публикуването на %(title)s"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Сигурен ли сте, че искате да отмените публикуването на тази страница?"
+
+msgid "Yes, unpublish it"
+msgstr "Да, отмени публикуването"
+
+msgid "Pages using"
+msgstr "Страници използващи"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "Нова %(page_type)s"
+
+msgid "New"
+msgstr "Ново"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "Последно редактиран: %(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "по %(modified_by)s"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "Преглед на %(title)s"
+
+msgid "Drag"
+msgstr "Плъзнете"
+
+msgid "Explore"
+msgstr "Мениджър"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Добавете дъщерна страница към '%(title)s'"
+
+msgid "Add child page"
+msgstr "Добави дъщерна страница"
+
+msgid "Previous"
+msgstr "Предишно"
+
+msgid "Next"
+msgstr "Следващо"
+
+msgid "Disable ordering of child pages"
+msgstr "Отменете подредбата на дъщерни страници"
+
+msgid "Enable ordering of child pages"
+msgstr "Позволете подредба на дъщерни страници"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "Изберете нова страница родител за %(title)s"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "Изберете нова страница родител за <span>%(title)s</span>"
+
+msgid "Enter a search term above"
+msgstr "Добавете дума за търсене по-горе"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Страница %(page_num)s от %(total_pages)s."
+
+msgid "Home"
+msgstr "Начало"
+
+msgid "Log out"
+msgstr "Излез"
+
+msgid "Your password has been changed successfully!"
+msgstr "Паролата ви бе променена успешно!"
+
+msgid "Page '{0}' created."
+msgstr "Страница '{0}' е създадена."
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Тази страница не можеше да бъде запазена поради валидационни грешки"
+
+msgid "This page is currently awaiting moderation"
+msgstr "Тази страница очаква да бъде модерирана"
+
+msgid "Page '{0}' deleted."
+msgstr "Страница '{0}' е изтрита."
+
+msgid "Page '{0}' unpublished."
+msgstr "Страница '{0}' отменена от публикуване."
+
+msgid "Page '{0}' moved."
+msgstr "Страница '{0}' преместена."
+
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "Страница '{0}' не очаква да бъде модерирана."
+
+msgid "Page '{0}' published."
+msgstr "Страница '{0}' е публикувана."
+
+msgid "Page '{0}' rejected for publication."
+msgstr "Страница '{0}' отхвърлена от публикуване."
+
+msgid "Change the password you use to log in."
+msgstr "Сменете паролата, която ползвате за да влезете."
+
+msgid "Choose an item"
+msgstr "Изберете обект"
+
+msgid "Choose another item"
+msgstr "Избери друг обект"
+
+msgid "Clear choice"
+msgstr "Изчисти избора"
+
+msgid "Choose another page"
+msgstr "Избери друга страница"

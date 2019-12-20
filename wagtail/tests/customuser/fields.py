@@ -1,16 +1,13 @@
-from __future__ import absolute_import, unicode_literals
-
 import random
 
 from django.db import models
-from django.utils.six import text_type
 
 LOWER_BOUND = -2147483648
 UPPER_BOUND = 2147483647
 SHIFT = 92147483647
 
 
-class ConvertedValue(text_type):
+class ConvertedValue(str):
     def __new__(cls, value):
         value = int(value)
 
@@ -57,7 +54,7 @@ class ConvertedValueField(models.IntegerField):
             value = ConvertedValue(value)
         return value
 
-    def from_db_value(self, value, expression, connection, context):
+    def from_db_value(self, value, expression, connection):
         if not value:
             return
         return ConvertedValue(value)
@@ -68,6 +65,11 @@ class ConvertedValueField(models.IntegerField):
         return ConvertedValue(value).db_value
 
     def get_db_prep_value(self, value, connection, prepared=False):
+        if not value:
+            return
+        return ConvertedValue(value).db_value
+
+    def get_searchable_content(self, value):
         if not value:
             return
         return ConvertedValue(value).db_value

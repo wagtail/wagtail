@@ -1,0 +1,224 @@
+@import 'wagtailadmin/scss/helpers';
+
+section {
+    border-top: 1px solid $color-grey-3;
+    margin-top: 2em;
+    padding: 0 0 2em;
+
+    > h2:first-child {
+        margin: 0;
+        font-size: 1em;
+        background: $color-grey-4;
+        padding: 1em;
+        margin-bottom: 1em;
+    }
+}
+
+.palette {
+    @include clearfix();
+
+    ul {
+        @include clearfix();
+        @include unlist();
+    }
+
+    li {
+        float: left;
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        color: $color-black;
+    }
+
+    .contrast li {
+        height: 50px;
+    }
+
+    .contrast-large {
+        font-size: 18px;
+
+        li {
+            width: 150px;
+            height: 55px;
+        }
+    }
+
+    .color-black-text {
+        color: $color-black;
+    }
+
+    .color-grey-1-text {
+        color: $color-grey-1;
+    }
+
+    .color-white-text {
+        color: $color-white;
+    }
+
+    .color-salmon-light-text {
+        color: $color-salmon-light;
+    }
+
+    .color-red-text {
+        color: $color-red;
+    }
+
+    .color-green-text {
+        color: $color-green;
+    }
+
+    .color-green-dark-text {
+        color: $color-green-dark;
+    }
+
+    .color-teal-darker-text {
+        color: $color-teal-darker;
+    }
+
+    .color-teal-dark-text {
+        color: $color-teal-dark;
+    }
+
+    .color-grey-2-text {
+        color: $color-grey-2;
+    }
+
+    .color-red-text {
+        color: $color-red;
+    }
+
+    .color-red-dark-text {
+        color: $color-red-dark;
+    }
+
+    .color-teal-text {
+        color: $color-teal;
+    }
+
+    .color-orange-text {
+        color: $color-orange;
+    }
+
+    .color-orange-dark-text {
+        color: $color-orange-dark;
+    }
+
+    .color-blue-text {
+        color: $color-blue;
+    }
+
+    .color-salmon-text {
+        color: $color-salmon;
+    }
+
+    .color-grey-3-text {
+        color: $color-grey-3;
+    }
+
+    .color-grey-4-text {
+        color: $color-grey-4;
+    }
+
+    .color-grey-5-text {
+        color: $color-grey-5;
+    }
+
+    .color-menu-text {
+        color: $color-menu-text;
+    }
+
+    .color-teal {
+        background-color: $color-teal;
+    }
+
+    .color-teal-darker {
+        background-color: $color-teal-darker;
+    }
+
+    .color-teal-dark {
+        background-color: $color-teal-dark;
+    }
+
+    .color-red {
+        background-color: $color-red;
+    }
+
+    .color-red-dark {
+        background-color: $color-red-dark;
+    }
+
+    .color-orange {
+        background-color: $color-orange;
+    }
+
+    .color-orange-dark {
+        background-color: $color-orange-dark;
+    }
+
+    .color-green {
+        background-color: $color-green;
+    }
+
+    .color-green-dark {
+        background-color: $color-green-dark;
+    }
+
+    .color-blue {
+        background-color: $color-blue;
+    }
+
+    .color-grey-1 {
+        background-color: $color-grey-1;
+    }
+
+    .color-grey-2 {
+        background-color: $color-grey-2;
+    }
+
+    .color-grey-3 {
+        background-color: $color-grey-3;
+    }
+
+    .color-grey-4 {
+        background-color: $color-grey-4;
+    }
+
+    .color-grey-5 {
+        background-color: $color-grey-5;
+    }
+
+    .color-salmon {
+        background-color: $color-salmon;
+    }
+
+    .color-salmon-light {
+        background-color: $color-salmon-light;
+    }
+}
+
+.icons {
+    :before,
+    :after {
+        font-size: 2em;
+    }
+
+    ul {
+        column-count: 3;
+    }
+
+    li {
+        margin-bottom: 1em;
+    }
+
+    .spinner {
+        position: relative;
+    }
+
+    // .spinner .icon-spinner:after {
+    //     position: absolute;
+    // }
+}
+
+.timepicker {
+    height: 150px;
+}

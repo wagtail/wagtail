@@ -1,0 +1,327 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014,2016
+# fooflare <amos.oviedo@gmail.com>, 2014,2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Formatos soportados: %(supported_formats)s. Tamaño de arquivo máximo: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formatos soportados: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "Formato de imaxe non soportado. Formatos soportados: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "A imaxe %s non é válida"
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Este arquivo é demasiado grande (%%s). Tamaño máximo de arquivo %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Este arquivo é demasiado grande. Tamaño máximo de arquivo %s."
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Original size"
+msgstr "Tamaño orixinal"
+
+msgid "Resize to width"
+msgstr "Redimensionar á anchura"
+
+msgid "Resize to height"
+msgstr "Redimensionar á altura"
+
+msgid "Resize to min"
+msgstr "Redimensionar ao mín"
+
+msgid "Resize to max"
+msgstr "Redimensionar ao máx"
+
+msgid "Resize to fill"
+msgstr "Redimensionar para encher"
+
+msgid "Width"
+msgstr "Ancho"
+
+msgid "Height"
+msgstr "Alto"
+
+msgid "Closeness"
+msgstr "Proximidade"
+
+msgid "Add"
+msgstr "Engadir"
+
+msgid "Add/edit images you own"
+msgstr "Engadir/editar imáxenes que posúes"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit any image"
+msgstr "Editar calquera imaxe"
+
+msgid "title"
+msgstr "título"
+
+msgid "file"
+msgstr "arquivo"
+
+msgid "width"
+msgstr "ancho"
+
+msgid "height"
+msgstr "alto"
+
+msgid "created at"
+msgstr "creado en"
+
+msgid "uploaded by user"
+msgstr "subido por usuario"
+
+msgid "tags"
+msgstr "etiquetas"
+
+msgid "Choose an image"
+msgstr "Seleccionar unha imaxe"
+
+msgid "Search"
+msgstr "Porcurar"
+
+msgid "Upload"
+msgstr "Subir"
+
+msgid "Popular tags"
+msgstr "Etiquetas populares"
+
+msgid "Uploading…"
+msgstr "Subindo…"
+
+msgid "Latest images"
+msgstr "Últimas imaxes"
+
+msgid "Choose a format"
+msgstr "Selecciona un formato"
+
+msgid "Insert image"
+msgstr "Insertar imaxe"
+
+msgid "Change image file:"
+msgstr "Cambiar arquivo de imaxe:"
+
+msgid "Add an image"
+msgstr "Engadir unha imaxe"
+
+msgid "Add image"
+msgstr "Engadir imaxe"
+
+msgid "Save"
+msgstr "Gardar"
+
+msgid "Delete image"
+msgstr "Eliminar imaxe"
+
+msgid "Are you sure you want to delete this image?"
+msgstr "¿Seguro que queres eliminar esta imaxe?"
+
+msgid "Yes, delete"
+msgstr "Si, eliminar"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Editando imaxe %(title)s"
+
+msgid "Editing"
+msgstr "Editando"
+
+msgid "URL Generator"
+msgstr "Xerador de URL"
+
+msgid "Current focal point shown"
+msgstr "Actual punto focal mostrado"
+
+msgid "Max dimensions"
+msgstr "Dimensións máx"
+
+msgid "Filesize"
+msgstr "Tamaño do arquivo"
+
+msgid "File not found"
+msgstr "Arquivo non atopado"
+
+msgid "Images"
+msgstr "Imaxes"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Sentímolo, ningunha imaxe contén \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Non subiches ningunha imaxe nesta colección. ¿Por que non <a href="
+"\"%(wagtailimages_add_image_url)s\">subes unha agora</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Non subiches ningunha imaxe. ¿Por que non <a href="
+"\"%(wagtailimages_add_image_url)s\">subes unha agora</a>?"
+
+msgid "Generating URL"
+msgstr "Xerando URL"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Previsualizar"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"Observa que as images xeradas máis grandes que a pantalla aparecerán máis "
+"pequenas cando as previsualices aquí, axustándose á pantalla."
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Uso de %(title)s"
+
+msgid "Usage of"
+msgstr "Uso de"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Parent"
+msgstr "Pai"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Edit this page"
+msgstr "Editar esta páxina"
+
+msgid "Add multiple images"
+msgstr "Engadir múltiples imaxes"
+
+msgid "Add images"
+msgstr "Engadir imaxes"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Arrastrar e soltar imaxes nesta área para subir inmediatamente"
+
+msgid "Or choose from your computer"
+msgstr "Ou selecciona dende o teu ordenador"
+
+msgid "Add to collection:"
+msgstr "Engadir á colección:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Subido correctamente. Por favor, actualiza esta imaxe cun título máis "
+"apropiado, se é necesario. Podes tamén eliminar a imaxe completamente se a "
+"subida non era necesaria."
+
+msgid "Sorry, upload failed."
+msgstr "Síntoo, a subida fallou."
+
+msgid "Server Error"
+msgstr "Erro do Servidor"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informar deste erro ao teu administrador da web coa seguinte información:"
+
+msgid "Image updated."
+msgstr "Imaxe actualizada."
+
+msgid "Update"
+msgstr "Actualizar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Image permissions"
+msgstr "Permisos da imaxe"
+
+msgid "Add an image permission"
+msgstr "Engadir un permiso á imaxe"
+
+msgid "Search images"
+msgstr "Procurar imaxes"
+
+msgid "Image '{0}' updated."
+msgstr "Imaxe '{0}' actualizada."
+
+msgid "Edit again"
+msgstr "Editar de novo"
+
+msgid "The image could not be saved due to errors."
+msgstr "A imaxe non puido ser gardada debido a erros"
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"O imaxe fonte non puido ser atopado. Por favor, cambia a fonte ou elimina a "
+"imaxe."
+
+msgid "Image '{0}' deleted."
+msgstr "Imaxe '{0}' eliminada."
+
+msgid "Image '{0}' added."
+msgstr "Imaxe '{0}' engadida."
+
+msgid "The image could not be created due to errors."
+msgstr "A imaxe non puido ser creada debido a erros."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s imaxe"
+msgstr[1] "%(count)s imaxes"
+
+msgid "Edit this image"
+msgstr "Editar esta imaxe"

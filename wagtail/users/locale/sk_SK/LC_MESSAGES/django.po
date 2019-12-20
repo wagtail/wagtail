@@ -1,0 +1,295 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
+# Stevo Backor, 2016
+# Stevo Backor, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Povinné. 30 znakov alebo menej. Písmená, číslice a len znaky @/./+/-/_"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Táto hodnota môže obsahovať len písmená, čísla a znaky @/./+/-/_ "
+
+msgid "A user with that username already exists."
+msgstr "Používateľ s takýmto prihlasovacím menom už existuje."
+
+msgid "The two password fields didn't match."
+msgstr "Heslá sa nezhodujú."
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Krstné meno"
+
+msgid "Last Name"
+msgstr "Priezvisko"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Leave blank if not changing."
+msgstr "Nechajte prázdne ak nemeníte."
+
+msgid "Password confirmation"
+msgstr "Potvrdenie hesla"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Zadajte rovnaké heslo ako vyššie pre verifikáciu."
+
+msgid "Administrator"
+msgstr "Administrátor"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administrátori majú úplný prístup k správe akéhokoľvek objektu alebo "
+"nastavení."
+
+msgid "A group with that name already exists."
+msgstr "Skupina s rovnakým názvom už existuje."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Nemôžete mať viac prístupových záznamov pre tú istú stránku."
+
+msgid "submitted notifications"
+msgstr "odoslané notifikácie"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Dostávať notifikácie keď je stránka pridaná na moderáciu"
+
+msgid "approved notifications"
+msgstr "schválené notifikácie"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky potvrdený"
+
+msgid "rejected notifications"
+msgstr "zamietnuté notifikácie"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky zamietnutý"
+
+msgid "preferred language"
+msgstr "preferovaný jazyk"
+
+msgid "Select language for the admin"
+msgstr "Vyberte jazyk pre admin"
+
+msgid "user profile"
+msgstr "používatelský profil"
+
+msgid "Delete group"
+msgstr "Vymazať skupinu"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Skupina '%(group_name)s' má <strong>%(group_user_count)s</"
+"strong> používateľa.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Skupina '%(group_name)s' má <strong>%(group_user_count)s</"
+"strong> používateľov.\n"
+"            "
+msgstr[2] ""
+"\n"
+"                Skupina '%(group_name)s' má <strong>%(group_user_count)s</"
+"strong> používateľov.\n"
+"            "
+msgstr[3] ""
+"\n"
+"                Skupina '%(group_name)s' má <strong>%(group_user_count)s</"
+"strong> používateľov.\n"
+"            "
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Zmazanie tejto skupiny spôsobí odňatie práv skupiny všetkým jej členom."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Naozaj chcete zmazať túto skupinu?"
+
+msgid "Yes, delete"
+msgstr "Áno, zmazať"
+
+msgid "Add group"
+msgstr "Pridať skupinu"
+
+msgid "Editing"
+msgstr "Upraviť obrázok"
+
+msgid "Save"
+msgstr "Uložiť"
+
+msgid "Object permissions"
+msgstr "Oprávnenia objektu"
+
+msgid "Name"
+msgstr "Meno"
+
+msgid "Add"
+msgstr "Pridať"
+
+msgid "Change"
+msgstr "Zmeniť"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "Other permissions"
+msgstr "Ostátné práva"
+
+msgid "Page permissions"
+msgstr "Oprávnenia stránky"
+
+msgid "Page"
+msgstr "Stránk"
+
+msgid "Add a page permission"
+msgstr "Pridať oprávnenia stránky"
+
+msgid "groups"
+msgstr "skupiny"
+
+msgid "Add a group"
+msgstr "Pridať skupinu"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Prepáčte, žiadne skupiny nevyhovujú hľadanému výrazu \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Zatiaľ nie sú nastavené žiadne skupiny. Prečo nenastaviť <a href="
+"\"%(wagtailusers_create_group_url)s\">jednu skupinu teraz</a>?"
+
+msgid "Delete user"
+msgstr "Zmazať používateľa"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Naozaj chcete zmazať tohto používateľa?"
+
+msgid "Add user"
+msgstr "Pridať používateľa"
+
+msgid "Account"
+msgstr "Účet"
+
+msgid "Roles"
+msgstr "Role"
+
+msgid "Users"
+msgstr "Používatelia"
+
+msgid "Add a user"
+msgstr "Pridať používateľa"
+
+msgid "Username"
+msgstr "Používateľské meno"
+
+msgid "Level"
+msgstr "Úroveň"
+
+msgid "Status"
+msgstr "Postavenie"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Aktívne"
+
+msgid "Inactive"
+msgstr "Neaktívne"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Prepáčte, žiadni používatelia nevyhovujú hľadanému výrazu \"<em>"
+"%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Zatiaľ nie sú vytvorení žiadni používatelia. Prečo nejakých ne<a href="
+"\"%(wagtailusers_create_url)s\">vytvoriť</a>?"
+
+msgid "Groups"
+msgstr "Skupiny"
+
+msgid "Search groups"
+msgstr "Hľadať skupiny"
+
+msgid "Group '{0}' created."
+msgstr "Skupina '{0}' bola vytvorená."
+
+msgid "Group '{0}' updated."
+msgstr "Skupina '{0}' bola aktualizovaná."
+
+msgid "The group could not be saved due to errors."
+msgstr "Skupina nemôže byť uložená kvôli chybám."
+
+msgid "Group '{0}' deleted."
+msgstr "Skupina '{0}' bola vymazaná."
+
+msgid "Search users"
+msgstr "Hľadať používateľov"
+
+msgid "User '{0}' created."
+msgstr "Používateľ '{0}' bol vytvorený."
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "The user could not be created due to errors."
+msgstr "Používateľ nemôže byť vytvorený kvôli chybám."
+
+msgid "The user could not be saved due to errors."
+msgstr "Používateľ nemôže byť uložený kvôli chybám."
+
+msgid "User '{0}' deleted."
+msgstr "Používateľ '{0}' zmazaný."
+
+msgid "Edit this user"
+msgstr "Upraviť tohto používateľa"
+
+msgid "Delete this user"
+msgstr "Zmazať tohto používateľa"

@@ -1,0 +1,41 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailusers_tags wagtailimages_tags wagtailadmin_tags i18n %}
+
+{% block titletag %}{% trans "Add group" %}{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% versioned_static 'wagtailusers/css/groups_edit.css' %}" type="text/css" />
+    {{ form_media.css }}
+{% endblock %}
+
+{% block content %}
+
+    {% trans "Add group" as add_group_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_group_str icon="group" %}
+
+    <div class="nice-padding">
+        <form action="{% url 'wagtailusers_groups:add' %}" method="POST" novalidate>
+            {% csrf_token %}
+
+            <ul class="fields">
+                {% include "wagtailadmin/shared/field_as_li.html" with field=form.name %}
+                <li>
+                    {% format_permissions permission_bound_field=form.permissions %}
+                </li>
+                {% for panel in permission_panels %}
+                    <li>
+                        {{ panel.as_admin_panel }}
+                    </li>
+                {% endfor %}
+                <li><input type="submit" value='{% trans "Add group" %}' class="button" /></li>
+            </ul>
+        </form>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailusers/groups/includes/group_form_js.html" %}
+{% endblock %}

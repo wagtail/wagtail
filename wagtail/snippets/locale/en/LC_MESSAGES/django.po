@@ -1,0 +1,256 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: apps.py:8
+msgid "Wagtail snippets"
+msgstr ""
+
+#: templates/wagtailsnippets/chooser/choose.html:2
+msgid "Choose"
+msgstr ""
+
+#: templates/wagtailsnippets/chooser/choose.html:14
+msgid "Search"
+msgstr ""
+
+#: templates/wagtailsnippets/chooser/results.html:5
+#: templates/wagtailsnippets/snippets/results.html:5
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailsnippets/chooser/results.html:18
+#: templates/wagtailsnippets/snippets/results.html:19
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+
+#: templates/wagtailsnippets/chooser/results.html:21
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:5
+#: templates/wagtailsnippets/snippets/type_index.html:40
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:11
+msgid "Delete "
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:23
+#: templates/wagtailsnippets/snippets/edit.html:40
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:26
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:28
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:37
+msgid "Yes, delete"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/confirm_delete.html:38
+msgid "No, don't delete"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/create.html:3
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/create.html:5
+msgid "New"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/create.html:16
+#: templates/wagtailsnippets/snippets/edit.html:20
+msgid "Saving…"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/create.html:17
+#: templates/wagtailsnippets/snippets/edit.html:21
+msgid "Save"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/edit.html:3
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/edit.html:5
+msgid "Editing"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/edit.html:16
+msgid "Actions"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/edit.html:25
+msgid "Delete"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/edit.html:38
+msgid "Usage"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/index.html:3
+#: templates/wagtailsnippets/snippets/index.html:5 wagtail_hooks.py:30
+msgid "Snippets"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/list.html:12
+#, python-format
+msgid "Select all %(snippet_type_name_plural)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/list.html:15
+#: templates/wagtailsnippets/snippets/usage.html:16
+msgid "Title"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/list.html:24
+#, python-format
+msgid "Select %(snippet)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/results.html:22
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/type_index.html:3
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/type_index.html:25
+#, python-format
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/type_index.html:43
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:3
+#, python-format
+msgid "Usage of %(title)s"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:5
+msgid "Usage of"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:17
+msgid "Parent"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:18
+msgid "Type"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:19
+msgid "Status"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/usage.html:26
+msgid "Edit this page"
+msgstr ""
+
+#: views/chooser.py:29 views/chooser.py:41 views/snippets.py:91
+#: views/snippets.py:103
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr ""
+
+#: views/snippets.py:148
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created."
+msgstr ""
+
+#: views/snippets.py:155 views/snippets.py:202
+msgid "Edit"
+msgstr ""
+
+#: views/snippets.py:161
+msgid "The snippet could not be created due to errors."
+msgstr ""
+
+#: views/snippets.py:195
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' updated."
+msgstr ""
+
+#: views/snippets.py:208
+msgid "The snippet could not be saved due to errors."
+msgstr ""
+
+#: views/snippets.py:243
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr ""
+
+#: views/snippets.py:252
+#, python-format
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: widgets.py:15
+#, python-format
+msgid "Choose %s"
+msgstr ""
+
+#: widgets.py:16
+#, python-format
+msgid "Choose another %s"
+msgstr ""
+
+#: widgets.py:17
+#, python-format
+msgid "Edit this %s"
+msgstr ""

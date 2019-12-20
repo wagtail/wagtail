@@ -5,14 +5,15 @@
 # Translators:
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2016
-# Yiannis Inglessis <negletios@users.noreply.github.com>, 2016
+# serafeim <serafeim@torchbox.com>, 2016
+# Yiannis Inglessis <negtheone@gmail.com>, 2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-03-04 19:21+0000\n"
-"Last-Translator: Nick Mavrakis <mavrakis.n@gmail.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -28,8 +29,8 @@ msgstr "Επεξεργασία %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Επεξεργασία"
 
-msgid "Saving..."
-msgstr "Αποθήκευση..."
+msgid "Saving…"
+msgstr "Αποθήκευση…"
 
 msgid "Save"
 msgstr "Αποθήκευση"
@@ -37,9 +38,5 @@ msgstr "Αποθήκευση"
 msgid "Settings"
 msgstr "Επιλογές"
 
-#, python-brace-format
-msgid "{setting_type} updated."
-msgstr "Η επιλογή {setting_type} ανανεώθηκε."
-
 msgid "The setting could not be saved due to errors."
-msgstr "Δεν ήταν δυνατή η αποθήκευση της επιλογής λόγω σφάλματος."
+msgstr "Η ρύθμιση δεν μπορεί να αποθηκευτεί λόγω σφάλματος."

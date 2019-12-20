@@ -4,12 +4,14 @@
 #
 # Translators:
 # Miłosz Miśkiewicz, 2016
+# Miłosz Miśkiewicz, 2018-2019
+# Miłosz Miśkiewicz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-05-18 13:45+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-25 10:09+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -28,8 +30,8 @@ msgstr "Edytowanie %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Edytowanie"
 
-msgid "Saving..."
-msgstr "Zapisywanie..."
+msgid "Saving…"
+msgstr "Zapisywanie…"
 
 msgid "Save"
 msgstr "Zapisz"
@@ -37,9 +39,14 @@ msgstr "Zapisz"
 msgid "Settings"
 msgstr "Ustawienia"
 
-#, python-brace-format
-msgid "{setting_type} updated."
-msgstr "{setting_type} uaktualnione."
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"To ustawienie nie mogło zostać otwarte ponieważ nie zdefiniowano żadnego "
+"serwisu."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s zaktualizowane."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Ustawienie nie mogło zostać zapisane z powodu błędów."

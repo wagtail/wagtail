@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Choose"
+msgstr "Seç"
+
+msgid "Search"
+msgstr "Ara"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "%(snippet_type_name)s silmek istediğinizden emin misiniz?"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "Yeni %(snippet_type_name)s"
+
+msgid "New"
+msgstr "Yeni"
+
+msgid "Saving…"
+msgstr "Kaydediliyor…"
+
+msgid "Save"
+msgstr "Kaydet"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "%(snippet_type_name)s - %(instance)s düzenleniyor"
+
+msgid "Editing"
+msgstr "Düzenleniyor"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Usage of"
+msgstr "Kullanım"
+
+msgid "Parent"
+msgstr "Üst-Ebeveyn"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Edit this page"
+msgstr "Bu sayfayı düzenle"
+
+msgid "Edit"
+msgstr "Düzenle"

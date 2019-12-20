@@ -1,0 +1,51 @@
+{% load i18n wagtailusers_tags wagtailadmin_tags %}
+<table class="listing">
+    <thead>
+        <tr>
+            <th class="name">
+                {% if ordering == "name" %}
+                    <a href="{% url 'wagtailusers_users:index' %}" class="icon icon-arrow-down-after teal">
+                        {% trans "Name" %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=name" class="icon icon-arrow-down-after">
+                        {% trans "Name" %}
+                    </a>
+                {% endif %}
+            </th>
+            <th class="username">
+                {% if ordering == "username" %}
+                    <a href="{% url 'wagtailusers_users:index' %}" class="icon icon-arrow-down-after teal">
+                        {% trans "Username" %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=username" class="icon icon-arrow-down-after">
+                        {% trans "Username" %}
+                    </a>
+                {% endif %}
+            </th>
+            <th class="level">{% trans "Level" %}</th>
+            <th class="status">{% trans "Status" %}</th>
+            <th class="last-login">{% trans "Last Login" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td class="title" valign="top">
+                    <div class="title-wrapper">
+                        <span class="avatar small"><img src="{% avatar_url user size=25 %}" alt="" /></span>
+                        <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user.get_full_name|default:user.get_username }}</a>
+                    </div>
+                    <ul class="actions">
+                        {% user_listing_buttons user %}
+                    </ul>
+                </td>
+                <td class="username" valign="top">{{ user.get_username }}</td>
+                <td class="level" valign="top">{% if user.is_superuser %}{% trans "Admin" %}{% endif %}</td>
+                <td class="status" valign="top"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</div></td>
+                <td {% if user.last_login %} class="human-readable-date" title="{{ user.last_login|date:"d M Y H:i" }}"{% endif %}>{% if user.last_login %}{% blocktrans with time_period=user.last_login|timesince %}{{ time_period }} ago{% endblocktrans %}{% endif %}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

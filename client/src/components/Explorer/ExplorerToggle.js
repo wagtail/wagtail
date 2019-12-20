@@ -11,7 +11,9 @@ import Button from '../../components/Button/Button';
  */
 const ExplorerToggle = ({ children, onToggle }) => (
   <Button
-    icon={['folder-open-inverse', 'arrow-right-after']}
+    className="submenu-trigger"
+    icon="folder-open-inverse"
+    dialogTrigger={true}
     onClick={onToggle}
   >
     {children}

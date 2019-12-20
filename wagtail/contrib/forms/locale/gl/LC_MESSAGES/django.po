@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# fooflare <amos.oviedo@gmail.com>, 2016
+# fooflare <amos.oviedo@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Single line text"
+msgstr "Liña de texto simple"
+
+msgid "Multi-line text"
+msgstr "Texto de múltiples liñas"
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "Number"
+msgstr "Número"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Casilla de verificación"
+
+msgid "Checkboxes"
+msgstr "Casillas de verificación"
+
+msgid "Drop down"
+msgstr "Desplegable"
+
+msgid "Radio buttons"
+msgstr "Botóns de opción"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Date/time"
+msgstr "Data/hora"
+
+msgid "submit time"
+msgstr "Hora de envío"
+
+msgid "form submission"
+msgstr "formulario de envío"
+
+msgid "label"
+msgstr "etiqueta"
+
+msgid "The label of the form field"
+msgstr "A etiqueta do campo do formulario"
+
+msgid "field type"
+msgstr "tipo de campo"
+
+msgid "required"
+msgstr "obligatorio"
+
+msgid "choices"
+msgstr "seleccións"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Lista de eleccións separadas por coma. Só aplicable en casillas de "
+"verificación, botóns de opción e desplegables."
+
+msgid "default value"
+msgstr "valor por defecto"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr ""
+"Valor por defecto. Valores separados por coma soportados polas casillas de "
+"verificación."
+
+msgid "help text"
+msgstr "texto de axuda"
+
+msgid "to address"
+msgstr "á dirección"
+
+msgid "from address"
+msgstr "dende a dirección"
+
+msgid "subject"
+msgstr "Asunto"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Forms"
+msgstr "Formularios"
+
+msgid "Pages"
+msgstr "Páxinas"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Envíos de %(form_title)s"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Datos do formulario <span>%(form_title)s</span>"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Download CSV"
+msgstr "Descargar CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Non houbo envíos do formulario '%(title)s'."
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Origin"
+msgstr "Orixe"
+
+msgid "No form pages have been created."
+msgstr "Non foi creada ningunha páxina de formulario."

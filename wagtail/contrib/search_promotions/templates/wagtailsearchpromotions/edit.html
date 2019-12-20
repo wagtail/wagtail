@@ -1,0 +1,45 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% blocktrans with query=query.query_string %}Editing {{ query }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=query.query_string icon="pick"  %}
+
+    <form action="{% url 'wagtailsearchpromotions:edit' query.id %}" method="POST" class="nice-padding" novalidate>
+        {% csrf_token %}
+
+        <ul class="fields">
+            <li>
+                {% include "wagtailsearch/queries/chooser_field.html" with field=query_form.query_string only %}
+            </li>
+            <li>
+                {% include "wagtailsearchpromotions/includes/searchpromotions_formset.html" with formset=searchpicks_formset only %}
+            </li>
+            <li>
+                <input type="submit" value="{% trans 'Save' %}" class="button" />
+                <a href="{% url 'wagtailsearchpromotions:delete' query.id %}" class="button button-secondary no">{% trans "Delete" %}</a>
+            </li>
+        </ul>
+    </form>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ form_media.css }}
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    <script src="{% versioned_static 'wagtailsearch/js/query-chooser-modal.js' %}"></script>
+    {{ form_media.js }}
+
+    <script type="text/javascript">
+        {% include "wagtailsearchpromotions/includes/searchpromotions_formset.js" with formset=searchpicks_formset only  %}
+        {% include "wagtailsearch/queries/chooser_field.js" only %}
+
+        $(function() {
+            createQueryChooser('{{ query_form.query_string.auto_id }}');
+        });
+    </script>
+{% endblock %}

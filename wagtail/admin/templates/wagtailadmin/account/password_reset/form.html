@@ -1,0 +1,48 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}{% trans "Reset password" %}{% endblock %}
+{% block bodyclass %}login{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
+{% endblock %}
+
+{% block furniture %}
+    <main class="content-wrapper" role="main">
+        {% if form.non_field_errors %}
+            <div class="messages">
+                <ul>
+                    {% for error in form.non_field_errors %}
+                        <li class="error">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <h1>{% trans "Reset your password" %}</h1>
+
+            <ul class="fields">
+                <li>
+                    <div class="field">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                        <div class="messages">
+                            <ul>
+                                {% for error in form.email.errors %}
+                                    <li class="error">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="submit">
+                    <button type="submit" class="button">{% trans 'Reset password' %}</button>
+                </li>
+            </ul>
+        </form>
+    </main>
+{% endblock %}

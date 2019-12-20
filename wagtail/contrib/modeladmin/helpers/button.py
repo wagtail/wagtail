@@ -1,11 +1,9 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib.admin.utils import quote
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.translation import ugettext as _
 
 
-class ButtonHelper(object):
+class ButtonHelper:
 
     default_button_classnames = ['button']
     add_button_classnames = ['bicolor', 'icon', 'icon-plus']
@@ -18,8 +16,8 @@ class ButtonHelper(object):
         self.request = request
         self.model = view.model
         self.opts = view.model._meta
-        self.verbose_name = force_text(self.opts.verbose_name)
-        self.verbose_name_plural = force_text(self.opts.verbose_name_plural)
+        self.verbose_name = force_str(self.opts.verbose_name)
+        self.verbose_name_plural = force_str(self.opts.verbose_name_plural)
         self.permission_helper = view.permission_helper
         self.url_helper = view.url_helper
 

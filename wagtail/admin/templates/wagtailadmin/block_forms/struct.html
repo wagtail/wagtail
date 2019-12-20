@@ -1,0 +1,19 @@
+<div class="{{ classname }}">
+    {% if help_text %}
+        <span>
+            <div class="help">
+                <span class="icon-help-inverse" aria-hidden="true"></span>
+                {{ help_text }}
+            </div>
+        </span>
+    {% endif %}
+
+    {% for child in children.values %}
+        <div class="field {% if child.block.required %}required{% endif %}">
+            {% if child.block.label %}
+                <label class="field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label>
+            {% endif %}
+            {{ child.render_form }}
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<nav aria-label="{% trans 'Breadcrumb' %}">
+    <ul class="breadcrumb">
+        {% for page in pages %}
+            {% if page.is_root %}
+                {# Root section is shown as a 'site' icon in place of the title #}
+                <li class="home"><a href="{% url 'wagtailadmin_explore_root' %}" class="icon icon-site text-replace">{% trans 'Root' %}</a></li>
+            {% elif forloop.first %}
+                {# For limited-permission users whose breadcrumb starts further down from the root, the first item displays as a 'home' icon in place of the title #}
+                <li class="home"><a href="{% url 'wagtailadmin_explore' page.id %}" class="icon icon-home text-replace">{% trans 'Home' %}</a></li>
+            {% else %}
+                <li><a href="{% url 'wagtailadmin_explore' page.id %}">{{ page.get_admin_display_title }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>

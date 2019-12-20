@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Henrik Kröger <hedwig@riseup.net>, 2016
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Matthias Martin, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-05-12 06:42+0000\n"
-"Last-Translator: Moritz Pfeiffer <moritz@alp-phone.ch>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-18 06:59+0000\n"
+"Last-Translator: Matthias Martin\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -27,8 +28,8 @@ msgstr "%(setting_type_name)s - %(instance)s bearbeiten"
 msgid "Editing"
 msgstr "Bearbeiten"
 
-msgid "Saving..."
-msgstr "Speichern..."
+msgid "Saving…"
+msgstr "Speichern…"
 
 msgid "Save"
 msgstr "Speichern"
@@ -36,9 +37,14 @@ msgstr "Speichern"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#, python-brace-format
-msgid "{setting_type} updated."
-msgstr "{setting_type} geändert."
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Diese Einstellung konnte nicht geöffnet werden, da keine Website definiert "
+"ist."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s aktualisiert."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte die Einstellung nicht gespeichert werden."

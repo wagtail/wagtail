@@ -1,0 +1,145 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-31 19:26+0000\n"
+"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtail اعادات توجية"
+
+msgid "From site"
+msgstr "من الموقع"
+
+msgid "All sites"
+msgstr "كل المواقع"
+
+msgid "A redirect with this path already exists."
+msgstr "يوجد بالفعل إعادة توجيه مع هذا المسار."
+
+msgid "redirect from"
+msgstr "إعادة توجيه من"
+
+msgid "site"
+msgstr "موقع"
+
+msgid "permanent"
+msgstr "دائم"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"موصى به. تضمن عمليات إعادة التوجيه الدائمة لمحركات البحث أن تنسى الصفحة "
+"القديمة (\"إعادة التوجيه من\") وفهرسة الصفحة الجديدة بدلاً من ذلك."
+
+msgid "redirect to a page"
+msgstr "إعادة توجيه إلى صفحة"
+
+msgid "redirect to any URL"
+msgstr "إعادة التوجيه إلى أي عنوان"
+
+msgid "temporary"
+msgstr "مؤقت"
+
+msgid "redirect"
+msgstr "إعادة توجيه"
+
+msgid "Add redirect"
+msgstr "اضف اعادة التوجية"
+
+msgid "Save"
+msgstr "احفظ"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "حذف اعادة التوجية %(title)s"
+
+msgid "Delete"
+msgstr "احذف"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "هل أنت متأكد من أنك تريد حذف إعادة التوجيه هذه؟"
+
+msgid "Yes, delete"
+msgstr "نعم احذف"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "يتم تحرير %(title)s"
+
+msgid "Editing"
+msgstr "تحرير"
+
+msgid "Delete redirect"
+msgstr "احذف غير الاتجاه"
+
+msgid "Redirects"
+msgstr "اعادة التوجيهات"
+
+msgid "From"
+msgstr "من"
+
+msgid "Site"
+msgstr "موقع"
+
+msgid "To"
+msgstr "إلى"
+
+msgid "Type"
+msgstr "نوع"
+
+msgid "Edit this redirect"
+msgstr "تحرير إعادة التوجيه"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا توجد عمليات إعادة توجيه تطابق \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"لم يتم إنشاء عمليات إعادة توجيه. لماذا لا<a href="
+"\"%(wagtailredirects_add_redirect_url)s\"> تضيف واحدة</a>؟"
+
+msgid "Search redirects"
+msgstr "ابحث تغييرات الاتجاه"
+
+msgid "Redirect '{0}' updated."
+msgstr "جددت عملية تغيير الاتجاه {0}"
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "لا يمكن حفظ إعادة التوجيه بسبب الأخطاء."
+
+msgid "Redirect '{0}' deleted."
+msgstr "إعادة توجيه '{0}' محذوف."
+
+msgid "Redirect '{0}' added."
+msgstr "تمت إعادة توجيه '{0}'."
+
+msgid "The redirect could not be created due to errors."
+msgstr "لا يمكن إنشاء إعادة التوجيه بسبب الأخطاء."

@@ -1,0 +1,215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
+# Gilson Filho <me@gilsondev.in>, 2014
+# Gilson Filho <me@gilsondev.in>, 2014
+# Gladson <gladsonbrito@gmail.com>, 2014
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 20:43+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
+"wagtail/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Choose"
+msgstr "Escolha"
+
+msgid "Search"
+msgstr "Pesquisa"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Há %(counter)s resultado\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Há %(counter)s resultados\n"
+"        "
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
+msgstr ""
+"Você não criou nenhum %(snippet_type_name)s fragmento. Por que não <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">criar um agora</a>?"
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Remover %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Remover"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "Usado %(usage_count)s vezes"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Você tem certeza que deseja excluir essa %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Tem certeza de que deseja excluir %(count)s %(snippet_type_name)s?"
+
+msgid "Yes, delete"
+msgstr "Sim, exclua"
+
+msgid "No, don't delete"
+msgstr "Não, não apague"
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "Adicionar  %(snippet_type_name)s"
+
+msgid "New"
+msgstr "Adicionar"
+
+msgid "Saving…"
+msgstr "Salvando…"
+
+msgid "Save"
+msgstr "Salvar"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "Editando %(snippet_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Editando"
+
+msgid "Actions"
+msgstr "Ações"
+
+msgid "Delete"
+msgstr "Excluir"
+
+msgid "Usage"
+msgstr "Uso"
+
+msgid "Snippets"
+msgstr "Fragmentos"
+
+#, python-format
+msgid "Select all %(snippet_type_name_plural)s"
+msgstr "Selecionar tudo %(snippet_type_name_plural)s"
+
+msgid "Title"
+msgstr "Título"
+
+#, python-format
+msgid "Select %(snippet)s"
+msgstr "Selecionar %(snippet)s"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Nenhum %(snippet_type_name_plural)s foi criado. Por que não  <a href="
+"\"%(wagtailsnippets_create_url)s\">adicionar um</a>?"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Fragmentos %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr "Fragmentos <span>%(snippet_type_name_plural)s</span>"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Adicionar %(snippet_type_name)s"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Uso de %(title)s"
+
+msgid "Usage of"
+msgstr "Uso de"
+
+msgid "Parent"
+msgstr "Pai"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Editar essa página"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Pesquisa %(snippet_type_name)s"
+
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created."
+msgstr "%(snippet_type)s '%(instance)s' criado."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "The snippet could not be created due to errors."
+msgstr "O fragmento não pôde ser criado por conter erros."
+
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' updated."
+msgstr "%(snippet_type)s '%(instance)s' atualizado."
+
+msgid "The snippet could not be saved due to errors."
+msgstr "O snippet não pode ser salvo por conter erros."
+
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' excluído."
+
+#, python-format
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] "%(count)d %(snippet_type)s excluído."
+msgstr[1] "%(count)d %(snippet_type)s excluídos."
+
+#, python-format
+msgid "Choose %s"
+msgstr "Escolher %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Escolha outro %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Editar este %s"

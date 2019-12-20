@@ -1,108 +1,70 @@
 language: python
 cache: pip
-dist: trusty
+dist: xenial
 
-# Use container-based infrastructure
-sudo: false
-
-# Install JDK8 for Elasticsearch 5
 addons:
-  apt:
-    packages:
-     - oracle-java8-installer
-     - oracle-java8-set-default
+  postgresql: "9.6"
 
 matrix:
   include:
-   - env: TOXENV=py27-dj18-postgres-noelasticsearch
-     python: 2.7
-   - env: TOXENV=py27-dj18-mysql-noelasticsearch
-     python: 2.7
-   - env: TOXENV=py27-dj18-sqlite-noelasticsearch
-     python: 2.7
-   - env: TOXENV=py35-dj18-postgres-noelasticsearch
+   - env: TOXENV=py35-dj21-mysql-noelasticsearch
      python: 3.5
-   - env: TOXENV=py27-dj110-sqlite-noelasticsearch
-     python: 2.7
-   - env: TOXENV=py27-dj110-postgres-noelasticsearch
-     python: 2.7
-   - env: TOXENV=py27-dj110-mysql-noelasticsearch
-     python: 2.7
-   - env: TOXENV=py27-dj110-mysql-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-     python: 2.7
-     sudo: true
-   - env: TOXENV=py27-dj111-sqlite-noelasticsearch
-     python: 2.7
-   - env: TOXENV=py27-dj111-postgres-noelasticsearch
-     python: 2.7
-   - env: TOXENV=py27-dj111-mysql-noelasticsearch
-     python: 2.7
-   - env: TOXENV=py27-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-     python: 2.7
-     sudo: true
-   - env: TOXENV=py34-dj110-postgres-noelasticsearch
-     python: 3.4
-   - env: TOXENV=py34-dj110-sqlite-noelasticsearch
-     python: 3.4
-   - env: TOXENV=py34-dj110-mysql-noelasticsearch
-     python: 3.4
-   - env: TOXENV=py35-dj110-sqlite-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj110-postgres-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj110-mysql-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj110-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
-     python: 3.5
-     sudo: true
-   - env: TOXENV=py35-dj110-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-     python: 3.5
-     sudo: true
-   - env: TOXENV=py35-dj110-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-     python: 3.5
-     sudo: true
-   - env: TOXENV=py35-dj111-postgres-noelasticsearch
-     python: 3.5
-   - env: TOXENV=py35-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
-     python: 3.5
-     sudo: true
-   - env: TOXENV=py36-dj111-sqlite-noelasticsearch
+   - env: TOXENV=py36-dj21-postgres-noelasticsearch
      python: 3.6
-   - env: TOXENV=py36-dj111-postgres-noelasticsearch
+   - env: TOXENV=py37-dj21-sqlite-noelasticsearch
+     python: 3.7
+   - env: TOXENV=py37-dj22-postgres-noelasticsearch
+     python: 3.7
+   - env: TOXENV=py37-dj30-sqlite-noelasticsearch
+     python: 3.7
+   - env: TOXENV=py37-dj30-mysql-noelasticsearch
+     python: 3.7
+   - env: TOXENV=py38-dj30-postgres-noelasticsearch
+     python: 3.8
+   - env: TOXENV=py38-dj30stable-postgres-noelasticsearch
+     python: 3.8
+   - env: TOXENV=py38-djmaster-postgres-noelasticsearch
+     python: 3.8
+   - env: TOXENV=py36-dj21-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
      python: 3.6
-   - env: TOXENV=py36-dj111-mysql-noelasticsearch
+   - env: TOXENV=py36-dj21-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
      python: 3.6
-   - env: TOXENV=py36-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
+   - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
      python: 3.6
-     sudo: true
-   - env: TOXENV=py36-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-     python: 3.6
-     sudo: true
-   - env: TOXENV=py36-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-     python: 3.6
-     sudo: true
+   - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+     python: 3.7
+   - env: TOXENV=py37-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+     python: 3.7
+   - env: TOXENV=py38-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+     python: 3.8
+   - env: TOXENV=py38-dj30-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+     python: 3.8
   allow_failures:
-    # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky;
-    - env: TOXENV=py27-dj110-mysql-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-    - env: TOXENV=py27-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-    - env: TOXENV=py35-dj110-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
-    - env: TOXENV=py35-dj110-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-    - env: TOXENV=py35-dj110-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-    - env: TOXENV=py35-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
-    - env: TOXENV=py36-dj111-postgres-elasticsearch INSTALL_ELASTICSEARCH1=yes
-    - env: TOXENV=py36-dj111-postgres-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-    - env: TOXENV=py36-dj111-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky
+    - env: TOXENV=py36-dj21-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+    - env: TOXENV=py36-dj21-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+    - env: TOXENV=py36-dj21-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+    - env: TOXENV=py37-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+    - env: TOXENV=py38-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+    - env: TOXENV=py38-dj30-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+    # allow failures against Django 3.0.x stable branch
+    - env: TOXENV=py38-dj30stable-postgres-noelasticsearch
+    # allow failures against Django master
+    - env: TOXENV=py38-djmaster-postgres-noelasticsearch
 
 # Services
 services:
   - elasticsearch
+  - mysql
 
 # Package installation
 install:
   - pip install tox codecov
-  - 'if [[ -n "$INSTALL_ELASTICSEARCH1" ]]; then ./scripts/travis/install_elasticsearch1.sh; fi'
   - 'if [[ -n "$INSTALL_ELASTICSEARCH2" ]]; then ./scripts/travis/install_elasticsearch2.sh; fi'
   - 'if [[ -n "$INSTALL_ELASTICSEARCH5" ]]; then ./scripts/travis/install_elasticsearch5.sh; fi'
+  - 'if [[ -n "$INSTALL_ELASTICSEARCH6" ]]; then ./scripts/travis/install_elasticsearch6.sh; fi'
+  - 'if [[ -n "$INSTALL_ELASTICSEARCH7" ]]; then ./scripts/travis/install_elasticsearch7.sh; fi'
 
 # Pre-test configuration
 before_script:
@@ -115,7 +77,7 @@ script:
   tox
 
 after_success:
-  - codecov
+  - codecov -F backend
 
 # Who to notify about build results
 notifications:

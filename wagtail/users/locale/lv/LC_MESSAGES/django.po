@@ -1,0 +1,188 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Obligāts. 30 vai mazāk simbolu. Burti, cipari un @/./+/-/_ simboli."
+
+msgid "A user with that username already exists."
+msgstr "Lietotājvāds aizņemts"
+
+msgid "Email"
+msgstr "E-pasts"
+
+msgid "First Name"
+msgstr "Vārds"
+
+msgid "Last Name"
+msgstr "Uzvārds"
+
+msgid "Password"
+msgstr "Parole"
+
+msgid "Password confirmation"
+msgstr "Paroles apstiprinājums"
+
+msgid "Administrator"
+msgstr "Administrators"
+
+msgid "A group with that name already exists."
+msgstr "Grupas nosaukums aizņemts."
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Saņemt paziņojumu, kad lapa iesniegta administrēšanai"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Saņemt paziņojumu, kad lapas labojumi apstiprināti"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Saņemt paziņojumu, kad lapas labojumi atraidīti"
+
+msgid "Delete group"
+msgstr "Dzēst grupu"
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Vai esat drošs, ka vēlaties dzēst šo grupu?"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+msgid "Add group"
+msgstr "Pievienot grupu"
+
+msgid "Editing"
+msgstr "Labošana"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Name"
+msgstr "Vārds"
+
+msgid "Add"
+msgstr "Pievienot"
+
+msgid "Change"
+msgstr "Mainīt"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Other permissions"
+msgstr "Citas atļaujas"
+
+msgid "Page permissions"
+msgstr "Lapu atļaujas"
+
+msgid "Page"
+msgstr "Lapa"
+
+msgid "Add a page permission"
+msgstr "Pievienot atļauju lapai"
+
+msgid "groups"
+msgstr "grupas"
+
+msgid "Add a group"
+msgstr "PIevienot grupu"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Nav izveidotas grupas. <a href=\"%(wagtailusers_create_group_url)s"
+"\">Pievienot jaunu grupu?</a>"
+
+msgid "Add user"
+msgstr "Pievienot lietotāju"
+
+msgid "Account"
+msgstr "Konts"
+
+msgid "Roles"
+msgstr "Lomas"
+
+msgid "Users"
+msgstr "Lietotāji"
+
+msgid "Add a user"
+msgstr "Pievienot lietotāju"
+
+msgid "Username"
+msgstr "Lietotājvārds"
+
+msgid "Level"
+msgstr "Līmenis"
+
+msgid "Status"
+msgstr "Statuss"
+
+msgid "Admin"
+msgstr "Administrators"
+
+msgid "Active"
+msgstr "Aktīvs"
+
+msgid "Inactive"
+msgstr "Nav aktīvs"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Nav lietotāju, kas atbilst \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Nav lietotāju. <a href=\"%(wagtailusers_create_url)s\">Pievienot jaunus</a>?"
+
+msgid "Search groups"
+msgstr "Meklēt grupas"
+
+msgid "Group '{0}' created."
+msgstr "Grupa '{0}' izveidota"
+
+msgid "Group '{0}' updated."
+msgstr "Grupa '{0}' atjaunota."
+
+msgid "The group could not be saved due to errors."
+msgstr "Grupu nevarēja saglabāt kļūdu dēļ."
+
+msgid "Group '{0}' deleted."
+msgstr "Grupa '{0}' dzēsta."
+
+msgid "Search users"
+msgstr "Meklēt lietotājus"
+
+msgid "User '{0}' created."
+msgstr "Grupa '{0}' izveidota."
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "The user could not be created due to errors."
+msgstr "Lietotāju nevarēja izveidot kļūdu dēļ."
+
+msgid "The user could not be saved due to errors."
+msgstr "Lietotāju nevarēja saglabāt kļūdu dēļ."

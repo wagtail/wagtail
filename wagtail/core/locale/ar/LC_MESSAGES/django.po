@@ -1,0 +1,327 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# ultraify media <ultraify@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail core"
+
+msgid "This block has no options."
+msgstr "هذه الكتلة لا يوجد لديه خيارات."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "الحد الأدنى لعدد العناصر هو %d"
+
+msgid "This field is required."
+msgstr "هذه الخانة مطلوبه."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "الحد الأقصى لعدد العناصر هو %d"
+
+msgid "Password"
+msgstr "كلمة سر"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "كلمة المرور غير صحيحة, الرجاء المحاولة مرة أخرى."
+
+msgid "hostname"
+msgstr "اسم المضيف"
+
+msgid "port"
+msgstr "منفذ"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"عيّن هذا إلى شيء آخر غير 80 إذا كنت تريد رقم منفذ محددًا ليظهر في عناوين URL "
+"(على سبيل المثال ، التطوير على المنفذ 8000). لا يؤثر على معالجة الطلب (لذلك "
+"لا يزال يعمل إعادة توجيه المنفذ)."
+
+msgid "site name"
+msgstr "إسم الموقع"
+
+msgid "Human-readable name for the site."
+msgstr "اسم قابل للقراءة من قبل الإنسان للموقع."
+
+msgid "root page"
+msgstr "الصفحة الرئيسية"
+
+msgid "is default site"
+msgstr "أهذا هو الموقع الافتراضي"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"إذا كان هذا صحيحًا ، فسيتعامل هذا الموقع مع طلبات جميع أسماء المضيف الأخرى "
+"التي لا تحتوي على إدخال موقع خاص بها"
+
+msgid "site"
+msgstr "موقع"
+
+msgid "sites"
+msgstr "مواقع"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s تم تكوينه بالفعل كموقع افتراضي. يجب عليك تعطيل هذا قبل أن تتمكن "
+"من حفظ هذا الموقع كإعداد افتراضي. "
+
+msgid "title"
+msgstr "عنوان"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "عنوان الصفحة كما تريد أن يراه الجمهور"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr "اسم الصفحة كما ستظهر في URLs e.g http://domain.com/blog/[my-slug]/"
+
+msgid "content type"
+msgstr "نوع المحتوى"
+
+msgid "live"
+msgstr "حي"
+
+msgid "has unpublished changes"
+msgstr "يحتوي على تغييرات غير منشورة"
+
+msgid "URL path"
+msgstr "مسار عنوان URL"
+
+msgid "owner"
+msgstr "صاحب"
+
+msgid "page title"
+msgstr "عنوان الصفحة"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr "اختياري. عنوان \"محرك البحث الصديق\". سيظهر هذا في أعلى نافذة المتصفح."
+
+msgid "show in menus"
+msgstr "تظهر في القوائم"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"ما إذا كان رابط إلى هذه الصفحة سيظهر في القوائم التي يتم إنشاؤها تلقائيًا"
+
+msgid "search description"
+msgstr "وصف البحث"
+
+msgid "go live date/time"
+msgstr "تاريخ النشر / الوقت"
+
+msgid "expiry date/time"
+msgstr "تاريخ انتهاء الصلاحية / الوقت"
+
+msgid "expired"
+msgstr "منقضٍ"
+
+msgid "locked"
+msgstr "مغلق"
+
+msgid "first published at"
+msgstr "نشر للمرة الأولى في"
+
+msgid "last published at"
+msgstr "نشرت في"
+
+msgid "latest revision created at"
+msgstr "أحدث نسخة تم إنشاؤها في"
+
+msgid "This slug is already in use"
+msgstr "هذه السقالة هي بالفعل قيد الاستخدام"
+
+msgid "scheduled"
+msgstr "موقت"
+
+msgid "draft"
+msgstr "مسود"
+
+msgid "live + scheduled"
+msgstr "حي + مجدول"
+
+msgid "live + draft"
+msgstr "حي + مسودة"
+
+msgid "Default"
+msgstr "عادي"
+
+msgid "page"
+msgstr "صفحة"
+
+msgid "pages"
+msgstr "صفحات"
+
+msgid "submitted for moderation"
+msgstr "قدمت للإشراف"
+
+msgid "created at"
+msgstr "أنشئت في"
+
+msgid "user"
+msgstr "مستخدم"
+
+msgid "content JSON"
+msgstr "محتوى JSON"
+
+msgid "approved go live at"
+msgstr "وافق على النشر في"
+
+msgid "page revision"
+msgstr "مراجعة صفحة"
+
+msgid "page revisions"
+msgstr "مراجعة صفحات"
+
+msgid "Add"
+msgstr "أضف"
+
+msgid "Add/edit pages you own"
+msgstr "أضف أو نقح سفحات أنت الصاحب لها "
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Edit any page"
+msgstr "تحرير أي صفحة"
+
+msgid "Publish"
+msgstr "انشر"
+
+msgid "Publish any page"
+msgstr "انشر أي صفحة"
+
+msgid "Bulk delete"
+msgstr "حذف بالجملة"
+
+msgid "Delete pages with children"
+msgstr "حذف الصفحات مع التفرعات"
+
+msgid "Lock"
+msgstr "أقفل"
+
+msgid "Lock/unlock any page"
+msgstr "اغلق أو افتح أي صفحة"
+
+msgid "group"
+msgstr "مجموعة"
+
+msgid "permission type"
+msgstr "نوع  التصريح"
+
+msgid "group page permission"
+msgstr "إذن صفحة المجموعة"
+
+msgid "group page permissions"
+msgstr "أذونات صفحة المجموعة"
+
+msgid "Public"
+msgstr "عام"
+
+msgid "Private, accessible to logged-in users"
+msgstr "خاصة ، يمكن للمستخدمين الذين يسجلون دخولهم"
+
+msgid "Private, accessible with the following password"
+msgstr "خاص ، يمكن الوصول إليه باستخدام كلمة المرور التالية"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "خاص ، يمكن للمستخدمين الوصول إليه في مجموعات محددة"
+
+msgid "password"
+msgstr "كلمة سر"
+
+msgid "groups"
+msgstr "مجموعات"
+
+msgid "view restriction"
+msgstr "عرض تقييد"
+
+msgid "view restrictions"
+msgstr "قيود العرض"
+
+msgid "page view restriction"
+msgstr "تقييد عرض الصفحة"
+
+msgid "page view restrictions"
+msgstr "قيود عرض الصفحة"
+
+msgid "collection"
+msgstr "مجموعة"
+
+msgid "collection view restriction"
+msgstr "تقييد عرض المجموعة"
+
+msgid "collection view restrictions"
+msgstr "قيود عرض المجموعة"
+
+msgid "name"
+msgstr "اسم"
+
+msgid "collections"
+msgstr "مجموعات"
+
+msgid "permission"
+msgstr "تصريح"
+
+msgid "group collection permission"
+msgstr "إذن مجموعة المجموعة"
+
+msgid "group collection permissions"
+msgstr "مجموعة أذونات المجموعة"
+
+msgid "Log in"
+msgstr "تسجيل الدخول"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "اسم المستخدم وكلمة المرور غير متطابقين. حاول مرة اخرى."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"حسابك ليس لديه حق الوصول إلى هذه الصفحة. للمتابعة ، يرجى تسجيل الدخول "
+"باستخدام حساب لديه حق الوصول."
+
+msgid "Password required"
+msgstr "كلمة السر مطلوبة"
+
+msgid "You need a password to access this page."
+msgstr "هذه الصفحة تتطلب كلمة مرور."
+
+msgid "Continue"
+msgstr "أكمل"

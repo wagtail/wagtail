@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Eugene <eugene.mechanism@gmail.com>, 2015
+# Eugene <eugene.mechanism@gmail.com>, 2015
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-27 13:04+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail style guide"
+msgstr "Руководство по дизайну Wagtail"
+
+msgid "Styleguide"
+msgstr "Гид по стилям"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Delete image"
+msgstr "Удалить изображение"
+
+msgid "Search something"
+msgstr "Искать что-нибудь"
+
+msgid "Success message"
+msgstr "Сообщение об успехе"
+
+msgid "View live"
+msgstr "Смотреть на сайте"
+
+msgid "Edit"
+msgstr "Правка"
+
+msgid "Warning message"
+msgstr "Сообщение с предупреждением"
+
+msgid "Error message"
+msgstr "Сообщение с ошибкой"

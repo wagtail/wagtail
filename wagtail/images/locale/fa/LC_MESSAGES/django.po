@@ -1,0 +1,335 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"فورمت‌های پشتیبانی شده: %(supported_formats)s. حداکثر اندازه فایل: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "فورمت‌های پشتیبانی‌شده: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "فورمت تصویر پشتیبانی نمی‌شود. فورمت های مورد قبول: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "تصویر %s معتبری نیست."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "این فایل بیش از حد بزرگ است (%%). حداکثر ظرفیت ممکن %s است."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "این فایل بیش از حد بزرگ است. حداکثر اندازه %s."
+
+msgid "Full width"
+msgstr "عرض کامل"
+
+msgid "Left-aligned"
+msgstr "چپ چین"
+
+msgid "Right-aligned"
+msgstr "راست چین"
+
+msgid "Filter"
+msgstr "صافی"
+
+msgid "Original size"
+msgstr "اندازه اصلی"
+
+msgid "Resize to width"
+msgstr "ریسایز به طول"
+
+msgid "Resize to height"
+msgstr "ریسایز به ارتفاع"
+
+msgid "Resize to min"
+msgstr "ریسایز به حداقل"
+
+msgid "Resize to max"
+msgstr "ریسایز به حداکثر"
+
+msgid "Resize to fill"
+msgstr "ریسایز به پوشاندن"
+
+msgid "Width"
+msgstr "عرض"
+
+msgid "Height"
+msgstr "طول"
+
+msgid "Closeness"
+msgstr "تراکم"
+
+msgid "Add"
+msgstr "افزودن"
+
+msgid "Add/edit images you own"
+msgstr "افزودن/ویرایش تصاویر خودتان"
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Edit any image"
+msgstr "ویرایش هرنوع تصویری"
+
+msgid "title"
+msgstr "عنوان"
+
+msgid "file"
+msgstr "فایل"
+
+msgid "width"
+msgstr "عرض"
+
+msgid "height"
+msgstr "ارتفاع"
+
+msgid "created at"
+msgstr "ساخته‌شده در"
+
+msgid "uploaded by user"
+msgstr "آپلود‌شده توسط کاربر"
+
+msgid "tags"
+msgstr "برچسب‌ها"
+
+msgid "Choose an image"
+msgstr "تصویر را انتخاب کنید"
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Upload"
+msgstr "آپلود"
+
+msgid "Popular tags"
+msgstr "برچسب های پرتکرار"
+
+msgid "Uploading…"
+msgstr "در حال آپلود…"
+
+msgid "Latest images"
+msgstr "آخرین تصاویر"
+
+msgid "Choose a format"
+msgstr "انتخاب یک فورمت"
+
+msgid "Insert image"
+msgstr "درج تصویر"
+
+msgid "Change image file:"
+msgstr "تغییر فایل تصویر:"
+
+msgid "Add an image"
+msgstr "افزودن تصویر"
+
+msgid "Add image"
+msgstr "افزودن تصویر"
+
+msgid "Save"
+msgstr "ذخیره"
+
+msgid "Delete image"
+msgstr "حذف تصویر"
+
+msgid "Are you sure you want to delete this image?"
+msgstr "آیا میخواهید این تصویر را حذف کنید؟"
+
+msgid "Yes, delete"
+msgstr "بله حذف شود"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "ویرایش تصویر %(title)s"
+
+msgid "Editing"
+msgstr "در حال ویرایش"
+
+msgid "URL Generator"
+msgstr "نشانی ساز"
+
+msgid "Current focal point shown"
+msgstr "نقطه کانونی فعلی نمایش داده شد"
+
+msgid "Remove focal area"
+msgstr "حذف منطقه کانونی"
+
+msgid "Max dimensions"
+msgstr "حداکثر ابعاد"
+
+msgid "Filesize"
+msgstr "اندازه فایل"
+
+msgid "File not found"
+msgstr "فایل پیدا نشد"
+
+msgid "Images"
+msgstr "عکس‌ها"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "متاسفانه هیچ تصویری با «<em>%(query_string)s</em>» پیدا نشد"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"هنوز به این مجموعه تصویری آپلود نشده. می‌توانید یکی را الان <a href="
+"\"%(wagtailimages_add_image_url)s\">آپلود</a> کنید"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"هنوز تصویر آپلود نکرده اید. می‌توانید یکی را الان <a href="
+"\"%(wagtailimages_add_image_url)s\">آپلود</a> کنید"
+
+msgid "Generating URL"
+msgstr "ایجاد نشانی"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "پیش‌نمایش"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"توجه داشته باشید تصاویر بزرگتر از اندازه صفحه در هنگام پیش نمایش کوچکتر به "
+"نظر می‌رسند. بنابر این عرض آن ها با عرض صفحه تنظیم می‌شود."
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "استفاده از %(title)s"
+
+msgid "Usage of"
+msgstr "استفاده از"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Parent"
+msgstr "والد"
+
+msgid "Type"
+msgstr "نوع"
+
+msgid "Status"
+msgstr "وضعیت"
+
+msgid "Edit this page"
+msgstr "ویرایش این صفحه"
+
+msgid "Add multiple images"
+msgstr "افزودن چند تصویر"
+
+msgid "Add images"
+msgstr "افزودن تصاویر"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "برای آپلود فوری تصاویر را به این محدوده بیاندازید."
+
+msgid "Or choose from your computer"
+msgstr "یا از کامپیوتر یکی را انتخاب کنید"
+
+msgid "Add to collection:"
+msgstr "افزودن به مجموعه:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"آپلود انجام شد. لطفا عنوانی مناسب برای این تصویر انتخاب کنید. همچنین "
+"می‌توانید این تصویر را کاملا پاک کنید اگر آپلود نیاز نبود."
+
+msgid "Sorry, upload failed."
+msgstr "متاسفانه آپلود ناموفق بود."
+
+msgid "Server Error"
+msgstr "خطای سرور"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "گزارش این خطا به وبمستر با اطلاعات زیر:"
+
+msgid "Image updated."
+msgstr "تصویر آپلود شد."
+
+msgid "Update"
+msgstr "بروزرسانی"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Image permissions"
+msgstr "مجوزهای تصویر"
+
+msgid "Add an image permission"
+msgstr "افزودن مجوز تصویر"
+
+msgid "Search images"
+msgstr "جستجوی تصاویر"
+
+msgid "Image '{0}' updated."
+msgstr "تصویر '{0}' بروزرسانی شد."
+
+msgid "Edit again"
+msgstr "ویرایش مجدد"
+
+msgid "The image could not be saved due to errors."
+msgstr "به دلیل بروز خطا این تصویر ذخیره نشد."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr "تصویر منبع پیدا نشد. لطفا منبع را تغییر دهید یا تصویر را حذف نمایید."
+
+msgid "Image '{0}' deleted."
+msgstr "تصویر '{0}' حذف شد."
+
+msgid "Image '{0}' added."
+msgstr "تصویر '{0}' اضافه شد."
+
+msgid "The image could not be created due to errors."
+msgstr "به دلیل بروز خطا تصویر ایجاد نشد."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s تصویر"
+msgstr[1] "%(count)s تصویر"
+
+msgid "Edit this image"
+msgstr "ویرایش این تصویر"

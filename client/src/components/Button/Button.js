@@ -38,6 +38,7 @@ const Button = ({
   target,
   preventDefault,
   onClick,
+  dialogTrigger,
 }) => {
   const hasText = children !== null;
   const iconName = isLoading ? 'spinner' : icon;
@@ -54,6 +55,7 @@ const Button = ({
       rel={target === '_blank' ? 'noopener noreferrer' : null}
       href={href}
       target={target}
+      aria-haspopup={dialogTrigger ? 'dialog' : null}
     >
       {hasText ? children : accessibleElt}
     </a>
@@ -73,6 +75,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   isLoading: PropTypes.bool,
   preventDefault: PropTypes.bool,
+  dialogTrigger: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -85,6 +88,7 @@ Button.defaultProps = {
   onClick: null,
   isLoading: false,
   preventDefault: true,
+  dialogTrigger: false,
 };
 
 export default Button;

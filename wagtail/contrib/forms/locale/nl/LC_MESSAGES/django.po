@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Single line text"
+msgstr "Enkele regel tekst"
+
+msgid "Multi-line text"
+msgstr "Meerdere regels tekst"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Number"
+msgstr "Nummer"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Checkbox"
+msgstr "Checkbox"
+
+msgid "Checkboxes"
+msgstr "Checkboxen"
+
+msgid "Drop down"
+msgstr "Dropdown"
+
+msgid "Radio buttons"
+msgstr "Radiobuttons"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Date/time"
+msgstr "Datum/tijd"
+
+msgid "submit time"
+msgstr "inzendtijd"
+
+msgid "form submission"
+msgstr "formulierinzending"
+
+msgid "label"
+msgstr "label"
+
+msgid "The label of the form field"
+msgstr "Het label van het formulierveld"
+
+msgid "field type"
+msgstr "veldtype"
+
+msgid "required"
+msgstr "verplicht"
+
+msgid "choices"
+msgstr "keuzes"
+
+msgid ""
+"Comma separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+"Een lijst van opties, door komma's gescheiden. Alleen van toepassing bij "
+"checkboxen, radiobuttons en dropdowns. "
+
+msgid "default value"
+msgstr "standaardwaarde"
+
+msgid "Default value. Comma separated values supported for checkboxes."
+msgstr ""
+"Standaardwaarde. Checkboxen ondersteunen een door komma's gescheiden lijst "
+"van opties."
+
+msgid "help text"
+msgstr "helptekst"
+
+msgid "to address"
+msgstr "ontvanger"
+
+msgid "from address"
+msgstr "afzender"
+
+msgid "subject"
+msgstr "onderwerp"
+
+msgid "Delete"
+msgstr "Verwijder"
+
+msgid "Forms"
+msgstr "Formulieren"
+
+msgid "Pages"
+msgstr "Pagina's"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Inzendingen vanuit %(form_title)s"
+
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr "Formuliergegevens <span>%(form_title)s</span>"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Download CSV"
+msgstr "Download CSV"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Er zijn nog geen inzendingen vanuit het formulier '%(title)s'."
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Origin"
+msgstr "Oorsprong"
+
+msgid "No form pages have been created."
+msgstr "Er zijn nog geen formulierpagina's aangemaakt."

@@ -4,14 +4,15 @@
 #
 # Translators:
 # Aarni Koskela, 2016
+# Aarni Koskela, 2016
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-09-01 21:36+0000\n"
-"Last-Translator: Niklas Jerva <niklas.jerva@gmail.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -83,8 +84,8 @@ msgstr ""
 msgid "Continue"
 msgstr "Jatka"
 
-msgid "Saving..."
-msgstr "Tallennetaan..."
+msgid "Saving…"
+msgstr "Tallennetaan…"
 
 msgid "Save"
 msgstr "Tallenna"
@@ -121,7 +122,7 @@ msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "Haulla ei löytynyt yhtään %(name)s-kohdetta."
 
 msgid "Search for"
-msgstr "Hae..."
+msgstr "Hae…"
 
 #, python-format
 msgid "Search %(name)s"
@@ -167,10 +168,6 @@ msgstr "Edellinen"
 msgid "Next"
 msgstr "Seuraava"
 
-#, python-brace-format
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' luotu."
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr "%s ei voitu luoda virheiden vuoksi."
@@ -189,10 +186,6 @@ msgstr "Muokataan"
 msgid "Editing %s"
 msgstr "Muokataan %s"
 
-#, python-brace-format
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' päivitetty."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s ei voitu tallentaa virheiden vuoksi."
@@ -208,10 +201,6 @@ msgid ""
 msgstr ""
 "Oletko varma, että haluat poistaa %s? Tämä saattaa vaikuttaa muihin "
 "sivustossa kohteeseen liityviin asioihin."
-
-#, python-brace-format
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' poistettu."
 
 msgid "Inspecting"
 msgstr "Tarkastellaan"

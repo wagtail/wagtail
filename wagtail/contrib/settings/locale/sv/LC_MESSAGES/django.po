@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andreas Bergström <andreas.bergstrom@gmail.com>, 2018
 # André Karlsson <andre@sess.se>, 2017
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-01-17 18:42+0000\n"
-"Last-Translator: André Karlsson <andre@sess.se>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -27,8 +29,8 @@ msgstr "Editerar %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Editerar"
 
-msgid "Saving..."
-msgstr "Sparar..."
+msgid "Saving…"
+msgstr "Sparar…"
 
 msgid "Save"
 msgstr "Spara"
@@ -36,9 +38,10 @@ msgstr "Spara"
 msgid "Settings"
 msgstr "Inställningar"
 
-#, python-brace-format
-msgid "{setting_type} updated."
-msgstr "{setting_type} uppdaterat."
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Den här inställningen kunde inte öppnas eftersom det inte finns någon "
+"definierad webbplats."
 
 msgid "The setting could not be saved due to errors."
-msgstr "Inställningen kunde inte sparas p.g.a. fel."
+msgstr "Inställningen kunde inte sparas då ett fel uppstod."

@@ -1,0 +1,291 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# David Llop, 2014
+# David Llop, 2014
+# Roger Pons <rogerpons@gmail.com>, 2016-2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
+"ca/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "This block has no options."
+msgstr "Aquest bloc no té opcions."
+
+msgid "Password"
+msgstr "Contrasenya"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "La contrasenya que heu introduït no és correcta. Torneu a provar."
+
+msgid "hostname"
+msgstr "hostname"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Canvia això per un número diferent de 80 si necessites que aparegui un port "
+"específic en les URLs (per ex: port de desenvolupament al 8000). No afecta a "
+"la petició actual (el port de reenviament encara funciona)."
+
+msgid "site name"
+msgstr "nom del lloc"
+
+msgid "Human-readable name for the site."
+msgstr "Nom del lloc llegible per humans"
+
+msgid "root page"
+msgstr "pàgina arrel"
+
+msgid "is default site"
+msgstr "és el lloc predeterminat"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Si és cert, aquest lloc s'encarregarà de les peticions de totes les altres "
+"màquines que no tenen un lloc establert."
+
+msgid "site"
+msgstr "lloc"
+
+msgid "sites"
+msgstr "llocs"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s ja està configurat com a lloc predeterminat. Heu de treure "
+"aquesta configuració abans de desar aquest lloc com a predeterminat."
+
+msgid "title"
+msgstr "títol"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "El títol de la pàgina que vols que sigui vist pel públic"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"El nom de la pàgina que apareixerà en la URL. Per exemple: http://domini.com/"
+"blog/[nom]/"
+
+msgid "content type"
+msgstr "tipus de contingut"
+
+msgid "live"
+msgstr "en viu"
+
+msgid "has unpublished changes"
+msgstr "té canvis no publicats"
+
+msgid "URL path"
+msgstr "ruta URL"
+
+msgid "owner"
+msgstr "propietari"
+
+msgid "page title"
+msgstr "títol de la pàgina"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Opcional. Títol de 'Motor de cerca amigable'. Això apareixerà al cap damunt "
+"de la finetra del navegador"
+
+msgid "show in menus"
+msgstr "mostrar als menús"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Si s'enllaça cap aquesta pàgina apareixerà automàticament als menús generats"
+
+msgid "search description"
+msgstr "cercar la descripció"
+
+msgid "go live date/time"
+msgstr "data/hora de pas a en viu"
+
+msgid "expiry date/time"
+msgstr "Data/hora d'expiració"
+
+msgid "expired"
+msgstr "expirat"
+
+msgid "locked"
+msgstr "bloquejat"
+
+msgid "first published at"
+msgstr "primera publicació el "
+
+msgid "latest revision created at"
+msgstr "última revisió creada el"
+
+msgid "This slug is already in use"
+msgstr "Aquest slug ja està en ús"
+
+msgid "scheduled"
+msgstr "programat"
+
+msgid "draft"
+msgstr "esborrany"
+
+msgid "live + draft"
+msgstr "en viu + esborrany"
+
+msgid "Default"
+msgstr "Per defecte?"
+
+msgid "page"
+msgstr "pàgina"
+
+msgid "pages"
+msgstr "pàgines"
+
+msgid "submitted for moderation"
+msgstr "enviat a moderació"
+
+msgid "created at"
+msgstr "creat el"
+
+msgid "user"
+msgstr "usuari"
+
+msgid "content JSON"
+msgstr "contingut JSON"
+
+msgid "approved go live at"
+msgstr "aprovat l'en viu el"
+
+msgid "page revision"
+msgstr "revisió de pàgina"
+
+msgid "page revisions"
+msgstr "revisions de pàgines"
+
+msgid "Add"
+msgstr "Afegir"
+
+msgid "Add/edit pages you own"
+msgstr "Afegir/editar pàgines pròpies"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit any page"
+msgstr "Editar una pàgina"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Publish any page"
+msgstr "Publicar una pàgina"
+
+msgid "Bulk delete"
+msgstr "Eliminació en massa"
+
+msgid "Delete pages with children"
+msgstr "Eliminar pàgines amb pàgines filles"
+
+msgid "Lock"
+msgstr "Bloquejar"
+
+msgid "Lock/unlock any page"
+msgstr "Bloquejar/desbloquejar una pàgina"
+
+msgid "group"
+msgstr "grup"
+
+msgid "permission type"
+msgstr "tipus de permís"
+
+msgid "group page permission"
+msgstr "permís de pàgina de grup"
+
+msgid "group page permissions"
+msgstr "permisos de pàgina de grup"
+
+msgid "Public"
+msgstr "Pública"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privada, accessible a usuaris identificats"
+
+msgid "Private, accessible with the following password"
+msgstr "Privada, accessible amb la contrasenya següent"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privada, accessible a usuaris de grups específics"
+
+msgid "password"
+msgstr "contrasenya"
+
+msgid "page view restriction"
+msgstr "restrició de visualització de pàgina"
+
+msgid "page view restrictions"
+msgstr "restriccions de visualització de pàgina"
+
+msgid "collection"
+msgstr "col·lecció"
+
+msgid "name"
+msgstr "nom"
+
+msgid "collections"
+msgstr "col·leccions"
+
+msgid "permission"
+msgstr "permís"
+
+msgid "group collection permission"
+msgstr "permís de col·lecció de grups"
+
+msgid "Log in"
+msgstr "Iniciar sessió"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "El vostre nom d'usuari i contrasenya no concorden. Torneu a provar."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"El vostre compte no té accés a aquesta pàgina. Per procedir, inicieu sessió "
+"amb un compte que hi tingui accés."
+
+msgid "Password required"
+msgstr "Es requereix contrsenya"
+
+msgid "You need a password to access this page."
+msgstr "Necessiteu una contrasenya per accedir a aquesta pàgina."
+
+msgid "Continue"
+msgstr "Continuar"

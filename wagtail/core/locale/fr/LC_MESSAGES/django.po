@@ -1,0 +1,342 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aurélien Debord <contact@aureliendebord.com>, 2017
+# Benoît Vogel <contact@spicy-informatique.com>, 2016
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
+# fpoulain <fpoulain@metrodore.fr>, 2018
+# Léo <leo@naeka.fr>, 2016
+# Loic Teixeira <hello@lta.me>, 2018
+# nahuel, 2014
+# nahuel, 2014
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
+# Tom Dyson <tom@torchbox.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
+"fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail core"
+msgstr "Noyau de Wagtail"
+
+msgid "This block has no options."
+msgstr "Ce bloc n'a aucune option."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Le nombre minimum d'éléments est %d"
+
+msgid "This field is required."
+msgstr "Ce champ est requis."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Le nombre maximum d'éléments est %d"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr ""
+"Le mot de passe que vous avez saisi est incorrect. Merci de bien vouloir "
+"réessayer."
+
+msgid "hostname"
+msgstr "nom d'hôte"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Définissez cette valeur à autre chose que 80 si vous avez besoin qu'un port "
+"spécifique apparaisse dans les URLs (e.g. développement sur le port 8000). "
+"Ceci n'affecte pas la prise en charge des requêtes (les redirections de port "
+"continuent de fonctionner)."
+
+msgid "site name"
+msgstr "nom du site"
+
+msgid "Human-readable name for the site."
+msgstr "Nom compréhensible par un humain pour le site."
+
+msgid "root page"
+msgstr "page racine"
+
+msgid "is default site"
+msgstr "site par défaut"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Si oui, ce site gérera toutes les requêtes des autres noms d'hôtes qui n'ont "
+"pas de site défini."
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s est déjà configuré comme site par défaut. Vous devez modifier "
+"ce dernier avant de pouvoir sauvegarder ce site comme site par défaut."
+
+msgid "title"
+msgstr "Titre"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Le titre de la page comme vous souhaiteriez que les lecteurs la voient"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Le nom de la page comme elle apparaîtra dans l'URL e.g http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "content type"
+msgstr "type de contenu"
+
+msgid "live"
+msgstr "publiée"
+
+msgid "has unpublished changes"
+msgstr "contient des changements non publiés"
+
+msgid "URL path"
+msgstr "URL"
+
+msgid "owner"
+msgstr "propriétaire"
+
+msgid "page title"
+msgstr "titre de la page"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Facultatif. Titre SEO. Ce titre apparaîtra en haut de la fenêtre de votre "
+"navigateur."
+
+msgid "show in menus"
+msgstr "faire apparaître dans les menus"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Si un lien vers cette page devra apparaître dans les menus générés "
+"automatiquement"
+
+msgid "search description"
+msgstr "description de la recherche"
+
+msgid "go live date/time"
+msgstr "date/heure de publication"
+
+msgid "expiry date/time"
+msgstr "date/heure d'expiration"
+
+msgid "expired"
+msgstr "expirée"
+
+msgid "locked"
+msgstr "verrouillé"
+
+msgid "first published at"
+msgstr "première publication le"
+
+msgid "last published at"
+msgstr "dernière publication le"
+
+msgid "latest revision created at"
+msgstr "dernière version créée le"
+
+msgid "This slug is already in use"
+msgstr "Ce slug est déjà utilisé"
+
+msgid "scheduled"
+msgstr "programmée"
+
+msgid "draft"
+msgstr "brouillon"
+
+msgid "live + scheduled"
+msgstr "publiée + programmée"
+
+msgid "live + draft"
+msgstr "publiée + brouillon"
+
+msgid "Default"
+msgstr "Par défaut"
+
+msgid "page"
+msgstr "page"
+
+msgid "pages"
+msgstr "pages"
+
+msgid "submitted for moderation"
+msgstr "soumis pour modération"
+
+msgid "created at"
+msgstr "créé à"
+
+msgid "user"
+msgstr "utilisateur"
+
+msgid "content JSON"
+msgstr "contenu JSON"
+
+msgid "approved go live at"
+msgstr "publication approuvée le"
+
+msgid "page revision"
+msgstr "version de page"
+
+msgid "page revisions"
+msgstr "versions de page"
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "Add/edit pages you own"
+msgstr "Ajouter/modifier vos pages"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Edit any page"
+msgstr "Modifier n'importe quelle page"
+
+msgid "Publish"
+msgstr "Publier"
+
+msgid "Publish any page"
+msgstr "Publier n'importe quelle page"
+
+msgid "Bulk delete"
+msgstr "Supprimer en masse"
+
+msgid "Delete pages with children"
+msgstr "Supprimer des pages avec leurs enfants"
+
+msgid "Lock"
+msgstr "Verrouiller"
+
+msgid "Lock/unlock any page"
+msgstr "Verrouiller/déverrouiller n'importe quelle page"
+
+msgid "group"
+msgstr "groupe"
+
+msgid "permission type"
+msgstr "type de permission"
+
+msgid "group page permission"
+msgstr "permission de page par groupe"
+
+msgid "group page permissions"
+msgstr "permissions de page par groupe"
+
+msgid "Public"
+msgstr "Publique"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privée, accessible aux utilisateurs connectés"
+
+msgid "Private, accessible with the following password"
+msgstr "Privée, accessible avec le mot de passe suivant"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privée, accessible aux utilisateurs dans des groupes spécifiques"
+
+msgid "password"
+msgstr "mot de passe"
+
+msgid "groups"
+msgstr "groupes"
+
+msgid "view restriction"
+msgstr "confidentialité"
+
+msgid "view restrictions"
+msgstr "confidentialités"
+
+msgid "page view restriction"
+msgstr "confidentialité de page"
+
+msgid "page view restrictions"
+msgstr "confidentialités de page"
+
+msgid "collection"
+msgstr "collection"
+
+msgid "collection view restriction"
+msgstr "confidentialité de collection"
+
+msgid "collection view restrictions"
+msgstr "confidentialités de collection"
+
+msgid "name"
+msgstr "nom"
+
+msgid "collections"
+msgstr "collections"
+
+msgid "permission"
+msgstr "permission"
+
+msgid "group collection permission"
+msgstr "permission de collection de groupe"
+
+msgid "group collection permissions"
+msgstr "permission de collection de groupe"
+
+msgid "Log in"
+msgstr "Connexion"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Vos nom d'utilisateur et mot de passe ne correspondent pas. Merci de bien "
+"vouloir réessayer."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Votre compte n'a pas accès à cette page. Pour continuer, merci de vous "
+"connecter avec un compte qui y a accès."
+
+msgid "Password required"
+msgstr "Mot de passe requis"
+
+msgid "You need a password to access this page."
+msgstr "L'accès à cette page nécessite un mot de passe."
+
+msgid "Continue"
+msgstr "Continuer"

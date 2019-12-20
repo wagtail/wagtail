@@ -31,9 +31,9 @@ issued from those branches.
 .. glossary::
 
   Feature release
-    Feature releases (A.B, A.B+1, etc.) will happen roughly every two months
+    Feature releases (A.B, A.B+1, etc.) happen every three months
     -- see `release process <#release-process>`__ for details. These releases will contain new
-    features, improvements to existing features, and such.
+    features and improvements to existing features.
 
   Patch release
     Patch releases (A.B.C, A.B.C+1, etc.) will be issued as needed, to fix
@@ -53,7 +53,7 @@ issued from those branches.
 Release cadence
 ===============
 
-Wagtail uses a loose form of `semantic versioning <http://semver.org/>`_.
+Wagtail uses a loose form of `semantic versioning <https://semver.org/>`_.
 SemVer makes it easier to see at a glance how compatible releases are with each
 other. It also helps to anticipate when compatibility shims will be removed.
 It's not a pure form of SemVer as each feature release will continue to have a
@@ -159,7 +159,8 @@ Wagtail 1.4 will still support only Django 1.8 (LTS) and 1.9.
 Release process
 ===============
 
-Wagtail uses a time-based release schedule, with feature releases every two months or so.
+Wagtail uses a `time-based release schedule <https://github.com/wagtail/wagtail/wiki/Release-schedule>`_, 
+with feature releases every three months.
 
 After each feature release, the release manager will announce a timeline for
 the next feature release.

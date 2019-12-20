@@ -1,0 +1,245 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Alexander Penshin <apenshin@gmail.com>, 2018
+# Andrey Avdey <talkerbox@live.com>, 2016
+# Eugene <eugene.mechanism@gmail.com>, 2014-2016
+# Eugene <eugene.mechanism@gmail.com>, 2017
+# Никита Викторович <hnknta@gmail.com>, 2014
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# Михаил Герасимов, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Add/edit documents you own"
+msgstr "Добавить/редактировать свои документы"
+
+msgid "Edit"
+msgstr "Править"
+
+msgid "Edit any document"
+msgstr "Редактировать любой документ"
+
+msgid "title"
+msgstr "заголовок"
+
+msgid "file"
+msgstr "файл"
+
+msgid "created at"
+msgstr "создано"
+
+msgid "uploaded by user"
+msgstr "загружено пользователем"
+
+msgid "tags"
+msgstr "тэги"
+
+msgid "document"
+msgstr "документ"
+
+msgid "Choose a document"
+msgstr "Выберите документ"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Upload"
+msgstr "Загрузка"
+
+msgid "Uploading…"
+msgstr "Загрузка..."
+
+msgid "Latest documents"
+msgstr "Последние документы"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Извините, подходящих документов не найдено \"<em>%(query_string)s</em>\""
+
+msgid "Change document:"
+msgstr "Изменить документ:"
+
+msgid "Add a document"
+msgstr "Добавить документ"
+
+msgid "Add document"
+msgstr "Добавить документ"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Удалить %(title)s"
+
+msgid "Delete document"
+msgstr "Удалить документ"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Вы уверены, что хотите удалить этот документ?"
+
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Редактирование %(title)s"
+
+msgid "Editing"
+msgstr "Редактирование"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Filesize"
+msgstr "Размер файла"
+
+msgid "File not found"
+msgstr "Файл не найден"
+
+msgid "Documents"
+msgstr "Документы"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Uploaded"
+msgstr "Загружено"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s назад"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Вы еще не загрузили ни одного документа в эту коллекцию. Почему бы не <a "
+"href=\"%(wagtaildocs_add_document_url)s\">сделать это сейчас</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Вы еще не загрузили ни одного документа. Почему бы не <a href="
+"\"%(wagtaildocs_add_document_url)s\">сделать это сейчас</a>?"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Использование %(title)s"
+
+msgid "Usage of"
+msgstr "Использование"
+
+msgid "Parent"
+msgstr "Родительский элемент"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Edit this page"
+msgstr "Редактировать эту страницу"
+
+msgid "Add multiple documents"
+msgstr "Добавить несколько документов"
+
+msgid "Add documents"
+msgstr "Добавить документы"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Перетяните документы в эту область для немедленной загрузки."
+
+msgid "Or choose from your computer"
+msgstr "Или выберите на вашем компьютере"
+
+msgid "Add to collection:"
+msgstr "Добавить в коллекцию:"
+
+msgid "Sorry, upload failed."
+msgstr "Извините, загрузка не удалась."
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "You need a password to access this document."
+msgstr "Вы должны ввести пароль, чтобы получить доступ к этому документу."
+
+msgid "Document permissions"
+msgstr "Доступ к документу"
+
+msgid "Add a document permission"
+msgstr "Добавить права доступа к документу"
+
+msgid "Server Error"
+msgstr "Ошибка Сервера"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Сообщите об этой ошибке администратору и укажите следующую информацию:"
+
+msgid "Search documents"
+msgstr "Поиск документов"
+
+msgid "Document '{0}' added."
+msgstr "Документ '{0}' добавлен."
+
+msgid "The document could not be saved due to errors."
+msgstr "Документ не может быть сохранен из-за ошибок."
+
+msgid "Document '{0}' updated"
+msgstr "Документ '{0}' обновлен"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"Файл не может быть найден. Пожалуйста, измените исходный файл или удалите "
+"документ"
+
+msgid "Document '{0}' deleted."
+msgstr "Документ '{0}' удален."
+
+msgid "Document"
+msgstr "Документ"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s документ"
+msgstr[1] "%(count)s документа"
+msgstr[2] "%(count)s документов"
+msgstr[3] "%(count)s документов"
+
+msgid "Choose another document"
+msgstr "Выбрать другой документ"
+
+msgid "Edit this document"
+msgstr "Править этот документ"

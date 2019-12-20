@@ -1,0 +1,157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2017,2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-01-21 07:37+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
+"ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail redirects"
+msgstr "웨그테일 리다이렉트"
+
+msgid "From site"
+msgstr "사이트"
+
+msgid "All sites"
+msgstr "모든 사이트"
+
+msgid "A redirect with this path already exists."
+msgstr "해당 경로의 리다이렉트는 이미 있습니다."
+
+msgid "redirect from"
+msgstr "경로"
+
+msgid "site"
+msgstr "사이트"
+
+msgid "permanent"
+msgstr "영구"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"권장사항. 영구적인 리다이렉트는 검색 엔진이 오래된 페이지('리다이렉트 출처')"
+"를 찾지 않도록 하며, 대신 새로운 페이지를 검색하도록 합니다."
+
+msgid "redirect to a page"
+msgstr "페이지로 리다이렉트"
+
+msgid "redirect to any URL"
+msgstr "다른 URL로 리다이렉트"
+
+msgid "temporary"
+msgstr "임시"
+
+msgid "redirect"
+msgstr "리다이렉트"
+
+msgid "Add redirect"
+msgstr "리다이렉트 추가"
+
+msgid "Save"
+msgstr "저장"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "%(title)s 리다이렉트 삭제"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "선택한 리다이렉트를 정말 삭제할까요?"
+
+msgid "Yes, delete"
+msgstr "네, 지우겠습니다."
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "%(title)s 수정"
+
+msgid "Editing"
+msgstr "수정중"
+
+msgid "Delete redirect"
+msgstr "리다이렉트 삭제"
+
+msgid "Redirects"
+msgstr "리다이렉트"
+
+msgid "From"
+msgstr "진입 경로"
+
+msgid "Site"
+msgstr "사이트"
+
+msgid "To"
+msgstr "목적지"
+
+msgid "Type"
+msgstr "타입"
+
+msgid "Edit this redirect"
+msgstr "이 리다이렉트 수정"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            일치하는 %(counter)s개의 결과가 있습니다."
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 리다이렉트 결과가 없습니"
+"다."
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"만들어진 리다이렉트가 없습니다. 하나 <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">추가</a>해 보는 것은 어떠세요?"
+
+msgid "Search redirects"
+msgstr "리다이렉트 검색"
+
+msgid "Redirect '{0}' updated."
+msgstr "'{0}' 리다이렉트가 업데이트 되었습니다."
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "에러로 인해 리다이렉트를 저장할 수 없습니다."
+
+msgid "Redirect '{0}' deleted."
+msgstr "'{0}' 리다이렉트가 삭제 되었습니다."
+
+msgid "Redirect '{0}' added."
+msgstr "'{0}' 리다이렉트가 추가 되었습니다."
+
+msgid "The redirect could not be created due to errors."
+msgstr "에러로 인해 리다이렉트를 생성할 수 없습니다."

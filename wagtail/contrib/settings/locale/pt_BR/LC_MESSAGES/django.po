@@ -4,13 +4,13 @@
 #
 # Translators:
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-05-18 22:14+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 20:34+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -27,8 +27,8 @@ msgstr "Editando %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Editando"
 
-msgid "Saving..."
-msgstr "Salvando..."
+msgid "Saving…"
+msgstr "Salvando…"
 
 msgid "Save"
 msgstr "Salvar"
@@ -36,9 +36,12 @@ msgstr "Salvar"
 msgid "Settings"
 msgstr "Configurações"
 
-#, python-brace-format
-msgid "{setting_type} updated."
-msgstr "{setting_type} atualizado."
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Essa configuração não pôde ser aberta porque não há site definido."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s atualizado."
 
 msgid "The setting could not be saved due to errors."
 msgstr "A configuração não pôde ser salva devido a erros."

@@ -1,0 +1,244 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail-dokumenter"
+
+msgid "Add"
+msgstr "Legg til"
+
+msgid "Add/edit documents you own"
+msgstr "Legg til/rediger dokumenter du eier"
+
+msgid "Edit"
+msgstr "Endre"
+
+msgid "Edit any document"
+msgstr "Rediger ethvert dokument"
+
+msgid "title"
+msgstr "tittel"
+
+msgid "file"
+msgstr "fil"
+
+msgid "created at"
+msgstr "opprettet"
+
+msgid "uploaded by user"
+msgstr "opplastet av bruker"
+
+msgid "tags"
+msgstr "stikkord"
+
+msgid "document"
+msgstr "dokument"
+
+msgid "Choose a document"
+msgstr "Velg et dokument"
+
+msgid "Search"
+msgstr "Søk"
+
+msgid "Upload"
+msgstr "Last opp"
+
+msgid "Uploading…"
+msgstr "Laster opp…"
+
+msgid "Latest documents"
+msgstr "Siste dokumenter"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Beklager, ingen dokumenter samsvarer med <em>\"%(query_string)s\"</em>"
+
+msgid "Change document:"
+msgstr "Bytt ut dokument:"
+
+msgid "Add a document"
+msgstr "Legg til et dokument"
+
+msgid "Add document"
+msgstr "Legg til dokument"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Slett %(title)s"
+
+msgid "Delete document"
+msgstr "Slett dokument"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Brukt %(usage_count)s gang"
+msgstr[1] "Brukt %(usage_count)s ganger"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Er du sikker på at du vil slette dette dokumentet?"
+
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Endrer %(title)s"
+
+msgid "Editing"
+msgstr "Endrer"
+
+msgid "Save"
+msgstr "Lagre"
+
+msgid "Filesize"
+msgstr "Filstørrelse"
+
+msgid "File not found"
+msgstr "Fil ikke funnet"
+
+msgid "Usage"
+msgstr "Bruk"
+
+msgid "Documents"
+msgstr "Dokumenter"
+
+msgid "Title"
+msgstr "Tittel"
+
+msgid "File"
+msgstr "Fil"
+
+msgid "Uploaded"
+msgstr "Opplastet"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Du har ikke lastet opp noen dokumenter til denne samlingen. Hvorfor ikke <a "
+"href=\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Du har ikke lastet opp noen dokumenter. Hvorfor ikke <a href="
+"\"%(wagtaildocs_add_document_url)s\">laste opp et nå</a>?"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Bruk av %(title)s"
+
+msgid "Usage of"
+msgstr "Bruk av"
+
+msgid "Parent"
+msgstr "Forelder"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Rediger denne siden"
+
+msgid "Add multiple documents"
+msgstr "Legg til flere dokumenter"
+
+msgid "Add documents"
+msgstr "Legg til dokumenter"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Dra og slipp dokumenter i dette feltet for å laste opp umiddelbart."
+
+msgid "Or choose from your computer"
+msgstr "Eller velg fra din datamaskin"
+
+msgid "Add to collection:"
+msgstr "Legg til i samling:"
+
+msgid "Sorry, upload failed."
+msgstr "Beklager, opplasting feilet."
+
+msgid "Update"
+msgstr "Oppdater"
+
+msgid "Delete"
+msgstr "Slett"
+
+msgid "You need a password to access this document."
+msgstr "Du må oppgi et passord for å se dette dokumentet."
+
+msgid "Document permissions"
+msgstr "Dokumenttillatelser"
+
+msgid "Add a document permission"
+msgstr "Legg til dokumenttillatelse"
+
+msgid "Server Error"
+msgstr "Serverfeil"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
+
+msgid "Search documents"
+msgstr "Søk i dokumenter"
+
+msgid "Document '{0}' added."
+msgstr "Dokumentet \"{0}\" er lagt til."
+
+msgid "The document could not be saved due to errors."
+msgstr "Dokumentet kunne ikke lagres grunnet feil."
+
+msgid "Document '{0}' updated"
+msgstr "Dokumentet \"{0}\" er oppdatert"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
+
+msgid "Document '{0}' deleted."
+msgstr "Dokumentet \"{0}\" er slettet."
+
+msgid "Document"
+msgstr "Dokument"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokument"
+msgstr[1] "%(count)s dokumenter"
+
+msgid "Choose another document"
+msgstr "Velg et annet dokument"
+
+msgid "Edit this document"
+msgstr "Endre dette dokumentet"

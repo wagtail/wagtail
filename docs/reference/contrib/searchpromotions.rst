@@ -4,11 +4,7 @@
 Promoted search results
 =======================
 
-.. module:: wagtail.contrib.wagtailsearchpromotions
-
-.. versionchanged:: 1.1
-
-    Before Wagtail 1.1, promoted search results were implemented in the :mod:`wagtail.wagtailsearch` core module and called "editors picks".
+.. module:: wagtail.contrib.search_promotions
 
 The ``searchpromotions`` module provides the models and user interface for managing "Promoted search results" and displaying them in a search results page.
 
@@ -18,7 +14,7 @@ The ``searchpromotions`` module provides the models and user interface for manag
 Installation
 ============
 
-The ``searchpromotions`` module is not enabled by default. To install it, add ``wagtail.contrib.wagtailsearchpromotions`` to ``INSTALLED_APPS`` in your project's Django settings file.
+The ``searchpromotions`` module is not enabled by default. To install it, add ``wagtail.contrib.search_promotions`` to ``INSTALLED_APPS`` in your project's Django settings file.
 
 
 .. code-block:: python
@@ -26,7 +22,7 @@ The ``searchpromotions`` module is not enabled by default. To install it, add ``
     INSTALLED_APPS = [
         ...
 
-        'wagtail.contrib.wagtailsearchpromotions',
+        'wagtail.contrib.search_promotions',
     ]
 
 This app contains migrations so make sure you run the ``migrate`` django-admin command after installing.

@@ -9,13 +9,14 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     {{ view.media.js }}
 {% endblock %}
 
 {% block content %}
     {% block header %}
-        <header class="nice-padding hasform">
-            <div class="row">
+        <header class="nice-padding hasform" role="banner">
+            <div class="row header-title">
                 <div class="left">
                     <div class="col">
                         {% block h1 %}<h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>{{ view.get_page_title }}<span></span></h1>{% endblock %}
@@ -74,7 +75,7 @@
                     </div>
 
                     {% block pagination %}
-                        <div class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}">
+                        <nav class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}" aria-label="{% trans 'Pagination' %}">
                             <p>{% blocktrans with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
                             {% if paginator.num_pages > 1 %}
                                 <ul>
@@ -82,7 +83,7 @@
                                     {% pagination_link_next page_obj view %}
                                 </ul>
                             {% endif %}
-                        </div>
+                        </nav>
                     {% endblock %}
 
                 {% endblock %}

@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# geek pantura <geekpantura@gmail.com>, 2016
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+# Ronggo Radityo <radityo3000@yahoo.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-09-18 08:03+0000\n"
+"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail sites"
+msgstr "Wagtail situs"
+
+msgid "Choose a root page"
+msgstr "Pilih halaman utama"
+
+msgid "Choose a different root page"
+msgstr "Pilih halaman utama lain"
+
+msgid "Site"
+msgstr "Situs"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Site name"
+msgstr "Nama Situs"
+
+msgid "Root page"
+msgstr "Halaman Utama"
+
+msgid "Default?"
+msgstr "Default?"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Sites"
+msgstr "Daftar Situs"
+
+msgid "Add a site"
+msgstr "Menambahkan situs"
+
+msgid "Add site"
+msgstr "Menambahkan daftar situs"
+
+msgid "Site '{0}' created."
+msgstr "Situs '{0}' berhasil dibuat "
+
+msgid "Site '{0}' updated."
+msgstr "Situs '{0}' berhasil diperbaharui"
+
+msgid "The site could not be saved due to errors."
+msgstr "Situs tidak dapat disimpan karena suatu kesalahan"
+
+msgid "Delete site"
+msgstr "Menghapus Situs"
+
+msgid "Site '{0}' deleted."
+msgstr "Situs '{0}' berhasil dihapus"
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Apakah anda yakin untuk menghapus situs ini?"

@@ -1,0 +1,327 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
+# saevarom <saevar@saevar.is>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail kjarni"
+
+msgid "This block has no options."
+msgstr "Þessi blokk hefur enga valmöguleika."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Fjöldi eininga má minnst vera %d"
+
+msgid "This field is required."
+msgstr "Þennan reit þarf að fylla út."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Fjöldi eininga má mest vera %d"
+
+msgid "Password"
+msgstr "Lylkilorð"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Lykilorðið sem þú slóst inn er ekki rétt. Vinsamlegast reynið aftur."
+
+msgid "hostname"
+msgstr "slóð"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Settu þetta sem eitthvað annað en 80 ef þú þarft sérstakt port sem á að "
+"birtast í slóðinni (t.d. 8000 fyrir þróun). Hefur ekki áhrif á beiðnir (e. "
+"request) svo port forwarding virkar ennþá)."
+
+msgid "site name"
+msgstr "Nafn síðu"
+
+msgid "Human-readable name for the site."
+msgstr "Lesanlegt nafn fyrir síðuna"
+
+msgid "root page"
+msgstr "rótarsíða"
+
+msgid "is default site"
+msgstr "er sjálfgefin síða"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Ef hakað við þá mun þessi síða sjá um beiðnir fyrir allar slóðir sem ekki "
+"hafa síðu"
+
+msgid "site"
+msgstr "síða"
+
+msgid "sites"
+msgstr "síður"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s er þegar stillt sem sjálfgefna síðan. Þú verður að afhaka við "
+"þá síðu áður en þú getur gert þessa að sjálfgefinni."
+
+msgid "title"
+msgstr "titill"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Titill síðunnar eins og þú vilt að hann birtist"
+
+msgid "slug"
+msgstr "vefslóð (e. slug)"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Nafnið á síðunni eins og það mun birtast í slóðinni t.d. http://domain.com/"
+"blog/[min-vefslod]/"
+
+msgid "content type"
+msgstr "efnistegund"
+
+msgid "live"
+msgstr "Í birtingu"
+
+msgid "has unpublished changes"
+msgstr "er með óvistaðar breytingar."
+
+msgid "URL path"
+msgstr "Slóð"
+
+msgid "owner"
+msgstr "eigandi"
+
+msgid "page title"
+msgstr "titill síðu"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Valkvætt. Leitarvélabestaður titill. Þessi titill mun birtast efst í "
+"vafraglugganum."
+
+msgid "show in menus"
+msgstr "sýna í valmyndum"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Segir til um hvor hlekkur á þessa síðu verður til í valmyndum"
+
+msgid "search description"
+msgstr "leitarlýsing"
+
+msgid "go live date/time"
+msgstr "setja í loftið dags/tíma"
+
+msgid "expiry date/time"
+msgstr "taka úr loftinu dags/tíma"
+
+msgid "expired"
+msgstr "tekin úr loftinu"
+
+msgid "locked"
+msgstr "læst"
+
+msgid "first published at"
+msgstr "fyrst sett í loftið"
+
+msgid "last published at"
+msgstr "síðast gefið út"
+
+msgid "latest revision created at"
+msgstr "síðasta útgáfa búin til"
+
+msgid "This slug is already in use"
+msgstr "Þessi vefslóð (e.slug) er þegar í notkun"
+
+msgid "scheduled"
+msgstr "tímasett"
+
+msgid "draft"
+msgstr "uppkast"
+
+msgid "live + scheduled"
+msgstr "í loftinu + tímasett"
+
+msgid "live + draft"
+msgstr "í birtingu + uppkast"
+
+msgid "Default"
+msgstr "Sjálfgefið"
+
+msgid "page"
+msgstr "síða"
+
+msgid "pages"
+msgstr "íður"
+
+msgid "submitted for moderation"
+msgstr "send inn til samþykktar"
+
+msgid "created at"
+msgstr "búin til"
+
+msgid "user"
+msgstr "notandi"
+
+msgid "content JSON"
+msgstr "efni JSON"
+
+msgid "approved go live at"
+msgstr "samþykkta að fara í loftið"
+
+msgid "page revision"
+msgstr "útgáfa"
+
+msgid "page revisions"
+msgstr "útgáfur"
+
+msgid "Add"
+msgstr "Bæta við"
+
+msgid "Add/edit pages you own"
+msgstr "Bæta við/breyta síðum sem þú átt"
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Edit any page"
+msgstr "Breyta einhverri síðu"
+
+msgid "Publish"
+msgstr "Setja í birtingu"
+
+msgid "Publish any page"
+msgstr "Setja einhverja síðu í birtingu"
+
+msgid "Bulk delete"
+msgstr "Magneyða"
+
+msgid "Delete pages with children"
+msgstr "Eyða síðum og undirsíðum"
+
+msgid "Lock"
+msgstr "Læsa"
+
+msgid "Lock/unlock any page"
+msgstr "Læsa/opna einhverja síðu"
+
+msgid "group"
+msgstr "hópur"
+
+msgid "permission type"
+msgstr "tegund heimildar"
+
+msgid "group page permission"
+msgstr "síðuheimild hóps"
+
+msgid "group page permissions"
+msgstr "síðuheimildir hóps"
+
+msgid "Public"
+msgstr "Í birtingu"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Læst, aðgengileg fyrir innskráða notendur"
+
+msgid "Private, accessible with the following password"
+msgstr "Læst, aðgengileg með eftirfarandi lykilorði"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Læst, aðgengileg fyrir notendur í sérstökum grúppum"
+
+msgid "password"
+msgstr "lykilorð"
+
+msgid "groups"
+msgstr "hópur"
+
+msgid "view restriction"
+msgstr "skoða takmörkun"
+
+msgid "view restrictions"
+msgstr "skoða takmarkanir"
+
+msgid "page view restriction"
+msgstr "skoðunartakmörkun síðu"
+
+msgid "page view restrictions"
+msgstr "skoðunartakmarkanir síðu"
+
+msgid "collection"
+msgstr "safn"
+
+msgid "collection view restriction"
+msgstr "skoðunartakmörkun safns"
+
+msgid "collection view restrictions"
+msgstr "skoðunartakmarkanir safns"
+
+msgid "name"
+msgstr "nafn"
+
+msgid "collections"
+msgstr "söfn"
+
+msgid "permission"
+msgstr "heimild"
+
+msgid "group collection permission"
+msgstr "safnheimild hóps"
+
+msgid "group collection permissions"
+msgstr "Myndasafns heimildir hóps"
+
+msgid "Log in"
+msgstr "Innskrá"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Notendanafn og lykilorð pössuðu ekki. Vinsamlegast reyndu aftur."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Notandinn þinn hefur ekki aðgang að þessari síðu. Til að sjá þessa síðu, "
+"vinsamlegast skráðu þig inn með notanda sem hefur viðeigandi réttindi."
+
+msgid "Password required"
+msgstr "Setja þarf inn lykilorð"
+
+msgid "You need a password to access this page."
+msgstr "Þú þarft lykilorð til að fá aðgang að þessari síðu"
+
+msgid "Continue"
+msgstr "Áfram"

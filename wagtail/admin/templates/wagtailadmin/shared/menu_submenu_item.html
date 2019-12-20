@@ -1,0 +1,9 @@
+<li class="menu-item{% if active %} menu-active{% endif %}">
+    <a href="#" data-nav-primary-submenu-trigger class="submenu-trigger {{ classnames }}"{{ attr_string }}>{{ label }}</a>
+    <div class="nav-submenu">
+        <h2 id="nav-submenu-{{ name }}-title" class="{{ classnames }}">{{ label }}</h2>
+        <ul aria-labelledby="nav-submenu-{{ name }}-title">{{ menu_html }}
+            {% block menu_footer %}{% endblock %}
+        </ul>
+    </div>
+</li>

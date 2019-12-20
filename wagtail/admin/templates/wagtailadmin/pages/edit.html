@@ -1,0 +1,124 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags %}
+{% load i18n %}
+{% load l10n %}
+{% block titletag %}{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
+{% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page.locked %}page-locked{% endif %}{% endblock %}
+
+{% block content %}
+    {% page_permissions page as page_perms %}
+    <header class="merged tab-merged" role="banner">
+        {% explorer_breadcrumb page %}
+
+        <div class="row row-flush">
+            <div class="left col9 header-title">
+                <h1 class="icon icon-doc-empty-inverse">
+                {% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}</h1>
+            </div>
+            <div class="right col3">
+                {% trans "Status" %}
+                {% include "wagtailadmin/shared/page_status_tag.html" with page=page_for_status %}
+
+                {% include "wagtailadmin/pages/_edit_switches.html" %}
+            </div>
+        </div>
+    </header>
+
+    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ edit_handler.render_form_content }}
+
+        {% if is_revision %}
+            <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
+        {% endif %}
+
+        <footer role="contentinfo">
+            <nav aria-label="{% trans 'Actions' %}">
+                <ul>
+                    <li class="actions">
+                        <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+                            {{ action_menu.render_html }}
+                        </div>
+                    </li>
+
+                    <li class="preview">
+                        {% trans 'Preview' as preview_label %}
+                        {% if preview_modes|length > 1 %}
+                            <div class="dropdown dropup dropdown-button match-width">
+                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
+                                <div class="dropdown-toggle icon icon-arrow-up"></div>
+                                <ul>
+                                    {% for mode_name, mode_display_name in preview_modes %}
+                                        <li>
+                                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
+                        {% endif %}
+                    </li>
+
+                    <li class="meta">
+                        <p class="modified">
+                            {% if page.get_latest_revision %}
+                                {% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}
+                                {% if page.get_latest_revision.user %}
+                                    {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username %}by {{ modified_by }}{% endblocktrans %}
+                                    <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
+                                {% endif %}
+                                <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="underlined">{% trans 'Revisions' %}</a>
+                            {% endif %}
+                        </p>
+                    </li>
+                    {% block extra_footer_actions %}
+                    {% endblock %}
+                </ul>
+            </nav>
+        </footer>
+    </form>
+
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ edit_handler.form.media.css }}
+    {{ action_menu.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    {% comment %}
+        Additional js from widgets media. Allows for custom widgets in admin panel.
+    {% endcomment %}
+    {{ edit_handler.form.media.js }}
+    {{ action_menu.media.js }}
+
+    {% comment %}
+        Additional HTML code that edit handlers define through 'html_declarations'. (Technically this isn't Javascript, but it will generally be data that exists for Javascript to work with...)
+    {% endcomment %}
+    {{ edit_handler.html_declarations }}
+
+    <script>
+        $(function() {
+            /* Make user confirm before leaving the editor if there are unsaved changes */
+            {% trans "This page has unsaved changes." as confirmation_message %}
+            enableDirtyFormCheck(
+                '#page-edit-form',
+                {
+                    confirmationMessage: '{{ confirmation_message|escapejs }}',
+
+                    {% if has_unsaved_changes %}
+                        alwaysDirty: true,
+                    {% endif %}
+                }
+            );
+        });
+    </script>
+{% endblock %}

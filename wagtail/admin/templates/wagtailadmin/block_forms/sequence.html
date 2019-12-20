@@ -1,0 +1,42 @@
+{% comment %}
+    A 'sequence' is a generalised structure that implements a collection of blocks that can be
+    ordered, added and deleted.
+
+    It provides the overall HTML structure, and the logic for updating hidden fields to reflect
+    changes to the sequence, but NOT the UI controls for performing those changes: that is the
+    responsibility of specific subtypes of 'sequence', such as list and stream.
+
+
+    DO NOT PUT UI CONTROLS HERE, OR ANYTHING ELSE THAT ASSUMES A SPECIFIC VISUAL RENDERING OF THE LIST.
+    (That belongs in templates that extend this one, such as list.html and stream.html.)
+
+
+{% endcomment %}
+
+{% if help_text %}
+    <span>
+        <div class="help">
+            <span class="icon-help-inverse" aria-hidden="true"></span>
+            {{ help_text }}
+        </div>
+    </span>
+{% endif %}
+
+<div class="c-sf-container">
+    <input type="hidden" name="{{ prefix }}-count" id="{{ prefix }}-count" value="{{ list_members_html|length }}">
+
+    {% block header %}{% endblock %}
+
+    {% if block_errors %}
+        {% for error in block_errors %}
+            <div class="help-block help-critical">{{ error }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div id="{{ prefix }}-list">
+        {% for list_member_html in list_members_html %}
+            {{ list_member_html }}
+        {% endfor %}
+    </div>
+    {% block footer %}{% endblock %}
+</div>

@@ -1,0 +1,347 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Benjamin Thurm, 2018
+# Ettore Atalan <atalanttore@googlemail.com>, 2017
+# Vorlif <flori@vorlif.org>, 2015
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Matthias Martin, 2019
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
+# Peter Dreuw <archandha@gmx.net>, 2019
+# Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Vorlif <flori@vorlif.org>, 2015,2017
+# Wasilis Mandratzis-Walz, 2015
+# Wasilis Mandratzis-Walz, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-18 07:12+0000\n"
+"Last-Translator: Matthias Martin\n"
+"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail Kern"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: dieser Block hat keine Einstellmöglichkeiten."
+
+msgid "This block has no options."
+msgstr "Dieser Block hat keine Einstellmöglichkeiten."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Die minimale Anzahl an Elementen ist %d"
+
+msgid "This field is required."
+msgstr "Dieses Feld ist erforderlich."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Die maximale Anzahl an Elementen ist %d"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Das eingegebene Passwort ist falsch. Bitte versuchen Sie es erneut."
+
+msgid "hostname"
+msgstr "Hostname"
+
+msgid "port"
+msgstr "Port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Geben Sie hier einen anderen Wert als 80 ein, wenn dieser in URLs auftauchen "
+"soll (z.B. Development Port auf 8000). Dies bezieht sich nicht auf Request "
+"Handling, so dass Port Forwarding weiterhin funktioniert."
+
+msgid "site name"
+msgstr "Website-Name"
+
+msgid "Human-readable name for the site."
+msgstr "Für Menschen lesbarer Name für die Website"
+
+msgid "root page"
+msgstr "Ursprungsseite"
+
+msgid "is default site"
+msgstr "Ist die standardmäßige Website"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Falls ausgewählt wird diese Seite Anfragen für alle Hostnamen annehmen, die "
+"keinen eigenen Seiteneintrag haben."
+
+msgid "site"
+msgstr "Webseite"
+
+msgid "sites"
+msgstr "Webseiten"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s ist bereits als Standardseite eingestellt. Sie müssen diese "
+"Einstellung ändern bevor Sie diese Seite als Standard einstellen können."
+
+msgid "title"
+msgstr "Titel"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Der Seitentitel, der öffentlich angezeigt werden soll"
+
+msgid "slug"
+msgstr "Kurztitel"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Der Name der Seite, wie er in URLs angezeigt werden soll, z.B. http://domain."
+"com/blog/[my-slug]/"
+
+msgid "content type"
+msgstr "Inhaltstyp"
+
+msgid "live"
+msgstr "Veröffentlicht"
+
+msgid "has unpublished changes"
+msgstr "hat unveröffentlichte Änderungen"
+
+msgid "URL path"
+msgstr "URL Pfad"
+
+msgid "owner"
+msgstr "Eigner"
+
+msgid "page title"
+msgstr "Seitentitel"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Optional. Suchmaschinenfreundlicher Titel. Wird in der Titelleiste des "
+"Browsers angezeigt."
+
+msgid "show in menus"
+msgstr "In Menüs anzeigen"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Ob ein Link zu dieser Seite in automatisch generierten Menüs auftaucht."
+
+msgid "search description"
+msgstr "Suchbeschreibung"
+
+msgid "go live date/time"
+msgstr "Veröffentlicht ab"
+
+msgid "expiry date/time"
+msgstr "Veröffentlicht bis"
+
+msgid "expired"
+msgstr "abgelaufen"
+
+msgid "locked"
+msgstr "Gesperrt"
+
+msgid "first published at"
+msgstr "Zuerst publiziert am"
+
+msgid "last published at"
+msgstr "zuletzt publiziert am"
+
+msgid "latest revision created at"
+msgstr "Neuste Revision erstellt am"
+
+msgid "This slug is already in use"
+msgstr "Dieser Kurztitel wird bereits verwendet"
+
+msgid "scheduled"
+msgstr "geplant"
+
+msgid "draft"
+msgstr "Entwurf"
+
+msgid "live + scheduled"
+msgstr "veröffentlicht + geplant"
+
+msgid "live + draft"
+msgstr "Veröffentlicht + Entwurf"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "page"
+msgstr "Seite"
+
+msgid "pages"
+msgstr "Seiten"
+
+msgid "submitted for moderation"
+msgstr "Zur Freischaltung eingereicht"
+
+msgid "created at"
+msgstr "Erstellt am"
+
+msgid "user"
+msgstr "Benutzer"
+
+msgid "content JSON"
+msgstr "JSON Inhalt"
+
+msgid "approved go live at"
+msgstr "Freigegeben zur Veröffentlichung am"
+
+msgid "page revision"
+msgstr "Seitenrevision"
+
+msgid "page revisions"
+msgstr "Seiten Revisionen"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "Add/edit pages you own"
+msgstr "Hinzufügen/Bearbeiten von Seiten, die Sie besitzen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit any page"
+msgstr "Jede Seite bearbeiten."
+
+msgid "Publish"
+msgstr "Veröffentlichen"
+
+msgid "Publish any page"
+msgstr "Jede Seite veröffentlichen"
+
+msgid "Bulk delete"
+msgstr "Alles löschen"
+
+msgid "Delete pages with children"
+msgstr "Seiten inkl. Unterseiten löschen"
+
+msgid "Lock"
+msgstr "Sperren"
+
+msgid "Lock/unlock any page"
+msgstr "Sperren/Entsperren jeder Seite"
+
+msgid "group"
+msgstr "Gruppe"
+
+msgid "permission type"
+msgstr "Berechtigungstyp"
+
+msgid "group page permission"
+msgstr "Gruppen Seitenberechtigung"
+
+msgid "group page permissions"
+msgstr "Gruppen Seitenberechtigungen"
+
+msgid "Public"
+msgstr "Öffentlich"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat, nur für angemeldete Benutzer einsehbar"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, einsehbar mit folgendem Passwort"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, einsehbar für Benutzer in bestimmten Gruppen"
+
+msgid "password"
+msgstr "Passwort"
+
+msgid "groups"
+msgstr "Gruppen"
+
+msgid "view restriction"
+msgstr "Ansichtsrestriktion"
+
+msgid "view restrictions"
+msgstr "Ansichtsrestriktionen"
+
+msgid "page view restriction"
+msgstr "Seiten Ansichtsrestriktion"
+
+msgid "page view restrictions"
+msgstr "Seiten Ansichtsrestriktionen"
+
+msgid "collection"
+msgstr "Sammlung"
+
+msgid "collection view restriction"
+msgstr "Sammlung Ansichtsrestriktion"
+
+msgid "collection view restrictions"
+msgstr "Sammlung Ansichtsrestriktionen"
+
+msgid "name"
+msgstr "Name"
+
+msgid "collections"
+msgstr "Sammlungen"
+
+msgid "permission"
+msgstr "Berechtigung"
+
+msgid "group collection permission"
+msgstr "Gruppen Sammlungs-Berechtigung"
+
+msgid "group collection permissions"
+msgstr "Gruppen-Sammlungs-Berechtigungen"
+
+msgid "Log in"
+msgstr "Anmelden"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Ihr Benutzername und Ihr Passwort wurden nicht erkannt. Bitte versuchen Sie "
+"es erneut!"
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ihr Konto hat keinen Zugang zu dieser Seite. Um fortzufahren melden Sie sich "
+"mit einem Konto an, das Zugang hat."
+
+msgid "Password required"
+msgstr "Passwort erforderlich"
+
+msgid "You need a password to access this page."
+msgstr "Sie benötigen ein Passwort um diese Seite aufzurufen."
+
+msgid "Continue"
+msgstr "Weiter"

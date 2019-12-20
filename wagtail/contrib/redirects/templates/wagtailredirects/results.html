@@ -1,0 +1,23 @@
+{% load i18n %}
+{% if redirects %}
+    {% if query_string %}
+        <h2>
+        {% blocktrans count counter=redirects.paginator.count %}
+            There is {{ counter }} match
+        {% plural %}
+            There are {{ counter }} matches
+        {% endblocktrans %}
+        </h2>
+    {% endif %}
+
+    {% include "wagtailredirects/list.html" %}
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=redirects linkurl="wagtailredirects:index" %}
+{% else %}
+     {% if query_string %}
+         <p>{% blocktrans %}Sorry, no redirects match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+     {% else %}
+        {% url 'wagtailredirects:add' as wagtailredirects_add_redirect_url %}
+        <p>{% blocktrans %}No redirects have been created. Why not <a href="{{ wagtailredirects_add_redirect_url }}">add one</a>?{% endblocktrans %}</p>
+    {% endif %}
+{% endif %}

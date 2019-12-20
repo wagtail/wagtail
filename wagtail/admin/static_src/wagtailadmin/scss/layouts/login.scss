@@ -1,0 +1,195 @@
+@import 'wagtailadmin/scss/helpers';
+
+// overrides default nice padding defined in variables.scss
+$desktop-nice-padding: 100px;
+
+html,
+body,
+.content-wrapper {
+    background-color: $color-grey-1;
+    color: $color-grey-3;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin-left: 0;
+    height: 100%;
+}
+
+.content-wrapper {
+    border: 0;
+}
+
+.wrapper {
+    padding-left: $mobile-nice-padding;
+    padding-right: $mobile-nice-padding;
+    margin-left: 0;
+    max-width: none;
+}
+
+h1 {
+    font-weight: 300;
+    font-size: 2em;
+    line-height: 1em;
+    color: $color-white;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+form {
+    width: 100%;
+
+    ul {
+        @include unlist();
+    }
+}
+
+label {
+    width: auto;
+    color: $color-white;
+}
+
+.button,
+a.button {
+    line-height: 1.2em;
+    font-size: 1.5em;
+    padding: 1.1em 2.4em;
+    height: 3.5em;
+}
+
+input[type=checkbox]:before {
+    background-color: #333;
+    color: #555;
+    border: 1px solid #555;
+}
+
+.fields {
+    max-width: none;
+}
+
+.fields li {
+    padding: 1em 0;
+
+    &.full {
+        position: relative;
+        padding: 0;
+
+        label {
+            display: none;
+        }
+
+        input {
+            border-top: 1px dashed $color-input-border;
+        }
+    }
+
+    &:first-child input {
+        border: 0;
+    }
+}
+
+.fields .checkbox {
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.field {
+    padding: 0;
+}
+
+.iconfield .input:before {
+    display: none;
+}
+
+// Special full-width, one-off fields i.e a single text or textarea input
+.full input {
+    border-radius: 0;
+    font-weight: 300;
+    border: 0;
+    padding: 1.5em $mobile-nice-padding 1.5em $mobile-nice-padding;
+    font-size: 1.6em;
+    line-height: 1.6em;
+}
+
+.help {
+    opacity: 1;
+    position: absolute;
+    font-size: 1.3em;
+    top: 50%;
+    margin-top: -0.5em;
+    right: 5%;
+}
+
+.messages {
+    margin: 1em 0;
+    z-index: 5;
+
+    ul {
+        margin: 0;
+
+        &:before {
+            display: none;
+        }
+
+        li {
+            border-radius: 3px;
+        }
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .content-wrapper {
+        float: none;
+        height: auto;
+        width: 100%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    // centres login form vertically
+    .wrapper {
+        position: relative;
+        height: 100%;
+        padding: 0 $desktop-nice-padding;
+
+        &:before {
+            content: '';
+            width: 0;
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-left: -0.4em;
+        }
+    }
+
+    h1 {
+        font-size: 4em;
+    }
+
+    .full {
+        margin: 0 (-$desktop-nice-padding);
+
+        .iconfield {
+            .input:before {
+                display: inline-block;
+                position: absolute;
+                color: $color-grey-4;
+                border: 2px solid $color-grey-4;
+                border-radius: 100%;
+                width: 1em;
+                padding: 0.3em;
+                left: $desktop-nice-padding;
+                margin-top: -1.1rem;
+                top: 50%;
+                font-size: 1.3rem;
+            }
+
+            input {
+                padding-left: ($desktop-nice-padding + 50px);
+            }
+        }
+    }
+}

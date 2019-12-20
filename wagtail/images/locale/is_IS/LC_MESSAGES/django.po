@@ -1,0 +1,391 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
+# saevarom <saevar@saevar.is>, 2015,2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail myndir"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Studd skráarsnið: %(supported_formats)s. Skráarstærð allt að: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Studd skráarsnið: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "Ekki stuðningur við skráarsniðið. Einungis stuðningur við: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Ekki gild %s mynd"
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Þessi skrá er of stór (%%s). Skráin má vera allt að %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Þessi skrá er of stór. Skráin má vera allt að %s."
+
+msgid "Full width"
+msgstr "Full breidd"
+
+msgid "Left-aligned"
+msgstr "Vinstrijafnað"
+
+msgid "Right-aligned"
+msgstr "Hægrijafnað"
+
+msgid "Filter"
+msgstr "Sía"
+
+msgid "Original size"
+msgstr "Upprunaleg stærð"
+
+msgid "Resize to width"
+msgstr "Breyta stærð myndar m.v. breidd"
+
+msgid "Resize to height"
+msgstr "Breyta stærð myndir m.v. hæð"
+
+msgid "Resize to min"
+msgstr "Breyta stærð myndar að minnsta gildi"
+
+msgid "Resize to max"
+msgstr "Breyta stærð myndar að stærsta gildi"
+
+msgid "Resize to fill"
+msgstr "Breyta stærð myndar svo hún fylli út í"
+
+msgid "Width"
+msgstr "Breidd"
+
+msgid "Height"
+msgstr "Hæð"
+
+msgid "Closeness"
+msgstr "Líkindi"
+
+msgid "Add"
+msgstr "Bæta við"
+
+msgid "Add/edit images you own"
+msgstr "Bæta við/breyta myndum sem þú átt"
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Edit any image"
+msgstr "Breyta einhverri mynd"
+
+msgid "title"
+msgstr "titill"
+
+msgid "file"
+msgstr "skrá"
+
+msgid "width"
+msgstr "breidd"
+
+msgid "height"
+msgstr "hæð"
+
+msgid "created at"
+msgstr "búin til"
+
+msgid "uploaded by user"
+msgstr "hlaðið inn af"
+
+msgid "tags"
+msgstr "merki"
+
+msgid "image"
+msgstr "mynd"
+
+msgid "images"
+msgstr "myndir"
+
+msgid "Choose an image"
+msgstr "Veldu mynd"
+
+msgid "Search"
+msgstr "Leita"
+
+msgid "Upload"
+msgstr "Hlaða upp"
+
+msgid "Popular tags"
+msgstr "Vinsæl merki"
+
+msgid "Uploading…"
+msgstr "Hleð upp..."
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Það er %(counter)s niðurstaða\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Það eru %(counter)s niðurstöður\n"
+"        "
+
+msgid "Latest images"
+msgstr "Nýjustu myndirnar"
+
+msgid "Choose a format"
+msgstr "Veldu snið"
+
+msgid "Insert image"
+msgstr "Setja inn mynd"
+
+msgid "Change image file:"
+msgstr "Breyta um myndaskrá:"
+
+msgid "Add an image"
+msgstr "Bæta við mynd"
+
+msgid "Add image"
+msgstr "Bæta við mynd"
+
+msgid "Save"
+msgstr "Vista"
+
+msgid "Delete image"
+msgstr "Eyða mynd"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Notuð %(usage_count)s sinni"
+msgstr[1] "Notuð %(usage_count)s sinnum"
+
+msgid "Are you sure you want to delete this image?"
+msgstr "Ertu viss um að þú viljir eyða þessari mynd?"
+
+msgid "Yes, delete"
+msgstr "Já, eyða"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Breyti mynd %(title)s"
+
+msgid "Editing"
+msgstr "Breyti"
+
+msgid "URL Generator"
+msgstr "Slóð"
+
+msgid "Focal point"
+msgstr "Fókus svæði"
+
+msgid "(optional)"
+msgstr "(valkvætt)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Til að skilgreina mikilvægasta svæði myndarinnar, smelltu og dragðu kassa "
+"yfir það svæði á myndinni fyrir neðan."
+
+msgid "Current focal point shown"
+msgstr "Núverandi fókuspunktur sýndur"
+
+msgid "Remove focal area"
+msgstr "Fjarlægja fókussvæði"
+
+msgid "Max dimensions"
+msgstr "Stærsta hæð/breidd"
+
+msgid "Filesize"
+msgstr "Skráarstærð"
+
+msgid "File not found"
+msgstr "Skrá fannst ekki"
+
+msgid "Usage"
+msgstr "Notkun"
+
+msgid "Images"
+msgstr "Myndir"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Því miður passa engar myndir við \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Þú hefur ekki hlaðið neinum myndum í þetta safn. Hví ekki að<a href="
+"\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Þú hefur ekki hlaðið neinum myndum. Hví ekki að<a href="
+"\"%(wagtailimages_add_image_url)s\">smella inn nokkrum núna</a>?"
+
+msgid "Generating URL"
+msgstr "Bý til slóð"
+
+msgid "URL"
+msgstr "Slóð"
+
+msgid "Preview"
+msgstr "Forskoðun"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"Athugið að myndir sem búnar eru til stærri en skjárinn verða minni þegar þær "
+"eru skoðaðar hér til að passa á skjáinn."
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s er í notkun"
+
+msgid "Usage of"
+msgstr "Notuð"
+
+msgid "Title"
+msgstr "Titill"
+
+msgid "Parent"
+msgstr "Yfirsíða"
+
+msgid "Type"
+msgstr "Tegund"
+
+msgid "Status"
+msgstr "Staða"
+
+msgid "Edit this page"
+msgstr "Breyta þessari síðu"
+
+msgid "Add multiple images"
+msgstr "Bæta við mörgum myndum"
+
+msgid "Add images"
+msgstr "Bæta við myndum"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Dragðu myndir hingað til að hlaða þeim upp."
+
+msgid "Or choose from your computer"
+msgstr "Eða veldu þær úr tölvunni þinni"
+
+msgid "Add to collection:"
+msgstr "Bæta í safn"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Tókst að hlaða inn mynd. Vinsamlegast breytið tiltli myndarinnar ef það "
+"þarf. Þú getur einnig eytt myndinni alveg ef að ekki þurfti að hlaða henni "
+"inn."
+
+msgid "Sorry, upload failed."
+msgstr "Því miður tókst ekki að hlaða upp myndunum."
+
+msgid "Server Error"
+msgstr "Villa á netþjóni"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
+
+msgid "Image updated."
+msgstr "Mynd uppfærð"
+
+msgid "Update"
+msgstr "Uppfæra"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "Image permissions"
+msgstr "Myndaheimildir"
+
+msgid "Add an image permission"
+msgstr "Bæta við myndaheimild"
+
+msgid "Search images"
+msgstr "Leita að myndum"
+
+msgid "Image '{0}' updated."
+msgstr "Mynd '{0}' uppfærð."
+
+msgid "Edit again"
+msgstr "Breyta aftur"
+
+msgid "The image could not be saved due to errors."
+msgstr "Ekki var hægt að vista myndina þar sem hún stóðst ekki villuprófanir"
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Upprunamyndin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
+
+msgid "Image '{0}' deleted."
+msgstr "Mynd '{0}' eydd."
+
+msgid "Image '{0}' added."
+msgstr "Mynd '{0}' bætt við."
+
+msgid "The image could not be created due to errors."
+msgstr "Ekki var hægt að búa myndina til þar sem hún stóðst ekki villuprófanir"
+
+msgid "Image"
+msgstr "Mynd"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s mynd"
+msgstr[1] "%(count)s myndir"
+
+msgid "Change image"
+msgstr "Skipta út mynd"
+
+msgid "Edit this image"
+msgstr "Breyta þessari mynd"

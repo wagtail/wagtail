@@ -1,4 +1,4 @@
-@import 'wagtailadmin/scss/variables';
+@import 'wagtailadmin/scss/helpers';
 
 .content header {
     margin-bottom: 0;
@@ -10,7 +10,6 @@
 }
 
 .listing {
-
     td,
     th {
         vertical-align: top;
@@ -27,12 +26,12 @@
             visibility: visible;
         }
 
-        tr > td { 
+        tr > td {
             background-color: inherit;
-            
-            a.edit-obj { 
+
+            a.edit-obj {
                 color: inherit;
-                font-weight: 600; 
+                font-weight: 600;
             }
         }
 
@@ -85,11 +84,10 @@
         text-transform: uppercase;
         position: relative;
         overflow: hidden;
-        outline: none;
         box-sizing: border-box;
         -webkit-font-smoothing: auto;
+        // stylelint-disable-next-line property-no-vendor-prefix
         -moz-appearance: none;
-        -moz-box-sizing: border-box;
 
         &:hover {
             background-color: #358c8b;
@@ -99,7 +97,9 @@
     }
 
     li.selected a {
+        // stylelint-disable-next-line declaration-no-important
         color: #fff !important;
+        // stylelint-disable-next-line declaration-no-important
         border-color: #43b1b0 !important;
         background-color: #43b1b0;
     }
@@ -118,11 +118,11 @@
         float: left;
         margin: 0 15px 15px 0;
         width: 50px;
-   }
+    }
 }
 
 
-div.pagination {
+.pagination {
     margin-top: 3em;
     border-top: 1px dashed #d9d9d9;
     padding: 2em 1em 0;
@@ -138,7 +138,7 @@ p.no-results {
 }
 
 
-@media screen and (min-width: 50em) {
+@include media-breakpoint-up(sm) {
     .changelist-filter {
         float: right;
         padding: 0 1.5%;
@@ -160,12 +160,12 @@ p.no-results {
         }
     }
 
-    div.pagination {
+    .pagination {
         padding-left: 50px;
         padding-right: 50px;
     }
 
-    div.pagination.col9 {
+    .pagination.col9 {
         width: 73.5%;
     }
 
@@ -174,8 +174,7 @@ p.no-results {
     }
 }
 
-
-@media screen and (min-width: 1200px) {
+@include media-breakpoint-up(lg) {
     .result-list.col9 {
         width: 79%;
     }
@@ -184,7 +183,7 @@ p.no-results {
         width: 21%;
     }
 
-    div.pagination.col9 {
+    .pagination.col9 {
         width: 77.5%;
     }
 }

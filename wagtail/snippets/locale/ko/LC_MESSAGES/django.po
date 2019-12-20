@@ -1,0 +1,178 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2017,2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
+"ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail snippets"
+msgstr "웨그테일 스니펫"
+
+msgid "Choose"
+msgstr "선택"
+
+msgid "Search"
+msgstr "검색"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            일치하는 %(counter)s개의 결과가 있습니다."
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr ""
+"죄송합니다, \"<em>%(query_string)s</em>\"에 일치하는 스니펫은 없습니다."
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
+msgstr ""
+"%(snippet_type_name)s 스니펫은 없습니다. 하나 <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">만들어 보세요</"
+"a>."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s 삭제"
+
+msgid "Delete "
+msgstr "삭제"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s번 사용"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "이 %(snippet_type_name)s 스니펫을 정말 삭제할까요?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "%(count)s개의 %(snippet_type_name)s 스니펫을 정말 삭제할까요?"
+
+msgid "Yes, delete"
+msgstr "네, 지우겠습니다."
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "새로운 %(snippet_type_name)s"
+
+msgid "New"
+msgstr "새로운"
+
+msgid "Saving…"
+msgstr "저장 중…"
+
+msgid "Save"
+msgstr "저장"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "%(snippet_type_name)s - %(instance)s 수정"
+
+msgid "Editing"
+msgstr "수정중"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Usage"
+msgstr "사용"
+
+msgid "Snippets"
+msgstr "스니펫"
+
+msgid "Title"
+msgstr "제목"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"생성된 %(snippet_type_name_plural)s 스니펫이 없습니다. 지금 스니펫을 <a href="
+"\"%(wagtailsnippets_create_url)s\">추가 해 보시는건 어떨까요?"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "%(snippet_type_name_plural)s 스니펫"
+
+#, python-format
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr "<span>%(snippet_type_name_plural)s</span> 스니펫"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s 추가"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s 의 사용"
+
+msgid "Usage of"
+msgstr "의 사용"
+
+msgid "Parent"
+msgstr "상위"
+
+msgid "Type"
+msgstr "타입"
+
+msgid "Status"
+msgstr "상태"
+
+msgid "Edit this page"
+msgstr "페이지 변경"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s 검색"
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "The snippet could not be created due to errors."
+msgstr "에러로 인해 스니펫을 생성할 수 없습니다."
+
+msgid "The snippet could not be saved due to errors."
+msgstr "에러로 인해 스니펫을 저장할 수 없습니다."
+
+#, python-format
+msgid "Choose %s"
+msgstr "%s 선택"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "다른 %s 선택"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "%s 수정"

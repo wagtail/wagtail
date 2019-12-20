@@ -1,0 +1,166 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dan Braghis, 2014-2016,2019
+# zerolab, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-02-27 17:40+0000\n"
+"Last-Translator: Dan Braghis\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "Wagtail redirects"
+msgstr "Redirecționări Wagtail"
+
+msgid "From site"
+msgstr "De la sit"
+
+msgid "All sites"
+msgstr "Toate siturile"
+
+msgid "A redirect with this path already exists."
+msgstr "O redirecționare cu acest nume există deja."
+
+msgid "redirect from"
+msgstr "redirecționare de la"
+
+msgid "site"
+msgstr "sait"
+
+msgid "permanent"
+msgstr "permanent"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Recomandat. Redirecționările permanente asigură că motoarele de căutare omit "
+"pagina veche ('Redirecționare de la'), indexând pagina nouă în schimb."
+
+msgid "redirect to a page"
+msgstr "redirecționează la o pagină"
+
+msgid "redirect to any URL"
+msgstr "redirecționare la orice URL"
+
+msgid "temporary"
+msgstr "temporar"
+
+msgid "redirect"
+msgstr "redirecționare"
+
+msgid "Add redirect"
+msgstr "Adaugă redirecționare"
+
+msgid "Save"
+msgstr "Salvează"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Șterge redirecționarea %(title)s"
+
+msgid "Delete"
+msgstr "Șterge"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Sigur doriți să ștergeți această redirecționare?"
+
+msgid "Yes, delete"
+msgstr "Da, șterge"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Editare %(title)s"
+
+msgid "Editing"
+msgstr "Editare"
+
+msgid "Delete redirect"
+msgstr "Șterge redirecțioanare"
+
+msgid "Redirects"
+msgstr "Redirecționări"
+
+msgid "From"
+msgstr "De la"
+
+msgid "Site"
+msgstr "Sait"
+
+msgid "To"
+msgstr "Către"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Edit this redirect"
+msgstr "Editează redirecționare"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Există %(counter)s potrivire\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Sunt %(counter)s potriviri\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Sunt %(counter)s potriviri\n"
+"        "
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o "
+"redirecționare"
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Nu a fost creată nici o redirecție. De ce să nu <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">adăugați una</a>?"
+
+msgid "Search redirects"
+msgstr "Caută redirecționări"
+
+msgid "Redirect '{0}' updated."
+msgstr "Redirecționarea '{0}' a fost actualizată."
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Redirecționarea nu a fost salvată din cauza erorilor."
+
+msgid "Redirect '{0}' deleted."
+msgstr "Redirecționarea '{0}' a fost ștearsă."
+
+msgid "Redirect '{0}' added."
+msgstr "Redirecționarea '{0}' a fost adăugată."
+
+msgid "The redirect could not be created due to errors."
+msgstr "Redirecționarea nu a fost creată din cauza erorilor."

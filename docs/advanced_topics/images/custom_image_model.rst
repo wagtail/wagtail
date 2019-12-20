@@ -10,10 +10,10 @@ to images.
 To do this, you need to add two models to your project:
 
  - The image model itself that inherits from
-   ``wagtail.wagtailimages.models.AbstractImage``. This is where you would add
+   ``wagtail.images.models.AbstractImage``. This is where you would add
    your additional fields
  - The renditions model that inherits from
-   ``wagtail.wagtailimages.models.AbstractRendition``. This is used to store
+   ``wagtail.images.models.AbstractRendition``. This is used to store
    renditions for the new model.
 
 Here's an example:
@@ -23,7 +23,7 @@ Here's an example:
     # models.py
     from django.db import models
 
-    from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
+    from wagtail.images.models import Image, AbstractImage, AbstractRendition
 
 
     class CustomImage(AbstractImage):
@@ -39,17 +39,13 @@ Here's an example:
 
 
     class CustomRendition(AbstractRendition):
-        image = models.ForeignKey(CustomImage, related_name='renditions')
+        image = models.ForeignKey(CustomImage, on_delete=models.CASCADE, related_name='renditions')
 
         class Meta:
             unique_together = (
                 ('image', 'filter_spec', 'focal_point_key'),
             )
 
-
-.. versionchanged:: 1.10
-
-    In previous versions of Wagtail it was necessary to connect signal handlers to handle deletion of image files. As of Wagtail 1.10 this is now handled automatically.
 
 .. note::
 
@@ -70,7 +66,7 @@ Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
     When changing an existing site to use a custom image model, no images will
     be copied to the new model automatically. Copying old images to the new
     model would need to be done manually with a
-    `data migration <https://docs.djangoproject.com/en/1.8/topics/migrations/#data-migrations>`_.
+    :ref:`data migration <django:data-migrations>`.
 
     Any templates that reference the builtin image model will still continue to
     work as before but would need to be updated in order to see any new images.
@@ -80,7 +76,7 @@ Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
 Referring to the image model
 ============================
 
-.. module:: wagtail.wagtailimages
+.. module:: wagtail.images
 
 .. autofunction:: get_image_model
 

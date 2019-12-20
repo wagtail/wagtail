@@ -1,0 +1,45 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load wagtailadmin_tags wagtailcore_tags i18n %}
+
+{% block furniture %}
+    <aside class="nav-wrapper" data-nav-primary>
+        <div class="inner">
+            <a href="{% url 'wagtailadmin_home' %}" class="logo" aria-label="{% trans 'Dashboard' %}">
+                {% block branding_logo %}
+                    {# Mobile-only logo: #}
+                    <div class="wagtail-logo-container__mobile u-hidden@sm">
+                        <img class="wagtail-logo wagtail-logo__full" src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="Wagtail" width="80" />
+                    </div>
+
+                    {# Desktop logo (animated): #}
+                    {% include "wagtailadmin/shared/animated_logo.html" %}
+                {% endblock %}
+                <span class="u-hidden@sm">{% trans "Dashboard" %}</span>
+            </a>
+
+            {% menu_search %}
+            {% main_nav %}
+
+        </div>
+        <div class="explorer__wrapper" data-explorer-menu></div>
+    </aside>
+
+    <main class="content-wrapper" role="main">
+        <div class="content">
+            {# Always show messages div so it can be appended to by JS #}
+            <div class="messages">
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li class="{% message_tags message %}">{{ message|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div id="nav-toggle" class="nav-toggle icon text-replace">{% trans "Menu" %}</div>
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{% comment %}
+    HACK: This template expects to be passed a 'linkurl' parameter, containing a URL name
+    that can be reverse-resolved by the {% url %} tag with no further parameters.
+    Views that have parameters in their URL can work around this by omitting linkurl,
+    which will produce a final URL of the form "?q=123", implicitly preserving the current URL path.
+    Using the {% url ... as ... %} form of the tag ensures that this fails silently,
+    rather than throwing a NoReverseMatch exception.
+{% endcomment %}
+{% if linkurl %}
+    {% url linkurl as url_to_use %}
+{% endif %}
+
+<nav class="pagination" aria-label="{% trans 'Pagination' %}">
+    <p>{% blocktrans with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
+    <ul>
+        <li class="prev">
+            {% if items.has_previous %}
+                <a href="{{ url_to_use }}{% querystring p=items.previous_page_number %}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
+            {% endif %}
+        </li>
+        <li class="next">
+            {% if items.has_next %}
+                <a href="{{ url_to_use }}{% querystring p=items.next_page_number %}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
+            {% endif %}
+        </li>
+    </ul>
+</nav>

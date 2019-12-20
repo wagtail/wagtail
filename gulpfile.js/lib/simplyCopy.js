@@ -3,23 +3,13 @@ var rename = require('gulp-rename');
 var gutil = require('gulp-util');
 var path = require('path');
 var config = require('../config');
-var normalizePath = require('../lib/normalize-path');
+var renameSrcToDest = require('../lib/rename-src-to-dest');
 
 /*
  * Simple copy task - just copoes files from the source to the destination,
  * with no compilation, minification, or other intelligence
  *
  */
- 
-var renameSrcToDest = function() {
-    return rename(function(filePath) {
-        filePath.dirname = normalizePath(filePath.dirname).replace(
-            '/' + config.srcDir + '/',
-            '/' + config.destDir + '/');
-    });
-};
-
-
 var simpleCopyTask = function(glob) {
     return function() {
         var sources = config.apps.map(function(app) {

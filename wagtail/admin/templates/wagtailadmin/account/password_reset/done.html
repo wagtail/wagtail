@@ -1,0 +1,17 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}{% trans "Reset password" %}{% endblock %}
+{% block bodyclass %}login{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
+{% endblock %}
+
+{% block furniture %}
+    <main class="content-wrapper" role="main">
+        <h1>{% trans "Check your email" %}</h1>
+        <p>{% trans "A link to reset your password has been emailed to you if an account exists for this address." %}</p>
+    </main>
+{% endblock %}

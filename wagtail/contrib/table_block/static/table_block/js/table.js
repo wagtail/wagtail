@@ -4,16 +4,23 @@ function initTable(id, tableOptions) {
     var containerId = id + '-handsontable-container';
     var tableHeaderCheckboxId = id + '-handsontable-header';
     var colHeaderCheckboxId = id + '-handsontable-col-header';
+    var tableCaptionId = id + '-handsontable-col-caption';
     var hiddenStreamInput = $('#' + id);
     var tableHeaderCheckbox = $('#' + tableHeaderCheckboxId);
     var colHeaderCheckbox = $('#' + colHeaderCheckboxId);
+    var tableCaption = $('#' + tableCaptionId);
     var hot;
     var defaultOptions;
     var finalOptions = {};
+    var getCellsClassnames;
     var persist;
     var cellEvent;
+    var metaEvent;
+    var initEvent;
     var structureEvent;
     var dataForForm = null;
+    var isInitialized = false;
+
     var getWidth = function() {
         return $('.widget-table_input').closest('.sequence-member-inner').width();
     };
@@ -39,7 +46,7 @@ function initTable(id, tableOptions) {
     }
 
     try {
-        dataForForm = $.parseJSON(hiddenStreamInput.val());
+        dataForForm = JSON.parse(hiddenStreamInput.val());
     } catch (e) {
         // do nothing
     }
@@ -51,11 +58,14 @@ function initTable(id, tableOptions) {
         if (dataForForm.hasOwnProperty('first_col_is_header')) {
             colHeaderCheckbox.prop('checked', dataForForm.first_col_is_header);
         }
+        if (dataForForm.hasOwnProperty('table_caption')) {
+            tableCaption.prop('value', dataForForm.table_caption);
+        }
     }
 
     if (!tableOptions.hasOwnProperty('width') || !tableOptions.hasOwnProperty('height')) {
         // Size to parent .sequence-member-inner width if width is not given in tableOptions
-        $(window).resize(function() {
+        $(window).on('resize', function() {
             hot.updateSettings({
                 width: getWidth(),
                 height: getHeight()
@@ -64,11 +74,28 @@ function initTable(id, tableOptions) {
         });
     }
 
+    getCellsClassnames = function() {
+        var meta = hot.getCellsMeta();
+        var cellsClassnames = []
+        for (var i = 0; i < meta.length; i++) {
+            if (meta[i].hasOwnProperty('className')) {
+                cellsClassnames.push({
+                    row: meta[i].row,
+                    col: meta[i].col,
+                    className: meta[i].className
+                });
+            }
+        }
+        return cellsClassnames;
+    };
+
     persist = function() {
         hiddenStreamInput.val(JSON.stringify({
             data: hot.getData(),
+            cell: getCellsClassnames(),
             first_row_is_table_header: tableHeaderCheckbox.prop('checked'),
-            first_col_is_header: colHeaderCheckbox.prop('checked')
+            first_col_is_header: colHeaderCheckbox.prop('checked'),
+            table_caption: tableCaption.val()
         }));
     };
 
@@ -80,16 +107,30 @@ function initTable(id, tableOptions) {
         persist();
     };
 
+    metaEvent = function(row, column, key, value) {
+        if (isInitialized && key === 'className') {
+            persist();
+        }
+    };
+
+    initEvent = function() {
+        isInitialized = true;
+    };
+
     structureEvent = function(index, amount) {
         resizeHeight(getHeight());
         persist();
     };
 
-    tableHeaderCheckbox.change(function() {
+    tableHeaderCheckbox.on('change', function() {
         persist();
     });
 
-    colHeaderCheckbox.change(function() {
+    colHeaderCheckbox.on('change', function() {
+        persist();
+    });
+
+    tableCaption.on('change', function() {
         persist();
     });
 
@@ -99,24 +140,19 @@ function initTable(id, tableOptions) {
         afterCreateRow: structureEvent,
         afterRemoveCol: structureEvent,
         afterRemoveRow: structureEvent,
-        contextMenu: [
-            'row_above',
-            'row_below',
-            '---------',
-            'col_left',
-            'col_right',
-            '---------',
-            'remove_row',
-            'remove_col',
-            '---------',
-            'undo',
-            'redo'
-        ]
+        afterSetCellMeta: metaEvent,
+        afterInit: initEvent,
+        // contextMenu set via init, from server defaults
     };
 
-    if (dataForForm !== null && dataForForm.hasOwnProperty('data')) {
+    if (dataForForm !== null) {
         // Overrides default value from tableOptions (if given) with value from database
-        defaultOptions.data = dataForForm.data;
+        if (dataForForm.hasOwnProperty('data')) {
+            defaultOptions.data = dataForForm.data;
+        }
+        if (dataForForm.hasOwnProperty('cell')) {
+            defaultOptions.cell = dataForForm.cell;
+        }
     }
 
     Object.keys(defaultOptions).forEach(function (key) {
@@ -133,7 +169,7 @@ function initTable(id, tableOptions) {
     if ('resize' in $(window)) {
         resizeHeight(getHeight());
         $(window).on('load', function() {
-            $(window).resize();
+            $(window).trigger('resize');
         });
     }
 }

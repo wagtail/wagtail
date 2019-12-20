@@ -1,0 +1,47 @@
+{% load i18n wagtailadmin_tags %}
+<table class="listing">
+    {% if can_delete_snippets %}<col width="5%" />{% endif %}
+    <col />
+    <col />
+    <col width="16%" />
+    <thead>
+        <tr class="table-headers">
+            {% if can_delete_snippets %}
+            <th>
+                <input type="checkbox" class="toggle-select-all" id="toggle-select-all-snippets" />
+                <label for="toggle-select-all-snippets" class="visuallyhidden">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural %}Select all {{ snippet_type_name_plural }}{% endblocktrans %}</label>
+            </th>
+        {% endif %}
+            <th>{% trans "Title" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for snippet in items %}
+            <tr id="snippet-row-{{ snippet.pk }}">
+                {% if can_delete_snippets %}
+                    <td class="select">
+                        <input type="checkbox" name="select_snippet" id="select-snippet-{{ snippet.pk }}" value="{{ snippet.pk }}" class="toggle-select-row"/>
+                        <label for="select-snippet-{{ snippet.pk }}" class="visuallyhidden">{% blocktrans %}Select {{ snippet }}{% endblocktrans %}</label>
+                    </td>
+                {% endif %}
+                <td class="title">
+                    {% if choosing %}
+                        <div class="title-wrapper"><a class="snippet-choice" href="{% url 'wagtailsnippets:chosen' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}">{{ snippet }}</a></div>
+                    {% else %}
+                        <div class="title-wrapper"><a href="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}">{{ snippet }}</a></div>
+                         <ul class="actions">
+                            <li>
+                                <a href="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}" class="button button-secondary button-small">Edit</a>
+                            </li>
+                            {% if can_delete_snippets %}
+                                <li>
+                                    <a href="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}" class="button button-secondary button-small">Delete</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

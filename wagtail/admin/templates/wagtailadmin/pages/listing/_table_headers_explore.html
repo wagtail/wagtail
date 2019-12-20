@@ -1,0 +1,63 @@
+{% load i18n wagtailadmin_tags wagtailui_tags %}
+
+{% comment %}
+
+Table headers for the page listing, when in 'explore' mode. Expects the following variables:
+
+sortable: if true, headings are links to wagtailadmin_explore with sort parameters applied.
+sortable_by_type: must be true to allow sorting on the 'type' column
+show_ordering_column: if true, an 'ordering' column is added.
+orderable: if true, the 'ordering' column is populated (again with links to wagtailadmin_explore).
+
+If either sortable or orderable is true, the following variables are also required:
+
+parent_page: The page instance currently being browsed (used to generate the correct wagtailadmin_explore urls and title text)
+ordering: the current sort parameter
+
+{% endcomment %}
+
+<tr class="table-headers">
+    {% if show_ordering_column %}
+        <th class="ord{% if orderable and ordering == 'ord' %} ord--active{% endif %}">
+            {% if orderable %}
+                {% if ordering == "ord" %}
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}" title="{% trans 'Disable ordering of child pages' %}">
+                        {% wagtail_icon name="order" %}{% trans 'Sort' %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" title="{% trans 'Enable ordering of child pages' %}">
+                        {% wagtail_icon name="order" %}{% trans 'Sort' %}
+                    </a>
+                {% endif %}
+            {% endif %}
+        </th>
+    {% endif %}
+    <th class="title">
+        {% trans 'Title' as title_label %}
+        {% page_table_header_label label=title_label sortable=sortable sort_field='title' parent_page_title=parent_page.title %}
+    </th>
+    {% if show_parent %}
+        <th class="parent">
+            {% trans 'Parent' as parent_label %}
+            {% page_table_header_label label=parent_label sortable=0 parent_page_title=parent_page.title %}
+        </th>
+    {% endif %}
+     <th class="updated">
+        {% trans 'Updated' as updated_label %}
+        {% page_table_header_label label=updated_label sortable=sortable sort_field='latest_revision_created_at' parent_page_title=parent_page.title %}
+    </th>
+    <th class="type">
+        {% trans 'Type' as type_label %}
+
+        {% if sortable and sortable_by_type %}
+            {% page_table_header_label label=type_label sortable=1 sort_field='content_type' parent_page_title=parent_page.title %}
+        {% else %}
+            {% page_table_header_label label=type_label sortable=0 parent_page_title=parent_page.title %}
+        {% endif %}
+    </th>
+    <th class="status">
+        {% trans 'Status' as status_label %}
+        {% page_table_header_label label=status_label sortable=sortable sort_field='live' parent_page_title=parent_page.title %}
+    </th>
+    <th></th>
+</tr>

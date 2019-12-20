@@ -4,7 +4,6 @@ exports[`PageCount plural 1`] = `
 <a
   className="c-explorer__see-more"
   href="/admin/pages/1/"
-  tabIndex={0}
 >
   See all
   <span>
@@ -22,7 +21,6 @@ exports[`PageCount works 1`] = `
 <a
   className="c-explorer__see-more"
   href="/admin/pages/1/"
-  tabIndex={0}
 >
   See all
   <span>

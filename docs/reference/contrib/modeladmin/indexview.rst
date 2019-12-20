@@ -25,16 +25,10 @@ on the ``ModelAdmin`` class itself.
 
 Default value: ``('__str__',)``
 
-Set ``list_display`` to control which fields are displayed in the IndexView
+Set ``list_display`` to control which fields are displayed in the ``IndexView``
 for your model.
 
-Example
-
-```
-list_display = ('first_name', 'last_name')
-```
-
-You have three possible values that can be used in list_display:
+You have three possible values that can be used in ``list_display``:
 
 -   A field of the model. For example:
 
@@ -91,7 +85,7 @@ You have three possible values that can be used in list_display:
 A few special cases to note about ``list_display``:
 
 -   If the field is a ``ForeignKey``, Django will display the output of
-    ``__str__()`` (``__unicode__()`` on Python 2) of the related object.
+    ``__str__()`` of the related object.
 
 -   If the string provided is a method of the model or ``ModelAdmin`` class,
     Django will HTML-escape the output by default. To escape user input and
@@ -160,10 +154,10 @@ A few special cases to note about ``list_display``:
                     return 'None given'
                 if field_name == 'likes_cat_gifs':
                     return 'Unanswered'
-                return super(self, PersonAdmin).get_empty_value_display(field_name)
+                return super().get_empty_value_display(field_name)
 
 
-    The ``__str__()`` (``__unicode__()`` on Python 2) method is just as valid
+    The ``__str__()`` method is just as valid
     in ``list_display`` as any other model method, so it’s perfectly OK to do
     this:
 
@@ -200,7 +194,7 @@ A few special cases to note about ``list_display``:
 
         class PersonAdmin(ModelAdmin):
             model = Person
-            list_display = ('first_name', 'colored_name')
+            list_display = ('colored_first_name', 'last_name')
 
 
     The above will tell Wagtail to order by the ``first_name`` field when
@@ -286,16 +280,99 @@ for your model. For example:
 ``ModelAdmin.search_fields``
 ----------------------------
 
-**Expected value**: A list or tuple, where each item is the name of a model field
-of type ``CharField``, ``TextField``, ``RichTextField`` or ``StreamField``.
+**Expected value**: A list or tuple, where each item is the name of a model
+field of type ``CharField``, ``TextField``, ``RichTextField`` or
+``StreamField``.
 
 Set ``search_fields`` to enable a search box at the top of the index page
 for your model. You should add names of any fields on the model that should
 be searched whenever somebody submits a search query using the search box.
 
-Searching is all handled via Django's queryset API, rather than using Wagtail's
-search backend. This means it will work for all models, whatever search backend
+Searching is handled via Django's QuerySet API by default,
+see `ModelAdmin.search_handler_class`_ about changing this behaviour.
+This means by default it will work for all models, whatever search backend
 your project is using, and without any additional setup or configuration.
+
+
+.. _modeladmin_search_handler_class:
+
+-----------------------------------
+``ModelAdmin.search_handler_class``
+-----------------------------------
+
+**Expected value**: A subclass of
+``wagtail.contrib.modeladmin.helpers.search.BaseSearchHandler``
+
+The default value is ``DjangoORMSearchHandler``, which uses the Django ORM to
+perform lookups on the fields specified by ``search_fields``.
+
+If you would prefer to use the built-in Wagtail search backend to search your
+models, you can use the ``WagtailBackendSearchHandler`` class instead. For
+example:
+
+.. code-block:: python
+
+    from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
+
+    from .models import Person
+
+    class PersonAdmin(ModelAdmin):
+        model = Person
+        search_handler_class = WagtailBackendSearchHandler
+
+
+Extra considerations when using ``WagtailBackendSearchHandler``
+===============================================================
+
+
+``ModelAdmin.search_fields`` is used differently
+------------------------------------------------
+
+The value of ``search_fields`` is passed to the underlying search backend to
+limit the fields used when matching. Each item in the list must be indexed
+on your model using :ref:`wagtailsearch_index_searchfield`.
+
+To allow matching on **any** indexed field, set the ``search_fields`` attribute
+on your ``ModelAdmin`` class to ``None``, or remove it completely.
+
+
+Indexing extra fields using ``index.FilterField``
+-------------------------------------------------
+
+The underlying search backend must be able to interpret all of the fields and
+relationships used in the queryset created by ``IndexView``, including those
+used in ``prefetch()`` or ``select_related()`` queryset methods, or used in
+``list_display``, ``list_filter`` or ``ordering``.
+
+Be sure to test things thoroughly in a development environment (ideally
+using the same search backend as you use in production). Wagtail will raise
+an ``IndexError`` if the backend encounters something it does not understand,
+and will tell you what you need to change.
+
+
+.. _modeladmin_extra_search_kwargs:
+
+----------------------------------
+``ModelAdmin.extra_search_kwargs``
+----------------------------------
+
+**Expected value**: A dictionary of keyword arguments that will be passed on to the ``search()`` method of
+``search_handler_class``.
+
+For example, to override the ``WagtailBackendSearchHandler`` default operator you could do the following:
+
+.. code-block:: python
+
+    from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
+    from wagtail.search.utils import OR
+
+    from .models import IndexedModel
+
+    class DemoAdmin(ModelAdmin):
+        model = IndexedModel
+        search_handler_class = WagtailBackendSearchHandler
+        extra_search_kwargs = {'operator': OR}
+
 
 .. _modeladmin_ordering:
 
@@ -304,7 +381,7 @@ your project is using, and without any additional setup or configuration.
 ---------------------------
 
 **Expected value**: A list or tuple in the same format as a model’s
-[``ordering``](https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display) parameter.
+:attr:`~django.db.models.Options.ordering` parameter.
 
 Set ``ordering`` to specify the default ordering of objects when listed by
 IndexView.  If not provided, the model’s default ordering will be respected.
@@ -324,6 +401,7 @@ language) you can override the ``get_ordering()`` method instead.
 Set ``list_per_page`` to control how many items appear on each paginated page
 of the index view. By default, this is set to ``100``.
 
+
 .. _modeladmin_get_queryset:
 
 -----------------------------
@@ -332,7 +410,7 @@ of the index view. By default, this is set to ``100``.
 
 **Must return**: A QuerySet
 
-The ``get_queryset`` method returns the 'base' queryset for your model, to
+The ``get_queryset`` method returns the 'base' QuerySet for your model, to
 which any filters and search queries are applied. By default, the ``all()``
 method of your model's default manager is used. But, if for any reason you
 only want a certain sub-set of objects to appear in the IndexView listing,
@@ -354,10 +432,11 @@ For example:
 
 
     class PersonAdmin(ModelAdmin):
+        model = Person
         list_display = ('first_name', 'last_name')
 
         def get_queryset(self, request):
-            qs = super(PersonAdmin, self).get_queryset(request)
+            qs = super().get_queryset(request)
             # Only show people managed by the current user
             return qs.filter(managed_by=request.user)
 
@@ -370,12 +449,12 @@ For example:
 
 **Must return**: A dictionary
 
-The `get_extra_attrs_for_row` method allows you to add html attributes to
-the opening `<tr>` tag for each result, in addition to the `data-object_pk` and
-`class` attributes already added by the `result_row_display` tag.
+The ``get_extra_attrs_for_row`` method allows you to add html attributes to
+the opening ``<tr>`` tag for each result, in addition to the ``data-object_pk`` and
+``class`` attributes already added by the ``result_row_display`` template tag.
 
 If you want to add additional CSS classes, simply provide those class names
-as a string value using the `class` key, and the `odd`/`even` will be appended
+as a string value using the ``'class'`` key, and the ``odd``/``even`` will be appended
 to your custom class names when rendering.
 
 For example, if you wanted to add some additional class names based on field
@@ -489,7 +568,7 @@ help give the value more context:
         list_display = ('name', 'likes_cat_gifs')
 
         def get_extra_attrs_for_field_col(self, obj, field_name=None):
-            attrs = super(PersonAdmin, self).get_extra_attrs_for_field_col(obj, field_name)
+            attrs = super().get_extra_attrs_for_field_col(obj, field_name)
             if field_name == 'likes_cat_gifs' and obj.likes_cat_gifs is None:
                 attrs.update({
                     'title': (
@@ -501,7 +580,7 @@ help give the value more context:
 
 
 Or you might like to add one or more data attributes to help implement some
-kind of interactivity using javascript:
+kind of interactivity using JavaScript:
 
 .. code-block:: python
 
@@ -522,7 +601,7 @@ kind of interactivity using javascript:
         list_display = ('title', 'start_date', 'end_date')
 
         def get_extra_attrs_for_field_col(self, obj, field_name=None):
-            attrs = super(EventAdmin, self).get_extra_attrs_for_field_col(obj, field_name)
+            attrs = super().get_extra_attrs_for_field_col(obj, field_name)
             if field_name == 'start_date':
                 # Add the start time as data to the 'start_date' cell
                 attrs.update({ 'data-time': obj.start_time.strftime('%H:%M') })
@@ -586,7 +665,7 @@ change a few attributes to change the thumbnail to your liking, like so:
         # Optionally specify a fallback image to be used when the object doesn't
         # have an image set, or the image has been deleted. It can an image from
         # your static files folder, or an external URL.
-        thumb_default = 'http://lorempixel.com/100/100'
+        thumb_default = 'https://lorempixel.com/100/100'
 
 
 .. _modeladmin_list_display_add_buttons:
@@ -652,4 +731,3 @@ See the following part of the docs to find out more:
 
 See the following part of the docs to find out more:
 :ref:`modeladmin_overriding_views`
-

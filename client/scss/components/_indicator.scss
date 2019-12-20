@@ -1,0 +1,56 @@
+// =============================================================================
+// Indicator light
+// =============================================================================
+
+
+// =============================================================================
+// Indicator light
+// =============================================================================
+$c-indicator-size: 0.625em;
+$c-indicator-margin: 0.25rem;
+
+.c-indicator {
+    display: inline-block;
+    border-radius: 50rem;
+    width: $c-indicator-size;
+    height: $c-indicator-size;
+    margin-top: -0.125rem;
+    margin-right: $c-indicator-margin;
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+// =============================================================================
+// States
+// =============================================================================
+.is-absent .c-indicator {
+    background: $color-state-absent;
+}
+
+.is-live .c-indicator {
+    background: $color-state-live;
+}
+
+.is-draft .c-indicator {
+    background: $color-state-draft;
+}
+
+// This is hipster. But it works.
+.is-live\+draft .c-indicator {
+    background: $color-state-draft;
+    position: relative;
+
+    &:before {
+        content: '';
+        width: $c-indicator-size / 2;
+        height: $c-indicator-size;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-bottom-left-radius: 50rem;
+        border-top-left-radius: 50rem;
+        background: $color-state-live;
+        transform: rotate(45deg);
+        transform-origin: 100% 50%;
+    }
+}

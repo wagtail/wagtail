@@ -1,0 +1,25 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans "Users" %}{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        window.headerSearch = {
+            url: "{% url 'wagtailusers_users:index' %}",
+            termInput: "#id_q",
+            targetOutput: "#user-results"
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% trans "Users" as users_str %}
+    {% trans "Add a user" as add_a_user_str %}
+    {% include "wagtailadmin/shared/header.html" with title=users_str add_link="wagtailusers_users:add" add_text=add_a_user_str icon="user" search_url="wagtailusers_users:index" %}
+
+    <div class="nice-padding">
+        <div id="user-results" class="users">
+            {% include "wagtailusers/users/results.html" %}
+        </div>
+    </div>
+{% endblock %}

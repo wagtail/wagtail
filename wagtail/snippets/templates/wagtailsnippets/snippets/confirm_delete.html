@@ -1,0 +1,42 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}
+    {% if count == 1 %}
+      {% blocktrans with snippet_type_name=model_opts.verbose_name %}Delete {{ snippet_type_name }}{% endblocktrans %} - {{ instances|first }}
+    {% else %}
+      {{ count }} {{ model_opts.verbose_name_plural|capfirst }}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% trans "Delete " as delete_str %}
+    {% if count == 1 %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=instances|first icon="snippet" %}
+    {% else %}
+        {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=model_opts.verbose_name_plural|capfirst icon="snippet" %}
+    {% endif %}
+
+    <div class="nice-padding">
+        {% if count == 1 %}
+            {% usage_count_enabled as uc_enabled %}
+            {% if uc_enabled %}
+                <div class="usagecount">
+                    <a href="{{ instances.0.usage_url }}">{% blocktrans count usage_count=instances.0.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                </div>
+            {% endif %}
+            <p>{% blocktrans with snippet_type_name=model_opts.verbose_name %}Are you sure you want to delete this {{ snippet_type_name }}?{% endblocktrans %}</p>
+        {% else %}
+            <p>{% blocktrans with snippet_type_name=model_opts.verbose_name_plural %}Are you sure you want to delete {{ count }} {{ snippet_type_name }}?{% endblocktrans %}</p>
+            <ul>
+                {% for instance in instances %}
+                <li>{{ instance }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form action="{{ submit_url }}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+            <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}{% endif %}" class="button button-secondary">{% trans "No, don't delete" %}</a>
+        </form>
+    </div>
+
+{% endblock %}

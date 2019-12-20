@@ -1,0 +1,121 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+
+    <script>
+        $.fn.datetimepicker.defaults.i18n.wagtail_custom_locale = {
+            months: wagtailConfig.STRINGS.MONTHS,
+            dayOfWeek: wagtailConfig.STRINGS.WEEKDAYS,
+            dayOfWeekShort: wagtailConfig.STRINGS.WEEKDAYS_SHORT,
+        }
+        $.datetimepicker.setLocale('wagtail_custom_locale');
+
+        $(function() {
+            $('#id_date_from').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d',
+            });
+            $('#id_date_to').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d',
+            });
+
+            var selectAllCheckbox = document.getElementById('select-all');
+            var deleteButton = document.getElementById('delete-submissions');
+            var selectedSubmissions = {};
+
+            function updateActions() {
+                var submissionCheckboxes = $('input[type=checkbox].select-submission');
+                var someSubmissionsSelected = submissionCheckboxes.is(':checked');
+                var everySubmissionSelected = !submissionCheckboxes.is(':not(:checked)');
+
+                // Select all box state
+                if (everySubmissionSelected) {
+                    // Every submission has been selected
+                    selectAllCheckbox.checked = true;
+                    selectAllCheckbox.indeterminate = false;
+                } else if (someSubmissionsSelected) {
+                    // At least one, but not all submissions have been selected
+                    selectAllCheckbox.checked = false;
+                    selectAllCheckbox.indeterminate = true;
+                } else {
+                    // No submissions have been selected
+                    selectAllCheckbox.checked = false;
+                    selectAllCheckbox.indeterminate = false;
+                }
+
+                // Delete button state
+                if (someSubmissionsSelected) {
+                    deleteButton.classList.remove('disabled')
+                    deleteButton.style.visibility = "visible";
+                } else {
+                    deleteButton.classList.add('disabled')
+                    deleteButton.style.visibility = "hidden";
+                }
+            }
+
+
+            // Event handlers
+
+            $(selectAllCheckbox).on('change', function() {
+                let checked = this.checked;
+
+                // Update checkbox states
+                $('input[type=checkbox].select-submission').each(function() {
+                    this.checked = checked;
+                });
+
+                updateActions();
+            });
+
+            $('input[type=checkbox].select-submission').on('change', function() {
+                updateActions();
+            });
+
+            // initial call to updateActions to bring delete button state in sync with checkboxes
+            // in the case that some checkboxes are pre-checked (which will be the case in some
+            // browsers when using the back button)
+            updateActions();
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <header class="nice-padding" role="banner">
+        <form action="" method="get" novalidate>
+            <div class="row">
+                <div class="left">
+                    <div class="col header-title">
+                        <h1 class="icon icon-form">
+                        {% blocktrans with form_title=form_page.title|capfirst %}Form data <span>{{ form_title }}</span>{% endblocktrans %}
+                        </h1>
+                    </div>
+                    <div class="col search-bar">
+                        <ul class="fields row rowflush">
+                            {% for field in select_date_form %}
+                                {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small" li_classes="col4" %}
+                            {% endfor %}
+                            <li class="submit col2">
+                                <button name="action" value="filter" class="button button-filter">{% trans 'Filter' %}</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="right">
+                   <button name="action" value="CSV" class="button bicolor icon icon-download">{% trans 'Download CSV' %}</button>
+                </div>
+            </div>
+        </form>
+    </header>
+    <div class="nice-padding">
+        {% if submissions %}
+            <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
+                {% include "wagtailforms/list_submissions.html" %}
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
+            </form>
+        {% else %}
+            <p class="no-results-message">{% blocktrans with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>
+        {% endif %}
+    </div>
+{% endblock %}

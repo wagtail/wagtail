@@ -1,0 +1,172 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+# karabellyj <jozefkarabelly@gmail.com>, 2017
+# karabellyj <jozefkarabelly@gmail.com>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Prosím definujte aspoň jedno odporúčanie pre tento výraz vyhladávania."
+
+msgid "page"
+msgstr "stránka"
+
+msgid "description"
+msgstr "popis"
+
+msgid "search promotion"
+msgstr "propagovanie vyhladávania"
+
+msgid "Add search promotion"
+msgstr "Propagovať vyhladávanie"
+
+msgid "Add search pick"
+msgstr "Pridať voľbu vyhladávania"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Propagonavé výsledky vyhladávania sú spôsobom odporúčania "
+"špecifických stránok, ktoré by pôvodne neboli vysoko vo výsledkoch "
+"vyhladávania. Napr. odporučenie Vašej hlavnej donation stránky užívateľovi "
+"hladajúcemu s menej bežným výrazom \"<em>dávanie</em>\".</p>\n"
+"            "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Pole \"Vyhľadávací reťazec/fráza\" musí obsahovať "
+"kompletný a presný obsah, pre ktorý si želáte zobraziť propagované výsledky "
+"vyhľadávania, <em>zahŕňajúc</em> používateľské preklepy a chyby. Aby ste si "
+"pomohli, môžete si vybrať z populárnych hľadaných výrazov.</p>\n"
+"            "
+
+msgid "Save"
+msgstr "Uložiť"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Zmazať %(query)s"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Naozaj chcete odstrániť všetky propagované výsledky pre tento vyhľadávací "
+"výraz?"
+
+msgid "Yes, delete"
+msgstr "Áno, zmazať"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Úprava %(query)s"
+
+msgid "Editing"
+msgstr "Upraviť obrázok"
+
+msgid "Move up"
+msgstr "Posunúť vyššie"
+
+msgid "Move down"
+msgstr "Posunúť nižšie"
+
+msgid "Promoted search result"
+msgstr "Propagované výsledky vyhladávania"
+
+msgid "Add recommended page"
+msgstr "Pridať odporúčanú stránku"
+
+msgid "Search Terms"
+msgstr "Výrazy vyhladávania"
+
+msgid "Promoted search results"
+msgstr "Propagované výsledky vyhladávania"
+
+msgid "Add new promoted result"
+msgstr "Pridať nový propagovaný výsledok"
+
+msgid "Search term(s)"
+msgstr "Hľadané výrazy"
+
+msgid "Promoted results"
+msgstr "Propagované výsledky"
+
+msgid "Views (past week)"
+msgstr "Zobrazení (posledný týždeň)"
+
+msgid "Edit this promotion"
+msgstr "Upraviť propagáciu"
+
+msgid "None"
+msgstr "Žiadne"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Prepáčte, žiadne propagované výsledky nevyhovujú \"<em>%(query_string)s</em>"
+"\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Zatiaľ neboli vytvorené žiadne propagované výsledky vyhľadávania. Prečo "
+"nevytvoriť <a href=\"%(wagtailsearchpromotions_add_url)s\">jeden výsledok</"
+"a>?"
+
+msgid "Search promoted results"
+msgstr "Hľadať propagované výsledky"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "Výbery Editora pre '{0}' boli vytvorené."
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Odporúčania nemôžu byť vytvorené kvôli chybám."
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "Výbery Editora pre '{0}' boli aktualizované."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Odporúčania nemôžu byť uložené kvôli chybám."
+
+msgid "Editor's picks deleted."
+msgstr "Výbery Editora vymazané."

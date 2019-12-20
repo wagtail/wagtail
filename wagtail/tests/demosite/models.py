@@ -1,22 +1,19 @@
-from __future__ import absolute_import, unicode_literals
-
 from datetime import date
 
+from django.core.paginator import Paginator
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 from wagtail.api import APIField
-from wagtail.utils.pagination import paginate
-from wagtail.wagtailadmin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel)
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Orderable, Page
-from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailimages.api.fields import ImageRenditionField
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailsearch import index
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Orderable, Page
+from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.images.api.fields import ImageRenditionField
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 
 
 # ABSTRACT MODELS
@@ -354,10 +351,11 @@ class BlogIndexPage(Page):
         if tag:
             entries = entries.filter(tags__name=tag)
 
-        paginator, entries = paginate(request, entries, page_key='page', per_page=10)
+        paginator = Paginator(entries, per_page=10)
+        entries = paginator.get_page(request.GET.get('page'))
 
         # Update template context
-        context = super(BlogIndexPage, self).get_context(request)
+        context = super().get_context(request)
         context['entries'] = entries
         return context
 

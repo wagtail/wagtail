@@ -1,0 +1,304 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dan Braghis, 2014-2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "Wagtail documents"
+msgstr "Documente Wagtail"
+
+msgid "Add"
+msgstr "Adaugă"
+
+msgid "Add/edit documents you own"
+msgstr "Adaugă/editeaza documente deținute"
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "Edit any document"
+msgstr "Editează orice document"
+
+msgid "title"
+msgstr "titlu"
+
+msgid "file"
+msgstr "fișier"
+
+msgid "created at"
+msgstr "creat la"
+
+msgid "uploaded by user"
+msgstr "încărcată de utlizator"
+
+msgid "tags"
+msgstr "etichete"
+
+msgid "document"
+msgstr "document"
+
+msgid "documents"
+msgstr "documente"
+
+msgid "Choose a document"
+msgstr "Alege document"
+
+msgid "Search"
+msgstr "Căută"
+
+msgid "Upload"
+msgstr "Încărcare"
+
+msgid "Uploading…"
+msgstr "În curs de încărcare…"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Există %(counter)s potrivire\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Sunt%(counter)s potriviry\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Sunt %(counter)s potriviri\n"
+"        "
+
+msgid "Latest documents"
+msgstr "Documente recente"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
+"document"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Nu ați încărcat nici un document în această colecție."
+
+msgid "You haven't uploaded any documents."
+msgstr "Nu ați încărcat nici un document. "
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            De ce să nu <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?\n"
+"            "
+
+msgid "Change document:"
+msgstr "Schimbă documentul:"
+
+msgid "Add a document"
+msgstr "Adaugă un document"
+
+msgid "Add document"
+msgstr "Adaugă document"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Șterge %(title)s"
+
+msgid "Delete document"
+msgstr "Șterge document"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s  utilizări"
+msgstr[1] "%(usage_count)s utilizări"
+msgstr[2] "%(usage_count)s utilizări"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Sigur doriți să ștergeți acest document?"
+
+msgid "Yes, delete"
+msgstr "Da, șterge"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Editare %(title)s"
+
+msgid "Editing"
+msgstr "Editare"
+
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Filesize"
+msgstr "Mărime fișier"
+
+msgid "File not found"
+msgstr "Fișierul nu a fost găsit"
+
+msgid "Usage"
+msgstr "Utilizare"
+
+msgid "Documents"
+msgstr "Documente"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "File"
+msgstr "Fișier"
+
+msgid "Collection"
+msgstr "Colecție"
+
+msgid "Uploaded"
+msgstr "Încărcat"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s în urmă"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Nu ați încărcat nici un document în această colecție. De ce să nu <a href="
+"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Nu ați încărcat nici un document. De ce să nu <a href="
+"\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Utilizare %(title)s"
+
+msgid "Usage of"
+msgstr "Utilizare"
+
+msgid "Parent"
+msgstr "Bază"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Editează această pagină"
+
+msgid "Add multiple documents"
+msgstr "Adaugă mai multe documente"
+
+msgid "Add documents"
+msgstr "Adaugă documente"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr ""
+"Trageți și plasați documente în această zonă pentru încărcare imediată."
+
+msgid "Or choose from your computer"
+msgstr "Sau alegeți de pe computer"
+
+msgid "Add to collection:"
+msgstr "Adaugă la colecția:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Încărcare de success. Dacă este necesar, actualizați aceast document cu un "
+"titlu potrivit. Puteți deasemenea să ștergeți documentul în întregime dacă "
+"încărcarea nu a fost necesară."
+
+msgid "Sorry, upload failed."
+msgstr "Încărcarea a eșuat."
+
+msgid "Update"
+msgstr "Actualizează"
+
+msgid "Delete"
+msgstr "Șterge"
+
+msgid "You need a password to access this document."
+msgstr "Aveți nevoie de o parolă pentru a accesa aceast document."
+
+msgid "Document permissions"
+msgstr "Permisiunile documentului"
+
+msgid "Add a document permission"
+msgstr "Adaugă permisiune document"
+
+msgid "Server Error"
+msgstr "Eroare de server"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportează această eroare webmasterului cu următoarele informații:"
+
+msgid "Search documents"
+msgstr "Caută documente"
+
+msgid "Document '{0}' added."
+msgstr "Documentul '{0}' a fost adăugat."
+
+msgid "The document could not be saved due to errors."
+msgstr "Documentul nu a fost salvat din cauza erorilor."
+
+msgid "Document '{0}' updated"
+msgstr "Documentul '{0}' a fost actualizat."
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
+
+msgid "Document '{0}' deleted."
+msgstr "Documentul '{0}' a fost șters."
+
+msgid "Document"
+msgstr "Document"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s document"
+msgstr[1] "%(count)s documente"
+msgstr[2] "%(count)s documente"
+
+msgid "Choose another document"
+msgstr "Alege alt document"
+
+msgid "Edit this document"
+msgstr "Editează acest document"

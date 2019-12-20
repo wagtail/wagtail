@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2017-2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-06-21 12:20+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
+"ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search"
+msgstr "웨그테일 검색"
+
+msgid "Search term(s)/phrase"
+msgstr "검색어/문장"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"매칭을 위해 검색어를 완전한 문장 형태로 입력하여 주세요. 홍보를 위한 결과를 "
+"표시하기 위해서는 정확한 매칭이 요구되며, 와일드카드는 허용되지 않습니다."
+
+msgid "Query Daily Hits"
+msgstr "일간 히트 쿼리"
+
+msgid "Popular search terms"
+msgstr "인기있는 검색어"
+
+msgid "Search"
+msgstr "검색"
+
+msgid "Terms"
+msgstr "단어"
+
+msgid "Views (past week)"
+msgstr "조회수 (지난 주)"
+
+msgid "No results found"
+msgstr "검색 결과가 없습니다"
+
+msgid "Date"
+msgstr "날짜"
+
+msgid "Choose from popular search terms"
+msgstr "인기있는 검색어로부터 선택"

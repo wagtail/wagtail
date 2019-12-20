@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 import json
 
 from django import forms
@@ -7,59 +5,68 @@ from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.functional import cached_property
 
-from wagtail.utils.widgets import WidgetWithScript
-from wagtail.wagtailcore.blocks import FieldBlock
+from wagtail.admin.staticfiles import versioned_static
+from wagtail.core.blocks import FieldBlock
+
+DEFAULT_TABLE_OPTIONS = {
+    'minSpareRows': 0,
+    'startRows': 3,
+    'startCols': 3,
+    'colHeaders': False,
+    'rowHeaders': False,
+    'contextMenu': [
+        'row_above',
+        'row_below',
+        '---------',
+        'col_left',
+        'col_right',
+        '---------',
+        'remove_row',
+        'remove_col',
+        '---------',
+        'undo',
+        'redo'
+    ],
+    'editor': 'text',
+    'stretchH': 'all',
+    'height': 108,
+    'renderer': 'text',
+    'autoColumnSize': False,
+}
 
 
-class TableInput(WidgetWithScript, forms.HiddenInput):
+class TableInput(forms.HiddenInput):
+    template_name = "table_block/widgets/table.html"
 
     def __init__(self, table_options=None, attrs=None):
         self.table_options = table_options
-        super(TableInput, self).__init__(attrs=attrs)
+        super().__init__(attrs=attrs)
 
-    def render(self, name, value, attrs=None):
-        original_field_html = super(TableInput, self).render(name, value, attrs)
-        return render_to_string("table_block/widgets/table.html", {
-            'original_field_html': original_field_html,
-            'attrs': attrs,
-            'value': value,
-        })
+    def get_context(self, name, value, attrs=None):
+        context = super().get_context(name, value, attrs)
+        table_caption = ''
+        if value and value != 'null':
+            table_caption = json.loads(value).get('table_caption', '')
+        context['widget']['table_options_json'] = json.dumps(self.table_options)
+        context['widget']['table_caption'] = table_caption
 
-    def render_js_init(self, id_, name, value):
-        return "initTable({0}, {1});".format(json.dumps(id_), json.dumps(self.table_options))
+        return context
 
 
 class TableBlock(FieldBlock):
+
     def __init__(self, required=True, help_text=None, table_options=None, **kwargs):
-        # CharField's 'label' and 'initial' parameters are not exposed, as Block handles that functionality
-        # natively (via 'label' and 'default')
-        # CharField's 'max_length' and 'min_length' parameters are not exposed as table data needs to
-        # have arbitrary length
-        # table_options can contain any valid handsontable options: http://docs.handsontable.com/0.18.0/Options.html
+        """
+        CharField's 'label' and 'initial' parameters are not exposed, as Block
+        handles that functionality natively (via 'label' and 'default')
+
+        CharField's 'max_length' and 'min_length' parameters are not exposed as table
+        data needs to have arbitrary length
+        """
+        self.table_options = self.get_table_options(table_options=table_options)
         self.field_options = {'required': required, 'help_text': help_text}
 
-        language = translation.get_language()
-        if language is not None and len(language) > 2:
-            language = language[:2]
-
-        default_table_options = {
-            'minSpareRows': 0,
-            'startRows': 3,
-            'startCols': 3,
-            'colHeaders': False,
-            'rowHeaders': False,
-            'contextMenu': True,
-            'editor': 'text',
-            'stretchH': 'all',
-            'height': 108,
-            'language': language,
-            'renderer': 'text',
-            'autoColumnSize': False,
-        }
-        if table_options is not None:
-            default_table_options.update(table_options)
-        self.table_options = default_table_options
-        super(TableBlock, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @cached_property
     def field(self):
@@ -97,8 +104,16 @@ class TableBlock(FieldBlock):
                 'table_header': table_header,
                 'first_col_is_header': first_col_is_header,
                 'html_renderer': self.is_html_renderer(),
+                'table_caption': value.get('table_caption'),
                 'data': value['data'][1:] if table_header else value.get('data', [])
             })
+
+            if value.get('cell'):
+                new_context['classnames'] = {}
+                for meta in value['cell']:
+                    if 'className' in meta:
+                        new_context['classnames'][(meta['row'], meta['col'])] = meta['className']
+
             return render_to_string(template, new_context)
         else:
             return self.render_basic(value, context=context)
@@ -106,9 +121,40 @@ class TableBlock(FieldBlock):
     @property
     def media(self):
         return forms.Media(
-            css={'all': ['table_block/css/vendor/handsontable-0.24.2.full.min.css']},
-            js=['table_block/js/vendor/handsontable-0.24.2.full.min.js', 'table_block/js/table.js']
+            css={'all': [
+                versioned_static('table_block/css/vendor/handsontable-6.2.2.full.min.css')
+            ]},
+            js=[
+                versioned_static('table_block/js/vendor/handsontable-6.2.2.full.min.js'),
+                versioned_static('table_block/js/table.js')
+            ]
         )
+
+    def get_table_options(self, table_options=None):
+        """
+        Return a dict of table options using the defaults unless custom options provided
+
+        table_options can contain any valid handsontable options:
+        https://handsontable.com/docs/6.2.2/Options.html
+        contextMenu: if value from table_options is True, still use default
+        language: if value is not in table_options, attempt to get from envrionment
+        """
+
+        collected_table_options = DEFAULT_TABLE_OPTIONS.copy()
+
+        if table_options is not None:
+            if table_options.get('contextMenu', None) is True:
+                # explicity check for True, as value could also be array
+                # delete to ensure the above default is kept for contextMenu
+                del table_options['contextMenu']
+            collected_table_options.update(table_options)
+
+        if 'language' not in collected_table_options:
+            # attempt to gather the current set language of not provided
+            language = translation.get_language()
+            collected_table_options['language'] = language
+
+        return collected_table_options
 
     class Meta:
         default = None

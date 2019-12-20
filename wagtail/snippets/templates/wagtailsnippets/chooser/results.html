@@ -1,0 +1,23 @@
+{% load i18n %}
+{% if items %}
+    {% if is_searching %}
+        <h2>
+        {% blocktrans count counter=items.paginator.count %}
+            There is {{ counter }} match
+        {% plural %}
+            There are {{ counter }} matches
+        {% endblocktrans %}
+        </h2>
+    {% endif %}
+
+    {% include "wagtailsnippets/snippets/list.html" with choosing=1 %}
+
+    {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=items %}
+{% else %}
+    {% if is_searching %}
+         <p>{% blocktrans %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    {% else %}
+        {% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name as wagtailsnippets_create_snippet_url %}
+        <p>{% blocktrans with snippet_type_name=model_opts.verbose_name %}You haven't created any {{ snippet_type_name }} snippets. Why not <a href="{{ wagtailsnippets_create_snippet_url }}" target="_blank" rel="noopener noreferrer">create one now</a>?{% endblocktrans %}</p>
+    {% endif %}
+{% endif %}

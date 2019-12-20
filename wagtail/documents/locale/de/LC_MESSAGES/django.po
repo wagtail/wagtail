@@ -1,0 +1,332 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ettore Atalan <atalanttore@googlemail.com>, 2019
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# karlsander <karlsander@gmail.com>, 2014
+# karlsander <karlsander@gmail.com>, 2014
+# Matthias Martin, 2019
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
+# pcraston <patrick@craston.com>, 2014
+# pcraston <patrick@craston.com>, 2014
+# Peter Dreuw <archandha@gmx.net>, 2019
+# Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Wasilis Mandratzis-Walz, 2015
+# Wasilis Mandratzis-Walz, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-25 13:45+0000\n"
+"Last-Translator: Matthias Martin\n"
+"Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail Dokumente"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "Add/edit documents you own"
+msgstr "Hinzufügen/Bearbeiten von Dokumenten, die Sie besitzen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit any document"
+msgstr "Jedes Dokument bearbeiten"
+
+msgid "title"
+msgstr "Titel"
+
+msgid "file"
+msgstr "Datei"
+
+msgid "created at"
+msgstr "Erstellt am"
+
+msgid "uploaded by user"
+msgstr "Hochgeladen von Benutzer"
+
+msgid "tags"
+msgstr "Schlagwörter"
+
+msgid "document"
+msgstr "Dokument"
+
+msgid "documents"
+msgstr "Dokumente"
+
+msgid "Choose a document"
+msgstr "Dokument auswählen"
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "Upload"
+msgstr "Hochladen"
+
+msgid "Uploading…"
+msgstr "Lade hoch…"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Es gibt %(counter)s Ergebnis\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Es gibt %(counter)s Ergebnisse\n"
+"        "
+
+msgid "Latest documents"
+msgstr "Neueste Dokumente"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Es gibt leider keine Dokumente zum Suchbegriff „<em>%(query_string)s</em>“"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Sie haben in dieser Sammlung keine Dokumente hochgeladen."
+
+msgid "You haven't uploaded any documents."
+msgstr "Sie haben noch keine Dokumente hochgeladen."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"Warum nicht <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\"> jetzt eins hochladen</a>?"
+
+msgid "Change document:"
+msgstr "Dokument ändern:"
+
+msgid "Add a document"
+msgstr "Ein Dokument hinzufügen"
+
+msgid "Add document"
+msgstr "Dokument hinzufügen"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s löschen"
+
+msgid "Delete document"
+msgstr "Dokument löschen"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s mal benutzt"
+msgstr[1] "%(usage_count)s mal benutzt"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Sind Sie sicher, dass Sie dieses Dokument löschen wollen?"
+
+msgid "Yes, delete"
+msgstr "Ja, Löschen"
+
+msgid "No, don't delete"
+msgstr "Nein, nicht löschen"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "%(title)s bearbeiten"
+
+msgid "Editing"
+msgstr "Bearbeiten"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Filesize"
+msgstr "Dateigrösse"
+
+msgid "File not found"
+msgstr "Datei nicht gefunden"
+
+msgid "Usage"
+msgstr "Benutzung"
+
+msgid "Documents"
+msgstr "Dokumente"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "File"
+msgstr "Datei"
+
+msgid "Collection"
+msgstr "Sammlung"
+
+msgid "Uploaded"
+msgstr "Hochgeladen"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "vor %(time_period)s"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Sie haben noch keine Dokumente in dieser Sammlung hochgeladen. <a href="
+"\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eins hoch!</a>"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Sie haben noch keine Dokumente hochgeladen. <a href="
+"\"%(wagtaildocs_add_document_url)s\">Laden Sie doch jetzt eins hoch!</a>"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Benutzung von %(title)s"
+
+msgid "Usage of"
+msgstr "Benutzung von"
+
+msgid "Parent"
+msgstr "Übergeordnet"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Diese Seite bearbeiten"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Dokument <span class=\"visuallyhidden\">erstellt in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Dokumente <span class=\"visuallyhidden\">erstellt in "
+"%(site_name)s</span>"
+
+msgid "Add multiple documents"
+msgstr "Mehrere Dokumente hinzufügen"
+
+msgid "Add documents"
+msgstr "Dokumente hinzufügen"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Ziehen Sie Dokumente in diesen Bereich, um sie sofort hochzuladen."
+
+msgid "Or choose from your computer"
+msgstr "Oder wählen Sie es von Ihrem Computer aus"
+
+msgid "Add to collection:"
+msgstr "Zu Sammlung hinzufügen:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Upload erfolgreich. Bitte geben Sie diesem Dokument einen passenden Titel. "
+"Sie können das Dokument auch entfernen, wenn der Upload nicht notwendig war."
+
+msgid "Sorry, upload failed."
+msgstr "Entschuldigung, der Upload ist fehlgeschlagen."
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "You need a password to access this document."
+msgstr "Sie benötigen ein Passwort um dieses Dokument aufzurufen."
+
+msgid "Document permissions"
+msgstr "Dokumenten-Berechtigungen"
+
+msgid "Add a document permission"
+msgstr "Einfügen einer Dokumenten-Berechtigung"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
+"Information:"
+
+msgid "Search documents"
+msgstr "Nach Dokumenten suchen"
+
+msgid "Document '{0}' added."
+msgstr "Dokument ‚{0}‘ wurde hinzugefügt."
+
+msgid "The document could not be saved due to errors."
+msgstr "Aufgrund eines Fehlers konnte das Dokument nicht gespeichert werden."
+
+msgid "Document '{0}' updated"
+msgstr "Dokument ‚{0}‘ wurde hochgeladen"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"Die Datei konnte nicht gefunden werden. Bitte ändern Sie die Quelle oder "
+"löschen Sie das Dokument "
+
+msgid "Document '{0}' deleted."
+msgstr "Dokument ‚{0}‘ wurde gelöscht."
+
+msgid "Document"
+msgstr "Dokument"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s Dokument"
+msgstr[1] "%(count)s Dokumente"
+
+msgid "Choose another document"
+msgstr "Anderes Dokument wählen"
+
+msgid "Edit this document"
+msgstr "Dieses Dokument bearbeiten"

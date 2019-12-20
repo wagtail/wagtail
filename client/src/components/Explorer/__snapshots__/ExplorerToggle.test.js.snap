@@ -1,29 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExplorerToggle basic 1`] = `
-<ExplorerToggle
-  onToggle={[Function]}
-  storeSubscription={
-    Subscription {
-      "listeners": Object {
-        "notify": [Function],
-      },
-      "onStateChange": [Function],
-      "parentSub": undefined,
-      "store": Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      },
-      "unsubscribe": null,
-    }
-  }
+<Button
+  accessibleLabel={null}
+  className="submenu-trigger"
+  dialogTrigger={true}
+  href="#"
+  icon="folder-open-inverse"
+  isLoading={false}
+  onClick={[Function]}
+  preventDefault={true}
+  target={null}
 >
   <span>
     To infinity and beyond!
   </span>
-</ExplorerToggle>
+</Button>
 `;

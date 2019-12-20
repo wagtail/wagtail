@@ -1,0 +1,287 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# ultraify media <ultraify@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail documents"
+msgstr "مستندات Wagtail"
+
+msgid "Add"
+msgstr "أضف"
+
+msgid "Add/edit documents you own"
+msgstr "إضافة / تحرير المستندات التي تملكها"
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "Edit any document"
+msgstr "تحرير أي وثيقة"
+
+msgid "title"
+msgstr "عنوان"
+
+msgid "file"
+msgstr "ملف"
+
+msgid "created at"
+msgstr "أنشئت في"
+
+msgid "uploaded by user"
+msgstr "رفع عن طريق المستخدم"
+
+msgid "tags"
+msgstr "وسوم"
+
+msgid "document"
+msgstr "مستند"
+
+msgid "documents"
+msgstr "وثائق"
+
+msgid "Choose a document"
+msgstr "احتر وثيقة"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Upload"
+msgstr "انقل إلى الحاسوب"
+
+msgid "Uploading…"
+msgstr "يتم الرفع…"
+
+msgid "Latest documents"
+msgstr "وثائق أخيرة"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا توجد مستندات تطابق \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "لم تحمِّل أي مستندات في هذه المجموعة."
+
+msgid "You haven't uploaded any documents."
+msgstr "لم تحمِّل أي مستندات."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"لماذا لا <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
+"\">تحمل واحد الآن</a>؟"
+
+msgid "Change document:"
+msgstr "غير الوثيقة"
+
+msgid "Add a document"
+msgstr "!ضف وثيقة"
+
+msgid "Add document"
+msgstr "ّضف وثيقة"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "حذف %(title)s"
+
+msgid "Delete document"
+msgstr "احذف وثيقة"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "استخدم %(usage_count)s مرة"
+msgstr[1] "استخدم %(usage_count)s مرة"
+msgstr[2] "استخدم %(usage_count)s مرات"
+msgstr[3] "استخدم %(usage_count)s مرة"
+msgstr[4] "استخدم %(usage_count)s مرات"
+msgstr[5] "استخدم %(usage_count)s مرات"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "هل تريد فعلا حذف هذه الوثيقة؟"
+
+msgid "Yes, delete"
+msgstr "نعم احذف"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "يتم التحرير %(title)s"
+
+msgid "Editing"
+msgstr "تحرير"
+
+msgid "Save"
+msgstr "احفظ"
+
+msgid "Filesize"
+msgstr "حجم الملف"
+
+msgid "File not found"
+msgstr "الملف غير موجود"
+
+msgid "Usage"
+msgstr "استعمال"
+
+msgid "Documents"
+msgstr "وثائق"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "File"
+msgstr "ملف"
+
+msgid "Collection"
+msgstr "مجموعة"
+
+msgid "Uploaded"
+msgstr "متقول إلى الحاسوب"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "قبل %(time_period)s"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"لم تحمِّل أي مستندات في هذه المجموعة. لماذا لا <a href="
+"\"%(wagtaildocs_add_document_url)s\">تحمل واحد الآن</a>؟"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"لم تحمِّل أي مستندات. لماذا لا <a href=\"%(wagtaildocs_add_document_url)s"
+"\">تحمل واحد الآن</a>؟"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "استعمال %(title)s"
+
+msgid "Usage of"
+msgstr "استعمال"
+
+msgid "Parent"
+msgstr "الاساس"
+
+msgid "Type"
+msgstr "نوع"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "Edit this page"
+msgstr "حرر هذه الصفحة"
+
+msgid "Add multiple documents"
+msgstr "إضافة مستندات متعددة"
+
+msgid "Add documents"
+msgstr "!ضف وثيقة"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "اسحب المستندات وأفلتها في هذا الجزء لتحميلها على الفور."
+
+msgid "Or choose from your computer"
+msgstr "أو اختر من جهاز الكمبيوتر الخاص بك"
+
+msgid "Add to collection:"
+msgstr "إضافة إلى المجموعة:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"تحميل ناجح. يرجى تحديث هذا المستند بعنوان أكثر ملاءمة ، إذا لزم الأمر. يمكنك "
+"أيضًا حذف المستند تمامًا إذا لم يكن التحميل مطلوبًا."
+
+msgid "Sorry, upload failed."
+msgstr "عذرًا ، أخفق التحميل."
+
+msgid "Update"
+msgstr "حدث"
+
+msgid "Delete"
+msgstr "احذف"
+
+msgid "You need a password to access this document."
+msgstr "أنت بحاجة إلى كلمة مرور للوصول إلى هذا المستند."
+
+msgid "Document permissions"
+msgstr "اذونات الوثيقة"
+
+msgid "Add a document permission"
+msgstr "إضافة إذن وثيقة"
+
+msgid "Server Error"
+msgstr "خطا بالخادم"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "الإبلاغ عن هذا الخطأ إلى مشرف الموقع الخاص بك بالمعلومات التالية:"
+
+msgid "Search documents"
+msgstr "ابحث وثائق"
+
+msgid "Document '{0}' added."
+msgstr "اضيف '{0}' مستند"
+
+msgid "The document could not be saved due to errors."
+msgstr "كان من غير الممكن حفظ الوثيقة بسبب أخطاء"
+
+msgid "Document '{0}' updated"
+msgstr "تحديث '{0}'  مستند"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"كان من غبر الممكن العثور على الوثيقة. من فضلك غير المصدر أو احذف الوثيقة"
+
+msgid "Document '{0}' deleted."
+msgstr "حذف '{0}' مستند"
+
+msgid "Document"
+msgstr "مستند"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s مستند"
+msgstr[1] "%(count)s مستند"
+msgstr[2] "%(count)s مستندات"
+msgstr[3] "%(count)s مستندات"
+msgstr[4] "%(count)s مستندات"
+msgstr[5] "%(count)s مستندات"
+
+msgid "Choose another document"
+msgstr "اختر وثيقة أخقى"
+
+msgid "Edit this document"
+msgstr "تحرير هذه الوثيقة"

@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Lūdzu norādiet vismaz vienu rekomendāciju šim meklēšanas vaicājumam"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Dzēst %(query)s"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Labo %(query)s"
+
+msgid "Editing"
+msgstr "Labošana"
+
+msgid "Move up"
+msgstr "Uz augšu"
+
+msgid "Move down"
+msgstr "Uz leju"
+
+msgid "Add recommended page"
+msgstr "Pievienot ieteiktu lapu"
+
+msgid "Search Terms"
+msgstr "Meklēšanas termini"
+
+msgid "Search term(s)"
+msgstr "Meklēšanas termins(i)"
+
+msgid "Views (past week)"
+msgstr "Skatījumi (pagājusī nedēļa)"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Ieteikumus nevarēja izveidot kļūdu dēļ"
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Ieteikumi netika saglabāti kļūdu dēļ."

@@ -1,55 +1,14 @@
-from __future__ import absolute_import, division, unicode_literals
-
-import operator
-import re
-from functools import partial, reduce
+from itertools import zip_longest
 
 from django.apps import apps
 from django.db import connections
-from django.db.models import Q
-from django.utils.lru_cache import lru_cache
-from django.utils.six.moves import zip_longest
 
-from wagtail.wagtailsearch.index import Indexed, RelatedFields, SearchField
-
-try:
-    # Only use the GPLv2 licensed unidecode if it's installed.
-    from unidecode import unidecode
-except ImportError:
-    def unidecode(value):
-        return value
+from wagtail.search.index import Indexed, RelatedFields, SearchField
 
 
 def get_postgresql_connections():
     return [connection for connection in connections.all()
             if connection.vendor == 'postgresql']
-
-
-# Reduce any iterable to a single value using a logical OR e.g. (a | b | ...)
-OR = partial(reduce, operator.or_)
-# Reduce any iterable to a single value using a logical AND e.g. (a & b & ...)
-AND = partial(reduce, operator.and_)
-# Reduce any iterable to a single value using an addition
-ADD = partial(reduce, operator.add)
-
-
-def keyword_split(keywords):
-    """
-    Return all the keywords in a keyword string.
-
-    Keeps keywords surrounded by quotes together, removing the surrounding quotes:
-
-    >>> keyword_split('Hello I\\'m looking for "something special"')
-    ['Hello', "I'm", 'looking', 'for', 'something special']
-
-    Nested quoted strings are returned as is:
-
-    >>> keyword_split("He said \\"I'm looking for 'something special'\\" so I've given him the 'special item'")
-    ['He', 'said', "I'm looking for 'something special'", 'so', "I've", 'given', 'him', 'the', 'special item']
-
-    """
-    matches = re.findall(r'"([^"]+)"|\'([^\']+)\'|(\S+)', keywords)
-    return [match[0] or match[1] or match[2] for match in matches]
 
 
 def get_descendant_models(model):
@@ -62,21 +21,30 @@ def get_descendant_models(model):
     return descendant_models
 
 
-def get_descendants_content_types_pks(models, db_alias):
-    return get_content_types_pks(
-        tuple(descendant_model for model in models
-              for descendant_model in get_descendant_models(model)), db_alias)
-
-
-@lru_cache()
-def get_content_types_pks(models, db_alias):
+def get_content_type_pk(model):
     # We import it locally because this file is loaded before apps are ready.
     from django.contrib.contenttypes.models import ContentType
-    return list(ContentType._default_manager.using(db_alias)
-                .filter(OR([Q(app_label=model._meta.app_label,
-                              model=model._meta.model_name)
-                            for model in models]))
-                .values_list('pk', flat=True))
+    return ContentType.objects.get_for_model(model).pk
+
+
+def get_ancestors_content_types_pks(model):
+    """
+    Returns content types ids for the ancestors of this model, excluding it.
+    """
+    from django.contrib.contenttypes.models import ContentType
+    return [ct.pk for ct in
+            ContentType.objects.get_for_models(*model._meta.get_parent_list())
+            .values()]
+
+
+def get_descendants_content_types_pks(model):
+    """
+    Returns content types ids for the descendants of this model, including it.
+    """
+    from django.contrib.contenttypes.models import ContentType
+    return [ct.pk for ct in
+            ContentType.objects.get_for_models(*get_descendant_models(model))
+            .values()]
 
 
 def get_search_fields(search_fields):
@@ -119,6 +87,19 @@ def determine_boosts_weights(boosts=()):
             for i, weight in enumerate(WEIGHTS)]
 
 
+def set_weights():
+    BOOSTS_WEIGHTS.extend(determine_boosts_weights())
+    weights = [w for w, c in BOOSTS_WEIGHTS]
+    min_weight = min(weights)
+    if min_weight <= 0:
+        if min_weight == 0:
+            min_weight = -0.1
+        weights = [w - min_weight for w in weights]
+    max_weight = max(weights)
+    WEIGHTS_VALUES.extend([w / max_weight
+                           for w in reversed(weights)])
+
+
 def get_weight(boost):
     if boost is None:
         return WEIGHTS[-1]
@@ -126,3 +107,7 @@ def get_weight(boost):
         if boost >= max_boost:
             return weight
     return weight
+
+
+def get_sql_weights():
+    return '{' + ','.join(map(str, WEIGHTS_VALUES)) + '}'

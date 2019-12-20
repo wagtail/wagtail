@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Choose"
+msgstr "Izvēlēties"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "Jauns %(snippet_type_name)s"
+
+msgid "New"
+msgstr "Jauns"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "Labo %(snippet_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Labošana"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Title"
+msgstr "Virsraksts"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Pievienot %(snippet_type_name)s"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s lietojums"
+
+msgid "Usage of"
+msgstr "Lietojums"
+
+msgid "Type"
+msgstr "Veids"
+
+msgid "Status"
+msgstr "Statuss"
+
+msgid "Edit this page"
+msgstr "Labot šo lapu"
+
+msgid "Edit"
+msgstr "Labot"
+
+#, python-format
+msgid "Choose %s"
+msgstr "Izvēlēties %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Izvēlēties citu %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Labot šo %s"

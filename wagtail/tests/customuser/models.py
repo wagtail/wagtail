@@ -1,10 +1,8 @@
-from __future__ import absolute_import, unicode_literals
-
-import sys
-
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, Group, Permission, PermissionsMixin)
 from django.db import models
+
+from wagtail.admin.edit_handlers import FieldPanel
 
 from .fields import ConvertedValueField
 
@@ -56,6 +54,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.first_name
 
+    panels = [
+        FieldPanel('first_name'),
+        FieldPanel('last_name'),
+    ]
+
 
 class EmailUserManager(BaseUserManager):
     def _create_user(self, email, password,
@@ -103,14 +106,8 @@ class EmailUser(AbstractBaseUser):
         return self.first_name
 
 
-def steal_method(name):
-    func = getattr(PermissionsMixin, name)
-    if sys.version_info < (3,):
-        func = func.__func__
-    setattr(EmailUser, name, func)
-
-
 methods = ['get_group_permissions', 'get_all_permissions', 'has_perm',
            'has_perms', 'has_module_perms']
 for method in methods:
-    steal_method(method)
+    func = getattr(PermissionsMixin, method)
+    setattr(EmailUser, method, func)

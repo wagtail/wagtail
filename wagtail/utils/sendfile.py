@@ -1,8 +1,6 @@
 # Copied from django-sendfile 0.3.6 and tweaked to allow a backend to be passed
 # to sendfile()
 # See: https://github.com/johnsensible/django-sendfile/pull/33
-from __future__ import absolute_import, unicode_literals
-
 import os.path
 from mimetypes import guess_type
 
@@ -74,12 +72,8 @@ def sendfile(request, filename, attachment=False, attachment_filename=None, mime
         parts = ['attachment']
         if attachment_filename:
             from unidecode import unidecode
-            try:
-                from django.utils.encoding import force_text
-            except ImportError:
-                # Django 1.3
-                from django.utils.encoding import force_unicode as force_text
-            attachment_filename = force_text(attachment_filename)
+            from django.utils.encoding import force_str
+            attachment_filename = force_str(attachment_filename)
             ascii_filename = unidecode(attachment_filename)
             parts.append('filename="%s"' % ascii_filename)
             if ascii_filename != attachment_filename:
@@ -90,9 +84,6 @@ def sendfile(request, filename, attachment=False, attachment_filename=None, mime
 
     response['Content-length'] = os.path.getsize(filename)
     response['Content-Type'] = mimetype
-    if not encoding:
-        encoding = guessed_encoding
-    if encoding:
-        response['Content-Encoding'] = encoding
+    response['Content-Encoding'] = encoding or guessed_encoding
 
     return response

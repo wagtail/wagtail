@@ -1,0 +1,426 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# aaao <aron.santa@gmail.com>, 2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-21 01:48+0000\n"
+"Last-Translator: aaao <aron.santa@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail images"
+msgstr "Képek"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Támogatott formátumok: %(supported_formats)s. Maximális fájlméret: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Támogatott formátumok: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "A kép nem megfelelő formátumú. A támogatott formátumok: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Érvénytelen %s kép."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "A fájl túl nagy (%%s). A maximális fájlméret %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"A képben túl sok pixel van (%%s). Maximálisan %s pixelből állhat egy kép."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "A fájl túl nagy. A maximális fájlméret %s."
+
+msgid "Full width"
+msgstr "Teljes szélesség"
+
+msgid "Left-aligned"
+msgstr "Balra zárt"
+
+msgid "Right-aligned"
+msgstr "Jobbra zárt"
+
+msgid "Filter"
+msgstr "Szűrő"
+
+msgid "Original size"
+msgstr "Eredeti méret"
+
+msgid "Resize to width"
+msgstr "Átméretezés szélességre"
+
+msgid "Resize to height"
+msgstr "Átméretezés magasságra"
+
+msgid "Resize to min"
+msgstr "Árméretezés minimum"
+
+msgid "Resize to max"
+msgstr "Átméretezés maximum"
+
+msgid "Resize to fill"
+msgstr "Átméretezés kitöltésre"
+
+msgid "Width"
+msgstr "Szélesség"
+
+msgid "Height"
+msgstr "Magasság"
+
+msgid "Closeness"
+msgstr "Közelség"
+
+msgid "Add"
+msgstr "Hozzáadás"
+
+msgid "Add/edit images you own"
+msgstr "Saját kép hozzáadása/szerkestése"
+
+msgid "Edit"
+msgstr "Szerkeszt"
+
+msgid "Edit any image"
+msgstr "Bármelyik kép szerkesztése"
+
+msgid "title"
+msgstr "cím"
+
+msgid "file"
+msgstr "fájl"
+
+msgid "width"
+msgstr "szélesség"
+
+msgid "height"
+msgstr "magasság"
+
+msgid "created at"
+msgstr "létrehozás ideje"
+
+msgid "uploaded by user"
+msgstr "feltöltő"
+
+msgid "tags"
+msgstr "címkék"
+
+msgid "image"
+msgstr "kép"
+
+msgid "images"
+msgstr "képek"
+
+msgid "Choose an image"
+msgstr "Válasszon képet"
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Upload"
+msgstr "Feltöltés"
+
+msgid "Popular tags"
+msgstr "Gyakori címkék"
+
+msgid "Uploading…"
+msgstr "Feltöltés folyamatban…"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"%(counter)s találat"
+msgstr[1] ""
+"\n"
+"%(counter)s találat"
+
+msgid "Latest images"
+msgstr "Legfrissebb képek"
+
+msgid "Choose a format"
+msgstr "Formátum kiválasztása"
+
+msgid "Insert image"
+msgstr "Kép beillesztése"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> kép <span class=\"visuallyhidden\">létrehozva itt: "
+"%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> kép <span class=\"visuallyhidden\">létehozva itt: "
+"%(site_name)s</span>"
+
+msgid "Change image file:"
+msgstr "Kép cseréje:"
+
+msgid "Add an image"
+msgstr "Kép hozzáadása"
+
+msgid "Add image"
+msgstr "Kép hozzáadása"
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Delete image"
+msgstr "Kép törlése"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Felhasználva %(usage_count)s alkalommal"
+msgstr[1] "Felhasználva %(usage_count)s alkalommal"
+
+msgid "Are you sure you want to delete this image?"
+msgstr "Biztosan törli a képet?"
+
+msgid "Yes, delete"
+msgstr "Igen, törlés"
+
+msgid "No, don't delete"
+msgstr "Nem, ne töröljük"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "%(title)s kép szerkesztése"
+
+msgid "Editing"
+msgstr "Szerkesztés"
+
+msgid "URL Generator"
+msgstr "URL generáló"
+
+msgid "Focal point"
+msgstr "Fókuszpont"
+
+msgid "(optional)"
+msgstr "(opcionális)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"A kép legfontosabb részének megjelöléséhez húzzon az egérrel egy téglalapot "
+"a fenti képen."
+
+msgid "Current focal point shown"
+msgstr "Jelenlegi fókuszpont megjelenítve"
+
+msgid "Remove focal area"
+msgstr "Fókusz eltávolítása"
+
+msgid "Max dimensions"
+msgstr "Maximális méretek"
+
+msgid "Filesize"
+msgstr "Fájlméret"
+
+msgid "File not found"
+msgstr "Fájl nem található"
+
+msgid "Usage"
+msgstr "Használat"
+
+msgid "Images"
+msgstr "Képek"
+
+msgid "pixels"
+msgstr "pixel"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sajnáljuk, de egy kép sem felel meg a \"<em>%(query_string)s</em>\" "
+"keresésnek"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Még nincs kép feltöltve ebbe a gyűjteménybe. Miért nem <a href="
+"\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Még nem töltött fel képet. Miért nem <a href="
+"\"%(wagtailimages_add_image_url)s\">tölt fel egyet most</a>?"
+
+msgid "Generating URL"
+msgstr "URL generálása"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Előnézet"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"Kérjük vegye figyelembe, hogy a képernyőnél nagyobb méretű képek kisebbnek "
+"látszanak az előnézetben, hogy kiférjenek."
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s használata"
+
+msgid "Usage of"
+msgstr "Használat"
+
+msgid "Title"
+msgstr "Cím"
+
+msgid "Parent"
+msgstr "Szülő"
+
+msgid "Type"
+msgstr "Típus"
+
+msgid "Status"
+msgstr "Állapot"
+
+msgid "Edit this page"
+msgstr "Oldal szerkesztése"
+
+msgid "Add multiple images"
+msgstr "Több kép hozzáadása"
+
+msgid "Add images"
+msgstr "Képek hozzáadása"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Húzza az egerével a feltölteni kívánt képeket erre a területre."
+
+msgid "Or choose from your computer"
+msgstr "Vagy válasszon számítógépéről"
+
+msgid "Add to collection:"
+msgstr "Hozzáadás gyűjteményhez:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"A feltöltés sikeres volt. Ha szükséges, adjon érthetőbb nevet a feltöltött "
+"képnek. Ha a feltöltésre nincs szükség, a képet bármikor törölheti."
+
+msgid "Sorry, upload failed."
+msgstr "Sajnáljuk, de a feltöltés sikertelen volt."
+
+msgid "Server Error"
+msgstr "Szerverhiba"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Kérjük vegye fel a kapcsolatot az üzemeltetővel, bemásolva a következőt:"
+
+msgid "Image updated."
+msgstr "Kép frissítve."
+
+msgid "Update"
+msgstr "Frissítés"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Image permissions"
+msgstr "Kép engedélyek"
+
+msgid "Add an image permission"
+msgstr "Kép engedély hozzádása"
+
+msgid "Search images"
+msgstr "Képek keresése"
+
+msgid "Image '{0}' updated."
+msgstr "'{0}' kép frissítve."
+
+msgid "Edit again"
+msgstr "Újraszerkesztés"
+
+msgid "The image could not be saved due to errors."
+msgstr "Hiba történt a kép mentése közben."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"A forrás kép nem található. Kérjük válasszon ki új forrás fájlt, vagy "
+"törölje a képet."
+
+msgid "Image '{0}' deleted."
+msgstr "'{0}' kép törölve."
+
+msgid "Image '{0}' added."
+msgstr "'{0}' kép hozzáadva."
+
+msgid "The image could not be created due to errors."
+msgstr "Hiba történt a kép létrehozása közben."
+
+msgid "Image"
+msgstr "Kép"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s kép"
+msgstr[1] "%(count)s kép"
+
+msgid "Change image"
+msgstr "Kép módosítása"
+
+msgid "Edit this image"
+msgstr "Kép szerkesztése"

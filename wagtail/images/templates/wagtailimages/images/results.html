@@ -1,0 +1,50 @@
+{% load wagtailimages_tags wagtailadmin_tags %}
+{% load i18n %}
+{% if images %}
+    {% if is_searching %}
+        <h2>
+        {% blocktrans count counter=images.paginator.count %}
+            There is {{ counter }} match
+        {% plural %}
+            There are {{ counter }} matches
+        {% endblocktrans %}
+        </h2>
+
+        {% search_other %}
+    {% else %}
+        <h2>{% trans "Latest images" %}</h2>
+    {% endif %}
+
+    <ul class="listing horiz images">
+        {% for image in images %}
+            <li>
+                <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% url 'wagtailimages:edit' image.id %}">
+                    <figure>
+                        {% include "wagtailimages/images/results_image.html" %}
+                        {% trans "pixels" as translated_pixels %}
+                        <figcaption>
+                            {{ image.title|ellipsistrim:60 }}
+                            <span class="visuallyhidden">{{ image.width }} {{ translated_pixels  }} &#215; {{ image.height }} {{ translated_pixels}}</span>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=images %}
+
+{% else %}
+    {% if is_searching %}
+        <h2>{% blocktrans %}Sorry, no images match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
+
+        {% search_other %}
+    {% else %}
+        {% url 'wagtailimages:add_multiple' as wagtailimages_add_image_url %}
+        {% if current_collection %}
+            <p>{% blocktrans %}You haven't uploaded any images in this collection. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
+        {% else %}
+            <p>{% blocktrans %}You haven't uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
+        {% endif %}
+    {% endif %}
+{% endif %}

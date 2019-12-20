@@ -1,0 +1,327 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Alessio Di Stasio <aledista@gmail.com>, 2015
+# Edd Baldry <edd.baldry@gmail.com>, 2016
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
+"it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail core"
+msgstr "Base Wagtail"
+
+msgid "This block has no options."
+msgstr "Questo blocco non ha opzioni"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Il numero minimo di elementi è %d"
+
+msgid "This field is required."
+msgstr "Questo campo è obbligatorio."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Il numero massimo di elementi è %d"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "La password inserita non è corretta. Riprovare."
+
+msgid "hostname"
+msgstr "hostname"
+
+msgid "port"
+msgstr "porta"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Imposta questo a qualcosa di diverso da 80 se hai necessità di un numero di "
+"porta da far apparire nelle URL (es. sviluppo sulla porta 8000). Non "
+"influisce sulla gestione delle richieste (il port forwarding continua a "
+"funzionare)."
+
+msgid "site name"
+msgstr "nome sito"
+
+msgid "Human-readable name for the site."
+msgstr "Nome leggibile per il sito."
+
+msgid "root page"
+msgstr "pagina radice"
+
+msgid "is default site"
+msgstr "è sito di default"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "Se true, questo sito gestirà le richieste di tutti gli altri hostname"
+
+msgid "site"
+msgstr "sito"
+
+msgid "sites"
+msgstr "siti"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s è già configurato come sito di default. Devi togliere questa "
+"impostazione prima di poterlo salvare come sito di default."
+
+msgid "title"
+msgstr "titolo"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Il titolo della pagina che sarà visibile al pubblico"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Il nome della pagina che comparirà nella URLs e.g http://domain.com/blog/[my-"
+"slug]/"
+
+msgid "content type"
+msgstr "tipo contenuto"
+
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "ha modifiche non pubblicate"
+
+msgid "URL path"
+msgstr "URL path"
+
+msgid "owner"
+msgstr "proprietario"
+
+msgid "page title"
+msgstr "titolo pagina"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Optional. Titolo 'Search Engine Friendly'. Questo apparirà nella barra del "
+"titolo del browser."
+
+msgid "show in menus"
+msgstr "mostra nel menu"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Se un link a questa pagina apparirà nei menu generati automaticamente"
+
+msgid "search description"
+msgstr "descrizione della ricerca"
+
+msgid "go live date/time"
+msgstr "vai live data/ora"
+
+msgid "expiry date/time"
+msgstr "scadenza data/ora"
+
+msgid "expired"
+msgstr "scaduto"
+
+msgid "locked"
+msgstr "bloccato"
+
+msgid "first published at"
+msgstr "primo pubblicato a"
+
+msgid "last published at"
+msgstr "ultima pubblicazione il"
+
+msgid "latest revision created at"
+msgstr "ultima revisione creata alle"
+
+msgid "This slug is already in use"
+msgstr "Questo slug è gia in uso"
+
+msgid "scheduled"
+msgstr "schedulato"
+
+msgid "draft"
+msgstr "bozza"
+
+msgid "live + scheduled"
+msgstr "live + programmate"
+
+msgid "live + draft"
+msgstr "live + bozza"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "page"
+msgstr "pagina"
+
+msgid "pages"
+msgstr "pagine"
+
+msgid "submitted for moderation"
+msgstr "inviato per la moderazione"
+
+msgid "created at"
+msgstr "creato alle"
+
+msgid "user"
+msgstr "utente"
+
+msgid "content JSON"
+msgstr "contenuto JSON"
+
+msgid "approved go live at"
+msgstr "approvato alle"
+
+msgid "page revision"
+msgstr "revisione pagina"
+
+msgid "page revisions"
+msgstr "revisioni pagina"
+
+msgid "Add"
+msgstr "Aggiungi"
+
+msgid "Add/edit pages you own"
+msgstr "Aggiungi/modifica pagine di tua proprietà"
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Edit any page"
+msgstr "Modificare qualche pagina"
+
+msgid "Publish"
+msgstr "Pubblica"
+
+msgid "Publish any page"
+msgstr "Pubblica ogni pagina"
+
+msgid "Bulk delete"
+msgstr "Eliminazione massiva"
+
+msgid "Delete pages with children"
+msgstr "Elimina pagine con sottopagine"
+
+msgid "Lock"
+msgstr "Blocca"
+
+msgid "Lock/unlock any page"
+msgstr "Blocca/sblocca ogni pagina"
+
+msgid "group"
+msgstr "gruppo"
+
+msgid "permission type"
+msgstr "tipo di permesso"
+
+msgid "group page permission"
+msgstr "permesso della pagina del gruppo"
+
+msgid "group page permissions"
+msgstr "permessi delle pagine del gruppo"
+
+msgid "Public"
+msgstr "Pubblico"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privato, accessibile da utenti loggati"
+
+msgid "Private, accessible with the following password"
+msgstr "Privato, accessibile con la seguente password"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privato, accessibile a utenti di gruppi specifici"
+
+msgid "password"
+msgstr "password"
+
+msgid "groups"
+msgstr "gruppi"
+
+msgid "view restriction"
+msgstr "limitazione visualizzazioni"
+
+msgid "view restrictions"
+msgstr "limitazioni visualizzazione"
+
+msgid "page view restriction"
+msgstr "restrizione per la visualizzazione della pagina"
+
+msgid "page view restrictions"
+msgstr "restrizioni per la visualizzazione della pagina"
+
+msgid "collection"
+msgstr "raccolta"
+
+msgid "collection view restriction"
+msgstr "limitazione per la vista della raccolta"
+
+msgid "collection view restrictions"
+msgstr "limitazioni per la vista della raccolta"
+
+msgid "name"
+msgstr "nome"
+
+msgid "collections"
+msgstr "raccolte"
+
+msgid "permission"
+msgstr "permesso"
+
+msgid "group collection permission"
+msgstr "permesso della collezione del gruppo"
+
+msgid "group collection permissions"
+msgstr "Permessi gruppo raccolta"
+
+msgid "Log in"
+msgstr "Log in"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Username e password non corrispondono. Riprova."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr "Il tuo account non ha accesso a questa pagina."
+
+msgid "Password required"
+msgstr "Richiesta password"
+
+msgid "You need a password to access this page."
+msgstr "Devi avere una password per accedere a questa pagina."
+
+msgid "Continue"
+msgstr "Continua"

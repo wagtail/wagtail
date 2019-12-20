@@ -1,0 +1,28 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailimages_tags i18n wagtailadmin_tags %}
+{% block titletag %}{% trans "Delete image" %}{% endblock %}
+
+{% block content %}
+    {% trans "Delete image" as del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str icon="image" %}
+
+    <div class="row row-flush nice-padding">
+        <div class="col6">
+            {% image image max-800x600 %}
+        </div>
+        <div class="col6">
+            {% usage_count_enabled as uc_enabled %}
+            {% if uc_enabled %}
+                <div class="usagecount">
+                    <a href="{{ image.usage_url }}">{% blocktrans count usage_count=image.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                </div>
+            {% endif %}
+            <p>{% trans "Are you sure you want to delete this image?" %}</p>
+            <form action="{% url 'wagtailimages:delete' image.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+                <a href="{% url 'wagtailimages:index' %}" class="button button-secondary">{% trans "No, don't delete" %}</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,235 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# fooflare <amos.oviedo@gmail.com>, 2014
+# fooflare <amos.oviedo@gmail.com>, 2014,2016
+# fooflare <amos.oviedo@gmail.com>, 2014,2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Obrigatorio. 30 caracteres ou menos. Letras, díxitos e @/./+/-/_ soamente."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Este valor debe conter só letras, números e os caracteres @/./+/-/_."
+
+msgid "A user with that username already exists."
+msgstr "Un usuario con ese nome xa existe."
+
+msgid "The two password fields didn't match."
+msgstr "Os dous campos de contrasinal non coinciden."
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "First Name"
+msgstr "Nome"
+
+msgid "Last Name"
+msgstr "Apelidos"
+
+msgid "Password"
+msgstr "Contrasinal"
+
+msgid "Leave blank if not changing."
+msgstr "Deixa en branco se non cambia."
+
+msgid "Password confirmation"
+msgstr "Confirmación de contrasinal"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Introduce a mesma contrasinal que arriba, para verificación."
+
+msgid "Administrator"
+msgstr "Administrador"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Os administradores teñen acceso completo para xestionar calquera obxecto ou "
+"configuración."
+
+msgid "A group with that name already exists."
+msgstr "Un grupo con ese nome xa existe."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Non podes ter múltiples rexistros de permisos para a mesma páxina."
+
+msgid "submitted notifications"
+msgstr "notificacións enviadas"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Recibir notificación cando unha páxina é enviada para ser moderada"
+
+msgid "approved notifications"
+msgstr "notificacións aprobadas"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Recibir notificación cando a túa edición de páxina é aprobada"
+
+msgid "rejected notifications"
+msgstr "notificacións rexeitadas"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Recibir notificación cando a túa edición de páxina é rexeitada"
+
+msgid "user profile"
+msgstr "perfil de usuario"
+
+msgid "Delete group"
+msgstr "Eliminar grupo"
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Eliminando este grupo revogará os permisos deste grupo para todos os "
+"usuarios membro."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "¿Seguro que queres eliminar este grupo?"
+
+msgid "Yes, delete"
+msgstr "Si, eliminar"
+
+msgid "Add group"
+msgstr "Engadir grupo"
+
+msgid "Editing"
+msgstr "Editando"
+
+msgid "Save"
+msgstr "Gardar"
+
+msgid "Object permissions"
+msgstr "Permisos do obxecto"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Add"
+msgstr "Engadir"
+
+msgid "Change"
+msgstr "Cambiar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Other permissions"
+msgstr "Outros permisos"
+
+msgid "Page permissions"
+msgstr "Permisos da páxina"
+
+msgid "Page"
+msgstr "Páxina"
+
+msgid "Add a page permission"
+msgstr "Engadir un permiso á páxina"
+
+msgid "groups"
+msgstr "grupos"
+
+msgid "Add a group"
+msgstr "Engadir un grupo"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Non hai grupos configurados. ¿Por qué non <a href="
+"\"%(wagtailusers_create_group_url)s\">engadir algún</a>?"
+
+msgid "Add user"
+msgstr "Engadir usuario"
+
+msgid "Account"
+msgstr "Conta"
+
+msgid "Roles"
+msgstr "Roles"
+
+msgid "Users"
+msgstr "Usuarios"
+
+msgid "Add a user"
+msgstr "Engadir un usuario"
+
+msgid "Username"
+msgstr "Nome de usuario"
+
+msgid "Level"
+msgstr "Nivel"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Inactive"
+msgstr "Inactivo"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Sentímolo, ningún usuario coincide con \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Non hai usuarios configurados. ¿Por qué non <a href="
+"\"%(wagtailusers_create_url)s\">engadir algún</a>?"
+
+msgid "Groups"
+msgstr "Grupos"
+
+msgid "Search groups"
+msgstr "Procurar grupos"
+
+msgid "Group '{0}' created."
+msgstr "Grupo '{0}' creado."
+
+msgid "Group '{0}' updated."
+msgstr "Grupo '{0}' actualizado."
+
+msgid "The group could not be saved due to errors."
+msgstr "O grupo non puido ser gardado debido a erros."
+
+msgid "Group '{0}' deleted."
+msgstr "Grupo '{0}' eliminado."
+
+msgid "Search users"
+msgstr "Buscar usuarios"
+
+msgid "User '{0}' created."
+msgstr "Usuario '{0}' creado."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "The user could not be created due to errors."
+msgstr "O usuario non puido ser creado debido a erros."
+
+msgid "The user could not be saved due to errors."
+msgstr "O usuario non puido ser gardado debido a erros."

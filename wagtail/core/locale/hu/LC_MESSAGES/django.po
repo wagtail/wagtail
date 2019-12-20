@@ -1,0 +1,333 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# Laszlo Molnar <lazlowmiller@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-28 12:41+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail core"
+msgstr "Alapok"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: ehhez a blokkhoz nincsenek beállítások."
+
+msgid "This block has no options."
+msgstr "Ehhez az elemhez nincsenek beállítások."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Az elemek minimális száma %d"
+
+msgid "This field is required."
+msgstr "Ennek a mezőnek a megadása kötelező."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Az elemek maximális száma %d"
+
+msgid "Password"
+msgstr "Jelszó"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "A megadott jelszó érvénytelen. Kérjük próbálja újra."
+
+msgid "hostname"
+msgstr "hosztnév"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"A port száma, amely a webhely URL nevében fog szerepelni (pl. fejlesztéshez "
+"állítsa 80-ról 8000-re). Az oldal betöltését nem befolyásolja (a port "
+"továbbítás automatikusan működik)."
+
+msgid "site name"
+msgstr "webhely neve"
+
+msgid "Human-readable name for the site."
+msgstr "A webhely neve emberi nyelven"
+
+msgid "root page"
+msgstr "főoldal"
+
+msgid "is default site"
+msgstr "az alapértelmezett webhely"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Ha igazra van állítva, ez a webhely fogja az összes olyan hosztnév kéréseit "
+"lekezelni, amelyhez nem tartozik saját webhely."
+
+msgid "site"
+msgstr "webhely"
+
+msgid "sites"
+msgstr "webhelyek"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"A %(hostname)s az alapértelmezett webhely. Először törölje azt a beállítást "
+"és utána teheti a jelenlegi webhelyet alapértelmezetté."
+
+msgid "title"
+msgstr "cím"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Az oldal címe a közzététel után"
+
+msgid "slug"
+msgstr "domain-darabka"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Az oldal neve, ahogy az URL-ben szerepelni fog, pl. http://domain.com/blog/"
+"[oldal domain-darabkája]/"
+
+msgid "content type"
+msgstr "tartalomtípus"
+
+msgid "live"
+msgstr "közzétett oldal"
+
+msgid "has unpublished changes"
+msgstr "nem közzétett tartalommal rendelkezik"
+
+msgid "URL path"
+msgstr "URL cím"
+
+msgid "owner"
+msgstr "tulajdonos"
+
+msgid "page title"
+msgstr "oldal címe"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Nem kötelező, 'keresőmotor-barát' oldalcím. Ez fog megjelenni a "
+"böngészőablak tetején."
+
+msgid "show in menus"
+msgstr "szerepeljen a menükben"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Erre az oldalra mutató link fog megjelenni a generált menükben "
+
+msgid "search description"
+msgstr "leírás a keresőmotor számára"
+
+msgid "go live date/time"
+msgstr "közzététel ideje"
+
+msgid "expiry date/time"
+msgstr "lejárat dátuma/ideje"
+
+msgid "expired"
+msgstr "lejárt"
+
+msgid "locked"
+msgstr "zárolt"
+
+msgid "first published at"
+msgstr "első közzététel időpontja"
+
+msgid "last published at"
+msgstr "utolsó közzététel időpontja"
+
+msgid "latest revision created at"
+msgstr "a legutóbbi verzió letrehozásának időpontja"
+
+msgid "This slug is already in use"
+msgstr "Ez a rövidítés már használatban van"
+
+msgid "scheduled"
+msgstr "időzítve"
+
+msgid "draft"
+msgstr "vázlat"
+
+msgid "live + scheduled"
+msgstr "közzétéve + időzítve"
+
+msgid "live + draft"
+msgstr "közzétéve + vázlat"
+
+msgid "Default"
+msgstr "Alapértelmezett"
+
+msgid "page"
+msgstr "oldal"
+
+msgid "pages"
+msgstr "oldalak"
+
+msgid "submitted for moderation"
+msgstr "moderálásra beküld"
+
+msgid "created at"
+msgstr "létrehozás ideje"
+
+msgid "user"
+msgstr "felhasználó"
+
+msgid "content JSON"
+msgstr "JSON tartalom"
+
+msgid "approved go live at"
+msgstr "jóváhagyott közzététel időpontja"
+
+msgid "page revision"
+msgstr "oldal verzió"
+
+msgid "page revisions"
+msgstr "oldal verziók"
+
+msgid "Add"
+msgstr "Hozzáadás"
+
+msgid "Add/edit pages you own"
+msgstr "Saját oldalaim létrehozása/szerkesztése"
+
+msgid "Edit"
+msgstr "Szerkesztés"
+
+msgid "Edit any page"
+msgstr "Bármelyik oldal szerkesztése"
+
+msgid "Publish"
+msgstr "Közzététel"
+
+msgid "Publish any page"
+msgstr "Bármelyik oldal közzététele"
+
+msgid "Bulk delete"
+msgstr "Kötegelt törlés"
+
+msgid "Delete pages with children"
+msgstr "Oldalak törlése a gyermek oldalakkal együtt"
+
+msgid "Lock"
+msgstr "Zárolás"
+
+msgid "Lock/unlock any page"
+msgstr "Bármelyik oldal zárolása/feloldása"
+
+msgid "group"
+msgstr "csoport"
+
+msgid "permission type"
+msgstr "hozzáférés típusa"
+
+msgid "group page permission"
+msgstr "csoport hozzáférés"
+
+msgid "group page permissions"
+msgstr "csoport hozzáférések"
+
+msgid "Public"
+msgstr "Publikus"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privát, csak bejelentkezett felhasználók érik el"
+
+msgid "Private, accessible with the following password"
+msgstr "Privát, csak a következő jelszó megadávásal érhető el"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privát, csak a megadott csoportba tartozó felhasználók látják"
+
+msgid "password"
+msgstr "jelszó"
+
+msgid "groups"
+msgstr "csoportok"
+
+msgid "view restriction"
+msgstr "elérési korlátozás"
+
+msgid "view restrictions"
+msgstr "elérési korlátozások"
+
+msgid "page view restriction"
+msgstr "az oldal megtekintésének korlátozása"
+
+msgid "page view restrictions"
+msgstr "az oldal megtekintésének korlátozásai"
+
+msgid "collection"
+msgstr "gyűjtemény"
+
+msgid "collection view restriction"
+msgstr "gyűjtemény elérési korlátozás"
+
+msgid "collection view restrictions"
+msgstr "gyűjtemény elérési korlátozások"
+
+msgid "name"
+msgstr "név"
+
+msgid "collections"
+msgstr "gyűjtemények"
+
+msgid "permission"
+msgstr "hozzáférés"
+
+msgid "group collection permission"
+msgstr "csoportos gyűjtemény engedély"
+
+msgid "group collection permissions"
+msgstr "csoportos gyűjtemény engedélyek"
+
+msgid "Log in"
+msgstr "Bejelentkezés"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "A felhasználónév és jelszó nem megfelelő. Kérjük próbálja újra."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"A fiókjának nincs jogosultsága elérni ezt az oldalt. Kérjük jelentkezzen be "
+"egy olyan fiókkal, amely rendelkezik a megfelelő engedélyekkel."
+
+msgid "Password required"
+msgstr "Jelszó szükséges"
+
+msgid "You need a password to access this page."
+msgstr "Ezen oldal megtekintéséhez jelszó szükséges."
+
+msgid "Continue"
+msgstr "Folytatás"

@@ -1,0 +1,169 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
+# serafeim <serafeim@torchbox.com>, 2014
+# Wasilis Mandratzis-Walz, 2015
+# Yiannis Inglessis <negtheone@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+"Παρακαλείστε να διευκρινίσετε τουλάχιστον μία σύσταση για αυτόν τον όρο "
+"αναζήτησης."
+
+msgid "page"
+msgstr "ιστοσελίδα"
+
+msgid "description"
+msgstr "περιγραφή"
+
+msgid "search promotion"
+msgstr "αναζήτηση προώθησης"
+
+msgid "Add search promotion"
+msgstr "Προσθήκη αναζήτησης προώθησης"
+
+msgid "Add search pick"
+msgstr "Προσθήκη search pick"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>Οι επιλογές συντακτών είναι ένας τρόπος πρότασης συγκεκριμένων σελίδων οι "
+"οποίες κανονικά δε θα βρίσκονται ψηλά στα αποτελέσματα της αναζήτησης. </p>"
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"\n"
+"<p>Το πεδίο \"όρος(οι)/φράσεις\" παρακάτω πρέπει να περιέχει το πλήρες και "
+"ακριβές κείμενο για το οποίο θέλετε να παρέχετε προτεινόμενα αποτελέσματα, "
+"<em>συμπεριλαμβανομένων</em> τυχόν ορθογραφικών λαθών. Προς βοήθεια, "
+"μπορείτε να επιλέξετε όρους αναζήτησης που ήταν δημοφιλείς στους χρήστες.</p>"
+
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Διαγραφή %(query)s"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Είστε σίγουρος ότι θέλετε να διαγράψετε όλες τις επιλογές συντακτών για τον "
+"εν λόγω όρο αναζήτησης;"
+
+msgid "Yes, delete"
+msgstr "Ναι, να διαγραφεί"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Επεξεργασία %(query)s"
+
+msgid "Editing"
+msgstr "Διόρθωση"
+
+msgid "Move up"
+msgstr "Πάνω"
+
+msgid "Move down"
+msgstr "Κάτω"
+
+msgid "Promoted search result"
+msgstr "Προωθείται το αποτέλεσμα αναζήτησης"
+
+msgid "Add recommended page"
+msgstr "Προσθήκη προτεινόμενης σελίδας"
+
+msgid "Search Terms"
+msgstr "Όροι αναζήτησης"
+
+msgid "Promoted search results"
+msgstr "Προωθουνται τα αποτέλεσματα αναζήτησης"
+
+msgid "Add new promoted result"
+msgstr "Προσθήκη νέου προωθείμενου αποτελέσματος"
+
+msgid "Search term(s)"
+msgstr "Όροι αναζήτησης"
+
+msgid "Promoted results"
+msgstr "Προωθημενα αποτελέσματα"
+
+msgid "Views (past week)"
+msgstr "Εμφανίσεις (την περασμένη εβδομάδα)"
+
+msgid "Edit this promotion"
+msgstr "Επεξεργασία αυτής της προώθησης"
+
+msgid "None"
+msgstr "Καμία"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Λυπούμαστε, καμία ανακατεύθυνση δε ταιριάζει με το \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Δεν δημιουργήθηκαν προωθημένα αποτελέσματα. Γιατί να μην <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">προσθέσετε ένα</a>;"
+
+msgid "Search promoted results"
+msgstr "Αναζήτηση προωθημένων αποτελεσμάτων"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "Επιτυχής δημιουργία επιλογή συντακτών για το '{0}'."
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Οι συστάσεις δεν έχουν δημιουργηθεί λόγω σφαλμάτων"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "Επιτυχής διόθρωση επιλογής συντακτών για το '{0}'."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Οι συστάσεις δεν έχουν αποθηκευτεί λόγω σφαλμάτων"
+
+msgid "Editor's picks deleted."
+msgstr "Επιτυχής διαγραφή επιλογής συντακτών."

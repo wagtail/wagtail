@@ -1,0 +1,69 @@
+{% load i18n wagtailadmin_tags %}
+{% if page_revisions_for_moderation %}
+    <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
+        <section>
+            <h2>{% trans 'Pages awaiting moderation' %}</h2>
+            <table class="listing">
+                <col />
+                <col width="30%"/>
+                <col width="15%"/>
+                <col width="15%"/>
+                <thead>
+                    <tr>
+                        <th class="title">{% trans "Title" %}</th>
+                        <th>{% trans "Parent" %}</th>
+                        <th>{% trans "Type" %}</th>
+                        <th>{% trans "Edited" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for revision in page_revisions_for_moderation %}
+                        {% page_permissions revision.page as page_perms %}
+                        <tr>
+                            <td class="title" valign="top">
+                                <div class="title-wrapper">
+                                    {% if page_perms.can_edit %}
+                                        <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_admin_display_title }}</a>
+                                    {% else %}
+                                        <a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" title="{% trans 'Preview this page' %}">{{ revision.page.get_admin_display_title }}</a>
+                                    {% endif %}
+
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.page %}
+                                </div>
+                                <ul class="actions">
+                                    <li>
+                                         <form action="{% url 'wagtailadmin_pages:approve_moderation' revision.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="submit" class="button button-small button-secondary" value="{% trans 'Approve' %}">
+                                        </form>
+                                    </li>
+                                    <li class="no-border">
+                                        <form action="{% url 'wagtailadmin_pages:reject_moderation' revision.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="submit" class="button button-small button-secondary no" value="{% trans 'Reject' %}">
+                                        </form>
+                                    </li>
+                                    {% if page_perms.can_edit %}
+                                        <li><a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
+                                    {% endif %}
+                                    <li><a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Preview' %}</a></li>
+                                </ul>
+                            </td>
+                            <td valign="top">
+                                <a href="{% url 'wagtailadmin_explore' revision.page.get_parent.id %}">{{ revision.page.get_parent.get_admin_display_title }}</a>
+                            </td>
+                            <td class="type" valign="top">
+                                {{ revision.page.content_type.model_class.get_verbose_name }}
+                            </td>
+                            <td valign="top">
+                                <div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=revision.created_at|timesince %}{{ time_period }} ago{% endblocktrans %} </div>
+                                by {{ revision.user.get_full_name|default:revision.user.get_username }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endif %}

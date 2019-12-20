@@ -1,0 +1,16 @@
+{% extends "wagtailadmin/widgets/chooser.html" %}
+{% load wagtailimages_tags %}
+
+{% block chooser_class %}image-chooser{% endblock %}
+
+{% block chosen_state_view %}
+    <div class="preview-image">
+        {% if image %}
+            {% image image max-165x165 class="show-transparency" title=image.title %}
+        {% else %}
+            <img alt="">
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block edit_chosen_item_url %}{% if image %}{% url 'wagtailimages:edit' image.id %}{% endif %}{% endblock %}

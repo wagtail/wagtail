@@ -1,0 +1,1216 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Mohammad reza Jelveh <mrj.eleven@gmail.com>, 2015
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Publish"
+msgstr "انتشار"
+
+msgid "Submit for moderation"
+msgstr "فرستادن برای نظارت"
+
+msgid "Unpublish"
+msgstr "لغو انتشار"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Page locked"
+msgstr "صفحه قفل شده"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "متاسفانه مجوز لازم برای دسترسی به این ناحیه را ندارید."
+
+msgid "You do not have permission to access the admin"
+msgstr "مجوز لازم برای دسترسی به ادمین را ندارید"
+
+msgid "None"
+msgstr "خالی"
+
+msgid "Scheduled publishing"
+msgstr "انتشار زمانبندی‌شده"
+
+msgid "Common page configuration"
+msgstr "پیکربندی متداول صفحه"
+
+msgid "Content"
+msgstr "محتوا"
+
+msgid "Promote"
+msgstr "ترویج"
+
+msgid "Settings"
+msgstr "تنظیمات"
+
+msgid "Enter password"
+msgstr "رمزعبور را وارد کنید"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "%s خود را وارد کنید"
+
+msgid "Enter your email address to reset your password"
+msgstr "برای بازنشانی رمز، نشانی ایمیل خود را وارد کنید"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "نمی‌توانید چند رکورد مجوز برای یک مجموعه معین داشته باشید."
+
+msgid "New title"
+msgstr "عنوان جدید"
+
+msgid "New slug"
+msgstr "اسلاگ جدید"
+
+msgid "New parent page"
+msgstr "صفحه والد جدید"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "این کپی زیرگروه صفحه والد داده شده خواهد بود."
+
+msgid "Copy subpages"
+msgstr "کپی زیرصفحه‌ها"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "%(count)s زیرصفحه کپی خواهد شد."
+msgstr[1] "%(count)s زیرصفحه کپی خواهد شد."
+
+msgid "Publish copied page"
+msgstr "انتشار صفحه کپی شده"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "این صفحه زنده است. آیا مایلید کپی آن نیز انتشار یابد؟"
+
+msgid "Publish copies"
+msgstr "انتشار کپی‌ها"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s صفحه در حال کپی زنده هستند. آیا مایل کپی‌های آنها نیز انتشار یابند؟"
+msgstr[1] ""
+"%(count)s صفحه در حال کپی زنده هستند. آیا مایل کپی‌های آنها نیز انتشار یابند؟"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "دسترسی لازم برای کپی صفحه %(page_title)s را ندارید"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "این اسلاگ در حال استفاده داخل محتوای صفحه والد خود \"%s\" است"
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "هنگامی که صفحه ها کپی میشوند نمی‌توان یک صفحه را به داخل خودش کپی کرد"
+
+msgid "This slug is already in use"
+msgstr "این اسلاگ در حال استفاده است"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "تاریخ/ساعت زنده شدن باید پیش از تاریخ/ساعت انقضا باشد"
+
+msgid "Expiry date/time must be in the future"
+msgstr "تاریخ/ساعت انقضا باید در آینده باشد"
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Search term"
+msgstr "عبارت جستجو"
+
+msgid "Visibility"
+msgstr "دیده شدن"
+
+msgid "This field is required."
+msgstr "این فیلد لازم است."
+
+msgid "Please select at least one group."
+msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
+
+msgid "Catalan"
+msgstr "کاتالان"
+
+msgid "German"
+msgstr "آلمانی"
+
+msgid "Greek"
+msgstr "یونانی"
+
+msgid "English"
+msgstr "انگلیسی"
+
+msgid "Spanish"
+msgstr "اسپانیولی"
+
+msgid "Finnish"
+msgstr "فنلاندی"
+
+msgid "French"
+msgstr "فرانسوی"
+
+msgid "Galician"
+msgstr "گالیسیایی"
+
+msgid "Icelandic"
+msgstr "ایسلندی"
+
+msgid "Italian"
+msgstr "ایتالیایی"
+
+msgid "Lithuanian"
+msgstr "لیتوانیایی"
+
+msgid "Norwegian Bokmål"
+msgstr "بوکمال نروژی"
+
+msgid "Netherlands Dutch"
+msgstr "آلمانی هلندی"
+
+msgid "Persian"
+msgstr "فارسی"
+
+msgid "Polish"
+msgstr "لهستانی"
+
+msgid "Brazilian Portuguese"
+msgstr "پرتغالی برزیل"
+
+msgid "Portuguese"
+msgstr "پرتغالی"
+
+msgid "Romanian"
+msgstr "رومانیایی"
+
+msgid "Russian"
+msgstr "روسی"
+
+msgid "Page"
+msgstr "صفحه"
+
+msgid "Pages"
+msgstr "صفحه ها"
+
+msgid "No results"
+msgstr "بدون نتیجه"
+
+msgid "Server Error"
+msgstr "خطای سرور"
+
+msgid "See all"
+msgstr "نمایش همه"
+
+msgid "Close explorer"
+msgstr "بستن کاوشگر"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "Edit '{title}'"
+msgstr "ویرایش '{title}'"
+
+msgid "January"
+msgstr "ژانویه"
+
+msgid "February"
+msgstr "فوریه"
+
+msgid "March"
+msgstr "مارس"
+
+msgid "April"
+msgstr "آپریل"
+
+msgid "May"
+msgstr "مه"
+
+msgid "June"
+msgstr "ژوئن"
+
+msgid "July"
+msgstr "جولای"
+
+msgid "August"
+msgstr "آگوست"
+
+msgid "September"
+msgstr "سپتامبر"
+
+msgid "October"
+msgstr "اکتبر"
+
+msgid "November"
+msgstr "نوامبر"
+
+msgid "December"
+msgstr "دسامبر"
+
+msgid "Sun"
+msgstr "یکشنبه"
+
+msgid "Mon"
+msgstr "دوشنبه"
+
+msgid "Tue"
+msgstr "سه شنبه"
+
+msgid "Wed"
+msgstr "چهارشنبه"
+
+msgid "Thu"
+msgstr "پنجشنبه"
+
+msgid "Fri"
+msgstr "جمعه"
+
+msgid "Sat"
+msgstr "شنبه"
+
+msgid "Go to Wagtail admin"
+msgstr "رفتن به رابط راهبری وگتیل"
+
+msgid "Account"
+msgstr "حساب"
+
+msgid "Update"
+msgstr "بروزرسانی"
+
+msgid "Change password"
+msgstr "تغییر رمزعبور"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "رمزعبور شما نمیتواند تغییر کند. لطفا با راهبر سایت تماس بگیرید."
+
+msgid "Language Preferences"
+msgstr "ترجیحات زبانی"
+
+msgid "Notification preferences"
+msgstr "ترجیحات آگاهسازی"
+
+msgid "Reset password"
+msgstr "بازنشانی رمزعبور"
+
+msgid "Password change successful"
+msgstr "رمزعبور تغییر یافت"
+
+msgid "Login"
+msgstr "ورود"
+
+msgid "Set your new password"
+msgstr "رمزعبور جدید را وارد نمایید"
+
+msgid "Check your email"
+msgstr "ایمیل خود را چک کنید"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "لطفا لینک پایین را برای بازنشانی رمزعبور دنبال کنید:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "نام کاربری شما (درصورتی که فراموش کرده اید):"
+
+msgid "Password reset"
+msgstr "بازنشانی رمزعبور"
+
+msgid "Reset your password"
+msgstr "رمزعبور را بازنشانی کنید"
+
+msgid "Dashboard"
+msgstr "داشبورد"
+
+msgid "Menu"
+msgstr "منو"
+
+msgid "Move up"
+msgstr "حرکت به بالا"
+
+msgid "Move down"
+msgstr "حرکت به پایین"
+
+msgid "Explorer"
+msgstr "کاوشگر"
+
+msgid "Internal link"
+msgstr "لینک درونی"
+
+msgid "External link"
+msgstr "لینک بیرونی"
+
+msgid "Email link"
+msgstr "لینک ایمیل"
+
+msgid "Choose"
+msgstr "انتخاب کن"
+
+msgid "Choose a page"
+msgstr "صفحه را انتخاب کنید"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"        تنها انواع صفحه زیر می‌تواند برای این فیلد انتخاب شود: %(type)s. "
+"انواع دیگر صفحه ها در نتایج جستجو لحاظ نخواهند شد."
+msgstr[1] ""
+"\n"
+"        تنها انواع صفحه زیر می‌تواند برای این فیلد انتخاب شود: %(type)s. "
+"انواع دیگر صفحه ها در نتایج جستجو لحاظ نخواهند شد."
+
+msgid "Add an email link"
+msgstr "لینک ایمیل را اضافه کنید"
+
+msgid "Insert link"
+msgstr "درج لینک"
+
+msgid "Add an external link"
+msgstr "لینک بیرونی اضافه کنید"
+
+msgid "Collection privacy"
+msgstr "حریم مجموعه"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "این مجموعه توسط یک مجموعه والد خصوصی شده است."
+
+msgid "You can edit the privacy settings on:"
+msgstr "تنظیمات حریم را می‌توانید اینجا ویرایش کنید:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr "تنظیمات حریم تشخیص میدهد که چه کسی میتواند این مجموعه را ببیند"
+
+msgid "Save"
+msgstr "ذخیره"
+
+msgid "Privacy"
+msgstr "حریم"
+
+msgid "Public"
+msgstr "انتشار"
+
+msgid "Private"
+msgstr "خصوصی"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "بدلیل خالی نبودن، مجموعه قابل حذف نیست. حاوی موارد زیر است:"
+
+msgid "Name"
+msgstr "نام"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"مجموعه ای ایجاد نشد. چرا یکی <a href=\"%(add_collection_url)s\">ایجاد</a> "
+"نمیکنید؟"
+
+msgid "Yes, delete"
+msgstr "بله حذف شود"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "به وگتیل %(site_name)s خوش آمدید"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"اینجا پیشخوان شماست و در آن اطلاعات مفیدی مربوط به محتوایی که تولید کرده اید "
+"نمایش داده میشود."
+
+msgid "Pages awaiting moderation"
+msgstr "صفحه های نیازمند نظارت"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Parent"
+msgstr "والد"
+
+msgid "Type"
+msgstr "نوع"
+
+msgid "Edited"
+msgstr "تصحیح شده"
+
+msgid "Edit this page"
+msgstr "ویرایش صفحه"
+
+msgid "Approve"
+msgstr "تایید"
+
+msgid "Reject"
+msgstr "رد"
+
+msgid "Edit"
+msgstr "تصحیح"
+
+msgid "Preview"
+msgstr "نمایش"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s پیش"
+
+msgid "Your most recent edits"
+msgstr "ویرایش‌های اخیر شما"
+
+msgid "Date"
+msgstr "تاریخ"
+
+msgid "Status"
+msgstr "وضعیت"
+
+msgid "Draft"
+msgstr "پیشنویس"
+
+msgid "Live"
+msgstr "زنده"
+
+msgid "Site summary"
+msgstr "خلاصه سایت"
+
+msgid "Sign in"
+msgstr "ورود"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "%(username_field)s و رمزعبور با هم تطبیق ندارند. لطفا مجددا سعی کنید."
+
+msgid "Sign in to Wagtail"
+msgstr "ورود به وگتیل"
+
+msgid "Forgotten it?"
+msgstr "فراموش کردید؟"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "صفحه «%(title)s» تایید شد."
+
+msgid "You can view the page here:"
+msgstr "می‌توانید صفحه را اینجا ببینید:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "صفحه «%(title)s» تایید شد"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "سلام %(username)s،"
+
+msgid "Edit your notification preferences here:"
+msgstr "اینجا ترجیحات آگاهسازی خودتان را ویرایش کنید:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "صفحه «%(title)s» رد شد."
+
+msgid "You can edit the page here:"
+msgstr "از اینجا صفحه را ویرایش کنید:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "صفحه «%(title)s» رد شد"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
+msgstr "صفحه «%(page)s» برای نظارت توسط %(editor)s فرستاده شد."
+
+msgid "You can preview the page here:"
+msgstr "از اینجا می‌توانید صفحه را پیش نمایش کنید:"
+
+#, python-format
+msgid "The page \"%(page)s\" has been submitted for moderation"
+msgstr "صفحه «%(page)s» برای نظارت فرستاده شد"
+
+msgid "Page privacy"
+msgstr "حریم صفحه"
+
+msgid "This page has been made private by a parent page."
+msgstr "این صفحه توسط صفحه والد شخصی شده."
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "تغییرات حریم که به همه صفحه های زیرگروه این صفحه اعمال میشود."
+
+msgid "Edit lock"
+msgstr "ویرایش قفل"
+
+msgid "Locked"
+msgstr "قفل"
+
+msgid "Unlocked"
+msgstr "گشوده"
+
+msgid "Publish this revision"
+msgstr "انتشار این بازبینی"
+
+msgid "Replace current draft"
+msgstr "جایگزینی پیشنویس فعلی"
+
+msgid "Save draft"
+msgstr "ذخیره پیشنویس"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "ایجاد صفحه در %(title)s"
+
+msgid "Create a page in"
+msgstr "ایجاد صفحه در"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "نوع صفحه ای را که میخواهید بسازید مشخص کنید."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "صفحه هایی که %(page_type)s هستند"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "حذف %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "آیا میخواهید این صفحه را حذف کنید؟"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"        همچنین این کار باعث حذف %(descendant_count)s زیرصفحه خواهد شد."
+msgstr[1] ""
+"\n"
+"        همچنین این کار باعث حذف %(descendant_count)s زیرصفحه خواهد شد."
+
+msgid "Yes, delete it"
+msgstr "بله حذف شود"
+
+msgid "No, don't delete it"
+msgstr "نه، حذف نشود"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"همچنین می‌توانید این صفحه را <a href=\"%(unpublish_url)s\">لغو انتشار</a> "
+"کنید. این کار باعث خارج شدن صفحه از حالت عمومی میشود تا بعدا بتوانید آن را "
+"ویرایش و منتشر نمایید."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "انتقال %(title)s"
+
+msgid "Move"
+msgstr "انتقال"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "آیا میخواهید این صفحه را به «%(title)s» انتقال دهید؟"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"آیا میخواهید این صفحه و همه زیرصفحه های آن را به «%(title)s» انتقال دهید؟"
+
+msgid "Yes, move this page"
+msgstr "بله، منتقل شود"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "لغو انتشار %(title)s"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "آیا میخواهید این صفحه لغو انتشار شود؟"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"این صفحه %(live_descendant_count)s زیر صفحه دارد. آنها نیز لغو انتشار می‌شوند"
+msgstr[1] ""
+"\n"
+"این صفحه %(live_descendant_count)s زیر صفحه دارد. آنها نیز لغو انتشار می‌شوند"
+
+msgid "Yes, unpublish it"
+msgstr "بله لغو انتشار شود"
+
+msgid "No, don't unpublish"
+msgstr "نه لغو انتشار نشود"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "صفحه های %(page_class_verbose_name)s"
+
+msgid "Pages using"
+msgstr "صفحه های"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "کپی %(title)s"
+
+msgid "Copy"
+msgstr "کپی"
+
+msgid "Copy this page"
+msgstr "کپی این صفحه"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "%(page_type)s جدید"
+
+msgid "New"
+msgstr "جدید"
+
+msgid "This page has unsaved changes."
+msgstr "این صفحه تغییرات ذخیره نشده دارد."
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "ویرایش %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "ویرایش %(page_type)s <span>%(title)s</span>"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "آخرین تغییر: %(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "توسط %(modified_by)s"
+
+msgid "Revisions"
+msgstr "بازبینی‌ها"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "درحال کاوش %(title)s"
+
+msgid "Drag"
+msgstr "کشیدن"
+
+msgid "Updated"
+msgstr "بروزرسانی شده"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"سطح ریشه جایی است که می‌توانید سایت های جدیدی را به وگتیل اضافه کنید. صفحه "
+"اینجاد شده در اینجا پیش از آن که به سایت مرتبط شوند قابل دسترسی از طریق "
+"نشانی اینترنتی را نخواهند داشت."
+
+msgid "Configure a site now."
+msgstr "پیکربندی سایت"
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"اگر میخواهید صفحه جدیدی به سایت فعلی اضافه کنید، آن ها را به عنوان زیرگروه "
+"صفحه خانه ایجاد کنید"
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"صفحه ایجاد شده در اینجا قابل دسترسی از طریق نشانی اینترنتی نیستند. برای "
+"افزودن صفحه ها به سایت موجود، آن ها را به عنوان زیرگروه صفحه خانه ایجاد کنید."
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"سایتی برای این موقعیت تنظیم نشده. صفحه هایی که در اینجا ایجاد می‌شوند توسط "
+"نشانی اینترنتی قابل دسترسی نخواهند بود مگر این که سایتی به موقعیت آن ها "
+"مرتبط شود"
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"هیچ رکورد سایتی برای این موقعیت وجود ندارد. صفحه های ایجاد شده در این محل "
+"توسط نشانی اینترنتی قابل دسترسی نخواهند بود."
+
+msgid "No pages have been created at this location."
+msgstr "هیچ صفحه ای در این موقعیت ایجاد نشده است."
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "چرا یکی <a href=\"%(add_page_url)s\">ایجاد</a> نمیکنید؟"
+
+msgid "This page is locked to further editing"
+msgstr "این صفحه برای ویرایش در آینده قفل شده"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "کاوش زیرصفحه های «%(title)s»"
+
+msgid "Explore"
+msgstr "کاوش"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "کاوش زیرصفحه های «%(title)s»"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "افزودن زیرصفحه به «%(title)s»"
+
+msgid "Add child page"
+msgstr "افزودن زیرصفحه"
+
+msgid "Sites menu"
+msgstr "منوی سایت‌ها"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"صفحه %(page_number)s از %(num_pages)s"
+
+msgid "Previous"
+msgstr "قبلی"
+
+msgid "Next"
+msgstr "بعدی"
+
+msgid "This page is protected from public view"
+msgstr "این صفحه از دید عمومی پنهان شده است"
+
+msgid "Disable ordering of child pages"
+msgstr "غیرفعال سازی ترتیب زیرصفحه ها"
+
+msgid "Enable ordering of child pages"
+msgstr "فعال سازی ترتیب زیرصفحه ها"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "صفحه والد جدیدی را برای %(title)s انتخاب کنید"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "صفحه والد جدیدی را برای <span>%(title)s</span> انتخاب کنید"
+
+msgid "Preview error"
+msgstr "خطای پیش‌نمایش"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"امکان پیش نمایش صفحه وجود ندارد، برخی خطاها باقی مانده اند. لطفا این تب را "
+"ببندید و صفحه را برای برطرف سازی خطا ویرایش نمایید سپس مجددا از پیش نمایش "
+"استفاده نمایید."
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "مقایسه %(title)s"
+
+msgid "Comparing"
+msgstr "مقایسه"
+
+msgid "View revisions"
+msgstr "دیدن بازبینی‌ها"
+
+msgid "Fields"
+msgstr "فیلدها"
+
+msgid "Changes"
+msgstr "تغییرات"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"%(counter)s مکان به پایین انتقال یافت."
+msgstr[1] ""
+"\n"
+"%(counter)s مکان به پایین انتقال یافت."
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"%(counter)s به بالا انتقال یافت."
+msgstr[1] ""
+"\n"
+"%(counter)s به بالا انتقال یافت."
+
+msgid "There are no differences between these two revisions"
+msgstr "تفاوتی بین دو بازبینی وجود ندارد"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "%(title)s بازبینی"
+
+msgid "Revisions of"
+msgstr "بازبینی های"
+
+msgid "Revision date"
+msgstr "تاریخ بازبینی"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "توسط"
+
+msgid "Current draft"
+msgstr "پیشنویس فعلی"
+
+msgid "Live version"
+msgstr "نسخه زنده"
+
+msgid "Review this revision"
+msgstr "پیش‌نمایش این بازبینی"
+
+msgid "Compare with previous revision"
+msgstr "مقایسه با بازبینی قبلی"
+
+msgid "No revisions of this page exist"
+msgstr "برای این صفحه هیچ بازبینی وجود ندارد"
+
+msgid "No revision of this page exist"
+msgstr "بازبینی این صفحه پیدا نشد"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"%(counter)s صفحه منطبق پیدا شد"
+msgstr[1] ""
+"\n"
+"%(counter)s صفحه منطبق پیدا شد"
+
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "متاسفانه هیچ صفحه ای با «<em>%(query_string)s</em>» تطابق نداشت"
+
+msgid "Enter a search term above"
+msgstr "عبارت جستجو را وارد نمایید"
+
+msgid "No pages use"
+msgstr "صفحه ای استفاده نمی‌کند"
+
+msgid "Collection"
+msgstr "مجموعه"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "صفحه %(page_num)s از %(total_pages)s."
+
+msgid "Home"
+msgstr "خانه"
+
+msgid "All collections"
+msgstr "همه مجموعه ها"
+
+msgid "Edit your account"
+msgstr "ویرایش حساب شما"
+
+msgid "Account settings"
+msgstr "تنظیمات حساب"
+
+msgid "Log out"
+msgstr "خروج"
+
+msgid "Other searches"
+msgstr "جستجوهای دیگر"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"شما از یک مرورگر <strong>قدیمی</strong> استفاده می‌کنید که توسط این نرم افزار "
+"پشتیبانی نمی‌شود. لطفا مرورگر خود را <a href=\"http://browsehappy.com/"
+"\">بروزرسانی</a> کنید."
+
+msgid "Go to Wagtail admin interface"
+msgstr "رفتن به رابط راهبری وگتیل"
+
+msgid "Add a child page"
+msgstr "افزودن صفحه زیرگروه"
+
+msgid "Show in Explorer"
+msgstr "نمایش در کاوشگر"
+
+msgid "Test"
+msgstr "تست"
+
+msgid "Your password has been changed successfully!"
+msgstr "رمز عبور شما با موفقیت تغییر یافت!"
+
+msgid "Your preferences have been updated."
+msgstr "ترجیحات شما بروزرسانی شد."
+
+msgid "You have been successfully logged out."
+msgstr "با موفقیت خارج شدید."
+
+msgid "Collections"
+msgstr "مجموعه ها"
+
+msgid "Add a collection"
+msgstr "افزودن مجموعه"
+
+msgid "Add collection"
+msgstr "افزودن مجموعه"
+
+msgid "Collection '{0}' created."
+msgstr "مجموعه '{0}' ایجاد شد."
+
+msgid "Collection '{0}' updated."
+msgstr "مجموعه '{0}' بروزرسانی شد."
+
+msgid "The collection could not be saved due to errors."
+msgstr "به دلیل بروز خطا امکان ذخیره مجموعه وجود ندارد."
+
+msgid "Delete collection"
+msgstr "حذف مجموعه"
+
+msgid "Collection '{0}' deleted."
+msgstr "مجموعه  '{0}' حذف شد."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "آیا میخواهید این مجموعه را حذف کنید؟"
+
+msgid "Editing"
+msgstr "ویرایش"
+
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "صفحه  '{0}' ایجاد و برای انتشار برنامه ریزی شد."
+
+msgid "View live"
+msgstr "دیدن زنده"
+
+msgid "Page '{0}' created and published."
+msgstr "صفحه '{0}' ایجاد و انتشار یافت."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "صفحه '{0}' ایجاد و برای نظارت فرستاده شد."
+
+msgid "View draft"
+msgstr "دیدن پیشنویس"
+
+msgid "Failed to send notifications to moderators"
+msgstr "فرستادن آگاهسازی به ناظرین ناموفق بود"
+
+msgid "Page '{0}' created."
+msgstr "صفحه '{0}' ایجاد شد."
+
+msgid "The page could not be created due to validation errors"
+msgstr "به دلیل بروز خطا صفحه ایجاد نشد."
+
+msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgstr "بازبینی از {0} صفحه '{1}' برای انتشار زمانبندی شد."
+
+msgid "Page '{0}' has been scheduled for publishing."
+msgstr "صفحه '{0}' برای انتشار زمانبندی شد."
+
+msgid "Revision from {0} of page '{1}' has been published."
+msgstr "بازبینی {0} صفحه  '{1}' انتشار یافت."
+
+msgid "Page '{0}' has been published."
+msgstr "صفحه '{0}' انتشار یافت."
+
+msgid "Page '{0}' has been submitted for moderation."
+msgstr "صفحه '{0}' برای نظارت فرستاده شد."
+
+msgid "Page '{0}' has been replaced with revision from {1}."
+msgstr "صفحه '{0}' با بازبینی '{1}' جایگزین شد."
+
+msgid "Page '{0}' has been updated."
+msgstr "صفحه '{0}' بروزرسانی شد."
+
+msgid "The page could not be saved as it is locked"
+msgstr "بدلیل قفل بودن صفحه امکان ذخیره وجود ندارد"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "صفحه به دلیل وجود خطاهای معتبرسازی ذخیره نمی‌شود"
+
+msgid "Compare with live version"
+msgstr "مقایسه با نسخه زنده"
+
+msgid "This page is currently awaiting moderation"
+msgstr "این در انتظار نظارت است"
+
+msgid "Page '{0}' deleted."
+msgstr "صفحه '{0}' حذف شد."
+
+msgid "Page '{0}' unpublished."
+msgstr "صفحه '{0}' لغو انتشار شد."
+
+msgid "Page '{0}' moved."
+msgstr "صفحه '{0}' انتقال یافت."
+
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "صفحه '{0}' و '{1}' زیرصفحه آن کپی شدند."
+
+msgid "Page '{0}' copied."
+msgstr "صفحه '{0}' کپی شد."
+
+msgid "The page '{0}' is not currently awaiting moderation."
+msgstr "صفحه '{0}' در انتظار نظارت است."
+
+msgid "Page '{0}' published."
+msgstr "صفحه '{0}' انتشار یافت."
+
+msgid "Failed to send approval notifications"
+msgstr "فرستادن آگاهسازی تایید ناموفق بود"
+
+msgid "Page '{0}' rejected for publication."
+msgstr "صفحه '{0}' برای انتشار رد شد."
+
+msgid "Failed to send rejection notifications"
+msgstr "فرستادن آگاهسازی رد انتشار ناموفق بود"
+
+msgid "Page '{0}' is now locked."
+msgstr "صفحه '{0}' قفل شده است."
+
+msgid "Page '{0}' is now unlocked."
+msgstr "صفحه '{0}' باز شده است."
+
+#, python-format
+msgid ""
+"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"شما در حال دیدن بازبینی قبلی این صفحه از <b>%(created_at)s</b> توسط %(user)s "
+"هستید"
+
+msgid "Earliest"
+msgstr "اولین"
+
+msgid "Latest"
+msgstr "آخرین"
+
+msgid "More"
+msgstr "بیشتر"
+
+msgid "Change the password you use to log in."
+msgstr "رمزعبورتان را برای ورود تغییر دهید."
+
+msgid "Choose which email notifications to receive."
+msgstr "آگاهسازی های ایمیلی را می‌خواهید دریافت کنید انتخاب نمایید."
+
+msgid "Language preferences"
+msgstr "ترجیحات زبان"
+
+msgid "Choose the language you want to use here."
+msgstr "زبانی که میخواهید بکار بگیرید را انتخاب کنید."
+
+msgid "Choose an item"
+msgstr "آیتمی را انتخاب کنید"
+
+msgid "Choose another item"
+msgstr "آیتم دیگری را انتخاب کنید"
+
+msgid "Clear choice"
+msgstr "پاک کردن انتخاب"
+
+msgid "Edit this item"
+msgstr "ویرایش این آیتم"
+
+msgid "Choose another page"
+msgstr "انتخاب صفحه دیگر"

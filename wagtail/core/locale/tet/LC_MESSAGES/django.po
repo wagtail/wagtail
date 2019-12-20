@@ -1,0 +1,109 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Peter Coward <peter@catalpa.io>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail core"
+msgstr "Wagtail fuan"
+
+msgid "This block has no options."
+msgstr "Bloku nee laiha opsaun"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Numeru minimum sasan %d"
+
+msgid "This field is required."
+msgstr "Presiza hatama dadus nee"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Numeru maximum sasan %d"
+
+msgid "Password"
+msgstr "Seña"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Seña ladiak! Favor koko ida tan."
+
+msgid "hostname"
+msgstr "naranhost"
+
+msgid "port"
+msgstr "portu"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Se ita boot presiza portu specifiku iha URL hatama nee (ezemplu portu 8000)"
+
+msgid "site name"
+msgstr "naran situs"
+
+msgid "Human-readable name for the site."
+msgstr "naran situs lee fasil"
+
+msgid "root page"
+msgstr "pajina fuan"
+
+msgid "site"
+msgstr "situs"
+
+msgid "sites"
+msgstr "situs sira"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"Agora  situs onorárius. Ita tenki halo %(hostname)s la onorárius antes xavi "
+"situs nee onorárius."
+
+msgid "title"
+msgstr "titlu"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Titlu pajina katak ema publiku haree"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Naran pajina iha URL sira laran ezemplu http://domain.com/blog/[my-slug]/"
+
+msgid "has unpublished changes"
+msgstr "Iha sasan la hanesan publiku"
+
+msgid "owner"
+msgstr "nain"
+
+msgid "page title"
+msgstr "titlu pajina"
+
+msgid "search description"
+msgstr "deskrisaun iha buka resultado sira"
+
+msgid "Add"
+msgstr "Hatama"

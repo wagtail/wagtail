@@ -1,0 +1,60 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Editing" as editing_str %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance icon="snippet" tabbed=1 %}
+
+    <div class="row row-flush">
+
+        {% usage_count_enabled as uc_enabled %}
+        <div class="{% if uc_enabled %}col10 divider-after{% else %}col12{% endif %}">
+            <form action="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+                {% csrf_token %}
+                {{ edit_handler.render_form_content }}
+                <footer role="contentinfo">
+                    <nav aria-label="{% trans 'Actions' %}">
+                    <ul>
+                        <li class="actions">
+                            <div class="dropdown dropup dropdown-button match-width">
+                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}" {% if page.locked %}disabled {% endif %}>
+                                    <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+                                </button>
+                                <div class="dropdown-toggle icon icon-arrow-up"></div>
+                                <ul>
+                                    <li><a href="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote %}" class="shortcut">{% trans "Delete" %}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    </nav>
+                </footer>
+            </form>
+        </div>
+
+        {% if uc_enabled %}
+        <div class="col2 ">
+            <dl>
+                    <dt>{% trans "Usage" %}</dt>
+                    <dd>
+                        <a href="{{ instance.usage_url }}">{% blocktrans count usage_count=instance.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                    </dd>
+            </dl>
+        </div>
+        {% endif %}
+    </div>
+
+
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ edit_handler.form.media.css }}
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ edit_handler.form.media.js }}
+    {{ edit_handler.html_declarations }}
+{% endblock %}

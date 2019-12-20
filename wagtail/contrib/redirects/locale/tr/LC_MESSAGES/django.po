@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "All sites"
+msgstr "Tüm siteler"
+
+msgid "redirect"
+msgstr "yönlendirme"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "%(title)s düzenleniyor"
+
+msgid "Editing"
+msgstr "Düzenleniyor"
+
+msgid "Delete redirect"
+msgstr "Yönlendirmeyi Sil"
+
+msgid "Redirects"
+msgstr "Yönlendirmeler"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Edit"
+msgstr "Düzenle"

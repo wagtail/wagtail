@@ -18,7 +18,7 @@ describe('ExplorerToggle', () => {
           To infinity and beyond!
         </span>
       </ExplorerToggle>
-    ))).toMatchSnapshot();
+    )).find('ExplorerToggle').dive()).toMatchSnapshot();
   });
 
   describe('actions', () => {

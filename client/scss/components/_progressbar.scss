@@ -1,0 +1,25 @@
+.progress {
+    border-radius: 1.2em;
+    background-color: $color-teal-dark;
+    border: 1px solid $color-teal;
+    opacity: 0;
+
+    &.active {
+        @include transition(opacity 0.3s ease);
+        opacity: 1;
+    }
+
+    .bar {
+        @include transition(width 0.3s ease);
+        border-radius: 1.5em;
+        overflow: hidden;
+        box-sizing: border-box;
+        text-align: right;
+        line-height: 1.2em;
+        color: $color-white;
+        font-size: 0.85em;
+        background-color: $color-teal;
+        height: 1.2em;
+        padding-right: 1em;
+    }
+}

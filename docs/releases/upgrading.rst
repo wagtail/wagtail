@@ -6,25 +6,15 @@ Upgrading Wagtail
 Version numbers
 ===============
 
-New feature releases of Wagtail are released approximately every two months. These releases provide new features, improvements and bugfixes, and are marked by incrementing the second part of the version number (for example, 1.11 to 1.12).
+New feature releases of Wagtail are released every three months. These releases provide new features, improvements and bugfixes, and are marked by incrementing the second part of the version number (for example, 2.6 to 2.7).
 
-Additionally, patch releases will be issued as needed, to fix bugs and security issues. These are marked by incrementing the third part of the version number (for example, 1.12 to 1.12.1). Wherever possible, these releases will remain fully backwards compatible with the corresponding feature and not introduce any breaking changes.
+Additionally, patch releases will be issued as needed, to fix bugs and security issues. These are marked by incrementing the third part of the version number (for example, 2.6 to 2.6.1). Wherever possible, these releases will remain fully backwards compatible with the corresponding feature and not introduce any breaking changes.
 
-A feature release will usually stop receiving patch release updates when the next feature release comes out. However, selected feature releases are designated as Long Term Support (LTS) releases, and will continue to receive maintenance updates to address any security and data-loss related issues that arise, up until the next Long Term Support release. Typically, a Long Term Support release will happen once every four feature releases, giving a support period of eight months.
+A feature release will usually stop receiving patch release updates when the next feature release comes out. However, selected feature releases are designated as Long Term Support (LTS) releases, and will continue to receive maintenance updates to address any security and data-loss related issues that arise. Typically, a Long Term Support release will happen once every four feature releases and receive updates for five feature releases, giving a support period of fifteen months with a three month overlap.
 
+Also, Long Term Support releases will ensure compatibility with at least one `Django Long Term Support release <https://www.djangoproject.com/download/#supported-versions>`_.
 
-+-------------------+---------------------------------------+
-| Wagtail release   | LTS support period                    |
-+===================+=======================================+
-| 0.8 LTS           | November 2014 - March 2016            |
-+-------------------+---------------------------------------+
-| 1.4 LTS           | March 2016 - December 2016            |
-+-------------------+---------------------------------------+
-| 1.8 LTS           | December 2016 - August 2017           |
-+-------------------+---------------------------------------+
-| 1.12 LTS          | August 2017 - April 2018 (expected)   |
-+-------------------+---------------------------------------+
-
+For dates of past and upcoming releases and support periods, see `Release Schedule <https://github.com/wagtail/wagtail/wiki/Release-schedule>`_.
 
 Deprecation policy
 ==================
@@ -66,6 +56,8 @@ To upgrade:
 * Make any necessary code changes as directed in the "Upgrade considerations" section of the release notes.
 * Test that your project is working as expected.
 
+Remember that the JavaScript and CSS files used in the Wagtail admin may have changed between releases - if you encounter erratic behaviour on upgrading, ensure that you have cleared your browser cache. When deploying the upgrade to a production server, be sure to run ``./manage.py collectstatic`` to make the updated static files available to the web server. In production, we recommend enabling `ManifestStaticFilesStorage <https://docs.djangoproject.com/en/stable/ref/contrib/staticfiles/#manifeststaticfilesstorage>`_ in the ``STATICFILES_STORAGE`` setting - this ensures that different versions of files are assigned distinct URLs.
+
 
 .. _compatible_django_python_versions:
 
@@ -76,48 +68,68 @@ New feature releases frequently add support for newer versions of Django and Pyt
 
 The compatible versions of Django and Python for each Wagtail release are:
 
-+-------------------+------------------------------+-----------------------------+ 
-| Wagtail release   | Compatible Django versions   | Compatible Python versions  | 
-+===================+==============================+=============================+ 
-| 0.1               | 1.6                          | 2.7                         | 
-+-------------------+------------------------------+-----------------------------+ 
-| 0.2               | 1.6                          | 2.7                         | 
-+-------------------+------------------------------+-----------------------------+ 
-| 0.3               | 1.6                          | 2.6, 2.7                    | 
-+-------------------+------------------------------+-----------------------------+ 
-| 0.4               | 1.6                          | 2.6, 2.7, 3.2, 3.3, 3.4     | 
-+-------------------+------------------------------+-----------------------------+ 
-| 0.5               | 1.6                          | 2.6, 2.7, 3.2, 3.3, 3.4     | 
-+-------------------+------------------------------+-----------------------------+ 
-| 0.6               | 1.6, 1.7                     | 2.6, 2.7, 3.2, 3.3, 3.4     | 
-+-------------------+------------------------------+-----------------------------+ 
-| 0.7               | 1.6, 1.7                     | 2.6, 2.7, 3.2, 3.3, 3.4     | 
-+-------------------+------------------------------+-----------------------------+ 
-| 0.8 LTS           | 1.6, 1.7                     | 2.6, 2.7, 3.2, 3.3, 3.4     | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.0               | 1.7, 1.8                     | 2.7, 3.3, 3.4               | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.1               | 1.7, 1.8                     | 2.7, 3.3, 3.4               | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.2               | 1.7, 1.8                     | 2.7, 3.3, 3.4, 3.5          | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.3               | 1.7, 1.8, 1.9                | 2.7, 3.3, 3.4, 3.5          | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.4 LTS           | 1.8, 1.9                     | 2.7, 3.3, 3.4, 3.5          | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.5               | 1.8, 1.9                     | 2.7, 3.3, 3.4, 3.5          | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.6               | 1.8, 1.9, 1.10               | 2.7, 3.3, 3.4, 3.5          | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.7               | 1.8, 1.9, 1.10               | 2.7, 3.3, 3.4, 3.5          | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.8 LTS           | 1.8, 1.9, 1.10               | 2.7, 3.3, 3.4, 3.5          | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.9               | 1.8, 1.9, 1.10               | 2.7, 3.3, 3.4, 3.5          | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.10              | 1.8, 1.10, 1.11              | 2.7, 3.4, 3.5, 3.6          | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.11              | 1.8, 1.10, 1.11              | 2.7, 3.4, 3.5, 3.6          | 
-+-------------------+------------------------------+-----------------------------+ 
-| 1.12 LTS          | 1.8, 1.10, 1.11              | 2.7, 3.4, 3.5, 3.6          | 
-+-------------------+------------------------------+-----------------------------+ 
++-------------------+------------------------------+-----------------------------+
+| Wagtail release   | Compatible Django versions   | Compatible Python versions  |
++===================+==============================+=============================+
+| 0.1               | 1.6                          | 2.7                         |
++-------------------+------------------------------+-----------------------------+
+| 0.2               | 1.6                          | 2.7                         |
++-------------------+------------------------------+-----------------------------+
+| 0.3               | 1.6                          | 2.6, 2.7                    |
++-------------------+------------------------------+-----------------------------+
+| 0.4               | 1.6                          | 2.6, 2.7, 3.2, 3.3, 3.4     |
++-------------------+------------------------------+-----------------------------+
+| 0.5               | 1.6                          | 2.6, 2.7, 3.2, 3.3, 3.4     |
++-------------------+------------------------------+-----------------------------+
+| 0.6               | 1.6, 1.7                     | 2.6, 2.7, 3.2, 3.3, 3.4     |
++-------------------+------------------------------+-----------------------------+
+| 0.7               | 1.6, 1.7                     | 2.6, 2.7, 3.2, 3.3, 3.4     |
++-------------------+------------------------------+-----------------------------+
+| 0.8 LTS           | 1.6, 1.7                     | 2.6, 2.7, 3.2, 3.3, 3.4     |
++-------------------+------------------------------+-----------------------------+
+| 1.0               | 1.7, 1.8                     | 2.7, 3.3, 3.4               |
++-------------------+------------------------------+-----------------------------+
+| 1.1               | 1.7, 1.8                     | 2.7, 3.3, 3.4               |
++-------------------+------------------------------+-----------------------------+
+| 1.2               | 1.7, 1.8                     | 2.7, 3.3, 3.4, 3.5          |
++-------------------+------------------------------+-----------------------------+
+| 1.3               | 1.7, 1.8, 1.9                | 2.7, 3.3, 3.4, 3.5          |
++-------------------+------------------------------+-----------------------------+
+| 1.4 LTS           | 1.8, 1.9                     | 2.7, 3.3, 3.4, 3.5          |
++-------------------+------------------------------+-----------------------------+
+| 1.5               | 1.8, 1.9                     | 2.7, 3.3, 3.4, 3.5          |
++-------------------+------------------------------+-----------------------------+
+| 1.6               | 1.8, 1.9, 1.10               | 2.7, 3.3, 3.4, 3.5          |
++-------------------+------------------------------+-----------------------------+
+| 1.7               | 1.8, 1.9, 1.10               | 2.7, 3.3, 3.4, 3.5          |
++-------------------+------------------------------+-----------------------------+
+| 1.8 LTS           | 1.8, 1.9, 1.10               | 2.7, 3.3, 3.4, 3.5          |
++-------------------+------------------------------+-----------------------------+
+| 1.9               | 1.8, 1.9, 1.10               | 2.7, 3.3, 3.4, 3.5          |
++-------------------+------------------------------+-----------------------------+
+| 1.10              | 1.8, 1.10, 1.11              | 2.7, 3.4, 3.5, 3.6          |
++-------------------+------------------------------+-----------------------------+
+| 1.11              | 1.8, 1.10, 1.11              | 2.7, 3.4, 3.5, 3.6          |
++-------------------+------------------------------+-----------------------------+
+| 1.12 LTS          | 1.8, 1.10, 1.11              | 2.7, 3.4, 3.5, 3.6          |
++-------------------+------------------------------+-----------------------------+
+| 1.13 LTS          | 1.8, 1.10, 1.11              | 2.7, 3.4, 3.5, 3.6          |
++-------------------+------------------------------+-----------------------------+
+| 2.0               | 1.11, 2.0                    | 3.4, 3.5, 3.6               |
++-------------------+------------------------------+-----------------------------+
+| 2.1               | 1.11, 2.0                    | 3.4, 3.5, 3.6               |
++-------------------+------------------------------+-----------------------------+
+| 2.2               | 1.11, 2.0                    | 3.4, 3.5, 3.6               |
++-------------------+------------------------------+-----------------------------+
+| 2.3 LTS           | 1.11, 2.0, 2.1               | 3.4, 3.5, 3.6               |
++-------------------+------------------------------+-----------------------------+
+| 2.4               | 2.0, 2.1                     | 3.4, 3.5, 3.6, 3.7          |
++-------------------+------------------------------+-----------------------------+
+| 2.5               | 2.0, 2.1, 2.2                | 3.4, 3.5, 3.6, 3.7          |
++-------------------+------------------------------+-----------------------------+
+| 2.6               | 2.0, 2.1, 2.2                | 3.5, 3.6, 3.7               |
++-------------------+------------------------------+-----------------------------+
+| 2.7 LTS           | 2.0, 2.1, 2.2                | 3.5, 3.6, 3.7, 3.8          |
++-------------------+------------------------------+-----------------------------+
+| 2.8               | 2.1, 2.2, 3.0                | 3.5, 3.6, 3.7, 3.8          |
++-------------------+------------------------------+-----------------------------+

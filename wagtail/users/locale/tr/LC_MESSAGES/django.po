@@ -1,0 +1,163 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "A user with that username already exists."
+msgstr "Bu kullanıcı adı ile kullanıcı mevcut"
+
+msgid "The two password fields didn't match."
+msgstr "Şifreler uyuşmuyor"
+
+msgid "Email"
+msgstr "EPosta"
+
+msgid "First Name"
+msgstr "Ad"
+
+msgid "Last Name"
+msgstr "Soyad"
+
+msgid "Password"
+msgstr "Şifre"
+
+msgid "Leave blank if not changing."
+msgstr "Değişmediyse boş bırakın"
+
+msgid "Administrator"
+msgstr "Yönetici"
+
+msgid "A group with that name already exists."
+msgstr "Bu isimde grup mevcut"
+
+msgid "submitted notifications"
+msgstr "gönderilen bildirimler"
+
+msgid "user profile"
+msgstr "kullanıcı profil"
+
+msgid "Delete group"
+msgstr "Grubu sil"
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Bu grubu silmek istediğinizden emin misiniz?"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+msgid "Add group"
+msgstr "Grup ekle"
+
+msgid "Editing"
+msgstr "Düzenleniyor"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Object permissions"
+msgstr "Nesne yetkileri"
+
+msgid "Name"
+msgstr "İsim"
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Change"
+msgstr "Değiştir"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Other permissions"
+msgstr "Diğer yetkiler"
+
+msgid "Page permissions"
+msgstr "Sayfa yetkileri"
+
+msgid "Page"
+msgstr "Sayfa"
+
+msgid "groups"
+msgstr "gruplar"
+
+msgid "Add a group"
+msgstr "Bir grup ekle"
+
+msgid "Delete user"
+msgstr "Kullanıcıyı sil"
+
+msgid "Add user"
+msgstr "Kullanıcı ekle"
+
+msgid "Account"
+msgstr "Hesap"
+
+msgid "Roles"
+msgstr "Roller"
+
+msgid "Users"
+msgstr "Kullanıcılar"
+
+msgid "Add a user"
+msgstr "Kullanıcı ekle"
+
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+msgid "Level"
+msgstr "Seviye"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Admin"
+msgstr "Yönetici"
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Inactive"
+msgstr "Pasif"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Üzgünüm,  \"<em>%(query_string)s</em>\" ile eşleşen kullanıcı yok."
+
+msgid "Groups"
+msgstr "Gruplar"
+
+msgid "Search groups"
+msgstr "Grupları ara"
+
+msgid "Group '{0}' created."
+msgstr "'{0}' grubu oluşturuldu."
+
+msgid "Group '{0}' updated."
+msgstr "'{0}' grup güncellendi."
+
+msgid "Search users"
+msgstr "Kullanıcıları ara"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Delete this user"
+msgstr "Kullanıcıyı sil"

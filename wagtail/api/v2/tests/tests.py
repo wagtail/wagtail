@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from unittest import TestCase
 
 from ..utils import FieldsParameterParseError, parse_boolean, parse_fields_parameter
@@ -94,7 +92,6 @@ class TestParseFieldsParameter(TestCase):
         self.assertEqual(parsed, [
             ('test_', False, None),
         ])
-
 
     # BAD STUFF
 
@@ -259,7 +256,6 @@ class TestParseBoolean(TestCase):
         parsed = parse_boolean('0')
 
         self.assertEqual(parsed, False)
-
 
     # BAD STUFF
 

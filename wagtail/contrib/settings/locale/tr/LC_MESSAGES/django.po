@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ahmet Sarıcan <asarican@gmail.com>, 2019
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-07-14 08:11+0000\n"
-"Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +27,7 @@ msgstr "%(setting_type_name)s - %(instance)s düzenleniyor"
 msgid "Editing"
 msgstr "Düzenleniyor"
 
-msgid "Saving..."
+msgid "Saving…"
 msgstr "Kaydediliyor"
 
 msgid "Save"
@@ -35,9 +36,8 @@ msgstr "Kaydet"
 msgid "Settings"
 msgstr "Ayarlar"
 
-#, python-brace-format
-msgid "{setting_type} updated."
-msgstr "{setting_type} güncellendi."
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Tanımlanmış site bulunmadığından bu ayar açılamadı."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Ayarlar hatalar nedeniyle kaydedilemedi"

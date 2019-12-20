@@ -1,0 +1,48 @@
+{% load i18n wagtailadmin_tags %}
+<div class="nice-padding">
+    {% if pages %}
+        <h2>
+            {% blocktrans count counter=all_pages.count %}
+                There is one matching page
+            {% plural %}
+                There are {{ counter }} matching pages
+            {% endblocktrans %}
+        </h2>
+
+        {% search_other %}
+
+        {% if pages.object_list.supports_facet %}
+            <nav class="listing-filter" aria-labelledby="page-types-title">
+                <h3 id="page-types-title" class="filter-title">{% trans "Page types" %}</h3>
+                <ul class="filter-options">
+                    {% if not selected_content_type %}
+                        <li style="background-color: #E6E6E6">All ({{ all_pages.count }})</li>
+                    {% else %}
+                        <li><a href="{% url 'wagtailadmin_pages:search' %}?q={{ query_string|urlencode }}">All ({{ all_pages.count }})</a></li>
+                    {% endif %}
+
+                    {% for content_type, count in content_types %}
+                        {% if content_type == selected_content_type %}
+                            <li style="background-color: #E6E6E6">{{ content_type.model_class.get_verbose_name }} ({{ count }})</li>
+                        {% else %}
+                            <li><a href="{% url 'wagtailadmin_pages:search' %}?q={{ query_string|urlencode }}&amp;content_type={{ content_type.app_label }}.{{ content_type.model|lower }}">{{ content_type.model_class.get_verbose_name }} ({{ count }})</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        {% endif %}
+
+        {% include "wagtailadmin/pages/listing/_list_explore.html" with show_parent=1 sortable=1 sortable_by_type=0 %}
+
+        {% url 'wagtailadmin_pages:search' as pagination_base_url %}
+        {% paginate pages base_url=pagination_base_url %}
+    {% else %}
+        {% if query_string %}
+            <h2>{% blocktrans %}Sorry, no pages match <em>"{{ query_string }}"</em>{% endblocktrans %}</h2>
+
+            {% search_other %}
+        {% else %}
+            <p>{% trans 'Enter a search term above' %}</p>
+        {% endif %}
+    {% endif %}
+</div>

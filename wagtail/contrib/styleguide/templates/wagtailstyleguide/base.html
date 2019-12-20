@@ -1,0 +1,878 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags i18n %}
+
+{% block extra_css %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% versioned_static 'wagtailstyleguide/css/styleguide.css' %}" type="text/css" />
+
+    {{ example_form.media.css }}
+{% endblock %}
+
+{% block titletag %}{% trans 'Styleguide' %}{% endblock %}
+{% block bodyclass %}styleguide{% endblock %}
+
+{% block content %}
+    {% trans "Styleguide" as title_trans %}
+    {% include "wagtailadmin/shared/header.html" with title=title_trans %}
+
+    <div class="nice-padding">
+        <h2>Contents</h2>
+        <nav>
+            <ul class="unlist">
+                <li><a href="#palette">Colour palette</a></li>
+                <li><a href="#accessiblecolours">Accessible colour combinations</a></li>
+                <li><a href="#typography">Typography</a></li>
+                <li><a href="#help">Help text</a></li>
+                <li><a href="#listings">Listings</a></li>
+                <li><a href="#pagination">Pagination</a></li>
+                <li><a href="#buttons">Buttons</a></li>
+                <li><a href="#dropdowns">Dropdown buttons</a></li>
+                <li><a href="#header">Header</a></li>
+                <li><a href="#forms">Forms</a></li>
+                <li><a href="#editor">Page editor</a></li>
+                <li><a href="#tabs">Tabs</a></li>
+                <li><a href="#breadcrumbs">Breadcrumbs</a></li>
+                <li><a href="#progress">Progress indicators</a></li>
+                <li><a href="#misc">Misc formatters</a></li>
+                <li><a href="#icons">Icons</a></li>
+            </ul>
+        </nav>
+
+        <section id="palette" class="palette">
+            <h2>Colour palette</h2>
+
+            <ul>
+                <li class="color-teal color-white-text">color-teal</li>
+                <li class="color-teal-darker color-white-text">color-teal-darker</li>
+                <li class="color-teal-dark color-white-text">color-teal-dark</li>
+            </ul>
+            <ul>
+                <li class="color-salmon">color-salmon</li>
+                <li class="color-salmon-light">color-salmon-light</li>
+            </ul>
+            <ul>
+                <li class="color-grey-1 color-white-text">color-grey-1</li>
+                <li class="color-grey-2 color-white-text">color-grey-2</li>
+                <li class="color-grey-3">color-grey-3</li>
+                <li class="color-grey-4">color-grey-4</li>
+                <li class="color-grey-5">color-grey-5</li>
+            </ul>
+            <ul>
+                <li class="color-red color-white-text">color-red</li>
+                <li class="color-red-dark color-white-text">color-red-dark</li>
+                <li class="color-orange">color-orange</li>
+                <li class="color-orange-dark">color-orange-dark</li>
+                <li class="color-green">color-green</li>
+                <li class="color-green-dark color-white-text">color-green-dark</li>
+                <li class="color-blue">color-blue</li>
+            </ul>
+        </section>
+
+        <section class="palette" id="accessiblecolours">
+
+        <h2>Accessible colour combinations</h2>
+            <p>WCAG (Web Content Accessibility Guidelines) ensures that content is accessible by everyone, regardless of any disability or user device. To ensure text remains compliant with WCAG 2.0 AA standards, use only these permitted colour combinations.</p>
+
+            <p>Use this <a href="https://accessibility.oit.ncsu.edu/tools/color-contrast/accessible-color-palette.php?colors=43b1b0,358c8b,246060,71b2d4,cd3238,e9b04d,189370,f37e77,fcf2f2,ffffff,000000,333333,404040,666666,d9d9d9,e6e6e6,fafafa,cacaca&amp;level=AA">Color Palette Accessibility Checker</a> to test new colour combinations using the existing colour palette.</p>
+
+            <h3>Small text combinations: for font sizes 16px or smaller</h3>
+            <ul class="contrast">
+                <li class="color-teal "><span class="color-white-text">color-white on color-teal</span></li>
+                <li class="color-teal-dark"><span class="color-white-text">color-white on color-teal-dark</span></li>
+                <li class="color-teal-dark"><span class="color-salmon-light-text">color-salmon-light on color-teal-dark</span></li>
+            </ul>
+            <ul class="contrast">
+                <li class="color-salmon"><span class="color-black-text">color-black on color-salmon</span></li>
+                <li class="color-salmon"><span class="color-grey-1-text">color-grey-1 on color-salmon</span></li>
+                <li class="color-salmon-light"><span class="color-teal-dark-text">color-teal-dark on color-salmon-light</span></li>
+                <li class="color-salmon-light"><span class="color-red-text">color-red on color-salmon-light</span></li>
+                <li class="color-salmon-light"><span class="color-black-text">color-black on color-salmon-light</span></li>
+                <li class="color-salmon-light"><span class="color-grey-1-text">color-grey-1 on color-salmon-light</span></li>
+                <li class="color-salmon-light"><span class="color-grey-2-text">color-grey-2 on color-salmon-light</span></li>
+            </ul>
+            <ul class="contrast">
+                <li class="color-grey-1"><span class="color-blue-text">color-blue on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-orange-text">color-orange on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-salmon-text">color-salmon on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-salmon-light-text">color-salmon-light on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-white-text">color-white on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-grey-3-text">color-grey-3 on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-grey-4-text">color-grey-4 on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-grey-5-text">color-grey-5 on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-menu-text">color-menu-text on color-grey-1</span></li>
+            </ul>
+            <ul class="contrast">
+                <li class="color-grey-2"><span class="color-salmon-light-text">color-salmon on color-grey-2</span></li>
+                <li class="color-grey-2"><span class="color-white-text">color-white on color-grey-2</span></li>
+                <li class="color-grey-2"><span class="color-grey-4-text">color-grey-4 on color-grey-2</span></li>
+                <li class="color-grey-2"><span class="color-grey-5-text">color-grey-5 on color-grey-2</span></li>
+            </ul>
+            <ul class="contrast">
+                <li class="color-grey-3"><span class="color-teal-dark-text">color-teal-dark on color-grey-3</span></li>
+                <li class="color-grey-3"><span class="color-black-text">color-black on color-grey-3</span></li>
+                <li class="color-grey-3"><span class="color-grey-1-text">color-grey-1 on color-grey-3</span></li>
+            </ul>
+            <ul class="contrast">
+                <li class="color-grey-4"><span class="color-teal-dark-text">color-teal-dark on color-grey-4</span></li>
+                <li class="color-grey-4"><span class="color-black-text">color-black on color-grey-4</span></li>
+                <li class="color-grey-4"><span class="color-grey-1-text">color-grey-1 on color-grey-4</span></li>
+                <li class="color-grey-4"><span class="color-grey-2-text">color-grey-2 on color-grey-4</span></li>
+            </ul>
+            <ul class="contrast">
+                <li class="color-grey-5"><span class="color-teal-dark-text">color-teal-dark on color-grey-5</span></li>
+                <li class="color-grey-5"><span class="color-red-text">color-red on color-grey-5</span></li>
+                <li class="color-grey-5"><span class="color-black-text">color-black on color-grey-5</span></li>
+                <li class="color-grey-5"><span class="color-grey-1-text">color-grey-1 on color-grey-5</span></li>
+                <li class="color-grey-5"><span class="color-grey-2-text">color-grey-2 on color-grey-5</span></li>
+            </ul>
+            <ul class="contrast">
+                <li class="color-red"><span class="color-salmon-light-text">color-salmon-light on color-red</span></li>
+                <li class="color-red"><span class="color-white-text">color-white on color-red</span></li>
+                <li class="color-red"><span class="color-grey-5-text">color-grey-5 on color-red</span></li>
+                <li class="color-orange"><span class="color-black-text">color-black on color-orange</span></li>
+                <li class="color-orange"><span class="color-grey-1-text">color-grey-1 on color-orange</span></li>
+                <li class="color-green"><span class="color-black-text">color-black on color-green</span></li>
+                <li class="color-blue"><span class="color-black-text">color-black on color-blue</span></li>
+                <li class="color-blue"><span class="color-grey-1-text">color-grey-1 on color-blue</span></li>
+            </ul>
+
+            <br>
+            <br>
+            <h3>Large text combinations: for font sizes 18px or larger</h3>
+            <ul class="contrast contrast-large">
+                <li class="color-teal-darker"><span class="color-salmon-light-text">color-salmon-light on color-teal-darker</span></li>
+                <li class="color-teal-darker"><span class="color-white-text">color-white on color-teal-darker</span></li>
+                <li class="color-teal-darker"><span class="color-grey-4-text">color-grey-4 on color-teal-darker</span></li>
+                <li class="color-teal-darker"><span class="color-grey-5-text">color-grey-5 on color-teal-darker</span></li>
+                <li class="color-teal-dark"><span class="color-white-text">color-white on color-teal-dark</span></li>
+                <li class="color-teal-dark"><span class="color-salmon-light-text">color-salmon-light on color-teal-dark</span></li>
+                <li class="color-teal-dark"><span class="color-grey-3-text">color-grey-3 on color-teal-dark</span></li>
+                <li class="color-teal-dark"><span class="color-grey-4-text">color-grey-4 on color-teal-dark</span></li>
+                <li class="color-teal-dark"><span class="color-grey-5-text">color-grey-5 on color-teal-dark</span></li>
+
+            </ul>
+            <ul class="contrast contrast-large">
+                <li class="color-salmon"><span class="color-black-text">color-black on color-salmon</span></li>
+                <li class="color-salmon"><span class="color-grey-1-text">color-grey-1 on color-salmon</span></li>
+                <li class="color-salmon-light"><span class="color-teal-darker-text">color-teal-darker on color-salmon-light</span></li>
+                <li class="color-salmon-light"><span class="color-teal-dark-text">color-teal-dark on color-salmon-light</span></li>
+                <li class="color-salmon-light"><span class="color-red-text">color-red on color-salmon-light</span></li>
+                <li class="color-salmon-light"><span class="color-black-text">color-black on color-salmon-light</span></li>
+                <li class="color-salmon-light"><span class="color-grey-1-text">color-grey-1 on color-salmon-light</span></li>
+                <li class="color-salmon-light"><span class="color-grey-2-text">color-grey-2 on color-salmon-light</span></li>
+            </ul>
+            <ul class="contrast contrast-large">
+                <li class="color-grey-1"><span class="color-blue-text">color-blue on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-orange-text">color-orange on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-salmon-text">color-salmon on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-salmon-light-text">color-salmon-light on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-white-text">color-white on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-grey-3-text">color-grey-3 on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-grey-4-text">color-grey-4 on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-grey-5-text">color-grey-5 on color-grey-1</span></li>
+                <li class="color-grey-1"><span class="color-menu-text">color-menu-text on color-grey-1</span></li>
+            </ul>
+            <ul class="contrast contrast-large">
+                <li class="color-grey-2"><span class="color-salmon-light-text">color-salmon on color-grey-2</span></li>
+                <li class="color-grey-2"><span class="color-white-text">color-white on color-grey-2</span></li>
+                <li class="color-grey-2"><span class="color-grey-3-text">color-grey-3 on color-grey-2</span></li>
+                <li class="color-grey-2"><span class="color-grey-4-text">color-grey-4 on color-grey-2</span></li>
+                <li class="color-grey-2"><span class="color-grey-5-text">color-grey-5 on color-grey-2</span></li>
+                <li class="color-grey-2"><span class="color-menu-text">color-menu-text on color-grey-2</span></li>
+            </ul>
+            <ul class="contrast contrast-large">
+                <li class="color-grey-3"><span class="color-teal-dark-text">color-teal-dark on color-grey-3</span></li>
+                <li class="color-grey-3"><span class="color-black-text">color-black on color-grey-3</span></li>
+                <li class="color-grey-3"><span class="color-grey-1-text">color-grey-1 on color-grey-3</span></li>
+                <li class="color-grey-3"><span class="color-grey-2-text">color-grey-2 on color-grey-3</span></li>
+            </ul>
+            <ul class="contrast contrast-large">
+                <li class="color-grey-4"><span class="color-teal-darker-text">color-teal-darker on color-grey-4</span></li>
+                <li class="color-grey-4"><span class="color-teal-dark-text">color-teal-dark on color-grey-4</span></li>
+                <li class="color-grey-4"><span class="color-black-text">color-black on color-grey-4</span></li>
+                <li class="color-grey-4"><span class="color-grey-1-text">color-grey-1 on color-grey-4</span></li>
+                <li class="color-grey-4"><span class="color-grey-2-text">color-grey-2 on color-grey-4</span></li>
+            </ul>
+            <ul class="contrast contrast-large">
+                <li class="color-grey-5"><span class="color-teal-darker-text">color-teal-darker on color-grey-5</span></li>
+                <li class="color-grey-5"><span class="color-teal-dark-text">color-teal-dark on color-grey-5</span></li>
+                <li class="color-grey-5"><span class="color-red-text">color-red on color-grey-5</span></li>
+                <li class="color-grey-5"><span class="color-black-text">color-black on color-grey-5</span></li>
+                <li class="color-grey-5"><span class="color-grey-1-text">color-grey-1 on color-grey-5</span></li>
+                <li class="color-grey-5"><span class="color-grey-2-text">color-grey-2 on color-grey-5</span></li>
+            </ul>
+            <ul class="contrast contrast-large">
+                <li class="color-red-dark"><span class="color-salmon-light-text">color-salmon-light on color-red-dark</span></li>
+                <li class="color-red-dark"><span class="color-white-text">color-white on color-red-dark</span></li>
+                <li class="color-red-dark"><span class="color-grey-3-text">color-grey-3 on color-red-dark</span></li>
+                <li class="color-red-dark"><span class="color-grey-4-text">color-grey-4 on color-red-dark</span></li>
+                <li class="color-red-dark"><span class="color-grey-5-text">color-grey-5 on color-red-dark</span></li>
+            </ul>
+            <ul class="contrast contrast-large">
+                <li class="color-orange-dark"><span class="color-white-text">color-white on color-orange-dark</span></li>
+                <li class="color-orange-dark"><span class="color-black-text">color-black on color-orange-dark</span></li>
+            </ul>
+            <ul class="contrast contrast-large">
+                <li class="color-green-dark"><span class="color-white-text">color-white on color-green-dark</span></li>
+                <li class="color-green-dark"><span class="color-salmon-light-text">color-salmon-light on color-green-dark</span></li>
+            </ul>
+            <ul class="contrast contrast-large">
+                <li class="color-blue"><span class="color-black-text">color-black on color-blue</span></li>
+                <li class="color-blue"><span class="color-grey-1-text">color-grey-1 on color-blue</span></li>
+            </ul>
+
+        </section>
+
+        <section id="typography">
+            <h2>Typography</h2>
+            <h1>This is an h1</h1>
+            <h2>This is an h2</h2>
+            <h3>This is an h3</h3>
+            <h4>This is an h4</h4>
+            <h5>This is an h5</h5>
+            <p>This is a paragraph</p>
+
+            <ul>
+                <li>These are</li>
+                <li>items in an</li>
+                <li>unordered list</li>
+            </ul>
+
+            <ol>
+                <li>These are</li>
+                <li>items in an</li>
+                <li>ordered list</li>
+            </ol>
+
+            <code>This is an example of code</code>
+
+        </section>
+
+        <section id="help">
+            <h2>Help text</h2>
+
+            <p>
+                Help text is not to be confused with the messages that appear in a banner drop down from the top of the screen. Help text are permanent instructions, visible on every page view, that explain or warn about something.
+            </p>
+
+            <div class="help-block help-info">
+                <p>This is help text that might be just for information, explaining what happens next, or drawing the user's attention to something they're about to do</p>
+                <p>It could be multiple lines</p>
+            </div>
+
+            <p class="help-block help-warning">
+                A warning message might be output in cases where a user's action could have serious consequences
+            </p>
+
+            <div class="help-block help-critical">
+                A critical message would probably be rare, in cases where a particularly brittle or dangerously destructive action could be performed and needs to be warned about.
+            </div>
+
+        </section>
+
+        <section id="listings">
+            <h2>Listings</h2>
+
+            <h3><code>table</code> listing</h3>
+            <table class="listing">
+                <thead>
+                    <tr>
+                        <th>Heading 1</th>
+                        <th>Heading 2</th>
+                        <th>Heading 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="title">
+                            <h2><a href="">TD with title class</a></h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </tr>
+                    <tr class="unpublished">
+                        <td class="title">
+                            <h2><a href="">Unpublished TD with title class</a></h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <h2><a href="">TD with title class</a></h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3><code>ul</code> listing</h3>
+            <ul class="listing">
+                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
+                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
+                <li><div class="title"><h2><a href="">List item</a></h2></div></li>
+            </ul>
+
+
+            <h3><code>ul</code> listings with multiple columns</h3>
+            <ul class="listing">
+                <li>
+                    <div class="row row-flush">
+                        <div class="col6 title">
+                            <h2><a href="">Something here</a></h2>
+                        </div>
+
+                        <small class="col6" style="text-align:right">Something else</small>
+                    </div>
+                </li>
+                <li>
+                    <div class="row row-flush">
+                        <div class="col6">
+                            <a href="">Something here</a>
+                        </div>
+
+                        <small class="col6" style="text-align:right">Something else</small>
+                    </div>
+                </li>
+                <li>
+                    <div class="row row-flush">
+                        <div class="col6">
+                            <a href="">Something here</a>
+                        </div>
+
+                        <small class="col6" style="text-align:right">Something else</small>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Listings used for choosing a list item</h3>
+            <table class="listing chooser">
+                <thead>
+                    <tr>
+                        <th>Heading 1</th>
+                        <th>Heading 2</th>
+                        <th>Heading 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="title">
+                            <h2><a href="#">TD with title class</a></h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </tr>
+                    <tr class="disabled">
+                        <td class="title">
+                            <h2>Disabled TD with title class</h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <h2><a href="">TD with title class</a></h2>
+                        </td>
+                        <td>Regular listing TD</td>
+                        <td>Regular listing TD</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="pagination">
+            <h2>Pagination</h2>
+            {% paginate example_page %}
+        </section>
+
+        <section id="buttons">
+            <h2>Buttons</h2>
+            <p class="help-block help-warning">Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button"></button>{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.</p>
+
+
+            <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
+
+            <h3>Regular buttons</h3>
+
+            <a href="#" class="button">button link</a>
+            <button class="button">button element</button>
+
+            <h3>Secondary buttons</h3>
+
+            <a href="#" class="button button-secondary">button link</a>
+            <button class="button button-secondary">button element</button>
+
+            <h3>Small buttons</h3>
+
+            <a href="#" class="button button-small">button link</a>
+            <button class="button button-small">button element</button>
+
+            <h4>(secondary)</h4>
+            <a href="#" class="button button-small button-secondary">button link</a>
+            <button class="button button-small button-secondary">button element</button>
+
+            <h3>Disabled buttons</h3>
+
+            <a href="#" class="button disabled">button link</a>
+            <button class="button button-small disabled">button element</button>
+
+            <h3>Bi-color icon buttons with text</h3>
+            <p>Note that <code>input</code> elements are not supported by any icon buttons.</p>
+
+            <a href="#" class="button bicolor icon icon-plus">button link</a>
+            <button class="button bicolor icon icon-plus">button element</button>
+
+            <h4>(small)</h4>
+
+            <a href="#" class="button button-small bicolor icon icon-plus">button link</a>
+            <button class="button button-small bicolor icon icon-plus">button element</button>
+
+            <h3>Icon buttons without text</h3>
+
+            <a href="#" class="button text-replace icon icon-cog">button link</a>
+            <button class="button text-replace icon icon-cog">button element</button>
+
+            <h4>(small)</h4>
+
+            <a href="#" class="button button-small text-replace icon icon-cog">button link</a>
+            <button class="button button-small text-replace icon icon-cog">button element</button>
+
+            <h3>Colour signifiers</h3>
+
+            <h4>Positive</h4>
+
+            <a href="#" class="button yes">yes</a>
+            <a href="#" class="button button-small yes">yes</a>
+
+            <h4>Negative</h4>
+
+            <a href="#" class="button no">No</a>
+            <a href="#" class="button button-small no">No</a>
+
+            <h3>Buttons with internal loading indicators (currently only <code>button</code> supported)</h3>
+            <p class="help-block help-warning">Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
+            <button class="button button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+
+            <h4>Secondary</h4>
+            <button class="button button-secondary button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+
+            <h4>Small</h4>
+            <button class="button button-small button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+
+            <h4>Buttons where the text is replaced on click</h4>
+            <button class="button button-longrunning" data-clicked-text="Test"><span class="icon icon-spinner"></span><em>Click me</em></button>
+
+            <h4>Arbitrarily bigger</h4>
+            <style>
+                #button-arbitrarily-bigger{
+                    font-size:1.5em;
+                    padding:1.1em 2.4em;
+                    height:3.5em;
+                }
+            </style>
+            <button class="button button-longrunning" id="button-arbitrarily-bigger"><span class="icon icon-spinner"></span>Click me</button>
+
+            <h3>Mixtures</h3>
+
+            <button class="button icon text-replace yes icon-tick">A proper button</button>
+            <a href="#" class="button icon text-replace white icon-cog">A link button</a>
+            <span class="button icon text-replace no icon-bin">A non-link button</span>
+            <a href="#" class="button bicolor disabled icon icon-tick">button link</a>
+
+        </section>
+
+        <section id="button-groups">
+            <h2>Button groups</h2>
+            <p>Adds rounding to first and last items only</p>
+            <div class="button-group">
+                <button class="button">button element</button>
+                <button class="button">button element</button>
+                <button class="button">button element</button>
+            </div>
+            <br />
+            <div class="button-group">
+                <button class="button icon text-replace yes icon-tick">A proper button</button>
+                <a href="#" class="button icon text-replace white icon-cog">A link button</a>
+                <span class="button icon text-replace no icon-bin">A non-link button</span>
+            </div>
+        </section>
+
+        <section id="dropdowns">
+            <h2>Dropdown buttons</h2>
+
+            <div class="row">
+                <div class="col3">
+                    <div class="dropdown dropdown-button match-width">
+                        <input type="button" value="drop down" class="button" />
+                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <ul>
+                            <li><a href="#">items should not exceed button width</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <div class="dropdown dropdown-button">
+                        <input type="button" value="drop down" class="button" />
+                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <ul>
+                            <li><a href="#">Items in this list do not match button width</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <div class="dropdown dropup dropdown-button match-width">
+                        <input type="button" value="drop up" class="button" />
+                        <div class="dropdown-toggle icon icon-arrow-up"></div>
+                        <ul>
+                            <li><a href="#">item 1</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <div class="dropdown dropup dropdown-button match-width">
+                        <button value="drop up" class="button icon icon-view">icon dropup</button>
+                        <div class="dropdown-toggle icon icon-arrow-up"></div>
+                        <ul>
+                            <li><a href="#">item 1</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <br />
+                <div class="col3">
+                    <div class="dropdown dropdown-button match-width">
+                        <a href="#" class="button" value="drop down">Link button</a>
+                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <ul>
+                            <li><a href="#">items should not exceed button width</a></li>
+                            <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <button class="button">button for comparison of height</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <br />
+
+                <p>
+                    Inline dropdown components, primarily used in the listing.
+                </p>
+
+                <div class="c-dropdown u-para t-default" data-dropdown="">
+                    <a class="c-dropdown__button  u-btn-current">
+                        More
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                    </a>
+                    <div class="t-dark">
+                        <nav aria-label="Inline dropdown menu example">
+                            <ul class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
+                                <li class="c-dropdown__item ">
+                                    <a href="/admin/pages/2/move/" class="u-link is-live ">
+                                        Move
+                                    </a>
+                                </li>
+                                <li class="c-dropdown__item ">
+                                    <a href="/admin/pages/2/copy/" class="u-link is-live ">
+                                        Copy
+                                    </a>
+                                </li>
+                                <li class="c-dropdown__item ">
+                                    <a href="/admin/pages/2/delete/" class="u-link is-live ">
+                                        Delete
+                                    </a>
+                                </li>
+                                <li class="c-dropdown__item ">
+                                    <a href="/admin/pages/2/unpublish/" class="u-link is-live ">
+                                        Unpublish
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="c-dropdown__divider">
+                                </li>
+                                <li class="c-dropdown__item">
+                                    <a href="#" class="u-link is-live">
+                                        <span title="Live" class="c-indicator c-dropdown__indicator"></span>
+                                        Live
+                                    </a>
+                                </li>
+                                <li class="c-dropdown__item">
+                                    <a href="#" class="u-link is-draft">
+                                        <span title="Draft" class="c-indicator c-dropdown__indicator"></span>
+                                        Draft
+                                    </a>
+                                </li>
+                                <li class="c-dropdown__item">
+                                    <a href="#" class="u-link is-live+draft">
+                                        <span title="Live + Draft" class="c-indicator c-dropdown__indicator"></span>
+                                        Live + Draft
+                                    </a>
+                                </li>
+                                <li class="c-dropdown__item">
+                                    <a href="#" class="u-link is-absent">
+                                        <span title="Absent" class="c-indicator c-dropdown__indicator"></span>
+                                        Absent
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <p>These can also have an inverted  theme:</p>
+            <header class="nice-padding" role="banner">
+                <div class="c-dropdown  t-inverted" data-dropdown="">
+                    <a class="c-dropdown__button  u-btn-current">
+                        More
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                    </a>
+                    <div class="t-dark">
+                        <nav aria-label="Dark inline dropdown menu example">
+                            <ul class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
+                                <li class="c-dropdown__item ">
+                                    <a href="/admin/pages/2/move/" class="u-link is-live ">
+                                        Move
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+
+        </section>
+
+        <section id="header">
+            <h2>Header</h2>
+
+            {% include "wagtailadmin/shared/header.html" with title=title_trans %}
+
+            {% include "wagtailadmin/shared/header.html" with title=title_trans add_link="wagtailstyleguide" icon="image" add_text="button" search_url="wagtailimages:index" %}
+        </section>
+
+        <section id="forms">
+            <h2>Forms</h2>
+
+            <form>
+                <ul class="fields">
+                    {% for field in example_form %}
+                        {% if field.name == 'file' %}
+                            {% include "wagtailimages/images/_file_field.html" %}
+                        {% else %}
+                            {% include "wagtailadmin/shared/field_as_li.html" %}
+                        {% endif %}
+                    {% endfor %}
+                    <li><input type="submit" value="{% trans 'Save' %}" class="button" /><a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
+                </ul>
+            </form>
+        </section>
+
+        <section id="editor">
+            <h2>Page editor</h2>
+        </section>
+
+        <section id="tabs">
+            <h2>Tabs</h2>
+
+            <ul class="tab-nav">
+                <li class="active"><a href="#tab1">Tab 1</a></li>
+                <li><a href="#tab2">Tab 2</a></li>
+            </ul>
+
+            <p>Tabs are currently only used following headers, where they often appear merged with the bottom of the header:</p>
+
+            {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
+            <ul class="tab-nav merged">
+                <li class="active"><a href="#">Tab1</a></li>
+                <li><a href="#">Tab2</a></li>
+            </ul>
+
+            <p>Tabs can also indicate errors:</p>
+
+            {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
+            <ul class="tab-nav merged">
+                <li class="active"><a href="#" class="errors" data-count="123">Tab1</a></li>
+                <li><a href="#" class="errors" data-count="1">Tab2</a></li>
+            </ul>
+        </section>
+
+        <section id="breadcrumbs">
+            <h2>Breadcrumbs</h2>
+
+            <ul class="breadcrumb">
+                <li class="home"><a href="#" class="icon icon-home text-replace">Home</a></li>
+                <li><a href="#">Various</a></li>
+                <li><a href="#">Subpages</a></li>
+                <li><a href="#">There is a max length of this many</a></li>
+            </ul>
+
+        </section>
+
+        <section id="progress">
+            <h2>Progress indicators</h2>
+
+            <div id="progress-example" class="progress active">
+                <div class="bar">60%</div>
+            </div>
+
+            <p>&nbsp;</p>
+
+             <div id="progress-example2" class="progress active">
+                <div class="bar" style="width: 50%;">50%</div>
+            </div>
+        </section>
+
+        <section id="misc">
+            <h2>Misc formatters</h2>
+            <h3>Avatar icons</h3>
+
+            <p><span class="avatar"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar normal</p>
+            <p><span class="avatar square"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar square</p>
+            <p><span class="avatar small"><img src="{% versioned_static 'wagtailadmin/images/default-user-avatar.png' %}" alt="" /></span> Avatar small</p>
+
+            <h3>Status tags</h3>
+            <div class="status-tag primary">Primary tag</div>
+
+            <div class="status-tag">Secondary tag</div>
+
+            <h3>Loading mask</h3>
+            <p>Add the following <code>div</code> around any items you wish to display with a spinner overlay and fading out</p>
+            <p>Remove the "loading" class to disable the effect</p>
+            <div class="loading-mask loading" style="width:200px">
+                <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" alt="Wagtail" />
+            </div>
+
+            <h3>Image transparency</h3>
+            <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> tag thus:</p>
+            <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" alt="Wagtail" />
+        </section>
+
+        <section id="icons" class="icons">
+            <h2>Icons</h2>
+
+            <ul class="unlist">
+                <li class="icon icon-arrow-down-big">arrow-down-big</li>
+                <li class="icon icon-arrow-down">arrow-down</li>
+                <li class="icon icon-arrow-left">arrow-left</li>
+                <li class="icon icon-arrow-right">arrow-right</li>
+                <li class="icon icon-arrow-up-big">arrow-up-big</li>
+                <li class="icon icon-arrow-up">arrow-up</li>
+                <li class="icon icon-arrows-up-down">arrows-up-down</li>
+                <li class="icon icon-bin">bin</li>
+                <li class="icon icon-bold">bold</li>
+                <li class="icon icon-chain-broken">chain-broken</li>
+                <li class="icon icon-code">code</li>
+                <li class="icon icon-cog">cog</li>
+                <li class="icon icon-cogs">cogs</li>
+                <li class="icon icon-collapse-down">collapse-down</li>
+                <li class="icon icon-collapse-up">collapse-up</li>
+                <li class="icon icon-cross">cross</li>
+                <li class="icon icon-date">date</li>
+                <li class="icon icon-doc-empty-inverse">doc-empty-inverse</li>
+                <li class="icon icon-doc-empty">doc-empty</li>
+                <li class="icon icon-doc-full-inverse">doc-full-inverse</li>
+                <li class="icon icon-doc-full">doc-full</li>
+                <li class="icon icon-download">download</li>
+                <li class="icon icon-edit">edit</li>
+                <li class="icon icon-folder-inverse">folder-inverse</li>
+                <li class="icon icon-folder-open-1">folder-open-1</li>
+                <li class="icon icon-folder-open-inverse">folder-open-inverse</li>
+                <li class="icon icon-folder">folder</li>
+                <li class="icon icon-form">form</li>
+                <li class="icon icon-grip">grip</li>
+                <li class="icon icon-group">group</li>
+                <li class="icon icon-help">help</li>
+                <li class="icon icon-help-inverse">help-inverse</li>
+                <li class="icon icon-home">home</li>
+                <li class="icon icon-horizontalrule">horizontalrule</li>
+                <li class="icon icon-image">image</li>
+                <li class="icon icon-italic">italic</li>
+                <li class="icon icon-link">link</li>
+                <li class="icon icon-list-ol">list-ol</li>
+                <li class="icon icon-list-ul">list-ul</li>
+                <li class="icon icon-locked">locked</li>
+                <li class="icon icon-logout">logout</li>
+                <li class="icon icon-mail">mail</li>
+                <li class="icon icon-media">media</li>
+                <li class="icon icon-no-view">no-view</li>
+                <li class="icon icon-openquote">openquote</li>
+                <li class="icon icon-order-down">order-down</li>
+                <li class="icon icon-order-up">order-up</li>
+                <li class="icon icon-order">order</li>
+                <li class="icon icon-password">password</li>
+                <li class="icon icon-pick">pick</li>
+                <li class="icon icon-pilcrow">pilcrow</li>
+                <li class="icon icon-placeholder">placeholder</li>
+                <li class="icon icon-plus-inverse">plus-inverse</li>
+                <li class="icon icon-plus">plus</li>
+                <li class="icon icon-radio-empty">radio-empty</li>
+                <li class="icon icon-radio-full">radio-full</li>
+                <li class="icon icon-redirect">redirect</li>
+                <li class="icon icon-repeat">repeat</li>
+                <li class="icon icon-search">search</li>
+                <li class="icon icon-site">site</li>
+                <li class="icon icon-snippet">snippet</li>
+                <li class="spinner"><div class="icon icon-spinner">spinner</div> spinner</li>
+                <li class="icon icon-strikethrough">strikethrough</li>
+                <li class="icon icon-subscript">subscript</li>
+                <li class="icon icon-success">success</li>
+                <li class="icon icon-superscript">superscript</li>
+                <li class="icon icon-table">table</li>
+                <li class="icon icon-tag">tag</li>
+                <li class="icon icon-tick-inverse">tick-inverse</li>
+                <li class="icon icon-tick">tick</li>
+                <li class="icon icon-time">time</li>
+                <li class="icon icon-title">title</li>
+                <li class="icon icon-undo">undo</li>
+                <li class="icon icon-unlocked">unlocked</li>
+                <li class="icon icon-user">user</li>
+                <li class="icon icon-view">view</li>
+                <li class="icon icon-wagtail-inverse">wagtail-inverse</li>
+                <li class="icon icon-wagtail">wagtail</li>
+                <li class="icon icon-warning">warning</li>
+            </ul>
+
+        </section>
+
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    {{ example_form.media.js}}
+
+    <script>
+        $(function(){
+            (function runprogress(){
+                var to = setTimeout(function(){
+                    runprogress();
+                    clearTimeout(to);
+                    var to2 = setTimeout(function(){
+                        $('#progress-example .bar').css('width', '20%');
+                    }, 2000);
+                }, 3000);
+                $('#progress-example .bar').css('width', '80%');
+            })();
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans "Snippets" %}{% endblock %}
+{% block content %}
+    {% trans "Snippets" as snippets_str %}
+    {% include "wagtailadmin/shared/header.html" with title=snippets_str icon="snippet" %}
+
+    <div class="nice-padding">
+        <ul class="listing">
+            {% for model_opts in snippet_model_opts %}
+                <li>
+                    <div class="row row-flush title">
+                        <div class="title-wrapper">
+                            <a href="{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}" class="col6">
+                                {{ model_opts.verbose_name_plural|capfirst }}
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

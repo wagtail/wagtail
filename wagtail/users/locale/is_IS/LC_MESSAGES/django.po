@@ -1,0 +1,335 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
+# saevarom <saevar@saevar.is>, 2017-2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail notendur"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Þarf að fylla út. 30 slög eða færri. Bókstafir, tölustafir og  @/./+/-/_ er "
+"leyft."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Þetta gildi má aðeins innihalda stafi, númer og @/./+/-/_."
+
+msgid "A user with that username already exists."
+msgstr "Þetta notandanafn er þegar í notkun."
+
+msgid "The two password fields didn't match."
+msgstr "Lykilorðareitirnir tveir stóðust ekki á"
+
+msgid "Email"
+msgstr "Netfang"
+
+msgid "First Name"
+msgstr "Fornafn"
+
+msgid "Last Name"
+msgstr "Eftirnafn"
+
+msgid "Password"
+msgstr "Lylkilorð"
+
+msgid "Leave blank if not changing."
+msgstr "Skildu eftir tómt ef þú ætlar ekki að breyta því."
+
+msgid "Password confirmation"
+msgstr "Staðfesta lykilorð"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Sláðu inn sama lykilorð og fyrir ofan, til staðfestingar"
+
+msgid "Administrator"
+msgstr "Stjórnandi"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Stjórnendur hafa fullan aðgang til að breyta öllum einingum og stillingum."
+
+msgid "A group with that name already exists."
+msgstr "Hópur með þessu nafni er þegar til."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Þú getur ekki haft margar heimildafærslur fyrir sömu síðuna."
+
+msgid "Preferred language"
+msgstr "Valið tungumál"
+
+msgid "Current time zone"
+msgstr "Núverandi tímabelti"
+
+msgid "Upload a profile picture"
+msgstr "Hlaða upp prófílmynd"
+
+msgid "submitted notifications"
+msgstr "innsendar tilkynningar"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Fá sendar tilkynningar þegar síða er send inn til yfirferðar"
+
+msgid "approved notifications"
+msgstr "samþykktar tilkynningar"
+
+msgid "Receive notification when your page edit is approved"
+msgstr ""
+"Fá sendar tilkynningar þegar breytingar sem þú gerir á síðu eru samþykktar"
+
+msgid "rejected notifications"
+msgstr "höfnunar tilkynningar"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Fá sendar tilkynningar þegar breytingar sem þú gerir á síðu er hafnað"
+
+msgid "preferred language"
+msgstr "kjör tungumál"
+
+msgid "Select language for the admin"
+msgstr "Veldu tungumál fyrir kerfisstjórn"
+
+msgid "current time zone"
+msgstr "núverandi tímabelti"
+
+msgid "Select your current time zone"
+msgstr "Veldu þitt tímabelti"
+
+msgid "profile picture"
+msgstr "prófílmynd"
+
+msgid "user profile"
+msgstr "uppsetning notanda"
+
+msgid "user profiles"
+msgstr "uppsetning notenda"
+
+msgid "Delete group"
+msgstr "Eyða hóp"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Hópurinn '%(group_name)s' hefur <strong>"
+"%(group_user_count)s</strong> meðlim.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Hópurinn '%(group_name)s' hefur <strong>"
+"%(group_user_count)s</strong> meðlimi.\n"
+"            "
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Með því að eyða þessum hóp þá verða allar heimildir sem hópurinn gaf "
+"notendum þessa hóps fjarlægðar."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Ertu viss um að þú viljir eyða þessum hóp"
+
+msgid "Yes, delete"
+msgstr "Já, eyða"
+
+msgid "Add group"
+msgstr "Bæta við hóp"
+
+msgid "Editing"
+msgstr "Breyti"
+
+msgid "Save"
+msgstr "Vista"
+
+msgid "Object permissions"
+msgstr "Hluta heimildir"
+
+msgid "Name"
+msgstr "Nafn"
+
+msgid "Add"
+msgstr "Bæta við"
+
+msgid "Change"
+msgstr "Breyta"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "Other permissions"
+msgstr "Aðrar heimildir"
+
+msgid "Page permissions"
+msgstr "Síðuheimildir"
+
+msgid "Page"
+msgstr "Síða"
+
+msgid "Add a page permission"
+msgstr "Bæta við síðuheimild"
+
+msgid "groups"
+msgstr "hópar"
+
+msgid "Add a group"
+msgstr "Bæta við hóp"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Því miður eru engir hópar sem passa við \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Engir hópar eru til. Hví ekki að <a href=\"%(wagtailusers_create_group_url)s"
+"\">bæta við hóp</a>?"
+
+msgid "Delete user"
+msgstr "Eyða notanda"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Ertu viss um að þú viljir eyða þessum notanda?"
+
+msgid "Add user"
+msgstr "Bæta við notanda"
+
+msgid "Account"
+msgstr "Reikningur"
+
+msgid "Roles"
+msgstr "Hlutverk"
+
+msgid "Users"
+msgstr "Notendur"
+
+msgid "Add a user"
+msgstr "Bæta við notanda"
+
+msgid "Username"
+msgstr "Notandanafn"
+
+msgid "Level"
+msgstr "Stig"
+
+msgid "Status"
+msgstr "Staða"
+
+msgid "Last Login"
+msgstr "Síðasta innskráning"
+
+msgid "Admin"
+msgstr "Stjórnandi"
+
+msgid "Active"
+msgstr "Virkur"
+
+msgid "Inactive"
+msgstr "Óvirkur"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s síðan"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Það er %(counter)s niðurstaða"
+msgstr[1] ""
+"\n"
+"Það eru %(counter)s niðurstöður"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Því miður eru engir notendur sem passa við \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Það eru engir notendur til. Hví ekki að <a href=\"%(wagtailusers_create_url)s"
+"\">bæta við nokkrum</a>?"
+
+msgid "Groups"
+msgstr "Hópar"
+
+msgid "Search groups"
+msgstr "Leita í hópum"
+
+msgid "Group '{0}' created."
+msgstr "Hópur '{0}' búinn til."
+
+msgid "Group '{0}' updated."
+msgstr "Hópur '{0}' uppfærður."
+
+msgid "The group could not be saved due to errors."
+msgstr "Ekki var hægt að vista hópinn þar sem hann stóðst ekki villuprófanir"
+
+msgid "Group '{0}' deleted."
+msgstr "Hópi '{0}' eytt."
+
+msgid "Search users"
+msgstr "Leita í notendum"
+
+msgid "User '{0}' created."
+msgstr "Notandi '{0}' búinn til."
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "The user could not be created due to errors."
+msgstr ""
+"Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
+
+msgid "User '{0}' updated."
+msgstr "Notandi '{0}' uppfærður."
+
+msgid "The user could not be saved due to errors."
+msgstr ""
+"Ekki var hægt að búa til notandann þar sem hann stóðst ekki villuprófanir"
+
+msgid "User '{0}' deleted."
+msgstr "Notanda '{0}' eytt."
+
+msgid "Edit this user"
+msgstr "Breyta þessum notanda"
+
+msgid "Delete this user"
+msgstr "Eyða þessum notanda"

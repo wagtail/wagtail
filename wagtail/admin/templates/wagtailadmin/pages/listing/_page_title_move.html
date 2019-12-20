@@ -1,0 +1,16 @@
+{% comment %}
+The title field for a page in the page listing, when in 'move' mode.
+
+Expects a variable 'page', the page instance.
+{% endcomment %}
+
+<div class="title-wrapper">
+    {% if page.can_choose %}
+        <a href="{% url 'wagtailadmin_pages:move_confirm' page_to_move.id page.id %}">{{ page.specific.get_admin_display_title }}</a>
+    {% else %}
+        {{ page.get_admin_display_title }}
+    {% endif %}
+
+    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+</div>

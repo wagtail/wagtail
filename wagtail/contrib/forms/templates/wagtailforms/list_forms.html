@@ -1,0 +1,23 @@
+{% load i18n %}
+<table class="listing">
+    <col width="50%"/>
+    <col width="50%"/>
+    <thead>
+        <tr>
+            <th class="title">{% trans "Title" %}</th>
+            <th class="type">{% trans "Origin" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fp in form_pages %}
+            <tr>
+                <td class="title">
+                    <div class="title-wrapper"><a href="{% url 'wagtailforms:list_submissions' fp.id %}">{{ fp|capfirst }}</a></div>
+                </td>
+                <td class="type">
+                    <small><a href="{% url 'wagtailadmin_pages:edit' fp.id %}" class="nolink">{{ fp.content_type.name |capfirst }} ({{ fp.content_type.app_label }}.{{ fp.content_type.model }})</a></small>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

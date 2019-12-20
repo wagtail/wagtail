@@ -1,0 +1,169 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# David Llop, 2014
+# David Llop, 2014
+# Roger Pons <rogerpons@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
+"ca/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Especifiqueu com a mínim una recomanació per a aquest terme de cerca."
+
+msgid "page"
+msgstr "pàgina"
+
+msgid "description"
+msgstr "descripció"
+
+msgid "search promotion"
+msgstr "promoció de cerca"
+
+msgid "Add search promotion"
+msgstr "Afegir promoció de cerca"
+
+msgid "Add search pick"
+msgstr "Afegir triar de cercar"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Els resultats de cerca promocionada són un mitjà per "
+"recomanar pàgines específiques que orgànicament no puguin entrar a la part "
+"alta dels resultats de cerca. P.e.: recomanar la pàgina primària de "
+"donacions a un usuari que cerqui amb el terme menys comú \"<em>aportació</em>"
+"\".</p>\n"
+"            "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>El camp \"Terme(s) de cerca/frase\" de sota ha de "
+"contenir la cerca completa i exacta per la qual voleu proporcionar resultats "
+"recomanats, <em>incloent</em> qualsevol falta d'ortografia/errors d'usuari. "
+"Com a ajuda, podeu optar per termes de cerca que siguin populars entre els "
+"usuaris del lloc.</p>\n"
+"            "
+
+msgid "Save"
+msgstr "Desa"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Esborra %(query)s"
+
+msgid "Delete"
+msgstr "Esborra"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Segur que voleu eliminar tots els resultats promocionats per a aquest terme "
+"de cerca?"
+
+msgid "Yes, delete"
+msgstr "Si, esborra"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Editant %(query)s"
+
+msgid "Editing"
+msgstr "Editant"
+
+msgid "Move up"
+msgstr "Puja"
+
+msgid "Move down"
+msgstr "Baixa"
+
+msgid "Promoted search result"
+msgstr "Resultat de carca promocionada"
+
+msgid "Add recommended page"
+msgstr "Afegeix una pàgina recomanada"
+
+msgid "Search Terms"
+msgstr "Termini de cerca"
+
+msgid "Promoted search results"
+msgstr "Resultats de cerca promocionada"
+
+msgid "Add new promoted result"
+msgstr "Afegir un nou resultat promocionat"
+
+msgid "Search term(s)"
+msgstr "Cerca paraula(es)"
+
+msgid "Promoted results"
+msgstr "Resultats promocionats"
+
+msgid "Views (past week)"
+msgstr "Vistes(la setmana pasada)"
+
+msgid "Edit this promotion"
+msgstr "Editeu aquesta promoció"
+
+msgid "None"
+msgstr "Cap"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"No s'han trobat resultats promocionats que coincideixin amb \"<em>"
+"%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"No s'ha creat cap resultat promocionat. per què no n'<a href="
+"\"%(wagtailsearchpromotions_add_url)s\">afegiu un</a>?"
+
+msgid "Search promoted results"
+msgstr "Resultats de cerca promocionats"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "Selecció de l'editor per a '{0}' creada."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "No s'han creat les recomanacions a causa d'errors"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "Selecció de l'editor per '{0}' actualitzada."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "No s'han desat les recomanacions a causa d'errors"
+
+msgid "Editor's picks deleted."
+msgstr "Selecció de l'editor esborrada."

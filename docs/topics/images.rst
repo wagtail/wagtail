@@ -11,6 +11,8 @@ The syntax for the tag is thus:
 
     {% image [image] [resize-rule] %}
 
+**Both the image and resize rule must be passed to the template tag.**
+
 For example:
 
 .. code-block:: html+django
@@ -24,7 +26,7 @@ For example:
     <!-- Display it again, but this time as a square thumbnail: -->
     {% image page.photo fill-80x80 %}
 
-In the above syntax example ``[image]`` is the Django object refering to the image. If your page model defined a field called "photo" then ``[image]`` would probably be ``page.photo``. The ``[resize-rule]`` defines how the image is to be resized when inserted into the page. Various resizing methods are supported, to cater to different use cases (e.g. lead images that span the whole width of the page, or thumbnails to be cropped to a fixed size).
+In the above syntax example ``[image]`` is the Django object referring to the image. If your page model defined a field called "photo" then ``[image]`` would probably be ``page.photo``. The ``[resize-rule]`` defines how the image is to be resized when inserted into the page. Various resizing methods are supported, to cater to different use cases (e.g. lead images that span the whole width of the page, or thumbnails to be cropped to a fixed size).
 
 Note that a space separates ``[image]`` and ``[resize-rule]``, but the resize rule must not contain spaces. The width is always specified before the height. Resized images will maintain their original aspect ratio unless the ``fill`` rule is used, which may result in some pixels being cropped.
 
@@ -45,6 +47,12 @@ The available resizing methods are as follows:
 
         The longest edge will be reduced to the matching dimension specified. For example, a portrait image of width 1000 and height 2000, treated with the ``max-1000x500`` rule (a landscape layout) would result in the image being shrunk so the *height* was 500 pixels and the width was 250.
 
+        .. figure:: ../_static/images/image_filter_max.png
+          :alt: Example of max filter on an image.
+
+          Example: The image will keep its proportions but fit within the max (green line) dimensions provided.
+
+
     ``min``
         (takes two dimensions)
 
@@ -55,6 +63,12 @@ The available resizing methods are as follows:
         **Cover** the given dimensions.
 
         This may result in an image slightly **larger** than the dimensions you specify. A square image of width 2000 and height 2000, treated with the ``min-500x200`` rule would have its height and width changed to 500, i.e matching the *width* of the resize-rule, but greater than the height.
+
+        .. figure:: ../_static/images/image_filter_min.png
+          :alt: Example of min filter on an image.
+
+          Example: The image will keep its proportions while filling at least the min (green line) dimensions provided.
+
 
     ``width``
         (takes one dimension)
@@ -72,7 +86,16 @@ The available resizing methods are as follows:
 
             {% image page.photo height-480 %}
 
-        Resize the height of the image to the dimension specified.
+        Reduces the height of the image to the dimension specified.
+
+    ``scale``
+        (takes percentage)
+
+        .. code-block:: html+django
+
+            {% image page.photo scale-50 %}
+
+        Resize the image to the percentage specified.
 
     ``fill``
         (takes two dimensions and an optional ``-c`` parameter)
@@ -83,9 +106,15 @@ The available resizing methods are as follows:
 
         Resize and **crop** to fill the **exact** dimensions specified.
 
-        This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000 and height 1000 treated with the ``fill200x200`` rule would have its height reduced to 200, then its width (ordinarily 400) cropped to 200.
+        This can be particularly useful for websites requiring square thumbnails of arbitrary images. For example, a landscape image of width 2000 and height 1000 treated with the ``fill-200x200`` rule would have its height reduced to 200, then its width (ordinarily 400) cropped to 200.
 
         This resize-rule will crop to the image's focal point if it has been set. If not, it will crop to the centre of the image.
+
+        .. figure:: ../_static/images/image_filter_fill.png
+          :alt: Example of fill filter on an image.
+
+          Example: The image is scaled and also cropped (red line) to fit as much of the image as possible within the provided dimensions.
+
 
         **On images that won't upscale**
 
@@ -106,6 +135,17 @@ The available resizing methods are as follows:
         This will crop the image as much as it can, without cropping into the focal point.
 
         If you find that ``-c100`` is too close, you can try ``-c75`` or ``-c50``. Any whole number from 0 to 100 is accepted.
+
+        .. figure:: ../_static/images/image_filter_fill_focal.png
+          :alt: Example of fill filter on an image with a focal point set.
+
+          Example: The focal point is set off centre so the image is scaled and also cropped like fill, however the center point of the crop is positioned closer the focal point.
+
+        .. figure:: ../_static/images/image_filter_fill_focal_close.png
+          :alt: Example of fill and closeness filter on an image with a focal point set.
+
+          Example: With ``-c75`` set, the final crop will be closer to the focal point.
+
 
     ``original``
         (takes no dimensions)
@@ -174,6 +214,39 @@ You can also use the ``attrs`` property as a shorthand to output the attributes 
     <img {{ tmp_photo.attrs }} class="my-custom-class" />
 
 
+Alternative HTML tags
+---------------------
+
+The ``as`` keyword allows alternative HTML image tags (such as ``<picture>`` or ``<amp-img>``) to be used.
+For example, to use the ``<picture>`` tag:
+
+.. code-block:: html+django
+
+    <picture>
+        {% image page.photo width-800 as wide_photo %}
+        <source srcset="{{ wide_photo.url }}" media="(min-width: 800px)">
+        {% image page.photo width-400 %}
+    </picture>
+
+And to use the ``<amp-img>`` tag (based on the `Mountains example <https://amp.dev/documentation/components/amp-img/#example:-specifying-a-fallback-image>`_ from the AMP docs):
+
+.. code-block:: html+django
+
+    {% image image width-550 format-webp as webp_image %}
+    {% image image width-550 format-jpeg as jpeg_image %}
+
+    <amp-img alt="{{ image.alt }}"
+        width="{{ webp_image.width }}"
+        height="{{ webp_image.height }}"
+        src="{{ webp_image.url }}">
+        <amp-img alt="{{ image.alt }}"
+            fallback
+            width="{{ jpeg_image.width }}"
+            height="{{ jpeg_image.height }}"
+            src="{{ jpeg_image.url }}"></amp-img>
+    </amp-img>
+
+
 Images embedded in rich text
 ----------------------------
 
@@ -222,6 +295,25 @@ For example, to make the tag always convert the image to a JPEG, use ``format-jp
 
 You may also use ``format-png`` or ``format-gif``.
 
+.. _image_background_color:
+
+Background color
+----------------
+
+The PNG and GIF image formats both support transparency, but if you want to
+convert images to JPEG format, the transparency will need to be replaced with a
+solid background color.
+
+By default, Wagtail will set the background to white. But if a white background
+doesn't fit your design, you can specify a color using the ``bgcolor`` filter.
+
+This filter takes a single argument, which is a CSS 3 or 6 digit hex code
+representing the color you would like to use:
+
+.. code-block:: html+Django
+
+    {# Sets the image background to black #}
+    {% image page.photo width-400 bgcolor-000 format-jpeg %}
 
 .. _jpeg_image_quality:
 
@@ -251,7 +343,7 @@ done from the Django shell:
 .. code-block:: python
 
     # Replace this with your custom rendition model if you use one
-    >>> from wagtail.wagtailimages.models import Rendition
+    >>> from wagtail.images.models import Rendition
     >>> Rendition.objects.all().delete()
 
 Changing per-tag

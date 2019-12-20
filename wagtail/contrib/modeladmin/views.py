@@ -1,29 +1,20 @@
-from __future__ import absolute_import, unicode_literals
-
-import operator
-import sys
 from collections import OrderedDict
-from functools import reduce
 
 from django import forms
-from django.contrib.admin import FieldListFilter, widgets
-from django.contrib.admin.exceptions import DisallowedModelAdminLookup
+from django.contrib.admin import FieldListFilter
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
-    get_fields_from_path, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
+    get_fields_from_path, label_for_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ImproperlyConfigured, PermissionDenied, SuspiciousOperation
+from django.core.exceptions import (
+    FieldDoesNotExist, ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied, SuspiciousOperation)
 from django.core.paginator import InvalidPage, Paginator
 from django.db import models
-from django.db.models.constants import LOOKUP_SEP
-from django.db.models.fields import FieldDoesNotExist
-from django.db.models.fields.related import ForeignObjectRel, ManyToManyField
-from django.db.models.sql.constants import QUERY_TERMS
+from django.db.models.fields.related import ManyToManyField, OneToOneRel
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
-from django.utils import six
 from django.utils.decorators import method_decorator
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
@@ -32,11 +23,20 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.edit_handlers import (
-    ObjectList, extract_panel_definitions_from_model_class)
+from wagtail.admin import messages
 
 from .forms import ParentChooserForm
+
+try:
+    from django.db.models.sql.constants import QUERY_TERMS
+except ImportError:
+    # Django 2.1+ does not have QUERY_TERMS anymore
+    QUERY_TERMS = {
+        'contains', 'day', 'endswith', 'exact', 'gt', 'gte', 'hour',
+        'icontains', 'iendswith', 'iexact', 'in', 'iregex', 'isnull',
+        'istartswith', 'lt', 'lte', 'minute', 'month', 'range', 'regex',
+        'search', 'second', 'startswith', 'week_day', 'year',
+    }
 
 
 class WMABaseView(TemplateView):
@@ -52,10 +52,10 @@ class WMABaseView(TemplateView):
         self.model_admin = model_admin
         self.model = model_admin.model
         self.opts = self.model._meta
-        self.app_label = force_text(self.opts.app_label)
-        self.model_name = force_text(self.opts.model_name)
-        self.verbose_name = force_text(self.opts.verbose_name)
-        self.verbose_name_plural = force_text(self.opts.verbose_name_plural)
+        self.app_label = force_str(self.opts.app_label)
+        self.model_name = force_str(self.opts.model_name)
+        self.verbose_name = force_str(self.opts.verbose_name)
+        self.verbose_name_plural = force_str(self.opts.verbose_name_plural)
         self.pk_attname = self.opts.pk.attname
         self.is_pagemodel = model_admin.is_pagemodel
         self.permission_helper = model_admin.permission_helper
@@ -70,7 +70,7 @@ class WMABaseView(TemplateView):
             raise PermissionDenied
         button_helper_class = self.model_admin.get_button_helper_class()
         self.button_helper = button_helper_class(self, request)
-        return super(WMABaseView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     @cached_property
     def menu_icon(self):
@@ -103,22 +103,19 @@ class WMABaseView(TemplateView):
             'model_admin': self.model_admin,
         }
         context.update(kwargs)
-        return super(WMABaseView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
 
 class ModelFormView(WMABaseView, FormView):
 
-    def get_edit_handler_class(self):
-        if hasattr(self.model, 'edit_handler'):
-            edit_handler = self.model.edit_handler
-        else:
-            fields_to_exclude = self.model_admin.get_form_fields_exclude(request=self.request)
-            panels = extract_panel_definitions_from_model_class(self.model, exclude=fields_to_exclude)
-            edit_handler = ObjectList(panels)
-        return edit_handler.bind_to_model(self.model)
+    def get_edit_handler(self):
+        edit_handler = self.model_admin.get_edit_handler(
+            instance=self.get_instance(), request=self.request
+        )
+        return edit_handler.bind_to(model=self.model_admin.model)
 
     def get_form_class(self):
-        return self.get_edit_handler_class().get_form_class(self.model)
+        return self.get_edit_handler().get_form_class()
 
     def get_success_url(self):
         return self.index_url
@@ -127,7 +124,7 @@ class ModelFormView(WMABaseView, FormView):
         return getattr(self, 'instance', None) or self.model()
 
     def get_form_kwargs(self):
-        kwargs = FormView.get_form_kwargs(self)
+        kwargs = super().get_form_kwargs()
         kwargs.update({'instance': self.get_instance()})
         return kwargs
 
@@ -140,19 +137,22 @@ class ModelFormView(WMABaseView, FormView):
 
     def get_context_data(self, **kwargs):
         instance = self.get_instance()
-        edit_handler_class = self.get_edit_handler_class()
+        edit_handler = self.get_edit_handler()
         form = self.get_form()
+        edit_handler = edit_handler.bind_to(
+            instance=instance, request=self.request, form=form)
         context = {
             'is_multipart': form.is_multipart(),
-            'edit_handler': edit_handler_class(instance=instance, form=form),
+            'edit_handler': edit_handler,
             'form': form,
         }
         context.update(kwargs)
-        return super(ModelFormView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_success_message(self, instance):
-        return _("{model_name} '{instance}' created.").format(
-            model_name=capfirst(self.opts.verbose_name), instance=instance)
+        return _("%(model_name)s '%(instance)s' created.") % {
+            'model_name': capfirst(self.opts.verbose_name), 'instance': instance
+        }
 
     def get_success_message_buttons(self, instance):
         button_url = self.url_helper.get_action_url('edit', quote(instance.pk))
@@ -173,7 +173,9 @@ class ModelFormView(WMABaseView, FormView):
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
-        messages.error(self.request, self.get_error_message())
+        messages.validation_error(
+            self.request, self.get_error_message(), form
+        )
         return self.render_to_response(self.get_context_data())
 
 
@@ -184,7 +186,7 @@ class InstanceSpecificView(WMABaseView):
     instance = None
 
     def __init__(self, model_admin, instance_pk):
-        super(InstanceSpecificView, self).__init__(model_admin)
+        super().__init__(model_admin)
         self.instance_pk = unquote(instance_pk)
         self.pk_quoted = quote(self.instance_pk)
         filter_kwargs = {}
@@ -207,7 +209,7 @@ class InstanceSpecificView(WMABaseView):
     def get_context_data(self, **kwargs):
         context = {'instance': self.instance}
         context.update(kwargs)
-        return super(InstanceSpecificView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
 
 class IndexView(WMABaseView):
@@ -218,6 +220,10 @@ class IndexView(WMABaseView):
     SEARCH_VAR = 'q'
     ERROR_FLAG = 'e'
     IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR)
+
+    # sortable_by is required by the django.contrib.admin.templatetags.admin_list.result_headers
+    # template tag as of Django 2.1 - see https://docs.djangoproject.com/en/2.1/ref/contrib/admin/#django.contrib.admin.ModelAdmin.sortable_by
+    sortable_by = None
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -230,6 +236,7 @@ class IndexView(WMABaseView):
         self.search_fields = self.model_admin.get_search_fields(request)
         self.items_per_page = self.model_admin.list_per_page
         self.select_related = self.model_admin.list_select_related
+        self.search_handler = self.model_admin.get_search_handler(request, self.search_fields)
 
         # Get search parameters from the query string.
         try:
@@ -246,7 +253,7 @@ class IndexView(WMABaseView):
         self.query = request.GET.get(self.SEARCH_VAR, '')
         self.queryset = self.get_queryset(request)
 
-        return super(IndexView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     @property
     def media(self):
@@ -260,73 +267,9 @@ class IndexView(WMABaseView):
             obj, classnames_add=['button-small', 'button-secondary'])
 
     def get_search_results(self, request, queryset, search_term):
-        """
-        Returns a tuple containing a queryset to implement the search,
-        and a boolean indicating if the results may contain duplicates.
-        """
-        use_distinct = False
-        if self.search_fields and search_term:
-            orm_lookups = ['%s__icontains' % str(search_field)
-                           for search_field in self.search_fields]
-            for bit in search_term.split():
-                or_queries = [models.Q(**{orm_lookup: bit})
-                              for orm_lookup in orm_lookups]
-                queryset = queryset.filter(reduce(operator.or_, or_queries))
-            if not use_distinct:
-                for search_spec in orm_lookups:
-                    if lookup_needs_distinct(self.opts, search_spec):
-                        use_distinct = True
-                        break
-
-        return queryset, use_distinct
-
-    def lookup_allowed(self, lookup, value):
-        # Check FKey lookups that are allowed, so that popups produced by
-        # ForeignKeyRawIdWidget, on the basis of ForeignKey.limit_choices_to,
-        # are allowed to work.
-        for l in self.model._meta.related_fkey_lookups:
-            for k, v in widgets.url_params_from_lookup_dict(l).items():
-                if k == lookup and v == value:
-                    return True
-
-        parts = lookup.split(LOOKUP_SEP)
-
-        # Last term in lookup is a query term (__exact, __startswith etc)
-        # This term can be ignored.
-        if len(parts) > 1 and parts[-1] in QUERY_TERMS:
-            parts.pop()
-
-        # Special case -- foo__id__exact and foo__id queries are implied
-        # if foo has been specifically included in the lookup list; so
-        # drop __id if it is the last part. However, first we need to find
-        # the pk attribute name.
-        rel_name = None
-        for part in parts[:-1]:
-            try:
-                field = self.model._meta.get_field(part)
-            except FieldDoesNotExist:
-                # Lookups on non-existent fields are ok, since they're ignored
-                # later.
-                return True
-            if hasattr(field, 'rel'):
-                if field.rel is None:
-                    # This property or relation doesn't exist, but it's allowed
-                    # since it's ignored in ChangeList.get_filters().
-                    return True
-                model = field.rel.to
-                rel_name = field.rel.get_related_field().name
-            elif isinstance(field, ForeignObjectRel):
-                model = field.model
-                rel_name = model._meta.pk.name
-            else:
-                rel_name = None
-        if rel_name and len(parts) > 1 and parts[-1] == rel_name:
-            parts.pop()
-
-        if len(parts) == 1:
-            return True
-        clean_lookup = LOOKUP_SEP.join(parts)
-        return clean_lookup in self.list_filter
+        kwargs = self.model_admin.get_extra_search_kwargs(request, search_term)
+        kwargs['preserve_order'] = self.ORDER_VAR in request.GET
+        return self.search_handler.search_queryset(queryset, search_term, **kwargs)
 
     def get_filters_params(self, params=None):
         """
@@ -345,11 +288,6 @@ class IndexView(WMABaseView):
     def get_filters(self, request):
         lookup_params = self.get_filters_params()
         use_distinct = False
-
-        for key, value in lookup_params.items():
-            if not self.lookup_allowed(key, value):
-                raise DisallowedModelAdminLookup(
-                    "Filtering by %s not allowed" % key)
 
         filter_specs = []
         if self.list_filter:
@@ -407,10 +345,7 @@ class IndexView(WMABaseView):
                 filter_specs, bool(filter_specs), lookup_params, use_distinct
             )
         except FieldDoesNotExist as e:
-            six.reraise(
-                IncorrectLookupParameters,
-                IncorrectLookupParameters(e),
-                sys.exc_info()[2])
+            raise IncorrectLookupParameters from e
 
     def get_query_string(self, new_params=None, remove=None):
         if new_params is None:
@@ -504,10 +439,10 @@ class IndexView(WMABaseView):
         # ordering fields so we can guarantee a deterministic order across all
         # database backends.
         pk_name = self.opts.pk.name
+
         if not (set(ordering) & {'pk', '-pk', pk_name, '-' + pk_name}):
-            # The two sets do not intersect, meaning the pk isn't present. So
-            # we add it.
-            ordering.append('-pk')
+            # ordering isn't already being applied to pk
+            ordering.append('-' + pk_name)
 
         return ordering
 
@@ -582,15 +517,13 @@ class IndexView(WMABaseView):
         ordering = self.get_ordering(request, qs)
         qs = qs.order_by(*ordering)
 
-        # Apply search results
-        qs, search_use_distinct = self.get_search_results(
-            request, qs, self.query)
-
         # Remove duplicates from results, if necessary
-        if filters_use_distinct | search_use_distinct:
-            return qs.distinct()
-        else:
-            return qs
+        if filters_use_distinct:
+            qs = qs.distinct()
+
+        # Apply search results
+        return self.get_search_results(request, qs, self.query)
+
 
     def apply_select_related(self, qs):
         if self.select_related is True:
@@ -634,7 +567,8 @@ class IndexView(WMABaseView):
             'paginator': paginator,
             'page_obj': page_obj,
             'object_list': page_obj.object_list,
-            'user_can_create': self.permission_helper.user_can_create(user)
+            'user_can_create': self.permission_helper.user_can_create(user),
+            'show_search': self.search_handler.show_search_form,
         }
 
         if self.is_pagemodel:
@@ -648,7 +582,7 @@ class IndexView(WMABaseView):
             })
 
         context.update(kwargs)
-        return super(IndexView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_template_names(self):
         return self.model_admin.get_index_template()
@@ -677,7 +611,7 @@ class CreateView(ModelFormView):
             # The page can be added in multiple places, so redirect to the
             # choose_parent view so that the parent can be specified
             return redirect(self.url_helper.get_action_url('choose_parent'))
-        return super(CreateView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
         return _('Create new %s') % self.verbose_name
@@ -701,14 +635,15 @@ class EditView(ModelFormView, InstanceSpecificView):
             return redirect(
                 self.url_helper.get_action_url('edit', self.pk_quoted)
             )
-        return super(EditView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
         return _('Editing %s') % self.verbose_name
 
     def get_success_message(self, instance):
-        return _("{model_name} '{instance}' updated.").format(
-            model_name=capfirst(self.verbose_name), instance=instance)
+        return _("%(model_name)s '%(instance)s' updated.") % {
+            'model_name': capfirst(self.verbose_name), 'instance': instance
+        }
 
     def get_context_data(self, **kwargs):
         context = {
@@ -716,7 +651,7 @@ class EditView(ModelFormView, InstanceSpecificView):
                 self.request.user, self.instance)
         }
         context.update(kwargs)
-        return super(EditView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_error_message(self):
         name = self.verbose_name
@@ -730,7 +665,7 @@ class ChooseParentView(WMABaseView):
     def dispatch(self, request, *args, **kwargs):
         if not self.permission_helper.user_can_create(request.user):
             raise PermissionDenied
-        return super(ChooseParentView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_page_title(self):
         return _('Add %s') % self.verbose_name
@@ -777,7 +712,7 @@ class DeleteView(InstanceSpecificView):
             return redirect(
                 self.url_helper.get_action_url('delete', self.pk_quoted)
             )
-        return super(DeleteView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
         return _('Confirm deletion of %s') % self.verbose_name
@@ -793,8 +728,9 @@ class DeleteView(InstanceSpecificView):
 
     def post(self, request, *args, **kwargs):
         try:
-            msg = _("{model} '{instance}' deleted.").format(
-                model=self.verbose_name, instance=self.instance)
+            msg = _("%(model_name)s '%(instance)s' deleted.") % {
+                'model_name': self.verbose_name, 'instance': self.instance
+            }
             self.delete_instance()
             messages.success(request, msg)
             return redirect(self.index_url)
@@ -805,9 +741,17 @@ class DeleteView(InstanceSpecificView):
                 obj.field, ManyToManyField))
             for rel in fields:
                 if rel.on_delete == models.PROTECT:
-                    qs = getattr(self.instance, rel.get_accessor_name())
-                    for obj in qs.all():
-                        linked_objects.append(obj)
+                    if isinstance(rel, OneToOneRel):
+                        try:
+                            obj = getattr(self.instance, rel.get_accessor_name())
+                        except ObjectDoesNotExist:
+                            pass
+                        else:
+                            linked_objects.append(obj)
+                    else:
+                        qs = getattr(self.instance, rel.get_accessor_name())
+                        for obj in qs.all():
+                            linked_objects.append(obj)
             context = self.get_context_data(
                 protected_error=True,
                 linked_objects=linked_objects
@@ -837,14 +781,7 @@ class InspectView(InstanceSpecificView):
 
     def get_field_label(self, field_name, field=None):
         """ Return a label to display for a field """
-        label = None
-        if field is not None:
-            label = getattr(field, 'verbose_name', None)
-            if label is None:
-                label = getattr(field, 'name', None)
-        if label is None:
-            label = field_name
-        return label
+        return label_for_field(field_name, model=self.model)
 
     def get_field_display_value(self, field_name, field=None):
         """ Return a display value for a field/attribute """
@@ -869,9 +806,9 @@ class InspectView(InstanceSpecificView):
                 return ', '.join(['%s' % obj for obj in val])
             return self.model_admin.get_empty_value_display(field_name)
 
-        # wagtail.wagtailimages might not be installed
+        # wagtail.images might not be installed
         try:
-            from wagtail.wagtailimages.models import AbstractImage
+            from wagtail.images.models import AbstractImage
             if isinstance(val, AbstractImage):
                 # Render a rendition of the image
                 return self.get_image_field_display(field_name, field)
@@ -880,7 +817,7 @@ class InspectView(InstanceSpecificView):
 
         # wagtail.wagtaildocuments might not be installed
         try:
-            from wagtail.wagtaildocs.models import AbstractDocument
+            from wagtail.documents.models import AbstractDocument
             if isinstance(val, AbstractDocument):
                 # Render a link to the document
                 return self.get_document_field_display(field_name, field)
@@ -894,7 +831,7 @@ class InspectView(InstanceSpecificView):
 
     def get_image_field_display(self, field_name, field):
         """ Render an image """
-        from wagtail.wagtailimages.shortcuts import get_rendition_or_not_found
+        from wagtail.images.shortcuts import get_rendition_or_not_found
         image = getattr(self.instance, field_name)
         if image:
             return get_rendition_or_not_found(image, 'max-400x400').img_tag
@@ -945,7 +882,7 @@ class InspectView(InstanceSpecificView):
                 self.instance, exclude=['inspect']),
         }
         context.update(kwargs)
-        return super(InspectView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_template_names(self):
         return self.model_admin.get_inspect_template()

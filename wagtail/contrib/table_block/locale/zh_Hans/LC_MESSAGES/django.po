@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ed <724195301@qq.com>, 2018
+# First Last <abc+github@mynook.info>, 2019
+# 汇民 王 <whuim@qq.com>, 2017
+# 飘 赵 <275980464@qq.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-11-01 02:57+0000\n"
+"Last-Translator: First Last <abc+github@mynook.info>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail table block"
+msgstr "Wagtail 数据表块"
+
+msgid "Row header"
+msgstr "行标题"
+
+msgid "Display the first row as a header."
+msgstr "将第一行作为行标题。"
+
+msgid "Column header"
+msgstr "列标题"
+
+msgid "Display the first column as a header."
+msgstr "将第一列作为列标题。"
+
+msgid "Table caption"
+msgstr "表格标题"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr "综合说明表格内容的标题，对屏幕阅读器用户很有用"

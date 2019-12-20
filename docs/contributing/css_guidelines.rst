@@ -1,20 +1,20 @@
 CSS coding guidelines
 ===========================
 
-Our CSS is written in Sass, using the SCSS syntax.
+Our CSS is written in `Sass <https://sass-lang.com/>`_, using the SCSS syntax.
 
 Compiling
 ~~~~~~~~~
 
 The SCSS source files are compiled to CSS using the
-`gulp <http://gulpjs.com/>`_ build system.
-This requires `node.js <http://nodejs.org>`_ to run.
+`gulp <https://gulpjs.com/>`_ build system.
+This requires `Node.js <https://nodejs.org>`_ to run.
 To install the libraries required for compiling the SCSS,
 run the following from the Wagtail repository root:
 
 .. code-block:: console
 
-    $ npm install
+    $ npm install --no-save
 
 
 To compile the assets, run:
@@ -32,26 +32,45 @@ automatically recompiling when any changes are observed, by running:
     $ npm start
 
 
-Linting SCSS
-~~~~~~~~~~~~
+Linting and formatting SCSS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail uses the "scss-lint" Ruby Gem for linting.
+Wagtail uses the `stylelint <https://stylelint.io/>`_ linter.
+You'll need Node.js and npm on your development machine.
+Ensure project dependencies are installed by running ``npm install --no-save``
 
-Install it thus:
+Linting code
+------------
 
-.. code-block:: console
-
-    $ gem install scss-lint
-
-
-Then run the linter from the wagtail project root:
+Run the linter from the wagtail project root:
 
 .. code-block:: console
 
-    $ scss-lint
+    $ npm run lint:css
 
-The linter is configured to check your code for adherance to the guidelines below, plus a little more.
 
+The linter is configured to check your code for adherance to the guidelines
+below, plus a little more.
+
+Formatting code
+---------------
+
+If you want to autofix errors, you can run that command directly with:
+
+.. code-block:: console
+
+    $ npm run lint:css -- --fix
+
+Changing the linter configuration
+---------------------------------
+
+The configuration for the linting rules is managed in an external
+repository so that it can be easily shared across other Wagtail projects
+or plugins. This configuration can be found at
+`stylelint-config-wagtail <https://github.com/wagtail/stylelint-config-wagtail>`_.
+
+Styleguide Reference
+~~~~~~~~~~~~~~~~~~~~
 
 Spacing
 -------
@@ -77,7 +96,7 @@ Formatting
    param, e.g., ``rgba(#000, .5)``).
 -  Use ``//`` for comment blocks (instead of ``/* */``).
 -  Use single quotes for string values
-   ``background: url('my/image.png')`` or ``content: 'moose'``
+   ``background: url('my/image.png')``
 -  Avoid specifying units for zero values, e.g., ``margin: 0;`` instead
    of ``margin: 0px;``.
 -  Strive to limit use of shorthand declarations to instances where you

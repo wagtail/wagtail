@@ -1,0 +1,3 @@
+
+class InvalidFilterSpecError(ValueError):
+    pass

@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# André Bouatchidzé <a@anbz.net>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Georgian (http://www.transifex.com/torchbox/wagtail/language/"
+"ka/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ka\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Publish"
+msgstr "გამოქვეყნება"
+
+msgid "Delete"
+msgstr "წაშლა"
+
+msgid "Content"
+msgstr "შიგთავსი"
+
+msgid "Enter password"
+msgstr "შეიყვანეთ პაროლი"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "შეიყვანეთ თქვენი %s"
+
+msgid "New title"
+msgstr "ახალი სათაური"
+
+msgid "Search"
+msgstr "ძიება"
+
+msgid "Search term"
+msgstr "ძიების ტერმინი"
+
+msgid "January"
+msgstr "იანვარი"
+
+msgid "February"
+msgstr "თებერვალი"
+
+msgid "March"
+msgstr "მარტი"
+
+msgid "April"
+msgstr "აპრილი"
+
+msgid "May"
+msgstr "მაისი"
+
+msgid "June"
+msgstr "ივნისი"
+
+msgid "July"
+msgstr "ივლისი"
+
+msgid "August"
+msgstr "აგვისტო"
+
+msgid "September"
+msgstr "სექტემბერი"
+
+msgid "October"
+msgstr "ოქტომბერი"
+
+msgid "November"
+msgstr "ნოემბერი"
+
+msgid "December"
+msgstr "დეკემბერი"
+
+msgid "Account"
+msgstr "ანგარიში"
+
+msgid "Reset password"
+msgstr "პაროლის აღდგენა"
+
+msgid "Login"
+msgstr "შესვლა"
+
+msgid "Check your email"
+msgstr "შეამოწმეთ თქვენი ელფოსტა"
+
+msgid "Menu"
+msgstr "მენიუ"
+
+msgid "Internal link"
+msgstr "შიდა ბმული"
+
+msgid "Save"
+msgstr "შენახვა"
+
+msgid "Title"
+msgstr "სათაური"
+
+msgid "Type"
+msgstr "ტიპი"
+
+msgid "Edit this page"
+msgstr "ამ გვერდის რედაქტირება"
+
+msgid "Date"
+msgstr "თარიღი"
+
+msgid "Status"
+msgstr "სტატუსი"
+
+msgid "You can view the page here:"
+msgstr "გვერდის ნახვა შეგიძლიათ აქ:"
+
+msgid "You can edit the page here:"
+msgstr "გვერდის რესქტირება შეგიძლიათ აქ:"
+
+msgid "Copy"
+msgstr "კოპირება"
+
+msgid "New"
+msgstr "ახალი"
+
+msgid "Previous"
+msgstr "წინა"
+
+msgid "Next"
+msgstr "შემდეგი"
+
+msgid "Log out"
+msgstr "გამოსვლა"
+
+msgid "Choose another page"
+msgstr "სხვა გვერდის არჩევა"

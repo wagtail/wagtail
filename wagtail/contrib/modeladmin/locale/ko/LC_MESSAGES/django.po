@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Kyungil Choi <hanpama@gmail.com>, 2017
+# Kyungil Choi <hanpama@gmail.com>, 2017,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2017-06-23 14:54+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "웨그테일 모델 관리자"
 
 msgid "Parent page"
 msgstr "상위 페이지"
@@ -82,8 +85,8 @@ msgstr ""
 msgid "Continue"
 msgstr "계속하기"
 
-msgid "Saving..."
-msgstr "저장 중..."
+msgid "Saving…"
+msgstr "저장 중…"
 
 msgid "Save"
 msgstr "저장"
@@ -165,10 +168,6 @@ msgstr "이전"
 msgid "Next"
 msgstr "다음"
 
-#, python-brace-format
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' 생성됨."
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr "%s 생성이 오류로 인해 실패했습니다."
@@ -187,10 +186,6 @@ msgstr "수정"
 msgid "Editing %s"
 msgstr "%s 수정"
 
-#, python-brace-format
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' 수정됨."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s 저장이 오류로 인해 실패했습니다."
@@ -206,10 +201,6 @@ msgid ""
 msgstr ""
 "%s 항목을 삭제하는 것이 확실한가요? 사이트의 다른 것들이 연관되어 있다면 이"
 "에 대한 영향이 있을 수 있습니다."
-
-#, python-brace-format
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' 삭제됨."
 
 msgid "Inspecting"
 msgstr "분석"

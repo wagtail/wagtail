@@ -1,0 +1,14 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% blocktrans with title=page_to_move.get_admin_display_title %}Select a new parent page for {{ title }}{% endblocktrans %}{% endblock %}
+{% block content %}
+    <header class="nice-padding" role="banner">
+        <h1 class="icon icon-doc-empty-inverse">{% blocktrans with title=page_to_move.get_admin_display_title %}Select a new parent page for <span>{{ title }}</span>{% endblocktrans %}</h1>
+    </header>
+
+    <div class="nice-padding">
+        {% include "wagtailadmin/pages/listing/_list_move.html" with pages=child_pages parent_page=viewed_page %}
+        {% url 'wagtailadmin_pages:move_choose_destination' page_to_move.id viewed_page.id as pagination_base_url %}
+        {% paginate child_pages base_url=pagination_base_url %}
+    </div>
+{% endblock %}

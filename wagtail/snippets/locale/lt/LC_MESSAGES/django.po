@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Matas Dailyda <matas@dailyda.com>, 2017-2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
+"language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Choose"
+msgstr "Pasirinkti"
+
+msgid "Search"
+msgstr "Paieška"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
+msgstr "Atsiprašome, jokios nuokarpos neatitiko \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Panaudota %(usage_count)s kartą"
+msgstr[1] "Panaudota %(usage_count)s kartus"
+msgstr[2] "Panaudota %(usage_count)s kartų"
+msgstr[3] "Panaudota %(usage_count)s kartų"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Ar tikrai norite ištrinti šią %(snippet_type_name)s?"
+
+msgid "Yes, delete"
+msgstr "Taip, ištrinti"
+
+#, python-format
+msgid "New  %(snippet_type_name)s"
+msgstr "Nauja %(snippet_type_name)s"
+
+msgid "New"
+msgstr "Naujas"
+
+msgid "Saving…"
+msgstr "Saugoma…"
+
+msgid "Save"
+msgstr "Išsaugoti"
+
+#, python-format
+msgid "Editing %(snippet_type_name)s - %(instance)s"
+msgstr "Redaguojama %(snippet_type_name)s - %(instance)s"
+
+msgid "Editing"
+msgstr "Redagavimas"
+
+msgid "Delete"
+msgstr "Ištrinti"
+
+msgid "Usage"
+msgstr "Panaudojimas"
+
+msgid "Snippets"
+msgstr "Nuokarpos"
+
+msgid "Title"
+msgstr "Pavadinimas"
+
+#, python-format
+msgid ""
+"No %(snippet_type_name_plural)s have been created. Why not <a href="
+"\"%(wagtailsnippets_create_url)s\">add one</a>?"
+msgstr ""
+"Nebuvo sukurti jokios %(snippet_type_name_plural)s. Kodėl gi <a href="
+"\"%(wagtailsnippets_create_url)s\">nesukūrus vienos</a>?"
+
+#, python-format
+msgid "Snippets %(snippet_type_name_plural)s"
+msgstr "Nuokarpos %(snippet_type_name_plural)s"
+
+#, python-format
+msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
+msgstr "Nuokarpos <span>%(snippet_type_name_plural)s</span>"
+
+#, python-format
+msgid "Add %(snippet_type_name)s"
+msgstr "Pridėti %(snippet_type_name)s"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s naudojimas"
+
+msgid "Usage of"
+msgstr "Naudojimas"
+
+msgid "Parent"
+msgstr "Tėvas"
+
+msgid "Type"
+msgstr "Tipas"
+
+msgid "Status"
+msgstr "Statusas"
+
+msgid "Edit this page"
+msgstr "Redaguoti šį puslapį"
+
+#, python-format
+msgid "Search %(snippet_type_name)s"
+msgstr "Ieškoti %(snippet_type_name)s"
+
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "The snippet could not be created due to errors."
+msgstr "Nuokarpa negalėjo būti sukurta dėl klaidų."
+
+msgid "The snippet could not be saved due to errors."
+msgstr "Nuokarpa negalėjo būti išsaugota dėl klaidų."
+
+#, python-format
+msgid "Choose %s"
+msgstr "Pasirinkti %s"
+
+#, python-format
+msgid "Choose another %s"
+msgstr "Pasirinkti kitą %s"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Redaguoti šį %s"

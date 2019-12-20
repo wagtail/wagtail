@@ -1,0 +1,33 @@
+{% load i18n wagtailadmin_tags %}
+
+{% test_page_is_public page as is_public %}
+{% if not page_perms %}
+    {% page_permissions page as page_perms %}
+{% endif %}
+
+{% if not page.is_root %}
+<div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
+    {% trans "Privacy" %}
+    {% if page_perms.can_set_view_restrictions %}
+        <button data-url="{% url 'wagtailadmin_pages:set_privacy' page.id %}" class="status-tag primary  action-set-privacy">
+            {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
+            <span class="label-public icon icon-view" aria-label="{% trans 'Set page privacy. Current status: Public' %}">
+                {% trans "Public" %}
+            </span>
+            <span class="label-private icon icon-no-view" aria-label="{% trans 'Set page privacy. Current status: Private' %}">
+                {% trans "Private" %}
+            </span>
+        </button>
+    {% else %}
+        {% if is_public %}
+            <span class="label-public status-tag primary icon icon-view" aria-label="{% trans 'Page privacy. Current status: Public' %}">
+                {% trans "Public" %}
+            </span>
+        {% else %}
+            <span class="label-private status-tag primary icon icon-no-view" aria-label="{% trans 'Page privacy. Current status: Private' %}">
+                {% trans "Private" %}
+            </span>
+        {% endif %}
+    {% endif %}
+</div>
+{% endif %}

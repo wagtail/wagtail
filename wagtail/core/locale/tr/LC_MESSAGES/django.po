@@ -1,0 +1,187 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Password"
+msgstr "Şifre"
+
+msgid "site name"
+msgstr "site ad"
+
+msgid "Human-readable name for the site."
+msgstr "Bu site için anlaşılır ad"
+
+msgid "root page"
+msgstr "kök sayfa"
+
+msgid "is default site"
+msgstr "varsayılan site"
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "siteler"
+
+msgid "title"
+msgstr "başlık"
+
+msgid "slug"
+msgstr "slug"
+
+msgid "content type"
+msgstr "içerik tipi"
+
+msgid "live"
+msgstr "canlı"
+
+msgid "has unpublished changes"
+msgstr "yayınlanmamış değişiklikler var"
+
+msgid "URL path"
+msgstr "URL yolu"
+
+msgid "owner"
+msgstr "sahip"
+
+msgid "page title"
+msgstr "sayfa başlığı"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"İsteğe bağlı. 'Arama Motoru Dostu' başlık. Tarayıcı penceresinin üst "
+"kısmında gözükecektir"
+
+msgid "show in menus"
+msgstr "menüde göster"
+
+msgid "search description"
+msgstr "arama açıklaması"
+
+msgid "expiry date/time"
+msgstr "bitiş tarih/saat"
+
+msgid "expired"
+msgstr "bitiş"
+
+msgid "locked"
+msgstr "kilitli"
+
+msgid "first published at"
+msgstr "ilk yayınlanma"
+
+msgid "latest revision created at"
+msgstr "en son gözden geçirme"
+
+msgid "This slug is already in use"
+msgstr "Bu slug zaten kullanılmakta"
+
+msgid "scheduled"
+msgstr "zamanlanmış"
+
+msgid "draft"
+msgstr "taslak"
+
+msgid "live + draft"
+msgstr "canlı + taslak"
+
+msgid "Default"
+msgstr "Varsayılan"
+
+msgid "page"
+msgstr "sayfa"
+
+msgid "pages"
+msgstr "sayfalar"
+
+msgid "created at"
+msgstr "oluşturulma"
+
+msgid "user"
+msgstr "kullanıcı"
+
+msgid "content JSON"
+msgstr "JSON içerik"
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Add/edit pages you own"
+msgstr "Sayfanı ekle/düzenle"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Edit any page"
+msgstr "Herhangi bir sayfa düzenle"
+
+msgid "Publish"
+msgstr "Yayınla"
+
+msgid "Publish any page"
+msgstr "Herhangi bir sayfa yayınla"
+
+msgid "Lock"
+msgstr "Kilit"
+
+msgid "Lock/unlock any page"
+msgstr "Kilitle/kilidi kaldır"
+
+msgid "group"
+msgstr "grup"
+
+msgid "permission type"
+msgstr "yetki tipi"
+
+msgid "group page permission"
+msgstr "grup sayfa yetkisi"
+
+msgid "group page permissions"
+msgstr "grup sayfa yetkileri"
+
+msgid "password"
+msgstr "şifre"
+
+msgid "page view restriction"
+msgstr "sayfa görünüm kısıtlaması"
+
+msgid "page view restrictions"
+msgstr "sayfa görünüm kısıtlamaları"
+
+msgid "collection"
+msgstr "koleksiyon"
+
+msgid "name"
+msgstr "ad"
+
+msgid "collections"
+msgstr "koleksiyonlar"
+
+msgid "permission"
+msgstr "izin"
+
+msgid "group collection permission"
+msgstr "grup kolleksiyon izni"
+
+msgid "Password required"
+msgstr "Şifre zorunlu"

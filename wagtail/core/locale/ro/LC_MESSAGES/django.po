@@ -1,0 +1,331 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dan Braghis, 2014-2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "Wagtail core"
+msgstr "Nucleu Wagtail"
+
+msgid "This block has no options."
+msgstr "Acest bloc nu are nici o opțiune."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Numărul minim de articole este %d"
+
+msgid "This field is required."
+msgstr "Acest câmp este obligatoriu."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Numărul maxim de articole este %d"
+
+msgid "Password"
+msgstr "Parolă"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Parola introdusă nu este corectă. Vă rugăm să încercați din nou."
+
+msgid "hostname"
+msgstr "nume gazdă"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Dacă aveți nevoie ca un număr de port specific să apară în adrese de "
+"internet (de exemplu, dezvoltare pe portul 8000)  setați aceasta la altceva "
+"decât 80. Nu influențează gestionarea solicitărilor și transmiterile de port "
+"vor continua să funcționeze."
+
+msgid "site name"
+msgstr "nume sait"
+
+msgid "Human-readable name for the site."
+msgstr "Titlu sait lizibil pentru om"
+
+msgid "root page"
+msgstr "pagină de bază"
+
+msgid "is default site"
+msgstr "sait implicit"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Dacă e 'true', acest sait va gestiona solicitări pentru toate hostname-urile "
+"fără setări separate"
+
+msgid "site"
+msgstr "Sait"
+
+msgid "sites"
+msgstr "saituri"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s este definit deja ca sait implicit și trebuie schimbat pentru a "
+"putea seta acest sit ca implicit "
+
+msgid "title"
+msgstr "titlu"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Titlul paginii așa cum doriți să fie vizibil public"
+
+msgid "slug"
+msgstr "slug"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Numele paginii așa cum va apărea în adrese. De exemplu, http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "content type"
+msgstr "tip de conținut"
+
+msgid "live"
+msgstr "live"
+
+msgid "has unpublished changes"
+msgstr "conține modificări nepublicate"
+
+msgid "URL path"
+msgstr "Cale"
+
+msgid "owner"
+msgstr "proprietar"
+
+msgid "page title"
+msgstr "titlu pagină"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Opțional. Titlu favorabil motoarelor de căutare. Apare în partea de sus a "
+"browserului."
+
+msgid "show in menus"
+msgstr "arată în meniuri"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Dacă un link către această pagină va apărea în meniurile generate în mod "
+"automat"
+
+msgid "search description"
+msgstr "descriere pentru căutare"
+
+msgid "go live date/time"
+msgstr "data/timpul de publicare"
+
+msgid "expiry date/time"
+msgstr "data/timpul de expirare"
+
+msgid "expired"
+msgstr "expirat"
+
+msgid "locked"
+msgstr "blocat"
+
+msgid "first published at"
+msgstr "publicată pentru prima dată la"
+
+msgid "last published at"
+msgstr "publicată pentru prima dată la"
+
+msgid "latest revision created at"
+msgstr "ultima revizie creată la"
+
+msgid "This slug is already in use"
+msgstr "Slug-ul acesta a fost deja folosit"
+
+msgid "scheduled"
+msgstr "programată"
+
+msgid "draft"
+msgstr "ciornă"
+
+msgid "live + scheduled"
+msgstr "live + programată"
+
+msgid "live + draft"
+msgstr "live + ciornă"
+
+msgid "Default"
+msgstr "Implicit"
+
+msgid "page"
+msgstr "pagină"
+
+msgid "pages"
+msgstr "pagini"
+
+msgid "submitted for moderation"
+msgstr "trimisă pentru moderare."
+
+msgid "created at"
+msgstr "creat la"
+
+msgid "user"
+msgstr "utilizator"
+
+msgid "content JSON"
+msgstr "conținut JSON"
+
+msgid "approved go live at"
+msgstr "aprobat pentru publicare la"
+
+msgid "page revision"
+msgstr "revizie pagină"
+
+msgid "page revisions"
+msgstr "revizii pagină"
+
+msgid "Add"
+msgstr "Adaugă"
+
+msgid "Add/edit pages you own"
+msgstr "Adaugă/editeaza pagini deținute"
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "Edit any page"
+msgstr "Editează orice pagină"
+
+msgid "Publish"
+msgstr "Publică"
+
+msgid "Publish any page"
+msgstr "Publică orice pagină"
+
+msgid "Bulk delete"
+msgstr "Șterge în masă"
+
+msgid "Delete pages with children"
+msgstr "Șterge pagini cu descendenți"
+
+msgid "Lock"
+msgstr "Încuie"
+
+msgid "Lock/unlock any page"
+msgstr "Blochează/deblochează orice pagină"
+
+msgid "group"
+msgstr "grup"
+
+msgid "permission type"
+msgstr "tip permisiune"
+
+msgid "group page permission"
+msgstr "permisie grup pagină"
+
+msgid "group page permissions"
+msgstr "permisiuni grup pagină"
+
+msgid "Public"
+msgstr "Public"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat. accesibil utlizatorilor autentificați"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, accesibil cu parola următoare"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, accesibil utilizatorilor în grupuri specifice"
+
+msgid "password"
+msgstr "parolă"
+
+msgid "groups"
+msgstr "grupuri"
+
+msgid "view restriction"
+msgstr "vezi restricție"
+
+msgid "view restrictions"
+msgstr "vezi restricții"
+
+msgid "page view restriction"
+msgstr "restricție de vizualizare pagină"
+
+msgid "page view restrictions"
+msgstr "restricții de vizualizare pagină"
+
+msgid "collection"
+msgstr "colecție"
+
+msgid "collection view restriction"
+msgstr "restricție de vizualizare colecție"
+
+msgid "collection view restrictions"
+msgstr "restricție de vizualizare colecții"
+
+msgid "name"
+msgstr "nume"
+
+msgid "collections"
+msgstr "colecții"
+
+msgid "permission"
+msgstr "permisiune"
+
+msgid "group collection permission"
+msgstr "permisiune grup colecție"
+
+msgid "group collection permissions"
+msgstr "permisiuni grup colecție"
+
+msgid "Log in"
+msgstr "Logare"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Numele de utilizator și parola nu corespund. Vă rugăm să încercați din nou."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Nu aveți access la această pagină. Pentru a continua, vă rugăm să vă logați "
+"cu un cont care are acces."
+
+msgid "Password required"
+msgstr "Parolă necesară"
+
+msgid "You need a password to access this page."
+msgstr "Aveți nevoie de o parolă pentru a accesa această pagină."
+
+msgid "Continue"
+msgstr "Continuă"

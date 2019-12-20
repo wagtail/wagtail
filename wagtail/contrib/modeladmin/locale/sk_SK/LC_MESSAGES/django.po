@@ -1,0 +1,210 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# Matt Westcott <matthew@torchbox.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Parent page"
+msgstr "Rodičovská strana"
+
+#, python-format
+msgid "Add %s"
+msgstr "Pridať %s"
+
+#, python-format
+msgid "Add a new %s"
+msgstr "Pridať nové %s"
+
+msgid "Inspect"
+msgstr "Skontrolovať"
+
+#, python-format
+msgid "Inspect this %s"
+msgstr "Skontrolujte toto %s"
+
+msgid "Edit"
+msgstr "Upraviť"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Upraviť toto %s"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+#, python-format
+msgid "Delete this %s"
+msgstr "Zmazať toto %s"
+
+msgid "Unpublish"
+msgstr "Odpublikovať"
+
+#, python-format
+msgid "Unpublish this %s"
+msgstr "Odpublikovať toto %s"
+
+msgid "Copy"
+msgstr "Kopírovať"
+
+#, python-format
+msgid "Copy this %s"
+msgstr "Kopírovať toto %s"
+
+msgid "image"
+msgstr "obrázok"
+
+msgid "Choose a parent page"
+msgstr "Zvoliť rodičovskú stránku"
+
+#, python-format
+msgid ""
+"%(plural)s can be added to more than one place within your site. Which of "
+"the following would you like to be the parent of your new page?"
+msgstr ""
+"%(plural)s môže byť pridaný na viac miest v rámci Vášho sídla. Ktoré z "
+"nasledujúceho chcete, aby bol rodičom Vašej novej stránky?"
+
+msgid "Continue"
+msgstr "Pokračovať"
+
+msgid "Save"
+msgstr "Uložiť"
+
+#, python-format
+msgid "%(model_name)s could not be deleted"
+msgstr "%(model_name)s nemôže byť zmazané"
+
+#, python-format
+msgid ""
+"'%(instance_name)s' is currently referenced by other objects, and cannot be "
+"deleted without jeopardising data integrity. To delete it successfully, "
+"first remove references from the following objects, then try again:"
+msgstr ""
+"'%(instance_name)s' je odkazovaný inými objektami a nemôže byť vymazaný bez "
+"narušenia integrity dát. Aby ste ho mohli vymazať, zrušte najskôr odkazy z "
+"iných objektov a potom skúste znova:"
+
+msgid "Go back to listing"
+msgstr "Naspäť na zoznam"
+
+msgid "Yes, delete"
+msgstr "Áno, vymazať"
+
+msgid "Home"
+msgstr "Domov"
+
+#, python-format
+msgid " By %(filter_title)s "
+msgstr " Podľa %(filter_title)s "
+
+#, python-format
+msgid "Sorry, there are no %(name)s matching your search parameters."
+msgstr ""
+"Prepáčte, nie sú %(name)s, ktoré vyhovujú Vašim vyhľadávacím parametrom."
+
+msgid "Search for"
+msgstr "Hľadať"
+
+#, python-format
+msgid "Search %(name)s"
+msgstr "Hľadať %(name)s"
+
+msgid "Filter"
+msgstr "Filter"
+
+#, python-format
+msgid ""
+"No %(name)s have been created yet. One of the following must be created "
+"before you can add any %(name)s:"
+msgstr ""
+"Žiaden %(name)s nebol zatiaľ vytvorený. Niečo z nasledujúceho musí byť "
+"vytvorené predtým, než pridáte%(name)s:"
+
+#, python-format
+msgid "No %(name)s have been created yet."
+msgstr "Žiadne %(name)s neboli zatiaľ vytvorené."
+
+#, python-format
+msgid ""
+"\n"
+"                                                Why not <a href=\"%(url)s"
+"\">add one</a>?\n"
+"                                            "
+msgstr ""
+"\n"
+"                                                Prečo <a href=\"%(url)s"
+"\">nepridať</a>?\n"
+"                                            "
+
+#, python-format
+msgid "Page %(current_page)s of %(num_pages)s."
+msgstr "Strana %(current_page)s z %(num_pages)s."
+
+#, python-format
+msgid "Back to %(model_name)s list"
+msgstr "Naspäť na zoznam %(model_name)s"
+
+msgid "Previous"
+msgstr "Predchádzajúce"
+
+msgid "Next"
+msgstr "Ďalšie"
+
+#, python-format
+msgid "The %s could not be created due to errors."
+msgstr "%s nemôže byť vytvorené kvôli chybám."
+
+msgid "New"
+msgstr "Nový"
+
+#, python-format
+msgid "Create new %s"
+msgstr "Vytvoriť nové %s"
+
+msgid "Editing"
+msgstr "Úprava"
+
+#, python-format
+msgid "Editing %s"
+msgstr "Úprava %s"
+
+#, python-format
+msgid "The %s could not be saved due to errors."
+msgstr "%s nemôže byť uložené kvôli chybám."
+
+#, python-format
+msgid "Confirm deletion of %s"
+msgstr "Potvrďte vymazanie %s"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete this %s? If other things in your site are "
+"related to it, they may also be affected."
+msgstr ""
+"Ste si istý, že chcete zmazať %s? Môže to ovplyvniť niektoré závislosti v "
+"rámci sídla."
+
+msgid "Inspecting"
+msgstr "Kontrola %s"
+
+#, python-format
+msgid "Inspecting %s"
+msgstr "Kontrola %s"

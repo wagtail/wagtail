@@ -7,6 +7,6 @@ exports[`LoadingSpinner basic 1`] = `
     name="spinner"
     title={null}
   />
-   Loading...
+   Loading…
 </span>
 `;

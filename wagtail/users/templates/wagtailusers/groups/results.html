@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% if groups %}
+    {% include "wagtailusers/groups/list.html" %}
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl="wagtailusers_groups:index" %}
+{% elif is_searching %}
+    <p>{% blocktrans with query=search_form.q.value %}Sorry, no groups match "{{ query }}"{% endblocktrans %}</p>
+{% else %}
+    {% url 'wagtailusers_groups:add' as wagtailusers_create_group_url %}
+    <p>{% blocktrans %}There are no groups configured. Why not <a href="{{ wagtailusers_create_group_url }}">add some</a>?{% endblocktrans %}</p>
+{% endif %}

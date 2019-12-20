@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-08-27 17:20+0000\n"
-"Last-Translator: Jose Lourenco <jose@lourenco.ws>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -27,18 +27,14 @@ msgstr "A alterar %(setting_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "A alterar"
 
-msgid "Saving..."
-msgstr "A guardar..."
+msgid "Saving…"
+msgstr "A guardar…"
 
 msgid "Save"
 msgstr "Guardar"
 
 msgid "Settings"
 msgstr "Definições"
-
-#, python-brace-format
-msgid "{setting_type} updated."
-msgstr "{setting_type} atualizado"
 
 msgid "The setting could not be saved due to errors."
 msgstr "A definição não pôde ser guardada devido a erros."

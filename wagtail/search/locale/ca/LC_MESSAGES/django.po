@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# David Llop, 2014
+# David Llop, 2014
+# Roger Pons <rogerpons@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
+"ca/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Search term(s)/phrase"
+msgstr "Cerca paraula(es)/frases"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Introduïu la cadena de recerca completa per trobar la coincidència. Es "
+"requereix una coincidència exacta pels Resultats Promocionats per ser "
+"mostrats. L'ús de comodins NO està permès."
+
+msgid "Query Daily Hits"
+msgstr "Consultar Visites Diàries"
+
+msgid "Popular search terms"
+msgstr "terminis de cerca populars"
+
+msgid "Search"
+msgstr "Cercar"
+
+msgid "Terms"
+msgstr "Termes"
+
+msgid "Views (past week)"
+msgstr "Vistes(la setmana pasada)"
+
+msgid "No results found"
+msgstr "No s'han trobat resultats"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Choose from popular search terms"
+msgstr "Trieu d'entre els termes populars de cerca"

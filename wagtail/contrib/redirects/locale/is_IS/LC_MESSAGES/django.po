@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018
+# saevarom <saevar@saevar.is>, 2015,2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-01-18 08:40+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtail tilvísanir"
+
+msgid "From site"
+msgstr "Frá síðu"
+
+msgid "All sites"
+msgstr "Allar síður"
+
+msgid "A redirect with this path already exists."
+msgstr "Tilvísun á þessa slóð er þegar til"
+
+msgid "redirect from"
+msgstr "Tilvísun frá"
+
+msgid "site"
+msgstr "síðu"
+
+msgid "permanent"
+msgstr "endanleg"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Mælt með. Endanleg tilvísun passar upp á að leitarvélar gleymi eldri síðunni "
+"(þaðan sem vísað er frá) og indexi nýju síðuna í staðinn."
+
+msgid "redirect to a page"
+msgstr "tilvísun á síðu"
+
+msgid "redirect to any URL"
+msgstr "tilvísun á slóð"
+
+msgid "temporary"
+msgstr "Tímabundið"
+
+msgid "redirect"
+msgstr "tilvísun"
+
+msgid "Add redirect"
+msgstr "Bæta við tilvísun"
+
+msgid "Save"
+msgstr "Vista"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Eyða tilvísun %(title)s"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Ertu viss um að þú viljir eyða þessari tilvísun?"
+
+msgid "Yes, delete"
+msgstr "Já, eyða"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Breyti %(title)s"
+
+msgid "Editing"
+msgstr "Breyti"
+
+msgid "Delete redirect"
+msgstr "Eyða tilvísun"
+
+msgid "Redirects"
+msgstr "Tilvísanir"
+
+msgid "From"
+msgstr "Frá"
+
+msgid "Site"
+msgstr "Síðu"
+
+msgid "To"
+msgstr "Til"
+
+msgid "Type"
+msgstr "Tegund"
+
+msgid "Edit this redirect"
+msgstr "Breyta þessari tilvísun"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Það er %(counter)s niðurstaða"
+msgstr[1] ""
+"\n"
+"Það eru %(counter)s niðurstöður"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Því miður finnast engar tilvísanir sem passa við \"<em>%(query_string)s</em>"
+"\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Engar tilvísanir hér. Viltu <a href=\"%(wagtailredirects_add_redirect_url)s"
+"\">búa til tilvísun</a>?"
+
+msgid "Search redirects"
+msgstr "Leita í tilvísunum"
+
+msgid "Redirect '{0}' updated."
+msgstr "Tilvísun '{0}' uppfærð."
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "The redirect could not be saved due to errors."
+msgstr ""
+"Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
+
+msgid "Redirect '{0}' deleted."
+msgstr "Tilvísun '{0}' eytt."
+
+msgid "Redirect '{0}' added."
+msgstr "Tilvísun '{0}' var bætt við."
+
+msgid "The redirect could not be created due to errors."
+msgstr ""
+"Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"

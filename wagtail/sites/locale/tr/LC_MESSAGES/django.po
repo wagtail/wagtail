@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Choose a root page"
+msgstr "Kök sayfayı seç"
+
+msgid "Choose a different root page"
+msgstr "Farklı bir kök sayfa seç"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Site name"
+msgstr "Site adı"
+
+msgid "Root page"
+msgstr "Kök sayfa"
+
+msgid "Default?"
+msgstr "Varsayılan?"
+
+msgid "Default"
+msgstr "Varsayılan"
+
+msgid "Sites"
+msgstr "Siteler"
+
+msgid "Add a site"
+msgstr "Site ekle"
+
+msgid "Add site"
+msgstr "Site ekle"
+
+msgid "Delete site"
+msgstr "Siteyi Sil"

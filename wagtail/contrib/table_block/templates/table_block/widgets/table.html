@@ -1,24 +1,34 @@
 {% load i18n %}
-{% load l10n %}
 <div class="field boolean_field widget-checkbox_input">
-    <label for="{{ attrs.id|unlocalize }}-handsontable-header">{%  trans 'Row header' %}</label>
+    <label for="{{ widget.attrs.id }}-handsontable-header">{% trans 'Row header' %}</label>
     <div class="field-content">
         <div class="input">
-            <input type="checkbox" id="{{ attrs.id|unlocalize }}-handsontable-header" name="handsontable-header"/>
+            <input type="checkbox" id="{{ widget.attrs.id }}-handsontable-header" name="handsontable-header"/>
         </div>
         <p class="help">{% trans 'Display the first row as a header.' %}</p>
     </div>
 </div>
 <br/>
 <div class="field boolean_field widget-checkbox_input">
-    <label for="{{ attrs.id|unlocalize }}-handsontable-col-header">{%  trans 'Column header' %}</label>
+    <label for="{{ widget.attrs.id }}-handsontable-col-header">{% trans 'Column header' %}</label>
     <div class="field-content">
         <div class="input">
-            <input type="checkbox" id="{{ attrs.id|unlocalize }}-handsontable-col-header" name="handsontable-col-header"/>
+            <input type="checkbox" id="{{ widget.attrs.id }}-handsontable-col-header" name="handsontable-col-header"/>
         </div>
         <p class="help">{% trans 'Display the first column as a header.' %}</p>
     </div>
 </div>
 <br/>
-<div id="{{ attrs.id|unlocalize }}-handsontable-container"></div>
-{{ original_field_html }}
+<div class="field">
+    <label for="{{ widget.attrs.id }}-handsontable-col-caption">{% trans 'Table caption' %}</label>
+    <div class="field-content">
+        <div class="input">
+          <input type="text" id="{{ widget.attrs.id }}-handsontable-col-caption" name="handsontable-col-caption" value="{{ widget.table_caption }}"/>
+        </div>
+        <p class="help">{% trans 'A heading that identifies the overall topic of the table, and is useful for screen reader users' %}</p>
+    </div>
+</div>
+<br/>
+<div id="{{ widget.attrs.id }}-handsontable-container"></div>
+{% include 'django/forms/widgets/hidden.html' %}
+<script>initTable("{{ widget.attrs.id|escapejs }}", {{ widget.table_options_json|safe }});</script>

@@ -1,26 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ExplorerPanel #isError 1`] = `
+exports[`ExplorerPanel general rendering #isError 1`] = `
 <FocusTrap
   _createFocusTrap={[Function]}
   active={true}
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
-      "onDeactivate": [Function],
+      "initialFocus": ".c-explorer__header",
+      "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
     className="c-explorer__close u-hidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
-    onClick={[Function]}
+    onClick={[MockFunction]}
     preventDefault={true}
     target={null}
   >
@@ -28,12 +30,14 @@ exports[`ExplorerPanel #isError 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
     <div
       className="c-transition-group"
+      key="0"
     >
       <ExplorerHeader
         depth={0}
@@ -50,9 +54,12 @@ exports[`ExplorerPanel #isError 1`] = `
       <div
         className="c-explorer__drawer"
       >
-        <div />
+        <div
+          key="children"
+        />
         <div
           className="c-explorer__placeholder"
+          key="error"
         >
           Server Error
         </div>
@@ -72,27 +79,29 @@ exports[`ExplorerPanel #isError 1`] = `
 </FocusTrap>
 `;
 
-exports[`ExplorerPanel #isFetching 1`] = `
+exports[`ExplorerPanel general rendering #isFetching 1`] = `
 <FocusTrap
   _createFocusTrap={[Function]}
   active={true}
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
-      "onDeactivate": [Function],
+      "initialFocus": ".c-explorer__header",
+      "onDeactivate": [MockFunction],
     }
   }
   paused={true}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
     className="c-explorer__close u-hidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
-    onClick={[Function]}
+    onClick={[MockFunction]}
     preventDefault={true}
     target={null}
   >
@@ -100,12 +109,14 @@ exports[`ExplorerPanel #isFetching 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
     <div
       className="c-transition-group"
+      key="0"
     >
       <ExplorerHeader
         depth={0}
@@ -122,9 +133,12 @@ exports[`ExplorerPanel #isFetching 1`] = `
       <div
         className="c-explorer__drawer"
       >
-        <div />
+        <div
+          key="children"
+        />
         <div
           className="c-explorer__placeholder"
+          key="fetching"
         >
           <LoadingSpinner />
         </div>
@@ -134,27 +148,29 @@ exports[`ExplorerPanel #isFetching 1`] = `
 </FocusTrap>
 `;
 
-exports[`ExplorerPanel #items 1`] = `
+exports[`ExplorerPanel general rendering #items 1`] = `
 <FocusTrap
   _createFocusTrap={[Function]}
   active={true}
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
-      "onDeactivate": [Function],
+      "initialFocus": ".c-explorer__header",
+      "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
     className="c-explorer__close u-hidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
-    onClick={[Function]}
+    onClick={[MockFunction]}
     preventDefault={true}
     target={null}
   >
@@ -162,12 +178,14 @@ exports[`ExplorerPanel #items 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
     <div
       className="c-transition-group"
+      key="0"
     >
       <ExplorerHeader
         depth={0}
@@ -186,7 +204,9 @@ exports[`ExplorerPanel #items 1`] = `
       <div
         className="c-explorer__drawer"
       >
-        <div>
+        <div
+          key="children"
+        >
           <ExplorerItem
             item={
               Object {
@@ -198,6 +218,7 @@ exports[`ExplorerPanel #items 1`] = `
                 },
               }
             }
+            key="1"
             onClick={[Function]}
           />
           <ExplorerItem
@@ -211,6 +232,7 @@ exports[`ExplorerPanel #items 1`] = `
                 },
               }
             }
+            key="2"
             onClick={[Function]}
           />
         </div>
@@ -220,27 +242,29 @@ exports[`ExplorerPanel #items 1`] = `
 </FocusTrap>
 `;
 
-exports[`ExplorerPanel no children 1`] = `
+exports[`ExplorerPanel general rendering no children 1`] = `
 <FocusTrap
   _createFocusTrap={[Function]}
   active={true}
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
-      "onDeactivate": [Function],
+      "initialFocus": ".c-explorer__header",
+      "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
     className="c-explorer__close u-hidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
-    onClick={[Function]}
+    onClick={[MockFunction]}
     preventDefault={true}
     target={null}
   >
@@ -248,12 +272,14 @@ exports[`ExplorerPanel no children 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
     <div
       className="c-transition-group"
+      key="0"
     >
       <ExplorerHeader
         depth={0}
@@ -269,6 +295,7 @@ exports[`ExplorerPanel no children 1`] = `
       >
         <div
           className="c-explorer__placeholder"
+          key="empty"
         >
           No results
         </div>
@@ -278,27 +305,29 @@ exports[`ExplorerPanel no children 1`] = `
 </FocusTrap>
 `;
 
-exports[`ExplorerPanel renders 1`] = `
+exports[`ExplorerPanel general rendering renders 1`] = `
 <FocusTrap
   _createFocusTrap={[Function]}
   active={true}
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__close",
-      "onDeactivate": [Function],
+      "initialFocus": ".c-explorer__header",
+      "onDeactivate": [MockFunction],
     }
   }
   paused={false}
-  tag="nav"
+  role="dialog"
+  tag="div"
 >
   <Button
     accessibleLabel={null}
     className="c-explorer__close u-hidden"
+    dialogTrigger={false}
     href="#"
     icon=""
     isLoading={false}
-    onClick={[Function]}
+    onClick={[MockFunction]}
     preventDefault={true}
     target={null}
   >
@@ -306,12 +335,14 @@ exports[`ExplorerPanel renders 1`] = `
   </Button>
   <Transition
     className="c-explorer"
-    component="div"
+    component="nav"
     duration={210}
+    label="Page explorer"
     name="push"
   >
     <div
       className="c-transition-group"
+      key="0"
     >
       <ExplorerHeader
         depth={0}
@@ -327,7 +358,9 @@ exports[`ExplorerPanel renders 1`] = `
       <div
         className="c-explorer__drawer"
       >
-        <div />
+        <div
+          key="children"
+        />
       </div>
     </div>
   </Transition>

@@ -1,0 +1,21 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{% trans "Account" %}{% endblock %}
+{% block content %}
+    {% trans "Account" as account_str %}
+    {% include "wagtailadmin/shared/header.html" with title=account_str %}
+
+    <div class="nice-padding">
+        <ul class="listing">
+            {% for item in items %}
+                <li class="row row-flush">
+                    <div class="col6">
+                        <a href="{{ item.url }}" class="button button-primary">{{ item.label }}</a>
+                    </div>
+                    <small class="col6">{{ item.help_text }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

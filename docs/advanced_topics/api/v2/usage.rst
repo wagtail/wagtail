@@ -2,11 +2,6 @@
 Wagtail API v2 Usage Guide
 ==========================
 
-.. note::
-
-   This is the usage guide for version 2 of the API. For version 1, see
-   :doc:`/reference/contrib/api/usage`
-
 The Wagtail API module exposes a public, read only, JSON-formatted API which
 can be used by external clients (such as a mobile app) or the site's frontend.
 
@@ -238,7 +233,7 @@ different order.
 .. note::
 
     It's not possible to use ``?offset`` while ordering randomly because
-    consistent random ordering cannot be guarenteed over multiple requests
+    consistent random ordering cannot be guaranteed over multiple requests
     (so requests for subsequent pages may return results that also appeared in
     previous pages).
 
@@ -427,6 +422,18 @@ All exported fields will be returned in the response by default. You can use the
 For example: ``/api/v2/pages/1/?fields=_,title,body`` will return just the
 ``title`` and ``body`` of the page with the id of 1.
 
+
+.. _apiv2_finding_pages_by_path:
+
+Finding pages by HTML path
+--------------------------
+
+You can find an individual page by its HTML path using the ``/api/v2/pages/find/?html_path=<path>`` view.
+
+This will return either a ``302`` redirect response to that page's detail view, or a ``404`` not found response.
+
+For example: ``/api/v2/pages/find/?html_path=/`` always redirects to the homepage of the site
+
 Default endpoint fields
 =======================
 
@@ -533,7 +540,7 @@ Major features
 Minor features
 --------------
 
- - ``html_url``, ``slug``, ``first_publised_at``, ``expires_at`` and
+ - ``html_url``, ``slug``, ``first_published_at``, ``expires_at`` and
    ``show_in_menus`` fields have been added to the pages endpoint
  - ``download_url`` field has been added to the documents endpoint
  - Multiple page types can be specified in ``type`` parameter on pages endpoint

@@ -8,7 +8,7 @@ Issues
 
 An issue must always correspond to a specific action with a well-defined completion state: fixing a bug, adding a new feature, updating documentation, cleaning up code. Open-ended issues where the end result is not immediately clear ("come up with a way of doing translations") are fine, as long as there's a clear way to progress the issue and identify when it has been completed (not e.g. "make rich text fields suck less").
 
-Do not use issues for support queries or other questions ("How do I do X?" - although "Implement a way of doing X" or "Document how to do X" could well be valid issues). These should be asked on `Stack Overflow <http://stackoverflow.com/questions/tagged/wagtail>`_, or for discussions that do not fit Stack Overflow's question-and-answer format, the `Wagtail Support Google group <https://groups.google.com/forum/#!forum/wagtail>`_.
+Do not use issues for support queries or other questions ("How do I do X?" - although "Implement a way of doing X" or "Document how to do X" could well be valid issues). These should be asked on `Stack Overflow <https://stackoverflow.com/questions/tagged/wagtail>`_, or for discussions that do not fit Stack Overflow's question-and-answer format, the `Wagtail Support Google group <https://groups.google.com/forum/#!forum/wagtail>`_.
 
 As soon as a ticket is opened - ideally within one day - a member of the core team will give it an initial classification, by either closing it as invalid or assigning it to a milestone. Don't be discouraged if you feel that your ticket has been given a lower priority than it deserves - this decision isn't permanent. We will consider all feedback, and reassign or reopen tickets where appropriate.
 
@@ -18,7 +18,7 @@ The possible milestones that it might be assigned to are as follows:
 
 * **invalid** (closed): this issue doesn't identify a specific action to be taken, or the action is not one that we want to take. For example - a bug report for something that's working as designed, or a feature request for something that's actively harmful.
 * **some-day**: the issue is accepted as valid (i.e. it's a bug report for a legitimate bug, or a useful feature request) but not deemed a priority to work on (in the opinion of the core team). For example - a bug that's only cosmetic, or a feature that would be kind of neat but not really essential. There are no resources allocated to it - feel free to take it on!
-* **real-soon-now**: the issue is considered important by the core team (roughly speaking: it's a bug or missing feature that's causing headaches for people) but isn't necessarily going to be completed on any set timescale. There are no resources allocated to it - feel free to take it on!
+* **real-soon-now**: no-one on the core team has resources allocated to work on this right now, but we know it's a pain point, and it will be prioritised whenever we next get a chance to choose something new to work on. In practice, that kind of free choice doesn't happen very often - there are lots of pressures determining what we work on from day to day - so if this is a feature or fix you need, we encourage you to work on it and contribute a pull request, rather than waiting for the core team to get round to it!
 * A specific version number (eg. **1.6**): the issue is important enough that it needs to be fixed in this version. There are resources allocated and/or plans to work on the issue in the given version.
 
 On some occasions it may take longer for the core team to classify an issue into a milestone. For example:

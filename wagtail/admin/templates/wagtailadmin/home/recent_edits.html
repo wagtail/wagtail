@@ -1,0 +1,47 @@
+{% load i18n wagtailadmin_tags %}
+{% if last_edits %}
+    <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
+        <section>
+            <h2>{% trans "Your most recent edits" %}</h2>
+            <table class="listing listing-page">
+                <col />
+                <col width="15%"/>
+                <col width="15%"/>
+                <thead>
+                    <tr>
+                        <th class="title">{% trans "Title" %}</th>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Status" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for revision, page in last_edits %}
+                        <tr>
+                            <td class="title" valign="top">
+                                <div class="title-wrapper">
+                                    <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
+
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+                                </div>
+                                <ul class="actions">
+                                    <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
+                                    {% if page.has_unpublished_changes %}
+                                        <li><a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Draft' %}</a></li>
+                                    {% endif %}
+                                    {% if page.live %}
+                                        <li><a href="{{ page.url }}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Live' %}</a></li>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                            <td valign="top"><div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=revision.created_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div></td>
+                            <td valign="top">
+                                {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endif %}

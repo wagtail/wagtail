@@ -1,0 +1,348 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# IT Management <info@itmanagement.cz>, 2018
+# Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail uživatelé"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Povinné pole, maximálně 30 znaků. Povolené znaky: písmena bez diakritiky, "
+"číslice, @, ., +, -, _."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Toto pole může obsahovat pouze písmena bez diakritiky, číslice, @, ., +, -, "
+"_."
+
+msgid "A user with that username already exists."
+msgstr "Toto uživatelské jméno již existuje."
+
+msgid "The two password fields didn't match."
+msgstr "Zadaná hesla se neshodují."
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "First Name"
+msgstr "Jméno"
+
+msgid "Last Name"
+msgstr "Příjmení"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Leave blank if not changing."
+msgstr "Nevyplňuje, chcete-li zachovat současné heslo."
+
+msgid "Password confirmation"
+msgstr "Potvrzení hesla"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Pro zabránění překlepům zadejte heslo ještě jednou."
+
+msgid "Administrator"
+msgstr "Administrátor"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administrátor má plný přístup ke správě jakéhokoliv objektu nebo nastavení."
+
+msgid "A group with that name already exists."
+msgstr "Skupina s tímto názvem již existuje."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Oprávnění pro stejnou stránku nemůže být nastaveno vícekrát."
+
+msgid "Preferred language"
+msgstr "Preferovaný jazyk"
+
+msgid "Current time zone"
+msgstr "Aktuální časové pásmo"
+
+msgid "Upload a profile picture"
+msgstr "Nahrát profilový obrázek"
+
+msgid "submitted notifications"
+msgstr "odeslané upozornění"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Upozornit, když je stránka odeslána ke schválení"
+
+msgid "approved notifications"
+msgstr "schválené upozornění"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Upozornit, když je vaše stránka schválena"
+
+msgid "rejected notifications"
+msgstr "odmítnuté upozornění"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Upozornit, když je vaše stránka zamítnuta"
+
+msgid "preferred language"
+msgstr "preferovaný jazyk"
+
+msgid "Select language for the admin"
+msgstr "Zvolte jazyk pro redakční systém"
+
+msgid "current time zone"
+msgstr "aktuální časové pásmo"
+
+msgid "Select your current time zone"
+msgstr "Zvolte Vaše časové pásmo"
+
+msgid "profile picture"
+msgstr "profilový obrázek"
+
+msgid "user profile"
+msgstr "uživatelský profile"
+
+msgid "user profiles"
+msgstr "uživatelské profily"
+
+msgid "Delete group"
+msgstr "Smazat skupinu"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Skupina \"%(group_name)s\" obsahuje <strong>%(group_user_count)s</strong> "
+"uživatele."
+msgstr[1] ""
+"\n"
+"Skupina \"%(group_name)s\" obsahuje <strong>%(group_user_count)s</strong> "
+"uživatele."
+msgstr[2] ""
+"\n"
+"Skupina \"%(group_name)s\" obsahuje <strong>%(group_user_count)s</strong> "
+"uživatelů."
+msgstr[3] ""
+"\n"
+"Skupina \"%(group_name)s\" obsahuje <strong>%(group_user_count)s</strong> "
+"uživatelů."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Smazání této skupiny způsobí odebrání skupinového oprávnění všem jejím "
+"členům."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Opravdu chcete smazat tuto skupinu?"
+
+msgid "Yes, delete"
+msgstr "Ano, smazat"
+
+msgid "Add group"
+msgstr "Přidat skupinu"
+
+msgid "Editing"
+msgstr "Úprava"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Object permissions"
+msgstr "Oprávnění k objektům"
+
+msgid "Name"
+msgstr "Název"
+
+msgid "Add"
+msgstr "Přidat"
+
+msgid "Change"
+msgstr "Upravit"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Other permissions"
+msgstr "Ostatní oprávnění"
+
+msgid "Page permissions"
+msgstr "Oprávnění ke stránce"
+
+msgid "Page"
+msgstr "Stránka"
+
+msgid "Add a page permission"
+msgstr "Přidat oprávnění ke stránce"
+
+msgid "groups"
+msgstr "skupin"
+
+msgid "Add a group"
+msgstr "Přidat skupinu"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Bohužel, výrazu \"%(query)s\" neodpovídají žádné skupiny"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Nebyly nalezeny žádné skupiny. Novou skupinu můžete přidat <a href="
+"\"%(wagtailusers_create_group_url)s\">zde</a>."
+
+msgid "Delete user"
+msgstr "Smazat uživatele"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Opravdu chcete smazat tohoto uživatele?"
+
+msgid "Add user"
+msgstr "Přidat uživatele"
+
+msgid "Account"
+msgstr "Účet"
+
+msgid "Roles"
+msgstr "Role"
+
+msgid "Users"
+msgstr "Uživatelé"
+
+msgid "Add a user"
+msgstr "Přidat uživatele"
+
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+msgid "Level"
+msgstr "Úroveň"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Last Login"
+msgstr "Poslední přihlášení"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Aktivní"
+
+msgid "Inactive"
+msgstr "Neaktivní"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "před %(time_period)s"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Nalezen %(counter)s výsledek"
+msgstr[1] ""
+"\n"
+"Nalezeny %(counter)s výsledky"
+msgstr[2] ""
+"\n"
+"Nalezeno %(counter)s výsledků"
+msgstr[3] ""
+"\n"
+"Nalezeno %(counter)s výsledků"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Bohužel, výrazu <em>\"%(query_string)s\"</em> neodpovídají žádní uživatelé"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"\">add some</a>?"
+msgstr ""
+"Nebyly nalezeny žádní uživatelé. Nového uživatele můžete přidat <a href="
+"\"%(wagtailusers_create_url)s\">zde</a>."
+
+msgid "Groups"
+msgstr "Skupiny"
+
+msgid "Search groups"
+msgstr "Hledat skupiny"
+
+msgid "Group '{0}' created."
+msgstr "Skupina '{0}' byla vytvořena."
+
+msgid "Group '{0}' updated."
+msgstr "Skupina '{0}' byla upravena."
+
+msgid "The group could not be saved due to errors."
+msgstr "Skupinu nelze uložit, zkontrolujte správné vyplnění polí."
+
+msgid "Group '{0}' deleted."
+msgstr "Skupina '{0}' byla smazána."
+
+msgid "Search users"
+msgstr "Hledat uživatele"
+
+msgid "User '{0}' created."
+msgstr "Uživatel '{0}' byl vytvořen."
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "The user could not be created due to errors."
+msgstr "Uživatele nelze vytvořit, zkontrolujte správné vyplnění polí."
+
+msgid "User '{0}' updated."
+msgstr "Uživatel '{0}' byl upraven."
+
+msgid "The user could not be saved due to errors."
+msgstr "Uživatele nelze uložit, zkontrolujte správné vyplnění polí."
+
+msgid "User '{0}' deleted."
+msgstr "Uživatel '{0}' byl smazán."
+
+msgid "Edit this user"
+msgstr "Upravit tohoto uživatele"
+
+msgid "Delete this user"
+msgstr "Smazat tohoto uživatele"

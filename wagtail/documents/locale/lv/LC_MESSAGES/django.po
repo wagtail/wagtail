@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "Add"
+msgstr "Pievienot"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Choose a document"
+msgstr "Izvēlēties dokumentu"
+
+msgid "Search"
+msgstr "Meklēt"
+
+msgid "Upload"
+msgstr "Augšupielādēt"
+
+msgid "Latest documents"
+msgstr "Jaunākie dokumenti"
+
+msgid "Change document:"
+msgstr "Mainīt dokumentu:"
+
+msgid "Add a document"
+msgstr "Pievienot dokumentu"
+
+msgid "Add document"
+msgstr "Pievienot dokumentu"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Dzēst %(title)s"
+
+msgid "Delete document"
+msgstr "Dzēst dokumentu"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Vai vēlaties dzēst šo dokumentu?"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Labo %(title)s"
+
+msgid "Editing"
+msgstr "Labošana"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Filesize"
+msgstr "Faila izmērs"
+
+msgid "File not found"
+msgstr "Fails netika atrasts"
+
+msgid "Documents"
+msgstr "Dokumenti"
+
+msgid "Title"
+msgstr "Virsraksts"
+
+msgid "File"
+msgstr "Fails"
+
+msgid "Uploaded"
+msgstr "Augšupielādēts"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s lietojums"
+
+msgid "Usage of"
+msgstr "Lietojums"
+
+msgid "Type"
+msgstr "Veids"
+
+msgid "Status"
+msgstr "Statuss"
+
+msgid "Edit this page"
+msgstr "Labot šo lapu"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Search documents"
+msgstr "Meklēt dokumentus"
+
+msgid "Document '{0}' added."
+msgstr "Dokuments '{0}' tika pievienots."
+
+msgid "The document could not be saved due to errors."
+msgstr "Dokumentu nevarēja saglabāt kļūdu dēļ."
+
+msgid "Document '{0}' updated"
+msgstr "Dokuments '{0}' atjaunots"
+
+msgid "Document '{0}' deleted."
+msgstr "Dokuments '{0}' tika dzēsts."
+
+msgid "Choose another document"
+msgstr "Izvēlēties citu dokumentu."
+
+msgid "Edit this document"
+msgstr "Labot šo dokumentu"

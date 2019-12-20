@@ -1,0 +1,243 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+# Aarni Koskela, 2016
+# Glen Somerville <glen.somerville@gmail.com>, 2015
+# Rauli L. <rauli.laine@iki.fi>, 2016
+# Rauli L. <rauli.laine@iki.fi>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "hostname"
+msgstr "isäntäosoite"
+
+msgid "port"
+msgstr "portti"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Aseta tämä joksikin muuksi kuin 80 jos tarvitset tietyn portin käyttöön URL:"
+"eissa (esim. portti 8000 kehitystä varten). Tämä ei vaikuta kutsujen "
+"käsittelyyn (porttiohjaus toimii edelleen)."
+
+msgid "site name"
+msgstr "sivuston nimi"
+
+msgid "Human-readable name for the site."
+msgstr "Ihmisen luettava nimi sivustolle."
+
+msgid "root page"
+msgstr "juurisivu"
+
+msgid "is default site"
+msgstr "on oletussivusto"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Mikäli valittu, tämä sivusto käsittelee kaikkien palvelinnimien kutsut "
+"joilla ei ole omaa sivusto määritystä"
+
+msgid "site"
+msgstr "sivusto"
+
+msgid "sites"
+msgstr "sivustot"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s on jo määritelty oletus sivustoksi. Poista ensin oletusmääritys "
+"ennen kuin määrität tämän sivuston oletussivustoksi."
+
+msgid "title"
+msgstr "otsikko"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Sivun otsikko sellaisena kuin haluat sen näkyvän julkisesti"
+
+msgid "slug"
+msgstr "lyhytnimi"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Sivun nimi kuten se esiintyy URL:eissa esim. http://domain.com/blog/"
+"[polkutunnus]/"
+
+msgid "content type"
+msgstr "sisältötyyppi"
+
+msgid "live"
+msgstr "julkaistu"
+
+msgid "has unpublished changes"
+msgstr "sis. julkaisemattomia muutoksia"
+
+msgid "URL path"
+msgstr "URL polku"
+
+msgid "owner"
+msgstr "omistaja"
+
+msgid "page title"
+msgstr "sivun otsikko"
+
+msgid ""
+"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
+"browser window."
+msgstr ""
+"Vapaaehtoinen. Hakukoneystävällinen otsikko. Tämä näkyy selainikkunan "
+"otsikkona."
+
+msgid "show in menus"
+msgstr "näytä valikoissa"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Näytä linkki tälle sivulle automaattisesti tuotetuissa valikoissa"
+
+msgid "search description"
+msgstr "hakukuvaus"
+
+msgid "go live date/time"
+msgstr "julkaisupäivämäärä ja -aika"
+
+msgid "expiry date/time"
+msgstr "poistumispäivämäärä ja -aika"
+
+msgid "expired"
+msgstr "vanhentunut"
+
+msgid "locked"
+msgstr "lukittu"
+
+msgid "first published at"
+msgstr "ensin julkaistu"
+
+msgid "latest revision created at"
+msgstr "uusin versio luotu"
+
+msgid "This slug is already in use"
+msgstr "Lyhytnimi on jo käytössä."
+
+msgid "scheduled"
+msgstr "ajoitettu"
+
+msgid "draft"
+msgstr "luonnos"
+
+msgid "live + draft"
+msgstr "julkaistu + luonnos"
+
+msgid "Default"
+msgstr "Oletus"
+
+msgid "page"
+msgstr "sivu"
+
+msgid "pages"
+msgstr "sivut"
+
+msgid "submitted for moderation"
+msgstr "lähetetty tarkastettavaksi"
+
+msgid "created at"
+msgstr "luotu"
+
+msgid "user"
+msgstr "käyttäjä"
+
+msgid "content JSON"
+msgstr "sisältö-JSON"
+
+msgid "approved go live at"
+msgstr "hyväksytty julkistus"
+
+msgid "page revision"
+msgstr "sivuversio"
+
+msgid "page revisions"
+msgstr "sivuversiot"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Add/edit pages you own"
+msgstr "Lisää/muokkaa sivuja jota omistat"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Edit any page"
+msgstr "Muokkaa mitä vain sivua"
+
+msgid "Publish"
+msgstr "Julkaise"
+
+msgid "Publish any page"
+msgstr "Julkaise kaikkia sivuja"
+
+msgid "Lock"
+msgstr "Lukitse"
+
+msgid "Lock/unlock any page"
+msgstr "Lukitse/poista lukitus kaikille sivuille"
+
+msgid "group"
+msgstr "ryhmä"
+
+msgid "permission type"
+msgstr "oikeustyyppi"
+
+msgid "group page permission"
+msgstr "ryhmä/sivu-oikeus"
+
+msgid "group page permissions"
+msgstr "ryhmä/sivu-oikeudet"
+
+msgid "password"
+msgstr "salasana"
+
+msgid "page view restriction"
+msgstr "sivunkatselurajoitus"
+
+msgid "page view restrictions"
+msgstr "sivunkatselurajoitukset"
+
+msgid "collection"
+msgstr "kokoelma"
+
+msgid "name"
+msgstr "nimi"
+
+msgid "collections"
+msgstr "kokoelmat"
+
+msgid "permission"
+msgstr "oikeudet"
+
+msgid "group collection permission"
+msgstr "ryhmä/kokoelma-oikeus"

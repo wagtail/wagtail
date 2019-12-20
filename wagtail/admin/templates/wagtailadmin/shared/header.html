@@ -1,0 +1,47 @@
+{% load i18n %}
+{% comment %}
+
+    Variables accepted by this template:
+
+    title
+    subtitle
+
+    search_url - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
+    query_parameters - a query string (without the '?') to be placed after the search URL
+
+    icon - name of an icon to place against the title
+
+    tabbed - if true, add the classname 'tab-merged'
+    merged - if true, add the classname 'merged'
+
+    add_link - if present, display an 'add' button. This is a URL route name (taking no parameters) to be used as the link URL for the button
+    add_text - text for the 'add' button
+{% endcomment %}
+<header class="{% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}" role="banner">
+    {% block breadcrumb %}{% endblock %}
+    <div class="row nice-padding">
+        <div class="left">
+            <div class="col header-title">
+                <h1 class="icon icon-{{ icon }}">
+                {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
+            </div>
+            {% if search_url %}
+                <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
+                    <ul class="fields">
+                        {% for field in search_form %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
+                        {% endfor %}
+                        <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
+                    </ul>
+                </form>
+            {% endif %}
+        </div>
+        <div class="right">
+            {% if add_link %}
+                <div class="addbutton">
+                    <a href="{% url add_link %}" class="button bicolor icon icon-plus">{{ add_text }}</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</header>

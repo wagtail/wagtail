@@ -1,0 +1,359 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail-bilder"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Støttede formater: %(supported_formats)s. Maksimal filstørrelse: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Støttede formater: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "Ikke et støttet bildeformat. Støttede formater: %s."
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Ikke et gyldig %s-bilde."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "Denne fila er for stor (%%s). Maksimal filstørrelse er %s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "Denne fila er for stor. Maksimal filstørrelse er %s."
+
+msgid "Full width"
+msgstr "Fullbredde"
+
+msgid "Left-aligned"
+msgstr "Venstrejustert"
+
+msgid "Right-aligned"
+msgstr "Høyrejustert"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Original size"
+msgstr "Original størrelse"
+
+msgid "Resize to width"
+msgstr "Endre til spesifisert bredde"
+
+msgid "Resize to height"
+msgstr "Endre til spesifisert høyde"
+
+msgid "Resize to min"
+msgstr "Dekk gitte dimensjoner"
+
+msgid "Resize to max"
+msgstr "Pass innen gitte dimensjoner"
+
+msgid "Resize to fill"
+msgstr "Endre til eksakte dimensjoner"
+
+msgid "Width"
+msgstr "Bredde"
+
+msgid "Height"
+msgstr "Høyde"
+
+msgid "Closeness"
+msgstr "Nærhet til fokuspunkt"
+
+msgid "Add"
+msgstr "Legg til"
+
+msgid "Add/edit images you own"
+msgstr "Legg til/rediger bilder du eier"
+
+msgid "Edit"
+msgstr "Endre"
+
+msgid "Edit any image"
+msgstr "Rediger ethvert bilde"
+
+msgid "title"
+msgstr "tittel"
+
+msgid "file"
+msgstr "fil"
+
+msgid "width"
+msgstr "bredde"
+
+msgid "height"
+msgstr "høyde"
+
+msgid "created at"
+msgstr "opprettet"
+
+msgid "uploaded by user"
+msgstr "opplastet av bruker"
+
+msgid "tags"
+msgstr "stikkord"
+
+msgid "image"
+msgstr "bilde"
+
+msgid "images"
+msgstr "bilder"
+
+msgid "Choose an image"
+msgstr "Velg et bilde"
+
+msgid "Search"
+msgstr "Søk"
+
+msgid "Upload"
+msgstr "Last opp"
+
+msgid "Popular tags"
+msgstr "Populære stikkord"
+
+msgid "Uploading…"
+msgstr "Laster opp…"
+
+msgid "Latest images"
+msgstr "Siste bilder"
+
+msgid "Choose a format"
+msgstr "Velg et format"
+
+msgid "Insert image"
+msgstr "Sett inn bilde"
+
+msgid "Change image file:"
+msgstr "Endre bildefil:"
+
+msgid "Add an image"
+msgstr "Legg til et bilde"
+
+msgid "Add image"
+msgstr "Legg til bilde"
+
+msgid "Save"
+msgstr "Lagre"
+
+msgid "Delete image"
+msgstr "Slett bilde"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Brukt %(usage_count)s gang"
+msgstr[1] "Brukt %(usage_count)s ganger"
+
+msgid "Are you sure you want to delete this image?"
+msgstr "Er du sikker på at du vil slette dette bildet?"
+
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Endrer bilde %(title)s"
+
+msgid "Editing"
+msgstr "Endrer"
+
+msgid "URL Generator"
+msgstr "URL-generator"
+
+msgid "Current focal point shown"
+msgstr "Nåværende fokuspunkt vises"
+
+msgid "Remove focal area"
+msgstr "Fjern fokuspunkt"
+
+msgid "Max dimensions"
+msgstr "Maksimale dimensjoner"
+
+msgid "Filesize"
+msgstr "Filstørrelse"
+
+msgid "File not found"
+msgstr "Fil ikke funnet"
+
+msgid "Usage"
+msgstr "Bruk"
+
+msgid "Images"
+msgstr "Bilder"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Beklager, ingen bilder samsvarer med <em>\"%(query_string)s\"</em>"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Du har ikke lastet opp noen bilder til denne samlingen. Hvorfor ikke <a href="
+"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Du har ikke lastet opp noen bilder. Hvorfor ikke <a href="
+"\"%(wagtailimages_add_image_url)s\">laste opp et nå</a>?"
+
+msgid "Generating URL"
+msgstr "Genererer URL"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Forhåndsvis"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"Merk at bilder som genereres større enn skjermen vil fremstå mindre når de "
+"forhåndsvises her, så de har plass på skjermen."
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Bruk av %(title)s"
+
+msgid "Usage of"
+msgstr "Bruk av"
+
+msgid "Title"
+msgstr "Tittel"
+
+msgid "Parent"
+msgstr "Forelder"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Rediger denne siden"
+
+msgid "Add multiple images"
+msgstr "Legg til flere bilder"
+
+msgid "Add images"
+msgstr "Legg til bilder"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Dra og slipp bilder i dette feltet for å laste opp umiddelbart."
+
+msgid "Or choose from your computer"
+msgstr "Eller velg fra din datamaskin"
+
+msgid "Add to collection:"
+msgstr "Legg til i samling:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Opplasting vellykket. Du kan oppdatere dette bildet me den mer passende "
+"tittel, om nødvendig. Du kan også slette bildet dersom opplastingen ikke var "
+"nødvendig."
+
+msgid "Sorry, upload failed."
+msgstr "Beklager, opplasting feilet."
+
+msgid "Server Error"
+msgstr "Serverfeil"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
+
+msgid "Image updated."
+msgstr "Bildet er oppdatert."
+
+msgid "Update"
+msgstr "Oppdater"
+
+msgid "Delete"
+msgstr "Slett"
+
+msgid "Image permissions"
+msgstr "Bildetillatelser"
+
+msgid "Add an image permission"
+msgstr "Legg til bildetillatelse"
+
+msgid "Search images"
+msgstr "Søk i bilder"
+
+msgid "Image '{0}' updated."
+msgstr "Bildet \"{0}\" er oppdatert."
+
+msgid "Edit again"
+msgstr "Endre igjen"
+
+msgid "The image could not be saved due to errors."
+msgstr "Bildet kunne ikke lagres grunnet feil."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr "Bildefila ble ikke funnet. Endre kilde for bildet eller slett det."
+
+msgid "Image '{0}' deleted."
+msgstr "Bildet \"{0}\" er slettet."
+
+msgid "Image '{0}' added."
+msgstr "Bildet \"{0}\" er lagt til."
+
+msgid "The image could not be created due to errors."
+msgstr "Bildet kunne ikke opprettes grunnet feil."
+
+msgid "Image"
+msgstr "Bilde"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s bilde"
+msgstr[1] "%(count)s bilder"
+
+msgid "Change image"
+msgstr "Velg et annet bilde"
+
+msgid "Edit this image"
+msgstr "Rediger dette bildet"

@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% comment %}
+Navigation controls for the page listing in 'explore' mode
+{% endcomment %}
+
+<td class="{% if page.is_navigable %}children{% else %}no-children{% endif %}">
+    {% if page.is_navigable %}
+        <a href="{% url 'wagtailadmin_explore' page.id %}" class="icon text-replace icon-arrow-right" title="{% blocktrans with title=page.get_admin_display_title %}Explore child pages of '{{ title }}'{% endblocktrans %}">{% trans "Explore" %}</a>
+    {% elif page_perms.can_add_subpage %}
+        <a href="{% url 'wagtailadmin_pages:add_subpage' page.id %}" class="icon text-replace icon-plus-inverse" title="{% blocktrans with title=page.get_admin_display_title %}Add a child page to '{{ title }}'{% endblocktrans %}">{% trans 'Add child page' %}</a>
+    {% endif %}
+</td>

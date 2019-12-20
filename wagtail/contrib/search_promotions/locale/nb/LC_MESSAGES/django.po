@@ -1,0 +1,169 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016,2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2018-10-28 14:56+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
+"language/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail-søkepromotering"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Vennligst spesifiser minst en anbefaling for dette søkeordet."
+
+msgid "page"
+msgstr "side"
+
+msgid "description"
+msgstr "beskrivelse"
+
+msgid "search promotion"
+msgstr "søkepromotering"
+
+msgid "Add search promotion"
+msgstr "Legg til søkepromotering"
+
+msgid "Add search pick"
+msgstr "Legg til søkevalg"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>Forfremmede søkeresultater er en måte å anbefale spesifikke sider som "
+"ikke nødvendigvis kommer høyt opp i søkeresultater. Feks. kan man anbefale "
+"kontaktsiden for en bruker som søker etter ordet <em>\"tilbakemelding\"</em>."
+"</p>\n"
+" "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>Feltet \"Søkeord/-frase\" under må inneholde den fullstendige og eksakte "
+"søkestrengen som du ønsker å gi anbefalinger for, <em>inkludert</em> vanlige "
+"feilstavinger eller andre brukerfeil. Det kan være nyttig å se på hvilke "
+"søkeord som har vært mye brukt på nettstedet.</p>\n"
+" "
+
+msgid "Save"
+msgstr "Lagre"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Slett %(query)s"
+
+msgid "Delete"
+msgstr "Slett"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Er du sikker på at du vil slette alle forfremmede resultater for dette "
+"søkeordet?"
+
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Endrer %(query)s"
+
+msgid "Editing"
+msgstr "Endrer"
+
+msgid "Move up"
+msgstr "Flytt opp"
+
+msgid "Move down"
+msgstr "Flytt ned"
+
+msgid "Promoted search result"
+msgstr "Forfremmet søkeresultat"
+
+msgid "Add recommended page"
+msgstr "Legg til anbefalt side"
+
+msgid "Search Terms"
+msgstr "Søkeord"
+
+msgid "Promoted search results"
+msgstr "Forfremmede søkeresultater"
+
+msgid "Add new promoted result"
+msgstr "Legg til nytt forfremmet resultat"
+
+msgid "Search term(s)"
+msgstr "Søkeord"
+
+msgid "Promoted results"
+msgstr "Forfremmede resultater"
+
+msgid "Views (past week)"
+msgstr "Visninger (siste uke)"
+
+msgid "Edit this promotion"
+msgstr "Rediger denne promoteringen"
+
+msgid "None"
+msgstr "Ingen"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Beklager, ingen forfremmede resultater samsvarer med \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Ingen forfremmede resultater har blitt opprettet. Hvorfor ikke <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">legge til et</a>?"
+
+msgid "Search promoted results"
+msgstr "Søk i forfremmede resultater"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "Redaktørvalg for \"{0}\" er opprettet."
+
+msgid "Edit"
+msgstr "Endre"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Anbefalinger kunne ikke opprettes grunnet feil"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "Redaktørvalg for \"{0}\" oppdatert."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Anbefalinger kunne ikke lagres grunnet feil"
+
+msgid "Editor's picks deleted."
+msgstr "Redaktørvalg slettet."

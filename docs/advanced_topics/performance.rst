@@ -13,14 +13,16 @@ We have tried to minimise external dependencies for a working installation of Wa
 Cache
 -----
 
-We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Redis through your package manager (on Debian or Ubuntu: ``sudo apt-get install redis-server``), add ``django-redis`` to your ``requirements.txt``, and enable it as a cache backend:
+We recommend `Redis <https://redis.io/>`_ as a fast, persistent cache. Install Redis through your package manager (on Debian or Ubuntu: ``sudo apt-get install redis-server``), add ``django-redis`` to your ``requirements.txt``, and enable it as a cache backend:
 
 .. code-block:: python
 
     CACHES = {
         'default': {
             'BACKEND': 'django_redis.cache.RedisCache',
-            'LOCATION': '127.0.0.1:6379',
+            'LOCATION': 'redis://127.0.0.1:6379/dbname',
+            # for django-redis < 3.8.0, use:
+            # 'LOCATION': '127.0.0.1:6379',
             'OPTIONS': {
                 'CLIENT_CLASS': 'django_redis.client.DefaultClient',
             }
@@ -31,7 +33,7 @@ We recommend `Redis <http://redis.io/>`_ as a fast, persistent cache. Install Re
 Search
 ------
 
-Wagtail has strong support for `Elasticsearch <http://www.elasticsearch.org/>`_ - both in the editor interface and for users of your site - but can fall back to a database search if Elasticsearch isn't present. Elasticsearch is faster and more powerful than the Django ORM for text search, so we recommend installing it or using a hosted service like `Searchly <http://www.searchly.com/>`_.
+Wagtail has strong support for `Elasticsearch <https://www.elastic.co>`_ - both in the editor interface and for users of your site - but can fall back to a database search if Elasticsearch isn't present. Elasticsearch is faster and more powerful than the Django ORM for text search, so we recommend installing it or using a hosted service like `Searchly <http://www.searchly.com/>`_.
 
 For details on configuring Wagtail for Elasticsearch, see :ref:`wagtailsearch_backends_elasticsearch`.
 
@@ -39,13 +41,13 @@ For details on configuring Wagtail for Elasticsearch, see :ref:`wagtailsearch_ba
 Database
 --------
 
-Wagtail is tested on SQLite, and should work on other Django-supported database backends, but we recommend PostgreSQL for production use.
+Wagtail is tested on PostgreSQL, SQLite and MySQL. It should work on some third-party database backends as well (Microsoft SQL Server is known to work but currently untested). We recommend PostgreSQL for production use.
 
 
 Templates
 ---------
 
-The overhead from reading and compiling templates can add up. In some cases a significant performance improvement can be gained by using `Django's cached template loader <https://docs.djangoproject.com/en/1.10/ref/templates/api/#django.template.loaders.cached.Loader>`_:
+The overhead from reading and compiling templates can add up. In some cases a significant performance improvement can be gained by using :class:`Django's cached template loader <django.template.loaders.cached.Loader>`:
 
 .. code-block:: python
 
@@ -73,6 +75,6 @@ Public users
 Caching proxy
 -------------
 
-To support high volumes of traffic with excellent response times, we recommend a caching proxy. Both `Varnish <http://www.varnish-cache.org/>`_ and `Squid <http://www.squid-cache.org/>`_ have been tested in production. Hosted proxies like `Cloudflare <https://www.cloudflare.com/>`_ should also work well.
+To support high volumes of traffic with excellent response times, we recommend a caching proxy. Both `Varnish <https://varnish-cache.org/>`_ and `Squid <http://www.squid-cache.org/>`_ have been tested in production. Hosted proxies like `Cloudflare <https://www.cloudflare.com/>`_ should also work well.
 
  Wagtail supports automatic cache invalidation for Varnish/Squid. See :ref:`frontend_cache_purging` for more information.

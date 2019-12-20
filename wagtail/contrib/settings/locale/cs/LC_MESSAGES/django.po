@@ -3,31 +3,34 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# IT Management <info@itmanagement.cz>, 2018
 # Marek Turnovec <aesculap@gmail.com>, 2016
+# IT Management <info@itmanagement.cz>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 16:55+0000\n"
-"PO-Revision-Date: 2016-08-18 20:57+0000\n"
-"Last-Translator: Marek Turnovec <aesculap@gmail.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Upravování %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
-msgstr "Upravavování"
+msgstr "Úprava"
 
-msgid "Saving..."
-msgstr "Ukládání..."
+msgid "Saving…"
+msgstr "Ukládání…"
 
 msgid "Save"
 msgstr "Uložit"
@@ -35,9 +38,8 @@ msgstr "Uložit"
 msgid "Settings"
 msgstr "Nastavení"
 
-#, python-brace-format
-msgid "{setting_type} updated."
-msgstr "{setting_type} aktualizováno."
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Nastavení nebylo možné načíst protože není definovaný žádný web."
 
 msgid "The setting could not be saved due to errors."
-msgstr "Nastavení nebylo možné uložit kvůli chybám."
+msgstr "Nastavení nelze uložit, zkontrolujte správné vyplnění polí."

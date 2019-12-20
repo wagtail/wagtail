@@ -1,0 +1,294 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018
+# saevarom <saevar@saevar.is>, 2017-2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail skrár"
+
+msgid "Add"
+msgstr "Bæta við"
+
+msgid "Add/edit documents you own"
+msgstr "Bæta við/breyta skrám sem þú átt"
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Edit any document"
+msgstr "Breyta einhverri skrá"
+
+msgid "title"
+msgstr "titill"
+
+msgid "file"
+msgstr "skrá"
+
+msgid "created at"
+msgstr "búin til"
+
+msgid "uploaded by user"
+msgstr "hlaðið inn af"
+
+msgid "tags"
+msgstr "merki"
+
+msgid "document"
+msgstr "skrá"
+
+msgid "documents"
+msgstr "skjöl"
+
+msgid "Choose a document"
+msgstr "Veldu skrá"
+
+msgid "Search"
+msgstr "Leita"
+
+msgid "Upload"
+msgstr "Hlaða upp"
+
+msgid "Uploading…"
+msgstr "Hleð upp..."
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Það er %(counter)s niðurstaða\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Það eru %(counter)s niðurstöður\n"
+"        "
+
+msgid "Latest documents"
+msgstr "Síðustu skrár"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Því miður eru engar skrár sem passa við \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Þú hefur ekki hlaðið neinum skrám í þetta safn."
+
+msgid "You haven't uploaded any documents."
+msgstr "Þú hefur ekki hlaðið upp neinum skjölum."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            Viltu <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">hlaða einu upp núna</a>?\n"
+"            "
+
+msgid "Change document:"
+msgstr "Breyta skrá"
+
+msgid "Add a document"
+msgstr "Bæta við skrá"
+
+msgid "Add document"
+msgstr "Bæta við skrá"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Eyða %(title)s"
+
+msgid "Delete document"
+msgstr "Eyða skrá"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Notað %(usage_count)s sinni"
+msgstr[1] "Notað %(usage_count)s sinnum"
+
+msgid "Are you sure you want to delete this document?"
+msgstr "Ertu viss um að þú viljir eyða þessari skrá?"
+
+msgid "Yes, delete"
+msgstr "Já, eyða"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Breyti %(title)s"
+
+msgid "Editing"
+msgstr "Er að breyta"
+
+msgid "Save"
+msgstr "Vista"
+
+msgid "Filesize"
+msgstr "Skráarstærð"
+
+msgid "File not found"
+msgstr "Skrá fannst ekki"
+
+msgid "Usage"
+msgstr "Notkun"
+
+msgid "Documents"
+msgstr "Skrár"
+
+msgid "Title"
+msgstr "Titill"
+
+msgid "File"
+msgstr "Skrá"
+
+msgid "Collection"
+msgstr "Safn"
+
+msgid "Uploaded"
+msgstr "Hlaðið upp"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s síðan"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Þú hefur ekki hlaðið neinum skrám í þetta safn. Hví ekki að<a href="
+"\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Þú hefur ekki hlaðið neinum skrám. Hví ekki að<a href="
+"\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Notkun á %(title)s"
+
+msgid "Usage of"
+msgstr "Notkun á"
+
+msgid "Parent"
+msgstr "Yfirsíða"
+
+msgid "Type"
+msgstr "Tegund"
+
+msgid "Status"
+msgstr "Staða"
+
+msgid "Edit this page"
+msgstr "Breyta þessari síðu"
+
+msgid "Add multiple documents"
+msgstr "Bæta við mörgum skrám"
+
+msgid "Add documents"
+msgstr "Bæta við skrá"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Dragðu skrár hingað til að hlaða þeim upp."
+
+msgid "Or choose from your computer"
+msgstr "Eða veldu þær úr tölvunni þinni"
+
+msgid "Add to collection:"
+msgstr "Bæta í safn:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Tókst að hlaða inn skrá. Vinsamlegast breytið titli skráarinnar ef það þarf. "
+"Þú getur einni eytt skránni alveg ef þú vilt hætta við."
+
+msgid "Sorry, upload failed."
+msgstr "Því miður tókst ekki að hlaða upp skránum."
+
+msgid "Update"
+msgstr "Uppfæra"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "You need a password to access this document."
+msgstr "Þú þarft lykilorð til að fá aðgang að þessari skrá"
+
+msgid "Document permissions"
+msgstr "Aðgangsheimildir skráar"
+
+msgid "Add a document permission"
+msgstr "Bæta við aðgangsheimildum á skrá"
+
+msgid "Server Error"
+msgstr "Villa á vefþjóni"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
+
+msgid "Search documents"
+msgstr "Leita að skrám"
+
+msgid "Document '{0}' added."
+msgstr "Skrá '{0}' bætt við."
+
+msgid "The document could not be saved due to errors."
+msgstr "Ekki var hægt að vista skránna vegna villna."
+
+msgid "Document '{0}' updated"
+msgstr "Skrá '{0}' uppfærð"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Skráin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
+
+msgid "Document '{0}' deleted."
+msgstr "Skrá '{0}' hefur verið eytt."
+
+msgid "Document"
+msgstr "Skrá"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s skrá"
+msgstr[1] "%(count)s skrár"
+
+msgid "Choose another document"
+msgstr "Veldu aðra skrá"
+
+msgid "Edit this document"
+msgstr "Breyta þessari skrá"

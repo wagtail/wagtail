@@ -1,0 +1,42 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailimages_tags wagtailadmin_tags i18n %}
+
+{% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% trans "Generating URL" as title_str %}
+    {% include "wagtailadmin/shared/header.html" with title=title_str subtitle=image.title icon="image" %}
+
+    <div class="image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages:generate_url' image.id '__filterspec__' %}">
+        <form>
+            <ul class="fields">
+                {% include "wagtailadmin/shared/field_as_li.html" with field=form.filter_method %}
+                <li>
+                    <ul class="field-row">
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.width li_classes="field-col col4" %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.height li_classes="field-col col4" %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=form.closeness li_classes="field-col col4" %}
+                    </ul>
+                </li>
+            </ul>
+        </form>
+
+        <h2 class="icon icon-link">{% trans "URL" %}</h2>
+        <textarea id="result-url" rows="1"></textarea>
+
+        <h2 class="icon icon-view">{% trans "Preview" %}</h2>
+        <div>
+            <div class="loading-mask inline-block">
+                <img class="preview" src="" alt="{% trans 'Preview' %}" />
+            </div>
+        </div>
+        <p id="note-size" class="help-block help-warning">{% trans "Note that images generated larger than the screen will appear smaller when previewed here, so they fit the screen." %}</p>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/image-url-generator.js' %}"></script>
+{% endblock %}

@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from weakref import WeakKeyDictionary
 
 import jinja2
@@ -7,7 +5,7 @@ from django.utils.encoding import force_str
 from jinja2.ext import Extension
 
 from wagtail.contrib.settings.registry import registry
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 # Settings are cached per template context, to prevent excessive database
 # lookups. The cached settings are disposed of once the template context is no
@@ -34,12 +32,12 @@ class SiteSettings(dict):
     A cache of Settings for a specific Site
     """
     def __init__(self, site):
-        super(SiteSettings, self).__init__()
+        super().__init__()
         self.site = site
 
     def __getitem__(self, key):
         # Normalise all keys to lowercase
-        return super(SiteSettings, self).__getitem__(force_str(key).lower())
+        return super().__getitem__(force_str(key).lower())
 
     def __missing__(self, key):
         """
@@ -79,7 +77,7 @@ def get_setting(context, model_string, use_default_site=False):
 
 class SettingsExtension(Extension):
     def __init__(self, environment):
-        super(SettingsExtension, self).__init__(environment)
+        super().__init__(environment)
         self.environment.globals.update({
             'settings': get_setting,
         })
