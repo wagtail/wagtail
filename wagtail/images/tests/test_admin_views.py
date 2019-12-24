@@ -50,7 +50,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         for i in range(1, 50):
             self.image = Image.objects.create(
                 title="Test image %i" % i,
-                file=get_test_image_file(),
+                file=get_test_image_file(size=(1, 1)),
                 collection=evil_plans_collection
             )
 
@@ -85,6 +85,85 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(
             [collection.name for collection in response.context['collections']],
             ['Root', 'Evil plans', 'Good plans'])
+
+
+    def test_tags(self):
+        image_two_tags = Image.objects.create(
+            title="Test image with two tags",
+            file=get_test_image_file(),
+        )
+        image_two_tags.tags.add("one", "two")
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+        current_tag = response.context['current_tag']
+        self.assertIsNone(current_tag)
+
+        tags = response.context['popular_tags']
+        self.assertTrue(
+            [tag.name for tag in tags] == ["one", "two"]
+            or [tag.name for tag in tags] == ["two", "one"]
+        )
+
+
+    def test_tag_filtering(self):
+        Image.objects.create(
+            title="Test image with no tags",
+            file=get_test_image_file(),
+        )
+
+        image_one_tag = Image.objects.create(
+            title="Test image with one tag",
+            file=get_test_image_file(),
+        )
+        image_one_tag.tags.add("one")
+
+        image_two_tags = Image.objects.create(
+            title="Test image with two tags",
+            file=get_test_image_file(),
+        )
+        image_two_tags.tags.add("one", "two")
+
+        # no filtering
+        response = self.get()
+        self.assertEqual(response.context['images'].paginator.count, 3)
+
+        # filter all images with tag 'one'
+        response = self.get({'tag': 'one'})
+        self.assertEqual(response.context['images'].paginator.count, 2)
+
+        # filter all images with tag 'two'
+        response = self.get({'tag': 'two'})
+        self.assertEqual(response.context['images'].paginator.count, 1)
+
+
+    def test_tag_filtering_preserves_other_params(self):
+        for i in range(1, 100):
+            image = Image.objects.create(
+                title="Test image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+            if (i % 2 != 0):
+                image.tags.add('even')
+                image.save()
+
+
+        response = self.get({'tag': 'even', 'p': 2})
+        self.assertEqual(response.status_code, 200)
+
+        response_body = response.content.decode('utf8')
+
+        # prev link should exist and include tag
+        self.assertTrue(
+            "?p=2&amp;tag=even" in response_body
+            or "?tag=even&amp;p=1" in response_body
+        )
+        # next link should exist and include tag
+        self.assertTrue(
+            "?p=3&amp;tag=even" in response_body
+            or "?tag=even&amp;p=3" in response_body
+        )
 
 
 class TestImageAddView(TestCase, WagtailTestUtils):

@@ -66,6 +66,10 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
         new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
         return new_class
 
+    @classmethod
+    def child_form(cls):
+        return WagtailAdminModelForm
+
 
 class WagtailAdminModelForm(ClusterForm, metaclass=WagtailAdminModelFormMetaclass):
     @property

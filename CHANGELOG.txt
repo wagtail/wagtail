@@ -4,6 +4,7 @@ Changelog
 2.8 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Django 3.0 support (Matt Westcott, Mads Jensen)
  * Removed support for Django 2.0
  * Removed leftover Python 2.x compatibility code (Sergey Fedoseev)
  * Combine flake8 configurations (Sergey Fedoseev)
@@ -15,6 +16,11 @@ Changelog
  * Added `ancestors` field to pages endpoint in admin API (Karl Hobley)
  * Removed Django admin management of `Page` & `Site` models (Andreas Bernacca)
  * Cleaned up Django docs URLs in documentation (Pete Andrew)
+ * Add StreamFieldPanel to available panel types in documentation (Dan Swain)
+ * Add {{ block.super }} example to ModelAdmin customisation in documentation (Dan Swain)
+ * Add ability to filter image index by a tag (Benedikt Willi)
+ * Add formal support for nested InlinePanels (Matt Westcott)
+ * Added cache control headers when serving documents (Johannes Vogel)
  * Fix: Rename documents listing column 'uploaded' to 'created' (LB (Ben Johnston))
  * Fix: Submenu items longer then the page height are no longer broken by the submenu footer (Igor van Spengen)
  * Fix: Unbundle the l18n library as it was bundled to avoid installation errors which have been resolved (Matt Westcott)
@@ -24,6 +30,9 @@ Changelog
  * Fix: All templates with wagtailsettings and modeladmin now use `block.super` for `extra_js` & `extra_css` (Timothy Bautista)
  * Fix: Layout issue when using FieldRowPanel with a heading (Andreas Bernacca)
  * Fix: `file_size` and `file_hash` not updated when Document file changed (Andreas Bernacca)
+ * Fix: Fixed order of URLs in project template so that static / media URLs are not blocked (Nick Smith)
+ * Fix: Added verbose_name_plural for form submission model (Janneke Janssen)
+
 
 2.7 LTS (06.11.2019)
 ~~~~~~~~~~~~~~~~~~~~
