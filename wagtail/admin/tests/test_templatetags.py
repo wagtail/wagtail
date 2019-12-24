@@ -74,7 +74,7 @@ class TestVersionedStatic(TestCase):
         mock_static.return_value = '/static/wagtailadmin/js/core.js?v=123'
         result = versioned_static('wagtailadmin/js/core.js')
         self.assertEqual(result, '/static/wagtailadmin/js/core.js?v=123')
-        mock_static.assert_called_once()
+        mock_static.assert_called_once_with('wagtailadmin/js/core.js')
 
     def test_versioned_static_absolute_path(self):
         result = versioned_static('/static/wagtailadmin/js/core.js')
