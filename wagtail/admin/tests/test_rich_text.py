@@ -7,6 +7,7 @@ from django.urls import reverse
 from wagtail.admin.rich_text import (
     DraftailRichTextArea, HalloRichTextArea, get_rich_text_editor_widget)
 from wagtail.admin.rich_text.converters.editor_html import PageLinkHandler
+from wagtail.admin.rich_text.editors.draftail.features import Feature
 from wagtail.admin.rich_text.editors.hallo import HalloPlugin
 from wagtail.core.blocks import RichTextBlock
 from wagtail.core.models import Page, get_page_models
@@ -757,6 +758,16 @@ class TestWidgetNotHidden(SimpleTestCase):
             HalloRichTextArea().is_hidden,
             False,
         )
+
+
+class TestDraftailFeature(SimpleTestCase):
+    def test_versioned_static_media(self):
+        feature = Feature(js=['wagtailadmin/js/example/feature.js'], css={
+            'all': ['wagtailadmin/css/example/feature.css'],
+        })
+        media_html = str(feature.media)
+        self.assertRegex(media_html, r'feature.js\?v=(\w+)')
+        self.assertRegex(media_html, r'feature.css\?v=(\w+)')
 
 
 class TestHalloPlugin(SimpleTestCase):
