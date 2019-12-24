@@ -1,3 +1,5 @@
+from unittest import mock
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -67,9 +69,12 @@ class TestVersionedStatic(TestCase):
         result = versioned_static('wagtailadmin/js/core.js')
         self.assertRegex(result, r'^/static/wagtailadmin/js/core.js\?v=(\w+)$')
 
-    def test_versioned_static_querystring(self):
-        result = versioned_static('wagtailadmin/js/core.js?version=1')
-        self.assertEqual(result, 'wagtailadmin/js/core.js?version=1')
+    @mock.patch('wagtail.admin.staticfiles.static')
+    def test_versioned_static_version_string(self, mock_static):
+        mock_static.return_value = '/static/wagtailadmin/js/core.js?v=123'
+        result = versioned_static('wagtailadmin/js/core.js')
+        self.assertEqual(result, '/static/wagtailadmin/js/core.js?v=123')
+        mock_static.assert_called_once()
 
     def test_versioned_static_absolute_path(self):
         result = versioned_static('/static/wagtailadmin/js/core.js')
