@@ -12,13 +12,19 @@ QUERY_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         }
 
         var searchUrl = $('form.query-search', modal.body).attr('action');
+        var request;
+
         function search() {
-            $.ajax({
+            request = $.ajax({
                 url: searchUrl,
                 data: {q: $('#id_q').val()},
                 success: function(data, status) {
+                    request = null;
                     $('#query-results').html(data);
                     ajaxifyLinks($('#query-results'));
+                },
+                error: function() {
+                    request = null;
                 }
             });
             return false;
@@ -31,12 +37,16 @@ QUERY_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 dataObj = {p: page};
             }
 
-            $.ajax({
+            request = $.ajax({
                 url: searchUrl,
                 data: dataObj,
                 success: function(data, status) {
+                    request = null;
                     $('#query-results').html(data);
                     ajaxifyLinks($('#query-results'));
+                },
+                error: function() {
+                    request = null;
                 }
             });
             return false;
@@ -53,6 +63,9 @@ QUERY_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         $('form.query-search', modal.body).on('submit', search);
 
         $('#id_q').on('input', function() {
+            if (request) {
+                request.abort();
+            }
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);
