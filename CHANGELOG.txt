@@ -36,6 +36,7 @@ Changelog
  * Fix: Added verbose_name_plural for form submission model (Janneke Janssen)
  * Fix: Prevent `update_index` failures and incorrect front-end rendering on blank `TableBlock` (Carlo Ascani)
  * Fix: Dropdown initialisation on the search page after AJAX call (Eric Sherman)
+ * Fix: Make sure all modal chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
 
 
 2.7.1 (08.01.2020)

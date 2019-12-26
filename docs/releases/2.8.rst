@@ -61,6 +61,7 @@ Bug fixes
  * Added verbose_name_plural for form submission model (Janneke Janssen)
  * Prevent ``update_index`` failures and incorrect front-end rendering on blank ``TableBlock`` (Carlo Ascani)
  * Dropdown initialisation on the search page after AJAX call (Eric Sherman)
+ * Make sure all modal chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
 
 
 Upgrade considerations
