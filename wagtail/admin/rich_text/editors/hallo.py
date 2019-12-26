@@ -2,6 +2,7 @@ import json
 from collections import OrderedDict
 
 from django.forms import Media, widgets
+from django.utils.functional import cached_property
 
 from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
@@ -147,7 +148,7 @@ class HalloRichTextArea(widgets.Textarea):
             return None
         return self.converter.to_database_format(original_value)
 
-    @property
+    @cached_property
     def media(self):
         media = Media(js=[
             versioned_static('wagtailadmin/js/vendor/hallo.js'),
