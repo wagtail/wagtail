@@ -2,10 +2,11 @@ from unittest.mock import patch
 
 from django.test import TestCase
 
-from wagtail.core.rich_text import RichText, expand_db_html
+from wagtail.core.rich_text import LinkHandler, RichText, expand_db_html
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
 from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.rich_text.rewriters import LinkRewriter, extract_attrs
+from wagtail.tests.testapp.models import AdvertWithCustomPrimaryKey
 
 
 class TestPageLinktypeHandler(TestCase):
@@ -18,6 +19,32 @@ class TestPageLinktypeHandler(TestCase):
     def test_expand_db_attributes_not_for_editor(self):
         result = PageLinkHandler.expand_db_attributes({'id': 1})
         self.assertEqual(result, '<a href="None">')
+
+
+class CustomEntityHandlerTests(TestCase):
+    def test_entity_with_custom_primary_key(self):
+        class AdvertLinkHandler(LinkHandler):
+            identifier = 'advert'
+
+            @staticmethod
+            def get_model():
+                return AdvertWithCustomPrimaryKey
+
+            @classmethod
+            def expand_db_attributes(cls, attrs):
+                advert = cls.get_instance(attrs)
+                return '<a href="%s">' % advert.url
+
+        AdvertWithCustomPrimaryKey.objects.create(
+            advert_id='wagtail',
+            url='https://wagtail.io',
+            text='Wagtail'
+        )
+
+        self.assertEqual(
+            AdvertLinkHandler.expand_db_attributes({'id': 'wagtail'}),
+            '<a href="https://wagtail.io">'
+        )
 
 
 class TestExtractAttrs(TestCase):
