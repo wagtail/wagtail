@@ -26,6 +26,7 @@ Changelog
  * Fix: Revise `edit_handler` bind order in ModelAdmin views and fix duplicate form instance creation (Jérôme Lebleu)
  * Fix: Properly distinguish child blocks when comparing revisions with nested StreamBlocks (Martin Mena)
  * Fix: Correctly handle Turkish 'İ' characters in client-side slug generation (Matt Westcott)
+ * Fix: Page chooser widgets now reflect custom ``get_admin_display_title`` methods (Saptak Sengupta)
 
 
 2.10.2 (25.09.2020)

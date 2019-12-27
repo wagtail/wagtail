@@ -40,6 +40,7 @@ Bug fixes
  * Revise ``edit_handler`` bind order in ModelAdmin views and fix duplicate form instance creation (Jérôme Lebleu)
  * Properly distinguish child blocks when comparing revisions with nested StreamBlocks (Martin Mena)
  * Correctly handle Turkish 'İ' characters in client-side slug generation (Matt Westcott)
+ * Page chooser widgets now reflect custom ``get_admin_display_title`` methods (Saptak Sengupta)
 
 
 Upgrade considerations

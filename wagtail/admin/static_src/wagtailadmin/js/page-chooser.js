@@ -26,7 +26,7 @@ function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPer
                 pageChosen: function(pageData) {
                     input.val(pageData.id);
                     openAtParentId = pageData.parentId;
-                    pageTitle.text(pageData.title);
+                    pageTitle.text(pageData.adminTitle);
                     chooserElement.removeClass('blank');
                     editLink.attr('href', pageData.editUrl);
                 }
