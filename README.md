@@ -52,6 +52,8 @@ Wagtail is used by NASA, Google, Oxfam, the NHS, Mozilla, MIT, the Red Cross, Sa
 
 ### Compatibility
 
+_(If you are reading this on GitHub, the details here may not be indicative of the current released version - please see [Compatible Django / Python versions](https://docs.wagtail.io/en/stable/releases/upgrading.html#compatible-django-python-versions) in the Wagtail documentation.)_
+
 Wagtail supports:
 
 * Django 2.1.x, 2.2.x and 3.0.x
