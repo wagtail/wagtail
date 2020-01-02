@@ -3,6 +3,12 @@
 .page-editor {
     .content-wrapper {
         margin-bottom: 10em;
+
+        .content {
+            padding-bottom: 10em;
+            // Extra padding to make space for the footer
+            // (https://github.com/wagtail/wagtail/issues/5742)
+        }
     }
 
     .breadcrumb {
@@ -94,7 +100,7 @@ $object-title-height: 40px;
         height: $object-title-height;
         -webkit-font-smoothing: auto;
         background: $color-salmon-light;
-        color: #200200;
+        color: /*#200200*/#0070d0;
         text-transform: uppercase;
         padding: 0.9em 0 0.9em 4.1em;
         font-size: 0.95em;
