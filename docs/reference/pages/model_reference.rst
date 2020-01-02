@@ -115,7 +115,7 @@ Database fields
 
         The user who has currently locked the page. Only this user can edit the page.
 
-        If this is ``None`` when ``locked`` is ``False``, nobody can edit the page.
+        If this is ``None`` when ``locked`` is ``True``, nobody can edit the page.
 
     .. attribute:: locked_at
 
