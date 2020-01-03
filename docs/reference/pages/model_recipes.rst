@@ -222,3 +222,28 @@ You may want redirects created automatically when a url gets changed in the admi
 
 
 Note: This does not work in some cases e.g. when you redirect a page, create a new page in that url and then move the new one. It should be helpful in most cases however.
+
+
+Dynamically generate a page title
+---------------------------------
+
+You may want to dynamically generate a page title, for example by combining two fields.
+For this, you need to set the ``Page`` attribute ``has_generated_title`` to ``True`` and override the ``get_page_title()`` method.
+This method should return a string which will be set as the page title.
+You probably want to hide the title field in this case, so make sure to not add the ``content_panels`` of the ``Page`` superclass to the list of ``content_panels``.
+
+.. code-block:: python
+
+    class PersonPage(Page):
+        first_name = models.TextField()
+        last_name = models.TextField()
+
+        content_panels = [
+            FieldPanel('first_name'),
+            FieldPanel('last_name'),
+        ]
+
+        has_generated_title = True
+
+        def get_page_title(self):
+            return '{} {}'.format(self.first_name, self.last_name)

@@ -248,6 +248,16 @@ In addition to the model fields provided, ``Page`` has many properties and metho
         Forms must be a subclass of :class:`~wagtail.admin.forms.WagtailAdminPageForm`.
         See :ref:`custom_edit_handler_forms` for more information.
 
+    .. attribute:: has_generated_title
+
+        If set to ``True`` the ``get_page_title()`` method will be executed to generate a page title.
+        The method is not implemented on the ``Page`` class and has to be defined on the given subclass.
+
+        .. code-block:: python
+
+            def get_page_title(self):
+                return '{} {}'.format(self.first_name, self.last_name)
+
     .. automethod:: with_content_json
 
 .. _site-model-ref:
