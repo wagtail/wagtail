@@ -1833,6 +1833,30 @@ class UserPagePermissionsProxy:
         """Return True if the user has permission to publish any pages"""
         return self.publishable_pages().exists()
 
+    def unlockable_pages(self):
+        """Return a queryset of the pages that this user has permission to unlock"""
+        # Deal with the trivial cases first...
+        if not self.user.is_active:
+            return Page.objects.none()
+        if self.user.is_superuser:
+            return Page.objects.all()
+
+        unlockable_pages = Page.objects.none()
+
+        for perm in self.permissions.filter(permission_type='unlock'):
+            # user has publish permission on any subpage of perm.page
+            # (including perm.page itself)
+            unlockable_pages |= Page.objects.descendant_of(perm.page, inclusive=True)
+
+        pages_locked_by_user = Page.objects.filter(locked_by=self.user)
+        unlockable_pages |= pages_locked_by_user
+
+        return unlockable_pages
+
+    def can_unlock_pages(self):
+        """Return True if the user has permission to unlock any pages"""
+        return self.unlockable_pages().exists()
+
 
 class PagePermissionTester:
     def __init__(self, user_perms, page):

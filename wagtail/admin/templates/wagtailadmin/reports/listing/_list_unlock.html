@@ -7,23 +7,27 @@
     <td>
         {% page_permissions page as perms %}
         <p>
-            {% with page.locked_at|date:"d M Y H:i" as locking_date %}
-                {% if page.locked_by %}
-                    {% if page.locked_by_id == request.user.pk %}
-                        {% blocktrans %}
-                            Locked by <b>you</b> at <b>{{ locking_date }}</b>
-                        {% endblocktrans %}
+            {% if page.locked_at %}
+                {% with page.locked_at|date:"d M Y H:i" as locking_date %}
+                    {% if page.locked_by %}
+                        {% if page.locked_by_id == request.user.pk %}
+                            {% blocktrans %}
+                                Locked by <b>you</b> at <b>{{ locking_date }}</b>
+                            {% endblocktrans %}
+                        {% else %}
+                            {% blocktrans with locked_by=page.locked_by %}
+                                Locked by <b>{{ locked_by }}</b> at <b>{{ locking_date }}</b>
+                            {% endblocktrans %}
+                        {% endif %}
                     {% else %}
-                        {% blocktrans with locked_by=page.locked_by %}
-                            Locked by <b>{{ locked_by }}</b> at <b>{{ locking_date }}</b>
+                        {% blocktrans %}
+                            Locked at <b>{{ locking_date }}</b>
                         {% endblocktrans %}
                     {% endif %}
-                {% else %}
-                    {% blocktrans %}
-                        Locked at <b>{{ locking_date }}</b>
-                    {% endblocktrans %}
-                {% endif %}
-            {% endwith %}
+                {% endwith %}
+            {% else %}
+                {% trans 'Locked' %}
+            {% endif %}
         </p>
         {% if perms.can_unlock %}
             <form action="{% url 'wagtailadmin_pages:unlock' page.id %}" method="post">
