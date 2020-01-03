@@ -19,7 +19,8 @@ from wagtail.tests.testapp.models import (
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
     CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
     MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimpleChildPage,
-    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
+    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage,
+    SimplePageWithGeneratedTitle)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -110,6 +111,13 @@ class TestValidation(TestCase):
         homepage.add_child(instance=hello_page)
         retrieved_page = Page.objects.get(id=hello_page.id)
         self.assertEqual(retrieved_page.draft_title, "Hello world edited")
+
+    def test_generated_title(self):
+        homepage = Page.objects.get(url_path='/home/')
+        page = SimplePageWithGeneratedTitle(first_name='John', last_name='Doe')
+        homepage.add_child(instance=page)
+        self.assertEqual(page.title, 'John Doe')
+        self.assertEqual(page.slug, 'john-doe')
 
 
 @override_settings(ALLOWED_HOSTS=['localhost', 'events.example.com', 'about.example.com', 'unknown.site.com'])

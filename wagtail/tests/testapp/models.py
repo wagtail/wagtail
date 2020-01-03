@@ -1411,3 +1411,18 @@ class AddressTag(TaggedItemBase):
         on_delete=models.CASCADE,
         related_name='tagged_items'
     )
+
+
+class SimplePageWithGeneratedTitle(Page):
+    first_name = models.TextField()
+    last_name = models.TextField()
+
+    content_panels = [
+        FieldPanel('first_name'),
+        FieldPanel('last_name'),
+    ]
+
+    has_generated_title = True
+
+    def get_page_title(self):
+        return '{} {}'.format(self.first_name, self.last_name)
