@@ -362,6 +362,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
 
+    # If set to True, get_page_title() will be executed to generate a page title
+    has_generated_title = False
+
     # Define these attributes early to avoid masking errors. (Issue #3078)
     # The canonical definition is in wagtailadmin.edit_handlers.
     content_panels = []
@@ -430,6 +433,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def full_clean(self, *args, **kwargs):
         # Apply fixups that need to happen before per-field validation occurs
+
+        if self.has_generated_title:
+            self.title = self.get_page_title()
 
         if not self.slug:
             # Try to auto-populate slug from title
@@ -629,6 +635,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 return RouteResult(self)
             else:
                 raise Http404
+
+    def get_page_title(self):
+        """
+        This method can be overridden to programmatically generate the page title.
+        """
+        raise NotImplementedError
 
     def get_admin_display_title(self):
         """
