@@ -439,6 +439,7 @@ Contributors
 * Steve Lyall
 * Lars van de Kerkhof
 * pimarc
+* minusf
 
 Translators
 ===========
