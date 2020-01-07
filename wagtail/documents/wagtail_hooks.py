@@ -12,7 +12,6 @@ from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.core import hooks
 from wagtail.core.models import BaseViewRestriction
 from wagtail.core.wagtail_hooks import require_wagtail_login
@@ -76,8 +75,8 @@ def register_document_feature(features):
         HalloPlugin(
             name='hallowagtaildoclink',
             js=[
-                versioned_static('wagtaildocs/js/document-chooser-modal.js'),
-                versioned_static('wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js'),
+                'wagtaildocs/js/document-chooser-modal.js',
+                'wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js',
             ],
         )
     )
@@ -86,7 +85,7 @@ def register_document_feature(features):
             'type': 'DOCUMENT',
             'icon': 'doc-full',
             'description': ugettext('Document'),
-        }, js=[versioned_static('wagtaildocs/js/document-chooser-modal.js')])
+        }, js=['wagtaildocs/js/document-chooser-modal.js'])
     )
 
     features.register_converter_rule(
