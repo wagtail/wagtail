@@ -1,5 +1,7 @@
 from django.forms import Media
 
+from wagtail.admin.staticfiles import versioned_static
+
 # Feature objects: these are mapped to feature identifiers within the rich text
 # feature registry (wagtail.core.rich_text.features). Each one implements
 # a `construct_options` method which modifies an options dict as appropriate to
@@ -12,12 +14,17 @@ from django.forms import Media
 
 class Feature:
     def __init__(self, js=None, css=None):
-        self.js = js
-        self.css = css
+        self.js = js or []
+        self.css = css or {}
 
     @property
     def media(self):
-        return Media(js=self.js, css=self.css)
+        js = [versioned_static(js_file) for js_file in self.js]
+        css = {}
+        for media_type, css_files in self.css.items():
+            css[media_type] = [versioned_static(css_file) for css_file in css_files]
+
+        return Media(js=js, css=css)
 
 
 class BooleanFeature(Feature):
