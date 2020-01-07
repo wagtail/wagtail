@@ -622,7 +622,7 @@ class ReportsMenuItem(SubmenuMenuItem):
 
 class LockedPagesMenuItem(MenuItem):
     def is_shown(self, request):
-        return UserPagePermissionsProxy(request.user).can_unlock_pages()
+        return UserPagePermissionsProxy(request.user).can_remove_locks()
 
 
 @hooks.register('register_reports_menu_item')

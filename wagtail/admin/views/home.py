@@ -59,7 +59,8 @@ class LockedPagesPanel:
             'locked_pages': Page.objects.filter(
                 locked=True,
                 locked_by=self.request.user,
-            )
+            ),
+            'can_remove_locks': UserPagePermissionsProxy(self.request.user).can_remove_locks()
         }, request=self.request)
 
 
