@@ -14,8 +14,8 @@ from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.models import GroupPagePermission, Page, PageRevision
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
-    BusinessChild, BusinessIndex, BusinessSubIndex, DefaultStreamPage, SimplePage,
-    SingletonPage, SingletonPageViaMaxCount, StandardChild, StandardIndex)
+    BusinessChild, BusinessIndex, BusinessSubIndex, DefaultStreamPage, PersonPage,
+    SimplePage, SingletonPage, SingletonPageViaMaxCount, StandardChild, StandardIndex)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -895,3 +895,32 @@ class TestIssue2994(TestCase, WagtailTestUtils):
         new_page = DefaultStreamPage.objects.get(slug='issue-2994-test')
         self.assertEqual(1, len(new_page.body))
         self.assertEqual('hello world', new_page.body[0].value)
+
+
+class TestInlinePanelWithTags(TestCase, WagtailTestUtils):
+    # https://github.com/wagtail/wagtail/issues/5414#issuecomment-567080707
+
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        self.user = self.login()
+
+    def test_create(self):
+        post_data = {
+            'title': 'Mr Benn',
+            'slug': 'mr-benn',
+            'first_name': 'William',
+            'last_name': 'Benn',
+            'addresses-TOTAL_FORMS': 1,
+            'addresses-INITIAL_FORMS': 0,
+            'addresses-MIN_NUM_FORMS': 0,
+            'addresses-MAX_NUM_FORMS': 1000,
+            'addresses-0-address': "52 Festive Road, London",
+            'addresses-0-tags': "shopkeeper, bowler-hat",
+            'action-publish': "Publish",
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'personpage', self.root_page.id)), post_data
+        )
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+        new_page = PersonPage.objects.get(slug='mr-benn')
+        self.assertEqual(new_page.addresses.first().tags.count(), 2)
