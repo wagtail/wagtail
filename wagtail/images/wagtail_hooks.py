@@ -10,7 +10,6 @@ from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.core import hooks
 from wagtail.images import admin_urls, get_image_model, image_operations
 from wagtail.images.api.admin.views import ImagesAdminAPIViewSet
@@ -71,8 +70,8 @@ def register_image_feature(features):
         HalloPlugin(
             name='hallowagtailimage',
             js=[
-                versioned_static('wagtailimages/js/image-chooser-modal.js'),
-                versioned_static('wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'),
+                'wagtailimages/js/image-chooser-modal.js',
+                'wagtailimages/js/hallo-plugins/hallo-wagtailimage.js',
             ],
         )
     )
@@ -95,7 +94,7 @@ def register_image_feature(features):
                 'id': True,
             }
         }, js=[
-            versioned_static('wagtailimages/js/image-chooser-modal.js'),
+            'wagtailimages/js/image-chooser-modal.js',
         ])
     )
 
