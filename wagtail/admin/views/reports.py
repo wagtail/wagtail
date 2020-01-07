@@ -31,6 +31,6 @@ class LockedPagesView(ReportView):
         return super().get_queryset()
 
     def dispatch(self, request, *args, **kwargs):
-        if not UserPagePermissionsProxy(request.user).can_unlock_pages():
+        if not UserPagePermissionsProxy(request.user).can_remove_locks():
             return permission_denied(request)
         return super().dispatch(request, *args, **kwargs)

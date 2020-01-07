@@ -1835,7 +1835,12 @@ class UserPagePermissionsProxy:
 
     def can_remove_locks(self):
         """Returns True if the user has permission to unlock pages they have not locked"""
-        return self.user.is_superuser or self.permissions.filter(permission_type='unlock').exists()
+        if self.user.is_superuser:
+            return True
+        if not self.user.is_active:
+            return False
+        else:
+            return self.permissions.filter(permission_type='unlock').exists()
 
 
 class PagePermissionTester:
