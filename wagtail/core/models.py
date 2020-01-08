@@ -2552,6 +2552,12 @@ class Task(models.Model):
     def user_can_unlock(self, page, user):
         return False
 
+    def get_actions(self, page, user):
+        return []
+
+    def get_notifications(self, page, user):
+        return self.get_actions(page, user)
+
     class Meta:
         verbose_name = _('task')
         verbose_name_plural = _('tasks')
@@ -2611,7 +2617,7 @@ class GroupApprovalTask(Task):
         return False
 
     def get_actions(self, page, user):
-        if user.groups.filter(id=self.group_id).exists():
+        if user.is_superuser or user.groups.filter(id=self.group_id).exists():
             return [
                 ('approve', _("Approve")),
                 ('reject', _("Reject"))
@@ -2785,6 +2791,9 @@ class TaskState(models.Model):
         self.finished_at = timezone.now()
         self.save()
         return self
+
+    def get_recipients(self, notification, page, user):
+        return [self.workflow_state.requested_by]
 
     class Meta:
         verbose_name = _('Task state')
