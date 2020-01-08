@@ -84,6 +84,22 @@ Bug fixes
 Upgrade considerations
 ======================
 
+Edit locking behaviour changed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**MOVE TO 2.8 RELEASE NOTES**
+
+The behaviour of the page locking feature in the admin interface has been changed.
+In past versions, the page lock would apply to all users including the user who
+locked the page. Now, the user who locked the page can still edit it but all other
+users cannot.
+
+Pages that were locked before this release will continue to be locked in the same
+way as before, so this only applies to newly locked pages. If you would like to
+restore the previous behaviour, you can set the
+``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` setting to ``True``.
+
+
 Query strings added to static file URLs within the admin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -100,6 +100,28 @@ Database fields
 
             To set the global default for all pages, set ``Page.show_in_menus_default = True`` once where you first import the ``Page`` model.
 
+    .. attribute:: locked
+
+        (boolean)
+
+        When set to ``True``, the Wagtail editor will not allow any users to edit
+        the content of the page.
+
+        If ``locked_by`` is also set, only that user can edit the page.
+
+    .. attribute:: locked_by
+
+       (foreign key to user model)
+
+        The user who has currently locked the page. Only this user can edit the page.
+
+        If this is ``None`` when ``locked`` is ``False``, nobody can edit the page.
+
+    .. attribute:: locked_at
+
+        (date/time)
+
+        The date/time when the page was locked.
 
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~

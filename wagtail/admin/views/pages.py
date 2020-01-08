@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.html import format_html
 from django.utils.http import is_safe_url, urlquote
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -342,6 +343,23 @@ def edit(request, page_id):
     edit_handler = edit_handler.bind_to(instance=page, request=request)
     form_class = edit_handler.get_form_class()
 
+    if page_perms.user_has_lock():
+        if page.locked_at:
+            lock_message = format_html(_("<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."), page.get_admin_display_title(), page.locked_at.strftime("%d %b %Y %H:%M"))
+        else:
+            lock_message = format_html(_("<b>Page '{}' is locked</b> by <b>you</b>."), page.get_admin_display_title())
+
+        messages.warning(request, lock_message, extra_tags='lock')
+
+    elif page_perms.page_locked():
+        if page.locked_by and page.locked_at:
+            lock_message = format_html(_("<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."), page.get_admin_display_title(), str(page.locked_by), page.locked_at.strftime("%d %b %Y %H:%M"))
+        else:
+            # Page was probably locked with an old version of Wagtail, or a script
+            lock_message = format_html(_("<b>Page '{}' is locked</b>."), page.get_admin_display_title())
+
+        messages.error(request, lock_message, extra_tags='lock')
+
     next_url = get_valid_next_url_from_request(request)
 
     errors_debug = None
@@ -350,7 +368,7 @@ def edit(request, page_id):
         form = form_class(request.POST, request.FILES, instance=page,
                           parent_page=parent)
 
-        if form.is_valid() and not page.locked:
+        if form.is_valid() and not page_perms.page_locked():
             page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
@@ -494,7 +512,7 @@ def edit(request, page_id):
                     target_url += '?next=%s' % urlquote(next_url)
                 return redirect(target_url)
         else:
-            if page.locked:
+            if page_perms.page_locked():
                 messages.error(request, _("The page could not be saved as it is locked"))
             else:
                 messages.validation_error(
@@ -544,6 +562,7 @@ def edit(request, page_id):
         'form': form,
         'next': next_url,
         'has_unsaved_changes': has_unsaved_changes,
+        'page_locked': page_perms.page_locked(),
     })
 
 
@@ -1072,9 +1091,9 @@ def lock(request, page_id):
     # Lock the page
     if not page.locked:
         page.locked = True
+        page.locked_by = request.user
+        page.locked_at = timezone.now()
         page.save()
-
-        messages.success(request, _("Page '{0}' is now locked.").format(page.get_admin_display_title()))
 
     # Redirect
     redirect_to = request.POST.get('next', None)
@@ -1090,15 +1109,17 @@ def unlock(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
 
     # Check permissions
-    if not page.permissions_for_user(request.user).can_lock():
+    if not page.permissions_for_user(request.user).can_unlock():
         raise PermissionDenied
 
     # Unlock the page
     if page.locked:
         page.locked = False
+        page.locked_by = None
+        page.locked_at = None
         page.save()
 
-        messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()))
+        messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()), extra_tags='unlock')
 
     # Redirect
     redirect_to = request.POST.get('next', None)
