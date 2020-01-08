@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0042_lock_fields'),
+        ('wagtailcore', '0043_lock_fields'),
     ]
 
     operations = [
