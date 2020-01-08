@@ -18,7 +18,7 @@ def assign_unlock_grouppagepermission(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0043_add_unlock_grouppagepermission'),
+        ('wagtailcore', '0044_add_unlock_grouppagepermission'),
     ]
 
     operations = [

@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
+        ('wagtailcore', '0042_index_on_pagerevision_approved_go_live_at'),
     ]
 
     operations = [
