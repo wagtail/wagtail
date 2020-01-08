@@ -34,7 +34,7 @@ Changelog
  * Fix: Added verbose_name_plural for form submission model (Janneke Janssen)
 
 
-2.7.1 (xx.xx.xxxx) - IN DEVELOPMENT
+2.7.1 (08.01.2020)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Management command startup checks under `ManifestStaticFilesStorage` no longer fail if `collectstatic` has not been run first (Alex Tomkins)
