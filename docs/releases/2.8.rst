@@ -61,6 +61,20 @@ Removed support for Django 2.0
 Django 2.0 is no longer supported as of this release; please upgrade to Django 2.1 or above before upgrading Wagtail.
 
 
+Edit locking behaviour changed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The behaviour of the page locking feature in the admin interface has been changed.
+In past versions, the page lock would apply to all users including the user who
+locked the page. Now, the user who locked the page can still edit it but all other
+users cannot.
+
+Pages that were locked before this release will continue to be locked in the same
+way as before, so this only applies to newly locked pages. If you would like to
+restore the previous behaviour, you can set the
+``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` setting to ``True``.
+
+
 API endpoint classes have moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
