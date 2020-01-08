@@ -16,6 +16,14 @@ Django 3.0 support
 This release is compatible with Django 3.0. Compatibility fixes were contributed by Matt Westcott and Mads Jensen.
 
 
+Improved page locking
+~~~~~~~~~~~~~~~~~~~~~
+
+The page locking feature has been revised so that the editor locking a page is given exclusive edit access to it, rather than it becoming read-only to everyone. A new Reports menu allows admin / moderator level users to see the currently locked pages, and unlock them if required.
+
+This feature was developed by Karl Hobley and Jacob Topp-Mugglestone. Thanks to `The Motley Fool <https://www.fool.com/>`_ for sponsoring this feature.
+
+
 Other features
 ~~~~~~~~~~~~~~
 

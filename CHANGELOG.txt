@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Django 3.0 support (Matt Westcott, Mads Jensen)
+ * Improved page locking to give editors exclusive edit access (Karl Hobley, Jacob Topp-Mugglestone)
  * Removed support for Django 2.0
  * Removed leftover Python 2.x compatibility code (Sergey Fedoseev)
  * Combine flake8 configurations (Sergey Fedoseev)
