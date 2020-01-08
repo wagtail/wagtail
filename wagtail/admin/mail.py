@@ -1,13 +1,15 @@
 import logging
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.mail import get_connection
 from django.core.mail.message import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.utils.text import get_valid_filename
 from django.utils.translation import override
 
 from wagtail.admin.auth import users_with_page_permission
-from wagtail.core.models import PageRevision
+from wagtail.core.models import Page, PageRevision
 from wagtail.users.models import UserProfile
 
 
@@ -84,6 +86,76 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         "revision": revision,
         "settings": settings,
     }
+
+    # Send emails
+    sent_count = 0
+    for recipient in email_recipients:
+        try:
+            # update context with this recipient
+            context["user"] = recipient
+
+            # Translate text to the recipient language settings
+            with override(recipient.wagtail_userprofile.get_preferred_language()):
+                # Get email subject and content
+                email_subject = render_to_string(template_subject, context).strip()
+                email_content = render_to_string(template_text, context).strip()
+
+            kwargs = {}
+            if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
+                kwargs['html_message'] = render_to_string(template_html, context)
+
+            # Send email
+            send_mail(email_subject, email_content, [recipient.email], **kwargs)
+            sent_count += 1
+        except Exception:
+            logger.exception(
+                "Failed to send notification email '%s' to %s",
+                email_subject, recipient.email
+            )
+
+    return sent_count == len(email_recipients)
+
+
+def send_group_approval_task_state_notification(task_state, notification, triggering_user):
+    recipients = []
+    page = task_state.workflow_state.page
+    if notification in ('approved', 'rejected'):
+        requested_by = task_state.workflow_state.requested_by
+        if requested_by != triggering_user:
+            recipients = [triggering_user]
+    elif notification == 'submitted':
+        recipients = task_state.task.specific.group.user_set.exclude(pk=triggering_user.pk)
+        include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
+        if include_superusers:
+            recipients = recipients | get_user_model().objects.filter(is_superuser=True)
+    context = {
+        "page": page,
+        "settings": settings,
+    }
+    send_notification_emails(recipients, notification, context, template_base_prefix='group_approval_task')
+
+
+def send_notification_emails(recipients, notification, context, template_base_prefix=''):
+
+    # Get list of email addresses
+    email_recipients = [
+        recipient for recipient in recipients
+        if recipient.email and getattr(
+            UserProfile.get_for_user(recipient),
+            notification + '_notifications'
+        )
+    ]
+
+    # Return if there are no email addresses
+    if not email_recipients:
+        return True
+
+    # Get template
+    template_base = template_base_prefix + notification
+
+    template_subject = 'wagtailadmin/notifications/' + template_base + '_subject.txt'
+    template_text = 'wagtailadmin/notifications/' + template_base + '.txt'
+    template_html = 'wagtailadmin/notifications/' + template_base + '.html'
 
     # Send emails
     sent_count = 0
