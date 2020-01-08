@@ -1217,7 +1217,7 @@ def workflow_action(request, page_id):
         redirect_to = reverse('wagtailadmin_explore', args=[page.get_parent().id])
 
     if not page.workflow_in_progress():
-        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.get_admin_display_title()))
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(page.get_admin_display_title()))
         return redirect(redirect_to)
 
     actions = page.current_workflow_task.get_actions(page, request.user)
