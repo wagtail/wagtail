@@ -619,9 +619,14 @@ class ReportsMenuItem(SubmenuMenuItem):
     template = 'wagtailadmin/shared/menu_submenu_item.html'
 
 
+class LockedPagesMenuItem(MenuItem):
+    def is_shown(self, request):
+        return UserPagePermissionsProxy(request.user).can_remove_locks()
+
+
 @hooks.register('register_reports_menu_item')
 def register_locked_pages_menu_item():
-    return MenuItem(_('Locked Pages'), reverse('wagtailadmin_reports:locked_pages'), classnames='icon icon-locked', order=700)
+    return LockedPagesMenuItem(_('Locked Pages'), reverse('wagtailadmin_reports:locked_pages'), classnames='icon icon-locked', order=700)
 
 
 @hooks.register('register_admin_menu_item')

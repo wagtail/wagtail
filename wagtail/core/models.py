@@ -1838,6 +1838,15 @@ class UserPagePermissionsProxy:
         """Return True if the user has permission to publish any pages"""
         return self.publishable_pages().exists()
 
+    def can_remove_locks(self):
+        """Returns True if the user has permission to unlock pages they have not locked"""
+        if self.user.is_superuser:
+            return True
+        if not self.user.is_active:
+            return False
+        else:
+            return self.permissions.filter(permission_type='unlock').exists()
+
 
 class PagePermissionTester:
     def __init__(self, user_perms, page):
