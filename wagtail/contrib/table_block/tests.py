@@ -264,6 +264,18 @@ class TestTableBlock(TestCase):
         self.assertHTMLEqual(result, expected)
         self.assertIn('Test 2', result)
 
+    def test_empty_table_block_is_not_rendered(self):
+        """
+        Test an empty table is not rendered.
+        """
+        value = None
+        block = TableBlock()
+        result = block.render(value)
+        expected = ''
+
+        self.assertHTMLEqual(result, expected)
+        self.assertNotIn('None', result)
+
 
 class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
 

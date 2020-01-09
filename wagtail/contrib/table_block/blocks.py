@@ -83,8 +83,9 @@ class TableBlock(FieldBlock):
 
     def get_searchable_content(self, value):
         content = []
-        for row in value.get('data', []):
-            content.extend([v for v in row if v])
+        if value:
+            for row in value.get('data', []):
+                content.extend([v for v in row if v])
         return content
 
     def render(self, value, context=None):
@@ -116,7 +117,7 @@ class TableBlock(FieldBlock):
 
             return render_to_string(template, new_context)
         else:
-            return self.render_basic(value, context=context)
+            return self.render_basic(value or "", context=context)
 
     @property
     def media(self):
