@@ -224,6 +224,12 @@ class TestTableBlock(TestCase):
         content = block.get_searchable_content(value)
         self.assertEqual(content, ['Test 1', 'Test 2', 'Test 3', 'Bar', 'Foo', ])
 
+    def test_searchable_content_for_null_block(self):
+        value = None
+        block = TableBlock()
+        content = block.get_searchable_content(value)
+        self.assertEqual(content, [])
+
     def test_render_with_extra_context(self):
         """
         Test that extra context variables passed in block.render are passed through
@@ -263,6 +269,18 @@ class TestTableBlock(TestCase):
         """
         self.assertHTMLEqual(result, expected)
         self.assertIn('Test 2', result)
+
+    def test_empty_table_block_is_not_rendered(self):
+        """
+        Test an empty table is not rendered.
+        """
+        value = None
+        block = TableBlock()
+        result = block.render(value)
+        expected = ''
+
+        self.assertHTMLEqual(result, expected)
+        self.assertNotIn('None', result)
 
 
 class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
