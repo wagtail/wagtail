@@ -35,6 +35,7 @@ Changelog
  * Fix: Fixed order of URLs in project template so that static / media URLs are not blocked (Nick Smith)
  * Fix: Added verbose_name_plural for form submission model (Janneke Janssen)
  * Fix: Prevent `update_index` failures and incorrect front-end rendering on blank `TableBlock` (Carlo Ascani)
+ * Fix: Dropdown initialisation on the search page after AJAX call (Eric Sherman)
 
 
 2.7.1 (08.01.2020)

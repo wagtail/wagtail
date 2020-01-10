@@ -427,6 +427,7 @@ Contributors
 * Benedikt Willi
 * Johannes Vogel
 * Sam Costigan
+* Eric Sherman
 
 Translators
 ===========
