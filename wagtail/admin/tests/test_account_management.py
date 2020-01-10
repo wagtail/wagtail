@@ -9,12 +9,13 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
-from django.test import TestCase, override_settings
+from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from django.utils.translation import get_language
 
 from wagtail.admin.localization import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
+from wagtail.admin.views.account import change_password
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
@@ -872,3 +873,10 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         # Check that the user received a password reset complete page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/password_reset/complete.html')
+
+    def test_password_reset_sensitive_post_parameters(self):
+        request = RequestFactory().post('wagtailadmin_password_reset_confirm', data={})
+        request.user = get_user_model().objects.get(username='test')
+        change_password(request)
+        self.assertTrue(hasattr(request, 'sensitive_post_parameters'))
+        self.assertEqual(request.sensitive_post_parameters, '__ALL__')

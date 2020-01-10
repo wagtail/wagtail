@@ -22,6 +22,7 @@ Changelog
  * Add ability to filter image index by a tag (Benedikt Willi)
  * Add formal support for nested InlinePanels (Matt Westcott)
  * Added cache control headers when serving documents (Johannes Vogel)
+ * Use `sensitive_post_parameters` on password reset form (Dan Braghis)
  * Fix: Rename documents listing column 'uploaded' to 'created' (LB (Ben Johnston))
  * Fix: Submenu items longer then the page height are no longer broken by the submenu footer (Igor van Spengen)
  * Fix: Unbundle the l18n library as it was bundled to avoid installation errors which have been resolved (Matt Westcott)
