@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -50,6 +51,8 @@ class Embed(models.Model):
 
     @property
     def is_responsive(self):
+        if not getattr(settings, 'WAGTAIL_ENABLE_RESPONSIVE_EMBED', True):
+            return False
         return self.ratio is not None
 
     def __str__(self):

@@ -43,6 +43,7 @@ Other features
  * Add partial experimental support for nested InlinePanels (Matt Westcott, Sam Costigan, Andy Chosak, Scott Cranfill)
  * Added cache control headers when serving documents (Johannes Vogel)
  * Use ``sensitive_post_parameters`` on password reset form (Dan Braghis)
+ * Add ``WAGTAIL_ENABLE_RESPONSIVE_EMBED`` setting to remove automatic addition of ``responsive-object`` around embeds (Kalob Taulien)
 
 
 Bug fixes
@@ -124,7 +125,7 @@ New code:
 The ``get_document_model`` function should now be imported from ``wagtail.documents`` rather than ``wagtail.documents.models``. See :ref:`custom_document_model`.
 
 
-Removed ``Page`` and ``Site`` models from Django admin 
+Removed ``Page`` and ``Site`` models from Django admin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``Page`` and ``Site`` models are no longer editable through the Django admin backend. If required these models can be re-registered within your own project using `Django's ModelAdmin <https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#modeladmin-objects>`_:
