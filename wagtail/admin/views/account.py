@@ -8,6 +8,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import override
+from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.core import hooks
@@ -56,6 +57,7 @@ def account(request):
     })
 
 
+@sensitive_post_parameters()
 def change_password(request):
     if not password_management_enabled():
         raise Http404
