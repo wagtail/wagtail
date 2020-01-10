@@ -60,6 +60,7 @@ Bug fixes
  * Fixed order of URLs in project template so that static / media URLs are not blocked (Nick Smith)
  * Added verbose_name_plural for form submission model (Janneke Janssen)
  * Prevent ``update_index`` failures and incorrect front-end rendering on blank ``TableBlock`` (Carlo Ascani)
+ * Dropdown initialisation on the search page after AJAX call (Eric Sherman)
 
 
 Upgrade considerations
