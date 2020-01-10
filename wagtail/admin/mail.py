@@ -124,10 +124,11 @@ def send_group_approval_task_state_notification(task_state, notification, trigge
         if requested_by != triggering_user:
             recipients = [triggering_user]
     elif notification == 'submitted':
-        recipients = task_state.task.specific.group.user_set.exclude(pk=triggering_user.pk)
+        recipients = task_state.task.specific.group.user_set
         include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
         if include_superusers:
             recipients = recipients | get_user_model().objects.filter(is_superuser=True)
+            recipients = recipients.exclude(pk=triggering_user.pk).distinct()
     context = {
         "page": page,
         "settings": settings,
