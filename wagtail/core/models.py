@@ -1066,7 +1066,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None, process_child_object=None, exclude_fields=None):
         # Fill dict with self.specific values
         specific_self = self.specific
-        default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
+        default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries', 'live', 'has_unpublished_changes', 'live_revision', 'first_published_at', 'last_published_at']
         exclude_fields = default_exclude_fields + specific_self.exclude_fields_in_copy + (exclude_fields or [])
         specific_dict = {}
 
@@ -1101,7 +1101,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
         page_copy = self.specific_class(**specific_dict)
 
-        if not keep_live:
+        if keep_live:
+            page_copy.live = self.live
+            page_copy.has_unpublished_changes = self.has_unpublished_changes
+        else:
             page_copy.live = False
             page_copy.has_unpublished_changes = True
             page_copy.live_revision = None
