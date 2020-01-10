@@ -16,6 +16,19 @@ from wagtail.users.models import UserProfile
 logger = logging.getLogger('wagtail.admin')
 
 
+class OpenedConnection:
+    def __init__(self, connection):
+        self.connection = connection
+
+    def __enter__(self):
+        self.connection.open()
+        return self.connection
+
+    def __exit__(self, type, value, traceback):
+        self.connection.close()
+        return self.connection
+
+
 def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
     """
     Wrapper around Django's EmailMultiAlternatives as done in send_mail().
@@ -87,31 +100,35 @@ def send_notification(page_revision_id, notification, excluded_user_id):
         "settings": settings,
     }
 
-    # Send emails
-    sent_count = 0
-    for recipient in email_recipients:
-        try:
-            # update context with this recipient
-            context["user"] = recipient
+    connection = get_connection()
 
-            # Translate text to the recipient language settings
-            with override(recipient.wagtail_userprofile.get_preferred_language()):
-                # Get email subject and content
-                email_subject = render_to_string(template_subject, context).strip()
-                email_content = render_to_string(template_text, context).strip()
+    with OpenedConnection(connection) as open_connection:
 
-            kwargs = {}
-            if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
-                kwargs['html_message'] = render_to_string(template_html, context)
+        # Send emails
+        sent_count = 0
+        for recipient in email_recipients:
+            try:
+                # update context with this recipient
+                context["user"] = recipient
 
-            # Send email
-            send_mail(email_subject, email_content, [recipient.email], **kwargs)
-            sent_count += 1
-        except Exception:
-            logger.exception(
-                "Failed to send notification email '%s' to %s",
-                email_subject, recipient.email
-            )
+                # Translate text to the recipient language settings
+                with override(recipient.wagtail_userprofile.get_preferred_language()):
+                    # Get email subject and content
+                    email_subject = render_to_string(template_subject, context).strip()
+                    email_content = render_to_string(template_text, context).strip()
+
+                kwargs = {}
+                if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
+                    kwargs['html_message'] = render_to_string(template_html, context)
+
+                # Send email
+                send_mail(email_subject, email_content, [recipient.email], connection=open_connection, **kwargs)
+                sent_count += 1
+            except Exception:
+                logger.exception(
+                    "Failed to send notification email '%s' to %s",
+                    email_subject, recipient.email
+                )
 
     return sent_count == len(email_recipients)
 
@@ -159,30 +176,34 @@ def send_notification_emails(recipients, notification, context, template_base_pr
     template_text = 'wagtailadmin/notifications/' + template_base + '.txt'
     template_html = 'wagtailadmin/notifications/' + template_base + '.html'
 
-    # Send emails
-    sent_count = 0
-    for recipient in email_recipients:
-        try:
-            # update context with this recipient
-            context["user"] = recipient
+    connection = get_connection()
 
-            # Translate text to the recipient language settings
-            with override(recipient.wagtail_userprofile.get_preferred_language()):
-                # Get email subject and content
-                email_subject = render_to_string(template_subject, context).strip()
-                email_content = render_to_string(template_text, context).strip()
+    with OpenedConnection(connection) as open_connection:
 
-            kwargs = {}
-            if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
-                kwargs['html_message'] = render_to_string(template_html, context)
+        # Send emails
+        sent_count = 0
+        for recipient in email_recipients:
+            try:
+                # update context with this recipient
+                context["user"] = recipient
 
-            # Send email
-            send_mail(email_subject, email_content, [recipient.email], **kwargs)
-            sent_count += 1
-        except Exception:
-            logger.exception(
-                "Failed to send notification email '%s' to %s",
-                email_subject, recipient.email
-            )
+                # Translate text to the recipient language settings
+                with override(recipient.wagtail_userprofile.get_preferred_language()):
+                    # Get email subject and content
+                    email_subject = render_to_string(template_subject, context).strip()
+                    email_content = render_to_string(template_text, context).strip()
+
+                kwargs = {}
+                if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
+                    kwargs['html_message'] = render_to_string(template_html, context)
+
+                # Send email
+                send_mail(email_subject, email_content, [recipient.email], connection=open_connection, **kwargs)
+                sent_count += 1
+            except Exception:
+                logger.exception(
+                    "Failed to send notification email '%s' to %s",
+                    email_subject, recipient.email
+                )
 
     return sent_count == len(email_recipients)
