@@ -139,7 +139,7 @@ def send_group_approval_task_state_notification(task_state, notification, trigge
     if notification in ('approved', 'rejected'):
         requested_by = task_state.workflow_state.requested_by
         if requested_by != triggering_user:
-            recipients = [triggering_user]
+            recipients = [requested_by]
     elif notification == 'submitted':
         recipients = task_state.task.specific.group.user_set
         include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
@@ -151,7 +151,26 @@ def send_group_approval_task_state_notification(task_state, notification, trigge
         "settings": settings,
         "task": task_state.task,
     }
-    send_notification_emails(recipients, notification, context, template_base_prefix='group_approval_task')
+    send_notification_emails(recipients, notification, context, template_base_prefix='group_approval_task_')
+
+
+def send_workflow_state_notification(workflow_state, notification, triggering_user):
+    recipients = []
+    page = workflow_state.page
+    if notification in ('approved', 'rejected'):
+        requested_by = workflow_state.requested_by
+        if requested_by != triggering_user:
+            recipients = [requested_by]
+    elif notification == 'submitted':
+        include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
+        if include_superusers:
+            recipients = get_user_model().objects.filter(is_superuser=True).exclude(pk=triggering_user.pk)
+    context = {
+        "page": page,
+        "settings": settings,
+        "workflow": workflow_state.workflow,
+    }
+    send_notification_emails(recipients, notification, context, template_base_prefix='workflow_')
 
 
 def send_notification_emails(recipients, notification, context, template_base_prefix=''):
