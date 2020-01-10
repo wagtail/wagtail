@@ -132,6 +132,7 @@ def send_group_approval_task_state_notification(task_state, notification, trigge
     context = {
         "page": page,
         "settings": settings,
+        "task": task_state.task,
     }
     send_notification_emails(recipients, notification, context, template_base_prefix='group_approval_task')
 

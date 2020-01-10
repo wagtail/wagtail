@@ -1,0 +1,12 @@
+{% extends 'wagtailadmin/notifications/base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+{% blocktrans with workflow=workflow.name %}The page "{{ page }}" has been submitted for to workflow {{ workflow }}.{% endblocktrans %}
+
+
+{% trans "You can preview the page here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:preview_on_edit' page.id %}
+{% trans "You can edit the page here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}
+
+{% endblock %}
