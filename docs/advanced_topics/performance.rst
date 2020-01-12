@@ -47,7 +47,7 @@ Wagtail is tested on PostgreSQL, SQLite and MySQL. It should work on some third-
 Templates
 ---------
 
-The overhead from reading and compiling templates adds up. Django's :class:`cached template loader <django.template.loaders.cached.Loader>`: stores the compiled ``Template`` in memory and returns it for subsequent requests. Unless additional custom loaders are used, the cached loader is automatically enabled when ``DEBUG`` is ``False``. To enable it for custom loaders, use a settings like this:
+The overhead from reading and compiling templates adds up. Django wraps its default loaders with :class:`cached template loader <django.template.loaders.cached.Loader>`: which stores the compiled ``Template`` in memory and returns it for subsequent requests. The cached loader is automatically enabled when ``DEBUG`` is ``False``. If you are using custom loaders, update your settings to use it:
 
 .. code-block:: python
 
