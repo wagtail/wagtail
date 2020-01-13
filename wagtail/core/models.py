@@ -2289,11 +2289,7 @@ class Collection(MP_Node):
 
     @staticmethod
     def order_for_display(queryset):
-        return queryset.annotate(
-            display_order=Case(
-                When(depth=1, then=Value('')),
-                default='name')
-        ).order_by('display_order')
+        return queryset.order_by('path')
 
     class Meta:
         verbose_name = _('collection')

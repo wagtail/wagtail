@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
+from django.db.models import QuerySet
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
@@ -23,7 +24,8 @@ from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
 from wagtail.core.models import (
-    CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
+    CollectionViewRestriction, Page, PageViewRestriction,
+    UserPagePermissionsProxy, Collection)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url
@@ -535,3 +537,20 @@ def icons():
     icon_hooks = hooks.get_hooks('register_icons')
     icons = sorted(itertools.chain.from_iterable(hook([]) for hook in icon_hooks))
     return {'icons': icons}
+
+
+@register.simple_tag
+def format_collection(col: Collection, permitted: QuerySet = None) -> str:
+    """
+    A template tag that receives a collection and returns a formatted string,
+    taking into account its hierarchical depth,
+    and optionally its relative depth if a filtered queryset is supplied
+    Example usage: {% format_collection collection collections %}
+    """
+    def _depth(cur_col, count=0):
+        if cur_col.get_parent() in permitted:
+            return _depth(cur_col.get_parent(), count + 1)
+        return count
+    depth = _depth(col) if permitted else col.depth - 2
+    prefix = ('   ' * depth) + ' ↳ ' if depth > 0 else ''
+    return prefix + col.name

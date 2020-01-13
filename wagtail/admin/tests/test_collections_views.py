@@ -40,7 +40,23 @@ class TestCollectionsIndexView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(
             [collection.name for collection in response.context['object_list']],
-            ['Avacado', 'Bread', 'Milk'])
+            ['Milk', 'Bread', 'Avacado'])
+
+    def test_nested_ordering(self):
+        root_collection = Collection.get_first_root_node()
+
+        animals = root_collection.add_child(name="Animal")
+        animals.add_child(name="Cat")
+        animals.add_child(name="Dogs")
+
+        vegetables = root_collection.add_child(name="Vegetable")
+        vegetables.add_child(name="Spinach")
+        vegetables.add_child(name="Dogs")
+
+        response = self.get()
+        self.assertEqual(
+            [collection.name for collection in response.context['object_list']],
+            ['Animal', 'Cat', 'Dogs', 'Vegetable', 'Spinach', 'Dogs'])
 
 
 class TestAddCollection(TestCase, WagtailTestUtils):
@@ -80,6 +96,9 @@ class TestEditCollection(TestCase, WagtailTestUtils):
         self.login()
         self.root_collection = Collection.get_first_root_node()
         self.collection = self.root_collection.add_child(name="Holiday snaps")
+        self.l1 = self.root_collection.add_child(name="Level 1")
+        self.l2 = self.l1.add_child(name="Level 2")
+        self.l3 = self.l2.add_child(name="Level 3")
 
     def get(self, params={}, collection_id=None):
         return self.client.get(
@@ -90,7 +109,7 @@ class TestEditCollection(TestCase, WagtailTestUtils):
     def post(self, post_data={}, collection_id=None):
         return self.client.post(
             reverse('wagtailadmin_collections:edit', args=(collection_id or self.collection.id,)),
-            post_data
+            post_data,
         )
 
     def test_get(self):
@@ -105,10 +124,26 @@ class TestEditCollection(TestCase, WagtailTestUtils):
         response = self.get(collection_id=100000)
         self.assertEqual(response.status_code, 404)
 
+    def test_move_collection(self):
+        response = self.post(
+            {'name': "Level 2", 'parent': self.root_collection.pk}, self.l2.pk
+        )
+        self.assertEqual(
+            Collection.objects.get(pk=self.l2.pk).get_parent().pk,
+            self.root_collection.pk,
+        )
+
+    def test_cannot_move_parent_collection_to_descendant(self):
+        response = self.post(
+            {'name': "Level 2", 'parent': self.l3.pk}, self.l2.pk
+        )
+        self.assertEqual(
+            Collection.objects.get(pk=self.l2.pk).get_parent().pk,
+            self.l1.pk
+        )
+
     def test_post(self):
-        response = self.post({
-            'name': "Skiing photos",
-        })
+        response = self.post({'name': "Skiing photos"}, self.collection.pk)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
