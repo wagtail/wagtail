@@ -1063,14 +1063,27 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Log
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
-    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None, process_child_object=None, exclude_fields=None):
-        # Fill dict with self.specific values
-        specific_self = self.specific
-        default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries', 'live', 'has_unpublished_changes', 'live_revision', 'first_published_at', 'last_published_at']
-        exclude_fields = default_exclude_fields + specific_self.exclude_fields_in_copy + (exclude_fields or [])
-        specific_dict = {}
+    def sync_fields_with(self, other, exclude_fields=None):
+        default_exclude_fields = [
+            'id',
+            'content_type',
+            'path', 'depth', 'numchild',
+            'url_path',
+            'draft_title',
+            'live', 'has_unpublished_changes',
+            'owner',
+            'locked', 'locked_by', 'locked_at',
+            'live_revision',
+            'first_published_at', 'last_published_at',
+            'latest_revision_created_at',
+            'index_entries',
+        ]
+        exclude_fields = default_exclude_fields + self.exclude_fields_in_copy + (exclude_fields or [])
 
-        for field in specific_self._meta.get_fields():
+        if self.__class__ != other.__class__:
+            raise TypeError("Page types do not match.")
+
+        for field in self._meta.get_fields():
             # Ignore explicitly excluded fields
             if field.name in exclude_fields:
                 continue
@@ -1088,18 +1101,81 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if isinstance(field, models.OneToOneField) and field.remote_field.parent_link:
                 continue
 
-            specific_dict[field.name] = getattr(specific_self, field.name)
+            setattr(self, field.name, getattr(other, field.name))
+
+            # Special case: If the title was just synced, update draft title as well
+            if field.name == 'title':
+                self.draft_title = self.title
+
+    def sync_child_relations_with(self, other, exclude_fields=None, process_child_object=None):
+        exclude_fields = exclude_fields or []
+
+        if self.__class__ != other.__class__:
+            raise TypeError("Page types do not match.")
 
         # copy child m2m relations
-        for related_field in get_all_child_m2m_relations(specific_self):
-            field = getattr(specific_self, related_field.name)
+        for related_field in get_all_child_m2m_relations(self):
+            field = getattr(other, related_field.name)
             if field and hasattr(field, 'all'):
                 values = field.all()
                 if values:
-                    specific_dict[related_field.name] = values
+                    setattr(self, related_field.name, values)
 
-        # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
-        page_copy = self.specific_class(**specific_dict)
+        # A dict that maps child objects to their new ids
+        # Used to remap child object ids in revisions
+        child_object_id_map = defaultdict(dict)
+
+        # Copy child objects
+        for child_relation in get_all_child_relations(self):
+            accessor_name = child_relation.get_accessor_name()
+
+            if accessor_name in exclude_fields:
+                continue
+
+            parental_key_name = child_relation.field.attname
+            child_objects = getattr(other, accessor_name, None)
+
+            # Check for any existing child objects
+            # If there are any, recycle their IDs
+            with transaction.atomic():
+                child_object_ids = list(getattr(self, accessor_name).values_list('pk', flat=True))
+
+                # As we don't store a mapping of IDs between two pages, we might reimport them in
+                # a different order than before.
+                # This gives us the same end result, but could lead to unique key errors while the
+                # sync is taking place. So we need to delete the existing objects first.
+                getattr(self, accessor_name).all().delete()
+
+                if child_objects:
+                    for child_object in child_objects.all():
+                        old_pk = child_object.pk
+
+                        try:
+                            # Reuse an ID that was used before if available
+                            child_object.pk = child_object_ids.pop(-1)
+                        except IndexError:
+                            # More child objects than there were previously, set pk to None
+                            # and let the database allocate a new one
+                            child_object.pk = None
+
+                        setattr(child_object, parental_key_name, self.id)
+
+                        if process_child_object is not None:
+                            process_child_object(other, self, child_relation, child_object)
+
+                        child_object.save()
+
+                        # Add mapping to new primary key (so we can apply this change to revisions)
+                        child_object_id_map[accessor_name][old_pk] = child_object.pk
+
+        return child_object_id_map
+
+    def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None, process_child_object=None, exclude_fields=None):
+        specific_self = self.specific
+        page_copy = self.specific_class()
+
+        # Copy fields
+        page_copy.sync_fields_with(specific_self, exclude_fields=exclude_fields)
 
         if keep_live:
             page_copy.live = self.live
@@ -1125,34 +1201,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         else:
             page_copy = self.add_sibling(instance=page_copy)
 
-        # A dict that maps child objects to their new ids
-        # Used to remap child object ids in revisions
-        child_object_id_map = defaultdict(dict)
-
-        # Copy child objects
-        specific_self = self.specific
-        for child_relation in get_all_child_relations(specific_self):
-            accessor_name = child_relation.get_accessor_name()
-
-            if accessor_name in exclude_fields:
-                continue
-
-            parental_key_name = child_relation.field.attname
-            child_objects = getattr(specific_self, accessor_name, None)
-
-            if child_objects:
-                for child_object in child_objects.all():
-                    old_pk = child_object.pk
-                    child_object.pk = None
-                    setattr(child_object, parental_key_name, page_copy.id)
-
-                    if process_child_object is not None:
-                        process_child_object(specific_self, page_copy, child_relation, child_object)
-
-                    child_object.save()
-
-                    # Add mapping to new primary key (so we can apply this change to revisions)
-                    child_object_id_map[accessor_name][old_pk] = child_object.pk
+        # Copy child relations
+        child_object_id_map = page_copy.sync_child_relations_with(specific_self, exclude_fields=exclude_fields, process_child_object=process_child_object)
 
         # Copy revisions
         if copy_revisions:

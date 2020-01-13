@@ -658,6 +658,168 @@ class TestLiveRevision(TestCase):
         self.assertEqual(about_us.last_published_at, datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=pytz.utc))
 
 
+class TestSyncFieldsWith(TestCase):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=1)
+
+        self.about_page = self.root_page.add_child(
+            instance=SimplePage(title="About us", slug="about", content="hello")
+        )
+
+        # Create the other page under an index so it doesn't break when it syncs the slug
+        self.an_index = self.root_page.add_child(
+            instance=SimplePage(title="An index", slug="an-index", content="An index")
+        )
+
+        self.another_page = self.an_index.add_child(
+            instance=SimplePage(title="Another page", slug="another-page", content="hello world")
+        )
+
+    def test(self):
+        self.another_page.sync_fields_with(self.about_page)
+        self.another_page.save()
+        self.another_page.refresh_from_db()
+
+        # Check the fields that should be copied
+        self.assertEqual(self.another_page.title, "About us")
+        self.assertEqual(self.another_page.draft_title, "About us")
+        self.assertEqual(self.another_page.slug, "about")
+        self.assertEqual(self.another_page.url_path, "/an-index/about/")
+        self.assertEqual(self.another_page.content, "hello")
+
+        # Check the page position hasn't changed
+        self.assertEqual(self.another_page.get_parent(), self.an_index)
+
+    def test_exclude(self):
+        self.another_page.sync_fields_with(self.about_page, exclude_fields=["title", "slug"])
+        self.another_page.save()
+        self.another_page.refresh_from_db()
+
+        # Check the fields that should be copied
+        self.assertEqual(self.another_page.title, "Another page")
+        self.assertEqual(self.another_page.draft_title, "Another page")
+        self.assertEqual(self.another_page.slug, "another-page")
+        self.assertEqual(self.another_page.url_path, "/an-index/another-page/")
+        self.assertEqual(self.another_page.content, "hello")
+
+        # Check the page position hasn't changed
+        self.assertEqual(self.another_page.get_parent(), self.an_index)
+
+    def test_pages_must_be_same_type(self):
+        event_page = self.root_page.add_child(
+            instance=EventPage(
+                title="Event",
+                slug="event",
+                date_from=datetime.date(2020, 1, 13),
+                audience="public",
+                location="Location",
+                cost="Cost",
+            )
+        )
+
+        with self.assertRaises(TypeError) as e:
+            self.another_page.sync_fields_with(event_page)
+
+        self.assertEqual(str(e.exception), "Page types do not match.")
+
+
+class TestSyncChildRelationsWith(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.root_page = Page.objects.get(id=1)
+
+        self.about_page = self.root_page.add_child(
+            instance=SimplePage(title="About us", slug="about", content="hello")
+        )
+
+        # Create the other page under an index so it doesn't break when it syncs the slug
+        self.an_index = self.root_page.add_child(
+            instance=SimplePage(title="An index", slug="an-index", content="An index")
+        )
+
+        self.another_page = self.an_index.add_child(
+            instance=SimplePage(title="Another page", slug="another-page", content="hello world")
+        )
+
+    def test(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        another_event_page = self.root_page.add_child(
+            instance=EventPage(
+                title="Event",
+                slug="event",
+                date_from=datetime.date(2020, 1, 13),
+                audience="public",
+                location="Location",
+                cost="Cost",
+            )
+        )
+
+        another_event_page.sync_child_relations_with(christmas_event)
+        another_event_page.refresh_from_db()
+
+        # Check that the speakers were copied
+        self.assertEqual(another_event_page.speakers.count(), 1, "Child objects weren't copied")
+        first_copied_speaker_id = another_event_page.speakers.get().id
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(christmas_event.speakers.count(), 1, "Child objects were removed from the original page")
+
+        # Check that advert placements were also copied (there's a gotcha here, since the advert_placements
+        # relation is defined on Page, not EventPage)
+        self.assertEqual(
+            another_event_page.advert_placements.count(), 1, "Child objects defined on the superclass weren't copied"
+        )
+        self.assertEqual(
+            christmas_event.advert_placements.count(),
+            1,
+            "Child objects defined on the superclass were removed from the original page"
+        )
+
+        # Now sync again
+        another_event_page.sync_child_relations_with(christmas_event)
+        another_event_page.refresh_from_db()
+
+        # Check that they weren't copied again
+        self.assertEqual(another_event_page.speakers.count(), 1, "Child objects were copied twice")
+        self.assertEqual(
+            another_event_page.advert_placements.count(), 1, "Child objects defined on the superclass were copied twice"
+        )
+
+        # The ID shouldn't change
+        self.assertTrue(another_event_page.speakers.filter(id=first_copied_speaker_id).exists())
+
+        # Add another speaker and sync again
+        new_speaker = christmas_event.speakers.create(
+            first_name="New",
+            last_name="Speaker",
+        )
+        another_event_page.sync_child_relations_with(christmas_event)
+        another_event_page.refresh_from_db()
+
+        # Check that the speakers were copied
+        self.assertEqual(another_event_page.speakers.count(), 2, "New child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(christmas_event.speakers.count(), 2, "New child objects were removed from the original page")
+
+        # Delete the new speaker and sync again
+        new_speaker.delete()
+
+        # Need to do a hard refresh in order to get modelcluster to refresh
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        another_event_page.sync_child_relations_with(christmas_event)
+        another_event_page.refresh_from_db()
+
+        # Check that the speakers were copied
+        self.assertEqual(another_event_page.speakers.count(), 1, "New child objects weren't deleted")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(christmas_event.speakers.count(), 1, "new child objects weren't removed from the original page")
+
+
 class TestCopyPage(TestCase):
     fixtures = ['test.json']
 
