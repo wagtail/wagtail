@@ -448,6 +448,7 @@ Contributors
 * Tomonori Tanabe
 * Jannik Wempe
 * Sylvain Fankhauser
+* Ascani Carlo
 
 Translators
 ===========
