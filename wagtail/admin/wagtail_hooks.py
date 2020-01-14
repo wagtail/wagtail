@@ -27,6 +27,10 @@ from wagtail.core.permissions import collection_permission_policy
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
+def append_querystring(path, querystring=None):
+    return '%s%s' % (path, '?%s' % querystring if querystring else '')
+
+
 class ExplorerMenuItem(MenuItem):
     template = 'wagtailadmin/shared/explorer_menu_item.html'
 
@@ -97,7 +101,7 @@ def register_collections_menu_item():
 
 
 @hooks.register('register_page_listing_buttons')
-def page_listing_buttons(page, page_perms, is_parent=False):
+def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
     if page_perms.can_edit():
         yield PageListingButton(
             _('Edit'),
@@ -150,6 +154,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
         page=page,
         page_perms=page_perms,
         is_parent=is_parent,
+        next_url=next_url,
         attrs={
             'target': '_blank', 'rel': 'noopener noreferrer',
             'title': _("View more options for '%(title)s'") % {'title': page.get_admin_display_title()}
@@ -159,7 +164,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
 
 
 @hooks.register('register_page_listing_more_buttons')
-def page_listing_more_buttons(page, page_perms, is_parent=False):
+def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
     if page_perms.can_move():
         yield Button(
             _('Move'),
@@ -170,21 +175,21 @@ def page_listing_more_buttons(page, page_perms, is_parent=False):
     if page_perms.can_copy():
         yield Button(
             _('Copy'),
-            reverse('wagtailadmin_pages:copy', args=[page.id]),
+            append_querystring(reverse('wagtailadmin_pages:copy', args=[page.id]), next_url),
             attrs={'title': _("Copy page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=20
         )
     if page_perms.can_delete():
         yield Button(
             _('Delete'),
-            reverse('wagtailadmin_pages:delete', args=[page.id]),
+            append_querystring(reverse('wagtailadmin_pages:delete', args=[page.id]), next_url),
             attrs={'title': _("Delete page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=30
         )
     if page_perms.can_unpublish():
         yield Button(
             _('Unpublish'),
-            reverse('wagtailadmin_pages:unpublish', args=[page.id]),
+            append_querystring(reverse('wagtailadmin_pages:unpublish', args=[page.id]), next_url),
             attrs={'title': _("Unpublish page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=40
         )
