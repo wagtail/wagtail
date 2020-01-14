@@ -31,7 +31,9 @@ from modelcluster.models import (
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.query import PageQuerySet, TreeQuerySet
-from wagtail.core.signals import page_published, page_unpublished, post_page_move, pre_page_move
+from wagtail.core.signals import (
+    page_published, page_unpublished, post_page_move, pre_page_move,
+    task_approved, task_rejected, task_submitted, workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted)
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
@@ -2538,6 +2540,7 @@ class Task(models.Model):
         task_state.page_revision = workflow_state.page.get_latest_revision()
         task_state.task = self
         task_state.save()
+        task_submitted.send(sender=task_state.specific.__class__, instance=task_state.specific)
         return task_state
 
     def on_action(self, task_state, user, action_name):
@@ -2586,6 +2589,7 @@ class Workflow(ClusterableModel):
         state = WorkflowState(page=page, workflow=self, status=WorkflowState.STATUS_IN_PROGRESS, requested_by=user)
         state.save()
         state.update()
+        workflow_submitted.send(sender=state.__class__, instance=state, user=user)
         return state
 
     class Meta:
@@ -2628,11 +2632,9 @@ class GroupApprovalTask(Task):
     @transaction.atomic
     def on_action(self, task_state, user, action_name):
         if action_name == 'approve':
-            task_state.approve()
-            task_state.workflow_state.update()
+            task_state.approve(user=user)
         elif action_name == 'reject':
-            task_state.reject()
-            task_state.workflow_state.update()
+            task_state.reject(user=user)
 
     class Meta:
         verbose_name = _('Group approval task')
@@ -2681,6 +2683,7 @@ class WorkflowState(models.Model):
         if current_status == 'rejected':
             self.status = current_status
             self.save()
+            workflow_rejected.send(sender=self.__class__, instance=self)
         else:
             next_task = self.get_next_task()
             if next_task:
@@ -2701,12 +2704,14 @@ class WorkflowState(models.Model):
     def cancel(self):
         self.status = 'cancelled'
         self.save()
+        workflow_cancelled.send(sender=self.__class__, instance=self)
 
     @transaction.atomic
     def finish(self):
         self.status = 'approved'
         self.save()
         self.on_finish()
+        workflow_approved.send(sender=self.__class__, instance=self)
 
     class Meta:
         verbose_name = _('Workflow state')
@@ -2780,20 +2785,21 @@ class TaskState(models.Model):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
-    def approve(self):
+    def approve(self, user=None):
         self.status = 'approved'
         self.finished_at = timezone.now()
         self.save()
+        self.workflow_state.update()
+        task_approved.send(sender=self.specific.__class__, instance=self.specific)
         return self
 
-    def reject(self):
+    def reject(self, user=None):
         self.status = 'rejected'
         self.finished_at = timezone.now()
         self.save()
+        self.workflow_state.update()
+        task_rejected.send(sender=self.specific.__class__, instance=self.specific)
         return self
-
-    def get_recipients(self, notification, page, user):
-        return [self.workflow_state.requested_by]
 
     class Meta:
         verbose_name = _('Task state')
