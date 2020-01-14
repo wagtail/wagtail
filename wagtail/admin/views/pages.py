@@ -25,7 +25,6 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.forms.search import SearchForm
-from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
 from wagtail.core.models import Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState, WorkflowTask
@@ -295,8 +294,6 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                     _("Page '{0}' created and submitted for moderation.").format(page.get_admin_display_title()),
                     buttons=buttons
                 )
-                if not send_notification(page.get_latest_revision().id, 'submitted', request.user.pk):
-                    messages.error(request, _("Failed to send notifications to moderators"))
             else:
                 messages.success(request, _("Page '{0}' created.").format(page.get_admin_display_title()))
 
@@ -1169,8 +1166,6 @@ def approve_moderation(request, revision_id):
         buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit')))
         messages.success(request, message, buttons=buttons)
 
-        if not send_notification(revision.id, 'approved', request.user.pk):
-            messages.error(request, _("Failed to send approval notifications"))
 
     return redirect('wagtailadmin_home')
 
@@ -1189,8 +1184,6 @@ def reject_moderation(request, revision_id):
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
-        if not send_notification(revision.id, 'rejected', request.user.pk):
-            messages.error(request, _("Failed to send rejection notifications"))
 
     return redirect('wagtailadmin_home')
 
