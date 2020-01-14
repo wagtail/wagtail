@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block content %}
-{% blocktrans with workflow=workflow.name %}The page "{{ page }}" has been submitted for to workflow {{ workflow }}.{% endblocktrans %}
+{% blocktrans with workflow=workflow.name %}The page "{{ page }}" has been submitted for moderation to workflow {{ workflow }}.{% endblocktrans %}
 
 
 {% trans "You can preview the page here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:preview_on_edit' page.id %}

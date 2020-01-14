@@ -5,11 +5,11 @@ from django.contrib.auth import get_user_model
 from django.core.mail import get_connection
 from django.core.mail.message import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from django.utils.text import get_valid_filename
 from django.utils.translation import override
 
 from wagtail.admin.auth import users_with_page_permission
-from wagtail.core.models import Page, PageRevision, GroupApprovalTaskState, WorkflowState
+from wagtail.core.models import GroupApprovalTask, Page, PageRevision, WorkflowState
+from wagtail.core.utils import camelcase_to_underscore
 from wagtail.users.models import UserProfile
 
 
@@ -123,6 +123,7 @@ def send_notification(page_revision_id, notification, excluded_user_id):
                     kwargs['html_message'] = render_to_string(template_html, context)
 
                 # Send email
+                print(recipient.email)
                 send_mail(email_subject, email_content, [recipient.email], connection=open_connection, **kwargs)
                 sent_count += 1
             except Exception:
@@ -157,13 +158,14 @@ class Notifier:
     def get_valid_recipients(self, notifying_instance, notification, **kwargs):
         """Filters notification recipients to those allowing the notification type on their UserProfile, and those
         with an email address"""
+
         return {recipient for recipient in self.get_recipient_users(notifying_instance, notification, **kwargs) if recipient.email and getattr(
             UserProfile.get_for_user(recipient),
             notification + '_notifications'
         )}
 
     def get_template_base_prefix(self, notifying_instance):
-        return get_valid_filename(type(notifying_instance).__name__)+'_'
+        return camelcase_to_underscore(type(notifying_instance).__name__)+'_'
 
     def get_template_set(self, notifying_instance, notification):
         """Return a dictionary of template paths for the templates for the email subject and the text and html
@@ -184,6 +186,7 @@ class Notifier:
         return {'settings': settings}
 
     def send_emails(self, template_set, context, recipients):
+
         connection = get_connection()
 
         with OpenedConnection(connection) as open_connection:
@@ -192,12 +195,14 @@ class Notifier:
             sent_count = 0
             for recipient in recipients:
                 try:
+
                     # update context with this recipient
                     context["user"] = recipient
 
                     # Translate text to the recipient language settings
                     with override(recipient.wagtail_userprofile.get_preferred_language()):
                         # Get email subject and content
+                        import pdb; pdb.set_trace()
                         email_subject = render_to_string(template_set['subject'], context).strip()
                         email_content = render_to_string(template_set['text'], context).strip()
 
@@ -206,6 +211,8 @@ class Notifier:
                         kwargs['html_message'] = render_to_string(template_set['html'], context)
 
                     # Send email
+                    import pdb;
+                    pdb.set_trace()
                     send_mail(email_subject, email_content, [recipient.email], connection=open_connection, **kwargs)
                     sent_count += 1
                 except Exception:
@@ -232,6 +239,15 @@ class Notifier:
         context = self.get_context(notifying_instance, notification, **kwargs)
 
         return self.send_emails(template_set, context, recipients)
+
+    def approved(self, instance=None, **kwargs):
+        return self(instance, 'approved', **kwargs)
+
+    def rejected(self, instance=None, **kwargs):
+        return self(instance, 'rejected', **kwargs)
+
+    def submitted(self, instance=None, **kwargs):
+        return self(instance, 'submitted', **kwargs)
 
 
 class WorkflowStateNotifier(Notifier):
@@ -267,20 +283,23 @@ class GroupApprovalTaskStateNotifier(Notifier):
     """A Notifier to send updates for GroupApprovalTask events"""
 
     def __init__(self, valid_notifications):
-        super().__init__({GroupApprovalTaskState}, valid_notifications)
+        super().__init__({GroupApprovalTask}, valid_notifications)
+
+    def can_handle_class(self, instance):
+        return super().can_handle_class(instance.task.specific)
 
     def get_context(self, task_state, notification, **kwargs):
         context = super().get_context(task_state, notification, **kwargs)
-        context['page'] = task_state.revision.page
+        context['page'] = task_state.workflow_state.page
         context['task'] = task_state.task.specific
         return context
 
     def get_recipient_users(self, task_state, notification, **kwargs):
         triggering_user = kwargs.get('user', None)
         requested_by = task_state.workflow_state.requested_by
-        group_members = task_state.task.specific.group.user_set
+        group_members = task_state.task.specific.group.user_set.all()
 
-        recipients = requested_by | group_members
+        recipients = group_members
 
         include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
         if include_superusers:
@@ -288,7 +307,10 @@ class GroupApprovalTaskStateNotifier(Notifier):
             recipients = recipients | superusers
 
         if triggering_user:
-            """Exclude"""
             recipients = recipients.exclude(pk=triggering_user.pk)
+
+        if not triggering_user or triggering_user.pk != requested_by.pk:
+            recipients = set(recipients)
+            recipients.add(requested_by)
 
         return recipients
