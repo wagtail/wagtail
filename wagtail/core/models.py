@@ -1027,11 +1027,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 return _("expired")
             elif self.approved_schedule:
                 return _("scheduled")
+            elif self.workflow_in_progress():
+                return _("in moderation")
             else:
                 return _("draft")
         else:
             if self.approved_schedule:
                 return _("live + scheduled")
+            elif self.workflow_in_progress():
+                return _("live + in moderation")
             elif self.has_unpublished_changes:
                 return _("live + draft")
             else:
@@ -1535,6 +1539,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return obj
 
+    def has_workflow(self):
+        return self.get_ancestors(inclusive=True).filter(workflowpage__isnull=False).exists()
+
     def get_workflow(self):
         if hasattr(self, 'workflowpage'):
             return self.workflowpage.workflow
@@ -1545,6 +1552,26 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             except AttributeError:
                 workflow = None
             return workflow
+
+    def workflow_in_progress(self):
+        return WorkflowState.objects.filter(page=self, status='in_progress').exists()
+
+    @cached_property
+    def current_workflow_state(self):
+        try:
+            return WorkflowState.objects.get(page=self, status='in_progress')
+        except WorkflowState.DoesNotExist:
+            return
+
+    @cached_property
+    def current_workflow_task_state(self):
+        if self.current_workflow_state:
+            return self.current_workflow_state.current_task_state.specific
+
+    @cached_property
+    def current_workflow_task(self):
+        if self.current_workflow_task_state:
+            return self.current_workflow_task_state.task.specific
 
     class Meta:
         verbose_name = _('page')
@@ -1902,13 +1929,24 @@ class PagePermissionTester:
     def can_edit(self):
         if not self.user.is_active:
             return False
+
         if self.page_is_root:  # root node is not a page and can never be edited, even by superusers
             return False
-        return (
-            self.user.is_superuser
-            or ('edit' in self.permissions)
-            or ('add' in self.permissions and self.page.owner_id == self.user.pk)
-        )
+
+        if self.user.is_superuser:
+            return True
+
+        if 'edit' in self.permissions:
+            return True
+
+        if 'add' in self.permissions and self.page.owner_id == self.user.pk:
+            return True
+
+        if self.page.current_workflow_task:
+            if self.page.current_workflow_task.user_can_access_editor(self.page, self.user):
+                return True
+
+        return False
 
     def can_delete(self):
         if not self.user.is_active:
@@ -1966,6 +2004,9 @@ class PagePermissionTester:
 
         return self.user.is_superuser or ('publish' in self.permissions)
 
+    def can_submit_for_moderation(self):
+        return not self.page_locked() and self.page.has_workflow() and not self.page.workflow_in_progress()
+
     def can_set_view_restrictions(self):
         return self.can_publish()
 
@@ -1973,10 +2014,33 @@ class PagePermissionTester:
         return self.can_publish()
 
     def can_lock(self):
-        return self.user.is_superuser or ('lock' in self.permissions)
+        if self.user.is_superuser:
+            return True
+
+        if 'lock' in self.permissions:
+            return True
+
+        if self.page.current_workflow_task:
+            if self.page.current_workflow_task.user_can_lock(self.page, self.user):
+                return True
+
+        return False
 
     def can_unlock(self):
-        return self.user.is_superuser or self.user_has_lock() or ('unlock' in self.permissions)
+        if self.user.is_superuser:
+            return True
+
+        if self.user_has_lock():
+            return True
+
+        if 'unlock' in self.permissions:
+            return True
+
+        if self.page.current_workflow_task:
+            if self.page.current_workflow_task.user_can_unlock(self.page, self.user):
+                return True
+
+        return False
 
     def can_publish_subpage(self):
         """
@@ -2370,7 +2434,7 @@ class Task(models.Model):
 
     def start(self, workflow_state):
         task_state = TaskState(workflow_state=workflow_state)
-        task_state.status = 'in_progress'
+        task_state.status = TaskState.STATUS_IN_PROGRESS
         task_state.page_revision = workflow_state.page.get_latest_revision()
         task_state.task = self
         task_state.save()
@@ -2384,6 +2448,15 @@ class Task(models.Model):
         elif action_name == 'reject':
             task_state.reject()
             workflow_state.update()
+
+    def user_can_access_editor(self, page, user):
+        return False
+
+    def user_can_lock(self, page, user):
+        return False
+
+    def user_can_unlock(self, page, user):
+        return False
 
     class Meta:
         verbose_name = _('task')
@@ -2410,7 +2483,7 @@ class Workflow(ClusterableModel):
 
     def start(self, page, user):
         # initiates a workflow by creating an instance of WorkflowState
-        state = WorkflowState(page=page, workflow=self, status='in_progress', requested_by=user)
+        state = WorkflowState(page=page, workflow=self, status=WorkflowState.STATUS_IN_PROGRESS, requested_by=user)
         state.save()
         state.update()
         return state
@@ -2423,6 +2496,26 @@ class Workflow(ClusterableModel):
 class GroupApprovalTask(Task):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name=_('group'))
 
+    def start(self, workflow_state):
+        if workflow_state.page.locked_by:
+            # If the person who locked the page isn't in the group, unlock the page
+            if not workflow_state.page.locked_by.groups.filter(id=self.group_id).exists():
+                workflow_state.page.locked = False
+                workflow_state.page.locked_by = None
+                workflow_state.page.locked_at = None
+                workflow_state.page.save(update_fields=['locked', 'locked_by', 'locked_at'])
+
+        return super().start(workflow_state)
+
+    def user_can_access_editor(self, page, user):
+        return user.groups.filter(id=self.group_id).exists()
+
+    def user_can_lock(self, page, user):
+        return user.groups.filter(id=self.group_id).exists()
+
+    def user_can_unlock(self, page, user):
+        return False
+
     class Meta:
         verbose_name = _('Group approval task')
         verbose_name_plural = _('Group approval tasks')
@@ -2430,16 +2523,20 @@ class GroupApprovalTask(Task):
 
 class WorkflowState(models.Model):
     """Tracks the status of a started Workflow on a Page."""
-    WORKFLOW_STATUS_CHOICES = (
-        ('in_progress', _("In progress")),
-        ('approved', _("Approved")),
-        ('rejected', _("Rejected")),
-        ('cancelled', _("Cancelled")),
+    STATUS_IN_PROGRESS = 'in_progress'
+    STATUS_APPROVED = 'approved'
+    STATUS_REJECTED = 'rejected'
+    STATUS_CANCELLED = 'cancelled'
+    STATUS_CHOICES = (
+        (STATUS_IN_PROGRESS, _("In progress")),
+        (STATUS_APPROVED, _("Approved")),
+        (STATUS_REJECTED, _("Rejected")),
+        (STATUS_CANCELLED, _("Cancelled")),
     )
 
     page = models.ForeignKey('Page', on_delete=models.CASCADE, verbose_name=_("page"), related_name='workflow_states')
     workflow = models.ForeignKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow'), related_name='workflow_states')
-    status = models.fields.CharField(choices=WORKFLOW_STATUS_CHOICES, blank=False, null=False, verbose_name=_("status"), max_length=50, default='in_progress')
+    status = models.fields.CharField(choices=STATUS_CHOICES, verbose_name=_("status"), max_length=50, default=STATUS_IN_PROGRESS)
     created_at = models.DateTimeField(auto_now=True, verbose_name=_("created at"))
     requested_by = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      verbose_name=_('requested by'),
@@ -2471,8 +2568,8 @@ class WorkflowState(models.Model):
             if next_task:
                 if not self.current_task_state or next_task != self.current_task_state.task:
                     # if not on a task, or the next task to move to is not the current task (ie current task's status is
-                    # not 'in_progress'), move to the next task
-                    self.current_task_state = next_task.start(self)
+                    # not STATUS_IN_PROGRESS), move to the next task
+                    self.current_task_state = next_task.specific.start(self)
                     self.save()
                 # otherwise, continue on the current task
             else:
@@ -2481,7 +2578,7 @@ class WorkflowState(models.Model):
 
     def get_next_task(self):
         # finds the next task associated with the latest page revision, which has not been either approved or skipped
-        return Task.objects.filter(workflow_tasks__workflow=self.workflow).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status='approved') | Q(task_states__status='skipped')).order_by('workflow_tasks__sort_order').first()
+        return Task.objects.filter(workflow_tasks__workflow=self.workflow).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status=TaskState.STATUS_APPROVED) | Q(task_states__status=TaskState.STATUS_SKIPPED)).order_by('workflow_tasks__sort_order').first()
 
     def cancel(self):
         self.status = 'cancelled'
@@ -2496,7 +2593,7 @@ class WorkflowState(models.Model):
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')
-        # prevent multiple 'in_progress' workflows for the same page
+        # prevent multiple STATUS_IN_PROGRESS workflows for the same page
         constraints = [
             models.UniqueConstraint(fields=['page'], condition=Q(status='in_progress'), name='unique_in_progress_workflow')
         ]
@@ -2504,18 +2601,23 @@ class WorkflowState(models.Model):
 
 class TaskState(models.Model):
     """Tracks the status of a given Task for a particular page revision."""
-    TASK_STATUS_CHOICES = (
-        ('in_progress', _("In progress")),
-        ('approved', _("Approved")),
-        ('rejected', _("Rejected")),
-        ('skipped', _("Skipped")),
-        ('cancelled', _("Cancelled")),
+    STATUS_IN_PROGRESS = 'in_progress'
+    STATUS_APPROVED = 'approved'
+    STATUS_REJECTED = 'rejected'
+    STATUS_SKIPPED = 'skipped'
+    STATUS_CANCELLED = 'cancelled'
+    STATUS_CHOICES = (
+        (STATUS_IN_PROGRESS, _("In progress")),
+        (STATUS_APPROVED, _("Approved")),
+        (STATUS_REJECTED, _("Rejected")),
+        (STATUS_SKIPPED, _("Skipped")),
+        (STATUS_CANCELLED, _("Cancelled")),
     )
 
     workflow_state = models.ForeignKey('WorkflowState', on_delete=models.CASCADE, verbose_name=_('workflow state'), related_name='task_states')
     page_revision = models.ForeignKey('PageRevision', on_delete=models.CASCADE, verbose_name=_('page revision'), related_name='task_states')
     task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='task_states')
-    status = models.fields.CharField(choices=TASK_STATUS_CHOICES, blank=False, null=False, verbose_name=_("status"), max_length=50, default='in_progress')
+    status = models.fields.CharField(choices=STATUS_CHOICES, verbose_name=_("status"), max_length=50, default=STATUS_IN_PROGRESS)
     started_at = models.DateTimeField(verbose_name=_('started at'), auto_now=True)
     finished_at = models.DateTimeField(verbose_name=_('finished at'), blank=True, null=True)
     content_type = models.ForeignKey(
