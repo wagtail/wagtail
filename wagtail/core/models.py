@@ -2453,13 +2453,13 @@ class Task(models.Model):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
-    def start(self, workflow_state):
+    def start(self, workflow_state, user=None):
         task_state = TaskState(workflow_state=workflow_state)
         task_state.status = TaskState.STATUS_IN_PROGRESS
         task_state.page_revision = workflow_state.page.get_latest_revision()
         task_state.task = self
         task_state.save()
-        task_submitted.send(sender=task_state.specific.__class__, instance=task_state.specific)
+        task_submitted.send(sender=task_state.specific.__class__, instance=task_state.specific, user=user)
         return task_state
 
     def on_action(self, task_state, user, action_name):
@@ -2507,7 +2507,7 @@ class Workflow(ClusterableModel):
         # initiates a workflow by creating an instance of WorkflowState
         state = WorkflowState(page=page, workflow=self, status=WorkflowState.STATUS_IN_PROGRESS, requested_by=user)
         state.save()
-        state.update()
+        state.update(user=user)
         workflow_submitted.send(sender=state.__class__, instance=state, user=user)
         return state
 
@@ -2519,7 +2519,7 @@ class Workflow(ClusterableModel):
 class GroupApprovalTask(Task):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name=_('group'))
 
-    def start(self, workflow_state):
+    def start(self, workflow_state, user=None):
         if workflow_state.page.locked_by:
             # If the person who locked the page isn't in the group, unlock the page
             if not workflow_state.page.locked_by.groups.filter(id=self.group_id).exists():
@@ -2528,7 +2528,7 @@ class GroupApprovalTask(Task):
                 workflow_state.page.locked_at = None
                 workflow_state.page.save(update_fields=['locked', 'locked_by', 'locked_at'])
 
-        return super().start(workflow_state)
+        return super().start(workflow_state, user=user)
 
     def user_can_access_editor(self, page, user):
         return user.groups.filter(id=self.group_id).exists()
@@ -2593,7 +2593,7 @@ class WorkflowState(models.Model):
     def __str__(self):
         return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
 
-    def update(self):
+    def update(self, user=None):
         # checks the status of the current task, and progresses (or ends) the workflow if appropriate
         try:
             current_status = self.current_task_state.status
@@ -2602,35 +2602,35 @@ class WorkflowState(models.Model):
         if current_status == 'rejected':
             self.status = current_status
             self.save()
-            workflow_rejected.send(sender=self.__class__, instance=self)
+            workflow_rejected.send(sender=self.__class__, instance=self, user=user)
         else:
             next_task = self.get_next_task()
             if next_task:
                 if not self.current_task_state or next_task != self.current_task_state.task:
                     # if not on a task, or the next task to move to is not the current task (ie current task's status is
                     # not STATUS_IN_PROGRESS), move to the next task
-                    self.current_task_state = next_task.specific.start(self)
+                    self.current_task_state = next_task.specific.start(self, user=user)
                     self.save()
                 # otherwise, continue on the current task
             else:
                 # if there is no uncompleted task, finish the workflow.
-                self.finish()
+                self.finish(user=user)
 
     def get_next_task(self):
         # finds the next task associated with the latest page revision, which has not been either approved or skipped
         return Task.objects.filter(workflow_tasks__workflow=self.workflow).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status=TaskState.STATUS_APPROVED) | Q(task_states__status=TaskState.STATUS_SKIPPED)).order_by('workflow_tasks__sort_order').first()
 
-    def cancel(self):
+    def cancel(self, user=None):
         self.status = 'cancelled'
         self.save()
-        workflow_cancelled.send(sender=self.__class__, instance=self)
+        workflow_cancelled.send(sender=self.__class__, instance=self, user=user)
 
     @transaction.atomic
-    def finish(self):
+    def finish(self, user=None):
         self.status = 'approved'
         self.save()
         self.on_finish()
-        workflow_approved.send(sender=self.__class__, instance=self)
+        workflow_approved.send(sender=self.__class__, instance=self, user=user)
 
     class Meta:
         verbose_name = _('Workflow state')
@@ -2708,16 +2708,16 @@ class TaskState(models.Model):
         self.status = 'approved'
         self.finished_at = timezone.now()
         self.save()
-        self.workflow_state.update()
-        task_approved.send(sender=self.specific.__class__, instance=self.specific)
+        self.workflow_state.update(user=user)
+        task_approved.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
 
     def reject(self, user=None):
         self.status = 'rejected'
         self.finished_at = timezone.now()
         self.save()
-        self.workflow_state.update()
-        task_rejected.send(sender=self.specific.__class__, instance=self.specific)
+        self.workflow_state.update(user=user)
+        task_rejected.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
 
     class Meta:
