@@ -1,3 +1,0 @@
-{% load i18n %}
-
-{% blocktrans with title=page.get_admin_display_title|safe task=task.name %}The page "{{ title }}" has been rejected during {{ task }}.{% endblocktrans %}
