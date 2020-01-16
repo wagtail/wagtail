@@ -143,13 +143,13 @@ class Notifier:
         self.valid_classes = valid_classes
         self.valid_notifications = valid_notifications
 
-    def can_handle_class(self, instance):
+    def can_handle_class(self, instance, **kwargs):
         return type(instance) in self.valid_classes
 
-    def can_handle_notification(self, notification):
+    def can_handle_notification(self, notification, **kwargs):
         return notification in self.valid_notifications
 
-    def can_handle(self, notifying_instance, notification):
+    def can_handle(self, notifying_instance, notification, **kwargs):
         return self.can_handle_class(notifying_instance) and self.can_handle_notification(notification)
 
     def get_recipient_users(self, notifying_instance, notification, **kwargs):
@@ -164,10 +164,10 @@ class Notifier:
             notification + '_notifications'
         )}
 
-    def get_template_base_prefix(self, notifying_instance):
+    def get_template_base_prefix(self, notifying_instance, **kwargs):
         return camelcase_to_underscore(type(notifying_instance).__name__)+'_'
 
-    def get_template_set(self, notifying_instance, notification):
+    def get_template_set(self, notifying_instance, notification, **kwargs):
         """Return a dictionary of template paths for the templates for the email subject and the text and html
         alternatives"""
         template_base = self.get_template_base_prefix(notifying_instance) + notification
@@ -185,7 +185,7 @@ class Notifier:
     def get_context(self, notifying_instance, notification, **kwargs):
         return {'settings': settings}
 
-    def send_emails(self, template_set, context, recipients):
+    def send_emails(self, template_set, context, recipients, **kwargs):
 
         connection = get_connection()
 
@@ -202,7 +202,6 @@ class Notifier:
                     # Translate text to the recipient language settings
                     with override(recipient.wagtail_userprofile.get_preferred_language()):
                         # Get email subject and content
-                        import pdb; pdb.set_trace()
                         email_subject = render_to_string(template_set['subject'], context).strip()
                         email_content = render_to_string(template_set['text'], context).strip()
 
@@ -211,8 +210,6 @@ class Notifier:
                         kwargs['html_message'] = render_to_string(template_set['html'], context)
 
                     # Send email
-                    import pdb;
-                    pdb.set_trace()
                     send_mail(email_subject, email_content, [recipient.email], connection=open_connection, **kwargs)
                     sent_count += 1
                 except Exception:
@@ -226,7 +223,7 @@ class Notifier:
     def __call__(self, notifying_instance, notification, **kwargs):
         """Send emails corresponding to the notification (eg 'approved') from an instance, notifying_instance"""
 
-        if not self.can_handle(notifying_instance, notification):
+        if not self.can_handle(notifying_instance, notification, **kwargs):
             return False
 
         recipients = self.get_valid_recipients(notifying_instance, notification, **kwargs)
@@ -234,11 +231,11 @@ class Notifier:
         if not recipients:
             return True
 
-        template_set = self.get_template_set(notifying_instance, notification)
+        template_set = self.get_template_set(notifying_instance, notification, **kwargs)
 
         context = self.get_context(notifying_instance, notification, **kwargs)
 
-        return self.send_emails(template_set, context, recipients)
+        return self.send_emails(template_set, context, recipients, **kwargs)
 
     def approved(self, instance=None, **kwargs):
         return self(instance, 'approved', **kwargs)
@@ -285,7 +282,7 @@ class GroupApprovalTaskStateNotifier(Notifier):
     def __init__(self, valid_notifications):
         super().__init__({GroupApprovalTask}, valid_notifications)
 
-    def can_handle_class(self, instance):
+    def can_handle_class(self, instance, **kwargs):
         return super().can_handle_class(instance.task.specific)
 
     def get_context(self, task_state, notification, **kwargs):
@@ -309,7 +306,8 @@ class GroupApprovalTaskStateNotifier(Notifier):
         if triggering_user:
             recipients = recipients.exclude(pk=triggering_user.pk)
 
-        if not triggering_user or triggering_user.pk != requested_by.pk:
+        # add the notifier's requester
+        if notification != "submitted" and (not triggering_user or triggering_user.pk != requested_by.pk):
             recipients = set(recipients)
             recipients.add(requested_by)
 
