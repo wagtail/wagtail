@@ -12,7 +12,7 @@ from wagtail.admin import messages
 from wagtail.admin.edit_handlers import Workflow
 from wagtail.admin.forms.workflows import AddWorkflowToPageForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.core.models import Page, Task, WorkflowPage, WorkflowTask
+from wagtail.core.models import Page, Task, WorkflowPage, WorkflowState, WorkflowTask
 from wagtail.admin.views.pages import get_valid_next_url_from_request
 from wagtail.core.permissions import workflow_permission_policy, task_permission_policy
 from django.shortcuts import get_object_or_404, redirect, render
@@ -70,6 +70,7 @@ class Edit(EditView):
     success_message = _("Workflow '{0}' updated.")
     add_url_name = 'wagtailadmin_workflows:add'
     edit_url_name = 'wagtailadmin_workflows:edit'
+    delete_url_name = 'wagtailadmin_workflows:delete'
     index_url_name = 'wagtailadmin_workflows:index'
     header_icon = 'placeholder'
     edit_handler = None
@@ -102,6 +103,25 @@ class Edit(EditView):
         context['edit_handler'] = self.edit_handler
         context['pages'] = self.get_paginated_pages()
         return context
+
+
+class Delete(DeleteView):
+    permission_policy = workflow_permission_policy
+    model = Workflow
+    page_title = _("Delete workflow")
+    template_name = 'wagtailadmin/workflows/confirm_delete.html'
+    success_message = _("Workflow '{0}' deleted.")
+    add_url_name = 'wagtailadmin_workflows:add'
+    edit_url_name = 'wagtailadmin_workflows:edit'
+    delete_url_name = 'wagtailadmin_workflows:delete'
+    index_url_name = 'wagtailadmin_workflows:index'
+    header_icon = 'placeholder'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['workflow_states_in_progress'] = WorkflowState.objects.filter(status=WorkflowState.STATUS_IN_PROGRESS).count()
+        return context
+
 
 
 @require_POST
