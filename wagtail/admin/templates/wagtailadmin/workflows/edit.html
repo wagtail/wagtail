@@ -30,10 +30,13 @@
         <div class="object">
             <ul class="object-layout">
                 <li class="object-layout_big-part">
-                    <p class="save">
+                    <p class="actions">
                         <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
                             <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
                         </button>
+                        {% if can_delete %}
+                        <a href="{{ view.get_delete_url }}" class="button button-secondary no">{{ view.delete_item_label }}</a>
+                    {% endif %}
                     </p>
                 </li>
             </ul>
