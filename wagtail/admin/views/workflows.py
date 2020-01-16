@@ -186,6 +186,25 @@ def enable_workflow(request, pk):
         return redirect('wagtailadmin_workflows:edit', workflow.id)
 
 
+class Delete(DeleteView):
+    permission_policy = workflow_permission_policy
+    model = Workflow
+    page_title = _("Delete workflow")
+    template_name = 'wagtailadmin/workflows/confirm_delete.html'
+    success_message = _("Workflow '{0}' deleted.")
+    add_url_name = 'wagtailadmin_workflows:add'
+    edit_url_name = 'wagtailadmin_workflows:edit'
+    delete_url_name = 'wagtailadmin_workflows:delete'
+    index_url_name = 'wagtailadmin_workflows:index'
+    header_icon = 'placeholder'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['workflow_states_in_progress'] = WorkflowState.objects.filter(status=WorkflowState.STATUS_IN_PROGRESS).count()
+        return context
+
+
+
 @require_POST
 def remove_workflow(request, page_pk, workflow_pk=None):
     # Remove a workflow from a page (specifically a single workflow if workflow_pk is set)
