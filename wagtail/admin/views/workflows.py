@@ -12,10 +12,12 @@ from wagtail.admin import messages
 from wagtail.admin.edit_handlers import Workflow
 from wagtail.admin.forms.workflows import AddWorkflowToPageForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.core.models import Page, Task, WorkflowPage, WorkflowState, WorkflowTask
+from wagtail.core.models import Page, Task, TaskState, WorkflowPage, WorkflowState, WorkflowTask
 from wagtail.admin.views.pages import get_valid_next_url_from_request
 from wagtail.core.permissions import workflow_permission_policy, task_permission_policy
 from django.shortcuts import get_object_or_404, redirect, render
+
+from distutils.util import strtobool
 
 
 class Index(IndexView):
@@ -28,6 +30,17 @@ class Index(IndexView):
     page_title = _("Workflows")
     add_item_label = _("Add a workflow")
     header_icon = 'placeholder'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if not strtobool(self.request.GET.get('show_disabled', 'False')):
+            queryset = queryset.filter(active=True)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['showing_disabled'] = strtobool(self.request.GET.get('show_disabled', 'False'))
+        return context
 
 
 class Create(CreateView):
@@ -70,8 +83,11 @@ class Edit(EditView):
     success_message = _("Workflow '{0}' updated.")
     add_url_name = 'wagtailadmin_workflows:add'
     edit_url_name = 'wagtailadmin_workflows:edit'
-    delete_url_name = 'wagtailadmin_workflows:delete'
+    delete_url_name = 'wagtailadmin_workflows:disable'
+    delete_item_label = _('Disable')
     index_url_name = 'wagtailadmin_workflows:index'
+    enable_item_label = _('Enable')
+    enable_url_name = 'wagtailadmin_workflows:enable'
     header_icon = 'placeholder'
     edit_handler = None
     MAX_PAGES = 5
@@ -102,26 +118,65 @@ class Edit(EditView):
         context = super().get_context_data(**kwargs)
         context['edit_handler'] = self.edit_handler
         context['pages'] = self.get_paginated_pages()
+        context['can_disable'] = (self.permission_policy is None or self.permission_policy.user_has_permission(self.request.user, 'delete')) and self.object.active
+        context['can_enable'] = (self.permission_policy is None or self.permission_policy.user_has_permission(
+            self.request.user, 'create')) and not self.object.active
         return context
 
+    @property
+    def get_enable_url(self):
+        return reverse(self.enable_url_name, args=(self.object.pk,))
 
-class Delete(DeleteView):
+
+class Disable(DeleteView):
     permission_policy = workflow_permission_policy
     model = Workflow
-    page_title = _("Delete workflow")
-    template_name = 'wagtailadmin/workflows/confirm_delete.html'
-    success_message = _("Workflow '{0}' deleted.")
+    page_title = _("Disable workflow")
+    template_name = 'wagtailadmin/workflows/confirm_disable.html'
+    success_message = _("Workflow '{0}' disabled.")
     add_url_name = 'wagtailadmin_workflows:add'
     edit_url_name = 'wagtailadmin_workflows:edit'
-    delete_url_name = 'wagtailadmin_workflows:delete'
+    delete_url_name = 'wagtailadmin_workflows:disable'
     index_url_name = 'wagtailadmin_workflows:index'
     header_icon = 'placeholder'
+
+    @property
+    def get_edit_url(self):
+        return reverse(self.edit_url_name, args=(self.kwargs['pk'],))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['workflow_states_in_progress'] = WorkflowState.objects.filter(status=WorkflowState.STATUS_IN_PROGRESS).count()
         return context
 
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.deactivate(user=request.user)
+        messages.success(request, self.get_success_message())
+        return redirect(reverse(self.index_url_name))
+
+
+@require_POST
+def enable_workflow(request, pk):
+    # Reactivate an inactive workflow
+    workflow = get_object_or_404(Workflow, id=pk)
+
+    # Check permissions
+    if not workflow_permission_policy.user_has_permission(request.user, 'create'):
+        raise PermissionDenied
+
+    # Set workflow to active if inactive
+    if not workflow.active:
+        workflow.active = True
+        workflow.save()
+        messages.success(request, _("Workflow '{0}' enabled.").format(workflow.name))
+
+    # Redirect
+    redirect_to = request.POST.get('next', None)
+    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+        return redirect(redirect_to)
+    else:
+        return redirect('wagtailadmin_workflows:edit', workflow.id)
 
 
 @require_POST
@@ -191,6 +246,17 @@ class TaskIndex(IndexView):
     page_title = _("Tasks")
     add_item_label = _("Add a task")
     header_icon = 'placeholder'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if not strtobool(self.request.GET.get('show_disabled', 'False')):
+            queryset = queryset.filter(active=True)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['showing_disabled'] = strtobool(self.request.GET.get('show_disabled', 'False'))
+        return context
 
 
 def select_task_type(request):
@@ -276,7 +342,11 @@ class EditTask(EditView):
     success_message = _("Task '{0}' updated.")
     add_url_name = 'wagtailadmin_workflows:select_task_type'
     edit_url_name = 'wagtailadmin_workflows:edit_task'
+    delete_url_name = 'wagtailadmin_workflows:disable_task'
     index_url_name = 'wagtailadmin_workflows:task_index'
+    delete_item_label = _('Disable')
+    enable_item_label = _('Enable')
+    enable_url_name = 'wagtailadmin_workflows:enable_task'
     header_icon = 'placeholder'
     edit_handler = None
 
@@ -308,5 +378,63 @@ class EditTask(EditView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['edit_handler'] = self.edit_handler
+        context['can_disable'] = (self.permission_policy is None or self.permission_policy.user_has_permission(self.request.user, 'delete')) and self.object.active
+        context['can_enable'] = (self.permission_policy is None or self.permission_policy.user_has_permission(self.request.user, 'create')) and not self.object.active
+
         # TODO: add warning msg when there are pages currently on this task in a workflow, add interaction like resetting task state when saved
         return context
+
+    @property
+    def get_enable_url(self):
+        return reverse(self.enable_url_name, args=(self.object.pk,))
+
+
+class DisableTask(DeleteView):
+    permission_policy = task_permission_policy
+    model = Task
+    page_title = _("Disable task")
+    template_name = 'wagtailadmin/workflows/confirm_disable_task.html'
+    success_message = _("Task '{0}' disabled.")
+    add_url_name = 'wagtailadmin_workflows:add_task'
+    edit_url_name = 'wagtailadmin_workflows:edit_task'
+    delete_url_name = 'wagtailadmin_workflows:disable_task'
+    index_url_name = 'wagtailadmin_workflows:task_index'
+    header_icon = 'placeholder'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task_states_in_progress'] = TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS).count()
+        return context
+
+    @property
+    def get_edit_url(self):
+        return reverse(self.edit_url_name, args=(self.kwargs['pk'],))
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.deactivate(user=request.user)
+        messages.success(request, self.get_success_message())
+        return redirect(reverse(self.index_url_name))
+
+
+@require_POST
+def enable_task(request, pk):
+    # Reactivate an inactive task
+    task = get_object_or_404(Task, id=pk)
+
+    # Check permissions
+    if not task_permission_policy.user_has_permission(request.user, 'create'):
+        raise PermissionDenied
+
+    # Set workflow to active if inactive
+    if not task.active:
+        task.active = True
+        task.save()
+        messages.success(request, _("Task '{0}' enabled.").format(task.name))
+
+    # Redirect
+    redirect_to = request.POST.get('next', None)
+    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+        return redirect(redirect_to)
+    else:
+        return redirect('wagtailadmin_workflows:edit_task', task.id)
