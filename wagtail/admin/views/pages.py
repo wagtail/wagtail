@@ -27,7 +27,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
-from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy, WorkflowState
+from wagtail.core.models import Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState, WorkflowTask
 from wagtail.search.query import MATCH_ALL
 
 
@@ -367,6 +367,50 @@ def edit(request, page_id):
 
         messages.error(request, lock_message, extra_tags='lock')
 
+    next_url = get_valid_next_url_from_request(request)
+
+    task_statuses = []
+    workflow_state = page.current_workflow_state
+    workflow_name = ''
+    task_name = ''
+    total_tasks = 0
+    current_task_number = None
+    if workflow_state:
+        workflow = workflow_state.workflow
+        task = workflow_state.current_task_state.task
+        workflow_tasks = WorkflowTask.objects.filter(workflow=workflow)
+        try:
+            current_task_number = workflow_tasks.get(task=task).sort_order+1
+        except WorkflowTask.DoesNotExist:
+            # The Task has been removed from the Workflow
+            pass
+        task_name = task.name
+        workflow_name = workflow.name
+
+        states = TaskState.objects.filter(workflow_state=workflow_state, page_revision=page.get_latest_revision()).values('task', 'status')
+        total_tasks = len(workflow_tasks) # len used as queryset is to be iterated over
+
+        # create a list of task statuses to be passed into the template to show workflow progress
+        for workflow_task in workflow_tasks:
+            try:
+                status = states.get(task=workflow_task.task)['status']
+            except TaskState.DoesNotExist:
+                status = 'not_started'
+            task_statuses.append(status)
+
+        # add a warning message if tasks have been approved and may need to be re-approved
+        approved_task = True if 'approved' in task_statuses else False
+        # TODO: allow this warning message to be adapted based on whether tasks will auto-re-approve when an edit is made on a later task or not
+        # TODO: add icon to message when we have added a workflows icon
+        if current_task_number:
+            workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
+        else:
+            workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
+        if approved_task:
+            messages.warning(request, mark_safe(workflow_info+_("Editing this Page will cause completed Tasks to need re-approval.")))
+        else:
+            messages.success(request, workflow_info)
+
     errors_debug = None
 
     if request.method == 'POST':
@@ -480,9 +524,6 @@ def edit(request, page_id):
                     )
                 ])
 
-                if not send_notification(page.get_latest_revision().id, 'submitted', request.user.pk):
-                    messages.error(request, _("Failed to send notifications to moderators"))
-
             else:  # Saving
 
                 if is_reverting:
@@ -573,6 +614,11 @@ def edit(request, page_id):
         'has_unsaved_changes': has_unsaved_changes,
         'page_locked': page_perms.page_locked(),
         'workflow_actions': page.current_workflow_task.get_actions(page, request.user) if page.current_workflow_task else [],
+        'task_statuses': task_statuses,
+        'current_task_number': current_task_number,
+        'task_name': task_name,
+        'workflow_name': workflow_name,
+        'total_tasks': total_tasks
     })
 
 
