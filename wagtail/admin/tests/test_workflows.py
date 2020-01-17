@@ -874,7 +874,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
     def approve(self):
         return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'approve'})
 
-    def test_deactivate_workflow(self):
+    def test_disable_workflow(self):
         """Test that deactivating a workflow sets it to inactive and cancels in progress states"""
         self.login(self.submitter)
         self.submit()
@@ -889,7 +889,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         self.assertEqual(states.filter(status=WorkflowState.STATUS_IN_PROGRESS).count(), 0)
         self.assertEqual(states.filter(status=WorkflowState.STATUS_CANCELLED).count(), 1)
 
-    def test_deactivate_task(self):
+    def test_disable_task(self):
         """Test that deactivating a task sets it to inactive and cancels in progress states"""
         self.login(self.submitter)
         self.submit()
@@ -906,7 +906,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         # Check that the page's WorkflowState has moved on to the next active task
         self.assertEqual(self.page.current_workflow_state.current_task_state.task.specific, self.task_2)
 
-    def test_activate_workflow(self):
+    def test_enable_workflow(self):
         self.login(self.superuser)
         self.workflow.active = False
         self.workflow.save()
@@ -916,7 +916,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         self.workflow.refresh_from_db()
         self.assertEqual(self.workflow.active, True)
 
-    def test_activate_task(self):
+    def test_enable_task(self):
         self.login(self.superuser)
         self.task_1.active = False
         self.task_1.save()
