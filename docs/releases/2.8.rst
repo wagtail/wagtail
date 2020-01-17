@@ -40,7 +40,7 @@ Other features
  * Add StreamFieldPanel to available panel types in documentation (Dan Swain)
  * Add {{ block.super }} example to ModelAdmin customisation in documentation (Dan Swain)
  * Add ability to filter image index by a tag (Benedikt Willi)
- * Add formal support for nested InlinePanels (Matt Westcott, Sam Costigan, Andy Chosak, Scott Cranfill)
+ * Add partial experimental support for nested InlinePanels (Matt Westcott, Sam Costigan, Andy Chosak, Scott Cranfill)
  * Added cache control headers when serving documents (Johannes Vogel)
  * Use ``sensitive_post_parameters`` on password reset form (Dan Braghis)
 
