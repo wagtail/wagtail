@@ -56,5 +56,10 @@
             {% url view.add_url_name as add_url %}
             <p>{% blocktrans %}No tasks have been created. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
         {% endif %}
+        {% if showing_disabled %}
+            <a href="?show_disabled=False" class="button secondary">{% trans "Hide Disabled Tasks" %}</a>
+        {% else %}
+            <a href="?show_disabled=True" class="button secondary">{% trans "Show Disabled Tasks" %}</a>
+        {% endif %}
     </div>
 {% endblock %}
