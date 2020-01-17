@@ -25,6 +25,8 @@ urlpatterns = [
 
     url(r'^(\d+)/copy/$', pages.copy, name='copy'),
 
+    url(r'^workflow/action/(\d+)/$', pages.workflow_action, name='workflow_action'),
+
     url(r'^moderation/(\d+)/approve/$', pages.approve_moderation, name='approve_moderation'),
     url(r'^moderation/(\d+)/reject/$', pages.reject_moderation, name='reject_moderation'),
     url(r'^moderation/(\d+)/preview/$', pages.preview_for_moderation, name='preview_for_moderation'),

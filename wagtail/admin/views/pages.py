@@ -339,6 +339,8 @@ def edit(request, page_id):
     if not page_perms.can_edit():
         raise PermissionDenied
 
+    next_url = get_valid_next_url_from_request(request)
+
     for fn in hooks.get_hooks('before_edit_page'):
         result = fn(request, page)
         if hasattr(result, 'status_code'):
@@ -611,6 +613,7 @@ def edit(request, page_id):
         'next': next_url,
         'has_unsaved_changes': has_unsaved_changes,
         'page_locked': page_perms.page_locked(),
+        'workflow_actions': page.current_workflow_task.get_actions(page, request.user) if page.current_workflow_task else [],
         'task_statuses': task_statuses,
         'current_task_number': current_task_number,
         'task_name': task_name,
@@ -1113,6 +1116,30 @@ def reject_moderation(request, revision_id):
             messages.error(request, _("Failed to send rejection notifications"))
 
     return redirect('wagtailadmin_home')
+
+
+@require_POST
+def workflow_action(request, page_id):
+    page = get_object_or_404(Page, id=page_id)
+
+    redirect_to = request.POST.get('next', None)
+    if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+        redirect_to = reverse('wagtailadmin_explore', args=[page.get_parent().id])
+
+    if not page.workflow_in_progress():
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.get_admin_display_title()))
+        return redirect(redirect_to)
+
+    actions = page.current_workflow_task.get_actions(page, request.user)
+
+    action_name = request.POST.get('action')
+
+    if action_name not in set(action[0] for action in actions):
+        raise PermissionDenied
+
+    page.current_workflow_task.on_action(page.current_workflow_task_state, request.user, action_name)
+
+    return redirect(redirect_to)
 
 
 @require_GET
