@@ -2587,10 +2587,10 @@ class Task(models.Model):
     @transaction.atomic
     def deactivate(self, user=None):
         self.active = False
+        self.save()
         in_progress_states = TaskState.objects.filter(task=self, status=TaskState.STATUS_IN_PROGRESS)
         for state in in_progress_states:
             state.cancel(user=user)
-        self.save()
 
     class Meta:
         verbose_name = _('task')
