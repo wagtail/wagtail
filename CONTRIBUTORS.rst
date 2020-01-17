@@ -417,7 +417,6 @@ Contributors
 * kailwallin
 * ryanomor
 * Thijs Baaijen
-* Igor van Spengen
 * Stefani Castellanos
 * Aliosha Padovani
 * Tom Readings
