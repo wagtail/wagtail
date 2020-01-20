@@ -417,7 +417,6 @@ Contributors
 * kailwallin
 * ryanomor
 * Thijs Baaijen
-* Igor van Spengen
 * Stefani Castellanos
 * Aliosha Padovani
 * Tom Readings
@@ -427,6 +426,8 @@ Contributors
 * Pete Andrew
 * Benedikt Willi
 * Johannes Vogel
+* Sam Costigan
+* Eric Sherman
 
 Translators
 ===========

@@ -26,16 +26,21 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         };
 
         var searchUrl = $('form.document-search', modal.body).attr('action');
+        var request;
         function search() {
-            $.ajax({
+            request = $.ajax({
                 url: searchUrl,
                 data: {
                     q: $('#id_q').val(),
                     collection_id: $('#collection_chooser_collection_id').val()
                 },
                 success: function(data, status) {
+                    request = null;
                     $('#search-results').html(data);
                     ajaxifyLinks($('#search-results'));
+                },
+                error: function() {
+                    request = null;
                 }
             });
             return false;
@@ -48,12 +53,16 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 dataObj = {p: page};
             }
 
-            $.ajax({
+            request = $.ajax({
                 url: searchUrl,
                 data: dataObj,
                 success: function(data, status) {
+                    request = null;
                     $('#search-results').html(data);
                     ajaxifyLinks($('#search-results'));
+                },
+                error: function() {
+                    request = null;
                 }
             });
             return false;
@@ -86,6 +95,9 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         $('form.document-search', modal.body).on('submit', search);
 
         $('#id_q').on('input', function() {
+            if (request) {
+                request.abort();
+            }
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 50);
             $(this).data('timer', wait);

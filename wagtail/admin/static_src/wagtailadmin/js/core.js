@@ -264,6 +264,7 @@ $(function() {
                         }
                     },
                     complete: function() {
+                        wagtail.ui.initDropDowns();
                         $inputContainer.removeClass(workingClasses);
                     }
                 });
@@ -542,7 +543,7 @@ wagtail = (function(document, window, wagtail) {
     }
 
     $(document).ready(initDropDowns);
-
+    wagtail.ui.initDropDowns = initDropDowns;
     wagtail.ui.DropDownController = DropDownController;
     return wagtail;
 
