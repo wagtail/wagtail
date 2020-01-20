@@ -105,7 +105,7 @@ class TestEmbeds(TestCase):
         # Check ratio calculations
         self.assertEqual(embed.ratio, 480 / 400)
         self.assertEqual(embed.ratio_css, '120.0%')
-        self.assertTrue(embed.is_responsive)
+        self.assertFalse(embed.is_responsive)
 
         # Check that there has only been one hit to the backend
         self.assertEqual(self.hit_count, 1)
