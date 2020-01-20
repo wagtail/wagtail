@@ -119,10 +119,13 @@ Only fields using ``RichTextField`` need this applied in the template.
     ...
     {{ page.body|richtext }}
 
+
+.. _responsive-embeds:
+
 Responsive Embeds
 -----------------
 
-Wagtail includes embeds and images at their full width, which may overflow the bounds of the content container you've defined in your templates. To make images and embeds responsive -- meaning they'll resize to fit their container -- include the following CSS.
+By default, Wagtail includes embeds and images at their full width, which may overflow the bounds of the content container you've defined in your templates. To address this, Wagtail provides the ability to make images and embeds responsive -- meaning they'll resize to fit their container. Responsive embeds can be enabled by setting ``WAGTAILEMBEDS_RESPONSIVE_HTML = True`` in your project settings; this adds a CSS class of ``responsive-object`` and an inline ``padding-bottom`` style to the embed, to be used in conjunction with CSS such as the following:
 
 .. code-block:: css
 
@@ -145,7 +148,11 @@ Wagtail includes embeds and images at their full width, which may overflow the b
         height: 100%;
     }
 
-It's possible to disable responsive embeds entirely by setting ``WAGTAILEMBEDS_RESPONSIVE_HTML = False`` in your settings. Normally, Wagtail wraps your embed links in a ``<div>`` element. If you decide to disable responsive embeds the ``<div>`` element around your embed will not be given a CSS class of ``responsive-object`` and there won't be an inline style in the same parent ``<div>`` element. This means the responsiveness of your embed is entirely up to you.
+
+.. versionchanged:: 2.8
+
+  The ``WAGTAILEMBEDS_RESPONSIVE_HTML`` setting was added. Previous versions always added the class and style attributes.
+
 
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~
