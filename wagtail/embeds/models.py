@@ -51,7 +51,7 @@ class Embed(models.Model):
 
     @property
     def is_responsive(self):
-        if not getattr(settings, 'WAGTAILEMBEDS_RESPONSIVE_HTML', True):
+        if not getattr(settings, 'WAGTAILEMBEDS_RESPONSIVE_HTML', False):
             return False
         return self.ratio is not None
 
