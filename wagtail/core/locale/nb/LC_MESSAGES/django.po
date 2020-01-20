@@ -4,14 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-11-07 12:31+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,10 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail-kjernen"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: denne blokken har ingen alternativer."
 
 msgid "This block has no options."
 msgstr "Denne blokken har ingen alternativer."
@@ -300,6 +304,9 @@ msgstr "tillatelse"
 
 msgid "group collection permission"
 msgstr "gruppetillatelse for samling"
+
+msgid "group collection permissions"
+msgstr "gruppetillatelser for samling"
 
 msgid "Log in"
 msgstr "Logg inn"

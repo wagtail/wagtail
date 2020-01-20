@@ -3,11 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# utek <mail@utek.pl>, 2014
+# Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
 # Miłosz Miśkiewicz, 2017-2019
 # Miłosz Miśkiewicz, 2016
-# utek <mail@utek.pl>, 2014
+# Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

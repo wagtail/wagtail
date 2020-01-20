@@ -4,14 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-11-07 12:44+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail-bilder"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -46,6 +49,10 @@ msgstr "Ikke et gyldig %s-bilde."
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Denne fila er for stor (%%s). Maksimal filstørrelse er %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "Denne fila har for mange piksler (%%s). Maks antall piksler er %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -144,6 +151,24 @@ msgstr "Populære stikkord"
 msgid "Uploading…"
 msgstr "Laster opp…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Det er %(counter)s treff\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Det er %(counter)s treff\n"
+"        "
+
 msgid "Latest images"
 msgstr "Siste bilder"
 
@@ -152,6 +177,28 @@ msgstr "Velg et format"
 
 msgid "Insert image"
 msgstr "Sett inn bilde"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Bilde <span class=\"visuallyhidden"
+"\">opprettet i %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Bilder <span class=\"visuallyhidden"
+"\">opprettet i %(site_name)s</span>\n"
+"    "
 
 msgid "Change image file:"
 msgstr "Endre bildefil:"
@@ -180,6 +227,9 @@ msgstr "Er du sikker på at du vil slette dette bildet?"
 msgid "Yes, delete"
 msgstr "Ja, slett"
 
+msgid "No, don't delete"
+msgstr "Nei, ikke slett"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Endrer bilde %(title)s"
@@ -189,6 +239,18 @@ msgstr "Endrer"
 
 msgid "URL Generator"
 msgstr "URL-generator"
+
+msgid "Focal point"
+msgstr "Fokuspunkt"
+
+msgid "(optional)"
+msgstr "(valgfritt)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"For å definere bildets viktigste område, dra en boks på bildet ovenfor."
 
 msgid "Current focal point shown"
 msgstr "Nåværende fokuspunkt vises"
@@ -210,6 +272,9 @@ msgstr "Bruk"
 
 msgid "Images"
 msgstr "Bilder"
+
+msgid "pixels"
+msgstr "piksler"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

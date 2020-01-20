@@ -8,14 +8,15 @@
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
 # Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
 # Nuno Matos <tugassoft@gmail.com>, 2016
+# Rui Martins <rmartins16@gmail.com>, 2019
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-17 11:50+0000\n"
+"Last-Translator: Rui Martins <rmartins16@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +36,9 @@ msgstr "Despublicar"
 
 msgid "Delete"
 msgstr "Apagar"
+
+msgid "Save Draft"
+msgstr "Guardar rascunho"
 
 msgid "Page locked"
 msgstr "Página trancada"
@@ -117,6 +121,10 @@ msgstr[0] ""
 msgstr[1] ""
 "%(count)s das páginas a copiar estão publicadas.  Gostaria de publicar as "
 "suas cópias?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Não tem permissões para copiar a página \"%(page_title)s\""
 
 #, python-format
 msgid ""

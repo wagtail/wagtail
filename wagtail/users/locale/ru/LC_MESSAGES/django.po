@@ -8,6 +8,7 @@
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Eugene <eugene.mechanism@gmail.com>, 2017
 # Никита Викторович <hnknta@gmail.com>, 2014
+# Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassily <zuber.kg@gmail.com>, 2017
@@ -18,8 +19,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-11 11:00+0000\n"
+"Last-Translator: Mikhail Sidorov <pevzi23@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -260,6 +261,9 @@ msgstr "Уровень"
 
 msgid "Status"
 msgstr "Статус"
+
+msgid "Last Login"
+msgstr "Последний вход"
 
 msgid "Admin"
 msgstr "Администратор"

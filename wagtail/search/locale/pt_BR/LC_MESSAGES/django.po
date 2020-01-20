@@ -4,6 +4,7 @@
 #
 # Translators:
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
+# Daniel Carvalho <dnc331@gmail.com>, 2019
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-11-16 04:10+0000\n"
+"Last-Translator: Daniel Carvalho <dnc331@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail search"
+msgstr "Busca Wagtail"
 
 msgid "Search term(s)/phrase"
 msgstr "Buscar termo(s)/frase"

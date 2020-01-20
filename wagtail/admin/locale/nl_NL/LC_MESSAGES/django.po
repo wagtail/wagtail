@@ -6,7 +6,7 @@
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2019
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
-# Meteor 0id, 2019
+# Meteor0id, 2019
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2018
 msgid ""
 msgstr ""

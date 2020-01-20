@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2016,2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-04 01:43+0000\n"
+"Last-Translator: Bogdan Mateescu\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imagini Wagtail"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -45,6 +49,10 @@ msgstr "Imaginea %s nu este validă."
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Acest fișier este prea mare (%%s). Mărime maximă: %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "Acest fișier are prea mulți pixeli (%%s). Maximum de pixeli %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -174,6 +182,33 @@ msgstr "Alege un format"
 msgid "Insert image"
 msgstr "Inserează imagine"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> imagine <span class=\"visuallyhidden\">creată "
+"în %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> imagini <span class=\"visuallyhidden\">create "
+"în %(site_name)s</span>\n"
+"    "
+msgstr[2] ""
+"\n"
+"        <span>%(total)s</span> de imagini <span class=\"visuallyhidden"
+"\">create în %(site_name)s</span>\n"
+"    "
+
 msgid "Change image file:"
 msgstr "Schimbă fișierul imaginii:"
 
@@ -192,15 +227,18 @@ msgstr "Șterge imagine"
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s utilizări"
+msgstr[0] "%(usage_count)s utilizare"
 msgstr[1] "%(usage_count)s utilizări"
-msgstr[2] "%(usage_count)s utilizări"
+msgstr[2] "%(usage_count)s de utilizări"
 
 msgid "Are you sure you want to delete this image?"
 msgstr "Sigur doriți să ștergeți această imagine?"
 
 msgid "Yes, delete"
 msgstr "Da, șterge"
+
+msgid "No, don't delete"
+msgstr "Nu, nu șterge"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -245,6 +283,9 @@ msgstr "Utilizare"
 
 msgid "Images"
 msgstr "Imagini"
+
+msgid "pixels"
+msgstr "pixeli"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -391,7 +432,7 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imagine"
 msgstr[1] "%(count)s imagini"
-msgstr[2] "%(count)s imagini"
+msgstr[2] "%(count)s de imagini"
 
 msgid "Change image"
 msgstr "Schimbă imaginea"

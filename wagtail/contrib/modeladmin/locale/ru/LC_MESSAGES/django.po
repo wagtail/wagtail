@@ -5,13 +5,14 @@
 # Translators:
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Mikhail Sidorov <pevzi23@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-17 10:51+0000\n"
+"Last-Translator: Mikhail Sidorov <pevzi23@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -111,6 +112,9 @@ msgstr "Вернуться к списку"
 
 msgid "Yes, delete"
 msgstr "Да, удалить"
+
+msgid "No, don't delete"
+msgstr "Нет, не удалять"
 
 msgid "Home"
 msgstr "Главная"

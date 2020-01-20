@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Py Data <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-02 17:44+0000\n"
+"Last-Translator: Py Data <pydatageek@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -19,5 +20,27 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Wagtail table block"
+msgstr "Wagtail tablo bloğu"
+
 msgid "Row header"
 msgstr "Satır başlığı"
+
+msgid "Display the first row as a header."
+msgstr "İlk satırı başlık olarak göster."
+
+msgid "Column header"
+msgstr "Sütun başlığı"
+
+msgid "Display the first column as a header."
+msgstr "İlk sütunu başlık olarak göster."
+
+msgid "Table caption"
+msgstr "Tablo başlığı"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"Tablonun genel olarak konusunu anlatan başlıktır ve ekran okuyucu "
+"kullanıcıları için yararlıdır"

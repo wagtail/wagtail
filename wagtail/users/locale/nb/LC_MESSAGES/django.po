@@ -4,14 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-11-07 12:52+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -71,6 +71,12 @@ msgstr "En gruppe med det navnet eksisterer allerede."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme side."
 
+msgid "Preferred language"
+msgstr "Foretrukket språk"
+
+msgid "Current time zone"
+msgstr "Nåværende tidssone"
+
 msgid "Upload a profile picture"
 msgstr "Last opp profilbilde"
 
@@ -109,6 +115,9 @@ msgstr "profilbilde"
 
 msgid "user profile"
 msgstr "brukerprofil"
+
+msgid "user profiles"
+msgstr "brukerprofiler"
 
 msgid "Delete group"
 msgstr "Slett gruppe"
@@ -154,6 +163,9 @@ msgstr "Endrer"
 
 msgid "Save"
 msgstr "Lagre"
+
+msgid "Permissions"
+msgstr "Tillatelser"
 
 msgid "Object permissions"
 msgstr "Objekttillatelser"
@@ -230,6 +242,9 @@ msgstr "Nivå"
 msgid "Status"
 msgstr "Status"
 
+msgid "Last Login"
+msgstr "Forrige innlogging"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -238,6 +253,28 @@ msgstr "Aktiv"
 
 msgid "Inactive"
 msgstr "Inaktiv"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Det er %(counter)s treff\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Det er %(counter)s treff\n"
+"        "
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -280,6 +317,9 @@ msgstr "Endre"
 
 msgid "The user could not be created due to errors."
 msgstr "Brukeren kunne ikke opprettes grunnet feil."
+
+msgid "User '{0}' updated."
+msgstr "Brukeren «{0}» er oppdatert."
 
 msgid "The user could not be saved due to errors."
 msgstr "Brukeren kunne ikke lagres grunnet feil."

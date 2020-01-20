@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
 # Mohammad reza Jelveh <mrj.eleven@gmail.com>, 2015
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-01-18 00:13+0000\n"
+"Last-Translator: Hamed NAJAND <hmd.nzhd@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -33,8 +34,14 @@ msgstr "لغو انتشار"
 msgid "Delete"
 msgstr "حذف"
 
+msgid "Save Draft"
+msgstr "ذخیره پیش نویس"
+
 msgid "Page locked"
 msgstr "صفحه قفل شده"
+
+msgid "Wagtail admin"
+msgstr "ادمین وگتیل"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "متاسفانه مجوز لازم برای دسترسی به این ناحیه را ندارید."
@@ -151,8 +158,14 @@ msgstr "این فیلد لازم است."
 msgid "Please select at least one group."
 msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
 
+msgid "Arabic"
+msgstr "عربی"
+
 msgid "Catalan"
 msgstr "کاتالان"
+
+msgid "Czech"
+msgstr "چک"
 
 msgid "German"
 msgstr "آلمانی"
@@ -175,14 +188,29 @@ msgstr "فرانسوی"
 msgid "Galician"
 msgstr "گالیسیایی"
 
+msgid "Hungarian"
+msgstr "مجارستان"
+
+msgid "Indonesian"
+msgstr "اندونزی"
+
 msgid "Icelandic"
 msgstr "ایسلندی"
 
 msgid "Italian"
 msgstr "ایتالیایی"
 
+msgid "Japanese"
+msgstr "ژاپنی"
+
+msgid "Korean"
+msgstr "کره ای"
+
 msgid "Lithuanian"
 msgstr "لیتوانیایی"
+
+msgid "Mongolian"
+msgstr "مغولی"
 
 msgid "Norwegian Bokmål"
 msgstr "بوکمال نروژی"
@@ -207,6 +235,15 @@ msgstr "رومانیایی"
 
 msgid "Russian"
 msgstr "روسی"
+
+msgid "Swedish"
+msgstr "سوئدی"
+
+msgid "Slovak"
+msgstr "اسلواکیایی"
+
+msgid "Thai"
+msgstr "تایلندی"
 
 msgid "Page"
 msgstr "صفحه"

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Py Data <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2018-10-28 14:56+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-03 22:02+0000\n"
+"Last-Translator: Py Data <pydatageek@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -19,35 +20,167 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Wagtail search promotions"
+msgstr "Wagtail arama tanıtımları (search promotions)"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Arama terimi için lütfen en az bir öneri belirleyin."
+
 msgid "page"
 msgstr "sayfa"
 
 msgid "description"
 msgstr "açıklama"
 
+msgid "search promotion"
+msgstr "arama tanıtımı"
+
+msgid "Add search promotion"
+msgstr "Arama tanıtımı ekle"
+
+msgid "Add search pick"
+msgstr "Arama seçimi ekle"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Tanıtılan arama sonuçları, organik olarak "
+"yükselemeyebilecek belirli sayfaların önerilmesidir. \"<em>Vermek</em>\" "
+"gibi sıklıkla kullanılmayan bir terimle bağış sayfanızın önerilmesi gibi...</"
+"p>\n"
+"            "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Aşağıdaki \"arama terimi/kelimesi\" alanı, önerilen "
+"sonuçlarda çıkmasını istediğiniz tam kelime grubunu ve tüm arama "
+"kombinasyonlarını içermelidir öyle ki buna yazım ve kullanıcı hataları da "
+"dahildir. Yardımcı olması için sitenizin kullanıcıları arasında yaygın olan "
+"arama terimlerinden seçebilirsiniz.</p>\n"
+"            "
+
 msgid "Save"
 msgstr "Kaydet"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "%(query)s sil"
 
 msgid "Delete"
 msgstr "Sil"
 
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Bu arama terimi için tüm tanıtım sonuçlarını silmek istediğinizden emin "
+"misiniz?"
+
 msgid "Yes, delete"
 msgstr "Evet, sil"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "%(query)s düzenleniyor"
 
 msgid "Editing"
 msgstr "Düzenleniyor"
 
 msgid "Move up"
-msgstr "Yukarı taşı"
+msgstr "Yukarı çıkar"
 
 msgid "Move down"
-msgstr "Aşağı taşı"
+msgstr "Aşağı indir"
+
+msgid "Promoted search result"
+msgstr "Tanıtılan arama sonucu"
+
+msgid "Add recommended page"
+msgstr "Öneri sayfası ekle"
 
 msgid "Search Terms"
 msgstr "Arama Terimleri"
 
+msgid "Promoted search results"
+msgstr "Tanıtılan arama sonuçları"
+
+msgid "Add new promoted result"
+msgstr "Yeni tanıtılan sonuç ekle"
+
 msgid "Search term(s)"
-msgstr "Arama Terim(leri)"
+msgstr "Arama terimi(leri)"
+
+msgid "Promoted results"
+msgstr "Tanıtılan sonuçlar"
+
+msgid "Views (past week)"
+msgstr "Görüntülenme (geçen hafta)"
+
+msgid "Edit this promotion"
+msgstr "Tanıtımı düzenle"
+
+msgid "None"
+msgstr "Yok"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            %(counter)s eşleşme var\n"
+"        "
+msgstr[1] ""
+"\n"
+"            %(counter)s eşleşme var\n"
+"        "
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen sonuç yok"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Hiçbir tanıtılan sonuç oluştuurlmadı. Neden <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">bir tane eklemiyorsunuz</a>?"
+
+msgid "Search promoted results"
+msgstr "Arama tanıtım sonuçları"
+
+msgid "Editor's picks for '{0}' created."
+msgstr "'{0}' için editörün seçimi oluşturuldu."
 
 msgid "Edit"
 msgstr "Düzenle"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Hata nedeniyle öneriler oluşturulamadı"
+
+msgid "Editor's picks for '{0}' updated."
+msgstr "'{0}' için editörün seçimi güncellendi."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Hata nedeniyle öneriler kaydedilemedi"
+
+msgid "Editor's picks deleted."
+msgstr "Editörün seçimi silindi."

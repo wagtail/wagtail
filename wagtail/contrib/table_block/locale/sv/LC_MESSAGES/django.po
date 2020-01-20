@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Philip Andersen <renegadevi@codeofmagi.net>, 2018
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-02 09:01+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -34,3 +34,13 @@ msgstr "Kolumnhuvud"
 
 msgid "Display the first column as a header."
 msgstr "Visa första raden som kolumnhuvud."
+
+msgid "Table caption"
+msgstr "Tabelltext"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"En rubrik som identifierar tabellens övergripande ämne och är användbar för "
+"skärmläsare"

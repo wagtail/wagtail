@@ -5,15 +5,15 @@
 # Translators:
 # Andreas Bergström <andreas.bergstrom@gmail.com>, 2018
 # André Karlsson <andre@sess.se>, 2017
-# Philip Andersen <renegadevi@codeofmagi.net>, 2018
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-02 08:50+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
-msgstr "Editerar %(setting_type_name)s - %(instance)s"
+msgstr "Redigerar %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editerar"
@@ -42,6 +42,10 @@ msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 "Den här inställningen kunde inte öppnas eftersom det inte finns någon "
 "definierad webbplats."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s uppdaterad."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Inställningen kunde inte sparas då ett fel uppstod."
