@@ -75,6 +75,17 @@ Wagtail has a builtin list of the most common providers.
 The embeds fetching can be fully configured using the ``WAGTAILEMBEDS_FINDERS``
 setting. This is fully documented in :ref:`configuring_embed_finders`.
 
+.. code-block:: python
+
+    WAGTAILEMBEDS_RESPONSIVE_HTML = True
+
+Adds ``class="responsive-object"`` and an inline ``padding-bottom`` style to embeds,
+to assist in making them responsive. See :ref:`responsive-embeds` for details.
+
+.. versionadded:: 2.8
+
+  The ``WAGTAILEMBEDS_RESPONSIVE_HTML`` setting was added.
+
 Dashboard
 =========
 

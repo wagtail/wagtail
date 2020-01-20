@@ -87,6 +87,15 @@ restore the previous behaviour, you can set the
 ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` setting to ``True``.
 
 
+Responsive HTML for embeds no longer added by default
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous versions of Wagtail, embedded media elements were given
+a class name of ``responsive-object`` and an inline ``padding-bottom`` style to assist
+in styling them responsively. These are no longer added by default. To restore the previous
+behaviour, add ``WAGTAILEMBEDS_RESPONSIVE_HTML = True`` to your project settings.
+
+
 API endpoint classes have moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
