@@ -23,7 +23,7 @@ Changelog
  * Add partial experimental support for nested InlinePanels (Matt Westcott, Sam Costigan, Andy Chosak, Scott Cranfill)
  * Added cache control headers when serving documents (Johannes Vogel)
  * Use `sensitive_post_parameters` on password reset form (Dan Braghis)
- * Add ``WAGTAIL_ENABLE_RESPONSIVE_EMBED`` setting to remove automatic addition of ``responsive-object`` around embeds (Kalob Taulien)
+ * Add `WAGTAILEMBEDS_RESPONSIVE_HTML` setting to remove automatic addition of `responsive-object` around embeds (Kalob Taulien)
  * Fix: Rename documents listing column 'uploaded' to 'created' (LB (Ben Johnston))
  * Fix: Unbundle the l18n library as it was bundled to avoid installation errors which have been resolved (Matt Westcott)
  * Fix: Prevent error when comparing pages that reference a model with a custom primary key (Fidel Ramos)

@@ -145,7 +145,7 @@ Wagtail includes embeds and images at their full width, which may overflow the b
         height: 100%;
     }
 
-It's possible to disable responsive embeds entirely by setting ``WAGTAIL_ENABLE_RESPONSIVE_EMBED = False`` in your settings. Normally, Wagtail wraps your embed links in a ``<div>`` element. If you decide to disable responsive embeds the ``<div>`` element around your embed will not be given a CSS class of ``responsive-object`` and there won't be an inline style in the same parent ``<div>`` element. This means the responsiveness of your embed is entirely up to you.
+It's possible to disable responsive embeds entirely by setting ``WAGTAILEMBEDS_RESPONSIVE_HTML = False`` in your settings. Normally, Wagtail wraps your embed links in a ``<div>`` element. If you decide to disable responsive embeds the ``<div>`` element around your embed will not be given a CSS class of ``responsive-object`` and there won't be an inline style in the same parent ``<div>`` element. This means the responsiveness of your embed is entirely up to you.
 
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~

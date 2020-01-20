@@ -43,7 +43,7 @@ Other features
  * Add partial experimental support for nested InlinePanels (Matt Westcott, Sam Costigan, Andy Chosak, Scott Cranfill)
  * Added cache control headers when serving documents (Johannes Vogel)
  * Use ``sensitive_post_parameters`` on password reset form (Dan Braghis)
- * Add ``WAGTAIL_ENABLE_RESPONSIVE_EMBED`` setting to remove automatic addition of ``responsive-object`` around embeds (Kalob Taulien)
+ * Add ``WAGTAILEMBEDS_RESPONSIVE_HTML`` setting to remove automatic addition of ``responsive-object`` around embeds (Kalob Taulien)
 
 
 Bug fixes
