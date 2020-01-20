@@ -4,13 +4,14 @@
 #
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Py Data <pydatageek@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-02 17:44+0000\n"
+"Last-Translator: Py Data <pydatageek@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -19,23 +20,26 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Wagtail style guide"
+msgstr "Wagtail stil kılavuzu"
+
 msgid "Styleguide"
-msgstr "Stil kullanımı"
+msgstr "Stil kılavuzu"
 
 msgid "Save"
 msgstr "Kaydet"
 
 msgid "Delete image"
-msgstr "Resim sil"
+msgstr "Resmi sil"
 
 msgid "Search something"
-msgstr "Bir şeyler ara"
+msgstr "Birşey ara"
 
 msgid "Success message"
-msgstr "Başarılı mesajı"
+msgstr "Başarı mesajı"
 
 msgid "View live"
-msgstr "Canlı göster"
+msgstr "Canlı gör"
 
 msgid "Edit"
 msgstr "Düzenle"

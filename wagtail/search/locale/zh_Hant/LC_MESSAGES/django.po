@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Yu Hsun Lee <andylee0914.tw@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-02-05 06:35+0000\n"
-"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>\n"
+"PO-Revision-Date: 2019-12-27 08:13+0000\n"
+"Last-Translator: Yu Hsun Lee <andylee0914.tw@gmail.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -19,25 +20,25 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Wagtail search"
-msgstr "Wagtail 搜索"
+msgstr "Wagtail 搜尋"
 
 msgid "Search term(s)/phrase"
-msgstr "搜索詞/短語"
+msgstr "搜尋詞/短語"
 
 msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
-"輸入完整搜索詞條進行匹配。要顯示推廣結果必須使用完全匹配，不允許出現通配符。"
+"輸入完整關鍵字進行查詢。要顯示推廣結果必須使用完全相符，不允許出現通配符。"
 
 msgid "Query Daily Hits"
 msgstr "每日查詢次數"
 
 msgid "Popular search terms"
-msgstr "熱門搜索詞"
+msgstr "熱門關鍵字"
 
 msgid "Search"
-msgstr "搜索"
+msgstr "搜尋"
 
 msgid "Terms"
 msgstr "詞語"
@@ -52,4 +53,4 @@ msgid "Date"
 msgstr "日期"
 
 msgid "Choose from popular search terms"
-msgstr "從熱門搜索詞中選擇"
+msgstr "從熱門關鍵字中選擇"

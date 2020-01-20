@@ -37,6 +37,8 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('sv', ugettext_lazy('Swedish')),
     ('sk-sk', ugettext_lazy('Slovak')),
     ('th', ugettext_lazy('Thai')),
+    ('tr', ugettext_lazy('Turkish')),
+    ('tr-tr', ugettext_lazy('Turkish (Turkey)')),
     ('uk', ugettext_lazy('Ukrainian')),
     ('zh-hans', ugettext_lazy('Chinese (Simplified)')),
     ('zh-hant', ugettext_lazy('Chinese (Traditional)')),

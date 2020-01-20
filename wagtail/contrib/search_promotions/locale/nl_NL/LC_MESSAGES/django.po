@@ -5,7 +5,7 @@
 # Translators:
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018
-# Meteor 0id, 2018
+# Meteor0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""

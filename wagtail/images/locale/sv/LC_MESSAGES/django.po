@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-02 08:53+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail bilder"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -176,6 +179,26 @@ msgstr "Välj ett format"
 msgid "Insert image"
 msgstr "Lägg in bild"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Dokument <span class=\"visuallyhidden\"> skapade i "
+"%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Dokument <span class=\"visuallyhidden\"> skapade i "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Byt bildfil:"
 
@@ -202,6 +225,9 @@ msgstr "Är du säker på att du vill radera den här bilden?"
 
 msgid "Yes, delete"
 msgstr "Ja, radera"
+
+msgid "No, don't delete"
+msgstr "Nej, radera inte"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -246,6 +272,9 @@ msgstr "Användning"
 
 msgid "Images"
 msgstr "Bilder"
+
+msgid "pixels"
+msgstr "pixlar"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

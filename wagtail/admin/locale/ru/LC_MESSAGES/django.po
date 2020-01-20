@@ -15,6 +15,7 @@
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
@@ -27,8 +28,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-13 08:07+0000\n"
+"Last-Translator: Mikhail Sidorov <pevzi23@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -423,7 +424,10 @@ msgid "Update"
 msgstr "Обновить"
 
 msgid "Change email"
-msgstr "Выбрать email"
+msgstr "Изменить email"
+
+msgid "Change name"
+msgstr "Изменить имя"
 
 msgid "Change password"
 msgstr "Изменить пароль"
@@ -694,6 +698,38 @@ msgstr "Опубликовано"
 msgid "Site summary"
 msgstr "Общая информация"
 
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"            <span>%(total)s</span> Страница <span class=\"visuallyhidden"
+"\">создана в %(site_name)s</span>\n"
+"        "
+msgstr[1] ""
+"\n"
+"            <span>%(total)s</span> Страницы <span class=\"visuallyhidden"
+"\">созданы в %(site_name)s</span>\n"
+"        "
+msgstr[2] ""
+"\n"
+"            <span>%(total)s</span> Страниц <span class=\"visuallyhidden"
+"\">создано в %(site_name)s</span>\n"
+"        "
+msgstr[3] ""
+"\n"
+"            <span>%(total)s</span> Страниц <span class=\"visuallyhidden"
+"\">создано в %(site_name)s</span>\n"
+"        "
+
 msgid "Sign in"
 msgstr "Войти"
 
@@ -904,7 +940,7 @@ msgid "Yes, unpublish it"
 msgstr "Да, отменить публикацию"
 
 msgid "No, don't unpublish"
-msgstr "Нет, оставить неопубликованным"
+msgstr "Нет, оставить опубликованным"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1077,6 +1113,9 @@ msgstr "Эта страница защищена от публичного пр�
 
 msgid "Disable ordering of child pages"
 msgstr "Отключить упорядочение дочерних страниц"
+
+msgid "Sort"
+msgstr "Порядок"
 
 msgid "Enable ordering of child pages"
 msgstr "Включить упорядочение дочерних страниц"
@@ -1325,8 +1364,14 @@ msgstr "Ваш пароль был успешно изменен!"
 msgid "Your email has been changed successfully!"
 msgstr "Ваш email успешно поменялся"
 
+msgid "Your name has been changed successfully!"
+msgstr "Ваше имя было успешно изменено!"
+
 msgid "Your preferences have been updated."
 msgstr "Ваши настройки были обновлены."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Ваши настройки были успешно обновлены!"
 
 msgid "You have been successfully logged out."
 msgstr "Вы успешно вышли"
@@ -1487,6 +1532,12 @@ msgstr "Больше"
 msgid "Set profile picture"
 msgstr "Установить фото профиля"
 
+msgid "Change your profile picture."
+msgstr "Изменить фотографию вашего профиля."
+
+msgid "Change the email address linked to your account."
+msgstr "Изменить адрес электронной почты, привязанный к вашему профилю."
+
 msgid "Change the password you use to log in."
 msgstr "Изменить пароль, который вы используете для входа."
 
@@ -1498,6 +1549,15 @@ msgstr "Языковые настройки"
 
 msgid "Choose the language you want to use here."
 msgstr "Выберите язык, который вы хотите использовать."
+
+msgid "Current Time Zone"
+msgstr "Текущий часовой пояс"
+
+msgid "Choose your current time zone."
+msgstr "Выбрать текущий часовой пояс."
+
+msgid "Change your first and last name on your account."
+msgstr "Изменить имя и фамилию в вашем профиле."
 
 msgid "Bulleted list"
 msgstr "Маркированный список"

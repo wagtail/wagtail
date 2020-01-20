@@ -5,19 +5,19 @@
 # Translators:
 # Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2017
 # Bartosz Wiśniewski <kontakt@pr0gramista.pl>, 2017
-# utek <mail@utek.pl>, 2014
+# Łukasz Bołdys (Lukasz Boldys), 2014
 # Mateusz <undefined5102@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2018
 # Miłosz Miśkiewicz, 2017-2019
 # Miłosz Miśkiewicz, 2016-2017
-# utek <mail@utek.pl>, 2014
+# Łukasz Bołdys (Lukasz Boldys), 2014
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-25 10:15+0000\n"
+"PO-Revision-Date: 2019-11-14 12:10+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -1529,7 +1529,7 @@ msgid "Page '{0}' created and submitted for moderation."
 msgstr "Strona '{0}' utworzona i przekazana do moderacji."
 
 msgid "View draft"
-msgstr "Pokaż szablon"
+msgstr "Pokaż szkic"
 
 msgid "Failed to send notifications to moderators"
 msgstr "Nie udało się wysłać notyfikacji do moderatorów"

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Philip Andersen <renegadevi@codeofmagi.net>, 2018
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-02 08:52+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -139,6 +139,9 @@ msgstr "Är du säker på att du vill radera detta dokument?"
 msgid "Yes, delete"
 msgstr "Ja, radera"
 
+msgid "No, don't delete"
+msgstr "Nej, radera inte."
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Editerar %(title)s"
@@ -211,6 +214,26 @@ msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Editera denna sida"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Dokument <span class=\"visuallyhidden\"> skapade i "
+"%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Dokument <span class=\"visuallyhidden\"> skapade i "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Lägg till flera dokument"

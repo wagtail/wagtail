@@ -4,13 +4,15 @@
 #
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# José Luis <alagunajs@gmail.com>, 2015,2017
+# Py Data <pydatageek@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-02 17:42+0000\n"
+"Last-Translator: Py Data <pydatageek@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -19,17 +21,43 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Wagtail embeds"
+msgstr "Wagtail yerleştirmeleri (embeds)"
+
+msgid "Cannot find an embed for this URL."
+msgstr "Bu URL için bir yerleştirme bulunamıyor."
+
 msgid "URL"
 msgstr "URL"
 
 msgid "Please enter a valid URL"
-msgstr "Lütfen geçerli bir URL girin"
+msgstr "Lütfen geçerli bir adres (URL) girin"
 
 msgid "embed"
-msgstr "gömülü yerleşim"
+msgstr "yerleştir"
+
+msgid "embeds"
+msgstr "yerleştirmeler"
 
 msgid "Insert embed"
-msgstr "Gömülü yerleşim ekle"
+msgstr "Yerleştirme ekle"
 
 msgid "Insert"
 msgstr "Ekle"
+
+msgid ""
+"There seems to be a problem with your embedly API key. Please check your "
+"settings."
+msgstr ""
+"Embedly API anahtarınızla ilgili bir sorun var gibi görünüyor. Lütfen "
+"ayarları kontrol edin."
+
+msgid ""
+"There seems to be an error with Embedly while trying to embed this URL. "
+"Please try again later."
+msgstr ""
+"Bu URL'yi yerleştirirken Embedly ile ilgili bir hata oluşmuş görünüyor. "
+"Lütfen daha sonra tekrar deneyiniz."
+
+msgid "Embed"
+msgstr "Yerleştir"

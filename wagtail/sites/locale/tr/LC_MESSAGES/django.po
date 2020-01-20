@@ -4,14 +4,15 @@
 #
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Py Data <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-02 17:44+0000\n"
+"Last-Translator: Py Data <pydatageek@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -20,26 +21,29 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Wagtail sites"
+msgstr "Wagtail siteler (sites)"
+
 msgid "Choose a root page"
-msgstr "Kök sayfayı seç"
+msgstr "Bir kök (root) sayfa seç"
 
 msgid "Choose a different root page"
-msgstr "Farklı bir kök sayfa seç"
+msgstr "Farklı bir kök (root) sayfa seç"
 
 msgid "Site"
 msgstr "Site"
 
 msgid "Port"
-msgstr "Port"
+msgstr "Giriş"
 
 msgid "Site name"
 msgstr "Site adı"
 
 msgid "Root page"
-msgstr "Kök sayfa"
+msgstr "Kök (root) sayfası"
 
 msgid "Default?"
-msgstr "Varsayılan?"
+msgstr "Varsayılan mı?"
 
 msgid "Default"
 msgstr "Varsayılan"
@@ -48,10 +52,25 @@ msgid "Sites"
 msgstr "Siteler"
 
 msgid "Add a site"
-msgstr "Site ekle"
+msgstr "Bir site ekle"
 
 msgid "Add site"
 msgstr "Site ekle"
 
+msgid "Site '{0}' created."
+msgstr "'{0}' sitesi oluşturuldu."
+
+msgid "Site '{0}' updated."
+msgstr "'{0}' sitesi güncellendi."
+
+msgid "The site could not be saved due to errors."
+msgstr "Sitesi hata nedeniyle kaydedilemedi."
+
 msgid "Delete site"
-msgstr "Siteyi Sil"
+msgstr "Siteyi sil"
+
+msgid "Site '{0}' deleted."
+msgstr "Site '{0}' silindi."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Bu siteyi silmek istediğinizden emin misiniz?"

@@ -6,14 +6,15 @@
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
+# Vladislav Gerasimenko <drimacus182@gmail.com>, 2019
 # Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-11-26 13:59+0000\n"
+"Last-Translator: Vladislav Gerasimenko <drimacus182@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +37,9 @@ msgstr "Зняти з публікації"
 
 msgid "Delete"
 msgstr "Видалити"
+
+msgid "Save Draft"
+msgstr "Зберегти чернентку"
 
 msgid "Page locked"
 msgstr "Сторінку заблоковано"

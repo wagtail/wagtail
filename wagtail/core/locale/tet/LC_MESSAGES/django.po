@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Joanico Barros <joanico@catalpa.io>, 2019-2020
 # Peter Coward <peter@catalpa.io>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-01-17 12:49+0000\n"
+"Last-Translator: Joanico Barros <joanico@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,10 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail fuan"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)sBloku ida ne'e la iha opsaun."
 
 msgid "This block has no options."
 msgstr "Bloku nee laiha opsaun"
@@ -64,6 +69,16 @@ msgstr "naran situs lee fasil"
 msgid "root page"
 msgstr "pajina fuan"
 
+msgid "is default site"
+msgstr "Ne'e situs detallu"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Se karik loos, situs ida ne'e sei liga ho rekerimentu hotu-hotu hostname "
+"seluk katak la iha situs ida ho sira an rasik."
+
 msgid "site"
 msgstr "situs"
 
@@ -93,8 +108,17 @@ msgid ""
 msgstr ""
 "Naran pajina iha URL sira laran ezemplu http://domain.com/blog/[my-slug]/"
 
+msgid "content type"
+msgstr "Tipu konteudu"
+
+msgid "live"
+msgstr "Hela"
+
 msgid "has unpublished changes"
 msgstr "Iha sasan la hanesan publiku"
+
+msgid "URL path"
+msgstr "Dalan URL"
 
 msgid "owner"
 msgstr "nain"
@@ -102,8 +126,149 @@ msgstr "nain"
 msgid "page title"
 msgstr "titlu pajina"
 
+msgid "show in menus"
+msgstr "Hatudu iha menus sira"
+
 msgid "search description"
 msgstr "deskrisaun iha buka resultado sira"
 
+msgid "go live date/time"
+msgstr "Ba husi hela data/tempu"
+
+msgid "expiry date/time"
+msgstr "Termu data/tempu"
+
+msgid "expired"
+msgstr "Data liu ona"
+
+msgid "locked"
+msgstr "Xavi tiha ona"
+
+msgid "first published at"
+msgstr "Publika dahuluk iha"
+
+msgid "last published at"
+msgstr "Publika ikus iha"
+
+msgid "latest revision created at"
+msgstr "Revizaun ikus kria ona iha"
+
+msgid "This slug is already in use"
+msgstr "Slug ida ne'e uza tiha ona"
+
+msgid "scheduled"
+msgstr "Ajenda ona"
+
+msgid "draft"
+msgstr "Esbosu"
+
+msgid "live + scheduled"
+msgstr "Hela + ajenda"
+
+msgid "live + draft"
+msgstr "Hela + esbosu"
+
+msgid "Default"
+msgstr "Estandar"
+
+msgid "page"
+msgstr "Pajina"
+
+msgid "pages"
+msgstr "Pajina sira"
+
+msgid "submitted for moderation"
+msgstr "Submete ona ba moderasaun"
+
+msgid "created at"
+msgstr "Kria iha"
+
+msgid "user"
+msgstr "Uzuariu"
+
+msgid "content JSON"
+msgstr "Konteudu JSON"
+
+msgid "approved go live at"
+msgstr "Aprova ona ba hela iha"
+
+msgid "page revision"
+msgstr "Pajina revizaun"
+
+msgid "page revisions"
+msgstr "Pajina revizaun sira"
+
 msgid "Add"
 msgstr "Hatama"
+
+msgid "Add/edit pages you own"
+msgstr "Hatama/hadia pajina ita nia rasik."
+
+msgid "Edit"
+msgstr "Hadia"
+
+msgid "Edit any page"
+msgstr "Hadia kualker pajina"
+
+msgid "Publish"
+msgstr "Publika"
+
+msgid "Publish any page"
+msgstr "Publika kualker pajina"
+
+msgid "Delete pages with children"
+msgstr "Hamoos pajina ho oan"
+
+msgid "Lock"
+msgstr "Xavi"
+
+msgid "Lock/unlock any page"
+msgstr "Xavi/la-xavi kualker pajina"
+
+msgid "group"
+msgstr "Grupu"
+
+msgid "permission type"
+msgstr "Tipu Permisaun "
+
+msgid "group page permission"
+msgstr "Grupu pajina permisaun"
+
+msgid "group page permissions"
+msgstr "Grupu pajina permisaun sira"
+
+msgid "Public"
+msgstr "Publiku"
+
+msgid "password"
+msgstr "Sena"
+
+msgid "groups"
+msgstr "Grupu sira"
+
+msgid "collection"
+msgstr "Koleksaun"
+
+msgid "name"
+msgstr "Naran"
+
+msgid "collections"
+msgstr "Koleksaun sira"
+
+msgid "permission"
+msgstr "Permisaun"
+
+msgid "Log in"
+msgstr "Tama"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Ita-boot nia naran uzuariu ho sena la loos. Favor koko fila fali."
+
+msgid "Password required"
+msgstr "Husu Seña"
+
+msgid "You need a password to access this page."
+msgstr "Ita presiza sena hodi asesu ba pajina ida ne'e."
+
+msgid "Continue"
+msgstr "Kontinua"

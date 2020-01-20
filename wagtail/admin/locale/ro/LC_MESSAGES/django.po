@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-04 01:46+0000\n"
+"Last-Translator: Bogdan Mateescu\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,9 @@ msgstr "Anulează publicarea"
 
 msgid "Delete"
 msgstr "Șterge"
+
+msgid "Save Draft"
+msgstr "Salvează ciornă"
 
 msgid "Page locked"
 msgstr "Pagină blocată"
@@ -95,8 +99,8 @@ msgstr "Copiere subpagini"
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "Va fi copiată %(count)s subpagină"
-msgstr[1] "Vor fi copiate %(count)s pagini."
-msgstr[2] "Vor fi copiate %(count)s subpagini."
+msgstr[1] "Vor fi copiate %(count)s subpagini."
+msgstr[2] "Vor fi copiate %(count)s de subpagini."
 
 msgid "Publish copied page"
 msgstr "Publică pagina copiată"
@@ -121,7 +125,7 @@ msgstr[1] ""
 "%(count)s pagini în curs de copiere sunt active. Doriți să publicați și "
 "copiile lor?"
 msgstr[2] ""
-"%(count)s pagini în curs de copiere sunt active. Doriți să publicați și "
+"%(count)s de pagini în curs de copiere sunt active. Doriți să publicați și "
 "copiile lor?"
 
 #, python-format
@@ -167,6 +171,9 @@ msgstr "Arabă"
 msgid "Catalan"
 msgstr "Catalană"
 
+msgid "Czech"
+msgstr "Cehă"
+
 msgid "German"
 msgstr "Germană"
 
@@ -197,11 +204,17 @@ msgstr "Islandeză"
 msgid "Italian"
 msgstr "Italiană"
 
+msgid "Japanese"
+msgstr "Japoneză"
+
 msgid "Korean"
 msgstr "coreeană"
 
 msgid "Lithuanian"
 msgstr "Lituaniană"
+
+msgid "Mongolian"
+msgstr "Mongolă"
 
 msgid "Norwegian Bokmål"
 msgstr "Norvegiană"
@@ -233,8 +246,17 @@ msgstr "suedeză"
 msgid "Slovak"
 msgstr "Slovacă"
 
+msgid "Thai"
+msgstr "Tailandeză"
+
 msgid "Ukrainian"
 msgstr "ucraineană"
+
+msgid "Chinese (Simplified)"
+msgstr "Chineza (Simplificată)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chineza (Tradițională)"
 
 msgid "Page"
 msgstr "Pagină"
@@ -290,6 +312,12 @@ msgstr "Afișează eroare"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
+
+msgid "Broken link"
+msgstr "Link nefuncțional"
+
+msgid "Missing document"
+msgstr "Document lipsă"
 
 msgid "Close"
 msgstr "Închideți"
@@ -401,6 +429,9 @@ msgstr "Actualizează"
 
 msgid "Change email"
 msgstr "Schimbă e-mail"
+
+msgid "Change name"
+msgstr "Schimbă numele"
 
 msgid "Change password"
 msgstr "Schimbă parola"
@@ -664,6 +695,33 @@ msgstr "Activată"
 msgid "Site summary"
 msgstr "Rezumat sait"
 
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"            <span>%(total)s</span> pagină <span class=\"visuallyhidden"
+"\">creată în %(site_name)s</span>\n"
+"        "
+msgstr[1] ""
+"\n"
+"            <span>%(total)s</span> pagini <span class=\"visuallyhidden"
+"\">create în %(site_name)s</span>\n"
+"        "
+msgstr[2] ""
+"\n"
+"            <span>%(total)s</span> de pagini <span class=\"visuallyhidden"
+"\">create în %(site_name)s</span>\n"
+"        "
+
 msgid "Sign in"
 msgstr "Conectare"
 
@@ -741,6 +799,15 @@ msgstr "Blocat"
 
 msgid "Unlocked"
 msgstr "Deblocat"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Setați confidențialitatea paginii. Starea actuală: Public"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Confidențialitatea paginii. Starea actuală: Public"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Confidențialitatea paginii. Starea actuală: Privat"
 
 msgid "Publishing…"
 msgstr "În curs de publicare…"
@@ -861,7 +928,7 @@ msgstr[1] ""
 "lor"
 msgstr[2] ""
 "\n"
-"Această pagină are %(live_descendant_count)s subpagini. Anulează și "
+"Această pagină are %(live_descendant_count)s de subpagini. Anulează și "
 "publicarea lor"
 
 msgid "Yes, unpublish it"
@@ -893,6 +960,9 @@ msgstr "%(page_type)s nouă"
 
 msgid "New"
 msgstr "Nou"
+
+msgid "Actions"
+msgstr "Acțiuni"
 
 msgid "This page has unsaved changes."
 msgstr "Această pagină conține modificări nesalvate."
@@ -1016,6 +1086,9 @@ msgstr "Adaugă pagină dependentă"
 msgid "Sites menu"
 msgstr "Meniu saituri"
 
+msgid "Pagination"
+msgstr "Paginare"
+
 #, python-format
 msgid ""
 "\n"
@@ -1036,6 +1109,9 @@ msgstr "Această pagină este protejată de ochii publicului"
 
 msgid "Disable ordering of child pages"
 msgstr "Dezactivează rânduirea paginilor dependente"
+
+msgid "Sort"
+msgstr "Sortează"
 
 msgid "Enable ordering of child pages"
 msgstr "Activează rânduirea paginilor dependente"
@@ -1106,7 +1182,7 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "                                                            S-a mutat "
-"%(counter)s poziții în jos.\n"
+"%(counter)s de poziții în jos.\n"
 "                                                        "
 
 #, python-format
@@ -1133,7 +1209,7 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "                                                            S-a mutat "
-"%(counter)s poziții în sus.\n"
+"%(counter)s de poziții în sus.\n"
 "                                                        "
 
 msgid "There are no differences between these two revisions"
@@ -1210,7 +1286,7 @@ msgstr[1] ""
 "%(counter)s pagini se potrivesc"
 msgstr[2] ""
 "\n"
-"%(counter)s pagini se potrivesc"
+"%(counter)s de pagini se potrivesc"
 
 msgid "Page types"
 msgstr "Tipuri pagini"
@@ -1233,6 +1309,9 @@ msgstr "Colecție"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s din %(total_pages)s."
 
+msgid "Breadcrumb"
+msgstr "Traseu navigare"
+
 msgid "Root"
 msgstr "Pagină de bază"
 
@@ -1250,6 +1329,12 @@ msgstr "Setări cont"
 
 msgid "Log out"
 msgstr "Deconectare"
+
+msgid "Visit the live page"
+msgstr "Accesați pagina live"
+
+msgid "Current page status:"
+msgstr "Starea paginii curente:"
 
 msgid "Other searches"
 msgstr "Alte căutări"
@@ -1297,6 +1382,9 @@ msgstr "Parola a fost schimbată cu succes!"
 
 msgid "Your email has been changed successfully!"
 msgstr "E-mailul a fost schimbat cu succes!"
+
+msgid "Your name has been changed successfully!"
+msgstr "Numele a fost schimbat cu succes!"
 
 msgid "Your preferences have been updated."
 msgstr "Preferințele au fost schimbare."
@@ -1454,11 +1542,38 @@ msgstr "revizia {0} pentru \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Programare anulată pentru revizia {0} a \"{1}\""
 
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editează '%(title)s'"
+
 msgid "More"
 msgstr "Mai mult"
 
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Vezi mai multe opțiuni pentru '%(title)s'"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Mutați pagina '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Copiază pagina '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Șterge pagina '%(title)s'"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Pagină nepublicată '%(title)s'"
+
 msgid "Set profile picture"
 msgstr "Setează poză profil"
+
+msgid "Change your profile picture."
+msgstr "Schimbă poza de profil."
 
 msgid "Change the email address linked to your account."
 msgstr "Schimbă e-mailul asociat de contul D-stră."
@@ -1480,6 +1595,13 @@ msgstr "Fus orar curent"
 
 msgid "Choose your current time zone."
 msgstr "Alege fus orar curent"
+
+msgid "Change your first and last name on your account."
+msgstr "Schimbați numele și prenumele din contul dvs."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Antet %(level)d"
 
 msgid "Bulleted list"
 msgstr "Listă cu puncte"

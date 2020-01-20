@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-11-07 12:53+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -111,6 +111,9 @@ msgstr "Tilbake til listen"
 msgid "Yes, delete"
 msgstr "Ja, slett"
 
+msgid "No, don't delete"
+msgstr "Nei, ikke slett"
+
 msgid "Home"
 msgstr "Hjem"
 
@@ -156,6 +159,9 @@ msgstr ""
 "\"%(url)s\">legg til en</a>?\n"
 "                                            "
 
+msgid "Pagination"
+msgstr "Paginering"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Side %(current_page)s av %(num_pages)s."
@@ -169,6 +175,10 @@ msgstr "Forrige"
 
 msgid "Next"
 msgstr "Neste"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s «%(instance)s» opprettet."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -189,6 +199,10 @@ msgid "Editing %s"
 msgstr "Redigerer %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s «%(instance)s» oppdatert."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s kunne ikke lagres grunnet feil."
 
@@ -203,6 +217,10 @@ msgid ""
 msgstr ""
 "Er du sikker på at du vil slette %s? Hvis andre ting på nettstedet er "
 "relatert kan de også bli påvirket."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s «%(instance)s» slettet."
 
 msgid "Inspecting"
 msgstr "Inspiserer"

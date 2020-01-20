@@ -7,7 +7,8 @@
 # Joanico Barros <joanico@catalpa.io>, 2019
 # Mariano de Deus <dedeus_mariano@yahoo.com>, 2019
 # Mario <mario@catalpa.io>, 2019
-# Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
+# Matt Westcott <matthew@torchbox.com>, 2020
+# Onorio de Jesus Afonso <onorio@catalpa.io>, 2019-2020
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
 # Peter Coward <peter@catalpa.io>, 2019
 msgid ""
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-26 00:49+0000\n"
-"Last-Translator: Peter Coward <peter@catalpa.io>\n"
+"PO-Revision-Date: 2020-01-20 19:38+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -1100,8 +1101,279 @@ msgstr "Orden"
 msgid "Enable ordering of child pages"
 msgstr "Loke pajina orden"
 
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "Hili pajina inan-aman foun ba %(title)s"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "Hili pajina inan-aman foun ba <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "visualizasaun erru"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Labele halo visualisasaun pajina nee, iha erru.\n"
+"Favor ida taka tab nee, no hadia pajina erru sira nee"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Comparasaun %(title)s"
+
+msgid "Comparing"
+msgstr "Comparasaun"
+
+msgid "View revisions"
+msgstr "Haree revizaun sira"
+
+msgid "Fields"
+msgstr "Attributu sira"
+
+msgid "Changes"
+msgstr "Troka sira"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"Muda fatin %(counter)s okos"
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"Muda fatin %(counter)s leten"
+
+msgid "There are no differences between these two revisions"
+msgstr "Iha nebaa laiha differensia sira entre revizaun rua"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Hamoos orariu revizaun %(revision.id)s ba %(title)s"
+
+msgid "Unschedule"
+msgstr "Hamoos orariu"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Ita serteza hakarak hamoos orariu revizaun nee?"
+
+msgid "Yes, unschedule"
+msgstr "Sim, hamoos orariu"
+
+msgid "No, don't unschedule"
+msgstr "Lae, la hamoos"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revizaun husi %(title)s"
+
+msgid "Revisions of"
+msgstr "Revizaun husi"
+
+msgid "Revision date"
+msgstr "Revisaun data"
+
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "husi"
+
+msgid "Current draft"
+msgstr "Esbosu agora dadaun"
+
+msgid "Live version"
+msgstr "revisaun publiku"
+
+msgid "Scheduled for"
+msgstr "Orariu ba"
+
+msgid "Review this revision"
+msgstr "Haree revizaun nee"
+
+msgid "Compare with previous revision"
+msgstr "Halo comparasaun revizaun kotuk"
+
+msgid "Cancel scheduled publish"
+msgstr "Kansela orariu publiku"
+
+msgid "No revisions of this page exist"
+msgstr "Laiha revizaun ba pajina nee"
+
+msgid "No revision of this page exist"
+msgstr "Laiha revizaun ba pajina nee"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"Iha %(counter)s pajina maka hanesan"
+
+msgid "Page types"
+msgstr "Tipu pajina sira"
+
+#, python-format
+msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
+msgstr "Deskulpa laiha pajina maka hanesan <em>\"%(query_string)s\"</em>"
+
+msgid "Enter a search term above"
+msgstr "Hatama termu buka iha leten"
+
+msgid "No pages use"
+msgstr "Laiha pajina nebee uza"
+
+msgid "Collection"
+msgstr "Kolleksaun"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Pajina %(page_num)s husi %(total_pages)s"
+
+msgid "Breadcrumb"
+msgstr "Hatudu dalan korta"
+
+msgid "Root"
+msgstr "Abut"
+
+msgid "Home"
+msgstr "Uma"
+
+msgid "All collections"
+msgstr "Koleksaun hotu-hotu"
+
+msgid "Edit your account"
+msgstr "Hadia ita nia konta"
+
+msgid "Account settings"
+msgstr "Konfigurasaun konta"
+
+msgid "Log out"
+msgstr "Sai"
+
+msgid "Visit the live page"
+msgstr "Vizita pajina publiku"
+
+msgid "Current page status:"
+msgstr "Status pajina dadaun"
+
+msgid "Other searches"
+msgstr "Buka seluk"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Ita boot uza browser <strong> tuan </strong>. Situs nee la supporta. Favor "
+"ida <a href=\"http://browsehappy.com/\">hafoun ita nia browser</a>"
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"Ita boot presiza Javascript ba uza wagtail, maibee agora la ativu\n"
+"Iha nee <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
+"\"noopener noreferrer\">matadalan ba halo Javascript ativu iha ita nia "
+"browser</a>"
+
+msgid "Go to Wagtail admin interface"
+msgstr "Ba pajina administrasaun Wagtail"
+
+msgid "Add a child page"
+msgstr "Hatama pajina oan"
+
+msgid "Show in Explorer"
+msgstr "Hatudu iha Esplorador"
+
 msgid "Test"
 msgstr "Test"
+
+msgid "Your password has been changed successfully!"
+msgstr "ita boot nia seña troka ona ho sussessu!"
+
+msgid "Your email has been changed successfully!"
+msgstr "ita boot nia email troka ona ho sussessu!"
+
+msgid "Your name has been changed successfully!"
+msgstr "ita boot nia naran troka ona ho sussessu!"
+
+msgid "Your preferences have been updated."
+msgstr "Ita boot nia preferensia atualiza ona."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Ita boot nia preferensia atualiza ona ho sussessu!"
+
+msgid "You have been successfully logged out."
+msgstr "Ita boot sai ona ho sussessu."
+
+msgid "Collections"
+msgstr "Koleksaun"
+
+msgid "Add a collection"
+msgstr "Hatama Koleksaun"
+
+msgid "Add collection"
+msgstr "Hatama Koleksaun"
+
+msgid "Collection '{0}' created."
+msgstr "Koleksaun '{0}' kria ona."
+
+msgid "Collection '{0}' updated."
+msgstr "Koleksaun '{0}' hadia ona."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Koleksaun iha erru, labele rai"
+
+msgid "Delete collection"
+msgstr "Hamoos Koleksaun"
+
+msgid "Collection '{0}' deleted."
+msgstr "Koleksaun '{0}' hamoos ona."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Ita boot serteza hamoos koleksaun nee?"
+
+msgid "Editing"
+msgstr "Hadia hela"
+
+msgid "Page '{0}' deleted."
+msgstr "Pajina '{0}' hammos ona."
 
 msgid "Latest"
 msgstr " Mak tardi liu"

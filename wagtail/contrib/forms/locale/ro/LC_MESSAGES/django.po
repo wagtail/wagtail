@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-12-04 01:34+0000\n"
+"Last-Translator: Bogdan Mateescu\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -116,6 +117,12 @@ msgstr "text de ajutor"
 msgid "Submission date"
 msgstr "Data trimiterii"
 
+msgid "Form"
+msgstr "Formular"
+
+msgid "Landing page"
+msgstr "Pagina principală"
+
 msgid "to address"
 msgstr "adresă la"
 
@@ -157,7 +164,7 @@ msgstr[1] ""
 "            "
 msgstr[2] ""
 "\n"
-"               Sigur doriți să ștergeți aceste înregistrări de formular?\n"
+"                Sigur doriți să ștergeți aceste înregistrări de formular?\n"
 "            "
 
 msgid "Delete"
@@ -210,4 +217,4 @@ msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] "O înregistrare a fost ștearsă."
 msgstr[1] "%(count)d înregistrări au fost șterse."
-msgstr[2] "%(count)d înregistrări au fost șterse."
+msgstr[2] "%(count)d de înregistrări au fost șterse."

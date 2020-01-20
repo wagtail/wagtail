@@ -4,14 +4,14 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2018
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2019-11-07 12:37+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +53,9 @@ msgstr "stikkord"
 msgid "document"
 msgstr "dokument"
 
+msgid "documents"
+msgstr "dokumenter"
+
 msgid "Choose a document"
 msgstr "Velg et dokument"
 
@@ -65,12 +68,46 @@ msgstr "Last opp"
 msgid "Uploading…"
 msgstr "Laster opp…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Det er %(counter)streff"
+msgstr[1] ""
+"\n"
+"Det er %(counter)streff"
+
 msgid "Latest documents"
 msgstr "Siste dokumenter"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Beklager, ingen dokumenter samsvarer med <em>\"%(query_string)s\"</em>"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Du har ikke lastet opp noen dokumenter til denne samlingen."
+
+msgid "You haven't uploaded any documents."
+msgstr "Du har ikke lastet opp noen dokumenter."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            Hvorfor ikke <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">laste opp et nå?\n"
+"            "
 
 msgid "Change document:"
 msgstr "Bytt ut dokument:"
@@ -100,6 +137,9 @@ msgstr "Er du sikker på at du vil slette dette dokumentet?"
 msgid "Yes, delete"
 msgstr "Ja, slett"
 
+msgid "No, don't delete"
+msgstr "Nei, ikke slett"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Endrer %(title)s"
@@ -127,6 +167,9 @@ msgstr "Tittel"
 
 msgid "File"
 msgstr "Fil"
+
+msgid "Collection"
+msgstr "Samling"
 
 msgid "Uploaded"
 msgstr "Opplastet"
@@ -170,6 +213,28 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Rediger denne siden"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Dokument <span class=\"visuallyhidden"
+"\">opprettet i %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Dokumenter <span class=\"visuallyhidden"
+"\">opprettet i %(site_name)s</span>\n"
+"    "
+
 msgid "Add multiple documents"
 msgstr "Legg til flere dokumenter"
 
@@ -184,6 +249,15 @@ msgstr "Eller velg fra din datamaskin"
 
 msgid "Add to collection:"
 msgstr "Legg til i samling:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Opplasting vellykket. Du kan oppdatere dette dokumentet med den mer passende "
+"tittel, om nødvendig. Du kan også slette dokumentet dersom opplastingen ikke "
+"var nødvendig."
 
 msgid "Sorry, upload failed."
 msgstr "Beklager, opplasting feilet."
