@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Add/edit documents you own"
 msgstr ""
 
-#: forms.py:54 views/documents.py:116 views/documents.py:161
+#: forms.py:54 views/documents.py:116 views/documents.py:165
 msgid "Edit"
 msgstr ""
 
@@ -37,35 +37,35 @@ msgstr ""
 msgid "Edit any document"
 msgstr ""
 
-#: models.py:24
+#: models.py:33
 msgid "title"
 msgstr ""
 
-#: models.py:25
+#: models.py:34
 msgid "file"
 msgstr ""
 
-#: models.py:26
+#: models.py:35
 msgid "created at"
 msgstr ""
 
-#: models.py:29
+#: models.py:38
 msgid "uploaded by user"
 msgstr ""
 
-#: models.py:36
+#: models.py:45
 msgid "tags"
 msgstr ""
 
-#: models.py:153
+#: models.py:162
 msgid "document"
 msgstr ""
 
-#: models.py:154
+#: models.py:163
 msgid "documents"
 msgstr ""
 
-#: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:12
+#: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:13
 msgid "Choose a document"
 msgstr ""
 
@@ -193,8 +193,8 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:51
-#: wagtail_hooks.py:136
+#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:49
+#: wagtail_hooks.py:134
 msgid "Documents"
 msgstr ""
 
@@ -214,10 +214,10 @@ msgstr ""
 
 #: templates/wagtaildocs/documents/list.html:27
 #: templates/wagtaildocs/documents/list.html:30
-msgid "Uploaded"
+msgid "Created"
 msgstr ""
 
-#: templates/wagtaildocs/documents/list.html:49
+#: templates/wagtaildocs/documents/list.html:51
 #, python-format
 msgid "%(time_period)s ago"
 msgstr ""
@@ -311,7 +311,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtaildocs/multiple/edit_form.html:15 views/documents.py:181
+#: templates/wagtaildocs/multiple/edit_form.html:15 views/documents.py:185
 msgid "Delete"
 msgstr ""
 
@@ -343,38 +343,38 @@ msgstr ""
 msgid "Document '{0}' added."
 msgstr ""
 
-#: views/documents.py:120 views/documents.py:165
+#: views/documents.py:120 views/documents.py:169
 msgid "The document could not be saved due to errors."
 msgstr ""
 
-#: views/documents.py:160
+#: views/documents.py:164
 msgid "Document '{0}' updated"
 msgstr ""
 
-#: views/documents.py:180
+#: views/documents.py:184
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 
-#: views/documents.py:204
+#: views/documents.py:208
 msgid "Document '{0}' deleted."
 msgstr ""
 
-#: wagtail_hooks.py:89
+#: wagtail_hooks.py:87
 msgid "Document"
 msgstr ""
 
-#: wagtail_hooks.py:155
+#: wagtail_hooks.py:153
 #, python-format
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"
 msgstr[0] ""
 msgstr[1] ""
 
-#: widgets.py:13
+#: widgets.py:14
 msgid "Choose another document"
 msgstr ""
 
-#: widgets.py:14
+#: widgets.py:15
 msgid "Edit this document"
 msgstr ""

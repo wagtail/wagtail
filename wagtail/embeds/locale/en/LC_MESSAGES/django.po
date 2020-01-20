@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,11 +33,11 @@ msgstr ""
 msgid "Please enter a valid URL"
 msgstr ""
 
-#: models.py:37
+#: models.py:38
 msgid "embed"
 msgstr ""
 
-#: models.py:38
+#: models.py:39
 msgid "embeds"
 msgstr ""
 
@@ -61,6 +61,6 @@ msgid ""
 "Please try again later."
 msgstr ""
 
-#: wagtail_hooks.py:61
+#: wagtail_hooks.py:60
 msgid "Embed"
 msgstr ""

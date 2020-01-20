@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -240,17 +240,17 @@ msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: widgets.py:15
+#: widgets.py:16
 #, python-format
 msgid "Choose %s"
 msgstr ""
 
-#: widgets.py:16
+#: widgets.py:17
 #, python-format
 msgid "Choose another %s"
 msgstr ""
 
-#: widgets.py:17
+#: widgets.py:18
 #, python-format
 msgid "Edit this %s"
 msgstr ""

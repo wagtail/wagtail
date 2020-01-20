@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,75 +21,75 @@ msgstr ""
 msgid "Wagtail users"
 msgstr ""
 
-#: forms.py:48
+#: forms.py:49
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: forms.py:52
+#: forms.py:53
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:75
+#: forms.py:76
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:76
+#: forms.py:77
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:79 forms.py:405
+#: forms.py:80 forms.py:406
 msgid "Email"
 msgstr ""
 
-#: forms.py:80 forms.py:413
+#: forms.py:81 forms.py:414
 msgid "First Name"
 msgstr ""
 
-#: forms.py:81 forms.py:414
+#: forms.py:82 forms.py:415
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:84
+#: forms.py:85
 msgid "Password"
 msgstr ""
 
-#: forms.py:86
+#: forms.py:87
 msgid "Leave blank if not changing."
 msgstr ""
 
-#: forms.py:88
+#: forms.py:89
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:90
+#: forms.py:91
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:93 forms.py:221
+#: forms.py:94 forms.py:222
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:94 forms.py:223
+#: forms.py:95 forms.py:224
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
-#: forms.py:217
+#: forms.py:218
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:321
+#: forms.py:322
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
-#: forms.py:396
+#: forms.py:397
 msgid "Preferred language"
 msgstr ""
 
-#: forms.py:431
+#: forms.py:432
 msgid "Current time zone"
 msgstr ""
 
-#: forms.py:441
+#: forms.py:442
 msgid "Upload a profile picture"
 msgstr ""
 
