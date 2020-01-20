@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,26 +84,26 @@ msgstr ""
 msgid "image"
 msgstr ""
 
-#: templates/modeladmin/choose_parent.html:28
+#: templates/modeladmin/choose_parent.html:30
 msgid "Choose a parent page"
 msgstr ""
 
-#: templates/modeladmin/choose_parent.html:29
+#: templates/modeladmin/choose_parent.html:31
 #, python-format
 msgid ""
 "%(plural)s can be added to more than one place within your site. Which of "
 "the following would you like to be the parent of your new page?"
 msgstr ""
 
-#: templates/modeladmin/choose_parent.html:37
+#: templates/modeladmin/choose_parent.html:39
 msgid "Continue"
 msgstr ""
 
-#: templates/modeladmin/create.html:38 templates/modeladmin/edit.html:8
+#: templates/modeladmin/create.html:42 templates/modeladmin/edit.html:8
 msgid "Saving…"
 msgstr ""
 
-#: templates/modeladmin/create.html:39 templates/modeladmin/edit.html:9
+#: templates/modeladmin/create.html:43 templates/modeladmin/edit.html:9
 msgid "Save"
 msgstr ""
 
@@ -155,23 +155,23 @@ msgstr ""
 msgid "Search %(name)s"
 msgstr ""
 
-#: templates/modeladmin/index.html:46
+#: templates/modeladmin/index.html:47
 msgid "Filter"
 msgstr ""
 
-#: templates/modeladmin/index.html:57
+#: templates/modeladmin/index.html:58
 #, python-format
 msgid ""
 "No %(name)s have been created yet. One of the following must be created "
 "before you can add any %(name)s:"
 msgstr ""
 
-#: templates/modeladmin/index.html:62
+#: templates/modeladmin/index.html:63
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr ""
 
-#: templates/modeladmin/index.html:64
+#: templates/modeladmin/index.html:65
 #, python-format
 msgid ""
 "\n"
@@ -180,16 +180,16 @@ msgid ""
 "                                            "
 msgstr ""
 
-#: templates/modeladmin/index.html:77
+#: templates/modeladmin/index.html:78
 msgid "Pagination"
 msgstr ""
 
-#: templates/modeladmin/index.html:78
+#: templates/modeladmin/index.html:79
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr ""
 
-#: templates/modeladmin/inspect.html:26
+#: templates/modeladmin/inspect.html:28
 #, python-format
 msgid "Back to %(model_name)s list"
 msgstr ""

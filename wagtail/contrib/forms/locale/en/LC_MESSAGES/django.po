@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,71 +99,75 @@ msgstr ""
 msgid "form submission"
 msgstr ""
 
-#: models.py:79
+#: models.py:67
+msgid "form submissions"
+msgstr ""
+
+#: models.py:80
 msgid "label"
 msgstr ""
 
-#: models.py:81
+#: models.py:82
 msgid "The label of the form field"
 msgstr ""
 
-#: models.py:83
+#: models.py:84
 msgid "field type"
 msgstr ""
 
-#: models.py:84
+#: models.py:85
 msgid "required"
 msgstr ""
 
-#: models.py:86
+#: models.py:87
 msgid "choices"
 msgstr ""
 
-#: models.py:88
+#: models.py:89
 msgid ""
 "Comma separated list of choices. Only applicable in checkboxes, radio and "
 "dropdown."
 msgstr ""
 
-#: models.py:91
+#: models.py:92
 msgid "default value"
 msgstr ""
 
-#: models.py:94
+#: models.py:95
 msgid "Default value. Comma separated values supported for checkboxes."
 msgstr ""
 
-#: models.py:96
+#: models.py:97
 msgid "help text"
 msgstr ""
 
-#: models.py:154
+#: models.py:155
 msgid "Submission date"
 msgstr ""
 
-#: models.py:248
+#: models.py:249
 msgid "Form"
 msgstr ""
 
-#: models.py:249
+#: models.py:250
 msgid "Landing page"
 msgstr ""
 
-#: models.py:266
+#: models.py:267
 msgid "to address"
 msgstr ""
 
-#: models.py:267
+#: models.py:268
 msgid ""
 "Optional - form submissions will be emailed to these addresses. Separate "
 "multiple addresses by comma."
 msgstr ""
 
-#: models.py:269
+#: models.py:270
 msgid "from address"
 msgstr ""
 
-#: models.py:270
+#: models.py:271
 msgid "subject"
 msgstr ""
 
