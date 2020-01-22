@@ -317,7 +317,7 @@ class BaseSearchBackend:
 
     def refresh_index(self):
         refreshed_indexes = []
-        for model in get_indexed_models:
+        for model in get_indexed_models():
             index = self.get_index_for_model(model)
             if index not in refreshed_indexes:
                 index.refresh()
