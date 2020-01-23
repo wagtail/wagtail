@@ -14,6 +14,12 @@ class ModalWindow extends React.Component {
       id: _.uniqueId('react-modal-'),
     };
   }
+
+  componentWillMount() {
+    // Save the currently focused element so we can reset it when the modal closes
+    this.previousFocusedElement = document.activeElement;
+  }
+
   // eslint-disable-next-line class-methods-use-this
   renderModalContents() {
     return (
@@ -22,7 +28,12 @@ class ModalWindow extends React.Component {
   }
 
   render() {
-    const { onModalClose } = this.props;
+    const onModalClose = e => {
+      // Refocus the element that was focused when the modal was opened
+      this.previousFocusedElement.focus();
+
+      this.props.onModalClose(e);
+    };
     return (
       <div>
         <div
