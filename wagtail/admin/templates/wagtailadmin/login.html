@@ -52,9 +52,6 @@
                             {{ form.password }}
                         </div>
                     </div>
-                    {% if show_password_reset %}
-                        <p class="help"><a href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten it?" %}</a></p>
-                    {% endif %}
                 </li>
 
                 {% block extra_fields %}
@@ -83,6 +80,10 @@
                     {% endblock %}
                 </li>
             </ul>
+
+            {% if show_password_reset %}
+                <p class="help"><a href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten it?" %}</a></p>
+            {% endif %}
         {% endblock %}
         </form>
 
