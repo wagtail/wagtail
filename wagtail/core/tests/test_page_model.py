@@ -1571,12 +1571,12 @@ class TestMakePreviewRequest(TestCase):
         request = response.context_data['request']
 
         # in the absence of an actual Site record where we can access this page,
-        # dummy_request should still provide a hostname that Django's host header
+        # make_preview_request should still provide a hostname that Django's host header
         # validation won't reject
         self.assertEqual(request.META['HTTP_HOST'], 'production.example.com')
 
     @override_settings(ALLOWED_HOSTS=['*'])
-    def test_dummy_request_for_inaccessible_page_with_wildcard_allowed_hosts(self):
+    def test_make_preview_request_for_inaccessible_page_with_wildcard_allowed_hosts(self):
         root_page = Page.objects.get(url_path='/')
         response = root_page.make_preview_request()
         self.assertEqual(response.status_code, 200)
