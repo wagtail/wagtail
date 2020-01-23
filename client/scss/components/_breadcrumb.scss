@@ -6,7 +6,9 @@
     padding-top: 1.4em;
     font-size: 0.85em;
 
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
         box-sizing: inherit;
     }
 
@@ -29,7 +31,6 @@
             overflow: hidden;
             line-height: 1.6em;
             padding-right: 2em;
-            margin: 3px 0;
 
             &:after {
                 right: 0;
