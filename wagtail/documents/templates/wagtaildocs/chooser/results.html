@@ -1,7 +1,7 @@
 {% load i18n %}
 {% if documents %}
     {% if is_searching %}
-        <h2>
+        <h2 role="alert">
         {% blocktrans count counter=documents.paginator.count %}
             There is {{ counter }} match
         {% plural %}
@@ -17,7 +17,7 @@
     {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=documents %}
 {% else %}
     {% if documents_exist %}
-        <p>{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+        <p role="alert">{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
         <p>
         {% if collection_id %}
