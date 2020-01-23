@@ -206,6 +206,12 @@
         -webkit-font-smoothing: auto;
         // stylelint-disable-next-line property-no-vendor-prefix
         -moz-appearance: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: transparent;
+        }
     }
 
     &:hover {
