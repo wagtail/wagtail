@@ -24,12 +24,20 @@ const defaultProps = {
 
 class PageChooser extends ModalWindow {
   componentDidMount() {
-    const { browse, initialParentPageId } = this.props;
+    const { browse, initialParentPageId, onModalClose } = this.props;
 
     browse(initialParentPageId || 'root', 1);
 
     // Focus the search box
     document.getElementById(`${this.state.id}-search`).focus();
+
+    document.addEventListener('keydown', onModalClose);
+  }
+
+  componentWillUnmount() {
+    const { onModalClose } = this.props;
+
+    document.removeEventListener('keydown', onModalClose);
   }
 
   renderModalContents() {
