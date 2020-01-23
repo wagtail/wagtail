@@ -981,6 +981,8 @@ class StreamPage(Page):
         StreamFieldPanel('body'),
     ]
 
+    preview_modes = []
+
 
 class DefaultStreamPage(Page):
     body = StreamField([

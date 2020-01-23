@@ -24,6 +24,7 @@ Other features
  * Tag field autocompletion now handles custom tag models (Matt Westcott)
  * ``wagtail_serve`` URL route can now be omitted for headless sites (Storm Heg)
  * Allow free tagging to be disabled on custom tag models (Matt Westcott)
+ * Allow disabling page preview by setting ``preview_modes`` to an empty list (Casper Timmers)
 
 
 Bug fixes
