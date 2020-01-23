@@ -120,6 +120,11 @@ input[type=checkbox]:before {
     font-size: 1.3em;
     margin-top: -0.5em;
     right: 5%;
+    top: 213px;
+
+    @include media-breakpoint-up(sm) {
+        top: 65%;
+    }
 }
 
 .messages {
@@ -139,17 +144,7 @@ input[type=checkbox]:before {
     }
 }
 
-@include media-breakpoint-up(xs) {
-    .help {
-        top: 213px;
-    }
-}
-
 @include media-breakpoint-up(sm) {
-    .help {
-        top: 65%;
-    }
-
     .content-wrapper {
         float: none;
         height: auto;
