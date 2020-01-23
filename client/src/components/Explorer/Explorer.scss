@@ -58,6 +58,7 @@ $menu-footer-height: 50px;
     color: $c-explorer-secondary;
     border-bottom: 1px solid rgba(200, 200, 200, 0.1);
     cursor: pointer;
+    display: none;
 
     &:focus {
         background-color: $c-explorer-bg-active;
