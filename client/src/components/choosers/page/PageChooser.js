@@ -27,6 +27,9 @@ class PageChooser extends ModalWindow {
     const { browse, initialParentPageId } = this.props;
 
     browse(initialParentPageId || 'root', 1);
+
+    // Focus the search box
+    document.getElementById(`${this.state.id}-search`).focus();
   }
 
   renderModalContents() {
