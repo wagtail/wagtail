@@ -363,8 +363,14 @@ ul.listing {
         padding-left: 20px;
     }
 
-    .unpublished .title-wrapper {
-        opacity: 0.7;
+    .unpublished {
+        background: #fff url('#{$images-root}bg-dark-diag.svg');
+
+        .status-tag {
+            color: $color-grey-2;
+            border: 1px solid $color-grey-2;
+            background: #fff;
+        }
     }
 
     .index {
