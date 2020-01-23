@@ -138,15 +138,18 @@ input[type=checkbox]:before {
         }
     }
 }
+
 @include media-breakpoint-up(xs) {
     .help {
         top: 213px;
     }
 }
+
 @include media-breakpoint-up(sm) {
     .help {
         top: 65%;
     }
+
     .content-wrapper {
         float: none;
         height: auto;
