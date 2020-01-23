@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Fix: Added ARIA alert role to live search forms in the admin (Casper Timmers)
+ * Fix: Reorder login form elements to match expected tab order (Kjartan Sverrisson)
 
 
 2.8 (xx.xx.xxxx) - IN DEVELOPMENT

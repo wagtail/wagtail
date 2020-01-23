@@ -21,6 +21,7 @@ Bug fixes
 ~~~~~~~~~
 
  * Added ARIA alert role to live search forms in the admin (Casper Timmers)
+ * Reordered login form elements to match expected tab order (Kjartan Sverrisson)
 
 
 Upgrade considerations
