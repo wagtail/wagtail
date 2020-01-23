@@ -4,7 +4,7 @@ Changelog
 2.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * ...
+ * Fix: Added ARIA alert role to live search forms in the admin (Casper Timmers)
 
 
 2.8 (xx.xx.xxxx) - IN DEVELOPMENT
