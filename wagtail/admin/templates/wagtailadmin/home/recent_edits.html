@@ -16,7 +16,7 @@
                 </thead>
                 <tbody>
                     {% for revision, page in last_edits %}
-                        <tr>
+                        <tr{% if not page.live %} class="unpublished"{% endif %}>
                             <td class="title" valign="top">
                                 <div class="title-wrapper">
                                     <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
