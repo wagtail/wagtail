@@ -1,11 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 const propTypes = {
   onModalClose: PropTypes.func.isRequired,
 };
 
 class ModalWindow extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      id: _.uniqueId('react-modal-'),
+    };
+  }
   // eslint-disable-next-line class-methods-use-this
   renderModalContents() {
     return (
@@ -21,7 +29,8 @@ class ModalWindow extends React.Component {
           className="modal fade in"
           tabIndex={-1}
           role="dialog"
-          aria-hidden={true}
+          aria-modal={true}
+          aria-labelledby={`${this.state.id}-title`}
           style={{ display: 'block' }}
         >
           <div className="modal-dialog">
@@ -31,7 +40,6 @@ class ModalWindow extends React.Component {
                 type="button"
                 className="button close icon text-replace icon-cross"
                 data-dismiss="modal"
-                aria-hidden={true}
               >
                 &times;
               </button>

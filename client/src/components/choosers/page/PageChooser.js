@@ -115,7 +115,7 @@ class PageChooser extends ModalWindow {
 
     return (
       <div>
-        <PageChooserHeader onSearch={onSearch} searchEnabled={!error} />
+        <PageChooserHeader modalId={this.state.id} onSearch={onSearch} searchEnabled={!error} />
         <PageChooserSpinner isActive={isFetching}>
           {view}
         </PageChooserSpinner>
