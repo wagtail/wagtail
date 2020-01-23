@@ -31,13 +31,17 @@ class PageChooser extends ModalWindow {
     // Focus the search box
     document.getElementById(`${this.state.id}-search`).focus();
 
-    document.addEventListener('keydown', onModalClose);
+    // Close the window when Escape key is pressed
+    this.keydownEventListener = e => {
+      if (e.key === 'Escape') {
+        onModalClose();
+      }
+    };
+    document.addEventListener('keydown', this.keydownEventListener);
   }
 
   componentWillUnmount() {
-    const { onModalClose } = this.props;
-
-    document.removeEventListener('keydown', onModalClose);
+    document.removeEventListener('keydown', this.keydownEventListener);
   }
 
   renderModalContents() {
