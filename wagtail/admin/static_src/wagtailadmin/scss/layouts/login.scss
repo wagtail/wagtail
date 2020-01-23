@@ -77,6 +77,11 @@ input[type=checkbox]:before {
         position: relative;
         padding: 0;
 
+        // Fix outline overflowing the elements' left side
+        @include media-breakpoint-up(sm) {
+            margin-left: -97px;
+        }
+
         label {
             display: none;
         }
