@@ -95,6 +95,10 @@ ul.listing {
                 border-top: 1px dashed $color-input-border;
             }
 
+            &:last-child {
+                border-bottom: 1px dashed $color-input-border;
+            }
+
             &:hover {
                 background-color: #fcfcfc;
             }
@@ -548,7 +552,6 @@ table.listing {
 
 .listing.full-width + .pagination {
     margin-top: 3em;
-    border-top: 1px dashed #d9d9d9;
     padding: 2em 50px 0;
 }
 
