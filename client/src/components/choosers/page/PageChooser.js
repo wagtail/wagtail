@@ -36,6 +36,18 @@ class PageChooser extends ModalWindow {
       if (e.key === 'Escape') {
         onModalClose();
       }
+
+      if (e.key === 'ArrowLeft') {
+        const { viewName, parent } = this.props;
+
+        if (parent && viewName === 'browse') {
+          const ancestors = parent.meta.ancestors;
+
+          if (ancestors.length > 0) {
+            browse(ancestors[ancestors.length - 1].id, 1);
+          }
+        }
+      }
     };
     document.addEventListener('keydown', this.keydownEventListener);
   }
