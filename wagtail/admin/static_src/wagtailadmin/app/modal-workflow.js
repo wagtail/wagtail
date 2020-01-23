@@ -45,6 +45,7 @@ export function createPageChooser(id, restrictPageTypes, initialParentPageId) {
       ));
 
       const onModalClose = () => {
+        document.body.classList.remove('modal-open');
         ReactDOM.render(<div />, modalPlacement);
       };
 
@@ -77,6 +78,8 @@ export function createPageChooser(id, restrictPageTypes, initialParentPageId) {
           />
         </Provider>
       ), modalPlacement);
+
+      document.body.classList.add('modal-open');
     });
   });
 

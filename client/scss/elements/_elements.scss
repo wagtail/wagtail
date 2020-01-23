@@ -20,6 +20,10 @@ body {
         opacity: 0;
         visibility: hidden;
     }
+
+    &.modal-open {
+        overflow-y: hidden;
+    }
 }
 
 hr {
