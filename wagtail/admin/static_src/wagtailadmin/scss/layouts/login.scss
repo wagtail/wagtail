@@ -118,7 +118,6 @@ input[type=checkbox]:before {
     opacity: 1;
     position: absolute;
     font-size: 1.3em;
-    top: 50%;
     margin-top: -0.5em;
     right: 5%;
 }
@@ -139,8 +138,15 @@ input[type=checkbox]:before {
         }
     }
 }
-
+@include media-breakpoint-up(xs) {
+    .help {
+        top: 213px;
+    }
+}
 @include media-breakpoint-up(sm) {
+    .help {
+        top: 65%;
+    }
     .content-wrapper {
         float: none;
         height: auto;
