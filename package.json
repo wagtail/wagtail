@@ -94,6 +94,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-focus-trap": "^2.7.1",
     "react-redux": "^5.0.6",
     "react-streamfield": "^0.9.5",
     "react-transition-group": "^1.1.3",

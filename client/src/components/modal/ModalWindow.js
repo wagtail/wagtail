@@ -1,4 +1,5 @@
 import React from 'react';
+import FocusTrap from 'react-focus-trap';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -44,21 +45,23 @@ class ModalWindow extends React.Component {
           aria-labelledby={`${this.state.id}-title`}
           style={{ display: 'block' }}
         >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <button
-                onClick={onModalClose}
-                type="button"
-                className="button close icon text-replace icon-cross"
-                data-dismiss="modal"
-              >
-                &times;
-              </button>
-              <div className="modal-body">
-                {this.renderModalContents()}
+          <FocusTrap>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <button
+                  onClick={onModalClose}
+                  type="button"
+                  className="button close icon text-replace icon-cross"
+                  data-dismiss="modal"
+                >
+                  &times;
+                </button>
+                <div className="modal-body">
+                  {this.renderModalContents()}
+                </div>
               </div>
             </div>
-          </div>
+          </FocusTrap>
         </div>
         <div className="modal-backdrop fade in" />
       </div>
