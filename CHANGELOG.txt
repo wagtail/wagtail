@@ -1,6 +1,13 @@
 Changelog
 =========
 
+
+4.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Add basic keyboard control and screen reader support for page listing re-ordering (Paarth Agarwal, Thomas van der Hoeven)
+
+
 4.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
