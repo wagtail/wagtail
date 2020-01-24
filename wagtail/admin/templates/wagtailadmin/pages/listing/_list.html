@@ -48,7 +48,7 @@
                 {% page_permissions page as page_perms %}
                 <tr {% if ordering == "ord" %}id="page_{{ page.id|unlocalize }}" data-page-title="{{ page.get_admin_display_title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
                     {% if show_ordering_column %}
-                        <td class="ord">{% if orderable and ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
+                        <td class="ord">{% if orderable and ordering == "ord" %}<div tabindex="0" id="orderer" class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% endif %}
                     <td class="title" valign="top" data-listing-page-title>
                         {% block page_title %}
