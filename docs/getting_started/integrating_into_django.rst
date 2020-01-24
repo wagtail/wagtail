@@ -35,15 +35,11 @@ In your settings file, add the following apps to ``INSTALLED_APPS``:
     'modelcluster',
     'taggit',
 
-Add the following entries to ``MIDDLEWARE``:
+Add the following entry to ``MIDDLEWARE``:
 
 .. code-block:: python
 
-    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-
-.. note::
-   Wagtail is currently incompatible with projects using ``django.contrib.sites.middleware.CurrentSiteMiddleware``, as both this and ``wagtail.core.middleware.SiteMiddleware`` set the attribute ``request.site``.
 
 Add a ``STATIC_ROOT`` setting, if your project does not have one already:
 

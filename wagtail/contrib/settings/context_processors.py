@@ -57,9 +57,6 @@ def settings(request):
         site = Site.find_for_request(request)
         if site is None:
             # find_for_request() can't determine the site
-            # old SiteMiddleware case
-            # Unittest or email templates might also mock request
-            # objects that don't have a request.site.
             return {}
         else:
             return SettingsProxy(site)
