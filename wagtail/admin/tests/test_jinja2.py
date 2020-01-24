@@ -30,7 +30,8 @@ class TestCoreJinja(TestCase):
         site = Site.objects.get(is_default_site=True)
 
         request = HttpRequest()
-        request._wagtail_site = site
+        request.META['HTTP_HOST'] = site.hostname
+        request.META['SERVER_PORT'] = site.port
         request.user = user or AnonymousUser()
         return request
 
