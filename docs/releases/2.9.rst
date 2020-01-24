@@ -36,3 +36,7 @@ Bug fixes
 Upgrade considerations
 ======================
 
+``SiteMiddleware`` and ``request.site`` deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail's :class:`~wagtail.core.middleware.SiteMiddleware`, which makes the current site object available as the property ``request.site``, is now deprecated as it clashes with Django's sites framework and makes unnecessary database queries on non-Wagtail views. References to ``request.site`` in your code should be removed; the recommended way of retrieving the current site is ``Site.find_for_request(request)`` in Python code, and the ``{% wagtail_site %}`` tag within Django templates. Once these are removed, ``'wagtail.core.middleware.SiteMiddleware'`` can be removed from your project's ``MIDDLEWARE`` setting.
