@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
 
-from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, Site
+from wagtail.core.models import PAGE_TEMPLATE_VAR, Page
 from wagtail.tests.testapp.models import BusinessChild, BusinessIndex
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -22,7 +22,6 @@ class TestUserbarTag(TestCase):
     def dummy_request(self, user=None):
         request = RequestFactory().get('/')
         request.user = user or AnonymousUser()
-        request.site = Site.objects.first()
         return request
 
     def test_userbar_tag(self):

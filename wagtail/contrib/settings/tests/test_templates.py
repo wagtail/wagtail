@@ -1,3 +1,4 @@
+from django.http import HttpRequest
 from django.template import Context, RequestContext, Template, engines
 from django.test import TestCase
 
@@ -28,8 +29,8 @@ class TemplateTestCase(TestCase, WagtailTestUtils):
     def get_request(self, site=None):
         if site is None:
             site = self.default_site
-        request = self.client.get('/test/', HTTP_HOST=site.hostname)
-        request.site = site
+        request = HttpRequest()
+        request._wagtail_site = site
         return request
 
     def render(self, request, string, context=None, site=None):
@@ -79,6 +80,9 @@ class TestContextProcessor(TemplateTestCase):
         """ Accessing a setting should only hit the DB once per render """
         request = self.get_request()
         get_title = '{{ settings.tests.testsetting.title }}'
+
+        # force site query before hand
+        Site.find_for_request(request)
 
         for i in range(1, 4):
             with self.assertNumQueries(1):
@@ -169,9 +173,8 @@ class TestSettingsJinja(TemplateTestCase):
                 site = context['site']
             else:
                 site = Site.objects.get(is_default_site=True)
-
-            request = self.client.get('/test/', HTTP_HOST=site.hostname)
-            request.site = site
+            request = HttpRequest()
+            request._wagtail_site = site
             context['request'] = request
 
         template = self.engine.from_string(string)
@@ -217,8 +220,11 @@ class TestSettingsJinja(TemplateTestCase):
         # Cant use the default 'self.render()' as it does DB queries to get
         # site, dummy request
         site = Site.objects.get(is_default_site=True)
-        request = self.client.get('/test/', HTTP_HOST=site.hostname)
-        request.site = site
+        request = HttpRequest()
+        request._wagtail_site = site
+
+        # run extra query before hand
+        Site.find_for_request(request)
 
         for i in range(1, 4):
             with self.assertNumQueries(1):
