@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from taggit.managers import TaggableManager
 from wagtail.documents.models import AbstractDocument
 from wagtail.images.models import AbstractImage, AbstractRendition
 
@@ -14,6 +16,8 @@ class Image(AbstractImage):
         'focal_point_width',
         'focal_point_height',
     )
+
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'), related_name='images')
 
     class Meta:
         verbose_name = _('image')
@@ -36,3 +40,5 @@ class Document(AbstractDocument):
         'collection',
         'tags'
     )
+
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'), related_name='documents')

@@ -6,9 +6,9 @@ from django.utils.translation import ugettext as _
 from wagtail.admin import widgets
 from wagtail.admin.forms.collections import (
     BaseCollectionMemberForm, collection_member_permission_formset_factory)
+from wagtail.images import get_image_model
 from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import get_image_formats
-from wagtail.images.models import Image
 from wagtail.images.permissions import permission_policy as images_permission_policy
 
 
@@ -83,7 +83,7 @@ class URLGeneratorForm(forms.Form):
 
 
 GroupImagePermissionFormSet = collection_member_permission_formset_factory(
-    Image,
+    get_image_model(),
     [
         ('add_image', _("Add"), _("Add/edit images you own")),
         ('change_image', _("Edit"), _("Edit any image")),

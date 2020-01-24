@@ -9,7 +9,7 @@ class ThumbnailMixin:
     """
     Mixin class to help display thumbnail images in ModelAdmin listing results.
     `thumb_image_field_name` must be overridden to name a ForeignKey field on
-    your model, linking to `wagtailimages.Image`.
+    your model, linking to `media.Image`.
     """
     thumb_image_field_name = 'image'
     thumb_image_filter_spec = 'fill-100x100'

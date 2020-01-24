@@ -69,10 +69,11 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
     uploaded_by_user = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
-        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL,
+        related_name='+'
     )
 
-    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'), related_name='+')
 
     focal_point_x = models.PositiveIntegerField(null=True, blank=True)
     focal_point_y = models.PositiveIntegerField(null=True, blank=True)
@@ -352,6 +353,14 @@ class Image(AbstractImage):
         'focal_point_width',
         'focal_point_height',
     )
+
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL,
+        related_name='image_set'
+    )
+
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'), related_name='image_set')
 
     class Meta:
         verbose_name = _('image')

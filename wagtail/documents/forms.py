@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.admin import widgets
 from wagtail.admin.forms.collections import (
     BaseCollectionMemberForm, collection_member_permission_formset_factory)
-from wagtail.documents.models import Document
+from wagtail.documents import get_document_model
 from wagtail.documents.permissions import permission_policy as documents_permission_policy
 
 
@@ -48,7 +48,7 @@ def get_document_multi_form(model):
 
 
 GroupDocumentPermissionFormSet = collection_member_permission_formset_factory(
-    Document,
+    get_document_model(),
     [
         ('add_document', _("Add"), _("Add/edit documents you own")),
         ('change_document', _("Edit"), _("Edit any document")),

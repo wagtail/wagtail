@@ -32,8 +32,8 @@ def get_model_root(model):
     >>> get_model_root(myapp.HomePage)
     wagtailcore.Page
 
-    >>> get_model_root(wagtailimages.Image)
-    wagtailimages.Image
+    >>> get_model_root(media.Image)
+    media.Image
     """
     if model._meta.parents:
         parent_model = list(model._meta.parents.items())[0][0]
