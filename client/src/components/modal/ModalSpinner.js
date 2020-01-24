@@ -11,12 +11,12 @@ const defaultProps = {
   children: null,
 };
 
-const PageChooserSpinner = ({ isActive, children }) =>
+const ModalSpinner = ({ isActive, children }) =>
   <div className={`loading-mask${isActive ? ' loading' : ''}`}>
     {children}
   </div>;
 
-PageChooserSpinner.propTypes = propTypes;
-PageChooserSpinner.defaultProps = defaultProps;
+ModalSpinner.propTypes = propTypes;
+ModalSpinner.defaultProps = defaultProps;
 
-export default PageChooserSpinner;
+export default ModalSpinner;

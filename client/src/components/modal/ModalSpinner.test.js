@@ -1,21 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import PageChooserSpinner from './PageChooserSpinner';
+import ModalSpinner from './ModalSpinner';
 
-describe('PageChooserSpinner', () => {
+describe('ModalSpinner', () => {
   it('renders', () => {
     expect(shallow((
-      <PageChooserSpinner>
+      <ModalSpinner>
         Test
-      </PageChooserSpinner>
+      </ModalSpinner>
     ))).toMatchSnapshot();
   });
 
   it('#isActive', () => {
     expect(shallow((
-      <PageChooserSpinner isActive={true}>
+      <ModalSpinner isActive={true}>
         Test
-      </PageChooserSpinner>
+      </ModalSpinner>
     ))).toMatchSnapshot();
   });
 });

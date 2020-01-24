@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import ModalWindow from '../../modal/ModalWindow';
 
 import * as actions from './actions';
-import PageChooserSpinner from './PageChooserSpinner';
 import PageChooserBrowseView from './views/PageChooserBrowseView';
 import PageChooserSearchView from './views/PageChooserSearchView';
 import PageChooserErrorView from './views/PageChooserErrorView';
@@ -132,12 +131,11 @@ class PageChooser extends React.Component {
         heading={STRINGS.CHOOSE_A_PAGE}
         onSearch={onSearch}
         searchEnabled={!error}
+        showLoadingSpinner={isFetching}
         onClose={this.props.onModalClose}
         onKeyDown={keydownEventListener}
       >
-        <PageChooserSpinner isActive={isFetching}>
-          {view}
-        </PageChooserSpinner>
+        {view}
       </ModalWindow>
     );
   }

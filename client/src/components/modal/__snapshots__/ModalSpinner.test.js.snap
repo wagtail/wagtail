@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PageChooserSpinner #isActive 1`] = `
+exports[`ModalSpinner #isActive 1`] = `
 <div
   className="loading-mask loading"
 >
@@ -8,7 +8,7 @@ exports[`PageChooserSpinner #isActive 1`] = `
 </div>
 `;
 
-exports[`PageChooserSpinner renders 1`] = `
+exports[`ModalSpinner renders 1`] = `
 <div
   className="loading-mask"
 >

@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import ModalHeader from './ModalHeader';
+import ModalSpinner from './ModalSpinner';
 
 const propTypes = {
   heading: PropTypes.string.isRequired,
   onSearch: PropTypes.func,
   searchEnabled: PropTypes.bool.isRequired,
+  showLoadingSpinner: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func,
 };
@@ -93,7 +95,9 @@ class ModalWindow extends React.Component {
                     searchEnabled={this.props.searchEnabled}
                   />
 
-                  {this.props.children}
+                  <ModalSpinner isActive={this.props.showLoadingSpinner}>
+                    {this.props.children}
+                  </ModalSpinner>
                 </div>
               </div>
             </div>
