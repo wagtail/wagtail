@@ -58,9 +58,8 @@ class DocumentationFactory:
         return self
 
     def __exit__(self, type, value, traceback):
-        # with open(self.filename, "w") as doc:
-        #     doc.write("\n\n".join(self.blocks))
-        pass
+        with open(self.filename, "w") as doc:
+            doc.write("\n\n".join(self.blocks))
 
     def comment(self, content):
         self.blocks.append(f".. {content}")
