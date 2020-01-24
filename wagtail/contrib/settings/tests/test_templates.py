@@ -1,12 +1,14 @@
 from django.http import HttpRequest
 from django.template import Context, RequestContext, Template, engines
 from django.test import TestCase
+from django.test.utils import override_settings
 
 from wagtail.core.models import Page, Site
 from wagtail.tests.testapp.models import TestSetting
 from wagtail.tests.utils import WagtailTestUtils
 
 
+@override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'other'])
 class TemplateTestCase(TestCase, WagtailTestUtils):
     def setUp(self):
         root = Page.objects.first()
@@ -30,7 +32,8 @@ class TemplateTestCase(TestCase, WagtailTestUtils):
         if site is None:
             site = self.default_site
         request = HttpRequest()
-        request._wagtail_site = site
+        request.META['HTTP_HOST'] = site.hostname
+        request.META['SERVER_PORT'] = site.port
         return request
 
     def render(self, request, string, context=None, site=None):
@@ -174,7 +177,8 @@ class TestSettingsJinja(TemplateTestCase):
             else:
                 site = Site.objects.get(is_default_site=True)
             request = HttpRequest()
-            request._wagtail_site = site
+            request.META['HTTP_HOST'] = site.hostname
+            request.META['SERVER_PORT'] = site.port
             context['request'] = request
 
         template = self.engine.from_string(string)
@@ -221,7 +225,8 @@ class TestSettingsJinja(TemplateTestCase):
         # site, dummy request
         site = Site.objects.get(is_default_site=True)
         request = HttpRequest()
-        request._wagtail_site = site
+        request.META['HTTP_HOST'] = site.hostname
+        request.META['SERVER_PORT'] = site.port
 
         # run extra query before hand
         Site.find_for_request(request)
