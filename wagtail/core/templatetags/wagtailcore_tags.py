@@ -28,7 +28,7 @@ def pageurl(context, page, fallback=None):
     try:
         site = Site.find_for_request(context['request'])
         current_site = site
-    except (KeyError, AttributeError):
+    except KeyError:
         # site not available in the current context; fall back on page.url
         return page.url
 
@@ -57,7 +57,7 @@ def slugurl(context, slug):
     try:
         site = Site.find_for_request(context['request'])
         current_site = site
-    except (KeyError, AttributeError):
+    except KeyError:
         # No site object found - allow the fallback below to take place.
         pass
     else:
