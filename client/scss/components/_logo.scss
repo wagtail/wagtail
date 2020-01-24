@@ -17,10 +17,8 @@
     &:hover {
         color: $color-white;
     }
-}
 
-@include media-breakpoint-down(xs) {
-    .logo {
+    @include media-breakpoint-down(xs) {
         padding: 0 1.2em;
         margin: 0.9em 0;
         height: 28px;
@@ -28,74 +26,52 @@
         display: flex;
         align-items: center;
     }
-}
 
-// Desktop styling (override mobile styling):
-@include media-breakpoint-up(sm) {
-    .logo {
-        margin: 1em auto;
+    // Desktop styling (override mobile styling):
+    @include media-breakpoint-up(sm) {
+        margin: 2em auto;
         text-align: center;
     }
 }
 
 .wagtail-logo-container__mobile {
     position: relative;
-
-    .wagtail-logo,
-    .wagtail-logo-container__background {
-        float: left;
-    }
-
-    .wagtail-logo,
-    .wagtail-logo-container-inner {
-        width: 20px;
-    }
+    margin-right: 10px;
+    background-color: #555;
+    border-radius: 50%;
+    padding: 5px 7.5px;
 
     .wagtail-logo {
+        float: left;
+        width: 20px;
         border: 0;
         margin-right: 1em;
     }
 
-    .wagtail-logo-container__background {
-        width: 28px;
-        margin-right: 5px;
-    }
-
     .wagtail-logo-container-inner {
-        height: 20px;
-        margin-left: 4px;
-        margin-top: 3px;
-        position: absolute;
-    }
-
-    &:hover {
-        color: $color-white;
+        width: 20px;
+        height: 25px;
     }
 }
 
 .wagtail-logo-container__desktop {
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
+    background-color: #555;
+    border-radius: 50%;
+    margin: 0 auto;
 
-    .wagtail-logo-container__background {
-        position: absolute;
-        top: -3px;
-        left: 0;
+    .page404__bg & {
+        background-color: transparent;
     }
 
     .wagtail-logo-container-inner {
-        width: 45px;
-        height: 75px;
+        width: 52px;
+        height: 100px;
         margin: auto;
         position: relative;
     }
-}
-
-.wagtail-logo-container-inner,
-.wagtail-logo-container__desktop.animated-logo-container {
-    display: block;
-    transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
 
     .wagtail-logo {
         display: block;
@@ -104,7 +80,7 @@
         width: 100%;
         height: 100%;
         position: absolute;
-        transition: inherit;
+        transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
 
         &.wagtail-logo__eye--open {
             // stylelint-disable-next-line declaration-no-important
