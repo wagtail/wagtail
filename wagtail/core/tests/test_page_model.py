@@ -267,6 +267,7 @@ class TestRouting(TestCase):
         self.assertEqual(root.relative_url(default_site), None)
         self.assertEqual(root.get_site(), None)
 
+    @override_settings(ALLOWED_HOSTS=['localhost', 'testserver', 'events.example.com', 'second-events.example.com'])
     def test_urls_with_multiple_sites(self):
         events_page = Page.objects.get(url_path='/home/events/')
         events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
@@ -303,7 +304,8 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.get_site(), events_site)
 
         request = HttpRequest()
-        request._wagtail_site = events_site
+        request.META['HTTP_HOST'] = events_site.hostname
+        request.META['SERVER_PORT'] = events_site.port
 
         self.assertEqual(
             christmas_page.get_url_parts(request=request),
@@ -311,7 +313,8 @@ class TestRouting(TestCase):
         )
 
         request2 = HttpRequest()
-        request2._wagtail_site = second_events_site
+        request2.META['HTTP_HOST'] = second_events_site.hostname
+        request2.META['SERVER_PORT'] = second_events_site.port
         self.assertEqual(
             christmas_page.get_url_parts(request=request2),
             (second_events_site.id, 'http://second-events.example.com', '/christmas/')
@@ -356,7 +359,7 @@ class TestRouting(TestCase):
 
         request = HttpRequest()
         request.user = AnonymousUser()
-        request._wagtail_site = Site.objects.first()
+        request.META['HTTP_HOST'] = Site.objects.first().hostname
 
         response = christmas_page.serve(request)
         self.assertEqual(response.status_code, 200)

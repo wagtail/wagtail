@@ -54,7 +54,8 @@ class TestSitemapGenerator(TestCase):
 
     def get_request_and_django_site(self, url):
         request = RequestFactory().get(url)
-        request._wagtail_site = self.site
+        request.META['HTTP_HOST'] = self.site.hostname
+        request.META['SERVER_PORT'] = self.site.port
         return request, get_current_site(request)
 
     def test_items(self):
@@ -83,6 +84,9 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         sitemap = Sitemap(request)
+
+        # pre-seed find_for_request cache, so that it's not counted towards the query count
+        Site.find_for_request(request)
 
         with self.assertNumQueries(16):
             urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
