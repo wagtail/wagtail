@@ -16,12 +16,18 @@ def dashed_line(draw, x1, y1, x2, y2, line=9, gap=9, color="#ff00ea", stroke_wid
             draw.line([x, y, min(x + line, x2), y], fill=color, width=stroke_width)
 
 
-def rectangle(draw, x, y, width, height):
+def rectangle(draw, x, y, width, height, scale_factor=1):
+    x *= scale_factor
+    y *= scale_factor
+    width *= scale_factor
+    height *= scale_factor
+    stroke = 4 * scale_factor
+
     # Adjust the box so it is on the outside of the element.
-    x -= 4
-    y -= 4
-    width += 4 + 1
-    height += 4 + 1
+    x -= stroke
+    y -= stroke
+    width += 2 * stroke
+    height += 2 * stroke
     dashed_line(draw, x, y, x + width, y)  # top
     dashed_line(draw, x + width, y, x + width, y + height)  # right
     dashed_line(draw, x, y + height, x + width, y + height)  # bottom
@@ -40,19 +46,21 @@ def nested_list(items, prefix=""):
 
 
 class DocumentationFactory:
-    def __init__(self, filename, title, driver):
+    def __init__(self, filename, title, driver, scale_factor=1):
         self.blocks = []
         self.docs_dir = os.path.join(settings.BASE_DIR, "..", "..",  "..", "docs")
         self.filename = os.path.join(self.docs_dir, filename)
         self.h1(title)
         self.driver = driver
+        self.scale_factor = scale_factor
 
     def __enter__(self):
         return self
 
     def __exit__(self, type, value, traceback):
-        with open(self.filename, "w") as doc:
-            doc.write("\n\n".join(self.blocks))
+        # with open(self.filename, "w") as doc:
+        #     doc.write("\n\n".join(self.blocks))
+        pass
 
     def comment(self, content):
         self.blocks.append(f".. {content}")
@@ -72,8 +80,9 @@ class DocumentationFactory:
     def ol(self, items):
         self.blocks.append("\n".join([f"{idx + 1}. {item}" for idx, item in enumerate(items)]) + "\n")
 
-    def img(self, filename, element=None):
-        directory = os.path.join(self.docs_dir, "_static", "images")
+    def img(self, filename, element=None, directory=None):
+        if not directory:
+            directory = os.path.join(self.docs_dir, "_static", "images")
         if not os.path.exists(directory):
             os.mkdir(directory)
         filepath = os.path.join(directory, filename)
@@ -90,5 +99,5 @@ class DocumentationFactory:
 
             width = element.size["width"]
             height = element.size["height"]
-            rectangle(draw, pos_x, pos_y, width, height)
+            rectangle(draw, pos_x, pos_y, width, height, scale_factor=self.scale_factor)
             im.save(filepath, format="PNG")
