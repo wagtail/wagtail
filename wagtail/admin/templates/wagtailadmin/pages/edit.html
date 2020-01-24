@@ -7,7 +7,7 @@
 
 {% block content %}
     {% page_permissions page as page_perms %}
-    <header class="merged tab-merged" role="banner">
+    <header class="merged tab-merged">
         {% explorer_breadcrumb page %}
 
         <div class="row row-flush">
@@ -34,7 +34,7 @@
             <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
         {% endif %}
 
-        <footer role="contentinfo">
+        <footer>
             <nav aria-label="{% trans 'Actions' %}">
                 <ul>
                     <li class="actions">

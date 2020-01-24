@@ -12,7 +12,7 @@
             <form action="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 {% csrf_token %}
                 {{ edit_handler.render_form_content }}
-                <footer role="contentinfo">
+                <footer>
                     <nav aria-label="{% trans 'Actions' %}">
                     <ul>
                         <li class="actions">

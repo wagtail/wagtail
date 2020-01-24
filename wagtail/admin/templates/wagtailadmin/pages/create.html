@@ -7,7 +7,7 @@
 
 {% block content %}
 
-    <header class="merged tab-merged" role="banner">
+    <header class="merged tab-merged">
         {% explorer_breadcrumb parent_page include_self=1 %}
 
         <div class="row row-flush">
@@ -23,7 +23,7 @@
         <input type="hidden" name="next" value="{{ next }}">
         {{ edit_handler.render_form_content }}
 
-        <footer role="contentinfo">
+        <footer>
             <nav aria-label="{% trans 'Actions' %}">
                 <ul>
                   <li class="actions">
