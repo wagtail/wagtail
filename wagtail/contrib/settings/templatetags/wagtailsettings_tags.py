@@ -12,7 +12,7 @@ def get_settings(context, use_default_site=False):
     if use_default_site:
         site = Site.objects.get(is_default_site=True)
     elif 'request' in context:
-        site = context['request'].site
+        site = Site.find_for_request(context['request'])
     else:
         raise RuntimeError('No request found in context, and use_default_site '
                            'flag not set')

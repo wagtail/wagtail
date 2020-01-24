@@ -4,17 +4,18 @@ from django.urls import reverse
 
 from wagtail.core import hooks
 from wagtail.core.forms import PasswordViewRestrictionForm
-from wagtail.core.models import Page, PageViewRestriction
+from wagtail.core.models import Page, PageViewRestriction, Site
 
 
 def serve(request, path):
     # we need a valid Site object corresponding to this request (set in wagtail.core.middleware.SiteMiddleware)
     # in order to proceed
-    if not request.site:
+    site = Site.find_for_request(request)
+    if not site:
         raise Http404
 
     path_components = [component for component in path.split('/') if component]
-    page, args, kwargs = request.site.root_page.specific.route(request, path_components)
+    page, args, kwargs = site.root_page.specific.route(request, path_components)
 
     for fn in hooks.get_hooks('before_serve_page'):
         result = fn(page, request, args, kwargs)

@@ -54,7 +54,7 @@ class TestPageUrlTags(TestCase):
 
         # 'request' object in context, but site is None
         request = HttpRequest()
-        request.site = None
+        request._wagtail_site = None
         result = tpl.render(template.Context({'page': page, 'request': request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
@@ -82,7 +82,7 @@ class TestPageUrlTags(TestCase):
         new_christmas_page = Page(title='Christmas', slug='christmas')
         new_home_page.add_child(instance=new_christmas_page)
         request = HttpRequest()
-        request.site = second_site
+        request._wagtail_site = second_site
         url = slugurl(context=template.Context({'request': request}), slug='christmas')
         self.assertEqual(url, '/christmas/')
 
@@ -91,7 +91,7 @@ class TestPageUrlTags(TestCase):
         new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
         second_site = Site.objects.create(hostname='site2.example.com', root_page=new_home_page)
         request = HttpRequest()
-        request.site = second_site
+        request._wagtail_site = second_site
         # There is no page with this slug on the current site, so this
         # should return an absolute URL for the page on the first site.
         url = slugurl(slug='christmas', context=template.Context({'request': request}))
@@ -109,7 +109,7 @@ class TestPageUrlTags(TestCase):
     def test_slugurl_with_null_site_in_request(self):
         # 'request' object in context, but site is None
         request = HttpRequest()
-        request.site = None
+        request._wagtail_site = None
         result = slugurl(template.Context({'request': request}), 'events')
         self.assertEqual(result, '/events/')
 

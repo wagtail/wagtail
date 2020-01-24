@@ -7,7 +7,6 @@ from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from wagtail.admin.auth import user_has_any_page_permission
-from wagtail.core.models import Site
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -17,14 +16,12 @@ class BaseSearchAreaTestCase(WagtailTestUtils, TestCase):
     def search_other(self, current_url='/admin/', data=None):
         request = self.rf.get(current_url, data=data)
         request.user = self.user
-        request.site = Site.objects.get()
         template = Template("{% load wagtailadmin_tags %}{% search_other %}")
         return template.render(Context({'request': request}))
 
     def menu_search(self, current_url='/admin/', data=None):
         request = self.rf.get(current_url, data=data)
         request.user = self.user
-        request.site = Site.objects.get()
         template = Template("{% load wagtailadmin_tags %}{% menu_search %}")
         return template.render(Context({'request': request}))
 

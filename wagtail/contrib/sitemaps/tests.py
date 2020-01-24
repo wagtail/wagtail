@@ -54,7 +54,7 @@ class TestSitemapGenerator(TestCase):
 
     def get_request_and_django_site(self, url):
         request = RequestFactory().get(url)
-        request.site = self.site
+        request._wagtail_site = self.site
         return request, get_current_site(request)
 
     def test_items(self):

@@ -271,8 +271,10 @@ class TestRouting(TestCase):
         events_page = Page.objects.get(url_path='/home/events/')
         events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
 
+        # An underscore is not valid according to RFC 1034/1035
+        # and will raise a DisallowedHost Exception
         second_events_site = Site.objects.create(
-            hostname='second_events.example.com', root_page=events_page)
+            hostname='second-events.example.com', root_page=events_page)
 
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
@@ -301,17 +303,18 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.get_site(), events_site)
 
         request = HttpRequest()
+        request._wagtail_site = events_site
 
-        request.site = events_site
         self.assertEqual(
             christmas_page.get_url_parts(request=request),
             (events_site.id, 'http://events.example.com', '/christmas/')
         )
 
-        request.site = second_events_site
+        request2 = HttpRequest()
+        request2._wagtail_site = second_events_site
         self.assertEqual(
-            christmas_page.get_url_parts(request=request),
-            (second_events_site.id, 'http://second_events.example.com', '/christmas/')
+            christmas_page.get_url_parts(request=request2),
+            (second_events_site.id, 'http://second-events.example.com', '/christmas/')
         )
 
     @override_settings(ROOT_URLCONF='wagtail.tests.non_root_urls')
@@ -353,7 +356,7 @@ class TestRouting(TestCase):
 
         request = HttpRequest()
         request.user = AnonymousUser()
-        request.site = Site.objects.first()
+        request._wagtail_site = Site.objects.first()
 
         response = christmas_page.serve(request)
         self.assertEqual(response.status_code, 200)
@@ -380,6 +383,7 @@ class TestRouting(TestCase):
     # Override CACHES so we don't generate any cache-related SQL queries (tests use DatabaseCache
     # otherwise) and so cache.get will always return None.
     @override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
+    @override_settings(ALLOWED_HOSTS=['dummy'])
     def test_request_scope_site_root_paths_cache(self):
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
@@ -396,7 +400,10 @@ class TestRouting(TestCase):
 
         # with a request, the first call to get_url should issue 1 SQL query
         request = HttpRequest()
-        with self.assertNumQueries(1):
+        request.META['HTTP_HOST'] = "dummy"
+        request.META['SERVER_PORT'] = "8888"
+        # first call with "balnk" request issues a extra query for the Site.find_for_request() call
+        with self.assertNumQueries(2):
             self.assertEqual(homepage.get_url(request=request), '/')
         # subsequent calls should issue no SQL queries
         with self.assertNumQueries(0):

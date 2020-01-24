@@ -259,7 +259,9 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
 The ``Site`` model is useful for multi-site installations as it allows an administrator to configure which part of the tree to use for each hostname that the server responds on.
 
-This configuration is used by the :class:`~wagtail.core.middleware.SiteMiddleware` middleware class which checks each request against this configuration and appends the Site object to the Django request object.
+This configuration is used by the :class:`~wagtail.core.middleware.SiteMiddleware` middleware class which checks each request against this configuration and appends the Site object to the Django request object. (deprecated)
+
+As of wagtail 2.6 use the :meth:`~wagtail.core.models.Site.find_for_request` function to get the current wagtail Site. This function will check at the first call which Site to return for a given Django request object.
 
 Database fields
 ~~~~~~~~~~~~~~~

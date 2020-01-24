@@ -107,11 +107,29 @@ class Site(models.Model):
 
         NB this means that high-numbered ports on an extant hostname may
         still be routed to a different hostname which is set as the default
+
+        The site will be cached via request._wagtail_site
         """
 
+        if request is None:
+            return None
+
+        if not hasattr(request, '_wagtail_site'):
+            site = Site._find_for_request(request)
+            setattr(request, '_wagtail_site', site)
+        return request._wagtail_site
+
+    @staticmethod
+    def _find_for_request(request):
         hostname = request.get_host().split(':')[0]
         port = request.get_port()
-        return get_site_for_hostname(hostname, port)
+        site = None
+        try:
+            site = get_site_for_hostname(hostname, port)
+        except Site.DoesNotExist:
+            pass
+            # copy old SiteMiddleware behavior
+        return site
 
     @property
     def root_url(self):
@@ -803,9 +821,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         site_id, root_path, root_url = possible_sites[0]
 
-        if hasattr(request, 'site'):
+        site = Site.find_for_request(request)
+        if site:
             for site_id, root_path, root_url in possible_sites:
-                if site_id == request.site.pk:
+                if site_id == site.pk:
                     break
             else:
                 site_id, root_path, root_url = possible_sites[0]
@@ -846,14 +865,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         Accepts an optional but recommended ``request`` keyword argument that, if provided, will
         be used to cache site-level URL information (thereby avoiding repeated database / cache
-        lookups) and, via the ``request.site`` attribute, determine whether a relative or full URL
-        is most appropriate.
+        lookups) and, via the ``Site.find_for_request()`` function, determine whether a relative
+        or full URL is most appropriate.
         """
         # ``current_site`` is purposefully undocumented, as one can simply pass the request and get
-        # a relative URL based on ``request.site``. Nonetheless, support it here to avoid
+        # a relative URL based on ``Site.find_for_request()``. Nonetheless, support it here to avoid
         # copy/pasting the code to the ``relative_url`` method below.
         if current_site is None and request is not None:
-            current_site = getattr(request, 'site', None)
+            site = Site.find_for_request(request)
+            current_site = site
         url_parts = self.get_url_parts(request=request)
 
         if url_parts is None:
