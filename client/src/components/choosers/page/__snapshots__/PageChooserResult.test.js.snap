@@ -15,7 +15,9 @@ exports[`PageChooserResult renders 1`] = `
   />
   <td
     className="type u-vertical-align-top"
-  />
+  >
+    Home page
+  </td>
   <td
     className="status u-vertical-align-top"
   >

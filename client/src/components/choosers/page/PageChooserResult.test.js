@@ -12,7 +12,13 @@ describe('PageChooserResult', () => {
         page={{
           meta: {
             status: {},
+            type: 'home.HomePage',
           },
+        }}
+        pageTypes={{
+          'home.HomePage': {
+            verbose_name: 'home page',
+          }
         }}
       />
     ))).toMatchSnapshot();
