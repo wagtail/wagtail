@@ -11,7 +11,7 @@ def get_image_model_string():
     Useful for developers making Wagtail plugins that need to refer to the
     image model, such as in foreign keys, but the model itself is not required.
     """
-    return getattr(settings, 'WAGTAILIMAGES_IMAGE_MODEL', 'media.Image')
+    return getattr(settings, 'WAGTAILIMAGES_IMAGE_MODEL', 'wagtailimages.Image')
 
 
 def get_image_model():
