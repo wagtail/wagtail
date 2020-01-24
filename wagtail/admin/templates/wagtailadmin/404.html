@@ -14,7 +14,9 @@
     <div class="page404__bg">
         <div class="page404__wrapper">
             {% block branding_logo %}
-                {% include "wagtailadmin/shared/animated_logo.html" %}
+                <div class="wagtail-logo-container__desktop animated-logo-container u-hidden@xs">
+                    {% include "wagtailadmin/shared/animated_logo.html" %}
+                </div>
             {% endblock %}
 
             <div class="page404__text-container">
