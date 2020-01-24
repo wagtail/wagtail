@@ -15,6 +15,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Reduced contrast of rich text toolbar (Jack Paine)
+ * Support the rel attribute on custom ModelAdmin buttons (Andy Chosak)
 
 
 Bug fixes
