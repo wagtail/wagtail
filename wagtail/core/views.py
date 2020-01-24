@@ -8,8 +8,7 @@ from wagtail.core.models import Page, PageViewRestriction, Site
 
 
 def serve(request, path):
-    # we need a valid Site object corresponding to this request (set in wagtail.core.middleware.SiteMiddleware)
-    # in order to proceed
+    # we need a valid Site object corresponding to this request in order to proceed
     site = Site.find_for_request(request)
     if not site:
         raise Http404
