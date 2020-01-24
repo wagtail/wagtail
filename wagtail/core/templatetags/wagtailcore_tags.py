@@ -173,4 +173,9 @@ def wagtail_site(context):
     """
         Returns the Site object for the given request
     """
-    return Site.find_for_request(request=context.request)
+    try:
+        request = context['request']
+    except KeyError:
+        return None
+
+    return Site.find_for_request(request=request)
