@@ -43,6 +43,10 @@
     <script type="text/javascript">
         {% if ordering == 'ord' %}
             $(function() {
+                var currentlySelected;
+                var currentPosition;
+                var movedPageId;
+                var moveNTimesDirection = 0;
                 var reorderCount = 0;
                 var orderform = $('#page-reorder-form');
 
@@ -87,6 +91,69 @@
                     }
                 });
                 $('.listing tbody').disableSelection();
+                $("[data-order-handle]").on("keydown", function(e) {
+                    let keyCodes = {
+                        enter: 13,
+                        upArrow: 38,
+                        downArrow: 40,
+                        escape: 27
+                    }
+
+                    if (currentlySelected) {
+                        // We want to prevent default key actions (like scrolling) when we have an object selected
+                        e.preventDefault();
+                    }
+
+                    var children = $('.listing tbody').children();
+
+                    let moveElement = function() {
+                        var index = currentPosition + moveNTimesDirection;
+                        if (index < 0) {
+                            index = 0
+                        } else if (index > children.length - 1) {
+                            index = children.length - 1
+                        }
+                        var url = "{% url 'wagtailadmin_pages:set_page_position' '999999' %}".replace('999999', currentlySelected.id.substring(5));
+                        url += `?position=${(index)}`;
+                        let CSRFToken = $('input[name="csrfmiddlewaretoken"]', orderform).val();
+                        $.post(url, {csrfmiddlewaretoken: CSRFToken}, function(){
+                            addMessage('success', `"${$(currentlySelected).data('page-title')}" has been moved successfully from ${currentPosition +1} to ${index +1}.`)
+                        }).done(function() {
+                            currentlySelected = undefined;
+                        })
+                        if (moveNTimesDirection > 0) {
+                            $(currentlySelected).insertAfter($(children[index]));
+                        } else {
+                            $(currentlySelected).insertBefore($(children[index]));
+                        }
+                    }
+
+                    if(!currentlySelected && e.which == keyCodes.enter) {
+                        moveNTimesDirection = 0;
+                        currentlySelected = $(this).parents('tr')[0]
+                        children.toArray().forEach(function(item, index) {
+                            if (item === currentlySelected) {
+                                currentPosition = index;
+                            }
+                        })
+                    }
+                    if (currentlySelected && e.which == keyCodes.enter) {
+                        if (moveNTimesDirection != 0) {
+                            moveElement();
+                        }
+                    }
+
+                    if (currentlySelected && e.which == keyCodes.upArrow && children.first()[0] !== currentlySelected) {
+                        moveNTimesDirection--;
+                    };
+                    if (currentlySelected && e.which == keyCodes.downArrow && children.last()[0] !== currentlySelected) {
+                        moveNTimesDirection++;
+                    };
+                    if (currentlySelected && e.which == keyCodes.escape) {
+                        currentlySelected = undefined;
+                    }
+
+                })
             })
         {% endif %}
     </script>

@@ -619,6 +619,7 @@ Contributors
 * Xabier Bello
 * Mehrdad Moradizadeh
 * ariadi
+* Thomas van der Hoeven
 
 
 Translators
