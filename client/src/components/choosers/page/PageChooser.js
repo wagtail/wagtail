@@ -16,7 +16,19 @@ const getTotalPages = (totalItems, itemsPerPage) =>
 
 const propTypes = {
   initialParentPageId: PropTypes.any,
-  browse: PropTypes.func.isRequired
+  browse: PropTypes.func.isRequired,
+  error: PropTypes.node,
+  isFetching: PropTypes.bool,
+  items: PropTypes.array,
+  onModalClose: PropTypes.func,
+  onPageChosen: PropTypes.func,
+  pageTypes: PropTypes.object,
+  restrictPageTypes: PropTypes.array,
+  parent: PropTypes.func,
+  search: PropTypes.func,
+  totalItems: PropTypes.number,
+  viewName: PropTypes.string,
+  viewOptions: PropTypes.object
 };
 
 const defaultProps = {
