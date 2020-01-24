@@ -2,7 +2,7 @@ import warnings
 
 from django.utils.deprecation import MiddlewareMixin
 from wagtail.core.models import Site
-from wagtail.utils.deprecation import RemovedInWagtail28Warning
+from wagtail.utils.deprecation import RemovedInWagtail211Warning
 
 
 class SiteMiddleware(MiddlewareMixin):
@@ -12,12 +12,12 @@ class SiteMiddleware(MiddlewareMixin):
         according to hostname matching rules
         """
         warnings.warn(
-            'wagtail SiteMiddleware and the use of request.site is deprecated '
-            'and will be removed in wagtail 2.8. Update your middleware settings.',
-            RemovedInWagtail28Warning, stacklevel=2
+            'Wagtail SiteMiddleware and the use of request.site is deprecated '
+            'and will be removed in Wagtail 2.11. Update your middleware settings.',
+            RemovedInWagtail211Warning, stacklevel=2
         )
 
         try:
-            request._wagtail_site = Site.find_for_request(request)
+            request.site = Site.find_for_request(request)
         except Site.DoesNotExist:
-            request._wagtail_site = None
+            request.site = None
