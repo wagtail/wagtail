@@ -10,6 +10,7 @@ Changelog
  * Fix: Re-add 'Close Explorer' button on mobile viewports (Sævar Öfjörð Magnússon)
  * Fix: Add a more descriptive label to Password reset link for screen reader users (Casper Timmers, Martin Coote)
  * Fix: Improve Wagtail logo contrast by adding a background (Brian Edelman, Simon Evans, Ben Enright)
+ * Support the rel attribute on custom ModelAdmin buttons (Andy Chosak)
 
 
 2.8 (xx.xx.xxxx) - IN DEVELOPMENT
