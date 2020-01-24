@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -11,134 +11,132 @@ import PageChooserErrorView from './views/PageChooserErrorView';
 
 import { STRINGS } from '../../../config/wagtailConfig';
 
-const getTotalPages = (totalItems, itemsPerPage) => Math.ceil(totalItems / itemsPerPage);
+const getTotalPages = (totalItems, itemsPerPage) =>
+  Math.ceil(totalItems / itemsPerPage);
 
 const propTypes = {
   initialParentPageId: PropTypes.any,
-  browse: PropTypes.func.isRequired,
+  browse: PropTypes.func.isRequired
 };
 
 const defaultProps = {
-  initialParentPageId: null,
+  initialParentPageId: null
 };
 
-class PageChooser extends React.Component {
-  componentDidMount() {
-    const { browse, initialParentPageId } = this.props;
-
+function PageChooser({
+  browse,
+  error,
+  initialParentPageId,
+  isFetching,
+  items,
+  onModalClose,
+  onPageChosen,
+  pageTypes,
+  parent,
+  restrictPageTypes,
+  search,
+  totalItems,
+  viewName,
+  viewOptions
+}) {
+  useEffect(() => {
     browse(initialParentPageId || 'root', 1);
-  }
+  }, []);
 
-  render() {
-    const {
-      browse,
-      error,
-      isFetching,
-      items,
-      onPageChosen,
-      pageTypes,
-      parent,
-      restrictPageTypes,
-      search,
-      totalItems,
-      viewName,
-      viewOptions,
-    } = this.props;
-    // Event handlers
-    const onSearch = (queryString) => {
-      if (queryString) {
-        search(queryString, restrictPageTypes, 1);
-      } else {
-        // Search box is empty, browse instead
-        browse('root', 1);
-      }
-    };
+  // Event handlers
+  const onSearch = queryString => {
+    if (queryString) {
+      search(queryString, restrictPageTypes, 1);
+    } else {
+      // Search box is empty, browse instead
+      browse('root', 1);
+    }
+  };
 
-    const onNavigate = (page) => {
-      browse(page.id, 1);
-    };
+  const onNavigate = page => {
+    browse(page.id, 1);
+  };
 
-    const onChangePage = (newPageNumber) => {
-      switch (viewName) {
-      case 'browse':
-        browse(viewOptions.parentPageID, newPageNumber);
-        break;
-      case 'search':
-        search(viewOptions.queryString, restrictPageTypes, newPageNumber);
-        break;
-      default:
-        break;
-      }
-    };
-
-    // Views
-    let view = null;
+  const onChangePage = newPageNumber => {
     switch (viewName) {
     case 'browse':
-      view = (
-        <PageChooserBrowseView
-          parentPage={parent}
-          items={items}
-          pageTypes={pageTypes}
-          restrictPageTypes={restrictPageTypes}
-          pageNumber={viewOptions.pageNumber}
-          totalPages={getTotalPages(totalItems, 20)}
-          onPageChosen={onPageChosen}
-          onNavigate={onNavigate}
-          onChangePage={onChangePage}
-        />
-      );
+      browse(viewOptions.parentPageID, newPageNumber);
       break;
     case 'search':
-      view = (
-        <PageChooserSearchView
-          items={items}
-          totalItems={totalItems}
-          pageTypes={pageTypes}
-          restrictPageTypes={restrictPageTypes}
-          pageNumber={viewOptions.pageNumber}
-          totalPages={getTotalPages(totalItems, 20)}
-          onPageChosen={onPageChosen}
-          onNavigate={onNavigate}
-          onChangePage={onChangePage}
-        />
-      );
+      search(viewOptions.queryString, restrictPageTypes, newPageNumber);
       break;
     default:
       break;
     }
+  };
 
-    // Check for error
-    if (error) {
-      view = <PageChooserErrorView errorMessage={error} />;
-    }
+  // Views
+  let view = null;
+  switch (viewName) {
+  case 'browse':
+    view = (
+      <PageChooserBrowseView
+        parentPage={parent}
+        items={items}
+        pageTypes={pageTypes}
+        restrictPageTypes={restrictPageTypes}
+        pageNumber={viewOptions.pageNumber}
+        totalPages={getTotalPages(totalItems, 20)}
+        onPageChosen={onPageChosen}
+        onNavigate={onNavigate}
+        onChangePage={onChangePage}
+      />
+    );
+    break;
+  case 'search':
+    view = (
+      <PageChooserSearchView
+        items={items}
+        totalItems={totalItems}
+        pageTypes={pageTypes}
+        restrictPageTypes={restrictPageTypes}
+        pageNumber={viewOptions.pageNumber}
+        totalPages={getTotalPages(totalItems, 20)}
+        onPageChosen={onPageChosen}
+        onNavigate={onNavigate}
+        onChangePage={onChangePage}
+      />
+    );
+    break;
+  default:
+    break;
+  }
 
-    // Keyboard controls
-    const keydownEventListener = e => {
-      if (e.key === 'ArrowLeft') {
-        if (parent && viewName === 'browse') {
-          const ancestors = parent.meta.ancestors;
+  // Check for error
+  if (error) {
+    view = <PageChooserErrorView errorMessage={error} />;
+  }
 
-          if (ancestors.length > 0) {
-            browse(ancestors[ancestors.length - 1].id, 1);
-          }
+  // Keyboard controls
+  const keydownEventListener = e => {
+    if (e.key === 'ArrowLeft') {
+      if (parent && viewName === 'browse') {
+        const ancestors = parent.meta.ancestors;
+
+        if (ancestors.length > 0) {
+          browse(ancestors[ancestors.length - 1].id, 1);
         }
       }
-    };
+    }
+  };
 
-    return (
-      <ModalWindow
-        heading={STRINGS.CHOOSE_A_PAGE}
-        onSearch={onSearch}
-        searchEnabled={!error}
-        showLoadingSpinner={isFetching}
-        onClose={this.props.onModalClose}
-        onKeyDown={keydownEventListener}
-      >
-        {view}
-      </ModalWindow>
-    );
-  }
+  return (
+    <ModalWindow
+      heading={STRINGS.CHOOSE_A_PAGE}
+      onSearch={onSearch}
+      searchEnabled={!error}
+      showLoadingSpinner={isFetching}
+      onClose={onModalClose}
+      onKeyDown={keydownEventListener}
+    >
+      {view}
+    </ModalWindow>
+  );
 }
 
 PageChooser.propTypes = propTypes;
@@ -152,13 +150,17 @@ const mapStateToProps = state => ({
   totalItems: state.totalItems,
   pageTypes: state.pageTypes,
   isFetching: state.isFetching,
-  error: state.error,
+  error: state.error
 });
 
 const mapDispatchToProps = dispatch => ({
-  browse: (parentPageID, pageNumber) => dispatch(actions.browse(parentPageID, pageNumber)),
+  browse: (parentPageID, pageNumber) =>
+    dispatch(actions.browse(parentPageID, pageNumber)),
   search: (queryString, restrictPageTypes, pageNumber) =>
-    dispatch(actions.search(queryString, restrictPageTypes, pageNumber)),
+    dispatch(actions.search(queryString, restrictPageTypes, pageNumber))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageChooser);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PageChooser);
