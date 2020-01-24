@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import ModalWindow from '../../modal/ModalWindow';
 
@@ -22,7 +23,15 @@ const defaultProps = {
   initialParentPageId: null,
 };
 
-class PageChooser extends ModalWindow {
+class PageChooser extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      id: _.uniqueId('react-modal-'),
+    };
+  }
+
   componentDidMount() {
     const { browse, initialParentPageId, onModalClose } = this.props;
 
@@ -56,7 +65,7 @@ class PageChooser extends ModalWindow {
     document.removeEventListener('keydown', this.keydownEventListener);
   }
 
-  renderModalContents() {
+  render() {
     const {
       browse,
       error,
@@ -141,12 +150,12 @@ class PageChooser extends ModalWindow {
     }
 
     return (
-      <div>
+      <ModalWindow extraProps={{ 'aria-labelledby': `${this.state.id}-title` }} onModalClose={this.props.onModalClose}>
         <PageChooserHeader modalId={this.state.id} onSearch={onSearch} searchEnabled={!error} />
         <PageChooserSpinner isActive={isFetching}>
           {view}
         </PageChooserSpinner>
-      </div>
+      </ModalWindow>
     );
   }
 }

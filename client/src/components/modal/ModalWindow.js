@@ -1,31 +1,15 @@
 import React from 'react';
 import FocusTrap from 'react-focus-trap';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 const propTypes = {
   onModalClose: PropTypes.func.isRequired,
 };
 
 class ModalWindow extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      id: _.uniqueId('react-modal-'),
-    };
-  }
-
   componentWillMount() {
     // Save the currently focused element so we can reset it when the modal closes
     this.previousFocusedElement = document.activeElement;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  renderModalContents() {
-    return (
-      <div>Empty</div>
-    );
   }
 
   render() {
@@ -35,6 +19,7 @@ class ModalWindow extends React.Component {
 
       this.props.onModalClose(e);
     };
+
     return (
       <div>
         <div
@@ -42,8 +27,8 @@ class ModalWindow extends React.Component {
           tabIndex={-1}
           role="dialog"
           aria-modal={true}
-          aria-labelledby={`${this.state.id}-title`}
           style={{ display: 'block' }}
+          {...this.props.extraProps}
         >
           <FocusTrap>
             <div className="modal-dialog">
@@ -57,7 +42,7 @@ class ModalWindow extends React.Component {
                   &times;
                 </button>
                 <div className="modal-body">
-                  {this.renderModalContents()}
+                  {this.props.children}
                 </div>
               </div>
             </div>
