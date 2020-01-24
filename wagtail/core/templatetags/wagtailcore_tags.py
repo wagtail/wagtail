@@ -5,7 +5,7 @@ from django.utils.encoding import force_str
 from django.utils.safestring import mark_safe
 
 from wagtail import VERSION, __version__
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Site
 from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.utils.version import get_main_version
 
@@ -26,9 +26,10 @@ def pageurl(context, page, fallback=None):
         raise ValueError("pageurl tag expected a Page object, got %r" % page)
 
     try:
-        current_site = context['request'].site
+        site = Site.find_for_request(context['request'])
+        current_site = site
     except (KeyError, AttributeError):
-        # request.site not available in the current context; fall back on page.url
+        # site not available in the current context; fall back on page.url
         return page.url
 
     if current_site is None:
@@ -54,7 +55,8 @@ def slugurl(context, slug):
 
     page = None
     try:
-        current_site = context['request'].site
+        site = Site.find_for_request(context['request'])
+        current_site = site
     except (KeyError, AttributeError):
         # No site object found - allow the fallback below to take place.
         pass
@@ -164,3 +166,11 @@ def include_block(parser, token):
         raise template.TemplateSyntaxError("Unexpected argument to %r tag: %r" % (tag_name, tokens[0]))
 
     return IncludeBlockNode(block_var, extra_context, use_parent_context)
+
+
+@register.simple_tag(takes_context=True)
+def wagtail_site(context):
+    """
+        Returns the Site object for the given request
+    """
+    return Site.find_for_request(request=context.request)
