@@ -218,6 +218,26 @@ Used to load anything from your static files directory. Use of this tag avoids r
 Notice that the full path name is not required and the path snippet you enter only need begin with the parent app's directory name.
 
 
+Multi-site support
+~~~~~~~~~~~~~~~~~~
+
+.. _wagtail_site_tag:
+
+``wagtail_site``
+----------------
+
+Returns the Site object corresponding to the current request.
+
+.. code-block:: html+django
+
+    {% load wagtailcore_tags %}
+
+    {% wagtail_site as current_site %}
+
+.. versionadded:: 2.9
+
+  In previous versions, the recommended way to refer to the current site was through the ``request.site`` attribute provided by :class:`~wagtail.core.middleware.SiteMiddleware`; this is now deprecated.
+
 .. _wagtailuserbar_tag:
 
 Wagtail User Bar
