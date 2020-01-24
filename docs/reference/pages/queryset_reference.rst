@@ -78,7 +78,8 @@ Reference
         .. code-block:: python
 
             # Get all the EventPages in the current site
-            site_events = EventPage.objects.in_site(request.site)
+            site = Site.find_for_request(request)
+            site_events = EventPage.objects.in_site(site)
 
     .. automethod:: page
 
