@@ -1,7 +1,7 @@
 {% load i18n wagtailadmin_tags %}
 <div class="nice-padding">
     {% if pages %}
-        <h2>
+        <h2 role="alert">
             {% blocktrans count counter=all_pages.count %}
                 There is one matching page
             {% plural %}
@@ -38,7 +38,7 @@
         {% paginate pages base_url=pagination_base_url %}
     {% else %}
         {% if query_string %}
-            <h2>{% blocktrans %}Sorry, no pages match <em>"{{ query_string }}"</em>{% endblocktrans %}</h2>
+            <h2 role="alert">{% blocktrans %}Sorry, no pages match <em>"{{ query_string }}"</em>{% endblocktrans %}</h2>
 
             {% search_other %}
         {% else %}
