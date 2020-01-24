@@ -7,6 +7,7 @@ Changelog
  * Fix: Added ARIA alert role to live search forms in the admin (Casper Timmers)
  * Fix: Reorder login form elements to match expected tab order (Kjartan Sverrisson)
  * Fix: Re-add 'Close Explorer' button on mobile viewports (Sævar Öfjörð Magnússon)
+ * Fix: Add a more descriptive label to Password reset link for screen reader users (Casper Timmers, Martin Coote)
 
 
 2.8 (xx.xx.xxxx) - IN DEVELOPMENT
