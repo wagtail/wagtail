@@ -118,9 +118,13 @@ input[type=checkbox]:before {
     opacity: 1;
     position: absolute;
     font-size: 1.3em;
-    top: 50%;
     margin-top: -0.5em;
     right: 5%;
+    top: 213px;
+
+    @include media-breakpoint-up(sm) {
+        top: 65%;
+    }
 }
 
 .messages {
