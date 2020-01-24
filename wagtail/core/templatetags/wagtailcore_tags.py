@@ -29,11 +29,11 @@ def pageurl(context, page, fallback=None):
         site = Site.find_for_request(context['request'])
         current_site = site
     except KeyError:
-        # site not available in the current context; fall back on page.url
+        # request not available in the current context; fall back on page.url
         return page.url
 
     if current_site is None:
-        # request.site is set to None; fall back on page.url
+        # request does not correspond to a recognised site; fall back on page.url
         return page.url
 
     # Pass page.relative_url the request object, which may contain a cached copy of
