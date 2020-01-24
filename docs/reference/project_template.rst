@@ -18,6 +18,7 @@ The project template
             migrations/
                 __init__.py
                 0001_initial.py
+                0002_generic_alt_text.py
             __init__.py
             models.py
         search/
