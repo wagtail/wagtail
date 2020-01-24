@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import FocusTrap from 'react-focus-trap';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -13,29 +13,29 @@ const propTypes = {
   showLoadingSpinner: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func,
+  children: PropTypes.node,
 };
 
-class ModalWindow extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      id: _.uniqueId('react-modal-'),
-    };
+function ModalWindow(props) {
+  const id = useRef();
+  if (!id.current) {
+    id.current = _.uniqueId('react-modal-');
   }
 
-  componentDidMount() {
+  const previousFocusedElement = useRef();
+
+  useEffect(() => {
     // Save the currently focused element so we can reset it when the modal closes
-    this.previousFocusedElement = document.activeElement;
+    previousFocusedElement.current = document.activeElement;
 
     // Focus the search box
-    document.getElementById(`${this.state.id}-search`).focus();
+    document.getElementById(`${id.current}-search`).focus();
 
-    // Close the window when Escape key is pressed
-    this.keydownEventListener = e => {
+    // Watch for keydown events
+    const keydownEventListener = e => {
       // Check for custom keydown event handler
-      if (this.props.onKeyDown) {
-        this.props.onKeyDown(e);
+      if (props.onKeyDown) {
+        props.onKeyDown(e);
 
         if (e.defaultPrevented) {
           return;
@@ -45,68 +45,67 @@ class ModalWindow extends React.Component {
       // Close modal on click escape
       if (e.key === 'Escape') {
         // Refocus the element that was focused when the modal was opened
-        this.previousFocusedElement.focus();
+        previousFocusedElement.current.focus();
 
-        this.props.onClose(e);
+        props.onClose(e);
       }
     };
-    document.addEventListener('keydown', this.keydownEventListener);
-  }
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.keydownEventListener);
-  }
+    document.addEventListener('keydown', keydownEventListener);
 
-  render() {
-    const onClose = e => {
-      // Refocus the element that was focused when the modal was opened
-      this.previousFocusedElement.focus();
-
-      this.props.onClose(e);
+    return () => {
+      document.removeEventListener('keydown', keydownEventListener);
     };
+  });
 
-    return (
-      <div>
-        <div
-          className="modal fade in"
-          tabIndex={-1}
-          role="dialog"
-          aria-modal={true}
-          style={{ display: 'block' }}
-          aria-labelledby={`${this.state.id}-title`}
-        >
-          <FocusTrap>
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <button
-                  onClick={onClose}
-                  type="button"
-                  className="button close icon text-replace icon-cross"
-                  data-dismiss="modal"
-                >
-                  &times;
-                </button>
-                <div className="modal-body">
-                  <ModalHeader
-                    heading={this.props.heading}
-                    headingId={`${this.state.id}-title`}
-                    searchId={`${this.state.id}-search`}
-                    onSearch={this.props.onSearch}
-                    searchEnabled={this.props.searchEnabled}
-                  />
+  const onClose = e => {
+    // Refocus the element that was focused when the modal was opened
+    previousFocusedElement.current.focus();
 
-                  <ModalSpinner isActive={this.props.showLoadingSpinner}>
-                    {this.props.children}
-                  </ModalSpinner>
-                </div>
+    props.onClose(e);
+  };
+
+  return (
+    <div>
+      <div
+        className="modal fade in"
+        tabIndex={-1}
+        role="dialog"
+        aria-modal={true}
+        style={{ display: 'block' }}
+        aria-labelledby={`${id.current}-title`}
+      >
+        <FocusTrap>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <button
+                onClick={onClose}
+                type="button"
+                className="button close icon text-replace icon-cross"
+                data-dismiss="modal"
+              >
+                &times;
+              </button>
+              <div className="modal-body">
+                <ModalHeader
+                  heading={props.heading}
+                  headingId={`${id.current}-title`}
+                  searchId={`${id.current}-search`}
+                  onSearch={props.onSearch}
+                  searchEnabled={props.searchEnabled}
+                />
+
+                <ModalSpinner isActive={props.showLoadingSpinner}>
+                  {props.children}
+                </ModalSpinner>
               </div>
             </div>
-          </FocusTrap>
-        </div>
-        <div className="modal-backdrop fade in" />
+          </div>
+        </FocusTrap>
       </div>
-    );
-  }
+      <div className="modal-backdrop fade in" />
+    </div>
+  );
 }
 
 ModalWindow.propTypes = propTypes;
