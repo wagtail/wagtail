@@ -40,7 +40,7 @@ This example represents a typical blog post:
         body = RichTextField()
         date = models.DateField("Post date")
         feed_image = models.ForeignKey(
-            'wagtailimages.Image',
+            'media.Image',
             null=True,
             blank=True,
             on_delete=models.SET_NULL,

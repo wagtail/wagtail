@@ -7,7 +7,10 @@ Custom image models
 The ``Image`` model can be customised, allowing additional fields to be added
 to images.
 
-To do this, you need to add two models to your project:
+For projects started from Wagtail 2.9, customisable ``Image`` and ``Rendition`` models are located in the ``media`` app
+in the default project template, and the ``WAGTAILIMAGES_IMAGE_MODEL`` setting points at these new models.
+
+For Wagtail projects started prior to 2.9, you need to add two models to your project:
 
  - The image model itself that inherits from
    ``wagtail.images.models.AbstractImage``. This is where you would add

@@ -179,7 +179,7 @@ ImageChooserPanel
 
       class BookPage(Page):
           cover = models.ForeignKey(
-              'wagtailimages.Image',
+              'media.Image',
               null=True,
               blank=True,
               on_delete=models.SET_NULL,

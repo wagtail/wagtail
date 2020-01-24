@@ -617,7 +617,7 @@ kind of interactivity using JavaScript:
 ``wagtail.contrib.modeladmin.mixins.ThumbnailMixin``
 ----------------------------------------------------
 
-If you're using ``wagtailimages.Image`` to define an image for each item in
+If you're using ``media.Image`` to define an image for each item in
 your model, ``ThumbnailMixin`` can help you add thumbnail versions of that
 image to each row in ``IndexView``. To use it, simply extend ``ThumbnailMixin``
 as well as ``ModelAdmin`` when defining your ``ModelAdmin`` class, and
@@ -631,7 +631,7 @@ change a few attributes to change the thumbnail to your liking, like so:
 
     class Person(models.Model):
         name = models.CharField(max_length=255)
-        avatar = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True)
+        avatar = models.ForeignKey('media.Image', on_delete=models.SET_NULL, null=True)
         likes_cat_gifs = models.NullBooleanField()
 
     class PersonAdmin(ThumbnailMixin, ModelAdmin):
@@ -646,7 +646,7 @@ change a few attributes to change the thumbnail to your liking, like so:
 
         """
         Set 'thumb_image_field_name' to the name of the ForeignKey field that
-        links to 'wagtailimages.Image'
+        links to 'media.Image'
         """
         thumb_image_field_name = 'avatar'
 

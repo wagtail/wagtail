@@ -127,7 +127,7 @@ For example:
     class BlogPage(Page):
         published_date = models.DateTimeField()
         body = RichTextField()
-        feed_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True, ...)
+        feed_image = models.ForeignKey('media.Image', on_delete=models.SET_NULL, null=True, ...)
         private_field = models.CharField(max_length=255)
 
         # Export fields over the API
@@ -228,7 +228,7 @@ This would add the following to the JSON:
         "feed_image": {
             "id": 45529,
             "meta": {
-                "type": "wagtailimages.Image",
+                "type": "media.Image",
                 "detail_url": "http://www.example.com/api/v2/images/12/",
                 "download_url": "/media/images/a_test_image.jpg",
                 "tags": []

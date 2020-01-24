@@ -14,6 +14,12 @@ The project template
                     home_page.html
             __init__.py
             models.py
+        media/
+            migrations/
+                __init__.py
+                0001_initial.py
+            __init__.py
+            models.py
         search/
             templates/
                 search/
@@ -48,6 +54,14 @@ The "home" app
 Location: ``/mysite/home/``
 
 This app is here to help get you started quicker by providing a ``HomePage`` model with migrations to create one when you first set up your app.
+
+
+The "media" app
+----------------
+
+Location: ``/mysite/media/``
+
+This provides ``Image``, ``Rendition``, and ``Document`` models used by default, which you can then customise.
 
 
 Default templates and static files
