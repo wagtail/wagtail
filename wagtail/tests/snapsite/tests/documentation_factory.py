@@ -2,9 +2,6 @@ import os
 
 from django.conf import settings
 from PIL import Image, ImageDraw
-from django.template.defaultfilters import slugify
-
-from wagtail import VERSION
 
 
 def dashed_line(draw, x1, y1, x2, y2, line=9, gap=9, color="#ff00ea", stroke_width=4):
@@ -76,13 +73,12 @@ class DocumentationFactory:
         self.blocks.append("\n".join([f"{idx + 1}. {item}" for idx, item in enumerate(items)]) + "\n")
 
     def img(self, filename, element=None):
-        version = slugify(VERSION)
-        directory = os.path.join(self.docs_dir, "_static", "images", version)
+        directory = os.path.join(self.docs_dir, "_static", "images")
         if not os.path.exists(directory):
             os.mkdir(directory)
         filepath = os.path.join(directory, filename)
         self.driver.save_screenshot(filepath)
-        self.blocks.append(f".. image:: /_static/images/{version}/{filename}")
+        self.blocks.append(f".. image:: /_static/images/{filename}")
         if element:
             im = Image.open(filepath)
             draw = ImageDraw.Draw(im)
