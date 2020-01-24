@@ -17,7 +17,7 @@ const initSkipLink = () => {
     main.focus();
   };
 
-  skiplink.addEventListener('click', handleClick);
+  if (skiplink) skiplink.addEventListener('click', handleClick);
 };
 
 export { initSkipLink };
