@@ -11,6 +11,7 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect, render
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -914,6 +915,7 @@ class CustomImage(AbstractImage):
     caption = models.CharField(max_length=255, blank=True)
     fancy_caption = RichTextField(blank=True)
     not_editable_field = models.CharField(max_length=255, blank=True)
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'), related_name='custom_images')
 
     admin_form_fields = Image.admin_form_fields + (
         'caption',
@@ -933,6 +935,7 @@ class CustomRendition(AbstractRendition):
 class CustomDocument(AbstractDocument):
     description = models.TextField(blank=True)
     fancy_description = RichTextField(blank=True)
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'), related_name='custom_documents')
     admin_form_fields = Document.admin_form_fields + (
         'description',
         'fancy_description'
@@ -1081,6 +1084,8 @@ class GenericSnippetPage(Page):
 
 
 class CustomImageFilePath(AbstractImage):
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'), related_name='images_with_custom_file_paths')
+
     def get_upload_to(self, filename):
         """Create a path that's file-system friendly.
 
