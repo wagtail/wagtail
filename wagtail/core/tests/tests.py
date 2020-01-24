@@ -123,6 +123,25 @@ class TestPageUrlTags(TestCase):
         self.assertEqual(result, '/events/')
 
 
+class TestWagtailSiteTag(TestCase):
+    fixtures = ['test.json']
+
+    def test_wagtail_site_tag(self):
+        request = HttpRequest()
+        request.META['HTTP_HOST'] = 'localhost'
+        request.META['SERVER_PORT'] = 80
+
+        tpl = template.Template('''{% load wagtailcore_tags %}{% wagtail_site as current_site %}{{ current_site.hostname }}''')
+        result = tpl.render(template.Context({'request': request}))
+        self.assertEqual('localhost', result)
+
+    def test_wagtail_site_tag_with_missing_request_context(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}{% wagtail_site as current_site %}{{ current_site.hostname }}''')
+        result = tpl.render(template.Context({}))
+        # should fail silently
+        self.assertEqual('', result)
+
+
 class TestSiteRootPathsCache(TestCase):
     fixtures = ['test.json']
 
