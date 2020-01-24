@@ -82,7 +82,7 @@
             </ul>
 
             {% if show_password_reset %}
-                <p class="help"><a href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten it?" %}</a></p>
+                <p class="help"><a href="{% url 'wagtailadmin_password_reset' %}" aria-label="{% trans 'Reset your password' %}">{% trans "Forgotten it?" %}</a></p>
             {% endif %}
         {% endblock %}
         </form>
