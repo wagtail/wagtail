@@ -112,8 +112,11 @@ If access to a setting is required in the code, the :func:`~wagtail.contrib.sett
 
 .. code-block:: python
 
+    from wagtail.core.models import Site
+
     def view(request):
-        social_media_settings = SocialMediaSettings.for_site(request.site)
+        site = Site.find_for_request(request)
+        social_media_settings = SocialMediaSettings.for_site(site)
         ...
 
 Using in Django templates
