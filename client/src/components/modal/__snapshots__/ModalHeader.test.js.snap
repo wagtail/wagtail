@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PageChooserHeader renders 1`] = `
+exports[`ModalHeader renders 1`] = `
 <header
   className="nice-padding hasform"
 >
@@ -15,9 +15,7 @@ exports[`PageChooserHeader renders 1`] = `
       >
         <h1
           className="icon icon-doc-empty-inverse"
-        >
-          Choose a page
-        </h1>
+        />
       </div>
       <form
         className="col search-form"

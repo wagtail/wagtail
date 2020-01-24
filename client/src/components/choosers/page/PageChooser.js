@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import ModalWindow from '../../modal/ModalWindow';
 
 import * as actions from './actions';
-import PageChooserHeader from './PageChooserHeader';
 import PageChooserSpinner from './PageChooserSpinner';
 import PageChooserBrowseView from './views/PageChooserBrowseView';
 import PageChooserSearchView from './views/PageChooserSearchView';
 import PageChooserErrorView from './views/PageChooserErrorView';
+
+import { STRINGS } from '../../../config/wagtailConfig';
 
 const getTotalPages = (totalItems, itemsPerPage) => Math.ceil(totalItems / itemsPerPage);
 
@@ -24,45 +24,10 @@ const defaultProps = {
 };
 
 class PageChooser extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      id: _.uniqueId('react-modal-'),
-    };
-  }
-
   componentDidMount() {
-    const { browse, initialParentPageId, onModalClose } = this.props;
+    const { browse, initialParentPageId } = this.props;
 
     browse(initialParentPageId || 'root', 1);
-
-    // Focus the search box
-    document.getElementById(`${this.state.id}-search`).focus();
-
-    // Close the window when Escape key is pressed
-    this.keydownEventListener = e => {
-      if (e.key === 'Escape') {
-        onModalClose();
-      }
-
-      if (e.key === 'ArrowLeft') {
-        const { viewName, parent } = this.props;
-
-        if (parent && viewName === 'browse') {
-          const ancestors = parent.meta.ancestors;
-
-          if (ancestors.length > 0) {
-            browse(ancestors[ancestors.length - 1].id, 1);
-          }
-        }
-      }
-    };
-    document.addEventListener('keydown', this.keydownEventListener);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.keydownEventListener);
   }
 
   render() {
@@ -149,9 +114,27 @@ class PageChooser extends React.Component {
       view = <PageChooserErrorView errorMessage={error} />;
     }
 
+    // Keyboard controls
+    const keydownEventListener = e => {
+      if (e.key === 'ArrowLeft') {
+        if (parent && viewName === 'browse') {
+          const ancestors = parent.meta.ancestors;
+
+          if (ancestors.length > 0) {
+            browse(ancestors[ancestors.length - 1].id, 1);
+          }
+        }
+      }
+    };
+
     return (
-      <ModalWindow extraProps={{ 'aria-labelledby': `${this.state.id}-title` }} onModalClose={this.props.onModalClose}>
-        <PageChooserHeader modalId={this.state.id} onSearch={onSearch} searchEnabled={!error} />
+      <ModalWindow
+        heading={STRINGS.CHOOSE_A_PAGE}
+        onSearch={onSearch}
+        searchEnabled={!error}
+        onClose={this.props.onModalClose}
+        onKeyDown={keydownEventListener}
+      >
         <PageChooserSpinner isActive={isFetching}>
           {view}
         </PageChooserSpinner>

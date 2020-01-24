@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import PageChooserHeader from './PageChooserHeader';
+import ModalHeader from './ModalHeader';
 
-describe('PageChooserHeader', () => {
+describe('ModalHeader', () => {
   it('renders', () => {
     expect(shallow((
-      <PageChooserHeader
+      <ModalHeader
         onSearch={() => {}}
         searchEnabled={false}
       />
