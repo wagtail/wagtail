@@ -1,11 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { bool } from 'prop-types';
 
 import { STRINGS } from '../../../config/wagtailConfig';
+import FocusController from './FocusController';
 
 const propTypes = {
   totalPages: PropTypes.number.isRequired,
   pageNumber: PropTypes.number,
+  isFocused: bool,
   onChangePage: PropTypes.func.isRequired,
 };
 
@@ -71,22 +73,24 @@ class PageChooserPagination extends React.Component {
   }
 
   render() {
-    const { totalPages, pageNumber } = this.props;
+    const { totalPages, pageNumber, isFocused } = this.props;
 
     return (
-      <div className="pagination">
-        {totalPages > 1 ? (
-          <div>
-            <p>
-              {`Page ${pageNumber} of ${totalPages}.`}
-            </p>
-            <ul>
-              {this.renderPrev()}
-              {this.renderNext()}
-            </ul>
-          </div>
-        ) : null}
-      </div>
+      <FocusController isFocused={isFocused}>
+        <div className="pagination">
+          {totalPages > 1 ? (
+            <div>
+              <p>
+                {`Page ${pageNumber} of ${totalPages}.`}
+              </p>
+              <ul>
+                {this.renderPrev()}
+                {this.renderNext()}
+              </ul>
+            </div>
+          ) : null}
+        </div>
+      </FocusController>
     );
   }
 }

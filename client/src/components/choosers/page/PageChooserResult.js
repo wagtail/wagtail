@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { STRINGS } from '../../../config/wagtailConfig';
+import FocusController from './FocusController';
 
 const propTypes = {
   isChoosable: PropTypes.bool.isRequired,
   isNavigable: PropTypes.bool,
   isParent: PropTypes.bool,
+  isFocused: PropTypes.bool,
   onChoose: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   page: PropTypes.object.isRequired,
@@ -135,7 +137,7 @@ class PageChooserResult extends React.Component {
   }
 
   render() {
-    const { isParent, page, isChoosable } = this.props;
+    const { isParent, page, isChoosable, isFocused } = this.props;
     const classNames = [];
 
     if (isParent) {
@@ -151,13 +153,15 @@ class PageChooserResult extends React.Component {
     }
 
     return (
-      <tr className={classNames.join(' ')}>
-        {this.renderTitle()}
-        {this.renderUpdatedAt()}
-        {this.renderType()}
-        {this.renderStatus()}
-        {this.renderChildren()}
-      </tr>
+      <FocusController isFocused={isFocused}>
+        <tr className={classNames.join(' ')}>
+          {this.renderTitle()}
+          {this.renderUpdatedAt()}
+          {this.renderType()}
+          {this.renderStatus()}
+          {this.renderChildren()}
+        </tr>
+      </FocusController>
     );
   }
 }

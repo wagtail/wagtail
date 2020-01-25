@@ -15,6 +15,7 @@ const propTypes = {
   onPageChosen: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   onChangePage: PropTypes.func.isRequired,
+  keydownEventHandlerRef: PropTypes.object,
 };
 
 const renderTitle = (totalItems) => {
@@ -39,6 +40,7 @@ function PageChooserSearchView(props) {
     onPageChosen,
     onNavigate,
     onChangePage,
+    keydownEventHandlerRef,
   } = props;
 
   return (
@@ -53,6 +55,7 @@ function PageChooserSearchView(props) {
         onPageChosen={onPageChosen}
         onNavigate={onNavigate}
         onChangePage={onChangePage}
+        keydownEventHandlerRef={keydownEventHandlerRef}
       />
     </div>
   );

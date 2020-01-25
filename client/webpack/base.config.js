@@ -45,6 +45,9 @@ module.exports = function exports() {
         'wagtail-client': path.resolve('.', 'client'),
       },
     },
+    externals: {
+      jquery: 'jQuery'
+    },
     module: {
       rules: [
         {

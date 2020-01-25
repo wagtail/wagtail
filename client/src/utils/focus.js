@@ -7,7 +7,7 @@ const toggleFocusOutline = (isOn) => {
 };
 
 const removeFocusOutline = toggleFocusOutline.bind(null, false);
-const addFocusOutline = toggleFocusOutline.bind(null, true);
+export const addFocusOutline = toggleFocusOutline.bind(null, true);
 
 /**
  * Adds a heavy focus outline to the UI, only for users who tab through the page.

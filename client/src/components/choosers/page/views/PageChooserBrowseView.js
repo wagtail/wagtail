@@ -15,6 +15,7 @@ const propTypes = {
   onPageChosen: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   onChangePage: PropTypes.func.isRequired,
+  keydownEventHandlerRef: PropTypes.object,
 };
 
 const defaultProps = {
@@ -80,6 +81,7 @@ class PageChooserBrowseView extends React.Component {
       onPageChosen,
       onNavigate,
       onChangePage,
+      keydownEventHandlerRef,
     } = this.props;
 
     return (
@@ -97,6 +99,7 @@ class PageChooserBrowseView extends React.Component {
           onPageChosen={onPageChosen}
           onNavigate={onNavigate}
           onChangePage={onChangePage}
+          keydownEventHandlerRef={keydownEventHandlerRef}
         />
       </div>
     );
