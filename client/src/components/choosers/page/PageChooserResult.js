@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import $ from 'jquery';
 
 import { STRINGS } from '../../../config/wagtailConfig';
 
@@ -8,6 +10,7 @@ const propTypes = {
   isChoosable: PropTypes.bool.isRequired,
   isNavigable: PropTypes.bool,
   isParent: PropTypes.bool,
+  isFocused: PropTypes.bool,
   onChoose: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   page: PropTypes.object.isRequired,
@@ -134,8 +137,28 @@ class PageChooserResult extends React.Component {
     );
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.isFocused && !prevProps.isFocused) {
+      // Scroll to the element
+      const element = ReactDOM.findDOMNode(this);
+      const boundingRect = element.getBoundingClientRect();
+
+      if (boundingRect.top < 0) {
+        $('.modal').animate({
+          scrollTop: $('.modal').scrollTop() + boundingRect.top - 10,
+        });
+      }
+
+      if (boundingRect.bottom > window.innerHeight) {
+        $('.modal').animate({
+          scrollTop: $('.modal').scrollTop() + boundingRect.bottom - window.innerHeight + 10,
+        });
+      }
+    }
+  }
+
   render() {
-    const { isParent, page, isChoosable } = this.props;
+    const { isParent, page, isChoosable, isFocused } = this.props;
     const classNames = [];
 
     if (isParent) {
@@ -150,8 +173,14 @@ class PageChooserResult extends React.Component {
       classNames.push('disabled');
     }
 
+    const style = {};
+
+    if (isFocused) {
+      style.outline = 'solid 3px teal';
+    }
+
     return (
-      <tr className={classNames.join(' ')}>
+      <tr className={classNames.join(' ')} style={style}>
         {this.renderTitle()}
         {this.renderUpdatedAt()}
         {this.renderType()}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -25,7 +25,7 @@ const propTypes = {
   onPageChosen: PropTypes.func,
   pageTypes: PropTypes.object,
   restrictPageTypes: PropTypes.array,
-  parent: PropTypes.func,
+  parent: PropTypes.object,
   search: PropTypes.func,
   totalItems: PropTypes.number,
   viewName: PropTypes.string,
@@ -86,6 +86,7 @@ function PageChooser({
 
   // Views
   let view = null;
+  const keydownEventHandlerRef = useRef(null);
   switch (viewName) {
   case 'browse':
     view = (
@@ -99,6 +100,7 @@ function PageChooser({
         onPageChosen={onPageChosen}
         onNavigate={onNavigate}
         onChangePage={onChangePage}
+        keydownEventHandlerRef={keydownEventHandlerRef}
       />
     );
     break;
@@ -114,6 +116,7 @@ function PageChooser({
         onPageChosen={onPageChosen}
         onNavigate={onNavigate}
         onChangePage={onChangePage}
+        keydownEventHandlerRef={keydownEventHandlerRef}
       />
     );
     break;
@@ -128,13 +131,11 @@ function PageChooser({
 
   // Keyboard controls
   const keydownEventListener = e => {
-    if (e.key === 'ArrowLeft') {
-      if (parent && viewName === 'browse') {
-        const ancestors = parent.meta.ancestors;
+    if (keydownEventHandlerRef.current) {
+      keydownEventHandlerRef.current(e);
 
-        if (ancestors.length > 0) {
-          browse(ancestors[ancestors.length - 1].id, 1);
-        }
+      if (e.defaultPrevented) {
+        return;
       }
     }
   };
