@@ -14,7 +14,7 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
- * ...
+ * Reduced contrast of rich text toolbar (Jack Paine)
 
 
 Bug fixes

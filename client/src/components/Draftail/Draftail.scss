@@ -1,10 +1,10 @@
 $editor-z-index: $draftail-editor-z-index;
 
 $draftail-editor-text: $color-text-input;
-$draftail-editor-chrome: $color-grey-1;
-$draftail-editor-chrome-text: $color-white;
-$draftail-editor-chrome-active: $color-white;
-$draftail-editor-chrome-accent: lighten($draftail-editor-chrome, 20%);
+$draftail-editor-chrome: $color-white;
+$draftail-editor-chrome-text: $color-grey-2;
+$draftail-editor-chrome-active: $color-grey-2;
+$draftail-editor-chrome-accent: transparent;
 
 $draftail-editor-border: 0;
 $draftail-editor-padding: 0;
@@ -97,6 +97,10 @@ $draftail-editor-font-family: $font-serif;
 
 .full .Draftail-Toolbar {
     @include nice-margin;
+}
+
+.Draftail-Toolbar {
+    border: 1px solid $color-grey-3;
 }
 
 .title .Draftail-Editor .public-DraftEditor-content,
