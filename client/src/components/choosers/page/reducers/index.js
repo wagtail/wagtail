@@ -1,5 +1,6 @@
 const defaultState = {
   isFetching: false,
+  hasFetched: false,
   error: null,
   parent: null,
   items: [],
@@ -29,6 +30,7 @@ export default function pageChooser(state = defaultState, { type, payload }) {
   case 'FETCH_SUCCESS':
     return Object.assign({}, state, {
       isFetching: false,
+      hasFetched: true,
       parent: payload.parentJson,
       items: payload.itemsJson.items,
       totalItems: payload.itemsJson.meta.total_count,
@@ -39,6 +41,7 @@ export default function pageChooser(state = defaultState, { type, payload }) {
   case 'FETCH_FAILURE':
     return Object.assign({}, state, {
       isFetching: false,
+      hasFetched: true,
       error: payload.message,
       items: [],
       totalItems: 0,

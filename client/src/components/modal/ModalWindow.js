@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import FocusTrap from 'react-focus-trap';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -10,7 +10,7 @@ const propTypes = {
   heading: PropTypes.string.isRequired,
   onSearch: PropTypes.func,
   searchEnabled: PropTypes.bool.isRequired,
-  showLoadingSpinner: PropTypes.bool,
+  isLoading: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func,
   children: PropTypes.node,
@@ -65,14 +65,70 @@ function ModalWindow(props) {
     props.onClose(e);
   };
 
+  // Control modal visibility
+  // The modal shouldn't become visible until it's either loaded or has been loading
+  // for some time
+  const [modalVisible, setModalVisible] = useState(false);
+  useEffect(() => {
+    if (!modalVisible && !props.isLoading) {
+      // Content finished loading
+      setModalVisible(true);
+    }
+  }, [props.isLoading]);
+  useEffect(() => {
+    // If the content is taking a long time to load, show the modal
+    // anyway.
+    const timeout = setTimeout(() => {
+      setModalVisible(true);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  });
+
+  // Control loading spinner
+  // Only show it if loading is taking a while, so it doesn't flash as you type
+  const [loadingSpinnerVisible, setLoadingSpinnerVisible] = useState(false);
+  useEffect(() => {
+    setLoadingSpinnerVisible(false);
+
+    // Creating timeout every time (even if it isn't loading) seems to be much more reliable
+    const timeout = setTimeout(() => {
+      if (props.isLoading) {
+        setLoadingSpinnerVisible(true);
+      }
+    }, 100);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [props.isLoading]);
+
+  const modalStyle = {
+    display: modalVisible ? 'block' : 'none',
+  };
+  const modalClasses = ['modal', 'fade'];
+
+  const overlayStyle = {};
+  const overlayClasses = ['modal-backdrop', 'fade'];
+
+  if (modalVisible) {
+    modalClasses.push('in');
+    overlayClasses.push('in');
+  } else {
+    overlayStyle.cursor = 'wait';
+  }
+
   return (
     <div>
       <div
-        className="modal fade in"
+        className={modalClasses.join(' ')}
         tabIndex={-1}
         role="dialog"
         aria-modal={true}
-        style={{ display: 'block' }}
+        aria-hidden={!modalVisible}
+        style={modalStyle}
         aria-labelledby={`${id.current}-title`}
       >
         <FocusTrap>
@@ -94,8 +150,7 @@ function ModalWindow(props) {
                   onSearch={props.onSearch}
                   searchEnabled={props.searchEnabled}
                 />
-
-                <ModalSpinner isActive={props.showLoadingSpinner}>
+                <ModalSpinner isActive={props.isLoading && loadingSpinnerVisible}>
                   {props.children}
                 </ModalSpinner>
               </div>
@@ -103,7 +158,7 @@ function ModalWindow(props) {
           </div>
         </FocusTrap>
       </div>
-      <div className="modal-backdrop fade in" />
+      <div className={overlayClasses.join(' ')} style={overlayStyle} />
     </div>
   );
 }

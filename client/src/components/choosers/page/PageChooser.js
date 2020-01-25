@@ -19,6 +19,7 @@ const propTypes = {
   browse: PropTypes.func.isRequired,
   error: PropTypes.node,
   isFetching: PropTypes.bool,
+  hasFetched: PropTypes.bool,
   items: PropTypes.array,
   onModalClose: PropTypes.func,
   onPageChosen: PropTypes.func,
@@ -40,6 +41,7 @@ function PageChooser({
   error,
   initialParentPageId,
   isFetching,
+  hasFetched,
   items,
   onModalClose,
   onPageChosen,
@@ -142,7 +144,7 @@ function PageChooser({
       heading={STRINGS.CHOOSE_A_PAGE}
       onSearch={onSearch}
       searchEnabled={!error}
-      showLoadingSpinner={isFetching}
+      isLoading={isFetching || !hasFetched}
       onClose={onModalClose}
       onKeyDown={keydownEventListener}
     >
@@ -161,6 +163,7 @@ const mapStateToProps = state => ({
   items: state.items,
   totalItems: state.totalItems,
   pageTypes: state.pageTypes,
+  hasFetched: state.hasFetched,
   isFetching: state.isFetching,
   error: state.error
 });
