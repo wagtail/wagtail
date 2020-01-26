@@ -6,14 +6,15 @@
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
+# Vladislav Gerasimenko <drimacus182@gmail.com>, 2019
 # Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-11-26 13:59+0000\n"
+"Last-Translator: Vladislav Gerasimenko <drimacus182@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,9 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
+msgid "Publish"
+msgstr "Опублікувати"
+
 msgid "Submit for moderation"
 msgstr "Надіслати на модерацію"
 
@@ -34,14 +38,23 @@ msgstr "Зняти з публікації"
 msgid "Delete"
 msgstr "Видалити"
 
+msgid "Save Draft"
+msgstr "Зберегти чернентку"
+
+msgid "Page locked"
+msgstr "Сторінку заблоковано"
+
 msgid "Wagtail admin"
 msgstr "Адміністрування Wagtail "
 
-msgid "None"
-msgstr "Нічого"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Вибачте, ви не маєте дозволів для доступу у цей розділ."
 
 msgid "You do not have permission to access the admin"
 msgstr "У Вас не вистачає прав для доступу до адмінпанелі"
+
+msgid "None"
+msgstr "Нічого"
 
 msgid "Scheduled publishing"
 msgstr "Запланована публікація"
@@ -67,9 +80,6 @@ msgstr "Введіть ваш %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Введіть вашу е-мейл адресу для скидання паролю"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -165,6 +175,194 @@ msgstr "Це поле необхідно заповнити"
 msgid "Please select at least one group."
 msgstr "Будь ласка, виберіть як мінімум одну групу"
 
+msgid "Catalan"
+msgstr "Каталонська"
+
+msgid "German"
+msgstr "Німецька"
+
+msgid "Greek"
+msgstr "Грецька"
+
+msgid "English"
+msgstr "Англійська"
+
+msgid "Spanish"
+msgstr "Іспанська"
+
+msgid "Finnish"
+msgstr "Фінська"
+
+msgid "French"
+msgstr "Французька"
+
+msgid "Galician"
+msgstr "Галісійська "
+
+msgid "Icelandic"
+msgstr "Ісландська"
+
+msgid "Italian"
+msgstr "Італійська"
+
+msgid "Korean"
+msgstr "Корейська"
+
+msgid "Lithuanian"
+msgstr "Литовська"
+
+msgid "Norwegian Bokmål"
+msgstr "Норвезький букмол"
+
+msgid "Netherlands Dutch"
+msgstr "Нідерландська мова"
+
+msgid "Persian"
+msgstr "Перська"
+
+msgid "Polish"
+msgstr "Польська"
+
+msgid "Brazilian Portuguese"
+msgstr "Бразильська португальська"
+
+msgid "Portuguese"
+msgstr "Португальска"
+
+msgid "Romanian"
+msgstr "Румунська"
+
+msgid "Russian"
+msgstr "Російська"
+
+msgid "Swedish"
+msgstr "Шведська"
+
+msgid "Slovak"
+msgstr "Словацька"
+
+msgid "Ukrainian"
+msgstr "Українська"
+
+msgid "Page"
+msgstr "Сторінка"
+
+msgid "Pages"
+msgstr "Сторінки"
+
+msgid "Loading…"
+msgstr "Завантаження..."
+
+msgid "No results"
+msgstr "Результати відсутні"
+
+msgid "Server Error"
+msgstr "Помилка Сервера"
+
+msgid "See all"
+msgstr "Показати все"
+
+msgid "Close explorer"
+msgstr "Закрити переглядач"
+
+msgid "Alt text"
+msgstr "Змінити текст"
+
+msgid "Write here…"
+msgstr "Пишіть тут..."
+
+msgid "Horizontal line"
+msgstr "Горизонтальна лінія"
+
+msgid "Line break"
+msgstr "Рядковий розрив"
+
+msgid "Undo"
+msgstr "Відмінити"
+
+msgid "Redo"
+msgstr "Повторити"
+
+msgid "Reload the page"
+msgstr "Перезавантажити цю сторінку"
+
+msgid "Reload saved content"
+msgstr "Перезавантажити збережений контент"
+
+msgid "Show latest content"
+msgstr "Показати останній вміст"
+
+msgid "Show error"
+msgstr "Показати помилку"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Редактор щойно впав. Вміст був скинутий до останньої збереженої версії."
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "Edit '{title}'"
+msgstr "Редагувати '{title}'"
+
+msgid "January"
+msgstr "Січень"
+
+msgid "February"
+msgstr "Лютий"
+
+msgid "March"
+msgstr "Березень"
+
+msgid "April"
+msgstr "Квітень"
+
+msgid "May"
+msgstr "Травень"
+
+msgid "June"
+msgstr "Червень"
+
+msgid "July"
+msgstr "Липень"
+
+msgid "August"
+msgstr "Серпень"
+
+msgid "September"
+msgstr "Вересень"
+
+msgid "October"
+msgstr "Жовтень"
+
+msgid "November"
+msgstr "Листопад"
+
+msgid "December"
+msgstr "Грудень"
+
+msgid "Sun"
+msgstr "Неділя"
+
+msgid "Mon"
+msgstr "Понеділок"
+
+msgid "Tue"
+msgstr "Вівторок"
+
+msgid "Wed"
+msgstr "Середа"
+
+msgid "Thu"
+msgstr "Четвер"
+
+msgid "Fri"
+msgstr "П'ятниця"
+
+msgid "Sat"
+msgstr "Субота"
+
 msgid "Error 404: Page not found"
 msgstr "Помилка 404: сторінку не знайдено"
 
@@ -256,76 +454,11 @@ msgstr "Скидання паролю"
 msgid "Reset your password"
 msgstr "Скинути Ваш пароль"
 
-msgid "Edit"
-msgstr "Редагування"
-
-msgid "Page"
-msgstr "Сторінка"
-
-msgid "Pages"
-msgstr "Сторінки"
-
-msgid "Loading…"
-msgstr "Завантаження..."
-
-msgid "No results"
-msgstr "Результати відсутні"
-
-msgid "Server Error"
-msgstr "Помилка Сервера"
-
-msgid "See children"
-msgstr "Показати дочірні елементи"
-
-msgid "See all"
-msgstr "Показати все"
-
-msgid "Close explorer"
-msgstr "Закрити переглядач"
-
-msgid "Alt text"
-msgstr "Змінити текст"
-
-msgid "Write here…"
-msgstr "Пишіть тут..."
-
-msgid "Horizontal line"
-msgstr "Горизонтальна лінія"
-
-msgid "Line break"
-msgstr "Рядковий розрив"
-
-msgid "Undo"
-msgstr "Відмінити"
-
-msgid "Redo"
-msgstr "Повторити"
-
-msgid "Reload the page"
-msgstr "Перезавантажити цю сторінку"
-
-msgid "Reload saved content"
-msgstr "Перезавантажити збережений контент"
-
-msgid "Show latest content"
-msgstr "Показати останній вміст"
-
-msgid "Show error"
-msgstr "Показати помилку"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Редактор щойно впав. Вміст був скинутий до останньої збереженої версії."
-
 msgid "Dashboard"
 msgstr "Панель"
 
 msgid "Menu"
 msgstr "Меню"
-
-msgid "Add another"
-msgstr "Додати іншого"
 
 msgid "Move up"
 msgstr "Пересунути вгору"
@@ -480,6 +613,9 @@ msgstr "Підтвердити"
 msgid "Reject"
 msgstr "Відхилити"
 
+msgid "Edit"
+msgstr "Редагування"
+
 msgid "Preview"
 msgstr "Попередній перегляд"
 
@@ -504,32 +640,6 @@ msgstr "Наживо"
 
 msgid "Site summary"
 msgstr "Резюме сайту"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Сторінка\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Сторінки\n"
-"    "
-msgstr[2] ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgstr[3] ""
-"\n"
-"        <span>%(total)s</span> Сторінок\n"
-"    "
 
 msgid "Sign in"
 msgstr "Увійдіть"
@@ -615,8 +725,14 @@ msgstr "Опубліковується..."
 msgid "Publish this revision"
 msgstr "Опублікувати цю ревізію"
 
-msgid "Publish"
-msgstr "Опублікувати"
+msgid "Saving…"
+msgstr "Йде збереження..."
+
+msgid "Replace current draft"
+msgstr "Замінити поточну чернетку"
+
+msgid "Save draft"
+msgstr "Зберегти чернетку"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -775,12 +891,6 @@ msgstr "Створити %(page_type)s"
 msgid "New"
 msgstr "Створити"
 
-msgid "Saving…"
-msgstr "Йде збереження..."
-
-msgid "Save draft"
-msgstr "Зберегти чернетку"
-
 msgid "This page has unsaved changes."
 msgstr "Ця сторінка має незбережені зміни"
 
@@ -791,12 +901,6 @@ msgstr "Редагування %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Редагування %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Сторінку заблоковано"
-
-msgid "Replace current draft"
-msgstr "Замінити поточну чернетку"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -964,9 +1068,6 @@ msgstr ""
 "виправити ці помилки \n"
 "                і тоді зробіть ще раз попередній перегляд.\n"
 "            "
-
-msgid "Close"
-msgstr "Закрити"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1159,63 +1260,6 @@ msgstr "Головна"
 msgid "All collections"
 msgstr "Усі колекції"
 
-msgid "January"
-msgstr "Січень"
-
-msgid "February"
-msgstr "Лютий"
-
-msgid "March"
-msgstr "Березень"
-
-msgid "April"
-msgstr "Квітень"
-
-msgid "May"
-msgstr "Травень"
-
-msgid "June"
-msgstr "Червень"
-
-msgid "July"
-msgstr "Липень"
-
-msgid "August"
-msgstr "Серпень"
-
-msgid "September"
-msgstr "Вересень"
-
-msgid "October"
-msgstr "Жовтень"
-
-msgid "November"
-msgstr "Листопад"
-
-msgid "December"
-msgstr "Грудень"
-
-msgid "Sun"
-msgstr "Неділя"
-
-msgid "Mon"
-msgstr "Понеділок"
-
-msgid "Tue"
-msgstr "Вівторок"
-
-msgid "Wed"
-msgstr "Середа"
-
-msgid "Thu"
-msgstr "Четвер"
-
-msgid "Fri"
-msgstr "П'ятниця"
-
-msgid "Sat"
-msgstr "Субота"
-
 msgid "Edit your account"
 msgstr "Редагувати ваш аккаунт"
 
@@ -1248,78 +1292,6 @@ msgstr "Показати у переглядачі"
 
 msgid "Test"
 msgstr "Тест"
-
-msgid "Catalan"
-msgstr "Каталонська"
-
-msgid "German"
-msgstr "Німецька"
-
-msgid "Greek"
-msgstr "Грецька"
-
-msgid "English"
-msgstr "Англійська"
-
-msgid "Spanish"
-msgstr "Іспанська"
-
-msgid "Finnish"
-msgstr "Фінська"
-
-msgid "French"
-msgstr "Французька"
-
-msgid "Galician"
-msgstr "Галісійська "
-
-msgid "Icelandic"
-msgstr "Ісландська"
-
-msgid "Italian"
-msgstr "Італійська"
-
-msgid "Korean"
-msgstr "Корейська"
-
-msgid "Lithuanian"
-msgstr "Литовська"
-
-msgid "Norwegian Bokmål"
-msgstr "Норвезький букмол"
-
-msgid "Netherlands Dutch"
-msgstr "Нідерландська мова"
-
-msgid "Persian"
-msgstr "Перська"
-
-msgid "Polish"
-msgstr "Польська"
-
-msgid "Brazilian Portuguese"
-msgstr "Бразильська португальська"
-
-msgid "Portuguese"
-msgstr "Португальска"
-
-msgid "Romanian"
-msgstr "Румунська"
-
-msgid "Russian"
-msgstr "Російська"
-
-msgid "Swedish"
-msgstr "Шведська"
-
-msgid "Slovak"
-msgstr "Словацька"
-
-msgid "Ukrainian"
-msgstr "Українська"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Вибачте, ви не маєте дозволів для доступу у цей розділ."
 
 msgid "Your password has been changed successfully!"
 msgstr "Ваш пароль успішно змінено!"
@@ -1483,44 +1455,11 @@ msgstr "ревізія {0} для \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Ревізія {0} для \"{1}\" знято з плану."
 
-msgid "Edit '{title}'"
-msgstr "Редагувати '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Попередньо переглянути чернетку для '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Переглянути живу версію для '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Додати дочірню сторінку для '{title}' "
-
 msgid "More"
 msgstr "Більше"
 
-msgid "View more options for '{title}'"
-msgstr "Показати більше опцій для '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Перемістити сторінку '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Копіювати сторінку '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Видалити сторінку '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Зняти з публікації сторінку '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Переглянути історію ревізій для '{title}'"
-
 msgid "Set profile picture"
 msgstr "Задати зображення профілю"
-
-msgid "Change your profile picture"
-msgstr "Змінити зображення профілю"
 
 msgid "Change the email address linked to your account."
 msgstr "Змінити email адресу вашого аккаунту. "
@@ -1542,9 +1481,6 @@ msgstr "Поточний часовий пояс"
 
 msgid "Choose your current time zone."
 msgstr "Оберіть поточний часовий пояс"
-
-msgid "Heading {level}"
-msgstr "Заголовок {level}"
 
 msgid "Bulleted list"
 msgstr "Маркований список"

@@ -6,15 +6,15 @@ from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
     get_fields_from_path, label_for_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ImproperlyConfigured, PermissionDenied, SuspiciousOperation
+from django.core.exceptions import (
+    FieldDoesNotExist, ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied, SuspiciousOperation)
 from django.core.paginator import InvalidPage, Paginator
 from django.db import models
-from django.db.models.fields import FieldDoesNotExist
-from django.db.models.fields.related import ManyToManyField
+from django.db.models.fields.related import ManyToManyField, OneToOneRel
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
 from django.utils.decorators import method_decorator
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
@@ -52,10 +52,10 @@ class WMABaseView(TemplateView):
         self.model_admin = model_admin
         self.model = model_admin.model
         self.opts = self.model._meta
-        self.app_label = force_text(self.opts.app_label)
-        self.model_name = force_text(self.opts.model_name)
-        self.verbose_name = force_text(self.opts.verbose_name)
-        self.verbose_name_plural = force_text(self.opts.verbose_name_plural)
+        self.app_label = force_str(self.opts.app_label)
+        self.model_name = force_str(self.opts.model_name)
+        self.verbose_name = force_str(self.opts.verbose_name)
+        self.verbose_name_plural = force_str(self.opts.verbose_name_plural)
         self.pk_attname = self.opts.pk.attname
         self.is_pagemodel = model_admin.is_pagemodel
         self.permission_helper = model_admin.permission_helper
@@ -150,8 +150,9 @@ class ModelFormView(WMABaseView, FormView):
         return super().get_context_data(**context)
 
     def get_success_message(self, instance):
-        return _("{model_name} '{instance}' created.").format(
-            model_name=capfirst(self.opts.verbose_name), instance=instance)
+        return _("%(model_name)s '%(instance)s' created.") % {
+            'model_name': capfirst(self.opts.verbose_name), 'instance': instance
+        }
 
     def get_success_message_buttons(self, instance):
         button_url = self.url_helper.get_action_url('edit', quote(instance.pk))
@@ -640,8 +641,9 @@ class EditView(ModelFormView, InstanceSpecificView):
         return _('Editing %s') % self.verbose_name
 
     def get_success_message(self, instance):
-        return _("{model_name} '{instance}' updated.").format(
-            model_name=capfirst(self.verbose_name), instance=instance)
+        return _("%(model_name)s '%(instance)s' updated.") % {
+            'model_name': capfirst(self.verbose_name), 'instance': instance
+        }
 
     def get_context_data(self, **kwargs):
         context = {
@@ -726,8 +728,9 @@ class DeleteView(InstanceSpecificView):
 
     def post(self, request, *args, **kwargs):
         try:
-            msg = _("{model} '{instance}' deleted.").format(
-                model=self.verbose_name, instance=self.instance)
+            msg = _("%(model_name)s '%(instance)s' deleted.") % {
+                'model_name': self.verbose_name, 'instance': self.instance
+            }
             self.delete_instance()
             messages.success(request, msg)
             return redirect(self.index_url)
@@ -738,9 +741,17 @@ class DeleteView(InstanceSpecificView):
                 obj.field, ManyToManyField))
             for rel in fields:
                 if rel.on_delete == models.PROTECT:
-                    qs = getattr(self.instance, rel.get_accessor_name())
-                    for obj in qs.all():
-                        linked_objects.append(obj)
+                    if isinstance(rel, OneToOneRel):
+                        try:
+                            obj = getattr(self.instance, rel.get_accessor_name())
+                        except ObjectDoesNotExist:
+                            pass
+                        else:
+                            linked_objects.append(obj)
+                    else:
+                        qs = getattr(self.instance, rel.get_accessor_name())
+                        for obj in qs.all():
+                            linked_objects.append(obj)
             context = self.get_context_data(
                 protected_error=True,
                 linked_objects=linked_objects

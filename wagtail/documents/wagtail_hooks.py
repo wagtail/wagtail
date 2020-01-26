@@ -8,17 +8,16 @@ from django.utils.translation import ugettext, ungettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
+from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
-from wagtail.admin.utils import get_site_for_user
 from wagtail.core import hooks
 from wagtail.core.models import BaseViewRestriction
 from wagtail.core.wagtail_hooks import require_wagtail_login
-from wagtail.documents import admin_urls
-from wagtail.documents.api.admin.endpoints import DocumentsAdminAPIEndpoint
+from wagtail.documents import admin_urls, get_document_model
+from wagtail.documents.api.admin.views import DocumentsAdminAPIViewSet
 from wagtail.documents.forms import GroupDocumentPermissionFormSet
-from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.documents.rich_text import DocumentLinkHandler
 from wagtail.documents.rich_text.contentstate import ContentstateDocumentLinkConversionRule
@@ -34,7 +33,7 @@ def register_admin_urls():
 
 @hooks.register('construct_admin_api')
 def construct_admin_api(router):
-    router.register_endpoint('documents', DocumentsAdminAPIEndpoint)
+    router.register_endpoint('documents', DocumentsAdminAPIViewSet)
 
 
 class DocumentsMenuItem(MenuItem):

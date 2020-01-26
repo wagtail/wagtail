@@ -105,7 +105,7 @@ Blocks are nearly as simple as inline styles:
         )
 
         features.register_converter_rule('contentstate', feature_name, {
-            'from_database_format': {'div.help-text': BlockElementHandler(type_)},
+            'from_database_format': {'div[class=help-text]': BlockElementHandler(type_)},
             'to_database_format': {'block_map': {type_: {'element': 'div', 'props': {'class': 'help-text'}}}},
         })
 

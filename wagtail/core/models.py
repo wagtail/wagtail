@@ -33,6 +33,7 @@ from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
 from wagtail.search import index
 
+
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
@@ -243,7 +244,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         help_text=_("The name of the page as it will appear in URLs e.g http://domain.com/blog/[my-slug]/")
     )
     content_type = models.ForeignKey(
-        'contenttypes.ContentType',
+        ContentType,
         verbose_name=_('content type'),
         related_name='pages',
         on_delete=models.SET(get_default_page_content_type)
@@ -293,6 +294,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     expired = models.BooleanField(verbose_name=_('expired'), default=False, editable=False)
 
     locked = models.BooleanField(verbose_name=_('locked'), default=False, editable=False)
+    locked_at = models.DateTimeField(verbose_name=_('locked at'), null=True, editable=False)
+    locked_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_('locked by'),
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.SET_NULL,
+        related_name='locked_pages'
+    )
 
     first_published_at = models.DateTimeField(
         verbose_name=_('first published at'),
@@ -1201,7 +1212,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     to=page_copy,
                     copy_revisions=copy_revisions,
                     keep_live=keep_live,
-                    user=user
+                    user=user,
+                    process_child_object=process_child_object,
                 )
 
         return page_copy
@@ -1215,17 +1227,52 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         user_perms = UserPagePermissionsProxy(user)
         return user_perms.for_page(self)
 
-    def dummy_request(self, original_request=None, **meta):
+    def make_preview_request(self, original_request=None, preview_mode=None, extra_request_attrs=None):
         """
-        Construct a HttpRequest object that is, as far as possible, representative of ones that would
-        receive this page as a response. Used for previewing / moderation and any other place where we
+        Simulate a request to this page, by constructing a fake HttpRequest object that is (as far
+        as possible) representative of a real request to this page's front-end URL, and invoking
+        serve_preview with that request (and the given preview_mode).
+
+        Used for previewing / moderation and any other place where we
         want to display a view of this page in the admin interface without going through the regular
         page routing logic.
 
         If you pass in a real request object as original_request, additional information (e.g. client IP, cookies)
         will be included in the dummy request.
         """
-        url = self.full_url
+        dummy_meta = self._get_dummy_headers(original_request)
+        request = WSGIRequest(dummy_meta)
+
+        # Add a flag to let middleware know that this is a dummy request.
+        request.is_dummy = True
+
+        if extra_request_attrs:
+            for k, v in extra_request_attrs.items():
+                setattr(request, k, v)
+
+        page = self
+
+        # Build a custom django.core.handlers.BaseHandler subclass that invokes serve_preview as
+        # the eventual view function called at the end of the middleware chain, rather than going
+        # through the URL resolver
+        class Handler(BaseHandler):
+            def _get_response(self, request):
+                response = page.serve_preview(request, preview_mode)
+                if hasattr(response, 'render') and callable(response.render):
+                    response = response.render()
+                return response
+
+        # Invoke this custom handler.
+        handler = Handler()
+        handler.load_middleware()
+        return handler.get_response(request)
+
+    def _get_dummy_headers(self, original_request=None):
+        """
+        Return a dict of META information to be included in a faked HttpRequest object to pass to
+        serve_preview.
+        """
+        url = self._get_dummy_header_url(original_request)
         if url:
             url_info = urlparse(url)
             hostname = url_info.hostname
@@ -1278,20 +1325,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 if header in original_request.META:
                     dummy_values[header] = original_request.META[header]
 
-        # Add additional custom metadata sent by the caller.
-        dummy_values.update(**meta)
+        return dummy_values
 
-        request = WSGIRequest(dummy_values)
-
-        # Add a flag to let middleware know that this is a dummy request.
-        request.is_dummy = True
-
-        # Apply middleware to the request
-        handler = BaseHandler()
-        handler.load_middleware()
-        handler._middleware_chain(request)
-
-        return request
+    def _get_dummy_header_url(self, original_request=None):
+        """
+        Return the URL that _get_dummy_headers() should use to set META headers
+        for the faked HttpRequest.
+        """
+        return self.full_url
 
     DEFAULT_PREVIEW_MODES = [('', _('Default'))]
 
@@ -1430,6 +1471,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``has_unpublished_changes``
         * ``owner``
         * ``locked``
+        * ``locked_by``
+        * ``locked_at``
         * ``latest_revision_created_at``
         * ``first_published_at``
         """
@@ -1456,6 +1499,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.has_unpublished_changes = self.has_unpublished_changes
         obj.owner = self.owner
         obj.locked = self.locked
+        obj.locked_by = self.locked_by
+        obj.locked_at = self.locked_at
         obj.latest_revision_created_at = self.latest_revision_created_at
         obj.first_published_at = self.first_published_at
 
@@ -1493,7 +1538,12 @@ class PageRevision(models.Model):
         on_delete=models.SET_NULL
     )
     content_json = models.TextField(verbose_name=_('content JSON'))
-    approved_go_live_at = models.DateTimeField(verbose_name=_('approved go live at'), null=True, blank=True)
+    approved_go_live_at = models.DateTimeField(
+        verbose_name=_('approved go live at'),
+        null=True,
+        blank=True,
+        db_index=True
+    )
 
     objects = models.Manager()
     submitted_revisions = SubmittedRevisionsManager()
@@ -1603,7 +1653,8 @@ PAGE_PERMISSION_TYPES = [
     ('edit', _("Edit"), _("Edit any page")),
     ('publish', _("Publish"), _("Publish any page")),
     ('bulk_delete', _("Bulk delete"), _("Delete pages with children")),
-    ('lock', _("Lock"), _("Lock/unlock any page")),
+    ('lock', _("Lock"), _("Lock/unlock pages you've locked")),
+    ('unlock', _("Unlock"), _("Unlock any page")),
 ]
 
 PAGE_PERMISSION_TYPE_CHOICES = [
@@ -1762,6 +1813,15 @@ class UserPagePermissionsProxy:
         """Return True if the user has permission to publish any pages"""
         return self.publishable_pages().exists()
 
+    def can_remove_locks(self):
+        """Returns True if the user has permission to unlock pages they have not locked"""
+        if self.user.is_superuser:
+            return True
+        if not self.user.is_active:
+            return False
+        else:
+            return self.permissions.filter(permission_type='unlock').exists()
+
 
 class PagePermissionTester:
     def __init__(self, user_perms, page):
@@ -1775,6 +1835,21 @@ class PagePermissionTester:
                 perm.permission_type for perm in user_perms.permissions
                 if self.page.path.startswith(perm.page.path)
             )
+
+    def user_has_lock(self):
+        return self.page.locked_by_id == self.user.pk
+
+    def page_locked(self):
+        if not self.page.locked:
+            # Page is not locked
+            return False
+
+        if getattr(settings, 'WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK', False):
+            # All locks are global
+            return True
+        else:
+            # Locked only if the current user was not the one who locked the page
+            return not self.user_has_lock()
 
     def can_add_subpage(self):
         if not self.user.is_active:
@@ -1838,7 +1913,7 @@ class PagePermissionTester:
             return False
         if (not self.page.live) or self.page_is_root:
             return False
-        if self.page.locked:
+        if self.page_locked():
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
@@ -1859,6 +1934,9 @@ class PagePermissionTester:
 
     def can_lock(self):
         return self.user.is_superuser or ('lock' in self.permissions)
+
+    def can_unlock(self):
+        return self.user.is_superuser or self.user_has_lock() or ('unlock' in self.permissions)
 
     def can_publish_subpage(self):
         """

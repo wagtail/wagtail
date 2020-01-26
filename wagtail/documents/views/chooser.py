@@ -3,13 +3,13 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
+from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.utils import PermissionPolicyChecker
 from wagtail.core import hooks
 from wagtail.core.models import Collection
+from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
-from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.search import index as search_index
 

@@ -9,40 +9,62 @@
 }
 
 .logo {
-    display: block;
+    display: flex;
+    align-items: center;
+    padding: 0.6em 1.2em;
     color: #aaa;
-    padding: 0.9em 1.2em;
     -webkit-font-smoothing: auto;
-}
+    position: relative;
 
-// Desktop styling (override mobile styling):
-@include media-breakpoint-up(sm) {
-    .logo {
-        margin: 1em auto;
+    &:hover {
+        color: $color-white;
+    }
+
+    @include media-breakpoint-up(sm) {
+        display: block;
+        margin: 2em auto;
         text-align: center;
     }
 }
 
 .wagtail-logo-container__mobile {
+    margin-right: 10px;
+    background-color: #555;
+    border-radius: 50%;
+    padding: 5px 7.5px;
+
     .wagtail-logo {
         width: 20px;
         float: left;
         border: 0;
-        margin-right: 1em;
-    }
-
-    &:hover {
-        color: $color-white;
     }
 }
 
 .wagtail-logo-container__desktop {
-    display: block;
-    margin: auto;
-    width: 60px;
-    height: 75px;
     position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: #555;
+    border-radius: 50%;
+    margin: 0 auto;
     transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
+
+    .page404__bg & {
+        background-color: transparent;
+    }
+
+    .wagtail-logo-container-inner {
+        width: 52px;
+        height: 100px;
+        margin: auto;
+        position: relative;
+
+        .page404__bg & {
+            width: auto;
+            height: auto;
+            position: static;
+        }
+    }
 
     .wagtail-logo {
         display: block;

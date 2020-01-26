@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "发布"
 
 msgid "Submit for moderation"
 msgstr "提交审核"
@@ -57,6 +60,63 @@ msgstr "搜索"
 msgid "Search term"
 msgstr "搜索词"
 
+msgid "January"
+msgstr "一月"
+
+msgid "February"
+msgstr "二月"
+
+msgid "March"
+msgstr "三月"
+
+msgid "April"
+msgstr "四月"
+
+msgid "May"
+msgstr "五月"
+
+msgid "June"
+msgstr "六月"
+
+msgid "July"
+msgstr "七月"
+
+msgid "August"
+msgstr "八月"
+
+msgid "September"
+msgstr "九月"
+
+msgid "October"
+msgstr "十月"
+
+msgid "November"
+msgstr "十一月"
+
+msgid "December"
+msgstr "十二月"
+
+msgid "Sun"
+msgstr "星期日"
+
+msgid "Mon"
+msgstr "星期一"
+
+msgid "Tue"
+msgstr "星期二"
+
+msgid "Wed"
+msgstr "星期三"
+
+msgid "Thu"
+msgstr "星期四"
+
+msgid "Fri"
+msgstr "星期五"
+
+msgid "Sat"
+msgstr "星期六"
+
 msgid "Account"
 msgstr "账号"
 
@@ -93,9 +153,6 @@ msgstr "密码已重置"
 
 msgid "Reset your password"
 msgstr "重置您的密码"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "Dashboard"
 msgstr "仪表板"
@@ -175,6 +232,9 @@ msgstr "通过"
 msgid "Reject"
 msgstr "拒绝"
 
+msgid "Edit"
+msgstr "编辑"
+
 msgid "Preview"
 msgstr "预览"
 
@@ -241,8 +301,8 @@ msgstr "这个页面 \"%(page)s\" 已经提交审核"
 msgid "Page privacy"
 msgstr "页面隐私"
 
-msgid "Publish"
-msgstr "发布"
+msgid "Save draft"
+msgstr "保存草稿"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -308,9 +368,6 @@ msgstr "新%(page_type)s类"
 msgid "New"
 msgstr "新"
 
-msgid "Save draft"
-msgstr "保存草稿"
-
 #, python-format
 msgid "Last modified: %(last_mod)s"
 msgstr "上一次编辑：%(last_mod)s"
@@ -365,63 +422,6 @@ msgstr "第%(page_num)s页 共%(total_pages)s页"
 
 msgid "Home"
 msgstr "主页"
-
-msgid "January"
-msgstr "一月"
-
-msgid "February"
-msgstr "二月"
-
-msgid "March"
-msgstr "三月"
-
-msgid "April"
-msgstr "四月"
-
-msgid "May"
-msgstr "五月"
-
-msgid "June"
-msgstr "六月"
-
-msgid "July"
-msgstr "七月"
-
-msgid "August"
-msgstr "八月"
-
-msgid "September"
-msgstr "九月"
-
-msgid "October"
-msgstr "十月"
-
-msgid "November"
-msgstr "十一月"
-
-msgid "December"
-msgstr "十二月"
-
-msgid "Sun"
-msgstr "星期日"
-
-msgid "Mon"
-msgstr "星期一"
-
-msgid "Tue"
-msgstr "星期二"
-
-msgid "Wed"
-msgstr "星期三"
-
-msgid "Thu"
-msgstr "星期四"
-
-msgid "Fri"
-msgstr "星期五"
-
-msgid "Sat"
-msgstr "星期六"
 
 msgid "Log out"
 msgstr "登出"

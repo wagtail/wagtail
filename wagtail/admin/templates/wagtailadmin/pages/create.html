@@ -26,12 +26,11 @@
         <footer role="contentinfo">
             <nav aria-label="{% trans 'Actions' %}">
                 <ul>
-                    <li class="actions">
-                        <div class="dropdown dropup dropdown-button match-width">
-                            <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Save draft' %}</em></button>
-                            {{ action_menu.render_html }}
-                        </div>
-                    </li>
+                  <li class="actions">
+                      <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+                          {{ action_menu.render_html }}
+                      </div>
+                  </li>
 
                     <li class="preview">
                         {% trans 'Preview' as preview_label %}

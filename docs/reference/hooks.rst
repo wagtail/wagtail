@@ -4,7 +4,11 @@
 Hooks
 =====
 
-On loading, Wagtail will search for any app with the file ``wagtail_hooks.py`` and execute the contents. This provides a way to register your own functions to execute at certain points in Wagtail's execution, such as when a ``Page`` object is saved or when the main menu is constructed.
+On loading, Wagtail will search for any app with the file ``wagtail_hooks.py`` and execute the contents. This provides a way to register your own functions to execute at certain points in Wagtail's execution, such as when a page is saved or when the main menu is constructed.
+
+.. note::
+   Hooks are typically used to customise the view-level behaviour of the Wagtail admin and front-end. For customisations that only deal with model-level behaviour - such as calling an external service when a page or document is added - it is often better to use :doc:`Django's signal mechanism <django:topics/signals>` (see also: :ref:`Wagtail signals <signals>`), as these are not dependent on a user taking a particular path through the admin interface.
+
 
 Registering functions with a Wagtail hook is done through the ``@hooks.register`` decorator:
 
@@ -218,6 +222,22 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   As ``construct_main_menu``, but modifies the 'Settings' sub-menu rather than the top-level menu.
+
+
+.. _register_reports_menu_item:
+
+``register_reports_menu_item``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  As ``register_admin_menu_item``, but registers menu items into the 'Reports' sub-menu rather than the top-level menu.
+
+
+.. _construct_reports_menu:
+
+``construct_reports_menu``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  As ``construct_main_menu``, but modifies the 'Reports' sub-menu rather than the top-level menu.
 
 
 .. _register_admin_search_area:
@@ -524,7 +544,7 @@ Hooks for customising the way users are directed through the process of creating
 
   Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.action_menu.ActionMenuItem``. The following attributes and methods are available to be overridden on subclasses of ``ActionMenuItem``:
 
-  :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor
+  :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an ``order`` of 0).
   :label: the displayed text of the menu item
   :get_url: a method which returns a URL for the menu item to link to; by default, returns ``None`` which causes the menu item to behave as a form submit button instead
   :name: value of the ``name`` attribute of the submit button, if no URL is specified
@@ -566,11 +586,27 @@ Hooks for customising the way users are directed through the process of creating
 
   Modify the final list of action menu items on the page creation and edit views. The callable passed to this hook receives a list of ``ActionMenuItem`` objects, a request object and a context dictionary as per ``register_page_action_menu_item``, and should modify the list of menu items in-place.
 
+
   .. code-block:: python
 
     @hooks.register('construct_page_action_menu')
     def remove_submit_to_moderator_option(menu_items, request, context):
         menu_items[:] = [item for item in menu_items if item.name != 'action-submit']
+
+
+  The ``construct_page_action_menu`` hook is called after the menu items have been sorted by their order attributes, and so setting a menu item's order will have no effect at this point. Instead, items can be reordered by changing their position in the list, with the first item being selected as the default action. For example, to change the default action to Publish:
+
+  .. code-block:: python
+
+    @hooks.register('construct_page_action_menu')
+    def make_publish_default_action(menu_items, request, context):
+        for (index, item) in enumerate(menu_items):
+            if item.name == 'action-publish':
+                # move to top of list
+                menu_items.pop(index)
+                menu_items.insert(0, item)
+                break
+
 
 .. construct_page_listing_buttons:
 
@@ -897,4 +933,4 @@ Document serving
 ``before_serve_document``
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when Wagtail is about to serve a document. The callable passed into the hook will receive the document object and the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, instead of serving the document.
+  Called when Wagtail is about to serve a document. The callable passed into the hook will receive the document object and the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, instead of serving the document. Note that this hook will be skipped if the :ref:`WAGTAILDOCS_SERVE_METHOD <wagtaildocs_serve_method>` setting is set to ``direct``.

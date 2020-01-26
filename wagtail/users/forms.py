@@ -2,6 +2,8 @@ import warnings
 from itertools import groupby
 from operator import itemgetter
 
+import l18n
+
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -14,14 +16,13 @@ from django.template.loader import render_to_string
 from django.utils.html import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from wagtail.admin.utils import get_available_admin_languages, get_available_admin_time_zones
+from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.core import hooks
 from wagtail.core.models import (
     PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
     UserPagePermissionsProxy)
 from wagtail.users.models import UserProfile
-from wagtail.utils import l18n
 
 User = get_user_model()
 
@@ -407,6 +408,15 @@ class EmailForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("email",)
+
+
+class NameForm(forms.ModelForm):
+    first_name = forms.CharField(required=True, label=_('First Name'))
+    last_name = forms.CharField(required=True, label=_('Last Name'))
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name",)
 
 
 def _get_time_zone_choices():

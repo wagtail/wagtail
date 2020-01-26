@@ -6,12 +6,13 @@
 # Istvan Farkas <istvan.farkas@gmail.com>, 2019
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-05-03 15:09+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-28 12:42+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -103,7 +104,7 @@ msgid ""
 "deleted without jeopardising data integrity. To delete it successfully, "
 "first remove references from the following objects, then try again:"
 msgstr ""
-"A(z) \"%(instance_name)s\" jelenleg kapcsolatban van más rekordokkal, és nem "
+"A(z) '%(instance_name)s' jelenleg kapcsolatban van más rekordokkal, és nem "
 "lehet törölni az adatok integritásának megsértése nélkül. A törléshez előbb "
 "távolítsa el a hivatkozásokat a következő rekordokból, majd próbálja újra: "
 
@@ -112,6 +113,9 @@ msgstr "Vissza a listához"
 
 msgid "Yes, delete"
 msgstr "Igen, törlés"
+
+msgid "No, don't delete"
+msgstr "Nem, ne töröljük"
 
 msgid "Home"
 msgstr "Kezdőlap"
@@ -157,6 +161,9 @@ msgstr ""
 "\n"
 "Miért nem <a href=\"%(url)s\">ad hozzá egyet</a>?"
 
+msgid "Pagination"
+msgstr "Lapozó"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "%(current_page)s/%(num_pages)s. oldal"
@@ -171,8 +178,9 @@ msgstr "Előző"
 msgid "Next"
 msgstr "Következő"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' létrehozva."
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' létrehozva."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -192,8 +200,9 @@ msgstr "Szerkesztés"
 msgid "Editing %s"
 msgstr "%s szerkesztése"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' frissítve."
+#, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s'%(instance)s' frissítve."
 
 #, python-format
 msgid "The %s could not be saved due to errors."
@@ -211,8 +220,9 @@ msgstr ""
 "Biztosan törölni kívánja ezt a(z) %s rekordot? Ha más tartalom is hivatkozik "
 "rá, azt is értintheti a törlés."
 
-msgid "{model} '{instance}' deleted."
-msgstr "{model_name} '{instance}' törölve."
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' törölve."
 
 msgid "Inspecting"
 msgstr "Vizsgálat"

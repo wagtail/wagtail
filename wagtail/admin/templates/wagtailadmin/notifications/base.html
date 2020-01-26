@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n wagtailadmin_tags %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -86,7 +86,7 @@ body[yahoo] .text {
 <table width="600" border="0" align="center" class="mobile" cellspacing="0" cellpadding="0">
   <tr>
     <td>
-    	{% block branding_logo %}<img width="100%" border="0" style="display: block;" alt="" src="{{ settings.BASE_URL }}{% static 'wagtailadmin/images/email-header.jpg' %}" />{% endblock %}
+      {% block branding_logo %}<img width="100%" border="0" style="display: block;" alt="" src="{% notification_static 'wagtailadmin/images/email-header.jpg' %}" />{% endblock %}
     </td>
   </tr>
 </table>

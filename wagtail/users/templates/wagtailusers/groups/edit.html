@@ -1,12 +1,12 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailusers_tags static i18n %}
+{% load wagtailusers_tags wagtailadmin_tags i18n %}
 
 {% block titletag %}{% trans "Editing" %} {{ group.name }}{% endblock %}
 
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% static 'wagtailusers/css/groups_edit.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailusers/css/groups_edit.css' %}" type="text/css" />
     {{ form_media.css }}
 {% endblock %}
 

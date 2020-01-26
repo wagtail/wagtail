@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
+msgid "Publish"
+msgstr "Publicēt"
+
 msgid "Submit for moderation"
 msgstr "Iesniegt moderācijai"
 
@@ -30,11 +33,17 @@ msgstr "Atsaukt publicēšanu"
 msgid "Delete"
 msgstr "Dzēst"
 
-msgid "None"
-msgstr "Nav"
+msgid "Page locked"
+msgstr "Lapa slēgta"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Atvainojiet, jums nav piekļuves tiesību šai zonai."
 
 msgid "You do not have permission to access the admin"
 msgstr "Jums nav tiesību pieklūt administrācijas videi"
+
+msgid "None"
+msgstr "Nav"
 
 msgid "Scheduled publishing"
 msgstr "Plānota publicēšana"
@@ -60,9 +69,6 @@ msgstr "Ievadiet jūsu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ievadiet savu e-pasta adresi, lai atjaunotu paroli"
-
-msgid "URL"
-msgstr "Norāde (URL)"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
@@ -150,6 +156,102 @@ msgstr "Šis lauks ir nepieciešams"
 msgid "Please select at least one group."
 msgstr "Lūdzu izvēlieties vismaz vienu grupu"
 
+msgid "Page"
+msgstr "Lapa"
+
+msgid "Pages"
+msgstr "Lapas"
+
+msgid "Loading…"
+msgstr "Ielādē..."
+
+msgid "No results"
+msgstr "Nav rezultātu"
+
+msgid "Server Error"
+msgstr "Servera kļūda"
+
+msgid "See all"
+msgstr "Apskatīt visu"
+
+msgid "Close explorer"
+msgstr "Aizvērt pārlūku"
+
+msgid "Alt text"
+msgstr "Alt teksts"
+
+msgid "Write here…"
+msgstr "Raksti šeit..."
+
+msgid "Horizontal line"
+msgstr "Horizontāla līnija"
+
+msgid "Line break"
+msgstr "Līnijas pārtraukums"
+
+msgid "Undo"
+msgstr "Atsaukt"
+
+msgid "Redo"
+msgstr "Atcelt atsaukšanu"
+
+msgid "January"
+msgstr "Janvāris"
+
+msgid "February"
+msgstr "Februāris"
+
+msgid "March"
+msgstr "Marts"
+
+msgid "April"
+msgstr "Aprīlis"
+
+msgid "May"
+msgstr "Maijs"
+
+msgid "June"
+msgstr "Jūnijs"
+
+msgid "July"
+msgstr "Jūlijs"
+
+msgid "August"
+msgstr "Augusts"
+
+msgid "September"
+msgstr "Septembris"
+
+msgid "October"
+msgstr "Oktobris"
+
+msgid "November"
+msgstr "Novembris"
+
+msgid "December"
+msgstr "Decembris"
+
+msgid "Sun"
+msgstr "Sv"
+
+msgid "Mon"
+msgstr "P"
+
+msgid "Tue"
+msgstr "O"
+
+msgid "Wed"
+msgstr "T"
+
+msgid "Thu"
+msgstr "C"
+
+msgid "Fri"
+msgstr "Pk"
+
+msgid "Sat"
+msgstr "S"
+
 msgid "Error 404: Page not found"
 msgstr "Kļūda 404: lapa nav atrasta"
 
@@ -208,59 +310,11 @@ msgstr "Atjaunot paroli"
 msgid "Reset your password"
 msgstr "Atjaunot paroli"
 
-msgid "Edit"
-msgstr "Labot"
-
-msgid "Page"
-msgstr "Lapa"
-
-msgid "Pages"
-msgstr "Lapas"
-
-msgid "Loading…"
-msgstr "Ielādē..."
-
-msgid "No results"
-msgstr "Nav rezultātu"
-
-msgid "Server Error"
-msgstr "Servera kļūda"
-
-msgid "See children"
-msgstr "Skatīt zemāka līmeņa ierakstus"
-
-msgid "See all"
-msgstr "Apskatīt visu"
-
-msgid "Close explorer"
-msgstr "Aizvērt pārlūku"
-
-msgid "Alt text"
-msgstr "Alt teksts"
-
-msgid "Write here…"
-msgstr "Raksti šeit..."
-
-msgid "Horizontal line"
-msgstr "Horizontāla līnija"
-
-msgid "Line break"
-msgstr "Līnijas pārtraukums"
-
-msgid "Undo"
-msgstr "Atsaukt"
-
-msgid "Redo"
-msgstr "Atcelt atsaukšanu"
-
 msgid "Dashboard"
 msgstr "Informācijas panelis"
 
 msgid "Menu"
 msgstr "Izvēlne"
-
-msgid "Add another"
-msgstr "Pievienot jaunu"
 
 msgid "Move up"
 msgstr "Uz augšu"
@@ -352,6 +406,9 @@ msgstr "Apstiprināt"
 msgid "Reject"
 msgstr "Noraidīt"
 
+msgid "Edit"
+msgstr "Labot"
+
 msgid "Preview"
 msgstr "Priekšskatīt"
 
@@ -442,8 +499,11 @@ msgstr "Atslēgts"
 msgid "Publish this revision"
 msgstr "Publicēt šo versiju"
 
-msgid "Publish"
-msgstr "Publicēt"
+msgid "Replace current draft"
+msgstr "Aizvietot pašreizējo melnrakstu"
+
+msgid "Save draft"
+msgstr "Saglabāt melnrakstu"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -510,9 +570,6 @@ msgstr "Jauns %(page_type)s"
 msgid "New"
 msgstr "Jauns"
 
-msgid "Save draft"
-msgstr "Saglabāt melnrakstu"
-
 msgid "This page has unsaved changes."
 msgstr "Šai lapai ir nesaglabātas izmaiņas"
 
@@ -523,12 +580,6 @@ msgstr "Labo %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Labo %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Lapa slēgta"
-
-msgid "Replace current draft"
-msgstr "Aizvietot pašreizējo melnrakstu"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -654,63 +705,6 @@ msgstr "Sākumlapa"
 msgid "All collections"
 msgstr "Visas kolekcijas"
 
-msgid "January"
-msgstr "Janvāris"
-
-msgid "February"
-msgstr "Februāris"
-
-msgid "March"
-msgstr "Marts"
-
-msgid "April"
-msgstr "Aprīlis"
-
-msgid "May"
-msgstr "Maijs"
-
-msgid "June"
-msgstr "Jūnijs"
-
-msgid "July"
-msgstr "Jūlijs"
-
-msgid "August"
-msgstr "Augusts"
-
-msgid "September"
-msgstr "Septembris"
-
-msgid "October"
-msgstr "Oktobris"
-
-msgid "November"
-msgstr "Novembris"
-
-msgid "December"
-msgstr "Decembris"
-
-msgid "Sun"
-msgstr "Sv"
-
-msgid "Mon"
-msgstr "P"
-
-msgid "Tue"
-msgstr "O"
-
-msgid "Wed"
-msgstr "T"
-
-msgid "Thu"
-msgstr "C"
-
-msgid "Fri"
-msgstr "Pk"
-
-msgid "Sat"
-msgstr "S"
-
 msgid "Edit your account"
 msgstr "Mainīt konta iestatījumus"
 
@@ -740,9 +734,6 @@ msgstr "Parādīt pārlūkā"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Atvainojiet, jums nav piekļuves tiesību šai zonai."
 
 msgid "Your password has been changed successfully!"
 msgstr "Parole mainīta veiksmīgi."

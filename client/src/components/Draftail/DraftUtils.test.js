@@ -1,6 +1,6 @@
 import {
-    EditorState,
-    convertFromRaw,
+  EditorState,
+  convertFromRaw,
 } from 'draft-js';
 
 import { getSelectionText } from './DraftUtils';

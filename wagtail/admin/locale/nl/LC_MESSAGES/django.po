@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -30,6 +30,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Publiceer"
 
 msgid "Submit for moderation"
 msgstr "Ter goedkeuring aanbieden"
@@ -40,11 +43,17 @@ msgstr "Publicatie ongedaan maken"
 msgid "Delete"
 msgstr "Verwijderen"
 
-msgid "None"
-msgstr "Geen"
+msgid "Page locked"
+msgstr "Pagina vergrendeld"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Sorry, u heeft geen toestemming tot dit gedeelte."
 
 msgid "You do not have permission to access the admin"
 msgstr "U heeft geen permissies om de admin te bereiken"
+
+msgid "None"
+msgstr "Geen"
 
 msgid "Scheduled publishing"
 msgstr "Geplande publicatie"
@@ -70,9 +79,6 @@ msgstr "Voer uw %s in"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vul uw e-mailadres in om uw wachtwoord te resetten."
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -153,6 +159,63 @@ msgstr "Dit veld is verplicht"
 msgid "Please select at least one group."
 msgstr "Selecteer minimaal één groep."
 
+msgid "January"
+msgstr "januari"
+
+msgid "February"
+msgstr "februari"
+
+msgid "March"
+msgstr "maart"
+
+msgid "April"
+msgstr "april"
+
+msgid "May"
+msgstr "mei"
+
+msgid "June"
+msgstr "juni"
+
+msgid "July"
+msgstr "juli"
+
+msgid "August"
+msgstr "augustus"
+
+msgid "September"
+msgstr "september"
+
+msgid "October"
+msgstr "oktober"
+
+msgid "November"
+msgstr "november"
+
+msgid "December"
+msgstr "december"
+
+msgid "Sun"
+msgstr "Zo"
+
+msgid "Mon"
+msgstr "Ma"
+
+msgid "Tue"
+msgstr "Di"
+
+msgid "Wed"
+msgstr "Wo"
+
+msgid "Thu"
+msgstr "Do"
+
+msgid "Fri"
+msgstr "Vr"
+
+msgid "Sat"
+msgstr "Za"
+
 msgid "Account"
 msgstr "Account"
 
@@ -192,17 +255,11 @@ msgstr "Wachtwoord herstel"
 msgid "Reset your password"
 msgstr "Herstel uw wachtwoord"
 
-msgid "Edit"
-msgstr "Wijzigen"
-
 msgid "Dashboard"
 msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Voeg nog een toe."
 
 msgid "Move up"
 msgstr "Verplaats omhoog"
@@ -315,6 +372,9 @@ msgstr "Goedkeuren"
 msgid "Reject"
 msgstr "Afwijzen"
 
+msgid "Edit"
+msgstr "Wijzigen"
+
 msgid "Preview"
 msgstr "Voorbeeld bekijken"
 
@@ -335,22 +395,6 @@ msgstr "Live"
 
 msgid "Site summary"
 msgstr "Site samenvatting"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Pagina"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Pagina's"
 
 msgid "Sign in"
 msgstr "Inloggen"
@@ -421,8 +465,8 @@ msgstr "Ontgrendeld"
 msgid "Publish this revision"
 msgstr "Publiceer deze revisie"
 
-msgid "Publish"
-msgstr "Publiceer"
+msgid "Save draft"
+msgstr "Concept opslaan"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -514,9 +558,6 @@ msgstr "Nieuwe %(page_type)s"
 msgid "New"
 msgstr "Nieuwe"
 
-msgid "Save draft"
-msgstr "Concept opslaan"
-
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Bewerk %(page_type)s: %(title)s"
@@ -524,9 +565,6 @@ msgstr "Bewerk %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Bewerk %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Pagina vergrendeld"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -680,63 +718,6 @@ msgstr "Home"
 msgid "All collections"
 msgstr "Alle collecties"
 
-msgid "January"
-msgstr "januari"
-
-msgid "February"
-msgstr "februari"
-
-msgid "March"
-msgstr "maart"
-
-msgid "April"
-msgstr "april"
-
-msgid "May"
-msgstr "mei"
-
-msgid "June"
-msgstr "juni"
-
-msgid "July"
-msgstr "juli"
-
-msgid "August"
-msgstr "augustus"
-
-msgid "September"
-msgstr "september"
-
-msgid "October"
-msgstr "oktober"
-
-msgid "November"
-msgstr "november"
-
-msgid "December"
-msgstr "december"
-
-msgid "Sun"
-msgstr "Zo"
-
-msgid "Mon"
-msgstr "Ma"
-
-msgid "Tue"
-msgstr "Di"
-
-msgid "Wed"
-msgstr "Wo"
-
-msgid "Thu"
-msgstr "Do"
-
-msgid "Fri"
-msgstr "Vr"
-
-msgid "Sat"
-msgstr "Za"
-
 msgid "Edit your account"
 msgstr "Bewerk uw account"
 
@@ -760,9 +741,6 @@ msgstr "Ga naar de Wagtail beheer interface"
 
 msgid "Add a child page"
 msgstr "Voeg een onderliggende pagina toe"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Sorry, u heeft geen toestemming tot dit gedeelte."
 
 msgid "Your password has been changed successfully!"
 msgstr "Uw wachtwoord is succesvol gewijzigd."

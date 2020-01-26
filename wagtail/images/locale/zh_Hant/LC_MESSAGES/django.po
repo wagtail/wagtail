@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:08+0000\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -21,9 +21,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail 圖片"
-
-msgid "GIF, JPEG, PNG"
-msgstr "GIF, JPEG, PNG"
 
 #, python-format
 msgid ""
@@ -165,20 +162,6 @@ msgstr "選擇格式"
 
 msgid "Insert image"
 msgstr "插入圖片"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> 圖片\n"
-"    "
 
 msgid "Change image file:"
 msgstr "修改圖片文件："

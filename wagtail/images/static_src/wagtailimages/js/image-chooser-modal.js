@@ -18,14 +18,19 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 return false;
             });
         }
+        var request;
 
         function fetchResults(requestData) {
-            $.ajax({
+            request = $.ajax({
                 url: searchUrl,
                 data: requestData,
                 success: function(data, status) {
+                    request = null;
                     $('#image-results').html(data);
                     ajaxifyLinks($('#image-results'));
+                },
+                error: function() {
+                    request = null;
                 }
             });
         }
@@ -90,6 +95,9 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         $('form.image-search', modal.body).on('submit', search);
 
         $('#id_q').on('input', function() {
+            if (request) {
+                request.abort();
+            }
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);

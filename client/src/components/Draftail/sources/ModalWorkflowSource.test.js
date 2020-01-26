@@ -144,6 +144,14 @@ describe('ModalWorkflowSource', () => {
         })).toMatchSnapshot();
       });
 
+      it('anchor', () => {
+        expect(filterEntityData({ type: 'LINK' }, {
+          prefer_this_title_as_link_text: false,
+          title: 'testanchor',
+          url: '#testanchor',
+        })).toMatchSnapshot();
+      });
+
       it('external', () => {
         expect(filterEntityData({ type: 'LINK' }, {
           prefer_this_title_as_link_text: false,

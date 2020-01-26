@@ -100,6 +100,28 @@ Database fields
 
             To set the global default for all pages, set ``Page.show_in_menus_default = True`` once where you first import the ``Page`` model.
 
+    .. attribute:: locked
+
+        (boolean)
+
+        When set to ``True``, the Wagtail editor will not allow any users to edit
+        the content of the page.
+
+        If ``locked_by`` is also set, only that user can edit the page.
+
+    .. attribute:: locked_by
+
+       (foreign key to user model)
+
+        The user who has currently locked the page. Only this user can edit the page.
+
+        If this is ``None`` when ``locked`` is ``True``, nobody can edit the page.
+
+    .. attribute:: locked_at
+
+        (date/time)
+
+        The date/time when the page was locked.
 
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -108,7 +130,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
 .. note::
 
-    See also `django-treebeard <http://django-treebeard.readthedocs.io/en/latest/index.html>`_'s `node API <http://django-treebeard.readthedocs.io/en/latest/api.html>`_. ``Page`` is a subclass of `materialized path tree <http://django-treebeard.readthedocs.io/en/latest/mp_tree.html>`_ nodes.
+    See also `django-treebeard <https://django-treebeard.readthedocs.io/en/latest/index.html>`_'s `node API <https://django-treebeard.readthedocs.io/en/latest/api.html>`_. ``Page`` is a subclass of `materialized path tree <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html>`_ nodes.
 
 
 .. class:: Page

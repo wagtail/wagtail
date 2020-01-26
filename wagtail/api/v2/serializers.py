@@ -8,7 +8,7 @@ from taggit.managers import _TaggableManager
 
 from wagtail.core import fields as wagtailcore_fields
 
-from .utils import get_object_detail_url, pages_for_site
+from .utils import get_object_detail_url
 
 
 class TypeField(Field):
@@ -121,8 +121,7 @@ class PageParentField(relations.RelatedField):
     def get_attribute(self, instance):
         parent = instance.get_parent()
 
-        site_pages = pages_for_site(self.context['request'].site)
-        if site_pages.filter(id=parent.id).exists():
+        if self.context['base_queryset'].filter(id=parent.id).exists():
             return parent
 
     def to_representation(self, value):

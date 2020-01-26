@@ -159,7 +159,8 @@ or to add custom validation logic for your models:
 .. code-block:: python
 
     from django import forms
-    import geocoder  # not in Wagtail, for example only - http://geocoder.readthedocs.io/
+    from django.db import models
+    import geocoder  # not in Wagtail, for example only - https://geocoder.readthedocs.io/
     from wagtail.admin.edit_handlers import FieldPanel
     from wagtail.admin.forms import WagtailAdminPageForm
     from wagtail.core.models import Page

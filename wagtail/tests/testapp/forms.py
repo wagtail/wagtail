@@ -1,6 +1,7 @@
 from django import forms
 
 from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.widgets import AdminDateInput
 
 
 class ValidatedPageForm(WagtailAdminPageForm):
@@ -27,3 +28,10 @@ class FormClassAdditionalFieldPageForm(WagtailAdminPageForm):
             raise forms.ValidationError('Code is not valid')
 
         return cleaned_data
+
+
+class AdminStarDateInput(AdminDateInput):
+    # Media definitions defined as `class Media:` should be merged into
+    # the media of the parent class
+    class Media:
+        js = ['vendor/star_date.js']

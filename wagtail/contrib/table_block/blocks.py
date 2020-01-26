@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.functional import cached_property
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.blocks import FieldBlock
 
 DEFAULT_TABLE_OPTIONS = {
@@ -43,7 +44,12 @@ class TableInput(forms.HiddenInput):
 
     def get_context(self, name, value, attrs=None):
         context = super().get_context(name, value, attrs)
+        table_caption = ''
+        if value and value != 'null':
+            table_caption = json.loads(value).get('table_caption', '')
         context['widget']['table_options_json'] = json.dumps(self.table_options)
+        context['widget']['table_caption'] = table_caption
+
         return context
 
 
@@ -59,6 +65,7 @@ class TableBlock(FieldBlock):
         """
         self.table_options = self.get_table_options(table_options=table_options)
         self.field_options = {'required': required, 'help_text': help_text}
+
         super().__init__(**kwargs)
 
     @cached_property
@@ -76,8 +83,9 @@ class TableBlock(FieldBlock):
 
     def get_searchable_content(self, value):
         content = []
-        for row in value.get('data', []):
-            content.extend([v for v in row if v])
+        if value:
+            for row in value.get('data', []):
+                content.extend([v for v in row if v])
         return content
 
     def render(self, value, context=None):
@@ -97,6 +105,7 @@ class TableBlock(FieldBlock):
                 'table_header': table_header,
                 'first_col_is_header': first_col_is_header,
                 'html_renderer': self.is_html_renderer(),
+                'table_caption': value.get('table_caption'),
                 'data': value['data'][1:] if table_header else value.get('data', [])
             })
 
@@ -108,13 +117,18 @@ class TableBlock(FieldBlock):
 
             return render_to_string(template, new_context)
         else:
-            return self.render_basic(value, context=context)
+            return self.render_basic(value or "", context=context)
 
     @property
     def media(self):
         return forms.Media(
-            css={'all': ['table_block/css/vendor/handsontable-6.2.2.full.min.css']},
-            js=['table_block/js/vendor/handsontable-6.2.2.full.min.js', 'table_block/js/table.js']
+            css={'all': [
+                versioned_static('table_block/css/vendor/handsontable-6.2.2.full.min.css')
+            ]},
+            js=[
+                versioned_static('table_block/js/vendor/handsontable-6.2.2.full.min.js'),
+                versioned_static('table_block/js/table.js')
+            ]
         )
 
     def get_table_options(self, table_options=None):

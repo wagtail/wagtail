@@ -6,7 +6,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
-from wagtail.documents.models import get_document_model
+from wagtail.documents import get_document_model
 
 
 class TestDocumentListing(TestCase):
@@ -52,7 +52,7 @@ class TestDocumentListing(TestCase):
             self.assertEqual(document['meta']['type'], 'wagtaildocs.Document')
 
             # Check detail_url
-            self.assertEqual(document['meta']['detail_url'], 'http://localhost/api/v2beta/documents/%d/' % document['id'])
+            self.assertEqual(document['meta']['detail_url'], 'http://localhost/api/main/documents/%d/' % document['id'])
 
             # Check download_url
             self.assertTrue(document['meta']['download_url'].startswith('http://localhost/documents/%d/' % document['id']))
@@ -380,7 +380,7 @@ class TestDocumentDetail(TestCase):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v2beta/documents/1/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/main/documents/1/')
 
         # Check the meta download_url
         self.assertIn('download_url', content['meta'])
@@ -542,9 +542,9 @@ class TestDocumentCacheInvalidation(TestCase):
     def test_resave_document_purges(self, purge):
         get_document_model().objects.get(id=5).save()
 
-        purge.assert_any_call('http://api.example.com/api/v2beta/documents/5/')
+        purge.assert_any_call('http://api.example.com/api/main/documents/5/')
 
     def test_delete_document_purges(self, purge):
         get_document_model().objects.get(id=5).delete()
 
-        purge.assert_any_call('http://api.example.com/api/v2beta/documents/5/')
+        purge.assert_any_call('http://api.example.com/api/main/documents/5/')

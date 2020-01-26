@@ -15,6 +15,7 @@
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
@@ -26,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-05-22 15:12+0000\n"
-"Last-Translator: Михаил Герасимов\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-12-13 08:07+0000\n"
+"Last-Translator: Mikhail Sidorov <pevzi23@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +40,9 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+msgid "Publish"
+msgstr "Опубликовать"
+
 msgid "Submit for moderation"
 msgstr "Отправить на модерацию"
 
@@ -48,14 +52,20 @@ msgstr "Отменить публикацию"
 msgid "Delete"
 msgstr "Удалить"
 
+msgid "Page locked"
+msgstr "Страница заблокирована"
+
 msgid "Wagtail admin"
 msgstr "Wagtail админ"
 
-msgid "None"
-msgstr "Ничего"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Извините, но у вас нет доступа в эту область."
 
 msgid "You do not have permission to access the admin"
 msgstr "У вас нет прав для доступа в админ-панель"
+
+msgid "None"
+msgstr "Ничего"
 
 msgid "Scheduled publishing"
 msgstr "Отложенная публикация"
@@ -81,9 +91,6 @@ msgstr "Введите ваше %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Введите ваш адрес электронной почты для сброса пароля"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -183,6 +190,215 @@ msgstr "Требуется заполнить это поле."
 msgid "Please select at least one group."
 msgstr "Пожалуйста, выберите хотя бы одну группу."
 
+msgid "Catalan"
+msgstr "Каталанский"
+
+msgid "German"
+msgstr "Немецкий"
+
+msgid "Greek"
+msgstr "Греческий"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Spanish"
+msgstr "Испанский"
+
+msgid "Finnish"
+msgstr "Финский"
+
+msgid "French"
+msgstr "Французский"
+
+msgid "Galician"
+msgstr "Галисийский"
+
+msgid "Icelandic"
+msgstr "Исландский"
+
+msgid "Italian"
+msgstr "Итальянский"
+
+msgid "Korean"
+msgstr "Корейский"
+
+msgid "Lithuanian"
+msgstr "Литовский"
+
+msgid "Norwegian Bokmål"
+msgstr "Норвежский Букмол"
+
+msgid "Netherlands Dutch"
+msgstr "Голландский"
+
+msgid "Persian"
+msgstr "Персидский"
+
+msgid "Polish"
+msgstr "Польский"
+
+msgid "Brazilian Portuguese"
+msgstr "Бразильский португальский"
+
+msgid "Portuguese"
+msgstr "Португальский"
+
+msgid "Romanian"
+msgstr "Румынский"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Swedish"
+msgstr "Шведский"
+
+msgid "Slovak"
+msgstr "Словацкий язык"
+
+msgid "Ukrainian"
+msgstr "Украинский язык"
+
+msgid "Page"
+msgstr "Страница"
+
+msgid "Pages"
+msgstr "Страницы"
+
+msgid "Loading…"
+msgstr "Загрузка..."
+
+msgid "No results"
+msgstr "Нет результатов"
+
+msgid "Server Error"
+msgstr "Ошибка Сервера"
+
+msgid "See all"
+msgstr "Смотреть все"
+
+msgid "Close explorer"
+msgstr "Закрыть проводник"
+
+msgid "Alt text"
+msgstr "Текст подсказки"
+
+msgid "Write here…"
+msgstr "Введите текст..."
+
+msgid "Horizontal line"
+msgstr "Горизонтальная линия"
+
+msgid "Line break"
+msgstr "Разрыв строки"
+
+msgid "Undo"
+msgstr "Отменить дейсвие"
+
+msgid "Redo"
+msgstr "Вернуть"
+
+msgid "Reload the page"
+msgstr "Перезагрузить страницу"
+
+msgid "Reload saved content"
+msgstr "Перезагрузка сохраненного контента"
+
+msgid "Show latest content"
+msgstr "Показать последнее содержание"
+
+msgid "Show error"
+msgstr "Показать ошибку"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Редактор сломался. Содержимое было возвращено к последней сохранённой версии"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Edit '{title}'"
+msgstr "Редактировать '{title}'"
+
+msgid "January"
+msgstr "Январь"
+
+msgid "February"
+msgstr "Февраль"
+
+msgid "March"
+msgstr "Март"
+
+msgid "April"
+msgstr "Апрель"
+
+msgid "May"
+msgstr "Май"
+
+msgid "June"
+msgstr "Июнь"
+
+msgid "July"
+msgstr "Июль"
+
+msgid "August"
+msgstr "Август"
+
+msgid "September"
+msgstr "Сентябрь"
+
+msgid "October"
+msgstr "Октябрь"
+
+msgid "November"
+msgstr "Ноябрь"
+
+msgid "December"
+msgstr "Декабрь"
+
+msgid "Sunday"
+msgstr "Воскрксенье"
+
+msgid "Monday"
+msgstr "Понедельник"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "Thursday"
+msgstr "Четверг"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Saturday"
+msgstr "Суббота"
+
+msgid "Sun"
+msgstr "Вс"
+
+msgid "Mon"
+msgstr "Пн"
+
+msgid "Tue"
+msgstr "Вт"
+
+msgid "Wed"
+msgstr "Ср"
+
+msgid "Thu"
+msgstr "Чт"
+
+msgid "Fri"
+msgstr "Пт"
+
+msgid "Sat"
+msgstr "Сб"
+
 msgid "Error 404: Page not found"
 msgstr "Ошибка 404: Страница не найдена"
 
@@ -208,7 +424,10 @@ msgid "Update"
 msgstr "Обновить"
 
 msgid "Change email"
-msgstr "Выбрать email"
+msgstr "Изменить email"
+
+msgid "Change name"
+msgstr "Изменить имя"
 
 msgid "Change password"
 msgstr "Изменить пароль"
@@ -274,76 +493,11 @@ msgstr "Восстановление пароля"
 msgid "Reset your password"
 msgstr "Сбросить ваш пароль"
 
-msgid "Edit"
-msgstr "Редактировать"
-
-msgid "Page"
-msgstr "Страница"
-
-msgid "Pages"
-msgstr "Страницы"
-
-msgid "Loading…"
-msgstr "Загрузка..."
-
-msgid "No results"
-msgstr "Нет результатов"
-
-msgid "Server Error"
-msgstr "Ошибка Сервера"
-
-msgid "See children"
-msgstr "Просмотреть дочерние страницы"
-
-msgid "See all"
-msgstr "Смотреть все"
-
-msgid "Close explorer"
-msgstr "Закрыть проводник"
-
-msgid "Alt text"
-msgstr "Текст подсказки"
-
-msgid "Write here…"
-msgstr "Введите текст..."
-
-msgid "Horizontal line"
-msgstr "Горизонтальная линия"
-
-msgid "Line break"
-msgstr "Разрыв строки"
-
-msgid "Undo"
-msgstr "Отменить дейсвие"
-
-msgid "Redo"
-msgstr "Вернуть"
-
-msgid "Reload the page"
-msgstr "Перезагрузить страницу"
-
-msgid "Reload saved content"
-msgstr "Перезагрузка сохраненного контента"
-
-msgid "Show latest content"
-msgstr "Показать последнее содержание"
-
-msgid "Show error"
-msgstr "Показать ошибку"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Редактор сломался. Содержимое было возвращено к последней сохранённой версии"
-
 msgid "Dashboard"
 msgstr "Панель управления"
 
 msgid "Menu"
 msgstr "Меню"
-
-msgid "Add another"
-msgstr "Добавить еще"
 
 msgid "Move up"
 msgstr "Двигать наверх"
@@ -516,6 +670,9 @@ msgstr "Одобрить"
 msgid "Reject"
 msgstr "Отклонить"
 
+msgid "Edit"
+msgstr "Редактировать"
+
 msgid "Preview"
 msgstr "Предпросмотр"
 
@@ -544,27 +701,34 @@ msgstr "Общая информация"
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Page\n"
-"    "
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgstr[0] ""
 "\n"
-"        <span>%(total)s</span> Страница\n"
-"    "
+"            <span>%(total)s</span> Страница <span class=\"visuallyhidden"
+"\">создана в %(site_name)s</span>\n"
+"        "
 msgstr[1] ""
 "\n"
-"        <span>%(total)s</span> Страницы\n"
-"    "
+"            <span>%(total)s</span> Страницы <span class=\"visuallyhidden"
+"\">созданы в %(site_name)s</span>\n"
+"        "
 msgstr[2] ""
 "\n"
-"        <span>%(total)s</span> Страницы"
+"            <span>%(total)s</span> Страниц <span class=\"visuallyhidden"
+"\">создано в %(site_name)s</span>\n"
+"        "
 msgstr[3] ""
 "\n"
-"        <span>%(total)s</span> Страниц\n"
-"    "
+"            <span>%(total)s</span> Страниц <span class=\"visuallyhidden"
+"\">создано в %(site_name)s</span>\n"
+"        "
 
 msgid "Sign in"
 msgstr "Войти"
@@ -648,8 +812,14 @@ msgstr "Публикуется..."
 msgid "Publish this revision"
 msgstr "Опубликовать эту версию"
 
-msgid "Publish"
-msgstr "Опубликовать"
+msgid "Saving…"
+msgstr "Сохранение…"
+
+msgid "Replace current draft"
+msgstr "Изменить черновик"
+
+msgid "Save draft"
+msgstr "Сохранить черновик"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -770,7 +940,7 @@ msgid "Yes, unpublish it"
 msgstr "Да, отменить публикацию"
 
 msgid "No, don't unpublish"
-msgstr "Нет, оставить неопубликованным"
+msgstr "Нет, оставить опубликованным"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -796,12 +966,6 @@ msgstr "Добавление %(page_type)s"
 msgid "New"
 msgstr "Новый"
 
-msgid "Saving…"
-msgstr "Сохранение…"
-
-msgid "Save draft"
-msgstr "Сохранить черновик"
-
 msgid "This page has unsaved changes."
 msgstr "На странице есть несохраненные изменения."
 
@@ -812,12 +976,6 @@ msgstr "Редактирование %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Редактирование %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Страница заблокирована"
-
-msgid "Replace current draft"
-msgstr "Изменить черновик"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -956,6 +1114,9 @@ msgstr "Эта страница защищена от публичного пр�
 msgid "Disable ordering of child pages"
 msgstr "Отключить упорядочение дочерних страниц"
 
+msgid "Sort"
+msgstr "Порядок"
+
 msgid "Enable ordering of child pages"
 msgstr "Включить упорядочение дочерних страниц"
 
@@ -983,9 +1144,6 @@ msgstr ""
 "для того чтобы исправить ошибки.\n"
 "                После исправления ошибок - попробуйте еще раз.\n"
 "            "
-
-msgid "Close"
-msgstr "Закрыть"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1167,84 +1325,6 @@ msgstr "Главная"
 msgid "All collections"
 msgstr "Все коллекции"
 
-msgid "January"
-msgstr "Январь"
-
-msgid "February"
-msgstr "Февраль"
-
-msgid "March"
-msgstr "Март"
-
-msgid "April"
-msgstr "Апрель"
-
-msgid "May"
-msgstr "Май"
-
-msgid "June"
-msgstr "Июнь"
-
-msgid "July"
-msgstr "Июль"
-
-msgid "August"
-msgstr "Август"
-
-msgid "September"
-msgstr "Сентябрь"
-
-msgid "October"
-msgstr "Октябрь"
-
-msgid "November"
-msgstr "Ноябрь"
-
-msgid "December"
-msgstr "Декабрь"
-
-msgid "Sunday"
-msgstr "Воскрксенье"
-
-msgid "Monday"
-msgstr "Понедельник"
-
-msgid "Tuesday"
-msgstr "Вторник"
-
-msgid "Wednesday"
-msgstr "Среда"
-
-msgid "Thursday"
-msgstr "Четверг"
-
-msgid "Friday"
-msgstr "Пятница"
-
-msgid "Saturday"
-msgstr "Суббота"
-
-msgid "Sun"
-msgstr "Вс"
-
-msgid "Mon"
-msgstr "Пн"
-
-msgid "Tue"
-msgstr "Вт"
-
-msgid "Wed"
-msgstr "Ср"
-
-msgid "Thu"
-msgstr "Чт"
-
-msgid "Fri"
-msgstr "Пт"
-
-msgid "Sat"
-msgstr "Сб"
-
 msgid "Edit your account"
 msgstr "Редактировать ваш аккаунт"
 
@@ -1278,86 +1358,20 @@ msgstr "Показать Проводник"
 msgid "Test"
 msgstr "Тест"
 
-msgid "Catalan"
-msgstr "Каталанский"
-
-msgid "German"
-msgstr "Немецкий"
-
-msgid "Greek"
-msgstr "Греческий"
-
-msgid "English"
-msgstr "Английский"
-
-msgid "Spanish"
-msgstr "Испанский"
-
-msgid "Finnish"
-msgstr "Финский"
-
-msgid "French"
-msgstr "Французский"
-
-msgid "Galician"
-msgstr "Галисийский"
-
-msgid "Icelandic"
-msgstr "Исландский"
-
-msgid "Italian"
-msgstr "Итальянский"
-
-msgid "Korean"
-msgstr "Корейский"
-
-msgid "Lithuanian"
-msgstr "Литовский"
-
-msgid "Norwegian Bokmål"
-msgstr "Норвежский Букмол"
-
-msgid "Netherlands Dutch"
-msgstr "Голландский"
-
-msgid "Persian"
-msgstr "Персидский"
-
-msgid "Polish"
-msgstr "Польский"
-
-msgid "Brazilian Portuguese"
-msgstr "Бразильский португальский"
-
-msgid "Portuguese"
-msgstr "Португальский"
-
-msgid "Romanian"
-msgstr "Румынский"
-
-msgid "Russian"
-msgstr "Русский"
-
-msgid "Swedish"
-msgstr "Шведский"
-
-msgid "Slovak"
-msgstr "Словацкий язык"
-
-msgid "Ukrainian"
-msgstr "Украинский язык"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Извините, но у вас нет доступа в эту область."
-
 msgid "Your password has been changed successfully!"
 msgstr "Ваш пароль был успешно изменен!"
 
 msgid "Your email has been changed successfully!"
 msgstr "Ваш email успешно поменялся"
 
+msgid "Your name has been changed successfully!"
+msgstr "Ваше имя было успешно изменено!"
+
 msgid "Your preferences have been updated."
 msgstr "Ваши настройки были обновлены."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Ваши настройки были успешно обновлены!"
 
 msgid "You have been successfully logged out."
 msgstr "Вы успешно вышли"
@@ -1512,44 +1526,17 @@ msgstr "версия {0} страницы \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Версия {0} страницы '{1}' перестала быть запланированной к публикации."
 
-msgid "Edit '{title}'"
-msgstr "Редактировать '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Предпросмотр черновика '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Посмотреть опубликованную версию '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Создать дочернюю страницу для '{title}' "
-
 msgid "More"
 msgstr "Больше"
-
-msgid "View more options for '{title}'"
-msgstr "Больше действий для '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Переместить страницу '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Скопировать страницу '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Удалить страницу '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Отменить публикацию страницы '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Показать историю версий для '{title}'"
 
 msgid "Set profile picture"
 msgstr "Установить фото профиля"
 
-msgid "Change your profile picture"
-msgstr "Выберите свою фотографию профиля"
+msgid "Change your profile picture."
+msgstr "Изменить фотографию вашего профиля."
+
+msgid "Change the email address linked to your account."
+msgstr "Изменить адрес электронной почты, привязанный к вашему профилю."
 
 msgid "Change the password you use to log in."
 msgstr "Изменить пароль, который вы используете для входа."
@@ -1563,8 +1550,14 @@ msgstr "Языковые настройки"
 msgid "Choose the language you want to use here."
 msgstr "Выберите язык, который вы хотите использовать."
 
-msgid "Heading {level}"
-msgstr "Заголовок {level}"
+msgid "Current Time Zone"
+msgstr "Текущий часовой пояс"
+
+msgid "Choose your current time zone."
+msgstr "Выбрать текущий часовой пояс."
+
+msgid "Change your first and last name on your account."
+msgstr "Изменить имя и фамилию в вашем профиле."
 
 msgid "Bulleted list"
 msgstr "Маркированный список"

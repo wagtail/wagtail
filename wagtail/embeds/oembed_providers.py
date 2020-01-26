@@ -92,7 +92,7 @@ revision3 = {
 scribd = {
     "endpoint": "http://www.scribd.com/services/oembed",
     "urls": [
-        r'^http://[-\w]+\.scribd\.com/.+$',
+        r'^http(?:s)?://[-\w]+\.scribd\.com/.+$',
     ],
 }
 
@@ -221,7 +221,7 @@ twitter = {
 soundcloud = {
     "endpoint": "https://soundcloud.com/oembed",
     "urls": [
-        r'^https://soundcloud\.com/[^#?/]+/.+$',
+        r'^https://soundcloud\.com/.+$',
     ],
 }
 

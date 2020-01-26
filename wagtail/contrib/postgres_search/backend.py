@@ -5,7 +5,7 @@ from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transact
 from django.db.models import Count, F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
@@ -17,9 +17,9 @@ from .models import RawSearchQuery as PostgresRawSearchQuery
 from .models import IndexEntry
 from .utils import (
     get_content_type_pk, get_descendants_content_types_pks, get_postgresql_connections,
-    get_sql_weights, get_weight, unidecode)
+    get_sql_weights, get_weight)
 
-EMPTY_VECTOR = SearchVector(Value(''))
+EMPTY_VECTOR = SearchVector(Value('', output_field=TextField()))
 
 
 class Index:
@@ -32,6 +32,10 @@ class Index:
             raise NotSupportedError(
                 'You must select a PostgreSQL database '
                 'to use PostgreSQL search.')
+
+        # Whether to allow adding items via the faster upsert method available in Postgres >=9.5
+        self._enable_upsert = (self.connection.pg_version >= 90500)
+
         self.entries = IndexEntry._default_manager.using(self.db_alias)
 
     def add_model(self, model):
@@ -65,12 +69,12 @@ class Index:
         if isinstance(value, dict):
             return ', '.join(self.prepare_value(item)
                              for item in value.values())
-        return force_text(value)
+        return force_str(value)
 
     def prepare_field(self, obj, field):
         if isinstance(field, SearchField):
             yield (field, get_weight(field.boost),
-                   unidecode(self.prepare_value(field.get_value(obj))))
+                   self.prepare_value(field.get_value(obj)))
         elif isinstance(field, RelatedFields):
             sub_obj = field.get_value(obj)
             if sub_obj is None:
@@ -86,7 +90,7 @@ class Index:
                     yield from self.prepare_field(sub_obj, sub_field)
 
     def prepare_obj(self, obj, search_fields):
-        obj._object_id_ = force_text(obj.pk)
+        obj._object_id_ = force_str(obj.pk)
         obj._autocomplete_ = []
         obj._body_ = []
         for field in search_fields:
@@ -137,11 +141,11 @@ class Index:
         ids_and_objs = {}
         for obj in objs:
             obj._autocomplete_ = (
-                ADD([SearchVector(Value(text), weight=weight, config=config)
+                ADD([SearchVector(Value(text, output_field=TextField()), weight=weight, config=config)
                      for text, weight in obj._autocomplete_])
                 if obj._autocomplete_ else EMPTY_VECTOR)
             obj._body_ = (
-                ADD([SearchVector(Value(text), weight=weight, config=config)
+                ADD([SearchVector(Value(text, output_field=TextField()), weight=weight, config=config)
                      for text, weight in obj._body_])
                 if obj._body_ else EMPTY_VECTOR)
             ids_and_objs[obj._object_id_] = obj
@@ -173,9 +177,9 @@ class Index:
         # TODO: Delete unindexed objects while dealing with proxy models.
         if objs:
             content_type_pk = get_content_type_pk(model)
-            # Use a faster method for PostgreSQL >= 9.5
+
             update_method = (
-                self.add_items_upsert if self.connection.pg_version >= 90500
+                self.add_items_upsert if self._enable_upsert
                 else self.add_items_update_then_create)
             update_method(content_type_pk, objs)
 
@@ -227,16 +231,13 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                     and field.field_name == field_lookup:
                 return self.get_search_field(sub_field_name, field.fields)
 
-    def prepare_word(self, word):
-        return unidecode(word)
-
     def build_tsquery_content(self, query, group=False):
         if isinstance(query, PlainText):
             query_formats = []
             query_params = []
             for word in query.query_string.split():
                 query_formats.append(self.TSQUERY_WORD_FORMAT)
-                query_params.append(self.prepare_word(word))
+                query_params.append(word)
             operator = self.TSQUERY_OPERATORS[query.operator]
             query_format = operator.join(query_formats)
             if group and len(query_formats) > 1:

@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n static %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% trans "Add search promotion" %}{% endblock %}
 {% block content %}
     {% trans "Add search pick" as add_str %}
@@ -39,7 +39,7 @@
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    <script src="{% static 'wagtailsearch/js/query-chooser-modal.js' %}"></script>
+    <script src="{% versioned_static 'wagtailsearch/js/query-chooser-modal.js' %}"></script>
     {{ form_media.js }}
 
     <script type="text/javascript">

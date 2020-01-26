@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-08 22:07+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Georgian (http://www.transifex.com/torchbox/wagtail/language/"
 "ka/)\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ka\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Publish"
+msgstr "გამოქვეყნება"
 
 msgid "Delete"
 msgstr "წაშლა"
@@ -40,6 +43,42 @@ msgstr "ძიება"
 
 msgid "Search term"
 msgstr "ძიების ტერმინი"
+
+msgid "January"
+msgstr "იანვარი"
+
+msgid "February"
+msgstr "თებერვალი"
+
+msgid "March"
+msgstr "მარტი"
+
+msgid "April"
+msgstr "აპრილი"
+
+msgid "May"
+msgstr "მაისი"
+
+msgid "June"
+msgstr "ივნისი"
+
+msgid "July"
+msgstr "ივლისი"
+
+msgid "August"
+msgstr "აგვისტო"
+
+msgid "September"
+msgstr "სექტემბერი"
+
+msgid "October"
+msgstr "ოქტომბერი"
+
+msgid "November"
+msgstr "ნოემბერი"
+
+msgid "December"
+msgstr "დეკემბერი"
 
 msgid "Account"
 msgstr "ანგარიში"
@@ -83,9 +122,6 @@ msgstr "გვერდის ნახვა შეგიძლიათ აქ
 msgid "You can edit the page here:"
 msgstr "გვერდის რესქტირება შეგიძლიათ აქ:"
 
-msgid "Publish"
-msgstr "გამოქვეყნება"
-
 msgid "Copy"
 msgstr "კოპირება"
 
@@ -97,42 +133,6 @@ msgstr "წინა"
 
 msgid "Next"
 msgstr "შემდეგი"
-
-msgid "January"
-msgstr "იანვარი"
-
-msgid "February"
-msgstr "თებერვალი"
-
-msgid "March"
-msgstr "მარტი"
-
-msgid "April"
-msgstr "აპრილი"
-
-msgid "May"
-msgstr "მაისი"
-
-msgid "June"
-msgstr "ივნისი"
-
-msgid "July"
-msgstr "ივლისი"
-
-msgid "August"
-msgstr "აგვისტო"
-
-msgid "September"
-msgstr "სექტემბერი"
-
-msgid "October"
-msgstr "ოქტომბერი"
-
-msgid "November"
-msgstr "ნოემბერი"
-
-msgid "December"
-msgstr "დეკემბერი"
 
 msgid "Log out"
 msgstr "გამოსვლა"

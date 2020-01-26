@@ -1,0 +1,58 @@
+$header-padding-vertical: 6px;
+$action-font-size: 18px;
+
+
+@import '../../../../node_modules/react-streamfield/src/scss/index';
+
+
+.c-sf-container {
+    // TODO: #CSSoverhaul the bse icon style here - the margin - should be reconsidered when
+    // re-building the icon component as part of the CSS  These styles come from global
+    // label styles in css/mixins/_general.scss -@jonnyscholes
+    .c-sf-button__icon {
+        .icon::before {
+            margin: unset;
+        }
+    }
+
+    // TODO: #CSSoverhaul global label styles need to be removed. These styles come from global
+    // label styles in css/_grid.scss -@jonnyscholes
+    .field label {
+        float: unset; // LEGIT
+        width: unset; // LEGIT
+        max-width: unset; // LEGIT
+        padding: 0; // LEGIT
+
+        &::after {
+            content: ''; // LEGIT
+        }
+
+        input[type='radio'] {
+            margin-bottom: 1.1em;
+            vertical-align: middle;
+
+            &::before {
+                top: unset;
+            }
+        }
+    }
+
+    // TODO: #CSSoverhaul This should be fixed as part of Wagtail CSS overhaul. The default
+    // `.field`/`.field-componet` (or whatever they become) should be full width by default.
+    // -@jonnyscholes
+    .field-content {
+        float: unset;
+        display: block;
+        width: unset;
+
+        textarea {
+            max-width: 100%;
+        }
+    }
+
+    // TODO: #CSSoverhaul This should be fixed as part of Wagtail CSS overhaul. Whatever we do with
+    // `.field`/`.field-content` should take into account help text -@jonnyscholes
+    .help {
+        margin: 8px 0;
+    }
+}

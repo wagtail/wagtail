@@ -22,7 +22,7 @@ from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
     TabbedInterface)
 from wagtail.admin.forms import WagtailAdminPageForm
-from wagtail.admin.utils import send_mail
+from wagtail.admin.mail import send_mail
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
@@ -198,7 +198,18 @@ class EventPageRelatedLink(Orderable, RelatedLink):
     page = ParentalKey('tests.EventPage', related_name='related_links', on_delete=models.CASCADE)
 
 
-class EventPageSpeaker(Orderable, LinkFields):
+class EventPageSpeakerAward(Orderable, models.Model):
+    speaker = ParentalKey('tests.EventPageSpeaker', related_name='awards', on_delete=models.CASCADE)
+    name = models.CharField("Award name", max_length=255)
+    date_awarded = models.DateField(null=True, blank=True)
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('date_awarded'),
+    ]
+
+
+class EventPageSpeaker(Orderable, LinkFields, ClusterableModel):
     page = ParentalKey('tests.EventPage', related_name='speakers', related_query_name='speaker', on_delete=models.CASCADE)
     first_name = models.CharField("Name", max_length=255, blank=True)
     last_name = models.CharField("Surname", max_length=255, blank=True)
@@ -219,6 +230,7 @@ class EventPageSpeaker(Orderable, LinkFields):
         FieldPanel('last_name'),
         ImageChooserPanel('image'),
         MultiFieldPanel(LinkFields.panels, "Link"),
+        InlinePanel('awards', label="Awards"),
     ]
 
 
@@ -899,11 +911,13 @@ class SnippetChooserModelWithCustomPrimaryKey(models.Model):
 
 
 class CustomImage(AbstractImage):
-    caption = models.CharField(max_length=255)
-    not_editable_field = models.CharField(max_length=255)
+    caption = models.CharField(max_length=255, blank=True)
+    fancy_caption = RichTextField(blank=True)
+    not_editable_field = models.CharField(max_length=255, blank=True)
 
     admin_form_fields = Image.admin_form_fields + (
         'caption',
+        'fancy_caption',
     )
 
 
@@ -918,8 +932,10 @@ class CustomRendition(AbstractRendition):
 
 class CustomDocument(AbstractDocument):
     description = models.TextField(blank=True)
+    fancy_description = RichTextField(blank=True)
     admin_form_fields = Document.admin_form_fields + (
         'description',
+        'fancy_description'
     )
 
 
@@ -1339,3 +1355,59 @@ class SimpleChildPage(Page):
     parent_page_types = ['tests.SimpleParentPage', Page]
 
     max_count_per_parent = 1
+
+
+class PersonPage(Page):
+    first_name = models.CharField(
+        max_length=255,
+        verbose_name='First Name',
+    )
+    last_name = models.CharField(
+        max_length=255,
+        verbose_name='Last Name',
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('first_name'),
+            FieldPanel('last_name'),
+        ], 'Person'),
+        InlinePanel('addresses', label='Address'),
+    ]
+
+    class Meta:
+        verbose_name = 'Person'
+        verbose_name_plural = 'Persons'
+
+
+class Address(index.Indexed, ClusterableModel, Orderable):
+    address = models.CharField(
+        max_length=255,
+        verbose_name='Address',
+    )
+    tags = ClusterTaggableManager(
+        through='tests.AddressTag',
+        blank=True,
+    )
+    person = ParentalKey(
+        to='tests.PersonPage',
+        related_name='addresses',
+        verbose_name='Person'
+    )
+
+    panels = [
+        FieldPanel('address'),
+        FieldPanel('tags'),
+    ]
+
+    class Meta:
+        verbose_name = 'Address'
+        verbose_name_plural = 'Addresses'
+
+
+class AddressTag(TaggedItemBase):
+    content_object = ParentalKey(
+        to='tests.Address',
+        on_delete=models.CASCADE,
+        related_name='tagged_items'
+    )

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-04-17 21:12+0000\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-12-02 09:15+0000\n"
 "Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -24,6 +24,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Publicera"
 
 msgid "Submit for moderation"
 msgstr "Lämna in för moderering"
@@ -34,14 +37,23 @@ msgstr "Avpublicera"
 msgid "Delete"
 msgstr "Radera"
 
+msgid "Save Draft"
+msgstr "Spara utkast"
+
+msgid "Page locked"
+msgstr "Sida låst"
+
 msgid "Wagtail admin"
 msgstr "Wagtail administration"
 
-msgid "None"
-msgstr "Inget"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Ledsen, du har inte rättigheter att tillträda detta område."
 
 msgid "You do not have permission to access the admin"
 msgstr "Du har inte rättighet att tillträda admin"
+
+msgid "None"
+msgstr "Inget"
 
 msgid "Scheduled publishing"
 msgstr "Schemalagd publicering"
@@ -67,9 +79,6 @@ msgstr "Ange ditt %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ange din e-postadress för att återställa ditt lösenord"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
@@ -153,6 +162,255 @@ msgstr "Det här fältet är obligatoriskt"
 msgid "Please select at least one group."
 msgstr "Vänligen välj minst en grupp"
 
+msgid "Arabic"
+msgstr "Arabiska"
+
+msgid "Catalan"
+msgstr "Katalanska"
+
+msgid "Czech"
+msgstr "Tjeckiska"
+
+msgid "German"
+msgstr "Tyska"
+
+msgid "Greek"
+msgstr "Grekiska"
+
+msgid "English"
+msgstr "Enelska"
+
+msgid "Spanish"
+msgstr "Spanska"
+
+msgid "Finnish"
+msgstr "Finska"
+
+msgid "French"
+msgstr "Franska"
+
+msgid "Galician"
+msgstr "Galiciska"
+
+msgid "Hungarian"
+msgstr "Ungerska"
+
+msgid "Indonesian"
+msgstr "Indonesisk"
+
+msgid "Icelandic"
+msgstr "Isländska"
+
+msgid "Italian"
+msgstr "Italienska"
+
+msgid "Japanese"
+msgstr "Japanska"
+
+msgid "Korean"
+msgstr "Koreanska"
+
+msgid "Lithuanian"
+msgstr "Litauiska"
+
+msgid "Mongolian"
+msgstr "Mongoliska"
+
+msgid "Norwegian Bokmål"
+msgstr "Norska Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Nederländska"
+
+msgid "Persian"
+msgstr "Persiska"
+
+msgid "Polish"
+msgstr "Polska"
+
+msgid "Brazilian Portuguese"
+msgstr "Brasiliansk portugisiska"
+
+msgid "Portuguese"
+msgstr "Portugisiska"
+
+msgid "Romanian"
+msgstr "Romänska"
+
+msgid "Russian"
+msgstr "Ryska"
+
+msgid "Swedish"
+msgstr "Svenska"
+
+msgid "Slovak"
+msgstr "Slovakiska"
+
+msgid "Thai"
+msgstr "Thailändska"
+
+msgid "Ukrainian"
+msgstr "Ukrainska"
+
+msgid "Chinese (Simplified)"
+msgstr "Kinesiska (Förenklad)"
+
+msgid "Chinese (Traditional)"
+msgstr "Kinesiska (Traditionell)"
+
+msgid "Page"
+msgstr "Sida"
+
+msgid "Pages"
+msgstr "Sidor"
+
+msgid "Loading…"
+msgstr "Laddar..."
+
+msgid "No results"
+msgstr "Inga resultat funna"
+
+msgid "Server Error"
+msgstr "Serverfel"
+
+msgid "See all"
+msgstr "Visa alla"
+
+msgid "Close explorer"
+msgstr "Stäng utforskaren"
+
+msgid "Alt text"
+msgstr "Alternativ text"
+
+msgid "Write here…"
+msgstr "Skriv här..."
+
+msgid "Horizontal line"
+msgstr "Horisontell linje"
+
+msgid "Line break"
+msgstr "Linjebrytning"
+
+msgid "Undo"
+msgstr "Ångra"
+
+msgid "Redo"
+msgstr "Gör om"
+
+msgid "Reload the page"
+msgstr "Ladda om sidan"
+
+msgid "Reload saved content"
+msgstr "Ladda om sparat innehåll"
+
+msgid "Show latest content"
+msgstr "Visa senaste innehållet"
+
+msgid "Show error"
+msgstr "Visa fel"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Textredigeraren kraschade. Innehållet har återställts till den senaste "
+"sparade versionen."
+
+msgid "Broken link"
+msgstr "Bruten länk"
+
+msgid "Missing document"
+msgstr "Dokument saknas"
+
+msgid "Close"
+msgstr "Stäng"
+
+msgid "Edit '{title}'"
+msgstr "Editera '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "Visa undersidor av '{title}'"
+
+msgid "Page explorer"
+msgstr "Sidutforskare"
+
+msgid "January"
+msgstr "Januari"
+
+msgid "February"
+msgstr "Februari"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Maj"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "Augusti"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sunday"
+msgstr "Söndag"
+
+msgid "Monday"
+msgstr "Måndag"
+
+msgid "Tuesday"
+msgstr "Tisdag"
+
+msgid "Wednesday"
+msgstr "Onsdag"
+
+msgid "Thursday"
+msgstr "Torsdag"
+
+msgid "Friday"
+msgstr "Fredag"
+
+msgid "Saturday"
+msgstr "Lördag"
+
+msgid "Sun"
+msgstr "Sön"
+
+msgid "Mon"
+msgstr "Mån"
+
+msgid "Tue"
+msgstr "Tis"
+
+msgid "Wed"
+msgstr "Ons"
+
+msgid "Thu"
+msgstr "Tor"
+
+msgid "Fri"
+msgstr "Fre"
+
+msgid "Sat"
+msgstr "Lör"
+
 msgid "Error 404: Page not found"
 msgstr "Sidfel 404: Sidan kunde inte hittas"
 
@@ -179,6 +437,9 @@ msgstr "Uppdatera"
 
 msgid "Change email"
 msgstr "Byt e-postadress"
+
+msgid "Change name"
+msgstr "Ändra namn"
 
 msgid "Change password"
 msgstr "Byt lösenord"
@@ -244,83 +505,11 @@ msgstr "Återställ lösenord"
 msgid "Reset your password"
 msgstr "Återställ ditt lösenord"
 
-msgid "Edit"
-msgstr "Editera"
-
-msgid "Page"
-msgstr "Sida"
-
-msgid "Pages"
-msgstr "Sidor"
-
-msgid "Loading…"
-msgstr "Laddar..."
-
-msgid "No results"
-msgstr "Inga resultat funna"
-
-msgid "Server Error"
-msgstr "Serverfel"
-
-msgid "See children"
-msgstr "Se barn"
-
-msgid "See all"
-msgstr "Visa alla"
-
-msgid "Close explorer"
-msgstr "Stäng utforskaren"
-
-msgid "Alt text"
-msgstr "Alternativ text"
-
-msgid "Write here…"
-msgstr "Skriv här..."
-
-msgid "Horizontal line"
-msgstr "Horisontell linje"
-
-msgid "Line break"
-msgstr "Linjebrytning"
-
-msgid "Undo"
-msgstr "Ångra"
-
-msgid "Redo"
-msgstr "Gör om"
-
-msgid "Reload the page"
-msgstr "Ladda om sidan"
-
-msgid "Reload saved content"
-msgstr "Ladda om sparat innehåll"
-
-msgid "Show latest content"
-msgstr "Visa senaste innehållet"
-
-msgid "Show error"
-msgstr "Visa fel"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Textredigeraren kraschade. Innehållet har återställts till den senaste "
-"sparade versionen."
-
-msgid "Broken link"
-msgstr "Bruten länk"
-
-msgid "Missing document"
-msgstr "Dokument saknas"
-
 msgid "Dashboard"
 msgstr "Instrumentpanel"
 
 msgid "Menu"
 msgstr "Meny"
-
-msgid "Add another"
-msgstr "Lägg till ytterligare"
 
 msgid "Move up"
 msgstr "Flytta upp"
@@ -340,6 +529,12 @@ msgstr "Extern länk"
 msgid "Email link"
 msgstr "E-postlänk"
 
+msgid "Phone link"
+msgstr "Telefonlänk"
+
+msgid "Anchor link"
+msgstr "Förankringslänk"
+
 #, python-format
 msgid ""
 "\n"
@@ -357,6 +552,12 @@ msgstr[1] ""
 "\n"
 "        Det finns %(counter)s träffar\n"
 "    "
+
+msgid "Add an anchor link"
+msgstr "Lägg till förankringslänk"
+
+msgid "Insert anchor"
+msgstr "Infoga förankringslänk"
 
 msgid "Choose"
 msgstr "Välj"
@@ -393,6 +594,9 @@ msgstr "Infoga länk"
 msgid "Add an external link"
 msgstr "Infoga extern länk"
 
+msgid "Add a phone link"
+msgstr "Lägg till Telefonlänk"
+
 msgid "Collection privacy"
 msgstr "Sekretess för samlingar"
 
@@ -414,8 +618,14 @@ msgstr "Spara"
 msgid "Privacy"
 msgstr "Sekretess"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Ställer in samlingens integritet. Nuvarande status: Publik"
+
 msgid "Public"
 msgstr "Publik"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Ställer in samlingens integritet. Nuvarande status: Privat"
 
 msgid "Private"
 msgstr "Privat"
@@ -481,6 +691,9 @@ msgstr "Godkänn"
 msgid "Reject"
 msgstr "Avvisa"
 
+msgid "Edit"
+msgstr "Editera"
+
 msgid "Preview"
 msgstr "Förhandsgranska"
 
@@ -509,20 +722,22 @@ msgstr "Sajtsammanställning"
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Page\n"
-"    "
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgstr[0] ""
 "\n"
-"        <span>%(total)s</span> Sida\n"
-"    "
+"<span>%(total)s</span> Sida <span class=\"visuallyhidden\">skapad i "
+"%(site_name)s</span>"
 msgstr[1] ""
 "\n"
-"        <span>%(total)s</span> Sidor\n"
-"    "
+"<span>%(total)s</span> Sidor <span class=\"visuallyhidden\">skapade i"
+"%(site_name)s</span>"
 
 msgid "Sign in"
 msgstr "Logga in"
@@ -595,11 +810,29 @@ msgstr ""
 msgid "Edit lock"
 msgstr "Editera lås"
 
+msgid "Remove editor lock. Current status: Locked"
+msgstr "Inaktivera redigerings-lås. Nuvarande status: Låst"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "Sätt redigerings-lås. Nuvarande status: Öppen"
+
 msgid "Locked"
 msgstr "Låst"
 
 msgid "Unlocked"
 msgstr "Olåst"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Ställ in sidans integritet. Nuvarande status: Publik"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Ställ in sidans integritet. Nuvarande status: Privat"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Sidans integritet. Nuvarande status: Publik"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Sidans integritet. Nuvarande status: Privat"
 
 msgid "Publishing…"
 msgstr "Publicerar..."
@@ -607,8 +840,14 @@ msgstr "Publicerar..."
 msgid "Publish this revision"
 msgstr "Publicera denna revision"
 
-msgid "Publish"
-msgstr "Publicera"
+msgid "Saving…"
+msgstr "Sparar..."
+
+msgid "Replace current draft"
+msgstr "Ersätt existerande utkast"
+
+msgid "Save draft"
+msgstr "Spara utkast"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -746,11 +985,8 @@ msgstr "Nya %(page_type)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Saving…"
-msgstr "Sparar..."
-
-msgid "Save draft"
-msgstr "Spara utkast"
+msgid "Actions"
+msgstr "Handlingar"
 
 msgid "This page has unsaved changes."
 msgstr "Den här sidan har osparade ändringar."
@@ -762,12 +998,6 @@ msgstr "Editerar %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Editerar %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Sida låst"
-
-msgid "Replace current draft"
-msgstr "Ersätt existerande utkast"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -885,6 +1115,9 @@ msgstr "Lägg till undersida"
 msgid "Sites menu"
 msgstr "Sajtmeny"
 
+msgid "Pagination"
+msgstr "Sidnumrering"
+
 #, python-format
 msgid ""
 "\n"
@@ -935,9 +1168,6 @@ msgstr ""
 "Omöjligt att förhandsgranska den här sidan, några fel återstår. Vänligen "
 "stäng den här fliken, redigera sidan för att åtgärda felen och klicka "
 "därefter på förhandsgranska igen."
-
-msgid "Close"
-msgstr "Stäng"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1094,6 +1324,9 @@ msgstr "Samling"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Sida %(page_num)s av %(total_pages)s."
 
+msgid "Breadcrumb"
+msgstr "Sökvägsnavigering"
+
 msgid "Root"
 msgstr "Rot"
 
@@ -1103,84 +1336,6 @@ msgstr "Hem"
 msgid "All collections"
 msgstr "Alla samlingar"
 
-msgid "January"
-msgstr "Januari"
-
-msgid "February"
-msgstr "Februari"
-
-msgid "March"
-msgstr "Mars"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "Augusti"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sunday"
-msgstr "Söndag"
-
-msgid "Monday"
-msgstr "Måndag"
-
-msgid "Tuesday"
-msgstr "Tisdag"
-
-msgid "Wednesday"
-msgstr "Onsdag"
-
-msgid "Thursday"
-msgstr "Torsdag"
-
-msgid "Friday"
-msgstr "Fredag"
-
-msgid "Saturday"
-msgstr "Lördag"
-
-msgid "Sun"
-msgstr "Sön"
-
-msgid "Mon"
-msgstr "Mån"
-
-msgid "Tue"
-msgstr "Tis"
-
-msgid "Wed"
-msgstr "Ons"
-
-msgid "Thu"
-msgstr "Tor"
-
-msgid "Fri"
-msgstr "Fre"
-
-msgid "Sat"
-msgstr "Lör"
-
 msgid "Edit your account"
 msgstr "Editera ditt konto"
 
@@ -1189,6 +1344,12 @@ msgstr "Kontoinställningar"
 
 msgid "Log out"
 msgstr "Logga ut"
+
+msgid "Visit the live page"
+msgstr "Besök live-sidan"
+
+msgid "Current page status:"
+msgstr "Nuvarande sidstatus:"
 
 msgid "Other searches"
 msgstr "Andra sökningar"
@@ -1228,104 +1389,33 @@ msgstr "Lägg till en undersida"
 msgid "Show in Explorer"
 msgstr "Visa i utforskaren"
 
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Sortera ordningen på undersidorna inom '%(parent)s' efter '%(label)s' i "
+"stigande ordning."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Sortera ordningen på undersidorna inom '%(parent)s' efter '%(label)s' i "
+"fallande ordning."
+
 msgid "Test"
 msgstr "Test"
-
-msgid "Arabic"
-msgstr "Arabiska"
-
-msgid "Catalan"
-msgstr "Katalanska"
-
-msgid "German"
-msgstr "Tyska"
-
-msgid "Greek"
-msgstr "Grekiska"
-
-msgid "English"
-msgstr "Enelska"
-
-msgid "Spanish"
-msgstr "Spanska"
-
-msgid "Finnish"
-msgstr "Finska"
-
-msgid "French"
-msgstr "Franska"
-
-msgid "Galician"
-msgstr "Galiciska"
-
-msgid "Indonesian"
-msgstr "Indonesisk"
-
-msgid "Icelandic"
-msgstr "Isländska"
-
-msgid "Italian"
-msgstr "Italienska"
-
-msgid "Korean"
-msgstr "Koreanska"
-
-msgid "Lithuanian"
-msgstr "Litauiska"
-
-msgid "Mongolian"
-msgstr "Mongoliska"
-
-msgid "Norwegian Bokmål"
-msgstr "Norska Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Nederländska"
-
-msgid "Persian"
-msgstr "Persiska"
-
-msgid "Polish"
-msgstr "Polska"
-
-msgid "Brazilian Portuguese"
-msgstr "Brasiliansk portugisiska"
-
-msgid "Portuguese"
-msgstr "Portugisiska"
-
-msgid "Romanian"
-msgstr "Romänska"
-
-msgid "Russian"
-msgstr "Ryska"
-
-msgid "Swedish"
-msgstr "Svenska"
-
-msgid "Slovak"
-msgstr "Slovakiska"
-
-msgid "Thai"
-msgstr "Thailändska"
-
-msgid "Ukrainian"
-msgstr "Ukrainska"
-
-msgid "Chinese (Simplified)"
-msgstr "Kinesiska (Förenklad)"
-
-msgid "Chinese (Traditional)"
-msgstr "Kinesiska (Traditionell)"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Ledsen, du har inte rättigheter att tillträda detta område."
 
 msgid "Your password has been changed successfully!"
 msgstr "Ditt lösenord har framgångsrikt uppdaterats!"
 
 msgid "Your email has been changed successfully!"
 msgstr "Din e-postadress har ändrats!"
+
+msgid "Your name has been changed successfully!"
+msgstr "Ditt namn har ändrats!"
 
 msgid "Your preferences have been updated."
 msgstr "Dina inställningar har uppdaterats."
@@ -1491,44 +1581,54 @@ msgstr "revision {0} av \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Revision {0} av \"{1}\" ej schemalagd."
 
-msgid "Edit '{title}'"
-msgstr "Editera '{title}'"
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Redigera '%(title)s'"
 
-msgid "Preview draft version of '{title}'"
-msgstr "Förhandsgranska utkastversion av '{title}'"
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Förhandsvisa utkast till version av '%(title)s'"
 
-msgid "View live version of '{title}'"
-msgstr "Visa den publicerade versionen av '{title}'"
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Visa live-version av '%(title)s'"
 
-msgid "Add a child page to '{title}' "
-msgstr "Lägg till en undersida till '{title}' "
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Lägg till undersida till '%(title)s'"
 
 msgid "More"
 msgstr "Mer"
 
-msgid "View more options for '{title}'"
-msgstr "Se fler alternativ för '{title}'"
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Se fler alternativ för '%(title)s'"
 
-msgid "Move page '{title}'"
-msgstr "Flytta sida '{title}'"
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Flytta sida '%(title)s'"
 
-msgid "Copy page '{title}'"
-msgstr "Kopiera sida '{title}'"
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Kopiera sida '%(title)s'"
 
-msgid "Delete page '{title}'"
-msgstr "Radera sida '{title}'"
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Radera sida '%(title)s'"
 
-msgid "Unpublish page '{title}'"
-msgstr "Avpublicera sida '{title}'"
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Avpublicera sidan '%(title)s'"
 
-msgid "View revision history for '{title}'"
-msgstr "Se revisionshistorik för '{title}'"
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "Visa revisionshistorik för '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Ange profilbild"
 
-msgid "Change your profile picture"
-msgstr "Ändra profilbild"
+msgid "Change your profile picture."
+msgstr "Ändra din profilbild."
 
 msgid "Change the email address linked to your account."
 msgstr "Ändra e-postadressen som är länkad till ditt konto."
@@ -1551,8 +1651,12 @@ msgstr "Aktuell tidszon"
 msgid "Choose your current time zone."
 msgstr "Välj din nuvarande tidszon"
 
-msgid "Heading {level}"
-msgstr "Titel {level}"
+msgid "Change your first and last name on your account."
+msgstr "Ändra ditt för- och efternamn för ditt konto."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Rubrik %(level)d"
 
 msgid "Bulleted list"
 msgstr "Punktlista"

@@ -15,8 +15,10 @@
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Martin Löhle <martin.loehle@web-forest.de>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2015
+# Matthias Martin, 2019
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
+# Norman Uekermann <nue@melexis.com>, 2019
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
@@ -27,9 +29,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-06-23 14:49+0000\n"
-"Last-Translator: Peter Dreuw <archandha@gmx.net>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-25 13:41+0000\n"
+"Last-Translator: Matthias Martin\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +39,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Veröffentlichen"
 
 msgid "Submit for moderation"
 msgstr "Zur Moderation einreichen"
@@ -47,14 +52,23 @@ msgstr "Veröffentlichung aufheben"
 msgid "Delete"
 msgstr "Löschen"
 
+msgid "Save Draft"
+msgstr "Entwurf speichern"
+
+msgid "Page locked"
+msgstr "Seite gesperrt"
+
 msgid "Wagtail admin"
 msgstr "Wagtail Admin-Interface"
 
-msgid "None"
-msgstr "Nichts"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Sie haben leider keinen Zugang zu diesem Bereich."
 
 msgid "You do not have permission to access the admin"
 msgstr "Sie haben nicht die nötige Berechtigung das Admin-Interface aufzurufen"
+
+msgid "None"
+msgstr "Nichts"
 
 msgid "Scheduled publishing"
 msgstr "Geplante Veröffentlichung"
@@ -80,9 +94,6 @@ msgstr "Bitte %s eingeben"
 
 msgid "Enter your email address to reset your password"
 msgstr "Geben Sie Ihre E-Mail-Adresse ein, um Ihr Passwort zurückzusetzen"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -177,6 +188,255 @@ msgstr "Dieses Feld muss ausgefüllt werden."
 msgid "Please select at least one group."
 msgstr "Bitte wählen Sie mindestens eine Gruppe aus."
 
+msgid "Arabic"
+msgstr "Arabisch"
+
+msgid "Catalan"
+msgstr "Katalanisch"
+
+msgid "Czech"
+msgstr "Tschechisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+msgid "Greek"
+msgstr "Griechisch"
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "Spanish"
+msgstr "Spanisch"
+
+msgid "Finnish"
+msgstr "Finnisch"
+
+msgid "French"
+msgstr "Französisch"
+
+msgid "Galician"
+msgstr "Galicisch"
+
+msgid "Hungarian"
+msgstr "Ungarisch"
+
+msgid "Indonesian"
+msgstr "Indonesisch"
+
+msgid "Icelandic"
+msgstr "Isländisch"
+
+msgid "Italian"
+msgstr "Italienisch"
+
+msgid "Japanese"
+msgstr "Japanisch"
+
+msgid "Korean"
+msgstr "Koreanisch"
+
+msgid "Lithuanian"
+msgstr "Litauisch"
+
+msgid "Mongolian"
+msgstr "Mongolisch"
+
+msgid "Norwegian Bokmål"
+msgstr "Norwegische Buchsprache"
+
+msgid "Netherlands Dutch"
+msgstr "Niederländisch"
+
+msgid "Persian"
+msgstr "Persisch"
+
+msgid "Polish"
+msgstr "Polnisch"
+
+msgid "Brazilian Portuguese"
+msgstr "Brasilianisches Portugiesisch"
+
+msgid "Portuguese"
+msgstr "Portugiesisch"
+
+msgid "Romanian"
+msgstr "Rumänisch"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "Swedish"
+msgstr "Schwedisch"
+
+msgid "Slovak"
+msgstr "Slowakisch"
+
+msgid "Thai"
+msgstr "Thailändisch"
+
+msgid "Ukrainian"
+msgstr "Ukrainisch"
+
+msgid "Chinese (Simplified)"
+msgstr "Chinesisch (vereinfacht)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinesisch (traditionell)"
+
+msgid "Page"
+msgstr "Seite"
+
+msgid "Pages"
+msgstr "Seiten"
+
+msgid "Loading…"
+msgstr "Laden..."
+
+msgid "No results"
+msgstr "Keine Ergebnisse"
+
+msgid "Server Error"
+msgstr "Server-Fehler"
+
+msgid "See all"
+msgstr "Alles einsehen"
+
+msgid "Close explorer"
+msgstr "Explorer schließen"
+
+msgid "Alt text"
+msgstr "Alternativtext"
+
+msgid "Write here…"
+msgstr "Hier schreiben..."
+
+msgid "Horizontal line"
+msgstr "Horizontale Linie"
+
+msgid "Line break"
+msgstr "Zeilenumbruch"
+
+msgid "Undo"
+msgstr "Widerrufen"
+
+msgid "Redo"
+msgstr "Wiederholen"
+
+msgid "Reload the page"
+msgstr "Seite erneut laden"
+
+msgid "Reload saved content"
+msgstr "Gespeicherten Inhalt erneut laden"
+
+msgid "Show latest content"
+msgstr "Aktuellen Inhalt anzeigen"
+
+msgid "Show error"
+msgstr "Fehler anzeigen"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
+"Version zurückgesetzt."
+
+msgid "Broken link"
+msgstr "Defekter Link"
+
+msgid "Missing document"
+msgstr "Fehlendes Dokument"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Edit '{title}'"
+msgstr "'{title}' bearbeiten"
+
+msgid "View child pages of '{title}'"
+msgstr "Unterseiten von '{title}' anzeigen"
+
+msgid "Page explorer"
+msgstr "Seitenübersicht"
+
+msgid "January"
+msgstr "Januar"
+
+msgid "February"
+msgstr "Februar"
+
+msgid "March"
+msgstr "März"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "Dezember"
+
+msgid "Sunday"
+msgstr "Sonntag"
+
+msgid "Monday"
+msgstr "Montag"
+
+msgid "Tuesday"
+msgstr "Dienstag"
+
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+msgid "Thursday"
+msgstr "Donnerstag"
+
+msgid "Friday"
+msgstr "Freitag"
+
+msgid "Saturday"
+msgstr "Samstag"
+
+msgid "Sun"
+msgstr "So"
+
+msgid "Mon"
+msgstr "Mo"
+
+msgid "Tue"
+msgstr "Di"
+
+msgid "Wed"
+msgstr "Mi"
+
+msgid "Thu"
+msgstr "Do"
+
+msgid "Fri"
+msgstr "Fr"
+
+msgid "Sat"
+msgstr "Sa"
+
 msgid "Error 404: Page not found"
 msgstr "Fehler 404: Seite nicht gefunden"
 
@@ -203,6 +463,9 @@ msgstr "Update"
 
 msgid "Change email"
 msgstr "E-Mail-Adresse ändern"
+
+msgid "Change name"
+msgstr "Name ändern"
 
 msgid "Change password"
 msgstr "Passwort ändern"
@@ -270,83 +533,11 @@ msgstr "Passwort zurückgesetzt"
 msgid "Reset your password"
 msgstr "Setzen Sie Ihr Passwort zurück"
 
-msgid "Edit"
-msgstr "Bearbeiten"
-
-msgid "Page"
-msgstr "Seite"
-
-msgid "Pages"
-msgstr "Seiten"
-
-msgid "Loading…"
-msgstr "Laden..."
-
-msgid "No results"
-msgstr "Keine Ergebnisse"
-
-msgid "Server Error"
-msgstr "Server-Fehler"
-
-msgid "See children"
-msgstr "Unterseiten einsehen"
-
-msgid "See all"
-msgstr "Alles einsehen"
-
-msgid "Close explorer"
-msgstr "Explorer schließen"
-
-msgid "Alt text"
-msgstr "Alternativtext"
-
-msgid "Write here…"
-msgstr "Hier schreiben..."
-
-msgid "Horizontal line"
-msgstr "Horizontale Linie"
-
-msgid "Line break"
-msgstr "Zeilenumbruch"
-
-msgid "Undo"
-msgstr "Widerrufen"
-
-msgid "Redo"
-msgstr "Wiederholen"
-
-msgid "Reload the page"
-msgstr "Seite erneut laden"
-
-msgid "Reload saved content"
-msgstr "Gespeicherten Inhalt erneut laden"
-
-msgid "Show latest content"
-msgstr "Aktuellen Inhalt anzeigen"
-
-msgid "Show error"
-msgstr "Fehler anzeigen"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr ""
-"Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
-"Version zurückgesetzt."
-
-msgid "Broken link"
-msgstr "Defekter Link"
-
-msgid "Missing document"
-msgstr "Fehlendes Dokument"
-
 msgid "Dashboard"
 msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menü"
-
-msgid "Add another"
-msgstr "Hinzufügen"
 
 msgid "Move up"
 msgstr "Nach oben"
@@ -366,6 +557,12 @@ msgstr "Externer Link"
 msgid "Email link"
 msgstr "E-Mail-Link"
 
+msgid "Phone link"
+msgstr "Telefon-Link"
+
+msgid "Anchor link"
+msgstr "Anker-Link"
+
 #, python-format
 msgid ""
 "\n"
@@ -383,6 +580,12 @@ msgstr[1] ""
 "\n"
 "        Es gibt %(counter)s Ergebnisse\n"
 "    "
+
+msgid "Add an anchor link"
+msgstr "Anker-Link hinzufügen"
+
+msgid "Insert anchor"
+msgstr "Anker einfügen"
 
 msgid "Choose"
 msgstr "Auswählen"
@@ -419,6 +622,9 @@ msgstr "Link einfügen"
 msgid "Add an external link"
 msgstr "Externen Link hinzufügen"
 
+msgid "Add a phone link"
+msgstr "Telefon-Link hinzufügen"
+
 msgid "Collection privacy"
 msgstr "Privatsphäre-Einstellungen der Sammlung"
 
@@ -442,8 +648,14 @@ msgstr "Speichern"
 msgid "Privacy"
 msgstr "Privatsphäre"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Privatsphäre der Sammlung einstellen. Aktueller Status: Öffentlich"
+
 msgid "Public"
 msgstr "Öffentlich"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Privatsphäre der Sammlung einstellen. Aktueller Status: Privat"
 
 msgid "Private"
 msgstr "Privat"
@@ -510,6 +722,9 @@ msgstr "Freischalten"
 msgid "Reject"
 msgstr "Ablehnen"
 
+msgid "Edit"
+msgstr "Bearbeiten"
+
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -538,20 +753,24 @@ msgstr "Seitenzusammenfassung"
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Page\n"
-"    "
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
 msgstr[0] ""
 "\n"
-"<span>%(total)s</span> Seite\n"
-"            "
+"            <span>%(total)s</span> Seite <span class=\"visuallyhidden"
+"\">erstellt in %(site_name)s</span>\n"
+"        "
 msgstr[1] ""
 "\n"
-"<span>%(total)s</span> Seiten\n"
-"            "
+"            <span>%(total)s</span> Seiten <span class=\"visuallyhidden"
+"\">erstellt in %(site_name)s</span>\n"
+"        "
 
 msgid "Sign in"
 msgstr "Anmelden"
@@ -627,11 +846,29 @@ msgstr ""
 msgid "Edit lock"
 msgstr "Sperre bearbeiten"
 
+msgid "Remove editor lock. Current status: Locked"
+msgstr "Bearbeitung sperren. Aktueller Status: Gesperrt"
+
+msgid "Apply editor lock. Current status: Unlocked"
+msgstr "Bearbeitung sperren. Aktueller Status: Freigegeben"
+
 msgid "Locked"
 msgstr "Gesperrt"
 
 msgid "Unlocked"
 msgstr "Entsperrt"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Seiten-Privatsphäre einstellen. Aktueller Status: Öffentlich"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Seiten-Privatsphäre einstellen. Aktueller Status: Privat"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Seiten-Privatsphäre. Aktueller Status: Öffentlich"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Seiten-Privatsphäre. Aktueller Status: Privat"
 
 msgid "Publishing…"
 msgstr "Veröffentlichen..."
@@ -639,8 +876,14 @@ msgstr "Veröffentlichen..."
 msgid "Publish this revision"
 msgstr "Diese Revision veröffentlichen"
 
-msgid "Publish"
-msgstr "Veröffentlichen"
+msgid "Saving…"
+msgstr "Speichern…"
+
+msgid "Replace current draft"
+msgstr "Aktuellen Entwurf ersetzen"
+
+msgid "Save draft"
+msgstr "Entwurf speichern"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -779,11 +1022,8 @@ msgstr "%(page_type)s erstellen"
 msgid "New"
 msgstr "Neu"
 
-msgid "Saving…"
-msgstr "Speichern…"
-
-msgid "Save draft"
-msgstr "Entwurf speichern"
+msgid "Actions"
+msgstr "Aktionen"
 
 msgid "This page has unsaved changes."
 msgstr "Diese Seite hat ungesicherte Änderungen."
@@ -795,12 +1035,6 @@ msgstr "Bearbeite %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Wird bearbeitet %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Seite gesperrt"
-
-msgid "Replace current draft"
-msgstr "Aktuellen Entwurf ersetzen"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -913,6 +1147,9 @@ msgstr "Unterseite hinzufügen"
 msgid "Sites menu"
 msgstr "Seitenmenü"
 
+msgid "Pagination"
+msgstr "Seitennummerierung"
+
 #, python-format
 msgid ""
 "\n"
@@ -934,6 +1171,9 @@ msgstr "Diese Seite ist vor öffentlichem Zugriff geschützt"
 
 msgid "Disable ordering of child pages"
 msgstr "Sortierung von Unterseiten deaktivieren"
+
+msgid "Sort"
+msgstr "Sortieren"
 
 msgid "Enable ordering of child pages"
 msgstr "Sortierung von Unterseiten aktivieren"
@@ -962,9 +1202,6 @@ msgstr ""
 "Bitte schließen Sie diese Registerkarte, bearbeiten Sie die\n"
 "Seite, um die Fehler zu beheben, und verwenden Sie dann\n"
 "erneut die Vorschau."
-
-msgid "Close"
-msgstr "Schließen"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1125,6 +1362,9 @@ msgstr "Sammlung"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Seite %(page_num)s von %(total_pages)s."
 
+msgid "Breadcrumb"
+msgstr "Brotkrümel"
+
 msgid "Root"
 msgstr "Ursprung"
 
@@ -1134,84 +1374,6 @@ msgstr "Home"
 msgid "All collections"
 msgstr "Alle Sammlungen"
 
-msgid "January"
-msgstr "Januar"
-
-msgid "February"
-msgstr "Februar"
-
-msgid "March"
-msgstr "März"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Mai"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "Dezember"
-
-msgid "Sunday"
-msgstr "Sonntag"
-
-msgid "Monday"
-msgstr "Montag"
-
-msgid "Tuesday"
-msgstr "Dienstag"
-
-msgid "Wednesday"
-msgstr "Mittwoch"
-
-msgid "Thursday"
-msgstr "Donnerstag"
-
-msgid "Friday"
-msgstr "Freitag"
-
-msgid "Saturday"
-msgstr "Samstag"
-
-msgid "Sun"
-msgstr "So"
-
-msgid "Mon"
-msgstr "Mo"
-
-msgid "Tue"
-msgstr "Di"
-
-msgid "Wed"
-msgstr "Mi"
-
-msgid "Thu"
-msgstr "Do"
-
-msgid "Fri"
-msgstr "Fr"
-
-msgid "Sat"
-msgstr "Sa"
-
 msgid "Edit your account"
 msgstr "Bearbeiten Sie Ihr Konto"
 
@@ -1220,6 +1382,12 @@ msgstr "Kontoeinstellungen"
 
 msgid "Log out"
 msgstr "Abmelden"
+
+msgid "Visit the live page"
+msgstr "Live-Seite besuchen"
+
+msgid "Current page status:"
+msgstr "Status der aktuellen Seite"
 
 msgid "Other searches"
 msgstr "Andere Suchbegriffe"
@@ -1259,101 +1427,33 @@ msgstr "Unterseite hinzufügen"
 msgid "Show in Explorer"
 msgstr "Im Explorer anzeigen"
 
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Sortiere die Unterseiten von '%(parent)s' nach '%(label)s' in aufsteigender "
+"Reihenfolge"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Sortiere die Unterseiten von '%(parent)s' nach '%(label)s' in absteigender "
+"Reihenfolge"
+
 msgid "Test"
 msgstr "Test"
 
-msgid "Arabic"
-msgstr "Arabisch"
-
-msgid "Catalan"
-msgstr "Katalanisch"
-
-msgid "German"
-msgstr "Deutsch"
-
-msgid "Greek"
-msgstr "Griechisch"
-
-msgid "English"
-msgstr "Englisch"
-
-msgid "Spanish"
-msgstr "Spanisch"
-
-msgid "Finnish"
-msgstr "Finnisch"
-
-msgid "French"
-msgstr "Französisch"
-
-msgid "Galician"
-msgstr "Galicisch"
-
-msgid "Indonesian"
-msgstr "Indonesisch"
-
-msgid "Icelandic"
-msgstr "Isländisch"
-
-msgid "Italian"
-msgstr "Italienisch"
-
-msgid "Korean"
-msgstr "Koreanisch"
-
-msgid "Lithuanian"
-msgstr "Litauisch"
-
-msgid "Mongolian"
-msgstr "Mongolisch"
-
-msgid "Norwegian Bokmål"
-msgstr "Norwegische Buchsprache"
-
-msgid "Netherlands Dutch"
-msgstr "Niederländisch"
-
-msgid "Persian"
-msgstr "Persisch"
-
-msgid "Polish"
-msgstr "Polnisch"
-
-msgid "Brazilian Portuguese"
-msgstr "Brasilianisches Portugiesisch"
-
-msgid "Portuguese"
-msgstr "Portugiesisch"
-
-msgid "Romanian"
-msgstr "Rumänisch"
-
-msgid "Russian"
-msgstr "Russisch"
-
-msgid "Swedish"
-msgstr "Schwedisch"
-
-msgid "Slovak"
-msgstr "Slowakisch"
-
-msgid "Ukrainian"
-msgstr "Ukrainisch"
-
-msgid "Chinese (Simplified)"
-msgstr "Chinesisch (vereinfacht)"
-
-msgid "Chinese (Traditional)"
-msgstr "Chinesisch (traditionell)"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Sie haben leider keinen Zugang zu diesem Bereich."
-
 msgid "Your password has been changed successfully!"
-msgstr "Ihr Passwort wurde erfolgreich geändert."
+msgstr "Ihr Passwort wurde erfolgreich geändert!"
 
 msgid "Your email has been changed successfully!"
 msgstr "Ihre E-Mail-Adresse wurde erfolgreich geändert!"
+
+msgid "Your name has been changed successfully!"
+msgstr "Ihr Name wurde erfolgreich geändert!"
 
 msgid "Your preferences have been updated."
 msgstr "Ihre Einstellungen wurden aktualisiert."
@@ -1526,44 +1626,54 @@ msgstr "Revision {0} von \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Geplante Veröffentlichung der Revision {0} von \"{1}\" aufgehoben."
 
-msgid "Edit '{title}'"
-msgstr "'{title}' bearbeiten"
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' bearbeiten"
 
-msgid "Preview draft version of '{title}'"
-msgstr "Entwurf von '{title}' ansehen"
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Entwurf von '%(title)s' ansehen"
 
-msgid "View live version of '{title}'"
-msgstr "Veröffentlichte Version von '{title}' ansehen"
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Veröffentlichte Version von '%(title)s' ansehen"
 
-msgid "Add a child page to '{title}' "
-msgstr "Unterseite zu '{title}' hinzufügen"
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Unterseite zu '%(title)s' hinzufügen"
 
 msgid "More"
 msgstr "Mehr"
 
-msgid "View more options for '{title}'"
-msgstr "Weitere Optionen für '{title}' anzeigen"
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Weiter Optionen für '%(title)s' anzeigen"
 
-msgid "Move page '{title}'"
-msgstr "Seite '{title}' verschieben"
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Seite '%(title)s' verschieben"
 
-msgid "Copy page '{title}'"
-msgstr "Seite '{title}' kopieren"
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Seite '%(title)s' kopieren"
 
-msgid "Delete page '{title}'"
-msgstr "Seite '{title}' löschen"
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Seite '%(title)s' löschen"
 
-msgid "Unpublish page '{title}'"
-msgstr "Veröffentlichung der Seite \"{title}\" aufheben"
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Veröffentlichung der Seite '%(title)s' aufheben"
 
-msgid "View revision history for '{title}'"
-msgstr "Revisionsgeschichte von '{title}' anzeigen"
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "Revisionsgeschichte von '%(title)s' anzeigen"
 
 msgid "Set profile picture"
 msgstr "Profilbild einstellen"
 
-msgid "Change your profile picture"
-msgstr "Profilbild ändern"
+msgid "Change your profile picture."
+msgstr "Ihr Profilbild ändern."
 
 msgid "Change the email address linked to your account."
 msgstr "E-Mail-Adresse ändern, die mit Ihrem Konto verknüpft ist."
@@ -1586,8 +1696,12 @@ msgstr "Aktuelle Zeitzone"
 msgid "Choose your current time zone."
 msgstr "Wählen Sie Ihre aktuelle Zeitzone."
 
-msgid "Heading {level}"
-msgstr "Überschrift {level}"
+msgid "Change your first and last name on your account."
+msgstr "Vor- und Nachname für Ihren Account ändern."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Überschrift %(level)d"
 
 msgid "Bulleted list"
 msgstr "Aufzählung"

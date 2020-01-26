@@ -5,14 +5,14 @@
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
-# Stanislav Vasko <stanislav.vasko@gmail.com>, 2017
+# Mořeplavec <stanislav.vasko@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2018-11-28 13:49+0000\n"
-"Last-Translator: IT Management <info@itmanagement.cz>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -219,31 +219,6 @@ msgstr "Stav"
 
 msgid "Edit this page"
 msgstr "Upravit stránku"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> dokument\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> dokumenty\n"
-"    "
-msgstr[2] ""
-"\n"
-"        <span>%(total)s</span> dokumentů\n"
-"    "
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span> dokumentů"
 
 msgid "Add multiple documents"
 msgstr "Přidat více dokumentů"

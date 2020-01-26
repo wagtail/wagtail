@@ -162,5 +162,5 @@ Filling in the ``path`` / ``numchild`` / ``depth`` fields is necessary in order 
 
 The `Treebeard docs`_ might help in understanding how this works.
 
-.. _dumpdata: https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-dumpdata
-.. _Treebeard docs: http://django-treebeard.readthedocs.io/en/latest/mp_tree.html
+.. _dumpdata: https://docs.djangoproject.com/en/stable/ref/django-admin/#django-admin-dumpdata
+.. _Treebeard docs: https://django-treebeard.readthedocs.io/en/latest/mp_tree.html

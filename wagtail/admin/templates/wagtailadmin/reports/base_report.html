@@ -1,0 +1,24 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{{ title }}{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=title icon=header_icon %}
+
+    {% with page_obj as pages %}
+        <div id="page-results">
+            <div class="nice-padding">
+                {% if pages %}
+                    {% block listing %}
+                        {% include "wagtailadmin/pages/listing/_list_explore.html" %}
+                    {% endblock %}
+                    {% paginate pages base_url=request.path %}
+                {% else %}
+                    {% block no_results %}
+                        <p>{% trans "No pages match this report's criteria." %}</p>
+                    {% endblock %}
+                {% endif %}
+            </div>
+        </div>
+    {% endwith %}
+{% endblock %}

@@ -8,6 +8,7 @@
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Rustam Mirzaev <mirus@2x2.pw>, 2017
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Мирон Левицкий <miron200504@gmail.com>, 2018
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-05-22 14:56+0000\n"
-"Last-Translator: Михаил Герасимов\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-12-11 10:05+0000\n"
+"Last-Translator: Mikhail Sidorov <pevzi23@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -32,9 +33,6 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail изображения"
-
-msgid "GIF, JPEG, PNG"
-msgstr "GIF, JPEG, PNG"
 
 #, python-format
 msgid ""
@@ -173,27 +171,33 @@ msgstr "Вставить изображение"
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Image\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
 "    "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Images\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
 "    "
 msgstr[0] ""
 "\n"
-"<span>%(total)s</span> Изображение\n"
+"        <span>%(total)s</span> Изображение <span class=\"visuallyhidden"
+"\">создано в %(site_name)s</span>\n"
 "    "
 msgstr[1] ""
 "\n"
-"<span>%(total)s</span> Изображения\n"
+"        <span>%(total)s</span> Изображения <span class=\"visuallyhidden"
+"\">созданы в %(site_name)s</span>\n"
 "    "
 msgstr[2] ""
 "\n"
-"<span>%(total)s</span> Изображений\n"
+"        <span>%(total)s</span> Изображений <span class=\"visuallyhidden"
+"\">создано в %(site_name)s</span>\n"
 "    "
 msgstr[3] ""
 "\n"
-"<span>%(total)s</span> Изображений\n"
+"        <span>%(total)s</span> Изображений <span class=\"visuallyhidden"
+"\">создано в %(site_name)s</span>\n"
 "    "
 
 msgid "Change image file:"

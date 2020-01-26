@@ -13,7 +13,7 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
-from django.utils.safestring import SafeData, mark_safe
+from django.utils.safestring import SafeData, SafeText, mark_safe
 from django.utils.translation import ugettext_lazy as __
 
 from wagtail.core import blocks
@@ -1200,7 +1200,7 @@ class TestStructBlock(SimpleTestCase):
 
         self.assertIn('<div class="struct-block">', html)
         self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
-        self.assertIn('<label for="mylink-title">Title:</label>', html)
+        self.assertIn('<label class="field__label" for="mylink-title">Title</label>', html)
         self.assertInHTML(
             '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html
         )
@@ -1214,6 +1214,42 @@ class TestStructBlock(SimpleTestCase):
         )
         self.assertNotIn('<li class="required">', html)
 
+    def test_custom_render_form_template(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+            class Meta:
+                form_template = 'tests/block_forms/struct_block_form_template.html'
+
+        block = LinkBlock()
+        html = block.render_form(block.to_python({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }), prefix='mylink')
+
+        self.assertIn('<div>Hello</div>', html)
+        self.assertHTMLEqual('<div>Hello</div>', html)
+        self.assertTrue(isinstance(html, SafeText))
+
+    def test_custom_render_form_template_jinja(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+            class Meta:
+                form_template = 'tests/jinja2/struct_block_form_template.html'
+
+        block = LinkBlock()
+        html = block.render_form(block.to_python({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }), prefix='mylink')
+
+        self.assertIn('<div>Hello</div>', html)
+        self.assertHTMLEqual('<div>Hello</div>', html)
+        self.assertTrue(isinstance(html, SafeText))
+
     def test_render_required_field_indicator(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -1225,7 +1261,7 @@ class TestStructBlock(SimpleTestCase):
             'link': 'http://www.wagtail.io',
         }), prefix='mylink')
 
-        self.assertIn('<li class="required">', html)
+        self.assertIn('<div class="field required">', html)
 
     def test_render_form_unknown_field(self):
         class LinkBlock(blocks.StructBlock):
@@ -1290,7 +1326,7 @@ class TestStructBlock(SimpleTestCase):
             'link': 'http://www.wagtail.io',
         }), prefix='mylink')
 
-        self.assertIn('<div class="sequence-member__help help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is encouraged</div>', html)
+        self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span> Self-promotion is encouraged</div>', html)
 
         # check it can be overridden in the block constructor
         block = LinkBlock(help_text="Self-promotion is discouraged")
@@ -1299,7 +1335,7 @@ class TestStructBlock(SimpleTestCase):
             'link': 'http://www.wagtail.io',
         }), prefix='mylink')
 
-        self.assertIn('<div class="sequence-member__help help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is discouraged</div>', html)
+        self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span> Self-promotion is discouraged</div>', html)
 
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
@@ -1734,7 +1770,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
     def test_render_form_wrapper_class(self):
         html = self.render_form()
 
-        self.assertIn('<div class="sequence-container sequence-type-list">', html)
+        self.assertIn('<div class="c-sf-container">', html)
 
     def test_render_form_count_field(self):
         html = self.render_form()
@@ -1755,8 +1791,8 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
     def test_render_form_labels(self):
         html = self.render_form()
 
-        self.assertIn('<label for="links-0-value-title">Title:</label>', html)
-        self.assertIn('<label for="links-0-value-link">Link:</label>', html)
+        self.assertIn('<label class="field__label" for="links-0-value-title">Title</label>', html)
+        self.assertIn('<label class="field__label" for="links-0-value-link">Link</label>', html)
 
     def test_render_form_values(self):
         html = self.render_form()
@@ -2231,7 +2267,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_render_form_wrapper_class(self):
         html = self.render_form()
 
-        self.assertIn('<div class="sequence-container sequence-type-stream">', html)
+        self.assertIn('<div class="c-sf-container">', html)
 
     def test_render_form_count_field(self):
         html = self.render_form()
@@ -2662,7 +2698,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertTrue(value1 != value3)
 
     def test_render_considers_group_attribute(self):
-        """If group attributes are set in Block Meta classes, render a <h3> for each different block"""
+        """If group attributes are set in Block Meta classes, render a <h4> for each different block"""
 
         class Group1Block1(blocks.CharBlock):
             class Meta:
@@ -2691,9 +2727,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ('ngb', NoGroupBlock()),
         ])
         html = block.render_form('')
-        self.assertNotIn('<h3></h3>', block.render_form(''))
-        self.assertIn('<h3>group1</h3>', html)
-        self.assertIn('<h3>group2</h3>', html)
+        self.assertNotIn('<h4 class="c-sf-add-panel__group-title"></h4>', block.render_form(''))
+        self.assertIn('<h4 class="c-sf-add-panel__group-title">group1</h4>', html)
+        self.assertIn('<h4 class="c-sf-add-panel__group-title">group2</h4>', html)
 
     def test_value_from_datadict(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -2747,6 +2783,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         # get_prep_value should assign a new (random and non-empty)
         # ID to this block, as it didn't have one already.
         self.assertTrue(jsonish_value[1]['id'])
+
+        # Calling get_prep_value again should preserve existing IDs, including the one
+        # just assigned to block 1
+        jsonish_value_again = block.get_prep_value(value)
+        self.assertEqual(jsonish_value[0]['id'], jsonish_value_again[0]['id'])
+        self.assertEqual(jsonish_value[1]['id'], jsonish_value_again[1]['id'])
 
     def test_get_prep_value_not_lazy(self):
         stream_data = [

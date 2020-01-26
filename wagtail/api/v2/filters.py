@@ -3,12 +3,11 @@ from django.db import models
 from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
-from wagtail.core import hooks
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.core.models import Page
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
 
-from .utils import BadRequestError, pages_for_site, parse_boolean
+from .utils import BadRequestError, parse_boolean
 
 
 class FieldsFilter(BaseFilterBackend):
@@ -133,12 +132,6 @@ class ChildOfFilter(BaseFilterBackend):
     Implements the ?child_of filter used to filter the results to only contain
     pages that are direct children of the specified page.
     """
-    def get_root_page(self, request):
-        return Page.get_first_root_node()
-
-    def get_page_by_id(self, request, page_id):
-        return Page.objects.get(id=page_id)
-
     def filter_queryset(self, request, queryset, view):
         if 'child_of' in request.GET:
             try:
@@ -146,10 +139,10 @@ class ChildOfFilter(BaseFilterBackend):
                 if parent_page_id < 0:
                     raise ValueError()
 
-                parent_page = self.get_page_by_id(request, parent_page_id)
+                parent_page = view.get_base_queryset().get(id=parent_page_id)
             except ValueError:
                 if request.GET['child_of'] == 'root':
-                    parent_page = self.get_root_page(request)
+                    parent_page = view.get_root_page()
                 else:
                     raise BadRequestError("child_of must be a positive integer")
             except Page.DoesNotExist:
@@ -161,30 +154,11 @@ class ChildOfFilter(BaseFilterBackend):
         return queryset
 
 
-class RestrictedChildOfFilter(ChildOfFilter):
-    """
-    A restricted version of ChildOfFilter that only allows pages in the current
-    site to be specified.
-    """
-    def get_root_page(self, request):
-        return request.site.root_page
-
-    def get_page_by_id(self, request, page_id):
-        site_pages = pages_for_site(request.site)
-        return site_pages.get(id=page_id)
-
-
 class DescendantOfFilter(BaseFilterBackend):
     """
     Implements the ?decendant_of filter which limits the set of pages to a
     particular branch of the page tree.
     """
-    def get_root_page(self, request):
-        return Page.get_first_root_node()
-
-    def get_page_by_id(self, request, page_id):
-        return Page.objects.get(id=page_id)
-
     def filter_queryset(self, request, queryset, view):
         if 'descendant_of' in request.GET:
             if hasattr(queryset, '_filtered_by_child_of'):
@@ -194,44 +168,15 @@ class DescendantOfFilter(BaseFilterBackend):
                 if parent_page_id < 0:
                     raise ValueError()
 
-                parent_page = self.get_page_by_id(request, parent_page_id)
+                parent_page = view.get_base_queryset().get(id=parent_page_id)
             except ValueError:
                 if request.GET['descendant_of'] == 'root':
-                    parent_page = self.get_root_page(request)
+                    parent_page = view.get_root_page()
                 else:
                     raise BadRequestError("descendant_of must be a positive integer")
             except Page.DoesNotExist:
                 raise BadRequestError("ancestor page doesn't exist")
 
             queryset = queryset.descendant_of(parent_page)
-
-        return queryset
-
-
-class RestrictedDescendantOfFilter(DescendantOfFilter):
-    """
-    A restricted version of DecendantOfFilter that only allows pages in the current
-    site to be specified.
-    """
-    def get_root_page(self, request):
-        return request.site.root_page
-
-    def get_page_by_id(self, request, page_id):
-        site_pages = pages_for_site(request.site)
-        return site_pages.get(id=page_id)
-
-
-class ForExplorerFilter(BaseFilterBackend):
-    def filter_queryset(self, request, queryset, view):
-        if request.GET.get('for_explorer'):
-            if not hasattr(queryset, '_filtered_by_child_of'):
-                raise BadRequestError("filtering by for_explorer without child_of is not supported")
-
-            parent_page = queryset._filtered_by_child_of
-            for hook in hooks.get_hooks('construct_explorer_page_queryset'):
-                queryset = hook(parent_page, queryset, request)
-
-            user_perms = UserPagePermissionsProxy(request.user)
-            queryset = queryset & user_perms.explorable_pages()
 
         return queryset

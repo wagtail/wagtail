@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# aaao <aron.santa@gmail.com>, 2019
 # Istvan Farkas <istvan.farkas@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-05-03 15:10+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
+"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"PO-Revision-Date: 2019-10-21 01:48+0000\n"
+"Last-Translator: aaao <aron.santa@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -22,8 +23,8 @@ msgstr ""
 msgid "Wagtail images"
 msgstr "Képek"
 
-msgid "GIF, JPEG, PNG"
-msgstr "GIF, JPEG, PNG"
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -95,7 +96,7 @@ msgid "Height"
 msgstr "Magasság"
 
 msgid "Closeness"
-msgstr "Közeliség"
+msgstr "Közelség"
 
 msgid "Add"
 msgstr "Hozzáadás"
@@ -179,18 +180,22 @@ msgstr "Kép beillesztése"
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Image\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
 "    "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Images\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
 "    "
 msgstr[0] ""
 "\n"
-"<span>%(total)s</span> kép"
+"<span>%(total)s</span> kép <span class=\"visuallyhidden\">létrehozva itt: "
+"%(site_name)s</span>"
 msgstr[1] ""
 "\n"
-"<span>%(total)s</span>kép"
+"<span>%(total)s</span> kép <span class=\"visuallyhidden\">létehozva itt: "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Kép cseréje:"
@@ -218,6 +223,9 @@ msgstr "Biztosan törli a képet?"
 
 msgid "Yes, delete"
 msgstr "Igen, törlés"
+
+msgid "No, don't delete"
+msgstr "Nem, ne töröljük"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -262,6 +270,9 @@ msgstr "Használat"
 
 msgid "Images"
 msgstr "Képek"
+
+msgid "pixels"
+msgstr "pixel"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -375,7 +386,7 @@ msgid "Search images"
 msgstr "Képek keresése"
 
 msgid "Image '{0}' updated."
-msgstr "\"{0}\" kép frissítve."
+msgstr "'{0}' kép frissítve."
 
 msgid "Edit again"
 msgstr "Újraszerkesztés"
@@ -391,10 +402,10 @@ msgstr ""
 "törölje a képet."
 
 msgid "Image '{0}' deleted."
-msgstr "\"{0}\" kép törölve."
+msgstr "'{0}' kép törölve."
 
 msgid "Image '{0}' added."
-msgstr "\"{0}\" kép hozzáadva."
+msgstr "'{0}' kép hozzáadva."
 
 msgid "The image could not be created due to errors."
 msgstr "Hiba történt a kép létrehozása közben."

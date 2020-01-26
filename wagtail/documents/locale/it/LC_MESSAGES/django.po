@@ -5,14 +5,15 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# LB (Ben Johnston) <mail@lb.ee>, 2019
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-08 23:06+0100\n"
-"PO-Revision-Date: 2019-03-08 21:55+0000\n"
-"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-29 22:00+0000\n"
+"Last-Translator: LB (Ben Johnston) <mail@lb.ee>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -141,6 +142,9 @@ msgstr "Sei sicuro di voler eliminare questo documento?"
 msgid "Yes, delete"
 msgstr "Si, elimina"
 
+msgid "No, don't delete"
+msgstr "No, non eliminarlo"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Modifica %(title)s"
@@ -213,24 +217,6 @@ msgstr "Stato"
 
 msgid "Edit this page"
 msgstr "Modifica questa pagina"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Documento\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Documenti\n"
-"    "
 
 msgid "Add multiple documents"
 msgstr "Aggiungi documenti multipli"
