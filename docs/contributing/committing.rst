@@ -77,8 +77,7 @@ The ``CHANGELOG.txt`` contains a short summary of each new feature, refactoring,
 Each summary should be a single line.
 Bug fixes should be grouped together at the end of the list for each release,
 and be prefixed with "Fix:".
-The name of the contributor should be added at the end of the summary,
-in brackets, if they are not a core committer.
+The name of the contributor should be added at the end of the summary, in brackets.
 For example:
 
 .. code-block:: text
