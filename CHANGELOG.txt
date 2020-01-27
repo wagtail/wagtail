@@ -21,6 +21,7 @@ Changelog
  * Fix: Improve Wagtail logo contrast by adding a background (Brian Edelman, Simon Evans, Ben Enright)
  * Fix: Prevent duplicate notification messages on page locking (Jacob Topp-Mugglestone)
  * Fix: Fix InlinePanel item non field errors not visible (Storm Heg)
+ * Fix: `{% image ... as var %}` now clears the context variable when passed None as an image (Maylon Pedroso)
 
 
 2.8 (03.02.2020)
