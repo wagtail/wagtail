@@ -97,6 +97,8 @@ class ImageNode(template.Node):
             return ''
 
         if not image:
+            if self.output_var_name:
+                context[self.output_var_name] = None
             return ''
 
         if not hasattr(image, 'get_rendition'):
