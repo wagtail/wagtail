@@ -178,6 +178,7 @@ def search(request, parent_page_id=None):
 
     for page in pages:
         page.can_choose = True
+        page.can_descend = page.get_children_count()
 
     return render(
         request, 'wagtailadmin/chooser/_search_results.html',

@@ -75,7 +75,7 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             /* pagination links within search results should be AJAX-fetched
             and the result loaded into .page-results (and ajaxified) */
             $('.page-results a.navigate-pages', modal.body).on('click', function() {
-                $('.page-results', modal.body).load(this.href, ajaxifySearchResults);
+                modal.loadUrl(this.href);
                 return false;
             });
             /* Set up parent navigation links (.navigate-parent) to open in the modal */
