@@ -136,9 +136,6 @@ def send_notification(page_revision_id, notification, excluded_user_id):
 
 
 class Notifier:
-    """Class for sending email notifications upon events: callable, taking a instance and a notification (str)
-    and sending email notifications using rendered templates"""
-
     notification = ''
 
     def __init__(self, valid_classes):
@@ -146,6 +143,50 @@ class Notifier:
 
     def can_handle(self, instance, **kwargs):
         return isinstance(instance, self.valid_classes)
+
+    def get_valid_recipients(self, instance, **kwargs):
+        return set()
+
+    def get_template_base_prefix(self, instance, **kwargs):
+        return camelcase_to_underscore(type(instance).__name__)+'_'
+
+    def get_context(self, instance, **kwargs):
+        return {}
+
+    def get_template_set(self, instance, **kwargs):
+        """Return a dictionary of template paths for the templates"""
+        template_base = self.get_template_base_prefix(instance) + self.notification
+
+        template_text = 'wagtailadmin/notifications/' + template_base + '.txt'
+
+        return {
+            'text': template_text,
+        }
+
+    def send_notifications(self, template_set, context, recipients, **kwargs):
+        raise NotImplementedError
+
+    def __call__(self, instance=None, **kwargs):
+        """Send notifications from an instance, returning True if all sent correctly"""
+
+        if not self.can_handle(instance, **kwargs):
+            return False
+
+        recipients = self.get_valid_recipients(instance, **kwargs)
+
+        if not recipients:
+            return True
+
+        template_set = self.get_template_set(instance, **kwargs)
+
+        context = self.get_context(instance, **kwargs)
+
+        return self.send_notifications(template_set, context, recipients, **kwargs)
+
+
+class EmailNotifier(Notifier):
+    """Class for sending email notifications upon events: callable, taking a instance and a notification (str)
+    and sending email notifications using rendered templates"""
 
     def get_recipient_users(self, instance, **kwargs):
         """Gets the ideal set of recipient users, without accounting for notification preferences or missing email addresses"""
@@ -161,8 +202,6 @@ class Notifier:
             self.notification + '_notifications'
         )}
 
-    def get_template_base_prefix(self, instance, **kwargs):
-        return camelcase_to_underscore(type(instance).__name__)+'_'
 
     def get_template_set(self, instance, **kwargs):
         """Return a dictionary of template paths for the templates for the email subject and the text and html
@@ -217,26 +256,12 @@ class Notifier:
 
         return sent_count == len(recipients)
 
-    def __call__(self, instance=None, **kwargs):
-        """Send emails from an instance, returning True if all emails sent correctly"""
-
-        if not self.can_handle(instance, **kwargs):
-            return False
-
-        recipients = self.get_valid_recipients(instance, **kwargs)
-
-        if not recipients:
-            return True
-
-        template_set = self.get_template_set(instance, **kwargs)
-
-        context = self.get_context(instance, **kwargs)
-
+    def send_notifications(self, template_set, context, recipients, **kwargs):
         return self.send_emails(template_set, context, recipients, **kwargs)
 
 
-class BaseWorkflowStateNotifier(Notifier):
-    """A Notifier to send updates for WorkflowState events"""
+class BaseWorkflowStateEmailNotifier(EmailNotifier):
+    """A EmailNotifier to send updates for WorkflowState events"""
 
     def __init__(self):
         super().__init__((WorkflowState,))
@@ -248,8 +273,8 @@ class BaseWorkflowStateNotifier(Notifier):
         return context
 
 
-class WorkflowStateApprovalNotifier(BaseWorkflowStateNotifier):
-    """A Notifier to send updates for WorkflowState approval events"""
+class WorkflowStateApprovalEmailNotifier(BaseWorkflowStateEmailNotifier):
+    """A EmailNotifier to send updates for WorkflowState approval events"""
 
     notification = 'approved'
 
@@ -263,8 +288,8 @@ class WorkflowStateApprovalNotifier(BaseWorkflowStateNotifier):
         return recipients
 
 
-class WorkflowStateRejectionNotifier(BaseWorkflowStateNotifier):
-    """A Notifier to send updates for WorkflowState rejection events"""
+class WorkflowStateRejectionEmailNotifier(BaseWorkflowStateEmailNotifier):
+    """A EmailNotifier to send updates for WorkflowState rejection events"""
 
     notification = 'rejected'
 
@@ -278,8 +303,8 @@ class WorkflowStateRejectionNotifier(BaseWorkflowStateNotifier):
         return recipients
 
 
-class WorkflowStateSubmissionNotifier(BaseWorkflowStateNotifier):
-    """A Notifier to send updates for WorkflowState submission events"""
+class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
+    """A EmailNotifier to send updates for WorkflowState submission events"""
 
     notification = 'submitted'
 
@@ -295,8 +320,8 @@ class WorkflowStateSubmissionNotifier(BaseWorkflowStateNotifier):
         return recipients
 
 
-class BaseGroupApprovalTaskStateNotifier(Notifier):
-    """A Notifier to send updates for GroupApprovalTask events"""
+class BaseGroupApprovalTaskStateEmailNotifier(EmailNotifier):
+    """A EmailNotifier to send updates for GroupApprovalTask events"""
 
     def __init__(self):
         super().__init__((TaskState,))
@@ -327,21 +352,21 @@ class BaseGroupApprovalTaskStateNotifier(Notifier):
         return recipients
 
 
-class GroupApprovalTaskStateSubmissionNotifier(BaseGroupApprovalTaskStateNotifier):
-    """A Notifier to send updates for GroupApprovalTask submission events"""
+class GroupApprovalTaskStateSubmissionEmailNotifier(BaseGroupApprovalTaskStateEmailNotifier):
+    """A EmailNotifier to send updates for GroupApprovalTask submission events"""
 
     notification = 'submitted'
 
 
-class GroupApprovalTaskStateApprovalNotifier(BaseGroupApprovalTaskStateNotifier):
-    """A Notifier to send updates for GroupApprovalTask approval events"""
+class GroupApprovalTaskStateApprovalEmailNotifier(BaseGroupApprovalTaskStateEmailNotifier):
+    """A EmailNotifier to send updates for GroupApprovalTask approval events"""
 
     notification = 'approved'
 
     def get_recipient_users(self, task_state, **kwargs):
         recipients = super().get_recipient_users(task_state, **kwargs)
         requested_by = task_state.workflow_state.requested_by
-        # add the notifier's requester
+        # add the EmailNotifier's requester
         triggering_user = kwargs.get('user', None)
         if  (not triggering_user or triggering_user.pk != requested_by.pk):
             recipients = set(recipients)
@@ -350,15 +375,15 @@ class GroupApprovalTaskStateApprovalNotifier(BaseGroupApprovalTaskStateNotifier)
         return recipients
 
 
-class GroupApprovalTaskStateRejectionNotifier(BaseGroupApprovalTaskStateNotifier):
-    """A Notifier to send updates for GroupApprovalTask rejection events"""
+class GroupApprovalTaskStateRejectionEmailNotifier(BaseGroupApprovalTaskStateEmailNotifier):
+    """A EmailNotifier to send updates for GroupApprovalTask rejection events"""
 
     notification = 'rejected'
 
     def get_recipient_users(self, task_state, **kwargs):
         recipients = super().get_recipient_users(task_state, **kwargs)
         requested_by = task_state.workflow_state.requested_by
-        # add the notifier's requester
+        # add the EmailNotifier's requester
         triggering_user = kwargs.get('user', None)
         if  (not triggering_user or triggering_user.pk != requested_by.pk):
             recipients = set(recipients)
