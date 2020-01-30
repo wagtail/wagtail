@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import override
 
 from wagtail.admin.auth import users_with_page_permission
-from wagtail.core.models import GroupApprovalTask, Page, PageRevision, WorkflowState
+from wagtail.core.models import GroupApprovalTask, Page, PageRevision, TaskState, WorkflowState
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.users.models import UserProfile
 
@@ -143,14 +143,8 @@ class Notifier:
         self.valid_classes = valid_classes
         self.valid_notifications = valid_notifications
 
-    def can_handle_class(self, instance, **kwargs):
-        return type(instance) in self.valid_classes
-
-    def can_handle_notification(self, notification, **kwargs):
-        return notification in self.valid_notifications
-
     def can_handle(self, notifying_instance, notification, **kwargs):
-        return self.can_handle_class(notifying_instance) and self.can_handle_notification(notification)
+        return isinstance(notifying_instance, self.valid_classes) and notification in self.valid_notifications
 
     def get_recipient_users(self, notifying_instance, notification, **kwargs):
         return set()
@@ -251,7 +245,7 @@ class WorkflowStateNotifier(Notifier):
     """A Notifier to send updates for WorkflowState events"""
 
     def __init__(self, valid_notifications):
-        super().__init__({WorkflowState}, valid_notifications)
+        super().__init__((WorkflowState,), valid_notifications)
 
     def get_recipient_users(self, workflow_state, notification, **kwargs):
         triggering_user = kwargs.get('user', None)
@@ -280,10 +274,10 @@ class GroupApprovalTaskStateNotifier(Notifier):
     """A Notifier to send updates for GroupApprovalTask events"""
 
     def __init__(self, valid_notifications):
-        super().__init__({GroupApprovalTask}, valid_notifications)
+        super().__init__((TaskState,), valid_notifications)
 
-    def can_handle_class(self, instance, **kwargs):
-        return super().can_handle_class(instance.task.specific)
+    def can_handle(self, notifying_instance, notification, **kwargs):
+        return super().can_handle(notifying_instance, notification, **kwargs) and isinstance(notifying_instance.task.specific, GroupApprovalTask)
 
     def get_context(self, task_state, notification, **kwargs):
         context = super().get_context(task_state, notification, **kwargs)
