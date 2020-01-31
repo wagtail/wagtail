@@ -151,7 +151,7 @@ class Notifier:
         return camelcase_to_underscore(type(instance).__name__)+'_'
 
     def get_context(self, instance, **kwargs):
-        return {}
+        return {'settings': settings}
 
     def get_template_set(self, instance, **kwargs):
         """Return a dictionary of template paths for the templates"""
@@ -217,9 +217,6 @@ class EmailNotifier(Notifier):
             'text': template_text,
             'html': template_html,
         }
-
-    def get_context(self, instance, **kwargs):
-        return {'settings': settings}
 
     def send_emails(self, template_set, context, recipients, **kwargs):
 
