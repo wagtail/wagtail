@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -544,11 +544,27 @@ msgstr ""
 "Энэ хянах самбар дээр таны үүсгэсэн контентын талаар хэрэгцээт мэдээлэл "
 "харагдана."
 
-msgid "Pages awaiting moderation"
-msgstr "Хянагдахаар хүлээгдэж буй хуудсууд"
-
 msgid "Title"
 msgstr "Гарчиг"
+
+msgid "Edit this page"
+msgstr "Энэ хуудсыг засах"
+
+msgid "Edit"
+msgstr "Засах"
+
+msgid "Draft"
+msgstr "Ноорог"
+
+msgid "Live"
+msgstr "Нийтлэгдсэн"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s-н өмнө"
+
+msgid "Pages awaiting moderation"
+msgstr "Хянагдахаар хүлээгдэж буй хуудсууд"
 
 msgid "Parent"
 msgstr "Эцэг"
@@ -559,9 +575,6 @@ msgstr "Төрөл"
 msgid "Edited"
 msgstr "Засагдсан"
 
-msgid "Edit this page"
-msgstr "Энэ хуудсыг засах"
-
 msgid "Preview this page"
 msgstr "Хуудсыг урдчилж харах"
 
@@ -571,15 +584,8 @@ msgstr "Зөвшөөрөх"
 msgid "Reject"
 msgstr "Татгалзах"
 
-msgid "Edit"
-msgstr "Засах"
-
 msgid "Preview"
 msgstr "Урдчилж харах"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s-н өмнө"
 
 msgid "Your most recent edits"
 msgstr "Таны сүүлийн засварууд"
@@ -589,12 +595,6 @@ msgstr "Огноо"
 
 msgid "Status"
 msgstr "Төлөв"
-
-msgid "Draft"
-msgstr "Ноорог"
-
-msgid "Live"
-msgstr "Нийтлэгдсэн"
 
 msgid "Site summary"
 msgstr "Сайтын хураангуй"
@@ -663,15 +663,6 @@ msgid "This page has been made private by a parent page."
 msgstr ""
 "Эцэг хуудас нь \"хувийн\" тохиргоотой болсон тул энэ хуудас \"хувийн\" "
 "тохиргоотой болсон."
-
-msgid "Edit lock"
-msgstr "Түгжээ өөрчлөх"
-
-msgid "Locked"
-msgstr "Түгжигдсэн"
-
-msgid "Unlocked"
-msgstr "Түгжигдээгүй"
 
 msgid "Publishing…"
 msgstr "Нийтэлж байна..."
@@ -1009,6 +1000,9 @@ msgstr "Хуудас хэрэглээгүй"
 msgid "Collection"
 msgstr "Цуглуулга"
 
+msgid "Locked"
+msgstr "Түгжигдсэн"
+
 msgid "Root"
 msgstr "Үндэс"
 
@@ -1158,9 +1152,6 @@ msgstr "'{0}' хуудас нийтлэхээс татгалзагдлаа."
 
 msgid "Failed to send rejection notifications"
 msgstr "Татгалзсан мэдэгдэл илгээхэд алдаа гарлаа"
-
-msgid "Page '{0}' is now locked."
-msgstr "'{0}' хуудас түгжигдлээ."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "'{0}' хуудасны түгжээ тайлагдлаа."

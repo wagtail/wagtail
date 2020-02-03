@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-17 04:16+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -665,11 +665,27 @@ msgstr ""
 "Esse é o seu painel que exibe informações úteis sobre o conteúdo que você "
 "criou."
 
-msgid "Pages awaiting moderation"
-msgstr "Páginas aguardando moderação"
-
 msgid "Title"
 msgstr "Título"
+
+msgid "Edit this page"
+msgstr "Editar essa página"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Draft"
+msgstr "Rascunho"
+
+msgid "Live"
+msgstr "Online"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s atrás"
+
+msgid "Pages awaiting moderation"
+msgstr "Páginas aguardando moderação"
 
 msgid "Parent"
 msgstr "Página Raíz"
@@ -680,9 +696,6 @@ msgstr "Tipo"
 msgid "Edited"
 msgstr "Editado"
 
-msgid "Edit this page"
-msgstr "Editar essa página"
-
 msgid "Preview this page"
 msgstr "Pré-visualizar esta página"
 
@@ -692,15 +705,8 @@ msgstr "Aprovar"
 msgid "Reject"
 msgstr "Rejeitar"
 
-msgid "Edit"
-msgstr "Editar"
-
 msgid "Preview"
 msgstr "Pré-visualizar"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s atrás"
 
 msgid "Your most recent edits"
 msgstr "Suas alterações recentes"
@@ -710,12 +716,6 @@ msgstr "Data"
 
 msgid "Status"
 msgstr "Status"
-
-msgid "Draft"
-msgstr "Rascunho"
-
-msgid "Live"
-msgstr "Online"
 
 msgid "Site summary"
 msgstr "Resumo do site"
@@ -809,21 +809,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Alterações na privacidade também se aplicam a todas as subpáginas desta "
 "página."
-
-msgid "Edit lock"
-msgstr "Editar bloqueio"
-
-msgid "Remove editor lock. Current status: Locked"
-msgstr "Remover bloqueio do editor. Estado atual: Bloqueado"
-
-msgid "Apply editor lock. Current status: Unlocked"
-msgstr "Aplicar bloqueio do editor. Estado atual: Desbloqueado"
-
-msgid "Locked"
-msgstr "Bloqueado"
-
-msgid "Unlocked"
-msgstr "Desbloqueado"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Definir privacidade da página. Estado atual: Pública"
@@ -1324,6 +1309,9 @@ msgstr "Nenhuma página utilizada"
 msgid "Collection"
 msgstr "Coleção"
 
+msgid "Locked"
+msgstr "Bloqueado"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Página %(page_num)s de %(total_pages)s."
@@ -1357,32 +1345,6 @@ msgstr "Estado atual da página:"
 
 msgid "Other searches"
 msgstr "Outras buscas"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Você está usando um navegador <strong>não atualizado</string> não suportado "
-"por este software. Por favor <a href=\"http://browsehappy.com/\">atualize o "
-"seu navegador</a>"
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Javascript é necessário para usar Wagtail, mas está desativado."
-"<br />\n"
-"            Aqui está as <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instruções de como ativar o "
-"JavaScript no seu navegador da web</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ir para administração Wagtail"
@@ -1557,9 +1519,6 @@ msgstr "Página '{0}' rejeitada para publicação."
 
 msgid "Failed to send rejection notifications"
 msgstr "Não foi possível enviar notificações de rejeição"
-
-msgid "Page '{0}' is now locked."
-msgstr "Agora a página '{0}' está bloqueada."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Agora a página '{0}' está desbloqueada."

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2017
-# saevarom <saevar@saevar.is>, 2017-2018
+# saevarom <saevar@saevar.is>, 2017-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-25 11:14+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +84,9 @@ msgstr "Innsendingartími"
 msgid "form submission"
 msgstr "innsending forms"
 
+msgid "form submissions"
+msgstr "innsendingar"
+
 msgid "label"
 msgstr "merking"
 
@@ -119,6 +122,12 @@ msgstr "hjálpartexti"
 
 msgid "Submission date"
 msgstr "Dagsetning innsendingar"
+
+msgid "Form"
+msgstr "Skráningarform"
+
+msgid "Landing page"
+msgstr "Lendingarsíða"
 
 msgid "to address"
 msgstr "til"

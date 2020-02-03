@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Coen van der Kamp <cvanderkamp@gmail.com>, 2019
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2019-2020
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Meteor0id, 2018
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 21:02+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-25 11:51+0000\n"
 "Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -163,6 +163,12 @@ msgstr "verlopen"
 msgid "locked"
 msgstr "geblokkeerd"
 
+msgid "locked at"
+msgstr "geblokkeerd op"
+
+msgid "locked by"
+msgstr "geblokkeerd door"
+
 msgid "first published at"
 msgstr "voor het eerst gepubliceerd op"
 
@@ -244,8 +250,14 @@ msgstr "Verwijder pagina's met onderliggende pagina's"
 msgid "Lock"
 msgstr "Vergrendelen"
 
-msgid "Lock/unlock any page"
-msgstr "Alle pagina's blokkeren/deblokkeren"
+msgid "Lock/unlock pages you've locked"
+msgstr "Blokkeren/deblokkeren van pagina's die je geblokkeerd hebt"
+
+msgid "Unlock"
+msgstr "Deblokkeren"
+
+msgid "Unlock any page"
+msgstr "Deblokkeer welke pagina ook"
 
 msgid "group"
 msgstr "groep"

@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-12-17 11:50+0000\n"
-"Last-Translator: Rui Martins <rmartins16@gmail.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -367,11 +367,23 @@ msgstr ""
 "Este é o seu painel de controlo, onde pode ver informações úteis sobre os "
 "conteúdos que criou."
 
-msgid "Pages awaiting moderation"
-msgstr "Páginas a aguardar moderação"
-
 msgid "Title"
 msgstr "Título"
+
+msgid "Edit this page"
+msgstr "Alterar esta página"
+
+msgid "Edit"
+msgstr "Alterar"
+
+msgid "Draft"
+msgstr "Rascunho"
+
+msgid "Live"
+msgstr "Publicada"
+
+msgid "Pages awaiting moderation"
+msgstr "Páginas a aguardar moderação"
 
 msgid "Parent"
 msgstr "Mãe"
@@ -382,17 +394,11 @@ msgstr "Tipo"
 msgid "Edited"
 msgstr "Alterado"
 
-msgid "Edit this page"
-msgstr "Alterar esta página"
-
 msgid "Approve"
 msgstr "Aprovar"
 
 msgid "Reject"
 msgstr "Rejeitar"
-
-msgid "Edit"
-msgstr "Alterar"
 
 msgid "Preview"
 msgstr "Visualizar"
@@ -405,12 +411,6 @@ msgstr "Data"
 
 msgid "Status"
 msgstr "Estado"
-
-msgid "Draft"
-msgstr "Rascunho"
-
-msgid "Live"
-msgstr "Publicada"
 
 msgid "Site summary"
 msgstr "Resumo do site"
@@ -480,15 +480,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "As alterações de privacidade aplicam-se a todas as páginas-filha desta "
 "página."
-
-msgid "Edit lock"
-msgstr "Alteração trancada"
-
-msgid "Locked"
-msgstr "Trancada"
-
-msgid "Unlocked"
-msgstr "Destrancada"
 
 msgid "Publish this revision"
 msgstr "Publicar esta versão."
@@ -843,6 +834,9 @@ msgstr "Nenhuma página usa"
 msgid "Collection"
 msgstr "Coleção"
 
+msgid "Locked"
+msgstr "Trancada"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Página %(page_num)s de %(total_pages)s."
@@ -864,15 +858,6 @@ msgstr "Sair"
 
 msgid "Other searches"
 msgstr "Outras pesquisas"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Está a usar um browser <strong>desatualizado</strong> que não é suportado "
-"por este software. Por favor <a href=\"http://browserhappy.com/\">atualize o "
-"seu browser</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ir para a interface de administração do Wagtail"
@@ -1005,9 +990,6 @@ msgstr "Página '{0}' rejeitada para publicação."
 
 msgid "Failed to send rejection notifications"
 msgstr "Não foi possível enviar as notificações de rejeição"
-
-msgid "Page '{0}' is now locked."
-msgstr "A página '{0}' foi trancada."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "A página '{0}' foi destrancada."

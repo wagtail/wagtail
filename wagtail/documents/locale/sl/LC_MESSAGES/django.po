@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-20 20:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -113,9 +113,6 @@ msgstr "Naziv"
 
 msgid "File"
 msgstr "Datoteka"
-
-msgid "Uploaded"
-msgstr "Naloženo"
 
 #, python-format
 msgid ""

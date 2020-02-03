@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2019
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2020
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Meteor0id, 2019
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-17 19:22+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-25 12:16+0000\n"
 "Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -77,6 +77,9 @@ msgstr "Voer uw %s in"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vul uw e-mailadres in om uw wachtwoord te herstellen"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -255,6 +258,12 @@ msgstr "Slowaaks"
 
 msgid "Thai"
 msgstr "Thais"
+
+msgid "Turkish"
+msgstr "Turks"
+
+msgid "Turkish (Turkey)"
+msgstr "Turks (Turkije)"
 
 msgid "Ukrainian"
 msgstr "Oekraïens"
@@ -672,11 +681,36 @@ msgstr ""
 "Dit is uw dashboard waarop praktische informatie over content die u heeft "
 "gemaakt getoond zal worden."
 
-msgid "Pages awaiting moderation"
-msgstr "Pagina's die op goedkeuring wachten"
+msgid "Your locked pages"
+msgstr "Jouw geblokkeerde pagina's"
+
+msgid "See all locked pages"
+msgstr "Bekijk alle geblokkeerde pagina's"
 
 msgid "Title"
 msgstr "Titel"
+
+msgid "Locked at"
+msgstr "Geblokkeerd op"
+
+msgid "Edit this page"
+msgstr "Wijzig deze pagina"
+
+msgid "Edit"
+msgstr "Wijzig"
+
+msgid "Draft"
+msgstr "Concept"
+
+msgid "Live"
+msgstr "Live"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s geleden"
+
+msgid "Pages awaiting moderation"
+msgstr "Pagina's die op goedkeuring wachten"
 
 msgid "Parent"
 msgstr "Bovenliggende pagina"
@@ -687,9 +721,6 @@ msgstr "Type"
 msgid "Edited"
 msgstr "Gewijzigd"
 
-msgid "Edit this page"
-msgstr "Wijzig deze pagina"
-
 msgid "Preview this page"
 msgstr "Toon voorvertoning van deze pagina"
 
@@ -699,15 +730,8 @@ msgstr "Keur goed"
 msgid "Reject"
 msgstr "Keur af"
 
-msgid "Edit"
-msgstr "Wijzig"
-
 msgid "Preview"
 msgstr "Voorbeeld"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s geleden"
 
 msgid "Your most recent edits"
 msgstr "Laatste wijzigingen"
@@ -717,12 +741,6 @@ msgstr "Datum"
 
 msgid "Status"
 msgstr "Status"
-
-msgid "Draft"
-msgstr "Concept"
-
-msgid "Live"
-msgstr "Live"
 
 msgid "Site summary"
 msgstr "Site samenvatting"
@@ -817,20 +835,29 @@ msgstr ""
 "Wijzigingen in de zichtbaarheid hebben ook effect op alle onderliggende "
 "pagina's van deze pagina."
 
-msgid "Edit lock"
-msgstr "Bewerkingsblokkering"
+msgid "This page is locked"
+msgstr "Deze pagina is geblokkeerd"
 
-msgid "Remove editor lock. Current status: Locked"
-msgstr "Zet bewerkingsblokkering uit. Huidige status: Geblokkeerd"
+msgid "This page is unlocked"
+msgstr "Deze pagina is gedeblokkeerd"
 
-msgid "Apply editor lock. Current status: Unlocked"
-msgstr "Zet bewerkingsblokkering aan. Huidige status: Gedeblokkeerd"
+msgid "Remove editor lock"
+msgstr "Hef bewerkingsblokkering op"
 
-msgid "Locked"
-msgstr "Geblokkeerd"
+msgid "Unlock"
+msgstr "Deblokkeer"
 
-msgid "Unlocked"
-msgstr "Gedeblokkeerd"
+msgid "You don't have permission to unlock"
+msgstr "Je hebt geen rechten om te deblokkeren"
+
+msgid "Apply editor lock"
+msgstr "Pas bewerkingsblokkering toe"
+
+msgid "Lock"
+msgstr "Blokkeren"
+
+msgid "You don't have permission to lock"
+msgstr "Je hebt geen rechten om te blokkeren"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Privacy-status van deze pagina. Huidige status: Openbaar"
@@ -1316,6 +1343,49 @@ msgstr "Geen pagina's maken gebruik van"
 msgid "Collection"
 msgstr "Collectie"
 
+msgid "No pages match this report's criteria."
+msgstr "Geen pagina's komen overeen met de rapport-criteria."
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Geblokkeerd door <b>jouw</b> op <b>"
+"%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Geblokkeerd door <b>%(locked_by)s</b> op <b>"
+"%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"                            Geblokkeerd op <b>%(locking_date)s</b>\n"
+"                        "
+
+msgid "Locked"
+msgstr "Geblokkeerd"
+
+msgid "No locked pages found."
+msgstr "Geen geblokkeerde pagina's gevonden."
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s van %(total_pages)s."
@@ -1352,28 +1422,29 @@ msgstr "Andere zoekacties"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
 "a>."
 msgstr ""
-"U gebruikt een <strong>verouderde</strong> browser die niet ondersteund "
-"wordt door deze software. <a href=\"http://browsehappy.com/\">Upgrade uw "
-"browser</a> a.u.b."
+"U gebruikt een<strong>verouderde</strong> browser die niet ondersteund wordt "
+"door deze software. <a href=\"https://browsehappy.com/\">Upgrade uw browser</"
+"a> a.u.b."
 
 msgid ""
 "\n"
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
 "JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
-"Om Wagtail te kunnen gebruiken is Javascript vereist. Dit staat momenteel "
-"uitgeschakeld. <br />\n"
-"De <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener noreferrer\">instructies om om Javascript in te schakelen zijn "
-"hier te vinden</a>."
+"            Om Wagtail te kunnen gebruiken is Javascript vereist. Dit staat "
+"momenteel uitgeschakeld.<br />\n"
+"            De <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noopener noreferrer\">instructies om om Javascript in te schakelen "
+"zijn hier te vinden</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail admin interface"
@@ -1475,6 +1546,18 @@ msgstr "Pagina '{0}' is aangemaakt."
 msgid "The page could not be created due to validation errors"
 msgstr "De pagina kon niet aangemaakt worden vanwege validatiefouten."
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "De pagina '{}' is geblokkeerd</b> door jou op <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "</b>De pagina '{}' is geblokkeerd door jou."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>De pagina '{}' is geblokkeerd</b> door <b>{}</b> op <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "De pagina '{}' is geblokkeerd."
+
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "De versie van {0} van de pagina '{1}' is ingepland voor publicatie."
 
@@ -1548,9 +1631,6 @@ msgstr "Pagina '{0}' afgewezen voor publicatie."
 msgid "Failed to send rejection notifications"
 msgstr "Het versturen van afkeuringsnotificaties is mislukt"
 
-msgid "Page '{0}' is now locked."
-msgstr "Pagina '{0}' is nu vergrendeld."
-
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is nu geopend."
 
@@ -1573,6 +1653,9 @@ msgstr "Versie {0} van \"{1}\""
 
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Versie {0} of \"{1}\" gestopt met plannen"
+
+msgid "Locked Pages"
+msgstr "Blokkeer pagina's"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1680,6 +1763,9 @@ msgstr "Doorgestreept"
 
 msgid "Code"
 msgstr "Code"
+
+msgid "Reports"
+msgstr "Rapporten"
 
 msgid "Choose an item"
 msgstr "Kies een item"

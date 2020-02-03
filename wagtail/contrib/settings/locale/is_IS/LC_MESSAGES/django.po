@@ -4,13 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016,2018
+# saevarom <saevar@saevar.is>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-25 08:32+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +40,10 @@ msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 "Ekki er hægt að breyta þessari stillingu þar sem engin síða hefur verið "
 "skilgreind."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)suppfært."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Ekki var hægt að vista stillingarnar, villur komu upp."

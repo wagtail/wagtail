@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benedikt Willi <ben.willi@gmail.com>, 2020
 # Ettore Atalan <atalanttore@googlemail.com>, 2019
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
@@ -20,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-25 13:45+0000\n"
-"Last-Translator: Matthias Martin\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-27 09:52+0000\n"
+"Last-Translator: Benedikt Willi <ben.willi@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -184,8 +185,8 @@ msgstr "Datei"
 msgid "Collection"
 msgstr "Sammlung"
 
-msgid "Uploaded"
-msgstr "Hochgeladen"
+msgid "Created"
+msgstr "Erstellt"
 
 #, python-format
 msgid "%(time_period)s ago"

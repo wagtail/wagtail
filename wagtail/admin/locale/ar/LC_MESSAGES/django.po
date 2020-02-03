@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -602,11 +602,27 @@ msgstr ""
 "هذه هي لوحة التحكم الخاصة بك والتي سيتم عرض معلومات مفيدة حول المحتوى الذي "
 "قمت بإنشائها."
 
-msgid "Pages awaiting moderation"
-msgstr "صفحات في انتظار الاشراف عليها"
-
 msgid "Title"
 msgstr "عنوان"
+
+msgid "Edit this page"
+msgstr "حرر هذه الصفحة"
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "Draft"
+msgstr "مسودة"
+
+msgid "Live"
+msgstr "مباشر"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "قبل %(time_period)s"
+
+msgid "Pages awaiting moderation"
+msgstr "صفحات في انتظار الاشراف عليها"
 
 msgid "Parent"
 msgstr "والد"
@@ -617,9 +633,6 @@ msgstr "نوع"
 msgid "Edited"
 msgstr "محررة"
 
-msgid "Edit this page"
-msgstr "حرر هذه الصفحة"
-
 msgid "Preview this page"
 msgstr "مراجعة هذة الصفحة"
 
@@ -629,15 +642,8 @@ msgstr "موافق"
 msgid "Reject"
 msgstr "مرفوض"
 
-msgid "Edit"
-msgstr "تحرير"
-
 msgid "Preview"
 msgstr "نظر مقدم"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "قبل %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "أحدث تعديلاتك"
@@ -647,12 +653,6 @@ msgstr "تاريخ"
 
 msgid "Status"
 msgstr "رتبة"
-
-msgid "Draft"
-msgstr "مسودة"
-
-msgid "Live"
-msgstr "مباشر"
 
 msgid "Site summary"
 msgstr "ملحص الموقع"
@@ -722,15 +722,6 @@ msgstr "لقد تم جعل هذه الصفحة خاصة بواسطة صفحة ر
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "تنطبق تغييرات الخصوصية على جميع أطفال هذه الصفحة أيضًا."
-
-msgid "Edit lock"
-msgstr "تحرير عملية الإغلاق"
-
-msgid "Locked"
-msgstr "مغلق"
-
-msgid "Unlocked"
-msgstr "غير مغلق"
 
 msgid "Publishing…"
 msgstr "يتم النشر..."
@@ -1095,6 +1086,9 @@ msgstr "لا توجد صفحات تستخدم"
 msgid "Collection"
 msgstr "مجموعة"
 
+msgid "Locked"
+msgstr "مغلق"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "صفحة %(page_num)s من %(total_pages)s"
@@ -1119,30 +1113,6 @@ msgstr "تسجيل الخروج"
 
 msgid "Other searches"
 msgstr "عمليات البحث الاخرى"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"أنت تستخدم متصفحًا<strong> قديمًا </strong>لا يدعمه هذا البرنامج. يرجى <a href="
-"\"http://browsehappy.com/\">تحديث المتصفح الخاص بك</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"مطلوب جافا سكريبت لاستخدام ذعرة ، ولكن يتم تعطيل حاليا. <br />\n"
-"\n"
-"فيما يلي <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener noreferrer\">تعليمات حول كيفية تمكين JavaScript في مستعرض الويب "
-"الخاص بك</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Go to Wagtail admin interface"
@@ -1290,9 +1260,6 @@ msgstr "الصفحة '{0}' مرفوضة للنشر."
 
 msgid "Failed to send rejection notifications"
 msgstr "فشل إرسال إشعارات الرفض"
-
-msgid "Page '{0}' is now locked."
-msgstr "الصفحة '{0}' مؤمنة الآن."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "الصفحة '{0}' غير مقفلة الآن."

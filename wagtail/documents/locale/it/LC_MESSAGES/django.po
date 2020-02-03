@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-29 22:00+0000\n"
-"Last-Translator: LB (Ben Johnston) <mail@lb.ee>\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -175,9 +175,6 @@ msgstr "File"
 
 msgid "Collection"
 msgstr "Raccolta"
-
-msgid "Uploaded"
-msgstr "Caricato"
 
 #, python-format
 msgid "%(time_period)s ago"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -124,11 +124,17 @@ msgstr ""
 "Това е вашето работно табло, където ще бъде показана полезна информация за "
 "контент, който сте създали."
 
-msgid "Pages awaiting moderation"
-msgstr "Страници очакващи модерация"
-
 msgid "Title"
 msgstr "Заглавие"
+
+msgid "Edit this page"
+msgstr "Редактирайте тази страница"
+
+msgid "Edit"
+msgstr "Редакция"
+
+msgid "Pages awaiting moderation"
+msgstr "Страници очакващи модерация"
 
 msgid "Parent"
 msgstr "Родител"
@@ -136,17 +142,11 @@ msgstr "Родител"
 msgid "Type"
 msgstr "Вид"
 
-msgid "Edit this page"
-msgstr "Редактирайте тази страница"
-
 msgid "Approve"
 msgstr "Одобрете"
 
 msgid "Reject"
 msgstr "Отхвърлете"
-
-msgid "Edit"
-msgstr "Редакция"
 
 msgid "Preview"
 msgstr "Преглед"

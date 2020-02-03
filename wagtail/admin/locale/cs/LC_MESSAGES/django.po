@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -644,11 +644,27 @@ msgid ""
 "created will be displayed."
 msgstr "Na tomto dashboardu najdete základní přehled spravovaného obsahu."
 
-msgid "Pages awaiting moderation"
-msgstr "Stránky čekající na schválení"
-
 msgid "Title"
 msgstr "Název"
+
+msgid "Edit this page"
+msgstr "Upravit stránku"
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Draft"
+msgstr "Koncept"
+
+msgid "Live"
+msgstr "Publikováno"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "před %(time_period)s"
+
+msgid "Pages awaiting moderation"
+msgstr "Stránky čekající na schválení"
 
 msgid "Parent"
 msgstr "Nadřazená stránka"
@@ -659,9 +675,6 @@ msgstr "Typ"
 msgid "Edited"
 msgstr "Upraveno"
 
-msgid "Edit this page"
-msgstr "Upravit stránku"
-
 msgid "Preview this page"
 msgstr "Prohlédnout navrhovaný vzhled stránky"
 
@@ -671,15 +684,8 @@ msgstr "Schválit"
 msgid "Reject"
 msgstr "Zamítnout"
 
-msgid "Edit"
-msgstr "Upravit"
-
 msgid "Preview"
 msgstr "Náhled"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "před %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Vaše poslední úpravy"
@@ -689,12 +695,6 @@ msgstr "Datum"
 
 msgid "Status"
 msgstr "Stav"
-
-msgid "Draft"
-msgstr "Koncept"
-
-msgid "Live"
-msgstr "Publikováno"
 
 msgid "Site summary"
 msgstr "Přehled obsahu"
@@ -763,15 +763,6 @@ msgstr "Stránka je neveřejná kvůli nastavení nadřazené stránky."
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Nastavení viditelnosti ovlivní i všechny podstránky."
-
-msgid "Edit lock"
-msgstr "Zamknout pro úpravy"
-
-msgid "Locked"
-msgstr "Zamknuto"
-
-msgid "Unlocked"
-msgstr "Odemknuto"
 
 msgid "Publishing…"
 msgstr "Publikování..."
@@ -1268,6 +1259,9 @@ msgstr "Žádné stránky typu"
 msgid "Collection"
 msgstr "Kolekce"
 
+msgid "Locked"
+msgstr "Zamknuto"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strana %(page_num)s z %(total_pages)s."
@@ -1292,32 +1286,6 @@ msgstr "Odhlásit"
 
 msgid "Other searches"
 msgstr "Další hledání"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Používáte <strong>zastaralý</strong> prohlížeč, který není podporovaný tímto "
-"software. <a href=\"http://browsehappy.com/\">Aktualizujte prosím svůj "
-"prohlížeč</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Pro použití Wagtailu je vyžadován Javascript, ale ten je "
-"momentálně vypnutý.<br />\n"
-"            Zde naleznete <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instrukce jak zapnout "
-"Javascript ve Vašem prohlížeči</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Přejít do redakčního systému"
@@ -1474,9 +1442,6 @@ msgstr "Publikace stránky '{0}' byla zamítnuta."
 
 msgid "Failed to send rejection notifications"
 msgstr "Selhalo odeslání zamítavých notifikací"
-
-msgid "Page '{0}' is now locked."
-msgstr "Stránka '{0}' je nyní uzamčena."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemčena."

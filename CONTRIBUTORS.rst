@@ -455,7 +455,7 @@ Translators
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Patrick Craston, Peter Dreuw, Johannes Fleck, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, Jannis Vajen, Vorlif, Matthew Westcott
+* German: Ettore Atalan, Bohreromir, Patrick Craston, Peter Dreuw, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, Jannis Vajen, Vorlif, Matthew Westcott, Benedikt Willi
 * Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Adi Ron, Oleg Sverdlov
 * Hungarian: Istvan Farkas, Laszlo Molnar, Kornél Novák Mergulhão, BN, Aron Santa

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -362,11 +362,27 @@ msgstr ""
 "Tämä on kojelauta jossa näytetään hyödyllistä informaatiota luodusta "
 "sisällöstä."
 
-msgid "Pages awaiting moderation"
-msgstr "Tarkistusta odottavia sivuja"
-
 msgid "Title"
 msgstr "Otsikko"
+
+msgid "Edit this page"
+msgstr "Muokkaa tätä sivua"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Draft"
+msgstr "Luonnos"
+
+msgid "Live"
+msgstr "Julkinen"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sitten"
+
+msgid "Pages awaiting moderation"
+msgstr "Tarkistusta odottavia sivuja"
 
 msgid "Parent"
 msgstr "Isäntä"
@@ -377,24 +393,14 @@ msgstr "Tyyppi"
 msgid "Edited"
 msgstr "Muokattu"
 
-msgid "Edit this page"
-msgstr "Muokkaa tätä sivua"
-
 msgid "Approve"
 msgstr "Hyväksy"
 
 msgid "Reject"
 msgstr "Hylkää"
 
-msgid "Edit"
-msgstr "Muokkaa"
-
 msgid "Preview"
 msgstr "Esikatsele"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s sitten"
 
 msgid "Your most recent edits"
 msgstr "Tuoreimmat muokkauksesi"
@@ -404,12 +410,6 @@ msgstr "Pvm"
 
 msgid "Status"
 msgstr "Tila"
-
-msgid "Draft"
-msgstr "Luonnos"
-
-msgid "Live"
-msgstr "Julkinen"
 
 msgid "Site summary"
 msgstr "Sivuston yhteenveto"
@@ -478,15 +478,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Yksityisyyteen tehtävät muutokset vaikuttavat myös kaikkiin tämän sivun "
 "alasivuihin."
-
-msgid "Edit lock"
-msgstr "Muokkauslukko"
-
-msgid "Locked"
-msgstr "Lukittu"
-
-msgid "Unlocked"
-msgstr "Ei lukittu"
 
 msgid "Publish this revision"
 msgstr "Julkaise tämä versio"
@@ -832,6 +823,9 @@ msgstr "Yhtään sivua ei käytä"
 msgid "Collection"
 msgstr "Kokoelma"
 
+msgid "Locked"
+msgstr "Lukittu"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
@@ -853,14 +847,6 @@ msgstr "Kirjaudu ulos"
 
 msgid "Other searches"
 msgstr "Muut haut"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Käytössäsi on <strong>vanhentunut</strong> selain jota tämä ohjelmisto ei "
-"tue. Ole hyvä ja <a href=\"http://browsehappy.com/\">päivitä selaimesi</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Siirry Wagtailin hallintaan"
@@ -996,9 +982,6 @@ msgstr "Sivu '{0}' julkaisu hylättiin."
 
 msgid "Failed to send rejection notifications"
 msgstr "Hylkäysilmoitusten lähetys epäonnistui"
-
-msgid "Page '{0}' is now locked."
-msgstr "Sivu '{0}' on nyt lukittu"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Sivu '{0}' ei ole enää lukittu."

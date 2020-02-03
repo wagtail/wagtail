@@ -3,12 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benedikt Willi <ben.willi@gmail.com>, 2020
 # Benjamin Thurm, 2018-2019
 # Daniel Manser <me@danielmanser.com>, 2015
 # Ettore Atalan <atalanttore@googlemail.com>, 2015-2017,2019
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016,2018
 # hpoul <herbert.transifex@m.poul.at>, 2015
 # Jannis Vajen, 2016
+# Bohreromir, 2020
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -29,9 +31,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-25 13:41+0000\n"
-"Last-Translator: Matthias Martin\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-27 09:13+0000\n"
+"Last-Translator: Benedikt Willi <ben.willi@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -94,6 +96,9 @@ msgstr "Bitte %s eingeben"
 
 msgid "Enter your email address to reset your password"
 msgstr "Geben Sie Ihre E-Mail-Adresse ein, um Ihr Passwort zurückzusetzen"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -274,6 +279,12 @@ msgstr "Slowakisch"
 
 msgid "Thai"
 msgstr "Thailändisch"
+
+msgid "Turkish"
+msgstr "Türkisch"
+
+msgid "Turkish (Turkey)"
+msgstr "Türkisch (Türkei)"
 
 msgid "Ukrainian"
 msgstr "Ukrainisch"
@@ -695,11 +706,36 @@ msgstr ""
 "Das ist Ihr Dashboard, auf dem nützliche Informationen zu den Inhalten, die "
 "Sie erstellen, zusammengestellt werden."
 
-msgid "Pages awaiting moderation"
-msgstr "Seiten, die auf Freischaltung warten"
+msgid "Your locked pages"
+msgstr "Ihre gesperrte Seiten"
+
+msgid "See all locked pages"
+msgstr "Alle gesperrten Seiten anzeigen"
 
 msgid "Title"
 msgstr "Titel"
+
+msgid "Locked at"
+msgstr "Gesperrt um"
+
+msgid "Edit this page"
+msgstr "Diese Seite bearbeiten"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Draft"
+msgstr "Entwurf"
+
+msgid "Live"
+msgstr "Seite anzeigen"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "vor %(time_period)s"
+
+msgid "Pages awaiting moderation"
+msgstr "Seiten, die auf Freischaltung warten"
 
 msgid "Parent"
 msgstr "Übergeordnetes Element"
@@ -710,9 +746,6 @@ msgstr "Typ"
 msgid "Edited"
 msgstr "Bearbeitet"
 
-msgid "Edit this page"
-msgstr "Diese Seite bearbeiten"
-
 msgid "Preview this page"
 msgstr "Seitenvorschau anzeigen"
 
@@ -722,15 +755,8 @@ msgstr "Freischalten"
 msgid "Reject"
 msgstr "Ablehnen"
 
-msgid "Edit"
-msgstr "Bearbeiten"
-
 msgid "Preview"
 msgstr "Vorschau"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "vor %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Ihre letzen Änderungen"
@@ -740,12 +766,6 @@ msgstr "Datum"
 
 msgid "Status"
 msgstr "Status"
-
-msgid "Draft"
-msgstr "Entwurf"
-
-msgid "Live"
-msgstr "Seite anzeigen"
 
 msgid "Site summary"
 msgstr "Seitenzusammenfassung"
@@ -843,20 +863,29 @@ msgstr ""
 "Die Privatsphäre-Einstellungen gelten ebenfalls für alle Unterseiten dieser "
 "Seite."
 
-msgid "Edit lock"
-msgstr "Sperre bearbeiten"
+msgid "This page is locked"
+msgstr "Diese Seite ist gesperrt"
 
-msgid "Remove editor lock. Current status: Locked"
-msgstr "Bearbeitung sperren. Aktueller Status: Gesperrt"
+msgid "This page is unlocked"
+msgstr "Diese Seite ist entsperrt"
 
-msgid "Apply editor lock. Current status: Unlocked"
-msgstr "Bearbeitung sperren. Aktueller Status: Freigegeben"
+msgid "Remove editor lock"
+msgstr "Editor-Sperre aufheben"
 
-msgid "Locked"
-msgstr "Gesperrt"
+msgid "Unlock"
+msgstr "Entsperren"
 
-msgid "Unlocked"
-msgstr "Entsperrt"
+msgid "You don't have permission to unlock"
+msgstr "Sie haben nicht die nötige Berechtigung um die Sperre aufzuheben"
+
+msgid "Apply editor lock"
+msgstr "Editor-Sperre anwenden"
+
+msgid "Lock"
+msgstr "Sperren"
+
+msgid "You don't have permission to lock"
+msgstr "Sie haben keine Berechtigung zum Sperren"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Seiten-Privatsphäre einstellen. Aktueller Status: Öffentlich"
@@ -1358,6 +1387,44 @@ msgstr "Keine Seite benutzt "
 msgid "Collection"
 msgstr "Sammlung"
 
+msgid "No pages match this report's criteria."
+msgstr "Es gibt keine Seiten welche den Kriterien dieses Reports entsprechen"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"Gesperrt von <b>Ihnen</b> um <b>%(locking_date)s</b>"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"Gesperrt von <b>%(locked_by)s</b> um <b>%(locking_date)s</b>"
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"Gesperrt um <b>%(locking_date)s</b>"
+
+msgid "Locked"
+msgstr "Gesperrt"
+
+msgid "No locked pages found."
+msgstr "Keine gesperrten Seiten gefunden"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Seite %(page_num)s von %(total_pages)s."
@@ -1394,29 +1461,28 @@ msgstr "Andere Suchbegriffe"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
 "a>."
 msgstr ""
-"Sie verwenden einen <strong>überholten</strong> Browser, der nicht von "
-"dieser Software unterstützt wird. Bitte <a href=\"http://browsehappy.com/"
+"Sie verwenden einen <strong>veralteten</strong> Browser, der von dieser "
+"Software nicht unterstützt wird. Bitte <a href=\"https://browsehappy.com/"
 "\">aktualisieren Sie Ihren Browser</a>."
 
 msgid ""
 "\n"
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
 "JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
-"JavaScript wird benötigt um Wagtail auszuführen, ist aber deaktiviert.<br /"
-">\n"
-"Beachten Sie <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" "
-"rel=\"noopener noreferrer\">die Hinweise wie Sie JavaScript in ihrem Browser "
-"aktivieren können</a>.\n"
-" "
+"Für die Verwendung von Wagtail ist JavaScripterforderlich, ist aber derzeit "
+"deaktiviert.<br />\n"
+"Hier sind die Anleitung, wie Sie <a href=\"https://www.enable-javascript.com/"
+"\" target=\"_blank\" rel=\"noopener noreferrer\">JavaScript in Ihrem "
+"Webbrowser aktivieren</a> können."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Zum Wagtail Admin-Interface"
@@ -1520,6 +1586,18 @@ msgstr "Seite ‚{0}‘ erstellt."
 msgid "The page could not be created due to validation errors"
 msgstr "Die Seite konnte wegen Prüfungsfehlern nicht erstellt werden."
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Die Seite '{}'</b> wurde von <b>Ihnen</b> um <b>{} </b>gesperrt."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Die Seite '{}'</b> ist von <b>Ihnen</b> gesperrt."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Die Seite '{}'</b> wurde von <b>{}</b>um <b>{}</b> gesperrt."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Die Seite '{}' ist gesperrt</b>."
+
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "Revision von {0} von Seite '{1}' wurde zur Veröffentlichung (zu einem "
@@ -1600,9 +1678,6 @@ msgstr "Die Veröffentlichung der Seite ‚{0}‘ wurde abgelehnt."
 msgid "Failed to send rejection notifications"
 msgstr "Ablehnungsbenachrichtigungen konnten nicht versendet werden"
 
-msgid "Page '{0}' is now locked."
-msgstr "Die Seite ‚{0}‘ ist jetzt gesperrt."
-
 msgid "Page '{0}' is now unlocked."
 msgstr "Die Seite ‚{0}‘ ist jetzt entsperrt."
 
@@ -1625,6 +1700,9 @@ msgstr "Revision {0} von \"{1}\""
 
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Geplante Veröffentlichung der Revision {0} von \"{1}\" aufgehoben."
+
+msgid "Locked Pages"
+msgstr "Gesperrte Seiten"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1732,6 +1810,9 @@ msgstr "Durchgestrichen"
 
 msgid "Code"
 msgstr "Code"
+
+msgid "Reports"
+msgstr "Berichte"
 
 msgid "Choose an item"
 msgstr "Eintrag wählen"

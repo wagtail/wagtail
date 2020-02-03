@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -394,11 +394,27 @@ msgstr ""
 "Aquest es el teu tauler de control on es mostrarà informació útil sobre el "
 "contingut que has creat"
 
-msgid "Pages awaiting moderation"
-msgstr "Pàgines a l'espera de moderació"
-
 msgid "Title"
 msgstr "Títol"
+
+msgid "Edit this page"
+msgstr "Edita aquesta pàgina"
+
+msgid "Edit"
+msgstr "Edita"
+
+msgid "Draft"
+msgstr "Esborrany"
+
+msgid "Live"
+msgstr "En viu"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "fa %(time_period)s"
+
+msgid "Pages awaiting moderation"
+msgstr "Pàgines a l'espera de moderació"
 
 msgid "Parent"
 msgstr "Pare"
@@ -409,24 +425,14 @@ msgstr "Tipus"
 msgid "Edited"
 msgstr "Editat"
 
-msgid "Edit this page"
-msgstr "Edita aquesta pàgina"
-
 msgid "Approve"
 msgstr "Aprovar"
 
 msgid "Reject"
 msgstr "Rebutjar"
 
-msgid "Edit"
-msgstr "Edita"
-
 msgid "Preview"
 msgstr "Vista prèvia"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "fa %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Edicions més recents"
@@ -436,12 +442,6 @@ msgstr "Data"
 
 msgid "Status"
 msgstr "Estat"
-
-msgid "Draft"
-msgstr "Esborrany"
-
-msgid "Live"
-msgstr "En viu"
 
 msgid "Site summary"
 msgstr "Resum del lloc"
@@ -510,15 +510,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Els canvis a la privadesa s'apliquen també a totes les pàgines filles "
 "d'aquesta pàgina."
-
-msgid "Edit lock"
-msgstr "Editar bloqueig"
-
-msgid "Locked"
-msgstr "Bloquejada"
-
-msgid "Unlocked"
-msgstr "Desbloquejada"
 
 msgid "Publish this revision"
 msgstr "Publicar aquesta revisió"
@@ -938,6 +929,9 @@ msgstr "No hi ha pàgines que enllacin"
 msgid "Collection"
 msgstr "Col·lecció"
 
+msgid "Locked"
+msgstr "Bloquejada"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pàgina %(page_num)s de %(total_pages)s."
@@ -959,15 +953,6 @@ msgstr "Desconnecta"
 
 msgid "Other searches"
 msgstr "Altres cerques"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Esteu utilitzant un navegador <strong>obsolet</strong> no compatible amb "
-"aquest programari. <a href=\"http://browsehappy.com/\">Actualitzeu el vostre "
-"navegador</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Anar a la interfície d'administració de Wagtail"
@@ -1105,9 +1090,6 @@ msgstr "La pàgina '{0}' ha estat rebutjada per publicació"
 
 msgid "Failed to send rejection notifications"
 msgstr "Ha fallat l'enviament de notificacions de rebuig"
-
-msgid "Page '{0}' is now locked."
-msgstr "La pàgina '{0}' ara està bloquejada."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "La pàgina '{0}' ara està desbloquejada."
