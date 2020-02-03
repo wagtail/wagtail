@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-12-12 02:29+0000\n"
-"Last-Translator: Mikhail Sidorov <pevzi23@gmail.com>\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -125,9 +125,6 @@ msgstr "Заголовок"
 
 msgid "File"
 msgstr "Файл"
-
-msgid "Uploaded"
-msgstr "Загружено"
 
 #, python-format
 msgid "%(time_period)s ago"

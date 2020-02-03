@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -208,11 +208,20 @@ msgid ""
 "created will be displayed."
 msgstr "这是您的仪表盘，会显示对您已创建的内容有帮助的信息"
 
-msgid "Pages awaiting moderation"
-msgstr "这些页面在等待审核"
-
 msgid "Title"
 msgstr "标题"
+
+msgid "Edit this page"
+msgstr "编辑这个页面"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "Pages awaiting moderation"
+msgstr "这些页面在等待审核"
 
 msgid "Parent"
 msgstr "上一级"
@@ -223,17 +232,11 @@ msgstr "类型"
 msgid "Edited"
 msgstr "已编辑"
 
-msgid "Edit this page"
-msgstr "编辑这个页面"
-
 msgid "Approve"
 msgstr "通过"
 
 msgid "Reject"
 msgstr "拒绝"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "Preview"
 msgstr "预览"
@@ -246,9 +249,6 @@ msgstr "日期"
 
 msgid "Status"
 msgstr "状态"
-
-msgid "Draft"
-msgstr "草稿"
 
 msgid "Site summary"
 msgstr "网站摘要"

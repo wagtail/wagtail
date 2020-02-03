@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2019
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2020
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Meteor0id, 2018-2019
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 21:01+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-25 11:45+0000\n"
 "Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -277,6 +277,12 @@ msgstr "Gebruik"
 
 msgid "Images"
 msgstr "Afbeeldingen"
+
+msgid "Popular Tags:"
+msgstr "Populaire tags:"
+
+msgid "Clear choice"
+msgstr "Keuze leegmaken"
 
 msgid "pixels"
 msgstr "pixels"

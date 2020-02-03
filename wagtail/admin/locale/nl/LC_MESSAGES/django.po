@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -348,11 +348,23 @@ msgstr ""
 "Dit is uw dashboard waarop nuttige informatie zal worden getoond over "
 "content die u gemaakt heeft."
 
-msgid "Pages awaiting moderation"
-msgstr "Pagina's wachtend op goedkeuring"
-
 msgid "Title"
 msgstr "Titel"
+
+msgid "Edit this page"
+msgstr "Wijzig deze pagina"
+
+msgid "Edit"
+msgstr "Wijzigen"
+
+msgid "Draft"
+msgstr "Concept"
+
+msgid "Live"
+msgstr "Live"
+
+msgid "Pages awaiting moderation"
+msgstr "Pagina's wachtend op goedkeuring"
 
 msgid "Parent"
 msgstr "Parent"
@@ -363,17 +375,11 @@ msgstr "Type"
 msgid "Edited"
 msgstr "Gewijzigd"
 
-msgid "Edit this page"
-msgstr "Wijzig deze pagina"
-
 msgid "Approve"
 msgstr "Goedkeuren"
 
 msgid "Reject"
 msgstr "Afwijzen"
-
-msgid "Edit"
-msgstr "Wijzigen"
 
 msgid "Preview"
 msgstr "Voorbeeld bekijken"
@@ -386,12 +392,6 @@ msgstr "Datum"
 
 msgid "Status"
 msgstr "Status"
-
-msgid "Draft"
-msgstr "Concept"
-
-msgid "Live"
-msgstr "Live"
 
 msgid "Site summary"
 msgstr "Site samenvatting"
@@ -452,15 +452,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Privacywijzigingen hebben ook effect op alle onderliggende pagina's van deze "
 "pagina."
-
-msgid "Edit lock"
-msgstr "Wijzig vergrendeling"
-
-msgid "Locked"
-msgstr "Vergrendeld"
-
-msgid "Unlocked"
-msgstr "Ontgrendeld"
 
 msgid "Publish this revision"
 msgstr "Publiceer deze revisie"
@@ -708,6 +699,9 @@ msgstr "Geen enkele pagina maakt gebruik van"
 msgid "Collection"
 msgstr "Collectie"
 
+msgid "Locked"
+msgstr "Vergrendeld"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s van %(total_pages)s."
@@ -726,15 +720,6 @@ msgstr "Uitloggen"
 
 msgid "Other searches"
 msgstr "Andere zoekresultaten"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"U gebruikt een <strong>verouderde</strong> browser die niet ondersteund "
-"wordt door deze sofware. <a href=\"http://browsehappy.com/\">upgrade uw "
-"browser</a> a.u.b."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail beheer interface"
@@ -798,9 +783,6 @@ msgstr "Pagina '{0}' gepubliceerd."
 
 msgid "Page '{0}' rejected for publication."
 msgstr "Pagina '{0}' is afgewezen voor publicatie."
-
-msgid "Page '{0}' is now locked."
-msgstr "Pagina '{0}' is vergrendeld."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is ontgrendeld."

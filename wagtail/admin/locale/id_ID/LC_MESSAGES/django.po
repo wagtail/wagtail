@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -590,11 +590,27 @@ msgstr ""
 "Ini adalah dasbor Anda. Di sini akan ditampilkan informasi yang berguna "
 "mengenai konten yang Anda buat,"
 
-msgid "Pages awaiting moderation"
-msgstr "Halaman yang sedang menunggu moderasi"
-
 msgid "Title"
 msgstr "Judul"
+
+msgid "Edit this page"
+msgstr "Ubah halaman ini"
+
+msgid "Edit"
+msgstr "Ubah"
+
+msgid "Draft"
+msgstr "Konsep"
+
+msgid "Live"
+msgstr "Terpublikasi"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s yang lalu"
+
+msgid "Pages awaiting moderation"
+msgstr "Halaman yang sedang menunggu moderasi"
 
 msgid "Parent"
 msgstr "Induk"
@@ -605,9 +621,6 @@ msgstr "Tipe"
 msgid "Edited"
 msgstr "Telah diubah"
 
-msgid "Edit this page"
-msgstr "Ubah halaman ini"
-
 msgid "Preview this page"
 msgstr "Pratinjau halaman ini"
 
@@ -617,15 +630,8 @@ msgstr "Menyetujui"
 msgid "Reject"
 msgstr "Tolak"
 
-msgid "Edit"
-msgstr "Ubah"
-
 msgid "Preview"
 msgstr "Pratinjau"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s yang lalu"
 
 msgid "Your most recent edits"
 msgstr "Perubahan terakhir yang anda lakukan"
@@ -635,12 +641,6 @@ msgstr "Tanggal"
 
 msgid "Status"
 msgstr "Status"
-
-msgid "Draft"
-msgstr "Konsep"
-
-msgid "Live"
-msgstr "Terpublikasi"
 
 msgid "Site summary"
 msgstr "Ringkasan situs"
@@ -712,15 +712,6 @@ msgstr ""
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Perubahan privasi juga berlaku untuk semua keturunan dari halaman induk ini."
-
-msgid "Edit lock"
-msgstr "Ubah kunci"
-
-msgid "Locked"
-msgstr "Terkunci"
-
-msgid "Unlocked"
-msgstr "Kunci terbuka"
 
 msgid "Publishing…"
 msgstr "Mempublikasikan..."
@@ -1182,6 +1173,9 @@ msgstr "Tidak ada halaman yang menggunakan"
 msgid "Collection"
 msgstr "Koleksi"
 
+msgid "Locked"
+msgstr "Terkunci"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Halaman %(page_num)s dari %(total_pages)s."
@@ -1206,15 +1200,6 @@ msgstr "Keluar"
 
 msgid "Other searches"
 msgstr "Pencarian yang lain"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Anda  menggunakan peramban yang <strong>kadaluarsa</strong> yang tidak "
-"didukung oleh perangkat lunak ini. Harap <a href=\"http://browsehappy.com/"
-"\">memperbarui peramban anda</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Pergi ke antarmuka pengeloaan Wagtail"
@@ -1362,9 +1347,6 @@ msgstr "Publikasi halaman '{0}' ditolak."
 
 msgid "Failed to send rejection notifications"
 msgstr "Gagal mengirim notifikasi penolakan"
-
-msgid "Page '{0}' is now locked."
-msgstr "Halaman '{0}' sekarang telah dikunci."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Halaman '{0}' sekarang tidak dikunci."

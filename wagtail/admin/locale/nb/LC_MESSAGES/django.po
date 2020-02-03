@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-11-07 12:30+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -659,11 +659,27 @@ msgstr ""
 "Dette er kontrollpanelet ditt, hvor du kan se en oversikt over innholdet som "
 "er lagt inn."
 
-msgid "Pages awaiting moderation"
-msgstr "Sider som venter på godkjenning"
-
 msgid "Title"
 msgstr "Tittel"
+
+msgid "Edit this page"
+msgstr "Redigér denne siden"
+
+msgid "Edit"
+msgstr "Redigér"
+
+msgid "Draft"
+msgstr "Kladd"
+
+msgid "Live"
+msgstr "Publisert"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
+
+msgid "Pages awaiting moderation"
+msgstr "Sider som venter på godkjenning"
 
 msgid "Parent"
 msgstr "Forelder"
@@ -674,9 +690,6 @@ msgstr "Type"
 msgid "Edited"
 msgstr "Redigert"
 
-msgid "Edit this page"
-msgstr "Redigér denne siden"
-
 msgid "Preview this page"
 msgstr "Forhåndsvis denne siden"
 
@@ -686,15 +699,8 @@ msgstr "Godkjenn"
 msgid "Reject"
 msgstr "Avslå"
 
-msgid "Edit"
-msgstr "Redigér"
-
 msgid "Preview"
 msgstr "Forhåndsvis"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s siden"
 
 msgid "Your most recent edits"
 msgstr "Dine siste endringer"
@@ -704,12 +710,6 @@ msgstr "Dato"
 
 msgid "Status"
 msgstr "Status"
-
-msgid "Draft"
-msgstr "Kladd"
-
-msgid "Live"
-msgstr "Publisert"
 
 msgid "Site summary"
 msgstr "Oppsummering for nettstedet"
@@ -801,21 +801,6 @@ msgstr "Denne siden har blitt gjort privat av en foreldreside."
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Sidevernsendringer berører også alle undersider av denne siden."
-
-msgid "Edit lock"
-msgstr "Redigeringslås"
-
-msgid "Remove editor lock. Current status: Locked"
-msgstr "Skru av redigeringslås. Nåværende status: Låst"
-
-msgid "Apply editor lock. Current status: Unlocked"
-msgstr "Skru på redigeringslås. Nåværende status: Ulåst"
-
-msgid "Locked"
-msgstr "Låst"
-
-msgid "Unlocked"
-msgstr "Ulåst"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Sett sidevern. Nåværende status: Offentlig"
@@ -1309,6 +1294,9 @@ msgstr "Ingen sider bruker"
 msgid "Collection"
 msgstr "Samling"
 
+msgid "Locked"
+msgstr "Låst"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Side %(page_num)s av %(total_pages)s."
@@ -1342,32 +1330,6 @@ msgstr "Nåværende sidestatus:"
 
 msgid "Other searches"
 msgstr "Andre søk"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Du bruker en <strong>utdatert</strong> nettleser som ikke støttes av denne "
-"programvaren. Vær vennlig å <a href=\"http://browsehappy.com/\">oppgradere "
-"nettleseren din</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Javascript er påkrevd for å bruke Wagtail, men det er for "
-"øyeblikket deaktivert.<br />\n"
-"            Her finner du <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instruksjoner for hvordan man "
-"aktiverer JavaScript i nettleseren</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Gå til Wagtail administrasjonsgrensesnitt"
@@ -1542,9 +1504,6 @@ msgstr "Siden \"{0}\" ble avvist for publikasjon."
 
 msgid "Failed to send rejection notifications"
 msgstr "Klarte ikke å sende varsel om avvisninger"
-
-msgid "Page '{0}' is now locked."
-msgstr "Siden \"{0}\" er nå låst."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Siden \"{0}\" er nå ulåst."

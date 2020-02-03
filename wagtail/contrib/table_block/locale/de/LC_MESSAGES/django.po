@@ -4,15 +4,15 @@
 #
 # Translators:
 # Henrik Kröger <hedwig@riseup.net>, 2018
-# Johannes Fleck, 2019
+# Bohreromir, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
 "PO-Revision-Date: 2019-10-31 14:37+0000\n"
-"Last-Translator: Johannes Fleck\n"
+"Last-Translator: Bohreromir\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
