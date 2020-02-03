@@ -16,6 +16,7 @@ Changelog
  * `wagtail_serve` URL route can now be omitted for headless sites (Storm Heg)
  * Allow free tagging to be disabled on custom tag models (Matt Westcott)
  * Allow disabling page preview by setting `preview_modes` to an empty list (Casper Timmers)
+ * Add Vidyard to oEmbed provider list (Steve Lyall)
  * Fix: Added ARIA alert role to live search forms in the admin (Casper Timmers)
  * Fix: Reorder login form elements to match expected tab order (Kjartan Sverrisson)
  * Fix: Re-add 'Close Explorer' button on mobile viewports (Sævar Öfjörð Magnússon)
