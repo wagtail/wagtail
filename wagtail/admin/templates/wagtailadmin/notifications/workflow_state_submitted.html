@@ -6,7 +6,6 @@
     <p>{% blocktrans with workflow=workflow.name title=page.get_admin_display_title %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}".{% endblocktrans %}</p>
 
     <p>
-        {% trans "You can preview the page here:" %} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:preview_on_edit' page.id %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:preview_on_edit' page.id %}</a><br/>
         {% trans "You can edit the page here:" %} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}</a>
     </p>
 {% endblock %}

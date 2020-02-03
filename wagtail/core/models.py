@@ -10,7 +10,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, PermissionDenied
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
@@ -2600,12 +2600,16 @@ class WorkflowState(models.Model):
         return Task.objects.filter(workflow_tasks__workflow=self.workflow).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status=TaskState.STATUS_APPROVED) | Q(task_states__status=TaskState.STATUS_SKIPPED)).order_by('workflow_tasks__sort_order').first()
 
     def cancel(self, user=None):
+        if self.status != self.STATUS_IN_PROGRESS:
+            raise PermissionDenied
         self.status = 'cancelled'
         self.save()
         workflow_cancelled.send(sender=self.__class__, instance=self, user=user)
 
     @transaction.atomic
     def finish(self, user=None):
+        if self.status != self.STATUS_IN_PROGRESS:
+            raise PermissionDenied
         self.status = 'approved'
         self.save()
         self.on_finish()
@@ -2684,6 +2688,8 @@ class TaskState(models.Model):
             return content_type.get_object_for_this_type(id=self.id)
 
     def approve(self, user=None):
+        if self.status != self.STATUS_IN_PROGRESS:
+            raise PermissionDenied
         self.status = 'approved'
         self.finished_at = timezone.now()
         self.save()
@@ -2692,6 +2698,8 @@ class TaskState(models.Model):
         return self
 
     def reject(self, user=None):
+        if self.status != self.STATUS_IN_PROGRESS:
+            raise PermissionDenied
         self.status = 'rejected'
         self.finished_at = timezone.now()
         self.save()
