@@ -136,15 +136,21 @@ def send_notification(page_revision_id, notification, excluded_user_id):
 
 
 class Notifier:
+    """Generic class for sending event notifications: callable, intended to be connected to a signal to send
+    notifications using rendered templates. """
+
     notification = ''
 
     def __init__(self, valid_classes):
+        # the classes of the calling instance that the notifier can handle
         self.valid_classes = valid_classes
 
     def can_handle(self, instance, **kwargs):
+        """Returns True if the Notifier can handle sending the notification from the instance, otherwise False"""
         return isinstance(instance, self.valid_classes)
 
     def get_valid_recipients(self, instance, **kwargs):
+        """Returns a set of the final list of recipients for the notification message"""
         return set()
 
     def get_template_base_prefix(self, instance, **kwargs):
@@ -154,7 +160,7 @@ class Notifier:
         return {'settings': settings}
 
     def get_template_set(self, instance, **kwargs):
-        """Return a dictionary of template paths for the templates"""
+        """Return a dictionary of template paths for the templates: by default, a text message"""
         template_base = self.get_template_base_prefix(instance) + self.notification
 
         template_text = 'wagtailadmin/notifications/' + template_base + '.txt'
@@ -167,7 +173,8 @@ class Notifier:
         raise NotImplementedError
 
     def __call__(self, instance=None, **kwargs):
-        """Send notifications from an instance, returning True if all sent correctly"""
+        """Send notifications from an instance (intended to be the signal sender), returning True if all sent correctly
+        and False otherwise"""
 
         if not self.can_handle(instance, **kwargs):
             return False
@@ -185,8 +192,7 @@ class Notifier:
 
 
 class EmailNotifier(Notifier):
-    """Class for sending email notifications upon events: callable, taking a instance and a notification (str)
-    and sending email notifications using rendered templates"""
+    """Class for sending email notifications upon events"""
 
     def get_recipient_users(self, instance, **kwargs):
         """Gets the ideal set of recipient users, without accounting for notification preferences or missing email addresses"""
@@ -258,7 +264,7 @@ class EmailNotifier(Notifier):
 
 
 class BaseWorkflowStateEmailNotifier(EmailNotifier):
-    """A EmailNotifier to send updates for WorkflowState events"""
+    """A base EmailNotifier to send updates for WorkflowState events"""
 
     def __init__(self):
         super().__init__((WorkflowState,))
@@ -271,7 +277,7 @@ class BaseWorkflowStateEmailNotifier(EmailNotifier):
 
 
 class WorkflowStateApprovalEmailNotifier(BaseWorkflowStateEmailNotifier):
-    """A EmailNotifier to send updates for WorkflowState approval events"""
+    """An EmailNotifier to send updates for WorkflowState approval events"""
 
     notification = 'approved'
 
@@ -286,7 +292,7 @@ class WorkflowStateApprovalEmailNotifier(BaseWorkflowStateEmailNotifier):
 
 
 class WorkflowStateRejectionEmailNotifier(BaseWorkflowStateEmailNotifier):
-    """A EmailNotifier to send updates for WorkflowState rejection events"""
+    """An EmailNotifier to send updates for WorkflowState rejection events"""
 
     notification = 'rejected'
 
@@ -301,7 +307,7 @@ class WorkflowStateRejectionEmailNotifier(BaseWorkflowStateEmailNotifier):
 
 
 class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
-    """A EmailNotifier to send updates for WorkflowState submission events"""
+    """An EmailNotifier to send updates for WorkflowState submission events"""
 
     notification = 'submitted'
 
@@ -318,7 +324,7 @@ class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
 
 
 class BaseGroupApprovalTaskStateEmailNotifier(EmailNotifier):
-    """A EmailNotifier to send updates for GroupApprovalTask events"""
+    """A base EmailNotifier to send updates for GroupApprovalTask events"""
 
     def __init__(self):
         super().__init__((TaskState,))
@@ -350,13 +356,13 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotifier):
 
 
 class GroupApprovalTaskStateSubmissionEmailNotifier(BaseGroupApprovalTaskStateEmailNotifier):
-    """A EmailNotifier to send updates for GroupApprovalTask submission events"""
+    """An EmailNotifier to send updates for GroupApprovalTask submission events"""
 
     notification = 'submitted'
 
 
 class GroupApprovalTaskStateApprovalEmailNotifier(BaseGroupApprovalTaskStateEmailNotifier):
-    """A EmailNotifier to send updates for GroupApprovalTask approval events"""
+    """An EmailNotifier to send updates for GroupApprovalTask approval events"""
 
     notification = 'approved'
 
@@ -373,7 +379,7 @@ class GroupApprovalTaskStateApprovalEmailNotifier(BaseGroupApprovalTaskStateEmai
 
 
 class GroupApprovalTaskStateRejectionEmailNotifier(BaseGroupApprovalTaskStateEmailNotifier):
-    """A EmailNotifier to send updates for GroupApprovalTask rejection events"""
+    """An EmailNotifier to send updates for GroupApprovalTask rejection events"""
 
     notification = 'rejected'
 
