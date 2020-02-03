@@ -170,12 +170,11 @@
                     actionFieldElement.value = buttonElement.dataset.workflowAction;
                     formElement.appendChild(actionFieldElement);
 
-                    var nextFieldElement = document.createElement('input');
-                    nextFieldElement.type = 'hidden';
-                    nextFieldElement.name = 'next';
-                    {% url 'wagtailadmin_home' as dashboard_url %}
-                    nextFieldElement.value = '{{ dashboard_url|escapejs }}';
-                    formElement.appendChild(nextFieldElement);
+                    var taskFieldElement = document.createElement('input');
+                    taskFieldElement.type = 'hidden';
+                    taskFieldElement.name = 'task_id';
+                    taskFieldElement.value = {{ current_task_state.id }};
+                    formElement.appendChild(taskFieldElement);
 
                     document.body.appendChild(formElement);
                     formElement.submit();
