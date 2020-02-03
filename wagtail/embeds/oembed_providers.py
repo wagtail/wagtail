@@ -642,6 +642,16 @@ tumblr = {
     ]
 }
 
+vidyard = {
+    "endpoint": "https://api.vidyard.com/dashboard/v1.1/oembed",
+    "urls": [
+        r'^http(?:s)?://play\.vidyard\.com/.+$',
+        r'^http(?:s)?://embed\.vidyard\.com/.+$',
+        r'^http(?:s)?://share\.vidyard\.com/.+$',
+        r'^http(?:s)?://.+?\.hubs\.vidyard\.com/.+$'
+    ]
+}
+
 all_providers = [
     speakerdeck, app_net, youtube, deviantart, blip_tv, dailymotion, flikr,
     hulu, nfb, qik, revision3, scribd, viddler, vimeo, dotsub, yfrog,
@@ -654,5 +664,5 @@ all_providers = [
     circuitlab, geograph_uk, hlipp, geograph_gg, vzaar, minoto, videojug, sapo,
     vhx_tv, justin_tv, official_fm, huffduffer, spotify, shoudio, mobypicture,
     twenty_three_hq, gmep, urtak, cacoo, dailymile, dipity, sketchfab, meetup,
-    roomshare, crowd_ranking, etsy, audioboom, clikthrough, ifttt, issuu, tumblr
+    roomshare, crowd_ranking, etsy, audioboom, clikthrough, ifttt, issuu, tumblr, vidyard
 ]
