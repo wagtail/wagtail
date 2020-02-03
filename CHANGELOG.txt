@@ -13,7 +13,7 @@ Changelog
  * Support the rel attribute on custom ModelAdmin buttons (Andy Chosak)
 
 
-2.8 (xx.xx.xxxx) - IN DEVELOPMENT
+2.8 (03.02.2020)
 ~~~~~~~~~~~~~~~~
 
  * Django 3.0 support (Matt Westcott, Mads Jensen)
