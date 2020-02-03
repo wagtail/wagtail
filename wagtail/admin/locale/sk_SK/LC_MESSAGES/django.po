@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -494,11 +494,27 @@ msgstr ""
 "Toto je vaša nástenka, na ktorej sa budú zobrazovať informácie o obsahu, "
 "ktorý ste vytvorili."
 
-msgid "Pages awaiting moderation"
-msgstr "Stránky čakajúce na moderáciu"
-
 msgid "Title"
 msgstr "Titulok"
+
+msgid "Edit this page"
+msgstr "Upraviť túto stránku"
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "Draft"
+msgstr "Koncept"
+
+msgid "Live"
+msgstr "Live"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s dozadu"
+
+msgid "Pages awaiting moderation"
+msgstr "Stránky čakajúce na moderáciu"
 
 msgid "Parent"
 msgstr "Rodič"
@@ -509,24 +525,14 @@ msgstr "Typ"
 msgid "Edited"
 msgstr "Upravené"
 
-msgid "Edit this page"
-msgstr "Upraviť túto stránku"
-
 msgid "Approve"
 msgstr "Schváliť"
 
 msgid "Reject"
 msgstr "Odmietnuť"
 
-msgid "Edit"
-msgstr "Upraviť"
-
 msgid "Preview"
 msgstr "Náhľad"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s dozadu"
 
 msgid "Your most recent edits"
 msgstr "Vaše posledné úpravy"
@@ -536,12 +542,6 @@ msgstr "Dátum"
 
 msgid "Status"
 msgstr "Stav"
-
-msgid "Draft"
-msgstr "Koncept"
-
-msgid "Live"
-msgstr "Live"
 
 msgid "Site summary"
 msgstr "Prehľad sídla"
@@ -607,15 +607,6 @@ msgstr "Táto stránka bola zmenená na súkromnú svojou rodičovskou stránkou
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Zmeny súkromia tejto stránky sa prejavia tiež všetkým jej podstránkam."
-
-msgid "Edit lock"
-msgstr "Upraviť zámok"
-
-msgid "Locked"
-msgstr "Zamknuté"
-
-msgid "Unlocked"
-msgstr "Odomknuté"
 
 msgid "Publish this revision"
 msgstr "Publikovať túto revíziu"
@@ -1098,6 +1089,9 @@ msgstr "Nepoužívajú žiadne stránky"
 msgid "Collection"
 msgstr "Kolekcie"
 
+msgid "Locked"
+msgstr "Zamknuté"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strana %(page_num)s z %(total_pages)s."
@@ -1122,15 +1116,6 @@ msgstr "Odhlásiť sa"
 
 msgid "Other searches"
 msgstr "Ostatné výsledky hľadania"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Používate <strong>zastaralý</strong> prehliadač, ktorý nie je podporovaný "
-"týmto systémom. Prosím <a href=\"http://browsehappy.com/\">aktualizujte váš "
-"prehliadač</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Pokračovať do administrátorskej časti"
@@ -1269,9 +1254,6 @@ msgstr "Publikácia stránky '{0}' zamietnutá."
 
 msgid "Failed to send rejection notifications"
 msgstr "Odoslanie notifikácií o zamietnutí zlyhalo"
-
-msgid "Page '{0}' is now locked."
-msgstr "Stránka '{0}' bola uzamknutá."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' bola odomknutá."

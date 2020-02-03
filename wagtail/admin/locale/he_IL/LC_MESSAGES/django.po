@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -309,11 +309,23 @@ msgid ""
 "created will be displayed."
 msgstr "זהו לוח המחוונים, על גביו יופיע מידע מועיל לגבי תוכן שתצרו"
 
-msgid "Pages awaiting moderation"
-msgstr "עמוד ממתין לעריכה"
-
 msgid "Title"
 msgstr "כותרת"
+
+msgid "Edit this page"
+msgstr "ערכו עמוד זה"
+
+msgid "Edit"
+msgstr "עריכה"
+
+msgid "Draft"
+msgstr "טיוטה"
+
+msgid "Live"
+msgstr "חי"
+
+msgid "Pages awaiting moderation"
+msgstr "עמוד ממתין לעריכה"
 
 msgid "Parent"
 msgstr "הורה"
@@ -324,17 +336,11 @@ msgstr "סוג"
 msgid "Edited"
 msgstr "ערוך"
 
-msgid "Edit this page"
-msgstr "ערכו עמוד זה"
-
 msgid "Approve"
 msgstr "אשרו"
 
 msgid "Reject"
 msgstr "דחו"
-
-msgid "Edit"
-msgstr "עריכה"
 
 msgid "Preview"
 msgstr "תצוגה מקדימה"
@@ -347,12 +353,6 @@ msgstr "תאריך"
 
 msgid "Status"
 msgstr "מצב"
-
-msgid "Draft"
-msgstr "טיוטה"
-
-msgid "Live"
-msgstr "חי"
 
 msgid "Site summary"
 msgstr "סיכום אתר"
@@ -413,15 +413,6 @@ msgstr "עמוד זה הוגדר כפרטי על ידי עמוד הורה"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "שינויי הפרטיות תקפים גם על כל תת-העמודים של עמוד זה."
-
-msgid "Edit lock"
-msgstr "ערוך נעילה"
-
-msgid "Locked"
-msgstr "נעול"
-
-msgid "Unlocked"
-msgstr "בלתי נעול"
 
 msgid "Publishing…"
 msgstr "מפרסם..."
@@ -603,6 +594,9 @@ msgstr "הכנס מונח לחיפוש"
 msgid "No pages use"
 msgstr "אף עמוד בשימוש"
 
+msgid "Locked"
+msgstr "נעול"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
@@ -618,14 +612,6 @@ msgstr "התנתקות"
 
 msgid "Other searches"
 msgstr "חיפושים אחרים"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"הדפדפן שלכם <strong>מיושן</strong> ולא נתמך ע\"י התוכנה הזו. אנא <a href="
-"\"http://browsehappy.com/\">עברו לדפדפן מודרני</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "כניסה למערך המנהל של Wagtail "
@@ -686,9 +672,6 @@ msgstr "עמוד {0} פורסם"
 
 msgid "Page '{0}' rejected for publication."
 msgstr "עמוד {0} נדחה עבור פרסום"
-
-msgid "Page '{0}' is now locked."
-msgstr "עמוד {0} נעול כעת"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "עמוד {0} בלתי נעול כעת"

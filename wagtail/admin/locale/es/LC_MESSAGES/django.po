@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -609,11 +609,27 @@ msgstr ""
 "Este es tu panel de control donde aparecerá información útil sobre el "
 "contenido que has creado."
 
-msgid "Pages awaiting moderation"
-msgstr "Páginas en espera de ser moderadas"
-
 msgid "Title"
 msgstr "Título"
+
+msgid "Edit this page"
+msgstr "Editar esta página"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Draft"
+msgstr "Borrador"
+
+msgid "Live"
+msgstr "En vivo"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s antes"
+
+msgid "Pages awaiting moderation"
+msgstr "Páginas en espera de ser moderadas"
 
 msgid "Parent"
 msgstr "Padre"
@@ -624,9 +640,6 @@ msgstr "Tipo"
 msgid "Edited"
 msgstr "Editado"
 
-msgid "Edit this page"
-msgstr "Editar esta página"
-
 msgid "Preview this page"
 msgstr "Previsualizar esta página"
 
@@ -636,15 +649,8 @@ msgstr "Aprobar"
 msgid "Reject"
 msgstr "Rechazar"
 
-msgid "Edit"
-msgstr "Editar"
-
 msgid "Preview"
 msgstr "Previsualizar"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s antes"
 
 msgid "Your most recent edits"
 msgstr "Tus ediciones más recientes"
@@ -654,12 +660,6 @@ msgstr "Fecha"
 
 msgid "Status"
 msgstr "Estado"
-
-msgid "Draft"
-msgstr "Borrador"
-
-msgid "Live"
-msgstr "En vivo"
 
 msgid "Site summary"
 msgstr "Resumen del sitio"
@@ -731,15 +731,6 @@ msgstr "Esta página fue convertida en privada por una página padre."
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Los cambios de privacidad se aplican a todos los hijos de esta página."
-
-msgid "Edit lock"
-msgstr "Editar bloqueo"
-
-msgid "Locked"
-msgstr "Bloqueada"
-
-msgid "Unlocked"
-msgstr "Desbloqueada"
 
 msgid "Publishing…"
 msgstr "Publicando..."
@@ -1208,6 +1199,9 @@ msgstr "Páginas sin uso"
 msgid "Collection"
 msgstr "Colección"
 
+msgid "Locked"
+msgstr "Bloqueada"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Página %(page_num)s de %(total_pages)s."
@@ -1232,32 +1226,6 @@ msgstr "Cerrar sesión"
 
 msgid "Other searches"
 msgstr "Otras búsquedas"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Estás usando un navegador <strong>desactualizado</strong>no soportado por "
-"este software. Por favor <a href=\"http://browsehappy.com/\">actualiza tu "
-"navegador</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Se requiere Javascript para usar Wagtail, pero actualmente está "
-"deshabilitado.<br />\n"
-"            Acá puede encontrar <a href=\"http://www.enable-javascript.com/"
-"\" target=\"_blank\" rel=\"noopener\">instrucciones sobre como habilitar "
-"JavaScript en su navegador web</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ir a la interface de admin Wagtail"
@@ -1407,9 +1375,6 @@ msgstr "Rechazada la publicación de la página '{0}'."
 
 msgid "Failed to send rejection notifications"
 msgstr "Fallo al enviar notificaciones de rechazo."
-
-msgid "Page '{0}' is now locked."
-msgstr "Página '{0}' se encuentra bloqueada."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Página '{0}' se encuentra desbloqueada."

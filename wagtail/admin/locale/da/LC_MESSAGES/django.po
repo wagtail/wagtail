@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
@@ -553,6 +553,22 @@ msgstr "Velkommen til %(site_name)s Wagtail CMS"
 msgid "Title"
 msgstr "Titel"
 
+msgid "Edit this page"
+msgstr "Rediger denne side"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Draft"
+msgstr "Skitse"
+
+msgid "Live"
+msgstr "Live"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
+
 msgid "Parent"
 msgstr "Forældre"
 
@@ -562,24 +578,14 @@ msgstr "Type"
 msgid "Edited"
 msgstr "Redigeret"
 
-msgid "Edit this page"
-msgstr "Rediger denne side"
-
 msgid "Approve"
 msgstr "Godkend"
 
 msgid "Reject"
 msgstr "Afvis"
 
-msgid "Edit"
-msgstr "Rediger"
-
 msgid "Preview"
 msgstr "Forhåndsvis"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s siden"
 
 msgid "Your most recent edits"
 msgstr "Dine seneste redigeringer"
@@ -589,12 +595,6 @@ msgstr "Dato"
 
 msgid "Status"
 msgstr "Status"
-
-msgid "Draft"
-msgstr "Skitse"
-
-msgid "Live"
-msgstr "Live"
 
 msgid "Site summary"
 msgstr "Side opsummering"
@@ -642,12 +642,6 @@ msgstr "Side privatliv"
 
 msgid "This page has been made private by a parent page."
 msgstr "Denne side er blevet lavet privat af en forældreside."
-
-msgid "Locked"
-msgstr "Låst"
-
-msgid "Unlocked"
-msgstr "Ulåst"
 
 msgid "Publishing…"
 msgstr "Udgiver..."
@@ -957,6 +951,9 @@ msgstr "Nuværende skitse"
 
 msgid "Live version"
 msgstr "Live version"
+
+msgid "Locked"
+msgstr "Låst"
 
 msgid "Root"
 msgstr "Rod"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -414,11 +414,23 @@ msgstr ""
 "To je vaša nadzorna plošča, kjer boste našli prikazane koristne informacije "
 "o vaših vsebinah."
 
-msgid "Pages awaiting moderation"
-msgstr "Strani čakajoč potrditev"
-
 msgid "Title"
 msgstr "Naziv"
+
+msgid "Edit this page"
+msgstr "Uredi stran"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Draft"
+msgstr "Osnutek"
+
+msgid "Live"
+msgstr "V živo"
+
+msgid "Pages awaiting moderation"
+msgstr "Strani čakajoč potrditev"
 
 msgid "Parent"
 msgstr "Nadrejeni"
@@ -429,17 +441,11 @@ msgstr "Tip"
 msgid "Edited"
 msgstr "Urejeno"
 
-msgid "Edit this page"
-msgstr "Uredi stran"
-
 msgid "Approve"
 msgstr "Potrdi"
 
 msgid "Reject"
 msgstr "Zavrni"
-
-msgid "Edit"
-msgstr "Uredi"
 
 msgid "Preview"
 msgstr "Predogled"
@@ -452,12 +458,6 @@ msgstr "Datum"
 
 msgid "Status"
 msgstr "Status"
-
-msgid "Draft"
-msgstr "Osnutek"
-
-msgid "Live"
-msgstr "V živo"
 
 msgid "Site summary"
 msgstr "Povzetek spletnega mesta"
@@ -524,15 +524,6 @@ msgstr "Stran je zasebna, ker je kot zasebna označena nadrejena stran."
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Nastavitve zasebnosti veljajo tudi za vse podrejene strani."
-
-msgid "Edit lock"
-msgstr "Zaklepanje"
-
-msgid "Locked"
-msgstr "Zaklenjeno"
-
-msgid "Unlocked"
-msgstr "Odklenjeno"
 
 msgid "Publish this revision"
 msgstr "Objavi to različico"
@@ -772,6 +763,9 @@ msgstr "Nobena stran ne uporablja"
 msgid "Collection"
 msgstr "Zbirka"
 
+msgid "Locked"
+msgstr "Zaklenjeno"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Stran %(page_num)s od %(total_pages)s."
@@ -790,15 +784,6 @@ msgstr "Odjava"
 
 msgid "Other searches"
 msgstr "Ostala iskanja"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Uporabljate <strong>zastarel</strong>, nepodprt, internetni brskalnik. "
-"Predlagamo vam, da ga <a href=\"http://browsehappy.com/\">posodobite</a> na "
-"novejšo različico."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Pojdite v Wagtail admin vmesnik"
@@ -892,9 +877,6 @@ msgstr "Stran '{0}' objavljena."
 
 msgid "Page '{0}' rejected for publication."
 msgstr "Objava strani '{0}' zavrnjena."
-
-msgid "Page '{0}' is now locked."
-msgstr "Stran '{0}' je sedaj zaklenjena."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Stran '{0}' je sedaj odklenjena."

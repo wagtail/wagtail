@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2020-01-13 16:08+0000\n"
-"Last-Translator: Ragnar Rebase <rrebase@gmail.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -428,14 +428,20 @@ msgstr "Jah, kustuta"
 msgid "Title"
 msgstr "Pealkiri"
 
+msgid "Edit this page"
+msgstr "Muuda seda lehte"
+
+msgid "Edit"
+msgstr "Muuda"
+
+msgid "Draft"
+msgstr "Mustand"
+
 msgid "Type"
 msgstr "Tüüp"
 
 msgid "Edited"
 msgstr "Muudetud"
-
-msgid "Edit this page"
-msgstr "Muuda seda lehte"
 
 msgid "Approve"
 msgstr "Kiida heaks"
@@ -443,14 +449,8 @@ msgstr "Kiida heaks"
 msgid "Reject"
 msgstr "Lükka tagasi"
 
-msgid "Edit"
-msgstr "Muuda"
-
 msgid "Status"
 msgstr "Staatus"
-
-msgid "Draft"
-msgstr "Mustand"
 
 msgid "Site summary"
 msgstr "Lehe kokkuvõte"
@@ -460,9 +460,6 @@ msgstr "Logi sisse"
 
 msgid "Signing in…"
 msgstr "Login sisse..."
-
-msgid "Edit lock"
-msgstr "Muuda lukku"
 
 msgid "Saving…"
 msgstr "Salvestan..."

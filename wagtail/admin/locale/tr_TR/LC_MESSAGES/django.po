@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2020-01-20 19:37+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -658,11 +658,27 @@ msgstr ""
 "Bu, oluşturduğunuz içerikle ilgili faydalı bilgilerin görüntüleneceği "
 "yönetim panelinizdir."
 
-msgid "Pages awaiting moderation"
-msgstr "Denetlenmeyi bekleyen sayfalar"
-
 msgid "Title"
 msgstr "Başlık"
+
+msgid "Edit this page"
+msgstr "Bu sayfayı düzenle"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Draft"
+msgstr "Taslak"
+
+msgid "Live"
+msgstr "Yayında"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s önce"
+
+msgid "Pages awaiting moderation"
+msgstr "Denetlenmeyi bekleyen sayfalar"
 
 msgid "Parent"
 msgstr "Üst-Ebeveyn"
@@ -673,9 +689,6 @@ msgstr "Tip"
 msgid "Edited"
 msgstr "Düzenlendi"
 
-msgid "Edit this page"
-msgstr "Bu sayfayı düzenle"
-
 msgid "Preview this page"
 msgstr "Bu sayfayı önizle"
 
@@ -685,15 +698,8 @@ msgstr "Onayla"
 msgid "Reject"
 msgstr "Reddet"
 
-msgid "Edit"
-msgstr "Düzenle"
-
 msgid "Preview"
 msgstr "Önizleme"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s önce"
 
 msgid "Your most recent edits"
 msgstr "En son düzenlemeleriniz"
@@ -703,12 +709,6 @@ msgstr "Tarih"
 
 msgid "Status"
 msgstr "Durum"
-
-msgid "Draft"
-msgstr "Taslak"
-
-msgid "Live"
-msgstr "Yayında"
 
 msgid "Site summary"
 msgstr "Site özeti"
@@ -801,21 +801,6 @@ msgstr "Bu sayfa bir üst sayfa tarafından gizli yapıldı."
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Gizlilik değişiklikleri, bu sayfanın tüm alt elemanları için de geçerlidir."
-
-msgid "Edit lock"
-msgstr "Düzenleme kilidi"
-
-msgid "Remove editor lock. Current status: Locked"
-msgstr "Editör kilini kaldır. Şimdiki durum: Kilitli"
-
-msgid "Apply editor lock. Current status: Unlocked"
-msgstr "Editör kilidini uygula. Şimdiki durum: Açık"
-
-msgid "Locked"
-msgstr "Kilitlendi"
-
-msgid "Unlocked"
-msgstr "Kilitsiz"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Sayfa gizliliğini ayarla. Şimdiki durum: Genel"
@@ -1317,6 +1302,9 @@ msgstr "Hiçbir sayfa kullanmıyor"
 msgid "Collection"
 msgstr "Koleksiyon"
 
+msgid "Locked"
+msgstr "Kilitlendi"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Sayfa %(page_num)s / %(total_pages)s."
@@ -1350,31 +1338,6 @@ msgstr "Şimdiki sayfa durumu:"
 
 msgid "Other searches"
 msgstr "Diğer aramalar"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Bu yazılım tarafından desteklenmeyen, <strong>eski</strong> bir tarayıcı "
-"kullanıyorsunuz. Lütfen <a href=\"http://browsehappy.com/\">tarayıcınızı "
-"yükseltin</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"Wagtail kullanmak için Javascript gerekli ancak şuan devre dışıdır.<br />\n"
-"            Burada <a href=\"http://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">web tarayıcısındaki JavaScript'i "
-"nasıl aktifleştireceğinizi öğrenebilirsiniz.</a>.\n"
-"    "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Wagtail yönetici arayüzüne git"
@@ -1548,9 +1511,6 @@ msgstr "'{0}' sayfasının yayınlanması reddedildi."
 
 msgid "Failed to send rejection notifications"
 msgstr "Red bildirimleri gönderilemedi"
-
-msgid "Page '{0}' is now locked."
-msgstr "Sayfa '{0}' şuan kilitli."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Sayfa '{0}' şuan kilitli değil."

@@ -8,7 +8,7 @@
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Jannis, 2015
 # Jannis Vajen, 2015
-# Johannes Fleck, 2019
+# Bohreromir, 2019
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 17:59+0100\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
 "PO-Revision-Date: 2019-10-31 14:35+0000\n"
-"Last-Translator: Johannes Fleck\n"
+"Last-Translator: Bohreromir\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"

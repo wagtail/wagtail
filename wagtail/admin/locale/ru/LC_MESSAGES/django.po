@@ -27,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-12-13 08:07+0000\n"
-"Last-Translator: Mikhail Sidorov <pevzi23@gmail.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -643,11 +643,27 @@ msgstr ""
 "Это ваша панель управления, на ней отображается полезная информация о "
 "созданном вами контенте."
 
-msgid "Pages awaiting moderation"
-msgstr "Страницы ожидающие модерации"
-
 msgid "Title"
 msgstr "Заголовок"
+
+msgid "Edit this page"
+msgstr "Редактировать эту страницу"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Draft"
+msgstr "Черновик"
+
+msgid "Live"
+msgstr "Опубликовано"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s назад"
+
+msgid "Pages awaiting moderation"
+msgstr "Страницы ожидающие модерации"
 
 msgid "Parent"
 msgstr "Родительский элемент"
@@ -658,9 +674,6 @@ msgstr "Тип"
 msgid "Edited"
 msgstr "Редактировано"
 
-msgid "Edit this page"
-msgstr "Редактировать эту страницу"
-
 msgid "Preview this page"
 msgstr "Предпросмотр этой страницы"
 
@@ -670,15 +683,8 @@ msgstr "Одобрить"
 msgid "Reject"
 msgstr "Отклонить"
 
-msgid "Edit"
-msgstr "Редактировать"
-
 msgid "Preview"
 msgstr "Предпросмотр"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s назад"
 
 msgid "Your most recent edits"
 msgstr "Ваши последние правки"
@@ -688,12 +694,6 @@ msgstr "Дата"
 
 msgid "Status"
 msgstr "Статус"
-
-msgid "Draft"
-msgstr "Черновик"
-
-msgid "Live"
-msgstr "Опубликовано"
 
 msgid "Site summary"
 msgstr "Общая информация"
@@ -796,15 +796,6 @@ msgstr "Страница приватна в соответствии с род�
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Изменения приватности также накладываются и на дочерние страницы."
-
-msgid "Edit lock"
-msgstr "Заблокировать редактирование"
-
-msgid "Locked"
-msgstr "Заблокировано"
-
-msgid "Unlocked"
-msgstr "Разблокировано"
 
 msgid "Publishing…"
 msgstr "Публикуется..."
@@ -1312,6 +1303,9 @@ msgstr "Нет страниц использующих"
 msgid "Collection"
 msgstr "Коллекция"
 
+msgid "Locked"
+msgstr "Заблокировано"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Страница %(page_num)s из %(total_pages)s."
@@ -1336,15 +1330,6 @@ msgstr "Выйти"
 
 msgid "Other searches"
 msgstr "Другие поиски"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Вы используете <strong>устаревший</strong> браузер не поддерживаемый этим "
-"сайтом. Пожалуйста, <a href=\"http://browsehappy.com/\">обновите ваш "
-"браузер</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Идти в интерфейс управления Wagtail"
@@ -1499,9 +1484,6 @@ msgstr "Публикация страницы '{0}' отклонена."
 
 msgid "Failed to send rejection notifications"
 msgstr "Не удалось отправить уведомления об отклонении"
-
-msgid "Page '{0}' is now locked."
-msgstr "Страница '{0}' заблокирована."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Страница '{0}' разблокирована."

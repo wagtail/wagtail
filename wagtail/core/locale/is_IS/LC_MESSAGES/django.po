@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
-# saevarom <saevar@saevar.is>, 2019
+# saevarom <saevar@saevar.is>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-25 11:09+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,10 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail kjarni"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: þessi blokk hefur engar stillingar."
 
 msgid "This block has no options."
 msgstr "Þessi blokk hefur enga valmöguleika."
@@ -154,6 +158,12 @@ msgstr "tekin úr loftinu"
 msgid "locked"
 msgstr "læst"
 
+msgid "locked at"
+msgstr "læst á"
+
+msgid "locked by"
+msgstr "læst af"
+
 msgid "first published at"
 msgstr "fyrst sett í loftið"
 
@@ -235,8 +245,14 @@ msgstr "Eyða síðum og undirsíðum"
 msgid "Lock"
 msgstr "Læsa"
 
-msgid "Lock/unlock any page"
-msgstr "Læsa/opna einhverja síðu"
+msgid "Lock/unlock pages you've locked"
+msgstr "Læsa/aflæsa síðum sem þú hefur læst"
+
+msgid "Unlock"
+msgstr "Aflæsa"
+
+msgid "Unlock any page"
+msgstr "Aflæsa einhverri síðu"
 
 msgid "group"
 msgstr "hópur"

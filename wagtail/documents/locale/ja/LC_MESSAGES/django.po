@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-05 03:43+0000\n"
-"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -169,9 +169,6 @@ msgstr "ファイル"
 
 msgid "Collection"
 msgstr "コレクション"
-
-msgid "Uploaded"
-msgstr "アップロード済み"
 
 #, python-format
 msgid "%(time_period)s ago"

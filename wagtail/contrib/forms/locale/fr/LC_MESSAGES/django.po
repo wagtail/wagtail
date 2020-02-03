@@ -9,7 +9,8 @@
 # Benoît Vogel <contact@spicy-informatique.com>, 2016-2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira <hello@lta.me>, 2018
+# Loïc Teixeira, 2020
+# Loïc Teixeira, 2018
 # pierre marfoure <pierre@onoffdesign.com>, 2016
 # Sophy O <sophy.ouch@erudit.org>, 2017
 # Tom Dyson <tom@torchbox.com>, 2015
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-26 08:20+0000\n"
+"Last-Translator: Loïc Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -91,6 +92,9 @@ msgstr "Horodatage de soumission"
 msgid "form submission"
 msgstr "Soumission de formulaire"
 
+msgid "form submissions"
+msgstr "Soumissions de formulaire"
+
 msgid "label"
 msgstr "étiquette"
 
@@ -126,6 +130,12 @@ msgstr "texte d'aide"
 
 msgid "Submission date"
 msgstr "Date de soumission"
+
+msgid "Form"
+msgstr "Formulaire"
+
+msgid "Landing page"
+msgstr "Page de renvoi"
 
 msgid "to address"
 msgstr "adresse destinataire"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -578,11 +578,27 @@ msgid ""
 "created will be displayed."
 msgstr "นี่คือหน้าจอที่ช่วยในการให้ข้อมูลเกี่ยวกับการแสดงเนื้อหาที่คุณสร้าง"
 
-msgid "Pages awaiting moderation"
-msgstr "หน้าที่กำลังรอทำการตรวจอยู่"
-
 msgid "Title"
 msgstr "หัวข้อ,หัวเรื่อง"
+
+msgid "Edit this page"
+msgstr "แก้ไขหน้านี้"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "Draft"
+msgstr "ร่าง , ข้อความที่เก็บเอาไว้ทำใหม่"
+
+msgid "Live"
+msgstr "กำลังแสดงสดอยู่,ถ่ายทอดสด"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s ที่ผ่านมา"
+
+msgid "Pages awaiting moderation"
+msgstr "หน้าที่กำลังรอทำการตรวจอยู่"
 
 msgid "Parent"
 msgstr "หน้าหลัก,หน้าแรก"
@@ -593,9 +609,6 @@ msgstr "รูปแบบ"
 msgid "Edited"
 msgstr "ถูกแก้ไขเรีบยร้อยแล้ว"
 
-msgid "Edit this page"
-msgstr "แก้ไขหน้านี้"
-
 msgid "Preview this page"
 msgstr "แสดงผลหน้านี้"
 
@@ -605,15 +618,8 @@ msgstr "ยืนยัน"
 msgid "Reject"
 msgstr "ไม่ผ่าน"
 
-msgid "Edit"
-msgstr "แก้ไข"
-
 msgid "Preview"
 msgstr "ภาพตัวอย่าง"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s ที่ผ่านมา"
 
 msgid "Your most recent edits"
 msgstr "ที่คุณแก้ไขล่าสุด"
@@ -623,12 +629,6 @@ msgstr "วันที่"
 
 msgid "Status"
 msgstr "สถานะ"
-
-msgid "Draft"
-msgstr "ร่าง , ข้อความที่เก็บเอาไว้ทำใหม่"
-
-msgid "Live"
-msgstr "กำลังแสดงสดอยู่,ถ่ายทอดสด"
 
 msgid "Site summary"
 msgstr "สรุป,หน้าหลักของเว็บไซด์"
@@ -697,15 +697,6 @@ msgstr "หน้านี้ถูกตั้งค่าส่วนตัว
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "การเปลี่ยนความเป็นส่วนตัวทั้งหมดสามารถแสดงให้เห็นในหน้าย่อยทุกหน้า"
-
-msgid "Edit lock"
-msgstr "แก้ไขการล็อก"
-
-msgid "Locked"
-msgstr "ล็อกเรียบร้อยแล้ว"
-
-msgid "Unlocked"
-msgstr "ปลดล็อก"
 
 msgid "Publishing…"
 msgstr "กำลังพิมพ์"
@@ -1153,6 +1144,9 @@ msgstr "ไม่มีหน้าท่ีใช้"
 msgid "Collection"
 msgstr "ชุด"
 
+msgid "Locked"
+msgstr "ล็อกเรียบร้อยแล้ว"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "หน้า %(page_num)s ของ%(total_pages)s."
@@ -1177,31 +1171,6 @@ msgstr "ออกจากระบบ"
 
 msgid "Other searches"
 msgstr "ค้นหาอย่างอื่น"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"คุณกำลังใช้ <strong>ที่หมดอายุแล้ว</strong> เบราว์เซอร์ไม่สนับสนุนโดยโปรแกรมคอมพิวเตอร์นี้ "
-"กรุณา <a href=\"http://browsehappy.com/\">อัพเกรดเบราว์เซอร์ของคุณ</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-" Javascriptภาษาคอมพิวเตอร์สำหรับการเขียนโปรแกรมจำเป็นจะต้องใช้ในWagtail,"
-"แต่ตอนนี้ไม่สามารถใช้ได้<br />\n"
-" นี่คือ <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener noreferrer\">คำแนะนำวิธีที่สามารถใช้Javascriptในเบราว์เซอร์เว็บของคุณได้</"
-"a>.\n"
-" "
 
 msgid "Go to Wagtail admin interface"
 msgstr "ไปยังหน้าWagtail admin"
@@ -1353,9 +1322,6 @@ msgstr "หน้า'{0}' ถูกปฏิเสธสำหรับสิ่
 
 msgid "Failed to send rejection notifications"
 msgstr "ข้อผิดพลาดถูกส่งแจ้งเตือนการปฏิเสธ"
-
-msgid "Page '{0}' is now locked."
-msgstr "หน้า'{0}'ตอนนี้ได้ถูกล็อกแล้ว"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "หน้า'{0}'ตอนนี้ได้ถูกปลดล็อกแล้ว"

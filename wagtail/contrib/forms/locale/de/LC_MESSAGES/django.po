@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benedikt Willi <ben.willi@gmail.com>, 2020
 # Benjamin Thurm, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-25 13:47+0000\n"
-"Last-Translator: Matthias Martin\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-27 09:53+0000\n"
+"Last-Translator: Benedikt Willi <ben.willi@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -89,6 +90,9 @@ msgstr "Absendezeitpunkt"
 
 msgid "form submission"
 msgstr "Formularabsendung"
+
+msgid "form submissions"
+msgstr "Formulareinreichungen"
 
 msgid "label"
 msgstr "Beschriftung"

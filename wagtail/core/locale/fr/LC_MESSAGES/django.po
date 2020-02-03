@@ -8,7 +8,8 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira <hello@lta.me>, 2018
+# Loïc Teixeira, 2020
+# Loïc Teixeira, 2018
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-26 08:16+0000\n"
+"Last-Translator: Loïc Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +31,10 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Noyau de Wagtail"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s : ce bloc n'a aucune option."
 
 msgid "This block has no options."
 msgstr "Ce bloc n'a aucune option."
@@ -167,6 +172,12 @@ msgstr "expirée"
 msgid "locked"
 msgstr "verrouillé"
 
+msgid "locked at"
+msgstr "Verrouillé à"
+
+msgid "locked by"
+msgstr "Verrouillé par"
+
 msgid "first published at"
 msgstr "première publication le"
 
@@ -248,8 +259,14 @@ msgstr "Supprimer des pages avec leurs enfants"
 msgid "Lock"
 msgstr "Verrouiller"
 
-msgid "Lock/unlock any page"
-msgstr "Verrouiller/déverrouiller n'importe quelle page"
+msgid "Lock/unlock pages you've locked"
+msgstr "Verrouiller / Déverrouiller les pages que vous avez verrouillés"
+
+msgid "Unlock"
+msgstr "Déverrouiller"
+
+msgid "Unlock any page"
+msgstr "Déverrouiller n'importe quelle page"
 
 msgid "group"
 msgstr "groupe"

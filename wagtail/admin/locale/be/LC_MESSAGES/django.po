@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
@@ -388,11 +388,27 @@ msgstr ""
 "Гэта ваша панэль кіравання. На ёй адлюстроўваецца  карысная інфармацыю пра "
 "створаны вамі змест."
 
-msgid "Pages awaiting moderation"
-msgstr "Старонкі, якія чакаюць мадэрацыі"
-
 msgid "Title"
 msgstr "Назва"
+
+msgid "Edit this page"
+msgstr "Змяніць гэтую старонку"
+
+msgid "Edit"
+msgstr "Рэдактаваць"
+
+msgid "Draft"
+msgstr "Чарнавік"
+
+msgid "Live"
+msgstr "Размешчана"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s таму назад"
+
+msgid "Pages awaiting moderation"
+msgstr "Старонкі, якія чакаюць мадэрацыі"
 
 msgid "Parent"
 msgstr "Бацькоўскі элемент"
@@ -403,24 +419,14 @@ msgstr "Тып"
 msgid "Edited"
 msgstr "Зменена"
 
-msgid "Edit this page"
-msgstr "Змяніць гэтую старонку"
-
 msgid "Approve"
 msgstr "Пацвярдзіць"
 
 msgid "Reject"
 msgstr "Адхіліць"
 
-msgid "Edit"
-msgstr "Рэдактаваць"
-
 msgid "Preview"
 msgstr "Папярэдні прагляд"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s таму назад"
 
 msgid "Your most recent edits"
 msgstr "Самыя апошнія змены"
@@ -430,12 +436,6 @@ msgstr "Дата"
 
 msgid "Status"
 msgstr "Статус"
-
-msgid "Draft"
-msgstr "Чарнавік"
-
-msgid "Live"
-msgstr "Размешчана"
 
 msgid "Site summary"
 msgstr "Агульная інформацыя"
@@ -508,15 +508,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Канфідэнцыяльнасць інфармацыі распаўсюджваецца на ўсе дзіцячыя старонкі."
 
-msgid "Edit lock"
-msgstr "Блакаваць рэдактаванне"
-
-msgid "Locked"
-msgstr "Заблакавана"
-
-msgid "Unlocked"
-msgstr "Разблакавана"
-
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Стварыць старонку %(title)s"
@@ -540,3 +531,6 @@ msgstr "Вы ўпэўненыя, што жадаеце выдаліць гэту
 
 msgid "Yes, delete it"
 msgstr "Так. Выдаліць"
+
+msgid "Locked"
+msgstr "Заблакавана"

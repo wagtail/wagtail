@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -368,11 +368,27 @@ msgstr ""
 "Αυτός είναι ο πίνακας ελέγχου στον οποίο εμφανίζονται πληροφορίες σχετικές "
 "με το περιεχόμενου που έχετε δημιουργήσει."
 
-msgid "Pages awaiting moderation"
-msgstr "Σελίδες προς έλεγχο"
-
 msgid "Title"
 msgstr "Τίτλος"
+
+msgid "Edit this page"
+msgstr "Διόρθωση της σελίδας"
+
+msgid "Edit"
+msgstr "Διόρθωση"
+
+msgid "Draft"
+msgstr "Draft"
+
+msgid "Live"
+msgstr "Live"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "πριν από %(time_period)s"
+
+msgid "Pages awaiting moderation"
+msgstr "Σελίδες προς έλεγχο"
 
 msgid "Parent"
 msgstr "Πατρική"
@@ -383,24 +399,14 @@ msgstr "Τύπος"
 msgid "Edited"
 msgstr "Διορθωμένη"
 
-msgid "Edit this page"
-msgstr "Διόρθωση της σελίδας"
-
 msgid "Approve"
 msgstr "Έγκριση"
 
 msgid "Reject"
 msgstr "Απόρριψη"
 
-msgid "Edit"
-msgstr "Διόρθωση"
-
 msgid "Preview"
 msgstr "Προεπισκόπηση"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "πριν από %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Οι πιο πρόσφατες διορθώσεις σας"
@@ -410,12 +416,6 @@ msgstr "Ημερομηνία"
 
 msgid "Status"
 msgstr "Κατάσταση"
-
-msgid "Draft"
-msgstr "Draft"
-
-msgid "Live"
-msgstr "Live"
 
 msgid "Site summary"
 msgstr "Κατάσταση site"
@@ -486,15 +486,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Τυχόν αλλαγές Προστασίας Προσωπικών Δεδομένων θα ισχύουν για όλες τις "
 "υποσελίδες αυτής της σελίδας."
-
-msgid "Edit lock"
-msgstr "Επεξεργασία κλειδώματος"
-
-msgid "Locked"
-msgstr "Κλειδωμένο"
-
-msgid "Unlocked"
-msgstr "Ξεκλειδωμενο"
 
 msgid "Publish this revision"
 msgstr "Δημοσίευση της αναθεώρησης"
@@ -912,6 +903,9 @@ msgstr "Δεν υπάρχουν σελίδες που χρησιμοποιείτ
 msgid "Collection"
 msgstr "Συλλογή"
 
+msgid "Locked"
+msgstr "Κλειδωμένο"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Σελίδα %(page_num)s από %(total_pages)s."
@@ -933,16 +927,6 @@ msgstr "Αποσύνδεση"
 
 msgid "Other searches"
 msgstr "Άλλες αναζητήσεις"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Χρησιμοποιείτε ένα <strong> ξεπερασμένο </ strong> πρόγραμμα περιήγησης που "
-"δεν υποστηρίζεται από αυτό το λογισμικό. Παρακαλούμε αναβαθμίστε το "
-"πρόγραμμα περιήγησης σας μεσω της σελιδας <a href=\"http://browsehappy.com/"
-"\"></a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Πηγαίνετε στο Wagtail περιβάλλον του διαχειριστή"
@@ -1079,9 +1063,6 @@ msgstr "Η δημοσίευση της σελίδας '{0}' απορρίφθηκ
 
 msgid "Failed to send rejection notifications"
 msgstr "Δεν ήταν δυνατή η αποστολή των ειδοποιήσεων"
-
-msgid "Page '{0}' is now locked."
-msgstr "Η σελίδα '{0}' είναι τώρα κλειδωμένη."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Η σελίδα '{0}' είναι τώρα ξεκλειδωμένη."

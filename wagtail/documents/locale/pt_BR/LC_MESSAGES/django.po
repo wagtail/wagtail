@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-08-04 02:27+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -177,9 +177,6 @@ msgstr "Arquivo"
 
 msgid "Collection"
 msgstr "Coleção"
-
-msgid "Uploaded"
-msgstr "Enviados"
 
 #, python-format
 msgid "%(time_period)s ago"

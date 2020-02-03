@@ -6,14 +6,14 @@
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
-# Vladislav Gerasimenko <drimacus182@gmail.com>, 2019
+# Vladislav Gerasimenko <drimacus182@gmail.com>, 2019-2020
 # Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-11-26 13:59+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-30 18:27+0000\n"
 "Last-Translator: Vladislav Gerasimenko <drimacus182@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -60,7 +60,7 @@ msgid "Scheduled publishing"
 msgstr "Запланована публікація"
 
 msgid "Common page configuration"
-msgstr "Загальні налаштування сторінкі"
+msgstr "Загальні налаштування сторінки"
 
 msgid "Content"
 msgstr "Контент"
@@ -589,11 +589,27 @@ msgstr ""
 "Це панель, на якій буде показана корисна інформація про створений вами "
 "контент."
 
-msgid "Pages awaiting moderation"
-msgstr "Сторінки очікують на модерацію"
-
 msgid "Title"
 msgstr "Заголовок"
+
+msgid "Edit this page"
+msgstr "Редагувати цю сторінку"
+
+msgid "Edit"
+msgstr "Редагування"
+
+msgid "Draft"
+msgstr "Чернетка"
+
+msgid "Live"
+msgstr "Наживо"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "1%(time_period)s тому"
+
+msgid "Pages awaiting moderation"
+msgstr "Сторінки очікують на модерацію"
 
 msgid "Parent"
 msgstr "Предок"
@@ -604,24 +620,14 @@ msgstr "Тип"
 msgid "Edited"
 msgstr "Редаговано"
 
-msgid "Edit this page"
-msgstr "Редагувати цю сторінку"
-
 msgid "Approve"
 msgstr "Підтвердити"
 
 msgid "Reject"
 msgstr "Відхилити"
 
-msgid "Edit"
-msgstr "Редагування"
-
 msgid "Preview"
 msgstr "Попередній перегляд"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "1%(time_period)s тому"
 
 msgid "Your most recent edits"
 msgstr "Найостанніші зміни, зроблені вами"
@@ -631,12 +637,6 @@ msgstr "Дата"
 
 msgid "Status"
 msgstr "Статус"
-
-msgid "Draft"
-msgstr "Чернетка"
-
-msgid "Live"
-msgstr "Наживо"
 
 msgid "Site summary"
 msgstr "Резюме сайту"
@@ -709,15 +709,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Зміни приватності також будуть застосовані до усіх дочірніх сторінок цієї "
 "сторінки."
-
-msgid "Edit lock"
-msgstr "Редагувати блокування"
-
-msgid "Locked"
-msgstr "Заблоковано"
-
-msgid "Unlocked"
-msgstr "Розблоковано"
 
 msgid "Publishing…"
 msgstr "Опубліковується..."
@@ -1247,6 +1238,9 @@ msgstr "Не використовується жодна сторінка"
 msgid "Collection"
 msgstr "Колекція"
 
+msgid "Locked"
+msgstr "Заблоковано"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Сторінка %(page_num)s з %(total_pages)s."
@@ -1271,15 +1265,6 @@ msgstr "Вийти"
 
 msgid "Other searches"
 msgstr "Інші пошуки"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Ви використовуєте <strong>застарілий</strong> браузер, що не підтримується "
-"даним програмним забезпеченням. Будь ласка, <a href=\"http://browsehappy.com/"
-"\">оновіть ваш браузер</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Перейти до адмінського інтерфейсу Wagtail"
@@ -1428,9 +1413,6 @@ msgstr "Публікацію сторінки '{0}' відхилено."
 
 msgid "Failed to send rejection notifications"
 msgstr "Надсилання сповіщення про відхилення зазнало невдачі"
-
-msgid "Page '{0}' is now locked."
-msgstr "Сторінку '{0}' заблоковано."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Сторінку '{0}' розблоковано."

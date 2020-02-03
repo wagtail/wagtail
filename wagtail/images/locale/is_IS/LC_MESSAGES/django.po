@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
-# saevarom <saevar@saevar.is>, 2015,2019
+# saevarom <saevar@saevar.is>, 2015,2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-25 11:13+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail myndir"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -46,6 +49,10 @@ msgstr "Ekki gild %s mynd"
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Þessi skrá er of stór (%%s). Skráin má vera allt að %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "Þessi mynd hefur of marga pixla (%%s). Hámarksfjöldi pixla %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -171,6 +178,28 @@ msgstr "Veldu snið"
 msgid "Insert image"
 msgstr "Setja inn mynd"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Mynd <span class=\"visuallyhidden\">búin til "
+"undir %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Myndir <span class=\"visuallyhidden\">búnar "
+"til undir %(site_name)s</span>\n"
+"    "
+
 msgid "Change image file:"
 msgstr "Breyta um myndaskrá:"
 
@@ -197,6 +226,9 @@ msgstr "Ertu viss um að þú viljir eyða þessari mynd?"
 
 msgid "Yes, delete"
 msgstr "Já, eyða"
+
+msgid "No, don't delete"
+msgstr "Nei, ekki eyða"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -241,6 +273,15 @@ msgstr "Notkun"
 
 msgid "Images"
 msgstr "Myndir"
+
+msgid "Popular Tags:"
+msgstr "Vinsæl merki:"
+
+msgid "Clear choice"
+msgstr "Hreinsa"
+
+msgid "pixels"
+msgstr "pixlar"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
