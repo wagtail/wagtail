@@ -25,6 +25,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
 from wagtail.core.models import Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState, WorkflowTask
@@ -639,7 +640,12 @@ def edit(request, page_id):
         'has_unsaved_changes': has_unsaved_changes,
         'page_locked': page_perms.page_locked(),
         'workflow_actions': page.current_workflow_task.get_actions(page, request.user) if page.current_workflow_task else [],
-        'current_task_state': page.current_workflow_task_state
+        'current_task_state': page.current_workflow_task_state,
+        'task_statuses': task_statuses,
+        'current_task_number': current_task_number,
+        'task_name': task_name,
+        'workflow_name': workflow_name,
+        'total_tasks': total_tasks
     })
 
 
@@ -1152,6 +1158,8 @@ def approve_moderation(request, revision_id):
         buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit')))
         messages.success(request, message, buttons=buttons)
 
+        if not send_notification(revision.id, 'approved', request.user.pk):
+            messages.error(request, _("Failed to send approval notifications"))
 
     return redirect('wagtailadmin_home')
 
@@ -1170,6 +1178,9 @@ def reject_moderation(request, revision_id):
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
+
+        if not send_notification(revision.id, 'rejected', request.user.pk):
+            messages.error(request, _("Failed to send rejection notifications"))
 
     return redirect('wagtailadmin_home')
 
