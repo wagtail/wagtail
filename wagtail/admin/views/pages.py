@@ -639,11 +639,7 @@ def edit(request, page_id):
         'has_unsaved_changes': has_unsaved_changes,
         'page_locked': page_perms.page_locked(),
         'workflow_actions': page.current_workflow_task.get_actions(page, request.user) if page.current_workflow_task else [],
-        'task_statuses': task_statuses,
-        'current_task_number': current_task_number,
-        'task_name': task_name,
-        'workflow_name': workflow_name,
-        'total_tasks': total_tasks
+        'current_task_state': page.current_workflow_task_state
     })
 
 
@@ -1184,20 +1180,27 @@ def workflow_action(request, page_id):
 
     redirect_to = request.POST.get('next', None)
     if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
-        redirect_to = reverse('wagtailadmin_explore', args=[page.get_parent().id])
+        redirect_to = reverse('wagtailadmin_pages:edit', args=[page_id])
 
     if not page.workflow_in_progress():
         messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(page.get_admin_display_title()))
         return redirect(redirect_to)
 
-    actions = page.current_workflow_task.get_actions(page, request.user)
+    task_state_id = request.POST.get('task_state_id', None)
+
+    task_state = TaskState.objects.get(id=task_state_id) if task_state_id else page.current_workflow_task_state
+    task_state = task_state.specific
+
+    task = task_state.task.specific
+
+    actions = task.get_actions(page, request.user)
 
     action_name = request.POST.get('action')
 
     if action_name not in set(action[0] for action in actions):
         raise PermissionDenied
 
-    page.current_workflow_task.on_action(page.current_workflow_task_state, request.user, action_name)
+    task.on_action(task_state, request.user, action_name)
 
     return redirect(redirect_to)
 
@@ -1221,6 +1224,33 @@ def preview_for_moderation(request, revision_id):
 
     return page.make_preview_request(request, preview_mode, extra_request_attrs={
         'revision_id': revision_id
+    })
+
+
+@require_GET
+def preview_revision_for_task(request, page_id, task_id):
+    """Preview the revision linked to the in-progress TaskState of a specified Task. This enables pages in moderation
+    to be edited and new TaskStates linked to the new revisions created, with preview links remaining valid"""
+
+    page = Page.objects.get(id=page_id)
+    task = Task.objects.get(id=task_id).specific
+    try:
+        task_state = TaskState.objects.get(page_revision__page=page, task=task, status=TaskState.STATUS_IN_PROGRESS)
+    except TaskState.DoesNotExist:
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation in task '{1}'.").format(page.get_admin_display_title(), task.name))
+        return redirect('wagtailadmin_home')
+
+    revision = task_state.page_revision
+
+    if not task.get_actions(page, request.user):
+        raise PermissionDenied
+
+    page_to_view = revision.as_page_object()
+
+    # TODO: provide workflow actions within this view
+
+    return page_to_view.make_preview_request(request, page.default_preview_mode, extra_request_attrs={
+        'revision_id': revision.id
     })
 
 
