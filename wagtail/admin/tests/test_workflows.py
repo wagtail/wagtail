@@ -1,10 +1,19 @@
+import logging
+from unittest import mock
+
 from django.conf import settings
-from django.test import TestCase
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
+from django.core import mail
+from django.core.mail import EmailMultiAlternatives
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.core.models import GroupApprovalTask, Page, Task, TaskState, Workflow, WorkflowPage, WorkflowTask, WorkflowState
-from wagtail.tests.testapp.models import SimpleTask
+from wagtail.core.signals import page_published
+from wagtail.tests.testapp.models import SimplePage, SimpleTask
 from wagtail.tests.utils import WagtailTestUtils
+from wagtail.users.models import UserProfile
 
 
 class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
@@ -328,23 +337,6 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
         task = Task.objects.get(id=self.task.id)
         self.assertEqual(task.name, "test_task_modified")
 
-import logging
-from itertools import chain
-from unittest import mock
-
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group, Permission
-from django.contrib.messages import constants as message_constants
-from django.core import mail
-from django.core.mail import EmailMultiAlternatives
-from django.test import TestCase, override_settings
-from django.urls import reverse
-
-from wagtail.core.models import GroupPagePermission, Page, PageRevision
-from wagtail.core.signals import page_published
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.users.models import UserProfile
 
 class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
     def setUp(self):
