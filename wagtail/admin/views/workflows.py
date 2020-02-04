@@ -33,13 +33,13 @@ class Index(IndexView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        if not strtobool(self.request.GET.get('show_disabled', 'False')):
+        if 'show_disabled' not in self.request.GET:
             queryset = queryset.filter(active=True)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['showing_disabled'] = strtobool(self.request.GET.get('show_disabled', 'False'))
+        context['showing_disabled'] = 'show_disabled' in self.request.GET
         return context
 
 
@@ -256,13 +256,13 @@ class TaskIndex(IndexView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        if not strtobool(self.request.GET.get('show_disabled', 'False')):
+        if 'show_disabled' not in self.request.GET:
             queryset = queryset.filter(active=True)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['showing_disabled'] = strtobool(self.request.GET.get('show_disabled', 'False'))
+        context['showing_disabled'] = 'show_disabled' in self.request.GET
         return context
 
 
