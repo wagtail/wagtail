@@ -65,10 +65,10 @@
             {% endif %}
         {% endif %}
         {% if showing_disabled %}
-            <a href="." class="button secondary">{% trans "Hide Disabled Workflows" %}</a>
+            <a href="." class="button secondary">{% trans "Hide disabled workflows" %}</a>
         {% else %}
-            <a href="?show_disabled" class="button secondary">{% trans "Show Disabled Workflows" %}</a>
+            <a href="?show_disabled" class="button secondary">{% trans "Show disabled workflows" %}</a>
         {% endif %}
-        <a href="{% url 'wagtailadmin_workflows:task_index' %}" class="button">{% trans "Task Listing" %}</a>
+        <a href="{% url 'wagtailadmin_workflows:task_index' %}" class="button">{% trans "Task listing" %}</a>
     </div>
 {% endblock %}
