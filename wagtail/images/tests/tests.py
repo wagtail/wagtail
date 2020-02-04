@@ -337,8 +337,8 @@ class TestFrontendServeView(TestCase):
         # Generate signature
         signature = generate_signature(self.image.id, 'fill-800x600')
 
-        # Get the image
-        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')) + 'test/test.png')
+        # Get the image. Follow redirect because Wagtail attempts to serve the url as "." is part of the url match.
+        response = self.client.get(reverse('wagtailimages_serve', args=(signature, self.image.id, 'fill-800x600')) + 'test/test.png', follow=True)
 
         # URL pattern should not match
         self.assertEqual(response.status_code, 404)

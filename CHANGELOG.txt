@@ -25,6 +25,7 @@ Changelog
  * Fix: Prevent duplicate notification messages on page locking (Jacob Topp-Mugglestone)
  * Fix: Fix InlinePanel item non field errors not visible (Storm Heg)
  * Fix: `{% image ... as var %}` now clears the context variable when passed None as an image (Maylon Pedroso)
+ * Fix: Allow RFC 3986-permitted punctuation in custom URL routes such as `RoutablePageMixin` (Storm Heg)
 
 
 2.8 (03.02.2020)
