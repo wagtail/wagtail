@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.utils.functional import cached_property
 from django.utils.http import is_safe_url
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ngettext
 from django.views.decorators.http import require_POST
 from django.urls import reverse
 
@@ -146,7 +146,14 @@ class Disable(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['workflow_states_in_progress'] = WorkflowState.objects.filter(status=WorkflowState.STATUS_IN_PROGRESS).count()
+        states_in_progress = WorkflowState.objects.filter(status=WorkflowState.STATUS_IN_PROGRESS).count()
+        context['warning_message'] = ngettext(
+            'This workflow is in progress on %(states_in_progress)d page. Disabling this workflow will cancel moderation on this page.',
+            'This workflow is in progress on %(states_in_progress)d pages. Disabling this workflow will cancel moderation on these pages.',
+            states_in_progress,
+            ) % {
+            'states_in_progress': states_in_progress,
+        }
         return context
 
     def delete(self, request, *args, **kwargs):
@@ -403,7 +410,14 @@ class DisableTask(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['task_states_in_progress'] = TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS).count()
+        states_in_progress = TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS).count()
+        context['warning_message'] = ngettext(
+            'This task is in progress on %(states_in_progress)d page. Disabling this task will cause it to be skipped in the moderation workflow.',
+            'This task is in progress on %(states_in_progress)d pages. Disabling this task will cause it to be skipped in the moderation workflow.',
+            states_in_progress,
+            ) % {
+            'states_in_progress': states_in_progress,
+        }
         return context
 
     @property
