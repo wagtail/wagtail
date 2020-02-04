@@ -4,7 +4,7 @@ import pytz
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.db.utils import IntegrityError
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from wagtail.core.models import GroupApprovalTask, Page, Task, Workflow, WorkflowPage, WorkflowTask
 from wagtail.tests.testapp.models import SimplePage
@@ -126,15 +126,16 @@ class TestWorkflows(TestCase):
         task_2 = data['task_2']
         page = data['page']
         task_state = workflow_state.current_task_state
-        task_state.task.on_action(workflow_state, task_state, 'approve')
+        task_state.task.on_action(task_state, user=None, action_name='approve')
         self.assertEqual(task_state.finished_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
         self.assertEqual(task_state.status, 'approved')
         self.assertEqual(workflow_state.current_task_state.task, task_2)
-        task_2.on_action(workflow_state, workflow_state.current_task_state, 'approve')
+        task_2.on_action(workflow_state.current_task_state, user=None, action_name='approve')
         self.assertEqual(workflow_state.status, 'approved')
         page.refresh_from_db()
         self.assertEqual(page.live_revision, workflow_state.current_task_state.page_revision)
 
+    @override_settings(WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=True)
     def test_workflow_resets_when_new_revision_created(self):
         # test that a Workflow on its second Task returns to its first task (upon WorkflowState.update()) if a new revision is created
         data = self.start_workflow_on_homepage()
@@ -143,12 +144,35 @@ class TestWorkflows(TestCase):
         task_2 = data['task_2']
         page = data['page']
         task_state = workflow_state.current_task_state
-        task_state.task.on_action(workflow_state, task_state, 'approve')
+        task_state.task.on_action(task_state, user=None, action_name='approve')
         self.assertEqual(workflow_state.current_task_state.task, task_2)
         page.save_revision()
-        workflow_state.update()
+        workflow_state.refresh_from_db()
+        task_state = workflow_state.current_task_state
+        task_state.task.on_action(task_state, user=None, action_name='approve')
+        workflow_state.refresh_from_db()
         task_state = workflow_state.current_task_state
         self.assertEqual(task_state.task, task_1)
+
+    @override_settings(WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=False)
+    def test_workflow_does_not_reset_when_new_revision_created_if_reapproval_turned_off(self):
+        # test that a Workflow on its second Task does not return to its first task (upon WorkflowState.update()) if a new revision is created
+        data = self.start_workflow_on_homepage()
+        workflow_state = data['workflow_state']
+        task_1 = data['task_1']
+        task_2 = data['task_2']
+        page = data['page']
+        task_state = workflow_state.current_task_state
+        task_state.task.on_action(task_state, user=None, action_name='approve')
+        self.assertEqual(workflow_state.current_task_state.task, task_2)
+        page.save_revision()
+        workflow_state.refresh_from_db()
+        task_state = workflow_state.current_task_state
+        task_state.task.on_action(task_state, user=None, action_name='approve')
+        workflow_state.refresh_from_db()
+        task_state = workflow_state.current_task_state
+        self.assertNotEqual(task_state.task, task_1)
+        self.assertEqual(workflow_state.status, workflow_state.STATUS_APPROVED)
 
     def test_reject_workflow(self):
         # test that both WorkflowState and TaskState are marked as rejected upon Task.on_action with action=reject
@@ -158,7 +182,7 @@ class TestWorkflows(TestCase):
         task_2 = data['task_2']
         page = data['page']
         task_state = workflow_state.current_task_state
-        task_state.task.on_action(workflow_state, task_state, 'reject')
+        task_state.task.on_action(task_state, user=None, action_name='reject')
         self.assertEqual(task_state.status, 'rejected')
         self.assertEqual(workflow_state.status, 'rejected')
 
