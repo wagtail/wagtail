@@ -711,6 +711,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if self.current_workflow_task_state:
             # Cancel the current task state, but start it again on the same task: this will now be attached to the new revision
             self.current_workflow_task_state.cancel(user=user, resume=True)
+            if not getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
+                self.current_workflow_state.copy_approved_task_states_to_revision(revision)
 
         return revision
 
@@ -2659,6 +2661,13 @@ class WorkflowState(models.Model):
         self.on_finish()
         workflow_approved.send(sender=self.__class__, instance=self, user=user)
 
+    def copy_approved_task_states_to_revision(self, revision):
+        """This creates copies of previously approved task states with page_revision set to a different revision. This is
+        """
+        approved_states = TaskState.objects.filter(workflow_state=self, status=TaskState.STATUS_APPROVED)
+        for state in approved_states:
+            state.copy(update_attrs={'page_revision': revision})
+
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')
@@ -2768,7 +2777,9 @@ class TaskState(models.Model):
         task_cancelled.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
 
-    def copy(self, update_attrs={}, exclude_fields=None):
+    def copy(self, update_attrs=None, exclude_fields=None):
+        if not update_attrs:
+            update_attrs = {}
         # Fill dict with self.specific values
         specific_self = self.specific
         default_exclude_fields = ['id']
