@@ -2719,7 +2719,7 @@ class WorkflowState(models.Model):
     def __str__(self):
         return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
 
-    def update(self, user=None):
+    def update(self, user=None, next_task=None):
         # checks the status of the current task, and progresses (or ends) the workflow if appropriate
         try:
             current_status = self.current_task_state.status
@@ -2730,7 +2730,8 @@ class WorkflowState(models.Model):
             self.save()
             workflow_rejected.send(sender=self.__class__, instance=self, user=user)
         else:
-            next_task = self.get_next_task()
+            if not next_task:
+                next_task = self.get_next_task()
             if next_task:
                 if not self.current_task_state or next_task != self.current_task_state.task:
                     # if not on a task, or the next task to move to is not the current task (ie current task's status is
@@ -2798,6 +2799,7 @@ class TaskState(models.Model):
         related_name='wagtail_task_states',
         on_delete=models.CASCADE
     )
+    exclude_fields_in_copy = []
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -2864,10 +2866,59 @@ class TaskState(models.Model):
         self.finished_at = timezone.now()
         self.save()
         if resume:
-            self.task.specific.start(self.workflow_state, user=user)
-        self.workflow_state.update(user=user)
+            self.workflow_state.update(user=user, next_task=self.task.specific)
+        else:
+            self.workflow_state.update(user=user)
         task_cancelled.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
+
+    def copy(self, update_attrs={}, exclude_fields=None):
+        # Fill dict with self.specific values
+        specific_self = self.specific
+        default_exclude_fields = ['id']
+        exclude_fields = default_exclude_fields + specific_self.exclude_fields_in_copy + (exclude_fields or [])
+        specific_dict = {}
+        specific_many_to_many_dict = {}
+
+        for field in specific_self._meta.get_fields():
+            # Ignore explicitly excluded fields
+            if field.name in exclude_fields:
+                continue
+
+            # Ignore reverse relations
+            if field.auto_created:
+                continue
+
+            if field.many_to_many:
+                specific_many_to_many_dict[field.name] = getattr(specific_self, field.name).all()
+                continue
+
+            # Ignore parent links
+            if isinstance(field, models.OneToOneField) and field.remote_field.parent_link:
+                continue
+
+            specific_dict[field.name] = getattr(specific_self, field.name)
+
+        # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
+        task_state_copy = specific_self.__class__(**specific_dict)
+
+        if update_attrs:
+            for field, value in update_attrs.items():
+                if field in specific_many_to_many_dict:
+                    continue
+                setattr(task_state_copy, field, value)
+
+        task_state_copy.save()
+
+        # Set many to many fields
+
+        for field_name, value in specific_many_to_many_dict.items():
+            value = update_attrs.get(field_name, value)
+            getattr(task_state_copy, field_name).set(value)
+
+        task_state_copy.save()
+
+        return task_state_copy
 
     class Meta:
         verbose_name = _('Task state')
