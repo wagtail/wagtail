@@ -716,7 +716,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             logger.info("Page submitted for moderation: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
 
         if self.current_workflow_task_state:
-            self.current_workflow_task_state.cancel(user=user)
+            # Cancel the current task state, but start it again on the same task: this will now be attached to the new revision
+            self.current_workflow_task_state.cancel(user=user, resume=True)
 
         return revision
 
@@ -2835,14 +2836,15 @@ class TaskState(models.Model):
         return self
 
     @transaction.atomic
-    def cancel(self, user=None):
+    def cancel(self, user=None, resume=False):
         self.status = 'cancelled'
         self.finished_at = timezone.now()
         self.save()
+        if resume:
+            self.task.specific.start(self.workflow_state, user=user)
         self.workflow_state.update(user=user)
         task_cancelled.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
-
 
     class Meta:
         verbose_name = _('Task state')
