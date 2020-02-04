@@ -809,8 +809,8 @@ class ExcludeFieldsOnEditMixin:
 
     def bind_to(self, *args, **kwargs):
         new = super(ExcludeFieldsOnEditMixin, self).bind_to(*args, **kwargs)
-        # when binding to an existing instance - ie editing - set those fields in the form to disabled
-        if new.form and new.instance and hasattr(new.model, 'exclude_on_edit'):
+        # when binding to an existing instance with a pk - ie editing - set those fields in the form to disabled
+        if new.form and new.instance and new.instance.pk is not None and hasattr(new.model, 'exclude_on_edit'):
             for field in new.model.exclude_on_edit:
                 try:
                     new.form.fields[field].disabled = True
