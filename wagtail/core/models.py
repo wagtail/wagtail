@@ -708,6 +708,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if submitted_for_moderation:
             logger.info("Page submitted for moderation: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
 
+        if self.current_workflow_task_state:
+            self.current_workflow_task_state.cancel(user=user)
+
         return revision
 
     def get_latest_revision(self):
@@ -2704,6 +2707,8 @@ class TaskState(models.Model):
     def __str__(self):
         return _("Task '{0}' on Page Revision '{1}': {2}").format(self.task, self.page_revision, self.status)
 
+
+
     @cached_property
     def specific(self):
         """
@@ -2756,6 +2761,7 @@ class TaskState(models.Model):
         self.workflow_state.update(user=user)
         task_cancelled.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
+
 
     class Meta:
         verbose_name = _('Task state')
