@@ -61,9 +61,9 @@
             {% endif %}
         {% endif %}
         {% if showing_disabled %}
-            <a href="?show_disabled=False" class="button secondary">{% trans "Hide Disabled Tasks" %}</a>
+            <a href="." class="button secondary">{% trans "Hide Disabled Tasks" %}</a>
         {% else %}
-            <a href="?show_disabled=True" class="button secondary">{% trans "Show Disabled Tasks" %}</a>
+            <a href="?show_disabled" class="button secondary">{% trans "Show Disabled Tasks" %}</a>
         {% endif %}
     </div>
 {% endblock %}
