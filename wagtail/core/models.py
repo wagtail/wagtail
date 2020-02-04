@@ -1664,19 +1664,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def workflow_in_progress(self):
         return WorkflowState.objects.filter(page=self, status='in_progress').exists()
 
-    @cached_property
+    @property
     def current_workflow_state(self):
         try:
             return WorkflowState.objects.get(page=self, status='in_progress')
         except WorkflowState.DoesNotExist:
             return
 
-    @cached_property
+    @property
     def current_workflow_task_state(self):
         if self.current_workflow_state:
             return self.current_workflow_state.current_task_state.specific
 
-    @cached_property
+    @property
     def current_workflow_task(self):
         if self.current_workflow_task_state:
             return self.current_workflow_task_state.task.specific
@@ -2550,8 +2550,12 @@ class Task(models.Model):
         task_submitted.send(sender=task_state.specific.__class__, instance=task_state.specific, user=user)
         return task_state
 
+    @transaction.atomic
     def on_action(self, task_state, user, action_name):
-        pass
+        if action_name == 'approve':
+            task_state.approve(user=user)
+        elif action_name == 'reject':
+            task_state.reject(user=user)
 
     def user_can_access_editor(self, page, user):
         return False
@@ -2654,12 +2658,6 @@ class GroupApprovalTask(Task):
         else:
             return []
 
-    @transaction.atomic
-    def on_action(self, task_state, user, action_name):
-        if action_name == 'approve':
-            task_state.approve(user=user)
-        elif action_name == 'reject':
-            task_state.reject(user=user)
 
     class Meta:
         verbose_name = _('Group approval task')
@@ -2713,7 +2711,7 @@ class WorkflowState(models.Model):
             if not next_task:
                 next_task = self.get_next_task()
             if next_task:
-                if not self.current_task_state or next_task != self.current_task_state.task:
+                if (not self.current_task_state) or self.current_task_state.status != self.current_task_state.STATUS_IN_PROGRESS:
                     # if not on a task, or the next task to move to is not the current task (ie current task's status is
                     # not STATUS_IN_PROGRESS), move to the next task
                     self.current_task_state = next_task.specific.start(self, user=user)
