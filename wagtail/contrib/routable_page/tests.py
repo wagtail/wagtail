@@ -1,6 +1,7 @@
 from unittest import mock
 
 from django.test import RequestFactory, TestCase
+from django.test.utils import override_settings
 from django.urls.exceptions import NoReverseMatch
 
 from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import routablepageurl
@@ -128,6 +129,17 @@ class TestRoutablePage(TestCase):
         response = self.client.get(self.routable_page.url + 'external-no-arg/')
 
         self.assertContains(response, "EXTERNAL VIEW: ARG NOT SET")
+
+    def test_get_external_view_allows_punctuation(self):
+        response = self.client.get(self.routable_page.url + "external/joe-._~%!$&'()*+,;=:@bloggs/")
+
+        self.assertContains(response, "EXTERNAL VIEW: joe-._~%!$&'()*+,;=:@bloggs")
+
+    @override_settings(WAGTAIL_APPEND_SLASH=False, APPEND_SLASH=False)
+    def test_get_external_view_allows_punctuation_no_append_slash(self):
+        response = self.client.get(self.routable_page.url + "external/joe-._~%!$&'()*+,;=:@bloggs/")
+
+        self.assertContains(response, "EXTERNAL VIEW: joe-._~%!$&'()*+,;=:@bloggs")
 
     def test_routable_page_can_have_instance_bound_descriptors(self):
         # This descriptor pretends that it does not exist in the class, hence
