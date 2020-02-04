@@ -2592,6 +2592,7 @@ class Workflow(ClusterableModel):
     def tasks(self):
         return Task.objects.filter(workflow_tasks__workflow=self)
 
+    @transaction.atomic
     def start(self, page, user):
         # initiates a workflow by creating an instance of WorkflowState
         state = WorkflowState(page=page, workflow=self, status=WorkflowState.STATUS_IN_PROGRESS, requested_by=user)
