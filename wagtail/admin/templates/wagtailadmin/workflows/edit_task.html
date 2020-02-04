@@ -43,7 +43,7 @@
             </footer>
         {% endblock %}
     </form>
-    {% if can_enable or can_delete %}
+    {% if can_enable or can_disable %}
         <div class="nice-padding">
             <form action="{{ view.get_enable_url }}" method="POST" novalidate>
                 {% csrf_token %}
