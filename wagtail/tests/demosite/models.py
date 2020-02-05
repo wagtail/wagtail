@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -44,6 +45,10 @@ class AbstractLinkFields(models.Model):
             return self.link_document.url
         else:
             return self.link_external
+
+    def clean(self):
+        if self.link_page is None and self.link_document is None and not self.link_external:
+            raise ValidationError('You must provide a related page, related document or an external URL')
 
     api_fields = ('link', )
 
