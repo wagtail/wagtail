@@ -84,6 +84,18 @@ class TestValidation(TestCase):
         homepage.add_child(instance=christmas_page)
         self.assertTrue(Page.objects.filter(id=christmas_page.id).exists())
 
+    @override_settings(WAGTAIL_ALLOW_UNICODE_SLUGS=True)
+    def test_slug_generation_respects_unicode_setting_true(self):
+        page = Page(title="A mööse bit me önce")
+        Page.get_first_root_node().add_child(instance=page)
+        self.assertEqual(page.slug, 'a-mööse-bit-me-önce')
+
+    @override_settings(WAGTAIL_ALLOW_UNICODE_SLUGS=False)
+    def test_slug_generation_respects_unicode_setting_false(self):
+        page = Page(title="A mööse bit me önce")
+        Page.get_first_root_node().add_child(instance=page)
+        self.assertEqual(page.slug, 'a-moose-bit-me-once')
+
     def test_get_admin_display_title(self):
         homepage = Page.objects.get(url_path='/home/')
         self.assertEqual(homepage.draft_title, homepage.get_admin_display_title())

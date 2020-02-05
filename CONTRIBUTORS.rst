@@ -430,6 +430,7 @@ Contributors
 * Eric Sherman
 * Martin Coote
 * Simon Evans
+* Arkadiusz Michał Ryś
 
 Translators
 ===========

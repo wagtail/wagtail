@@ -431,7 +431,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         if not self.slug:
             # Try to auto-populate slug from title
-            base_slug = slugify(self.title, allow_unicode=True)
+            allow_unicode = getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
+            base_slug = slugify(self.title, allow_unicode=allow_unicode)
 
             # only proceed if we get a non-empty base slug back from slugify
             if base_slug:
