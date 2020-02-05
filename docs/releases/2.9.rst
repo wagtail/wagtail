@@ -16,6 +16,7 @@ Other features
 
  * Reduced contrast of rich text toolbar (Jack Paine)
  * Support the rel attribute on custom ModelAdmin buttons (Andy Chosak)
+ * Server-side page slug generation now respects ``WAGTAIL_ALLOW_UNICODE_SLUGS`` (Arkadiusz Michał Ryś)
 
 
 Bug fixes
