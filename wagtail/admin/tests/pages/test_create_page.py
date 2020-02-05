@@ -924,3 +924,42 @@ class TestInlinePanelWithTags(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
         new_page = PersonPage.objects.get(slug='mr-benn')
         self.assertEqual(new_page.addresses.first().tags.count(), 2)
+
+
+class TestInlinePanelNonFieldErrors(TestCase, WagtailTestUtils):
+    """
+    Test that non field errors will render for InlinePanels
+    https://github.com/wagtail/wagtail/issues/3890
+    """
+    fixtures = ['demosite.json']
+
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        self.user = self.login()
+
+    def test_create(self):
+        post_data = {
+            'title': 'Issue 3890 test',
+            'slug': 'issue-3890-test',
+            'related_links-TOTAL_FORMS': 1,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 1000,
+            'related_links-0-id': 0,
+            'related_links-0-ORDER': 1,
+
+            # Leaving all fields empty should raise a validation error
+            'related_links-0-link_page': "",
+            'related_links-0-link_document': "",
+            'related_links-0-link_external': "",
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 1000,
+            'carousel_items-TOTAL_FORMS': 0,
+            'action-publish': "Publish",
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('demosite', 'homepage', self.root_page.id)), post_data
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "The page could not be created due to validation errors")
+        self.assertContains(response, 'You must provide a related page, related document or an external URL', count=1)
