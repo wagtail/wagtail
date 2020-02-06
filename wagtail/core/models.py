@@ -2537,8 +2537,14 @@ class Task(models.Model):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
+    task_state_class = None
+
+    @classmethod
+    def get_task_state_class(self):
+        return self.task_state_class or TaskState
+
     def start(self, workflow_state, user=None):
-        task_state = TaskState(workflow_state=workflow_state)
+        task_state = self.get_task_state_class()(workflow_state=workflow_state)
         task_state.status = TaskState.STATUS_IN_PROGRESS
         task_state.page_revision = workflow_state.page.get_latest_revision()
         task_state.task = self
