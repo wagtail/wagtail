@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                     {% for state in workflow_states %}
-                        {% with state.page.get_latest_revision as revision %}
+                        {% with state.current_task_state.page_revision as revision %}
                         {% page_permissions state.page as page_perms %}
                         <tr>
                             <td class="title" valign="top">
