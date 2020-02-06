@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
 from django.db import connection
-from django.db.models import Max
+from django.db.models import Max, Q
 from django.http import Http404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
@@ -10,7 +10,7 @@ from django.template.response import TemplateResponse
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.core import hooks
-from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
+from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy, WorkflowState
 
 User = get_user_model()
 
@@ -44,6 +44,21 @@ class PagesForModerationPanel:
     def render(self):
         return render_to_string('wagtailadmin/home/pages_for_moderation.html', {
             'page_revisions_for_moderation': self.page_revisions_for_moderation,
+        }, request=self.request)
+
+
+class MyPagesInWorkflowModerationPanel:
+    name = 'my_pages_in_workflow_moderation'
+    order = 210
+
+    def __init__(self, request):
+        self.request = request
+        # Find in progress workflow states which are either requested by the user or on pages owned by the user
+        self.workflow_states = WorkflowState.objects.filter(status=WorkflowState.STATUS_IN_PROGRESS).select_related('page').filter(Q(page__owner=request.user)|Q(requested_by=request.user)).select_related('current_task_state', 'current_task_state__task', 'current_task_state__page_revision')
+
+    def render(self):
+        return render_to_string('wagtailadmin/home/my_pages_in_workflow_moderation.html', {
+            'workflow_states': self.workflow_states
         }, request=self.request)
 
 
@@ -114,6 +129,7 @@ def home(request):
         PagesForModerationPanel(request),
         LockedPagesPanel(request),
         RecentEditsPanel(request),
+        MyPagesInWorkflowModerationPanel(request),
     ]
 
     for fn in hooks.get_hooks('construct_homepage_panels'):

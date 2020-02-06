@@ -2867,6 +2867,18 @@ class TaskState(models.Model):
         task_rejected.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
 
+    @cached_property
+    def task_type_started_at(self):
+        """Finds the first chronological started_at for successive TaskStates - ie started_at if the task had not been restarted"""
+        task_states = TaskState.objects.filter(workflow_state=self.workflow_state).order_by('-started_at').select_related('task')
+        started_at = None
+        for task_state in task_states:
+            if task_state.task == self.task:
+                started_at = task_state.started_at
+            elif started_at:
+                break
+        return started_at
+
     @transaction.atomic
     def cancel(self, user=None, resume=False):
         self.status = 'cancelled'
@@ -2928,6 +2940,7 @@ class TaskState(models.Model):
         task_state_copy.save()
 
         return task_state_copy
+
 
     class Meta:
         verbose_name = _('Task state')
