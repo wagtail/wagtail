@@ -1,0 +1,52 @@
+{% load i18n wagtailadmin_tags %}
+{% if workflow_states %}
+    <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
+        <section>
+            <h2>{% trans 'My pages in workflow moderation' %}</h2>
+            <table class="listing">
+                <col />
+                <col width="30%"/>
+                <col width="15%"/>
+                <col width="15%"/>
+                <thead>
+                    <tr>
+                        <th class="title">{% trans "Title" %}</th>
+                        <th>{% trans "Task" %}</th>
+                        <th>{% trans "Task started" %}</th>
+                        <th>{% trans "Edited" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for state in workflow_states %}
+                        {% with state.current_task_state.page_revision as revision %}
+                        {% page_permissions state.page as page_perms %}
+                        <tr>
+                            <td class="title" valign="top">
+                                <div class="title-wrapper">
+                                    {% if page_perms.can_edit %}
+                                        <a href="{% url 'wagtailadmin_pages:edit' state.page.id %}" title="{% trans 'Edit this page' %}">{{ state.page.get_admin_display_title }}</a>
+                                    {% else %}
+                                        {{ state.page.get_admin_display_title }}
+                                    {% endif %}
+
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=state.page %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=state.page %}
+                                </div>
+                            </td>
+                            <td class="task" valign="top">
+                                {{ state.current_task_state.task.name }}
+                            </td>
+                            <td valign="top">
+                                <div class="human-readable-date" title="{{ state.current_task_state.task_type_started_at|date:"d M Y H:i" }}">{% blocktrans with time_period=state.current_task_state.task_type_started_at|timesince %}{{ time_period }} ago{% endblocktrans %} </div>
+                            </td>
+                            <td valign="top">
+                                <div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=revision.created_at|timesince user=revision.user.get_full_name|default:revision.user.get_username %}{{ time_period }} ago{% endblocktrans %} </div>
+                            </td>
+                        </tr>
+                        {% endwith %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endif %}
