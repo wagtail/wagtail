@@ -6,6 +6,7 @@ from django.urls.resolvers import RegexPattern
 
 from wagtail.core.models import Page
 from wagtail.core.url_routing import RouteResult
+from wagtail.core.utils import WAGTAIL_APPEND_SLASH
 
 
 _creation_counter = 0
@@ -82,7 +83,12 @@ class RoutablePageMixin:
         args = args or []
         kwargs = kwargs or {}
 
-        return self.get_resolver().reverse(name, *args, **kwargs)
+        url = self.get_resolver().reverse(name, *args, **kwargs)
+
+        # Strip the trailing slash if WAGTAIL_APPEND_SLASH is False
+        if url.endswith('/') and not WAGTAIL_APPEND_SLASH:
+            url = url[:-1]
+        return url
 
     def resolve_subpage(self, path):
         """

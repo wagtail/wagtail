@@ -186,10 +186,10 @@ class TestRoutablePageTemplateTag(TestCase):
         self.assertEqual(url, '/%s/external/joe-bloggs/' % self.routable_page.slug)
 
     def test_templatetag_reverse_external_view_without_append_slash(self):
-        with mock.patch('wagtail.core.models.WAGTAIL_APPEND_SLASH', False):
+        with mock.patch('wagtail.contrib.routable_page.models.WAGTAIL_APPEND_SLASH', False):
             url = routablepageurl(self.context, self.routable_page,
                                   'external_view', 'joe-bloggs')
-            expected = '/' + self.routable_page.slug + '/' + 'external/joe-bloggs/'
+            expected = '/' + self.routable_page.slug + '/' + 'external/joe-bloggs'
 
         self.assertEqual(url, expected)
 
@@ -244,10 +244,10 @@ class TestRoutablePageTemplateTagForSecondSiteAtSameRoot(TestCase):
         self.assertEqual(url, '/%s/external/joe-bloggs/' % self.routable_page.slug)
 
     def test_templatetag_reverse_external_view_without_append_slash(self):
-        with mock.patch('wagtail.core.models.WAGTAIL_APPEND_SLASH', False):
+        with mock.patch('wagtail.contrib.routable_page.models.WAGTAIL_APPEND_SLASH', False):
             url = routablepageurl(self.context, self.routable_page,
                                   'external_view', 'joe-bloggs')
-            expected = '/' + self.routable_page.slug + '/' + 'external/joe-bloggs/'
+            expected = '/' + self.routable_page.slug + '/' + 'external/joe-bloggs'
 
         self.assertEqual(url, expected)
 
@@ -303,9 +303,9 @@ class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
         self.assertEqual(url, 'http://localhost/%s/external/joe-bloggs/' % self.routable_page.slug)
 
     def test_templatetag_reverse_external_view_without_append_slash(self):
-        with mock.patch('wagtail.core.models.WAGTAIL_APPEND_SLASH', False):
+        with mock.patch('wagtail.contrib.routable_page.models.WAGTAIL_APPEND_SLASH', False):
             url = routablepageurl(self.context, self.routable_page,
                                   'external_view', 'joe-bloggs')
-            expected = 'http://localhost/' + self.routable_page.slug + '/' + 'external/joe-bloggs/'
+            expected = 'http://localhost/' + self.routable_page.slug + '/' + 'external/joe-bloggs'
 
         self.assertEqual(url, expected)
