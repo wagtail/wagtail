@@ -1226,7 +1226,9 @@ def workflow_action(request, page_id):
     if action_name not in set(action[0] for action in actions):
         raise PermissionDenied
 
-    task.on_action(task_state, request.user, action_name)
+    response = task.on_action(task_state, request.user, action_name)
+    if response:
+        return response
 
     return redirect(redirect_to)
 
