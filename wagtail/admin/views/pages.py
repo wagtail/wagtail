@@ -1113,7 +1113,7 @@ def reject_moderation(request, revision_id):
         ])
 
         if not send_notification(revision.id, 'rejected', request.user.pk):
-            messages.error(request, _("Failed to send approval notifications"))
+            messages.error(request, _("Failed to send rejection notifications"))
 
     return redirect('wagtailadmin_home')
 
