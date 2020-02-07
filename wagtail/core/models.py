@@ -2568,8 +2568,8 @@ class Task(models.Model):
     def get_actions(self, page, user):
         return []
 
-    def get_notifications(self, page, user):
-        return self.get_actions(page, user)
+    def get_task_states_user_can_moderate(self, user, **kwargs):
+        return TaskState.objects.none()
 
     @transaction.atomic
     def deactivate(self, user=None):
@@ -2649,7 +2649,7 @@ class GroupApprovalTask(Task):
         return False
 
     def get_actions(self, page, user):
-        if user.is_superuser or user.groups.filter(id=self.group_id).exists():
+        if user.groups.filter(id=self.group_id).exists() or user.is_superuser:
             return [
                 ('approve', _("Approve")),
                 ('reject', _("Reject"))
@@ -2657,6 +2657,12 @@ class GroupApprovalTask(Task):
         else:
             return []
 
+
+    def get_task_states_user_can_moderate(self, user, **kwargs):
+        if user.groups.filter(id=self.group_id).exists() or user.is_superuser:
+            return TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr)
+        else:
+            return TaskState.objects.none()
 
     class Meta:
         verbose_name = _('Group approval task')
@@ -2917,7 +2923,6 @@ class TaskState(models.Model):
         task_state_copy.save()
 
         return task_state_copy
-
 
     class Meta:
         verbose_name = _('Task state')
