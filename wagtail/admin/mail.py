@@ -313,12 +313,12 @@ class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
 
     def get_recipient_users(self, workflow_state, **kwargs):
         triggering_user = kwargs.get('user', None)
-        recipients = {}
+        recipients = get_user_model().objects.none()
         include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
         if include_superusers:
             recipients = get_user_model().objects.filter(is_superuser=True)
-            if triggering_user:
-                recipients.exclude(pk=triggering_user.pk)
+        if triggering_user:
+            recipients.exclude(pk=triggering_user.pk)
 
         return recipients
 
