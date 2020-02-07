@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.core import hooks
-from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy, WorkflowState
+from wagtail.core.models import Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState
 
 User = get_user_model()
 
@@ -47,8 +47,8 @@ class PagesForModerationPanel:
         }, request=self.request)
 
 
-class MyPagesInWorkflowModerationPanel:
-    name = 'my_pages_in_workflow_moderation'
+class UserPagesInWorkflowModerationPanel:
+    name = 'user_pages_in_workflow_moderation'
     order = 210
 
     def __init__(self, request):
@@ -57,8 +57,27 @@ class MyPagesInWorkflowModerationPanel:
         self.workflow_states = WorkflowState.objects.filter(status=WorkflowState.STATUS_IN_PROGRESS).select_related('page').filter(Q(page__owner=request.user)|Q(requested_by=request.user)).select_related('current_task_state', 'current_task_state__task', 'current_task_state__page_revision')
 
     def render(self):
-        return render_to_string('wagtailadmin/home/my_pages_in_workflow_moderation.html', {
+        return render_to_string('wagtailadmin/home/user_pages_in_workflow_moderation.html', {
             'workflow_states': self.workflow_states
+        }, request=self.request)
+
+
+class WorkflowPagesToModeratePanel:
+    name = 'workflow_pages_to_moderate'
+    order = 220
+
+    def __init__(self, request):
+        self.request = request
+        tasks = Task.objects.filter(active=True)
+        states = TaskState.objects.none()
+        for task in tasks:
+            states = states | task.specific.get_task_states_user_can_moderate(user=request.user).select_related('page_revision', 'task', 'page_revision__page')
+
+        self.states = [(state, state.task.specific.get_actions(page=state.page_revision.page, user=request.user)) for state in states]
+
+    def render(self):
+        return render_to_string('wagtailadmin/home/workflow_pages_to_moderate.html', {
+            'states': self.states
         }, request=self.request)
 
 
@@ -129,7 +148,8 @@ def home(request):
         PagesForModerationPanel(request),
         LockedPagesPanel(request),
         RecentEditsPanel(request),
-        MyPagesInWorkflowModerationPanel(request),
+        UserPagesInWorkflowModerationPanel(request),
+        WorkflowPagesToModeratePanel(request),
     ]
 
     for fn in hooks.get_hooks('construct_homepage_panels'):
