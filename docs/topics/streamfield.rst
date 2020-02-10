@@ -239,7 +239,7 @@ A dropdown select box for choosing from a list of choices. The following keyword
   A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
 
 ``widget``
-  The form widget to render the field with. (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
+  The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
 
 ``ChoiceBlock`` can also be subclassed to produce a reusable block with the same list of choices everywhere it is used. For example, a block definition such as:
 
@@ -267,6 +267,9 @@ could be rewritten as a subclass of ChoiceBlock:
 
 ``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition. Note that this only works when ``choices`` is a fixed list, not a callable.
 
+
+.. _streamfield_multiplechoiceblock:
+
 MultipleChoiceBlock
 ~~~~~~~~~~~~~~~~~~~
 
@@ -287,7 +290,8 @@ A multiple select box for choosing from a list of choices. The following keyword
   A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
 
 ``widget``
-  The form widget to render the field with. (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
+  The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
+
 
 PageChooserBlock
 ~~~~~~~~~~~~~~~~
