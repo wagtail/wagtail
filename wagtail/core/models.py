@@ -10,7 +10,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, PermissionDenied
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
@@ -30,7 +30,7 @@ from modelcluster.models import (
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.query import PageQuerySet, TreeQuerySet
-from wagtail.core.signals import page_published, page_unpublished
+from wagtail.core.signals import page_published, page_unpublished, task_approved, task_cancelled, task_rejected, task_submitted, workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
@@ -2432,12 +2432,13 @@ class Task(models.Model):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
-    def start(self, workflow_state):
+    def start(self, workflow_state, user=None):
         task_state = TaskState(workflow_state=workflow_state)
         task_state.status = TaskState.STATUS_IN_PROGRESS
         task_state.page_revision = workflow_state.page.get_latest_revision()
         task_state.task = self
         task_state.save()
+        task_submitted.send(sender=task_state.specific.__class__, instance=task_state.specific, user=user)
         return task_state
 
     def on_action(self, task_state, user, action_name):
@@ -2451,6 +2452,20 @@ class Task(models.Model):
 
     def user_can_unlock(self, page, user):
         return False
+
+    def get_actions(self, page, user):
+        return []
+
+    def get_task_states_user_can_moderate(self, user, **kwargs):
+        return TaskState.objects.none()
+
+    @transaction.atomic
+    def deactivate(self, user=None):
+        self.active = False
+        self.save()
+        in_progress_states = TaskState.objects.filter(task=self, status=TaskState.STATUS_IN_PROGRESS)
+        for state in in_progress_states:
+            state.cancel(user=user)
 
     class Meta:
         verbose_name = _('task')
@@ -2480,8 +2495,18 @@ class Workflow(ClusterableModel):
         # initiates a workflow by creating an instance of WorkflowState
         state = WorkflowState(page=page, workflow=self, status=WorkflowState.STATUS_IN_PROGRESS, requested_by=user)
         state.save()
-        state.update()
+        state.update(user=user)
+        workflow_submitted.send(sender=state.__class__, instance=state, user=user)
         return state
+
+    @transaction.atomic
+    def deactivate(self, user=None):
+        self.active = False
+        in_progress_states = WorkflowState.objects.filter(workflow=self, status=WorkflowState.STATUS_IN_PROGRESS)
+        for state in in_progress_states:
+            state.cancel(user=user)
+        WorkflowPage.objects.filter(workflow=self).delete()
+        self.save()
 
     class Meta:
         verbose_name = _('workflow')
@@ -2491,7 +2516,7 @@ class Workflow(ClusterableModel):
 class GroupApprovalTask(Task):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name=_('group'))
 
-    def start(self, workflow_state):
+    def start(self, workflow_state, user=None):
         if workflow_state.page.locked_by:
             # If the person who locked the page isn't in the group, unlock the page
             if not workflow_state.page.locked_by.groups.filter(id=self.group_id).exists():
@@ -2500,7 +2525,7 @@ class GroupApprovalTask(Task):
                 workflow_state.page.locked_at = None
                 workflow_state.page.save(update_fields=['locked', 'locked_by', 'locked_at'])
 
-        return super().start(workflow_state)
+        return super().start(workflow_state, user=user)
 
     def user_can_access_editor(self, page, user):
         return user.groups.filter(id=self.group_id).exists()
@@ -2512,7 +2537,7 @@ class GroupApprovalTask(Task):
         return False
 
     def get_actions(self, page, user):
-        if user.groups.filter(id=self.group_id).exists():
+        if user.groups.filter(id=self.group_id).exists() or user.is_superuser:
             return [
                 ('approve', _("Approve")),
                 ('reject', _("Reject"))
@@ -2523,11 +2548,15 @@ class GroupApprovalTask(Task):
     @transaction.atomic
     def on_action(self, task_state, user, action_name):
         if action_name == 'approve':
-            task_state.approve()
-            task_state.workflow_state.update()
+            task_state.approve(user=user)
         elif action_name == 'reject':
-            task_state.reject()
-            task_state.workflow_state.update()
+            task_state.reject(user=user)
+
+    def get_task_states_user_can_moderate(self, user, **kwargs):
+        if user.groups.filter(id=self.group_id).exists() or user.is_superuser:
+            return TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr)
+        else:
+            return TaskState.objects.none()
 
     class Meta:
         verbose_name = _('Group approval task')
@@ -2567,7 +2596,7 @@ class WorkflowState(models.Model):
     def __str__(self):
         return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
 
-    def update(self):
+    def update(self, user=None):
         # checks the status of the current task, and progresses (or ends) the workflow if appropriate
         try:
             current_status = self.current_task_state.status
@@ -2576,32 +2605,39 @@ class WorkflowState(models.Model):
         if current_status == 'rejected':
             self.status = current_status
             self.save()
+            workflow_rejected.send(sender=self.__class__, instance=self, user=user)
         else:
             next_task = self.get_next_task()
             if next_task:
                 if not self.current_task_state or next_task != self.current_task_state.task:
                     # if not on a task, or the next task to move to is not the current task (ie current task's status is
                     # not STATUS_IN_PROGRESS), move to the next task
-                    self.current_task_state = next_task.specific.start(self)
+                    self.current_task_state = next_task.specific.start(self, user=user)
                     self.save()
                 # otherwise, continue on the current task
             else:
                 # if there is no uncompleted task, finish the workflow.
-                self.finish()
+                self.finish(user=user)
 
     def get_next_task(self):
-        # finds the next task associated with the latest page revision, which has not been either approved or skipped
-        return Task.objects.filter(workflow_tasks__workflow=self.workflow).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status=TaskState.STATUS_APPROVED) | Q(task_states__status=TaskState.STATUS_SKIPPED)).order_by('workflow_tasks__sort_order').first()
+        # finds the next active task associated with the latest page revision, which has not been either approved or skipped
+        return Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status=TaskState.STATUS_APPROVED) | Q(task_states__status=TaskState.STATUS_SKIPPED)).order_by('workflow_tasks__sort_order').first()
 
-    def cancel(self):
+    def cancel(self, user=None):
+        if self.status != self.STATUS_IN_PROGRESS:
+            raise PermissionDenied
         self.status = 'cancelled'
         self.save()
+        workflow_cancelled.send(sender=self.__class__, instance=self, user=user)
 
     @transaction.atomic
-    def finish(self):
+    def finish(self, user=None):
+        if self.status != self.STATUS_IN_PROGRESS:
+            raise PermissionDenied
         self.status = 'approved'
         self.save()
         self.on_finish()
+        workflow_approved.send(sender=self.__class__, instance=self, user=user)
 
     class Meta:
         verbose_name = _('Workflow state')
@@ -2675,16 +2711,47 @@ class TaskState(models.Model):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
-    def approve(self):
+    @transaction.atomic
+    def approve(self, user=None):
+        if self.status != self.STATUS_IN_PROGRESS:
+            raise PermissionDenied
         self.status = 'approved'
         self.finished_at = timezone.now()
         self.save()
+        self.workflow_state.update(user=user)
+        task_approved.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
 
-    def reject(self):
+    @transaction.atomic
+    def reject(self, user=None):
+        if self.status != self.STATUS_IN_PROGRESS:
+            raise PermissionDenied
         self.status = 'rejected'
         self.finished_at = timezone.now()
         self.save()
+        self.workflow_state.update(user=user)
+        task_rejected.send(sender=self.specific.__class__, instance=self.specific, user=user)
+        return self
+
+    @cached_property
+    def task_type_started_at(self):
+        """Finds the first chronological started_at for successive TaskStates - ie started_at if the task had not been restarted"""
+        task_states = TaskState.objects.filter(workflow_state=self.workflow_state).order_by('-started_at').select_related('task')
+        started_at = None
+        for task_state in task_states:
+            if task_state.task == self.task:
+                started_at = task_state.started_at
+            elif started_at:
+                break
+        return started_at
+
+    @transaction.atomic
+    def cancel(self, user=None):
+        self.status = 'cancelled'
+        self.finished_at = timezone.now()
+        self.save()
+        self.workflow_state.update(user=user)
+        task_cancelled.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
 
     class Meta:

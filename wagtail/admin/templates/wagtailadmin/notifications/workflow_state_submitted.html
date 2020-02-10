@@ -1,0 +1,11 @@
+{% extends 'wagtailadmin/notifications/base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+    <p>{% blocktrans with workflow=workflow.name title=page.get_admin_display_title %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}".{% endblocktrans %}</p>
+
+    <p>
+        {% trans "You can edit the page here:" %} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}</a>
+    </p>
+{% endblock %}
