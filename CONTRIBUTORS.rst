@@ -431,6 +431,7 @@ Contributors
 * Martin Coote
 * Simon Evans
 * Arkadiusz Michał Ryś
+* James O'Toole
 
 Translators
 ===========
