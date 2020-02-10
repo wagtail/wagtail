@@ -343,22 +343,23 @@ def edit(request, page_id):
     edit_handler = edit_handler.bind_to(instance=page, request=request)
     form_class = edit_handler.get_form_class()
 
-    if page_perms.user_has_lock():
-        if page.locked_at:
-            lock_message = format_html(_("<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."), page.get_admin_display_title(), page.locked_at.strftime("%d %b %Y %H:%M"))
-        else:
-            lock_message = format_html(_("<b>Page '{}' is locked</b> by <b>you</b>."), page.get_admin_display_title())
+    if request.method == 'GET':
+        if page_perms.user_has_lock():
+            if page.locked_at:
+                lock_message = format_html(_("<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."), page.get_admin_display_title(), page.locked_at.strftime("%d %b %Y %H:%M"))
+            else:
+                lock_message = format_html(_("<b>Page '{}' is locked</b> by <b>you</b>."), page.get_admin_display_title())
 
-        messages.warning(request, lock_message, extra_tags='lock')
+            messages.warning(request, lock_message, extra_tags='lock')
 
-    elif page_perms.page_locked():
-        if page.locked_by and page.locked_at:
-            lock_message = format_html(_("<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."), page.get_admin_display_title(), str(page.locked_by), page.locked_at.strftime("%d %b %Y %H:%M"))
-        else:
-            # Page was probably locked with an old version of Wagtail, or a script
-            lock_message = format_html(_("<b>Page '{}' is locked</b>."), page.get_admin_display_title())
+        elif page_perms.page_locked():
+            if page.locked_by and page.locked_at:
+                lock_message = format_html(_("<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."), page.get_admin_display_title(), str(page.locked_by), page.locked_at.strftime("%d %b %Y %H:%M"))
+            else:
+                # Page was probably locked with an old version of Wagtail, or a script
+                lock_message = format_html(_("<b>Page '{}' is locked</b>."), page.get_admin_display_title())
 
-        messages.error(request, lock_message, extra_tags='lock')
+            messages.error(request, lock_message, extra_tags='lock')
 
     next_url = get_valid_next_url_from_request(request)
 
