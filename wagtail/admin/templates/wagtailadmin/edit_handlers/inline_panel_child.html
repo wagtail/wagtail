@@ -2,11 +2,11 @@
 <li data-inline-panel-child id="inline_child_{{ child.form.prefix }}">
     {% if child.form.non_field_errors %}
     <ul>
-        <li class="error-message">
-            {% for error in child.form.non_field_errors %}
+        {% for error in child.form.non_field_errors %}
+            <li class="error-message">
                 <span>{{ error|escape }}</span>
-            {% endfor %}
-        </li>
+            </li>
+        {% endfor %}
     </ul>
     {% endif %}
     <ul class="controls">
