@@ -2456,8 +2456,8 @@ class Task(models.Model):
     def get_actions(self, page, user):
         return []
 
-    def get_notifications(self, page, user):
-        return self.get_actions(page, user)
+    def get_task_states_user_can_moderate(self, user, **kwargs):
+        return TaskState.objects.none()
 
     @transaction.atomic
     def deactivate(self, user=None):
@@ -2536,7 +2536,7 @@ class GroupApprovalTask(Task):
         return False
 
     def get_actions(self, page, user):
-        if user.is_superuser or user.groups.filter(id=self.group_id).exists():
+        if user.groups.filter(id=self.group_id).exists() or user.is_superuser:
             return [
                 ('approve', _("Approve")),
                 ('reject', _("Reject"))
@@ -2550,6 +2550,12 @@ class GroupApprovalTask(Task):
             task_state.approve(user=user)
         elif action_name == 'reject':
             task_state.reject(user=user)
+
+    def get_task_states_user_can_moderate(self, user, **kwargs):
+        if user.groups.filter(id=self.group_id).exists() or user.is_superuser:
+            return TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr)
+        else:
+            return TaskState.objects.none()
 
     class Meta:
         verbose_name = _('Group approval task')
@@ -2725,6 +2731,18 @@ class TaskState(models.Model):
         self.workflow_state.update(user=user)
         task_rejected.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
+
+    @cached_property
+    def task_type_started_at(self):
+        """Finds the first chronological started_at for successive TaskStates - ie started_at if the task had not been restarted"""
+        task_states = TaskState.objects.filter(workflow_state=self.workflow_state).order_by('-started_at').select_related('task')
+        started_at = None
+        for task_state in task_states:
+            if task_state.task == self.task:
+                started_at = task_state.started_at
+            elif started_at:
+                break
+        return started_at
 
     @transaction.atomic
     def cancel(self, user=None):
