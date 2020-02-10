@@ -359,11 +359,16 @@ class IntegerBlock(FieldBlock):
         icon = "plus-inverse"
 
 
-class ChoiceBlock(FieldBlock):
-
+class BaseChoiceBlock(FieldBlock):
     choices = ()
 
-    def __init__(self, choices=None, default=None, required=True, help_text=None, validators=(), **kwargs):
+    def __init__(
+            self, choices=None, default=None, required=True,
+            help_text=None, widget=None, validators=(), **kwargs):
+
+        self._required = required
+        self._default = default
+
         if choices is None:
             # no choices specified, so pick up the choice defined at the class level
             choices = self.choices
@@ -386,6 +391,8 @@ class ChoiceBlock(FieldBlock):
             self._constructor_kwargs['required'] = required
         if help_text is not None:
             self._constructor_kwargs['help_text'] = help_text
+        if widget is not None:
+            self._constructor_kwargs['widget'] = widget
 
         # We will need to modify the choices list to insert a blank option, if there isn't
         # one already. We have to do this at render time in the case of callable choices - so rather
@@ -393,13 +400,13 @@ class ChoiceBlock(FieldBlock):
         # to ChoiceField to perform this step at render time.
 
         # If we have a default choice and the field is required, we don't need to add a blank option.
-        callable_choices = self.get_callable_choices(choices, blank_choice=not(default and required))
-
-        self.field = forms.ChoiceField(
+        callable_choices = self.get_callable_choices(choices)
+        self.field = self.get_field(
             choices=callable_choices,
             required=required,
             help_text=help_text,
             validators=validators,
+            widget=widget,
         )
         super().__init__(default=default, **kwargs)
 
@@ -442,6 +449,22 @@ class ChoiceBlock(FieldBlock):
             return local_choices
         return choices_callable
 
+    class Meta:
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
+        icon = "placeholder"
+
+
+class ChoiceBlock(BaseChoiceBlock):
+    def get_field(self, **kwargs):
+        return forms.ChoiceField(**kwargs)
+
+    def get_callable_choices(self, choices, blank_choice=None):
+        if blank_choice is None:
+            blank_choice = not(self._default and self._required)
+        return super().get_callable_choices(choices, blank_choice=blank_choice)
+
     def deconstruct(self):
         """
         Always deconstruct ChoiceBlock instances as if they were plain ChoiceBlocks with their
@@ -465,11 +488,42 @@ class ChoiceBlock(FieldBlock):
                     return [force_str(v)]
         return []  # Value was not found in the list of choices
 
-    class Meta:
-        # No icon specified here, because that depends on the purpose that the
-        # block is being used for. Feel encouraged to specify an icon in your
-        # descendant block type
-        icon = "placeholder"
+
+class MultipleChoiceBlock(BaseChoiceBlock):
+    def get_field(self, **kwargs):
+        return forms.MultipleChoiceField(**kwargs)
+
+    def get_callable_choices(self, choices, blank_choice=False):
+        """ Override to default blank choice to False
+        """
+        return super().get_callable_choices(choices, blank_choice=blank_choice)
+
+    def deconstruct(self):
+        """
+        Always deconstruct MultipleChoiceBlock instances as if they were plain
+        MultipleChoiceBlocks with their choice list passed in the constructor,
+        even if they are actually subclasses. This allows users to define
+        subclasses of MultipleChoiceBlock in their models.py, with specific choice
+        lists passed in, without references to those classes ending up frozen
+        into migrations.
+        """
+        return ('wagtail.core.blocks.MultipleChoiceBlock', [], self._constructor_kwargs)
+
+    def get_searchable_content(self, value):
+        # Return the display value as the searchable value
+        content = []
+        text_value = force_str(value)
+        for k, v in self.field.choices:
+            if isinstance(v, (list, tuple)):
+                # This is an optgroup, so look inside the group for options
+                for k2, v2 in v:
+                    if value == k2 or text_value == force_str(k2):
+                        content.append(force_str(k))
+                        content.append(force_str(v2))
+            else:
+                if value == k or text_value == force_str(k):
+                    content.append(force_str(v))
+        return content
 
 
 class RichTextBlock(FieldBlock):
@@ -706,7 +760,7 @@ class PageChooserBlock(ChooserBlock):
 block_classes = [
     FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock,
     PageChooserBlock, TextBlock, BooleanBlock, DateBlock, TimeBlock,
-    DateTimeBlock, ChoiceBlock, EmailBlock, IntegerBlock, FloatBlock,
+    DateTimeBlock, ChoiceBlock, MultipleChoiceBlock, EmailBlock, IntegerBlock, FloatBlock,
     DecimalBlock, RegexBlock, BlockQuoteBlock
 ]
 DECONSTRUCT_ALIASES = {

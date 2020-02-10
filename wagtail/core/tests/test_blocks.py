@@ -848,6 +848,290 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             block.clean('coffee')
 
 
+class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
+    def setUp(self):
+        from django.db.models.fields import BLANK_CHOICE_DASH
+        self.blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
+
+    def test_render_required_multiple_choice_block(self):
+        block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_render_required_multiple_choice_block_with_default(self):
+        block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], default='tea')
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_render_required_multiple_choice_block_with_callable_choices(self):
+        def callable_choices():
+            return [('tea', 'Tea'), ('coffee', 'Coffee')]
+
+        block = blocks.MultipleChoiceBlock(choices=callable_choices)
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_validate_required_multiple_choice_block(self):
+        block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
+        self.assertEqual(block.clean(['coffee']), ['coffee'])
+
+        with self.assertRaises(ValidationError):
+            block.clean(['whisky'])
+
+        with self.assertRaises(ValidationError):
+            block.clean('')
+
+        with self.assertRaises(ValidationError):
+            block.clean(None)
+
+    def test_render_non_required_multiple_choice_block(self):
+        block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_render_non_required_multiple_choice_block_with_callable_choices(self):
+        def callable_choices():
+            return [('tea', 'Tea'), ('coffee', 'Coffee')]
+
+        block = blocks.MultipleChoiceBlock(choices=callable_choices, required=False)
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_validate_non_required_multiple_choice_block(self):
+        block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
+        self.assertEqual(block.clean(['coffee']), ['coffee'])
+
+        with self.assertRaises(ValidationError):
+            block.clean(['whisky'])
+
+        self.assertEqual(block.clean(''), [])
+        self.assertEqual(block.clean(None), [])
+
+    def test_render_multiple_choice_block_with_existing_blank_choice(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')],
+            required=False)
+        html = block.render_form("", prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee">Coffee</option>', html)
+
+    def test_render_multiple_choice_block_with_existing_blank_choice_and_with_callable_choices(self):
+        def callable_choices():
+            return [('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')]
+
+        block = blocks.MultipleChoiceBlock(
+            choices=callable_choices,
+            required=False)
+        html = block.render_form("", prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee">Coffee</option>', html)
+
+    def test_named_groups_without_blank_option(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[
+                ('Alcoholic', [
+                    ('gin', 'Gin'),
+                    ('whisky', 'Whisky'),
+                ]),
+                ('Non-alcoholic', [
+                    ('tea', 'Tea'),
+                    ('coffee', 'Coffee'),
+                ]),
+            ])
+
+        # test rendering with the blank option selected
+        html = block.render_form(None, prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+
+        # test rendering with a non-blank option selected
+        html = block.render_form('tea', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+
+    def test_named_groups_with_blank_option(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[
+                ('Alcoholic', [
+                    ('gin', 'Gin'),
+                    ('whisky', 'Whisky'),
+                ]),
+                ('Non-alcoholic', [
+                    ('tea', 'Tea'),
+                    ('coffee', 'Coffee'),
+                ]),
+                ('Not thirsty', [
+                    ('', 'No thanks')
+                ]),
+            ],
+            required=False)
+
+        # test rendering with the blank option selected
+        html = block.render_form(None, prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+
+        # test rendering with a non-blank option selected
+        html = block.render_form('tea', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertNotInHTML('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+
+    def test_subclassing(self):
+        class BeverageMultipleChoiceBlock(blocks.MultipleChoiceBlock):
+            choices = [
+                ('tea', 'Tea'),
+                ('coffee', 'Coffee'),
+            ]
+
+        block = BeverageMultipleChoiceBlock(required=False)
+        html = block.render_form('tea', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+
+        # subclasses of ChoiceBlock should deconstruct to a basic ChoiceBlock for migrations
+        self.assertEqual(
+            block.deconstruct(),
+            (
+                'wagtail.core.blocks.MultipleChoiceBlock',
+                [],
+                {
+                    'choices': [('tea', 'Tea'), ('coffee', 'Coffee')],
+                    'required': False,
+                },
+            )
+        )
+
+    def test_searchable_content(self):
+        block = blocks.MultipleChoiceBlock(choices=[
+            ('choice-1', "Choice 1"),
+            ('choice-2', "Choice 2"),
+        ])
+        self.assertEqual(block.get_searchable_content("choice-1"),
+                         ["Choice 1"])
+
+    def test_searchable_content_with_callable_choices(self):
+        def callable_choices():
+            return [
+                ('choice-1', "Choice 1"),
+                ('choice-2', "Choice 2"),
+            ]
+
+        block = blocks.MultipleChoiceBlock(choices=callable_choices)
+        self.assertEqual(block.get_searchable_content("choice-1"),
+                         ["Choice 1"])
+
+    def test_optgroup_searchable_content(self):
+        block = blocks.MultipleChoiceBlock(choices=[
+            ('Section 1', [
+                ('1-1', "Block 1"),
+                ('1-2', "Block 2"),
+            ]),
+            ('Section 2', [
+                ('2-1', "Block 1"),
+                ('2-2', "Block 2"),
+            ]),
+        ])
+        self.assertEqual(block.get_searchable_content("2-2"),
+                         ["Section 2", "Block 2"])
+
+    def test_invalid_searchable_content(self):
+        block = blocks.MultipleChoiceBlock(choices=[
+            ('one', 'One'),
+            ('two', 'Two'),
+        ])
+        self.assertEqual(block.get_searchable_content('three'), [])
+
+    def test_searchable_content_with_lazy_translation(self):
+        block = blocks.MultipleChoiceBlock(choices=[
+            ('choice-1', __("Choice 1")),
+            ('choice-2', __("Choice 2")),
+        ])
+        result = block.get_searchable_content("choice-1")
+        # result must survive JSON (de)serialisation, which is not the case for
+        # lazy translation objects
+        result = json.loads(json.dumps(result))
+        self.assertEqual(result, ["Choice 1"])
+
+    def test_optgroup_searchable_content_with_lazy_translation(self):
+        block = blocks.MultipleChoiceBlock(choices=[
+            (__('Section 1'), [
+                ('1-1', __("Block 1")),
+                ('1-2', __("Block 2")),
+            ]),
+            (__('Section 2'), [
+                ('2-1', __("Block 1")),
+                ('2-2', __("Block 2")),
+            ]),
+        ])
+        result = block.get_searchable_content("2-2")
+        # result must survive JSON (de)serialisation, which is not the case for
+        # lazy translation objects
+        result = json.loads(json.dumps(result))
+        self.assertEqual(result, ["Section 2", "Block 2"])
+
+    def test_deconstruct_with_callable_choices(self):
+        def callable_choices():
+            return [
+                ('tea', 'Tea'),
+                ('coffee', 'Coffee'),
+            ]
+
+        block = blocks.MultipleChoiceBlock(choices=callable_choices, required=False)
+        html = block.render_form('tea', prefix='beverage')
+
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+
+        self.assertEqual(
+            block.deconstruct(),
+            (
+                'wagtail.core.blocks.MultipleChoiceBlock',
+                [],
+                {
+                    'choices': callable_choices,
+                    'required': False,
+                },
+            )
+        )
+
+    def test_render_with_validator(self):
+        choices = [
+            ('tea', 'Tea'),
+            ('coffee', 'Coffee'),
+        ]
+
+        def validate_tea_is_selected(value):
+            raise ValidationError("You must select 'tea'")
+
+        block = blocks.MultipleChoiceBlock(choices=choices, validators=[validate_tea_is_selected])
+
+        with self.assertRaises(ValidationError):
+            block.clean('coffee')
+
+
 class TestRawHTMLBlock(unittest.TestCase):
     def test_get_default_with_fallback_value(self):
         default_value = blocks.RawHTMLBlock().get_default()
