@@ -30,7 +30,7 @@ from modelcluster.models import (
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.query import PageQuerySet, TreeQuerySet
-from wagtail.core.signals import page_published, page_unpublished, task_approved, task_rejected, task_submitted, workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted
+from wagtail.core.signals import page_published, page_unpublished, task_approved, task_cancelled, task_rejected, task_submitted, workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
@@ -2459,6 +2459,14 @@ class Task(models.Model):
     def get_notifications(self, page, user):
         return self.get_actions(page, user)
 
+    @transaction.atomic
+    def deactivate(self, user=None):
+        self.active = False
+        self.save()
+        in_progress_states = TaskState.objects.filter(task=self, status=TaskState.STATUS_IN_PROGRESS)
+        for state in in_progress_states:
+            state.cancel(user=user)
+
     class Meta:
         verbose_name = _('task')
         verbose_name_plural = _('tasks')
@@ -2489,6 +2497,15 @@ class Workflow(ClusterableModel):
         state.update(user=user)
         workflow_submitted.send(sender=state.__class__, instance=state, user=user)
         return state
+
+    @transaction.atomic
+    def deactivate(self, user=None):
+        self.active = False
+        in_progress_states = WorkflowState.objects.filter(workflow=self, status=WorkflowState.STATUS_IN_PROGRESS)
+        for state in in_progress_states:
+            state.cancel(user=user)
+        WorkflowPage.objects.filter(workflow=self).delete()
+        self.save()
 
     class Meta:
         verbose_name = _('workflow')
@@ -2596,8 +2613,8 @@ class WorkflowState(models.Model):
                 self.finish(user=user)
 
     def get_next_task(self):
-        # finds the next task associated with the latest page revision, which has not been either approved or skipped
-        return Task.objects.filter(workflow_tasks__workflow=self.workflow).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status=TaskState.STATUS_APPROVED) | Q(task_states__status=TaskState.STATUS_SKIPPED)).order_by('workflow_tasks__sort_order').first()
+        # finds the next active task associated with the latest page revision, which has not been either approved or skipped
+        return Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status=TaskState.STATUS_APPROVED) | Q(task_states__status=TaskState.STATUS_SKIPPED)).order_by('workflow_tasks__sort_order').first()
 
     def cancel(self, user=None):
         if self.status != self.STATUS_IN_PROGRESS:
@@ -2687,6 +2704,7 @@ class TaskState(models.Model):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
+    @transaction.atomic
     def approve(self, user=None):
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
@@ -2697,6 +2715,7 @@ class TaskState(models.Model):
         task_approved.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
 
+    @transaction.atomic
     def reject(self, user=None):
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
@@ -2705,6 +2724,15 @@ class TaskState(models.Model):
         self.save()
         self.workflow_state.update(user=user)
         task_rejected.send(sender=self.specific.__class__, instance=self.specific, user=user)
+        return self
+
+    @transaction.atomic
+    def cancel(self, user=None):
+        self.status = 'cancelled'
+        self.finished_at = timezone.now()
+        self.save()
+        self.workflow_state.update(user=user)
+        task_cancelled.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
 
     class Meta:
