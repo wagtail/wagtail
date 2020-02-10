@@ -399,8 +399,7 @@ class BaseChoiceBlock(FieldBlock):
         # than having separate code paths for static vs dynamic lists, we'll _always_ pass a callable
         # to ChoiceField to perform this step at render time.
 
-        # If we have a default choice and the field is required, we don't need to add a blank option.
-        callable_choices = self.get_callable_choices(choices)
+        callable_choices = self._get_callable_choices(choices)
         self.field = self.get_field(
             choices=callable_choices,
             required=required,
@@ -410,7 +409,7 @@ class BaseChoiceBlock(FieldBlock):
         )
         super().__init__(default=default, **kwargs)
 
-    def get_callable_choices(self, choices, blank_choice=True):
+    def _get_callable_choices(self, choices, blank_choice=True):
         """
         Return a callable that we can pass into `forms.ChoiceField`, which will provide the
         choices list with the addition of a blank choice (if blank_choice=True and one does not
@@ -460,10 +459,11 @@ class ChoiceBlock(BaseChoiceBlock):
     def get_field(self, **kwargs):
         return forms.ChoiceField(**kwargs)
 
-    def get_callable_choices(self, choices, blank_choice=None):
+    def _get_callable_choices(self, choices, blank_choice=None):
+        # If we have a default choice and the field is required, we don't need to add a blank option.
         if blank_choice is None:
             blank_choice = not(self._default and self._required)
-        return super().get_callable_choices(choices, blank_choice=blank_choice)
+        return super()._get_callable_choices(choices, blank_choice=blank_choice)
 
     def deconstruct(self):
         """
@@ -493,10 +493,10 @@ class MultipleChoiceBlock(BaseChoiceBlock):
     def get_field(self, **kwargs):
         return forms.MultipleChoiceField(**kwargs)
 
-    def get_callable_choices(self, choices, blank_choice=False):
+    def _get_callable_choices(self, choices, blank_choice=False):
         """ Override to default blank choice to False
         """
-        return super().get_callable_choices(choices, blank_choice=blank_choice)
+        return super()._get_callable_choices(choices, blank_choice=blank_choice)
 
     def deconstruct(self):
         """
