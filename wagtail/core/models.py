@@ -44,6 +44,7 @@ class MultiTableCopyMixin:
     default_exclude_fields_in_copy = ['id']
 
     def _get_field_dictionaries(self, exclude_fields=None, **kwargs):
+        """Get dictionaries representing the model: one with all non m2m fields, and one containing the m2m fields"""
         specific_self = self.specific
         exclude_fields = exclude_fields or []
         specific_dict = {}
@@ -58,8 +59,8 @@ class MultiTableCopyMixin:
             if field.auto_created:
                 continue
 
-            # Copy child m2m relations
-            # Otherwise add them to the m2m dict
+            # Copy parental m2m relations
+            # Otherwise add them to the m2m dict to be set after saving
             if field.many_to_many:
                 if isinstance(field, ParentalManyToManyField):
                     parental_field = getattr(specific_self, field.name)
@@ -68,6 +69,13 @@ class MultiTableCopyMixin:
                         if values:
                             specific_dict[field.name] = values
                 else:
+                    try:
+                        # Do not copy m2m links with a through model that has a ParentalKey to the model being copied - these will be copied as child objects
+                        through_model_parental_links = [field for field in field.through._meta.get_fields() if isinstance(field, ParentalKey) and (field.related_model == specific_self.__class__ or field.related_model in specific_self._meta.parents)]
+                        if through_model_parental_links:
+                            continue
+                    except AttributeError:
+                        pass
                     specific_m2m_dict[field.name] = getattr(specific_self, field.name).all()
                 continue
 
@@ -80,6 +88,8 @@ class MultiTableCopyMixin:
         return specific_dict, specific_m2m_dict
 
     def _get_copy_instance(self, specific_dict, specific_m2m_dict, update_attrs=None, **kwargs):
+        """Create a copy instance (without saving) from dictionaries of the model's fields, and update any attributes in update_attrs"""
+
         if not update_attrs:
             update_attrs = {}
 
@@ -99,6 +109,7 @@ class MultiTableCopyMixin:
         raise NotImplementedError
 
     def _set_m2m_relations(self, instance, specific_m2m_dict, update_attrs=None, **kwargs):
+        """Set non-ParentalManyToMany m2m relations"""
         if not update_attrs:
             update_attrs = {}
         for field_name, value in specific_m2m_dict.items():
@@ -108,6 +119,8 @@ class MultiTableCopyMixin:
         return self._save_copy_instance(instance)
 
     def _copy_child_objects_to_instance(self, instance, exclude_fields=None, process_child_object=None, **kwargs):
+        """Copy objects linked to the model by a ParentalKey, and set this to the new revision"""
+
         # A dict that maps child objects to their new ids
         # Used to remap child object ids in revisions
         child_object_id_map = defaultdict(dict)
