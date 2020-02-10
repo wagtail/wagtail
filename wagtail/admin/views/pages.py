@@ -1209,8 +1209,6 @@ def workflow_action(request, page_id):
 
     action_name = request.POST.get('action')
 
-    import pdb; pdb.set_trace()
-
     if action_name not in set(action[0] for action in actions):
         raise PermissionDenied
 
