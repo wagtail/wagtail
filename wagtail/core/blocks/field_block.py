@@ -385,14 +385,14 @@ class BaseChoiceBlock(FieldBlock):
             choices_for_constructor = choices = list(choices)
 
         # keep a copy of all kwargs (including our normalised choices list) for deconstruct()
+        # Note: we omit the `widget` kwarg, as widgets do not provide a serialization method
+        # for migrations, and they are unlikely to be useful within the frozen ORM anyhow
         self._constructor_kwargs = kwargs.copy()
         self._constructor_kwargs['choices'] = choices_for_constructor
         if required is not True:
             self._constructor_kwargs['required'] = required
         if help_text is not None:
             self._constructor_kwargs['help_text'] = help_text
-        if widget is not None:
-            self._constructor_kwargs['widget'] = widget
 
         # We will need to modify the choices list to insert a blank option, if there isn't
         # one already. We have to do this at render time in the case of callable choices - so rather
