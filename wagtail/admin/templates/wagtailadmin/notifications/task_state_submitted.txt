@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block content %}
-{% blocktrans with task=task.name title=page.get_admin_display_title %}The page "{{ title }}" has been submitted for approval to moderation stage "{{ task }}".{% endblocktrans %}
+{% blocktrans with task=task.name title=page.get_admin_display_title|safe %}The page "{{ title }}" has been submitted for approval to moderation stage "{{ task }}".{% endblocktrans %}
 
 
 {% trans "You can preview the page here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:workflow_preview' page.id task.id %}

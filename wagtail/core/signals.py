@@ -11,4 +11,5 @@ workflow_submitted = Signal(providing_args=['instance'])
 task_approved = Signal(providing_args=['instance'])
 task_rejected = Signal(providing_args=['instance'])
 task_submitted = Signal(providing_args=['instance'])
+task_cancelled = Signal(providing_args=['instance'])
 
