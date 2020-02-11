@@ -432,6 +432,7 @@ Contributors
 * Simon Evans
 * Arkadiusz Michał Ryś
 * James O'Toole
+* jeromelebleu
 
 Translators
 ===========
