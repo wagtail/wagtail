@@ -61,7 +61,8 @@ class TestWorkflows(TestCase):
 
     def test_get_specific_task(self):
         # test ability to get instance of subclassed Task type using Task.specific
-        GroupApprovalTask.objects.create(name='test_group_approval', group=Group.objects.first())
+        group_approval_task = GroupApprovalTask.objects.create(name='test_group_approval')
+        group_approval_task.groups.set(Group.objects.all())
         task = Task.objects.get(name='test_group_approval')
         specific_task = task.specific
         self.assertIsInstance(specific_task, GroupApprovalTask)

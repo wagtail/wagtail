@@ -343,7 +343,8 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotifier):
 
     def get_recipient_users(self, task_state, **kwargs):
         triggering_user = kwargs.get('user', None)
-        group_members = task_state.task.specific.group.user_set.all()
+
+        group_members = get_user_model().objects.filter(groups__in=task_state.task.specific.groups.all())
 
         recipients = group_members
 

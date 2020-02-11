@@ -53,7 +53,7 @@ class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, '<span class="status-tag">Disabled</span>', html=True)
 
         # If we set 'show_disabled' to 'False', the workflow should not be displayed
-        response = self.get(params={'show_disabled': 'False'})
+        response = self.get(params={})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no enabled workflows.")
 
@@ -260,7 +260,7 @@ class TestTaskIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, '<span class="status-tag">Disabled</span>', html=True)
 
         # The listing should not contain task if show_disabled query parameter is 'False'
-        response = self.get(params={'show_disabled': 'False'})
+        response = self.get(params={})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no enabled tasks")
         self.assertNotContains(response, "test_task")
@@ -381,8 +381,9 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
-        task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_1.groups.set(Group.objects.filter(name='Moderators'))
+        workflow_task_1 = WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
         return workflow, task_1
 
     def submit(self):
@@ -479,8 +480,9 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
-        task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_1.groups.set(Group.objects.filter(name='Moderators'))
+        workflow_task_1 = WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
         return workflow, task_1
 
     def submit(self):
@@ -648,8 +650,9 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
-        task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_1.groups.set(Group.objects.filter(name='Moderators'))
+        workflow_task_1 = WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
         return workflow, task_1
 
     def submit(self):
@@ -849,10 +852,12 @@ class TestDisableViews(TestCase, WagtailTestUtils):
 
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
-        task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
-        task_2 = GroupApprovalTask.objects.create(name='test_task_2', group=Group.objects.get(name='Moderators'))
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
-        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
+        task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_1.groups.set(Group.objects.filter(name='Moderators'))
+        task_2 = GroupApprovalTask.objects.create(name='test_task_2')
+        task_2.groups.set(Group.objects.filter(name='Moderators'))
+        workflow_task_1 = WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        workflow_task_2 = WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
         return workflow, task_1, task_2
 
     def submit(self):
