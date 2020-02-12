@@ -11,9 +11,13 @@ class AddWorkflowToPageForm(forms.Form):
     A form to assign a Workflow instance to a Page. It is designed to work with a confirmation step if a the chosen Page
     is assigned to an existing Workflow - the result of which is stored in overwrite_existing.
     """
-    page = forms.ModelChoiceField(queryset=Page.objects.all(), widget=widgets.AdminPageChooser(
+    page = forms.ModelChoiceField(
+        queryset=Page.objects.all(),
+        widget=widgets.AdminPageChooser(
             target_models=[Page],
-            can_choose_root=True))
+            can_choose_root=True
+        )
+    )
     workflow = forms.ModelChoiceField(queryset=Workflow.objects.active(), widget=forms.HiddenInput())
     overwrite_existing = forms.BooleanField(widget=forms.HiddenInput(), initial=False, required=False)
 

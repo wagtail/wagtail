@@ -54,7 +54,12 @@ class UserPagesInWorkflowModerationPanel:
     def __init__(self, request):
         self.request = request
         # Find in progress workflow states which are either requested by the user or on pages owned by the user
-        self.workflow_states = WorkflowState.objects.filter(status=WorkflowState.STATUS_IN_PROGRESS).select_related('page').filter(Q(page__owner=request.user)|Q(requested_by=request.user)).select_related('current_task_state', 'current_task_state__task', 'current_task_state__page_revision')
+        self.workflow_states = (
+            WorkflowState.objects
+            .filter(status=WorkflowState.STATUS_IN_PROGRESS)
+            .filter(Q(page__owner=request.user) | Q(requested_by=request.user))
+            .select_related('page', 'current_task_state', 'current_task_state__task', 'current_task_state__page_revision')
+        )
 
     def render(self):
         return render_to_string('wagtailadmin/home/user_pages_in_workflow_moderation.html', {
