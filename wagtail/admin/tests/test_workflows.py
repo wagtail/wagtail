@@ -193,15 +193,15 @@ class TestAddWorkflowToPage(TestCase, WagtailTestUtils):
 
     def test_post(self):
         # Check that a WorkflowPage instance is created correctly when a page with no existing workflow is created
-        response = self.post({'page': str(self.page.id), 'workflow': str(self.workflow.id)})
+        self.post({'page': str(self.page.id), 'workflow': str(self.workflow.id)})
         self.assertEqual(WorkflowPage.objects.filter(workflow=self.workflow, page=self.page).count(), 1)
 
         # Check that trying to add a WorkflowPage for a page with an existing workflow does not create
-        response = self.post({'page': str(self.other_page.id), 'workflow': str(self.workflow.id)})
+        self.post({'page': str(self.other_page.id), 'workflow': str(self.workflow.id)})
         self.assertEqual(WorkflowPage.objects.filter(workflow=self.workflow, page=self.other_page).count(), 0)
 
         # Check that this can be overridden by setting overwrite_existing to true
-        response = self.post({'page': str(self.other_page.id), 'overwrite_existing': 'True', 'workflow': str(self.workflow.id)})
+        self.post({'page': str(self.other_page.id), 'overwrite_existing': 'True', 'workflow': str(self.workflow.id)})
         self.assertEqual(WorkflowPage.objects.filter(workflow=self.workflow, page=self.other_page).count(), 1)
 
 
@@ -219,7 +219,7 @@ class TestRemoveWorkflow(TestCase, WagtailTestUtils):
 
     def test_post(self):
         # Check that a WorkflowPage instance is removed correctly
-        response = self.post()
+        self.post()
         self.assertEqual(WorkflowPage.objects.filter(workflow=self.workflow, page=self.page).count(), 0)
 
 
@@ -381,7 +381,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
         task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
-        workflow_task_1 = WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
         return workflow, task_1
 
     def submit(self):
@@ -479,7 +479,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
         task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
-        workflow_task_1 = WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
         return workflow, task_1
 
     def submit(self):
@@ -503,7 +503,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         page_published.connect(mock_handler)
 
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action':'approve'})
+        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'approve'})
 
         # Check that the workflow was approved
 
@@ -563,7 +563,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         This posts to the reject task view and checks that the page was rejected and not published
         """
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action':'reject'})
+        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'reject'})
 
         # Check that the workflow was rejected
 
@@ -648,7 +648,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
         task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
-        workflow_task_1 = WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
         return workflow, task_1
 
     def submit(self):
@@ -850,8 +850,8 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         workflow = Workflow.objects.create(name='test_workflow')
         task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
         task_2 = GroupApprovalTask.objects.create(name='test_task_2', group=Group.objects.get(name='Moderators'))
-        workflow_task_1 = WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
-        workflow_task_2 = WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
         return workflow, task_1, task_2
 
     def submit(self):
@@ -917,5 +917,3 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
         self.task_1.refresh_from_db()
         self.assertEqual(self.task_1.active, True)
-
-
