@@ -11,17 +11,14 @@ class PageLinkHandler(LinkHandler):
     def get_model():
         return Page
 
-    @classmethod
-    def get_instance(cls, attrs):
-        return super().get_instance(attrs).specific
-
-    @classmethod
     def expand_db_attributes(cls, attrs):
-        try:
-            page = cls.get_instance(attrs)
-            return '<a href="%s">' % escape(page.localized.specific.url)
-        except Page.DoesNotExist:
-            return "<a>"
+        return cls.expand_db_attributes_many([attrs])[0]
+
+    def expand_db_attributes_many(cls, attrs_list):
+        return [
+            '<a href="%s">' % escape(page.localized.specific.url) if page else "<a>"
+            for page in cls.get_many(attrs_list)
+        ]
 
     @classmethod
     def extract_references(self, attrs):

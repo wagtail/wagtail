@@ -131,6 +131,14 @@ class EntityHandler:
         model = cls.get_model()
         return model._default_manager.get(id=attrs["id"])
 
+    @classmethod
+    def get_many(cls, attrs_list: List[dict]) -> List[Model]:
+        model = cls.get_model()
+        instance_ids = [attrs.get("id") for attrs in attrs_list]
+        instances_by_id = model._default_manager.in_bulk(instance_ids)
+        instances_by_str_id = {str(k): v for k, v in instances_by_id.items()}
+        return [instances_by_str_id.get(str(id_)) for id_ in instance_ids]
+
     @staticmethod
     def expand_db_attributes(attrs: dict) -> str:
         """
