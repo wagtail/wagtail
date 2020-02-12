@@ -19,8 +19,8 @@ class TestWorkflows(TestCase):
         workflow = Workflow.objects.create(name='test_workflow')
         task_1 = Task.objects.create(name='test_task_1')
         task_2 = Task.objects.create(name='test_task_2')
-        workflow_task_1 = WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
-        workflow_task_2 = WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
         return workflow, task_1, task_2
 
     def start_workflow_on_homepage(self):
@@ -48,7 +48,7 @@ class TestWorkflows(TestCase):
     def test_add_task_to_workflow(self):
         workflow = Workflow.objects.create(name='test_workflow')
         task = Task.objects.create(name='test_task')
-        workflow_task = WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
+        WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
         self.assertIn(task, Task.objects.filter(workflow_tasks__workflow=workflow))
         self.assertIn(workflow, Workflow.objects.filter(workflow_tasks__task=task))
 
@@ -62,7 +62,7 @@ class TestWorkflows(TestCase):
 
     def test_get_specific_task(self):
         # test ability to get instance of subclassed Task type using Task.specific
-        group_approval_task = GroupApprovalTask.objects.create(name='test_group_approval', group=Group.objects.first())
+        GroupApprovalTask.objects.create(name='test_group_approval', group=Group.objects.first())
         task = Task.objects.get(name='test_group_approval')
         specific_task = task.specific
         self.assertIsInstance(specific_task, GroupApprovalTask)
@@ -178,13 +178,7 @@ class TestWorkflows(TestCase):
         # test that both WorkflowState and TaskState are marked as rejected upon Task.on_action with action=reject
         data = self.start_workflow_on_homepage()
         workflow_state = data['workflow_state']
-        task_1 = data['task_1']
-        task_2 = data['task_2']
-        page = data['page']
         task_state = workflow_state.current_task_state
         task_state.task.on_action(task_state, user=None, action_name='reject')
         self.assertEqual(task_state.status, 'rejected')
         self.assertEqual(workflow_state.status, 'rejected')
-
-
-

@@ -786,14 +786,14 @@ Page.settings_panels = [
 
 Page.base_form_class = WagtailAdminPageForm
 
-#Similarly, set up wagtailcore.Workflow to have edit handlers
+# Similarly, set up wagtailcore.Workflow to have edit handlers
 Workflow.panels = [
-                    FieldPanel("name"),
-                    InlinePanel("workflow_tasks", heading="Tasks"),
-                    ]
+    FieldPanel("name"),
+    InlinePanel("workflow_tasks", heading="Tasks"),
+]
 Task.panels = [
-                    FieldPanel("name"),
-                    ]
+    FieldPanel("name"),
+]
 GroupApprovalTask.panels = Task.panels + [FieldPanel('group')]
 # do not allow editing of group post creation - this could lead to confusing history if a group is changed after tasks
 # are started/completed
