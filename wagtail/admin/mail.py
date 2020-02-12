@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import override
 
 from wagtail.admin.auth import users_with_page_permission
-from wagtail.core.models import GroupApprovalTask, Page, PageRevision, TaskState, WorkflowState
+from wagtail.core.models import GroupApprovalTask, PageRevision, TaskState, WorkflowState
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.users.models import UserProfile
 
@@ -154,7 +154,7 @@ class Notifier:
         return set()
 
     def get_template_base_prefix(self, instance, **kwargs):
-        return camelcase_to_underscore(type(instance).__name__)+'_'
+        return camelcase_to_underscore(type(instance).__name__) + '_'
 
     def get_context(self, instance, **kwargs):
         return {'settings': settings}
@@ -374,7 +374,7 @@ class GroupApprovalTaskStateApprovalEmailNotifier(BaseGroupApprovalTaskStateEmai
         requested_by = task_state.workflow_state.requested_by
         # add the EmailNotifier's requester
         triggering_user = kwargs.get('user', None)
-        if  (not triggering_user or triggering_user.pk != requested_by.pk):
+        if not triggering_user or triggering_user.pk != requested_by.pk:
             recipients = set(recipients)
             recipients.add(requested_by)
 
@@ -391,7 +391,7 @@ class GroupApprovalTaskStateRejectionEmailNotifier(BaseGroupApprovalTaskStateEma
         requested_by = task_state.workflow_state.requested_by
         # add the EmailNotifier's requester
         triggering_user = kwargs.get('user', None)
-        if  (not triggering_user or triggering_user.pk != requested_by.pk):
+        if not triggering_user or triggering_user.pk != requested_by.pk:
             recipients = set(recipients)
             recipients.add(requested_by)
 
