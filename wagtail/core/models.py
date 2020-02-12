@@ -1743,7 +1743,7 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
 
     @property
     def current_workflow_task_state(self):
-        if self.current_workflow_state:
+        if self.current_workflow_state and self.current_workflow_state.current_task_state:
             return self.current_workflow_state.current_task_state.specific
 
     @property
