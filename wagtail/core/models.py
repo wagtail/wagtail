@@ -733,12 +733,17 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         return errors
 
     def _update_descendant_url_paths(self, old_url_path, new_url_path):
-        (Page.objects
+        (
+            Page.objects
             .filter(path__startswith=self.path)
             .exclude(pk=self.pk)
-            .update(url_path=Concat(
-            Value(new_url_path),
-            Substr('url_path', len(old_url_path) + 1))))
+            .update(
+                url_path=Concat(
+                    Value(new_url_path),
+                    Substr('url_path', len(old_url_path) + 1)
+                )
+            )
+        )
 
     #: Return this page in its most specific subclassed form.
     @cached_property
