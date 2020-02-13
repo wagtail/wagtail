@@ -420,14 +420,15 @@ def edit(request, page_id):
         approved_task = True if 'approved' in task_statuses else False
 
         # TODO: add icon to message when we have added a workflows icon
-        if current_task_number:
-            workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
-        else:
-            workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
-        if approved_task and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
-            messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")))
-        else:
-            messages.success(request, workflow_info)
+        if request.method == 'GET':
+            if current_task_number:
+                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
+            else:
+                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
+            if approved_task and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
+                messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")))
+            else:
+                messages.success(request, workflow_info)
 
     errors_debug = None
 
