@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.http import is_safe_url
-from django.utils.translation import ngettext
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
 
 from wagtail.admin import messages
