@@ -15,12 +15,12 @@
                 <h1 class="icon icon-doc-empty-inverse">
                 {% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}</h1>
             </div>
-            {% if task_statuses %}
+            {% if workflow_tasks %}
             <div class="center col3">
                 {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}
             </div>
             {% endif %}
-            <div class="right col{% if task_statuses %}3{% else %}6{% endif %}">
+            <div class="right col{% if workflow_tasks %}3{% else %}6{% endif %}">
                 {% trans "Status" %}
                 {% include "wagtailadmin/shared/page_status_tag.html" with page=page_for_status %}
 
