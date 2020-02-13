@@ -28,7 +28,8 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
-from wagtail.core.models import Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowTask
+from wagtail.core.models import (
+    Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowTask)
 from wagtail.search.query import MATCH_ALL
 
 
