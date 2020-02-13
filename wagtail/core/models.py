@@ -330,11 +330,13 @@ def get_default_page_content_type():
 
 
 class BasePageManager(models.Manager):
+
     def get_queryset(self):
         return self._queryset_class(self.model).order_by('path')
 
 
-PageManager = BasePageManager.from_queryset(PageQuerySet)
+class PageManager(BasePageManager.from_queryset(PageQuerySet)):
+    use_in_migrations=True
 
 
 class PageBase(models.base.ModelBase):
