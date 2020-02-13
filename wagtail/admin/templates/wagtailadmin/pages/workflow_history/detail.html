@@ -1,0 +1,178 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{% trans "Workflow progress" %}{% endblock %}
+
+{% block content %}
+    {% trans "Workflow progress" as title_str %}
+    {% include "wagtailadmin/shared/header.html" with title=title_str %}
+
+    <div class="nice-padding">
+        <h2 class="icon icon-doc-empty-inverse">{{ page.get_admin_display_title }}</h2>
+        <p style="margin-bottom: 30px;">
+            <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit / Review" %}</a>
+            <a href="{% url 'wagtailadmin_pages:workflow_history' page.id %}" class="button button-small button-secondary">{% trans "Workflow history" %}</a>
+        </p>
+
+        <h2 class="icon icon-placeholder">{{ workflow_state.workflow.name }}</h2 class="icon icon-doc-empty-inverse">
+
+        <p>
+            {% blocktrans with modified_by=workflow_state.requested_by.get_full_name|default:workflow_state.requested_by.get_username %}Requested by <b>{{ modified_by }}</b>{% endblocktrans %}
+            <span class="avatar small"><img src="{% avatar_url workflow_state.requested_by size=25 %}" alt="" /></span>
+        </p>
+
+        <p>
+            {% blocktrans with workflow_state.created_at as started_at %}Started at <b>{{ started_at }}</b>{% endblocktrans %}
+        </p>
+
+        <p>
+            {% blocktrans with workflow_state.get_status_display as status %}Status <span class="status-tag primary"> {{ status }}</span>{% endblocktrans %}
+        </p>
+
+        <div class="tab-buttons" style="margin-top: 30px;">
+            <button data-tab-button="tasks" class="active">{% trans "Tasks" %}</button>
+            <button data-tab-button="timeline">{% trans "Timeline" %}</button>
+        </div>
+    </div>
+
+    <div class="tab" data-tab="tasks">
+        <table class="workflow-tasks-table">
+            <colgroup width="{% widthratio 100 grid_size 1 %}%"></colgroup>
+            {% for task in tasks %}
+                <colgroup width="{% widthratio 100 grid_size 2 %}%"></colgroup>
+            {% endfor %}
+            <thead>
+                <th class="left-column"></th>
+                {% for task in tasks %}
+                    <th>{{ task }}</th>
+                {% endfor %}
+            </thead>
+            <tbody>
+                {% for revision, task_states in task_states_by_revision %}
+                    <tr>
+                        <td class="left-column">
+                            {% if forloop.first %}
+                                {% trans "Initial Revision" %}
+                            {% else %}
+                                {% if not forloop.first %}
+                                    {% blocktrans with revision.user.get_full_name|default:revision.user.get_username as who and revision.created_at as at %}
+                                        Page edited by {{ who }} at {{ at }}
+                                    {% endblocktrans %}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        {% for task_state in task_states %}
+                            <td>
+                                {% if task_state.status == 'approved' or task_state.status == 'rejected' %}
+                                    {# FIXME: i18n #}
+                                    <div class="status-tag primary">{{ task_state.get_status_display }}</div> at <b>{{ task_state.finished_at }}</b>
+                                {% else %}
+                                    <div class="status-tag primary">{{ task_state.get_status_display }}</div>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tab" data-tab="timeline" style="display: none;">
+        <table class="workflow-timeline-table">
+            <colgroup width="20%"></colgroup>
+            <colgroup width="80%"></colgroup>
+            <tbody>
+                {% for timeline_item in timeline %}
+                    <tr>
+                        <td class="left-column">
+                            {{ timeline_item.time }}
+                        </td>
+                        <td>
+                            {% if timeline_item.action == 'workflow_started' %}
+                                <b>{% trans "Workflow started" %}</b>
+                            {% elif timeline_item.action == 'workflow_completed' %}
+                                <b>{% trans "Workflow completed" %}</b>
+                                <div class="status-tag primary">{{ timeline_item.workflow_state.get_status_display }}</div>
+                            {% elif timeline_item.action == 'page_edited' %}
+                                {% blocktrans with timeline_item.revision.user.get_full_name|default:timeline_item.revision.user.get_username as who and timeline_item.revision.created_at as at %}
+                                    Page edited by {{ who }} at {{ at }}
+                                {% endblocktrans %}
+                            {% elif timeline_item.action ==  'task_completed' %}
+                                <b>{{ timeline_item.task_state.task }}</b>
+
+                               <div class="status-tag primary">{{ timeline_item.task_state.get_status_display }}</div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-tab-button]').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(tab => tab.style.display = 'none');
+                    document.querySelectorAll('.tab[data-tab="' + button.dataset.tabButton + '"').forEach(tab => tab.style.display = 'block');
+
+                    document.querySelectorAll('.tab-buttons button').forEach(tab => tab.classList.remove('active'));
+
+                    button.classList.add('active');
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .tab-buttons button {
+            background: none;
+            border: none;
+            padding-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .tab-buttons button.active {
+            border-bottom: 3px solid #007d7e;
+        }
+
+        .workflow-tasks-table,
+        .workflow-timeline-table {
+            width: 100%;
+            border-top: 1px solid rgb(229, 229, 229);
+            border-bottom: 1px solid rgb(229, 229, 229);
+            font-size: 0.8em;
+        }
+
+        .workflow-tasks-table  {
+            background-color: rgb(250, 250, 250);
+        }
+
+        .workflow-tasks-table td,
+        .workflow-timeline-table td,
+        .workflow-tasks-table th,
+        .workflow-timeline-table th {
+            padding: 20px;
+        }
+
+        .workflow-tasks-table th,
+        .workflow-timeline-table th {
+            font-size: 1.2em;
+        }
+
+        .workflow-tasks-table .left-column,
+        .workflow-timeline-table .left-column {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .workflow-tasks-table .left-column {
+            background-color: rgb(245, 245, 245);
+        }
+
+        .workflow-timeline-table tr {
+            border-bottom: 1px solid rgb(229, 229, 229);
+        }
+    </style>
+{% endblock %}
