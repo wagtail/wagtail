@@ -342,7 +342,7 @@ class BasePageManager(models.Manager):
 
 
 class PageManager(BasePageManager.from_queryset(PageQuerySet)):
-    use_in_migrations=True
+    use_in_migrations = True
 
 
 class PageBase(models.base.ModelBase):
