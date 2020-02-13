@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0046_auto_20200211_1701'),
+        ('wagtailcore', '0046_add_workflow_models'),
         ('tests', '0047_restaurant_tags'),
     ]
 
