@@ -1,0 +1,9 @@
+{% load i18n wagtailadmin_tags %}
+
+{% if workflow_states %}
+    {% include "wagtailadmin/pages/workflow_history/list.html" %}
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=workflow_states linkurl="wagtailadmin_pages:workflow_history" %}
+{% else %}
+    <p>{% blocktrans %}This page hasn't been submitted for moderation yet{% endblocktrans %}</p>
+{% endif %}
