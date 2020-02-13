@@ -421,14 +421,25 @@ def edit(request, page_id):
 
         # TODO: add icon to message when we have added a workflows icon
         if request.method == 'GET':
-            if current_task_number:
+            buttons = []
+
+            if page.live:
+                buttons.append(messages.button(
+                    reverse('wagtailadmin_pages:revisions_compare', args=(page.id, 'live', latest_revision.id)),
+                    _('Compare with live version')
+                ))
+
+            if total_tasks == 1:
+                # If only one task in workflow, show simple message
+                workflow_info = _("This page is currently awaiting moderation")
+            elif current_task_number:
                 workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
             else:
                 workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
             if approved_task and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
-                messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")))
+                messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons)
             else:
-                messages.success(request, workflow_info)
+                messages.success(request, workflow_info, buttons=buttons)
 
     errors_debug = None
 
