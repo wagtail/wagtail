@@ -42,4 +42,6 @@ urlpatterns = [
     url(r'^(\d+)/revisions/(\d+)/revert/$', pages.revisions_revert, name='revisions_revert'),
     url(r'^(\d+)/revisions/(\d+)/unschedule/$', pages.revisions_unschedule, name='revisions_unschedule'),
     url(r'^(\d+)/revisions/compare/(live|earliest|\d+)\.\.\.(live|latest|\d+)/$', pages.revisions_compare, name='revisions_compare'),
+
+    url(r'^(\d+)/workflow_history/$', pages.workflow_history, name='workflow_history'),
 ]
