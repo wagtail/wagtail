@@ -399,6 +399,18 @@ def edit(request, page_id):
 
             messages.error(request, lock_message, extra_tags='lock')
 
+    # Check for revisions still undergoing moderation and warn - this is for the old moderation system
+    if latest_revision and latest_revision.submitted_for_moderation:
+        buttons = []
+
+        if page.live:
+            buttons.append(messages.button(
+                reverse('wagtailadmin_pages:revisions_compare', args=(page.id, 'live', latest_revision.id)),
+                _('Compare with live version')
+            ))
+
+        messages.warning(request, _("This page is currently awaiting moderation"), buttons=buttons)    
+
     task_statuses = []
     workflow_state = page.current_workflow_state
     workflow_name = ''
@@ -440,8 +452,8 @@ def edit(request, page_id):
                     reverse('wagtailadmin_pages:revisions_compare', args=(page.id, 'live', latest_revision.id)),
                     _('Compare with live version')
                 ))
-
-            if total_tasks == 1:
+                # Check for revisions still undergoing moderation and warn
+            elif total_tasks == 1:
                 # If only one task in workflow, show simple message
                 workflow_info = _("This page is currently awaiting moderation")
             elif current_task_number:
