@@ -12,7 +12,7 @@ from xlsxwriter.workbook import Workbook
 
 from wagtail.admin.auth import permission_denied
 from wagtail.admin.filters import LockedPagesReportFilterSet
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.core.models import Page, TaskState, UserPagePermissionsProxy, WorkflowState
 
 
 class Echo:
@@ -271,3 +271,23 @@ class LockedPagesView(PageReportView):
         if not UserPagePermissionsProxy(request.user).can_remove_locks():
             return permission_denied(request)
         return super().dispatch(request, *args, **kwargs)
+
+
+class WorkflowView(ReportView):
+    template_name = 'wagtailadmin/reports/workflow.html'
+    title = _('Workflow')
+    header_icon = 'placeholder'
+
+    def get_queryset(self):
+        pages = UserPagePermissionsProxy(self.request.user).editable_pages()
+        return WorkflowState.objects.filter(page__in=pages)
+
+
+class WorkflowTasksView(ReportView):
+    template_name = 'wagtailadmin/reports/workflow_tasks.html'
+    title = _('Workflow')
+    header_icon = 'placeholder'
+
+    def get_queryset(self):
+        pages = UserPagePermissionsProxy(self.request.user).editable_pages()
+        return TaskState.objects.filter(workflow_state__page__in=pages)
