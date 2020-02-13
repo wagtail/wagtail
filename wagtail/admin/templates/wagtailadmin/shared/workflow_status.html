@@ -29,4 +29,8 @@
     </div>
 
     {% endwith %}
+
+    <a href="{% url 'wagtailadmin_pages:workflow_history' page.id %}">
+        {% trans "Workflow history" %}
+    </a>
 {% endif %}

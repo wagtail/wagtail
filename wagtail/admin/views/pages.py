@@ -28,7 +28,8 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
-from wagtail.core.models import Page, PageRevision, Task, TaskState, UserPagePermissionsProxy
+from wagtail.core.models import (
+    Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState)
 from wagtail.search.query import MATCH_ALL
 
 
@@ -1420,4 +1421,19 @@ def revisions_unschedule(request, page_id, revision_id):
         'revision': revision,
         'next': next_url,
         'subtitle': subtitle
+    })
+
+
+def workflow_history(request, page_id):
+    page = get_object_or_404(Page, id=page_id).specific
+
+    user_perms = UserPagePermissionsProxy(request.user)
+    if not user_perms.for_page(page).can_edit():
+        raise PermissionDenied
+
+    workflow_states = WorkflowState.objects.filter(page=page).order_by('-created_at')
+
+    return render(request, 'wagtailadmin/pages/workflow_history/index.html', {
+        'page': page,
+        'workflow_states': workflow_states,
     })

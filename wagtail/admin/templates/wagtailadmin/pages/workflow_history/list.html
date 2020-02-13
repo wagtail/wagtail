@@ -1,0 +1,51 @@
+{% load i18n wagtailadmin_tags wagtailui_tags %}
+{% load l10n %}
+
+<table class="listing">
+    <thead>
+        <tr>
+            <th>
+                {% trans 'Status' %}
+            </th>
+            <th>
+                {% trans 'Tasks' %}
+            </th>
+            <th>
+                {% trans 'Requested by' %}
+            </th>
+            <th>
+                {% trans 'Started at' %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if workflow_states %}
+            {% page_permissions page as page_perms %}
+            {% for workflow_state in workflow_states %}
+                <tr>
+                    <td>
+                        <div class="status-tag primary">
+                            {{ workflow_state.get_status_display }}
+                        </div>
+                    </td>
+                    <td>
+                        <h2>{{ workflow_name }}</h2>
+                        {% trans 'Approved task' as approved_title %}
+                        {% trans 'Incomplete task' as incomplete_title %}
+                        {% for task in workflow_state.all_tasks_with_status %}
+                            {% if task.status == 'approved' %}
+                                {% wagtail_icon name="success" title=approved_title %}
+                            {% else %}
+                                {% wagtail_icon name="radio-empty" title=incomplete_title %}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ workflow_state.requested_by }}</td>
+                    <td>{{ workflow_state.created_at }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% block no_results %}<tr><td class="no-results-message"><p>{% trans "This page hasn't been submitted for moderation yet" %}</p></td></tr>{% endblock %}
+        {% endif %}
+    </tbody>
+</table>
