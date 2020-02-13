@@ -9,7 +9,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
-from django.core.exceptions import ValidationError, PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
@@ -33,7 +33,8 @@ from treebeard.mp_tree import MP_Node
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import (
     page_published, page_unpublished, post_page_move, pre_page_move,
-    task_approved, task_cancelled, task_rejected, task_submitted, workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted)
+    task_approved, task_cancelled, task_rejected, task_submitted,
+    workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted)
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
