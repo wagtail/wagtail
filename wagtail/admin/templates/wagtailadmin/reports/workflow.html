@@ -90,8 +90,7 @@
 {% block extra_js %}
     {{ block.super }}
 
-    {# load editor js to get tooltips #}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>
 
     <script>
         $(function() {
