@@ -409,7 +409,7 @@ def edit(request, page_id):
                 _('Compare with live version')
             ))
 
-        messages.warning(request, _("This page is currently awaiting moderation"), buttons=buttons)    
+        messages.warning(request, _("This page is currently awaiting moderation"), buttons=buttons)
 
     task_statuses = []
     workflow_state = page.current_workflow_state
