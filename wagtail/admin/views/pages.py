@@ -418,7 +418,7 @@ def edit(request, page_id):
             else:
                 workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
             if approved_task:
-                messages.warning(request, mark_safe(workflow_info+_("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons)
+                messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons)
             else:
                 messages.success(request, workflow_info, buttons=buttons)
 
