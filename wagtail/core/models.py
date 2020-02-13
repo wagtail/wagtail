@@ -24,7 +24,7 @@ from django.utils.functional import cached_property
 from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import (
     ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
 
@@ -42,6 +42,133 @@ from wagtail.utils.deprecation import RemovedInWagtail29Warning
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
+
+
+class MultiTableCopyMixin:
+    default_exclude_fields_in_copy = ['id']
+
+    def _get_field_dictionaries(self, exclude_fields=None):
+        """Get dictionaries representing the model: one with all non m2m fields, and one containing the m2m fields"""
+        specific_self = self.specific
+        exclude_fields = exclude_fields or []
+        specific_dict = {}
+        specific_m2m_dict = {}
+
+        for field in specific_self._meta.get_fields():
+            # Ignore explicitly excluded fields
+            if field.name in exclude_fields:
+                continue
+
+            # Ignore reverse relations
+            if field.auto_created:
+                continue
+
+            # Copy parental m2m relations
+            # Otherwise add them to the m2m dict to be set after saving
+            if field.many_to_many:
+                if isinstance(field, ParentalManyToManyField):
+                    parental_field = getattr(specific_self, field.name)
+                    if hasattr(parental_field, 'all'):
+                        values = parental_field.all()
+                        if values:
+                            specific_dict[field.name] = values
+                else:
+                    try:
+                        # Do not copy m2m links with a through model that has a ParentalKey to the model being copied - these will be copied as child objects
+                        through_model_parental_links = [field for field in field.through._meta.get_fields() if isinstance(field, ParentalKey) and (field.related_model == specific_self.__class__ or field.related_model in specific_self._meta.parents)]
+                        if through_model_parental_links:
+                            continue
+                    except AttributeError:
+                        pass
+                    specific_m2m_dict[field.name] = getattr(specific_self, field.name).all()
+                continue
+
+            # Ignore parent links (page_ptr)
+            if isinstance(field, models.OneToOneField) and field.remote_field.parent_link:
+                continue
+
+            specific_dict[field.name] = getattr(specific_self, field.name)
+
+        return specific_dict, specific_m2m_dict
+
+    def _get_copy_instance(self, specific_dict, specific_m2m_dict, update_attrs=None):
+        """Create a copy instance (without saving) from dictionaries of the model's fields, and update any attributes in update_attrs"""
+
+        if not update_attrs:
+            update_attrs = {}
+
+        specific_class = self.specific.__class__
+
+        copy_instance = specific_class(**specific_dict)
+
+        if update_attrs:
+            for field, value in update_attrs.items():
+                if field in specific_m2m_dict:
+                    continue
+                setattr(copy_instance, field, value)
+
+        return copy_instance
+
+    def _save_copy_instance(self, instance, **kwargs):
+        raise NotImplementedError
+
+    def _set_m2m_relations(self, instance, specific_m2m_dict, update_attrs=None):
+        """Set non-ParentalManyToMany m2m relations"""
+        if not update_attrs:
+            update_attrs = {}
+        for field_name, value in specific_m2m_dict.items():
+            value = update_attrs.get(field_name, value)
+            getattr(instance, field_name).set(value)
+
+        return instance
+
+    def _copy_child_objects_to_instance(self, instance, exclude_fields=None, process_child_object=None):
+        """Copy objects linked to the model by a ParentalKey, and set this to the new revision"""
+
+        # A dict that maps child objects to their new ids
+        # Used to remap child object ids in revisions
+        child_object_id_map = defaultdict(dict)
+        exclude_fields = exclude_fields or []
+        specific_self = self.specific
+        for child_relation in get_all_child_relations(specific_self):
+            accessor_name = child_relation.get_accessor_name()
+
+            if accessor_name in exclude_fields:
+                continue
+
+            parental_key_name = child_relation.field.attname
+            child_objects = getattr(specific_self, accessor_name, None)
+
+            if child_objects:
+                for child_object in child_objects.all():
+                    old_pk = child_object.pk
+                    child_object.pk = None
+                    setattr(child_object, parental_key_name, instance.id)
+
+                    if process_child_object is not None:
+                        process_child_object(specific_self, instance, child_relation, child_object)
+
+                    child_object.save()
+
+                    # Add mapping to new primary key (so we can apply this change to revisions)
+                    child_object_id_map[accessor_name][old_pk] = child_object.pk
+
+        return child_object_id_map
+
+    def _copy(self, exclude_fields=None, update_attrs=None, process_child_object=None, **kwargs):
+        exclude_fields = self.default_exclude_fields_in_copy + self.specific.exclude_fields_in_copy + (exclude_fields or [])
+
+        specific_dict, specific_m2m_dict = self._get_field_dictionaries(exclude_fields=exclude_fields)
+
+        copy_instance = self._get_copy_instance(specific_dict, specific_m2m_dict, update_attrs=update_attrs)
+
+        copy_instance = self._save_copy_instance(copy_instance, **kwargs)
+
+        copy_instance = self._set_m2m_relations(copy_instance, specific_m2m_dict, update_attrs)
+
+        child_object_id_map = self._copy_child_objects_to_instance(copy_instance, exclude_fields=exclude_fields, process_child_object=process_child_object)
+
+        return copy_instance, child_object_id_map
 
 
 class SiteManager(models.Manager):
@@ -233,7 +360,7 @@ class AbstractPage(MP_Node):
         abstract = True
 
 
-class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
+class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     title = models.CharField(
         verbose_name=_('title'),
         max_length=255,
@@ -366,6 +493,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
+    default_exclude_fields_in_copy = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
 
     # Define these attributes early to avoid masking errors. (Issue #3078)
     # The canonical definition is in wagtailadmin.edit_handlers.
@@ -681,6 +809,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         if submitted_for_moderation:
             logger.info("Page submitted for moderation: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
+
+        if self.current_workflow_task_state:
+            # Cancel the current task state, but start it again on the same task: this will now be attached to the new revision
+            self.current_workflow_task_state.cancel(user=user, resume=True)
+            if not getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
+                self.current_workflow_state.copy_approved_task_states_to_revision(revision)
 
         return revision
 
@@ -1079,92 +1213,26 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
              process_child_object=None, exclude_fields=None):
-        # Fill dict with self.specific values
+
         specific_self = self.specific
-        default_exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
-        exclude_fields = default_exclude_fields + specific_self.exclude_fields_in_copy + (exclude_fields or [])
-        specific_dict = {}
-
-        for field in specific_self._meta.get_fields():
-            # Ignore explicitly excluded fields
-            if field.name in exclude_fields:
-                continue
-
-            # Ignore reverse relations
-            if field.auto_created:
-                continue
-
-            # Ignore m2m relations - they will be copied as child objects
-            # if modelcluster supports them at all (as it does for tags)
-            if field.many_to_many:
-                continue
-
-            # Ignore parent links (page_ptr)
-            if isinstance(field, models.OneToOneField) and field.remote_field.parent_link:
-                continue
-
-            specific_dict[field.name] = getattr(specific_self, field.name)
-
-        # copy child m2m relations
-        for related_field in get_all_child_m2m_relations(specific_self):
-            field = getattr(specific_self, related_field.name)
-            if field and hasattr(field, 'all'):
-                values = field.all()
-                if values:
-                    specific_dict[related_field.name] = values
-
-        # New instance from prepared dict values, in case the instance class implements multiple levels inheritance
-        page_copy = self.specific_class(**specific_dict)
-
-        if not keep_live:
-            page_copy.live = False
-            page_copy.has_unpublished_changes = True
-            page_copy.live_revision = None
-            page_copy.first_published_at = None
-            page_copy.last_published_at = None
+        if keep_live:
+            base_update_attrs = {}
+        else:
+            base_update_attrs = {
+                'live': False,
+                'has_unpublished_changes': True,
+                'live_revision': None,
+                'first_published_at': None,
+                'last_published_at': None
+            }
 
         if user:
-            page_copy.owner = user
+            base_update_attrs['owner'] = user
 
         if update_attrs:
-            for field, value in update_attrs.items():
-                setattr(page_copy, field, value)
+            base_update_attrs.update(update_attrs)
 
-        if to:
-            if recursive and (to == self or to.is_descendant_of(self)):
-                raise Exception("You cannot copy a tree branch recursively into itself")
-            page_copy = to.add_child(instance=page_copy)
-        else:
-            page_copy = self.add_sibling(instance=page_copy)
-
-        # A dict that maps child objects to their new ids
-        # Used to remap child object ids in revisions
-        child_object_id_map = defaultdict(dict)
-
-        # Copy child objects
-        specific_self = self.specific
-        for child_relation in get_all_child_relations(specific_self):
-            accessor_name = child_relation.get_accessor_name()
-
-            if accessor_name in exclude_fields:
-                continue
-
-            parental_key_name = child_relation.field.attname
-            child_objects = getattr(specific_self, accessor_name, None)
-
-            if child_objects:
-                for child_object in child_objects.all():
-                    old_pk = child_object.pk
-                    child_object.pk = None
-                    setattr(child_object, parental_key_name, page_copy.id)
-
-                    if process_child_object is not None:
-                        process_child_object(specific_self, page_copy, child_relation, child_object)
-
-                    child_object.save()
-
-                    # Add mapping to new primary key (so we can apply this change to revisions)
-                    child_object_id_map[accessor_name][old_pk] = child_object.pk
+        page_copy, child_object_id_map = self._copy(exclude_fields=exclude_fields, update_attrs=base_update_attrs, to=to, recursive=recursive, process_child_object=process_child_object)
 
         # Copy revisions
         if copy_revisions:
@@ -1234,6 +1302,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 )
 
         return page_copy
+
+    def _save_copy_instance(self, instance, to=None, recursive=False, **kwargs):
+        if to:
+            if recursive and (to == self or to.is_descendant_of(self)):
+                raise Exception("You cannot copy a tree branch recursively into itself")
+            instance = to.add_child(instance=instance)
+        else:
+            instance = self.add_sibling(instance=instance)
+        return instance
 
     copy.alters_data = True
 
@@ -1563,19 +1640,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def workflow_in_progress(self):
         return WorkflowState.objects.filter(page=self, status='in_progress').exists()
 
-    @cached_property
+    @property
     def current_workflow_state(self):
         try:
             return WorkflowState.objects.get(page=self, status='in_progress')
         except WorkflowState.DoesNotExist:
             return
 
-    @cached_property
+    @property
     def current_workflow_task_state(self):
         if self.current_workflow_state:
             return self.current_workflow_state.current_task_state.specific
 
-    @cached_property
+    @property
     def current_workflow_task(self):
         if self.current_workflow_task_state:
             return self.current_workflow_task_state.task.specific
@@ -2448,8 +2525,12 @@ class Task(models.Model):
         task_submitted.send(sender=task_state.specific.__class__, instance=task_state.specific, user=user)
         return task_state
 
+    @transaction.atomic
     def on_action(self, task_state, user, action_name):
-        pass
+        if action_name == 'approve':
+            task_state.approve(user=user)
+        elif action_name == 'reject':
+            task_state.reject(user=user)
 
     def user_can_access_editor(self, page, user):
         return False
@@ -2465,6 +2546,14 @@ class Task(models.Model):
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
         return TaskState.objects.none()
+
+    @transaction.atomic
+    def deactivate(self, user=None):
+        self.active = False
+        self.save()
+        in_progress_states = TaskState.objects.filter(task=self, status=TaskState.STATUS_IN_PROGRESS)
+        for state in in_progress_states:
+            state.cancel(user=user)
 
     @transaction.atomic
     def deactivate(self, user=None):
@@ -2552,12 +2641,6 @@ class GroupApprovalTask(Task):
         else:
             return []
 
-    @transaction.atomic
-    def on_action(self, task_state, user, action_name):
-        if action_name == 'approve':
-            task_state.approve(user=user)
-        elif action_name == 'reject':
-            task_state.reject(user=user)
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
         if user.groups.filter(id=self.group_id).exists() or user.is_superuser:
@@ -2603,7 +2686,7 @@ class WorkflowState(models.Model):
     def __str__(self):
         return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
 
-    def update(self, user=None):
+    def update(self, user=None, next_task=None):
         # checks the status of the current task, and progresses (or ends) the workflow if appropriate
         try:
             current_status = self.current_task_state.status
@@ -2614,9 +2697,10 @@ class WorkflowState(models.Model):
             self.save()
             workflow_rejected.send(sender=self.__class__, instance=self, user=user)
         else:
-            next_task = self.get_next_task()
+            if not next_task:
+                next_task = self.get_next_task()
             if next_task:
-                if not self.current_task_state or next_task != self.current_task_state.task:
+                if (not self.current_task_state) or self.current_task_state.status != self.current_task_state.STATUS_IN_PROGRESS:
                     # if not on a task, or the next task to move to is not the current task (ie current task's status is
                     # not STATUS_IN_PROGRESS), move to the next task
                     self.current_task_state = next_task.specific.start(self, user=user)
@@ -2646,6 +2730,13 @@ class WorkflowState(models.Model):
         self.on_finish()
         workflow_approved.send(sender=self.__class__, instance=self, user=user)
 
+    def copy_approved_task_states_to_revision(self, revision):
+        """This creates copies of previously approved task states with page_revision set to a different revision. This is
+        """
+        approved_states = TaskState.objects.filter(workflow_state=self, status=TaskState.STATUS_APPROVED)
+        for state in approved_states:
+            state.copy(update_attrs={'page_revision': revision})
+
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')
@@ -2655,7 +2746,7 @@ class WorkflowState(models.Model):
         ]
 
 
-class TaskState(models.Model):
+class TaskState(MultiTableCopyMixin, models.Model):
     """Tracks the status of a given Task for a particular page revision."""
     STATUS_IN_PROGRESS = 'in_progress'
     STATUS_APPROVED = 'approved'
@@ -2682,6 +2773,7 @@ class TaskState(models.Model):
         related_name='wagtail_task_states',
         on_delete=models.CASCADE
     )
+    exclude_fields_in_copy = []
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -2695,6 +2787,8 @@ class TaskState(models.Model):
 
     def __str__(self):
         return _("Task '{0}' on Page Revision '{1}': {2}").format(self.task, self.page_revision, self.status)
+
+
 
     @cached_property
     def specific(self):
@@ -2753,13 +2847,24 @@ class TaskState(models.Model):
         return started_at
 
     @transaction.atomic
-    def cancel(self, user=None):
+    def cancel(self, user=None, resume=False):
         self.status = 'cancelled'
         self.finished_at = timezone.now()
         self.save()
-        self.workflow_state.update(user=user)
+        if resume:
+            self.workflow_state.update(user=user, next_task=self.task.specific)
+        else:
+            self.workflow_state.update(user=user)
         task_cancelled.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
+
+    def copy(self, update_attrs=None, exclude_fields=None):
+        copy_instance, _ = self._copy(exclude_fields, update_attrs)
+        return copy_instance
+
+    def _save_copy_instance(self, instance, **kwargs):
+        instance.save()
+        return instance
 
     class Meta:
         verbose_name = _('Task state')

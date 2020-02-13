@@ -15,8 +15,10 @@ from wagtail.admin.edit_handlers import Workflow
 from wagtail.admin.forms.workflows import AddWorkflowToPageForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.views.pages import get_valid_next_url_from_request
-from wagtail.core.models import Page, Task, TaskState, WorkflowState
+from wagtail.core.models import Page, Task, TaskState, WorkflowPage, WorkflowState, WorkflowTask
 from wagtail.core.permissions import task_permission_policy, workflow_permission_policy
+
+from distutils.util import strtobool
 
 
 class Index(IndexView):
@@ -150,7 +152,11 @@ class Disable(DeleteView):
             'This workflow is in progress on %(states_in_progress)d page. Disabling this workflow will cancel moderation on this page.',
             'This workflow is in progress on %(states_in_progress)d pages. Disabling this workflow will cancel moderation on these pages.',
             states_in_progress,
+<<<<<<< HEAD
         ) % {
+=======
+            ) % {
+>>>>>>> workflow-auto-approve
             'states_in_progress': states_in_progress,
         }
         return context
@@ -414,7 +420,11 @@ class DisableTask(DeleteView):
             'This task is in progress on %(states_in_progress)d page. Disabling this task will cause it to be skipped in the moderation workflow.',
             'This task is in progress on %(states_in_progress)d pages. Disabling this task will cause it to be skipped in the moderation workflow.',
             states_in_progress,
+<<<<<<< HEAD
         ) % {
+=======
+            ) % {
+>>>>>>> workflow-auto-approve
             'states_in_progress': states_in_progress,
         }
         return context
