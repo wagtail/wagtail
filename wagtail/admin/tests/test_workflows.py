@@ -9,7 +9,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.core.models import GroupApprovalTask, Page, Task, TaskState, Workflow, WorkflowPage, WorkflowTask, WorkflowState
+from wagtail.core.models import (
+    GroupApprovalTask, Page, Task, TaskState, Workflow, WorkflowPage, WorkflowState, WorkflowTask)
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import SimplePage, SimpleTask
 from wagtail.tests.utils import WagtailTestUtils

@@ -14,7 +14,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page, GroupApprovalTask, Task, Workflow
+from wagtail.core.models import GroupApprovalTask, Page, Task, Workflow
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.decorators import cached_classmethod
 

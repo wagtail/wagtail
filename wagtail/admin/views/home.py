@@ -10,7 +10,8 @@ from django.template.loader import render_to_string
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.core import hooks
-from wagtail.core.models import Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState
+from wagtail.core.models import (
+    Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState)
 
 User = get_user_model()
 
