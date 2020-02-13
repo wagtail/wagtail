@@ -2,12 +2,13 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.http import Http404
-from django.utils.functional import cached_property
-from django.utils.http import is_safe_url
-from django.utils.translation import ugettext_lazy as _, ngettext
-from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils.functional import cached_property
+from django.utils.http import is_safe_url
+from django.utils.translation import ngettext
+from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.http import require_POST
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import Workflow
@@ -15,7 +16,7 @@ from wagtail.admin.forms.workflows import AddWorkflowToPageForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.views.pages import get_valid_next_url_from_request
 from wagtail.core.models import Page, Task, TaskState, WorkflowState
-from wagtail.core.permissions import workflow_permission_policy, task_permission_policy
+from wagtail.core.permissions import task_permission_policy, workflow_permission_policy
 
 
 class Index(IndexView):
