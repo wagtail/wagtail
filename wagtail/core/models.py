@@ -45,7 +45,7 @@ PAGE_TEMPLATE_VAR = 'page'
 class MultiTableCopyMixin:
     default_exclude_fields_in_copy = ['id']
 
-    def _get_field_dictionaries(self, exclude_fields=None, **kwargs):
+    def _get_field_dictionaries(self, exclude_fields=None):
         """Get dictionaries representing the model: one with all non m2m fields, and one containing the m2m fields"""
         specific_self = self.specific
         exclude_fields = exclude_fields or []
@@ -89,7 +89,7 @@ class MultiTableCopyMixin:
 
         return specific_dict, specific_m2m_dict
 
-    def _get_copy_instance(self, specific_dict, specific_m2m_dict, update_attrs=None, **kwargs):
+    def _get_copy_instance(self, specific_dict, specific_m2m_dict, update_attrs=None):
         """Create a copy instance (without saving) from dictionaries of the model's fields, and update any attributes in update_attrs"""
 
         if not update_attrs:
@@ -110,7 +110,7 @@ class MultiTableCopyMixin:
     def _save_copy_instance(self, instance, **kwargs):
         raise NotImplementedError
 
-    def _set_m2m_relations(self, instance, specific_m2m_dict, update_attrs=None, **kwargs):
+    def _set_m2m_relations(self, instance, specific_m2m_dict, update_attrs=None):
         """Set non-ParentalManyToMany m2m relations"""
         if not update_attrs:
             update_attrs = {}
@@ -118,9 +118,9 @@ class MultiTableCopyMixin:
             value = update_attrs.get(field_name, value)
             getattr(instance, field_name).set(value)
 
-        return self._save_copy_instance(instance)
+        return instance
 
-    def _copy_child_objects_to_instance(self, instance, exclude_fields=None, process_child_object=None, **kwargs):
+    def _copy_child_objects_to_instance(self, instance, exclude_fields=None, process_child_object=None):
         """Copy objects linked to the model by a ParentalKey, and set this to the new revision"""
 
         # A dict that maps child objects to their new ids
@@ -156,15 +156,15 @@ class MultiTableCopyMixin:
     def _copy(self, exclude_fields=None, update_attrs=None, process_child_object=None, **kwargs):
         exclude_fields = self.default_exclude_fields_in_copy + self.specific.exclude_fields_in_copy + (exclude_fields or [])
 
-        specific_dict, specific_m2m_dict = self._get_field_dictionaries(exclude_fields=exclude_fields, **kwargs)
+        specific_dict, specific_m2m_dict = self._get_field_dictionaries(exclude_fields=exclude_fields)
 
-        copy_instance = self._get_copy_instance(specific_dict, specific_m2m_dict, update_attrs=update_attrs, **kwargs)
+        copy_instance = self._get_copy_instance(specific_dict, specific_m2m_dict, update_attrs=update_attrs)
 
         copy_instance = self._save_copy_instance(copy_instance, **kwargs)
 
-        copy_instance = self._set_m2m_relations(copy_instance, specific_m2m_dict, update_attrs, **kwargs)
+        copy_instance = self._set_m2m_relations(copy_instance, specific_m2m_dict, update_attrs)
 
-        child_object_id_map = self._copy_child_objects_to_instance(copy_instance, exclude_fields=exclude_fields, process_child_object=process_child_object, **kwargs)
+        child_object_id_map = self._copy_child_objects_to_instance(copy_instance, exclude_fields=exclude_fields, process_child_object=process_child_object)
 
         return copy_instance, child_object_id_map
 
@@ -1259,13 +1259,16 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
              process_child_object=None, exclude_fields=None):
 
         specific_self = self.specific
-        base_update_attrs = {
-            'live': False,
-            'has_unpublished_changes': True,
-            'live_revision': None,
-            'first_published_at': None,
-            'last_published_at': None
-        }
+        if keep_live:
+            base_update_attrs = {}
+        else:
+            base_update_attrs = {
+                'live': False,
+                'has_unpublished_changes': True,
+                'live_revision': None,
+                'first_published_at': None,
+                'last_published_at': None
+            }
 
         if user:
             base_update_attrs['owner'] = user
@@ -1345,15 +1348,12 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         return page_copy
 
     def _save_copy_instance(self, instance, to=None, recursive=False, **kwargs):
-        if not instance.id:
-            if to:
-                if recursive and (to == self or to.is_descendant_of(self)):
-                    raise Exception("You cannot copy a tree branch recursively into itself")
-                instance = to.add_child(instance=instance)
-            else:
-                instance = self.add_sibling(instance=instance)
+        if to:
+            if recursive and (to == self or to.is_descendant_of(self)):
+                raise Exception("You cannot copy a tree branch recursively into itself")
+            instance = to.add_child(instance=instance)
         else:
-            instance.save()
+            instance = self.add_sibling(instance=instance)
         return instance
 
     copy.alters_data = True
