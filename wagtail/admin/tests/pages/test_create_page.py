@@ -451,13 +451,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFalse(page.live)
         self.assertFalse(page.first_published_at)
 
-        # The latest revision for the page should now be in moderation
-        self.assertTrue(page.get_latest_revision().submitted_for_moderation)
+        # The page should now be in moderation
+        self.assertEqual(page.current_workflow_state.status, page.current_workflow_state.STATUS_IN_PROGRESS)
 
-        # Check that the moderator got an email
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
-        self.assertEqual(mail.outbox[0].subject, 'The page "New page!" has been submitted for moderation')
 
     def test_create_simplepage_post_existing_slug(self):
         # This tests the existing slug checking on page save
