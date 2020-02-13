@@ -24,9 +24,9 @@
             {% for workflow_state in workflow_states %}
                 <tr>
                     <td>
-                        <div class="status-tag primary">
+                        <a href="{% url 'wagtailadmin_pages:workflow_history_detail' page.id workflow_state.id %}" class="status-tag primary">
                             {{ workflow_state.get_status_display }}
-                        </div>
+                        </a>
                     </td>
                     <td>
                         <h2>{{ workflow_name }}</h2>
