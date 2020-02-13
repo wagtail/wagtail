@@ -14,6 +14,7 @@ from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
 from django.db.models import Case, Q, Value, When
+from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Lower, Substr
 from django.http import Http404
 from django.http.request import split_domain_port
@@ -2819,6 +2820,24 @@ class WorkflowState(models.Model):
         approved_states = TaskState.objects.filter(workflow_state=self, status=TaskState.STATUS_APPROVED)
         for state in approved_states:
             state.copy(update_attrs={'page_revision': revision})
+
+    def all_tasks_with_status(self):
+        """
+        Returns a queryset of Task objects that are linked with this workflow state's
+        workflow. The status of that task in this workflow state is annotated in the
+        `.status` field.
+
+        This is different to querying TaskState as it also returns tasks that haven't
+        been started yet (so won't have a TaskState).
+        """
+        return self.workflow.tasks.annotate(
+            status=Subquery(
+                TaskState.objects.filter(
+                    task_id=OuterRef('id'),
+                    workflow_state_id=self.id,
+                ).values('status')
+            )
+        )
 
     class Meta:
         verbose_name = _('Workflow state')
