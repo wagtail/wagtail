@@ -2,6 +2,16 @@
 from django.db import migrations
 from django.db.models import Count, Q
 
+    
+def ancestor_of_q(page):
+    paths = [
+        page.path[0:pos]
+        for pos in range(0, len(page.path) + 1, page.steplen)[1:]
+    ]
+    q = Q(path__in=paths)
+
+    return q
+
 
 def create_default_workflows(apps, schema_editor):
     # This will recreate the existing publish-permission based moderation setup in the new workflow system, by creating new workflows
@@ -28,7 +38,7 @@ def create_default_workflows(apps, schema_editor):
         page = permission.page
         page = Page.objects.get(pk=page.pk)
         Page.steplen = 4
-        ancestors = Page.objects.ancestor_of(page)
+        ancestors = Page.objects.filter(ancestor_of_q(page))
         ancestor_permissions = publish_permissions.filter(page__in=ancestors)
         groups = Group.objects.filter(Q(page_permissions__in=ancestor_permissions) | Q(page_permissions__pk=permission.pk)).distinct()
 
@@ -69,7 +79,7 @@ def create_default_workflows(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0048_serialize_page_manager'),
+        ('wagtailcore', '0047_add_workflow_models'),
     ]
 
     operations = [
