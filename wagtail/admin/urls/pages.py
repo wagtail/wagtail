@@ -42,4 +42,6 @@ urlpatterns = [
     path('<int:page_id>/revisions/<int:revision_id>/revert/', pages.revisions_revert, name='revisions_revert'),
     path('<int:page_id>/revisions/<int:revision_id>/unschedule/', pages.revisions_unschedule, name='revisions_unschedule'),
     re_path(r'^(\d+)/revisions/compare/(live|earliest|\d+)\.\.\.(live|latest|\d+)/$', pages.revisions_compare, name='revisions_compare'),
+
+    path('<int:page_id>/workflow_history/', pages.workflow_history, name='workflow_history'),
 ]
