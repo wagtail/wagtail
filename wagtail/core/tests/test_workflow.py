@@ -1,15 +1,14 @@
 import datetime
-import pytz
 
+import pytz
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.db.utils import IntegrityError
 from django.test import TestCase, override_settings
 
+from freezegun import freeze_time
 from wagtail.core.models import GroupApprovalTask, Page, Task, Workflow, WorkflowPage, WorkflowTask
 from wagtail.tests.testapp.models import SimplePage
-
-from freezegun import freeze_time
 
 
 class TestWorkflows(TestCase):
