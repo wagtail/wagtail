@@ -44,4 +44,5 @@ urlpatterns = [
     re_path(r'^(\d+)/revisions/compare/(live|earliest|\d+)\.\.\.(live|latest|\d+)/$', pages.revisions_compare, name='revisions_compare'),
 
     path('<int:page_id>/workflow_history/', pages.workflow_history, name='workflow_history'),
+    path('<int:page_id>/workflow_history/detail/<int:workflow_state_id>/', pages.workflow_history_detail, name='workflow_history_detail'),
 ]
