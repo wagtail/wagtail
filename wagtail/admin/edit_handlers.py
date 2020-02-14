@@ -14,7 +14,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page, GroupApprovalTask, Task, Workflow
+from wagtail.core.models import GroupApprovalTask, Page, Task, Workflow
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.decorators import cached_classmethod
 
@@ -786,20 +786,41 @@ Page.settings_panels = [
 
 Page.base_form_class = WagtailAdminPageForm
 
-#Similarly, set up wagtailcore.Workflow to have edit handlers
+# Similarly, set up wagtailcore.Workflow to have edit handlers
 Workflow.panels = [
-                    FieldPanel("name"),
-                    FieldPanel("active"),
-                    InlinePanel("workflow_tasks", heading="Tasks"),
-                    ]
+    FieldPanel("name"),
+    InlinePanel("workflow_tasks", heading="Tasks"),
+]
 Task.panels = [
-                    FieldPanel("name"),
-                    FieldPanel("active"),
-                    ]
+    FieldPanel("name"),
+]
 GroupApprovalTask.panels = Task.panels + [FieldPanel('group')]
+# do not allow editing of group post creation - this could lead to confusing history if a group is changed after tasks
+# are started/completed
+GroupApprovalTask.exclude_on_edit = {'group'}
 
 Workflow.base_form_class = WagtailAdminModelForm
 Task.base_form_class = WagtailAdminModelForm
+
+
+class ExcludeFieldsOnEditMixin:
+    """A mixin for edit handlers, which disables fields listed in a model's 'exclude_on_edit' attribute when binding
+    to an existing instance - editing rather than creating"""
+
+    def bind_to(self, *args, **kwargs):
+        new = super(ExcludeFieldsOnEditMixin, self).bind_to(*args, **kwargs)
+        # when binding to an existing instance with a pk - ie editing - set those fields in the form to disabled
+        if new.form and new.instance and new.instance.pk is not None and hasattr(new.model, 'exclude_on_edit'):
+            for field in new.model.exclude_on_edit:
+                try:
+                    new.form.fields[field].disabled = True
+                except KeyError:
+                    continue
+        return new
+
+
+class VaryOnEditObjectList(ExcludeFieldsOnEditMixin, ObjectList):
+    pass
 
 
 @cached_classmethod
@@ -810,7 +831,7 @@ def get_simple_edit_handler(cls):
     if hasattr(cls, 'edit_handler'):
         edit_handler = cls.edit_handler
     else:
-        edit_handler = ObjectList(cls.panels, base_form_class=cls.base_form_class)
+        edit_handler = VaryOnEditObjectList(cls.panels, base_form_class=cls.base_form_class)
     return edit_handler.bind_to(model=cls)
 
 
