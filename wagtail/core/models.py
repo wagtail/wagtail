@@ -2682,7 +2682,7 @@ class WorkflowState(models.Model):
     page = models.ForeignKey('Page', on_delete=models.CASCADE, verbose_name=_("page"), related_name='workflow_states')
     workflow = models.ForeignKey('Workflow', on_delete=models.CASCADE, verbose_name=_('workflow'), related_name='workflow_states')
     status = models.fields.CharField(choices=STATUS_CHOICES, verbose_name=_("status"), max_length=50, default=STATUS_IN_PROGRESS)
-    created_at = models.DateTimeField(auto_now=True, verbose_name=_("created at"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     requested_by = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      verbose_name=_('requested by'),
                                      null=True,
