@@ -347,12 +347,14 @@ class TestRouting(TestCase):
 
     @override_settings(ROOT_URLCONF='wagtail.tests.headless_urls')
     def test_urls_headless(self):
+        default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
 
         # The page should not be routable because wagtail_serve is not registered
+        # However it is still associated with a site
         self.assertEqual(
             homepage.get_url_parts(),
-            None
+            (default_site.id, None, None)
         )
         self.assertEqual(homepage.full_url, None)
         self.assertEqual(homepage.url, None)
