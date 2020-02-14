@@ -34,7 +34,7 @@
                     {% endblocktrans %}
                 {% endif %}
             </div></td></tr>
-        {% elif not parent_page.url %}
+        {% elif not parent_page.get_site %}
             <tr><td colspan="6"><div class="help-block help-warning">
                 {% if perms.wagtailcore.add_site %}
                     {% url 'wagtailsites:index' as wagtailsites_index_url %}
