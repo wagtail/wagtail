@@ -345,6 +345,18 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.relative_url(default_site), '/site/events/christmas/')
         self.assertEqual(christmas_page.get_site(), default_site)
 
+    @override_settings(ROOT_URLCONF='wagtail.tests.headless_urls')
+    def test_urls_headless(self):
+        homepage = Page.objects.get(url_path='/home/')
+
+        # The page should not be routable because wagtail_serve is not registered
+        self.assertEqual(
+            homepage.get_url_parts(),
+            None
+        )
+        self.assertEqual(homepage.full_url, None)
+        self.assertEqual(homepage.url, None)
+
     def test_request_routing(self):
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
