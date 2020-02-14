@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import migrations
 from django.db.models import Count, Q
+from wagtail.core.models import Page as RealPage
 
 
 def ancestor_of_q(page):
@@ -27,6 +28,9 @@ def create_default_workflows(apps, schema_editor):
     Page = apps.get_model('wagtailcore.Page')
     Group = apps.get_model('auth.Group')
 
+    # Get this from real page model just in case it has been overridden
+    Page.steplen = RealPage.steplen
+
     # Create content type for GroupApprovalTask model
     group_approval_content_type, __ = ContentType.objects.get_or_create(
         model='groupapprovaltask', app_label='wagtailcore')
@@ -37,7 +41,6 @@ def create_default_workflows(apps, schema_editor):
         # find groups with publish permission over this page or its ancestors (and therefore this page by descent)
         page = permission.page
         page = Page.objects.get(pk=page.pk)
-        Page.steplen = 4
         ancestors = Page.objects.filter(ancestor_of_q(page))
         ancestor_permissions = publish_permissions.filter(page__in=ancestors)
         groups = Group.objects.filter(Q(page_permissions__in=ancestor_permissions) | Q(page_permissions__pk=permission.pk)).distinct()
