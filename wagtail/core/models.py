@@ -2778,7 +2778,7 @@ class TaskState(MultiTableCopyMixin, models.Model):
     page_revision = models.ForeignKey('PageRevision', on_delete=models.CASCADE, verbose_name=_('page revision'), related_name='task_states')
     task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name=_('task'), related_name='task_states')
     status = models.fields.CharField(choices=STATUS_CHOICES, verbose_name=_("status"), max_length=50, default=STATUS_IN_PROGRESS)
-    started_at = models.DateTimeField(verbose_name=_('started at'), auto_now=True)
+    started_at = models.DateTimeField(verbose_name=_('started at'), auto_now_add=True)
     finished_at = models.DateTimeField(verbose_name=_('finished at'), blank=True, null=True)
     content_type = models.ForeignKey(
         ContentType,
