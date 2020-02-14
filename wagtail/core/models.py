@@ -25,7 +25,7 @@ from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import (
-    ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
+    ClusterableModel, get_all_child_relations)
 
 from treebeard.mp_tree import MP_Node
 from wagtail.core.query import PageQuerySet, TreeQuerySet
@@ -2744,8 +2744,7 @@ class WorkflowState(models.Model):
         workflow_approved.send(sender=self.__class__, instance=self, user=user)
 
     def copy_approved_task_states_to_revision(self, revision):
-        """This creates copies of previously approved task states with page_revision set to a different revision. This is
-        """
+        """This creates copies of previously approved task states with page_revision set to a different revision."""
         approved_states = TaskState.objects.filter(workflow_state=self, status=TaskState.STATUS_APPROVED)
         for state in approved_states:
             state.copy(update_attrs={'page_revision': revision})
@@ -2800,8 +2799,6 @@ class TaskState(MultiTableCopyMixin, models.Model):
 
     def __str__(self):
         return _("Task '{0}' on Page Revision '{1}': {2}").format(self.task, self.page_revision, self.status)
-
-
 
     @cached_property
     def specific(self):
