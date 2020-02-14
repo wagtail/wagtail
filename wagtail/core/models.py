@@ -2822,6 +2822,12 @@ class WorkflowState(models.Model):
         for state in approved_states:
             state.copy(update_attrs={'page_revision': revision})
 
+    def revisions(self):
+        return PageRevision.objects.filter(
+            page_id=self.page_id,
+            id__in=self.task_states.values_list('page_revision_id', flat=True)
+        ).defer('content_json')
+
     def all_tasks_with_status(self):
         """
         Returns a list of Task objects that are linked with this workflow state's
@@ -2832,13 +2838,15 @@ class WorkflowState(models.Model):
         This is different to querying TaskState as it also returns tasks that haven't
         been started yet (so won't have a TaskState).
         """
+        latest_revision_id = self.revisions().order_by('-created_at', '-id').values_list('id', flat=True).first()
+
         tasks = list(
             self.workflow.tasks.annotate(
                 status=Subquery(
                     TaskState.objects.filter(
                         task_id=OuterRef('id'),
                         workflow_state_id=self.id,
-                        page_revision_id=self.page.revisions.order_by('-created_at', '-id').values_list('id', flat=True).first()
+                        page_revision_id=latest_revision_id
                     ).values('status')
                 ),
             )
