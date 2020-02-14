@@ -7,7 +7,7 @@
     <h2>{{ workflow.name }}</h2>
 
     {% if current_task_number %}
-        {% blocktrans %} Task {{ current_task_number }} of {{ workflow_tasks.count }}{% endblocktrans %}: {{ task.name }}
+        {% blocktrans with workflow_tasks|length as total_tasks %} Task {{ current_task_number }} of {{ total_tasks }}{% endblocktrans %}: {{ task.name }}
     {% else %}
         {% trans 'Task' %}: {{ task.name }}
     {% endif %}
