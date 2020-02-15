@@ -1680,3 +1680,16 @@ class TestPageWithContentJSON(TestCase):
         # The url_path should reflect the new slug value, but the
         # rest of the path should have remained unchanged
         self.assertEqual(updated_page.url_path, '/home/about-them/')
+
+
+class TestUnpublish(TestCase):
+
+    def test_unpublish_doesnt_call_full_clean_before_save(self):
+        root_page = Page.objects.get(id=1)
+        home_page = root_page.add_child(
+            instance=SimplePage(title="Homepage", slug="home2", content="hello")
+        )
+        # Empty the content - bypassing validation which would otherwise prevent it
+        home_page.save(clean=False)
+        # This shouldn't fail with a ValidationError.
+        home_page.unpublish()

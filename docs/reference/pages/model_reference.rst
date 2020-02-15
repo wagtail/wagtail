@@ -250,6 +250,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: with_content_json
 
+    .. automethod:: save
+
 .. _site-model-ref:
 
 ``Site``
