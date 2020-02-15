@@ -450,8 +450,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @transaction.atomic
     # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
-    def save(self, *args, **kwargs):
-        self.full_clean()
+    def save(self, *args, clean=True, **kwargs):
+        if clean:
+            self.full_clean()
 
         update_descendant_url_paths = False
         is_new = self.id is None
@@ -694,6 +695,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return self.specific
 
     def unpublish(self, set_expired=False, commit=True):
+        """
+        Unpublish the page by setting ``live`` to ``False``. Does nothing if ``live`` is already ``False``
+
+        Passes ``clean=False`` to ``save()`` in order to bypass field validation.
+        """
         if self.live:
             self.live = False
             self.has_unpublished_changes = True
@@ -703,7 +709,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 self.expired = True
 
             if commit:
-                self.save()
+                self.save(clean=False)
 
             page_unpublished.send(sender=self.specific_class, instance=self.specific)
 
