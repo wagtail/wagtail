@@ -16,6 +16,7 @@ Changelog
  * Fix: Add a more descriptive label to Password reset link for screen reader users (Casper Timmers, Martin Coote)
  * Fix: Improve Wagtail logo contrast by adding a background (Brian Edelman, Simon Evans, Ben Enright)
  * Fix: Prevent duplicate notification messages on page locking (Jacob Topp-Mugglestone)
+ * Fix: Fix InlinePanel item non field errors not visible (Storm Heg)
 
 
 2.8 (03.02.2020)

@@ -31,6 +31,7 @@ Bug fixes
  * Added a more descriptive label to Password reset link for screen reader users (Casper Timmers, Martin Coote)
  * Improved Wagtail logo contrast by adding a background (Brian Edelman, Simon Evans, Ben Enright)
  * Prevent duplicate notification messages on page locking (Jacob Topp-Mugglestone)
+ * Rendering of non field errors for InlinePanel items (Storm Heg)
 
 Upgrade considerations
 ======================
