@@ -66,6 +66,12 @@
     .errorlist {
         margin: 0.5em 0 0 1em;
     }
+
+    .workflow {
+        &:before {
+            content: map-get($icons, 'clipboard-list');
+        }
+    }
 }
 
 .messages.new > ul {
