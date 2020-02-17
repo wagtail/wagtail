@@ -20,19 +20,19 @@
             {% for content_perms_dict in object_perms %}
             <tr>
                 <td class="title"><h3>{{ content_perms_dict.object|capfirst }}</h3></td>
-                <td>
+                <td class="add-column">
                     {% if content_perms_dict.add %}
                         <label for="{{ content_perms_dict.add.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.add.perm.name }}</label>
                         {{ content_perms_dict.add.checkbox.tag }}
                     {% endif %}
                 </td>
-                <td>
+                <td class="change-column">
                     {% if content_perms_dict.change %}
                         <label for="{{ content_perms_dict.change.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.change.perm.name }}</label>
                         {{ content_perms_dict.change.checkbox.tag }}
                     {% endif %}
                 </td>
-                <td>
+                <td class="delete-column">
                     {% if content_perms_dict.delete %}
                         <label for="{{ content_perms_dict.delete.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.delete.perm.name }}</label>
                         {{ content_perms_dict.delete.checkbox.tag }}
@@ -40,6 +40,26 @@
                 </td>
             </tr>
             {% endfor %}
+
+            <tr>
+                <td class="title">
+                    <strong>
+                        {% trans "Check all" %}
+                    </strong>
+                </td>
+                <td>
+                    <label for="toggle_add" class="visuallyhidden">{% trans "Toggle all add permissions" %}</label>
+                    <input type="checkbox" class="js-toggle-permission" id="toggle_add" data-for="add">
+                </td>
+                <td>
+                    <label for="toggle_change" class="visuallyhidden">{% trans "Toggle all change permissions" %}</label>
+                    <input type="checkbox" class="js-toggle-permission" id="toggle_change" data-for="change">
+                </td>
+                <td>
+                    <label for="toggle_delete" class="visuallyhidden">{% trans "Toggle all delete permissions" %}</label>
+                    <input type="checkbox" class="js-toggle-permission" id="toggle_delete" data-for="delete">
+                </td>
+            </tr>
         </tbody>
     </table>
 
