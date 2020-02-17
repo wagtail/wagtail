@@ -24,8 +24,7 @@ from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from modelcluster.models import (
-    ClusterableModel, get_all_child_relations)
+from modelcluster.models import ClusterableModel, get_all_child_relations
 
 from treebeard.mp_tree import MP_Node
 from wagtail.core.query import PageQuerySet, TreeQuerySet
