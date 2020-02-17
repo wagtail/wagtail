@@ -123,7 +123,6 @@ def send_notification(page_revision_id, notification, excluded_user_id):
                     kwargs['html_message'] = render_to_string(template_html, context)
 
                 # Send email
-                print(recipient.email)
                 send_mail(email_subject, email_content, [recipient.email], connection=open_connection, **kwargs)
                 sent_count += 1
             except Exception:
@@ -343,7 +342,8 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotifier):
 
     def get_recipient_users(self, task_state, **kwargs):
         triggering_user = kwargs.get('user', None)
-        group_members = task_state.task.specific.group.user_set.all()
+
+        group_members = get_user_model().objects.filter(groups__in=task_state.task.specific.groups.all())
 
         recipients = group_members
 

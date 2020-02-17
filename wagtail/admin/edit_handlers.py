@@ -797,7 +797,7 @@ Task.panels = [
 GroupApprovalTask.panels = Task.panels + [FieldPanel('group')]
 # do not allow editing of group post creation - this could lead to confusing history if a group is changed after tasks
 # are started/completed
-GroupApprovalTask.exclude_on_edit = {'group'}
+GroupApprovalTask.exclude_on_edit = {'groups'}
 
 Workflow.base_form_class = WagtailAdminModelForm
 Task.base_form_class = WagtailAdminModelForm

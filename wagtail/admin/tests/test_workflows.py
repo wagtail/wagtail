@@ -17,9 +17,17 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 
+def delete_existing_workflows():
+    WorkflowPage.objects.all().delete()
+    Workflow.objects.all().delete()
+    Task.objects.all().delete()
+    WorkflowTask.objects.all().delete()
+
+
 class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
 
     def setUp(self):
+        delete_existing_workflows()
         self.login()
 
     def get(self, params={}):
@@ -53,7 +61,7 @@ class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, '<span class="status-tag">Disabled</span>', html=True)
 
         # If we set 'show_disabled' to 'False', the workflow should not be displayed
-        response = self.get(params={'show_disabled': 'False'})
+        response = self.get(params={})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no enabled workflows.")
 
@@ -61,6 +69,7 @@ class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
 class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
 
     def setUp(self):
+        delete_existing_workflows()
         self.login()
         self.task_1 = SimpleTask.objects.create(name="first_task")
         self.task_2 = SimpleTask.objects.create(name="second_task")
@@ -106,6 +115,7 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
 class TestWorkflowsEditView(TestCase, WagtailTestUtils):
 
     def setUp(self):
+        delete_existing_workflows()
         self.login()
         self.workflow = Workflow.objects.create(name="workflow_to_edit")
         self.task_1 = SimpleTask.objects.create(name="first_task")
@@ -174,6 +184,7 @@ class TestAddWorkflowToPage(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
+        delete_existing_workflows()
         self.login()
         self.workflow = Workflow.objects.create(name="workflow")
         self.page = Page.objects.first()
@@ -210,13 +221,14 @@ class TestRemoveWorkflow(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
+        delete_existing_workflows()
         self.login()
         self.workflow = Workflow.objects.create(name="workflow")
         self.page = Page.objects.first()
         WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailadmin_workflows:remove', args=[self.workflow.id, self.page.id]), post_data)
+        return self.client.post(reverse('wagtailadmin_workflows:remove', args=[self.page.id, self.workflow.id]), post_data)
 
     def test_post(self):
         # Check that a WorkflowPage instance is removed correctly
@@ -227,6 +239,7 @@ class TestRemoveWorkflow(TestCase, WagtailTestUtils):
 class TestTaskIndexView(TestCase, WagtailTestUtils):
 
     def setUp(self):
+        delete_existing_workflows()
         self.login()
 
     def get(self, params={}):
@@ -260,7 +273,7 @@ class TestTaskIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, '<span class="status-tag">Disabled</span>', html=True)
 
         # The listing should not contain task if show_disabled query parameter is 'False'
-        response = self.get(params={'show_disabled': 'False'})
+        response = self.get(params={})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no enabled tasks")
         self.assertNotContains(response, "test_task")
@@ -269,6 +282,7 @@ class TestTaskIndexView(TestCase, WagtailTestUtils):
 class TestCreateTaskView(TestCase, WagtailTestUtils):
 
     def setUp(self):
+        delete_existing_workflows()
         self.login()
 
     def get(self, params={}):
@@ -296,6 +310,7 @@ class TestCreateTaskView(TestCase, WagtailTestUtils):
 class TestSelectTaskTypeView(TestCase, WagtailTestUtils):
 
     def setUp(self):
+        delete_existing_workflows()
         self.login()
 
     def get(self):
@@ -314,6 +329,7 @@ class TestSelectTaskTypeView(TestCase, WagtailTestUtils):
 class TestEditTaskView(TestCase, WagtailTestUtils):
 
     def setUp(self):
+        delete_existing_workflows()
         self.login()
         self.task = SimpleTask.objects.create(name="test_task")
 
@@ -341,6 +357,7 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
 
 class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
     def setUp(self):
+        delete_existing_workflows()
         self.submitter = get_user_model().objects.create_user(
             username='submitter',
             email='submitter@email.com',
@@ -381,7 +398,8 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
-        task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
+        task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_1.groups.set(Group.objects.filter(name='Moderators'))
         WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
         return workflow, task_1
 
@@ -435,6 +453,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
 class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
     def setUp(self):
+        delete_existing_workflows()
         self.submitter = get_user_model().objects.create_user(
             username='submitter',
             email='submitter@email.com',
@@ -479,7 +498,8 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
-        task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
+        task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_1.groups.set(Group.objects.filter(name='Moderators'))
         WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
         return workflow, task_1
 
@@ -600,6 +620,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
 class TestNotificationPreferences(TestCase, WagtailTestUtils):
     def setUp(self):
+        delete_existing_workflows()
         self.submitter = get_user_model().objects.create_user(
             username='submitter',
             email='submitter@email.com',
@@ -648,7 +669,8 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
-        task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
+        task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_1.groups.set(Group.objects.filter(name='Moderators'))
         WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
         return workflow, task_1
 
@@ -805,6 +827,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
 class TestDisableViews(TestCase, WagtailTestUtils):
     def setUp(self):
+        delete_existing_workflows()
         self.submitter = get_user_model().objects.create_user(
             username='submitter',
             email='submitter@email.com',
@@ -849,8 +872,10 @@ class TestDisableViews(TestCase, WagtailTestUtils):
 
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
-        task_1 = GroupApprovalTask.objects.create(name='test_task_1', group=Group.objects.get(name='Moderators'))
-        task_2 = GroupApprovalTask.objects.create(name='test_task_2', group=Group.objects.get(name='Moderators'))
+        task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_1.groups.set(Group.objects.filter(name='Moderators'))
+        task_2 = GroupApprovalTask.objects.create(name='test_task_2')
+        task_2.groups.set(Group.objects.filter(name='Moderators'))
         WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
         WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
         return workflow, task_1, task_2

@@ -5,7 +5,6 @@ from unittest import mock
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
-from django.core import mail
 from django.core.files.base import ContentFile
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, modify_settings
@@ -619,14 +618,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertTrue(child_page_new.has_unpublished_changes)
 
         # The latest revision for the page should now be in moderation
-        self.assertTrue(child_page_new.get_latest_revision().submitted_for_moderation)
+        self.assertEqual(child_page_new.current_workflow_state.status, child_page_new.current_workflow_state.STATUS_IN_PROGRESS)
 
-        # Check that the moderator got an email
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
-        self.assertEqual(
-            mail.outbox[0].subject, 'The page "Hello world!" has been submitted for moderation'
-        )  # Note: should this be "I've been edited!"?
 
     def test_page_edit_post_existing_slug(self):
         # This tests the existing slug checking on page edit
@@ -1311,12 +1304,13 @@ class TestIssue3982(TestCase, WagtailTestUtils):
     def _approve_page(self, parent):
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', parent.pk)),
-            {'title': "Hello, world!", 'content': "Some content", 'slug': 'hello-world', 'action-submit': "submit"},
+            {'title': "Hello, world!", 'content': "Some content", 'slug': 'hello-world'},
             follow=True)
-        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(parent.pk,)))
         page = SimplePage.objects.get()
         self.assertFalse(page.live)
         revision = PageRevision.objects.get(page=page)
+        revision.submitted_for_moderation = True
+        revision.save()
         response = self.client.post(reverse('wagtailadmin_pages:approve_moderation', args=(revision.pk,)), follow=True)
         page = SimplePage.objects.get()
         self.assertTrue(page.live)
