@@ -34,7 +34,8 @@
                     {% endblocktrans %}
                 {% endif %}
             </div></td></tr>
-        {% elif not parent_page.get_site %}
+        {# get_url_parts will return None is the page has no site #}
+        {% elif not parent_page.get_url_parts %}
             <tr><td colspan="6"><div class="help-block help-warning">
                 {% if perms.wagtailcore.add_site %}
                     {% url 'wagtailsites:index' as wagtailsites_index_url %}
