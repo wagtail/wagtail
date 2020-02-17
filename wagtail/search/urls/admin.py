@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from wagtail.search.views import queries
 
 app_name = 'wagtailsearch_admin'
 urlpatterns = [
-    url(r"^queries/chooser/$", queries.chooser, name="queries_chooser"),
-    url(r"^queries/chooser/results/$", queries.chooserresults, name="queries_chooserresults"),
+    path("queries/chooser/", queries.chooser, name="queries_chooser"),
+    path("queries/chooser/results/", queries.chooserresults, name="queries_chooserresults"),
 ]

@@ -1,11 +1,11 @@
-from django.conf.urls import url
+from django.urls import path, re_path
 
 from wagtail.users.views import users
 
 app_name = 'wagtailusers_users'
 urlpatterns = [
-    url(r'^$', users.index, name='index'),
-    url(r'^add/$', users.create, name='add'),
-    url(r'^([^\/]+)/$', users.edit, name='edit'),
-    url(r'^([^\/]+)/delete/$', users.delete, name='delete'),
+    path('', users.index, name='index'),
+    path('add/', users.create, name='add'),
+    re_path(r'^([^\/]+)/$', users.edit, name='edit'),
+    re_path(r'^([^\/]+)/delete/$', users.delete, name='delete'),
 ]

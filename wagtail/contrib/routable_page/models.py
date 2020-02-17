@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 from django.http import Http404
 from django.template.response import TemplateResponse
 from django.urls import URLResolver
@@ -22,7 +22,7 @@ def route(pattern, name=None):
 
         # Add new route to view
         view_func._routablepage_routes.append((
-            url(pattern, view_func, name=(name or view_func.__name__)),
+            re_path(pattern, view_func, name=(name or view_func.__name__)),
             _creation_counter,
         ))
 

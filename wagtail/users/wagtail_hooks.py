@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 from django.contrib.auth.models import Permission
 from django.db.models import Q
 from django.urls import reverse
@@ -17,7 +17,7 @@ from wagtail.users.widgets import UserListingButton
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^users/', include(users, namespace='wagtailusers_users')),
+        path('users/', include(users, namespace='wagtailusers_users')),
     ]
 
 

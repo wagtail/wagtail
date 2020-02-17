@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext as _
@@ -15,7 +15,7 @@ from wagtail.embeds.rich_text.editor_html import EditorHTMLEmbedConversionRule
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^embeds/', include(urls, namespace='wagtailembeds')),
+        path('embeds/', include(urls, namespace='wagtailembeds')),
     ]
 
 

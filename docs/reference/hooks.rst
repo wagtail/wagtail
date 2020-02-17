@@ -184,7 +184,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   .. code-block:: python
 
     from django.http import HttpResponse
-    from django.conf.urls import url
+    from django.urls import path
 
     from wagtail.core import hooks
 
@@ -196,7 +196,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
     @hooks.register('register_admin_urls')
     def urlconf_time():
       return [
-        url(r'^how_did_you_almost_know_my_name/$', admin_view, name='frank'),
+        path('how_did_you_almost_know_my_name/', admin_view, name='frank'),
       ]
 
 

@@ -37,9 +37,9 @@ the default URL from Wagtail, or it will try to find ``/amp`` as a page:
 
     urlpatterns += [
         # Add this line just before the default ``include(wagtail_urls)`` line
-        url(r'amp/', include(wagtail_urls)),
+        path('amp/', include(wagtail_urls)),
 
-        url(r'', include(wagtail_urls)),
+        path('', include(wagtail_urls)),
     ]
 
 If you now open ``http://localhost:8000/amp/`` in your browser, you should see
@@ -141,13 +141,13 @@ Then we need to create a ``amp_urls.py`` file in the same app:
 
     # <app>/amp_urls.py
 
-    from django.conf.urls import url
+    from django.urls import re_path
     from wagtail.core.urls import serve_pattern
 
     from . import amp_views
 
     urlpatterns = [
-        url(serve_pattern, amp_views.serve, name='wagtail_amp_serve')
+        re_path(serve_pattern, amp_views.serve, name='wagtail_amp_serve')
     ]
 
 Finally, we need to update the project's main ``urls.py`` to use this new URLs
@@ -161,9 +161,9 @@ file for the ``/amp`` prefix:
 
     urlpatterns += [
         # Change this line to point at your amp_urls instead of Wagtail's urls
-        url(r'amp/', include(wagtail_amp_urls)),
+        path('amp/', include(wagtail_amp_urls)),
 
-        url(r'', include(wagtail_urls)),
+        path('', include(wagtail_urls)),
     ]
 
 After this, there shouldn't be any noticeable difference to the AMP version of

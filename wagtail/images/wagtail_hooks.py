@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
@@ -23,7 +23,7 @@ from wagtail.images.rich_text.editor_html import EditorHTMLImageConversionRule
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^images/', include(admin_urls, namespace='wagtailimages')),
+        path('images/', include(admin_urls, namespace='wagtailimages')),
     ]
 
 

@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 from django.contrib.admin import site as default_django_admin_site
 from django.contrib.auth.models import Permission
 from django.core import checks
@@ -511,28 +511,34 @@ class ModelAdmin(WagtailRegisterable):
         our the views that class offers.
         """
         urls = (
-            url(self.url_helper.get_action_url_pattern('index'),
+            re_path(
+                self.url_helper.get_action_url_pattern('index'),
                 self.index_view,
                 name=self.url_helper.get_action_url_name('index')),
-            url(self.url_helper.get_action_url_pattern('create'),
+            re_path(
+                self.url_helper.get_action_url_pattern('create'),
                 self.create_view,
                 name=self.url_helper.get_action_url_name('create')),
-            url(self.url_helper.get_action_url_pattern('edit'),
+            re_path(
+                self.url_helper.get_action_url_pattern('edit'),
                 self.edit_view,
                 name=self.url_helper.get_action_url_name('edit')),
-            url(self.url_helper.get_action_url_pattern('delete'),
+            re_path(
+                self.url_helper.get_action_url_pattern('delete'),
                 self.delete_view,
                 name=self.url_helper.get_action_url_name('delete')),
         )
         if self.inspect_view_enabled:
             urls = urls + (
-                url(self.url_helper.get_action_url_pattern('inspect'),
+                re_path(
+                    self.url_helper.get_action_url_pattern('inspect'),
                     self.inspect_view,
                     name=self.url_helper.get_action_url_name('inspect')),
             )
         if self.is_pagemodel:
             urls = urls + (
-                url(self.url_helper.get_action_url_pattern('choose_parent'),
+                re_path(
+                    self.url_helper.get_action_url_pattern('choose_parent'),
                     self.choose_parent_view,
                     name=self.url_helper.get_action_url_name('choose_parent')),
             )

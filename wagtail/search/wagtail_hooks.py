@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 
 from wagtail.core import hooks
 from wagtail.search.urls import admin as admin_urls
@@ -7,5 +7,5 @@ from wagtail.search.urls import admin as admin_urls
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^search/', include(admin_urls, namespace='wagtailsearch_admin')),
+        path('search/', include(admin_urls, namespace='wagtailsearch_admin')),
     ]

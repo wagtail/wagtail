@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
@@ -11,7 +11,7 @@ from . import views
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^styleguide/$', views.index, name='wagtailstyleguide'),
+        path('styleguide/', views.index, name='wagtailstyleguide'),
     ]
 
 

@@ -47,12 +47,12 @@ sitemap:
     urlpatterns = [
         ...
 
-        url('^sitemap\.xml$', sitemap),
+        path('sitemap.xml', sitemap),
 
         ...
 
         # Ensure that the 'sitemap' line appears above the default Wagtail page serving route
-        url(r'', include(wagtail_urls)),
+        path('', include(wagtail_urls)),
     ]
 
 
