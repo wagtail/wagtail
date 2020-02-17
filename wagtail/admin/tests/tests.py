@@ -14,6 +14,7 @@ from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.mail import send_mail
 from wagtail.admin.menu import MenuItem
 from wagtail.core.models import Page
+from wagtail.tests.testapp.models import RestaurantTag
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -170,6 +171,8 @@ class TestTagsAutocomplete(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
         Tag.objects.create(name="Test", slug="test")
+        RestaurantTag.objects.create(name="Italian", slug="italian")
+        RestaurantTag.objects.create(name="Indian", slug="indian")
 
     def test_tags_autocomplete(self):
         response = self.client.get(reverse('wagtailadmin_tag_autocomplete'), {
@@ -210,6 +213,30 @@ class TestTagsAutocomplete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
         data = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(data, [])
+
+    def test_tags_autocomplete_custom_model(self):
+        response = self.client.get(
+            reverse('wagtailadmin_tag_model_autocomplete', args=('tests', 'restauranttag')),
+            {'term': 'ital'}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        data = json.loads(response.content.decode('utf-8'))
+
+        self.assertEqual(data, ['Italian'])
+
+        # should not return results from the standard Tag model
+        response = self.client.get(
+            reverse('wagtailadmin_tag_model_autocomplete', args=('tests', 'restauranttag')),
+            {'term': 'test'}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        data = json.loads(response.content.decode('utf-8'))
+
         self.assertEqual(data, [])
 
 
