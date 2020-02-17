@@ -68,7 +68,7 @@ def create_default_workflows(apps, schema_editor):
             WorkflowTask.objects.create(
                 workflow=workflow,
                 task=task,
-                sort_order=1,
+                sort_order=0,
             )
 
         # if the workflow is not linked by a WorkflowPage to the permission's linked page, link it by creating a new WorkflowPage now
