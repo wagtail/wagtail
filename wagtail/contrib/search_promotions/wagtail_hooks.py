@@ -1,6 +1,5 @@
-from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
-from django.urls import reverse
+from django.urls import include, path, reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
@@ -11,7 +10,7 @@ from wagtail.core import hooks
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^searchpicks/', include(admin_urls, namespace='wagtailsearchpromotions')),
+        path('searchpicks/', include(admin_urls, namespace='wagtailsearchpromotions')),
     ]
 
 

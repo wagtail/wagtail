@@ -1,6 +1,6 @@
 import functools
 
-from django.conf.urls import include, url
+from django.urls import include, re_path
 
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
@@ -68,7 +68,7 @@ class WagtailAPIRouter:
         urlpatterns = []
 
         for name, class_ in self._endpoints.items():
-            pattern = url(
+            pattern = re_path(
                 r'^{}/'.format(name),
                 include((class_.get_urlpatterns(), name), namespace=name)
             )
@@ -85,6 +85,6 @@ class WagtailAPIRouter:
 
         Use with Django's include() function:
 
-            url(r'api/', include(myapi.urls)),
+            path('api/', include(myapi.urls)),
         """
         return self.get_urlpatterns(), self.url_namespace, self.url_namespace

@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from . import views
 
 app_name = 'wagtailsettings'
 urlpatterns = [
-    url(r'^(\w+)/(\w+)/$', views.edit_current_site, name='edit'),
-    url(r'^(\w+)/(\w+)/(\d+)/$', views.edit, name='edit'),
+    re_path(r'^(\w+)/(\w+)/$', views.edit_current_site, name='edit'),
+    re_path(r'^(\w+)/(\w+)/(\d+)/$', views.edit, name='edit'),
 ]

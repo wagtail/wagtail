@@ -1,7 +1,6 @@
-from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.urls import reverse
+from django.urls import include, path, reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
@@ -15,7 +14,7 @@ from wagtail.snippets.permissions import user_can_edit_snippets
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^snippets/', include(urls, namespace='wagtailsnippets')),
+        path('snippets/', include(urls, namespace='wagtailsnippets')),
     ]
 
 

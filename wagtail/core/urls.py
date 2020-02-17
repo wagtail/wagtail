@@ -1,6 +1,6 @@
 from django.conf import settings
-from django.conf.urls import url
 from django.contrib.auth import views as auth_views
+from django.urls import path, re_path
 
 from wagtail.core import views
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH
@@ -23,12 +23,16 @@ WAGTAIL_FRONTEND_LOGIN_TEMPLATE = getattr(
 
 
 urlpatterns = [
-    url(r'^_util/authenticate_with_password/(\d+)/(\d+)/$', views.authenticate_with_password,
+    re_path(
+        r'^_util/authenticate_with_password/(\d+)/(\d+)/',
+        views.authenticate_with_password,
         name='wagtailcore_authenticate_with_password'),
-    url(r'^_util/login/$', auth_views.LoginView.as_view(template_name=WAGTAIL_FRONTEND_LOGIN_TEMPLATE),
+    path(
+        '_util/login/',
+        auth_views.LoginView.as_view(template_name=WAGTAIL_FRONTEND_LOGIN_TEMPLATE),
         name='wagtailcore_login'),
 
     # Front-end page views are handled through Wagtail's core.views.serve
     # mechanism
-    url(serve_pattern, views.serve, name='wagtail_serve')
+    re_path(serve_pattern, views.serve, name='wagtail_serve')
 ]

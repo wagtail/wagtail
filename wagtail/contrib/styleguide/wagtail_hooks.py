@@ -1,5 +1,4 @@
-from django.conf.urls import url
-from django.urls import reverse
+from django.urls import path, reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
@@ -11,7 +10,7 @@ from . import views
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^styleguide/$', views.index, name='wagtailstyleguide'),
+        path('styleguide/', views.index, name='wagtailstyleguide'),
     ]
 
 

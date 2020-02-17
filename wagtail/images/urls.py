@@ -1,7 +1,7 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from wagtail.images.views.serve import serve
 
 urlpatterns = [
-    url(r'^([^/]*)/(\d*)/([^/]*)/[^/]*$', serve, name='wagtailimages_serve'),
+    re_path(r'^([^/]*)/(\d*)/([^/]*)/[^/]*$', serve, name='wagtailimages_serve'),
 ]

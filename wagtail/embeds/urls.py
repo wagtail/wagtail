@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from wagtail.embeds.views import chooser
 
 app_name = 'wagtailembeds'
 urlpatterns = [
-    url(r'^chooser/$', chooser.chooser, name='chooser'),
-    url(r'^chooser/upload/$', chooser.chooser_upload, name='chooser_upload'),
+    path('chooser/', chooser.chooser, name='chooser'),
+    path('chooser/upload/', chooser.chooser_upload, name='chooser_upload'),
 ]
