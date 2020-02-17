@@ -433,6 +433,8 @@ Contributors
 * Arkadiusz Michał Ryś
 * James O'Toole
 * Storm Heg
+* Daniel (aritas1)
+* timmysmalls
 
 Translators
 ===========
