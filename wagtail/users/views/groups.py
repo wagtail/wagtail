@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext as _
 
@@ -166,5 +166,5 @@ class GroupViewSet(ModelViewSet):
 
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
-            url(r'^(\d+)/users/$', self.users_view, name='users'),
+            re_path('(\d+)/users/$', self.users_view, name='users'),
         ]

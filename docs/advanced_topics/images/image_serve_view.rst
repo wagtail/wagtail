@@ -28,12 +28,12 @@ Add an entry for the view into your URLs configuration:
     urlpatterns = [
         ...
 
-        url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(), name='wagtailimages_serve'),
+        re_path(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(), name='wagtailimages_serve'),
 
         ...
 
         # Ensure that the wagtailimages_serve line appears above the default Wagtail page serving route
-        url(r'', include(wagtail_urls)),
+        path('', include(wagtail_urls)),
     ]
 
 Usage
@@ -121,7 +121,7 @@ method in your urls configuration:
    urlpatterns = [
        ...
 
-       url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
+       re_path(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(action='redirect'), name='wagtailimages_serve'),
    ]
 
 .. _image_serve_view_sendfile:
@@ -150,7 +150,7 @@ This view can be used out of the box:
    urlpatterns = [
        ...
 
-       url(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', SendFileView.as_view(), name='wagtailimages_serve'),
+       re_path(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', SendFileView.as_view(), name='wagtailimages_serve'),
    ]
 
 You can customise it to override the backend defined in the ``SENDFILE_BACKEND``

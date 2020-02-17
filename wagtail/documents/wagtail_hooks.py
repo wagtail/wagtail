@@ -1,7 +1,6 @@
 from django.conf import settings
-from django.conf.urls import include, url
 from django.template.response import TemplateResponse
-from django.urls import reverse
+from django.urls import include, path, reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext, ngettext
@@ -27,7 +26,7 @@ from wagtail.documents.rich_text.editor_html import EditorHTMLDocumentLinkConver
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^documents/', include(admin_urls, namespace='wagtaildocs')),
+        path('documents/', include(admin_urls, namespace='wagtaildocs')),
     ]
 
 
