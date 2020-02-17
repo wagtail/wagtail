@@ -28,7 +28,7 @@ class Index(IndexView):
     edit_url_name = 'wagtailadmin_workflows:edit'
     page_title = _("Workflows")
     add_item_label = _("Add a workflow")
-    header_icon = 'placeholder'
+    header_icon = 'clipboard-list'
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -51,7 +51,7 @@ class Create(CreateView):
     add_url_name = 'wagtailadmin_workflows:add'
     edit_url_name = 'wagtailadmin_workflows:edit'
     index_url_name = 'wagtailadmin_workflows:index'
-    header_icon = 'placeholder'
+    header_icon = 'clipboard-list'
     edit_handler = None
 
     def get_edit_handler(self):
@@ -87,7 +87,7 @@ class Edit(EditView):
     index_url_name = 'wagtailadmin_workflows:index'
     enable_item_label = _('Enable')
     enable_url_name = 'wagtailadmin_workflows:enable'
-    header_icon = 'placeholder'
+    header_icon = 'clipboard-list'
     edit_handler = None
     MAX_PAGES = 5
 
@@ -137,7 +137,7 @@ class Disable(DeleteView):
     edit_url_name = 'wagtailadmin_workflows:edit'
     delete_url_name = 'wagtailadmin_workflows:disable'
     index_url_name = 'wagtailadmin_workflows:index'
-    header_icon = 'placeholder'
+    header_icon = 'clipboard-list'
 
     @property
     def get_edit_url(self):
@@ -254,7 +254,7 @@ def add_to_page(request, workflow_pk):
     return render(request, 'wagtailadmin/workflows/add_to_page.html', {
         'workflow': workflow,
         'form': form,
-        'icon': 'placeholder',
+        'icon': 'clipboard-list',
         'title': _("Workflows"),
         'next': next_url,
         'confirm': confirm
@@ -270,7 +270,7 @@ class TaskIndex(IndexView):
     edit_url_name = 'wagtailadmin_workflows:edit_task'
     page_title = _("Tasks")
     add_item_label = _("Add a task")
-    header_icon = 'placeholder'
+    header_icon = 'clipboard-list'
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -303,7 +303,7 @@ def select_task_type(request):
 
     return render(request, 'wagtailadmin/workflows/select_task_type.html', {
         'task_types': task_types,
-        'icon': 'placeholder',
+        'icon': 'clipboard-list',
         'title': _("Workflows"),
     })
 
@@ -317,7 +317,7 @@ class CreateTask(CreateView):
     add_url_name = 'wagtailadmin_workflows:add_task'
     edit_url_name = 'wagtailadmin_workflows:edit_task'
     index_url_name = 'wagtailadmin_workflows:task_index'
-    header_icon = 'placeholder'
+    header_icon = 'clipboard-list'
     edit_handler = None
 
     @cached_property
@@ -372,7 +372,7 @@ class EditTask(EditView):
     delete_item_label = _('Disable')
     enable_item_label = _('Enable')
     enable_url_name = 'wagtailadmin_workflows:enable_task'
-    header_icon = 'placeholder'
+    header_icon = 'clipboard-list'
     edit_handler = None
 
     @cached_property
@@ -424,7 +424,7 @@ class DisableTask(DeleteView):
     edit_url_name = 'wagtailadmin_workflows:edit_task'
     delete_url_name = 'wagtailadmin_workflows:disable_task'
     index_url_name = 'wagtailadmin_workflows:task_index'
-    header_icon = 'placeholder'
+    header_icon = 'clipboard-list'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
