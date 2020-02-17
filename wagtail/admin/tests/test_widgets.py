@@ -4,7 +4,7 @@ from django.test.utils import override_settings
 from wagtail.admin import widgets
 from wagtail.core.models import Page
 from wagtail.tests.testapp.forms import AdminStarDateInput
-from wagtail.tests.testapp.models import EventPage, SimplePage
+from wagtail.tests.testapp.models import EventPage, RestaurantTag, SimplePage
 
 
 class TestAdminPageChooserWidget(TestCase):
@@ -186,7 +186,7 @@ class TestAdminTagWidget(TestCase):
 
 
     def test_render_js_init_basic(self):
-        """Chekcs that the 'initTagField' is correctly added to the inline script for tag widgets"""
+        """Checks that the 'initTagField' is correctly added to the inline script for tag widgets"""
         widget = widgets.AdminTagWidget()
 
         html = widget.render('tags', None, attrs={'id': 'alpha'})
@@ -201,7 +201,7 @@ class TestAdminTagWidget(TestCase):
 
     @override_settings(TAG_SPACES_ALLOWED=False)
     def test_render_js_init_no_spaces_allowed(self):
-        """Chekcs that the 'initTagField' includes the correct value based on TAG_SPACES_ALLOWED in settings"""
+        """Checks that the 'initTagField' includes the correct value based on TAG_SPACES_ALLOWED in settings"""
         widget = widgets.AdminTagWidget()
 
         html = widget.render('tags', None, attrs={'id': 'alpha'})
@@ -214,7 +214,7 @@ class TestAdminTagWidget(TestCase):
 
     @override_settings(TAG_LIMIT=5)
     def test_render_js_init_with_tag_limit(self):
-        """Chekcs that the 'initTagField' includes the correct value based on TAG_LIMIT in settings"""
+        """Checks that the 'initTagField' includes the correct value based on TAG_LIMIT in settings"""
         widget = widgets.AdminTagWidget()
 
         html = widget.render('tags', None, attrs={'id': 'alpha'})
@@ -223,3 +223,16 @@ class TestAdminTagWidget(TestCase):
         self.assertEqual(len(params), 4)
         self.assertEqual(params[2], 'true')  # tag_spaces_allowed
         self.assertEqual(params[3], '5')  # tag_limit
+
+    def test_render_js_init_with_tag_model(self):
+        """Checks that 'initTagField' is passed the correct autocomplete URL for the custom model"""
+        widget = widgets.AdminTagWidget(tag_model=RestaurantTag)
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(len(params), 4)
+        self.assertEqual(params[0], "'alpha'")  # id
+        self.assertEqual(params[1], "'/admin/tag\\u002Dautocomplete/tests/restauranttag/'")  # autocomplete url
+        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
+        self.assertEqual(params[3], 'null')  # tag_limit
