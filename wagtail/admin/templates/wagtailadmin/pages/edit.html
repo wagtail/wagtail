@@ -144,6 +144,7 @@
             );
         });
 
+        {% if current_task_state %}
         /* When a workflow action button is pressed, trigger a POST request to the workflow_action view */
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('[data-workflow-action]').forEach(function (buttonElement) {
@@ -181,5 +182,6 @@
                 }, {capture: true});
             });
         });
+        {% endif %}
     </script>
 {% endblock %}
