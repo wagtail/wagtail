@@ -21,6 +21,7 @@ Other features
  * Support the rel attribute on custom ModelAdmin buttons (Andy Chosak)
  * Server-side page slug generation now respects ``WAGTAIL_ALLOW_UNICODE_SLUGS`` (Arkadiusz Michał Ryś)
  * Wagtail admin no longer depends on SiteMiddleware, avoiding incompatibility with Django sites framework and redundant database queries (aritas1, timmysmalls, Matt Westcott)
+ * Tag field autocompletion now handles custom tag models (Matt Westcott)
 
 
 Bug fixes
