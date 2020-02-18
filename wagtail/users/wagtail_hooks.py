@@ -1,7 +1,6 @@
-from django.urls import include, path
 from django.contrib.auth.models import Permission
 from django.db.models import Q
-from django.urls import reverse
+from django.urls import include, path, reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.menu import MenuItem

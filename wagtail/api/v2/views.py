@@ -1,10 +1,9 @@
 from collections import OrderedDict
 
-from django.urls import path, re_path
 from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import path, re_path, reverse
 from modelcluster.fields import ParentalKey
 from rest_framework import status
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer

@@ -1,5 +1,4 @@
-from django.urls import path
-from django.urls import reverse
+from django.urls import path, reverse
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.menu import MenuItem

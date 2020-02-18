@@ -1,5 +1,5 @@
-from django.urls import include, path, re_path
 from django.http import HttpResponse
+from django.urls import include, path, re_path
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.api.v2.router import WagtailAPIRouter

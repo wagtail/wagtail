@@ -1,12 +1,10 @@
-from django.urls import re_path
 from django.http import Http404
 from django.template.response import TemplateResponse
-from django.urls import URLResolver
+from django.urls import URLResolver, re_path
 from django.urls.resolvers import RegexPattern
 
 from wagtail.core.models import Page
 from wagtail.core.url_routing import RouteResult
-
 
 _creation_counter = 0
 

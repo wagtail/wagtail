@@ -1,9 +1,9 @@
-from django.urls import re_path
 from django.contrib.admin import site as default_django_admin_site
 from django.contrib.auth.models import Permission
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
+from django.urls import re_path
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.checks import check_panels_in_model
