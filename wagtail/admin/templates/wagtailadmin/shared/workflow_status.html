@@ -1,10 +1,15 @@
 {% load wagtailui_tags i18n %}
 {% if workflow_tasks %}
-<h2>{{ workflow_name }}</h2>
+    {% with current_task_state.workflow_state as current_workflow_state %}
+    {% with current_workflow_state.workflow as workflow %}
+    {% with current_task_state.task as task %}
+
+    <h2>{{ workflow.name }}</h2>
+
     {% if current_task_number %}
-        {% blocktrans %} Task {{ current_task_number }} of {{ workflow_tasks.count }}{% endblocktrans %}: {{ task_name }}
+        {% blocktrans %} Task {{ current_task_number }} of {{ workflow_tasks.count }}{% endblocktrans %}: {{ task.name }}
     {% else %}
-        {% trans 'Task' %}: {{ task_name }}
+        {% trans 'Task' %}: {{ task.name }}
     {% endif %}
     <div>
         {% trans 'Approved task' as approved_title %}
@@ -17,4 +22,8 @@
             {% endif %}
         {% endfor %}
     </div>
+
+    {% endwith %}
+    {% endwith %}
+    {% endwith %}
 {% endif %}
