@@ -3,6 +3,7 @@ import datetime
 import pytz
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 from django.test import TestCase, override_settings
 
@@ -115,7 +116,7 @@ class TestWorkflows(TestCase):
     def test_error_when_starting_multiple_in_progress_workflows(self):
         # test trying to start multiple status='in_progress' workflows on a single page will trigger an IntegrityError
         self.start_workflow_on_homepage()
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises((IntegrityError, ValidationError)):
             self.start_workflow_on_homepage()
 
     @freeze_time("2017-01-01 12:00:00")
