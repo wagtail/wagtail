@@ -2700,7 +2700,7 @@ class GroupApprovalTask(Task):
     def start(self, workflow_state, user=None):
         if workflow_state.page.locked_by:
             # If the person who locked the page isn't in one of the groups, unlock the page
-            if not workflow_state.page.locked_by.groups.intersection(self.groups.all()).exists():
+            if not workflow_state.page.locked_by.groups.filter(id__in=self.groups.all()).exists():
                 workflow_state.page.locked = False
                 workflow_state.page.locked_by = None
                 workflow_state.page.locked_at = None
@@ -2709,16 +2709,16 @@ class GroupApprovalTask(Task):
         return super().start(workflow_state, user=user)
 
     def user_can_access_editor(self, page, user):
-        return user.groups.intersection(self.groups.all()).exists()
+        return self.groups.filter(id__in=user.groups.all()).exists()
 
     def user_can_lock(self, page, user):
-        return user.groups.intersection(self.groups.all()).exists()
+        return self.groups.filter(id__in=user.groups.all()).exists()
 
     def user_can_unlock(self, page, user):
         return False
 
     def get_actions(self, page, user):
-        if user.groups.intersection(self.groups.all()).exists() or user.is_superuser:
+        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
             return [
                 ('approve', _("Approve")),
                 ('reject', _("Reject"))
@@ -2726,9 +2726,8 @@ class GroupApprovalTask(Task):
         else:
             return []
 
-
     def get_task_states_user_can_moderate(self, user, **kwargs):
-        if user.groups.intersection(self.groups.all()).exists() or user.is_superuser:
+        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
             return TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr)
         else:
             return TaskState.objects.none()
