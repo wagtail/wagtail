@@ -437,6 +437,12 @@ def edit(request, page_id):
                 messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons, extra_tags="workflow")
             else:
                 messages.success(request, workflow_info, buttons=buttons, extra_tags="workflow")
+    else:
+        # Show last workflow state
+        workflow_state = page.workflow_states.order_by('created_at').last()
+
+        if workflow_state:
+            workflow_tasks = workflow_state.all_tasks_with_status()
 
     errors_debug = None
 
@@ -650,6 +656,7 @@ def edit(request, page_id):
         'next': next_url,
         'has_unsaved_changes': has_unsaved_changes,
         'page_locked': page_perms.page_locked(),
+        'workflow_state': workflow_state,
         'workflow_actions': page.current_workflow_task.get_actions(page, request.user) if page.current_workflow_task else [],
         'current_task_state': page.current_workflow_task_state,
         'workflow_tasks': workflow_tasks,
