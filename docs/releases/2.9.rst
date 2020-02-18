@@ -38,6 +38,12 @@ Bug fixes
 Upgrade considerations
 ======================
 
+Removed support for Django 2.1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django 2.1 is no longer supported as of this release; please upgrade to Django 2.2 or above before upgrading Wagtail.
+
+
 ``SiteMiddleware`` and ``request.site`` deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
