@@ -30,8 +30,7 @@ from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
 from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import (
-    Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowTask)
+from wagtail.core.models import Page, PageRevision, Task, TaskState, UserPagePermissionsProxy
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -417,13 +416,12 @@ def edit(request, page_id):
     if workflow_state:
         workflow = workflow_state.workflow
         task = workflow_state.current_task_state.task
-        try:
-            current_task_number = WorkflowTask.objects.get(workflow=workflow, task=task).sort_order + 1
-        except WorkflowTask.DoesNotExist:
-            # The Task has been removed from the Workflow
-            pass
-
         workflow_tasks = workflow_state.all_tasks_with_status()
+
+        current_task_number = None
+        for i, workflow_task in enumerate(workflow_tasks):
+            if workflow_task == task:
+                current_task_number = i + 1
 
         # add a warning message if tasks have been approved and may need to be re-approved
         task_has_been_approved = any(filter(lambda task: task.status == 'approved', workflow_tasks))
