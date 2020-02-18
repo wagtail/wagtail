@@ -1,16 +1,21 @@
 {% load wagtailui_tags i18n %}
-{% if workflow_tasks %}
-    {% with current_task_state.workflow_state as current_workflow_state %}
-    {% with current_workflow_state.workflow as workflow %}
-    {% with current_task_state.task as task %}
+{% if workflow_state %}
+    {% with workflow_state.workflow as workflow %}
 
     <h2>{{ workflow.name }}</h2>
 
-    {% if current_task_number %}
-        {% blocktrans with workflow_tasks|length as total_tasks %} Task {{ current_task_number }} of {{ total_tasks }}{% endblocktrans %}: {{ task.name }}
-    {% else %}
-        {% trans 'Task' %}: {{ task.name }}
+    {% if current_task_state %}
+        {% with current_task_state.task as task %}
+
+        {% if current_task_number %}
+            {% blocktrans with workflow_tasks|length as total_tasks %} Task {{ current_task_number }} of {{ total_tasks }}{% endblocktrans %}: {{ task.name }}
+        {% else %}
+            {% trans 'Task' %}: {{ task.name }}
+        {% endif %}
+
+        {% endwith %}
     {% endif %}
+
     <div>
         {% trans 'Approved task' as approved_title %}
         {% trans 'Incomplete task' as incomplete_title %}
@@ -23,7 +28,5 @@
         {% endfor %}
     </div>
 
-    {% endwith %}
-    {% endwith %}
     {% endwith %}
 {% endif %}
