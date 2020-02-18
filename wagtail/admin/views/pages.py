@@ -382,8 +382,6 @@ def edit(request, page_id):
 
     workflow_tasks = []
     workflow_state = page.current_workflow_state
-    workflow_name = ''
-    task_name = ''
     current_task_number = None
     if workflow_state:
         workflow = workflow_state.workflow
@@ -393,8 +391,6 @@ def edit(request, page_id):
         except WorkflowTask.DoesNotExist:
             # The Task has been removed from the Workflow
             pass
-        task_name = task.name
-        workflow_name = workflow.name
 
         workflow_tasks = workflow_state.all_tasks_with_status()
 
@@ -416,9 +412,9 @@ def edit(request, page_id):
                 # If only one task in workflow, show simple message
                 workflow_info = _("This page is currently awaiting moderation")
             elif current_task_number:
-                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, workflow_tasks.count(), task_name, workflow_name)
+                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, workflow_tasks.count(), task.name, workflow.name)
             else:
-                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, workflow_tasks.count(), task_name, workflow_name)
+                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, workflow_tasks.count(), task.name, workflow.name)
 
             if task_has_been_approved and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
                 messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons, extra_tags="workflow")
@@ -631,8 +627,6 @@ def edit(request, page_id):
         'current_task_state': page.current_workflow_task_state,
         'workflow_tasks': workflow_tasks,
         'current_task_number': current_task_number,
-        'task_name': task_name,
-        'workflow_name': workflow_name,
     })
 
 
