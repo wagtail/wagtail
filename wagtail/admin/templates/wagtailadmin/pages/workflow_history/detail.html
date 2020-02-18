@@ -55,9 +55,15 @@
                                 {% trans "Initial Revision" %}
                             {% else %}
                                 {% if not forloop.first %}
-                                    {% blocktrans with revision.user.get_full_name|default:revision.user.get_username as who and revision.created_at as at %}
-                                        Page edited by {{ who }} at {{ at }}
-                                    {% endblocktrans %}
+                                    {% if revision.user %}
+                                        {% blocktrans with revision.user.get_full_name|default:revision.user.get_username as who and revision.created_at as at %}
+                                            Page edited by {{ who }} at {{ at }}
+                                        {% endblocktrans %}
+                                    {% else %}
+                                        {% blocktrans with revision.created_at as at %}
+                                            Page edited at {{ at }}
+                                        {% endblocktrans %}
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
                         </td>
@@ -94,9 +100,15 @@
                                 <b>{% trans "Workflow completed" %}</b>
                                 <div class="status-tag primary">{{ timeline_item.workflow_state.get_status_display }}</div>
                             {% elif timeline_item.action == 'page_edited' %}
-                                {% blocktrans with timeline_item.revision.user.get_full_name|default:timeline_item.revision.user.get_username as who and timeline_item.revision.created_at as at %}
-                                    Page edited by {{ who }} at {{ at }}
-                                {% endblocktrans %}
+                                {% if revision.user %}
+                                    {% blocktrans with timeline_item.revision.user.get_full_name|default:timeline_item.revision.user.get_username as who and timeline_item.revision.created_at as at %}
+                                        Page edited by {{ who }} at {{ at }}
+                                    {% endblocktrans %}
+                                {% else %}
+                                    {% blocktrans with timeline_item.revision.created_at as at %}
+                                        Page edited at {{ at }}
+                                    {% endblocktrans %}
+                                {% endif %}
                             {% elif timeline_item.action ==  'task_completed' %}
                                 <b>{{ timeline_item.task_state.task }}</b>
 
