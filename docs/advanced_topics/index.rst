@@ -19,3 +19,4 @@ Advanced topics
     api/index
     amp
     adding_reports
+    custom_tasks
