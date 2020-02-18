@@ -424,7 +424,7 @@ def edit(request, page_id):
                 current_task_number = i + 1
 
         # add a warning message if tasks have been approved and may need to be re-approved
-        task_has_been_approved = any(filter(lambda task: task.status == 'approved', workflow_tasks))
+        task_has_been_approved = any(filter(lambda task: task.status == TaskState.STATUS_APPROVED, workflow_tasks))
 
         # TODO: add icon to message when we have added a workflows icon
         if request.method == 'GET':
