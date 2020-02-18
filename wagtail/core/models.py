@@ -2689,11 +2689,21 @@ class WorkflowState(models.Model):
                                      editable=True,
                                      on_delete=models.SET_NULL,
                                      related_name='requested_workflows')
-    current_task_state = models.OneToOneField('TaskState', on_delete=models.SET_NULL, null=True, blank=False,
+    current_task_state = models.OneToOneField('TaskState', on_delete=models.SET_NULL, null=True, blank=True,
                                               verbose_name=_("current task state"))
 
     # allows a custom function to be called on finishing the Workflow successfully.
     on_finish = import_string(getattr(settings, 'WAGTAIL_FINISH_WORKFLOW_ACTION', 'wagtail.core.workflows.publish_workflow_state'))
+
+    def clean(self):
+        super().clean()
+        # The unique constraint is conditional, and so not supported on the MySQL backend - so an additional check is done here
+        if WorkflowState.objects.filter(status=self.STATUS_IN_PROGRESS, page=self.page).exclude(pk=self.pk).exists():
+            raise ValidationError(_('There may only be one in progress workflow state per page.'))
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
@@ -2788,7 +2798,7 @@ class WorkflowState(models.Model):
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')
-        # prevent multiple STATUS_IN_PROGRESS workflows for the same page
+        # prevent multiple STATUS_IN_PROGRESS workflows for the same page. This is not supported by MySQL, so is checked additionally on save.
         constraints = [
             models.UniqueConstraint(fields=['page'], condition=Q(status='in_progress'), name='unique_in_progress_workflow')
         ]
