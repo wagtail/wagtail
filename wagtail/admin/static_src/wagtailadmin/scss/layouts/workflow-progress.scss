@@ -1,0 +1,53 @@
+/*
+ * Styling for the workflow progress view
+ * See: wagtail/wagtail/admin/templates/wagtailadmin/pages/workflow_history/detail.html
+ */
+
+.tab-buttons {
+    margin-top: 30px;
+
+    button {
+        background: none;
+        border: none;
+        padding-bottom: 5px;
+        font-weight: bold;
+
+        &.active {
+            border-bottom: 3px solid #007d7e;
+        }
+    }
+}
+
+.workflow-tasks-table,
+.workflow-timeline-table {
+    width: 100%;
+    border-top: 1px solid rgb(229, 229, 229);
+    border-bottom: 1px solid rgb(229, 229, 229);
+    font-size: 0.8em;
+
+    td, th {
+        padding: 20px;
+    }
+
+    th {
+        font-size: 1.2em;
+    }
+
+    .left-column {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #555;
+    }
+}
+
+.workflow-tasks-table  {
+    background-color: rgb(250, 250, 250);
+
+    .left-column {
+        background-color: rgb(245, 245, 245);
+    }
+}
+
+.workflow-timeline-table tr {
+    border-bottom: 1px solid rgb(229, 229, 229);
+}
