@@ -21,8 +21,8 @@ function escapeHtml(text) {
     });
 }
 
-function initTagField(id, autocompleteUrl, allowSpaces, tagLimit) {
-    $('#' + id).tagit({
+function initTagField(id, autocompleteUrl, options) {
+    var finalOptions = Object.assign({
         autocomplete: {source: autocompleteUrl},
         preprocessTag: function(val) {
             // Double quote a tag if it contains a space
@@ -33,10 +33,9 @@ function initTagField(id, autocompleteUrl, allowSpaces, tagLimit) {
 
             return val;
         },
+    }, options);
 
-        allowSpaces: allowSpaces,
-        tagLimit: tagLimit,
-    });
+    $('#' + id).tagit(finalOptions);
 }
 
 /*
