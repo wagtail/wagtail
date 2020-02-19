@@ -119,6 +119,7 @@ class AdminTagWidget(TagWidget):
 
     def __init__(self, *args, **kwargs):
         self.tag_model = kwargs.pop('tag_model', None)
+        self.free_tagging = kwargs.pop('free_tagging', True)
         super().__init__(*args, **kwargs)
 
     def get_context(self, name, value, attrs):
@@ -133,8 +134,11 @@ class AdminTagWidget(TagWidget):
             autocomplete_url = reverse('wagtailadmin_tag_autocomplete')
 
         context['widget']['autocomplete_url'] = autocomplete_url
-        context['widget']['tag_spaces_allowed'] = getattr(settings, 'TAG_SPACES_ALLOWED', True)
-        context['widget']['tag_limit'] = getattr(settings, 'TAG_LIMIT', None)
+        context['widget']['options_json'] = json.dumps({
+            'allowSpaces': getattr(settings, 'TAG_SPACES_ALLOWED', True),
+            'tagLimit': getattr(settings, 'TAG_LIMIT', None),
+            'autocompleteOnly': not self.free_tagging,
+        })
 
         return context
 
