@@ -1,3 +1,5 @@
+import json
+
 from django.test import TestCase
 from django.test.utils import override_settings
 
@@ -174,14 +176,15 @@ class TestAdminTagWidget(TestCase):
 
     def get_js_init_params(self, html):
         """Returns a list of the params passed in to initTagField from the supplied HTML"""
-        # Eg. ["'test\\u002Did'", "'/admin/tag\\u002Dautocomplete/'", 'true', 'null']
+        # Eg. ["test_id", "/admin/tag-autocomplete/", {'allowSpaces': True}]
         start = 'initTagField('
         end = ');'
         items_after_init = html.split(start)[1]
         if items_after_init:
             params_raw = items_after_init.split(end)[0]
             if params_raw:
-                return [part.strip() for part in params_raw.split(',')]
+                # stuff parameter string into an array so that we can unpack it as JSON
+                return json.loads('[%s]' % params_raw)
         return []
 
 
@@ -192,11 +195,10 @@ class TestAdminTagWidget(TestCase):
         html = widget.render('tags', None, attrs={'id': 'alpha'})
         params = self.get_js_init_params(html)
 
-        self.assertEqual(len(params), 4)
-        self.assertEqual(params[0], "'alpha'")  # id
-        self.assertEqual(params[1], "'/admin/tag\\u002Dautocomplete/'")  # autocomplete url
-        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
-        self.assertEqual(params[3], 'null')  # tag_limit
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': False}]
+        )
 
 
     @override_settings(TAG_SPACES_ALLOWED=False)
@@ -207,9 +209,10 @@ class TestAdminTagWidget(TestCase):
         html = widget.render('tags', None, attrs={'id': 'alpha'})
         params = self.get_js_init_params(html)
 
-        self.assertEqual(len(params), 4)
-        self.assertEqual(params[2], 'false')  # tag_spaces_allowed
-        self.assertEqual(params[3], 'null')  # tag_limit
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': False, 'tagLimit': None, 'autocompleteOnly': False}]
+        )
 
 
     @override_settings(TAG_LIMIT=5)
@@ -220,9 +223,10 @@ class TestAdminTagWidget(TestCase):
         html = widget.render('tags', None, attrs={'id': 'alpha'})
         params = self.get_js_init_params(html)
 
-        self.assertEqual(len(params), 4)
-        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
-        self.assertEqual(params[3], '5')  # tag_limit
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': 5, 'autocompleteOnly': False}]
+        )
 
     def test_render_js_init_with_tag_model(self):
         """Checks that 'initTagField' is passed the correct autocomplete URL for the custom model"""
@@ -231,8 +235,19 @@ class TestAdminTagWidget(TestCase):
         html = widget.render('tags', None, attrs={'id': 'alpha'})
         params = self.get_js_init_params(html)
 
-        self.assertEqual(len(params), 4)
-        self.assertEqual(params[0], "'alpha'")  # id
-        self.assertEqual(params[1], "'/admin/tag\\u002Dautocomplete/tests/restauranttag/'")  # autocomplete url
-        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
-        self.assertEqual(params[3], 'null')  # tag_limit
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/tests/restauranttag/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': False}]
+        )
+
+    def test_render_with_free_tagging_false(self):
+        """Checks that free_tagging=False is passed to the inline script"""
+        widget = widgets.AdminTagWidget(free_tagging=False)
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': True}]
+        )
