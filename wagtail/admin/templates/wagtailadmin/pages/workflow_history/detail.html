@@ -9,7 +9,7 @@
 
     <div class="nice-padding">
         <h2 class="icon icon-doc-empty-inverse">{{ page.get_admin_display_title }}</h2>
-        <p style="margin-bottom: 30px;">
+        <p>
             <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit / Review" %}</a>
             <a href="{% url 'wagtailadmin_pages:workflow_history' page.id %}" class="button button-small button-secondary">{% trans "Workflow history" %}</a>
         </p>
@@ -29,7 +29,7 @@
             {% blocktrans with workflow_state.get_status_display as status %}Status <span class="status-tag primary"> {{ status }}</span>{% endblocktrans %}
         </p>
 
-        <div class="tab-buttons" style="margin-top: 30px;">
+        <div class="tab-buttons">
             <button data-tab-button="tasks" class="active">{% trans "Tasks" %}</button>
             <button data-tab-button="timeline">{% trans "Timeline" %}</button>
         </div>
@@ -136,56 +136,11 @@
             });
         });
     </script>
+{% endblock %}
 
-    <style>
-        .tab-buttons button {
-            background: none;
-            border: none;
-            padding-bottom: 5px;
-            font-weight: bold;
-        }
 
-        .tab-buttons button.active {
-            border-bottom: 3px solid #007d7e;
-        }
+{% block extra_css %}
+    {{ block.super }}
 
-        .workflow-tasks-table,
-        .workflow-timeline-table {
-            width: 100%;
-            border-top: 1px solid rgb(229, 229, 229);
-            border-bottom: 1px solid rgb(229, 229, 229);
-            font-size: 0.8em;
-        }
-
-        .workflow-tasks-table  {
-            background-color: rgb(250, 250, 250);
-        }
-
-        .workflow-tasks-table td,
-        .workflow-timeline-table td,
-        .workflow-tasks-table th,
-        .workflow-timeline-table th {
-            padding: 20px;
-        }
-
-        .workflow-tasks-table th,
-        .workflow-timeline-table th {
-            font-size: 1.2em;
-        }
-
-        .workflow-tasks-table .left-column,
-        .workflow-timeline-table .left-column {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #555;
-        }
-
-        .workflow-tasks-table .left-column {
-            background-color: rgb(245, 245, 245);
-        }
-
-        .workflow-timeline-table tr {
-            border-bottom: 1px solid rgb(229, 229, 229);
-        }
-    </style>
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/workflow-progress.css' %}" />
 {% endblock %}
