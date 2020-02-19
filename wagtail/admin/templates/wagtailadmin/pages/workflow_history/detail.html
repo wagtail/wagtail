@@ -70,8 +70,9 @@
                         {% for task_state in task_states %}
                             <td>
                                 {% if task_state.status == 'approved' or task_state.status == 'rejected' %}
-                                    {# FIXME: i18n #}
-                                    <div class="status-tag primary">{{ task_state.get_status_display }}</div> at <b>{{ task_state.finished_at }}</b>
+                                    {% blocktrans with action='<div class="status-tag primary">'|add:task_state.get_status_display|add:'</div>'|safe at=task_state.finished_at %}
+                                        {{ action }} at <b>{{ at }}</b>
+                                    {% endblocktrans %}
                                 {% else %}
                                     <div class="status-tag primary">{{ task_state.get_status_display }}</div>
                                 {% endif %}

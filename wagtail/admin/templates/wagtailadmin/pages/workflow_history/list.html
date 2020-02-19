@@ -42,8 +42,12 @@
                             </span>
                         {% endfor %}
                     </td>
-                    <td>{{ workflow_state.requested_by }}</td>
-                    <td>{{ workflow_state.created_at }}</td>
+                    <td>{{ workflow_state.requested_by.get_full_name|default:workflow_state.requested_by.get_username }}</td>
+                    <td>
+                        <div class="human-readable-date" title="{{ workflow_state.created_at|date:"d M Y H:i" }}">
+                            {% blocktrans with time_period=workflow_state.created_at|timesince %}{{ time_period }} ago{% endblocktrans %}
+                        </div>
+                    </td>
                 </tr>
             {% endfor %}
         {% else %}
