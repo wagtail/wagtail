@@ -1,9 +1,11 @@
 import json
 
+from django import forms
 from django.test import TestCase
 from django.test.utils import override_settings
 
 from wagtail.admin import widgets
+from wagtail.admin.forms.tags import TagField
 from wagtail.core.models import Page
 from wagtail.tests.testapp.forms import AdminStarDateInput
 from wagtail.tests.testapp.models import EventPage, RestaurantTag, SimplePage
@@ -251,3 +253,18 @@ class TestAdminTagWidget(TestCase):
             params,
             ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': True}]
         )
+
+
+class TestTagField(TestCase):
+    def setUp(self):
+        RestaurantTag.objects.create(name='Italian', slug='italian')
+        RestaurantTag.objects.create(name='Indian', slug='indian')
+
+    def test_tag_whitelisting(self):
+
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag, free_tagging=False)
+
+        form = RestaurantTagForm({'tags': "Italian, delicious"})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data['tags'], ["Italian"])
