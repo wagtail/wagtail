@@ -77,9 +77,9 @@ Now make the following additions to your ``urls.py`` file:
 
     urlpatterns = [
         ...
-        re_path(r'^cms/', include(wagtailadmin_urls)),
-        re_path(r'^documents/', include(wagtaildocs_urls)),
-        re_path(r'^pages/', include(wagtail_urls)),
+        path('cms/', include(wagtailadmin_urls)),
+        path('documents/', include(wagtaildocs_urls)),
+        path('pages/', include(wagtail_urls)),
         ...
     ]
 

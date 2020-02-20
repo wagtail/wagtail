@@ -6,6 +6,6 @@ app_name = 'wagtailredirects'
 urlpatterns = [
     path('', views.index, name='index'),
     path('add/', views.add, name='add'),
-    re_path(r'^(\d+)/$', views.edit, name='edit'),
-    re_path(r'^(\d+)/delete/$', views.delete, name='delete'),
+    path('<int:redirect_id>/', views.edit, name='edit'),
+    path('<int:redirect_id>/delete/', views.delete, name='delete'),
 ]

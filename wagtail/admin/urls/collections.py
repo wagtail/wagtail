@@ -6,7 +6,8 @@ app_name = 'wagtailadmin_collections'
 urlpatterns = [
     path('', collections.Index.as_view(), name='index'),
     path('add/', collections.Create.as_view(), name='add'),
-    re_path(r'^(\d+)/$', collections.Edit.as_view(), name='edit'),
+    path('<int:pk>/', collections.Edit.as_view(), name='edit'),
+    # TODO: replace this with path converter
     re_path(r'^(\d+)/delete/$', collections.Delete.as_view(), name='delete'),
-    re_path(r'^(\d+)/privacy/$', collection_privacy.set_privacy, name='set_privacy'),
+    path('<int:collection_id>/privacy/', collection_privacy.set_privacy, name='set_privacy'),
 ]

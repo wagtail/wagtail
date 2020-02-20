@@ -140,10 +140,10 @@ URL Patterns
   from wagtail.documents import urls as wagtaildocs_urls
 
   urlpatterns = [
-      re_path(r'^django-admin/', include(admin.site.urls)),
+      path('django-admin/', admin.site.urls),
 
-      re_path(r'^admin/', include(wagtailadmin_urls)),
-      re_path(r'^documents/', include(wagtaildocs_urls)),
+      path('admin/', include(wagtailadmin_urls)),
+      path('documents/', include(wagtaildocs_urls)),
 
       # Optional URL for including your own vanilla Django urls/views
       re_path(r'', include('myapp.urls')),
@@ -368,7 +368,7 @@ These two files should reside in your project directory (``myproject/myproject/`
 
 .. code-block:: python
 
-  from django.urls import include, re_path
+  from django.urls import include, path, re_path
   from django.conf.urls.static import static
   from django.views.generic.base import RedirectView
   from django.contrib import admin
@@ -381,10 +381,10 @@ These two files should reside in your project directory (``myproject/myproject/`
 
 
   urlpatterns = [
-      re_path(r'^django-admin/', include(admin.site.urls)),
+      path('django-admin/', admin.site.urls),
 
-      re_path(r'^admin/', include(wagtailadmin_urls)),
-      re_path(r'^documents/', include(wagtaildocs_urls)),
+      path('admin/', include(wagtailadmin_urls)),
+      path('documents/', include(wagtaildocs_urls)),
 
       # For anything not caught by a more specific rule above, hand over to
       # Wagtail's serving mechanism
@@ -398,5 +398,5 @@ These two files should reside in your project directory (``myproject/myproject/`
       urlpatterns += staticfiles_urlpatterns() # tell gunicorn where static files are in dev mode
       urlpatterns += static(settings.MEDIA_URL + 'images/', document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
       urlpatterns += [
-          re_path(r'^favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL + 'myapp/images/favicon.ico'))
+          path('favicon.ico', RedirectView.as_view(url=settings.STATIC_URL + 'myapp/images/favicon.ico'))
       ]
