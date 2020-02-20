@@ -665,7 +665,7 @@ class PreviewOnEdit(View):
 
     def get_page(self):
         return get_object_or_404(Page,
-                                 id=self.args[0]).get_latest_revision_as_page()
+                                 id=self.kwargs["page_id"]).get_latest_revision_as_page()
 
     def get_form(self, page, query_dict):
         form_class = page.get_edit_handler().get_form_class()
@@ -714,8 +714,9 @@ class PreviewOnEdit(View):
 
 class PreviewOnCreate(PreviewOnEdit):
     def get_page(self):
-        (content_type_app_name, content_type_model_name,
-         parent_page_id) = self.args
+        content_type_app_name = self.kwargs["content_type_app_name"]
+        content_type_model_name = self.kwargs["content_type_model_name"]
+        parent_page_id = self.kwargs["parent_page_id"]
         try:
             content_type = ContentType.objects.get_by_natural_key(
                 content_type_app_name, content_type_model_name)

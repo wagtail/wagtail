@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.urls import include, path, re_path
+from django.urls import include, path
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.api.v2.router import WagtailAPIRouter
@@ -34,7 +34,7 @@ urlpatterns = [
         'sitemaps': {'pages': Sitemap, 'events': EventSitemap(request=None)},
         'sitemap_url_name': 'sitemap',
     }),
-    re_path(r'^sitemap-(?P<section>.+)\.xml$', sitemaps_views.sitemap, name='sitemap'),
+    path('sitemap-<str:section>.xml', sitemaps_views.sitemap, name='sitemap'),
 
     path('testapp/', include(testapp_urls)),
 
