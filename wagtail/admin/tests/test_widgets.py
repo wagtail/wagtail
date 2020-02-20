@@ -231,7 +231,10 @@ class TestAdminTagWidget(TestCase):
         )
 
     def test_render_js_init_with_tag_model(self):
-        """Checks that 'initTagField' is passed the correct autocomplete URL for the custom model"""
+        """
+        Checks that 'initTagField' is passed the correct autocomplete URL for the custom model,
+        and sets autocompleteOnly according to that model's free_tagging attribute
+        """
         widget = widgets.AdminTagWidget(tag_model=RestaurantTag)
 
         html = widget.render('tags', None, attrs={'id': 'alpha'})
@@ -239,7 +242,7 @@ class TestAdminTagWidget(TestCase):
 
         self.assertEqual(
             params,
-            ['alpha', '/admin/tag-autocomplete/tests/restauranttag/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': False}]
+            ['alpha', '/admin/tag-autocomplete/tests/restauranttag/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': True}]
         )
 
     def test_render_with_free_tagging_false(self):
@@ -254,6 +257,18 @@ class TestAdminTagWidget(TestCase):
             ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': True}]
         )
 
+    def test_render_with_free_tagging_true(self):
+        """free_tagging=True on the widget can also override the tag model setting free_tagging=False"""
+        widget = widgets.AdminTagWidget(tag_model=RestaurantTag, free_tagging=True)
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/tests/restauranttag/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': False}]
+        )
+
 
 class TestTagField(TestCase):
     def setUp(self):
@@ -263,8 +278,18 @@ class TestTagField(TestCase):
     def test_tag_whitelisting(self):
 
         class RestaurantTagForm(forms.Form):
-            tags = TagField(tag_model=RestaurantTag, free_tagging=False)
+            # RestaurantTag sets free_tagging=False at the model level
+            tags = TagField(tag_model=RestaurantTag)
 
         form = RestaurantTagForm({'tags': "Italian, delicious"})
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data['tags'], ["Italian"])
+
+    def test_override_free_tagging(self):
+
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag, free_tagging=True)
+
+        form = RestaurantTagForm({'tags': "Italian, delicious"})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(set(form.cleaned_data['tags']), {"Italian", "delicious"})

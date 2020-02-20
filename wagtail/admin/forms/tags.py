@@ -25,7 +25,7 @@ class TagField(TaggitTagField):
             self.widget.tag_model = self.tag_model
 
         if self.free_tagging is None:
-            self.free_tagging = True
+            self.free_tagging = getattr(self.tag_model, 'free_tagging', True)
         else:
             self.widget.free_tagging = self.free_tagging
 
