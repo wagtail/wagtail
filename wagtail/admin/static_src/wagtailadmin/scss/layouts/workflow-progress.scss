@@ -3,23 +3,32 @@
  * See: wagtail/wagtail/admin/templates/wagtailadmin/pages/workflow_history/detail.html
  */
 
-.tab-buttons {
-    margin-top: 30px;
+.workflow-progress-tabs {
+    &__buttons {
+        margin-top: 30px;
+    }
 
-    button {
+    &__button {
         background: none;
         border: none;
         padding-bottom: 5px;
         font-weight: bold;
 
-        &.active {
+        &--active {
             border-bottom: 3px solid #007d7e;
+        }
+    }
+
+    &__tab {
+        display: none;
+
+        &--active {
+            display: block;
         }
     }
 }
 
-.workflow-tasks-table,
-.workflow-timeline-table {
+.workflow-progress-table {
     width: 100%;
     border-top: 1px solid rgb(229, 229, 229);
     border-bottom: 1px solid rgb(229, 229, 229);
@@ -33,21 +42,21 @@
         font-size: 1.2em;
     }
 
-    .left-column {
+    &__left-column {
         font-size: 1.2em;
         font-weight: bold;
         color: #555;
     }
-}
 
-.workflow-tasks-table  {
-    background-color: rgb(250, 250, 250);
+    &--tasks  {
+        background-color: rgb(250, 250, 250);
 
-    .left-column {
-        background-color: rgb(245, 245, 245);
+        .workflow-progress-table__left-column {
+            background-color: rgb(245, 245, 245);
+        }
     }
-}
 
-.workflow-timeline-table tr {
-    border-bottom: 1px solid rgb(229, 229, 229);
+    &--timeline tr {
+        border-bottom: 1px solid rgb(229, 229, 229);
+    }
 }
