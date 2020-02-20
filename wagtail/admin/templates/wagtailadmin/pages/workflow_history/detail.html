@@ -29,20 +29,20 @@
             {% blocktrans with workflow_state.get_status_display as status %}Status <span class="status-tag primary"> {{ status }}</span>{% endblocktrans %}
         </p>
 
-        <div class="tab-buttons">
-            <button data-tab-button="tasks" class="active">{% trans "Tasks" %}</button>
-            <button data-tab-button="timeline">{% trans "Timeline" %}</button>
+        <div class="workflow-progress-tabs__buttons">
+            <button data-tab-button="tasks" class="workflow-progress-tabs__button workflow-progress-tabs__button--active">{% trans "Tasks" %}</button>
+            <button data-tab-button="timeline" class="workflow-progress-tabs__button">{% trans "Timeline" %}</button>
         </div>
     </div>
 
-    <div class="tab" data-tab="tasks">
-        <table class="workflow-tasks-table">
+    <div class="workflow-progress-tabs__tab workflow-progress-tabs__tab--active" data-tab="tasks">
+        <table class="workflow-progress-table workflow-progress-table--tasks">
             <colgroup width="{% widthratio 100 grid_size 1 %}%"></colgroup>
             {% for task in tasks %}
                 <colgroup width="{% widthratio 100 grid_size 2 %}%"></colgroup>
             {% endfor %}
             <thead>
-                <th class="left-column"></th>
+                <th class="workflow-progress-table__left-column"></th>
                 {% for task in tasks %}
                     <th>{{ task }}</th>
                 {% endfor %}
@@ -50,7 +50,7 @@
             <tbody>
                 {% for revision, task_states in task_states_by_revision %}
                     <tr>
-                        <td class="left-column">
+                        <td class="workflow-progress-table__left-column">
                             {% if forloop.first %}
                                 {% trans "Initial Revision" %}
                             {% else %}
@@ -84,14 +84,14 @@
         </table>
     </div>
 
-    <div class="tab" data-tab="timeline" style="display: none;">
-        <table class="workflow-timeline-table">
+    <div class="workflow-progress-tabs__tab" data-tab="timeline">
+        <table class="workflow-progress-table workflow-progress-table--timeline">
             <colgroup width="20%"></colgroup>
             <colgroup width="80%"></colgroup>
             <tbody>
                 {% for timeline_item in timeline %}
                     <tr>
-                        <td class="left-column">
+                        <td class="workflow-progress-table__left-column">
                             {{ timeline_item.time }}
                         </td>
                         <td>
@@ -126,12 +126,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('[data-tab-button]').forEach(button => {
                 button.addEventListener('click', () => {
-                    document.querySelectorAll('.tab').forEach(tab => tab.style.display = 'none');
-                    document.querySelectorAll('.tab[data-tab="' + button.dataset.tabButton + '"').forEach(tab => tab.style.display = 'block');
+                    document.querySelectorAll('.workflow-progress-tabs__tab').forEach(tab => tab.classList.remove('workflow-progress-tabs__tab--active'));
+                    document.querySelectorAll('.workflow-progress-tabs__tab[data-tab="' + button.dataset.tabButton + '"').forEach(tab => tab.classList.add('workflow-progress-tabs__tab--active'));
 
-                    document.querySelectorAll('.tab-buttons button').forEach(tab => tab.classList.remove('active'));
+                    document.querySelectorAll('.workflow-progress-tabs__button').forEach(tab => tab.classList.remove('workflow-progress-tabs__button--active'));
 
-                    button.classList.add('active');
+                    button.classList.add('workflow-progress-tabs__button--active');
                 });
             });
         });
