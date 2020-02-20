@@ -1439,6 +1439,8 @@ class RestaurantPage(Page):
 
 
 class RestaurantTag(TagBase):
+    free_tagging = False
+
     class Meta:
         verbose_name = "Tag"
         verbose_name_plural = "Tags"
