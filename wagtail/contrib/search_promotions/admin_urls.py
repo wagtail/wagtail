@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from wagtail.contrib.search_promotions import views
 
@@ -6,6 +6,6 @@ app_name = 'wagtailsearchpromotions'
 urlpatterns = [
     path('', views.index, name='index'),
     path('add/', views.add, name='add'),
-    re_path(r'^(\d+)/$', views.edit, name='edit'),
-    re_path(r'^(\d+)/delete/$', views.delete, name='delete'),
+    path('<int:query_id>/', views.edit, name='edit'),
+    path('<int:query_id>/delete/', views.delete, name='delete'),
 ]

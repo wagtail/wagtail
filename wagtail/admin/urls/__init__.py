@@ -28,13 +28,13 @@ urlpatterns = [
 
     # TODO: Move into wagtailadmin_pages namespace
     path('pages/', pages.index, name='wagtailadmin_explore_root'),
-    re_path(r'^pages/(\d+)/$', pages.index, name='wagtailadmin_explore'),
+    path('pages/<int:parent_page_id>/', pages.index, name='wagtailadmin_explore'),
 
     path('pages/', include(wagtailadmin_pages_urls, namespace='wagtailadmin_pages')),
 
     # TODO: Move into wagtailadmin_pages namespace
     path('choose-page/', chooser.browse, name='wagtailadmin_choose_page'),
-    re_path(r'^choose-page/(\d+)/$', chooser.browse, name='wagtailadmin_choose_page_child'),
+    path('choose-page/<int:parent_page_id>/', chooser.browse, name='wagtailadmin_choose_page_child'),
     path('choose-page/search/', chooser.search, name='wagtailadmin_choose_page_search'),
     path('choose-external-link/', chooser.external_link, name='wagtailadmin_choose_page_external_link'),
     path('choose-email-link/', chooser.email_link, name='wagtailadmin_choose_page_email_link'),
@@ -42,7 +42,7 @@ urlpatterns = [
     path('choose-anchor-link/', chooser.anchor_link, name='wagtailadmin_choose_page_anchor_link'),
 
     path('tag-autocomplete/', tags.autocomplete, name='wagtailadmin_tag_autocomplete'),
-    re_path(r'^tag-autocomplete/(\w+)/(\w+)/$', tags.autocomplete, name='wagtailadmin_tag_model_autocomplete'),
+    path('tag-autocomplete/<slug:app_name>/<slug:model_name>/', tags.autocomplete, name='wagtailadmin_tag_model_autocomplete'),
 
     path('collections/', include(wagtailadmin_collections_urls, namespace='wagtailadmin_collections')),
 
@@ -89,8 +89,8 @@ urlpatterns += [
 
     # These two URLs have the "permission_required" decorator applied directly
     # as they need to fail with a 403 error rather than redirect to the login page
-    re_path(r'^userbar/(\d+)/$', userbar.for_frontend, name='wagtailadmin_userbar_frontend'),
-    re_path(r'^userbar/moderation/(\d+)/$', userbar.for_moderation, name='wagtailadmin_userbar_moderation'),
+    path('userbar/<int:page_id>/', userbar.for_frontend, name='wagtailadmin_userbar_frontend'),
+    path('userbar/moderation/<int:revision_id>/', userbar.for_moderation, name='wagtailadmin_userbar_moderation'),
 
     # Password reset
     path('password_reset/', include(wagtailadmin_password_reset_urls)),
