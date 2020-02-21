@@ -15,6 +15,7 @@ from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
 from django.db.models import Case, Q, Value, When
+from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.http import Http404
 from django.template.response import TemplateResponse
@@ -26,8 +27,8 @@ from django.utils.text import capfirst, slugify
 from django.utils.translation import ugettext_lazy as _
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel, get_all_child_relations
-
 from treebeard.mp_tree import MP_Node
+
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import (
     page_published, page_unpublished, task_approved, task_cancelled, task_rejected, task_submitted,
@@ -2606,7 +2607,7 @@ class GroupApprovalTask(Task):
     def start(self, workflow_state, user=None):
         if workflow_state.page.locked_by:
             # If the person who locked the page isn't in one of the groups, unlock the page
-            if not workflow_state.page.locked_by.groups.intersection(self.groups.all()).exists():
+            if not workflow_state.page.locked_by.groups.filter(id__in=self.groups.all()).exists():
                 workflow_state.page.locked = False
                 workflow_state.page.locked_by = None
                 workflow_state.page.locked_at = None
@@ -2615,16 +2616,16 @@ class GroupApprovalTask(Task):
         return super().start(workflow_state, user=user)
 
     def user_can_access_editor(self, page, user):
-        return user.groups.intersection(self.groups.all()).exists()
+        return self.groups.filter(id__in=user.groups.all()).exists()
 
     def user_can_lock(self, page, user):
-        return user.groups.intersection(self.groups.all()).exists()
+        return self.groups.filter(id__in=user.groups.all()).exists()
 
     def user_can_unlock(self, page, user):
         return False
 
     def get_actions(self, page, user):
-        if user.groups.intersection(self.groups.all()).exists() or user.is_superuser:
+        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
             return [
                 ('approve', _("Approve")),
                 ('reject', _("Reject"))
@@ -2632,9 +2633,8 @@ class GroupApprovalTask(Task):
         else:
             return []
 
-
     def get_task_states_user_can_moderate(self, user, **kwargs):
-        if user.groups.intersection(self.groups.all()).exists() or user.is_superuser:
+        if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
             return TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr)
         else:
             return TaskState.objects.none()
@@ -2668,11 +2668,21 @@ class WorkflowState(models.Model):
                                      editable=True,
                                      on_delete=models.SET_NULL,
                                      related_name='requested_workflows')
-    current_task_state = models.OneToOneField('TaskState', on_delete=models.SET_NULL, null=True, blank=False,
+    current_task_state = models.OneToOneField('TaskState', on_delete=models.SET_NULL, null=True, blank=True,
                                               verbose_name=_("current task state"))
 
     # allows a custom function to be called on finishing the Workflow successfully.
     on_finish = import_string(getattr(settings, 'WAGTAIL_FINISH_WORKFLOW_ACTION', 'wagtail.core.workflows.publish_workflow_state'))
+
+    def clean(self):
+        super().clean()
+        # The unique constraint is conditional, and so not supported on the MySQL backend - so an additional check is done here
+        if WorkflowState.objects.filter(status=self.STATUS_IN_PROGRESS, page=self.page).exclude(pk=self.pk).exists():
+            raise ValidationError(_('There may only be one in progress workflow state per page.'))
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
@@ -2727,10 +2737,47 @@ class WorkflowState(models.Model):
         for state in approved_states:
             state.copy(update_attrs={'page_revision': revision})
 
+    def revisions(self):
+        return PageRevision.objects.filter(
+            page_id=self.page_id,
+            id__in=self.task_states.values_list('page_revision_id', flat=True)
+        ).defer('content_json')
+
+    def all_tasks_with_status(self):
+        """
+        Returns a list of Task objects that are linked with this workflow state's
+        workflow. The status of that task in this workflow state is annotated in the
+        `.status` field. And a displayable version of that status is annotated in the
+        `.status_display` field.
+
+        This is different to querying TaskState as it also returns tasks that haven't
+        been started yet (so won't have a TaskState).
+        """
+        latest_revision_id = self.revisions().order_by('-created_at', '-id').values_list('id', flat=True).first()
+
+        tasks = list(
+            self.workflow.tasks.annotate(
+                status=Subquery(
+                    TaskState.objects.filter(
+                        task_id=OuterRef('id'),
+                        workflow_state_id=self.id,
+                        page_revision_id=latest_revision_id
+                    ).values('status')
+                ),
+            )
+        )
+
+        # Manually annotate status_display
+        status_choices = dict(self.STATUS_CHOICES)
+        for task in tasks:
+            task.status_display = status_choices.get(task.status, _("Not started"))
+
+        return tasks
+
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')
-        # prevent multiple STATUS_IN_PROGRESS workflows for the same page
+        # prevent multiple STATUS_IN_PROGRESS workflows for the same page. This is not supported by MySQL, so is checked additionally on save.
         constraints = [
             models.UniqueConstraint(fields=['page'], condition=Q(status='in_progress'), name='unique_in_progress_workflow')
         ]

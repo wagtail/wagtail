@@ -98,7 +98,7 @@ def register_collections_menu_item():
 
 @hooks.register('register_settings_menu_item')
 def register_workflows_menu_item():
-    return MenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), classnames='icon icon-placeholder', order=100)
+    return MenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), classnames='icon icon-clipboard-list', order=100)
 
 
 @hooks.register('register_page_listing_buttons')

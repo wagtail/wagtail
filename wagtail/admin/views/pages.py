@@ -28,8 +28,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
-from wagtail.core.models import (
-    Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowTask)
+from wagtail.core.models import Page, PageRevision, Task, TaskState, UserPagePermissionsProxy
 from wagtail.search.query import MATCH_ALL
 
 
@@ -381,37 +380,21 @@ def edit(request, page_id):
 
         messages.warning(request, _("This page is currently awaiting moderation"), buttons=buttons)
 
-    task_statuses = []
+    workflow_tasks = []
     workflow_state = page.current_workflow_state
-    workflow_name = ''
-    task_name = ''
-    total_tasks = 0
     current_task_number = None
     if workflow_state:
         workflow = workflow_state.workflow
         task = workflow_state.current_task_state.task
-        workflow_tasks = WorkflowTask.objects.filter(workflow=workflow)
-        try:
-            current_task_number = workflow_tasks.get(task=task).sort_order + 1
-        except WorkflowTask.DoesNotExist:
-            # The Task has been removed from the Workflow
-            pass
-        task_name = task.name
-        workflow_name = workflow.name
+        workflow_tasks = workflow_state.all_tasks_with_status()
 
-        states = TaskState.objects.filter(workflow_state=workflow_state, page_revision=page.get_latest_revision()).values('task', 'status')
-        total_tasks = len(workflow_tasks)  # len used as queryset is to be iterated over
-
-        # create a list of task statuses to be passed into the template to show workflow progress
-        for workflow_task in workflow_tasks:
-            try:
-                status = states.get(task=workflow_task.task)['status']
-            except TaskState.DoesNotExist:
-                status = 'not_started'
-            task_statuses.append(status)
+        current_task_number = None
+        for i, workflow_task in enumerate(workflow_tasks):
+            if workflow_task == task:
+                current_task_number = i + 1
 
         # add a warning message if tasks have been approved and may need to be re-approved
-        approved_task = True if 'approved' in task_statuses else False
+        task_has_been_approved = any(filter(lambda task: task.status == TaskState.STATUS_APPROVED, workflow_tasks))
 
         # TODO: add icon to message when we have added a workflows icon
 
@@ -423,18 +406,26 @@ def edit(request, page_id):
                     reverse('wagtailadmin_pages:revisions_compare', args=(page.id, 'live', latest_revision.id)),
                     _('Compare with live version')
                 ))
-                # Check for revisions still undergoing moderation and warn
-            elif total_tasks == 1:
+
+            # Check for revisions still undergoing moderation and warn
+            if len(workflow_tasks) == 1:
                 # If only one task in workflow, show simple message
                 workflow_info = _("This page is currently awaiting moderation")
             elif current_task_number:
-                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
+                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
             else:
-                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, total_tasks, task_name, workflow_name)
-            if approved_task and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
-                messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons)
+                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
+
+            if task_has_been_approved and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
+                messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons, extra_tags="workflow")
             else:
-                messages.success(request, workflow_info, buttons=buttons)
+                messages.success(request, workflow_info, buttons=buttons, extra_tags="workflow")
+    else:
+        # Show last workflow state
+        workflow_state = page.workflow_states.order_by('created_at').last()
+
+        if workflow_state:
+            workflow_tasks = workflow_state.all_tasks_with_status()
 
     errors_debug = None
 
@@ -638,13 +629,11 @@ def edit(request, page_id):
         'next': next_url,
         'has_unsaved_changes': has_unsaved_changes,
         'page_locked': page_perms.page_locked(),
+        'workflow_state': workflow_state,
         'workflow_actions': page.current_workflow_task.get_actions(page, request.user) if page.current_workflow_task else [],
         'current_task_state': page.current_workflow_task_state,
-        'task_statuses': task_statuses,
+        'workflow_tasks': workflow_tasks,
         'current_task_number': current_task_number,
-        'task_name': task_name,
-        'workflow_name': workflow_name,
-        'total_tasks': total_tasks
     })
 
 

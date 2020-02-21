@@ -1,20 +1,32 @@
 {% load wagtailui_tags i18n %}
-{% if task_statuses %}
-<h2>{{ workflow_name }}</h2>
-    {% if current_task_number %}
-        {% blocktrans %} Task {{ current_task_number }} of {{ total_tasks }}{% endblocktrans %}: {{ task_name }}
-    {% else %}
-        {% trans 'Task' %}: {{ task_name }}
+{% if workflow_state %}
+    {% with workflow_state.workflow as workflow %}
+
+    <h2>{{ workflow.name }}</h2>
+
+    {% if current_task_state %}
+        {% with current_task_state.task as task %}
+
+        {% if current_task_number %}
+            {% blocktrans with workflow_tasks|length as total_tasks %} Task {{ current_task_number }} of {{ total_tasks }}{% endblocktrans %}: {{ task.name }}
+        {% else %}
+            {% trans 'Task' %}: {{ task.name }}
+        {% endif %}
+
+        {% endwith %}
     {% endif %}
+
     <div>
         {% trans 'Approved task' as approved_title %}
         {% trans 'Incomplete task' as incomplete_title %}
-        {% for status in task_statuses %}
-            {% if status == 'approved' %}
+        {% for task in workflow_tasks %}
+            {% if task.status == 'approved' %}
                 {% wagtail_icon name="success" title=approved_title %}
             {% else %}
                 {% wagtail_icon name="radio-empty" title=incomplete_title %}
             {% endif %}
         {% endfor %}
     </div>
+
+    {% endwith %}
 {% endif %}

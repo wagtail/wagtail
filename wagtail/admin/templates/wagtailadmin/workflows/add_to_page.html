@@ -21,7 +21,7 @@
 {% block content %}
 
     {% block header %}
-        {% include "wagtailadmin/shared/header.html" %}
+        {% include "wagtailadmin/shared/header.html" with icon="clipboard-list" %}
     {% endblock %}
 
     <form action="{% url 'wagtailadmin_workflows:add_to_page' workflow.pk %}" method="POST" enctype="multipart/form-data" novalidate>
