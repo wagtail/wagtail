@@ -14,7 +14,7 @@
             <a href="{% url 'wagtailadmin_pages:workflow_history' page.id %}" class="button button-small button-secondary">{% trans "Workflow history" %}</a>
         </p>
 
-        <h2 class="icon icon-placeholder">{{ workflow_state.workflow.name }}</h2 class="icon icon-doc-empty-inverse">
+        <h2 class="icon icon-placeholder">{{ workflow_state.workflow.name }}</h2>
 
         <p>
             {% blocktrans with modified_by=workflow_state.requested_by.get_full_name|default:workflow_state.requested_by.get_username %}Requested by <b>{{ modified_by }}</b>{% endblocktrans %}
