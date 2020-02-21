@@ -33,7 +33,7 @@ Add an entry for the view into your URLs configuration:
         ...
 
         # Ensure that the wagtailimages_serve line appears above the default Wagtail page serving route
-        path('', include(wagtail_urls)),
+        re_path(r'', include(wagtail_urls)),
     ]
 
 Usage
