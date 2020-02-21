@@ -100,8 +100,8 @@ class Delete(DeleteView):
 
         return context
 
-    def post(self, request, instance_id):
-        self.object = get_object_or_404(self.get_queryset(), id=instance_id)
+    def post(self, request, pk):
+        self.object = get_object_or_404(self.get_queryset(), id=pk)
         collection_contents = self.get_collection_contents()
 
         if collection_contents:
