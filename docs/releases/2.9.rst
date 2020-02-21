@@ -99,3 +99,24 @@ Page / Collection managers no longer expose a ``delete`` method
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For `consistency with standard Django models <https://docs.djangoproject.com/en/stable/topics/db/queries/#deleting-objects>`_, the ``delete()`` method is no longer available on the default Page and Collection managers. Code such as ``Page.objects.delete()`` should be changed to ``Page.objects.all().delete()``.
+
+
+Move to new configurable moderation system (workflow)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A new workflow system has been introduced for moderation. Task types are defined as models in code, and instances - tasks - are created in the Wagtail Admin,
+then chained together to form workflows: sequences of moderation stages through which a page must pass prior to publication.
+
+Key points:
+
+* Prior to 2.9, moderation in Wagtail was performed on a per-revision basis. It is now per page.
+* ``PageRevision.submitted_for_moderation`` will return ``True`` for revisions passing through the old moderation system, but not for the new system
+* Pages undergoing moderation in the old system will not have their moderation halted, and can still be approved/rejected. As a result, you may see
+    two sets of moderation dashboard panels until there are no longer any pages in moderation in the old system
+* No pages can be submitted for moderation in the old system: "Submit for moderation" now submits to the new Workflow system
+* You no longer need the publish permission to perform moderation actions on a page - actions available to each user are now configured per task.
+    With the built in ``GroupApprovalTask``, anybody in a specific set of groups can approve or reject the task.
+* A data migration is provided to recreate your existing publish-permission based moderation workflow in the new system. If you have made no permissions changes,
+    this should simply create a task approvable by anybody in the `Moderators` group, and assign a workflow with this task to the root page, creating a standard workflow
+    for the entire page tree. However, if you have a complex nested set of publish page permissions, the created set of workflows will be more complex as well - you may wish to
+    inspect the created workflows and tasks in the new ``Settings/Workflows`` admin area and potentially simplify them.
