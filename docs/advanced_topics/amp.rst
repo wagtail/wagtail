@@ -163,7 +163,7 @@ file for the ``/amp`` prefix:
         # Change this line to point at your amp_urls instead of Wagtail's urls
         path('amp/', include(wagtail_amp_urls)),
 
-        path('', include(wagtail_urls)),
+        re_path(r'', include(wagtail_urls)),
     ]
 
 After this, there shouldn't be any noticeable difference to the AMP version of

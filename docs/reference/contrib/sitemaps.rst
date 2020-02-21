@@ -52,7 +52,7 @@ sitemap:
         ...
 
         # Ensure that the 'sitemap' line appears above the default Wagtail page serving route
-        path('', include(wagtail_urls)),
+        re_path(r'', include(wagtail_urls)),
     ]
 
 
