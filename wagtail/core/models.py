@@ -2603,7 +2603,7 @@ class Workflow(ClusterableModel):
 
     @property
     def tasks(self):
-        return Task.objects.filter(workflow_tasks__workflow=self)
+        return Task.objects.filter(workflow_tasks__workflow=self).order_by('workflow_tasks__sort_order')
 
     @transaction.atomic
     def start(self, page, user):
