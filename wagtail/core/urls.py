@@ -23,8 +23,8 @@ WAGTAIL_FRONTEND_LOGIN_TEMPLATE = getattr(
 
 
 urlpatterns = [
-    re_path(
-        r'^_util/authenticate_with_password/(\d+)/(\d+)/',
+    path(
+        '_util/authenticate_with_password/<int:page_view_restriction_id>/<int:page_id>/',
         views.authenticate_with_password,
         name='wagtailcore_authenticate_with_password'),
     path(

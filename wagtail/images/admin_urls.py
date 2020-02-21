@@ -5,11 +5,11 @@ from wagtail.images.views import chooser, images, multiple
 app_name = 'wagtailimages'
 urlpatterns = [
     path('', images.index, name='index'),
-    re_path(r'^(\d+)/$', images.edit, name='edit'),
-    re_path(r'^(\d+)/delete/$', images.delete, name='delete'),
-    re_path(r'^(\d+)/generate_url/$', images.url_generator, name='url_generator'),
-    re_path(r'^(\d+)/generate_url/(.*)/$', images.generate_url, name='generate_url'),
-    re_path(r'^(\d+)/preview/(.*)/$', images.preview, name='preview'),
+    path('<int:image_id>/', images.edit, name='edit'),
+    path('<int:image_id>/delete/', images.delete, name='delete'),
+    path('<int:image_id>/generate_url/', images.url_generator, name='url_generator'),
+    path('<int:image_id>/generate_url/<str:filter_spec>/', images.generate_url, name='generate_url'),
+    path('<int:image_id>/preview/<str:filter_spec>/', images.preview, name='preview'),
     path('add/', images.add, name='add'),
     re_path(r'^usage/(\d+)/$', images.usage, name='image_usage'),
 

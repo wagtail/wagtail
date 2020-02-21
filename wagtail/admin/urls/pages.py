@@ -4,13 +4,12 @@ from wagtail.admin.views import page_privacy, pages
 
 app_name = 'wagtailadmin_pages'
 urlpatterns = [
-    re_path(r'^add/(\w+)/(\w+)/(\d+)/$', pages.create, name='add'),
-    re_path(r'^add/(\w+)/(\w+)/(\d+)/preview/$', pages.PreviewOnCreate.as_view(), name='preview_on_add'),
-    re_path(r'^usage/(\w+)/(\w+)/$', pages.content_type_use, name='type_use'),
+    path('add/<str:content_type_app_name>/<str:content_type_model_name>/<int:parent_page_id>/', pages.create, name='add'),
+    path('add/<str:content_type_app_name>/<str:content_type_model_name>/<int:parent_page_id>/preview/', pages.PreviewOnCreate.as_view(), name='preview_on_add'),
+    path('usage/<str:content_type_app_name>/<str:content_type_model_name>/', pages.content_type_use, name='type_use'),
 
     path('<int:page_id>/edit/', pages.edit, name='edit'),
-    re_path(r'^(\d+)/edit/preview/$', pages.PreviewOnEdit.as_view(), name='preview_on_edit'),
-    # path('<int:pk>/edit/preview/', pages.PreviewOnEdit.as_view(), name='preview_on_edit'),
+    path('<int:page_id>/edit/preview/', pages.PreviewOnEdit.as_view(), name='preview_on_edit'),
 
     path('<int:page_id>/view_draft/', pages.view_draft, name='view_draft'),
     path('<int:parent_page_id>/add_subpage/', pages.add_subpage, name='add_subpage'),
