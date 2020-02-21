@@ -15,8 +15,8 @@ Key points:
 two sets of moderation dashboard panels until there are no longer any pages in moderation in the old system
 * No pages can be submitted for moderation in the old system: "Submit for moderation" now submits to the new Workflow system
 * You no longer need the publish permission to perform moderation actions on a page - actions available to each user are now configured per task. 
-With the built in `GroupApprovalTask`, anybody in a specific set of groups can approve or reject the task.
+With the built in ``GroupApprovalTask``, anybody in a specific set of groups can approve or reject the task.
 * A data migration is provided to recreate your existing publish-permission based moderation workflow in the new system. If you have made no permissions changes,
 this should simply create a task approvable by anybody in the `Moderators` group, and assign a workflow with this task to the root page, creating a standard workflow
 for the entire page tree. However, if you have a complex nested set of publish page permissions, the created set of workflows will be more complex as well - you may wish to
-inspect the created workflows and tasks and potentially simplify them in the new `Settings/Workflows` admin area.
+inspect the created workflows and tasks in the new ``Settings/Workflows`` admin area and potentially simplify them.
