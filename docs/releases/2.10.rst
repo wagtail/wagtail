@@ -16,12 +16,13 @@ Other features
 
  * Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
  * Added filtering to locked pages report (Karl Hobley)
+ * Adds ability to view a group's users via standalone admin URL and a link to this on the group edit view (Karran Besen)
 
 
 Bug fixes
 ~~~~~~~~~
 
- * ...
+ * Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
 
 
 Upgrade considerations

@@ -26,7 +26,8 @@
 
     {% if user_can_add %}
         {% trans "Add an image" as add_img_str %}
-        {% include "wagtailadmin/shared/header.html" with title=im_str add_link="wagtailimages:add_multiple" icon="image" add_text=add_img_str search_url="wagtailimages:index" %}
+        {% url "wagtailimages:add_multiple" as add_link %}
+        {% include "wagtailadmin/shared/header.html" with title=im_str action_url=add_link icon="image" action_text=add_img_str search_url="wagtailimages:index" %}
     {% else %}
         {% include "wagtailadmin/shared/header.html" with title=im_str icon="image" search_url="wagtailimages:index" %}
     {% endif %}

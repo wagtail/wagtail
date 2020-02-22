@@ -26,9 +26,9 @@
                 {% block header_extra %}
                     <div class="right">
                         {% if user_can_create %}
-                            <span class="addbutton">
+                            <div class="actionbutton">
                                 {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
-                            </span>
+                            </div>
                         {% endif %}
                         {% if view.list_export %}
                             <div class="dropdown dropdown-button match-width col">

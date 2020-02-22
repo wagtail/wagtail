@@ -1,3 +1,4 @@
+from django.conf.urls import url
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext as _
 
@@ -5,7 +6,7 @@ from wagtail.admin.views import generic, mixins
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.core import hooks
 from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
-
+from wagtail.users.views.users import index
 _permission_panel_classes = None
 
 
@@ -155,5 +156,15 @@ class GroupViewSet(ModelViewSet):
     edit_view_class = EditView
     delete_view_class = DeleteView
 
+
+    @property
+    def users_view(self):
+        return index
+
     def get_form_class(self, for_update=False):
         return GroupForm
+
+    def get_urlpatterns(self):
+        return super().get_urlpatterns() + [
+            url(r'^(\d+)/users/$', self.users_view, name='users'),
+        ]

@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.contrib.auth.models import Group
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
@@ -45,9 +46,15 @@ def get_user_edit_form():
 
 @any_permission_required(add_user_perm, change_user_perm, delete_user_perm)
 @vary_on_headers('X-Requested-With')
-def index(request):
+def index(request, *args):
     q = None
     is_searching = False
+
+    group = None
+    group_filter = Q()
+    if args:
+        group = get_object_or_404(Group, id=args[0])
+        group_filter = Q(groups=group) if args else Q()
 
     model_fields = [f.name for f in User._meta.get_fields()]
 
@@ -71,12 +78,12 @@ def index(request):
                 if 'email' in model_fields:
                     conditions |= Q(email__icontains=term)
 
-            users = User.objects.filter(conditions)
+            users = User.objects.filter(group_filter & conditions)
     else:
         form = SearchForm(placeholder=_("Search users"))
 
     if not is_searching:
-        users = User.objects.all()
+        users = User.objects.filter(group_filter)
 
     if 'last_name' in model_fields and 'first_name' in model_fields:
         users = users.order_by('last_name', 'first_name')
@@ -101,6 +108,7 @@ def index(request):
         })
     else:
         return TemplateResponse(request, "wagtailusers/users/index.html", {
+            'group': group,
             'search_form': form,
             'users': users,
             'is_searching': is_searching,

@@ -14,8 +14,10 @@
     tabbed - if true, add the classname 'tab-merged'
     merged - if true, add the classname 'merged'
 
-    add_link - if present, display an 'add' button. This is a URL route name (taking no parameters) to be used as the link URL for the button
-    add_text - text for the 'add' button
+    action_url - if present, display an 'action' button. This is the URL to be used as the link URL for the button
+    action_text - text for the 'action' button
+    action_icon - icon for the 'action' button, default is 'icon-plus'
+
 {% endcomment %}
 <header class="{% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
     {% block breadcrumb %}{% endblock %}
@@ -37,9 +39,9 @@
             {% endif %}
         </div>
         <div class="right">
-            {% if add_link %}
-                <div class="addbutton">
-                    <a href="{% url add_link %}" class="button bicolor icon icon-plus">{{ add_text }}</a>
+            {% if action_url %}
+                <div class="actionbutton">
+                    <a href="{{ action_url }}" class="button bicolor icon {{ action_icon|default:'icon-plus' }}">{{ action_text }}</a>
                 </div>
             {% endif %}
         </div>
