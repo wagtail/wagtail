@@ -17,7 +17,7 @@ from django.db.models import Case, Q, Value, When
 from django.db.models.functions import Concat, Substr
 from django.http import Http404
 from django.template.response import TemplateResponse
-from django.urls import reverse
+from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.text import capfirst, slugify
@@ -829,8 +829,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             else:
                 site_id, root_path, root_url = possible_sites[0]
 
-        page_path = reverse(
-            'wagtail_serve', args=(self.url_path[len(root_path):],))
+        # The page may not be routable because wagtail_serve is not registered
+        # This may be the case if Wagtail is used headless
+        try:
+            page_path = reverse(
+                'wagtail_serve', args=(self.url_path[len(root_path):],))
+        except NoReverseMatch:
+            return (site_id, None, None)
 
         # Remove the trailing slash from the URL reverse generates if
         # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
@@ -844,7 +849,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
         url_parts = self.get_url_parts(request=request)
 
-        if url_parts is None:
+        if url_parts is None or url_parts[1] is None and url_parts[2] is None:
             # page is not routable
             return
 
@@ -876,7 +881,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             current_site = site
         url_parts = self.get_url_parts(request=request)
 
-        if url_parts is None:
+        if url_parts is None or url_parts[1] is None and url_parts[2] is None:
             # page is not routable
             return
 

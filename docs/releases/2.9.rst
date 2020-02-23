@@ -21,6 +21,8 @@ Other features
  * Support the rel attribute on custom ModelAdmin buttons (Andy Chosak)
  * Server-side page slug generation now respects ``WAGTAIL_ALLOW_UNICODE_SLUGS`` (Arkadiusz Michał Ryś)
  * Wagtail admin no longer depends on SiteMiddleware, avoiding incompatibility with Django sites framework and redundant database queries (aritas1, timmysmalls, Matt Westcott)
+ * Tag field autocompletion now handles custom tag models (Matt Westcott)
+ * ``wagtail_serve`` URL route can now be omitted for headless sites (Storm Heg)
  * Aded check all/none toggle feature when editing group object permissions (Kalob Taulien)
 
 
@@ -37,6 +39,12 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+Removed support for Django 2.1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django 2.1 is no longer supported as of this release; please upgrade to Django 2.2 or above before upgrading Wagtail.
+
 
 ``SiteMiddleware`` and ``request.site`` deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

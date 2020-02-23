@@ -117,9 +117,22 @@ class AdminDateTimeInput(widgets.DateTimeInput):
 class AdminTagWidget(TagWidget):
     template_name = 'wagtailadmin/widgets/tag_widget.html'
 
+    def __init__(self, *args, **kwargs):
+        self.tag_model = kwargs.pop('tag_model', None)
+        super().__init__(*args, **kwargs)
+
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        context['widget']['autocomplete_url'] = reverse('wagtailadmin_tag_autocomplete')
+
+        if self.tag_model:
+            autocomplete_url = reverse(
+                'wagtailadmin_tag_model_autocomplete',
+                args=(self.tag_model._meta.app_label, self.tag_model._meta.model_name)
+            )
+        else:
+            autocomplete_url = reverse('wagtailadmin_tag_autocomplete')
+
+        context['widget']['autocomplete_url'] = autocomplete_url
         context['widget']['tag_spaces_allowed'] = getattr(settings, 'TAG_SPACES_ALLOWED', True)
         context['widget']['tag_limit'] = getattr(settings, 'TAG_LIMIT', None)
 

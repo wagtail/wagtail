@@ -4,6 +4,7 @@ Changelog
 2.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Removed support for Django 2.1
  * Skip page validation when unpublishing a page (Samir Shah)
  * Added `MultipleChoiceBlock` block type for StreamField (James O'Toole)
  * ChoiceBlock now accepts a `widget` keyword argument (James O'Toole)
@@ -11,6 +12,8 @@ Changelog
  * Support the rel attribute on custom ModelAdmin buttons (Andy Chosak)
  * Server-side page slug generation now respects `WAGTAIL_ALLOW_UNICODE_SLUGS` (Arkadiusz Michał Ryś)
  * Wagtail admin no longer depends on SiteMiddleware, avoiding incompatibility with Django sites framework and redundant database queries (aritas1, timmysmalls, Matt Westcott)
+ * Tag field autocompletion now handles custom tag models (Matt Westcott)
+ * `wagtail_serve` URL route can now be omitted for headless sites (Storm Heg)
  * Aded check all/none toggle feature when editing group object permissions (Kalob Taulien)
  * Fix: Added ARIA alert role to live search forms in the admin (Casper Timmers)
  * Fix: Reorder login form elements to match expected tab order (Kjartan Sverrisson)

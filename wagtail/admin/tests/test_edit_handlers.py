@@ -20,7 +20,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
     EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel,
-    SimplePage, ValidatedPage)
+    RestaurantPage, SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -118,6 +118,13 @@ class TestGetFormForModel(TestCase):
 
         self.assertEqual(type(form.fields['date_from']), forms.DateField)
         self.assertEqual(type(form.fields['date_from'].widget), forms.PasswordInput)
+
+    def test_tag_widget_is_passed_tag_model(self):
+        RestaurantPageForm = get_form_for_model(
+            RestaurantPage, form_class=WagtailAdminPageForm
+        )
+        form_html = RestaurantPageForm().as_p()
+        self.assertIn('/admin/tag\\u002Dautocomplete/tests/restauranttag/', form_html)
 
 
 def clear_edit_handler(page_cls):

@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^choose-anchor-link/$', chooser.anchor_link, name='wagtailadmin_choose_page_anchor_link'),
 
     url(r'^tag-autocomplete/$', tags.autocomplete, name='wagtailadmin_tag_autocomplete'),
+    url(r'^tag-autocomplete/(\w+)/(\w+)/$', tags.autocomplete, name='wagtailadmin_tag_model_autocomplete'),
 
     url(r'^collections/', include(wagtailadmin_collections_urls, namespace='wagtailadmin_collections')),
 
