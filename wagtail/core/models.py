@@ -2777,9 +2777,11 @@ class WorkflowState(models.Model):
 
     def clean(self):
         super().clean()
-        # The unique constraint is conditional, and so not supported on the MySQL backend - so an additional check is done here
-        if WorkflowState.objects.filter(status=self.STATUS_IN_PROGRESS, page=self.page).exclude(pk=self.pk).exists():
-            raise ValidationError(_('There may only be one in progress workflow state per page.'))
+
+        if self.status == self.STATUS_IN_PROGRESS:
+            # The unique constraint is conditional, and so not supported on the MySQL backend - so an additional check is done here
+            if WorkflowState.objects.filter(status=self.STATUS_IN_PROGRESS, page=self.page).exclude(pk=self.pk).exists():
+                raise ValidationError(_('There may only be one in progress workflow state per page.'))
 
     def save(self, *args, **kwargs):
         self.full_clean()
