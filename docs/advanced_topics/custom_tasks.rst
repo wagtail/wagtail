@@ -105,6 +105,8 @@ Your custom task must then be instructed to generate an instance of your custom 
 
         panels = Task.panels + [FieldPanel('user')]
 
+        task_state_class = UserApprovalTaskState
+
         # prevent editing of ``user`` after the task is created
         exclude_on_edit = {'user'}
 
