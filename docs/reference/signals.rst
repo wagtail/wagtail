@@ -82,3 +82,91 @@ This signal is emitted from a ``Page`` when the page is unpublished.
 :sender: The page ``class``
 :instance: The specific ``Page`` instance.
 :kwargs: Any other arguments passed to ``page_unpublished.send()``
+
+
+workflow_submitted
+------------------
+
+This signal is emitted from a ``WorkflowState`` when a page is submitted to a workflow.
+
+:sender: ``WorkflowState``
+:instance: The specific ``WorkflowState`` instance.
+:user: The user who submitted the workflow
+:kwargs: Any other arguments passed to ``workflow_submitted.send()``
+
+
+workflow_rejected
+-----------------
+
+This signal is emitted from a ``WorkflowState`` when a page is rejected from a workflow.
+
+:sender: ``WorkflowState``
+:instance: The specific ``WorkflowState`` instance.
+:user: The user who rejected the workflow
+:kwargs: Any other arguments passed to ``workflow_rejected.send()``
+
+
+workflow_approved
+-----------------
+
+This signal is emitted from a ``WorkflowState`` when a page's workflow completes successfully
+
+:sender: ``WorkflowState``
+:instance: The specific ``WorkflowState`` instance.
+:user: The user who last approved the workflow
+:kwargs: Any other arguments passed to ``workflow_approved.send()``
+
+
+workflow_cancelled
+------------------
+
+This signal is emitted from a ``WorkflowState`` when a page's workflow is cancelled
+
+:sender: ``WorkflowState``
+:instance: The specific ``WorkflowState`` instance.
+:user: The user who cancelled the workflow
+:kwargs: Any other arguments passed to ``workflow_cancelled.send()``
+
+
+task_submitted
+--------------
+
+This signal is emitted from a ``TaskState`` when a page is submitted to a task.
+
+:sender: ``TaskState``
+:instance: The specific ``TaskState`` instance.
+:user: The user who submitted the page to the task
+:kwargs: Any other arguments passed to ``task_submitted.send()``
+
+
+task_rejected
+-------------
+
+This signal is emitted from a ``TaskState`` when a page is rejected from a task.
+
+:sender: ``TaskState``
+:instance: The specific ``TaskState`` instance.
+:user: The user who rejected the task
+:kwargs: Any other arguments passed to ``task_rejected.send()``
+
+
+task_approved
+-------------
+
+This signal is emitted from a ``TaskState`` when a page's task is approved
+
+:sender: ``TaskState``
+:instance: The specific ``TaskState`` instance.
+:user: The user who approved the task
+:kwargs: Any other arguments passed to ``task_approved.send()``
+
+
+task_cancelled
+--------------
+
+This signal is emitted from a ``TaskState`` when a page's task is cancelled.
+
+:sender: ``TaskState``
+:instance: The specific ``TaskState`` instance.
+:user: The user who cancelled the task
+:kwargs: Any other arguments passed to ``task_cancelled.send()``
