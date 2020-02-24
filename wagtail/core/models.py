@@ -1732,12 +1732,12 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
             return workflow
 
     def workflow_in_progress(self):
-        return WorkflowState.objects.filter(page=self, status='in_progress').exists()
+        return WorkflowState.objects.filter(page=self, status=self.STATUS_IN_PROGRESS).exists()
 
     @property
     def current_workflow_state(self):
         try:
-            return WorkflowState.objects.get(page=self, status='in_progress')
+            return WorkflowState.objects.get(page=self, status=self.STATUS_IN_PROGRESS)
         except WorkflowState.DoesNotExist:
             return
 
