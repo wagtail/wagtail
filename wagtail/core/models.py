@@ -2640,6 +2640,7 @@ class Task(models.Model):
         return self.task_state_class or TaskState
 
     def start(self, workflow_state, user=None):
+        """Start this task on the provided workflow state by creating an instance of TaskState"""
         task_state = self.get_task_state_class()(workflow_state=workflow_state)
         task_state.status = TaskState.STATUS_IN_PROGRESS
         task_state.page_revision = workflow_state.page.get_latest_revision()
@@ -2650,28 +2651,39 @@ class Task(models.Model):
 
     @transaction.atomic
     def on_action(self, task_state, user, action_name):
+        """Performs an action on a task state determined by the ``action_name`` string passed"""
         if action_name == 'approve':
             task_state.approve(user=user)
         elif action_name == 'reject':
             task_state.reject(user=user)
 
     def user_can_access_editor(self, page, user):
+        """Returns True if a user who would not normally be able to access the editor for the page should be able to if the page is currently on this task.
+        Note that returning False does not remove permissions from users who would otherwise have them."""
         return False
 
     def user_can_lock(self, page, user):
+        """Returns True if a user who would not normally be able to lock the page should be able to if the page is currently on this task.
+        Note that returning False does not remove permissions from users who would otherwise have them."""
         return False
 
     def user_can_unlock(self, page, user):
+        """Returns True if a user who would not normally be able to unlock the page should be able to if the page is currently on this task.
+        Note that returning False does not remove permissions from users who would otherwise have them."""
         return False
 
     def get_actions(self, page, user):
+        """Get the list of action strings for actions the current user can perform for this task on the given page. These strings should be
+        the same as those able to be passed to ``on_action``"""
         return []
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
+        """Returns a ``QuerySet`` of the task states the current user can moderate"""
         return TaskState.objects.none()
 
     @transaction.atomic
     def deactivate(self, user=None):
+        """Set ``active`` to False and cancel all in progress task states linked to this task"""
         self.active = False
         self.save()
         in_progress_states = TaskState.objects.filter(task=self, status=TaskState.STATUS_IN_PROGRESS)
@@ -2699,11 +2711,12 @@ class Workflow(ClusterableModel):
 
     @property
     def tasks(self):
+        """Returns all ``Task`` instances linked to this workflow"""
         return Task.objects.filter(workflow_tasks__workflow=self).order_by('workflow_tasks__sort_order')
 
     @transaction.atomic
     def start(self, page, user):
-        # initiates a workflow by creating an instance of WorkflowState
+        """Initiates a workflow by creating an instance of ``WorkflowState``"""
         state = WorkflowState(page=page, workflow=self, status=WorkflowState.STATUS_IN_PROGRESS, requested_by=user)
         state.save()
         state.update(user=user)
@@ -2712,6 +2725,7 @@ class Workflow(ClusterableModel):
 
     @transaction.atomic
     def deactivate(self, user=None):
+        """Sets the workflow as inactive, and cancels all in progress instances of ``WorkflowState`` linked to this workflow"""
         self.active = False
         in_progress_states = WorkflowState.objects.filter(workflow=self, status=WorkflowState.STATUS_IN_PROGRESS)
         for state in in_progress_states:
@@ -2813,12 +2827,13 @@ class WorkflowState(models.Model):
         return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
 
     def update(self, user=None, next_task=None):
-        # checks the status of the current task, and progresses (or ends) the workflow if appropriate
+        """Checks the status of the current task, and progresses (or ends) the workflow if appropriate. If the workflow progresses,
+        next_task will be used to start a specific task next if provided."""
         try:
             current_status = self.current_task_state.status
         except AttributeError:
             current_status = None
-        if current_status == 'rejected':
+        if current_status == self.STATUS_REJECTED:
             self.status = current_status
             self.save()
             workflow_rejected.send(sender=self.__class__, instance=self, user=user)
@@ -2837,21 +2852,23 @@ class WorkflowState(models.Model):
                 self.finish(user=user)
 
     def get_next_task(self):
-        # finds the next active task associated with the latest page revision, which has not been either approved or skipped
+        """Returns the next active task associated with the latest page revision, which has not been either approved or skipped"""
         return Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status=TaskState.STATUS_APPROVED) | Q(task_states__status=TaskState.STATUS_SKIPPED)).order_by('workflow_tasks__sort_order').first()
 
     def cancel(self, user=None):
+        """Cancels the workflow state"""
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
-        self.status = 'cancelled'
+        self.status = self.STATUS_CANCELLED
         self.save()
         workflow_cancelled.send(sender=self.__class__, instance=self, user=user)
 
     @transaction.atomic
     def finish(self, user=None):
+        """Finishes a successful in progress workflow, marking it as approved and performing the ``on_finish`` action"""
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
-        self.status = 'approved'
+        self.status = self.STATUS_APPROVED
         self.save()
         self.on_finish()
         workflow_approved.send(sender=self.__class__, instance=self, user=user)
@@ -2974,9 +2991,10 @@ class TaskState(MultiTableCopyMixin, models.Model):
 
     @transaction.atomic
     def approve(self, user=None):
+        """Approve the task state and update the workflow state"""
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
-        self.status = 'approved'
+        self.status = self.STATUS_APPROVED
         self.finished_at = timezone.now()
         self.save()
         self.workflow_state.update(user=user)
@@ -2985,9 +3003,10 @@ class TaskState(MultiTableCopyMixin, models.Model):
 
     @transaction.atomic
     def reject(self, user=None):
+        """Reject the task state and update the workflow state"""
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
-        self.status = 'rejected'
+        self.status = self.STATUS_REJECTED
         self.finished_at = timezone.now()
         self.save()
         self.workflow_state.update(user=user)
@@ -3008,6 +3027,8 @@ class TaskState(MultiTableCopyMixin, models.Model):
 
     @transaction.atomic
     def cancel(self, user=None, resume=False):
+        """Cancel the task state and update the workflow state. If ``resume`` is set to True, then upon update the workflow state
+        is passed the current task as ``next_task``, causing it to start a new task state on the current task if possible"""
         self.status = 'cancelled'
         self.finished_at = timezone.now()
         self.save()
@@ -3019,6 +3040,8 @@ class TaskState(MultiTableCopyMixin, models.Model):
         return self
 
     def copy(self, update_attrs=None, exclude_fields=None):
+        """Copy this task state, excluding the attributes in the ``exclude_fields`` list and updating any attributes to values
+        specified in the ``update_attrs`` dictionary of ``attribute``: ``new value`` pairs"""
         copy_instance, _ = self._copy(exclude_fields, update_attrs)
         return copy_instance
 
