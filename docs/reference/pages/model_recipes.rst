@@ -139,11 +139,13 @@ Be careful if you're introducing new required arguments to the ``serve()`` metho
 Tagging
 -------
 
-Wagtail provides tagging capability through the combination of two django modules, ``taggit`` and ``modelcluster``. ``taggit`` provides a model for tags which is extended by ``modelcluster``, which in turn provides some magical database abstraction which makes drafts and revisions possible in Wagtail. It's a tricky recipe, but the net effect is a many-to-many relationship between your model and a tag class reserved for your model.
+Wagtail provides tagging capabilities through the combination of two Django modules, `django-taggit <https://django-taggit.readthedocs.io/>`_ (which provides a general-purpose tagging implementation) and `django-modelcluster <https://github.com/wagtail/django-modelcluster>`_ (which extends django-taggit's ``TaggableManager`` to allow tag relations to be managed in memory without writing to the database - necessary for handling previews and revisions). To add tagging to a page model, you'll need to define a 'through' model inheriting from ``TaggedItemBase`` to set up the many-to-many relationship between django-taggit's ``Tag`` model and your page model, and add a ``ClusterTaggableManager`` accessor to your page model to present this relation as a single tag field.
 
-Using an example from the Wagtail demo site, here's what the tag model and the relationship field looks like in ``models.py``:
+In this example, we set up tagging on ``BlogPage`` through a ``BlogPageTag`` model:
 
 .. code-block:: python
+
+    # models.py
 
     from modelcluster.fields import ParentalKey
     from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -163,7 +165,7 @@ Using an example from the Wagtail demo site, here's what the tag model and the r
 
 Wagtail's admin provides a nice interface for inputting tags into your content, with typeahead tag completion and friendly tag icons.
 
-Now that we have the many-to-many tag relationship in place, we can fit in a way to render both sides of the relation. Here's more of the Wagtail demo site ``models.py``, where the index model for ``BlogPage`` is extended with logic for filtering the index by tag:
+We can now make use of the many-to-many tag relationship in our views and templates. For example, we can set up the blog's index page to accept a ``?tag=...`` query parameter to filter the ``BlogPage`` listing by tag:
 
 .. code-block:: python
 
@@ -171,21 +173,22 @@ Now that we have the many-to-many tag relationship in place, we can fit in a way
 
     class BlogIndexPage(Page):
         ...
-        def serve(self, request):
-            # Get blogs
-            blogs = BlogPage.objects.child_of(self).live()
+        def get_context(self, request):
+            context = super().get_context(request)
+
+            # Get blog entries
+            blog_entries = BlogPage.objects.child_of(self).live()
 
             # Filter by tag
             tag = request.GET.get('tag')
             if tag:
-                blogs = blogs.filter(tags__name=tag)
+                blog_entries = blog_entries.filter(tags__name=tag)
 
-            return render(request, self.template, {
-                'page': self,
-                'blogs': blogs,
-            })
+            context['blog_entries'] = blog_entries
+            return context
 
-Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django QuerySet filter on the ``BlogPageTag`` model to optionally limit the ``BlogPage`` objects sent to the template for rendering. Now, lets render both sides of the relation by showing the tags associated with an object and a way of showing all of the objects associated with each tag. This could be added to the ``blog_page.html`` template:
+
+Here, ``blog_entries.filter(tags__name=tag)`` follows the ``tags`` relation on ``BlogPage``, to filter the listing to only those pages with a matching tag name before passing this to the template for rendering. We can now update the ``blog_page.html`` template to show a list of tags associated with the page, with links back to the filtered index page:
 
 .. code-block:: html+django
 
@@ -193,9 +196,65 @@ Here, ``blogs.filter(tags__name=tag)`` invokes a reverse Django QuerySet filter 
         <a href="{% pageurl page.blog_index %}?tag={{ tag }}">{{ tag }}</a>
     {% endfor %}
 
-Iterating through ``page.tags.all`` will display each tag associated with ``page``, while the link(s) back to the index make use of the filter option added to the ``BlogIndexPage`` model. A Django query could also use the ``tagged_items`` related name field to get ``BlogPage`` objects associated with a tag.
+Iterating through ``page.tags.all`` will display each tag associated with ``page``, while the links back to the index make use of the filter option added to the ``BlogIndexPage`` model. A Django query could also use the ``tagged_items`` related name field to get ``BlogPage`` objects associated with a tag.
 
-This is just one possible way of creating a taxonomy for Wagtail objects. With all of the components for a taxonomy available through Wagtail, you should be able to fulfil even the most exotic taxonomic schemes.
+The same approach can be used to add tagging to non-page models managed through :ref:`snippets` and :doc:`/reference/contrib/modeladmin/index`. In this case, the model must inherit from ``modelcluster.models.ClusterableModel`` to be compatible with ``ClusterTaggableManager``.
+
+
+Custom tag models
+-----------------
+
+In the above example, any newly-created tags will be added to django-taggit's default ``Tag`` model, which will be shared by all other models using the same recipe as well as Wagtail's image and document models. In particular, this means that the autocompletion suggestions on tag fields will include tags previously added to other models. To avoid this, you can set up a custom tag model inheriting from ``TagBase``, along with a 'through' model inheriting from ``ItemBase``, which will provide an independent pool of tags for that page model.
+
+.. code-block:: python
+
+    from django.db import models
+    from modelcluster.contrib.taggit import ClusterTaggableManager
+    from modelcluster.fields import ParentalKey
+    from taggit.models import TagBase, ItemBase
+
+    class BlogTag(TagBase):
+        class Meta:
+            verbose_name = "blog tag"
+            verbose_name_plural = "blog tags"
+
+
+    class TaggedBlog(ItemBase):
+        tag = models.ForeignKey(
+            BlogTag, related_name="tagged_blogs", on_delete=models.CASCADE
+        )
+        content_object = ParentalKey(
+            to='demo.BlogPage',
+            on_delete=models.CASCADE,
+            related_name='tagged_items'
+        )
+
+    class BlogPage(Page):
+        ...
+        tags = ClusterTaggableManager(through='demo.TaggedBlog', blank=True)
+
+Within the admin, the tag field will automatically recognise the custom tag model being used, and will offer autocomplete suggestions taken from that tag model.
+
+
+Disabling free tagging
+----------------------
+
+By default, tag fields work on a "free tagging" basis: editors can enter anything into the field, and upon saving, any tag text not recognised as an existing tag will be created automatically. To disable this behaviour, and only allow editors to enter tags that already exist in the database, custom tag models accept a ``free_tagging = False`` option:
+
+.. code-block:: python
+
+    from taggit.models import TagBase
+    from wagtail.snippets.models import register_snippet
+
+    @register_snippet
+    class BlogTag(TagBase):
+        free_tagging = False
+
+        class Meta:
+            verbose_name = "blog tag"
+            verbose_name_plural = "blog tags"
+
+Here we have registered ``BlogTag`` as a snippet, to provide an interface for administrators (and other users with the appropriate permissions) to manage the allowed set of tags. With the ``free_tagging = False`` option set, editors can no longer enter arbitrary text into the tag field, and must instead select existing tags from the autocomplete dropdown.
 
 
 Have redirects created automatically when changing page slug
