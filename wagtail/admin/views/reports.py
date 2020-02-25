@@ -3,7 +3,7 @@ from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.list import BaseListView
 
 from wagtail.admin.auth import permission_denied
-from wagtail.core.models import Page, UserPagePermissionsProxy, WorkflowState, TaskState
+from wagtail.core.models import Page, TaskState, UserPagePermissionsProxy, WorkflowState
 
 
 class ReportView(TemplateResponseMixin, BaseListView):
