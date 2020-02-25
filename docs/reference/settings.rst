@@ -537,6 +537,8 @@ Page locking
 ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` can be set to ``True`` to prevent users
 from editing pages that they have locked.
 
+.. _workflow_settings:
+
 Workflow
 ========
 
