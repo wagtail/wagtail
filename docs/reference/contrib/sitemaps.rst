@@ -88,6 +88,7 @@ a valid, crawlable hostname. If you change the site's hostname from
     </url>
 
 
+If you change site's port to ``443``, ``https`` scheme will be used.
 Find out more about :ref:`working with Sites<site-model-ref>`.
 
 
