@@ -435,6 +435,7 @@ Contributors
 * Storm Heg
 * Daniel (aritas1)
 * timmysmalls
+* dtwm
 
 Translators
 ===========
