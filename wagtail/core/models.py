@@ -1638,18 +1638,18 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
             return workflow
 
     def workflow_in_progress(self):
-        return WorkflowState.objects.filter(page=self, status='in_progress').exists()
+        return WorkflowState.objects.filter(page=self, status=WorkflowState.STATUS_IN_PROGRESS).exists()
 
     @property
     def current_workflow_state(self):
         try:
-            return WorkflowState.objects.get(page=self, status='in_progress')
+            return WorkflowState.objects.get(page=self, status=WorkflowState.STATUS_IN_PROGRESS)
         except WorkflowState.DoesNotExist:
             return
 
     @property
     def current_workflow_task_state(self):
-        if self.current_workflow_state:
+        if self.current_workflow_state and self.current_workflow_state.current_task_state:
             return self.current_workflow_state.current_task_state.specific
 
     @property
@@ -2516,8 +2516,14 @@ class Task(models.Model):
         else:
             return content_type.get_object_for_this_type(id=self.id)
 
+    task_state_class = None
+
+    @classmethod
+    def get_task_state_class(self):
+        return self.task_state_class or TaskState
+
     def start(self, workflow_state, user=None):
-        task_state = TaskState(workflow_state=workflow_state)
+        task_state = self.get_task_state_class()(workflow_state=workflow_state)
         task_state.status = TaskState.STATUS_IN_PROGRESS
         task_state.page_revision = workflow_state.page.get_latest_revision()
         task_state.task = self
@@ -2576,7 +2582,7 @@ class Workflow(ClusterableModel):
 
     @property
     def tasks(self):
-        return Task.objects.filter(workflow_tasks__workflow=self)
+        return Task.objects.filter(workflow_tasks__workflow=self).order_by('workflow_tasks__sort_order')
 
     @transaction.atomic
     def start(self, page, user):
@@ -2676,9 +2682,11 @@ class WorkflowState(models.Model):
 
     def clean(self):
         super().clean()
-        # The unique constraint is conditional, and so not supported on the MySQL backend - so an additional check is done here
-        if WorkflowState.objects.filter(status=self.STATUS_IN_PROGRESS, page=self.page).exclude(pk=self.pk).exists():
-            raise ValidationError(_('There may only be one in progress workflow state per page.'))
+
+        if self.status == self.STATUS_IN_PROGRESS:
+            # The unique constraint is conditional, and so not supported on the MySQL backend - so an additional check is done here
+            if WorkflowState.objects.filter(status=self.STATUS_IN_PROGRESS, page=self.page).exclude(pk=self.pk).exists():
+                raise ValidationError(_('There may only be one in progress workflow state per page.'))
 
     def save(self, *args, **kwargs):
         self.full_clean()
