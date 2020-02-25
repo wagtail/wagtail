@@ -191,8 +191,8 @@ class Notifier:
         return self.send_notifications(template_set, context, recipients, **kwargs)
 
 
-class EmailNotifier(Notifier):
-    """Class for sending email notifications upon events"""
+class EmailNotificationMixin:
+    """Mixin for sending email notifications upon events"""
 
     def get_recipient_users(self, instance, **kwargs):
         """Gets the ideal set of recipient users, without accounting for notification preferences or missing email addresses"""
@@ -263,8 +263,8 @@ class EmailNotifier(Notifier):
         return self.send_emails(template_set, context, recipients, **kwargs)
 
 
-class BaseWorkflowStateEmailNotifier(EmailNotifier):
-    """A base EmailNotifier to send updates for WorkflowState events"""
+class BaseWorkflowStateEmailNotifier(EmailNotificationMixin, Notifier):
+    """A base notifier to send email updates for WorkflowState events"""
 
     def __init__(self):
         super().__init__((WorkflowState,))
@@ -277,7 +277,7 @@ class BaseWorkflowStateEmailNotifier(EmailNotifier):
 
 
 class WorkflowStateApprovalEmailNotifier(BaseWorkflowStateEmailNotifier):
-    """An EmailNotifier to send updates for WorkflowState approval events"""
+    """A notifier to send email updates for WorkflowState approval events"""
 
     notification = 'approved'
 
@@ -292,7 +292,7 @@ class WorkflowStateApprovalEmailNotifier(BaseWorkflowStateEmailNotifier):
 
 
 class WorkflowStateRejectionEmailNotifier(BaseWorkflowStateEmailNotifier):
-    """An EmailNotifier to send updates for WorkflowState rejection events"""
+    """A notifier to send email updates for WorkflowState rejection events"""
 
     notification = 'rejected'
 
@@ -307,7 +307,7 @@ class WorkflowStateRejectionEmailNotifier(BaseWorkflowStateEmailNotifier):
 
 
 class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
-    """An EmailNotifier to send updates for WorkflowState submission events"""
+    """A notifier to send email updates for WorkflowState submission events"""
 
     notification = 'submitted'
 
@@ -323,8 +323,8 @@ class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
         return recipients
 
 
-class BaseGroupApprovalTaskStateEmailNotifier(EmailNotifier):
-    """A base EmailNotifier to send updates for GroupApprovalTask events"""
+class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
+    """A base notifier to send email updates for GroupApprovalTask events"""
 
     def __init__(self):
         super().__init__((TaskState,))
@@ -360,40 +360,6 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotifier):
 
 
 class GroupApprovalTaskStateSubmissionEmailNotifier(BaseGroupApprovalTaskStateEmailNotifier):
-    """An EmailNotifier to send updates for GroupApprovalTask submission events"""
+    """A notifier to send email updates for GroupApprovalTask submission events"""
 
     notification = 'submitted'
-
-
-class GroupApprovalTaskStateApprovalEmailNotifier(BaseGroupApprovalTaskStateEmailNotifier):
-    """An EmailNotifier to send updates for GroupApprovalTask approval events"""
-
-    notification = 'approved'
-
-    def get_recipient_users(self, task_state, **kwargs):
-        recipients = super().get_recipient_users(task_state, **kwargs)
-        requested_by = task_state.workflow_state.requested_by
-        # add the EmailNotifier's requester
-        triggering_user = kwargs.get('user', None)
-        if not triggering_user or triggering_user.pk != requested_by.pk:
-            recipients = set(recipients)
-            recipients.add(requested_by)
-
-        return recipients
-
-
-class GroupApprovalTaskStateRejectionEmailNotifier(BaseGroupApprovalTaskStateEmailNotifier):
-    """An EmailNotifier to send updates for GroupApprovalTask rejection events"""
-
-    notification = 'rejected'
-
-    def get_recipient_users(self, task_state, **kwargs):
-        recipients = super().get_recipient_users(task_state, **kwargs)
-        requested_by = task_state.workflow_state.requested_by
-        # add the EmailNotifier's requester
-        triggering_user = kwargs.get('user', None)
-        if not triggering_user or triggering_user.pk != requested_by.pk:
-            recipients = set(recipients)
-            recipients.add(requested_by)
-
-        return recipients
