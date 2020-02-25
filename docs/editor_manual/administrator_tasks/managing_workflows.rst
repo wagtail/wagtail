@@ -1,3 +1,5 @@
+.. _managing_workflows:
+
 Managing Workflows
 ==================
 
