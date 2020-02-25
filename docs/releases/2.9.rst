@@ -31,6 +31,7 @@ Other features
  * Allow free tagging to be disabled on custom tag models (Matt Westcott)
  * Allow disabling page preview by setting ``preview_modes`` to an empty list (Casper Timmers)
  * Add Vidyard to oEmbed provider list (Steve Lyall)
+ * Optimise compiling media definitions for complex StreamBlocks (pimarc)
 
 
 Bug fixes

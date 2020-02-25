@@ -438,6 +438,7 @@ Contributors
 * dtwm
 * Steve Lyall
 * Lars van de Kerkhof
+* pimarc
 
 Translators
 ===========
