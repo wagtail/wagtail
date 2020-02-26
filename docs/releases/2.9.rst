@@ -23,6 +23,7 @@ Other features
  * Wagtail admin no longer depends on SiteMiddleware, avoiding incompatibility with Django sites framework and redundant database queries (aritas1, timmysmalls, Matt Westcott)
  * Tag field autocompletion now handles custom tag models (Matt Westcott)
  * ``wagtail_serve`` URL route can now be omitted for headless sites (Storm Heg)
+ * Allow free tagging to be disabled on custom tag models (Matt Westcott)
 
 
 Bug fixes
