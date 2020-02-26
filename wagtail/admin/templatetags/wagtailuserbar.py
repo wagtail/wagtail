@@ -51,9 +51,8 @@ def wagtailuserbar(context, position='bottom-right'):
 
     # Dont render anything if the page has not been saved - i.e. a preview
     page = get_page_instance(context)
-    if page:
-        if page.pk is None:
-            return ''
+    if page is not None and page.pk is None:
+        return ''
 
     try:
         revision_id = request.revision_id
