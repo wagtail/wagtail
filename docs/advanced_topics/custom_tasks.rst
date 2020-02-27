@@ -252,7 +252,7 @@ Next, you need to instantiate the notifier, and connect it to the ``task_submitt
         task_submitted.connect(user_approval_task_submission_email_notifier, dispatch_uid='user_approval_task_submitted_email_notification')
 
 ``register_signal_handlers()`` should then be run on loading the app: for example, by adding it to the ``ready()`` method in your ``AppConfig`` 
-(and making sure you set this config is set as ``default_app_config`` in ``<project>/__init__.py``).
+(and making sure this config is set as ``default_app_config`` in ``<project>/__init__.py``).
 
 .. code-block:: python
 
