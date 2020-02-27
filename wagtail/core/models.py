@@ -1226,14 +1226,14 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
                 return _("expired")
             elif self.approved_schedule:
                 return _("scheduled")
-            elif self.workflow_in_progress():
+            elif self.workflow_in_progress:
                 return _("in moderation")
             else:
                 return _("draft")
         else:
             if self.approved_schedule:
                 return _("live + scheduled")
-            elif self.workflow_in_progress():
+            elif self.workflow_in_progress:
                 return _("live + in moderation")
             elif self.has_unpublished_changes:
                 return _("live + draft")
@@ -1717,25 +1717,31 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
 
         return obj
 
+    @property
     def has_workflow(self):
-        return self.get_ancestors(inclusive=True).filter(workflowpage__isnull=False).exists()
+        """Returns True if the page or an ancestor has an active workflow assigned, otherwise False"""
+        return self.get_ancestors(inclusive=True).filter(workflowpage__isnull=False).filter(workflowpage__workflow__active=True).exists()
 
     def get_workflow(self):
-        if hasattr(self, 'workflowpage'):
+        """Returns the active workflow assigned to the page or its nearest ancestor"""
+        if hasattr(self, 'workflowpage') and self.workflowpage.workflow.active:
             return self.workflowpage.workflow
         else:
             try:
-                workflow = self.get_ancestors().filter(workflowpage__isnull=False).order_by(
+                workflow = self.get_ancestors().filter(workflowpage__isnull=False).filter(workflowpage__workflow__active=True).order_by(
                     '-depth').first().workflowpage.workflow
             except AttributeError:
                 workflow = None
             return workflow
 
+    @property
     def workflow_in_progress(self):
+        """Returns True if a workflow is in progress on the current page, otherwise False"""
         return WorkflowState.objects.filter(page=self, status=WorkflowState.STATUS_IN_PROGRESS).exists()
 
     @property
     def current_workflow_state(self):
+        """Returns the in progress workflow state on this page, if it exists"""
         try:
             return WorkflowState.objects.get(page=self, status=WorkflowState.STATUS_IN_PROGRESS)
         except WorkflowState.DoesNotExist:
@@ -1743,11 +1749,13 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
 
     @property
     def current_workflow_task_state(self):
+        """Returns (specific class of) the current task state of the workflow on this page, if it exists"""
         if self.current_workflow_state and self.current_workflow_state.current_task_state:
             return self.current_workflow_state.current_task_state.specific
 
     @property
     def current_workflow_task(self):
+        """Returns (specific class of) the current task in progress on this page, if it exists"""
         if self.current_workflow_task_state:
             return self.current_workflow_task_state.task.specific
 
@@ -2184,7 +2192,7 @@ class PagePermissionTester:
         return self.user.is_superuser or ('publish' in self.permissions)
 
     def can_submit_for_moderation(self):
-        return not self.page_locked() and self.page.has_workflow() and not self.page.workflow_in_progress()
+        return not self.page_locked() and self.page.has_workflow and not self.page.workflow_in_progress
 
     def can_set_view_restrictions(self):
         return self.can_publish()
@@ -2858,6 +2866,7 @@ class WorkflowState(models.Model):
             state.copy(update_attrs={'page_revision': revision})
 
     def revisions(self):
+        """Returns all page revisions associated with task states linked to the current workflow state"""
         return PageRevision.objects.filter(
             page_id=self.page_id,
             id__in=self.task_states.values_list('page_revision_id', flat=True)
