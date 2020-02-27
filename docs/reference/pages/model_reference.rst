@@ -259,6 +259,18 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: save
 
+    .. autoattribute:: has_workflow
+
+    .. automethod:: get_workflow
+
+    .. autoattribute:: workflow_in_progress
+
+    .. autoattribute:: current_workflow_state
+
+    .. autoattribute:: current_workflow_task_state
+
+    .. autoattribute:: current_workflow_task
+
 .. _site-model-ref:
 
 ``Site``
@@ -583,6 +595,10 @@ Methods and properties
     .. automethod:: finish
 
     .. automethod:: copy_approved_task_states_to_revision
+
+    .. automethod:: all_tasks_with_status
+
+    .. automethod:: revisions
 
 
 ``Task``
