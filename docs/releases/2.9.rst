@@ -79,7 +79,9 @@ then chained together to form workflows: sequences of moderation stages through 
 
 Key points:
 
-* Prior to 2.9, moderation in Wagtail was performed on a per-revision basis. It is now per page.
+* Prior to 2.9, moderation in Wagtail was performed on a per-revision basis: once submitted, the moderator would approve or reject
+  the submitted revision only, which would not include subsequent changes. Moderation is now performed per page, with moderators
+  always seeing the latest revision.
 * ``PageRevision.submitted_for_moderation`` will return ``True`` for revisions passing through the old moderation system, but not for the new system
 * Pages undergoing moderation in the old system will not have their moderation halted, and can still be approved/rejected. As a result, you may see
   two sets of moderation dashboard panels until there are no longer any pages in moderation in the old system
