@@ -2,7 +2,7 @@
 How to add new Task types
 =========================
 
-The Workflow system introduced in Wagtail 2.9 allows users to create tasks, which represent stages of moderation.
+The Workflow system allows users to create tasks, which represent stages of moderation.
 
 Wagtail provides one built in task type: ``GroupApprovalTask``, which allows any user in specific groups to approve or reject moderation.
 
