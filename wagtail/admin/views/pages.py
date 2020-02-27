@@ -231,7 +231,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and parent_page_perms.can_publish_subpage()
-            is_submitting = bool(request.POST.get('action-submit')) and parent_page.has_workflow()
+            is_submitting = bool(request.POST.get('action-submit')) and parent_page.has_workflow
 
             if not is_publishing:
                 page.live = False
@@ -1209,7 +1209,7 @@ def workflow_action(request, page_id):
     if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
         redirect_to = reverse('wagtailadmin_pages:edit', args=[page_id])
 
-    if not page.workflow_in_progress():
+    if not page.workflow_in_progress:
         messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(page.get_admin_display_title()))
         return redirect(redirect_to)
 
