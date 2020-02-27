@@ -24,7 +24,7 @@ You can return to the Dashboard at any time by clicking the Wagtail logo in the 
 
   - Clicking the name of a page will take you to the ‘Edit page’ interface for this page.
   - Clicking approve or reject will either progress the page to the next task in the moderation workflow (or publish if it's the final stage) or return the page to draft status. An email will be sent to the creator of the page giving the result of the overall workflow when it completes.
-  - The *Task* column shows which moderation task the page is currently in, and the *Task started* column when it
+  - The *Task* column shows which moderation task the page is currently in, and the *Task started* column when the current task was started
 
 - The *Your locked pages* table shows the pages you've locked so that only you can edit them.
 - The *Locked At* column displays the date you locked the page.
