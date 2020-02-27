@@ -6,7 +6,7 @@ The Workflow system allows users to create tasks, which represent stages of mode
 
 Wagtail provides one built in task type: ``GroupApprovalTask``, which allows any user in specific groups to approve or reject moderation.
 
-However, it is possible to add your task types in code. Instances of your custom task can then be created in the ``Tasks`` section of the Wagtail Admin.
+However, it is possible to add your own task types in code. Instances of your custom task can then be created in the ``Tasks`` section of the Wagtail Admin.
 
 Task models
 ~~~~~~~~~~~
@@ -47,7 +47,7 @@ For example:
 
 
 Any fields that shouldn't be edited after task creation - for example, anything that would fundamentally change the meaning of the task in any history logs - 
-can be added to ``exlude_on_edit``. For example:
+can be added to ``exclude_on_edit``. For example:
 
 .. code-block:: python
 
@@ -71,8 +71,9 @@ can be added to ``exlude_on_edit``. For example:
 Custom TaskState models
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-You might also need to store custom state information for the task. Normally, this is done on an instance of ``TaskState``, which is created when a page starts
-the task. However, this can also be subclassed equivalently to ``Task``:
+You might also need to store custom state information for the task: for example, a comment left by an approving user.
+Normally, this is done on an instance of ``TaskState``, which is created when a page starts the task. However, this can 
+also be subclassed equivalently to ``Task``:
 
 .. code-block:: python
 
