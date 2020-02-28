@@ -32,6 +32,7 @@ Changelog
  * Fix: Document tags no longer fail to update when replacing the document file at the same time (Matt Westcott)
  * Fix: Prevent error from very tall / wide images being resized to 0 pixels (Fidel Ramos)
  * Fix: Remove excess margin when editing snippets (Quadric)
+ * Fix: Added `scope` attribute to table headers in TableBlock output (Quadric)
 
 
 2.8 (03.02.2020)

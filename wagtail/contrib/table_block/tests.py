@@ -63,7 +63,7 @@ class TestTableBlock(TestCase):
         expected = """
             <table role="table">
                 <thead>
-                    <tr><th>Test 1</th><th class="htLeft">Test 2</th><th>Test 3</th></tr>
+                    <tr><th scope="col">Test 1</th><th scope="col" class="htLeft">Test 2</th><th scope="col">Test 3</th></tr>
                 </thead>
                 <tbody>
                     <tr><td></td><td class="htRight"></td><td></td></tr>
@@ -133,7 +133,7 @@ class TestTableBlock(TestCase):
         expected = """
             <table role="table">
                 <thead>
-                    <tr><th>Foo</th><th>Bar</th><th>Baz</th></tr>
+                    <tr><th scope="col">Foo</th><th scope="col">Bar</th><th scope="col">Baz</th></tr>
                 </thead>
                 <tbody>
                     <tr><td></td><td></td><td></td></tr>
@@ -155,9 +155,9 @@ class TestTableBlock(TestCase):
         expected = """
             <table role="table">
                 <tbody>
-                    <tr><th>Foo</th><td>Bar</td><td>Baz</td></tr>
-                    <tr><th>one</th><td>two</td><td>three</td></tr>
-                    <tr><th>four</th><td>five</td><td>six</td></tr>
+                    <tr><th scope="row">Foo</th><td>Bar</td><td>Baz</td></tr>
+                    <tr><th scope="row">one</th><td>two</td><td>three</td></tr>
+                    <tr><th scope="row">four</th><td>five</td><td>six</td></tr>
                 </tbody>
             </table>
         """
@@ -175,11 +175,11 @@ class TestTableBlock(TestCase):
         expected = """
             <table role="table">
                 <thead>
-                    <tr><th>Foo</th><th>Bar</th><th>Baz</th></tr>
+                    <tr><th scope="col">Foo</th><th scope="col">Bar</th><th scope="col">Baz</th></tr>
                 </thead>
                 <tbody>
-                    <tr><th>one</th><td>two</td><td>three</td></tr>
-                    <tr><th>four</th><td>five</td><td>six</td></tr>
+                    <tr><th scope="row">one</th><td>two</td><td>three</td></tr>
+                    <tr><th scope="row">four</th><td>five</td><td>six</td></tr>
                 </tbody>
             </table>
         """
