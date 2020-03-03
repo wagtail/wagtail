@@ -425,10 +425,10 @@ class TestFieldPanel(TestCase):
         # heading from the bound field label
         self.assertEqual(self.end_date_panel.heading, self.end_date_panel.bound_field.label)
 
-        # if heading is explicitly provided to constructor, that heading should be taken in 
+        # if heading is explicitly provided to constructor, that heading should be taken in
         # preference to the field's label
         end_date_panel_with_overridden_heading = (FieldPanel('date_to', classname='full-width', heading="New heading")
-                               .bind_to(model=EventPage, request=self.request))
+                                                  .bind_to(model=EventPage, request=self.request))
         self.assertEqual(end_date_panel_with_overridden_heading.heading, "New heading")
 
 
