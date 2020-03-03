@@ -27,7 +27,7 @@ class Index(IndexView):
     add_url_name = 'wagtailadmin_workflows:add'
     edit_url_name = 'wagtailadmin_workflows:edit'
     page_title = _("Workflows")
-    add_item_label = _("Add a workflow")
+    add_item_label = _("Create a new workflow")
     header_icon = 'clipboard-list'
 
     def get_queryset(self):
@@ -45,7 +45,7 @@ class Index(IndexView):
 class Create(CreateView):
     permission_policy = workflow_permission_policy
     model = Workflow
-    page_title = _("Add workflow")
+    page_title = _("Create a new workflow")
     template_name = 'wagtailadmin/workflows/create.html'
     success_message = _("Workflow '{0}' created.")
     add_url_name = 'wagtailadmin_workflows:add'
@@ -268,8 +268,8 @@ class TaskIndex(IndexView):
     template_name = 'wagtailadmin/workflows/task_index.html'
     add_url_name = 'wagtailadmin_workflows:select_task_type'
     edit_url_name = 'wagtailadmin_workflows:edit_task'
-    page_title = _("Tasks")
-    add_item_label = _("Add a task")
+    page_title = _("Workflow tasks")
+    add_item_label = _("Create a workflow task")
     header_icon = 'clipboard-list'
 
     def get_queryset(self):
