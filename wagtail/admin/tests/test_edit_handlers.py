@@ -420,6 +420,18 @@ class TestFieldPanel(TestCase):
         with self.assertRaises(FieldDoesNotExist):
             field_panel.db_field
 
+    def test_override_heading(self):
+        # unless heading is specified in keyword arguments, a bound edit handler should take its
+        # heading from the bound field label
+        self.assertEqual(self.end_date_panel.heading, self.end_date_panel.bound_field.label)
+
+        # if heading is explicitly provided to constructor, that heading should be taken in 
+        # preference to the field's label
+        end_date_panel_with_overridden_heading = (FieldPanel('date_to', classname='full-width', heading="New heading")
+                               .bind_to(model=EventPage, request=self.request))
+        self.assertEqual(end_date_panel_with_overridden_heading.heading, "New heading")
+
+
     def test_render_as_object(self):
         form = self.EventPageForm(
             {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-22'},
