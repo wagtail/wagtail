@@ -1,8 +1,16 @@
 {% load i18n %}
 {% if page.live %}
-    <a href="{{ page.url }}" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="{% trans 'Visit the live page' %}">
-        <span class="visuallyhidden">{% trans "Current page status:" %}</span> {{ page.status_string }}
-    </a>
+    {% with page_url=page.url %}
+        {% if page_url is not None %}
+            <a href="{{ page_url }}" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="{% trans 'Visit the live page' %}">
+                <span class="visuallyhidden">{% trans "Current page status:" %}</span> {{ page.status_string }}
+            </a>
+        {% else %}
+            <span class="status-tag primary">
+                <span class="visuallyhidden">{% trans "Current page status:" %}</span> {{ page.status_string }}
+            </span>
+        {% endif %}
+    {% endwith %}
 {% else %}
     <span class="status-tag">
         <span class="visuallyhidden">{% trans "Current page status:" %}</span> {{ page.status_string }}

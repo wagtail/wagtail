@@ -53,6 +53,7 @@ Bug fixes
  * Remove excess margin when editing snippets (Quadric)
  * Added ``scope`` attribute to table headers in TableBlock output (Quadric)
  * Prevent KeyError when accessing a StreamField on a deferred queryset (Paulo Alvarado)
+ * Hide empty 'view live' links (Karran Besen)
 
 
 Upgrade considerations
