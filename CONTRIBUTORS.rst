@@ -441,6 +441,7 @@ Contributors
 * pimarc
 * minusf
 * Paulo Alvarado
+* Karran Besen
 
 Translators
 ===========

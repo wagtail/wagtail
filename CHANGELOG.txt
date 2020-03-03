@@ -35,6 +35,7 @@ Changelog
  * Fix: Remove excess margin when editing snippets (Quadric)
  * Fix: Added `scope` attribute to table headers in TableBlock output (Quadric)
  * Fix: Prevent KeyError when accessing a StreamField on a deferred queryset (Paulo Alvarado)
+ * Fix: Hide empty 'view live' links (Karran Besen)
 
 
 2.8 (03.02.2020)
