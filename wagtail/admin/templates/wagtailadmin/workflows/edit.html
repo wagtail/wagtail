@@ -58,10 +58,11 @@
         </div>
     {% endif %}
     <div class="object">
-        <div class="title-wrapper">Pages</div>
+        <div class="title-wrapper">{% trans 'Select page(s) to link workflow to' %}</div>
         <div class="object-layout">
             <div class="object-layout_big-part">
                 <div class="multiple">
+                    <p>{% trans 'Child pages will also use this workflow' %}</p>
                     {% if pages %}
                         {% include "wagtailadmin/workflows/listing/_list_workflow_pages.html" %}
                         {% paginate pages base_url=request.path %}
