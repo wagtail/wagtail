@@ -531,7 +531,7 @@ class FieldPanel(EditHandler):
 
     def on_form_bound(self):
         self.bound_field = self.form[self.field_name]
-        self.heading = self.bound_field.label
+        self.heading = self.heading or self.bound_field.label
         self.help_text = self.bound_field.help_text
 
     def __repr__(self):
