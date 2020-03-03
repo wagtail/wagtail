@@ -2651,7 +2651,7 @@ class Workflow(ClusterableModel):
 
 
 class GroupApprovalTask(Task):
-    groups = models.ManyToManyField(Group, verbose_name=_('groups'))
+    groups = models.ManyToManyField(Group, verbose_name=_('groups'), help_text=_('Pages at this step in a workflow will be moderated or approved by these groups of users'))
 
     def start(self, workflow_state, user=None):
         if workflow_state.page.locked_by:
