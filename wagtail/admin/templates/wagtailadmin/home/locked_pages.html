@@ -31,7 +31,7 @@
                                     {% if page.has_unpublished_changes %}
                                         <li><a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Draft' %}</a></li>
                                     {% endif %}
-                                    {% if page.live %}
+                                    {% if page.live_and_routable %}
                                         <li><a href="{{ page.url }}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Live' %}</a></li>
                                     {% endif %}
                                 </ul>
