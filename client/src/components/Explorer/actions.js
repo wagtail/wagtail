@@ -86,7 +86,7 @@ export function pushPage(id) {
 
     dispatch(pushPagePrivate(id));
 
-    if (page && !page.isFetching && !page.children.count > 0) {
+    if (page && !page.isFetching && !(page.children.count > 0)) {
       dispatch(getChildren(id));
     }
   };

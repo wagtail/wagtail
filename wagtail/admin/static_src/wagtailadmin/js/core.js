@@ -105,10 +105,6 @@ $(function() {
     // Resize nav to fit height of window. This is an unimportant bell/whistle to make it look nice
     var fitNav = function() {
         $('.nav-wrapper').css('min-height', $(window).height());
-        $('.nav-main').each(function() {
-            var thisHeight = $(this).height();
-            var footerHeight = $('#footer', $(this)).height();
-        });
     };
 
     fitNav();
@@ -271,7 +267,7 @@ $(function() {
         }
 
         function getURLParam(name) {
-            var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.search);
+            var results = new RegExp('[\\?&]' + name + '=([^]*)').exec(window.location.search);
             if (results) {
                 return results[1];
             }
@@ -471,8 +467,6 @@ wagtail = (function(document, window, wagtail) {
         },
 
         _handleClick: function(e) {
-            var el = this.el;
-
             if (!this.state.isOpen) {
                 this.openDropDown(e);
             } else {
