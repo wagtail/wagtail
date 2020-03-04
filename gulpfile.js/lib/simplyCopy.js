@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var rename = require('gulp-rename');
 var gutil = require('gulp-util');
 var path = require('path');
 var config = require('../config');

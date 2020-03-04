@@ -52,7 +52,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             self.container.slideDown();
 
             // focus first suitable input found
-            var timeout = setTimeout(function() {
+            setTimeout(function() {
               var $input = $('.input', self.container);
               var $firstField = $('input, textarea, [data-hallo-editor], [data-draftail-input]', $input).first();
 
@@ -91,9 +91,6 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             var newIndex = self.getCount();
             countField.val(newIndex + 1);
             return opts.prefix + '-' + newIndex;
-        }
-
-        function setInitialMoveUpDownState(newMember) {
         }
 
         function postInsertMember(newMember) {
