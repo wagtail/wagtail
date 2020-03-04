@@ -437,6 +437,7 @@ Contributors
 * timmysmalls
 * dtwm
 * Steve Lyall
+* Lars van de Kerkhof
 
 Translators
 ===========
