@@ -30,6 +30,7 @@ QUERY_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             return false;
         }
         function setPage(page) {
+            var dataObj;
 
             if($('#id_q').val().length){
                 dataObj = {q: $('#id_q').val(), p: page};

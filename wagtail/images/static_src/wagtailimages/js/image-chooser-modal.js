@@ -47,7 +47,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         }
 
         function setPage(page) {
-            params = {p: page};
+            var params = {p: page};
             if ($('#id_q').val().length){
                 params['q'] = $('#id_q').val();
             }
@@ -81,7 +81,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                     dataType: 'text',
                     success: modal.loadResponseText,
                     error: function(response, textStatus, errorThrown) {
-                        message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
+                        var message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
                         $('#upload').append(
                             '<div class="help-block help-critical">' +
                             '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');
@@ -135,8 +135,6 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     },
     'select_format': function(modal) {
         $('form', modal.body).on('submit', function() {
-            var formdata = new FormData(this);
-
             $.post(this.action, $(this).serialize(), modal.loadResponseText, 'text');
 
             return false;
