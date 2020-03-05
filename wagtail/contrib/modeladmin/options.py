@@ -421,7 +421,7 @@ class ModelAdmin(WagtailRegisterable):
 
     def get_templates(self, action='index'):
         """
-        Utility funtion that provides a list of templates to try for a given
+        Utility function that provides a list of templates to try for a given
         view, when the template isn't overridden by one of the template
         attributes on the class.
         """
