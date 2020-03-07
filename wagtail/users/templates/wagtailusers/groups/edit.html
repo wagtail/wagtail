@@ -13,8 +13,9 @@
 {% block content %}
 
     {% trans "Editing" as editing_str %}
-    {% trans "Users" as users_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=group.name icon="group" %}
+    {% trans "View users of this group" as users_str %}
+    {% url 'wagtailusers_groups:users' group.id as group_users_url %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str action_icon="icon-user" action_url=group_users_url action_text=users_str subtitle=group.name icon="group" %}
 
     <div class="nice-padding">
         <form action="{% url 'wagtailusers_groups:edit' group.id %}" method="POST" novalidate>
@@ -22,10 +23,6 @@
 
             <ul class="fields">
                 {% include "wagtailadmin/shared/field_as_li.html" with field=form.name %}
-
-                <li>
-                    <a class="button" href="{% url 'wagtailusers_groups:users' group.id %}">{{ users_str }}</a>
-                </li>
 
                 <li>
                     {% format_permissions permission_bound_field=form.permissions %}

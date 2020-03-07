@@ -663,7 +663,8 @@
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans %}
 
-            {% include "wagtailadmin/shared/header.html" with title=title_trans add_link="wagtailstyleguide" icon="image" add_text="button" search_url="wagtailimages:index" %}
+            {% url "wagtailstyleguide" as add_link %}
+            {% include "wagtailadmin/shared/header.html" with title=title_trans action_url=add_link icon="image" action_text="button" search_url="wagtailimages:index" %}
         </section>
 
         <section id="forms">
