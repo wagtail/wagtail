@@ -1,4 +1,6 @@
 import csv
+import datetime
+
 from xlsxwriter.workbook import Workbook
 
 from collections import OrderedDict
@@ -51,7 +53,10 @@ class SpreadsheetExportMixin:
         
     def write_xlsx_row(self, worksheet, row_dict, row_number):
         for col_number, (field, value) in enumerate(row_dict.items()):
-            preprocess_function = self.custom_xlsx_field_preprocess.get(field, force_str)
+            if not isinstance(value, (datetime.date, datetime.time)):
+                preprocess_function = self.custom_xlsx_field_preprocess.get(field, force_str)
+            else:
+                preprocess_function = self.custom_xlsx_field_preprocess.get(field)
             processed_value = preprocess_function(value) if preprocess_function else value
             worksheet.write(row_number, col_number, processed_value)
     
@@ -143,7 +148,6 @@ class LockedPagesView(ReportView):
     title = _('Locked Pages')
     header_icon = 'locked'
     export_heading_overrides = {'latest_revision_created_at': _("Updated"), 'status_string': _("Status"), 'content_type.model_class._meta.verbose_name.title': _("Type")}
-    custom_xlsx_field_preprocess = {'latest_revision_created_at': None, 'locked_at': None}
     list_export = ['title', 'latest_revision_created_at', 'status_string', 'content_type.model_class._meta.verbose_name.title', 'locked_at', 'locked_by']
 
     def get_queryset(self):
