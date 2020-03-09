@@ -40,13 +40,14 @@ class SpreadsheetExportMixin:
         current_value = item
         for attribute in multi_attribute.split('.'):
             try:
-                current_value = getattr(current_value, attribute)
-            except AttributeError:
-                if callable(current_value):
-                    current_value = getattr(current_value(), attribute)
-                else:
-                    raise
-        return current_value
+                current_value = current_value()
+            except TypeError:
+                pass
+            current_value = getattr(current_value, attribute)
+        try:
+            return current_value()
+        except TypeError:
+            return current_value
         
     def write_xlsx_row(self, worksheet, row_dict, row_number):
         for col_number, (field, value) in enumerate(row_dict.items()):
@@ -79,7 +80,7 @@ class SpreadsheetExportMixin:
             yield self.write_csv_row(writer, self.to_row_dict(item))
     
     def write_xlsx(self, queryset, output):
-        workbook = Workbook(output, {'in_memory': True, 'constant_memory': True})
+        workbook = Workbook(output, {'in_memory': True, 'constant_memory': True, 'remove_timezone': True, 'default_date_format': 'dd/mm/yy hh:mm:ss'})
         worksheet = workbook.add_worksheet()
 
         for col_number, field in enumerate(self.list_export):
@@ -141,8 +142,9 @@ class LockedPagesView(ReportView):
     template_name = 'wagtailadmin/reports/locked_pages.html'
     title = _('Locked Pages')
     header_icon = 'locked'
-    export_heading_overrides = {'status_string': _("Status"), 'content_type.model_class._meta.verbose_name': _("Page Type")}
-    list_export = ['title', 'latest_revision_created_at', 'status_string', 'content_type.model_class._meta.verbose_name', 'locked_at', 'locked_by']
+    export_heading_overrides = {'latest_revision_created_at': _("Updated"), 'status_string': _("Status"), 'content_type.model_class._meta.verbose_name.title': _("Type")}
+    custom_xlsx_field_preprocess = {'latest_revision_created_at': None, 'locked_at': None}
+    list_export = ['title', 'latest_revision_created_at', 'status_string', 'content_type.model_class._meta.verbose_name.title', 'locked_at', 'locked_by']
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages().filter(locked=True)

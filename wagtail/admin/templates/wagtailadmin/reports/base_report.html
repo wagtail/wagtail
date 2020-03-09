@@ -3,7 +3,22 @@
 {% block titletag %}{{ title }}{% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title=title icon=header_icon %}
+    <header role="banner">
+        <div class="row nice-padding">
+            <div class="left">
+                <div class="col header-title">
+                    <h1 class="icon icon-{{ header_icon }}">{{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
+            </div>
+        </div>
+        <div class="right">
+            {% if view.list_export %}
+                <div class="right">
+                    <a href="?action=export" class="button bicolor icon icon-download">{% trans 'Download' %}</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    </header>
 
     {% with page_obj as pages %}
         <div id="page-results">
