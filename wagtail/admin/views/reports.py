@@ -4,7 +4,7 @@ from xlsxwriter.workbook import Workbook
 from collections import OrderedDict
 
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, FieldDoesNotExist
 from django.http import HttpResponse, StreamingHttpResponse
 from django.utils.encoding import force_str
 from django.utils.translation import ugettext_lazy as _
@@ -27,14 +27,27 @@ class SpreadsheetExportMixin:
     list_export = []
     custom_xlsx_field_preprocess = {}
     custom_csv_field_preprocess = {}
+    export_heading_overrides = {}
 
     def get_filename(self):
         return "spreadsheet-export"
 
     def to_row_dict(self, item):
-        row_dict = OrderedDict((field, getattr(item, field)) for field in self.list_export)
+        row_dict = OrderedDict((field, self.multigetattr(item, field)) for field in self.list_export)
         return row_dict
 
+    def multigetattr(self, item, multi_attribute):
+        current_value = item
+        for attribute in multi_attribute.split('.'):
+            try:
+                current_value = getattr(current_value, attribute)
+            except AttributeError:
+                if callable(current_value):
+                    current_value = getattr(current_value(), attribute)
+                else:
+                    raise
+        return current_value
+        
     def write_xlsx_row(self, worksheet, row_dict, row_number):
         for col_number, (field, value) in enumerate(row_dict.items()):
             preprocess_function = self.custom_xlsx_field_preprocess.get(field, force_str)
@@ -49,12 +62,18 @@ class SpreadsheetExportMixin:
             processed_row[field] = processed_value
         return writer.writerow(processed_row)
 
-    def get_heading(self, field):
-        return force_str(field)
+    def get_heading(self, queryset, field):
+        heading_override = self.export_heading_overrides.get(field)
+        if heading_override:
+            return force_str(heading_override)
+        try:
+            return force_str(queryset.first()._meta.get_field(field).verbose_name.title())
+        except (AttributeError, FieldDoesNotExist):
+            return force_str(field)
 
     def stream_csv(self, queryset):
         writer = csv.DictWriter(Echo(), fieldnames=self.list_export)
-        yield writer.writerow({field: self.get_heading(field) for field in self.list_export})
+        yield writer.writerow({field: self.get_heading(queryset, field) for field in self.list_export})
 
         for item in queryset:
             yield self.write_csv_row(writer, self.to_row_dict(item))
@@ -64,7 +83,7 @@ class SpreadsheetExportMixin:
         worksheet = workbook.add_worksheet()
 
         for col_number, field in enumerate(self.list_export):
-            worksheet.write(0, col_number, self.get_heading(field))
+            worksheet.write(0, col_number, self.get_heading(queryset, field))
 
         for row_number, item in enumerate(queryset):
             self.write_xlsx_row(worksheet, self.to_row_dict(item), row_number + 1)
@@ -101,6 +120,7 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
     template_name = None
     title = ''
     paginate_by = 10
+    list_export = []
 
     def dispatch(self, request, *args, **kwargs):
         self.is_export = (self.request.GET.get('action') == 'export')
@@ -121,7 +141,8 @@ class LockedPagesView(ReportView):
     template_name = 'wagtailadmin/reports/locked_pages.html'
     title = _('Locked Pages')
     header_icon = 'locked'
-    list_export = ['title']
+    export_heading_overrides = {'status_string': _("Status"), 'content_type.model_class._meta.verbose_name': _("Page Type")}
+    list_export = ['title', 'latest_revision_created_at', 'status_string', 'content_type.model_class._meta.verbose_name', 'locked_at', 'locked_by']
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages().filter(locked=True)
