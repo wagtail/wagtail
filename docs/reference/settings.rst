@@ -536,3 +536,16 @@ Page locking
 
 ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` can be set to ``True`` to prevent users
 from editing pages that they have locked.
+
+.. _WAGTAIL_SPREADSHEET_EXPORT_FORMAT:
+
+Spreadsheet exports
+===================
+
+.. versionadded:: 2.9
+
+  The ``xlsx`` format has been added and made the default for spreadsheet exports
+
+``WAGTAIL_SPREADSHEET_EXPORT_FORMAT`` can be set to either ``xlsx`` or ``csv`` to
+determine which format spreadsheet downloads of form submissions, ModelAdmin
+indexes, and reports are provided in.
