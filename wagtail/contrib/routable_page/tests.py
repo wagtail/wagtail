@@ -130,18 +130,6 @@ class TestRoutablePage(TestCase):
 
         self.assertContains(response, "EXTERNAL VIEW: ARG NOT SET")
 
-    def test_get_external_view_allows_punctuation(self):
-        response = self.client.get(self.routable_page.url + "external/joe-._~bloggs/")
-
-        self.assertContains(response, "EXTERNAL VIEW: joe-._~bloggs")
-
-    @override_settings(WAGTAIL_APPEND_SLASH=False, APPEND_SLASH=False)
-    def test_get_external_view_allows_punctuation_no_append_slash_with_slash(self):
-        # We are testing this with a slash because of this issue: https://github.com/wagtail/wagtail/issues/2871
-        response = self.client.get(self.routable_page.url + "external/joe-._~bloggs/")
-
-        self.assertContains(response, "EXTERNAL VIEW: joe-._~bloggs")
-
     def test_routable_page_can_have_instance_bound_descriptors(self):
         # This descriptor pretends that it does not exist in the class, hence
         # it raises an AttributeError when class bound. This is, for instance,

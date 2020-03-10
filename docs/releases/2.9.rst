@@ -39,7 +39,6 @@ Bug fixes
  * Prevent duplicate notification messages on page locking (Jacob Topp-Mugglestone)
  * Rendering of non field errors for InlinePanel items (Storm Heg)
  * ``{% image ... as var %}`` now clears the context variable when passed None as an image (Maylon Pedroso)
- * Allow RFC 3986-permitted punctuation in custom URL routes such as ``RoutablePageMixin`` (Storm Heg)
  * ``refresh_index`` method on Elasticsearch no longer fails (Lars van de Kerkhof)
  * Document tags no longer fail to update when replacing the document file at the same time (Matt Westcott)
 
