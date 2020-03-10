@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import override_settings, TestCase
 from django.urls import reverse
 from django.utils import timezone
 
@@ -33,3 +33,20 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/reports/locked_pages.html')
         self.assertNotContains(response, "No locked pages found.")
         self.assertContains(response, self.page.title)
+
+    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
+    def test_csv_export(self):
+        response = self.get(params={'action': 'export'})
+
+        self.page = Page.objects.first()
+        self.page.locked = True
+        self.page.locked_by = self.user
+        self.page.locked_at = '2013-02-01T12:00:00.000Z'
+        self.page.latest_revision_created_at = '2013-01-01T12:00:00.000Z'
+        self.page.save()
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.getvalue().decode().split("\n")
+        self.assertEqual(data_lines[0], 'Title,Updated,Status,Type,Locked At,Locked By\r')
+        self.assertEqual(data_lines[1], 'Root,2013-01-01 12:00:00+00:00,live,Page,2013-02-01 12:00:00+00:00,test@email.com\r')
