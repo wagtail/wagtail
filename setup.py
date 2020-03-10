@@ -34,7 +34,7 @@ install_requires = [
     "Willow>=1.3,<1.4",
     "requests>=2.11.1,<3.0",
     "l18n>=2018.5",
-    "xlsxwriter>=1.2.8,<2.0"
+    "xlsxwriter>=1.2.8,<2.0",
 ]
 
 # Testing dependencies
@@ -46,6 +46,7 @@ testing_extras = [
     'Jinja2>=2.8,<3.0',
     'boto3>=1.4,<1.5',
     'freezegun>=0.3.8',
+    'openpyxl>=3.0.3',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',

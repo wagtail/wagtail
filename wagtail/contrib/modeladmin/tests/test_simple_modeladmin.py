@@ -1,3 +1,5 @@
+from io import BytesIO
+from openpyxl import load_workbook
 from unittest import mock
 
 from django.contrib.auth import get_user_model
@@ -55,6 +57,23 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(data_lines[2], 'The Chronicles of Narnia,Roald Dahl\r')
         self.assertEqual(data_lines[3], 'The Hobbit,J. R. R. Tolkien\r')
         self.assertEqual(data_lines[4], 'The Lord of the Rings,J. R. R. Tolkien\r')
+
+    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='xlsx')
+    def test_xlsx_export(self):
+        # Export the whole queryset
+        response = self.get(export='base')
+
+        # Check response - all books should be in it
+        self.assertEqual(response.status_code, 200)
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data))['Sheet1']
+        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
+        self.assertEqual(cell_array[0], ['Title', 'Author'])
+        self.assertEqual(cell_array[1], ['Charlie and the Chocolate Factory', 'Roald Dahl'])
+        self.assertEqual(cell_array[2], ['The Chronicles of Narnia', 'Roald Dahl'])
+        self.assertEqual(cell_array[3], ['The Hobbit', 'J. R. R. Tolkien'])
+        self.assertEqual(cell_array[4], ['The Lord of the Rings', 'J. R. R. Tolkien'])
+        self.assertEqual(len(cell_array), 5)
 
     def test_tr_attributes(self):
         response = self.get()
