@@ -2933,6 +2933,14 @@ class TaskState(MultiTableCopyMixin, models.Model):
     status = models.fields.CharField(choices=STATUS_CHOICES, verbose_name=_("status"), max_length=50, default=STATUS_IN_PROGRESS)
     started_at = models.DateTimeField(verbose_name=_('started at'), auto_now_add=True)
     finished_at = models.DateTimeField(verbose_name=_('finished at'), blank=True, null=True)
+    finished_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_('finished by'),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='finished_task_states'
+    )
     content_type = models.ForeignKey(
         ContentType,
         verbose_name=_('content type'),

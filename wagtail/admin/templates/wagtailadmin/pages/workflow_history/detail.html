@@ -70,9 +70,15 @@
                         {% for task_state in task_states %}
                             <td>
                                 {% if task_state.status == 'approved' or task_state.status == 'rejected' %}
-                                    {% blocktrans with action='<div class="status-tag primary">'|add:task_state.get_status_display|add:'</div>'|safe at=task_state.finished_at %}
-                                        {{ action }} at <b>{{ at }}</b>
-                                    {% endblocktrans %}
+                                    {% if task_state.finished_by %}
+                                        {% blocktrans with action='<div class="status-tag primary">'|add:task_state.get_status_display|add:'</div>'|safe who=task_state.finished_by.get_full_name|default:task_state.finished_by.get_username at=task_state.finished_at %}
+                                            {{ action }} by <b>{{ who }}</b> at <b>{{ at }}</b>
+                                        {% endblocktrans %}
+                                    {% else %}
+                                        {% blocktrans with action='<div class="status-tag primary">'|add:task_state.get_status_display|add:'</div>'|safe at=task_state.finished_at %}
+                                            {{ action }} at <b>{{ at }}</b>
+                                        {% endblocktrans %}
+                                    {% endif %}
                                 {% else %}
                                     <div class="status-tag primary">{{ task_state.get_status_display }}</div>
                                 {% endif %}
@@ -113,7 +119,13 @@
                             {% elif timeline_item.action ==  'task_completed' %}
                                 <b>{{ timeline_item.task_state.task }}</b>
 
-                               <div class="status-tag primary">{{ timeline_item.task_state.get_status_display }}</div>
+                                {% if timeline_item.task_state.finished_by %}
+                                    {% blocktrans with action='<div class="status-tag primary">'|add:timeline_item.task_state.get_status_display|add:'</div>'|safe who=timeline_item.task_state.finished_by.get_full_name|default:timeline_item.task_state.finished_by.get_username %}
+                                        {{ action }} by <b>{{ who }}</b>
+                                    {% endblocktrans %}
+                                {% else %}
+                                    <div class="status-tag primary">{{ timeline_item.task_state.get_status_display }}</div>
+                                {% endif %}
                             {% endif %}
                         </td>
                     </tr>
