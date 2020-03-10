@@ -1531,6 +1531,5 @@ def workflow_history_detail(request, page_id, workflow_state_id):
         'workflow_state': workflow_state,
         'tasks': tasks,
         'task_states_by_revision': task_states_by_revision,
-        'grid_size': len(tasks) * 2 + 1,
         'timeline': timeline,
     })
