@@ -37,9 +37,9 @@
 
     <div class="workflow-progress-tabs__tab workflow-progress-tabs__tab--active" data-tab="tasks">
         <table class="workflow-progress-table workflow-progress-table--tasks">
-            <colgroup width="{% widthratio 100 grid_size 1 %}%"></colgroup>
+            <colgroup width="20%"></colgroup>
             {% for task in tasks %}
-                <colgroup width="{% widthratio 100 grid_size 2 %}%"></colgroup>
+                <colgroup width="{% widthratio 80 tasks|length 1 %}%"></colgroup>
             {% endfor %}
             <thead>
                 <th class="workflow-progress-table__left-column"></th>
