@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.admin import FieldListFilter
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
-    get_fields_from_path, label_for_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
+    get_fields_from_path, label_for_field, lookup_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import (
     FieldDoesNotExist, ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied, SuspiciousOperation)
@@ -274,6 +274,17 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
         if heading_override:
             return force_str(heading_override)
         return force_str(label_for_field(field, model=self.model).title())
+
+    def to_row_dict(self, item):
+        """ Returns an OrderedDict (in the order given by list_export) of the exportable information for a model instance"""
+        row_dict = OrderedDict()
+        for field in self.list_export:
+            f, attr, value = lookup_field(field, item, self.model_admin)
+            if not value:
+                value = getattr(attr, 'empty_value_display', self.model_admin.get_empty_value_display(field))
+            row_dict[field] = value
+
+        return row_dict
 
     @property
     def media(self):
