@@ -3024,7 +3024,7 @@ class TaskState(MultiTableCopyMixin, models.Model):
     def cancel(self, user=None, resume=False):
         """Cancel the task state and update the workflow state. If ``resume`` is set to True, then upon update the workflow state
         is passed the current task as ``next_task``, causing it to start a new task state on the current task if possible"""
-        self.status = 'cancelled'
+        self.status = self.STATUS_CANCELLED
         self.finished_at = timezone.now()
         self.save()
         if resume:
