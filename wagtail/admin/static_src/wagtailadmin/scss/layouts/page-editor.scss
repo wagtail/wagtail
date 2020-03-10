@@ -4,10 +4,16 @@
     .content-wrapper {
         margin-bottom: 10em;
 
-        .content {
-            padding-bottom: 10em;
-            // Extra padding to make space for the footer
-            // (https://github.com/wagtail/wagtail/issues/5742)
+        // Put footer below content on mobile, rather than taking up screen space while editing
+        @include media-breakpoint-down(xs) {
+            .content {
+                padding-bottom: 0;
+                
+                footer {
+                    position: relative;
+                }
+            }
+            
         }
     }
 
