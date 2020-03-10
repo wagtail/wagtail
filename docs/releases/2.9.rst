@@ -48,6 +48,7 @@ Bug fixes
  * ``{% image ... as var %}`` now clears the context variable when passed None as an image (Maylon Pedroso)
  * ``refresh_index`` method on Elasticsearch no longer fails (Lars van de Kerkhof)
  * Document tags no longer fail to update when replacing the document file at the same time (Matt Westcott)
+ * Prevent error from very tall / wide images being resized to 0 pixels (Fidel Ramos)
 
 
 Upgrade considerations

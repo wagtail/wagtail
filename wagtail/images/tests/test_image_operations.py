@@ -361,6 +361,14 @@ class TestMinMaxOperation(ImageOperationTestCase):
         ('max-800x600', dict(width=1000, height=1000), [
             ('resize', ((600, 600), ), {}),
         ]),
+        # Resize doesn't try to set zero height
+        ('max-400x400', dict(width=1000, height=1), [
+            ('resize', ((400, 1), ), {}),
+        ]),
+        # Resize doesn't try to set zero width
+        ('max-400x400', dict(width=1, height=1000), [
+            ('resize', ((1, 400), ), {}),
+        ]),
     ]
 
 
@@ -390,6 +398,14 @@ class TestWidthHeightOperation(ImageOperationTestCase):
         # Basic usage of height
         ('height-400', dict(width=1000, height=500), [
             ('resize', ((800, 400), ), {}),
+        ]),
+        # Resize doesn't try to set zero height
+        ('width-400', dict(width=1000, height=1), [
+            ('resize', ((400, 1), ), {}),
+        ]),
+        # Resize doesn't try to set zero width
+        ('height-400', dict(width=1, height=800), [
+            ('resize', ((1, 400), ), {}),
         ]),
     ]
 
@@ -424,6 +440,14 @@ class TestScaleOperation(ImageOperationTestCase):
         # Rounded usage of scale
         ('scale-83.0322', dict(width=1000, height=500), [
             ('resize', ((int(1000 * 0.830322), int(500 * 0.830322)), ), {}),
+        ]),
+        # Resize doesn't try to set zero height
+        ('scale-50', dict(width=1000, height=1), [
+            ('resize', ((500, 1), ), {}),
+        ]),
+        # Resize doesn't try to set zero width
+        ('scale-50', dict(width=1, height=500), [
+            ('resize', ((1, 250), ), {}),
         ]),
     ]
 
