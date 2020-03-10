@@ -1,6 +1,8 @@
 import csv
 import datetime
 
+from collections import OrderedDict
+
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import InvalidPage
 from django.http import HttpResponse
@@ -10,6 +12,7 @@ from django.utils.translation import ungettext
 from django.views.generic import ListView, TemplateView
 
 from wagtail.admin import messages
+from wagtail.admin.views.reports import SpreadsheetExportMixin
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
 from wagtail.core.models import Page
@@ -131,7 +134,7 @@ class DeleteSubmissionsView(TemplateView):
         return context
 
 
-class SubmissionsListView(SafePaginateListView):
+class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
     """ Lists submissions for the provided form page """
     template_name = 'wagtailforms/index_submissions.html'
     context_object_name = 'submissions'
@@ -149,9 +152,13 @@ class SubmissionsListView(SafePaginateListView):
         if not get_forms_for_user(request.user).filter(pk=self.form_page.id).exists():
             raise PermissionDenied
 
-        self.is_csv_export = (self.request.GET.get('action') == 'CSV')
-        if self.is_csv_export:
+        self.is_export = (self.request.GET.get('action') == 'export')
+        if self.is_export:
             self.paginate_by = None
+            data_fields = self.form_page.get_data_fields()
+            # Set the export fields and the headings for spreadsheet export
+            self.list_export = [field for field, label in data_fields]
+            self.export_heading_overrides = dict(data_fields)
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -174,7 +181,7 @@ class SubmissionsListView(SafePaginateListView):
 
     def get_paginate_by(self, queryset):
         """ Get the number of items to paginate by, or ``None`` for no pagination """
-        if self.is_csv_export:
+        if self.is_export:
             return None
         return self.paginate_by
 
@@ -182,7 +189,7 @@ class SubmissionsListView(SafePaginateListView):
         """ Return a dict of field names with ordering labels if ordering is valid """
         orderable_fields = self.orderable_fields or ()
         ordering = dict()
-        if self.is_csv_export:
+        if self.is_export:
             #  Revert to CSV order_by submit_time ascending for backwards compatibility
             default_ordering = self.ordering_csv or ()
         else:
@@ -225,50 +232,30 @@ class SubmissionsListView(SafePaginateListView):
                 result['submit_time__gte'] = date_from
         return result
 
-    def get_csv_filename(self):
-        """ Returns the filename for the generated CSV file """
-        return 'export-{}.csv'.format(
+    def get_filename(self):
+        """ Returns the base filename for the generated spreadsheet data file """
+        return 'export-{}'.format(
             datetime.datetime.today().strftime('%Y-%m-%d')
         )
 
-    def get_csv_response(self, context):
-        """ Returns a CSV response """
-        filename = self.get_csv_filename()
-        response = HttpResponse(content_type='text/csv; charset=utf-8')
-        response['Content-Disposition'] = 'attachment;filename={}'.format(filename)
-
-        writer = csv.writer(response)
-        writer.writerow(context['data_headings'])
-        for data_row in context['data_rows']:
-            writer.writerow(data_row)
-        return response
-
     def render_to_response(self, context, **response_kwargs):
-        if self.is_csv_export:
-            return self.get_csv_response(context)
+        if self.is_export:
+            return self.as_spreadsheet(context['submissions'])
         return super().render_to_response(context, **response_kwargs)
 
+    def to_row_dict(self, item):
+        """ Orders the submission dictionary for spreadsheet writing """
+        row_dict = OrderedDict((field, item.get_data().get(field)) for field in self.list_export)
+        return row_dict
+
     def get_context_data(self, **kwargs):
-        """ Return context for view, handle CSV or normal output """
+        """ Return context for view """
         context = super().get_context_data(**kwargs)
         submissions = context[self.context_object_name]
         data_fields = self.form_page.get_data_fields()
         data_rows = []
-
-        if self.is_csv_export:
-            # Build data_rows as list of lists containing formatted data values
-            # Using smart_str prevents UnicodeEncodeError for values with non-ansi symbols
-            for submission in submissions:
-                form_data = submission.get_data()
-                data_row = []
-                for name, label in data_fields:
-                    val = form_data.get(name)
-                    if isinstance(val, list):
-                        val = ', '.join(val)
-                    data_row.append(smart_str(val))
-                data_rows.append(data_row)
-            data_headings = [smart_str(label) for name, label in data_fields]
-        else:
+        context['submissions'] = submissions
+        if not self.is_export:
             # Build data_rows as list of dicts containing model_id and fields
             for submission in submissions:
                 form_data = submission.get_data()
@@ -300,12 +287,11 @@ class SubmissionsListView(SafePaginateListView):
                     'order': order_label,
                 })
 
-        context.update({
-            'form_page': self.form_page,
-            'select_date_form': self.select_date_form,
-            'data_headings': data_headings,
-            'data_rows': data_rows,
-            'submissions': submissions,
-        })
+            context.update({
+                'form_page': self.form_page,
+                'select_date_form': self.select_date_form,
+                'data_headings': data_headings,
+                'data_rows': data_rows,
+            })
 
         return context
