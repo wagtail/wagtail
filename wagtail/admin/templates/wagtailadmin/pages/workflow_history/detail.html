@@ -83,6 +83,8 @@
                                 {% else %}
                                     <div class="status-tag primary">{{ task_state.get_status_display }}</div>
                                 {% endif %}
+
+                                <p>{{ task_state.specific.get_comment }}</p>
                             </td>
                         {% endfor %}
                     </tr>
@@ -126,6 +128,8 @@
                                 {% else %}
                                     <div class="status-tag primary">{{ timeline_item.task_state.get_status_display }}</div>
                                 {% endif %}
+
+                                <p>{{ task_state.specific.get_comment }}</p>
                             {% endif %}
                         </td>
                     </tr>
