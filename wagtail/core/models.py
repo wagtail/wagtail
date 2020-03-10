@@ -3043,6 +3043,15 @@ class TaskState(MultiTableCopyMixin, models.Model):
         instance.save()
         return instance
 
+    def get_comment(self):
+        """
+        Returns a string that is displayed in workflow history.
+
+        This could be a comment by the reviewer, or generated.
+        Use mark_safe to return HTML.
+        """
+        return ""
+
     class Meta:
         verbose_name = _('Task state')
         verbose_name_plural = _('Task states')
