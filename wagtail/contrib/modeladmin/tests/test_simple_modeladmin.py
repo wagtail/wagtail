@@ -3,7 +3,7 @@ from unittest import mock
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import checks
-from django.test import TestCase
+from django.test import override_settings, TestCase
 
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
@@ -42,6 +42,20 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         # User has add permission
         self.assertEqual(response.context['user_can_create'], True)
 
+    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
+    def test_csv_export(self):
+        # Export the whole queryset
+        response = self.get(export='base')
+
+        # Check response - all books should be in it
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.getvalue().decode().split("\n")
+        self.assertEqual(data_lines[0], 'Title,Author\r')
+        self.assertEqual(data_lines[1], 'Charlie and the Chocolate Factory,Roald Dahl\r')
+        self.assertEqual(data_lines[2], 'The Chronicles of Narnia,Roald Dahl\r')
+        self.assertEqual(data_lines[3], 'The Hobbit,J. R. R. Tolkien\r')
+        self.assertEqual(data_lines[4], 'The Lord of the Rings,J. R. R. Tolkien\r')
+
     def test_tr_attributes(self):
         response = self.get()
 
@@ -66,6 +80,19 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
 
         for book in response.context['object_list']:
             self.assertEqual(book.author_id, 1)
+
+    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
+    def test_filtered_csv_export(self):
+        # Filter by author 1 (JRR Tolkien) and export the current selection
+        response = self.get(author__id__exact=1, export='current')
+
+        # Check response - only books by JRR Tolkien should be in it
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.getvalue().decode().split("\n")
+        self.assertEqual(data_lines[0], 'Title,Author\r')
+        self.assertEqual(data_lines[1], 'The Hobbit,J. R. R. Tolkien\r')
+        self.assertEqual(data_lines[2], 'The Lord of the Rings,J. R. R. Tolkien\r')
+        self.assertEqual(data_lines[3], '')
 
     def test_search_indexed(self):
         response = self.get(q='of')
