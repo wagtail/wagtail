@@ -28,22 +28,33 @@ def list_to_str(value):
     return force_str(', '.join(value))
 
 class SpreadsheetExportMixin:
+    """ A mixin for views, providing spreadsheet export functionality in csv and xlsx formats """
+
     FORMAT_XLSX = 'xlsx'
     FORMAT_CSV = 'csv'
     FORMATS = (FORMAT_XLSX, FORMAT_CSV)
+
+    # A list of fields or callables (without arguments) to export from each item in the queryset (dotted paths allowed)
     list_export = []
+    # A dictionary of custom preprocessing functions by field and format (expected value would be of the form {field_name: {format: function}})
+    # If a valid field preprocessing function is found, any applicable value preprocessing functions will not be used
     custom_field_preprocess = {}
+    # A dictionary of preprocessing functions by value class and format
     custom_value_preprocess = {(datetime.date, datetime.time): {FORMAT_XLSX: None}, list: {FORMAT_CSV: list_to_str, FORMAT_XLSX: list_to_str}}
+    # A dictionary of column heading overrides in the format {field: heading}
     export_heading_overrides = {}
 
     def get_filename(self):
+        """ Gets the base filename for the exported spreadsheet, without extensions """
         return "spreadsheet-export"
 
     def to_row_dict(self, item):
+        """ Returns an OrderedDict (in the order given by list_export) of the exportable information for a model instance"""
         row_dict = OrderedDict((field, self.multigetattr(item, field)) for field in self.list_export)
         return row_dict
 
     def multigetattr(self, item, multi_attribute):
+        """ Gets the value of a dot-pathed sequence of attributes/callables on a model, calling at each stage if possible """
         current_value = item
         for attribute in multi_attribute.split('.'):
             try:
@@ -57,13 +68,20 @@ class SpreadsheetExportMixin:
             return current_value
 
     def get_preprocess_function(self, field, value, export_format):
+        """ Returns the preprocessing function for a given field name, field value, and export format"""
+
+        # Try to find a field specific function and return it
         preprocess_function = self.custom_field_preprocess.get(field, {}).get(export_format, None)
         if preprocess_function:
             return preprocess_function
+
+        # Otherwise check for a value class specific function
         for value_classes, format_dict in self.custom_value_preprocess.items():
             preprocess_function = format_dict.get(export_format, None) if isinstance(value, value_classes) else None
         if preprocess_function:
             return preprocess_function
+
+        # Finally resort to force_str to prevent encoding errors
         return force_str
         
     def write_xlsx_row(self, worksheet, row_dict, row_number):
@@ -81,6 +99,7 @@ class SpreadsheetExportMixin:
         return writer.writerow(processed_row)
 
     def get_heading(self, queryset, field):
+        """ Get the heading label for a given field for a spreadsheet generated from queryset """
         heading_override = self.export_heading_overrides.get(field)
         if heading_override:
             return force_str(heading_override)
@@ -90,6 +109,7 @@ class SpreadsheetExportMixin:
             return force_str(field)
 
     def stream_csv(self, queryset):
+        """ Generate a csv file line by line from queryset, to be used in a StreamingHTTPResponse """
         writer = csv.DictWriter(Echo(), fieldnames=self.list_export)
         yield writer.writerow({field: self.get_heading(queryset, field) for field in self.list_export})
 
@@ -97,6 +117,7 @@ class SpreadsheetExportMixin:
             yield self.write_csv_row(writer, self.to_row_dict(item))
     
     def write_xlsx(self, queryset, output):
+        """ Write an xlsx workbook from a queryset """
         workbook = Workbook(output, {'in_memory': True, 'constant_memory': True, 'remove_timezone': True, 'default_date_format': 'dd/mm/yy hh:mm:ss'})
         worksheet = workbook.add_worksheet()
 
@@ -123,6 +144,7 @@ class SpreadsheetExportMixin:
         return response
 
     def as_spreadsheet(self, queryset):
+        """ Return a response with a spreadsheet representing the exported data from queryset, in the format determined by 'WAGTAIL_SPREADSHEET_EXPORT_FORMAT'"""
         spreadsheet_format = getattr(settings, 'WAGTAIL_SPREADSHEET_EXPORT_FORMAT', 'xlsx') 
         if spreadsheet_format == self.FORMAT_CSV:
             return self.write_csv_response(queryset)
