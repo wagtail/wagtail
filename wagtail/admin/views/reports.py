@@ -24,11 +24,16 @@ class Echo:
         """Write the value by returning it, instead of storing in a buffer."""
         return value.encode('UTF-8')
 
+def list_to_str(value):
+    return force_str(', '.join(value))
 
 class SpreadsheetExportMixin:
+    FORMAT_XLSX = 'xlsx'
+    FORMAT_CSV = 'csv'
+    FORMATS = (FORMAT_XLSX, FORMAT_CSV)
     list_export = []
-    custom_xlsx_field_preprocess = {}
-    custom_csv_field_preprocess = {}
+    custom_field_preprocess = {}
+    custom_value_preprocess = {(datetime.date, datetime.time): {FORMAT_XLSX: None}, list: {FORMAT_CSV: list_to_str, FORMAT_XLSX: list_to_str}}
     export_heading_overrides = {}
 
     def get_filename(self):
@@ -50,20 +55,27 @@ class SpreadsheetExportMixin:
             return current_value()
         except TypeError:
             return current_value
+
+    def get_preprocess_function(self, field, value, export_format):
+        preprocess_function = self.custom_field_preprocess.get(field, {}).get(export_format, None)
+        if preprocess_function:
+            return preprocess_function
+        for value_classes, format_dict in self.custom_value_preprocess.items():
+            preprocess_function = format_dict.get(export_format, None) if isinstance(value, value_classes) else None
+        if preprocess_function:
+            return preprocess_function
+        return force_str
         
     def write_xlsx_row(self, worksheet, row_dict, row_number):
         for col_number, (field, value) in enumerate(row_dict.items()):
-            if not isinstance(value, (datetime.date, datetime.time)):
-                preprocess_function = self.custom_xlsx_field_preprocess.get(field, force_str)
-            else:
-                preprocess_function = self.custom_xlsx_field_preprocess.get(field)
+            preprocess_function = self.get_preprocess_function(field, value, self.FORMAT_XLSX)
             processed_value = preprocess_function(value) if preprocess_function else value
             worksheet.write(row_number, col_number, processed_value)
     
     def write_csv_row(self, writer, row_dict):
         processed_row = {}
         for field, value in row_dict.items():
-            preprocess_function = self.custom_csv_field_preprocess.get(field, force_str)
+            preprocess_function = self.get_preprocess_function(field, value, self.FORMAT_CSV)
             processed_value = preprocess_function(value) if preprocess_function else value
             processed_row[field] = processed_value
         return writer.writerow(processed_row)
@@ -112,12 +124,12 @@ class SpreadsheetExportMixin:
 
     def as_spreadsheet(self, queryset):
         spreadsheet_format = getattr(settings, 'WAGTAIL_SPREADSHEET_EXPORT_FORMAT', 'xlsx') 
-        if spreadsheet_format == 'csv':
+        if spreadsheet_format == self.FORMAT_CSV:
             return self.write_csv_response(queryset)
-        elif spreadsheet_format == 'xlsx':
+        elif spreadsheet_format == self.FORMAT_XLSX:
             return self.write_xlsx_response(queryset)
         else:
-            raise ImproperlyConfigured(_("WAGTAIL_SPREADSHEET_EXPORT_FORMAT is set to an unrecognised format. Valid options are: 'csv', 'xlsx'"))
+            raise ImproperlyConfigured(_("WAGTAIL_SPREADSHEET_EXPORT_FORMAT is set to an unrecognised format. Valid options are: ")+', '.join(self.FORMATS))
 
 
 class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
@@ -149,6 +161,9 @@ class LockedPagesView(ReportView):
     header_icon = 'locked'
     export_heading_overrides = {'latest_revision_created_at': _("Updated"), 'status_string': _("Status"), 'content_type.model_class._meta.verbose_name.title': _("Type")}
     list_export = ['title', 'latest_revision_created_at', 'status_string', 'content_type.model_class._meta.verbose_name.title', 'locked_at', 'locked_by']
+
+    def get_filename(self):
+        return 'locked-pages-report-{}'.format(datetime.datetime.today().strftime('%Y-%m-%d'))
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages().filter(locked=True)
