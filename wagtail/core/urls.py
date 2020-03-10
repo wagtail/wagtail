@@ -5,20 +5,16 @@ from django.contrib.auth import views as auth_views
 from wagtail.core import views
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH
 
-# Allowed punctuation from RFC 3986
-# Section 2.3: "-" / "." / "_" / "~"
-ALLOWED_PUNCTUATION = r"\-._~"
-
 if WAGTAIL_APPEND_SLASH:
     # If WAGTAIL_APPEND_SLASH is True (the default value), we match a
     # (possibly empty) list of path segments ending in slashes.
     # CommonMiddleware will redirect requests without a trailing slash to
     # a URL with a trailing slash
-    serve_pattern = r"^((?:[\w{}]+/)*)$".format(ALLOWED_PUNCTUATION)
+    serve_pattern = r'^((?:[\w\-]+/)*)$'
 else:
     # If WAGTAIL_APPEND_SLASH is False, allow Wagtail to serve pages on URLs
     # with and without trailing slashes
-    serve_pattern = r"^([\w{}/]*)$".format(ALLOWED_PUNCTUATION)
+    serve_pattern = r'^([\w\-/]*)$'
 
 
 WAGTAIL_FRONTEND_LOGIN_TEMPLATE = getattr(
