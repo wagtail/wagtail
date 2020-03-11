@@ -411,7 +411,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         # Login
         self.login()
 
-    
+
     @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
     def test_list_submissions_csv_export(self):
         response = self.client.get(
