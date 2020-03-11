@@ -1,17 +1,15 @@
 import csv
 import datetime
-
-from xlsxwriter.workbook import Workbook
-
 from collections import OrderedDict
 
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured, FieldDoesNotExist
+from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.http import HttpResponse, StreamingHttpResponse
 from django.utils.encoding import force_str
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.list import BaseListView
+from xlsxwriter.workbook import Workbook
 
 from wagtail.admin.auth import permission_denied
 from wagtail.core.models import UserPagePermissionsProxy

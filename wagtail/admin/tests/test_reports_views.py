@@ -1,9 +1,9 @@
 from io import BytesIO
-from openpyxl import load_workbook
 
-from django.test import override_settings, TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
+from openpyxl import load_workbook
 
 from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailTestUtils
