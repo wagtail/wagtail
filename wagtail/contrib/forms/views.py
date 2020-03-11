@@ -231,7 +231,8 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
 
     def get_filename(self):
         """ Returns the base filename for the generated spreadsheet data file """
-        return '{}-export-{}'.format(self.form_page.slug,
+        return '{}-export-{}'.format(
+            self.form_page.slug,
             datetime.datetime.today().strftime('%Y-%m-%d')
         )
 

@@ -254,7 +254,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
         if self.ERROR_FLAG in self.params:
             del self.params[self.ERROR_FLAG]
         if self.EXPORT_VAR in self.params:
-            del self.params[self.EXPORT_VAR]        
+            del self.params[self.EXPORT_VAR]
 
         self.query = request.GET.get(self.SEARCH_VAR, '')
 
