@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from io import BytesIO
 import json
-from openpyxl import load_workbook
+from io import BytesIO
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
-from django.test import override_settings, RequestFactory, TestCase
+from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
+from openpyxl import load_workbook
 
 from wagtail.admin.edit_handlers import get_form_for_model
 from wagtail.admin.forms import WagtailAdminPageForm

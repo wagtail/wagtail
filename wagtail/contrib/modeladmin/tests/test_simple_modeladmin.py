@@ -1,11 +1,11 @@
 from io import BytesIO
-from openpyxl import load_workbook
 from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import checks
-from django.test import override_settings, TestCase
+from django.test import TestCase, override_settings
+from openpyxl import load_workbook
 
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
