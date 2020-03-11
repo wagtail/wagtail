@@ -1,13 +1,10 @@
-import csv
 import datetime
 
 from collections import OrderedDict
 
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import InvalidPage
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
-from django.utils.encoding import smart_str
 from django.utils.translation import ungettext
 from django.views.generic import ListView, TemplateView
 
