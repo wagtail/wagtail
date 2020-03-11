@@ -46,7 +46,7 @@ testing_extras = [
     'Jinja2>=2.8,<3.0',
     'boto3>=1.4,<1.5',
     'freezegun>=0.3.8',
-    'openpyxl>=3.0.3',
+    'openpyxl>=2.6.4',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
