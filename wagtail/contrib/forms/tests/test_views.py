@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 import json
 from io import BytesIO
 
@@ -436,8 +437,8 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         worksheet = load_workbook(filename=BytesIO(workbook_data))['Sheet1']
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
         self.assertEqual(cell_array[0], ['Submission date', 'Your email', 'Your message', 'Your choices'])
-        self.assertEqual(cell_array[1], ['2013-01-01 12:00:00+00:00', 'old@example.com', 'this is a really old message', 'foo, baz'])
-        self.assertEqual(cell_array[2], ['2014-01-01 12:00:00+00:00', 'new@example.com', 'this is a fairly new message', 'None'])
+        self.assertEqual(cell_array[1], [datetime.datetime(2013, 1, 1, 12, 0), 'old@example.com', 'this is a really old message', 'foo, baz'])
+        self.assertEqual(cell_array[2], [datetime.datetime(2014, 1, 1, 12, 0), 'new@example.com', 'this is a fairly new message', 'None'])
         self.assertEqual(len(cell_array), 3)
 
     def test_list_submissions_csv_large_export(self):
