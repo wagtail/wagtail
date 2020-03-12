@@ -152,7 +152,7 @@
         }
     }
 
-    & .bicolor + .dropdown-toggle {
+    .bicolor + .dropdown-toggle {
         background-color: $color-teal-darker;
 
         &:hover {
@@ -164,7 +164,7 @@
         background-color: $color-teal-darker;
     }
 
-    & .bicolor:hover {
+    .bicolor:hover {
         background-color: $color-teal-dark;
     }
 

@@ -380,6 +380,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         first_row_values = response.context['data_rows'][0]['fields']
         self.assertTrue('this is a really old message' in first_row_values)
 
+
 class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a form page
@@ -461,7 +462,6 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(104, len(data_lines))
 
-    
     def test_list_submissions_csv_export_after_filter_form_submissions_for_user_hook(self):
         # Hook forbids to delete form submissions for everyone
         def construct_forms_for_user(user, queryset):
@@ -489,7 +489,6 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         # An user can't export form submission with the hook
         self.assertEqual(response.status_code, 403)
 
-    
     def test_list_submissions_csv_export_with_date_from_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
@@ -503,7 +502,6 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
 
-    
     def test_list_submissions_csv_export_with_date_to_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
@@ -517,7 +515,6 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
 
-    
     def test_list_submissions_csv_export_with_range_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
@@ -531,7 +528,6 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
 
-    
     def test_list_submissions_csv_export_with_unicode_in_submission(self):
         unicode_form_submission = FormSubmission.objects.create(
             page=self.form_page,
@@ -553,7 +549,6 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_line = response.getvalue().decode('utf-8').split("\n")[1]
         self.assertIn('こんにちは、世界', data_line)
 
-    
     def test_list_submissions_csv_export_with_unicode_in_field(self):
         FormField.objects.create(
             page=self.form_page,
@@ -1127,7 +1122,6 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Wet my pants excited!', count=50)
         self.assertEqual(response.context['page_obj'].number, 2)
 
-    
     def test_list_submissions_csv_export(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
