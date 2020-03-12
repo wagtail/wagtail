@@ -43,7 +43,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail.utils.decorators import cached_classmethod
 
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
-from .views import CustomSubmissionsListView
+
 
 EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
@@ -639,7 +639,9 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
 
-    submissions_list_view_class = CustomSubmissionsListView
+    def get_submissions_list_view_class(self):
+        from .views import CustomSubmissionsListView
+        return CustomSubmissionsListView
 
     def get_submission_class(self):
         return CustomFormPageSubmission
