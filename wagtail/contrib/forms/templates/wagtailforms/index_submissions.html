@@ -102,7 +102,13 @@
                     </div>
                 </div>
                 <div class="right">
-                   <button name="action" value="export" class="button bicolor icon icon-download">{% trans 'Download spreadsheet' %}</button>
+                    <div class="dropdown dropdown-button match-width">
+                        <a href="?export=xlsx" class="button bicolor icon icon-download">{% trans 'Download XLSX' %}</a>
+                       <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <ul>
+                            <li><a  class="button bicolor icon icon-download" href="?export=csv">{% trans 'Download CSV' %}</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </form>

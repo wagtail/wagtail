@@ -30,6 +30,15 @@
                                 {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
                             </span>
                         {% endif %}
+                        {% if view.list_export %}
+                            <div class="dropdown dropdown-button match-width col">
+                                <a href="?export=xlsx&{{ request.GET.urlencode }}" class="button bicolor icon icon-download">{% trans 'Download XLSX' %}</a>
+                                <div class="dropdown-toggle icon icon-arrow-down"></div>
+                                <ul>
+                                    <li><a  class="button bicolor icon icon-download" href="?export=csv&{{ request.GET.urlencode }}">{% trans 'Download CSV' %}</a></li>
+                                </ul>
+                            </div>
+                        {% endif %}
                     </div>
                 {% endblock %}
             </div>
@@ -85,14 +94,7 @@
                             {% endif %}
                         </nav>
                     {% endblock %}
-
-                    {% if view.list_export %}
-                        <div class="nice-padding col9">
-                            <a href="?export=base&{{ request.GET.urlencode }}" class="button bicolor icon icon-download">{% trans 'Download all' %}</a>
-                            <a href="?export=base&{{ request.GET.urlencode }}" class="button bicolor icon icon-download">{% trans 'Download filtered' %}</a>
-                        </div>
-                    {% endif %}
-
+                    
                 {% endblock %}
             </div>
         </div>

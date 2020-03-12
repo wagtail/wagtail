@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from openpyxl import load_workbook
@@ -37,7 +37,6 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "No locked pages found.")
         self.assertContains(response, self.page.title)
 
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
     def test_csv_export(self):
 
         self.page = Page.objects.first()
@@ -47,7 +46,7 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         self.page.latest_revision_created_at = '2013-01-01T12:00:00.000Z'
         self.page.save()
 
-        response = self.get(params={'action': 'export'})
+        response = self.get(params={'export': 'csv'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -55,7 +54,6 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         self.assertEqual(data_lines[0], 'Title,Updated,Status,Type,Locked At,Locked By\r')
         self.assertEqual(data_lines[1], 'Root,2013-01-01 12:00:00+00:00,live,Page,2013-02-01 12:00:00+00:00,test@email.com\r')
 
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='xlsx')
     def test_xlsx_export(self):
 
         self.page = Page.objects.first()
@@ -65,7 +63,7 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         self.page.latest_revision_created_at = '2013-01-01T12:00:00.000Z'
         self.page.save()
 
-        response = self.get(params={'action': 'export'})
+        response = self.get(params={'export': 'xlsx'})
 
         # Check response - the locked page info should be in it
         self.assertEqual(response.status_code, 200)
