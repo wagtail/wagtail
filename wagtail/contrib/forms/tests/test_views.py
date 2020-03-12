@@ -4,7 +4,7 @@ from io import BytesIO
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
-from django.test import RequestFactory, TestCase, override_settings
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
 from openpyxl import load_workbook
 
@@ -411,12 +411,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         # Login
         self.login()
 
-
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
     def test_list_submissions_csv_export(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export'}
+            {'export': 'csv'}
         )
 
         # Check response
@@ -427,11 +425,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
         self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
 
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='xlsx')
     def test_list_submissions_xlsx_export(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export'}
+            {'export': 'xlsx'}
         )
 
         self.assertEqual(response.status_code, 200)
@@ -443,7 +440,6 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(cell_array[2], ['2014-01-01 12:00:00+00:00', 'new@example.com', 'this is a fairly new message', 'None'])
         self.assertEqual(len(cell_array), 3)
 
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
     def test_list_submissions_csv_large_export(self):
         for i in range(100):
             new_form_submission = FormSubmission.objects.create(
@@ -458,7 +454,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export'}
+            {'export': 'csv'}
         )
 
         # Check that csv export is not paginated
@@ -466,7 +462,6 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(104, len(data_lines))
 
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
     def test_list_submissions_csv_export_after_filter_form_submissions_for_user_hook(self):
         # Hook forbids to delete form submissions for everyone
         def construct_forms_for_user(user, queryset):
@@ -474,7 +469,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export'}
+            {'export': 'csv'}
         )
 
         # An user can export form submissions without the hook
@@ -488,17 +483,16 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         with self.register_hook('filter_form_submissions_for_user', construct_forms_for_user):
             response = self.client.get(
                 reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-                {'action': 'export'}
+                {'export': 'csv'}
             )
 
         # An user can't export form submission with the hook
         self.assertEqual(response.status_code, 403)
 
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
     def test_list_submissions_csv_export_with_date_from_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export', 'date_from': '01/01/2014'}
+            {'export': 'csv', 'date_from': '01/01/2014'}
         )
 
         # Check response
@@ -508,11 +502,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
 
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
     def test_list_submissions_csv_export_with_date_to_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export', 'date_to': '12/31/2013'}
+            {'export': 'csv', 'date_to': '12/31/2013'}
         )
 
         # Check response
@@ -522,11 +515,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
 
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
     def test_list_submissions_csv_export_with_range_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export', 'date_from': '12/31/2013', 'date_to': '01/02/2014'}
+            {'export': 'csv', 'date_from': '12/31/2013', 'date_to': '01/02/2014'}
         )
 
         # Check response
@@ -536,7 +528,6 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
 
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
     def test_list_submissions_csv_export_with_unicode_in_submission(self):
         unicode_form_submission = FormSubmission.objects.create(
             page=self.form_page,
@@ -550,7 +541,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'date_from': '01/02/2014', 'action': 'export'}
+            {'date_from': '01/02/2014', 'export': 'csv'}
         )
 
         # Check response
@@ -558,7 +549,6 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_line = response.getvalue().decode('utf-8').split("\n")[1]
         self.assertIn('こんにちは、世界', data_line)
 
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
     def test_list_submissions_csv_export_with_unicode_in_field(self):
         FormField.objects.create(
             page=self.form_page,
@@ -582,7 +572,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id, )),
-            {'date_from': '01/02/2014', 'action': 'export'}
+            {'date_from': '01/02/2014', 'export': 'csv'}
         )
 
         # Check response
@@ -593,7 +583,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertIn('vim', data_lines[1])
 
 
-@override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
+
 class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def create_test_user_without_admin(self, username):
         return get_user_model().objects.create_user(username=username, password='123')
@@ -631,7 +621,7 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export'}
+            {'export': 'csv'}
         )
 
         # Check response
@@ -647,7 +637,7 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export_with_date_from_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export', 'date_from': '01/01/2014'}
+            {'export': 'csv', 'date_from': '01/01/2014'}
         )
 
         # Check response
@@ -661,7 +651,7 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export_with_date_to_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export', 'date_to': '12/31/2013'}
+            {'export': 'csv', 'date_to': '12/31/2013'}
         )
 
         # Check response
@@ -675,7 +665,7 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export_with_range_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export', 'date_from': '12/31/2013', 'date_to': '01/02/2014'}
+            {'export': 'csv', 'date_from': '12/31/2013', 'date_to': '01/02/2014'}
         )
 
         # Check response
@@ -700,7 +690,7 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'date_from': '01/02/2014', 'action': 'export'}
+            {'date_from': '01/02/2014', 'export': 'csv'}
         )
 
         # Check response
@@ -732,7 +722,7 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'date_from': '01/02/2014', 'action': 'export'}
+            {'date_from': '01/02/2014', 'export': 'csv'}
         )
 
         # Check response
@@ -743,7 +733,7 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertIn('vim', data_lines[1])
 
 
-@override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
+
 class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
     def create_test_user_without_admin(self, username):
         return get_user_model().objects.create_user(username=username, password='123')
@@ -1132,11 +1122,10 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Wet my pants excited!', count=50)
         self.assertEqual(response.context['page_obj'].number, 2)
 
-    @override_settings(WAGTAIL_SPREADSHEET_EXPORT_FORMAT='csv')
     def test_list_submissions_csv_export(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'export'}
+            {'export': 'csv'}
         )
 
         # Check response

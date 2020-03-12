@@ -8,16 +8,20 @@
             <div class="left">
                 <div class="col header-title">
                     <h1 class="icon icon-{{ header_icon }}">{{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
+                </div>
             </div>
-        </div>
-        <div class="right">
             {% if view.list_export %}
                 <div class="right">
-                    <a href="?action=export" class="button bicolor icon icon-download">{% trans 'Download' %}</a>
+                    <div class="dropdown dropdown-button match-width">
+                        <a href="?export=xlsx" class="button bicolor icon icon-download">{% trans 'Download XLSX' %}</a>
+                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <ul>
+                            <li><a  class="button bicolor icon icon-download" href="?export=csv">{% trans 'Download CSV' %}</a></li>
+                        </ul>
+                    </div>
                 </div>
             {% endif %}
         </div>
-    </div>
     </header>
 
     {% with page_obj as pages %}

@@ -258,13 +258,10 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
 
         self.query = request.GET.get(self.SEARCH_VAR, '')
 
-        if self.export == 'base':
-            return self.as_spreadsheet(self.get_base_queryset(request=request))
-
         self.queryset = self.get_queryset(request)
 
-        if self.export == 'current':
-            return self.as_spreadsheet(self.queryset)
+        if self.export in self.FORMATS:
+            return self.as_spreadsheet(self.queryset, self.export)
 
         return super().dispatch(request, *args, **kwargs)
 
