@@ -75,21 +75,14 @@ class SpreadsheetExportMixin:
         """ Returns the preprocessing function for a given field name, field value, and export format"""
 
         # Try to find a field specific function and return it
-        preprocess_function = self.custom_field_preprocess.get(field, {}).get(
-            export_format, None
-        )
-        if preprocess_function:
-            return preprocess_function
+        format_dict = self.custom_field_preprocess.get(field, {})
+        if export_format in format_dict:
+            return format_dict[export_format]
 
         # Otherwise check for a value class specific function
         for value_classes, format_dict in self.custom_value_preprocess.items():
-            preprocess_function = (
-                format_dict.get(export_format, None)
-                if isinstance(value, value_classes)
-                else None
-            )
-        if preprocess_function:
-            return preprocess_function
+            if isinstance(value, value_classes) and export_format in format_dict:
+                return format_dict[export_format]
 
         # Finally resort to force_str to prevent encoding errors
         return force_str
