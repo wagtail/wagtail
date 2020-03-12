@@ -1,3 +1,4 @@
+import datetime
 from io import BytesIO
 
 from django.test import TestCase
@@ -71,5 +72,5 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         worksheet = load_workbook(filename=BytesIO(workbook_data))['Sheet1']
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
         self.assertEqual(cell_array[0], ['Title', 'Updated', 'Status', 'Type', 'Locked At', 'Locked By'])
-        self.assertEqual(cell_array[1], ['Root', '2013-01-01 12:00:00+00:00', 'live', 'Page', '2013-02-01 12:00:00+00:00', 'test@email.com'])
+        self.assertEqual(cell_array[1], ['Root', datetime.datetime(2013, 1, 1, 12, 0), 'live', 'Page', datetime.datetime(2013, 2, 1, 12, 0), 'test@email.com'])
         self.assertEqual(len(cell_array), 2)
