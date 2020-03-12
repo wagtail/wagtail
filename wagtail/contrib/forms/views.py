@@ -149,7 +149,7 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
         if not get_forms_for_user(request.user).filter(pk=self.form_page.id).exists():
             raise PermissionDenied
 
-        self.is_export = (self.request.GET.get('action') == 'export')
+        self.is_export = (self.request.GET.get('export') in self.FORMATS)
         if self.is_export:
             self.paginate_by = None
             data_fields = self.form_page.get_data_fields()
@@ -238,7 +238,7 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
 
     def render_to_response(self, context, **response_kwargs):
         if self.is_export:
-            return self.as_spreadsheet(context['submissions'])
+            return self.as_spreadsheet(context['submissions'], self.request.GET.get('export'))
         return super().render_to_response(context, **response_kwargs)
 
     def to_row_dict(self, item):

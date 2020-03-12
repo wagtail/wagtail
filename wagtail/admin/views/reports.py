@@ -180,22 +180,12 @@ class SpreadsheetExportMixin:
         )
         return response
 
-    def as_spreadsheet(self, queryset):
-        """ Return a response with a spreadsheet representing the exported data from queryset, in the format determined by 'WAGTAIL_SPREADSHEET_EXPORT_FORMAT'"""
-        spreadsheet_format = getattr(
-            settings, "WAGTAIL_SPREADSHEET_EXPORT_FORMAT", "xlsx"
-        )
+    def as_spreadsheet(self, queryset, spreadsheet_format):
+        """ Return a response with a spreadsheet representing the exported data from queryset, in the format specified"""
         if spreadsheet_format == self.FORMAT_CSV:
             return self.write_csv_response(queryset)
         elif spreadsheet_format == self.FORMAT_XLSX:
             return self.write_xlsx_response(queryset)
-        else:
-            raise ImproperlyConfigured(
-                _(
-                    "WAGTAIL_SPREADSHEET_EXPORT_FORMAT is set to an unrecognised format. Valid options are: "
-                )
-                + ", ".join(self.FORMATS)
-            )
 
 
 class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
@@ -207,10 +197,10 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
     list_export = []
 
     def dispatch(self, request, *args, **kwargs):
-        self.is_export = self.request.GET.get("action") == "export"
+        self.is_export = self.request.GET.get("export") in self.FORMATS
         if self.is_export:
             self.paginate_by = None
-            return self.as_spreadsheet(self.get_queryset())
+            return self.as_spreadsheet(self.get_queryset(), self.request.GET.get("export"))
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, *args, object_list=None, **kwargs):
