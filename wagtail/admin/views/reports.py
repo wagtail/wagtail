@@ -139,7 +139,7 @@ class SpreadsheetExportMixin:
             yield self.write_csv_row(writer, self.to_row_dict(item))
 
     def write_xlsx(self, queryset, output):
-        """ Write an xlsx workbook from a queryset """
+        """ Write an xlsx workbook from a queryset"""
         workbook = Workbook(
             output,
             {
@@ -193,7 +193,17 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
     template_name = None
     title = ""
     paginate_by = 10
-    list_export = []
+    export_heading_overrides = {
+        "latest_revision_created_at": _("Updated"),
+        "status_string": _("Status"),
+        "content_type.model_class._meta.verbose_name.title": _("Type"),
+    }
+    list_export = [
+        "title",
+        "latest_revision_created_at",
+        "status_string",
+        "content_type.model_class._meta.verbose_name.title",
+    ]
 
     def dispatch(self, request, *args, **kwargs):
         self.is_export = self.request.GET.get("export") in self.FORMATS
@@ -213,16 +223,7 @@ class LockedPagesView(ReportView):
     template_name = "wagtailadmin/reports/locked_pages.html"
     title = _("Locked Pages")
     header_icon = "locked"
-    export_heading_overrides = {
-        "latest_revision_created_at": _("Updated"),
-        "status_string": _("Status"),
-        "content_type.model_class._meta.verbose_name.title": _("Type"),
-    }
-    list_export = [
-        "title",
-        "latest_revision_created_at",
-        "status_string",
-        "content_type.model_class._meta.verbose_name.title",
+    list_export = ReportView.list_export + [
         "locked_at",
         "locked_by",
     ]
