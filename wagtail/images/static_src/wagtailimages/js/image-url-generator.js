@@ -40,7 +40,7 @@ $(function() {
 
                 if (filterSpec == 'fill') {
                     $closenessField.prop('disabled', false);
-                    filterSpec += '-' + $widthField.val() + 'x' + $heightField.val() + '-c' + $closenessField.val()
+                    filterSpec += '-' + $widthField.val() + 'x' + $heightField.val() + '-c' + $closenessField.val();
                 } else {
                     $closenessField.prop('disabled', true);
                     filterSpec += '-' + $widthField.val() + 'x' + $heightField.val();

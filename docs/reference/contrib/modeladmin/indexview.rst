@@ -428,7 +428,7 @@ For example:
     class Person(models.Model):
         first_name = models.CharField(max_length=50)
         last_name = models.CharField(max_length=50)
-        managed_by = models.ForeignKey(`auth.User`, on_delete=models.CASCADE)
+        managed_by = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
 
     class PersonAdmin(ModelAdmin):

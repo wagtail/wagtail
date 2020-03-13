@@ -7,7 +7,7 @@ from freezegun import freeze_time
 
 from wagtail.admin.views.pages import PreviewOnEdit
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import EventCategory
+from wagtail.tests.testapp.models import EventCategory, SimplePage, StreamPage
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -161,3 +161,55 @@ class TestPreview(TestCase, WagtailTestUtils):
             self.assertEqual(response.status_code, 200)
             response = self.client.get(preview_url)
             self.assertEqual(response.status_code, 200)
+
+
+class TestDisablePreviewButton(TestCase, WagtailTestUtils):
+    """
+    Test that preview button can be disabled by setting preview_modes to an empty list
+    """
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Login
+        self.user = self.login()
+
+    def test_disable_preview_on_create(self):
+        # preview button is available by default
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+
+        preview_url = reverse('wagtailadmin_pages:preview_on_add', args=('tests', 'simplepage', self.root_page.id))
+        self.assertContains(response, '<li class="preview">')
+        self.assertContains(response, 'data-action="%s"' % preview_url)
+
+        # StreamPage has preview_modes = []
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'streampage', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+
+        preview_url = reverse('wagtailadmin_pages:preview_on_add', args=('tests', 'streampage', self.root_page.id))
+        self.assertNotContains(response, '<li class="preview">')
+        self.assertNotContains(response, 'data-action="%s"' % preview_url)
+
+    def test_disable_preview_on_edit(self):
+        simple_page = SimplePage(title='simple page', content="hello")
+        self.root_page.add_child(instance=simple_page)
+
+        # preview button is available by default
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(simple_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+        preview_url = reverse('wagtailadmin_pages:preview_on_edit', args=(simple_page.id, ))
+        self.assertContains(response, '<li class="preview">')
+        self.assertContains(response, 'data-action="%s"' % preview_url)
+
+        stream_page = StreamPage(title='stream page', body=[('text', 'hello')])
+        self.root_page.add_child(instance=stream_page)
+
+        # StreamPage has preview_modes = []
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(stream_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+        preview_url = reverse('wagtailadmin_pages:preview_on_edit', args=(stream_page.id, ))
+        self.assertNotContains(response, '<li class="preview">')
+        self.assertNotContains(response, 'data-action="%s"' % preview_url)

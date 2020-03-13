@@ -436,6 +436,8 @@ Contributors
 * Daniel (aritas1)
 * timmysmalls
 * dtwm
+* Steve Lyall
+* Lars van de Kerkhof
 
 Translators
 ===========

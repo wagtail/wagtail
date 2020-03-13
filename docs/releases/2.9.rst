@@ -24,6 +24,8 @@ Other features
  * Tag field autocompletion now handles custom tag models (Matt Westcott)
  * ``wagtail_serve`` URL route can now be omitted for headless sites (Storm Heg)
  * Allow free tagging to be disabled on custom tag models (Matt Westcott)
+ * Allow disabling page preview by setting ``preview_modes`` to an empty list (Casper Timmers)
+ * Add Vidyard to oEmbed provider list (Steve Lyall)
 
 
 Bug fixes
@@ -37,6 +39,8 @@ Bug fixes
  * Prevent duplicate notification messages on page locking (Jacob Topp-Mugglestone)
  * Rendering of non field errors for InlinePanel items (Storm Heg)
  * ``{% image ... as var %}`` now clears the context variable when passed None as an image (Maylon Pedroso)
+ * ``refresh_index`` method on Elasticsearch no longer fails (Lars van de Kerkhof)
+ * Document tags no longer fail to update when replacing the document file at the same time (Matt Westcott)
 
 
 Upgrade considerations

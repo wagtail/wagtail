@@ -149,6 +149,7 @@ def edit(request, document_id):
                 doc._set_file_hash(doc.file.read())
                 doc.file.seek(0)
                 doc.save()
+                form.save_m2m()
 
                 # If providing a new document file, delete the old one.
                 # NB Doing this via original_file.delete() clears the file field,

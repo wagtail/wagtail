@@ -15,6 +15,8 @@ Changelog
  * Tag field autocompletion now handles custom tag models (Matt Westcott)
  * `wagtail_serve` URL route can now be omitted for headless sites (Storm Heg)
  * Allow free tagging to be disabled on custom tag models (Matt Westcott)
+ * Allow disabling page preview by setting `preview_modes` to an empty list (Casper Timmers)
+ * Add Vidyard to oEmbed provider list (Steve Lyall)
  * Fix: Added ARIA alert role to live search forms in the admin (Casper Timmers)
  * Fix: Reorder login form elements to match expected tab order (Kjartan Sverrisson)
  * Fix: Re-add 'Close Explorer' button on mobile viewports (Sævar Öfjörð Magnússon)
@@ -23,6 +25,8 @@ Changelog
  * Fix: Prevent duplicate notification messages on page locking (Jacob Topp-Mugglestone)
  * Fix: Fix InlinePanel item non field errors not visible (Storm Heg)
  * Fix: `{% image ... as var %}` now clears the context variable when passed None as an image (Maylon Pedroso)
+ * Fix: `refresh_index` method on Elasticsearch no longer fails (Lars van de Kerkhof)
+ * Fix: Document tags no longer fail to update when replacing the document file at the same time (Matt Westcott)
 
 
 2.8 (03.02.2020)
