@@ -50,6 +50,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
 def get_js_translation_strings():
     return {
         'DELETE': _('Delete'),
+        'EDIT': _('Edit'),
         'PAGE': _('Page'),
         'PAGES': _('Pages'),
         'LOADING': _('Loading…'),

@@ -13,18 +13,16 @@ class ImageBlock extends Component {
   constructor(props) {
     super(props);
 
-    this.changeAlt = this.changeAlt.bind(this);
+    this.onEditEntity = this.onEditEntity.bind(this);
   }
 
-  changeAlt(e) {
-    const { block, blockProps } = this.props;
-    const { editorState, onChange } = blockProps;
+  onEditEntity(e) {
+    const { blockProps } = this.props;
+    const { entity, onEditEntity } = blockProps;
 
-    const data = {
-      alt: e.target.value,
-    };
-
-    onChange(DraftUtils.updateBlockEntity(editorState, block, data));
+    e.preventDefault();
+    e.stopPropagation();
+    onEditEntity(entity);
   }
 
   render() {
@@ -37,6 +35,9 @@ class ImageBlock extends Component {
       <MediaBlock {...this.props} src={src} alt="">
         <p className="ImageBlock__alt">{altLabel}</p>
 
+        <button className="button Tooltip__button" onClick={this.onEditEntity}>
+          {STRINGS.EDIT}
+        </button>
         <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
           {STRINGS.DELETE}
         </button>

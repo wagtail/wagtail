@@ -9,8 +9,14 @@ import MediaBlock from '../blocks/MediaBlock';
  * Editor block to display media and edit content.
  */
 const EmbedBlock = props => {
-  const { entity, onRemoveEntity } = props.blockProps;
+  const { entity, onEditEntity, onRemoveEntity } = props.blockProps;
   const { url, title, thumbnail } = entity.getData();
+
+  const onBlockEditEntity = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onEditEntity(entity);
+  };
 
   return (
     <MediaBlock {...props} src={thumbnail} alt="">
@@ -25,7 +31,9 @@ const EmbedBlock = props => {
           {title}
         </a>
       ) : null}
-
+      <button className="button Tooltip__button" onClick={onBlockEditEntity}>
+        {STRINGS.EDIT}
+      </button>
       <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
         {STRINGS.DELETE}
       </button>
