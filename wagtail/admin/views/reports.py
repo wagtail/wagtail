@@ -183,7 +183,7 @@ class SpreadsheetExportMixin:
 class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
     header_icon = ""
     page_kwarg = "p"
-    template_name = None
+    template_name = "wagtailadmin/reports/base_report.html"
     title = ""
     paginate_by = 10
     export_heading_overrides = {
