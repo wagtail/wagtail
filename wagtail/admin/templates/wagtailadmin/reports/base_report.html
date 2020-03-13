@@ -29,7 +29,7 @@
             <div class="nice-padding">
                 {% if pages %}
                     {% block listing %}
-                        {% include "wagtailadmin/pages/listing/_list_explore.html" %}
+                        {% include "wagtailadmin/reports/listing/_list_report.html" %}
                     {% endblock %}
                     {% paginate pages base_url=request.path %}
                 {% else %}

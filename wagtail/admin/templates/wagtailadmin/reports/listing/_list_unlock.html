@@ -1,10 +1,16 @@
-{% extends "wagtailadmin/pages/listing/_list_explore.html" %}
+{% extends "wagtailadmin/reports/listing/_list_report.html" %}
 
 {% load i18n wagtailadmin_tags %}
 
+{% block extra_columns %}
 
-{% block page_navigation %}
-    <td>
+<th>{% trans 'Locking status' %}</th>
+
+{% endblock %}
+
+
+{% block extra_page_data%}
+    <td valign="top">
         {% page_permissions page as perms %}
         <p>
             {% if page.locked_at %}
