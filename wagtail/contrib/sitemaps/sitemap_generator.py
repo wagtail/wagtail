@@ -24,16 +24,14 @@ class Sitemap(DjangoSitemap):
         return site
 
     def items(self):
-        return list(filter(
-            lambda item: item.url is not None,
+        return (
             self.get_wagtail_site()
-                .root_page
-                .get_descendants(inclusive=True)
-                .live()
-                .public()
-                .order_by('path')
-                .specific()
-        ))
+            .root_page
+            .get_descendants(inclusive=True)
+            .live()
+            .public()
+            .order_by('path')
+            .specific())
 
     def _urls(self, page, protocol, domain):
         urls = []
