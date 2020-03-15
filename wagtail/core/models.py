@@ -1062,10 +1062,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return capfirst(cls._meta.verbose_name)
 
     @property
-    def live_and_routable(self):
-        return self.live and self.url is not None
-
-    @property
     def status_string(self):
         if not self.live:
             if self.expired:
