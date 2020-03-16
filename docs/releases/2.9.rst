@@ -10,6 +10,11 @@ Wagtail 2.9 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Report data exports
+~~~~~~~~~~~~~~~~~~~
+
+Data from reports, form submissions and ModelAdmin can now be exported to both XLSX and CSV format. For ModelAdmin, this is enabled by specifying a ``list_export`` attribute on the ModelAdmin class. This feature was developed by Jacob Topp-Mugglestone and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
 
 Other features
 ~~~~~~~~~~~~~~
