@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import MediaBlock from '../blocks/MediaBlock';
+import { EditorState } from 'draft-js';
 
 describe('MediaBlock', () => {
   it('renders', () => {
@@ -57,12 +58,17 @@ describe('MediaBlock', () => {
       target.setAttribute('data-draftail-trigger', true);
       document.body.appendChild(target);
       document.body.setAttribute('data-draftail-editor-wrapper', true);
-
+      const editorState = EditorState.createEmpty();
       wrapper = mount(
         <MediaBlock
           src="example.png"
           alt=""
+          block={{
+            getKey: () => 'abcde',
+            getLength: () => 1,
+          }}
           blockProps={{
+            editorState,
             entityType: {
               icon: '#icon-test',
             },
@@ -71,6 +77,7 @@ describe('MediaBlock', () => {
                 src: 'example.png',
               }),
             },
+            onChange: () => {},
           }}
         >
           <div id="test">Test</div>

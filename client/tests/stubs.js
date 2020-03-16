@@ -20,6 +20,7 @@ global.wagtailConfig = {
     SHORT_DATE_FORMAT: 'DD/MM/YYYY',
   },
   STRINGS: {
+    EDIT: 'Edit',
     DELETE: 'Delete',
     PAGE: 'Page',
     PAGES: 'Pages',

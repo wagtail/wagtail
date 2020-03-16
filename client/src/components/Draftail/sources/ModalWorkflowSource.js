@@ -31,7 +31,7 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
         alt_text: data.alt,
       };
     } else {
-      url = `${global.chooserUrls.imageChooser}?select_format=true`,
+      url = `${global.chooserUrls.imageChooser}?select_format=true`;
       urlParams = {};
     }
     return {
@@ -203,9 +203,8 @@ class ModalWorkflowSource extends Component {
 
     let nextState;
     if (entityType.block) {
-
       if (entity && entityKey) {
-        // Replace the data for the currently selected block 
+        // Replace the data for the currently selected block
         const blockKey = selection.getAnchorKey();
         const block = content.getBlockForKey(blockKey);
         nextState = DraftUtils.updateBlockEntity(editorState, block, entityData);
@@ -255,6 +254,7 @@ ModalWorkflowSource.propTypes = {
   editorState: PropTypes.object.isRequired,
   entityType: PropTypes.object.isRequired,
   entity: PropTypes.object,
+  entityKey: PropTypes.string,
   onComplete: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };

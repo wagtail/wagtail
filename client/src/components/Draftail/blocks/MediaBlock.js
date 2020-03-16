@@ -123,7 +123,10 @@ class MediaBlock extends Component {
 MediaBlock.propTypes = {
   blockProps: PropTypes.shape({
     entityType: PropTypes.object.isRequired,
+    editorState: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
   }).isRequired,
+  block: PropTypes.object.isRequired,
   src: PropTypes.string,
   alt: PropTypes.string,
   children: PropTypes.node.isRequired,
