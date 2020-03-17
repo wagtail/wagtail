@@ -1,8 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { DraftUtils } from 'draftail';
-
 import ImageBlock from '../blocks/ImageBlock';
 
 describe('ImageBlock', () => {

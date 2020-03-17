@@ -76,7 +76,7 @@ describe('MediaBlock', () => {
           }),
         },
         onChange: () => {},
-      }
+      };
       wrapper = mount(
         <MediaBlock
           src="example.png"
@@ -106,7 +106,7 @@ describe('MediaBlock', () => {
 
       wrapper.simulate('click', { target });
 
-      expect(blockProps.onChange).toHaveBeenCalled()
+      expect(blockProps.onChange).toHaveBeenCalled();
     });
 
     it('tooltip opens', () => {
