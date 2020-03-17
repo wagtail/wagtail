@@ -3,12 +3,15 @@
 exports[`EmbedBlock no data 1`] = `
 <MediaBlock
   alt=""
+  block={Object {}}
   blockProps={
     Object {
+      "editorState": Object {},
       "entity": Object {
         "getData": [Function],
       },
       "entityType": Object {},
+      "onChange": [Function],
     }
   }
   src={null}
@@ -30,12 +33,15 @@ exports[`EmbedBlock no data 1`] = `
 exports[`EmbedBlock renders 1`] = `
 <MediaBlock
   alt=""
+  block={Object {}}
   blockProps={
     Object {
+      "editorState": Object {},
       "entity": Object {
         "getData": [Function],
       },
       "entityType": Object {},
+      "onChange": [Function],
     }
   }
   src="http://www.example.com/example.png"

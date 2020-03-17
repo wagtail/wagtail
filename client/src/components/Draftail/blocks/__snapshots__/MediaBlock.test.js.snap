@@ -54,7 +54,7 @@ exports[`MediaBlock renders 1`] = `
 </button>
 `;
 
-exports[`MediaBlock tooltip opens 1`] = `
+exports[`MediaBlock on click tooltip opens 1`] = `
 <div>
   <div
     class="Tooltip Tooltip--top-left"
