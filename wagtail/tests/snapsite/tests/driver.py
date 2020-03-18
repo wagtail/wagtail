@@ -1,4 +1,4 @@
-from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.chrome.webdriver import WebDriver, RemoteWebDriver
 
 
 class DriverWithShortcuts(WebDriver):

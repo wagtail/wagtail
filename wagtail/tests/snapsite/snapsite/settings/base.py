@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'search',
     'generator',
 
+    'django_extensions',
+
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',

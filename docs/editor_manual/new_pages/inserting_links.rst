@@ -5,6 +5,8 @@ Inserting links in a page
 
 Similar to images, there are a variety of points at which you will want to add links. The most common place to insert a link will be in the body text of a page. You can insert a link into the body text by clicking the **Insert link** button in the rich text toolbar.
 
+.. image:: ../../_static/images/screen19_link.png
+
 Whichever way you insert a link, you will be presented with the form displayed below.
 
 .. image:: ../../_static/images/screen19_link_form.png

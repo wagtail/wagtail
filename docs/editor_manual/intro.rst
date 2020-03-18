@@ -3,6 +3,8 @@ Introduction
 
 `Wagtail <https://wagtail.io>`_ is a new open source content management system (CMS) developed by `Torchbox <https://torchbox.com>`_. It is built on the Django framework and designed to be super easy to use for both developers and editors.
 
+.. image:: ../_static/images/wagtail-screenshot-with-browser.png
+
 This documentation will explain how to:
 
 -  navigate the main user interface of Wagtail
