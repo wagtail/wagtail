@@ -40,6 +40,7 @@ Other features
  * Add reference documentation for ``wagtail.contrib.redirects`` See :ref:`redirects`. (LB (Ben Johnston))
  * ``bulk_delete`` page permission is no longer required to move pages, even if those pages have children (Robert Rollins, LB (Ben Johnston))
  * Add ``after_edit_snippet``, ``after_create_snippet`` and ``after_delete_snippet`` hooks and documentation (Kalob Taulien)
+ * Improve performance of empty search results by avoiding downloading the entire search index in these scenarios (Lars van de Kerkhof, Coen van der Kamp)
 
 
 Bug fixes
