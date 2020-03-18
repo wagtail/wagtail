@@ -7,7 +7,6 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.core.models import Collection
 from wagtail.search.backends import get_search_backends
 
 from .. import get_document_model
@@ -24,10 +23,8 @@ def add(request):
     DocumentForm = get_document_form(Document)
     DocumentMultiForm = get_document_multi_form(Document)
 
-    collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
-    if len(collections) > 1:
-        collections_to_choose = Collection.order_for_display(collections)
-    else:
+    collections_to_choose = permission_policy.collections_user_has_permission_for(request.user, 'add').order_for_display()
+    if len(collections_to_choose) < 2:
         # no need to show a collections chooser
         collections_to_choose = None
 

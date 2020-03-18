@@ -62,11 +62,9 @@ def index(request):
 
     collections = permission_policy.collections_user_has_any_permission_for(
         request.user, ['add', 'change']
-    )
+    ).order_for_display()
     if len(collections) < 2:
         collections = None
-    else:
-        collections = Collection.order_for_display(collections)
 
     # Create response
     if request.is_ajax():

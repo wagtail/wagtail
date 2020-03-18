@@ -2157,10 +2157,19 @@ class PageViewRestriction(BaseViewRestriction):
 
 class BaseCollectionManager(models.Manager):
     def get_queryset(self):
-        return TreeQuerySet(self.model).order_by('path')
+        return BaseCollectionQuerySet(self.model).order_by('path')
 
 
-CollectionManager = BaseCollectionManager.from_queryset(TreeQuerySet)
+class BaseCollectionQuerySet(TreeQuerySet):
+    def order_for_display(self):
+        return self.annotate(
+            display_order=Case(
+                When(depth=1, then=Value('')),
+                default='name')
+        ).order_by('display_order')
+
+
+CollectionManager = BaseCollectionManager.from_queryset(BaseCollectionQuerySet)
 
 
 class CollectionViewRestriction(BaseViewRestriction):
@@ -2207,14 +2216,6 @@ class Collection(MP_Node):
     def get_view_restrictions(self):
         """Return a query set of all collection view restrictions that apply to this collection"""
         return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
-
-    @staticmethod
-    def order_for_display(queryset):
-        return queryset.annotate(
-            display_order=Case(
-                When(depth=1, then=Value('')),
-                default='name')
-        ).order_by('display_order')
 
     class Meta:
         verbose_name = _('collection')

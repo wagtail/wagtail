@@ -61,7 +61,7 @@ class BaseCollectionMemberForm(forms.ModelForm):
             # don't show collection field if only one collection is available
             del self.fields['collection']
         else:
-            self.fields['collection'].queryset = self.collections
+            self.fields['collection'].queryset = self.collections.order_for_display()
 
     def save(self, commit=True):
         if len(self.collections) == 1:
