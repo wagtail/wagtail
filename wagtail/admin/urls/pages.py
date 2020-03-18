@@ -25,6 +25,9 @@ urlpatterns = [
 
     url(r'^(\d+)/copy/$', pages.copy, name='copy'),
 
+    url(r'^workflow/action/(\d+)/$', pages.workflow_action, name='workflow_action'),
+    url(r'^workflow/preview/(\d+)/(\d+)/$', pages.preview_revision_for_task, name='workflow_preview'),
+
     url(r'^moderation/(\d+)/approve/$', pages.approve_moderation, name='approve_moderation'),
     url(r'^moderation/(\d+)/reject/$', pages.reject_moderation, name='reject_moderation'),
     url(r'^moderation/(\d+)/preview/$', pages.preview_for_moderation, name='preview_for_moderation'),
@@ -39,4 +42,7 @@ urlpatterns = [
     url(r'^(\d+)/revisions/(\d+)/revert/$', pages.revisions_revert, name='revisions_revert'),
     url(r'^(\d+)/revisions/(\d+)/unschedule/$', pages.revisions_unschedule, name='revisions_unschedule'),
     url(r'^(\d+)/revisions/compare/(live|earliest|\d+)\.\.\.(live|latest|\d+)/$', pages.revisions_compare, name='revisions_compare'),
+
+    url(r'^(\d+)/workflow_history/$', pages.workflow_history, name='workflow_history'),
+    url(r'^(\d+)/workflow_history/detail/(\d+)/$', pages.workflow_history_detail, name='workflow_history_detail'),
 ]

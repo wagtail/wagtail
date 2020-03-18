@@ -1,5 +1,7 @@
+from datetime import timedelta
 from time import time
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
@@ -27,7 +29,8 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
-from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
+from wagtail.core.models import (
+    Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState)
 from wagtail.search.query import MATCH_ALL
 
 
@@ -226,7 +229,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and parent_page_perms.can_publish_subpage()
-            is_submitting = bool(request.POST.get('action-submit'))
+            is_submitting = bool(request.POST.get('action-submit')) and parent_page.has_workflow
 
             if not is_publishing:
                 page.live = False
@@ -237,12 +240,16 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             # Save revision
             revision = page.save_revision(
                 user=request.user,
-                submitted_for_moderation=is_submitting,
             )
 
             # Publish
             if is_publishing:
                 revision.publish()
+
+            # Submit
+            if is_submitting:
+                workflow = page.get_workflow()
+                workflow.start(page, request.user)
 
             # Notifications
             if is_publishing:
@@ -272,8 +279,6 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                         )
                     ]
                 )
-                if not send_notification(page.get_latest_revision().id, 'submitted', request.user.pk):
-                    messages.error(request, _("Failed to send notifications to moderators"))
             else:
                 messages.success(request, _("Page '{0}' created.").format(page.get_admin_display_title()))
 
@@ -331,8 +336,11 @@ def edit(request, page_id):
     page_class = content_type.model_class()
 
     page_perms = page.permissions_for_user(request.user)
+
     if not page_perms.can_edit():
         raise PermissionDenied
+
+    next_url = get_valid_next_url_from_request(request)
 
     for fn in hooks.get_hooks('before_edit_page'):
         result = fn(request, page)
@@ -361,7 +369,63 @@ def edit(request, page_id):
 
             messages.error(request, lock_message, extra_tags='lock')
 
-    next_url = get_valid_next_url_from_request(request)
+    # Check for revisions still undergoing moderation and warn - this is for the old moderation system
+    if latest_revision and latest_revision.submitted_for_moderation:
+        buttons = []
+
+        if page.live:
+            buttons.append(messages.button(
+                reverse('wagtailadmin_pages:revisions_compare', args=(page.id, 'live', latest_revision.id)),
+                _('Compare with live version')
+            ))
+
+        messages.warning(request, _("This page is currently awaiting moderation"), buttons=buttons)
+
+    workflow_tasks = []
+    workflow_state = page.current_workflow_state
+    current_task_number = None
+    if workflow_state:
+        workflow = workflow_state.workflow
+        task = workflow_state.current_task_state.task
+        workflow_tasks = workflow_state.all_tasks_with_status()
+
+        current_task_number = None
+        for i, workflow_task in enumerate(workflow_tasks):
+            if workflow_task == task:
+                current_task_number = i + 1
+
+        # add a warning message if tasks have been approved and may need to be re-approved
+        task_has_been_approved = any(filter(lambda task: task.status == TaskState.STATUS_APPROVED, workflow_tasks))
+
+        # TODO: add icon to message when we have added a workflows icon
+        if request.method == 'GET':
+            buttons = []
+
+            if page.live:
+                buttons.append(messages.button(
+                    reverse('wagtailadmin_pages:revisions_compare', args=(page.id, 'live', latest_revision.id)),
+                    _('Compare with live version')
+                ))
+
+            # Check for revisions still undergoing moderation and warn
+            if len(workflow_tasks) == 1:
+                # If only one task in workflow, show simple message
+                workflow_info = _("This page is currently awaiting moderation")
+            elif current_task_number:
+                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
+            else:
+                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
+
+            if task_has_been_approved and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
+                messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons, extra_tags="workflow")
+            else:
+                messages.success(request, workflow_info, buttons=buttons, extra_tags="workflow")
+    else:
+        # Show last workflow state
+        workflow_state = page.workflow_states.order_by('created_at').last()
+
+        if workflow_state:
+            workflow_tasks = workflow_state.all_tasks_with_status()
 
     errors_debug = None
 
@@ -373,7 +437,7 @@ def edit(request, page_id):
             page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
-            is_submitting = bool(request.POST.get('action-submit'))
+            is_submitting = bool(request.POST.get('action-submit')) and page_perms.can_submit_for_moderation()
             is_reverting = bool(request.POST.get('revision'))
 
             # If a revision ID was passed in the form, get that revision so its
@@ -384,7 +448,6 @@ def edit(request, page_id):
             # Save revision
             revision = page.save_revision(
                 user=request.user,
-                submitted_for_moderation=is_submitting,
             )
             # store submitted go_live_at for messaging below
             go_live_at = page.go_live_at
@@ -395,6 +458,11 @@ def edit(request, page_id):
                 # Need to reload the page because the URL may have changed, and we
                 # need the up-to-date URL for the "View Live" button.
                 page = page.specific_class.objects.get(pk=page.pk)
+
+            # Submit
+            if is_submitting:
+                workflow = page.get_workflow()
+                workflow.start(page, request.user)
 
             # Notifications
             if is_publishing:
@@ -471,9 +539,6 @@ def edit(request, page_id):
                         _('Edit')
                     )
                 ])
-
-                if not send_notification(page.get_latest_revision().id, 'submitted', request.user.pk):
-                    messages.error(request, _("Failed to send notifications to moderators"))
 
             else:  # Saving
 
@@ -564,6 +629,11 @@ def edit(request, page_id):
         'next': next_url,
         'has_unsaved_changes': has_unsaved_changes,
         'page_locked': page_perms.page_locked(),
+        'workflow_state': workflow_state,
+        'workflow_actions': page.current_workflow_task.get_actions(page, request.user) if page.current_workflow_task else [],
+        'current_task_state': page.current_workflow_task_state,
+        'workflow_tasks': workflow_tasks,
+        'current_task_number': current_task_number,
     })
 
 
@@ -1057,10 +1127,44 @@ def reject_moderation(request, revision_id):
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
+
         if not send_notification(revision.id, 'rejected', request.user.pk):
             messages.error(request, _("Failed to send rejection notifications"))
 
     return redirect('wagtailadmin_home')
+
+
+@require_POST
+def workflow_action(request, page_id):
+    page = get_object_or_404(Page, id=page_id)
+
+    redirect_to = request.POST.get('next', None)
+    if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+        redirect_to = reverse('wagtailadmin_pages:edit', args=[page_id])
+
+    if not page.workflow_in_progress:
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(page.get_admin_display_title()))
+        return redirect(redirect_to)
+
+    task_state_id = request.POST.get('task_state_id', None)
+
+    task_state = TaskState.objects.get(id=task_state_id) if task_state_id else page.current_workflow_task_state
+    task_state = task_state.specific
+
+    task = task_state.task.specific
+
+    actions = task.get_actions(page, request.user)
+
+    action_name = request.POST.get('action')
+
+    if action_name not in set(action[0] for action in actions):
+        raise PermissionDenied
+
+    response = task.on_action(task_state, request.user, action_name)
+    if response:
+        return response
+
+    return redirect(redirect_to)
 
 
 @require_GET
@@ -1077,6 +1181,33 @@ def preview_for_moderation(request, revision_id):
 
     return page.make_preview_request(request, page.default_preview_mode, extra_request_attrs={
         'revision_id': revision_id
+    })
+
+
+@require_GET
+def preview_revision_for_task(request, page_id, task_id):
+    """Preview the revision linked to the in-progress TaskState of a specified Task. This enables pages in moderation
+    to be edited and new TaskStates linked to the new revisions created, with preview links remaining valid"""
+
+    page = Page.objects.get(id=page_id)
+    task = Task.objects.get(id=task_id).specific
+    try:
+        task_state = TaskState.objects.get(page_revision__page=page, task=task, status=TaskState.STATUS_IN_PROGRESS)
+    except TaskState.DoesNotExist:
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation in task '{1}'.").format(page.get_admin_display_title(), task.name))
+        return redirect('wagtailadmin_home')
+
+    revision = task_state.page_revision
+
+    if not task.get_actions(page, request.user):
+        raise PermissionDenied
+
+    page_to_view = revision.as_page_object()
+
+    # TODO: provide workflow actions within this view
+
+    return page_to_view.make_preview_request(request, page.default_preview_mode, extra_request_attrs={
+        'revision_id': revision.id
     })
 
 
@@ -1291,4 +1422,114 @@ def revisions_unschedule(request, page_id, revision_id):
         'revision': revision,
         'next': next_url,
         'subtitle': subtitle
+    })
+
+
+def workflow_history(request, page_id):
+    page = get_object_or_404(Page, id=page_id)
+
+    user_perms = UserPagePermissionsProxy(request.user)
+    if not user_perms.for_page(page).can_edit():
+        raise PermissionDenied
+
+    workflow_states = WorkflowState.objects.filter(page=page).order_by('-created_at')
+
+    paginator = Paginator(workflow_states, per_page=20)
+    workflow_states = paginator.get_page(request.GET.get('p'))
+
+    return render(request, 'wagtailadmin/pages/workflow_history/index.html', {
+        'page': page,
+        'workflow_states': workflow_states,
+    })
+
+
+def workflow_history_detail(request, page_id, workflow_state_id):
+    page = get_object_or_404(Page, id=page_id)
+
+    user_perms = UserPagePermissionsProxy(request.user)
+    if not user_perms.for_page(page).can_edit():
+        raise PermissionDenied
+
+    workflow_state = get_object_or_404(WorkflowState, page=page, id=workflow_state_id)
+
+    # Get QuerySet of all revisions that have existed during this workflow state
+    # It's possible that the page is edited while the workflow is running, so some
+    # tasks may be repeated. All tasks that have been completed no matter what
+    # revision needs to be displayed on this page.
+    page_revisions = PageRevision.objects.filter(
+        page=page,
+        id__in=TaskState.objects.filter(workflow_state=workflow_state).values_list('page_revision_id', flat=True)
+    ).order_by('created_at')
+
+    # Now get QuerySet of tasks completed for each revision
+    task_states_by_revision_task = [
+        (page_revision, {
+            task_state.task: task_state
+            for task_state in TaskState.objects.filter(workflow_state=workflow_state, page_revision=page_revision)
+        })
+        for page_revision in page_revisions
+    ]
+
+    # Make sure task states are always in a consistent order
+    # In some cases, they can be completed in a different order to what they are defined
+    tasks = workflow_state.workflow.tasks.all()
+    task_states_by_revision = [
+        (
+            page_revision,
+            [
+                task_states_by_task.get(task, None)
+                for task in tasks
+            ]
+        )
+        for page_revision, task_states_by_task in task_states_by_revision_task
+    ]
+
+    # Generate timeline
+    completed_task_states = TaskState.objects.filter(
+        workflow_state=workflow_state
+    ).exclude(
+        finished_at__isnull=True
+    ).exclude(
+        status=TaskState.STATUS_CANCELLED
+    )
+
+    timeline = [
+        {
+            'time': workflow_state.created_at,
+            'action': 'workflow_started',
+            'workflow_state': workflow_state,
+        }
+    ]
+
+    if workflow_state.status != WorkflowState.STATUS_IN_PROGRESS:
+        last_task = completed_task_states.order_by('finished_at').last()
+        if last_task:
+            timeline.append({
+                'time': last_task.finished_at + timedelta(milliseconds=1),
+                'action': 'workflow_completed',
+                'workflow_state': workflow_state,
+            })
+
+    for page_revision in page_revisions:
+        timeline.append({
+            'time': page_revision.created_at,
+            'action': 'page_edited',
+            'revision': page_revision,
+        })
+
+    for task_state in completed_task_states:
+        timeline.append({
+            'time': task_state.finished_at,
+            'action': 'task_completed',
+            'task_state': task_state,
+        })
+
+    timeline.sort(key=lambda t: t['time'])
+
+    return render(request, 'wagtailadmin/pages/workflow_history/detail.html', {
+        'page': page,
+        'workflow_state': workflow_state,
+        'tasks': tasks,
+        'task_states_by_revision': task_states_by_revision,
+        'timeline': timeline,
     })

@@ -11,11 +11,16 @@
         {% explorer_breadcrumb page %}
 
         <div class="row row-flush">
-            <div class="left col9 header-title">
+            <div class="left col6 header-title">
                 <h1 class="icon icon-doc-empty-inverse">
                 {% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}</h1>
             </div>
-            <div class="right col3">
+            {% if workflow_tasks %}
+            <div class="center col3">
+                {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}
+            </div>
+            {% endif %}
+            <div class="right col{% if workflow_tasks %}3{% else %}6{% endif %}">
                 {% trans "Status" %}
                 {% include "wagtailadmin/shared/page_status_tag.html" with page=page_for_status %}
 
@@ -42,6 +47,24 @@
                             {{ action_menu.render_html }}
                         </div>
                     </li>
+
+                    {% if page.workflow_in_progress and workflow_actions %}
+                        <li class="actions">
+                            <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+                                {% with action_name=workflow_actions.0.0 action_label=workflow_actions.0.1 %}
+                                    <button class="button action-save button-longrunning" data-workflow-action="{{ action_name }}"><span class="icon icon-spinner"></span><em>{{ action_label }}</em></button>
+                                {% endwith %}
+                                {% if workflow_actions|length > 1 %}
+                                    <div class="dropdown-toggle icon icon-arrow-up"></div>
+                                    <ul>
+                                        {% for action_name, action_label in workflow_actions|slice:"1:" %}
+                                            <li><button class="button" data-workflow-action="{{ action_name }}">{{ action_label }}</button></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endif %}
 
                     {% if preview_modes %}
                         <li class="preview">
@@ -122,5 +145,57 @@
                 }
             );
         });
+
+        {% if current_task_state %}
+        /* When a workflow action button is pressed, trigger a POST request to the workflow_action view */
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('[data-workflow-action]').forEach(function (buttonElement) {
+                buttonElement.addEventListener('click', function (e) {
+                    // Stop the button from submitting the form
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    var formElement = document.createElement('form');
+
+                    {% url 'wagtailadmin_pages:workflow_action' page.id as form_action %}
+                    formElement.action = '{{ form_action|escapejs }}';
+                    formElement.method = 'POST';
+
+                    var csrftokenElement = document.createElement('input');
+                    csrftokenElement.type = 'hidden';
+                    csrftokenElement.name = 'csrfmiddlewaretoken';
+                    csrftokenElement.value = '{{ csrf_token|escapejs }}';
+                    formElement.appendChild(csrftokenElement);
+
+                    var actionFieldElement = document.createElement('input');
+                    actionFieldElement.type = 'hidden';
+                    actionFieldElement.name = 'action';
+                    actionFieldElement.value = buttonElement.dataset.workflowAction;
+                    formElement.appendChild(actionFieldElement);
+
+                    var taskFieldElement = document.createElement('input');
+                    taskFieldElement.type = 'hidden';
+                    taskFieldElement.name = 'task_id';
+                    taskFieldElement.value = {{ current_task_state.id }};
+                    formElement.appendChild(taskFieldElement);
+
+                    document.body.appendChild(formElement);
+                    formElement.submit();
+                }, {capture: true});
+            });
+        });
+        {% endif %}
+
+        /* Tooltips used by the workflow status component */
+        $(function() {
+            $('[data-wagtail-tooltip]').tooltip({
+                animation: false,
+                title: function() {
+                    return $(this).attr('data-wagtail-tooltip');
+                },
+                trigger: 'hover',
+                placement: 'bottom',
+            });
+        })
     </script>
 {% endblock %}

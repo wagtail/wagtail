@@ -1,0 +1,37 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Workflow history for {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% trans "Workflow history for" as workflow_history_str %}
+    {% include "wagtailadmin/shared/header.html" with title=workflow_history_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <p style="margin-bottom: 30px;">
+            <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit page" %}</a>
+        </p>
+
+        {% include "wagtailadmin/pages/workflow_history/results.html" %}
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {# load editor js to get tooltips #}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    <script>
+        $(function() {
+            $('[data-wagtail-tooltip]').tooltip({
+                animation: false,
+                title: function() {
+                    return $(this).attr('data-wagtail-tooltip');
+                },
+                trigger: 'hover',
+                placement: 'bottom',
+            });
+        })
+    </script>
+{% endblock %}

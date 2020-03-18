@@ -96,6 +96,11 @@ def register_collections_menu_item():
     return CollectionsMenuItem(_('Collections'), reverse('wagtailadmin_collections:index'), classnames='icon icon-folder-open-1', order=700)
 
 
+@hooks.register('register_settings_menu_item')
+def register_workflows_menu_item():
+    return MenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), classnames='icon icon-clipboard-list', order=100)
+
+
 @hooks.register('register_page_listing_buttons')
 def page_listing_buttons(page, page_perms, is_parent=False):
     if page_perms.can_edit():

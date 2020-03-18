@@ -18,3 +18,4 @@ Advanced topics
     testing
     api/index
     amp
+    custom_tasks

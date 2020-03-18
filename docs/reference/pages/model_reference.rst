@@ -252,6 +252,18 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: save
 
+    .. autoattribute:: has_workflow
+
+    .. automethod:: get_workflow
+
+    .. autoattribute:: workflow_in_progress
+
+    .. autoattribute:: current_workflow_state
+
+    .. autoattribute:: current_workflow_task_state
+
+    .. autoattribute:: current_workflow_task
+
 .. _site-model-ref:
 
 ``Site``
@@ -471,3 +483,292 @@ Database fields
     .. attribute:: sort_order
 
         (number)
+
+
+``Workflow``
+============
+
+Workflows represent sequences of tasks which much be approved for an action to be performed on a page - typically publication.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: Workflow
+
+    .. attribute:: name
+
+        (text)
+
+        Human-readable name of the workflow.
+
+    .. attribute:: active
+
+        (boolean)
+
+        Whether or not the workflow is active: active workflows can be added to pages, and started. Inactive workflows cannot.
+
+
+Methods and properties
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. class:: Workflow
+
+    .. automethod:: start
+
+    .. autoattribute:: tasks
+
+    .. automethod:: deactivate
+
+
+``WorkflowState``
+=================
+
+Workflow states represent the status of a started workflow on a page.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: WorkflowState
+
+    .. attribute:: page
+
+        (foreign key to ``Page``)
+
+        The page on which the workflow has been started
+
+    .. attribute:: workflow
+
+        (foreign key to ``Workflow``)
+
+        The workflow whose state the ``WorkflowState`` represents
+
+    .. attribute:: status
+
+        (text)
+
+        The current status of the workflow (options are ``WorkflowState.STATUS_CHOICES``)
+
+    .. attribute:: created_at
+
+        (date/time)
+
+        When this instance of ``WorkflowState`` was created - when the workflow was started
+
+    .. attribute:: requested_by
+
+        (foreign key to user model)
+
+        The user who started this workflow
+
+    .. attribute:: current_task_state
+
+        (foreign key to ``TaskState``)
+
+        The ``TaskState`` model for the task the workflow is currently at: either completing (if in progress) or the final task state (if finished)
+
+Methods and properties
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. class:: WorkflowState
+
+    .. attribute:: STATUS_CHOICES
+
+        A tuple of the possible options for the ``status`` field, and their verbose names. Options are ``STATUS_IN_PROGRESS``, ``STATUS_APPROVED``,
+        ``STATUS_CANCELLED`` and ``STATUS_REJECTED``.
+
+    .. automethod:: update
+
+    .. automethod:: get_next_task
+
+    .. automethod:: cancel
+
+    .. automethod:: finish
+
+    .. automethod:: copy_approved_task_states_to_revision
+
+    .. automethod:: all_tasks_with_status
+
+    .. automethod:: revisions
+
+
+``Task``
+========
+
+Tasks represent stages in a workflow which must be approved for the workflow to complete successfully.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: Task
+
+    .. attribute:: name
+
+        (text)
+
+        Human-readable name of the task.
+
+    .. attribute:: active
+
+        (boolean)
+
+        Whether or not the task is active: active workflows can be added to workflows, and started. Inactive workflows cannot, and are skipped when in
+        an existing workflow.
+
+    .. attribute:: content_type
+
+        (foreign key to ``django.contrib.contenttypes.models.ContentType``)
+
+        A foreign key to the :class:`~django.contrib.contenttypes.models.ContentType` object that represents the specific model of this task.
+
+
+Methods and properties
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. class:: Task
+
+    .. attribute:: task_state_class
+
+        The specific task state class to generate to store state information for this task. If not specified, this will be ``TaskState``.
+
+    .. automethod:: get_verbose_name
+
+    .. automethod:: specific
+
+    .. automethod:: start
+
+    .. automethod:: on_action
+
+    .. automethod:: user_can_access_editor
+
+    .. automethod:: user_can_lock
+
+    .. automethod:: user_can_unlock
+
+    .. automethod:: get_actions
+
+    .. automethod:: get_task_states_user_can_moderate
+
+    .. automethod:: deactivate
+
+
+``TaskState``
+=============
+
+Task states store state information about the progress of a task on a particular page revision.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: TaskState
+
+    .. attribute:: workflow_state
+
+        (foreign key to ``WorkflowState``)
+
+        The workflow state which started this task state.
+
+    .. attribute:: page revision
+
+        (foreign key to ``PageRevision``)
+
+        Whether or not the task is active: active workflows can be added to workflows, and started. Inactive workflows cannot, and are skipped when in
+        an existing workflow.
+
+    .. attribute:: task
+
+        (foreign key to ``Task``)
+
+        The task that this task state is storing state information for.
+
+    .. attribute:: status
+
+        (text)
+
+        The completion status of the task on this revision. Options are available in ``TaskState.STATUS_CHOICES``)
+
+    .. attribute:: content_type
+
+        (foreign key to ``django.contrib.contenttypes.models.ContentType``)
+
+        A foreign key to the :class:`~django.contrib.contenttypes.models.ContentType` object that represents the specific model of this task.
+
+    .. attribute:: started_at
+
+        (date/time)
+
+        When this task state was created.
+
+    .. attribute:: finished_at
+
+        (date/time)
+
+        When this task state was cancelled, rejected, or approved.
+
+
+Methods and properties
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. class:: TaskState
+
+    .. attribute:: STATUS_CHOICES
+
+        A tuple of the possible options for the ``status`` field, and their verbose names. Options are ``STATUS_IN_PROGRESS``, ``STATUS_APPROVED``,
+        ``STATUS_CANCELLED``, ``STATUS_REJECTED`` and ``STATUS_SKIPPED``.
+
+    .. attribute:: exclude_fields_in_copy
+
+        A list of fields not to copy when the ``TaskState.copy()`` method is called.
+
+    .. automethod:: specific
+
+    .. automethod:: approve
+
+    .. automethod:: reject
+
+    .. automethod:: task_type_started_at
+
+    .. automethod:: cancel
+
+    .. automethod:: copy
+
+``WorkflowTask``
+================
+
+Represents the ordering of a task in a specific workflow.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: WorkflowTask
+
+    .. attribute:: workflow
+
+        (foreign key to ``Workflow``)
+
+    .. attribute:: task
+
+        (foreign key to ``Task``)
+
+    .. attribute:: sort_order
+
+        (number)
+
+        The ordering of the task in the workflow.
+
+``WorkflowPage``
+================
+
+Represents the assignment of a workflow to a page and its descendants.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: WorkflowPage
+
+    .. attribute:: workflow
+
+        (foreign key to ``Workflow``)
+
+    .. attribute:: page
+
+        (foreign key to ``Page``)

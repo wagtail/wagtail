@@ -1,0 +1,46 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+
+{% block titletag %}{{ view.page_title }}{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ edit_handler.form.media.css }}
+
+    {{ view.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ edit_handler.form.media.js }}
+    {{ edit_handler.html_declarations }}
+
+    {{ view.media.js }}
+{% endblock %}
+
+{% block content %}
+
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon merged=1 %}
+
+    <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
+        {% csrf_token %}
+
+        {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+
+        {% block footer %}
+            <footer role="contentinfo">
+                <ul>
+                    <li class="actions">
+                        {% block form_actions %}
+                            <div class="dropdown dropup dropdown-button match-width">
+                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Creating…' %}">
+                                    <span class="icon icon-spinner"></span><em>{% trans 'Create' %}</em>
+                                </button>
+                            </div>
+                        {% endblock %}
+                    </li>
+                </ul>
+            </footer>
+        {% endblock %}
+    </form>
+{% endblock %}
