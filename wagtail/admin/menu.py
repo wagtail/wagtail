@@ -113,6 +113,13 @@ class SubmenuMenuItem(MenuItem):
         return context
 
 
+class AdminOnlyMenuItem(MenuItem):
+    """A MenuItem which is only shown to superusers"""
+
+    def is_shown(self, request):
+        return request.user.is_superuser
+
+
 admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')
 settings_menu = Menu(register_hook_name='register_settings_menu_item', construct_hook_name='construct_settings_menu')
 reports_menu = Menu(register_hook_name='register_reports_menu_item', construct_hook_name='construct_reports_menu')
