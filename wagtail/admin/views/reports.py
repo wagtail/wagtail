@@ -116,7 +116,7 @@ class SpreadsheetExportMixin:
             return force_str(heading_override)
         try:
             return force_str(
-                queryset.first()._meta.get_field(field).verbose_name.title()
+                queryset.model._meta.get_field(field).verbose_name.title()
             )
         except (AttributeError, FieldDoesNotExist):
             return force_str(field)
