@@ -82,7 +82,7 @@ For our example, we might want to know when the page was last published, so we'l
 (dictionary)
 
 A dictionary of any fields/attributes in ``list_export`` for which you wish to manually specify a heading for the spreadsheet
-column, and their headings. If unspecified, heading will be taken from the field ``verbose_name`` if applicable, and the
+column, and their headings. If unspecified, the heading will be taken from the field ``verbose_name`` if applicable, and the
 attribute string otherwise. For our example, ``last_published_at`` will automatically get a heading of ``"Last Published At"``,
 but a simple "Last Published" looks neater. We'll add that by setting ``export_heading_overrides``:
 
@@ -175,6 +175,9 @@ url for the report, you will need to use the ``register_admin_urls`` hook (see :
             url(r'^reports/unpublished-changes/$', UnpublishedChangesReportView.as_view(), name='unpublished_changes_report'),
         ]
 
+Here, we use the ``AdminOnlyMenuItem`` class to ensure our report icon is only shown to superusers. To make the report visible to all users,
+you could replace this with ``MenuItem``.
+
 
 The full code
 ~~~~~~~~~~~~~
@@ -205,14 +208,14 @@ The full code
 
     from django.conf.urls import url
 
-    from wagtail.admin.menu import MenuItem
+    from wagtail.admin.menu import AdminOnlyMenuItem
     from wagtail.core import hooks
 
     from .views import UnpublishedChangesReportView
 
     @hooks.register('register_reports_menu_item')
     def register_unpublished_changes_report_menu_item():
-        return MenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), classnames='icon icon-' + UnpublishedChangesReportView.header_icon, order=700)
+        return AdminOnlyMenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), classnames='icon icon-' + UnpublishedChangesReportView.header_icon, order=700)
     
     @hooks.register('register_admin_urls')
     def register_unpublished_changes_report_url():
