@@ -10,6 +10,11 @@ Wagtail 2.9 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Report data exports
+~~~~~~~~~~~~~~~~~~~
+
+Data from reports, form submissions and ModelAdmin can now be exported to both XLSX and CSV format. For ModelAdmin, this is enabled by specifying a ``list_export`` attribute on the ModelAdmin class. This feature was developed by Jacob Topp-Mugglestone and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
 
 Other features
 ~~~~~~~~~~~~~~
@@ -26,6 +31,8 @@ Other features
  * Allow free tagging to be disabled on custom tag models (Matt Westcott)
  * Allow disabling page preview by setting ``preview_modes`` to an empty list (Casper Timmers)
  * Add Vidyard to oEmbed provider list (Steve Lyall)
+ * Optimise compiling media definitions for complex StreamBlocks (pimarc)
+ * FieldPanel now accepts a 'heading' argument (Jacob Topp-Mugglestone)
 
 
 Bug fixes
@@ -41,6 +48,10 @@ Bug fixes
  * ``{% image ... as var %}`` now clears the context variable when passed None as an image (Maylon Pedroso)
  * ``refresh_index`` method on Elasticsearch no longer fails (Lars van de Kerkhof)
  * Document tags no longer fail to update when replacing the document file at the same time (Matt Westcott)
+ * Prevent error from very tall / wide images being resized to 0 pixels (Fidel Ramos)
+ * Remove excess margin when editing snippets (Quadric)
+ * Added ``scope`` attribute to table headers in TableBlock output (Quadric)
+ * Prevent KeyError when accessing a StreamField on a deferred queryset (Paulo Alvarado)
 
 
 Upgrade considerations

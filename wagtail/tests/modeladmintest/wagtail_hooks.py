@@ -46,6 +46,7 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     model = Book
     menu_order = 300
     list_display = ('title', 'author', 'admin_thumb')
+    list_export = ('title', 'author')
     list_filter = ('author', )
     ordering = ('title', )
     inspect_view_enabled = True

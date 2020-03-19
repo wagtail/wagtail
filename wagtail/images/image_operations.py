@@ -182,6 +182,10 @@ class MinMaxOperation(Operation):
             # Unknown method
             return
 
+        # prevent zero width or height, it causes a ValueError on willow.resize
+        width = width if width > 0 else 1
+        height = height if height > 0 else 1
+
         return willow.resize((width, height))
 
 
@@ -214,6 +218,10 @@ class WidthHeightOperation(Operation):
             # Unknown method
             return
 
+        # prevent zero width or height, it causes a ValueError on willow.resize
+        width = width if width > 0 else 1
+        height = height if height > 0 else 1
+
         return willow.resize((width, height))
 
 
@@ -227,6 +235,10 @@ class ScaleOperation(Operation):
         scale = self.percent / 100
         width = int(image_width * scale)
         height = int(image_height * scale)
+
+        # prevent zero width or height, it causes a ValueError on willow.resize
+        width = width if width > 0 else 1
+        height = height if height > 0 else 1
 
         return willow.resize((width, height))
 

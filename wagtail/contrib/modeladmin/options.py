@@ -74,6 +74,7 @@ class ModelAdmin(WagtailRegisterable):
     menu_order = None
     list_display = ('__str__',)
     list_display_add_buttons = None
+    list_export = ()
     inspect_view_fields = []
     inspect_view_fields_exclude = []
     inspect_view_enabled = False
@@ -201,6 +202,13 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.list_display_add_buttons or self.get_list_display(
             request)[0]
+
+    def get_list_export(self, request):
+        """
+        Return a sequence containing the fields/method output to be displayed
+        in spreadsheet exports.
+        """
+        return self.list_export
 
     def get_empty_value_display(self, field_name=None):
         """

@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.admin import FieldListFilter
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
-    get_fields_from_path, label_for_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
+    get_fields_from_path, label_for_field, lookup_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import (
     FieldDoesNotExist, ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied, SuspiciousOperation)
@@ -24,6 +24,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
+from wagtail.admin.views.reports import SpreadsheetExportMixin
 
 from .forms import ParentChooserForm
 
@@ -212,14 +213,15 @@ class InstanceSpecificView(WMABaseView):
         return super().get_context_data(**context)
 
 
-class IndexView(WMABaseView):
+class IndexView(SpreadsheetExportMixin, WMABaseView):
 
     ORDER_VAR = 'o'
     ORDER_TYPE_VAR = 'ot'
     PAGE_VAR = 'p'
     SEARCH_VAR = 'q'
     ERROR_FLAG = 'e'
-    IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR)
+    EXPORT_VAR = 'export'
+    IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR, EXPORT_VAR)
 
     # sortable_by is required by the django.contrib.admin.templatetags.admin_list.result_headers
     # template tag as of Django 2.1 - see https://docs.djangoproject.com/en/2.1/ref/contrib/admin/#django.contrib.admin.ModelAdmin.sortable_by
@@ -231,12 +233,14 @@ class IndexView(WMABaseView):
         if not self.permission_helper.user_can_list(request.user):
             raise PermissionDenied
 
+        self.list_export = self.model_admin.get_list_export(request)
         self.list_display = self.model_admin.get_list_display(request)
         self.list_filter = self.model_admin.get_list_filter(request)
         self.search_fields = self.model_admin.get_search_fields(request)
         self.items_per_page = self.model_admin.list_per_page
         self.select_related = self.model_admin.list_select_related
         self.search_handler = self.model_admin.get_search_handler(request, self.search_fields)
+        self.export = (request.GET.get(self.EXPORT_VAR))
 
         # Get search parameters from the query string.
         try:
@@ -249,11 +253,35 @@ class IndexView(WMABaseView):
             del self.params[self.PAGE_VAR]
         if self.ERROR_FLAG in self.params:
             del self.params[self.ERROR_FLAG]
+        if self.EXPORT_VAR in self.params:
+            del self.params[self.EXPORT_VAR]
 
         self.query = request.GET.get(self.SEARCH_VAR, '')
+
         self.queryset = self.get_queryset(request)
 
+        if self.export in self.FORMATS:
+            return self.as_spreadsheet(self.queryset, self.export)
+
         return super().dispatch(request, *args, **kwargs)
+
+    def get_heading(self, queryset, field):
+        """ Get headings for exported spreadsheet column for the relevant field """
+        heading_override = self.export_heading_overrides.get(field)
+        if heading_override:
+            return force_str(heading_override)
+        return force_str(label_for_field(field, model=self.model).title())
+
+    def to_row_dict(self, item):
+        """ Returns an OrderedDict (in the order given by list_export) of the exportable information for a model instance"""
+        row_dict = OrderedDict()
+        for field in self.list_export:
+            f, attr, value = lookup_field(field, item, self.model_admin)
+            if not value:
+                value = getattr(attr, 'empty_value_display', self.model_admin.get_empty_value_display(field))
+            row_dict[field] = value
+
+        return row_dict
 
     @property
     def media(self):

@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Removed support for Django 2.1
+ * Added data exports in XLSX and CSV format for reports, ModelAdmin and form submissions (Jacob Topp-Mugglestone)
  * Skip page validation when unpublishing a page (Samir Shah)
  * Added `MultipleChoiceBlock` block type for StreamField (James O'Toole)
  * ChoiceBlock now accepts a `widget` keyword argument (James O'Toole)
@@ -17,6 +18,8 @@ Changelog
  * Allow free tagging to be disabled on custom tag models (Matt Westcott)
  * Allow disabling page preview by setting `preview_modes` to an empty list (Casper Timmers)
  * Add Vidyard to oEmbed provider list (Steve Lyall)
+ * Optimise compiling media definitions for complex StreamBlocks (pimarc)
+ * FieldPanel now accepts a 'heading' argument (Jacob Topp-Mugglestone)
  * Fix: Added ARIA alert role to live search forms in the admin (Casper Timmers)
  * Fix: Reorder login form elements to match expected tab order (Kjartan Sverrisson)
  * Fix: Re-add 'Close Explorer' button on mobile viewports (Sævar Öfjörð Magnússon)
@@ -27,6 +30,10 @@ Changelog
  * Fix: `{% image ... as var %}` now clears the context variable when passed None as an image (Maylon Pedroso)
  * Fix: `refresh_index` method on Elasticsearch no longer fails (Lars van de Kerkhof)
  * Fix: Document tags no longer fail to update when replacing the document file at the same time (Matt Westcott)
+ * Fix: Prevent error from very tall / wide images being resized to 0 pixels (Fidel Ramos)
+ * Fix: Remove excess margin when editing snippets (Quadric)
+ * Fix: Added `scope` attribute to table headers in TableBlock output (Quadric)
+ * Fix: Prevent KeyError when accessing a StreamField on a deferred queryset (Paulo Alvarado)
 
 
 2.8 (03.02.2020)

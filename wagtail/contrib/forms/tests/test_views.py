@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
+import datetime
 import json
+from io import BytesIO
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
+from openpyxl import load_workbook
 
 from wagtail.admin.edit_handlers import get_form_for_model
 from wagtail.admin.forms import WagtailAdminPageForm
@@ -412,16 +415,31 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'CSV'}
+            {'export': 'csv'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_lines = response.content.decode().split("\n")
+        data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
         self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+
+    def test_list_submissions_xlsx_export(self):
+        response = self.client.get(
+            reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
+            {'export': 'xlsx'}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data))['Sheet1']
+        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
+        self.assertEqual(cell_array[0], ['Submission date', 'Your email', 'Your message', 'Your choices'])
+        self.assertEqual(cell_array[1], [datetime.datetime(2013, 1, 1, 12, 0), 'old@example.com', 'this is a really old message', 'foo, baz'])
+        self.assertEqual(cell_array[2], [datetime.datetime(2014, 1, 1, 12, 0), 'new@example.com', 'this is a fairly new message', 'None'])
+        self.assertEqual(len(cell_array), 3)
 
     def test_list_submissions_csv_large_export(self):
         for i in range(100):
@@ -437,12 +455,12 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'CSV'}
+            {'export': 'csv'}
         )
 
         # Check that csv export is not paginated
         self.assertEqual(response.status_code, 200)
-        data_lines = response.content.decode().split("\n")
+        data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(104, len(data_lines))
 
     def test_list_submissions_csv_export_after_filter_form_submissions_for_user_hook(self):
@@ -452,12 +470,12 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'CSV'}
+            {'export': 'csv'}
         )
 
         # An user can export form submissions without the hook
         self.assertEqual(response.status_code, 200)
-        data_lines = response.content.decode().split("\n")
+        data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
@@ -466,7 +484,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         with self.register_hook('filter_form_submissions_for_user', construct_forms_for_user):
             response = self.client.get(
                 reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-                {'action': 'CSV'}
+                {'export': 'csv'}
             )
 
         # An user can't export form submission with the hook
@@ -475,12 +493,12 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export_with_date_from_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'CSV', 'date_from': '01/01/2014'}
+            {'export': 'csv', 'date_from': '01/01/2014'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_lines = response.content.decode().split("\n")
+        data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
@@ -488,12 +506,12 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export_with_date_to_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'CSV', 'date_to': '12/31/2013'}
+            {'export': 'csv', 'date_to': '12/31/2013'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_lines = response.content.decode().split("\n")
+        data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
@@ -501,12 +519,12 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export_with_range_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'CSV', 'date_from': '12/31/2013', 'date_to': '01/02/2014'}
+            {'export': 'csv', 'date_from': '12/31/2013', 'date_to': '01/02/2014'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_lines = response.content.decode().split("\n")
+        data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
@@ -524,12 +542,12 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'date_from': '01/02/2014', 'action': 'CSV'}
+            {'date_from': '01/02/2014', 'export': 'csv'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_line = response.content.decode('utf-8').split("\n")[1]
+        data_line = response.getvalue().decode('utf-8').split("\n")[1]
         self.assertIn('こんにちは、世界', data_line)
 
     def test_list_submissions_csv_export_with_unicode_in_field(self):
@@ -555,15 +573,16 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id, )),
-            {'date_from': '01/02/2014', 'action': 'CSV'}
+            {'date_from': '01/02/2014', 'export': 'csv'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
 
-        data_lines = response.content.decode('utf-8').split("\n")
+        data_lines = response.getvalue().decode('utf-8').split("\n")
         self.assertIn('Выберите самую любимую IDE для разработке на Python', data_lines[0])
         self.assertIn('vim', data_lines[1])
+
 
 
 class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
@@ -603,12 +622,12 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'CSV'}
+            {'export': 'csv'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_lines = response.content.decode().split("\n")
+        data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1],
@@ -619,12 +638,12 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export_with_date_from_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'CSV', 'date_from': '01/01/2014'}
+            {'export': 'csv', 'date_from': '01/01/2014'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_lines = response.content.decode().split("\n")
+        data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1],
@@ -633,12 +652,12 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export_with_date_to_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'CSV', 'date_to': '12/31/2013'}
+            {'export': 'csv', 'date_to': '12/31/2013'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_lines = response.content.decode().split("\n")
+        data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1],
@@ -647,12 +666,12 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export_with_range_filtering(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'CSV', 'date_from': '12/31/2013', 'date_to': '01/02/2014'}
+            {'export': 'csv', 'date_from': '12/31/2013', 'date_to': '01/02/2014'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_lines = response.content.decode().split("\n")
+        data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1],
@@ -672,12 +691,12 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'date_from': '01/02/2014', 'action': 'CSV'}
+            {'date_from': '01/02/2014', 'export': 'csv'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_line = response.content.decode('utf-8').split("\n")[1]
+        data_line = response.getvalue().decode('utf-8').split("\n")[1]
         self.assertIn('こんにちは、世界', data_line)
 
     def test_list_submissions_csv_export_with_unicode_in_field(self):
@@ -704,15 +723,16 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'date_from': '01/02/2014', 'action': 'CSV'}
+            {'date_from': '01/02/2014', 'export': 'csv'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
 
-        data_lines = response.content.decode('utf-8').split("\n")
+        data_lines = response.getvalue().decode('utf-8').split("\n")
         self.assertIn('Выберите самую любимую IDE для разработке на Python', data_lines[0])
         self.assertIn('vim', data_lines[1])
+
 
 
 class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
@@ -1106,13 +1126,13 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export(self):
         response = self.client.get(
             reverse('wagtailforms:list_submissions', args=(self.form_page.id,)),
-            {'action': 'CSV'}
+            {'export': 'csv'}
         )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        data_lines = response.content.decode().split("\n")
-        self.assertIn('filename=%s-export' % self.form_page.slug, response.get('Content-Disposition'))
+        data_lines = response.getvalue().decode().split("\n")
+        self.assertIn('filename="%s-export' % self.form_page.slug, response.get('Content-Disposition'))
         self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Chocolate,Ingredients,Your Excitement\r')
         # first result should be the most recent as order_csv has been reversed
         self.assertEqual(data_lines[1], 'user-chocolate-maniac,2017-10-01 12:00:00+00:00,new@example.com,White Chocolate,White colouring,Much excitement\r')
