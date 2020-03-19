@@ -139,6 +139,7 @@ class Notifier:
     notifications using rendered templates. """
 
     notification = ''
+    template_directory = 'wagtailadmin/notifications/'
 
     def __init__(self, valid_classes):
         # the classes of the calling instance that the notifier can handle
@@ -162,7 +163,7 @@ class Notifier:
         """Return a dictionary of template paths for the templates: by default, a text message"""
         template_base = self.get_template_base_prefix(instance) + self.notification
 
-        template_text = 'wagtailadmin/notifications/' + template_base + '.txt'
+        template_text = self.template_directory + template_base + '.txt'
 
         return {
             'text': template_text,
@@ -213,9 +214,9 @@ class EmailNotifier(Notifier):
         alternatives"""
         template_base = self.get_template_base_prefix(instance) + self.notification
 
-        template_subject = 'wagtailadmin/notifications/' + template_base + '_subject.txt'
-        template_text = 'wagtailadmin/notifications/' + template_base + '.txt'
-        template_html = 'wagtailadmin/notifications/' + template_base + '.html'
+        template_subject = self.template_directory + template_base + '_subject.txt'
+        template_text = self.template_directory + template_base + '.txt'
+        template_html = self.template_directory + template_base + '.html'
 
         return {
             'subject': template_subject,
