@@ -20,4 +20,10 @@
             margin-top: 20px;
         }
     }
+
+    &__actions > div {
+        float: right;
+        display: block;
+        margin-right: 10px;
+    }
 }
