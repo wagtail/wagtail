@@ -11,6 +11,7 @@ from django.views.generic.list import BaseListView
 from xlsxwriter.workbook import Workbook
 
 from wagtail.admin.auth import permission_denied
+from wagtail.admin.filters import LockedPagesReportFilterSet
 from wagtail.core.models import UserPagePermissionsProxy
 
 
@@ -186,6 +187,7 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
     template_name = "wagtailadmin/reports/base_report.html"
     title = ""
     paginate_by = 50
+    filterset_class = None
 
     def dispatch(self, request, *args, **kwargs):
         self.is_export = self.request.GET.get("export") in self.FORMATS
@@ -195,9 +197,17 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, *args, object_list=None, **kwargs):
-        context = super().get_context_data(*args, object_list=object_list, **kwargs)
+        filters = None
+        queryset = object_list if object_list is not None else self.object_list
+
+        if self.filterset_class:
+            filters = self.filterset_class(self.request.GET, queryset=queryset)
+            queryset = filters.qs
+
+        context = super().get_context_data(*args, object_list=queryset, **kwargs)
         context["title"] = self.title
         context["header_icon"] = self.header_icon
+        context["filters"] = filters
         return context
 
 
@@ -224,6 +234,7 @@ class LockedPagesView(PageReportView):
         "locked_at",
         "locked_by",
     ]
+    filterset_class = LockedPagesReportFilterSet
 
     def get_filename(self):
         return "locked-pages-report-{}".format(
