@@ -243,7 +243,7 @@ class LockedPagesView(ReportView):
 
 class WorkflowView(ReportView):
     template_name = 'wagtailadmin/reports/workflow.html'
-    title = _('Workflow')
+    title = _('Workflows')
     header_icon = 'placeholder'
 
     def get_queryset(self):
@@ -253,7 +253,7 @@ class WorkflowView(ReportView):
 
 class WorkflowTasksView(ReportView):
     template_name = 'wagtailadmin/reports/workflow_tasks.html'
-    title = _('Workflow')
+    title = _('Workflows')
     header_icon = 'placeholder'
 
     def get_queryset(self):
