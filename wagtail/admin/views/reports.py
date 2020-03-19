@@ -11,6 +11,7 @@ from django.views.generic.list import BaseListView
 from xlsxwriter.workbook import Workbook
 
 from wagtail.admin.auth import permission_denied
+from wagtail.admin.filters import LockedPagesReportFilterSet, WorkflowReportFilterSet, WorkflowTasksReportFilterSet
 from wagtail.core.models import UserPagePermissionsProxy, WorkflowState, TaskState
 
 
@@ -186,6 +187,7 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
     template_name = None
     title = ""
     paginate_by = 10
+    filterset_class = None
 
     def dispatch(self, request, *args, **kwargs):
         self.is_export = self.request.GET.get("export") in self.FORMATS
@@ -195,9 +197,17 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, *args, object_list=None, **kwargs):
-        context = super().get_context_data(*args, object_list=object_list, **kwargs)
+        filters = None
+        queryset = object_list if object_list is not None else self.object_list
+
+        if self.filterset_class:
+            filters = self.filterset_class(self.request.GET, queryset=queryset)
+            queryset = filters.qs
+
+        context = super().get_context_data(*args, object_list=queryset, **kwargs)
         context["title"] = self.title
         context["header_icon"] = self.header_icon
+        context["filters"] = filters
         return context
 
 
@@ -218,6 +228,7 @@ class LockedPagesView(ReportView):
         "locked_at",
         "locked_by",
     ]
+    filterset_class = LockedPagesReportFilterSet
 
     def get_filename(self):
         return "locked-pages-report-{}".format(
@@ -243,6 +254,7 @@ class WorkflowView(ReportView):
     template_name = 'wagtailadmin/reports/workflow.html'
     title = _('Workflows')
     header_icon = 'placeholder'
+    filterset_class = WorkflowReportFilterSet
 
     export_headings = {
         "page.id": _("Page ID"),
@@ -275,6 +287,7 @@ class WorkflowTasksView(ReportView):
     template_name = 'wagtailadmin/reports/workflow_tasks.html'
     title = _('Workflows')
     header_icon = 'placeholder'
+    filterset_class = WorkflowTasksReportFilterSet
 
     export_headings = {
         "workflow_state.page.id": _("Page ID"),
