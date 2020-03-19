@@ -278,6 +278,28 @@ class WorkflowView(ReportView):
     title = _('Workflows')
     header_icon = 'clipboard-list'
 
+    export_headings = {
+        "page.id": _("Page ID"),
+        "page.content_type.model_class._meta.verbose_name.title": _("Page Type"),
+        "page.title": _("Page Title"),
+        "get_status_display": _("Status"),
+        "created_at": _("Started at")
+    }
+    list_export = [
+        "workflow",
+        "page.id",
+        "page.content_type.model_class._meta.verbose_name.title",
+        "page.title",
+        "get_status_display",
+        "requested_by",
+        "created_at",
+    ]
+
+    def get_filename(self):
+        return "workflow-report-{}".format(
+            datetime.datetime.today().strftime("%Y-%m-%d")
+        )
+
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages()
         return WorkflowState.objects.filter(page__in=pages).order_by('-created_at')
@@ -287,6 +309,30 @@ class WorkflowTasksView(ReportView):
     template_name = 'wagtailadmin/reports/workflow_tasks.html'
     title = _('Workflows')
     header_icon = 'clipboard-list'
+
+    export_headings = {
+        "workflow_state.page.id": _("Page ID"),
+        "workflow_state.page.content_type.model_class._meta.verbose_name.title": _("Page Type"),
+        "workflow_state.page.title": _("Page Title"),
+        "get_status_display": _("Status"),
+        "workflow_state.requested_by": _("Requested By")
+    }
+    list_export = [
+        "task",
+        "workflow_state.page.id",
+        "workflow_state.page.content_type.model_class._meta.verbose_name.title",
+        "workflow_state.page.title",
+        "get_status_display",
+        "workflow_state.requested_by",
+        "started_at",
+        "finished_at",
+        "finished_by",
+    ]
+
+    def get_filename(self):
+        return "workflow-tasks-{}".format(
+            datetime.datetime.today().strftime("%Y-%m-%d")
+        )
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages()
