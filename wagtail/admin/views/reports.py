@@ -180,6 +180,19 @@ class SpreadsheetExportMixin:
         elif spreadsheet_format == self.FORMAT_XLSX:
             return self.write_xlsx_response(queryset)
 
+    def get_export_url(self, format):
+        params = self.request.GET.copy()
+        params['export'] = format
+        return self.request.path + '?' + params.urlencode()
+
+    @property
+    def xlsx_export_url(self):
+        return self.get_export_url('xlsx')
+
+    @property
+    def csv_export_url(self):
+        return self.get_export_url('csv')
+
 
 class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
     header_icon = ""
@@ -189,20 +202,25 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
     paginate_by = 50
     filterset_class = None
 
-    def dispatch(self, request, *args, **kwargs):
-        self.is_export = self.request.GET.get("export") in self.FORMATS
-        if self.is_export:
-            self.paginate_by = None
-            return self.as_spreadsheet(self.get_queryset(), self.request.GET.get("export"))
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, *args, object_list=None, **kwargs):
+    def filter_queryset(self, queryset):
         filters = None
-        queryset = object_list if object_list is not None else self.object_list
 
         if self.filterset_class:
             filters = self.filterset_class(self.request.GET, queryset=queryset)
             queryset = filters.qs
+
+        return filters, queryset
+
+    def dispatch(self, request, *args, **kwargs):
+        self.is_export = self.request.GET.get("export") in self.FORMATS
+        if self.is_export:
+            self.paginate_by = None
+            return self.as_spreadsheet(self.filter_queryset(self.get_queryset())[1], self.request.GET.get("export"))
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, *args, object_list=None, **kwargs):
+        queryset = object_list if object_list is not None else self.object_list
+        filters, queryset = self.filter_queryset(queryset)
 
         context = super().get_context_data(*args, object_list=queryset, **kwargs)
         context["title"] = self.title
