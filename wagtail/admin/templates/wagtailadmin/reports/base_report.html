@@ -1,5 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
+
 {% block titletag %}{{ title }}{% endblock %}
 
 {% block content %}
@@ -10,34 +11,24 @@
                     <h1 class="icon icon-{{ header_icon }}">{{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
                 </div>
             </div>
-            {% if view.list_export %}
-                <div class="right">
-                    <div class="dropdown dropdown-button match-width">
-                        <a href="?export=xlsx" class="button bicolor icon icon-download">{% trans 'Download XLSX' %}</a>
-                        <div class="dropdown-toggle icon icon-arrow-down"></div>
-                        <ul>
-                            <li><a  class="button bicolor icon icon-download" href="?export=csv">{% trans 'Download CSV' %}</a></li>
-                        </ul>
-                    </div>
-                </div>
-            {% endif %}
+            <div class="right">
+                {% block actions %}
+                    {% if view.list_export %}
+                        <div class="dropdown dropdown-button match-width">
+                            <a href="?export=xlsx" class="button bicolor icon icon-download">{% trans 'Download XLSX' %}</a>
+                            <div class="dropdown-toggle icon icon-arrow-down"></div>
+                            <ul>
+                                <li><a  class="button bicolor icon icon-download" href="?export=csv">{% trans 'Download CSV' %}</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+            </div>
         </div>
     </header>
 
-    {% with page_obj as pages %}
-        <div id="page-results">
-            <div class="nice-padding">
-                {% if pages %}
-                    {% block listing %}
-                        {% include "wagtailadmin/reports/listing/_list_report.html" %}
-                    {% endblock %}
-                    {% paginate pages base_url=request.path %}
-                {% else %}
-                    {% block no_results %}
-                        <p>{% trans "No pages match this report's criteria." %}</p>
-                    {% endblock %}
-                {% endif %}
-            </div>
-        </div>
-    {% endwith %}
+    <div class="nice-padding">
+        {% block results %}
+        {% endblock %}
+    </div>
 {% endblock %}
