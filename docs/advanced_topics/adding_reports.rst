@@ -46,7 +46,8 @@ This retrieves the queryset of pages for your report. For our example:
 (string)
 
 The template used to render your report. By default, this is ``"wagtailadmin/reports/base_report.html"``,
-which has a listing based on the explorer views, displaying action buttons, as well as the title,
+which provides an empty report page layout; an alternative base template ``"wagtailadmin/reports/base_page_report.html"``
+is available, providing a listing based on the explorer views, displaying action buttons, as well as the title,
 time of the last update, status, and specific type of any pages. In this example, we'll change this
 to a new template in a later section.
 
@@ -111,14 +112,14 @@ Customising templates
 ---------------------
 
 For this example "pages with unpublished changes" report, we'll add an extra column to the listing template, showing the last
-publication date for each page. To do this, we'll extend two templates: ``wagtailadmin/reports/base_report.html``, and 
+publication date for each page. To do this, we'll extend two templates: ``wagtailadmin/reports/base_page_report.html``, and
 ``wagtailadmin/reports/listing/_list_report.html``.
 
 .. code-block:: html
 
-    # <project>/templates/reports/unpublished_changes_report.html
+    {# <project>/templates/reports/unpublished_changes_report.html #}
 
-    {% extends 'wagtailadmin/reports/base_report.html' %}
+    {% extends 'wagtailadmin/reports/base_page_report.html' %}
 
     {% block listing %}
         {% include 'reports/include/_list_unpublished_changes.html' %}
@@ -131,7 +132,7 @@ publication date for each page. To do this, we'll extend two templates: ``wagtai
 
 .. code-block:: html
 
-    # <project>/templates/reports/include/_list_unpublished_changes.html
+    {# <project>/templates/reports/include/_list_unpublished_changes.html #}
 
     {% extends 'wagtailadmin/reports/listing/_list_report.html' %}
 
@@ -139,7 +140,7 @@ publication date for each page. To do this, we'll extend two templates: ``wagtai
         <th>Last Published</th>
     {% endblock %}
 
-    {% block extra_page_data%}
+    {% block extra_page_data %}
         <td valign="top">
             {{ page.last_published_at }}
         </td>
@@ -225,9 +226,9 @@ The full code
 
 .. code-block:: html
 
-    # <project>/templates/reports/unpublished_changes_report.html
+    {# <project>/templates/reports/unpublished_changes_report.html #}
 
-    {% extends 'wagtailadmin/reports/base_report.html' %}
+    {% extends 'wagtailadmin/reports/base_page_report.html' %}
 
     {% block listing %}
         {% include 'reports/include/_list_unpublished_changes.html' %}
@@ -240,7 +241,7 @@ The full code
 
 .. code-block:: html
 
-    # <project>/templates/reports/include/_list_unpublished_changes.html
+    {# <project>/templates/reports/include/_list_unpublished_changes.html #}
 
     {% extends 'wagtailadmin/reports/listing/_list_report.html' %}
 
@@ -248,7 +249,7 @@ The full code
         <th>Last Published</th>
     {% endblock %}
 
-    {% block extra_page_data%}
+    {% block extra_page_data %}
         <td valign="top">
             {{ page.last_published_at }}
         </td>
