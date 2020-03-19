@@ -1,0 +1,23 @@
+.report {
+    display: grid;
+    grid-template-columns: auto;
+    grid-column-gap: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+
+    &--has-filters {
+        grid-template-columns: auto 300px;
+    }
+
+    &__results {
+        grid-column-start: col-start 1 col-end 2;
+    }
+
+    &__filters {
+        grid-column-start: col-start -2 col-end -1;
+
+        button[type='submit'] {
+            margin-top: 20px;
+        }
+    }
+}
