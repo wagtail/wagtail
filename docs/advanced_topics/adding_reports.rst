@@ -77,16 +77,16 @@ For our example, we might want to know when the page was last published, so we'l
 
 ``list_export = ReportView.list_export + ['last_published_at']``
 
-.. attribute:: export_heading_overrides
+.. attribute:: export_headings
 
 (dictionary)
 
 A dictionary of any fields/attributes in ``list_export`` for which you wish to manually specify a heading for the spreadsheet
 column, and their headings. If unspecified, the heading will be taken from the field ``verbose_name`` if applicable, and the
 attribute string otherwise. For our example, ``last_published_at`` will automatically get a heading of ``"Last Published At"``,
-but a simple "Last Published" looks neater. We'll add that by setting ``export_heading_overrides``:
+but a simple "Last Published" looks neater. We'll add that by setting ``export_headings``:
 
-``export_heading_overrides = dict(last_published_at='Last Published', **ReportView.export_heading_overrides)``
+``export_headings = dict(last_published_at='Last Published', **ReportView.export_headings)``
 
 .. attribute:: custom_value_preprocess
 
@@ -197,7 +197,7 @@ The full code
         title = "Pages with unpublished changes"
 
         list_export = ReportView.list_export + ['last_published_at']
-        export_heading_overrides = dict(last_published_at='Last Published', **ReportView.export_heading_overrides)
+        export_headings = dict(last_published_at='Last Published', **ReportView.export_headings)
         
         def get_queryset(self):
             return Page.objects.filter(has_unpublished_changes=True)
