@@ -18,7 +18,7 @@ class SiteSwitchForm(forms.Form):
         initial_data = {'site': self.get_change_url(current_site, model)}
         super().__init__(initial=initial_data, **kwargs)
         sites = [(self.get_change_url(site, model), site)
-                 for site in Site.objects.all()]
+                 for site in Site.objects.all().order_by("site_name")]
         self.fields['site'].choices = sites
 
     @classmethod
