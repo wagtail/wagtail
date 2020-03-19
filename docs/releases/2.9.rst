@@ -19,6 +19,7 @@ Data from reports, form submissions and ModelAdmin can now be exported to both X
 Other features
 ~~~~~~~~~~~~~~
 
+ * Added support for creating custom reports (Jacob Topp-Mugglestone)
  * Skip page validation when unpublishing a page (Samir Shah)
  * Added :ref:`streamfield_multiplechoiceblock` block type for StreamField (James O'Toole)
  * ChoiceBlock now accepts a ``widget`` keyword argument (James O'Toole)
