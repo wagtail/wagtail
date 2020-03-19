@@ -44,7 +44,7 @@ class SpreadsheetExportMixin:
         list: {FORMAT_CSV: list_to_str, FORMAT_XLSX: list_to_str},
     }
     # A dictionary of column heading overrides in the format {field: heading}
-    export_heading_overrides = {}
+    export_headings = {}
 
     def get_filename(self):
         """ Gets the base filename for the exported spreadsheet, without extensions """
@@ -111,7 +111,7 @@ class SpreadsheetExportMixin:
 
     def get_heading(self, queryset, field):
         """ Get the heading label for a given field for a spreadsheet generated from queryset """
-        heading_override = self.export_heading_overrides.get(field)
+        heading_override = self.export_headings.get(field)
         if heading_override:
             return force_str(heading_override)
         try:
@@ -205,7 +205,7 @@ class LockedPagesView(ReportView):
     template_name = "wagtailadmin/reports/locked_pages.html"
     title = _("Locked Pages")
     header_icon = "locked"
-    export_heading_overrides = {
+    export_headings = {
         "latest_revision_created_at": _("Updated"),
         "status_string": _("Status"),
         "content_type.model_class._meta.verbose_name.title": _("Type"),
@@ -244,7 +244,7 @@ class WorkflowView(ReportView):
     title = _('Workflows')
     header_icon = 'placeholder'
 
-    export_heading_overrides = {
+    export_headings = {
         "page.id": _("Page ID"),
         "page.content_type.model_class._meta.verbose_name.title": _("Page Type"),
         "page.title": _("Page Title"),
@@ -276,7 +276,7 @@ class WorkflowTasksView(ReportView):
     title = _('Workflows')
     header_icon = 'placeholder'
 
-    export_heading_overrides = {
+    export_headings = {
         "workflow_state.page.id": _("Page ID"),
         "workflow_state.page.content_type.model_class._meta.verbose_name.title": _("Page Type"),
         "workflow_state.page.title": _("Page Title"),

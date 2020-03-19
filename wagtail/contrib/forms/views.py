@@ -155,7 +155,7 @@ class SubmissionsListView(SpreadsheetExportMixin, SafePaginateListView):
             data_fields = self.form_page.get_data_fields()
             # Set the export fields and the headings for spreadsheet export
             self.list_export = [field for field, label in data_fields]
-            self.export_heading_overrides = dict(data_fields)
+            self.export_headings = dict(data_fields)
 
         return super().dispatch(request, *args, **kwargs)
 

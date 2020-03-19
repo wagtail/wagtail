@@ -267,7 +267,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
 
     def get_heading(self, queryset, field):
         """ Get headings for exported spreadsheet column for the relevant field """
-        heading_override = self.export_heading_overrides.get(field)
+        heading_override = self.export_headings.get(field)
         if heading_override:
             return force_str(heading_override)
         return force_str(label_for_field(field, model=self.model).title())
