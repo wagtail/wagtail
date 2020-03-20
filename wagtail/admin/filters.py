@@ -9,12 +9,18 @@ from .widgets import AdminDateInput
 
 
 class ButtonSelect(forms.Select):
+    """
+    A select widget for fields with choices. Displays as a list of buttons.
+    """
     input_type = 'hidden'
     template_name = 'wagtailadmin/widgets/button_select.html'
     option_template_name = 'wagtailadmin/widgets/button_select_option.html'
 
 
 class BooleanButtonSelect(ButtonSelect):
+    """
+    A select widget for boolean fields. Displays as three buttons. "All", "Yes" and "No".
+    """
     def __init__(self, attrs=None):
         choices = (
             ('', _("All")),
@@ -45,6 +51,9 @@ class BooleanButtonSelect(ButtonSelect):
 
 
 class DateRangePickerWidget(SuffixedMultiWidget):
+    """
+    A widget allowing a start and end date to be picked.
+    """
     template_name = 'wagtailadmin/widgets/daterange_input.html'
     suffixes = ['after', 'before']
 
