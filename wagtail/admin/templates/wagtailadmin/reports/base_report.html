@@ -50,4 +50,10 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/report.css' %}" type="text/css" />
+
+    {{ filters.form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ filters.form.media.js }}
 {% endblock %}
