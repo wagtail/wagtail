@@ -1,5 +1,6 @@
 import django_filters
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
 from wagtail.core.models import Page, WorkflowState, TaskState
@@ -18,7 +19,7 @@ class DateRangePickerWidget(SuffixedMultiWidget):
     suffixes = ['after', 'before']
 
     def __init__(self, attrs=None):
-        widgets = (AdminDateInput(attrs={'placeholder': "Date from"}), AdminDateInput(attrs={'placeholder': "Date to"}))
+        widgets = (AdminDateInput(attrs={'placeholder': _("Date from")}), AdminDateInput(attrs={'placeholder': _("Date to")}))
         super().__init__(widgets, attrs)
 
     def decompress(self, value):
@@ -35,7 +36,7 @@ class WagtailFilterSet(django_filters.FilterSet):
 
         if filter_class == django_filters.ChoiceFilter:
             params.setdefault('widget', ButtonSelect)
-            params.setdefault('empty_label', "All")
+            params.setdefault('empty_label', _("All"))
 
         elif filter_class in [django_filters.DateFilter, django_filters.DateTimeFilter]:
             params.setdefault('widget', AdminDateInput)
@@ -55,7 +56,7 @@ class LockedPagesReportFilterSet(WagtailFilterSet):
 
 
 class WorkflowReportFilterSet(WagtailFilterSet):
-    created_at = django_filters.DateFromToRangeFilter(label='Started at', widget=DateRangePickerWidget)
+    created_at = django_filters.DateFromToRangeFilter(label=_("Started at"), widget=DateRangePickerWidget)
 
     class Meta:
         model = WorkflowState
@@ -63,8 +64,8 @@ class WorkflowReportFilterSet(WagtailFilterSet):
 
 
 class WorkflowTasksReportFilterSet(WagtailFilterSet):
-    created_at = django_filters.DateFromToRangeFilter(label='Started at', widget=DateRangePickerWidget)
-    finished_at = django_filters.DateFromToRangeFilter(label='Completed at', widget=DateRangePickerWidget)
+    created_at = django_filters.DateFromToRangeFilter(label=_("Started at"), widget=DateRangePickerWidget)
+    finished_at = django_filters.DateFromToRangeFilter(label=_("Completed at"), widget=DateRangePickerWidget)
 
     class Meta:
         model = TaskState
