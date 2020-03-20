@@ -14,6 +14,36 @@ class ButtonSelect(forms.Select):
     option_template_name = 'wagtailadmin/widgets/button_select_option.html'
 
 
+class BooleanButtonSelect(ButtonSelect):
+    def __init__(self, attrs=None):
+        choices = (
+            ('', _("All")),
+            ('true', _("Yes")),
+            ('false', _("No")),
+        )
+        super().__init__(attrs, choices)
+
+    def format_value(self, value):
+        try:
+            return {
+                True: ['true'], False: ['false'],
+                'true': ['true'], 'false': ['false'],
+            }[value]
+        except KeyError:
+            return ''
+
+    def value_from_datadict(self, data, files, name):
+        value = data.get(name)
+        return {
+            True: True,
+            'True': True,
+            'False': False,
+            False: False,
+            'true': True,
+            'false': False,
+        }.get(value)
+
+
 class DateRangePickerWidget(SuffixedMultiWidget):
     template_name = 'wagtailadmin/widgets/daterange_input.html'
     suffixes = ['after', 'before']
@@ -44,6 +74,9 @@ class WagtailFilterSet(django_filters.FilterSet):
         elif filter_class == django_filters.DateFromToRangeFilter:
             params.setdefault('widget', DateRangePickerWidget)
 
+        elif filter_class == django_filters.BooleanFilter:
+            params.setdefault('widget', BooleanButtonSelect)
+
         return filter_class, params
 
 
@@ -52,4 +85,4 @@ class LockedPagesReportFilterSet(WagtailFilterSet):
 
     class Meta:
         model = Page
-        fields = ['locked_by', 'locked_at']
+        fields = ['locked_by', 'locked_at', 'live']
