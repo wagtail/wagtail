@@ -57,14 +57,18 @@ $object-title-height: 40px;
         border-color: $color-input-focus-border;
     }
 
-    fieldset {
-        padding-top: $object-title-height + 12px;
-        padding-left: 0;
-        padding-right: 0;
-    }
-
+    fieldset,
     .field-row {
         padding-top: $object-title-height + 12px;
+    }
+
+    fieldset {
+        padding-left: 0;
+        padding-right: 0;
+
+        .field-row {
+            padding-top: 0;
+        }
     }
 
     .object-help {
