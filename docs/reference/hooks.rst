@@ -119,7 +119,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   A numeric count of items in this collection
 
 ``count_text``
-  A human-readable string describing the number of items in this collection, such as "3 documents". (Sites with multi-language support should return a translatable string here, most likely using the ``django.utils.translation.ungettext`` function.)
+  A human-readable string describing the number of items in this collection, such as "3 documents". (Sites with multi-language support should return a translatable string here, most likely using the ``django.utils.translation.ngettext`` function.)
 
 ``url`` (optional)
   A URL to an index page that lists the objects being described.

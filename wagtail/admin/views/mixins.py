@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from wagtail.admin.forms.search import SearchForm
 from wagtail.search.backends import get_search_backend

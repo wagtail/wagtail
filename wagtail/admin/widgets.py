@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.utils.formats import get_format
 from django.utils.functional import cached_property
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from taggit.forms import TagWidget
 from taggit.models import Tag
 

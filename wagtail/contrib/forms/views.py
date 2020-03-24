@@ -5,7 +5,7 @@ from collections import OrderedDict
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import InvalidPage
 from django.shortcuts import get_object_or_404, redirect
-from django.utils.translation import ungettext
+from django.utils.translation import ngettext
 from django.views.generic import ListView, TemplateView
 
 from wagtail.admin import messages
@@ -91,7 +91,7 @@ class DeleteSubmissionsView(TemplateView):
         submissions.delete()
         messages.success(
             self.request,
-            ungettext(
+            ngettext(
                 'One submission has been deleted.',
                 '%(count)d submissions have been deleted.',
                 count
