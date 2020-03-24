@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.search.signal_handlers import register_signal_handlers
 

@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.models import inlineformset_factory
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.contrib.search_promotions.models import SearchPromotion

@@ -1,47 +1,47 @@
 import pytz
 
 from django.conf import settings
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 
 # Wagtail languages with >=90% coverage
 # This list is manually maintained
 WAGTAILADMIN_PROVIDED_LANGUAGES = [
-    ('ar', ugettext_lazy('Arabic')),
-    ('ca', ugettext_lazy('Catalan')),
-    ('cs', ugettext_lazy('Czech')),
-    ('de', ugettext_lazy('German')),
-    ('el', ugettext_lazy('Greek')),
-    ('en', ugettext_lazy('English')),
-    ('es', ugettext_lazy('Spanish')),
-    ('fi', ugettext_lazy('Finnish')),
-    ('fr', ugettext_lazy('French')),
-    ('gl', ugettext_lazy('Galician')),
-    ('hu', ugettext_lazy('Hungarian')),
-    ('id-id', ugettext_lazy('Indonesian')),
-    ('is-is', ugettext_lazy('Icelandic')),
-    ('it', ugettext_lazy('Italian')),
-    ('jp', ugettext_lazy('Japanese')),
-    ('ko', ugettext_lazy('Korean')),
-    ('lt', ugettext_lazy('Lithuanian')),
-    ('mn', ugettext_lazy('Mongolian')),
-    ('nb', ugettext_lazy('Norwegian Bokmål')),
-    ('nl-nl', ugettext_lazy('Netherlands Dutch')),
-    ('fa', ugettext_lazy('Persian')),
-    ('pl', ugettext_lazy('Polish')),
-    ('pt-br', ugettext_lazy('Brazilian Portuguese')),
-    ('pt-pt', ugettext_lazy('Portuguese')),
-    ('ro', ugettext_lazy('Romanian')),
-    ('ru', ugettext_lazy('Russian')),
-    ('sv', ugettext_lazy('Swedish')),
-    ('sk-sk', ugettext_lazy('Slovak')),
-    ('th', ugettext_lazy('Thai')),
-    ('tr', ugettext_lazy('Turkish')),
-    ('tr-tr', ugettext_lazy('Turkish (Turkey)')),
-    ('uk', ugettext_lazy('Ukrainian')),
-    ('zh-hans', ugettext_lazy('Chinese (Simplified)')),
-    ('zh-hant', ugettext_lazy('Chinese (Traditional)')),
+    ('ar', gettext_lazy('Arabic')),
+    ('ca', gettext_lazy('Catalan')),
+    ('cs', gettext_lazy('Czech')),
+    ('de', gettext_lazy('German')),
+    ('el', gettext_lazy('Greek')),
+    ('en', gettext_lazy('English')),
+    ('es', gettext_lazy('Spanish')),
+    ('fi', gettext_lazy('Finnish')),
+    ('fr', gettext_lazy('French')),
+    ('gl', gettext_lazy('Galician')),
+    ('hu', gettext_lazy('Hungarian')),
+    ('id-id', gettext_lazy('Indonesian')),
+    ('is-is', gettext_lazy('Icelandic')),
+    ('it', gettext_lazy('Italian')),
+    ('jp', gettext_lazy('Japanese')),
+    ('ko', gettext_lazy('Korean')),
+    ('lt', gettext_lazy('Lithuanian')),
+    ('mn', gettext_lazy('Mongolian')),
+    ('nb', gettext_lazy('Norwegian Bokmål')),
+    ('nl-nl', gettext_lazy('Netherlands Dutch')),
+    ('fa', gettext_lazy('Persian')),
+    ('pl', gettext_lazy('Polish')),
+    ('pt-br', gettext_lazy('Brazilian Portuguese')),
+    ('pt-pt', gettext_lazy('Portuguese')),
+    ('ro', gettext_lazy('Romanian')),
+    ('ru', gettext_lazy('Russian')),
+    ('sv', gettext_lazy('Swedish')),
+    ('sk-sk', gettext_lazy('Slovak')),
+    ('th', gettext_lazy('Thai')),
+    ('tr', gettext_lazy('Turkish')),
+    ('tr-tr', gettext_lazy('Turkish (Turkey)')),
+    ('uk', gettext_lazy('Ukrainian')),
+    ('zh-hans', gettext_lazy('Chinese (Simplified)')),
+    ('zh-hant', gettext_lazy('Chinese (Traditional)')),
 ]
 
 

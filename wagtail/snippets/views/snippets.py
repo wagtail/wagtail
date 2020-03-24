@@ -7,8 +7,8 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import capfirst
-from django.utils.translation import ugettext as _
-from django.utils.translation import ungettext
+from django.utils.translation import gettext as _
+from django.utils.translation import ngettext
 
 from wagtail.admin import messages
 from wagtail.admin.auth import permission_denied
@@ -245,10 +245,10 @@ def delete(request, app_label, model_name, pk=None):
                 'instance': instance
             }
         else:
-            # This message is only used in plural form, but we'll define it with ungettext so that
+            # This message is only used in plural form, but we'll define it with ngettext so that
             # languages with multiple plural forms can be handled correctly (or, at least, as
             # correctly as possible within the limitations of verbose_name_plural...)
-            message_content = ungettext(
+            message_content = ngettext(
                 "%(count)d %(snippet_type)s deleted.",
                 "%(count)d %(snippet_type)s deleted.",
                 count

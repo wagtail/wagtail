@@ -8,7 +8,7 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.utils import escape_script

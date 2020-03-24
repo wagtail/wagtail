@@ -3,7 +3,7 @@ import os
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages

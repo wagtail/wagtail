@@ -6,7 +6,7 @@ import unittest
 from datetime import date, datetime
 from decimal import Decimal
 
-# non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
+# non-standard import name for gettext_lazy, to prevent strings from being picked up for translation
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
@@ -14,7 +14,7 @@ from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
 from django.utils.safestring import SafeData, SafeText, mark_safe
-from django.utils.translation import ugettext_lazy as __
+from django.utils.translation import gettext_lazy as __
 
 from wagtail.core import blocks
 from wagtail.core.models import Page

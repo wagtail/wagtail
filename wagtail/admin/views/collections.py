@@ -1,6 +1,6 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
 from wagtail.admin.forms.collections import CollectionForm
@@ -16,8 +16,8 @@ class Index(IndexView):
     context_object_name = 'collections'
     template_name = 'wagtailadmin/collections/index.html'
     add_url_name = 'wagtailadmin_collections:add'
-    page_title = ugettext_lazy("Collections")
-    add_item_label = ugettext_lazy("Add a collection")
+    page_title = gettext_lazy("Collections")
+    add_item_label = gettext_lazy("Add a collection")
     header_icon = 'folder-open-1'
 
     def get_queryset(self):
@@ -28,8 +28,8 @@ class Index(IndexView):
 class Create(CreateView):
     permission_policy = collection_permission_policy
     form_class = CollectionForm
-    page_title = ugettext_lazy("Add collection")
-    success_message = ugettext_lazy("Collection '{0}' created.")
+    page_title = gettext_lazy("Add collection")
+    success_message = gettext_lazy("Collection '{0}' created.")
     add_url_name = 'wagtailadmin_collections:add'
     edit_url_name = 'wagtailadmin_collections:edit'
     index_url_name = 'wagtailadmin_collections:index'
@@ -48,9 +48,9 @@ class Edit(EditView):
     model = Collection
     form_class = CollectionForm
     template_name = 'wagtailadmin/collections/edit.html'
-    success_message = ugettext_lazy("Collection '{0}' updated.")
-    error_message = ugettext_lazy("The collection could not be saved due to errors.")
-    delete_item_label = ugettext_lazy("Delete collection")
+    success_message = gettext_lazy("Collection '{0}' updated.")
+    error_message = gettext_lazy("The collection could not be saved due to errors.")
+    delete_item_label = gettext_lazy("Delete collection")
     edit_url_name = 'wagtailadmin_collections:edit'
     index_url_name = 'wagtailadmin_collections:index'
     delete_url_name = 'wagtailadmin_collections:delete'
@@ -65,11 +65,11 @@ class Edit(EditView):
 class Delete(DeleteView):
     permission_policy = collection_permission_policy
     model = Collection
-    success_message = ugettext_lazy("Collection '{0}' deleted.")
+    success_message = gettext_lazy("Collection '{0}' deleted.")
     index_url_name = 'wagtailadmin_collections:index'
     delete_url_name = 'wagtailadmin_collections:delete'
-    page_title = ugettext_lazy("Delete collection")
-    confirmation_message = ugettext_lazy("Are you sure you want to delete this collection?")
+    page_title = gettext_lazy("Delete collection")
+    confirmation_message = gettext_lazy("Are you sure you want to delete this collection?")
     header_icon = 'folder-open-1'
 
     def get_queryset(self):

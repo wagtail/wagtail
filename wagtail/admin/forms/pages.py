@@ -1,7 +1,7 @@
 from django import forms
 from django.utils import timezone
-from django.utils.translation import ugettext as _
-from django.utils.translation import ungettext
+from django.utils.translation import gettext as _
+from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
 from wagtail.core.models import Page, PageViewRestriction
@@ -31,7 +31,7 @@ class CopyForm(forms.Form):
         if subpage_count > 0:
             self.fields['copy_subpages'] = forms.BooleanField(
                 required=False, initial=True, label=_("Copy subpages"),
-                help_text=ungettext(
+                help_text=ngettext(
                     "This will copy %(count)s subpage.",
                     "This will copy %(count)s subpages.",
                     subpage_count) % {'count': subpage_count})
@@ -45,7 +45,7 @@ class CopyForm(forms.Form):
                     help_text = _("This page is live. Would you like to publish its copy as well?")
                 else:
                     label = _("Publish copies")
-                    help_text = ungettext(
+                    help_text = ngettext(
                         "%(count)s of the pages being copied is live. Would you like to publish its copy?",
                         "%(count)s of the pages being copied are live. Would you like to publish their copies?",
                         pages_to_publish_count) % {'count': pages_to_publish_count}

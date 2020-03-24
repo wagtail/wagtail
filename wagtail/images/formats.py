@@ -1,5 +1,5 @@
 from django.utils.html import escape
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.utils.apps import get_app_submodules
 

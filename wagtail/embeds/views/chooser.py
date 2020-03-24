@@ -1,5 +1,5 @@
 from django.forms.utils import ErrorList
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.embeds import embeds

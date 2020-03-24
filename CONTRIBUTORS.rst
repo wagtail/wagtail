@@ -442,6 +442,7 @@ Contributors
 * minusf
 * Paulo Alvarado
 * Karran Besen
+* Mohamed Feddad
 
 Translators
 ===========

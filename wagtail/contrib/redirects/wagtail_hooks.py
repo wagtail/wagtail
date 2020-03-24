@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
 from wagtail.contrib.redirects import urls

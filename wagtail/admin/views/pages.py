@@ -14,7 +14,7 @@ from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.http import is_safe_url, urlquote
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
 from django.views.generic import View
