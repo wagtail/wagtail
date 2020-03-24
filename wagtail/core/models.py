@@ -21,7 +21,7 @@ from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.text import capfirst, slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from modelcluster.models import (
     ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
 from treebeard.mp_tree import MP_Node

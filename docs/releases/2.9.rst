@@ -34,6 +34,7 @@ Other features
  * Add Vidyard to oEmbed provider list (Steve Lyall)
  * Optimise compiling media definitions for complex StreamBlocks (pimarc)
  * FieldPanel now accepts a 'heading' argument (Jacob Topp-Mugglestone)
+ * Replaced deprecated ``ugettext`` / ``ungettext`` calls with ``gettext`` / ``ngettext`` (Mohamed Feddad)
 
 
 Bug fixes

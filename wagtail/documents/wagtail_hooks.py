@@ -3,8 +3,8 @@ from django.conf.urls import include, url
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext, ungettext
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext, ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
@@ -84,7 +84,7 @@ def register_document_feature(features):
         'draftail', 'document-link', draftail_features.EntityFeature({
             'type': 'DOCUMENT',
             'icon': 'doc-full',
-            'description': ugettext('Document'),
+            'description': gettext('Document'),
         }, js=['wagtaildocs/js/document-chooser-modal.js'])
     )
 
@@ -149,7 +149,7 @@ def describe_collection_docs(collection):
         url = reverse('wagtaildocs:index') + ('?collection_id=%d' % collection.id)
         return {
             'count': docs_count,
-            'count_text': ungettext(
+            'count_text': ngettext(
                 "%(count)s document",
                 "%(count)s documents",
                 docs_count

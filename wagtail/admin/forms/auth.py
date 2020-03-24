@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 
 
 class LoginForm(AuthenticationForm):
@@ -9,13 +9,13 @@ class LoginForm(AuthenticationForm):
 
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            'placeholder': ugettext_lazy("Enter password"),
+            'placeholder': gettext_lazy("Enter password"),
         }))
 
     def __init__(self, request=None, *args, **kwargs):
         super().__init__(request=request, *args, **kwargs)
         self.fields['username'].widget.attrs['placeholder'] = (
-            ugettext_lazy("Enter your %s") % self.username_field.verbose_name)
+            gettext_lazy("Enter your %s") % self.username_field.verbose_name)
 
     @property
     def extra_fields(self):
@@ -26,5 +26,5 @@ class LoginForm(AuthenticationForm):
 
 class PasswordResetForm(PasswordResetForm):
     email = forms.EmailField(
-        label=ugettext_lazy("Enter your email address to reset your password"),
+        label=gettext_lazy("Enter your email address to reset your password"),
         max_length=254, required=True)

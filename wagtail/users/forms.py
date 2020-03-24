@@ -14,7 +14,7 @@ from django.db import transaction
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.template.loader import render_to_string
 from django.utils.html import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.widgets import AdminPageChooser

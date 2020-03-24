@@ -5,7 +5,7 @@ from collections import OrderedDict
 from django.core.exceptions import FieldDoesNotExist
 from django.http import HttpResponse, StreamingHttpResponse
 from django.utils.encoding import force_str
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.list import BaseListView
 from xlsxwriter.workbook import Workbook

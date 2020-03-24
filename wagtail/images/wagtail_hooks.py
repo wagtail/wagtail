@@ -1,8 +1,8 @@
 from django.conf.urls import include, url
 from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext, ungettext
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext, ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
@@ -85,7 +85,7 @@ def register_image_feature(features):
         'draftail', 'image', draftail_features.EntityFeature({
             'type': 'IMAGE',
             'icon': 'image',
-            'description': ugettext('Image'),
+            'description': gettext('Image'),
             # We do not want users to be able to copy-paste hotlinked images into rich text.
             # Keep only the attributes Wagtail needs.
             'attributes': ['id', 'src', 'alt', 'format'],
@@ -173,7 +173,7 @@ def describe_collection_docs(collection):
         url = reverse('wagtailimages:index') + ('?collection_id=%d' % collection.id)
         return {
             'count': images_count,
-            'count_text': ungettext(
+            'count_text': ngettext(
                 "%(count)s image",
                 "%(count)s images",
                 images_count

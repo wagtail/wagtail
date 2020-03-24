@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Permission
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext
 from draftjs_exporter.dom import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
@@ -361,7 +361,7 @@ def register_core_features(features):
         'draftail', 'h1', draftail_features.BlockFeature({
             'label': 'H1',
             'type': 'header-one',
-            'description': ugettext('Heading %(level)d') % {'level': 1},
+            'description': gettext('Heading %(level)d') % {'level': 1},
         })
     )
     features.register_converter_rule('contentstate', 'h1', {
@@ -376,7 +376,7 @@ def register_core_features(features):
         'draftail', 'h2', draftail_features.BlockFeature({
             'label': 'H2',
             'type': 'header-two',
-            'description': ugettext('Heading %(level)d') % {'level': 2},
+            'description': gettext('Heading %(level)d') % {'level': 2},
         })
     )
     features.register_converter_rule('contentstate', 'h2', {
@@ -391,7 +391,7 @@ def register_core_features(features):
         'draftail', 'h3', draftail_features.BlockFeature({
             'label': 'H3',
             'type': 'header-three',
-            'description': ugettext('Heading %(level)d') % {'level': 3},
+            'description': gettext('Heading %(level)d') % {'level': 3},
         })
     )
     features.register_converter_rule('contentstate', 'h3', {
@@ -406,7 +406,7 @@ def register_core_features(features):
         'draftail', 'h4', draftail_features.BlockFeature({
             'label': 'H4',
             'type': 'header-four',
-            'description': ugettext('Heading %(level)d') % {'level': 4},
+            'description': gettext('Heading %(level)d') % {'level': 4},
         })
     )
     features.register_converter_rule('contentstate', 'h4', {
@@ -421,7 +421,7 @@ def register_core_features(features):
         'draftail', 'h5', draftail_features.BlockFeature({
             'label': 'H5',
             'type': 'header-five',
-            'description': ugettext('Heading %(level)d') % {'level': 5},
+            'description': gettext('Heading %(level)d') % {'level': 5},
         })
     )
     features.register_converter_rule('contentstate', 'h5', {
@@ -436,7 +436,7 @@ def register_core_features(features):
         'draftail', 'h6', draftail_features.BlockFeature({
             'label': 'H6',
             'type': 'header-six',
-            'description': ugettext('Heading %(level)d') % {'level': 6},
+            'description': gettext('Heading %(level)d') % {'level': 6},
         })
     )
     features.register_converter_rule('contentstate', 'h6', {
@@ -451,7 +451,7 @@ def register_core_features(features):
         'draftail', 'ul', draftail_features.BlockFeature({
             'type': 'unordered-list-item',
             'icon': 'list-ul',
-            'description': ugettext('Bulleted list'),
+            'description': gettext('Bulleted list'),
         })
     )
     features.register_converter_rule('contentstate', 'ul', {
@@ -467,7 +467,7 @@ def register_core_features(features):
         'draftail', 'ol', draftail_features.BlockFeature({
             'type': 'ordered-list-item',
             'icon': 'list-ol',
-            'description': ugettext('Numbered list'),
+            'description': gettext('Numbered list'),
         })
     )
     features.register_converter_rule('contentstate', 'ol', {
@@ -483,7 +483,7 @@ def register_core_features(features):
         'draftail', 'blockquote', draftail_features.BlockFeature({
             'type': 'blockquote',
             'icon': 'openquote',
-            'description': ugettext('Blockquote'),
+            'description': gettext('Blockquote'),
         })
     )
     features.register_converter_rule('contentstate', 'blockquote', {
@@ -499,7 +499,7 @@ def register_core_features(features):
         'draftail', 'bold', draftail_features.InlineStyleFeature({
             'type': 'BOLD',
             'icon': 'bold',
-            'description': ugettext('Bold'),
+            'description': gettext('Bold'),
         })
     )
     features.register_converter_rule('contentstate', 'bold', {
@@ -515,7 +515,7 @@ def register_core_features(features):
         'draftail', 'italic', draftail_features.InlineStyleFeature({
             'type': 'ITALIC',
             'icon': 'italic',
-            'description': ugettext('Italic'),
+            'description': gettext('Italic'),
         })
     )
     features.register_converter_rule('contentstate', 'italic', {
@@ -532,7 +532,7 @@ def register_core_features(features):
         'draftail', 'link', draftail_features.EntityFeature({
             'type': 'LINK',
             'icon': 'link',
-            'description': ugettext('Link'),
+            'description': gettext('Link'),
             # We want to enforce constraints on which links can be pasted into rich text.
             # Keep only the attributes Wagtail needs.
             'attributes': ['url', 'id', 'parentId'],
@@ -557,7 +557,7 @@ def register_core_features(features):
         'draftail', 'superscript', draftail_features.InlineStyleFeature({
             'type': 'SUPERSCRIPT',
             'icon': 'superscript',
-            'description': ugettext('Superscript'),
+            'description': gettext('Superscript'),
         })
     )
     features.register_converter_rule('contentstate', 'superscript', {
@@ -572,7 +572,7 @@ def register_core_features(features):
         'draftail', 'subscript', draftail_features.InlineStyleFeature({
             'type': 'SUBSCRIPT',
             'icon': 'subscript',
-            'description': ugettext('Subscript'),
+            'description': gettext('Subscript'),
         })
     )
     features.register_converter_rule('contentstate', 'subscript', {
@@ -587,7 +587,7 @@ def register_core_features(features):
         'draftail', 'strikethrough', draftail_features.InlineStyleFeature({
             'type': 'STRIKETHROUGH',
             'icon': 'strikethrough',
-            'description': ugettext('Strikethrough'),
+            'description': gettext('Strikethrough'),
         })
     )
     features.register_converter_rule('contentstate', 'strikethrough', {
@@ -602,7 +602,7 @@ def register_core_features(features):
         'draftail', 'code', draftail_features.InlineStyleFeature({
             'type': 'CODE',
             'icon': 'code',
-            'description': ugettext('Code'),
+            'description': gettext('Code'),
         })
     )
     features.register_converter_rule('contentstate', 'code', {

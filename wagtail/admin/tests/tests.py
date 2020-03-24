@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from taggit.models import Tag
 
 from wagtail.admin.auth import user_has_any_page_permission
