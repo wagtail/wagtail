@@ -1,7 +1,7 @@
+import types
 from functools import wraps
 
 import l18n
-import types
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
