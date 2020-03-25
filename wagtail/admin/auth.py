@@ -173,14 +173,16 @@ def require_admin_access(view_func):
                     # is rendered, it is done within the override context manager
                     # or the user preferred_language will not be used
                     # (this could be replaced with simply rendering the TemplateResponse
-                    # for simplicity but this does remove some of its middleware modification 
+                    # for simplicity but this does remove some of its middleware modification
                     # potential)
                     render = response.render
-                    # decorate the response render method with the override context manager
+
                     def overridden_render(response):
                         with override(preferred_language):
                             return render()
+
                     response.render = types.MethodType(overridden_render, response)
+                    # decorate the response render method with the override context manager
                 return response
             else:
                 return view_func(request, *args, **kwargs)
