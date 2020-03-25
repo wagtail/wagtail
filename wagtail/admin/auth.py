@@ -1,3 +1,4 @@
+import types
 from functools import wraps
 
 import l18n
@@ -149,6 +150,7 @@ def reject_request(request):
 
 def require_admin_access(view_func):
     def decorated_view(request, *args, **kwargs):
+
         user = request.user
 
         if user.is_anonymous:
@@ -163,7 +165,25 @@ def require_admin_access(view_func):
                 activate_tz(time_zone)
             if preferred_language:
                 with override(preferred_language):
-                    return view_func(request, *args, **kwargs)
+                    response = view_func(request, *args, **kwargs)
+                if hasattr(response, "render"):
+                    # If the response has a render() method, Django treats it
+                    # like a TemplateResponse, so we should do the same
+                    # In this case, we need to guarantee that when the TemplateResponse
+                    # is rendered, it is done within the override context manager
+                    # or the user preferred_language will not be used
+                    # (this could be replaced with simply rendering the TemplateResponse
+                    # for simplicity but this does remove some of its middleware modification
+                    # potential)
+                    render = response.render
+
+                    def overridden_render(response):
+                        with override(preferred_language):
+                            return render()
+
+                    response.render = types.MethodType(overridden_render, response)
+                    # decorate the response render method with the override context manager
+                return response
             else:
                 return view_func(request, *args, **kwargs)
 

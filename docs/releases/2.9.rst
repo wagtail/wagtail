@@ -68,6 +68,7 @@ Bug fixes
  * Response header (content disposition) now correctly handles filenames with non-ascii characters when using a storage backend (Rich Brennan)
  * Improved accessibility fixes for ``main``, ``header`` and ``footer`` elements in the admin page layout (Mitchel Cabuloy)
  * Prevent version number from obscuring long settings menus (Naomi Morduch Toubman)
+ * Admin views using TemplateResponse now respect the user's language setting (Jacob Topp-Mugglestone)
 
 
 Upgrade considerations
