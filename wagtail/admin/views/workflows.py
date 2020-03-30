@@ -17,6 +17,7 @@ from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexV
 from wagtail.admin.views.pages import get_valid_next_url_from_request
 from wagtail.core.models import Page, Task, TaskState, WorkflowState
 from wagtail.core.permissions import task_permission_policy, workflow_permission_policy
+from wagtail.core.workflows import get_task_types
 
 
 class Index(IndexView):
@@ -290,7 +291,7 @@ def select_task_type(request):
 
     task_types = [
         (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
-        for model in Task.__subclasses__()
+        for model in get_task_types()
     ]
     # sort by lower-cased version of verbose name
     task_types.sort(key=lambda task_type: task_type[0].lower())
