@@ -251,7 +251,7 @@ class WorkflowView(ReportView):
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages()
-        return WorkflowState.objects.filter(page__in=pages)
+        return WorkflowState.objects.filter(page__in=pages).order_by('-created_at')
 
 
 class WorkflowTasksView(ReportView):
@@ -261,4 +261,4 @@ class WorkflowTasksView(ReportView):
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages()
-        return TaskState.objects.filter(workflow_state__page__in=pages)
+        return TaskState.objects.filter(workflow_state__page__in=pages).order_by('-started_at')
