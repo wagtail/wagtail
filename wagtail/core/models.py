@@ -2854,6 +2854,9 @@ class WorkflowState(models.Model):
                     # not STATUS_IN_PROGRESS), move to the next task
                     self.current_task_state = next_task.specific.start(self, user=user)
                     self.save()
+                    # if task has auto-approved, update the workflow again
+                    if self.current_task_state.status != self.current_task_state.STATUS_IN_PROGRESS:
+                        self.update(user=user)
                 # otherwise, continue on the current task
             else:
                 # if there is no uncompleted task, finish the workflow.
@@ -2861,7 +2864,7 @@ class WorkflowState(models.Model):
 
     def get_next_task(self):
         """Returns the next active task associated with the latest page revision, which has not been either approved or skipped"""
-        return Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True).exclude(Q(task_states__page_revision=self.page.get_latest_revision()), Q(task_states__status=TaskState.STATUS_APPROVED) | Q(task_states__status=TaskState.STATUS_SKIPPED)).order_by('workflow_tasks__sort_order').first()
+        return Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True).exclude(task_states__in=TaskState.objects.filter(Q(page_revision=self.page.get_latest_revision()), Q(status=TaskState.STATUS_APPROVED) | Q(status=TaskState.STATUS_SKIPPED))).order_by('workflow_tasks__sort_order').first()
 
     def cancel(self, user=None):
         """Cancels the workflow state"""
@@ -3007,26 +3010,28 @@ class TaskState(MultiTableCopyMixin, models.Model):
             return content_type.get_object_for_this_type(id=self.id)
 
     @transaction.atomic
-    def approve(self, user=None):
+    def approve(self, user=None, update=True):
         """Approve the task state and update the workflow state"""
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
         self.status = self.STATUS_APPROVED
         self.finished_at = timezone.now()
         self.save()
-        self.workflow_state.update(user=user)
+        if update:
+            self.workflow_state.update(user=user)
         task_approved.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
 
     @transaction.atomic
-    def reject(self, user=None):
+    def reject(self, user=None, update=True):
         """Reject the task state and update the workflow state"""
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
         self.status = self.STATUS_REJECTED
         self.finished_at = timezone.now()
         self.save()
-        self.workflow_state.update(user=user)
+        if update:
+            self.workflow_state.update(user=user)
         task_rejected.send(sender=self.specific.__class__, instance=self.specific, user=user)
         return self
 
