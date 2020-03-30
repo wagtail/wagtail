@@ -617,6 +617,15 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
 
+    def test_workflow_report(self):
+        response = self.client.get(reverse('wagtailadmin_reports:workflow'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Hello world!")
+
+        response = self.client.get(reverse('wagtailadmin_reports:workflow_tasks'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Hello world!")
+
 
 class TestNotificationPreferences(TestCase, WagtailTestUtils):
     def setUp(self):
