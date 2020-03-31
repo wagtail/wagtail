@@ -3,6 +3,7 @@ from wagtail.core.models import Task
 
 TASK_TYPES = []
 
+
 def get_concrete_descendants(model_class, inclusive=True):
     """Retrieves non-abstract descendants of the given model class. If `inclusive` is set to
     True, includes model_class"""
