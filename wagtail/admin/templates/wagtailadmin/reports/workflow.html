@@ -75,7 +75,7 @@
                                     </span>
                                 {% endfor %}
                             </td>
-                            <td>{{ workflow_state.requested_by }}</td>
+                            <td>{{ workflow_state.requested_by.get_full_name|default:workflow_state.requested_by.get_username }}</td>
                             <td>{{ workflow_state.created_at }}</td>
                         </tr>
                     {% endfor %}
