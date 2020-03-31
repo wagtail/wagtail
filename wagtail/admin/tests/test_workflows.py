@@ -9,6 +9,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from freezegun import freeze_time
 from wagtail.core.models import (
     GroupApprovalTask, Page, Task, TaskState, Workflow, WorkflowPage, WorkflowState, WorkflowTask)
 from wagtail.core.signals import page_published
@@ -451,11 +452,14 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertTrue(headers.issubset(msg_headers), msg='Message is missing the Auto-Submitted header.',)
 
 
+@freeze_time("2020-03-31 12:00:00")
 class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
     def setUp(self):
         delete_existing_workflows()
         self.submitter = get_user_model().objects.create_user(
             username='submitter',
+            first_name='Sebastian',
+            last_name='Mitter',
             email='submitter@email.com',
             password='password',
         )
@@ -621,6 +625,9 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_reports:workflow'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Hello world!")
+        self.assertContains(response, "test_workflow")
+        self.assertContains(response, "Sebastian Mitter")
+        self.assertContains(response, "March 31, 2020")
 
         response = self.client.get(reverse('wagtailadmin_reports:workflow_tasks'))
         self.assertEqual(response.status_code, 200)
