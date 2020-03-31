@@ -247,7 +247,7 @@ class LockedPagesView(PageReportView):
 class WorkflowView(ReportView):
     template_name = 'wagtailadmin/reports/workflow.html'
     title = _('Workflow')
-    header_icon = 'placeholder'
+    header_icon = 'clipboard-list'
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages()
@@ -257,7 +257,7 @@ class WorkflowView(ReportView):
 class WorkflowTasksView(ReportView):
     template_name = 'wagtailadmin/reports/workflow_tasks.html'
     title = _('Workflow')
-    header_icon = 'placeholder'
+    header_icon = 'clipboard-list'
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages()
