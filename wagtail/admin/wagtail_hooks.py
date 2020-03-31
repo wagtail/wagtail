@@ -649,7 +649,7 @@ def register_locked_pages_menu_item():
 
 @hooks.register('register_reports_menu_item')
 def register_workflow_report_menu_item():
-    return WorkflowReportMenuItem(_('Workflows'), reverse('wagtailadmin_reports:workflow'), classnames='icon icon-placeholder', order=800)
+    return WorkflowReportMenuItem(_('Workflows'), reverse('wagtailadmin_reports:workflow'), classnames='icon icon-clipboard-list', order=800)
 
 
 @hooks.register('register_admin_menu_item')
