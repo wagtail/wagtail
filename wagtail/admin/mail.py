@@ -230,7 +230,7 @@ class EmailNotificationMixin:
         sent_count = 0
         try:
             with OpenedConnection(connection) as open_connection:
-            
+
                 # Send emails
                 for recipient in recipients:
                     try:
