@@ -163,8 +163,9 @@
         border: 0;
     }
 
-    .wagtail-version {
-        padding: 1.2em 1.7em;
+    &__footer {
+        margin: 0;
+        padding: 0.9em 1.7em;
         text-align: center;
         color: $color-menu-text;
     }
@@ -371,17 +372,17 @@ body.explorer-open {
     .nav-submenu {
         transform: translate3d(0, 0, 0);
         position: fixed;
-        height: 100%;
+        height: 100vh;
         width: 0;
         padding: 0;
         top: 0;
         left: $menu-width;
-        overflow: auto;
-        max-height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
 
         h2,
-        ul {
-            float: right;
+        &__list {
             width: $menu-width;
         }
 
@@ -404,8 +405,14 @@ body.explorer-open {
             }
         }
 
-        .footer {
-            position: absolute;
+        &__list {
+            overflow: auto;
+            flex-grow: 1;
+        }
+
+        &__footer {
+            line-height: $nav-footer-closed-height;
+            padding: 0;
         }
 
     }
@@ -425,7 +432,6 @@ body.explorer-open {
             @include transition(width 0.2s ease);
             box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
             width: $menu-width;
-            padding: 0 0 1.5em;
 
             a {
                 padding-left: 3.5em;
