@@ -2842,7 +2842,15 @@ class WorkflowState(models.Model):
 
     def get_next_task(self):
         """Returns the next active task associated with the latest page revision, which has not been either approved or skipped"""
-        return Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True).exclude(task_states__in=TaskState.objects.filter(Q(page_revision=self.page.get_latest_revision()), Q(status=TaskState.STATUS_APPROVED) | Q(status=TaskState.STATUS_SKIPPED))).order_by('workflow_tasks__sort_order').first()
+        return (
+            Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True)
+            .exclude(
+                task_states__in=TaskState.objects.filter(
+                    Q(page_revision=self.page.get_latest_revision()),
+                    Q(status=TaskState.STATUS_APPROVED) | Q(status=TaskState.STATUS_SKIPPED)
+                )
+            ).order_by('workflow_tasks__sort_order').first()
+        )
 
     def cancel(self, user=None):
         """Cancels the workflow state"""
