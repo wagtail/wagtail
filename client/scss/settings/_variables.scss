@@ -107,9 +107,12 @@ $nav-grey-1: darken($color-white, 80);
 $nav-grey-2: darken($color-white, 60);
 $nav-item-hover-bg: rgba(100, 100, 100, 0.15);
 $nav-item-active-bg: darken($color-white, 90);
-$submenu-bg: darken($color-white, 85);
-$footer-account: $nav-item-active-bg;
-$footer-submenu: $submenu-bg;
+$nav-submenu-bg: darken($color-white, 85);
+$nav-footer-account-bg: $nav-item-active-bg;
+$nav-footer-submenu-bg: $nav-submenu-bg;
+$nav-footer-closed-height: 50px;
+$nav-footer-submenu-height: 77px;
+$nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
 
 // Nav search
 $nav-search-color: darken($color-white, 20);
