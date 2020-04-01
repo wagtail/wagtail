@@ -63,6 +63,7 @@ Other features
  * Disable password auto-completion on user creation form (Samir Shah)
  * Upgrade jQuery to version 3.5.1 to reduce penetration testing false positives (Matt Westcott)
  * Add ability to extend ``EditHandler`` without a children attribute (Seb Brown)
+ * ``Page.objects.specific`` now gracefully handles pages with missing specific records (Andy Babic)
 
 
 Bug fixes

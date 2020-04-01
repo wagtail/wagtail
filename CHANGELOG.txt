@@ -45,6 +45,7 @@ Changelog
  * Disable password auto-completion on user creation form (Samir Shah)
  * Upgrade jQuery to version 3.5.1 to reduce penetration testing false positives (Matt Westcott)
  * Add ability to extend `EditHandler` without a children attribute (Seb Brown)
+ * `Page.objects.specific` now gracefully handles pages with missing specific records (Andy Babic)
  * Fix: Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * Fix: `AbstractEmailForm` saved submission fields are now aligned with the email content fields, `form.cleaned_data` will be used instead of `form.fields` (Haydn Greatnews)
