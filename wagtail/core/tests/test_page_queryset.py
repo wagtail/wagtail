@@ -1,3 +1,5 @@
+from unittest import mock
+
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count, Q
 from django.test import TestCase
@@ -669,6 +671,25 @@ class TestSpecificQuery(TestCase):
             Page.objects.get(url_path='/home/about-us/').specific,
             Page.objects.get(url_path='/home/other/').specific,
         ])
+
+    def test_specific_gracefully_handles_missing_rows(self):
+        # 5928 - PageQuerySet.specific should gracefully handle pages whose ContentType
+        # row in the specific table no longer exists
+
+        # Trick specific_iterator into always looking for EventPages
+        with mock.patch(
+            'wagtail.core.query.ContentType.objects.get_for_id',
+            return_value=ContentType.objects.get_for_model(EventPage),
+        ):
+            with self.assertWarnsRegex(RuntimeWarning, "Specific versions of the following pages could not be found"):
+                pages = list(Page.objects.get(url_path='/home/').get_children().specific())
+
+            # All missing pages should be supplemented with generic pages
+            self.assertEqual(pages, [
+                Page.objects.get(url_path='/home/events/'),
+                Page.objects.get(url_path='/home/about-us/'),
+                Page.objects.get(url_path='/home/other/'),
+            ])
 
     def test_deferred_specific_query(self):
         # Tests the "defer" keyword argument, which defers all specific fields
