@@ -3275,6 +3275,26 @@ class TestPageChooserBlock(TestCase):
             'wagtail.core.blocks.PageChooserBlock',
             (), {'page_type': ['tests.SimplePage', 'tests.EventPage']}))
 
+    def test_bulk_to_python(self):
+        page_ids = [2, 3, 4, 5]
+        expected_pages = Page.objects.filter(pk__in=page_ids)
+        block = blocks.PageChooserBlock()
+
+        with self.assertNumQueries(1):
+            pages = block.bulk_to_python(page_ids)
+
+        self.assertSequenceEqual(pages, expected_pages)
+
+    def test_bulk_to_python_when_child_of_listblock(self):
+        page_ids = [2, 3, 4, 5]
+        expected_pages = Page.objects.filter(pk__in=page_ids)
+        block = blocks.ListBlock(blocks.PageChooserBlock())
+
+        with self.assertNumQueries(1):
+            pages = block.to_python(page_ids)
+
+        self.assertSequenceEqual(pages, expected_pages)
+
 
 class TestStaticBlock(unittest.TestCase):
     def test_render_form_with_constructor(self):
