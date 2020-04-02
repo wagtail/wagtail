@@ -35,6 +35,7 @@ Other features
  * Optimise compiling media definitions for complex StreamBlocks (pimarc)
  * FieldPanel now accepts a 'heading' argument (Jacob Topp-Mugglestone)
  * Replaced deprecated ``ugettext`` / ``ungettext`` calls with ``gettext`` / ``ngettext`` (Mohamed Feddad)
+ * ListBLocks now call child block ``bulk_to_python`` if defined (Andy Chosak)
 
 
 Bug fixes
