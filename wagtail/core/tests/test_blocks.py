@@ -2260,6 +2260,20 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         self.assertIn('value="chocolate"', form_html)
 
 
+class TestListBlockWithFixtures(TestCase):
+    fixtures = ['test.json']
+
+    def test_calls_child_bulk_to_python_when_available(self):
+        page_ids = [2, 3, 4, 5]
+        expected_pages = Page.objects.filter(pk__in=page_ids)
+        block = blocks.ListBlock(blocks.PageChooserBlock())
+
+        with self.assertNumQueries(1):
+            pages = block.to_python(page_ids)
+
+        self.assertSequenceEqual(pages, expected_pages)
+
+
 class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_initialisation(self):
         block = blocks.StreamBlock([
@@ -3274,6 +3288,16 @@ class TestPageChooserBlock(TestCase):
         self.assertEqual(block.deconstruct(), (
             'wagtail.core.blocks.PageChooserBlock',
             (), {'page_type': ['tests.SimplePage', 'tests.EventPage']}))
+
+    def test_bulk_to_python(self):
+        page_ids = [2, 3, 4, 5]
+        expected_pages = Page.objects.filter(pk__in=page_ids)
+        block = blocks.PageChooserBlock()
+
+        with self.assertNumQueries(1):
+            pages = block.bulk_to_python(page_ids)
+
+        self.assertSequenceEqual(pages, expected_pages)
 
 
 class TestStaticBlock(unittest.TestCase):
