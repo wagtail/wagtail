@@ -1,5 +1,3 @@
-from django.utils.functional import SimpleLazyObject
-
 from wagtail.core.models import Site
 
 from .registry import registry
