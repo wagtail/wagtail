@@ -1,3 +1,5 @@
+from django.utils.functional import SimpleLazyObject
+
 from wagtail.core.models import Site
 
 from .registry import registry
@@ -56,4 +58,15 @@ class SettingModuleProxy(dict):
 
 
 def settings(request):
-    return {"settings": SettingsProxy(request)}
+
+    # delay site query until settings values are needed
+    def _inner(request):
+        site = Site.find_for_request(request)
+        if site is None:
+            # find_for_request() can't determine the site,
+            # so no settings can be idenfified
+            return {}
+        else:
+            return SettingsProxy(request)
+
+    return {'settings': SimpleLazyObject(lambda: _inner(request))}
