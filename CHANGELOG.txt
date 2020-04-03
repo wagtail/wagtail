@@ -24,6 +24,7 @@ Changelog
  * Replaced deprecated `ugettext` / `ungettext` calls with `gettext` / `ngettext` (Mohamed Feddad)
  * ListBlocks now call child block `bulk_to_python` if defined (Andy Chosak)
  * Site settings are now identifiable/cachable by request as well as site (Andy Babic)
+ * Added `select_related` attribute to site settings to enable more efficient fetching of foreign key values (Andy Babic)
  * Fix: Added ARIA alert role to live search forms in the admin (Casper Timmers)
  * Fix: Reorder login form elements to match expected tab order (Kjartan Sverrisson)
  * Fix: Re-add 'Close Explorer' button on mobile viewports (Sævar Öfjörð Magnússon)
