@@ -1020,6 +1020,16 @@ class TestSetting(BaseSetting):
     email = models.EmailField(max_length=50)
 
 
+@register_setting
+class ImportantPages(BaseSetting):
+    sign_up_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
+    general_terms_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
+    privacy_policy_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
+
+
 @register_setting(icon="tag")
 class IconSetting(BaseSetting):
     pass
