@@ -1,6 +1,7 @@
 from django.db import models
 
 from wagtail.core.models import Site
+from wagtail.core.utils import InvokeViaAttributeShortcut
 
 from .registry import register_setting
 
@@ -62,6 +63,8 @@ class BaseSetting(models.Model):
             return getattr(request, attr_name)
         site = Site.find_for_request(request)
         site_settings = cls.for_site(site)
+        # to allow more efficient page url generation
+        site_settings._request = request
         setattr(request, attr_name, site_settings)
         return site_settings
 
@@ -74,3 +77,42 @@ class BaseSetting(models.Model):
         return "_{}.{}".format(
             cls._meta.app_label, cls._meta.model_name
         ).lower()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Allows get_page_url() to be invoked using
+        # `obj.page_url.foreign_key_name` syntax
+        self.page_url = InvokeViaAttributeShortcut(self, 'get_page_url')
+        # Per-instance page URL cache
+        self._page_url_cache = {}
+
+    def get_page_url(self, attribute_name, request=None):
+        """
+        Returns the URL of a page referenced by a foreign key
+        (or other attribute) matching the name ``attribute_name``.
+        If the field value is null, or links to something other
+        than a ``Page`` object, an empty string is returned.
+        The result is also cached per-object to facilitate
+        fast repeat access.
+
+        Raises an ``AttributeError`` if the object has no such
+        field or attribute.
+        """
+        if attribute_name in self._page_url_cache:
+            return self._page_url_cache[attribute_name]
+
+        if not hasattr(self, attribute_name):
+            raise AttributeError(
+                "'{}' object has no attribute '{}'"
+                .format(self.__class__.__name__, attribute_name)
+            )
+
+        page = getattr(self, attribute_name)
+
+        if hasattr(page, 'specific'):
+            url = page.specific.get_url(getattr(self, '_request', None))
+        else:
+            url = ""
+
+        self._page_url_cache[attribute_name] = url
+        return url
