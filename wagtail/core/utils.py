@@ -103,3 +103,32 @@ def accepts_kwarg(func, kwarg):
         return True
     except TypeError:
         return False
+
+
+class InvokeViaAttributeShortcut:
+    """
+    Used to create a shortcut that allows an object's named
+    single-argument method to be invoked using a simple
+    attribute reference syntax. For example, adding the
+    following to an object:
+
+    obj.page_url = InvokeViaAttributeShortcut(obj, 'get_page_url')
+
+    Would allow you to invoke get_page_url() like so:
+
+    obj.page_url.terms_and_conditions
+
+    As well as the usual:
+
+    obj.get_page_url('terms_and_conditions')
+    """
+
+    __slots__ = 'obj', 'method_name'
+
+    def __init__(self, obj, method_name):
+        self.obj = obj
+        self.method_name = method_name
+
+    def __getattr__(self, name):
+        method = getattr(self.obj, self.method_name)
+        return method(name)

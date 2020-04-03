@@ -24,6 +24,7 @@ Other features
  * Add ability to sort search promotions on listing page (Chris Ranjana, LB (Ben Johnston))
  * Upgrade internal JS tooling to Gulp v4 & Node v10 (Jim Jazwiecki, Kim LaRocca)
  * Add ``after_publish_page``, ``before_publish_page``, ``after_unpublish_page`` & ``before_unpublish_page`` hooks (Jonatas Baldin, Coen van der Kamp)
+ * Add convenience ``page_url`` shortcut to improve how page URLs can be accessed from site settings in Django templates (Andy Babic)
 
 
 Bug fixes
