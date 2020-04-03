@@ -108,16 +108,19 @@ Settings are designed to be used both in Python code, and in templates.
 Using in Python
 ---------------
 
-If access to a setting is required in the code, the :func:`~wagtail.contrib.settings.models.BaseSetting.for_site` method will retrieve the setting for the supplied site:
+If you require access to a setting in a view, the :func:`~wagtail.contrib.settings.models.BaseSetting.for_request` method allows you to retrieve the relevant settings for the current request:
 
 .. code-block:: python
 
-    from wagtail.core.models import Site
-
     def view(request):
-        site = Site.find_for_request(request)
-        social_media_settings = SocialMediaSettings.for_site(site)
+        social_media_settings = SocialMediaSettings.for_request(request)
         ...
+
+In places where the request is unavailable, but you know the ``Site`` you wish to retrieve settings for, you can use :func:`~wagtail.contrib.settings.models.BaseSetting.for_site` instead:
+
+.. code-block:: python
+
+    social_media_settings =  SocialMediaSettings.for_site(user.origin_site)
 
 Using in Django templates
 -------------------------
