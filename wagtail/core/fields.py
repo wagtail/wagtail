@@ -42,7 +42,7 @@ class Creator:
         obj.__dict__[self.field.name] = self.field.to_python(value)
 
 
-class StreamField(models.Field):
+class StreamField(models.Field):  # lgtm [py/missing-equals]
     def __init__(self, block_types, **kwargs):
         super().__init__(**kwargs)
         if isinstance(block_types, Block):

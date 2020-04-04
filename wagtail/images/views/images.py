@@ -6,6 +6,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
+from django.utils.html import escape
 from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
 
@@ -243,7 +244,11 @@ def preview(request, image_id, filter_spec):
         response['Content-Type'] = 'image/' + image.format_name
         return response
     except InvalidFilterSpecError:
-        return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
+        return HttpResponse(
+            "Invalid filter spec: " + escape(filter_spec),
+            content_type='text/plain',
+            status=400
+        )
 
 
 @permission_checker.require('delete')

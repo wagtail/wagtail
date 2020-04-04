@@ -14,7 +14,7 @@ from .utils import js_dict
 __all__ = ['ListBlock']
 
 
-class ListBlock(Block):
+class ListBlock(Block):  # lgtm [py/missing-equals]
 
     def __init__(self, child_block, **kwargs):
         super().__init__(**kwargs)

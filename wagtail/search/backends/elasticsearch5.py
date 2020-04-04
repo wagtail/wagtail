@@ -90,7 +90,9 @@ class Elasticsearch5SearchQueryCompiler(Elasticsearch2SearchQueryCompiler):
 
 
 class Elasticsearch5AutocompleteQueryCompiler(Elasticsearch5SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
-    pass
+
+    def get_inner_query(self):
+        return Elasticsearch5SearchQueryCompiler.get_inner_query(self)
 
 
 class Elasticsearch5SearchResults(Elasticsearch2SearchResults):

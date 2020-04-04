@@ -16,7 +16,7 @@ from .utils import js_dict
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 
 
-class StructValue(collections.OrderedDict):
+class StructValue(collections.OrderedDict):  # lgtm [py/missing-equals]
     """ A class that generates a StructBlock value from provided sub-blocks """
     def __init__(self, block, *args):
         super().__init__(*args)
@@ -36,7 +36,7 @@ class StructValue(collections.OrderedDict):
         ])
 
 
-class BaseStructBlock(Block):
+class BaseStructBlock(Block):  # lgtm [py/missing-equals]
 
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs

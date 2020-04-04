@@ -41,7 +41,7 @@ class GroupMenuItem(SubmenuMenuItem):
         return False
 
 
-class SubMenu(Menu):
+class SubMenu(Menu):  # lgtm [py/missing-call-to-init]
     """
     A sub-class of wagtail's Menu, used by AppModelAdmin. We just want to
     override __init__, so that we can specify the items to include on

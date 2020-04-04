@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.decorators import classonlymethod
 from django.utils.encoding import force_str
+from django.utils.html import escape
 from django.views.generic import View
 
 from wagtail.images import get_image_model
@@ -69,7 +70,11 @@ class ServeView(View):
         except SourceImageIOError:
             return HttpResponse("Source image file not found", content_type='text/plain', status=410)
         except InvalidFilterSpecError:
-            return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
+            return HttpResponse(
+                "Invalid filter spec: " + escape(filter_spec),
+                content_type='text/plain',
+                status=400
+            )
 
         return getattr(self, self.action)(rendition)
 

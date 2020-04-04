@@ -25,7 +25,7 @@ DEFAULT_DATE_FORMAT = '%Y-%m-%d'
 DEFAULT_DATETIME_FORMAT = '%Y-%m-%d %H:%M'
 
 
-class AdminAutoHeightTextInput(widgets.Textarea):
+class AdminAutoHeightTextInput(widgets.Textarea):  # lgtm [py/missing-call-to-init]
     template_name = 'wagtailadmin/widgets/auto_height_text_input.html'
 
     def __init__(self, attrs=None):
@@ -37,7 +37,7 @@ class AdminAutoHeightTextInput(widgets.Textarea):
         super().__init__(default_attrs)
 
 
-class AdminDateInput(widgets.DateInput):
+class AdminDateInput(widgets.DateInput):  # lgtm [py/missing-call-to-init]
     template_name = 'wagtailadmin/widgets/date_input.html'
 
     def __init__(self, attrs=None, format=None):
@@ -68,7 +68,7 @@ class AdminDateInput(widgets.DateInput):
         ])
 
 
-class AdminTimeInput(widgets.TimeInput):
+class AdminTimeInput(widgets.TimeInput):  # lgtm [py/missing-call-to-init]
     template_name = 'wagtailadmin/widgets/time_input.html'
 
     def __init__(self, attrs=None, format='%H:%M'):
@@ -84,7 +84,7 @@ class AdminTimeInput(widgets.TimeInput):
         ])
 
 
-class AdminDateTimeInput(widgets.DateTimeInput):
+class AdminDateTimeInput(widgets.DateTimeInput):  # lgtm [py/missing-call-to-init]
     template_name = 'wagtailadmin/widgets/datetime_input.html'
 
     def __init__(self, attrs=None, format=None):
@@ -150,7 +150,7 @@ class AdminTagWidget(TagWidget):
         return context
 
 
-class AdminChooser(WidgetWithScript, widgets.Input):
+class AdminChooser(WidgetWithScript, widgets.Input):  # lgtm [py/missing-call-to-init]
     input_type = 'hidden'
     choose_one_text = _("Choose an item")
     choose_another_text = _("Choose another item")

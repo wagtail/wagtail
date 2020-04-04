@@ -11,7 +11,7 @@ class BaseSearchHandler:
     def __init__(self, search_fields):
         self.search_fields = search_fields
 
-    def search_queryset(self, queryset, search_term, **kwargs):
+    def search_queryset(self, queryset, search_term, **kwargs):  # lgtm [py/inheritance/incorrect-overridden-signature]
         """
         Returns an iterable of objects from ``queryset`` matching the
         provided ``search_term``.

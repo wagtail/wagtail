@@ -30,7 +30,7 @@ class StreamBlockValidationError(ValidationError):
             'Validation error in StreamBlock', params=params)
 
 
-class BaseStreamBlock(Block):
+class BaseStreamBlock(Block):  # lgtm [py/missing-equals]
 
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs

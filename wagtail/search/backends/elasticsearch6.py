@@ -50,7 +50,9 @@ class Elasticsearch6SearchResults(Elasticsearch5SearchResults):
 
 
 class Elasticsearch6AutocompleteQueryCompiler(Elasticsearch6SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
-    pass
+
+    def get_inner_query(self):
+        return Elasticsearch6SearchQueryCompiler.get_inner_query(self)
 
 
 class Elasticsearch6SearchBackend(Elasticsearch5SearchBackend):

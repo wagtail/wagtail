@@ -6,7 +6,7 @@ from django.utils.functional import cached_property
 # Need to inherit from object explicitly, to turn ``cached_classmethod`` in to
 # a new-style class. WeakKeyDictionary is an old-style class, which do not
 # support descriptors.
-class cached_classmethod(dict):
+class cached_classmethod(dict):  # lgtm [py/missing-equals]
     """
     Cache the result of a no-arg class method.
     .. code-block:: python

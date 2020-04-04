@@ -17,7 +17,7 @@ def get_document_permissions(apps):
     )
 
 
-def copy_document_permissions_to_collections(apps, schema_editor):
+def copy_document_permissions_to_collections(apps, schema_editor):  # lgtm [py/similar-function]
     Collection = apps.get_model('wagtailcore.Collection')
     Group = apps.get_model('auth.Group')
     GroupCollectionPermission = apps.get_model('wagtailcore.GroupCollectionPermission')

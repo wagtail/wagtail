@@ -79,10 +79,11 @@ class Elasticsearch7SearchResults(Elasticsearch6SearchResults):
     pass
 
 
-class Elasticsearch7AutocompleteQueryCompiler(
-    Elasticsearch6SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl
-):
-    pass
+class Elasticsearch7AutocompleteQueryCompiler(Elasticsearch6SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
+
+    def get_inner_query(self):
+        return Elasticsearch6SearchQueryCompiler.get_inner_query(self)
+
 
 
 class Elasticsearch7SearchBackend(Elasticsearch6SearchBackend):

@@ -613,7 +613,9 @@ class ElasticsearchAutocompleteQueryCompilerImpl:
 
 
 class Elasticsearch2AutocompleteQueryCompiler(Elasticsearch2SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
-    pass
+
+    def get_inner_query(self):
+        return Elasticsearch2SearchQueryCompiler.get_inner_query(self)
 
 
 class Elasticsearch2SearchResults(BaseSearchResults):
@@ -920,7 +922,7 @@ class ElasticsearchIndexRebuilder:
         self.index.refresh()
 
 
-class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):
+class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):  # lgtm [py/missing-call-to-init]
     def __init__(self, index):
         self.alias = index
         self.index = index.backend.index_class(

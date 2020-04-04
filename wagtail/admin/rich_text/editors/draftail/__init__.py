@@ -9,7 +9,7 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.rich_text import features as feature_registry
 
 
-class DraftailRichTextArea(widgets.HiddenInput):
+class DraftailRichTextArea(widgets.HiddenInput):  # lgtm [py/missing-call-to-init]
     template_name = 'wagtailadmin/widgets/draftail_rich_text_area.html'
     is_hidden = False
 

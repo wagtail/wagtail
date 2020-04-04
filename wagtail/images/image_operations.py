@@ -18,7 +18,7 @@ class Operation:
 
         # Call construct
         try:
-            self.construct(*args)
+            self.construct(*args)  # lgtm [py/init-calls-subclass]
         except ValueError as e:
             raise InvalidFilterSpecError(e)
 

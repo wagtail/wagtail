@@ -90,7 +90,7 @@ CORE_HALLO_PLUGINS = [
 ]
 
 
-class HalloRichTextArea(widgets.Textarea):
+class HalloRichTextArea(widgets.Textarea):  # lgtm [py/missing-call-to-init]
     template_name = 'wagtailadmin/widgets/hallo_rich_text_area.html'
 
     # this class's constructor accepts a 'features' kwarg

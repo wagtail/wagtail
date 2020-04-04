@@ -16,6 +16,7 @@ from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 
 class TestElasticsearch2SearchBackend(ElasticsearchCommonSearchBackendTests, TestCase):
     backend_path = 'wagtail.search.backends.elasticsearch2'
+    fixtures = ElasticsearchCommonSearchBackendTests.fixtures
 
 
 class TestElasticsearch2SearchQuery(TestCase):

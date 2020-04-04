@@ -208,7 +208,7 @@ PageManager = BasePageManager.from_queryset(PageQuerySet)
 
 class PageBase(models.base.ModelBase):
     """Metaclass for Page"""
-    def __init__(cls, name, bases, dct):
+    def __init__(cls, name, bases, dct):  # lgtm [py/not-named-self]
         super(PageBase, cls).__init__(name, bases, dct)
 
         if 'template' not in dct:

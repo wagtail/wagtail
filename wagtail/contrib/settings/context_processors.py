@@ -5,7 +5,7 @@ from wagtail.core.models import Site
 from .registry import registry
 
 
-class SettingsProxy(dict):
+class SettingsProxy(dict):  # lgtm [py/missing-equals]
     """
     Get a SettingModuleProxy for an app using proxy['app_label']
     """
@@ -21,7 +21,7 @@ class SettingsProxy(dict):
         return "SettingsProxy"
 
 
-class SettingModuleProxy(dict):
+class SettingModuleProxy(dict):  # lgtm [py/missing-equals]
     """
     Get a setting instance using proxy['modelname']
     """

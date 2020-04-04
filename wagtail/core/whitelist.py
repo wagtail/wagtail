@@ -120,13 +120,9 @@ class Whitelister:
             self.clean_unknown_node(doc, node)
 
     def clean_string_node(self, doc, node):
-        # Remove comments
+        # Remove comments (nothing needs to be done to whitelist string nodes)
         if isinstance(node, Comment):
             node.extract()
-            return
-
-        # by default, nothing needs to be done to whitelist string nodes
-        pass
 
     def clean_tag_node(self, doc, tag):
         # first, whitelist the contents of this tag

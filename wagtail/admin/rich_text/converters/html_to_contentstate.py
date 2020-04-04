@@ -114,7 +114,7 @@ class BlockElementHandler:
 class ListItemElementHandler(BlockElementHandler):
     """ Handler for <li> tag """
 
-    def __init__(self):
+    def __init__(self):  # lgtm [py/missing-call-to-init]
         pass  # skip setting self.block_type
 
     def create_block(self, name, attrs, state, contentstate):

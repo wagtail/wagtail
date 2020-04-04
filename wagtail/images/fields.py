@@ -11,7 +11,7 @@ ALLOWED_EXTENSIONS = ['gif', 'jpg', 'jpeg', 'png', 'webp']
 SUPPORTED_FORMATS_TEXT = _("GIF, JPEG, PNG, WEBP")
 
 
-class WagtailImageField(ImageField):
+class WagtailImageField(ImageField):  # lgtm [py/missing-call-to-init]
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

@@ -169,7 +169,7 @@ class FloatBlock(FieldBlock):
 
 class DecimalBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, max_value=None, min_value=None,
+    def __init__(self, required=True, help_text=None, max_value=None, min_value=None,  # lgtm [py/similar-function]
                  max_digits=None, decimal_places=None, validators=(), *args, **kwargs):
         self.field = forms.DecimalField(
             required=required,

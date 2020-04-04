@@ -12,7 +12,7 @@ from .base import SettingsTestMixin
 @override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'other'])
 class TemplateTestCase(SettingsTestMixin, TestCase, WagtailTestUtils):
 
-    def render(self, request, string, context=None, site=None):
+    def render(self, request, string, context=None, site=None):  # lgtm [py/inheritance/incorrect-overridden-signature]
         template = Template(string)
         context = RequestContext(request, context)
         return template.render(context)

@@ -491,7 +491,7 @@ def notification_static(path):
     Variant of the {% static %}` tag for use in notification emails - tries to form
     a full URL using BASE_URL if the static URL isn't already a full URL.
     """
-    return urljoin(base_url_setting(), static(path))
+    return urljoin(base_url_setting(), static(path))  # lgtm [py/call/wrong-arguments]
 
 
 @register.simple_tag

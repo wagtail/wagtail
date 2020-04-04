@@ -28,19 +28,8 @@ from wagtail.admin.views.reports import SpreadsheetExportMixin
 
 from .forms import ParentChooserForm
 
-try:
-    from django.db.models.sql.constants import QUERY_TERMS
-except ImportError:
-    # Django 2.1+ does not have QUERY_TERMS anymore
-    QUERY_TERMS = {
-        'contains', 'day', 'endswith', 'exact', 'gt', 'gte', 'hour',
-        'icontains', 'iendswith', 'iexact', 'in', 'iregex', 'isnull',
-        'istartswith', 'lt', 'lte', 'minute', 'month', 'range', 'regex',
-        'search', 'second', 'startswith', 'week_day', 'year',
-    }
 
-
-class WMABaseView(TemplateView):
+class WMABaseView(TemplateView):  # lgtm [py/missing-call-to-init]
     """
     Groups together common functionality for all app views.
     """
@@ -108,6 +97,9 @@ class WMABaseView(TemplateView):
 
 
 class ModelFormView(WMABaseView, FormView):
+
+    def get(self, *args, **kwargs):
+        return FormView.get(self, *args, **kwargs)
 
     def get_edit_handler(self):
         edit_handler = self.model_admin.get_edit_handler(
