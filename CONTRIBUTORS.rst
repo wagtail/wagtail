@@ -458,6 +458,7 @@ Contributors
 * Rick van Hattem
 * Luke Hardwick
 * Saeed Tahmasebi
+* Liam Mullens
 
 Translators
 ===========
