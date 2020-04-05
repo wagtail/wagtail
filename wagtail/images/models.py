@@ -486,7 +486,7 @@ class AbstractRendition(models.Model):
 
     @property
     def alt(self):
-        return self.image.title
+        return self.image.default_alt_text
 
     @property
     def attrs(self):
