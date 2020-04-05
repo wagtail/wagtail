@@ -7,6 +7,7 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2017
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Bohreromir, 2020
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matthias Martin, 2019
@@ -22,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-18 07:12+0000\n"
-"Last-Translator: Matthias Martin\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-21 11:07+0000\n"
+"Last-Translator: Bohreromir\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -172,6 +173,12 @@ msgstr "abgelaufen"
 msgid "locked"
 msgstr "Gesperrt"
 
+msgid "locked at"
+msgstr "Gesperrt um"
+
+msgid "locked by"
+msgstr "Gesperrt von"
+
 msgid "first published at"
 msgstr "Zuerst publiziert am"
 
@@ -253,8 +260,14 @@ msgstr "Seiten inkl. Unterseiten löschen"
 msgid "Lock"
 msgstr "Sperren"
 
-msgid "Lock/unlock any page"
-msgstr "Sperren/Entsperren jeder Seite"
+msgid "Lock/unlock pages you've locked"
+msgstr "Sperren/Entsperren der von Ihnen gesperrten Seiten"
+
+msgid "Unlock"
+msgstr "Entsperren"
+
+msgid "Unlock any page"
+msgstr "Beliebige Seite entsperren"
 
 msgid "group"
 msgstr "Gruppe"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-12-04 01:46+0000\n"
-"Last-Translator: Bogdan Mateescu\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -640,11 +640,27 @@ msgid ""
 "created will be displayed."
 msgstr "Aici va fi afișată informație utilă despre conținutul creat de dvs."
 
-msgid "Pages awaiting moderation"
-msgstr "Pagini în moderație"
-
 msgid "Title"
 msgstr "Titlu"
+
+msgid "Edit this page"
+msgstr "Editează această pagină"
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "Draft"
+msgstr "Ciornă"
+
+msgid "Live"
+msgstr "Activată"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s în urmă"
+
+msgid "Pages awaiting moderation"
+msgstr "Pagini în moderație"
 
 msgid "Parent"
 msgstr "Bază"
@@ -655,9 +671,6 @@ msgstr "Tip"
 msgid "Edited"
 msgstr "Editat"
 
-msgid "Edit this page"
-msgstr "Editează această pagină"
-
 msgid "Preview this page"
 msgstr "Previzualizează această pagină"
 
@@ -667,15 +680,8 @@ msgstr "Aprobă"
 msgid "Reject"
 msgstr "Respinge"
 
-msgid "Edit"
-msgstr "Editează"
-
 msgid "Preview"
 msgstr "Examinare"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s în urmă"
 
 msgid "Your most recent edits"
 msgstr "Modificările cele mai recente"
@@ -685,12 +691,6 @@ msgstr "Dată"
 
 msgid "Status"
 msgstr "Status"
-
-msgid "Draft"
-msgstr "Ciornă"
-
-msgid "Live"
-msgstr "Activată"
 
 msgid "Site summary"
 msgstr "Rezumat sait"
@@ -790,15 +790,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Schimbările setărilor de confidențialitate se aplică și pentru toate "
 "paginile descendente."
-
-msgid "Edit lock"
-msgstr "Editează blocare"
-
-msgid "Locked"
-msgstr "Blocat"
-
-msgid "Unlocked"
-msgstr "Deblocat"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Setați confidențialitatea paginii. Starea actuală: Public"
@@ -1305,6 +1296,9 @@ msgstr "Nici o pagină nu utilizează"
 msgid "Collection"
 msgstr "Colecție"
 
+msgid "Locked"
+msgstr "Blocat"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s din %(total_pages)s."
@@ -1338,32 +1332,6 @@ msgstr "Starea paginii curente:"
 
 msgid "Other searches"
 msgstr "Alte căutări"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Folosiți un browser web <strong>învechit</strong> care nu este suportat de "
-"această aplicație. Vă rugăm să <a href=\"http://browsehappy.com/"
-"\">actualizați browser-ul</a> Dvstră."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Wagtail are nevoie de Javascript, care în prezent e deactivat."
-"<br />\n"
-"            Vezi <a href=\"http://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">instrucțiuni de activare JavaScript "
-"în web browser-ul Dvs</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Spre interfața de administrare Wagtail"
@@ -1515,9 +1483,6 @@ msgstr "Publicare paginii '{0}' a fost refuzată."
 
 msgid "Failed to send rejection notifications"
 msgstr "Trimiterea notificărilor de respingere au eșuat."
-
-msgid "Page '{0}' is now locked."
-msgstr "Pagina '{0}' a fost blocată."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is fost deblocată."

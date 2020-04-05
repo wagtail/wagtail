@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2020-01-20 19:38+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -648,11 +648,27 @@ msgid ""
 msgstr ""
 "Nee ita boot nia pajina analisa no informasaun konaba pjaina nia conteudu."
 
-msgid "Pages awaiting moderation"
-msgstr "Pajina sira hein ba moderasaun"
-
 msgid "Title"
 msgstr "Titlu"
+
+msgid "Edit this page"
+msgstr "Hadia pájina ida ne'e"
+
+msgid "Edit"
+msgstr "Hadia"
+
+msgid "Draft"
+msgstr "Esbosu"
+
+msgid "Live"
+msgstr "Ativu"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s liubá"
+
+msgid "Pages awaiting moderation"
+msgstr "Pajina sira hein ba moderasaun"
 
 msgid "Parent"
 msgstr "Inan-aman"
@@ -663,9 +679,6 @@ msgstr "Tipu"
 msgid "Edited"
 msgstr "Hadia tiha ona"
 
-msgid "Edit this page"
-msgstr "Hadia pájina ida ne'e"
-
 msgid "Preview this page"
 msgstr "Haree pajina nee"
 
@@ -675,15 +688,8 @@ msgstr "Aprova"
 msgid "Reject"
 msgstr "Rejeita"
 
-msgid "Edit"
-msgstr "Hadia"
-
 msgid "Preview"
 msgstr "Haree"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s liubá"
 
 msgid "Your most recent edits"
 msgstr "Ita boot nia troka sira"
@@ -693,12 +699,6 @@ msgstr "Data"
 
 msgid "Status"
 msgstr "Estadu"
-
-msgid "Draft"
-msgstr "Esbosu"
-
-msgid "Live"
-msgstr "Ativu"
 
 msgid "Site summary"
 msgstr "Sumariu Situs"
@@ -783,21 +783,6 @@ msgstr "Pájina ida ne'e, sai privadu husi pájina hun ida."
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Pajina privasidade mos aplika ba pajina nee nia oan sira."
-
-msgid "Edit lock"
-msgstr "Xavi"
-
-msgid "Remove editor lock. Current status: Locked"
-msgstr "Loke: Status agora xavi tiha ona"
-
-msgid "Apply editor lock. Current status: Unlocked"
-msgstr "Xavi: Status agora loke tiha ona"
-
-msgid "Locked"
-msgstr "Xavi tiha ona"
-
-msgid "Unlocked"
-msgstr "Loke tiha ona"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Troka pajina privadu: Status agora publiku"
@@ -1255,6 +1240,9 @@ msgstr "Laiha pajina nebee uza"
 msgid "Collection"
 msgstr "Kolleksaun"
 
+msgid "Locked"
+msgstr "Xavi tiha ona"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pajina %(page_num)s husi %(total_pages)s"
@@ -1288,29 +1276,6 @@ msgstr "Status pajina dadaun"
 
 msgid "Other searches"
 msgstr "Buka seluk"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Ita boot uza browser <strong> tuan </strong>. Situs nee la supporta. Favor "
-"ida <a href=\"http://browsehappy.com/\">hafoun ita nia browser</a>"
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"Ita boot presiza Javascript ba uza wagtail, maibee agora la ativu\n"
-"Iha nee <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener noreferrer\">matadalan ba halo Javascript ativu iha ita nia "
-"browser</a>"
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ba pajina administrasaun Wagtail"

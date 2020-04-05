@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-11-01 03:23+0000\n"
-"Last-Translator: First Last <abc+github@mynook.info>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -643,11 +643,27 @@ msgid ""
 "created will be displayed."
 msgstr "这是您的主控台，将会显示您创建的内容的帮助信息。"
 
-msgid "Pages awaiting moderation"
-msgstr "页面等待审核中"
-
 msgid "Title"
 msgstr "标题"
+
+msgid "Edit this page"
+msgstr "编辑此页"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "Live"
+msgstr "发布"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 之前"
+
+msgid "Pages awaiting moderation"
+msgstr "页面等待审核中"
 
 msgid "Parent"
 msgstr "上一级"
@@ -658,9 +674,6 @@ msgstr "类型"
 msgid "Edited"
 msgstr "已编辑"
 
-msgid "Edit this page"
-msgstr "编辑此页"
-
 msgid "Preview this page"
 msgstr "预览此页面"
 
@@ -670,15 +683,8 @@ msgstr "通过"
 msgid "Reject"
 msgstr "拒绝"
 
-msgid "Edit"
-msgstr "编辑"
-
 msgid "Preview"
 msgstr "预览"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
 
 msgid "Your most recent edits"
 msgstr "最近编辑"
@@ -688,12 +694,6 @@ msgstr "日期"
 
 msgid "Status"
 msgstr "状态"
-
-msgid "Draft"
-msgstr "草稿"
-
-msgid "Live"
-msgstr "发布"
 
 msgid "Site summary"
 msgstr "网站摘要"
@@ -778,21 +778,6 @@ msgstr "此页面已被父节点设置为私有。"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "私有设置也会应用到此页面的所有子页面。"
-
-msgid "Edit lock"
-msgstr "编辑锁定"
-
-msgid "Remove editor lock. Current status: Locked"
-msgstr "移除编辑锁。当前状态：锁定"
-
-msgid "Apply editor lock. Current status: Unlocked"
-msgstr "应用编辑锁。当前状态：未锁定"
-
-msgid "Locked"
-msgstr "已锁定"
-
-msgid "Unlocked"
-msgstr "已解锁"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "设置页面的隐私状态。当前状态：公开"
@@ -1250,6 +1235,9 @@ msgstr "没有页面使用"
 msgid "Collection"
 msgstr "集合"
 
+msgid "Locked"
+msgstr "已锁定"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第 %(page_num)s 页，共 %(total_pages)s 页。"
@@ -1283,30 +1271,6 @@ msgstr "当前页面状态："
 
 msgid "Other searches"
 msgstr "其它搜索"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"您正在使用一个本软件不支持的<strong>过期的</strong> 浏览器。请 <a href="
-"\"http://browsehappy.com/\">更新浏览器</a>。"
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            使用 Wagtail 需要JavaScript支持，但是当前已被禁用。<br />\n"
-"            请查看 <a href=\"http://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">操作指导：如何在你的浏览器中启用 "
-"JavaScript</a>。\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "转到管理界面"
@@ -1474,9 +1438,6 @@ msgstr "页面 '{0}'审核失败"
 
 msgid "Failed to send rejection notifications"
 msgstr "发送拒绝通知失败。"
-
-msgid "Page '{0}' is now locked."
-msgstr "页面 '{0}'已锁定"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "页面 '{0}'已解锁。"

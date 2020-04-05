@@ -8,7 +8,7 @@ Available panel types
 FieldPanel
 ----------
 
-.. class:: FieldPanel(field_name, classname=None, widget=None)
+.. class:: FieldPanel(field_name, classname=None, widget=None, heading='')
 
     This is the panel used for basic Django field types.
 
@@ -27,6 +27,10 @@ FieldPanel
     .. attribute:: FieldPanel.widget (optional)
 
         This parameter allows you to specify a :doc:`Django form widget <django:ref/forms/widgets>` to use instead of the default widget for this field type.
+
+    .. attribute:: FieldPanel.heading (optional)
+
+        This allows you to override the heading for the panel, which will otherwise be set automatically using the form field's label (taken in turn from a model field's ``verbose_name``).
 
 StreamFieldPanel
 ----------------

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -574,11 +574,27 @@ msgid ""
 "created will be displayed."
 msgstr "這是您的主控台，將會顯示您創建的內容的幫助信息。"
 
-msgid "Pages awaiting moderation"
-msgstr "等待頁面審核中"
-
 msgid "Title"
 msgstr "標題"
+
+msgid "Edit this page"
+msgstr "編輯此頁"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "Live"
+msgstr "上線"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 之前"
+
+msgid "Pages awaiting moderation"
+msgstr "等待頁面審核中"
 
 msgid "Parent"
 msgstr "上一級"
@@ -589,9 +605,6 @@ msgstr "類型"
 msgid "Edited"
 msgstr "已編輯"
 
-msgid "Edit this page"
-msgstr "編輯此頁"
-
 msgid "Preview this page"
 msgstr "預覽頁面"
 
@@ -601,15 +614,8 @@ msgstr "通過"
 msgid "Reject"
 msgstr "拒絕"
 
-msgid "Edit"
-msgstr "編輯"
-
 msgid "Preview"
 msgstr "預覽"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
 
 msgid "Your most recent edits"
 msgstr "最近編輯"
@@ -619,12 +625,6 @@ msgstr "日期"
 
 msgid "Status"
 msgstr "狀態"
-
-msgid "Draft"
-msgstr "草稿"
-
-msgid "Live"
-msgstr "上線"
 
 msgid "Site summary"
 msgstr "網站摘要"
@@ -693,15 +693,6 @@ msgstr "此頁面已被父節點設置為私有。"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "私有設置也會應用到此頁面的所有子頁面。"
-
-msgid "Edit lock"
-msgstr "編輯鎖定"
-
-msgid "Locked"
-msgstr "已鎖定"
-
-msgid "Unlocked"
-msgstr "已解鎖"
 
 msgid "Publishing…"
 msgstr "正在發布..."
@@ -1141,6 +1132,9 @@ msgstr "沒有頁面使用"
 msgid "Collection"
 msgstr "集合"
 
+msgid "Locked"
+msgstr "已鎖定"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
@@ -1168,14 +1162,6 @@ msgstr "查看線上頁面"
 
 msgid "Other searches"
 msgstr "其它搜索"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"您正在使用一個本軟體不支持的<strong>過期的</strong> 瀏覽器。請 <a href="
-"\"http://browsehappy.com/\">更新瀏覽器</a>。"
 
 msgid "Go to Wagtail admin interface"
 msgstr "轉到管理界面"
@@ -1323,9 +1309,6 @@ msgstr "頁面 '{0}'審核失敗"
 
 msgid "Failed to send rejection notifications"
 msgstr "發送拒絕通知失敗。"
-
-msgid "Page '{0}' is now locked."
-msgstr "頁面 '{0}'已鎖定"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "頁面 '{0}'已解鎖。"

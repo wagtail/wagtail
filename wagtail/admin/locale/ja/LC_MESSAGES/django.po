@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -626,11 +626,27 @@ msgstr ""
 "これがあなたのダッシュボードです。ここにあなたが作成したコンテンツに関する役"
 "立つ情報が表示されます。"
 
-msgid "Pages awaiting moderation"
-msgstr "承認待ちのページ"
-
 msgid "Title"
 msgstr "タイトル"
+
+msgid "Edit this page"
+msgstr "ページを編集"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Draft"
+msgstr "下書き"
+
+msgid "Live"
+msgstr "公開"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s前"
+
+msgid "Pages awaiting moderation"
+msgstr "承認待ちのページ"
 
 msgid "Parent"
 msgstr "上位階層"
@@ -641,9 +657,6 @@ msgstr "タイプ"
 msgid "Edited"
 msgstr "編集"
 
-msgid "Edit this page"
-msgstr "ページを編集"
-
 msgid "Preview this page"
 msgstr "このページをプレビューする"
 
@@ -653,15 +666,8 @@ msgstr "承認"
 msgid "Reject"
 msgstr "拒否"
 
-msgid "Edit"
-msgstr "編集"
-
 msgid "Preview"
 msgstr "プレビュー"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s前"
 
 msgid "Your most recent edits"
 msgstr "最近の編集"
@@ -671,12 +677,6 @@ msgstr "日付"
 
 msgid "Status"
 msgstr "ステータス"
-
-msgid "Draft"
-msgstr "下書き"
-
-msgid "Live"
-msgstr "公開"
 
 msgid "Site summary"
 msgstr "サイトの概要"
@@ -763,21 +763,6 @@ msgstr "このページは親ページにより非公開に設定されていま
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "公開設定の変更はすべての孫ページに反映されます。"
-
-msgid "Edit lock"
-msgstr "ロックを編集"
-
-msgid "Remove editor lock. Current status: Locked"
-msgstr "エディタのロックを外してください。現在の状態はロックされています。"
-
-msgid "Apply editor lock. Current status: Unlocked"
-msgstr "エディタのロックを適用する。現在に状態はロックされていません。"
-
-msgid "Locked"
-msgstr "ロックあり"
-
-msgid "Unlocked"
-msgstr "ロックなし"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "ページプライバシーを設定する。現在の状態：公開"
@@ -1241,6 +1226,9 @@ msgstr "この語を使用するページはありません。"
 msgid "Collection"
 msgstr "コレクション"
 
+msgid "Locked"
+msgstr "ロックあり"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(total_pages)sページ中%(page_num)sページ目"
@@ -1274,32 +1262,6 @@ msgstr "現在のページ状況："
 
 msgid "Other searches"
 msgstr "他の検索結果"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"あなたはサポートされていない<strong>古いバージョン</strong>のブラウザを使用し"
-"ています。 <a href=\"http://browsehappy.com/\">ブラウザを更新</a>してくださ"
-"い。."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Wagtailの利用にはJavascriptが必要ですが現在無効に設定されていま"
-"す。<br />\n"
-"            <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" "
-"rel=\"noopener noreferrer\">WebブラウザでJavaScriptを有効にする方法</a>は次の"
-"とおりです。\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Wagtailの管理者インターフェースに移動"
@@ -1470,9 +1432,6 @@ msgstr "ページ：'{0}' の公開が拒否されました。"
 
 msgid "Failed to send rejection notifications"
 msgstr "拒否通信を送信できない"
-
-msgid "Page '{0}' is now locked."
-msgstr "ページ：'{0}' は現在ロックされています。"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "ページ：'{0}' のロックが解除されました。"

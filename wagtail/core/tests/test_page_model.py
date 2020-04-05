@@ -84,6 +84,18 @@ class TestValidation(TestCase):
         homepage.add_child(instance=christmas_page)
         self.assertTrue(Page.objects.filter(id=christmas_page.id).exists())
 
+    @override_settings(WAGTAIL_ALLOW_UNICODE_SLUGS=True)
+    def test_slug_generation_respects_unicode_setting_true(self):
+        page = Page(title="A mööse bit me önce")
+        Page.get_first_root_node().add_child(instance=page)
+        self.assertEqual(page.slug, 'a-mööse-bit-me-önce')
+
+    @override_settings(WAGTAIL_ALLOW_UNICODE_SLUGS=False)
+    def test_slug_generation_respects_unicode_setting_false(self):
+        page = Page(title="A mööse bit me önce")
+        Page.get_first_root_node().add_child(instance=page)
+        self.assertEqual(page.slug, 'a-moose-bit-me-once')
+
     def test_get_admin_display_title(self):
         homepage = Page.objects.get(url_path='/home/')
         self.assertEqual(homepage.draft_title, homepage.get_admin_display_title())
@@ -255,12 +267,15 @@ class TestRouting(TestCase):
         self.assertEqual(root.relative_url(default_site), None)
         self.assertEqual(root.get_site(), None)
 
+    @override_settings(ALLOWED_HOSTS=['localhost', 'testserver', 'events.example.com', 'second-events.example.com'])
     def test_urls_with_multiple_sites(self):
         events_page = Page.objects.get(url_path='/home/events/')
         events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
 
+        # An underscore is not valid according to RFC 1034/1035
+        # and will raise a DisallowedHost Exception
         second_events_site = Site.objects.create(
-            hostname='second_events.example.com', root_page=events_page)
+            hostname='second-events.example.com', root_page=events_page)
 
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
@@ -289,17 +304,20 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.get_site(), events_site)
 
         request = HttpRequest()
+        request.META['HTTP_HOST'] = events_site.hostname
+        request.META['SERVER_PORT'] = events_site.port
 
-        request.site = events_site
         self.assertEqual(
             christmas_page.get_url_parts(request=request),
             (events_site.id, 'http://events.example.com', '/christmas/')
         )
 
-        request.site = second_events_site
+        request2 = HttpRequest()
+        request2.META['HTTP_HOST'] = second_events_site.hostname
+        request2.META['SERVER_PORT'] = second_events_site.port
         self.assertEqual(
-            christmas_page.get_url_parts(request=request),
-            (second_events_site.id, 'http://second_events.example.com', '/christmas/')
+            christmas_page.get_url_parts(request=request2),
+            (second_events_site.id, 'http://second-events.example.com', '/christmas/')
         )
 
     @override_settings(ROOT_URLCONF='wagtail.tests.non_root_urls')
@@ -327,6 +345,20 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.relative_url(default_site), '/site/events/christmas/')
         self.assertEqual(christmas_page.get_site(), default_site)
 
+    @override_settings(ROOT_URLCONF='wagtail.tests.headless_urls')
+    def test_urls_headless(self):
+        default_site = Site.objects.get(is_default_site=True)
+        homepage = Page.objects.get(url_path='/home/')
+
+        # The page should not be routable because wagtail_serve is not registered
+        # However it is still associated with a site
+        self.assertEqual(
+            homepage.get_url_parts(),
+            (default_site.id, None, None)
+        )
+        self.assertEqual(homepage.full_url, None)
+        self.assertEqual(homepage.url, None)
+
     def test_request_routing(self):
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
@@ -341,7 +373,7 @@ class TestRouting(TestCase):
 
         request = HttpRequest()
         request.user = AnonymousUser()
-        request.site = Site.objects.first()
+        request.META['HTTP_HOST'] = Site.objects.first().hostname
 
         response = christmas_page.serve(request)
         self.assertEqual(response.status_code, 200)
@@ -368,6 +400,7 @@ class TestRouting(TestCase):
     # Override CACHES so we don't generate any cache-related SQL queries (tests use DatabaseCache
     # otherwise) and so cache.get will always return None.
     @override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
+    @override_settings(ALLOWED_HOSTS=['dummy'])
     def test_request_scope_site_root_paths_cache(self):
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
@@ -384,7 +417,10 @@ class TestRouting(TestCase):
 
         # with a request, the first call to get_url should issue 1 SQL query
         request = HttpRequest()
-        with self.assertNumQueries(1):
+        request.META['HTTP_HOST'] = "dummy"
+        request.META['SERVER_PORT'] = "8888"
+        # first call with "balnk" request issues a extra query for the Site.find_for_request() call
+        with self.assertNumQueries(2):
             self.assertEqual(homepage.get_url(request=request), '/')
         # subsequent calls should issue no SQL queries
         with self.assertNumQueries(0):
@@ -1668,3 +1704,16 @@ class TestPageWithContentJSON(TestCase):
         # The url_path should reflect the new slug value, but the
         # rest of the path should have remained unchanged
         self.assertEqual(updated_page.url_path, '/home/about-them/')
+
+
+class TestUnpublish(TestCase):
+
+    def test_unpublish_doesnt_call_full_clean_before_save(self):
+        root_page = Page.objects.get(id=1)
+        home_page = root_page.add_child(
+            instance=SimplePage(title="Homepage", slug="home2", content="hello")
+        )
+        # Empty the content - bypassing validation which would otherwise prevent it
+        home_page.save(clean=False)
+        # This shouldn't fail with a ValidationError.
+        home_page.unpublish()

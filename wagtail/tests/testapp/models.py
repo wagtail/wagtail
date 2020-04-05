@@ -16,7 +16,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from taggit.managers import TaggableManager
-from taggit.models import TaggedItemBase
+from taggit.models import ItemBase, TagBase, TaggedItemBase
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
@@ -981,6 +981,8 @@ class StreamPage(Page):
         StreamFieldPanel('body'),
     ]
 
+    preview_modes = []
+
 
 class DefaultStreamPage(Page):
     body = StreamField([
@@ -1016,6 +1018,16 @@ class AbstractPage(Page):
 class TestSetting(BaseSetting):
     title = models.CharField(max_length=100)
     email = models.EmailField(max_length=50)
+
+
+@register_setting
+class ImportantPages(BaseSetting):
+    sign_up_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
+    general_terms_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
+    privacy_policy_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
 
 
 @register_setting(icon="tag")
@@ -1408,6 +1420,33 @@ class Address(index.Indexed, ClusterableModel, Orderable):
 class AddressTag(TaggedItemBase):
     content_object = ParentalKey(
         to='tests.Address',
+        on_delete=models.CASCADE,
+        related_name='tagged_items'
+    )
+
+
+class RestaurantPage(Page):
+    tags = ClusterTaggableManager(through='tests.TaggedRestaurant', blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('tags'),
+    ]
+
+
+class RestaurantTag(TagBase):
+    free_tagging = False
+
+    class Meta:
+        verbose_name = "Tag"
+        verbose_name_plural = "Tags"
+
+
+class TaggedRestaurant(ItemBase):
+    tag = models.ForeignKey(
+        RestaurantTag, related_name="tagged_restaurants", on_delete=models.CASCADE
+    )
+    content_object = ParentalKey(
+        to='tests.RestaurantPage',
         on_delete=models.CASCADE,
         related_name='tagged_items'
     )

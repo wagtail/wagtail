@@ -132,7 +132,11 @@ class ListBlock(Block):
         return result
 
     def to_python(self, value):
-        # recursively call to_python on children and return as a list
+        # If child block supports bulk retrieval, use it.
+        if hasattr(self.child_block, 'bulk_to_python'):
+            return self.child_block.bulk_to_python(value)
+
+        # Otherwise recursively call to_python on each child and return as a list.
         return [
             self.child_block.to_python(item)
             for item in value

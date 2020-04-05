@@ -1,10 +1,10 @@
 from django import forms
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 
 class PasswordViewRestrictionForm(forms.Form):
-    password = forms.CharField(label=ugettext_lazy("Password"), widget=forms.PasswordInput)
+    password = forms.CharField(label=gettext_lazy("Password"), widget=forms.PasswordInput)
     return_url = forms.CharField(widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):

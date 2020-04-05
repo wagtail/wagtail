@@ -37,15 +37,10 @@ Middleware (``settings.py``)
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    'wagtail.core.middleware.SiteMiddleware',
-
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
   ]
 
-Wagtail requires several common Django middleware modules to work and cover basic security. Wagtail provides its own middleware to cover these tasks:
-
-``SiteMiddleware``
-  Wagtail routes pre-defined hosts to pages within the Wagtail tree using this middleware.
+Wagtail depends on the default set of Django middleware modules, to cover basic security and functionality such as login sessions. One additional middleware module is provided:
 
 ``RedirectMiddleware``
   Wagtail provides a simple interface for adding arbitrary redirects to your site and this module makes it happen.
@@ -225,7 +220,6 @@ These two files should reside in your project directory (``myproject/myproject/`
       'django.middleware.clickjacking.XFrameOptionsMiddleware',
       'django.middleware.security.SecurityMiddleware',
 
-      'wagtail.core.middleware.SiteMiddleware',
       'wagtail.contrib.redirects.middleware.RedirectMiddleware',
   ]
 

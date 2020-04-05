@@ -3,7 +3,7 @@ import os
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
@@ -149,6 +149,7 @@ def edit(request, document_id):
                 doc._set_file_hash(doc.file.read())
                 doc.file.seek(0)
                 doc.save()
+                form.save_m2m()
 
                 # If providing a new document file, delete the old one.
                 # NB Doing this via original_file.delete() clears the file field,

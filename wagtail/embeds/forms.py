@@ -1,6 +1,6 @@
 from django import forms
 from django.core.validators import URLValidator
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 class EmbedForm(forms.Form):

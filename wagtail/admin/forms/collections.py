@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.models import Group, Permission
 from django.db import transaction
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from wagtail.core.models import Collection, CollectionViewRestriction, GroupCollectionPermission
 

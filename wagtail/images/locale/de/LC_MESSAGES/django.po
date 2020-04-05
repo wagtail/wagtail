@@ -6,7 +6,8 @@
 # Benjamin Thurm, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2019
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
-# Johannes Fleck, 2019
+# Bohreromir, 2020
+# Bohreromir, 2019
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 17:59+0100\n"
-"PO-Revision-Date: 2019-10-31 14:28+0000\n"
-"Last-Translator: Johannes Fleck\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-21 11:05+0000\n"
+"Last-Translator: Bohreromir\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -283,6 +284,12 @@ msgstr "Benutzung"
 
 msgid "Images"
 msgstr "Bilder"
+
+msgid "Popular Tags:"
+msgstr "Häufig verwendete Schlagwörter:"
+
+msgid "Clear choice"
+msgstr "Auswahl löschen"
 
 msgid "pixels"
 msgstr "Pixel"

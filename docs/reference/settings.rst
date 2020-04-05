@@ -523,6 +523,9 @@ Customise the behaviour of rich text fields. By default, ``RichTextField`` and `
 
  * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but both ``DraftailRichTextArea`` and ``HalloRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
 
+
+.. _WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK:
+
 Page locking
 ============
 

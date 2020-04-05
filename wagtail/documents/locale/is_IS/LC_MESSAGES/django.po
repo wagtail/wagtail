@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018
-# saevarom <saevar@saevar.is>, 2017-2019
+# saevarom <saevar@saevar.is>, 2017-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-25 11:10+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -139,6 +139,9 @@ msgstr "Ertu viss um að þú viljir eyða þessari skrá?"
 msgid "Yes, delete"
 msgstr "Já, eyða"
 
+msgid "No, don't delete"
+msgstr "Nei, ekki eyða"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Breyti %(title)s"
@@ -170,8 +173,8 @@ msgstr "Skrá"
 msgid "Collection"
 msgstr "Safn"
 
-msgid "Uploaded"
-msgstr "Hlaðið upp"
+msgid "Created"
+msgstr "Búið til"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -211,6 +214,28 @@ msgstr "Staða"
 
 msgid "Edit this page"
 msgstr "Breyta þessari síðu"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Skjal <span class=\"visuallyhidden\">búið til "
+"undir %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Skjöl <span class=\"visuallyhidden\">búin til "
+"undir %(site_name)s</span>\n"
+"    "
 
 msgid "Add multiple documents"
 msgstr "Bæta við mörgum skrám"

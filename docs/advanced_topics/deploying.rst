@@ -4,9 +4,7 @@ Deploying Wagtail
 On your server
 ~~~~~~~~~~~~~~
 
-Wagtail is straightforward to deploy on modern Linux-based distributions, but see the section on :doc:`performance </advanced_topics/performance>` for the non-Python services we recommend.
-
-Our current preferences are for Nginx, Gunicorn and supervisor on Debian, but Wagtail should run with any of the combinations detailed in Django's :doc:`deployment documentation <django:howto/deployment/index>`.
+Wagtail is straightforward to deploy on modern Linux-based distributions, and should run with any of the combinations detailed in Django's :doc:`deployment documentation <django:howto/deployment/index>`. See the section on :doc:`performance </advanced_topics/performance>` for the non-Python services we recommend.
 
 On Divio Cloud
 ~~~~~~~~~~~~~~

@@ -5,7 +5,7 @@ from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchQuery, SearchVectorField
 from django.db.models import CASCADE, ForeignKey, Model, TextField
 from django.db.models.functions import Cast
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.search.index import class_is_indexed
 

@@ -75,7 +75,7 @@ function ModalWorkflow(opts) {
 
     self.respond = function(responseType) {
         if (responseType in responseCallbacks) {
-            args = Array.prototype.slice.call(arguments, 1);
+            var args = Array.prototype.slice.call(arguments, 1);
             responseCallbacks[responseType].apply(self, args);
         }
     };

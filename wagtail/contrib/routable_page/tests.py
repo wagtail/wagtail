@@ -1,6 +1,7 @@
 from unittest import mock
 
 from django.test import RequestFactory, TestCase
+from django.test.utils import override_settings
 from django.urls.exceptions import NoReverseMatch
 
 from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import routablepageurl
@@ -159,7 +160,6 @@ class TestRoutablePageTemplateTag(TestCase):
 
         self.rf = RequestFactory()
         self.request = self.rf.get(self.routable_page.url)
-        self.request.site = Site.find_for_request(self.request)
         self.context = {'request': self.request}
 
     def test_templatetag_reverse_index_route(self):
@@ -194,6 +194,7 @@ class TestRoutablePageTemplateTag(TestCase):
         self.assertEqual(url, expected)
 
 
+@override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'development.local'])
 class TestRoutablePageTemplateTagForSecondSiteAtSameRoot(TestCase):
     """
     When multiple sites exist on the same root page, relative URLs within that subtree should
@@ -215,10 +216,9 @@ class TestRoutablePageTemplateTagForSecondSiteAtSameRoot(TestCase):
 
         self.rf = RequestFactory()
         self.request = self.rf.get(self.routable_page.url)
-        self.request.site = Site.find_for_request(self.request)
         self.context = {'request': self.request}
-
-        self.request.site = second_site
+        self.request.META['HTTP_HOST'] = second_site.hostname
+        self.request.META['SERVER_PORT'] = second_site.port
 
     def test_templatetag_reverse_index_route(self):
         url = routablepageurl(self.context, self.routable_page,
@@ -252,6 +252,7 @@ class TestRoutablePageTemplateTagForSecondSiteAtSameRoot(TestCase):
         self.assertEqual(url, expected)
 
 
+@override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'events.local'])
 class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
     """
     When multiple sites exist, relative URLs between such sites should include the domain portion
@@ -274,10 +275,11 @@ class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
 
         self.rf = RequestFactory()
         self.request = self.rf.get(self.routable_page.url)
-        self.request.site = Site.find_for_request(self.request)
         self.context = {'request': self.request}
 
-        self.request.site = second_site
+        self.request.META['HTTP_HOST'] = second_site.hostname
+        self.request.META['SERVER_PORT'] = second_site.port
+
 
     def test_templatetag_reverse_index_route(self):
         url = routablepageurl(self.context, self.routable_page,

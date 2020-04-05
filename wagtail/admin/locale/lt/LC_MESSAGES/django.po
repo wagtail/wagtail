@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -520,11 +520,27 @@ msgstr ""
 "Tai yra jūsų valdymo pultas kuriame bus atvaizduojama naudinga informacija "
 "apie jūsų sukurtą turinį."
 
-msgid "Pages awaiting moderation"
-msgstr "Puslapiai laukiantys moderacijos"
-
 msgid "Title"
 msgstr "Pavadinimas"
+
+msgid "Edit this page"
+msgstr "Redaguoti šį puslapį"
+
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "Draft"
+msgstr "Juodraštis"
+
+msgid "Live"
+msgstr "Veikiantis"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "prieš %(time_period)s"
+
+msgid "Pages awaiting moderation"
+msgstr "Puslapiai laukiantys moderacijos"
 
 msgid "Parent"
 msgstr "Tėvas"
@@ -535,24 +551,14 @@ msgstr "Tipas"
 msgid "Edited"
 msgstr "Redaguotas"
 
-msgid "Edit this page"
-msgstr "Redaguoti šį puslapį"
-
 msgid "Approve"
 msgstr "Patvirtinti"
 
 msgid "Reject"
 msgstr "Atmesti"
 
-msgid "Edit"
-msgstr "Redaguoti"
-
 msgid "Preview"
 msgstr "Peržiūrėti"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "prieš %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Jūsų paskutiniai redagavimai"
@@ -562,12 +568,6 @@ msgstr "Data"
 
 msgid "Status"
 msgstr "Statusas"
-
-msgid "Draft"
-msgstr "Juodraštis"
-
-msgid "Live"
-msgstr "Veikiantis"
 
 msgid "Site summary"
 msgstr "Tinklalapio suvestinė"
@@ -636,15 +636,6 @@ msgstr "Šis puslapis buvo padarytas privačiu pagal tėvinį puslapį."
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Privatumo pakeitimai pritaikomi ir visiems vidiniams puslapiams."
-
-msgid "Edit lock"
-msgstr "Redaguoti užraktą"
-
-msgid "Locked"
-msgstr "Užrakinta"
-
-msgid "Unlocked"
-msgstr "Atrakinta"
 
 msgid "Publishing…"
 msgstr "Publikuojama..."
@@ -1130,6 +1121,9 @@ msgstr "Jokie puslapiai nenaudoja"
 msgid "Collection"
 msgstr "Kolekcija"
 
+msgid "Locked"
+msgstr "Užrakinta"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Puslapis %(page_num)s iš %(total_pages)s."
@@ -1154,15 +1148,6 @@ msgstr "Atsijungti"
 
 msgid "Other searches"
 msgstr "Kitos paieškos"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Jūs naudojate <strong>pasenusią</strong> naršyklę, kuri yra nepalaikoma "
-"programinės įrangos. Prašome <a href=\"http://browsehappy.com/\">atnaujinti "
-"naršyklę</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Eiti į Wagtail administravimo sąsają."
@@ -1305,9 +1290,6 @@ msgstr "Puslapis '{0}' publikavimui atmestas."
 
 msgid "Failed to send rejection notifications"
 msgstr "Nepavyko nusiųsti atmetimo pranešimų"
-
-msgid "Page '{0}' is now locked."
-msgstr "Puslapis '{0}' dabar užrakintas."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Puslapis '{0}' dabar atrakintas."

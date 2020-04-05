@@ -73,8 +73,20 @@ class Block(metaclass=BaseBlock):
 
     def all_media(self):
         media = forms.Media()
+
+        # In cases where the same block definition appears multiple times within different
+        # container blocks (e.g. a RichTextBlock appearing at the top level of a StreamField as
+        # well as both sides of a StructBlock for producing two-column layouts), we will encounter
+        # identical media declarations. Adding these to the final combined media declaration would
+        # be redundant and add processing time when determining the final media ordering. To avoid
+        # this, we keep a cache of previously-seen declarations and only add unique ones.
+        media_cache = set()
+
         for block in self.all_blocks():
-            media += block.media
+            key = block.media.__repr__()
+            if key not in media_cache:
+                media += block.media
+                media_cache.add(key)
         return media
 
     def all_html_declarations(self):

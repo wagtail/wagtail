@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -598,11 +598,27 @@ msgid ""
 "created will be displayed."
 msgstr "대시보드는 여러분이 생성한 컨텐츠들에 대한 유용한 정보들을 보여줍니다."
 
-msgid "Pages awaiting moderation"
-msgstr "검토를 기다리는 페이지"
-
 msgid "Title"
 msgstr "제목"
+
+msgid "Edit this page"
+msgstr "페이지 변경"
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "Draft"
+msgstr "초안"
+
+msgid "Live"
+msgstr "라이브"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 전"
+
+msgid "Pages awaiting moderation"
+msgstr "검토를 기다리는 페이지"
 
 msgid "Parent"
 msgstr "상위"
@@ -613,9 +629,6 @@ msgstr "타입"
 msgid "Edited"
 msgstr "수정된"
 
-msgid "Edit this page"
-msgstr "페이지 변경"
-
 msgid "Preview this page"
 msgstr "페이지 미리보기"
 
@@ -625,15 +638,8 @@ msgstr "승인"
 msgid "Reject"
 msgstr "거절"
 
-msgid "Edit"
-msgstr "수정"
-
 msgid "Preview"
 msgstr "미리보기"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 전"
 
 msgid "Your most recent edits"
 msgstr "최신 수정된 기록"
@@ -643,12 +649,6 @@ msgstr "날짜"
 
 msgid "Status"
 msgstr "상태"
-
-msgid "Draft"
-msgstr "초안"
-
-msgid "Live"
-msgstr "라이브"
 
 msgid "Site summary"
 msgstr "사이트 요약"
@@ -717,21 +717,6 @@ msgstr "이 페이지는 상위 페이지에 의해 비공개로 설정되었습
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "공개 범위를 바꾸면 모든 하위페이지에도 함께 적용됩니다."
-
-msgid "Edit lock"
-msgstr "수정 잠금"
-
-msgid "Remove editor lock. Current status: Locked"
-msgstr "에디터 잠금 해제. 현재 상태: 잠김"
-
-msgid "Apply editor lock. Current status: Unlocked"
-msgstr "에디터 잠금 설정. 현재 상태: 열림"
-
-msgid "Locked"
-msgstr "잠김"
-
-msgid "Unlocked"
-msgstr "잠금 풀림"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "페이지 프라이버시 설정. 현재 상태: 공개"
@@ -1173,6 +1158,9 @@ msgstr "사용하는 페이지가 없습니다"
 msgid "Collection"
 msgstr "모음"
 
+msgid "Locked"
+msgstr "잠김"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
@@ -1203,30 +1191,6 @@ msgstr "현재 페이지 상태:"
 
 msgid "Other searches"
 msgstr "다른 검색결과들"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"당신은 현재 이 서비스를 사용할 <strong>유효한</strong> 브라우저를 사용하고 있"
-"지 않습니다. 브라우저를 업그레이드 해주세요"
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            웨그테일을 사용하려면 자바스크립트가 필요하지만 현재 비활성화되"
-"어 있습니다.<br />\n"
-"            여기에서 <a href=\"http://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">웹 브라우저에서 자바스크립트를 켜는 방"
-"법</a>을 볼 수 있습니다."
 
 msgid "Go to Wagtail admin interface"
 msgstr "웨그테일 관리자 페이지로 이동"
@@ -1374,9 +1338,6 @@ msgstr "'{0}' 페이지는 게시가 거절되었습니다"
 
 msgid "Failed to send rejection notifications"
 msgstr "거절 알림 보내기 실패"
-
-msgid "Page '{0}' is now locked."
-msgstr "'{0}' 페이지를 잠갔습니다."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "'{0}' 페이지의 잠금을 풀었습니다."

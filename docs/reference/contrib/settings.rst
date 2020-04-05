@@ -108,13 +108,19 @@ Settings are designed to be used both in Python code, and in templates.
 Using in Python
 ---------------
 
-If access to a setting is required in the code, the :func:`~wagtail.contrib.settings.models.BaseSetting.for_site` method will retrieve the setting for the supplied site:
+If you require access to a setting in a view, the :func:`~wagtail.contrib.settings.models.BaseSetting.for_request` method allows you to retrieve the relevant settings for the current request:
 
 .. code-block:: python
 
     def view(request):
-        social_media_settings = SocialMediaSettings.for_site(request.site)
+        social_media_settings = SocialMediaSettings.for_request(request)
         ...
+
+In places where the request is unavailable, but you know the ``Site`` you wish to retrieve settings for, you can use :func:`~wagtail.contrib.settings.models.BaseSetting.for_site` instead:
+
+.. code-block:: python
+
+    social_media_settings =  SocialMediaSettings.for_site(user.origin_site)
 
 Using in Django templates
 -------------------------
@@ -216,3 +222,47 @@ Or, alternately, using the ``set`` tag:
 .. code-block:: html+jinja
 
     {% set social_settings=settings("app_label.SocialMediaSettings") %}
+
+
+Utilising ``select_related`` to improve efficiency
+--------------------------------------------------
+
+For models with foreign key relationships to other objects (e.g. pages),
+which are very often needed to output values in templates, you can set
+the ``select_related`` attribute on your model to have Wagtail utilise
+Django's `QuerySet.select_related() <https://docs.djangoproject.com/en/stable/ref/models/querysets/#select-related>`_
+method to fetch the settings object and related objects in a single query.
+With this, the initial query is more complex, but you will be able to
+freely access the foreign key values without any additional queries,
+making things more efficient overall.
+
+Building on the ``ImportantPages`` example from the previous section, the
+following shows how ``select_related`` can be set to improve efficiency:
+
+.. code-block:: python
+    :emphasize-lines: 4,5
+
+    @register_setting
+    class ImportantPages(BaseSetting):
+
+        # Fetch these pages when looking up ImportantPages for or a site
+        select_related = ["donate_page", "sign_up_page"]
+
+        donate_page = models.ForeignKey(
+            'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+')
+        sign_up_page = models.ForeignKey(
+            'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+')
+
+        panels = [
+            PageChooserPanel('donate_page'),
+            PageChooserPanel('sign_up_page'),
+        ]
+
+With these additions, the following template code will now trigger
+a single database query instead of three (one to fetch the settings,
+and two more to fetch each page):
+
+.. code-block:: html
+
+    {{ settings.app_label.ImportantPages.donate_page.url }}
+    {{ settings.app_label.ImportantPages.sign_up_page.url }}

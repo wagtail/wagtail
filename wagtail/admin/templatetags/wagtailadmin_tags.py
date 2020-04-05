@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.menu import admin_menu

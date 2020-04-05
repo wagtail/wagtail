@@ -67,7 +67,7 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         function ajaxifySearchResults() {
             $('.page-results a.choose-page', modal.body).on('click', function() {
                 var pageData = $(this).data();
-                modal.respond('pageChosen', $(this).data());
+                modal.respond('pageChosen', pageData);
                 modal.close();
 
                 return false;
@@ -96,7 +96,7 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             $('a.choose-page', modal.body).on('click', function() {
                 var pageData = $(this).data();
                 pageData.parentId = jsonData['parent_page_id'];
-                modal.respond('pageChosen', $(this).data());
+                modal.respond('pageChosen', pageData);
                 modal.close();
 
                 return false;

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -385,11 +385,23 @@ msgstr ""
 "Šis ir jūsu informācijas panelis, kurā saņemsiet noderīgu informāciju par "
 "saturu ko esat izveidojis."
 
-msgid "Pages awaiting moderation"
-msgstr "Lapām nepieciešama moderācija"
-
 msgid "Title"
 msgstr "Virsraksts"
+
+msgid "Edit this page"
+msgstr "Labot šo lapu"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Draft"
+msgstr "Melnraksts"
+
+msgid "Live"
+msgstr "Aktīva"
+
+msgid "Pages awaiting moderation"
+msgstr "Lapām nepieciešama moderācija"
 
 msgid "Type"
 msgstr "Veids"
@@ -397,17 +409,11 @@ msgstr "Veids"
 msgid "Edited"
 msgstr "Labots"
 
-msgid "Edit this page"
-msgstr "Labot šo lapu"
-
 msgid "Approve"
 msgstr "Apstiprināt"
 
 msgid "Reject"
 msgstr "Noraidīt"
-
-msgid "Edit"
-msgstr "Labot"
 
 msgid "Preview"
 msgstr "Priekšskatīt"
@@ -420,12 +426,6 @@ msgstr "Datums"
 
 msgid "Status"
 msgstr "Statuss"
-
-msgid "Draft"
-msgstr "Melnraksts"
-
-msgid "Live"
-msgstr "Aktīva"
 
 msgid "Site summary"
 msgstr "Kopsavilkums"
@@ -486,15 +486,6 @@ msgstr "Lapa \"%(page)s\" tika iesniegta moderācijai"
 
 msgid "Page privacy"
 msgstr "Lapas privātuma iestatījumi"
-
-msgid "Edit lock"
-msgstr "Rediģēt bloķēšanu"
-
-msgid "Locked"
-msgstr "Slēgts"
-
-msgid "Unlocked"
-msgstr "Atslēgts"
 
 msgid "Publish this revision"
 msgstr "Publicēt šo versiju"
@@ -695,6 +686,9 @@ msgstr "Neviena lapa nelieto"
 msgid "Collection"
 msgstr "Kolekcija"
 
+msgid "Locked"
+msgstr "Slēgts"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām."
@@ -713,15 +707,6 @@ msgstr "Iziet"
 
 msgid "Other searches"
 msgstr "Citi meklējumi"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Jūs lietojat <strong>novecojušu</strong> interneta pārlūku, kas neatbalsta "
-"šo programmatūru. Lūdzu <a href=\"http://browsehappy.com/\">atjaunojiet savu "
-"pārlūku</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Doties uz Wagtail administrācijas intefeisu"
@@ -854,9 +839,6 @@ msgstr "Lapas '{0}' publicēšana noraidīta."
 
 msgid "Failed to send rejection notifications"
 msgstr "Neizdevās nosūtīt atteikuma paziņojumus"
-
-msgid "Page '{0}' is now locked."
-msgstr "Lapa '{0} ir bloķēta."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Lapa '{0} ir atbloķēta."

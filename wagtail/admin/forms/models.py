@@ -5,15 +5,21 @@ from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.managers import TaggableManager
 
 from wagtail.admin import widgets
+from wagtail.admin.forms.tags import TagField
 
 
 # Form field properties to override whenever we encounter a model field
 # that matches one of these types - including subclasses
+
+def _get_tag_field_overrides(db_field):
+    return {'form_class': TagField, 'tag_model': db_field.related_model}
+
+
 FORM_FIELD_OVERRIDES = {
     models.DateField: {'widget': widgets.AdminDateInput},
     models.TimeField: {'widget': widgets.AdminTimeInput},
     models.DateTimeField: {'widget': widgets.AdminDateTimeInput},
-    TaggableManager: {'widget': widgets.AdminTagWidget},
+    TaggableManager: _get_tag_field_overrides,
 }
 
 # Form field properties to override whenever we encounter a model field
@@ -42,6 +48,9 @@ def formfield_for_dbfield(db_field, **kwargs):
                 break
 
     if overrides:
+        if callable(overrides):
+            overrides = overrides(db_field)
+
         kwargs = dict(copy.deepcopy(overrides), **kwargs)
 
     return db_field.formfield(**kwargs)

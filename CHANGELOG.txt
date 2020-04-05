@@ -4,15 +4,45 @@ Changelog
 2.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Removed support for Django 2.1
+ * Added data exports in XLSX and CSV format for reports, ModelAdmin and form submissions (Jacob Topp-Mugglestone)
+ * Added support for creating custom reports (Jacob Topp-Mugglestone)
+ * Skip page validation when unpublishing a page (Samir Shah)
+ * Added `MultipleChoiceBlock` block type for StreamField (James O'Toole)
+ * ChoiceBlock now accepts a `widget` keyword argument (James O'Toole)
  * Reduced contrast of rich text toolbar (Jack Paine)
+ * Support the rel attribute on custom ModelAdmin buttons (Andy Chosak)
+ * Server-side page slug generation now respects `WAGTAIL_ALLOW_UNICODE_SLUGS` (Arkadiusz Michał Ryś)
+ * Wagtail admin no longer depends on SiteMiddleware, avoiding incompatibility with Django sites framework and redundant database queries (aritas1, timmysmalls, Matt Westcott)
+ * Tag field autocompletion now handles custom tag models (Matt Westcott)
+ * `wagtail_serve` URL route can now be omitted for headless sites (Storm Heg)
+ * Allow free tagging to be disabled on custom tag models (Matt Westcott)
+ * Allow disabling page preview by setting `preview_modes` to an empty list (Casper Timmers)
+ * Add Vidyard to oEmbed provider list (Steve Lyall)
+ * Optimise compiling media definitions for complex StreamBlocks (pimarc)
+ * FieldPanel now accepts a 'heading' argument (Jacob Topp-Mugglestone)
+ * Replaced deprecated `ugettext` / `ungettext` calls with `gettext` / `ngettext` (Mohamed Feddad)
+ * ListBlocks now call child block `bulk_to_python` if defined (Andy Chosak)
+ * Site settings are now identifiable/cachable by request as well as site (Andy Babic)
+ * Added `select_related` attribute to site settings to enable more efficient fetching of foreign key values (Andy Babic)
  * Fix: Added ARIA alert role to live search forms in the admin (Casper Timmers)
  * Fix: Reorder login form elements to match expected tab order (Kjartan Sverrisson)
  * Fix: Re-add 'Close Explorer' button on mobile viewports (Sævar Öfjörð Magnússon)
  * Fix: Add a more descriptive label to Password reset link for screen reader users (Casper Timmers, Martin Coote)
  * Fix: Improve Wagtail logo contrast by adding a background (Brian Edelman, Simon Evans, Ben Enright)
+ * Fix: Prevent duplicate notification messages on page locking (Jacob Topp-Mugglestone)
+ * Fix: Fix InlinePanel item non field errors not visible (Storm Heg)
+ * Fix: `{% image ... as var %}` now clears the context variable when passed None as an image (Maylon Pedroso)
+ * Fix: `refresh_index` method on Elasticsearch no longer fails (Lars van de Kerkhof)
+ * Fix: Document tags no longer fail to update when replacing the document file at the same time (Matt Westcott)
+ * Fix: Prevent error from very tall / wide images being resized to 0 pixels (Fidel Ramos)
+ * Fix: Remove excess margin when editing snippets (Quadric)
+ * Fix: Added `scope` attribute to table headers in TableBlock output (Quadric)
+ * Fix: Prevent KeyError when accessing a StreamField on a deferred queryset (Paulo Alvarado)
+ * Fix: Hide empty 'view live' links (Karran Besen)
 
 
-2.8 (xx.xx.xxxx) - IN DEVELOPMENT
+2.8 (03.02.2020)
 ~~~~~~~~~~~~~~~~
 
  * Django 3.0 support (Matt Westcott, Mads Jensen)
@@ -269,6 +299,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Added support for Python 3.7 (Matt Westcott)
+ * Removed support for Django 1.11 (Matt Westcott)
  * Added `max_count` option on page models to limit the number of pages of a particular type that can be created (Dan Braghis)
  * Document and image choosers now show the document / image's collection (Alejandro Garza, Janneke Janssen)
  * Added new "Welcome to your Wagtail site" Starter Page when using wagtail start command (Timothy Allen, Scott Cranfill)

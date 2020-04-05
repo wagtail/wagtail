@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-16 18:00+0100\n"
-"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Basque (http://www.transifex.com/torchbox/wagtail/language/"
 "eu/)\n"
@@ -107,17 +107,17 @@ msgstr ""
 "Kontrol panel honetan sortu duzun edukiekin erlazionaturiko informazio "
 "baliagarria agertuko da."
 
-msgid "Pages awaiting moderation"
-msgstr "Moderatzeke dauden orrialdeak"
-
 msgid "Title"
 msgstr "Izenburua"
 
-msgid "Parent"
-msgstr "Gurasoa"
-
 msgid "Edit this page"
 msgstr "Orrialde hau editatu"
+
+msgid "Pages awaiting moderation"
+msgstr "Moderatzeke dauden orrialdeak"
+
+msgid "Parent"
+msgstr "Gurasoa"
 
 msgid "Approve"
 msgstr "Baieztatu"

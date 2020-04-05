@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var rename = require('gulp-rename');
 var gutil = require('gulp-util');
 var path = require('path');
 var config = require('../config');
@@ -7,8 +6,7 @@ var renameSrcToDest = require('../lib/rename-src-to-dest');
 
 /*
  * Simple copy task - just copoes files from the source to the destination,
- * with no compilation, minification, or other intelligence
- *
+ * with no compilation, minification, or other intelligence.
  */
 var simpleCopyTask = function(glob) {
     return function() {

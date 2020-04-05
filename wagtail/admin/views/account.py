@@ -6,7 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.utils.translation import override
 from django.views.decorators.debug import sensitive_post_parameters
 
