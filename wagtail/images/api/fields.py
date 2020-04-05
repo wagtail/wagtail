@@ -36,6 +36,7 @@ class ImageRenditionField(Field):
                 ('url', thumbnail.url),
                 ('width', thumbnail.width),
                 ('height', thumbnail.height),
+                ('alt', thumbnail.alt),
             ])
         except SourceImageIOError:
             return OrderedDict([
