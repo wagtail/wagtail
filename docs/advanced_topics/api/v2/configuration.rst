@@ -240,7 +240,8 @@ This would add the following to the JSON:
         "feed_image_thumbnail": {
             "url": "/media/images/a_test_image.fill-100x100.jpg",
             "width": 100,
-            "height": 100
+            "height": 100,
+            "alt": "image alt text"
         }
     }
 
