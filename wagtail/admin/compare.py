@@ -328,7 +328,7 @@ class ForeignObjectComparison(FieldComparison):
             if obj_a:
                 return escape(force_str(obj_a))
             else:
-                return mark_safe(_("None"))
+                return _("None")
 
 
 class ChildRelationComparison:
