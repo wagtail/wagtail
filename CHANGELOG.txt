@@ -43,6 +43,7 @@ Changelog
  * Fix: Hide empty 'view live' links (Karran Besen)
  * Fix: Mark up a few strings for translation (Luiz Boaretto)
  * Fix: Invalid focal_point attribute on image edit view (Michał (Quadric) Sieradzki)
+ * Fix: No longer expose the `.delete()` method on the default Page.objects manager (Nick Smith)
 
 
 2.8.1 (14.04.2020)
