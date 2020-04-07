@@ -160,14 +160,14 @@ url for the report, you will need to use the ``register_admin_urls`` hook (see :
 
     from django.conf.urls import url
 
-    from wagtail.admin.menu import MenuItem
+    from wagtail.admin.menu import AdminOnlyMenuItem
     from wagtail.core import hooks
 
     from .views import UnpublishedChangesReportView
 
     @hooks.register('register_reports_menu_item')
     def register_unpublished_changes_report_menu_item():
-        return MenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), classnames='icon icon-' + UnpublishedChangesReportView.header_icon, order=700)
+        return AdminOnlyMenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), classnames='icon icon-' + UnpublishedChangesReportView.header_icon, order=700)
     
     @hooks.register('register_admin_urls')
     def register_unpublished_changes_report_url():
