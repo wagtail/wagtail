@@ -12,7 +12,7 @@ For this example, we'll add a report which shows any pages with unpublished chan
 
     # <project>/views.py
 
-    from wagtail.admin.views.report.ReportView
+    from wagtail.admin.views.reports import ReportView
 
 
     class UnpublishedChangesReportView(ReportView):
