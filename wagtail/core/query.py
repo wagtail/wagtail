@@ -15,6 +15,12 @@ class TreeQuerySet(MP_NodeQuerySet):
     """
     Extends Treebeard's MP_NodeQuerySet with additional useful tree-related operations.
     """
+    def delete(self):
+        """Redefine the delete method unbound, so we can set the queryset_only parameter. """
+        super().delete()
+
+    delete.queryset_only = True
+
     def descendant_of_q(self, other, inclusive=False):
         q = Q(path__startswith=other.path) & Q(depth__gte=other.depth)
 

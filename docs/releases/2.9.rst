@@ -58,6 +58,7 @@ Bug fixes
  * Added ``scope`` attribute to table headers in TableBlock output (Quadric)
  * Prevent KeyError when accessing a StreamField on a deferred queryset (Paulo Alvarado)
  * Hide empty 'view live' links (Karran Besen)
+ * No longer expose the ``.delete()`` method on the default Page.objects manager (Nick Smith)
 
 
 Upgrade considerations

@@ -406,6 +406,14 @@ class TestPageQuerySet(TestCase):
 
         self.assertTrue(Page.objects.filter(query).exists())
 
+    def test_delete_queryset(self):
+        Page.objects.all().delete()
+        self.assertEqual(Page.objects.count(), 0)
+
+    def test_delete_is_not_available_on_manager(self):
+        with self.assertRaises(AttributeError):
+            Page.objects.delete()
+
 
 class TestPageQueryInSite(TestCase):
     fixtures = ['test.json']
