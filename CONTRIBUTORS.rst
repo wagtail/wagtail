@@ -21,6 +21,7 @@ Core team
 * Andy Babic (Torchbox)
 * Dan Braghis (Torchbox)
 * Dawn Wages
+* Jacob Topp-Mugglestone (Torchbox)
 
 Core team alumni
 ================
@@ -406,7 +407,6 @@ Contributors
 * Kiril Staikov
 * Saptak Sengupta
 * Dawid Bugajewski
-* Jacob Topp-Mugglestone
 * Brian Whitton
 * Tim White
 * Mike Janger
