@@ -41,6 +41,8 @@ Changelog
  * Fix: Added `scope` attribute to table headers in TableBlock output (Quadric)
  * Fix: Prevent KeyError when accessing a StreamField on a deferred queryset (Paulo Alvarado)
  * Fix: Hide empty 'view live' links (Karran Besen)
+ * Fix: Mark up a few strings for translation (Luiz Boaretto)
+ * Fix: Invalid focal_point attribute on image edit view (Michał (Quadric) Sieradzki)
 
 
 2.8 (03.02.2020)
