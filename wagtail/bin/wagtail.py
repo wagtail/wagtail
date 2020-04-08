@@ -245,6 +245,10 @@ class UpdateModulePaths(Command):
 COMMANDS = {
     'start': CreateProject(),
     'updatemodulepaths': UpdateModulePaths(),
+    # add new commands, why not?
+    #'createsuperuser':like_CreateSuperUser(), #execute `python manage.py createsuperuser`
+    #'runserver':like_RunServer(), #execute `python manage.py runserver`
+    #'migrate':like_Migrate(), #execute `python manage.py migrate`
 }
 
 
