@@ -443,6 +443,7 @@ Contributors
 * Paulo Alvarado
 * Karran Besen
 * Mohamed Feddad
+* Michał (Quadric) Sieradzki
 
 Translators
 ===========
