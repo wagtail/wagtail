@@ -27,7 +27,8 @@ msgid "Wagtail core"
 msgstr "Wagtail core"
 
 msgid "This block has no options."
-msgstr "هذه الكتلة لا يوجد لديه خيارات."
+msgstr "هذه الكتلة ليست فيها خيارات"
+#, msgstr "هذه الكتلة لا يوجد لديه خيارات."
 
 #, python-format
 msgid "The minimum number of items is %d"
@@ -47,7 +48,8 @@ msgid "The password you have entered is not correct. Please try again."
 msgstr "كلمة المرور غير صحيحة, الرجاء المحاولة مرة أخرى."
 
 msgid "hostname"
-msgstr "اسم المضيف"
+msgstr "اسم المضيف /  السيرفر"
+#, msgstr "اسم المضيف"
 
 msgid "port"
 msgstr "منفذ"
@@ -149,7 +151,8 @@ msgid "expiry date/time"
 msgstr "تاريخ انتهاء الصلاحية / الوقت"
 
 msgid "expired"
-msgstr "منقضٍ"
+msgstr "منتهي"
+#, msgstr "منقضٍ"
 
 msgid "locked"
 msgstr "مغلق"
@@ -278,28 +281,32 @@ msgid "page view restrictions"
 msgstr "قيود عرض الصفحة"
 
 msgid "collection"
-msgstr "مجموعة"
+msgstr "رزمة"
+#, msgstr "مجموعة"
 
 msgid "collection view restriction"
-msgstr "تقييد عرض المجموعة"
+msgstr "تقييد عرض الرزمة"
 
 msgid "collection view restrictions"
-msgstr "قيود عرض المجموعة"
+msgstr "قيود عرض الرزمة"
 
 msgid "name"
 msgstr "اسم"
 
 msgid "collections"
-msgstr "مجموعات"
+msgstr "الرزم"
+#, msgstr "مجموعات"
 
 msgid "permission"
 msgstr "تصريح"
 
 msgid "group collection permission"
-msgstr "إذن مجموعة المجموعة"
+msgstr "إذن رزمة المجموعة"
+#, msgstr "إذن مجموعة المجموعة"
 
 msgid "group collection permissions"
-msgstr "مجموعة أذونات المجموعة"
+msgstr "أذنات رزمة المجموعة"
+#, msgstr "مجموعة أذونات المجموعة"
 
 msgid "Log in"
 msgstr "تسجيل الدخول"
