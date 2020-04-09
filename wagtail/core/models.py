@@ -2814,6 +2814,9 @@ class WorkflowState(models.Model):
     def update(self, user=None, next_task=None):
         """Checks the status of the current task, and progresses (or ends) the workflow if appropriate. If the workflow progresses,
         next_task will be used to start a specific task next if provided."""
+        if self.status != self.STATUS_IN_PROGRESS:
+            # Updating a completed or cancelled workflow should have no effect
+            return
         try:
             current_status = self.current_task_state.status
         except AttributeError:
@@ -2857,6 +2860,9 @@ class WorkflowState(models.Model):
             raise PermissionDenied
         self.status = self.STATUS_CANCELLED
         self.save()
+        for state in self.task_states.filter(status=TaskState.STATUS_IN_PROGRESS):
+            # Cancel all in progress task states
+            state.specific.cancel(user=user)
         workflow_cancelled.send(sender=self.__class__, instance=self, user=user)
 
     @transaction.atomic
