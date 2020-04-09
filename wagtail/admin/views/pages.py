@@ -1189,8 +1189,8 @@ def preview_revision_for_task(request, page_id, task_id):
     """Preview the revision linked to the in-progress TaskState of a specified Task. This enables pages in moderation
     to be edited and new TaskStates linked to the new revisions created, with preview links remaining valid"""
 
-    page = Page.objects.get(id=page_id)
-    task = Task.objects.get(id=task_id).specific
+    page = get_object_or_404(Page, id=page_id)
+    task = get_object_or_404(Task, id=task_id).specific
     try:
         task_state = TaskState.objects.get(page_revision__page=page, task=task, status=TaskState.STATUS_IN_PROGRESS)
     except TaskState.DoesNotExist:
