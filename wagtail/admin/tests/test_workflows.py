@@ -923,6 +923,8 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         self.assertEqual(states.filter(status=WorkflowState.STATUS_IN_PROGRESS).count(), 0)
         self.assertEqual(states.filter(status=WorkflowState.STATUS_CANCELLED).count(), 1)
 
+        self.assertEqual(TaskState.objects.filter(workflow_state__workflow=self.workflow, status=TaskState.STATUS_IN_PROGRESS).count(), 0)
+
     def test_disable_task(self):
         """Test that deactivating a task sets it to inactive and cancels in progress states"""
         self.login(self.submitter)
