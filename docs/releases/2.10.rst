@@ -28,6 +28,7 @@ Other features
  * Show more granular error messages from Pillow when uploading images (Rick van Hattem)
  * Add ordering to ``Site`` object, so that index page and ``Site`` switcher will be sorted consistently (Coen van der Kamp, Tim Leguijt)
  * Add Reddit to oEmbed provider list (Luke Hardwick)
+ * Remove sticky footer on small devices, so that content is not blocked and more easily editable (Saeed Tahmasebi)
 
 
 Bug fixes

@@ -457,6 +457,7 @@ Contributors
 * Jonatas Baldin
 * Rick van Hattem
 * Luke Hardwick
+* Saeed Tahmasebi
 
 Translators
 ===========

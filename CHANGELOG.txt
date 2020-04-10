@@ -19,6 +19,7 @@ Changelog
  * Show more granular error messages from Pillow when uploading images (Rick van Hattem)
  * Add ordering to `Site` object, so that index page and `Site` switcher will be sorted consistently (Coen van der Kamp, Tim Leguijt)
  * Add Reddit to oEmbed provider list (Luke Hardwick)
+ * Remove sticky footer on small devices, so that content is not blocked and more easily editable (Saeed Tahmasebi)
  * Fix: Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * Fix: `AbstractEmailForm` saved submission fields are now aligned with the email content fields, `form.cleaned_data` will be used instead of `form.fields` (Haydn Greatnews)

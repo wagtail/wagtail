@@ -4,12 +4,8 @@ footer {
     border-radius: 3px 3px 0 0;
     box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
     background: $color-grey-1;
-    position: fixed;
-    bottom: 0;
-    padding: 0.5em;
-    width: 90%;
-    margin: 0 5%;
     color: $color-white;
+    margin-top: $mobile-nice-padding;
 
     ul {
         @include unlist();
@@ -72,5 +68,8 @@ footer {
         margin-left: $desktop-nice-padding;
         margin-right: $desktop-nice-padding;
         width: calc(100% - #{$menu-width} - #{2 * $desktop-nice-padding});
+        position: fixed;
+        bottom: 0;
+        padding: 0.5em;
     }
 }
