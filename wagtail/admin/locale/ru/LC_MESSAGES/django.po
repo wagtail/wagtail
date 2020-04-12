@@ -358,7 +358,7 @@ msgid "December"
 msgstr "Декабрь"
 
 msgid "Sunday"
-msgstr "Воскрксенье"
+msgstr "Воскресенье"
 
 msgid "Monday"
 msgstr "Понедельник"
