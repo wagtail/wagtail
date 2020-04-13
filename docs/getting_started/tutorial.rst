@@ -504,7 +504,7 @@ Add a new ``BlogPageGalleryImage`` model to ``models.py``:
     class BlogPageGalleryImage(Orderable):
         page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
         image = models.ForeignKey(
-            'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+            'media.Image', on_delete=models.CASCADE, related_name='+'
         )
         caption = models.CharField(blank=True, max_length=250)
 
@@ -795,7 +795,7 @@ First, we define a ``BlogCategory`` model. A category is not a page in its own r
     class BlogCategory(models.Model):
         name = models.CharField(max_length=255)
         icon = models.ForeignKey(
-            'wagtailimages.Image', null=True, blank=True,
+            'media.Image', null=True, blank=True,
             on_delete=models.SET_NULL, related_name='+'
         )
 

@@ -39,10 +39,11 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         null=True,
         blank=True,
         editable=False,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL,
+        related_name='+'
     )
 
-    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'), related_name='+')
 
     file_size = models.PositiveIntegerField(null=True, editable=False)
     # A SHA-1 hash of the file contents
@@ -170,6 +171,18 @@ class Document(AbstractDocument):
         'collection',
         'tags'
     )
+
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_('uploaded by user'),
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.SET_NULL,
+        related_name='document_set'
+    )
+
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'), related_name='document_set')
 
 
 document_served = Signal(providing_args=['request'])

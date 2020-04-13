@@ -16,7 +16,7 @@ class TypeField(Field):
     Serializes the "type" field of each object.
 
     Example:
-    "type": "wagtailimages.Image"
+    "type": "media.Image"
     """
     def get_attribute(self, instance):
         return instance
@@ -95,7 +95,7 @@ class RelatedField(relations.RelatedField):
     "feed_image": {
         "id": 1,
         "meta": {
-            "type": "wagtailimages.Image",
+            "type": "media.Image",
             "detail_url": "http://api.example.com/v1/images/1/"
         }
     }
@@ -153,7 +153,7 @@ class ChildRelationField(Field):
             "image": {
                 "id": 1,
                 "meta": {
-                    "type": "wagtailimages.Image",
+                    "type": "media.Image",
                     "detail_url": "http://api.example.com/v1/images/1/"
                 }
             }

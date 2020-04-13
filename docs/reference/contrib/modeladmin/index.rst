@@ -89,7 +89,7 @@ to create, view, and edit ``Book`` entries.
         title = models.CharField(max_length=255)
         author = models.CharField(max_length=255)
         cover_photo = models.ForeignKey(
-            'wagtailimages.Image',
+            'media.Image',
             null=True, blank=True,
             on_delete=models.SET_NULL,
             related_name='+'
