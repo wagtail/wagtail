@@ -444,6 +444,7 @@ Contributors
 * Karran Besen
 * Mohamed Feddad
 * Michał (Quadric) Sieradzki
+* Vlad Gerasimenko
 
 Translators
 ===========
