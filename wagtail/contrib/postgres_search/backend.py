@@ -6,6 +6,7 @@ from django.db.models import Count, F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
 from django.utils.encoding import force_str
+from django.utils.functional import cached_property
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
@@ -20,6 +21,76 @@ from .utils import (
     get_sql_weights, get_weight)
 
 EMPTY_VECTOR = SearchVector(Value('', output_field=TextField()))
+
+
+class ObjectIndexer:
+    """
+    Responsible for extracting data from an object to be inserted into the index.
+    """
+    def __init__(self, obj):
+        self.obj = obj
+        self.search_fields = obj.get_search_fields()
+
+    def prepare_value(self, value):
+        if isinstance(value, str):
+            return value
+        if isinstance(value, list):
+            return ', '.join(self.prepare_value(item) for item in value)
+        if isinstance(value, dict):
+            return ', '.join(self.prepare_value(item)
+                             for item in value.values())
+        return force_str(value)
+
+    def prepare_field(self, obj, field):
+        if isinstance(field, SearchField):
+            yield (field, get_weight(field.boost),
+                   self.prepare_value(field.get_value(obj)))
+        elif isinstance(field, RelatedFields):
+            sub_obj = field.get_value(obj)
+            if sub_obj is None:
+                return
+            if isinstance(sub_obj, Manager):
+                sub_objs = sub_obj.all()
+            else:
+                if callable(sub_obj):
+                    sub_obj = sub_obj()
+                sub_objs = [sub_obj]
+            for sub_obj in sub_objs:
+                for sub_field in field.fields:
+                    yield from self.prepare_field(sub_obj, sub_field)
+
+    @cached_property
+    def id(self):
+        """
+        Returns the value to use as the ID of the record in the index
+        """
+        return force_str(self.obj.pk)
+
+    @cached_property
+    def body(self):
+        """
+        Returns all values to index as "body". This is the value of all SearchFields that have partial_match=False
+        """
+        texts = []
+        for field in self.search_fields:
+            for current_field, boost, value in self.prepare_field(self.obj, field):
+                if isinstance(current_field, SearchField) and not current_field.partial_match:
+                    texts.append((value, boost))
+
+        return texts
+
+    @cached_property
+    def autocomplete(self):
+        """
+        Returns all values to index as "body". This is the value of all SearchFields that have partial_match=True
+        """
+        texts = []
+        for field in self.search_fields:
+            for current_field, boost, value in self.prepare_field(self.obj, field):
+                if isinstance(current_field, SearchField) and current_field.partial_match:
+                    texts.append((value, boost))
+
+        return texts
 
 
 class Index:
@@ -61,50 +132,10 @@ class Index:
             if not model._meta.parents:
                 self.delete_stale_model_entries(model)
 
-    def prepare_value(self, value):
-        if isinstance(value, str):
-            return value
-        if isinstance(value, list):
-            return ', '.join(self.prepare_value(item) for item in value)
-        if isinstance(value, dict):
-            return ', '.join(self.prepare_value(item)
-                             for item in value.values())
-        return force_str(value)
-
-    def prepare_field(self, obj, field):
-        if isinstance(field, SearchField):
-            yield (field, get_weight(field.boost),
-                   self.prepare_value(field.get_value(obj)))
-        elif isinstance(field, RelatedFields):
-            sub_obj = field.get_value(obj)
-            if sub_obj is None:
-                return
-            if isinstance(sub_obj, Manager):
-                sub_objs = sub_obj.all()
-            else:
-                if callable(sub_obj):
-                    sub_obj = sub_obj()
-                sub_objs = [sub_obj]
-            for sub_obj in sub_objs:
-                for sub_field in field.fields:
-                    yield from self.prepare_field(sub_obj, sub_field)
-
-    def prepare_obj(self, obj, search_fields):
-        obj._object_id_ = force_str(obj.pk)
-        obj._autocomplete_ = []
-        obj._body_ = []
-        for field in search_fields:
-            for current_field, boost, value in self.prepare_field(obj, field):
-                if isinstance(current_field, SearchField) and \
-                        current_field.partial_match:
-                    obj._autocomplete_.append((value, boost))
-                else:
-                    obj._body_.append((value, boost))
-
     def add_item(self, obj):
         self.add_items(obj._meta.model, [obj])
 
-    def add_items_upsert(self, content_type_pk, objs):
+    def add_items_upsert(self, content_type_pk, indexers):
         config = self.backend.config
         autocomplete_sql = []
         body_sql = []
@@ -112,21 +143,26 @@ class Index:
         sql_template = ('to_tsvector(%s)' if config is None
                         else "to_tsvector('%s', %%s)" % config)
         sql_template = 'setweight(%s, %%s)' % sql_template
-        for obj in objs:
-            data_params.extend((content_type_pk, obj._object_id_))
-            if obj._autocomplete_:
+
+        for indexer in indexers:
+            data_params.extend((content_type_pk, indexer.id))
+
+            if indexer.autocomplete:
                 autocomplete_sql.append('||'.join(sql_template
-                                                  for _ in obj._autocomplete_))
-                data_params.extend([v for t in obj._autocomplete_ for v in t])
+                                                  for _ in indexer.autocomplete))
+                data_params.extend([v for t in indexer.autocomplete for v in t])
             else:
                 autocomplete_sql.append("''::tsvector")
-            if obj._body_:
-                body_sql.append('||'.join(sql_template for _ in obj._body_))
-                data_params.extend([v for t in obj._body_ for v in t])
+
+            if indexer.body:
+                body_sql.append('||'.join(sql_template for _ in indexer.body))
+                data_params.extend([v for t in indexer.body for v in t])
             else:
                 body_sql.append("''::tsvector")
+
         data_sql = ', '.join(['(%%s, %%s, %s, %s)' % (a, b)
                               for a, b in zip(autocomplete_sql, body_sql)])
+
         with self.connection.cursor() as cursor:
             cursor.execute("""
                 INSERT INTO %s (content_type_id, object_id, autocomplete, body)
@@ -136,52 +172,57 @@ class Index:
                               body = EXCLUDED.body
                 """ % (IndexEntry._meta.db_table, data_sql), data_params)
 
-    def add_items_update_then_create(self, content_type_pk, objs):
+    def add_items_update_then_create(self, content_type_pk, indexers):
         config = self.backend.config
-        ids_and_objs = {}
-        for obj in objs:
-            obj._autocomplete_ = (
+
+        ids_and_data = {}
+        for indexer in indexers:
+            autocomplete = (
                 ADD([SearchVector(Value(text, output_field=TextField()), weight=weight, config=config)
-                     for text, weight in obj._autocomplete_])
-                if obj._autocomplete_ else EMPTY_VECTOR)
-            obj._body_ = (
+                     for text, weight in indexer.autocomplete])
+                if indexer.autocomplete else EMPTY_VECTOR)
+            body = (
                 ADD([SearchVector(Value(text, output_field=TextField()), weight=weight, config=config)
-                     for text, weight in obj._body_])
-                if obj._body_ else EMPTY_VECTOR)
-            ids_and_objs[obj._object_id_] = obj
-        index_entries_for_ct = self.entries.filter(
-            content_type_id=content_type_pk)
+                     for text, weight in indexer.body])
+                if indexer.body else EMPTY_VECTOR)
+            ids_and_data[indexer.id] = (autocomplete, body)
+
+        index_entries_for_ct = self.entries.filter(content_type_id=content_type_pk)
         indexed_ids = frozenset(
-            index_entries_for_ct.filter(object_id__in=ids_and_objs)
-            .values_list('object_id', flat=True))
+            index_entries_for_ct.filter(object_id__in=ids_and_data.keys()).values_list('object_id', flat=True)
+        )
         for indexed_id in indexed_ids:
-            obj = ids_and_objs[indexed_id]
-            index_entries_for_ct.filter(object_id=obj._object_id_) \
-                .update(autocomplete=obj._autocomplete_, body=obj._body_)
+            autocomplete, body = ids_and_data[indexed_id]
+            index_entries_for_ct.filter(object_id=indexed_id).update(autocomplete=autocomplete, body=body)
+
         to_be_created = []
-        for object_id in ids_and_objs:
+        for object_id in ids_and_data.keys():
             if object_id not in indexed_ids:
-                obj = ids_and_objs[object_id]
+                autocomplete, body = ids_and_data[object_id]
                 to_be_created.append(IndexEntry(
-                    content_type_id=content_type_pk, object_id=object_id,
-                    autocomplete=obj._autocomplete_, body=obj._body_))
+                    content_type_id=content_type_pk,
+                    object_id=object_id,
+                    autocomplete=autocomplete,
+                    body=body
+                ))
+
         self.entries.bulk_create(to_be_created)
 
     def add_items(self, model, objs):
         search_fields = model.get_search_fields()
         if not search_fields:
             return
-        for obj in objs:
-            self.prepare_obj(obj, search_fields)
+
+        indexers = [ObjectIndexer(obj) for obj in objs]
 
         # TODO: Delete unindexed objects while dealing with proxy models.
-        if objs:
+        if indexers:
             content_type_pk = get_content_type_pk(model)
 
             update_method = (
                 self.add_items_upsert if self._enable_upsert
                 else self.add_items_update_then_create)
-            update_method(content_type_pk, objs)
+            update_method(content_type_pk, indexers)
 
     def delete_item(self, item):
         item.index_entries.using(self.db_alias).delete()
