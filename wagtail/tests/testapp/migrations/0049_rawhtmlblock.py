@@ -9,7 +9,7 @@ import wagtail.tests.testapp.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0047_restaurant_tags'),
+        ('tests', '0048_importantpages'),
     ]
 
     operations = [
