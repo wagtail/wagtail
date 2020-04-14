@@ -83,6 +83,12 @@ Changelog
  * Fix: Make sure all modal chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
 
 
+2.7.2 (14.04.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2020-11001 - prevent XSS attack via page revision comparison view (Vlad Gerasimenko, Matt Westcott)
+
+
 2.7.1 (08.01.2020)
 ~~~~~~~~~~~~~~~~~~
 
