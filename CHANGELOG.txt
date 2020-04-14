@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.8.1 (14.04.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2020-11001 - prevent XSS attack via page revision comparison view (Vlad Gerasimenko, Matt Westcott)
+
+
 2.8 (03.02.2020)
 ~~~~~~~~~~~~~~~~
 
