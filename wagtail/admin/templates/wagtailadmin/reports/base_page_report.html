@@ -6,7 +6,7 @@
         <div id="page-results">
             {% if pages %}
                 {% block listing %}
-                    {% include "wagtailadmin/reports/listing/_list_report.html" %}
+                    {% include "wagtailadmin/reports/listing/_list_page_report.html" %}
                 {% endblock %}
                 {% paginate pages base_url=request.path %}
             {% else %}
