@@ -418,6 +418,7 @@ Contributors
 * ryanomor
 * Thijs Baaijen
 * Stefani Castellanos
+* Vlad Gerasimenko
 
 Translators
 ===========
