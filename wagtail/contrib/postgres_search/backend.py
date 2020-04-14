@@ -34,27 +34,35 @@ class ObjectIndexer:
     def prepare_value(self, value):
         if isinstance(value, str):
             return value
-        if isinstance(value, list):
+
+        elif isinstance(value, list):
             return ', '.join(self.prepare_value(item) for item in value)
-        if isinstance(value, dict):
+
+        elif isinstance(value, dict):
             return ', '.join(self.prepare_value(item)
                              for item in value.values())
+
         return force_str(value)
 
     def prepare_field(self, obj, field):
         if isinstance(field, SearchField):
             yield (field, get_weight(field.boost),
                    self.prepare_value(field.get_value(obj)))
+
         elif isinstance(field, RelatedFields):
             sub_obj = field.get_value(obj)
             if sub_obj is None:
                 return
+
             if isinstance(sub_obj, Manager):
                 sub_objs = sub_obj.all()
+
             else:
                 if callable(sub_obj):
                     sub_obj = sub_obj()
+
                 sub_objs = [sub_obj]
+
             for sub_obj in sub_objs:
                 for sub_field in field.fields:
                     yield from self.prepare_field(sub_obj, sub_field)
@@ -116,13 +124,16 @@ class Index:
         pass
 
     def delete_stale_model_entries(self, model):
-        existing_pks = (model._default_manager.using(self.db_alias)
-                        .annotate(object_id=Cast('pk', TextField()))
-                        .values('object_id'))
+        existing_pks = (
+            model._default_manager.using(self.db_alias)
+            .annotate(object_id=Cast('pk', TextField()))
+            .values('object_id')
+        )
         content_types_pks = get_descendants_content_types_pks(model)
         stale_entries = (
             self.entries.filter(content_type_id__in=content_types_pks)
-            .exclude(object_id__in=existing_pks))
+            .exclude(object_id__in=existing_pks)
+        )
         stale_entries.delete()
 
     def delete_stale_entries(self):
@@ -160,8 +171,10 @@ class Index:
             else:
                 body_sql.append("''::tsvector")
 
-        data_sql = ', '.join(['(%%s, %%s, %s, %s)' % (a, b)
-                              for a, b in zip(autocomplete_sql, body_sql)])
+        data_sql = ', '.join([
+            '(%%s, %%s, %s, %s)' % (a, b)
+            for a, b in zip(autocomplete_sql, body_sql)
+        ])
 
         with self.connection.cursor() as cursor:
             cursor.execute("""
@@ -181,6 +194,7 @@ class Index:
                 ADD([SearchVector(Value(text, output_field=TextField()), weight=weight, config=config)
                      for text, weight in indexer.autocomplete])
                 if indexer.autocomplete else EMPTY_VECTOR)
+
             body = (
                 ADD([SearchVector(Value(text, output_field=TextField()), weight=weight, config=config)
                      for text, weight in indexer.body])
@@ -243,96 +257,114 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         self.search_fields = self.queryset.model.get_searchable_search_fields()
+
         # Due to a Django bug, arrays are not automatically converted
         # when we use WEIGHTS_VALUES.
         self.sql_weights = get_sql_weights()
+
         if self.fields is not None:
             search_fields = self.queryset.model.get_searchable_search_fields()
             self.search_fields = {
-                field_lookup: self.get_search_field(field_lookup,
-                                                    fields=search_fields)
-                for field_lookup in self.fields}
+                field_lookup: self.get_search_field(field_lookup, fields=search_fields)
+                for field_lookup in self.fields
+            }
 
     def get_search_field(self, field_lookup, fields=None):
         if fields is None:
             fields = self.search_fields
+
         if LOOKUP_SEP in field_lookup:
             field_lookup, sub_field_name = field_lookup.split(LOOKUP_SEP, 1)
         else:
             sub_field_name = None
+
         for field in fields:
-            if isinstance(field, SearchField) \
-                    and field.field_name == field_lookup:
+            if isinstance(field, SearchField) and field.field_name == field_lookup:
                 return field
+
             # Note: Searching on a specific related field using
             # `.search(fields=…)` is not yet supported by Wagtail.
             # This method anticipates by already implementing it.
-            if isinstance(field, RelatedFields) \
-                    and field.field_name == field_lookup:
+            if isinstance(field, RelatedFields) and field.field_name == field_lookup:
                 return self.get_search_field(sub_field_name, field.fields)
 
     def build_tsquery_content(self, query, group=False):
         if isinstance(query, PlainText):
             query_formats = []
             query_params = []
+
             for word in query.query_string.split():
                 query_formats.append(self.TSQUERY_WORD_FORMAT)
                 query_params.append(word)
+
             operator = self.TSQUERY_OPERATORS[query.operator]
             query_format = operator.join(query_formats)
+
             if group and len(query_formats) > 1:
                 query_format = '(%s)' % query_format
+
             return query_format, query_params
-        if isinstance(query, Boost):
+
+        elif isinstance(query, Boost):
             return self.build_tsquery_content(query.subquery)
-        if isinstance(query, Not):
-            query_format, query_params = \
-                self.build_tsquery_content(query.subquery, group=True)
+
+        elif isinstance(query, Not):
+            query_format, query_params = self.build_tsquery_content(query.subquery, group=True)
+
             return '!' + query_format, query_params
-        if isinstance(query, (And, Or)):
+
+        elif isinstance(query, (And, Or)):
             query_formats = []
             query_params = []
+
             for subquery in query.subqueries:
-                subquery_format, subquery_params = \
-                    self.build_tsquery_content(subquery, group=True)
+                subquery_format, subquery_params = self.build_tsquery_content(subquery, group=True)
                 query_formats.append(subquery_format)
                 query_params.extend(subquery_params)
-            operator = (self.TSQUERY_AND if isinstance(query, And)
-                        else self.TSQUERY_OR)
+
+            operator = self.TSQUERY_AND if isinstance(query, And) else self.TSQUERY_OR
+
             return operator.join(query_formats), query_params
+
         raise NotImplementedError(
             '`%s` is not supported by the PostgreSQL search backend.'
             % query.__class__.__name__)
 
     def build_tsquery(self, query, config=None):
         query_format, query_params = self.build_tsquery_content(query)
-        return PostgresRawSearchQuery(query_format, query_params,
-                                      config=config)
+        return PostgresRawSearchQuery(query_format, query_params, config=config)
 
     def build_tsrank(self, vector, query, config=None, boost=1.0):
         if isinstance(query, (PlainText, Not)):
             rank_expression = SearchRank(
                 vector,
                 self.build_tsquery(query, config=config),
-                weights=self.sql_weights)
+                weights=self.sql_weights
+            )
+
             if boost != 1.0:
                 rank_expression *= boost
+
             return rank_expression
-        if isinstance(query, Boost):
+
+        elif isinstance(query, Boost):
             boost *= query.boost
-            return self.build_tsrank(vector, query.subquery,
-                                     config=config, boost=boost)
-        if isinstance(query, And):
+            return self.build_tsrank(vector, query.subquery, config=config, boost=boost)
+
+        elif isinstance(query, And):
             return MUL(
-                1 + self.build_tsrank(vector, subquery,
-                                      config=config, boost=boost)
-                for subquery in query.subqueries) - 1
-        if isinstance(query, Or):
+                1 + self.build_tsrank(vector, subquery, config=config, boost=boost)
+                for subquery in query.subqueries
+            ) - 1
+
+        elif isinstance(query, Or):
             return ADD(
-                self.build_tsrank(vector, subquery,
-                                  config=config, boost=boost)
-                for subquery in query.subqueries) / (len(query.subqueries) or 1)
+                self.build_tsrank(vector, subquery, config=config, boost=boost)
+                for subquery in query.subqueries
+            ) / (len(query.subqueries) or 1)
+
         raise NotImplementedError(
             '`%s` is not supported by the PostgreSQL search backend.'
             % query.__class__.__name__)
@@ -343,13 +375,20 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def get_fields_vector(self, search_query):
         return ADD(
-            SearchVector(field_lookup, config=search_query.config,
-                         weight=get_weight(search_field.boost))
-            for field_lookup, search_field in self.search_fields.items())
+            SearchVector(
+                field_lookup,
+                config=search_query.config,
+                weight=get_weight(search_field.boost)
+            )
+            for field_lookup, search_field in self.search_fields.items()
+        )
 
     def get_search_vector(self, search_query):
-        return (self.get_index_vector(search_query) if self.fields is None
-                else self.get_fields_vector(search_query))
+        if self.fields is None:
+            return self.get_index_vector(search_query)
+
+        else:
+            return self.get_fields_vector(search_query)
 
     def search(self, config, start, stop, score_field=None):
         # TODO: Handle MatchAll nested inside other search query classes.
@@ -359,27 +398,32 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         search_query = self.build_tsquery(self.query, config=config)
         vector = self.get_search_vector(search_query)
         rank_expression = self.build_tsrank(vector, self.query, config=config)
-        queryset = self.queryset.annotate(
-            _vector_=vector).filter(_vector_=search_query)
+        queryset = self.queryset.annotate(_vector_=vector).filter(_vector_=search_query)
+
         if self.order_by_relevance:
             queryset = queryset.order_by(rank_expression.desc(), '-pk')
+
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
             queryset = queryset.order_by('-pk')
             rank_expression = F('pk')
+
         if score_field is not None:
             queryset = queryset.annotate(**{score_field: rank_expression})
+
         return queryset[start:stop]
 
     def _process_lookup(self, field, lookup, value):
-        return Q(**{field.get_attname(self.queryset.model)
-                    + '__' + lookup: value})
+        lhs = field.get_attname(self.queryset.model) + '__' + lookup
+        return Q(**{lhs: value})
 
     def _connect_filters(self, filters, connector, negated):
         if connector == 'AND':
             q = Q(*filters)
+
         elif connector == 'OR':
             q = OR([Q(fil) for fil in filters])
+
         else:
             return
 
@@ -397,10 +441,14 @@ class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
 
     def get_fields_vector(self, search_query):
         return ADD(
-            SearchVector(field_lookup, config=search_query.config,
-                         weight=get_weight(search_field.boost))
+            SearchVector(
+                field_lookup,
+                config=search_query.config,
+                weight=get_weight(search_field.boost)
+            )
             for field_lookup, search_field in self.search_fields.items()
-            if search_field.partial_match)
+            if search_field.partial_match
+        )
 
 
 class PostgresSearchResults(BaseSearchResults):
