@@ -4,18 +4,19 @@ Adding reports
 Reports are views with listings of pages matching a specific query. They can also export these listings in spreadsheet format.
 They are found in the `Reports` submenu: by default, the `Locked Pages` report is provided, allowing an overview of locked pages on the site.
 
-It is possible to create your own custom reports in the Wagtail admin. To do this, you will need to subclass
-``wagtail.admin.views.reports.ReportView``, which provides basic listing and spreadsheet export functionality.
+It is possible to create your own custom reports in the Wagtail admin. Two base classes are provided:
+``wagtail.admin.views.reports.ReportView``, which provides basic listing and spreadsheet export functionality, and
+``wagtail.admin.views.reports.PageReportView``, which additionally provides a default set of fields suitable for page listings.
 For this example, we'll add a report which shows any pages with unpublished changes.
 
 .. code-block:: python
 
     # <project>/views.py
 
-    from wagtail.admin.views.reports import ReportView
+    from wagtail.admin.views.reports import PageReportView
 
 
-    class UnpublishedChangesReportView(ReportView):
+    class UnpublishedChangesReportView(PageReportView):
         pass
 
 
@@ -32,11 +33,11 @@ This retrieves the queryset of pages for your report. For our example:
 
     # <project>/views.py
 
-    from wagtail.admin.views.reports import ReportView
+    from wagtail.admin.views.reports import PageReportView
     from wagtail.core.models import Page
 
 
-    class UnpublishedChangesReportView(ReportView):
+    class UnpublishedChangesReportView(PageReportView):
         
         def get_queryset(self):
             return Page.objects.filter(has_unpublished_changes=True)
@@ -45,11 +46,11 @@ This retrieves the queryset of pages for your report. For our example:
 
 (string)
 
-The template used to render your report. By default, this is ``"wagtailadmin/reports/base_report.html"``,
-which provides an empty report page layout; an alternative base template ``"wagtailadmin/reports/base_page_report.html"``
-is available, providing a listing based on the explorer views, displaying action buttons, as well as the title,
-time of the last update, status, and specific type of any pages. In this example, we'll change this
-to a new template in a later section.
+The template used to render your report. For ``ReportView``, this defaults to ``"wagtailadmin/reports/base_report.html"``,
+which provides an empty report page layout; for ``PageReportView``, this defaults to
+``"wagtailadmin/reports/base_page_report.html"`` which provides a listing based on the explorer views,
+displaying action buttons, as well as the title, time of the last update, status, and specific type of any pages.
+In this example, we'll change this to a new template in a later section.
 
 .. attribute:: title
 
@@ -72,11 +73,12 @@ Spreadsheet exports
 
 (list)
 
-A list of the fields/attributes for each model which are exported as columns in the spreadsheet view. By default,
-this is identical to the listing fields: the title, time of the last update, status, and specific type of any pages.
-For our example, we might want to know when the page was last published, so we'll set ``list_export`` as follows:
+A list of the fields/attributes for each model which are exported as columns in the spreadsheet view. For ``ReportView``, this
+is empty by default, and for ``PageReportView``, it corresponds to the listing fields: the title, time of the last update, status,
+and specific type of any pages. For our example, we might want to know when the page was last published, so we'll set
+``list_export`` as follows:
 
-``list_export = ReportView.list_export + ['last_published_at']``
+``list_export = PageReportView.list_export + ['last_published_at']``
 
 .. attribute:: export_headings
 
@@ -87,7 +89,7 @@ column, and their headings. If unspecified, the heading will be taken from the f
 attribute string otherwise. For our example, ``last_published_at`` will automatically get a heading of ``"Last Published At"``,
 but a simple "Last Published" looks neater. We'll add that by setting ``export_headings``:
 
-``export_headings = dict(last_published_at='Last Published', **ReportView.export_headings)``
+``export_headings = dict(last_published_at='Last Published', **PageReportView.export_headings)``
 
 .. attribute:: custom_value_preprocess
 
@@ -187,18 +189,18 @@ The full code
 
     # <project>/views.py
 
-    from wagtail.admin.views.reports import ReportView
+    from wagtail.admin.views.reports import PageReportView
     from wagtail.core.models import Page
 
 
-    class UnpublishedChangesReportView(ReportView):
+    class UnpublishedChangesReportView(PageReportView):
 
         header_icon = 'doc-empty-inverse'
         template_name = 'reports/unpublished_changes_report.html'
         title = "Pages with unpublished changes"
 
-        list_export = ReportView.list_export + ['last_published_at']
-        export_headings = dict(last_published_at='Last Published', **ReportView.export_headings)
+        list_export = PageReportView.list_export + ['last_published_at']
+        export_headings = dict(last_published_at='Last Published', **PageReportView.export_headings)
         
         def get_queryset(self):
             return Page.objects.filter(has_unpublished_changes=True)
