@@ -5,6 +5,7 @@ from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transact
 from django.db.models import Count, F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
+from django.db.models.sql.subqueries import InsertQuery
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 
@@ -27,9 +28,10 @@ class ObjectIndexer:
     """
     Responsible for extracting data from an object to be inserted into the index.
     """
-    def __init__(self, obj):
+    def __init__(self, obj, search_config):
         self.obj = obj
         self.search_fields = obj.get_search_fields()
+        self.search_config = search_config
 
     def prepare_value(self, value):
         if isinstance(value, str):
@@ -67,6 +69,18 @@ class ObjectIndexer:
                 for sub_field in field.fields:
                     yield from self.prepare_field(sub_obj, sub_field)
 
+    def as_vector(self, texts):
+        """
+        Converts an array of strings into a SearchVector that can be indexed.
+        """
+        if not texts:
+            return EMPTY_VECTOR
+
+        return ADD([
+            SearchVector(Value(text, output_field=TextField()), weight=weight, config=self.search_config)
+            for text, weight in texts
+        ])
+
     @cached_property
     def id(self):
         """
@@ -85,7 +99,7 @@ class ObjectIndexer:
                 if isinstance(current_field, SearchField) and not current_field.partial_match:
                     texts.append((value, boost))
 
-        return texts
+        return self.as_vector(texts)
 
     @cached_property
     def autocomplete(self):
@@ -98,7 +112,7 @@ class ObjectIndexer:
                 if isinstance(current_field, SearchField) and current_field.partial_match:
                     texts.append((value, boost))
 
-        return texts
+        return self.as_vector(texts)
 
 
 class Index:
@@ -147,29 +161,25 @@ class Index:
         self.add_items(obj._meta.model, [obj])
 
     def add_items_upsert(self, content_type_pk, indexers):
-        config = self.backend.config
+        compiler = InsertQuery(IndexEntry).get_compiler(connection=self.connection)
         autocomplete_sql = []
         body_sql = []
         data_params = []
-        sql_template = ('to_tsvector(%s)' if config is None
-                        else "to_tsvector('%s', %%s)" % config)
-        sql_template = 'setweight(%s, %%s)' % sql_template
 
         for indexer in indexers:
             data_params.extend((content_type_pk, indexer.id))
 
-            if indexer.autocomplete:
-                autocomplete_sql.append('||'.join(sql_template
-                                                  for _ in indexer.autocomplete))
-                data_params.extend([v for t in indexer.autocomplete for v in t])
-            else:
-                autocomplete_sql.append("''::tsvector")
+            # Compile autocomplete value
+            value = compiler.prepare_value(IndexEntry._meta.get_field('autocomplete'), indexer.autocomplete)
+            sql, params = value.as_sql(compiler, self.connection)
+            autocomplete_sql.append(sql)
+            data_params.extend(params)
 
-            if indexer.body:
-                body_sql.append('||'.join(sql_template for _ in indexer.body))
-                data_params.extend([v for t in indexer.body for v in t])
-            else:
-                body_sql.append("''::tsvector")
+            # Compile body value
+            value = compiler.prepare_value(IndexEntry._meta.get_field('body'), indexer.body)
+            sql, params = value.as_sql(compiler, self.connection)
+            body_sql.append(sql)
+            data_params.extend(params)
 
         data_sql = ', '.join([
             '(%%s, %%s, %s, %s)' % (a, b)
@@ -186,20 +196,9 @@ class Index:
                 """ % (IndexEntry._meta.db_table, data_sql), data_params)
 
     def add_items_update_then_create(self, content_type_pk, indexers):
-        config = self.backend.config
-
         ids_and_data = {}
         for indexer in indexers:
-            autocomplete = (
-                ADD([SearchVector(Value(text, output_field=TextField()), weight=weight, config=config)
-                     for text, weight in indexer.autocomplete])
-                if indexer.autocomplete else EMPTY_VECTOR)
-
-            body = (
-                ADD([SearchVector(Value(text, output_field=TextField()), weight=weight, config=config)
-                     for text, weight in indexer.body])
-                if indexer.body else EMPTY_VECTOR)
-            ids_and_data[indexer.id] = (autocomplete, body)
+            ids_and_data[indexer.id] = (indexer.autocomplete, indexer.body)
 
         index_entries_for_ct = self.entries.filter(content_type_id=content_type_pk)
         indexed_ids = frozenset(
@@ -227,7 +226,7 @@ class Index:
         if not search_fields:
             return
 
-        indexers = [ObjectIndexer(obj) for obj in objs]
+        indexers = [ObjectIndexer(obj, self.backend.config) for obj in objs]
 
         # TODO: Delete unindexed objects while dealing with proxy models.
         if indexers:
