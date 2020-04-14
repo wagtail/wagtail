@@ -45,6 +45,12 @@ Changelog
  * Fix: Invalid focal_point attribute on image edit view (Michał (Quadric) Sieradzki)
 
 
+2.8.1 (14.04.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2020-11001 - prevent XSS attack via page revision comparison view (Vlad Gerasimenko, Matt Westcott)
+
+
 2.8 (03.02.2020)
 ~~~~~~~~~~~~~~~~
 
