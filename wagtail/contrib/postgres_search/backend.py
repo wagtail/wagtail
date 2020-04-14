@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from functools import reduce
 
 from django.contrib.postgres.search import SearchRank, SearchVector
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
@@ -15,8 +16,8 @@ from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
 from wagtail.search.utils import ADD, MUL, OR
 
-from .models import RawSearchQuery as PostgresRawSearchQuery
 from .models import IndexEntry
+from .query import Lexeme, RawSearchQuery
 from .utils import (
     get_content_type_pk, get_descendants_content_types_pks, get_postgresql_connections,
     get_sql_weights, get_weight)
@@ -246,13 +247,7 @@ class Index:
 
 class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
-    TSQUERY_AND = ' & '
-    TSQUERY_OR = ' | '
-    TSQUERY_OPERATORS = {
-        'and': TSQUERY_AND,
-        'or': TSQUERY_OR,
-    }
-    TSQUERY_WORD_FORMAT = "'%s'"
+    LAST_TERM_IS_PREFIX = False
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -289,51 +284,69 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             if isinstance(field, RelatedFields) and field.field_name == field_lookup:
                 return self.get_search_field(sub_field_name, field.fields)
 
-    def build_tsquery_content(self, query, group=False):
+    def build_tsquery_content(self, query, invert=False):
         if isinstance(query, PlainText):
-            query_formats = []
-            query_params = []
+            terms = query.query_string.split()
+            if not terms:
+                return None
 
-            for word in query.query_string.split():
-                query_formats.append(self.TSQUERY_WORD_FORMAT)
-                query_params.append(word)
+            last_term = terms.pop()
 
-            operator = self.TSQUERY_OPERATORS[query.operator]
-            query_format = operator.join(query_formats)
+            lexemes = Lexeme(last_term, invert=invert, prefix=self.LAST_TERM_IS_PREFIX)
+            for term in terms:
+                new_lexeme = Lexeme(term, invert=invert)
 
-            if group and len(query_formats) > 1:
-                query_format = '(%s)' % query_format
+                if query.operator == 'and':
+                    lexemes &= new_lexeme
+                else:
+                    lexemes |= new_lexeme
 
-            return query_format, query_params
+            return lexemes
 
         elif isinstance(query, Boost):
-            return self.build_tsquery_content(query.subquery)
+            # Not supported
+            return self.build_tsquery_content(query.subquery, invert=invert)
 
         elif isinstance(query, Not):
-            query_format, query_params = self.build_tsquery_content(query.subquery, group=True)
-
-            return '!' + query_format, query_params
+            return self.build_tsquery_content(query.subquery, invert=not invert)
 
         elif isinstance(query, (And, Or)):
-            query_formats = []
-            query_params = []
+            # If this part of the query is inverted, we swap the operator and
+            # pass down the inversion state to the child queries.
+            # This works thanks to De Morgan's law.
+            #
+            # For example, the following query:
+            #
+            #   Not(And(Term("A"), Term("B")))
+            #
+            # Is equivalent to:
+            #
+            #   Or(Not(Term("A")), Not(Term("B")))
+            #
+            # It's simpler to code it this way as we only need to store the
+            # invert status of the terms rather than all the operators.
 
-            for subquery in query.subqueries:
-                subquery_format, subquery_params = self.build_tsquery_content(subquery, group=True)
-                query_formats.append(subquery_format)
-                query_params.extend(subquery_params)
+            subquery_lexemes = [
+                self.build_tsquery_content(subquery, invert=invert)
+                for subquery in query.subqueries
+            ]
 
-            operator = self.TSQUERY_AND if isinstance(query, And) else self.TSQUERY_OR
+            is_and = isinstance(query, And)
 
-            return operator.join(query_formats), query_params
+            if invert:
+                is_and = not is_and
+
+            if is_and:
+                return reduce(lambda a, b: a & b, subquery_lexemes)
+            else:
+                return reduce(lambda a, b: a | b, subquery_lexemes)
 
         raise NotImplementedError(
             '`%s` is not supported by the PostgreSQL search backend.'
             % query.__class__.__name__)
 
     def build_tsquery(self, query, config=None):
-        query_format, query_params = self.build_tsquery_content(query)
-        return PostgresRawSearchQuery(query_format, query_params, config=config)
+        return RawSearchQuery(self.build_tsquery_content(query), config=config)
 
     def build_tsrank(self, vector, query, config=None, boost=1.0):
         if isinstance(query, (PlainText, Not)):
@@ -433,7 +446,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
 
 class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
-    TSQUERY_WORD_FORMAT = "'%s':*"
+    LAST_TERM_IS_PREFIX = True
 
     def get_index_vector(self, search_query):
         return F('index_entries__autocomplete')
