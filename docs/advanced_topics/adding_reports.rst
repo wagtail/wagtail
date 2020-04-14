@@ -115,7 +115,7 @@ Customising templates
 
 For this example "pages with unpublished changes" report, we'll add an extra column to the listing template, showing the last
 publication date for each page. To do this, we'll extend two templates: ``wagtailadmin/reports/base_page_report.html``, and
-``wagtailadmin/reports/listing/_list_report.html``.
+``wagtailadmin/reports/listing/_list_page_report.html``.
 
 .. code-block:: html
 
@@ -136,7 +136,7 @@ publication date for each page. To do this, we'll extend two templates: ``wagtai
 
     {# <project>/templates/reports/include/_list_unpublished_changes.html #}
 
-    {% extends 'wagtailadmin/reports/listing/_list_report.html' %}
+    {% extends 'wagtailadmin/reports/listing/_list_page_report.html' %}
 
     {% block extra_columns %}
         <th>Last Published</th>
@@ -245,7 +245,7 @@ The full code
 
     {# <project>/templates/reports/include/_list_unpublished_changes.html #}
 
-    {% extends 'wagtailadmin/reports/listing/_list_report.html' %}
+    {% extends 'wagtailadmin/reports/listing/_list_page_report.html' %}
 
     {% block extra_columns %}
         <th>Last Published</th>
