@@ -185,18 +185,7 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
     page_kwarg = "p"
     template_name = "wagtailadmin/reports/base_report.html"
     title = ""
-    paginate_by = 10
-    export_headings = {
-        "latest_revision_created_at": _("Updated"),
-        "status_string": _("Status"),
-        "content_type.model_class._meta.verbose_name.title": _("Type"),
-    }
-    list_export = [
-        "title",
-        "latest_revision_created_at",
-        "status_string",
-        "content_type.model_class._meta.verbose_name.title",
-    ]
+    paginate_by = 50
 
     def dispatch(self, request, *args, **kwargs):
         self.is_export = self.request.GET.get("export") in self.FORMATS
@@ -212,11 +201,26 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
         return context
 
 
-class LockedPagesView(ReportView):
+class PageReportView(ReportView):
+    template_name = "wagtailadmin/reports/base_page_report.html"
+    export_headings = {
+        "latest_revision_created_at": _("Updated"),
+        "status_string": _("Status"),
+        "content_type.model_class._meta.verbose_name.title": _("Type"),
+    }
+    list_export = [
+        "title",
+        "latest_revision_created_at",
+        "status_string",
+        "content_type.model_class._meta.verbose_name.title",
+    ]
+
+
+class LockedPagesView(PageReportView):
     template_name = "wagtailadmin/reports/locked_pages.html"
     title = _("Locked Pages")
     header_icon = "locked"
-    list_export = ReportView.list_export + [
+    list_export = PageReportView.list_export + [
         "locked_at",
         "locked_by",
     ]
