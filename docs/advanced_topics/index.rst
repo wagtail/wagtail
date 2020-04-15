@@ -11,6 +11,7 @@ Advanced topics
     add_to_django_project
     deploying
     performance
+    i18n
     privacy
     customisation/index
     third_party_tutorials
