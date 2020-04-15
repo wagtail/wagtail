@@ -38,7 +38,7 @@ The reporter of the issue will receive notification of the date on which we plan
 On the day of disclosure, we will take the following steps:
 
 1. Apply the relevant patch(es) to Wagtail's codebase. The commit messages for these patches will indicate that they are for security issues, but will not describe the issue in any detail; instead, they will warn of upcoming disclosure.
-2. Issue the relevant release(s), by placing new packages on the Python Package Index, tagging the new release(s) in Wagtail's GitHub repository and updating Wagtail's :doc:`release notes <../releases/index>`.
+2. Issue the relevant release(s), by placing new packages on `the Python Package Index <https://pypi.org/project/wagtail/>`_, tagging the new release(s) in Wagtail's GitHub repository and updating Wagtail's :doc:`release notes <../releases/index>`.
 3. Post a public entry on `Wagtail's blog <https://wagtail.io/blog/>`_, describing the issue and its resolution in detail, pointing to the relevant patches and new releases, and crediting the reporter of the issue (if the reporter wishes to be publicly identified).
 4. Post a notice to the `Wagtail support forum <https://groups.google.com/d/forum/wagtail>`_ and Twitter feed (`@WagtailCMS <https://twitter.com/wagtailcms>`_) that links to the blog post.
 
