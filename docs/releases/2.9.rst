@@ -39,6 +39,7 @@ Other features
  * Site settings are now identifiable/cachable by request as well as site (Andy Babic)
  * Added ``select_related`` attribute to site settings to enable more efficient fetching of foreign key values (Andy Babic)
  * Add caching of image renditions (Tom Dyson, Tim Kamanin)
+ * Add documentation for reporting security issues (Matt Westcott)
 
 
 Bug fixes

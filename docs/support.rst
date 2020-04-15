@@ -29,6 +29,8 @@ Issues
 
 If you think you've found a bug in Wagtail, or you'd like to suggest a new feature, please check the current list at `github.com/wagtail/wagtail/issues <https://github.com/wagtail/wagtail/issues>`_. If your bug or suggestion isn't there, raise a new issue, providing as much relevant context as possible.
 
+If your bug report is a security issue, **do not** report it with an issue. Please read our ​guide to :doc:`reporting security issues <../contributing/security>`.
+
 Torchbox
 ~~~~~~~~
 
