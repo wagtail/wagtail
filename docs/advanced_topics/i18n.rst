@@ -8,7 +8,7 @@ Multi-language content
 In its basic configuration, Wagtail does not provide specific support for multi-language content. This is because there is no single preferred approach to handling translations that works for all scenarios - various approaches are possible, depending on factors such as:
 
 * The number of languages you intend to support
-* Whether there is a 
+* Whether the available site content can differ from one language to another, or is the same for all languages
 * Whether the type of content you're working with is most naturally modelled as one language per item (e.g. a blog post), or multiple languages per item (e.g. descriptions of a product in a web store)
 
 Several add-on packages for Wagtail providing multi-language support are available:
