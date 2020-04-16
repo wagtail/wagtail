@@ -30,10 +30,11 @@ class ObjectIndexer:
     """
     Responsible for extracting data from an object to be inserted into the index.
     """
-    def __init__(self, obj, search_config):
+    def __init__(self, obj, backend):
         self.obj = obj
         self.search_fields = obj.get_search_fields()
-        self.search_config = search_config
+        self.config = backend.config
+        self.autocomplete_config = backend.autocomplete_config
 
     def prepare_value(self, value):
         if isinstance(value, str):
@@ -74,15 +75,17 @@ class ObjectIndexer:
                 for sub_field in field.fields:
                     yield from self.prepare_field(sub_obj, sub_field)
 
-    def as_vector(self, texts):
+    def as_vector(self, texts, for_autocomplete=False):
         """
         Converts an array of strings into a SearchVector that can be indexed.
         """
         if not texts:
             return EMPTY_VECTOR
 
+        search_config = self.autocomplete_config if for_autocomplete else self.config
+
         return ADD([
-            SearchVector(Value(text, output_field=TextField()), weight=weight, config=self.search_config)
+            SearchVector(Value(text, output_field=TextField()), weight=weight, config=search_config)
             for text, weight in texts
         ])
 
@@ -117,7 +120,7 @@ class ObjectIndexer:
                 if isinstance(current_field, AutocompleteField):
                     texts.append((value, boost))
 
-        return self.as_vector(texts)
+        return self.as_vector(texts, for_autocomplete=True)
 
 
 class Index:
@@ -231,7 +234,7 @@ class Index:
         if not search_fields:
             return
 
-        indexers = [ObjectIndexer(obj, self.backend.config) for obj in objs]
+        indexers = [ObjectIndexer(obj, self.backend) for obj in objs]
 
         # TODO: Delete unindexed objects while dealing with proxy models.
         if indexers:
@@ -268,6 +271,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 field_lookup: self.get_search_field(field_lookup, fields=search_fields)
                 for field_lookup in self.fields
             }
+
+    def get_config(self, backend):
+        return backend.config
 
     def get_search_field(self, field_lookup, fields=None):
         if fields is None:
@@ -460,6 +466,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
     LAST_TERM_IS_PREFIX = True
 
+    def get_config(self, backend):
+        return backend.autocomplete_config
+
     def get_index_vector(self, search_query):
         return F('index_entries__autocomplete')
 
@@ -476,15 +485,26 @@ class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
 
 
 class PostgresSearchResults(BaseSearchResults):
+    def get_queryset(self, for_count=False):
+        if for_count:
+            start = None
+            stop = None
+        else:
+            start = self.start
+            stop = self.stop
+
+        return self.query_compiler.search(
+            self.query_compiler.get_config(self.backend),
+            start,
+            stop,
+            score_field=self._score_field
+        )
+
     def _do_search(self):
-        return list(self.query_compiler.search(self.backend.config,
-                                               self.start, self.stop,
-                                               score_field=self._score_field))
+        return list(self.get_queryset())
 
     def _do_count(self):
-        return self.query_compiler.search(
-            self.backend.config, None, None,
-            score_field=self._score_field).count()
+        return self.get_queryset(for_count=True).count()
 
     supports_facet = True
 
@@ -498,7 +518,7 @@ class PostgresSearchResults(BaseSearchResults):
                 field_name=field_name
             )
 
-        query = self.query_compiler.search(self.backend.config, None, None)
+        query = self.query_compiler.search(self.query_compiler.get_config(self.backend), None, None)
         results = query.values(field_name).annotate(count=Count('pk')).order_by('-count')
 
         return OrderedDict([
@@ -552,6 +572,12 @@ class PostgresSearchBackend(BaseSearchBackend):
         super().__init__(params)
         self.index_name = params.get('INDEX', 'default')
         self.config = params.get('SEARCH_CONFIG')
+
+        # Use 'simple' config for autocomplete to disable stemming
+        # A good description for why this is important can be found at:
+        # https://www.postgresql.org/docs/9.1/datatype-textsearch.html#DATATYPE-TSQUERY
+        self.autocomplete_config = params.get('AUTOCOMPLETE_SEARCH_CONFIG', 'simple')
+
         if params.get('ATOMIC_REBUILD', False):
             self.rebuilder_class = self.atomic_rebuilder_class
 

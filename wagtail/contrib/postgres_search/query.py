@@ -114,7 +114,7 @@ class RawSearchQuery(SearchQueryCombinable, Expression):
         if self.config:
             config_sql, config_params = compiler.compile(self.config)
             template = 'to_tsquery({}::regconfig, {})'.format(config_sql, sql)
-            params = params + config_params
+            params = config_params + params
         else:
             template = 'to_tsquery({})'.format(sql)
         if self.invert:
