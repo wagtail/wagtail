@@ -13,7 +13,7 @@ from django.utils.functional import cached_property
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
-from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
+from wagtail.search.index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.search.utils import ADD, MUL, OR
 
@@ -52,6 +52,9 @@ class ObjectIndexer:
         if isinstance(field, SearchField):
             yield (field, get_weight(field.boost),
                    self.prepare_value(field.get_value(obj)))
+
+        elif isinstance(field, AutocompleteField):
+            yield (field, 'D', self.prepare_value(field.get_value(obj)))
 
         elif isinstance(field, RelatedFields):
             sub_obj = field.get_value(obj)
@@ -93,12 +96,12 @@ class ObjectIndexer:
     @cached_property
     def body(self):
         """
-        Returns all values to index as "body". This is the value of all SearchFields that have partial_match=False
+        Returns all values to index as "body". This is the value of all SearchFields
         """
         texts = []
         for field in self.search_fields:
             for current_field, boost, value in self.prepare_field(self.obj, field):
-                if isinstance(current_field, SearchField) and not current_field.partial_match:
+                if isinstance(current_field, SearchField):
                     texts.append((value, boost))
 
         return self.as_vector(texts)
@@ -106,12 +109,12 @@ class ObjectIndexer:
     @cached_property
     def autocomplete(self):
         """
-        Returns all values to index as "autocomplete". This is the value of all SearchFields that have partial_match=True
+        Returns all values to index as "autocomplete". This is the value of all AutocompleteFields
         """
         texts = []
         for field in self.search_fields:
             for current_field, boost, value in self.prepare_field(self.obj, field):
-                if isinstance(current_field, SearchField) and current_field.partial_match:
+                if isinstance(current_field, AutocompleteField):
                     texts.append((value, boost))
 
         return self.as_vector(texts)
@@ -389,8 +392,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             % query.__class__.__name__)
 
     def get_index_vector(self, search_query):
-        return F('index_entries__autocomplete')._combine(
-            F('index_entries__body'), '||', False)
+        return F('index_entries__body')
 
     def get_fields_vector(self, search_query):
         return ADD(
