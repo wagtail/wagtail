@@ -98,14 +98,17 @@ class LockedPagesReportFilterSet(WagtailFilterSet):
 
 
 class WorkflowReportFilterSet(WagtailFilterSet):
+    created_at = django_filters.DateFromToRangeFilter(label='Started at', widget=DateRangePickerWidget)
 
     class Meta:
         model = WorkflowState
-        fields = ['workflow', 'status']
+        fields = ['workflow', 'status', 'created_at']
 
 
 class WorkflowTasksReportFilterSet(WagtailFilterSet):
+    created_at = django_filters.DateFromToRangeFilter(label='Started at', widget=DateRangePickerWidget)
+    finished_at = django_filters.DateFromToRangeFilter(label='Completed at', widget=DateRangePickerWidget)
 
     class Meta:
         model = TaskState
-        fields = ['task', 'status']
+        fields = ['task', 'status', 'created_at', 'finished_at']
