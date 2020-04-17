@@ -3,7 +3,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
-from wagtail.core.models import Page
+from wagtail.core.models import Page, TaskState, WorkflowState
 
 from .widgets import AdminDateInput
 
@@ -95,3 +95,17 @@ class LockedPagesReportFilterSet(WagtailFilterSet):
     class Meta:
         model = Page
         fields = ['locked_by', 'locked_at', 'live']
+
+
+class WorkflowReportFilterSet(WagtailFilterSet):
+
+    class Meta:
+        model = WorkflowState
+        fields = ['workflow', 'status']
+
+
+class WorkflowTasksReportFilterSet(WagtailFilterSet):
+
+    class Meta:
+        model = TaskState
+        fields = ['task', 'status']
