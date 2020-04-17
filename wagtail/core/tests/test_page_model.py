@@ -1201,7 +1201,7 @@ class TestCopyPage(TestCase):
         try:
             # modify excluded fields for this test
             EventPage.exclude_fields_in_copy = ['advert_placements', 'categories', 'signup_link']
-            
+
             # set up data
             christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
             summer_category = EventCategory.objects.create(name='Summer')
