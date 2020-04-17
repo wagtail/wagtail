@@ -11,7 +11,8 @@ from django.views.generic.list import BaseListView
 from xlsxwriter.workbook import Workbook
 
 from wagtail.admin.auth import permission_denied
-from wagtail.admin.filters import LockedPagesReportFilterSet
+from wagtail.admin.filters import (
+    LockedPagesReportFilterSet, WorkflowReportFilterSet, WorkflowTasksReportFilterSet)
 from wagtail.core.models import Page, TaskState, UserPagePermissionsProxy, WorkflowState
 
 
@@ -277,6 +278,7 @@ class WorkflowView(ReportView):
     template_name = 'wagtailadmin/reports/workflow.html'
     title = _('Workflows')
     header_icon = 'clipboard-list'
+    filterset_class = WorkflowReportFilterSet
 
     export_headings = {
         "page.id": _("Page ID"),
@@ -309,6 +311,7 @@ class WorkflowTasksView(ReportView):
     template_name = 'wagtailadmin/reports/workflow_tasks.html'
     title = _('Workflows')
     header_icon = 'clipboard-list'
+    filterset_class = WorkflowTasksReportFilterSet
 
     export_headings = {
         "workflow_state.page.id": _("Page ID"),
