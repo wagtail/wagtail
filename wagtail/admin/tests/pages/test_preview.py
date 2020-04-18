@@ -213,3 +213,11 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
         preview_url = reverse('wagtailadmin_pages:preview_on_edit', args=(stream_page.id, ))
         self.assertNotContains(response, '<li class="preview">')
         self.assertNotContains(response, 'data-action="%s"' % preview_url)
+
+    def test_view_draft_with_disabled_preview_modes(self):
+        stream_page = StreamPage(title='stream page', body=[('text', 'hello')])
+        self.root_page.add_child(instance=stream_page)
+
+        # Check that we can still access the page draft when preview modes have been disabled
+        response = self.client.get(reverse('wagtailadmin_pages:view_draft', args=(stream_page.id,)))
+        self.assertEqual(response.status_code, 200)

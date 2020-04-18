@@ -1395,7 +1395,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def default_preview_mode(self):
-        return self.preview_modes[0][0]
+        try:
+            return self.preview_modes[0][0]
+        except IndexError:
+            return None
 
     def serve_preview(self, request, mode_name):
         """
