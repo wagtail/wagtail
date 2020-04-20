@@ -28,7 +28,7 @@
                                 </div>
                                 <ul class="actions">
                                     <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
-                                    {% if page.has_unpublished_changes %}
+                                    {% if page.has_unpublished_changes and page.is_previewable %}
                                         <li><a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Draft' %}</a></li>
                                     {% endif %}
                                     {% if page.live %}

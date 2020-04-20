@@ -105,7 +105,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
             attrs={'aria-label': _("Edit '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=10
         )
-    if page.has_unpublished_changes:
+    if page.has_unpublished_changes and page.is_previewable():
         yield PageListingButton(
             _('View draft'),
             reverse('wagtailadmin_pages:view_draft', args=[page.id]),

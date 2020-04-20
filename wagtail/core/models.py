@@ -1404,6 +1404,20 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def default_preview_mode(self):
         return self.preview_modes[0][0]
 
+    def is_previewable(self):
+        """Returns True if at least one preview mode is specified"""
+        # It's possible that this will be called from a listing page using a plain Page queryset -
+        # if so, checking self.preview_modes would incorrectly give us the default set from
+        # Page.preview_modes. However, accessing self.specific.preview_modes would result in an N+1
+        # query problem. To avoid this (at least in the general case), we'll call .specific only if
+        # a check of the property at the class level indicates that preview_modes has been
+        # overridden from whatever type we're currently in.
+        page = self
+        if page.specific_class.preview_modes != type(page).preview_modes:
+            page = page.specific
+
+        return bool(page.preview_modes)
+
     def serve_preview(self, request, mode_name):
         """
         Return an HTTP response for use in page previews. Normally this would be equivalent

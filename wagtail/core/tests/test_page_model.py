@@ -19,7 +19,8 @@ from wagtail.tests.testapp.models import (
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
     CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
     MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimpleChildPage,
-    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
+    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, StreamPage,
+    TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -1681,6 +1682,26 @@ class TestMakePreviewRequest(TestCase):
 
         # '*' is not a valid hostname, so ensure that we replace it with something sensible
         self.assertNotEqual(request.META['HTTP_HOST'], '*')
+
+    def test_is_previewable(self):
+        event_index = Page.objects.get(url_path='/home/events/')
+        stream_page = StreamPage(title='stream page', body=[('text', 'hello')])
+        event_index.add_child(instance=stream_page)
+        plain_stream_page = Page.objects.get(id=stream_page.id)
+
+        # StreamPage sets preview_modes to an empty list, so stream_page is not previewable
+        with self.assertNumQueries(0):
+            self.assertFalse(stream_page.is_previewable())
+
+        # is_previewable should also cope with being called on a base Page object, at the
+        # cost of an extra query to access the specific object
+        with self.assertNumQueries(1):
+            self.assertFalse(plain_stream_page.is_previewable())
+
+        # event_index is a plain Page object, but we should recognise that preview_modes
+        # has not been overridden on EventIndexPage and avoid the extra query
+        with self.assertNumQueries(0):
+            self.assertTrue(event_index.is_previewable())
 
 
 class TestShowInMenusDefaultOption(TestCase):
