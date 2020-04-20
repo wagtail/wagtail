@@ -15,7 +15,7 @@ from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.search.backends.base import FieldError, FilterFieldError
 from wagtail.search.backends.db import DatabaseSearchBackend
-from wagtail.search.query import MATCH_ALL, And, Boost, Not, Or, PlainText
+from wagtail.search.query import MATCH_ALL, And, Boost, Not, Or, Phrase, PlainText
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -649,6 +649,13 @@ class BackendTests(WagtailTestUtils):
                              'The Rust Programming Language',
                              'Two Scoops of Django 1.11',
                              'Programming Rust'})
+
+    def test_phrase(self):
+        results = self.backend.search(Phrase('rust programming'), models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, {'The Rust Programming Language'})
+
+        results = self.backend.search(Phrase('programming rust'), models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, {'Programming Rust'})
 
 
 @override_settings(

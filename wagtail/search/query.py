@@ -35,6 +35,11 @@ class PlainText(SearchQuery):
         self.boost = boost
 
 
+class Phrase(SearchQuery):
+    def __init__(self, query_string: str):
+        self.query_string = query_string
+
+
 class MatchAll(SearchQuery):
     pass
 
