@@ -121,8 +121,8 @@ class RawSearchQuery(SearchQueryCombinable, Expression):
             template = '!!({})'.format(template)
         return template, params
 
-    def _combine(self, other, connector, reversed, node=None):
-        combined = super()._combine(other, connector, reversed, node)
+    def _combine(self, *args, **kwargs):
+        combined = super()._combine(*args, **kwargs)
         combined.output_field = SearchQueryField()
         return combined
 

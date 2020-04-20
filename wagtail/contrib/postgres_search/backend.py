@@ -2,7 +2,7 @@ import warnings
 from collections import OrderedDict
 from functools import reduce
 
-from django.contrib.postgres.search import SearchRank, SearchVector
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
 from django.db.models import Count, F, Manager, Q, TextField, Value
 from django.db.models.constants import LOOKUP_SEP
@@ -14,7 +14,7 @@ from django.utils.functional import cached_property
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.index import RelatedFields, SearchField, get_indexed_models
-from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
+from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.search.utils import ADD, MUL, OR
 
 from .models import IndexEntry
@@ -285,7 +285,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             if isinstance(field, RelatedFields) and field.field_name == field_lookup:
                 return self.get_search_field(sub_field_name, field.fields)
 
-    def build_tsquery_content(self, query, invert=False):
+    def build_tsquery_content(self, query, config=None, invert=False):
         if isinstance(query, PlainText):
             terms = query.query_string.split()
             if not terms:
@@ -302,17 +302,20 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 else:
                     lexemes |= new_lexeme
 
-            return lexemes
+            return RawSearchQuery(lexemes, config=config)
+
+        elif isinstance(query, Phrase):
+            return SearchQuery(query.query_string, search_type='phrase')
 
         elif isinstance(query, Boost):
             # Not supported
             msg = "The Boost query is not supported by the PostgreSQL search backend."
             warnings.warn(msg, RuntimeWarning)
 
-            return self.build_tsquery_content(query.subquery, invert=invert)
+            return self.build_tsquery_content(query.subquery, config=config, invert=invert)
 
         elif isinstance(query, Not):
-            return self.build_tsquery_content(query.subquery, invert=not invert)
+            return self.build_tsquery_content(query.subquery, config=config, invert=not invert)
 
         elif isinstance(query, (And, Or)):
             # If this part of the query is inverted, we swap the operator and
@@ -331,7 +334,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             # invert status of the terms rather than all the operators.
 
             subquery_lexemes = [
-                self.build_tsquery_content(subquery, invert=invert)
+                self.build_tsquery_content(subquery, config=config, invert=invert)
                 for subquery in query.subqueries
             ]
 
@@ -350,10 +353,10 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             % query.__class__.__name__)
 
     def build_tsquery(self, query, config=None):
-        return RawSearchQuery(self.build_tsquery_content(query), config=config)
+        return self.build_tsquery_content(query, config=config)
 
     def build_tsrank(self, vector, query, config=None, boost=1.0):
-        if isinstance(query, (PlainText, Not)):
+        if isinstance(query, (Phrase, PlainText, Not)):
             rank_expression = SearchRank(
                 vector,
                 self.build_tsquery(query, config=config),
