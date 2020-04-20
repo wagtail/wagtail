@@ -67,6 +67,7 @@ Bug fixes
  * ``exclude_fields_in_copy`` on Page models will now work for for modelcluster parental / many to many relations (LB (Ben Johnston))
  * Response header (content disposition) now correctly handles filenames with non-ascii characters when using a storage backend (Rich Brennan)
  * Improved accessibility fixes for ``main``, ``header`` and ``footer`` elements in the admin page layout (Mitchel Cabuloy)
+ * Prevent version number from obscuring long settings menus (Naomi Morduch Toubman)
 
 
 Upgrade considerations
