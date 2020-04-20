@@ -191,3 +191,8 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
     @unittest.expectedFailure
     def test_incomplete_plain_text(self):
         super().test_incomplete_plain_text()
+
+    # Elasticsearch backend doesn't support Phrase() query class
+    @unittest.expectedFailure
+    def test_phrase(self):
+        super().test_phrase()
