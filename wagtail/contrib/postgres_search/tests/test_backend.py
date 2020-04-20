@@ -149,8 +149,3 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
             "JavaScript: The good parts",
             "JavaScript: The Definitive Guide"
         ])
-
-    # PostgreSQL backend doesn't support Phrase() query class
-    @unittest.expectedFailure
-    def test_phrase(self):
-        super().test_phrase()
