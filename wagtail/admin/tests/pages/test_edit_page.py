@@ -1674,7 +1674,7 @@ class TestNestedInlinePanel(TestCase, WagtailTestUtils):
         # date field should use AdminDatePicker
         self.assertContains(
             response,
-            """<input type="text" name="speakers-0-awards-0-date_awarded" value="1997-12-25" autocomplete="new-date" id="id_speakers-0-awards-0-date_awarded">""",
+            """<input type="text" name="speakers-0-awards-0-date_awarded" value="1997-12-25" autocomplete="off" id="id_speakers-0-awards-0-date_awarded">""",
             count=1, html=True
         )
 
