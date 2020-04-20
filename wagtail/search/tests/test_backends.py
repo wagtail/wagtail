@@ -233,7 +233,8 @@ class BackendTests(WagtailTestUtils):
             "A Clash of Kings",
             "A Game of Thrones",
             "Two Scoops of Django 1.11",
-            "A Storm of Swords"
+            "A Storm of Swords",
+            "Programming Rust",
         ])
 
     def test_filter_gte(self):
@@ -247,7 +248,8 @@ class BackendTests(WagtailTestUtils):
             "A Clash of Kings",
             "A Game of Thrones",
             "Two Scoops of Django 1.11",
-            "A Storm of Swords"
+            "A Storm of Swords",
+            "Programming Rust",
         ])
 
     def test_filter_in_list(self):
@@ -292,7 +294,9 @@ class BackendTests(WagtailTestUtils):
             "Daniel Roy Greenfeld",
             "Audrey Roy Greenfeld",
             "Carol Nichols",
-            "Steve Klabnik"
+            "Steve Klabnik",
+            "Jim Blandy",
+            "Jason Orendorff",
         ])
 
     def test_filter_isnull_false(self):
@@ -441,7 +445,7 @@ class BackendTests(WagtailTestUtils):
 
         self.assertEqual(results, OrderedDict([
             (fantasy_tag.id, 7),
-            (None, 5),
+            (None, 6),
             (scifi_tag.id, 1),
         ]))
 
@@ -576,7 +580,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_match_all(self):
         results = self.backend.search(MATCH_ALL, models.Book.objects.all())
-        self.assertEqual(len(results), 13)
+        self.assertEqual(len(results), 14)
 
     def test_and(self):
         results = self.backend.search(And([PlainText('javascript'),
@@ -614,6 +618,7 @@ class BackendTests(WagtailTestUtils):
             'The Return of the King',
             'The Rust Programming Language',
             'Two Scoops of Django 1.11',
+            'Programming Rust',
         }
 
         results = self.backend.search(Not(PlainText('javascript')),
@@ -642,7 +647,8 @@ class BackendTests(WagtailTestUtils):
                              'Learning Python',
                              'The Two Towers',
                              'The Rust Programming Language',
-                             'Two Scoops of Django 1.11'})
+                             'Two Scoops of Django 1.11',
+                             'Programming Rust'})
 
 
 @override_settings(

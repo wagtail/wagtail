@@ -87,6 +87,22 @@
       "date_of_birth": null
     }
   },
+  {
+    "pk": 13,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "Jim Blandy",
+      "date_of_birth": null
+    }
+  },
+  {
+    "pk": 14,
+    "model": "searchtests.author",
+    "fields": {
+      "name": "Jason Orendorff",
+      "date_of_birth": null
+    }
+  },
 
   {
     "pk": 1,
@@ -216,6 +232,16 @@
       "authors": [11, 12],
       "publication_date": "2018-05-22",
       "number_of_pages": 440
+    }
+  },
+  {
+    "pk": 16,
+    "model": "searchtests.book",
+    "fields": {
+      "title": "Programming Rust",
+      "authors": [13, 14],
+      "publication_date": "2017-12-01",
+      "number_of_pages": 622
     }
   },
 
