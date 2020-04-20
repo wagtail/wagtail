@@ -258,20 +258,27 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                     buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit')))
                     messages.success(request, _("Page '{0}' created and published.").format(page.get_admin_display_title()), buttons=buttons)
             elif is_submitting:
-                messages.success(
-                    request,
-                    _("Page '{0}' created and submitted for moderation.").format(page.get_admin_display_title()),
-                    buttons=[
+                buttons = []
+                if page.is_previewable():
+                    buttons.append(
                         messages.button(
                             reverse('wagtailadmin_pages:view_draft', args=(page.id,)),
                             _('View draft'),
                             new_window=True
                         ),
-                        messages.button(
-                            reverse('wagtailadmin_pages:edit', args=(page.id,)),
-                            _('Edit')
-                        )
-                    ]
+                    )
+
+                buttons.append(
+                    messages.button(
+                        reverse('wagtailadmin_pages:edit', args=(page.id,)),
+                        _('Edit')
+                    )
+                )
+
+                messages.success(
+                    request,
+                    _("Page '{0}' created and submitted for moderation.").format(page.get_admin_display_title()),
+                    buttons=buttons
                 )
                 if not send_notification(page.get_latest_revision().id, 'submitted', request.user.pk):
                     messages.error(request, _("Failed to send notifications to moderators"))
