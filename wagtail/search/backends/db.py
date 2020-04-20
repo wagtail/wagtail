@@ -8,7 +8,7 @@ from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
-from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
+from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.search.utils import AND, OR
 
 
@@ -75,6 +75,12 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
                 self.build_single_term_filter(term)
                 for term in query.query_string.split()
             ])
+
+        if isinstance(query, Phrase):
+            q = models.Q()
+            for field_name in self.fields_names:
+                q |= models.Q(**{field_name + '__icontains': query.query_string})
+            return q
 
         if isinstance(query, Boost):
             boost *= query.boost
