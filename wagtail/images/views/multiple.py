@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.encoding import force_str
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
