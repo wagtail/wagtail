@@ -390,12 +390,8 @@ class StreamValue(Sequence):
                 raw_value = self.stream_data[i]
                 type_name = raw_value['type']
                 child_block = self.stream_block.child_blocks[type_name]
-                if hasattr(child_block, 'bulk_to_python'):
-                    self._prefetch_blocks(type_name, child_block)
-                    return self._bound_blocks[i]
-                else:
-                    value = child_block.to_python(raw_value['value'])
-                    block_id = raw_value.get('id')
+                self._prefetch_blocks(type_name, child_block)
+                return self._bound_blocks[i]
             else:
                 try:
                     type_name, value, block_id = self.stream_data[i]

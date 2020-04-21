@@ -213,6 +213,14 @@ class Block(metaclass=BaseBlock):
         """
         return value
 
+    def bulk_to_python(self, values):
+        """
+        Apply the to_python conversion to a list of values. The default implementation simply
+        iterates over the list; subclasses may optimise this, e.g. by combining database lookups
+        into a single query.
+        """
+        return [self.to_python(value) for value in values]
+
     def get_prep_value(self, value):
         """
         The reverse of to_python; convert the python value into JSON-serialisable form.
