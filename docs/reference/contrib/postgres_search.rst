@@ -21,12 +21,8 @@ This contrib module provides a search engine backend using
 **Drawbacks**:
 
 - Partial matching (``SearchField(partial_match=True)``) is not supported
-- Due to a PostgreSQL limitation, ``SearchField(boost=…)`` is only partially
-  respected. It is changed so that there can only be four different boosts.
-  If you define four or less different boosts,
-  everything will be perfectly accurate.
-  However, your search will be a little less accurate if you define more than
-  four different boosts. That being said, it will work and be roughly the same.
+- ``SearchField(boost=…)`` is only partially respected as PostgreSQL only supports four different boosts.
+  So if you use five or more distinct values for the boost in your site, slight inaccuracies may occur.
 - When :ref:`wagtailsearch_specifying_fields`, the index is not used,
   so it will be slow on huge sites.
 - Still when :ref:`wagtailsearch_specifying_fields`, you cannot search
