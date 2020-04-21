@@ -615,7 +615,13 @@ def view_draft(request, page_id):
     perms = page.permissions_for_user(request.user)
     if not (perms.can_publish() or perms.can_edit()):
         raise PermissionDenied
-    return page.make_preview_request(request, page.default_preview_mode)
+
+    try:
+        preview_mode = page.default_preview_mode
+    except IndexError:
+        raise PermissionDenied
+
+    return page.make_preview_request(request, preview_mode)
 
 
 class PreviewOnEdit(View):
@@ -676,7 +682,12 @@ class PreviewOnEdit(View):
             return self.error_response(page)
 
         form.save(commit=False)
-        preview_mode = request.GET.get('mode', page.default_preview_mode)
+
+        try:
+            preview_mode = request.GET.get('mode', page.default_preview_mode)
+        except IndexError:
+            raise PermissionDenied
+
         return page.make_preview_request(request, preview_mode)
 
 
@@ -1085,7 +1096,12 @@ def preview_for_moderation(request, revision_id):
 
     page = revision.as_page_object()
 
-    return page.make_preview_request(request, page.default_preview_mode, extra_request_attrs={
+    try:
+        preview_mode = page.default_preview_mode
+    except IndexError:
+        raise PermissionDenied
+
+    return page.make_preview_request(request, preview_mode, extra_request_attrs={
         'revision_id': revision_id
     })
 
@@ -1215,7 +1231,12 @@ def revisions_view(request, page_id, revision_id):
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_page_object()
 
-    return revision_page.make_preview_request(request, page.default_preview_mode)
+    try:
+        preview_mode = page.default_preview_mode
+    except IndexError:
+        raise PermissionDenied
+
+    return revision_page.make_preview_request(request, preview_mode)
 
 
 def revisions_compare(request, page_id, revision_id_a, revision_id_b):

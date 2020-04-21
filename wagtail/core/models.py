@@ -1402,6 +1402,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def default_preview_mode(self):
+        """
+        The preview mode to use in workflows that do not give the user the option of selecting a
+        mode explicitly, e.g. moderator approval. Will raise IndexError if preview_modes is empty
+        """
         return self.preview_modes[0][0]
 
     def is_previewable(self):
