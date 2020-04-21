@@ -8,7 +8,7 @@ from django.test import TestCase
 from elasticsearch.serializer import JSONSerializer
 
 from wagtail.search.backends.elasticsearch6 import Elasticsearch6SearchBackend
-from wagtail.search.query import MATCH_ALL
+from wagtail.search.query import MATCH_ALL, Phrase
 from wagtail.tests.search import models
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
@@ -315,6 +315,22 @@ class TestElasticsearch6SearchQuery(TestCase):
         # Check it
         expected_result = [{'publication_date_filter': 'asc'}, {'number_of_pages_filter': 'asc'}]
         self.assertDictEqual(query.get_sort(), expected_result)
+
+    def test_phrase_query(self):
+        # Create a query
+        query_compiler = self.query_compiler_class(models.Book.objects.all(), Phrase("Hello world"))
+
+        # Check it
+        expected_result = {'multi_match': {'fields': ['_all_text', '_edgengrams'], 'query': "Hello world", 'type': 'phrase'}}
+        self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
+
+    def test_phrase_query_single_field(self):
+        # Create a query
+        query_compiler = self.query_compiler_class(models.Book.objects.all(), Phrase("Hello world"), fields=['title'])
+
+        # Check it
+        expected_result = {'match_phrase': {'title': "Hello world"}}
+        self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
 
 
 class TestElasticsearch6SearchResults(TestCase):
