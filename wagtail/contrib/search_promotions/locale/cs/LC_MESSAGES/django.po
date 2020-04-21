@@ -4,12 +4,13 @@
 #
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2018-11-30 08:49+0000\n"
+"PO-Revision-Date: 2020-03-06 01:28+0000\n"
 "Last-Translator: IT Management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -67,7 +68,7 @@ msgstr ""
 "<p>Pole \"Hledat výraz(y)/fráze\" musí obsahovat kompletní a přesný hledaný "
 "výraz, pro který si přejete zobrazit upřednostněné výsledky, <em>včetně</em> "
 "uživatelských překlepů a chyb. Pro ulehčení práce si můžete vybrat z "
-"populárních hledaných výrazů na Vašem webu.</p>"
+"populárních hledaných výrazů na vašem webu.</p>"
 
 msgid "Save"
 msgstr "Uložit"

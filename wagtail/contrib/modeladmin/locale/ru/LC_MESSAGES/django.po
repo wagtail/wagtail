@@ -6,13 +6,14 @@
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
+# sergeybe <sergeybe@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-12-17 10:51+0000\n"
-"Last-Translator: Mikhail Sidorov <pevzi23@gmail.com>\n"
+"PO-Revision-Date: 2020-02-06 20:17+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Управление моделями Wagtail"
 
 msgid "Parent page"
 msgstr "Родительская страница"
@@ -161,6 +165,9 @@ msgstr ""
 "                                                Почему бы не <a href="
 "\"%(url)s\">создать</a>?                                            "
 
+msgid "Pagination"
+msgstr "Паджинация"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Страница %(current_page)s из %(num_pages)s."
@@ -174,6 +181,10 @@ msgstr "Предыдущая"
 
 msgid "Next"
 msgstr "Следующая"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' создана."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -194,6 +205,10 @@ msgid "Editing %s"
 msgstr "Редактирование %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' обновлена"
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "Невозможно сохранить %s из-за ошибок."
 
@@ -208,6 +223,10 @@ msgid ""
 msgstr ""
 "Вы уверены, что хотите удалить %s? Если другие объекты на вашем сайте "
 "связаны с удаляемым объектом, они тоже могут быть затронуты."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' удалена."
 
 msgid "Inspecting"
 msgstr "Просмотр"

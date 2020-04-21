@@ -4,13 +4,14 @@
 #
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-10-16 17:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-06 00:20+0000\n"
+"Last-Translator: IT Management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,7 @@ msgstr ""
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Wagtail table block"
-msgstr "Wagtail tabulkový odstavec"
+msgstr "Wagtail tabulkový blok"
 
 msgid "Row header"
 msgstr "Záhlaví řádku"
@@ -34,3 +35,6 @@ msgstr "Záhlaví sloupce"
 
 msgid "Display the first column as a header."
 msgstr "Zobraz první sloupec jako záhlaví."
+
+msgid "Table caption"
+msgstr "Titulek tabulky"

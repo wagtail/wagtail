@@ -5,7 +5,7 @@
 # Translators:
 # aaao <aron.santa@gmail.com>, 2019
 # B N <biczoxd@gmail.com>, 2018
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
 msgid ""
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-18 09:53+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -78,6 +78,9 @@ msgstr "Adja meg a %s értéket"
 
 msgid "Enter your email address to reset your password"
 msgstr "Kérjük adja meg az email címét a jelszó változtatáshoz."
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nem lehet több engedély bejegyzés ugyanahhoz az oldalhoz."
@@ -248,6 +251,12 @@ msgstr "szlovák"
 
 msgid "Thai"
 msgstr "thai"
+
+msgid "Turkish"
+msgstr "török"
+
+msgid "Turkish (Turkey)"
+msgstr "török (törökországi)"
 
 msgid "Ukrainian"
 msgstr "ukrán"
@@ -660,8 +669,17 @@ msgstr ""
 "Íme az Ön műszerfala, amelyen hasznos információk jelennek meg a létrehozott "
 "oldalairól."
 
+msgid "Your locked pages"
+msgstr "Zárolt oldalai"
+
+msgid "See all locked pages"
+msgstr "Összes zárolt oldal megtekintése"
+
 msgid "Title"
 msgstr "Cím"
+
+msgid "Locked at"
+msgstr "Zárolva ekkor: "
 
 msgid "Edit this page"
 msgstr "Oldal szerkesztése"
@@ -803,6 +821,30 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "A láthatóság beállításai érvényesek lesznek az összes ez alatti tartalomra "
 "is."
+
+msgid "This page is locked"
+msgstr "Az oldal zárolva van"
+
+msgid "This page is unlocked"
+msgstr "Az oldal nincs zárolva"
+
+msgid "Remove editor lock"
+msgstr "Szerkesztői zárolás feloldása"
+
+msgid "Unlock"
+msgstr "Feloldás"
+
+msgid "You don't have permission to unlock"
+msgstr "Nincs jogosultsága feloldani"
+
+msgid "Apply editor lock"
+msgstr "Szerkesztői zárolás"
+
+msgid "Lock"
+msgstr "Zárol"
+
+msgid "You don't have permission to lock"
+msgstr "Nincs jogosultsága zárolni"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Oldal láthatóságának beállítása. Jelenlegi státusz: publikus"
@@ -1281,6 +1323,9 @@ msgstr "Egyetlen oldal sem használja: "
 
 msgid "Collection"
 msgstr "Gyűjtemény"
+
+msgid "No pages match this report's criteria."
+msgstr "Egyetlen oldal sem felel meg a feltételeknek."
 
 msgid "Locked"
 msgstr "Zárolt"

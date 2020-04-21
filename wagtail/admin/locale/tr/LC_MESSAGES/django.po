@@ -3,9 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Basitlik İyidir, 2020
+# Basitlik İyidir, 2020
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2020
-# Py Data <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
 # Umut Bektaş <info@umutbektas.com>, 2019
 msgid ""
@@ -13,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-20 12:40+0000\n"
+"Last-Translator: Basitlik İyidir\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -77,6 +79,9 @@ msgstr "%s girin"
 
 msgid "Enter your email address to reset your password"
 msgstr "Şifreyi sıfırlamak için eposta adresini girin"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Aynı kolleksiyon için birden fazla yetkiye sahip olamazsınız."
@@ -247,6 +252,12 @@ msgstr "Slovakça"
 
 msgid "Thai"
 msgstr "Tayca"
+
+msgid "Turkish"
+msgstr "Türkçe"
+
+msgid "Turkish (Turkey)"
+msgstr "Türkçe (Türkiye)"
 
 msgid "Ukrainian"
 msgstr "Ukraynaca"
@@ -656,8 +667,17 @@ msgstr ""
 "Bu, oluşturduğunuz içerikle ilgili faydalı bilgilerin görüntüleneceği "
 "yönetim panelinizdir."
 
+msgid "Your locked pages"
+msgstr "Kilitli sayfalar"
+
+msgid "See all locked pages"
+msgstr "Tüm kilitli sayfalara bak"
+
 msgid "Title"
 msgstr "Başlık"
+
+msgid "Locked at"
+msgstr "Kilitli"
 
 msgid "Edit this page"
 msgstr "Bu sayfayı düzenle"
@@ -799,6 +819,21 @@ msgstr "Bu sayfa bir üst sayfa tarafından gizli yapıldı."
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Gizlilik değişiklikleri, bu sayfanın tüm alt elemanları için de geçerlidir."
+
+msgid "This page is locked"
+msgstr "Bu sayfa kilitli"
+
+msgid "This page is unlocked"
+msgstr "Bu sayfanın kiliti açık"
+
+msgid "Remove editor lock"
+msgstr "Editör kilidini kaldır"
+
+msgid "Unlock"
+msgstr "Kilidini aç"
+
+msgid "You don't have permission to unlock"
+msgstr "Kilidi açma izniniz yok"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Sayfa gizliliğini ayarla. Şimdiki durum: Genel"
@@ -1533,6 +1568,9 @@ msgstr "sürüm {0} / \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "{0} / \"{1}\" sürümünün planlaması kaldırıldı."
 
+msgid "Locked Pages"
+msgstr "Kilitli Sayfalar"
+
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' düzenle"
@@ -1639,6 +1677,9 @@ msgstr "Üstü çizgili"
 
 msgid "Code"
 msgstr "Kod"
+
+msgid "Reports"
+msgstr "Raporlar"
 
 msgid "Choose an item"
 msgstr "Bir eleman seçiniz"

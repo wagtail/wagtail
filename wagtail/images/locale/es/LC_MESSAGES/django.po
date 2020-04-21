@@ -13,14 +13,15 @@
 # José Luis <alagunajs@gmail.com>, 2018
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
+# Oscar Luciano Espirilla Flores, 2020
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-13 20:27+0000\n"
+"Last-Translator: Oscar Luciano Espirilla Flores\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imágenes Wagtail"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -56,6 +60,11 @@ msgstr "No es una imagen valida %s."
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr ""
 "Este archivo es demasiado grande (%%s). El tamaño máximo de archivo es: %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"Este archivo contiene muchos pixeles (%%s). Máxima cantidad de pixeles %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -181,6 +190,28 @@ msgstr "Selecciona un formato"
 msgid "Insert image"
 msgstr "Insertar imagen"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Imágenes <span class=\"visuallyhidden"
+"\">creados en %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+
 msgid "Change image file:"
 msgstr "Cambiar archivo de imagen:"
 
@@ -207,6 +238,9 @@ msgstr "¿Seguro que quieres eliminar esta imagen?"
 
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
+
+msgid "No, don't delete"
+msgstr "No, no eliminar"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -251,6 +285,15 @@ msgstr "Uso"
 
 msgid "Images"
 msgstr "Imágenes"
+
+msgid "Popular Tags:"
+msgstr "Etiquetas populares"
+
+msgid "Clear choice"
+msgstr "Borrar selección"
+
+msgid "pixels"
+msgstr "pixeles"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

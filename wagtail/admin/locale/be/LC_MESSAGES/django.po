@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-14 17:12+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +21,29 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+msgid "Publish"
+msgstr "Публікаваць"
+
+msgid "Submit for moderation"
+msgstr "Адправіць на мадэрацыю"
+
+msgid "Unpublish"
+msgstr "Адмяніць публікацыю"
+
 msgid "Delete"
 msgstr "Выдаліць"
+
+msgid "Save Draft"
+msgstr "Захаваць чарнавік"
+
+msgid "Page locked"
+msgstr "Заблакаваная старонка"
+
+msgid "Wagtail admin"
+msgstr "Wagtail адміністратар"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "На жаль, у вас няма дазволу на доступ да гэтай часткі."
 
 msgid "You do not have permission to access the admin"
 msgstr "У вас няма доступу да панэлі адміністратара"
@@ -196,6 +217,106 @@ msgstr "Паказаць апошні змест"
 msgid "Show error"
 msgstr "Паказаць памылку"
 
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Рэдактар ​​зламаўся. Змест быў скінут да апошняй захаванай версіі."
+
+msgid "Broken link"
+msgstr "Спасылка зламалася"
+
+msgid "Missing document"
+msgstr "Дакумент адсутнічае"
+
+msgid "Close"
+msgstr "Зачыніць"
+
+msgid "Edit '{title}'"
+msgstr "Змяніць «{title}»"
+
+msgid "View child pages of '{title}'"
+msgstr "Прагляд даччынай старонкі «{title}»"
+
+msgid "Page explorer"
+msgstr "Агляд старонак"
+
+msgid "January"
+msgstr "Студзень"
+
+msgid "February"
+msgstr "Люты"
+
+msgid "March"
+msgstr "Сакавік"
+
+msgid "April"
+msgstr "Красавік"
+
+msgid "May"
+msgstr "Травень"
+
+msgid "June"
+msgstr "Чэрвень"
+
+msgid "July"
+msgstr "Ліпеня"
+
+msgid "August"
+msgstr "Жнівень"
+
+msgid "September"
+msgstr "Верасень"
+
+msgid "October"
+msgstr "Кастрычніка"
+
+msgid "November"
+msgstr "Лістапада"
+
+msgid "December"
+msgstr "Снежань"
+
+msgid "Sunday"
+msgstr "Нядзеля"
+
+msgid "Monday"
+msgstr "Панядзелак"
+
+msgid "Tuesday"
+msgstr "Аўторак"
+
+msgid "Wednesday"
+msgstr "Серада"
+
+msgid "Thursday"
+msgstr "Чацверг"
+
+msgid "Friday"
+msgstr "Пятніца"
+
+msgid "Saturday"
+msgstr "Субота"
+
+msgid "Sun"
+msgstr "Нядз"
+
+msgid "Mon"
+msgstr "Пн"
+
+msgid "Tue"
+msgstr "Аўт"
+
+msgid "Wed"
+msgstr "Сер"
+
+msgid "Thu"
+msgstr "Чацв"
+
+msgid "Fri"
+msgstr "Пт"
+
+msgid "Sat"
+msgstr "Субб"
+
 msgid "Error 404: Page not found"
 msgstr "Памылка 404: старонка не знойдзена"
 
@@ -222,6 +343,9 @@ msgstr "Аднаўленне"
 
 msgid "Change email"
 msgstr "Змяніць электронную пошту"
+
+msgid "Change name"
+msgstr "Змяніце імя"
 
 msgid "Change password"
 msgstr "Змяніць пароль"
@@ -312,11 +436,73 @@ msgstr "Знешняя спасылка"
 msgid "Email link"
 msgstr "Спасылка па электроннай пошце"
 
+msgid "Phone link"
+msgstr "Нумар тэлефона"
+
+msgid "Anchor link"
+msgstr "Якарная спасылка"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"%(counter)s супадзенне"
+msgstr[1] ""
+"\n"
+"%(counter)s супадзення"
+msgstr[2] ""
+"\n"
+"%(counter)s супадзенняў"
+msgstr[3] ""
+"\n"
+"%(counter)s супадзенняў"
+
+msgid "Add an anchor link"
+msgstr "Дадаць прывязку"
+
+msgid "Insert anchor"
+msgstr "Устаўце якар"
+
 msgid "Choose"
 msgstr "Выбраць"
 
 msgid "Choose a page"
 msgstr "Выбраць старонку"
+
+#, python-format
+msgid ""
+"\n"
+"                Only pages of type \"%(type)s\" may be chosen for this "
+"field. Search results will exclude pages of other types.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Only the following page types may be chosen for this field: "
+"%(type)s. Search results will exclude pages of other types.\n"
+"            "
+msgstr[0] ""
+"\n"
+"Для гэтага поля можна выбраць толькі наступныя тып старонкі: %(type)s. "
+"Вынікі пошуку будуць выключаць старонкі іншага тыпу."
+msgstr[1] ""
+"\n"
+"Для гэтага поля можна выбраць толькі наступныя тыпы старонак: %(type)s. "
+"Вынікі пошуку будуць выключаць старонкі іншага тыпу."
+msgstr[2] ""
+"\n"
+"Для гэтага поля можна выбраць толькі наступныя тыпы старонак: %(type)s. "
+"Вынікі пошуку будуць выключаць старонкі іншага тыпу."
+msgstr[3] ""
+"\n"
+"Для гэтага поля можна выбраць толькі наступныя тыпы старонак: %(type)s. "
+"Вынікі пошуку будуць выключаць старонкі іншага тыпу."
 
 msgid "Add an email link"
 msgstr "Дадаць спасылку па электроннай пошце"
@@ -326,6 +512,9 @@ msgstr "Уставіць спасылку"
 
 msgid "Add an external link"
 msgstr "Дадаць знешнюю спасылку"
+
+msgid "Add a phone link"
+msgstr "Дадайце спасылку на тэлефон"
 
 msgid "Collection privacy"
 msgstr "Прыватнасць калекцыі"
@@ -348,8 +537,14 @@ msgstr "Захаваць"
 msgid "Privacy"
 msgstr "Сакрэтнасць"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Усталяваны статус прыватнасці: грамадскі"
+
 msgid "Public"
 msgstr "Публічна"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Усталяваны статус прыватнасці: прыватны"
 
 msgid "Private"
 msgstr "Прыватна"
@@ -388,8 +583,17 @@ msgstr ""
 "Гэта ваша панэль кіравання. На ёй адлюстроўваецца  карысная інфармацыю пра "
 "створаны вамі змест."
 
+msgid "Your locked pages"
+msgstr "Заблакаваныя старонкі"
+
+msgid "See all locked pages"
+msgstr "Паглядзець усе заблакаваныя старонкі"
+
 msgid "Title"
 msgstr "Назва"
+
+msgid "Locked at"
+msgstr "Зачынены ў"
 
 msgid "Edit this page"
 msgstr "Змяніць гэтую старонку"
@@ -419,6 +623,9 @@ msgstr "Тып"
 msgid "Edited"
 msgstr "Зменена"
 
+msgid "Preview this page"
+msgstr "Папярэдні прагляд старонкі"
+
 msgid "Approve"
 msgstr "Пацвярдзіць"
 
@@ -438,7 +645,31 @@ msgid "Status"
 msgstr "Статус"
 
 msgid "Site summary"
-msgstr "Агульная інформацыя"
+msgstr "Агульная інфармацыя"
+
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"%(total)s старонка створана ў %(site_name)s"
+msgstr[1] ""
+"\n"
+"%(total)s старонкі створаны ў %(site_name)s"
+msgstr[2] ""
+"\n"
+"%(total)s старонак створана ў %(site_name)s"
+msgstr[3] ""
+"\n"
+"%(total)s старонкі створаны ў %(site_name)s"
 
 msgid "Sign in"
 msgstr "Увайсці"
@@ -508,6 +739,57 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Канфідэнцыяльнасць інфармацыі распаўсюджваецца на ўсе дзіцячыя старонкі."
 
+msgid "This page is locked"
+msgstr "Старонка заблакавана"
+
+msgid "This page is unlocked"
+msgstr "Старонка разблакавана"
+
+msgid "Remove editor lock"
+msgstr "Выдаліць блакаванне рэдактара"
+
+msgid "Unlock"
+msgstr "Разблакаваць"
+
+msgid "You don't have permission to unlock"
+msgstr "Не дастаткова правоў для разблакоўкі"
+
+msgid "Apply editor lock"
+msgstr "Заблакаваць рэдактар"
+
+msgid "Lock"
+msgstr "Заблакаваць"
+
+msgid "You don't have permission to lock"
+msgstr "Не дастаткова правоў для блакавання"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Усталяваць статус канфідэнцыяльнасці старонкі: грамадскі"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Усталяваць статус канфідэнцыяльнасці старонкі: прыватны"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Статус канфідэнцыяльнасці старонкі: грамадскі"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Статус канфідэнцыяльнасці старонкі: прыватны"
+
+msgid "Publishing…"
+msgstr "Апублікаваць..."
+
+msgid "Publish this revision"
+msgstr "Апублікаваць версію"
+
+msgid "Saving…"
+msgstr "Захаваць..."
+
+msgid "Replace current draft"
+msgstr "Замяніць гэты чарнавік"
+
+msgid "Save draft"
+msgstr "Захаваць чарнавік"
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Стварыць старонку %(title)s"
@@ -531,6 +813,170 @@ msgstr "Вы ўпэўненыя, што жадаеце выдаліць гэту
 
 msgid "Yes, delete it"
 msgstr "Так. Выдаліць"
+
+msgid "No, don't delete it"
+msgstr "Не, не выдаляць яго"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Вы можаце апублікаваць «%(unpublish_url)s». Выдаліце старонку з "
+"агульнадаступнага прагляду, але зможаце пазней яе рэдагаваць альбо "
+"публікаваць."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Рухайцеся %(title)s"
+
+msgid "Move"
+msgstr "Рухайцеся"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Вы ўпэўнены, што хочаце перанесці старонку ў «%(title)s»?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Вы ўпэўнены, што хочаце перанесці гэтую старонку і ўсіх яе дзяцей у "
+"«%(title)s»?"
+
+msgid "Yes, move this page"
+msgstr "Так, перамясціць гэтую старонку"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Адмяніць публікацыю %(title)s"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Вы ўпэўнены, што хочаце апублікаваць гэтую старонку?"
+
+msgid "Yes, unpublish it"
+msgstr "Так, апублікаваць"
+
+msgid "No, don't unpublish"
+msgstr "Не, не публікаваць"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Старонкі з выкарыстаннем %(page_class_verbose_name)s"
+
+msgid "Pages using"
+msgstr "Старонак выкарыстоўваецца"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Скапіяваць %(title)s"
+
+msgid "Copy"
+msgstr "Скапіяваць"
+
+msgid "Copy this page"
+msgstr "Скапіяваць гэтую старонку"
+
+#, python-format
+msgid "New %(page_type)s"
+msgstr "Новы %(page_type)s"
+
+msgid "New"
+msgstr "Новы"
+
+msgid "Actions"
+msgstr "Дзеянні"
+
+msgid "This page has unsaved changes."
+msgstr "На гэтай старонцы засталіся незахаваных часткі."
+
+#, python-format
+msgid "Editing %(page_type)s: %(title)s"
+msgstr "Рэдагаванне %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s <span>%(title)s</span>"
+msgstr "Рэдагаванне %(page_type)s <span>%(title)s</span>"
+
+#, python-format
+msgid "Last modified: %(last_mod)s"
+msgstr "Апошняе змяненне: %(last_mod)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "ад %(modified_by)s"
+
+msgid "Revisions"
+msgstr "Перагляды"
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "Агляд %(title)s"
+
+msgid "Drag"
+msgstr "Перацягнуць"
+
+msgid "Updated"
+msgstr "Абноўлена"
+
+msgid ""
+"\n"
+"                            The root level is where you can add new sites to "
+"your Wagtail installation. Pages created here will not be accessible at any "
+"URL until they are associated with a site.\n"
+"                        "
+msgstr ""
+"\n"
+"Каранёвы ўзровень на якім вы можаце дадаваць новыя сайты Wagtail. У "
+"створаных тут старонак не будзе адраса для прагляду, пакуль яны не будуць "
+"звязаныя з сайтам."
+
+msgid "Configure a site now."
+msgstr "Наладзіць сайт."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Калі вы хочаце дадаць старонкі да існуючага сайту, стварыце іх як даччыныя "
+"старонкі для галоўнай старонкі."
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"У створаных тут старонак не будзе адрасы для прагляду. Каб дадаць старонкі "
+"да існуючага сайту, стварыце іх як даччыныя для галоўнай старонкі."
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"Для гэтага адрасу не настроены сайт. У створаных тут старонак не будзе "
+"адраса для прагляду, пакуль яны не будуць звязаныя з гэтым размяшчэннем."
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"Нет сайтаў для гэтага адрасу. У створаных тут старонак не будзе адрасы для "
+"прагляду."
 
 msgid "Locked"
 msgstr "Заблакавана"

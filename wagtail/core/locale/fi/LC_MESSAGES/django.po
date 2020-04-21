@@ -8,13 +8,14 @@
 # Glen Somerville <glen.somerville@gmail.com>, 2015
 # Rauli L. <rauli.laine@iki.fi>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-18 17:02+0000\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail core"
+msgstr "Wagtailin ydinominaisuudet"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: tällä lohkolla ei ole valintoja"
+
+msgid "This block has no options."
+msgstr "Tällä lohkolla ei ole valintoja."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Kohtia on oltava vähintään %d"
+
+msgid "This field is required."
+msgstr "Tämä kenttä on pakollinen."
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Kohtia voi olla enintään %d"
+
+msgid "Password"
+msgstr "Salasana"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Antamasi salasana ei ole oikein. Koeta uudestaan."
 
 msgid "hostname"
 msgstr "isäntäosoite"
@@ -134,8 +162,17 @@ msgstr "vanhentunut"
 msgid "locked"
 msgstr "lukittu"
 
+msgid "locked at"
+msgstr "lukittu"
+
+msgid "locked by"
+msgstr "lukinnut"
+
 msgid "first published at"
 msgstr "ensin julkaistu"
+
+msgid "last published at"
+msgstr "viimeksi julkaistu"
 
 msgid "latest revision created at"
 msgstr "uusin versio luotu"
@@ -148,6 +185,9 @@ msgstr "ajoitettu"
 
 msgid "draft"
 msgstr "luonnos"
+
+msgid "live + scheduled"
+msgstr "esillä + ajastettu"
 
 msgid "live + draft"
 msgstr "julkaistu + luonnos"
@@ -200,8 +240,23 @@ msgstr "Julkaise"
 msgid "Publish any page"
 msgstr "Julkaise kaikkia sivuja"
 
+msgid "Bulk delete"
+msgstr "Poista useita"
+
+msgid "Delete pages with children"
+msgstr "Poista sivut, joilla alasivuja"
+
 msgid "Lock"
 msgstr "Lukitse"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Lukitse tai avaa lukitsemiasi sivuja"
+
+msgid "Unlock"
+msgstr "Avaa lukitus"
+
+msgid "Unlock any page"
+msgstr "Avaa minkä tahansa sivun lukitus"
 
 msgid "group"
 msgstr "ryhmä"
@@ -215,8 +270,29 @@ msgstr "ryhmä/sivu-oikeus"
 msgid "group page permissions"
 msgstr "ryhmä/sivu-oikeudet"
 
+msgid "Public"
+msgstr "Julkinen"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Yksityinen, näkyy kirjautuneille käyttäjille"
+
+msgid "Private, accessible with the following password"
+msgstr "Yksityinen, nähtävissä tällä salasanalla"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Yksityinen, näkyy tiettyjen ryhmien käyttäjille"
+
 msgid "password"
 msgstr "salasana"
+
+msgid "groups"
+msgstr "ryhmät"
+
+msgid "view restriction"
+msgstr "näyttörajoitus"
+
+msgid "view restrictions"
+msgstr "näyttörajoitukset"
 
 msgid "page view restriction"
 msgstr "sivunkatselurajoitus"
@@ -226,6 +302,12 @@ msgstr "sivunkatselurajoitukset"
 
 msgid "collection"
 msgstr "kokoelma"
+
+msgid "collection view restriction"
+msgstr "kokoelman rajoitus"
+
+msgid "collection view restrictions"
+msgstr "kokoelman rajoitukset"
 
 msgid "name"
 msgstr "nimi"
@@ -238,3 +320,27 @@ msgstr "oikeudet"
 
 msgid "group collection permission"
 msgstr "ryhmä/kokoelma-oikeus"
+
+msgid "group collection permissions"
+msgstr "ryhmän oikeudet kokoelmaan"
+
+msgid "Log in"
+msgstr "Kirjaudu"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Käyttäjätunnus ja salasana eivät täsmää. Koeta uudestaan."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Tililläsi ei ole pääsyä tälle sivulle. Kirjaudu käyttäjänä, jolla on pääsy."
+
+msgid "Password required"
+msgstr "Salasana vaaditaan"
+
+msgid "You need a password to access this page."
+msgstr "Tarvitset salasanan päästäksesi tälle sivulle"
+
+msgid "Continue"
+msgstr "Jatka"

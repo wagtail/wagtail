@@ -3,10 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Basitlik İyidir, 2020
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2019
 # José Luis <alagunajs@gmail.com>, 2015
 # José Luis <alagunajs@gmail.com>, 2015
-# Py Data <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2015
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-20 15:10+0000\n"
+"Last-Translator: Basitlik İyidir\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +47,7 @@ msgid "The maximum number of items is %d"
 msgstr "Azami öğe sayısı %d"
 
 msgid "Password"
-msgstr "Şifre"
+msgstr "Parola"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Girmiş olduğunuz şifre doğru degil. Lütfen tekrar deneyin."

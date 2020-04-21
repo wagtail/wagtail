@@ -8,13 +8,14 @@
 # Eetu Häivälä, 2016-2017
 # Rauli L. <rauli.laine@iki.fi>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-18 17:27+0000\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtailin käyttäjät"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -72,6 +76,15 @@ msgstr "Samanniminen ryhmä on jo olemassa."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Samalle sivulle ei voi olla useampaa pääsylupatietuetta."
 
+msgid "Preferred language"
+msgstr "Mieluisin kieli"
+
+msgid "Current time zone"
+msgstr "Nykyinen aikavyöhyke"
+
+msgid "Upload a profile picture"
+msgstr "Tuo profiilin kuva"
+
 msgid "submitted notifications"
 msgstr "lähetys&shy;ilmoitukset"
 
@@ -90,8 +103,26 @@ msgstr "hylkäys&shy;ilmoitukset"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Vastaanota ilmoituksia kun sivun muokkauksesi hylätään"
 
+msgid "preferred language"
+msgstr "mieluisin kieli"
+
+msgid "Select language for the admin"
+msgstr "Valitse hallintapaneelin kieli"
+
+msgid "current time zone"
+msgstr "nykyinen aikavyöhyke"
+
+msgid "Select your current time zone"
+msgstr "Valitse nykyinen aikavyöhykkeesi"
+
+msgid "profile picture"
+msgstr "profiilin kuva"
+
 msgid "user profile"
 msgstr "käyttäjäprofiili"
+
+msgid "user profiles"
+msgstr "käyttäjäprofiilit"
 
 msgid "Delete group"
 msgstr "Poista ryhmä"
@@ -136,6 +167,9 @@ msgstr "Muokataan"
 msgid "Save"
 msgstr "Tallenna"
 
+msgid "Permissions"
+msgstr "Oikeudet"
+
 msgid "Object permissions"
 msgstr "Kohteen oikeudet"
 
@@ -168,6 +202,10 @@ msgstr "ryhmät"
 
 msgid "Add a group"
 msgstr "Lisää ryhmä"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Ei löytynyt ryhmää hakuehdolla \"%(query)s\""
 
 #, python-format
 msgid ""
@@ -207,6 +245,9 @@ msgstr "Taso"
 msgid "Status"
 msgstr "Tila"
 
+msgid "Last Login"
+msgstr "Viimeksi kirjautunut"
+
 msgid "Admin"
 msgstr "Ylläpitäjä"
 
@@ -215,6 +256,26 @@ msgstr "Aktiivinen"
 
 msgid "Inactive"
 msgstr "Passiivinen"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sitten"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Löytyi %(counter)s osuma"
+msgstr[1] ""
+"\n"
+"Löytyi %(counter)s osumaa"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
@@ -258,6 +319,9 @@ msgstr "Muokkaa"
 
 msgid "The user could not be created due to errors."
 msgstr "Käyttäjää ei voitu luoda virheiden vuoksi."
+
+msgid "User '{0}' updated."
+msgstr "Käyttäjä '{0}' päivitetty."
 
 msgid "The user could not be saved due to errors."
 msgstr "Käyttäjää ei voitu tallentaa virheiden vuoksi."

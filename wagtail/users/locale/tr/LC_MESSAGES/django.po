@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Basitlik İyidir, 2020
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2020
-# Py Data <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 19:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-20 12:44+0000\n"
+"Last-Translator: Basitlik İyidir\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +37,7 @@ msgid "A user with that username already exists."
 msgstr "Bu kullanıcı adı daha önce alınmış."
 
 msgid "The two password fields didn't match."
-msgstr "İki şifre alanı eşleşmiyor."
+msgstr "Parola alanları eşleşmiyor"
 
 msgid "Email"
 msgstr "Eposta"
@@ -48,13 +49,13 @@ msgid "Last Name"
 msgstr "Soyad"
 
 msgid "Password"
-msgstr "Şifre"
+msgstr "Parola"
 
 msgid "Leave blank if not changing."
 msgstr "Aynı kalması için boş bırakın."
 
 msgid "Password confirmation"
-msgstr "Şifre doğrulama"
+msgstr "Parola doğrulama"
 
 msgid "Enter the same password as above, for verification."
 msgstr "Doğrulama yapmak için yukarıdaki şifrenin aynısını girin."

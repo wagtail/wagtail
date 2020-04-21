@@ -5,6 +5,7 @@
 # Translators:
 # Ales Dvorak <mail@alesdvorak.cz>, 2017
 # IT Management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019
 msgid ""
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-06 02:19+0000\n"
+"Last-Translator: IT Management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,10 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail jádro"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: tento blok nemá žádné volby."
 
 msgid "This block has no options."
 msgstr "Tento blok nemá žádné volby."
@@ -112,7 +117,7 @@ msgid "content type"
 msgstr "content type (typ obsahu)"
 
 msgid "live"
-msgstr "živý"
+msgstr "publikováno"
 
 msgid "has unpublished changes"
 msgstr "má nepublikované změny"
@@ -146,7 +151,7 @@ msgid "search description"
 msgstr "popis vyhledávání"
 
 msgid "go live date/time"
-msgstr "datum/čas zveřejnění"
+msgstr "datum/čas publikování"
 
 msgid "expiry date/time"
 msgstr "datum/čas expirace"
@@ -156,6 +161,12 @@ msgstr "platnost skončila"
 
 msgid "locked"
 msgstr "uzamčeno"
+
+msgid "locked at"
+msgstr "uzamčeno: "
+
+msgid "locked by"
+msgstr "uzamčeno uživatelem"
 
 msgid "first published at"
 msgstr "poprvé publikováno:"
@@ -173,13 +184,13 @@ msgid "scheduled"
 msgstr "naplánováno"
 
 msgid "draft"
-msgstr "draft (návrh)"
+msgstr "koncept"
 
 msgid "live + scheduled"
-msgstr "živé + naplánováno"
+msgstr "publikováno + naplánováno"
 
 msgid "live + draft"
-msgstr "živé + draft (návrh)"
+msgstr "publikováno + koncept"
 
 msgid "Default"
 msgstr "Defaultní"
@@ -215,19 +226,19 @@ msgid "Add"
 msgstr "Přidat"
 
 msgid "Add/edit pages you own"
-msgstr "Přidat/Editovat Vámi vlastněné stránky"
+msgstr "Přidat/Editovat vámi vlastněné stránky"
 
 msgid "Edit"
 msgstr "Editovat"
 
 msgid "Edit any page"
-msgstr "Editovat všechny stránky"
+msgstr "Editovat jakoukoliv stránku"
 
 msgid "Publish"
 msgstr "Publikovat"
 
 msgid "Publish any page"
-msgstr "Možnost publikovat všechny stránky"
+msgstr "Možnost publikovat jakoukoliv stránku"
 
 msgid "Bulk delete"
 msgstr "Hromadné zrušení"
@@ -237,6 +248,15 @@ msgstr "Rušit stránky s podstránkami"
 
 msgid "Lock"
 msgstr "Uzamknout"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Uzamknout/odemknout vámi uzamčené stránky"
+
+msgid "Unlock"
+msgstr "Odemknout"
+
+msgid "Unlock any page"
+msgstr "Odemknout jakoukoliv stránku"
 
 msgid "group"
 msgstr "skupina"
@@ -269,40 +289,40 @@ msgid "groups"
 msgstr "skupiny"
 
 msgid "view restriction"
-msgstr "zobrazit omezení"
+msgstr "omezení zobrazení"
 
 msgid "view restrictions"
-msgstr "zobrazit omezení"
+msgstr "omezení zobrazení"
 
 msgid "page view restriction"
-msgstr "zobrazit omezení stránky"
+msgstr "omezení zobrazení stránky"
 
 msgid "page view restrictions"
-msgstr "zobrazit omezení stránky"
+msgstr "omezení zobrazení stránky"
 
 msgid "collection"
-msgstr "soubor (kolekce)"
+msgstr "kolekce"
 
 msgid "collection view restriction"
-msgstr "zobrazit omezení souboru (kolekce)"
+msgstr "omezení zobrazení kolekce"
 
 msgid "collection view restrictions"
-msgstr "zobrazit omezení souboru (kolekce)"
+msgstr "omezení zobrazení kolekcí"
 
 msgid "name"
 msgstr "jméno"
 
 msgid "collections"
-msgstr "soubory (kolekce)"
+msgstr "kolekce"
 
 msgid "permission"
 msgstr "oprávnění"
 
 msgid "group collection permission"
-msgstr "skupinové oprávnění pro soubor (kolekci)"
+msgstr "skupinové oprávnění pro kolekci"
 
 msgid "group collection permissions"
-msgstr "skupinová oprávnění pro soubor (kolekci)"
+msgstr "skupinová oprávnění pro kolekci"
 
 msgid "Log in"
 msgstr "Přihlásit se"

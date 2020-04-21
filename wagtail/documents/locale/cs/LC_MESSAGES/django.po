@@ -4,6 +4,7 @@
 #
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Mořeplavec <stanislav.vasko@gmail.com>, 2017
 msgid ""
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-06 00:03+0000\n"
+"Last-Translator: IT Management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +51,7 @@ msgid "uploaded by user"
 msgstr "nahráno uživatelem"
 
 msgid "tags"
-msgstr "šťítky"
+msgstr "štítky"
 
 msgid "document"
 msgstr "dokument"
@@ -147,6 +148,9 @@ msgstr "Opravdu chcete smazat tento dokument?"
 msgid "Yes, delete"
 msgstr "Ano, smazat"
 
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Úprava %(title)s"
@@ -177,6 +181,9 @@ msgstr "Soubor"
 
 msgid "Collection"
 msgstr "Kolekce"
+
+msgid "Created"
+msgstr "Vytvořeno"
 
 #, python-format
 msgid "%(time_period)s ago"

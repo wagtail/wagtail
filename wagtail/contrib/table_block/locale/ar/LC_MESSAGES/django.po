@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020
 # ultraify media <ultraify@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-10-16 17:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-08 21:20+0000\n"
+"Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 msgid "Wagtail table block"
-msgstr "Wagtail محموعة جدول"
+msgstr "كتلة جدول Wagtail"
 
 msgid "Row header"
 msgstr "رأس الصف"
@@ -34,3 +35,6 @@ msgstr "رأس العمود"
 
 msgid "Display the first column as a header."
 msgstr "عرض العمود الأول كرأس."
+
+msgid "Table caption"
+msgstr "جدول فرعي"

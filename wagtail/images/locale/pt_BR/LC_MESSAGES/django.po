@@ -8,7 +8,7 @@
 # Gladson <gladsonbrito@gmail.com>, 2014
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2019
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2020
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-17 11:19+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imagens Wagtail"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -276,6 +279,15 @@ msgstr "Uso"
 
 msgid "Images"
 msgstr "Imagens"
+
+msgid "Popular Tags:"
+msgstr "Tags populares:"
+
+msgid "Clear choice"
+msgstr "Limpar escolha"
+
+msgid "pixels"
+msgstr "pixels"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

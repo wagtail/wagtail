@@ -4,13 +4,14 @@
 #
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2020
 # Marek Turnovec <aesculap@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2018-11-30 08:51+0000\n"
+"PO-Revision-Date: 2020-03-06 01:10+0000\n"
 "Last-Translator: IT Management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -53,7 +54,7 @@ msgid "redirect to a page"
 msgstr "přesměrovat na stránku"
 
 msgid "redirect to any URL"
-msgstr "přesměrovat na jakékolivURL"
+msgstr "přesměrovat na jakékoliv URL"
 
 msgid "temporary"
 msgstr "dočasné"

@@ -8,13 +8,14 @@
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-18 16:54+0000\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -35,8 +36,14 @@ msgstr "Piilota"
 msgid "Delete"
 msgstr "Poista"
 
+msgid "Save Draft"
+msgstr "Tallenna luonnos"
+
 msgid "Page locked"
 msgstr "Sivu lukittu"
+
+msgid "Wagtail admin"
+msgstr "Wagtailin hallinta"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Pahoittelut, mutta sinulla ei ole pääsyä tähän osioon."
@@ -71,6 +78,9 @@ msgstr "Syötä %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Syötä sähköpostiosoitteesi palauttaaksesi salasanasi"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
@@ -119,9 +129,17 @@ msgstr[1] ""
 "kopiot?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr ""
+"Sinulla ei ole tarvittavia oikeuksia sivun \"%(page_title)s\" kopiointiin."
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Lyhytnimi on jo käytössä isäntäsivun \"%s\" alla"
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Et voi kopioida sivua itsensä päälle, kun kopioit alasivuja."
 
 msgid "This slug is already in use"
 msgstr "Lyhytnimi on jo käytössä"
@@ -147,11 +165,182 @@ msgstr "Tämä kenttä on pakollinen."
 msgid "Please select at least one group."
 msgstr "Valitse vähintään yksi ryhmä."
 
+msgid "Arabic"
+msgstr "arabia"
+
+msgid "Catalan"
+msgstr "katalaani"
+
+msgid "Czech"
+msgstr "tšekki"
+
+msgid "German"
+msgstr "saksa"
+
+msgid "Greek"
+msgstr "kreikka"
+
+msgid "English"
+msgstr "englanti"
+
+msgid "Spanish"
+msgstr "espanja"
+
+msgid "Finnish"
+msgstr "suomi"
+
+msgid "French"
+msgstr "ranska"
+
+msgid "Galician"
+msgstr "galicia"
+
+msgid "Hungarian"
+msgstr "unkari"
+
+msgid "Indonesian"
+msgstr "indonesia"
+
+msgid "Icelandic"
+msgstr "islanti"
+
+msgid "Italian"
+msgstr "italia"
+
+msgid "Japanese"
+msgstr "japani"
+
+msgid "Korean"
+msgstr "korea"
+
+msgid "Lithuanian"
+msgstr "liettua"
+
+msgid "Mongolian"
+msgstr "mongolia"
+
+msgid "Norwegian Bokmål"
+msgstr "norja (bokmål)"
+
+msgid "Netherlands Dutch"
+msgstr "alankomaidenhollanti"
+
+msgid "Persian"
+msgstr "persia"
+
+msgid "Polish"
+msgstr "puola"
+
+msgid "Brazilian Portuguese"
+msgstr "brasilianportugali"
+
+msgid "Portuguese"
+msgstr "portugali"
+
+msgid "Romanian"
+msgstr "romania"
+
+msgid "Russian"
+msgstr "venäjä"
+
+msgid "Swedish"
+msgstr "ruotsi"
+
+msgid "Slovak"
+msgstr "slovakki"
+
+msgid "Thai"
+msgstr "thai"
+
+msgid "Turkish"
+msgstr "turkki"
+
+msgid "Turkish (Turkey)"
+msgstr "turkki (Turkki)"
+
+msgid "Ukrainian"
+msgstr "ukraina"
+
+msgid "Chinese (Simplified)"
+msgstr "kiina (yksinkertaistettu)"
+
+msgid "Chinese (Traditional)"
+msgstr "kiina (perinteinen)"
+
+msgid "Page"
+msgstr "Sivu"
+
 msgid "Pages"
 msgstr "Sivut"
 
+msgid "Loading…"
+msgstr "Haetaan…"
+
+msgid "No results"
+msgstr "Ei tuloksia"
+
+msgid "Server Error"
+msgstr "Palvelinvirhe"
+
+msgid "See all"
+msgstr "Katso kaikki"
+
+msgid "Close explorer"
+msgstr "Sulje selaus"
+
+msgid "Alt text"
+msgstr "Vaihtoehtoinen teksti"
+
+msgid "Write here…"
+msgstr "Kirjoita tähän…"
+
+msgid "Horizontal line"
+msgstr "Vaakaviiva"
+
+msgid "Line break"
+msgstr "Rivinvaihto"
+
+msgid "Undo"
+msgstr "Peru"
+
+msgid "Redo"
+msgstr "Tee uudestaan"
+
+msgid "Reload the page"
+msgstr "Lataa sivu uudestaan"
+
+msgid "Reload saved content"
+msgstr "Lataa tallennettu sisältö"
+
+msgid "Show latest content"
+msgstr "Näytä viimeisin sisältö"
+
+msgid "Show error"
+msgstr "Näytä virheilmoitus"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Tekstinkäsittely joutui virhetilaan. Sisällöksi on palautettu viimeisin "
+"tallennettu versio. "
+
+msgid "Broken link"
+msgstr "Särkynyt linkki"
+
+msgid "Missing document"
+msgstr "Puuttuva asiakirja"
+
+msgid "Close"
+msgstr "Sulje"
+
 msgid "Edit '{title}'"
 msgstr "Muokkaa '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "Näytä sivun '{title}' alasivut"
+
+msgid "Page explorer"
+msgstr "Sivuselain"
 
 msgid "January"
 msgstr "Tammi"
@@ -189,6 +378,27 @@ msgstr "Marras"
 msgid "December"
 msgstr "Joulu"
 
+msgid "Sunday"
+msgstr "sunnuntai"
+
+msgid "Monday"
+msgstr "maanantai"
+
+msgid "Tuesday"
+msgstr "tiistai"
+
+msgid "Wednesday"
+msgstr "keskiviikko"
+
+msgid "Thursday"
+msgstr "torstai"
+
+msgid "Friday"
+msgstr "perjantai"
+
+msgid "Saturday"
+msgstr "lauantai"
+
 msgid "Sun"
 msgstr "Su"
 
@@ -210,14 +420,35 @@ msgstr "Pe"
 msgid "Sat"
 msgstr "La"
 
+msgid "Error 404: Page not found"
+msgstr "Virhe 404: Sivua ei löytynyt"
+
+msgid "Error 404"
+msgstr "Virhe 404"
+
+msgid "The requested page could not be found."
+msgstr "Pyydettyä sivua ei löytynyt"
+
 msgid "Go to Wagtail admin"
 msgstr "Siirry Wagtailin hallintaan"
 
 msgid "Account"
 msgstr "Tili"
 
+msgid "Change profile picture"
+msgstr "Vaihda profiilisi kuva"
+
+msgid "Your current profile picture:"
+msgstr "Tämänhetkinen profiilisi kuva:"
+
 msgid "Update"
 msgstr "Päivitä"
+
+msgid "Change email"
+msgstr "Vaihda sähköpostiosoite"
+
+msgid "Change name"
+msgstr "Vaihda nimi"
 
 msgid "Change password"
 msgstr "Vaihda salasana"
@@ -227,6 +458,12 @@ msgid ""
 msgstr ""
 "Salasanaasi ei voi muuttaa täällä. Ole hyvä ja ota yhteys sivuston "
 "ylläpitäjään."
+
+msgid "Set Time Zone"
+msgstr "Aseta aikavyöhyke"
+
+msgid "Language Preferences"
+msgstr "Kieliasetukset"
 
 msgid "Notification preferences"
 msgstr "Ilmoitusasetukset"
@@ -243,8 +480,26 @@ msgstr "Kirjaudu sisään"
 msgid "Set your new password"
 msgstr "Aseta uusi salasana."
 
+msgid "Invalid password reset link"
+msgstr "Salasanan nollauslinkki ei kelpaa"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "Salasanan nollauslinkki ei kelpaa, sitä on ehkä jo käytetty."
+
+msgid "Request a new password reset"
+msgstr "Pyydä salasanan nollausta"
+
 msgid "Check your email"
 msgstr "Tarkista sähköpostisi"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Sinulle on lähetetty linkki salasanan nollausta varten, jos tällä "
+"osoitteella on käyttäjätili."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Ole hyvä ja seuraa alla olevaa linkkiä nollataksesi salasanasi:"
@@ -282,6 +537,34 @@ msgstr "Ulkoinen linkki"
 msgid "Email link"
 msgstr "Sähköpostilinkki"
 
+msgid "Phone link"
+msgstr "Puhelinnumerolinkki"
+
+msgid "Anchor link"
+msgstr "Ankkurilinkki"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Löytyi %(counter)s osuma"
+msgstr[1] ""
+"\n"
+"Löytyi %(counter)s osumaa"
+
+msgid "Add an anchor link"
+msgstr "Lisää ankkurilinkki"
+
+msgid "Insert anchor"
+msgstr "Lisää ankkuri"
+
 msgid "Choose"
 msgstr "Valitse"
 
@@ -317,8 +600,23 @@ msgstr "Lisää linkki"
 msgid "Add an external link"
 msgstr "Lisää ulkoinen linkki"
 
+msgid "Add a phone link"
+msgstr "Lisää puhelinnumerolinkki"
+
+msgid "Collection privacy"
+msgstr "Kokoelman yksityisyys"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Tämä kokoelma on yksityinen, koska sen isäntäkin on."
+
 msgid "You can edit the privacy settings on:"
 msgstr "Voit muokata yksityisyysasetuksia:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Yksityisyysasetukset määräävät, kuka saa nähdä tässä kokoelmassa olevat "
+"dokumentit."
 
 msgid "Save"
 msgstr "Tallenna"
@@ -326,8 +624,14 @@ msgstr "Tallenna"
 msgid "Privacy"
 msgstr "Yksityisyys"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Aseta kokoelman yksityisyys. Nyt: Julkinen"
+
 msgid "Public"
 msgstr "Julkinen"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Aseta kokoelman yksityisyys. Nyt: Yksityinen"
 
 msgid "Private"
 msgstr "Yksityinen"
@@ -348,6 +652,10 @@ msgstr ""
 "Kokoelmia ei ole luotu. Mikset vaikka <a href=\"%(add_collection_url)s"
 "\">loisi kokoelmaa</a>?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Lisää %(label)s"
+
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
 
@@ -362,8 +670,17 @@ msgstr ""
 "Tämä on kojelauta jossa näytetään hyödyllistä informaatiota luodusta "
 "sisällöstä."
 
+msgid "Your locked pages"
+msgstr "Lukitut sivusi"
+
+msgid "See all locked pages"
+msgstr "Katso kaikki lukitut sivut"
+
 msgid "Title"
 msgstr "Otsikko"
+
+msgid "Locked at"
+msgstr "Lukittu"
 
 msgid "Edit this page"
 msgstr "Muokkaa tätä sivua"
@@ -393,6 +710,9 @@ msgstr "Tyyppi"
 msgid "Edited"
 msgstr "Muokattu"
 
+msgid "Preview this page"
+msgstr "Esikatsele tätä sivua"
+
 msgid "Approve"
 msgstr "Hyväksy"
 
@@ -414,6 +734,26 @@ msgstr "Tila"
 msgid "Site summary"
 msgstr "Sivuston yhteenveto"
 
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> sivu <span class=\"visuallyhidden\">luotiin "
+"sivustolle %(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> sivua <span class=\"visuallyhidden\">luotiin "
+"sivustolle %(site_name)s</span>"
+
 msgid "Sign in"
 msgstr "Kirjaudu sisään"
 
@@ -427,6 +767,9 @@ msgstr "Kirjaudu sisään Wagtailiin"
 
 msgid "Forgotten it?"
 msgstr "Unohtui?"
+
+msgid "Signing in…"
+msgstr "Kirjaudutaan…"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -479,8 +822,50 @@ msgstr ""
 "Yksityisyyteen tehtävät muutokset vaikuttavat myös kaikkiin tämän sivun "
 "alasivuihin."
 
+msgid "This page is locked"
+msgstr "Tämä sivu on lukittu"
+
+msgid "This page is unlocked"
+msgstr "Tätä sivua ei ole lukittu"
+
+msgid "Remove editor lock"
+msgstr "Poista editorin lukitus"
+
+msgid "Unlock"
+msgstr "Poista lukitus"
+
+msgid "You don't have permission to unlock"
+msgstr "Sinulla ei ole oikeutta poistaa lukitusta"
+
+msgid "Apply editor lock"
+msgstr "Lukitse editori"
+
+msgid "Lock"
+msgstr "Lukitse"
+
+msgid "You don't have permission to lock"
+msgstr "Sinulla ei ole oikeutta lukita"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Aseta sivun yksityisyys. Nyt: Julkinen"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Aseta sivun yksityisyys. Nyt: Yksityinen"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Sivun yksityisyys. Nyt: Julkinen"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Sivun yksityisyys. Nyt: Yksityinen"
+
+msgid "Publishing…"
+msgstr "Julkaistaan…"
+
 msgid "Publish this revision"
 msgstr "Julkaise tämä versio"
+
+msgid "Saving…"
+msgstr "Tallennetaan…"
 
 msgid "Replace current draft"
 msgstr "Korvaa nykyinen luonnos"
@@ -570,11 +955,33 @@ msgstr "Piilota %(title)s"
 msgid "Are you sure you want to unpublish this page?"
 msgstr "Haluatko varmasti piilottaa tämän sivun?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage. Unpublish this too\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This page has %(live_descendant_count)s subpages. "
+"Unpublish these too\n"
+"                "
+msgstr[0] ""
+"\n"
+"Tällä sivulla on yksi alasivu. Poista myös sen julkaisu"
+msgstr[1] ""
+"\n"
+"Tällä sivulla on %(live_descendant_count)s alasivua. Poista niidenkin "
+"julkaisu"
+
 msgid "Yes, unpublish it"
 msgstr "Kyllä, piilota"
 
 msgid "No, don't unpublish"
 msgstr "Ei, älä piilota"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Sivut, joiden luokka on %(page_class_verbose_name)s"
 
 msgid "Pages using"
 msgstr "Käyttävät sivut"
@@ -596,6 +1003,9 @@ msgstr "Uusi %(page_type)s"
 msgid "New"
 msgstr "Uusi"
 
+msgid "Actions"
+msgstr "Toimet"
+
 msgid "This page has unsaved changes."
 msgstr "Tällä sivulla on tallentamattomia muutoksia."
 
@@ -616,7 +1026,7 @@ msgid "by %(modified_by)s"
 msgstr "tekijänä %(modified_by)s"
 
 msgid "Revisions"
-msgstr "Versiot"
+msgstr "Revisiot"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -714,6 +1124,12 @@ msgstr "Lisää alasivu sivulle '%(title)s'"
 msgid "Add child page"
 msgstr "Lisää alasivu"
 
+msgid "Sites menu"
+msgstr "Sivustot-valikko"
+
+msgid "Pagination"
+msgstr "Sivutus"
+
 #, python-format
 msgid ""
 "\n"
@@ -735,6 +1151,9 @@ msgstr "Sivu on suojattu näkymästä julkisesti"
 msgid "Disable ordering of child pages"
 msgstr "Estä alasivujen uudelleenjärjestäminen"
 
+msgid "Sort"
+msgstr "Järjestä"
+
 msgid "Enable ordering of child pages"
 msgstr "Salli alasivujen uudelleenjärjestäminen"
 
@@ -745,6 +1164,21 @@ msgstr "Valitse uusi isäntäsivu sivulle %(title)s"
 #, python-format
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Valitse uusi isäntäsivu sivulle <span>%(title)s</span>"
+
+msgid "Preview error"
+msgstr "VIrhe esikatselussa"
+
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Tätä sivua ei voi esikatsella, virheitä on jäljellä.\n"
+"Sulje tämä välilehti ja korjaa virheet muokkaamalla sivua,\n"
+"valitse sitten esikatselu uudelleen."
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -762,18 +1196,70 @@ msgstr "Kentät"
 msgid "Changes"
 msgstr "Muutokset"
 
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"Siirrettiin 1 sija alemmas."
+msgstr[1] ""
+"\n"
+"Siirrettin %(counter)s sijaa alemmas."
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"Siirrettiin 1 sija ylemmäs."
+msgstr[1] ""
+"\n"
+"Siirrettiin %(counter)s sijaa ylemmäs."
+
 msgid "There are no differences between these two revisions"
 msgstr "Revisioiden välillä ei ole eroavaisuuksia"
 
 #, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Poista ajastus sivun %(title)s versiolta %(revision.id)s"
+
+msgid "Unschedule"
+msgstr "Poista ajastus"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Haluatko varmasti poistaa ajastuksen tältä revisiolta?"
+
+msgid "Yes, unschedule"
+msgstr "Kyllä, poista ajastus"
+
+msgid "No, don't unschedule"
+msgstr "Ei, älä poista ajastusta"
+
+#, python-format
 msgid "Revisions of %(title)s"
-msgstr "Kohteen %(title)s versiot"
+msgstr "Kohteen %(title)s revisiot"
 
 msgid "Revisions of"
-msgstr "Versiot:"
+msgstr "Revisiot:"
 
 msgid "Revision date"
-msgstr "Version päivämäärä"
+msgstr "Revision päivämäärä"
 
 msgctxt "points to a user who created a revision"
 msgid "by"
@@ -782,17 +1268,26 @@ msgstr "tekijä"
 msgid "Current draft"
 msgstr "Nykyinen luonnos"
 
+msgid "Live version"
+msgstr "Esillä oleva versio"
+
+msgid "Scheduled for"
+msgstr "Ajastettu ajalle"
+
 msgid "Review this revision"
-msgstr "Tarkastele tätä versiota"
+msgstr "Tarkastele tätä revisiota"
 
 msgid "Compare with previous revision"
 msgstr "Vertaile edellisen revision kanssa"
 
+msgid "Cancel scheduled publish"
+msgstr "Peruuta ajastettu julkaisu"
+
 msgid "No revisions of this page exist"
-msgstr "Tästä sivusta ei ole versioita"
+msgstr "Tästä sivusta ei ole revisioita"
 
 msgid "No revision of this page exist"
-msgstr "Sivusta ei ole versioita"
+msgstr "Sivusta ei ole revisioita"
 
 #, python-format
 msgid ""
@@ -810,6 +1305,9 @@ msgstr[1] ""
 "\n"
 "Löytyi %(counter)s täsmäävää sivua"
 
+msgid "Page types"
+msgstr "Sivutyypit"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Pahoittelut, yksikään sivu ei täsmää hakuun <em>%(query_string)s</em>."
@@ -823,12 +1321,53 @@ msgstr "Yhtään sivua ei käytä"
 msgid "Collection"
 msgstr "Kokoelma"
 
+msgid "No pages match this report's criteria."
+msgstr "Raportin hakuehtoja vastaavia sivuja ei löytynyt."
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"<b>Sinä</b> lukitsit <b>%(locking_date)s</b>"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"<b>%(locked_by)s</b> lukitsi <b>%(locking_date)s</b>"
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"Lukittu <b>%(locking_date)s</b>"
+
 msgid "Locked"
 msgstr "Lukittu"
+
+msgid "No locked pages found."
+msgstr "Lukittuja sivuja ei löytynyt."
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
+
+msgid "Breadcrumb"
+msgstr "Linkkipolku"
+
+msgid "Root"
+msgstr "Juuri"
 
 msgid "Home"
 msgstr "Koti"
@@ -845,8 +1384,37 @@ msgstr "Tiliasetukset"
 msgid "Log out"
 msgstr "Kirjaudu ulos"
 
+msgid "Visit the live page"
+msgstr "Vieraile sivulla"
+
+msgid "Current page status:"
+msgstr "Sivun tila nyt:"
+
 msgid "Other searches"
 msgstr "Muut haut"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Tämä ohjelmisto ei tue käyttämääsi <strong>vanhentunutta</strong> selainta. "
+"Ole hyvä ja <a href=\"https://browsehappy.com/\">päivitä selaimesi</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"Wagtail vaatii toimiakseen Javascriptiä, mutta sen käyttö on estetty.<br />\n"
+"Näillä <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" rel="
+"\"noopener noreferrer\">ohjeilla voit sallia Javascriptin käytön "
+"selaimessasi</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Siirry Wagtailin hallintaan"
@@ -857,11 +1425,37 @@ msgstr "Lisää alasivu"
 msgid "Show in Explorer"
 msgstr "Näytä sivuselaimessa"
 
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Järjestä sivun '%(parent)s' alasivut kentän '%(label)s' mukaan nousevasti. "
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Järjestä sivun '%(parent)s' alasivut kentän '%(label)s' mukaan laskevasti."
+
 msgid "Test"
 msgstr "Testi"
 
 msgid "Your password has been changed successfully!"
 msgstr "Salasanasi on vaihdettu."
+
+msgid "Your email has been changed successfully!"
+msgstr "Sähköpostiosoitteesi on vaihdettu!"
+
+msgid "Your name has been changed successfully!"
+msgstr "Nimesi on vaihdettu!"
+
+msgid "Your preferences have been updated."
+msgstr "Asetuksesi on päivitetty."
+
+msgid "Your preferences have been updated successfully!"
+msgstr "Asetuksesi on päivitetty."
 
 msgid "You have been successfully logged out."
 msgstr "Olet kirjautunut ulos."
@@ -920,14 +1514,29 @@ msgstr "Sivu '{0}' luotu."
 msgid "The page could not be created due to validation errors"
 msgstr "Sivua ei voitu luoda validointivirheiden vuoksi."
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Sinä</b> lukitsit <b>sivun '{}'</b> <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Sinä</b> olet lukinnut <b>sivun '{}'</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Sivun '{}' lukitsi</b> <b>{}</b> <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Sivu '{}' on lukittu.</b>"
+
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Versio {0} sivusta '{1}' on ajastettu julkaistavaksi."
+msgstr "Revisio {0} sivusta '{1}' on ajastettu julkaistavaksi."
+
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr "Sivu '{0}' on esillä ja tämän version julkaiseminen on ajastettu."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sivu '{0}' on ajastettu julkaistavaksi."
 
 msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Versio {0} sivusta '{1}' on julkaistu"
+msgstr "Revisio {0} sivusta '{1}' on julkaistu"
 
 msgid "Page '{0}' has been published."
 msgstr "Sivu '{0}' julkaistu."
@@ -936,7 +1545,7 @@ msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sivu '{0}' on lähetetty tarkastettavaksi."
 
 msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Sivu '{0}' on korvattu versiolla {1}."
+msgstr "Sivu '{0}' on korvattu revisiolla {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Sivu '{0}' päivitetty."
@@ -958,6 +1567,13 @@ msgstr "Sivu '{0}' poistettu."
 
 msgid "Page '{0}' unpublished."
 msgstr "Sivu '{0}' piilotettu"
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Lyhytnimi '{0}' on jo käytössä tällä isäntäsivulla. Valitse lyhytnimi, joka "
+"ei ole käytössä"
 
 msgid "Page '{0}' moved."
 msgstr "Sivu '{0}' siirretty."
@@ -991,8 +1607,8 @@ msgid ""
 "You are viewing a previous revision of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
-"Katselet tämän sivun aiempaa versiota (luotu <b>%(created_at)s</b>, käyttäjä "
-"%(user)s)"
+"Katselet tämän sivun aiempaa revisiota (luotu <b>%(created_at)s</b>, "
+"käyttäjä %(user)s)"
 
 msgid "Earliest"
 msgstr "Aikaisin"
@@ -1000,14 +1616,124 @@ msgstr "Aikaisin"
 msgid "Latest"
 msgstr "Viimeisin"
 
+msgid "revision {0} of \"{1}\""
+msgstr "sivun \"{1}\" revisio {0}"
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Sivun \"{1}\" revisiota {0} ei ole ajastettu."
+
+msgid "Locked Pages"
+msgstr "Lukitut sivut"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Muokkaa sivua '%(title)s'"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Esikatsele sivun '%(title)s' vedosta"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Katso sivun '%(title)s' esillä olevaa versiota"
+
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Lisää sivulle '%(title)s' alasivu"
+
 msgid "More"
 msgstr "Lisää"
+
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Lisää valintoja sivulle '%(title)s'"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Siirrä sivu '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Kopioi sivu '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Poista sivu '%(title)s'"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Peruuta sivun '%(title)s' julkaisu"
+
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "Katso sivun '%(title)s' revisiohistoriaa"
+
+msgid "Set profile picture"
+msgstr "Aseta profiilin kuva"
+
+msgid "Change your profile picture."
+msgstr "Vaihda profiilisi kuva."
+
+msgid "Change the email address linked to your account."
+msgstr "Vaihda tilisi sähköpostiosoite."
 
 msgid "Change the password you use to log in."
 msgstr "Vaihda salasana jota käytät sisäänkirjautumiseen."
 
 msgid "Choose which email notifications to receive."
 msgstr "Valitse mitä sähköposti-ilmoituksia saat."
+
+msgid "Language preferences"
+msgstr "Kielivalinnat"
+
+msgid "Choose the language you want to use here."
+msgstr "Valitse kieli, jota haluat käyttää täällä."
+
+msgid "Current Time Zone"
+msgstr "Nykyinen aikavyöhyke"
+
+msgid "Choose your current time zone."
+msgstr "Valitse nykyinen aikavyöhykkeesi."
+
+msgid "Change your first and last name on your account."
+msgstr "Vaihda tilisi etu- ja sukunimi."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Otsikko %(level)d"
+
+msgid "Bulleted list"
+msgstr "Numeroimaton luettelo"
+
+msgid "Numbered list"
+msgstr "Numeroitu luettelo"
+
+msgid "Blockquote"
+msgstr "Lainaus"
+
+msgid "Bold"
+msgstr "Lihavoitu"
+
+msgid "Italic"
+msgstr "Kursiivi"
+
+msgid "Link"
+msgstr "Linkki"
+
+msgid "Superscript"
+msgstr "Yläindeksi"
+
+msgid "Subscript"
+msgstr "Alaindeksi"
+
+msgid "Strikethrough"
+msgstr "Yliviivattu"
+
+msgid "Code"
+msgstr "Koodi"
+
+msgid "Reports"
+msgstr "Raportit"
 
 msgid "Choose an item"
 msgstr "Valitse vaihtoehto"

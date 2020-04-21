@@ -7,13 +7,14 @@
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2019
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
+# Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-30 14:33+0000\n"
+"Last-Translator: Stefano Marchetto <airbatum@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Immagini Wagtail"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -272,6 +276,12 @@ msgstr "Uso"
 
 msgid "Images"
 msgstr "Immagini"
+
+msgid "Popular Tags:"
+msgstr "Tag Popolari:"
+
+msgid "Clear choice"
+msgstr "Azzera scelta"
 
 msgid "pixels"
 msgstr "pixel"

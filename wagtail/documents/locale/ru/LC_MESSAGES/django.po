@@ -11,14 +11,15 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
+# sergeybe <sergeybe@gmail.com>, 2020
 # Михаил Герасимов, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-06 20:18+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +29,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail documents"
+msgstr "Документы Wagtail"
 
 msgid "Add"
 msgstr "Добавить"
@@ -59,6 +63,9 @@ msgstr "тэги"
 msgid "document"
 msgstr "документ"
 
+msgid "documents"
+msgstr "документы"
+
 msgid "Choose a document"
 msgstr "Выберите документ"
 
@@ -71,6 +78,28 @@ msgstr "Загрузка"
 msgid "Uploading…"
 msgstr "Загрузка..."
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Найдено %(counter)s совпадение"
+msgstr[1] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[2] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[3] ""
+"\n"
+"Найдено %(counter)s совпадений"
+
 msgid "Latest documents"
 msgstr "Последние документы"
 
@@ -78,6 +107,23 @@ msgstr "Последние документы"
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Извините, подходящих документов не найдено \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Вы не загрузили документы в эту коллекцию."
+
+msgid "You haven't uploaded any documents."
+msgstr "Вы не загрузили каких-либо документов."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"Почему бы не <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">загрузить сейчас</a>? "
 
 msgid "Change document:"
 msgstr "Изменить документ:"
@@ -95,11 +141,22 @@ msgstr "Удалить %(title)s"
 msgid "Delete document"
 msgstr "Удалить документ"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Использован %(usage_count)s раз."
+msgstr[1] "Использован %(usage_count)s раз."
+msgstr[2] "Использован %(usage_count)s раз."
+msgstr[3] "Использован %(usage_count)s раз."
+
 msgid "Are you sure you want to delete this document?"
 msgstr "Вы уверены, что хотите удалить этот документ?"
 
 msgid "Yes, delete"
 msgstr "Да, удалить"
+
+msgid "No, don't delete"
+msgstr "Нет, не удалять"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -117,6 +174,9 @@ msgstr "Размер файла"
 msgid "File not found"
 msgstr "Файл не найден"
 
+msgid "Usage"
+msgstr "Использование"
+
 msgid "Documents"
 msgstr "Документы"
 
@@ -125,6 +185,12 @@ msgstr "Заголовок"
 
 msgid "File"
 msgstr "Файл"
+
+msgid "Collection"
+msgstr "Коллекция"
+
+msgid "Created"
+msgstr "Создан"
 
 #, python-format
 msgid "%(time_period)s ago"

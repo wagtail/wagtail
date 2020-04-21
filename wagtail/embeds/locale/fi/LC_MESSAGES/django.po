@@ -5,13 +5,14 @@
 # Translators:
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-18 18:06+0000\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail embeds"
+msgstr "Wagtailin upotteet"
 
 msgid "Cannot find an embed for this URL."
 msgstr "Osoitteelle ei löytynyt upotetta."
@@ -31,6 +35,9 @@ msgstr "Syötä kelvollinen URL-osoite"
 
 msgid "embed"
 msgstr "upote"
+
+msgid "embeds"
+msgstr "upotetta"
 
 msgid "Insert embed"
 msgstr "Lisää upote"
@@ -51,3 +58,6 @@ msgid ""
 msgstr ""
 "Embedly-palvelun kanssa vaikuttaisi olevan ongelma. Kokeile myöhemmin "
 "uudelleen"
+
+msgid "Embed"
+msgstr "Upote"

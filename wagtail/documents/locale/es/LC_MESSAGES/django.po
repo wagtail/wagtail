@@ -13,14 +13,15 @@
 # José Luis <alagunajs@gmail.com>, 2018
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
+# Oscar Luciano Espirilla Flores, 2020
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-13 17:42+0000\n"
+"Last-Translator: Oscar Luciano Espirilla Flores\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -148,6 +149,9 @@ msgstr "¿Seguro que quieres eliminar este documento?"
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
 
+msgid "No, don't delete"
+msgstr "No, no eliminar"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Editando %(title)s"
@@ -178,6 +182,9 @@ msgstr "Archivo"
 
 msgid "Collection"
 msgstr "Colección"
+
+msgid "Created"
+msgstr "Creado en"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -217,6 +224,28 @@ msgstr "Estado"
 
 msgid "Edit this page"
 msgstr "Editar esta página"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Documentos <span class=\"visuallyhidden"
+"\">creados en %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Documentos <span class=\"visuallyhidden"
+"\">creados en %(site_name)s</span>\n"
+"    "
 
 msgid "Add multiple documents"
 msgstr "Añadir múltiples documentos"

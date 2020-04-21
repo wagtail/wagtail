@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andy Kong <worminfo@gmail.com>, 2020
 # c o <ihcgno@icloud.com>, 2019
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-07 11:14+0000\n"
+"Last-Translator: Andy Kong <worminfo@gmail.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -21,16 +22,19 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Publish"
-msgstr "發布"
+msgstr "發佈"
 
 msgid "Submit for moderation"
 msgstr "提交審核"
 
 msgid "Unpublish"
-msgstr "取消發布"
+msgstr "取消發佈"
 
 msgid "Delete"
 msgstr "刪除"
+
+msgid "Save Draft"
+msgstr "儲存草稿"
 
 msgid "Page locked"
 msgstr "頁面已鎖定"
@@ -48,7 +52,7 @@ msgid "None"
 msgstr "無"
 
 msgid "Scheduled publishing"
-msgstr "定時發布"
+msgstr "定時發佈"
 
 msgid "Common page configuration"
 msgstr "常用頁面配置"
@@ -88,21 +92,21 @@ msgid "This copy will be a child of this given parent page."
 msgstr "此副本將成為指定父頁面的子頁面。"
 
 msgid "Copy subpages"
-msgstr "復制子頁面"
+msgstr "複製子頁面"
 
 #, python-format
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
-msgstr[0] "此操作將復制%(count)s 子頁面。"
+msgstr[0] "此操作將複製%(count)s 子頁面。"
 
 msgid "Publish copied page"
-msgstr "發布復制的頁面。"
+msgstr "發佈已複製的頁面。"
 
 msgid "This page is live. Would you like to publish its copy as well?"
-msgstr "此頁面已上線。是否同時發布其副本？"
+msgstr "此頁面已上線。是否同時發佈其副本？"
 
 msgid "Publish copies"
-msgstr "發布副本"
+msgstr "發佈副本"
 
 #, python-format
 msgid ""
@@ -111,11 +115,11 @@ msgid ""
 msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
-msgstr[0] "正在復制的 %(count)s 個頁面已是發布狀態，你要發布他們的副本嗎？"
+msgstr[0] "正在複製的 %(count)s 個頁面已是發佈狀態，你要發佈他們的副本嗎？"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
-msgstr "你沒有權限復制到頁面“%(page_title)s”"
+msgstr "你沒有權限複製到頁面“%(page_title)s”"
 
 #, python-format
 msgid ""
@@ -123,7 +127,7 @@ msgid ""
 msgstr "此縮略名在其父頁面\"%s\"上下文中已被使用。"
 
 msgid "You cannot copy a page into itself when copying subpages"
-msgstr "你在復制子頁面時不能復制當前頁面本身"
+msgstr "你在複製子頁面時不能複製當前頁面本身"
 
 msgid "This slug is already in use"
 msgstr "此短標題已被使用"
@@ -695,10 +699,10 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr "私有設置也會應用到此頁面的所有子頁面。"
 
 msgid "Publishing…"
-msgstr "正在發布..."
+msgstr "正在發佈..."
 
 msgid "Publish this revision"
-msgstr "發布這個版本"
+msgstr "發佈這個版本"
 
 msgid "Saving…"
 msgstr "正在保存..."
@@ -756,8 +760,8 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"或者你可以 <a href=\"%(unpublish_url)s\">取消發布此頁面</a>。此頁面將不再公開"
-"展示，稍後你可以進行編輯或者重新發布。"
+"或者你可以 <a href=\"%(unpublish_url)s\">取消發佈此頁面</a>。此頁面將不再公開"
+"展示，稍後你可以進行編輯或者重新發佈。"
 
 #, python-format
 msgid "Move %(title)s"
@@ -781,10 +785,10 @@ msgstr "是的，請開始移動吧"
 
 #, python-format
 msgid "Unpublish %(title)s"
-msgstr "取消發布%(title)s"
+msgstr "取消發佈%(title)s"
 
 msgid "Are you sure you want to unpublish this page?"
-msgstr "此頁面確定要取消發布嗎？"
+msgstr "此頁面確定要取消發佈嗎？"
 
 #, python-format
 msgid ""
@@ -799,14 +803,14 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "                    此頁面有 %(live_descendant_count)s 個子頁面。它們也都會被"
-"取消發布\n"
+"取消發佈\n"
 "                "
 
 msgid "Yes, unpublish it"
-msgstr "是，取消發布"
+msgstr "是，取消發佈"
 
 msgid "No, don't unpublish"
-msgstr "否，不取消發布"
+msgstr "否，不取消發佈"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -817,13 +821,13 @@ msgstr "頁面使用"
 
 #, python-format
 msgid "Copy %(title)s"
-msgstr "復制%(title)s"
+msgstr "複製%(title)s"
 
 msgid "Copy"
-msgstr "復制"
+msgstr "複製"
 
 msgid "Copy this page"
-msgstr "復制此頁"
+msgstr "複製此頁"
 
 #, python-format
 msgid "New %(page_type)s"
@@ -1051,19 +1055,19 @@ msgstr "這兩個修訂版本內容一致。"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "取消%(title)s修訂版本%(revision.id)s的預定發布"
+msgstr "取消%(title)s修訂版本%(revision.id)s的預定發佈"
 
 msgid "Unschedule"
-msgstr "取消預定發布"
+msgstr "取消預定發佈"
 
 msgid "Are you sure you want to unschedule this revision?"
-msgstr "確定要取消這個修訂版本的預定發布嗎？"
+msgstr "確定要取消這個修訂版本的預定發佈嗎？"
 
 msgid "Yes, unschedule"
-msgstr "是的，取消定時發布"
+msgstr "是的，取消定時發佈"
 
 msgid "No, don't unschedule"
-msgstr "否，不取消預定發布"
+msgstr "否，不取消預定發佈"
 
 #, python-format
 msgid "Revisions of %(title)s"
@@ -1086,7 +1090,7 @@ msgid "Live version"
 msgstr "線上版本"
 
 msgid "Scheduled for"
-msgstr "定時發布"
+msgstr "定時發佈"
 
 msgid "Review this revision"
 msgstr "查看這個修訂"
@@ -1095,7 +1099,7 @@ msgid "Compare with previous revision"
 msgstr "與上一個修訂版本進行比較"
 
 msgid "Cancel scheduled publish"
-msgstr "取消預定的發布"
+msgstr "取消預定的發佈"
 
 msgid "No revisions of this page exist"
 msgstr "當前頁面沒有修訂記錄"
@@ -1221,13 +1225,13 @@ msgid "Editing"
 msgstr "正在編輯"
 
 msgid "Page '{0}' created and scheduled for publishing."
-msgstr "頁面 {0} 已創建並計劃發布中。"
+msgstr "頁面 {0} 已創建並計劃發佈中。"
 
 msgid "View live"
 msgstr "即時查看"
 
 msgid "Page '{0}' created and published."
-msgstr "頁面'{0}'已創建並發布。"
+msgstr "頁面'{0}'已創建並發佈。"
 
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "頁面 '{0}' 已創建並提交審核。"
@@ -1245,19 +1249,19 @@ msgid "The page could not be created due to validation errors"
 msgstr "驗證錯誤，頁面無法創建。"
 
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "頁面 {1} 的版本 {0} 正在計劃發布中。"
+msgstr "頁面 {1} 的版本 {0} 正在排程發佈中。"
 
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "頁面 {0} 已上線，此修訂版本已預定發布時間。"
+msgstr "頁面 {0} 已上線，此修訂版本已預定發佈時間。"
 
 msgid "Page '{0}' has been scheduled for publishing."
-msgstr "頁面 {0} 已預定發布時間。"
+msgstr "頁面 {0} 已預定發佈時間。"
 
 msgid "Revision from {0} of page '{1}' has been published."
-msgstr "頁面 '{1}' 的修訂版本 {0} 已經發布。"
+msgstr "頁面 '{1}' 的修訂版本 {0} 已經發佈。"
 
 msgid "Page '{0}' has been published."
-msgstr "頁面 '{0}' 已經發布。"
+msgstr "頁面 '{0}' 已經發佈。"
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "頁面 '{0}' 已經提交給版主。"
@@ -1284,22 +1288,22 @@ msgid "Page '{0}' deleted."
 msgstr "頁面'{0}'已刪除"
 
 msgid "Page '{0}' unpublished."
-msgstr "頁面'{0}'已取消發布。"
+msgstr "頁面'{0}'已取消發佈。"
 
 msgid "Page '{0}' moved."
 msgstr "頁面 '{0}' 已移動。"
 
 msgid "Page '{0}' and {1} subpages copied."
-msgstr "頁面 '{0}' 和 {1} 個子頁面已復制。"
+msgstr "頁面 '{0}' 和 {1} 個子頁面已複製。"
 
 msgid "Page '{0}' copied."
-msgstr "頁面'{0}'已復制。"
+msgstr "頁面'{0}'已複製。"
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "頁面 '{0}'目前不在等待審核。"
 
 msgid "Page '{0}' published."
-msgstr "頁面'{0}'已發布"
+msgstr "頁面'{0}'已發佈"
 
 msgid "Failed to send approval notifications"
 msgstr "發送批準通知失敗。"
@@ -1331,7 +1335,11 @@ msgid "revision {0} of \"{1}\""
 msgstr " \"{1}\"的修訂版本{0}"
 
 msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr " \"{1}\"的修訂版本{0}已取消預定的發布。"
+msgstr " \"{1}\"的修訂版本{0}已取消預定的發佈。"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "預覽草稿版本 '%(title)s'"
 
 msgid "More"
 msgstr "更多"

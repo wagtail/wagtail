@@ -4,14 +4,15 @@
 #
 # Translators:
 # José Luis <alagunajs@gmail.com>, 2016,2018
+# Oscar Luciano Espirilla Flores, 2020
 # José Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-10-16 17:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-13 20:29+0000\n"
+"Last-Translator: Oscar Luciano Espirilla Flores\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -34,3 +35,13 @@ msgstr "Cabecera de columna"
 
 msgid "Display the first column as a header."
 msgstr "Mostrar la primera columna como cabecera."
+
+msgid "Table caption"
+msgstr "Table caption"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"Un encabezado que identifica el tema general de la tabla y es útil para los "
+"lectores"

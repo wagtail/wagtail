@@ -8,6 +8,7 @@
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Мирон Левицкий <miron200504@gmail.com>, 2018
@@ -17,8 +18,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-06 20:03+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,10 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: у этого блока нет опций."
 
 msgid "This block has no options."
 msgstr "Этот блок не имеет опций."
@@ -165,6 +170,12 @@ msgstr "истекло"
 msgid "locked"
 msgstr "заблокировано"
 
+msgid "locked at"
+msgstr "заблокирован в"
+
+msgid "locked by"
+msgstr "заблокирован"
+
 msgid "first published at"
 msgstr "впервые опубликовано"
 
@@ -245,6 +256,15 @@ msgstr "Удалить вместе с дочерними страницами"
 
 msgid "Lock"
 msgstr "Заблокировать"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Ваши заблокированные/разблокированные страницы"
+
+msgid "Unlock"
+msgstr "Разблокировать"
+
+msgid "Unlock any page"
+msgstr "Разблокировать любую страницу"
 
 msgid "group"
 msgstr "группа"
