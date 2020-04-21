@@ -445,6 +445,7 @@ Contributors
 * Mohamed Feddad
 * Michał (Quadric) Sieradzki
 * Vlad Gerasimenko
+* Tomonori Tanabe
 
 Translators
 ===========

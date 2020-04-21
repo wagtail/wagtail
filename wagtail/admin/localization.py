@@ -22,7 +22,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('id-id', gettext_lazy('Indonesian')),
     ('is-is', gettext_lazy('Icelandic')),
     ('it', gettext_lazy('Italian')),
-    ('jp', gettext_lazy('Japanese')),
+    ('ja', gettext_lazy('Japanese')),
     ('ko', gettext_lazy('Korean')),
     ('lt', gettext_lazy('Lithuanian')),
     ('mn', gettext_lazy('Mongolian')),

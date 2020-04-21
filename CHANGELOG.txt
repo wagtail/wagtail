@@ -51,6 +51,7 @@ Changelog
  * Fix: Improved accessibility fixes for `main`, `header` and `footer` elements in the admin page layout (Mitchel Cabuloy)
  * Fix: Prevent version number from obscuring long settings menus (Naomi Morduch Toubman)
  * Fix: Admin views using TemplateResponse now respect the user's language setting (Jacob Topp-Mugglestone)
+ * Fix: Fixed incorrect language code for Japanese in language setting dropdown (Tomonori Tanabe)
 
 
 2.8.1 (14.04.2020)
