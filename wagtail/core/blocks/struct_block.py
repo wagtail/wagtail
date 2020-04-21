@@ -150,6 +150,45 @@ class BaseStructBlock(Block):
             for name, child_block in self.child_blocks.items()
         ])
 
+    def bulk_to_python(self, values):
+        # values is a list of dicts; split this into a series of per-subfield lists so that we can
+        # call bulk_to_python on each subfield
+
+        values_by_subfield = {}
+        for name, child_block in self.child_blocks.items():
+            # We need to keep track of which dicts actually have an item for this field, as missing
+            # values will be populated with child_block.get_default(); this is expected to be a
+            # value in the block's native type, and should therefore not undergo conversion via
+            # bulk_to_python.
+            indexes = []
+            raw_values = []
+            for i, val in enumerate(values):
+                if name in val:
+                    indexes.append(i)
+                    raw_values.append(val[name])
+
+            converted_values = child_block.bulk_to_python(raw_values)
+            # create a mapping from original index to converted value
+            converted_values_by_index = dict(zip(indexes, converted_values))
+
+            # now loop over all list indexes, falling back on the default for any indexes not in
+            # the mapping, to arrive at the final list for this subfield
+            default = child_block.get_default()
+            values_by_subfield[name] = [
+                converted_values_by_index.get(i, default)
+                for i in range(0, len(values))
+            ]
+
+        # now form the final list of StructValues, with each one constructed by taking the
+        # appropriately-indexed item from all of the per-subfield lists
+        return [
+            self._to_struct_value({
+                name: values_by_subfield[name][i]
+                for name in self.child_blocks.keys()
+            })
+            for i in range(0, len(values))
+        ]
+
     def _to_struct_value(self, block_items):
         """ Return a Structvalue representation of the sub-blocks in this block """
         return self.meta.value_class(self, block_items)

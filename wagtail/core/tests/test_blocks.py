@@ -3286,6 +3286,35 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(html.count(' profile-block-large'), 1)
 
 
+class TestStructBlockWithFixtures(TestCase):
+    fixtures = ['test.json']
+
+    def test_bulk_to_python(self):
+        page_link_block = blocks.StructBlock([
+            ('page', blocks.PageChooserBlock(required=False)),
+            ('link_text', blocks.CharBlock(default="missing title")),
+        ])
+
+        with self.assertNumQueries(1):
+            result = page_link_block.bulk_to_python([
+                {'page': 2, 'link_text': 'page two'},
+                {'page': 3, 'link_text': 'page three'},
+                {'page': None, 'link_text': 'no page'},
+                {'page': 4},
+            ])
+
+        result_types = [type(val) for val in result]
+        self.assertEqual(result_types, [blocks.StructValue] * 4)
+
+        result_titles = [val['link_text'] for val in result]
+        self.assertEqual(result_titles, ['page two', 'page three', 'no page', 'missing title'])
+
+        result_pages = [val['page'] for val in result]
+        self.assertEqual(result_pages, [
+            Page.objects.get(id=2), Page.objects.get(id=3), None, Page.objects.get(id=4)
+        ])
+
+
 class TestPageChooserBlock(TestCase):
     fixtures = ['test.json']
 
