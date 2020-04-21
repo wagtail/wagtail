@@ -4,8 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 
 from wagtail.admin.forms.choosers import (
-    EmailLinkChooserForm, ExternalLinkChooserForm, PhoneLinkChooserForm)
-    AnchorLinkChooserForm, EmailLinkChooserForm, ExternalLinkChooserForm)
+    AnchorLinkChooserForm, EmailLinkChooserForm, ExternalLinkChooserForm, PhoneLinkChooserForm)
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core import hooks
