@@ -37,6 +37,7 @@ for file_listing_line in file_listing.stdout:
 
 LANGUAGE_OVERRIDES = {
     'tet': 'Tetum',
+    'ht': 'Haitian',
 }
 
 
