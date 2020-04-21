@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -145,29 +145,29 @@ msgstr ""
 msgid "Submission date"
 msgstr ""
 
-#: models.py:249
+#: models.py:253
 msgid "Form"
 msgstr ""
 
-#: models.py:250
+#: models.py:254
 msgid "Landing page"
 msgstr ""
 
-#: models.py:267
+#: models.py:271
 msgid "to address"
 msgstr ""
 
-#: models.py:268
+#: models.py:272
 msgid ""
 "Optional - form submissions will be emailed to these addresses. Separate "
 "multiple addresses by comma."
 msgstr ""
 
-#: models.py:270
+#: models.py:274
 msgid "from address"
 msgstr ""
 
-#: models.py:271
+#: models.py:275
 msgid "subject"
 msgstr ""
 
@@ -218,20 +218,24 @@ msgstr ""
 msgid "Submissions of %(form_title)s"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:91
+#: templates/wagtailforms/index_submissions.html:90
 #, python-format
 msgid "Form data <span>%(form_title)s</span>"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:100
+#: templates/wagtailforms/index_submissions.html:99
 msgid "Filter"
 msgstr ""
 
 #: templates/wagtailforms/index_submissions.html:106
+msgid "Download XLSX"
+msgstr ""
+
+#: templates/wagtailforms/index_submissions.html:109
 msgid "Download CSV"
 msgstr ""
 
-#: templates/wagtailforms/index_submissions.html:118
+#: templates/wagtailforms/index_submissions.html:123
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
 msgstr ""

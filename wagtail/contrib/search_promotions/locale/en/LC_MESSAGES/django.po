@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"POT-Creation-Date: 2020-04-21 14:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -172,30 +172,30 @@ msgid ""
 "\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:47
+#: views.py:48
 msgid "Search promoted results"
 msgstr ""
 
-#: views.py:84
+#: views.py:85
 msgid "Editor's picks for '{0}' created."
 msgstr ""
 
-#: views.py:85 views.py:124
+#: views.py:86 views.py:125
 msgid "Edit"
 msgstr ""
 
-#: views.py:94
+#: views.py:95
 msgid "Recommendations have not been created due to errors"
 msgstr ""
 
-#: views.py:123
+#: views.py:124
 msgid "Editor's picks for '{0}' updated."
 msgstr ""
 
-#: views.py:132
+#: views.py:133
 msgid "Recommendations have not been saved due to errors"
 msgstr ""
 
-#: views.py:153
+#: views.py:154
 msgid "Editor's picks deleted."
 msgstr ""
