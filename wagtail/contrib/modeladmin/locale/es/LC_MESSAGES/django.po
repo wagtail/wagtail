@@ -5,14 +5,15 @@
 # Translators:
 # José Luis <alagunajs@gmail.com>, 2016,2018
 # Matt Westcott <matthew@torchbox.com>, 2016
+# Oscar Luciano Espirilla Flores, 2020
 # José Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-13 17:52+0000\n"
+"Last-Translator: Oscar Luciano Espirilla Flores\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -114,6 +115,9 @@ msgstr "Volver al listado"
 msgid "Yes, delete"
 msgstr "Si, eliminar"
 
+msgid "No, don't delete"
+msgstr "No, no eliminar"
+
 msgid "Home"
 msgstr "Hogar"
 
@@ -160,6 +164,9 @@ msgstr ""
 "\">añades uno</a>?\n"
 "                                            "
 
+msgid "Pagination"
+msgstr "Paginación"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Página %(current_page)s de %(num_pages)s."
@@ -173,6 +180,10 @@ msgstr "Anterior"
 
 msgid "Next"
 msgstr "Siguiente"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' creado."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -193,6 +204,10 @@ msgid "Editing %s"
 msgstr "Editando %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' actualizado."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "El %s no puede ser guardado debido a errores."
 
@@ -207,6 +222,10 @@ msgid ""
 msgstr ""
 "Está seguro de que quiere eliminar este %s? Si otras cosas en este sitio "
 "están relacionadas a esta, estas se verán afectadas también."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' eliminado."
 
 msgid "Inspecting"
 msgstr "Inspeccionar"

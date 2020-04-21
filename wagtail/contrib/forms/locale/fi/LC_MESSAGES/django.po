@@ -6,13 +6,14 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 20:15+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-18 17:11+0000\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail forms"
+msgstr "Wagtailin lomakkeet"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s lähetykset"
+
+msgid "Date from"
+msgstr "Lähtien"
+
+msgid "Date to"
+msgstr "Asti"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -50,6 +64,9 @@ msgstr "Monivalinta"
 msgid "Drop down"
 msgstr "Pudotusvalikko"
 
+msgid "Multiple select"
+msgstr "Monivalinta"
+
 msgid "Radio buttons"
 msgstr "Valintanapit"
 
@@ -59,11 +76,17 @@ msgstr "Pvm"
 msgid "Date/time"
 msgstr "Päivämäärä/aika"
 
+msgid "Hidden field"
+msgstr "Piilotettu kenttä"
+
 msgid "submit time"
 msgstr "lähetysaika"
 
 msgid "form submission"
 msgstr "lomakelähetys"
+
+msgid "form submissions"
+msgstr "lomakkeen lähetykset"
 
 msgid "label"
 msgstr "otsikko"
@@ -96,6 +119,15 @@ msgstr "Oletusarvo. Pilkulla erotellut arvot käyvät valintalaatikkokenttiin."
 msgid "help text"
 msgstr "aputeksti"
 
+msgid "Submission date"
+msgstr "Lähetetty"
+
+msgid "Form"
+msgstr "Lomake"
+
+msgid "Landing page"
+msgstr "Saapumissivu"
+
 msgid "to address"
 msgstr "lähetysosoite"
 
@@ -112,8 +144,36 @@ msgstr "lähettäjäosoite"
 msgid "subject"
 msgstr "otsake"
 
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Poista lomakkeen %(title)s tiedot"
+
+msgid "Delete form data"
+msgstr "Poista lomakkeen tiedot"
+
+msgid ""
+"\n"
+"                Are you sure you want to delete this form submission?\n"
+"            "
+msgid_plural ""
+"\n"
+"                Are you sure you want to delete these form submissions?\n"
+"            "
+msgstr[0] ""
+"\n"
+"Haluatko varmasti poistaa tämän lomakkeen tiedot?"
+msgstr[1] ""
+"\n"
+"Haluatko varmasti poistaa nämä lomakkeen tiedot?"
+
 msgid "Delete"
 msgstr "Poista"
+
+msgid "Total submissions"
+msgstr "Lähettyjä yhteensä"
+
+msgid "Latest submission"
+msgstr "Viimeksi lähetetty"
 
 msgid "Forms"
 msgstr "Lomakkeet"
@@ -145,5 +205,14 @@ msgstr "Otsikko"
 msgid "Origin"
 msgstr "Lähde"
 
+msgid "Delete selected submissions"
+msgstr "Poista valitut tiedot"
+
 msgid "No form pages have been created."
 msgstr "Lomakesivuja ei ole luotu."
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Yksi lähetys poistettu."
+msgstr[1] "%(count)d lähetystä on poistettu."

@@ -8,7 +8,7 @@
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Mateusz <undefined5102@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2018
-# Miłosz Miśkiewicz, 2017-2019
+# Miłosz Miśkiewicz, 2017-2020
 # Miłosz Miśkiewicz, 2016-2017
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Мирон Левицкий <miron200504@gmail.com>, 2018
@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-20 09:32+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +83,9 @@ msgstr "Wpisz %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Podaj swój adres email aby zresetować hasło"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej kolekcji."
@@ -261,6 +264,12 @@ msgstr "Słowacki"
 
 msgid "Thai"
 msgstr "Tajski"
+
+msgid "Turkish"
+msgstr "Turecki"
+
+msgid "Turkish (Turkey)"
+msgstr "Turecki (Turcja)"
 
 msgid "Ukrainian"
 msgstr "Ukraiński"
@@ -693,8 +702,17 @@ msgstr ""
 "To jest twój kokpit, na którym będą wyświetlane pomocne informacje o treści, "
 "którą stworzono."
 
+msgid "Your locked pages"
+msgstr "Twoje zablokowane strony"
+
+msgid "See all locked pages"
+msgstr "Zobacz wszystkie zablokowane strony"
+
 msgid "Title"
 msgstr "Tytuł"
+
+msgid "Locked at"
+msgstr "Zablokowano"
 
 msgid "Edit this page"
 msgstr "Edytuj tę stronę"
@@ -846,6 +864,30 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "<b>Notatka:</b> zmiany prywatności obejmują wszystkie podstrony należące do "
 "tej strony."
+
+msgid "This page is locked"
+msgstr "Ta strona jest zablokowana"
+
+msgid "This page is unlocked"
+msgstr "Ta strona jest odblokowana"
+
+msgid "Remove editor lock"
+msgstr "Usuń blokadę edytorską"
+
+msgid "Unlock"
+msgstr "Odblokuj"
+
+msgid "You don't have permission to unlock"
+msgstr "Nie masz wystarczających uprawnień by odblokować"
+
+msgid "Apply editor lock"
+msgstr "Włącz blokadę edytorską"
+
+msgid "Lock"
+msgstr "Blokada"
+
+msgid "You don't have permission to lock"
+msgstr "Nie masz wystarczających uprawnień by zablokować"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Ustaw widoczność strony. Aktualny status: Publiczny"
@@ -1369,8 +1411,48 @@ msgstr "Żadna strona nie używa"
 msgid "Collection"
 msgstr "Kolekcja"
 
+msgid "No pages match this report's criteria."
+msgstr "Żadne strony nie pasują do kryteriów raportu."
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Zablokowane przez <b>ciebie</b> dnia <b>"
+"%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Zablokowane przez <b>%(locked_by)s</b> dnia "
+"<b>%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"                            Zablokowane dnia <b>%(locking_date)s</b>\n"
+"                        "
+
 msgid "Locked"
 msgstr "Zablokowany"
+
+msgid "No locked pages found."
+msgstr "Nie znaleziono zablokowanych stron."
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1405,6 +1487,32 @@ msgstr "Aktualny status strony:"
 
 msgid "Other searches"
 msgstr "Inne wyszukiwania"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Używasz <strong>przestarzałej</strong> przeglądarki nie wspieranej przez tą "
+"aplikację. Proszę <a href=\"https://browsehappy.com/\">zaktualizuj swoją "
+"przeglądarkę</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Javascript jest wymagany by korzystać z Wagtail, ale aktualnie "
+"jest wyłączony.<br />\n"
+"            Tutaj znajdziesz <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instrukcje jak go uruchomić</"
+"a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Idź do panelu administratora Wagtaila"
@@ -1502,6 +1610,19 @@ msgstr "Stworzono stronę '{0}'."
 msgid "The page could not be created due to validation errors"
 msgstr "Ta strona nie mogła zostać utworzona ze względu na błędy walidacji."
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr ""
+"<b>Strona '{}' została zablokowana </b> przez <b>ciebie </b> dnia <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Strona '{}' jest zablokowana</b> przez <b>ciebie</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Strona '{}' zostałą zablokowana</b> przez <b>{}</b> dnia <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Strona '{}' jest zablokowana</b>."
+
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Rewizje od {0} strony '{1}' zostały zaplanowane do publikacji."
 
@@ -1598,6 +1719,9 @@ msgstr "rewizja {0} z \"{1}\""
 
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Rewizja {0} z \"{1}\" niezaplanowanych."
+
+msgid "Locked Pages"
+msgstr "Zablokowane strony"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1705,6 +1829,9 @@ msgstr "Przekreślenie"
 
 msgid "Code"
 msgstr "Kod"
+
+msgid "Reports"
+msgstr "Raporty"
 
 msgid "Choose an item"
 msgstr "Wybierz rzecz"

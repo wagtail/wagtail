@@ -11,15 +11,15 @@
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016,2019
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2019
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2020
 # Marcio Mazza <marciomazza@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-04 15:06+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -82,6 +82,9 @@ msgstr "Digite seu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Entre com seu email para resetar sua senha"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Você não pode ter vários registros de permissão para a mesma coleção."
@@ -208,6 +211,9 @@ msgstr "Islandês"
 msgid "Italian"
 msgstr "Italiano"
 
+msgid "Japanese"
+msgstr "Japonês"
+
 msgid "Korean"
 msgstr "Coreano"
 
@@ -249,6 +255,12 @@ msgstr "Eslovaco"
 
 msgid "Thai"
 msgstr "Thailandês"
+
+msgid "Turkish"
+msgstr "Turco"
+
+msgid "Turkish (Turkey)"
+msgstr "Turco (Turquia)"
 
 msgid "Ukrainian"
 msgstr "Ucraniano"
@@ -665,8 +677,17 @@ msgstr ""
 "Esse é o seu painel que exibe informações úteis sobre o conteúdo que você "
 "criou."
 
+msgid "Your locked pages"
+msgstr "Suas páginas bloqueadas"
+
+msgid "See all locked pages"
+msgstr "Ver todas as páginas bloqueadas"
+
 msgid "Title"
 msgstr "Título"
+
+msgid "Locked at"
+msgstr "Bloqueado em"
 
 msgid "Edit this page"
 msgstr "Editar essa página"
@@ -809,6 +830,30 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Alterações na privacidade também se aplicam a todas as subpáginas desta "
 "página."
+
+msgid "This page is locked"
+msgstr "Esta página está bloqueada"
+
+msgid "This page is unlocked"
+msgstr "Esta página está desbloqueada"
+
+msgid "Remove editor lock"
+msgstr "Remover bloqueio do editor"
+
+msgid "Unlock"
+msgstr "Desbloquear"
+
+msgid "You don't have permission to unlock"
+msgstr "Você não tem permissão para desbloquear"
+
+msgid "Apply editor lock"
+msgstr "Aplicar bloqueio do editor"
+
+msgid "Lock"
+msgstr "Bloquear"
+
+msgid "You don't have permission to lock"
+msgstr "Você não tem permissão para bloquear"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Definir privacidade da página. Estado atual: Pública"
@@ -1309,8 +1354,48 @@ msgstr "Nenhuma página utilizada"
 msgid "Collection"
 msgstr "Coleção"
 
+msgid "No pages match this report's criteria."
+msgstr "Nenhuma página corresponde aos critérios deste relatório."
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Bloqueado por <b>você</b> em <b>"
+"%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Bloqueado por <b>%(locked_by)s</b> em <b>"
+"%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"                            Bloqueado em <b>%(locking_date)s</b>\n"
+"                        "
+
 msgid "Locked"
 msgstr "Bloqueado"
+
+msgid "No locked pages found."
+msgstr "Nenhuma página bloqueada encontrada."
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1345,6 +1430,32 @@ msgstr "Estado atual da página:"
 
 msgid "Other searches"
 msgstr "Outras buscas"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Você está usando um navegador <strong>desatualizado</strong> não suportado "
+"por este software. Por favor <a href=\"https://browsehappy.com/\">atualize o "
+"seu navegador</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Javascript é necessário para usar o Wagtail, mas atualmente está "
+"desativado.<br />\n"
+"            Aqui estão as <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instruções sobre como ativar o "
+"JavaScript no seu navegador</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Ir para administração Wagtail"
@@ -1446,6 +1557,18 @@ msgstr "Página '{0}' criada."
 msgid "The page could not be created due to validation errors"
 msgstr "A página não pôde ser criada devido a erros de validação"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Página '{}' estava bloqueada</b> por <b>você</b> em <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Página '{}' está bloqueada</b> por <b>você</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Página '{}' estava bloqueada</b> por <b>{}</b> em <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Página '{}' está bloqueada</b>."
+
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisão de {0} da página '{1}' foi agendada para publicação."
 
@@ -1542,6 +1665,9 @@ msgstr "revisão {0} de \"{1}\""
 
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Revisão {0} de \"{1}\" não agendada."
+
+msgid "Locked Pages"
+msgstr "Páginas bloqueadas"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1649,6 +1775,9 @@ msgstr "Tachado"
 
 msgid "Code"
 msgstr "Código"
+
+msgid "Reports"
+msgstr "Relatórios"
 
 msgid "Choose an item"
 msgstr "Escolha um item"

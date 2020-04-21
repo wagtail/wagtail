@@ -5,14 +5,15 @@
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
 # Marek Turnovec <aesculap@gmail.com>, 2016
+# Mirek Zvolský <zvolsky@seznam.cz>, 2020
 # IT Management <info@itmanagement.cz>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-19 19:47+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +41,10 @@ msgstr "Nastavení"
 
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Nastavení nebylo možné načíst protože není definovaný žádný web."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s aktualizováno."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Nastavení nelze uložit, zkontrolujte správné vyplnění polí."

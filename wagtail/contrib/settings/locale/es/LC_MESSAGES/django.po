@@ -5,14 +5,15 @@
 # Translators:
 # José Luis <alagunajs@gmail.com>, 2016
 # José Luis <alagunajs@gmail.com>, 2016,2018
+# Oscar Luciano Espirilla Flores, 2020
 # José Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-12 18:25+0000\n"
+"Last-Translator: Oscar Luciano Espirilla Flores\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +41,10 @@ msgstr "Propiedades"
 msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 "Esta configuración podría no ser abierta porque no hay un sitio definido."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s actualizado."
 
 msgid "The setting could not be saved due to errors."
 msgstr "La configuración no puede ser guardada debido a errores"

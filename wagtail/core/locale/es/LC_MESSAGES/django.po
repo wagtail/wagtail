@@ -10,6 +10,7 @@
 # Joaquín Tita <carpincho@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # José Luis <alagunajs@gmail.com>, 2017-2018
+# Oscar Luciano Espirilla Flores, 2020
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
 # Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
@@ -19,8 +20,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-13 17:58+0000\n"
+"Last-Translator: Oscar Luciano Espirilla Flores\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,10 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Núcleo Wagtail"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: Este bloque no tiene opciones."
 
 msgid "This block has no options."
 msgstr "Este bloque no tiene opciones."
@@ -164,6 +169,12 @@ msgstr "expiró"
 msgid "locked"
 msgstr "bloqueado"
 
+msgid "locked at"
+msgstr "Bloqueado en"
+
+msgid "locked by"
+msgstr "Bloqueado por"
+
 msgid "first published at"
 msgstr "Publicado por primera vez a las"
 
@@ -244,6 +255,15 @@ msgstr "Eliminar páginas con hijos."
 
 msgid "Lock"
 msgstr "Bloquear"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Bloquear/desbloquear páginas que usted bloqueó"
+
+msgid "Unlock"
+msgstr "Desbloquear"
+
+msgid "Unlock any page"
+msgstr "Desbloquear cualquier página"
 
 msgid "group"
 msgstr "grupo"

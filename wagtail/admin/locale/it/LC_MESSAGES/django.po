@@ -12,13 +12,14 @@
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2019
 # LB (Ben Johnston) <mail@lb.ee>, 2019
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
+# Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-30 14:32+0000\n"
+"Last-Translator: Stefano Marchetto <airbatum@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +39,9 @@ msgstr "Annulla pubblicazione"
 
 msgid "Delete"
 msgstr "Elimina"
+
+msgid "Save Draft"
+msgstr "Salva Bozza"
 
 msgid "Page locked"
 msgstr "Pagina bloccata"
@@ -78,6 +82,9 @@ msgstr "Inserisci il tuo %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Digita la tua email per resettare la password"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -167,6 +174,9 @@ msgstr "Arabo"
 msgid "Catalan"
 msgstr "Catalano"
 
+msgid "Czech"
+msgstr "Ceco"
+
 msgid "German"
 msgstr "Tedesco"
 
@@ -188,6 +198,9 @@ msgstr "Francese"
 msgid "Galician"
 msgstr "Galician"
 
+msgid "Hungarian"
+msgstr "Ungherese"
+
 msgid "Indonesian"
 msgstr "Indonesiano"
 
@@ -196,6 +209,9 @@ msgstr "Icelandic"
 
 msgid "Italian"
 msgstr "Italiano"
+
+msgid "Japanese"
+msgstr "Giapponese"
 
 msgid "Korean"
 msgstr "Koreano"
@@ -238,6 +254,12 @@ msgstr "Slovacco"
 
 msgid "Thai"
 msgstr "Tailandese"
+
+msgid "Turkish"
+msgstr "Turco"
+
+msgid "Turkish (Turkey)"
+msgstr "Turco (Turchia)"
 
 msgid "Ukrainian"
 msgstr "Ucraino"
@@ -316,6 +338,12 @@ msgstr "Chiudi"
 
 msgid "Edit '{title}'"
 msgstr "Modifica '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "Mostra sotto-pagine di '{title}'"
+
+msgid "Page explorer"
+msgstr "Esplora pagine"
 
 msgid "January"
 msgstr "Gennaio"
@@ -755,6 +783,24 @@ msgstr ""
 "Modifiche della privacy applicate anche a tutte le pagine figlio di questa "
 "pagina."
 
+msgid "Unlock"
+msgstr "Sblocca"
+
+msgid "Lock"
+msgstr "Blocca"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Imposta visibilità della pagina. Stato attuale: Pubblica"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Imposta visibilità della pagina. Stato attuale: Privata"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Visibilità della pagina. Stato attuale: Pubblica"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Visibilità della pagina. Stato attuale: Privata"
+
 msgid "Publishing…"
 msgstr "Pubblicazione in corso..."
 
@@ -906,6 +952,9 @@ msgstr "Nuovo %(page_type)s"
 msgid "New"
 msgstr "Nuovo"
 
+msgid "Actions"
+msgstr "Azioni"
+
 msgid "This page has unsaved changes."
 msgstr "Questa pagina ha delle modifiche non salvate."
 
@@ -1032,6 +1081,9 @@ msgstr "Aggiungi pagina figlio"
 
 msgid "Sites menu"
 msgstr "Menu sito"
+
+msgid "Pagination"
+msgstr "Paginazione"
 
 #, python-format
 msgid ""
@@ -1264,8 +1316,40 @@ msgstr "Impostazioni dell 'account"
 msgid "Log out"
 msgstr "Esci"
 
+msgid "Visit the live page"
+msgstr "Vai alla pagina sul sito"
+
+msgid "Current page status:"
+msgstr "Stato attuale della pagina:"
+
 msgid "Other searches"
 msgstr "Altre ricerche"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Stai usando un browser <strong>non aggiornato</strong> che non è compatibile "
+"con questo software. Per favore <a href=\"https://browsehappy.com/"
+"\">aggiorna il tuo browser</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtail necessita Javascript per essere usato, ma al momento è "
+"disabilitato.<br />\n"
+"            Qua trovi le <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">istruzioni su come abilitare "
+"JavaScript nel tuo browser</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Vai all'interfaccia admin di Wagtail"
@@ -1284,6 +1368,9 @@ msgstr "La tua password è stato modificata con successo"
 
 msgid "Your email has been changed successfully!"
 msgstr "La tua email è stata cambiata con successo!"
+
+msgid "Your name has been changed successfully!"
+msgstr "Hai cambiato nome con successo!"
 
 msgid "Your preferences have been updated."
 msgstr "Le tue impostazioni sono state aggiornate."
@@ -1446,11 +1533,50 @@ msgstr "revisione {0} di \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Revisione {0} di \"{1}\", annulata programmazione. "
 
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Mostra anteprima di '%(title)s'"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Mostra versione attuale di '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Aggiungi una sotto-pagina a '%(title)s' "
+
 msgid "More"
 msgstr "Altro"
 
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Mostra altre opzioni per '%(title)s'"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Sposta pagina '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Copia pagina '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Elimina pagina '%(title)s'"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Depubblica '%(title)s'"
+
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "Mostra la cronologia di '%(title)s'"
+
 msgid "Set profile picture"
 msgstr "Imposta la foto del profilo"
+
+msgid "Change your profile picture."
+msgstr "Modifica la tua immagine del profilo."
 
 msgid "Change the email address linked to your account."
 msgstr "Cambia l'indirizzo email collegato al tuo account."
@@ -1473,6 +1599,13 @@ msgstr "Fuso orario attuale"
 msgid "Choose your current time zone."
 msgstr "Scegli il tuo fuso orario corrente."
 
+msgid "Change your first and last name on your account."
+msgstr "Modifica nome e cognome del tuo account."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Titolo %(level)d"
+
 msgid "Bulleted list"
 msgstr "Elenco puntato"
 
@@ -1488,8 +1621,14 @@ msgstr "Corsivo"
 msgid "Link"
 msgstr "Link"
 
+msgid "Strikethrough"
+msgstr "Sbarrato"
+
 msgid "Code"
 msgstr "Codice"
+
+msgid "Reports"
+msgstr "Report"
 
 msgid "Choose an item"
 msgstr "Scegli un elemento"

@@ -7,14 +7,15 @@
 # Eugene <eugene.mechanism@gmail.com>, 2014-2015
 # Eugene <eugene.mechanism@gmail.com>, 2017
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 20:15+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-06 20:19+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,13 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail forms"
+msgstr "Формы Wagtail"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s представления"
 
 msgid "Date from"
 msgstr "Дата от"
@@ -71,11 +79,17 @@ msgstr "Дата"
 msgid "Date/time"
 msgstr "Дата/время"
 
+msgid "Hidden field"
+msgstr "Спрятанное поле"
+
 msgid "submit time"
 msgstr "время добавления"
 
 msgid "form submission"
 msgstr "добавление формы"
+
+msgid "form submissions"
+msgstr "Представления формы"
 
 msgid "label"
 msgstr "метка"
@@ -110,6 +124,12 @@ msgstr "текст подсказки"
 
 msgid "Submission date"
 msgstr "Дата добавлления"
+
+msgid "Form"
+msgstr "Форма"
+
+msgid "Landing page"
+msgstr "Посадочная страница"
 
 msgid "to address"
 msgstr "адрес назначения"

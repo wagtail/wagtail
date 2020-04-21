@@ -4,6 +4,7 @@
 #
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2020
 # Ivan Pomykacz <mist@alastify.cz>, 2015
 # Ivan Pomykacz <mist@alastify.cz>, 2015
 msgid ""
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 20:15+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-06 02:20+0000\n"
+"Last-Translator: IT Management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +85,9 @@ msgstr "čas odeslání"
 msgid "form submission"
 msgstr "odeslání formuláře"
 
+msgid "form submissions"
+msgstr "odeslání formuláře"
+
 msgid "label"
 msgstr "popisek"
 
@@ -117,6 +121,12 @@ msgstr "nápověda"
 
 msgid "Submission date"
 msgstr "Datum odeslání"
+
+msgid "Form"
+msgstr "Formulář"
+
+msgid "Landing page"
+msgstr "Úvodní stránka"
 
 msgid "to address"
 msgstr "příjemce"

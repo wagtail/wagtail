@@ -5,14 +5,15 @@
 # Translators:
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# sergeybe <sergeybe@gmail.com>, 2020
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-10-16 17:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-06 20:17+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +25,7 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Wagtail table block"
-msgstr "Блокировка таблиц Wagtail"
+msgstr "Табличные блоки Wagtail"
 
 msgid "Row header"
 msgstr "Заголовок строки"
@@ -37,3 +38,13 @@ msgstr "Заголовок столбца"
 
 msgid "Display the first column as a header."
 msgstr "Отображать первый столбец как заголовок"
+
+msgid "Table caption"
+msgstr "Заголовок таблицы"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"Заголовок, который определяет общую тему таблицы и полезен для пользователей "
+"программ чтения с экрана."

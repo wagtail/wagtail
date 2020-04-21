@@ -4,7 +4,7 @@
 #
 # Translators:
 # José Luis <alagunajs@gmail.com>, 2017
-# Py Data <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
 # Saadettin Yasir AKEL <yasirakel@gmail.com>, 2016
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
 "PO-Revision-Date: 2019-12-02 17:50+0000\n"
-"Last-Translator: Py Data <pydatageek@gmail.com>\n"
+"Last-Translator: Py Data Geek <pydatageek@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"

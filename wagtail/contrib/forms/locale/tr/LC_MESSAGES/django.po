@@ -5,10 +5,10 @@
 # Translators:
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
 # José Luis <alagunajs@gmail.com>, 2015,2017
-# Py Data <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2015
 # Saadettin Yasir AKEL <destek@nixron.com>, 2016
-# Zafer Cengiz <asinan@gmail.com>, 2017
+# Basitlik İyidir, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

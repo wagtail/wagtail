@@ -14,13 +14,16 @@
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2020
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
+# sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
-# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 # Vassily <zuber.kg@gmail.com>, 2019
+# Виктор Виктор <spam.vitek@gmail.com>, 2020
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 msgid ""
@@ -28,8 +31,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-14 17:11+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +54,9 @@ msgstr "Отменить публикацию"
 
 msgid "Delete"
 msgstr "Удалить"
+
+msgid "Save Draft"
+msgstr "Сохранить черновик"
 
 msgid "Page locked"
 msgstr "Страница заблокирована"
@@ -91,6 +97,9 @@ msgstr "Введите ваше %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Введите ваш адрес электронной почты для сброса пароля"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -190,8 +199,14 @@ msgstr "Требуется заполнить это поле."
 msgid "Please select at least one group."
 msgstr "Пожалуйста, выберите хотя бы одну группу."
 
+msgid "Arabic"
+msgstr "Арабский"
+
 msgid "Catalan"
 msgstr "Каталанский"
+
+msgid "Czech"
+msgstr "Чешский"
 
 msgid "German"
 msgstr "Немецкий"
@@ -214,17 +229,29 @@ msgstr "Французский"
 msgid "Galician"
 msgstr "Галисийский"
 
+msgid "Hungarian"
+msgstr "Венгерский"
+
+msgid "Indonesian"
+msgstr "Индонезийский"
+
 msgid "Icelandic"
 msgstr "Исландский"
 
 msgid "Italian"
 msgstr "Итальянский"
 
+msgid "Japanese"
+msgstr "Японский"
+
 msgid "Korean"
 msgstr "Корейский"
 
 msgid "Lithuanian"
 msgstr "Литовский"
+
+msgid "Mongolian"
+msgstr "Монгольский"
 
 msgid "Norwegian Bokmål"
 msgstr "Норвежский Букмол"
@@ -256,8 +283,23 @@ msgstr "Шведский"
 msgid "Slovak"
 msgstr "Словацкий язык"
 
+msgid "Thai"
+msgstr "Тайский"
+
+msgid "Turkish"
+msgstr "Турецкий"
+
+msgid "Turkish (Turkey)"
+msgstr "Турецкий (Турция)"
+
 msgid "Ukrainian"
 msgstr "Украинский язык"
+
+msgid "Chinese (Simplified)"
+msgstr "Китайский (Упрощенный)"
+
+msgid "Chinese (Traditional)"
+msgstr "Китайский (Традиционный)"
 
 msgid "Page"
 msgstr "Страница"
@@ -315,11 +357,23 @@ msgid ""
 msgstr ""
 "Редактор сломался. Содержимое было возвращено к последней сохранённой версии"
 
+msgid "Broken link"
+msgstr "Битая ссылка"
+
+msgid "Missing document"
+msgstr "Документ отсутствует"
+
 msgid "Close"
 msgstr "Закрыть"
 
 msgid "Edit '{title}'"
 msgstr "Редактировать '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "Показать дочерние страницы '{title}'"
+
+msgid "Page explorer"
+msgstr "Просмотрщик страниц"
 
 msgid "January"
 msgstr "Январь"
@@ -358,7 +412,7 @@ msgid "December"
 msgstr "Декабрь"
 
 msgid "Sunday"
-msgstr "Воскрксенье"
+msgstr "Воскресенье"
 
 msgid "Monday"
 msgstr "Понедельник"
@@ -442,7 +496,7 @@ msgid "Set Time Zone"
 msgstr "Установить временную зону"
 
 msgid "Language Preferences"
-msgstr "Языковые настройки"
+msgstr "Настройки языка"
 
 msgid "Notification preferences"
 msgstr "Настройки уведомления"
@@ -517,6 +571,12 @@ msgstr "Внешняя ссылка"
 msgid "Email link"
 msgstr "Ссылка адреса электронной почты"
 
+msgid "Phone link"
+msgstr "Ссылка на телефон"
+
+msgid "Anchor link"
+msgstr "Якорь ссылки"
+
 #, python-format
 msgid ""
 "\n"
@@ -538,6 +598,12 @@ msgstr[2] ""
 msgstr[3] ""
 "\n"
 "Есть %(counter)s совпадений"
+
+msgid "Add an anchor link"
+msgstr "Добавить якорь ссылки"
+
+msgid "Insert anchor"
+msgstr "Вставить якорь"
 
 msgid "Choose"
 msgstr "Выбрать"
@@ -582,6 +648,9 @@ msgstr "Вставить ссылку"
 msgid "Add an external link"
 msgstr "Добавить внешнюю ссылку"
 
+msgid "Add a phone link"
+msgstr "Добавить ссылку на телефон"
+
 msgid "Collection privacy"
 msgstr "Приватность коллекции"
 
@@ -603,8 +672,14 @@ msgstr "Сохранить"
 msgid "Privacy"
 msgstr "Приватность"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Установить конфиденциальность коллекции. Текущий статус: Общедоступный"
+
 msgid "Public"
 msgstr "Публично"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Установить конфиденциальность коллекции. Текущий статус: Приватный"
 
 msgid "Private"
 msgstr "Приватно"
@@ -643,8 +718,17 @@ msgstr ""
 "Это ваша панель управления, на ней отображается полезная информация о "
 "созданном вами контенте."
 
+msgid "Your locked pages"
+msgstr "Ваши заблокированные страницы"
+
+msgid "See all locked pages"
+msgstr "Посмотреть все заблокированные страницы"
+
 msgid "Title"
 msgstr "Заголовок"
+
+msgid "Locked at"
+msgstr "Заблокирован в"
 
 msgid "Edit this page"
 msgstr "Редактировать эту страницу"
@@ -796,6 +880,42 @@ msgstr "Страница приватна в соответствии с род�
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Изменения приватности также накладываются и на дочерние страницы."
+
+msgid "This page is locked"
+msgstr "Эта страница заблокирована"
+
+msgid "This page is unlocked"
+msgstr "Эта страница разблокирована"
+
+msgid "Remove editor lock"
+msgstr "Удалить блокировку редактирования"
+
+msgid "Unlock"
+msgstr "Разблокировать"
+
+msgid "You don't have permission to unlock"
+msgstr "У Вас нет прав для разблокировки"
+
+msgid "Apply editor lock"
+msgstr "Применить блокировку редактирования"
+
+msgid "Lock"
+msgstr "Заблокировать"
+
+msgid "You don't have permission to lock"
+msgstr "У Вас нет прав для блокировки"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Установить конфиденциальность страницы. Текущий статус: Общедоступный"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Установить конфиденциальность страницы. Текущий статус: Приватный"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Конфиденциальность страницы. Текущий статус: Общедоступный"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Конфиденциальность страницы. Текущий статус: Приватный"
 
 msgid "Publishing…"
 msgstr "Публикуется..."
@@ -957,6 +1077,9 @@ msgstr "Добавление %(page_type)s"
 msgid "New"
 msgstr "Новый"
 
+msgid "Actions"
+msgstr "Действия"
+
 msgid "This page has unsaved changes."
 msgstr "На странице есть несохраненные изменения."
 
@@ -1082,6 +1205,9 @@ msgstr "Добавить дочернюю страницу"
 
 msgid "Sites menu"
 msgstr "Список сайтов"
+
+msgid "Pagination"
+msgstr "Паджинация"
 
 #, python-format
 msgid ""
@@ -1219,8 +1345,15 @@ msgstr[3] ""
 msgid "There are no differences between these two revisions"
 msgstr "Сравниваемые версии идентичны"
 
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Отмена версии %(revision.id)s для %(title)s"
+
 msgid "Unschedule"
 msgstr "Отменить временную публикацию"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Вы уверены, что хотите отменить эту версию?"
 
 msgid "Yes, unschedule"
 msgstr "Да, отменить временную публикацию"
@@ -1289,6 +1422,9 @@ msgstr[3] ""
 "Есть %(counter)s совпадающих страниц\n"
 "            "
 
+msgid "Page types"
+msgstr "Типы страниц"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1303,12 +1439,50 @@ msgstr "Нет страниц использующих"
 msgid "Collection"
 msgstr "Коллекция"
 
+msgid "No pages match this report's criteria."
+msgstr "Нет страниц удовлетворяющих критерию отчета."
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"Заблокирован <b>Вами</b> в <b>%(locking_date)s</b>"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"Заблокирован <b>%(locked_by)s</b> в <b>%(locking_date)s</b>"
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"Заблокирован в <b>%(locking_date)s</b>"
+
 msgid "Locked"
 msgstr "Заблокировано"
+
+msgid "No locked pages found."
+msgstr "Не найдены заблокированные страницы."
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Страница %(page_num)s из %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Путь по сайту"
 
 msgid "Root"
 msgstr "Главная"
@@ -1328,8 +1502,38 @@ msgstr "Настройки аккаунта"
 msgid "Log out"
 msgstr "Выйти"
 
+msgid "Visit the live page"
+msgstr "Посетить страницу"
+
+msgid "Current page status:"
+msgstr "Текущий статус страницы:"
+
 msgid "Other searches"
 msgstr "Другие поиски"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Вы используете <strong>устаревший</strong> браузер. Пожалуйста <a href="
+"\"https://browsehappy.com/\">обновите Ваш браузер</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"Javascript требуется для использования Wagtail, но в настоящее время он "
+"отключен. <br />\n"
+"Вот <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" rel="
+"\"noopener noreferrer\">инструкции, как включить JavaScript в вашем веб-"
+"браузере</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Идти в интерфейс управления Wagtail"
@@ -1339,6 +1543,22 @@ msgstr "Добавить дочернюю страницу"
 
 msgid "Show in Explorer"
 msgstr "Показать Проводник"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Отсортировать дочерние страницы из '%(parent)s' в '%(label)s' в порядке "
+"возрастания."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Отсортировать дочерние страницы из '%(parent)s' в '%(label)s в порядке "
+"убывания."
 
 msgid "Test"
 msgstr "Тест"
@@ -1415,8 +1635,24 @@ msgstr "Страница '{0}' создана."
 msgid "The page could not be created due to validation errors"
 msgstr "Эта страница не может быть создана из-за ошибок при проверке"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Страница '{}' была заблокирована</b> <b>Вами</b> в<b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Страница {} заблокирована</b> <b>Вами</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Страница '{}' была заблокирована</b> <b>{}</b> в <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Страница {} заблокирована</b>."
+
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Версия {0} страницы '{1}' запланирована к публикации."
+
+msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgstr ""
+"Страница '{0}' активна, и эта версия была запланирована для публикации."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Страница '{0}' запланирована к публикации."
@@ -1508,8 +1744,51 @@ msgstr "версия {0} страницы \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Версия {0} страницы '{1}' перестала быть запланированной к публикации."
 
+msgid "Locked Pages"
+msgstr "Заблокированные страницы"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Редактировать '%(title)s'"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Предпросмотр черновой версии '%(title)s'"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Посмотреть опубликованную версию '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Добавить дочернюю страницу '%(title)s'"
+
 msgid "More"
 msgstr "Больше"
+
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Посмотреть больше настроек для '%(title)s'"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Переместить страницу '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Скопировать страницу '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Удалить страницу '%(title)s'"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Убрать с публикации '%(title)s'"
+
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "Посмотреть историю версий '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Установить фото профиля"
@@ -1541,11 +1820,18 @@ msgstr "Выбрать текущий часовой пояс."
 msgid "Change your first and last name on your account."
 msgstr "Изменить имя и фамилию в вашем профиле."
 
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Заголовок %(level)d"
+
 msgid "Bulleted list"
 msgstr "Маркированный список"
 
 msgid "Numbered list"
 msgstr "Нумерованный список"
+
+msgid "Blockquote"
+msgstr "Цитата"
 
 msgid "Bold"
 msgstr "Жирный"
@@ -1555,6 +1841,21 @@ msgstr "Наклонный"
 
 msgid "Link"
 msgstr "Ссылка"
+
+msgid "Superscript"
+msgstr "Верхний индекс"
+
+msgid "Subscript"
+msgstr "Нижний индекс"
+
+msgid "Strikethrough"
+msgstr "Зачеркнутый"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Reports"
+msgstr "Отчеты"
 
 msgid "Choose an item"
 msgstr "Выбрать элемент"

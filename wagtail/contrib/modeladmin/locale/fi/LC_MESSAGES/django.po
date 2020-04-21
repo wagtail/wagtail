@@ -6,13 +6,14 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-18 17:17+0000\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtailin tietomallin hallinta"
 
 msgid "Parent page"
 msgstr "Isäntäsivu"
@@ -110,6 +114,9 @@ msgstr "Palaa listaukseen"
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
 
+msgid "No, don't delete"
+msgstr "Ei, älä poista"
+
 msgid "Home"
 msgstr "Koti"
 
@@ -154,6 +161,9 @@ msgstr ""
 "Mikset <a href=\"%(url)s\">lisäisi yhtä</a>?\n"
 "                                            "
 
+msgid "Pagination"
+msgstr "Sivutus"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Sivu %(current_page)s/%(num_pages)s."
@@ -167,6 +177,10 @@ msgstr "Edellinen"
 
 msgid "Next"
 msgstr "Seuraava"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "Mallin %(model_name)s '%(instance)s' luotu."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -187,6 +201,10 @@ msgid "Editing %s"
 msgstr "Muokataan %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "Mallin %(model_name)s '%(instance)s' päivitetty."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s ei voitu tallentaa virheiden vuoksi."
 
@@ -201,6 +219,10 @@ msgid ""
 msgstr ""
 "Oletko varma, että haluat poistaa %s? Tämä saattaa vaikuttaa muihin "
 "sivustossa kohteeseen liityviin asioihin."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "Mallin %(model_name)s '%(instance)s' poistettu."
 
 msgid "Inspecting"
 msgstr "Tarkastellaan"

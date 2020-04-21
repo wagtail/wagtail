@@ -5,7 +5,7 @@
 # Translators:
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017-2019
+# Miłosz Miśkiewicz, 2017-2020
 # Miłosz Miśkiewicz, 2016
 # Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-20 09:41+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -300,6 +300,12 @@ msgstr "Użycie"
 
 msgid "Images"
 msgstr "Obrazy"
+
+msgid "Popular Tags:"
+msgstr "Popularne Tagi:"
+
+msgid "Clear choice"
+msgstr "Wyczyść wybór"
 
 msgid "pixels"
 msgstr "pikseli"

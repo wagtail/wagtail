@@ -5,7 +5,7 @@
 # Translators:
 # José Luis <alagunajs@gmail.com>, 2015
 # José Luis <alagunajs@gmail.com>, 2015-2016
-# Py Data <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
 # José Luis <alagunajs@gmail.com>, 2016
 msgid ""
 msgstr ""

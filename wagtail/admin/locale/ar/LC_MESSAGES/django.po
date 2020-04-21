@@ -5,6 +5,7 @@
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-09 11:01+0000\n"
+"Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +39,9 @@ msgstr "غير منشور"
 msgid "Delete"
 msgstr "احذف"
 
+msgid "Save Draft"
+msgstr "حفظ مسودة"
+
 msgid "Page locked"
 msgstr "الصفحة مغلقة"
 
@@ -48,13 +52,13 @@ msgid "Sorry, you do not have permission to access this area."
 msgstr "عذرًا ، ليس لديك إذن للوصول إلى هذه المنطقة."
 
 msgid "You do not have permission to access the admin"
-msgstr "ليس لديك الصلاحيات لدخول الى Admin"
+msgstr "ليس لديك الصلاحيات الدخول ك Admin"
 
 msgid "None"
 msgstr "فارغ"
 
 msgid "Scheduled publishing"
-msgstr "نشر مجدول"
+msgstr "نشر مجدول زمنيا"
 
 msgid "Common page configuration"
 msgstr "تهيئة الصفحات المشتركة"
@@ -77,6 +81,9 @@ msgstr "ادخل %s الخاص بك "
 
 msgid "Enter your email address to reset your password"
 msgstr "ادخل البريد الإلكتروني الخاص بك لإرجاع كلمة المرور الخاصة بك "
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "لا يوجد لديك العديد من الصلاحيات المسجلة في نفس المجموعة"
@@ -192,6 +199,9 @@ msgstr "الفرنسية"
 msgid "Galician"
 msgstr "الجاليكية"
 
+msgid "Hungarian"
+msgstr "الهنغارية"
+
 msgid "Indonesian"
 msgstr "الأندونيسية"
 
@@ -201,11 +211,17 @@ msgstr "أيسلندي"
 msgid "Italian"
 msgstr "الإيطالي"
 
+msgid "Japanese"
+msgstr "اليابانية"
+
 msgid "Korean"
 msgstr "الكورية"
 
 msgid "Lithuanian"
 msgstr "اللتوانية"
+
+msgid "Mongolian"
+msgstr "المنغولية"
 
 msgid "Norwegian Bokmål"
 msgstr "النرويجية بوكمال"
@@ -237,8 +253,20 @@ msgstr "السويدية"
 msgid "Slovak"
 msgstr "السلوفاكية"
 
+msgid "Turkish"
+msgstr "التركية"
+
+msgid "Turkish (Turkey)"
+msgstr "التركية (تركيا)"
+
 msgid "Ukrainian"
 msgstr "الأوكراني"
+
+msgid "Chinese (Simplified)"
+msgstr "الصينية (مبسطة)"
+
+msgid "Chinese (Traditional)"
+msgstr "الصينية (تقليدية)"
 
 msgid "Page"
 msgstr "صفحة"
@@ -306,6 +334,9 @@ msgstr "اغلاق"
 
 msgid "Edit '{title}'"
 msgstr "تحرير '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "أعرض الصفحات التابعة ل '{title}'"
 
 msgid "Page explorer"
 msgstr "مستكشف الصفحة"
@@ -415,6 +446,9 @@ msgstr "حدث"
 msgid "Change email"
 msgstr "تغير البريد الالكتروني"
 
+msgid "Change name"
+msgstr "تغيير الإسم"
+
 msgid "Change password"
 msgstr "غير كلمة السر"
 
@@ -500,6 +534,9 @@ msgstr "حلقة خارجية"
 
 msgid "Email link"
 msgstr "حلقة إلكتترونية"
+
+msgid "Phone link"
+msgstr "رابط الهاتف"
 
 #, python-format
 msgid ""
@@ -723,6 +760,18 @@ msgstr "لقد تم جعل هذه الصفحة خاصة بواسطة صفحة ر
 msgid "Privacy changes apply to all children of this page too."
 msgstr "تنطبق تغييرات الخصوصية على جميع أطفال هذه الصفحة أيضًا."
 
+msgid "Unlock"
+msgstr "إزالة القفل"
+
+msgid "You don't have permission to unlock"
+msgstr "ليست لك صلاحيات إزالة القفل"
+
+msgid "Lock"
+msgstr "قفل"
+
+msgid "You don't have permission to lock"
+msgstr "ليست لك صلاحيات القفل"
+
 msgid "Publishing…"
 msgstr "يتم النشر..."
 
@@ -830,6 +879,9 @@ msgstr "جديد %(page_type)s"
 
 msgid "New"
 msgstr "جديد"
+
+msgid "Actions"
+msgstr "النشاطات"
 
 msgid "This page has unsaved changes."
 msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
@@ -950,6 +1002,9 @@ msgstr "أضف صفحة لطفل "
 msgid "Sites menu"
 msgstr "قائمة الموقع"
 
+msgid "Pagination"
+msgstr "ترقيم الصفحات"
+
 #, python-format
 msgid ""
 "\n"
@@ -970,6 +1025,9 @@ msgstr "هذه الصفحة محمية من النظر العمومي"
 
 msgid "Disable ordering of child pages"
 msgstr "تعطيل ترتيب الصفحات الفرعية"
+
+msgid "Sort"
+msgstr "ترتيب"
 
 msgid "Enable ordering of child pages"
 msgstr "تمكين ترتيب الصفحات الفرعية"
@@ -1287,8 +1345,15 @@ msgstr "مراجعة {0} من \"{1}\" غير المجدولة."
 msgid "More"
 msgstr "المزيد"
 
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "حذف الصفحة '%(title)s'"
+
 msgid "Set profile picture"
 msgstr "اضبط صورة الملف الشخصي"
+
+msgid "Change your profile picture."
+msgstr "غير صورة ملفك الشخصي."
 
 msgid "Change the email address linked to your account."
 msgstr "قم بتغيير عنوان البريد الإلكتروني المرتبط بحسابك."
@@ -1311,6 +1376,9 @@ msgstr "الوقت الزمني الحالي"
 msgid "Choose your current time zone."
 msgstr "اختر منطقتك الزمنية الحالية."
 
+msgid "Change your first and last name on your account."
+msgstr "غير إسك ولقبك على حسابك."
+
 msgid "Bulleted list"
 msgstr "قائمة ذات تعداد نقطي"
 
@@ -1325,6 +1393,12 @@ msgstr "Italic"
 
 msgid "Link"
 msgstr "رابط"
+
+msgid "Code"
+msgstr "كود"
+
+msgid "Reports"
+msgstr "التقارير"
 
 msgid "Choose an item"
 msgstr "اختيار عنصر"

@@ -5,13 +5,14 @@
 # Translators:
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-10-16 17:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-04-18 17:24+0000\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail table block"
+msgstr "Wagtailin taulukkolohko"
 
 msgid "Row header"
 msgstr "Riviotsikko"
@@ -31,3 +35,13 @@ msgstr "Kolumniotsikko"
 
 msgid "Display the first column as a header."
 msgstr "Näytä ensimmäinen kolumni otsikkona."
+
+msgid "Table caption"
+msgstr "Taulukon otsikko"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"Otsikko, joka ilmaisee taulukon aiheen ja hyödyttää ruudunlukijoitten "
+"käyttäjiä"

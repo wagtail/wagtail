@@ -4,6 +4,7 @@
 #
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019
 msgid ""
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-06 01:52+0000\n"
+"Last-Translator: IT Management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +83,7 @@ msgid "Current time zone"
 msgstr "Aktuální časové pásmo"
 
 msgid "Upload a profile picture"
-msgstr "Nahrát profilový obrázek"
+msgstr "Nahrát profilovou fotografii"
 
 msgid "submitted notifications"
 msgstr "odeslané upozornění"
@@ -112,10 +113,10 @@ msgid "current time zone"
 msgstr "aktuální časové pásmo"
 
 msgid "Select your current time zone"
-msgstr "Zvolte Vaše časové pásmo"
+msgstr "Zvolte vaše časové pásmo"
 
 msgid "profile picture"
-msgstr "profilový obrázek"
+msgstr "profilová fotografie"
 
 msgid "user profile"
 msgstr "uživatelský profile"
@@ -175,6 +176,9 @@ msgstr "Úprava"
 
 msgid "Save"
 msgstr "Uložit"
+
+msgid "Permissions"
+msgstr "Oprávnění"
 
 msgid "Object permissions"
 msgstr "Oprávnění k objektům"

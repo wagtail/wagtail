@@ -6,15 +6,15 @@
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
-# Vladislav Gerasimenko <drimacus182@gmail.com>, 2019-2020
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2019-2020
 # Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-30 18:27+0000\n"
-"Last-Translator: Vladislav Gerasimenko <drimacus182@gmail.com>\n"
+"PO-Revision-Date: 2020-03-25 17:08+0000\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -260,13 +260,13 @@ msgid "Server Error"
 msgstr "Помилка Сервера"
 
 msgid "See all"
-msgstr "Показати все"
+msgstr "Показати всі"
 
 msgid "Close explorer"
 msgstr "Закрити переглядач"
 
 msgid "Alt text"
-msgstr "Змінити текст"
+msgstr "Альтернатиний текст"
 
 msgid "Write here…"
 msgstr "Пишіть тут..."

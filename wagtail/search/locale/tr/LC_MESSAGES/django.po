@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Py Data <pydatageek@gmail.com>, 2019
-# Zafer Cengiz <asinan@gmail.com>, 2017
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Basitlik İyidir, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
 "PO-Revision-Date: 2019-12-02 17:43+0000\n"
-"Last-Translator: Py Data <pydatageek@gmail.com>\n"
+"Last-Translator: Py Data Geek <pydatageek@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"

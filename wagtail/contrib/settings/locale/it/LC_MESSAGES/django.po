@@ -8,13 +8,14 @@
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-03-30 14:33+0000\n"
+"Last-Translator: Stefano Marchetto <airbatum@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +44,10 @@ msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 "Questa impostazione non può essere aperta perché non esiste un sito "
 "predefinito."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s aggiornata."
 
 msgid "The setting could not be saved due to errors."
 msgstr "L'impostazione non può essere salvata a causa di errori."

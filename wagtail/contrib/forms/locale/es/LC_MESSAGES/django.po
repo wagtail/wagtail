@@ -10,14 +10,15 @@
 # José Luis <alagunajs@gmail.com>, 2015,2017-2018
 # Mauricio Baeza <python@amigos.email>, 2014
 # Mauricio Baeza <python@amigos.email>, 2014
+# Oscar Luciano Espirilla Flores, 2020
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 20:15+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-02-13 20:26+0000\n"
+"Last-Translator: Oscar Luciano Espirilla Flores\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -88,6 +89,9 @@ msgstr "enviado en"
 msgid "form submission"
 msgstr "formulario de presentación"
 
+msgid "form submissions"
+msgstr "Formularios presentados"
+
 msgid "label"
 msgstr "rótulo"
 
@@ -123,6 +127,12 @@ msgstr "texto de ayuda"
 
 msgid "Submission date"
 msgstr "Fecha de envío"
+
+msgid "Form"
+msgstr "Formulario"
+
+msgid "Landing page"
+msgstr "Página de presentación"
 
 msgid "to address"
 msgstr "a dirección"
