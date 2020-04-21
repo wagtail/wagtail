@@ -1,3 +1,5 @@
+import itertools
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
@@ -136,6 +138,22 @@ class ListBlock(Block):
     def to_python(self, value):
         # 'value' is a list of child block values; use bulk_to_python to convert them all in one go
         return self.child_block.bulk_to_python(value)
+
+    def bulk_to_python(self, values):
+        # 'values' is a list of lists of child block values; concatenate them into one list so that
+        # we can make a single call to child_block.bulk_to_python
+        lengths = [len(val) for val in values]
+        raw_values = list(itertools.chain.from_iterable(values))
+        converted_values = self.child_block.bulk_to_python(raw_values)
+
+        # split converted_values back into sub-lists of the original lengths
+        result = []
+        offset = 0
+        for sublist_len in lengths:
+            result.append(converted_values[offset:offset + sublist_len])
+            offset += sublist_len
+
+        return result
 
     def get_prep_value(self, value):
         # recursively call get_prep_value on children and return as a list

@@ -2342,6 +2342,18 @@ class TestListBlockWithFixtures(TestCase):
 
         self.assertSequenceEqual(pages, expected_pages)
 
+    def test_bulk_to_python(self):
+        block = blocks.ListBlock(blocks.PageChooserBlock())
+
+        with self.assertNumQueries(1):
+            result = block.bulk_to_python([[4, 5], [], [2]])
+
+        self.assertEqual(result, [
+            [Page.objects.get(id=4), Page.objects.get(id=5)],
+            [],
+            [Page.objects.get(id=2)],
+        ])
+
 
 class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_initialisation(self):
