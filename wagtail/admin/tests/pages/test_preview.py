@@ -213,3 +213,34 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
         preview_url = reverse('wagtailadmin_pages:preview_on_edit', args=(stream_page.id, ))
         self.assertNotContains(response, '<li class="preview">')
         self.assertNotContains(response, 'data-action="%s"' % preview_url)
+
+    def test_disable_preview_on_revisions_list(self):
+        simple_page = SimplePage(title='simple page', content="hello")
+        self.root_page.add_child(instance=simple_page)
+        simple_page.save_revision()
+
+        # check preview shows up by default
+        response = self.client.get(reverse('wagtailadmin_pages:revisions_index', args=(simple_page.id,)))
+        preview_url = reverse('wagtailadmin_pages:revisions_view', args=(simple_page.id, simple_page.get_latest_revision().id))
+        self.assertContains(response, 'Preview')
+        self.assertContains(response, preview_url)
+
+        stream_page = StreamPage(title='stream page', body=[('text', 'hello')])
+        self.root_page.add_child(instance=stream_page)
+        latest_revision = stream_page.save_revision()
+
+        # StreamPage has preview_modes = []
+        response = self.client.get(reverse('wagtailadmin_pages:revisions_index', args=(stream_page.id,)))
+        preview_url = reverse('wagtailadmin_pages:revisions_view', args=(stream_page.id, latest_revision.id))
+        self.assertNotContains(response, 'Preview')
+        self.assertNotContains(response, preview_url)
+
+    def disable_preview_in_moderation_list(self):
+        stream_page = StreamPage(title='stream page', body=[('text', 'hello')])
+        self.root_page.add_child(instance=stream_page)
+        latest_revision = stream_page.save_revision(user=self.user, submitted_for_moderation=True)
+
+        response = self.client.get(reverse('wagtailadmin_home'))
+        preview_url = reverse('wagtailadmin_pages:preview_for_moderation', args=(latest_revision.id,))
+        self.assertNotContains(response, '<li class="preview">')
+        self.assertNotContains(response, 'data-action="%s"' % preview_url)
