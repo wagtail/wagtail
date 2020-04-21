@@ -3327,6 +3327,62 @@ class TestStructBlockWithFixtures(TestCase):
         ])
 
 
+class TestStreamBlockWithFixtures(TestCase):
+    fixtures = ['test.json']
+
+    def test_bulk_to_python(self):
+        stream_block = blocks.StreamBlock([
+            ('page', blocks.PageChooserBlock()),
+            ('heading', blocks.CharBlock()),
+        ])
+
+        # The naive implementation of bulk_to_python (calling to_python on each item) would perform
+        # NO queries, as StreamBlock.to_python returns a lazy StreamValue that only starts calling
+        # to_python on its children (and thus triggering DB queries) when its items are accessed.
+        # This is a good thing for a standalone to_python call, because loading a model instance
+        # with a StreamField in it will immediately call StreamField.to_python which in turn calls
+        # to_python on the top-level StreamBlock, and we really don't want
+        # SomeModelWithAStreamField.objects.get(id=1) to immediately trigger a cascading fetch of
+        # all objects referenced in the StreamField.
+        #
+        # However, for bulk_to_python that's bad, as it means each stream in the list would end up
+        # doing its own object lookups in isolation, missing the opportunity to group them together
+        # into a single call to the child block's bulk_to_python. Therefore, the ideal outcome is
+        # that we perform one query now (covering all PageChooserBlocks across all streams),
+        # returning a list of non-lazy StreamValues.
+
+        with self.assertNumQueries(1):
+            results = stream_block.bulk_to_python([
+                [{'type': 'heading', 'value': 'interesting pages'}, {'type': 'page', 'value': 2}, {'type': 'page', 'value': 3}],
+                [{'type': 'heading', 'value': 'pages written by dogs'}, {'type': 'woof', 'value': 'woof woof'}],
+                [{'type': 'heading', 'value': 'boring pages'}, {'type': 'page', 'value': 4}],
+            ])
+
+        # If bulk_to_python has indeed given us non-lazy StreamValues, then no further queries
+        # should be performed when iterating over its child blocks.
+        with self.assertNumQueries(0):
+            block_types = [
+                [block.block_type for block in stream]
+                for stream in results
+            ]
+        self.assertEqual(block_types, [
+            ['heading', 'page', 'page'],
+            ['heading'],
+            ['heading', 'page'],
+        ])
+
+        with self.assertNumQueries(0):
+            block_values = [
+                [block.value for block in stream]
+                for stream in results
+            ]
+        self.assertEqual(block_values, [
+            ['interesting pages', Page.objects.get(id=2), Page.objects.get(id=3)],
+            ['pages written by dogs'],
+            ['boring pages', Page.objects.get(id=4)],
+        ])
+
+
 class TestPageChooserBlock(TestCase):
     fixtures = ['test.json']
 

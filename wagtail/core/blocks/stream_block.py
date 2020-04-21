@@ -252,6 +252,57 @@ class BaseStreamBlock(Block):
             if child_data['type'] in self.child_blocks
         ], is_lazy=True)
 
+    def bulk_to_python(self, values):
+        # 'values' is a list of streams, each stream being a list of dicts with 'type', 'value' and
+        # optionally 'id'.
+        # We will iterate over these streams, constructing:
+        # 1) a set of per-child-block lists ('child_inputs'), to be sent to each child block's
+        #    bulk_to_python method in turn (giving us 'child_outputs')
+        # 2) a 'block map' of each stream, telling us the type and id of each block and the index we
+        #    need to look up in the corresponding child_outputs list to obtain its final value
+
+        child_inputs = defaultdict(list)
+        block_maps = []
+
+        for stream in values:
+            block_map = []
+            for block_dict in stream:
+                block_type = block_dict['type']
+
+                if block_type not in self.child_blocks:
+                    # skip any blocks with an unrecognised type
+                    continue
+
+                child_input_list = child_inputs[block_type]
+                child_index = len(child_input_list)
+                child_input_list.append(block_dict['value'])
+                block_map.append(
+                    (block_type, block_dict.get('id'), child_index)
+                )
+
+            block_maps.append(block_map)
+
+        # run each list in child_inputs through the relevant block's bulk_to_python
+        # to obtain child_outputs
+        child_outputs = {
+            block_type: self.child_blocks[block_type].bulk_to_python(child_input_list)
+            for block_type, child_input_list in child_inputs.items()
+        }
+
+        # for each stream, go through the block map, picking out the appropriately-indexed
+        # value from the relevant list in child_outputs
+        return [
+            StreamValue(
+                self,
+                [
+                    (block_type, child_outputs[block_type][child_index], id)
+                    for block_type, id, child_index in block_map
+                ],
+                is_lazy=False
+            )
+            for block_map in block_maps
+        ]
+
     def get_prep_value(self, value):
         if not value:
             # Falsy values (including None, empty string, empty list, and
