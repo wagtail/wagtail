@@ -26,3 +26,8 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+Removed support for Python 3.5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Python 3.5 is no longer supported as of this release; please upgrade to Python 3.6 or above before upgrading Wagtail.

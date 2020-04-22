@@ -4,6 +4,7 @@ Changelog
 2.10 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Removed support for Python 3.5
  * Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
  * Added filtering to locked pages report (Karl Hobley)
 

@@ -7,8 +7,8 @@ addons:
 
 matrix:
   include:
-   - env: TOXENV=py35-dj22-mysql-noelasticsearch
-     python: 3.5
+   - env: TOXENV=py36-dj22-mysql-noelasticsearch
+     python: 3.6
    - env: TOXENV=py36-dj22-postgres-noelasticsearch
      python: 3.6
    - env: TOXENV=py37-dj22-sqlite-noelasticsearch
