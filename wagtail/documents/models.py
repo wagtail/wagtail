@@ -1,6 +1,5 @@
 import hashlib
 import os.path
-import warnings
 from contextlib import contextmanager
 
 from django.conf import settings
@@ -14,19 +13,10 @@ from wagtail.admin.models import get_object_usage
 from wagtail.core.models import CollectionMember
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
-from wagtail.utils.deprecation import RemovedInWagtail210Warning
 
 
 class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
     pass
-
-
-def get_document_model():
-    warnings.warn("wagtail.documents.models.get_document_model "
-                  "has been moved to wagtail.documents.get_document_model",
-                  RemovedInWagtail210Warning)
-    from wagtail.documents import get_document_model
-    return get_document_model()
 
 
 class AbstractDocument(CollectionMember, index.Indexed, models.Model):
