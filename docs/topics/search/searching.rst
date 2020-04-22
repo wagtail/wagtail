@@ -173,6 +173,72 @@ For page, image and document models, the ``operator`` keyword argument is also s
     # All pages containing either "hello" or "world" are returned
     [<Page: Hello World>, <Page: Hello>, <Page: World>]
 
+Phrase searching
+^^^^^^^^^^^^^^^^
+
+Phrase searching is used for finding whole sentence or phrase rather than individual terms.
+The terms must appear together and in the same order.
+
+For example:
+
+.. code-block:: python
+
+    >>> from wagtail.search.query import Phrase
+
+    >>> Page.objects.search(Phrase("Hello world"))
+    [<Page: Hello World>]
+
+    >>> Page.objects.search(Phrase("World hello"))
+    [<Page: World Hello day>]
+
+Complex search queries
+^^^^^^^^^^^^^^^^^^^^^^
+
+Through the use of search query classes, Wagtail also supports building search queries as Python
+objects which can be wrapped by and combined with other search queries. The following classes are
+available:
+
+``PlainText(query_string, operator=None, boost=1.0)``
+
+This class wraps a string of separate terms. This is the same as searching without query classes.
+
+It takes a query string, operator and boost.
+
+For example:
+
+.. code-block:: python
+
+    >>> from wagtail.search.query import PlainText
+    >>> Page.objects.search(PlainText("Hello world"))
+
+    # Multiple plain text queries can be combined. This example will match both "hello world" and "Hello earth"
+    >>> Page.objects.search(PlainText("Hello") & (PlainText("world") | PlainText("earth")))
+
+``Phrase(query_string)``
+
+This class wraps a string containing a phrase. See previous section for how this works.
+
+For example:
+
+.. code-block:: python
+
+    # This example will match both the phrases "hello world" and "Hello earth"
+    >>> Page.objects.search(Phrase("Hello world") | Phrase("Hello earth"))
+
+``Boost(query, boost)``
+
+This class boosts the score of another query.
+
+For example:
+
+.. code-block:: python
+
+    >>> from wagtail.search.query import PlainText, Boost
+
+    # This example will match both the phrases "hello world" and "Hello earth" but matches for "hello world" will be ranked higher
+    >>> Page.objects.search(Boost(Phrase("Hello world"), 10.0) | Phrase("Hello earth"))
+
+Note that this isn't supported by the PostgreSQL or database search backends.
 
 Custom ordering
 ^^^^^^^^^^^^^^^
