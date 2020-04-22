@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~
 
  * Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
+ * Added filtering to locked pages report (Karl Hobley)
 
 
 2.9 (xx.xx.xxxx) - IN DEVELOPMENT

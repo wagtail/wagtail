@@ -15,6 +15,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
+ * Added filtering to locked pages report (Karl Hobley)
 
 
 Bug fixes
