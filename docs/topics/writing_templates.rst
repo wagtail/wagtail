@@ -149,11 +149,6 @@ By default, Wagtail includes embeds and images at their full width, which may ov
     }
 
 
-.. versionchanged:: 2.8
-
-  The ``WAGTAILEMBEDS_RESPONSIVE_HTML`` setting was added. Previous versions always added the class and style attributes.
-
-
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~
 
