@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.10 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~
+
+ * Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
+
+
 2.9 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 

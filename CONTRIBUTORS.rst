@@ -446,6 +446,7 @@ Contributors
 * Michał (Quadric) Sieradzki
 * Vlad Gerasimenko
 * Tomonori Tanabe
+* Jannik Wempe
 
 Translators
 ===========
