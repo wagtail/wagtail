@@ -74,3 +74,35 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         self.assertEqual(cell_array[0], ['Title', 'Updated', 'Status', 'Type', 'Locked At', 'Locked By'])
         self.assertEqual(cell_array[1], ['Root', datetime.datetime(2013, 1, 1, 12, 0), 'live', 'Page', datetime.datetime(2013, 2, 1, 12, 0), 'test@email.com'])
         self.assertEqual(len(cell_array), 2)
+
+
+class TestFilteredLockedPagesView(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.user = self.login()
+        self.unpublished_page = Page.objects.get(url_path='/home/events/tentative-unpublished-event/')
+        self.unpublished_page.locked = True
+        self.unpublished_page.locked_by = self.user
+        self.unpublished_page.locked_at = timezone.now()
+        self.unpublished_page.save()
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtailadmin_reports:locked_pages'), params)
+
+    def test_filter_by_live(self):
+        response = self.get(params={'live': 'true'})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Tentative Unpublished Event")
+        self.assertContains(response, "My locked page")
+
+        response = self.get(params={'live': 'false'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Tentative Unpublished Event")
+        self.assertNotContains(response, "My locked page")
+
+    def test_filter_by_user(self):
+        response = self.get(params={'locked_by': self.user.pk})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Tentative Unpublished Event")
+        self.assertNotContains(response, "My locked page")
