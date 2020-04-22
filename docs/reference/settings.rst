@@ -82,10 +82,6 @@ setting. This is fully documented in :ref:`configuring_embed_finders`.
 Adds ``class="responsive-object"`` and an inline ``padding-bottom`` style to embeds,
 to assist in making them responsive. See :ref:`responsive-embeds` for details.
 
-.. versionadded:: 2.8
-
-  The ``WAGTAILEMBEDS_RESPONSIVE_HTML`` setting was added.
-
 Dashboard
 =========
 
@@ -528,11 +524,6 @@ Customise the behaviour of rich text fields. By default, ``RichTextField`` and `
 
 Page locking
 ============
-
-.. versionadded:: 2.8
-
-  The page locking logic has been changed so that pages are still editable
-  by the users who locked them.
 
 ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` can be set to ``True`` to prevent users
 from editing pages that they have locked.
