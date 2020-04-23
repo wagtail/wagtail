@@ -3,7 +3,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
-from wagtail.core.models import Page, TaskState, WorkflowState
+from wagtail.core.models import Page, TaskState, Workflow, WorkflowState
 
 from .widgets import AdminDateInput
 
@@ -108,7 +108,10 @@ class WorkflowReportFilterSet(WagtailFilterSet):
 class WorkflowTasksReportFilterSet(WagtailFilterSet):
     created_at = django_filters.DateFromToRangeFilter(label=_("Started at"), widget=DateRangePickerWidget)
     finished_at = django_filters.DateFromToRangeFilter(label=_("Completed at"), widget=DateRangePickerWidget)
+    workflow = django_filters.ModelChoiceFilter(
+        field_name='workflow_state__workflow', queryset=Workflow.objects.all(), label=_("Workflow")
+    )
 
     class Meta:
         model = TaskState
-        fields = ['task', 'status', 'created_at', 'finished_at']
+        fields = ['workflow', 'task', 'status', 'created_at', 'finished_at']
