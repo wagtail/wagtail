@@ -2666,6 +2666,11 @@ class Task(models.Model):
         """Returns a ``QuerySet`` of the task states the current user can moderate"""
         return TaskState.objects.none()
 
+    @property
+    def get_workflows(self):
+        """Returns a ``QuerySet`` of the workflows that this task is part of """
+        return Workflow.objects.filter(workflow_tasks__task=self)
+
     @transaction.atomic
     def deactivate(self, user=None):
         """Set ``active`` to False and cancel all in progress task states linked to this task"""
