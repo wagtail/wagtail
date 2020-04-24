@@ -447,6 +447,7 @@ Contributors
 * Vlad Gerasimenko
 * Tomonori Tanabe
 * Jannik Wempe
+* Sylvain Fankhauser
 
 Translators
 ===========
