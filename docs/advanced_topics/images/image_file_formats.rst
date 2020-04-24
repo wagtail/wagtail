@@ -21,7 +21,7 @@ image formats and let the browser choose the one it prefers. For example:
         {% image myimage width-1000 format-png as image_png %}
         <source srcset="{{ image_png.url }}" type="image/png">
 
-        {{ image_png }}
+        {% image myimage width-1000 format-png %}
     </picture>
 
 Customizing output formats
