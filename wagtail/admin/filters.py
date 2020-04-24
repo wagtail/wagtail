@@ -229,7 +229,7 @@ class WorkflowReportFilterSet(WagtailFilterSet):
 
 
 class WorkflowTasksReportFilterSet(WagtailFilterSet):
-    created_at = django_filters.DateFromToRangeFilter(label=_("Started at"), widget=DateRangePickerWidget)
+    started_at = django_filters.DateFromToRangeFilter(label=_("Started at"), widget=DateRangePickerWidget)
     finished_at = django_filters.DateFromToRangeFilter(label=_("Completed at"), widget=DateRangePickerWidget)
     workflow = django_filters.ModelChoiceFilter(
         field_name='workflow_state__workflow', queryset=Workflow.objects.all(), label=_("Workflow")
@@ -243,4 +243,4 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
 
     class Meta:
         model = TaskState
-        fields = ['workflow', 'task', 'status', 'created_at', 'finished_at']
+        fields = ['workflow', 'task', 'status', 'started_at', 'finished_at']
