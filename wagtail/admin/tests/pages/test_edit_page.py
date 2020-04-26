@@ -8,7 +8,7 @@ from django.contrib.auth.models import Permission
 from django.core import mail
 from django.core.files.base import ContentFile
 from django.http import HttpRequest, HttpResponse
-from django.test import TestCase, modify_settings
+from django.test import TestCase, modify_settings, override_settings
 from django.urls import reverse
 from django.utils import timezone
 
@@ -693,6 +693,35 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             "<h1>Preview error</h1>",
             html=True
         )
+
+    @override_settings(CACHES={
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        }})
+    @modify_settings(MIDDLEWARE={
+        'append': 'django.middleware.cache.FetchFromCacheMiddleware',
+        'prepend': 'django.middleware.cache.UpdateCacheMiddleware',
+    })
+    def test_preview_does_not_cache(self):
+        '''
+        Tests solution to issue #5975
+        '''
+        post_data = {
+            'title': "I've been edited one time!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        preview_url = reverse('wagtailadmin_pages:preview_on_edit',
+                              args=(self.child_page.id,))
+        self.client.post(preview_url, post_data)
+        response = self.client.get(preview_url)
+        self.assertContains(response, "I&#39;ve been edited one time!", html=True)
+
+        post_data['title'] = "I've been edited two times!"
+        self.client.post(preview_url, post_data)
+        response = self.client.get(preview_url)
+        self.assertContains(response, "I&#39;ve been edited two times!", html=True)
 
     @modify_settings(ALLOWED_HOSTS={'append': 'childpage.example.com'})
     def test_preview_uses_correct_site(self):

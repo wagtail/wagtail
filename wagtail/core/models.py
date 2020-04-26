@@ -19,6 +19,7 @@ from django.http import Http404
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
+from django.utils.cache import patch_cache_control
 from django.utils.functional import cached_property
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
@@ -1488,7 +1489,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         request.is_preview = True
 
-        return self.serve(request)
+        response = self.serve(request)
+        patch_cache_control(response, private=True)
+        return response
 
     def get_cached_paths(self):
         """
