@@ -310,11 +310,11 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # Check that a form error was raised
         if DJANGO_VERSION >= (3, 0):
             self.assertFormError(
-                response, 'form', 'new_slug', "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+                response, 'form', 'new_slug', "Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or hyphens."
             )
         else:
             self.assertFormError(
-                response, 'form', 'new_slug', "Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
+                response, 'form', 'new_slug', "Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or hyphens."
             )
 
     def test_page_copy_post_valid_unicode_slug(self):
