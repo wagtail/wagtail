@@ -414,6 +414,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(self.query, MatchAll):
             return self.queryset[start:stop]
 
+        elif isinstance(self.query, Not) and isinstance(self.query.subquery, MatchAll):
+            return self.queryset.none()
+
         search_query = self.build_tsquery(self.query, config=config)
         vector = self.get_search_vector(search_query)
         rank_expression = self.build_tsrank(vector, self.query, config=config)

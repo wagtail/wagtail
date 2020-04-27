@@ -71,3 +71,4 @@ class Not(SearchQuery):
 
 
 MATCH_ALL = MatchAll()
+MATCH_NONE = Not(MATCH_ALL)
