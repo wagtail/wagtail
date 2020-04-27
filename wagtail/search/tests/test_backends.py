@@ -15,7 +15,7 @@ from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.search.backends.base import FieldError, FilterFieldError
 from wagtail.search.backends.db import DatabaseSearchBackend
-from wagtail.search.query import MATCH_ALL, And, Boost, Not, Or, Phrase, PlainText
+from wagtail.search.query import MATCH_ALL, MATCH_NONE, And, Boost, Not, Or, Phrase, PlainText
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -68,6 +68,10 @@ class BackendTests(WagtailTestUtils):
     def test_search_all(self):
         results = self.backend.search(MATCH_ALL, models.Book)
         self.assertSetEqual(set(results), set(models.Book.objects.all()))
+
+    def test_search_none(self):
+        results = self.backend.search(MATCH_NONE, models.Book)
+        self.assertFalse(list(results))
 
     def test_ranking(self):
         # Note: also tests the "or" operator
