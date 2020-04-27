@@ -31,6 +31,7 @@ Bug fixes
  * ``AbstractEmailForm`` saved submission fields are now aligned with the email content fields, ``form.cleaned_data`` will be used instead of ``form.fields`` (Haydn Greatnews)
  * Removed ARIA ``role="table"`` from TableBlock output (Thibaud Colas)
  * Set Cache-Control header to prevent page preview responses from being cached (Tomas Walch)
+ * Accept unicode characters in slugs on the "copy page" form (François Poulain)
 
 
 Upgrade considerations

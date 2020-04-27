@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.utils.translation import ngettext
@@ -18,7 +19,8 @@ class CopyForm(forms.Form):
         can_publish = kwargs.pop('can_publish')
         super().__init__(*args, **kwargs)
         self.fields['new_title'] = forms.CharField(initial=self.page.title, label=_("New title"))
-        self.fields['new_slug'] = forms.SlugField(initial=self.page.slug, label=_("New slug"))
+        allow_unicode = getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
+        self.fields['new_slug'] = forms.SlugField(initial=self.page.slug, label=_("New slug"), allow_unicode=allow_unicode)
         self.fields['new_parent_page'] = forms.ModelChoiceField(
             initial=self.page.get_parent(),
             queryset=Page.objects.all(),

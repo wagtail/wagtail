@@ -451,6 +451,7 @@ Contributors
 * Ascani Carlo
 * Chris Ranjana
 * Tomas Walch
+* François Poulain
 
 Translators
 ===========
