@@ -12,6 +12,10 @@ from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainTex
 from wagtail.search.utils import AND, OR
 
 
+MATCH_ALL = '_ALL_'
+MATCH_NONE = '_NONE_'
+
+
 class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
     OPERATORS = {
@@ -62,10 +66,7 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
         if query.boost * boost != 1.0:
             warn('Database search backend does not support term boosting.')
 
-    def build_database_filter(self, query=None, boost=1.0):
-        if query is None:
-            query = self.query
-
+    def build_database_filter(self, query, boost=1.0):
         if isinstance(query, PlainText):
             self.check_boost(query, boost=boost)
 
@@ -86,17 +87,51 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
             boost *= query.boost
             return self.build_database_filter(query.subquery, boost=boost)
 
-        if isinstance(self.query, MatchAll):
-            return models.Q()
+        if isinstance(query, MatchAll):
+            return MATCH_ALL
 
         if isinstance(query, Not):
-            return ~self.build_database_filter(query.subquery, boost=boost)
+            q = self.build_database_filter(query.subquery, boost=boost)
+
+            if q == MATCH_ALL:
+                return MATCH_NONE
+
+            elif q == MATCH_NONE:
+                return MATCH_ALL
+
+            else:
+                return ~q
+
         if isinstance(query, And):
-            return AND(self.build_database_filter(subquery, boost=boost)
-                       for subquery in query.subqueries)
+            subqueries = [
+                self.build_database_filter(subquery, boost=boost)
+                for subquery in query.subqueries
+            ]
+
+            # If there's a MATCH_NONE, return MATCH_NONE
+            if MATCH_NONE in subqueries:
+                return MATCH_NONE
+
+            # Ignore MATCH_ALL
+            subqueries = [q for q in subqueries if q != MATCH_ALL]
+
+            return AND(subqueries)
+
         if isinstance(query, Or):
-            return OR(self.build_database_filter(subquery, boost=boost)
-                      for subquery in query.subqueries)
+            subqueries = [
+                self.build_database_filter(subquery, boost=boost)
+                for subquery in query.subqueries
+            ]
+
+            # If there's a MATCH_ALL, return MATCH_ALL
+            if MATCH_ALL in subqueries:
+                return MATCH_ALL
+
+            # Ignore MATCH_NONE
+            subqueries = [q for q in subqueries if q != MATCH_NONE]
+
+            return OR(subqueries)
+
         raise NotImplementedError(
             '`%s` is not supported by the database search backend.'
             % query.__class__.__name__)
@@ -110,9 +145,16 @@ class DatabaseSearchResults(BaseSearchResults):
         # a FilterField have been used in the query.
         self.query_compiler._get_filters_from_queryset()
 
-        q = self.query_compiler.build_database_filter()
+        q = self.query_compiler.build_database_filter(self.query_compiler.query)
 
-        return queryset.filter(q).distinct()[self.start:self.stop]
+        if q == MATCH_ALL:
+            pass
+        elif q == MATCH_NONE:
+            queryset = queryset.none()
+        else:
+            queryset = queryset.filter(q)
+
+        return queryset.distinct()[self.start:self.stop]
 
     def _do_search(self):
         queryset = self.get_queryset()
