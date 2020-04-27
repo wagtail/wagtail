@@ -30,6 +30,7 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
 from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
 from wagtail.search.query import MATCH_ALL
+from wagtail.search.utils import parse_query_string
 
 
 def get_valid_next_url_from_request(request):
@@ -1031,9 +1032,24 @@ def search(request):
             q = form.cleaned_data['q']
             pagination_query_params['q'] = q
 
-            all_pages = all_pages.search(q, order_by_relevance=not ordering, operator='and')
-            pages = pages.search(q, order_by_relevance=not ordering, operator='and')
+            # Parse query
+            filters, query = parse_query_string(q, operator='and')
 
+            # Live filter
+            live_filter = filters.get('live') or filters.get('published')
+            live_filter = live_filter and live_filter.lower()
+            if live_filter in ['yes', 'true']:
+                all_pages = all_pages.filter(live=True)
+                pages = pages.filter(live=True)
+            elif live_filter in ['no', 'false']:
+                all_pages = all_pages.filter(live=False)
+                pages = pages.filter(live=False)
+
+            # Search
+            all_pages = all_pages.search(query, order_by_relevance=not ordering)
+            pages = pages.search(query, order_by_relevance=not ordering)
+
+            # Facets
             if pages.supports_facet:
                 content_types = [
                     (ContentType.objects.get(id=content_type_id), count)

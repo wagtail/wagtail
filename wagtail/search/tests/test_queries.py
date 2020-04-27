@@ -7,7 +7,8 @@ from django.test import SimpleTestCase, TestCase
 
 from wagtail.contrib.search_promotions.models import SearchPromotion
 from wagtail.search import models
-from wagtail.search.utils import normalise_query_string, separate_filters_from_query
+from wagtail.search.utils import (
+    normalise_query_string, parse_query_string, separate_filters_from_query)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -221,3 +222,35 @@ class TestSeparateFiltersFromQuery(SimpleTestCase):
 
         self.assertDictEqual(filters, {'author': 'foo bar', 'bar': 'beer'})
         self.assertEqual(query, 'hello world')
+
+
+class TestParseQueryString(SimpleTestCase):
+    def test_simple_query(self):
+        filters, query = parse_query_string('hello world')
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(query, [('hello world', False)])
+
+    def test_with_phrase(self):
+        filters, query = parse_query_string('"hello world"')
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(query, [('hello world', True)])
+
+    def test_with_simple_and_phrase(self):
+        filters, query = parse_query_string('this is simple "hello world"')
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(query, [('this is simple ', False), ('hello world', True)])
+
+    def test_with_phrase_unclosed(self):
+        filters, query = parse_query_string('"hello world')
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(query, [('hello world', True)])
+
+    def test_phrase_with_filter(self):
+        filters, query = parse_query_string('"hello world" author:"foo bar" bar:beer')
+
+        self.assertDictEqual(filters, {'author': 'foo bar', 'bar': 'beer'})
+        self.assertEqual(query, [('hello world', True)])
