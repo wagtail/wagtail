@@ -16,6 +16,8 @@ class SearchQuery:
     def __invert__(self):
         return Not(self)
 
+    def __repr__(self):
+        raise NotImplementedError
 
 #
 # Basic query classes
@@ -34,20 +36,30 @@ class PlainText(SearchQuery):
             raise ValueError("`operator` must be either 'or' or 'and'.")
         self.boost = boost
 
+    def __repr__(self):
+        return '<PlainText {} operator={} boost={}>'.format(repr(self.query_string), repr(self.operator), repr(self.boost))
+
 
 class Phrase(SearchQuery):
     def __init__(self, query_string: str):
         self.query_string = query_string
 
+    def __repr__(self):
+        return '<PlainText {}>'.format(repr(self.query_string))
+
 
 class MatchAll(SearchQuery):
-    pass
+    def __repr__(self):
+        return '<MatchAll>'
 
 
 class Boost(SearchQuery):
     def __init__(self, subquery: SearchQuery, boost: float):
         self.subquery = subquery
         self.boost = boost
+
+    def __repr__(self):
+        return '<Boost {} boost={}>'.format(repr(self.subquery), repr(self.boost))
 
 
 #
@@ -59,15 +71,24 @@ class And(SearchQuery):
     def __init__(self, subqueries):
         self.subqueries = subqueries
 
+    def __repr__(self):
+        return '<And {}>'.format(' '.join(repr(subquery) for subquery in self.subqueries))
+
 
 class Or(SearchQuery):
     def __init__(self, subqueries):
         self.subqueries = subqueries
 
+    def __repr__(self):
+        return '<Or {}>'.format(' '.join(repr(subquery) for subquery in self.subqueries))
+
 
 class Not(SearchQuery):
     def __init__(self, subquery: SearchQuery):
         self.subquery = subquery
+
+    def __repr__(self):
+        return '<Not {}>'.format(repr(self.subquery))
 
 
 MATCH_ALL = MatchAll()

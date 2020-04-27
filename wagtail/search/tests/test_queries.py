@@ -7,7 +7,9 @@ from django.test import SimpleTestCase, TestCase
 
 from wagtail.contrib.search_promotions.models import SearchPromotion
 from wagtail.search import models
-from wagtail.search.utils import normalise_query_string, separate_filters_from_query
+from wagtail.search.query import And, Or, Phrase, PlainText
+from wagtail.search.utils import (
+    normalise_query_string, parse_query_string, separate_filters_from_query)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -221,3 +223,46 @@ class TestSeparateFiltersFromQuery(SimpleTestCase):
 
         self.assertDictEqual(filters, {'author': 'foo bar', 'bar': 'beer'})
         self.assertEqual(query, 'hello world')
+
+
+class TestParseQueryString(SimpleTestCase):
+    def test_simple_query(self):
+        filters, query = parse_query_string('hello world')
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(repr(query), repr(PlainText("hello world")))
+
+    def test_with_phrase(self):
+        filters, query = parse_query_string('"hello world"')
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(repr(query), repr(Phrase("hello world")))
+
+    def test_with_simple_and_phrase(self):
+        filters, query = parse_query_string('this is simple "hello world"')
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(repr(query), repr(And([PlainText("this is simple"), Phrase("hello world")])))
+
+    def test_operator(self):
+        filters, query = parse_query_string('this is simple "hello world"', operator='or')
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(repr(query), repr(Or([PlainText("this is simple", operator='or'), Phrase("hello world")])))
+
+    def test_with_phrase_unclosed(self):
+        filters, query = parse_query_string('"hello world')
+
+        self.assertDictEqual(filters, {})
+        self.assertEqual(repr(query), repr(Phrase("hello world")))
+
+    def test_phrase_with_filter(self):
+        filters, query = parse_query_string('"hello world" author:"foo bar" bar:beer')
+
+        self.assertDictEqual(filters, {'author': 'foo bar', 'bar': 'beer'})
+        self.assertEqual(repr(query), repr(Phrase("hello world")))
+
+    def test_multiple_phrases(self):
+        filters, query = parse_query_string('"hello world" "hi earth"')
+
+        self.assertEqual(repr(query), repr(And([Phrase("hello world"), Phrase("hi earth")])))
