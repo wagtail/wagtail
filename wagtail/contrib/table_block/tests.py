@@ -37,7 +37,7 @@ class TestTableBlock(TestCase):
         block = TableBlock()
         result = block.render(value)
         expected = """
-            <table role="table">
+            <table>
                 <tbody>
                     <tr><td>Test 1</td><td>Test 2</td><td>Test 3</td></tr>
                     <tr><td></td><td></td><td></td></tr>
@@ -61,7 +61,7 @@ class TestTableBlock(TestCase):
         block = TableBlock()
         result = block.render(value)
         expected = """
-            <table role="table">
+            <table>
                 <thead>
                     <tr><th scope="col">Test 1</th><th scope="col" class="htLeft">Test 2</th><th scope="col">Test 3</th></tr>
                 </thead>
@@ -90,7 +90,7 @@ class TestTableBlock(TestCase):
             ]
         })
         expected = """
-            <table role="table">
+            <table>
                 <tbody>
                     <tr><td></td><td></td><td></td></tr>
                     <tr><td></td><td></td><td></td></tr>
@@ -110,7 +110,7 @@ class TestTableBlock(TestCase):
                           [None, None, None]]}
 
         expected = """
-            <table role="table">
+            <table>
                 <tbody>
                     <tr><td>&lt;p&gt;&lt;strong&gt;Test&lt;/strong&gt;&lt;/p&gt;</td><td></td><td></td></tr>
                     <tr><td></td><td></td><td></td></tr>
@@ -131,7 +131,7 @@ class TestTableBlock(TestCase):
                  'data': [['Foo', 'Bar', 'Baz'], [None, None, None], [None, None, None]]}
 
         expected = """
-            <table role="table">
+            <table>
                 <thead>
                     <tr><th scope="col">Foo</th><th scope="col">Bar</th><th scope="col">Baz</th></tr>
                 </thead>
@@ -153,7 +153,7 @@ class TestTableBlock(TestCase):
                  'data': [['Foo', 'Bar', 'Baz'], ['one', 'two', 'three'], ['four', 'five', 'six']]}
 
         expected = """
-            <table role="table">
+            <table>
                 <tbody>
                     <tr><th scope="row">Foo</th><td>Bar</td><td>Baz</td></tr>
                     <tr><th scope="row">one</th><td>two</td><td>three</td></tr>
@@ -173,7 +173,7 @@ class TestTableBlock(TestCase):
                  'data': [['Foo', 'Bar', 'Baz'], ['one', 'two', 'three'], ['four', 'five', 'six']]}
 
         expected = """
-            <table role="table">
+            <table>
                 <thead>
                     <tr><th scope="col">Foo</th><th scope="col">Bar</th><th scope="col">Baz</th></tr>
                 </thead>
@@ -258,7 +258,7 @@ class TestTableBlock(TestCase):
         block = TableBlock()
         result = block.render(value)
         expected = """
-            <table role="table">
+            <table>
                 <caption>caption</caption>
                 <tbody>
                     <tr><td>Test 1</td><td>Test 2</td><td>Test 3</td></tr>
