@@ -138,7 +138,7 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
       page = ParentalKey('demo.BookPage', on_delete=models.CASCADE, related_name='advert_placements')
       advert = models.ForeignKey('demo.Advert', on_delete=models.CASCADE, related_name='+')
 
-      class Meta:
+      class Meta(Orderable.Meta):
           verbose_name = "advert placement"
           verbose_name_plural = "advert placements"
 

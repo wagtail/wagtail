@@ -450,6 +450,7 @@ Contributors
 * Sylvain Fankhauser
 * Ascani Carlo
 * Chris Ranjana
+* Tomas Walch
 
 Translators
 ===========
