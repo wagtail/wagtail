@@ -38,8 +38,6 @@ var cssnanoConfig = {
     zindex: false,
 };
 
-gulp.task('styles', ['styles:sass', 'styles:css', 'styles:assets']);
-
 // Copy all assets that are not CSS files.
 gulp.task('styles:assets', simpleCopyTask('css/**/!(*.css)'));
 
@@ -91,3 +89,5 @@ gulp.task('styles:sass', function () {
         }))
         .on('error', gutil.log);
 });
+
+gulp.task('styles', gulp.series('styles:sass', 'styles:css', 'styles:assets'));

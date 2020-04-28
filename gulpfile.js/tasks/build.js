@@ -1,3 +1,3 @@
 var gulp = require('gulp');
 
-gulp.task('build', ['styles', 'scripts', 'images', 'fonts']);
+gulp.task('build', gulp.series('styles', 'scripts', 'images', 'fonts'));
