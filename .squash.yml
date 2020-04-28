@@ -3,7 +3,7 @@ deployments:
     dockerimage: python:3.7.4-stretch
     build_steps:
       - apt-get update && apt-get install -y libssl-dev libpq-dev git build-essential libfontconfig1 libfontconfig1-dev curl
-      - RUN bash -c "curl -sL https://deb.nodesource.com/setup_8.x | bash -"
+      - RUN bash -c "curl -sL https://deb.nodesource.com/setup_10.x | bash -"
       - apt install -y nodejs
       - pip install setuptools pip --upgrade --force-reinstall
       - cd /code

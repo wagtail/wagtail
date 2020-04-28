@@ -5,7 +5,7 @@ var config = require('../config');
 /*
  * Watch - Watch files, trigger tasks when they are modified
  */
-gulp.task('watch', ['build'], function () {
+gulp.task('watch', gulp.series('build'), function () {
     config.apps.forEach(function(app) {
         gulp.watch(path.join('./client/**/*.scss'), ['styles:sass']);
         gulp.watch(path.join(app.sourceFiles, '*/scss/**'), ['styles:sass']);

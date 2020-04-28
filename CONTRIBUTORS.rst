@@ -452,6 +452,8 @@ Contributors
 * Chris Ranjana
 * Tomas Walch
 * François Poulain
+* Jim Jazwiecki
+* Kim LaRocca
 
 Translators
 ===========
