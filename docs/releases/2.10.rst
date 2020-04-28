@@ -27,6 +27,7 @@ Bug fixes
 
  * Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * ``AbstractEmailForm`` saved submission fields are now aligned with the email content fields, ``form.cleaned_data`` will be used instead of ``form.fields`` (Haydn Greatnews)
+ * Removed ARIA `role="table"` from TableBlock output (Thibaud Colas)
 
 
 Upgrade considerations

@@ -13,6 +13,7 @@ Changelog
  * `AbstractEmailForm` now has a separate method (`render_email`) to build up email content on submission emails (Haydn Greatnews)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * Fix: `AbstractEmailForm` saved submission fields are now aligned with the email content fields, `form.cleaned_data` will be used instead of `form.fields` (Haydn Greatnews)
+ * Fix: Removed ARIA `role="table"` from TableBlock output (Thibaud Colas)
 
 
 2.9 (xx.xx.xxxx) - IN DEVELOPMENT
