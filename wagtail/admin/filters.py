@@ -55,8 +55,7 @@ class FilteredModelChoiceField(django_filters.fields.ModelChoiceField):
         if callable(queryset):
             queryset = queryset()
 
-        ids = queryset.values_list('pk', flat=True)
-        return ','.join([str(id) for id in ids])
+        return queryset.values_list('pk', flat=True)
 
 
 class FilteredModelChoiceFilter(django_filters.ModelChoiceFilter):
