@@ -302,3 +302,23 @@ class TestTagField(TestCase):
         form = RestaurantTagForm({'tags': "Italian, delicious"})
         self.assertTrue(form.is_valid())
         self.assertEqual(set(form.cleaned_data['tags']), {"Italian", "delicious"})
+
+
+class TestFilteredSelect(TestCase):
+    def test_render(self):
+        widget = widgets.FilteredSelect(choices=[
+            (None, '----'),
+            ('FR', 'France', ['EU']),
+            ('JP', 'Japan', ['AS']),
+            ('RU', 'Russia', ['AS', 'EU']),
+        ], filter_field='id_continent')
+
+        html = widget.render('country', 'JP')
+        self.assertHTMLEqual(html, '''
+            <select name="country" data-widget="filtered-select" data-filter-field="id_continent">
+                <option value="">----</option>
+                <option value="FR" data-filter-value="EU">France</option>
+                <option value="JP" selected data-filter-value="AS">Japan</option>
+                <option value="RU" data-filter-value="AS,EU">Russia</option>
+            </select>
+        ''')
