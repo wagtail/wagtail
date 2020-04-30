@@ -16,6 +16,7 @@ from django.db import models, transaction
 from django.db.models import Case, Q, Value, When
 from django.db.models.functions import Concat, Substr
 from django.http import Http404
+from django.http.request import split_domain_port
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
@@ -122,7 +123,7 @@ class Site(models.Model):
 
     @staticmethod
     def _find_for_request(request):
-        hostname = request.get_host().split(':')[0]
+        hostname = split_domain_port(request.get_host())[0]
         port = request.get_port()
         site = None
         try:
