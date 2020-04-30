@@ -53,16 +53,25 @@ class FilteredSelect(forms.Select):
 
             subgroup = []
             if isinstance(option_label, (list, tuple)):
+                # this is an optgroup - we will iterate over the list in the second item of
+                # the tuple (which has been assigned to option_label)
                 group_name = option_value
                 subindex = 0
                 choices = option_label
             else:
+                # this is a top-level choice; put it in its own group with no name
                 group_name = None
                 subindex = None
-                choices = [(option_value, option_label)]
+                choices = [(option_value, option_label, filter_value)]
             groups.append((group_name, subgroup, index))
 
-            for subvalue, sublabel in choices:
+            for choice in choices:
+                try:
+                    (subvalue, sublabel, filter_value) = choice
+                except ValueError:
+                    (subvalue, sublabel) = choice
+                    filter_value = None
+
                 selected = (
                     str(subvalue) in value
                     and (not has_selected or self.allow_multiple_selected)
