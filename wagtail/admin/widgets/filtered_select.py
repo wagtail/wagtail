@@ -5,9 +5,17 @@ from wagtail.admin.staticfiles import versioned_static
 
 class FilteredSelect(forms.Select):
     """
-    A select box variant that adds 'data-' attributes to the <select> and <option> elements
-    to allow the options to be dynamically filtered by another select box.
-    See wagtailadmin/js/filtered-select.js for an example of how these attributes are configured.
+    A select box where the options are shown and hidden dynamically in response to another
+    form field whose HTML `id` is specified in `filter_field`.
+
+    The `choices` list accepts entries of the form `(value, label, filter_values)` in addition
+    to the standard `(value, label)` tuples, where `filter_values` is a list of values;
+    whenever `filter_field` is set to a non-empty value, only the items with that value in their
+    `filter_values` list are shown.
+
+    filter_field and filter_values are inserted as 'data-' attributes on the rendered HTML, where
+    they are picked up by the Javascript behaviour code -
+    see wagtailadmin/js/filtered-select.js for an example of how these attributes are configured.
     """
 
     def __init__(self, attrs=None, choices=(), filter_field=''):
@@ -74,7 +82,7 @@ class FilteredSelect(forms.Select):
             name, value, label, selected, index, subindex=subindex, attrs=attrs
         )
         if filter_value is not None:
-            option['attrs']['data-filter-value'] = filter_value
+            option['attrs']['data-filter-value'] = ','.join([str(val) for val in filter_value])
 
         return option
 
