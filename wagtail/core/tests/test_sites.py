@@ -56,7 +56,7 @@ class TestSiteNameDisplay(TestCase):
         self.assertEqual(site.__str__(), 'example.com:8080 [default]')
 
 
-@override_settings(ALLOWED_HOSTS=['example.com', 'unknown.com'])
+@override_settings(ALLOWED_HOSTS=['example.com', 'unknown.com', '127.0.0.1', '[::1]'])
 class TestFindSiteForRequest(TestCase):
     def setUp(self):
         self.default_site = Site.objects.get()
@@ -85,6 +85,22 @@ class TestFindSiteForRequest(TestCase):
             request = HttpRequest()
             request.META = {'HTTP_X_FORWARDED_HOST': 'example.com', 'SERVER_PORT': 80}
             self.assertEqual(Site.find_for_request(request), self.site)
+
+    def test_ipv4_host(self):
+        request = HttpRequest()
+        request.META = {
+            'SERVER_NAME': '127.0.0.1',
+            'SERVER_PORT': 80
+        }
+        self.assertEqual(Site.find_for_request(request), self.default_site)
+
+    def test_ipv6_host(self):
+        request = HttpRequest()
+        request.META = {
+            'SERVER_NAME': '[::1]',
+            'SERVER_PORT': 80
+        }
+        self.assertEqual(Site.find_for_request(request), self.default_site)
 
 
 class TestDefaultSite(TestCase):
