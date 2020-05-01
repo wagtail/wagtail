@@ -34,6 +34,9 @@
         <div class="report__results">
             {% block results %}
             {% endblock %}
+            {% if page_obj %}
+                {% paginate page_obj base_url=request.path %}
+            {% endif %}
         </div>
         {% if filters %}
             <div class="report__filters">
