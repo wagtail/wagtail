@@ -8,7 +8,6 @@
                 {% block listing %}
                     {% include "wagtailadmin/reports/listing/_list_page_report.html" %}
                 {% endblock %}
-                {% paginate pages base_url=request.path %}
             {% else %}
                 {% block no_results %}
                     <p>{% trans "No pages match this report's criteria." %}</p>
