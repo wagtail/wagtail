@@ -243,7 +243,17 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
             # Publish
             if is_publishing:
+                for fn in hooks.get_hooks('before_publish_page'):
+                    result = fn(request, page)
+                    if hasattr(result, 'status_code'):
+                        return result
+
                 revision.publish()
+
+                for fn in hooks.get_hooks('after_publish_page'):
+                    result = fn(request, page)
+                    if hasattr(result, 'status_code'):
+                        return result
 
             # Notifications
             if is_publishing:
