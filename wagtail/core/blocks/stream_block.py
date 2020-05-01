@@ -475,3 +475,16 @@ class StreamValue(Sequence):
 
     def __str__(self):
         return self.__html__()
+    
+    def __reduce__(self):
+        """Reducer to make this class picklable."""
+        return (
+            # Function to create a ``StreamValue`` instance
+            stream_value_unpickle,
+            (self.stream_block, self.stream_data, self.is_lazy, self.raw_text,),
+        )
+
+
+def stream_value_unpickle(stream_block, stream_data, is_lazy=False, raw_text=None):
+    """Used to unpickle StreamValue objects."""
+    return StreamValue(stream_block, stream_data, is_lazy=is_lazy, raw_text=raw_text)
