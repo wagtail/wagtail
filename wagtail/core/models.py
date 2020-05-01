@@ -750,12 +750,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             self.revisions.update(approved_go_live_at=None)
 
+    context_object_name = None
+
     def get_context(self, request, *args, **kwargs):
-        return {
+        context = {
             PAGE_TEMPLATE_VAR: self,
             'self': self,
             'request': request,
         }
+
+        if self.context_object_name:
+            context[self.context_object_name] = self
+
+        return context
 
     def get_template(self, request, *args, **kwargs):
         if request.is_ajax():

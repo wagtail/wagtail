@@ -153,6 +153,10 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: serve
 
+    .. autoattribute:: context_object_name
+
+        Custom name for page instance in page's ``Context``.
+
     .. automethod:: get_context
 
     .. automethod:: get_template

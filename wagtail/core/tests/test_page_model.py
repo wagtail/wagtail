@@ -500,6 +500,17 @@ class TestServeView(TestCase):
         response = c.get('/christmas/', HTTP_HOST='localhost')
         self.assertEqual(response.status_code, 404)
 
+    def test_serve_with_custom_context_name(self):
+        EventPage.context_object_name = 'event_page'
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        response = self.client.get('/events/christmas/')
+
+        # Context should contain context_object_name key along with standard page keys
+        self.assertEqual(response.context['event_page'], christmas_page)
+        self.assertEqual(response.context['page'], christmas_page)
+        self.assertEqual(response.context['self'], christmas_page)
+
     def test_serve_with_custom_context(self):
         response = self.client.get('/events/')
         self.assertEqual(response.status_code, 200)
