@@ -1,4 +1,5 @@
 import django_filters
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
@@ -38,6 +39,16 @@ class FilteredModelChoiceIterator(django_filters.fields.ModelChoiceIterator):
 
 
 class FilteredModelChoiceField(django_filters.fields.ModelChoiceField):
+    """
+    A ModelChoiceField that uses FilteredSelect to dynamically show/hide options based on another
+    ModelChoiceField of related objects; an option will be shown whenever the selected related
+    object is present in the result of filter_accessor for that option.
+
+    filter_field - the HTML `id` of the related ModelChoiceField
+    filter_accessor - either the name of a relation, property or method on the model instance which
+        returns a queryset of related objects, or a function which accepts the model instance and
+        returns such a queryset.
+    """
     widget = FilteredSelect
     iterator = FilteredModelChoiceIterator
 
@@ -48,13 +59,19 @@ class FilteredModelChoiceField(django_filters.fields.ModelChoiceField):
         self.widget.filter_field = filter_field
 
     def get_filter_value(self, obj):
-        # filter_accessor identifies a property or method on the instances being listed here,
-        # which gives us a queryset of related objects. Turn this queryset into a list of IDs
-        # that will become the 'data-filter-value' used to filter this listing
-        queryset = getattr(obj, self.filter_accessor)
-        if callable(queryset):
-            queryset = queryset()
+        # Use filter_accessor to obtain a queryset of related objects
+        if callable(self.filter_accessor):
+            queryset = self.filter_accessor(obj)
+        else:
+            # treat filter_accessor as a method/property name of obj
+            queryset = getattr(obj, self.filter_accessor)
+            if isinstance(queryset, models.Manager):
+                queryset = queryset.all()
+            elif callable(queryset):
+                queryset = queryset()
 
+        # Turn this queryset into a list of IDs that will become the 'data-filter-value' used to
+        # filter this listing
         return queryset.values_list('pk', flat=True)
 
 
