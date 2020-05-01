@@ -4,15 +4,16 @@
 #
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2020
 # Marek Turnovec <aesculap@gmail.com>, 2016
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-03-06 01:59+0000\n"
+"Last-Translator: IT Management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +63,7 @@ msgstr "Zrušit publikaci"
 
 #, python-format
 msgid "Unpublish this %s"
-msgstr "Zrušit publikování %s"
+msgstr "Zrušit publikaci %s"
 
 msgid "Copy"
 msgstr "Kopírovat"
@@ -114,6 +115,9 @@ msgstr "Zpět na seznam"
 msgid "Yes, delete"
 msgstr "Ano, zrušit"
 
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
 msgid "Home"
 msgstr "Domů"
 
@@ -161,6 +165,9 @@ msgstr ""
 "\">nějaký(ou/é) přidat</a>?\n"
 "                                            "
 
+msgid "Pagination"
+msgstr "Stránkování"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Stránka %(current_page)s z %(num_pages)s."
@@ -174,9 +181,6 @@ msgstr "Předchozí"
 
 msgid "Next"
 msgstr "Další"
-
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' byl(o) vytvořen(o)."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -196,9 +200,6 @@ msgstr "Editování"
 msgid "Editing %s"
 msgstr "Editování %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' byl(a/o) aktualizován(a/o)."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s nemohlo být uloženo kvůli chybám."
@@ -214,9 +215,6 @@ msgid ""
 msgstr ""
 "Jste si jistý/á, že chcete zrušit %s? Jestliže se k tomu vztahují další věci "
 "na Vašem webu, mohou být rovněž ovlivněny."
-
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' bylo zrušeno."
 
 msgid "Inspecting"
 msgstr "Prohlíží se.."

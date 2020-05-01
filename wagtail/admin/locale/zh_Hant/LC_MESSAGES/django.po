@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andy Kong <worminfo@gmail.com>, 2020
 # c o <ihcgno@icloud.com>, 2019
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-16 03:50+0000\n"
-"Last-Translator: c o <ihcgno@icloud.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-03-07 11:14+0000\n"
+"Last-Translator: Andy Kong <worminfo@gmail.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -20,26 +21,38 @@ msgstr ""
 "Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Publish"
+msgstr "發佈"
+
 msgid "Submit for moderation"
 msgstr "提交審核"
 
 msgid "Unpublish"
-msgstr "取消發布"
+msgstr "取消發佈"
 
 msgid "Delete"
 msgstr "刪除"
 
+msgid "Save Draft"
+msgstr "儲存草稿"
+
+msgid "Page locked"
+msgstr "頁面已鎖定"
+
 msgid "Wagtail admin"
 msgstr "Wagtail 管理"
 
-msgid "None"
-msgstr "無"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "對不起， 你沒有權限訪問。"
 
 msgid "You do not have permission to access the admin"
 msgstr "您沒有後台管理權限"
 
+msgid "None"
+msgstr "無"
+
 msgid "Scheduled publishing"
-msgstr "定時發布"
+msgstr "定時發佈"
 
 msgid "Common page configuration"
 msgstr "常用頁面配置"
@@ -63,9 +76,6 @@ msgstr "輸入你的 %s"
 msgid "Enter your email address to reset your password"
 msgstr "輸入電子郵件地址以重置密碼"
 
-msgid "URL"
-msgstr "URL"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "對於同一個集合你不能設置多重權限"
 
@@ -82,21 +92,21 @@ msgid "This copy will be a child of this given parent page."
 msgstr "此副本將成為指定父頁面的子頁面。"
 
 msgid "Copy subpages"
-msgstr "復制子頁面"
+msgstr "複製子頁面"
 
 #, python-format
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
-msgstr[0] "此操作將復制%(count)s 子頁面。"
+msgstr[0] "此操作將複製%(count)s 子頁面。"
 
 msgid "Publish copied page"
-msgstr "發布復制的頁面。"
+msgstr "發佈已複製的頁面。"
 
 msgid "This page is live. Would you like to publish its copy as well?"
-msgstr "此頁面已上線。是否同時發布其副本？"
+msgstr "此頁面已上線。是否同時發佈其副本？"
 
 msgid "Publish copies"
-msgstr "發布副本"
+msgstr "發佈副本"
 
 #, python-format
 msgid ""
@@ -105,11 +115,11 @@ msgid ""
 msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
-msgstr[0] "正在復制的 %(count)s 個頁面已是發布狀態，你要發布他們的副本嗎？"
+msgstr[0] "正在複製的 %(count)s 個頁面已是發佈狀態，你要發佈他們的副本嗎？"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
-msgstr "你沒有權限復制到頁面“%(page_title)s”"
+msgstr "你沒有權限複製到頁面“%(page_title)s”"
 
 #, python-format
 msgid ""
@@ -117,7 +127,7 @@ msgid ""
 msgstr "此縮略名在其父頁面\"%s\"上下文中已被使用。"
 
 msgid "You cannot copy a page into itself when copying subpages"
-msgstr "你在復制子頁面時不能復制當前頁面本身"
+msgstr "你在複製子頁面時不能複製當前頁面本身"
 
 msgid "This slug is already in use"
 msgstr "此短標題已被使用"
@@ -142,6 +152,223 @@ msgstr "必要欄位"
 
 msgid "Please select at least one group."
 msgstr "請至少選擇一個組。"
+
+msgid "Arabic"
+msgstr "阿拉伯語"
+
+msgid "Catalan"
+msgstr "加泰羅尼亞語"
+
+msgid "German"
+msgstr "德語"
+
+msgid "Greek"
+msgstr "希臘語"
+
+msgid "English"
+msgstr "英語"
+
+msgid "Spanish"
+msgstr "西班牙語"
+
+msgid "Finnish"
+msgstr "芬蘭語"
+
+msgid "French"
+msgstr "法語"
+
+msgid "Galician"
+msgstr "加利西亞語"
+
+msgid "Indonesian"
+msgstr "印度尼西亞"
+
+msgid "Icelandic"
+msgstr "冰島語"
+
+msgid "Italian"
+msgstr "義大利語"
+
+msgid "Korean"
+msgstr "韓國語"
+
+msgid "Lithuanian"
+msgstr "立陶宛語"
+
+msgid "Norwegian Bokmål"
+msgstr "挪威博克馬爾語"
+
+msgid "Netherlands Dutch"
+msgstr "荷蘭語"
+
+msgid "Persian"
+msgstr "波斯語"
+
+msgid "Polish"
+msgstr "波蘭語"
+
+msgid "Brazilian Portuguese"
+msgstr "巴西葡萄牙語"
+
+msgid "Portuguese"
+msgstr "葡萄牙語"
+
+msgid "Romanian"
+msgstr "羅馬尼亞語"
+
+msgid "Russian"
+msgstr "俄語"
+
+msgid "Swedish"
+msgstr "瑞典語"
+
+msgid "Slovak"
+msgstr "斯洛伐克語"
+
+msgid "Ukrainian"
+msgstr "烏克蘭語"
+
+msgid "Page"
+msgstr "頁面"
+
+msgid "Pages"
+msgstr "頁面"
+
+msgid "Loading…"
+msgstr "正在載入..."
+
+msgid "No results"
+msgstr "沒有結果"
+
+msgid "Server Error"
+msgstr "伺服器錯誤"
+
+msgid "See all"
+msgstr "查看全部"
+
+msgid "Close explorer"
+msgstr "關閉資源管理"
+
+msgid "Alt text"
+msgstr "替代文字"
+
+msgid "Write here…"
+msgstr "寫在這里..."
+
+msgid "Horizontal line"
+msgstr "水平線"
+
+msgid "Line break"
+msgstr "換行"
+
+msgid "Undo"
+msgstr "復原"
+
+msgid "Redo"
+msgstr "取消復原"
+
+msgid "Reload the page"
+msgstr "刷新頁面"
+
+msgid "Reload saved content"
+msgstr "重新加載已保存內容"
+
+msgid "Show latest content"
+msgstr "顯示最新內容"
+
+msgid "Show error"
+msgstr "顯示錯誤"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "編輯器崩潰了😭，內容被重新設置為最後保存的版本。"
+
+msgid "Broken link"
+msgstr "無效連結"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "Edit '{title}'"
+msgstr "編輯 '{title}'"
+
+msgid "January"
+msgstr "一月"
+
+msgid "February"
+msgstr "二月"
+
+msgid "March"
+msgstr "三月"
+
+msgid "April"
+msgstr "四月"
+
+msgid "May"
+msgstr "五月"
+
+msgid "June"
+msgstr "六月"
+
+msgid "July"
+msgstr "七月"
+
+msgid "August"
+msgstr "八月"
+
+msgid "September"
+msgstr "九月"
+
+msgid "October"
+msgstr "十月"
+
+msgid "November"
+msgstr "十一月"
+
+msgid "December"
+msgstr "十二月"
+
+msgid "Sunday"
+msgstr "星期日"
+
+msgid "Monday"
+msgstr "星期一"
+
+msgid "Tuesday"
+msgstr "星期二"
+
+msgid "Wednesday"
+msgstr "星期三"
+
+msgid "Thursday"
+msgstr "星期四"
+
+msgid "Friday"
+msgstr "星期五"
+
+msgid "Saturday"
+msgstr "星期六"
+
+msgid "Sun"
+msgstr "周日"
+
+msgid "Mon"
+msgstr "周一"
+
+msgid "Tue"
+msgstr "周二"
+
+msgid "Wed"
+msgstr "周三"
+
+msgid "Thu"
+msgstr "周四"
+
+msgid "Fri"
+msgstr "周五"
+
+msgid "Sat"
+msgstr "周六"
 
 msgid "Error 404: Page not found"
 msgstr "404錯誤：沒有找到頁面"
@@ -229,153 +456,11 @@ msgstr "密碼已重置。"
 msgid "Reset your password"
 msgstr "重置密碼"
 
-msgid "Page"
-msgstr "頁面"
-
-msgid "Pages"
-msgstr "頁面"
-
-msgid "Loading…"
-msgstr "正在載入..."
-
-msgid "No results"
-msgstr "沒有結果"
-
-msgid "Server Error"
-msgstr "伺服器錯誤"
-
-msgid "See all"
-msgstr "查看全部"
-
-msgid "Close explorer"
-msgstr "關閉資源管理"
-
-msgid "Alt text"
-msgstr "替代文字"
-
-msgid "Write here…"
-msgstr "寫在這里..."
-
-msgid "Horizontal line"
-msgstr "水平線"
-
-msgid "Line break"
-msgstr "換行"
-
-msgid "Undo"
-msgstr "復原"
-
-msgid "Redo"
-msgstr "取消復原"
-
-msgid "Reload the page"
-msgstr "刷新頁面"
-
-msgid "Reload saved content"
-msgstr "重新加載已保存內容"
-
-msgid "Show latest content"
-msgstr "顯示最新內容"
-
-msgid "Show error"
-msgstr "顯示錯誤"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "編輯器崩潰了😭，內容被重新設置為最後保存的版本。"
-
-msgid "Broken link"
-msgstr "無效連結"
-
-msgid "Close"
-msgstr "關閉"
-
-msgid "January"
-msgstr "一月"
-
-msgid "February"
-msgstr "二月"
-
-msgid "March"
-msgstr "三月"
-
-msgid "April"
-msgstr "四月"
-
-msgid "May"
-msgstr "五月"
-
-msgid "June"
-msgstr "六月"
-
-msgid "July"
-msgstr "七月"
-
-msgid "August"
-msgstr "八月"
-
-msgid "September"
-msgstr "九月"
-
-msgid "October"
-msgstr "十月"
-
-msgid "November"
-msgstr "十一月"
-
-msgid "December"
-msgstr "十二月"
-
-msgid "Sunday"
-msgstr "星期日"
-
-msgid "Monday"
-msgstr "星期一"
-
-msgid "Tuesday"
-msgstr "星期二"
-
-msgid "Wednesday"
-msgstr "星期三"
-
-msgid "Thursday"
-msgstr "星期四"
-
-msgid "Friday"
-msgstr "星期五"
-
-msgid "Saturday"
-msgstr "星期六"
-
-msgid "Sun"
-msgstr "周日"
-
-msgid "Mon"
-msgstr "周一"
-
-msgid "Tue"
-msgstr "周二"
-
-msgid "Wed"
-msgstr "周三"
-
-msgid "Thu"
-msgstr "周四"
-
-msgid "Fri"
-msgstr "周五"
-
-msgid "Sat"
-msgstr "周六"
-
 msgid "Dashboard"
 msgstr "控制面板"
 
 msgid "Menu"
 msgstr "選單"
-
-msgid "Add another"
-msgstr "新增其它"
 
 msgid "Move up"
 msgstr "上移"
@@ -493,11 +578,27 @@ msgid ""
 "created will be displayed."
 msgstr "這是您的主控台，將會顯示您創建的內容的幫助信息。"
 
-msgid "Pages awaiting moderation"
-msgstr "等待頁面審核中"
-
 msgid "Title"
 msgstr "標題"
+
+msgid "Edit this page"
+msgstr "編輯此頁"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "Live"
+msgstr "上線"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 之前"
+
+msgid "Pages awaiting moderation"
+msgstr "等待頁面審核中"
 
 msgid "Parent"
 msgstr "上一級"
@@ -508,9 +609,6 @@ msgstr "類型"
 msgid "Edited"
 msgstr "已編輯"
 
-msgid "Edit this page"
-msgstr "編輯此頁"
-
 msgid "Preview this page"
 msgstr "預覽頁面"
 
@@ -520,15 +618,8 @@ msgstr "通過"
 msgid "Reject"
 msgstr "拒絕"
 
-msgid "Edit"
-msgstr "編輯"
-
 msgid "Preview"
 msgstr "預覽"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
 
 msgid "Your most recent edits"
 msgstr "最近編輯"
@@ -538,12 +629,6 @@ msgstr "日期"
 
 msgid "Status"
 msgstr "狀態"
-
-msgid "Draft"
-msgstr "草稿"
-
-msgid "Live"
-msgstr "上線"
 
 msgid "Site summary"
 msgstr "網站摘要"
@@ -613,23 +698,20 @@ msgstr "此頁面已被父節點設置為私有。"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "私有設置也會應用到此頁面的所有子頁面。"
 
-msgid "Edit lock"
-msgstr "編輯鎖定"
-
-msgid "Locked"
-msgstr "已鎖定"
-
-msgid "Unlocked"
-msgstr "已解鎖"
-
 msgid "Publishing…"
-msgstr "正在發布..."
+msgstr "正在發佈..."
 
 msgid "Publish this revision"
-msgstr "發布這個版本"
+msgstr "發佈這個版本"
 
-msgid "Publish"
-msgstr "發布"
+msgid "Saving…"
+msgstr "正在保存..."
+
+msgid "Replace current draft"
+msgstr "替換當前的草稿"
+
+msgid "Save draft"
+msgstr "保存草稿"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -678,8 +760,8 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"或者你可以 <a href=\"%(unpublish_url)s\">取消發布此頁面</a>。此頁面將不再公開"
-"展示，稍後你可以進行編輯或者重新發布。"
+"或者你可以 <a href=\"%(unpublish_url)s\">取消發佈此頁面</a>。此頁面將不再公開"
+"展示，稍後你可以進行編輯或者重新發佈。"
 
 #, python-format
 msgid "Move %(title)s"
@@ -703,10 +785,10 @@ msgstr "是的，請開始移動吧"
 
 #, python-format
 msgid "Unpublish %(title)s"
-msgstr "取消發布%(title)s"
+msgstr "取消發佈%(title)s"
 
 msgid "Are you sure you want to unpublish this page?"
-msgstr "此頁面確定要取消發布嗎？"
+msgstr "此頁面確定要取消發佈嗎？"
 
 #, python-format
 msgid ""
@@ -721,14 +803,14 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "                    此頁面有 %(live_descendant_count)s 個子頁面。它們也都會被"
-"取消發布\n"
+"取消發佈\n"
 "                "
 
 msgid "Yes, unpublish it"
-msgstr "是，取消發布"
+msgstr "是，取消發佈"
 
 msgid "No, don't unpublish"
-msgstr "否，不取消發布"
+msgstr "否，不取消發佈"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -739,13 +821,13 @@ msgstr "頁面使用"
 
 #, python-format
 msgid "Copy %(title)s"
-msgstr "復制%(title)s"
+msgstr "複製%(title)s"
 
 msgid "Copy"
-msgstr "復制"
+msgstr "複製"
 
 msgid "Copy this page"
-msgstr "復制此頁"
+msgstr "複製此頁"
 
 #, python-format
 msgid "New %(page_type)s"
@@ -753,12 +835,6 @@ msgstr "新%(page_type)s頁面類型"
 
 msgid "New"
 msgstr "新"
-
-msgid "Saving…"
-msgstr "正在保存..."
-
-msgid "Save draft"
-msgstr "保存草稿"
 
 msgid "This page has unsaved changes."
 msgstr "頁面還沒保存"
@@ -770,12 +846,6 @@ msgstr "編輯 %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "編輯 %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "頁面已鎖定"
-
-msgid "Replace current draft"
-msgstr "替換當前的草稿"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -985,19 +1055,19 @@ msgstr "這兩個修訂版本內容一致。"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "取消%(title)s修訂版本%(revision.id)s的預定發布"
+msgstr "取消%(title)s修訂版本%(revision.id)s的預定發佈"
 
 msgid "Unschedule"
-msgstr "取消預定發布"
+msgstr "取消預定發佈"
 
 msgid "Are you sure you want to unschedule this revision?"
-msgstr "確定要取消這個修訂版本的預定發布嗎？"
+msgstr "確定要取消這個修訂版本的預定發佈嗎？"
 
 msgid "Yes, unschedule"
-msgstr "是的，取消定時發布"
+msgstr "是的，取消定時發佈"
 
 msgid "No, don't unschedule"
-msgstr "否，不取消預定發布"
+msgstr "否，不取消預定發佈"
 
 #, python-format
 msgid "Revisions of %(title)s"
@@ -1020,7 +1090,7 @@ msgid "Live version"
 msgstr "線上版本"
 
 msgid "Scheduled for"
-msgstr "定時發布"
+msgstr "定時發佈"
 
 msgid "Review this revision"
 msgstr "查看這個修訂"
@@ -1029,7 +1099,7 @@ msgid "Compare with previous revision"
 msgstr "與上一個修訂版本進行比較"
 
 msgid "Cancel scheduled publish"
-msgstr "取消預定的發布"
+msgstr "取消預定的發佈"
 
 msgid "No revisions of this page exist"
 msgstr "當前頁面沒有修訂記錄"
@@ -1066,6 +1136,9 @@ msgstr "沒有頁面使用"
 msgid "Collection"
 msgstr "集合"
 
+msgid "Locked"
+msgstr "已鎖定"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
@@ -1094,14 +1167,6 @@ msgstr "查看線上頁面"
 msgid "Other searches"
 msgstr "其它搜索"
 
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"您正在使用一個本軟體不支持的<strong>過期的</strong> 瀏覽器。請 <a href="
-"\"http://browsehappy.com/\">更新瀏覽器</a>。"
-
 msgid "Go to Wagtail admin interface"
 msgstr "轉到管理界面"
 
@@ -1113,84 +1178,6 @@ msgstr "在資源管理器中顯示"
 
 msgid "Test"
 msgstr "測試"
-
-msgid "Arabic"
-msgstr "阿拉伯語"
-
-msgid "Catalan"
-msgstr "加泰羅尼亞語"
-
-msgid "German"
-msgstr "德語"
-
-msgid "Greek"
-msgstr "希臘語"
-
-msgid "English"
-msgstr "英語"
-
-msgid "Spanish"
-msgstr "西班牙語"
-
-msgid "Finnish"
-msgstr "芬蘭語"
-
-msgid "French"
-msgstr "法語"
-
-msgid "Galician"
-msgstr "加利西亞語"
-
-msgid "Indonesian"
-msgstr "印度尼西亞"
-
-msgid "Icelandic"
-msgstr "冰島語"
-
-msgid "Italian"
-msgstr "義大利語"
-
-msgid "Korean"
-msgstr "韓國語"
-
-msgid "Lithuanian"
-msgstr "立陶宛語"
-
-msgid "Norwegian Bokmål"
-msgstr "挪威博克馬爾語"
-
-msgid "Netherlands Dutch"
-msgstr "荷蘭語"
-
-msgid "Persian"
-msgstr "波斯語"
-
-msgid "Polish"
-msgstr "波蘭語"
-
-msgid "Brazilian Portuguese"
-msgstr "巴西葡萄牙語"
-
-msgid "Portuguese"
-msgstr "葡萄牙語"
-
-msgid "Romanian"
-msgstr "羅馬尼亞語"
-
-msgid "Russian"
-msgstr "俄語"
-
-msgid "Swedish"
-msgstr "瑞典語"
-
-msgid "Slovak"
-msgstr "斯洛伐克語"
-
-msgid "Ukrainian"
-msgstr "烏克蘭語"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "對不起， 你沒有權限訪問。"
 
 msgid "Your password has been changed successfully!"
 msgstr "密碼成功修改！"
@@ -1238,13 +1225,13 @@ msgid "Editing"
 msgstr "正在編輯"
 
 msgid "Page '{0}' created and scheduled for publishing."
-msgstr "頁面 {0} 已創建並計劃發布中。"
+msgstr "頁面 {0} 已創建並計劃發佈中。"
 
 msgid "View live"
 msgstr "即時查看"
 
 msgid "Page '{0}' created and published."
-msgstr "頁面'{0}'已創建並發布。"
+msgstr "頁面'{0}'已創建並發佈。"
 
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "頁面 '{0}' 已創建並提交審核。"
@@ -1262,19 +1249,19 @@ msgid "The page could not be created due to validation errors"
 msgstr "驗證錯誤，頁面無法創建。"
 
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "頁面 {1} 的版本 {0} 正在計劃發布中。"
+msgstr "頁面 {1} 的版本 {0} 正在排程發佈中。"
 
 msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "頁面 {0} 已上線，此修訂版本已預定發布時間。"
+msgstr "頁面 {0} 已上線，此修訂版本已預定發佈時間。"
 
 msgid "Page '{0}' has been scheduled for publishing."
-msgstr "頁面 {0} 已預定發布時間。"
+msgstr "頁面 {0} 已預定發佈時間。"
 
 msgid "Revision from {0} of page '{1}' has been published."
-msgstr "頁面 '{1}' 的修訂版本 {0} 已經發布。"
+msgstr "頁面 '{1}' 的修訂版本 {0} 已經發佈。"
 
 msgid "Page '{0}' has been published."
-msgstr "頁面 '{0}' 已經發布。"
+msgstr "頁面 '{0}' 已經發佈。"
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "頁面 '{0}' 已經提交給版主。"
@@ -1301,22 +1288,22 @@ msgid "Page '{0}' deleted."
 msgstr "頁面'{0}'已刪除"
 
 msgid "Page '{0}' unpublished."
-msgstr "頁面'{0}'已取消發布。"
+msgstr "頁面'{0}'已取消發佈。"
 
 msgid "Page '{0}' moved."
 msgstr "頁面 '{0}' 已移動。"
 
 msgid "Page '{0}' and {1} subpages copied."
-msgstr "頁面 '{0}' 和 {1} 個子頁面已復制。"
+msgstr "頁面 '{0}' 和 {1} 個子頁面已複製。"
 
 msgid "Page '{0}' copied."
-msgstr "頁面'{0}'已復制。"
+msgstr "頁面'{0}'已複製。"
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "頁面 '{0}'目前不在等待審核。"
 
 msgid "Page '{0}' published."
-msgstr "頁面'{0}'已發布"
+msgstr "頁面'{0}'已發佈"
 
 msgid "Failed to send approval notifications"
 msgstr "發送批準通知失敗。"
@@ -1326,9 +1313,6 @@ msgstr "頁面 '{0}'審核失敗"
 
 msgid "Failed to send rejection notifications"
 msgstr "發送拒絕通知失敗。"
-
-msgid "Page '{0}' is now locked."
-msgstr "頁面 '{0}'已鎖定"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "頁面 '{0}'已解鎖。"
@@ -1351,46 +1335,17 @@ msgid "revision {0} of \"{1}\""
 msgstr " \"{1}\"的修訂版本{0}"
 
 msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr " \"{1}\"的修訂版本{0}已取消預定的發布。"
+msgstr " \"{1}\"的修訂版本{0}已取消預定的發佈。"
 
-msgid "Edit '{title}'"
-msgstr "編輯 '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "預覽 '{title}' 的草稿"
-
-msgid "View live version of '{title}'"
-msgstr "查看 '{title}' 的線上版本"
-
-msgid "Add a child page to '{title}' "
-msgstr "為 '{title}' 新增子頁面"
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "預覽草稿版本 '%(title)s'"
 
 msgid "More"
 msgstr "更多"
 
-msgid "View more options for '{title}'"
-msgstr "查看 '{title}' 的更多選項"
-
-msgid "Move page '{title}'"
-msgstr "移動頁面 '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "復制頁面 '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "刪除頁面 '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "取消發布頁面 '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "查看 '{title}' 的修訂歷史"
-
 msgid "Set profile picture"
 msgstr "頭像設置"
-
-msgid "Change your profile picture"
-msgstr "更改你的頭像"
 
 msgid "Change the email address linked to your account."
 msgstr "更改帳號關聯信箱"
@@ -1412,9 +1367,6 @@ msgstr "當前時區"
 
 msgid "Choose your current time zone."
 msgstr "選擇你的當前時區"
-
-msgid "Heading {level}"
-msgstr "標題{level}"
 
 msgid "Bulleted list"
 msgstr "項目列表"

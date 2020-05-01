@@ -5,6 +5,7 @@
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-08-22 14:29+0000\n"
-"Last-Translator: Mohammed Abdul gadir <weekmo@aol.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-04-09 11:01+0000\n"
+"Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,9 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Publish"
+msgstr "انشر"
 
 msgid "Submit for moderation"
 msgstr "قدّم للمراجعة"
@@ -35,17 +39,26 @@ msgstr "غير منشور"
 msgid "Delete"
 msgstr "احذف"
 
+msgid "Save Draft"
+msgstr "حفظ مسودة"
+
+msgid "Page locked"
+msgstr "الصفحة مغلقة"
+
 msgid "Wagtail admin"
 msgstr "مشرف Wagtail"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "عذرًا ، ليس لديك إذن للوصول إلى هذه المنطقة."
+
+msgid "You do not have permission to access the admin"
+msgstr "ليس لديك الصلاحيات الدخول ك Admin"
 
 msgid "None"
 msgstr "فارغ"
 
-msgid "You do not have permission to access the admin"
-msgstr "ليس لديك الصلاحيات لدخول الى Admin"
-
 msgid "Scheduled publishing"
-msgstr "نشر مجدول"
+msgstr "نشر مجدول زمنيا"
 
 msgid "Common page configuration"
 msgstr "تهيئة الصفحات المشتركة"
@@ -70,7 +83,7 @@ msgid "Enter your email address to reset your password"
 msgstr "ادخل البريد الإلكتروني الخاص بك لإرجاع كلمة المرور الخاصة بك "
 
 msgid "URL"
-msgstr "الرابط"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "لا يوجد لديك العديد من الصلاحيات المسجلة في نفس المجموعة"
@@ -159,94 +172,101 @@ msgstr "هذا الحقل مقتضى"
 msgid "Please select at least one group."
 msgstr "نرجوا اختيار على الاقل مجموعة واحدة"
 
-msgid "Error 404: Page not found"
-msgstr "خطا 404: الصفحة المطلوبة غير متوفرة"
+msgid "Arabic"
+msgstr "عربي"
 
-msgid "Error 404"
-msgstr "خطا 404"
+msgid "Catalan"
+msgstr "الكاتالونية"
 
-msgid "The requested page could not be found."
-msgstr "الصفحة المطلوبة لم تعد متوفرة"
+msgid "German"
+msgstr "الألمانية"
 
-msgid "Go to Wagtail admin"
-msgstr "اذهب الى لوحة تحكم Wagtail"
+msgid "Greek"
+msgstr "اليونانية"
 
-msgid "Account"
-msgstr "حساب"
+msgid "English"
+msgstr "الإنجليزية"
 
-msgid "Change profile picture"
-msgstr "غير الصورة التعريفية"
+msgid "Spanish"
+msgstr "الأسبانية"
 
-msgid "Your current profile picture:"
-msgstr "الصورة التعريفية الحالية:"
+msgid "Finnish"
+msgstr "الفنلندية"
 
-msgid "Update"
-msgstr "حدث"
+msgid "French"
+msgstr "الفرنسية"
 
-msgid "Change email"
-msgstr "تغير البريد الالكتروني"
+msgid "Galician"
+msgstr "الجاليكية"
 
-msgid "Change password"
-msgstr "غير كلمة السر"
+msgid "Hungarian"
+msgstr "الهنغارية"
 
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "من غير ممكن أن تغير كلمتك السرية هنا , من فضلك اتصل بمدير الموقع"
+msgid "Indonesian"
+msgstr "الأندونيسية"
 
-msgid "Set Time Zone"
-msgstr "اضبط التوقيت المحلي"
+msgid "Icelandic"
+msgstr "أيسلندي"
 
-msgid "Language Preferences"
-msgstr "إعدادات اللغة"
+msgid "Italian"
+msgstr "الإيطالي"
 
-msgid "Notification preferences"
-msgstr "أفضليات الأبلاغ"
+msgid "Japanese"
+msgstr "اليابانية"
 
-msgid "Reset password"
-msgstr "غير كلمة السر"
+msgid "Korean"
+msgstr "الكورية"
 
-msgid "Password change successful"
-msgstr "أكمل تغيير كلمة السر بنجاح"
+msgid "Lithuanian"
+msgstr "اللتوانية"
 
-msgid "Login"
-msgstr "اتصل "
+msgid "Mongolian"
+msgstr "المنغولية"
 
-msgid "Set your new password"
-msgstr "ثبّت كلمتك السرية الجديدة"
+msgid "Norwegian Bokmål"
+msgstr "النرويجية بوكمال"
 
-msgid "Invalid password reset link"
-msgstr "رابط استرجاع كلمة المرور غير مقبول"
+msgid "Netherlands Dutch"
+msgstr "الهولندية"
 
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used."
-msgstr ""
-"رابط استرجاع كلمة المرور غير مقبول , ربما يكون السبب انه تم استخدامه بالفعل"
+msgid "Persian"
+msgstr "الفارسية"
 
-msgid "Request a new password reset"
-msgstr "طلب جديد لاعادة ضبط كلمة المرور "
+msgid "Polish"
+msgstr "البولندي"
 
-msgid "Check your email"
-msgstr "افحص بريدك الإلكتروني"
+msgid "Brazilian Portuguese"
+msgstr "البرتغالية البرازيلية"
 
-msgid ""
-"A link to reset your password has been emailed to you if an account exists "
-"for this address."
-msgstr ""
-"تم إرسال رابط لإعادة تعيين كلمة المرور إليك عبر البريد الإلكتروني إذا كان "
-"هناك حساب لهذا العنوان."
+msgid "Portuguese"
+msgstr "البرتغالية"
 
-msgid "Please follow the link below to reset your password:"
-msgstr "ارجو استخدم الرابط بالاسفل لإعادة كلمة المرور الخاصه بك"
+msgid "Romanian"
+msgstr "روماني"
 
-msgid "Your username (in case you've forgotten):"
-msgstr "اسم المستخدم الخاص بك (في حال فقدانة)"
+msgid "Russian"
+msgstr "الروسية"
 
-msgid "Password reset"
-msgstr "أكملت إعادة تثبيت كلمة السر"
+msgid "Swedish"
+msgstr "السويدية"
 
-msgid "Reset your password"
-msgstr "أعد تثبيت كلمةتك السرية"
+msgid "Slovak"
+msgstr "السلوفاكية"
+
+msgid "Turkish"
+msgstr "التركية"
+
+msgid "Turkish (Turkey)"
+msgstr "التركية (تركيا)"
+
+msgid "Ukrainian"
+msgstr "الأوكراني"
+
+msgid "Chinese (Simplified)"
+msgstr "الصينية (مبسطة)"
+
+msgid "Chinese (Traditional)"
+msgstr "الصينية (تقليدية)"
 
 msgid "Page"
 msgstr "صفحة"
@@ -312,11 +332,11 @@ msgstr "مستند مفقود"
 msgid "Close"
 msgstr "اغلاق"
 
-msgid "Edit \\"
-msgstr "تعديل /"
+msgid "Edit '{title}'"
+msgstr "تحرير '{title}'"
 
-msgid "View child pages of \\"
-msgstr "اظهر الصفحات الفرعية ل /"
+msgid "View child pages of '{title}'"
+msgstr "أعرض الصفحات التابعة ل '{title}'"
 
 msgid "Page explorer"
 msgstr "مستكشف الصفحة"
@@ -399,14 +419,103 @@ msgstr "جمعة"
 msgid "Sat"
 msgstr "سبت"
 
+msgid "Error 404: Page not found"
+msgstr "خطا 404: الصفحة المطلوبة غير متوفرة"
+
+msgid "Error 404"
+msgstr "خطا 404"
+
+msgid "The requested page could not be found."
+msgstr "الصفحة المطلوبة لم تعد متوفرة"
+
+msgid "Go to Wagtail admin"
+msgstr "اذهب الى لوحة تحكم Wagtail"
+
+msgid "Account"
+msgstr "حساب"
+
+msgid "Change profile picture"
+msgstr "غير الصورة التعريفية"
+
+msgid "Your current profile picture:"
+msgstr "الصورة التعريفية الحالية:"
+
+msgid "Update"
+msgstr "حدث"
+
+msgid "Change email"
+msgstr "تغير البريد الالكتروني"
+
+msgid "Change name"
+msgstr "تغيير الإسم"
+
+msgid "Change password"
+msgstr "غير كلمة السر"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "من غير ممكن أن تغير كلمتك السرية هنا , من فضلك اتصل بمدير الموقع"
+
+msgid "Set Time Zone"
+msgstr "اضبط التوقيت المحلي"
+
+msgid "Language Preferences"
+msgstr "إعدادات اللغة"
+
+msgid "Notification preferences"
+msgstr "أفضليات الأبلاغ"
+
+msgid "Reset password"
+msgstr "غير كلمة السر"
+
+msgid "Password change successful"
+msgstr "أكمل تغيير كلمة السر بنجاح"
+
+msgid "Login"
+msgstr "اتصل "
+
+msgid "Set your new password"
+msgstr "ثبّت كلمتك السرية الجديدة"
+
+msgid "Invalid password reset link"
+msgstr "رابط استرجاع كلمة المرور غير مقبول"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"رابط استرجاع كلمة المرور غير مقبول , ربما يكون السبب انه تم استخدامه بالفعل"
+
+msgid "Request a new password reset"
+msgstr "طلب جديد لاعادة ضبط كلمة المرور "
+
+msgid "Check your email"
+msgstr "افحص بريدك الإلكتروني"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"تم إرسال رابط لإعادة تعيين كلمة المرور إليك عبر البريد الإلكتروني إذا كان "
+"هناك حساب لهذا العنوان."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "ارجو استخدم الرابط بالاسفل لإعادة كلمة المرور الخاصه بك"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "اسم المستخدم الخاص بك (في حال فقدانة)"
+
+msgid "Password reset"
+msgstr "أكملت إعادة تثبيت كلمة السر"
+
+msgid "Reset your password"
+msgstr "أعد تثبيت كلمةتك السرية"
+
 msgid "Dashboard"
 msgstr "لوحة التحكم"
 
 msgid "Menu"
 msgstr "قائمة المحتويات"
-
-msgid "Add another"
-msgstr "أـضف آخر"
 
 msgid "Move up"
 msgstr "تقدم إلى فوق "
@@ -425,6 +534,9 @@ msgstr "حلقة خارجية"
 
 msgid "Email link"
 msgstr "حلقة إلكتترونية"
+
+msgid "Phone link"
+msgstr "رابط الهاتف"
 
 #, python-format
 msgid ""
@@ -527,11 +639,27 @@ msgstr ""
 "هذه هي لوحة التحكم الخاصة بك والتي سيتم عرض معلومات مفيدة حول المحتوى الذي "
 "قمت بإنشائها."
 
-msgid "Pages awaiting moderation"
-msgstr "صفحات في انتظار الاشراف عليها"
-
 msgid "Title"
 msgstr "عنوان"
+
+msgid "Edit this page"
+msgstr "حرر هذه الصفحة"
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "Draft"
+msgstr "مسودة"
+
+msgid "Live"
+msgstr "مباشر"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "قبل %(time_period)s"
+
+msgid "Pages awaiting moderation"
+msgstr "صفحات في انتظار الاشراف عليها"
 
 msgid "Parent"
 msgstr "والد"
@@ -542,9 +670,6 @@ msgstr "نوع"
 msgid "Edited"
 msgstr "محررة"
 
-msgid "Edit this page"
-msgstr "حرر هذه الصفحة"
-
 msgid "Preview this page"
 msgstr "مراجعة هذة الصفحة"
 
@@ -554,15 +679,8 @@ msgstr "موافق"
 msgid "Reject"
 msgstr "مرفوض"
 
-msgid "Edit"
-msgstr "تحرير"
-
 msgid "Preview"
 msgstr "نظر مقدم"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "قبل %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "أحدث تعديلاتك"
@@ -572,12 +690,6 @@ msgstr "تاريخ"
 
 msgid "Status"
 msgstr "رتبة"
-
-msgid "Draft"
-msgstr "مسودة"
-
-msgid "Live"
-msgstr "مباشر"
 
 msgid "Site summary"
 msgstr "ملحص الموقع"
@@ -648,14 +760,17 @@ msgstr "لقد تم جعل هذه الصفحة خاصة بواسطة صفحة ر
 msgid "Privacy changes apply to all children of this page too."
 msgstr "تنطبق تغييرات الخصوصية على جميع أطفال هذه الصفحة أيضًا."
 
-msgid "Edit lock"
-msgstr "تحرير عملية الإغلاق"
+msgid "Unlock"
+msgstr "إزالة القفل"
 
-msgid "Locked"
-msgstr "مغلق"
+msgid "You don't have permission to unlock"
+msgstr "ليست لك صلاحيات إزالة القفل"
 
-msgid "Unlocked"
-msgstr "غير مغلق"
+msgid "Lock"
+msgstr "قفل"
+
+msgid "You don't have permission to lock"
+msgstr "ليست لك صلاحيات القفل"
 
 msgid "Publishing…"
 msgstr "يتم النشر..."
@@ -663,8 +778,14 @@ msgstr "يتم النشر..."
 msgid "Publish this revision"
 msgstr "نشر النسخه السابقه"
 
-msgid "Publish"
-msgstr "انشر"
+msgid "Saving…"
+msgstr "يتم الحفظ..."
+
+msgid "Replace current draft"
+msgstr "استبدال المسودة الحالية"
+
+msgid "Save draft"
+msgstr "احفظ المسوّد"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -759,11 +880,8 @@ msgstr "جديد %(page_type)s"
 msgid "New"
 msgstr "جديد"
 
-msgid "Saving…"
-msgstr "يتم الحفظ..."
-
-msgid "Save draft"
-msgstr "احفظ المسوّد"
+msgid "Actions"
+msgstr "النشاطات"
 
 msgid "This page has unsaved changes."
 msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
@@ -775,12 +893,6 @@ msgstr "قيد التعديل %(page_type)s :%(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "تحرير %(page_type)s <span> %(title)s </span>"
-
-msgid "Page locked"
-msgstr "الصفحة مغلقة"
-
-msgid "Replace current draft"
-msgstr "استبدال المسودة الحالية"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -890,6 +1002,9 @@ msgstr "أضف صفحة لطفل "
 msgid "Sites menu"
 msgstr "قائمة الموقع"
 
+msgid "Pagination"
+msgstr "ترقيم الصفحات"
+
 #, python-format
 msgid ""
 "\n"
@@ -910,6 +1025,9 @@ msgstr "هذه الصفحة محمية من النظر العمومي"
 
 msgid "Disable ordering of child pages"
 msgstr "تعطيل ترتيب الصفحات الفرعية"
+
+msgid "Sort"
+msgstr "ترتيب"
 
 msgid "Enable ordering of child pages"
 msgstr "تمكين ترتيب الصفحات الفرعية"
@@ -1026,6 +1144,9 @@ msgstr "لا توجد صفحات تستخدم"
 msgid "Collection"
 msgstr "مجموعة"
 
+msgid "Locked"
+msgstr "مغلق"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "صفحة %(page_num)s من %(total_pages)s"
@@ -1051,30 +1172,6 @@ msgstr "تسجيل الخروج"
 msgid "Other searches"
 msgstr "عمليات البحث الاخرى"
 
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"أنت تستخدم متصفحًا<strong> قديمًا </strong>لا يدعمه هذا البرنامج. يرجى <a href="
-"\"http://browsehappy.com/\">تحديث المتصفح الخاص بك</a>."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"مطلوب جافا سكريبت لاستخدام ذعرة ، ولكن يتم تعطيل حاليا. <br />\n"
-"\n"
-"فيما يلي <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener noreferrer\">تعليمات حول كيفية تمكين JavaScript في مستعرض الويب "
-"الخاص بك</a>."
-
 msgid "Go to Wagtail admin interface"
 msgstr "Go to Wagtail admin interface"
 
@@ -1086,84 +1183,6 @@ msgstr "اعرض في المستكشف"
 
 msgid "Test"
 msgstr "اختبار"
-
-msgid "Arabic"
-msgstr "عربي"
-
-msgid "Catalan"
-msgstr "الكاتالونية"
-
-msgid "German"
-msgstr "الألمانية"
-
-msgid "Greek"
-msgstr "اليونانية"
-
-msgid "English"
-msgstr "الإنجليزية"
-
-msgid "Spanish"
-msgstr "الأسبانية"
-
-msgid "Finnish"
-msgstr "الفنلندية"
-
-msgid "French"
-msgstr "الفرنسية"
-
-msgid "Galician"
-msgstr "الجاليكية"
-
-msgid "Indonesian"
-msgstr "الأندونيسية"
-
-msgid "Icelandic"
-msgstr "أيسلندي"
-
-msgid "Italian"
-msgstr "الإيطالي"
-
-msgid "Korean"
-msgstr "الكورية"
-
-msgid "Lithuanian"
-msgstr "اللتوانية"
-
-msgid "Norwegian Bokmål"
-msgstr "النرويجية بوكمال"
-
-msgid "Netherlands Dutch"
-msgstr "الهولندية"
-
-msgid "Persian"
-msgstr "الفارسية"
-
-msgid "Polish"
-msgstr "البولندي"
-
-msgid "Brazilian Portuguese"
-msgstr "البرتغالية البرازيلية"
-
-msgid "Portuguese"
-msgstr "البرتغالية"
-
-msgid "Romanian"
-msgstr "روماني"
-
-msgid "Russian"
-msgstr "الروسية"
-
-msgid "Swedish"
-msgstr "السويدية"
-
-msgid "Slovak"
-msgstr "السلوفاكية"
-
-msgid "Ukrainian"
-msgstr "الأوكراني"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "عذرًا ، ليس لديك إذن للوصول إلى هذه المنطقة."
 
 msgid "Your password has been changed successfully!"
 msgstr "تم تغيير كلمة المرور الخاصة بك بنجاح!"
@@ -1300,9 +1319,6 @@ msgstr "الصفحة '{0}' مرفوضة للنشر."
 msgid "Failed to send rejection notifications"
 msgstr "فشل إرسال إشعارات الرفض"
 
-msgid "Page '{0}' is now locked."
-msgstr "الصفحة '{0}' مؤمنة الآن."
-
 msgid "Page '{0}' is now unlocked."
 msgstr "الصفحة '{0}' غير مقفلة الآن."
 
@@ -1326,44 +1342,18 @@ msgstr "مراجعة {0} من \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "مراجعة {0} من \"{1}\" غير المجدولة."
 
-msgid "Edit '{title}'"
-msgstr "تحرير '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "معاينة نسخة مسودة '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "عرض إصدار مباشر من '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "إضافة صفحة فرعية إلى '{title}'"
-
 msgid "More"
 msgstr "المزيد"
 
-msgid "View more options for '{title}'"
-msgstr "عرض مزيد من الخيارات لـ '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "نقل الصفحة '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "نسخة الصفحة '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "حذف الصفحة '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "إلغاء نشر الصفحة '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "عرض سجل النسخ السابقة لـ '{title}'"
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "حذف الصفحة '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "اضبط صورة الملف الشخصي"
 
-msgid "Change your profile picture"
-msgstr "غير صورة ملفك الشخصي"
+msgid "Change your profile picture."
+msgstr "غير صورة ملفك الشخصي."
 
 msgid "Change the email address linked to your account."
 msgstr "قم بتغيير عنوان البريد الإلكتروني المرتبط بحسابك."
@@ -1386,8 +1376,8 @@ msgstr "الوقت الزمني الحالي"
 msgid "Choose your current time zone."
 msgstr "اختر منطقتك الزمنية الحالية."
 
-msgid "Heading {level}"
-msgstr "Heading {level}"
+msgid "Change your first and last name on your account."
+msgstr "غير إسك ولقبك على حسابك."
 
 msgid "Bulleted list"
 msgstr "قائمة ذات تعداد نقطي"
@@ -1403,6 +1393,12 @@ msgstr "Italic"
 
 msgid "Link"
 msgstr "رابط"
+
+msgid "Code"
+msgstr "كود"
+
+msgid "Reports"
+msgstr "التقارير"
 
 msgid "Choose an item"
 msgstr "اختيار عنصر"

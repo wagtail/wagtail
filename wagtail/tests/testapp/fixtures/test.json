@@ -757,6 +757,15 @@
     }
 },
 {
+    "pk": 9,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+        "group": ["Event moderators"],
+        "page": 3,
+        "permission_type": "unlock"
+    }
+},
+{
     "pk": 1,
     "model": "customuser.customuser",
     "fields": {

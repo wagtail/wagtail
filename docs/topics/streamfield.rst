@@ -238,6 +238,9 @@ A dropdown select box for choosing from a list of choices. The following keyword
 ``validators``
   A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
 
+``widget``
+  The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
+
 ``ChoiceBlock`` can also be subclassed to produce a reusable block with the same list of choices everywhere it is used. For example, a block definition such as:
 
 .. code-block:: python
@@ -263,6 +266,32 @@ could be rewritten as a subclass of ChoiceBlock:
 
 
 ``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition. Note that this only works when ``choices`` is a fixed list, not a callable.
+
+
+.. _streamfield_multiplechoiceblock:
+
+MultipleChoiceBlock
+~~~~~~~~~~~~~~~~~~~
+
+``wagtail.core.blocks.MultipleChoiceBlock``
+
+A multiple select box for choosing from a list of choices. The following keyword arguments are accepted:
+
+``choices``
+  A list of choices, in any format accepted by Django's :attr:`~django.db.models.Field.choices` parameter for model fields, or a callable returning such a list.
+
+``required`` (default: True)
+  If true, the field cannot be left blank.
+
+``help_text``
+  Help text to display alongside the field.
+
+``validators``
+  A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+
+``widget``
+  The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
+
 
 PageChooserBlock
 ~~~~~~~~~~~~~~~~

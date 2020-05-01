@@ -255,6 +255,25 @@ A few special cases to note about ``list_display``:
             list_display = ('full_name',)
 
 
+.. _modeladmin_list_export:
+
+---------------------------
+``ModelAdmin.list_export``
+---------------------------
+
+**Expected value**: A list or tuple, where each item is the name of a field or
+single-argument callable on your model, or a similarly simple method defined
+on the ``ModelAdmin`` class itself.
+
+Set ``list_export`` to set the fields you wish to be exported as columns when
+downloading a spreadsheet version of your index_view
+
+.. code-block:: python
+
+    class PersonAdmin(ModelAdmin):
+        list_export = ('is_staff', 'company')
+
+
 .. _modeladmin_list_filter:
 
 ---------------------------
@@ -428,10 +447,11 @@ For example:
     class Person(models.Model):
         first_name = models.CharField(max_length=50)
         last_name = models.CharField(max_length=50)
-        managed_by = models.ForeignKey(`auth.User`, on_delete=models.CASCADE)
+        managed_by = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
 
     class PersonAdmin(ModelAdmin):
+        model = Person
         list_display = ('first_name', 'last_name')
 
         def get_queryset(self, request):
@@ -664,7 +684,7 @@ change a few attributes to change the thumbnail to your liking, like so:
         # Optionally specify a fallback image to be used when the object doesn't
         # have an image set, or the image has been deleted. It can an image from
         # your static files folder, or an external URL.
-        thumb_default = 'http://lorempixel.com/100/100'
+        thumb_default = 'https://lorempixel.com/100/100'
 
 
 .. _modeladmin_list_display_add_buttons:

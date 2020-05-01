@@ -635,7 +635,7 @@
             </div>
 
             <p>These can also have an inverted  theme:</p>
-            <header class="nice-padding" role="banner">
+            <header class="nice-padding">
                 <div class="c-dropdown  t-inverted" data-dropdown="">
                     <a class="c-dropdown__button  u-btn-current">
                         More
@@ -663,7 +663,8 @@
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans %}
 
-            {% include "wagtailadmin/shared/header.html" with title=title_trans add_link="wagtailstyleguide" icon="image" add_text="button" search_url="wagtailimages:index" %}
+            {% url "wagtailstyleguide" as add_link %}
+            {% include "wagtailadmin/shared/header.html" with title=title_trans action_url=add_link icon="image" action_text="button" search_url="wagtailimages:index" %}
         </section>
 
         <section id="forms">
@@ -867,7 +868,7 @@
                 var to = setTimeout(function(){
                     runprogress();
                     clearTimeout(to);
-                    var to2 = setTimeout(function(){
+                    setTimeout(function(){
                         $('#progress-example .bar').css('width', '20%');
                     }, 2000);
                 }, 3000);

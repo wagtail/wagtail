@@ -1,0 +1,44 @@
+===========================================
+Wagtail 2.10 release notes - IN DEVELOPMENT
+===========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Other features
+~~~~~~~~~~~~~~
+
+ * Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
+ * Added filtering to locked pages report (Karl Hobley)
+ * Adds ability to view a group's users via standalone admin URL and a link to this on the group edit view (Karran Besen)
+ * Redirect to previous url when deleting/copying/unpublish a page and modify this url via the relevant hooks (Ascani Carlo)
+ * ``AbstractEmailForm`` will use ``SHORT_DATETIME_FORMAT`` and ``SHORT_DATE_FORMAT`` Django settings to format date/time values in email (Haydn Greatnews)
+ * ``AbstractEmailForm`` now has a separate method (``render_email``) to build up email content on submission emails. See :ref:`form_builder_render_email`. (Haydn Greatnews)
+ * Add ``pre_page_move`` and ``post_page_move`` signals. (Andy Babic)
+ * Add ability to sort search promotions on listing page (Chris Ranjana, LB (Ben Johnston))
+ * Upgrade internal JS tooling to Gulp v4 & Node v10 (Jim Jazwiecki, Kim LaRocca)
+
+
+Bug fixes
+~~~~~~~~~
+
+ * Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
+ * ``AbstractEmailForm`` saved submission fields are now aligned with the email content fields, ``form.cleaned_data`` will be used instead of ``form.fields`` (Haydn Greatnews)
+ * Removed ARIA ``role="table"`` from TableBlock output (Thibaud Colas)
+ * Set Cache-Control header to prevent page preview responses from being cached (Tomas Walch)
+ * Accept unicode characters in slugs on the "copy page" form (François Poulain)
+
+
+Upgrade considerations
+======================
+
+Removed support for Python 3.5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Python 3.5 is no longer supported as of this release; please upgrade to Python 3.6 or above before upgrading Wagtail.

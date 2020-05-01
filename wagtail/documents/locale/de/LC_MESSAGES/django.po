@@ -3,11 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benedikt Willi <ben.willi@gmail.com>, 2020
 # Ettore Atalan <atalanttore@googlemail.com>, 2019
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
+# Matthias Martin, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
@@ -19,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-27 09:52+0000\n"
+"Last-Translator: Benedikt Willi <ben.willi@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -149,6 +151,9 @@ msgstr "Sind Sie sicher, dass Sie dieses Dokument löschen wollen?"
 msgid "Yes, delete"
 msgstr "Ja, Löschen"
 
+msgid "No, don't delete"
+msgstr "Nein, nicht löschen"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "%(title)s bearbeiten"
@@ -180,8 +185,8 @@ msgstr "Datei"
 msgid "Collection"
 msgstr "Sammlung"
 
-msgid "Uploaded"
-msgstr "Hochgeladen"
+msgid "Created"
+msgstr "Erstellt"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -221,6 +226,26 @@ msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Diese Seite bearbeiten"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Dokument <span class=\"visuallyhidden\">erstellt in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Dokumente <span class=\"visuallyhidden\">erstellt in "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Mehrere Dokumente hinzufügen"

@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-01-25 09:28+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -23,8 +24,9 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Nucleu Wagtail"
 
-msgid "{label}: this block has no options."
-msgstr "{label}: acest block nu are nici o opțiune."
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: acest bloc nu are opțiuni"
 
 msgid "This block has no options."
 msgstr "Acest bloc nu are nici o opțiune."
@@ -240,9 +242,6 @@ msgstr "Șterge pagini cu descendenți"
 
 msgid "Lock"
 msgstr "Încuie"
-
-msgid "Lock/unlock any page"
-msgstr "Blochează/deblochează orice pagină"
 
 msgid "group"
 msgstr "grup"

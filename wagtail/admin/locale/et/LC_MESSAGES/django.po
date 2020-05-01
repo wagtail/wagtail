@@ -1,0 +1,524 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ragnar Rebase <rrebase@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
+"et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Avalda"
+
+msgid "Submit for moderation"
+msgstr "Esita modereerimiseks"
+
+msgid "Unpublish"
+msgstr "Tühista avaldamine"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Save Draft"
+msgstr "Salvesta Mustand"
+
+msgid "Page locked"
+msgstr "Leht lukus"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Vabandame, teil puudub siia ligipääs."
+
+msgid "None"
+msgstr "Puudub"
+
+msgid "Scheduled publishing"
+msgstr "Plaaniline avaldamine"
+
+msgid "Common page configuration"
+msgstr "Ühine lehekonfiguratsioon"
+
+msgid "Content"
+msgstr "Sisu"
+
+msgid "Promote"
+msgstr "Tõsta esile"
+
+msgid "Settings"
+msgstr "Seaded"
+
+msgid "Enter password"
+msgstr "Sisesta salasõna"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Sisestage oma %s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Sisestage e-posti aadress, et lähtestada oma parool."
+
+msgid "New title"
+msgstr "Uus pealkiri"
+
+msgid "New slug"
+msgstr "Uus nälk"
+
+msgid "New parent page"
+msgstr "Uus ülemleht"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "See koopia on antud ülemlehe alamleht."
+
+msgid "Copy subpages"
+msgstr "Kopeeri alamlehed"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Kopeeritakse %(count)s alamleht."
+msgstr[1] "Kopeeritakse %(count)s alamlehte."
+
+msgid "Publish copied page"
+msgstr "Avalda kopeeritud leht"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "See leht on avaldatud. Soovite avaldada ka selle koopia?"
+
+msgid "Publish copies"
+msgstr "Avalda koopiad"
+
+msgid "This slug is already in use"
+msgstr "See nälk on juba kasutuses"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Aegumise kuupäev/aeg peab olema tulevikus"
+
+msgid "Search"
+msgstr "Otsi"
+
+msgid "Search term"
+msgstr "Otsingusõna"
+
+msgid "Visibility"
+msgstr "Nähtavus"
+
+msgid "This field is required."
+msgstr "See väli on nõutud."
+
+msgid "Please select at least one group."
+msgstr "Palun valige vähemalt üks grupp."
+
+msgid "Arabic"
+msgstr "araabia"
+
+msgid "Catalan"
+msgstr "katalaania"
+
+msgid "Czech"
+msgstr "tšehhi"
+
+msgid "German"
+msgstr "saksa"
+
+msgid "Greek"
+msgstr "kreeka"
+
+msgid "English"
+msgstr "inglise"
+
+msgid "Spanish"
+msgstr "hispaania"
+
+msgid "Finnish"
+msgstr "soome"
+
+msgid "French"
+msgstr "prantsuse"
+
+msgid "Hungarian"
+msgstr "ungari"
+
+msgid "Icelandic"
+msgstr "islandi"
+
+msgid "Italian"
+msgstr "itaalia"
+
+msgid "Japanese"
+msgstr "jaapani"
+
+msgid "Korean"
+msgstr "korea"
+
+msgid "Lithuanian"
+msgstr "leedu"
+
+msgid "Polish"
+msgstr "poola"
+
+msgid "Portuguese"
+msgstr "portugali"
+
+msgid "Russian"
+msgstr "vene"
+
+msgid "Swedish"
+msgstr "rootsi"
+
+msgid "Thai"
+msgstr "Tai"
+
+msgid "Ukrainian"
+msgstr "ukraina"
+
+msgid "Page"
+msgstr "Leht"
+
+msgid "Pages"
+msgstr "Lehed"
+
+msgid "Loading…"
+msgstr "Laen..."
+
+msgid "No results"
+msgstr "Tulemusi ei ole"
+
+msgid "Server Error"
+msgstr "Serveri viga"
+
+msgid "See all"
+msgstr "Vaata kõiki"
+
+msgid "Alt text"
+msgstr "Asendustekst"
+
+msgid "Write here…"
+msgstr "Kirjuta siia..."
+
+msgid "Horizontal line"
+msgstr "Horisontaalne joon"
+
+msgid "Line break"
+msgstr "Reavahetus"
+
+msgid "Undo"
+msgstr "Võta tagasi"
+
+msgid "Redo"
+msgstr "Tee uuesti"
+
+msgid "Reload the page"
+msgstr "Värskenda lehte"
+
+msgid "Reload saved content"
+msgstr "Värskenda salvestatud sisu"
+
+msgid "Show latest content"
+msgstr "Näita viimast sisu"
+
+msgid "Show error"
+msgstr "Näita viga"
+
+msgid "Broken link"
+msgstr "Katkine link"
+
+msgid "Close"
+msgstr "Sulge"
+
+msgid "Edit '{title}'"
+msgstr "Muuda '{title}'"
+
+msgid "January"
+msgstr "jaanuar"
+
+msgid "February"
+msgstr "veebruar"
+
+msgid "March"
+msgstr "märts"
+
+msgid "April"
+msgstr "aprill"
+
+msgid "May"
+msgstr "mai"
+
+msgid "June"
+msgstr "juuni"
+
+msgid "July"
+msgstr "juuli"
+
+msgid "August"
+msgstr "august"
+
+msgid "September"
+msgstr "september"
+
+msgid "October"
+msgstr "oktoober"
+
+msgid "November"
+msgstr "november"
+
+msgid "December"
+msgstr "detsember"
+
+msgid "Sunday"
+msgstr "pühapäev"
+
+msgid "Monday"
+msgstr "esmaspäev"
+
+msgid "Tuesday"
+msgstr "teisipäev"
+
+msgid "Wednesday"
+msgstr "kolmapäev"
+
+msgid "Thursday"
+msgstr "neljapäev"
+
+msgid "Friday"
+msgstr "reede"
+
+msgid "Saturday"
+msgstr "laupäev"
+
+msgid "Sun"
+msgstr "P"
+
+msgid "Mon"
+msgstr "E"
+
+msgid "Tue"
+msgstr "T"
+
+msgid "Wed"
+msgstr "K"
+
+msgid "Thu"
+msgstr "N"
+
+msgid "Fri"
+msgstr "R"
+
+msgid "Sat"
+msgstr "L"
+
+msgid "Error 404: Page not found"
+msgstr "Viga 404: Lehte ei leitud"
+
+msgid "Error 404"
+msgstr "Viga 404"
+
+msgid "Account"
+msgstr "Kasutaja"
+
+msgid "Change profile picture"
+msgstr "Muuda profiilipilti"
+
+msgid "Your current profile picture:"
+msgstr "Teie praegune profiilipilt:"
+
+msgid "Update"
+msgstr "Uuenda"
+
+msgid "Change email"
+msgstr "Muuda e-posti"
+
+msgid "Change name"
+msgstr "Muuda nime"
+
+msgid "Change password"
+msgstr "Muuda salasõna"
+
+msgid "Set Time Zone"
+msgstr "Määra ajatsoon"
+
+msgid "Language Preferences"
+msgstr "Keele eelistused"
+
+msgid "Notification preferences"
+msgstr "Teavituste eelistused"
+
+msgid "Reset password"
+msgstr "Lähtesta salasõna"
+
+msgid "Password change successful"
+msgstr "Salasõna muutmine õnnestus."
+
+msgid "Login"
+msgstr "Logi sisse"
+
+msgid "Check your email"
+msgstr "Kontrollige oma e-posti"
+
+msgid "Password reset"
+msgstr "Salasõna lähtestamine"
+
+msgid "Reset your password"
+msgstr "Lähtestage oma salasõna"
+
+msgid "Menu"
+msgstr "Menüü"
+
+msgid "Move up"
+msgstr "Liigu üles"
+
+msgid "Move down"
+msgstr "Liigu alla"
+
+msgid "Internal link"
+msgstr "Sisemine link"
+
+msgid "External link"
+msgstr "Väline link"
+
+msgid "Email link"
+msgstr "E-posti link"
+
+msgid "Phone link"
+msgstr "Telefoni link"
+
+msgid "Choose"
+msgstr "Vali"
+
+msgid "Choose a page"
+msgstr "Vali leht"
+
+msgid "Insert link"
+msgstr "Sisesta link"
+
+msgid "Add an external link"
+msgstr "Lisa väline link"
+
+msgid "Add a phone link"
+msgstr "Lisa telefoni link"
+
+msgid "Save"
+msgstr "Salvesta"
+
+msgid "Privacy"
+msgstr "Privaatsus"
+
+msgid "Public"
+msgstr "Avalik"
+
+msgid "Private"
+msgstr "Privaatne"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Yes, delete"
+msgstr "Jah, kustuta"
+
+msgid "Title"
+msgstr "Pealkiri"
+
+msgid "Edit this page"
+msgstr "Muuda seda lehte"
+
+msgid "Edit"
+msgstr "Muuda"
+
+msgid "Draft"
+msgstr "Mustand"
+
+msgid "Type"
+msgstr "Tüüp"
+
+msgid "Edited"
+msgstr "Muudetud"
+
+msgid "Approve"
+msgstr "Kiida heaks"
+
+msgid "Reject"
+msgstr "Lükka tagasi"
+
+msgid "Status"
+msgstr "Staatus"
+
+msgid "Site summary"
+msgstr "Lehe kokkuvõte"
+
+msgid "Sign in"
+msgstr "Logi sisse"
+
+msgid "Signing in…"
+msgstr "Login sisse..."
+
+msgid "Saving…"
+msgstr "Salvestan..."
+
+msgid "Save draft"
+msgstr "Salvesta mustand"
+
+msgid "Yes, delete it"
+msgstr "Jah, kustuta see"
+
+msgid "No, don't delete it"
+msgstr "Ei, ära kustuta seda"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Liiguta %(title)s"
+
+msgid "Move"
+msgstr "Liiguta"
+
+msgid "Yes, move this page"
+msgstr "Jah, liiguta seda lehte"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopeeri %(title)s"
+
+msgid "Copy"
+msgstr "Kopeeri"
+
+msgid "Copy this page"
+msgstr "Kopeeri see leht"
+
+msgid "New"
+msgstr "Uus"
+
+msgid "Actions"
+msgstr "Tegevused"
+
+msgid "Updated"
+msgstr "Uuendatud"
+
+msgid "Sort"
+msgstr "Sorteeri"
+
+msgid "Home"
+msgstr "Kodu"
+
+msgid "Log out"
+msgstr "Logi välja"
+
+msgid "Other searches"
+msgstr "Teised otsingud"
+
+msgid "Collections"
+msgstr "Kogumikud"
+
+msgid "Add a collection"
+msgstr "Lisa kogumik"
+
+msgid "Add collection"
+msgstr "Lisa kogumik"

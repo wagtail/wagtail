@@ -2,6 +2,7 @@ from django import template
 from django.core.cache import cache
 from django.http import HttpRequest
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeString
 
@@ -48,13 +49,15 @@ class TestPageUrlTags(TestCase):
         result = tpl.render(template.Context({'page': page, 'request': HttpRequest()}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
-    def test_pageurl_with_null_site_in_request(self):
+    @override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'unknown.example.com'])
+    def test_pageurl_with_unknown_site(self):
         page = Page.objects.get(url_path='/home/events/')
         tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page %}">{{ page.title }}</a>''')
 
         # 'request' object in context, but site is None
         request = HttpRequest()
-        request.site = None
+        request.META['HTTP_HOST'] = 'unknown.example.com'
+        request.META['SERVER_PORT'] = 80
         result = tpl.render(template.Context({'page': page, 'request': request}))
         self.assertIn('<a href="/events/">Events</a>', result)
 
@@ -73,6 +76,7 @@ class TestPageUrlTags(TestCase):
         result = slugurl(context=template.Context({'request': HttpRequest()}), slug='bad-slug-doesnt-exist')
         self.assertEqual(result, None)
 
+    @override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'site2.example.com'])
     def test_slugurl_tag_returns_url_for_current_site(self):
         home_page = Page.objects.get(url_path='/home/')
         new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
@@ -82,16 +86,19 @@ class TestPageUrlTags(TestCase):
         new_christmas_page = Page(title='Christmas', slug='christmas')
         new_home_page.add_child(instance=new_christmas_page)
         request = HttpRequest()
-        request.site = second_site
+        request.META['HTTP_HOST'] = second_site.hostname
+        request.META['SERVER_PORT'] = second_site.port
         url = slugurl(context=template.Context({'request': request}), slug='christmas')
         self.assertEqual(url, '/christmas/')
 
+    @override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'site2.example.com'])
     def test_slugurl_tag_returns_url_for_other_site(self):
         home_page = Page.objects.get(url_path='/home/')
         new_home_page = home_page.copy(update_attrs={'title': "New home page", 'slug': 'new-home'})
         second_site = Site.objects.create(hostname='site2.example.com', root_page=new_home_page)
         request = HttpRequest()
-        request.site = second_site
+        request.META['HTTP_HOST'] = second_site.hostname
+        request.META['SERVER_PORT'] = second_site.port
         # There is no page with this slug on the current site, so this
         # should return an absolute URL for the page on the first site.
         url = slugurl(slug='christmas', context=template.Context({'request': request}))
@@ -106,12 +113,33 @@ class TestPageUrlTags(TestCase):
         result = slugurl(template.Context({'request': HttpRequest()}), 'events')
         self.assertEqual(result, '/events/')
 
+    @override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'unknown.example.com'])
     def test_slugurl_with_null_site_in_request(self):
         # 'request' object in context, but site is None
         request = HttpRequest()
-        request.site = None
+        request.META['HTTP_HOST'] = 'unknown.example.com'
+        request.META['SERVER_PORT'] = 80
         result = slugurl(template.Context({'request': request}), 'events')
         self.assertEqual(result, '/events/')
+
+
+class TestWagtailSiteTag(TestCase):
+    fixtures = ['test.json']
+
+    def test_wagtail_site_tag(self):
+        request = HttpRequest()
+        request.META['HTTP_HOST'] = 'localhost'
+        request.META['SERVER_PORT'] = 80
+
+        tpl = template.Template('''{% load wagtailcore_tags %}{% wagtail_site as current_site %}{{ current_site.hostname }}''')
+        result = tpl.render(template.Context({'request': request}))
+        self.assertEqual('localhost', result)
+
+    def test_wagtail_site_tag_with_missing_request_context(self):
+        tpl = template.Template('''{% load wagtailcore_tags %}{% wagtail_site as current_site %}{{ current_site.hostname }}''')
+        result = tpl.render(template.Context({}))
+        # should fail silently
+        self.assertEqual('', result)
 
 
 class TestSiteRootPathsCache(TestCase):

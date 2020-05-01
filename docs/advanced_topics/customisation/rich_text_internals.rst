@@ -196,10 +196,6 @@ This method allows you to register a custom handler deriving from ``wagtail.core
         features.register_embed_type(MyCustomEmbedHandler)
 
 
-.. versionadded:: 2.5
-   In previous releases, ``register_link_type`` and ``register_embed_type`` accepted two arguments: the identifier for the link or embed type, and a function for performing the rewriting (equivalent to the ``expand_db_attributes`` method).
-
-
 Editor widgets
 --------------
 

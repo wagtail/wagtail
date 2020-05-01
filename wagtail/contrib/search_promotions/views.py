@@ -1,7 +1,9 @@
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, redirect, render
+from django.db.models import Sum, functions
+from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
@@ -19,28 +21,44 @@ from wagtail.search.models import Query
 )
 @vary_on_headers('X-Requested-With')
 def index(request):
-    is_searching = False
-    query_string = request.GET.get('q', "")
+    # Ordering
+    valid_ordering = ['query_string', '-query_string', 'views', '-views']
+    ordering = valid_ordering[0]
 
-    queries = Query.objects.filter(editors_picks__isnull=False).distinct().order_by('query_string')
+    if 'ordering' in request.GET and request.GET['ordering'] in valid_ordering:
+        ordering = request.GET['ordering']
+
+    # Query
+    queries = Query.objects.filter(editors_picks__isnull=False).distinct()
+
+    if 'views' in ordering:
+        queries = queries.annotate(views=functions.Coalesce(Sum('daily_hits__hits'), 0))
+
+    queries = queries.order_by(ordering)
 
     # Search
+    is_searching = False
+    query_string = request.GET.get('q', '')
+
     if query_string:
         queries = queries.filter(query_string__icontains=query_string)
         is_searching = True
 
+    # Paginate
     paginator = Paginator(queries, per_page=20)
     queries = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():
-        return render(request, "wagtailsearchpromotions/results.html", {
+        return TemplateResponse(request, "wagtailsearchpromotions/results.html", {
             'is_searching': is_searching,
+            'ordering': ordering,
             'queries': queries,
             'query_string': query_string,
         })
     else:
-        return render(request, 'wagtailsearchpromotions/index.html', {
+        return TemplateResponse(request, 'wagtailsearchpromotions/index.html', {
             'is_searching': is_searching,
+            'ordering': ordering,
             'queries': queries,
             'query_string': query_string,
             'search_form': SearchForm(
@@ -98,7 +116,7 @@ def add(request):
         query_form = search_forms.QueryForm()
         searchpicks_formset = forms.SearchPromotionsFormSet()
 
-    return render(request, 'wagtailsearchpromotions/add.html', {
+    return TemplateResponse(request, 'wagtailsearchpromotions/add.html', {
         'query_form': query_form,
         'searchpicks_formset': searchpicks_formset,
         'form_media': query_form.media + searchpicks_formset.media,
@@ -136,7 +154,7 @@ def edit(request, query_id):
         query_form = search_forms.QueryForm(initial=dict(query_string=query.query_string))
         searchpicks_formset = forms.SearchPromotionsFormSet(instance=query)
 
-    return render(request, 'wagtailsearchpromotions/edit.html', {
+    return TemplateResponse(request, 'wagtailsearchpromotions/edit.html', {
         'query_form': query_form,
         'searchpicks_formset': searchpicks_formset,
         'query': query,
@@ -153,6 +171,6 @@ def delete(request, query_id):
         messages.success(request, _("Editor's picks deleted."))
         return redirect('wagtailsearchpromotions:index')
 
-    return render(request, 'wagtailsearchpromotions/confirm_delete.html', {
+    return TemplateResponse(request, 'wagtailsearchpromotions/confirm_delete.html', {
         'query': query,
     })

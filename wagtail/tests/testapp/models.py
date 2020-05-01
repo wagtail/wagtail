@@ -11,12 +11,13 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
+from django.template.response import TemplateResponse
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from taggit.managers import TaggableManager
-from taggit.models import TaggedItemBase
+from taggit.models import ItemBase, TagBase, TaggedItemBase
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
@@ -29,7 +30,7 @@ from wagtail.contrib.forms.models import (
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import CharBlock, RichTextBlock, StructBlock
+from wagtail.core.blocks import CharBlock, RawHTMLBlock, RichTextBlock, StructBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -43,7 +44,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail.utils.decorators import cached_classmethod
 
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
-from .views import CustomSubmissionsListView
+
 
 EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
@@ -198,7 +199,18 @@ class EventPageRelatedLink(Orderable, RelatedLink):
     page = ParentalKey('tests.EventPage', related_name='related_links', on_delete=models.CASCADE)
 
 
-class EventPageSpeaker(Orderable, LinkFields):
+class EventPageSpeakerAward(Orderable, models.Model):
+    speaker = ParentalKey('tests.EventPageSpeaker', related_name='awards', on_delete=models.CASCADE)
+    name = models.CharField("Award name", max_length=255)
+    date_awarded = models.DateField(null=True, blank=True)
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('date_awarded'),
+    ]
+
+
+class EventPageSpeaker(Orderable, LinkFields, ClusterableModel):
     page = ParentalKey('tests.EventPage', related_name='speakers', related_query_name='speaker', on_delete=models.CASCADE)
     first_name = models.CharField("Name", max_length=255, blank=True)
     last_name = models.CharField("Surname", max_length=255, blank=True)
@@ -219,6 +231,7 @@ class EventPageSpeaker(Orderable, LinkFields):
         FieldPanel('last_name'),
         ImageChooserPanel('image'),
         MultiFieldPanel(LinkFields.panels, "Link"),
+        InlinePanel('awards', label="Awards"),
     ]
 
 
@@ -573,7 +586,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
 
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
-            return render(
+            return TemplateResponse(
                 request,
                 self.template,
                 self.get_context(request)
@@ -627,7 +640,9 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
 
-    submissions_list_view_class = CustomSubmissionsListView
+    def get_submissions_list_view_class(self):
+        from .views import CustomSubmissionsListView
+        return CustomSubmissionsListView
 
     def get_submission_class(self):
         return CustomFormPageSubmission
@@ -918,6 +933,24 @@ class CustomRendition(AbstractRendition):
         )
 
 
+# Custom image model with a required field
+class CustomImageWithAuthor(AbstractImage):
+    author = models.CharField(max_length=255)
+
+    admin_form_fields = Image.admin_form_fields + (
+        'author',
+    )
+
+
+class CustomRenditionWithAuthor(AbstractRendition):
+    image = models.ForeignKey(CustomImageWithAuthor, related_name='renditions', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (
+            ('image', 'filter_spec', 'focal_point_key'),
+        )
+
+
 class CustomDocument(AbstractDocument):
     description = models.TextField(blank=True)
     fancy_description = RichTextField(blank=True)
@@ -960,6 +993,7 @@ class StreamPage(Page):
             ('name', CharBlock()),
             ('price', CharBlock()),
         ])),
+        ('raw_html', RawHTMLBlock()),
     ])
 
     api_fields = ('body',)
@@ -968,6 +1002,8 @@ class StreamPage(Page):
         FieldPanel('title'),
         StreamFieldPanel('body'),
     ]
+
+    preview_modes = []
 
 
 class DefaultStreamPage(Page):
@@ -1004,6 +1040,16 @@ class AbstractPage(Page):
 class TestSetting(BaseSetting):
     title = models.CharField(max_length=100)
     email = models.EmailField(max_length=50)
+
+
+@register_setting
+class ImportantPages(BaseSetting):
+    sign_up_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
+    general_terms_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
+    privacy_policy_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
 
 
 @register_setting(icon="tag")
@@ -1343,3 +1389,86 @@ class SimpleChildPage(Page):
     parent_page_types = ['tests.SimpleParentPage', Page]
 
     max_count_per_parent = 1
+
+
+class PersonPage(Page):
+    first_name = models.CharField(
+        max_length=255,
+        verbose_name='First Name',
+    )
+    last_name = models.CharField(
+        max_length=255,
+        verbose_name='Last Name',
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('first_name'),
+            FieldPanel('last_name'),
+        ], 'Person'),
+        InlinePanel('addresses', label='Address'),
+    ]
+
+    class Meta:
+        verbose_name = 'Person'
+        verbose_name_plural = 'Persons'
+
+
+class Address(index.Indexed, ClusterableModel, Orderable):
+    address = models.CharField(
+        max_length=255,
+        verbose_name='Address',
+    )
+    tags = ClusterTaggableManager(
+        through='tests.AddressTag',
+        blank=True,
+    )
+    person = ParentalKey(
+        to='tests.PersonPage',
+        related_name='addresses',
+        verbose_name='Person'
+    )
+
+    panels = [
+        FieldPanel('address'),
+        FieldPanel('tags'),
+    ]
+
+    class Meta:
+        verbose_name = 'Address'
+        verbose_name_plural = 'Addresses'
+
+
+class AddressTag(TaggedItemBase):
+    content_object = ParentalKey(
+        to='tests.Address',
+        on_delete=models.CASCADE,
+        related_name='tagged_items'
+    )
+
+
+class RestaurantPage(Page):
+    tags = ClusterTaggableManager(through='tests.TaggedRestaurant', blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('tags'),
+    ]
+
+
+class RestaurantTag(TagBase):
+    free_tagging = False
+
+    class Meta:
+        verbose_name = "Tag"
+        verbose_name_plural = "Tags"
+
+
+class TaggedRestaurant(ItemBase):
+    tag = models.ForeignKey(
+        RestaurantTag, related_name="tagged_restaurants", on_delete=models.CASCADE
+    )
+    content_object = ParentalKey(
+        to='tests.RestaurantPage',
+        on_delete=models.CASCADE,
+        related_name='tagged_items'
+    )

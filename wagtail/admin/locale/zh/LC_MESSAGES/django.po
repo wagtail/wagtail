@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "发布"
 
 msgid "Submit for moderation"
 msgstr "提交审核"
@@ -56,43 +59,6 @@ msgstr "搜索"
 
 msgid "Search term"
 msgstr "搜索词"
-
-msgid "Account"
-msgstr "账号"
-
-msgid "Update"
-msgstr "更新"
-
-msgid "Change password"
-msgstr "修改密码"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "您的密码不能在此更改。请联系网站管理员。"
-
-msgid "Notification preferences"
-msgstr "通知偏好"
-
-msgid "Reset password"
-msgstr "重置密码"
-
-msgid "Password change successful"
-msgstr "密码修改成功"
-
-msgid "Login"
-msgstr "登录"
-
-msgid "Set your new password"
-msgstr "设置你的新密码"
-
-msgid "Check your email"
-msgstr "检查您的电子邮件"
-
-msgid "Password reset"
-msgstr "密码已重置"
-
-msgid "Reset your password"
-msgstr "重置您的密码"
 
 msgid "January"
 msgstr "一月"
@@ -151,6 +117,43 @@ msgstr "星期五"
 msgid "Sat"
 msgstr "星期六"
 
+msgid "Account"
+msgstr "账号"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Change password"
+msgstr "修改密码"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "您的密码不能在此更改。请联系网站管理员。"
+
+msgid "Notification preferences"
+msgstr "通知偏好"
+
+msgid "Reset password"
+msgstr "重置密码"
+
+msgid "Password change successful"
+msgstr "密码修改成功"
+
+msgid "Login"
+msgstr "登录"
+
+msgid "Set your new password"
+msgstr "设置你的新密码"
+
+msgid "Check your email"
+msgstr "检查您的电子邮件"
+
+msgid "Password reset"
+msgstr "密码已重置"
+
+msgid "Reset your password"
+msgstr "重置您的密码"
+
 msgid "Dashboard"
 msgstr "仪表板"
 
@@ -205,11 +208,20 @@ msgid ""
 "created will be displayed."
 msgstr "这是您的仪表盘，会显示对您已创建的内容有帮助的信息"
 
-msgid "Pages awaiting moderation"
-msgstr "这些页面在等待审核"
-
 msgid "Title"
 msgstr "标题"
+
+msgid "Edit this page"
+msgstr "编辑这个页面"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "Pages awaiting moderation"
+msgstr "这些页面在等待审核"
 
 msgid "Parent"
 msgstr "上一级"
@@ -220,17 +232,11 @@ msgstr "类型"
 msgid "Edited"
 msgstr "已编辑"
 
-msgid "Edit this page"
-msgstr "编辑这个页面"
-
 msgid "Approve"
 msgstr "通过"
 
 msgid "Reject"
 msgstr "拒绝"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "Preview"
 msgstr "预览"
@@ -243,9 +249,6 @@ msgstr "日期"
 
 msgid "Status"
 msgstr "状态"
-
-msgid "Draft"
-msgstr "草稿"
 
 msgid "Site summary"
 msgstr "网站摘要"
@@ -298,8 +301,8 @@ msgstr "这个页面 \"%(page)s\" 已经提交审核"
 msgid "Page privacy"
 msgstr "页面隐私"
 
-msgid "Publish"
-msgstr "发布"
+msgid "Save draft"
+msgstr "保存草稿"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -364,9 +367,6 @@ msgstr "新%(page_type)s类"
 
 msgid "New"
 msgstr "新"
-
-msgid "Save draft"
-msgstr "保存草稿"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"

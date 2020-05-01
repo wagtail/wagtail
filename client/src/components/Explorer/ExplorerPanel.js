@@ -146,7 +146,7 @@ class ExplorerPanel extends React.Component {
           onDeactivate: onClose,
         }}
       >
-        <Button className="c-explorer__close u-hidden" onClick={onClose}>
+        <Button className="c-explorer__close" onClick={onClose}>
           {STRINGS.CLOSE_EXPLORER}
         </Button>
         <Transition name={transition} className="c-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>

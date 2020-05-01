@@ -11,11 +11,10 @@ register = Library()
 def get_settings(context, use_default_site=False):
     if use_default_site:
         site = Site.objects.get(is_default_site=True)
+        context['settings'] = SettingsProxy(site)
     elif 'request' in context:
-        site = context['request'].site
+        context['settings'] = SettingsProxy(context['request'])
     else:
         raise RuntimeError('No request found in context, and use_default_site '
                            'flag not set')
-
-    context['settings'] = SettingsProxy(site)
     return ''

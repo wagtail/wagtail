@@ -6,13 +6,14 @@ from io import BytesIO
 
 from django.conf import settings
 from django.core import checks
+from django.core.cache import InvalidCacheBackendError, caches
 from django.core.files import File
 from django.db import models
 from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 from unidecode import unidecode
 from willow.image import Image as WillowImage
@@ -277,6 +278,22 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             filter = Filter(spec=filter)
 
         cache_key = filter.get_cache_key(self)
+
+
+        try:
+            rendition_caching = True
+            cache = caches['renditions']
+            rendition_cache_key = "image-{}-{}-{}".format(
+                self.id,
+                cache_key,
+                filter.spec
+            )
+            cached_rendition = cache.get(rendition_cache_key)
+            if cached_rendition:
+                return cached_rendition
+        except InvalidCacheBackendError:
+            rendition_caching = False
+
         Rendition = self.get_rendition_model()
 
         try:
@@ -297,6 +314,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
                 'jpeg': '.jpg',
                 'png': '.png',
                 'gif': '.gif',
+                'webp': '.webp',
             }
 
             output_extension = filter.spec.replace('|', '.') + FORMAT_EXTENSIONS[generated_image.format_name]
@@ -312,6 +330,9 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
                 focal_point_key=cache_key,
                 defaults={'file': File(generated_image.f, name=output_filename)}
             )
+
+        if rendition_caching:
+            cache.set(rendition_cache_key, rendition)
 
         return rendition
 
@@ -403,16 +424,23 @@ class Filter:
                 # Developer specified an output format
                 output_format = env['output-format']
             else:
-                # Default to outputting in original format
-                output_format = original_format
-
-                # Convert BMP files to PNG
-                if original_format == 'bmp':
-                    output_format = 'png'
+                # Convert bmp and webp to png by default
+                default_conversions = {
+                    'bmp': 'png',
+                    'webp': 'png',
+                }
 
                 # Convert unanimated GIFs to PNG as well
-                if original_format == 'gif' and not willow.has_animation():
-                    output_format = 'png'
+                if not willow.has_animation():
+                    default_conversions['gif'] = 'png'
+
+                # Allow the user to override the conversions
+                conversion = getattr(settings, 'WAGTAILIMAGES_FORMAT_CONVERSIONS', {})
+                default_conversions.update(conversion)
+
+                # Get the converted output format falling back to the original
+                output_format = default_conversions.get(
+                    original_format, original_format)
 
             if output_format == 'jpeg':
                 # Allow changing of JPEG compression quality
@@ -432,6 +460,8 @@ class Filter:
                 return willow.save_as_png(output, optimize=True)
             elif output_format == 'gif':
                 return willow.save_as_gif(output)
+            elif output_format == 'webp':
+                return willow.save_as_webp(output)
 
     def get_cache_key(self, image):
         vary_parts = []
@@ -542,3 +572,17 @@ class Rendition(AbstractRendition):
         unique_together = (
             ('image', 'filter_spec', 'focal_point_key'),
         )
+
+
+class UploadedImage(models.Model):
+    """
+    Temporary storage for images uploaded through the multiple image uploader, when validation rules (e.g.
+    required metadata fields) prevent creating an Image object from the image file alone. In this case,
+    the image file is stored against this model, to be turned into an Image object once the full form
+    has been filled in.
+    """
+    file = models.ImageField(upload_to='uploaded_images', max_length=200)
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+    )

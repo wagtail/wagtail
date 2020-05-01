@@ -7,13 +7,15 @@ from django.db import transaction
 from django.db.models import Count
 from django.http import Http404, HttpResponse, JsonResponse
 from django.http.request import QueryDict
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.html import format_html
 from django.utils.http import is_safe_url, urlquote
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
 from django.views.generic import View
@@ -120,7 +122,7 @@ def index(request, parent_page_id=None):
         paginator = Paginator(pages, per_page=50)
         pages = paginator.get_page(request.GET.get('p'))
 
-    return render(request, 'wagtailadmin/pages/index.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/index.html', {
         'parent_page': parent_page.specific,
         'ordering': ordering,
         'pagination_query_params': "ordering=%s" % ordering,
@@ -148,7 +150,7 @@ def add_subpage(request, parent_page_id):
         verbose_name, app_label, model_name = page_types[0]
         return redirect('wagtailadmin_pages:add', app_label, model_name, parent_page.id)
 
-    return render(request, 'wagtailadmin/pages/add_subpage.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/add_subpage.html', {
         'parent_page': parent_page,
         'page_types': page_types,
         'next': get_valid_next_url_from_request(request),
@@ -172,7 +174,7 @@ def content_type_use(request, content_type_app_name, content_type_model_name):
     paginator = Paginator(pages, per_page=10)
     pages = paginator.get_page(request.GET.get('p'))
 
-    return render(request, 'wagtailadmin/pages/content_type_use.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/content_type_use.html', {
         'pages': pages,
         'app_name': content_type_app_name,
         'content_type': content_type,
@@ -256,20 +258,27 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                     buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit')))
                     messages.success(request, _("Page '{0}' created and published.").format(page.get_admin_display_title()), buttons=buttons)
             elif is_submitting:
-                messages.success(
-                    request,
-                    _("Page '{0}' created and submitted for moderation.").format(page.get_admin_display_title()),
-                    buttons=[
+                buttons = []
+                if page.is_previewable():
+                    buttons.append(
                         messages.button(
                             reverse('wagtailadmin_pages:view_draft', args=(page.id,)),
                             _('View draft'),
                             new_window=True
                         ),
-                        messages.button(
-                            reverse('wagtailadmin_pages:edit', args=(page.id,)),
-                            _('Edit')
-                        )
-                    ]
+                    )
+
+                buttons.append(
+                    messages.button(
+                        reverse('wagtailadmin_pages:edit', args=(page.id,)),
+                        _('Edit')
+                    )
+                )
+
+                messages.success(
+                    request,
+                    _("Page '{0}' created and submitted for moderation.").format(page.get_admin_display_title()),
+                    buttons=buttons
                 )
                 if not send_notification(page.get_latest_revision().id, 'submitted', request.user.pk):
                     messages.error(request, _("Failed to send notifications to moderators"))
@@ -307,7 +316,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 
     edit_handler = edit_handler.bind_to(form=form)
 
-    return render(request, 'wagtailadmin/pages/create.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/create.html', {
         'content_type': content_type,
         'page_class': page_class,
         'parent_page': parent_page,
@@ -342,6 +351,24 @@ def edit(request, page_id):
     edit_handler = edit_handler.bind_to(instance=page, request=request)
     form_class = edit_handler.get_form_class()
 
+    if request.method == 'GET':
+        if page_perms.user_has_lock():
+            if page.locked_at:
+                lock_message = format_html(_("<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."), page.get_admin_display_title(), page.locked_at.strftime("%d %b %Y %H:%M"))
+            else:
+                lock_message = format_html(_("<b>Page '{}' is locked</b> by <b>you</b>."), page.get_admin_display_title())
+
+            messages.warning(request, lock_message, extra_tags='lock')
+
+        elif page_perms.page_locked():
+            if page.locked_by and page.locked_at:
+                lock_message = format_html(_("<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."), page.get_admin_display_title(), str(page.locked_by), page.locked_at.strftime("%d %b %Y %H:%M"))
+            else:
+                # Page was probably locked with an old version of Wagtail, or a script
+                lock_message = format_html(_("<b>Page '{}' is locked</b>."), page.get_admin_display_title())
+
+            messages.error(request, lock_message, extra_tags='lock')
+
     next_url = get_valid_next_url_from_request(request)
 
     errors_debug = None
@@ -350,7 +377,7 @@ def edit(request, page_id):
         form = form_class(request.POST, request.FILES, instance=page,
                           parent_page=parent)
 
-        if form.is_valid() and not page.locked:
+        if form.is_valid() and not page_perms.page_locked():
             page = form.save(commit=False)
 
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
@@ -494,7 +521,7 @@ def edit(request, page_id):
                     target_url += '?next=%s' % urlquote(next_url)
                 return redirect(target_url)
         else:
-            if page.locked:
+            if page_perms.page_locked():
                 messages.error(request, _("The page could not be saved as it is locked"))
             else:
                 messages.validation_error(
@@ -533,7 +560,7 @@ def edit(request, page_id):
     else:
         page_for_status = page
 
-    return render(request, 'wagtailadmin/pages/edit.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/edit.html', {
         'page': page,
         'page_for_status': page_for_status,
         'content_type': content_type,
@@ -544,6 +571,7 @@ def edit(request, page_id):
         'form': form,
         'next': next_url,
         'has_unsaved_changes': has_unsaved_changes,
+        'page_locked': page_perms.page_locked(),
     })
 
 
@@ -575,7 +603,7 @@ def delete(request, page_id):
                 return redirect(next_url)
             return redirect('wagtailadmin_explore', parent_id)
 
-    return render(request, 'wagtailadmin/pages/confirm_delete.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/confirm_delete.html', {
         'page': page,
         'descendant_count': page.get_descendant_count(),
         'next': next_url,
@@ -587,7 +615,13 @@ def view_draft(request, page_id):
     perms = page.permissions_for_user(request.user)
     if not (perms.can_publish() or perms.can_edit()):
         raise PermissionDenied
-    return page.make_preview_request(request, page.default_preview_mode)
+
+    try:
+        preview_mode = page.default_preview_mode
+    except IndexError:
+        raise PermissionDenied
+
+    return page.make_preview_request(request, preview_mode)
 
 
 class PreviewOnEdit(View):
@@ -630,8 +664,10 @@ class PreviewOnEdit(View):
         return JsonResponse({'is_valid': form.is_valid()})
 
     def error_response(self, page):
-        return render(self.request, 'wagtailadmin/pages/preview_error.html',
-                      {'page': page})
+        return TemplateResponse(
+            self.request, 'wagtailadmin/pages/preview_error.html',
+            {'page': page}
+        )
 
     def get(self, request, *args, **kwargs):
         page = self.get_page()
@@ -646,7 +682,12 @@ class PreviewOnEdit(View):
             return self.error_response(page)
 
         form.save(commit=False)
-        preview_mode = request.GET.get('mode', page.default_preview_mode)
+
+        try:
+            preview_mode = request.GET.get('mode', page.default_preview_mode)
+        except IndexError:
+            raise PermissionDenied
+
         return page.make_preview_request(request, preview_mode)
 
 
@@ -713,7 +754,7 @@ def unpublish(request, page_id):
             return redirect(next_url)
         return redirect('wagtailadmin_explore', page.get_parent().id)
 
-    return render(request, 'wagtailadmin/pages/confirm_unpublish.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/confirm_unpublish.html', {
         'page': page,
         'next': next_url,
         'live_descendant_count': page.get_descendants().live().count(),
@@ -750,7 +791,7 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
     paginator = Paginator(child_pages, per_page=50)
     child_pages = paginator.get_page(request.GET.get('p'))
 
-    return render(request, 'wagtailadmin/pages/move_choose_destination.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/move_choose_destination.html', {
         'page_to_move': page_to_move,
         'viewed_page': viewed_page,
         'child_pages': child_pages,
@@ -791,7 +832,7 @@ def move_confirm(request, page_to_move_id, destination_id):
 
         return redirect('wagtailadmin_explore', destination.id)
 
-    return render(request, 'wagtailadmin/pages/confirm_move.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/confirm_move.html', {
         'page_to_move': page_to_move,
         'destination': destination,
     })
@@ -905,7 +946,7 @@ def copy(request, page_id):
                 return redirect(next_url)
             return redirect('wagtailadmin_explore', parent_page.id)
 
-    return render(request, 'wagtailadmin/pages/copy.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/copy.html', {
         'page': page,
         'form': form,
         'next': next_url,
@@ -976,7 +1017,7 @@ def search(request):
     pages = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():
-        return render(request, "wagtailadmin/pages/search_results.html", {
+        return TemplateResponse(request, "wagtailadmin/pages/search_results.html", {
             'pages': pages,
             'all_pages': all_pages,
             'query_string': q,
@@ -986,7 +1027,7 @@ def search(request):
             'pagination_query_params': pagination_query_params.urlencode(),
         })
     else:
-        return render(request, "wagtailadmin/pages/search.html", {
+        return TemplateResponse(request, "wagtailadmin/pages/search.html", {
             'search_form': form,
             'pages': pages,
             'all_pages': all_pages,
@@ -1055,7 +1096,12 @@ def preview_for_moderation(request, revision_id):
 
     page = revision.as_page_object()
 
-    return page.make_preview_request(request, page.default_preview_mode, extra_request_attrs={
+    try:
+        preview_mode = page.default_preview_mode
+    except IndexError:
+        raise PermissionDenied
+
+    return page.make_preview_request(request, preview_mode, extra_request_attrs={
         'revision_id': revision_id
     })
 
@@ -1072,9 +1118,9 @@ def lock(request, page_id):
     # Lock the page
     if not page.locked:
         page.locked = True
+        page.locked_by = request.user
+        page.locked_at = timezone.now()
         page.save()
-
-        messages.success(request, _("Page '{0}' is now locked.").format(page.get_admin_display_title()))
 
     # Redirect
     redirect_to = request.POST.get('next', None)
@@ -1090,15 +1136,17 @@ def unlock(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
 
     # Check permissions
-    if not page.permissions_for_user(request.user).can_lock():
+    if not page.permissions_for_user(request.user).can_unlock():
         raise PermissionDenied
 
     # Unlock the page
     if page.locked:
         page.locked = False
+        page.locked_by = None
+        page.locked_at = None
         page.save()
 
-        messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()))
+        messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()), extra_tags='unlock')
 
     # Redirect
     redirect_to = request.POST.get('next', None)
@@ -1122,7 +1170,7 @@ def revisions_index(request, page_id):
     paginator = Paginator(revisions, per_page=20)
     revisions = paginator.get_page(request.GET.get('p'))
 
-    return render(request, 'wagtailadmin/pages/revisions/index.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/revisions/index.html', {
         'page': page,
         'ordering': ordering,
         'pagination_query_params': "ordering=%s" % ordering,
@@ -1159,7 +1207,7 @@ def revisions_revert(request, page_id, revision_id):
         }
     ))
 
-    return render(request, 'wagtailadmin/pages/edit.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/edit.html', {
         'page': page,
         'revision': revision,
         'is_revision': True,
@@ -1183,7 +1231,12 @@ def revisions_view(request, page_id, revision_id):
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_page_object()
 
-    return revision_page.make_preview_request(request, page.default_preview_mode)
+    try:
+        preview_mode = page.default_preview_mode
+    except IndexError:
+        raise PermissionDenied
+
+    return revision_page.make_preview_request(request, preview_mode)
 
 
 def revisions_compare(request, page_id, revision_id_a, revision_id_b):
@@ -1229,7 +1282,7 @@ def revisions_compare(request, page_id, revision_id_a, revision_id_b):
     comparison = [comp(revision_a, revision_b) for comp in comparison]
     comparison = [comp for comp in comparison if comp.has_changed()]
 
-    return render(request, 'wagtailadmin/pages/revisions/compare.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/revisions/compare.html', {
         'page': page,
         'revision_a_heading': revision_a_heading,
         'revision_a': revision_a,
@@ -1264,7 +1317,7 @@ def revisions_unschedule(request, page_id, revision_id):
             return redirect(next_url)
         return redirect('wagtailadmin_pages:revisions_index', page.id)
 
-    return render(request, 'wagtailadmin/pages/revisions/confirm_unschedule.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/revisions/confirm_unschedule.html', {
         'page': page,
         'revision': revision,
         'next': next_url,

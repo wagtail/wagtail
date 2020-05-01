@@ -7,9 +7,9 @@ import 'element-closest';
 
 global.wagtailConfig = {
   ADMIN_API: {
-    DOCUMENTS: '/admin/api/v2beta/documents/',
-    IMAGES: '/admin/api/v2beta/images/',
-    PAGES: '/admin/api/v2beta/pages/',
+    DOCUMENTS: '/admin/api/main/documents/',
+    IMAGES: '/admin/api/main/images/',
+    PAGES: '/admin/api/main/pages/',
     EXTRA_CHILDREN_PARAMETERS: '',
   },
   ADMIN_URLS: {

@@ -14,6 +14,7 @@
         line-height: 3em;
         text-align: left;
         padding-left: 1em;
+        padding-right: 5em;
         float: left;
     }
 
@@ -151,8 +152,20 @@
         }
     }
 
+    .bicolor + .dropdown-toggle {
+        background-color: $color-teal-darker;
+
+        &:hover {
+            background-color: $color-teal-dark;
+        }
+    }
+
     &.open .dropdown-toggle {
         background-color: $color-teal-darker;
+    }
+
+    .bicolor:hover {
+        background-color: $color-teal-dark;
     }
 
     // Styles for dropdowns which are also buttons e.g page editor

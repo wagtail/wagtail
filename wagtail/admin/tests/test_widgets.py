@@ -1,9 +1,14 @@
+import json
+
+from django import forms
 from django.test import TestCase
 from django.test.utils import override_settings
 
 from wagtail.admin import widgets
+from wagtail.admin.forms.tags import TagField
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import EventPage, SimplePage
+from wagtail.tests.testapp.forms import AdminStarDateInput
+from wagtail.tests.testapp.models import EventPage, RestaurantTag, SimplePage
 
 
 class TestAdminPageChooserWidget(TestCase):
@@ -94,7 +99,7 @@ class TestAdminDateInput(TestCase):
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
 
-        self.assertInHTML('<input type="text" name="test" autocomplete="new-date" id="test-id" />', html)
+        self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
 
         # we should see the JS initialiser code:
         # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
@@ -122,6 +127,16 @@ class TestAdminDateInput(TestCase):
             html,
         )
 
+    def test_media_inheritance(self):
+        """
+        Widgets inheriting from AdminDateInput should have their media definitions merged
+        with AdminDateInput's
+        """
+        widget = AdminStarDateInput()
+        media_html = str(widget.media)
+        self.assertIn('wagtailadmin/js/date-time-chooser.js', media_html)
+        self.assertIn('vendor/star_date.js', media_html)
+
 
 class TestAdminDateTimeInput(TestCase):
 
@@ -130,7 +145,7 @@ class TestAdminDateTimeInput(TestCase):
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
 
-        self.assertInHTML('<input type="text" name="test" autocomplete="new-date-time" id="test-id" />', html)
+        self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
 
         # we should see the JS initialiser code:
         # initDateTimeChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d H:i"});
@@ -163,52 +178,118 @@ class TestAdminTagWidget(TestCase):
 
     def get_js_init_params(self, html):
         """Returns a list of the params passed in to initTagField from the supplied HTML"""
-        # Eg. ["'test\\u002Did'", "'/admin/tag\\u002Dautocomplete/'", 'true', 'null']
+        # Eg. ["test_id", "/admin/tag-autocomplete/", {'allowSpaces': True}]
         start = 'initTagField('
         end = ');'
         items_after_init = html.split(start)[1]
         if items_after_init:
             params_raw = items_after_init.split(end)[0]
             if params_raw:
-                return [part.strip() for part in params_raw.split(',')]
+                # stuff parameter string into an array so that we can unpack it as JSON
+                return json.loads('[%s]' % params_raw)
         return []
 
 
     def test_render_js_init_basic(self):
-        """Chekcs that the 'initTagField' is correctly added to the inline script for tag widgets"""
+        """Checks that the 'initTagField' is correctly added to the inline script for tag widgets"""
         widget = widgets.AdminTagWidget()
 
         html = widget.render('tags', None, attrs={'id': 'alpha'})
         params = self.get_js_init_params(html)
 
-        self.assertEqual(len(params), 4)
-        self.assertEqual(params[0], "'alpha'")  # id
-        self.assertEqual(params[1], "'/admin/tag\\u002Dautocomplete/'")  # autocomplete url
-        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
-        self.assertEqual(params[3], 'null')  # tag_limit
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': False}]
+        )
 
 
     @override_settings(TAG_SPACES_ALLOWED=False)
     def test_render_js_init_no_spaces_allowed(self):
-        """Chekcs that the 'initTagField' includes the correct value based on TAG_SPACES_ALLOWED in settings"""
+        """Checks that the 'initTagField' includes the correct value based on TAG_SPACES_ALLOWED in settings"""
         widget = widgets.AdminTagWidget()
 
         html = widget.render('tags', None, attrs={'id': 'alpha'})
         params = self.get_js_init_params(html)
 
-        self.assertEqual(len(params), 4)
-        self.assertEqual(params[2], 'false')  # tag_spaces_allowed
-        self.assertEqual(params[3], 'null')  # tag_limit
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': False, 'tagLimit': None, 'autocompleteOnly': False}]
+        )
 
 
     @override_settings(TAG_LIMIT=5)
     def test_render_js_init_with_tag_limit(self):
-        """Chekcs that the 'initTagField' includes the correct value based on TAG_LIMIT in settings"""
+        """Checks that the 'initTagField' includes the correct value based on TAG_LIMIT in settings"""
         widget = widgets.AdminTagWidget()
 
         html = widget.render('tags', None, attrs={'id': 'alpha'})
         params = self.get_js_init_params(html)
 
-        self.assertEqual(len(params), 4)
-        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
-        self.assertEqual(params[3], '5')  # tag_limit
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': 5, 'autocompleteOnly': False}]
+        )
+
+    def test_render_js_init_with_tag_model(self):
+        """
+        Checks that 'initTagField' is passed the correct autocomplete URL for the custom model,
+        and sets autocompleteOnly according to that model's free_tagging attribute
+        """
+        widget = widgets.AdminTagWidget(tag_model=RestaurantTag)
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/tests/restauranttag/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': True}]
+        )
+
+    def test_render_with_free_tagging_false(self):
+        """Checks that free_tagging=False is passed to the inline script"""
+        widget = widgets.AdminTagWidget(free_tagging=False)
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': True}]
+        )
+
+    def test_render_with_free_tagging_true(self):
+        """free_tagging=True on the widget can also override the tag model setting free_tagging=False"""
+        widget = widgets.AdminTagWidget(tag_model=RestaurantTag, free_tagging=True)
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/tests/restauranttag/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': False}]
+        )
+
+
+class TestTagField(TestCase):
+    def setUp(self):
+        RestaurantTag.objects.create(name='Italian', slug='italian')
+        RestaurantTag.objects.create(name='Indian', slug='indian')
+
+    def test_tag_whitelisting(self):
+
+        class RestaurantTagForm(forms.Form):
+            # RestaurantTag sets free_tagging=False at the model level
+            tags = TagField(tag_model=RestaurantTag)
+
+        form = RestaurantTagForm({'tags': "Italian, delicious"})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data['tags'], ["Italian"])
+
+    def test_override_free_tagging(self):
+
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag, free_tagging=True)
+
+        form = RestaurantTagForm({'tags': "Italian, delicious"})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(set(form.cleaned_data['tags']), {"Italian", "delicious"})

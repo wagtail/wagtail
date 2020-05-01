@@ -3,10 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benedikt Willi <ben.willi@gmail.com>, 2020
 # Benjamin Thurm, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
+# Matthias Martin, 2019
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
@@ -14,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-07-13 09:42+0000\n"
-"Last-Translator: Benjamin Thurm\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-01-27 09:53+0000\n"
+"Last-Translator: Benedikt Willi <ben.willi@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -89,6 +91,9 @@ msgstr "Absendezeitpunkt"
 msgid "form submission"
 msgstr "Formularabsendung"
 
+msgid "form submissions"
+msgstr "Formulareinreichungen"
+
 msgid "label"
 msgstr "Beschriftung"
 
@@ -123,6 +128,12 @@ msgstr "Hilfetext"
 
 msgid "Submission date"
 msgstr "Einreichungsdatum"
+
+msgid "Form"
+msgstr "Formular"
+
+msgid "Landing page"
+msgstr "Landingpage"
 
 msgid "to address"
 msgstr "An-Adresse"

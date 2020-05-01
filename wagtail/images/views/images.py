@@ -3,10 +3,11 @@ import os
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
@@ -59,6 +60,14 @@ def index(request):
         except (ValueError, Collection.DoesNotExist):
             pass
 
+    # Filter by tag
+    current_tag = request.GET.get('tag')
+    if current_tag:
+        try:
+            images = images.filter(tags__name=current_tag)
+        except (AttributeError):
+            current_tag = None
+
     paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
     images = paginator.get_page(request.GET.get('p'))
 
@@ -72,19 +81,20 @@ def index(request):
 
     # Create response
     if request.is_ajax():
-        return render(request, 'wagtailimages/images/results.html', {
+        return TemplateResponse(request, 'wagtailimages/images/results.html', {
             'images': images,
             'query_string': query_string,
             'is_searching': bool(query_string),
         })
     else:
-        return render(request, 'wagtailimages/images/index.html', {
+        return TemplateResponse(request, 'wagtailimages/images/index.html', {
             'images': images,
             'query_string': query_string,
             'is_searching': bool(query_string),
 
             'search_form': form,
             'popular_tags': popular_tags_for_model(Image),
+            'current_tag': current_tag,
             'collections': collections,
             'current_collection': current_collection,
             'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
@@ -156,7 +166,7 @@ def edit(request, image_id):
     except SourceImageIOError:
         filesize = None
 
-    return render(request, "wagtailimages/images/edit.html", {
+    return TemplateResponse(request, "wagtailimages/images/edit.html", {
         'image': image,
         'form': form,
         'url_generator_enabled': url_generator_enabled,
@@ -179,7 +189,7 @@ def url_generator(request, image_id):
         'height': image.height,
     })
 
-    return render(request, "wagtailimages/images/url_generator.html", {
+    return TemplateResponse(request, "wagtailimages/images/url_generator.html", {
         'image': image,
         'form': form,
     })
@@ -249,7 +259,7 @@ def delete(request, image_id):
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
         return redirect('wagtailimages:index')
 
-    return render(request, "wagtailimages/images/confirm_delete.html", {
+    return TemplateResponse(request, "wagtailimages/images/confirm_delete.html", {
         'image': image,
     })
 
@@ -285,7 +295,7 @@ def add(request):
     else:
         form = ImageForm(user=request.user)
 
-    return render(request, "wagtailimages/images/add.html", {
+    return TemplateResponse(request, "wagtailimages/images/add.html", {
         'form': form,
     })
 
@@ -296,7 +306,7 @@ def usage(request, image_id):
     paginator = Paginator(image.get_usage(), per_page=USAGE_PAGE_SIZE)
     used_by = paginator.get_page(request.GET.get('p'))
 
-    return render(request, "wagtailimages/images/usage.html", {
+    return TemplateResponse(request, "wagtailimages/images/usage.html", {
         'image': image,
         'used_by': used_by
     })

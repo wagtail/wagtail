@@ -8,6 +8,8 @@
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Eugene <eugene.mechanism@gmail.com>, 2017
 # Никита Викторович <hnknta@gmail.com>, 2014
+# Mikhail Sidorov <pevzi23@gmail.com>, 2019
+# sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassily <zuber.kg@gmail.com>, 2017
@@ -17,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"PO-Revision-Date: 2020-02-06 18:56+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -129,6 +131,9 @@ msgstr "изображение профиля"
 msgid "user profile"
 msgstr "профиль пользователя"
 
+msgid "user profiles"
+msgstr "профили пользователя"
+
 msgid "Delete group"
 msgstr "Удалить группу"
 
@@ -185,6 +190,9 @@ msgstr "Редактирование"
 
 msgid "Save"
 msgstr "Сохранить"
+
+msgid "Permissions"
+msgstr "Разрешения"
 
 msgid "Object permissions"
 msgstr "Разрешения на объекты"
@@ -261,6 +269,9 @@ msgstr "Уровень"
 msgid "Status"
 msgstr "Статус"
 
+msgid "Last Login"
+msgstr "Последний вход"
+
 msgid "Admin"
 msgstr "Администратор"
 
@@ -273,6 +284,28 @@ msgstr "Неактивный"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s назад"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Найдено %(counter)s совпадение"
+msgstr[1] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[2] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[3] ""
+"\n"
+"Найдено %(counter)s совпадений"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

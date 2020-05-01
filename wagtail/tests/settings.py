@@ -93,9 +93,7 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     'wagtail.tests.middleware.BlockDodgyUserAgentMiddleware',
-    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
 
@@ -176,7 +174,9 @@ if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     }
 
 if 'ELASTICSEARCH_URL' in os.environ:
-    if os.environ.get('ELASTICSEARCH_VERSION') == '6':
+    if os.environ.get('ELASTICSEARCH_VERSION') == '7':
+        backend = 'wagtail.search.backends.elasticsearch7'
+    elif os.environ.get('ELASTICSEARCH_VERSION') == '6':
         backend = 'wagtail.search.backends.elasticsearch6'
     elif os.environ.get('ELASTICSEARCH_VERSION') == '5':
         backend = 'wagtail.search.backends.elasticsearch5'
@@ -217,4 +217,14 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
     'custom': {
         'WIDGET': 'wagtail.tests.testapp.rich_text.CustomRichTextArea'
     },
+}
+
+
+# Set a non-standard DEFAULT_AUTHENTICATION_CLASSES value, to verify that the
+# admin API still works with session-based auth regardless of this setting
+# (see https://github.com/wagtail/wagtail/issues/5585)
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ]
 }

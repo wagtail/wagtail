@@ -5,7 +5,7 @@ from django.forms import Media, MediaDefiningClass
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
@@ -36,7 +36,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
             'parent_page' (if view = 'create') = the parent page of the page being created
             'user_page_permissions' = a UserPagePermissionsProxy for the current user, to test permissions against
         """
-        return (context['view'] == 'create' or not context['page'].locked)
+        return (context['view'] == 'create' or not context['user_page_permissions'].for_page(context['page']).page_locked())
 
     def get_context(self, request, parent_context):
         """Defines context for the template, overridable to use more data"""
@@ -57,6 +57,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
 
 
 class PublishMenuItem(ActionMenuItem):
+    label = _("Publish")
     name = 'action-publish'
     template = 'wagtailadmin/pages/action_menu/publish.html'
 
@@ -65,7 +66,7 @@ class PublishMenuItem(ActionMenuItem):
             return context['user_page_permissions'].for_page(context['parent_page']).can_publish_subpage()
         else:  # view == 'edit' or 'revisions_revert'
             return (
-                not context['page'].locked
+                not context['user_page_permissions'].for_page(context['page']).page_locked()
                 and context['user_page_permissions'].for_page(context['page']).can_publish()
             )
 
@@ -86,7 +87,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
         elif context['view'] == 'create':
             return True
         elif context['view'] == 'edit':
-            return not context['page'].locked
+            return not context['user_page_permissions'].for_page(context['page']).page_locked()
         else:  # context == revisions_revert
             return False
 
@@ -98,7 +99,7 @@ class UnpublishMenuItem(ActionMenuItem):
     def is_shown(self, request, context):
         return (
             context['view'] == 'edit'
-            and not context['page'].locked
+            and not context['user_page_permissions'].for_page(context['page']).page_locked()
             and context['user_page_permissions'].for_page(context['page']).can_unpublish()
         )
 
@@ -113,12 +114,37 @@ class DeleteMenuItem(ActionMenuItem):
     def is_shown(self, request, context):
         return (
             context['view'] == 'edit'
-            and not context['page'].locked
+            and not context['user_page_permissions'].for_page(context['page']).page_locked()
             and context['user_page_permissions'].for_page(context['page']).can_delete()
         )
 
     def get_url(self, request, context):
         return reverse('wagtailadmin_pages:delete', args=(context['page'].id,))
+
+
+class SaveDraftMenuItem(ActionMenuItem):
+    name = 'action-save-draft'
+    label = _("Save Draft")
+    template = 'wagtailadmin/pages/action_menu/save_draft.html'
+
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        context['is_revision'] = (context['view'] == 'revisions_revert')
+        return context
+
+
+class PageLockedMenuItem(ActionMenuItem):
+    name = 'action-page-locked'
+    label = _("Page locked")
+    template = 'wagtailadmin/pages/action_menu/page_locked.html'
+
+    def is_shown(self, request, context):
+        return ('page' in context) and context['user_page_permissions'].for_page(context['page']).page_locked()
+
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        context['is_revision'] = (context['view'] == 'revisions_revert')
+        return context
 
 
 BASE_PAGE_ACTION_MENU_ITEMS = None
@@ -133,6 +159,8 @@ def _get_base_page_action_menu_items():
 
     if BASE_PAGE_ACTION_MENU_ITEMS is None:
         BASE_PAGE_ACTION_MENU_ITEMS = [
+            PageLockedMenuItem(order=-10000),
+            SaveDraftMenuItem(order=0),
             UnpublishMenuItem(order=10),
             DeleteMenuItem(order=20),
             PublishMenuItem(order=30),
@@ -163,13 +191,19 @@ class PageActionMenu:
         for hook in hooks.get_hooks('construct_page_action_menu'):
             hook(self.menu_items, self.request, self.context)
 
+        try:
+            self.default_item = self.menu_items.pop(0)
+        except IndexError:
+            self.default_item = None
+
     def render_html(self):
         return render_to_string(self.template, {
+            'default_menu_item': self.default_item.render_html(self.request, self.context),
             'show_menu': bool(self.menu_items),
             'rendered_menu_items': [
                 menu_item.render_html(self.request, self.context)
                 for menu_item in self.menu_items
-            ]
+            ],
         }, request=self.request)
 
     @cached_property

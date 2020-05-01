@@ -7,7 +7,8 @@ from wagtail.core import hooks
 from wagtail.images import image_operations
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.models import Filter, Image
-from wagtail.images.tests.utils import get_test_image_file, get_test_image_file_jpeg
+from wagtail.images.tests.utils import (
+    get_test_image_file, get_test_image_file_jpeg, get_test_image_file_webp)
 
 
 class WillowOperationRecorder:
@@ -360,6 +361,14 @@ class TestMinMaxOperation(ImageOperationTestCase):
         ('max-800x600', dict(width=1000, height=1000), [
             ('resize', ((600, 600), ), {}),
         ]),
+        # Resize doesn't try to set zero height
+        ('max-400x400', dict(width=1000, height=1), [
+            ('resize', ((400, 1), ), {}),
+        ]),
+        # Resize doesn't try to set zero width
+        ('max-400x400', dict(width=1, height=1000), [
+            ('resize', ((1, 400), ), {}),
+        ]),
     ]
 
 
@@ -389,6 +398,14 @@ class TestWidthHeightOperation(ImageOperationTestCase):
         # Basic usage of height
         ('height-400', dict(width=1000, height=500), [
             ('resize', ((800, 400), ), {}),
+        ]),
+        # Resize doesn't try to set zero height
+        ('width-400', dict(width=1000, height=1), [
+            ('resize', ((400, 1), ), {}),
+        ]),
+        # Resize doesn't try to set zero width
+        ('height-400', dict(width=1, height=800), [
+            ('resize', ((1, 400), ), {}),
         ]),
     ]
 
@@ -423,6 +440,14 @@ class TestScaleOperation(ImageOperationTestCase):
         # Rounded usage of scale
         ('scale-83.0322', dict(width=1000, height=500), [
             ('resize', ((int(1000 * 0.830322), int(500 * 0.830322)), ), {}),
+        ]),
+        # Resize doesn't try to set zero height
+        ('scale-50', dict(width=1000, height=1), [
+            ('resize', ((500, 1), ), {}),
+        ]),
+        # Resize doesn't try to set zero width
+        ('scale-50', dict(width=1, height=500), [
+            ('resize', ((1, 250), ), {}),
         ]),
     ]
 
@@ -520,6 +545,16 @@ class TestFormatFilter(TestCase):
         out = fil.run(image, BytesIO())
 
         self.assertEqual(out.format_name, 'gif')
+
+    def test_webp(self):
+        fil = Filter(spec='width-400|format-webp')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'webp')
 
     def test_invalid(self):
         fil = Filter(spec='width-400|format-foo')
@@ -661,3 +696,32 @@ class TestBackgroundColorFilter(TestCase):
             file=get_test_image_file(),
         )
         self.assertRaises(ValueError, fil.run, image, BytesIO())
+
+
+class TestWebpFormatConversion(TestCase):
+    def test_webp_convert_to_png(self):
+        """by default, webp images will be converted to png"""
+
+        fil = Filter(spec='width-400')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_webp(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'png')
+
+    @override_settings(
+        WAGTAILIMAGES_FORMAT_CONVERSIONS={'webp': 'webp'}
+    )
+    def test_override_webp_convert_to_png(self):
+        """WAGTAILIMAGES_FORMAT_CONVERSIONS can be overridden to disable webp conversion"""
+
+        fil = Filter(spec='width-400')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_webp(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, 'webp')

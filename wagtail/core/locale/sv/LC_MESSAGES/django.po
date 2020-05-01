@@ -4,15 +4,16 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Philip Andersen <renegadevi@codeofmagi.net>, 2018
+# Martin Sandström <martin@marteinn.se>, 2020
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-11-27 21:56+0000\n"
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-02-13 09:45+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -24,8 +25,9 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Wagtail kärna"
 
-msgid "{label}: this block has no options."
-msgstr "{label}: det här blocket har inga inställningar."
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: det här blocket har inga inställningar."
 
 msgid "This block has no options."
 msgstr "Detta block har inga inställningar."
@@ -161,6 +163,12 @@ msgstr "utgången"
 msgid "locked"
 msgstr "låst"
 
+msgid "locked at"
+msgstr "låstes as"
+
+msgid "locked by"
+msgstr "låst av"
+
 msgid "first published at"
 msgstr "först publicerad vid"
 
@@ -242,8 +250,14 @@ msgstr "Radera sidor med undersidor"
 msgid "Lock"
 msgstr "Lås"
 
-msgid "Lock/unlock any page"
-msgstr "Lås/upplås alla sidor"
+msgid "Lock/unlock pages you've locked"
+msgstr "Lås/lås upp sidor du låst"
+
+msgid "Unlock"
+msgstr "Lås upp"
+
+msgid "Unlock any page"
+msgstr "Lås upp valfri sida"
 
 msgid "group"
 msgstr "grupp"

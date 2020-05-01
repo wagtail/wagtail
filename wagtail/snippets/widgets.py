@@ -1,7 +1,8 @@
 import json
 
+from django import forms
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
@@ -41,8 +42,9 @@ class AdminSnippetChooser(AdminChooser):
                 app=model._meta.app_label,
                 model=model._meta.model_name)))
 
-    class Media:
-        js = [
+    @property
+    def media(self):
+        return forms.Media(js=[
             versioned_static('wagtailsnippets/js/snippet-chooser-modal.js'),
             versioned_static('wagtailsnippets/js/snippet-chooser.js'),
-        ]
+        ])

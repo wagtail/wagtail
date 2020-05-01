@@ -17,7 +17,8 @@
     {% trans "Redirects" as redirects_str %}
     {% trans "Add redirect" as add_str %}
     {% if user_can_add %}
-        {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" add_link="wagtailredirects:add" add_text=add_str search_url="wagtailredirects:index" %}
+        {% url "wagtailredirects:add" as add_link %}
+        {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" action_url=add_link action_text=add_str search_url="wagtailredirects:index" %}
     {% else %}
         {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" search_url="wagtailredirects:index" %}
     {% endif %}

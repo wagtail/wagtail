@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# utek <mail@utek.pl>, 2014
+# Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2017
-# Miłosz Miśkiewicz, 2017-2019
+# Miłosz Miśkiewicz, 2017-2020
 # Miłosz Miśkiewicz, 2016-2017
-# utek <mail@utek.pl>, 2014
+# Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-05-09 13:37+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-03-20 09:38+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -28,8 +28,9 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Rdzeń Wagtail"
 
-msgid "{label}: this block has no options."
-msgstr "{label}: ten blok nie posiada opcji."
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: ten blok nie ma opcji."
 
 msgid "This block has no options."
 msgstr "Ten block nie posiada opcji."
@@ -163,6 +164,12 @@ msgstr "wygaśnięte"
 msgid "locked"
 msgstr "zablokowany"
 
+msgid "locked at"
+msgstr "zablokowano dnia"
+
+msgid "locked by"
+msgstr "zablokowane przez"
+
 msgid "first published at"
 msgstr "pierwsza publikacja w dniu"
 
@@ -244,8 +251,14 @@ msgstr "Usuń strony z podstronami"
 msgid "Lock"
 msgstr "Zablokuj"
 
-msgid "Lock/unlock any page"
-msgstr "Zablokuj/odblokuj dowolną stronę"
+msgid "Lock/unlock pages you've locked"
+msgstr "Zablokuj/odblokuj strony które zablokowałeś"
+
+msgid "Unlock"
+msgstr "Odblokowanie"
+
+msgid "Unlock any page"
+msgstr "Odblokowanie dowolnej strony"
 
 msgid "group"
 msgstr "grupa"

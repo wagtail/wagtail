@@ -20,7 +20,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
     EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel,
-    SimplePage, ValidatedPage)
+    RestaurantPage, RestaurantTag, SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -118,6 +118,29 @@ class TestGetFormForModel(TestCase):
 
         self.assertEqual(type(form.fields['date_from']), forms.DateField)
         self.assertEqual(type(form.fields['date_from'].widget), forms.PasswordInput)
+
+    def test_tag_widget_is_passed_tag_model(self):
+        RestaurantPageForm = get_form_for_model(
+            RestaurantPage, form_class=WagtailAdminPageForm
+        )
+        form_html = RestaurantPageForm().as_p()
+        self.assertIn('/admin/tag\\u002Dautocomplete/tests/restauranttag/', form_html)
+
+        # widget should pick up the free_tagging=False attribute on the tag model
+        # and set itself to autocomplete only
+        self.assertIn('"autocompleteOnly": true', form_html)
+
+        # Free tagging should also be disabled at the form field validation level
+        RestaurantTag.objects.create(name='Italian', slug='italian')
+        RestaurantTag.objects.create(name='Indian', slug='indian')
+
+        form = RestaurantPageForm({
+            'title': 'Buonasera',
+            'slug': 'buonasera',
+            'tags': "Italian, delicious",
+        })
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data['tags'], ["Italian"])
 
 
 def clear_edit_handler(page_cls):
@@ -220,7 +243,7 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
     def test_can_extract_panel_property(self):
         # A class with a 'panels' property defined should return that list
         result = extract_panel_definitions_from_model_class(EventPageSpeaker)
-        self.assertEqual(len(result), 4)
+        self.assertEqual(len(result), 5)
         self.assertTrue(any([isinstance(panel, ImageChooserPanel) for panel in result]))
 
     def test_exclude(self):
@@ -396,6 +419,19 @@ class TestFieldPanel(TestCase):
         # however, accessing db_field will fail
         with self.assertRaises(FieldDoesNotExist):
             field_panel.db_field
+
+    def test_override_heading(self):
+        # unless heading is specified in keyword arguments, an edit handler with bound form should take its
+        # heading from the bound field label
+        bound_panel = self.end_date_panel.bind_to(form=self.EventPageForm())
+        self.assertEqual(bound_panel.heading, bound_panel.bound_field.label)
+
+        # if heading is explicitly provided to constructor, that heading should be taken in
+        # preference to the field's label
+        end_date_panel_with_overridden_heading = (FieldPanel('date_to', classname='full-width', heading="New heading")
+                                                  .bind_to(model=EventPage, request=self.request, form=self.EventPageForm()))
+        self.assertEqual(end_date_panel_with_overridden_heading.heading, "New heading")
+
 
     def test_render_as_object(self):
         form = self.EventPageForm(

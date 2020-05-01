@@ -24,7 +24,6 @@
 
             var selectAllCheckbox = document.getElementById('select-all');
             var deleteButton = document.getElementById('delete-submissions');
-            var selectedSubmissions = {};
 
             function updateActions() {
                 var submissionCheckboxes = $('input[type=checkbox].select-submission');
@@ -82,7 +81,7 @@
     </script>
 {% endblock %}
 {% block content %}
-    <header class="nice-padding" role="banner">
+    <header class="nice-padding">
         <form action="" method="get" novalidate>
             <div class="row">
                 <div class="left">
@@ -103,7 +102,13 @@
                     </div>
                 </div>
                 <div class="right">
-                   <button name="action" value="CSV" class="button bicolor icon icon-download">{% trans 'Download CSV' %}</button>
+                    <div class="dropdown dropdown-button match-width">
+                        <a href="?export=xlsx" class="button bicolor icon icon-download">{% trans 'Download XLSX' %}</a>
+                       <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <ul>
+                            <li><a  class="button bicolor icon icon-download" href="?export=csv">{% trans 'Download CSV' %}</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </form>

@@ -2,7 +2,7 @@
 {% load i18n %}
 {% if images %}
     {% if is_searching %}
-        <h2>
+        <h2 role="alert">
         {% blocktrans count counter=images.paginator.count %}
             There is {{ counter }} match
         {% plural %}

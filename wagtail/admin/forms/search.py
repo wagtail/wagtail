@@ -1,6 +1,6 @@
 from django import forms
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 
 class SearchForm(forms.Form):
@@ -9,4 +9,4 @@ class SearchForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['q'].widget.attrs = {'placeholder': placeholder}
 
-    q = forms.CharField(label=ugettext_lazy("Search term"), widget=forms.TextInput())
+    q = forms.CharField(label=gettext_lazy("Search term"), widget=forms.TextInput())

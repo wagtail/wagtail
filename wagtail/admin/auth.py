@@ -1,4 +1,7 @@
+import types
 from functools import wraps
+
+import l18n
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
@@ -7,12 +10,11 @@ from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.timezone import activate as activate_tz
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.utils.translation import override
 
 from wagtail.admin import messages
 from wagtail.core.models import GroupPagePermission
-from wagtail.utils import l18n
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):
@@ -148,6 +150,7 @@ def reject_request(request):
 
 def require_admin_access(view_func):
     def decorated_view(request, *args, **kwargs):
+
         user = request.user
 
         if user.is_anonymous:
@@ -162,7 +165,25 @@ def require_admin_access(view_func):
                 activate_tz(time_zone)
             if preferred_language:
                 with override(preferred_language):
-                    return view_func(request, *args, **kwargs)
+                    response = view_func(request, *args, **kwargs)
+                if hasattr(response, "render"):
+                    # If the response has a render() method, Django treats it
+                    # like a TemplateResponse, so we should do the same
+                    # In this case, we need to guarantee that when the TemplateResponse
+                    # is rendered, it is done within the override context manager
+                    # or the user preferred_language will not be used
+                    # (this could be replaced with simply rendering the TemplateResponse
+                    # for simplicity but this does remove some of its middleware modification
+                    # potential)
+                    render = response.render
+
+                    def overridden_render(response):
+                        with override(preferred_language):
+                            return render()
+
+                    response.render = types.MethodType(overridden_render, response)
+                    # decorate the response render method with the override context manager
+                return response
             else:
                 return view_func(request, *args, **kwargs)
 

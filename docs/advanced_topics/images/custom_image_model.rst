@@ -47,12 +47,9 @@ Here's an example:
             )
 
 
-.. note::
+.. versionchanged:: 2.9
 
-    Fields defined on a custom image model must either be set as non-required
-    (``blank=True``), or specify a default value - this is because uploading
-    the image and entering custom data happen as two separate actions, and
-    Wagtail needs to be able to create an image record immediately on upload.
+    Fields on a custom image model can now be defined as required (``blank=False``).
 
 Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
 

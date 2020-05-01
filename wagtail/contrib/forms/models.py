@@ -1,11 +1,14 @@
+import datetime
 import json
 import os
 
+from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.shortcuts import render
+from django.template.response import TemplateResponse
+from django.utils.formats import date_format
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from unidecode import unidecode
 
 from wagtail.admin.edit_handlers import FieldPanel
@@ -13,7 +16,7 @@ from wagtail.admin.mail import send_mail
 from wagtail.core.models import Orderable, Page
 
 from .forms import FormBuilder, WagtailAdminFormPageForm
-from .views import SubmissionsListView
+
 
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
@@ -64,6 +67,7 @@ class AbstractFormSubmission(models.Model):
     class Meta:
         abstract = True
         verbose_name = _('form submission')
+        verbose_name_plural = _('form submissions')
 
 
 class FormSubmission(AbstractFormSubmission):
@@ -125,7 +129,7 @@ class AbstractForm(Page):
 
     form_builder = FormBuilder
 
-    submissions_list_view_class = SubmissionsListView
+    submissions_list_view_class = None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -187,6 +191,10 @@ class AbstractForm(Page):
 
         return FormSubmission
 
+    def get_submissions_list_view_class(self):
+        from .views import SubmissionsListView
+        return self.submissions_list_view_class or SubmissionsListView
+
     def process_form_submission(self, form):
         """
         Accepts form instance with submitted data, user and page.
@@ -210,7 +218,7 @@ class AbstractForm(Page):
         """
         context = self.get_context(request)
         context['form_submission'] = form_submission
-        return render(
+        return TemplateResponse(
             request,
             self.get_landing_page_template(request),
             context
@@ -223,7 +231,7 @@ class AbstractForm(Page):
         `list_submissions_view_class` can bse set to provide custom view class.
         Your class must be inherited from SubmissionsListView.
         """
-        view = self.submissions_list_view_class.as_view()
+        view = self.get_submissions_list_view_class().as_view()
         return view(request, form_page=self, *args, **kwargs)
 
     def serve(self, request, *args, **kwargs):
@@ -238,7 +246,7 @@ class AbstractForm(Page):
 
         context = self.get_context(request)
         context['form'] = form
-        return render(
+        return TemplateResponse(
             request,
             self.get_template(request),
             context
@@ -277,14 +285,30 @@ class AbstractEmailForm(AbstractForm):
 
     def send_mail(self, form):
         addresses = [x.strip() for x in self.to_address.split(',')]
+        send_mail(self.subject, self.render_email(form), addresses, self.from_address,)
+
+    def render_email(self, form):
         content = []
+
+        cleaned_data = form.cleaned_data
         for field in form:
-            value = field.value()
+            if field.name not in cleaned_data:
+                continue
+
+            value = cleaned_data.get(field.name)
+
             if isinstance(value, list):
                 value = ', '.join(value)
+
+            # Format dates and datetimes with SHORT_DATE(TIME)_FORMAT
+            if isinstance(value, datetime.datetime):
+                value = date_format(value, settings.SHORT_DATETIME_FORMAT)
+            elif isinstance(value, datetime.date):
+                value = date_format(value, settings.SHORT_DATE_FORMAT)
+
             content.append('{}: {}'.format(field.label, value))
-        content = '\n'.join(content)
-        send_mail(self.subject, content, addresses, self.from_address,)
+
+        return '\n'.join(content)
 
     class Meta:
         abstract = True

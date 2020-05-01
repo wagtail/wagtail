@@ -27,7 +27,7 @@ jobs:
 
   frontend:
     docker:
-      - image: circleci/node:8.11.3
+      - image: circleci/node:10
     steps:
       - checkout
       - restore_cache:

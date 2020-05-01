@@ -41,6 +41,10 @@ def versioned_static(path):
     Wrapper for Django's static file finder to append a cache-busting query parameter
     that updates on each Wagtail version
     """
+    # An absolute path is returned unchanged (either a full URL, or processed already)
+    if path.startswith(('http://', 'https://', '/')):
+        return path
+
     base_url = static(path)
 
     # if URL already contains a querystring, don't add our own, to avoid interfering

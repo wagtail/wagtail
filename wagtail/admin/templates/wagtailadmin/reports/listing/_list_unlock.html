@@ -1,0 +1,46 @@
+{% extends "wagtailadmin/reports/listing/_list_page_report.html" %}
+
+{% load i18n wagtailadmin_tags %}
+
+{% block extra_columns %}
+
+<th>{% trans 'Locking status' %}</th>
+
+{% endblock %}
+
+
+{% block extra_page_data%}
+    <td valign="top">
+        {% page_permissions page as perms %}
+        <p>
+            {% if page.locked_at %}
+                {% with page.locked_at|date:"d M Y H:i" as locking_date %}
+                    {% if page.locked_by %}
+                        {% if page.locked_by_id == request.user.pk %}
+                            {% blocktrans %}
+                                Locked by <b>you</b> at <b>{{ locking_date }}</b>
+                            {% endblocktrans %}
+                        {% else %}
+                            {% blocktrans with locked_by=page.locked_by %}
+                                Locked by <b>{{ locked_by }}</b> at <b>{{ locking_date }}</b>
+                            {% endblocktrans %}
+                        {% endif %}
+                    {% else %}
+                        {% blocktrans %}
+                            Locked at <b>{{ locking_date }}</b>
+                        {% endblocktrans %}
+                    {% endif %}
+                {% endwith %}
+            {% else %}
+                {% trans 'Locked' %}
+            {% endif %}
+        </p>
+        {% if perms.can_unlock %}
+            <form action="{% url 'wagtailadmin_pages:unlock' page.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button type="submit" class="button button-secondary button-small">{% trans 'Unlock' %}</button>
+            </form>
+        {% endif %}
+    </td>
+{% endblock %}

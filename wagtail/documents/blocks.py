@@ -7,7 +7,7 @@ from wagtail.core.blocks import ChooserBlock
 class DocumentChooserBlock(ChooserBlock):
     @cached_property
     def target_model(self):
-        from wagtail.documents.models import get_document_model
+        from wagtail.documents import get_document_model
         return get_document_model()
 
     @cached_property

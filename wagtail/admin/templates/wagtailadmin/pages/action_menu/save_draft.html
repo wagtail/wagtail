@@ -1,0 +1,2 @@
+{% load i18n %}
+<button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" data-clicked-text="{% trans 'Saving…' %}"><span class="icon icon-spinner"></span><em>{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}</em></button>

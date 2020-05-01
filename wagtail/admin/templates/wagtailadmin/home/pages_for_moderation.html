@@ -24,8 +24,10 @@
                                 <div class="title-wrapper">
                                     {% if page_perms.can_edit %}
                                         <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_admin_display_title }}</a>
-                                    {% else %}
+                                    {% elif revision.page.is_previewable %}
                                         <a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" title="{% trans 'Preview this page' %}">{{ revision.page.get_admin_display_title }}</a>
+                                    {% else %}
+                                        {{ revision.page.get_admin_display_title }}
                                     {% endif %}
 
                                     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
@@ -47,7 +49,9 @@
                                     {% if page_perms.can_edit %}
                                         <li><a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
                                     {% endif %}
-                                    <li><a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Preview' %}</a></li>
+                                    {% if revision.page.is_previewable %}
+                                        <li><a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Preview' %}</a></li>
+                                    {% endif %}
                                 </ul>
                             </td>
                             <td valign="top">
@@ -58,7 +62,9 @@
                             </td>
                             <td valign="top">
                                 <div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=revision.created_at|timesince %}{{ time_period }} ago{% endblocktrans %} </div>
-                                by {{ revision.user.get_full_name|default:revision.user.get_username }}
+                                {% if revision.user %}
+                                    by {{ revision.user.get_full_name|default:revision.user.get_username }}
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}

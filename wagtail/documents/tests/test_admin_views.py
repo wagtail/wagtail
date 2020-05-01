@@ -9,7 +9,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.core.models import Collection, GroupCollectionPermission, Page
-from wagtail.documents import models
+from wagtail.documents import get_document_model, models
 from wagtail.documents.tests.utils import get_test_document_file
 from wagtail.tests.testapp.models import CustomDocument, EventPage, EventPageRelatedLink
 from wagtail.tests.utils import WagtailTestUtils
@@ -321,6 +321,34 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.assertContains(response, self.document.usage_url)
         self.assertContains(response, 'Used 0 times')
 
+    def test_reupload_different_file_size_and_file_hash(self):
+        """
+        Checks that reuploading the document file with a different file
+        changes the file size and file hash (see #5704).
+        """
+        # Build a fake file, and create it through the admin view
+        # since self.document doesn't have a file_size set.
+        fake_file = SimpleUploadedFile('some_file.txt', b'this is the content')
+        post_data = {
+            'title': "My doc",
+            'file': fake_file,
+        }
+        self.client.post(reverse('wagtaildocs:add'), post_data)
+
+        document = models.Document.objects.get(title="My doc")
+        old_file_size, old_file_hash = document.file_size, document.file_hash
+
+        new_file = SimpleUploadedFile(document.filename, b'less content')
+
+        self.client.post(reverse('wagtaildocs:edit', args=(document.pk,)), {
+            'title': document.title, 'file': new_file,
+        })
+
+        document.refresh_from_db()
+
+        self.assertNotEqual(document.file_size, old_file_size)
+        self.assertNotEqual(document.file_hash, old_file_hash)
+
     def test_reupload_same_name(self):
         """
         Checks that reuploading the document file with the same file name
@@ -434,7 +462,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.login()
 
         # Create a document for running tests on
-        self.doc = models.get_document_model().objects.create(
+        self.doc = get_document_model().objects.create(
             title="Test document",
             file=get_test_document_file(),
         )
@@ -499,7 +527,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['doc'].file_hash)
 
         # check that it is in the root collection
-        doc = models.get_document_model().objects.get(title='test.png')
+        doc = get_document_model().objects.get(title='test.png')
         root_collection = Collection.get_first_root_node()
         self.assertEqual(doc.collection, root_collection)
 
@@ -507,7 +535,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertIn('form', response.context)
         self.assertEqual(
             set(response.context['form'].fields),
-            set(models.get_document_model().admin_form_fields) - {'file', 'collection'},
+            set(get_document_model().admin_form_fields) - {'file', 'collection'},
         )
         self.assertEqual(response.context['form'].initial['title'], 'test.png')
 
@@ -548,7 +576,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['doc'].file_hash)
 
         # check that it is in the 'evil plans' collection
-        doc = models.get_document_model().objects.get(title='test.png')
+        doc = get_document_model().objects.get(title='test.png')
         root_collection = Collection.get_first_root_node()
         self.assertEqual(doc.collection, evil_plans_collection)
 
@@ -556,7 +584,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertIn('form', response.context)
         self.assertEqual(
             set(response.context['form'].fields),
-            set(models.get_document_model().admin_form_fields) - {'file'} | {'collection'},
+            set(get_document_model().admin_form_fields) - {'file'} | {'collection'},
         )
         self.assertEqual(response.context['form'].initial['title'], 'test.png')
 
@@ -686,7 +714,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertEqual(response['Content-Type'], 'application/json')
 
         # Make sure the document is deleted
-        self.assertFalse(models.get_document_model().objects.filter(id=self.doc.id).exists())
+        self.assertFalse(get_document_model().objects.filter(id=self.doc.id).exists())
 
         # Check JSON
         response_json = json.loads(response.content.decode())
@@ -723,7 +751,7 @@ class TestMultipleCustomDocumentUploaderNoCollection(TestMultipleCustomDocumentU
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        Document = models.get_document_model()
+        Document = get_document_model()
         fields = tuple(f for f in Document.admin_form_fields if f != 'collection')
         cls.__patcher = mock.patch.object(Document, 'admin_form_fields', fields)
         cls.__patcher.start()

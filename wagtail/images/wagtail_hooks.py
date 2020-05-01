@@ -1,8 +1,8 @@
 from django.conf.urls import include, url
 from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext, ungettext
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext, ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.menu import MenuItem
@@ -10,10 +10,9 @@ from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.core import hooks
 from wagtail.images import admin_urls, get_image_model, image_operations
-from wagtail.images.api.admin.endpoints import ImagesAdminAPIEndpoint
+from wagtail.images.api.admin.views import ImagesAdminAPIViewSet
 from wagtail.images.forms import GroupImagePermissionFormSet
 from wagtail.images.permissions import permission_policy
 from wagtail.images.rich_text import ImageEmbedHandler
@@ -30,7 +29,7 @@ def register_admin_urls():
 
 @hooks.register('construct_admin_api')
 def construct_admin_api(router):
-    router.register_endpoint('images', ImagesAdminAPIEndpoint)
+    router.register_endpoint('images', ImagesAdminAPIViewSet)
 
 
 class ImagesMenuItem(MenuItem):
@@ -71,8 +70,8 @@ def register_image_feature(features):
         HalloPlugin(
             name='hallowagtailimage',
             js=[
-                versioned_static('wagtailimages/js/image-chooser-modal.js'),
-                versioned_static('wagtailimages/js/hallo-plugins/hallo-wagtailimage.js'),
+                'wagtailimages/js/image-chooser-modal.js',
+                'wagtailimages/js/hallo-plugins/hallo-wagtailimage.js',
             ],
         )
     )
@@ -86,7 +85,7 @@ def register_image_feature(features):
         'draftail', 'image', draftail_features.EntityFeature({
             'type': 'IMAGE',
             'icon': 'image',
-            'description': ugettext('Image'),
+            'description': gettext('Image'),
             # We do not want users to be able to copy-paste hotlinked images into rich text.
             # Keep only the attributes Wagtail needs.
             'attributes': ['id', 'src', 'alt', 'format'],
@@ -95,7 +94,7 @@ def register_image_feature(features):
                 'id': True,
             }
         }, js=[
-            versioned_static('wagtailimages/js/image-chooser-modal.js'),
+            'wagtailimages/js/image-chooser-modal.js',
         ])
     )
 
@@ -174,7 +173,7 @@ def describe_collection_docs(collection):
         url = reverse('wagtailimages:index') + ('?collection_id=%d' % collection.id)
         return {
             'count': images_count,
-            'count_text': ungettext(
+            'count_text': ngettext(
                 "%(count)s image",
                 "%(count)s images",
                 images_count

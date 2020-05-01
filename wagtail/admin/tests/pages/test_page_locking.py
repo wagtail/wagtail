@@ -1,6 +1,7 @@
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from wagtail.core.models import Page
 from wagtail.tests.testapp.models import SimplePage
@@ -31,7 +32,10 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # Check that the page is locked
-        self.assertTrue(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertTrue(page.locked)
+        self.assertEqual(page.locked_by, self.user)
+        self.assertIsNotNone(page.locked_at)
 
     def test_lock_get(self):
         response = self.client.get(reverse('wagtailadmin_pages:lock', args=(self.child_page.id, )))
@@ -40,11 +44,16 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 405)
 
         # Check that the page is still unlocked
-        self.assertFalse(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertFalse(page.locked)
+        self.assertIsNone(page.locked_by)
+        self.assertIsNone(page.locked_at)
 
     def test_lock_post_already_locked(self):
         # Lock the page
         self.child_page.locked = True
+        self.child_page.locked_by = self.user
+        self.child_page.locked_at = timezone.now()
         self.child_page.save()
 
         response = self.client.post(reverse('wagtailadmin_pages:lock', args=(self.child_page.id, )))
@@ -53,7 +62,10 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # Check that the page is still locked
-        self.assertTrue(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertTrue(page.locked)
+        self.assertEqual(page.locked_by, self.user)
+        self.assertIsNotNone(page.locked_at)
 
     def test_lock_post_with_good_redirect(self):
         response = self.client.post(reverse('wagtailadmin_pages:lock', args=(self.child_page.id, )), {
@@ -64,7 +76,10 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
 
         # Check that the page is locked
-        self.assertTrue(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertTrue(page.locked)
+        self.assertEqual(page.locked_by, self.user)
+        self.assertIsNotNone(page.locked_at)
 
     def test_lock_post_with_bad_redirect(self):
         response = self.client.post(reverse('wagtailadmin_pages:lock', args=(self.child_page.id, )), {
@@ -75,7 +90,10 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # Check that the page is locked
-        self.assertTrue(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertTrue(page.locked)
+        self.assertEqual(page.locked_by, self.user)
+        self.assertIsNotNone(page.locked_at)
 
     def test_lock_post_bad_page(self):
         response = self.client.post(reverse('wagtailadmin_pages:lock', args=(9999, )))
@@ -84,7 +102,10 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
         # Check that the page is still unlocked
-        self.assertFalse(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertFalse(page.locked)
+        self.assertIsNone(page.locked_by)
+        self.assertIsNone(page.locked_at)
 
     def test_lock_post_bad_permissions(self):
         # Remove privileges from user
@@ -100,11 +121,16 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 403)
 
         # Check that the page is still unlocked
-        self.assertFalse(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertFalse(page.locked)
+        self.assertIsNone(page.locked_by)
+        self.assertIsNone(page.locked_at)
 
     def test_unlock_post(self):
         # Lock the page
         self.child_page.locked = True
+        self.child_page.locked_by = self.user
+        self.child_page.locked_at = timezone.now()
         self.child_page.save()
 
         response = self.client.post(reverse('wagtailadmin_pages:unlock', args=(self.child_page.id, )))
@@ -113,11 +139,16 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # Check that the page is unlocked
-        self.assertFalse(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertFalse(page.locked)
+        self.assertIsNone(page.locked_by)
+        self.assertIsNone(page.locked_at)
 
     def test_unlock_get(self):
         # Lock the page
         self.child_page.locked = True
+        self.child_page.locked_by = self.user
+        self.child_page.locked_at = timezone.now()
         self.child_page.save()
 
         response = self.client.get(reverse('wagtailadmin_pages:unlock', args=(self.child_page.id, )))
@@ -126,7 +157,10 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 405)
 
         # Check that the page is still locked
-        self.assertTrue(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertTrue(page.locked)
+        self.assertEqual(page.locked_by, self.user)
+        self.assertIsNotNone(page.locked_at)
 
     def test_unlock_post_already_unlocked(self):
         response = self.client.post(reverse('wagtailadmin_pages:unlock', args=(self.child_page.id, )))
@@ -135,11 +169,16 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # Check that the page is still unlocked
-        self.assertFalse(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertFalse(page.locked)
+        self.assertIsNone(page.locked_by)
+        self.assertIsNone(page.locked_at)
 
     def test_unlock_post_with_good_redirect(self):
         # Lock the page
         self.child_page.locked = True
+        self.child_page.locked_by = self.user
+        self.child_page.locked_at = timezone.now()
         self.child_page.save()
 
         response = self.client.post(reverse('wagtailadmin_pages:unlock', args=(self.child_page.id, )), {
@@ -150,11 +189,16 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
 
         # Check that the page is unlocked
-        self.assertFalse(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertFalse(page.locked)
+        self.assertIsNone(page.locked_by)
+        self.assertIsNone(page.locked_at)
 
     def test_unlock_post_with_bad_redirect(self):
         # Lock the page
         self.child_page.locked = True
+        self.child_page.locked_by = self.user
+        self.child_page.locked_at = timezone.now()
         self.child_page.save()
 
         response = self.client.post(reverse('wagtailadmin_pages:unlock', args=(self.child_page.id, )), {
@@ -165,11 +209,16 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
 
         # Check that the page is unlocked
-        self.assertFalse(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertFalse(page.locked)
+        self.assertIsNone(page.locked_by)
+        self.assertIsNone(page.locked_at)
 
     def test_unlock_post_bad_page(self):
         # Lock the page
         self.child_page.locked = True
+        self.child_page.locked_by = self.user
+        self.child_page.locked_at = timezone.now()
         self.child_page.save()
 
         response = self.client.post(reverse('wagtailadmin_pages:unlock', args=(9999, )))
@@ -178,18 +227,20 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
         # Check that the page is still locked
-        self.assertTrue(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertTrue(page.locked)
+        self.assertEqual(page.locked_by, self.user)
+        self.assertIsNotNone(page.locked_at)
 
     def test_unlock_post_bad_permissions(self):
         # Remove privileges from user
         self.user.is_superuser = False
-        self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
-        )
+        self.user.groups.add(Group.objects.get(name="Editors"))
         self.user.save()
 
         # Lock the page
         self.child_page.locked = True
+        self.child_page.locked_at = timezone.now()
         self.child_page.save()
 
         response = self.client.post(reverse('wagtailadmin_pages:unlock', args=(self.child_page.id, )))
@@ -198,4 +249,33 @@ class TestLocking(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 403)
 
         # Check that the page is still locked
-        self.assertTrue(Page.objects.get(id=self.child_page.id).locked)
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertTrue(page.locked)
+        self.assertIsNotNone(page.locked_at)
+
+    def test_unlock_post_own_page_with_bad_permissions(self):
+        # Unlike the previous test, the user can unlock pages that they have locked
+
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.groups.add(Group.objects.get(name="Editors"))
+        self.user.save()
+
+        # Lock the page
+        self.child_page.locked = True
+        self.child_page.locked_by = self.user
+        self.child_page.locked_at = timezone.now()
+        self.child_page.save()
+
+        response = self.client.post(reverse('wagtailadmin_pages:unlock', args=(self.child_page.id, )), {
+            'next': reverse('wagtailadmin_pages:edit', args=(self.child_page.id, ))
+        })
+
+        # Check response
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+
+        # Check that the page is still locked
+        page = Page.objects.get(id=self.child_page.id)
+        self.assertFalse(page.locked)
+        self.assertIsNone(page.locked_by)
+        self.assertIsNone(page.locked_at)

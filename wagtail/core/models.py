@@ -3,7 +3,6 @@ import logging
 from collections import defaultdict
 from io import StringIO
 from urllib.parse import urlparse
-from warnings import warn
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -18,22 +17,22 @@ from django.db.models import Case, Q, Value, When
 from django.db.models.functions import Concat, Substr
 from django.http import Http404
 from django.template.response import TemplateResponse
-from django.urls import reverse
+from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
+from django.utils.cache import patch_cache_control
 from django.utils.functional import cached_property
 from django.utils.text import capfirst, slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from modelcluster.models import (
     ClusterableModel, get_all_child_m2m_relations, get_all_child_relations)
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.query import PageQuerySet, TreeQuerySet
-from wagtail.core.signals import page_published, page_unpublished
+from wagtail.core.signals import page_published, page_unpublished, post_page_move, pre_page_move
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
 from wagtail.search import index
-from wagtail.utils.deprecation import RemovedInWagtail29Warning
 
 
 logger = logging.getLogger('wagtail.core')
@@ -109,11 +108,29 @@ class Site(models.Model):
 
         NB this means that high-numbered ports on an extant hostname may
         still be routed to a different hostname which is set as the default
+
+        The site will be cached via request._wagtail_site
         """
 
+        if request is None:
+            return None
+
+        if not hasattr(request, '_wagtail_site'):
+            site = Site._find_for_request(request)
+            setattr(request, '_wagtail_site', site)
+        return request._wagtail_site
+
+    @staticmethod
+    def _find_for_request(request):
         hostname = request.get_host().split(':')[0]
         port = request.get_port()
-        return get_site_for_hostname(hostname, port)
+        site = None
+        try:
+            site = get_site_for_hostname(hostname, port)
+        except Site.DoesNotExist:
+            pass
+            # copy old SiteMiddleware behavior
+        return site
 
     @property
     def root_url(self):
@@ -296,6 +313,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     expired = models.BooleanField(verbose_name=_('expired'), default=False, editable=False)
 
     locked = models.BooleanField(verbose_name=_('locked'), default=False, editable=False)
+    locked_at = models.DateTimeField(verbose_name=_('locked at'), null=True, editable=False)
+    locked_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_('locked by'),
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.SET_NULL,
+        related_name='locked_pages'
+    )
 
     first_published_at = models.DateTimeField(
         verbose_name=_('first published at'),
@@ -423,7 +450,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         if not self.slug:
             # Try to auto-populate slug from title
-            base_slug = slugify(self.title, allow_unicode=True)
+            allow_unicode = getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
+            base_slug = slugify(self.title, allow_unicode=allow_unicode)
 
             # only proceed if we get a non-empty base slug back from slugify
             if base_slug:
@@ -441,8 +469,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @transaction.atomic
     # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
-    def save(self, *args, **kwargs):
-        self.full_clean()
+    def save(self, clean=True, **kwargs):
+        """
+        Overrides default method behaviour to make additional updates unique to pages,
+        such as updating the ``url_path`` value of descendant page to reflect changes
+        to this page's slug.
+
+        New pages should generally be saved via the ``add_child()`` or ``add_sibling()``
+        method of an existing page, which will correctly set the ``path`` and ``depth``
+        fields on the new page before saving it.
+
+        By default, pages are validated using ``full_clean()`` before attempting to
+        save changes to the database, which helps to preserve validity when restoring
+        pages from historic revisions (which might not necessarily reflect the current
+        model state). This validation step can be bypassed by calling the method with
+        ``clean=False``.
+        """
+        if clean:
+            self.full_clean()
 
         update_descendant_url_paths = False
         is_new = self.id is None
@@ -465,7 +509,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     old_url_path = old_record.url_path
                     new_url_path = self.url_path
 
-        result = super().save(*args, **kwargs)
+        result = super().save(**kwargs)
 
         if update_descendant_url_paths:
             self._update_descendant_url_paths(old_url_path, new_url_path)
@@ -685,6 +729,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return self.specific
 
     def unpublish(self, set_expired=False, commit=True):
+        """
+        Unpublish the page by setting ``live`` to ``False``. Does nothing if ``live`` is already ``False``
+        """
         if self.live:
             self.live = False
             self.has_unpublished_changes = True
@@ -694,7 +741,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 self.expired = True
 
             if commit:
-                self.save()
+                # using clean=False to bypass validation
+                self.save(clean=False)
 
             page_unpublished.send(sender=self.specific_class, instance=self.specific)
 
@@ -774,15 +822,21 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         site_id, root_path, root_url = possible_sites[0]
 
-        if hasattr(request, 'site'):
+        site = Site.find_for_request(request)
+        if site:
             for site_id, root_path, root_url in possible_sites:
-                if site_id == request.site.pk:
+                if site_id == site.pk:
                     break
             else:
                 site_id, root_path, root_url = possible_sites[0]
 
-        page_path = reverse(
-            'wagtail_serve', args=(self.url_path[len(root_path):],))
+        # The page may not be routable because wagtail_serve is not registered
+        # This may be the case if Wagtail is used headless
+        try:
+            page_path = reverse(
+                'wagtail_serve', args=(self.url_path[len(root_path):],))
+        except NoReverseMatch:
+            return (site_id, None, None)
 
         # Remove the trailing slash from the URL reverse generates if
         # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
@@ -796,7 +850,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
         url_parts = self.get_url_parts(request=request)
 
-        if url_parts is None:
+        if url_parts is None or url_parts[1] is None and url_parts[2] is None:
             # page is not routable
             return
 
@@ -817,17 +871,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         Accepts an optional but recommended ``request`` keyword argument that, if provided, will
         be used to cache site-level URL information (thereby avoiding repeated database / cache
-        lookups) and, via the ``request.site`` attribute, determine whether a relative or full URL
-        is most appropriate.
+        lookups) and, via the ``Site.find_for_request()`` function, determine whether a relative
+        or full URL is most appropriate.
         """
         # ``current_site`` is purposefully undocumented, as one can simply pass the request and get
-        # a relative URL based on ``request.site``. Nonetheless, support it here to avoid
+        # a relative URL based on ``Site.find_for_request()``. Nonetheless, support it here to avoid
         # copy/pasting the code to the ``relative_url`` method below.
         if current_site is None and request is not None:
-            current_site = getattr(request, 'site', None)
+            site = Site.find_for_request(request)
+            current_site = site
         url_parts = self.get_url_parts(request=request)
 
-        if url_parts is None:
+        if url_parts is None or url_parts[1] is None and url_parts[2] is None:
             # page is not routable
             return
 
@@ -1036,19 +1091,58 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return (not self.live) and (not self.get_descendants().filter(live=True).exists())
 
-    @transaction.atomic  # only commit when all descendants are properly updated
     def move(self, target, pos=None):
         """
-        Extension to the treebeard 'move' method to ensure that url_path is updated too.
+        Extension to the treebeard 'move' method to ensure that url_path is updated,
+        and to emit a 'pre_page_move' and 'post_page_move' signals.
         """
-        old_url_path = Page.objects.get(id=self.id).url_path
-        super().move(target, pos=pos)
-        # treebeard's move method doesn't actually update the in-memory instance, so we need to work
-        # with a freshly loaded one now
-        new_self = Page.objects.get(id=self.id)
-        new_url_path = new_self.set_url_path(new_self.get_parent())
-        new_self.save()
-        new_self._update_descendant_url_paths(old_url_path, new_url_path)
+        # Determine old and new parents
+        parent_before = self.get_parent()
+        if pos in ('first-child', 'last-child', 'sorted-child'):
+            parent_after = target
+        else:
+            parent_after = target.get_parent()
+
+        # Determine old and new url_paths
+        # Fetching new object to avoid affecting `self`
+        old_self = Page.objects.get(id=self.id)
+        old_url_path = old_self.url_path
+        new_url_path = old_self.set_url_path(parent=parent_after)
+
+        # Emit pre_page_move signal
+        pre_page_move.send(
+            sender=self.specific_class or self.__class__,
+            instance=self,
+            parent_page_before=parent_before,
+            parent_page_after=parent_after,
+            url_path_before=old_url_path,
+            url_path_after=new_url_path,
+        )
+
+        # Only commit when all descendants are properly updated
+        with transaction.atomic():
+            # Allow treebeard to update `path` values
+            super().move(target, pos=pos)
+
+            # Treebeard's move method doesn't actually update the in-memory instance,
+            # so we need to work with a freshly loaded one now
+            new_self = Page.objects.get(id=self.id)
+            new_self.url_path = new_url_path
+            new_self.save()
+
+            # Update descendant paths if url_path has changed
+            if old_url_path != new_url_path:
+                new_self._update_descendant_url_paths(old_url_path, new_url_path)
+
+        # Emit post_page_move signal
+        post_page_move.send(
+            sender=self.specific_class or self.__class__,
+            instance=new_self,
+            parent_page_before=parent_before,
+            parent_page_after=parent_after,
+            url_path_before=old_url_path,
+            url_path_after=new_url_path,
+        )
 
         # Log
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
@@ -1082,6 +1176,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # copy child m2m relations
         for related_field in get_all_child_m2m_relations(specific_self):
+            # Ignore explicitly excluded fields
+            if related_field.name in exclude_fields:
+                continue
+
             field = getattr(specific_self, related_field.name)
             if field and hasattr(field, 'all'):
                 values = field.all()
@@ -1126,6 +1224,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             parental_key_name = child_relation.field.attname
             child_objects = getattr(specific_self, accessor_name, None)
+            # Ignore explicitly excluded fields
+            if accessor_name in exclude_fields:
+                continue
 
             if child_objects:
                 for child_object in child_objects.all():
@@ -1326,29 +1427,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return self.full_url
 
-    def dummy_request(self, original_request=None, **meta):
-        warn(
-            "Page.dummy_request is deprecated. Use Page.make_preview_request instead",
-            category=RemovedInWagtail29Warning
-        )
-
-        dummy_values = self._get_dummy_headers(original_request)
-
-        # Add additional custom metadata sent by the caller.
-        dummy_values.update(**meta)
-
-        request = WSGIRequest(dummy_values)
-
-        # Add a flag to let middleware know that this is a dummy request.
-        request.is_dummy = True
-
-        # Apply middleware to the request
-        handler = BaseHandler()
-        handler.load_middleware()
-        handler._middleware_chain(request)
-
-        return request
-
     DEFAULT_PREVIEW_MODES = [('', _('Default'))]
 
     @property
@@ -1364,7 +1442,25 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def default_preview_mode(self):
+        """
+        The preview mode to use in workflows that do not give the user the option of selecting a
+        mode explicitly, e.g. moderator approval. Will raise IndexError if preview_modes is empty
+        """
         return self.preview_modes[0][0]
+
+    def is_previewable(self):
+        """Returns True if at least one preview mode is specified"""
+        # It's possible that this will be called from a listing page using a plain Page queryset -
+        # if so, checking self.preview_modes would incorrectly give us the default set from
+        # Page.preview_modes. However, accessing self.specific.preview_modes would result in an N+1
+        # query problem. To avoid this (at least in the general case), we'll call .specific only if
+        # a check of the property at the class level indicates that preview_modes has been
+        # overridden from whatever type we're currently in.
+        page = self
+        if page.specific_class.preview_modes != type(page).preview_modes:
+            page = page.specific
+
+        return bool(page.preview_modes)
 
     def serve_preview(self, request, mode_name):
         """
@@ -1393,7 +1489,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         request.is_preview = True
 
-        return self.serve(request)
+        response = self.serve(request)
+        patch_cache_control(response, private=True)
+        return response
 
     def get_cached_paths(self):
         """
@@ -1486,6 +1584,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``has_unpublished_changes``
         * ``owner``
         * ``locked``
+        * ``locked_by``
+        * ``locked_at``
         * ``latest_revision_created_at``
         * ``first_published_at``
         """
@@ -1512,6 +1612,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.has_unpublished_changes = self.has_unpublished_changes
         obj.owner = self.owner
         obj.locked = self.locked
+        obj.locked_by = self.locked_by
+        obj.locked_at = self.locked_at
         obj.latest_revision_created_at = self.latest_revision_created_at
         obj.first_published_at = self.first_published_at
 
@@ -1549,7 +1651,12 @@ class PageRevision(models.Model):
         on_delete=models.SET_NULL
     )
     content_json = models.TextField(verbose_name=_('content JSON'))
-    approved_go_live_at = models.DateTimeField(verbose_name=_('approved go live at'), null=True, blank=True)
+    approved_go_live_at = models.DateTimeField(
+        verbose_name=_('approved go live at'),
+        null=True,
+        blank=True,
+        db_index=True
+    )
 
     objects = models.Manager()
     submitted_revisions = SubmittedRevisionsManager()
@@ -1659,7 +1766,8 @@ PAGE_PERMISSION_TYPES = [
     ('edit', _("Edit"), _("Edit any page")),
     ('publish', _("Publish"), _("Publish any page")),
     ('bulk_delete', _("Bulk delete"), _("Delete pages with children")),
-    ('lock', _("Lock"), _("Lock/unlock any page")),
+    ('lock', _("Lock"), _("Lock/unlock pages you've locked")),
+    ('unlock', _("Unlock"), _("Unlock any page")),
 ]
 
 PAGE_PERMISSION_TYPE_CHOICES = [
@@ -1818,6 +1926,15 @@ class UserPagePermissionsProxy:
         """Return True if the user has permission to publish any pages"""
         return self.publishable_pages().exists()
 
+    def can_remove_locks(self):
+        """Returns True if the user has permission to unlock pages they have not locked"""
+        if self.user.is_superuser:
+            return True
+        if not self.user.is_active:
+            return False
+        else:
+            return self.permissions.filter(permission_type='unlock').exists()
+
 
 class PagePermissionTester:
     def __init__(self, user_perms, page):
@@ -1831,6 +1948,21 @@ class PagePermissionTester:
                 perm.permission_type for perm in user_perms.permissions
                 if self.page.path.startswith(perm.page.path)
             )
+
+    def user_has_lock(self):
+        return self.page.locked_by_id == self.user.pk
+
+    def page_locked(self):
+        if not self.page.locked:
+            # Page is not locked
+            return False
+
+        if getattr(settings, 'WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK', False):
+            # All locks are global
+            return True
+        else:
+            # Locked only if the current user was not the one who locked the page
+            return not self.user_has_lock()
 
     def can_add_subpage(self):
         if not self.user.is_active:
@@ -1894,7 +2026,7 @@ class PagePermissionTester:
             return False
         if (not self.page.live) or self.page_is_root:
             return False
-        if self.page.locked:
+        if self.page_locked():
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
@@ -1915,6 +2047,9 @@ class PagePermissionTester:
 
     def can_lock(self):
         return self.user.is_superuser or ('lock' in self.permissions)
+
+    def can_unlock(self):
+        return self.user.is_superuser or self.user_has_lock() or ('unlock' in self.permissions)
 
     def can_publish_subpage(self):
         """

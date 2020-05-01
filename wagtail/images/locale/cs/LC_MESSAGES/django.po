@@ -4,6 +4,7 @@
 #
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Marek Turnovec <aesculap@gmail.com>, 2016
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-03-06 01:19+0000\n"
+"Last-Translator: IT Management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -26,8 +27,8 @@ msgstr ""
 msgid "Wagtail images"
 msgstr "Wagtail obrázky"
 
-msgid "GIF, JPEG, PNG"
-msgstr "GIF, JPEG, PNG"
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -131,7 +132,7 @@ msgid "uploaded by user"
 msgstr "nahráno uživatelem"
 
 msgid "tags"
-msgstr "Tagy"
+msgstr "Štítky"
 
 msgid "image"
 msgstr "obrázek"
@@ -149,7 +150,7 @@ msgid "Upload"
 msgstr "Nahrát"
 
 msgid "Popular tags"
-msgstr "Oblíbené tagy"
+msgstr "Oblíbené štítky"
 
 msgid "Uploading…"
 msgstr "Nahrávání…"
@@ -214,6 +215,9 @@ msgstr "Opravdu chcete smazat tento obrázek?"
 msgid "Yes, delete"
 msgstr "Ano, smazat"
 
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Úprava obrázku %(title)s"
@@ -256,6 +260,12 @@ msgstr "Použití"
 
 msgid "Images"
 msgstr "Obrázky"
+
+msgid "Popular Tags:"
+msgstr "Oblíbené štítky"
+
+msgid "Clear choice"
+msgstr "Zrušit výběr"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

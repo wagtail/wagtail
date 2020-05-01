@@ -8,13 +8,14 @@
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
 # Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
 # Nuno Matos <tugassoft@gmail.com>, 2016
+# Rui Martins <rmartins16@gmail.com>, 2019
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -24,6 +25,9 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "Publicar"
+
 msgid "Submit for moderation"
 msgstr "Enviar para moderação"
 
@@ -32,6 +36,15 @@ msgstr "Despublicar"
 
 msgid "Delete"
 msgstr "Apagar"
+
+msgid "Save Draft"
+msgstr "Guardar rascunho"
+
+msgid "Page locked"
+msgstr "Página trancada"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Desculpe, não tem permissão para aceder a esta área."
 
 msgid "You do not have permission to access the admin"
 msgstr "Você não tem permissão para aceder à administração."
@@ -60,9 +73,6 @@ msgstr "Introduza %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Introduza o seu e-mail para reinicializar a sua senha"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -113,6 +123,10 @@ msgstr[1] ""
 "suas cópias?"
 
 #, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Não tem permissões para copiar a página \"%(page_title)s\""
+
+#, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Este \"slug\" já está a ser usado no contexto da sua página-mãe \"%s\""
@@ -140,54 +154,6 @@ msgstr "Este campo é obrigatório."
 
 msgid "Please select at least one group."
 msgstr "Por favor selecione pelo menos um grupo."
-
-msgid "Go to Wagtail admin"
-msgstr "Ir para a administração do Wagtail"
-
-msgid "Account"
-msgstr "Conta"
-
-msgid "Update"
-msgstr "Atualizar"
-
-msgid "Change password"
-msgstr "Alterar senha"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"A sua senha não pode ser alterada aqui. Por favor contacte um administrador "
-"do site."
-
-msgid "Notification preferences"
-msgstr "Preferências de notificação"
-
-msgid "Reset password"
-msgstr "Reinicializar senha"
-
-msgid "Password change successful"
-msgstr "Senha alterada com sucesso"
-
-msgid "Login"
-msgstr "Entrar"
-
-msgid "Set your new password"
-msgstr "Defina a sua nova senha"
-
-msgid "Check your email"
-msgstr "Verifique o seu e-mail"
-
-msgid "Please follow the link below to reset your password:"
-msgstr "Por favor siga o link abaixo para reinicializar a sua senha:"
-
-msgid "Your username (in case you've forgotten):"
-msgstr "O seu utilizador (caso o tenha esquecido):"
-
-msgid "Password reset"
-msgstr "Reinicializar senha"
-
-msgid "Reset your password"
-msgstr "Reinicialize a sua senha"
 
 msgid "Pages"
 msgstr "Páginas"
@@ -249,14 +215,59 @@ msgstr "Sex"
 msgid "Sat"
 msgstr "Sáb"
 
+msgid "Go to Wagtail admin"
+msgstr "Ir para a administração do Wagtail"
+
+msgid "Account"
+msgstr "Conta"
+
+msgid "Update"
+msgstr "Atualizar"
+
+msgid "Change password"
+msgstr "Alterar senha"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"A sua senha não pode ser alterada aqui. Por favor contacte um administrador "
+"do site."
+
+msgid "Notification preferences"
+msgstr "Preferências de notificação"
+
+msgid "Reset password"
+msgstr "Reinicializar senha"
+
+msgid "Password change successful"
+msgstr "Senha alterada com sucesso"
+
+msgid "Login"
+msgstr "Entrar"
+
+msgid "Set your new password"
+msgstr "Defina a sua nova senha"
+
+msgid "Check your email"
+msgstr "Verifique o seu e-mail"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Por favor siga o link abaixo para reinicializar a sua senha:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "O seu utilizador (caso o tenha esquecido):"
+
+msgid "Password reset"
+msgstr "Reinicializar senha"
+
+msgid "Reset your password"
+msgstr "Reinicialize a sua senha"
+
 msgid "Dashboard"
 msgstr "Painel de controlo"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Adicionar outro"
 
 msgid "Move up"
 msgstr "Subir"
@@ -356,11 +367,23 @@ msgstr ""
 "Este é o seu painel de controlo, onde pode ver informações úteis sobre os "
 "conteúdos que criou."
 
-msgid "Pages awaiting moderation"
-msgstr "Páginas a aguardar moderação"
-
 msgid "Title"
 msgstr "Título"
+
+msgid "Edit this page"
+msgstr "Alterar esta página"
+
+msgid "Edit"
+msgstr "Alterar"
+
+msgid "Draft"
+msgstr "Rascunho"
+
+msgid "Live"
+msgstr "Publicada"
+
+msgid "Pages awaiting moderation"
+msgstr "Páginas a aguardar moderação"
 
 msgid "Parent"
 msgstr "Mãe"
@@ -371,17 +394,11 @@ msgstr "Tipo"
 msgid "Edited"
 msgstr "Alterado"
 
-msgid "Edit this page"
-msgstr "Alterar esta página"
-
 msgid "Approve"
 msgstr "Aprovar"
 
 msgid "Reject"
 msgstr "Rejeitar"
-
-msgid "Edit"
-msgstr "Alterar"
 
 msgid "Preview"
 msgstr "Visualizar"
@@ -394,12 +411,6 @@ msgstr "Data"
 
 msgid "Status"
 msgstr "Estado"
-
-msgid "Draft"
-msgstr "Rascunho"
-
-msgid "Live"
-msgstr "Publicada"
 
 msgid "Site summary"
 msgstr "Resumo do site"
@@ -470,20 +481,14 @@ msgstr ""
 "As alterações de privacidade aplicam-se a todas as páginas-filha desta "
 "página."
 
-msgid "Edit lock"
-msgstr "Alteração trancada"
-
-msgid "Locked"
-msgstr "Trancada"
-
-msgid "Unlocked"
-msgstr "Destrancada"
-
 msgid "Publish this revision"
 msgstr "Publicar esta versão."
 
-msgid "Publish"
-msgstr "Publicar"
+msgid "Replace current draft"
+msgstr "Substituir rascunho atual."
+
+msgid "Save draft"
+msgstr "Guardar rascunho"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -618,9 +623,6 @@ msgstr "Nova %(page_type)s"
 msgid "New"
 msgstr "Nova"
 
-msgid "Save draft"
-msgstr "Guardar rascunho"
-
 msgid "This page has unsaved changes."
 msgstr "Esta página tem alterações por guardar."
 
@@ -631,12 +633,6 @@ msgstr "A alterar %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "A alterar %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Página trancada"
-
-msgid "Replace current draft"
-msgstr "Substituir rascunho atual."
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -838,6 +834,9 @@ msgstr "Nenhuma página usa"
 msgid "Collection"
 msgstr "Coleção"
 
+msgid "Locked"
+msgstr "Trancada"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Página %(page_num)s de %(total_pages)s."
@@ -860,15 +859,6 @@ msgstr "Sair"
 msgid "Other searches"
 msgstr "Outras pesquisas"
 
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Está a usar um browser <strong>desatualizado</strong> que não é suportado "
-"por este software. Por favor <a href=\"http://browserhappy.com/\">atualize o "
-"seu browser</a>."
-
 msgid "Go to Wagtail admin interface"
 msgstr "Ir para a interface de administração do Wagtail"
 
@@ -880,9 +870,6 @@ msgstr "Mostrar no Explorador"
 
 msgid "Test"
 msgstr "Teste"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Desculpe, não tem permissão para aceder a esta área."
 
 msgid "Your password has been changed successfully!"
 msgstr "A sua senha foi alterada com sucesso!"
@@ -1003,9 +990,6 @@ msgstr "Página '{0}' rejeitada para publicação."
 
 msgid "Failed to send rejection notifications"
 msgstr "Não foi possível enviar as notificações de rejeição"
-
-msgid "Page '{0}' is now locked."
-msgstr "A página '{0}' foi trancada."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "A página '{0}' foi destrancada."

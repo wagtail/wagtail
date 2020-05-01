@@ -2,6 +2,7 @@ import json
 from collections import OrderedDict
 
 from django.forms import Media, widgets
+from django.utils.functional import cached_property
 
 from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
@@ -13,8 +14,8 @@ class HalloPlugin:
     def __init__(self, **kwargs):
         self.name = kwargs.get('name', None)
         self.options = kwargs.get('options', {})
-        self.js = kwargs.get('js', None)
-        self.css = kwargs.get('css', None)
+        self.js = kwargs.get('js', [])
+        self.css = kwargs.get('css', {})
         self.order = kwargs.get('order', 100)
 
     def construct_plugins_list(self, plugins):
@@ -23,7 +24,12 @@ class HalloPlugin:
 
     @property
     def media(self):
-        return Media(js=self.js, css=self.css)
+        js = [versioned_static(js_file) for js_file in self.js]
+        css = {}
+        for media_type, css_files in self.css.items():
+            css[media_type] = [versioned_static(css_file) for css_file in css_files]
+
+        return Media(js=js, css=css)
 
 
 class HalloFormatPlugin(HalloPlugin):
@@ -68,12 +74,18 @@ class HalloListPlugin(HalloPlugin):
         plugins[self.name]['lists'][self.list_type] = True
 
 
+class HalloRequireParagraphsPlugin(HalloPlugin):
+    @property
+    def media(self):
+        return Media(js=[
+            versioned_static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
+        ]) + super().media
+
+
 # Plugins which are always imported, and cannot be enabled/disabled via 'features'
 CORE_HALLO_PLUGINS = [
     HalloPlugin(name='halloreundo', order=50),
-    HalloPlugin(name='hallorequireparagraphs', js=[
-        versioned_static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
-    ]),
+    HalloRequireParagraphsPlugin(name='hallorequireparagraphs'),
     HalloHeadingPlugin(element='p')
 ]
 
@@ -136,7 +148,7 @@ class HalloRichTextArea(widgets.Textarea):
             return None
         return self.converter.to_database_format(original_value)
 
-    @property
+    @cached_property
     def media(self):
         media = Media(js=[
             versioned_static('wagtailadmin/js/vendor/hallo.js'),

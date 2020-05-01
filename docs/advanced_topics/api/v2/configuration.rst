@@ -45,13 +45,13 @@ can hook into the rest of your project.
 
 Wagtail provides three endpoint classes you can use:
 
- - Pages :class:`wagtail.api.v2.endpoints.PagesAPIEndpoint`
- - Images :class:`wagtail.images.api.v2.endpoints.ImagesAPIEndpoint`
- - Documents :class:`wagtail.documents.api.v2.endpoints.DocumentsAPIEndpoint`
+ - Pages :class:`wagtail.api.v2.views.PagesAPIViewSet`
+ - Images :class:`wagtail.images.api.v2.views.ImagesAPIViewSet`
+ - Documents :class:`wagtail.documents.api.v2.views.DocumentsAPIViewSet`
 
 You can subclass any of these endpoint classes to customise their functionality.
 Additionally, there is a base endpoint class you can use for adding different
-content types to the API: :class:`wagtail.api.v2.endpoints.BaseAPIEndpoint`
+content types to the API: :class:`wagtail.api.v2.views.BaseAPIViewSet`
 
 For this example, we will create an API that includes all three builtin content
 types in their default configuration:
@@ -60,10 +60,10 @@ types in their default configuration:
 
     # api.py
 
-    from wagtail.api.v2.endpoints import PagesAPIEndpoint
+    from wagtail.api.v2.views import PagesAPIViewSet
     from wagtail.api.v2.router import WagtailAPIRouter
-    from wagtail.images.api.v2.endpoints import ImagesAPIEndpoint
-    from wagtail.documents.api.v2.endpoints import DocumentsAPIEndpoint
+    from wagtail.images.api.v2.views import ImagesAPIViewSet
+    from wagtail.documents.api.v2.views import DocumentsAPIViewSet
 
     # Create the router. "wagtailapi" is the URL namespace
     api_router = WagtailAPIRouter('wagtailapi')
@@ -72,9 +72,9 @@ types in their default configuration:
     # The first parameter is the name of the endpoint (eg. pages, images). This
     # is used in the URL of the endpoint
     # The second parameter is the endpoint class that handles the requests
-    api_router.register_endpoint('pages', PagesAPIEndpoint)
-    api_router.register_endpoint('images', ImagesAPIEndpoint)
-    api_router.register_endpoint('documents', DocumentsAPIEndpoint)
+    api_router.register_endpoint('pages', PagesAPIViewSet)
+    api_router.register_endpoint('images', ImagesAPIViewSet)
+    api_router.register_endpoint('documents', DocumentsAPIViewSet)
 
 Next, register the URLs so Django can route requests into the API:
 
@@ -191,8 +191,8 @@ This adds two fields to the API (other fields omitted for brevity):
         "published_date_display": "Thursday 06 April 2017"
     }
 
-.. _Serialisers: http://www.django-rest-framework.org/api-guide/fields/
-.. _source: http://www.django-rest-framework.org/api-guide/fields/#source
+.. _Serialisers: https://www.django-rest-framework.org/api-guide/fields/
+.. _source: https://www.django-rest-framework.org/api-guide/fields/#source
 
 Images in the API
 -----------------

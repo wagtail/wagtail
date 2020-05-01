@@ -2,9 +2,10 @@ from functools import lru_cache
 
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
 from django.utils.text import capfirst
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
@@ -40,7 +41,8 @@ def get_setting_edit_handler(model):
 def edit_current_site(request, app_name, model_name):
     # Redirect the user to the edit page for the current site
     # (or the current request does not correspond to a site, the first site in the list)
-    site = request.site or Site.objects.first()
+    site_request = Site.find_for_request(request)
+    site = site_request or Site.objects.first()
     if not site:
         messages.error(request, _("This setting could not be opened because there is no site defined."))
         return redirect('wagtailadmin_home')
@@ -68,10 +70,10 @@ def edit(request, app_name, model_name, site_pk):
 
             messages.success(
                 request,
-                _("{setting_type} updated.").format(
-                    setting_type=capfirst(setting_type_name),
-                    instance=instance
-                )
+                _("%(setting_type)s updated.") % {
+                    'setting_type': capfirst(setting_type_name),
+                    'instance': instance
+                }
             )
             return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
         else:
@@ -88,7 +90,7 @@ def edit(request, app_name, model_name, site_pk):
     if Site.objects.count() > 1:
         site_switcher = SiteSwitchForm(site, model)
 
-    return render(request, 'wagtailsettings/edit.html', {
+    return TemplateResponse(request, 'wagtailsettings/edit.html', {
         'opts': model._meta,
         'setting_type_name': setting_type_name,
         'instance': instance,

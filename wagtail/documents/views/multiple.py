@@ -1,7 +1,8 @@
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
+from django.template.response import TemplateResponse
 from django.utils.encoding import force_str
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
@@ -10,8 +11,8 @@ from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.core.models import Collection
 from wagtail.search.backends import get_search_backends
 
+from .. import get_document_model
 from ..forms import get_document_form, get_document_multi_form
-from ..models import get_document_model
 from ..permissions import permission_policy
 
 permission_checker = PermissionPolicyChecker(permission_policy)
@@ -83,7 +84,7 @@ def add(request):
         # actual rendering of forms will happen on AJAX POST rather than here
         form = DocumentForm(user=request.user)
 
-        return render(request, 'wagtaildocs/multiple/add.html', {
+        return TemplateResponse(request, 'wagtaildocs/multiple/add.html', {
             'help_text': form.fields['file'].help_text,
             'collections': collections_to_choose,
             'form_media': form.media,

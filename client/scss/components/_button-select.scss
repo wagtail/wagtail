@@ -1,0 +1,21 @@
+.button-select {
+    &__option {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+
+        background-color: #fff;
+        border-color: $color-teal;
+        color: #262626;
+
+        &--selected {
+            background-color: $color-teal;
+            color: #fff;
+        }
+    }
+}
+
+.button-select .button-select__option {
+    /* override default margin from horizontally-aligned buttons */
+    margin-left: 0;
+}

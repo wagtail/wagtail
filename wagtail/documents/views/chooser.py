@@ -1,15 +1,16 @@
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
+from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core import hooks
 from wagtail.core.models import Collection
+from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
-from wagtail.documents.models import get_document_model
 from wagtail.documents.permissions import permission_policy
 from wagtail.search import index as search_index
 
@@ -78,7 +79,7 @@ def chooser(request):
         paginator = Paginator(documents, per_page=10)
         documents = paginator.get_page(request.GET.get('p'))
 
-        return render(request, "wagtaildocs/chooser/results.html", {
+        return TemplateResponse(request, "wagtaildocs/chooser/results.html", {
             'documents': documents,
             'documents_exist': documents_exist,
             'uploadform': uploadform,

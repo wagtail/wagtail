@@ -214,6 +214,39 @@ You can also use the ``attrs`` property as a shorthand to output the attributes 
     <img {{ tmp_photo.attrs }} class="my-custom-class" />
 
 
+Alternative HTML tags
+---------------------
+
+The ``as`` keyword allows alternative HTML image tags (such as ``<picture>`` or ``<amp-img>``) to be used.
+For example, to use the ``<picture>`` tag:
+
+.. code-block:: html+django
+
+    <picture>
+        {% image page.photo width-800 as wide_photo %}
+        <source srcset="{{ wide_photo.url }}" media="(min-width: 800px)">
+        {% image page.photo width-400 %}
+    </picture>
+
+And to use the ``<amp-img>`` tag (based on the `Mountains example <https://amp.dev/documentation/components/amp-img/#example:-specifying-a-fallback-image>`_ from the AMP docs):
+
+.. code-block:: html+django
+
+    {% image image width-550 format-webp as webp_image %}
+    {% image image width-550 format-jpeg as jpeg_image %}
+
+    <amp-img alt="{{ image.alt }}"
+        width="{{ webp_image.width }}"
+        height="{{ webp_image.height }}"
+        src="{{ webp_image.url }}">
+        <amp-img alt="{{ image.alt }}"
+            fallback
+            width="{{ jpeg_image.width }}"
+            height="{{ jpeg_image.height }}"
+            src="{{ jpeg_image.url }}"></amp-img>
+    </amp-img>
+
+
 Images embedded in rich text
 ----------------------------
 

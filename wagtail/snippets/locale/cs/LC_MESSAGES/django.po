@@ -4,15 +4,16 @@
 #
 # Translators:
 # IT Management <info@itmanagement.cz>, 2018
+# IT Management <info@itmanagement.cz>, 2020
 # Marek Turnovec <aesculap@gmail.com>, 2016
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-03-06 01:37+0000\n"
+"Last-Translator: IT Management <info@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -120,6 +121,9 @@ msgstr "Edituje se %(snippet_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Edituje se"
 
+msgid "Actions"
+msgstr "Akce"
+
 msgid "Delete"
 msgstr "Smazat"
 
@@ -131,6 +135,10 @@ msgstr "Úryvky"
 
 msgid "Title"
 msgstr "Název"
+
+#, python-format
+msgid "Select %(snippet)s"
+msgstr "Zvolte %(snippet)s"
 
 #, python-format
 msgid ""
@@ -175,26 +183,14 @@ msgstr "Editovat tuto stránku"
 msgid "Search %(snippet_type_name)s"
 msgstr "Hledat %(snippet_type_name)s"
 
-msgid "{snippet_type} '{instance}' created."
-msgstr "{snippet_type} '{instance}' vytvořen(o)."
-
 msgid "Edit"
 msgstr "Upravit"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Úryvek nemohl být vytvořen kvůli chybám."
 
-msgid "{snippet_type} '{instance}' updated."
-msgstr "{snippet_type} '{instance}' byl aktualizován."
-
 msgid "The snippet could not be saved due to errors."
 msgstr "Úryvek nemohl být uložen kvůli chybám."
-
-msgid "{snippet_type} '{instance}' deleted."
-msgstr "{snippet_type} '{instance}' byl zrušen."
-
-msgid "{count} {snippet_type} deleted."
-msgstr "{count} {snippet_type} zrušeno."
 
 #, python-format
 msgid "Choose %s"

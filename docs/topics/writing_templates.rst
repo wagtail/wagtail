@@ -119,10 +119,13 @@ Only fields using ``RichTextField`` need this applied in the template.
     ...
     {{ page.body|richtext }}
 
+
+.. _responsive-embeds:
+
 Responsive Embeds
 -----------------
 
-Wagtail includes embeds and images at their full width, which may overflow the bounds of the content container you've defined in your templates. To make images and embeds responsive -- meaning they'll resize to fit their container -- include the following CSS.
+By default, Wagtail includes embeds and images at their full width, which may overflow the bounds of the content container you've defined in your templates. To address this, Wagtail provides the ability to make images and embeds responsive -- meaning they'll resize to fit their container. Responsive embeds can be enabled by setting ``WAGTAILEMBEDS_RESPONSIVE_HTML = True`` in your project settings; this adds a CSS class of ``responsive-object`` and an inline ``padding-bottom`` style to the embed, to be used in conjunction with CSS such as the following:
 
 .. code-block:: css
 
@@ -209,6 +212,26 @@ Used to load anything from your static files directory. Use of this tag avoids r
 
 Notice that the full path name is not required and the path snippet you enter only need begin with the parent app's directory name.
 
+
+Multi-site support
+~~~~~~~~~~~~~~~~~~
+
+.. _wagtail_site_tag:
+
+``wagtail_site``
+----------------
+
+Returns the Site object corresponding to the current request.
+
+.. code-block:: html+django
+
+    {% load wagtailcore_tags %}
+
+    {% wagtail_site as current_site %}
+
+.. versionadded:: 2.9
+
+  In previous versions, the recommended way to refer to the current site was through the ``request.site`` attribute provided by :class:`~wagtail.core.middleware.SiteMiddleware`; this is now deprecated.
 
 .. _wagtailuserbar_tag:
 

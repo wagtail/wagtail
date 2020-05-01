@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-18 00:09+0000\n"
+"Last-Translator: Hamed NAJAND <hmd.nzhd@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -37,8 +38,12 @@ msgstr "ذخیره"
 msgid "Settings"
 msgstr "تنظیمات"
 
-msgid "{setting_type} updated."
-msgstr "{setting_type} به روز شد."
+msgid "This setting could not be opened because there is no site defined."
+msgstr "به دلیل تعریف نشدن سایت، این تنظیمات قابل باز شدن نمی باشد."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)sبروزرسانی شد."
 
 msgid "The setting could not be saved due to errors."
 msgstr "به دلیل بروز خطا امکان ذخیره تنظیمات وجود ندارد."

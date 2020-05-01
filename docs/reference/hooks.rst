@@ -4,7 +4,11 @@
 Hooks
 =====
 
-On loading, Wagtail will search for any app with the file ``wagtail_hooks.py`` and execute the contents. This provides a way to register your own functions to execute at certain points in Wagtail's execution, such as when a ``Page`` object is saved or when the main menu is constructed.
+On loading, Wagtail will search for any app with the file ``wagtail_hooks.py`` and execute the contents. This provides a way to register your own functions to execute at certain points in Wagtail's execution, such as when a page is saved or when the main menu is constructed.
+
+.. note::
+   Hooks are typically used to customise the view-level behaviour of the Wagtail admin and front-end. For customisations that only deal with model-level behaviour - such as calling an external service when a page or document is added - it is often better to use :doc:`Django's signal mechanism <django:topics/signals>` (see also: :ref:`Wagtail signals <signals>`), as these are not dependent on a user taking a particular path through the admin interface.
+
 
 Registering functions with a Wagtail hook is done through the ``@hooks.register`` decorator:
 
@@ -115,7 +119,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   A numeric count of items in this collection
 
 ``count_text``
-  A human-readable string describing the number of items in this collection, such as "3 documents". (Sites with multi-language support should return a translatable string here, most likely using the ``django.utils.translation.ungettext`` function.)
+  A human-readable string describing the number of items in this collection, such as "3 documents". (Sites with multi-language support should return a translatable string here, most likely using the ``django.utils.translation.ngettext`` function.)
 
 ``url`` (optional)
   A URL to an index page that lists the objects being described.
@@ -156,7 +160,9 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   :attrs: additional HTML attributes to apply to the link
   :order: an integer which determines the item's position in the menu
 
-  ``MenuItem`` can be subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/menu.py``) for details.
+  For menu items that are only available to superusers, the subclass ``wagtail.admin.menu.AdminOnlyMenuItem`` can be used in place of ``MenuItem``.
+
+  ``MenuItem`` can be further subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/menu.py``) for details.
 
   .. code-block:: python
 
@@ -218,6 +224,22 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   As ``construct_main_menu``, but modifies the 'Settings' sub-menu rather than the top-level menu.
+
+
+.. _register_reports_menu_item:
+
+``register_reports_menu_item``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  As ``register_admin_menu_item``, but registers menu items into the 'Reports' sub-menu rather than the top-level menu.
+
+
+.. _construct_reports_menu:
+
+``construct_reports_menu``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  As ``construct_main_menu``, but modifies the 'Reports' sub-menu rather than the top-level menu.
 
 
 .. _register_admin_search_area:
@@ -524,7 +546,7 @@ Hooks for customising the way users are directed through the process of creating
 
   Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.action_menu.ActionMenuItem``. The following attributes and methods are available to be overridden on subclasses of ``ActionMenuItem``:
 
-  :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor
+  :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an ``order`` of 0).
   :label: the displayed text of the menu item
   :get_url: a method which returns a URL for the menu item to link to; by default, returns ``None`` which causes the menu item to behave as a form submit button instead
   :name: value of the ``name`` attribute of the submit button, if no URL is specified
@@ -566,11 +588,27 @@ Hooks for customising the way users are directed through the process of creating
 
   Modify the final list of action menu items on the page creation and edit views. The callable passed to this hook receives a list of ``ActionMenuItem`` objects, a request object and a context dictionary as per ``register_page_action_menu_item``, and should modify the list of menu items in-place.
 
+
   .. code-block:: python
 
     @hooks.register('construct_page_action_menu')
     def remove_submit_to_moderator_option(menu_items, request, context):
         menu_items[:] = [item for item in menu_items if item.name != 'action-submit']
+
+
+  The ``construct_page_action_menu`` hook is called after the menu items have been sorted by their order attributes, and so setting a menu item's order will have no effect at this point. Instead, items can be reordered by changing their position in the list, with the first item being selected as the default action. For example, to change the default action to Publish:
+
+  .. code-block:: python
+
+    @hooks.register('construct_page_action_menu')
+    def make_publish_default_action(menu_items, request, context):
+        for (index, item) in enumerate(menu_items):
+            if item.name == 'action-publish':
+                # move to top of list
+                menu_items.pop(index)
+                menu_items.insert(0, item)
+                break
+
 
 .. construct_page_listing_buttons:
 
@@ -794,7 +832,7 @@ Page explorer
     from wagtail.admin import widgets as wagtailadmin_widgets
 
     @hooks.register('register_page_listing_buttons')
-    def page_listing_buttons(page, page_perms, is_parent=False):
+    def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
         yield wagtailadmin_widgets.PageListingButton(
             'A page listing button',
             '/goes/to/a/url/',
@@ -818,7 +856,7 @@ Page explorer
     from wagtail.admin import widgets as wagtailadmin_widgets
 
     @hooks.register('register_page_listing_more_buttons')
-    def page_listing_more_buttons(page, page_perms, is_parent=False):
+    def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
         yield wagtailadmin_widgets.Button(
             'A dropdown button',
             '/goes/to/a/url/',

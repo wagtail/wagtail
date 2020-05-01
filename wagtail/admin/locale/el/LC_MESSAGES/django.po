@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Έκδοση"
 
 msgid "Submit for moderation"
 msgstr "Υποβολή για έλεγχο"
@@ -33,11 +36,17 @@ msgstr "Αποέκδοση"
 msgid "Delete"
 msgstr "Διαγραφή"
 
-msgid "None"
-msgstr "None"
+msgid "Page locked"
+msgstr "Σελίδα κλειδωμένη"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Δεν έχετε πρόσβαση στην περιοχή."
 
 msgid "You do not have permission to access the admin"
 msgstr "Δεν έχετε πρόσβαση στη διαχείριση."
+
+msgid "None"
+msgstr "None"
 
 msgid "Scheduled publishing"
 msgstr "Προγραμματισμενη δημοσιευση"
@@ -63,9 +72,6 @@ msgstr "Εισάγετε το %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Εισάγετε τη διεύθυνση email σας για να ανανεώσετε τον κωδικό σας"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Δε μπορείτε να έχετε πολλαπλά δικαιώματα για την ίδια συλλογή"
@@ -144,56 +150,11 @@ msgstr "Το πεδίο αυτό είναι απαραίτητο"
 msgid "Please select at least one group."
 msgstr "Παρακαλούμε επιλέξτε τουλάχιστον μια ομάδα."
 
-msgid "Go to Wagtail admin"
-msgstr "Πηγαίνετε στη διαχείριση του Wagtail"
-
-msgid "Account"
-msgstr "Λογαριασμός"
-
-msgid "Update"
-msgstr "Ενημέρωση"
-
-msgid "Change password"
-msgstr "Αλλαγή κωδικού"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Ο κωδικός σας δε μπορεί να αλλαχτεί εδώ. Παρακαλώ ενημερώστε το διαχειριστή."
-
-msgid "Notification preferences"
-msgstr "Προτιμήσεις ειδοποιήσεων"
-
-msgid "Reset password"
-msgstr "Ανανέωση κωδικού"
-
-msgid "Password change successful"
-msgstr "Επιτυχής αλλαγή κωδικού"
-
-msgid "Login"
-msgstr "Σύνδεση"
-
-msgid "Set your new password"
-msgstr "Δημιουργήστε το νέο σας κωδικό"
-
-msgid "Check your email"
-msgstr "Ελέγξατε το email σας"
-
-msgid "Please follow the link below to reset your password:"
-msgstr ""
-"Παρακαλούμε κλικάρετε στο link παρακάτω για να επαναφέρετε τον κωδικό σας:"
-
-msgid "Your username (in case you've forgotten):"
-msgstr "Το όνομα χρήστη σας (σε περίπτωση που το ξεχάσατε):"
-
-msgid "Password reset"
-msgstr "Ανανέωση κωδικού"
-
-msgid "Reset your password"
-msgstr "Ανανεώστε τον κωδικό σας"
-
 msgid "Pages"
 msgstr "Σελίδες"
+
+msgid "Edit '{title}'"
+msgstr "Επεξεργασία '{title}'"
 
 msgid "January"
 msgstr "Ιανουάριος"
@@ -252,14 +213,59 @@ msgstr "Παρ"
 msgid "Sat"
 msgstr "Σαβ"
 
+msgid "Go to Wagtail admin"
+msgstr "Πηγαίνετε στη διαχείριση του Wagtail"
+
+msgid "Account"
+msgstr "Λογαριασμός"
+
+msgid "Update"
+msgstr "Ενημέρωση"
+
+msgid "Change password"
+msgstr "Αλλαγή κωδικού"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Ο κωδικός σας δε μπορεί να αλλαχτεί εδώ. Παρακαλώ ενημερώστε το διαχειριστή."
+
+msgid "Notification preferences"
+msgstr "Προτιμήσεις ειδοποιήσεων"
+
+msgid "Reset password"
+msgstr "Ανανέωση κωδικού"
+
+msgid "Password change successful"
+msgstr "Επιτυχής αλλαγή κωδικού"
+
+msgid "Login"
+msgstr "Σύνδεση"
+
+msgid "Set your new password"
+msgstr "Δημιουργήστε το νέο σας κωδικό"
+
+msgid "Check your email"
+msgstr "Ελέγξατε το email σας"
+
+msgid "Please follow the link below to reset your password:"
+msgstr ""
+"Παρακαλούμε κλικάρετε στο link παρακάτω για να επαναφέρετε τον κωδικό σας:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Το όνομα χρήστη σας (σε περίπτωση που το ξεχάσατε):"
+
+msgid "Password reset"
+msgstr "Ανανέωση κωδικού"
+
+msgid "Reset your password"
+msgstr "Ανανεώστε τον κωδικό σας"
+
 msgid "Dashboard"
 msgstr "Πίνακας ελέγχου"
 
 msgid "Menu"
 msgstr "Μενού"
-
-msgid "Add another"
-msgstr "Προσθήκη νέου/νέας"
 
 msgid "Move up"
 msgstr "Μετακίνηση πάνω"
@@ -362,11 +368,27 @@ msgstr ""
 "Αυτός είναι ο πίνακας ελέγχου στον οποίο εμφανίζονται πληροφορίες σχετικές "
 "με το περιεχόμενου που έχετε δημιουργήσει."
 
-msgid "Pages awaiting moderation"
-msgstr "Σελίδες προς έλεγχο"
-
 msgid "Title"
 msgstr "Τίτλος"
+
+msgid "Edit this page"
+msgstr "Διόρθωση της σελίδας"
+
+msgid "Edit"
+msgstr "Διόρθωση"
+
+msgid "Draft"
+msgstr "Draft"
+
+msgid "Live"
+msgstr "Live"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "πριν από %(time_period)s"
+
+msgid "Pages awaiting moderation"
+msgstr "Σελίδες προς έλεγχο"
 
 msgid "Parent"
 msgstr "Πατρική"
@@ -377,24 +399,14 @@ msgstr "Τύπος"
 msgid "Edited"
 msgstr "Διορθωμένη"
 
-msgid "Edit this page"
-msgstr "Διόρθωση της σελίδας"
-
 msgid "Approve"
 msgstr "Έγκριση"
 
 msgid "Reject"
 msgstr "Απόρριψη"
 
-msgid "Edit"
-msgstr "Διόρθωση"
-
 msgid "Preview"
 msgstr "Προεπισκόπηση"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "πριν από %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Οι πιο πρόσφατες διορθώσεις σας"
@@ -404,12 +416,6 @@ msgstr "Ημερομηνία"
 
 msgid "Status"
 msgstr "Κατάσταση"
-
-msgid "Draft"
-msgstr "Draft"
-
-msgid "Live"
-msgstr "Live"
 
 msgid "Site summary"
 msgstr "Κατάσταση site"
@@ -481,20 +487,14 @@ msgstr ""
 "Τυχόν αλλαγές Προστασίας Προσωπικών Δεδομένων θα ισχύουν για όλες τις "
 "υποσελίδες αυτής της σελίδας."
 
-msgid "Edit lock"
-msgstr "Επεξεργασία κλειδώματος"
-
-msgid "Locked"
-msgstr "Κλειδωμένο"
-
-msgid "Unlocked"
-msgstr "Ξεκλειδωμενο"
-
 msgid "Publish this revision"
 msgstr "Δημοσίευση της αναθεώρησης"
 
-msgid "Publish"
-msgstr "Έκδοση"
+msgid "Replace current draft"
+msgstr "Αντικατάσταση του τρέχοντος draft"
+
+msgid "Save draft"
+msgstr "Αποθήκευση σχεδίου"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -629,9 +629,6 @@ msgstr "Νέα %(page_type)s"
 msgid "New"
 msgstr "Νέο"
 
-msgid "Save draft"
-msgstr "Αποθήκευση σχεδίου"
-
 msgid "This page has unsaved changes."
 msgstr "Η σελίδα έχει μη αποθηκευμένες αλλαγές."
 
@@ -642,12 +639,6 @@ msgstr "Επεξεργασία %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Επεξεργασία %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Σελίδα κλειδωμένη"
-
-msgid "Replace current draft"
-msgstr "Αντικατάσταση του τρέχοντος draft"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -912,6 +903,9 @@ msgstr "Δεν υπάρχουν σελίδες που χρησιμοποιείτ
 msgid "Collection"
 msgstr "Συλλογή"
 
+msgid "Locked"
+msgstr "Κλειδωμένο"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Σελίδα %(page_num)s από %(total_pages)s."
@@ -934,16 +928,6 @@ msgstr "Αποσύνδεση"
 msgid "Other searches"
 msgstr "Άλλες αναζητήσεις"
 
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Χρησιμοποιείτε ένα <strong> ξεπερασμένο </ strong> πρόγραμμα περιήγησης που "
-"δεν υποστηρίζεται από αυτό το λογισμικό. Παρακαλούμε αναβαθμίστε το "
-"πρόγραμμα περιήγησης σας μεσω της σελιδας <a href=\"http://browsehappy.com/"
-"\"></a>."
-
 msgid "Go to Wagtail admin interface"
 msgstr "Πηγαίνετε στο Wagtail περιβάλλον του διαχειριστή"
 
@@ -955,9 +939,6 @@ msgstr "Εμφάνιση στον εξερευνητή"
 
 msgid "Test"
 msgstr "Δοκιμή"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Δεν έχετε πρόσβαση στην περιοχή."
 
 msgid "Your password has been changed successfully!"
 msgstr "Ο κωδικός σας αλλάχτηκε με επιτυχία!"
@@ -1083,9 +1064,6 @@ msgstr "Η δημοσίευση της σελίδας '{0}' απορρίφθηκ
 msgid "Failed to send rejection notifications"
 msgstr "Δεν ήταν δυνατή η αποστολή των ειδοποιήσεων"
 
-msgid "Page '{0}' is now locked."
-msgstr "Η σελίδα '{0}' είναι τώρα κλειδωμένη."
-
 msgid "Page '{0}' is now unlocked."
 msgstr "Η σελίδα '{0}' είναι τώρα ξεκλειδωμένη."
 
@@ -1103,38 +1081,8 @@ msgstr "Πιο πρόσφατες"
 msgid "Latest"
 msgstr "Τελευταίες"
 
-msgid "Edit '{title}'"
-msgstr "Επεξεργασία '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Προεπισκόπιση της draft έκδοσης της σελίδας '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Προβολή της live έκδοσης της σελίδας '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Προσθήκη υποσελίδας στη σελίδα '{title}'"
-
 msgid "More"
 msgstr "Περισσοτερα"
-
-msgid "View more options for '{title}'"
-msgstr "Δείτε περισσότερες επιλογές για τη σελίδα '{title}'"
-
-msgid "Move page '{title}'"
-msgstr "Μετακίνηση της σελίδας '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Αντιγραφή της σελίδας '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Διαγραφή της σελίδας '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Κατάργηση δημοσίευσης της σελίδας '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Προβολή του ιστορικού αναθεωρήσεων της σελίδας '{title}'"
 
 msgid "Change the password you use to log in."
 msgstr "Αλλάξτε τον κωδικό σας"

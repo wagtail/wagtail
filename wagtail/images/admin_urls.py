@@ -15,7 +15,9 @@ urlpatterns = [
 
     url(r'^multiple/add/$', multiple.add, name='add_multiple'),
     url(r'^multiple/(\d+)/$', multiple.edit, name='edit_multiple'),
+    url(r'^multiple/create_from_uploaded_image/(\d+)/$', multiple.create_from_uploaded_image, name='create_multiple_from_uploaded_image'),
     url(r'^multiple/(\d+)/delete/$', multiple.delete, name='delete_multiple'),
+    url(r'^multiple/delete_upload/(\d+)/$', multiple.delete_upload, name='delete_upload_multiple'),
 
     url(r'^chooser/$', chooser.chooser, name='chooser'),
     url(r'^chooser/(\d+)/$', chooser.image_chosen, name='image_chosen'),

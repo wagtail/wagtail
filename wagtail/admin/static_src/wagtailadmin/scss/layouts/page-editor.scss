@@ -63,6 +63,10 @@ $object-title-height: 40px;
         padding-right: 0;
     }
 
+    .field-row {
+        padding-top: $object-title-height + 12px;
+    }
+
     .object-help {
         display: block;
         position: relative;
@@ -470,4 +474,12 @@ footer .preview {
             margin: 0 0 0 -50px;
         }
     }
+}
+
+.lock-status {
+    margin: 0 0.5em 0.5em 0;
+}
+
+.lock-status.status-tag {
+    color: $color-teal;
 }

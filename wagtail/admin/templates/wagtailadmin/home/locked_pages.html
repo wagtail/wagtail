@@ -1,0 +1,50 @@
+{% load i18n wagtailadmin_tags %}
+{% if locked_pages %}
+    <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
+        <section>
+            <h2>{% trans "Your locked pages" %}</h2>
+            {% if can_remove_locks %}
+                <a href="{% url 'wagtailadmin_reports:locked_pages' %}" class="button button-small button-secondary">{% trans "See all locked pages" %}</a>
+            {% endif %}
+            <table class="listing listing-page">
+                <col />
+                <col width="15%"/>
+                <col width="15%"/>
+                <thead>
+                    <tr>
+                        <th class="title">{% trans "Title" %}</th>
+                        <th>{% trans "Locked at" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for page in locked_pages %}
+                        <tr>
+                            <td class="title" valign="top">
+                                <div class="title-wrapper">
+                                    <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
+
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+                                </div>
+                                <ul class="actions">
+                                    <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit" %}</a></li>
+                                    {% if page.has_unpublished_changes and page.is_previewable %}
+                                        <li><a href="{% url 'wagtailadmin_pages:view_draft' page.id %}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Draft' %}</a></li>
+                                    {% endif %}
+                                    {% if page.live %}
+                                        {% with page_url=page.url %}
+                                            {% if page_url is not None %}
+                                                <li><a href="{{ page_url }}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Live' %}</a></li>
+                                            {% endif %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </ul>
+                            </td>
+                            <td valign="top"><div class="human-readable-date" title="{{ page.locked_at|date:"d M Y H:i" }}">{% blocktrans with time_period=page.locked_at|timesince %}{{ time_period }} ago{% endblocktrans %}</div></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endif %}

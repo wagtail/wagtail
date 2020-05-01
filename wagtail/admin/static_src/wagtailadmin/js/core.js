@@ -21,8 +21,8 @@ function escapeHtml(text) {
     });
 }
 
-function initTagField(id, autocompleteUrl, allowSpaces, tagLimit) {
-    $('#' + id).tagit({
+function initTagField(id, autocompleteUrl, options) {
+    var finalOptions = Object.assign({
         autocomplete: {source: autocompleteUrl},
         preprocessTag: function(val) {
             // Double quote a tag if it contains a space
@@ -33,10 +33,9 @@ function initTagField(id, autocompleteUrl, allowSpaces, tagLimit) {
 
             return val;
         },
+    }, options);
 
-        allowSpaces: allowSpaces,
-        tagLimit: tagLimit,
-    });
+    $('#' + id).tagit(finalOptions);
 }
 
 /*
@@ -106,10 +105,6 @@ $(function() {
     // Resize nav to fit height of window. This is an unimportant bell/whistle to make it look nice
     var fitNav = function() {
         $('.nav-wrapper').css('min-height', $(window).height());
-        $('.nav-main').each(function() {
-            var thisHeight = $(this).height();
-            var footerHeight = $('#footer', $(this)).height();
-        });
     };
 
     fitNav();
@@ -122,7 +117,7 @@ $(function() {
     function initLogo() {
         var sensitivity = 8; // the amount of times the user must stroke the wagtail to trigger the animation
 
-        var $logoContainer = $('.wagtail-logo-container__desktop');
+        var $logoContainer = $('[data-animated-logo-container]');
         var mouseX = 0;
         var lastMouseX = 0;
         var dir = '';
@@ -264,6 +259,7 @@ $(function() {
                         }
                     },
                     complete: function() {
+                        wagtail.ui.initDropDowns();
                         $inputContainer.removeClass(workingClasses);
                     }
                 });
@@ -271,7 +267,7 @@ $(function() {
         }
 
         function getURLParam(name) {
-            var results = new RegExp('[\?&]' + name + '=([^]*)').exec(window.location.search);
+            var results = new RegExp('[\\?&]' + name + '=([^]*)').exec(window.location.search);
             if (results) {
                 return results[1];
             }
@@ -471,8 +467,6 @@ wagtail = (function(document, window, wagtail) {
         },
 
         _handleClick: function(e) {
-            var el = this.el;
-
             if (!this.state.isOpen) {
                 this.openDropDown(e);
             } else {
@@ -542,8 +536,30 @@ wagtail = (function(document, window, wagtail) {
     }
 
     $(document).ready(initDropDowns);
-
+    wagtail.ui.initDropDowns = initDropDowns;
     wagtail.ui.DropDownController = DropDownController;
+
+    // Initialise button selectors
+    function initButtonSelects() {
+        document.querySelectorAll('.button-select').forEach(function(element) {
+            var inputElement = element.querySelector('input[type="hidden"]');
+            element.querySelectorAll('.button-select__option').forEach(function(buttonElement) {
+                buttonElement.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    inputElement.value = buttonElement.value;
+
+                    element.querySelectorAll('.button-select__option--selected').forEach(function(selectedButtonElement) {
+                        selectedButtonElement.classList.remove('button-select__option--selected');
+                    });
+
+                    buttonElement.classList.add('button-select__option--selected');
+                });
+            });
+        });
+    }
+
+    $(document).ready(initButtonSelects);
+
     return wagtail;
 
 })(document, window, wagtail);

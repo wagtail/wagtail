@@ -8,13 +8,15 @@ Advanced topics
     images/index
     documents/index
     embeds
-    settings
+    add_to_django_project
     deploying
     performance
-    i18n/index
+    i18n
     privacy
     customisation/index
     third_party_tutorials
     jinja2
     testing
     api/index
+    amp
+    adding_reports

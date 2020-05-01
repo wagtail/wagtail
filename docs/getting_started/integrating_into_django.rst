@@ -5,13 +5,13 @@ Integrating Wagtail into a Django project
 
 Wagtail provides the ``wagtail start`` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 2.0, 2.1 and 2.2. First, install the ``wagtail`` package from PyPI:
+Wagtail is currently compatible with Django 2.2 and 3.0. First, install the ``wagtail`` package from PyPI:
 
 .. code-block:: console
 
     $ pip install wagtail
 
-or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Settings
 --------
@@ -35,15 +35,11 @@ In your settings file, add the following apps to ``INSTALLED_APPS``:
     'modelcluster',
     'taggit',
 
-Add the following entries to ``MIDDLEWARE``:
+Add the following entry to ``MIDDLEWARE``:
 
 .. code-block:: python
 
-    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-
-.. note::
-   Wagtail is currently incompatible with projects using ``django.contrib.sites.middleware.CurrentSiteMiddleware``, as both this and ``wagtail.core.middleware.SiteMiddleware`` set the attribute ``request.site``.
 
 Add a ``STATIC_ROOT`` setting, if your project does not have one already:
 
@@ -64,7 +60,7 @@ Add a ``WAGTAIL_SITE_NAME`` - this will be displayed on the main dashboard of th
 
     WAGTAIL_SITE_NAME = 'My Example Site'
 
-Various other settings are available to configure Wagtail's behaviour - see :doc:`/advanced_topics/settings`.
+Various other settings are available to configure Wagtail's behaviour - see :doc:`/reference/settings`.
 
 URL configuration
 -----------------
@@ -76,8 +72,8 @@ Now make the following additions to your ``urls.py`` file:
     from django.urls import path, re_path, include
 
     from wagtail.admin import urls as wagtailadmin_urls
-    from wagtail.documents import urls as wagtaildocs_urls
     from wagtail.core import urls as wagtail_urls
+    from wagtail.documents import urls as wagtaildocs_urls
 
     urlpatterns = [
         ...

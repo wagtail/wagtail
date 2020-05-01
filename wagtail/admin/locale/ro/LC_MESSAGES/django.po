@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"PO-Revision-Date: 2020-01-20 20:13+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
+msgid "Publish"
+msgstr "Publică"
+
 msgid "Submit for moderation"
 msgstr "Trimite pentru moderare"
 
@@ -29,14 +33,23 @@ msgstr "Anulează publicarea"
 msgid "Delete"
 msgstr "Șterge"
 
+msgid "Save Draft"
+msgstr "Salvează ciornă"
+
+msgid "Page locked"
+msgstr "Pagină blocată"
+
 msgid "Wagtail admin"
 msgstr "Administrare Wagtail"
 
-msgid "None"
-msgstr "Nici una"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Ne pare rău, nu aveți permisiunea de a accesa această zonă."
 
 msgid "You do not have permission to access the admin"
 msgstr "Nu aveți permisiunea de a accesa zona de administrare."
+
+msgid "None"
+msgstr "Nici una"
 
 msgid "Scheduled publishing"
 msgstr "Publicare programată"
@@ -63,9 +76,6 @@ msgstr "Introduceți %s"
 msgid "Enter your email address to reset your password"
 msgstr "Introduceți adresa de e-mail pentru a reseta parola"
 
-msgid "URL"
-msgstr "Adresă de internet"
-
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
@@ -89,8 +99,8 @@ msgstr "Copiere subpagini"
 msgid "This will copy %(count)s subpage."
 msgid_plural "This will copy %(count)s subpages."
 msgstr[0] "Va fi copiată %(count)s subpagină"
-msgstr[1] "Vor fi copiate %(count)s pagini."
-msgstr[2] "Vor fi copiate %(count)s subpagini."
+msgstr[1] "Vor fi copiate %(count)s subpagini."
+msgstr[2] "Vor fi copiate %(count)s de subpagini."
 
 msgid "Publish copied page"
 msgstr "Publică pagina copiată"
@@ -115,7 +125,7 @@ msgstr[1] ""
 "%(count)s pagini în curs de copiere sunt active. Doriți să publicați și "
 "copiile lor?"
 msgstr[2] ""
-"%(count)s pagini în curs de copiere sunt active. Doriți să publicați și "
+"%(count)s de pagini în curs de copiere sunt active. Doriți să publicați și "
 "copiile lor?"
 
 #, python-format
@@ -155,96 +165,98 @@ msgstr "Acest câmp este obligatoriu."
 msgid "Please select at least one group."
 msgstr "Selectați cel puțin un grup"
 
-msgid "Error 404: Page not found"
-msgstr "Eroare 404: Pagina nu a fost găsită"
+msgid "Arabic"
+msgstr "Arabă"
 
-msgid "Error 404"
-msgstr "Eroare 404"
+msgid "Catalan"
+msgstr "Catalană"
 
-msgid "The requested page could not be found."
-msgstr "Pagina solicitată nu a fost găsită."
+msgid "Czech"
+msgstr "Cehă"
 
-msgid "Go to Wagtail admin"
-msgstr "Spre interfața de administrare Wagtail"
+msgid "German"
+msgstr "Germană"
 
-msgid "Account"
-msgstr "Cont"
+msgid "Greek"
+msgstr "Greacă"
 
-msgid "Change profile picture"
-msgstr "Schimbă poza de profil"
+msgid "English"
+msgstr "Engleză"
 
-msgid "Your current profile picture:"
-msgstr "Poză profil curentă:"
+msgid "Spanish"
+msgstr "Spaniolă"
 
-msgid "Update"
-msgstr "Actualizează"
+msgid "Finnish"
+msgstr "Finlandeză"
 
-msgid "Change email"
-msgstr "Schimbă e-mail"
+msgid "French"
+msgstr "Franceză"
 
-msgid "Change password"
-msgstr "Schimbă parola"
+msgid "Galician"
+msgstr "Galiciană"
 
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Parola nu poate fi schimbată aici. Vă rugăm să contactați administratorii "
-"sitului."
+msgid "Indonesian"
+msgstr "Indoneză"
 
-msgid "Set Time Zone"
-msgstr "Setează fus orar"
+msgid "Icelandic"
+msgstr "Islandeză"
 
-msgid "Language Preferences"
-msgstr "Preferințe limbă"
+msgid "Italian"
+msgstr "Italiană"
 
-msgid "Notification preferences"
-msgstr "Preferințe de notificare"
+msgid "Japanese"
+msgstr "Japoneză"
 
-msgid "Reset password"
-msgstr "Resetează parola"
+msgid "Korean"
+msgstr "coreeană"
 
-msgid "Password change successful"
-msgstr "Parola a fost schimbată cu succes"
+msgid "Lithuanian"
+msgstr "Lituaniană"
 
-msgid "Login"
-msgstr "Autentificare"
+msgid "Mongolian"
+msgstr "Mongolă"
 
-msgid "Set your new password"
-msgstr "Setează parola nouă"
+msgid "Norwegian Bokmål"
+msgstr "Norvegiană"
 
-msgid "Invalid password reset link"
-msgstr "Link resetare parolă nevalid"
+msgid "Netherlands Dutch"
+msgstr "Olandeză"
 
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used."
-msgstr ""
-"Link-ul resetare parola este nevalid pentru ca probabil a fost folosit."
+msgid "Persian"
+msgstr "Persiană"
 
-msgid "Request a new password reset"
-msgstr "Cere resetare parolă nouă"
+msgid "Polish"
+msgstr "Poloneză"
 
-msgid "Check your email"
-msgstr "Verificăți contul de e-mail"
+msgid "Brazilian Portuguese"
+msgstr "Portugheză Braziliană"
 
-msgid ""
-"A link to reset your password has been emailed to you if an account exists "
-"for this address."
-msgstr ""
-"Link-ul de resetare a parolei va fi trimis prin e-mail dacă există cont cu "
-"această adresă."
+msgid "Portuguese"
+msgstr "Portugheză"
 
-msgid "Please follow the link below to reset your password:"
-msgstr "Vă rugăm să urmați link-ul de mai jos pentru a reseta parola:"
+msgid "Romanian"
+msgstr "Română"
 
-msgid "Your username (in case you've forgotten):"
-msgstr "Numele D-stră de utilizator (în caz că ați uitat):"
+msgid "Russian"
+msgstr "Rusă"
 
-msgid "Password reset"
-msgstr "Resetarea parolei"
+msgid "Swedish"
+msgstr "suedeză"
 
-msgid "Reset your password"
-msgstr "Resetează parola"
+msgid "Slovak"
+msgstr "Slovacă"
+
+msgid "Thai"
+msgstr "Tailandeză"
+
+msgid "Ukrainian"
+msgstr "ucraineană"
+
+msgid "Chinese (Simplified)"
+msgstr "Chineza (Simplificată)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chineza (Tradițională)"
 
 msgid "Page"
 msgstr "Pagină"
@@ -301,8 +313,17 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
 
+msgid "Broken link"
+msgstr "Link nefuncțional"
+
+msgid "Missing document"
+msgstr "Document lipsă"
+
 msgid "Close"
 msgstr "Închideți"
+
+msgid "Edit '{title}'"
+msgstr "Editează '{title}'"
 
 msgid "January"
 msgstr "Ianuarie"
@@ -382,14 +403,105 @@ msgstr "V"
 msgid "Sat"
 msgstr "S"
 
+msgid "Error 404: Page not found"
+msgstr "Eroare 404: Pagina nu a fost găsită"
+
+msgid "Error 404"
+msgstr "Eroare 404"
+
+msgid "The requested page could not be found."
+msgstr "Pagina solicitată nu a fost găsită."
+
+msgid "Go to Wagtail admin"
+msgstr "Spre interfața de administrare Wagtail"
+
+msgid "Account"
+msgstr "Cont"
+
+msgid "Change profile picture"
+msgstr "Schimbă poza de profil"
+
+msgid "Your current profile picture:"
+msgstr "Poză profil curentă:"
+
+msgid "Update"
+msgstr "Actualizează"
+
+msgid "Change email"
+msgstr "Schimbă e-mail"
+
+msgid "Change name"
+msgstr "Schimbă numele"
+
+msgid "Change password"
+msgstr "Schimbă parola"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Parola nu poate fi schimbată aici. Vă rugăm să contactați administratorii "
+"sitului."
+
+msgid "Set Time Zone"
+msgstr "Setează fus orar"
+
+msgid "Language Preferences"
+msgstr "Preferințe limbă"
+
+msgid "Notification preferences"
+msgstr "Preferințe de notificare"
+
+msgid "Reset password"
+msgstr "Resetează parola"
+
+msgid "Password change successful"
+msgstr "Parola a fost schimbată cu succes"
+
+msgid "Login"
+msgstr "Autentificare"
+
+msgid "Set your new password"
+msgstr "Setează parola nouă"
+
+msgid "Invalid password reset link"
+msgstr "Link resetare parolă nevalid"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Link-ul resetare parola este nevalid pentru ca probabil a fost folosit."
+
+msgid "Request a new password reset"
+msgstr "Cere resetare parolă nouă"
+
+msgid "Check your email"
+msgstr "Verificăți contul de e-mail"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Link-ul de resetare a parolei va fi trimis prin e-mail dacă există cont cu "
+"această adresă."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Vă rugăm să urmați link-ul de mai jos pentru a reseta parola:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Numele D-stră de utilizator (în caz că ați uitat):"
+
+msgid "Password reset"
+msgstr "Resetarea parolei"
+
+msgid "Reset your password"
+msgstr "Resetează parola"
+
 msgid "Dashboard"
 msgstr "Bord"
 
 msgid "Menu"
 msgstr "Meniu"
-
-msgid "Add another"
-msgstr "Adaugă altă listă"
 
 msgid "Move up"
 msgstr "Deplasează în sus"
@@ -528,11 +640,27 @@ msgid ""
 "created will be displayed."
 msgstr "Aici va fi afișată informație utilă despre conținutul creat de dvs."
 
-msgid "Pages awaiting moderation"
-msgstr "Pagini în moderație"
-
 msgid "Title"
 msgstr "Titlu"
+
+msgid "Edit this page"
+msgstr "Editează această pagină"
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "Draft"
+msgstr "Ciornă"
+
+msgid "Live"
+msgstr "Activată"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s în urmă"
+
+msgid "Pages awaiting moderation"
+msgstr "Pagini în moderație"
 
 msgid "Parent"
 msgstr "Bază"
@@ -543,9 +671,6 @@ msgstr "Tip"
 msgid "Edited"
 msgstr "Editat"
 
-msgid "Edit this page"
-msgstr "Editează această pagină"
-
 msgid "Preview this page"
 msgstr "Previzualizează această pagină"
 
@@ -555,15 +680,8 @@ msgstr "Aprobă"
 msgid "Reject"
 msgstr "Respinge"
 
-msgid "Edit"
-msgstr "Editează"
-
 msgid "Preview"
 msgstr "Examinare"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s în urmă"
 
 msgid "Your most recent edits"
 msgstr "Modificările cele mai recente"
@@ -574,14 +692,35 @@ msgstr "Dată"
 msgid "Status"
 msgstr "Status"
 
-msgid "Draft"
-msgstr "Ciornă"
-
-msgid "Live"
-msgstr "Activată"
-
 msgid "Site summary"
 msgstr "Rezumat sait"
+
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"            <span>%(total)s</span> pagină <span class=\"visuallyhidden"
+"\">creată în %(site_name)s</span>\n"
+"        "
+msgstr[1] ""
+"\n"
+"            <span>%(total)s</span> pagini <span class=\"visuallyhidden"
+"\">create în %(site_name)s</span>\n"
+"        "
+msgstr[2] ""
+"\n"
+"            <span>%(total)s</span> de pagini <span class=\"visuallyhidden"
+"\">create în %(site_name)s</span>\n"
+"        "
 
 msgid "Sign in"
 msgstr "Conectare"
@@ -652,14 +791,14 @@ msgstr ""
 "Schimbările setărilor de confidențialitate se aplică și pentru toate "
 "paginile descendente."
 
-msgid "Edit lock"
-msgstr "Editează blocare"
+msgid "Set page privacy. Current status: Public"
+msgstr "Setați confidențialitatea paginii. Starea actuală: Public"
 
-msgid "Locked"
-msgstr "Blocat"
+msgid "Page privacy. Current status: Public"
+msgstr "Confidențialitatea paginii. Starea actuală: Public"
 
-msgid "Unlocked"
-msgstr "Deblocat"
+msgid "Page privacy. Current status: Private"
+msgstr "Confidențialitatea paginii. Starea actuală: Privat"
 
 msgid "Publishing…"
 msgstr "În curs de publicare…"
@@ -667,8 +806,14 @@ msgstr "În curs de publicare…"
 msgid "Publish this revision"
 msgstr "Publică această revizie"
 
-msgid "Publish"
-msgstr "Publică"
+msgid "Saving…"
+msgstr "În curs de salvare..."
+
+msgid "Replace current draft"
+msgstr "Înlocuiește ciorna curentă"
+
+msgid "Save draft"
+msgstr "Salvează ca ciornă"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -774,7 +919,7 @@ msgstr[1] ""
 "lor"
 msgstr[2] ""
 "\n"
-"Această pagină are %(live_descendant_count)s subpagini. Anulează și "
+"Această pagină are %(live_descendant_count)s de subpagini. Anulează și "
 "publicarea lor"
 
 msgid "Yes, unpublish it"
@@ -807,11 +952,8 @@ msgstr "%(page_type)s nouă"
 msgid "New"
 msgstr "Nou"
 
-msgid "Saving…"
-msgstr "În curs de salvare..."
-
-msgid "Save draft"
-msgstr "Salvează ca ciornă"
+msgid "Actions"
+msgstr "Acțiuni"
 
 msgid "This page has unsaved changes."
 msgstr "Această pagină conține modificări nesalvate."
@@ -823,12 +965,6 @@ msgstr "Editare %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "Editare %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Pagină blocată"
-
-msgid "Replace current draft"
-msgstr "Înlocuiește ciorna curentă"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -941,6 +1077,9 @@ msgstr "Adaugă pagină dependentă"
 msgid "Sites menu"
 msgstr "Meniu saituri"
 
+msgid "Pagination"
+msgstr "Paginare"
+
 #, python-format
 msgid ""
 "\n"
@@ -961,6 +1100,9 @@ msgstr "Această pagină este protejată de ochii publicului"
 
 msgid "Disable ordering of child pages"
 msgstr "Dezactivează rânduirea paginilor dependente"
+
+msgid "Sort"
+msgstr "Sortează"
 
 msgid "Enable ordering of child pages"
 msgstr "Activează rânduirea paginilor dependente"
@@ -1031,7 +1173,7 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "                                                            S-a mutat "
-"%(counter)s poziții în jos.\n"
+"%(counter)s de poziții în jos.\n"
 "                                                        "
 
 #, python-format
@@ -1058,7 +1200,7 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "                                                            S-a mutat "
-"%(counter)s poziții în sus.\n"
+"%(counter)s de poziții în sus.\n"
 "                                                        "
 
 msgid "There are no differences between these two revisions"
@@ -1135,7 +1277,7 @@ msgstr[1] ""
 "%(counter)s pagini se potrivesc"
 msgstr[2] ""
 "\n"
-"%(counter)s pagini se potrivesc"
+"%(counter)s de pagini se potrivesc"
 
 msgid "Page types"
 msgstr "Tipuri pagini"
@@ -1154,9 +1296,15 @@ msgstr "Nici o pagină nu utilizează"
 msgid "Collection"
 msgstr "Colecție"
 
+msgid "Locked"
+msgstr "Blocat"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s din %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Traseu navigare"
 
 msgid "Root"
 msgstr "Pagină de bază"
@@ -1176,34 +1324,14 @@ msgstr "Setări cont"
 msgid "Log out"
 msgstr "Deconectare"
 
+msgid "Visit the live page"
+msgstr "Accesați pagina live"
+
+msgid "Current page status:"
+msgstr "Starea paginii curente:"
+
 msgid "Other searches"
 msgstr "Alte căutări"
-
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Folosiți un browser web <strong>învechit</strong> care nu este suportat de "
-"această aplicație. Vă rugăm să <a href=\"http://browsehappy.com/"
-"\">actualizați browser-ul</a> Dvstră."
-
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Wagtail are nevoie de Javascript, care în prezent e deactivat."
-"<br />\n"
-"            Vezi <a href=\"http://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">instrucțiuni de activare JavaScript "
-"în web browser-ul Dvs</a>.\n"
-"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Spre interfața de administrare Wagtail"
@@ -1217,89 +1345,14 @@ msgstr "Arată în Explorator"
 msgid "Test"
 msgstr "Test"
 
-msgid "Arabic"
-msgstr "Arabă"
-
-msgid "Catalan"
-msgstr "Catalană"
-
-msgid "German"
-msgstr "Germană"
-
-msgid "Greek"
-msgstr "Greacă"
-
-msgid "English"
-msgstr "Engleză"
-
-msgid "Spanish"
-msgstr "Spaniolă"
-
-msgid "Finnish"
-msgstr "Finlandeză"
-
-msgid "French"
-msgstr "Franceză"
-
-msgid "Galician"
-msgstr "Galiciană"
-
-msgid "Indonesian"
-msgstr "Indoneză"
-
-msgid "Icelandic"
-msgstr "Islandeză"
-
-msgid "Italian"
-msgstr "Italiană"
-
-msgid "Korean"
-msgstr "coreeană"
-
-msgid "Lithuanian"
-msgstr "Lituaniană"
-
-msgid "Norwegian Bokmål"
-msgstr "Norvegiană"
-
-msgid "Netherlands Dutch"
-msgstr "Olandeză"
-
-msgid "Persian"
-msgstr "Persiană"
-
-msgid "Polish"
-msgstr "Poloneză"
-
-msgid "Brazilian Portuguese"
-msgstr "Portugheză Braziliană"
-
-msgid "Portuguese"
-msgstr "Portugheză"
-
-msgid "Romanian"
-msgstr "Română"
-
-msgid "Russian"
-msgstr "Rusă"
-
-msgid "Swedish"
-msgstr "suedeză"
-
-msgid "Slovak"
-msgstr "Slovacă"
-
-msgid "Ukrainian"
-msgstr "ucraineană"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Ne pare rău, nu aveți permisiunea de a accesa această zonă."
-
 msgid "Your password has been changed successfully!"
 msgstr "Parola a fost schimbată cu succes!"
 
 msgid "Your email has been changed successfully!"
 msgstr "E-mailul a fost schimbat cu succes!"
+
+msgid "Your name has been changed successfully!"
+msgstr "Numele a fost schimbat cu succes!"
 
 msgid "Your preferences have been updated."
 msgstr "Preferințele au fost schimbare."
@@ -1431,9 +1484,6 @@ msgstr "Publicare paginii '{0}' a fost refuzată."
 msgid "Failed to send rejection notifications"
 msgstr "Trimiterea notificărilor de respingere au eșuat."
 
-msgid "Page '{0}' is now locked."
-msgstr "Pagina '{0}' a fost blocată."
-
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is fost deblocată."
 
@@ -1457,44 +1507,38 @@ msgstr "revizia {0} pentru \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Programare anulată pentru revizia {0} a \"{1}\""
 
-msgid "Edit '{title}'"
-msgstr "Editează '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Previzualizează versiunea ciornă a '{title}'"
-
-msgid "View live version of '{title}'"
-msgstr "Vezi versiunea live a '{title}'"
-
-msgid "Add a child page to '{title}' "
-msgstr "Adaugă o pagină dependentă de '{title}'"
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editează '%(title)s'"
 
 msgid "More"
 msgstr "Mai mult"
 
-msgid "View more options for '{title}'"
-msgstr "Vezi mai multe opțiuni pentru '{title}'"
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Vezi mai multe opțiuni pentru '%(title)s'"
 
-msgid "Move page '{title}'"
-msgstr "Mutați pagina '{title}'"
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Mutați pagina '%(title)s'"
 
-msgid "Copy page '{title}'"
-msgstr "Copie pagina '{title}'"
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Copiază pagina '%(title)s'"
 
-msgid "Delete page '{title}'"
-msgstr "Șterge pagina '{title}'"
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Șterge pagina '%(title)s'"
 
-msgid "Unpublish page '{title}'"
-msgstr "Anulează publicarea paginii '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Vezi istoria reviziilor pentru '{title}'"
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Pagină nepublicată '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Setează poză profil"
 
-msgid "Change your profile picture"
-msgstr "Schimbă poza de profil"
+msgid "Change your profile picture."
+msgstr "Schimbă poza de profil."
 
 msgid "Change the email address linked to your account."
 msgstr "Schimbă e-mailul asociat de contul D-stră."
@@ -1517,8 +1561,12 @@ msgstr "Fus orar curent"
 msgid "Choose your current time zone."
 msgstr "Alege fus orar curent"
 
-msgid "Heading {level}"
-msgstr "Antet {level}"
+msgid "Change your first and last name on your account."
+msgstr "Schimbați numele și prenumele din contul dvs."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Antet %(level)d"
 
 msgid "Bulleted list"
 msgstr "Listă cu puncte"

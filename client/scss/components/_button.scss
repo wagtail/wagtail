@@ -106,7 +106,7 @@
     }
 
     &.bicolor {
-        border: 0;
+        border: 1px solid transparent;
         padding-left: 3.5em;
 
         &:before {
@@ -122,6 +122,10 @@
             display: block;
             border-top-left-radius: inherit;
             border-bottom-left-radius: inherit;
+        }
+
+        &.button-secondary {
+            border: 1px solid rgba(0, 0, 0, 0.2);
         }
     }
 

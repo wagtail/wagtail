@@ -1,6 +1,16 @@
-from django.utils.deprecation import MiddlewareMixin
+import warnings
 
+from django.utils.deprecation import MiddlewareMixin
 from wagtail.core.models import Site
+from wagtail.utils.deprecation import RemovedInWagtail211Warning
+
+
+warnings.warn(
+    'wagtail.core.middleware.SiteMiddleware and the use of request.site is deprecated. '
+    'Please update your code to use Site.get_for_request(request) in place of request.site, '
+    'and remove wagtail.core.middleware.SiteMiddleware from MIDDLEWARES',
+    RemovedInWagtail211Warning
+)
 
 
 class SiteMiddleware(MiddlewareMixin):

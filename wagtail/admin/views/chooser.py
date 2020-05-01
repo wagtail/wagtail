@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.http import Http404
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
+from django.template.response import TemplateResponse
 
 from wagtail.admin.forms.choosers import (
     AnchorLinkChooserForm, EmailLinkChooserForm, ExternalLinkChooserForm, PhoneLinkChooserForm)
@@ -179,7 +180,7 @@ def search(request, parent_page_id=None):
     for page in pages:
         page.can_choose = True
 
-    return render(
+    return TemplateResponse(
         request, 'wagtailadmin/chooser/_search_results.html',
         shared_context(request, {
             'searchform': search_form,

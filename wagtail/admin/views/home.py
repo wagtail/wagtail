@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import permission_required
 from django.db import connection
 from django.db.models import Max
 from django.http import Http404
-from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.template.response import TemplateResponse
 
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
@@ -44,6 +44,23 @@ class PagesForModerationPanel:
     def render(self):
         return render_to_string('wagtailadmin/home/pages_for_moderation.html', {
             'page_revisions_for_moderation': self.page_revisions_for_moderation,
+        }, request=self.request)
+
+
+class LockedPagesPanel:
+    name = 'locked_pages'
+    order = 250
+
+    def __init__(self, request):
+        self.request = request
+
+    def render(self):
+        return render_to_string('wagtailadmin/home/locked_pages.html', {
+            'locked_pages': Page.objects.filter(
+                locked=True,
+                locked_by=self.request.user,
+            ),
+            'can_remove_locks': UserPagePermissionsProxy(self.request.user).can_remove_locks()
         }, request=self.request)
 
 
@@ -95,6 +112,7 @@ def home(request):
         SiteSummaryPanel(request),
         UpgradeNotificationPanel(request),
         PagesForModerationPanel(request),
+        LockedPagesPanel(request),
         RecentEditsPanel(request),
     ]
 
@@ -103,7 +121,7 @@ def home(request):
 
     site_details = get_site_for_user(request.user)
 
-    return render(request, "wagtailadmin/home.html", {
+    return TemplateResponse(request, "wagtailadmin/home.html", {
         'root_page': site_details['root_page'],
         'root_site': site_details['root_site'],
         'site_name': site_details['site_name'],

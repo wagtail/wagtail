@@ -8,10 +8,11 @@ from wagtail.core.models import Site
 class SiteSwitchForm(forms.Form):
     site = forms.ChoiceField(choices=[])
 
-    class Media:
-        js = [
+    @property
+    def media(self):
+        return forms.Media(js=[
             versioned_static('wagtailsettings/js/site-switcher.js'),
-        ]
+        ])
 
     def __init__(self, current_site, model, **kwargs):
         initial_data = {'site': self.get_change_url(current_site, model)}

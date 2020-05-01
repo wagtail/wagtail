@@ -14,8 +14,8 @@ from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.models import GroupPagePermission, Page, PageRevision
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
-    BusinessChild, BusinessIndex, BusinessSubIndex, DefaultStreamPage, SimplePage,
-    SingletonPage, SingletonPageViaMaxCount, StandardChild, StandardIndex)
+    BusinessChild, BusinessIndex, BusinessSubIndex, DefaultStreamPage, PersonPage,
+    SimplePage, SingletonPage, SingletonPageViaMaxCount, StandardChild, StandardIndex)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -895,3 +895,71 @@ class TestIssue2994(TestCase, WagtailTestUtils):
         new_page = DefaultStreamPage.objects.get(slug='issue-2994-test')
         self.assertEqual(1, len(new_page.body))
         self.assertEqual('hello world', new_page.body[0].value)
+
+
+class TestInlinePanelWithTags(TestCase, WagtailTestUtils):
+    # https://github.com/wagtail/wagtail/issues/5414#issuecomment-567080707
+
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        self.user = self.login()
+
+    def test_create(self):
+        post_data = {
+            'title': 'Mr Benn',
+            'slug': 'mr-benn',
+            'first_name': 'William',
+            'last_name': 'Benn',
+            'addresses-TOTAL_FORMS': 1,
+            'addresses-INITIAL_FORMS': 0,
+            'addresses-MIN_NUM_FORMS': 0,
+            'addresses-MAX_NUM_FORMS': 1000,
+            'addresses-0-address': "52 Festive Road, London",
+            'addresses-0-tags': "shopkeeper, bowler-hat",
+            'action-publish': "Publish",
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'personpage', self.root_page.id)), post_data
+        )
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+        new_page = PersonPage.objects.get(slug='mr-benn')
+        self.assertEqual(new_page.addresses.first().tags.count(), 2)
+
+
+class TestInlinePanelNonFieldErrors(TestCase, WagtailTestUtils):
+    """
+    Test that non field errors will render for InlinePanels
+    https://github.com/wagtail/wagtail/issues/3890
+    """
+    fixtures = ['demosite.json']
+
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        self.user = self.login()
+
+    def test_create(self):
+        post_data = {
+            'title': 'Issue 3890 test',
+            'slug': 'issue-3890-test',
+            'related_links-TOTAL_FORMS': 1,
+            'related_links-INITIAL_FORMS': 0,
+            'related_links-MIN_NUM_FORMS': 0,
+            'related_links-MAX_NUM_FORMS': 1000,
+            'related_links-0-id': 0,
+            'related_links-0-ORDER': 1,
+
+            # Leaving all fields empty should raise a validation error
+            'related_links-0-link_page': "",
+            'related_links-0-link_document': "",
+            'related_links-0-link_external': "",
+            'carousel_items-INITIAL_FORMS': 0,
+            'carousel_items-MAX_NUM_FORMS': 1000,
+            'carousel_items-TOTAL_FORMS': 0,
+            'action-publish': "Publish",
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('demosite', 'homepage', self.root_page.id)), post_data
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "The page could not be created due to validation errors")
+        self.assertContains(response, 'You must provide a related page, related document or an external URL', count=1)
