@@ -412,6 +412,37 @@ class Block(metaclass=BaseBlock):
             # in models.py.
 
         return (self.name == other.name) and (self.deconstruct() == other.deconstruct())
+    
+    def __getstate__(self):
+        """Hook to allow choosing the attributes to pickle."""
+        state = self.__dict__
+
+        if "meta" in state:
+            state["meta"] = state["meta"].__dict__
+
+        if "dependencies" in state:
+            state["dependencies"] = list(state["dependencies"])
+
+        if (
+            "field" in state
+            and hasattr(state["field"], "choices")
+            and isinstance(state["field"].choices, CallableChoiceIterator)
+        ):
+            state["field"].choices = list(state["field"].choices)
+
+        return state
+
+    def __reduce__(self):
+        """Reducer to make this class picklable."""
+        block_class = self.__class__
+        args = self._constructor_args[0]
+        kwargs = self._constructor_args[1]
+        return block_unpickle, (block_class, args, kwargs)
+
+
+def block_unpickle(block_class, args, kwargs):
+    """Used to unpickle Block subclasses."""
+    return block_class(*args, **kwargs)
 
 
 class BoundBlock:
