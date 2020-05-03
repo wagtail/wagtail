@@ -296,5 +296,5 @@ texinfo_documents = [
 
 
 def setup(app):
-    app.add_stylesheet('css/custom.css')
-    app.add_javascript('js/wagtailspace.js')
+    app.add_css_file('css/custom.css')
+    app.add_js_file('js/banner.js')

@@ -134,6 +134,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
 
 .. class:: Page
+    :noindex:
 
     .. autoattribute:: specific
 
@@ -319,6 +320,7 @@ Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. class:: Site
+    :noindex:
 
     .. automethod:: find_for_request
 
@@ -382,6 +384,7 @@ Managers
 ~~~~~~~~
 
 .. class:: PageRevision
+    :noindex:
 
     .. attribute:: objects
 
@@ -407,6 +410,7 @@ Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. class:: PageRevision
+    :noindex:
 
     .. automethod:: as_page_object
 
