@@ -10,11 +10,11 @@ div.wy-nav-side {
 }
 
 div.wy-side-nav-search {
-    background-color: #43b1b0; /*color-teal*/
+    background-color: #007d7e; /*color-teal*/
 }
 
 .wy-nav-top {
-    background-color: #43b1b0; /*color-teal*/
+    background-color: #007d7e; /*color-teal*/
 }
 
 .wy-side-nav-search>a:hover, .wy-side-nav-search .wy-dropdown>a:hover {
@@ -27,6 +27,15 @@ div.wy-side-nav-search {
 
 .wy-side-nav-search input[type=text] {
     border-color: #d9d9d9; /*color-grey-3*/
+}
+
+.logo {
+    transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
+}
+
+.logo:hover {
+    transform: rotate(8deg);
+    transition: transform 1.2s ease;
 }
 
 /* Wagtail Space */
