@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-04-09 11:01+0000\n"
-"Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -705,11 +705,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "تسجيل الدخول لـ Wagtail"
 
-msgid "Forgotten it?"
-msgstr "أنسيته؟"
-
 msgid "Signing in…"
 msgstr "يتم تسجيل الدخول..."
+
+msgid "Forgotten it?"
+msgstr "أنسيته؟"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."

@@ -4,14 +4,14 @@
 #
 # Translators:
 # aaao <aron.santa@gmail.com>, 2019
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 15:34+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -270,6 +270,12 @@ msgstr "Használat"
 
 msgid "Images"
 msgstr "Képek"
+
+msgid "Popular Tags:"
+msgstr "Gyakori címkék:"
+
+msgid "Clear choice"
+msgstr "Kiválasztás törlése"
 
 msgid "pixels"
 msgstr "pixel"

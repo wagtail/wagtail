@@ -11,14 +11,14 @@
 # jszsj <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017-2019
+# 汇民 王 <whuim@qq.com>, 2017-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 15:59+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -158,6 +158,12 @@ msgstr "已过期"
 msgid "locked"
 msgstr "已锁定"
 
+msgid "locked at"
+msgstr "锁定于"
+
+msgid "locked by"
+msgstr "锁定人"
+
 msgid "first published at"
 msgstr "第一次发布于"
 
@@ -238,6 +244,15 @@ msgstr "删除页面及其子页面"
 
 msgid "Lock"
 msgstr "锁定"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "锁定/解锁你已锁定的页面"
+
+msgid "Unlock"
+msgstr "解锁"
+
+msgid "Unlock any page"
+msgstr "解锁任意页面"
 
 msgid "group"
 msgstr "组"

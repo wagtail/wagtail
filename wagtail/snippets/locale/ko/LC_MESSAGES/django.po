@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -113,6 +113,9 @@ msgstr "스니펫"
 msgid "Title"
 msgstr "제목"
 
+msgid "Edit"
+msgstr "수정"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -155,9 +158,6 @@ msgstr "페이지 변경"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s 검색"
-
-msgid "Edit"
-msgstr "수정"
 
 msgid "The snippet could not be created due to errors."
 msgstr "에러로 인해 스니펫을 생성할 수 없습니다."

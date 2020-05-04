@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
@@ -44,6 +44,9 @@ msgstr "קטעים"
 msgid "Title"
 msgstr "כותרת "
 
+msgid "Edit"
+msgstr "ערוך"
+
 msgid "Usage of"
 msgstr "שימוש ב:"
 
@@ -58,9 +61,6 @@ msgstr "סטטוס"
 
 msgid "Edit this page"
 msgstr "ערוך עמוד זה"
-
-msgid "Edit"
-msgstr "ערוך"
 
 msgid "The snippet could not be created due to errors."
 msgstr "לא ניתן ליצור את הקטע עקב שגיאה"

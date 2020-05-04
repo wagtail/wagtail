@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 13:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -663,11 +663,11 @@ msgstr "%(username_field)s 과 비밀번호가 맞지 않습니다. 다시 시�
 msgid "Sign in to Wagtail"
 msgstr "웨그테일에 로그인"
 
-msgid "Forgotten it?"
-msgstr "잊어버리셨나요?"
-
 msgid "Signing in…"
 msgstr "로그인 중..."
+
+msgid "Forgotten it?"
+msgstr "잊어버리셨나요?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2016,2018-2019
+# Dan Braghis, 2014-2016,2018-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-23 08:33+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -283,6 +283,12 @@ msgstr "Utilizare"
 
 msgid "Images"
 msgstr "Imagini"
+
+msgid "Popular Tags:"
+msgstr "Etichete populare:"
+
+msgid "Clear choice"
+msgstr "Curăță selecție"
 
 msgid "pixels"
 msgstr "pixeli"

@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-03-23 13:13+0000\n"
-"Last-Translator: Basitlik İyidir <basitlikiyidir@gmail.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -765,11 +765,11 @@ msgstr "%(username_field)s ve şifre uyuşmuyor. Lütfen tekrar deneyin"
 msgid "Sign in to Wagtail"
 msgstr "Wagtail'de oturumu aç"
 
-msgid "Forgotten it?"
-msgstr "Unuttun mu?"
-
 msgid "Signing in…"
 msgstr "Giriş yapılıyor…"
+
+msgid "Forgotten it?"
+msgstr "Unuttun mu?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."

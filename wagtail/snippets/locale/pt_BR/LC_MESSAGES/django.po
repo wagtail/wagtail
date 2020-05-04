@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2019-10-16 20:43+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
@@ -132,6 +132,9 @@ msgstr "Título"
 msgid "Select %(snippet)s"
 msgstr "Selecionar %(snippet)s"
 
+msgid "Edit"
+msgstr "Editar"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -178,9 +181,6 @@ msgstr "Pesquisa %(snippet_type_name)s"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' criado."
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "The snippet could not be created due to errors."
 msgstr "O fragmento não pôde ser criado por conter erros."

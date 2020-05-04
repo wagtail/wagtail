@@ -494,7 +494,7 @@ Translators
 * Latvian: Reinis Rozenbergs, Maris Serzans
 * Lithuanian: Matas Dailyda
 * Mongolian: Myagmarjav Enkhbileg, Delgermurun Purevkhuu
-* Norwegian Bokmål: Eirik Krogstad, Robin Skahjem-Eriksen, Stein Strindhaug
+* Norwegian Bokmål: Eirik Krogstad, Ole Kristian Losvik, Robin Skahjem-Eriksen, Stein Strindhaug
 * Persian: Mohammad reza Jelveh, Mohammad Hossein Mojtahedi, Hamed Najand, Py Zenberg
 * Polish: Łukasz Bołdys, Konrad Lalik, Miron Levitsky, Mateusz, Miłosz Miśkiewicz, Bartek Sielicki, Grzegorz Wasilewski, Bartosz Wiśniewski
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Daniel Carvalho, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete

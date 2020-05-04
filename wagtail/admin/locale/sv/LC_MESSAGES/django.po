@@ -10,15 +10,15 @@
 # Martin Sandström <martin@marteinn.se>, 2020
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2016-2017
+# Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2020
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-03-19 21:15+0000\n"
-"Last-Translator: Oscar Fröberg <oscfr657@gmail.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-22 11:45+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -770,11 +770,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Logga in till Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Glömt det?"
-
 msgid "Signing in…"
 msgstr "Loggar in..."
+
+msgid "Forgotten it?"
+msgstr "Glömt det?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1336,6 +1336,9 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Sidtyper"
 
+msgid "All"
+msgstr "Alla"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Ledsen, inga sidor matchar <em>\"%(query_string)s\"</em>"
@@ -1351,6 +1354,18 @@ msgstr "Samling"
 
 msgid "No pages match this report's criteria."
 msgstr "Inga sidor matchade kriterierna för denna rapport."
+
+msgid "Download XLSX"
+msgstr "Ladda ner XLSX"
+
+msgid "Download CSV"
+msgstr "Ladda ner CSV"
+
+msgid "No pages found."
+msgstr "Inga sidor funna"
+
+msgid "Locking status"
+msgstr "Låsstatus"
 
 #, python-format
 msgid ""

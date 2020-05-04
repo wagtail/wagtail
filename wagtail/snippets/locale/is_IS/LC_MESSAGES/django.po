@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2020-01-25 11:11+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -131,6 +131,9 @@ msgstr "Titill"
 msgid "Select %(snippet)s"
 msgstr "Velja %(snippet)s"
 
+msgid "Edit"
+msgstr "Breyta"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -177,9 +180,6 @@ msgstr "Leita í %(snippet_type_name)s"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' búið til."
-
-msgid "Edit"
-msgstr "Breyta"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Ekki var hægt að búa til snifsi þar sem það stóðst ekki villuprófanir."

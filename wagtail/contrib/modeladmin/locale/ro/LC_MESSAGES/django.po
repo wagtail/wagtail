@@ -5,15 +5,15 @@
 # Translators:
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2016
-# Dan Braghis, 2016,2019
+# Dan Braghis, 2016,2019-2020
 # Matt Westcott <matthew@torchbox.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-12-04 01:21+0000\n"
-"Last-Translator: Bogdan Mateescu\n"
+"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"PO-Revision-Date: 2020-04-23 08:35+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -137,6 +137,12 @@ msgstr "Căută"
 msgid "Search %(name)s"
 msgstr "Caută %(name)s"
 
+msgid "Download XLSX"
+msgstr "Descarcă XLSX"
+
+msgid "Download CSV"
+msgstr "Descarcă CSV"
+
 msgid "Filter"
 msgstr "Filtrează"
 
@@ -182,6 +188,10 @@ msgid "Next"
 msgstr "Următor"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' a fost creat(ă)."
+
+#, python-format
 msgid "The %s could not be created due to errors."
 msgstr "%s nu a fost creat(ă) din cauza erorilor."
 
@@ -200,6 +210,10 @@ msgid "Editing %s"
 msgstr "Editare %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' a fost actualizat(ă)."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s nu a fost salvat(ă) din cauza erorilor."
 
@@ -214,6 +228,10 @@ msgid ""
 msgstr ""
 "Sigur doriți să ștergeți %s? Alte părți ale sait-ului legate de aceasta pot "
 "fi afectate."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' a fost eliminat(ă)."
 
 msgid "Inspecting"
 msgstr "Examinare"

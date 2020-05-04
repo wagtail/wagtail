@@ -5,13 +5,14 @@
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
+# Thomas Kunambi <kunambi@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-12-02 08:58+0000\n"
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
+"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"PO-Revision-Date: 2020-04-22 11:46+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -132,6 +133,12 @@ msgstr "Sök efter"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Sök %(name)s"
+
+msgid "Download XLSX"
+msgstr "Ladda ner XLSX"
+
+msgid "Download CSV"
+msgstr "Ladda ner CSV"
 
 msgid "Filter"
 msgstr "Filter"

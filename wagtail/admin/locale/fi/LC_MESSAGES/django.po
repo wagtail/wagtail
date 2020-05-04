@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-04-18 16:54+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-22 07:46+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -765,11 +765,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Kirjaudu sisään Wagtailiin"
 
-msgid "Forgotten it?"
-msgstr "Unohtui?"
-
 msgid "Signing in…"
 msgstr "Kirjaudutaan…"
+
+msgid "Forgotten it?"
+msgstr "Unohtui?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1308,6 +1308,9 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Sivutyypit"
 
+msgid "All"
+msgstr "Kaikki"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Pahoittelut, yksikään sivu ei täsmää hakuun <em>%(query_string)s</em>."
@@ -1323,6 +1326,18 @@ msgstr "Kokoelma"
 
 msgid "No pages match this report's criteria."
 msgstr "Raportin hakuehtoja vastaavia sivuja ei löytynyt."
+
+msgid "Download XLSX"
+msgstr "Hae XLSX"
+
+msgid "Download CSV"
+msgstr "Hae CSV"
+
+msgid "No pages found."
+msgstr "Sivuja ei löytynyt."
+
+msgid "Locking status"
+msgstr "Lukitsemisen tila"
 
 #, python-format
 msgid ""

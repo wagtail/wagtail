@@ -8,15 +8,15 @@
 # Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>, 2015
 # Martin Sandström <martin@marteinn.se>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2015-2017
+# Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-02-13 09:42+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-22 11:46+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -195,6 +195,9 @@ msgstr "Formulärdata <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "Filtrera"
+
+msgid "Download XLSX"
+msgstr "Ladda ner XLSX"
 
 msgid "Download CSV"
 msgstr "Ladda ner CSV"

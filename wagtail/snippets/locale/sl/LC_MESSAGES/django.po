@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -63,6 +63,9 @@ msgstr "Delci"
 msgid "Title"
 msgstr "Naziv"
 
+msgid "Edit"
+msgstr "Uredi"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -105,9 +108,6 @@ msgstr "Uredi stran"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "Iskanje po %(snippet_type_name)s"
-
-msgid "Edit"
-msgstr "Uredi"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno ustvariti."

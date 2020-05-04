@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2020-03-20 12:12+0000\n"
 "Last-Translator: Basitlik İyidir\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -136,6 +136,9 @@ msgstr "Başlık"
 msgid "Select %(snippet)s"
 msgstr "%(snippet)s seç"
 
+msgid "Edit"
+msgstr "Düzenle"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -182,9 +185,6 @@ msgstr "%(snippet_type_name)s ara"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' oluşturuldu."
-
-msgid "Edit"
-msgstr "Düzenle"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Hata nedeniyle kod bloğu oluşturulamadı."

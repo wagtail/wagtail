@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -68,6 +68,9 @@ msgstr "Fragments"
 msgid "Title"
 msgstr "Títol"
 
+msgid "Edit"
+msgstr "Editar"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -110,9 +113,6 @@ msgstr "Editar aquesta plana"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "Cercar %(snippet_type_name)s"
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "The snippet could not be created due to errors."
 msgstr "El fragment no s'ha pogut crear degut a errors."

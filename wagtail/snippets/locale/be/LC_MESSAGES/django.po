@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
@@ -92,6 +92,9 @@ msgstr "Фрагменты"
 msgid "Title"
 msgstr "Назва"
 
+msgid "Edit"
+msgstr "Рэдактаваць"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -134,9 +137,6 @@ msgstr "Рэдактаваць гэтую старонку"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "Шукаць %(snippet_type_name)s"
-
-msgid "Edit"
-msgstr "Рэдактаваць"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Фрагмент кода не можа быць створана з-за памылкі."

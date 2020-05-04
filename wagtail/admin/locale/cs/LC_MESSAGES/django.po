@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-03-06 02:26+0000\n"
-"Last-Translator: IT Management <info@itmanagement.cz>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-22 07:28+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -760,6 +760,38 @@ msgstr "Stav"
 msgid "Site summary"
 msgstr "Přehled obsahu"
 
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"            <span>%(total)s</span> Stránka <span class=\"visuallyhidden"
+"\">vytvořená v %(site_name)s</span>\n"
+"        "
+msgstr[1] ""
+"\n"
+"            <span>%(total)s</span> Stránky <span class=\"visuallyhidden"
+"\">vytvořené v %(site_name)s</span>\n"
+"        "
+msgstr[2] ""
+"\n"
+"            <span>%(total)s</span> Stránek <span class=\"visuallyhidden"
+"\">vytvořených v %(site_name)s</span>\n"
+"        "
+msgstr[3] ""
+"\n"
+"            <span>%(total)s</span> Stránek <span class=\"visuallyhidden"
+"\">vytvořených v %(site_name)s</span>\n"
+"        "
+
 msgid "Sign in"
 msgstr "Přihlásit se"
 
@@ -770,11 +802,11 @@ msgstr "Vaše %(username_field)s a heslo není správné. Zkuste to prosím znov
 msgid "Sign in to Wagtail"
 msgstr "Přihlášení do redakčního systému"
 
-msgid "Forgotten it?"
-msgstr "Zapoměli jste heslo?"
-
 msgid "Signing in…"
 msgstr "Přihlašování..."
+
+msgid "Forgotten it?"
+msgstr "Zapoměli jste heslo?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -854,6 +886,9 @@ msgstr "Nastavení viditelnosti stránky. Aktuální stav: Veřejná"
 
 msgid "Set page privacy. Current status: Private"
 msgstr "Nastavení viditelnosti stránky. Aktuální stav: Privátní"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Soukromí stránky. Aktuální stav: Veřejná"
 
 msgid "Page privacy. Current status: Private"
 msgstr "Viditelnosti stránky. Aktuální stav: Privátní"
@@ -1345,6 +1380,9 @@ msgstr[3] ""
 msgid "Page types"
 msgstr "Typy stránky"
 
+msgid "All"
+msgstr "Vše"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1361,6 +1399,18 @@ msgstr "Kolekce"
 
 msgid "No pages match this report's criteria."
 msgstr "Žádná stránka neodpovídá parametrům výkazu."
+
+msgid "Download XLSX"
+msgstr "Stáhnout XLSX"
+
+msgid "Download CSV"
+msgstr "Stáhnout CSV"
+
+msgid "No pages found."
+msgstr "Nebyla nalezena žádná stránka."
+
+msgid "Locking status"
+msgstr "Stav uzamčení"
 
 #, python-format
 msgid ""
@@ -1468,6 +1518,20 @@ msgstr "Přidat podstránku"
 
 msgid "Show in Explorer"
 msgstr "Zobrazit v exploreru"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Seřadit podstránky z '%(parent)s' podle '%(label)s' ve vzestupném pořadí."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Seřadit podstránky z '%(parent)s' podle '%(label)s' v sestupném pořadí."
 
 msgid "Test"
 msgstr "Test"
@@ -1658,6 +1722,10 @@ msgid "Locked Pages"
 msgstr "Uzamčené stránky"
 
 #, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editovat '%(title)s'"
+
+#, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "Prohlédnout koncept stránky '%(title)s'"
 
@@ -1665,8 +1733,16 @@ msgstr "Prohlédnout koncept stránky '%(title)s'"
 msgid "View live version of '%(title)s'"
 msgstr "Zobrazit publikovanou verzi '%(title)s'"
 
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Přidat podstránku k '%(title)s' "
+
 msgid "More"
 msgstr "Více"
+
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Zobrazit další možnosti pro '%(title)s'"
 
 #, python-format
 msgid "Move page '%(title)s'"

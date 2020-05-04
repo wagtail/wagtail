@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-02-13 17:52+0000\n"
+"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"PO-Revision-Date: 2020-04-21 16:00+0000\n"
 "Last-Translator: Oscar Luciano Espirilla Flores\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -136,6 +136,12 @@ msgstr "Buscar por"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Buscar %(name)s"
+
+msgid "Download XLSX"
+msgstr "Descargar XLSX"
+
+msgid "Download CSV"
+msgstr "Descargar CSV"
 
 msgid "Filter"
 msgstr "Filtro"

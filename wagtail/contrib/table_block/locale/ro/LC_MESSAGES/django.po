@@ -4,14 +4,14 @@
 #
 # Translators:
 # Dan Braghis, 2016
-# Dan Braghis, 2016,2019
+# Dan Braghis, 2016,2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-10-16 17:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"PO-Revision-Date: 2020-04-23 08:37+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -35,3 +35,13 @@ msgstr "Antet coloană"
 
 msgid "Display the first column as a header."
 msgstr "Afișează prima coloană ca antet."
+
+msgid "Table caption"
+msgstr "Legendă tabel"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"Titlu care identifică subiectul general al tabelului și este util pentru "
+"utilizatorii cititorilor de ecran"

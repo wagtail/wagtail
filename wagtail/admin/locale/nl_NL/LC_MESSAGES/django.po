@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-25 12:16+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 21:08+0000\n"
 "Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -778,11 +778,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Inloggen in Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Vergeten?"
-
 msgid "Signing in…"
 msgstr "Bezig met inloggen..."
+
+msgid "Forgotten it?"
+msgstr "Vergeten?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1329,6 +1329,9 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Pagina types"
 
+msgid "All"
+msgstr "Alle"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1345,6 +1348,18 @@ msgstr "Collectie"
 
 msgid "No pages match this report's criteria."
 msgstr "Geen pagina's komen overeen met de rapport-criteria."
+
+msgid "Download XLSX"
+msgstr "Download XLSX"
+
+msgid "Download CSV"
+msgstr "Download CSV"
+
+msgid "No pages found."
+msgstr "Geen pagina's gevonden."
+
+msgid "Locking status"
+msgstr "Vergrendelingsstatus"
 
 #, python-format
 msgid ""
