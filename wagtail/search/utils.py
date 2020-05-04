@@ -61,11 +61,13 @@ def parse_query_string(query_string, operator=None, zero_terms=MATCH_NONE):
     is_phrase = False
     tokens = []
     for part in query_string.split('"'):
+        part = part.strip()
+
         if part:
             if is_phrase:
                 tokens.append(Phrase(part))
             else:
-                tokens.append(PlainText(part, operator=operator))
+                tokens.append(PlainText(part, operator=operator or PlainText.DEFAULT_OPERATOR))
 
         is_phrase = not is_phrase
 
