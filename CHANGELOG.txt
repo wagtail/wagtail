@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.7.3 (04.05.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2020-11037 - avoid potential timing attack on password-protected private pages (Thibaud Colas)
+
+
 2.7.2 (14.04.2020)
 ~~~~~~~~~~~~~~~~~~
 
