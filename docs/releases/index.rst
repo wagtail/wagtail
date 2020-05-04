@@ -7,6 +7,7 @@ Release notes
    upgrading
    2.8.1
    2.8
+   2.7.3
    2.7.2
    2.7.1
    2.7
