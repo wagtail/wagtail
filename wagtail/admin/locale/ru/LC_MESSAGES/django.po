@@ -30,9 +30,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-04-14 17:11+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 16:32+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -825,11 +825,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Войти в Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Забыли его?"
-
 msgid "Signing in…"
 msgstr "Выполняется вход..."
+
+msgid "Forgotten it?"
+msgstr "Забыли его?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1425,6 +1425,9 @@ msgstr[3] ""
 msgid "Page types"
 msgstr "Типы страниц"
 
+msgid "All"
+msgstr "Все"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1441,6 +1444,18 @@ msgstr "Коллекция"
 
 msgid "No pages match this report's criteria."
 msgstr "Нет страниц удовлетворяющих критерию отчета."
+
+msgid "Download XLSX"
+msgstr "Скачать XLSX"
+
+msgid "Download CSV"
+msgstr "Скачать CSV"
+
+msgid "No pages found."
+msgstr "Страницы не найдены."
+
+msgid "Locking status"
+msgstr "Статус блокировки"
 
 #, python-format
 msgid ""

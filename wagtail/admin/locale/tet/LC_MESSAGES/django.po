@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 13:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -729,11 +729,11 @@ msgstr "Ita boot nia%(username_field)s ka seña laloos. Favor ida koko fali."
 msgid "Sign in to Wagtail"
 msgstr "Tama ba Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Haluha ida-neʼe?"
-
 msgid "Signing in…"
 msgstr "Tama hela..."
+
+msgid "Forgotten it?"
+msgstr "Haluha ida-neʼe?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."

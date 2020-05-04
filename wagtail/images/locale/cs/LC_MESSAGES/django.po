@@ -7,14 +7,14 @@
 # IT Management <info@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Marek Turnovec <aesculap@gmail.com>, 2016
-# Mirek Zvolský <zvolsky@seznam.cz>, 2019
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-03-06 01:19+0000\n"
-"Last-Translator: IT Management <info@itmanagement.cz>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-22 07:33+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -186,6 +186,38 @@ msgstr "Zvolte formát"
 msgid "Insert image"
 msgstr "Vložit obrázek"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Obrázek <span class=\"visuallyhidden"
+"\">vytvořený v %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Obrázky <span class=\"visuallyhidden"
+"\">vytvořené v %(site_name)s</span>\n"
+"    "
+msgstr[2] ""
+"\n"
+"        <span>%(total)s</span> Obrázků <span class=\"visuallyhidden"
+"\">vytvořených v %(site_name)s</span>\n"
+"    "
+msgstr[3] ""
+"\n"
+"        <span>%(total)s</span> Obrázků <span class=\"visuallyhidden"
+"\">vytvořených v %(site_name)s</span>\n"
+"    "
+
 msgid "Change image file:"
 msgstr "Změnit soubor obrázku:"
 
@@ -266,6 +298,9 @@ msgstr "Oblíbené štítky"
 
 msgid "Clear choice"
 msgstr "Zrušit výběr"
+
+msgid "pixels"
+msgstr "pixely"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

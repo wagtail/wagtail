@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-03-18 09:53+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 15:31+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -765,11 +765,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Bejelentkezés a Wagtail-be"
 
-msgid "Forgotten it?"
-msgstr "Elfelejtette?"
-
 msgid "Signing in…"
 msgstr "Belépés..."
+
+msgid "Forgotten it?"
+msgstr "Elfelejtette?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1309,6 +1309,9 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Oldal típusok"
 
+msgid "All"
+msgstr "Összes"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1327,8 +1330,52 @@ msgstr "Gyűjtemény"
 msgid "No pages match this report's criteria."
 msgstr "Egyetlen oldal sem felel meg a feltételeknek."
 
+msgid "Download XLSX"
+msgstr "XSLX letöltése"
+
+msgid "Download CSV"
+msgstr "CSV letöltése"
+
+msgid "No pages found."
+msgstr "Nincs megfelelő oldal."
+
+msgid "Locking status"
+msgstr "Zárolás státusz"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"Zárolta: <b>én</b>, ekkor: <b>%(locking_date)s</b>"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"Zárolta: <b>%(locked_by)s</b>, ekkor: <b>%(locking_date)s</b>"
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"Zárolva ekkor: <b>%(locking_date)s</b>"
+
 msgid "Locked"
 msgstr "Zárolt"
+
+msgid "No locked pages found."
+msgstr "Nincs zárolt oldal."
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1363,6 +1410,30 @@ msgstr "Oldal jelenlegi státusza:"
 
 msgid "Other searches"
 msgstr "További keresések"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"A jelenlegi böngészője <strong>nem támogatott</strong>. Kérjük <a href="
+"\"https://browsehappy.com/\">frissítse a böngészőjét</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"Az aminisztrációs felület működéséhez szükséges a Javascript futtatása, de "
+"ez jelenleg le van tiltva.<br />\n"
+"Kérjük <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" rel="
+"\"noopener noreferrer\">engedélyezze a Javascript futtatást böngészőjében</"
+"a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Wagtail admin felület megnyitása"
@@ -1464,6 +1535,20 @@ msgstr " '{0}' oldal létrehozva."
 msgid "The page could not be created due to validation errors"
 msgstr "Az oldal nem jött létre az űrlapon található hibák miatt"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr ""
+"<b>A(z) '{}' oldal zárolva van</b>, lezárta: <b>én</b>, időpont: <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>A(z) '{}' oldal zárolva van</b>, lezáró: <b>én</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr ""
+"<b>A(z) '{}' oldal zárolva van</b>, lezáró: <b>{}</b>, időpont: <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>A(z) '{}' oldal zárolva van</b>."
+
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "'{1}' oldal {0} verziójának közzététele időzítve lett."
 
@@ -1559,6 +1644,9 @@ msgstr "'{1}' {0}. verziója"
 
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "'{1}' {0}. verziójának időzítése visszavonva. "
+
+msgid "Locked Pages"
+msgstr "Zárolt oldalak"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1666,6 +1754,9 @@ msgstr "Áthúzott"
 
 msgid "Code"
 msgstr "Kód"
+
+msgid "Reports"
+msgstr "Kimutatások"
 
 msgid "Choose an item"
 msgstr "Elem kiválasztása"

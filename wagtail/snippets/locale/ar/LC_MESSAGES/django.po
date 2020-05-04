@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2020-04-09 11:10+0000\n"
 "Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
@@ -103,6 +103,9 @@ msgstr "قصاصات"
 msgid "Title"
 msgstr "عنوان"
 
+msgid "Edit"
+msgstr "تحرير"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -145,9 +148,6 @@ msgstr "حرر هذه الصفحة"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "بحث %(snippet_type_name)s"
-
-msgid "Edit"
-msgstr "تحرير"
 
 msgid "The snippet could not be created due to errors."
 msgstr "لم تنشئ القصااصة بسبب أخطاء"

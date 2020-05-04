@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Coen van der Kamp <cvanderkamp@gmail.com>, 2019
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2019-2020
 # Maarten Kling <kling.maarten@gmail.com>, 2017-2018
 # Thijs Kramer <thijskramer@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-10-16 21:52+0000\n"
+"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"PO-Revision-Date: 2020-04-21 21:09+0000\n"
 "Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -134,6 +134,12 @@ msgstr "Zoek naar"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Zoek %(name)s"
+
+msgid "Download XLSX"
+msgstr "Download XLSX"
+
+msgid "Download CSV"
+msgstr "Download CSV"
 
 msgid "Filter"
 msgstr "Filter"

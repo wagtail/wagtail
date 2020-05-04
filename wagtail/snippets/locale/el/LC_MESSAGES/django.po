@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -71,6 +71,9 @@ msgstr "Snippets"
 msgid "Title"
 msgstr "Τίτλος"
 
+msgid "Edit"
+msgstr "Επεξεργασία "
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -113,9 +116,6 @@ msgstr "Επεξεργασία αυτής της σελίδας"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "Αναζήτηση %(snippet_type_name)s"
-
-msgid "Edit"
-msgstr "Επεξεργασία "
 
 msgid "The snippet could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του snippet."

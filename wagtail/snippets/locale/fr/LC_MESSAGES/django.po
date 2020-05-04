@@ -7,8 +7,8 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loïc Teixeira, 2018,2020
-# Loïc Teixeira, 2018
+# Loic Teixeira, 2018,2020
+# Loic Teixeira, 2018
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2020-01-26 08:46+0000\n"
-"Last-Translator: Loïc Teixeira\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -136,6 +136,9 @@ msgstr "Titre"
 msgid "Select %(snippet)s"
 msgstr "Sélectionner %(snippet)s"
 
+msgid "Edit"
+msgstr "Modifier"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -182,9 +185,6 @@ msgstr "Rechercher %(snippet_type_name)s"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' créé(e)."
-
-msgid "Edit"
-msgstr "Modifier"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Le bloc ne peut être créé du fait d'erreurs."

@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-03-30 14:32+0000\n"
-"Last-Translator: Stefano Marchetto <airbatum@gmail.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -725,11 +725,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Loggati in Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Dimenticato?"
-
 msgid "Signing in…"
 msgstr "Autenticazione in corso..."
+
+msgid "Forgotten it?"
+msgstr "Dimenticato?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."

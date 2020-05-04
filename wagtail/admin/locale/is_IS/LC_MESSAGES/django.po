@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-25 11:08+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-22 10:32+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -773,11 +773,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Skrá inn í Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Búin(n) að gleyma því?"
-
 msgid "Signing in…"
 msgstr "Skrái inn..."
+
+msgid "Forgotten it?"
+msgstr "Búin(n) að gleyma því?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1333,6 +1333,9 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Síðutegundir"
 
+msgid "All"
+msgstr "Allt"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Því miður passa engar síður við <em>\"%(query_string)s\"</em>"
@@ -1348,6 +1351,18 @@ msgstr "Safn"
 
 msgid "No pages match this report's criteria."
 msgstr "Engar síður passa við forsendur þessarar skýrslu."
+
+msgid "Download XLSX"
+msgstr "Sækja XLSX"
+
+msgid "Download CSV"
+msgstr "Sækja CSV"
+
+msgid "No pages found."
+msgstr "Engar síður fundust."
+
+msgid "Locking status"
+msgstr "Staða á læsingu"
 
 #, python-format
 msgid ""

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-02-06 20:19+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 16:58+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -65,13 +65,13 @@ msgid "Checkboxes"
 msgstr "Флажки"
 
 msgid "Drop down"
-msgstr "Выпадающий"
+msgstr "Выпадающий список"
 
 msgid "Multiple select"
 msgstr "Множественный выбор"
 
 msgid "Radio buttons"
-msgstr "Радиокнопки"
+msgstr "Радио-кнопки"
 
 msgid "Date"
 msgstr "Дата"
@@ -123,13 +123,13 @@ msgid "help text"
 msgstr "текст подсказки"
 
 msgid "Submission date"
-msgstr "Дата добавлления"
+msgstr "Дата добавления"
 
 msgid "Form"
 msgstr "Форма"
 
 msgid "Landing page"
-msgstr "Посадочная страница"
+msgstr "Целевая страница"
 
 msgid "to address"
 msgstr "адрес назначения"
@@ -186,7 +186,7 @@ msgid "Total submissions"
 msgstr "Всего добавлений"
 
 msgid "Latest submission"
-msgstr "Псоледнее добавление"
+msgstr "Последнее добавление"
 
 msgid "Forms"
 msgstr "Формы"
@@ -204,6 +204,9 @@ msgstr "Данные формы <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "Фильтр"
+
+msgid "Download XLSX"
+msgstr "Скачать XLSX"
 
 msgid "Download CSV"
 msgstr "Скачать CSV"

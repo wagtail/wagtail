@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2019-11-07 12:50+0000\n"
 "Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -131,6 +131,9 @@ msgstr "Tittel"
 msgid "Select %(snippet)s"
 msgstr "Velg %(snippet)s"
 
+msgid "Edit"
+msgstr "Rediger"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -177,9 +180,6 @@ msgstr "Søk etter %(snippet_type_name)s"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s «%(instance)s» opprettet."
-
-msgid "Edit"
-msgstr "Rediger"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Snutten kunne ikke opprettes grunnet feil."

@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-02-13 21:09+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 15:59+0000\n"
 "Last-Translator: Oscar Luciano Espirilla Flores\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -777,11 +777,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Iniciar sesión en Wagtail"
 
-msgid "Forgotten it?"
-msgstr "¿La has olvidado?"
-
 msgid "Signing in…"
 msgstr "Iniciando sesión..."
+
+msgid "Forgotten it?"
+msgstr "¿La has olvidado?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1332,6 +1332,9 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Tipos de página"
 
+msgid "All"
+msgstr "Todo"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Lo sentimos, ninguna página contiene <em>\"%(query_string)s\"</em>"
@@ -1347,6 +1350,18 @@ msgstr "Colección"
 
 msgid "No pages match this report's criteria."
 msgstr "No existen páginas que concuerden con este criterio de reporte."
+
+msgid "Download XLSX"
+msgstr "Descargar XLSX"
+
+msgid "Download CSV"
+msgstr "Descargar CSV"
+
+msgid "No pages found."
+msgstr "No se encontraron páginas."
+
+msgid "Locking status"
+msgstr "Estado de bloqueo"
 
 #, python-format
 msgid ""

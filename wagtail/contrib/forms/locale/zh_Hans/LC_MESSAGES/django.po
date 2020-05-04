@@ -13,14 +13,14 @@
 # Aosp T, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017-2018
+# 汇民 王 <whuim@qq.com>, 2017-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 20:15+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 15:57+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -90,6 +90,9 @@ msgstr "提交时间"
 
 msgid "form submission"
 msgstr "提交表格"
+
+msgid "form submissions"
+msgstr "提交表单"
 
 msgid "label"
 msgstr "标签"
@@ -188,6 +191,9 @@ msgstr "表格数据 <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "过滤器"
+
+msgid "Download XLSX"
+msgstr "下载XLSX"
 
 msgid "Download CSV"
 msgstr "下载为CSV"

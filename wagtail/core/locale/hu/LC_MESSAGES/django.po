@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 15:33+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -160,6 +160,12 @@ msgstr "lejárt"
 msgid "locked"
 msgstr "zárolt"
 
+msgid "locked at"
+msgstr "zárolva ekkor: "
+
+msgid "locked by"
+msgstr "zároló: "
+
 msgid "first published at"
 msgstr "első közzététel időpontja"
 
@@ -240,6 +246,15 @@ msgstr "Oldalak törlése a gyermek oldalakkal együtt"
 
 msgid "Lock"
 msgstr "Zárolás"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Saját zárolt oldalaim feloldása"
+
+msgid "Unlock"
+msgstr "Felold"
+
+msgid "Unlock any page"
+msgstr "Bármely oldal feloldása"
 
 msgid "group"
 msgstr "csoport"

@@ -4,15 +4,16 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Ole Kristian Losvik <ole@losol.no>, 2020
 # Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2015
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-23 19:02+0000\n"
+"Last-Translator: Ole Kristian Losvik <ole@losol.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -75,6 +76,9 @@ msgstr "Skriv inn %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Skriv inn din e-postadresse for å nullstille passord"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme samling."
@@ -246,6 +250,12 @@ msgstr "Slovakisk"
 
 msgid "Thai"
 msgstr "Thai"
+
+msgid "Turkish"
+msgstr "Tyrkisk"
+
+msgid "Turkish (Turkey)"
+msgstr "Tyrkisk (Tyrkia)"
 
 msgid "Ukrainian"
 msgstr "Ukrainsk"
@@ -659,8 +669,17 @@ msgstr ""
 "Dette er kontrollpanelet ditt, hvor du kan se en oversikt over innholdet som "
 "er lagt inn."
 
+msgid "Your locked pages"
+msgstr "Dine låste sider"
+
+msgid "See all locked pages"
+msgstr "Se alle låste sider"
+
 msgid "Title"
 msgstr "Tittel"
+
+msgid "Locked at"
+msgstr "Låst den"
 
 msgid "Edit this page"
 msgstr "Redigér denne siden"
@@ -747,11 +766,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Logg inn på Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Glemt?"
-
 msgid "Signing in…"
 msgstr "Logger inn..."
+
+msgid "Forgotten it?"
+msgstr "Glemt?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -801,6 +820,30 @@ msgstr "Denne siden har blitt gjort privat av en foreldreside."
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Sidevernsendringer berører også alle undersider av denne siden."
+
+msgid "This page is locked"
+msgstr "Denne siden er låst."
+
+msgid "This page is unlocked"
+msgstr "Siden er ulåst"
+
+msgid "Remove editor lock"
+msgstr "Fjern redigeringslås"
+
+msgid "Unlock"
+msgstr "Lås opp"
+
+msgid "You don't have permission to unlock"
+msgstr "Du mangler rettigheter til å låse opp siden"
+
+msgid "Apply editor lock"
+msgstr "Slå på redigeringslås"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "You don't have permission to lock"
+msgstr "Du har ikke rettigheter til å låse siden"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Sett sidevern. Nåværende status: Offentlig"
@@ -1281,6 +1324,9 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Sidetyper"
 
+msgid "All"
+msgstr "Alle"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Beklager, ingen sider samsvarer med <em>\"%(query_string)s\"</em>"
@@ -1294,8 +1340,59 @@ msgstr "Ingen sider bruker"
 msgid "Collection"
 msgstr "Samling"
 
+msgid "No pages match this report's criteria."
+msgstr "Ingen sider passer med denne rapportens kriterier."
+
+msgid "Download XLSX"
+msgstr "Last ned XLSX"
+
+msgid "Download CSV"
+msgstr "Last ned CSV"
+
+msgid "No pages found."
+msgstr "Ingen sider funnet."
+
+msgid "Locking status"
+msgstr "Låsestatus"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Låst av <b>deg</b> <b>%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Låst av <b>%(locked_by)s</b> <b>"
+"%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"                            Låst den <b>%(locking_date)s</b>\n"
+"                        "
+
 msgid "Locked"
 msgstr "Låst"
+
+msgid "No locked pages found."
+msgstr "Ingen låste sider funnet."
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1330,6 +1427,31 @@ msgstr "Nåværende sidestatus:"
 
 msgid "Other searches"
 msgstr "Andre søk"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Du bruker en <strong>utdatert</strong> nettleser som ikke støttes. Vennligst "
+"<a href=\"https://browsehappy.com/\">oppgrader nettleseren din</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Javascript er påkrevd for å bruke Wagtail, men er deaktivert."
+"<br />\n"
+"            Her finner du <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instruksjoner for å aktivere "
+"JavaScript i nettleseren din.</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Gå til Wagtail administrasjonsgrensesnitt"
@@ -1431,6 +1553,18 @@ msgstr "Siden \"{0}\" er opprettet."
 msgid "The page could not be created due to validation errors"
 msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Siden '{}' ble låst</b> av <b>deg</b> den <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "Siden '{}' er låst</b> av <b>deg</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Siden '{}' ble låst</b> av <b>{}</b> den <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Siden '{}' er låst</b>."
+
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revisjonen fra {0} av siden «{1}» har blitt planlagt for publisering."
 
@@ -1527,6 +1661,9 @@ msgstr "revisjon {0} av \"{1}\""
 
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Revisjon {0} av \"{1}\" avbrutt."
+
+msgid "Locked Pages"
+msgstr "Låste sider"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1634,6 +1771,9 @@ msgstr "Gjennomstreking"
 
 msgid "Code"
 msgstr "Kode"
+
+msgid "Reports"
+msgstr "Rapporter"
 
 msgid "Choose an item"
 msgstr "Velg et element"

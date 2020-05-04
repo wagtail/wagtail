@@ -10,13 +10,14 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
+# sergeybe <sergeybe@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2019-12-11 10:44+0000\n"
-"Last-Translator: Mikhail Sidorov <pevzi23@gmail.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 16:39+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -44,11 +45,11 @@ msgid "Settings"
 msgstr "Настройки"
 
 msgid "This setting could not be opened because there is no site defined."
-msgstr "Настройка не может быть открыта так как сайт не определён."
+msgstr "Эта настройка не может быть открыта так как сайт не определён."
 
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr "%(setting_type)s обновлено."
 
 msgid "The setting could not be saved due to errors."
-msgstr "Настройки не могут быть сохранены из-за ошибок."
+msgstr "Эта настройка не может быть сохранены из-за ошибок."

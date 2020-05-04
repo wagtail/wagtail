@@ -14,15 +14,15 @@
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
 # yi huang <yi.codeplayer@gmail.com>, 2018
 # jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017-2019
+# 汇民 王 <whuim@qq.com>, 2017-2020
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 15:55+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -85,6 +85,9 @@ msgstr "输入你的 %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "输入邮件地址以重置密码"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "对于同一个集合你不能设置多重权限"
@@ -249,6 +252,12 @@ msgstr "斯洛伐克语"
 
 msgid "Thai"
 msgstr "泰语"
+
+msgid "Turkish"
+msgstr "土耳其语"
+
+msgid "Turkish (Turkey)"
+msgstr "土耳其语（土耳其）"
 
 msgid "Ukrainian"
 msgstr "乌克兰语"
@@ -643,8 +652,17 @@ msgid ""
 "created will be displayed."
 msgstr "这是您的主控台，将会显示您创建的内容的帮助信息。"
 
+msgid "Your locked pages"
+msgstr "你锁定的页面"
+
+msgid "See all locked pages"
+msgstr "查看所有已锁定的页面"
+
 msgid "Title"
 msgstr "标题"
+
+msgid "Locked at"
+msgstr "锁定于"
 
 msgid "Edit this page"
 msgstr "编辑此页"
@@ -724,11 +742,11 @@ msgstr "用户 %(username_field)s 密码不匹配，请重试"
 msgid "Sign in to Wagtail"
 msgstr "登录Wagtail"
 
-msgid "Forgotten it?"
-msgstr "不记得了？"
-
 msgid "Signing in…"
 msgstr "正在登录..."
+
+msgid "Forgotten it?"
+msgstr "不记得了？"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -778,6 +796,30 @@ msgstr "此页面已被父节点设置为私有。"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "私有设置也会应用到此页面的所有子页面。"
+
+msgid "This page is locked"
+msgstr "此页面已锁定"
+
+msgid "This page is unlocked"
+msgstr "此页面已解锁"
+
+msgid "Remove editor lock"
+msgstr "移除编辑锁定"
+
+msgid "Unlock"
+msgstr "解锁"
+
+msgid "You don't have permission to unlock"
+msgstr "你没有权限解锁"
+
+msgid "Apply editor lock"
+msgstr "应用编辑锁定"
+
+msgid "Lock"
+msgstr "锁定"
+
+msgid "You don't have permission to lock"
+msgstr "你没有权限锁定"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "设置页面的隐私状态。当前状态：公开"
@@ -1222,6 +1264,9 @@ msgstr[0] ""
 msgid "Page types"
 msgstr "页面类型"
 
+msgid "All"
+msgstr "所有"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "对不起，没有符合<em>\"%(query_string)s\"</em>的页面"
@@ -1235,8 +1280,59 @@ msgstr "没有页面使用"
 msgid "Collection"
 msgstr "集合"
 
+msgid "No pages match this report's criteria."
+msgstr "没有页面符合此报告的条件。"
+
+msgid "Download XLSX"
+msgstr "下载XLSX"
+
+msgid "Download CSV"
+msgstr "下载CSV"
+
+msgid "No pages found."
+msgstr "找不到页面。"
+
+msgid "Locking status"
+msgstr "锁定状态"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                被 <b>你</b> 锁定于<b>%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                被 <b>%(locked_by)s</b> 锁定于 <b>"
+"%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"                            锁定于 <b>%(locking_date)s</b>\n"
+"                        "
+
 msgid "Locked"
 msgstr "已锁定"
+
+msgid "No locked pages found."
+msgstr "找不到已锁定的页面。"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1271,6 +1367,30 @@ msgstr "当前页面状态："
 
 msgid "Other searches"
 msgstr "其它搜索"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"您正在使用一个本软件不支持的<strong>过期的</strong> 浏览器。请 <a href="
+"\"https://browsehappy.com/\">更新浏览器</a>。"
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            使用 Wagtail 需要JavaScript支持，但是当前已被禁用。<br />\n"
+"            请查看 <a href=\"https://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">操作指导：如何在你的浏览器中启用 "
+"JavaScript</a>。\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "转到管理界面"
@@ -1368,6 +1488,18 @@ msgstr "页面'{0}'已创建"
 msgid "The page could not be created due to validation errors"
 msgstr "验证错误，页面无法创建。"
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>页面 '{}' </b> 已被 <b>你</b> 锁定于<b>{}</b>。"
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>页面 '{}'</b> 已被<b>你</b>锁定。"
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>页面 '{}' </b> 已被 <b>{}</b> 锁定于<b>{}</b>。"
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>页面 '{}' 已被锁定</b>。"
+
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "页面 {1} 的版本 {0} 正在计划发布中。"
 
@@ -1461,6 +1593,9 @@ msgstr " \"{1}\"的修订版本{0}"
 
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr " \"{1}\"的修订版本{0}已取消预定的发布。"
+
+msgid "Locked Pages"
+msgstr "已锁定的页面"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1568,6 +1703,9 @@ msgstr "中划线"
 
 msgid "Code"
 msgstr "代码"
+
+msgid "Reports"
+msgstr "报告"
 
 msgid "Choose an item"
 msgstr "选择一项"

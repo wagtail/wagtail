@@ -6,14 +6,14 @@
 # IT Management <info@itmanagement.cz>, 2018
 # IT Management <info@itmanagement.cz>, 2020
 # Marek Turnovec <aesculap@gmail.com>, 2016
-# Mirek Zvolský <zvolsky@seznam.cz>, 2019
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-03-06 01:59+0000\n"
-"Last-Translator: IT Management <info@itmanagement.cz>\n"
+"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"PO-Revision-Date: 2020-04-22 07:34+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -138,6 +138,12 @@ msgstr "Hledat.."
 msgid "Search %(name)s"
 msgstr "Hledat %(name)s"
 
+msgid "Download XLSX"
+msgstr "Stáhnout XLSX"
+
+msgid "Download CSV"
+msgstr "Stáhnout CSV"
+
 msgid "Filter"
 msgstr "Filtr"
 
@@ -183,6 +189,10 @@ msgid "Next"
 msgstr "Další"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' vytvořeno."
+
+#, python-format
 msgid "The %s could not be created due to errors."
 msgstr " %s nemohlo být vytvořeno kvůli chybám."
 
@@ -201,6 +211,10 @@ msgid "Editing %s"
 msgstr "Editování %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' aktualizováno."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s nemohlo být uloženo kvůli chybám."
 
@@ -215,6 +229,10 @@ msgid ""
 msgstr ""
 "Jste si jistý/á, že chcete zrušit %s? Jestliže se k tomu vztahují další věci "
 "na Vašem webu, mohou být rovněž ovlivněny."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' zrušeno."
 
 msgid "Inspecting"
 msgstr "Prohlíží se.."

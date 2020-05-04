@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
 "PO-Revision-Date: 2019-10-16 17:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -110,6 +110,9 @@ msgstr "片段"
 msgid "Title"
 msgstr "標題"
 
+msgid "Edit"
+msgstr "編輯"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -152,9 +155,6 @@ msgstr "編輯頁面"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "尋找 %(snippet_type_name)s"
-
-msgid "Edit"
-msgstr "編輯"
 
 msgid "The snippet could not be created due to errors."
 msgstr "無法創建片段，出現錯誤。"

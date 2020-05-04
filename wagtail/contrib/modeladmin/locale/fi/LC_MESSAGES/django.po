@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-04-18 17:17+0000\n"
+"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"PO-Revision-Date: 2020-04-22 07:46+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -134,6 +134,12 @@ msgstr "Hae…"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Hae %(name)s"
+
+msgid "Download XLSX"
+msgstr "Hae XLSX"
+
+msgid "Download CSV"
+msgstr "Hae CSV"
 
 msgid "Filter"
 msgstr "Suodatin"

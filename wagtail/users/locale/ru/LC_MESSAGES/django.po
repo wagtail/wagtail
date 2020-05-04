@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-02-06 18:56+0000\n"
+"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"PO-Revision-Date: 2020-04-21 17:40+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -195,7 +195,7 @@ msgid "Permissions"
 msgstr "Разрешения"
 
 msgid "Object permissions"
-msgstr "Разрешения на объекты"
+msgstr "Разрешения объекта"
 
 msgid "Name"
 msgstr "Имя"
@@ -229,7 +229,7 @@ msgstr "Добавить группу"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
-msgstr "Извините, подходящих страниц не найдено \"%(query)s\""
+msgstr "Извините, подходящих групп не найдено \"%(query)s\""
 
 #, python-format
 msgid ""
@@ -310,14 +310,15 @@ msgstr[3] ""
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Извините, пользователей, подходящих \"<em>%(query_string)s</em>\", не найдено"
+"Извините, не найдены пользователи удовлетворяющие условию \"<em>"
+"%(query_string)s</em>\""
 
 #, python-format
 msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
 "\">add some</a>?"
 msgstr ""
-"Нету настроенных пользователей. Почему бы не <a href="
+"Нет настроенных пользователей. Почему бы не <a href="
 "\"%(wagtailusers_create_url)s\">добавить</a>?"
 
 msgid "Groups"

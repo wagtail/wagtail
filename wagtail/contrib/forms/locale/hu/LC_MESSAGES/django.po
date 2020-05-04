@@ -4,16 +4,16 @@
 #
 # Translators:
 # B N <biczoxd@gmail.com>, 2018
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 20:15+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-21 15:33+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +84,9 @@ msgstr "Beküldés ideje"
 
 msgid "form submission"
 msgstr "Form beküldés"
+
+msgid "form submissions"
+msgstr "űrlap beküldések"
 
 msgid "label"
 msgstr "címke"
@@ -189,6 +192,9 @@ msgstr "Űrlap adatok <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "Szűrő"
+
+msgid "Download XLSX"
+msgstr "XLSX letöltése"
 
 msgid "Download CSV"
 msgstr "CSV letöltése"

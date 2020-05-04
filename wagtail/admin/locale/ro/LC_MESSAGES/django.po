@@ -4,14 +4,14 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2019
+# Dan Braghis, 2014-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-23 09:35+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -75,6 +75,9 @@ msgstr "Introduceți %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Introduceți adresa de e-mail pentru a reseta parola"
+
+msgid "URL"
+msgstr "Adresă de internet"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -195,6 +198,9 @@ msgstr "Franceză"
 msgid "Galician"
 msgstr "Galiciană"
 
+msgid "Hungarian"
+msgstr "Ungară"
+
 msgid "Indonesian"
 msgstr "Indoneză"
 
@@ -248,6 +254,12 @@ msgstr "Slovacă"
 
 msgid "Thai"
 msgstr "Tailandeză"
+
+msgid "Turkish"
+msgstr "Turcă"
+
+msgid "Turkish (Turkey)"
+msgstr "Turcă (Turcia)"
 
 msgid "Ukrainian"
 msgstr "ucraineană"
@@ -324,6 +336,12 @@ msgstr "Închideți"
 
 msgid "Edit '{title}'"
 msgstr "Editează '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "Vezi paginile dependente de '{title}'"
+
+msgid "Page explorer"
+msgstr "Explorator de pagini"
 
 msgid "January"
 msgstr "Ianuarie"
@@ -521,6 +539,12 @@ msgstr "Link extern"
 msgid "Email link"
 msgstr "Link e-mail"
 
+msgid "Phone link"
+msgstr "Link telefonic"
+
+msgid "Anchor link"
+msgstr "Link de ancorare"
+
 #, python-format
 msgid ""
 "\n"
@@ -542,6 +566,12 @@ msgstr[2] ""
 "\n"
 "        Sunt %(counter)s potriviri\n"
 "    "
+
+msgid "Add an anchor link"
+msgstr "Adaugă link de ancorare"
+
+msgid "Insert anchor"
+msgstr "Adaugă ancoră"
 
 msgid "Choose"
 msgstr "Alege"
@@ -582,6 +612,9 @@ msgstr "Inserează link"
 msgid "Add an external link"
 msgstr "Adaugă un link extern"
 
+msgid "Add a phone link"
+msgstr "Adaugă link telefonic"
+
 msgid "Collection privacy"
 msgstr "Confidențialitate colecție"
 
@@ -603,8 +636,14 @@ msgstr "Salvează"
 msgid "Privacy"
 msgstr "Confidențialitate"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Setați confidențialitatea colecției. Starea actuală: Public"
+
 msgid "Public"
 msgstr "Public"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Setați confidențialitatea colecției. Starea actuală: Privat"
 
 msgid "Private"
 msgstr "Privat"
@@ -640,8 +679,17 @@ msgid ""
 "created will be displayed."
 msgstr "Aici va fi afișată informație utilă despre conținutul creat de dvs."
 
+msgid "Your locked pages"
+msgstr "Paginile Dvs. blocate"
+
+msgid "See all locked pages"
+msgstr "Vezi toate paginile blocate"
+
 msgid "Title"
 msgstr "Titlu"
+
+msgid "Locked at"
+msgstr "Blocat la"
 
 msgid "Edit this page"
 msgstr "Editează această pagină"
@@ -733,11 +781,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Conectați-vă la Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Ați uitat?"
-
 msgid "Signing in…"
 msgstr "În curs de conectare…"
+
+msgid "Forgotten it?"
+msgstr "Ați uitat?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -791,8 +839,35 @@ msgstr ""
 "Schimbările setărilor de confidențialitate se aplică și pentru toate "
 "paginile descendente."
 
+msgid "This page is locked"
+msgstr "Această pagină este blocată"
+
+msgid "This page is unlocked"
+msgstr "Acestă pagină este deblocată"
+
+msgid "Remove editor lock"
+msgstr "Elimină blocul editorial"
+
+msgid "Unlock"
+msgstr "Deblochează"
+
+msgid "You don't have permission to unlock"
+msgstr "Nu aveți permisiunea de a debloca"
+
+msgid "Apply editor lock"
+msgstr "Aplică bloc editorial"
+
+msgid "Lock"
+msgstr "Blochează"
+
+msgid "You don't have permission to lock"
+msgstr "Nu aveți permisiunea de a bloca"
+
 msgid "Set page privacy. Current status: Public"
 msgstr "Setați confidențialitatea paginii. Starea actuală: Public"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Setați confidențialitatea paginii. Starea actuală: Privat"
 
 msgid "Page privacy. Current status: Public"
 msgstr "Confidențialitatea paginii. Starea actuală: Public"
@@ -1282,6 +1357,9 @@ msgstr[2] ""
 msgid "Page types"
 msgstr "Tipuri pagini"
 
+msgid "All"
+msgstr "Toate"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1296,8 +1374,60 @@ msgstr "Nici o pagină nu utilizează"
 msgid "Collection"
 msgstr "Colecție"
 
+msgid "No pages match this report's criteria."
+msgstr "Nici o pagină nu corespunde criteriilor acestui raport."
+
+msgid "Download XLSX"
+msgstr "Descarcă XLSX"
+
+msgid "Download CSV"
+msgstr "Descarcă CSV"
+
+msgid "No pages found."
+msgstr "Nu s-au găsit pagini."
+
+msgid "Locking status"
+msgstr "Stare blocare"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Blocat de <b>tine</b> la <b>"
+"%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Blocat de <b>%(locked_by)s</b> la <b>"
+"%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"                            Blocat la <b>%(locking_date)s</b>\n"
+"                        "
+
 msgid "Locked"
 msgstr "Blocat"
+
+msgid "No locked pages found."
+msgstr "Nu s-au găsit pagini blocate."
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1333,6 +1463,32 @@ msgstr "Starea paginii curente:"
 msgid "Other searches"
 msgstr "Alte căutări"
 
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Folosiți un browser web <strong>învechit</strong> care nu este suportat de "
+"această aplicație. Vă rugăm să <a href=\"https://browsehappy.com/"
+"\">actualizați browser-ul Dvstră</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtail are nevoie de Javascript, care în prezent e deactivat."
+"<br />\n"
+"            Vezi <a href=\"https://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">instrucțiuni de activare JavaScript "
+"în web browser-ul Dvs</a>.\n"
+"        "
+
 msgid "Go to Wagtail admin interface"
 msgstr "Spre interfața de administrare Wagtail"
 
@@ -1341,6 +1497,22 @@ msgstr "Adaugă o pagină dependentă"
 
 msgid "Show in Explorer"
 msgstr "Arată în Explorator"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Sortează paginile descente din '%(parent)s' după '%(label)s' în ordine "
+"crescătoare."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Sortează paginile descente din '%(parent)s' după '%(label)s' în ordine "
+"decrescătoare."
 
 msgid "Test"
 msgstr "Test"
@@ -1417,6 +1589,18 @@ msgstr "Pagina '{0}' a fost creată."
 msgid "The page could not be created due to validation errors"
 msgstr "Pagina nu a fost creată din cauza erorilor de validare."
 
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Pagina '{}' a fost blocată</b> de <b>tine</b> la <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Pagina '{}' esta blocată</b> de <b>tine</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Pagina '{}' a fost blocată</b> de <b>{}</b> la <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Pagina '{}' este blocată</b>."
+
 msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Revizia din {0} a paginii '{1}' a fost programată pentru publicare."
 
@@ -1459,6 +1643,13 @@ msgstr "Pagina '{0}' a fost ștearsă."
 
 msgid "Page '{0}' unpublished."
 msgstr "Publicare anulată pentru pagina '{0}'."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Acest slug '{0}' este deja folosit în contextul paginii părinte. Asigurați-"
+"vă ca slug-ul este unic și încercați din nou"
 
 msgid "Page '{0}' moved."
 msgstr "Pagina '{0}' a fost mutată."
@@ -1507,9 +1698,24 @@ msgstr "revizia {0} pentru \"{1}\""
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr "Programare anulată pentru revizia {0} a \"{1}\""
 
+msgid "Locked Pages"
+msgstr "Pagini blocate"
+
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Editează '%(title)s'"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Previzualizează versiunea ciornă a '%(title)s'"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Vezi versiunea live a '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Adaugă o pagină dependentă de '%(title)s'"
 
 msgid "More"
 msgstr "Mai mult"
@@ -1533,6 +1739,10 @@ msgstr "Șterge pagina '%(title)s'"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Pagină nepublicată '%(title)s'"
+
+#, python-format
+msgid "View revision history for '%(title)s'"
+msgstr "Vezi istoria reviziilor pentru '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Setează poză profil"
@@ -1574,6 +1784,9 @@ msgstr "Listă cu puncte"
 msgid "Numbered list"
 msgstr "Listă numerotată"
 
+msgid "Blockquote"
+msgstr "Citat"
+
 msgid "Bold"
 msgstr "Caractere aldine"
 
@@ -1582,6 +1795,21 @@ msgstr "Cursiv"
 
 msgid "Link"
 msgstr "Legătură"
+
+msgid "Superscript"
+msgstr "Superscript"
+
+msgid "Subscript"
+msgstr "Subscript"
+
+msgid "Strikethrough"
+msgstr "Text tăiat"
+
+msgid "Code"
+msgstr "Cod"
+
+msgid "Reports"
+msgstr "Rapoarte"
 
 msgid "Choose an item"
 msgstr "Alege un element"

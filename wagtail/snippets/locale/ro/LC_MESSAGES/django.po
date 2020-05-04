@@ -5,15 +5,15 @@
 # Translators:
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2019
+# Dan Braghis, 2014-2020
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2019-12-04 01:41+0000\n"
-"Last-Translator: Bogdan Mateescu\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-23 08:36+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -127,12 +127,19 @@ msgstr "Utilizare"
 msgid "Snippets"
 msgstr "Fragmente"
 
+#, python-format
+msgid "Select all %(snippet_type_name_plural)s"
+msgstr "Selectează toate %(snippet_type_name_plural)s"
+
 msgid "Title"
 msgstr "Titlu"
 
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "Selectează %(snippet)s"
+
+msgid "Edit"
+msgstr "Editează"
 
 #, python-format
 msgid ""
@@ -177,14 +184,23 @@ msgstr "Editează această pagină"
 msgid "Search %(snippet_type_name)s"
 msgstr "Caută %(snippet_type_name)s"
 
-msgid "Edit"
-msgstr "Editează"
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created."
+msgstr "%(snippet_type)s '%(instance)s' a fost creat(ă)."
 
 msgid "The snippet could not be created due to errors."
 msgstr "Fragmentul nu a fost creat din cauza erorilor."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' updated."
+msgstr "%(snippet_type)s '%(instance)s' a fost actualizat(ă)."
+
 msgid "The snippet could not be saved due to errors."
 msgstr "Fragmentul nu a fost salvat din cauza erorilor."
+
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' a fost eliminat(ă)."
 
 #, python-format
 msgid "%(count)d %(snippet_type)s deleted."

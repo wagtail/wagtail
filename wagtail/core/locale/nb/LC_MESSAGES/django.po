@@ -4,14 +4,15 @@
 #
 # Translators:
 # Eirik Krogstad <eirikkr@gmail.com>, 2015
+# Ole Kristian Losvik <ole@losol.no>, 2020
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2016-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-04-21 14:49+0100\n"
+"PO-Revision-Date: 2020-04-23 13:27+0000\n"
+"Last-Translator: Ole Kristian Losvik <ole@losol.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -158,6 +159,12 @@ msgstr "avpublisert"
 msgid "locked"
 msgstr "låst"
 
+msgid "locked at"
+msgstr "låst den"
+
+msgid "locked by"
+msgstr "låst av"
+
 msgid "first published at"
 msgstr "først publisert"
 
@@ -238,6 +245,15 @@ msgstr "Slett sider med undersider"
 
 msgid "Lock"
 msgstr "Lås"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Lås/lås opp sider som du har låst"
+
+msgid "Unlock"
+msgstr "Lås opp"
+
+msgid "Unlock any page"
+msgstr "Lås opp hvilken som helst side"
 
 msgid "group"
 msgstr "gruppe"
