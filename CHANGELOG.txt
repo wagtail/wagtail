@@ -78,6 +78,12 @@ Changelog
  * Fix: Fixed incorrect language code for Japanese in language setting dropdown (Tomonori Tanabe)
 
 
+2.8.2 (04.05.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2020-11037 - avoid potential timing attack on password-protected private pages (Thibaud Colas)
+
+
 2.8.1 (14.04.2020)
 ~~~~~~~~~~~~~~~~~~
 
