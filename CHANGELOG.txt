@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.9 (xx.xx.xxxx) - IN DEVELOPMENT
+2.9 (04.05.2020)
 ~~~~~~~~~~~~~~~~
 
  * Removed support for Django 2.1
