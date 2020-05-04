@@ -52,6 +52,7 @@ Changelog
  * Add caching of image renditions (Tom Dyson, Tim Kamanin)
  * Add documentation for reporting security issues and internationalisation (Matt Westcott)
  * Fields on a custom image model can now be defined as required `blank=False` (Matt Westcott)
+ * Fix: CVE-2020-11037 - avoid potential timing attack on password-protected private pages (Thibaud Colas)
  * Fix: Added ARIA alert role to live search forms in the admin (Casper Timmers)
  * Fix: Reorder login form elements to match expected tab order (Kjartan Sverrisson)
  * Fix: Re-add 'Close Explorer' button on mobile viewports (Sævar Öfjörð Magnússon)
