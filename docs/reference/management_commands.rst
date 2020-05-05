@@ -48,6 +48,20 @@ Options:
    This is the **id** of the page to move pages to.
 
 
+.. _purge_revisions:
+
+purge_revisions
+---------------
+
+.. code-block:: console
+
+    $ manage.py purge_revisions [--days=<number of days>]
+
+This command deletes old page revisions which are not in moderation, live, approved to go live, or the latest
+revision for a page. If the ``days`` argument is supplied, only revisions older than the specified number of
+days will be deleted.
+
+
 .. _update_index:
 
 update_index
