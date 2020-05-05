@@ -39,7 +39,7 @@ def purge_revisions(days=None):
         purgable_revisions = purgable_revisions.exclude(
             # and exclude revisions linked to an in progress workflow state
             task_states__workflow_state__status=WorkflowState.STATUS_IN_PROGRESS
-            )
+        )
 
     if days:
         purgable_until = timezone.now() - timezone.timedelta(days=days)
@@ -55,4 +55,3 @@ def purge_revisions(days=None):
             deleted_revisions_count += 1
 
     return deleted_revisions_count
-    
