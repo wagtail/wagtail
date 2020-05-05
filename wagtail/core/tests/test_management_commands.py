@@ -422,8 +422,3 @@ class TestPurgeRevisionsCommand(TestCase):
 
         # revision is now older than 30 days, so should be deleted
         self.assertNotIn(old_revision, PageRevision.objects.filter(page=self.page))
-
-
-
-
-
