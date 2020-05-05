@@ -14,7 +14,7 @@ from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
 from django.db.models import Case, Q, Value, When
-from django.db.models.functions import Concat, Substr
+from django.db.models.functions import Concat, Lower, Substr
 from django.http import Http404
 from django.http.request import split_domain_port
 from django.template.response import TemplateResponse
@@ -42,6 +42,9 @@ PAGE_TEMPLATE_VAR = 'page'
 
 
 class SiteManager(models.Manager):
+    def get_queryset(self):
+        return super(SiteManager, self).get_queryset().order_by(Lower("hostname"))
+
     def get_by_natural_key(self, hostname, port):
         return self.get(hostname=hostname, port=port)
 

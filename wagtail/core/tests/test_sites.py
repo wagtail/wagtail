@@ -56,6 +56,30 @@ class TestSiteNameDisplay(TestCase):
         self.assertEqual(site.__str__(), 'example.com:8080 [default]')
 
 
+class TestSiteOrdering(TestCase):
+    def setUp(self):
+        self.root_page = Page.objects.get(pk=2)
+        Site.objects.all().delete()  # Drop the initial site.
+
+    def test_site_order_by_hostname(self):
+        site_1 = Site.objects.create(hostname='charly.com', root_page=self.root_page)
+        site_2 = Site.objects.create(hostname='bravo.com', root_page=self.root_page)
+        site_3 = Site.objects.create(hostname='alfa.com', root_page=self.root_page)
+        self.assertEqual(list(Site.objects.all().values_list("id", flat=True)), [site_3.id, site_2.id, site_1.id])
+
+    def test_site_order_by_hostname_upper(self):
+        site_1 = Site.objects.create(hostname='charly.com', root_page=self.root_page)
+        site_2 = Site.objects.create(hostname='Bravo.com', root_page=self.root_page)
+        site_3 = Site.objects.create(hostname='alfa.com', root_page=self.root_page)
+        self.assertEqual(list(Site.objects.all().values_list("id", flat=True)), [site_3.id, site_2.id, site_1.id])
+
+    def test_site_order_by_hostname_site_name_irrelevant(self):
+        site_1 = Site.objects.create(hostname='charly.com', site_name='X-ray', root_page=self.root_page)
+        site_2 = Site.objects.create(hostname='bravo.com', site_name='Yankee', root_page=self.root_page)
+        site_3 = Site.objects.create(hostname='alfa.com', site_name='Zulu', root_page=self.root_page)
+        self.assertEqual(list(Site.objects.all().values_list("id", flat=True)), [site_3.id, site_2.id, site_1.id])
+
+
 @override_settings(ALLOWED_HOSTS=['example.com', 'unknown.com', '127.0.0.1', '[::1]'])
 class TestFindSiteForRequest(TestCase):
     def setUp(self):

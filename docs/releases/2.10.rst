@@ -26,6 +26,7 @@ Other features
  * Add ``after_publish_page``, ``before_publish_page``, ``after_unpublish_page`` & ``before_unpublish_page`` hooks (Jonatas Baldin, Coen van der Kamp)
  * Add convenience ``page_url`` shortcut to improve how page URLs can be accessed from site settings in Django templates (Andy Babic)
  * Show more granular error messages from Pillow when uploading images (Rick van Hattem)
+ * Add ordering to ``Site`` object, so that index page and ``Site`` switcher will be sorted consistently (Coen van der Kamp, Tim Leguijt)
 
 
 Bug fixes
