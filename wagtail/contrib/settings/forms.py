@@ -17,9 +17,17 @@ class SiteSwitchForm(forms.Form):
     def __init__(self, current_site, model, **kwargs):
         initial_data = {'site': self.get_change_url(current_site, model)}
         super().__init__(initial=initial_data, **kwargs)
-        sites = [(self.get_change_url(site, model), site)
-                 for site in Site.objects.all()]
-        self.fields['site'].choices = sites
+        self.fields["site"].choices = [
+            (
+                self.get_change_url(site, model),
+                (
+                    site.hostname + " [default]"
+                    if site.is_default_site
+                    else site.hostname
+                ),
+            )
+            for site in Site.objects.all()
+        ]
 
     @classmethod
     def get_change_url(cls, site, model):
