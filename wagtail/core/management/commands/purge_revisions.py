@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from wagtail.core.models import Page, PageRevision
+from wagtail.core.models import PageRevision
 
 try:
     from wagtail.core.models import WorkflowState
@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         days = options.get('days')
-        
+
         revisions_deleted = purge_revisions(days=days)
 
         if revisions_deleted:
@@ -37,9 +37,9 @@ def purge_revisions(days=None):
 
     if workflow_support:
         purgable_revisions = purgable_revisions.exclude(
-        # and exclude revisions linked to an in progress workflow state
-        task_states__workflow_state__status=WorkflowState.STATUS_IN_PROGRESS
-    )
+            # and exclude revisions linked to an in progress workflow state
+            task_states__workflow_state__status=WorkflowState.STATUS_IN_PROGRESS
+            )
 
     if days:
         purgable_until = timezone.now() - timezone.timedelta(days=days)
@@ -55,3 +55,4 @@ def purge_revisions(days=None):
             deleted_revisions_count += 1
 
     return deleted_revisions_count
+    

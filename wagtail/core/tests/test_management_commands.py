@@ -352,7 +352,7 @@ class TestPurgeRevisionsCommand(TestCase):
 
     def run_command(self, days=None):
         if days:
-            days_input = '--days='+str(days)
+            days_input = '--days=' + str(days)
             return management.call_command('purge_revisions', days_input, stdout=StringIO())
         return management.call_command('purge_revisions', stdout=StringIO())
 
@@ -380,7 +380,7 @@ class TestPurgeRevisionsCommand(TestCase):
         self.assertTrue(PageRevision.objects.filter(page=self.page, submitted_for_moderation=True).exists())
 
         try:
-            from wagtail.core.models import Task, TaskState, Workflow, WorkflowState, WorkflowTask
+            from wagtail.core.models import Task, Workflow, WorkflowTask
             workflow = Workflow.objects.create(name='test_workflow')
             task_1 = Task.objects.create(name='test_task_1')
             user = get_user_model().objects.first()
