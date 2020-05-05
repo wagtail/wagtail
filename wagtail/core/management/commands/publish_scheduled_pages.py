@@ -21,7 +21,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
             '--dryrun', action='store_true', dest='dryrun', default=False,
-            help="Dry run -- dont't change anything.")
+            help="Dry run -- don't change anything.")
 
     def handle(self, *args, **options):
         dryrun = False
