@@ -652,6 +652,13 @@ vidyard = {
     ]
 }
 
+reddit = {
+    'endpoint': 'https://www.reddit.com/oembed',
+    'urls': [
+        '^http(?:s)?://(?:www\\.)?reddit\\.com/r/+[^#?/]+/comments/+[^#?/]+[^#?/].+$',
+    ]
+}
+
 all_providers = [
     speakerdeck, app_net, youtube, deviantart, blip_tv, dailymotion, flikr,
     hulu, nfb, qik, revision3, scribd, viddler, vimeo, dotsub, yfrog,
@@ -664,5 +671,6 @@ all_providers = [
     circuitlab, geograph_uk, hlipp, geograph_gg, vzaar, minoto, videojug, sapo,
     vhx_tv, justin_tv, official_fm, huffduffer, spotify, shoudio, mobypicture,
     twenty_three_hq, gmep, urtak, cacoo, dailymile, dipity, sketchfab, meetup,
-    roomshare, crowd_ranking, etsy, audioboom, clikthrough, ifttt, issuu, tumblr, vidyard
+    roomshare, crowd_ranking, etsy, audioboom, clikthrough, ifttt, issuu, tumblr, vidyard,
+    reddit
 ]
