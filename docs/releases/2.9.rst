@@ -43,7 +43,7 @@ Other features
  * Optimise compiling media definitions for complex StreamBlocks (pimarc)
  * FieldPanel now accepts a 'heading' argument (Jacob Topp-Mugglestone)
  * Replaced deprecated ``ugettext`` / ``ungettext`` calls with ``gettext`` / ``ngettext`` (Mohamed Feddad)
- * ListBLocks now call child block ``bulk_to_python`` if defined (Andy Chosak)
+ * ListBlocks now call child block ``bulk_to_python`` if defined (Andy Chosak)
  * Site settings are now identifiable/cachable by request as well as site (Andy Babic)
  * Added ``select_related`` attribute to site settings to enable more efficient fetching of foreign key values (Andy Babic)
  * Add caching of image renditions (Tom Dyson, Tim Kamanin)
