@@ -29,26 +29,26 @@ class Command(BaseCommand):
 
 def purge_revisions(days=None):
     # exclude revisions which have been submitted for moderation in the old system
-    purgable_revisions = PageRevision.objects.exclude(
+    purgeable_revisions = PageRevision.objects.exclude(
         submitted_for_moderation=True
     ).exclude(
         # and exclude revisions with an approved_go_live_at date
         approved_go_live_at__isnull=False)
 
     if workflow_support:
-        purgable_revisions = purgable_revisions.exclude(
+        purgeable_revisions = purgeable_revisions.exclude(
             # and exclude revisions linked to an in progress workflow state
             task_states__workflow_state__status=WorkflowState.STATUS_IN_PROGRESS
         )
 
     if days:
-        purgable_until = timezone.now() - timezone.timedelta(days=days)
+        purgeable_until = timezone.now() - timezone.timedelta(days=days)
         # only include revisions which were created before the cut off date
-        purgable_revisions = purgable_revisions.filter(created_at__lt=purgable_until)
+        purgeable_revisions = purgeable_revisions.filter(created_at__lt=purgeable_until)
 
     deleted_revisions_count = 0
 
-    for revision in purgable_revisions:
+    for revision in purgeable_revisions:
         # don't delete the latest revision for any page
         if not revision.is_latest_revision():
             revision.delete()
