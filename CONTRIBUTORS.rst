@@ -456,6 +456,7 @@ Contributors
 * Kim LaRocca
 * Jonatas Baldin
 * Rick van Hattem
+* Luke Hardwick
 
 Translators
 ===========

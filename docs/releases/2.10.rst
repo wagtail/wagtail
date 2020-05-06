@@ -27,6 +27,7 @@ Other features
  * Add convenience ``page_url`` shortcut to improve how page URLs can be accessed from site settings in Django templates (Andy Babic)
  * Show more granular error messages from Pillow when uploading images (Rick van Hattem)
  * Add ordering to ``Site`` object, so that index page and ``Site`` switcher will be sorted consistently (Coen van der Kamp, Tim Leguijt)
+ * Add Reddit to oEmbed provider list (Luke Hardwick)
 
 
 Bug fixes
