@@ -105,7 +105,7 @@ class ObjectIndexer:
     @cached_property
     def autocomplete(self):
         """
-        Returns all values to index as "body". This is the value of all SearchFields that have partial_match=True
+        Returns all values to index as "autocomplete". This is the value of all SearchFields that have partial_match=True
         """
         texts = []
         for field in self.search_fields:
