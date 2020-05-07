@@ -85,7 +85,7 @@ gulp.task('styles:sass', function () {
                     '/' + config.srcDir + '/',
                     '/' + config.destDir + '/'
                 )
-                .replace('/scss/', '/css/');
+                .replace('/scss', '/css');
         }))
         .on('error', gutil.log);
 });
