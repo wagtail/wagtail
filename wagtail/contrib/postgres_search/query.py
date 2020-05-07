@@ -1,6 +1,8 @@
 # Originally from https://github.com/django/django/pull/8313
 # Resubmitted in https://github.com/django/django/pull/12727
 
+# If that PR gets merged, we should be able to replace this with the version in Django.
+
 from django.contrib.postgres.search import SearchQueryCombinable, SearchQueryField
 from django.db.models.expressions import Expression, Value
 
