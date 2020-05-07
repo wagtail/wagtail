@@ -1,3 +1,4 @@
+import warnings
 from collections import OrderedDict
 from functools import reduce
 
@@ -305,6 +306,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
         elif isinstance(query, Boost):
             # Not supported
+            msg = "The Boost query is not supported by the PostgreSQL search backend."
+            warnings.warn(msg, RuntimeWarning)
+
             return self.build_tsquery_content(query.subquery, invert=invert)
 
         elif isinstance(query, Not):
