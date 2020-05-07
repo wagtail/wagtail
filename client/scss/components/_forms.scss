@@ -226,19 +226,19 @@ li.focused > .help {
 .date_field,
 .date_time_field {
     .input:before {
-        @extend .icon-date:before;
+        content: map-get($icons, 'date');
     }
 }
 
 .time_field {
     .input:before {
-        @extend .icon-time:before;
+        content: map-get($icons, 'time');
     }
 }
 
 .url_field {
     .input:before {
-        @extend .icon-link:before;
+        content: map-get($icons, 'link');
     }
 }
 

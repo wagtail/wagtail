@@ -314,17 +314,18 @@ $positions: (
 
         &.is-active .#{$namespace}-userbar__item {
             @for $i from 1 through $max-items {
+                // stylelint-disable max-nesting-depth
 
                 @if $vertical == 'bottom' {
-                    $prop: 'nth-last-child' !global;
+                    &:nth-last-child(#{$i}) {
+                        transition-delay: 0.05s * $i;
+                    }
                 }
 
                 @if $vertical == 'top' {
-                    $prop: 'nth-child' !global;
-                }
-
-                &:#{unquote($prop)}(#{$i}) {
-                    transition-delay: 0.05s * $i;
+                    &:nth-child(#{$i}) {
+                        transition-delay: 0.05s * $i;
+                    }
                 }
             }
         }
