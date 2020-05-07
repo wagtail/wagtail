@@ -3,7 +3,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
-from django.db.models import CASCADE, ForeignKey, Model, TextField
+from django.db import models
 from django.db.models.functions import Cast
 from django.utils.translation import gettext_lazy as _
 
@@ -40,14 +40,20 @@ class TextIDGenericRelation(GenericRelation):
         return []
 
 
-class IndexEntry(Model):
-    content_type = ForeignKey(ContentType, on_delete=CASCADE)
+class IndexEntry(models.Model):
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     # We do not use an IntegerField since primary keys are not always integers.
-    object_id = TextField()
+    object_id = models.TextField()
     content_object = GenericForeignKey()
 
     # TODO: Add per-object boosting.
     autocomplete = SearchVectorField()
+    title = SearchVectorField()
+    # This field stores the "Title Normalisation Factor"
+    # This factor is multiplied onto the the rank of the title field.
+    # This allows us to apply a boost to results with shorter titles
+    # elevating more specific matches to the top.
+    title_norm = models.FloatField(default=1.0)
     body = SearchVectorField()
 
     class Meta:
@@ -55,6 +61,7 @@ class IndexEntry(Model):
         verbose_name = _('index entry')
         verbose_name_plural = _('index entries')
         indexes = [GinIndex(fields=['autocomplete']),
+                   GinIndex(fields=['title']),
                    GinIndex(fields=['body'])]
 
     def __str__(self):
