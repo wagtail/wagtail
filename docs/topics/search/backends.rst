@@ -45,7 +45,7 @@ If you have disabled auto update, you must run the :ref:`update_index` command o
 ==================
 
 .. warning::
-    This option may not work on Elasticsearch version 5.4 and above, due to `a bug in the handling of aliases <https://github.com/elastic/elasticsearch/issues/24644>`_ affecting these releases.
+    This option may not work on Elasticsearch version 5.4.x, due to `a bug in the handling of aliases <https://github.com/elastic/elasticsearch/issues/24644>`_ - please upgrade to 5.5 or later.
 
 By default (when using the Elasticsearch backend), when the ``update_index`` command is run, Wagtail deletes the index and rebuilds it from scratch. This causes the search engine to not return results until the rebuild is complete and is also risky as you can't rollback if an error occurs.
 
