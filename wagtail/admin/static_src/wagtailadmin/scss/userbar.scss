@@ -141,7 +141,7 @@ $positions: (
         left: 0;
     }
 
-    &.#{$namespace}-icon:before {
+    .#{$namespace}-icon:before {
         transition: color 0.2s ease;
         font-size: 32px;
         width: auto;
