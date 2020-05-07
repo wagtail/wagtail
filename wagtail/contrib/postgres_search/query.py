@@ -85,6 +85,9 @@ class CombinedLexeme(LexemeCombinable):
         return '%s', [combined_value]
 
 
+# This class is required for Django 3.0 support and below
+# In Django 3.1 onwards, we can replace this with SearchQuery(expression, search_type='raw')
+# The PR for the functionality we need is here: https://github.com/django/django/pull/12525
 class RawSearchQuery(SearchQueryCombinable, Expression):
     _output_field = SearchQueryField()
 
