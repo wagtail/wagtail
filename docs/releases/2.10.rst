@@ -29,6 +29,7 @@ Other features
  * Add ordering to ``Site`` object, so that index page and ``Site`` switcher will be sorted consistently (Coen van der Kamp, Tim Leguijt)
  * Add Reddit to oEmbed provider list (Luke Hardwick)
  * Remove sticky footer on small devices, so that content is not blocked and more easily editable (Saeed Tahmasebi)
+ * Add ability to replace the default Wagtail logo in the userbar, via ``branding_logo`` block (Meteor0id)
 
 
 Bug fixes
