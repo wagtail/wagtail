@@ -3,7 +3,7 @@
     <label for="{{ widget.attrs.id }}-handsontable-header">{% trans 'Row header' %}</label>
     <div class="field-content">
         <div class="input">
-            <input type="checkbox" id="{{ widget.attrs.id }}-handsontable-header" name="handsontable-header"/>
+            <input type="checkbox" id="{{ widget.attrs.id }}-handsontable-header" name="handsontable-header"{% if widget.first_row_is_table_header %} checked {% endif %}/>
         </div>
         <p class="help">{% trans 'Display the first row as a header.' %}</p>
     </div>
@@ -13,7 +13,7 @@
     <label for="{{ widget.attrs.id }}-handsontable-col-header">{% trans 'Column header' %}</label>
     <div class="field-content">
         <div class="input">
-            <input type="checkbox" id="{{ widget.attrs.id }}-handsontable-col-header" name="handsontable-col-header"/>
+            <input type="checkbox" id="{{ widget.attrs.id }}-handsontable-col-header" name="handsontable-col-header"{% if widget.first_col_is_header %} checked {% endif %}/>
         </div>
         <p class="help">{% trans 'Display the first column as a header.' %}</p>
     </div>
