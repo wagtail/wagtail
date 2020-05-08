@@ -161,7 +161,7 @@ url for the report, you will need to use the ``register_admin_urls`` hook (see :
 
     # <project>/wagtail_hooks.py
 
-    from django.conf.urls import url
+    from django.urls import path, reverse
 
     from wagtail.admin.menu import AdminOnlyMenuItem
     from wagtail.core import hooks
@@ -175,7 +175,7 @@ url for the report, you will need to use the ``register_admin_urls`` hook (see :
     @hooks.register('register_admin_urls')
     def register_unpublished_changes_report_url():
         return [
-            url(r'^reports/unpublished-changes/$', UnpublishedChangesReportView.as_view(), name='unpublished_changes_report'),
+            path('reports/unpublished-changes/', UnpublishedChangesReportView.as_view(), name='unpublished_changes_report'),
         ]
 
 Here, we use the ``AdminOnlyMenuItem`` class to ensure our report icon is only shown to superusers. To make the report visible to all users,
@@ -209,7 +209,7 @@ The full code
 
     # <project>/wagtail_hooks.py
 
-    from django.conf.urls import url
+    from django.urls import path, reverse
 
     from wagtail.admin.menu import AdminOnlyMenuItem
     from wagtail.core import hooks
@@ -223,7 +223,7 @@ The full code
     @hooks.register('register_admin_urls')
     def register_unpublished_changes_report_url():
         return [
-            url(r'^reports/unpublished-changes/$', UnpublishedChangesReportView.as_view(), name='unpublished_changes_report'),
+            path('reports/unpublished-changes/', UnpublishedChangesReportView.as_view(), name='unpublished_changes_report'),
         ]
 
 .. code-block:: html
