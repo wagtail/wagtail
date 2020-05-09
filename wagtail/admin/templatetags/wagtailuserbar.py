@@ -7,8 +7,6 @@ from wagtail.admin.userbar import (
 from wagtail.core import hooks
 from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, PageRevision
 
-# from django.contrib.auth.decorators import permission_required
-
 
 register = template.Library()
 
@@ -49,36 +47,36 @@ def wagtailuserbar(context, position='bottom-right'):
     if getattr(request, 'is_preview', False):
         return ''
 
-    # Only render if the context contains a variable referencing a saved page
     page = get_page_instance(context)
-    if page is None:
-        return ''
-
-    # Dont render anything if the page has not been saved - i.e. a preview
-    if page.pk is None:
-        return ''
-
     try:
         revision_id = request.revision_id
     except AttributeError:
         revision_id = None
 
-    if revision_id is None:
-        items = [
-            AdminItem(),
-            ExplorePageItem(Page.objects.get(id=page.id)),
-            EditPageItem(Page.objects.get(id=page.id)),
-            AddPageItem(Page.objects.get(id=page.id)),
-        ]
+    if page and page.id:
+        # Saved page.
+        if revision_id is None:
+            items = [
+                AdminItem(),
+                ExplorePageItem(Page.objects.get(id=page.id)),
+                EditPageItem(Page.objects.get(id=page.id)),
+                AddPageItem(Page.objects.get(id=page.id)),
+            ]
+        else:
+            items = [
+                AdminItem(),
+                ExplorePageItem(PageRevision.objects.get(id=revision_id).page),
+                EditPageItem(PageRevision.objects.get(id=revision_id).page),
+                AddPageItem(PageRevision.objects.get(id=revision_id).page),
+                ApproveModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
+                RejectModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
+            ]
+    elif page:
+        # A page without an id is a preview.
+        return ""
     else:
-        items = [
-            AdminItem(),
-            ExplorePageItem(PageRevision.objects.get(id=revision_id).page),
-            EditPageItem(PageRevision.objects.get(id=revision_id).page),
-            AddPageItem(PageRevision.objects.get(id=revision_id).page),
-            ApproveModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
-            RejectModerationEditPageItem(PageRevision.objects.get(id=revision_id)),
-        ]
+        # Not a page.
+        items = [AdminItem()]
 
     for fn in hooks.get_hooks('construct_wagtail_userbar'):
         fn(request, items)

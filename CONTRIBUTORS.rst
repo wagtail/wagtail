@@ -459,6 +459,7 @@ Contributors
 * Luke Hardwick
 * Saeed Tahmasebi
 * Liam Mullens
+* Caitlin White
 
 Translators
 ===========

@@ -23,6 +23,7 @@ Changelog
  * Remove sticky footer on small devices, so that content is not blocked and more easily editable (Saeed Tahmasebi)
  * Add ``alt`` property to ``ImageRenditionField`` api representation (Liam Mullens)
  * Add ``purge_revisions`` management command to purge old page revisions (Jacob Topp-Mugglestone, Tom Dyson)
+ * Render the Wagtail User Bar on non ``Page`` views (Caitlin White, Coen van der Kamp)
  * Fix: Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * Fix: `AbstractEmailForm` saved submission fields are now aligned with the email content fields, `form.cleaned_data` will be used instead of `form.fields` (Haydn Greatnews)

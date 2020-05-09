@@ -242,6 +242,8 @@ Wagtail User Bar
 
 This tag provides a contextual flyout menu for logged-in users. The menu gives editors the ability to edit the current page or add a child page, besides the options to show the page in the Wagtail page explorer or jump to the Wagtail admin dashboard. Moderators are also given the ability to accept or reject a page being previewed as part of content moderation.
 
+This tag may be used on regular Django views, without page object. The user bar will contain one item pointing to the admin.
+
 .. code-block:: html+django
 
     {% load wagtailuserbar %}

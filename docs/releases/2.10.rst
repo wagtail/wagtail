@@ -32,6 +32,7 @@ Other features
  * Add ability to replace the default Wagtail logo in the userbar, via ``branding_logo`` block (Meteor0id)
  * Add `alt` property to `ImageRenditionField` api representation (Liam Mullens)
  * Add `purge_revisions` management command to purge old page revisions (Jacob Topp-Mugglestone, Tom Dyson)
+ * Render the Wagtail User Bar on non `Page` views (Caitlin White, Coen van der Kamp)
 
 
 Bug fixes
