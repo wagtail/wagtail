@@ -62,6 +62,14 @@ class TestUserbarTag(TestCase):
         # Make sure nothing was rendered
         self.assertEqual(content, '')
 
+    def test_userbar_tag_no_page(self):
+        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+        content = template.render(Context({
+            'request': self.dummy_request(self.user),
+        }))
+
+        self.assertIn("<!-- Wagtail user bar embed code -->", content)
+
 
 class TestUserbarFrontend(TestCase, WagtailTestUtils):
     def setUp(self):
