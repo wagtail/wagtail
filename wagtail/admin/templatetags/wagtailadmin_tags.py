@@ -535,11 +535,3 @@ def icons():
     icon_hooks = hooks.get_hooks('register_icons')
     icons = sorted(itertools.chain.from_iterable(hook([]) for hook in icon_hooks))
     return {'icons': icons}
-
-
-@register.filter
-def idify(val):
-    """
-    Just a quick hack to go from icon class names to an icon id.
-    """
-    return val.replace('icon icon-', '')
