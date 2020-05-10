@@ -1,6 +1,6 @@
 {% spaceless %}
 {# Reference implementation: components/Icon.js #}
-<svg class="icon icon-{{ name }} {{ class_name }}">
+<svg class="icon icon-{{ name }} {{ class_name }}" aria-hidden="true">
   <use href="#{{ name }}"></use>
 </svg>
 {% if title %}
