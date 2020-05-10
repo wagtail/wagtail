@@ -85,8 +85,6 @@ urlpatterns = decorate_urlpatterns(urlpatterns, require_admin_access)
 
 # These url patterns do not require an authenticated admin user
 urlpatterns += [
-    url(r'^sprite.svg$', icons.sprite, name='wagtailadmin_icons'),
-
     url(r'^login/$', account.LoginView.as_view(), name='wagtailadmin_login'),
 
     # These two URLs have the "permission_required" decorator applied directly
