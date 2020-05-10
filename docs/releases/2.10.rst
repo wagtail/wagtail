@@ -30,10 +30,10 @@ Other features
  * Add Reddit to oEmbed provider list (Luke Hardwick)
  * Remove sticky footer on small devices, so that content is not blocked and more easily editable (Saeed Tahmasebi)
  * Add ability to replace the default Wagtail logo in the userbar, via ``branding_logo`` block (Meteor0id)
- * Add `alt` property to `ImageRenditionField` api representation (Liam Mullens)
- * Add `purge_revisions` management command to purge old page revisions (Jacob Topp-Mugglestone, Tom Dyson)
- * Render the Wagtail User Bar on non `Page` views (Caitlin White, Coen van der Kamp)
- * Add ability to define `form_classname` on `ListBlock` & `StreamBlock` (LB (Ben Johnston))
+ * Add ``alt`` property to ``ImageRenditionField`` api representation (Liam Mullens)
+ * Add ``purge_revisions`` management command to purge old page revisions (Jacob Topp-Mugglestone, Tom Dyson)
+ * Render the Wagtail User Bar on non ``Page`` views (Caitlin White, Coen van der Kamp)
+ * Add ability to define ``form_classname`` on ``ListBlock`` & ``StreamBlock`` (LB (Ben Johnston))
  * Add documentation about how to use ``Rustface`` for image feature detection (Neal Todd)
 
 
@@ -46,7 +46,7 @@ Bug fixes
  * Set Cache-Control header to prevent page preview responses from being cached (Tomas Walch)
  * Accept unicode characters in slugs on the "copy page" form (François Poulain)
  * Support IPv6 domain (Alex Gleason, Coen van der Kamp)
- * Remove top padding when `FieldRowPanel` is used inside a `MultiFieldPanel` (Jérôme Lebleu)
+ * Remove top padding when ``FieldRowPanel`` is used inside a ``MultiFieldPanel`` (Jérôme Lebleu)
 
 
 Upgrade considerations
