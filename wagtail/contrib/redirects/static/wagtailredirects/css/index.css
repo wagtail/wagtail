@@ -5,8 +5,11 @@
 }
 
 header .has-multiple-actions {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
 }
 
 header .has-multiple-actions .actionbutton {
