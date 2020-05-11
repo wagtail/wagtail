@@ -1,5 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
+{% load static %}
+
 {% block titletag %}{% trans "Redirects" %}{% endblock %}
 
 {% block extra_js %}
@@ -14,11 +16,41 @@
 {% endblock %}
 
 {% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'wagtailredirects/css/index.css' %}">
+
     {% trans "Redirects" as redirects_str %}
-    {% trans "Add redirect" as add_str %}
     {% if user_can_add %}
         {% url "wagtailredirects:add" as add_link %}
-        {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" action_url=add_link action_text=add_str search_url="wagtailredirects:index" %}
+        {% trans "Add redirect" as add_str %}
+        {% url "wagtailredirects:start_import" as import_link %}
+        {% trans "Import redirects" as import_str %}
+
+        <header class="hasform">
+            {% block breadcrumb %}{% endblock %}
+            <div class="row nice-padding">
+                <div class="left">
+                    <div class="col header-title">
+                        <h1 class="icon icon-redirect">{{ redirects_str }}</h1>
+                    </div>
+                    <form class="col search-form" action="{% url "wagtailredirects:index" %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
+                        <ul class="fields">
+                            {% for field in search_form %}
+                                {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
+                            {% endfor %}
+                            <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
+                        </ul>
+                    </form>
+                </div>
+                <div class="right has-multiple-actions">
+                    <div class="actionbutton">
+                        <a href="{{ add_link }}" class="button bicolor icon icon-plus">{{ add_str }}</a>
+                    </div>
+                    <div class="actionbutton">
+                        <a href="{{ import_link }}" class="button bicolor icon icon-doc-full-inverse">{{ import_str }}</a>
+                    </div>
+                </div>
+            </div>
+        </header>
     {% else %}
         {% include "wagtailadmin/shared/header.html" with title=redirects_str icon="redirect" search_url="wagtailredirects:index" %}
     {% endif %}
@@ -28,5 +60,5 @@
             {% include "wagtailredirects/results.html" %}
         </div>
     </div>
-    
+
 {% endblock %}

@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'^add/$', views.add, name='add'),
     url(r'^(\d+)/$', views.edit, name='edit'),
     url(r'^(\d+)/delete/$', views.delete, name='delete'),
+    url(r"^import/$", views.start_import, name="start_import"),
+    url(r"^import/process/$", views.process_import, name="process_import"),
 ]
