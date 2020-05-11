@@ -1,0 +1,14 @@
+.listing-with-x-scroll {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+header .has-multiple-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+header .has-multiple-actions .actionbutton {
+    margin-left: 10px;
+}
