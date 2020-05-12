@@ -212,3 +212,21 @@ Wagtail will generate a new subclass of this form for the model,
 adding any fields defined in ``panels`` or ``content_panels``.
 Any fields already defined on the model will not be overridden by these automatically added fields,
 so the form field for a model field can be overridden by adding it to the custom form.
+
+
+Customising page creation/edit views
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For customisations that cannot be achieved by replacing the form class, the ``register_create_page_view`` and ``register_edit_page_view`` functions in ``wagtail.admin.views.pages`` allow you to specify a custom view to be used when creating or editing a page of a given type. The default views are implemented as class-based views ``wagtail.admin.views.pages.CreatePageView`` and ``wagtail.admin.views.pages.EditPageView``, which provide the overrideable methods ``get_page_instance``, ``get_edit_handler``, ``get_form_class`` and ``get_context_data``; ``EditPageView`` additionally provides the method ``get_latest_revision``.
+
+For example, the following code (placed in a ``wagtail_hooks.py`` file within one of your apps) will extend ``EventPage``'s creation view with the ability to pre-populate the 'location' field from a URL parameter:
+
+.. code-block:: python
+    from wagtail.admin.views.pages import CreatePageView, register_create_page_view
+    from myapp.models import EventPage
+    class EventPageCreateView(CreatePageView):
+        def get_page_instance(self):
+            page = super().get_page_instance()
+            page.location = self.request.GET.get('location', '')
+            return page
+    register_create_page_view(EventPage, EventPageCreateView.as_view())

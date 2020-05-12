@@ -732,6 +732,18 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertNotContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
 
 
+    def test_custom_create_page_view(self):
+        # SingleEventPage has a custom create view allowing passing location as a URL parameter
+
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=('tests', 'singleeventpage', self.root_page.id)),
+            {'location': "Massachusetts"}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"Massachusetts"')
+
+
 class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
