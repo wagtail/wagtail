@@ -49,7 +49,6 @@ The available hooks are listed below.
     :local:
     :depth: 1
 
-
 Admin modules
 -------------
 
@@ -976,3 +975,54 @@ Document serving
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Called when Wagtail is about to serve a document. The callable passed into the hook will receive the document object and the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, instead of serving the document. Note that this hook will be skipped if the :ref:`WAGTAILDOCS_SERVE_METHOD <wagtaildocs_serve_method>` setting is set to ``direct``.
+
+
+Snippets
+--------
+
+Hooks for working with registered Snippets.
+
+.. _after_edit_snippet:
+
+``after_edit_snippet``
+~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when a Snippet is edited. The callable passed into the hook will receive the model instance, the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``redirect()`` to the listing view.
+
+  .. code-block:: python
+
+    from django.http import HttpResponse
+
+    from wagtail.core import hooks
+
+    @hooks.register('after_edit_snippet')
+    def after_snippet_update(request, instance):
+        return HttpResponse(f"Congrats on editing a snippet with id {instance.pk}", content_type="text/plain")
+
+.. _after_create_snippet:
+
+``after_create_snippet``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when a Snippet is created. ``after_create_snippet`` and
+  ``after_edit_snippet`` work in identical ways. The only difference is where
+  the hook is called.
+
+.. _after_delete_snippet:
+
+``after_delete_snippet``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called when a Snippet is deleted. The callable passed into the hook will receive the model instance(s) as a queryset along with the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``redirect()`` to the listing view.
+
+  .. code-block:: python
+
+    from django.http import HttpResponse
+
+    from wagtail.core import hooks
+
+    @hooks.register('after_delete_snippet')
+    def after_snippet_delete(request, instances):
+        # "instances" is a QuerySet
+        total = len(instances)
+        return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")

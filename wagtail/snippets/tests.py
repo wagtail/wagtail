@@ -7,6 +7,7 @@ from django.core import checks
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.http import HttpRequest, HttpResponse
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -227,6 +228,23 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         snippet = FileUploadSnippet.objects.get()
         self.assertEqual(snippet.file.read(), b"Uploaded file")
 
+    def test_after_create_snippet_hook(self):
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, 'Hook test')
+            self.assertEqual(instance.url, 'http://www.example.com/')
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_create_snippet', hook_func):
+            post_data = {
+                'text': 'Hook test',
+                'url': 'http://www.example.com/'
+            }
+            response = self.post(post_data=post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
 
 class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
 
@@ -300,6 +318,21 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             list(snippet.tags.order_by('name')),
             expected_tags)
 
+    def test_after_edit_snippet_hook(self):
+
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, 'Edited and runs hook')
+            self.assertEqual(instance.url, 'http://www.example.com/hook-enabled-edited')
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_edit_snippet', hook_func):
+            response = self.post(post_data={'text': 'Edited and runs hook',
+                                            'url': 'http://www.example.com/hook-enabled-edited'})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
 
 class TestEditTabbedSnippet(BaseTestSnippetEditView):
 
@@ -368,6 +401,25 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
         self.assertContains(response, 'Used 2 times')
         self.assertContains(response, self.test_snippet.usage_url())
+
+    def test_after_delete_snippet_hook(self):
+        advert = Advert.objects.create(
+            url='http://www.example.com/',
+            text='Test hook',
+        )
+
+        def hook_func(request, instances):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"])
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_delete_snippet', hook_func):
+            response = self.client.post(
+                reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(advert.pk), ))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
 
 
 class TestSnippetDeleteMultipleWithOne(TestCase, WagtailTestUtils):
