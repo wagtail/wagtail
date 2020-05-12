@@ -146,6 +146,11 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
         content_panels = Page.content_panels + [
             FieldPanel('body', classname="full"),
         ]
+        
+        # There should be only one Home page
+        # This restricts the maximum number of Home Page
+        # instances to one
+        max_count = 1
 
 ``body`` is defined as ``RichTextField``, a special Wagtail field. You
 can use any of the :doc:`Django core fields <django:ref/models/fields>`. ``content_panels`` define the
