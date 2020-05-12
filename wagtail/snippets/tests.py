@@ -323,6 +323,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             url='http://www.example.com/',
             text='Test hook',
         )
+
         def hook_func(request, instance):
             self.assertIsInstance(request, HttpRequest)
             self.assertQuerysetEqual(instance, ["<Advert: Test hook>"])
@@ -410,6 +411,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
             url='http://www.example.com/',
             text='Test hook',
         )
+
         def hook_func(request, instances):
             self.assertIsInstance(request, HttpRequest)
             self.assertQuerysetEqual(instances, ["<Advert: Test hook>"])
