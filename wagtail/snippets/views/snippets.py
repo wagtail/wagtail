@@ -15,6 +15,7 @@ from wagtail.admin import messages
 from wagtail.admin.auth import permission_denied
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.forms.search import SearchForm
+from wagtail.core import hooks
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.models import get_snippet_models
@@ -156,6 +157,12 @@ def create(request, app_label, model_name):
                     ), _('Edit'))
                 ]
             )
+
+            for fn in hooks.get_hooks('after_create_snippet'):
+                result = fn(request, instance)
+                if hasattr(result, 'status_code'):
+                    return result
+
             return redirect('wagtailsnippets:list', app_label, model_name)
         else:
             messages.validation_error(
@@ -203,6 +210,12 @@ def edit(request, app_label, model_name, pk):
                     ), _('Edit'))
                 ]
             )
+
+            for fn in hooks.get_hooks('after_edit_snippet'):
+                result = fn(request, instance)
+                if hasattr(result, 'status_code'):
+                    return result
+
             return redirect('wagtailsnippets:list', app_label, model_name)
         else:
             messages.validation_error(
@@ -259,6 +272,11 @@ def delete(request, app_label, model_name, pk=None):
             }
 
         messages.success(request, message_content)
+
+        for fn in hooks.get_hooks('after_delete_snippet'):
+            result = fn(request, instances)
+            if hasattr(result, 'status_code'):
+                return result
 
         return redirect('wagtailsnippets:list', app_label, model_name)
 

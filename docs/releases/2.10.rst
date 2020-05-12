@@ -39,6 +39,7 @@ Other features
  * Add ``add_redirect`` static method to ``Redirect`` class for programmatic redirect creation (Brylie Christopher Oxley, Lacey Williams Henschel)
  * Add reference documentation for ``wagtail.contrib.redirects`` See :ref:`redirects`. (LB (Ben Johnston))
  * ``bulk_delete`` page permission is no longer required to move pages, even if those pages have children (Robert Rollins, LB (Ben Johnston))
+ * Add ``after_edit_snippet``, ``after_create_snippet`` and ``after_delete_snippet`` hooks and documentation (Kalob Taulien)
 
 
 Bug fixes
