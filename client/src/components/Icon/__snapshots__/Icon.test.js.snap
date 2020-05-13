@@ -7,7 +7,7 @@ exports[`Icon #className 1`] = `
     className="icon icon-test u-test"
   >
     <use
-      href="#test"
+      href="#icon-test"
     />
   </svg>
 </span>
@@ -20,7 +20,7 @@ exports[`Icon #name 1`] = `
     className="icon icon-test "
   >
     <use
-      href="#test"
+      href="#icon-test"
     />
   </svg>
 </span>
@@ -33,7 +33,7 @@ exports[`Icon #title 1`] = `
     className="icon icon-test "
   >
     <use
-      href="#test"
+      href="#icon-test"
     />
   </svg>
   <span
