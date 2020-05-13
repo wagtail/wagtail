@@ -319,20 +319,16 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             expected_tags)
 
     def test_after_edit_snippet_hook(self):
-        advert = Advert.objects.create(
-            url='http://www.example.com/',
-            text='Test hook',
-        )
 
         def hook_func(request, instance):
             self.assertIsInstance(request, HttpRequest)
-            self.assertQuerysetEqual(instance, ["<Advert: Test hook>"])
+            self.assertEqual(instance.text, 'Edited and runs hook')
+            self.assertEqual(instance.url, 'http://www.example.com/hook-enabled-edited')
             return HttpResponse("Overridden!")
 
-        with self.register_hook('after_delete_snippet', hook_func):
-            response = self.client.post(
-                reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(advert.pk), ))
-            )
+        with self.register_hook('after_edit_snippet', hook_func):
+            response = self.post(post_data={'text': 'Edited and runs hook',
+                                            'url': 'http://www.example.com/hook-enabled-edited'})
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")

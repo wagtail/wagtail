@@ -991,12 +991,13 @@ Hooks for working with registered Snippets.
 
   .. code-block:: python
 
+    from django.http import HttpResponse
+
     from wagtail.core import hooks
 
     @hooks.register('after_edit_snippet')
     def after_snippet_update(request, instance):
-        # your code here
-        # print(instance.pk)
+        return HttpResponse(f"Congrats on editing a snippet with id {instance.pk}", content_type="text/plain")
 
 .. _after_create_snippet:
 
@@ -1016,10 +1017,12 @@ Hooks for working with registered Snippets.
 
   .. code-block:: python
 
+    from django.http import HttpResponse
+
     from wagtail.core import hooks
 
     @hooks.register('after_delete_snippet')
     def after_snippet_delete(request, instances):
         # "instances" is a QuerySet
-        for instance in instances:
-            print(instance.pk)
+        total = len(instances)
+        return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
