@@ -216,7 +216,7 @@ the same ``wagtail_hooks.py`` file if you want. The example below will create
         ...
 
     class MusicAdminGroup(ModelAdminGroup):
-        label = _("Music")
+        menu_label = _("Music")
         items = (AlbumAdmin, ArtistAdmin)
         ...
 
