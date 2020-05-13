@@ -80,6 +80,9 @@ class ObjectIndexer:
         """
         Converts an array of strings into a SearchVector that can be indexed.
         """
+        texts = [(text.strip(), weight) for text, weight in texts]
+        texts = [(text, weight) for text, weight in texts if text]
+
         if not texts:
             return EMPTY_VECTOR
 
