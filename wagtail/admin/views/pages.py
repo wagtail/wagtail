@@ -215,12 +215,12 @@ class CreatePageView(TemplateView):
 
     def dispatch(self, request, content_type_app_name, content_type_model_name, parent_page_id):
         try:
-            self.content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
+            self.page_content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
         except ContentType.DoesNotExist:
             raise Http404
 
         # Get class
-        self.page_class = self.content_type.model_class()
+        self.page_class = self.page_content_type.model_class()
 
         # Make sure the class is a descendant of Page
         if not issubclass(self.page_class, Page):
@@ -394,7 +394,7 @@ class CreatePageView(TemplateView):
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
         return {
-            'content_type': self.content_type,
+            'content_type': self.page_content_type,
             'page_class': self.page_class,
             'parent_page': self.parent_page,
             'edit_handler': self.edit_handler,
@@ -425,8 +425,8 @@ class EditPageView(TemplateView):
         self.real_page_record = get_object_or_404(Page, id=page_id)
         self.page = self.get_page_instance()
 
-        self.content_type = ContentType.objects.get_for_model(self.page)
-        self.page_class = self.content_type.model_class()
+        self.page_content_type = ContentType.objects.get_for_model(self.page)
+        self.page_class = self.page_content_type.model_class()
 
         # If there _is_ a custom view registered, and it's a subclass of EditPageView (as expected),
         # we'll end up back here when we call it. We therefore need to set a flag on the request to
@@ -692,7 +692,7 @@ class EditPageView(TemplateView):
         return {
             'page': self.page,
             'page_for_status': page_for_status,
-            'content_type': self.content_type,
+            'content_type': self.page_content_type,
             'edit_handler': self.edit_handler,
             'errors_debug': self.errors_debug,
             'action_menu': PageActionMenu(self.request, view='edit', page=self.page),
