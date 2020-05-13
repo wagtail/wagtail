@@ -373,7 +373,16 @@ def specific_iterator(qs, defer=False):
 
     This should be called from ``PageQuerySet.specific``
     """
-    pks_and_types = qs.values_list('pk', 'content_type')
+    annotation_aliases = qs.query.annotations.keys()
+    values = qs.values('pk', 'content_type', *annotation_aliases)
+
+    annotations_by_pk = defaultdict(list)
+    if annotation_aliases:
+        # Extract annotation results keyed by pk so we can reapply to fetched pages.
+        for data in values:
+            annotations_by_pk[data['pk']] = {k: v for k, v in data.items() if k in annotation_aliases}
+
+    pks_and_types = [[v['pk'], v['content_type']] for v in values]
     pks_by_type = defaultdict(list)
     for pk, content_type in pks_and_types:
         pks_by_type[content_type].append(pk)
@@ -389,6 +398,12 @@ def specific_iterator(qs, defer=False):
         # model (i.e. Page) if the more specific one is missing
         model = content_types[content_type].model_class() or qs.model
         pages = model.objects.filter(pk__in=pks)
+
+        if annotation_aliases:
+            # Reapply annotations to pages.
+            for page in pages:
+                for annotation, value in annotations_by_pk.get(page.pk, {}).items():
+                    setattr(page, annotation, value)
 
         if defer:
             # Defer all specific fields

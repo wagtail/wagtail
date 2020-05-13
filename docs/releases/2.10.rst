@@ -62,6 +62,7 @@ Bug fixes
  * Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Remove top padding when ``FieldRowPanel`` is used inside a ``MultiFieldPanel`` (Jérôme Lebleu)
  * Add Wagtail User Bar back to page previews and ensure moderation actions are available (Coen van der Kamp)
+ * Fix issue where queryset annotations were lost (e.g. ``.annotate_score()``) when using specific models in page query (Dan Bentley)
 
 
 Upgrade considerations

@@ -462,6 +462,7 @@ Contributors
 * Caitlin White
 * Brylie Christopher Oxley
 * Lacey Williams Henschel
+* Dan Bentley
 
 Translators
 ===========
