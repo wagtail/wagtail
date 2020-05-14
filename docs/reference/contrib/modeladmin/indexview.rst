@@ -293,6 +293,21 @@ for your model. For example:
         list_filter = ('is_staff', 'company')
 
 
+.. _modeladmin_export_filename:
+
+------------------------------
+``ModelAdmin.export_filename``
+------------------------------
+
+**Expected value**: A string specifying the filename of an exported spreadsheet,
+without file extensions.
+
+.. code-block:: python
+
+    class PersonAdmin(ModelAdmin):
+        export_filename = 'people_spreadsheet'
+
+
 .. _modeladmin_search_fields:
 
 ----------------------------
