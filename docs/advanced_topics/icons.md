@@ -6,33 +6,50 @@ Wagtail comes with an icon set. The icons are used throughout the admin interfac
 
 Elements that use icons are:
 
-- [Various menu items]() <admin_hooks>`{.interpreted-text role="ref"}
-- [ModelAdmin menu items](modeladmin_menu_icon)
-- [Streamfield blocks](basic_block_type_icon)
+- [Register Admin Menu Item](register_admin_menu_item)
+- [Clientside components](extending_clientside_components)
 - [Rich text editor toolbar buttons](extending_the_draftail_editor)
+- [ModelAdmin menu](modeladmin_menu_icon)
+- [Streamfield blocks](custom_streamfield_blocks)
 
 This document describes how to choose and add icons.
 
 ## Available icons and their names
 
-TODO, add a overview of icons that ship with Wagtail (preferably something that keeps in sync with code)
+Icons are registered in `wagtail/admin/wagtail_hooks.py`. 
+The _filename_ without the extension is the icon name.
 
 Enable the [styleguide](styleguide) to view icons and their names.
 
-Alternatively inspect the source code `wagtail/admin/wagtail_hooks.py`. The filename without `.svg` is the icon name.
+[//]: # (The code is included to present an up-to-date icon name list)
+
+```{eval-rst}
+.. literalinclude:: ../../wagtail/admin/wagtail_hooks.py
+   :language: python
+   :pyobject: register_icons
+```
 
 ## Add a custom icon
 
 Draw or download an icon.
 
-The SVG should:
+The `svg` tag should:
 
--   Have a 1:1 ratio
--   Contain a `symbol` tag
--   Have `id="icon-<name>"` attribute
--   Not set the `fill` attribute
+- Set `id="icon-<name>"` attribute, icons are referenced by this name 
+- Set `xmlns="http://www.w3.org/2000/svg"` attribute
+- Set `viewBox="..."` attribute
+- Include license information if applicable
 
-Add the icon to the set with the `register_icons` hook.
+Set `<path fill="currentColor"` to give the icon the current color.
+
+Example:
+
+```{eval-rst}
+.. literalinclude:: ../../wagtail/admin/templates/wagtailadmin/icons/angle-double-left.svg
+   :language: xml
+```
+
+Add the icon to the icon set with the `register_icons` hook.
 
 ```python
 @hooks.register("register_icons")
