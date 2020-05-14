@@ -52,6 +52,7 @@ Bug fixes
  * Accept unicode characters in slugs on the "copy page" form (François Poulain)
  * Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Remove top padding when ``FieldRowPanel`` is used inside a ``MultiFieldPanel`` (Jérôme Lebleu)
+ * Add Wagtail User Bar back to page previews and ensure moderation actions are available (Coen van der Kamp)
 
 
 Upgrade considerations

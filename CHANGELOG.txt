@@ -38,6 +38,7 @@ Changelog
  * Fix: Set Cache-Control header to prevent page preview responses from being cached (Tomas Walch)
  * Fix: Accept unicode characters in slugs on the "copy page" form (François Poulain)
  * Fix: Remove top padding when `FieldRowPanel` is used inside a `MultiFieldPanel` (Jérôme Lebleu)
+ * Fix: Add Wagtail User Bar back to page previews and ensure moderation actions are available (Coen van der Kamp)
 
 
 2.9 (04.05.2020)
