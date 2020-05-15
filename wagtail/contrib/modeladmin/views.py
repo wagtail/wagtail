@@ -265,6 +265,10 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
 
         return super().dispatch(request, *args, **kwargs)
 
+    def get_filename(self):
+        """ Get filename for exported spreadsheet, without extension """
+        return getattr(self.model_admin, 'export_filename', super().get_filename())
+
     def get_heading(self, queryset, field):
         """ Get headings for exported spreadsheet column for the relevant field """
         heading_override = self.export_headings.get(field)

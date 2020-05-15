@@ -48,8 +48,11 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         # Export the whole queryset
         response = self.get(export='csv')
 
-        # Check response - all books should be in it
         self.assertEqual(response.status_code, 200)
+        # Check attachment is present and named correctly using the modeladmin export_filename
+        self.assertEqual(response.get('content-disposition'), 'attachment; filename="books-export.csv"')
+
+        # Check response - all books should be in it
         data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(data_lines[0], 'Title,Author\r')
         self.assertEqual(data_lines[1], 'Charlie and the Chocolate Factory,Roald Dahl\r')
@@ -61,8 +64,11 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         # Export the whole queryset
         response = self.get(export='xlsx')
 
-        # Check response - all books should be in it
         self.assertEqual(response.status_code, 200)
+        # Check attachment is present and named correctly using the modeladmin export_filename
+        self.assertEqual(response.get('content-disposition'), 'attachment; filename="books-export.xlsx"')
+
+        # Check response - all books should be in it
         workbook_data = response.getvalue()
         worksheet = load_workbook(filename=BytesIO(workbook_data))['Sheet1']
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
