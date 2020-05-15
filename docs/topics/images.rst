@@ -317,17 +317,17 @@ representing the color you would like to use:
 
 .. _jpeg_image_quality:
 
-JPEG image quality
+Image quality
 ------------------
 
-Wagtail's JPEG image quality setting defaults to 85 (which is quite high). This
-can be changed either globally or on a per-tag basis.
+Wagtail's JPEG and WebP image quality settings default to 85 (which is quite high).
+This can be changed either globally or on a per-tag basis.
 
 Changing globally
 ^^^^^^^^^^^^^^^^^
 
-Use the ``WAGTAILIMAGES_JPEG_QUALITY`` setting to change the global default JPEG
-quality:
+Use the ``WAGTAILIMAGES_JPEG_QUALITY`` and ``WAGTAILIMAGES_WEBP_QUALITY`` settings
+to change the global defaults of JPEG and WebP quality:
 
 .. code-block:: python
 
@@ -335,6 +335,7 @@ quality:
 
     # Make low-quality but small images
     WAGTAILIMAGES_JPEG_QUALITY = 40
+    WAGTAILIMAGES_WEBP_QUALITY = 45
 
 Note that this won't affect any previously generated images so you may want to
 delete all renditions so they can regenerate with the new setting. This can be
@@ -349,20 +350,31 @@ done from the Django shell:
 Changing per-tag
 ^^^^^^^^^^^^^^^^
 
-It's also possible to have different JPEG qualities on individual tags by using
-the ``jpegquality`` filter. This will always override the default setting:
+It's also possible to have different JPEG and WebP qualities on individual tags
+by using the ``quality`` filter. This will always override the default setting:
 
 .. code-block:: html+Django
 
-    {% image page.photo width-400 jpegquality-40 %}
+    {% image page.photo width-400 quality-40 %}
 
 Note that this will have no effect on PNG or GIF files. If you want all images
-to be low quality, you can use this filter with ``format-jpeg`` (which forces
-all images to output in JPEG format):
+to be low quality, you can use this filter with ``format-jpeg`` or ``format-webp``
+(which forces all images to output in JPEG or WebP format):
 
 .. code-block:: html+Django
 
-    {% image page.photo width-400 format-jpeg jpegquality-40 %}
+    {% image page.photo width-400 format-jpeg quality-40 %}
+
+
+WebP lossless
+^^^^^^^^^^^^^
+
+You can encode the image to WebP without any loss by adding the
+``webplossless``:
+
+.. code-block:: html+Django
+
+    {% image page.photo width-400 format-webp webplossless %}
 
 Generating image renditions in Python
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
