@@ -129,7 +129,7 @@ class TestUserbarModeration(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
         self.homepage = Page.objects.get(id=2)
-        self.homepage.save_revision()
+        self.homepage.save_revision(submitted_for_moderation=True)
         self.revision = self.homepage.get_latest_revision()
 
     def test_userbar_moderation(self):
@@ -137,6 +137,26 @@ class TestUserbarModeration(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/userbar/base.html')
+
+        expected_approve_html = """
+            <form action="/admin/pages/moderation/{}/approve/" target="_parent" method="post">
+                <input type="hidden" name="csrfmiddlewaretoken">
+                <div class="wagtail-action wagtail-icon wagtail-icon-tick">
+                    <input type="submit" value="Approve" class="button" />
+                </div>
+            </form>
+        """.format(self.revision.id)
+        self.assertTagInHTML(expected_approve_html, str(response.content))
+
+        expected_reject_html = """
+            <form action="/admin/pages/moderation/{}/reject/" target="_parent" method="post">
+                <input type="hidden" name="csrfmiddlewaretoken">
+                <div class="wagtail-action wagtail-icon wagtail-icon-cross">
+                    <input type="submit" value="Reject" class="button" />
+                </div>
+            </form>
+        """.format(self.revision.id)
+        self.assertTagInHTML(expected_reject_html, str(response.content))
 
     def test_userbar_moderation_anonymous_user_cannot_see(self):
         # Logout

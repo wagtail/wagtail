@@ -18,12 +18,9 @@ Two third-party tools are known to work with Wagtail: One based on OpenCV_ for g
 .. _Rustface: https://github.com/torchbox/rustface-py/
 
 OpenCV on Debian/Ubuntu
-~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Feature detection requires OpenCV_ which can be a bit tricky to install as it's not currently pip-installable.
-
-Installation options
-~~~~~~~~~~~~~~~~~~~~
 
 There is more than one way to install these components, but in each case you will need to test that both OpenCV itself *and* the Python interface have been correctly installed.
 
@@ -77,7 +74,7 @@ If you don't get an import error, installation has probably been successful.
 
 
 Rustface
-~~~~~~~~
+^^^^^^^^
 
 Rustface_ is Python library with prebuilt wheel files provided for Linux and macOS. Although implemented in Rust it is pip-installable:
 
@@ -88,7 +85,7 @@ Rustface_ is Python library with prebuilt wheel files provided for Linux and mac
 
 
 Registering with Willow
-^^^^^^^^^^^^^^^^^^^^^^^
+```````````````````````
 
 Rustface provides a plug-in that needs to be registered with Willow_.
 
@@ -109,7 +106,7 @@ For example, in an app's AppConfig.ready_.
 
 
 Cropping
-^^^^^^^^
+--------
 
 The face detection algorithm produces a focal area that is tightly cropped to the face rather than the whole head.
 
