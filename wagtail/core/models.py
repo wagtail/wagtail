@@ -850,12 +850,6 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         if submitted_for_moderation:
             logger.info("Page submitted for moderation: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
 
-        if self.current_workflow_task_state:
-            # Cancel the current task state, but start it again on the same task: this will now be attached to the new revision
-            self.current_workflow_task_state.cancel(user=user, resume=True)
-            if not getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
-                self.current_workflow_state.copy_approved_task_states_to_revision(revision)
-
         return revision
 
     def get_latest_revision(self):
@@ -2859,14 +2853,16 @@ class WorkflowState(models.Model):
                 self.finish(user=user)
 
     def get_next_task(self):
-        """Returns the next active task associated with the latest page revision, which has not been either approved or skipped"""
+        """Returns the next active task, which has not been either approved or skipped"""
+        successful_task_states = self.task_states.filter(
+            Q(status=TaskState.STATUS_APPROVED) | Q(status=TaskState.STATUS_SKIPPED)
+        )
+        if getattr(settings, "WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT", False):
+            successful_task_states = successful_task_states.filter(page_revision=self.page.get_latest_revision())
         return (
             Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True)
             .exclude(
-                task_states__in=TaskState.objects.filter(
-                    Q(page_revision=self.page.get_latest_revision()),
-                    Q(status=TaskState.STATUS_APPROVED) | Q(status=TaskState.STATUS_SKIPPED)
-                )
+                task_states__in=successful_task_states
             ).order_by('workflow_tasks__sort_order').first()
         )
 
@@ -2914,15 +2910,18 @@ class WorkflowState(models.Model):
         This is different to querying TaskState as it also returns tasks that haven't
         been started yet (so won't have a TaskState).
         """
-        latest_revision_id = self.revisions().order_by('-created_at', '-id').values_list('id', flat=True).first()
+        # Get the set of task states whose status applies to the current revision
+        task_states = TaskState.objects.filter(workflow_state_id=self.id)
+        if getattr(settings, "WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT", False):
+            # If WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=True, this is only task states created on the current revision
+            latest_revision_id = self.revisions().order_by('-created_at', '-id').values_list('id', flat=True).first()
+            task_states = task_states.filter(page_revision_id=latest_revision_id)
 
         tasks = list(
             self.workflow.tasks.annotate(
                 status=Subquery(
-                    TaskState.objects.filter(
+                    task_states.filter(
                         task_id=OuterRef('id'),
-                        workflow_state_id=self.id,
-                        page_revision_id=latest_revision_id
                     ).values('status')
                 ),
             )
