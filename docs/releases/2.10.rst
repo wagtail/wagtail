@@ -48,6 +48,7 @@ Other features
  * Improve performance of empty search results by avoiding downloading the entire search index in these scenarios (Lars van de Kerkhof, Coen van der Kamp)
  * Replace ``gulp-sass`` with ``gulp-dart-sass`` to improve core development across different platforms (Thibaud Colas)
  * Add SVG icons to resolve accessibility and customisation issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas)
+ * Remove markup around rich text rendering by default, provide a way to use old behaviour via ``wagtail.contrib.legacy.richtext``. See :ref:`legacy_richtext`. (Coen van der Kamp, Dan Braghis)
 
 
 Bug fixes
@@ -65,6 +66,9 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+ * Rich text will now be rendered without any markup, to use the old behaviour where a wrapper ``<div class="richt-text">`` is used see :ref:`legacy_richtext`.
+
 
 Removed support for Python 3.5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
