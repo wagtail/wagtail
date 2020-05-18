@@ -17,7 +17,8 @@ Create a custom user model. This must at minimum inherit from ``AbstractBaseUser
       country = models.CharField(verbose_name='country', max_length=255)
       status = models.ForeignKey(MembershipStatus, on_delete=models.SET_NULL, null=True, default=1)
 
-Add the app containing your user model to ``INSTALLED_APPS`` and set AUTH_USER_MODEL_ to reference
+Add the app containing your user model to ``INSTALLED_APPS`` - it must be above the ``'wagtail.users'`` line,
+in order to override Wagtail's built-in templates - and set AUTH_USER_MODEL_ to reference
 your model. In this example the app is called ``users`` and the model is ``User``
 
 .. code-block:: python
