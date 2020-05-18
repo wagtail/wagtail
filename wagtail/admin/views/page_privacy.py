@@ -27,10 +27,13 @@ def set_privacy(request, page_id):
             if form.cleaned_data['restriction_type'] == PageViewRestriction.NONE:
                 # remove any existing restriction
                 if restriction:
-                    restriction.delete()
+                    restriction.delete(user=request.user)
             else:
                 restriction = form.save(commit=False)
                 restriction.page = page
+                # pass the current user as restriction attribute since the model form calls a plain instance.save()
+                # the attribute is removed in PageViewRestriction.save()
+                restriction.user = request.user
                 form.save()
 
             return render_modal_workflow(
