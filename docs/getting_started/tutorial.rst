@@ -202,11 +202,9 @@ Produces:
 
 .. code-block:: html
 
-    <div class="rich-text">
-        <p>
-            <b>Welcome</b> to our new site!
-        </p>
-    </div>
+    <p>
+        <b>Welcome</b> to our new site!
+    </p>
 
 **Note:** You'll need to include ``{% load wagtailcore_tags %}`` in each
 template that uses Wagtail's tags. Django will throw a ``TemplateSyntaxError``
