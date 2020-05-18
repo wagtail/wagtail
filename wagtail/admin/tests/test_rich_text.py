@@ -323,8 +323,7 @@ class TestRichTextValue(TestCase):
         value = RichText(text)
         result = str(value)
         expected = (
-            '<div class="rich-text"><p>To the <a href="'
-            '/foo/pointless-suffix/">moon</a>!</p></div>')
+            '<p>To the <a href="/foo/pointless-suffix/">moon</a>!</p>')
         self.assertEqual(result, expected)
 
 
