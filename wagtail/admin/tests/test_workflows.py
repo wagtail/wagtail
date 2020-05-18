@@ -590,11 +590,11 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         # Post
         self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'reject'})
 
-        # Check that the workflow was rejected
+        # Check that the workflow was marked as needing changes
 
         workflow_state = WorkflowState.objects.get(page=self.page, requested_by=self.submitter)
 
-        self.assertEqual(workflow_state.status, workflow_state.STATUS_REJECTED)
+        self.assertEqual(workflow_state.status, workflow_state.STATUS_NEEDS_CHANGES)
 
         # Check that the task was rejected
 

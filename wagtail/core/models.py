@@ -2770,12 +2770,12 @@ class WorkflowState(models.Model):
     """Tracks the status of a started Workflow on a Page."""
     STATUS_IN_PROGRESS = 'in_progress'
     STATUS_APPROVED = 'approved'
-    STATUS_REJECTED = 'rejected'
+    STATUS_NEEDS_CHANGES = 'needs_changes'
     STATUS_CANCELLED = 'cancelled'
     STATUS_CHOICES = (
         (STATUS_IN_PROGRESS, _("In progress")),
         (STATUS_APPROVED, _("Approved")),
-        (STATUS_REJECTED, _("Rejected")),
+        (STATUS_NEEDS_CHANGES, _("Needs changes")),
         (STATUS_CANCELLED, _("Cancelled")),
     )
 
@@ -2799,9 +2799,9 @@ class WorkflowState(models.Model):
     def clean(self):
         super().clean()
 
-        if self.status in (self.STATUS_IN_PROGRESS, self.STATUS_REJECTED):
+        if self.status in (self.STATUS_IN_PROGRESS, self.STATUS_NEEDS_CHANGES):
             # The unique constraint is conditional, and so not supported on the MySQL backend - so an additional check is done here
-            if WorkflowState.objects.filter(Q(status=self.STATUS_IN_PROGRESS) | Q(status=self.STATUS_REJECTED), page=self.page).exclude(pk=self.pk).exists():
+            if WorkflowState.objects.filter(Q(status=self.STATUS_IN_PROGRESS) | Q(status=self.STATUS_NEEDS_CHANGES), page=self.page).exclude(pk=self.pk).exists():
                 raise ValidationError(_('There may only be one in progress or needs changes workflow state per page.'))
 
     def save(self, *args, **kwargs):
@@ -2812,8 +2812,8 @@ class WorkflowState(models.Model):
         return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
 
     def resume(self, user=None):
-        """Put a STATUS_REJECTED workflow state back into STATUS_IN_PROGRESS, and restart the current task"""
-        if self.status != self.STATUS_REJECTED:
+        """Put a STATUS_NEEDS_CHANGES workflow state back into STATUS_IN_PROGRESS, and restart the current task"""
+        if self.status != self.STATUS_NEEDS_CHANGES:
             raise PermissionDenied
         next_task = self.current_task_state.task
         self.current_task_state = None
@@ -2831,8 +2831,8 @@ class WorkflowState(models.Model):
             current_status = self.current_task_state.status
         except AttributeError:
             current_status = None
-        if current_status == self.STATUS_REJECTED:
-            self.status = self.STATUS_REJECTED
+        if current_status == TaskState.STATUS_REJECTED:
+            self.status = self.STATUS_NEEDS_CHANGES
             self.save()
             workflow_rejected.send(sender=self.__class__, instance=self, user=user)
         else:
@@ -2868,7 +2868,7 @@ class WorkflowState(models.Model):
 
     def cancel(self, user=None):
         """Cancels the workflow state"""
-        if self.status not in (self.STATUS_IN_PROGRESS, self.STATUS_REJECTED):
+        if self.status not in (self.STATUS_IN_PROGRESS, self.STATUS_NEEDS_CHANGES):
             raise PermissionDenied
         self.status = self.STATUS_CANCELLED
         self.save()
@@ -2937,9 +2937,9 @@ class WorkflowState(models.Model):
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')
-        # prevent multiple STATUS_IN_PROGRESS/STATUS_REJECTED workflows for the same page. This is not supported by MySQL, so is checked additionally on save.
+        # prevent multiple STATUS_IN_PROGRESS/STATUS_NEEDS_CHANGES workflows for the same page. This is not supported by MySQL, so is checked additionally on save.
         constraints = [
-            models.UniqueConstraint(fields=['page'], condition=(Q(status='in_progress') | Q(status='REJECTED')), name='unique_in_progress_workflow')
+            models.UniqueConstraint(fields=['page'], condition=(Q(status='in_progress') | Q(status='needs_changes')), name='unique_in_progress_workflow')
         ]
 
 

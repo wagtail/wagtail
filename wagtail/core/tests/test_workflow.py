@@ -176,10 +176,11 @@ class TestWorkflows(TestCase):
         self.assertEqual(workflow_state.status, workflow_state.STATUS_APPROVED)
 
     def test_reject_workflow(self):
-        # test that both WorkflowState and TaskState are marked as rejected upon Task.on_action with action=reject
+        # test that TaskState is marked as rejected upon Task.on_action with action=reject
+        # and the WorkflowState as needs changes
         data = self.start_workflow_on_homepage()
         workflow_state = data['workflow_state']
         task_state = workflow_state.current_task_state
         task_state.task.on_action(task_state, user=None, action_name='reject')
-        self.assertEqual(task_state.status, 'rejected')
-        self.assertEqual(workflow_state.status, 'rejected')
+        self.assertEqual(task_state.status, task_state.STATUS_REJECTED)
+        self.assertEqual(workflow_state.status, workflow_state.STATUS_NEEDS_CHANGES)
