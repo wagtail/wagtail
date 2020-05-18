@@ -311,12 +311,12 @@ class TestResolveModelString(TestCase):
 class TestRichtextTag(TestCase):
     def test_call_with_text(self):
         result = richtext("Hello world!")
-        self.assertEqual(result, '<div class="rich-text">Hello world!</div>')
+        self.assertEqual(result, 'Hello world!')
         self.assertIsInstance(result, SafeString)
 
     def test_call_with_none(self):
         result = richtext(None)
-        self.assertEqual(result, '<div class="rich-text"></div>')
+        self.assertEqual(result, '')
 
     def test_call_with_invalid_value(self):
         with self.assertRaisesRegex(TypeError, "'richtext' template filter received an invalid value"):

@@ -508,7 +508,7 @@ class TestRichTextBlock(TestCase):
         value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
         result = block.render(value)
         self.assertEqual(
-            result, '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>'
+            result, '<p>Merry <a href="/events/christmas/">Christmas</a>!</p>'
         )
 
     def test_render_form(self):
@@ -1448,7 +1448,7 @@ class TestStructBlock(SimpleTestCase):
             'body': '<b>world</b>',
         })
         body_bound_block = struct_value.bound_blocks['body']
-        expected = '<div class="rich-text"><b>world</b></div>'
+        expected = '<b>world</b>'
         self.assertEqual(str(body_bound_block), expected)
 
     def test_get_form_context(self):
@@ -1725,13 +1725,13 @@ class TestStructBlock(SimpleTestCase):
         block = SectionBlock()
         value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
         result = block.render(value)
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+        self.assertEqual(result, """<h1>Hello</h1><i>italic</i> world""")
 
     def test_render_block_with_extra_context(self):
         block = SectionBlock()
         value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
         result = block.render(value, context={'language': 'fr'})
-        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
+        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1>monde <i>italique</i>""")
 
     def test_render_structvalue(self):
         """
@@ -1740,11 +1740,11 @@ class TestStructBlock(SimpleTestCase):
         block = SectionBlock()
         value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
         result = value.__html__()
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+        self.assertEqual(result, """<h1>Hello</h1><i>italic</i> world""")
 
         # value.render_as_block() should be equivalent to value.__html__()
         result = value.render_as_block()
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+        self.assertEqual(result, """<h1>Hello</h1><i>italic</i> world""")
 
     def test_str_structvalue(self):
         """
@@ -1769,7 +1769,7 @@ class TestStructBlock(SimpleTestCase):
         block = SectionBlock()
         value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
         result = value.render_as_block(context={'language': 'fr'})
-        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
+        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1>monde <i>italique</i>""")
 
 
 class TestStructBlockWithCustomStructValue(SimpleTestCase):
@@ -2493,8 +2493,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         ])
 
         self.assertIn('<div class="block-heading">My title</div>', html)
-        self.assertIn('<div class="block-paragraph"><div class="rich-text">My <i>first</i> paragraph</div></div>', html)
-        self.assertIn('<div class="block-paragraph"><div class="rich-text">My second paragraph</div></div>', html)
+        self.assertIn('<div class="block-paragraph">My <i>first</i> paragraph</div>', html)
+        self.assertIn('<div class="block-paragraph">My second paragraph</div>', html)
 
     def test_render_unknown_type(self):
         # This can happen if a developer removes a type from their StreamBlock
@@ -2510,7 +2510,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         ])
         self.assertNotIn('foo', html)
         self.assertNotIn('Hello', html)
-        self.assertIn('<div class="block-paragraph"><div class="rich-text">My first paragraph</div></div>', html)
+        self.assertIn('<div class="block-paragraph">My first paragraph</div>', html)
 
     def test_render_calls_block_render_on_children(self):
         """
@@ -3674,7 +3674,7 @@ class TestIncludeBlockTag(TestCase):
         })
 
         self.assertIn(
-            """<body><h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div></body>""",
+            """<body><h1 lang="fr">Bonjour</h1>monde <i>italique</i></body>""",
             result
         )
 
