@@ -2,7 +2,7 @@ from django.apps import apps
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.indexes import GinIndex
-from django.contrib.postgres.search import SearchQuery, SearchVectorField
+from django.contrib.postgres.search import SearchVectorField
 from django.db.models import CASCADE, ForeignKey, Model, TextField
 from django.db.models.functions import Cast
 from django.utils.translation import gettext_lazy as _
@@ -10,32 +10,6 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.search.index import class_is_indexed
 
 from .utils import get_descendants_content_types_pks
-
-
-class RawSearchQuery(SearchQuery):
-    def __init__(self, format, *args, **kwargs):
-        self.format = format
-        super().__init__(*args, **kwargs)
-
-    def as_sql(self, compiler, connection):
-        # escape apostrophe and backslash
-        params = [v.replace("'", "''").replace("\\", "\\\\") for v in self.value]
-        if self.config:
-            config_sql, config_params = compiler.compile(self.config)
-            template = "to_tsquery(%s::regconfig, '%s')" % (config_sql, self.format)
-            params = config_params + params
-        else:
-            template = "to_tsquery('%s')" % self.format
-        if self.invert:
-            template = '!!({})'.format(template)
-        return template, params
-
-    def __invert__(self):
-        extra = {
-            'invert': not self.invert,
-            'config': self.config,
-        }
-        return type(self)(self.format, self.value, **extra)
 
 
 class TextIDGenericRelation(GenericRelation):
