@@ -116,9 +116,8 @@ def register_image_operations():
         ('width', image_operations.WidthHeightOperation),
         ('height', image_operations.WidthHeightOperation),
         ('scale', image_operations.ScaleOperation),
-        # For backward compatibility
-        ('jpegquality', image_operations.QualityOperation),
-        ('quality', image_operations.QualityOperation),
+        ('jpegquality', image_operations.JPEGQualityOperation),
+        ('webpquality', image_operations.WebPQualityOperation),
         ('webplossless', image_operations.WebPLossless),
         ('format', image_operations.FormatOperation),
         ('bgcolor', image_operations.BackgroundColorOperation),

@@ -580,7 +580,7 @@ class TestJPEGQualityFilter(TestCase):
         save.assert_called_with(f, 'JPEG', quality=85, optimize=True, progressive=True)
 
     def test_jpeg_quality_filter(self):
-        fil = Filter(spec='width-400|quality-40')
+        fil = Filter(spec='width-400|jpegquality-40')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file_jpeg(),
@@ -593,7 +593,7 @@ class TestJPEGQualityFilter(TestCase):
         save.assert_called_with(f, 'JPEG', quality=40, optimize=True, progressive=True)
 
     def test_jpeg_quality_filter_invalid(self):
-        fil = Filter(spec='width-400|quality-abc')
+        fil = Filter(spec='width-400|jpegquality-abc')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file_jpeg(),
@@ -601,7 +601,7 @@ class TestJPEGQualityFilter(TestCase):
         self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
 
     def test_jpeg_quality_filter_no_value(self):
-        fil = Filter(spec='width-400|quality')
+        fil = Filter(spec='width-400|jpegquality')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file_jpeg(),
@@ -609,7 +609,7 @@ class TestJPEGQualityFilter(TestCase):
         self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
 
     def test_jpeg_quality_filter_too_big(self):
-        fil = Filter(spec='width-400|quality-101')
+        fil = Filter(spec='width-400|jpegquality-101')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file_jpeg(),
@@ -636,7 +636,7 @@ class TestJPEGQualityFilter(TestCase):
         WAGTAILIMAGES_JPEG_QUALITY=50
     )
     def test_jpeg_quality_filter_overrides_setting(self):
-        fil = Filter(spec='width-400|quality-40')
+        fil = Filter(spec='width-400|jpegquality-40')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file_jpeg(),
@@ -664,7 +664,7 @@ class TestWebPQualityFilter(TestCase):
         save.assert_called_with(f, 'WEBP', quality=85, lossless=False)
 
     def test_webp_quality_filter(self):
-        fil = Filter(spec='width-400|quality-40|format-webp')
+        fil = Filter(spec='width-400|webpquality-40|format-webp')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file_jpeg(),
@@ -677,7 +677,7 @@ class TestWebPQualityFilter(TestCase):
         save.assert_called_with(f, 'WEBP', quality=40, lossless=False)
 
     def test_webp_quality_filter_invalid(self):
-        fil = Filter(spec='width-400|quality-abc|format-webp')
+        fil = Filter(spec='width-400|webpquality-abc|format-webp')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file_jpeg(),
@@ -685,7 +685,7 @@ class TestWebPQualityFilter(TestCase):
         self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
 
     def test_webp_quality_filter_no_value(self):
-        fil = Filter(spec='width-400|quality')
+        fil = Filter(spec='width-400|webpquality')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file_jpeg(),
@@ -693,7 +693,7 @@ class TestWebPQualityFilter(TestCase):
         self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
 
     def test_webp_quality_filter_too_big(self):
-        fil = Filter(spec='width-400|quality-101|format-webp')
+        fil = Filter(spec='width-400|webpquality-101|format-webp')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file_jpeg(),
@@ -720,7 +720,7 @@ class TestWebPQualityFilter(TestCase):
         WAGTAILIMAGES_WEBP_QUALITY=50
     )
     def test_jpeg_quality_filter_overrides_setting(self):
-        fil = Filter(spec='width-400|quality-40|format-webp')
+        fil = Filter(spec='width-400|webpquality-40|format-webp')
         image = Image.objects.create(
             title="Test image",
             file=get_test_image_file_jpeg(),

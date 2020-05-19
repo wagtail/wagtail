@@ -444,8 +444,8 @@ class Filter:
 
             if output_format == 'jpeg':
                 # Allow changing of JPEG compression quality
-                if 'quality' in env:
-                    quality = env['quality']
+                if 'jpeg-quality' in env:
+                    quality = env['jpeg-quality']
                 else:
                     quality = getattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY', 85)
 
@@ -459,9 +459,9 @@ class Filter:
             elif output_format == 'gif':
                 return willow.save_as_gif(output)
             elif output_format == 'webp':
-                # Allow changing of JPEG compression quality
-                if 'quality' in env:
-                    quality = env['quality']
+                # Allow changing of WebP compression quality
+                if 'webp-quality' in env:
+                    quality = env['webp-quality']
                 else:
                     quality = getattr(settings, 'WAGTAILIMAGES_WEBP_QUALITY', 85)
                 lossless = env.get('webp-lossless', False)

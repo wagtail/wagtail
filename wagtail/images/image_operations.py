@@ -243,7 +243,7 @@ class ScaleOperation(Operation):
         return willow.resize((width, height))
 
 
-class QualityOperation(Operation):
+class JPEGQualityOperation(Operation):
     def construct(self, quality):
         self.quality = int(quality)
 
@@ -251,7 +251,18 @@ class QualityOperation(Operation):
             raise ValueError("Quality must not be higher than 100")
 
     def run(self, willow, image, env):
-        env['quality'] = self.quality
+        env['jpeg-quality'] = self.quality
+
+
+class WebPQualityOperation(Operation):
+    def construct(self, quality):
+        self.quality = int(quality)
+
+        if self.quality > 100:
+            raise ValueError("WebP quality must not be higher than 100")
+
+    def run(self, willow, image, env):
+        env['webp-quality'] = self.quality
 
 
 class WebPLossless(Operation):
