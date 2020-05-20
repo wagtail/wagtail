@@ -43,13 +43,12 @@ class Elasticsearch7Index(Elasticsearch6Index):
 
         # Get mapping
         mapping = self.mapping_class(model)
-        doc_type = "_doc"
 
         # Create list of actions
         actions = []
         for item in items:
             # Create the action
-            action = {"_type": doc_type, "_id": mapping.get_document_id(item)}
+            action = {"_id": mapping.get_document_id(item)}
             action.update(mapping.get_document(item))
             actions.append(action)
 
