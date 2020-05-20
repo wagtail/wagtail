@@ -78,4 +78,4 @@ Provides a way to manage redirects.
 :doc:`legacy_richtext`
 -----------------------
 
-Provides legacy richtext wrapper.
+Provides the legacy richtext wrapper (``<div class="rich-text"></div>``).
