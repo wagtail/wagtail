@@ -283,6 +283,7 @@ Wagtail may automatically change the format of some images when they are resized
  - PNG and JPEG images don't change format
  - GIF images without animation are converted to PNGs
  - BMP images are converted to PNGs
+ - WebP images are converted to PNGs
 
 It is also possible to override the output format on a per-tag basis by using the
 ``format`` filter after the resize rule.
@@ -294,6 +295,16 @@ For example, to make the tag always convert the image to a JPEG, use ``format-jp
     {% image page.photo width-400 format-jpeg %}
 
 You may also use ``format-png`` or ``format-gif``.
+
+WebP lossless
+^^^^^^^^^^^^^
+
+You can encode the image to WebP without any loss by using the
+``format-webp-lossless``:
+
+.. code-block:: html+Django
+
+    {% image page.photo width-400 format-webp-lossless %}
 
 .. _image_background_color:
 
@@ -315,7 +326,7 @@ representing the color you would like to use:
     {# Sets the image background to black #}
     {% image page.photo width-400 bgcolor-000 format-jpeg %}
 
-.. _jpeg_image_quality:
+.. __image_quality:
 
 Image quality
 ------------------
@@ -351,7 +362,8 @@ Changing per-tag
 ^^^^^^^^^^^^^^^^
 
 It's also possible to have different JPEG and WebP qualities on individual tags
-by using the ``quality`` filter. This will always override the default setting:
+by using ``jpegquality`` and ``webpquality`` filters. This will always override
+the default setting:
 
 .. code-block:: html+Django
 
@@ -364,17 +376,6 @@ to be low quality, you can use this filter with ``format-jpeg`` or ``format-webp
 .. code-block:: html+Django
 
     {% image page.photo width-400 format-jpeg quality-40 %}
-
-
-WebP lossless
-^^^^^^^^^^^^^
-
-You can encode the image to WebP without any loss by adding the
-``webplossless``:
-
-.. code-block:: html+Django
-
-    {% image page.photo width-400 format-webp webplossless %}
 
 Generating image renditions in Python
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
