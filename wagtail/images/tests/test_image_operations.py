@@ -556,6 +556,20 @@ class TestFormatFilter(TestCase):
 
         self.assertEqual(out.format_name, 'webp')
 
+    def test_webp_lossless(self):
+        fil = Filter(spec='width-400|format-webp-lossless')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        # quality=80 is default for Williw and PIL libs
+        save.assert_called_with(f, 'WEBP', quality=80, lossless=True)
+
     def test_invalid(self):
         fil = Filter(spec='width-400|format-foo')
         image = Image.objects.create(
@@ -731,19 +745,6 @@ class TestWebPQualityFilter(TestCase):
             fil.run(image, f)
 
         save.assert_called_with(f, 'WEBP', quality=40, lossless=False)
-
-    def test_webp_lossless_filter(self):
-        fil = Filter(spec='width-400|webplossless|format-webp')
-        image = Image.objects.create(
-            title="Test image",
-            file=get_test_image_file_jpeg(),
-        )
-
-        f = BytesIO()
-        with patch('PIL.Image.Image.save') as save:
-            fil.run(image, f)
-
-        save.assert_called_with(f, 'WEBP', quality=85, lossless=True)
 
 
 class TestBackgroundColorFilter(TestCase):

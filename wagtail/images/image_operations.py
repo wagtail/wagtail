@@ -274,8 +274,9 @@ class WebPLossless(Operation):
 
 
 class FormatOperation(Operation):
-    def construct(self, fmt):
-        self.format = fmt
+    def construct(self, format, *options):
+        self.format = format
+        self.options = options
 
         if self.format not in ['jpeg', 'png', 'gif', 'webp']:
             raise ValueError(
@@ -283,6 +284,7 @@ class FormatOperation(Operation):
 
     def run(self, willow, image, env):
         env['output-format'] = self.format
+        env['output-format-options'] = self.options
 
 
 class BackgroundColorOperation(Operation):

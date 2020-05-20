@@ -460,13 +460,15 @@ class Filter:
                 return willow.save_as_gif(output)
             elif output_format == 'webp':
                 # Allow changing of WebP compression quality
-                if 'webp-quality' in env:
+                if ('output-format-options' in env
+                        and 'lossless' in env['output-format-options']):
+                    return willow.save_as_webp(output, lossless=True)
+                elif 'webp-quality' in env:
                     quality = env['webp-quality']
                 else:
                     quality = getattr(settings, 'WAGTAILIMAGES_WEBP_QUALITY', 85)
-                lossless = env.get('webp-lossless', False)
 
-                return willow.save_as_webp(output, quality=quality, lossless=lossless)
+                return willow.save_as_webp(output, quality=quality)
 
     def get_cache_key(self, image):
         vary_parts = []
