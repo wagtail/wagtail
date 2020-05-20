@@ -43,13 +43,12 @@ class Elasticsearch7Index(Elasticsearch6Index):
 
         # Get mapping
         mapping = self.mapping_class(model)
-        doc_type = "_doc"
 
         # Create list of actions
         actions = []
         for item in items:
             # Create the action
-            action = {"_type": doc_type, "_id": mapping.get_document_id(item)}
+            action = {'_id': mapping.get_document_id(item)}
             action.update(mapping.get_document(item))
             actions.append(action)
 
@@ -93,7 +92,11 @@ class Elasticsearch7SearchBackend(Elasticsearch6SearchBackend):
     results_class = Elasticsearch7SearchResults
 
     settings = deepcopy(Elasticsearch6SearchBackend.settings)
-    settings["settings"]["index"] = {"max_ngram_diff": 12}
+    settings['settings']['index'] = {'max_ngram_diff': 12}
+    settings['settings']['analysis']['filter']['ngram']['type'] = 'ngram'
+    settings['settings']['analysis']['filter']['edgengram']['type'] = 'edge_ngram'
+    settings['settings']['analysis']['tokenizer']['ngram_tokenizer']['type'] = 'ngram'
+    settings['settings']['analysis']['tokenizer']['edgengram_tokenizer']['type'] = 'edge_ngram'
 
 
 SearchBackend = Elasticsearch7SearchBackend
