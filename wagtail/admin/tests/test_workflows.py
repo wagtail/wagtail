@@ -393,16 +393,19 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         )
         root_page.add_child(instance=self.page)
 
-        self.workflow, self.task_1 = self.create_workflow_and_tasks()
+        self.workflow, self.task_1, self.task_2 = self.create_workflow_and_tasks()
 
         WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
 
     def create_workflow_and_tasks(self):
         workflow = Workflow.objects.create(name='test_workflow')
         task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_2 = GroupApprovalTask.objects.create(name='test_task_2')
         task_1.groups.set(Group.objects.filter(name='Moderators'))
+        task_2.groups.set(Group.objects.filter(name='Moderators'))
         WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
-        return workflow, task_1
+        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
+        return workflow, task_1, task_2
 
     def submit(self):
         post_data = {
@@ -441,6 +444,66 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         # An email that fails to send should return a message rather than crash the page
         self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('wagtailadmin_home'))
+
+    def test_resume_rejected_workflow(self):
+        # test that an existing workflow can be resumed by submitting when rejected
+        self.submit()
+        workflow_state = self.page.current_workflow_state
+        workflow_state.current_task_state.approve(user=self.superuser)
+        workflow_state.refresh_from_db()
+        workflow_state.current_task_state.reject(user=self.superuser)
+        workflow_state.refresh_from_db()
+        self.submit()
+        workflow_state.refresh_from_db()
+
+        # check that the same workflow state's status is now in progress
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_IN_PROGRESS)
+
+        # check that the workflow remains on the rejecting task, rather than resetting
+        self.assertEqual(workflow_state.current_task_state.task.specific, self.task_2)
+
+    def test_restart_rejected_workflow(self):
+        # test that an existing workflow can be restarted when rejected
+        self.submit()
+        workflow_state = self.page.current_workflow_state
+        workflow_state.current_task_state.approve(user=self.superuser)
+        workflow_state.refresh_from_db()
+        workflow_state.current_task_state.reject(user=self.superuser)
+        workflow_state.refresh_from_db()
+        post_data = {
+            'title': str(self.page.title),
+            'slug': str(self.page.slug),
+            'content': str(self.page.content),
+            'action-restart-workflow': "True",
+        }
+        self.client.post(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), post_data)
+        workflow_state.refresh_from_db()
+
+        # check that the same workflow state's status is now cancelled
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
+
+        # check that the new workflow has started on the first task
+        new_workflow_state = self.page.current_workflow_state
+        self.assertEqual(new_workflow_state.status, WorkflowState.STATUS_IN_PROGRESS)
+        self.assertEqual(new_workflow_state.current_task_state.task.specific, self.task_1)
+
+
+    def test_cancel_workflow(self):
+        # test that an existing workflow can be cancelled after submission by the submitter
+        self.submit()
+        workflow_state = self.page.current_workflow_state
+        post_data = {
+            'title': str(self.page.title),
+            'slug': str(self.page.slug),
+            'content': str(self.page.content),
+            'action-cancel-workflow': "True",
+        }
+        self.client.post(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), post_data)
+        workflow_state.refresh_from_db()
+
+        # check that the workflow state's status is now cancelled
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
+        self.assertEqual(workflow_state.current_task_state.status, TaskState.STATUS_CANCELLED)
 
 
     def test_email_headers(self):
@@ -515,6 +578,8 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
             'action-submit': "True",
         }
         return self.client.post(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), post_data)
+
+
 
     @override_settings(WAGTAIL_FINISH_WORKFLOW_ACTION='')
     def test_approve_task_and_workflow(self):
