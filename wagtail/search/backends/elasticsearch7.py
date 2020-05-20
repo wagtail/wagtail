@@ -95,5 +95,13 @@ class Elasticsearch7SearchBackend(Elasticsearch6SearchBackend):
     settings = deepcopy(Elasticsearch6SearchBackend.settings)
     settings["settings"]["index"] = {"max_ngram_diff": 12}
 
+    # Fix ElasticsearchDeprecationWarnings for tokenizer names and token filter names:
+    # - [edgeNGram] -> [edge_ngram]
+    # - [nGram] -> [ngram]
+    settings["settings"]["analysis"]["filter"]["edgengram"]["type"] = "edge_ngram"
+    settings["settings"]["analysis"]["filter"]["ngram"]["type"] = "ngram"
+    settings["settings"]["analysis"]["tokenizer"]["edgengram_tokenizer"]["type"] = "edge_ngram"
+    settings["settings"]["analysis"]["tokenizer"]["ngram_tokenizer"]["type"] = "ngram"
+
 
 SearchBackend = Elasticsearch7SearchBackend
