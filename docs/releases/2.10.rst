@@ -10,6 +10,11 @@ Wagtail 2.10 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Search query expressions
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Search queries can now be constructed as structured expressions in the manner of the Django ORM's ``Q()`` values, allowing for complex queries that combine individual terms, phrases and boosting. A helper function ``parse_query_string`` is provided to convert "natural" queries containing quoted phrases into these expressions. For complete documentation, see :ref:`wagtailsearch_complex_queries`. This feature was developed by Karl Hobley and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
 
 Other features
 ~~~~~~~~~~~~~~

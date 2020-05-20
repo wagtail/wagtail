@@ -193,6 +193,9 @@ For example:
 
 If you are looking to implement phrase queries using the double-quote syntax, see :ref:`wagtailsearch_query_string_parsing`.
 
+
+.. _wagtailsearch_complex_queries:
+
 Complex search queries
 ^^^^^^^^^^^^^^^^^^^^^^
 
