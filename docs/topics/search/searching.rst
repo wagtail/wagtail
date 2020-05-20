@@ -247,7 +247,7 @@ Note that this isn't supported by the PostgreSQL or database search backends.
 Query string parsing
 ^^^^^^^^^^^^^^^^^^^^
 
-The previous sections show how to construct a phrase search query manually, but lot of search engines (Wagtail admin included, try it!)
+The previous sections show how to construct a phrase search query manually, but a lot of search engines (Wagtail admin included, try it!)
 support writing phrase queries by wrapping the phrase with double-quotes. In addition to phrases, you might also want to allow users to
 add filters into the query using the colon syntax (``hello world published:yes``).
 
