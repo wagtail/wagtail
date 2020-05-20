@@ -54,7 +54,7 @@ def parse_query_string(query_string, operator=None, zero_terms=MATCH_NONE):
       `hello "this is a phrase" live:true` would be parsed into:
 
     filters: {'live': 'true'}
-    tokens: [('hello', False), ('this is a phrase', True)]
+    tokens: And([PlainText('hello'), Phrase('this is a phrase')])
     """
     filters, query_string = separate_filters_from_query(query_string)
 
