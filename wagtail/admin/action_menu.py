@@ -91,6 +91,53 @@ class SubmitForModerationMenuItem(ActionMenuItem):
         else:  # context == revisions_revert
             return False
 
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        workflow_state = context['page'].current_workflow_state
+        if workflow_state and workflow_state.status == workflow_state.STATUS_NEEDS_CHANGES:
+            context['label'] = _(f"Resubmit to {workflow_state.current_task_state.task.name}")
+        return context
+
+
+class WorkflowMenuItem(ActionMenuItem):
+    template = 'wagtailadmin/pages/action_menu/workflow_menu_item.html'
+
+    def __init__(self, name, label, *args, **kwargs):
+        self.name = name
+        self.label = label
+        super().__init__(*args, **kwargs)
+
+    def is_shown(self, request, context):
+        if context['view'] == 'edit':
+            return True
+
+
+class RestartWorkflowMenuItem(ActionMenuItem):
+    label = _("Restart workflow ")
+    name = 'action-restart-workflow'
+
+    def is_shown(self, request, context):
+        WAGTAIL_MODERATION_ENABLED = getattr(settings, 'WAGTAIL_MODERATION_ENABLED', True)
+        if not WAGTAIL_MODERATION_ENABLED:
+            return False
+        elif context['view'] == 'edit':
+            workflow_state = context['page'].current_workflow_state
+            permissions = context['user_page_permissions'].for_page(context['page'])
+            return permissions.can_submit_for_moderation() and workflow_state and workflow_state.user_can_cancel(request.user)
+        else:
+            return False
+
+
+class CancelWorkflowMenuItem(ActionMenuItem):
+    label = _("Cancel workflow ")
+    name = 'action-cancel-workflow'
+
+    def is_shown(self, request, context):
+        if context['view'] == 'edit':
+            workflow_state = context['page'].current_workflow_state
+            return workflow_state and workflow_state.user_can_cancel(request.user)
+        return False
+
 
 class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
@@ -164,7 +211,9 @@ def _get_base_page_action_menu_items():
             UnpublishMenuItem(order=10),
             DeleteMenuItem(order=20),
             PublishMenuItem(order=30),
-            SubmitForModerationMenuItem(order=40),
+            RestartWorkflowMenuItem(order=40),
+            CancelWorkflowMenuItem(order=50),
+            SubmitForModerationMenuItem(order=60),
         ]
         for hook in hooks.get_hooks('register_page_action_menu_item'):
             BASE_PAGE_ACTION_MENU_ITEMS.append(hook())
@@ -180,16 +229,28 @@ class PageActionMenu:
         self.context = kwargs
         self.context['user_page_permissions'] = UserPagePermissionsProxy(self.request.user)
 
-        self.menu_items = [
+        self.menu_items = []
+
+        page = self.context.get('page')
+        if page:
+            task = page.current_workflow_task
+            if task:
+                actions = task.get_actions(page, request.user)
+                workflow_menu_items = [WorkflowMenuItem(name, label) for name, label in actions]
+                workflow_menu_items = [item for item in workflow_menu_items if item.is_shown(self.request, self.context)]
+                self.menu_items.extend(workflow_menu_items)
+
+        self.menu_items.extend([
             menu_item
             for menu_item in _get_base_page_action_menu_items()
             if menu_item.is_shown(self.request, self.context)
-        ]
+        ])
 
         self.menu_items.sort(key=lambda item: item.order)
 
         for hook in hooks.get_hooks('construct_page_action_menu'):
             hook(self.menu_items, self.request, self.context)
+
 
         try:
             self.default_item = self.menu_items.pop(0)

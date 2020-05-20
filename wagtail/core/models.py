@@ -1735,16 +1735,16 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
 
     @property
     def current_workflow_state(self):
-        """Returns the in progress workflow state on this page, if it exists"""
+        """Returns the in progress or needs changes workflow state on this page, if it exists"""
         try:
-            return WorkflowState.objects.get(page=self, status=WorkflowState.STATUS_IN_PROGRESS)
+            return WorkflowState.objects.get(Q(status=WorkflowState.STATUS_IN_PROGRESS) | Q(status=WorkflowState.STATUS_NEEDS_CHANGES), page=self)
         except WorkflowState.DoesNotExist:
             return
 
     @property
     def current_workflow_task_state(self):
         """Returns (specific class of) the current task state of the workflow on this page, if it exists"""
-        if self.current_workflow_state and self.current_workflow_state.current_task_state:
+        if self.current_workflow_state and self.current_workflow_state.status == WorkflowState.STATUS_IN_PROGRESS and self.current_workflow_state.current_task_state:
             return self.current_workflow_state.current_task_state.specific
 
     @property
@@ -2820,6 +2820,9 @@ class WorkflowState(models.Model):
         self.status = self.STATUS_IN_PROGRESS
         self.save()
         return self.update(user=user, next_task=next_task)
+
+    def user_can_cancel(self, user):
+        return user == self.requested_by or user == self.page.owner or (self.current_task_state and self.current_task_state.status == self.current_task_state.STATUS_IN_PROGRESS and 'approve' in [action[0] for action in self.current_task_state.task.get_actions(self.page, user)])
 
     def update(self, user=None, next_task=None):
         """Checks the status of the current task, and progresses (or ends) the workflow if appropriate. If the workflow progresses,

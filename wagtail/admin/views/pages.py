@@ -416,7 +416,6 @@ def edit(request, page_id):
         # add a warning message if tasks have been approved and may need to be re-approved
         task_has_been_approved = any(filter(lambda task: task.status == TaskState.STATUS_APPROVED, workflow_tasks))
 
-        # TODO: add icon to message when we have added a workflows icon
         if request.method == 'GET':
             buttons = []
 
@@ -425,9 +424,10 @@ def edit(request, page_id):
                     reverse('wagtailadmin_pages:revisions_compare', args=(page.id, 'live', latest_revision.id)),
                     _('Compare with live version')
                 ))
-
+            if workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
+                workflow_info = _("Changes were requested on this page")
             # Check for revisions still undergoing moderation and warn
-            if len(workflow_tasks) == 1:
+            elif len(workflow_tasks) == 1:
                 # If only one task in workflow, show simple message
                 workflow_info = _("This page is currently awaiting moderation")
             elif current_task_number:
@@ -435,7 +435,7 @@ def edit(request, page_id):
             else:
                 workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
 
-            if task_has_been_approved and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
+            if task_has_been_approved and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', False):
                 messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons, extra_tags="workflow")
             else:
                 messages.success(request, workflow_info, buttons=buttons, extra_tags="workflow")
@@ -457,7 +457,12 @@ def edit(request, page_id):
 
             is_publishing = bool(request.POST.get('action-publish')) and page_perms.can_publish()
             is_submitting = bool(request.POST.get('action-submit')) and page_perms.can_submit_for_moderation()
+            is_restarting_workflow = bool(request.POST.get('action-restart-workflow')) and page_perms.can_submit_for_moderation() and workflow_state and workflow_state.user_can_cancel(request.user)
             is_reverting = bool(request.POST.get('revision'))
+            is_cancelling_workflow = bool(request.POST.get('action-cancel-workflow')) and workflow_state and workflow_state.user_can_cancel(request.user)
+
+            if is_cancelling_workflow or is_restarting_workflow:
+                workflow_state.cancel(user=request.user)
 
             # If a revision ID was passed in the form, get that revision so its
             # date can be referenced in notification messages
@@ -489,9 +494,14 @@ def edit(request, page_id):
                         return result
 
             # Submit
-            if is_submitting:
-                workflow = page.get_workflow()
-                workflow.start(page, request.user)
+            if is_submitting or is_restarting_workflow:
+                if workflow_state and workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
+                    # If the workflow was in the needs changes state, resume the existing workflow on submission
+                    workflow_state.resume(request.user)
+                else:
+                    # Otherwise start a new workflow
+                    workflow = page.get_workflow()
+                    workflow.start(page, request.user)
 
             # Notifications
             if is_publishing:
@@ -553,6 +563,46 @@ def edit(request, page_id):
 
                 message = _(
                     "Page '{0}' has been submitted for moderation."
+                ).format(
+                    page.get_admin_display_title()
+                )
+
+                messages.success(request, message, buttons=[
+                    messages.button(
+                        reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
+                        _('View draft'),
+                        new_window=True
+                    ),
+                    messages.button(
+                        reverse('wagtailadmin_pages:edit', args=(page_id,)),
+                        _('Edit')
+                    )
+                ])
+
+            elif is_cancelling_workflow:
+
+                message = _(
+                    "Workflow on page '{0}' has been cancelled."
+                ).format(
+                    page.get_admin_display_title()
+                )
+
+                messages.success(request, message, buttons=[
+                    messages.button(
+                        reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
+                        _('View draft'),
+                        new_window=True
+                    ),
+                    messages.button(
+                        reverse('wagtailadmin_pages:edit', args=(page_id,)),
+                        _('Edit')
+                    )
+                ])
+
+            elif is_restarting_workflow:
+
+                message = _(
+                    "Workflow on page '{0}' has been restarted."
                 ).format(
                     page.get_admin_display_title()
                 )
