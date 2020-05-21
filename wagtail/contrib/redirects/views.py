@@ -140,7 +140,10 @@ def start_import(request):
     query_string = request.GET.get('q', "")
 
     if not request.POST:
-
+        SUPPORTED_FORMATS = ["CSV", "TSV", "XLS", "XLSX"]
+        accepted_formats = [
+            x for x in DEFAULT_FORMATS if x.__name__ in SUPPORTED_FORMATS
+        ]
         return render(
             request,
             "wagtailredirects/choose_import_file.html",
@@ -148,7 +151,7 @@ def start_import(request):
                 'search_form': SearchForm(
                     data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")
                 ),
-                "form": ImportForm(DEFAULT_FORMATS)
+                "form": ImportForm(accepted_formats),
             },
         )
 
