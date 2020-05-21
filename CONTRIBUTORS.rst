@@ -463,6 +463,7 @@ Contributors
 * Brylie Christopher Oxley
 * Lacey Williams Henschel
 * Dan Bentley
+* GTpyro
 
 Translators
 ===========
