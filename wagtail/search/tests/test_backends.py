@@ -187,6 +187,18 @@ class BackendTests(WagtailTestUtils):
             "Learning Python",
         ])
 
+        # Autocomplete should only require an AutocompleteField, not a SearchField with
+        # partial_match=True
+        results = self.backend.autocomplete("Georg", models.Author)
+        self.assertUnsortedListEqual([r.name for r in results], [
+            "George R.R. Martin",
+        ])
+
+        results = self.backend.autocomplete("Georg", models.Author, fields=['name'])
+        self.assertUnsortedListEqual([r.name for r in results], [
+            "George R.R. Martin",
+        ])
+
     def test_autocomplete_not_affected_by_stemming(self):
         # If SEARCH_CONFIG is set, stemming will be enabled.
         # But we want to disable this for autocomplete as stemmed words don't always match on prefixes

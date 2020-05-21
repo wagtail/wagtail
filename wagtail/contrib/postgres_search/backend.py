@@ -55,6 +55,7 @@ class ObjectIndexer:
                    self.prepare_value(field.get_value(obj)))
 
         elif isinstance(field, AutocompleteField):
+            # AutocompleteField does not define a boost parameter, so use a base weight of 'D'
             yield (field, 'D', self.prepare_value(field.get_value(obj)))
 
         elif isinstance(field, RelatedFields):
@@ -255,25 +256,33 @@ class Index:
 class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = 'and'
     LAST_TERM_IS_PREFIX = False
+    TARGET_SEARCH_FIELD_TYPE = SearchField
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.search_fields = self.queryset.model.get_searchable_search_fields()
+        local_search_fields = self.get_search_fields_for_model()
 
         # Due to a Django bug, arrays are not automatically converted
         # when we use WEIGHTS_VALUES.
         self.sql_weights = get_sql_weights()
 
-        if self.fields is not None:
-            search_fields = self.queryset.model.get_searchable_search_fields()
+        if self.fields is None:
+            # search over the fields defined on the current model
+            self.search_fields = local_search_fields
+        else:
+            # build a search_fields set from the passed definition,
+            # which may involve traversing relations
             self.search_fields = {
-                field_lookup: self.get_search_field(field_lookup, fields=search_fields)
+                field_lookup: self.get_search_field(field_lookup, fields=local_search_fields)
                 for field_lookup in self.fields
             }
 
     def get_config(self, backend):
         return backend.config
+
+    def get_search_fields_for_model(self):
+        return self.queryset.model.get_searchable_search_fields()
 
     def get_search_field(self, field_lookup, fields=None):
         if fields is None:
@@ -285,7 +294,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             sub_field_name = None
 
         for field in fields:
-            if isinstance(field, SearchField) and field.field_name == field_lookup:
+            if isinstance(field, self.TARGET_SEARCH_FIELD_TYPE) and field.field_name == field_lookup:
                 return field
 
             # Note: Searching on a specific related field using
@@ -465,9 +474,13 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
 class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
     LAST_TERM_IS_PREFIX = True
+    TARGET_SEARCH_FIELD_TYPE = AutocompleteField
 
     def get_config(self, backend):
         return backend.autocomplete_config
+
+    def get_search_fields_for_model(self):
+        return self.queryset.model.get_autocomplete_search_fields()
 
     def get_index_vector(self, search_query):
         return F('index_entries__autocomplete')
@@ -477,10 +490,9 @@ class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
             SearchVector(
                 field_lookup,
                 config=search_query.config,
-                weight=get_weight(search_field.boost)
+                weight='D',
             )
             for field_lookup, search_field in self.search_fields.items()
-            if search_field.partial_match
         )
 
 
