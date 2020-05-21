@@ -365,6 +365,78 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
 
             self.assertEqual(Redirect.objects.all().count(), 2)
 
+    @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE='cache')
+    def test_import_xlsx_with_cache_store_engine(self):
+        f = "{}/files/example.xlsx".format(TEST_ROOT)
+        (_, filename) = os.path.split(f)
+
+        with open(f, "rb") as infile:
+            upload_file = SimpleUploadedFile(filename, infile.read())
+
+            self.assertEqual(Redirect.objects.all().count(), 0)
+
+            response = self.post(
+                {
+                    "import_file": upload_file,
+                    "input_format": get_input_format_index_by_name("XLSX"),
+                }
+            )
+
+            self.assertEqual(
+                response.templates[0].name,
+                "wagtailredirects/confirm_import.html",
+            )
+
+            import_response = self.post_import(
+                {
+                    **response.context["form"].initial,
+                    "from_index": 0,
+                    "to_index": 1,
+                    "permanent": True,
+                }
+            )
+
+            self.assertEqual(
+                import_response.templates[0].name,
+                "wagtailredirects/import_summary.html",
+            )
+
+            self.assertEqual(Redirect.objects.all().count(), 3)
+
+    @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE='cache')
+    def test_process_validation_works_when_using_plaintext_files_and_cache(self):
+        f = "{}/files/example.csv".format(TEST_ROOT)
+        (_, filename) = os.path.split(f)
+
+        with open(f, "rb") as infile:
+            upload_file = SimpleUploadedFile(filename, infile.read())
+
+            self.assertEqual(Redirect.objects.all().count(), 0)
+
+            response = self.post(
+                {
+                    "import_file": upload_file,
+                    "input_format": get_input_format_index_by_name("CSV"),
+                }
+            )
+
+            self.assertEqual(
+                response.templates[0].name,
+                "wagtailredirects/confirm_import.html",
+            )
+
+            import_response = self.post_import(
+                {
+                    **response.context["form"].initial,
+                    "permanent": True,
+                }
+            )
+
+            self.assertEqual(
+                import_response.templates[0].name,
+                "wagtailredirects/confirm_import.html",
+            )
+
 
 def get_input_format_index_by_name(name):
     import_formats = get_import_formats()

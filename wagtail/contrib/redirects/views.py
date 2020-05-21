@@ -16,8 +16,9 @@ from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.base_formats import DEFAULT_FORMATS
 from wagtail.contrib.redirects.forms import ConfirmImportForm, ImportForm, RedirectForm
 from wagtail.contrib.redirects.permissions import permission_policy
-from wagtail.contrib.redirects.tmp_storages import TempFolderStorage
-from wagtail.contrib.redirects.utils import get_import_formats, write_to_tmp_storage
+from wagtail.contrib.redirects.utils import (
+    get_file_storage, get_import_formats, write_to_file_storage
+)
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -174,10 +175,10 @@ def start_import(request):
     import_formats = get_import_formats()
     input_format = import_formats[int(form.cleaned_data["input_format"])]()
     import_file = form.cleaned_data["import_file"]
-    tmp_storage = write_to_tmp_storage(import_file, input_format)
+    file_storage = write_to_file_storage(import_file, input_format)
 
     try:
-        data = tmp_storage.read(input_format.get_read_mode())
+        data = file_storage.read(input_format.get_read_mode())
         if not input_format.is_binary() and from_encoding:
             data = force_str(data, from_encoding)
         dataset = input_format.create_dataset(data)
@@ -192,7 +193,7 @@ def start_import(request):
         )
 
     initial = {
-        "import_file_name": tmp_storage.name,
+        "import_file_name": file_storage.name,
         "original_file_name": import_file.name,
         "input_format": form.cleaned_data["input_format"],
     }
@@ -220,14 +221,18 @@ def process_import(request):
 
     import_formats = get_import_formats()
     input_format = import_formats[int(form.cleaned_data["input_format"])]()
-    tmp_storage = TempFolderStorage(name=form.cleaned_data["import_file_name"])
+
+    FileStorage = get_file_storage()
+    file_storage = FileStorage(name=form.cleaned_data["import_file_name"])
 
     if not is_confirm_form_valid:
-        data = tmp_storage.read(input_format.get_read_mode())
+        data = file_storage.read(input_format.get_read_mode())
+        if not input_format.is_binary() and from_encoding:
+            data = force_str(data, from_encoding)
         dataset = input_format.create_dataset(data)
 
         initial = {
-            "import_file_name": tmp_storage.name,
+            "import_file_name": file_storage.name,
             "original_file_name": form.cleaned_data["import_file_name"],
             "input_format": form.cleaned_data["input_format"],
         }
@@ -246,7 +251,7 @@ def process_import(request):
             },
         )
 
-    data = tmp_storage.read(input_format.get_read_mode())
+    data = file_storage.read(input_format.get_read_mode())
     if not input_format.is_binary() and from_encoding:
         data = force_str(data, from_encoding)
     dataset = input_format.create_dataset(data)
@@ -261,7 +266,7 @@ def process_import(request):
         },
     )
 
-    tmp_storage.remove()
+    file_storage.remove()
 
     return render(
         request,
