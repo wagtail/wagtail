@@ -30,7 +30,7 @@
         font-size: 40px;
         color: $color-white;
         line-height: 40px;
-        content: '\2261';
+        content: "\2261";
     }
 }
 
@@ -88,7 +88,6 @@
             top: 0.5em;
             margin-top: 0;
         }
-
     }
 
     .menu-active {
@@ -257,7 +256,7 @@
             font-family: wagtail;
             font-weight: 200;
             text-transform: none;
-            content: map-get($icons, 'search');
+            content: map-get($icons, "search");
             display: block;
             height: 100%;
             line-height: 3.3em;
@@ -438,7 +437,6 @@ body.explorer-open {
             line-height: $nav-footer-closed-height;
             padding: 0;
         }
-
     }
 
     li.submenu-active {
@@ -543,15 +541,13 @@ footer,
     }
 }
 
-
 ///////////////////////
 // Media query hacks //
 ///////////////////////
 
 // to detect IE10+ which doesn't support 3d transform of static elements and needs a fallback
 // stylelint-disable scss/media-feature-value-dollar-variable
-@media all and (-ms-high-contrast: none),
-    all and (-ms-high-contrast: active) {
+@media all and (-ms-high-contrast: none), all and (-ms-high-contrast: active) {
     .wrapper {
         @include transition(left 0.2s ease);
         left: 0;

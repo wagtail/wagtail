@@ -1,5 +1,5 @@
 var quoteRegExp = function (str) {
-    return (str + '').replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
+  return (str + "").replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
 };
 var re = new RegExp(quoteRegExp(require("path").sep), "g");
 
@@ -9,5 +9,5 @@ var re = new RegExp(quoteRegExp(require("path").sep), "g");
  * @returns {string} A path in POSIX format
  */
 module.exports = function (path) {
-    return ("" + path).replace(re, "/");
+  return ("" + path).replace(re, "/");
 };

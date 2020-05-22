@@ -63,19 +63,19 @@ jobs:
       - run: python scripts/nightly/upload.py
 
 workflows:
-    version: 2
-    test:
-      jobs:
-        - backend
-        - frontend
+  version: 2
+  test:
+    jobs:
+      - backend
+      - frontend
 
-    nightly:
-      jobs:
-        - nightly-build
-      triggers:
-        - schedule:
-            cron: "0 0 * * *"
-            filters:
-              branches:
-                only:
-                  - master
+  nightly:
+    jobs:
+      - nightly-build
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master

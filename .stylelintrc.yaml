@@ -2,4 +2,4 @@ ignoreFiles:
   - node_modules
   - build/**/*
 extends:
-  - '@wagtail/stylelint-config-wagtail'
+  - "@wagtail/stylelint-config-wagtail"

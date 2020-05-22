@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { DraftUtils } from 'draftail';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { DraftUtils } from "draftail";
 
-import { STRINGS } from '../../../config/wagtailConfig';
+import { STRINGS } from "../../../config/wagtailConfig";
 
-import MediaBlock from '../blocks/MediaBlock';
+import MediaBlock from "../blocks/MediaBlock";
 
 /**
  * Editor block to preview and edit images.
@@ -31,13 +31,16 @@ class ImageBlock extends Component {
     const { blockProps } = this.props;
     const { entity, onRemoveEntity } = blockProps;
     const { src, alt } = entity.getData();
-    const altLabel = `${STRINGS.ALT_TEXT}: “${alt || ''}”`;
+    const altLabel = `${STRINGS.ALT_TEXT}: “${alt || ""}”`;
 
     return (
       <MediaBlock {...this.props} src={src} alt="">
         <p className="ImageBlock__alt">{altLabel}</p>
 
-        <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
+        <button
+          className="button button-secondary no Tooltip__button"
+          onClick={onRemoveEntity}
+        >
           {STRINGS.DELETE}
         </button>
       </MediaBlock>

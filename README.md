@@ -10,17 +10,17 @@ Wagtail is an open source content management system built on Django, with a stro
 
 ### Features
 
-* A fast, attractive interface for authors
-* Complete control over front-end design and structure
-* Scales to millions of pages and thousands of editors
-* Fast out of the box, cache-friendly when you need it
-* Content API for 'headless' sites with de-coupled front-end
-* Runs on a Raspberry Pi or a multi-datacenter cloud platform 
-* StreamField encourages flexible content without compromising structure
-* Powerful, integrated search, using Elasticsearch or PostgreSQL
-* Excellent support for images and embedded content
-* Multi-site and multi-language ready
-* Embraces and extends Django
+- A fast, attractive interface for authors
+- Complete control over front-end design and structure
+- Scales to millions of pages and thousands of editors
+- Fast out of the box, cache-friendly when you need it
+- Content API for 'headless' sites with de-coupled front-end
+- Runs on a Raspberry Pi or a multi-datacenter cloud platform
+- StreamField encourages flexible content without compromising structure
+- Powerful, integrated search, using Elasticsearch or PostgreSQL
+- Excellent support for images and embedded content
+- Multi-site and multi-language ready
+- Embraces and extends Django
 
 Find out more at [wagtail.io](https://wagtail.io/).
 
@@ -30,7 +30,7 @@ Wagtail works with [Python 3](https://www.python.org/downloads/), on any platfor
 
 To get started with Wagtail, run the following in a virtual environment:
 
-``` bash
+```bash
 pip install wagtail
 wagtail start mysite
 cd mysite
@@ -56,9 +56,9 @@ _(If you are reading this on GitHub, the details here may not be indicative of t
 
 Wagtail supports:
 
-* Django 2.2.x and 3.0.x
-* Python 3.6, 3.7 and 3.8
-* PostgreSQL, MySQL and SQLite as database backends
+- Django 2.2.x and 3.0.x
+- Python 3.6, 3.7 and 3.8
+- PostgreSQL, MySQL and SQLite as database backends
 
 [Previous versions of Wagtail](https://docs.wagtail.io/en/stable/releases/upgrading.html#compatible-django-python-versions) additionally supported Python 2.7 and Django 1.x.
 
@@ -99,6 +99,7 @@ You might like to start by reviewing the [contributing guidelines](https://docs.
 We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/projects/p/wagtail/).
 
 ### License
+
 [BSD](https://github.com/wagtail/wagtail/blob/master/LICENSE)
 
 ### Thanks
@@ -111,10 +112,9 @@ We thank the following organisations for their services used in Wagtail's develo
 [![squash.io](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/squash-logo.svg)](https://www.squash.io/)<br>
 [Squash](https://www.squash.io/) provides the project with free test environments for reviewing pull requests.
 
-
 [![Build Status](https://api.travis-ci.org/wagtail/wagtail.svg?branch=master)](https://travis-ci.org/wagtail/wagtail)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/) 
+[![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/)
 [![Coverage](https://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master)](https://codecov.io/github/wagtail/wagtail?branch=master)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:python)

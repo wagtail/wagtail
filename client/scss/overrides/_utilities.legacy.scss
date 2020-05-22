@@ -20,7 +20,6 @@
     .divider-after {
         border-right: 1px solid $color-grey-4;
     }
-
 }
 
 body.reordering {
@@ -29,7 +28,7 @@ body.reordering {
 
 // Show a transparency grid in background
 .show-transparency {
-    background: url('#{$images-root}transparency.svg');
+    background: url("#{$images-root}transparency.svg");
 }
 
 // make a block-level element inline

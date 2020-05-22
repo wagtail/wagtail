@@ -43,7 +43,7 @@ $zindex-modal-background: 500;
     width: 85%;
 
     &:before {
-        content: '';
+        content: "";
         display: inline-block;
         height: 100%;
         vertical-align: middle;
@@ -76,9 +76,13 @@ $zindex-modal-background: 500;
     background-color: $color-black;
 
     // Fade for backdrop
-    &.fade { opacity: 0; }
+    &.fade {
+        opacity: 0;
+    }
 
-    &.in { opacity: 0.5; }
+    &.in {
+        opacity: 0.5;
+    }
 }
 
 .modal .close {

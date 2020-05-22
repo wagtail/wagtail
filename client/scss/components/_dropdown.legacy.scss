@@ -2,9 +2,9 @@
     @include clearfix();
     position: relative;
 
-    input[type=submit],
-    input[type=reset],
-    input[type=button],
+    input[type="submit"],
+    input[type="reset"],
+    input[type="button"],
     button,
     .button {
         padding: 0;
@@ -18,9 +18,9 @@
         float: left;
     }
 
-    input[type=submit],
-    input[type=reset],
-    input[type=button],
+    input[type="submit"],
+    input[type="reset"],
+    input[type="button"],
     button {
         line-height: inherit;
     }
@@ -74,9 +74,9 @@
         }
 
         a,
-        input[type=submit],
-        input[type=reset],
-        input[type=button],
+        input[type="submit"],
+        input[type="reset"],
+        input[type="button"],
         .button,
         button {
             border-radius: 0;
@@ -95,7 +95,6 @@
             font-size: 0.8em;
             color: rgba(0, 0, 0, 0.3);
         }
-
     }
 
     &.open ul {
@@ -175,8 +174,8 @@
         }
 
         &.open {
-            > input[type=button],
-            > input[type=submit],
+            > input[type="button"],
+            > input[type="submit"],
             > button,
             > .button {
                 border-radius: 3px 3px 0 0;
@@ -190,8 +189,8 @@
 
     &.dropup.dropdown-button {
         &.open {
-            > input[type=button],
-            > input[type=submit],
+            > input[type="button"],
+            > input[type="submit"],
             > button,
             > .button {
                 border-radius: 0 0 3px 3px;

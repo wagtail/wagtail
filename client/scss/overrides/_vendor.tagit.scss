@@ -9,7 +9,7 @@
 
 // Additional specificity (.admin_tag_widget ) required to override tagit stylesheets,
 // which get added after the core CSS, and otherweise trump our styles.
-.admin_tag_widget ul.tagit input[type='text'] {
+.admin_tag_widget ul.tagit input[type="text"] {
     padding: 0.2em 0.5em;
 }
 
@@ -19,7 +19,8 @@
     padding: 0 23px 0 0;
 }
 
-.ui-front { // provided by jqueryui but not high enough an index
+.ui-front {
+    // provided by jqueryui but not high enough an index
     z-index: 1000;
 }
 
@@ -34,7 +35,7 @@
         font-family: wagtail;
         display: block;
         color: $color-grey-3;
-        content: map-get($icons, 'cross');
+        content: map-get($icons, "cross");
     }
 
     .ui-icon-close:hover:before {

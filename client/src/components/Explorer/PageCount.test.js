@@ -1,7 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from "react";
+import { shallow } from "enzyme";
 
-import PageCount from './PageCount';
+import PageCount from "./PageCount";
 
 const mockProps = {
   page: {
@@ -12,16 +12,16 @@ const mockProps = {
   },
 };
 
-describe('PageCount', () => {
-  it('exists', () => {
+describe("PageCount", () => {
+  it("exists", () => {
     expect(PageCount).toBeDefined();
   });
 
-  it('works', () => {
+  it("works", () => {
     expect(shallow(<PageCount {...mockProps} />)).toMatchSnapshot();
   });
 
-  it('plural', () => {
+  it("plural", () => {
     const props = Object.assign({}, mockProps);
     props.page.children.count = 5;
     expect(shallow(<PageCount {...props} />)).toMatchSnapshot();

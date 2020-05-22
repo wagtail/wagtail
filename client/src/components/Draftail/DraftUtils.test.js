@@ -1,19 +1,16 @@
-import {
-  EditorState,
-  convertFromRaw,
-} from 'draft-js';
+import { EditorState, convertFromRaw } from "draft-js";
 
-import { getSelectionText } from './DraftUtils';
+import { getSelectionText } from "./DraftUtils";
 
-describe('DraftUtils', () => {
-  describe('#getSelectionText', () => {
-    it('works', () => {
+describe("DraftUtils", () => {
+  describe("#getSelectionText", () => {
+    it("works", () => {
       const content = convertFromRaw({
         entityMap: {},
         blocks: [
           {
-            key: 'a',
-            text: 'test1234',
+            key: "a",
+            text: "test1234",
           },
         ],
       });
@@ -27,20 +24,20 @@ describe('DraftUtils', () => {
 
       editorState = EditorState.acceptSelection(editorState, selection);
 
-      expect(getSelectionText(editorState)).toBe('test');
+      expect(getSelectionText(editorState)).toBe("test");
     });
 
-    it('empty', () => {
-      expect(getSelectionText(EditorState.createEmpty())).toBe('');
+    it("empty", () => {
+      expect(getSelectionText(EditorState.createEmpty())).toBe("");
     });
 
-    it('backwards', () => {
+    it("backwards", () => {
       const content = convertFromRaw({
         entityMap: {},
         blocks: [
           {
-            key: 'a',
-            text: 'test1234',
+            key: "a",
+            text: "test1234",
           },
         ],
       });
@@ -55,29 +52,29 @@ describe('DraftUtils', () => {
 
       editorState = EditorState.acceptSelection(editorState, selection);
 
-      expect(getSelectionText(editorState)).toBe('1234');
+      expect(getSelectionText(editorState)).toBe("1234");
     });
 
-    it('multiblock', () => {
+    it("multiblock", () => {
       const content = convertFromRaw({
         entityMap: {},
         blocks: [
           {
-            key: 'a',
-            text: 'test1234',
+            key: "a",
+            text: "test1234",
           },
           {
-            key: 'b',
-            text: 'multiblock',
-          }
+            key: "b",
+            text: "multiblock",
+          },
         ],
       });
       let editorState = EditorState.createWithContent(content);
 
       let selection = editorState.getSelection();
       selection = selection.merge({
-        anchorKey: 'a',
-        focusKey: 'b',
+        anchorKey: "a",
+        focusKey: "b",
         anchorOffset: 4,
         focusOffset: 5,
         isBackward: false,
@@ -85,29 +82,29 @@ describe('DraftUtils', () => {
 
       editorState = EditorState.acceptSelection(editorState, selection);
 
-      expect(getSelectionText(editorState)).toBe('1234multi');
+      expect(getSelectionText(editorState)).toBe("1234multi");
     });
 
-    it('multiblock-backwards', () => {
+    it("multiblock-backwards", () => {
       const content = convertFromRaw({
         entityMap: {},
         blocks: [
           {
-            key: 'a',
-            text: 'test1234',
+            key: "a",
+            text: "test1234",
           },
           {
-            key: 'b',
-            text: 'multiblock',
-          }
+            key: "b",
+            text: "multiblock",
+          },
         ],
       });
       let editorState = EditorState.createWithContent(content);
 
       let selection = editorState.getSelection();
       selection = selection.merge({
-        focusKey: 'a',
-        anchorKey: 'b',
+        focusKey: "a",
+        anchorKey: "b",
         anchorOffset: 5,
         focusOffset: 4,
         isBackward: true,
@@ -115,7 +112,7 @@ describe('DraftUtils', () => {
 
       editorState = EditorState.acceptSelection(editorState, selection);
 
-      expect(getSelectionText(editorState)).toBe('1234multi');
+      expect(getSelectionText(editorState)).toBe("1234multi");
     });
   });
 });

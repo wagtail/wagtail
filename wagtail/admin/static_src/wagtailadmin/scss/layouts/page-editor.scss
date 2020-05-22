@@ -1,4 +1,4 @@
-@import 'wagtailadmin/scss/helpers';
+@import "wagtailadmin/scss/helpers";
 
 .page-editor {
     .content-wrapper {
@@ -127,7 +127,7 @@ $object-title-height: 40px;
             text-shadow: none;
             font-family: wagtail;
             text-transform: none;
-            content: map-get($icons, 'arrow-down');
+            content: map-get($icons, "arrow-down");
             text-align: center;
             display: block;
             position: absolute;
@@ -152,12 +152,11 @@ $object-title-height: 40px;
             padding-top: 5em; // to provide space for editor buttons
             padding-bottom: 2em;
         }
-
     }
 
     &.required {
         > .title-wrapper label:after {
-            content: '*';
+            content: "*";
             color: $color-red;
             font-weight: bold;
             display: inline-block;
@@ -230,7 +229,7 @@ $object-title-height: 40px;
     // special panel for the publishing fields, requires a bit more pizzazz
     &.publishing {
         > .title-wrapper:before {
-            content: map-get($icons, 'date');
+            content: map-get($icons, "date");
             font-size: 1.8rem;
             line-height: 1.4em;
             width: 1.4em;
@@ -314,7 +313,7 @@ $object-title-height: 40px;
 
         .title-wrapper {
             &:before {
-                content: map-get($icons, 'collapse-up');
+                content: map-get($icons, "collapse-up");
                 cursor: pointer;
             }
         }
@@ -322,7 +321,7 @@ $object-title-height: 40px;
         &.collapsed {
             .title-wrapper {
                 &:before {
-                    content: map-get($icons, 'collapse-down');
+                    content: map-get($icons, "collapse-down");
                 }
             }
         }
@@ -369,8 +368,8 @@ footer .preview {
     }
 
     .dropdown {
-        input[type=button],
-        input[type=submit],
+        input[type="button"],
+        input[type="submit"],
         button,
         .button {
             background-color: lighten($color-grey-2, 10%);

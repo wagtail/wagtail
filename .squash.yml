@@ -7,7 +7,7 @@ deployments:
       - apt install -y nodejs
       - pip install setuptools pip --upgrade --force-reinstall
       - cd /code
-    post_build_steps:  
+    post_build_steps:
       - npm install --no-save
       - npm run dist
       - pip install /code
@@ -17,7 +17,7 @@ deployments:
       - cd /myproject/mysite
       - python manage.py migrate
       - echo "<br><h1>Wagtail test instance</h1><p>Log into <a href='/admin/'>/admin/</a> with 'admin' / 'changeme'.</p>" > home/templates/home/welcome_page.html
-      - echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'changeme')" | python manage.py shell    
+      - echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'changeme')" | python manage.py shell
     launch_steps:
       - cd /myproject/mysite
       - python manage.py runserver 0.0.0.0:80

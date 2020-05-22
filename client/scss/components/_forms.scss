@@ -92,7 +92,7 @@ select::-ms-expand {
         bottom: 0;
         width: 1.5em;
         font-family: wagtail;
-        content: map-get($icons, 'arrow-down');
+        content: map-get($icons, "arrow-down");
         border: 1px solid $color-input-border;
         border-width: 0 0 0 1px;
         text-align: center;
@@ -107,7 +107,6 @@ select::-ms-expand {
         }
     }
 }
-
 
 // Other text
 .help,
@@ -134,7 +133,7 @@ li.focused > .help {
 }
 
 .required .field > label:after {
-    content: '*';
+    content: "*";
     color: $color-red;
     font-weight: bold;
     display: inline-block;
@@ -188,10 +187,10 @@ li.focused > .help {
         }
     }
 
-    input:not([type=radio]),
-    input:not([type=checkbox]),
-    input:not([type=submit]),
-    input:not([type=button]) {
+    input:not([type="radio"]),
+    input:not([type="checkbox"]),
+    input:not([type="submit"]),
+    input:not([type="button"]) {
         padding-left: 2.5em;
     }
 
@@ -226,22 +225,21 @@ li.focused > .help {
 .date_field,
 .date_time_field {
     .input:before {
-        content: map-get($icons, 'date');
+        content: map-get($icons, "date");
     }
 }
 
 .time_field {
     .input:before {
-        content: map-get($icons, 'time');
+        content: map-get($icons, "time");
     }
 }
 
 .url_field {
     .input:before {
-        content: map-get($icons, 'link');
+        content: map-get($icons, "link");
     }
 }
-
 
 // This is specifically for model that are a generated set of checkboxes/radios
 .model_multiple_choice_field .input li,
@@ -296,7 +294,9 @@ li.focused > .help {
     &.col9,
     &.col10,
     &.col11,
-    &.col12 { clear: both;}
+    &.col12 {
+        clear: both;
+    }
 }
 
 li.inline .field {
@@ -311,7 +311,9 @@ li.inline .field {
     &.col9,
     &.col10,
     &.col11,
-    &.col12 { clear: none;}
+    &.col12 {
+        clear: none;
+    }
 }
 
 // solve gutter issues of inline fields
@@ -319,7 +321,6 @@ ul.inline li:first-child,
 li.inline:first-child {
     margin-left: -$grid-gutter-width / 2;
 }
-
 
 // search-bars
 .search-bar {

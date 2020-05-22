@@ -1,4 +1,4 @@
-@import 'wagtailadmin/scss/helpers';
+@import "wagtailadmin/scss/helpers";
 
 .page404__bg {
     position: fixed;
@@ -46,7 +46,8 @@
     color: inherit;
 }
 
-a.button.page404__button { // more specific to override standard button styles
+a.button.page404__button {
+    // more specific to override standard button styles
     font-size: 1.5em;
     line-height: 2em;
     height: 2.5em;

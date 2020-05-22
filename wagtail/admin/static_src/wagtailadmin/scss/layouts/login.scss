@@ -1,4 +1,4 @@
-@import 'wagtailadmin/scss/helpers';
+@import "wagtailadmin/scss/helpers";
 
 // overrides default nice padding defined in variables.scss
 $desktop-nice-padding: 100px;
@@ -60,7 +60,7 @@ a.button {
     height: 3.5em;
 }
 
-input[type=checkbox]:before {
+input[type="checkbox"]:before {
     background-color: #333;
     color: #555;
     border: 1px solid #555;
@@ -160,7 +160,7 @@ input[type=checkbox]:before {
         padding: 0 $desktop-nice-padding;
 
         &:before {
-            content: '';
+            content: "";
             width: 0;
             display: inline-block;
             height: 100%;

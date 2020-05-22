@@ -5,9 +5,9 @@
 // compiled CSS files are used.
 // */
 
-$static-root: '../../';
-$images-root: $static-root + 'wagtailadmin/images/';
-$font-root: '../../wagtailadmin/fonts/';
+$static-root: "../../";
+$images-root: $static-root + "wagtailadmin/images/";
+$font-root: "../../wagtailadmin/fonts/";
 
 // grid settings
 $grid-columns: 12;
@@ -21,10 +21,14 @@ $desktop-nice-padding: 50px;
 // screen breakpoints
 $breakpoints: (
     xs: 0,
-    sm: 50em,    // 800px
-    md: 56.25em, // 900px
-    lg: 75em,    // 1200px
-    xl: 100em,   // 1440px
+    sm: 50em,
+    // 800px
+        md: 56.25em,
+    // 900px
+        lg: 75em,
+    // 1200px
+        xl: 100em,
+    // 1440px
 );
 
 // colours

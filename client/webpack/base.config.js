@@ -1,75 +1,83 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require("path");
+const webpack = require("webpack");
 
 // Generates a path to an entry file to be compiled by Webpack.
-const getEntryPath = (app, filename) => path.resolve('wagtail', app, 'static_src', `wagtail${app}`, 'app', filename);
+const getEntryPath = (app, filename) =>
+  path.resolve("wagtail", app, "static_src", `wagtail${app}`, "app", filename);
 // Generates a path to the output bundle to be loaded in the browser.
-const getOutputPath = (app, filename) => path.join('wagtail', app, 'static', `wagtail${app}`, 'js', filename);
+const getOutputPath = (app, filename) =>
+  path.join("wagtail", app, "static", `wagtail${app}`, "js", filename);
 
 // Mapping from package name to exposed global variable.
 const exposedDependencies = {
-  'focus-trap-react': 'FocusTrapReact',
-  'react': 'React',
-  'react-dom': 'ReactDOM',
-  'react-transition-group/CSSTransitionGroup': 'CSSTransitionGroup',
-  'draft-js': 'DraftJS',
+  "focus-trap-react": "FocusTrapReact",
+  react: "React",
+  "react-dom": "ReactDOM",
+  "react-transition-group/CSSTransitionGroup": "CSSTransitionGroup",
+  "draft-js": "DraftJS",
 };
 
 module.exports = function exports() {
   const entry = {
     // Create a vendor chunk that will contain polyfills, and all third-party dependencies.
-    vendor: [
-      './client/src/utils/polyfills.js',
-    ],
+    vendor: ["./client/src/utils/polyfills.js"],
   };
 
-  entry[getOutputPath('admin', 'wagtailadmin')] = getEntryPath('admin', 'wagtailadmin.entry.js');
-  entry[getOutputPath('admin', 'draftail')] = getEntryPath('admin', 'draftail.entry.js');
+  entry[getOutputPath("admin", "wagtailadmin")] = getEntryPath(
+    "admin",
+    "wagtailadmin.entry.js"
+  );
+  entry[getOutputPath("admin", "draftail")] = getEntryPath(
+    "admin",
+    "draftail.entry.js"
+  );
 
   return {
     entry: entry,
     output: {
-      path: path.resolve('.'),
-      filename: '[name].js',
-      publicPath: '/static/js/'
+      path: path.resolve("."),
+      filename: "[name].js",
+      publicPath: "/static/js/",
     },
     plugins: [
       new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        filename: getOutputPath('admin', '[name].js'),
+        name: "vendor",
+        filename: getOutputPath("admin", "[name].js"),
         minChunks: 2,
       }),
     ],
     resolve: {
       alias: {
-        'wagtail-client': path.resolve('.', 'client'),
+        "wagtail-client": path.resolve(".", "client"),
       },
     },
     module: {
       rules: [
         {
           test: /\.js$/,
-          loader: 'babel-loader',
+          loader: "babel-loader",
           exclude: /node_modules/,
         },
-      ].concat(Object.keys(exposedDependencies).map((name) => {
-        const globalName = exposedDependencies[name];
+      ].concat(
+        Object.keys(exposedDependencies).map((name) => {
+          const globalName = exposedDependencies[name];
 
-        // Create expose-loader configs for each Wagtail dependency.
-        return {
-          test: require.resolve(name),
-          use: [
-            {
-              loader: 'expose-loader',
-              options: globalName,
-            },
-          ],
-        };
-      }))
+          // Create expose-loader configs for each Wagtail dependency.
+          return {
+            test: require.resolve(name),
+            use: [
+              {
+                loader: "expose-loader",
+                options: globalName,
+              },
+            ],
+          };
+        })
+      ),
     },
 
     // See https://webpack.js.org/configuration/devtool/.
-    devtool: 'source-map',
+    devtool: "source-map",
 
     stats: {
       // Add chunk information (setting this to `false` allows for a less verbose output)
@@ -88,9 +96,9 @@ module.exports = function exports() {
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
     node: {
-      fs: 'empty',
-      net: 'empty',
-      tls: 'empty',
+      fs: "empty",
+      net: "empty",
+      tls: "empty",
     },
   };
 };

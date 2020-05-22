@@ -41,22 +41,19 @@ OTHER PREFIXES
 
 ==============================================================================*/
 
-
 /* SETTINGS
 These are variables, maps, and fonts.
 * No CSS should be produced by these files
 */
 
-@import 'settings';
-
+@import "settings";
 
 /* TOOLS
 These are functions and mixins.
 * No CSS should be produced by these files.
 */
 
-@import 'tools';
-
+@import "tools";
 
 /* GENERIC
 This is for resets and other rules that affect large collections of bare elements.
@@ -65,16 +62,14 @@ This is for resets and other rules that affect large collections of bare element
 
 // @import 'generic/generic';
 
-
 /* ELEMENTS
 These are base styles for bare HTML elements.
 * Changes to them should be very rare.
 */
 
-@import 'elements/elements';
-@import 'elements/typography';
-@import 'elements/forms';
-
+@import "elements/elements";
+@import "elements/typography";
+@import "elements/forms";
 
 /* OBJECTS
 These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
@@ -82,9 +77,8 @@ These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
 * These classes are prefixed with `.o-`.
 */
 
-@import 'objects/objects';
-@import 'objects/avatar';
-
+@import "objects/objects";
+@import "objects/avatar";
 
 /* COMPONENTS
 These are classes for components.
@@ -93,43 +87,42 @@ These are classes for components.
   which is the preferred pattern over housing them in the scss folder.
 */
 
-@import '../src/components/Transition/Transition';
-@import '../src/components/LoadingSpinner/LoadingSpinner';
-@import '../src/components/PublicationStatus/PublicationStatus';
-@import '../src/components/Explorer/Explorer';
+@import "../src/components/Transition/Transition";
+@import "../src/components/LoadingSpinner/LoadingSpinner";
+@import "../src/components/PublicationStatus/PublicationStatus";
+@import "../src/components/Explorer/Explorer";
 
 // Legacy
-@import 'components/icons';
-@import 'components/tabs';
-@import 'components/dropdown';
-@import 'components/dropdown.legacy';
-@import 'components/help-block';
-@import 'components/modals';
-@import 'components/forms';
-@import 'components/button';
-@import 'components/chooser';
-@import 'components/tag';
-@import 'components/listing';
-@import 'components/messages';
-@import 'components/messages.capability';
-@import 'components/messages.status';
-@import 'components/header';
-@import 'components/progressbar';
-@import 'components/main-nav';
-@import 'components/indicator';
-@import 'components/tooltips';
-@import 'components/logo';
-@import 'components/grid.legacy';
-@import 'components/breadcrumb';
-@import 'components/footer';
-@import 'components/loading-mask';
-@import 'components/media-placeholder';
-@import 'components/human-readable-date';
-@import 'components/link.legacy';
-@import 'components/privacy-indicator';
-@import 'components/status-tag';
-@import 'components/button-select';
-
+@import "components/icons";
+@import "components/tabs";
+@import "components/dropdown";
+@import "components/dropdown.legacy";
+@import "components/help-block";
+@import "components/modals";
+@import "components/forms";
+@import "components/button";
+@import "components/chooser";
+@import "components/tag";
+@import "components/listing";
+@import "components/messages";
+@import "components/messages.capability";
+@import "components/messages.status";
+@import "components/header";
+@import "components/progressbar";
+@import "components/main-nav";
+@import "components/indicator";
+@import "components/tooltips";
+@import "components/logo";
+@import "components/grid.legacy";
+@import "components/breadcrumb";
+@import "components/footer";
+@import "components/loading-mask";
+@import "components/media-placeholder";
+@import "components/human-readable-date";
+@import "components/link.legacy";
+@import "components/privacy-indicator";
+@import "components/status-tag";
+@import "components/button-select";
 
 /* OVERRIDES
 These are classes that provide overrides.
@@ -137,22 +130,20 @@ These are classes that provide overrides.
 */
 
 // VENDOR: overrides of vendor styles.
-@import 'overrides/vendor.datetimepicker';
-@import 'overrides/vendor.tagit';
-
+@import "overrides/vendor.datetimepicker";
+@import "overrides/vendor.tagit";
 
 // UTILITIES: classes that do one simple thing.
-@import 'overrides/utilities.hidden';
-@import 'overrides/utilities.text';
-@import 'overrides/utilities.dropdowns';
-@import 'overrides/utilities.focus';
-@import 'overrides/utilities.visuallyhidden';
+@import "overrides/utilities.hidden";
+@import "overrides/utilities.text";
+@import "overrides/utilities.dropdowns";
+@import "overrides/utilities.focus";
+@import "overrides/utilities.visuallyhidden";
 
 // Legacy utilities
-@import 'overrides/utilities.text.legacy';
-@import 'overrides/utilities.legacy';
-
+@import "overrides/utilities.text.legacy";
+@import "overrides/utilities.legacy";
 
 // PAGES: page-specific overrides
-@import 'overrides/pages.homepage';
-@import 'overrides/pages.page-explorer';
+@import "overrides/pages.homepage";
+@import "overrides/pages.page-explorer";

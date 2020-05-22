@@ -11,7 +11,7 @@ matrix:
 install:
   - C:\Python36\python -m pip install tox
 
-build: false  # Not a C# project
+build: false # Not a C# project
 
 test_script:
   - C:\Python36\scripts\tox

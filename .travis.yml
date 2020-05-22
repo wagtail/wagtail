@@ -7,32 +7,32 @@ addons:
 
 matrix:
   include:
-   - env: TOXENV=py36-dj22-mysql-noelasticsearch
-     python: 3.6
-   - env: TOXENV=py36-dj22-postgres-noelasticsearch
-     python: 3.6
-   - env: TOXENV=py37-dj22-sqlite-noelasticsearch
-     python: 3.7
-   - env: TOXENV=py37-dj30-sqlite-noelasticsearch
-     python: 3.7
-   - env: TOXENV=py37-dj30-mysql-noelasticsearch
-     python: 3.7
-   - env: TOXENV=py38-dj30-postgres-noelasticsearch
-     python: 3.8
-   - env: TOXENV=py38-dj30stable-postgres-noelasticsearch
-     python: 3.8
-   - env: TOXENV=py38-djmaster-postgres-noelasticsearch
-     python: 3.8
-   - env: TOXENV=py36-dj22-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
-     python: 3.6
-   - env: TOXENV=py36-dj22-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
-     python: 3.6
-   - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
-     python: 3.7
-   - env: TOXENV=py38-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
-     python: 3.8
-   - env: TOXENV=py38-dj30-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
-     python: 3.8
+    - env: TOXENV=py36-dj22-mysql-noelasticsearch
+      python: 3.6
+    - env: TOXENV=py36-dj22-postgres-noelasticsearch
+      python: 3.6
+    - env: TOXENV=py37-dj22-sqlite-noelasticsearch
+      python: 3.7
+    - env: TOXENV=py37-dj30-sqlite-noelasticsearch
+      python: 3.7
+    - env: TOXENV=py37-dj30-mysql-noelasticsearch
+      python: 3.7
+    - env: TOXENV=py38-dj30-postgres-noelasticsearch
+      python: 3.8
+    - env: TOXENV=py38-dj30stable-postgres-noelasticsearch
+      python: 3.8
+    - env: TOXENV=py38-djmaster-postgres-noelasticsearch
+      python: 3.8
+    - env: TOXENV=py36-dj22-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
+      python: 3.6
+    - env: TOXENV=py36-dj22-postgres-elasticsearch5 INSTALL_ELASTICSEARCH5=yes
+      python: 3.6
+    - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
+      python: 3.7
+    - env: TOXENV=py38-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+      python: 3.8
+    - env: TOXENV=py38-dj30-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+      python: 3.8
   allow_failures:
     # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky
     - env: TOXENV=py36-dj22-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -65,8 +65,7 @@ before_script:
   - mysql -e "SET GLOBAL max_allowed_packet = 134209536;"
 
 # Run the tests
-script:
-  tox
+script: tox
 
 after_success:
   - codecov -F backend
@@ -75,5 +74,4 @@ after_success:
 notifications:
   slack:
     secure: Y/UERaVnR+RL2dOqLR0Nc60JdGkejQ1Ae5zvPRYdDiMIGSv/1KC3T5Dp8NxamqIlozbQNmRaZD+i4AdX60g1M3xlB9DMINzY584YK0X2T2S28+xIgE0MQJijbpfbk2veV8PMeA6EHNpG4zoT+4sbcSyljt9TPcYTTTiTB8rAtc0=
-
 # bump Travis: 1

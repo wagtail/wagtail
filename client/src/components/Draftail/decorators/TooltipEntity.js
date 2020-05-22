@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { Icon } from 'draftail';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { Icon } from "draftail";
 
-import Tooltip from '../Tooltip/Tooltip';
-import Portal from '../../Portal/Portal';
+import Tooltip from "../Tooltip/Tooltip";
+import Portal from "../../Portal/Portal";
 
 const shortenLabel = (label) => {
   let shortened = label;
@@ -45,22 +45,28 @@ class TooltipEntity extends Component {
   }
 
   openTooltip(e) {
-    const trigger = e.target.closest('[data-draftail-trigger]');
+    const trigger = e.target.closest("[data-draftail-trigger]");
 
     // Click is within the tooltip.
     if (!trigger) {
       return;
     }
 
-    const container = trigger.closest('[data-draftail-editor-wrapper]');
+    const container = trigger.closest("[data-draftail-editor-wrapper]");
     const containerRect = container.getBoundingClientRect();
     const rect = trigger.getBoundingClientRect();
 
     this.setState({
       showTooltipAt: {
         container: container,
-        top: rect.top - containerRect.top - (document.documentElement.scrollTop || document.body.scrollTop),
-        left: rect.left - containerRect.left - (document.documentElement.scrollLeft || document.body.scrollLeft),
+        top:
+          rect.top -
+          containerRect.top -
+          (document.documentElement.scrollTop || document.body.scrollTop),
+        left:
+          rect.left -
+          containerRect.left -
+          (document.documentElement.scrollLeft || document.body.scrollLeft),
         width: rect.width,
         height: rect.height,
       },
@@ -72,12 +78,7 @@ class TooltipEntity extends Component {
   }
 
   render() {
-    const {
-      children,
-      icon,
-      label,
-      url,
-    } = this.props;
+    const { children, icon, label, url } = this.props;
     const { showTooltipAt } = this.state;
 
     // Contrary to what JSX A11Y says, this should be a button but it shouldn't be focusable.
@@ -114,10 +115,7 @@ class TooltipEntity extends Component {
                 </a>
               ) : null}
 
-              <button
-                className="button Tooltip__button"
-                onClick={this.onEdit}
-              >
+              <button className="button Tooltip__button" onClick={this.onEdit}>
                 Edit
               </button>
 

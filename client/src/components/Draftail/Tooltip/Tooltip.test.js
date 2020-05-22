@@ -1,7 +1,7 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from "react";
+import { shallow } from "enzyme";
 
-import Tooltip from './Tooltip';
+import Tooltip from "./Tooltip";
 
 const target = {
   top: 1,
@@ -10,8 +10,8 @@ const target = {
   height: 1200,
 };
 
-describe('Tooltip', () => {
-  it('#direction top', () => {
+describe("Tooltip", () => {
+  it("#direction top", () => {
     expect(
       shallow(
         <Tooltip target={target} direction="top">
@@ -21,7 +21,7 @@ describe('Tooltip', () => {
     ).toMatchSnapshot();
   });
 
-  it('#direction left', () => {
+  it("#direction left", () => {
     expect(
       shallow(
         <Tooltip target={target} direction="left">
@@ -31,7 +31,7 @@ describe('Tooltip', () => {
     ).toMatchSnapshot();
   });
 
-  it('#direction top-left', () => {
+  it("#direction top-left", () => {
     expect(
       shallow(
         <Tooltip target={target} direction="top-left">

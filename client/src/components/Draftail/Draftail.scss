@@ -14,17 +14,17 @@ $draftail-toolbar-icon-size: 1em;
 
 $draftail-editor-font-family: $font-serif;
 
-@import '../../../../node_modules/draft-js/dist/Draft';
-@import '../../../../node_modules/draftail/lib/index';
+@import "../../../../node_modules/draft-js/dist/Draft";
+@import "../../../../node_modules/draftail/lib/index";
 
-@import './Tooltip/Tooltip';
-@import './EditorFallback/EditorFallback';
+@import "./Tooltip/Tooltip";
+@import "./EditorFallback/EditorFallback";
 
-@import './decorators/TooltipEntity';
+@import "./decorators/TooltipEntity";
 
-@import './blocks/MediaBlock';
-@import './blocks/ImageBlock';
-@import './blocks/EmbedBlock';
+@import "./blocks/MediaBlock";
+@import "./blocks/ImageBlock";
+@import "./blocks/EmbedBlock";
 
 @include draftail-richtext-styles {
     h1,

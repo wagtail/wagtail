@@ -1,12 +1,12 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from "react";
+import { shallow } from "enzyme";
 
-import { DraftUtils } from 'draftail';
+import { DraftUtils } from "draftail";
 
-import ImageBlock from '../blocks/ImageBlock';
+import ImageBlock from "../blocks/ImageBlock";
 
-describe('ImageBlock', () => {
-  it('renders', () => {
+describe("ImageBlock", () => {
+  it("renders", () => {
     expect(
       shallow(
         <ImageBlock
@@ -16,7 +16,7 @@ describe('ImageBlock', () => {
             entityType: {},
             entity: {
               getData: () => ({
-                src: 'example.png',
+                src: "example.png",
               }),
             },
             onChange: () => {},
@@ -26,7 +26,7 @@ describe('ImageBlock', () => {
     ).toMatchSnapshot();
   });
 
-  it('no data', () => {
+  it("no data", () => {
     expect(
       shallow(
         <ImageBlock
@@ -44,7 +44,7 @@ describe('ImageBlock', () => {
     ).toMatchSnapshot();
   });
 
-  it('alt', () => {
+  it("alt", () => {
     expect(
       shallow(
         <ImageBlock
@@ -54,8 +54,8 @@ describe('ImageBlock', () => {
             entityType: {},
             entity: {
               getData: () => ({
-                src: 'example.png',
-                alt: 'Test',
+                src: "example.png",
+                alt: "Test",
               }),
             },
             onChange: () => {},
@@ -65,9 +65,9 @@ describe('ImageBlock', () => {
     ).toMatchSnapshot();
   });
 
-  it('changeAlt', () => {
-    jest.spyOn(DraftUtils, 'updateBlockEntity');
-    DraftUtils.updateBlockEntity.mockImplementation(e => e);
+  it("changeAlt", () => {
+    jest.spyOn(DraftUtils, "updateBlockEntity");
+    DraftUtils.updateBlockEntity.mockImplementation((e) => e);
 
     const onChange = jest.fn();
     const wrapper = shallow(
@@ -78,8 +78,8 @@ describe('ImageBlock', () => {
           entityType: {},
           entity: {
             getData: () => ({
-              src: 'example.png',
-              alt: 'Test',
+              src: "example.png",
+              alt: "Test",
             }),
           },
           onChange,
@@ -90,8 +90,8 @@ describe('ImageBlock', () => {
     // // Alt field is readonly for now.
     wrapper.instance().changeAlt({
       target: {
-        value: 'new alt',
-      }
+        value: "new alt",
+      },
     });
     // wrapper.find('[type="text"]').simulate('change', {
     //   target: {
@@ -103,7 +103,7 @@ describe('ImageBlock', () => {
     expect(DraftUtils.updateBlockEntity).toHaveBeenCalledWith(
       expect.any(Object),
       {},
-      expect.objectContaining({ alt: 'new alt' })
+      expect.objectContaining({ alt: "new alt" })
     );
 
     DraftUtils.updateBlockEntity.mockRestore();

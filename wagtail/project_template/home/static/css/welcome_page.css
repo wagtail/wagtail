@@ -14,7 +14,7 @@ body {
     margin: 0 auto;
     padding: 0 15px;
     color: #231f20;
-    font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+    font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
     line-height: 1.25;
 }
 
@@ -86,7 +86,8 @@ svg:not(:root) {
 }
 
 @-webkit-keyframes pos {
-    0%, 100% {
+    0%,
+    100% {
         -webkit-transform: rotate(-6deg);
         transform: rotate(-6deg);
     }
@@ -97,7 +98,8 @@ svg:not(:root) {
 }
 
 @keyframes pos {
-    0%, 100% {
+    0%,
+    100% {
         -webkit-transform: rotate(-6deg);
         transform: rotate(-6deg);
     }
@@ -110,11 +112,11 @@ svg:not(:root) {
 .egg {
     fill: #43b1b0;
     -webkit-animation: pos 3s ease infinite;
-            animation: pos 3s ease infinite;
+    animation: pos 3s ease infinite;
     -webkit-transform: translateY(50px);
-            transform: translateY(50px);
+    transform: translateY(50px);
     -webkit-transform-origin: 50% 80%;
-            transform-origin: 50% 80%;
+    transform-origin: 50% 80%;
 }
 
 .main-text {

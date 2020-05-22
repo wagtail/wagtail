@@ -13,7 +13,7 @@
 @mixin clearfix() {
     &:before,
     &:after {
-        content: ' ';
+        content: " ";
         display: table;
     }
 
@@ -34,7 +34,6 @@
         font-style: normal;
     }
 }
-
 
 // remove list styles, but only for the immediate element -
 // allow nested lists inside it to keep the default style
@@ -79,7 +78,6 @@
     }
 }
 
-
 @mixin visuallyvisible {
     clip: auto;
     height: auto;
@@ -89,10 +87,9 @@
     position: initial;
 }
 
-
-@mixin icon () {
+@mixin icon() {
     @include font-smoothing;
-    font-family: 'wagtail';
+    font-family: "wagtail";
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
@@ -105,7 +102,6 @@
     vertical-align: middle;
     margin-right: 0.2em;
 }
-
 
 // Applies given rules on hover, except for touch screens.
 // Relies on feature detection to add a no-touch class on the html element.

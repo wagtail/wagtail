@@ -2,7 +2,6 @@
 // Indicator light
 // =============================================================================
 
-
 // =============================================================================
 // Indicator light
 // =============================================================================
@@ -41,7 +40,7 @@ $c-indicator-margin: 0.25rem;
     position: relative;
 
     &:before {
-        content: '';
+        content: "";
         width: $c-indicator-size / 2;
         height: $c-indicator-size;
         position: absolute;

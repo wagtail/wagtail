@@ -1,7 +1,7 @@
 // The wagtail font isn't available in WOFF2, so a @font-face is set here without a mixin.
 @font-face {
-    font-family: 'wagtail';
-    src: url('#{$font-root}wagtail.woff') format('woff');
+    font-family: "wagtail";
+    src: url("#{$font-root}wagtail.woff") format("woff");
     font-weight: normal;
     font-style: normal;
 }
@@ -23,26 +23,25 @@
 
 .icon:before,
 .icon:after,
-.hallotoolbar [class^='icon-'],
-.hallotoolbar [class*=' icon-']:before,
-.hallotoolbar [class^='icon-']:before {
+.hallotoolbar [class^="icon-"],
+.hallotoolbar [class*=" icon-"]:before,
+.hallotoolbar [class^="icon-"]:before {
     @include icon(); // from _mixins.scss
 }
 
 .icon:after,
-.hallotoolbar [class^='icon-']:after,
-.hallotoolbar [class^='icon-']:after {
+.hallotoolbar [class^="icon-"]:after,
+.hallotoolbar [class^="icon-"]:after {
     text-align: right;
 }
 
-.hallotoolbar [class^='icon-'],
-.hallotoolbar [class*=' icon-']:before,
-.hallotoolbar [class*=' icon-']:before,
-.hallotoolbar [class^='icon-']:before {
+.hallotoolbar [class^="icon-"],
+.hallotoolbar [class*=" icon-"]:before,
+.hallotoolbar [class*=" icon-"]:before,
+.hallotoolbar [class^="icon-"]:before {
     vertical-align: -10%;
     margin-right: 0;
 }
-
 
 // =============================================================================
 // Icon factory methods
@@ -59,7 +58,6 @@
         content: quote(#{$content});
     }
 }
-
 
 // =============================================================================
 // Custom config for various icons
@@ -84,7 +82,6 @@
 .icon-horizontalrule:before {
     font-family: Open Sans, Arial, sans-serif;
 }
-
 
 .icon-larger:before {
     font-size: 1.5em;
@@ -115,8 +112,6 @@
         transform: rotate(360deg);
     }
 }
-
-
 
 .icon-spinner:after {
     display: inline-block;

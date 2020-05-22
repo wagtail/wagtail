@@ -1,9 +1,8 @@
-@import 'wagtailadmin/scss/helpers';
+@import "wagtailadmin/scss/helpers";
 
 .content header {
     margin-bottom: 0;
 }
-
 
 .result-list {
     margin-bottom: 0;
@@ -34,10 +33,8 @@
                 font-weight: 600;
             }
         }
-
     }
 }
-
 
 .changelist-filter {
     padding: 0 15px;
@@ -68,7 +65,7 @@
     }
 
     a {
-        font-family: Open Sans,Arial,sans-serif;
+        font-family: Open Sans, Arial, sans-serif;
         border-radius: 3px;
         width: auto;
         line-height: 1.2em;
@@ -105,7 +102,6 @@
     }
 }
 
-
 .no-search-results {
     margin-top: 30px;
 
@@ -121,7 +117,6 @@
     }
 }
 
-
 .pagination {
     margin-top: 3em;
     border-top: 1px dashed #d9d9d9;
@@ -132,11 +127,9 @@
     }
 }
 
-
 p.no-results {
     margin: 30px 1em 0;
 }
-
 
 @include media-breakpoint-up(sm) {
     .changelist-filter {

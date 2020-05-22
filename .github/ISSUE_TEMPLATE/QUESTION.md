@@ -1,10 +1,9 @@
 ---
 name: "⛔ Question"
 about: Please use StackOverflow or Slack for support
-title: ''
-labels: ''
-assignees: ''
-
+title: ""
+labels: ""
+assignees: ""
 ---
 
 Please do not use GitHub for asking questions. Instead, if you have a general question about Wagtail or about building a site with Wagtail we encourage you to post on our Slack workspace instead of this issue tracker: https://github.com/wagtail/wagtail/wiki/Slack. The maintainers and other community members can provide help and answer your questions there.

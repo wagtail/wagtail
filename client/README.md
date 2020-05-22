@@ -9,9 +9,9 @@ npm install wagtail
 ```
 
 ```javascript
-import { Explorer } from 'wagtail';
+import { Explorer } from "wagtail";
 // [...]
-<Explorer />
+<Explorer />;
 ```
 
 ## Development

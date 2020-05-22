@@ -1,45 +1,49 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from "react";
+import { shallow } from "enzyme";
 
-import Button from './Button';
+import Button from "./Button";
 
-describe('Button', () => {
-  it('exists', () => {
+describe("Button", () => {
+  it("exists", () => {
     expect(Button).toBeDefined();
   });
 
-  it('basic', () => {
+  it("basic", () => {
     expect(shallow(<Button />)).toMatchSnapshot();
   });
 
-  it('#children', () => {
+  it("#children", () => {
     expect(shallow(<Button>To infinity and beyond!</Button>)).toMatchSnapshot();
   });
 
-  it('#accessibleLabel', () => {
-    expect(shallow(<Button accessibleLabel="I am here in the shadows" />)).toMatchSnapshot();
+  it("#accessibleLabel", () => {
+    expect(
+      shallow(<Button accessibleLabel="I am here in the shadows" />)
+    ).toMatchSnapshot();
   });
 
-  it('#dialogTrigger', () => {
+  it("#dialogTrigger", () => {
     expect(shallow(<Button dialogTrigger />)).toMatchSnapshot();
   });
 
-  it('#target', () => {
-    expect(shallow(<Button target="_blank" rel="noopener noreferrer" />)).toMatchSnapshot();
+  it("#target", () => {
+    expect(
+      shallow(<Button target="_blank" rel="noopener noreferrer" />)
+    ).toMatchSnapshot();
   });
 
-  it('is clickable', () => {
+  it("is clickable", () => {
     const onClick = jest.fn();
-    shallow(<Button onClick={onClick} />).simulate('click', {
+    shallow(<Button onClick={onClick} />).simulate("click", {
       preventDefault() {},
       stopPropagation() {},
     });
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it('dismisses clicks', () => {
+  it("dismisses clicks", () => {
     const preventDefault = jest.fn();
-    shallow(<Button />).simulate('click', {
+    shallow(<Button />).simulate("click", {
       preventDefault,
       stopPropagation() {},
     });

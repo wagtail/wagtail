@@ -1,124 +1,124 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from "react";
+import { shallow } from "enzyme";
 
-import EditorFallback from './EditorFallback';
+import EditorFallback from "./EditorFallback";
 
-describe('EditorFallback', () => {
-  it('works', () => {
+describe("EditorFallback", () => {
+  it("works", () => {
     expect(
       shallow(
-        <EditorFallback field={document.createElement('input')}>
+        <EditorFallback field={document.createElement("input")}>
           test
         </EditorFallback>
       )
     ).toMatchSnapshot();
   });
 
-  it('#componentDidCatch', () => {
-    const field = document.createElement('input');
-    field.value = 'test value';
+  it("#componentDidCatch", () => {
+    const field = document.createElement("input");
+    field.value = "test value";
 
     const wrapper = shallow(
       <EditorFallback field={field}>test</EditorFallback>
     );
 
-    field.value = 'new test value';
+    field.value = "new test value";
 
-    const error = new Error('test');
-    const info = { componentStack: 'test' };
+    const error = new Error("test");
+    const info = { componentStack: "test" };
 
     wrapper.instance().componentDidCatch(error, info);
 
-    expect(wrapper.state('error')).toBe(error);
-    expect(wrapper.state('info')).toBe(info);
-    expect(field.value).toBe('test value');
+    expect(wrapper.state("error")).toBe(error);
+    expect(wrapper.state("info")).toBe(info);
+    expect(field.value).toBe("test value");
   });
 
-  describe('#error', () => {
-    it('works', () => {
+  describe("#error", () => {
+    it("works", () => {
       const wrapper = shallow(
-        <EditorFallback field={document.createElement('input')}>
+        <EditorFallback field={document.createElement("input")}>
           test
         </EditorFallback>
       );
 
       wrapper.setState({
-        error: new Error('test'),
+        error: new Error("test"),
       });
 
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('reload', () => {
+    it("reload", () => {
       const wrapper = shallow(
-        <EditorFallback field={document.createElement('input')}>
+        <EditorFallback field={document.createElement("input")}>
           test
         </EditorFallback>
       );
 
       wrapper
         .setState({
-          error: new Error('test'),
+          error: new Error("test"),
         })
-        .find('button')
+        .find("button")
         .last()
-        .simulate('click');
+        .simulate("click");
 
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('reload page', () => {
+    it("reload page", () => {
       window.location.reload = jest.fn();
 
       const wrapper = shallow(
-        <EditorFallback field={document.createElement('input')}>
+        <EditorFallback field={document.createElement("input")}>
           test
         </EditorFallback>
       );
 
       wrapper
         .setState({
-          error: new Error('test'),
+          error: new Error("test"),
           reloads: 3,
         })
-        .find('button')
+        .find("button")
         .last()
-        .simulate('click');
+        .simulate("click");
 
       expect(window.location.reload).toHaveBeenCalled();
     });
 
-    it('#showError', () => {
+    it("#showError", () => {
       const wrapper = shallow(
-        <EditorFallback field={document.createElement('input')}>
+        <EditorFallback field={document.createElement("input")}>
           test
         </EditorFallback>
       );
 
-      const error = new Error('test');
+      const error = new Error("test");
 
-      error.stack = 'test stack';
+      error.stack = "test stack";
 
       wrapper
         .setState({
           error: error,
-          info: { componentStack: 'test' },
+          info: { componentStack: "test" },
         })
-        .find('button')
+        .find("button")
         .first()
-        .simulate('click');
+        .simulate("click");
 
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('#showContent', () => {
-      const field = document.createElement('input');
+    it("#showContent", () => {
+      const field = document.createElement("input");
       field.rawContentState = {
         entityMap: {},
         blocks: [
           {
-            key: 'a',
-            text: 'test',
+            key: "a",
+            text: "test",
           },
         ],
       };
@@ -127,17 +127,17 @@ describe('EditorFallback', () => {
         <EditorFallback field={field}>test</EditorFallback>
       );
 
-      const error = new Error('test');
-      error.stack = 'test stack';
+      const error = new Error("test");
+      error.stack = "test stack";
 
       wrapper
         .setState({
           error: error,
-          info: { componentStack: 'test' },
+          info: { componentStack: "test" },
         })
-        .find('button')
+        .find("button")
         .first()
-        .simulate('click');
+        .simulate("click");
 
       expect(wrapper).toMatchSnapshot();
     });

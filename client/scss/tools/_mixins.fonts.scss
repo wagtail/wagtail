@@ -15,11 +15,11 @@ See https://css-tricks.com/snippets/css/using-font-face/ for more information.
 
 */
 
-@mixin webfont($fontname, $filestub, $weight, $style:normal) {
+@mixin webfont($fontname, $filestub, $weight, $style: normal) {
     @font-face {
-        font-family: '#{$fontname}';
-        src: url('#{$font-root}#{$filestub}.woff2') format('woff2'),
-            url('#{$font-root}#{$filestub}.woff') format('woff');
+        font-family: "#{$fontname}";
+        src: url("#{$font-root}#{$filestub}.woff2") format("woff2"),
+            url("#{$font-root}#{$filestub}.woff") format("woff");
         font-weight: $weight;
         font-style: $style;
     }

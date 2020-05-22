@@ -226,7 +226,7 @@ kbd,
 pre,
 samp {
     font-family: monospace, serif;
-    _font-family: 'courier new', monospace;
+    _font-family: "courier new", monospace;
     font-size: 1em;
 }
 
@@ -254,7 +254,7 @@ q {
 
 q:before,
 q:after {
-    content: '';
+    content: "";
     content: none;
 }
 
@@ -449,7 +449,7 @@ input[type="reset"],
 input[type="submit"] {
     -webkit-appearance: button; /* 2 */
     cursor: pointer; /* 3 */
-    *overflow: visible;  /* 4 */
+    *overflow: visible; /* 4 */
 }
 
 /**

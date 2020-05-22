@@ -6,7 +6,7 @@
 // input[type=button],
 .button {
     border-radius: 3px;
-    font-family: Open Sans,Arial,sans-serif;
+    font-family: Open Sans, Arial, sans-serif;
     width: auto;
     height: 2.4em;
     padding: 0 1em;
@@ -30,7 +30,6 @@
     &:hover {
         color: $color-teal;
     }
-
 
     &.yes {
         background-color: $color-button-yes;
@@ -75,7 +74,6 @@
             background-color: transparent;
         }
     }
-
 
     &.no,
     &.serious {
@@ -138,7 +136,6 @@
             line-height: 1.65em;
         }
     }
-
 
     // + input[type=submit],
     // + input[type=reset],
@@ -288,7 +285,6 @@
     }
 }
 
-
 .button-small {
     padding: 0 0.8em;
     height: 2em;
@@ -397,7 +393,6 @@
     }
 }
 
-
 a.button {
     line-height: 2.4em;
     height: auto;
@@ -412,9 +407,9 @@ a.button {
 }
 
 // Special styles to counteract Firefox's completely unwarranted assumptions about button styles
-input[type=submit],
-input[type=reset],
-input[type=button],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
 button {
     padding: 0 1em;
 
@@ -428,9 +423,9 @@ button {
 .button-group {
     @include clearfix;
 
-    input[type=submit],
-    input[type=reset],
-    input[type=button],
+    input[type="submit"],
+    input[type="reset"],
+    input[type="button"],
     .button,
     button {
         border-radius: 0;
@@ -454,16 +449,15 @@ button {
 
     &.button-group-square {
         &,
-        input[type=submit],
-        input[type=reset],
-        input[type=button],
+        input[type="submit"],
+        input[type="reset"],
+        input[type="button"],
         .button,
         button {
             border-radius: 0;
         }
     }
 }
-
 
 .multiple {
     padding: 0;
@@ -517,7 +511,6 @@ button {
             visibility: hidden;
         }
     }
-
 }
 
 // wrapper around add button for mutliple objects

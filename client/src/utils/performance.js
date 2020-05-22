@@ -1,7 +1,7 @@
 /* eslint-disable import/no-mutable-exports */
 let perfMiddleware;
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   /**
    * Performance middleware for use with a Redux store.
    * Will log the time taken by every action across all
@@ -28,6 +28,4 @@ if (process.env.NODE_ENV !== 'production') {
   };
 }
 
-export {
-  perfMiddleware,
-};
+export { perfMiddleware };

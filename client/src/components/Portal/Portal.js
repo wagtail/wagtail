@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
-import { Component } from 'react';
-import { createPortal } from 'react-dom';
+import PropTypes from "prop-types";
+import { Component } from "react";
+import { createPortal } from "react-dom";
 
 /**
  * A Portal component which automatically closes itself
@@ -11,7 +11,7 @@ class Portal extends Component {
   constructor(props) {
     super(props);
 
-    this.portal = document.createElement('div');
+    this.portal = document.createElement("div");
 
     this.onCloseEvent = this.onCloseEvent.bind(this);
   }
@@ -25,20 +25,26 @@ class Portal extends Component {
   }
 
   componentDidMount() {
-    const { node, onClose, closeOnClick, closeOnType, closeOnResize } = this.props;
+    const {
+      node,
+      onClose,
+      closeOnClick,
+      closeOnType,
+      closeOnResize,
+    } = this.props;
 
     node.appendChild(this.portal);
 
     if (closeOnClick) {
-      document.addEventListener('mouseup', this.onCloseEvent);
+      document.addEventListener("mouseup", this.onCloseEvent);
     }
 
     if (closeOnType) {
-      document.addEventListener('keyup', this.onCloseEvent);
+      document.addEventListener("keyup", this.onCloseEvent);
     }
 
     if (closeOnResize) {
-      window.addEventListener('resize', onClose);
+      window.addEventListener("resize", onClose);
     }
   }
 
@@ -47,9 +53,9 @@ class Portal extends Component {
 
     node.removeChild(this.portal);
 
-    document.removeEventListener('mouseup', this.onCloseEvent);
-    document.removeEventListener('keyup', this.onCloseEvent);
-    window.removeEventListener('resize', onClose);
+    document.removeEventListener("mouseup", this.onCloseEvent);
+    document.removeEventListener("keyup", this.onCloseEvent);
+    window.removeEventListener("resize", onClose);
   }
 
   render() {

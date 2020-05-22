@@ -1,7 +1,6 @@
-import { get } from '../api/client';
+import { get } from "../api/client";
 
-import { ADMIN_API } from '../config/wagtailConfig';
-
+import { ADMIN_API } from "../config/wagtailConfig";
 
 export const getPage = (id) => {
   const url = `${ADMIN_API.PAGES}${id}/`;
@@ -13,11 +12,11 @@ export const getPageChildren = (id, options = {}) => {
   let url = `${ADMIN_API.PAGES}?child_of=${id}&for_explorer=1`;
 
   if (options.fields) {
-    url += `&fields=${global.encodeURIComponent(options.fields.join(','))}`;
+    url += `&fields=${global.encodeURIComponent(options.fields.join(","))}`;
   }
 
   if (options.onlyWithChildren) {
-    url += '&has_children=1';
+    url += "&has_children=1";
   }
 
   if (options.offset) {

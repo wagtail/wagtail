@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import { STRINGS } from '../../../config/wagtailConfig';
+import { STRINGS } from "../../../config/wagtailConfig";
 
-import MediaBlock from '../blocks/MediaBlock';
+import MediaBlock from "../blocks/MediaBlock";
 
 /**
  * Editor block to display media and edit content.
  */
-const EmbedBlock = props => {
+const EmbedBlock = (props) => {
   const { entity, onRemoveEntity } = props.blockProps;
   const { url, title, thumbnail } = entity.getData();
 
@@ -26,7 +26,10 @@ const EmbedBlock = props => {
         </a>
       ) : null}
 
-      <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
+      <button
+        className="button button-secondary no Tooltip__button"
+        onClick={onRemoveEntity}
+      >
         {STRINGS.DELETE}
       </button>
     </MediaBlock>

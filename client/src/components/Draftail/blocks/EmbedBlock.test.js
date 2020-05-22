@@ -1,10 +1,10 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from "react";
+import { shallow } from "enzyme";
 
-import EmbedBlock from '../blocks/EmbedBlock';
+import EmbedBlock from "../blocks/EmbedBlock";
 
-describe('EmbedBlock', () => {
-  it('renders', () => {
+describe("EmbedBlock", () => {
+  it("renders", () => {
     expect(
       shallow(
         <EmbedBlock
@@ -12,9 +12,9 @@ describe('EmbedBlock', () => {
             entityType: {},
             entity: {
               getData: () => ({
-                url: 'http://www.example.com/',
-                title: 'Test title',
-                thumbnail: 'http://www.example.com/example.png',
+                url: "http://www.example.com/",
+                title: "Test title",
+                thumbnail: "http://www.example.com/example.png",
               }),
             },
           }}
@@ -23,7 +23,7 @@ describe('EmbedBlock', () => {
     ).toMatchSnapshot();
   });
 
-  it('no data', () => {
+  it("no data", () => {
     expect(
       shallow(
         <EmbedBlock

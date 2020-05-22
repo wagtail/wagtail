@@ -1,17 +1,17 @@
-var gulp = require('gulp');
-var path = require('path');
-var config = require('../config');
+var gulp = require("gulp");
+var path = require("path");
+var config = require("../config");
 
 /*
  * Watch - Watch files, trigger tasks when they are modified
  */
-gulp.task('watch', gulp.series('build'), function () {
-    config.apps.forEach(function(app) {
-        gulp.watch(path.join('./client/**/*.scss'), ['styles:sass']);
-        gulp.watch(path.join(app.sourceFiles, '*/scss/**'), ['styles:sass']);
-        gulp.watch(path.join(app.sourceFiles, '*/css/**'), ['styles:css']);
-        gulp.watch(path.join(app.sourceFiles, '*/js/**'), ['scripts']);
-        gulp.watch(path.join(app.sourceFiles, '*/images/**'), ['images']);
-        gulp.watch(path.join(app.sourceFiles, '*/fonts/**'), ['fonts']);
-    });
+gulp.task("watch", gulp.series("build"), function () {
+  config.apps.forEach(function (app) {
+    gulp.watch(path.join("./client/**/*.scss"), ["styles:sass"]);
+    gulp.watch(path.join(app.sourceFiles, "*/scss/**"), ["styles:sass"]);
+    gulp.watch(path.join(app.sourceFiles, "*/css/**"), ["styles:css"]);
+    gulp.watch(path.join(app.sourceFiles, "*/js/**"), ["scripts"]);
+    gulp.watch(path.join(app.sourceFiles, "*/images/**"), ["images"]);
+    gulp.watch(path.join(app.sourceFiles, "*/fonts/**"), ["fonts"]);
+  });
 });

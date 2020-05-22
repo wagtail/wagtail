@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
 const handleClick = (href, onClick, preventDefault, e) => {
-  if (preventDefault && href === '#') {
+  if (preventDefault && href === "#") {
     e.preventDefault();
     e.stopPropagation();
   }
@@ -27,19 +27,17 @@ const Button = ({
 }) => {
   const hasText = children !== null;
   const accessibleElt = accessibleLabel ? (
-    <span className="visuallyhidden">
-      {accessibleLabel}
-    </span>
+    <span className="visuallyhidden">{accessibleLabel}</span>
   ) : null;
 
   return (
     <a
       className={className}
       onClick={handleClick.bind(null, href, onClick, preventDefault)}
-      rel={target === '_blank' ? 'noopener noreferrer' : null}
+      rel={target === "_blank" ? "noopener noreferrer" : null}
       href={href}
       target={target}
-      aria-haspopup={dialogTrigger ? 'dialog' : null}
+      aria-haspopup={dialogTrigger ? "dialog" : null}
     >
       {hasText ? children : accessibleElt}
     </a>
@@ -59,8 +57,8 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  href: '#',
-  className: '',
+  href: "#",
+  className: "",
   target: null,
   children: null,
   accessibleLabel: null,

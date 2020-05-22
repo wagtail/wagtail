@@ -59,7 +59,6 @@ header {
             padding-left: $desktop-nice-padding;
             padding-top: 11px;
         }
-
     }
 
     &.merged.no-border {
@@ -83,7 +82,7 @@ header {
         @include visuallyhidden();
     }
 
-    input[type=text],
+    input[type="text"],
     select {
         border-width: 0;
 

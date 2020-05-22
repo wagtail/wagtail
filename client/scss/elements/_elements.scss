@@ -8,7 +8,7 @@ body {
     position: relative;
 
     &:after {
-        content: '';
+        content: "";
         position: fixed;
         transition: visibility 0s linear 0s, opacity 0.2s ease-out;
         background: rgba(255, 255, 255, 0.5);

@@ -1,16 +1,16 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import Icon from '../../Icon/Icon';
+import Icon from "../../Icon/Icon";
 
-import TooltipEntity from '../decorators/TooltipEntity';
+import TooltipEntity from "../decorators/TooltipEntity";
 
-import { STRINGS } from '../../../config/wagtailConfig';
+import { STRINGS } from "../../../config/wagtailConfig";
 
 const documentIcon = <Icon name="doc-full" />;
 const missingDocumentIcon = <Icon name="warning" />;
 
-const Document = props => {
+const Document = (props) => {
   const { entityKey, contentState } = props;
   const data = contentState.getEntity(entityKey).getData();
   const url = data.url || null;
@@ -22,17 +22,10 @@ const Document = props => {
     label = STRINGS.MISSING_DOCUMENT;
   } else {
     icon = documentIcon;
-    label = data.filename || '';
+    label = data.filename || "";
   }
 
-  return (
-    <TooltipEntity
-      {...props}
-      icon={icon}
-      label={label}
-      url={url}
-    />
-  );
+  return <TooltipEntity {...props} icon={icon} label={label} url={url} />;
 };
 
 Document.propTypes = {

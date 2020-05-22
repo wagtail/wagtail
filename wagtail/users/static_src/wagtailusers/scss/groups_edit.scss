@@ -1,4 +1,4 @@
-@import '../../../../../client/scss/tools/mixins.general';
+@import "../../../../../client/scss/tools/mixins.general";
 
 .listing {
     .field label {
@@ -7,7 +7,6 @@
 
     input,
     select,
-
     textarea {
         font-size: 1em;
     }
@@ -20,6 +19,6 @@
 
 .page-permissions-listing {
     .admin_page_chooser .field-content {
-        width: 100%;  // so that 'choose another page' button displays in its entirety
+        width: 100%; // so that 'choose another page' button displays in its entirety
     }
 }

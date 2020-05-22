@@ -1,15 +1,21 @@
-require('./draftail.entry');
+require("./draftail.entry");
 
-describe('draftail.entry', () => {
-  it('exposes module as global', () => {
+describe("draftail.entry", () => {
+  it("exposes module as global", () => {
     expect(window.draftail).toBeDefined();
   });
 
-  it('exposes package as global', () => {
+  it("exposes package as global", () => {
     expect(window.Draftail).toBeDefined();
   });
 
-  it('has defaults registered', () => {
-    expect(Object.keys(window.draftail.registerPlugin({}))).toEqual(["DOCUMENT", "LINK", "IMAGE", "EMBED", "undefined"]);
+  it("has defaults registered", () => {
+    expect(Object.keys(window.draftail.registerPlugin({}))).toEqual([
+      "DOCUMENT",
+      "LINK",
+      "IMAGE",
+      "EMBED",
+      "undefined",
+    ]);
   });
 });

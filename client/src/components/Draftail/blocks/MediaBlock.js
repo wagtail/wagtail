@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { Icon } from 'draftail';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { Icon } from "draftail";
 
-import Tooltip from '../Tooltip/Tooltip';
-import Portal from '../../Portal/Portal';
+import Tooltip from "../Tooltip/Tooltip";
+import Portal from "../../Portal/Portal";
 
 // Constraints the maximum size of the tooltip.
 const OPTIONS_MAX_WIDTH = 300;
@@ -27,14 +27,14 @@ class MediaBlock extends Component {
   }
 
   openTooltip(e) {
-    const trigger = e.target.closest('[data-draftail-trigger]');
+    const trigger = e.target.closest("[data-draftail-trigger]");
 
     // Click is within the tooltip.
     if (!trigger) {
       return;
     }
 
-    const container = trigger.closest('[data-draftail-editor-wrapper]');
+    const container = trigger.closest("[data-draftail-editor-wrapper]");
     const containerRect = container.getBoundingClientRect();
     const rect = trigger.getBoundingClientRect();
     const maxWidth = trigger.parentNode.offsetWidth - rect.width;
@@ -42,11 +42,17 @@ class MediaBlock extends Component {
     this.setState({
       showTooltipAt: {
         container: container,
-        top: rect.top - containerRect.top - (document.documentElement.scrollTop || document.body.scrollTop),
-        left: rect.left - containerRect.left - (document.documentElement.scrollLeft || document.body.scrollLeft),
+        top:
+          rect.top -
+          containerRect.top -
+          (document.documentElement.scrollTop || document.body.scrollTop),
+        left:
+          rect.left -
+          containerRect.left -
+          (document.documentElement.scrollLeft || document.body.scrollLeft),
         width: rect.width,
         height: rect.height,
-        direction: maxWidth >= TOOLTIP_MAX_WIDTH ? 'left' : 'top-left',
+        direction: maxWidth >= TOOLTIP_MAX_WIDTH ? "left" : "top-left",
       },
     });
   }
@@ -110,7 +116,7 @@ MediaBlock.propTypes = {
 
 MediaBlock.defaultProps = {
   src: null,
-  alt: '',
+  alt: "",
 };
 
 export default MediaBlock;

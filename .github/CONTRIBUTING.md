@@ -2,7 +2,7 @@
 
 Thank you for considering to help Wagtail.
 
-We welcome all support, whether on bug reports, code, design, reviews, tests, 
+We welcome all support, whether on bug reports, code, design, reviews, tests,
 documentation, translations or just feature requests.
 
 ## Using the issue tracker
@@ -14,9 +14,9 @@ for support - use [the 'wagtail' tag on Stack Overflow](https://stackoverflow.co
 
 ## New code
 
-Please review the 
+Please review the
 [contributing guidelines](https://docs.wagtail.io/en/latest/contributing/index.html).
-You might like to start by checking issues with the 
+You might like to start by checking issues with the
 [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
 ## Code reviews

@@ -10,7 +10,7 @@
         }
 
         &:before {
-            content: '';
+            content: "";
             top: -5px;
             left: -5px;
             bottom: -5px;
@@ -28,7 +28,7 @@
             margin: -15px 0 0 -15px;
             font-family: wagtail;
             animation: spin 0.5s infinite linear;
-            content: map-get($icons, 'spinner');
+            content: map-get($icons, "spinner");
             z-index: 2;
             color: $color-teal;
         }

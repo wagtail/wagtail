@@ -1,10 +1,10 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
+import React from "react";
+import { shallow, mount } from "enzyme";
 
-import MediaBlock from '../blocks/MediaBlock';
+import MediaBlock from "../blocks/MediaBlock";
 
-describe('MediaBlock', () => {
-  it('renders', () => {
+describe("MediaBlock", () => {
+  it("renders", () => {
     expect(
       shallow(
         <MediaBlock
@@ -12,11 +12,11 @@ describe('MediaBlock', () => {
           alt=""
           blockProps={{
             entityType: {
-              icon: '#icon-test',
+              icon: "#icon-test",
             },
             entity: {
               getData: () => ({
-                src: 'example.png',
+                src: "example.png",
               }),
             },
           }}
@@ -27,7 +27,7 @@ describe('MediaBlock', () => {
     ).toMatchSnapshot();
   });
 
-  it('no data', () => {
+  it("no data", () => {
     expect(
       shallow(
         <MediaBlock
@@ -35,7 +35,7 @@ describe('MediaBlock', () => {
           alt=""
           blockProps={{
             entityType: {
-              icon: '#icon-test',
+              icon: "#icon-test",
             },
             entity: {
               getData: () => ({}),
@@ -48,15 +48,15 @@ describe('MediaBlock', () => {
     ).toMatchSnapshot();
   });
 
-  describe('tooltip', () => {
+  describe("tooltip", () => {
     let target;
     let wrapper;
 
     beforeEach(() => {
-      target = document.createElement('div');
-      target.setAttribute('data-draftail-trigger', true);
+      target = document.createElement("div");
+      target.setAttribute("data-draftail-trigger", true);
       document.body.appendChild(target);
-      document.body.setAttribute('data-draftail-editor-wrapper', true);
+      document.body.setAttribute("data-draftail-editor-wrapper", true);
 
       wrapper = mount(
         <MediaBlock
@@ -64,11 +64,11 @@ describe('MediaBlock', () => {
           alt=""
           blockProps={{
             entityType: {
-              icon: '#icon-test',
+              icon: "#icon-test",
             },
             entity: {
               getData: () => ({
-                src: 'example.png',
+                src: "example.png",
               }),
             },
           }}
@@ -78,26 +78,25 @@ describe('MediaBlock', () => {
       );
     });
 
-    it('opens', () => {
-      wrapper.simulate('click', { target });
+    it("opens", () => {
+      wrapper.simulate("click", { target });
 
       expect(
-        wrapper
-          .find('Portal > Portal').prop('containerInfo')
+        wrapper.find("Portal > Portal").prop("containerInfo")
       ).toMatchSnapshot();
     });
 
-    it('click in tooltip', () => {
-      wrapper.simulate('click', { target });
+    it("click in tooltip", () => {
+      wrapper.simulate("click", { target });
 
-      jest.spyOn(target, 'getBoundingClientRect');
+      jest.spyOn(target, "getBoundingClientRect");
 
-      wrapper.simulate('click', { target: document.querySelector('#test') });
+      wrapper.simulate("click", { target: document.querySelector("#test") });
 
       expect(target.getBoundingClientRect).not.toHaveBeenCalled();
     });
 
-    it('large viewport', () => {
+    it("large viewport", () => {
       target.getBoundingClientRect = () => ({
         top: 0,
         left: 0,
@@ -105,23 +104,21 @@ describe('MediaBlock', () => {
         height: 0,
       });
 
-      wrapper.simulate('click', { target });
+      wrapper.simulate("click", { target });
 
-      expect(
-        wrapper
-          .find('.Tooltip')
-          .prop('className')
-      ).toBe('Tooltip Tooltip--left');
+      expect(wrapper.find(".Tooltip").prop("className")).toBe(
+        "Tooltip Tooltip--left"
+      );
     });
 
-    it('closes', () => {
-      jest.spyOn(target, 'getBoundingClientRect');
+    it("closes", () => {
+      jest.spyOn(target, "getBoundingClientRect");
 
-      expect(wrapper.state('showTooltipAt')).toBe(null);
+      expect(wrapper.state("showTooltipAt")).toBe(null);
 
-      wrapper.simulate('click', { target });
+      wrapper.simulate("click", { target });
 
-      expect(wrapper.state('showTooltipAt')).toMatchObject({
+      expect(wrapper.state("showTooltipAt")).toMatchObject({
         top: 0,
         left: 0,
       });
@@ -129,7 +126,7 @@ describe('MediaBlock', () => {
 
       wrapper.instance().closeTooltip();
 
-      expect(wrapper.state('showTooltipAt')).toBe(null);
+      expect(wrapper.state("showTooltipAt")).toBe(null);
     });
   });
 });

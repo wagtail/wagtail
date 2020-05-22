@@ -1,4 +1,4 @@
-var gulp = require('gulp');
-var simpleCopyTask = require('../lib/simplyCopy');
+var gulp = require("gulp");
+var simpleCopyTask = require("../lib/simplyCopy");
 
-gulp.task('images', simpleCopyTask('images/**/*'));
+gulp.task("images", simpleCopyTask("images/**/*"));

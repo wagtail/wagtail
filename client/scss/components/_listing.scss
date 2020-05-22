@@ -81,12 +81,11 @@ ul.listing {
     }
 
     .table-headers {
-        border-bottom: 1px solid  $color-grey-4;
+        border-bottom: 1px solid $color-grey-4;
     }
 
     tbody {
         border-bottom: 1px dashed $color-input-border;
-
 
         tr {
             border-top: 1px dashed $color-input-border;
@@ -339,7 +338,6 @@ ul.listing {
 
         td {
             display: none;
-
         }
 
         .ord,
@@ -548,7 +546,6 @@ table.listing {
     padding: 2em 50px 0;
 }
 
-
 // listing filters
 .listing-filter {
     @include clearfix();
@@ -577,7 +574,6 @@ table.listing {
     }
 }
 
-
 @include media-breakpoint-up(sm) {
     .listing {
         &.horiz > li {
@@ -603,7 +599,7 @@ table.listing {
                     height: 180px;
 
                     &:before {
-                        content: '';
+                        content: "";
                         display: inline-block;
                         height: 100%;
                         vertical-align: middle;
@@ -633,8 +629,6 @@ table.listing {
         .index .actions {
             visibility: visible;
         }
-
-
 
         td:hover .actions {
             visibility: visible;
@@ -679,14 +673,12 @@ table.listing {
     }
 }
 
-
 // State
 .listing__item--active {
     > .actions {
         visibility: visible;
     }
 }
-
 
 // Transitions
 .listing {
@@ -720,7 +712,7 @@ table.listing {
 
         &.ascending {
             &:before {
-                content: '\25B2'; // up arrow
+                content: "\25B2"; // up arrow
                 display: inline-block;
                 height: 100%;
                 vertical-align: middle;
@@ -729,12 +721,11 @@ table.listing {
 
         &.descending {
             &:before {
-                content: '\25BC'; // down arrow
+                content: "\25BC"; // down arrow
                 display: inline-block;
                 height: 100%;
                 vertical-align: middle;
             }
         }
-
     }
 }

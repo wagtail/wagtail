@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
 
 const TRANSITION_DURATION = 210;
 
 // The available transitions. Must match the class names in CSS.
-export const PUSH = 'push';
-export const POP = 'pop';
+export const PUSH = "push";
+export const POP = "pop";
 
 /**
  * Wrapper arround react-transition-group with default values.
@@ -42,7 +42,7 @@ Transition.propTypes = {
 };
 
 Transition.defaultProps = {
-  component: 'div',
+  component: "div",
   children: null,
   className: null,
   duration: TRANSITION_DURATION,

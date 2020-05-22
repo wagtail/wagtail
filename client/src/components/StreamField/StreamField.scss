@@ -1,9 +1,7 @@
 $header-padding-vertical: 6px;
 $action-font-size: 18px;
 
-
-@import '../../../../node_modules/react-streamfield/src/scss/index';
-
+@import "../../../../node_modules/react-streamfield/src/scss/index";
 
 .c-sf-container {
     // TODO: #CSSoverhaul the bse icon style here - the margin - should be reconsidered when
@@ -24,10 +22,10 @@ $action-font-size: 18px;
         padding: 0; // LEGIT
 
         &::after {
-            content: ''; // LEGIT
+            content: ""; // LEGIT
         }
 
-        input[type='radio'] {
+        input[type="radio"] {
             margin-bottom: 1.1em;
             vertical-align: middle;
 

@@ -3,7 +3,6 @@
 // it probably ought to go in layouts/page-editor.scss
 form {
     ul,
-
     li {
         list-style-type: none;
     }
@@ -73,7 +72,7 @@ select,
     box-sizing: border-box;
     border-radius: 6px;
     width: 100%;
-    font-family: Open Sans,Arial,sans-serif;
+    font-family: Open Sans, Arial, sans-serif;
     border: 1px solid $color-input-border;
     padding: 0.9em 1.2em;
     background-color: $color-fieldset-hover;
@@ -113,36 +112,35 @@ select::-ms-expand {
             padding: 0;
         }
 
-        input[type=checkbox] {
+        input[type="checkbox"] {
             margin-top: 5px;
         }
 
         a {
             &:after {
-                content: ' ';
+                content: " ";
                 display: block;
             }
         }
     }
 }
 
-
 // radio and check boxes
-input[type=radio],
-input[type=checkbox] {
+input[type="radio"],
+input[type="checkbox"] {
     border-radius: 0;
     cursor: pointer;
     border: 0;
 }
 
-input[type=radio] {
+input[type="radio"] {
     height: 12px;
     width: auto;
     position: relative;
     margin-right: 27px;
 }
 
-input[type=radio]:before {
+input[type="radio"]:before {
     border-radius: 100%;
     font-family: wagtail;
     font-style: normal;
@@ -152,7 +150,7 @@ input[type=radio]:before {
     left: -2px;
     cursor: pointer;
     display: block;
-    content: map-get($icons, 'radio-full');
+    content: map-get($icons, "radio-full");
     width: 1em;
     height: 1em;
     line-height: 1.1em;
@@ -162,19 +160,19 @@ input[type=radio]:before {
     border: 1px solid $color-grey-4;
 }
 
-input[type=radio]:checked:before {
-    content: map-get($icons, 'radio-full');
+input[type="radio"]:checked:before {
+    content: map-get($icons, "radio-full");
     color: $color-teal;
 }
 
-input[type=checkbox] {
+input[type="checkbox"] {
     height: 12px;
     width: auto;
     position: relative;
     margin-right: 27px;
 }
 
-input[type=checkbox]:before {
+input[type="checkbox"]:before {
     font-family: wagtail;
     font-style: normal;
     text-align: center;
@@ -182,7 +180,7 @@ input[type=checkbox]:before {
     top: -5px;
     cursor: pointer;
     display: block;
-    content: map-get($icons, 'tick');
+    content: map-get($icons, "tick");
     line-height: 20px;
     width: 20px;
     height: 20px;
@@ -191,15 +189,14 @@ input[type=checkbox]:before {
     color: $color-white;
 }
 
-input[type=checkbox]:checked:before {
+input[type="checkbox"]:checked:before {
     color: $color-teal;
 }
 
-
 // Special styles to counteract Firefox's completely unwarranted assumptions about button styles
-input[type=submit],
-input[type=reset],
-input[type=button],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
 button {
     padding: 0 1em;
 

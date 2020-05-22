@@ -1,5 +1,5 @@
-const OUTLINE_ON = 'focus-outline-on';
-const OUTLINE_OFF = 'focus-outline-off';
+const OUTLINE_ON = "focus-outline-on";
+const OUTLINE_OFF = "focus-outline-off";
 
 const toggleFocusOutline = (isOn) => {
   document.body.classList.toggle(OUTLINE_OFF, !isOn);
@@ -17,10 +17,10 @@ export const initFocusOutline = () => {
   // Focus outline styles are added by default in the HTML, so they work without JS enabled.
   removeFocusOutline();
 
-  window.addEventListener('mousedown', removeFocusOutline);
-  window.addEventListener('touchstart', removeFocusOutline);
+  window.addEventListener("mousedown", removeFocusOutline);
+  window.addEventListener("touchstart", removeFocusOutline);
 
-  window.addEventListener('keydown', e => {
+  window.addEventListener("keydown", (e) => {
     const isTabKey = e.keyCode === 9;
 
     if (isTabKey) {

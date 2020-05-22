@@ -1,14 +1,14 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React from "react";
+import { shallow } from "enzyme";
 
-import LoadingSpinner from './LoadingSpinner';
+import LoadingSpinner from "./LoadingSpinner";
 
-describe('LoadingSpinner', () => {
-  it('exists', () => {
+describe("LoadingSpinner", () => {
+  it("exists", () => {
     expect(LoadingSpinner).toBeDefined();
   });
 
-  it('basic', () => {
+  it("basic", () => {
     expect(shallow(<LoadingSpinner />)).toMatchSnapshot();
   });
 });

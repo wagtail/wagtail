@@ -1,19 +1,12 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from "prop-types";
+import React from "react";
+import { connect } from "react-redux";
 
-import * as actions from './actions';
+import * as actions from "./actions";
 
-import ExplorerPanel from './ExplorerPanel';
+import ExplorerPanel from "./ExplorerPanel";
 
-const Explorer = ({
-  isVisible,
-  nodes,
-  path,
-  pushPage,
-  popPage,
-  onClose,
-}) => {
+const Explorer = ({ isVisible, nodes, path, pushPage, popPage, onClose }) => {
   const page = nodes[path[path.length - 1]];
 
   return isVisible ? (

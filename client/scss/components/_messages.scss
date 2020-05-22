@@ -36,7 +36,7 @@
 
         &:before {
             font-family: wagtail;
-            content: map-get($icons, 'warning');
+            content: map-get($icons, "warning");
         }
     }
 
@@ -45,7 +45,7 @@
 
         &:before {
             font-family: wagtail;
-            content: map-get($icons, 'warning');
+            content: map-get($icons, "warning");
         }
     }
 
@@ -54,7 +54,7 @@
 
         &:before {
             font-family: wagtail;
-            content: map-get($icons, 'success');
+            content: map-get($icons, "success");
         }
     }
 
@@ -77,13 +77,13 @@
 
     .lock {
         &:before {
-            content: map-get($icons, 'locked');
+            content: map-get($icons, "locked");
         }
     }
 
     .unlock {
         &:before {
-            content: map-get($icons, 'unlocked');
+            content: map-get($icons, "unlocked");
         }
     }
 }

@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import FocusTrap from 'focus-trap-react';
+import PropTypes from "prop-types";
+import React from "react";
+import FocusTrap from "focus-trap-react";
 
-import { STRINGS, MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
+import { STRINGS, MAX_EXPLORER_PAGES } from "../../config/wagtailConfig";
 
-import Button from '../Button/Button';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import Transition, { PUSH, POP } from '../Transition/Transition';
-import ExplorerHeader from './ExplorerHeader';
-import ExplorerItem from './ExplorerItem';
-import PageCount from './PageCount';
+import Button from "../Button/Button";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import Transition, { PUSH, POP } from "../Transition/Transition";
+import ExplorerHeader from "./ExplorerHeader";
+import ExplorerItem from "./ExplorerItem";
+import PageCount from "./PageCount";
 
 /**
  * The main panel of the page explorer menu, with heading,
@@ -39,23 +39,27 @@ class ExplorerPanel extends React.Component {
   }
 
   componentDidMount() {
-    document.querySelector('[data-explorer-menu-item]').classList.add('submenu-active');
-    document.body.classList.add('explorer-open');
-    document.addEventListener('mousedown', this.clickOutside);
-    document.addEventListener('touchend', this.clickOutside);
+    document
+      .querySelector("[data-explorer-menu-item]")
+      .classList.add("submenu-active");
+    document.body.classList.add("explorer-open");
+    document.addEventListener("mousedown", this.clickOutside);
+    document.addEventListener("touchend", this.clickOutside);
   }
 
   componentWillUnmount() {
-    document.querySelector('[data-explorer-menu-item]').classList.remove('submenu-active');
-    document.body.classList.remove('explorer-open');
-    document.removeEventListener('mousedown', this.clickOutside);
-    document.removeEventListener('touchend', this.clickOutside);
+    document
+      .querySelector("[data-explorer-menu-item]")
+      .classList.remove("submenu-active");
+    document.body.classList.remove("explorer-open");
+    document.removeEventListener("mousedown", this.clickOutside);
+    document.removeEventListener("touchend", this.clickOutside);
   }
 
   clickOutside(e) {
     const { onClose } = this.props;
-    const explorer = document.querySelector('[data-explorer-menu]');
-    const toggle = document.querySelector('[data-explorer-menu-item]');
+    const explorer = document.querySelector("[data-explorer-menu]");
+    const toggle = document.querySelector("[data-explorer-menu-item]");
 
     const isInside = explorer.contains(e.target) || toggle.contains(e.target);
     if (!isInside) {
@@ -142,14 +146,19 @@ class ExplorerPanel extends React.Component {
         className="explorer"
         paused={paused || !page || page.isFetching}
         focusTrapOptions={{
-          initialFocus: '.c-explorer__header',
+          initialFocus: ".c-explorer__header",
           onDeactivate: onClose,
         }}
       >
         <Button className="c-explorer__close" onClick={onClose}>
           {STRINGS.CLOSE_EXPLORER}
         </Button>
-        <Transition name={transition} className="c-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
+        <Transition
+          name={transition}
+          className="c-explorer"
+          component="nav"
+          label={STRINGS.PAGE_EXPLORER}
+        >
           <div key={path.length} className="c-transition-group">
             <ExplorerHeader
               depth={path.length}
@@ -159,7 +168,9 @@ class ExplorerPanel extends React.Component {
 
             {this.renderChildren()}
 
-            {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
+            {page.isError ||
+            (page.children.items &&
+              page.children.count > MAX_EXPLORER_PAGES) ? (
               <PageCount page={page} />
             ) : null}
           </div>

@@ -84,7 +84,7 @@
         float: left;
 
         &:before {
-            content: map-get($icons, 'arrow-left');
+            content: map-get($icons, "arrow-left");
         }
     }
 
@@ -93,7 +93,7 @@
         margin-left: 5px;
 
         &:before {
-            content: map-get($icons, 'home');
+            content: map-get($icons, "home");
         }
     }
 
@@ -101,7 +101,7 @@
         float: right;
 
         &:before {
-            content: map-get($icons, 'arrow-right');
+            content: map-get($icons, "arrow-right");
         }
     }
 
@@ -127,11 +127,11 @@
         }
 
         .xdsoft_prev:before {
-            content: map-get($icons, 'arrow-up');
+            content: map-get($icons, "arrow-up");
         }
 
         .xdsoft_next:before {
-            content: map-get($icons, 'arrow-down');
+            content: map-get($icons, "arrow-down");
         }
 
         .xdsoft_time_box {
@@ -191,9 +191,13 @@
             max-height: 160px;
             overflow-y: hidden;
 
-            &.xdsoft_monthselect {right: -7px;}
+            &.xdsoft_monthselect {
+                right: -7px;
+            }
 
-            &.xdsoft_yearselect {right: 2px;}
+            &.xdsoft_yearselect {
+                right: 2px;
+            }
 
             > div > .xdsoft_option:hover {
                 color: $color-white;
@@ -210,7 +214,6 @@
                 font-weight: 700;
             }
         }
-
     }
 
     .xdsoft_month {
@@ -293,9 +296,13 @@
     user-select: none;
 }
 
-.xdsoft_noselect::selection { background: transparent; }
+.xdsoft_noselect::selection {
+    background: transparent;
+}
 
-.xdsoft_noselect::-moz-selection { background: transparent; }
+.xdsoft_noselect::-moz-selection {
+    background: transparent;
+}
 
 .xdsoft_datetimepicker.xdsoft_inline {
     display: inline-block;

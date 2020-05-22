@@ -12,7 +12,7 @@ overriden here? hmm.
     // We show the 'chosen' state...
     @include clearfix();
 
-    input[type=text] {
+    input[type="text"] {
         float: left;
         width: 50%;
         margin-right: 1em;
@@ -29,7 +29,7 @@ overriden here? hmm.
         &:before {
             vertical-align: middle;
             font-family: wagtail;
-            content: '';
+            content: "";
             // position: relative
             display: inline-block;
             // float: left;
@@ -56,9 +56,13 @@ overriden here? hmm.
 
     // ...unless the .page-chooser has the 'blank' class set
     &.blank {
-        .chosen { display: none; }
+        .chosen {
+            display: none;
+        }
 
-        .unchosen { display: block; }
+        .unchosen {
+            display: block;
+        }
     }
 }
 
@@ -85,7 +89,7 @@ overriden here? hmm.
     .unchosen,
     .chosen {
         &:before {
-            content: map-get($icons, 'doc-empty-inverse');
+            content: map-get($icons, "doc-empty-inverse");
         }
     }
 }
@@ -94,7 +98,7 @@ overriden here? hmm.
     .unchosen,
     .chosen {
         &:before {
-            content: map-get($icons, 'snippet');
+            content: map-get($icons, "snippet");
         }
     }
 }
@@ -103,7 +107,7 @@ overriden here? hmm.
     .unchosen,
     .chosen {
         &:before {
-            content: map-get($icons, 'doc-full-inverse');
+            content: map-get($icons, "doc-full-inverse");
         }
     }
 }
@@ -112,7 +116,7 @@ overriden here? hmm.
     .unchosen,
     .chosen {
         &:before {
-            content: map-get($icons, 'image');
+            content: map-get($icons, "image");
         }
     }
 
@@ -120,7 +124,7 @@ overriden here? hmm.
         padding-left: $thumbnail-width;
 
         &:before {
-            content: '';
+            content: "";
         }
 
         .preview-image {

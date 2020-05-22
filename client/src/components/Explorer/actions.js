@@ -1,10 +1,16 @@
-import * as admin from '../../api/admin';
-import { createAction } from '../../utils/actions';
-import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
+import * as admin from "../../api/admin";
+import { createAction } from "../../utils/actions";
+import { MAX_EXPLORER_PAGES } from "../../config/wagtailConfig";
 
-const getPageStart = createAction('GET_PAGE_START');
-const getPageSuccess = createAction('GET_PAGE_SUCCESS', (id, data) => ({ id, data }));
-const getPageFailure = createAction('GET_PAGE_FAILURE', (id, error) => ({ id, error }));
+const getPageStart = createAction("GET_PAGE_START");
+const getPageSuccess = createAction("GET_PAGE_SUCCESS", (id, data) => ({
+  id,
+  data,
+}));
+const getPageFailure = createAction("GET_PAGE_FAILURE", (id, error) => ({
+  id,
+  error,
+}));
 
 /**
  * Gets a page from the API.
@@ -13,17 +19,26 @@ function getPage(id) {
   return (dispatch) => {
     dispatch(getPageStart(id));
 
-    return admin.getPage(id).then((data) => {
-      dispatch(getPageSuccess(id, data));
-    }, (error) => {
-      dispatch(getPageFailure(id, error));
-    });
+    return admin.getPage(id).then(
+      (data) => {
+        dispatch(getPageSuccess(id, data));
+      },
+      (error) => {
+        dispatch(getPageFailure(id, error));
+      }
+    );
   };
 }
 
-const getChildrenStart = createAction('GET_CHILDREN_START', id => ({ id }));
-const getChildrenSuccess = createAction('GET_CHILDREN_SUCCESS', (id, items, meta) => ({ id, items, meta }));
-const getChildrenFailure = createAction('GET_CHILDREN_FAILURE', (id, error) => ({ id, error }));
+const getChildrenStart = createAction("GET_CHILDREN_START", (id) => ({ id }));
+const getChildrenSuccess = createAction(
+  "GET_CHILDREN_SUCCESS",
+  (id, items, meta) => ({ id, items, meta })
+);
+const getChildrenFailure = createAction(
+  "GET_CHILDREN_FAILURE",
+  (id, error) => ({ id, error })
+);
 
 /**
  * Gets the children of a node from the API.
@@ -32,25 +47,30 @@ function getChildren(id, offset = 0) {
   return (dispatch) => {
     dispatch(getChildrenStart(id));
 
-    return admin.getPageChildren(id, {
-      offset: offset,
-    }).then(({ items, meta }) => {
-      const nbPages = offset + items.length;
-      dispatch(getChildrenSuccess(id, items, meta));
+    return admin
+      .getPageChildren(id, {
+        offset: offset,
+      })
+      .then(
+        ({ items, meta }) => {
+          const nbPages = offset + items.length;
+          dispatch(getChildrenSuccess(id, items, meta));
 
-      // Load more pages if necessary. Only one request is created even though
-      // more might be needed, thus naturally throttling the loading.
-      if (nbPages < meta.total_count && nbPages < MAX_EXPLORER_PAGES) {
-        dispatch(getChildren(id, nbPages));
-      }
-    }, (error) => {
-      dispatch(getChildrenFailure(id, error));
-    });
+          // Load more pages if necessary. Only one request is created even though
+          // more might be needed, thus naturally throttling the loading.
+          if (nbPages < meta.total_count && nbPages < MAX_EXPLORER_PAGES) {
+            dispatch(getChildren(id, nbPages));
+          }
+        },
+        (error) => {
+          dispatch(getChildrenFailure(id, error));
+        }
+      );
   };
 }
 
-const openExplorer = createAction('OPEN_EXPLORER', id => ({ id }));
-export const closeExplorer = createAction('CLOSE_EXPLORER');
+const openExplorer = createAction("OPEN_EXPLORER", (id) => ({ id }));
+export const closeExplorer = createAction("CLOSE_EXPLORER");
 
 export function toggleExplorer(id) {
   return (dispatch, getState) => {
@@ -76,8 +96,8 @@ export function toggleExplorer(id) {
   };
 }
 
-export const popPage = createAction('POP_PAGE');
-const pushPagePrivate = createAction('PUSH_PAGE', id => ({ id }));
+export const popPage = createAction("POP_PAGE");
+const pushPagePrivate = createAction("PUSH_PAGE", (id) => ({ id }));
 
 export function pushPage(id) {
   return (dispatch, getState) => {

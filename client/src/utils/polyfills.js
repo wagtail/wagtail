@@ -3,8 +3,8 @@
  */
 
 // IE11.
-import 'core-js/shim';
+import "core-js/shim";
 // IE11, old iOS Safari.
-import 'whatwg-fetch';
+import "whatwg-fetch";
 // IE11.
-import 'element-closest';
+import "element-closest";

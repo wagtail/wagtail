@@ -4,11 +4,11 @@ These are Sphinx docs, automatically built at https://docs.wagtail.io when the m
 
     pip install -e .[testing,docs]
 
-To build the documentation for browsing, from this directory run: 
+To build the documentation for browsing, from this directory run:
 
-    make html 
+    make html
 
-then open ``_build/html/index.html`` in a browser.
+then open `_build/html/index.html` in a browser.
 
 To rebuild automatically while editing the documentation, from this directory run:
 

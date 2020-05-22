@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
-import { convertFromRaw } from 'draft-js';
+import PropTypes from "prop-types";
+import React, { PureComponent } from "react";
+import { convertFromRaw } from "draft-js";
 
-import { STRINGS } from '../../../config/wagtailConfig';
+import { STRINGS } from "../../../config/wagtailConfig";
 
 const MAX_EDITOR_RELOADS = 3;
 

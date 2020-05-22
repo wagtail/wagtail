@@ -8,42 +8,42 @@ import {
   Explorer,
   ExplorerToggle,
   initExplorer,
-} from './index';
+} from "./index";
 
-describe('wagtail package API', () => {
-  it('has Button', () => {
+describe("wagtail package API", () => {
+  it("has Button", () => {
     expect(Button).toBeDefined();
   });
 
-  it('has Icon', () => {
+  it("has Icon", () => {
     expect(Icon).toBeDefined();
   });
 
-  it('has PublicationStatus', () => {
+  it("has PublicationStatus", () => {
     expect(PublicationStatus).toBeDefined();
   });
 
-  it('has LoadingSpinner', () => {
+  it("has LoadingSpinner", () => {
     expect(LoadingSpinner).toBeDefined();
   });
 
-  it('has Portal', () => {
+  it("has Portal", () => {
     expect(Portal).toBeDefined();
   });
 
-  it('has Transition', () => {
+  it("has Transition", () => {
     expect(Transition).toBeDefined();
   });
 
-  it('has Explorer', () => {
+  it("has Explorer", () => {
     expect(Explorer).toBeDefined();
   });
 
-  it('has ExplorerToggle', () => {
+  it("has ExplorerToggle", () => {
     expect(ExplorerToggle).toBeDefined();
   });
 
-  it('has initExplorer', () => {
+  it("has initExplorer", () => {
     expect(initExplorer).toBeDefined();
   });
 });
