@@ -1,5 +1,5 @@
 {
-  "extends": "wagtail",
+  "extends": ["wagtail", "prettier"],
 
   "env": {
     "jest": true
@@ -12,7 +12,7 @@
       }
     }
   },
-  
+
   "rules": {
     "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }]
   }
