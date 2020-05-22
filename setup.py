@@ -60,7 +60,7 @@ testing_extras = [
     'jinjalint>=0.5',
 
     # For frontend formatting
-    'pre-commit==2.4.0',
+    'pre-commit>=2.4.0',
 
     # Pipenv hack to fix broken dependency causing CircleCI failures
     'docutils==0.15',
