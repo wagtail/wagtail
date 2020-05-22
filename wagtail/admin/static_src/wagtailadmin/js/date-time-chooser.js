@@ -48,9 +48,9 @@ function initDateChooser(id, opts) {
     }
 }
 
-function initTimeChooser(id) {
+function initTimeChooser(id, opts) {
     if (window.dateTimePickerTranslations) {
-        $('#' + id).datetimepicker({
+        $('#' + id).datetimepicker($.extend({
             closeOnDateSelect: true,
             datepicker: false,
             scrollInput: false,
@@ -58,15 +58,15 @@ function initTimeChooser(id) {
             onChangeDateTime: function(_, $el) {
               $el.get(0).dispatchEvent(new Event('change'))
             }
-        });
+        }, opts || {}));
     } else {
-        $('#' + id).datetimepicker({
+        $('#' + id).datetimepicker($.extend({
             datepicker: false,
             format: 'H:i',
             onChangeDateTime: function(_, $el) {
               $el.get(0).dispatchEvent(new Event('change'))
             }
-        });
+        }, opts || {}));
     }
 }
 
