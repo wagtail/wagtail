@@ -3,3 +3,4 @@ ignoreFiles:
   - build/**/*
 extends:
   - "@wagtail/stylelint-config-wagtail"
+  - "stylelint-config-prettier"
