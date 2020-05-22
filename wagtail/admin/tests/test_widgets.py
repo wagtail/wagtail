@@ -153,23 +153,32 @@ class TestAdminDateTimeInput(TestCase):
         self.assertIn('initDateTimeChooser("test\\u002Did", {', html)
         self.assertIn('"dayOfWeekStart": 0', html)
         self.assertIn('"format": "Y-m-d H:i"', html)
+        self.assertIn('"formatTime": "H:i"', html)
 
     def test_render_js_init_with_format(self):
-        widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M')
+        widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M', time_format='%H:%M %p')
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y. H:i"',
             html,
         )
+        self.assertIn(
+            '"formatTime": "H:i A"',
+            html,
+        )
 
-    @override_settings(WAGTAIL_DATETIME_FORMAT='%d.%m.%Y. %H:%M')
+    @override_settings(WAGTAIL_DATETIME_FORMAT='%d.%m.%Y. %H:%M', WAGTAIL_TIME_FORMAT='%H:%M %p')
     def test_render_js_init_with_format_from_settings(self):
         widget = widgets.AdminDateTimeInput()
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y. H:i"',
+            html,
+        )
+        self.assertIn(
+            '"formatTime": "H:i A"',
             html,
         )
 
