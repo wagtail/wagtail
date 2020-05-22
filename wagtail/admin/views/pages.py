@@ -452,6 +452,27 @@ def edit(request, page_id):
         form = form_class(request.POST, request.FILES, instance=page,
                           parent_page=parent)
 
+        is_cancelling_workflow = bool(request.POST.get('action-cancel-workflow')) and workflow_state and workflow_state.user_can_cancel(request.user)
+        # do this here so even if the page is locked due to not having permissions, the original submitter can still cancel the workflow
+        if is_cancelling_workflow:
+            workflow_state.cancel(user=request.user)
+            message = _(
+                "Workflow on page '{0}' has been cancelled."
+                ).format(
+                page.get_admin_display_title()
+                )
+
+            messages.success(request, message, buttons=[
+                    messages.button(
+                        reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
+                        _('View draft'),
+                        new_window=True
+                    ),
+                    messages.button(
+                        reverse('wagtailadmin_pages:edit', args=(page_id,)),
+                        _('Edit')
+                    )
+                ])
         if form.is_valid() and not page_perms.page_locked():
             page = form.save(commit=False)
 
@@ -459,9 +480,8 @@ def edit(request, page_id):
             is_submitting = bool(request.POST.get('action-submit')) and page_perms.can_submit_for_moderation()
             is_restarting_workflow = bool(request.POST.get('action-restart-workflow')) and page_perms.can_submit_for_moderation() and workflow_state and workflow_state.user_can_cancel(request.user)
             is_reverting = bool(request.POST.get('revision'))
-            is_cancelling_workflow = bool(request.POST.get('action-cancel-workflow')) and workflow_state and workflow_state.user_can_cancel(request.user)
 
-            if is_cancelling_workflow or is_restarting_workflow:
+            if is_restarting_workflow:
                 workflow_state.cancel(user=request.user)
 
             # If a revision ID was passed in the form, get that revision so its
@@ -580,24 +600,8 @@ def edit(request, page_id):
                 ])
 
             elif is_cancelling_workflow:
-
-                message = _(
-                    "Workflow on page '{0}' has been cancelled."
-                ).format(
-                    page.get_admin_display_title()
-                )
-
-                messages.success(request, message, buttons=[
-                    messages.button(
-                        reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
-                        _('View draft'),
-                        new_window=True
-                    ),
-                    messages.button(
-                        reverse('wagtailadmin_pages:edit', args=(page_id,)),
-                        _('Edit')
-                    )
-                ])
+                # message has already been added
+                pass
 
             elif is_restarting_workflow:
 
