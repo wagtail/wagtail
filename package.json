@@ -44,6 +44,10 @@
       "/node_modules/",
       "/build/"
     ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/"
+    ],
     "setupFiles": [
       "./client/tests/adapter.js",
       "./client/tests/stubs.js",
