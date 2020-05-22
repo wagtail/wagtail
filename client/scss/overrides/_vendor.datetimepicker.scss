@@ -106,7 +106,7 @@
     }
 
     .xdsoft_timepicker {
-        width: 70px;
+        min-width: 70px;
         float: left;
         text-align: center;
         margin-left: 8px;
@@ -152,6 +152,8 @@
                 border-bottom-width: 0;
                 height: 2.3em;
                 line-height: 2.3em;
+                padding-left: 0.6em;
+                padding-right: 0.6em;
 
                 // stylelint-disable-next-line max-nesting-depth
                 &:first-child {
