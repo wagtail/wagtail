@@ -2,3 +2,6 @@
 *.html
 wagtail/admin/templates/wagtailadmin/edit_handlers/inline_panel.js
 wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js
+
+# Don’t format vendored files
+**/vendor/
