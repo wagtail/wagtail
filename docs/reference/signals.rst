@@ -27,7 +27,6 @@ example showing how you might notify your team when something is published:
 
     from wagtail.core.signals import page_published
     import requests
-    import json
 
 
     # Let everyone know when a new page is published
@@ -41,8 +40,7 @@ example showing how you might notify your team when something is published:
             "icon_emoji": ":octopus:"
         }
 
-        data = json.dumps(values)
-        response = requests.post(url, data)
+        response = requests.post(url, values)
 
     # Register a receiver
     page_published.connect(send_to_slack)
