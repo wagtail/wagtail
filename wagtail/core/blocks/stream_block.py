@@ -118,6 +118,7 @@ class BaseStreamBlock(Block):
         opts = {
             'definitionPrefix': "'%s'" % self.definition_prefix,
             'childBlocks': '[\n%s\n]' % ',\n'.join(child_blocks),
+            'maxNumChildBlocks': 'Infinity' if self.meta.max_num is None else ('%s' % self.meta.max_num),
         }
 
         return "StreamBlock(%s)" % js_dict(opts)

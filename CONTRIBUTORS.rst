@@ -469,6 +469,7 @@ Contributors
 * Nikolay Lukyanov (mozgsml)
 * Jean Zombie
 * Pascal Widdershoven
+* Max Gabrielsson
 
 Translators
 ===========
