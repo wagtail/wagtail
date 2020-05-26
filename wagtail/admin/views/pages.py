@@ -1033,7 +1033,7 @@ def search(request):
             pagination_query_params['q'] = q
 
             # Parse query
-            filters, query = parse_query_string(q, operator='and')
+            filters, query = parse_query_string(q, operator='and', zero_terms=MATCH_ALL)
 
             # Live filter
             live_filter = filters.get('live') or filters.get('published')
