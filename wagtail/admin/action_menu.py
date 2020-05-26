@@ -87,7 +87,8 @@ class SubmitForModerationMenuItem(ActionMenuItem):
         elif context['view'] == 'create':
             return context['parent_page'].has_workflow
         elif context['view'] == 'edit':
-            return context['user_page_permissions'].for_page(context['page']).can_submit_for_moderation()
+            permissions = context['user_page_permissions'].for_page(context['page'])
+            return permissions.can_submit_for_moderation() and not permissions.page_locked()
         else:  # context == revisions_revert
             return False
 
@@ -110,7 +111,7 @@ class WorkflowMenuItem(ActionMenuItem):
 
     def is_shown(self, request, context):
         if context['view'] == 'edit':
-            return True
+            return not context['user_page_permissions'].for_page(context['page']).page_locked()
 
 
 class RestartWorkflowMenuItem(ActionMenuItem):
@@ -124,7 +125,7 @@ class RestartWorkflowMenuItem(ActionMenuItem):
         elif context['view'] == 'edit':
             workflow_state = context['page'].current_workflow_state
             permissions = context['user_page_permissions'].for_page(context['page'])
-            return permissions.can_submit_for_moderation() and workflow_state and workflow_state.user_can_cancel(request.user)
+            return permissions.can_submit_for_moderation() and not permissions.page_locked() and workflow_state and workflow_state.user_can_cancel(request.user)
         else:
             return False
 
@@ -207,7 +208,6 @@ def _get_base_page_action_menu_items():
 
     if BASE_PAGE_ACTION_MENU_ITEMS is None:
         BASE_PAGE_ACTION_MENU_ITEMS = [
-            PageLockedMenuItem(order=-10000),
             SaveDraftMenuItem(order=0),
             UnpublishMenuItem(order=10),
             DeleteMenuItem(order=20),
@@ -215,6 +215,7 @@ def _get_base_page_action_menu_items():
             RestartWorkflowMenuItem(order=40),
             CancelWorkflowMenuItem(order=50),
             SubmitForModerationMenuItem(order=60),
+            PageLockedMenuItem(order=10000),
         ]
         for hook in hooks.get_hooks('register_page_action_menu_item'):
             BASE_PAGE_ACTION_MENU_ITEMS.append(hook())
