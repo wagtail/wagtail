@@ -648,6 +648,23 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
 
+    def test_edit_view_workflow_cancellation_not_in_group(self):
+        """
+        This tests that the page edit view for a GroupApprovalTask, locked to a user not in the
+        specified group/a superuser, still allows the submitter to cancel workflows
+        """
+        self.login(user=self.submitter)
+
+        # Post
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.page.id, )), {'action-cancel-workflow': 'True'})
+
+        # Check that the user received a 200 response
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the workflow state was marked as cancelled
+        workflow_state = WorkflowState.objects.get(page=self.page, requested_by=self.submitter)
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
+
     def test_reject_task_and_workflow(self):
         """
         This posts to the reject task view and checks that the page was rejected and not published

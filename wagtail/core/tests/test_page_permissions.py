@@ -5,13 +5,20 @@ from django.contrib.auth.models import Group
 from django.test import Client, TestCase, override_settings
 from django.utils import timezone
 
-from wagtail.core.models import GroupPagePermission, Page, UserPagePermissionsProxy
+from wagtail.core.models import GroupApprovalTask, GroupPagePermission, Page, UserPagePermissionsProxy, Workflow, WorkflowTask
 from wagtail.tests.testapp.models import (
     BusinessSubIndex, EventIndex, EventPage, SingletonPageViaMaxCount)
 
 
 class TestPagePermission(TestCase):
     fixtures = ['test.json']
+
+    def create_workflow_and_task(self):
+        workflow = Workflow.objects.create(name='test_workflow')
+        task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_1.groups.add(Group.objects.get(name="Event moderators"))
+        WorkflowTask.objects.create(workflow=workflow, task=task_1.task_ptr, sort_order=1)
+        return workflow, task_1
 
     def test_nonpublisher_page_permissions(self):
         event_editor = get_user_model().objects.get(username='eventeditor')
@@ -616,6 +623,33 @@ class TestPagePermission(TestCase):
         other_user = get_user_model().objects.get(username='eventeditor')
         other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
         self.assertTrue(other_perms.page_locked())
+
+    def test_page_locked_in_workflow(self):
+        workflow, task = self.create_workflow_and_task()
+        editor = get_user_model().objects.get(username='eventeditor')
+        moderator = get_user_model().objects.get(username='eventmoderator')
+        superuser = get_user_model().objects.get(username='superuser')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_page.save_revision()
+        workflow.start(christmas_page, editor)
+
+        moderator_perms = UserPagePermissionsProxy(moderator).for_page(christmas_page)
+
+        # the moderator is in the group assigned to moderate the task, so the page should
+        # not be locked for them
+        self.assertFalse(moderator_perms.page_locked())
+
+        superuser_perms = UserPagePermissionsProxy(superuser).for_page(christmas_page)
+
+        # superusers can moderate any GroupApprovalTask, so the page should not be locked
+        # for them
+        self.assertFalse(superuser_perms.page_locked())
+
+        editor_perms = UserPagePermissionsProxy(editor).for_page(christmas_page)
+
+        # the editor is not in the group assigned to moderate the task, so the page should
+        # be locked for them
+        self.assertTrue(editor_perms.page_locked())
 
 
 class TestPagePermissionTesterCanCopyTo(TestCase):
