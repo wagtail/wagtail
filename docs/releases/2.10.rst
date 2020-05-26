@@ -10,6 +10,11 @@ Wagtail 2.10 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Search query expressions
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Search queries can now be constructed as structured expressions in the manner of the Django ORM's ``Q()`` values, allowing for complex queries that combine individual terms, phrases and boosting. A helper function ``parse_query_string`` is provided to convert "natural" queries containing quoted phrases into these expressions. For complete documentation, see :ref:`wagtailsearch_complex_queries`. This feature was developed by Karl Hobley and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
 
 Other features
 ~~~~~~~~~~~~~~
@@ -22,7 +27,7 @@ Other features
  * ``AbstractEmailForm`` now has a separate method (``render_email``) to build up email content on submission emails. See :ref:`form_builder_render_email`. (Haydn Greatnews)
  * Add ``pre_page_move`` and ``post_page_move`` signals. (Andy Babic)
  * Add ability to sort search promotions on listing page (Chris Ranjana, LB (Ben Johnston))
- * Upgrade internal JS tooling to Gulp v4 & Node v10 (Jim Jazwiecki, Kim LaRocca)
+ * Upgrade internal JS tooling; Node v10, Gulp v4 & Jest v23 (Jim Jazwiecki, Kim LaRocca, Thibaud Colas)
  * Add ``after_publish_page``, ``before_publish_page``, ``after_unpublish_page`` & ``before_unpublish_page`` hooks (Jonatas Baldin, Coen van der Kamp)
  * Add convenience ``page_url`` shortcut to improve how page URLs can be accessed from site settings in Django templates (Andy Babic)
  * Show more granular error messages from Pillow when uploading images (Rick van Hattem)
@@ -41,6 +46,9 @@ Other features
  * ``bulk_delete`` page permission is no longer required to move pages, even if those pages have children (Robert Rollins, LB (Ben Johnston))
  * Add ``after_edit_snippet``, ``after_create_snippet`` and ``after_delete_snippet`` hooks and documentation (Kalob Taulien)
  * Improve performance of empty search results by avoiding downloading the entire search index in these scenarios (Lars van de Kerkhof, Coen van der Kamp)
+ * Replace ``gulp-sass`` with ``gulp-dart-sass`` to improve core development across different platforms (Thibaud Colas)
+ * Add SVG icons to resolve accessibility and customisation issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas)
+ * Remove markup around rich text rendering by default, provide a way to use old behaviour via ``wagtail.contrib.legacy.richtext``. See :ref:`legacy_richtext`. (Coen van der Kamp, Dan Braghis)
 
 
 Bug fixes
@@ -54,10 +62,14 @@ Bug fixes
  * Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Remove top padding when ``FieldRowPanel`` is used inside a ``MultiFieldPanel`` (Jérôme Lebleu)
  * Add Wagtail User Bar back to page previews and ensure moderation actions are available (Coen van der Kamp)
+ * Fix issue where queryset annotations were lost (e.g. ``.annotate_score()``) when using specific models in page query (Dan Bentley)
 
 
 Upgrade considerations
 ======================
+
+ * Rich text will now be rendered without any markup, to use the old behaviour where a wrapper ``<div class="rich-text">`` is used see :ref:`legacy_richtext`.
+
 
 Removed support for Python 3.5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -173,6 +173,133 @@ For page, image and document models, the ``operator`` keyword argument is also s
     # All pages containing either "hello" or "world" are returned
     [<Page: Hello World>, <Page: Hello>, <Page: World>]
 
+Phrase searching
+^^^^^^^^^^^^^^^^
+
+Phrase searching is used for finding whole sentence or phrase rather than individual terms.
+The terms must appear together and in the same order.
+
+For example:
+
+.. code-block:: python
+
+    >>> from wagtail.search.query import Phrase
+
+    >>> Page.objects.search(Phrase("Hello world"))
+    [<Page: Hello World>]
+
+    >>> Page.objects.search(Phrase("World hello"))
+    [<Page: World Hello day>]
+
+If you are looking to implement phrase queries using the double-quote syntax, see :ref:`wagtailsearch_query_string_parsing`.
+
+
+.. _wagtailsearch_complex_queries:
+
+Complex search queries
+^^^^^^^^^^^^^^^^^^^^^^
+
+Through the use of search query classes, Wagtail also supports building search queries as Python
+objects which can be wrapped by and combined with other search queries. The following classes are
+available:
+
+``PlainText(query_string, operator=None, boost=1.0)``
+
+This class wraps a string of separate terms. This is the same as searching without query classes.
+
+It takes a query string, operator and boost.
+
+For example:
+
+.. code-block:: python
+
+    >>> from wagtail.search.query import PlainText
+    >>> Page.objects.search(PlainText("Hello world"))
+
+    # Multiple plain text queries can be combined. This example will match both "hello world" and "Hello earth"
+    >>> Page.objects.search(PlainText("Hello") & (PlainText("world") | PlainText("earth")))
+
+``Phrase(query_string)``
+
+This class wraps a string containing a phrase. See previous section for how this works.
+
+For example:
+
+.. code-block:: python
+
+    # This example will match both the phrases "hello world" and "Hello earth"
+    >>> Page.objects.search(Phrase("Hello world") | Phrase("Hello earth"))
+
+``Boost(query, boost)``
+
+This class boosts the score of another query.
+
+For example:
+
+.. code-block:: python
+
+    >>> from wagtail.search.query import PlainText, Boost
+
+    # This example will match both the phrases "hello world" and "Hello earth" but matches for "hello world" will be ranked higher
+    >>> Page.objects.search(Boost(Phrase("Hello world"), 10.0) | Phrase("Hello earth"))
+
+Note that this isn't supported by the PostgreSQL or database search backends.
+
+.. _wagtailsearch_query_string_parsing:
+
+Query string parsing
+^^^^^^^^^^^^^^^^^^^^
+
+The previous sections show how to construct a phrase search query manually, but a lot of search engines (Wagtail admin included, try it!)
+support writing phrase queries by wrapping the phrase with double-quotes. In addition to phrases, you might also want to allow users to
+add filters into the query using the colon syntax (``hello world published:yes``).
+
+These two features can be implemented using the ``parse_query_string`` utility function. This function takes a query string that a user
+typed and returns returns a query object and dictionary of filters:
+
+For example:
+
+.. code-block:: python
+
+    >>> from wagtail.search.utils import parse_query_string
+    >>> filters, query = parse_query_string('my query string "this is a phrase" this-is-a:filter', operator='and')
+
+    >>> filters
+    {
+        'this-is-a': 'filter',
+    }
+
+    >>> query
+    And([
+        PlainText("my query string", operator='and'),
+        Phrase("this is a phrase"),
+    ])
+
+Here's an example of how this function can be used in a search view:
+
+.. code-block:: python
+
+    from wagtail.search.utils import parse_query_string
+
+    def search(request):
+        query_string = request.GET['query']
+
+        # Parse query
+        filters, query = parse_query_string(query_string, operator='and')
+
+        # Published filter
+        # An example filter that accepts either `published:yes` or `published:no` and filters the pages accordingly
+        published_filter = filters.get('published')
+        published_filter = published_filter and published_filter.lower()
+        if published_filter in ['yes', 'true']:
+            pages = pages.filter(live=True)
+        elif published_filter in ['no', 'false']:
+            pages = pages.filter(live=False)
+
+        # Search
+        pages = pages.search(query)
+
+        return render(request, 'search_results.html', {'pages': pages})
 
 Custom ordering
 ^^^^^^^^^^^^^^^

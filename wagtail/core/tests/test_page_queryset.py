@@ -1,5 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.test import TestCase
 
 from wagtail.core.models import Page, PageViewRestriction, Site
@@ -606,6 +606,38 @@ class TestSpecificQuery(TestCase):
             Page.objects.get(url_path='/home/events/christmas/').specific,
             Page.objects.get(url_path='/home/events/').specific,
             Page.objects.get(url_path='/home/about-us/').specific])
+
+    def test_specific_query_with_annotations_performs_no_additional_queries(self):
+
+        with self.assertNumQueries(5):
+            pages = list(Page.objects.live().specific())
+
+            self.assertEqual(len(pages), 7)
+
+        with self.assertNumQueries(5):
+            pages = list(Page.objects.live().specific().annotate(count=Count('pk')))
+
+            self.assertEqual(len(pages), 7)
+
+    def test_specific_query_with_annotation(self):
+        # Ensure annotations are reapplied to specific() page queries
+
+        pages = Page.objects.live()
+        pages.first().save_revision()
+        pages.last().save_revision()
+
+        results = Page.objects.live().specific().annotate(revision_count=Count('revisions'))
+
+        self.assertEqual(results.first().revision_count, 1)
+        self.assertEqual(results.last().revision_count, 1)
+
+    def test_specific_query_with_search_and_annotation(self):
+        # Ensure annotations are reapplied to specific() page queries
+
+        results = Page.objects.live().specific().search(MATCH_ALL).annotate_score('_score')
+
+        for result in results:
+            self.assertTrue(hasattr(result, '_score'))
 
     def test_specific_query_with_search(self):
         # 1276 - The database search backend didn't return results with the

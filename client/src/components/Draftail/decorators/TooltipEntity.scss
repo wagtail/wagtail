@@ -11,10 +11,10 @@ $icon-size: 1em;
         color: $color-red;
     }
 
-    &__icon {
-        color: $color-teal;
-        margin-right: 0.2em;
+    .icon {
         width: $icon-size;
         height: $icon-size;
+        margin-right: 0.2em;
+        vertical-align: middle;
     }
 }

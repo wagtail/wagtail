@@ -9,14 +9,13 @@ exports[`ExplorerItem children 1`] = `
     className="c-explorer__item__link"
     dialogTrigger={false}
     href="/admin/pages/5/"
-    icon=""
     isLoading={false}
     onClick={null}
     preventDefault={true}
     target={null}
   >
     <Icon
-      className={null}
+      className="icon--menuitem"
       name="folder-inverse"
       title={null}
     />
@@ -31,14 +30,13 @@ exports[`ExplorerItem children 1`] = `
     className="c-explorer__item__action c-explorer__item__action--small"
     dialogTrigger={false}
     href="/admin/pages/5/edit/"
-    icon=""
     isLoading={false}
     onClick={null}
     preventDefault={true}
     target={null}
   >
     <Icon
-      className={null}
+      className="icon--item-action"
       name="edit"
       title="Edit 'test'"
     />
@@ -48,14 +46,13 @@ exports[`ExplorerItem children 1`] = `
     className="c-explorer__item__action"
     dialogTrigger={false}
     href="/admin/pages/5/"
-    icon=""
     isLoading={false}
     onClick={[Function]}
     preventDefault={true}
     target={null}
   >
     <Icon
-      className={null}
+      className="icon--item-action"
       name="arrow-right"
       title="View child pages of 'test'"
     />
@@ -72,7 +69,6 @@ exports[`ExplorerItem renders 1`] = `
     className="c-explorer__item__link"
     dialogTrigger={false}
     href="/admin/pages/5/"
-    icon=""
     isLoading={false}
     onClick={null}
     preventDefault={true}
@@ -89,14 +85,13 @@ exports[`ExplorerItem renders 1`] = `
     className="c-explorer__item__action c-explorer__item__action--small"
     dialogTrigger={false}
     href="/admin/pages/5/edit/"
-    icon=""
     isLoading={false}
     onClick={null}
     preventDefault={true}
     target={null}
   >
     <Icon
-      className={null}
+      className="icon--item-action"
       name="edit"
       title="Edit 'test'"
     />
@@ -113,14 +108,13 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     className="c-explorer__item__link"
     dialogTrigger={false}
     href="/admin/pages/5/"
-    icon=""
     isLoading={false}
     onClick={null}
     preventDefault={true}
     target={null}
   >
     <Icon
-      className={null}
+      className="icon--menuitem"
       name="folder-inverse"
       title={null}
     />
@@ -148,14 +142,13 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     className="c-explorer__item__action c-explorer__item__action--small"
     dialogTrigger={false}
     href="/admin/pages/5/edit/"
-    icon=""
     isLoading={false}
     onClick={null}
     preventDefault={true}
     target={null}
   >
     <Icon
-      className={null}
+      className="icon--item-action"
       name="edit"
       title="Edit 'test'"
     />
@@ -165,14 +158,13 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     className="c-explorer__item__action"
     dialogTrigger={false}
     href="/admin/pages/5/"
-    icon=""
     isLoading={false}
     onClick={[Function]}
     preventDefault={true}
     target={null}
   >
     <Icon
-      className={null}
+      className="icon--item-action"
       name="arrow-right"
       title="View child pages of 'test'"
     />
@@ -189,14 +181,13 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     className="c-explorer__item__link"
     dialogTrigger={false}
     href="/admin/pages/5/"
-    icon=""
     isLoading={false}
     onClick={null}
     preventDefault={true}
     target={null}
   >
     <Icon
-      className={null}
+      className="icon--menuitem"
       name="folder-inverse"
       title={null}
     />
@@ -224,14 +215,13 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     className="c-explorer__item__action c-explorer__item__action--small"
     dialogTrigger={false}
     href="/admin/pages/5/edit/"
-    icon=""
     isLoading={false}
     onClick={null}
     preventDefault={true}
     target={null}
   >
     <Icon
-      className={null}
+      className="icon--item-action"
       name="edit"
       title="Edit 'test'"
     />
@@ -241,14 +231,13 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     className="c-explorer__item__action"
     dialogTrigger={false}
     href="/admin/pages/5/"
-    icon=""
     isLoading={false}
     onClick={[Function]}
     preventDefault={true}
     target={null}
   >
     <Icon
-      className={null}
+      className="icon--item-action"
       name="arrow-right"
       title="View child pages of 'test'"
     />

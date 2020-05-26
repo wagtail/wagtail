@@ -134,7 +134,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         # #3431 reported that Elasticsearch only sends back 10 results if the results set is not sliced
         results = self.backend.search(MATCH_ALL, models.Book)
 
-        self.assertEqual(len(results), 13)
+        self.assertEqual(len(results), 14)
 
     def test_more_than_one_hundred_results(self):
         # Tests that fetching more than 100 results uses the scroll API
@@ -147,7 +147,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         index.refresh()
 
         results = self.backend.search(MATCH_ALL, models.Book)
-        self.assertEqual(len(results), 163)
+        self.assertEqual(len(results), 164)
 
     def test_slice_more_than_one_hundred_results(self):
         books = []
@@ -173,7 +173,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         index.refresh()
 
         results = self.backend.search(MATCH_ALL, models.Book)[110:]
-        self.assertEqual(len(results), 53)
+        self.assertEqual(len(results), 54)
 
     # Elasticsearch always does prefix matching on `partial_match` fields,
     # even when we don’t use `Prefix`.

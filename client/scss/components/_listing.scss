@@ -299,7 +299,9 @@ ul.listing {
         text-align: center;
 
         .icon {
-            opacity: 0.5;
+            width: 15px;
+            height: 18px;
+            vertical-align: middle;
 
             &::before {
                 margin-right: 2px;

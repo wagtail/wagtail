@@ -48,6 +48,7 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     list_display = ('title', 'author', 'admin_thumb')
     list_export = ('title', 'author')
     list_filter = ('author', )
+    export_filename = "books-export"
     ordering = ('title', )
     inspect_view_enabled = True
     inspect_view_fields_exclude = ('title', )

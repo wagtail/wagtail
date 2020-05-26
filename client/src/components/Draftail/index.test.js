@@ -68,9 +68,11 @@ describe('Draftail', () => {
           <input name="first" id="description" value="null" />
           <div>
             <input name="last" id="description" value="null" />
-            <script>window.draftail.initEditor('#description', {});</script>
+            <script data-draftail-script></script>
           </div>
         `;
+
+        draftail.initEditor('#description', {});
 
         expect(document.querySelector('[name="last"]').draftailEditor).not.toBeDefined();
       });
@@ -81,9 +83,11 @@ describe('Draftail', () => {
           <input name="first" id="description" value="null" />
           <div>
             <input name="last" id="description" value="null" />
-            <script>window.draftail.initEditor('#description', {}, document.currentScript);</script>
+            <script data-draftail-script></script>
           </div>
         `;
+
+        draftail.initEditor('#description', {}, document.querySelector('[data-draftail-script]'));
 
         expect(document.querySelector('[name="last"]').draftailEditor).toBeDefined();
       });
@@ -92,10 +96,10 @@ describe('Draftail', () => {
         window.draftail = draftail;
         document.body.innerHTML = `
         <input id="description" value="null" />
-          <div>
-          <script>window.draftail.initEditor('#description', {}, document.currentScript);</script>
-          </div>
+          <div><script data-draftail-script></script></div>
         `;
+
+        draftail.initEditor('#description', {}, document.querySelector('[data-draftail-script]'));
 
         expect(document.querySelector('#description').draftailEditor).toBeDefined();
       });

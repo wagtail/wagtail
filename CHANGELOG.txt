@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~
 
  * Removed support for Python 3.5
+ * Implemented phrase searching and structured search query expressions (Karl Hobley)
  * Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
  * Added filtering to locked pages report (Karl Hobley)
  * Adds ability to view a group's users via standalone admin URL and a link to this on the group edit view (Karran Besen)
@@ -13,7 +14,7 @@ Changelog
  * `AbstractEmailForm` now has a separate method (`render_email`) to build up email content on submission emails (Haydn Greatnews)
  * Add `pre_page_move` and `post_page_move` signals (Andy Babic)
  * Add ability to sort search promotions on listing page (Chris Ranjana, LB (Ben Johnston))
- * Upgrade internal JS tooling to Gulp v4 & Node v10 (Jim Jazwiecki, Kim LaRocca)
+ * Upgrade internal JS tooling; Node v10, Gulp v4 & Jest v23 (Jim Jazwiecki, Kim LaRocca, Thibaud Colas)
  * Add `after_publish_page`, `before_publish_page`, `after_unpublish_page` & `before_unpublish_page` hooks (Jonatas Baldin, Coen van der Kamp)
  * Add convenience `page_url` shortcut to improve how page URLs can be accessed from site settings in Django templates (Andy Babic)
  * Show more granular error messages from Pillow when uploading images (Rick van Hattem)
@@ -32,6 +33,9 @@ Changelog
  * `bulk_delete` page permission is no longer required to move pages, even if those pages have children (Robert Rollins, LB (Ben Johnston))
  * Add `after_edit_snippet`, `after_create_snippet` and `after_delete_snippet` hooks and documentation (Kalob Taulien)
  * Improve performance of empty search results by avoiding downloading the entire search index in these scenarios (Lars van de Kerkhof, Coen van der Kamp)
+ * Replace `gulp-sass` with `gulp-dart-sass` to improve core development across different platforms (Thibaud Colas)
+ * Add SVG icons to resolve accessibility and customisation issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas)
+ * Remove markup around rich text rendering by default, provide a way to use old behaviour via `wagtail.contrib.legacy.richtext` (Coen van der Kamp, Dan Braghis)
  * Fix: Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * Fix: `AbstractEmailForm` saved submission fields are now aligned with the email content fields, `form.cleaned_data` will be used instead of `form.fields` (Haydn Greatnews)
@@ -40,6 +44,7 @@ Changelog
  * Fix: Accept unicode characters in slugs on the "copy page" form (François Poulain)
  * Fix: Remove top padding when `FieldRowPanel` is used inside a `MultiFieldPanel` (Jérôme Lebleu)
  * Fix: Add Wagtail User Bar back to page previews and ensure moderation actions are available (Coen van der Kamp)
+ * Fix: Resolve issue where queryset annotations were lost (e.g. `.annotate_score()`) when using specific models in page query (Dan Bentley)
 
 
 2.9 (04.05.2020)

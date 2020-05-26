@@ -14,7 +14,7 @@ from wagtail.search.backends.base import (
     BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
 from wagtail.search.index import (
     AutocompleteField, FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
-from wagtail.search.query import And, Boost, MatchAll, Not, Or, PlainText
+from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.utils.utils import deep_update
 
 
@@ -416,6 +416,22 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
                 'multi_match': match_query
             }
 
+    def _compile_phrase_query(self, query, fields):
+        if len(fields) == 1:
+            return {
+                'match_phrase': {
+                    fields[0]: query.query_string
+                }
+            }
+        else:
+            return {
+                'multi_match': {
+                    'query': query.query_string,
+                    'fields': fields,
+                    'type': 'phrase',
+                }
+            }
+
     def _compile_query(self, query, field, boost=1.0):
         if isinstance(query, MatchAll):
             match_all_query = {}
@@ -455,6 +471,8 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
         elif isinstance(query, PlainText):
             return self._compile_plaintext_query(query, [field], boost)
 
+        elif isinstance(query, Phrase):
+            return self._compile_phrase_query(query, [field])
 
         elif isinstance(query, Boost):
             return self._compile_query(query.subquery, field, boost * query.boost)
@@ -488,6 +506,9 @@ class Elasticsearch2SearchQueryCompiler(BaseSearchQueryCompiler):
 
         elif isinstance(self.query, PlainText):
             return self._compile_plaintext_query(self.query, fields)
+
+        elif isinstance(self.query, Phrase):
+            return self._compile_phrase_query(self.query, fields)
 
         else:
             if len(fields) == 1:

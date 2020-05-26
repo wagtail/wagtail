@@ -3,7 +3,7 @@
 exports[`Button #accessibleLabel 1`] = `
 <a
   aria-haspopup={null}
-  className=" "
+  className=""
   href="#"
   onClick={[Function]}
   rel={null}
@@ -20,7 +20,7 @@ exports[`Button #accessibleLabel 1`] = `
 exports[`Button #children 1`] = `
 <a
   aria-haspopup={null}
-  className=" "
+  className=""
   href="#"
   onClick={[Function]}
   rel={null}
@@ -33,40 +33,7 @@ exports[`Button #children 1`] = `
 exports[`Button #dialogTrigger 1`] = `
 <a
   aria-haspopup="dialog"
-  className=" "
-  href="#"
-  onClick={[Function]}
-  rel={null}
-  target={null}
-/>
-`;
-
-exports[`Button #icon 1`] = `
-<a
-  aria-haspopup={null}
-  className=" icon icon-test-icon"
-  href="#"
-  onClick={[Function]}
-  rel={null}
-  target={null}
-/>
-`;
-
-exports[`Button #icon changes with #isLoading 1`] = `
-<a
-  aria-haspopup={null}
-  className=" icon icon-spinner"
-  href="#"
-  onClick={[Function]}
-  rel={null}
-  target={null}
-/>
-`;
-
-exports[`Button #multiple icons 1`] = `
-<a
-  aria-haspopup={null}
-  className=" icon icon-test-icon icon-secondary-icon"
+  className=""
   href="#"
   onClick={[Function]}
   rel={null}
@@ -77,7 +44,7 @@ exports[`Button #multiple icons 1`] = `
 exports[`Button #target 1`] = `
 <a
   aria-haspopup={null}
-  className=" "
+  className=""
   href="#"
   onClick={[Function]}
   rel="noopener noreferrer"
@@ -88,7 +55,7 @@ exports[`Button #target 1`] = `
 exports[`Button basic 1`] = `
 <a
   aria-haspopup={null}
-  className=" "
+  className=""
   href="#"
   onClick={[Function]}
   rel={null}

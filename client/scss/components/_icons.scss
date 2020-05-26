@@ -6,6 +6,13 @@
     font-style: normal;
 }
 
+// Set SVG icons to use the current text color in the location they appear as
+// their default fill color. Can be overridden for a specific icon by either
+// the color or fill properties.
+.icon {
+    fill: currentColor;
+}
+
 .icon.teal {
     color: $color-teal;
 }

@@ -43,7 +43,7 @@ class ImagesMenuItem(MenuItem):
 def register_images_menu_item():
     return ImagesMenuItem(
         _('Images'), reverse('wagtailimages:index'),
-        name='images', classnames='icon icon-image', order=300
+        name='images', icon_name='image', order=300
     )
 
 
