@@ -379,7 +379,7 @@ def edit(request, page_id):
 
             messages.warning(request, lock_message, extra_tags='lock')
 
-        elif page_perms.page_locked():
+        elif page.locked and page_perms.page_locked():
             if page.locked_by and page.locked_at:
                 lock_message = format_html(_("<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."), page.get_admin_display_title(), str(page.locked_by), page.locked_at.strftime("%d %b %Y %H:%M"))
             else:
@@ -413,6 +413,8 @@ def edit(request, page_id):
             if workflow_task == task:
                 current_task_number = i + 1
 
+        task = task.specific
+
         # add a warning message if tasks have been approved and may need to be re-approved
         task_has_been_approved = any(filter(lambda task: task.status == TaskState.STATUS_APPROVED, workflow_tasks))
 
@@ -435,7 +437,9 @@ def edit(request, page_id):
             else:
                 workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
 
-            if task_has_been_approved and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', False):
+            if not task.user_can_access_editor(page, request.user):
+                messages.error(request, mark_safe(workflow_info + _("Only reviewers for this task can edit the page.")), buttons=buttons, extra_tags="lock")
+            elif task_has_been_approved and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', False):
                 messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons, extra_tags="workflow")
             else:
                 messages.success(request, workflow_info, buttons=buttons, extra_tags="workflow")
@@ -458,21 +462,21 @@ def edit(request, page_id):
             workflow_state.cancel(user=request.user)
             message = _(
                 "Workflow on page '{0}' has been cancelled."
-                ).format(
+            ).format(
                 page.get_admin_display_title()
-                )
+            )
 
             messages.success(request, message, buttons=[
-                    messages.button(
-                        reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
-                        _('View draft'),
-                        new_window=True
-                    ),
-                    messages.button(
-                        reverse('wagtailadmin_pages:edit', args=(page_id,)),
-                        _('Edit')
-                    )
-                ])
+                messages.button(
+                    reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
+                    _('View draft'),
+                    new_window=True
+                ),
+                messages.button(
+                    reverse('wagtailadmin_pages:edit', args=(page_id,)),
+                    _('Edit')
+                )
+            ])
         if form.is_valid() and not page_perms.page_locked():
             page = form.save(commit=False)
 
