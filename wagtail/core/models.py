@@ -2087,6 +2087,10 @@ class PagePermissionTester:
         return self.page.locked_by_id == self.user.pk
 
     def page_locked(self):
+        if self.page.current_workflow_task:
+            if not self.page.current_workflow_task.user_can_access_editor(self.page, self.user):
+                return True
+
         if not self.page.locked:
             # Page is not locked
             return False
@@ -2738,7 +2742,7 @@ class GroupApprovalTask(Task):
         return super().start(workflow_state, user=user)
 
     def user_can_access_editor(self, page, user):
-        return self.groups.filter(id__in=user.groups.all()).exists()
+        return self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
 
     def user_can_lock(self, page, user):
         return self.groups.filter(id__in=user.groups.all()).exists()
@@ -2822,6 +2826,8 @@ class WorkflowState(models.Model):
         return self.update(user=user, next_task=next_task)
 
     def user_can_cancel(self, user):
+        if self.page.locked and self.page.locked_by != user:
+            return False
         return user == self.requested_by or user == self.page.owner or (self.current_task_state and self.current_task_state.status == self.current_task_state.STATUS_IN_PROGRESS and 'approve' in [action[0] for action in self.current_task_state.task.get_actions(self.page, user)])
 
     def update(self, user=None, next_task=None):
