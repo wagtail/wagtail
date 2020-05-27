@@ -47,10 +47,7 @@ class AdminDateInput(widgets.DateInput):
         if attrs:
             default_attrs.update(attrs)
         if fmt is None:
-            if getattr(settings, 'USE_L10N', False):
-                fmt = get_format('DATE_INPUT_FORMATS')[0]
-            else:
-                fmt = getattr(settings, 'WAGTAIL_DATE_FORMAT', DEFAULT_DATE_FORMAT)
+            fmt = getattr(settings, 'WAGTAIL_DATE_FORMAT', DEFAULT_DATE_FORMAT)
         self.js_format = to_datetimepicker_format(fmt)
         super().__init__(attrs=default_attrs, format=fmt)
 
@@ -81,10 +78,7 @@ class AdminTimeInput(widgets.TimeInput):
             default_attrs.update(attrs)
         fmt = format
         if fmt is None:
-            if getattr(settings, 'USE_L10N', False):
-                fmt = get_format('TIME_INPUT_FORMATS')[0]
-            else:
-                fmt = getattr(settings, 'WAGTAIL_TIME_FORMAT', DEFAULT_DATETIME_FORMAT)
+            fmt = getattr(settings, 'WAGTAIL_TIME_FORMAT', DEFAULT_TIME_FORMAT)
         self.js_format = to_datetimepicker_format(fmt)
         super().__init__(attrs=default_attrs, format=fmt)
 
@@ -115,16 +109,10 @@ class AdminDateTimeInput(widgets.DateTimeInput):
         if attrs:
             default_attrs.update(attrs)
         if fmt is None:
-            if getattr(settings, 'USE_L10N', False):
-                fmt = get_format('DATETIME_INPUT_FORMATS')[0]
-            else:
-                fmt = getattr(settings, 'WAGTAIL_DATETIME_FORMAT', DEFAULT_DATETIME_FORMAT)
+            fmt = getattr(settings, 'WAGTAIL_DATETIME_FORMAT', DEFAULT_DATETIME_FORMAT)
         time_fmt = time_format
         if time_fmt is None:
-            if getattr(settings, 'USE_L10N', False):
-                time_fmt = get_format('TIME_INPUT_FORMATS')[0]
-            else:
-                time_fmt = getattr(settings, 'WAGTAIL_TIME_FORMAT', DEFAULT_TIME_FORMAT)
+            time_fmt = getattr(settings, 'WAGTAIL_TIME_FORMAT', DEFAULT_TIME_FORMAT)
         self.js_format = to_datetimepicker_format(fmt)
         self.js_time_format = to_datetimepicker_format(time_fmt)
         super().__init__(attrs=default_attrs, format=fmt)
