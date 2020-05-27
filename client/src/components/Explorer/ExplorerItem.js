@@ -47,7 +47,11 @@ const ExplorerItem = ({ item, onClick }) => {
           onClick={onClick}
           href={`${ADMIN_URLS.PAGES}${id}/`}
         >
-          <Icon name="arrow-right" title={STRINGS.VIEW_CHILD_PAGES_OF_PAGE.replace('{title}', title)} className="icon--item-action" />
+          <Icon
+            name="arrow-right"
+            title={STRINGS.VIEW_CHILD_PAGES_OF_PAGE.replace('{title}', title)}
+            className="icon--item-action"
+          />
         </Button>
       ) : null}
     </div>
