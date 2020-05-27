@@ -187,6 +187,7 @@ class BackendTests(WagtailTestUtils):
             "Learning Python",
         ])
 
+    def test_autocomplete_uses_autocompletefield(self):
         # Autocomplete should only require an AutocompleteField, not a SearchField with
         # partial_match=True
         results = self.backend.autocomplete("Georg", models.Author)
@@ -194,6 +195,7 @@ class BackendTests(WagtailTestUtils):
             "George R.R. Martin",
         ])
 
+    def test_autocomplete_with_fields_arg(self):
         results = self.backend.autocomplete("Georg", models.Author, fields=['name'])
         self.assertUnsortedListEqual([r.name for r in results], [
             "George R.R. Martin",

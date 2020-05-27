@@ -18,6 +18,16 @@ class TestDBBackend(BackendTests, TestCase):
     def test_autocomplete_not_affected_by_stemming(self):
         super().test_autocomplete_not_affected_by_stemming()
 
+    # Doesn't support autocomplete
+    @unittest.expectedFailure
+    def test_autocomplete_uses_autocompletefield(self):
+        super().test_autocomplete_uses_autocompletefield()
+
+    # Doesn't support autocomplete
+    @unittest.expectedFailure
+    def test_autocomplete_with_fields_arg(self):
+        super().test_autocomplete_with_fields_arg()
+
     # Doesn't support ranking
     @unittest.expectedFailure
     def test_ranking(self):

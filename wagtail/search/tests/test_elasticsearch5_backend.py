@@ -545,6 +545,7 @@ class TestElasticsearch5Mapping(TestCase):
                         'type': 'nested',
                         'properties': {
                             'name': {'type': 'text', 'include_in_all': True},
+                            'name_edgengrams': {'analyzer': 'edgengram_analyzer', 'include_in_all': False, 'search_analyzer': 'standard', 'type': 'text'},
                             'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
                         },
                     },
@@ -580,13 +581,14 @@ class TestElasticsearch5Mapping(TestCase):
         expected_result = {
             'pk': '4',
             'content_type': ["searchtests.Book"],
-            '_partials': ['The Fellowship of the Ring', 'The Fellowship of the Ring'],
+            '_partials': ['J. R. R. Tolkien', 'The Fellowship of the Ring', 'The Fellowship of the Ring'],
             'title': 'The Fellowship of the Ring',
             'title_edgengrams': 'The Fellowship of the Ring',
             'title_filter': 'The Fellowship of the Ring',
             'authors': [
                 {
                     'name': 'J. R. R. Tolkien',
+                    'name_edgengrams': 'J. R. R. Tolkien',
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
@@ -654,6 +656,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                         'type': 'nested',
                         'properties': {
                             'name': {'type': 'text', 'include_in_all': True},
+                            'name_edgengrams': {'analyzer': 'edgengram_analyzer', 'include_in_all': False, 'search_analyzer': 'standard', 'type': 'text'},
                             'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
                         },
                     },
@@ -715,7 +718,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
 
             # Changed
             'content_type': ["searchtests.Novel", "searchtests.Book"],
-            '_partials': ['Middle Earth', 'The Fellowship of the Ring', 'The Fellowship of the Ring'],
+            '_partials': ['J. R. R. Tolkien', 'Middle Earth', 'The Fellowship of the Ring', 'The Fellowship of the Ring'],
 
             # Inherited
             'pk': '4',
@@ -725,6 +728,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
             'authors': [
                 {
                     'name': 'J. R. R. Tolkien',
+                    'name_edgengrams': 'J. R. R. Tolkien',
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
