@@ -1,5 +1,6 @@
 from django import forms
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.models import Site
@@ -21,7 +22,7 @@ class SiteSwitchForm(forms.Form):
             (
                 self.get_change_url(site, model),
                 (
-                    site.hostname + " [default]"
+                    site.hostname + " [{}]".format(_("default"))
                     if site.is_default_site
                     else site.hostname
                 ),
