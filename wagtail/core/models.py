@@ -62,7 +62,6 @@ class Site(models.Model):
     site_name = models.CharField(
         verbose_name=_('site name'),
         max_length=255,
-        null=True,
         blank=True,
         help_text=_("Human-readable name for the site.")
     )
