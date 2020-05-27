@@ -46,7 +46,7 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     model = Book
     menu_order = 300
     list_display = ('title', 'author', 'admin_thumb')
-    list_export = ('title', 'author')
+    list_export = ('title', 'author', 'author_date_of_birth')
     list_filter = ('author', )
     export_filename = "books-export"
     ordering = ('title', )
@@ -60,6 +60,9 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
             'data-author-yob': obj.author.date_of_birth.year,
             'class': 'book',
         }
+
+    def author_date_of_birth(self, obj):
+        return obj.author.date_of_birth
 
 
 class TokenModelAdmin(ModelAdmin):

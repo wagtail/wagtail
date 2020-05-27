@@ -274,7 +274,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
         heading_override = self.export_headings.get(field)
         if heading_override:
             return force_str(heading_override)
-        return force_str(label_for_field(field, model=self.model).title())
+        return force_str(label_for_field(field, model=self.model, model_admin=self.model_admin).title())
 
     def to_row_dict(self, item):
         """ Returns an OrderedDict (in the order given by list_export) of the exportable information for a model instance"""
@@ -283,7 +283,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
             f, attr, value = lookup_field(field, item, self.model_admin)
             if not value:
                 value = getattr(attr, 'empty_value_display', self.model_admin.get_empty_value_display(field))
-            row_dict[field] = value
+            row_dict[field] = force_str(value)
 
         return row_dict
 
