@@ -133,6 +133,124 @@ In case you run multiple sites with Wagtail and each site has its CloudFront dis
 .. note::
     In most cases, absolute URLs with ``www`` prefixed domain names should be used in your mapping. Only drop the ``www`` prefix if you're absolutely sure you're not using it (e.g. a subdomain).
 
+Azure CDN
+^^^^^^^^^
+
+With `Azure CDN <https://azure.microsoft.com/en-gb/services/cdn/>`_ you will need a CDN profile with an endpoint configured.
+
+.. _azure-mgmt-cdn: https://pypi.org/project/azure-mgmt-cdn/
+.. _azure-identity: https://pypi.org/project/azure-identity/
+.. _azure-mgmt-resource: https://pypi.org/project/azure-mgmt-resource/
+
+The third-party dependencies of this backend are:
+
++-------------------------+-----------+---------------------------------------------------------------------------------------------------------------------------------------+
+| PyPI Package            | Essential | Reason                                                                                                                                |
++=========================+===========+=======================================================================================================================================+
+| azure-mgmt-cdn_         | Yes       | Interacting with the CDN service.                                                                                                     |
++-------------------------+-----------+---------------------------------------------------------------------------------------------------------------------------------------+
+| azure-identity_         | No        | Obtaining credentials. It's optional if you want to specify your own credential using a ``CREDENTIALS`` setting (more details below). |
++-------------------------+-----------+---------------------------------------------------------------------------------------------------------------------------------------+
+| azure-mgmt-resource_    | No        | For obtaining the subscription ID. Redundant if you want to explicitly specify a ``SUBSCRIPTION_ID`` setting (more details below).    |
++-------------------------+-----------+---------------------------------------------------------------------------------------------------------------------------------------+
+
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.AzureCdnBackend``. This backend requires the following settings to be set:
+
+* ``RESOURCE_GROUP_NAME`` - the resource group that your CDN profile is in.
+* ``CDN_PROFILE_NAME`` - the profile name of the CDN service that you want to use.
+* ``CDN_ENDPOINT_NAME`` - the name of the endpoint you want to be purged.
+
+.. code-block:: python
+
+    WAGTAILFRONTENDCACHE = {
+        'azure_cdn': {
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureCdnBackend',
+            'RESOURCE_GROUP_NAME': 'MY-WAGTAIL-RESOURCE-GROUP',
+            'CDN_PROFILE_NAME': 'wagtailio',
+            'CDN_ENDPOINT_NAME': 'wagtailio-cdn-endpoint-123',
+        },
+    }
+
+By default the credentials will use ``azure.identity.DefaultAzureCredential``. To modify the credential object used, please use ``CREDENTIALS`` setting. Read about your options on the `Azure documentation <https://docs.microsoft.com/en-us/azure/developer/python/azure-sdk-authenticate>`_.
+
+
+.. code-block:: python
+
+    from azure.common.credentials import ServicePrincipalCredentials
+
+    WAGTAILFRONTENDCACHE = {
+        'azure_cdn': {
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureCdnBackend',
+            'RESOURCE_GROUP_NAME': 'MY-WAGTAIL-RESOURCE-GROUP',
+            'CDN_PROFILE_NAME': 'wagtailio',
+            'CDN_ENDPOINT_NAME': 'wagtailio-cdn-endpoint-123',
+            'CREDENTIALS': ServicePrincipalCredentials(
+                client_id='your client id',
+                secret='your client secret',
+            )
+        },
+    }
+
+Another option that can be set is ``SUBSCRIPTION_ID``. By default the first encountered subscription will be used, but if your credential has access to more subscriptions, you should set this to an explicit value.
+
+
+Azure Front Door
+^^^^^^^^^^^^^^^^
+
+With `Azure Front Door <https://azure.microsoft.com/en-gb/services/frontdoor/>`_ you will need a Front Door instance with caching enabled.
+
+.. _azure-mgmt-frontdoor: https://pypi.org/project/azure-mgmt-frontdoor/
+.. _azure-identity: https://pypi.org/project/azure-identity/
+.. _azure-mgmt-resource: https://pypi.org/project/azure-mgmt-resource/
+
+The third-party dependencies of this backend are:
+
++-------------------------+-----------+---------------------------------------------------------------------------------------------------------------------------------------+
+| PyPI Package            | Essential | Reason                                                                                                                                |
++=========================+===========+=======================================================================================================================================+
+| azure-mgmt-frontdoor_   | Yes       | Interacting with the Front Door service.                                                                                              |
++-------------------------+-----------+---------------------------------------------------------------------------------------------------------------------------------------+
+| azure-identity_         | No        | Obtaining credentials. It's optional if you want to specify your own credential using a ``CREDENTIALS`` setting (more details below). |
++-------------------------+-----------+---------------------------------------------------------------------------------------------------------------------------------------+
+| azure-mgmt-resource_    | No        | For obtaining the subscription ID. Redundant if you want to explicitly specify a ``SUBSCRIPTION_ID`` setting (more details below).    |
++-------------------------+-----------+---------------------------------------------------------------------------------------------------------------------------------------+
+
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend``. This backend requires the following settings to be set:
+
+* ``RESOURCE_GROUP_NAME`` - the resource group that your Front Door instance is part of.
+* ``FRONT_DOOR_NAME`` - your configured Front Door instance name.
+
+.. code-block:: python
+
+    WAGTAILFRONTENDCACHE = {
+        'azure_front_door': {
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend',
+            'RESOURCE_GROUP_NAME': 'MY-WAGTAIL-RESOURCE-GROUP',
+            'FRONT_DOOR_NAME': 'wagtail-io-front-door',
+        },
+    }
+
+By default the credentials will use ``azure.identity.DefaultAzureCredential``. To modify the credential object used, please use ``CREDENTIALS`` setting. Read about your options on the `Azure documentation <https://docs.microsoft.com/en-us/azure/developer/python/azure-sdk-authenticate>`_.
+
+
+.. code-block:: python
+
+    from azure.common.credentials import ServicePrincipalCredentials
+
+    WAGTAILFRONTENDCACHE = {
+        'azure_front_door': {
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend',
+            'RESOURCE_GROUP_NAME': 'MY-WAGTAIL-RESOURCE-GROUP',
+            'FRONT_DOOR_NAME': 'wagtail-io-front-door',
+            'CREDENTIALS': ServicePrincipalCredentials(
+                client_id='your client id',
+                secret='your client secret',
+            )
+        },
+    }
+
+Another option that can be set is ``SUBSCRIPTION_ID``. By default the first encountered subscription will be used, but if your credential has access to more subscriptions, you should set this to an explicit value.
+
 Advanced usage
 --------------
 

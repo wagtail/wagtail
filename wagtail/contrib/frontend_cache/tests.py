@@ -3,12 +3,15 @@ from urllib.error import HTTPError, URLError
 
 import requests
 
+from azure.mgmt.cdn import CdnManagementClient
+from azure.mgmt.frontdoor import FrontDoorManagementClient
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings
 
 from wagtail.contrib.frontend_cache.backends import (
-    BaseBackend, CloudflareBackend, CloudfrontBackend, HTTPBackend)
+    AzureCdnBackend, AzureFrontDoorBackend, BaseBackend, CloudflareBackend, CloudfrontBackend,
+    HTTPBackend)
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.core.models import Page
 from wagtail.tests.testapp.models import EventIndex
@@ -68,6 +71,136 @@ class TestBackendConfiguration(TestCase):
         self.assertIsInstance(backends['cloudfront'], CloudfrontBackend)
 
         self.assertEqual(backends['cloudfront'].cloudfront_distribution_id, 'frontend')
+
+    def test_azure_cdn(self):
+        backends = get_backends(backend_settings={
+            'azure_cdn': {
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureCdnBackend',
+                'RESOURCE_GROUP_NAME': 'test-resource-group',
+                'CDN_PROFILE_NAME': 'wagtail-io-profile',
+                'CDN_ENDPOINT_NAME': 'wagtail-io-endpoint',
+            },
+        })
+
+        self.assertEqual(set(backends.keys()), set(['azure_cdn']))
+        self.assertIsInstance(backends['azure_cdn'], AzureCdnBackend)
+        self.assertEqual(backends['azure_cdn']._resource_group_name, 'test-resource-group')
+        self.assertEqual(backends['azure_cdn']._cdn_profile_name, 'wagtail-io-profile')
+        self.assertEqual(backends['azure_cdn']._cdn_endpoint_name, 'wagtail-io-endpoint')
+
+    def test_azure_front_door(self):
+        backends = get_backends(backend_settings={
+            'azure_front_door': {
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend',
+                'RESOURCE_GROUP_NAME': 'test-resource-group',
+                'FRONT_DOOR_NAME': 'wagtail-io-front-door',
+            },
+        })
+
+        self.assertEqual(set(backends.keys()), set(['azure_front_door']))
+        self.assertIsInstance(backends['azure_front_door'], AzureFrontDoorBackend)
+        self.assertEqual(backends['azure_front_door']._resource_group_name, 'test-resource-group')
+        self.assertEqual(backends['azure_front_door']._front_door_name, 'wagtail-io-front-door')
+
+    def test_azure_cdn_get_client(self):
+        mock_credentials = mock.MagicMock()
+        backends = get_backends(backend_settings={
+            'azure_cdn': {
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureCdnBackend',
+                'RESOURCE_GROUP_NAME': 'test-resource-group',
+                'CDN_PROFILE_NAME': 'wagtail-io-profile',
+                'CDN_ENDPOINT_NAME': 'wagtail-io-endpoint',
+                'SUBSCRIPTION_ID': 'fake-subscription-id',
+                'CREDENTIALS': mock_credentials,
+            },
+        })
+        self.assertEqual(set(backends.keys()), set(['azure_cdn']))
+        client = backends['azure_cdn']._get_client()
+        self.assertIsInstance(client, CdnManagementClient)
+        self.assertEqual(client.config.subscription_id, 'fake-subscription-id')
+        self.assertIs(client.config.credentials, mock_credentials)
+
+    def test_azure_front_door_get_client(self):
+        mock_credentials = mock.MagicMock()
+        backends = get_backends(backend_settings={
+            'azure_front_door': {
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend',
+                'RESOURCE_GROUP_NAME': 'test-resource-group',
+                'FRONT_DOOR_NAME': 'wagtail-io-fake-front-door-name',
+                'SUBSCRIPTION_ID': 'fake-subscription-id',
+                'CREDENTIALS': mock_credentials,
+            },
+        })
+        client = backends['azure_front_door']._get_client()
+        self.assertEqual(set(backends.keys()), set(['azure_front_door']))
+        self.assertIsInstance(client, FrontDoorManagementClient)
+        self.assertEqual(client.config.subscription_id, 'fake-subscription-id')
+        self.assertIs(client.config.credentials, mock_credentials)
+
+    @mock.patch('wagtail.contrib.frontend_cache.backends.AzureCdnBackend._make_purge_call')
+    def test_azure_cdn_purge(self, make_purge_call_mock):
+        backends = get_backends(backend_settings={
+            'azure_cdn': {
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureCdnBackend',
+                'RESOURCE_GROUP_NAME': 'test-resource-group',
+                'CDN_PROFILE_NAME': 'wagtail-io-profile',
+                'CDN_ENDPOINT_NAME': 'wagtail-io-endpoint',
+                'CREDENTIALS': 'Fake credentials',
+            },
+        })
+
+        self.assertEqual(set(backends.keys()), set(['azure_cdn']))
+        self.assertIsInstance(backends['azure_cdn'], AzureCdnBackend)
+
+        # purge()
+        backends['azure_cdn'].purge('http://www.wagtail.io/home/events/christmas/?test=1')
+        make_purge_call_mock.assert_called_once()
+        call_args = tuple(make_purge_call_mock.call_args)[0]
+        self.assertEqual(len(call_args), 2)
+        self.assertIsInstance(call_args[0], CdnManagementClient)
+        self.assertEqual(call_args[1], ["/home/events/christmas/?test=1"])
+        make_purge_call_mock.reset_mock()
+
+        # purge_batch()
+        backends['azure_cdn'].purge_batch([
+            'http://www.wagtail.io/home/events/christmas/?test=1', 'http://torchbox.com/blog/'
+        ])
+        make_purge_call_mock.assert_called_once()
+        call_args = tuple(make_purge_call_mock.call_args)[0]
+        self.assertIsInstance(call_args[0], CdnManagementClient)
+        self.assertEqual(call_args[1], ["/home/events/christmas/?test=1", "/blog/"])
+
+    @mock.patch('wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend._make_purge_call')
+    def test_azure_front_door_purge(self, make_purge_call_mock):
+        backends = get_backends(backend_settings={
+            'azure_front_door': {
+                'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend',
+                'RESOURCE_GROUP_NAME': 'test-resource-group',
+                'FRONT_DOOR_NAME': 'wagtail-io-front-door',
+                'CREDENTIALS': 'Fake credentials',
+            },
+        })
+
+        self.assertEqual(set(backends.keys()), set(['azure_front_door']))
+        self.assertIsInstance(backends['azure_front_door'], AzureFrontDoorBackend)
+
+        # purge()
+        backends['azure_front_door'].purge('http://www.wagtail.io/home/events/christmas/?test=1')
+        make_purge_call_mock.assert_called_once()
+        call_args = tuple(make_purge_call_mock.call_args)[0]
+        self.assertIsInstance(call_args[0], FrontDoorManagementClient)
+        self.assertEqual(call_args[1], ["/home/events/christmas/?test=1"])
+
+        make_purge_call_mock.reset_mock()
+
+        # purge_batch()
+        backends['azure_front_door'].purge_batch([
+            'http://www.wagtail.io/home/events/christmas/?test=1', 'http://torchbox.com/blog/'
+        ])
+        make_purge_call_mock.assert_called_once()
+        call_args = tuple(make_purge_call_mock.call_args)[0]
+        self.assertIsInstance(call_args[0], FrontDoorManagementClient)
+        self.assertEqual(call_args[1], ["/home/events/christmas/?test=1", "/blog/"])
 
     def test_http(self):
         """Test that `HTTPBackend.purge` works when urlopen succeeds"""

@@ -50,6 +50,8 @@ testing_extras = [
     'freezegun>=0.3.8',
     'openpyxl>=2.6.4',
     'Unidecode>=0.04.14,<2.0',
+    'azure-mgmt-cdn>=5.1,<6.0',
+    'azure-mgmt-frontdoor>=0.3,<0.4',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
