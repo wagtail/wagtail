@@ -191,3 +191,8 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
     @unittest.expectedFailure
     def test_incomplete_plain_text(self):
         super().test_incomplete_plain_text()
+
+    # Elasticsearch does not support 'fields' arguments on autocomplete queries
+    @unittest.expectedFailure
+    def test_autocomplete_with_fields_arg(self):
+        super().test_autocomplete_with_fields_arg()
