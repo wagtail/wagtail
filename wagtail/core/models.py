@@ -3528,12 +3528,13 @@ class LogEntryManager(models.Manager):
                 title = instance.get_admin_display_title()
             else:
                 title = str(instance)
+        timestamp = kwargs.pop('timestamp', timezone.now())
         return self.model.objects.create(
             content_type=ContentType.objects.get_for_model(instance, for_concrete_model=False),
             object_id=instance.pk,
             object_title=title,
             action=action,
-            timestamp=timezone.now(),
+            timestamp=timestamp,
             data_json=json.dumps(data),
             **kwargs,
         )
