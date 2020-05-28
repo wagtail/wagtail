@@ -283,7 +283,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
             f, attr, value = lookup_field(field, item, self.model_admin)
             if not value:
                 value = getattr(attr, 'empty_value_display', self.model_admin.get_empty_value_display(field))
-            row_dict[field] = force_str(value)
+            row_dict[field] = value
 
         return row_dict
 

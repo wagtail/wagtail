@@ -1,3 +1,4 @@
+from datetime import datetime
 from io import BytesIO
 from unittest import mock
 
@@ -73,10 +74,13 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         worksheet = load_workbook(filename=BytesIO(workbook_data))['Sheet1']
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
         self.assertEqual(cell_array[0], ['Title', 'Author', 'Author Date Of Birth'])
-        self.assertEqual(cell_array[1], ['Charlie and the Chocolate Factory', 'Roald Dahl', '1916-09-13'])
-        self.assertEqual(cell_array[2], ['The Chronicles of Narnia', 'Roald Dahl', '1898-11-29'])
-        self.assertEqual(cell_array[3], ['The Hobbit', 'J. R. R. Tolkien', '1892-01-03'])
-        self.assertEqual(cell_array[4], ['The Lord of the Rings', 'J. R. R. Tolkien', '1892-01-03'])
+        self.assertEqual(cell_array[1], ['Charlie and the Chocolate Factory', 'Roald Dahl', datetime(1916, 9, 13)])
+        # Dates before 1900 are not handled by Excel. This works around that by expecting the dates as
+        # openpyxl parses dates.
+        # See: https://bitbucket.org/openpyxl/openpyxl/issues/1325/python-dates-before-march-1-1900-are
+        self.assertEqual(cell_array[2], ['The Chronicles of Narnia', 'Roald Dahl', datetime(1898, 11, 28)])
+        self.assertEqual(cell_array[3], ['The Hobbit', 'J. R. R. Tolkien', datetime(1892, 1, 2)])
+        self.assertEqual(cell_array[4], ['The Lord of the Rings', 'J. R. R. Tolkien', datetime(1892, 1, 2)])
         self.assertEqual(len(cell_array), 5)
 
     def test_tr_attributes(self):
