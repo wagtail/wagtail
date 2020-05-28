@@ -1633,7 +1633,7 @@ def revisions_unschedule(request, page_id, revision_id):
 
         if next_url:
             return redirect(next_url)
-        return redirect('wagtailadmin_pages:revisions_index', page.id)
+        return redirect('wagtailadmin_pages:history', page.id)
 
     return TemplateResponse(request, 'wagtailadmin/pages/revisions/confirm_unschedule.html', {
         'page': page,

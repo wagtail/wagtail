@@ -38,16 +38,6 @@ class TestRevisions(TestCase, WagtailTestUtils):
 
         self.login()
 
-    def test_edit_form_has_revisions_link(self):
-        response = self.client.get(
-            reverse('wagtailadmin_pages:edit', args=(self.christmas_event.id, ))
-        )
-        self.assertEqual(response.status_code, 200)
-        revisions_index_url = reverse(
-            'wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, )
-        )
-        self.assertContains(response, revisions_index_url)
-
     def test_get_revisions_index(self):
         response = self.client.get(
             reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, ))
@@ -408,8 +398,8 @@ class TestRevisionsUnschedule(TestCase, WagtailTestUtils):
         # Post to the unschedule page
         response = self.client.post(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.christmas_event.id, self.this_christmas_revision.id)))
 
-        # Should be redirected to revisions index page
-        self.assertRedirects(response, reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, )))
+        # Should be redirected to page history
+        self.assertRedirects(response, reverse('wagtailadmin_pages:history', args=(self.christmas_event.id, )))
 
         # Check that the page has no approved_schedule
         self.assertFalse(EventPage.objects.get(id=self.christmas_event.id).approved_schedule)
@@ -450,8 +440,8 @@ class TestRevisionsUnscheduleForUnpublishedPages(TestCase, WagtailTestUtils):
         # Post to the unschedule page
         response = self.client.post(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.unpublished_event.id, self.unpublished_revision.id)))
 
-        # Should be redirected to revisions index page
-        self.assertRedirects(response, reverse('wagtailadmin_pages:revisions_index', args=(self.unpublished_event.id, )))
+        # Should be redirected to page history
+        self.assertRedirects(response, reverse('wagtailadmin_pages:history', args=(self.unpublished_event.id, )))
 
         # Check that the page has no approved_schedule
         self.assertFalse(EventPage.objects.get(id=self.unpublished_event.id).approved_schedule)
