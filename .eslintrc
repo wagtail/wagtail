@@ -8,7 +8,7 @@
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "webpack/prod.config.js"
+        "config": "client/webpack.config.js"
       }
     }
   },
