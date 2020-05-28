@@ -18,16 +18,6 @@ var flatten = function(arrOfArr) {
 };
 
 var autoprefixerConfig = {
-    browsers: [
-      'Firefox ESR',
-      'ie 11',
-      'last 2 Chrome versions',
-      'last 2 ChromeAndroid versions',
-      'last 2 Edge versions',
-      'last 1 Firefox version',
-      'last 2 iOS versions',
-      'last 2 Safari versions',
-    ],
     cascade: false,
 };
 

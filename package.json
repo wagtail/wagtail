@@ -6,6 +6,16 @@
   "engines": {
     "node": ">=10.0.0"
   },
+  "browserslist": [
+    "Firefox ESR",
+    "ie 11",
+    "last 2 Chrome versions",
+    "last 2 ChromeAndroid versions",
+    "last 2 Edge versions",
+    "last 1 Firefox version",
+    "last 2 iOS versions",
+    "last 2 Safari versions"
+  ],
   "babel": {
     "presets": [
       [
@@ -76,11 +86,11 @@
     "eslint-plugin-react": "^5.2.2",
     "expose-loader": "^0.7.4",
     "gulp": "^4.0.0",
-    "gulp-autoprefixer": "~4.0.0",
+    "gulp-autoprefixer": "^7.0.1",
     "gulp-cssnano": "^2.1.3",
     "gulp-dart-sass": "^1.0.2",
     "gulp-rename": "^1.2.2",
-    "gulp-size": "^2.1.0",
+    "gulp-size": "^3.0.0",
     "gulp-sourcemaps": "~2.6.1",
     "gulp-util": "~3.0.8",
     "jest": "^23.6.0",
