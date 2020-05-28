@@ -42,9 +42,6 @@ module.exports = function exports() {
     ],
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
-      alias: {
-        'wagtail-client': path.resolve('.', 'client'),
-      },
     },
     module: {
       rules: [
