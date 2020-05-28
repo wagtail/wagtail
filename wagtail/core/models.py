@@ -3514,11 +3514,12 @@ class BaseLogEntryManager(models.Manager):
             else:
                 title = str(instance)
 
+        timestamp = kwargs.pop('timestamp', timezone.now())
         return self.model.objects.create(
             content_type=ContentType.objects.get_for_model(instance, for_concrete_model=False),
             label=title,
             action=action,
-            timestamp=timezone.now(),
+            timestamp=timestamp,
             data_json=json.dumps(data),
             **kwargs,
         )
