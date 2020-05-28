@@ -215,13 +215,6 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             attrs={'title': _("Unpublish page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=40
         )
-    if page_perms.can_view_revisions():
-        yield Button(
-            _('Revisions'),
-            reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
-            attrs={'title': _("View revision history for '%(title)s'") % {'title': page.get_admin_display_title()}},
-            priority=50
-        )
 
     if page_perms.can_view_revisions():
         yield Button(
@@ -895,7 +888,7 @@ def register_core_log_actions(actions):
     def delete_view_restriction(data):
         try:
             return format_lazy(
-                _("Removed the view restriction to '{restriction}'"),
+                _("Removed the '{restriction}' view restriction"),
                 restriction=data['restriction']['title']
             )
         except KeyError:

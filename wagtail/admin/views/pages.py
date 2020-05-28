@@ -23,21 +23,19 @@ from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.vary import vary_on_headers
 from django.views.generic import View
 
-from wagtail.admin.filters import PageHistoryReportFilterSet
-from wagtail.admin.views.reports import ReportView
-
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
+from wagtail.admin.filters import PageHistoryReportFilterSet
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.mail import send_notification
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.navigation import get_explorable_root_page
+from wagtail.admin.views.reports import ReportView
 from wagtail.core import hooks
 from wagtail.core.models import (
-    LogEntry, Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState
-)
+    LogEntry, Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState)
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -268,7 +266,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             # Submit
             if is_submitting:
                 workflow = page.get_workflow()
-                workflow_state = workflow.start(page, request.user)
+                workflow.start(page, request.user)
 
             # Notifications
             if is_publishing:
@@ -1018,7 +1016,7 @@ def move_confirm(request, page_to_move_id, destination_id):
     if request.method == 'POST':
         # any invalid moves *should* be caught by the permission check above,
         # so don't bother to catch InvalidMoveToDescendant
-        source = page_to_move.get_parent()
+        page_to_move.get_parent()
         page_to_move.move(destination, pos='last-child', user=request.user)
 
         messages.success(request, _("Page '{0}' moved.").format(page_to_move.get_admin_display_title()), buttons=[
@@ -1633,7 +1631,7 @@ def revisions_unschedule(request, page_id, revision_id):
 
         if next_url:
             return redirect(next_url)
-        return redirect('wagtailadmin_pages:revisions_index', page.id)
+        return redirect('wagtailadmin_pages:history', page.id)
 
     return TemplateResponse(request, 'wagtailadmin/pages/revisions/confirm_unschedule.html', {
         'page': page,

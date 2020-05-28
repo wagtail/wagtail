@@ -1917,8 +1917,10 @@ class PageRevision(models.Model):
             # ensure that all other revisions of this page have the 'submitted for moderation' flag unset
             self.page.revisions.exclude(id=self.id).update(submitted_for_moderation=False)
 
-        if 'update_fields' in kwargs and \
-            'approved_go_live_at' in kwargs['update_fields'] and self.approved_go_live_at is None:
+        if (
+            self.approved_go_live_at is None
+            and 'update_fields' in kwargs and 'approved_go_live_at' in kwargs['update_fields']
+        ):
             # Log scheduled revision publish cancellation
             page = self.as_page_object()
             # go_live_at = kwargs['update_fields'][]
@@ -2060,11 +2062,11 @@ class PageRevision(models.Model):
                 else:
                     action = 'wagtail.revert'
                     data = {
-                       'revision': {
-                           'id': previous_revision.id,
-                           'created': previous_revision.created_at.strftime("%d %b %Y %H:%M")
-                       }
-                   }
+                        'revision': {
+                            'id': previous_revision.id,
+                            'created': previous_revision.created_at.strftime("%d %b %Y %H:%M")
+                        }
+                    }
                 LogEntry.objects.log_action(
                     instance=page,
                     action=action,
@@ -2621,7 +2623,7 @@ class BaseViewRestriction(models.Model):
         if specific_instance:
             LogEntry.objects.log_action(
                 instance=specific_instance,
-                action='wagtail.view_restriction.remove',
+                action='wagtail.view_restriction.delete',
                 user=user,
                 data={
                     'restriction': {
@@ -3549,8 +3551,8 @@ class LogEntryManager(models.Manager):
         ct = ContentType.objects.get_for_model(instance, for_concrete_model=False)
         return self.filter(content_type=ct, object_id=instance.pk)
 
-    def get_for_user(self, user_id):
-        return self.filter(user=user_id)
+    def get_for_user(self, user):
+        return self.filter(user=user)
 
     def get_pages(self):
         content_types = ContentType.objects.get_for_models(*get_page_models()).values()
