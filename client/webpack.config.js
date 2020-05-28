@@ -16,12 +16,10 @@ const exposedDependencies = {
 };
 
 module.exports = function exports() {
-  const entry = {
-    // Create a vendor chunk that will contain polyfills, and all third-party dependencies.
-    vendor: [
-      './client/src/utils/polyfills.js',
-    ],
-  };
+  const entry = {};
+
+  // Create a vendor chunk that will contain polyfills, and all third-party dependencies.
+  entry[getOutputPath('admin', 'vendor')] = ['./client/src/utils/polyfills.js'];
 
   entry[getOutputPath('admin', 'wagtailadmin')] = getEntryPath('admin', 'wagtailadmin.entry.js');
   entry[getOutputPath('admin', 'draftail')] = getEntryPath('admin', 'draftail.entry.js');
@@ -33,13 +31,6 @@ module.exports = function exports() {
       filename: '[name].js',
       publicPath: '/static/js/'
     },
-    plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        filename: getOutputPath('admin', '[name].js'),
-        minChunks: 2,
-      }),
-    ],
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
     },
@@ -64,6 +55,19 @@ module.exports = function exports() {
           ],
         };
       }))
+    },
+
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            name: getOutputPath('admin', 'vendor'),
+            chunks: 'initial',
+            minChunks: 2,
+            reuseExistingChunk: true,
+          },
+        },
+      },
     },
 
     // See https://webpack.js.org/configuration/devtool/.
