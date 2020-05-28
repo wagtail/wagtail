@@ -33,7 +33,6 @@
                                     {% trans 'Current draft' as current_draft_label %}
                                     {% if entry.revision == page.get_latest_revision %}({{ current_draft_label }}){% endif %}
                                     {% include "wagtailadmin/pages/revisions/_actions.html" with revision=entry.revision %}
-
                                 {% endif %}
                             {% endif %}
                         </td>

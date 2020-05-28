@@ -780,3 +780,97 @@ Database fields
     .. attribute:: page
 
         (foreign key to ``Page``)
+
+``LogEntry``
+============
+
+Represents a record of an action performed on an object.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: LogEntry
+
+    .. attribute:: content_type
+
+        (foreign key to ``django.contrib.contenttypes.models.ContentType``)
+
+        A foreign key to the :class:`~django.contrib.contenttypes.models.ContentType` object that represents the specific model of this model.
+
+    .. attribute:: object_id
+
+        (text)
+
+        The object primary key.
+
+    .. attribute:: object_title
+
+        (text)
+
+        The object title at the time of the entry creation
+
+        Note: Wagtail will attempt to use ``get_admin_display_title`` or the string representation of the object passed to :meth:`~LogEntryManger.log_action`
+
+    .. attribute:: user
+
+        (foreign key to user model)
+
+        A foreign key to the user that triggered the action.
+
+    .. attribute:: data_json
+
+        (text)
+
+        The JSON representation of any additional details for each action.
+        e.g. source page id and title when copying from a page. Or workflow id/name and next step id/name on a workflow transition
+
+    .. attribute:: timestamp
+
+        (date/time)
+
+        The date/time when the entry was created.
+
+    .. attribute:: revision
+
+        (foreign key to :class:`PageRevision`)
+
+        Optional foreign key to the current page revision, when logging for :class:`Page` objects.
+
+    .. attribute:: created
+
+        (boolean)
+
+        A boolean that is set to ``True`` when the object is created.
+
+    .. attribute:: published
+
+        (boolean)
+
+        A boolean that be set to ``True`` when the object (page) is published.
+
+    .. attribute:: unpublished
+
+        (boolean)
+
+        A boolean that can set to ``True`` when the object (page) is unpublished.
+
+    .. attribute:: content_changed
+
+        (boolean)
+
+        A boolean that can set to ``True`` when the content has changed.
+
+    .. attribute:: deleted
+
+        (boolean)
+
+        A boolean that can set to ``True`` when the object is deleted. Used to filter entries in the Site History report.
+
+Methods and properties
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. class:: LogEntry
+
+    .. automethod:: username
+
+    .. automethod:: data
