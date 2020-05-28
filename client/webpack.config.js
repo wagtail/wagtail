@@ -72,6 +72,12 @@ module.exports = function exports() {
     // See https://webpack.js.org/configuration/devtool/.
     devtool: 'source-map',
 
+    // For development mode only.
+    watchOptions: {
+      poll: 1000,
+      aggregateTimeout: 300,
+    },
+
     stats: {
       // Add chunk information (setting this to `false` allows for a less verbose output)
       chunks: false,
