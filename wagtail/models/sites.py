@@ -129,6 +129,9 @@ class Site(models.Model):
                 + (default_suffix if self.is_default_site else "")
             )
 
+    def clean(self):
+        self.hostname = self.hostname.lower()
+
     @staticmethod
     def find_for_request(request):
         """
