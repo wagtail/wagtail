@@ -7,8 +7,8 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0046_add_workflow_models'),
-        ('tests', '0049_rawhtmlblock'),
+        ('wagtailcore', '0047_add_workflow_models'),
+        ('tests', '0051_tag_verbose_name'),
     ]
 
     operations = [
