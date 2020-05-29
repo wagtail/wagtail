@@ -2,7 +2,7 @@ from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
-from wagtail.contrib.modeladmin.views import CreateView
+from wagtail.contrib.modeladmin.views import CreateView, IndexView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm
@@ -42,11 +42,28 @@ class AuthorModelAdmin(ModelAdmin):
         return attrs
 
 
+class BookModelIndexView(IndexView):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Dates before 1900 are not handled by Excel. This works around that
+        # by serializing dates in iso format.
+        # See: https://bitbucket.org/openpyxl/openpyxl/issues/1325/python-dates-before-march-1-1900-are
+        # And:  https://en.wikipedia.org/wiki/Year_1900_problem#Microsoft_Excel
+        def date_isoformat(date_obj):
+            return date_obj.isoformat()
+
+        self.custom_field_preprocess = {
+            'author_date_of_birth': {'xlsx': date_isoformat}
+        }
+
+
 class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     model = Book
+    index_view_class = BookModelIndexView
     menu_order = 300
     list_display = ('title', 'author', 'admin_thumb')
-    list_export = ('title', 'author')
+    list_export = ('title', 'author', 'author_date_of_birth')
     list_filter = ('author', )
     export_filename = "books-export"
     ordering = ('title', )
@@ -60,6 +77,9 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
             'data-author-yob': obj.author.date_of_birth.year,
             'class': 'book',
         }
+
+    def author_date_of_birth(self, obj):
+        return obj.author.date_of_birth
 
 
 class TokenModelAdmin(ModelAdmin):
