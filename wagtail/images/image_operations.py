@@ -248,7 +248,7 @@ class JPEGQualityOperation(Operation):
         self.quality = int(quality)
 
         if self.quality > 100:
-            raise ValueError("Quality must not be higher than 100")
+            raise ValueError("JPEG quality must not be higher than 100")
 
     def run(self, willow, image, env):
         env['jpeg-quality'] = self.quality
@@ -263,14 +263,6 @@ class WebPQualityOperation(Operation):
 
     def run(self, willow, image, env):
         env['webp-quality'] = self.quality
-
-
-class WebPLossless(Operation):
-    def construct(self):
-        pass
-
-    def run(self, willow, image, env):
-        env['webp-lossless'] = True
 
 
 class FormatOperation(Operation):

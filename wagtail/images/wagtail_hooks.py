@@ -118,7 +118,6 @@ def register_image_operations():
         ('scale', image_operations.ScaleOperation),
         ('jpegquality', image_operations.JPEGQualityOperation),
         ('webpquality', image_operations.WebPQualityOperation),
-        ('webplossless', image_operations.WebPLossless),
         ('format', image_operations.FormatOperation),
         ('bgcolor', image_operations.BackgroundColorOperation),
     ]

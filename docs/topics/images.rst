@@ -296,11 +296,10 @@ For example, to make the tag always convert the image to a JPEG, use ``format-jp
 
 You may also use ``format-png`` or ``format-gif``.
 
-WebP lossless
+Lossless WebP
 ^^^^^^^^^^^^^
 
-You can encode the image to WebP without any loss by using the
-``format-webp-lossless``:
+You can encode the image into lossless WebP format by using the ``format-webp-lossless`` filter:
 
 .. code-block:: html+Django
 
@@ -367,7 +366,8 @@ the default setting:
 
 .. code-block:: html+Django
 
-    {% image page.photo width-400 quality-40 %}
+    {% image page.photo_jpeg width-400 jpegquality-40 %}
+    {% image page.photo_webp width-400 webpquality-50 %}
 
 Note that this will have no effect on PNG or GIF files. If you want all images
 to be low quality, you can use this filter with ``format-jpeg`` or ``format-webp``
@@ -375,7 +375,8 @@ to be low quality, you can use this filter with ``format-jpeg`` or ``format-webp
 
 .. code-block:: html+Django
 
-    {% image page.photo width-400 format-jpeg quality-40 %}
+    {% image page.photo width-400 format-jpeg jpegquality-40 %}
+    {% image page.photo width-400 format-webp webpquality-50 %}
 
 Generating image renditions in Python
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
