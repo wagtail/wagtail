@@ -1514,7 +1514,7 @@ def workflow_history(request, page_id):
     paginator = Paginator(workflow_states, per_page=20)
     workflow_states = paginator.get_page(request.GET.get('p'))
 
-    return render(request, 'wagtailadmin/pages/workflow_history/index.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/workflow_history/index.html', {
         'page': page,
         'workflow_states': workflow_states,
     })
@@ -1603,7 +1603,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
 
     timeline.sort(key=lambda t: t['time'])
 
-    return render(request, 'wagtailadmin/pages/workflow_history/detail.html', {
+    return TemplateResponse(request, 'wagtailadmin/pages/workflow_history/detail.html', {
         'page': page,
         'workflow_state': workflow_state,
         'tasks': tasks,
