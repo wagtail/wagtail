@@ -1,4 +1,4 @@
-{% load wagtailui_tags i18n %}
+{% load wagtailadmin_tags i18n %}
 {% if workflow_state %}
     {% with workflow_state.workflow as workflow %}
 
@@ -26,9 +26,9 @@
         {% for task in workflow_tasks %}
             <span data-wagtail-tooltip="{{ task.name }}: {{ task.status_display }}">
                 {% if task.status == 'approved' %}
-                    {% wagtail_icon name="success" title=approved_title %}
+                    {% icon "success" title=approved_title %}
                 {% else %}
-                    {% wagtail_icon name="radio-empty" title=incomplete_title %}
+                    {% icon "radio-empty" title=incomplete_title %}
                 {% endif %}
             </span>
         {% endfor %}
