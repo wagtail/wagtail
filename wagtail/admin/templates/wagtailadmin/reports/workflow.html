@@ -1,5 +1,5 @@
 {% extends 'wagtailadmin/reports/base_report.html' %}
-{% load i18n wagtailadmin_tags wagtailui_tags %}
+{% load i18n wagtailadmin_tags %}
 
 {% block actions %}
     <div class="addbutton">
@@ -56,9 +56,9 @@
                             {% for task in workflow_state.all_tasks_with_status %}
                                 <span data-wagtail-tooltip="{{ task.name }}: {{ task.status_display }}">
                                     {% if task.status == 'approved' %}
-                                        {% wagtail_icon name="success" title=approved_title %}
+                                        {% icon "success" title=approved_title %}
                                     {% else %}
-                                        {% wagtail_icon name="radio-empty" title=incomplete_title %}
+                                        {% icon "radio-empty" title=incomplete_title %}
                                     {% endif %}
                                 </span>
                             {% endfor %}
