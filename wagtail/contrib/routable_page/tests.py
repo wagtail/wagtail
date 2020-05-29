@@ -7,7 +7,7 @@ from django.urls.exceptions import NoReverseMatch
 from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import routablepageurl
 from wagtail.core.models import Page, Site
 from wagtail.tests.routablepage.models import (
-    RoutablePageTest, RoutablePageWithOverriddenIndexRouteTest)
+    RoutableCustomServePage, RoutablePageTest, RoutablePageWithOverriddenIndexRouteTest)
 
 
 class TestRoutablePage(TestCase):
@@ -148,6 +148,42 @@ class TestRoutablePage(TestCase):
             RoutablePageTest.get_subpage_urls()
         finally:
             del RoutablePageTest.descriptor
+
+
+class TestCustomServeRoutablePage(TestCase):
+    """
+    Test that the original `serve` method is used on the index route from the parent class.
+    Also, that a custom `serve` method will not break the adding of other routes.
+    """
+
+    model = RoutableCustomServePage
+
+    def setUp(self):
+        self.home_page = Page.objects.get(id=2)
+        self.routable_page = self.home_page.add_child(instance=self.model(
+            title="Routable Custom Serve Page",
+            live=True,
+        ))
+
+    def test_get_index_route_view(self):
+        response = self.client.get(self.routable_page.url)
+        self.assertContains(response, "CUSTOM SERVE PAGE")
+
+    def test_get_index_route_view_custom_headers(self):
+        response = self.client.get(self.routable_page.url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertContains(response, '{value: "CUSTOM JSON RESPONSE}"')
+
+    def test_get_index_route_view_custom_query(self):
+        response = self.client.get(self.routable_page.url, {'format': 'xml'})
+        self.assertContains(response, "CUSTOM SERVE XML")
+
+    def test_reverse_archive_by_author_view(self):
+        url = self.routable_page.reverse_subpage('custom_export_route', args=('34', ))
+
+        self.assertEqual(url, 'export/34/')
+
+        response = self.client.get(self.routable_page.url + url)
+        self.assertContains(response, "EXPORT x 34")
 
 
 class TestRoutablePageTemplateTag(TestCase):

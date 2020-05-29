@@ -1,10 +1,38 @@
 from django.http import HttpResponse
 
-from wagtail.contrib.routable_page.models import RoutablePage, route
+from wagtail.contrib.routable_page.models import RoutablePage, RoutablePageMixin, route
+from wagtail.core.models import Page
 
 
 def routable_page_external_view(request, arg="ARG NOT SET"):
     return HttpResponse("EXTERNAL VIEW: " + arg)
+
+
+class CustomServePage(Page):
+
+    def serve(self, request, *args, **kwargs):
+
+        if request.is_ajax():
+            return HttpResponse('{value: "CUSTOM JSON RESPONSE}"')
+
+        if "format" in request.GET:
+            if request.GET['format'] == 'xml':
+                response = HttpResponse("CUSTOM SERVE XML")
+                response['Content-Disposition'] = 'attachment; filename=' + self.slug + '.xml'
+                return response
+        else:
+            # display original page content as usual
+            return super().serve(request)
+
+    class Meta:
+        abstract = True
+
+
+class RoutableCustomServePage(RoutablePageMixin, CustomServePage):
+
+    @route(r'^export/(\d+)/$')
+    def custom_export_route(self, request, quantity):
+        return HttpResponse("EXPORT x " + quantity)
 
 
 class RoutablePageTest(RoutablePage):

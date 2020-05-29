@@ -1,6 +1,5 @@
 from django.conf.urls import url
 from django.http import Http404
-from django.template.response import TemplateResponse
 from django.urls import URLResolver
 from django.urls.resolvers import RegexPattern
 
@@ -38,13 +37,11 @@ class RoutablePageMixin:
     """
     @route(r'^$')
     def index_route(self, request, *args, **kwargs):
-        request.is_preview = getattr(request, 'is_preview', False)
-
-        return TemplateResponse(
-            request,
-            self.get_template(request, *args, **kwargs),
-            self.get_context(request, *args, **kwargs)
-        )
+        """
+        Use the existing serve route without a view declared so that
+        the original page serve method is preserved.
+        """
+        return self.serve(request, view=None, args=args, kwargs=kwargs)
 
     @classmethod
     def get_subpage_urls(cls):
