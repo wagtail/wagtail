@@ -105,7 +105,7 @@ def register_collections_menu_item():
 
 @hooks.register('register_settings_menu_item')
 def register_workflows_menu_item():
-    return MenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), classnames='icon icon-clipboard-list', order=100)
+    return MenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), icon_name='clipboard-list', order=100)
 
 
 @hooks.register('register_page_listing_buttons')
@@ -671,6 +671,7 @@ def register_icons(icons):
         'bin.svg',
         'bold.svg',
         'chain-broken.svg',
+        'clipboard-list.svg',
         'code.svg',
         'cog.svg',
         'cogs.svg',
