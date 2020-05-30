@@ -93,6 +93,22 @@ def cautious_slugify(value):
     return slugify(value)
 
 
+def safe_snake_case(value):
+    """
+    Convert a string to ASCII similar to Django's slugify, with catious handling of
+    non-ASCII alphanumeric characters. See `cautious_slugify`.
+
+    Any inner whitespace, hyphens or dashes will be converted to underscores and
+    will be safe for Django template or filename usage.
+    """
+
+    slugified_ascii_string = cautious_slugify(value)
+
+    snake_case_string = slugified_ascii_string.replace("-", "_")
+
+    return snake_case_string
+
+
 def accepts_kwarg(func, kwarg):
     """
     Determine whether the callable `func` has a signature that accepts the keyword argument `kwarg`

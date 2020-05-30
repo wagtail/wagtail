@@ -2,7 +2,7 @@
 from django.test import TestCase
 from django.utils.text import slugify
 
-from wagtail.core.utils import accepts_kwarg, cautious_slugify
+from wagtail.core.utils import accepts_kwarg, cautious_slugify, safe_snake_case
 
 
 class TestCautiousSlugify(TestCase):
@@ -34,6 +34,39 @@ class TestCautiousSlugify(TestCase):
 
         for (original, expected_result) in test_cases:
             self.assertEqual(cautious_slugify(original), expected_result)
+
+
+class TestSafeSnakeCase(TestCase):
+
+    def test_strings_with_latin_chars(self):
+        test_cases = [
+            ('', ''),
+            ('???', ''),
+            ('using-Hyphen', 'using_hyphen'),
+            ('en–⁠dash', 'endash'),  # unicode non-letter characters stripped
+            ('  em—dash ', 'emdash'),  # unicode non-letter characters stripped
+            ('horizontal―BAR', 'horizontalbar'),  # unicode non-letter characters stripped
+            ('Hello world', 'hello_world'),
+            ('Hello_world', 'hello_world'),
+            ('Hellö wörld', 'hello_world'),
+            ('Hello   world', 'hello_world'),
+            ('   Hello world   ', 'hello_world'),
+            ('Hello, world!', 'hello_world'),
+            ('Hello*world', 'helloworld'),
+            ('Screenshot_2020-05-29 Screenshot(1).png', 'screenshot_2020_05_29_screenshot1png')
+        ]
+
+        for (original, expected_result) in test_cases:
+            self.assertEqual(safe_snake_case(original), expected_result)
+
+    def test_strings_with__non_latin_chars(self):
+        test_cases = [
+            ('Straßenbahn Straßenbahn', 'straxdfenbahn_straxdfenbahn'),
+            ('Сп орт!', 'u0421u043f_u043eu0440u0442'),
+        ]
+
+        for (original, expected_result) in test_cases:
+            self.assertEqual(safe_snake_case(original), expected_result)
 
 
 class TestAcceptsKwarg(TestCase):
