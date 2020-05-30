@@ -4,6 +4,7 @@ import django.forms
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.contrib.forms.utils import get_field_clean_name
 
 
 class BaseForm(django.forms.Form):
@@ -148,9 +149,11 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
             for i, form in enumerate(_forms):
                 if 'label' in form.changed_data:
                     label = form.cleaned_data.get('label')
+                    clean_name = get_field_clean_name(label)
                     for idx, ff in enumerate(_forms):
                         # Exclude self
-                        if idx != i and label == ff.cleaned_data.get('label'):
+                        ff_clean_name = get_field_clean_name(ff.cleaned_data.get('label'))
+                        if idx != i and clean_name == ff_clean_name:
                             form.add_error(
                                 'label',
                                 django.forms.ValidationError(_('There is another field with the label %s, please change one of them.' % label))

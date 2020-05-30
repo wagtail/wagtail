@@ -2,6 +2,7 @@
 import json
 
 from django.core import mail
+from django.core.checks import Info
 from django.test import TestCase, override_settings
 
 from wagtail.contrib.forms.models import FormSubmission
@@ -10,8 +11,8 @@ from wagtail.contrib.forms.tests.utils import (
     make_types_test_form_page)
 from wagtail.core.models import Page
 from wagtail.tests.testapp.models import (
-    CustomFormPageSubmission, ExtendedFormField, FormField, FormPageWithCustomFormBuilder,
-    JadeFormPage)
+    CustomFormPageSubmission, ExtendedFormField, FormField, FormFieldWithCustomSubmission,
+    FormPageWithCustomFormBuilder, JadeFormPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -24,7 +25,7 @@ class TestFormSubmission(TestCase):
         response = self.client.get('/contact-us/')
 
         # Check response
-        self.assertContains(response, """<label for="id_your-email">Your email</label>""")
+        self.assertContains(response, """<label for="id_your_email">Your email</label>""")
         self.assertTemplateUsed(response, 'tests/form_page.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_landing.html')
 
@@ -33,9 +34,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob',
-            'your-message': 'hello world',
-            'your-choices': ''
+            'your_email': 'bob',
+            'your_message': 'hello world',
+            'your_choices': ''
         })
 
         # Check response
@@ -45,9 +46,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -59,7 +60,7 @@ class TestFormSubmission(TestCase):
         self.assertContains(response, "<p>hello world</p>")
 
         # check the default form_submission is added to the context
-        self.assertContains(response, "<li>your-email: bob@example.com</li>")
+        self.assertContains(response, "<li>your_email: bob@example.com</li>")
 
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)
@@ -74,9 +75,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_unicode_characters(self):
         self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'こんにちは、世界',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'こんにちは、世界',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check the email
@@ -86,13 +87,13 @@ class TestFormSubmission(TestCase):
         # Check the form submission
         submission = FormSubmission.objects.get()
         submission_data = json.loads(submission.form_data)
-        self.assertEqual(submission_data['your-message'], 'こんにちは、世界')
+        self.assertEqual(submission_data['your_message'], 'こんにちは、世界')
 
     def test_post_multiple_values(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
         })
 
         # Check response
@@ -118,9 +119,9 @@ class TestFormSubmission(TestCase):
 
     def test_post_blank_checkbox(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {},
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {},
         })
 
         # Check response
@@ -144,7 +145,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         response = self.client.get('/contact-us/')
 
         # Check response
-        self.assertContains(response, """<label for="id_your-email">Your email</label>""")
+        self.assertContains(response, """<label for="id_your_email">Your email</label>""")
         self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission_landing.html')
         self.assertNotContains(response, '<div>You must log in first.</div>', html=True)
@@ -159,7 +160,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         response = self.client.get('/contact-us/')
 
         # Check response
-        self.assertNotContains(response, """<label for="id_your-email">Your email</label>""")
+        self.assertNotContains(response, """<label for="id_your_email">Your email</label>""")
         self.assertTemplateUsed(response, 'tests/form_page_with_custom_submission.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_with_custom_submission_landing.html')
         self.assertContains(response, '<div>You must log in first.</div>', html=True)
@@ -170,9 +171,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob',
-            'your-message': 'hello world',
-            'your-choices': ''
+            'your_email': 'bob',
+            'your_message': 'hello world',
+            'your_choices': ''
         })
 
         # Check response
@@ -182,9 +183,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -212,9 +213,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
     def test_post_form_twice(self):
         # First submission
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -230,9 +231,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
         # Second submission
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -251,9 +252,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
     def test_post_unicode_characters(self):
         self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'こんにちは、世界',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'こんにちは、世界',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check the email
@@ -263,13 +264,13 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         # Check the form submission
         submission = CustomFormPageSubmission.objects.get()
         submission_data = json.loads(submission.form_data)
-        self.assertEqual(submission_data['your-message'], 'こんにちは、世界')
+        self.assertEqual(submission_data['your_message'], 'こんにちは、世界')
 
     def test_post_multiple_values(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': 'on', 'bar': 'on', 'baz': 'on'}
         })
 
         # Check response
@@ -288,9 +289,9 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
     def test_post_blank_checkbox(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {},
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {},
         })
 
         # Check response
@@ -310,9 +311,9 @@ class TestFormSubmissionWithMultipleRecipients(TestCase):
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -347,9 +348,9 @@ class TestFormSubmissionWithMultipleRecipientsAndWithCustomSubmission(TestCase, 
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -382,9 +383,9 @@ class TestFormWithRedirect(TestCase):
 
     def test_post_valid_form(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''}
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''}
         })
 
         # Check response
@@ -442,12 +443,12 @@ class TestFormPageWithCustomFormBuilder(TestCase, WagtailTestUtils):
         # check that max_length attribute has been passed into form
         self.assertContains(response, '<input type="text" name="name" required maxlength="120" id="id_name" />', html=True)
         # check ip address field has rendered
-        self.assertContains(response, '<input type="text" name="device-ip-address" required id="id_device-ip-address" />', html=True)
+        self.assertContains(response, '<input type="text" name="device_ip_address" required id="id_device_ip_address" />', html=True)
 
     def test_post_invalid_form(self):
         response = self.client.post('/support-request/', {
             'name': 'very long name longer than 120 characters' * 3,  # invalid
-            'device-ip-address': '192.0.2.30',  # valid
+            'device_ip_address': '192.0.2.30',  # valid
         })
         # Check response with invalid character count
         self.assertContains(response, 'Ensure this value has at most 120 characters (it has 123)')
@@ -456,7 +457,7 @@ class TestFormPageWithCustomFormBuilder(TestCase, WagtailTestUtils):
 
         response = self.client.post('/support-request/', {
             'name': 'Ron Johnson',  # valid
-            'device-ip-address': '3300.192.0.2.30',  # invalid
+            'device_ip_address': '3300.192.0.2.30',  # invalid
         })
         # Check response with invalid character count
         self.assertContains(response, 'Enter a valid IPv4 or IPv6 address.')
@@ -466,7 +467,7 @@ class TestFormPageWithCustomFormBuilder(TestCase, WagtailTestUtils):
     def test_post_valid_form(self):
         response = self.client.post('/support-request/', {
             'name': 'Ron Johnson',
-            'device-ip-address': '192.0.2.30',
+            'device_ip_address': '192.0.2.30',
         })
 
         # Check response
@@ -586,16 +587,17 @@ class TestIssue798(TestCase):
 
     def test_post(self):
         response = self.client.post('/contact-us/', {
-            'your-email': 'bob@example.com',
-            'your-message': 'hello world',
-            'your-choices': {'foo': '', 'bar': '', 'baz': ''},
-            'your-favourite-number': '7.3',
+            'your_email': 'bob@example.com',
+            'your_message': 'hello world',
+            'your_choices': {'foo': '', 'bar': '', 'baz': ''},
+            'your_favourite_number': '7.3',
         })
 
         # Check response
         self.assertTemplateUsed(response, 'tests/form_page_landing.html')
 
         # Check that form submission was saved correctly
+        self.assertTrue(FormSubmission.objects.filter(page=self.form_page, form_data__contains='hello world').exists())
         self.assertTrue(FormSubmission.objects.filter(page=self.form_page, form_data__contains='7.3').exists())
 
 
@@ -605,3 +607,59 @@ class TestNonHtmlExtension(TestCase):
     def test_non_html_extension(self):
         form_page = JadeFormPage(title="test")
         self.assertEqual(form_page.landing_page_template, "tests/form_page_landing.jade")
+
+
+class TestLegacyFormFieldCleanNameChecks(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.form_page = Page.objects.get(url_path='/home/contact-us-one-more-time/').specific
+
+
+    def test_form_field_clean_name_update_on_checks(self):
+
+        fields_before_checks = [
+            (field.label, field.clean_name,)
+            for field in FormFieldWithCustomSubmission.objects.all()
+        ]
+
+        self.assertEqual(fields_before_checks, [
+            ('Your email', ''),
+            ('Your message', ''),
+            ('Your choices', ''),
+        ])
+
+        # running checks should show an info message AND update blank clean_name values
+
+        messages = FormFieldWithCustomSubmission.check()
+
+        self.assertEqual(
+            messages,
+            [Info('Added `clean_name` on 3 form field(s)', obj=FormFieldWithCustomSubmission)]
+        )
+
+
+        fields_after_checks = [
+            (field.label, field.clean_name,)
+            for field in FormFieldWithCustomSubmission.objects.all()
+        ]
+
+        self.assertEqual(fields_after_checks, [
+            ('Your email', 'your-email'),  # kebab case, legacy format
+            ('Your message', 'your-message'),
+            ('Your choices', 'your-choices'),
+        ])
+
+        # running checks again should return no messages as fields no longer need changing
+        self.assertEqual(FormFieldWithCustomSubmission.check(), [])
+
+        # creating a new field should use the non-legacy clean_name format
+
+        field = FormFieldWithCustomSubmission.objects.create(
+            page=self.form_page,
+            label="Your FAVOURITE #number",
+            field_type='number',
+        )
+
+        self.assertEqual(field.clean_name, 'your_favourite_number')
