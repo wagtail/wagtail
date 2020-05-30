@@ -2,7 +2,19 @@
 from django.test import TestCase
 from django.utils.text import slugify
 
-from wagtail.core.utils import accepts_kwarg, cautious_slugify, safe_snake_case
+from wagtail.core.utils import accepts_kwarg, camelcase_to_underscore, cautious_slugify, safe_snake_case
+
+
+class TestCamelCaseToUnderscore(TestCase):
+
+    def test_camelcase_to_underscore(self):
+        test_cases = [
+            ('HelloWorld', 'hello_world'),
+            ('longValueWithVarious subStrings', 'long_value_with_various sub_strings')
+        ]
+
+        for (original, expected_result) in test_cases:
+            self.assertEqual(camelcase_to_underscore(original), expected_result)
 
 
 class TestCautiousSlugify(TestCase):
