@@ -30,7 +30,8 @@ from wagtail.contrib.forms.models import (
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import CharBlock, ListBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock
+from wagtail.core.blocks import (
+    CharBlock, ListBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock)
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -44,7 +45,6 @@ from wagtail.snippets.models import register_snippet
 from wagtail.utils.decorators import cached_classmethod
 
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
-
 
 EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
