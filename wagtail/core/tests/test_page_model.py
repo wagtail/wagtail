@@ -1,7 +1,10 @@
 import datetime
 import json
+import sys
+import unittest
 from unittest.mock import Mock
 
+import django
 import pytz
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
@@ -1810,3 +1813,30 @@ class TestUnpublish(TestCase):
         home_page.save(clean=False)
         # This shouldn't fail with a ValidationError.
         home_page.unpublish()
+
+
+@unittest.skipUnless(django.VERSION >= (2, 2), 'ModelBase is buggy, see https://code.djangoproject.com/ticket/30041')
+class TestInitSubclass(TestCase):
+    """
+    __init_subclass__() can be used with Page model. If __init_subclass__()
+    set `template`, `ajax_template` or `is_creatable`, these attributes are
+    not overridden by PageBase.
+    """
+    def test(self):
+        template = object()
+        ajax_template = object()
+        is_creatable = object()
+
+        class PageBase(Page):
+            def __init_subclass__(cls, template, ajax_template, is_creatable, **kwargs):
+                super().__init_subclass__(**kwargs)
+                cls.template = template
+                cls.ajax_template = ajax_template
+                cls.is_creatable = is_creatable
+
+        class CustomPage(PageBase, template=template, ajax_template=ajax_template, is_creatable=is_creatable):
+            pass
+
+        self.assertEqual(CustomPage.template, template)
+        self.assertEqual(CustomPage.ajax_template, ajax_template)
+        self.assertEqual(CustomPage.is_creatable, is_creatable)
