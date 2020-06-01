@@ -465,6 +465,7 @@ Contributors
 * Dan Bentley
 * GTpyro
 * Yngve Høiseth
+* Andrew Bunker
 
 Translators
 ===========
