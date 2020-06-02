@@ -31,9 +31,30 @@
     }
 
     .header-title {
-        padding-left: 3.1em;
+        padding-left: 2em;
+    }
 
-        @include media-breakpoint-down(xs) {
+    .header-meta {
+        padding-left: 1.6em;
+        list-style: none;
+
+        li {
+            float: left;
+            height: 2em;
+            padding: 0 $padding;
+        }
+        li + li {
+            border-left: 1px solid $color-white;
+        }
+
+        .button {
+            font-weight: 700;
+        }
+    }
+
+    @include media-breakpoint-down(xs) {
+        .header-title,
+        .header-meta {
             padding-left: 0;
             margin-left: -28px;
             // Because it's nested within tab-merged which we've given padding

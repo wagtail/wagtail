@@ -9,7 +9,7 @@
 <div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
     {% trans "Privacy" %}
     {% if page_perms.can_set_view_restrictions %}
-        <button data-url="{% url 'wagtailadmin_pages:set_privacy' page.id %}" class="status-tag primary  action-set-privacy">
+        <button data-url="{% url 'wagtailadmin_pages:set_privacy' page.id %}" class="status-tag primary action-set-privacy">
             {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
             <span class="label-public icon icon-view" aria-label="{% trans 'Set page privacy. Current status: Public' %}">
                 {% trans "Public" %}
