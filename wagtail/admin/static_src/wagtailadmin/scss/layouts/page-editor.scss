@@ -485,3 +485,52 @@ footer .preview {
 .lock-status.status-tag {
     color: $color-teal;
 }
+
+
+.workflow-timeline {
+    list-style: none;
+    padding: 0;
+
+    li {
+        margin-bottom: 1.25em;
+        position: relative;
+    }
+
+    li:not(:last-child)::after {
+        content: '';
+        color: $color-grey-3;
+        position: absolute;
+        top: 1.5em;
+        left: calc(0.75em - 1px);
+        height: 100%;
+        border-left: 2px dotted;
+    }
+
+    .icon {
+        fill: $color-grey-3;
+        width: 1.5em;
+        height: 1.5em;
+        vertical-align: text-bottom;
+    }
+
+    .in_progress {
+        font-weight: 700;
+
+        .icon {
+            fill: $color-text-base;
+        }
+    }
+
+    .approved .icon {
+        fill: $color-teal;
+    }
+
+    .needs_changes .icon {
+        fill: $color-orange;
+    }
+
+    .rejected .icon,
+    .cancelled .icon {
+        fill: $color-red-dark;
+    }
+}
