@@ -796,7 +796,6 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(new_workflow_state.status, WorkflowState.STATUS_IN_PROGRESS)
         self.assertEqual(new_workflow_state.current_task_state.task.specific, self.task_1)
 
-
     def test_cancel_workflow(self):
         # test that an existing workflow can be cancelled after submission by the submitter
         self.workflow.start(self.page, user=self.submitter)
@@ -1013,7 +1012,6 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         page = Page.objects.get(id=self.page.id)
         # Page must not be live
         self.assertFalse(page.live)
-
 
     def test_workflow_action_view_rejection_not_in_group(self):
         """
@@ -1586,3 +1584,86 @@ class TestWorkflowUsageView(TestCase, WagtailTestUtils):
         self.assertIn(self.root_page.id, object_set)
         self.assertIn(self.home_page.id, object_set)
         self.assertNotIn(self.child_page_with_another_workflow.id, object_set)
+
+
+class TestWorkflowStatusModal(TestCase, WagtailTestUtils):
+    def setUp(self):
+        delete_existing_workflows()
+        self.submitter = get_user_model().objects.create_user(
+            username='submitter',
+            email='submitter@email.com',
+            password='password',
+        )
+        editors = Group.objects.get(name='Editors')
+        editors.user_set.add(self.submitter)
+        self.moderator = get_user_model().objects.create_user(
+            username='moderator',
+            email='moderator@email.com',
+            password='password',
+        )
+        moderators = Group.objects.get(name='Moderators')
+        moderators.user_set.add(self.moderator)
+
+        self.superuser = get_user_model().objects.create_superuser(
+            username='superuser',
+            email='superuser@email.com',
+            password='password',
+        )
+
+        self.login(user=self.submitter)
+
+        # Create a page
+        root_page = Page.objects.get(id=2)
+        self.page = SimplePage(
+            title="Hello world!",
+            slug='hello-world',
+            content="hello",
+            live=False,
+            has_unpublished_changes=True,
+        )
+        root_page.add_child(instance=self.page)
+
+        self.workflow, self.task_1, self.task_2 = self.create_workflow_and_tasks()
+
+        WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
+
+    def create_workflow_and_tasks(self):
+        workflow = Workflow.objects.create(name='test_workflow')
+        task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_1.groups.set(Group.objects.filter(name='Moderators'))
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+
+        task_2 = GroupApprovalTask.objects.create(name='test_task_2')
+        task_2.groups.set(Group.objects.filter(name='Editors'))
+        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
+        return workflow, task_1, task_2
+
+    def submit(self):
+        post_data = {
+            'title': str(self.page.title),
+            'slug': str(self.page.slug),
+            'content': str(self.page.content),
+            'action-submit': "True",
+        }
+        return self.client.post(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), post_data)
+
+    def test_workflow_status_modal(self):
+        workflow_status_url = reverse('wagtailadmin_pages:workflow_status', args=(self.page.id, ))
+
+        # The page workflow status view should 403 when the page is but a draft
+        response = self.client.get(workflow_status_url)
+        self.assertEqual(response.status_code, 403)
+
+        # Submit for moderation
+        self.submit()
+
+        response = self.client.get(workflow_status_url)
+        self.assertEqual(response.status_code, 200)
+        html = response.json().get('html')
+        self.assertIn(self.task_1.name, html)
+        self.assertIn('{}: In progress'.format(self.task_1.name), html)
+        self.assertIn(self.task_2.name, html)
+        self.assertIn('{}: Not started'.format(self.task_2.name), html)
+        self.assertIn(reverse('wagtailadmin_pages:history', args=(self.page.id, )), html)
+
+        self.assertTemplateUsed(response, 'wagtailadmin/workflows/workflow_status.html')

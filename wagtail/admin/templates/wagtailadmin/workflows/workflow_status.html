@@ -1,0 +1,31 @@
+{% load wagtailadmin_tags i18n %}
+
+{% include "wagtailadmin/shared/header.html" with title=workflow_state.workflow.name icon="tasks" %}
+
+<div class="nice-padding">
+    {% if page.get_latest_revision %}
+        <p>
+        {% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}
+        {% if page.get_latest_revision.user %}
+            {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username %}by {{ modified_by }}{% endblocktrans %}
+            <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
+        {% endif %}
+        </p>
+        {% if workflow_state.current_task_state and workflow_state.current_task_state.get_comment %}
+            <p>{{ workflow_state.current_task_state.get_comment }}</p>
+        {% endif %}
+        <p>
+            <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button">
+                {% trans "View page history" %}
+            </a>
+        </p>
+    {% endif %}
+
+    <ul class="workflow-timeline">
+    {% for task in workflow_tasks %}
+        <li data-wagtail-tooltip="{{ task.name }}: {{ task.status_display }}" {% if task.status %}class="{{ task.status }}"{% endif %}>
+            {% icon "success" %} {{ task.name }}
+        </li>
+    {% endfor %}
+    </ul>
+</div>
